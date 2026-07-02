@@ -59,6 +59,22 @@ A feature is done only when ALL of these are true:
 
 Do not report work as complete if any item is unmet. Say what's missing instead.
 
+## Don't stop to ask
+
+The founders are non-coders. Do not ask them technical or workflow
+questions you can decide yourself — make the sensible call, state it in
+one line, and keep moving. Never sit waiting on a question mid-task.
+
+Examples of decisions that are YOURS: foreground vs background review
+(small diff = foreground, large = background), file/branch naming, test
+framework details within the chosen stack, refactor order, commit
+granularity, which command variant to run.
+
+Only stop and ask when it's a Decision Authority item (below), a product
+question (what should it do for users?), something expensive to reverse,
+or a genuine spec gap where guessing could waste hours. Product questions
+go to Joey; architecture questions go to Partner.
+
 ## Decision authority
 
 AI may, without asking: write code, refactor, write tests, update docs,
