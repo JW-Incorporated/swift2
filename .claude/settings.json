@@ -59,7 +59,9 @@
     ],
     "ask": [
       "Bash(git merge *)",
-      "Bash(gh pr merge *)"
+      "Bash(gh pr merge *)",
+      "Bash(git push origin main*)",
+      "Bash(git push origin HEAD:main*)"
     ]
   },
   "hooks": {
@@ -68,7 +70,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "git fetch origin --quiet 2>nul & exit 0"
+            "command": "git fetch origin --quiet"
           }
         ]
       }
