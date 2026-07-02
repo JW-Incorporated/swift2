@@ -10,7 +10,8 @@ team.
 - `AGENTS.md` — Codex-specific instructions (reviewer role).
 - `docs/` — vision, architecture, decision log.
 - `.claude/settings.json` — shared Claude Code permissions (identical setup on
-  both founders' machines).
+  both founders' machines). Includes a `SessionStart` hook that auto-runs
+  `git fetch origin` so Claude always starts a session with fresh remote info.
 
 ## Getting started (founders)
 
