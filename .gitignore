@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Environment & secrets — never commit
+.env
+.env.*
+*.pem
+*.key
+secrets/
+
+# Build output
+dist/
+build/
+.next/
+.expo/
+
+# Logs & OS noise
+*.log
+.DS_Store
+Thumbs.db
+
+# Local editor/tool state
+.claude/settings.local.json
+.vscode/
+.idea/
