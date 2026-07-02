@@ -1,166 +1,207 @@
 # Architecture
 
-Owner: Wyatt (CTO). This is the source of truth for stack, hosting, data, and
-coding standards. Expensive-to-reverse choices are mirrored as entries in
-`docs/decisions.md`.
+Owner: Wyatt (CTO). Source of truth for stack, hosting, data, and coding
+standards. Expensive-to-reverse choices are mirrored in `docs/decisions.md`.
 
-Status: v0.1 — initial stack chosen, driven by the Vault era-scrubber as the
-reference workload (see below). Product vision (`docs/vision.md`) is still
-Joey's to fill in; this doc will grow as features are specced.
+Status: **v0.2** — reconciled with Joey's now-written `docs/vision.md`. v0.1
+assumed a static, editorial Vault; the vision makes the Vault a time-indexed
+*news archive* and makes notifications + verification core. Changes below are
+flagged **[confirm]** where they involve an interpretive call Wyatt/Joey should
+ratify.
 
 ---
 
+## What the product is (from vision.md)
+
+1. **Recent News (primary).** A live, all-aspects Taylor feed — music, fashion,
+   travel, tours, relationships, business. AI + user input **verify** stories
+   (real vs. fake; fakes may be shown but clearly labelled). **Notifications
+   are the core experience**, not a settings screen: high-quality only,
+   user-tuned rate, never over-notify. Notifications are the retention loop.
+2. **Time Travel (secondary).** The same news experience at a past point in
+   time, sliced by **eras**. Selecting an era transforms the whole UI (colors,
+   fonts, design); a **month-level timeline** browses the news *of that moment*.
+
+Out of scope for v1: **monetization**.
+
 ## Guiding principle
 
-Boring, proven, already-operated beats theoretically-optimal. Two people plus
-AI can't afford to babysit novel infra. We deliberately inherit the stack
-topology from the sibling project **Orbit**, which already runs this exact
-shape of problem (a Taylor Swift app, web now + Expo mobile next, two-person
-AI-first team). We reuse Orbit's *patterns and code*, not its *backend* — see
-Decision: "Reuse Orbit stack, separate backend."
+Boring, proven, already-operated beats theoretically-optimal. We inherit both
+the **stack and the ingest pipeline** from the sibling project **Orbit**, which
+already does exactly this: many sources (RSS/Reddit/YouTube) → deduplicated,
+classified, ranked feed per public figure. Swift2 = Orbit's pipeline + a
+notifications-first UX + a time-travel/era UI over the same data. We reuse
+Orbit's *patterns and code* on a **new, isolated backend** (not Orbit's prod
+data/quota).
 
 ## Stack
 
 | Layer | Choice | Notes |
 |-------|--------|-------|
-| Language | **TypeScript** everywhere | Web, mobile, shared logic, any worker |
-| Web | **Next.js (App Router)** | SSR/SSG + CDN caching; deploys on Vercel |
-| Mobile | **Expo / React Native** | iOS + Android from one codebase |
-| Shared logic | **`packages/shared`** (types, domain, no I/O) + **`packages/core`** (data access) | Must stay platform-agnostic so web and Expo reuse it unchanged |
-| Backend / DB / auth | **Supabase** (Postgres + RLS + Auth + Storage) | New, isolated project — NOT Orbit's |
-| Web hosting | **Vercel** (auto-deploy from `main` once we allow it) | |
-| Mobile builds | **EAS (Expo Application Services)** | |
-| Animation / gesture | **Reanimated + Gesture Handler** (native); **CSS transforms + rAF** (web) | The one place logic is NOT shared — see reference workload |
+| Language | **TypeScript** everywhere | web, mobile, worker, shared |
+| Web | **Next.js (App Router)** | SSR/SSG + CDN; Vercel |
+| Mobile | **Expo / React Native** | iOS + Android, one codebase |
+| Ingest/verify worker | **Node/TS one-shot job** (Orbit's `apps/worker` shape) | ingest → cluster → classify → verify → rank → notify; runs on a schedule (GitHub Actions) |
+| Shared logic | **`packages/shared`** (types/domain, no I/O) + **`packages/core`** (data access) | portable across web + Expo |
+| Backend / DB / auth | **Supabase** (Postgres + RLS + Auth + Storage) | new isolated project |
+| Push notifications | **Expo Push** (mobile) + **Web Push** (web) | delivery layer for the notifications subsystem |
+| Web hosting | **Vercel** | |
+| Mobile builds | **EAS** | |
+| Animation/gesture | **Reanimated + Gesture Handler** (native); **CSS transforms + rAF** (web) | per-platform, for the time-travel scrubber |
 
-Monorepo, npm workspaces (Orbit's layout):
+Monorepo (npm workspaces, Orbit's layout):
 
 ```
-apps/web        Next.js reader
-apps/mobile     Expo app            (added when we start mobile)
+apps/web        Next.js reader + notification prefs
+apps/mobile     Expo app                     (added when mobile starts)
+apps/worker     ingest → verify → rank → notify one-shot job
 packages/shared types + domain, zero I/O — portable
-packages/core   data-access layer over Supabase — portable
+packages/core   data-access over Supabase — portable
 ```
 
-**Hard boundary:** new business logic goes in `packages/shared` or
-`packages/core`, never in an app's view layer. The view layer (React
-components, screens) is the only non-portable code. This is what lets the
-future Expo app reuse everything but the views.
+**Hard boundary:** business logic lives in `shared`/`core`, never in a view
+layer. The view layer is the only non-portable code.
 
-## Data architecture: two worlds, kept apart
+## Data architecture — one time-indexed news store, two presentations
 
-The product has two content cadences that must not be coupled:
+v0.1 wrongly split "static Vault" from "live News." Corrected: there is **one
+store of classified, ranked, verified stories, indexed by time**. Presentation
+differs, data does not:
 
-1. **Vault — curated, slow, editorial.** Eras, milestones (album releases,
-   tours), fashion looks. Authored and versioned *in the repo* (seed files /
-   migrations), effectively static between deploys, aggressively cacheable,
-   served from the CDN. This is the world the era-scrubber navigates.
-2. **News / Current — live, polled, ranked.** Changing hourly via an ingest
-   pipeline (Orbit-style worker, if/when we build it). Volatile, freshness
-   matters.
+- **Recent News** = the latest time slice (live tail of the same store).
+- **Time Travel / era view** = a historical slice, filtered by era and month.
 
-They live in separate tables and are served on separate surfaces/routes. The
-Vault must never inherit the News feed's volatility or its cache-busting. This
-mirrors Orbit's split and is a deliberate boundary.
+On top of that store sits a **thin editorial layer** (small, curated,
+versioned in the repo):
 
-### Vault data model (v1)
+- **`era`** — id, title, album, start/end dates, order, **theme tokens**
+  (colors, fonts, design treatment), cover art ref.
+- **`milestone`** — id, era_id, type (`album_release` | `tour`), title, date.
+  **Wavetops only** — navigation anchors, not every event.
 
-Editorial content, small and typed. Shape (names illustrative):
+### Core story model (Orbit-derived)
 
-- **`era`** — id, title, album, start_date, end_date, order, color/theme,
-  cover art ref. Ordered along the timeline.
-- **`milestone`** — id, era_id, type (`album_release` | `tour`), title, date,
-  optional link/art. **Wavetops only** in v1 — high-visibility events, not
-  every single/MV.
+- **`story`** — title, snippet, source link, published_at, aspect
+  (music/fashion/travel/tours/relationship/business/…), cluster id, rank
+  signals, and:
+  - **`credibility`** — verification state (see below).
+  - **`classified_at`** — classify-once marker (LLM runs once per story, never
+    on read).
+- **Never store article bodies or rehost images** — titles/snippets/links/
+  metadata only (inherited legal posture; enforce with CHECK constraints).
 
-Milestones are the navigation anchors the scrubber renders. Because the set is
-small and curated, the whole Vault can be fetched/cached as one static payload
-per channel and driven client-side with zero per-frame network cost.
+Because "recent" and "era" are the same rows at different timestamps, the
+time-travel UI needs no separate content pipeline — only time-range queries +
+the editorial era/milestone overlay.
 
-## Reference workload — the Vault era-scrubber (this shapes the build)
+## Verification / credibility subsystem
 
-The Vault's primary navigation is a **morph-on-grab timeline scrubber**. The
-build is designed around it from day one, not retrofitted.
+The vision's "real vs. fake" promise:
 
-**Interaction model — two axes, bidirectionally coupled:**
+- **AI signal (worker-side, capped):** during classify, the worker scores
+  plausibility/credibility. LLM calls are worker-only, classify-once, with a
+  hard daily cap + rule-based fallback — never in a user path.
+- **User signal:** reader feedback (confirm/dispute) feeds a credibility score.
+- **Presentation [confirm]:** low-credibility stories are **shown but clearly
+  labelled** (vision leans this way — "ensures fans know they are fake") rather
+  than hidden. Final UX is Joey's call.
 
-- **Horizontal = era switching**, driven by the timeline scrubber.
-- **Vertical = content within an era.**
-- Coupling is two-way: scrubbing the timeline jumps the page to that era; and
-  scrolling content into a new era updates the timeline's position indicator.
+## Notifications subsystem (first-class — this is the retention loop)
 
-**Summon / expand behavior:**
+Treated as core product surface, not settings:
 
-- A persistent thin **peek strip** sits at the top (always discoverable).
-- **Grabbing** the strip expands it into the full navigator (primary
-  affordance).
-- **Overscroll at the top of an era** also expands it (pull-to-refresh muscle
-  memory, but it navigates). Fired only at the content top edge so it never
-  fights normal vertical scroll.
+- **Per-user subscription model:** which aspects/topics a user wants (e.g.
+  "fashion + tours, not business"), stored per account.
+- **Rate control:** user sets desired frequency; the system **never
+  over-notifies**. A quality gate means only high-rank, verified stories are
+  eligible; a per-user rate limiter spaces delivery.
+- **Delivery:** Expo Push (mobile) + Web Push (web), emitted by the worker's
+  `notify` step after ranking + verification.
+- **[confirm] Open product questions for Joey:** what "high quality" means
+  quantitatively (rank threshold?), and how rate preferences map to cadence.
+  These refine the model; they don't block scaffolding it.
 
-**Snap:** v1 snaps to **era boundaries only**. (Free-scrub with milestone
-sub-anchors is a possible v2; explicitly out of scope now.)
+## Auth (corrected — load-bearing in v1)
 
-**Milestones:** wavetops only — album releases and tours. Rendered as markers
-inside the expanded timeline to aid orientation.
+v0.1 said v1 could be login-free. **Wrong given the vision:** personalized,
+rate-tuned notifications require accounts + a preferences store. So:
 
-### Performance requirements (non-negotiable — "smooth and low-latency" IS the feature)
+- **Supabase Auth in v1.** Users have accounts; notification prefs and
+  verification feedback are per-user.
+- RLS on for all user-scoped tables. Public read of the story feed itself is
+  fine; personalization requires login.
 
-- The scrub gesture and the coupled page transition must hold 60fps on mid-tier
-  hardware, including mid-range Android.
-- **Mobile:** all gesture + animation runs on the **UI thread via Reanimated
-  worklets + Gesture Handler**. No React/JS-thread state updates per frame.
-- **Web:** driven by **CSS transforms + `requestAnimationFrame`**. No React
-  `setState` per pointer-move (that drops frames).
-- The full Vault dataset is loaded/cached up front so scrubbing never waits on
-  the network. Era content is virtualized/lazy where heavy (images), but
-  timeline markers are cheap and always resident.
+## Reference workload — the time-travel navigator (shapes the build)
 
-### What is and isn't shared across platforms
+Two levels of time navigation, from the vision:
 
-- **Shared** (`packages/shared` / `packages/core`): era + milestone data model,
-  ordering, the mapping from scrub-position → era → content section, snap math.
-- **Not shared** (per-platform view layer): the gesture recognizer and the
-  animated timeline component itself — one web implementation (Pointer Events +
-  CSS/rAF), one native implementation (Reanimated + Gesture Handler). Same data
-  and snap logic underneath; different animation runtime on top.
+1. **Era switcher (coarse):** the morph-on-grab timeline scrubber Wyatt
+   specified — persistent peek strip + grab-to-expand + overscroll-top summon;
+   **snap to era boundaries in v1**. Selecting an era transforms the UI via that
+   era's **theme tokens** (colors/fonts/design).
+2. **Month slider within an era (fine) [v1.x]:** browse news month-by-month
+   inside the selected era. v1 may ship era-level only and add the month slider
+   next; the vision wants both.
 
-This is the deliberate exception to "write once": we accept two gesture
-implementations because a shared abstraction over two very different animation
-runtimes would cost more than it saves and would risk the frame budget.
+Interaction axes: horizontal = era switching, vertical = content within a
+slice, bidirectionally coupled (scrub → jump; scroll into a new slice → the
+timeline reflects it).
 
-## Auth
+### Performance (non-negotiable — "smooth and low-latency" IS the feature)
 
-Supabase Auth. Depth depends on Joey's vision (read-only content vs. accounts /
-UGC). v1 assumes the Vault is public, read-only, no login required; auth is
-provisioned but not load-bearing until a feature needs per-user state. RLS on
-by default for any user-scoped table.
+- 60fps on mid-tier hardware incl. mid-range Android.
+- **Mobile:** gesture + animation on the **UI thread via Reanimated worklets +
+  Gesture Handler**. No per-frame React/JS-thread state.
+- **Web:** **CSS transforms + `requestAnimationFrame`**. No `setState` per
+  pointer-move.
+- Era/milestone overlay + the visible time window are prefetched/cached so
+  scrubbing never waits on the network; deeper history lazy-loads.
+
+### Shared vs per-platform
+
+- **Shared:** era/milestone/story data models, time-range query logic, the
+  scrub-position → era/month → content-slice mapping, snap math, theme-token
+  definitions.
+- **Per-platform (view only):** the gesture recognizer + animated timeline
+  (web: Pointer Events + CSS/rAF; native: Reanimated + Gesture Handler), and
+  the era-theming application. Deliberate exception to "write once" — a shared
+  abstraction over two animation runtimes would risk the frame budget.
 
 ## AI-integration approach
 
-Carried over from Orbit's discipline:
-
-- Any LLM calls happen only in a **worker / server path with a hard daily cost
-  cap and a rule-based fallback**, never in a synchronous user-request path.
-- Keys live only in gitignored env files (`apps/*/.env*`), never committed,
-  never read into output.
-- No user-facing AI feature is in scope until a spec calls for one; when one
-  does, it gets its own decision-log entry (cost model, latency budget, where
-  keys live).
+- LLM calls only in the **worker**, classify-once, with a hard daily cap +
+  rule-based fallback. Never in a synchronous user path (Orbit's rule).
+- Keys only in gitignored env files; never committed, never printed.
+- Verification scoring is the v1 LLM use; each future AI feature gets its own
+  decision-log entry with a cost model first.
 
 ## Coding standards (first draft — Wyatt to ratify)
 
-- TypeScript strict mode across all workspaces.
-- `npm run typecheck` must pass before any PR.
-- Business logic in `shared`/`core`; views stay thin and platform-specific.
-- Conventional-commit style: `feat(vault): …`, `fix(web): …`, `docs: …`.
-- Branch per task (`feature/<name>`, `fix/<name>`); never commit to `main`.
-- Automated tests for every feature; full suite green before "done."
-- Never store article bodies or rehost images — titles/snippets/links/metadata
-  only (a rule inherited from Orbit's legal posture; revisit if vision changes).
+- TypeScript strict across all workspaces; `npm run typecheck` green before any
+  PR.
+- Business logic in `shared`/`core`; views thin and platform-specific.
+- Conventional commits: `feat(vault): …`, `fix(web): …`, `docs: …`.
+- Branch per task; never commit to `main`; tests for every feature; full suite
+  green before "done".
+- Titles/snippets/links/metadata only — never article bodies or rehosted
+  images.
 
-## Open questions (need Joey's vision or a later decision)
+## Suggested v1 build order (proposal — needs a spec per feature)
 
-- Product class: read-only content vs. social/UGC vs. utility — gates how much
-  auth/RLS/realtime we actually build.
-- Whether the News/Current world exists in v1 at all, or Vault ships first.
-- Free-scrub-with-milestone-anchors (scrubber v2) — deferred.
+1. **DB schema + Supabase project** (story, era, milestone, credibility, user,
+   subscription) + `packages/shared` types.
+2. **Port Orbit's ingest → cluster → classify pipeline** onto the new backend;
+   add the verification scoring step.
+3. **Web reader**: recent-news feed (latest slice) — proves the pipeline
+   end-to-end.
+4. **Time-travel navigator**: era scrubber + theming over historical slices.
+5. **Notifications**: subscription model + rate/quality gate + delivery.
+6. **Expo app**: reuse `shared`/`core`, native timeline + push.
+
+## Open questions (product — for Joey; don't block scaffolding)
+
+- Quantitative definition of "high-quality" notification (rank threshold) and
+  how rate prefs map to cadence.
+- Fake-story handling: label-and-show vs. hide (vision leans label-and-show).
+- Whether the month-level slider is in v1 or v1.x.
+- App name (still TBD).
