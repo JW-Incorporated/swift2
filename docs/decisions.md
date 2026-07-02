@@ -7,6 +7,33 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-02 — Architecture reconciled with vision.md (v0.2)
+
+**Decision:** After Joey wrote `vision.md`, correct three v0.1 assumptions:
+(1) **Vault is not static/editorial** — recent-news and time-travel are one
+time-indexed store of classified/ranked/verified stories, differing only in
+presentation; a thin repo-versioned editorial layer (era theming tokens +
+wavetop milestones) sits on top. This **supersedes** the earlier "Vault and
+News are separate data worlds" entry. (2) **Reuse Orbit's ingest pipeline**,
+not just its stack — ingest→cluster→classify→verify→rank→notify is the core.
+(3) **Auth is load-bearing in v1** (personalized, rate-tuned notifications need
+accounts). Also adds two first-class subsystems: **notifications**
+(per-user subscription + quality/rate gate + push) and **verification/
+credibility** (worker-side AI signal + user signal).
+
+**Why:** The vision's centerpiece is a verified live news feed with
+notifications as the retention loop, plus a time-travel view over the *same*
+data by era/month. That is Orbit's problem shape, so the reuse deepens from
+"stack" to "pipeline," and a static Vault no longer fits.
+
+**Interpretive calls flagged [confirm] for Wyatt/Joey:** fake-story handling
+(label-and-show vs hide), quantitative "high-quality" notification threshold,
+whether the month-level slider is v1 or v1.x. See architecture.md open
+questions.
+
+**Approved by:** proposed by Claude in-session; **pending Wyatt/Joey ratify**
+(made per "don't stop to ask"; reversible via PR review).
+
 ## 2026-07-02 — Cost strategy: two bills, and codify repetition
 
 **Decision:** Manage build cost and runtime cost separately. Build: we run both
