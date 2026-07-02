@@ -59,6 +59,45 @@ A feature is done only when ALL of these are true:
 
 Do not report work as complete if any item is unmet. Say what's missing instead.
 
+## Session start ritual
+
+At the start of every session (a SessionStart hook already runs
+`git fetch origin` for you):
+
+1. Check whether local `main` is behind `origin/main`. If so, fast-forward
+   it (`git checkout main && git pull --ff-only`) before starting work.
+2. Check for open PRs (`gh pr list`) and mention them to the human in one
+   line — especially PRs from the other founder awaiting review.
+3. Always create new branches from up-to-date `main`, never from a stale one.
+
+If the human asks to review or test the other founder's PR locally, use
+`gh pr checkout <number>`.
+
+## Don't stop to ask
+
+The founders are non-coders. Do not ask them technical or workflow
+questions you can decide yourself — make the sensible call, state it in
+one line, and keep moving. Never sit waiting on a question mid-task.
+
+Examples of decisions that are YOURS: foreground vs background review
+(small diff = foreground, large = background), file/branch naming, test
+framework details within the chosen stack, refactor order, commit
+granularity, which command variant to run.
+
+Only stop and ask when it's a Decision Authority item (below), a product
+question (what should it do for users?), something expensive to reverse,
+or a genuine spec gap where guessing could waste hours. Product questions
+go to Joey; architecture questions go to Wyatt.
+
+## Never discard uncommitted work
+
+Do not run `git restore`, `git checkout -- <file>`, `git clean`, or
+`git reset --hard` unless the human explicitly asks you to throw work
+away. If the working tree looks wrongly "modified" (e.g. every file at
+once), suspect line endings or filemode config — investigate and fix the
+config, never "clean up" by reverting files. When in doubt, `git stash`
+(recoverable) instead of discarding.
+
 ## Decision authority
 
 AI may, without asking: write code, refactor, write tests, update docs,
