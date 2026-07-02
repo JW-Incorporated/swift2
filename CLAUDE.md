@@ -45,6 +45,15 @@ ask instead).
 7. **Knowledge lives in the repo.** Anything worth remembering goes in a file,
    never only in a conversation. Update docs in the same change that makes
    them stale.
+8. **Codify repetition — don't re-do work by hand.** If you find yourself
+   doing the same procedural task a second time, or you can foresee a task
+   recurring more than twice, STOP and write it as reusable code (a script,
+   command, test, generator, or seed) and commit it — instead of re-executing
+   it token-by-token each run. Manual repetition costs tokens and human time
+   linearly and drifts; a committed script is deterministic and free to
+   re-run. Keep the automation proportional (a small script for a 3× chore,
+   not a framework). Prefer deterministic code over an LLM for any mechanical,
+   repeatable job.
 
 ## Definition of done
 
@@ -58,6 +67,23 @@ A feature is done only when ALL of these are true:
 - No new secrets, keys, or credentials committed
 
 Do not report work as complete if any item is unmet. Say what's missing instead.
+
+## Cost discipline
+
+Two separate bills, managed in opposite ways:
+
+- **Build cost (making the app — we run both Max and API).** On **Max** the
+  scarce resource is the rate-limit *window*, not dollars: sequence heavy jobs
+  around refreshes, grip-and-rip within a window, and when you hit the cap
+  switch to human review / planning rather than waiting. On **API** dollars
+  scale with tokens: a Console spend cap + threshold alerts replaces any manual
+  tracking (no stale spreadsheets). Either way the largest waste is **rework** —
+  spec before code and keep PRs small; that saves more tokens than anything
+  else. And apply rule 8: codify anything repeated instead of re-running it.
+- **Runtime cost (the product, in production).** Keep the Vault static — no
+  per-user LLM calls. Any product LLM call is worker-side, hard-capped, with a
+  rule-based fallback, never in a user-request path. Each new AI-powered
+  feature gets a decision-log entry with its cost model before it ships.
 
 ## Decision authority
 
