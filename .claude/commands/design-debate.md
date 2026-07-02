@@ -19,11 +19,18 @@ Protocol (read CLAUDE.md first; no production code in this mode):
    rebut it (add a short rebuttal note in the doc). No silent dismissals.
 4. **Round two.** Run the adversarial review once more on the revised doc.
    Stop after two rounds — do not loop further without human approval.
-5. **Report to the humans**, in plain non-technical language:
-   - The final proposal in three sentences
+5. **Conclude — this step is mandatory.** The proposal doc must end with a
+   section titled "## Verdict" containing ONE recommended design, stated as
+   the answer, not an option: what we will build and why it won the debate.
+   Debate content moves to an appendix. A deliverable that ends in "it
+   depends" or a list of options with no pick is a failed run — if inputs
+   were genuinely missing, the Verdict states the recommendation anyway,
+   with the assumptions it rests on.
+6. **Report to the humans**, in plain non-technical language:
+   - The verdict in three sentences ("We recommend X. Here's why.")
    - What Codex changed your mind about
-   - Remaining disagreements: both positions + your recommendation
-   - The decisions only humans can make (product calls → Joey,
-     architecture calls → Wyatt)
-6. If the humans approve a direction, update docs/architecture.md and add
-   the entry to docs/decisions.md before any implementation starts.
+   - At most 2-3 true 50/50 calls, each framed as a concrete A-or-B
+     question a non-coder can answer — never an open-ended question
+   - Default action if they say nothing: proceed with the verdict
+7. If the humans approve, update docs/architecture.md and add the entry to
+   docs/decisions.md before any implementation starts.
