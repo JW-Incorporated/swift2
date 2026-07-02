@@ -9,7 +9,7 @@ Two human founders + AI agents. No other staff.
 
 - **Joey — CEO / Product.** Decides what to build, whether it's valuable,
   whether it delights users. Final call on product decisions.
-- **Partner — CTO / Engineering.** Decides whether architecture is sustainable,
+- **Wyatt — CTO / Engineering.** Decides whether architecture is sustainable,
   code is healthy, and releases are production-ready. Final call on technical decisions.
 - **Claude Code** — planner and primary builder.
 - **Codex (via plugin)** — independent reviewer and second opinion. Its job is to disagree.
