@@ -89,6 +89,19 @@ question (what should it do for users?), something expensive to reverse,
 or a genuine spec gap where guessing could waste hours. Product questions
 go to Joey; architecture questions go to Partner.
 
+## Known limitation: shell permission matching
+
+`.claude/settings.json`'s Bash allow-rules (e.g. `Bash(git commit *)`) match
+on a prefix of the raw command string — they don't parse `&&`, `;`, `|`, or
+`$()`. A chained command like `ls foo && rm -rf ~` can still slip through an
+unrelated allow rule. This applies to every wildcard entry in the file, not
+just new ones added here.
+
+Accepted risk for now, given this is a 2-person team on their own machines:
+we're not chasing every wildcard to close this. If it ever needs real
+enforcement, look at Claude Code's sandbox settings instead of further
+narrowing allow-list strings.
+
 ## Decision authority
 
 AI may, without asking: write code, refactor, write tests, update docs,
