@@ -45,7 +45,6 @@
       "Bash(cd *)",
       "Bash(find *)",
       "Bash(grep *)",
-      "Bash(curl -s *)",
       "Bash(cp *)",
       "Bash(mv *)"
     ],
