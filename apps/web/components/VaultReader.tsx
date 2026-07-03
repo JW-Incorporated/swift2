@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import type { Milestone, MonthItem } from '@swift2/shared';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import type { WheelEvent as ReactWheelEvent, TouchEvent as ReactTouchEvent } from 'react';
+import type { Era, Milestone, MonthItem } from '@swift2/shared';
 import { monthsInEra, orderedEras } from '@swift2/shared';
 import type { VaultSkeleton } from '@swift2/core';
 import { eraSkin } from '../lib/theme';
@@ -45,28 +46,147 @@ function rangeLabel(startDate: string, endDate: string): string {
   )}`;
 }
 
+const HEADER_OFFSET = 0.2; // detector line at 20% down the scroll viewport
+
+/**
+ * The Vault reader: one continuous vertical timeline with every era stacked, so
+ * scrolling moves month-by-month and flows across eras (the "physical timeline"
+ * from the spec/vision). A peek→expand scrubber rides on top for coarse era
+ * jumps and stays in sync with scroll position; the surface re-skins to the era
+ * currently in view.
+ */
 export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
   const eras = orderedEras(skeleton.eras);
-  const [index, setIndex] = useState(Math.max(0, eras.length - 1));
-  const era = eras[index];
+  const [activeIndex, setActiveIndex] = useState(Math.max(0, eras.length - 1));
+  const [expanded, setExpanded] = useState(false);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
+  const activeRef = useRef(activeIndex);
+  const touchY = useRef(0);
 
-  if (!era) {
+  const jumpToEra = useCallback((i: number) => {
+    sectionRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, []);
+
+  // Default to the most recent era on first render.
+  useEffect(() => {
+    sectionRefs.current[eras.length - 1]?.scrollIntoView({ block: 'start' });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Scroll-spy: whichever era section covers the detector line is "active".
+  useEffect(() => {
+    const root = scrollRef.current;
+    if (!root) return undefined;
+    let ticking = false;
+    const compute = () => {
+      ticking = false;
+      const line = root.scrollTop + root.clientHeight * HEADER_OFFSET;
+      let idx = 0;
+      for (let i = 0; i < sectionRefs.current.length; i += 1) {
+        const el = sectionRefs.current[i];
+        if (el && el.offsetTop <= line) idx = i;
+      }
+      if (idx !== activeRef.current) {
+        activeRef.current = idx;
+        setActiveIndex(idx);
+      }
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(compute);
+      }
+    };
+    root.addEventListener('scroll', onScroll, { passive: true });
+    return () => root.removeEventListener('scroll', onScroll);
+  }, [eras.length]);
+
+  // Overscroll at the very top summons the expanded navigator (pull-to-refresh
+  // muscle memory); a downward move collapses it — never fights normal scroll.
+  const onWheel = useCallback((e: ReactWheelEvent) => {
+    const root = scrollRef.current;
+    if (!root) return;
+    if (root.scrollTop <= 0 && e.deltaY < 0) setExpanded(true);
+    else if (e.deltaY > 4) setExpanded(false);
+  }, []);
+  const onTouchStart = useCallback((e: ReactTouchEvent) => {
+    touchY.current = e.touches[0]?.clientY ?? 0;
+  }, []);
+  const onTouchMove = useCallback((e: ReactTouchEvent) => {
+    const root = scrollRef.current;
+    if (!root) return;
+    const dy = (e.touches[0]?.clientY ?? 0) - touchY.current;
+    if (root.scrollTop <= 0 && dy > 24) setExpanded(true);
+    else if (dy < -8) setExpanded(false);
+  }, []);
+
+  const active = eras[activeIndex] ?? eras[0];
+  if (!active) {
     return <main style={{ padding: '3rem', fontFamily: 'system-ui' }}>No eras yet.</main>;
   }
 
+  return (
+    <div
+      className="era-skin"
+      style={{ ...eraSkin(active.theme), display: 'flex', flexDirection: 'column', height: '100dvh' }}
+    >
+      <Scrubber
+        eras={eras}
+        index={activeIndex}
+        expanded={expanded}
+        onExpandedChange={setExpanded}
+        onSelectEra={jumpToEra}
+        milestones={skeleton.milestones}
+      />
+      <div
+        ref={scrollRef}
+        onWheel={onWheel}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+        style={{ position: 'relative', flex: '1 1 auto', overflowY: 'auto', background: 'var(--bg)' }}
+      >
+        {eras.map((era, i) => (
+          <section
+            key={era.slug}
+            ref={(el) => {
+              sectionRefs.current[i] = el;
+            }}
+            data-era={era.slug}
+            style={eraSkin(era.theme)}
+          >
+            <EraSection
+              era={era}
+              milestones={skeleton.milestones.filter((m) => m.eraSlug === era.slug)}
+              items={skeleton.monthItems.filter((it) => it.eraSlug === era.slug)}
+            />
+          </section>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function EraSection({
+  era,
+  milestones,
+  items,
+}: {
+  era: Era;
+  milestones: Milestone[];
+  items: MonthItem[];
+}) {
   const months = monthsInEra(era);
-  const eraMilestones = skeleton.milestones.filter((m) => m.eraSlug === era.slug);
-  const eraItems = skeleton.monthItems.filter((i) => i.eraSlug === era.slug);
-  const milestonesByMonth = groupBy(eraMilestones, (m) => keyFromISO(m.date));
-  const itemsByMonth = groupBy(eraItems, (i) => ymKey(i.year, i.month));
+  const milestonesByMonth = groupBy(milestones, (m) => keyFromISO(m.date));
+  const itemsByMonth = groupBy(items, (i) => ymKey(i.year, i.month));
 
   return (
-    <div className="era-skin" style={eraSkin(era.theme)}>
+    <div>
       <header
         style={{
           background: era.theme.heroGradient,
           color: '#fff',
-          padding: '3.5rem 1.5rem 2.5rem',
+          padding: '2.75rem 1.5rem 2rem',
           textShadow: '0 1px 12px rgba(0,0,0,0.35)',
         }}
       >
@@ -74,23 +194,26 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
           <div style={{ letterSpacing: '0.14em', textTransform: 'uppercase', fontSize: 12, opacity: 0.85 }}>
             {era.theme.eyebrow}
           </div>
-          <h1 style={{ margin: '0.35rem 0 0.2rem', fontSize: '2.6rem', lineHeight: 1.05 }}>{era.title}</h1>
+          <h1 style={{ margin: '0.35rem 0 0.2rem', fontSize: '2.4rem', lineHeight: 1.05 }}>{era.title}</h1>
           <p style={{ margin: 0, opacity: 0.9 }}>
             {era.album} · {rangeLabel(era.startDate, era.endDate)}
           </p>
         </div>
       </header>
 
-      <Scrubber eras={eras} index={index} onIndexChange={setIndex} />
-
-      <main style={{ maxWidth: 760, margin: '0 auto', padding: '1.5rem 1rem 4rem' }}>
+      <div style={{ maxWidth: 760, margin: '0 auto', padding: '1.25rem 1rem 2.5rem' }}>
         {months.map(({ year, month }) => {
           const key = ymKey(year, month);
-          const ms = milestonesByMonth.get(key) ?? [];
-          const items = itemsByMonth.get(key) ?? [];
-          return <MonthRow key={key} label={monthLabel(year, month)} milestones={ms} items={items} />;
+          return (
+            <MonthRow
+              key={key}
+              label={monthLabel(year, month)}
+              milestones={milestonesByMonth.get(key) ?? []}
+              items={itemsByMonth.get(key) ?? []}
+            />
+          );
         })}
-      </main>
+      </div>
     </div>
   );
 }
