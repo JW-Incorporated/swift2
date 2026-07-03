@@ -31,13 +31,25 @@ let moments = 0;
 try {
   for (const file of files) {
     const mod = await import(pathToFileURL(join(contentDir, file)).href);
-    const { eraSlug, items: rows } = mod.default ?? mod;
-    if (!eraSlug || !Array.isArray(rows)) {
-      console.warn(`skipping ${file}: expected { eraSlug, items: [] }`);
+    const data = mod.default ?? mod;
+    const fileEra = data.eraSlug; // optional default era for the file
+    const rows = data.items;
+    if (!Array.isArray(rows)) {
+      console.warn(`skipping ${file}: expected { items: [] } (optionally { eraSlug })`);
       continue;
     }
-    await client.query('delete from public.month_item where era_slug = $1', [eraSlug]);
+    // A file may cover one era (fileEra) or many (each item carries eraSlug).
+    // Replace content for exactly the eras this file touches.
+    const touched = [...new Set(rows.map((r) => r.eraSlug ?? fileEra).filter(Boolean))];
+    for (const es of touched) {
+      await client.query('delete from public.month_item where era_slug = $1', [es]);
+    }
     for (const it of rows) {
+      const eraSlug = it.eraSlug ?? fileEra;
+      if (!eraSlug) {
+        console.warn(`skipping an item in ${file}: no eraSlug`);
+        continue;
+      }
       const res = await client.query(
         `insert into public.month_item
            (era_slug, year, month, category, title, snippet, source_url, thumbnail_url)
