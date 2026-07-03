@@ -1,11 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import type { CSSProperties } from 'react';
 import type { Milestone, MonthItem } from '@swift2/shared';
 import { monthsInEra, orderedEras } from '@swift2/shared';
 import type { VaultSkeleton } from '@swift2/core';
 import { eraSkin } from '../lib/theme';
+import { Scrubber } from './Scrubber';
 
 const MONTH_NAMES = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -81,47 +81,7 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
         </div>
       </header>
 
-      {/* Era switcher — a placeholder for the gesture scrubber that lands in W4. */}
-      <nav
-        aria-label="Eras"
-        style={{
-          position: 'sticky',
-          top: 0,
-          zIndex: 2,
-          display: 'flex',
-          gap: 8,
-          overflowX: 'auto',
-          padding: '0.75rem 1rem',
-          background: 'var(--surface)',
-          borderBottom: '1px solid var(--line)',
-        }}
-      >
-        {eras.map((e, i) => {
-          const active = i === index;
-          const style: CSSProperties = {
-            flex: '0 0 auto',
-            padding: '0.4rem 0.8rem',
-            borderRadius: 999,
-            border: `1px solid ${active ? 'var(--accent)' : 'var(--line)'}`,
-            background: active ? 'var(--accent)' : 'transparent',
-            color: active ? 'var(--bg)' : 'var(--ink-soft)',
-            cursor: 'pointer',
-            fontSize: 13,
-            whiteSpace: 'nowrap',
-          };
-          return (
-            <button
-              key={e.slug}
-              type="button"
-              aria-current={active ? 'true' : undefined}
-              style={style}
-              onClick={() => setIndex(i)}
-            >
-              {e.album}
-            </button>
-          );
-        })}
-      </nav>
+      <Scrubber eras={eras} index={index} onIndexChange={setIndex} />
 
       <main style={{ maxWidth: 760, margin: '0 auto', padding: '1.5rem 1rem 4rem' }}>
         {months.map(({ year, month }) => {
