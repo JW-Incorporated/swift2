@@ -157,6 +157,8 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
           >
             <EraSection
               era={era}
+              tint={era.theme.bg}
+              nextTint={eras[i + 1]?.theme.bg ?? era.theme.bg}
               milestones={skeleton.milestones.filter((m) => m.eraSlug === era.slug)}
               items={skeleton.monthItems.filter((it) => it.eraSlug === era.slug)}
             />
@@ -169,10 +171,16 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
 
 function EraSection({
   era,
+  tint,
+  nextTint,
   milestones,
   items,
 }: {
   era: Era;
+  /** This era's body background color. */
+  tint: string;
+  /** The next era's body color — this era fades into it at the bottom. */
+  nextTint: string;
   milestones: Milestone[];
   items: MonthItem[];
 }) {
@@ -182,15 +190,27 @@ function EraSection({
 
   return (
     <div>
+      {/* Hero: the vivid era gradient blooms out of and settles back into the
+          era's body color, so it never hard-cuts against the timeline. */}
       <header
         style={{
+          position: 'relative',
+          overflow: 'hidden',
           background: era.theme.heroGradient,
           color: '#fff',
-          padding: '2.75rem 1.5rem 2rem',
+          padding: '3rem 1.5rem 2.25rem',
           textShadow: '0 1px 12px rgba(0,0,0,0.35)',
         }}
       >
-        <div style={{ maxWidth: 900, margin: '0 auto' }}>
+        <div
+          aria-hidden
+          style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 40, background: `linear-gradient(180deg, ${tint}, transparent)` }}
+        />
+        <div
+          aria-hidden
+          style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 72, background: `linear-gradient(0deg, ${tint}, transparent)` }}
+        />
+        <div style={{ position: 'relative', zIndex: 1, maxWidth: 900, margin: '0 auto' }}>
           <div style={{ letterSpacing: '0.14em', textTransform: 'uppercase', fontSize: 12, opacity: 0.85 }}>
             {era.theme.eyebrow}
           </div>
@@ -214,6 +234,10 @@ function EraSection({
           );
         })}
       </div>
+
+      {/* Fade bridge into the next era's color — a text-free zone, so the
+          continuous timeline reads as one flowing spectrum. */}
+      <div aria-hidden style={{ height: 180, background: `linear-gradient(180deg, ${tint}, ${nextTint})` }} />
     </div>
   );
 }
