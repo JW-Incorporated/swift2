@@ -3,6 +3,7 @@
 
 export * from './vault-types';
 export * from './vault-nav';
+export * from './vault-budget';
 
 /**
  * The aspects of Taylor's life the Vault classifies content into.
