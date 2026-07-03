@@ -95,7 +95,33 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)',
       thumbnailUrl: null,
       moment: {
+        context:
+          "She's described the song as coming from feeling her life had become 'unmanageably sized' and struggling 'with the idea of not feeling like a person' — what she's called a 'guided tour' through the things she hates about herself.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 7,
+      category: 'business',
+      title: "Speak Now (Taylor's Version) has 2023's biggest album week",
+      snippet:
+        "716,000 units in week one, the biggest album week of 2023 — her 12th No. 1 on the Billboard 200.",
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-number-one-debut-billboard-200-chart-1235372565/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-number-one-debut-billboard-200-chart-1235372565/',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2023/07/16/taylor-swift-charts-her-twelfth-no-1-album-with-the-massive-speak-now-taylors-version/',
+          },
+        ],
         photos: [],
       },
     },

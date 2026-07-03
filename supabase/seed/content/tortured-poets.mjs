@@ -60,5 +60,19 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'Fortnight opens the album, with Post Malone on the hook',
+      snippet:
+        "A pulsing '80s-inspired synth ballad — Taylor's own description of the album's fatalism: \"You ended up not with the person that you loved and now you just have to live with that every day.\"",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Fortnight_(song)',
+      thumbnailUrl: null,
+      moment: {
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' }],
+        photos: [],
+      },
+    },
   ],
 };
