@@ -155,6 +155,10 @@ AI may NOT, without explicit human approval:
   chosen, standards live there — keep this file about workflow)
 - Commit messages: short imperative summary, body explains why
 - Branch names: `feature/<short-name>`, `fix/<short-name>`
+- PR descriptions: open with a 1–2 sentence plain-language **TL;DR for
+  reviewers** (what it does + why it matters), then a `---` divider, then the
+  detail. The founders review by outcome, not by reading the diff — make the
+  outcome legible in the first two lines.
 
 ## For future sessions
 
