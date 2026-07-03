@@ -18,7 +18,8 @@
     "format:write": "prettier --write .",
     "build": "npm run build --workspaces --if-present",
     "db:migrate": "node --env-file=apps/worker/.env scripts/migrate.mjs",
-    "db:seed": "node --env-file=apps/worker/.env scripts/seed-eras.mjs"
+    "db:seed": "node --env-file=apps/worker/.env scripts/seed-eras.mjs",
+    "db:seed:content": "node --env-file=apps/worker/.env scripts/seed-content.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
