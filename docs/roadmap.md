@@ -11,8 +11,8 @@ the agent reads its track, takes the topmost row not marked ✅, and begins.
 
 | Founder | Track | Your agent's next action |
 |---------|-------|--------------------------|
-| **Wyatt** (CTO) | **ENGINE** | the topmost ⬜ in the Wyatt table below — currently **W2** |
-| **Joey** (CEO) | **CONTENT** | the topmost ⬜ in the Joey table below — currently **J1 then J2** |
+| **Wyatt** (CTO) | **ENGINE** | the topmost ⬜ in the Wyatt table below — currently **W4** (the gesture scrubber) |
+| **Joey** (CEO) | **CONTENT** | the topmost ⬜ in the Joey table below — author content in `supabase/seed/content/` + product copy |
 
 **Agent instruction (put this in your "start working" prompt or let the agent
 infer it): "You are the {ENGINE|CONTENT} track in `docs/roadmap.md`. Take the
@@ -43,9 +43,9 @@ Max rate-limit window.
 |----|------|--------|
 | **W0** | Monorepo scaffold + CI | ✅ merged (#11) |
 | **W1** | 🔑 **Data contract:** `packages/shared` Vault types + snap/nav math (tested); Supabase schema for `era`/`milestone`/`month_item`/`moment` (RLS public-read, no-bodies CHECKs); migration + seed runners | ✅ (#14) |
-| **W2** | `packages/core`: Tier 0 (skeleton + month index) and Tier 1 (moment detail) data access; version-pinned Tier 1 paths + version-mismatch refetch | ⬜ **▶ NEXT** |
-| **W3** | `apps/web`: fetch + render Tier 0 — era switching + month lists, **no gesture layer yet** (functional, not yet "the feel"); Vercel deploy | ⬜ |
-| **W4** | `apps/web`: the scrubber gesture layer (Pointer Events + CSS/rAF) to the 60fps budget + era theming engine — **the hard part** | ⬜ |
+| **W2** | `packages/core`: Tier 0 (skeleton + month index) and Tier 1 (moment detail) data access | ✅ (#20) |
+| **W3** | `apps/web`: fetch + render Tier 0 — era switching + per-era theming + month/milestone timeline (**no gesture layer yet**) | ✅ (#21) — Vercel deploy still TODO |
+| **W4** | `apps/web`: the scrubber gesture layer (Pointer Events + CSS/rAF) to the 60fps budget — **the hard part** | ⬜ **▶ NEXT** |
 | **W5** | `apps/web`: moment detail fetch + all five degraded states (slow/timeout/404/offline/superseded-tap) + telemetry | ⬜ |
 | **W6** | Measure real Tier 0 payload vs the ≤2MB gzipped / ≤10MB parsed gate; apply windowed-prefetch fallback only if it fails | ⬜ |
 
@@ -64,18 +64,23 @@ seed generator, not hand-enter rows (CLAUDE.md rule 8).
 | **J5** | Per-era theming polish + cover art (theme values already seeded; refine) · product copy (first-run explainer, UNOFFICIAL/about) | ⬜ |
 | **J6** | Content QA + editorial coverage pass before launch | ⬜ |
 
-## 🎁 Ported from Orbit (big head start — reuse, don't re-author)
+## 🎁 Ported from Orbit — and the important caveat
 
-The sibling Orbit project already has authored Vault content we can lift:
+**Done (verifiable facts only):** all **11 era themes** (colors/gradients/
+eyebrows) → `era.theme`; album-release + marquee tour **milestones** →
+`milestone`. Both now render in the web app.
 
-- **✅ Done in W1:** all **11 era themes** (colors/gradients/eyebrows) → seeded
-  into `era.theme`; album-release + marquee tour **milestones** → `milestone`.
-- **To port next (Joey track, `month_item`/`moment`):** Orbit's `outfits`
-  (dated fashion looks with pieces/brands/colors — `apps/web/lib`,
-  `packages/shared/src/domain/fashion.ts`, `supabase/migrations/*outfits*`),
-  `songs` + `lore` (`apps/worker/src/dev/songs-data.ts`, `seed-songs.ts`), and
-  `albums` metadata. These map to dated month items + moment detail. Port via a
-  seed generator (CLAUDE.md rule 8), not by hand.
+**Reality check (found during the port):** Orbit does **not** contain a large
+corpus of real, dated Vault content. Its `outfits` and song `lore` are
+**AI-drafted** (generated, not verified) and its news `stories` are **fabricated
+placeholder mocks** — none is safe to seed as Taylor's real history.
+
+**So: no fabrication.** The rich month-level content (what Taylor did each
+month) must be **authored from real sources**, not lifted from Orbit and not
+invented. The one remaining genuinely-factual Orbit asset worth porting later is
+its **real song track metadata** (folklore, 1989 TV — `apps/worker/src/dev/
+songs-data.ts`) as release-detail `moment`s. Everything else is fresh sourced
+authoring on the CONTENT track.
 
 ## Codex utilization (salvaged from closed PR #9)
 
