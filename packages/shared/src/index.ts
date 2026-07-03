@@ -1,9 +1,12 @@
 // @swift2/shared — portable types + domain logic. No I/O; must stay
 // platform-agnostic so both web and the future Expo app reuse it unchanged.
 
+export * from './vault-types';
+export * from './vault-nav';
+
 /**
- * The aspects of Taylor's life the feed classifies stories into.
- * Kept here (shared, no I/O) so worker, web, and mobile agree on the set.
+ * The aspects of Taylor's life the Vault classifies content into.
+ * Kept here (shared, no I/O) so seed content, web, and mobile agree on the set.
  */
 export const ASPECTS = [
   'music',
