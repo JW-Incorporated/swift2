@@ -11,7 +11,7 @@ the agent reads its track, takes the topmost row not marked ✅, and begins.
 
 | Founder | Track | Your agent's next action |
 |---------|-------|--------------------------|
-| **Wyatt** (CTO) | **ENGINE** | the topmost ⬜ in the Wyatt table below — currently **W4** (the gesture scrubber) |
+| **Wyatt** (CTO) | **ENGINE** | review/merge the **W4 scrubber (draft #23)** after an on-device 60fps check, then **W5** (moment detail) builds on it |
 | **Joey** (CEO) | **CONTENT** | the topmost ⬜ in the Joey table below — currently **J2/J3** (author content in `supabase/seed/content/`) |
 
 **Agent instruction (put this in your "start working" prompt or let the agent
@@ -45,9 +45,10 @@ Max rate-limit window.
 | **W1** | 🔑 **Data contract:** `packages/shared` Vault types + snap/nav math (tested); Supabase schema for `era`/`milestone`/`month_item`/`moment` (RLS public-read, no-bodies CHECKs); migration + seed runners | ✅ (#14) |
 | **W2** | `packages/core`: Tier 0 (skeleton + month index) and Tier 1 (moment detail) data access | ✅ (#20) |
 | **W3** | `apps/web`: fetch + render Tier 0 — era switching + per-era theming + month/milestone timeline (**no gesture layer yet**) | ✅ (#21) — Vercel deploy still TODO |
-| **W4** | `apps/web`: the scrubber gesture layer (Pointer Events + CSS/rAF) to the 60fps budget — **the hard part** | ⬜ **▶ NEXT** |
-| **W5** | `apps/web`: moment detail fetch + all five degraded states (slow/timeout/404/offline/superseded-tap) + telemetry | ⬜ |
-| **W6** | Measure real Tier 0 payload vs the ≤2MB gzipped / ≤10MB parsed gate; apply windowed-prefetch fallback only if it fails | ⬜ |
+| **W4** | `apps/web`: the scrubber gesture layer (Pointer Events + CSS/rAF) to the 60fps budget — **the hard part** | 🟡 **DRAFT #23** — needs on-device 60fps check + review before merge |
+| **W4.5** | Two-tier Vault HTTP API: static `GET /vault/tier0` (+ version stamp) & on-demand `GET /vault/moment/[id]`, reused by web + Expo | ✅ (#27) |
+| **W5** | `apps/web`: moment detail fetch + all five degraded states (slow/timeout/404/offline/superseded-tap) + telemetry | ⬜ (hold — shares VaultReader with W4; build on the merged scrubber) |
+| **W6** | Tier 0 payload budget gate (≤2MB gz / ≤10MB parsed): pure `evaluateTier0Budget` + `npm run check:budget`; windowed-prefetch fallback only if a real payload fails | ✅ (#28) — wire into CI once content lands + creds available |
 
 ## ✍️ Joey track — content (spec step 3 + theming values)
 
