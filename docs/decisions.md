@@ -7,6 +7,20 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-03 — Product calls: hide fakes, month-slider in v1
+
+**Decision:** (1) Fake / unverified stories are **hidden** from the feed, not
+shown-and-labelled — the feed only surfaces stories that clear the credibility
+bar. (2) The **month-level timeline slider ships in v1**, alongside the era
+switcher. Both are expected to iterate a few times.
+
+**Why:** Cleaner trust model (never surface a story we can't stand behind) and
+the month slider is central to the "time travel" experience, not a nice-to-have.
+
+**Approved by:** Wyatt (relaying Joey's product calls). Resolves two of the
+three [confirm] items from the v0.2 entry; the notification-quality threshold
+and exact credibility bar remain tuning parameters, not blockers.
+
 ## 2026-07-02 — Architecture reconciled with vision.md (v0.2)
 
 **Decision:** After Joey wrote `vision.md`, correct three v0.1 assumptions:

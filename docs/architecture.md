@@ -102,9 +102,10 @@ The vision's "real vs. fake" promise:
   plausibility/credibility. LLM calls are worker-only, classify-once, with a
   hard daily cap + rule-based fallback — never in a user path.
 - **User signal:** reader feedback (confirm/dispute) feeds a credibility score.
-- **Presentation [confirm]:** low-credibility stories are **shown but clearly
-  labelled** (vision leans this way — "ensures fans know they are fake") rather
-  than hidden. Final UX is Joey's call.
+- **Presentation (decided 2026-07-03):** low-credibility / unverified stories
+  are **hidden** from the feed entirely — not shown-and-labelled. The feed only
+  ever surfaces stories that clear the credibility bar. (We'll iterate on where
+  the bar sits.)
 
 ## Notifications subsystem (first-class — this is the retention loop)
 
@@ -139,9 +140,9 @@ Two levels of time navigation, from the vision:
    specified — persistent peek strip + grab-to-expand + overscroll-top summon;
    **snap to era boundaries in v1**. Selecting an era transforms the UI via that
    era's **theme tokens** (colors/fonts/design).
-2. **Month slider within an era (fine) [v1.x]:** browse news month-by-month
-   inside the selected era. v1 may ship era-level only and add the month slider
-   next; the vision wants both.
+2. **Month slider within an era (fine) — in v1 (decided 2026-07-03):** browse
+   news month-by-month inside the selected era. Ships in v1 alongside the era
+   switcher; expect a few UX iterations.
 
 Interaction axes: horizontal = era switching, vertical = content within a
 slice, bidirectionally coupled (scrub → jump; scroll into a new slice → the
@@ -198,10 +199,15 @@ timeline reflects it).
 5. **Notifications**: subscription model + rate/quality gate + delivery.
 6. **Expo app**: reuse `shared`/`core`, native timeline + push.
 
-## Open questions (product — for Joey; don't block scaffolding)
+## Decided 2026-07-03 (were open questions)
 
-- Quantitative definition of "high-quality" notification (rank threshold) and
-  how rate prefs map to cadence.
-- Fake-story handling: label-and-show vs. hide (vision leans label-and-show).
-- Whether the month-level slider is in v1 or v1.x.
+- **Fake/unverified stories: hidden** from the feed (not labelled-and-shown).
+- **Month-level slider: in v1** (with the era switcher).
+
+## Still open (product — for Joey; don't block building)
+
+- Quantitative definition of "high-quality" notification (rank/credibility
+  threshold) and how rate prefs map to cadence — expected to iterate.
+- Where exactly the credibility bar sits for hiding stories — expected to
+  iterate.
 - App name (still TBD).
