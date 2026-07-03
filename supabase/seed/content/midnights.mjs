@@ -85,5 +85,75 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2022,
+      month: 10,
+      category: 'music',
+      title: "The 'Anti-Hero' video, and the scale scene that got cut",
+      snippet:
+        "Three versions of herself confronting body image and insecurity — including a scale reading 'fat' that got edited out after online criticism.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)',
+      thumbnailUrl: null,
+      moment: {
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'tour',
+      title: 'The Eras Tour kicks off in Glendale',
+      snippet:
+        '44 songs, 3 hours and 15 minutes at State Farm Stadium — opening night moved era by era through songs from all 10 studio albums.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'tour',
+      title: 'Glendale becomes Swift City for the weekend',
+      snippet:
+        'The mayor made it official: Glendale, Arizona was Swift City for March 17 and 18 — Eras Tour opening weekend.',
+      sourceUrl:
+        'https://www.billboard.com/music/music-news/taylor-swift-arizona-city-renamed-eras-tour-1235285285/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-arizona-city-renamed-eras-tour-1235285285/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'Roberto Cavalli and Louboutin for the 1989 set',
+      snippet:
+        'A Roberto Cavalli two-piece and Christian Louboutin boots for the 1989 set — one look in a night of nonstop costume changes.',
+      sourceUrl:
+        'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
