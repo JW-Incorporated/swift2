@@ -127,6 +127,46 @@ export default {
     },
     {
       year: 2023,
+      month: 10,
+      category: 'business',
+      title: "1989 (Taylor's Version) resets the vinyl record",
+      snippet:
+        '1.653 million units in week one, 693,000 on vinyl alone — a new all-time vinyl sales record, and her 13th No. 1 album.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-number-one-billboard-200-albums-chart-1235463917/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-number-one-billboard-200-albums-chart-1235463917/',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2023/11/05/taylor-swift-scores-the-biggest-debut-of-the-year-with-1989-taylors-version/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 10,
+      category: 'music',
+      title: 'A vault track that almost made the original 1989',
+      snippet:
+        "Synth-pop and disco, cut from the original album because, in Taylor's own words, 'we couldn't get the production right at the time' — resurrected nearly a decade later.",
+      sourceUrl: 'https://uproxx.com/pop/why-now-that-we-dont-talk-not-on-1989-original/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          { outlet: 'Uproxx', url: 'https://uproxx.com/pop/why-now-that-we-dont-talk-not-on-1989-original/' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
       month: 3,
       category: 'tour',
       title: 'The Eras Tour kicks off in Glendale',
