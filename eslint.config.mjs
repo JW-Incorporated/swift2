@@ -9,4 +9,13 @@ export default tseslint.config(
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    // Node tooling scripts (migrations, seeds) run under Node with ESM.
+    files: ['scripts/**/*.mjs', 'supabase/**/*.mjs'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: { process: 'readonly', console: 'readonly' },
+    },
+  },
 );
