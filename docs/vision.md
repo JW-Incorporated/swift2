@@ -1,4 +1,6 @@
-# Vision (stub — to be written)
+# Vision
+
+Owner: Joey. Status: v0.1 — high level, to be refined as we learn.
 
 
 
