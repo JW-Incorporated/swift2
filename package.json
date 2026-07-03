@@ -16,12 +16,16 @@
     "lint": "eslint .",
     "format": "prettier --check .",
     "format:write": "prettier --write .",
-    "build": "npm run build --workspaces --if-present"
+    "build": "npm run build --workspaces --if-present",
+    "db:migrate": "node --env-file=apps/worker/.env scripts/migrate.mjs",
+    "db:seed": "node --env-file=apps/worker/.env scripts/seed-eras.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
     "@types/node": "^20.14.0",
+    "@types/pg": "^8.11.6",
     "eslint": "^9.9.0",
+    "pg": "^8.12.0",
     "prettier": "^3.3.3",
     "tsx": "^4.16.5",
     "typescript": "^5.5.4",
