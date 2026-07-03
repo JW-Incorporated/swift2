@@ -148,7 +148,13 @@ remains static between deploys, unchanged from `docs/decisions.md`.
       a new era updates the scrubber position indicator (two-way coupling
       verified both directions).
 - [ ] Within an era, user can navigate to any month and see that month's
-      dated items, grouped/labelled by category.
+      dated items as one chronological list, each labelled with a
+      category icon/color badge (not split into category-grouped
+      sections) — per `docs/marketing/content-framework-2026-07-03.md`.
+- [ ] One opt-in category filter, scoped per-era and off by default,
+      reusing the badge icon/color set; applying it hides non-matching
+      items in place without changing scrubber/timeline structure — per
+      `docs/marketing/content-framework-2026-07-03.md`.
 - [ ] Tapping an item shows its summary instantly (no network wait) and
       loads full detail behind it per the latency budget in Section 2.
 - [ ] All five degraded states in Section 2 (slow, timeout, 404, offline,
@@ -176,8 +182,12 @@ remains static between deploys, unchanged from `docs/decisions.md`.
 
 ## 7. Files / directories affected
 
-Nothing exists yet beyond `hello-swifties.html` — this is initial project
-scaffolding, not a change to existing code. Per `docs/architecture.md`:
+Nothing existed beyond `hello-swifties.html` when this spec was drafted;
+the monorepo scaffold and Vault schema/seed skeleton (steps 1–3 of the
+build sequence below) have since landed (`feature/wp0-monorepo-scaffold`,
+`feature/vault-foundation`). Steps 4 onward (data access, era-switching
+UI, the scrubber gesture layer, moment detail) are still ahead. Per
+`docs/architecture.md`:
 
 ```
 apps/web            Next.js (App Router) reader — built first
