@@ -12,7 +12,7 @@ the agent reads its track, takes the topmost row not marked ✅, and begins.
 | Founder | Track | Your agent's next action |
 |---------|-------|--------------------------|
 | **Wyatt** (CTO) | **ENGINE** | the topmost ⬜ in the Wyatt table below — currently **W4** (the gesture scrubber) |
-| **Joey** (CEO) | **CONTENT** | the topmost ⬜ in the Joey table below — author content in `supabase/seed/content/` + product copy |
+| **Joey** (CEO) | **CONTENT** | the topmost ⬜ in the Joey table below — currently **J2/J3** (author content in `supabase/seed/content/`) |
 
 **Agent instruction (put this in your "start working" prompt or let the agent
 infer it): "You are the {ENGINE|CONTENT} track in `docs/roadmap.md`. Take the
@@ -57,9 +57,9 @@ seed generator, not hand-enter rows (CLAUDE.md rule 8).
 
 | WP | What | Status |
 |----|------|--------|
-| **J1** | Confirm **editorial depth = Option A** (curated: notable months deep, sparse lighter). If unconfirmed, the agent proceeds on A and flags it. | ⬜ **▶ NEXT** |
-| **J2** | **Port Orbit's authored content** into `month_item`/`moment`: Orbit's `outfits` (dated fashion + pieces/brands/colors), `songs`+`lore`, `albums`. This is the fastest start — reuse, don't hand-author. Source files listed under "Ported from Orbit" below. | ⬜ **▶ then this** |
-| **J3** | Fill gaps beyond Orbit: notable `month_item`s per era/month (sightings, relationship, business, tour dates) for high-activity eras | ⬜ |
+| **J1** | Confirm **editorial depth = Option A** (curated: notable months deep, sparse lighter). | ✅ — confirmed + a concrete 3-tier rubric (wavetop/active/quiet) locked in `docs/marketing/content-framework-2026-07-03.md` (#18) |
+| **J2** | ~~Port Orbit's authored content~~ **superseded** — Orbit's `outfits`/`lore`/`stories` turned out to be AI-drafted/fabricated placeholder data, not real history (see "Ported from Orbit" below). Only real song track metadata is portable. | ⬜ **▶ NEXT (revised)** |
+| **J3** | Author real `month_item`s from real sources (sightings, fashion, relationship, business, tour dates), starting with Midnights/Tortured Poets per the authoring order in `docs/marketing/content-framework-2026-07-03.md`. Light-touch model: research + a one-line hook, not original prose — see that doc's Section 5 (2026-07-03 revision). | ⬜ **▶ then this** |
 | **J4** | `moment` detail — extended context + linked sources + hotlinked photos for key moments | ⬜ |
 | **J5** | Per-era theming polish + cover art (theme values already seeded; refine) · product copy (first-run explainer, UNOFFICIAL/about) | ⬜ |
 | **J6** | Content QA + editorial coverage pass before launch | ⬜ |
@@ -92,5 +92,4 @@ Gated on `codex login` + the CC plugin.
 
 ## Open items (don't block engine track)
 
-- **J1** — Joey confirms editorial depth (Option A assumed).
 - **W6** — payload budget is a hard acceptance gate, measured against real seed.
