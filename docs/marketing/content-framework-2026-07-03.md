@@ -171,8 +171,10 @@ content:
   item against this voice guide → Codex (cross-provider, not the same
   model checking its own work) reviews specifically for AI-tells and
   voice drift — does it sound like a fan wrote it, does it hit any item
-  on the "cut on sight" list above, does the snippet/context actually
-  match what the cited source supports — and only then does a human
+  on the "cut on sight" list above, does every claim in the snippet/
+  context actually trace to what the cited source(s) support (no
+  fabrication check), and does `relationship`/`business` content have
+  its required second independent source — and only then does a human
   (Joey or a fan-adjacent editor) spot-check at least the first authored
   batch before scaling to all 11 eras. This mirrors the company's
   existing dual-AI cross-review model (`docs/decisions.md`,
@@ -192,10 +194,38 @@ content:
   they're authored, not one. (Lower misinformation exposure than the
   now-descoped news-feed feature, since Joey is hand-authoring rather
   than ingesting live claims, but the bar should still exist.)
-- **Moment context is texture, not a Wikipedia paragraph:** 2–4 sentences
-  max even though the DB allows up to 2000 characters — matches
-  `architecture.md`'s "titles/snippets/links/metadata only, no article
-  bodies" rule in spirit, not just in character count.
+- **No fabrication, ever — every fact traces to a real, findable source.**
+  Not a style note, a hard rule: nothing gets written — not a brand name,
+  not a date, not a detail — that isn't actually reported by the linked
+  source(s). If a detail can't be confirmed, it's left out, not
+  guessed. (This stopped being theoretical during the W-track build:
+  Orbit's `outfits`/`lore` data, originally scoped as a fast-start port
+  for this content, turned out to be AI-drafted/fabricated placeholder
+  data, not real history — see `docs/roadmap.md`'s "Ported from Orbit"
+  section. Nothing from that source gets seeded as fact.)
+- **Revised, lighter model (decided with Joey, 2026-07-03 — supersedes
+  the "2–4 sentences" guidance below at first draft): link-first, not
+  write-first.** The real work per item is *research* (find the best
+  real source covering it, verify it isn't fan-disputed, get a second
+  independent source for relationship/business) — not prose. Per item:
+  - `title` + `snippet`: one short original hook (still fan-editor voice,
+    still ≤400 chars) — this is the only prose that's really "written."
+  - `moment.context`: **omit by default.** Only include it if a source
+    reports a specific fact the snippet didn't already cover (e.g. a
+    confirmed brand name) — and even then, one short line, not a
+    paragraph. Most items will have `sources` + optionally `photos` in
+    their `moment` and no `context` at all; the linked article carries
+    the rest of the story, which is the whole point of never rehosting
+    article bodies in the first place.
+  - A single real-world event routinely becomes **two or more separate
+    `month_item` rows**, one per category (e.g. a dinner sighting =
+    one `fashion` item for the outfit, one `relationship` item for who
+    she was with) — never one row blending categories.
+  - *(Superseded) original guidance, kept for context:* "moment context
+    is texture, not a Wikipedia paragraph — 2-4 sentences max." Replaced
+    because even 2-4 original sentences per item, times ~350 items, is
+    real avoidable authoring cost when the source article already tells
+    the story; the app's job is curation + a good hook, not rewriting.
 - **Photos are always hotlinked with credit** — already enforced by
   schema (`photos: [{url, credit}]`), just restating as an authoring
   rule so it's not discovered mid-authoring.
@@ -209,6 +239,7 @@ content:
 | Era authoring order | S (doc only) | Ships a demoable, dense slice sooner instead of 19 years of thin coverage |
 | Chronological-list + category-badge layout | S (frontend spec clarification) | Resolves an ambiguous acceptance criterion before someone builds the wrong interpretation |
 | Editorial style guide + sourcing minimum | S (doc only) | Consistent authoring quality; de-risks relationship/business content specifically |
+| Link-first authoring model (2026-07-03 revision) | S (doc only) | Cuts real per-item authoring cost — research + a one-line hook instead of original paragraphs, across ~350 items |
 
 Nothing here is runtime-cost-relevant — this is all static, repo-authored
 content per the existing architecture (zero LLM calls, per
