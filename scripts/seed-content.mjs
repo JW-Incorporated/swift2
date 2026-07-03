@@ -1,8 +1,11 @@
 // Seed Vault month_item + moment content from supabase/seed/content/*.mjs.
 // The CONTENT track (Joey) only adds/edits data files in that folder; this
-// runner (owned by the ENGINE track) loads them. Idempotent per era: each
-// file owns one era_slug and its rows are replaced wholesale on each run
-// (moment rows cascade-delete with their month_item).
+// runner (owned by the ENGINE track) loads them. Only this folder is loaded —
+// e.g. supabase/seed/candidates/ is staging and is NOT seeded.
+//
+// A file may cover one era (export { eraSlug, items }) or many (each item
+// carries its own eraSlug). Idempotent: every era a file touches is replaced
+// wholesale on each run (moment rows cascade-delete with their month_item).
 //
 //   npm run db:seed:content
 import { readdirSync } from 'node:fs';
