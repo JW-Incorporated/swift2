@@ -219,6 +219,56 @@ Rough v1 total: **~13 focused windows** of build + rolling hardening. Chunked so
 any single window is a clean start→finish with a review gate, respecting plan
 limits and the "don't thrash across a refresh" cost rule.
 
+## Codex utilization (get the most from the dual-AI setup)
+
+Codex isn't just the review gate — it's a second engine we can offload
+token-heavy, well-bounded work onto, preserving Claude's context for the hard
+cross-cutting work. Division of labor:
+
+**Claude (hub) keeps:** planning/specs, architecture, cross-package
+integration, the perf/UX-critical timeline (WP5), product judgment calls, and
+final integration + merge prep.
+
+**Codex is well-suited for (delegate these):**
+- **Exhaustive test authoring** from a WP's acceptance criteria (unit +
+  integration) — high token cost, easily verified, perfect for Codex.
+- **Migrations + RLS policies** from a schema description (WP1).
+- **Boilerplate / scaffolding**: config files, CRUD data-access in
+  `packages/core`, type stubs, `packages/shared` type mirrors.
+- **Mechanical refactors** and **seed/data generators** (rule 8 work).
+- **Independent review** every WP (`/codex:review`; `/codex:adversarial-review`
+  for the risky ones — WP3 cost path, WP4a auth, WP5 perf).
+- **Second opinion on design forks** via `/design-debate` before expensive
+  choices.
+
+**Poor fit for Codex (Claude does):** anything needing whole-system context,
+the animation/perf frame budget (WP5), or product/UX taste.
+
+**Delegation protocol (per task):** Claude writes a crisp sub-spec (inputs,
+outputs, acceptance criteria, files touched) → Codex executes autonomously
+(`approval_policy = "never"`, `workspace-write`) → Claude reviews the diff +
+runs the suite → integrate. Codex's output meets the same Definition of Done.
+This spreads load across two providers/plans and keeps self-review honest.
+
+**Token-load routing by WP:**
+
+| WP | Claude | Codex |
+|----|--------|-------|
+| WP0 scaffold | structure + CI | lint/format config, sample tests |
+| WP1 schema | schema design, `shared` types | migration SQL, RLS policies, seed generator |
+| WP2 ingest | source strategy, clustering design | per-source adapters + their tests |
+| WP3 classify/verify | cost-control design, feed exclusion | classifier/rank unit tests, fallback tests |
+| WP4 web | auth flow, data-access shape | feed component tests, form/validation code |
+| WP5 timeline | **all** (perf-critical) | review only (adversarial) |
+| WP6 notifications | rate/quality gate design | subscription CRUD + rate-limiter tests |
+| WP7 mobile | native timeline (perf) | screen scaffolds, shared-logic reuse tests |
+
+**Gating:** requires **H9** (`codex login` + install the CC plugin:
+`/plugin marketplace add openai/codex-plugin-cc`, `/plugin install
+codex@openai-codex`, `/reload-plugins`, `/codex:setup`). Until that's done,
+Claude self-reviews + relies on tests/typecheck, and we run Codex review
+retroactively over the early WPs once it's live.
+
 ## Key risks
 
 - **WP5 perf** — the whole product's feel. Mitigation: adversarial review + a
