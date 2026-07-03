@@ -210,13 +210,37 @@ content:
   independent source for relationship/business) — not prose. Per item:
   - `title` + `snippet`: one short original hook (still fan-editor voice,
     still ≤400 chars) — this is the only prose that's really "written."
-  - `moment.context`: **omit by default.** Only include it if a source
-    reports a specific fact the snippet didn't already cover (e.g. a
-    confirmed brand name) — and even then, one short line, not a
-    paragraph. Most items will have `sources` + optionally `photos` in
-    their `moment` and no `context` at all; the linked article carries
-    the rest of the story, which is the whole point of never rehosting
-    article bodies in the first place.
+  - `moment.context`: **omit by default for non-`music` categories.**
+    Only include it if a source reports a specific fact the snippet
+    didn't already cover — and even then, one short line, not a
+    paragraph. Most non-music items will have `sources` + optionally
+    `photos` in their `moment` and no `context` at all; the linked
+    article carries the rest of the story.
+  - **`music` items are the exception (revised 2026-07-04, per
+    `docs/marketing/feature-brief-2026-07-04.md`): aim for comprehensive
+    coverage, not omission-by-default.** Taylor's catalog is unusually
+    well-documented (her own commentary, credible music journalism,
+    mature fan-annotation culture), so cover a song's meaning/background/
+    Easter eggs whenever a real, findable source exists — don't
+    artificially restrict to a curated subset. The no-fabrication rule
+    still governs absolutely: skip a song's context entirely when no real
+    source discusses it, never guess. The "hooks not essays" length
+    discipline still applies to *each* context line (a sourced fact, not
+    a paragraph) — this changes *how many* songs get covered, not how
+    long each one gets. Full-catalog coverage (every track on an album,
+    not just the 1-2 "standout" tracks that get their own `month_item`)
+    needs a separate, non-month-scoped content shape — see
+    `docs/proposals/2026-07-04-song-track-guide-content-shape.md`,
+    pending Wyatt's sizing call. Don't author full-catalog song content
+    against `month_item` rows in the meantime; it will blow the
+    wavetop-month depth ceiling below.
+  - **Known theories (added 2026-07-04):** where a song has well-documented
+    fan theories (the kind covered by mainstream fan media, not fringe
+    speculation), one sourced line can live in that song's existing
+    `moment.context` — not a standalone "theories" section or category.
+    Hard scope line, part of this rule, not a caveat to apply carefully:
+    **no theories about relationships, private life, sexuality, family, or
+    identity, ever.** Content/lyrical/Easter-egg theories only.
   - A single real-world event routinely becomes **two or more separate
     `month_item` rows**, one per category (e.g. a dinner sighting =
     one `fashion` item for the outfit, one `relationship` item for who
