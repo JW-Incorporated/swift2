@@ -7,6 +7,27 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-03 — V1 scope is Vault (time machine) only
+
+**Decision:** v1 ships the Vault/era-scrubber time-travel experience and
+nothing else. Features 2–8 from the 2026-07-02 marketing brief (news feed,
+notification onboarding, source-credibility tagging, collections, live
+event companion) are not scheduled — not ruled out, just out of v1 entirely.
+This narrows the brief's "ship #1, then #2, then #3" sequence down to #1
+alone. Engineering spec: `docs/specs/2026-07-03-vault-mvp-v1-spec.md`.
+
+**Why:** Product direction from Joey — focus the first release on the one
+feature nobody else can clone quickly, rather than bundling in the
+notification/news pillars before the Vault itself has shipped.
+
+**Alternatives considered:** The brief's original 3-feature sequence
+(rejected for v1: defers a shippable release behind two additional builds
+that aren't needed to prove the core mechanic). Bundling notification
+onboarding with the Vault as one release (the brief's still-open A/B
+question — moot now, since notifications aren't in v1 at all).
+
+**Approved by:** Joey
+
 ## 2026-07-02 — Cost strategy: two bills, and codify repetition
 
 **Decision:** Manage build cost and runtime cost separately. Build: we run both
