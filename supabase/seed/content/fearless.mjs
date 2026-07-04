@@ -149,5 +149,25 @@ export default {
         photos: [],
       },
     },
+
+    // --- Active-tier batch (2026-07-04), per docs/decisions.md.
+    {
+      year: 2009,
+      month: 9,
+      category: 'fashion',
+      title: 'A silver sequined gown, worn into an interruption no one saw coming',
+      snippet: 'A floor-length silver gown, matching the Moonman she was mid-speech with when Kanye West took the mic.',
+      sourceUrl: 'https://www.eonline.com/news/1407066/revisiting-taylor-swift-and-kanye-wests-mtv-vmas-feud-15-years-later',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1407066/revisiting-taylor-swift-and-kanye-wests-mtv-vmas-feud-15-years-later',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

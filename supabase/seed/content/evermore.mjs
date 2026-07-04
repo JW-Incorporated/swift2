@@ -180,5 +180,25 @@ export default {
         photos: [],
       },
     },
+
+    // --- Active-tier batch (2026-07-04), per docs/decisions.md.
+    {
+      year: 2021,
+      month: 3,
+      category: 'fashion',
+      title: 'A folklore medley, staged like a cabin in an enchanted forest',
+      snippet: 'A blue-and-gold Etro "nap dress," performing "cardigan," "august," and "willow" from a set built to look like a tiny forest cabin.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
