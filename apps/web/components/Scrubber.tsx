@@ -86,6 +86,14 @@ export function Scrubber({ eras, index, expanded, onExpandedChange, onSelectEra,
     onSelectEra(i);
     onExpandedChange(false);
   };
+  // A canceled pointer (lost capture, OS/browser gesture interruption) must
+  // abort the scrub — restore the current era, never commit a jump.
+  const cancelDrag = () => {
+    if (!draggingRef.current) return;
+    draggingRef.current = false;
+    paint(positionForEraIndex(n, index));
+    onExpandedChange(false);
+  };
   const onKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
     if (e.key === 'ArrowRight' && index < n - 1) {
       e.preventDefault();
@@ -138,7 +146,7 @@ export function Scrubber({ eras, index, expanded, onExpandedChange, onSelectEra,
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
-        onPointerCancel={endDrag}
+        onPointerCancel={cancelDrag}
         onKeyDown={onKeyDown}
         style={{
           position: 'relative',

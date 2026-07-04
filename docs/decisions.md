@@ -7,6 +7,31 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-04 — Continuous stacked timeline over per-era paging (scrubber summon)
+
+**Decision:** The Vault reader is one continuous vertical scroller with all eras
+stacked (scroll-spy drives the era indicator + theme), not a per-era paged view.
+Consequence for the summon affordance: the **peek strip is always visible and
+grab-to-expand is the primary summon** (works from any era); **overscroll-to-
+summon fires only at the global scroll top.** A per-era overscroll trigger is
+deliberately NOT implemented — in a continuous scroller it would collide with
+scrolling up into the previous era, which the architecture spec forbids
+("never fights normal vertical scroll").
+
+**Why:** Joey's spec is era-snap horizontal scrubber + vertical month scroll; a
+continuous stack makes scrubbing and scroll-spy two-way coupling natural and
+keeps months reachable by plain scrolling. The spec's "overscroll at the top of
+an era" language predates the continuous-stack choice and assumed paging. The
+always-present grab strip covers summon everywhere, so nothing is lost.
+
+**Alternatives considered:** Per-era paged scroller with rubber-band overscroll
+per era (rejected: heavier, and re-introduces a network/scroll-position seam
+between eras); per-era overscroll detection in the continuous scroller (rejected:
+fights scroll-up-to-previous-era). Flagged by a Codex review of the reader.
+
+**Approved by:** _pending Wyatt/Joey_ (documented divergence from the spec's
+per-era overscroll wording; primary grab-summon unaffected)
+
 ## 2026-07-04 — Song track guide is a separate, non-month-scoped shape
 
 **Decision:** Full song-catalog coverage lives in a new `track_note` table
