@@ -266,3 +266,148 @@ data to convert that into calendar weeks against the "ship by Taylor's
 wedding" target in `docs/roadmap.md` — that sizing call belongs to
 Joey/Wyatt, not this analysis.
 
+## Addendum 2026-07-04 — Joey's pushback: "why not front-load everything, we can spend tons of tokens"
+
+Joey pushed back on the Option B rejection above: if AI authoring is cheap
+and plentiful, what's the actual downside of just running full depth
+across all 11 eras right now instead of gating on a 2-era slice plus a
+fragile weekly-marketing promise? Worth taking seriously rather than
+re-asserting the prior verdict — and it partially changes the
+recommendation.
+
+**One real objection from the prior verdict doesn't survive this
+pushback.** The Option B rejection leaned on "defers all launch value
+behind one large, single-shot authoring push, with nothing shippable in
+between." That's not actually true: `supabase/seed/content/` is one file
+per era, owned independently (`docs/roadmap.md`'s CONTENT lane), so a
+full-depth pass doesn't have to be one 11-era batch that blocks launch
+until all of it clears. Each era can be deepened and shipped as soon as
+*its own* file clears Codex review + Joey's spot-check, in parallel,
+regardless of how many other eras are still in progress. Retracting that
+part of the prior argument — it was wrong.
+
+**Two objections that tokens genuinely cannot buy their way past:**
+
+1. **Tokens don't create real sources.** The job here isn't "generate
+   more text" — it's "find a real, dated, independently-corroborated fact
+   about a specific living person, for a specific month." No amount of
+   compute manufactures a verifiable sighting or relationship event in a
+   month where nothing public happened; that's exactly why the framework's
+   3-tier rubric has a "Quiet" tier (0-1 items) *by design*, not as an
+   authoring shortfall. Pointing more tokens at a real-source vacuum
+   doesn't produce more real content — it produces pressure to either
+   lower the sourcing bar or pad low-value items to hit a volume target.
+   Both are already-observed failure modes, not hypothetical ones: 4 of
+   the current 100 items downgraded to a single-source Wikipedia citation
+   under time pressure in the exact session that produced them
+   (`content-review-2026-07-04.md`), and the framework doc had to add an
+   explicit "never pad for category balance" rule after Codex caught an
+   earlier draft implying a fill quota. More volume, pushed faster,
+   recreates the conditions that already caused both problems once.
+2. **Joey's own review time is the one part of this pipeline that doesn't
+   scale with compute.** The three-stage pipeline — Claude drafts, Codex
+   fact-checks for voice/fabrication, **Joey spot-checks at least the
+   first authored batch** — is a locked decision
+   (`content-framework-2026-07-03.md`), not a suggestion, specifically
+   because unsupervised AI content about a real person is the fabrication/
+   defamation risk this whole project has repeatedly steered away from
+   (Orbit's AI-drafted `outfits`/`lore` data turned out to be fabricated
+   placeholder history — `docs/roadmap.md`'s "Ported from Orbit" section
+   is the cautionary tale already living in this repo). Spending more
+   tokens produces more drafts arriving in Joey's personal review queue
+   faster than he can personally clear it — it does not produce more of
+   *his* hours. A 5-10x volume increase means a 5-10x backlog behind the
+   one non-AI step in the pipeline, not a 5-10x faster ship.
+
+**A related, more precise correction on "we can spend tons of tokens" as
+stated:** it isn't literally unconstrained even on Max. CLAUDE.md's own
+cost model says the scarce resource on Max is the **rate-limit window**,
+not dollars — running many eras' research+drafting at once still means
+sequencing heavy jobs across windows, not an unlimited simultaneous
+push. If the intent is to route around that by using API capacity
+instead, dollars scale with tokens directly on that path, which is the
+exact cost CLAUDE.md's Console-cap discipline exists to keep visible —
+not a reason not to do it, just a reason not to treat it as free.
+
+**Revised recommendation, given the file-boundary point above:** drop the
+"2 flagship eras, then a fragile 9-week external-marketing promise"
+structure in favor of **a parallelized, category-weighted full-depth push
+across as many eras as Joey can realistically review before launch** —
+running research/authoring on multiple eras concurrently (each is an
+independent file), explicitly weighted toward `relationship`/`sighting`/
+`fashion` (not more `business`/`music`, which is where undirected volume
+would default), with each era shipping the moment it individually clears
+review. **The pace-setting constraint is Joey's review throughput and
+real source availability, not tokens or eras-in-flight.** If his review
+bandwidth can keep up, this could plausibly clear most or all 11 eras
+before launch, genuinely removing the need for a post-launch weekly-drop
+marketing dependency. If it can't keep up with all 11 before he wants to
+ship, whatever's left over falls back to the original Option C
+structure — wavetop floor + a public weekly cadence — with the same
+fragility caveat already on record: that cadence only produces retention
+if Joey actually sustains the external announcement, not just the
+authoring.
+
+### Codex adversarial-review round (this addendum)
+
+Ran a second round, focused on this addendum specifically: whether the
+"tokens can't buy sources/review time" argument holds, whether the
+retracted "one big batch" objection was correctly retracted, and whether
+the revised parallelized recommendation is actually different from
+Option B in substance or just in name. Verdict: needs-attention, two
+findings, both accepted:
+
+1. **(High) The first draft of this addendum's "revised verdict" wasn't
+   an actual ship bar.** It said all 11 eras get full-depth authoring,
+   then let any era that didn't clear in time ship at the wavetop floor
+   anyway under the Option C fallback — which means nothing was actually
+   required to clear before launch, and the doc gave no way to know when
+   to stop waiting on more eras versus ship. *Accepted* — rewritten below
+   as a fixed, checkable minimum gate (unchanged from the pre-addendum
+   verdict) with parallel full-depth work as additive upside on top of
+   it, not a replacement for it.
+2. **(Medium) Superseding language in this file wasn't backed by an
+   actual update to `docs/decisions.md`/`docs/roadmap.md` in the same
+   change.** Per CLAUDE.md, the decision log is the source of truth, and
+   leaving it un-synced would hand the next CONTENT session two
+   conflicting sets of instructions. *Accepted* — decisions.md and
+   roadmap.md updated in this same commit, below.
+
+### Revised verdict (refines, does not lower, the Option C verdict above)
+
+**Ship bar is unchanged at the floor: wavetop for all 11 eras (met) +
+Midnights and Tortured Poets at Active-tier depth, weighted toward
+`relationship`/`sighting`/`fashion`.** That minimum still gates launch —
+Joey's pushback didn't produce a reason to lower it. **What changes is
+how the work beyond that floor happens:** instead of treating "2 eras
+deep, then a 9-week weekly-marketing-drop plan" as the whole plan, run
+category-weighted full-depth authoring on additional eras **in parallel**
+right now — each era is an independently owned file
+(`supabase/seed/content/<era>.mjs`), so there's no reason to wait on all
+11 together, and no reason to cap the parallel work at exactly 2. Any
+era that clears Codex review + Joey's spot-check before the ship date
+ships with full depth at launch; any era that doesn't falls back to the
+already-decided wavetop-plus-weekly-drop plan, unchanged. **This is
+strictly additive to the existing gate, not a substitute for it** — it
+cannot make the launch bar lower or later, only make more eras arrive
+deep instead of thin.
+
+**The one real next step this surfaces:** nobody has ever timed Joey's
+spot-check step per item or per era, so there's no actual basis for
+predicting how many eras "as much parallel work as possible" will
+realistically clear before the ship date. Recommend timing his review
+throughput on the very next batch (Midnights or Tortured Poets, whichever
+goes first) before assuming more than 2 eras can be committed to
+pre-launch — that number, not token budget, is the real constraint on how
+far this can scale.
+
+**What actually changed from the prior verdict, plainly:** the token-cost
+objection to running more eras in parallel was wrong — Max's constraint
+is a rate-limit window, not a token budget, and eras ship independently,
+so there was never a reason to cap parallel authoring at exactly 2. What
+didn't change: no amount of AI effort creates real sources for months
+where nothing happened, Joey's personal review time is still the one
+step in this pipeline that scales with his hours and not with compute,
+and the launch gate itself (wavetop + 2 named eras deep) stays exactly
+where it was.
+
