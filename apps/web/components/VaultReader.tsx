@@ -9,6 +9,8 @@ import { eraSkin } from '../lib/theme';
 import { Scrubber } from './Scrubber';
 import { useMoment } from '../lib/useMoment';
 import { MomentDetail } from './MomentDetail';
+import { useTrackGuide } from '../lib/useTrackGuide';
+import { TrackGuide } from './TrackGuide';
 
 const MONTH_NAMES = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -66,6 +68,7 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
   const activeRef = useRef(activeIndex);
   const touchY = useRef(0);
   const moment = useMoment();
+  const trackGuide = useTrackGuide();
 
   const jumpToEra = useCallback((i: number) => {
     sectionRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -169,6 +172,7 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
               milestones={skeleton.milestones.filter((m) => m.eraSlug === era.slug)}
               items={skeleton.monthItems.filter((it) => it.eraSlug === era.slug)}
               onOpen={moment.open}
+              onOpenTracks={() => trackGuide.open(era.slug, era.album)}
             />
           </section>
         ))}
@@ -182,6 +186,13 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
           if (moment.state.itemId) moment.open(moment.state.itemId);
         }}
       />
+      <TrackGuide
+        state={trackGuide.state}
+        onClose={trackGuide.close}
+        onRetry={() => {
+          if (trackGuide.state.status !== 'idle') trackGuide.open(trackGuide.state.eraSlug, trackGuide.state.album);
+        }}
+      />
     </div>
   );
 }
@@ -193,6 +204,7 @@ function EraSection({
   milestones,
   items,
   onOpen,
+  onOpenTracks,
 }: {
   era: Era;
   /** This era's body background color. */
@@ -202,6 +214,7 @@ function EraSection({
   milestones: Milestone[];
   items: MonthItem[];
   onOpen: (itemId: string) => void;
+  onOpenTracks: () => void;
 }) {
   const months = monthsInEra(era);
   const milestonesByMonth = groupBy(milestones, (m) => keyFromISO(m.date));
@@ -237,6 +250,23 @@ function EraSection({
           <p style={{ margin: 0, opacity: 0.9 }}>
             {era.album} · {rangeLabel(era.startDate, era.endDate)}
           </p>
+          <button
+            type="button"
+            onClick={onOpenTracks}
+            style={{
+              marginTop: 14,
+              padding: '0.35rem 0.85rem',
+              borderRadius: 999,
+              border: '1px solid rgba(255,255,255,0.55)',
+              background: 'rgba(255,255,255,0.14)',
+              color: '#fff',
+              cursor: 'pointer',
+              fontSize: 13,
+              backdropFilter: 'blur(2px)',
+            }}
+          >
+            ♪ Track guide
+          </button>
         </div>
       </header>
 
