@@ -120,6 +120,25 @@ export default {
     },
     {
       year: 2018,
+      month: 3,
+      category: 'release',
+      title: 'A second, stripped-down Delicate video — just her, a clearing, and one take',
+      snippet:
+        'Two weeks after the elaborate original, a Spotify-exclusive alternate: Taylor, alone in the woods, singing straight into a single unbroken shot.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/watch-taylor-swifts-one-take-new-delicate-video-629359/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swifts-one-take-new-delicate-video-629359/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2018,
       month: 10,
       category: 'business',
       title: '23 AMA wins — more than any woman in history',

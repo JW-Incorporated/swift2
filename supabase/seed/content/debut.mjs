@@ -46,6 +46,43 @@ export default {
     },
     {
       year: 2007,
+      month: 4,
+      category: 'fashion',
+      title: 'A strapless BCBG gown for her first CMT win',
+      snippet:
+        'A strapless BCBG Max Azria gown, all tulle skirt and neutral tones, the night "Tim McGraw" won Breakthrough Video of the Year.',
+      sourceUrl:
+        'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2007,
+      month: 11,
+      category: 'business',
+      title: 'Wins her first CMA Award — the Horizon Award',
+      snippet:
+        'Her first career CMA Award, the Horizon Award, at the 41st CMA Awards on Nov. 7, 2007 — the trophy now known as New Artist of the Year.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-reacts-to-cmas-win/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-reacts-to-cmas-win/' },
+          { outlet: 'Forbes', url: 'https://www.forbes.com/pictures/geeg45eilhf/2007-success-is-on-the/' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2007,
       month: 12,
       category: 'business',
       title: 'Our Song becomes her first No. 1',

@@ -58,6 +58,42 @@ export default {
       },
     },
     {
+      year: 2012,
+      month: 10,
+      category: 'music',
+      title: '22, a birthday letter to her closest friends',
+      snippet: 'Not a love song — a carefree ode to being "happy, free, confused, and lonely" all in the same year, with her girls beside her.',
+      sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/22',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own description: "You\'re still learning, but you know enough. You still know nothing, but you know that you know nothing." A hidden message in the liner notes — "Ashley Dianna Claire Selena" — named the friend group behind it, including Dianna Agron and Selena Gomez.',
+        sources: [
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/22' },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/complete-timeline-taylor-swift-dianna-124601988.html',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2012,
+      month: 10,
+      category: 'music',
+      title: 'I Knew You Were Trouble brings dubstep to pop radio',
+      snippet: 'A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being "sonically conservative."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Dubstep had already broken through with DJs like Skrillex and Zedd, but this was the song that carried the sound into mainstream pop radio — a genre-blending swerve critics still point to as a turning point in her sound.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble' }],
+        photos: [],
+      },
+    },
+    {
       year: 2013,
       month: 3,
       category: 'tour',

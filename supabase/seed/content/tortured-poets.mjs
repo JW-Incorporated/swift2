@@ -96,6 +96,28 @@ export default {
     },
     {
       year: 2024,
+      month: 4,
+      category: 'release',
+      title: 'A 2am surprise: TTPD was a secret double album all along',
+      snippet:
+        'Two hours after the album dropped, a second post: "The Tortured Poets Department is a secret DOUBLE album." The Anthology added 15 more songs, 31 total.',
+      sourceUrl:
+        'https://www.billboard.com/music/pop/taylor-swift-2am-surprise-secret-double-album-the-tortured-poets-department-1235660643/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her caption: "I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-2am-surprise-secret-double-album-the-tortured-poets-department-1235660643/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
       month: 5,
       category: 'tour',
       title: "TTPD joins the Eras Tour as 'Female Rage The Musical'",

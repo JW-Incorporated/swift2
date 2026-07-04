@@ -51,6 +51,37 @@ export default {
       },
     },
     {
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: 'no body, no crime, a murder ballad with HAIM',
+      snippet:
+        'A fictional murder mystery, complete with a cheating husband, a framed mistress, and a sister for an alibi.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: "marjorie, sung back by her grandmother's own voice",
+      snippet: "A tribute to her grandmother, the opera singer Marjorie Finlay — and, in the outro, literally her voice.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Marjorie_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "Taylor gave producer Aaron Dessner her grandmother's old opera recordings to build the track around; Marjorie's soprano appears woven into the song itself, answering the line \"if I didn't know better, I'd think you were singing to me now.\"",
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Marjorie_(song)' }],
+        photos: [],
+      },
+    },
+    {
       year: 2021,
       month: 4,
       category: 'business',

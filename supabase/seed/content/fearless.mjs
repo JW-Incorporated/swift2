@@ -27,6 +27,21 @@ export default {
     {
       year: 2008,
       month: 11,
+      category: 'music',
+      title: "Fifteen, written for her best friend Abigail",
+      snippet: "A freshman-year memory, built around one line about her best friend Abigail's heartbreak.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Fifteen_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail\'s answer: "If one girl can kind of learn from it or connect to a song like that, it\'s totally worth it."',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fifteen_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2008,
+      month: 11,
       category: 'business',
       title: 'Fearless makes her the youngest Album of the Year winner — for a decade',
       snippet: '592,000 copies in week one, debuting at No. 1 on the Billboard 200.',
@@ -77,6 +92,31 @@ export default {
       thumbnailUrl: null,
       moment: {
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2009,
+      month: 9,
+      category: 'business',
+      title: 'Wins Best Female Video, then Kanye West takes the mic',
+      snippet:
+        '"I\'mma let you finish, but Beyoncé had one of the best videos of all time" — Kanye West interrupted her VMA speech for "You Belong With Me" in front of a live audience.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'West was escorted out of the venue and apologized on his blog that night. Beyoncé, who went on to win Video of the Year, invited Swift back onstage to finish the speech she\'d been denied.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/',
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-kanye-west-interruption-2009-vmas/',
+          },
+        ],
         photos: [],
       },
     },

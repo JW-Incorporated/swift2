@@ -60,6 +60,37 @@ export default {
     },
     {
       year: 2020,
+      month: 7,
+      category: 'music',
+      title: "The last great american dynasty, and the widow she found in her own house",
+      snippet:
+        "A real St. Louis divorcée, a Rhode Island mansion, and a swimming pool once filled with champagne — until the final verse turns the story into Taylor's own.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "Rebekah Harkness owned Swift's Rhode Island house, Holiday House, decades earlier and was gossiped about for her lavish parties; Taylor learned her story from the real estate agent and heard her own life echoing back — a scandalous socialite, a circle of famous friends, a house full of parties.",
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'epiphany, from a WWII battlefield to a 2020 hospital ward',
+      snippet: 'Her grandfather at Guadalcanal in 1942, a nurse on a COVID ward in 2020 — two kinds of trauma nobody comes home able to talk about.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Epiphany_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own words on where it came from: "I realized that there are people right now taking a 20-minute break between shifts at a hospital who are having this trauma happen to them." Her grandfather Dean, a Marine medic who served at Guadalcanal, never spoke about what he saw there.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Epiphany_(Taylor_Swift_song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
       month: 11,
       category: 'release',
       title: 'folklore: The Long Pond Studio Sessions marks her directorial debut',
@@ -95,6 +126,25 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/awards/taylor-swift-wins-album-of-the-year-2021-grammy-awards-folklore-9540496/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2021,
+      month: 3,
+      category: 'fashion',
+      title: 'A custom Etro gown for the folklore/evermore medley',
+      snippet:
+        'A blue-and-gold Etro gown for a Grammy-night medley of "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff.',
+      sourceUrl: 'https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'SheFinds',
+            url: 'https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/',
           },
         ],
         photos: [],

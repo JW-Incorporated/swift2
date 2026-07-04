@@ -79,6 +79,28 @@ export default {
       },
     },
     {
+      year: 2014,
+      month: 10,
+      category: 'music',
+      title: 'Bad Blood, and the friendship it ended',
+      snippet:
+        "Not about an ex — by her own account, about a friend who tried to sabotage an entire arena tour.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "She told Rolling Stone the person had \"hired a bunch of people out from under\" her; asked directly to name names, she said she'd \"never said anything that would point a finger in the specific direction of one specific person.\" She and Katy Perry, the widely speculated subject, publicly reconciled in 2018 with an olive branch and a joint cameo in \"You Need to Calm Down.\"",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)' },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1423684/katy-perry-supports-taylor-swifts-the-life-of-a-showgirl',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
       year: 2015,
       month: 5,
       category: 'tour',
@@ -89,6 +111,28 @@ export default {
       thumbnailUrl: null,
       moment: {
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2015,
+      month: 8,
+      category: 'music',
+      title: 'Wildest Dreams draws colonialism criticism for its overwhelmingly white 1950s Africa',
+      snippet:
+        'A romance set on a 1950s film shoot in Africa, with critics calling its overwhelmingly white cast a colonial-nostalgia fantasy.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-wildest-dreams-video-accused-of-channeling-white-colonialism-6685110/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Director Joseph Kahn defended the casting as historically accurate to the era rather than a comment on colonialism; Swift donated the video\'s proceeds to the African Parks Foundation of America.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swifts-wildest-dreams-video-accused-of-channeling-white-colonialism-6685110/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Wildest_Dreams' },
+        ],
         photos: [],
       },
     },

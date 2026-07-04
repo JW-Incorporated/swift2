@@ -49,6 +49,22 @@ export default {
     },
     {
       year: 2019,
+      month: 6,
+      category: 'business',
+      title: 'You Need to Calm Down turns a music video into an Equality Act petition',
+      snippet:
+        'The video ends with a call to sign her petition for the Equality Act; it topped 700,000 signatures within a year.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/You_Need_to_Calm_Down',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She personally wrote to her home-state senator, Lamar Alexander, urging support: "For American citizens to be denied jobs or housing based on who they love or how they identify is un-American and cruel." Donations to GLAAD, name-checked in the lyrics, surged after release.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/You_Need_to_Calm_Down' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2019,
       month: 8,
       category: 'fashion',
       title: 'A rainbow Versace blazer for the 2019 VMAs',
@@ -60,6 +76,57 @@ export default {
           {
             outlet: 'Bustle',
             url: 'https://www.bustle.com/p/taylor-swifts-2019-mtv-vmas-outfit-had-her-wearing-versace-a-second-time-in-a-row-18687070',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2019,
+      month: 9,
+      category: 'business',
+      title: 'Cruel Summer takes four years to become a No. 1',
+      snippet:
+        "Peaked at No. 3 in 2019 and stalled there — until the Eras Tour movie sent streams surging in 2023 and finally pushed it to No. 1.",
+      sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "It topped the Hot 100 in late October 2023 — over four years after its Lover-era debut, her 10th No. 1 single and Lover's first, boosted by the Eras Tour concert film's release that same month.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-cruel-summer-tops-billboard-hot-100-1234860029/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2019,
+      month: 11,
+      category: 'business',
+      title: 'Miss Americana is announced amid a fight over her own back catalog',
+      snippet:
+        'She said the men who now owned her masters, Scooter Braun and Scott Borchetta, refused to let her use any old music or performance footage in the documentary.',
+      sourceUrl:
+        'https://www.billboard.com/culture/tv-film/taylor-swift-miss-americana-netflix-documentary-release-date-8548174/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks, and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
+        sources: [
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/netflix-taylor-swift-documentary-miss-americana',
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/artists/taylor-swift/miss-americana-trailer-netflix-documentary/',
           },
         ],
         photos: [],
