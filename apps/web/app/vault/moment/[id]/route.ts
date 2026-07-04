@@ -16,6 +16,8 @@ export async function GET(_req: Request, { params }: { params: { id: string } })
       { headers: { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400' } },
     );
   } catch (err) {
-    return NextResponse.json({ error: (err as Error).message }, { status: 500 });
+    // Log detail server-side; don't leak internal/Supabase error text to clients.
+    console.error('vault/moment:', (err as Error).message);
+    return NextResponse.json({ error: 'internal error' }, { status: 500 });
   }
 }
