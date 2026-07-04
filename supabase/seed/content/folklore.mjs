@@ -77,5 +77,28 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2021,
+      month: 3,
+      category: 'business',
+      title: 'folklore makes her the first woman to win Album of the Year three times',
+      snippet:
+        'A third Grammy for Album of the Year — joining Frank Sinatra, Paul Simon, and Stevie Wonder as the only artists ever to do it three times.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-wins-album-of-the-year-2021-grammy-awards-folklore-9540496/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

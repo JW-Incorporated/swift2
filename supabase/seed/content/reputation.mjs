@@ -95,5 +95,51 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2017,
+      month: 8,
+      category: 'release',
+      title: 'The snake video that announced reputation',
+      snippet:
+        'She wiped her social media clean, then reappeared three days later with a slithering snake video — a reclaimed symbol before the album title and Nov. 10 release date dropped.',
+      sourceUrl: 'https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-reputation-new-album-7941019/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2018,
+      month: 10,
+      category: 'business',
+      title: '23 AMA wins — more than any woman in history',
+      snippet:
+        'Four more trophies at the 2018 AMAs pushed her past Whitney Houston for the most American Music Award wins ever by a woman.',
+      sourceUrl: 'https://www.forbes.com/sites/hughmcintyre/2018/10/10/taylor-swift-now-holds-the-record-for-the-most-american-music-award-wins-among-women/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2018/10/10/taylor-swift-now-holds-the-record-for-the-most-american-music-award-wins-among-women/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/2018-amas-recap-taylor-swift-cardi-b-8479215/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
