@@ -12,10 +12,23 @@ blocked from wiring up integrations. Company assets shouldn't hang off one
 person's personal identity. See the decision-log entry dated 2026-07-04.
 
 - **Time:** ~15 minutes.
-- **Cost:** $0 (GitHub Free org = unlimited private repos + collaborators;
-  Vercel Hobby/Free is fine until real traffic).
-- **Reversible?** Yes — org renames and repo transfers are non-destructive and
-  GitHub keeps redirects from the old URL.
+- **Cost — read before Part E:** The **GitHub org is free** (GitHub Free =
+  unlimited private repos + collaborators). **Vercel is the catch:** Vercel's
+  free **Hobby** plan **cannot auto-deploy a *private* repo owned by an
+  organization**, and Hobby has no team members. So push-to-deploy from this
+  (private) org repo means **Vercel Pro (~$20/member/month)**. Three ways to
+  handle it, decide before Part E:
+  1. **Vercel Pro** — pay it; cleanest, gives auto-deploy + previews + both
+     founders on the team.
+  2. **Make the repo public** — then Hobby's Git integration works for free
+     (only do this if you're OK with the code being public).
+  3. **Stay on CLI deploys** (`docs/deploy.md` Path A) — free on Hobby even for
+     a private repo (the CLI uploads the code, it doesn't connect the repo), but
+     **no auto-deploy on push** — someone runs `vercel --prod` to ship.
+- **Reversible?** The **repo transfer** is non-destructive and GitHub redirects
+  the old repo URL. An **org rename** is messier — git remotes redirect, but old
+  web/profile URLs 404 and the freed name becomes claimable by anyone — so treat
+  the org name as sticky (see below).
 
 Steps are tagged **[J]** (Joey — current repo owner), **[W]** (Wyatt — CTO), or
 **[both]**. Do them in order.
@@ -24,9 +37,10 @@ Steps are tagged **[J]** (Joey — current repo owner), **[W]** (Wyatt — CTO),
 
 ## Before you start
 
-- [ ] **[both]** Agree an **org name**. The product name is still TBD and GitHub
-  lets you rename an org later (with URL redirects), so don't block on branding —
-  pick a neutral placeholder (e.g. `swift2-app`) and move on.
+- [ ] **[both]** Agree an **org name**. Renaming an org later is possible but not
+  clean (old URLs 404 and the old name is claimable by anyone), so pick something
+  you're comfortable keeping — a neutral placeholder like `swift2-app` is fine
+  since it needn't match the eventual product brand.
 - [ ] **[both]** Each be signed in to your own GitHub account in the browser.
 
 ## Part A — Create the Org and make both founders Owners
@@ -67,15 +81,16 @@ git fetch origin       # confirm it works
 (The old URL still redirects, but set it explicitly so tooling isn't relying on
 a redirect.)
 
-## Part D — Re-check settings that don't survive a transfer  **[W]**
+## Part D — Re-check repo settings after the transfer  **[W]**
 
-A transfer drops a few security-scoped things. Verify/re-add:
+Most things — issues, PRs, stars, **secrets, webhooks, deploy keys** — carry over
+with a transfer. A couple are still worth confirming:
 
-- [ ] **Actions secrets** (Settings → Secrets and variables → Actions): GitHub
-  **removes repo secrets on transfer**. Re-add any that existed.
-  *Current status: CI (`.github/workflows/ci.yml`) uses **no** secrets today —
-  budget/content checks run from seed files — so there should be nothing to
-  re-add. Confirm the tab is empty and CI is green on the next push.*
+- [ ] **Actions secrets** (Settings → Secrets and variables → Actions): these
+  **remain** after a transfer (GitHub does not wipe them), so there's nothing to
+  re-add. *For the record, CI (`.github/workflows/ci.yml`) uses **no** secrets
+  today — budget/content checks run from seed files — so this tab should simply
+  be empty. Confirm CI is green on the next push regardless.*
 - [ ] **Branch protection on `main`** (Settings → Branches): re-add if it existed
   (recommended baseline: require a PR before merging). If it never existed, this
   is a good moment to add it.
@@ -87,8 +102,13 @@ A transfer drops a few security-scoped things. Verify/re-add:
 
 Now that the repo is in the org, **either founder** can connect Vercel.
 
-7. **[W]** In Vercel, create a **Team** (account switcher → **Create Team** →
-   Hobby/Free), then invite Joey (Team → Settings → Members).
+7. **[W]** In Vercel, create a **Team** and pick the plan per the **Cost** note
+   near the top: auto-deploy from this **private org repo needs Pro**
+   (~$20/member/mo) — Hobby won't even list a private org repo, and Hobby has no
+   team members. Then invite Joey (Team → Settings → Members). *(If instead you
+   chose "make the repo public" or "CLI-only" from the Cost note, skip the
+   Team/Pro step — public repos deploy on free Hobby, and CLI deploys follow
+   `docs/deploy.md` Path A.)*
 8. **[W or J]** Follow **`docs/deploy.md` → Path B (GitHub integration)** to
    import `<ORG>/Swift2`. Key settings (also in that doc):
    - **Authorize the Vercel GitHub App on the `<ORG>`** when prompted — either

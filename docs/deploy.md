@@ -10,7 +10,8 @@ Set for **Production** (and Preview, for the GitHub path):
 | Var | Where to find it |
 |-----|------------------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Project Settings → API → **Project URL** |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | same page → Project API keys → **`anon` `public`** |
+| `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` *(preferred)* | same page → Project API keys → **publishable/`anon` `public`** |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` *(fallback)* | the app reads this if the publishable key isn't set — set **either one** |
 
 ⚠️ **Anon/public key only.** Never the `service_role` key — Vault reads are RLS
 public, so anon is sufficient and the key is safe to expose client-side.
