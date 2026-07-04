@@ -58,6 +58,17 @@ describe('row mappers', () => {
     expect(moment.photos).toEqual([{ url: 'https://img', credit: 'Getty' }]);
   });
 
+  it('drops sources/photos whose url is not a string (no [object Object] coercion)', () => {
+    const moment = mapMoment({
+      month_item_id: 'x',
+      context: 'ctx',
+      sources: [{ outlet: 'X', url: {} }, { outlet: 'Y', url: 123 }, { outlet: 'Z', url: 'https://ok' }],
+      photos: [{ url: {}, credit: 'c' }, { url: 'https://img', credit: 7 }],
+    });
+    expect(moment.sources).toEqual([{ outlet: 'Z', url: 'https://ok' }]);
+    expect(moment.photos).toEqual([{ url: 'https://img', credit: null }]);
+  });
+
   it('handles non-array jsonb defensively', () => {
     const moment = mapMoment({ month_item_id: 'x', context: '', sources: null, photos: undefined });
     expect(moment.sources).toEqual([]);
