@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { mapEra, mapMilestone, mapMoment, mapMonthItem } from './map';
+import { mapEra, mapMilestone, mapMoment, mapMonthItem, mapTrackNote } from './map';
 
 describe('row mappers', () => {
   it('maps an era row to camelCase', () => {
@@ -62,5 +62,21 @@ describe('row mappers', () => {
     const moment = mapMoment({ month_item_id: 'x', context: '', sources: null, photos: undefined });
     expect(moment.sources).toEqual([]);
     expect(moment.photos).toEqual([]);
+  });
+
+  it('maps a track note row and narrows sources', () => {
+    const t = mapTrackNote({
+      id: 'x',
+      era_slug: 'midnights',
+      track_title: 'Anti-Hero',
+      track_number: 3,
+      note: "It's me, hi",
+      source_url: 'https://ex.com',
+      sources: [{ outlet: 'EW', url: 'https://ew.com' }, 'garbage'],
+    });
+    expect(t.eraSlug).toBe('midnights');
+    expect(t.trackTitle).toBe('Anti-Hero');
+    expect(t.trackNumber).toBe(3);
+    expect(t.sources).toEqual([{ outlet: 'EW', url: 'https://ew.com' }]);
   });
 });
