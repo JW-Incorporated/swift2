@@ -1,6 +1,6 @@
 // Pure navigation + snap math for the Vault time machine. No I/O, no view code —
 // this is the shared logic under both the web scrubber and the future native one.
-import type { Era, YearMonth } from './vault-types';
+import type { Era, Milestone, MonthItem, YearMonth } from './vault-types';
 
 /** Eras sorted by their timeline order, ascending. */
 export function orderedEras(eras: readonly Era[]): Era[] {
@@ -77,4 +77,30 @@ export function monthsInEra(era: Era): YearMonth[] {
     }
   }
   return months;
+}
+
+/**
+ * The chronological, de-duplicated months an era's section should render: its
+ * nominal span (`monthsInEra`) UNION the months its own items and milestones
+ * fall in. So a lead single or an awards win dated outside the album window
+ * still gets a row instead of being silently dropped. Filters items/milestones
+ * to this era, so a caller may pass the whole skeleton's arrays.
+ */
+export function eraTimelineMonths(
+  era: Era,
+  items: readonly MonthItem[],
+  milestones: readonly Milestone[],
+): YearMonth[] {
+  const byKey = new Map<string, YearMonth>();
+  const add = (year: number, month: number) => byKey.set(`${year}-${month}`, { year, month });
+
+  for (const ym of monthsInEra(era)) add(ym.year, ym.month);
+  for (const it of items) if (it.eraSlug === era.slug) add(it.year, it.month);
+  for (const m of milestones) {
+    if (m.eraSlug !== era.slug) continue;
+    const d = new Date(m.date);
+    if (!Number.isNaN(d.getTime())) add(d.getUTCFullYear(), d.getUTCMonth() + 1);
+  }
+
+  return [...byKey.values()].sort((a, b) => a.year * 12 + a.month - (b.year * 12 + b.month));
 }
