@@ -12,7 +12,7 @@ the agent reads its track, takes the topmost row not marked ✅, and begins.
 | Founder | Track | Your agent's next action |
 |---------|-------|--------------------------|
 | **Wyatt** (CTO) | **ENGINE** | review/merge the **W4 scrubber (draft #23)** after an on-device 60fps check, then **W5** (moment detail) builds on it |
-| **Joey** (CEO) | **CONTENT** | the topmost ⬜ in the Joey table below — currently **J2/J3** (author content in `supabase/seed/content/`) |
+| **Joey** (CEO) | **CONTENT** | the topmost ⬜ in the Joey table below — currently **J3.5** (deepen Midnights + Tortured Poets to Active-tier before launch, per the 2026-07-04 ship-readiness bar) |
 
 **Agent instruction (put this in your "start working" prompt or let the agent
 infer it): "You are the {ENGINE|CONTENT} track in `docs/roadmap.md`. Take the
@@ -63,10 +63,12 @@ seed generator, not hand-enter rows (CLAUDE.md rule 8).
 |----|------|--------|
 | **J1** | Confirm **editorial depth = Option A** (curated: notable months deep, sparse lighter). | ✅ — confirmed + a concrete 3-tier rubric (wavetop/active/quiet) locked in `docs/marketing/content-framework-2026-07-03.md` (#18) |
 | **J2** | ~~Port Orbit's authored content~~ **superseded** — Orbit's `outfits`/`lore`/`stories` turned out to be AI-drafted/fabricated placeholder data, not real history (see "Ported from Orbit" below). Only real song track metadata is portable. | ⬜ **▶ NEXT (revised)** |
-| **J3** | Author real `month_item`s from real sources (sightings, fashion, relationship, business, tour dates), starting with Midnights/Tortured Poets per the authoring order in `docs/marketing/content-framework-2026-07-03.md`. Light-touch model: research + a one-line hook, not original prose — see that doc's Section 5 (2026-07-03 revision). | 🟡 **first batch shipped** — 100 sourced `month_item`s across all 11 eras merged + seeded (#38), validated in CI. Category balance skews business/music; fashion/sighting/relationship light (see `docs/marketing/content-review-2026-07-04.md`). Ongoing |
+| **J3** | Author real `month_item`s from real sources (sightings, fashion, relationship, business, tour dates), starting with Midnights/Tortured Poets per the authoring order in `docs/marketing/content-framework-2026-07-03.md`. Light-touch model: research + a one-line hook, not original prose — see that doc's Section 5 (2026-07-03 revision). | ✅ **wavetop floor met** — 100 sourced `month_item`s across all 11 eras merged + seeded (#38), validated in CI. Category counts: music 42, business 28, fashion 11, tour 9, release 8, sighting 2, relationship 0 |
+| **J3.5** | **▶ NEXT — launch gate (revised 2026-07-04, see `docs/decisions.md`):** bring **Midnights and Tortured Poets** from wavetop to **Active-tier depth**, weighted toward `relationship`/`sighting`/`fashion` specifically (currently 0/2/11 overall) — not more `business`/`music`. Required before public launch per the revised ship-readiness bar; the other 9 eras do not need this before shipping. | ⬜ **▶ NEXT** |
 | **J4** | `moment` detail — extended context + linked sources + hotlinked photos for key moments | ⬜ |
 | **J5** | Per-era theming polish + cover art (theme values already seeded; refine) · product copy (first-run explainer, UNOFFICIAL/about) | ⬜ |
 | **J6** | Content QA + editorial coverage pass before launch | ⬜ |
+| **J7** | **Post-launch, weekly cadence:** bring the remaining 9 eras from wavetop to Active-tier depth, one per week, each publicly announced (social) as an "era drop." **Contingent on Joey committing to and sustaining the weekly external announcement** — the depth work alone does nothing for retention without it (see `docs/marketing/ship-readiness-review-2026-07-04.md`). If that commitment isn't sustainable, fall back to shipping depth silently with no retention claim attached. | ⬜ post-launch |
 
 ## 🎁 Ported from Orbit — and the important caveat
 
