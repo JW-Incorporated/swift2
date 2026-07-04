@@ -53,13 +53,52 @@ export default {
       category: 'business',
       title: 'You Need to Calm Down turns a music video into an Equality Act petition',
       snippet:
-        'The video ends with a call to sign her petition for the Equality Act; it topped 700,000 signatures within a year.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/You_Need_to_Calm_Down',
+        'The video ends with a call to sign her petition for the Equality Act; by the VMAs that August, it had half a million signatures.',
+      sourceUrl: 'https://www.advocate.com/news/2019/6/17/taylor-swift-releases-lgbtq-packed-video-you-need-calm-down',
       thumbnailUrl: null,
       moment: {
         context:
-          'She personally wrote to her home-state senator, Lamar Alexander, urging support: "For American citizens to be denied jobs or housing based on who they love or how they identify is un-American and cruel." Donations to GLAAD, name-checked in the lyrics, surged after release.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/You_Need_to_Calm_Down' }],
+          'She personally wrote to her home-state senator, Lamar Alexander, urging support: "For American citizens to be denied jobs or housing based on who they love or how they identify is un-American and cruel." Accepting Video of the Year at the VMAs, she noted the petition had "five times the amount that it would need to warrant a response from the White House."',
+        sources: [
+          {
+            outlet: 'The Advocate',
+            url: 'https://www.advocate.com/news/2019/6/17/taylor-swift-releases-lgbtq-packed-video-you-need-calm-down',
+          },
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/p/heres-how-to-sign-taylor-swifts-petition-supporting-the-equality-act-18700857',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2019,
+      month: 8,
+      category: 'music',
+      title: "Soon You'll Get Better, written for her mother",
+      snippet: "The hardest song she's ever had to write, by her own account — about her mother's cancer diagnosis.",
+      sourceUrl: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better",
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own words: "My dad got cancer when I was 13 and he got better... but things with my mom have been very different." She brought in the Dixie Chicks — Natalie Maines, Emily Strayer, and Martie Maguire — the group she\'s said made her want to do this in the first place.',
+        sources: [{ outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better" }],
+        photos: [],
+      },
+    },
+    {
+      year: 2019,
+      month: 8,
+      category: 'music',
+      title: 'Death By A Thousand Cuts, borrowed from a Netflix movie that borrowed from her',
+      snippet: 'A song written after crying over a rom-com — whose director had made that movie while listening to Taylor\'s own 1989.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Director Jennifer Kaytin Robinson said her film "Someone Great" was mainly inspired by 1989, especially "Clean." Taylor, after the song came from watching that film: "I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that\'s ever happened to me."',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)' }],
         photos: [],
       },
     },
@@ -87,7 +126,7 @@ export default {
       category: 'business',
       title: 'Cruel Summer takes four years to become a No. 1',
       snippet:
-        "Peaked at No. 3 in 2019 and stalled there — until the Eras Tour movie sent streams surging in 2023 and finally pushed it to No. 1.",
+        "Debuted at No. 29 in 2019, fell to No. 71 the next week — until the Eras Tour revived it in 2023 and finally pushed it to No. 1.",
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
       thumbnailUrl: null,
       moment: {

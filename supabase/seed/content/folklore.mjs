@@ -64,7 +64,7 @@ export default {
       category: 'music',
       title: "The last great american dynasty, and the widow she found in her own house",
       snippet:
-        "A real St. Louis divorcée, a Rhode Island mansion, and a swimming pool once filled with champagne — until the final verse turns the story into Taylor's own.",
+        "A real St. Louis divorcée, a Rhode Island mansion, and a swimming-pool-full-of-champagne legend — until the final verse turns the story into Taylor's own.",
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty',
       thumbnailUrl: null,
       moment: {
@@ -86,6 +86,21 @@ export default {
         context:
           'Her own words on where it came from: "I realized that there are people right now taking a 20-minute break between shifts at a hospital who are having this trauma happen to them." Her grandfather Dean, a Marine medic who served at Guadalcanal, never spoke about what he saw there.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Epiphany_(Taylor_Swift_song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'seven, a memory of a friend she could still be protecting',
+      snippet: 'A seven-year-old\'s memory of a friend in a house she calls "haunted" — too young to understand why, old enough to want to run away with her.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Seven_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In the Long Pond Studio Sessions, Taylor described looking back at that age: "picture me in the trees before I learned civility, I used to scream ferociously anytime I wanted." She\'s never confirmed whether the friend was real or a composite.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Seven_(Taylor_Swift_song)' }],
         photos: [],
       },
     },

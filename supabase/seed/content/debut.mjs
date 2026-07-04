@@ -82,6 +82,51 @@ export default {
       },
     },
     {
+      year: 2006,
+      month: 10,
+      category: 'music',
+      title: "Mary's Song, borrowed from the couple next door",
+      snippet: "A story of two neighbors who fell in love as kids and stayed married forever — inspired by an actual couple who lived next door.",
+      sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/marys-song-oh-my-my-my',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own account: "I wrote this song about a couple who lived next door to us. They\'d been married forever... they were talking about how they fell in love and got married, and how they met when they were just little kids."',
+        sources: [{ outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/marys-song-oh-my-my-my' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2006,
+      month: 10,
+      category: 'music',
+      title: "Should've Said No, written in 20 minutes",
+      snippet: "Written the same week the album was mastered — the whole song took her 20 minutes, the chorus just five.",
+      sourceUrl: "https://en.wikipedia.org/wiki/Should've_Said_No",
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "She's said many of the lyrics were the actual words she used confronting a boyfriend who'd cheated on her — reworked into her second country No. 1.",
+        sources: [{ outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/Should've_Said_No" }],
+        photos: [],
+      },
+    },
+    {
+      year: 2006,
+      month: 10,
+      category: 'music',
+      title: 'A Place in This World, written at 13',
+      snippet: 'Written years before the album came out, after watching a TV special about Faith Hill\'s move to Nashville.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/A_Place_in_This_World',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own words, years later: "I wrote this song when I was thirteen and had just moved to Nashville. It was tough trying to find out how I was going to get where I wanted to go... I\'m really happy this is on the album, because I feel like I finally figured it out."',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/A_Place_in_This_World' }],
+        photos: [],
+      },
+    },
+    {
       year: 2007,
       month: 12,
       category: 'business',

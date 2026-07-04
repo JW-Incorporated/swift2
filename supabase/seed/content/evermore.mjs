@@ -82,6 +82,36 @@ export default {
       },
     },
     {
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: 'champagne problems, a fictional proposal gone wrong',
+      snippet: 'A Christmas-party engagement, planned in secret and turned down on the spot — entirely invented, co-written with Joe Alwyn under his William Bowery pseudonym.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Champagne_Problems_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift described it simply as a story about "two college sweethearts" — a character study, not autobiography.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Champagne_Problems_(Taylor_Swift_song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: 'coney island, a duet built for The National',
+      snippet: 'A breakup told from both sides, with The National\'s Matt Berninger trading verses with her over a slow, aching duet.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Dessner brothers built the instrumental and heard Berninger\'s voice in it immediately; Berninger recorded his half in Los Angeles while Taylor recorded hers at Long Pond in the Hudson Valley, never in the same room.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)' }],
+        photos: [],
+      },
+    },
+    {
       year: 2021,
       month: 4,
       category: 'business',

@@ -115,6 +115,36 @@ export default {
       },
     },
     {
+      year: 2014,
+      month: 10,
+      category: 'music',
+      title: 'New Romantics, the deluxe-track Rolling Stone later called one of the decade\'s best',
+      snippet: '"Heartbreak is the national anthem" — a synth-pop rallying cry for coming back from it with your friends beside you.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/New_Romantics_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "Rolling Stone ranked it among the 100 best songs of the 2010s in 2019, calling it \"the type of relieving dance floor soul purge that the best pop can be.\"",
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2014,
+      month: 10,
+      category: 'music',
+      title: 'Clean, and the storm that washes everything out',
+      snippet: 'The album\'s closing track, built entirely around one metaphor: heartbreak as addiction, and finally getting clean of it.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Clean_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own description of the metaphor: "There\'s been a drought but you feel like there\'s a storm coming, and so instead of blocking out the storm you punch a hole in the roof and just let all the rain come in. And when you wake up in the morning, it\'s washed away everything that used to hurt you." She wrote it alone, then brought it to Imogen Heap to co-produce.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clean_(song)' }],
+        photos: [],
+      },
+    },
+    {
       year: 2015,
       month: 8,
       category: 'music',

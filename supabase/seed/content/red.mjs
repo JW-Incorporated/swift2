@@ -94,6 +94,36 @@ export default {
       },
     },
     {
+      year: 2012,
+      month: 10,
+      category: 'music',
+      title: 'Starlight, built from an old photo of two teenagers dancing',
+      snippet: 'A black-and-white photo of a young couple sneaking into a yacht-club party — she imagined the rest, and wrote a whole song around it.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Starlight_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "The couple in the photo was a teenage Ethel and Robert F. Kennedy, dancing in the 1940s. Taylor dedicated the song to Ethel Kennedy in Red's liner notes.",
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Starlight_(Taylor_Swift_song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2012,
+      month: 10,
+      category: 'music',
+      title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
+      snippet: 'Two songwriters who\'d never met in person, writing together all day — the song came out of a trampoline in her backyard.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She\'d found Sheeran\'s "Lego House" video on tour and reached out; he later recalled showing up at her hotel in Arizona to write all day, then her visiting his place in LA to write and harmonize "sitting on the kitchen floor" all night.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' }],
+        photos: [],
+      },
+    },
+    {
       year: 2013,
       month: 3,
       category: 'tour',

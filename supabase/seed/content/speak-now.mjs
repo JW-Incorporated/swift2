@@ -66,6 +66,37 @@ export default {
       },
     },
     {
+      year: 2010,
+      month: 10,
+      category: 'music',
+      title: 'Innocent, a song written to Kanye West, not about him',
+      snippet:
+        'A year after the 2009 VMA interruption, she wrote him a song about forgiveness instead of anger.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own framing, to New York magazine: she wanted to "write a song to him," not about him. She debuted it live at the 2010 VMAs, telling the Belfast Telegraph after: "I performed a song nobody had heard before, and I\'m proud of that. Because it was the right thing to say."',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2010,
+      month: 10,
+      category: 'music',
+      title: "Long Live, a love song to her band",
+      snippet: '"The first love song that I\'ve written to my team" — a thank-you to the band and crew who built her career brick by brick.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'It was inspired by a moment backstage with her band on the final night of the Fearless Tour in 2010; she\'s kept it in her live setlists across four different tours since.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)' }],
+        photos: [],
+      },
+    },
+    {
       year: 2011,
       month: 11,
       category: 'fashion',

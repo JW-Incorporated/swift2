@@ -118,6 +118,41 @@ export default {
     },
     {
       year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'Clara Bow, and the industry habit of replacing women with women',
+      snippet: '"You look like Clara Bow in this light... Stevie Nicks in \'75" — then, in the last verse, the label pitches the same line about her.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Clara_Bow_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own explanation: "I picked women who have done great things in the past and have been these archetypes of greatness in the entertainment industry" — then showed how the industry sells every new woman as a replacement for the last.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clara_Bow_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'The Bolter, and the 1930s socialite fans think inspired it',
+      snippet: 'A woman who leaves relationships the moment they turn — fans trace the title to a real 1900s aristocrat divorced five times over.',
+      sourceUrl: 'https://www.bustle.com/entertainment/taylor-swift-the-bolter-theory-lady-idina-sackville',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Lady Idina Sackville, part of the scandalous "Happy Valley set" in 1930s colonial Kenya, earned the "bolter" nickname after leaving her husband for another man; her own great-granddaughter wrote a 2008 biography by the same title. Taylor has never confirmed the connection.',
+        sources: [
+          {
+            outlet: 'Bustle',
+            url: 'https://www.bustle.com/entertainment/taylor-swift-the-bolter-theory-lady-idina-sackville',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
       month: 5,
       category: 'tour',
       title: "TTPD joins the Eras Tour as 'Female Rage The Musical'",

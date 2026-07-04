@@ -119,6 +119,21 @@ export default {
       },
     },
     {
+      year: 2017,
+      month: 11,
+      category: 'music',
+      title: "New Year's Day closes reputation on a quiet, acoustic note",
+      snippet: 'After an album about scandal and revenge, the final track is a piano ballad about who does the dishes the morning after.',
+      sourceUrl: "https://en.wikipedia.org/wiki/New_Year's_Day_(Taylor_Swift_song)",
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own reasoning: "I think there\'s something even more romantic about who\'s gonna deal with you on New Year\'s Day. Who\'s willing to give you Advil and clean up the house? I think that states more of a permanence."',
+        sources: [{ outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/New_Year's_Day_(Taylor_Swift_song)" }],
+        photos: [],
+      },
+    },
+    {
       year: 2018,
       month: 3,
       category: 'release',
@@ -132,6 +147,26 @@ export default {
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swifts-one-take-new-delicate-video-629359/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2018,
+      month: 12,
+      category: 'release',
+      title: 'The reputation Stadium Tour film premieres on Netflix, New Year\'s Eve',
+      snippet: 'Announced on her 29th birthday, filmed secretly at her last North American tour stop, released globally at 12:01 a.m. on New Year\'s Eve.',
+      sourceUrl: 'https://www.refinery29.com/en-us/2018/12/219360/taylor-swift-reputation-tour-concert-movie-netflix',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "Filmed in Dallas with guest performances from Maren Morris and Sugarland, the special put her alongside Ryan Murphy, Shonda Rhimes, and the Obamas among Netflix's marquee talent deals.",
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2018/12/219360/taylor-swift-reputation-tour-concert-movie-netflix',
           },
         ],
         photos: [],
