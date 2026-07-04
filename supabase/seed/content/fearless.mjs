@@ -321,5 +321,133 @@ export default {
         ],
       },
     },
+
+    // --- Fashion/photo depth pass 2 (2026-07-04)
+    {
+      year: 2008,
+      month: 11,
+      category: 'fashion',
+      title: 'A French Connection Tallulah skirt for a Letterman appearance',
+      snippet: "A French Connection 'Tallulah' skirt, Christian Louboutin 'Babel' leather boots, and Nordstrom floral tights for The Late Show with David Letterman.",
+      sourceUrl: 'https://www.taylorswiftstyle.com/post-grid/letterman-111008',
+      thumbnailUrl:
+        'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/7d638f75-6b9b-4ff6-b9d2-06e0871c2dba/David+Letterman+November+2008+Taylor+Swift+Style+Feature+Image.png',
+      moment: {
+        context:
+          'Worn Nov. 10, 2008 in New York for a Letterman taping, days before Fearless hit shelves — a low-key, mixed-designer look (French Connection skirt, Louboutin boots) typical of her pre-tour press-run style.',
+        sources: [
+          { outlet: 'Taylor Swift Style', url: 'https://www.taylorswiftstyle.com/post-grid/letterman-111008' },
+        ],
+        photos: [
+          {
+            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/7d638f75-6b9b-4ff6-b9d2-06e0871c2dba/David+Letterman+November+2008+Taylor+Swift+Style+Feature+Image.png',
+            credit: 'Taylor Swift Style',
+          },
+        ],
+      },
+    },
+    {
+      year: 2009,
+      month: 3,
+      category: 'fashion',
+      title: 'A white BCBG Max Azria cocktail dress for a Daily Telegraph shoot',
+      snippet: 'A white BCBG Max Azria Corozo cocktail dress paired with stacked bracelets for a March 2009 Daily Telegraph feature.',
+      sourceUrl: 'https://www.taylorswiftstyle.com/post-grid/dailytelegraph-030109',
+      thumbnailUrl:
+        'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/eca000d7-4a7b-4b27-b5b3-4d4fef296c74/The+Daily+Telegraph+March+2009+Taylor+Swift+Style+Feature+Image.png',
+      moment: {
+        context:
+          'Shot for The Daily Telegraph in March 2009, the BCBG Max Azria Corozo cocktail dress was styled with stacked bracelets — a recurring accessory choice fashion writers flag as signature to her Fearless-era press look.',
+        sources: [
+          { outlet: 'Taylor Swift Style', url: 'https://www.taylorswiftstyle.com/post-grid/dailytelegraph-030109' },
+        ],
+        photos: [
+          {
+            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/eca000d7-4a7b-4b27-b5b3-4d4fef296c74/The+Daily+Telegraph+March+2009+Taylor+Swift+Style+Feature+Image.png',
+            credit: 'Taylor Swift Style',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 1,
+      category: 'fashion',
+      title: 'A mauve Dolce & Gabbana dress for her first Grammy win',
+      snippet: 'A mauve Dolce & Gabbana cocktail dress, worn when "White Horse" won Best Country Song at the 2010 Grammys pre-telecast ceremony.',
+      sourceUrl: 'https://www.justjaredjr.com/2010/01/31/taylor-swift-white-horse-grammy-winner/',
+      thumbnailUrl:
+        'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2010/01/swift-white/taylor-swift-white-horse-winner-01.jpg',
+      moment: {
+        context:
+          'Held earlier in the day before the televised main event (where she\'d later wear the blue KaufmanFranco gown), the pre-telecast ceremony was where "White Horse" picked up Best Country Song and Best Female Country Vocal Performance — her first two Grammy wins.',
+        sources: [
+          {
+            outlet: 'JustJared Jr.',
+            url: 'https://www.justjaredjr.com/2010/01/31/taylor-swift-white-horse-grammy-winner/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2010/01/swift-white/taylor-swift-white-horse-winner-01.jpg',
+            credit: 'Larry Busacca/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 1,
+      category: 'fashion',
+      title: "A Jenny Packham resort mini for the 2010 People's Choice Awards",
+      snippet: 'A white Jenny Packham Resort 2010 mini dress, Christian Louboutin pumps, and Neil Lane jewelry at the Nokia Theatre.',
+      sourceUrl: 'https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/',
+      thumbnailUrl: 'https://taylorswiftstyled.com/wp-content/uploads/2013/11/tumblr_mvz5kkqgn61r4fk4fo1_1280.jpg?w=750&h=688',
+      moment: {
+        context:
+          'Worn Jan. 6, 2010 at the Nokia Theatre L.A. Live, the night she won Favorite Female Artist — a leggy, sparkle-free mini in contrast to the sequined gowns dominating her other red-carpet stops that awards season.',
+        sources: [
+          {
+            outlet: 'Taylor Swift Styled',
+            url: 'https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-wins-favorite-female-artist-at-2010-peoples-choice-awards-960796/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://taylorswiftstyled.com/wp-content/uploads/2013/11/tumblr_mvz5kkqgn61r4fk4fo1_1280.jpg?w=750&h=688',
+            credit: 'Taylor Swift Styled',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 6,
+      category: 'fashion',
+      title: 'A John Galliano buckle-strap dress for the 2010 CMT Music Awards',
+      snippet: "A deep-purple John Galliano 'Buckle Strap Dress' at the 2010 CMT Music Awards in Nashville — the first year she wore her hair straight for the show.",
+      sourceUrl: 'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
+      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/e2a6da3bf8ab-gettyimages-101937337.jpg',
+      moment: {
+        context:
+          'Worn June 9, 2010 at Bridgestone Arena, the John Galliano dress marked a style pivot for the CMTs — the first year her signature curls gave way to straight blonde hair on that red carpet.',
+        sources: [
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/e2a6da3bf8ab-gettyimages-101937337.jpg',
+            credit: 'Getty Images / Hello!',
+          },
+        ],
+      },
+    },
   ],
 };
