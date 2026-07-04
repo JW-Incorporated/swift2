@@ -47,8 +47,9 @@ Max rate-limit window.
 | **W3** | `apps/web`: fetch + render Tier 0 — era switching + per-era theming + month/milestone timeline (**no gesture layer yet**) | ✅ (#21) — Vercel deploy still TODO |
 | **W4** | `apps/web`: the scrubber gesture layer (Pointer Events + CSS/rAF) to the 60fps budget — **the hard part** | 🟡 **DRAFT #23** — needs on-device 60fps check + review before merge |
 | **W4.5** | Two-tier Vault HTTP API: static `GET /vault/tier0` (+ version stamp) & on-demand `GET /vault/moment/[id]`, reused by web + Expo | ✅ (#27) |
-| **W5** | `apps/web`: moment detail fetch + all five degraded states (slow/timeout/404/offline/superseded-tap) + telemetry | ⬜ (hold — shares VaultReader with W4; build on the merged scrubber) |
+| **W5** | `apps/web`: moment detail fetch + degraded states (slow/timeout/404/offline/superseded-tap) | ✅ folded into **#23** (tap-to-open over the continuous reader; supersedes #31) |
 | **W6** | Tier 0 payload budget gate (≤2MB gz / ≤10MB parsed): pure `evaluateTier0Budget` + `npm run check:budget`; windowed-prefetch fallback only if a real payload fails | ✅ (#28) — wire into CI once content lands + creds available |
+| **W7** | Song **track guide** (non-month-scoped): `track_note` table + `GET /vault/album/[slug]/tracks` + `db:seed:tracks`, off the Tier 0 payload — unblocks full-catalog song coverage | 🟢 built + migrated (see `docs/decisions.md` 2026-07-04); reader UI to surface it next |
 
 ## ✍️ Joey track — content (spec step 3 + theming values)
 
