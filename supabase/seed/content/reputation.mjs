@@ -60,5 +60,39 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2018,
+      month: 5,
+      category: 'tour',
+      title: 'reputation Stadium Tour opens to a record crowd',
+      snippet:
+        "59,157 fans at University of Phoenix Stadium — breaking the venue's attendance record, set by One Direction in 2014, by 2,633 seats.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
+      thumbnailUrl: null,
+      moment: {
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2018,
+      month: 5,
+      category: 'tour',
+      title: 'Snakes everywhere, on purpose',
+      snippet:
+        "Taylor's own explanation, on stage: she was called a snake on social media, and rather than let it define her, she made it the tour's whole visual language — in her words, something that 'can strengthen you instead.'",
+      sourceUrl:
+        'https://www.iheart.com/content/2018-05-08-taylor-swift-kicks-off-reputation-tour-with-big-setlist-fireworks-snakes/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2018-05-08-taylor-swift-kicks-off-reputation-tour-with-big-setlist-fireworks-snakes/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
