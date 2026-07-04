@@ -95,7 +95,98 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)',
       thumbnailUrl: null,
       moment: {
+        context:
+          "She's described the song as coming from feeling her life had become 'unmanageably sized' and struggling 'with the idea of not feeling like a person' — what she's called a 'guided tour' through the things she hates about herself.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 7,
+      category: 'business',
+      title: "Speak Now (Taylor's Version) has 2023's biggest album week",
+      snippet:
+        "716,000 units in week one, the biggest album week of 2023 — her 12th No. 1 on the Billboard 200.",
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-number-one-debut-billboard-200-chart-1235372565/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-number-one-debut-billboard-200-chart-1235372565/',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2023/07/16/taylor-swift-charts-her-twelfth-no-1-album-with-the-massive-speak-now-taylors-version/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 10,
+      category: 'business',
+      title: "1989 (Taylor's Version) resets the vinyl record",
+      snippet:
+        '1.653 million units in week one, 693,000 on vinyl alone — a new all-time vinyl sales record, and her 13th No. 1 album.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-number-one-billboard-200-albums-chart-1235463917/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-number-one-billboard-200-albums-chart-1235463917/',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2023/11/05/taylor-swift-scores-the-biggest-debut-of-the-year-with-1989-taylors-version/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 10,
+      category: 'music',
+      title: 'A vault track that almost made the original 1989',
+      snippet: 'A vault track that almost made the original 1989 — cut, then resurrected nearly a decade later.',
+      sourceUrl: 'https://uproxx.com/pop/why-now-that-we-dont-talk-not-on-1989-original/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Synth-pop and disco, in Taylor\'s own words cut because "we couldn\'t get the production right at the time."',
+        sources: [
+          { outlet: 'Uproxx', url: 'https://uproxx.com/pop/why-now-that-we-dont-talk-not-on-1989-original/' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 12,
+      category: 'release',
+      title: 'The Eras Tour film becomes the highest-grossing concert film ever',
+      snippet:
+        "$261.6 million worldwide, pushed past Michael Jackson's This Is It after opening in China — a record that had stood for 14 years.",
+      sourceUrl:
+        'https://investor.amctheatres.com/news-events/press-releases/detail/348/taylor-swift-the-eras-tour-concert-film-is-now-the-highest-grossing-theatrical-release-in-history-among-concert-and-documentary-films',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'AMC Theatres',
+            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/348/taylor-swift-the-eras-tour-concert-film-is-now-the-highest-grossing-theatrical-release-in-history-among-concert-and-documentary-films',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/tv-film/taylor-swift-eras-tour-movie-box-office-record-michael-jackson-this-is-it-1235577518/',
+          },
+        ],
         photos: [],
       },
     },
@@ -150,6 +241,48 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2022,
+      month: 10,
+      category: 'release',
+      title: 'Midnights (3am Edition) surprises fans with 7 more songs',
+      snippet:
+        "Dropped three hours after the standard album — \"other songs we wrote on our journey to find that magic 13,\" in Taylor's words.",
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-midnights-3am-edition-1235159092/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-midnights-3am-edition-1235159092/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 12,
+      category: 'business',
+      title: 'Time names her 2023 Person of the Year',
+      snippet:
+        "Her own reaction: \"This is the proudest and happiest I've ever felt, and the most creatively fulfilled and free I've ever been.\"",
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/conormurray/2023/12/06/every-major-event-in-taylor-swifts-record-breaking-2023-from-the-eras-tour-to-time-person-of-the-year/',
           },
         ],
         photos: [],
