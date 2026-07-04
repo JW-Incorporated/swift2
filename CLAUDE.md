@@ -21,9 +21,10 @@ review code line-by-line — they review behavior and outcomes.
 ## The product
 
 Taylor Swift fan app (name TBD), targeting web + mobile.
-Vision, roadmap, and stack: see `docs/vision.md` and `docs/architecture.md`
-(stubs for now — do not invent product details that aren't written down;
-ask instead).
+Vision: `docs/vision.md`. Stack + standards: `docs/architecture.md`. Roadmap +
+who-owns-what: `docs/roadmap.md`. **How to run/test/seed — commands, env, repo
+map: `docs/dev-quickstart.md` (read before running anything).** Don't invent
+product details that aren't written down; ask instead.
 
 ## Workflow rules (non-negotiable)
 
