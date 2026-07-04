@@ -114,6 +114,23 @@ export interface Moment {
   photos: MomentPhoto[];
 }
 
+/**
+ * One song's note in an album track guide. Non-month-scoped: reached from the
+ * album/era and loaded on demand, so full song-catalog coverage stays off the
+ * Tier 0 timeline payload (and the wavetop-month item count). Same sourced,
+ * hook-length discipline as `MonthItem.snippet` — a line, not an essay.
+ */
+export interface TrackNote {
+  id: string;
+  eraSlug: string;
+  trackTitle: string;
+  /** Optional track number, for display order. */
+  trackNumber: number | null;
+  note: string;
+  sourceUrl: string | null;
+  sources: MomentSource[];
+}
+
 export interface YearMonth {
   year: number;
   month: number;

@@ -20,6 +20,7 @@
     "db:migrate": "node --env-file=apps/worker/.env scripts/migrate.mjs",
     "db:seed": "node --env-file=apps/worker/.env scripts/seed-eras.mjs",
     "db:seed:content": "node --env-file=apps/worker/.env scripts/seed-content.mjs",
+    "db:seed:tracks": "node --env-file=apps/worker/.env scripts/seed-tracks.mjs",
     "check:budget": "tsx scripts/check-tier0-budget.mjs"
   },
   "devDependencies": {

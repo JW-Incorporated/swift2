@@ -2,17 +2,19 @@
 // Portable: no view code, no framework — the web app and the future Expo app
 // both call this. Callers pass their own Supabase URL + public key.
 import { createClient } from '@supabase/supabase-js';
-import type { Era, Milestone, Moment, MonthItem } from '@swift2/shared';
+import type { Era, Milestone, Moment, MonthItem, TrackNote } from '@swift2/shared';
 import { orderedEras } from '@swift2/shared';
 import {
   mapEra,
   mapMilestone,
   mapMoment,
   mapMonthItem,
+  mapTrackNote,
   type EraRow,
   type MilestoneRow,
   type MomentRow,
   type MonthItemRow,
+  type TrackNoteRow,
 } from './map';
 
 export interface VaultClientConfig {
@@ -35,6 +37,8 @@ export interface VaultDataSource {
   getSkeleton(): Promise<VaultSkeleton>;
   /** Tier 1: on-demand detail for one month item. Null if none authored. */
   getMoment(monthItemId: string): Promise<Moment | null>;
+  /** On-demand per-album song track guide (non-month-scoped, off Tier 0). */
+  getTrackGuide(eraSlug: string): Promise<TrackNote[]>;
 }
 
 export function createVaultClient(config: VaultClientConfig): VaultDataSource {
@@ -73,6 +77,17 @@ export function createVaultClient(config: VaultClientConfig): VaultDataSource {
       if (error) throw new Error(`getMoment: ${error.message}`);
       if (!data) return null;
       return mapMoment(data as MomentRow);
+    },
+
+    async getTrackGuide(eraSlug: string): Promise<TrackNote[]> {
+      const { data, error } = await supabase
+        .from('track_note')
+        .select('*')
+        .eq('era_slug', eraSlug)
+        .order('track_number', { ascending: true, nullsFirst: false });
+
+      if (error) throw new Error(`getTrackGuide: ${error.message}`);
+      return ((data ?? []) as TrackNoteRow[]).map(mapTrackNote);
     },
   };
 }
