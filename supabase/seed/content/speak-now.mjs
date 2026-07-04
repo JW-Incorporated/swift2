@@ -164,5 +164,31 @@ export default {
         photos: [],
       },
     },
+
+    // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md.
+    {
+      year: 2011,
+      month: 1,
+      category: 'relationship',
+      title: 'A brief, rumored relationship with Jake Gyllenhaal ends',
+      snippet: 'Roughly three months after a backstage sighting at Saturday Night Live sparked speculation, reports of a split surfaced in January.',
+      sourceUrl: 'https://www.elitedaily.com/dating/taylor-swift-jake-gyllenhaal-rumored-relationship-timeline',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The relationship was never confirmed on the record by either party — known publicly through sightings and reporting, including a backstage appearance at an October 2010 "Saturday Night Live" hosted by Swift\'s friend Emma Stone.',
+        sources: [
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/dating/taylor-swift-jake-gyllenhaal-rumored-relationship-timeline',
+          },
+          {
+            outlet: 'Yahoo Sports',
+            url: 'https://sports.yahoo.com/amphtml/did-taylor-swift-jake-gyllenhaal-112739224.html',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

@@ -169,5 +169,42 @@ export default {
         photos: [],
       },
     },
+
+    // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md.
+    {
+      year: 2012,
+      month: 12,
+      category: 'relationship',
+      title: "A New Year's Eve kiss with Harry Styles in Times Square",
+      snippet: 'Caught on camera by a reveler as the ball dropped — the clearest public confirmation of a relationship that had started weeks earlier.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/',
+          },
+          { outlet: 'Entertainment Tonight', url: 'https://www.etonline.com/news/128673_Taylor_Swift_Harry_Styles_New_Years_Eve_Kiss' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2013,
+      month: 1,
+      category: 'relationship',
+      title: 'A British Virgin Islands trip ends the relationship',
+      snippet: 'A vacation together turned into a breakup, and a photo of her alone on the back of a boat went viral in its aftermath.',
+      sourceUrl: 'https://www.today.com/popculture/taylor-swift-harry-styles-relationship-timeline-rcna122164',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          { outlet: 'Today', url: 'https://www.today.com/popculture/taylor-swift-harry-styles-relationship-timeline-rcna122164' },
+          { outlet: 'Bustle', url: 'https://www.bustle.com/entertainment/when-did-taylor-swift-and-harry-styles-date' },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
