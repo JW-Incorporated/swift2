@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import type { Era, EraTheme } from './vault-types';
+import type { Era, EraTheme, Milestone, MonthItem } from './vault-types';
 import {
   eraIndexAtPosition,
   eraIndexForDate,
+  eraTimelineMonths,
   monthsInEra,
   orderedEras,
   positionForEraIndex,
@@ -86,5 +87,36 @@ describe('monthsInEra', () => {
       { year: 2020, month: 1 },
       { year: 2020, month: 2 },
     ]);
+  });
+});
+
+describe('eraTimelineMonths', () => {
+  const lover = era('lover', 2, '2019-08-23', '2020-07-23');
+  function item(eraSlug: string, year: number, month: number): MonthItem {
+    return { id: `${eraSlug}-${year}-${month}`, eraSlug, year, month, category: 'music', title: 't', snippet: '', sourceUrl: null, thumbnailUrl: null };
+  }
+  function milestone(eraSlug: string, date: string): Milestone {
+    return { id: date, eraSlug, type: 'album_release', title: 'm', date };
+  }
+
+  it('unions the nominal span with an item dated before the album window', () => {
+    const months = eraTimelineMonths(lover, [item('lover', 2019, 6)], []);
+    // pre-window outlier first, then the 12-month nominal span (Aug 2019–Jul 2020)
+    expect(months[0]).toEqual({ year: 2019, month: 6 });
+    expect(months).toContainEqual({ year: 2019, month: 8 });
+    expect(months).toContainEqual({ year: 2020, month: 7 });
+    expect(months).not.toContainEqual({ year: 2019, month: 7 }); // no content, not in span
+    expect(months).toHaveLength(13);
+  });
+
+  it('ignores items/milestones from other eras and de-dupes', () => {
+    const months = eraTimelineMonths(
+      lover,
+      [item('lover', 2019, 8), item('debut', 2006, 10)],
+      [milestone('lover', '2020-07-10'), milestone('reputation', '2018-01-01')],
+    );
+    expect(months).not.toContainEqual({ year: 2006, month: 10 });
+    expect(months).not.toContainEqual({ year: 2018, month: 1 });
+    expect(months).toHaveLength(12); // all within span, deduped
   });
 });
