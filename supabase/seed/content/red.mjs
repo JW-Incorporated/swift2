@@ -24,7 +24,10 @@ export default {
       thumbnailUrl: null,
       moment: {
         sources: [
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)' },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2012/10/taylor-swift-album-sales-record-1-2-million-copies-of-red-sold-in-first-week-according-to-soundscan.html',
+          },
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/',
@@ -39,10 +42,12 @@ export default {
       category: 'music',
       title: 'All Too Well, and the scarf that became a metaphor',
       snippet:
-        "Taylor's own explanation of the scarf in the lyrics: 'Basically, the scarf is a metaphor, and we turned it red because red is a very important color in this album, which is called Red.'",
+        "The scarf in the lyrics — Taylor's called it \"a metaphor,\" then stopped herself before saying more.",
       sourceUrl: 'https://www.etonline.com/taylor-swift-says-red-scarf-in-all-too-well-is-a-metaphor-190595',
       thumbnailUrl: null,
       moment: {
+        context:
+          'Full quote: "Basically, the scarf is a metaphor, and we turned it red because red is a very important color in this album, which is called Red."',
         sources: [
           {
             outlet: 'Entertainment Tonight',

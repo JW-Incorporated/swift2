@@ -20,11 +20,12 @@ export default {
       month: 10,
       category: 'music',
       title: 'The math-class idea behind "Tim McGraw"',
-      snippet:
-        'Freshman-year math class to debut-single lore: she brought Liz Rose an idea about a senior boyfriend leaving for college, then finished "Tim McGraw" at the piano after school.',
+      snippet: 'The idea for her debut single came to her in freshman-year math class.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)',
       thumbnailUrl: null,
       moment: {
+        context:
+          "She brought it to co-writer Liz Rose that day — an idea about a senior boyfriend leaving for college — and they finished \"Tim McGraw\" together at the piano after school.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)' }],
         photos: [],
       },

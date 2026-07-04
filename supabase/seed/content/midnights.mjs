@@ -154,11 +154,12 @@ export default {
       month: 10,
       category: 'music',
       title: 'A vault track that almost made the original 1989',
-      snippet:
-        "Synth-pop and disco, cut from the original album because, in Taylor's own words, 'we couldn't get the production right at the time' — resurrected nearly a decade later.",
+      snippet: 'A vault track that almost made the original 1989 — cut, then resurrected nearly a decade later.',
       sourceUrl: 'https://uproxx.com/pop/why-now-that-we-dont-talk-not-on-1989-original/',
       thumbnailUrl: null,
       moment: {
+        context:
+          'Synth-pop and disco, in Taylor\'s own words cut because "we couldn\'t get the production right at the time."',
         sources: [
           { outlet: 'Uproxx', url: 'https://uproxx.com/pop/why-now-that-we-dont-talk-not-on-1989-original/' },
         ],

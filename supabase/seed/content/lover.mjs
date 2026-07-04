@@ -37,10 +37,12 @@ export default {
       category: 'music',
       title: 'The Man, and the double standard behind it',
       snippet:
-        "Her own words: 'We [women] have to curate and cater everything, but we have to make it look like an accident' — if we make a mistake, that's our fault, but if we strategize so we won't make a mistake, we're calculating.",
+        'Her own words: "We [women] have to curate and cater everything, but we have to make it look like an accident."',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)',
       thumbnailUrl: null,
       moment: {
+        context:
+          "The double standard, as she put it: if we make a mistake, that's our fault; if we strategize so we won't make a mistake, we're calculating.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)' }],
         photos: [],
       },

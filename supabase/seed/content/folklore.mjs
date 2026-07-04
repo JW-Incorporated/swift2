@@ -24,7 +24,10 @@ export default {
       thumbnailUrl: null,
       moment: {
         sources: [
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)' },
+          {
+            outlet: 'BuzzFeed',
+            url: 'https://www.buzzfeed.com/eleanorbate/taylor-swift-folklore-cardigan-charts',
+          },
           {
             outlet: 'The Hollywood Reporter',
             url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-becomes-first-artist-open-atop-hot-100-billboard-200-same-week-1305638/',
@@ -39,11 +42,13 @@ export default {
       category: 'music',
       title: 'A fictional teenage love triangle, told across three songs',
       snippet:
-        "cardigan, betty, and august each tell the same summer romance from a different character's point of view — all invented, with names borrowed as an affectionate nod to friends' kids.",
+        'Three songs, one summer romance, three different narrators — cardigan, betty, and august.',
       sourceUrl:
         'https://screenrant.com/taylor-swift-folklore-betty-august-cardigan-love-triangle-song-lyrics-explained/',
       thumbnailUrl: null,
       moment: {
+        context:
+          "The characters are entirely invented, with names borrowed as an affectionate nod to friends' kids.",
         sources: [
           {
             outlet: 'ScreenRant',

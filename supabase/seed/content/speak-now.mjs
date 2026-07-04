@@ -26,7 +26,10 @@ export default {
       thumbnailUrl: null,
       moment: {
         sources: [
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+          },
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-speak-now-sales-charts/' },
         ],
         photos: [],
@@ -37,11 +40,12 @@ export default {
       month: 10,
       category: 'music',
       title: "Dear John's slow-burn reckoning",
-      snippet:
-        "A slow-burning ballad about a 19-year-old narrator naming the damage after the fact — critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'",
+      snippet: 'A slow-burning ballad about a 19-year-old narrator naming the damage after the fact.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)',
       thumbnailUrl: null,
       moment: {
+        context:
+          "Critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)' }],
         photos: [],
       },
@@ -51,11 +55,12 @@ export default {
       month: 10,
       category: 'music',
       title: 'Mean, written straight at her critics',
-      snippet:
-        "Not about a relationship — about critics who, in her words, 'attack everything about a person' instead of offering real feedback.",
+      snippet: "Not a relationship song — this one's aimed straight at her critics.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Mean_(song)',
       thumbnailUrl: null,
       moment: {
+        context:
+          "In her words: people who \"attack everything about a person\" instead of offering real feedback.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' }],
         photos: [],
       },

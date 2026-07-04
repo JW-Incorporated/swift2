@@ -45,11 +45,12 @@ export default {
       month: 11,
       category: 'music',
       title: 'Look What You Made Me Do, and the phone call it started with',
-      snippet:
-        "By her own account, the song began as a poem about deciding who she could trust — she later said the bridge's phone-call line played on 'a stupid phone call I shouldn't have picked up,' the Kanye West call at the center of their 2016 feud.",
+      snippet: 'By her own account, it began as a poem about deciding who she could trust.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do',
       thumbnailUrl: null,
       moment: {
+        context:
+          "She later said the bridge's phone-call line played on \"a stupid phone call I shouldn't have picked up\" — the Kanye West call at the center of their 2016 feud.",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do' },
           {

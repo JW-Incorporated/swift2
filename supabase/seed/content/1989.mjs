@@ -39,10 +39,12 @@ export default {
       category: 'music',
       title: 'Blank Space, and the joke half the audience missed',
       snippet:
-        "Satire aimed at her own media image — 'a girl who's crazy but seductive but glamorous but nuts but manipulative' — she's said only half of listeners caught that it was a joke.",
+        "Satire aimed at her own tabloid image — \"a girl who's crazy but seductive but glamorous but nuts but manipulative.\"",
       sourceUrl: 'https://en.wikipedia.org/wiki/Blank_Space',
       thumbnailUrl: null,
       moment: {
+        context:
+          "She's said only about half of listeners caught it was a joke; the rest took the persona at face value.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Blank_Space' }],
         photos: [],
       },
@@ -52,11 +54,12 @@ export default {
       month: 10,
       category: 'music',
       title: 'Shake It Off, and the pivot from victim to punchline-maker',
-      snippet:
-        "Where Mean answered critics from a hurt place, Taylor's own description of this one: taking 'back the narrative' with 'a sense of humor' instead.",
+      snippet: 'The tonal opposite of Mean — critics get a shrug and a wink instead of a wound.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Shake_It_Off',
       thumbnailUrl: null,
       moment: {
+        context:
+          "Taylor's own framing: Mean answered critics from a hurt place; this one takes \"back the narrative\" with \"a sense of humor\" instead.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Shake_It_Off' }],
         photos: [],
       },

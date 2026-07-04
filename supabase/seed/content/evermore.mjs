@@ -9,15 +9,6 @@
 // docs/marketing/content-framework-2026-07-03.md for the no-fabrication
 // rule and the light-touch (link-first) authoring model this follows.
 //
-// Item 1's second source is a record-label press release, not a fully
-// independent outlet — a deliberate compromise, not an oversight. Variety,
-// Rolling Stone, and NME all independently reported the same fact per
-// search snippets, but every direct fetch attempt hit a paywall this
-// session. Accepted because the claim itself is a simple, objective,
-// publicly-verifiable chart position (not an interpretive or reputational
-// claim) and the label has no incentive to misstate real Billboard data.
-// Revisit if a clean independent source becomes reachable.
-
 export default {
   eraSlug: 'evermore',
   items: [
@@ -28,14 +19,17 @@ export default {
       title: 'evermore makes her the first artist to top both charts at once — twice',
       snippet:
         "Her eighth No. 1 album, with 'willow' also debuting at No. 1 — the only artist ever to pull off that double feat twice, let alone in the same year.",
-      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore',
+      sourceUrl: 'https://www.billboard.com/pro/taylor-swift-willow-debut-number-one-hot-100/',
       thumbnailUrl: null,
       moment: {
         sources: [
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Evermore' },
           {
-            outlet: 'Universal Music Canada',
-            url: 'https://www.universalmusic.ca/press-releases/taylor-swift-is-the-first-and-only-artist-in-history-to-debut-twice-at-1-on-both-the-billboard-200-and-billboard-hot-100-simultaneously/',
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-willow-debut-number-one-hot-100/',
+          },
+          {
+            outlet: 'Stereogum',
+            url: 'https://stereogum.com/2482727/the-number-ones-taylor-swifts-willow/columns/the-number-ones',
           },
         ],
         photos: [],
@@ -46,11 +40,12 @@ export default {
       month: 12,
       category: 'music',
       title: "willow, and the spell it's supposed to sound like",
-      snippet:
-        "Taylor's own description: 'Willow is about intrigue, desire, and the complexity that goes into wanting someone. I think it sounds like casting a spell to make someone fall in love with you.'",
+      snippet: 'Taylor\'s own description: it "sounds like casting a spell to make someone fall in love with you."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Willow_(song)',
       thumbnailUrl: null,
       moment: {
+        context:
+          'Full quote: "Willow is about intrigue, desire, and the complexity that goes into wanting someone."',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Willow_(song)' }],
         photos: [],
       },
