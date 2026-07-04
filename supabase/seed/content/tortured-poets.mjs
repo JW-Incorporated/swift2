@@ -386,5 +386,31 @@ export default {
         photos: [],
       },
     },
+
+    // --- Real-time addition (2026-07-04): the wedding happened yesterday.
+    {
+      year: 2026,
+      month: 7,
+      category: 'relationship',
+      title: 'Taylor and Travis marry at Madison Square Garden',
+      snippet: 'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Sandler, a friend of the couple, sang an original song for them at the ceremony. Both wore custom Christian Dior Haute Couture; Stevie Nicks performed at the reception.',
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
