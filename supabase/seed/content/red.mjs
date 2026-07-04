@@ -71,5 +71,25 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2013,
+      month: 11,
+      category: 'fashion',
+      title: 'A wine-red Elie Saab gown for a historic Pinnacle Award',
+      snippet: 'A wine-colored Elie Saab gown at the CMAs, the night she became the first woman ever to receive the Pinnacle Award.',
+      sourceUrl: 'https://www.refinery29.com/en-us/2013/11/56892/taylor-swift-cma-awards',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Garth Brooks, who won it in 2005, was the only other artist to have received the Pinnacle Award before her.',
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2013/11/56892/taylor-swift-cma-awards',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

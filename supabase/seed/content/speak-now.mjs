@@ -67,6 +67,27 @@ export default {
     },
     {
       year: 2011,
+      month: 11,
+      category: 'fashion',
+      title: 'A dove-grey J. Mendel gown for her second Entertainer of the Year win',
+      snippet:
+        'A dove-grey J. Mendel gown with a billowing train, held up the whole walk to the stage for her second CMA Entertainer of the Year award.',
+      sourceUrl: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The win made her only the second female artist in CMA history, after Barbara Mandrell, to win Entertainer of the Year twice.',
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2011,
       month: 2,
       category: 'tour',
       title: 'The Speak Now World Tour opens in Singapore',

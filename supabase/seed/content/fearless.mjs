@@ -49,6 +49,24 @@ export default {
       },
     },
     {
+      year: 2008,
+      month: 11,
+      category: 'fashion',
+      title: 'A silver Kaufman Franco gown for the 2008 CMAs',
+      snippet: 'A body-hugging silver Kaufman Franco gown, hair pinned into a sleek bun, at the 42nd CMA Awards.',
+      sourceUrl: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
       year: 2009,
       month: 4,
       category: 'tour',

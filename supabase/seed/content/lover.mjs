@@ -47,5 +47,23 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2019,
+      month: 8,
+      category: 'fashion',
+      title: 'A rainbow Versace blazer for the 2019 VMAs',
+      snippet: 'An 80s-shouldered, kaleidoscope Versace blazer dress and thigh-high sequined boots, three days after Lover dropped.',
+      sourceUrl: 'https://www.bustle.com/p/taylor-swifts-2019-mtv-vmas-outfit-had-her-wearing-versace-a-second-time-in-a-row-18687070',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Bustle',
+            url: 'https://www.bustle.com/p/taylor-swifts-2019-mtv-vmas-outfit-had-her-wearing-versace-a-second-time-in-a-row-18687070',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

@@ -65,6 +65,20 @@ export default {
       },
     },
     {
+      year: 2014,
+      month: 9,
+      category: 'sighting',
+      title: 'Spotted carrying Olivia Benson through New York',
+      snippet:
+        "The newly-adopted Scottish Fold — named after the Law & Order: SVU character — couldn't handle a carrier, so Taylor just carried her around the city instead.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Olivia_Benson_(cat)',
+      thumbnailUrl: null,
+      moment: {
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Olivia_Benson_(cat)' }],
+        photos: [],
+      },
+    },
+    {
       year: 2015,
       month: 5,
       category: 'tour',
