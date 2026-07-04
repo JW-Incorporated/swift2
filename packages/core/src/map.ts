@@ -88,11 +88,15 @@ export function mapMonthItem(row: MonthItemRow): MonthItem {
   };
 }
 
+// url must be a real string — never coerce (a non-string like {} would become
+// "[object Object]" and pass as a valid link). Drop malformed entries instead.
+const asUrl = (value: unknown): string => (typeof value === 'string' ? value : '');
+
 function asSources(value: unknown): MomentSource[] {
   if (!Array.isArray(value)) return [];
   return value
     .filter((s): s is Record<string, unknown> => Boolean(s) && typeof s === 'object')
-    .map((s) => ({ outlet: String(s['outlet'] ?? ''), url: String(s['url'] ?? '') }))
+    .map((s) => ({ outlet: String(s['outlet'] ?? ''), url: asUrl(s['url']) }))
     .filter((s) => s.url !== '');
 }
 
@@ -101,8 +105,8 @@ function asPhotos(value: unknown): MomentPhoto[] {
   return value
     .filter((p): p is Record<string, unknown> => Boolean(p) && typeof p === 'object')
     .map((p) => ({
-      url: String(p['url'] ?? ''),
-      credit: p['credit'] == null ? null : String(p['credit']),
+      url: asUrl(p['url']),
+      credit: typeof p['credit'] === 'string' ? p['credit'] : null,
     }))
     .filter((p) => p.url !== '');
 }

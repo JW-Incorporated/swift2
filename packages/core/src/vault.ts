@@ -41,24 +41,57 @@ export interface VaultDataSource {
   getTrackGuide(eraSlug: string): Promise<TrackNote[]>;
 }
 
+// Tier 0 goes to every client on load, so select only the columns the mappers
+// use: keep the wire payload equal to what the budget gate measures, and don't
+// let a future editorial column silently bloat it (select('*') would).
+const ERA_COLS = 'slug,title,album,start_date,end_date,sort_order,theme,cover_image_url';
+const MILESTONE_COLS = 'id,era_slug,type,title,date';
+const MONTH_ITEM_COLS = 'id,era_slug,year,month,category,title,snippet,source_url,thumbnail_url';
+
+// Explicit Tier 0 row ceiling — makes the payload boundary loud rather than
+// relying on PostgREST's implicit cap silently truncating the timeline. Well
+// above the budget-implied item count; hitting it means switch to the windowed
+// prefetch the roadmap contemplates (W6 fallback).
+const TIER0_MAX_ROWS = 2000;
+
 export function createVaultClient(config: VaultClientConfig): VaultDataSource {
-  const supabase = createClient(config.supabaseUrl, config.supabaseKey);
+  const supabase = createClient(config.supabaseUrl, config.supabaseKey, {
+    // Public, read-only Vault access — no login. Disabling the auth/session
+    // machinery keeps `core` free of browser localStorage / RN AsyncStorage
+    // expectations, so it stays cleanly portable across web and Expo.
+    auth: { persistSession: false, autoRefreshToken: false },
+  });
 
   return {
     async getSkeleton(): Promise<VaultSkeleton> {
       const [eraRes, msRes, miRes] = await Promise.all([
-        supabase.from('era').select('*').order('sort_order', { ascending: true }),
-        supabase.from('milestone').select('*').order('date', { ascending: true }),
+        supabase.from('era').select(ERA_COLS).order('sort_order', { ascending: true }).limit(TIER0_MAX_ROWS),
+        supabase
+          .from('milestone')
+          .select(MILESTONE_COLS)
+          .order('date', { ascending: true })
+          .order('id', { ascending: true })
+          .limit(TIER0_MAX_ROWS),
         supabase
           .from('month_item')
-          .select('*')
+          .select(MONTH_ITEM_COLS)
+          // year, month, then id as a stable tie-breaker so multiple items in
+          // the same month don't reshuffle between fetches (curated ordering).
           .order('year', { ascending: true })
-          .order('month', { ascending: true }),
+          .order('month', { ascending: true })
+          .order('id', { ascending: true })
+          .limit(TIER0_MAX_ROWS),
       ]);
 
       if (eraRes.error) throw new Error(`getSkeleton (era): ${eraRes.error.message}`);
       if (msRes.error) throw new Error(`getSkeleton (milestone): ${msRes.error.message}`);
       if (miRes.error) throw new Error(`getSkeleton (month_item): ${miRes.error.message}`);
+
+      if ((miRes.data?.length ?? 0) >= TIER0_MAX_ROWS) {
+        throw new Error(
+          `getSkeleton: month_item hit the ${TIER0_MAX_ROWS}-row Tier 0 cap — timeline may be truncated; move to windowed prefetch.`,
+        );
+      }
 
       return {
         eras: orderedEras(((eraRes.data ?? []) as EraRow[]).map(mapEra)),
