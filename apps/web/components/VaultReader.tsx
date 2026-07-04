@@ -7,6 +7,8 @@ import { monthsInEra, orderedEras } from '@swift2/shared';
 import type { VaultSkeleton } from '@swift2/core';
 import { eraSkin } from '../lib/theme';
 import { Scrubber } from './Scrubber';
+import { useMoment } from '../lib/useMoment';
+import { MomentDetail } from './MomentDetail';
 
 const MONTH_NAMES = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -63,6 +65,7 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const activeRef = useRef(activeIndex);
   const touchY = useRef(0);
+  const moment = useMoment();
 
   const jumpToEra = useCallback((i: number) => {
     sectionRefs.current[i]?.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -126,6 +129,10 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
     return <main style={{ padding: '3rem', fontFamily: 'system-ui' }}>No eras yet.</main>;
   }
 
+  const openItem = moment.state.itemId
+    ? (skeleton.monthItems.find((it) => it.id === moment.state.itemId) ?? null)
+    : null;
+
   return (
     <div
       className="era-skin"
@@ -161,10 +168,20 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
               nextTint={eras[i + 1]?.theme.bg ?? era.theme.bg}
               milestones={skeleton.milestones.filter((m) => m.eraSlug === era.slug)}
               items={skeleton.monthItems.filter((it) => it.eraSlug === era.slug)}
+              onOpen={moment.open}
             />
           </section>
         ))}
       </div>
+
+      <MomentDetail
+        state={moment.state}
+        title={openItem?.title ?? ''}
+        onClose={moment.close}
+        onRetry={() => {
+          if (moment.state.itemId) moment.open(moment.state.itemId);
+        }}
+      />
     </div>
   );
 }
@@ -175,6 +192,7 @@ function EraSection({
   nextTint,
   milestones,
   items,
+  onOpen,
 }: {
   era: Era;
   /** This era's body background color. */
@@ -183,6 +201,7 @@ function EraSection({
   nextTint: string;
   milestones: Milestone[];
   items: MonthItem[];
+  onOpen: (itemId: string) => void;
 }) {
   const months = monthsInEra(era);
   const milestonesByMonth = groupBy(milestones, (m) => keyFromISO(m.date));
@@ -230,6 +249,7 @@ function EraSection({
               label={monthLabel(year, month)}
               milestones={milestonesByMonth.get(key) ?? []}
               items={itemsByMonth.get(key) ?? []}
+              onOpen={onOpen}
             />
           );
         })}
@@ -246,10 +266,12 @@ function MonthRow({
   label,
   milestones,
   items,
+  onOpen,
 }: {
   label: string;
   milestones: Milestone[];
   items: MonthItem[];
+  onOpen: (itemId: string) => void;
 }) {
   const empty = milestones.length === 0 && items.length === 0;
   return (
@@ -288,7 +310,22 @@ function MonthRow({
               </div>
             ))}
             {items.map((it) => (
-              <div key={it.id}>
+              <button
+                key={it.id}
+                type="button"
+                onClick={() => onOpen(it.id)}
+                style={{
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'left',
+                  border: 'none',
+                  background: 'transparent',
+                  padding: 0,
+                  cursor: 'pointer',
+                  color: 'inherit',
+                  font: 'inherit',
+                }}
+              >
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
                   <span style={{ fontWeight: 600 }}>{it.title}</span>
                   <span style={{ color: 'var(--ink-soft)', fontSize: 12 }}>{it.category}</span>
@@ -296,7 +333,7 @@ function MonthRow({
                 {it.snippet ? (
                   <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>{it.snippet}</div>
                 ) : null}
-              </div>
+              </button>
             ))}
           </div>
         )}
