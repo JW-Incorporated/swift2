@@ -45,11 +45,13 @@ Max rate-limit window.
 | **W1** | 🔑 **Data contract:** `packages/shared` Vault types + snap/nav math (tested); Supabase schema for `era`/`milestone`/`month_item`/`moment` (RLS public-read, no-bodies CHECKs); migration + seed runners | ✅ (#14) |
 | **W2** | `packages/core`: Tier 0 (skeleton + month index) and Tier 1 (moment detail) data access | ✅ (#20) |
 | **W3** | `apps/web`: fetch + render Tier 0 — era switching + per-era theming + month/milestone timeline (**no gesture layer yet**) | ✅ (#21) — Vercel deploy still TODO |
-| **W4** | `apps/web`: the scrubber gesture layer (Pointer Events + CSS/rAF) to the 60fps budget — **the hard part** | 🟡 **DRAFT #23** — needs on-device 60fps check + review before merge |
+| **W4** | `apps/web`: the scrubber gesture layer (Pointer Events + CSS/rAF) to the 60fps budget — **the hard part** | 🟡 **DRAFT #23** — feature-complete: continuous themed timeline + morph-on-grab scrubber + moment/track-guide sheets, **100 real items live**, Codex-reviewed (pointercancel + summon fixes), month-union logic extracted to `shared`. Needs on-device 60fps swipe test + merge |
 | **W4.5** | Two-tier Vault HTTP API: static `GET /vault/tier0` (+ version stamp) & on-demand `GET /vault/moment/[id]`, reused by web + Expo | ✅ (#27) |
 | **W5** | `apps/web`: moment detail fetch + degraded states (slow/timeout/404/offline/superseded-tap) | ✅ folded into **#23** (tap-to-open over the continuous reader; supersedes #31) |
 | **W6** | Tier 0 payload budget gate (≤2MB gz / ≤10MB parsed): pure `evaluateTier0Budget` + `npm run check:budget`; windowed-prefetch fallback only if a real payload fails | ✅ (#28) — **wired into CI** via `check:budget:seed` (#40, assembled from seed files, no creds). 100 items = 0.6% of budget. `validate:content` also gates seed rows in CI |
 | **W7** | Song **track guide** (non-month-scoped): `track_note` table + `GET /vault/album/[slug]/tracks` + `db:seed:tracks`, off the Tier 0 payload — unblocks full-catalog song coverage | ✅ built + migrated (`docs/decisions.md` 2026-07-04); **reader UI shipped in #23** (TrackGuide bottom-sheet, on-demand per album) |
+| **W8** | `apps/mobile`: Expo app reusing `shared`/`core` — read-only era list first, native Reanimated + Gesture Handler scrubber next | 🟡 **DRAFT #42** — scaffold typechecks in CI reusing shared+core **unchanged** (proves the boundary); needs a device / Expo Go boot before merge |
+| **Wh** | Data-access hardening from the architecture double-check (Codex + self audit) | ✅ (#43) — explicit Tier 0 columns, stable ordering, portable auth options, row-cap guard, url-type mappers, no error leakage. `docs/reviews/2026-07-04-architecture-double-check.md` |
 
 ## ✍️ Joey track — content (spec step 3 + theming values)
 
@@ -61,7 +63,7 @@ seed generator, not hand-enter rows (CLAUDE.md rule 8).
 |----|------|--------|
 | **J1** | Confirm **editorial depth = Option A** (curated: notable months deep, sparse lighter). | ✅ — confirmed + a concrete 3-tier rubric (wavetop/active/quiet) locked in `docs/marketing/content-framework-2026-07-03.md` (#18) |
 | **J2** | ~~Port Orbit's authored content~~ **superseded** — Orbit's `outfits`/`lore`/`stories` turned out to be AI-drafted/fabricated placeholder data, not real history (see "Ported from Orbit" below). Only real song track metadata is portable. | ⬜ **▶ NEXT (revised)** |
-| **J3** | Author real `month_item`s from real sources (sightings, fashion, relationship, business, tour dates), starting with Midnights/Tortured Poets per the authoring order in `docs/marketing/content-framework-2026-07-03.md`. Light-touch model: research + a one-line hook, not original prose — see that doc's Section 5 (2026-07-03 revision). | ⬜ **▶ then this** |
+| **J3** | Author real `month_item`s from real sources (sightings, fashion, relationship, business, tour dates), starting with Midnights/Tortured Poets per the authoring order in `docs/marketing/content-framework-2026-07-03.md`. Light-touch model: research + a one-line hook, not original prose — see that doc's Section 5 (2026-07-03 revision). | 🟡 **first batch shipped** — 100 sourced `month_item`s across all 11 eras merged + seeded (#38), validated in CI. Category balance skews business/music; fashion/sighting/relationship light (see `docs/marketing/content-review-2026-07-04.md`). Ongoing |
 | **J4** | `moment` detail — extended context + linked sources + hotlinked photos for key moments | ⬜ |
 | **J5** | Per-era theming polish + cover art (theme values already seeded; refine) · product copy (first-run explainer, UNOFFICIAL/about) | ⬜ |
 | **J6** | Content QA + editorial coverage pass before launch | ⬜ |
