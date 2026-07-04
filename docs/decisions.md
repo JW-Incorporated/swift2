@@ -51,6 +51,27 @@ hold: 100 items measures at 0.6% of the 2MB gzipped Tier-0 budget, per
 `docs/roadmap.md` W6 — real cost is authoring time and quality risk, not
 payload).
 
+**Update, same day — Joey asked why not front-load full depth with more AI
+effort, since Max's constraint is a rate-limit window, not dollars, and
+tokens are cheap. Correct on one point, not on two others (see
+`docs/marketing/ship-readiness-review-2026-07-04.md` addendum):** the "B
+defers everything behind one 11-era batch" reasoning above was wrong — each
+era is an independently owned/shippable seed file
+(`supabase/seed/content/<era>.mjs`), so full-depth authoring can run in
+**parallel across eras beyond the two named here**, with each era shipping
+full-depth the moment it individually clears Codex review + Joey's spot-check,
+rather than waiting on all 11 together. **This is additive to the gate below,
+not a replacement for it** — Midnights + Tortured Poets at Active-tier depth
+remain the fixed minimum that blocks launch; any additional eras that clear
+review in time ship deep too, reducing (not eliminating) reliance on the
+post-launch weekly-drop plan for whatever's left. What tokens still can't buy:
+real sources for months where nothing public happened (no padding, no
+fabrication, ever — unchanged), and Joey's own spot-check time, which is the
+one step in the pipeline that scales with his hours, not compute. Nobody has
+timed that review step yet — doing so on the next batch is the actual
+constraint on how many eras "parallel effort" can realistically clear before
+launch, not token budget.
+
 **Ref:** `docs/marketing/ship-readiness-review-2026-07-04.md` (Codex
 adversarial-review round included), superseding the ship-readiness bar in
 `docs/marketing/content-framework-2026-07-03.md`.
