@@ -10,6 +10,25 @@ export default {
   items: [
     {
       year: 2024,
+      month: 2,
+      category: 'release',
+      title: 'TTPD announced live at the Grammys before her record fourth AOTY win',
+      snippet:
+        'She revealed the April 19 release date mid-speech while accepting Best Pop Vocal Album, then ended the night as the first artist to win Album of the Year four times.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-announces-new-album-the-tortured-poets-department-grammys-2024/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-announces-new-album-the-tortured-poets-department-grammys-2024/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
       month: 4,
       category: 'business',
       title: "Tortured Poets breaks Spotify's single-day record",
