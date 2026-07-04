@@ -336,5 +336,167 @@ export default {
         ],
       },
     },
+
+    // --- Fashion/photo depth pass #2 (2026-07-04) ---
+    {
+      year: 2012,
+      month: 11,
+      category: 'fashion',
+      title: 'A Jenny Packham lace gown blooms with red at the 2012 CMAs',
+      snippet:
+        'A nude lace Jenny Packham gown embellished with sparkling red-and-gold rose appliques on the red carpet at the 46th CMA Awards, paired with straightened hair and bangs instead of her usual curls.',
+      sourceUrl: 'https://www.hollywoodreporter.com/gallery/cma-2012-arrivals-taylor-swift-385607/',
+      thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2012/11/46th_CMA_Awards_12.jpg?w=1500',
+      moment: {
+        context:
+          'Swift was up for Entertainer of the Year, Female Artist of the Year, and Musical Event of the Year (for her Civil Wars collaboration "Safe & Sound") at the Nov. 1, 2012 ceremony, just ten days after Red\'s release. The tan lace Jenny Packham gown was embellished with red-and-gold sequin rose shapes, keeping the red carpet look tied to the album\'s namesake color, and she wore her signature bold red lip with straightened hair and blunt bangs.',
+        sources: [
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/gallery/cma-2012-arrivals-taylor-swift-385607/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2012/11/46th_CMA_Awards_12.jpg?w=1500',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2013,
+      month: 5,
+      category: 'fashion',
+      title: 'A Zuhair Murad mini dress and a bright pink lip at the Billboard Music Awards',
+      snippet:
+        'A long-sleeved blue Zuhair Murad mini dress with sheer side panels — hair pulled into a ponytail to show off the cutouts, makeup built around a dramatic cat eye and an unexpected bright pink lip instead of her usual red.',
+      sourceUrl: 'https://hollywoodlife.com/2013/05/19/taylor-swift-billboard-awards-dress-2013-pics/',
+      thumbnailUrl: 'https://hollywoodlife.com/wp-content/uploads/2013/05/taylor-swift-billboards-fashion-front-back-ftr.jpg?resize=384%2C216',
+      moment: {
+        context:
+          'Worn to the May 19, 2013 Billboard Music Awards at the MGM Grand Garden Arena, the vibrant blue long-sleeve mini by Zuhair Murad had sheer inserts along the sides; she pulled her hair into a ponytail specifically to keep the cutout detail visible, then paired it with strappy metallic Jimmy Choo pumps and Ofira jewelry. The makeup swapped her signature red lip for a bright pink one under a dramatic cat eye — a rare departure from the era\'s usual red-lip formula.',
+        sources: [
+          {
+            outlet: 'Hollywood Life',
+            url: 'https://hollywoodlife.com/2013/05/19/taylor-swift-billboard-awards-dress-2013-pics/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://hollywoodlife.com/wp-content/uploads/2013/05/taylor-swift-billboards-fashion-front-back-ftr.jpg?resize=384%2C216',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2013,
+      month: 8,
+      category: 'fashion',
+      title: 'Retro pin curls and a crimson-crystal Hervé Léger gown at the 2013 VMAs',
+      snippet:
+        'A plunging, crystal-embellished black Hervé Léger by Max Azria gown at the MTV VMAs, styled with retro pin curls, a smokey eye, and a crimson-coated lip and nails for a full vintage-glam look the night she won Best Female Video.',
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2013/08/26/taylor-swift-in-herve-leger-by-max-azria-2013-mtv-video-music-awards-vmas/',
+      thumbnailUrl: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2013/08/Herve-Leger-Gown.jpg',
+      moment: {
+        context:
+          'At the Aug. 25, 2013 MTV VMAs in Brooklyn, where she won the Moon Man for Best Female Video, the plunging, beaded black Hervé Léger gown was paired with statement earrings instead of a necklace so nothing competed with the neckline. Hair and makeup went full "femme-fatale": tight retro pin curls, a smokey eye, and a crimson-coated lip and matching nails — the red-lip signature carried through to the nail polish.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2013/08/26/taylor-swift-in-herve-leger-by-max-azria-2013-mtv-video-music-awards-vmas/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2013/08/Herve-Leger-Gown.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2013,
+      month: 11,
+      category: 'fashion',
+      title: 'A gold Julien Macdonald gown, altered with a hidden message',
+      snippet:
+        "A gold-spangled Julien Macdonald gown at the American Music Awards, tousled bedhead waves instead of a formal updo — pulled straight off the Fall 2013 runway and modified with a sheer mesh panel over the torso cutout.",
+      sourceUrl: 'https://mix957gr.com/taylor-swift-dress-2013-american-music-awards-red-carpet-photos/',
+      thumbnailUrl: 'https://townsquare.media/site/252/files/2013/11/taylor-swift5.jpg?w=980&q=75',
+      moment: {
+        context:
+          'At the Nov. 24, 2013 American Music Awards, where she won four trophies including Artist of the Year, Swift wore a gold-spangled Julien Macdonald gown taken from his Fall 2013 runway collection. Her team altered the runway piece by adding a sheer mesh panel across the triangular torso cutout, paired with strappy metallic sandals and loose, tousled waves rather than a sleek updo.',
+        sources: [
+          {
+            outlet: 'Mix 95.7',
+            url: 'https://mix957gr.com/taylor-swift-dress-2013-american-music-awards-red-carpet-photos/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://townsquare.media/site/252/files/2013/11/taylor-swift5.jpg?w=980&q=75',
+            credit: 'Jason Kempin/Getty Images',
+          },
+          {
+            url: 'https://townsquare.media/site/252/files/2013/11/taylor-swift-11.jpg?w=980&q=75',
+            credit: 'Jason Kempin/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2014,
+      month: 1,
+      category: 'fashion',
+      title: 'A crystal-mesh Gucci Première gown for the 2014 Grammys',
+      snippet:
+        'A gold lamé, short-sleeve Gucci Première gown with a crystal mesh overlay and crystal gemstone detail at the neckline, arms, and waist — a rare designer-runway red carpet moment mid-Red-era.',
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2014/01/27/taylor-swift-gucci-premiere-2014-grammy-awards/',
+      thumbnailUrl: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2019/12/taylor.jpg',
+      moment: {
+        context:
+          'Worn to the Jan. 26, 2014 Grammy Awards at the Staples Center, the fitted Gucci Première gown was built from gold lamé under a crystal mesh overlay, with crystal gemstone detailing at the neckline, arms, and waist. She paired it with Jimmy Choo heels and clutch and Lorraine Schwartz jewelry — one of the more directly high-fashion, runway-driven looks of the era, ahead of the pop pivot into 1989.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2014/01/27/taylor-swift-gucci-premiere-2014-grammy-awards/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2019/12/taylor.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2014,
+      month: 8,
+      category: 'fashion',
+      title: 'A Mary Katrantzou romper signals the turn toward 1989',
+      snippet:
+        "A powder-blue, alphabet-printed Mary Katrantzou romper at the 2014 VMAs — paired with a blunt bob and a bolder, more pop-leaning silhouette that fans and critics read as the first visible sign of the shift toward 1989.",
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2014/08/25/taylor-swift-mary-katrantzou-2014-mtv-video-music-awards-vma/',
+      thumbnailUrl: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2014/08/TaylorSwiftInMaryKatrantzou2014VMA.jpg',
+      moment: {
+        context:
+          'At the Aug. 24, 2014 MTV VMAs at The Forum in Inglewood, Swift wore a long-sleeve, high-cut powder-blue romper from Mary Katrantzou\'s Resort 2015 collection, printed with an abstract alphabet motif, paired with maroon peep-toe booties, Lorraine Schwartz jewelry, and Elie Saab heels. Styled with the blunt bob she debuted earlier that year, the polarizing, fashion-forward look landed two months before Red-era companion album cycle closed and 1989 was announced — a visible pivot point critics pointed to afterward as the first red-carpet signal of the coming pop reinvention.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2014/08/25/taylor-swift-mary-katrantzou-2014-mtv-video-music-awards-vma/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2014/08/TaylorSwiftInMaryKatrantzou2014VMA.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
   ],
 };
