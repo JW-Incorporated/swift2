@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { WheelEvent as ReactWheelEvent, TouchEvent as ReactTouchEvent } from 'react';
-import type { Era, Milestone, MonthItem } from '@swift2/shared';
+import type { Era, Milestone, MonthItem, YearMonth } from '@swift2/shared';
 import { monthsInEra, orderedEras } from '@swift2/shared';
 import type { VaultSkeleton } from '@swift2/core';
 import { eraSkin } from '../lib/theme';
@@ -48,6 +48,15 @@ function rangeLabel(startDate: string, endDate: string): string {
     e.getUTCFullYear(),
     e.getUTCMonth() + 1,
   )}`;
+}
+
+/** Merge month groups into one chronological, de-duplicated list. */
+function sortedUniqueMonths(...groups: YearMonth[][]): YearMonth[] {
+  const map = new Map<string, YearMonth>();
+  for (const group of groups) {
+    for (const ym of group) map.set(ymKey(ym.year, ym.month), ym);
+  }
+  return [...map.values()].sort((a, b) => a.year * 12 + a.month - (b.year * 12 + b.month));
 }
 
 const HEADER_OFFSET = 0.2; // detector line at 20% down the scroll viewport
@@ -216,7 +225,18 @@ function EraSection({
   onOpen: (itemId: string) => void;
   onOpenTracks: () => void;
 }) {
-  const months = monthsInEra(era);
+  // An era's story includes its lead-up and aftermath — a lead single or an
+  // awards win can fall outside the album's release→next-release window. So
+  // render the era's nominal months UNION the months its own items/milestones
+  // land in, rather than clipping to the window (which silently drops them).
+  const months = sortedUniqueMonths(
+    monthsInEra(era),
+    items.map((it) => ({ year: it.year, month: it.month })),
+    milestones.map((m) => {
+      const d = new Date(m.date);
+      return { year: d.getUTCFullYear(), month: d.getUTCMonth() + 1 };
+    }),
+  );
   const milestonesByMonth = groupBy(milestones, (m) => keyFromISO(m.date));
   const itemsByMonth = groupBy(items, (i) => ymKey(i.year, i.month));
 
