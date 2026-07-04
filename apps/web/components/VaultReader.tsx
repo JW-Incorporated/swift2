@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useRef, useState } from 'react';
-import type { PointerEvent as ReactPointerEvent } from 'react';
+import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent } from 'react';
 import type { Era, Milestone, MonthItem } from '@swift2/shared';
 import { eraTimelineMonths, orderedEras } from '@swift2/shared';
 import type { VaultSkeleton } from '@swift2/core';
@@ -117,15 +117,18 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
   return (
     <div
       className="era-skin"
-      style={{ ...eraSkin(active.theme), position: 'relative', height: '100dvh', overflow: 'hidden' }}
+      style={{ ...eraSkin(active.theme), position: 'relative', height: '100dvh', overflow: 'hidden', background: 'var(--bg)' }}
     >
       <div
         ref={scrollRef}
         style={{
-          height: '100%',
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: RAIL_W, // scroller stops before the rail, so its native scrollbar never sits under the rail (F1)
           overflowY: 'auto',
           background: 'var(--bg)',
-          paddingRight: RAIL_W, // keep content clear of the rail
         }}
       >
         {eras.map((era, i) => (
@@ -188,9 +191,16 @@ function EraRail({
   onSelectEra: (i: number) => void;
 }) {
   const capsuleRef = useRef<HTMLDivElement | null>(null);
-  const dragging = useRef(false);
-  const [scrubbing, setScrubbing] = useState(false);
+  const dragBand = useRef<number | null>(null); // era band under the finger while dragging; null = not dragging
+  const keyTarget = useRef(activeIndex); // intended era for keyboard bursts (survives smooth-scroll lag)
+  const [dragIndex, setDragIndex] = useState<number | null>(null);
   const n = eras.length;
+
+  // When not mid-drag, keep the keyboard target aligned with the scroll-derived
+  // active era so arrow keys start from where the reader actually is.
+  useEffect(() => {
+    if (dragBand.current === null) keyTarget.current = activeIndex;
+  }, [activeIndex]);
 
   // Map a pointer's Y to an era over the glass capsule's extent (where the dots
   // live), so the drag lines up with what's on screen.
@@ -202,21 +212,51 @@ function EraRail({
     return Math.min(n - 1, Math.max(0, Math.floor(f * n)));
   };
 
+  // The rail's visuals follow the finger locally during a drag; the page jump is
+  // only issued when the band actually changes, so a jittery drag doesn't restart
+  // the smooth scroll on every pointermove (the F2 stutter/lag).
+  const commit = (band: number) => {
+    dragBand.current = band;
+    keyTarget.current = band;
+    setDragIndex(band);
+    onSelectEra(band);
+  };
   const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
     e.currentTarget.setPointerCapture(e.pointerId);
-    dragging.current = true;
-    setScrubbing(true);
-    onSelectEra(eraAtClientY(e.clientY));
+    commit(eraAtClientY(e.clientY));
   };
   const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (dragging.current) onSelectEra(eraAtClientY(e.clientY));
+    if (dragBand.current === null) return;
+    const band = eraAtClientY(e.clientY);
+    if (band !== dragBand.current) commit(band);
   };
   const endDrag = () => {
-    dragging.current = false;
-    setScrubbing(false);
+    dragBand.current = null;
+    setDragIndex(null);
+  };
+
+  // Keyboard steps from the last intended era (not the lagging scroll position),
+  // so rapid presses advance correctly; Up/Left = earlier, Down/Right = later.
+  const onKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
+    let next = keyTarget.current;
+    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next += 1;
+    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next -= 1;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = n - 1;
+    else return;
+    e.preventDefault();
+    next = Math.min(n - 1, Math.max(0, next));
+    if (next !== keyTarget.current) {
+      keyTarget.current = next;
+      onSelectEra(next);
+    }
   };
 
   if (n === 0) return null;
+
+  // Dots + bubble follow the finger while dragging, else the scroll position.
+  const shown = dragIndex ?? activeIndex;
+  const dragging = dragIndex !== null;
 
   return (
     // Transparent full-height hit strip (comfortable touch target); the visible
@@ -227,22 +267,14 @@ function EraRail({
       aria-orientation="vertical"
       aria-valuemin={0}
       aria-valuemax={n - 1}
-      aria-valuenow={activeIndex}
-      aria-valuetext={eras[activeIndex]?.album}
+      aria-valuenow={shown}
+      aria-valuetext={eras[shown]?.album}
       tabIndex={0}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
       onPointerUp={endDrag}
       onPointerCancel={endDrag}
-      onKeyDown={(e) => {
-        if (e.key === 'ArrowDown' && activeIndex < n - 1) {
-          e.preventDefault();
-          onSelectEra(activeIndex + 1);
-        } else if (e.key === 'ArrowUp' && activeIndex > 0) {
-          e.preventDefault();
-          onSelectEra(activeIndex - 1);
-        }
-      }}
+      onKeyDown={onKeyDown}
       style={{
         position: 'absolute',
         top: 0,
@@ -261,7 +293,7 @@ function EraRail({
         ref={capsuleRef}
         style={{
           position: 'relative',
-          marginRight: 7,
+          marginRight: 10,
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -276,7 +308,7 @@ function EraRail({
         }}
       >
         {eras.map((era, i) => {
-          const isActive = i === activeIndex;
+          const isActive = i === shown;
           return (
             <span
               key={era.slug}
@@ -295,13 +327,13 @@ function EraRail({
         })}
 
         {/* iOS-style scrub bubble: the current album, magnified beside the dot. */}
-        {scrubbing ? (
+        {dragging ? (
           <div
             aria-hidden
             style={{
               position: 'absolute',
               right: 'calc(100% + 12px)',
-              top: `${((activeIndex + 0.5) / n) * 100}%`,
+              top: `${((shown + 0.5) / n) * 100}%`,
               transform: 'translateY(-50%)',
               padding: '7px 14px',
               borderRadius: 12,
@@ -315,7 +347,7 @@ function EraRail({
               boxShadow: '0 6px 22px rgba(0,0,0,0.45)',
             }}
           >
-            {eras[activeIndex]?.album}
+            {eras[shown]?.album}
           </div>
         ) : null}
       </div>

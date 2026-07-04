@@ -7,6 +7,32 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-04 — Persistent glass era-rail replaces the peek-strip summon
+
+**Decision:** Drop the summon affordance entirely. The prior design (see the next
+entry) had a thin **peek strip** at the top that you grabbed to expand into the
+scrubber, plus overscroll-to-summon at the scroll top. Both are removed. In their
+place: a **persistent, always-visible era rail** pinned to the right edge — a
+glassmorphic capsule with one colour dot per era (the whole timeline visible at a
+glance), the active dot enlarged, drag/tap to jump, and a magnified album
+"bubble" while dragging. The continuous-stacked-timeline + scroll-spy + two-way
+coupling decision below is UNCHANGED; only the *navigator affordance* changed.
+
+**Why:** On-device testing (Wyatt, real phone) found the peek strip scrolled
+**off the top of the screen and was unreachable**, and it wasn't obvious which
+era each position mapped to. An always-present rail showing every era colour is
+reachable at any scroll position and makes the destinations legible without a
+summon gesture — which also removes the overscroll-vs-scroll-up ambiguity the
+superseded entry was carefully working around.
+
+**Alternatives considered:** Keep the peek strip but make it position-fixed
+(rejected: still a hidden-until-grabbed control, and a fixed bar over a
+continuous scroller competes with content); bottom-edge scrubber (rejected:
+collides with mobile browser chrome / home indicator). Implementation notes and
+the interaction-lag fixes from a Fable review are in PR #23.
+
+**Approved by:** Wyatt (CTO) — from direct device testing.
+
 ## 2026-07-04 — Continuous stacked timeline over per-era paging (scrubber summon)
 
 **Decision:** The Vault reader is one continuous vertical scroller with all eras
