@@ -388,17 +388,22 @@ export default {
     },
 
     // --- Real-time addition (2026-07-04): the wedding happened yesterday.
+    // Photos + extra detail (guest list, jumbotron) folded in from the
+    // parallel content/era-fashion-photos-pass branch to avoid two
+    // overlapping wedding entries once both PRs land.
     {
       year: 2026,
       month: 7,
       category: 'relationship',
       title: 'Taylor and Travis marry at Madison Square Garden',
-      snippet: 'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man.',
+      snippet:
+        'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man. Roughly 1,000 guests, and a jumbotron outside the arena reading "JUST&T MARRIED!"',
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
       moment: {
         context:
-          'Sandler, a friend of the couple, sang an original song for them at the ceremony. Both wore custom Christian Dior Haute Couture; Stevie Nicks performed at the reception.',
+          'Sandler, a friend of the couple, sang an original song for them at the ceremony. Both wore custom Christian Dior Haute Couture; Stevie Nicks performed at the reception. Guests included Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky, among roughly 1,000 attendees.',
         sources: [
           {
             outlet: 'CBS News',
@@ -409,7 +414,16 @@ export default {
             url: 'https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
+            credit: 'Charly Triballeau/AFP via Getty Images',
+          },
+          {
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2026/07/02/e66f5b93-8b69-4557-847c-106908119407/thumbnail/620x413/06cdf599d84c9a589b8eb695f3867456/2026-07-02t205104z-316575572-rc2w5maws1vu-rtrmadp-3-people-taylor-swift-kelce.jpg',
+            credit: 'Christian Monterrosa/Reuters',
+          },
+        ],
       },
     },
   ],
