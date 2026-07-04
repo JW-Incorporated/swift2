@@ -316,6 +316,27 @@ export default {
     },
     {
       year: 2023,
+      month: 5,
+      category: 'relationship',
+      title: 'A brief, rumored month with Matty Healy',
+      snippet: 'Reconnecting through mutual friend Jack Antonoff weeks after the Alwyn breakup — studio nights, a Nashville Eras Tour stop, then over by early June.',
+      sourceUrl: 'https://www.etonline.com/taylor-swift-and-matty-healys-relationship-timeline-a-look-back-at-their-short-lived-romance-223746',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Never confirmed on the record by either party. A source told the press they were "not really compatible with each other" — an insider noted her friends "aren\'t shocked" it fizzled so soon after a six-year relationship ended.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-and-matty-healys-relationship-timeline-a-look-back-at-their-short-lived-romance-223746',
+          },
+          { outlet: 'StyleCaster', url: 'https://stylecaster.com/lists/taylor-swift-matty-healy-dating/' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
       month: 7,
       category: 'relationship',
       title: "The friendship bracelet Travis couldn't deliver",

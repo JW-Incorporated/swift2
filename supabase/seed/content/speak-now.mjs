@@ -190,5 +190,29 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2012,
+      month: 8,
+      category: 'relationship',
+      title: "A summer with Conor Kennedy, and Ethel Kennedy's blessing",
+      snippet: 'A whirlwind romance with the 18-year-old Kennedy family member, complete with a grandmother\'s public blessing and a house bought near the family\'s Hyannis Port compound — quietly over within months.',
+      sourceUrl: 'https://www.eonline.com/news/357246/taylor-swift-and-conor-kennedy-breakup-anatomy-of-a-split',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Ethel Kennedy, on the relationship: "We should be so lucky." A source on the breakup, reported that October: "They quietly parted ways a while ago. It was just a distance thing. No hard feelings."',
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/357246/taylor-swift-and-conor-kennedy-breakup-anatomy-of-a-split',
+          },
+          {
+            outlet: 'Nicki Swift',
+            url: 'https://www.nickiswift.com/271614/the-truth-about-taylor-swifts-relationship-with-conor-kennedy/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
