@@ -7,6 +7,34 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-04 — Company code lives in a shared GitHub Org, not a personal account
+
+**Decision:** Move `Swift2` off `sffan15-sys` (Joey's **personal** GitHub
+account) into a **GitHub Organization owned by both founders**, and deploy from a
+**Vercel Team** connected to that org — rather than keeping the repo on one
+founder's personal account with the other as a collaborator. Runbook:
+`docs/github-org-migration.md`.
+
+**Why:** A personal-account repo can only have apps/integrations authorized by
+the **account owner**, so the other founder is a permanent gatekeeper — this is
+exactly what blocked wiring up Vercel push-to-deploy (only Joey can authorize the
+Vercel GitHub App on his personal repo). Company assets also shouldn't be
+entangled with one person's personal identity (account loss/compromise/departure
+risk). An org makes both founders Owners (no gatekeeper), survives personnel
+changes, and is the container that org-wide 2FA, branch protection, secrets, and
+team roles hang off later. Free at our scale; cheap now, more expensive to move
+after more integrations point at the personal repo.
+
+**Alternatives considered:** Keep it on Joey's personal account and have Joey
+authorize each integration (rejected: recurring bottleneck, fragile ownership).
+Transfer the repo to Wyatt's personal account (rejected: same single-owner
+problem, just reversed). Fork to Wyatt's account and deploy the fork (rejected:
+splits the repo, diverges from the shared source of truth).
+
+**Status:** Direction set by Wyatt (CTO — infra decision). **Execution pending**
+and requires Joey to initiate the repo transfer (he owns the source repo); see
+the runbook's owner-tagged steps.
+
 ## 2026-07-04 — Ship-readiness bar: wavetop everywhere + 2 flagship eras deep, then weekly post-launch drops
 
 **Decision:** v1's content ship bar is revised from wavetop-only (all 11 eras,

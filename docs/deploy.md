@@ -40,11 +40,18 @@ vercel --prod                                   # prints the live URL
 Re-run `vercel --prod` to ship a new version. (No auto-deploy on push in this
 mode — that's what Path B adds once the app is linked.)
 
-## Path B — GitHub integration (once an org owner can approve)
+## Path B — GitHub integration (auto-deploy on push)
 
-1. vercel.com → Add New… → Project → import `sffan15-sys/swift2`.
+**Prerequisite:** the repo must live somewhere the deploying account can
+authorize Vercel. Today it's on a founder's **personal** account
+(`sffan15-sys/Swift2`), so only that owner can connect it. The durable fix is to
+move it into a shared **GitHub Org** both founders own — see
+**`docs/github-org-migration.md`**. Once that's done (or if the personal-account
+owner does it themselves):
+
+1. vercel.com → Add New… → Project → import `<ORG>/Swift2`.
    If it's not listed, **Adjust GitHub App Permissions** → grant access to the
-   repo (an **org owner must approve** the install on the org).
+   repo (an **org owner must approve** the Vercel GitHub App install).
 2. **Root Directory → `apps/web`** (leave "Include files outside root" on).
 3. Add the env vars above (Production + Preview).
 4. Deploy. `main` then auto-deploys; PRs get preview URLs.
