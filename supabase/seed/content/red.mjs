@@ -91,5 +91,19 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2013,
+      month: 6,
+      category: 'fashion',
+      title: "An ankle-length red dress with a thigh-high slit for 'Red' at the CMTs",
+      snippet:
+        'A red dress, a red guitar, a red light show — she introduced the title track to CMT viewers at the 2013 CMT Music Awards.',
+      sourceUrl: 'https://tasteofcountry.com/taylor-swift-red-cmt-awards/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [{ outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-red-cmt-awards/' }],
+        photos: [],
+      },
+    },
   ],
 };

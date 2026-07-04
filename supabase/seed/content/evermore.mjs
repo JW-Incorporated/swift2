@@ -96,5 +96,28 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2022,
+      month: 4,
+      category: 'business',
+      title: 'evermore gets an Album of the Year nod, its only nomination',
+      snippet:
+        "Nominated for the Grammys' biggest award, with no other nods for the album — it lost to Jon Batiste's We Are at the 64th ceremony.",
+      sourceUrl: 'https://www.forbes.com/sites/hughmcintyre/2021/12/05/taylor-swift-just-lost-one-of-her-album-of-the-year-grammy-nominations/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2021/12/05/taylor-swift-just-lost-one-of-her-album-of-the-year-grammy-nominations/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/jon-batiste-album-of-the-year-2022-grammys-why-it-won-1235054841/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

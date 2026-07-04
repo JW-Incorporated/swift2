@@ -168,6 +168,30 @@ export default {
     },
     {
       year: 2023,
+      month: 12,
+      category: 'release',
+      title: 'The Eras Tour film becomes the highest-grossing concert film ever',
+      snippet:
+        "$261.6 million worldwide, pushed past Michael Jackson's This Is It after opening in China — a record that had stood for 14 years.",
+      sourceUrl:
+        'https://investor.amctheatres.com/news-events/press-releases/detail/348/taylor-swift-the-eras-tour-concert-film-is-now-the-highest-grossing-theatrical-release-in-history-among-concert-and-documentary-films',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'AMC Theatres',
+            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/348/taylor-swift-the-eras-tour-concert-film-is-now-the-highest-grossing-theatrical-release-in-history-among-concert-and-documentary-films',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/tv-film/taylor-swift-eras-tour-movie-box-office-record-michael-jackson-this-is-it-1235577518/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
       month: 3,
       category: 'tour',
       title: 'The Eras Tour kicks off in Glendale',
