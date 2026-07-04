@@ -10,6 +10,25 @@ export default {
   items: [
     {
       year: 2024,
+      month: 2,
+      category: 'release',
+      title: 'TTPD announced live at the Grammys before her record fourth AOTY win',
+      snippet:
+        'She revealed the April 19 release date mid-speech while accepting Best Pop Vocal Album, then ended the night as the first artist to win Album of the Year four times.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-announces-new-album-the-tortured-poets-department-grammys-2024/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-announces-new-album-the-tortured-poets-department-grammys-2024/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
       month: 4,
       category: 'business',
       title: "Tortured Poets breaks Spotify's single-day record",
@@ -55,6 +74,98 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swift-tortured-poets-passes-billion-spotify-streams-1235665087/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'Fortnight opens the album, with Post Malone on the hook',
+      snippet: "A pulsing '80s-inspired synth ballad that opens the album, with Post Malone on the hook.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Fortnight_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Taylor\'s own description of the album\'s fatalism: "You ended up not with the person that you loved and now you just have to live with that every day."',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'release',
+      title: 'A 2am surprise: TTPD was a secret double album all along',
+      snippet:
+        'Two hours after the album dropped, a second post: "The Tortured Poets Department is a secret DOUBLE album." The Anthology added 15 more songs, 31 total.',
+      sourceUrl:
+        'https://www.billboard.com/music/pop/taylor-swift-2am-surprise-secret-double-album-the-tortured-poets-department-1235660643/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her caption: "I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-2am-surprise-secret-double-album-the-tortured-poets-department-1235660643/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'Clara Bow, and the industry habit of replacing women with women',
+      snippet: '"You look like Clara Bow in this light... Stevie Nicks in \'75" — then, in the last verse, the label pitches the same line about her.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Clara_Bow_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her own explanation: "I picked women who have done great things in the past and have been these archetypes of greatness in the entertainment industry" — then showed how the industry sells every new woman as a replacement for the last.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clara_Bow_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'The Bolter, and the 1930s socialite fans think inspired it',
+      snippet: 'A woman who leaves relationships the moment they turn — fans trace the title to a real 1900s aristocrat divorced five times over.',
+      sourceUrl: 'https://www.bustle.com/entertainment/taylor-swift-the-bolter-theory-lady-idina-sackville',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Lady Idina Sackville, part of the scandalous "Happy Valley set" in 1930s colonial Kenya, earned the "bolter" nickname after leaving her husband for another man; her own great-granddaughter wrote a 2008 biography by the same title. Taylor has never confirmed the connection.',
+        sources: [
+          {
+            outlet: 'Bustle',
+            url: 'https://www.bustle.com/entertainment/taylor-swift-the-bolter-theory-lady-idina-sackville',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 5,
+      category: 'tour',
+      title: "TTPD joins the Eras Tour as 'Female Rage The Musical'",
+      snippet:
+        "New songs from the album folded into the setlist in Paris — Taylor's own nickname for the segment, from her Instagram caption.",
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-eras-tour-set-list-post-1235019481/',
+      thumbnailUrl: null,
+      moment: {
+        context: 'Her exact caption: "This post is dedicated to the new Tortured Poets section of the Eras Tour (aka Female Rage The Musical!)"',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-eras-tour-set-list-post-1235019481/',
           },
         ],
         photos: [],
