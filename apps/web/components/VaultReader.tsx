@@ -358,7 +358,20 @@ function MonthRow({
               >
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
                   <span style={{ fontWeight: 600 }}>{it.title}</span>
-                  <span style={{ color: 'var(--ink-soft)', fontSize: 12 }}>{it.category}</span>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.04em',
+                      color: 'var(--ink-soft)',
+                      border: '1px solid var(--line)',
+                      borderRadius: 999,
+                      padding: '1px 7px',
+                      flex: '0 0 auto',
+                    }}
+                  >
+                    {it.category}
+                  </span>
                 </div>
                 {it.snippet ? (
                   <div style={{ color: 'var(--ink-soft)', fontSize: 14 }}>{it.snippet}</div>
