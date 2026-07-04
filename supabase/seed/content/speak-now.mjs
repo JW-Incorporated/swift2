@@ -89,6 +89,22 @@ export default {
     {
       year: 2011,
       month: 2,
+      category: 'fashion',
+      title: 'A gold Roberto Cavalli fringe dress for Sparks Fly, Mine, and The Story of Us',
+      snippet:
+        'A gold ombré sequin fringe mini and black knee-high boots — her go-to Speak Now Tour look for three of the album\'s songs.',
+      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2011,
+      month: 2,
       category: 'tour',
       title: 'The Speak Now World Tour opens in Singapore',
       snippet:

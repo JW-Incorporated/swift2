@@ -92,5 +92,23 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2015,
+      month: 3,
+      category: 'fashion',
+      title: 'A black cutout KaufmanFranco mini at the iHeartRadio Awards',
+      snippet: 'Bandeau cutouts and intricate beadwork — the night she also won Artist of the Year.',
+      sourceUrl: 'https://www.refinery29.com/en-us/2015/03/84671/taylor-swift-iheart-radio-awards',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2015/03/84671/taylor-swift-iheart-radio-awards',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

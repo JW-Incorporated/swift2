@@ -246,5 +246,47 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2022,
+      month: 10,
+      category: 'release',
+      title: 'Midnights (3am Edition) surprises fans with 7 more songs',
+      snippet:
+        "Dropped three hours after the standard album — \"other songs we wrote on our journey to find that magic 13,\" in Taylor's words.",
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-midnights-3am-edition-1235159092/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-midnights-3am-edition-1235159092/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 12,
+      category: 'business',
+      title: 'Time names her 2023 Person of the Year',
+      snippet:
+        "Her own reaction: \"This is the proudest and happiest I've ever felt, and the most creatively fulfilled and free I've ever been.\"",
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/conormurray/2023/12/06/every-major-event-in-taylor-swifts-record-breaking-2023-from-the-eras-tour-to-time-person-of-the-year/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
