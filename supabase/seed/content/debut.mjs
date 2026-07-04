@@ -30,5 +30,42 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2006,
+      month: 9,
+      category: 'sighting',
+      title: 'Her Grand Ole Opry debut, in a sundress at 16',
+      snippet:
+        'A white sundress, natural curls, and "Tim McGraw" — before the album that made her famous had even come out.',
+      sourceUrl: 'https://tasteofcountry.com/taylor-swift-grand-ole-opry-debut/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [{ outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-grand-ole-opry-debut/' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2007,
+      month: 12,
+      category: 'business',
+      title: 'Our Song becomes her first No. 1',
+      snippet:
+        'Six weeks atop Hot Country Songs — the first of what would become seven country No. 1s before her pivot to pop.',
+      sourceUrl: 'https://www.billboard.com/pro/taylor-swift-our-song-this-week-in-billboard-chart-history-2007/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-our-song-this-week-in-billboard-chart-history-2007/',
+          },
+          {
+            outlet: 'Wide Open Country',
+            url: 'https://www.wideopencountry.com/our-song-taylor-swift/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

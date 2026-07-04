@@ -58,5 +58,24 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2020,
+      month: 11,
+      category: 'release',
+      title: 'folklore: The Long Pond Studio Sessions marks her directorial debut',
+      snippet:
+        'A surprise Disney+ release, filmed in a secluded Hudson Valley studio with Aaron Dessner and Jack Antonoff — her first time directing a film.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

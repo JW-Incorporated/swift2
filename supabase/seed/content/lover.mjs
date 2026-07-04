@@ -65,5 +65,27 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2019,
+      month: 11,
+      category: 'business',
+      title: 'Artist of the Decade, and a record 29 AMA wins',
+      snippet: 'Named Artist of the Decade, then broke Michael Jackson\'s all-time AMA wins record in the same night.',
+      sourceUrl: 'https://www.goodmorningamerica.com/culture/story/american-music-awards-2019-taylor-swift-breaks-records-67284943',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/american-music-awards-2019-taylor-swift-breaks-records-67284943',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-ama-singer-beats-michael-jackson-for-most-american-music-awards-2019-performance-artist-of-the-decade/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
