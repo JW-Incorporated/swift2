@@ -1,0 +1,19 @@
+{
+  "expo": {
+    "name": "Swift2 Vault",
+    "slug": "swift2-vault",
+    "version": "0.0.0",
+    "orientation": "portrait",
+    "scheme": "swift2",
+    "userInterfaceStyle": "dark",
+    "newArchEnabled": true,
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.swift2.vault"
+    },
+    "android": {
+      "package": "com.swift2.vault"
+    }
+  }
+}
