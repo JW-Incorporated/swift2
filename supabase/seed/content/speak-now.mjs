@@ -426,5 +426,150 @@ export default {
         ],
       },
     },
+
+    // --- Fashion/photo depth pass #2 (2026-07-04) ---
+    {
+      year: 2010,
+      month: 10,
+      category: 'fashion',
+      title: 'A purple ombre Reem Acra gown on the Speak Now album cover',
+      snippet:
+        'The album cover itself is a fashion moment: a strapless purple ombre chiffon gown by Reem Acra, fading from deep violet to pale lilac.',
+      sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
+      thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg',
+      moment: {
+        context:
+          'The Reem Acra gown for the Speak Now cover shoot set the visual identity for the whole era, released the same month the album hit shelves.',
+        sources: [
+          { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
+        ],
+        photos: [
+          {
+            url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg',
+            credit: 'Reem Acra / Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 11,
+      category: 'fashion',
+      title: 'Glamour puts her on its November 2010 cover',
+      snippet:
+        "A Glamour magazine cover timed to Speak Now's release, part of the press run that reintroduced her post-bangs, post-breakout look to a wider readership.",
+      sourceUrl: 'https://catherineangiel.com/blogs/editorial/glamour-magazine-cover-november-2010-taylor-swift',
+      thumbnailUrl:
+        'https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG',
+      moment: {
+        sources: [
+          {
+            outlet: 'Catherine Angiel (archival)',
+            url: 'https://catherineangiel.com/blogs/editorial/glamour-magazine-cover-november-2010-taylor-swift',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG',
+            credit: 'Glamour',
+          },
+        ],
+      },
+    },
+    {
+      year: 2011,
+      month: 2,
+      category: 'fashion',
+      title: 'A gold Zuhair Murad minidress at the Vanity Fair Oscar party',
+      snippet:
+        'A beaded gold strapless Zuhair Murad minidress with a corset back, gold Jimmy Choo platform sandals and clutch, and pinned-back hair at the Vanity Fair Oscars after-party.',
+      sourceUrl: 'https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/',
+      thumbnailUrl: 'https://townsquare.media/site/204/files/2011/02/taylor-swift.jpg?w=980&q=75',
+      moment: {
+        context:
+          'Worn February 27, 2011 at the Sunset Tower Hotel party, one of her earliest red-carpet turns in Zuhair Murad — a designer she\'d return to repeatedly through 2012.',
+        sources: [
+          { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/' },
+        ],
+        photos: [
+          {
+            url: 'https://townsquare.media/site/204/files/2011/02/taylor-swift.jpg?w=980&q=75',
+            credit: 'Townsquare Media',
+          },
+        ],
+      },
+    },
+    {
+      year: 2011,
+      month: 8,
+      category: 'fashion',
+      title: 'A Marilyn Monroe-inspired white halter dress at the Teen Choice Awards',
+      snippet:
+        "A white halterneck dress by Rafael Cennamo, styled with a Ranjana Khan belt, Neil Lane jewelry, and Fendi shoes for a deliberately Marilyn Monroe-inspired look.",
+      sourceUrl: 'https://www.aceshowbiz.com/news/view/00042706.html',
+      thumbnailUrl: 'https://www.aceshowbiz.com/images/wennpic/preview/taylor-swift-2011-teen-choice-awards-01.jpg',
+      moment: {
+        context: 'Worn the night she won the Ultimate Choice Award at the 2011 Teen Choice Awards.',
+        sources: [{ outlet: 'AceShowbiz', url: 'https://www.aceshowbiz.com/news/view/00042706.html' }],
+        photos: [
+          {
+            url: 'https://www.aceshowbiz.com/images/wennpic/preview/taylor-swift-2011-teen-choice-awards-01.jpg',
+            credit: 'WENN',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 1,
+      category: 'fashion',
+      title: 'Her first Vogue cover, shot by Mario Testino',
+      snippet:
+        'Bohemian styling by fashion editor Tonne Goodman, in pieces from Rodarte, Jil Sander, and Rag & Bone, for the February 2012 issue titled "The Single Life" — her debut Vogue cover.',
+      sourceUrl: 'https://www.fashiongonerogue.com/taylor-swift-mario-testino-vogue-february-2012/',
+      thumbnailUrl: 'https://fashiongonerogue.com/wp-content/uploads/igr/preview/01/taylor_swift1.jpg',
+      moment: {
+        context: 'The issue hit newsstands January 24, 2012; Testino and Goodman styled the shoot around a loose, bohemian wardrobe rather than red-carpet gowns.',
+        sources: [
+          {
+            outlet: 'Fashion Gone Rogue',
+            url: 'https://www.fashiongonerogue.com/taylor-swift-mario-testino-vogue-february-2012/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://fashiongonerogue.com/wp-content/uploads/igr/preview/01/taylor_swift1.jpg',
+            credit: 'Mario Testino / Vogue US',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 2,
+      category: 'fashion',
+      title: 'A gold Zuhair Murad Couture gown on the 2012 Grammys red carpet',
+      snippet:
+        'A gold Zuhair Murad Couture gown with a Mandarin collar, heart-shaped cutout, and mermaid skirt with a short train — worn on the red carpet before her banjo-driven "Mean" performance.',
+      sourceUrl: 'https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/',
+      thumbnailUrl:
+        'https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg',
+      moment: {
+        context:
+          'Worn on the same night she won two Grammys for "Mean" (Best Country Song, Best Country Solo Performance); the gown was pulled from Zuhair Murad\'s haute couture line.',
+        sources: [
+          {
+            outlet: 'Style Darling Daily',
+            url: 'https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg',
+            credit: 'Style Darling Daily',
+          },
+        ],
+      },
+    },
   ],
 };
