@@ -87,12 +87,18 @@ export default {
       category: 'music',
       title: "Mary's Song, borrowed from the couple next door",
       snippet: "A story of two neighbors who fell in love as kids and stayed married forever — inspired by an actual couple who lived next door.",
-      sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/marys-song-oh-my-my-my',
+      sourceUrl: 'https://au.rollingstone.com/music/music-lists/taylor-swift-most-romantic-love-songs-list-82721/marys-song-oh-my-my-my-82725/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Her own account: "I wrote this song about a couple who lived next door to us. They\'d been married forever... they were talking about how they fell in love and got married, and how they met when they were just little kids."',
-        sources: [{ outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/marys-song-oh-my-my-my' }],
+          'Her own account, on the real couple next door: "All I had to do was go home and look next door to see a perfect example of forever."',
+        sources: [
+          {
+            outlet: 'Rolling Stone Australia',
+            url: 'https://au.rollingstone.com/music/music-lists/taylor-swift-most-romantic-love-songs-list-82721/marys-song-oh-my-my-my-82725/',
+          },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/marys-song-oh-my-my-my' },
+        ],
         photos: [],
       },
     },
@@ -121,7 +127,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her own words, years later: "I wrote this song when I was thirteen and had just moved to Nashville. It was tough trying to find out how I was going to get where I wanted to go... I\'m really happy this is on the album, because I feel like I finally figured it out."',
+          'She wrote it at 13 while still living in Pennsylvania and making regular trips to Nashville, working out whether a music career was even reachable: "It was tough trying to find out how I was going to get where I wanted to go... I\'m really happy this is on the album, because I feel like I finally figured it out."',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/A_Place_in_This_World' }],
         photos: [],
       },

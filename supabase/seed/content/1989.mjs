@@ -139,7 +139,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her own description of the metaphor: "There\'s been a drought but you feel like there\'s a storm coming, and so instead of blocking out the storm you punch a hole in the roof and just let all the rain come in. And when you wake up in the morning, it\'s washed away everything that used to hurt you." She wrote it alone, then brought it to Imogen Heap to co-produce.',
+          'Swift has described the song around a drought-then-storm metaphor for finally washing away what used to hurt — a storm you let in on purpose instead of blocking out. She finished the lyrics and melody alone, then brought it to Imogen Heap to co-produce.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clean_(song)' }],
         photos: [],
       },

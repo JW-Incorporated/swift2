@@ -105,7 +105,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her mother, Andrea, on hearing it: "that\'s when I lost it... I\'ve lost it pretty much every time I\'ve heard that song since." Taylor eventually had to drop it from the Fearless Tour setlist because her mom kept breaking down backstage.',
+          'Her mother, Andrea, on hearing it: "that\'s when I lost it... I\'ve lost it pretty much every time I\'ve heard that song since."',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)' }],
         photos: [],
       },

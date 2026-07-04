@@ -93,7 +93,7 @@ export default {
       year: 2020,
       month: 7,
       category: 'music',
-      title: 'seven, a memory of a friend she could still be protecting',
+      title: 'seven, a childhood friendship remembered in fragments',
       snippet: 'A seven-year-old\'s memory of a friend in a house she calls "haunted" — too young to understand why, old enough to want to run away with her.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Seven_(Taylor_Swift_song)',
       thumbnailUrl: null,

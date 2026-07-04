@@ -113,12 +113,10 @@ export default {
       month: 10,
       category: 'music',
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
-      snippet: 'Two songwriters who\'d never met in person, writing together all day — the song came out of a trampoline in her backyard.',
+      snippet: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
       thumbnailUrl: null,
       moment: {
-        context:
-          'She\'d found Sheeran\'s "Lego House" video on tour and reached out; he later recalled showing up at her hotel in Arizona to write all day, then her visiting his place in LA to write and harmonize "sitting on the kitchen floor" all night.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' }],
         photos: [],
       },

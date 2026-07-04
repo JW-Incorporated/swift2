@@ -162,7 +162,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "Filmed in Dallas with guest performances from Maren Morris and Sugarland, the special put her alongside Ryan Murphy, Shonda Rhimes, and the Obamas among Netflix's marquee talent deals.",
+          'Filmed in Dallas with guest performances from Maren Morris and Sugarland, capturing the final North American stop of a tour that had just closed out as the highest-grossing U.S. tour ever, at $266.1 million.',
         sources: [
           {
             outlet: 'Refinery29',
