@@ -7,6 +7,40 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-04 — Song track guide is a separate, non-month-scoped shape
+
+**Decision:** Full song-catalog coverage lives in a new `track_note` table
+(per-album song notes: `era_slug`, `track_title`, `track_number`, `note`,
+`source_url`, `sources[]`), **not** as `month_item` rows. It is reached from the
+album/era and served **on demand** per album (`GET /vault/album/[slug]/tracks`),
+like Tier 1 moments — deliberately kept **off the Tier 0 timeline payload**.
+Same discipline as the rest of the Vault: short sourced note (≤400 chars, DB
+CHECK), links only, no fabrication, RLS public-read, authored via repo seed
+files (`supabase/seed/tracks/*.mjs`, `npm run db:seed:tracks`).
+
+**Why:** Content approved full-catalog song annotation (Taylor's catalog is
+unusually well-documented). Songs currently only become content as month-scoped
+`month_item` rows, capped at 1–2 standout tracks/album to respect the
+wavetop-month depth ceiling (5–8 items/month) and the Tier-0 payload budget gate
+(W6, ≤2MB gz, CI-enforced). Midnights (13 tracks) and TTPD (31 w/ Anthology)
+would blow both immediately. A separate album-scoped shape gives unlimited song
+coverage without touching the timeline payload.
+
+**Alternatives considered:** Extend `moment` with nullable month linkage + a
+discriminator (rejected: `moment` is 1:1 and month-scoped; overloading it
+muddies the timeline model). Bundle track guides into Tier 0 (rejected: that is
+exactly the payload the budget gate protects). Keep cramming songs into
+`month_item` (rejected: breaks both limits, needs migration later).
+
+**Knock-on:** the staged Orbit song port (`candidates/00-orbit.mjs`, 218 songs
+as `month_item` rows) is the anti-pattern this replaces — those should be
+re-mapped to `track_note`s or dropped, and must not be seeded as month items.
+
+**Ref:** `docs/proposals/2026-07-04-song-track-guide-content-shape.md`,
+`docs/marketing/feature-brief-2026-07-04.md` (Addendum).
+
+**Approved by:** Wyatt (CTO)
+
 ## 2026-07-03 — V1 scope is Vault (time machine) only
 
 **Decision:** v1 ships the Vault/era-scrubber time-travel experience and
