@@ -26,7 +26,7 @@ export default {
         'Six nights at midnight, Oct 21–26 — the whole album on iHeartRadio stations nationwide, with Taylor sharing some of the stories behind the songs herself.',
       sourceUrl:
         'https://www.iheart.com/content/2022-10-20-celebrate-midnights-with-taylor-swift-on-iheartradio/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://i.iheart.com/v3/re/new_assets/6351759fded3848f2718dc48',
       moment: {
         sources: [
           {
@@ -34,7 +34,7 @@ export default {
             url: 'https://www.iheart.com/content/2022-10-20-celebrate-midnights-with-taylor-swift-on-iheartradio/',
           },
         ],
-        photos: [],
+        photos: [{ url: 'https://i.iheart.com/v3/re/new_assets/6351759fded3848f2718dc48', credit: 'iHeart' }],
       },
     },
     {
@@ -46,7 +46,7 @@ export default {
         "184.6 million album streams in 24 hours, while Taylor's full catalog hit 228 million streams — Spotify's biggest day ever for both, album and artist.",
       sourceUrl:
         'https://newsroom.spotify.com/2022-10-22/taylor-swift-breaks-two-records-with-midnights-becoming-the-most-streamed-artist-on-spotify/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/Screenshot_20221022-153332.png',
       moment: {
         sources: [
           {
@@ -58,7 +58,12 @@ export default {
             url: 'https://www.guinnessworldrecords.com/news/2022/10/taylor-swifts-album-midnights-smashes-three-spotify-records-723058',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/Screenshot_20221022-153332.png',
+            credit: 'Spotify Newsroom',
+          },
+        ],
       },
     },
     {
@@ -70,7 +75,8 @@ export default {
         "1.578 million equivalent units in week one — Swift's 11th No. 1 album, tying Barbra Streisand for the most by a woman.",
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-midnights-debut-number-one-billboard-200-albums-chart-1235163377/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2022/10/02-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
       moment: {
         sources: [
           {
@@ -82,7 +88,12 @@ export default {
             url: 'https://www.goldderby.com/article/2022/taylor-swift-billboard-charts-midnights/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/10/02-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant/Billboard',
+          },
+        ],
       },
     },
     {
@@ -93,12 +104,14 @@ export default {
       snippet:
         "Three versions of herself confronting body image and insecurity — including a scale reading 'fat' that got edited out after online criticism.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png',
       moment: {
         context:
           "She's described the song as coming from feeling her life had become 'unmanageably sized' and struggling 'with the idea of not feeling like a person' — what she's called a 'guided tour' through the things she hates about herself.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' }],
-        photos: [],
+        photos: [
+          { url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png', credit: 'Republic Records' },
+        ],
       },
     },
     {
@@ -110,7 +123,8 @@ export default {
         "716,000 units in week one, the biggest album week of 2023 — her 12th No. 1 on the Billboard 200.",
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-number-one-debut-billboard-200-chart-1235372565/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-Speak-Now-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
       moment: {
         sources: [
           {
@@ -122,7 +136,12 @@ export default {
             url: 'https://www.forbes.com/sites/hughmcintyre/2023/07/16/taylor-swift-charts-her-twelfth-no-1-album-with-the-massive-speak-now-taylors-version/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-Speak-Now-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant/Billboard',
+          },
+        ],
       },
     },
     {
@@ -134,7 +153,8 @@ export default {
         '1.653 million units in week one, 693,000 on vinyl alone — a new all-time vinyl sales record, and her 13th No. 1 album.',
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-number-one-billboard-200-albums-chart-1235463917/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-aa-1548.jpg?w=1024',
       moment: {
         sources: [
           {
@@ -146,7 +166,12 @@ export default {
             url: 'https://www.forbes.com/sites/hughmcintyre/2023/11/05/taylor-swift-scores-the-biggest-debut-of-the-year-with-1989-taylors-version/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-aa-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant/Billboard',
+          },
+        ],
       },
     },
     {
@@ -175,7 +200,8 @@ export default {
         "$261.6 million worldwide, pushed past Michael Jackson's This Is It after opening in China — a record that had stood for 14 years.",
       sourceUrl:
         'https://investor.amctheatres.com/news-events/press-releases/detail/348/taylor-swift-the-eras-tour-concert-film-is-now-the-highest-grossing-theatrical-release-in-history-among-concert-and-documentary-films',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://d1io3yog0oux5.cloudfront.net/_d611dc0f0c17c10e30defd93f67e7758/amctheatres/db/2287/20608/social_image_resized.jpg',
       moment: {
         sources: [
           {
@@ -187,7 +213,12 @@ export default {
             url: 'https://www.billboard.com/culture/tv-film/taylor-swift-eras-tour-movie-box-office-record-michael-jackson-this-is-it-1235577518/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://d1io3yog0oux5.cloudfront.net/_d611dc0f0c17c10e30defd93f67e7758/amctheatres/db/2287/20608/social_image_resized.jpg',
+            credit: 'AMC Theatres',
+          },
+        ],
       },
     },
     {
@@ -198,12 +229,18 @@ export default {
       snippet:
         '44 songs, 3 hours and 15 minutes at State Farm Stadium — opening night moved era by era through songs from all 10 studio albums.',
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
       moment: {
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/' },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
+            credit: 'Kevin Mazur/Getty Images for TAS Rights Management',
+          },
+        ],
       },
     },
     {
@@ -235,7 +272,8 @@ export default {
         'A Roberto Cavalli two-piece and Christian Louboutin boots for the 1989 set — one look in a night of nonstop costume changes.',
       sourceUrl:
         'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg',
       moment: {
         sources: [
           {
@@ -243,7 +281,12 @@ export default {
             url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg',
+            credit: 'John Shearer/GI for TAS Rights Management',
+          },
+        ],
       },
     },
     {
@@ -273,7 +316,8 @@ export default {
       snippet:
         "Her own reaction: \"This is the proudest and happiest I've ever felt, and the most creatively fulfilled and free I've ever been.\"",
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg',
       moment: {
         sources: [
           {
@@ -285,7 +329,12 @@ export default {
             url: 'https://www.forbes.com/sites/conormurray/2023/12/06/every-major-event-in-taylor-swifts-record-breaking-2023-from-the-eras-tour-to-time-person-of-the-year/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg',
+            credit: 'CBS News',
+          },
+        ],
       },
     },
 
@@ -302,7 +351,8 @@ export default {
       snippet:
         '"They simply grew apart and plan to remain friends" — the end of a relationship she\'d kept almost entirely out of public view since 2016.',
       sourceUrl: 'https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://media.cnn.com/api/v1/images/stellar/prod/230408204518-taylor-swift-joe-alwyn-split-restricted.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html' },
@@ -311,7 +361,12 @@ export default {
             url: 'https://www.billboard.com/music/music-news/joe-alwyn-breaks-silence-taylor-swift-breakup-1235710711/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://media.cnn.com/api/v1/images/stellar/prod/230408204518-taylor-swift-joe-alwyn-split-restricted.jpg?c=16x9&q=w_800,c_fill',
+            credit: 'CNN',
+          },
+        ],
       },
     },
     {
@@ -348,12 +403,18 @@ export default {
       snippet:
         "Taylor watched Kansas City rout Chicago 41–10 from Travis's family suite at Arrowhead, sitting beside his mother Donna in a red-and-white Chiefs jacket.",
       sourceUrl: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
+            credit: 'CNN',
+          },
+        ],
       },
     },
     {
@@ -364,7 +425,8 @@ export default {
       snippet:
         "She'd been dating Travis for weeks by the time cameras found her at Arrowhead — but this was the night the relationship became public record.",
       sourceUrl: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
@@ -373,7 +435,12 @@ export default {
             url: 'https://www.billboard.com/lists/taylor-swift-travis-kelce-relationship-timeline/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
+            credit: 'CNN',
+          },
+        ],
       },
     },
     {
@@ -384,7 +451,8 @@ export default {
       snippet:
         'No designer red carpet moment — her first Arrowhead look was Doen, denim, New Balance sneakers, and a New Era Chiefs windbreaker.',
       sourceUrl: 'https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://s.yimg.com/lo/mysterio/api/F6510B1490131D766EE623D8D54FBFDF7986E378788F30D426FF890B0C3AD8D7/subgraphmysterio/resizefill_w1200_h901;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Faol_the_independent_us_877%2Fd0e4dfcb09c96b32c7af5936c6d4e1d6',
       moment: {
         sources: [
           {
@@ -392,7 +460,12 @@ export default {
             url: 'https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://s.yimg.com/lo/mysterio/api/F6510B1490131D766EE623D8D54FBFDF7986E378788F30D426FF890B0C3AD8D7/subgraphmysterio/resizefill_w1200_h901;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Faol_the_independent_us_877%2Fd0e4dfcb09c96b32c7af5936c6d4e1d6',
+            credit: 'AOL',
+          },
+        ],
       },
     },
     {
@@ -402,12 +475,18 @@ export default {
       title: 'A black-and-gold gown for a record VMA night',
       snippet: 'A reputation-coded black gown with gold accents and a thigh-high slit on the pink carpet.',
       sourceUrl: 'https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
       moment: {
         sources: [
           { outlet: 'NBC News', url: 'https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947' },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
+            credit: 'NBC News',
+          },
+        ],
       },
     },
     {
@@ -418,13 +497,19 @@ export default {
       snippet:
         "Nine Moonmen, tying a record untouched since Peter Gabriel's 1987 sweep — including all four top categories in one night.",
       sourceUrl: 'https://www.thewrap.com/taylor-swift-most-video-of-the-year-wins-vmas-2023/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://i0.wp.com/www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1',
       moment: {
         sources: [
           { outlet: 'TheWrap', url: 'https://www.thewrap.com/taylor-swift-most-video-of-the-year-wins-vmas-2023/' },
           { outlet: 'NBC News', url: 'https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947' },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://i0.wp.com/www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1',
+            credit: 'TheWrap',
+          },
+        ],
       },
     },
     {
@@ -436,7 +521,8 @@ export default {
         'An unpromoted 2019 album track, revived by the Eras Tour setlist and a viral moment, becomes her 10th Hot 100 No. 1 on the chart dated Oct. 23.',
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/08/taylor-swift-eras-tour-los-angeles-night-4-sofi-stadium-2023-billboard-1548.jpg?w=1024',
       moment: {
         context:
           "The fifth-longest wait for a No. 1 in Hot 100 history — four years, one month, three weeks after it debuted at No. 29.",
@@ -450,7 +536,12 @@ export default {
             url: 'https://variety.com/2023/music/news/taylor-swift-cruel-summer-hot-100-number-1-surge-1235764652/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/08/taylor-swift-eras-tour-los-angeles-night-4-sofi-stadium-2023-billboard-1548.jpg?w=1024',
+            credit: 'Billboard',
+          },
+        ],
       },
     },
     {
@@ -462,7 +553,7 @@ export default {
         'Blake Lively, Ryan Reynolds, and Hugh Jackman joined her to watch Kansas City beat the Jets — the broadcast drew the biggest Sunday audience since the last Super Bowl.',
       sourceUrl:
         'https://variety.com/2023/music/news/taylor-swift-attends-travis-kelce-chiefs-jets-game-hugh-jackman-blake-lively-1235741837/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://variety.com/wp-content/uploads/2023/10/GettyImages-1712353673.jpg?w=1000&h=563&crop=1',
       moment: {
         sources: [
           {
@@ -470,7 +561,12 @@ export default {
             url: 'https://variety.com/2023/music/news/taylor-swift-attends-travis-kelce-chiefs-jets-game-hugh-jackman-blake-lively-1235741837/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://variety.com/wp-content/uploads/2023/10/GettyImages-1712353673.jpg?w=1000&h=563&crop=1',
+            credit: 'Elsa/Getty Images',
+          },
+        ],
       },
     },
     {
@@ -481,12 +577,17 @@ export default {
       snippet:
         "A full-length blue gown with floral decals for the Eras Tour film premiere at The Grove — where Beyoncé stopped by to pose with her on the carpet.",
       sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-eras-tour-premiere-the-grove-1235752172/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2023/10/taylor-swift-the-eras-tour-premiere-1.jpg?w=1000&h=563&crop=1',
       moment: {
         sources: [
           { outlet: 'Variety', url: 'https://variety.com/2023/music/news/taylor-swift-eras-tour-premiere-the-grove-1235752172/' },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://wwd.com/wp-content/uploads/2023/10/taylor-swift-the-eras-tour-premiere-1.jpg?w=1000&h=563&crop=1',
+            credit: 'WWD',
+          },
+        ],
       },
     },
     {
@@ -497,7 +598,8 @@ export default {
       snippet:
         '"I\'ve never dated anyone with that kind of aura about them" — his first on-record confirmation of the relationship, in WSJ. Magazine.',
       sourceUrl: 'https://www.today.com/popculture/travis-kelce-dating-taylor-swift-wsj-magazine-rcna125990',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.inquirer.com/resizer/v2/WZM56FNWJVQU4MGIKUF22L3Q2Q.jpg?auth=01fbce1493c6c84b5774b263114dc5841e2f76b4491df6f62ec647e96e55ef1a&width=760&height=507&smart=true',
       moment: {
         context:
           'On the scrutiny she lives under: "The scrutiny she gets, how much she has a magnifying glass on her, every single day... and she\'s just living, enjoying life."',
@@ -508,7 +610,12 @@ export default {
             url: 'https://www.inquirer.com/entertainment/travis-kelce-wall-street-journal-interview-taylor-swift-20231120.html',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.inquirer.com/resizer/v2/WZM56FNWJVQU4MGIKUF22L3Q2Q.jpg?auth=01fbce1493c6c84b5774b263114dc5841e2f76b4491df6f62ec647e96e55ef1a&width=760&height=507&smart=true',
+            credit: 'The Philadelphia Inquirer',
+          },
+        ],
       },
     },
     {
@@ -518,12 +625,12 @@ export default {
       title: 'High-low styling for the Bills game: Khaite, vintage, and Mejuri',
       snippet: 'A Khaite mini skirt and a vintage-’90s Chiefs jumper, styled with Mejuri jewelry and Larroudé boots.',
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-chiefs-game-outfits-ranked/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/RdZNsvNDCZtsUCwJmMbUv7.jpg',
       moment: {
         sources: [
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-chiefs-game-outfits-ranked/' },
         ],
-        photos: [],
+        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/RdZNsvNDCZtsUCwJmMbUv7.jpg', credit: 'Marie Claire' }],
       },
     },
     {
@@ -534,7 +641,8 @@ export default {
       snippet:
         'She arrived at Arrowhead on Christmas alongside a companion dressed as Santa; the Raiders upset the Chiefs 20–14 in the most-watched Christmas Day game since 1989.',
       sourceUrl: 'https://www.si.com/nfl/2023/12/25/raiders-chiefs-taylor-swift-arrives-with-santa-claus-fans-love-it',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.si.com/.image/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/MjAyODIzMzIzNDA5NzIwMzMy/ap23344816547403.jpg',
       moment: {
         sources: [
           {
@@ -542,7 +650,12 @@ export default {
             url: 'https://www.si.com/nfl/2023/12/25/raiders-chiefs-taylor-swift-arrives-with-santa-claus-fans-love-it',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.si.com/.image/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/MjAyODIzMzIzNDA5NzIwMzMy/ap23344816547403.jpg',
+            credit: 'AP',
+          },
+        ],
       },
     },
     {
@@ -552,7 +665,7 @@ export default {
       title: "TIME's Person of the Year cover shoot, in three looks",
       snippet: 'A black bodysuit with her cat Benjamin Button on one cover, a crystal-embellished Area mini dress in reputation-coded gray on another.',
       sourceUrl: 'https://petapixel.com/2023/12/06/photographers-reveal-story-behind-taylor-swifts-time-person-of-the-year-covers/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER3_-600x800.jpg',
       moment: {
         context: 'A third cover leaned cozy fall: a cream turtleneck and denim jacket, styled with slicked-back bangs instead of her usual curls.',
         sources: [
@@ -565,7 +678,10 @@ export default {
             url: 'https://www.bustle.com/style/taylor-swift-time-person-of-the-year-covers-reputation-style',
           },
         ],
-        photos: [],
+        photos: [
+          { url: 'https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER3_-600x800.jpg', credit: 'TIME' },
+          { url: 'https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER1_-600x800.jpg', credit: 'TIME' },
+        ],
       },
     },
     {
@@ -576,12 +692,17 @@ export default {
       snippet:
         'Below-zero temperatures for the Chiefs\' playoff opener against Miami — she watched from a box with Donna Kelce, wrapped in a red puffer jacket bearing Travis\'s name and number.',
       sourceUrl: 'https://www.today.com/popculture/taylor-swift-chiefs-dolphins-game-playoffs-rcna133047',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://www.rollingstone.com/wp-content/uploads/2024/01/TaylorSwiftChiefs-1.jpeg?w=1600&h=900&crop=1',
       moment: {
         sources: [
           { outlet: 'Today', url: 'https://www.today.com/popculture/taylor-swift-chiefs-dolphins-game-playoffs-rcna133047' },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/01/TaylorSwiftChiefs-1.jpeg?w=1600&h=900&crop=1',
+            credit: 'Ed Zurga/AP via Rolling Stone',
+          },
+        ],
       },
     },
     {
@@ -591,7 +712,7 @@ export default {
       title: 'A kiss to celebrate the AFC Championship',
       snippet: 'She kissed Travis on the field as Kansas City beat Baltimore to reach a second straight Super Bowl.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-curls-chiefs-ravens-afc-championship-game-1235591057/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/01/Taylor-swift-travis-kelce-jan-28-2024-baltimore-billboard-1548.jpg',
       moment: {
         sources: [
           {
@@ -603,7 +724,12 @@ export default {
             url: 'https://www.cbsnews.com/news/taylor-swift-afc-championship-kansas-city-chiefs-baltimore-ravens-travis-kelce/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/01/Taylor-swift-travis-kelce-jan-28-2024-baltimore-billboard-1548.jpg',
+            credit: 'Billboard',
+          },
+        ],
       },
     },
     {
@@ -613,7 +739,7 @@ export default {
       title: 'Custom Schiaparelli, with a Midnights clock hidden in the choker',
       snippet: 'A strapless white Schiaparelli gown with a thigh-high slit — and a choker shaped like a clock face set to midnight.',
       sourceUrl: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-schiaparelli-dress-2024-grammys-1236164497/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1986392520-EMBED-2024.jpg?w=408',
       moment: {
         sources: [
           {
@@ -621,7 +747,12 @@ export default {
             url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-schiaparelli-dress-2024-grammys-1236164497/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1986392520-EMBED-2024.jpg?w=408',
+            credit: 'Getty Images',
+          },
+        ],
       },
     },
     {
@@ -631,7 +762,7 @@ export default {
       title: 'A record fourth Album of the Year Grammy, for Midnights',
       snippet: 'Presented by Céline Dion in a rare public appearance — Swift\'s fourth AOTY win, more than any artist in Grammy history.',
       sourceUrl: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
       moment: {
         sources: [
           { outlet: 'Grammy.com', url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech' },
@@ -640,7 +771,12 @@ export default {
             url: 'https://www.cbsnews.com/news/taylor-swift-2024-grammy-awards-fourth-album-of-the-year-win/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
+            credit: 'Billboard',
+          },
+        ],
       },
     },
     {
@@ -651,7 +787,8 @@ export default {
       snippet:
         'A Dion Lee corset top and bedazzled Area jeans, accessorized with jewelry stamped 87 — plus a red Erin Andrews bomber for team spirit.',
       sourceUrl: 'https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1',
       moment: {
         sources: [
           {
@@ -659,7 +796,12 @@ export default {
             url: 'https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1',
+            credit: 'Patrick T. Fallon/AFP via Getty Images',
+          },
+        ],
       },
     },
     {
@@ -670,7 +812,8 @@ export default {
       snippet:
         'She flew in from her Tokyo Eras Tour date to reach Super Bowl LVIII in time, arriving with Blake Lively and Ice Spice among her guests.',
       sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-attends-2024-super-bowl-travis-kelce-1235821940/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-2003760399-copy.jpg?w=1296&h=730&crop=1',
       moment: {
         sources: [
           {
@@ -678,7 +821,12 @@ export default {
             url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-attends-2024-super-bowl-travis-kelce-1235821940/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-2003760399-copy.jpg?w=1296&h=730&crop=1',
+            credit: 'Getty Images',
+          },
+        ],
       },
     },
     {
@@ -689,7 +837,8 @@ export default {
       snippet:
         "Singapore's government offered financial incentives to keep the Eras Tour's only Southeast Asia stop there — a deal its neighbors publicly complained about.",
       sourceUrl: 'https://time.com/6836711/taylor-swift-eras-tour-exclusive-singapore-southeast-asia-governments-reactions/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://static.time.com/v3/assets/bltea6093859af6183b/bltc2ec949c9ace970b/698a490516d8847cd4c3d41a/Taylor-Swift-Singapore-Eras-Tour.jpg?branch=production&width=2400&quality=75&auto=webp&crop=16:9',
       moment: {
         context:
           "Singapore's Prime Minister Lee Hsien Loong called it \"a very successful arrangement,\" funded from a post-pandemic tourism-recovery budget.",
@@ -699,7 +848,268 @@ export default {
             url: 'https://time.com/6836711/taylor-swift-eras-tour-exclusive-singapore-southeast-asia-governments-reactions/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltc2ec949c9ace970b/698a490516d8847cd4c3d41a/Taylor-Swift-Singapore-Eras-Tour.jpg?branch=production&width=2400&quality=75&auto=webp&crop=16:9',
+            credit: 'Getty Images via Time',
+          },
+        ],
+      },
+    },
+
+    // --- Fashion/photo depth pass (2026-07-04): Task A added verified photos
+    // to existing items; these new items round out the Eras Tour's costume
+    // changes and add red-carpet fashion, all individually verified against
+    // fetched sources (mostly the Billboard "night one outfits" photo gallery,
+    // which captions and credits each era's look) plus one Golden Globes item.
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'A pink-toned Versace bodysuit opens the Lover set',
+      snippet:
+        "Swift's pink-toned Lover era on opening night was a Versace bodysuit paired with knee-high Christian Louboutin boots.",
+      sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/03/Taylor-Swift-outfit-gallery-night-1-billboard-1240.jpg',
+      moment: {
+        context:
+          'The Lover set opened the very first Eras Tour show at State Farm Stadium in Glendale, Arizona on March 17, 2023 — the first of several costume changes documented look-by-look by Billboard that night.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/Taylor-Swift-outfit-gallery-night-1-billboard-1240.jpg',
+            credit: 'Kevin Winter/GI for TAS Rights Management',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'Roberto Cavalli gold fringe for the Fearless set',
+      snippet:
+        'A sparkling gold fringe mini-dress by Roberto Cavalli, paired again with knee-high Christian Louboutin boots, for the Fearless segment of Eras Tour night one.',
+      sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+            credit: 'Kevin Winter/GI for TAS Rights Management',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'A mustard Etro gown and cape for evermore',
+      snippet:
+        'A mustard orange Etro dress with delicate embroidery, worn with a matching cape and Christian Louboutin boots for the evermore segment.',
+      sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/03/03-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/03-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+            credit: 'Kevin Mazur/GI for TAS Rights Management',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'The original reputation catsuit, cut-outs and all',
+      snippet:
+        'A Roberto Cavalli catsuit with a leg and arm cut-out, plus matching Roberto Cavalli boots, for the reputation segment — the version she wore for the tour\'s first year-plus of shows.',
+      sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+            credit: 'Kevin Winter/GI for TAS Rights Management',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'The Ashish "22" outfit, recreated for Red',
+      snippet:
+        'The Red segment recreated her iconic look from the "22" music video, made by Ashish, for the Eras Tour\'s opening night.',
+      sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/03/05-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/05-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+            credit: 'Kevin Mazur/GI for TAS Rights Management',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'A Nicole + Felicia princess gown for Speak Now',
+      snippet: 'A voluminous Nicole + Felicia princess gown for the Speak Now segment of Eras Tour night one.',
+      sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/03/06-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/06-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+            credit: 'John Shearer/GI for TAS Rights Management',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'A flowing purple Alberta Ferretti dress for Folklore',
+      snippet: "A flowing purple Alberta Ferretti dress captured the woodsy feel of Folklore on Eras Tour opening night.",
+      sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg',
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg',
+            credit: 'Kevin Mazur/GI for TAS Rights Management',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'A magenta Jessica Jones gown for the surprise-song set',
+      snippet: 'For the acoustic surprise-song portion of the night, Swift stunned in a magenta Jessica Jones dress.',
+      sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-acoustic-guitar-march-17-2023-billboard-1548.jpg',
+      moment: {
+        context:
+          "The acoustic set is where Swift plays two surprise songs each night, swapped every show — night one's gown was a standout among the outfit changes fans tracked show to show.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-acoustic-guitar-march-17-2023-billboard-1548.jpg',
+            credit: 'Kevin Mazur/Getty Images for TAS Rights Management',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 3,
+      category: 'fashion',
+      title: 'Oscar de la Renta closes the night for Midnights',
+      snippet:
+        'An Oscar de la Renta faux fur coat and crystal T-shirt gave way to a shining navy blue Oscar de la Renta bodysuit and Christian Louboutin boots to close the Midnights set.',
+      sourceUrl: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/03/07-Taylor-Swift-outfit-gallery-night-1-billboard-1548-1.jpg',
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/07-Taylor-Swift-outfit-gallery-night-1-billboard-1548-1.jpg',
+            credit: 'John Shearer/G for TAS Rights Management',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/09-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
+            credit: 'Kevin Mazur/GI for TAS Rights Management',
+          },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 1,
+      category: 'fashion',
+      title: 'A sparkling green Gucci gown at the Golden Globes',
+      snippet:
+        'A custom sparkling green Gucci gown by Sabato de Sarno, paired with green Christian Louboutin pumps and De Beers diamonds — plus a snake-like ring stack fans read as a reputation nod.',
+      sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-golden-globes-dress-2024-1235577071/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/01/taylor-swift-02-golden-globes-2024-billboard-1548.jpg?w=1024',
+      moment: {
+        context:
+          "Styled by her go-to stylist Joseph Cassell for the January 7, 2024 ceremony, where she was nominated for Cinematic and Box Office Achievement for the Eras Tour concert film.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-golden-globes-dress-2024-1235577071/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/01/taylor-swift-02-golden-globes-2024-billboard-1548.jpg?w=1024',
+            credit: 'Billboard',
+          },
+        ],
       },
     },
   ],
