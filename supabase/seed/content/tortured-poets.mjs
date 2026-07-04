@@ -94,5 +94,25 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2024,
+      month: 5,
+      category: 'tour',
+      title: "TTPD joins the Eras Tour as 'Female Rage The Musical'",
+      snippet:
+        "New songs from the album folded into the setlist in Paris — Taylor's own nickname for the segment, from her Instagram caption.",
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-eras-tour-set-list-post-1235019481/',
+      thumbnailUrl: null,
+      moment: {
+        context: 'Her exact caption: "This post is dedicated to the new Tortured Poets section of the Eras Tour (aka Female Rage The Musical!)"',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-eras-tour-set-list-post-1235019481/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

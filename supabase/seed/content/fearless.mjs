@@ -80,5 +80,19 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2009,
+      month: 4,
+      category: 'fashion',
+      title: 'A marching-band reveal to open the Fearless Tour',
+      snippet:
+        'The opening number: a drum majorette uniform torn away mid-song to reveal a sparkling silver cocktail dress underneath.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_Tour',
+      thumbnailUrl: null,
+      moment: {
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' }],
+        photos: [],
+      },
+    },
   ],
 };

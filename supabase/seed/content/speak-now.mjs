@@ -100,5 +100,22 @@ export default {
         photos: [],
       },
     },
+    {
+      year: 2012,
+      month: 2,
+      category: 'business',
+      title: 'Mean wins two Grammys the same night',
+      snippet:
+        "Best Country Song and Best Country Solo Performance at the 54th Grammys — performed live, banjo in hand.",
+      sourceUrl: 'https://theboot.com/taylor-swift-grammys-2012/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-grammys-2012/' },
+          { outlet: 'Teen Vogue', url: 'https://www.teenvogue.com/story/best-taylor-swift-grammy-moments' },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
