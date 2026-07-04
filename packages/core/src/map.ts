@@ -9,6 +9,7 @@ import type {
   MomentPhoto,
   MomentSource,
   MonthItem,
+  TrackNote,
   VaultCategory,
 } from '@swift2/shared';
 
@@ -112,5 +113,27 @@ export function mapMoment(row: MomentRow): Moment {
     context: row.context,
     sources: asSources(row.sources),
     photos: asPhotos(row.photos),
+  };
+}
+
+export interface TrackNoteRow {
+  id: string;
+  era_slug: string;
+  track_title: string;
+  track_number: number | null;
+  note: string;
+  source_url: string | null;
+  sources: unknown;
+}
+
+export function mapTrackNote(row: TrackNoteRow): TrackNote {
+  return {
+    id: row.id,
+    eraSlug: row.era_slug,
+    trackTitle: row.track_title,
+    trackNumber: row.track_number,
+    note: row.note,
+    sourceUrl: row.source_url,
+    sources: asSources(row.sources),
   };
 }

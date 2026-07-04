@@ -1,5 +1,5 @@
 import { createVaultClient, type VaultSkeleton } from '@swift2/core';
-import type { Moment } from '@swift2/shared';
+import type { Moment, TrackNote } from '@swift2/shared';
 
 function client() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -22,4 +22,9 @@ export async function loadSkeleton(): Promise<VaultSkeleton> {
 /** Load one Tier 1 moment on demand (server-side). */
 export async function loadMoment(id: string): Promise<Moment | null> {
   return client().getMoment(id);
+}
+
+/** Load an album's song track guide on demand (server-side). */
+export async function loadTrackGuide(eraSlug: string): Promise<TrackNote[]> {
+  return client().getTrackGuide(eraSlug);
 }
