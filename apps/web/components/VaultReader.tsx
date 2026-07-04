@@ -117,8 +117,12 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
     return () => root.removeEventListener('scroll', onScroll);
   }, [eras.length]);
 
-  // Overscroll at the very top summons the expanded navigator (pull-to-refresh
-  // muscle memory); a downward move collapses it — never fights normal scroll.
+  // Summon: the peek strip is always visible and grab-to-expand (primary
+  // affordance, works from any era). Overscroll-to-summon fires ONLY at the
+  // global top — in a continuous stacked scroller, a per-era overscroll would
+  // collide with scrolling up into the previous era, which the spec forbids.
+  // (See docs/decisions.md — continuous-stack vs. per-era overscroll.)
+  // A downward move collapses it — never fights normal scroll.
   const onWheel = useCallback((e: ReactWheelEvent) => {
     const root = scrollRef.current;
     if (!root) return;
