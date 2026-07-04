@@ -20,7 +20,7 @@ export default {
       snippet:
         "Her eighth No. 1 album, with 'willow' also debuting at No. 1 — the only artist ever to pull off that double feat twice, let alone in the same year.",
       sourceUrl: 'https://www.billboard.com/pro/taylor-swift-willow-debut-number-one-hot-100/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2025/12/Taylor-Swift-Willow.jpg?w=2880',
       moment: {
         sources: [
           {
@@ -32,7 +32,12 @@ export default {
             url: 'https://stereogum.com/2482727/the-number-ones-taylor-swifts-willow/columns/the-number-ones',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2025/12/Taylor-Swift-Willow.jpg?w=2880',
+            credit: 'Stereogum',
+          },
+        ],
       },
     },
     {
@@ -42,12 +47,17 @@ export default {
       title: "willow, and the spell it's supposed to sound like",
       snippet: 'Taylor\'s own description: it "sounds like casting a spell to make someone fall in love with you."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Willow_(song)',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Taylor_Swift_-_Willow.png/250px-Taylor_Swift_-_Willow.png',
       moment: {
         context:
           'Full quote: "Willow is about intrigue, desire, and the complexity that goes into wanting someone."',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Willow_(song)' }],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Taylor_Swift_-_Willow.png/250px-Taylor_Swift_-_Willow.png',
+            credit: 'Republic Records',
+          },
+        ],
       },
     },
     {
@@ -58,12 +68,18 @@ export default {
       snippet:
         'A fictional murder mystery, complete with a cheating husband, a framed mistress, and a sister for an alibi.',
       sourceUrl: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png/250px-Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
       moment: {
         context:
           'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime' }],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png/250px-Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
+            credit: 'Republic Records',
+          },
+        ],
       },
     },
     {
@@ -103,12 +119,17 @@ export default {
       title: 'coney island, a duet built for The National',
       snippet: 'A breakup told from both sides, with The National\'s Matt Berninger trading verses with her over a slow, aching duet.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Coney_island_cover.jpeg/250px-Coney_island_cover.jpeg',
       moment: {
         context:
           'The Dessner brothers built the instrumental and heard Berninger\'s voice in it immediately; Berninger recorded his half in Los Angeles while Taylor recorded hers at Long Pond in the Hudson Valley, never in the same room.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)' }],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Coney_island_cover.jpeg/250px-Coney_island_cover.jpeg',
+            credit: 'Republic Records',
+          },
+        ],
       },
     },
     {
@@ -119,7 +140,8 @@ export default {
       snippet:
         '291,000 units in week one — her ninth No. 1 album, tying Madonna, and the only re-recorded album in Billboard 200 history to top the chart.',
       sourceUrl: 'https://www.billboard.com/articles/news/9558306/taylor-swift-fearless-taylors-version-tops-billboard-200/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1',
       moment: {
         sources: [
           {
@@ -131,7 +153,12 @@ export default {
             url: 'https://www.forbes.com/sites/hughmcintyre/2021/04/18/taylor-swift-charts-her-ninth-no-1-album-in-the-us-with-fearless-taylors-version/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1',
+            credit: 'Beth Garrabrant',
+          },
+        ],
       },
     },
     {
@@ -142,7 +169,8 @@ export default {
       snippet:
         '10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean\'s "American Pie." Taylor\'s own reaction: "You guys sent a 10-minute song to Number One for the first time in history."',
       sourceUrl: 'https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://www.guinnessworldrecords.com/news/2021/11/images/red-cover-album-and-swift-at-all-too-well-premiere-683624.jpg',
       moment: {
         sources: [
           {
@@ -154,7 +182,12 @@ export default {
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-all-too-well-longest-number-one-billboard-1261579/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://www.guinnessworldrecords.com/news/2021/11/images/red-cover-album-and-swift-at-all-too-well-premiere-683624.jpg',
+            credit: 'Guinness World Records',
+          },
+        ],
       },
     },
     {
@@ -189,15 +222,168 @@ export default {
       title: 'A folklore medley, staged like a cabin in an enchanted forest',
       snippet: 'A blue-and-gold Etro "nap dress," performing "cardigan," "august," and "willow" from a set built to look like a tiny forest cabin.',
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://imgix.bustle.com/uploads/getty/2021/3/15/e69fff43-e3ed-4536-8533-035382781844-getty-1307106720.jpg?w=374&h=547&fit=crop&crop=faces&dpr=2',
       moment: {
         sources: [
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/',
           },
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/p/taylor-swifts-2021-grammys-dress-is-cottagecore-princesscore-come-to-life-65951509',
+          },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2021/3/15/e69fff43-e3ed-4536-8533-035382781844-getty-1307106720.jpg?w=374&h=547&fit=crop&crop=faces&dpr=2',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+
+    // --- Fashion/photo depth pass (2026-07-04)
+    {
+      year: 2020,
+      month: 12,
+      category: 'fashion',
+      title: 'The ivory Zimmermann gown from the "willow" video',
+      snippet:
+        'A lace-paneled Zimmermann "Charm Star" dress that read as bridal to fans within hours — paired with a Jennifer Behr tiara and antique diamond earrings.',
+      sourceUrl: 'https://www.refinery29.com/en-us/2020/12/10221082/shop-taylor-swift-evermore-willow-dress',
+      thumbnailUrl:
+        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2020/12/Taylor-Swift-Wore-Zimmermann-For-Her-Willow-Music-Video-819x1024.jpg',
+      moment: {
+        context:
+          'The ivory gown — Zimmermann\'s Fall \'20 "Charm Star" silk-organza and guipure lace maxi dress, retailing around $2,650 — features a V-neck, lace paneling and a tonal velvet bow at one shoulder. Fans immediately speculated it was a wedding dress; Zimmermann said the collection was instead inspired by "lucky charms and fortune telling." She wore it with a Jennifer Behr Priscilla tiara and antique diamond and pearl earrings.',
+        sources: [
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2020/12/10221082/shop-taylor-swift-evermore-willow-dress',
+          },
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2020/12/11/taylor-swift-wore-zimmermann-for-her-willow-music-video/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2020/12/Taylor-Swift-Wore-Zimmermann-For-Her-Willow-Music-Video-819x1024.jpg',
+            credit: 'Republic Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 2,
+      category: 'fashion',
+      title: "A sepia Fearless (Taylor's Version) cover, with a Love Story Easter egg",
+      snippet:
+        'Revealed on Good Morning America, the cover recreates her original 2008 pose in sepia tone — in a cream Ulla Johnson blouse fans clocked as a nod to Romeo\'s shirt from the "Love Story" video.',
+      sourceUrl: 'https://www.marieclaire.com/celebrity/a35498019/taylor-swift-outfit-new-fearless-cover-easter-egg/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png/250px-Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
+      moment: {
+        context:
+          'The blouse is a cream satin "Fernanda" top from Ulla Johnson ($395). Fans noted it closely resembles the Shakespearean-style shirt worn by actor Justin Gaston as the Romeo character in the 2008 "Love Story" video, reading it as a symbolic callback: she no longer needs a knight in shining armor because she is her own.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/celebrity/a35498019/taylor-swift-outfit-new-fearless-cover-easter-egg/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png/250px-Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
+            credit: 'Republic Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 6,
+      category: 'fashion',
+      title: "A vintage Chevrolet, a burgundy cap, and the Red (Taylor's Version) cover",
+      snippet:
+        'Beige peacoat, red lipstick, and a sold-out-within-hours burgundy velvet "Mattie" cap by independent designer Janessa Leoné, shot in a 1932 Chevrolet Cabriolet.',
+      sourceUrl: 'https://www.billboard.com/articles/columns/pop/9589789/taylor-swift-red-taylors-version-hat-album-cover-janessa-leone/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+      moment: {
+        context:
+          'Leoné had no advance notice her "Mattie" cap would appear on the cover, telling Billboard: "It came as a total surprise to see her sport Mattie on the album cover — we were genuinely shocked, but thrilled." She said the shoot was not a team collaboration — Swift\'s stylist chose the piece independently — and the cap sold out on Leoné\'s site immediately after the reveal on June 18, 2021.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/columns/pop/9589789/taylor-swift-red-taylors-version-hat-album-cover-janessa-leone/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            credit: 'Republic Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 11,
+      category: 'fashion',
+      title: "The 'siren red' lip and cat eye that came to define the Red (TV) era",
+      snippet:
+        'Overlined red-liner-and-matte-lipstick "siren red" mouth, a fine-tipped black liquid cat eye, and flat-ironed, straight-across bangs — the signature beauty look of the re-release run.',
+      sourceUrl: 'https://www.bustle.com/style/taylor-swift-red-beauty-look',
+      thumbnailUrl:
+        'https://imgix.bustle.com/uploads/getty/2021/11/11/d57460dd-88cc-4d90-b3f8-6b5b0cdacf9a-getty-155669360.jpg?w=248&h=345&fit=crop&crop=focalpoint&fp-x=0.4787&fp-y=0.9655&dpr=2',
+      moment: {
+        context:
+          'Bustle\'s breakdown of the look: red lip liner as a base with matte red lipstick layered on top and slightly overlined at the cupid\'s bow; a "minimal yet striking" black liquid cat eye with a fine-tipped flick; and straight-across bangs re-created with a flat iron, angled at 45 degrees for dimension, plus an inner-corner highlight to open the eyes.',
+        sources: [{ outlet: 'Bustle', url: 'https://www.bustle.com/style/taylor-swift-red-beauty-look' }],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2021/11/11/d57460dd-88cc-4d90-b3f8-6b5b0cdacf9a-getty-155669360.jpg?w=248&h=345&fit=crop&crop=focalpoint&fp-x=0.4787&fp-y=0.9655&dpr=2',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 11,
+      category: 'fashion',
+      title: 'A skin-tight Alaïa jumpsuit for "All Too Well" on SNL, then a houndstooth blazer after',
+      snippet:
+        'An off-the-shoulder Alaïa knit jumpsuit for the 10-minute "All Too Well" performance on SNL, swapped for an Anine Bing houndstooth blazer and Aquazzura platform boots at the after-party with Blake Lively.',
+      sourceUrl: 'https://www.shefinds.com/collections/taylor-swift-turned-heads-in-this-skintight-bodysuit-on-snl-you-can-see-everything/',
+      thumbnailUrl: 'https://www.shefinds.com/files/2021/11/taylor-swift-snl-performance.jpg',
+      moment: {
+        context:
+          'For her November 13, 2021 SNL performance of "All Too Well (10 Minute Version)," Swift wore a skin-tight off-the-shoulder Alaïa stretch-knit jumpsuit (about $3,590) with Jennifer Zeuner Holland earrings and Loeffler Randall ankle booties. At the after-party the following night at L\'Avenue in New York with Blake Lively, she layered a houndstooth blazer by Anine Bing and platform boots by Aquazzura over the same jumpsuit.',
+        sources: [
+          {
+            outlet: 'SheFinds',
+            url: 'https://www.shefinds.com/collections/taylor-swift-turned-heads-in-this-skintight-bodysuit-on-snl-you-can-see-everything/',
+          },
+          {
+            outlet: 'Nylon',
+            url: 'https://www.nylon.com/fashion/taylor-swift-snl-after-party-outfit-houndstooth-blazer-platform-boots/amp',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.shefinds.com/files/2021/11/taylor-swift-snl-performance.jpg',
+            credit: 'Will Heath/NBC',
+          },
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2021/11/15/5927994a-87f7-41ae-9f97-576f50f1747f-getty-1353171506.jpg?w=414&h=736&fit=crop&crop=faces&duotone=000000%2Cff6813&dpr=2',
+            credit: 'Getty Images',
+          },
+        ],
       },
     },
   ],
