@@ -13,6 +13,19 @@ deliberately adopts it.
   human-verified.** Treat as a first draft to curate, per our unofficial /
   no-fabrication stance. Images are hotlinked (never rehosted).
 
+  > ⚠️ **The 218 songs (`category: "music"`) are an anti-pattern — do NOT seed
+  > them as `month_item` rows.** Per the 2026-07-04 decision ("Song track guide
+  > is a separate, non-month-scoped shape", `docs/decisions.md`), full song
+  > coverage now lives in the `track_note` table, authored via
+  > `supabase/seed/tracks/*.mjs` (`npm run db:seed:tracks`) — reached from the
+  > album, kept off the Tier-0 timeline payload. These ported song blurbs are
+  > also **unsourced** (empty `sources[]`), so they can't be adopted as-is under
+  > the no-fabrication rule regardless. Mine them for song *titles* to research,
+  > then author real sourced `track_note`s; don't move the `music` items into
+  > `../content/`. The outfit (`fashion`) items are correctly shaped and can be
+  > curated normally. `npm run validate:content` guards `../content/` against
+  > bad rows if any get copied over.
+
 ## How Joey adopts content (opt-in)
 
 1. Open the candidate file and read through it.
