@@ -1232,5 +1232,65 @@ export default {
         ],
       },
     },
+    {
+      year: 2023,
+      month: 1,
+      category: 'fashion',
+      title: 'A 70s lace slip dress and Free People fur coat for "Lavender Haze"',
+      snippet:
+        'A white lace-trimmed slip mini dress under a light-violet Free People "Renata" faux fur coat, styled with shag-inspired bangs, glittery eyeshadow, and glossy pink lips for the self-directed 70s-themed video.',
+      sourceUrl: 'https://www.shefinds.com/collections/taylor-swift-lavender-haze-lacy-slip-mini-dress-music-video/',
+      thumbnailUrl: 'https://www.shefinds.com/files/2023/01/Taylor-Swift-16.jpg',
+      moment: {
+        context:
+          'The white silky slip has floral lace at the neckline and thigh-skimming cutouts along the hem, under the Free People Renata Faux Fur Coat; other looks in the video include an oversized T-shirt worn as a dress and a separate 70s-inflected knit top. The video, which Swift co-directed, leans fully into a groovy, retro aesthetic — loose beachy waves, shag bangs, and warm-toned glam.',
+        sources: [
+          {
+            outlet: 'SheFinds',
+            url: 'https://www.shefinds.com/collections/taylor-swift-lavender-haze-lacy-slip-mini-dress-music-video/',
+          },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/hfm/20230127162890/taylor-swift-lavender-haze-fashion-beauty-moments/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.shefinds.com/files/2023/01/Taylor-Swift-16.jpg',
+            credit: 'SheFinds',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 5,
+      category: 'fashion',
+      title: 'A Coach gingham minidress for the "Karma" surprise video',
+      snippet:
+        'A black-and-white gingham Coach minidress with a Peter Pan collar and a cherry motif running down the bodice like a tie, worn "skipping down a yellow brick road" in the surprise "Karma" video, premiered live at the Eras Tour\'s New Jersey stop.',
+      sourceUrl: 'https://www.billboard.com/culture/product-recommendations/taylor-swift-karma-video-dress-where-to-buy-1235342478/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/05/coach-gingham-dress-edited.jpeg?w=1000',
+      moment: {
+        context:
+          'The Coach Gingham Tie Collar Mini Dress (retail $550) featured in the "Karma" video, which premiered an hour early for the crowd at MetLife Stadium on May 26, 2023 before its official online release — the same New Jersey stand where she debuted a silver leotard, a gold dress, and a new "Enchanted" princess gown on the Eras Tour stage.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/product-recommendations/taylor-swift-karma-video-dress-where-to-buy-1235342478/',
+          },
+          {
+            outlet: 'Newsweek',
+            url: 'https://www.newsweek.com/taylor-swift-eras-tour-karma-video-east-rutherford-new-jersey-1995065',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/05/coach-gingham-dress-edited.jpeg?w=1000',
+            credit: 'Coach',
+          },
+        ],
+      },
+    },
   ],
 };
