@@ -668,5 +668,199 @@ export default {
         ],
       },
     },
+
+    // --- Music/business/sightings depth pass (2026-07-05)
+    {
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: "cowboy like me, cut at Marcus Mumford's home studio",
+      snippet:
+        'Swift wrote and recorded the closing duet during the pandemic at Marcus Mumford\'s home studio in Devon, where he called her "the most phenomenal houseguest" before she asked him to sing on it: "I chose Cowboy Like Me. Man, I love that song."',
+      sourceUrl: 'https://www.billboard.com/music/music-news/marcus-mumford-taylor-swift-phenomenal-houseguest-studio-1236112442/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/250px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg',
+      moment: {
+        context:
+          'Swift finished much of evermore\'s second half at Scarlet Pimpernel, the home studio of Mumford & Sons\' Marcus Mumford in Devon, England, working there with producer Aaron Dessner. On the Table Manners podcast, Mumford recalled Dessner asking to borrow his studio for an artist he was producing — Mumford joked, "Beyoncé or something?" — before learning it was Swift, who arrived "right at the end of COVID." He called her "the most phenomenal houseguest," joking that he "burned a lot of vegetables for her" and that "her candle game was excellent." In a separate interview with The Sunday Times, Mumford said: "Taylor came to my studio, played me some music and asked if I wanted to sing on anything. I chose Cowboy Like Me. Man, I love that song." Asked whether she arrived with heavy security, he said: "Ha, no, none of that. She stayed over and was a great house guest. Straightforward, easy-going. She ate my cauliflower salad." Justin Vernon also played drums on the track, and Josh Kaufman added lap steel, harmonica and mandolin.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/marcus-mumford-taylor-swift-phenomenal-houseguest-studio-1236112442/',
+          },
+          {
+            outlet: 'Yahoo News UK (The Sunday Times)',
+            url: 'https://uk.news.yahoo.com/taylor-swift-stayed-over-marcus-013726926.html',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Cowboy_like_Me' },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/250px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg',
+            credit: 'Sachyn Mital via Wikimedia Commons',
+          },
+        ],
+      },
+    },
+    {
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: "the evermore title track's bridge, written after the fact by Bon Iver's Justin Vernon",
+      snippet:
+        'Aaron Dessner: "Taylor wrote \'Evermore\' with William Bowery, and then we sent it to Justin, who wrote the bridge, and all of a sudden, that\'s when it started to become clear that there was a sister record."',
+      sourceUrl: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In a Rolling Stone interview, producer Aaron Dessner described writing the closing title track: "At some point, Taylor wrote \'Evermore\' with William Bowery [Joe Alwyn\'s songwriting pseudonym], and then we sent it to Justin, who wrote the bridge, and all of a sudden, that\'s when it started to become clear that there was a sister record" to folklore. Dessner said the run of collaboration felt like "weird alchemy," arriving after "seven or eight or nine" songs written in quick succession. Per Wikipedia, the piano ballad progresses into a dramatic bridge with a tempo shift, where Swift is joined midway by Vernon\'s multitracked falsetto in a call-and-response. Swift has said the lyrics were shaped by 2016 — a year she described as one where "all those times were just taking it day by day to get through" — along with the uncertainty of the 2020 U.S. election.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_song)' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: "tolerate it, the 10/8 track Dessner almost didn't send her",
+      snippet:
+        'Aaron Dessner: "This song is intense. It\'s in 10/8, which is an odd time signature... maybe I shouldn\'t send it to her." He sent it anyway — and: "I think I cried when I first heard it."',
+      sourceUrl: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In the same Rolling Stone interview, Dessner recalled writing the piano instrumental for "tolerate it": "I remember when I wrote the piano track to \'Tolerate It,\' right before I sent it to her, I thought, This song is intense. It\'s in 10/8, which is an odd time signature. And I did think for a second, \'Maybe I shouldn\'t send it to her, she won\'t be into it.\' But I sent it to her, and it conjured a scene in her mind, and she wrote this crushingly beautiful song to it and sent it back. I think I cried when I first heard it." Per Wikipedia, Swift has said the song explores "ambivalent toleration" in a relationship, drawing on Daphne du Maurier\'s 1938 novel Rebecca, in which a young woman is undervalued by an older, emotionally distant husband.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Tolerate_It' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2021,
+      month: 11,
+      category: 'business',
+      title: "Red (Taylor's Version) sets a new Hot 100 record: 26 debuts in a single week",
+      snippet:
+        "Every re-recorded and vault track hit the Hot 100 at once — Billboard: \"the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100's history.\"",
+      sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+      moment: {
+        context:
+          'In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor\'s Version) debuted on the Hot 100 simultaneously. Billboard: "Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100\'s history." The same week, Swift also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. Over the chart\'s 63-year history, only Drake, with 27 total titles charted after Scorpion\'s 2018 release, has ever had more entries from one act on a single week\'s survey.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)' },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            credit: 'Republic Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2022,
+      month: 9,
+      category: 'business',
+      title: 'Nashville Songwriters name her Songwriter-Artist of the Decade — and she debuts her "pen" framework',
+      snippet:
+        'Accepting NSAI\'s Songwriter-Artist of the Decade award, Swift publicly explained her three lyric-writing styles for the first time: "Quill," "Fountain Pen" and "Glitter Gel Pen."',
+      sourceUrl: 'https://www.billboard.com/music/country/taylor-swift-nashville-songwriter-awards-full-speech-1235142144/',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2022/09/taylor-swift-performs-nsai-nashville-songwriter-awards-2022-billboard-1548.png?w=1024',
+      moment: {
+        context:
+          'At the 5th annual Nashville Songwriter Awards at the Ryman Auditorium on September 20, 2022, the Nashville Songwriters Association International named Swift its Songwriter-Artist of the Decade. Accepting the honor, she said: "This award celebrates my family and my co-writers and my team. My friends and my fiercest fans and my harshest detractors and everyone who entered my life or left it." She also revealed, publicly for the first time, a framework she uses to sort her own lyrics: "Quill" lyrics lean on antiquated, literary language (she cited "ivy"); "Fountain Pen" lyrics — "most of my lyrics fall into this category" — pair a modern storyline with "a poetic twist" (she cited "All Too Well"); and "Glitter Gel Pen" lyrics are "frivolous, carefree, bouncy, syncopated perfectly to the beat" (she cited "Shake It Off"). She admitted she\'d "never talked about this publicly before, because, well, it\'s dorky."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/country/taylor-swift-nashville-songwriter-awards-full-speech-1235142144/',
+          },
+          {
+            outlet: 'WSMV',
+            url: 'https://www.wsmv.com/2022/09/20/taylor-swift-receives-songwriter-artist-decade/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/09/taylor-swift-performs-nsai-nashville-songwriter-awards-2022-billboard-1548.png?w=1024',
+            credit: 'Terry Wyatt/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2022,
+      month: 5,
+      category: 'sighting',
+      title: "An honorary NYU doctorate, and a graduation-cap 'first'",
+      snippet:
+        'She wore a cap and gown "for the very first time," per her own Instagram caption, to receive an honorary Doctor of Fine Arts from NYU and deliver its 2022 commencement address at Yankee Stadium.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-nyu-honorary-degree-commencement-address-2022/',
+      thumbnailUrl:
+        'https://assets1.cbsnewsstatic.com/hub/i/r/2022/05/18/066b689c-0e18-49aa-966a-7f08eeddd78d/thumbnail/1200x630/333d073afd2d380fa574745fdb2e40e7/gettyimages-1240747838-1.jpg',
+      moment: {
+        context:
+          'On May 18, 2022, Swift received an honorary Doctor of Fine Arts from New York University and delivered the commencement address to its graduating class at Yankee Stadium, captioning an Instagram post ahead of the ceremony: "Wearing a cap and gown for the very first time." In her speech she joked, "I\'m 90% sure the main reason I\'m here is because I have a song called \'22,\'" and told graduates she "never got to have the normal college experience" because she was homeschooled while touring. She described writing as her constant: "Everything I do is just an extension of my writing, whether it\'s directing videos or a short film." Her closing advice: "Never be ashamed of trying. Effortlessness is a myth," and "my mistakes led to the best things in my life."',
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-nyu-honorary-degree-commencement-address-2022/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-nyu-commencement-speech-full-transcript-1235072824/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2022/05/18/066b689c-0e18-49aa-966a-7f08eeddd78d/thumbnail/1200x630/333d073afd2d380fa574745fdb2e40e7/gettyimages-1240747838-1.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2022,
+      month: 6,
+      category: 'sighting',
+      title: "A Tribeca Q&A ends in a surprise \"All Too Well\" singalong, Blake Lively and Ryan Reynolds in the crowd",
+      snippet:
+        'At the Beacon Theatre for a live conversation about her short film, Swift revealed easter eggs, talked directing ambitions, and broke into an unplanned performance of the 10-minute song — with Lively and Reynolds singing along from the audience.',
+      sourceUrl: 'https://variety.com/2022/film/news/taylor-swift-all-too-well-tribeca-festival-1235291648/',
+      thumbnailUrl: 'https://variety.com/wp-content/uploads/2022/06/taylor-swift-all-too-well.jpg?w=1000&h=563&crop=1',
+      moment: {
+        context:
+          'On June 11, 2022, Swift appeared at the Tribeca Festival\'s Beacon Theatre for "A Conversation with Taylor Swift," screening her self-written-and-directed "All Too Well" short film and discussing its making with filmmaker Mike Mills. Per Variety: "the notoriously private pop star also revealed easter eggs in the short film, discussed her ambitions to direct a movie and treated fans to a surprise performance of \'All Too Well.\' Seated near the stage, Blake Lively and Ryan Reynolds were among the many in the crowd who enthusiastically sung along, clapped and took videos of Swift throughout the lengthy track."',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/film/news/taylor-swift-all-too-well-tribeca-festival-1235291648/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://variety.com/wp-content/uploads/2022/06/taylor-swift-all-too-well.jpg?w=1000&h=563&crop=1',
+            credit: 'Evan Agostini/Invision/AP',
+          },
+        ],
+      },
+    },
   ],
 };
