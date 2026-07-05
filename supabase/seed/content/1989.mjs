@@ -504,5 +504,167 @@ export default {
         ],
       },
     },
+
+    // --- Sightings depth pass (2026-07-05): candid, real-world public-
+    // appearance moments per the founder's request — squad outings, July 4th
+    // Rhode Island parties, Calvin Harris/Tom Hiddleston dating-era candids,
+    // and an airport look. Every photo URL hotlinked to the outlet's own CDN
+    // and checked for a 2xx image response before being added.
+    {
+      year: 2014,
+      month: 7,
+      category: 'sighting',
+      title: 'A rain-soaked Fourth of July family portrait in Rhode Island',
+      snippet:
+        "Emma Stone, Lena Dunham, and a Slip 'N Slide built to fight the rain — the first of what became an annual squad tradition at her Rhode Island beach house.",
+      sourceUrl: 'https://www.eonline.com/news/557177/taylor-swift-has-amazing-fourth-of-july-weekend-poses-for-family-portrait-with-9-pals-see-the-photos',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201466/rs_600x600-140706155753-600.Taylor-Swift-jmd-070514_copy.jpg',
+      moment: {
+        context:
+          "Swift hosted Emma Stone, Jaime King, Ingrid Michaelson, Jessica Stam, Jessica Szohr, and Girls creator Lena Dunham, among others, for the 2014 holiday weekend at her Rhode Island house. Rain didn't stop the group — they built a giant Slip 'N Slide, baked an American-flag cake, and posed for a group \"family portrait\" that Dunham photobombed with a mock scowl and a raised middle finger. \"When the 4th of July gives you nonstop rain, make a giant slip n slide,\" Swift captioned one photo. Dunham called the weekend her personal Coachella.",
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/557177/taylor-swift-has-amazing-fourth-of-july-weekend-poses-for-family-portrait-with-9-pals-see-the-photos',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide',
+          },
+        ],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201466/rs_600x600-140706155753-600.Taylor-Swift-jmd-070514_copy.jpg', credit: 'Instagram' }],
+      },
+    },
+    {
+      year: 2015,
+      month: 4,
+      category: 'sighting',
+      title: 'Hand in hand after a HAIM show at the Troubadour — the first Calvin Harris sighting',
+      snippet:
+        'Weeks before either confirmed it, paparazzi caught Taylor and Calvin Harris holding hands leaving a HAIM concert at West Hollywood\'s Troubadour — the sighting that kicked off the dating rumors.',
+      sourceUrl: 'https://www.eonline.com/photos/17305/taylor-swift-calvin-harris-romance-rewind',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201533/rs_634x1024-150403050319-634.Taylor-Swift-Calvin-Harris-JR-4315.jpg',
+      moment: {
+        context:
+          'In early April 2015, weeks after they met at the BRIT Awards, Swift and Harris were photographed holding hands as they left a HAIM show at the Troubadour in West Hollywood — one of the first sightings that fueled dating rumors ahead of their public confirmation at the Billboard Music Awards that May.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/photos/17305/taylor-swift-calvin-harris-romance-rewind' },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
+          },
+        ],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201533/rs_634x1024-150403050319-634.Taylor-Swift-Calvin-Harris-JR-4315.jpg', credit: 'MEP/Splash News' }],
+      },
+    },
+    {
+      year: 2015,
+      month: 5,
+      category: 'sighting',
+      title: "Gigi Hadid and Karlie Kloss stop by the NYC apartment for a night in",
+      snippet:
+        "Gigi Hadid, Karlie Kloss, Lena Dunham, and Jack Antonoff swing by Taylor's New York apartment on a Thursday night — the low-key, at-home counterpart to the era's red-carpet squad appearances.",
+      sourceUrl: 'https://www.justjaredjr.com/2015/05/29/gigi-hadid-karlie-kloss-stop-by-taylor-swifts-nyc-party/',
+      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2015/05/taylor-studded/thumbs/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-04.JPG',
+      moment: {
+        context:
+          "Gigi Hadid and Karlie Kloss were photographed arriving at Taylor's Manhattan apartment on Thursday night, May 28, 2015, along with Lena Dunham and Jack Antonoff — a quieter, at-home counterpart to the era's red-carpet squad appearances. Gigi wore Blue Life FIT leggings; Karlie carried a Dolce & Gabbana handbag.",
+        sources: [
+          {
+            outlet: 'Just Jared Jr.',
+            url: 'https://www.justjaredjr.com/2015/05/29/gigi-hadid-karlie-kloss-stop-by-taylor-swifts-nyc-party/',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/photo-gallery/3380957/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-04/',
+          },
+        ],
+        photos: [{ url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2015/05/taylor-studded/thumbs/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-04.JPG', credit: null }],
+      },
+    },
+    {
+      year: 2015,
+      month: 7,
+      category: 'sighting',
+      title: 'Matching flag onesies for the Fourth of July, Calvin Harris included',
+      snippet:
+        'Gigi Hadid and Joe Jonas brought American-flag onesies for the whole group; Ed Sheeran, the HAIM sisters, and boyfriend Calvin Harris rounded out the guest list at the Rhode Island beach house.',
+      sourceUrl: 'https://www.eonline.com/news/673098/10-reasons-why-taylor-swift-s-fourth-of-july-celebration-was-better-than-anyone-else-s-party',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201564/rs_600x600-150704143749-600.TSwift-6-jmd-070415.jpg',
+      moment: {
+        context:
+          "The 2015 edition of Swift's Rhode Island Independence Day tradition drew Calvin Harris (her boyfriend at the time), Ed Sheeran, Joe Jonas, Nick Jonas, Gigi Hadid, brother Austin Swift, and the HAIM sisters. Hadid and Jonas brought matching American-flag onesies for the group, and the party featured what E! called \"the biggest inflatable slide,\" piggyback rides, and Swift doing the cooking, under sunny East Coast weather ahead of that evening's fireworks.",
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/673098/10-reasons-why-taylor-swift-s-fourth-of-july-celebration-was-better-than-anyone-else-s-party',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide',
+          },
+        ],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201564/rs_600x600-150704143749-600.TSwift-6-jmd-070415.jpg', credit: 'Instagram' }],
+      },
+    },
+    {
+      year: 2016,
+      month: 6,
+      category: 'sighting',
+      title: 'Caught kissing on a Rhode Island beach — the first Hiddleswift sighting',
+      snippet:
+        'Weeks after the Calvin Harris breakup, paparazzi photographed Taylor and Tom Hiddleston kissing on a beach in Westerly, Rhode Island — the candid that broke the story before either side said a word.',
+      sourceUrl: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016518/rs_634x1024-160618144035-634.Tom-Hiddleston-Taylor-Swift-Beach-kiss.tt.061816.jpg',
+      moment: {
+        context:
+          'On June 15, 2016, Swift and Hiddleston were photographed kissing on a beach in Westerly, Rhode Island — the first public sighting of their relationship, surfacing just weeks after her split from Calvin Harris and shortly after she and Hiddleston met at the 2016 Met Gala. The pictures broke the story before either Swift or Hiddleston commented publicly.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind' },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
+          },
+        ],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016518/rs_634x1024-160618144035-634.Tom-Hiddleston-Taylor-Swift-Beach-kiss.tt.061816.jpg', credit: 'TheImageDirect.com' }],
+      },
+    },
+    {
+      year: 2016,
+      month: 6,
+      category: 'sighting',
+      title: 'Sightseeing at the Colosseum, hand in hand, in matching outfits',
+      snippet:
+        "Two weeks into the relationship, Taylor and Tom Hiddleston toured Rome's Colosseum in coordinated ensembles, photographed holding hands through the cobblestone streets.",
+      sourceUrl: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016528/rs_634x1024-160628080313-634.Taylor-Swift-Tom-Hiddleston-Rome-JR-062816.jpg',
+      moment: {
+        context:
+          "On June 27, 2016, Swift and Hiddleston were photographed sightseeing at Rome's Colosseum, wearing matching ensembles and holding hands throughout — part of a European stretch of the relationship that also took them to Hiddleston's family home in Suffolk, England, before they returned to the U.S. for her Fourth of July party in Rhode Island.",
+        sources: [{ outlet: 'E! Online', url: 'https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind' }],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016528/rs_634x1024-160628080313-634.Taylor-Swift-Tom-Hiddleston-Rome-JR-062816.jpg', credit: 'INFphoto.com' }],
+      },
+    },
+    {
+      year: 2016,
+      month: 7,
+      category: 'sighting',
+      title: 'Matching outfits through LAX, hours before a flight to Australia',
+      snippet:
+        'Navy jackets for both of them — Taylor in a blue plaid skirt, Tom in a white v-neck tee — as they moved through Los Angeles International Airport the morning of a flight to Australia.',
+      sourceUrl: 'https://www.hellomagazine.com/celebrities/2016070732300/taylor-swift-tom-hiddleston-matching-outfits-airport/',
+      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/a6f6cfa25b82-taylor-a.jpg',
+      moment: {
+        context:
+          'On July 6, 2016, Swift and Hiddleston were photographed moving through LAX in coordinating navy jackets — she in a blue plaid skirt with flats, he in a white v-neck T-shirt — with his arm around her as they made their way through the terminal. They were bound for Australia, where Hiddleston was filming, and touched down still wearing the same matching looks the next day.',
+        sources: [
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/2016070732300/taylor-swift-tom-hiddleston-matching-outfits-airport/',
+          },
+        ],
+        photos: [{ url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/a6f6cfa25b82-taylor-a.jpg', credit: 'Rex' }],
+      },
+    },
   ],
 };
