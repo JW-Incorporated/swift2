@@ -500,6 +500,33 @@ export default {
         ],
       },
     },
+
+    // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md — real,
+    // widely-reported relationship history from this era. (The Joe Jonas
+    // breakup, Oct 2008, is dated a month before Fearless's Nov 11, 2008
+    // start — see debut.mjs instead.)
+    {
+      year: 2009,
+      month: 12,
+      category: 'relationship',
+      title: 'A few months with her Valentine\'s Day co-star, Taylor Lautner',
+      snippet: 'A set romance that became real, then ended quietly by December — Lautner later confirmed on the record that she was the one who ended it.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-taylor-lautner-relationship-130738009.html',
+          },
+        ],
+        photos: [],
+      },
+    },
     {
       year: 2009,
       month: 12,
@@ -556,6 +583,28 @@ export default {
             credit: 'Just Jared Jr.',
           },
         ],
+      },
+    },
+    {
+      year: 2009,
+      month: 12,
+      category: 'relationship',
+      title: 'A duet with John Mayer fuels dating rumors',
+      snippet: "A live 'Half of My Heart' at Z100's Jingle Ball, obvious onstage chemistry, a 13-year age gap — and rumors that became a real, brief relationship.",
+      sourceUrl: 'https://www.billboard.com/music/music-news/john-mayer-taylor-swift-duet-half-of-my-heart-performance-1235291747/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/john-mayer-taylor-swift-duet-half-of-my-heart-performance-1235291747/',
+          },
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/taylor-swift-speak-now-re-release-resurfaces-old-john-mayer-love-story',
+          },
+        ],
+        photos: [],
       },
     },
     {

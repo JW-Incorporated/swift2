@@ -748,6 +748,30 @@ export default {
         photos: [],
       },
     },
+
+    // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md.
+    {
+      year: 2019,
+      month: 2,
+      category: 'relationship',
+      title: 'A rare public appearance with Joe Alwyn at the BAFTAs',
+      snippet: 'The notoriously private couple stepped out together at the after-party, celebrating "The Favourite" winning seven BAFTAs.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-joe-alwyn-the-favourite-2019-bafta-awards-party-8497568/',
+      thumbnailUrl: null,
+      moment: {
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-joe-alwyn-the-favourite-2019-bafta-awards-party-8497568/',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1014397/see-taylor-swift-and-joe-alwyn-pack-on-the-pda-at-baftas-after-party',
+          },
+        ],
+        photos: [],
+      },
+    },
     {
       year: 2017,
       month: 11,
