@@ -636,5 +636,182 @@ export default {
         ],
       },
     },
+
+    // --- Business/chart + music + sightings depth pass (2026-07-05) ---
+    {
+      year: 2012,
+      month: 10,
+      category: 'business',
+      title: "'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
+      snippet:
+        "Red's lead single leapt from No. 72 to No. 1 in a single week — her first career Hot 100 chart-topper on her 46th entry, after 'You Belong With Me' and 'Today Was a Fairytale' had both stalled at No. 2.",
+      sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/4/40/We_Are_Never_Ever_Getting_Back_Together.png/250px-We_Are_Never_Ever_Getting_Back_Together.png',
+      moment: {
+        context:
+          "The song sold 623,000 downloads in its first week — the highest one-week digital sales total ever by a female artist at the time, and second all-time behind only Flo Rida's \"Right Round.\" It entered the Hot 100 Airplay chart at No. 25 before jumping to No. 14 the next week on a 29% surge in radio audience. The single led the rollout for Red's October 22 release, arriving as Swift's first Hot 100 No. 1 after two previous singles had each peaked at No. 2.",
+        sources: [
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/40/We_Are_Never_Ever_Getting_Back_Together.png/250px-We_Are_Never_Ever_Getting_Back_Together.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2014,
+      month: 7,
+      category: 'business',
+      title: 'The Red Tour closes as the highest-grossing country tour of all time',
+      snippet:
+        '86 shows across 12 countries sold 1.7 million tickets and grossed $150,184,971 — surpassing the $141 million record set by Tim McGraw and Faith Hill\'s Soul2Soul tour.',
+      sourceUrl: 'https://billboard.com/articles/news/6150193/taylor-swift-red-all-time-country-tour',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg',
+      moment: {
+        context:
+          'Final box office figures put the tour at $150,184,971 in gross revenue from 1,702,933 sold tickets across 86 shows in 12 countries over a 15-month run from its March 13, 2013 Omaha opener to its June 12, 2014 close in Singapore. That total broke the prior country-touring record of $141 million held by Tim McGraw and Faith Hill\'s Soul2Soul tour (2006-2007). The single best-performing stop was a two-night stand at Gillette Stadium in Foxborough, Massachusetts, which drew 110,712 fans and $9.4 million in ticket sales; London\'s O2 Arena led the arena dates with $5.8 million from 74,740 tickets across five shows.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://billboard.com/articles/news/6150193/taylor-swift-red-all-time-country-tour',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg',
+            credit: 'Jana Zills / Wikimedia Commons',
+          },
+        ],
+      },
+    },
+    {
+      year: 2014,
+      month: 1,
+      category: 'business',
+      title: 'Red goes into the Grammys with two nominations — and leaves with neither',
+      snippet:
+        'Album of the Year and Best Country Album nods at the January 26, 2014 ceremony — losing Album of the Year to Daft Punk\'s Random Access Memories and Best Country Album to Kacey Musgraves\' debut, Same Trailer Different Park.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/56th_Annual_Grammy_Awards',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+      moment: {
+        context:
+          'At the 56th Annual Grammy Awards, Red was one of five Album of the Year nominees alongside Sara Bareilles\' The Blessed Unrest, Kendrick Lamar\'s Good Kid, M.A.A.D City, and Macklemore & Ryan Lewis\' The Heist — the trophy went to Daft Punk\'s Random Access Memories. In Best Country Album, Red competed against Jason Aldean\'s Night Train, Tim McGraw\'s Two Lanes of Freedom, and Blake Shelton\'s Based on a True Story..., with Kacey Musgraves\' debut Same Trailer Different Park taking the win. It was Swift\'s second Album of the Year nomination (after Fearless won in 2010) and her only Grammy shutout of the decade.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/56th_Annual_Grammy_Awards' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 10,
+      category: 'music',
+      title: 'State of Grace opens Red with her first arena-rock swing',
+      snippet:
+        'A "howling, U2-style epic with reverb-drenched guitars," per Rolling Stone — Taylor\'s own description was simpler: "This sounds like the feeling of falling in love in an epic way."',
+      sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Previewing the song on Good Morning America, Swift explained: "I wrote this song about when you first fall in love with someone. The possibilities. Kind of thinking about the different ways that it could go." On the sound she added: "It\'s a really big sound. To me, this sounds like the feeling of falling in love in an epic way" — a deliberate departure into arena rock that opens the album before its country roots resurface. A stripped-down acoustic version included on the Target-exclusive edition was, in her words, "really acoustic and like emotional and sweet."',
+        sources: [{ outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2012,
+      month: 10,
+      category: 'music',
+      title: 'The Last Time turns an on-again-off-again relationship into a two-voice duet',
+      snippet:
+        'A duet with Snow Patrol\'s Gary Lightbody, born from a relationship where "you never know when he\'s going to leave... but he always does come back" — Ed Sheeran made the introduction.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Last_Time_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift told NPR the song was inspired by an unreliable partner: "You never know when he\'s going to leave, you never know when he\'s going to come back, but he always does come back." She described picturing a boyfriend on his knees outside a door, promising "this is the last time," while his girlfriend waits inside, torn on whether to let him back in: "It\'s a really fragile emotion you\'re dealing with when you want to love someone, but you don\'t know if it\'s smart to." The collaboration came together after her friend Ed Sheeran introduced her to Lightbody in spring 2012; the track was produced by Jacknife Lee, known for his work with Snow Patrol and U2.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Last_Time_(Taylor_Swift_song)' },
+          { outlet: 'NPR', url: 'https://www.npr.org/2012/11/03/164186569/taylor-swift-my-confidence-is-easy-to-shake' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2014,
+      month: 3,
+      category: 'sighting',
+      title: 'A California road trip with new best friend Karlie Kloss',
+      snippet:
+        'Days spent driving up the Pacific Coast Highway with Karlie Kloss in March 2014 — redwoods, cliffs, and a beach stop at Pfeiffer Big Sur State Park, all documented on Instagram as "the best road trip ever."',
+      sourceUrl: 'https://www.hellomagazine.com/fashion/2014030617340/karlie-kloss-taylor-swift-instagram-pictures-road-trip/',
+      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/73900276f68b-road-trip2-z.jpg',
+      moment: {
+        context:
+          'Swift and Kloss — who\'d met just four months earlier backstage at the November 2013 Victoria\'s Secret Fashion Show — shared a self-documented road trip up the Northern California coast in early March 2014, stopping at redwood forests, ocean cliffs, and Pfeiffer Big Sur State Park. Swift captioned one post "California here we come, right back where we started from... ROAD TRIP!!" and another simply "This forest situation," while Kloss wrote "Karlie ♥ Taylor" in the sand at the beach. Swift summed up the trip on Instagram: "Beach, forests, cliffs, Northern California, sand, flower picking... Best road trip ever."',
+        sources: [
+          {
+            outlet: 'HELLO!',
+            url: 'https://www.hellomagazine.com/fashion/2014030617340/karlie-kloss-taylor-swift-instagram-pictures-road-trip/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/f710f8fef400-road-trip-z.jpg',
+            credit: 'Instagram / HELLO!',
+          },
+          {
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/73900276f68b-road-trip2-z.jpg',
+            credit: 'Instagram / HELLO!',
+          },
+          {
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/2269843edce4-road-trip3-z.jpg',
+            credit: 'Instagram / HELLO!',
+          },
+        ],
+      },
+    },
+    {
+      year: 2014,
+      month: 9,
+      category: 'sighting',
+      title: 'Carrying kitten Olivia Benson down the street instead of using a cat carrier',
+      snippet:
+        "Paparazzi photos of Swift walking around New York carrying her new Scottish Fold kitten by hand sparked a wave of coverage — she later explained why: \"the kitten freaks out about being put in the cat carrier.\"",
+      sourceUrl: 'https://abcnews.com/Entertainment/taylor-swift-explains-carries-cat-olivia-benson/story?id=25755359',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/2014823/rs_634x1024-140923101708-634.Taylor-Swift-Olivia-Benson-JR-92314.jpg',
+      moment: {
+        context:
+          'After being photographed multiple times in September 2014 carrying kitten Olivia Benson through New York City rather than using a carrier, Swift explained the habit in an Access Hollywood interview: "The kitten freaks out about being put in the cat carrier ... she freaks out when she\'s in there. So I was just like, \'OK, all right, we\'re gonna just do this!\'" She downplayed the distance involved: "It was like a ten foot walk from my door to the car!" — and noted the kitten seemed unbothered by the cameras: "the cat is looking straight at the cameras!"',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/taylor-swift-explains-carries-cat-olivia-benson/story?id=25755359',
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/583118/taylor-swift-explains-why-she-carries-cat-olivia-benson-around-new-york',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2014823/rs_634x1024-140923101708-634.Taylor-Swift-Olivia-Benson-JR-92314.jpg',
+            credit: 'JR / E! News',
+          },
+        ],
+      },
+    },
   ],
 };
