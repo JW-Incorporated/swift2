@@ -1292,5 +1292,241 @@ export default {
         ],
       },
     },
+
+    // --- Sightings depth pass (2026-07-05): candid public-appearance moments
+    // beyond the Chiefs games already in this file, per the founder's request
+    // for more real-world material from this era's huge paparazzi coverage.
+    // Every claim below verified against its cited source directly this
+    // session; every photo URL curl-checked for a 2xx image/* response before
+    // inclusion. None of these touch the Joe Alwyn breakup, the Sept. 24,
+    // 2023 "went public" Chiefs game, or the Matty Healy relationship — all
+    // already covered elsewhere in this file (or, per the relationship-history
+    // branch, in a sibling PR).
+    {
+      year: 2023,
+      month: 10,
+      category: 'sighting',
+      title: 'A Thursday-night Broncos game, one day after the Eras film premiere',
+      snippet:
+        "Straight off the Eras Tour film's LA premiere, she landed in Kansas City, arrived in a Chiefs zip-up about 45 minutes before kickoff, and was driven by golf cart to a private box to watch with Donna Kelce again.",
+      sourceUrl: 'https://www.cbssports.com/nfl/news/look-taylor-swift-arrives-at-broncos-chiefs-thursday-night-game-to-watch-travis-kelce/',
+      thumbnailUrl:
+        'https://sportshub.cbsistatic.com/i/r/2023/10/12/40650345-0cc6-4ceb-b781-c837359fee06/thumbnail/770x433/d8fdf57d237d253925cb3ab88bc67608/swift-chiefs-g.jpg',
+      moment: {
+        context:
+          'It was her third Chiefs game of the 2023 season, played the Thursday night of Oct. 12 — she waved and smiled at fans on her way in before the 8:15 p.m. ET kickoff.',
+        sources: [
+          {
+            outlet: 'CBS Sports',
+            url: 'https://www.cbssports.com/nfl/news/look-taylor-swift-arrives-at-broncos-chiefs-thursday-night-game-to-watch-travis-kelce/',
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/news/taylor-swift-chiefs-broncos-game-rcna120152',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://sportshub.cbsistatic.com/i/r/2023/10/12/40650345-0cc6-4ceb-b781-c837359fee06/thumbnail/770x433/d8fdf57d237d253925cb3ab88bc67608/swift-chiefs-g.jpg',
+            credit: 'CBS Sports',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 10,
+      category: 'sighting',
+      title: 'A wordless SNL cameo, then dinner at Nobu',
+      snippet:
+        'She popped onscreen for four words — "Once again, Ice Spice" — during the season 49 premiere, then that night was seen cuddling through an intimate sushi dinner with Travis at Nobu, the first time the two had shown that much public affection.',
+      sourceUrl: 'https://www.tmz.com/2023/10/15/taylor-swift-ice-spice-snl-travis-kelce-pete-davidson-nobu/',
+      thumbnailUrl: 'https://imagez.tmz.com/image/8e/16by9/2023/10/15/8e0d4df878864a078bb032f7b54342f4_md.jpg',
+      moment: {
+        context:
+          'On the Oct. 14, 2023 premiere hosted by Pete Davidson, Travis also got his own cameo — popping up after Kenan Thompson joked about wanting real football talk instead of Taylor gossip. Neither performed with the cast. Hours later, TMZ caught the couple holding hands past the sushi bar at Nobu in Manhattan, Travis greeting the chefs, before sitting down to a meal an eyewitness described as spent "cuddling throughout."',
+        sources: [
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2023/10/15/taylor-swift-ice-spice-snl-travis-kelce-pete-davidson-nobu/',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/tv/news/taylor-swift-snl-premiere-travis-kelce-cameo-1235756487/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/77/4by3/2023/10/15/77f8e73e44f34d2ead2e55f2444bc657_md.jpg',
+            credit: 'TMZ',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/a3/4by3/2023/10/15/a3a8f095ff4f49268d0bf9ce369a40d1_md.jpg',
+            credit: 'TMZ',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 10,
+      category: 'sighting',
+      title: "A friendship bracelet with his number, for the Chargers game",
+      snippet:
+        "For her fourth Chiefs game of the season, a friendship bracelet reading '87' surrounded by hearts — plus a celebratory handshake with Brittany Mahomes every time Kansas City scored.",
+      sourceUrl: 'https://www.bustle.com/entertainment/taylor-swift-friendship-bracelet-travis-kelce-tribute',
+      thumbnailUrl:
+        'https://imgix.bustle.com/uploads/getty/2023/10/23/b8956637-edbb-49a6-9f42-58fe6268b05c-getty-1750806324.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
+      moment: {
+        context:
+          'The Oct. 22, 2023 win over the Los Angeles Chargers at Arrowhead — afterward, she and Travis were seen holding hands and leaving the stadium together in his convertible.',
+        sources: [
+          {
+            outlet: 'Bustle',
+            url: 'https://www.bustle.com/entertainment/taylor-swift-friendship-bracelet-travis-kelce-tribute',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2023/10/23/b8956637-edbb-49a6-9f42-58fe6268b05c-getty-1750806324.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
+            credit: 'Getty Images via Bustle',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 11,
+      category: 'sighting',
+      title: 'Travis flies to Buenos Aires for the second Eras Tour show there',
+      snippet:
+        "He arrived a day late — after missing the first Argentina show for a Kansas City gala — and watched from the VIP tent beside her dad Scott. She altered a lyric mid-show to reference him, then ran into his arms to kiss him once it wrapped.",
+      sourceUrl: 'https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-buenos-aires-eras-tour-1235469312/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Nov. 11, 2023, at Estadio River Plate — the same day she\'d woken up to six new Grammy nominations, which she mentioned from the stage before the show.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-taylor-swift-buenos-aires-eras-tour-1235469312/',
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/travis-kelce-spotted-at-taylor-swifts-second-buenos-aires-eras-tour-concert-214678',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 11,
+      category: 'sighting',
+      title: 'A girls-only night out on Bond Street',
+      snippet:
+        'Leaving a Japanese restaurant on Bond Street, she locked arms with Selena Gomez and held Brittany Mahomes\'s hand, with Sophie Turner, Gigi Hadid, and Cara Delevingne close behind — a rare all-friends outing between Chiefs games and Eras Tour dates.',
+      sourceUrl: 'https://www.tmz.com/2023/11/05/taylor-swift-selena-gomez-sophie-turner-gigi-hadid-brittany-mahomes-dinner-new-york/',
+      thumbnailUrl: 'https://imagez.tmz.com/image/b8/4by3/2023/11/05/b8a558e9361042cca1e7b95fea55ef56_md.jpg',
+      moment: {
+        sources: [
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2023/11/05/taylor-swift-selena-gomez-sophie-turner-gigi-hadid-brittany-mahomes-dinner-new-york/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/b8/4by3/2023/11/05/b8a558e9361042cca1e7b95fea55ef56_md.jpg',
+            credit: 'TMZ',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/df/4by3/2023/11/05/dfa5b127c6b4466c92fb3894cf22f85c_md.jpg',
+            credit: 'TMZ',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 12,
+      category: 'sighting',
+      title: 'A crescent-moon dress for her 34th birthday, with Blake Lively',
+      snippet:
+        'A black Clio Peppiatt cocktail dress covered in silver crescent moons and stars, a furry coat, and Blake Lively\'s hand to hold walking into The Box nightclub — Travis stayed behind in Kansas City for mandatory Chiefs practice.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-birthday-blake-lively-miles-teller-photos-1235556824/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/12/01-taylor-swift-dec-13-2023-billboard-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          'The main party was Dec. 13, 2023, following a lower-key Dec. 12 gathering at Zero Bond with Selena Gomez — two nights of celebrating turning 34 with Miles Teller and Keleigh Sperry also along for both.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-birthday-blake-lively-miles-teller-photos-1235556824/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/12/01-taylor-swift-dec-13-2023-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Billboard',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 12,
+      category: 'sighting',
+      title: 'Ringing in 2024 with the Mahomeses',
+      snippet:
+        "A double-date New Year's Eve in Kansas City — a kiss with Travis at midnight, and a photo with Patrick and Brittany Mahomes that raced past a million views, hours after watching the Chiefs beat Cincinnati 25–17.",
+      sourceUrl: 'https://www.newsweek.com/taylor-swift-travis-kelce-patrick-brittany-mahomes-kansas-city-chiefs-photo-1857056',
+      thumbnailUrl: 'https://assets.newsweek.com/wp-content/uploads/2025/08/2330299-taylor-swift-travis-kelce.jpg?w=1600&quality=80&webp=1',
+      moment: {
+        sources: [
+          {
+            outlet: 'Newsweek',
+            url: 'https://www.newsweek.com/taylor-swift-travis-kelce-patrick-brittany-mahomes-kansas-city-chiefs-photo-1857056',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://assets.newsweek.com/wp-content/uploads/2025/08/2330299-taylor-swift-travis-kelce.jpg?w=1600&quality=80&webp=1',
+            credit: 'Newsweek',
+          },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 1,
+      category: 'sighting',
+      title: 'A frigid divisional round in Buffalo, seated with Jason Kelce',
+      snippet:
+        "Braving frigid temperatures at Highmark Stadium, she watched the Chiefs beat the Bills 27–24 from a suite alongside Travis's brother Jason — while some Bills fans in the crowd held up a sign reading they'd come \"for Taylor.\"",
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-chiefs-buffalo-bills-highmark/',
+      thumbnailUrl:
+        'https://assets3.cbsnewsstatic.com/hub/i/r/2024/01/21/3ea9f4b6-39c9-4026-aea6-be7d5a44af76/thumbnail/620x413/fe93c98a06090411f5266f68af3ce8b1/gettyimages-1950919592.jpg',
+      moment: {
+        context:
+          'Jan. 21, 2024, at the AFC Divisional Round in Orchard Park, New York — her second straight playoff-game appearance, following the Wild Card round the week before.',
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-chiefs-buffalo-bills-highmark/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2024/01/21/3ea9f4b6-39c9-4026-aea6-be7d5a44af76/thumbnail/620x413/fe93c98a06090411f5266f68af3ce8b1/gettyimages-1950919592.jpg',
+            credit: 'Getty Images via CBS News',
+          },
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2024/01/21/bc1ab4aa-2929-4189-b2bb-a0b408647c54/thumbnail/620x413/9555c45396dfac8af60912df8cfb71ac/gettyimages-1950836092.jpg',
+            credit: 'Getty Images via CBS News',
+          },
+        ],
+      },
+    },
   ],
 };
