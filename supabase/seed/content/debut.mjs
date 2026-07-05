@@ -298,5 +298,55 @@ export default {
         ],
       },
     },
+
+    // --- Fashion/photo depth pass 2 (2026-07-04)
+    {
+      year: 2006,
+      month: 11,
+      category: 'fashion',
+      title: 'A black satin Elvira mermaid gown for her first CMA Awards',
+      snippet:
+        'A black satin, mermaid-style gown by Elvira with matching long black gloves — her first CMA Awards red carpet, weeks after her debut album released.',
+      sourceUrl: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp',
+      thumbnailUrl:
+        'https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces',
+      moment: {
+        context:
+          'Worn to the 40th Annual CMA Awards at Nashville\'s Gaylord Entertainment Center, just weeks after her self-titled debut album hit shelves — a more formal, Old-Hollywood-leaning look than the sundresses that otherwise defined her earliest red carpets.',
+        sources: [
+          { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp' },
+        ],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces',
+            credit: 'Stephen Lovekin/WireImage/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2007,
+      month: 5,
+      category: 'fashion',
+      title: 'A Sandi Spika drop-waist gown for the 2007 ACM Awards',
+      snippet:
+        'A custom drop-waist gown by Sandi Spika at the 42nd Academy of Country Music Awards — one of two Sandi Spika red-carpet gowns she wore that year (the other, a lavender cascading-floral piece, came at the following year\'s Grammys).',
+      sourceUrl: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp',
+      thumbnailUrl:
+        'https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces',
+      moment: {
+        context:
+          'Worn on the red carpet at the MGM Grand Hotel and Casino for the 42nd ACM Awards in May 2007, before her pivot to more structured, corseted red-carpet gowns later that year and into 2008.',
+        sources: [
+          { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp' },
+        ],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces',
+            credit: 'Denise Truscello/WireImage/Getty Images',
+          },
+        ],
+      },
+    },
   ],
 };
