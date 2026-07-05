@@ -178,8 +178,11 @@ export default {
       title: "A New Year's Eve kiss with Harry Styles in Times Square",
       snippet: 'Caught on camera by a reveler as the ball dropped — the clearest public confirmation of a relationship that had started weeks earlier.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg',
       moment: {
+        context:
+          'Swift took the Times Square stage at 11:39 p.m. on December 31, 2012, for the New Year\'s Eve broadcast, then was seen in Styles\' arms as the clock struck midnight. The kiss was caught by fans in the crowd and quickly circulated online.',
         sources: [
           {
             outlet: 'Billboard',
@@ -187,7 +190,12 @@ export default {
           },
           { outlet: 'Entertainment Tonight', url: 'https://www.etonline.com/news/128673_Taylor_Swift_Harry_Styles_New_Years_Eve_Kiss' },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg',
+            credit: 'Just Jared',
+          },
+        ],
       },
     },
     {
