@@ -350,6 +350,159 @@ export default {
         ],
       },
     },
+    // --- Fashion/photo depth pass round 2 (2026-07-04)
+    {
+      year: 2019,
+      month: 8,
+      category: 'fashion',
+      title: 'Jessica Jones sequin shorts and René Caovilla boots for the pre-release GMA set',
+      snippet:
+        'The morning before Lover dropped, she played Central Park in multi-colored Jessica Jones sequin shorts, a sheer Helmut Lang blouse over a Wolford bodysuit, and glitter-soled René Caovilla Karlotta boots.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-outfit-gma-performance-photos-8528049/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-gma-aug-2019-billboard-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          'Performing "Me!," "You Need to Calm Down," and "Shake It Off" at Central Park\'s SummerStage on August 22, 2019, one day ahead of the Lover release. Footwear News (via Yahoo) named each piece: Jessica Jones sequin high-waisted shorts, a Helmut Lang sheer pink blouse, a Wolford bodysuit, and René Caovilla\'s black suede Karlotta booties with a glitter-covered sole.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-outfit-gma-performance-photos-8528049/',
+          },
+          {
+            outlet: 'Yahoo / Footwear News',
+            url: 'https://www.yahoo.com/lifestyle/taylor-swift-ren-caovilla-boots-155958921.html',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-gma-aug-2019-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Billboard',
+          },
+        ],
+      },
+    },
+    {
+      year: 2019,
+      month: 8,
+      category: 'fashion',
+      title: 'A Johanna Ortiz tiered dress for the Lover video\'s proposal scene',
+      snippet:
+        'In the pastel-house music video, she plays guitar in a yellow Johanna Ortiz "Ladies Who Lunch" tiered dress with matching Rebecca de Ravenel "Les Bonbons" ball earrings and an orange headband.',
+      sourceUrl: 'https://www.spotern.com/en/spot/video/taylor-swift-lover-official-music-video/226542/yellow-tiered-dress-of-taylor-swift-in-the-music-video-lover',
+      thumbnailUrl: 'https://medias.spotern.com/spots/w640/226/226542-1566837979.jpg',
+      moment: {
+        context:
+          'The "Lover" video, released August 29, 2019, follows a couple through a color-coded house spanning different Taylor eras. The sunshine-yellow tiered dress is identified as Johanna Ortiz\'s "Ladies Who Lunch" style, paired with Rebecca de Ravenel "Les Bonbons" drop earrings — part of the video\'s wider pastel wardrobe built around the album\'s central proposal scene.',
+        sources: [
+          {
+            outlet: 'Spotern',
+            url: 'https://www.spotern.com/en/spot/video/taylor-swift-lover-official-music-video/226542/yellow-tiered-dress-of-taylor-swift-in-the-music-video-lover',
+          },
+          {
+            outlet: 'Social Media Style',
+            url: 'https://www.socialmediastyle.org/post/taylor-swift-s-yellow-ball-earrings-and-tiered-dress-from-the-lover-music-video',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://medias.spotern.com/spots/w640/226/226542-1566837979.jpg',
+            credit: 'Spotern',
+          },
+        ],
+      },
+    },
+    {
+      year: 2019,
+      month: 7,
+      category: 'fashion',
+      title: 'A sequined romper and Kat Maconie heels at the Amazon Prime Day concert',
+      snippet:
+        'Opening with pyrotechnics for "ME!," she performed the Hammerstein Ballroom show in a black-and-purple sequined romper with Kat Maconie\'s glitter-jeweled "Frida" block heels.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/taylor-swift-steals-spotlight-block-152845330.html',
+      thumbnailUrl:
+        'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
+      moment: {
+        context:
+          'Headlining the Amazon Prime Day Concert at Hammerstein Ballroom on July 10, 2019 alongside Dua Lipa, SZA, and Becky G, she opened with "Me!" in a sparkling black-and-purple striped sequin romper. Footwear News named her shoes as Kat Maconie\'s $370 "Frida" style — thick block heels with dark, reflective jewel detailing and a thin silver ankle strap.',
+        sources: [
+          {
+            outlet: 'Yahoo / Footwear News',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-steals-spotlight-block-152845330.html',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/amazon-prime-day-concert-recap-taylor-swift-8519537/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
+            credit: 'Footwear News',
+          },
+        ],
+      },
+    },
+    {
+      year: 2019,
+      month: 12,
+      category: 'fashion',
+      title: 'A floral Oscar de la Renta gown, by Laura Kim and Fernando Garcia, at the Cats premiere',
+      snippet:
+        'For the Cats world premiere in New York, she wore a strapless Oscar de la Renta gown with giant 3D floral appliqué across the bodice and a train — designed by the label\'s Laura Kim and Fernando Garcia.',
+      sourceUrl: 'https://graziamagazine.com/articles/taylor-swift-cats-premiere-oscar-de-la-renta/',
+      thumbnailUrl:
+        'https://graziamagazine.com/wp-content/uploads/2019/12/taylor-swift-attends-the-world-premiere-of-cats-at-alice-news-photo-1576544616.jpg',
+      moment: {
+        context:
+          'At the December 19, 2019 premiere in New York (with Joe Alwyn attending but staying off the official carpet), the strapless gown\'s vintage-tapestry-style floral brocade and dimensional 3D blossoms were credited to Oscar de la Renta\'s creative directors Laura Kim and Fernando Garcia, styled with red silk heels and her signature red lip.',
+        sources: [
+          {
+            outlet: 'Grazia',
+            url: 'https://graziamagazine.com/articles/taylor-swift-cats-premiere-oscar-de-la-renta/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-cats-premiere-dress-red-carpet-8546528/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://graziamagazine.com/wp-content/uploads/2019/12/taylor-swift-attends-the-world-premiere-of-cats-at-alice-news-photo-1576544616.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2020,
+      month: 2,
+      category: 'fashion',
+      title: 'Bill Corso\'s six-person prosthetic transformation for The Man',
+      snippet:
+        'To play her male alter ego in The Man, makeup artist Bill Corso spent four to six hours a day building a new jawline, nose, brows, and facial hair with a muscle suit and dark contacts.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-man-music-video-makeup-959829/',
+      thumbnailUrl: 'https://www.nme.com/wp-content/uploads/2020/02/tay-696x442.png',
+      moment: {
+        context:
+          'For the self-directed video released February 27, 2020, makeup artist Bill Corso — known for Nicole Kidman\'s Bombshell transformation — led a team of more than six people to turn Swift into "Tyler Swift." The look combined a muscle suit, eyebrow wigs, and facial prosthetics for a new jawline and nose, with movement coaches Stephen Galloway and Spenser Theberge teaching her masculine gait and mannerisms. The video closes on a before-and-after reveal of the disguise.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-man-music-video-makeup-959829/',
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-behind-the-scenes-the-man-video-transformation-2616077',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.nme.com/wp-content/uploads/2020/02/tay-696x442.png',
+            credit: 'NME',
+          },
+        ],
+      },
+    },
     {
       year: 2020,
       month: 1,
