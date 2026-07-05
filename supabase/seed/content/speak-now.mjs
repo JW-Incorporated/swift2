@@ -732,5 +732,159 @@ export default {
         ],
       },
     },
+
+    // --- Music/business depth pass (2026-07-05) ---
+    {
+      year: 2010,
+      month: 10,
+      category: 'music',
+      title: "Enchanted was almost the album's title, and hid a coded name in the liner notes",
+      snippet:
+        "She wrote 'Enchanted' about a man she'd just met in New York, borrowed his own word \"wonderstruck\" for the chorus, and hid \"A-D-A-M\" in the liner notes.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Enchanted_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift wrote "Enchanted" about a man she was infatuated with after meeting him in person in New York City, deliberately using the word "wonderstruck" because he\'d used it in an email to her after they met. The album booklet\'s hidden-message code for the song reads "A-D-A-M." Media speculation pointed to Owl City\'s Adam Young; he responded on his website in February 2011 confirming his own feelings and posted a cover with rewritten lyrics ("Taylor I was so in love with you"), but Swift never confirmed or denied it, and never replied. "Enchanted" was originally the working title for the whole album until Big Machine president Scott Borchetta pushed for a name reflecting a more grown-up perspective.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Enchanted_(Taylor_Swift_song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2010,
+      month: 10,
+      category: 'music',
+      title: 'Back to December, her first apology song',
+      snippet:
+        '"Guys get what they deserve in my songs, and if they deserve an apology, they should get one" — her first-ever apology track, later confirmed by Taylor Lautner as being about him.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Back_to_December',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
+      moment: {
+        context:
+          'In interviews before Speak Now\'s release, Swift explained she\'d broken her own pattern: "Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that." It was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she\'d dated in late 2009, confirmed in a 2016 interview that he was the song\'s subject.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 10,
+      category: 'music',
+      title: 'The Story of Us, written after a crowded-room encounter',
+      snippet:
+        'Written after an awkward run-in with an ex at an awards show — "I felt like I was standing alone in a crowded room," she told her mom that night, then wrote the song.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Story_of_Us_(song)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_The_Story_of_Us.png/250px-Taylor_Swift_-_The_Story_of_Us.png',
+      moment: {
+        context:
+          'Swift was inspired by an uncomfortable encounter with an ex-boyfriend at an awards show — she wanted to talk to him but couldn\'t get past the awkwardness. Back home, she told her mother, "I felt like I was standing alone in a crowded room," and wrote the lyrics from there. She later told USA Today\'s Brian Mansfield that the subject behind "The Story of Us" was the same person behind "Dear John." It was the last song she wrote for Speak Now.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Story_of_Us_(song)' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_The_Story_of_Us.png/250px-Taylor_Swift_-_The_Story_of_Us.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 10,
+      category: 'business',
+      title: 'Speak Now: the only album Taylor Swift has ever written entirely alone',
+      snippet:
+        'All 14 standard-edition tracks credited to Swift alone — a direct answer to critics who doubted a 20-year-old could really write her own songs.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+      moment: {
+        context:
+          'Swift wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour. She\'s since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track "If This Was a Movie" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2011,
+      month: 11,
+      category: 'business',
+      title: 'Speak Now earns a Best Country Album Grammy nomination',
+      snippet:
+        "Nominated for Best Country Album at the 54th Grammy Awards — the same ceremony where its single \"Mean\" won two trophies outright.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Nominations for the 54th Annual Grammy Awards were announced November 30, 2011; Speak Now was nominated for Best Country Album alongside Jason Aldean\'s "My Kinda Party," Eric Church\'s "Chief," Blake Shelton\'s "Red River Blue," and George Strait\'s "Here for a Good Time." Lady Antebellum\'s "Own the Night" won the category at the February 12, 2012 ceremony; Speak Now\'s single "Mean" won Best Country Song and Best Country Solo Performance that same night.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/grammy-awards-2012-winners-whitney-houston-death-adele-289778/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2011,
+      month: 10,
+      category: 'business',
+      title: "Wonderstruck, her first fragrance, named for an Enchanted lyric",
+      snippet:
+        '"I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone" — her debut Elizabeth Arden fragrance, out October 2011.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-launches-new-perfume-175194/',
+      thumbnailUrl:
+        'https://assets3.cbsnewsstatic.com/hub/i/r/2011/05/23/53b1ba11-a643-11e2-a3f0-029118418759/thumbnail/620x465/6ded1ec08ebf35d9984941dd471c60be/114504493.jpg',
+      moment: {
+        context:
+          'Swift partnered with Elizabeth Arden on Wonderstruck, her first fragrance, released in US stores in October 2011. She named it directly after her own lyric: "I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone," adding that fragrance helps "shape someone\'s first impression and memory of you." It became her best-selling perfume, and alongside Justin Bieber\'s "Someday," helped drive a reported 57% jump in celebrity-fragrance sales that year.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-launches-new-perfume-175194/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2011/05/23/53b1ba11-a643-11e2-a3f0-029118418759/thumbnail/620x465/6ded1ec08ebf35d9984941dd471c60be/114504493.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 3,
+      category: 'business',
+      title: 'The Speak Now World Tour closes out at $123.7 million',
+      snippet:
+        "110 shows, 19 territories, 1.64 million tickets sold — Billboard's final tally for the tour that closed out the era on March 18, 2012.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/250px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
+      moment: {
+        context:
+          "Billboard estimated the Speak Now World Tour's total gross at $123.7 million, from 1,642,435 tickets sold across its 110-date run spanning 19 territories, from its February 2011 Singapore opener through its final show on March 18, 2012.",
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/250px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
+            credit: 'Eva Rinaldi / Wikimedia Commons',
+          },
+        ],
+      },
+    },
   ],
 };
