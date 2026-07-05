@@ -1528,5 +1528,168 @@ export default {
         ],
       },
     },
+
+    // --- Music-backstory + chart-record depth pass (2026-07-05): the album's
+    // music backstories were thin (3 items) relative to its 13-plus track
+    // list, so this batch digs into song-by-song writing stories with
+    // on-record Taylor/collaborator quotes, plus two chart records verified
+    // with a working second source this session — including the entire-
+    // Hot-100-top-10 record flagged as parked in this file's header note
+    // (a second source, Wikipedia's Anti-Hero page, was reachable this time).
+    // Every claim below verified against its cited source(s) directly.
+    {
+      year: 2022,
+      month: 10,
+      category: 'music',
+      title: 'A Mad Men rerun gave Midnights its opening track',
+      snippet:
+        'She found "lavender haze" watching Mad Men, looked up its 1950s meaning — "an all-encompassing love glow" — and turned it into an opening track defending her relationship from tabloid noise.',
+      sourceUrl:
+        'https://www.rollingstone.com/music/music-news/taylor-swift-reveals-lavender-haze-midnights-inspiration-joe-alwyn-1234607000/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In an Instagram video explaining the song, Swift said: "I happened upon the phrase \'lavender haze\' when I was watching Mad Men. And I looked it up because I thought it sounded cool, and it turns out that it\'s a common phrase used in the \'50s where they would just describe being in love... If you were in the lavender haze, then that meant that you were in that all-encompassing love glow." She tied it directly to her own six-year relationship with Joe Alwyn: "My relationship for six years, we\'ve had to dodge weird rumors, tabloid stuff, and we just ignore it... this song is sort of about the act of ignoring that stuff to protect the real stuff."',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reveals-lavender-haze-midnights-inspiration-joe-alwyn-1234607000/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2022,
+      month: 10,
+      category: 'music',
+      title: 'William Bowery writes one more Midnights love song',
+      snippet:
+        "Joe Alwyn's songwriting pseudonym — borrowed from a great-grandfather who composed film scores and the New York neighborhood where he first lived — turns up again, on a quiet song built from real domestic memories.",
+      sourceUrl: 'https://www.thethings.com/why-did-taylor-swift-credit-joe-alwyn-as-william-bowery/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          '"Sweet Nothing" is credited to Swift, Jack Antonoff, and William Bowery — the pseudonym Alwyn had already used on folklore and evermore. He explained the name\'s origin on The Kelly Clarkson Show: "It was a combination of William... my great-grandfather — who I actually never met — [who] was a composer. He wrote a lot of classical music, and he wrote a lot of film scores. And then Bowery is the area in New York that I spent a lot of time in when I first moved over there." He and Swift chose to write under a shared pseudonym, he said, "so the people, first and foremost, would listen to the music first before dissecting the fact that we did it together." The song itself leans into small, sheltered domestic memories — a pebble collected on a trip to Wicklow, quiet moments at home — as a refuge from "cunning" outsiders and her own critical inner voice.',
+        sources: [
+          {
+            outlet: 'The Things',
+            url: 'https://www.thethings.com/why-did-taylor-swift-credit-joe-alwyn-as-william-bowery/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Sweet_Nothing_(Taylor_Swift_song)',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2022,
+      month: 10,
+      category: 'music',
+      title: 'A Sounwave beat, finished in a day, becomes "Karma"',
+      snippet:
+        'A track producer Sounwave built with Keanu Beats and passed to Jack Antonoff was, in Sounwave\'s words, "too perfect not to send" to Taylor — she recorded her vocals and finished the song the next day.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Karma_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift described her state of mind writing it in an Apple Music interview: "I wrote \'Karma\' from a perspective of feeling really happy, really proud of the way your life is, feeling like this must be a reward for doing stuff right." Seven months after release, she brought the song full circle: Ice Spice\'s team reached out asking to collaborate, Swift said yes, and on May 26, 2023 — the Eras Tour\'s first New Jersey show — a remix dropped with a new Ice Spice verse written with RiotUSA, premiered live at MetLife Stadium.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Karma_(Taylor_Swift_song)' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 11,
+      category: 'music',
+      title: 'Lana Del Rey reveals how much of "Snow on the Beach" is actually her',
+      snippet:
+        'She matched Taylor\'s vocals so closely on the original mix that "you would never even know I was completely all over that first song" — and didn\'t realize she was the track\'s only featured artist until after it came out.',
+      sourceUrl:
+        'https://www.rollingstone.com/music/music-news/lana-del-rey-taylor-swift-snow-on-the-beach-interview-1234892236/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Del Rey, who co-wrote the song with Swift and Jack Antonoff: "I am all over the first version of \'Snow on the Beach.\' I layer and match her vocals perfectly, so you would never even know that I was completely all over that first song... I had no idea I was the only feature [on that song]. Had I known, I would have sung the entire second verse like she wanted." Swift has described the song\'s concept as "falling in love with someone at the same time as they\'re falling in love with you... this cataclysmic, fated moment where you realize someone feels exactly the same way that you feel." A "More Lana Del Rey" version, with Del Rey singing the full second verse, followed as part of the Til Dawn Edition in May 2023.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/lana-del-rey-taylor-swift-snow-on-the-beach-interview-1234892236/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Snow_on_the_Beach' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 12,
+      category: 'music',
+      title: 'The Phantom Thread ending that inspired "Mastermind"',
+      snippet:
+        'A rewatch of Paul Thomas Anderson\'s Phantom Thread gave her the idea for a closing track that owns up to orchestrating her own love story — reclaiming a word she says has been "thrown at me like a dagger."',
+      sourceUrl: 'https://www.bustle.com/entertainment/taylor-swift-mastermind-inspired-by-phantom-thread',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In her December 2023 Time Person of the Year cover interview, Swift traced "Mastermind" back to the twist ending of Phantom Thread: "Wouldn\'t it be fun to have a lyric about being calculated..." On the "calculated" label she\'s carried for years, she said: "It\'s something that\'s been thrown at me like a dagger, but now I take it as a compliment." Antonoff co-wrote and co-produced the track with her, closing out the standard edition of Midnights.',
+        sources: [
+          {
+            outlet: 'Bustle',
+            url: 'https://www.bustle.com/entertainment/taylor-swift-mastermind-inspired-by-phantom-thread',
+          },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/mastermind' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2022,
+      month: 11,
+      category: 'business',
+      title: 'Every spot in the Hot 100 top 10, all at once',
+      snippet:
+        'The week "Anti-Hero" debuted at No. 1, the other nine Midnights tracks filled out the rest of the top 10 — the first time in Hot 100 history one artist held the entire top 10 in a single week.',
+      sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On the chart dated Nov. 5, 2022, Swift became, in Billboard\'s words, "the first artist to claim the survey\'s entire top 10 in a single frame," surpassing Drake, who\'d held nine of the top 10 in September 2021. Led by "Anti-Hero" (59.7 million streams) at No. 1, the top 10 ran Lavender Haze, Maroon, Snow on the Beach, You\'re on Your Own Kid, Midnight Rain, Bejeweled, Question...?, Karma, and Vigilante Shit — all from the same album, which also became the first LP ever to land 10 songs in the Hot 100\'s top 10 at once. This is the record flagged as unconfirmed-by-a-second-source in this file\'s original October 2022 batch; Wikipedia\'s "Anti-Hero" entry independently corroborates it.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2023,
+      month: 6,
+      category: 'business',
+      title: 'Midnights knocks Morgan Wallen off the top of the chart',
+      snippet:
+        "New deluxe editions — Til Dawn, Late Night, and a Karma remix with Ice Spice — sent Midnights back to No. 1 in June 2023, ending Morgan Wallen's 12-week reign, the longest run for a country album in over 30 years.",
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-midnights-back-number-one-billboard-200-til-dawn-late-nights-1235345655/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On May 26, 2023, Swift released two new deluxe versions — the 23-track Til Dawn Edition (including the Ice Spice "Karma" remix) and a 21-track Late Night Edition with the previously unreleased "You\'re Losing Me" — plus a new vinyl variant. It was enough to send Midnights back to No. 1 on the chart dated June 10, 2023, halting One Thing at a Time\'s run at the top and handing Midnights its sixth (non-consecutive) week at No. 1 on 282,000 equivalent album units, the second-largest album week of 2023 to that point.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-midnights-back-number-one-billboard-200-til-dawn-late-nights-1235345655/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
