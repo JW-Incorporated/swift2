@@ -66,23 +66,6 @@ export default {
     },
     {
       year: 2014,
-      month: 9,
-      category: 'sighting',
-      title: 'Spotted carrying Olivia Benson through New York',
-      snippet:
-        "The newly-adopted Scottish Fold — named after the Law & Order: SVU character — couldn't handle a carrier, so Taylor just carried her around the city instead.",
-      sourceUrl: 'https://en.wikipedia.org/wiki/Olivia_Benson_(cat)',
-      thumbnailUrl: 'https://www.thelist.com/img/gallery/this-is-what-taylor-swifts-famous-cat-olivia-benson-looks-like-now/intro-1737132035.jpg',
-      moment: {
-        sources: [
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Olivia_Benson_(cat)' },
-          { outlet: 'The List', url: 'https://www.thelist.com/1764858/what-taylor-swift-cat-olivia-benson-looks-like-now/' },
-        ],
-        photos: [{ url: 'https://www.thelist.com/img/gallery/this-is-what-taylor-swifts-famous-cat-olivia-benson-looks-like-now/intro-1737132035.jpg', credit: 'Raymond Hall/Getty Images' }],
-      },
-    },
-    {
-      year: 2014,
       month: 10,
       category: 'music',
       title: 'Bad Blood, and the friendship it ended',
