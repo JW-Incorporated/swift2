@@ -665,5 +665,91 @@ export default {
         photos: [],
       },
     },
+
+    // --- Fashion/photo depth pass 2 (2026-07-04)
+    {
+      year: 2024,
+      month: 2,
+      category: 'fashion',
+      title: 'A draped Schiaparelli gown the same night TTPD was announced',
+      snippet:
+        'A custom off-white Schiaparelli Haute Couture gown by Daniel Roseberry — draped silk crepe with corset-style lacing at the back and a thigh-high slit — worn on the 2024 Grammys red carpet hours before revealing the new album.',
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/',
+      thumbnailUrl:
+        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
+      moment: {
+        context:
+          'Adapted from a look in Schiaparelli\'s Fall 2023 couture collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony. Swift paired it with opera-length gloves, black peep-toe pumps, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-2024-grammys-dress-schiaparelli-1235815411/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
+            credit: 'Matt Winkelmeyer/Getty Images for The Recording Academy',
+          },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'fashion',
+      title: 'A sculptural white Toni Matičevski gown opens the "Fortnight" video',
+      snippet:
+        'The video\'s opening scene puts her in Australian designer Toni Matičevski\'s "Candescence" gown from his Spring/Summer 2024 collection — crisp pearl-white cotton gathered at the hip into a high-low, sculptural silhouette.',
+      sourceUrl: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-toni-maticevski-gown-fortnight-music-video-1236321522/',
+      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
+      moment: {
+        context:
+          'The gown is one of several distinct costume changes across the "Fortnight" video\'s different vignettes — a separate look from the black Elena Velez/Unttld gothic ensemble already covered elsewhere in this era, and from the Celine-designed piece in the video\'s rain-soaked finale.',
+        sources: [
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-toni-maticevski-gown-fortnight-music-video-1236321522/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
+            credit: 'Republic Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2024,
+      month: 8,
+      category: 'fashion',
+      title: 'Popflex and WISKII athleisure for "I Can Do It With a Broken Heart"',
+      snippet:
+        'Rehearsal-style outfits built from independent activewear labels: a plum Popflex Active skort, a lavender Popflex tulle skirt with a matching corset bra, and a scalloped tennis skirt from Kansas-based WISKII Active, paired with custom Christian Louboutin ankle boots.',
+      sourceUrl: 'https://www.thezoereport.com/culture/taylor-swift-i-can-do-it-with-a-broken-heart-music-video-outfits',
+      thumbnailUrl:
+        'https://imgix.bustle.com/uploads/getty/2024/8/21/4f10d125/london-england-august-15.jpg?w=248&h=372&fit=crop&crop=focalpoint&dpr=2&fp-x=0.5303&fp-y=0.2761',
+      moment: {
+        context:
+          'The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour\'s stage costuming.',
+        sources: [
+          {
+            outlet: 'The Zoe Report',
+            url: 'https://www.thezoereport.com/culture/taylor-swift-i-can-do-it-with-a-broken-heart-music-video-outfits',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2024/8/21/4f10d125/london-england-august-15.jpg?w=248&h=372&fit=crop&crop=focalpoint&dpr=2&fp-x=0.5303&fp-y=0.2761',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
   ],
 };
