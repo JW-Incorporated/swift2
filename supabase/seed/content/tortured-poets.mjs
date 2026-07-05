@@ -751,5 +751,158 @@ export default {
         ],
       },
     },
+
+    // --- Sightings depth pass (2026-07-05): candid public-appearance moments
+    // through the Kelce relationship arc, from the 2025 playoff run to the
+    // pre-wedding weekend. Every claim verified against its cited source
+    // directly; every photo URL curl-verified as a live image on the
+    // outlet's own CDN. The wedding day and engagement announcement itself
+    // are covered elsewhere (see notes above) and are not duplicated here.
+    {
+      year: 2025,
+      month: 1,
+      category: 'sighting',
+      title: 'Back in the family suite for a Chiefs-Texans divisional playoff win',
+      snippet:
+        'Sat between her parents Scott and Andrea for the Jan. 18 divisional-round game at Arrowhead, with Caitlin Clark — personally invited by Travis — a row back and Ed Kelce also in the suite.',
+      sourceUrl: 'https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift',
+      thumbnailUrl:
+        'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
+      moment: {
+        context:
+          "Kansas City beat Houston 23-14 to advance to the AFC Championship. It was Clark's first Chiefs game of the season, and this time the invitation came directly from Travis Kelce — Clark had previously joined Swift at a home game after Swift invited her during the Eras Tour's Indianapolis stop.",
+        sources: [
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
+            credit: 'Jamie Squire/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 1,
+      category: 'sighting',
+      title: 'A confetti kiss after the Chiefs punch their Super Bowl ticket',
+      snippet:
+        'Watched the Jan. 26 AFC Championship win over Buffalo from a VIP suite, then shared a kiss with Travis in the falling confetti with his mom Donna Kelce right there for it.',
+      sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249',
+      thumbnailUrl:
+        'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
+      moment: {
+        context: 'Kansas City beat Buffalo 32-29 to reach a second straight Super Bowl; Kelce had two catches for 19 yards in the win.',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
+            credit: 'AP',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/746ae3a7-ce19-4c9c-a703-bc8dfc6d5f42/taylor-swift1-gty-ml-250127_1737980240663_hpEmbed_17x16.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 6,
+      category: 'sighting',
+      title: 'A pink mini dress for a Saturday-night dinner date',
+      snippet:
+        'Stepped out for a swanky June 29 dinner in New York City in a pink mini dress with gold buttons and beige heels, Travis alongside her in a plain white top and trousers.',
+      sourceUrl: 'https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/',
+      thumbnailUrl: 'https://imagez.tmz.com/image/bd/4by3/2025/06/29/bdcd54eaf03b410c93442064867db68e_md.jpg',
+      moment: {
+        sources: [
+          { outlet: 'TMZ', url: 'https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/' },
+        ],
+        photos: [
+          { url: 'https://imagez.tmz.com/image/bd/4by3/2025/06/29/bdcd54eaf03b410c93442064867db68e_md.jpg', credit: 'TMZ' },
+          { url: 'https://imagez.tmz.com/image/33/4by3/2025/06/29/335496e8dfee4b8a934279081aac5d24_md.jpg', credit: 'TMZ' },
+        ],
+      },
+    },
+    {
+      year: 2025,
+      month: 9,
+      category: 'sighting',
+      title: "Unseen at the Eagles rematch, then photographed at Mahomes' birthday",
+      snippet:
+        'No one caught her walking into Arrowhead for the Sept. 14 Eagles rematch, but a source confirmed she was there — her first game since the Aug. 26 engagement announcement — before surfacing that night at Patrick Mahomes\' 30th.',
+      sourceUrl: 'https://www.eonline.com/news/1421829/taylor-swift-at-travis-kelces-chiefs-eagles-game',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Philadelphia beat Kansas City 20-17. Hours later, Swift and Kelce turned up at Patrick Mahomes\' 30th birthday, hosted by Brittany Mahomes at Travis and Patrick\'s new steakhouse 1587 Prime, where Swift wore a black-and-ivory plaid Simkhai vest and matching skirt with dark red Gucci platform heels.',
+        sources: [
+          { outlet: 'E! News', url: 'https://www.eonline.com/news/1421829/taylor-swift-at-travis-kelces-chiefs-eagles-game' },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1422599/taylor-swift-travis-kelce-at-patrick-mahomes-30th-birthday-party',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2025,
+      month: 10,
+      category: 'sighting',
+      title: 'Back at Arrowhead with Caitlin Clark, nine days after her album dropped',
+      snippet:
+        'The first publicly confirmed Chiefs game she\'d attended so far this season, chatting with Caitlin Clark and Ed Kelce in the suite as Kansas City beat Detroit 30-17 on Sunday Night Football.',
+      sourceUrl: 'https://www.espn.com/nfl/story/_/id/46577064/taylor-swift-caitlin-clark-sunday-night-football-chiefs-lions-travis-kelce',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Oct. 12 game came nine days after Swift released The Life of a Showgirl on Oct. 3. ESPN called it "the first public indication" of her attending a Chiefs game this season — she\'d also been at the Sept. 14 Eagles game, but wasn\'t photographed there. This was the second time Clark had joined her in a suite, after the January 2025 Texans playoff game.',
+        sources: [
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/story/_/id/46577064/taylor-swift-caitlin-clark-sunday-night-football-chiefs-lions-travis-kelce',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2026,
+      month: 6,
+      category: 'sighting',
+      title: 'A tented lawn in Rhode Island, two weeks before the wedding',
+      snippet:
+        'Security tightened around her Watch Hill estate as a large tent went up on the Ocean House lawn next door and friends including Abigail Anderson were spotted arriving for what looked like a bachelorette weekend.',
+      sourceUrl: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/',
+      thumbnailUrl: 'https://imagez.tmz.com/image/2c/16by9/2026/06/19/2ce1e3acab1c4ea4a7e0faa9f4bb02ab_md.png',
+      moment: {
+        context:
+          'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends" — separate from the Ocean House\'s own scheduled event that weekend, which the venue confirmed was for a different couple.',
+        sources: [
+          { outlet: 'TMZ', url: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/' },
+        ],
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/2c/16by9/2026/06/19/2ce1e3acab1c4ea4a7e0faa9f4bb02ab_md.png',
+            credit: 'TMZ',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/81/4by3/2026/06/19/81b2c535bab3435487f156afbe67b6be_md.png',
+            credit: 'TMZ',
+          },
+        ],
+      },
+    },
   ],
 };
