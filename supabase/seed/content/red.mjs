@@ -557,38 +557,6 @@ export default {
       year: 2013,
       month: 1,
       category: 'sighting',
-      title: 'A midnight kiss in Times Square as the ball drops on 2013',
-      snippet:
-        'Performed "I Knew You Were Trouble" and "We Are Never Ever Getting Back Together" in Times Square, then was photographed kissing Harry Styles at the stroke of midnight — a moment fans in the crowd caught on camera.',
-      sourceUrl:
-        'https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/',
-      thumbnailUrl:
-        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg',
-      moment: {
-        context:
-          "Swift took the Times Square stage at 11:39 p.m. on December 31, 2012, for the New Year's Eve broadcast, then was seen in Styles' arms as the clock struck midnight. The kiss was caught by fans in the crowd and quickly circulated online. The couple left for a hotel shortly after and flew to the British Virgin Islands the next morning.",
-        sources: [
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/',
-          },
-          {
-            outlet: 'Just Jared',
-            url: 'https://www.justjared.com/photo-gallery/2783191/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg',
-            credit: 'Just Jared',
-          },
-        ],
-      },
-    },
-    {
-      year: 2013,
-      month: 1,
-      category: 'sighting',
       title: 'A Virgin Islands getaway, spotted at dinner at CocoMaya',
       snippet:
         "Days after the Times Square kiss, fans spotted Swift and Styles having dinner and drinks at the beachfront restaurant CocoMaya on Virgin Gorda on January 3, 2013 — a trip Us Weekly reported was a surprise for her.",
