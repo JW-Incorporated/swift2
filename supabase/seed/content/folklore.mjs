@@ -320,6 +320,18 @@ export default {
         ],
       },
     },
+    // --- Sightings research pass (2026-07-05): searched extensively for
+    // real candid/paparazzi public sightings within this era's real-world
+    // span (2020-07-24 to 2020-12-10) — grocery runs, family visits, dates
+    // with Joe Alwyn, Long Pond travel, etc. Found none that clear the bar.
+    // The only "rare outing" paparazzi photos of Swift and Alwyn near this
+    // window are dated Feb 2020 (before the window) and Jan 11 2021 (after
+    // it, likely evermore-era territory already covered elsewhere) — both
+    // out of range. Every other public moment in-window (the Sept 16, 2020
+    // ACM "betty" performance, the Nov 22, 2020 AMA win, the Long Pond
+    // Studio Sessions premiere) was a scheduled broadcast/promo appearance,
+    // not a candid sighting. This era genuinely has ~zero real sightings —
+    // confirmed rather than padded. No sighting items added.
     {
       year: 2020,
       month: 7,
