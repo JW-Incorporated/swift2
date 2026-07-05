@@ -532,5 +532,184 @@ export default {
         ],
       },
     },
+    // --- Sightings pass (2026-07-05)
+    {
+      year: 2019,
+      month: 8,
+      category: 'sighting',
+      title: 'A sequined jumpsuit and a Hadid-sister hang at the VMAs after-party',
+      snippet:
+        "Fresh off three VMA wins, she changed into a black sequined jumpsuit and spent Republic Records' after-party at The Fleur Room posing with longtime friends Gigi and Bella Hadid.",
+      sourceUrl:
+        'https://www.billboard.com/music/pop/taylor-swift-vmas-after-party-outfit-sparkly-black-jumpsuit-photos-8528483/',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/media/taylor-swift-gigi-hadid-bella-hadid-2019-billboard-vmas-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          'At Republic Records\' after-party at The Fleur Room inside Moxy Chelsea on August 26, 2019 — hours after winning Video of the Year for "You Need to Calm Down" — she changed into a black sequined jumpsuit with a bold red lip, gold eyeshadow, and sparkly purple nails. She was photographed posing repeatedly with the Hadid sisters, Gigi in a beige corset and matching pants and Bella in a nude two-piece, with "You Need to Calm Down" co-stars Jesse Tyler Ferguson and Justin Mikita also there.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-vmas-after-party-outfit-sparkly-black-jumpsuit-photos-8528483/',
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-celebrates-vma-wins-at-after-party-with-gigi-and-bella-hadid-131320',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-gigi-hadid-bella-hadid-2019-billboard-vmas-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Billboard',
+          },
+        ],
+      },
+    },
+    {
+      year: 2019,
+      month: 10,
+      category: 'sighting',
+      title: 'Hand-in-hand with Joe Alwyn at the SNL after-party',
+      snippet:
+        'Straight from her acoustic "Lover" and "False God" performances on SNL, she and Joe Alwyn were photographed holding hands heading into Zuma for the cast\'s after-party.',
+      sourceUrl: 'https://www.etonline.com/taylor-swift-and-joe-alwyn-seen-hand-in-hand-outside-snl-after-party-133881',
+      thumbnailUrl:
+        'https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-10/swiftalwyn2.jpg?h=5c0d22e0&width=1024&quality=80',
+      moment: {
+        context:
+          'On October 6, 2019, hours after performing acoustic renditions of "Lover" and "False God" on Saturday Night Live, she and boyfriend Joe Alwyn were photographed holding hands as they headed into Zuma in New York for the cast\'s after-party. She kept her performance look — an oversized black Ambush blazer, crystal-embellished Libertine flare pants, and Christian Louboutin shoes — while Alwyn wore a grey shirt with a black jacket.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-and-joe-alwyn-seen-hand-in-hand-outside-snl-after-party-133881',
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1080192/taylor-swift-gives-romantic-performance-on-snl-before-bringing-joe-alwyn-to-after-party',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-10/swiftalwyn2.jpg?h=5c0d22e0&width=1024&quality=80',
+            credit: 'Entertainment Tonight',
+          },
+        ],
+      },
+    },
+    {
+      year: 2019,
+      month: 12,
+      category: 'sighting',
+      title: 'Blake Lively and Ryan Reynolds help her ring in 30 at Oscar Wilde',
+      snippet:
+        "After opening Z100's Jingle Ball, she gathered close friends — Blake Lively, Ryan Reynolds, and Gigi Hadid among them — for a 10 p.m. birthday dinner at Oscar Wilde restaurant in New York.",
+      sourceUrl:
+        'https://www.justjared.com/2019/12/14/blake-lively-ryan-reynolds-help-taylor-swift-celebrate-her-30th-birthday-in-nyc/',
+      thumbnailUrl:
+        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/thumbs/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
+      moment: {
+        context:
+          "On December 13, 2019 — her 30th birthday — she opened the show at Z100's Jingle Ball, then friends joined her for a 10 p.m. dinner party at Oscar Wilde restaurant in New York City. Blake Lively was photographed leading the way out of the restaurant with husband Ryan Reynolds that Friday night, among a guest list that also included Gigi Hadid, Martha Hunt, and boyfriend Joe Alwyn.",
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2019/12/14/blake-lively-ryan-reynolds-help-taylor-swift-celebrate-her-30th-birthday-in-nyc/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/thumbs/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
+            credit: 'Backgrid',
+          },
+        ],
+      },
+    },
+    {
+      year: 2019,
+      month: 12,
+      category: 'sighting',
+      title: 'Hand in hand under an umbrella after the Cats premiere',
+      snippet:
+        'Days after they celebrated her 30th birthday together, cameras caught her and Joe Alwyn walking hand-in-hand under a shield of umbrellas as they left the Cats premiere in New York.',
+      sourceUrl: 'https://www.eonline.com/news/1103481/taylor-swift-and-joe-alwyn-show-rare-pda-after-the-cats-premiere',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/20191117/rs_634x1024-191217033401-634-Taylor-Swift-Joe-Alwyn-JR-121719.jpg',
+      moment: {
+        context:
+          "On December 16, 2019, after the New York premiere of Tom Hooper's Cats — where Alwyn attended but stayed off the official red carpet — cameras caught the couple walking hand-in-hand under a shield of umbrellas as they left the theater together. She wore an Oscar de la Renta gown with floral appliqué for the carpet; Alwyn reportedly sat next to her during the screening.",
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1103481/taylor-swift-and-joe-alwyn-show-rare-pda-after-the-cats-premiere',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20191117/rs_634x1024-191217033401-634-Taylor-Swift-Joe-Alwyn-JR-121719.jpg',
+            credit: 'JosiahW / BACKGRID',
+          },
+        ],
+      },
+    },
+    {
+      year: 2020,
+      month: 1,
+      category: 'sighting',
+      title: 'Kisses at the bar during the Golden Globes after-party',
+      snippet:
+        'At the CAA after-party for the 2020 Golden Globes, an eyewitness said she leaned in to kiss Joe Alwyn "several times" as the two grabbed drinks and mingled at the Sunset Tower Hotel.',
+      sourceUrl:
+        'https://www.eonline.com/news/1108537/taylor-swift-and-joe-alwyn-are-the-chicest-couple-at-the-2020-golden-globes-after-party',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/202006/rs_600x600-200106064034-600-Taylor-Swift-LT-010620-BGUS_1829706_002.jpg',
+      moment: {
+        context:
+          'At Creative Artists Agency\'s after-party at the Sunset Tower Hotel in Los Angeles on January 5, 2020, an eyewitness said the couple "looked inseparable and really in love. Taylor had her arm on Joe, and she leaned in to kiss him several times." She wore a sparkly black dress with a metallic clutch; Alwyn was in a classic tuxedo. She had been nominated for Best Original Song for her Cats ballad "Beautiful Ghosts," while Alwyn was there to support his Harriet co-stars.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1108537/taylor-swift-and-joe-alwyn-are-the-chicest-couple-at-the-2020-golden-globes-after-party',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202006/rs_600x600-200106064034-600-Taylor-Swift-LT-010620-BGUS_1829706_002.jpg',
+            credit: 'Coleman-Rayner',
+          },
+        ],
+      },
+    },
+    {
+      year: 2020,
+      month: 4,
+      category: 'sighting',
+      title: "Joe Alwyn's Instagram gives away a quarantine with Taylor's cat",
+      snippet:
+        "Notoriously private about their relationship, the couple's lockdown togetherness leaked out sideways: Joe Alwyn posted Instagram Stories of Taylor's cat Benjamin Button hiding in a grocery bag, a box, and under a rug.",
+      sourceUrl:
+        'https://www.justjared.com/2020/04/29/joe-alwyn-shares-cute-pics-of-girlfriend-taylor-swifts-cat-benjamin-button-during-quarantine/',
+      thumbnailUrl:
+        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/thumbs/joe-alwayn-button-pics-ig-story-01.jpg',
+      moment: {
+        context:
+          'On April 29, 2020, Joe Alwyn shared three photos to his Instagram Stories of Benjamin Button — the kitten Taylor adopted after he appeared in her "ME!" video — peeking out of a paper grocery bag, poking his head from a cardboard box, and tucked underneath a rug, along with a selfie holding a glass of wine. The notoriously private couple rarely appeared on each other\'s social media, so fans took the cat cameo as a rare, sideways glimpse of them quarantining together during the pandemic.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2020/04/29/joe-alwyn-shares-cute-pics-of-girlfriend-taylor-swifts-cat-benjamin-button-during-quarantine/',
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/artists/taylor-swift/boyfriend-joe-alwyn-benjamin-button/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/thumbs/joe-alwayn-button-pics-ig-story-01.jpg',
+            credit: 'Joe Alwyn / Instagram',
+          },
+        ],
+      },
+    },
   ],
 };
