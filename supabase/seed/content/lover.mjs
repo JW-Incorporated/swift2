@@ -711,5 +711,169 @@ export default {
         ],
       },
     },
+    // --- Music backstory + sighting/fashion/business depth pass (2026-07-05)
+    {
+      year: 2019,
+      month: 6,
+      category: 'sighting',
+      title: 'A surprise "Shake It Off" at the Stonewall Inn for Pride\'s 50th anniversary',
+      snippet:
+        'Days before "You Need to Calm Down" dropped, she showed up unannounced at the Stonewall Inn\'s 50th-anniversary Pride event: "Thank you for having me, Stonewall. Happy Pride!"',
+      sourceUrl: 'https://abcnews.com/Entertainment/taylor-swift-makes-surprise-appearance-stonewall-inn-performs/story?id=63731487',
+      thumbnailUrl: 'https://s.abcnews.com/images/GMA/taylor-swift-stonewall-gty-mo-20190615_hpMain_16x9_992.jpg?w=992',
+      moment: {
+        context:
+          'In mid-June 2019, days ahead of releasing "You Need to Calm Down," Swift made a surprise appearance at AEG and the Stonewall Inn\'s invitation-only Pride celebration marking the 50th anniversary of the Stonewall uprising, headlined by Jesse Tyler Ferguson. She performed an acoustic "Shake It Off," telling the crowd, "Thank you for having me, Stonewall. Happy Pride!" before inviting Ferguson onstage for a duet, saying she\'d heard it was his favorite karaoke song.',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/taylor-swift-makes-surprise-appearance-stonewall-inn-performs/story?id=63731487',
+          },
+          {
+            outlet: 'BuzzFeed News',
+            url: 'https://www.buzzfeed.com/adeonibada/taylor-swift-surprise-performance-stonewall-inn-nyc-pride',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://s.abcnews.com/images/GMA/taylor-swift-stonewall-gty-mo-20190615_hpMain_16x9_992.jpg?w=992',
+            credit: 'Getty Images via ABC News',
+          },
+        ],
+      },
+    },
+    {
+      year: 2019,
+      month: 8,
+      category: 'music',
+      title: 'Cruel Summer, born from a casual jam with St. Vincent and Jack Antonoff',
+      snippet:
+        'St. Vincent, on writing it: "Gosh, it was really casual... just some people in a room jammin\'." Taylor\'s own pitch: "a desperate summer love that might be doomed from the start."',
+      sourceUrl: 'https://www.nme.com/big-reads/st-vincent-cover-interview-2021-daddys-home-2912166',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Cruel_Summer.png/250px-Taylor_Swift_-_Cruel_Summer.png',
+      moment: {
+        context:
+          'Swift wrote the song with Jack Antonoff and St. Vincent (Annie Clark), who later described their process to NME as "really casual... just some people in a room jammin\'." In her own Spotify storyline note, Swift wrote: "I wanted this song to feel like a desperate summer love that might be doomed from the start. My favorite line from this song is \'I love you. Ain\'t that the worst thing you ever heard?\'" It wasn\'t released as a single in 2019 — it took the Eras Tour, four years later, to send it to No. 1.',
+        sources: [
+          { outlet: 'NME', url: 'https://www.nme.com/big-reads/st-vincent-cover-interview-2021-daddys-home-2912166' },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/cruel-summer' },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Cruel_Summer.png/250px-Taylor_Swift_-_Cruel_Summer.png',
+            credit: null,
+          },
+        ],
+      },
+    },
+    {
+      year: 2019,
+      month: 8,
+      category: 'music',
+      title: "I Forgot That You Existed, the track built to end Reputation's cycle of grieving",
+      snippet:
+        'The Lover opener started nearly finished, by design: "I wanted to come in with an idea that was pretty much all there, melody and lyrics."',
+      sourceUrl: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift told Rolling Stone the song came out of the emotional distance she found on the Reputation Stadium Tour: "It was sometime on the Reputation tour, which was the most transformative emotional experience of my career. That tour put me in the healthiest, most balanced place I\'ve ever been. After that tour, bad stuff can happen to me, but it doesn\'t level me anymore." She picked it to open Lover as a way of "basically kind of shrugging off a lot of things that you\'ve been through that have been causing a lot of struggle and pain."',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/i-forgot-that-you-existed' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2019,
+      month: 8,
+      category: 'music',
+      title: "Miss Americana & the Heartbreak Prince, a high school built from 2018's political disillusionment",
+      snippet:
+        'Written with Joel Little after the midterms: "This song is about disillusionment with our crazy world of politics and inequality, set in a metaphorical high school."',
+      sourceUrl: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In her Spotify storyline, Swift said: "This song is about disillusionment with our crazy world of politics and inequality, set in a metaphorical high school... I wanted it to be about finding one person who really sees you and cares about you through all the noise." She expanded on it to Rolling Stone: "It\'s about the illusions of what I thought America was before our political landscape took this turn, and that naivete that we used to have about it," written "a couple of months after midterm elections."',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/',
+          },
+          {
+            outlet: 'Songfacts',
+            url: 'https://www.songfacts.com/facts/taylor-swift/miss-americana-the-heartbreak-prince',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2019,
+      month: 12,
+      category: 'business',
+      title: "Billboard names her the first-ever Woman of the Decade",
+      snippet:
+        'Accepting the inaugural award, she said: "The pressure that could have crushed us made us into diamonds instead" — then used the speech to relitigate the Scooter Braun masters fight.',
+      sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-woman-of-the-decade-speech-billboard-women-in-music-8546156/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-bb29-2019-feat-billboard-ylajkse-1500.jpg',
+      moment: {
+        context:
+          "At Billboard's Women in Music event on December 12, 2019 at the Hollywood Palladium, Swift became the first recipient of the magazine's Woman of the Decade award, recognizing five No. 1 albums, five No. 1 singles, and three stadium tours across the 2010s. In her speech she said: \"I now have come to expect that with good news comes some sort of pushback, but I didn't know that then... the pressure that could have crushed us made us into diamonds instead.\" She also addressed the sale of her masters, noting it happened \"without my approval, consultation, or consent,\" and told Billboard's accompanying cover story: \"I do want my music to live on. I do want it to be in movies, I do want it to be in commercials.\"",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-woman-of-the-decade-speech-billboard-women-in-music-8546156/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-cover-story-interview-billboard-women-in-music-2019-8545822/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-bb29-2019-feat-billboard-ylajkse-1500.jpg',
+            credit: 'Billboard',
+          },
+        ],
+      },
+    },
+    {
+      year: 2020,
+      month: 1,
+      category: 'fashion',
+      title: 'A custom Etro floral gown, a "Lover"-coded look for the 2020 Golden Globes',
+      snippet:
+        'Nominated for Best Original Song ("Beautiful Ghosts," from Cats), she wore a navy Etro ball gown with a bold gold floral print, keyhole cutout, and low-cut back — a nod to the Lover era\'s rainbow palette.',
+      sourceUrl: 'https://www.bustle.com/p/taylor-swifts-2020-golden-globes-dress-was-a-not-so-subtle-nod-to-her-lover-album-19766894',
+      thumbnailUrl:
+        'https://imgix.bustle.com/uploads/getty/2020/1/6/36da59a0-670b-451b-bd63-4ef9b0134e59-getty-1197739056.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
+      moment: {
+        context:
+          'At the January 5, 2020 Golden Globes, where she was nominated for Best Original Song for her Cats ballad "Beautiful Ghosts" (co-written with Andrew Lloyd Webber), Swift wore a custom Etro gown: a navy jacquard base with a bold golden floral pattern, a keyhole cutout at the midriff, straps extending into a low-cut open back, and a structured floral train. She paired it with drop earrings set with navy, emerald, and diamond stones, swapping her signature red lip for a pink nude. Joe Alwyn, there to support Harriet co-stars, wore a dark tuxedo.',
+        sources: [
+          {
+            outlet: 'Bustle',
+            url: 'https://www.bustle.com/p/taylor-swifts-2020-golden-globes-dress-was-a-not-so-subtle-nod-to-her-lover-album-19766894',
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-and-joe-alwyn-look-sensational-at-2020-golden-globes-137952',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2020/1/6/36da59a0-670b-451b-bd63-4ef9b0134e59-getty-1197739056.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
+            credit: 'Getty Images via Bustle',
+          },
+        ],
+      },
+    },
   ],
 };
