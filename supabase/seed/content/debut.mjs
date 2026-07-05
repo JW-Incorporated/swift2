@@ -689,5 +689,27 @@ export default {
         ],
       },
     },
+
+    // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md.
+    {
+      year: 2008,
+      month: 10,
+      category: 'relationship',
+      title: 'Joe Jonas ends it in a 27-second phone call',
+      snippet: 'Three months of dating, over in less time than it takes to order coffee — she checked the call log after and said, "that\'s got to be a record."',
+      sourceUrl: 'https://www.justjared.com/2008/11/06/joe-jonas-taylor-swift-phone-call-dump/',
+      thumbnailUrl: null,
+      moment: {
+        context: 'She told the story herself on Ellen the following month, timing included.',
+        sources: [
+          { outlet: 'Just Jared', url: 'https://www.justjared.com/2008/11/06/joe-jonas-taylor-swift-phone-call-dump/' },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-joe-jonas-ups-175948631.html',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
