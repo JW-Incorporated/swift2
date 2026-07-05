@@ -445,5 +445,64 @@ export default {
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201678/rs_634x1024-160808163309-634taylor-swift-nyc-demin-overalls.jpg', credit: 'Kristin Callahan/ACE/INFphoto.com' }],
       },
     },
+
+    // --- Fashion/photo depth pass 2 (2026-07-04)
+    {
+      year: 2016,
+      month: 5,
+      category: 'fashion',
+      title: 'A silver snakeskin Louis Vuitton mini co-chairing the 2016 Met Gala',
+      snippet:
+        'Co-chairing the "Manus x Machina" Met Gala alongside Idris Elba and Anna Wintour, she wore a sequined Louis Vuitton mini with a snakeskin pattern, leather panels, and a cutout waist, finished with a platinum bob and burgundy lipstick.',
+      sourceUrl: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/',
+      thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2016/05/gettyimages-527338016.jpg?w=2000&h=1126&crop=1',
+      moment: {
+        context:
+          'The May 2, 2016 gala\'s theme, "Manus x Machina: Fashion in an Age of Technology," was reflected in the dress\'s tiered ruffled skirt and space-age-leaning silver texture. She paired it with strappy gladiator heels; her platinum-blonde bob and dark burgundy lip and nails marked a sharper, edgier beauty look than her usual red-carpet glam.',
+        sources: [
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/',
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/news/a20287/taylor-swift-met-gala-dress-2016/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2016/05/gettyimages-527338016.jpg?w=2000&h=1126&crop=1',
+            credit: 'Larry Busacca/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2015,
+      month: 5,
+      category: 'fashion',
+      title: '"Bad Blood" video\'s warrior makeup: winged eyes and a red lip by Lorrie Turk',
+      snippet:
+        'For the video\'s final battle scene, longtime makeup artist Lorrie Turk built a dramatic smoky eye — black and midnight-blue shadow with exaggerated winged liner — paired with a bold red lip.',
+      sourceUrl: 'https://www.birchbox.com/magazine/article/taylor-swift-bad-blood-music-video-makeup',
+      thumbnailUrl:
+        'https://images.prismic.io/birchbox/MDFhZjY0OWUtZTM3MS00MDkxLThmOGQtMzAxNTU0MGZhMDc2_may-taylor-swift-bad-blood-700x400.jpg',
+      moment: {
+        context:
+          'Lorrie Turk, Swift\'s regular makeup artist, is credited on the "Bad Blood" video (with Jemma Muradian on hair). The finale look layered black and midnight-blue eyeshadow with gunpowder-grey liner smudged along both lash lines, multiple coats of mascara plus false lashes top and bottom, and a precisely applied red lip — the "warrior" beauty look tying together the video\'s ensemble cast of characters.',
+        sources: [
+          {
+            outlet: 'Birchbox',
+            url: 'https://www.birchbox.com/magazine/article/taylor-swift-bad-blood-music-video-makeup',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://images.prismic.io/birchbox/MDFhZjY0OWUtZTM3MS00MDkxLThmOGQtMzAxNTU0MGZhMDc2_may-taylor-swift-bad-blood-700x400.jpg',
+            credit: 'Birchbox',
+          },
+        ],
+      },
+    },
   ],
 };
