@@ -386,5 +386,187 @@ export default {
         ],
       },
     },
+
+    // --- Fashion/photo depth pass 2 (2026-07-04)
+    {
+      year: 2020,
+      month: 12,
+      category: 'fashion',
+      title: 'The "willow" video\'s final scene: a Gucci Liberty-print floral maxi dress',
+      snippet:
+        'Beyond the Zimmermann "bridal" gown, the video\'s closing carnival-tent scene puts her in a $4,800 Gucci maxi dress made from Liberty London floral fabric — a third, lesser-discussed look from the same shoot.',
+      sourceUrl: 'https://stealherstyle.net/2020/12/11/taylor-swift-willow-music-video/',
+      thumbnailUrl: 'https://stealherstyle.net/wp-content/uploads/2020/12/taylorswift_w3-500x350.jpg',
+      moment: {
+        context:
+          'Steal Her Style\'s scene-by-scene breakdown of the "willow" video counts three distinct looks: a Magnolia Pearl "Layla" tank dress over her own "cardigan" merch sweater for the opening cabin scene; the Zimmermann "Charm Star" lace gown with Jennifer Behr tiara for the carnival-tent "wedding" scene; and, for the video\'s final scene, a Gucci maxi dress made from Liberty of London floral-print fabric, retailing around $4,800 — a look far less discussed by fans than the "bridal" Zimmermann gown but confirmed as part of the same December 2020 shoot.',
+        sources: [
+          {
+            outlet: 'Steal Her Style',
+            url: 'https://stealherstyle.net/2020/12/11/taylor-swift-willow-music-video/',
+          },
+          {
+            outlet: 'Social Media Style',
+            url: 'https://www.socialmediastyle.org/post/taylor-swift-s-beige-lace-panel-dress-from-the-willow-music-video-off-of-the-evermore-album',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://stealherstyle.net/wp-content/uploads/2020/12/taylorswift_w3-500x350.jpg',
+            credit: 'Republic Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 3,
+      category: 'fashion',
+      title: 'A 3D-floral Oscar de la Renta mini dress for the 2021 Grammys red carpet',
+      snippet:
+        'A separate look from her Etro performance gown: a vividly floral Oscar de la Renta Spring \'21 mini dress with mesh bell sleeves and individually tacked-on botanical appliqués, worn to arrive at the (pandemic-scaled) red carpet before her folklore/evermore medley.',
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2021/03/15/taylor-swift-wore-oscar-de-la-renta-etro-to-the-2021-grammy-awards/',
+      thumbnailUrl:
+        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg',
+      moment: {
+        context:
+          'For her red-carpet arrival at the March 14, 2021 Grammys — where folklore won Album of the Year — Swift wore a mini dress from Oscar de la Renta\'s Spring 2021 collection: long mesh bell sleeves, a mock neck, and bold 3D floral embroidery with botanical appliqués tacked on individually. She paired it with pink Christian Louboutin "Rose Amelie" peep-toe ankle-strap heels and Cathy Waterman jewelry — a separate outfit from the navy-and-gold Etro paisley gown she changed into to perform the folklore/evermore medley later that night.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2021/03/15/taylor-swift-wore-oscar-de-la-renta-etro-to-the-2021-grammy-awards/',
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1248131/taylor-swift-brought-the-flower-power-to-the-2021-grammys-and-were-here-for-it',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 11,
+      category: 'fashion',
+      title: 'A purple velvet Etro pantsuit for the "All Too Well" short film premiere',
+      snippet:
+        'A double-breasted, gold-buttoned Etro velvet suit with contrast black lapels, worn to the November 12, 2021 New York premiere of her self-directed "All Too Well" short film with Dylan O\'Brien and Sadie Sink.',
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-etro-to-the-all-too-well-new-york-premiere/',
+      thumbnailUrl:
+        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Etro-To-The-All-Too-Well-New-York-Premiere.jpg',
+      moment: {
+        context:
+          'At the AMC Lincoln Square 13 premiere of her self-written-and-directed "All Too Well" short film, Swift wore a purple velvet Etro pantsuit with padded shoulders and contrasting black lapels, styled with Melinda Maria jewelry. Co-stars Dylan O\'Brien and Sadie Sink joined her on the carpet for the film built around the 10-minute version of "All Too Well" from Red (Taylor\'s Version), released that week.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-etro-to-the-all-too-well-new-york-premiere/',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2021/11/12/taylor-swift-walks-red-carpet-at-all-too-well-short-film-premiere-with-dylan-obrien-sadie-sink/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Etro-To-The-All-Too-Well-New-York-Premiere.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 11,
+      category: 'fashion',
+      title: 'A gold-beaded Zuhair Murad shift dress for The Tonight Show',
+      snippet:
+        'An ivory mod-style mini dress from Zuhair Murad\'s Resort 2022 collection, gold beaded trim at the neckline and sleeves, worn to promote Red (Taylor\'s Version) on Jimmy Fallon\'s show days before the album\'s release.',
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/',
+      thumbnailUrl:
+        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg',
+      moment: {
+        context:
+          'Promoting Red (Taylor\'s Version) on The Tonight Show Starring Jimmy Fallon, Swift wore an ivory shift dress from Lebanese couturier Zuhair Murad\'s Resort 2022 collection, with gold beaded trim at the neckline and sleeves and oversized pockets. She paired it with gold Christian Louboutin "So Kate" pumps, Lark & Berry jewelry, and her signature red lip.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/',
+          },
+          {
+            outlet: 'Vogue Arabia',
+            url: 'https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg',
+            credit: 'NBC',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 11,
+      category: 'fashion',
+      title: 'A crystal-strewn David Koma mini dress for Late Night with Seth Meyers',
+      snippet:
+        'An off-the-shoulder David Koma mini dress worked in the designer\'s signature crystal embellishment, paired with Aquazzura "Love Link" crystal slingbacks for a same-week Red (TV) promo stop on Seth Meyers\' show.',
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/',
+      thumbnailUrl:
+        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/latenightseth-254951110_1087887028417877_8037280291044973019_n.jpg',
+      moment: {
+        context:
+          'For her Late Night with Seth Meyers stop the same week she released Red (Taylor\'s Version), Swift changed into an off-the-shoulder David Koma mini dress covered in the designer\'s signature structured crystal embellishment, worn with Aquazzura "Love Link" crystal-embellished slingback pumps — a different David Koma piece from the navy sequin dress she\'d wear days later in her SNL sketch cameo.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/latenightseth-254951110_1087887028417877_8037280291044973019_n.jpg',
+            credit: 'NBC',
+          },
+        ],
+      },
+    },
+    {
+      year: 2021,
+      month: 11,
+      category: 'fashion',
+      title: 'A David Koma sequin mini dress for her surprise "Three Sad Virgins" SNL cameo',
+      snippet:
+        'A navy one-shoulder sequined David Koma mini dress, worn for her surprise sung cameo in the "Please Don\'t Destroy" trio\'s viral "Three Sad Virgins" sketch on the same November 13, 2021 SNL episode as her "All Too Well" performance.',
+      sourceUrl: 'https://www.nbc.com/nbc-insider/three-sad-virgins-snl-taylor-swift-cast-lyrics',
+      thumbnailUrl: 'https://stealherstyle.net/wp-content/uploads/2021/11/taylorswiftsnl5-500x350.jpg',
+      moment: {
+        context:
+          'On the same episode where she performed "All Too Well (10 Minute Version)," Swift also made a surprise appearance in "Please Don\'t Destroy" — the SNL writing trio of John Higgins, Ben Marshall and Martin Herlihy\'s musical sketch "Three Sad Virgins," starring Pete Davidson. Per the writers, they doubted she\'d agree to do it, but she said yes immediately when asked; she appears at the sketch\'s bridge, in a navy one-shoulder sequined David Koma mini dress, singing comedic insults about the trio. The sketch went on to rack up tens of millions of YouTube views.',
+        sources: [
+          {
+            outlet: 'NBC Insider',
+            url: 'https://www.nbc.com/nbc-insider/three-sad-virgins-snl-taylor-swift-cast-lyrics',
+          },
+          {
+            outlet: 'Steal Her Style',
+            url: 'https://stealherstyle.net/2021/11/14/taylor-swift-saturday-night-live-outfits/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://stealherstyle.net/wp-content/uploads/2021/11/taylorswiftsnl5-500x350.jpg',
+            credit: 'NBC',
+          },
+        ],
+      },
+    },
   ],
 };
