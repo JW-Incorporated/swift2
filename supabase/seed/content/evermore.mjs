@@ -568,5 +568,105 @@ export default {
         ],
       },
     },
+
+    // --- Sightings pass (2026-07-05): first candid-sighting items for this era.
+    {
+      year: 2021,
+      month: 9,
+      category: 'sighting',
+      title: 'A Belfast weekend: a restaurant selfie, then a three-hour bar set',
+      snippet:
+        "While Joe Alwyn wrapped filming in Belfast, she turned up at Shu Restaurant for staff selfies one night, then stayed for a local busker's entire three-hour set at The Tipsy Bird the next.",
+      sourceUrl: 'https://www.rte.ie/entertainment/2021/0913/1246573-taylor-swift-thrills-fans-at-a-belfast-bar/',
+      thumbnailUrl: 'https://www.rte.ie/images/001825a9-500.jpg',
+      moment: {
+        context:
+          'Swift was in Belfast to support Joe Alwyn as he finished filming the BBC/Hulu adaptation of Sally Rooney\'s "Conversations with Friends." On Thursday, September 9, 2021, she dined at Shu Restaurant on the Lisburn Road and posed for selfies with staff, who posted that she "was so lovely and really is a beautiful person inside and out." The next night, Friday September 10, she turned up at The Tipsy Bird cocktail bar in the city centre and stayed for musician Tiernán Heffron\'s full three-hour set, joining a singalong and tipping him afterward; Heffron said, "It\'s not everyday Taylor Swift walks into your gig and stays for your whole three hour set. She was the most lovely person!" The bar confirmed her visit and posed for a photo with its team.',
+        sources: [
+          { outlet: 'RTÉ', url: 'https://www.rte.ie/entertainment/2021/0913/1246573-taylor-swift-thrills-fans-at-a-belfast-bar/' },
+          { outlet: 'Irish News', url: 'https://www.irishnews.com/magazine/entertainment/2021/09/13/news/taylor-swift-thrills-fans-at-a-belfast-bar-2447182/' },
+          { outlet: 'NME', url: 'https://www.nme.com/news/music/taylor-swift-watches-young-singer-songwriters-set-at-belfast-bar-3045454' },
+        ],
+        photos: [
+          {
+            url: 'https://www.rte.ie/images/001825a9-500.jpg',
+            credit: 'The Tipsy Bird via Facebook',
+          },
+        ],
+      },
+    },
+    {
+      year: 2022,
+      month: 7,
+      category: 'sighting',
+      title: "A surprise cameo at HAIM's sold-out O2 Arena show",
+      snippet:
+        'Fans spotted her walk out mid-set for a "Gasoline"/"Love Story" mashup with her old 1989 tourmates — her first time back on any stage since December 2019.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-haim-love-story-gasoline-mashup-o2-arena-1386538/',
+      thumbnailUrl: 'https://d2a0gza273xfgz.cloudfront.net/577070/uploads/41561940-0962-11ed-8b88-f5960538964e_1200_630.png',
+      moment: {
+        context:
+          'At HAIM\'s sold-out show at London\'s O2 Arena on July 21, 2022 — their last UK date before heading to US tour dates — Swift walked out mid-set, telling the crowd of roughly 20,000: "I heard that my girls were playing in London at the O2 and I thought, \'I\'m gonna have to see that.\' And it looks like there\'s about 20,000 other people that also thought that, too." She joined the sisters, who opened for her 1989 World Tour in 2015, for a mashup of their collaboration "Gasoline" with her own "Love Story," wearing a black sports bra and the same custom Louis Vuitton trousers HAIM had worn throughout their tour. She added: "I haven\'t been on stage in a very long time. It\'s nice…it\'s nice, it\'s very nice [to be back]."',
+        sources: [
+          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/taylor-swift-haim-love-story-gasoline-mashup-o2-arena-1386538/' },
+          { outlet: 'E! Online', url: 'https://www.eonline.com/news/1339032/taylor-swift-joins-haim-for-a-surprise-performance-and-its-the-love-story-we-always-needed' },
+        ],
+        photos: [
+          {
+            url: 'https://d2a0gza273xfgz.cloudfront.net/577070/uploads/41561940-0962-11ed-8b88-f5960538964e_1200_630.png',
+            credit: 'HAIM via Instagram',
+          },
+        ],
+      },
+    },
+    {
+      year: 2022,
+      month: 7,
+      category: 'sighting',
+      title: 'A paparazzi-caught coffee stroll through a London park with Joe Alwyn',
+      snippet:
+        'Caught mid-heatwave in baseball caps, sunglasses and iced coffees, holding hands and talking — a rare candid, unposed sighting of the notoriously private couple out together.',
+      sourceUrl: 'https://hollywoodlife.com/2022/07/14/taylor-swift-joe-alwyn-holding-hands-london-denim-shorts-photos/',
+      thumbnailUrl: 'https://hollywoodlife.com/wp-content/uploads/2022/07/taylor-swift-joe-alwyn-london-coffee-date-embed2.jpg',
+      moment: {
+        context:
+          'On July 14, 2022, during a London heatwave with temperatures near 90 degrees, paparazzi photographed Swift and Alwyn holding hands and talking over iced coffees in a park. She wore dark denim shorts, sunglasses and a white baseball cap; he wore blue shorts, a white t-shirt, sneakers and a blue cap. E! Online reported the photos were credited to Backgrid.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/news/1338054/taylor-swift-and-joe-alwyn-enjoy-cute-coffee-date-while-out-in-london' },
+          { outlet: 'HollywoodLife', url: 'https://hollywoodlife.com/2022/07/14/taylor-swift-joe-alwyn-holding-hands-london-denim-shorts-photos/' },
+        ],
+        photos: [
+          {
+            url: 'https://hollywoodlife.com/wp-content/uploads/2022/07/taylor-swift-joe-alwyn-london-coffee-date-embed2.jpg',
+            credit: 'Backgrid',
+          },
+        ],
+      },
+    },
+    {
+      year: 2022,
+      month: 8,
+      category: 'sighting',
+      title: 'Spotted leaving the VMAs in a Midnights-teasing star romper',
+      snippet:
+        "Straight from the ceremony where she announced her next album, she was photographed arriving at the after-party in a Moschino romper embroidered with silver stars — a color and motif nodding to Midnights.",
+      sourceUrl: 'https://www.nylon.com/fashion/taylor-swift-2022-mtv-vmas-after-party-outfit',
+      thumbnailUrl:
+        'https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2',
+      moment: {
+        context:
+          'Hours after revealing her tenth studio album, Midnights, during her Video of the Year acceptance speech at the 2022 MTV VMAs, Swift was photographed arriving at Republic Records\' post-show party at the Fleur Room in New York City on August 28, 2022. She wore a royal blue silk mini romper by Moschino embroidered with glittery stars — which Nylon described as "channeling \'midnight\'" — paired with a fuzzy jacket, platform sparkly sandals from Alexander McQueen, ANANYA jewelry, and her signature red lip.',
+        sources: [
+          { outlet: 'Nylon', url: 'https://www.nylon.com/fashion/taylor-swift-2022-mtv-vmas-after-party-outfit' },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-2022-mtv-vmas-afterparty-outfit-midnights-1235132508/' },
+        ],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
   ],
 };
