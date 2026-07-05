@@ -498,5 +498,175 @@ export default {
         ],
       },
     },
+
+    // --- Sightings pass (2026-07-05) ---
+    {
+      year: 2012,
+      month: 12,
+      category: 'sighting',
+      title: "A Central Park stroll confirms she's dating Harry Styles",
+      snippet:
+        'Photographed walking through Central Park with Harry Styles on December 2, 2012 — the first public sighting of the two together, joined by his stylist Lou Teasdale.',
+      sourceUrl: 'http://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
+      thumbnailUrl:
+        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2012/12/swift-styles/taylor-swift-harry-styles-central-park-stroll-03.jpg',
+      moment: {
+        context:
+          "Photographers caught the pair on a Sunday walk through Central Park in New York City, weeks after they were first linked. They were joined by Styles' stylist, Lou Teasdale. The outing became the first widely circulated set of photos confirming the relationship, kicking off two months of tabloid coverage that ran through their British Virgin Islands breakup in January.",
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'http://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2012/12/swift-styles/taylor-swift-harry-styles-central-park-stroll-03.jpg',
+            credit: 'Just Jared',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 12,
+      category: 'sighting',
+      title: 'A birthday minibreak to the Lake District, spotted feeding doves and shopping for Beatrix Potter gifts',
+      snippet:
+        'Spotted with Harry Styles in Bowness-on-Windermere on December 13, 2012 — sightseeing, feeding white doves in the town square, and shopping at the Beatrix Potter store and a local jewelry shop.',
+      sourceUrl: 'https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/',
+      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/9823df43ca73-harry-styles-z.jpg',
+      moment: {
+        context:
+          'The pair spent about five hours in the Lake District village of Bowness, days after their relationship went public. Pandora jewelry shop manager Claire Dibbs, who met them when they wandered in, recalled: "They were just walking past and one of my colleagues saw them. I was hyperventilating." She said Swift "introduced herself, she was really lovely" and told her she loved the area. The visit came days after an earlier stop in Derbyshire that same week.',
+        sources: [
+          {
+            outlet: 'HELLO!',
+            url: 'https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/9823df43ca73-harry-styles-z.jpg',
+            credit: 'HELLO!',
+          },
+        ],
+      },
+    },
+    {
+      year: 2013,
+      month: 1,
+      category: 'sighting',
+      title: 'A midnight kiss in Times Square as the ball drops on 2013',
+      snippet:
+        'Performed "I Knew You Were Trouble" and "We Are Never Ever Getting Back Together" in Times Square, then was photographed kissing Harry Styles at the stroke of midnight — a moment fans in the crowd caught on camera.',
+      sourceUrl:
+        'https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/',
+      thumbnailUrl:
+        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg',
+      moment: {
+        context:
+          "Swift took the Times Square stage at 11:39 p.m. on December 31, 2012, for the New Year's Eve broadcast, then was seen in Styles' arms as the clock struck midnight. The kiss was caught by fans in the crowd and quickly circulated online. The couple left for a hotel shortly after and flew to the British Virgin Islands the next morning.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/photo-gallery/2783191/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg',
+            credit: 'Just Jared',
+          },
+        ],
+      },
+    },
+    {
+      year: 2013,
+      month: 1,
+      category: 'sighting',
+      title: 'A Virgin Islands getaway, spotted at dinner at CocoMaya',
+      snippet:
+        "Days after the Times Square kiss, fans spotted Swift and Styles having dinner and drinks at the beachfront restaurant CocoMaya on Virgin Gorda on January 3, 2013 — a trip Us Weekly reported was a surprise for her.",
+      sourceUrl: 'https://hollywoodlife.com/2013/01/04/harry-styles-taylor-swift-virgin-islands-vacation-gorda/',
+      thumbnailUrl:
+        'https://hollywoodlife.com/wp-content/uploads/2013/01/taylor-swift-harry-styles-virgin-gorda-ftr1.jpg?resize=384%2C216',
+      moment: {
+        context:
+          "The pair were photographed at CocoMaya, a beach restaurant on Virgin Gorda in the British Virgin Islands, the day after arriving on the island. The vacation ended abruptly — reports at the time described a blowout fight, and Swift flew home alone on January 4, the same day she was photographed sitting alone on a boat in a blue dress, an image she'd reference a decade later in \"Is It Over Now?\"",
+        sources: [
+          {
+            outlet: 'HollywoodLife',
+            url: 'https://hollywoodlife.com/2013/01/04/harry-styles-taylor-swift-virgin-islands-vacation-gorda/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://hollywoodlife.com/wp-content/uploads/2013/01/taylor-swift-harry-styles-virgin-gorda-ftr1.jpg?resize=384%2C216',
+            credit: 'Twitter',
+          },
+        ],
+      },
+    },
+    {
+      year: 2013,
+      month: 2,
+      category: 'sighting',
+      title: 'A late-night out with singer-songwriter Tom Odell after the BRITs',
+      snippet:
+        "Spotted leaving a London pub with fellow musician Tom Odell on February 21, 2013 — the night after both attended the BRIT Awards, where Odell won Critics' Choice — before the pair headed to the Groucho Club together.",
+      sourceUrl: 'https://www.eonline.com/news/390649/taylor-swift-goes-out-with-british-singer-tom-odell-in-london',
+      thumbnailUrl:
+        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/02/swift-odell/taylor-swift-london-night-out-with-tom-odell-01.jpg',
+      moment: {
+        context:
+          "Photographers caught Swift leaving a pub with Odell in London the Thursday after the BRIT Awards, where Odell had won the Critics' Choice Award. The pair then went on to the Groucho Club, a members' club in Soho. Swift had been in London earlier that day leaving a radio station appearance. The outing fueled brief dating speculation, though nothing came of it publicly beyond the one night out.",
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/390649/taylor-swift-goes-out-with-british-singer-tom-odell-in-london',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/photo-gallery/2816649/taylor-swift-london-night-out-with-tom-odell-01/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/02/swift-odell/taylor-swift-london-night-out-with-tom-odell-01.jpg',
+            credit: 'Just Jared',
+          },
+        ],
+      },
+    },
+    {
+      year: 2013,
+      month: 3,
+      category: 'sighting',
+      title: 'Caught mid-rehearsal for the Red Tour, days before it opened',
+      snippet:
+        "Photographed rehearsing in all-black practice clothes with her hair in a messy ponytail, mid-choreography, just two days before the Red Tour's March 13, 2013 opening night in Omaha.",
+      sourceUrl: 'https://popcrush.com/taylor-swift-red-tour-rehearsal-pics/',
+      thumbnailUrl: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-1.jpg?w=980&q=75',
+      moment: {
+        context:
+          "Photos published March 11, 2013 showed Swift running through choreography in practice gear ahead of the tour's opening week, caught mid-movement with one hand raised as though playing to an imaginary crowd — a rare glimpse of the unglamorous rehearsal process behind the tour's eventual 128-costume, arena-scale production.",
+        sources: [{ outlet: 'PopCrush', url: 'https://popcrush.com/taylor-swift-red-tour-rehearsal-pics/' }],
+        photos: [
+          {
+            url: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-1.jpg?w=980&q=75',
+            credit: 'TSA / Getty Images',
+          },
+          {
+            url: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=75',
+            credit: 'TSA / Getty Images',
+          },
+        ],
+      },
+    },
   ],
 };
