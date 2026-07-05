@@ -348,5 +348,178 @@ export default {
         photos: [{ url: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg', credit: 'YouTube / Taylor Swift' }],
       },
     },
+
+    // --- Fashion/photo depth pass 2 (2026-07-04) ---
+    // Second pass, still zero-to-thin on fashion depth before this batch.
+    // Every claim and photo below verified directly against its cited
+    // source (see supabase/seed/content/_example.mjs for the no-fabrication
+    // rule). Costume designer for the whole Stadium Tour wardrobe below is
+    // Jessica Jones, confirmed via her IMDb costume-department credit and
+    // corroborated across every cited outfit post.
+    {
+      year: 2018,
+      month: 5,
+      category: 'fashion',
+      title: 'An 800-hour Atelier Versace gown for her first red carpet in two years',
+      snippet:
+        'Blush-pink, one-shoulder, a thigh-high slit, and a floor-sweeping half-cape of appliqued feathers — Donatella Versace said the piece took over 800 hours to build.',
+      sourceUrl: 'https://www.billboard.com/articles/columns/pop/8457333/taylor-swift-bbma-dress-800-hours-to-make',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          'Worn to the 2018 Billboard Music Awards — a rare red-carpet stop mid-tour — the custom Atelier Versace gown paired scattered appliques at the bust, shoulder, and hips with Casadei shoes. Donatella Versace confirmed the 800-plus build hours on Instagram weeks before the show.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/columns/pop/8457333/taylor-swift-bbma-dress-800-hours-to-make',
+          },
+          {
+            outlet: 'The Fashion Court',
+            url: 'https://thefashion-court.com/2018/05/taylor-swift-2018-billboard-music-awards/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Billboard',
+          },
+          {
+            url: 'https://thefashion-court.com/wp-content/uploads/2018/05/taylor-swift-atelier-versace-bbmas-2018.png',
+            credit: 'The Fashion Court',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 6,
+      category: 'fashion',
+      title: 'The reputation tour opening number gets a glitter-cutout upgrade',
+      snippet:
+        'Debuted night two in Chicago: a custom Jessica Jones bodysuit and matching jacket with intricate glitter cutout patterns, worn with Christian Louboutin boots.',
+      sourceUrl: 'https://tayswiftstyle.wordpress.com/2018/06/06/reputation-tour-110-version-2-ready-for-it/',
+      thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/06/tumblr_p9wqzvce8h1r4fk4fo1_r1_1280.jpg?w=1100',
+      moment: {
+        context:
+          'Jessica Jones, Swift\'s longtime tour costume designer, reworked the "...Ready For It?" opening-number look partway through the run — swapping in a bodysuit-and-jacket set covered edge to edge in cutout glitter patterning.',
+        sources: [
+          {
+            outlet: 'Taylor Swift Style',
+            url: 'https://tayswiftstyle.wordpress.com/2018/06/06/reputation-tour-110-version-2-ready-for-it/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/06/tumblr_p9wqzvce8h1r4fk4fo1_r1_1280.jpg?w=1100',
+            credit: 'Taylor Swift Style',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 7,
+      category: 'fashion',
+      title: 'A sparkling green bodysuit for the "Dress" segment',
+      snippet:
+        'One of three custom Jessica Jones bodysuits Taylor rotated through for the "Blank Space"/"Bad Blood"/"Should\'ve Said No" block — this version in dense sparkling green, worn with Christian Louboutin boots.',
+      sourceUrl: 'https://tayswiftstyle.wordpress.com/2018/07/22/reputation-tour-blank-space-bad/',
+      thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100',
+      moment: {
+        context:
+          'Jessica Jones designed at least three versions of this sequined bodysuit across the tour\'s run for the "Dress"-nicknamed segment; the sparkling green iteration debuted in the summer 2018 European leg.',
+        sources: [
+          {
+            outlet: 'Taylor Swift Style',
+            url: 'https://tayswiftstyle.wordpress.com/2018/07/22/reputation-tour-blank-space-bad/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100',
+            credit: 'Taylor Swift Style',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 7,
+      category: 'fashion',
+      title: 'The "cotton candy" dress for "Delicate"/"Shake It Off"',
+      snippet:
+        'A rainbow, tiered-tassel custom Jessica Jones mini dress Taylor herself nicknamed her "cotton candy" dress — one of four versions built for the segment.',
+      sourceUrl: 'https://tayswiftstyle.wordpress.com/2018/07/23/reputation-tour-delicateshake-it-off/',
+      thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pcati7kyz11r4fk4fo1_r1_1280.jpg?w=1100',
+      moment: {
+        context:
+          'Jessica Jones built four rotating versions of this fringed mini dress for the "Delicate"/"Shake It Off" segment; this rainbow-tassel take was the one Taylor nicknamed her "cotton candy" dress on stage.',
+        sources: [
+          {
+            outlet: 'Taylor Swift Style',
+            url: 'https://tayswiftstyle.wordpress.com/2018/07/23/reputation-tour-delicateshake-it-off/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pcati7kyz11r4fk4fo1_r1_1280.jpg?w=1100',
+            credit: 'Taylor Swift Style',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 5,
+      category: 'fashion',
+      title: 'A snake bodysuit and red camo jacket for the Shawn Mendes duet',
+      snippet:
+        'For the "There\'s Nothing Holding Me Back" duet stop, a custom Jessica Jones snake-print bodysuit layered under a red camouflage sequined jacket with a buckle waist, plus custom Christian Louboutin boots.',
+      sourceUrl: 'https://tayswiftstyle.wordpress.com/2018/05/20/reputation-tour-theres-nothing-holding-me-2/',
+      thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p917q0nrgd1r4fk4fo1_1280.jpg?w=1100',
+      moment: {
+        context:
+          'Worn in Pasadena on May 18, 2018, when Shawn Mendes joined the tour for "There\'s Nothing Holding Me Back": a Jessica Jones snake-pattern bodysuit under a red camo sequined jacket with buckle detailing, styled with custom Louboutin boots.',
+        sources: [
+          {
+            outlet: 'Taylor Swift Style',
+            url: 'https://tayswiftstyle.wordpress.com/2018/05/20/reputation-tour-theres-nothing-holding-me-2/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p917q0nrgd1r4fk4fo1_1280.jpg?w=1100',
+            credit: 'Taylor Swift Style',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 5,
+      category: 'fashion',
+      title: 'The "Call It What You Want"/"...Nice Things" closer dress',
+      snippet:
+        'A custom Jessica Jones gown for the show\'s emotional final segment — the blogger who\'s tracked every tour costume called it a grown-up echo of a Jenny Packham piece from the Fearless Tour.',
+      sourceUrl: 'https://tayswiftstyle.wordpress.com/2018/05/11/reputation-tour-call-it-what-you-want-this/',
+      thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100',
+      moment: {
+        context:
+          'Closing the show over "Call It What You Want" into "This Is Why We Can\'t Have Nice Things," Taylor wore a custom Jessica Jones gown styled with Christian Louboutin boots.',
+        sources: [
+          {
+            outlet: 'Taylor Swift Style',
+            url: 'https://tayswiftstyle.wordpress.com/2018/05/11/reputation-tour-call-it-what-you-want-this/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100',
+            credit: 'Taylor Swift Style',
+          },
+        ],
+      },
+    },
   ],
 };
