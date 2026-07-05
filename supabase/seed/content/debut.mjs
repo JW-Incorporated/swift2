@@ -348,5 +348,198 @@ export default {
         ],
       },
     },
+
+    // --- Sightings depth pass (2026-07-05)
+    {
+      year: 2006,
+      month: 8,
+      category: 'sighting',
+      title: "An unknown 16-year-old, performing for Yahoo's 'Who's Next?' showcase",
+      snippet:
+        "Months before her album dropped, a 16-year-old Taylor Swift performed at a Yahoo Music showcase — reworking one of her own lyrics mid-song into a shout-out to Yahoo.",
+      sourceUrl: 'https://www.yahoo.com/entertainment/taylor-swift-performed-at-yahoo-2006-201948506.html',
+      thumbnailUrl:
+        'https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTM7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8c1753b0-693b-11ee-b69e-d5b17b60c7bb',
+      moment: {
+        context:
+          "Two months before \"Taylor Swift\" released on Oct. 24, 2006, she performed at Yahoo Entertainment as part of its \"Who's Next?\" artist program — a low-key industry showcase, not a concert or red carpet. Mid-performance she swapped in a lyric namechecking Yahoo Music, a detail Yahoo's own retrospective still points to as evidence of how new and unpolished the moment was.",
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-performed-at-yahoo-2006-201948506.html',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTM7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8c1753b0-693b-11ee-b69e-d5b17b60c7bb',
+            credit: 'Yahoo via YouTube',
+          },
+        ],
+      },
+    },
+    {
+      year: 2006,
+      month: 10,
+      category: 'sighting',
+      title: "Her diary entry the day she got the call to open for Rascal Flatts",
+      snippet:
+        '"Oh my God. I am on the Rascal Flatts tour!" — her real, handwritten diary entry from Oct. 18, 2006, the day a fired opening act\'s bad luck became her first big tour break.',
+      sourceUrl: 'https://tasteofcountry.com/taylor-swift-diary-entry-2006-rascal-flatts-tour/',
+      thumbnailUrl: 'https://townsquare.media/site/204/files/2019/08/Taylor-Swift-Flatts.jpg?w=980&q=75',
+      moment: {
+        context:
+          'Rascal Flatts had just fired opener Eric Church from their "Me and My Gang" tour for repeatedly running long onstage. The opening it created went to 16-year-old Swift, who got the call on Oct. 17, 2006 and wrote in her diary the next day: "Oh my God. I am on the Rascal Flatts tour! I got the call yesterday and I screamed louder than I can ever remember screaming before." She opened five tour dates that fall. Years later, when she earned her first gold record, she gave it to Church with a note: "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
+        sources: [
+          { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-diary-entry-2006-rascal-flatts-tour/' },
+        ],
+        photos: [
+          {
+            url: 'https://townsquare.media/site/204/files/2019/08/Taylor-Swift-Flatts.jpg?w=980&q=75',
+            credit: 'Bryan Bedder/Jason Kempin, Getty Images',
+          },
+          {
+            url: 'https://townsquare.media/site/204/files/2019/08/Taylor-Rascal-Flatts-Diary-Entry.jpg?w=980&q=75',
+            credit: "Taylor Swift's handwritten diary entry, Oct. 18, 2006",
+          },
+        ],
+      },
+    },
+    {
+      year: 2006,
+      month: 11,
+      category: 'sighting',
+      title: 'Singing the anthem at a Detroit Lions Thanksgiving game, 16 years old',
+      snippet:
+        '"It felt impossible for a place to be that big, I was sooo insanely nervous" — 16-year-old Swift on singing the national anthem before a sold-out Ford Field on Thanksgiving Day, 2006.',
+      sourceUrl:
+        'https://www.billboard.com/music/music-news/taylor-swift-reminisces-2006-national-anthem-detroit-ford-field-1235351234/',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-National-Anthem-as-the-Detroit-Lions-2006-billboard-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          'She sang the national anthem before the Detroit Lions hosted the Miami Dolphins on Thanksgiving Day, Nov. 23, 2006, at Ford Field — a solo, unaccompanied public appearance, a month after her debut album released, far from any stage show or red carpet. She later called back to the moment onstage during her 2023 Eras Tour stop in Detroit, describing the stadium as "the biggest place I\'ve ever seen in my life."',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-reminisces-2006-national-anthem-detroit-ford-field-1235351234/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-National-Anthem-as-the-Detroit-Lions-2006-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Al Messerschmidt/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2007,
+      month: 4,
+      category: 'sighting',
+      title: 'Home to Pennsylvania to sing the anthem at a Reading Phillies game',
+      snippet:
+        'Cowboy boots, a knit hat, and a stripped-down national anthem on the grass behind home plate — a hometown moment at her local minor-league team\'s 2007 opening day.',
+      sourceUrl: 'https://whyy.org/articles/taylor-swift-sports-performing-national-anthem-pennsylvania-phillies/',
+      thumbnailUrl: 'https://media.nbcphiladelphia.com/2024/02/GettyImages-1315798658.jpg?quality=85&strip=all',
+      moment: {
+        context:
+          'Originally from nearby Wyomissing, she returned home to sing the national anthem before the Reading Phillies\' 2007 opening game against the Harrisburg Senators at FirstEnergy Stadium on Thursday, April 5, 2007 — wearing cowboy boots and a knit hat, then triumphantly waving to the crowd alongside team mascot Screwball. A former Reading communications director later recalled that even then, the teenager "had some mound presence."',
+        sources: [
+          {
+            outlet: 'WHYY',
+            url: 'https://whyy.org/articles/taylor-swift-sports-performing-national-anthem-pennsylvania-phillies/',
+          },
+          {
+            outlet: 'NBC Philadelphia',
+            url: 'https://www.nbcphiladelphia.com/news/local/taylor-swifts-connections-to-sports-go-back-to-her-early-days-performing-the-national-anthem/3772093/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://media.nbcphiladelphia.com/2024/02/GettyImages-1315798658.jpg?quality=85&strip=all',
+            credit: 'Krissy Krummenacker/MediaNews Group/Reading Eagle via Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2007,
+      month: 11,
+      category: 'fashion',
+      title: 'A studded Catherine Malandrino dress and cowboy boots at the 2007 AMAs',
+      snippet:
+        "Her first American Music Awards red carpet, Nov. 18, 2007 — a jeweled Catherine Malandrino halter dress paired with black cowboy boots, the twangy country-meets-glam pairing that defined her earliest big red carpets.",
+      sourceUrl: 'https://www.eonline.com/photos/25719/taylor-swift-s-american-music-awards-looks',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/201899/rs_634x1024-181009161140-634-taylor-swift-amas-2007.jpg?fit=around%7C776:1254&output-quality=90&crop=776:1254;center,top',
+      moment: {
+        context:
+          'At the 2007 American Music Awards in Los Angeles on Nov. 18, 2007, then still primarily a country artist performing with an acoustic guitar, she wore a studded Catherine Malandrino jeweled halter dress with black cowboy boots — retrospectives on her AMAs style single out the boots-on-a-red-carpet pairing as of a piece with her early "Our Song"/"Tim McGraw" era.',
+        sources: [
+          { outlet: 'E! Online', url: 'https://www.eonline.com/photos/25719/taylor-swift-s-american-music-awards-looks' },
+          { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
+        ],
+        photos: [
+          {
+            url:
+              'https://akns-images.eonline.com/eol_images/Entire_Site/201899/rs_634x1024-181009161140-634-taylor-swift-amas-2007.jpg?fit=around%7C776:1254&output-quality=90&crop=776:1254;center,top',
+            credit: 'Steve Granitz/WireImage',
+          },
+        ],
+      },
+    },
+    {
+      year: 2007,
+      month: 12,
+      category: 'sighting',
+      title: 'A hug for Dave Grohl the second she heard her first Grammy nomination',
+      snippet:
+        'Invited on as a presenter, 17-year-old Swift heard Dave Grohl and Taylor Hawkins read her name for Best New Artist and couldn\'t contain it — stepping up to hug them both on the spot.',
+      sourceUrl: 'https://www.thelist.com/1610914/taylor-swift-dave-grohl-drama-timeline/',
+      thumbnailUrl:
+        'https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg',
+      moment: {
+        context:
+          'At the 50th Grammy Awards nominations announcement at the Henry Fonda Music Box Theater on Dec. 6, 2007, 17-year-old Swift was invited on as one of the presenters — and then heard her own name read out as a Best New Artist nominee, her first-ever Grammy nomination. She couldn\'t hold back her excitement, stepping up to hug Foo Fighters\' Dave Grohl and Taylor Hawkins on the spot, drawing laughs from the room. (Amy Winehouse would go on to win the category at the ceremony two months later.)',
+        sources: [
+          { outlet: 'The List', url: 'https://www.thelist.com/1610914/taylor-swift-dave-grohl-drama-timeline/' },
+        ],
+        photos: [
+          {
+            url:
+              'https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg',
+            credit: 'Kevin Winter/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2008,
+      month: 6,
+      category: 'sighting',
+      title: "An all-day meet-and-greet marathon at CMA Fest's Fan Fair",
+      snippet:
+        'Hours of posing for photos with fans, one after another, at the Big Machine Records booth in the Nashville Convention Center — an early instance of the marathon fan meet-and-greets she\'d become known for.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/music/articles/13-collaborations-helped-taylor-swift-100535520.html',
+      thumbnailUrl:
+        'https://s.yimg.com/ny/api/res/1.2/.aCciUUvVRppty__Am_qwA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/the_tennessean_slideshows_726/e66c5e27810715572b9b8533bbc6a086',
+      moment: {
+        context:
+          'On Day 3 of the CMA Music Festival, June 7, 2008, she held an all-day meet, greet, and autograph-signing session at the Big Machine Records booth inside the Fan Fair Exhibit Hall of the Nashville Convention Center — posing for photo after photo with fans in line, an early version of the marathon meet-and-greets (including a later 13-hour signing session) she became known for.',
+        sources: [
+          {
+            outlet: 'The Tennessean (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/music/articles/13-collaborations-helped-taylor-swift-100535520.html',
+          },
+        ],
+        photos: [
+          {
+            url:
+              'https://s.yimg.com/ny/api/res/1.2/.aCciUUvVRppty__Am_qwA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/the_tennessean_slideshows_726/e66c5e27810715572b9b8533bbc6a086',
+            credit: 'Jae S. Lee/The Tennessean',
+          },
+        ],
+      },
+    },
   ],
 };
