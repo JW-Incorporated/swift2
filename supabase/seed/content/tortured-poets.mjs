@@ -904,5 +904,156 @@ export default {
         ],
       },
     },
+
+    // --- Music backstory depth pass (2026-07-05): song-writing stories for
+    // deep-cut TTPD tracks, plus a Grammy business item distinct from the
+    // AOTY-nomination item above. Every claim verified against its cited
+    // source(s) directly.
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'Down Bad, and the alien-abduction metaphor for being love-bombed',
+      snippet:
+        'Her own explanation, from Amazon Music\'s track-by-track commentary: "someone rocks your world and dazzles you and then just kind of abandons you" — like an alien abduction the narrator never wanted to end.',
+      sourceUrl: 'https://americansongwriter.com/behind-the-dizzying-love-story-in-down-bad-by-taylor-swift/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In Amazon Music\'s track-by-track commentary, Swift said: "The metaphor in \'Down Bad\' is that I was comparing sort of the idea of being love bombed, where someone rocks your world and dazzles you and then just kind of abandons you," likening it to alien abduction: "This girl is abducted by aliens but she wanted to stay with them, and then when they drop her back off in her hometown, she\'s like, \'Wait, no, where are you going... I liked it there!\'" The song debuted at No. 2 on the Hot 100, directly behind "Fortnight," as part of TTPD\'s historic sweep of the chart\'s entire top 14.',
+        sources: [
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/behind-the-dizzying-love-story-in-down-bad-by-taylor-swift/',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Down_Bad_(Taylor_Swift_song)' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: "So Long, London keeps her 'track five' tradition alive",
+      snippet:
+        'Written and produced with Aaron Dessner at Long Pond: "instinctively I was just kind of putting a very vulnerable, personal, honest, emotional song as track five," she said of the pattern — one TTPD\'s own track five upholds.',
+      sourceUrl: 'https://www.billboard.com/lists/taylor-swift-track-fives-ranked/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On a 2019 Instagram Live, Swift explained the tradition fans had spotted across her albums: "Track five is kind of a tradition that really started with you guys. Because I didn\'t realize I was doing this, but as I was making albums, I guess, I don\'t know why, but instinctively I was just kind of putting a very vulnerable, personal, honest, emotional song as track five... Because you noticed this, I kind of started to put the songs that were really honest, emotional and vulnerable and personal as track fives." "So Long, London," written and produced with Aaron Dessner, peaked at No. 5 on the Hot 100 and No. 4 on the Billboard Global 200.',
+        sources: [
+          { outlet: 'Billboard', url: 'https://www.billboard.com/lists/taylor-swift-track-fives-ranked/' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/So_Long,_London' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: "loml flips its own acronym: 'love of my life' becomes 'the loss of my life'",
+      snippet:
+        'A piano ballad written and produced with Aaron Dessner that spends four minutes setting up "love of my life" before the final lines invert it: "You\'re the loss of my life." "What we thought was for all time, was momentary."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Loml',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Recorded at Long Pond Studios with vocals captured at Electric Lady (New York) and Prime Recording (Nashville), and mixed by Serban Ghenea, "loml" builds as a conventional "love of my life" ballad until its closing lines reveal the title\'s other reading. Critics singled out the reversal: The A.V. Club and Uproxx both praised the lyrical twist on the phrase, calling the final line a "perfectly simple epitaph."',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Loml' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'I Can Fix Him (No Really I Can): a saloon-twang song about the savior complex',
+      snippet:
+        'Written and produced with Jack Antonoff, built on tremolo guitars and Old West imagery — a confident chorus that cracks by the final line into: "Whoa, maybe I can\'t."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/I_Can_Fix_Him_(No_Really_I_Can)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Recorded across Conway (Los Angeles), Electric Lady (New York), and Rue Boyer A (Paris), the track leans on Western and Americana textures — tremolo guitars, Moog Voyager, Mellotron — that critics described as sounding "like it comes straight out of an Old West saloon." The lyrics track a narrator convinced she can reform an unreliable partner despite everyone\'s warnings, before the chorus\'s title refrain buckles into doubt on the final repeat.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/I_Can_Fix_Him_(No_Really_I_Can)',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'The Smallest Man Who Ever Lived: the distorted bridge that closed out a historic chart sweep',
+      snippet:
+        'A hushed piano ballad in 7/4 time that detonates into a distorted-vocal rock bridge — and the song that filled the No. 14 slot when TTPD became the first album ever to hold the entire top 14 of the Hot 100 at once.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written and produced with Aaron Dessner and recorded partly in Biarritz, France, the song switches from a 7/4 verse-and-chorus meter to 4/4 for a bridge that swaps its piano ballad restraint for distorted vocals and a rock climax. The Nation\'s Stephanie Burt called it "the harshest, most dismissive, most condemnatory song that Swift has ever written," while Rolling Stone\'s Rob Sheffield ranked it among her best breakup songs. On the Hot 100 dated May 4, 2024, it landed at No. 14 — the closing slot in the week TTPD\'s 31 tracks (plus "Cruel Summer") gave Swift the entire top 14 simultaneously, a first for any artist.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived' },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/mollybohannon/2024/04/29/taylor-swift-becomes-first-artist-to-take-top-14-spots-on-billboard-hot-100-chart/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2025,
+      month: 10,
+      category: 'music',
+      title: "The Black Dog: 'still nobody knows' what the song's about, she says a year later",
+      snippet:
+        'Asked on BBC Radio 2 if she\'d tipped off the real Vauxhall pub fans decided inspired the song, she said: "I did not, and still nobody knows what I\'m even talking about on that song. They think they know, they have no idea."',
+      sourceUrl: 'https://www.elitedaily.com/lifestyle/taylor-swift-the-black-dog-london-pub-review',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The lyric describes tracking an ex whose location services were still on and watching him walk "into some bar called The Black Dog," which turned a real Vauxhall, London gastropub into a fan pilgrimage site, complete with lyric-quoting window signage and a "Taylor\'s Version" cocktail list. Speaking to BBC Radio 2\'s Scott Mills during her Life of a Showgirl press run, Swift denied tipping off the pub and declined to confirm the connection, insisting the song\'s real subject remains misunderstood.',
+        sources: [
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/lifestyle/taylor-swift-the-black-dog-london-pub-review',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2024,
+      month: 11,
+      category: 'business',
+      title: "Fortnight's Grammy double: nominated for both Record and Song of the Year",
+      snippet:
+        'Alongside TTPD\'s Album of the Year nod, "Fortnight" picked up matching Record and Song of the Year nominations and a Best Music Video nod, while "us." with Gracie Abrams landed Best Pop Duo/Group Performance — six 2025 Grammy nominations in all.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-reacts-2025-grammy-nominations-tortured-poets-1235830451/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Reacting from the Toronto stop of the Eras Tour after the Nov. 8, 2024 nominations announcement, Swift told the crowd: "Everything that happens is a direct reflection of the passion you show, and you guys got this album nominated for six Grammys. So thank you." The Song of the Year nod for "Fortnight" gave her eight career nominations in that category, the most of any artist. None of the six converted into a win at the Feb. 2, 2025 ceremony, where Beyoncé\'s Cowboy Carter took Album of the Year.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-reacts-2025-grammy-nominations-tortured-poets-1235830451/',
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/news/music/taylor-swift-grammys-nominations-2025/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
