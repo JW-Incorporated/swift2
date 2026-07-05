@@ -356,5 +356,143 @@ export default {
         ],
       },
     },
+
+    // --- Music/business depth pass (2026-07-05): song-backstory and
+    // chart/critical-reception items for tracks and facts not yet covered,
+    // sourced from dedicated Wikipedia song pages, NME (citing a December
+    // 2020 Entertainment Weekly interview), Billboard, and Rolling Stone.
+    {
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'mirrorball, written right after the Lover Fest tour was scrapped',
+      snippet:
+        "Swift and Jack Antonoff wrote mirrorball after her Lover Fest tour was cancelled for the pandemic — her own words: \"a metaphor for celebrity,\" but also for anyone who feels they have to be a different version of themselves for different people.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Mirrorball_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In the Long Pond Studio Sessions documentary, Swift explained the song\'s meaning directly: "It\'s a metaphor for celebrity, but it\'s also a metaphor for so many people who feel like they have to be different versions of themselves for different people." She wrote it with Jack Antonoff after her planned Lover Fest tour was cancelled at the start of the pandemic, channeling how fans find "solace on the dance floor" against her own anxiety about staying relevant.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mirrorball_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: 'mad woman, and the dispute Taylor confirmed inspired it',
+      snippet:
+        'Written with Aaron Dessner about "female rage," mad woman targets the gaslighting Swift said she felt during her masters dispute — a connection she confirmed herself in a December 2020 interview, comparing the fallout to a divorce.',
+      sourceUrl: 'https://www.nme.com/news/music/taylor-swift-says-her-dispute-with-scooter-braun-felt-like-a-divorce-2834880',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In a December 2020 Entertainment Weekly interview, Swift confirmed "mad woman" (along with "my tears ricochet") grew out of her 2019 masters dispute with Scooter Braun and former label boss Scott Borchetta, saying the fallout from the 15-year professional relationship left her "very triggered by any stories, movies, or narratives revolving from divorce." On the song itself, co-written and produced with Aaron Dessner, Swift said its theme of gaslighting was "the most rage-provoking element of being a female."',
+        sources: [
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-says-her-dispute-with-scooter-braun-felt-like-a-divorce-2834880',
+          },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mad_Woman' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'invisible string, and "a single thread that ties you to your fate"',
+      snippet:
+        'Swift built the song around one image from her album announcement — "a single thread that, for better or for worse, ties you to your fate" — tracing years of near-misses back to a Nashville park where she read as a girl.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Invisible_String',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Co-written and produced with Aaron Dessner, the song grew from an idea Swift described in her folklore announcement: "a single thread that, for better or for worse, ties you to your fate." Its lyrics recall reading as a girl at Nashville\'s Centennial Park — "green was the color of the grass where I used to read at Centennial Park" — years before meeting the person the song is about; critics have read those details as tracing the path to her relationship with Joe Alwyn. NPR ranked it No. 22 on its 100 best songs of 2020, praising "all the beautiful detail, all the muscular melody and immaculately placed acoustic production details."',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Invisible_String' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'hoax, the last song written for the album',
+      snippet:
+        'Swift wrote hoax\'s lyrics just days before folklore\'s surprise release, then told Aaron Dessner not to overthink the production — the last song finished became the one that closes the record.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Hoax_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'According to Wikipedia\'s sourcing, "hoax" was the final track written for folklore — Swift wrote its lyrics only days before the July 24, 2020 release, and she and Aaron Dessner agreed it should close the album. On direction, she told him not to "try to give it any other space other than what feels natural" to him. Dessner recorded the instrumentation (piano, acoustic and electric guitars, OP-1, synth bass) at Long Pond Studio in the Hudson Valley, with Rob Moose adding orchestration, violin, and viola.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Hoax_(song)' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 8,
+      category: 'business',
+      title: "folklore's surprise debut: 846,000 units and her seventh No. 1 album",
+      snippet:
+        'With essentially no advance promotion, folklore opened with 846,000 equivalent album units — 615,000 in pure sales plus 289.85 million on-demand streams, the biggest streaming week of 2020 for any album by a woman.',
+      sourceUrl: 'https://www.billboard.com/pro/taylor-swift-folklore-billboard-200-number-1/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "folklore debuted atop the Billboard 200 with 846,000 equivalent album units — Swift's seventh No. 1 album — including 615,000 in pure album sales, the largest sales week for any album since her own Lover (679,000) the year before. Its 218,000 in streaming-equivalent units came from 289.85 million on-demand streams of the album's tracks, the largest streaming week of 2020 for an album by a woman.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-folklore-billboard-200-number-1/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 10,
+      category: 'business',
+      title: 'folklore becomes the first million-selling album of 2020 in the US',
+      snippet:
+        "By late October, folklore had sold 1.038 million copies in the US — the first album to cross a million that year — while returning to No. 1 on the Billboard 200 for an eighth nonconsecutive week.",
+      sourceUrl: 'https://www.billboard.com/pro/taylor-swift-folklore-first-million-selling-album-2020/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On the chart dated Oct. 31, 2020, folklore returned to No. 1 on the Billboard 200 for an eighth nonconsecutive week after selling another 57,000 copies in the U.S. in the tracking week ending Oct. 22 — pushing its total past 1.038 million copies sold and making it the first album to sell a million copies in the U.S. in 2020. Swift\'s prior album, Lover, had been the only album to do so in 2019, with 1.09 million sold that year.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-folklore-first-million-selling-album-2020/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2020,
+      month: 12,
+      category: 'business',
+      title: 'Rolling Stone names folklore the best album of 2020',
+      snippet:
+        "Topping Rolling Stone's year-end ranking over releases from Lil Baby, Pop Smoke, The Weeknd, and Juice WRLD, folklore was called potentially \"the definitive quarantine album.\"",
+      sourceUrl: 'https://www.rollingstone.com/music/music-lists/best-albums-2020-1096814/taylor-swift-folklore-1096815/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "Rolling Stone put folklore at No. 1 on its year-end list of the 50 best albums of 2020, calling it potentially \"the definitive quarantine album\" and writing that without the pressure of a typical rollout, \"Swift shed the über-pop trappings of her previous album, Lover, for a project that put her once-in-a-generation songwriting talent front and center,\" with contributions from the National's Aaron Dessner and Bon Iver's Justin Vernon.",
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-lists/best-albums-2020-1096814/taylor-swift-folklore-1096815/',
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
