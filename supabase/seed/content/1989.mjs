@@ -649,5 +649,159 @@ export default {
         photos: [{ url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/a6f6cfa25b82-taylor-a.jpg', credit: 'Rex' }],
       },
     },
+
+    // --- Business/chart/music depth pass (2026-07-05): the era's business
+    // category was thin (1 item) for the decade's biggest-selling album, so
+    // this batch digs into its Grammy, RIAA, streaming-economics, and tour
+    // milestones, plus one more on-record songwriting backstory. Every claim
+    // verified against its cited source directly; every photo URL checked
+    // for a 2xx image response before being added.
+    {
+      year: 2016,
+      month: 2,
+      category: 'business',
+      title: '1989 wins Album of the Year — making her the first woman to win it twice',
+      snippet:
+        '"There are going to be people along the way who will try to undercut your success or take credit for your accomplishments or your fame" — her message to young women, accepting music\'s top prize for the second time.',
+      sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-album-of-the-year-speech-credit-for-fame-6875390/',
+      thumbnailUrl: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif',
+      moment: {
+        context:
+          'At the Feb. 15, 2016 ceremony, 1989 won Album of the Year at the 58th Grammy Awards (also winning Best Pop Vocal Album), making Swift the first woman in Grammy history to win Album of the Year twice — her first was for Fearless in 2010. She thanked the fans for "the last 10 years" and producer Max Martin in the same speech.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-album-of-the-year-speech-credit-for-fame-6875390/',
+          },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/',
+          },
+        ],
+        photos: [{ url: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif', credit: 'The Recording Academy' }],
+      },
+    },
+    {
+      year: 2020,
+      month: 3,
+      category: 'business',
+      title: '"Shake It Off" becomes her first Diamond-certified single',
+      snippet:
+        'Crossing 10 million units in the U.S. made her the first female artist in history to hold both a Diamond-certified single and a Diamond-certified album.',
+      sourceUrl: 'https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/',
+      thumbnailUrl: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960',
+      moment: {
+        context:
+          'The RIAA certified "Shake It Off" Diamond on March 14, 2020, for surpassing 10 million combined sales-and-streaming units — her first single to reach that tier, following Fearless\'s Diamond album certification in December 2017. At the time, 1989\'s other singles stood at 8x Platinum ("Blank Space") and 6x Platinum ("Bad Blood"), with the album itself at 4x Platinum.',
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/',
+          },
+        ],
+        photos: [{ url: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960', credit: 'Forbes' }],
+      },
+    },
+    {
+      year: 2025,
+      month: 9,
+      category: 'business',
+      title: '1989 itself goes Diamond, joining Fearless as her second 10-million-unit album',
+      snippet:
+        'Certified 14x Platinum by the RIAA — crossing the 10-million-unit Diamond threshold and putting her among a small group of women, including Adele, Mariah Carey, and Whitney Houston, with a Diamond album.',
+      sourceUrl: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png',
+      moment: {
+        context:
+          'The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) and making it Swift\'s second Diamond album after Fearless.',
+        sources: [
+          { outlet: 'AOL', url: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html' },
+          { outlet: 'RIAA Gold & Platinum Database', url: 'https://www.riaa.com/gold-platinum/?tab_active=default-award&ar=Taylor+Swift&ti=1989' },
+        ],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png', credit: 'Big Machine Records' }],
+      },
+    },
+    {
+      year: 2014,
+      month: 11,
+      category: 'business',
+      title: 'Pulls her entire catalog from Spotify',
+      snippet:
+        "Days after 1989's record-breaking opening week, her label withdrew everything — arguing free, ad-supported streaming undermined the paid tier that pays songwriters and artists more.",
+      sourceUrl: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html',
+      thumbnailUrl: 'https://blogs-images.forbes.com/bobbyowsinski/files/2014/08/670px-swift_taylor_2007_cropped_2.jpg',
+      moment: {
+        context:
+          'On Nov. 3, 2014, Big Machine Records pulled Swift\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued streaming\'s free tier devalued music as "an economic entity." Days later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
+        sources: [
+          { outlet: 'CNN Money', url: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html' },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/big-machines-scott-borchetta-explains-747781/',
+          },
+        ],
+        photos: [{ url: 'https://blogs-images.forbes.com/bobbyowsinski/files/2014/08/670px-swift_taylor_2007_cropped_2.jpg', credit: 'Forbes' }],
+      },
+    },
+    {
+      year: 2015,
+      month: 6,
+      category: 'business',
+      title: '"To Apple, Love, Taylor" — an open letter reverses Apple Music\'s royalty policy in under a day',
+      snippet:
+        '"We don\'t ask you for free iPhones. Please don\'t ask us to provide you with our music for no compensation" — a Tumblr post that got Apple to pay artists during its free trial period.',
+      sourceUrl: 'https://stereogum.com/1810310/read-taylor-swifts-open-letter-to-apple-music/news',
+      thumbnailUrl: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg',
+      moment: {
+        context:
+          'Swift published the letter on Tumblr on June 21, 2015, objecting to Apple Music\'s plan not to pay royalties during its three-month free trial — a policy she said would hurt new artists and songwriters most. Apple reversed the policy within 24 hours, and Swift subsequently put 1989 on the service.',
+        sources: [
+          { outlet: 'Stereogum', url: 'https://stereogum.com/1810310/read-taylor-swifts-open-letter-to-apple-music/news' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/apple-exec-eddy-cue-why-taylor-swift-was-right-39608/',
+          },
+        ],
+        photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum' }],
+      },
+    },
+    {
+      year: 2015,
+      month: 12,
+      category: 'tour',
+      title: 'The 1989 World Tour closes in Melbourne: 85 shows, $250.7 million, 2.28 million tickets',
+      snippet:
+        '"This has been the most incredible adventure" — eight months, 53 cities, 78 guest cameos, and the highest-grossing tour in the world for 2015.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/250px-Taylor_Swift_AAMI_Park_20151212_01.jpg',
+      moment: {
+        context:
+          'The tour wrapped its third Melbourne show at AAMI Park on Dec. 12, 2015, having run 85 shows across 53 cities in 10 countries since opening in Tokyo that May. Final tallies: $250.7 million grossed and 2,278,647 tickets sold (100% of capacity) — Pollstar\'s highest-grossing tour worldwide for 2015. Swift posted a farewell photo with her tour crew: "Farewell, 1989 World Tour."',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-1989-tour-ends-6805721/',
+          },
+        ],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/250px-Taylor_Swift_AAMI_Park_20151212_01.jpg', credit: 'Wikimedia Commons' }],
+      },
+    },
+    {
+      year: 2014,
+      month: 10,
+      category: 'music',
+      title: 'Out of the Woods: a voice memo written to Jack Antonoff\'s track mid-flight',
+      snippet:
+        'She called it the song that "best represents" the album — built around a real snowmobile accident and twenty stitches she\'d kept out of the tabloids.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Taylor_Swift_-_Out_of_the_Woods.png/250px-Taylor_Swift_-_Out_of_the_Woods.png',
+      moment: {
+        context:
+          "Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Swift on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track. The bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time.",
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)' }],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Taylor_Swift_-_Out_of_the_Woods.png/250px-Taylor_Swift_-_Out_of_the_Woods.png', credit: 'Big Machine Records' }],
+      },
+    },
   ],
 };
