@@ -513,6 +513,154 @@ export default {
         ],
       },
     },
+    // --- Music/business/fashion/sighting depth pass 3 (2026-07-05)
+    {
+      year: 2006,
+      month: 10,
+      category: 'music',
+      title: 'Teardrops on My Guitar, and the classmate who showed up in her driveway',
+      snippet:
+        "Written about a real classmate named Drew, later publicly identified as Drew Hardwick -- who didn't know the song was about him until he showed up in her driveway years later.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG',
+      moment: {
+        context:
+          'Swift wrote the song about a classmate named Drew (widely reported, including by outlets covering his later arrest, as Drew Hardwick) who sat next to her in class -- she wanted to date him, but he kept confiding in her about another girl he liked instead. She turned the feeling into a song on the walk home from school. He didn\'t realize the song was about him until, by her account: "About two years after the album came out in the States, he showed up in my driveway. Apparently he and his girlfriend had broken up so that was his first stop when he was back in town."',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar' },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/teardrops-on-my-guitar' },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/drew-hardwick-taylor-swift-sang-122711087.html',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG',
+            credit: 'Big Machine Records (single cover art)',
+          },
+        ],
+      },
+    },
+    {
+      year: 2006,
+      month: 10,
+      category: 'music',
+      title: 'Picture to Burn, and the line rewritten for radio',
+      snippet:
+        "Born from an after-school outburst -- \"I hate his stupid truck that he doesn't let me drive. He's such a redneck!\" -- that became the chorus of her only anger-driven song on the debut album.",
+      sourceUrl: 'https://en.wikipedia.org/wiki/Picture_to_Burn',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+      moment: {
+        context:
+          'Written with Liz Rose about a Hendersonville High classmate she\'d almost dated, who preferred another girl. Mid-session, she blurted out in frustration: "I hate his stupid truck that he doesn\'t let me drive. He\'s such a redneck! Oh my God!" -- and the line became the chorus. She later told The Washington Post: "It\'s about a guy who didn\'t like me back, and I got really mad, you know?" The original album lyric -- "That\'s fine; I\'ll tell mine you\'re gay" -- was softened to "That\'s fine; you won\'t mind if I say" for the Feb. 4, 2008 country-radio single.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Picture_to_Burn' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+            credit: 'Big Machine Records (single cover art)',
+          },
+        ],
+      },
+    },
+    {
+      year: 2007,
+      month: 8,
+      category: 'sighting',
+      title: 'A surprise duet with a 14-year-old AGT finalist, off a red-eye flight',
+      snippet:
+        "\"I can't wait to sing with Julienne...she's such a sweetheart\" -- Swift flew overnight from a Rapid City tour stop to duet on the America's Got Talent finale.",
+      sourceUrl: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=851',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Fourteen-year-old America\'s Got Talent finalist Julienne Irwin\'s wish, if she made the finals, was to duet with her favorite singer. Swift agreed: "I can\'t wait to sing with Julienne on America\'s Got Talent. She\'s such a sweetheart, and I\'m so unbelievably honored that she chose me..." On Aug. 21, 2007, she flew overnight from a tour date in Rapid City, South Dakota to Los Angeles for the live finale, where the pair performed "Teardrops on My Guitar" together in front of 12.1 million viewers, before Swift continued on to a show in Minneapolis.',
+        sources: [
+          { outlet: 'Country Standard Time', url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=851' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Julienne_Irwin' },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2008,
+      month: 1,
+      category: 'sighting',
+      title: 'Her first Ellen appearance, talking Sony/ATV at 14',
+      snippet:
+        'At 18, on Ellen for the first time -- talking about landing a Sony/ATV songwriting deal at 14 and the Nashville move that followed.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-ellen-appearances-8511659/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She made her first appearance on The Ellen DeGeneres Show on Jan. 17, 2008, at 18, as "Teardrops on My Guitar" climbed the charts -- discussing how she signed a songwriting deal with Sony/ATV Music Publishing at 14 and the move toward Nashville that followed. It was the first of what became a recurring guest spot across her career, through 2019.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-ellen-appearances-8511659/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2008,
+      month: 4,
+      category: 'business',
+      title: 'Our Song wins two trophies at the 2008 CMT Music Awards',
+      snippet:
+        '"Our Song" won both Video of the Year and Female Video of the Year at the 2008 CMT Music Awards -- with a cheeky thank-you to the stylist who did her hair and dresses.',
+      sourceUrl: 'https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/',
+      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/74cc6c1d93db-gettyimages-80677442.jpg',
+      moment: {
+        context:
+          'At the 2008 CMT Music Awards on April 14, 2008 at Nashville\'s Curb Events Center, "Our Song" won both Video of the Year and Female Video of the Year, beating a field that included Carrie Underwood, LeAnn Rimes, Martina McBride, and Miranda Lambert. Accepting, 18-year-old Swift joked: "I want to thank Sandy Spika for making all the dresses in that video and for straightening my hair, because that\'s not easy," before tearfully thanking the fans who\'d voted for her.',
+        sources: [
+          { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/' },
+        ],
+        photos: [
+          {
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/74cc6c1d93db-gettyimages-80677442.jpg',
+            credit: 'Jeff Kravitz/Getty Images (performing "Picture to Burn" at the same ceremony)',
+          },
+        ],
+      },
+    },
+    {
+      year: 2008,
+      month: 4,
+      category: 'fashion',
+      title: 'A plum ruffled minidress for the 2008 CMT purple carpet',
+      snippet:
+        'A fitted plum minidress with ruffled asymmetrical waist and metallic heels on the 2008 CMT purple carpet -- the same night "Our Song" won two trophies.',
+      sourceUrl: 'https://www.yahoo.com/entertainment/everything-taylor-swift-worn-cmt-112401779.html',
+      thumbnailUrl:
+        'https://s.yimg.com/ny/api/res/1.2/9fZWYO_g_cw7hKHKR1dJFw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE1Mjc7Y2Y9d2VicA--/https://media.zenfs.com/en/business_insider_articles_888/949b8af84d79dc9c4a91fd85b56f9674',
+      moment: {
+        context:
+          'On the purple carpet at the 2008 CMT Music Awards (April 14, 2008), she wore a plum minidress with thin straps and a V-neckline, fitted through the top and flaring into asymmetrical ruffles at the waist, paired with metallic heels, a side-swept ponytail, and a sparkling headband -- before changing into a black cutout minidress, cowboy boots, and a fedora to perform "Picture to Burn" onstage, throwing the hat across the stage mid-song.',
+        sources: [
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/everything-taylor-swift-worn-cmt-112401779.html',
+          },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
+          },
+        ],
+        photos: [
+          {
+            url:
+              'https://s.yimg.com/ny/api/res/1.2/9fZWYO_g_cw7hKHKR1dJFw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE1Mjc7Y2Y9d2VicA--/https://media.zenfs.com/en/business_insider_articles_888/949b8af84d79dc9c4a91fd85b56f9674',
+            credit: 'Jon Kopaloff/Getty Images',
+          },
+        ],
+      },
+    },
+
+    // --- Sightings depth pass (2026-07-05)
     {
       year: 2008,
       month: 6,
