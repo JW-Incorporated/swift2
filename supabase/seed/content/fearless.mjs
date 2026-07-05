@@ -604,6 +604,149 @@ export default {
         ],
       },
     },
+    // --- Music/business/tour depth pass (2026-07-05)
+    {
+      year: 2008,
+      month: 10,
+      category: 'music',
+      title: "You're Not Sorry, and the ex-boyfriend who felt like Prince Charming",
+      snippet: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
+      sourceUrl: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry",
+      thumbnailUrl:
+        "https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png/250px-Taylor_Swift_-_You%27re_Not_Sorry.png",
+      moment: {
+        context:
+          'She\'s said the inspiration was an ex-boyfriend whose lies took a while to surface: "He came across as Prince Charming [...] who had a lot of secrets that he didn\'t tell me about." The situation became a "breaking point" where she felt she had to walk away before getting hurt further. She wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/You%27re_Not_Sorry' }],
+        photos: [
+          {
+            url: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png/250px-Taylor_Swift_-_You%27re_Not_Sorry.png",
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2008,
+      month: 11,
+      category: 'music',
+      title: 'The Way I Loved You, written with John Rich about missing the chaos',
+      snippet: 'She met a guy who seemed perfect on paper — then wrote a song, with country outlaw John Rich, about missing an ex who wasn\'t.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift was inspired after meeting someone who seemed like the ideal partner but didn\'t feel as exciting as a more toxic ex. She brought the idea to a writing session with John Rich, saying he related "because he is that complicated, frustrating messy guy in his relationships." She called the collaboration "just so cool" and Rich "an incredible writer"; he, in turn, was impressed by her songwriting and connection with her audience at her age.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You' }],
+        photos: [],
+      },
+    },
+    {
+      year: 2008,
+      month: 11,
+      category: 'music',
+      title: 'Forever & Always, added a day before the tracklist was locked',
+      snippet: 'Written about her breakup with Joe Jonas — the last song she finished for Fearless, one day before the album was mastered.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Forever_%26_Always',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg',
+      moment: {
+        context:
+          'Swift pleaded with Big Machine\'s Scott Borchetta to add the track a day before the tracklist was finalized, because it was about "something really, really dramatic and crazy." She\'s described her writing process as reactive: "I can write something, call up my producer, we can get in the studio, put a rush on it, get an overnight mix." On Ellen that November, she first guessed Jonas had ended things "over the phone in 25 seconds," then said she\'d actually checked her call log afterward and corrected herself: it was 27 seconds — "that\'s got to be a record." She felt she "owed it" to fans to be open about it; Jonas later called her response "flattering."',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Forever_%26_Always' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg',
+            credit: 'Wikimedia Commons',
+          },
+        ],
+      },
+    },
+    {
+      year: 2009,
+      month: 10,
+      category: 'music',
+      title: "Untouchable, the one Fearless song she didn't write alone from scratch",
+      snippet: 'A cover of a Luna Halo rock song her label president introduced her to — reworked into a stripped-down country-pop bonus track.',
+      sourceUrl: 'https://theboot.com/taylor-swift-untouchable/',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+      moment: {
+        context:
+          'Swift discovered Luna Halo\'s "Untouchable" when her label president gave her the band\'s album, then debuted a stripped-down cover during a 2008 "Stripped" session before including a reworked version — new lyrics and arrangement, earning her a co-writing credit — on the Fearless: Platinum Edition. Luna Halo\'s Nathan Barlowe on her pick: "She could have chosen any cover in the world, but that\'s what she chose."',
+        sources: [
+          { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-untouchable/' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Luna_Halo_(album)' },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2008,
+      month: 11,
+      category: 'business',
+      title: 'Fearless spends 11 weeks at No. 1 — a record for the whole decade',
+      snippet: 'Eleven non-consecutive weeks atop the Billboard 200: the longest run for a female country album, and for any album released in the 2000s.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+      moment: {
+        context:
+          'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2009,
+      month: 12,
+      category: 'business',
+      title: 'The best-selling album in America — for all of 2009',
+      snippet: '3.217 million copies sold in the US in 2009 alone, making 20-year-old Swift the youngest artist — and only female country act — with a calendar-year best-seller.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+      moment: {
+        context:
+          'With 3.217 million copies sold in the United States throughout 2009, Fearless was the year\'s best-selling album in the country, making Swift, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year. It also spent a total of 58 weeks in the Billboard 200\'s top 10 — a record for a country musician, and the only 2000s album to spend its first full year there.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 6,
+      category: 'tour',
+      title: 'First woman to headline and sell out Gillette Stadium',
+      snippet: '56,868 fans and $3.7 million in ticket sales — the Fearless Tour\'s single highest-grossing night.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_Tour',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg',
+      moment: {
+        context:
+          'On June 5, 2010, the Fearless Tour stop at Gillette Stadium in Foxborough, Massachusetts brought in $3.7 million in ticket sales from 56,868 concertgoers — the tour\'s highest-grossing show — and made Swift the first female musician to headline and sell out Gillette Stadium.',
+        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' }],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg',
+            credit: 'Wikimedia Commons',
+          },
+        ],
+      },
+    },
+
     {
       year: 2010,
       month: 4,
