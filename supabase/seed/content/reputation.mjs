@@ -691,5 +691,191 @@ export default {
         ],
       },
     },
+
+    // --- Music/business/sightings depth pass 3 (2026-07-05) ---
+    // Music backstories were thin (2 items for a 15-track album) going into
+    // this batch; both new quotes below are pulled directly from the primary
+    // iHeartRadio release-party writeup (verified via WebFetch), not a
+    // secondary summary. The two new sightings are genuinely distinct dated
+    // paparazzi events, verified separately from the sibling relationship-
+    // history PR's known milestones. One sighting (the March 2018 Malibu
+    // hike) has no verifiable photo of the actual moment — only generic
+    // file/red-carpet composites turned up under that headline — so its
+    // photos array is intentionally empty rather than using a non-matching
+    // image. All other photo URLs below were verified with curl (2xx,
+    // image/*) and a visual check that they depict the specific moment.
+    {
+      year: 2017,
+      month: 11,
+      category: 'music',
+      title: "The Getaway Car bridge, written in under 30 seconds on camera",
+      snippet:
+        "Jack Antonoff caught it on Taylor's iPhone: \"the only time in my life...that a camera was ever on when magic actually happened.\"",
+      sourceUrl:
+        'https://www.rollingstone.com/music/music-news/jack-antonoff-on-working-with-taylor-swift-and-viral-getaway-car-video-1234852109/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "Taylor wrote and produced Getaway Car with Jack Antonoff, and its bridge came together in under 30 seconds during a studio session she happened to be recording on her phone. Antonoff later called it singular in his career: \"That was the only time in my life — million hours I've spent in studios — that a camera was ever on when magic actually happened. She just had her iPhone on for whatever reason...I think that's why that video became so popular, because it was real.\"",
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/jack-antonoff-on-working-with-taylor-swift-and-viral-getaway-car-video-1234852109/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2017,
+      month: 11,
+      category: 'music',
+      title: "Delicate's confession: 'could something fake...affect something real?'",
+      snippet:
+        "Taylor's own framing, from the album's release night: the record turns vulnerable exactly when it hits track five.",
+      sourceUrl:
+        'https://www.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'At the iHeartRadio reputation release-party special the night the album came out, Taylor explained why Delicate — track five — marks the record\'s turn from bombastic to vulnerable: "Could something fake, like your reputation, affect something real, like somebody getting to know you?" It\'s the moment she\'s said the album starts asking what happens when you meet someone you actually want in your life.',
+        sources: [
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2017,
+      month: 11,
+      category: 'music',
+      title: 'Call It What You Want closes the arc: rebellion, then falling in love',
+      snippet:
+        "\"It starts with...rebellion, or anger, or angst...and then falling in love, and realizing you settle into what your priorities are\" — her own map of reputation, with this song as the landing point.",
+      sourceUrl:
+        'https://www.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 11, and the one most fans read as being about Joe Alwyn — completes reputation\'s arc: "It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are."',
+        sources: [
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2019,
+      month: 2,
+      category: 'business',
+      title: "One nomination for the year's best-selling album",
+      snippet:
+        'At the 61st Grammys, reputation — 2018\'s top seller — picked up a single nomination, Best Pop Vocal Album, and was shut out of Album, Record, and Song of the Year.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-grammys-snub-764008/',
+      thumbnailUrl:
+        'https://www.rollingstone.com/wp-content/uploads/2018/12/taylor-swift-biggest-loser.jpg?w=1600&h=900&crop=1',
+      moment: {
+        context:
+          "Reputation was the best-selling album of both 2017 and 2018, but by the 61st Annual Grammy Awards in February 2019 it had one nomination to show for it: Best Pop Vocal Album. None of its singles — \"Look What You Made Me Do,\" \"...Ready for It?,\" \"End Game,\" \"New Year's Day,\" \"Gorgeous,\" or \"Delicate\" — made the cut for Record, Song, or Album of the Year, making it, per Rolling Stone, her least-nominated LP since her self-titled 2006 debut.",
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-grammys-snub-764008/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2018/12/taylor-swift-biggest-loser.jpg?w=1600&h=900&crop=1',
+            credit: 'Frank Micelotta/PictureGroup/REX Shutterstock',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 10,
+      category: 'business',
+      title: 'Breaking a Rolling Stones record set a decade earlier — in almost half the shows',
+      snippet:
+        "$266.1 million and 2,068,399 tickets across 38 U.S. stadium shows passed the Rolling Stones' prior record — the biggest gross in Billboard Boxscore's history since it began tracking in 1990.",
+      sourceUrl: 'https://www.billboard.com/pro/taylor-swift-reputation-stadium-tour-breaks-record-highest-grossing-us-tour/',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/media/taylor-swift-reputation-tour-nov-21-2018-billboard-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          "The reputation Stadium Tour's North American leg (May 8-Oct. 6, 2018) grossed $266.1 million from 2,068,399 tickets over 38 shows, breaking the U.S. touring record the Rolling Stones had held since their 2005-07 A Bigger Bang tour grossed $245 million — across 70 shows, nearly double what Swift needed.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-reputation-stadium-tour-breaks-record-highest-grossing-us-tour/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-reputation-tour-nov-21-2018-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Jun Sato/TAS18/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 3,
+      category: 'sighting',
+      title: 'A Malibu hike, and an outfit that read like a lyric',
+      snippet:
+        "Their first sighting together in months: a 90-minute Malibu hike, Joe Alwyn in the exact \"dark jeans and Nikes\" from Delicate's opening line, two days before its surprise second video.",
+      sourceUrl:
+        'https://www.etonline.com/taylor-swift-steps-out-for-romantic-hike-with-boyfriend-joe-alwyn-see-the-pic-98043',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Photographed hiking in Malibu on March 7, 2018 — their first sighting together in months — Taylor wore black running shorts, a dark gray tank top, and a black hoodie tied around her waist; Joe Alwyn wore dark jeans and Nike sneakers. A source told E! News "they were deep in conversation for most of the hike and their attention was focused solely on one another." Fans quickly noted Alwyn\'s outfit matched Delicate\'s opening line, "Dark jeans and your Nikes, look at you" — two days before Swift released the song\'s surprise one-take Spotify video.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-steps-out-for-romantic-hike-with-boyfriend-joe-alwyn-see-the-pic-98043',
+          },
+          {
+            outlet: 'Bustle',
+            url: 'https://www.bustle.com/p/taylor-swift-joe-alwyn-went-hiking-but-fans-think-it-was-sneaky-promo-for-her-next-single-8454429',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      year: 2019,
+      month: 3,
+      category: 'sighting',
+      title: 'Hand in hand on the Franklin Canyon trail, near the era\'s close',
+      snippet:
+        'One of the last documented sightings of the reputation stretch: Taylor and Joe Alwyn hiking Franklin Canyon Park in Beverly Hills, caught holding hands by paparazzi.',
+      sourceUrl: 'https://www.justjared.com/2019/03/04/taylor-swift-joe-alwyn-hold-hands-while-hiking-in-l-a/',
+      thumbnailUrl:
+        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-04.jpg',
+      moment: {
+        context:
+          'Photographed holding hands while hiking the Franklin Canyon Park Trail in Beverly Hills on Sunday, March 3, 2019, Taylor wore a yellow crop top, high-waisted denim shorts, and rainbow Nike sneakers, with Joe Alwyn alongside her. It was one of only a handful of documented sightings of the couple during this stretch of the era.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2019/03/04/taylor-swift-joe-alwyn-hold-hands-while-hiking-in-l-a/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-04.jpg',
+            credit: 'Just Jared',
+          },
+        ],
+      },
+    },
   ],
 };
