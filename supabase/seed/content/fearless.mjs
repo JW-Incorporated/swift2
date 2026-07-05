@@ -449,5 +449,189 @@ export default {
         ],
       },
     },
+
+    // --- Sightings + fashion depth pass (2026-07-05)
+    {
+      year: 2009,
+      month: 7,
+      category: 'sighting',
+      title: 'Caught on the Valentine’s Day set with Taylor Lautner',
+      snippet: 'Paparazzi photograph her and co-star Taylor Lautner filming track-and-field scenes at an LA high school — months before their romance went public.',
+      sourceUrl: 'https://www.justjaredjr.com/photo-gallery/231981/taylor-lautner-taylor-swift-team-01/',
+      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-01.jpg',
+      moment: {
+        context:
+          'Shot July 30, 2009, the candids show Lautner clearing a high-jump bar on the track-and-field equipment while the pair filmed their Valentine’s Day roles as high school sweethearts — among the earliest public photos of the two Taylors together.',
+        sources: [
+          {
+            outlet: 'Just Jared Jr.',
+            url: 'https://www.justjaredjr.com/photo-gallery/231981/taylor-lautner-taylor-swift-team-01/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-01.jpg',
+            credit: 'Just Jared Jr.',
+          },
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-05.jpg',
+            credit: 'Just Jared Jr.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2009,
+      month: 10,
+      category: 'sighting',
+      title: 'A hockey date with Taylor Lautner at the Staples Center',
+      snippet: 'Spotted together at a Kings–Blue Jackets game after she picked him up from LAX — the outing that confirmed the "Taylor Squared" romance rumors.',
+      sourceUrl: 'https://theboot.com/taylor-swift-taylor-lautner-3/',
+      thumbnailUrl: 'https://townsquare.media/site/623/files/2009/10/swift-lautner.jpg',
+      moment: {
+        context:
+          'On Oct. 25, 2009, Swift picked Lautner up from the airport and the two headed to a Los Angeles Kings–Columbus Blue Jackets game at the Staples Center, then were seen together in a Beverly Hills hotel lobby that night. An eyewitness said Swift "was all dolled up and looked super pretty," while Lautner "was hiding under a hoody."',
+        sources: [{ outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-taylor-lautner-3/' }],
+        photos: [
+          {
+            url: 'https://townsquare.media/site/623/files/2009/10/swift-lautner.jpg',
+            credit: 'Townsquare Media / The Boot',
+          },
+        ],
+      },
+    },
+    {
+      year: 2009,
+      month: 12,
+      category: 'sighting',
+      title: 'Benihana and Menchie’s frozen yogurt with Taylor Lautner',
+      snippet: 'Photographed leaving a Beverly Hills dinner with Taylor Lautner, carrying a giant pink box and a stuffed polar bear.',
+      sourceUrl: 'https://www.justjaredjr.com/2009/12/04/taylor-lautner-taylor-swift-benihana-buds/',
+      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-01.jpg',
+      moment: {
+        context:
+          'On Dec. 3, 2009, after afternoon reshoots for Valentine’s Day at a local high school, Swift and Lautner grabbed a snack at Menchie’s Frozen Yogurt and met up with co-star Emma Roberts (in a brunette wig) before heading to dinner at Benihana in Beverly Hills.',
+        sources: [
+          {
+            outlet: 'Just Jared Jr.',
+            url: 'https://www.justjaredjr.com/2009/12/04/taylor-lautner-taylor-swift-benihana-buds/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-01.jpg',
+            credit: 'Just Jared Jr.',
+          },
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-05.jpg',
+            credit: 'Just Jared Jr.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2009,
+      month: 12,
+      category: 'sighting',
+      title: 'Ice cream with Emma Stone after a day of photo shoots',
+      snippet: 'Peering into the case at a Baskin-Robbins in New York City with new friend Emma Stone, after a full day on set.',
+      sourceUrl: 'https://www.justjaredjr.com/2009/12/10/taylor-swift-emma-stone-baskin-robbins-besties/',
+      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/emma-taylor/emma-stone-taylor-swift-baskin-robbins-01.jpg',
+      moment: {
+        context:
+          'Swift described the Dec. 9, 2009 outing herself: "Photo shoot all day, followed by dinner with Emma Stone. Then we wandered around a candy store like wide-eyed little kids." The pair had dinner at Otto Restaurant before stopping at the ice cream shop.',
+        sources: [
+          {
+            outlet: 'Just Jared Jr.',
+            url: 'https://www.justjaredjr.com/2009/12/10/taylor-swift-emma-stone-baskin-robbins-besties/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/emma-taylor/emma-stone-taylor-swift-baskin-robbins-01.jpg',
+            credit: 'Just Jared Jr.',
+          },
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/emma-taylor/emma-stone-taylor-swift-baskin-robbins-03.jpg',
+            credit: 'Just Jared Jr.',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 2,
+      category: 'sighting',
+      title: 'Touching down in Sydney for the tour’s Australian leg',
+      snippet: 'Photographed arriving at Sydney Airport days before kicking off the Fearless Tour’s five-date run across Australia.',
+      sourceUrl: 'https://taylorpictures.net/thumbnails.php?album=812',
+      thumbnailUrl: 'https://taylorpictures.net/albums/candids/2010/5-2%20Arriving%20to%20Sydneys%20Airport/normal_001.jpg',
+      moment: {
+        context:
+          'Swift landed in Sydney on Feb. 5, 2010 ahead of the Australian leg of the Fearless Tour, which opened in Brisbane and included a Feb. 7 show at Sydney’s Allphones Arena before moving on to Melbourne.',
+        sources: [{ outlet: 'Taylor Swift Web Photo Gallery', url: 'https://taylorpictures.net/thumbnails.php?album=812' }],
+        photos: [
+          {
+            url: 'https://taylorpictures.net/albums/candids/2010/5-2%20Arriving%20to%20Sydneys%20Airport/normal_001.jpg',
+            credit: 'Taylor Swift Web Photo Gallery',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 3,
+      category: 'sighting',
+      title: 'Bowling with Selena Gomez in Studio City',
+      snippet: 'An off-duty afternoon at Pinz Bowling Center with Selena Gomez, early in a friendship that would become one of her most enduring.',
+      sourceUrl: 'https://www.taylorpictures.net/displayimage.php?album=874&pid=47589',
+      thumbnailUrl:
+        'https://taylorpictures.net/albums/candids/2010/23-3%20Selena%20Gomez%20and%20Taylor%20Swift%20at%20Pinz%20Bowling%20in%20Studio%20City/normal_001.jpg',
+      moment: {
+        context:
+          'On March 23, 2010, Swift and Gomez spent the afternoon bowling with a group of friends at Pinz Bowling Center in Studio City, California — a casual, camera-ready hangout from the earliest stretch of their friendship.',
+        sources: [
+          {
+            outlet: 'Taylor Swift Web Photo Gallery',
+            url: 'https://www.taylorpictures.net/displayimage.php?album=874&pid=47589',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://taylorpictures.net/albums/candids/2010/23-3%20Selena%20Gomez%20and%20Taylor%20Swift%20at%20Pinz%20Bowling%20in%20Studio%20City/normal_001.jpg',
+            credit: 'Taylor Swift Web Photo Gallery',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 4,
+      category: 'fashion',
+      title: 'A wisteria Marchesa gown for a five-nomination night at the 2010 ACM Awards',
+      snippet: 'A draped, chiffon-embroidered wisteria Marchesa gown, Christian Louboutin heels, and Neil Lane jewels at the Academy of Country Music Awards.',
+      sourceUrl: 'https://www.justjaredjr.com/2010/04/18/taylor-swift-is-acm-amazing/',
+      thumbnailUrl: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2010/04/taylor-swift-acm-awards.jpg',
+      moment: {
+        context:
+          'At the April 18, 2010 ACM Awards at Las Vegas’ MGM Grand Garden Arena, 20-year-old Swift wore the Marchesa gown on the carpet ahead of nominations including Entertainer of the Year, then changed mid-performance into a Carmen Marc Valvo dress she tore away on stage.',
+        sources: [
+          {
+            outlet: 'Just Jared Jr.',
+            url: 'https://www.justjaredjr.com/2010/04/18/taylor-swift-is-acm-amazing/',
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2010/04/18/taylor-swift-acm-awards-2010-performance/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2010/04/taylor-swift-acm-awards.jpg',
+            credit: 'Just Jared Jr.',
+          },
+        ],
+      },
+    },
   ],
 };
