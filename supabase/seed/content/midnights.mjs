@@ -1112,5 +1112,125 @@ export default {
         ],
       },
     },
+
+    // --- Fashion/photo depth pass 2 (2026-07-04)
+    {
+      year: 2023,
+      month: 2,
+      category: 'fashion',
+      title: 'A midnight-blue, star-scattered Roberto Cavalli look at the 2023 Grammys',
+      snippet:
+        'A long-sleeve, mock-neck Roberto Cavalli crop top and matching skirt by designer Fausto Puglisi, covered edge to edge in silver and blue sequins and beads meant to read as a night sky — a direct nod to the Midnights album she was there representing.',
+      sourceUrl: 'https://www.redcarpet-fashionawards.com/2023/02/06/taylor-swift-wore-roberto-cavalli-to-the-2023-grammy-awards/',
+      thumbnailUrl:
+        'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg',
+      moment: {
+        context:
+          'Worn to the Feb. 5, 2023 ceremony at Crypto.com Arena, the custom Roberto Cavalli two-piece — designed by the house\'s Fausto Puglisi — was paired with diamond-and-turquoise statement earrings from Lorraine Schwartz.',
+        sources: [
+          {
+            outlet: 'Red Carpet Fashion Awards',
+            url: 'https://www.redcarpet-fashionawards.com/2023/02/06/taylor-swift-wore-roberto-cavalli-to-the-2023-grammy-awards/',
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-roberto-cavalli-2023-grammy-awards-1235509202/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg',
+            credit: 'Getty Images',
+          },
+          {
+            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2022,
+      month: 10,
+      category: 'fashion',
+      title: 'A Dita Von Teese-styled burlesque scene and Pat McGrath\'s 30-look makeup for "Bejeweled"',
+      snippet:
+        'Burlesque legend Dita Von Teese coached Taylor through the martini-glass dance number and worked with stylist Joseph Cassell and costumer Catherine D\'Lish on the crystal-covered costumes; makeup artist Pat McGrath built roughly 30 distinct looks for the video, including a jeweled cat-eye and a red ombré lip.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/dita-von-teese-taylor-swift-bejewled-music-video-1235161045/',
+      thumbnailUrl: 'https://cdn01.justjared.com/wp-content/uploads/headlines/2022/10/bejeweled-cameos.jpg',
+      moment: {
+        context:
+          'Von Teese told Billboard it was a "true pleasure" working with Swift, who she coached on the burlesque choreography for the "Bejeweled" video\'s giant-martini-glass scene, alongside Swift\'s longtime stylist Joseph Cassell and burlesque costumer Catherine D\'Lish. Separately, makeup artist Pat McGrath — who cameos in the video as "Queen Pat" — told E! she created about 30 different looks for the shoot, including a contoured red ombré lip built from three products (Legendary Wear Matte Lipstick in "Elson 4" and PermaGel Ultra Glide Lip Pencils in Deep Dive and Blood Lust), plus a jeweled smoky cat-eye using an unreleased shadow palette from her own line.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/dita-von-teese-taylor-swift-bejewled-music-video-1235161045/',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1352071/pat-mcgrath-reveals-the-hidden-gems-behind-taylor-swifts-glitzy-makeup-in-bejeweled-music-video',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://cdn01.justjared.com/wp-content/uploads/headlines/2022/10/bejeweled-cameos.jpg',
+            credit: 'Just Jared',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 9,
+      category: 'fashion',
+      title: 'A black Versace gown with gold buttons at the 2023 VMAs',
+      snippet:
+        'A black Versace dress with an asymmetrical line of the house\'s signature gold buttons, a thigh-high slit, and Jimmy Choo stiletto pumps — styled by Joseph Cassell, the same stylist behind her Eras Tour looks.',
+      sourceUrl: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-mtv-vmas-2023-red-carpet-versace-1235806480/',
+      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2023/09/taylor-swift-mtv-vmas-2023-photo.jpg?w=1000&h=563&crop=1',
+      moment: {
+        context:
+          'Worn to the Sept. 12, 2023 MTV VMAs — the night she won Video of the Year for "Anti-Hero" among nine total Moon Man wins — the look was finished with a stack of necklaces from Joseph Saidian and Sons and an Anita Ko diamond ear cuff.',
+        sources: [
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-mtv-vmas-2023-red-carpet-versace-1235806480/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://wwd.com/wp-content/uploads/2023/09/taylor-swift-mtv-vmas-2023-photo.jpg?w=1000&h=563&crop=1',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2023,
+      month: 12,
+      category: 'fashion',
+      title: 'The signature Eras Tour red lip, decoded: MAC Ruby True and a rain-proofing routine',
+      snippet:
+        'Backstage footage from "The End of an Era" finally revealed the exact product: MAC\'s Locked Kiss 24HR Lipstick in "Ruby True," applied by longtime makeup artist Lorrie Turk over a Smashbox lip liner to keep it from feathering under stage lights and rain.',
+      sourceUrl: 'https://www.taylorswiftstyle.com/post-grid/teoae-erasredlipstick',
+      thumbnailUrl:
+        'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/f7e15f4a-04b0-4e6b-ac03-07f3e67b9387/1223+Taylor+Swift+Style+Makeup+Feature.png',
+      moment: {
+        context:
+          'The exact shade had been a mystery to fans for years until behind-the-scenes docuseries footage caught Turk applying it: MAC Locked Kiss 24HR Lipstick in "Ruby True," a classic blue-red, layered over Smashbox\'s Be Legendary Line & Prime Pencil and set with Charlotte Tilbury Airbrush Flawless Finish Setting Powder — a combination built specifically to survive multi-hour shows and outdoor-stadium weather.',
+        sources: [
+          {
+            outlet: 'Taylor Swift Style',
+            url: 'https://www.taylorswiftstyle.com/post-grid/teoae-erasredlipstick',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/f7e15f4a-04b0-4e6b-ac03-07f3e67b9387/1223+Taylor+Swift+Style+Makeup+Feature.png',
+            credit: 'Taylor Swift Style',
+          },
+        ],
+      },
+    },
   ],
 };
