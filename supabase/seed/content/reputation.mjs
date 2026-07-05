@@ -521,5 +521,175 @@ export default {
         ],
       },
     },
+
+    // --- Sightings pass (2026-07-05) ---
+    // Zero sighting items existed for this era before this batch. This was a
+    // deliberately private stretch of Taylor's life — she and Joe Alwyn were
+    // photographed together only a handful of times across nearly two years,
+    // almost always by paparazzi/agency photographers rather than at staged
+    // events. Every item below is one of those rare documented sightings;
+    // every claim and photo verified directly against its cited source (see
+    // supabase/seed/content/_example.mjs for the no-fabrication rule). A
+    // broader search for a rare-airport-look sighting and Nashville family
+    // visits in this specific window turned up nothing independently
+    // verifiable, so neither is included — quality over quantity.
+    {
+      year: 2018,
+      month: 5,
+      category: 'sighting',
+      title: 'A fish-and-chips pub date at The Flask, no red carpet in sight',
+      snippet:
+        'Paparazzi caught Taylor and Joe Alwyn leaving The Flask, a traditional North London pub, after fish and chips and a pint each — one of only a handful of public sightings during a deliberately private relationship.',
+      sourceUrl: 'https://www.wmagazine.com/story/taylor-swift-joe-alwyn-photographed-date-london',
+      thumbnailUrl:
+        'https://imgix.bustle.com/wmag/2018/06/01/5b11723f15af2220684cbe78_GettyImages-963107270.jpg?w=414&h=276&fit=crop&crop=faces&dpr=2',
+      moment: {
+        context:
+          'Photographed leaving The Flask, a centuries-old pub in North London, on May 30, 2018, mid-way through a break in the reputation Stadium Tour. Swift wore a striped tank top and skirt; Alwyn kept it casual in a white T-shirt and jeans. The two spent about 45 minutes inside over fish and chips and pints of London Pride before leaving in a waiting car — one of the rare unstaged sightings the notoriously private couple allowed during this era.',
+        sources: [
+          {
+            outlet: 'W Magazine',
+            url: 'https://www.wmagazine.com/story/taylor-swift-joe-alwyn-photographed-date-london',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-steps-mini-skirt-232044419.html',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/wmag/2018/06/01/5b11723f15af2220684cbe78_GettyImages-963107270.jpg?w=414&h=276&fit=crop&crop=faces&dpr=2',
+            credit: 'Jo Hale/Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 7,
+      category: 'sighting',
+      title: 'A rare Fourth of July, just the two of them, in Turks and Caicos',
+      snippet:
+        'No star-studded Rhode Island party this year — instead, Taylor and Joe Alwyn were photographed hand in hand on a beach in Turks and Caicos over the holiday weekend, swimming and snorkeling during a tour break.',
+      sourceUrl: 'https://www.eonline.com/news/950442/taylor-swift-and-joe-alwyn-hold-hands-in-turks-and-caicos',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/201869/rs_634x1024-180709130925-634-Taylor-Swift-Joe-Alwayn-Turks-And-Caicos-JR-070918.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top',
+      moment: {
+        context:
+          "During a break in the reputation Stadium Tour's summer leg, Swift and Alwyn spent the July 4, 2018 weekend at an oceanfront villa in Turks and Caicos rather than hosting her usual Rhode Island gathering. Paparazzi photographed the couple walking the shoreline hand in hand, swimming, and snorkeling; an eyewitness told E! News they kept a low profile the entire stay, splitting time between the villa's beach, pool, and gym.",
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/950442/taylor-swift-and-joe-alwyn-hold-hands-in-turks-and-caicos',
+          },
+          {
+            outlet: 'Just Jared Jr.',
+            url: 'https://www.justjaredjr.com/2018/07/05/taylor-swift-vacations-with-joe-alwyn-in-turks-caicos/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201869/rs_634x1024-180709130925-634-Taylor-Swift-Joe-Alwayn-Turks-And-Caicos-JR-070918.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top',
+            credit: 'SBMF / BACKGRID',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 8,
+      category: 'sighting',
+      title: 'Steak, wine, and a rare London date night at Hawksmoor',
+      snippet:
+        'Taylor and Joe Alwyn were photographed holding hands leaving Hawksmoor Seven Dials, a Covent Garden steakhouse, after a two-and-a-half-hour dinner during a break in the reputation Stadium Tour.',
+      sourceUrl: 'https://www.eonline.com/news/962926/inside-taylor-swift-and-joe-alwyn-s-romantic-dinner-date-in-london',
+      thumbnailUrl:
+        'https://s.yimg.com/ny/api/res/1.2/8s7AwHFL8l1fcEO1Nzrakg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02MjQ7Y2Y9d2VicA--/https://media.zenfs.com/en-US/homerun/elle_570/932921f24da6dde86e34cff9ab62a007',
+      moment: {
+        context:
+          'On August 22, 2018, during a five-day break from touring, Swift and Alwyn dined at Hawksmoor Seven Dials in Covent Garden, arriving around 8 p.m. with security and leaving hand in hand roughly two and a half hours later. They reportedly shared fillet steaks with spinach and mac and cheese, toasting with wine in a private section of the restaurant. Swift wore an off-the-shoulder green dress and a necklace bearing Alwyn\'s initial.',
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/962926/inside-taylor-swift-and-joe-alwyn-s-romantic-dinner-date-in-london',
+          },
+          {
+            outlet: 'Elle (via Yahoo)',
+            url: 'https://www.yahoo.com/lifestyle/taylor-swift-joe-alwyn-ate-182400550.html',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://s.yimg.com/ny/api/res/1.2/8s7AwHFL8l1fcEO1Nzrakg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02MjQ7Y2Y9d2VicA--/https://media.zenfs.com/en-US/homerun/elle_570/932921f24da6dde86e34cff9ab62a007',
+            credit: 'BACKGRID',
+          },
+          {
+            url: 'https://s.yimg.com/ny/api/res/1.2/BUHEwdl3nKDJks5lcyY46g--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTEwNDY7Y2Y9d2VicA--/https://media.zenfs.com/en-US/homerun/elle_570/c5e18120192022d5561829bc16d9961e',
+            credit: 'BACKGRID',
+          },
+        ],
+      },
+    },
+    {
+      year: 2018,
+      month: 9,
+      category: 'sighting',
+      title: 'Skipping the red carpet to support Joe Alwyn at the New York Film Festival',
+      snippet:
+        "Swift avoided The Favourite's red carpet entirely, watching from inside Lincoln Center and catching up with Jennifer Lawrence, then left hand in hand with Alwyn through a back exit.",
+      sourceUrl: 'https://www.wmagazine.com/story/taylor-swift-joe-alwyn-the-favourite-premiere',
+      thumbnailUrl:
+        'https://imgix.bustle.com/wmag/2018/09/29/5baf8bb27359e94f4fc119bb_GettyImages-1042761566.jpg?w=414&h=531&fit=crop&crop=faces&dpr=2',
+      moment: {
+        context:
+          'On September 28, 2018, Swift attended the New York Film Festival premiere of The Favourite to support Alwyn, who co-starred alongside Emma Stone and Rachel Weisz. She skipped the red carpet where her boyfriend posed with castmates, instead watching the screening from inside Lincoln Center\'s theater, where she was seen chatting with Jennifer Lawrence. Photographers caught the couple leaving hand in hand through a side exit afterward, in a sparkling red-and-black sequined dress, Jimmy Choo pumps, and Eva Fehren jewelry.',
+        sources: [
+          {
+            outlet: 'W Magazine',
+            url: 'https://www.wmagazine.com/story/taylor-swift-joe-alwyn-the-favourite-premiere',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-joe-alwyn-the-favourite-premiere-8477522/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://imgix.bustle.com/wmag/2018/09/29/5baf8bb27359e94f4fc119bb_GettyImages-1042761566.jpg?w=414&h=531&fit=crop&crop=faces&dpr=2',
+            credit: 'Jackson Lee/GC Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2019,
+      month: 4,
+      category: 'sighting',
+      title: 'A denim-themed birthday party for Gigi Hadid — sans denim',
+      snippet:
+        "Swift made a rare public appearance at best friend Gigi Hadid's 24th birthday party in New York, skipping the party's all-denim dress code for a red checkered blazer and floral dress.",
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-gigi-hadid-birthday-party-photos-8508341/',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-nyc-April-22-2019-billboard-1548.jpg?w=942&h=628&crop=1',
+      moment: {
+        context:
+          "Swift attended Gigi Hadid's 24th birthday celebration at L'Avenue at Saks in New York City on April 22, 2019, alongside guests including Martha Hunt, Hailee Steinfeld, Ashley Graham, and Hadid's mother Yolanda. Photographers caught her arriving in a red checkered blazer over a floral dress, having opted out of the party's denim theme. Appearances at friends' private events were among the only places she was reliably photographed during this deliberately low-profile stretch.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-gigi-hadid-birthday-party-photos-8508341/',
+          },
+          {
+            outlet: 'Refinery29',
+            url: 'https://www.refinery29.com/en-us/2019/04/230667/taylor-swift-gigi-hadid-birthday-surprise-appearance',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-nyc-April-22-2019-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Gotham/GC Images',
+          },
+        ],
+      },
+    },
   ],
 };
