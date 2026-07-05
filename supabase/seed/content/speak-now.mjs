@@ -571,5 +571,166 @@ export default {
         ],
       },
     },
+
+    // --- Sightings pass (2026-07-05) ---
+    {
+      year: 2010,
+      month: 10,
+      category: 'sighting',
+      title: 'A surprise JetBlue concert for travelers at JFK',
+      snippet:
+        "The day after Speak Now hit shelves, she played a surprise set for travelers in JetBlue's Terminal 5 lounge — no tickets sold, just whoever happened to be flying that day.",
+      sourceUrl: 'https://archive.longislandpress.com/2010/10/28/taylor-swift-performs-at-jfk-airport-photos/',
+      thumbnailUrl: 'https://archive.longislandpress.com/wp-content/uploads/2010/10/swift.jpg?w=358',
+      moment: {
+        context:
+          "Held October 27, 2010 as part of JetBlue's 'Live From T5' concert series at JFK Airport, the pop-up show happened past security — only passengers already ticketed out of that terminal could catch it. She played selections from Speak Now, released one day earlier.",
+        sources: [
+          {
+            outlet: 'Long Island Press',
+            url: 'https://archive.longislandpress.com/2010/10/28/taylor-swift-performs-at-jfk-airport-photos/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://archive.longislandpress.com/wp-content/uploads/2010/10/swift.jpg?w=358',
+            credit: 'Kevin Kane/FilmMagic',
+          },
+        ],
+      },
+    },
+    {
+      year: 2010,
+      month: 11,
+      category: 'sighting',
+      title: 'A Thanksgiving-morning coffee run with Jake Gyllenhaal',
+      snippet:
+        "She and rumored boyfriend Jake Gyllenhaal stopped into Gorilla Coffee in Brooklyn's Park Slope on Thanksgiving morning, asking an employee to help pick out beans before ordering lattes.",
+      sourceUrl: 'https://www.justjared.com/2010/11/25/taylor-swift-jake-gyllenhaal-thanksgiving-in-brooklyn/',
+      thumbnailUrl:
+        'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
+      moment: {
+        context:
+          'A witness told Just Jared the pair "asked one of the coffee shop employees for help picking out beans" and "both seemed super nice" before ordering lattes on November 25, 2010. Gyllenhaal\'s sister Maggie lives in the Park Slope neighborhood, making it a family-adjacent holiday visit. The outing — and the scarf Swift left behind that day — became a touchstone for fans after "All Too Well" referenced it two years later.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2010/11/25/taylor-swift-jake-gyllenhaal-thanksgiving-in-brooklyn/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
+            credit: 'Getty Images',
+          },
+        ],
+      },
+    },
+    {
+      year: 2011,
+      month: 4,
+      category: 'sighting',
+      title: 'An Anthropologie run the morning after her second ACM win',
+      snippet:
+        'Chatting on her cell phone while browsing racks at an Anthropologie in Beverly Hills — less than a day after winning Entertainer of the Year at the ACMs for the second year running.',
+      sourceUrl: 'https://www.justjared.com/photo-gallery/2532939/taylor-swift-anthropologie-11/',
+      thumbnailUrl:
+        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2011/04/swift-anthropologie/taylor-swift-anthropologie-11.jpg',
+      moment: {
+        context:
+          'Photographed April 4, 2011 carrying a Ralph Lauren Collection crossbody bag. The night before, she\'d performed new single "Mean" and picked up the Entertainer of the Year trophy at the 2011 Academy of Country Music Awards in Las Vegas.',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2011/04/06/taylor-swift-anthropologie-after-acms/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2011/04/swift-anthropologie/taylor-swift-anthropologie-11.jpg',
+            credit: 'WENN',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 3,
+      category: 'sighting',
+      title: 'Dinner with mom Andrea (and Dianna Agron, just out of frame) at Il Pastaio',
+      snippet:
+        'Stopping to say hi to a fan on her way out of Il Pastaio in Beverly Hills after dinner with her mom — and, unpictured that night, new friend Dianna Agron.',
+      sourceUrl: 'https://www.justjaredjr.com/2012/03/31/taylor-swift-il-pastaio-pretty/',
+      thumbnailUrl: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2012/03/taylor-swift-il-pastaio.jpg',
+      moment: {
+        context:
+          "Photographed March 30, 2012 in Beverly Hills; Just Jared Jr. reported she'd eaten alongside mom Andrea and \"good friend Dianna Agron (not pictured).\" Swift and the Glee star had grown close that year while Swift was recording Red between tour dates. Later that same day, Swift received Nickelodeon's Big Help Award from Michelle Obama at the Kids' Choice Awards.",
+        sources: [
+          {
+            outlet: 'Just Jared Jr.',
+            url: 'https://www.justjaredjr.com/2012/03/31/taylor-swift-il-pastaio-pretty/',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2012/03/taylor-swift-il-pastaio.jpg',
+            credit: 'INFdaily',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 8,
+      category: 'sighting',
+      title: 'Wading through the surf with Conor Kennedy on Cape Cod',
+      snippet:
+        'Hand in hand in the shallows off Cape Cod in a red polka-dot bikini — the most photographed stretch of her brief summer romance with Conor Kennedy.',
+      sourceUrl: 'https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
+      moment: {
+        context:
+          "By mid-August 2012 the two were photographed wading and embracing in the water off the Kennedy family's stretch of Cape Cod, part of a summer Swift spent largely at the Kennedys' Hyannis Port compound after she and Conor — RFK's 18-year-old grandson — were first linked that July. Days later they were photographed strolling Hyannis Port and joining his family for outdoor volleyball.",
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
+            credit: 'Paul Adao/INFphoto.com',
+          },
+        ],
+      },
+    },
+    {
+      year: 2012,
+      month: 8,
+      category: 'sighting',
+      title: "A quiet visit to Mary Kennedy's gravesite",
+      snippet:
+        "On August 19, 2012, Taylor joined Conor Kennedy at his mother Mary Richardson Kennedy's gravesite — one of the last photographed moments of their summer romance.",
+      sourceUrl: 'https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/2012722/634.ConorKennedy.TaylorSwift.081912.jpeg',
+      moment: {
+        context:
+          "Mary Richardson Kennedy had died in May 2012; reports at the time said Swift accompanied Conor to the grave and helped clear overgrown brush from the site. It's remembered as one of the final documented moments of the two together — the relationship reportedly ended by October.",
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012722/634.ConorKennedy.TaylorSwift.081912.jpeg',
+            credit: 'Paul Adao/INFphoto.com',
+          },
+        ],
+      },
+    },
   ],
 };
