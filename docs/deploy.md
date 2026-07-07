@@ -42,7 +42,7 @@ mode — that's what Path B adds once the app is linked.)
 
 ## Path B — GitHub integration (once an org owner can approve)
 
-1. vercel.com → Add New… → Project → import `sffan15-sys/swift2`.
+1. vercel.com → Add New… → Project → import `JW-Incorporated/swift2`.
    If it's not listed, **Adjust GitHub App Permissions** → grant access to the
    repo (an **org owner must approve** the install on the org).
 2. **Root Directory → `apps/web`** (leave "Include files outside root" on).

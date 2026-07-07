@@ -4,6 +4,7 @@ node_modules/
 # Environment & secrets — never commit
 .env
 .env.*
+!.env.example
 *.pem
 *.key
 secrets/
@@ -13,6 +14,7 @@ dist/
 build/
 .next/
 .expo/
+.vercel/
 *.tsbuildinfo
 
 # Logs & OS noise
