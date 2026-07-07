@@ -353,6 +353,19 @@ the Vault ships publicly — a user landing on any era should never find a
 milestone month with zero content. Non-wavetop "Active" months can ship
 incrementally era-by-era after that bar is met.
 
+**Superseded 2026-07-04 — see `docs/marketing/ship-readiness-review-2026-07-04.md`
+and `docs/decisions.md`:** the wavetop-only bar above was met (#38, all 11
+eras) the same day it was challenged on retention grounds — with no
+notifications in v1, unexplored depth is the app's only mechanic for
+bringing a lapsed user back, and a 100-item archive is exhaustible in one
+sitting. The revised bar: wavetop-only stays the floor for all 11 eras,
+**plus Midnights and Tortured Poets must reach Active-tier depth
+(prioritizing `relationship`/`sighting`/`fashion`, the categories
+currently at 0/2/11 items) before public launch.** The remaining 9 eras
+ship at the wavetop floor and deepen on a post-launch weekly cadence — see
+the decision log for why, and for the retention logic's real dependency
+(an external marketing commitment, not an in-app mechanism).
+
 ## Verdict
 
 1. **Adopt the revised curated-depth 3-tier rubric above as the answer to
