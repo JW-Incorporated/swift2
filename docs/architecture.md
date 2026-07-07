@@ -4,9 +4,11 @@ Owner: Wyatt (CTO). This is the source of truth for stack, hosting, data, and
 coding standards. Expensive-to-reverse choices are mirrored as entries in
 `docs/decisions.md`.
 
-Status: v0.1 — initial stack chosen, driven by the Vault era-scrubber as the
-reference workload (see below). Product vision (`docs/vision.md`) is still
-Joey's to fill in; this doc will grow as features are specced.
+Status: v0.2 — stack proven against the reference workload. The web Vault
+reader (era-scrubber + two-tier serving) is built and in review, and the Expo
+mobile app is scaffolded reusing `packages/*` unchanged (validating the shared
+boundary). Product vision (`docs/vision.md`) is still Joey's to fill in; this
+doc grows as features are specced.
 
 ---
 
@@ -36,7 +38,7 @@ Monorepo, npm workspaces (Orbit's layout):
 
 ```
 apps/web        Next.js reader
-apps/mobile     Expo app            (added when we start mobile)
+apps/mobile     Expo app            (scaffolded — reuses packages/* unchanged)
 packages/shared types + domain, zero I/O — portable
 packages/core   data-access layer over Supabase — portable
 ```
@@ -162,5 +164,7 @@ Carried over from Orbit's discipline:
 
 - Product class: read-only content vs. social/UGC vs. utility — gates how much
   auth/RLS/realtime we actually build.
-- Whether the News/Current world exists in v1 at all, or Vault ships first.
 - Free-scrub-with-milestone-anchors (scrubber v2) — deferred.
+
+_Resolved:_ v1 scope is the **Vault only**; the News/Current world is out of v1
+(see `docs/decisions.md`, 2026-07-03).

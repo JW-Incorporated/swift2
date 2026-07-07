@@ -58,6 +58,78 @@ fights scroll-up-to-previous-era). Flagged by a Codex review of the reader.
 **Approved by:** _pending Wyatt/Joey_ (documented divergence from the spec's
 per-era overscroll wording; primary grab-summon unaffected)
 
+## 2026-07-04 — Ship-readiness bar: wavetop everywhere + 2 flagship eras deep, then weekly post-launch drops
+
+**Decision:** v1's content ship bar is revised from wavetop-only (all 11 eras,
+met by #38) to: wavetop-only stays the floor for all 11 eras, **plus Midnights
+and Tortured Poets must reach Active-tier depth** (the framework's 3-tier rubric
+applied beyond just milestone months) **before public launch**, weighted toward
+`relationship`, `sighting`, and `fashion` — the categories currently at 0, 2,
+and 11 items respectively, against `vision.md`'s explicit promise to cover
+sightings, fashion, and relationships. The remaining 9 eras ship at the wavetop
+floor and are deepened on a **public weekly cadence after launch** ("era
+drops"), each announced externally.
+
+**Why:** Joey challenged the wavetop-only bar on retention grounds — v1 has no
+notifications or news feed (2026-07-03 decision below), so unexplored content
+depth is the app's only mechanic for bringing a lapsed user back, and a
+100-item archive is exhaustible in a single session. Full depth across all 11
+eras before launch (~350 items, a ~3.5x jump concentrated in the
+slowest-to-source categories) was rejected: it defers all launch value behind
+one large authoring push with nothing shippable in between, and compounds
+already-open quality debt (`docs/marketing/content-review-2026-07-04.md`)
+rather than fixing it first. Two flagship eras deepened pre-launch, with the
+rest on a weekly cadence, ships incrementally like every other track in this
+project and gives the founders a recurring reason to post externally instead
+of one launch mention.
+
+**The retention logic's real dependency, stated explicitly so it isn't
+glossed over:** with no in-app notification system, the weekly-drop cadence
+only produces retention if it is **publicly announced** (external/social
+posts naming what changed) — a silently-deepened backend is retention-
+equivalent to shipping nothing extra. This makes the cadence a marketing-
+operations commitment on Joey, not just a content-authoring schedule. If that
+weekly commitment can't be sustained, this option collapses to the old
+wavetop-only bar's retention profile with extra pre-launch authoring cost and
+no offsetting benefit.
+
+**Alternatives considered:** (A) Keep the wavetop-only bar as the sole ship
+floor — rejected as the weakest retention story of the three, not because it's
+wrong on effort/speed grounds. (B) Full curated depth across all 11 eras before
+launch — rejected per the sizing above, not because it's technically
+infeasible (a payload-budget objection in the prior framework doc doesn't
+hold: 100 items measures at 0.6% of the 2MB gzipped Tier-0 budget, per
+`docs/roadmap.md` W6 — real cost is authoring time and quality risk, not
+payload).
+
+**Update, same day — Joey asked why not front-load full depth with more AI
+effort, since Max's constraint is a rate-limit window, not dollars, and
+tokens are cheap. Correct on one point, not on two others (see
+`docs/marketing/ship-readiness-review-2026-07-04.md` addendum):** the "B
+defers everything behind one 11-era batch" reasoning above was wrong — each
+era is an independently owned/shippable seed file
+(`supabase/seed/content/<era>.mjs`), so full-depth authoring can run in
+**parallel across eras beyond the two named here**, with each era shipping
+full-depth the moment it individually clears Codex review + Joey's spot-check,
+rather than waiting on all 11 together. **This is additive to the gate below,
+not a replacement for it** — Midnights + Tortured Poets at Active-tier depth
+remain the fixed minimum that blocks launch; any additional eras that clear
+review in time ship deep too, reducing (not eliminating) reliance on the
+post-launch weekly-drop plan for whatever's left. What tokens still can't buy:
+real sources for months where nothing public happened (no padding, no
+fabrication, ever — unchanged), and Joey's own spot-check time, which is the
+one step in the pipeline that scales with his hours, not compute. Nobody has
+timed that review step yet — doing so on the next batch is the actual
+constraint on how many eras "parallel effort" can realistically clear before
+launch, not token budget.
+
+**Ref:** `docs/marketing/ship-readiness-review-2026-07-04.md` (Codex
+adversarial-review round included), superseding the ship-readiness bar in
+`docs/marketing/content-framework-2026-07-03.md`.
+
+**Approved by:** Pending Joey sign-off on this PR — this is the marketing
+dept's recommendation, not yet a confirmed product decision.
+
 ## 2026-07-04 — Song track guide is a separate, non-month-scoped shape
 
 **Decision:** Full song-catalog coverage lives in a new `track_note` table
