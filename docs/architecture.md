@@ -10,6 +10,14 @@ mobile app is scaffolded reusing `packages/*` unchanged (validating the shared
 boundary). Product vision (`docs/vision.md`) is still Joey's to fill in; this
 doc grows as features are specced.
 
+> **Front-end note.** The interactive experience currently shipped on the web
+> (the era/threads reader at `/`) is a self-contained, statically-authored
+> layer under `apps/web/components/longlive/**` + `apps/web/lib/longlive/**`.
+> It does not yet read from the Supabase two-tier path described below. That
+> layer has its own manual: **`docs/longlive-experience.md`** — read it before
+> working on the site UI. This doc remains the source of truth for the
+> underlying stack/data plan the two will converge on.
+
 ---
 
 ## Guiding principle
