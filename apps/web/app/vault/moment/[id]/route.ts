@@ -5,9 +5,10 @@ import { loadMoment } from '../../../../lib/vault';
 // at the edge; content is static between deploys so a long s-maxage is safe.
 export const revalidate = 3600;
 
-export async function GET(_req: Request, { params }: { params: { id: string } }) {
+export async function GET(_req: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const moment = await loadMoment(params.id);
+    const { id } = await params;
+    const moment = await loadMoment(id);
     if (!moment) {
       return NextResponse.json({ error: 'moment not found' }, { status: 404 });
     }
