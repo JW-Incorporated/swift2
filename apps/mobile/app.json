@@ -8,7 +8,9 @@
     "userInterfaceStyle": "dark",
     "backgroundColor": "#0b0b0f",
     "icon": "./assets/icon.png",
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.jwincorporated.swift2"
@@ -43,6 +45,12 @@
           }
         }
       ]
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "a4ff0e9b-ad3e-48a4-a765-ffc19a8b3209"
+      }
+    },
+    "owner": "wjduvall"
   }
 }
