@@ -146,4 +146,29 @@ export interface EggLink {
   label: string;
 }
 
-export type LensId = 'love-story' | 'fashion' | 'taylors-version' | 'easter-eggs';
+export type LensId =
+  | 'love-story'
+  | 'fashion'
+  | 'taylors-version'
+  | 'easter-eggs'
+  | 'the-proposal';
+
+/**
+ * A single dated, sourced moment on a narrative story thread (e.g. the
+ * engagement timeline). Unlike the other lens datasets, story beats carry a
+ * real-world citation so fans can trust the facts.
+ */
+export interface StoryBeat {
+  id: string;
+  /** ISO date (YYYY-MM-DD). */
+  date: string;
+  /** Human display date, e.g. "August 26, 2025". */
+  dateLabel: string;
+  eraId: EraId;
+  title: string;
+  body: string;
+  /** Publication the fact is attributed to, e.g. "AP News". */
+  source?: string;
+  /** Optional pull-quote (a caption, lyric, or public statement). */
+  quote?: string;
+}

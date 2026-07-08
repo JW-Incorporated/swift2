@@ -11,6 +11,8 @@ import {
   Music,
   ArrowLeft,
   ArrowRight,
+  Gem,
+  Quote,
 } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
@@ -21,6 +23,7 @@ import {
   RERECORDS,
   EGG_NODES,
   EGG_LINKS,
+  PROPOSAL_BEATS,
   THREADS,
   getThread,
 } from '@/lib/longlive/lenses';
@@ -33,6 +36,7 @@ const ICONS: Record<LensId, typeof Heart> = {
   fashion: Shirt,
   'taylors-version': RefreshCw,
   'easter-eggs': Sparkles,
+  'the-proposal': Gem,
 };
 
 /**
@@ -170,6 +174,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
         {threadId === 'fashion' && <Runway />}
         {threadId === 'taylors-version' && <TaylorsVersion />}
         {threadId === 'easter-eggs' && <ClueWeb />}
+        {threadId === 'the-proposal' && <TheProposal />}
       </div>
 
       <ThreadsTimeline threadId={threadId} />
@@ -239,6 +244,70 @@ function LoveStory() {
           </ThreadItem>
         );
       })}
+    </div>
+  );
+}
+
+/* ── The Proposal (sourced story thread) ─────────────────────────── */
+function TheProposal() {
+  return (
+    <div className="pt-8">
+      <div className="relative space-y-4 pl-6">
+        {/* Vertical spine */}
+        <span
+          aria-hidden
+          className="absolute bottom-2 left-[7px] top-2 w-px"
+          style={{ backgroundColor: 'var(--era-line)' }}
+        />
+        {PROPOSAL_BEATS.map((beat) => {
+          const era = getEra(beat.eraId);
+          return (
+            <ThreadItem key={beat.id} date={beat.date}>
+              <div className="relative">
+                {/* Era-colored node on the spine */}
+                <span
+                  aria-hidden
+                  className="absolute -left-6 top-2 h-3.5 w-3.5 rounded-full border-2"
+                  style={{ borderColor: era.theme.accent, backgroundColor: 'var(--era-bg)' }}
+                />
+                <article className="era-card rounded-2xl border p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-2">
+                    <span
+                      className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
+                      style={{
+                        backgroundColor: `color-mix(in srgb, ${era.theme.accent} 14%, transparent)`,
+                        color: era.theme.accent,
+                      }}
+                    >
+                      {era.shortName} · {beat.dateLabel}
+                    </span>
+                    {beat.source && (
+                      <span className="text-[11px] uppercase tracking-wider text-[color:var(--era-ink-soft)]">
+                        Source: {beat.source}
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold">
+                    {beat.title}
+                  </h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+                    {beat.body}
+                  </p>
+                  {beat.quote && (
+                    <blockquote className="mt-3 flex gap-2 border-l-2 pl-3 text-[15px] italic leading-relaxed text-[color:var(--era-ink)]" style={{ borderColor: era.theme.accent }}>
+                      <Quote className="mt-1 h-3.5 w-3.5 shrink-0 text-[color:var(--era-accent)]" />
+                      <span>{beat.quote}</span>
+                    </blockquote>
+                  )}
+                </article>
+              </div>
+            </ThreadItem>
+          );
+        })}
+      </div>
+      <p className="mt-6 text-center text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+        Compiled from public reporting by an independent fan project. Not affiliated with or endorsed by Taylor Swift.
+      </p>
     </div>
   );
 }
