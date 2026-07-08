@@ -20,6 +20,7 @@ const RAW: Record<EraId, RawItem[]> = {
   debut: [
     {
       id: 'debut-tim-mcgraw',
+      video: { youtubeId: 'GkD20ajVxnY', title: 'Taylor Swift - Tim McGraw' },
       date: '2006-06-19',
       dateLabel: 'June 2006',
       title: '“Tim McGraw” arrives',
@@ -49,6 +50,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: 'debut-our-song',
+      video: { youtubeId: 'Jb2stN7kH28', title: 'Taylor Swift - Our Song' },
       date: '2007-09-08',
       dateLabel: 'September 2007',
       title: '“Our Song” hits number one',
@@ -136,6 +138,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: 'red-wanegbt',
+      video: { youtubeId: 'WA4iX5D9Z64', title: 'Taylor Swift - We Are Never Ever Getting Back Together' },
       date: '2012-08-13',
       dateLabel: 'August 2012',
       title: '“We Are Never Ever Getting Back Together”',
@@ -148,6 +151,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: 'red-begin-again',
+      video: { youtubeId: 'cMPEd8m79Hw', title: 'Taylor Swift - Begin Again' },
       date: '2012-10-01',
       dateLabel: 'October 2012',
       title: '“Begin Again” as the soft landing',
@@ -166,6 +170,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: 'red-i-knew-you',
+      video: { youtubeId: 'vNoKguSdy4Y', title: 'Taylor Swift - I Knew You Were Trouble' },
       date: '2012-11-12',
       dateLabel: 'November 2012',
       title: '“I Knew You Were Trouble” goes global',
@@ -228,6 +233,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: '1989-shake-it-off',
+      video: { youtubeId: 'nfWlot6h_JM', title: 'Taylor Swift - Shake It Off' },
       date: '2014-08-18',
       dateLabel: 'August 2014',
       title: '“Shake It Off” launches the era',
@@ -237,6 +243,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: '1989-blank-space',
+      video: { youtubeId: 'e-ORhEE9VVg', title: 'Taylor Swift - Blank Space' },
       date: '2014-11-10',
       dateLabel: 'November 2014',
       title: '“Blank Space” flips the narrative',
@@ -264,6 +271,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: '1989-bad-blood',
+      video: { youtubeId: 'QcIy9NiNbmo', title: 'Taylor Swift - Bad Blood ft. Kendrick Lamar' },
       date: '2015-05-17',
       dateLabel: 'May 2015',
       title: '“Bad Blood” short film',
@@ -369,6 +377,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: 'folklore-cardigan',
+      video: { youtubeId: 'K-a8s8OLBSE', title: 'Taylor Swift - cardigan' },
       date: '2020-08-01',
       dateLabel: 'Summer 2020',
       title: 'The cardigan and cottagecore',
@@ -415,6 +424,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: 'midnights-antihero',
+      video: { youtubeId: 'b1kbLwvqugk', title: 'Taylor Swift - Anti-Hero (Official Music Video)' },
       date: '2022-10-24',
       dateLabel: 'October 2022',
       title: '“Anti-Hero” dominates',

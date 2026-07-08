@@ -7,6 +7,7 @@ import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@/lib/longlive/eras';
 import { TAG_META } from '@/lib/longlive/tags';
+import { MomentVideo } from './MomentVideo';
 
 export function MomentDetail() {
   const { openItemId } = useAppState();
@@ -100,6 +101,8 @@ export function MomentDetail() {
             </p>
           ))}
         </div>
+
+        {item.video && <MomentVideo video={item.video} />}
 
         {item.hiddenClue && (
           <div className="era-card mt-8 rounded-2xl border p-5">
