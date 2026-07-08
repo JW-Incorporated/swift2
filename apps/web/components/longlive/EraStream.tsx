@@ -1,7 +1,7 @@
 'use client';
 
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
-import { ChevronDown, ArrowUp, Sparkles } from 'lucide-react';
+import { ArrowUp, Sparkles } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { ERAS, erasBackFrom, isFirstEra, getEra } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
@@ -141,36 +141,18 @@ export function EraStream() {
   );
 }
 
-/** The color-morphing band between two stacked eras. */
+/**
+ * The color-morphing band between two stacked eras — a pure gradient that
+ * smooths the palette change from one era into the next. No text: the era name
+ * lives in the hero directly below, so a label here would just be redundant.
+ */
 function EraTransition({ from, to }: { from: Era; to: Era }) {
   return (
     <div
       aria-hidden
-      className="relative flex h-[40vh] items-center justify-center overflow-hidden"
+      className="h-[24vh] w-full"
       style={{ background: `linear-gradient(to bottom, ${from.theme.bg}, ${to.theme.bg})` }}
-    >
-      <div className="text-center">
-        <div
-          className="text-[11px] font-medium uppercase tracking-[0.35em]"
-          style={{ color: to.theme.inkSoft }}
-        >
-          Back to
-        </div>
-        <div
-          className="mt-3 font-[family-name:var(--era-font)] text-4xl font-semibold tracking-tight sm:text-5xl"
-          style={{ color: to.theme.ink }}
-        >
-          {to.name}
-        </div>
-        <div className="mt-2 text-sm" style={{ color: to.theme.inkSoft }}>
-          {to.yearLabel}
-        </div>
-        <ChevronDown
-          className="mx-auto mt-5 h-5 w-5 animate-bounce"
-          style={{ color: to.theme.accent }}
-        />
-      </div>
-    </div>
+    />
   );
 }
 

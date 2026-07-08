@@ -81,9 +81,6 @@ export function EraSection({ era }: { era: Era }) {
                 {era.lyric.line}
                 {'\u201D'}
               </blockquote>
-              <figcaption className="mt-3 text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
-                {era.lyric.song}
-              </figcaption>
             </figure>
           ) : (
             <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-[color:var(--era-ink-soft)] sm:text-lg">
