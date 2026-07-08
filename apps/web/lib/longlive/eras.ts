@@ -1,7 +1,9 @@
 import type { Era } from './types';
 
 /**
- * The 11 eras, newest-last in this array (index 10 = current TTPD).
+ * The 12 eras, newest-last in this array (last index = current, The Life of a
+ * Showgirl). Keep this array in chronological order — the timeline scrubber and
+ * date math depend on it. The era selector reverses this for display.
  * Themes keep a readable contrast floor: ink is always high-contrast on bg,
  * even where the palette is dramatic.
  */
@@ -262,13 +264,12 @@ export const ERAS: Era[] = [
     shortName: 'TTPD',
     album: 'The Tortured Poets Department',
     start: '2024-04-19',
-    end: '2025-12-31',
+    end: '2025-10-02',
     yearLabel: '2024–2025',
     tagline: 'Bruised, word-heavy, black-and-white, typewriter poetry.',
     intro:
-      'The current chapter. A literary, ink-stained confessional — typewriter fonts, black-and-white restraint, and lyrics dense as diary pages.',
+      'A literary, ink-stained confessional — typewriter fonts, black-and-white restraint, and lyrics dense as diary pages. The chapter that closed out the Eras Tour.',
     image: '/eras/ttpd.png',
-    isCurrent: true,
     theme: {
       bg: '#0c0c0c',
       surface: '#161616',
@@ -282,9 +283,35 @@ export const ERAS: Era[] = [
       font: 'mono',
     },
   },
+  {
+    id: 'tloas',
+    name: 'The Life of a Showgirl',
+    shortName: 'Showgirl',
+    album: 'The Life of a Showgirl',
+    start: '2025-10-03',
+    end: '2026-12-31',
+    yearLabel: '2025–present',
+    tagline: 'Orange sequins, showgirl glitz, and a victory-lap sparkle.',
+    intro:
+      'The current chapter. After the ink and restraint of the last era, everything turns warm and dazzling — burnt-orange sequins, feathers and footlights, a showgirl taking her bow.',
+    image: '/eras/tloas.png',
+    isCurrent: true,
+    theme: {
+      bg: '#2a1405',
+      surface: '#3a1d08',
+      surface2: '#4b270c',
+      ink: '#ffe9d0',
+      inkSoft: '#e2b587',
+      line: '#5e3413',
+      accent: '#ff8a1e',
+      accent2: '#ffd45e',
+      glow: 'rgba(255, 138, 30, 0.34)',
+      font: 'serif',
+    },
+  },
 ];
 
-export const CURRENT_ERA_ID = 'ttpd' as const;
+export const CURRENT_ERA_ID = 'tloas' as const;
 
 export const ERA_BY_ID = Object.fromEntries(ERAS.map((e) => [e.id, e])) as Record<
   Era['id'],
