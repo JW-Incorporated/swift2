@@ -62,6 +62,16 @@ export interface ContentItem {
   image: string;
   /** Optional hidden clue — renders the glint treatment when present. */
   hiddenClue?: HiddenClue;
+  /** Optional official music video, embedded via YouTube in the detail view. */
+  video?: MomentVideo;
+}
+
+/** An official music video embedded (never re-hosted) from YouTube. */
+export interface MomentVideo {
+  /** YouTube video ID — verified against YouTube's oEmbed endpoint. */
+  youtubeId: string;
+  /** Video title as it resolves on YouTube, used for the caption + a11y label. */
+  title: string;
 }
 
 export interface Milestone {
