@@ -10,6 +10,15 @@
       "environment": "development",
       "android": {
         "buildType": "apk"
+      },
+      "ios": {
+        "simulator": true
+      }
+    },
+    "simulator": {
+      "extends": "preview",
+      "ios": {
+        "simulator": true
       }
     },
     "preview": {
@@ -31,7 +40,8 @@
     "production": {
       "android": {
         "track": "internal"
-      }
+      },
+      "ios": {}
     }
   }
 }
