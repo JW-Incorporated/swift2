@@ -160,7 +160,35 @@ export type LensId =
   | 'fashion'
   | 'taylors-version'
   | 'easter-eggs'
+  | 'hidden-clues'
   | 'the-proposal';
+
+/** One end (plant or payoff) of a hidden-clue pair. */
+export interface CluePoint {
+  /** ISO date (YYYY-MM-DD). */
+  date: string;
+  /** Human display date, e.g. "March 2018". */
+  dateLabel: string;
+  eraId: EraId;
+  /** What happened at this point. */
+  what: string;
+}
+
+/**
+ * A hidden clue Taylor planted at one point that paid off later. Rendered as an
+ * interactive "decode" — revealing the payoff draws a thread across the gap.
+ */
+export interface CluePair {
+  id: string;
+  title: string;
+  plant: CluePoint;
+  payoff: CluePoint;
+  /** One-sentence through-line connecting plant → payoff. */
+  connection: string;
+  /** True when Taylor/her team confirmed intent; false for fan theory. */
+  confirmed: boolean;
+  sources: EggSource[];
+}
 
 /**
  * A single dated, sourced moment on a narrative story thread (e.g. the
