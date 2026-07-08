@@ -6,6 +6,7 @@ import { X, Check, Copy, Share2 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { getContentItem } from '@/lib/longlive/content';
+import { getThread } from '@/lib/longlive/lenses';
 import { eraStyle } from '@/lib/longlive/theme';
 import type { Era } from '@/lib/longlive/types';
 
@@ -49,6 +50,12 @@ export function ShareSheet() {
     kicker = era.yearLabel;
     title = era.name;
     subtitle = era.tagline;
+  } else if (share.kind === 'lens') {
+    const thread = getThread(share.lensId);
+    era = getEra('ttpd');
+    kicker = thread.kicker;
+    title = thread.title;
+    subtitle = thread.what;
   } else {
     era = getEra('ttpd');
     kicker = 'Lens';

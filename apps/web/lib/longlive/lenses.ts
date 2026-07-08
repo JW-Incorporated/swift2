@@ -84,11 +84,13 @@ export interface ThreadPoint {
 export function threadPoints(id: LensId): ThreadPoint[] {
   switch (id) {
     case 'love-story':
-      return RELATIONSHIPS.map((r) => ({
-        date: r.start,
-        eraId: r.eraIds[0],
-        label: r.name,
-      }));
+      return RELATIONSHIPS.flatMap((r) =>
+        r.eraIds.map((eraId) => ({
+          date: r.start,
+          eraId,
+          label: r.name,
+        })),
+      );
     case 'fashion':
       return RUNWAY_LOOKS.map((l) => ({
         date: getEra(l.eraId).start,
@@ -334,6 +336,14 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     description: 'Black-and-white restraint, sheer layers, and literary austerity.',
     image: '/eras/ttpd.png',
     shopTags: ['White dress', 'Black tailoring'],
+  },
+  {
+    id: 'look-tloas',
+    eraId: 'tloas',
+    name: 'Showgirl Sequins',
+    description: 'Orange-gold sequins and feathers — full stage-lit spectacle.',
+    image: '/eras/tloas.png',
+    shopTags: ['Sequin leotard', 'Feather boa', 'Orange sequins'],
   },
 ];
 
