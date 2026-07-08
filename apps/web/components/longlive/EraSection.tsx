@@ -2,13 +2,14 @@
 
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
-import { Sparkles, ArrowUpRight } from 'lucide-react';
+import { Sparkles, ArrowUpRight, ArrowRight, Heart, Shirt, RefreshCw, Gem } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
+import { threadsInEra, getThread } from '@/lib/longlive/lenses';
 import { EraMedia } from './EraMedia';
 import { ALL_TAGS, TAG_META } from '@/lib/longlive/tags';
-import type { ContentItem, ContentTag, Era } from '@/lib/longlive/types';
+import type { ContentItem, ContentTag, Era, LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
 
 /**
@@ -18,8 +19,9 @@ import { cn } from '@/lib/utils';
  * scope its measurements to the era currently in view.
  */
 export function EraSection({ era }: { era: Era }) {
-  const { openItem, setSelectorOpen } = useAppActions();
+  const { openItem, setSelectorOpen, openThread } = useAppActions();
   const [activeTags, setActiveTags] = useState<Set<ContentTag>>(new Set());
+  const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
 
   const items = useMemo(() => contentForEra(era.id), [era.id]);
   const visible = useMemo(() => {
@@ -135,9 +137,50 @@ export function EraSection({ era }: { era: Era }) {
           </p>
         )}
       </div>
+
+      {/* Era → Thread pivot: jump sideways into any story that runs through here. */}
+      {eraThreads.length > 0 && (
+        <div className="border-t border-[color:var(--era-line)]">
+          <div className="mx-auto max-w-3xl px-5 py-8 md:pr-16">
+            <div className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
+              Threads running through {era.shortName}
+            </div>
+            <div className="mt-4 flex flex-wrap gap-2.5">
+              {eraThreads.map(({ id, count }) => {
+                const Icon = PIVOT_ICONS[id] ?? Heart;
+                const meta = getThread(id);
+                return (
+                  <button
+                    key={id}
+                    onClick={() => {
+                      openThread(id);
+                      window.scrollTo({ top: 0, behavior: 'auto' });
+                    }}
+                    className="era-card group inline-flex items-center gap-2.5 rounded-full border px-4 py-2 text-sm font-medium transition hover:border-[color:var(--era-accent)]"
+                  >
+                    <Icon className="h-4 w-4 text-[color:var(--era-accent)]" />
+                    {meta.title}
+                    <span className="text-xs text-[color:var(--era-ink-soft)]">
+                      {count} {count === 1 ? 'moment' : 'moments'}
+                    </span>
+                    <ArrowRight className="h-3.5 w-3.5 text-[color:var(--era-ink-soft)] transition group-hover:translate-x-0.5 group-hover:text-[color:var(--era-accent)]" />
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
+
+const PIVOT_ICONS: Partial<Record<LensId, typeof Heart>> = {
+  'love-story': Heart,
+  fashion: Shirt,
+  'taylors-version': RefreshCw,
+  'the-proposal': Gem,
+};
 
 function MomentCard({ item, onOpen }: { item: ContentItem; onOpen: () => void }) {
   const hasClue = Boolean(item.hiddenClue);
