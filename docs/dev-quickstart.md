@@ -11,7 +11,7 @@ Workflow + decision authority live in `CLAUDE.md`; stack rationale in
 | `apps/web` | **Next.js (App Router) reader — the v1 product.** |
 | `apps/mobile` | Expo / React Native app. Reuses `packages/*` **unchanged**. ⚠️ Lands with **PR #42** — may not be on `main` yet. |
 | `apps/worker` | **Not code** — just holds a gitignored `.env` (`SUPABASE_DB_URL`) that the DB scripts read. No pipeline/worker in v1. |
-| `packages/shared` | Portable types + domain/nav/snap math + budget & load state machines. **No I/O, no view code.** |
+| `packages/shared` | Portable types + domain/nav/snap math + budget & load state machines. **No I/O, no view code.** Also `src/news/` — dormant post-v1 news-pipeline domain behind the `@swift2/shared/news` subpath; nothing imports it (see `docs/proposals/2026-07-07-news-pipeline-architecture.md`). |
 | `packages/core` | Supabase data access (Tier 0 skeleton / Tier 1 moment / track guide) + row→domain mappers. Portable (web + mobile). |
 | `supabase/migrations` | Idempotent SQL, applied in filename order. |
 | `supabase/seed` | Authored content: `eras-data.mjs`, `content/*.mjs` (month items), `tracks/*.mjs` (song notes), `candidates/` (staged, **not** seeded). |
