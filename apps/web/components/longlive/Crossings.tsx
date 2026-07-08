@@ -479,14 +479,20 @@ function CrossingDetail({
           <ArrowRight className="h-3.5 w-3.5" />
         </button>
         <button
-          onClick={() => onOpenThread(threadA)}
+          onClick={() => {
+            onOpenThread(threadA);
+            window.scrollTo({ top: 0, behavior: 'auto' });
+          }}
           className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--era-line)] px-3 py-1.5 text-xs font-medium transition hover:border-[color:var(--era-accent)]"
         >
           {metaATitle}
           <ArrowRight className="h-3.5 w-3.5" />
         </button>
         <button
-          onClick={() => onOpenThread(threadB)}
+          onClick={() => {
+            onOpenThread(threadB);
+            window.scrollTo({ top: 0, behavior: 'auto' });
+          }}
           className="inline-flex items-center gap-1.5 rounded-full border border-[color:var(--era-line)] px-3 py-1.5 text-xs font-medium transition hover:border-[color:var(--era-accent)]"
         >
           {metaBTitle}
