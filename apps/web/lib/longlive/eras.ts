@@ -321,3 +321,32 @@ export const ERA_BY_ID = Object.fromEntries(ERAS.map((e) => [e.id, e])) as Recor
 export function getEra(id: string): Era {
   return ERA_BY_ID[id as Era['id']] ?? ERAS[ERAS.length - 1];
 }
+
+/** Index of an era in chronological order (0 = Debut). */
+export function eraIndex(id: string): number {
+  const i = ERAS.findIndex((e) => e.id === id);
+  return i === -1 ? ERAS.length - 1 : i;
+}
+
+/**
+ * A sequence starting at `fromId` and walking *back* in time (newest → oldest),
+ * capped at `count` entries or the start of her career (Debut), whichever comes
+ * first. Drives the infinite doom-scroll.
+ */
+export function erasBackFrom(fromId: string, count: number): Era[] {
+  const start = eraIndex(fromId);
+  const out: Era[] = [];
+  for (let i = start; i >= 0 && out.length < count; i--) out.push(ERAS[i]);
+  return out;
+}
+
+/** True when this era is the very beginning of her career. */
+export function isFirstEra(id: string): boolean {
+  return eraIndex(id) === 0;
+}
+
+/** Career-wide date bounds for cross-era (Threads) timelines. */
+export const CAREER_START_MS = new Date(ERAS[0].start).getTime();
+export function careerEndMs(): number {
+  return Math.max(Date.now(), new Date(ERAS[ERAS.length - 1].end).getTime());
+}

@@ -3,10 +3,10 @@
 import { useEffect } from 'react';
 import { AppProvider, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { eraStyle } from '@/lib/longlive/theme';
+import { eraStyle, vaultStyle, VAULT_THEME } from '@/lib/longlive/theme';
 import { TopBar } from './TopBar';
-import { EraMode } from './EraMode';
-import { LensMode } from './LensMode';
+import { EraStream } from './EraStream';
+import { ThreadsMode } from './ThreadsMode';
 import { EraSelector } from './EraSelector';
 import { MomentDetail } from './MomentDetail';
 import { ShareSheet } from './ShareSheet';
@@ -15,17 +15,19 @@ import { SiteFooter } from './SiteFooter';
 function Shell() {
   const { mode, eraId } = useAppState();
   const era = getEra(eraId);
+  const inThreads = mode === 'threads';
 
-  // Keep the document theme-color in sync with the active era.
+  // Keep the document theme-color in sync with the active surface.
+  const themeColor = inThreads ? VAULT_THEME.bg : era.theme.bg;
   useEffect(() => {
     const meta = document.querySelector('meta[name="theme-color"]');
-    if (meta) meta.setAttribute('content', era.theme.bg);
-  }, [era.theme.bg]);
+    if (meta) meta.setAttribute('content', themeColor);
+  }, [themeColor]);
 
   return (
-    <div className="era-shell font-sans" style={eraStyle(era)}>
+    <div className="era-shell font-sans" style={inThreads ? vaultStyle() : eraStyle(era)}>
       <TopBar />
-      <main>{mode === 'era' ? <EraMode /> : <LensMode />}</main>
+      <main>{inThreads ? <ThreadsMode /> : <EraStream />}</main>
       <SiteFooter />
 
       {/* Overlays */}
