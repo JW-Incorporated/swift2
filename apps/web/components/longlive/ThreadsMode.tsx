@@ -13,6 +13,9 @@ import {
   ArrowRight,
   Gem,
   Quote,
+  KeyRound,
+  Lock,
+  MoveRight,
 } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
@@ -24,10 +27,11 @@ import {
   EGG_NODES,
   EGG_LINKS,
   PROPOSAL_BEATS,
+  CLUE_PAIRS,
   THREADS,
   getThread,
 } from '@/lib/longlive/lenses';
-import type { LensId } from '@/lib/longlive/types';
+import type { CluePair, LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
 import { ThreadsTimeline } from './ThreadsTimeline';
 
@@ -36,6 +40,7 @@ const ICONS: Record<LensId, typeof Heart> = {
   fashion: Shirt,
   'taylors-version': RefreshCw,
   'easter-eggs': Sparkles,
+  'hidden-clues': KeyRound,
   'the-proposal': Gem,
 };
 
@@ -174,6 +179,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
         {threadId === 'fashion' && <Runway />}
         {threadId === 'taylors-version' && <TaylorsVersion />}
         {threadId === 'easter-eggs' && <ClueWeb />}
+        {threadId === 'hidden-clues' && <Decode />}
         {threadId === 'the-proposal' && <TheProposal />}
       </div>
 
@@ -308,6 +314,155 @@ function TheProposal() {
       </div>
       <p className="mt-6 text-center text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
         Compiled from public reporting by an independent fan project. Not affiliated with or endorsed by Taylor Swift.
+      </p>
+    </div>
+  );
+}
+
+/* ── The Decode (hidden clue → payoff reveal) ────────────────────── */
+function monthsBetween(a: string, b: string): string {
+  const d1 = new Date(a);
+  const d2 = new Date(b);
+  const months = Math.max(
+    0,
+    (d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() - d1.getMonth()),
+  );
+  if (months < 1) return 'days later';
+  if (months < 12) return `${months} month${months === 1 ? '' : 's'} later`;
+  const years = Math.floor(months / 12);
+  const rem = months % 12;
+  return rem === 0
+    ? `${years} year${years === 1 ? '' : 's'} later`
+    : `${years} yr ${rem} mo later`;
+}
+
+function DecodeCard({ clue }: { clue: CluePair }) {
+  const [decoded, setDecoded] = useState(false);
+  const plantEra = getEra(clue.plant.eraId);
+  const payoffEra = getEra(clue.payoff.eraId);
+
+  return (
+    <article className="era-card overflow-hidden rounded-2xl border">
+      {/* Plant */}
+      <div className="p-5">
+        <div className="flex flex-wrap items-center justify-between gap-2">
+          <span
+            className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
+            style={{
+              backgroundColor: `color-mix(in srgb, ${plantEra.theme.accent} 14%, transparent)`,
+              color: plantEra.theme.accent,
+            }}
+          >
+            Planted · {plantEra.shortName} · {clue.plant.dateLabel}
+          </span>
+          <span
+            className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wider text-[color:var(--era-ink-soft)]"
+            style={{ borderColor: 'var(--era-line)' }}
+          >
+            {clue.confirmed ? 'Confirmed' : 'Fan theory'}
+          </span>
+        </div>
+        <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold">
+          {clue.title}
+        </h3>
+        <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          {clue.plant.what}
+        </p>
+      </div>
+
+      {/* The thread across time */}
+      <div
+        className="relative flex items-center gap-3 border-y px-5 py-2.5"
+        style={{ borderColor: 'var(--era-line)' }}
+      >
+        <span
+          aria-hidden
+          className="h-px flex-1"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(to right, var(--era-accent) 0 4px, transparent 4px 8px)',
+            opacity: decoded ? 0.9 : 0.4,
+            transition: 'opacity 400ms',
+          }}
+        />
+        <span className="whitespace-nowrap text-[11px] uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+          {monthsBetween(clue.plant.date, clue.payoff.date)}
+        </span>
+        <span
+          aria-hidden
+          className="h-px flex-1"
+          style={{
+            backgroundImage:
+              'repeating-linear-gradient(to right, var(--era-accent) 0 4px, transparent 4px 8px)',
+            opacity: decoded ? 0.9 : 0.4,
+            transition: 'opacity 400ms',
+          }}
+        />
+      </div>
+
+      {/* Payoff — sealed until decoded */}
+      {decoded ? (
+        <div className="clue-reveal p-5">
+          <div className="flex flex-wrap items-center gap-2">
+            <span
+              className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
+              style={{
+                backgroundColor: `color-mix(in srgb, ${payoffEra.theme.accent} 14%, transparent)`,
+                color: payoffEra.theme.accent,
+              }}
+            >
+              Payoff · {payoffEra.shortName} · {clue.payoff.dateLabel}
+            </span>
+          </div>
+          <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--era-ink)]">
+            {clue.payoff.what}
+          </p>
+          <p className="mt-3 flex items-start gap-2 text-sm italic leading-relaxed text-[color:var(--era-ink-soft)]">
+            <MoveRight className="mt-1 h-3.5 w-3.5 shrink-0 text-[color:var(--era-accent)]" />
+            <span>{clue.connection}</span>
+          </p>
+          <p className="mt-3 text-xs text-[color:var(--era-ink-soft)]">
+            Source:{' '}
+            {clue.sources.map((s, i) => (
+              <span key={`${s.url}-${i}`}>
+                {i > 0 && ', '}
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
+                >
+                  {s.name}
+                </a>
+              </span>
+            ))}
+          </p>
+        </div>
+      ) : (
+        <button
+          type="button"
+          onClick={() => setDecoded(true)}
+          className="group flex w-full items-center justify-center gap-2 p-5 text-sm font-semibold transition-colors hover:bg-[color:var(--era-surface-2)]"
+          style={{ color: 'var(--era-accent)' }}
+        >
+          <Lock className="h-4 w-4 transition-transform group-hover:-translate-y-px" />
+          Decode the payoff
+        </button>
+      )}
+    </article>
+  );
+}
+
+function Decode() {
+  return (
+    <div className="pt-8">
+      <div className="space-y-4">
+        {CLUE_PAIRS.map((clue) => (
+          <DecodeCard key={clue.id} clue={clue} />
+        ))}
+      </div>
+      <p className="mt-6 text-center text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+        Clues compiled from public reporting by an independent fan project. “Fan theory” tags mark connections Taylor has not confirmed.
       </p>
     </div>
   );
@@ -568,7 +723,7 @@ function ClueWeb() {
                       <button
                         key={node.id}
                         onClick={() => setActive(node.id)}
-                        className="rounded-full border px-2.5 py-1 text-xs transition hover:bg-[color:var(--era-surface2)]"
+                        className="rounded-full border px-2.5 py-1 text-xs transition hover:bg-[color:var(--era-surface-2)]"
                         style={{ borderColor: 'var(--era-line)', color: 'var(--era-ink)' }}
                       >
                         {label} → {node.label}

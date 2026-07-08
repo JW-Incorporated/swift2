@@ -1,4 +1,4 @@
-import type { EggLink, EggNode, LensId, ReRecord, Relationship, RunwayLook, StoryBeat } from './types';
+import type { CluePair, EggLink, EggNode, LensId, ReRecord, Relationship, RunwayLook, StoryBeat } from './types';
 import { getEra } from './eras';
 
 /**
@@ -48,6 +48,13 @@ export const THREADS: ThreadMeta[] = [
     kicker: 'The secrets she plants',
     what: 'Pull the threads between hidden messages, cryptic dates, and their payoffs — the game she plays with fans across eras.',
     hero: '/eras/midnights.png',
+  },
+  {
+    id: 'hidden-clues',
+    title: 'The Decode',
+    kicker: 'One clue, one payoff',
+    what: 'Take a single hidden clue and decode it — reveal the payoff it was pointing to, and watch the thread stretch across the months between them.',
+    hero: '/eras/ttpd.png',
   },
   {
     id: 'the-proposal',
@@ -103,6 +110,11 @@ export function threadPoints(id: LensId): ThreadPoint[] {
         eraId: n.eraId,
         label: n.label,
       }));
+    case 'hidden-clues':
+      return CLUE_PAIRS.flatMap((c) => [
+        { date: c.plant.date, eraId: c.plant.eraId, label: `${c.title} (planted)` },
+        { date: c.payoff.date, eraId: c.payoff.eraId, label: `${c.title} (payoff)` },
+      ]);
     case 'the-proposal':
       return PROPOSAL_BEATS.map((b) => ({
         date: b.date,
@@ -764,5 +776,326 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     body: 'The couple announced their engagement on Instagram. The proposal had happened roughly two weeks earlier in a flower-filled garden in Lee’s Summit, Missouri; the ring, an old mine brilliant-cut diamond, was designed with jeweler Kindred Lubeck.',
     quote: '“Your English teacher and your gym teacher are getting married.”',
     source: 'People',
+  },
+];
+
+// ── The Decode (hidden clue → payoff pairs) ─────────────────────────────────
+// AI-researched, hand-audited: URLs flattened to direct links, plant precedes
+// payoff, confirmed vs. fan-theory flags preserved.
+
+export const CLUE_PAIRS: CluePair[] = [
+  {
+    id: 'clue-delicate-pastel-nails',
+    title: 'The pastel nails in “Delicate”',
+    plant: {
+      date: '2018-03-30',
+      dateLabel: 'March 2018',
+      eraId: 'reputation',
+      what: 'The Spotify vertical video for “Delicate” showed Taylor’s nails in a soft pastel color story that looked out of place in the dark reputation era.',
+    },
+    payoff: {
+      date: '2019-04-26',
+      dateLabel: 'April 2019',
+      eraId: 'lover',
+      what: 'The “ME!” video launched the pastel Lover world, and Taylor later said the “Delicate” nail colors were an Easter egg for the next era.',
+    },
+    connection: 'A small beauty detail in a reputation video previewed the Lover palette more than a year early.',
+    confirmed: true,
+    sources: [
+      { name: 'Entertainment Weekly', url: 'https://ew.com/music/2019/05/09/taylor-swift-secrets-album-easter-eggs/' },
+      { name: 'People', url: 'https://people.com/music/taylor-swift-debuts-new-one-take-delicate-video-on-spotify/' },
+    ],
+  },
+  {
+    id: 'clue-seven-palm-trees',
+    title: 'Seven palm trees',
+    plant: {
+      date: '2019-02-24',
+      dateLabel: 'February 2019',
+      eraId: 'lover',
+      what: 'Taylor posted an Instagram photo of seven palm trees — a number fans tied to her upcoming seventh studio album.',
+    },
+    payoff: {
+      date: '2019-04-26',
+      dateLabel: 'April 2019',
+      eraId: 'lover',
+      what: 'The Lover rollout began with “ME!,” and Taylor later confirmed the palm-tree post was part of the TS7 Easter-egg trail.',
+    },
+    connection: 'The seven palm trees were a numeric clue pointing to TS7 before the Lover campaign began.',
+    confirmed: true,
+    sources: [
+      { name: 'Entertainment Weekly', url: 'https://ew.com/music/2019/05/09/taylor-swift-cover-story/' },
+      { name: 'Time', url: 'https://time.com/5538862/taylor-swift-countdown/' },
+    ],
+  },
+  {
+    id: 'clue-brendon-hints-in-print',
+    title: 'Brendon Urie hidden in print',
+    plant: {
+      date: '2019-03-06',
+      dateLabel: 'March 2019',
+      eraId: 'lover',
+      what: 'In her Elle essay “30 Things I Learned Before Turning 30,” Taylor referenced Panic! at the Disco’s “I Write Sins Not Tragedies.”',
+    },
+    payoff: {
+      date: '2019-04-26',
+      dateLabel: 'April 2019',
+      eraId: 'lover',
+      what: 'Taylor released “ME!” featuring Panic! at the Disco frontman Brendon Urie.',
+    },
+    connection: 'The Panic! reference quietly pointed to the collaborator on the first Lover single.',
+    confirmed: true,
+    sources: [
+      { name: 'Elle', url: 'https://www.elle.com/culture/celebrities/a26628467/taylor-swift-30th-birthday-lessons/' },
+      { name: 'Entertainment Weekly', url: 'https://ew.com/music/2019/05/09/taylor-swift-secrets-album-easter-eggs/' },
+      { name: 'NME', url: 'https://www.nme.com/news/music/taylor-swift-duets-with-panic-at-the-discos-brendon-urie-on-new-single-me-2481142' },
+    ],
+  },
+  {
+    id: 'clue-lover-neon-sign',
+    title: 'The neon “Lover” sign',
+    plant: {
+      date: '2019-04-26',
+      dateLabel: 'April 2019',
+      eraId: 'lover',
+      what: 'The “ME!” video featured the word “Lover” glowing in neon; Taylor said the album title was hidden somewhere in the video.',
+    },
+    payoff: {
+      date: '2019-06-13',
+      dateLabel: 'June 2019',
+      eraId: 'lover',
+      what: 'Taylor announced her seventh album would be titled Lover.',
+    },
+    connection: 'The album title appeared inside the first video of the era before she officially revealed it.',
+    confirmed: true,
+    sources: [
+      { name: 'Glamour', url: 'https://www.glamour.com/story/taylor-swift-me-video-easter-eggs' },
+      { name: 'Time', url: 'https://time.com/5651221/taylor-swift-lover-references-explained/' },
+    ],
+  },
+  {
+    id: 'clue-hayley-kiyoko-arrow-five',
+    title: 'Hayley Kiyoko’s arrow hit five',
+    plant: {
+      date: '2019-06-17',
+      dateLabel: 'June 2019',
+      eraId: 'lover',
+      what: 'In the “You Need to Calm Down” video, Hayley Kiyoko appears as an archer and shoots an arrow into a target marked with the number 5.',
+    },
+    payoff: {
+      date: '2019-07-23',
+      dateLabel: 'July 2019',
+      eraId: 'lover',
+      what: 'Taylor released “The Archer,” revealed as track 5 on Lover.',
+    },
+    connection: 'The archer imagery and the number 5 pointed directly to the next song reveal.',
+    confirmed: true,
+    sources: [
+      { name: 'Time', url: 'https://time.com/5651221/taylor-swift-lover-references-explained/' },
+      { name: 'Teen Vogue', url: 'https://www.teenvogue.com/story/taylor-swift-releases-the-archer' },
+    ],
+  },
+  {
+    id: 'clue-cruel-summer-tattoo',
+    title: 'The “Cruel Summer” tattoo',
+    plant: {
+      date: '2019-06-17',
+      dateLabel: 'June 2019',
+      eraId: 'lover',
+      what: 'In the “You Need to Calm Down” video, Ellen DeGeneres appears with a large “Cruel Summer” tattoo.',
+    },
+    payoff: {
+      date: '2019-08-16',
+      dateLabel: 'August 2019',
+      eraId: 'lover',
+      what: 'Taylor revealed the Lover tracklist, confirming “Cruel Summer” as a song on the album.',
+    },
+    connection: 'A visual gag in the video doubled as an early reveal of a Lover track title.',
+    confirmed: false,
+    sources: [
+      { name: 'Time', url: 'https://time.com/5651221/taylor-swift-lover-references-explained/' },
+      { name: 'Consequence', url: 'https://consequence.net/2019/08/taylor-swift-lover-album-tracklist/' },
+      { name: 'Glamour', url: 'https://www.glamour.com/story/taylor-swift-lover-tracklist' },
+    ],
+  },
+  {
+    id: 'clue-not-a-lot-evermore',
+    title: '“Not a lot going on at the moment,” again',
+    plant: {
+      date: '2020-11-22',
+      dateLabel: 'November 2020',
+      eraId: 'evermore',
+      what: 'Taylor posted a photo captioned “not a lot going on at the moment,” echoing language she used shortly before folklore.',
+    },
+    payoff: {
+      date: '2020-12-10',
+      dateLabel: 'December 2020',
+      eraId: 'evermore',
+      what: 'Taylor announced evermore, folklore’s sister album, the next month.',
+    },
+    connection: 'A deliberately quiet caption became a warning sign for another surprise album drop.',
+    confirmed: false,
+    sources: [
+      { name: 'Seventeen', url: 'https://www.seventeen.com/celebrity/music/a34944674/evermore-easter-eggs-taylor-swift/' },
+      { name: 'Teen Vogue', url: 'https://www.teenvogue.com/story/taylor-swift-teaser-easter-egg-old-music' },
+    ],
+  },
+  {
+    id: 'clue-love-story-match-ad',
+    title: 'The Match ad preview',
+    plant: {
+      date: '2020-12-02',
+      dateLabel: 'December 2020',
+      eraId: 'fearless',
+      what: 'A snippet of the re-recorded “Love Story” appeared in a Ryan Reynolds Match.com ad — the first public taste of the re-recordings.',
+    },
+    payoff: {
+      date: '2021-02-11',
+      dateLabel: 'February 2021',
+      eraId: 'fearless',
+      what: 'Taylor announced Fearless (Taylor’s Version) and the release of “Love Story (Taylor’s Version).”',
+    },
+    connection: 'The ad preview quietly introduced the first Taylor’s Version era before the album announcement.',
+    confirmed: true,
+    sources: [
+      { name: 'Variety', url: 'https://variety.com/2020/music/news/taylor-swift-rerecording-love-story-ryan-reynolds-match-com-ad-1234844130/' },
+      { name: 'Variety', url: 'https://variety.com/2021/music/news/taylor-swift-fearless-love-story-re-record-big-machine-albums-good-morning-america-1234905692/' },
+    ],
+  },
+  {
+    id: 'clue-red-vault-word-scramble',
+    title: 'The Red vault word scramble',
+    plant: {
+      date: '2021-08-05',
+      dateLabel: 'August 2021',
+      eraId: 'red',
+      what: 'Taylor posted a vault-themed word-puzzle video teasing the artists and titles connected to Red (Taylor’s Version).',
+    },
+    payoff: {
+      date: '2021-08-06',
+      dateLabel: 'August 2021',
+      eraId: 'red',
+      what: 'The full Red (Taylor’s Version) tracklist was revealed, confirming vault tracks and collaborators including Phoebe Bridgers and Chris Stapleton.',
+    },
+    connection: 'The scramble gave fans the exact clues to decode the vault-track rollout before the official reveal.',
+    confirmed: true,
+    sources: [
+      { name: 'Variety', url: 'https://variety.com/2021/music/news/taylor-swift-phoebe-bridgers-red-remake-word-puzzle-1235035385/' },
+      { name: 'Teen Vogue', url: 'https://www.teenvogue.com/story/taylor-swift-announces-massive-red-taylors-version-tracklist' },
+      { name: 'Pitchfork', url: 'https://pitchfork.com/news/taylor-swift-cheekily-reveals-phoebe-bridgers-feature-on-new-red-taylors-version/' },
+    ],
+  },
+  {
+    id: 'clue-the-man-karma-graffiti',
+    title: 'The “Karma” graffiti',
+    plant: {
+      date: '2020-02-27',
+      dateLabel: 'February 2020',
+      eraId: 'lover',
+      what: 'In “The Man” video, “Karma” appears in graffiti alongside references to Taylor’s albums and masters.',
+    },
+    payoff: {
+      date: '2022-10-07',
+      dateLabel: 'October 2022',
+      eraId: 'midnights',
+      what: 'During the Midnights rollout, Taylor revealed “Karma” as a track title; the song released with the album on October 21, 2022.',
+    },
+    connection: 'A word fans treated as lost-album lore eventually became an official Midnights song title.',
+    confirmed: false,
+    sources: [
+      { name: 'Teen Vogue', url: 'https://www.teenvogue.com/story/taylor-swift-karma-fan-theory-explained' },
+      { name: 'Time', url: 'https://time.com/6223793/taylor-swift-midnights-album-takeaways/' },
+    ],
+  },
+  {
+    id: 'clue-bejeweled-speak-now',
+    title: 'Speak Now clues in “Bejeweled”',
+    plant: {
+      date: '2022-10-25',
+      dateLabel: 'October 2022',
+      eraId: 'midnights',
+      what: 'The “Bejeweled” video dropped on the 12th anniversary of Speak Now, full of purple imagery, elevator-button numbers, and Speak Now references.',
+    },
+    payoff: {
+      date: '2023-05-05',
+      dateLabel: 'May 2023',
+      eraId: 'speak-now',
+      what: 'Taylor announced Speak Now (Taylor’s Version) during the Nashville stop of the Eras Tour.',
+    },
+    connection: 'The purple-coded imagery and anniversary timing made “Bejeweled” a major breadcrumb toward the next Taylor’s Version.',
+    confirmed: false,
+    sources: [
+      { name: 'Entertainment Weekly', url: 'https://ew.com/music/easter-eggs-taylor-swift-bejeweled-music-video/' },
+      { name: 'People', url: 'https://people.com/music/taylor-swift-announces-speak-now-taylors-version-at-nashville-show/' },
+    ],
+  },
+  {
+    id: 'clue-i-can-see-you-1989-tv',
+    title: 'The “1989 TV” bridge sign',
+    plant: {
+      date: '2023-07-07',
+      dateLabel: 'July 2023',
+      eraId: 'speak-now',
+      what: 'The “I Can See You” video included a bridge sign fans read as “1989 TV” near the end.',
+    },
+    payoff: {
+      date: '2023-08-09',
+      dateLabel: 'August 2023',
+      eraId: '1989',
+      what: 'Taylor announced 1989 (Taylor’s Version) during the final Los Angeles show of the first U.S. Eras Tour leg.',
+    },
+    connection: 'A background detail in a Speak Now video pointed to the next re-recording announcement.',
+    confirmed: false,
+    sources: [
+      { name: 'Seventeen', url: 'https://www.seventeen.com/celebrity/music/a44493917/taylor-swift-i-can-see-you-music-video-easter-eggs/' },
+      { name: 'People', url: 'https://people.com/taylor-swift-announces-1989-taylors-version-standing-ovation-eras-tour-final-los-angeles-show-7629213/' },
+      { name: 'Good Morning America', url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-announces-1989-taylors-version-details-hints-102157115' },
+    ],
+  },
+  {
+    id: 'clue-ttpd-two-fingers-anthology',
+    title: 'The twos before The Anthology',
+    plant: {
+      date: '2024-02-04',
+      dateLabel: 'February 2024',
+      eraId: 'ttpd',
+      what: 'After announcing The Tortured Poets Department at the Grammys, Taylor’s rollout repeatedly emphasized twos — peace-sign imagery and double-coded hints.',
+    },
+    payoff: {
+      date: '2024-04-19',
+      dateLabel: 'April 2024',
+      eraId: 'ttpd',
+      what: 'Two hours after release, Taylor revealed The Tortured Poets Department: The Anthology as a secret double album.',
+    },
+    connection: 'The repeated two-symbols became legible once the album expanded into a second installment at 2 a.m.',
+    confirmed: false,
+    sources: [
+      { name: 'Marie Claire', url: 'https://www.marieclaire.co.uk/news/celebrity-news/taylor-swift-tortured-poets-easter-egg' },
+      { name: 'Good Morning America', url: 'https://abcnews.go.com/GMA/Culture/taylor-swift-tortured-poets-department-album/story?id=109014004' },
+      { name: 'People', url: 'https://people.com/taylor-swift-clues-about-the-tortured-poets-department-album-8558843' },
+    ],
+  },
+  {
+    id: 'clue-orange-door-showgirl',
+    title: 'The orange door',
+    plant: {
+      date: '2024-12-08',
+      dateLabel: 'December 2024',
+      eraId: 'tloas',
+      what: 'At the final Eras Tour show in Vancouver, Taylor exited through an orange door instead of the usual lift — a change fans flagged immediately.',
+    },
+    payoff: {
+      date: '2025-08-12',
+      dateLabel: 'August 2025',
+      eraId: 'tloas',
+      what: 'Taylor announced The Life of a Showgirl with a strongly orange visual identity, later acknowledging fans had correctly noticed the orange-door clue.',
+    },
+    connection: 'The final visual exit of the Eras Tour became the color-coded doorway into the next album era.',
+    confirmed: true,
+    sources: [
+      { name: 'NBC Chicago', url: 'https://www.nbcchicago.com/entertainment/12-takeaways-from-taylor-swifts-new-heights-appearance-and-the-easter-eggs-found/3809515/' },
+      { name: 'People', url: 'https://people.com/taylor-swift-announces-new-album-the-life-of-a-showgirl-with-help-travis-jason-kelce-11789202/' },
+      { name: 'Elle', url: 'https://www.elle.com/culture/music/a65773807/why-taylor-swift-chose-orange-the-life-of-a-showgirl-era-color/' },
+    ],
   },
 ];
