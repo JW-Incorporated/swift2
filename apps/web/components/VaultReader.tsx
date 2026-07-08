@@ -2,10 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react';
 import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent } from 'react';
-import type { Era, Milestone, MonthItem } from '@swift2/shared';
+import type { Era, Milestone, MonthItem, VaultCategory } from '@swift2/shared';
 import { eraTimelineMonths, orderedEras } from '@swift2/shared';
 import type { VaultSkeleton } from '@swift2/core';
 import { eraSkin } from '../lib/theme';
+import { CATEGORY_BADGES, categoriesPresent, itemMatchesFilter } from '../lib/categoryBadges';
 import { useMoment } from '../lib/useMoment';
 import { MomentDetail } from './MomentDetail';
 import { useTrackGuide } from '../lib/useTrackGuide';
@@ -387,6 +388,21 @@ function EraSection({
     return (itemsByMonth.get(key)?.length ?? 0) > 0 || (milestonesByMonth.get(key)?.length ?? 0) > 0;
   });
 
+  // Per-era category filter — independent state per era, off (empty) by
+  // default. Kept local to this component so each era's filter is scoped to
+  // itself and toggling one era never touches another's.
+  const [activeCats, setActiveCats] = useState<Set<VaultCategory>>(() => new Set());
+  const presentCats = categoriesPresent(items.map((it) => it.category));
+  const toggleCat = useCallback((cat: VaultCategory) => {
+    setActiveCats((prev) => {
+      const next = new Set(prev);
+      if (next.has(cat)) next.delete(cat);
+      else next.add(cat);
+      return next;
+    });
+  }, []);
+  const clearCats = useCallback(() => setActiveCats(new Set()), []);
+
   return (
     <div>
       {/* Hero: the vivid era gradient blooms out of and settles back into the
@@ -438,6 +454,15 @@ function EraSection({
       </header>
 
       <div style={{ maxWidth: 720, margin: '0 auto', padding: '1.25rem 1rem 2.5rem' }}>
+        {presentCats.length > 0 ? (
+          <EraFilter
+            eraTitle={era.title}
+            categories={presentCats}
+            active={activeCats}
+            onToggle={toggleCat}
+            onClear={clearCats}
+          />
+        ) : null}
         {months.length === 0 ? (
           <p style={{ color: 'var(--ink-soft)', fontSize: 14, opacity: 0.7 }}>
             No moments logged for this era yet.
@@ -445,12 +470,21 @@ function EraSection({
         ) : (
           months.map(({ year, month }) => {
             const key = ymKey(year, month);
+            const monthMilestones = milestonesByMonth.get(key) ?? [];
+            // Hide non-matching items in place. Milestones are wavetop markers,
+            // not filterable category items, so they always remain.
+            const visibleItems = (itemsByMonth.get(key) ?? []).filter((it) =>
+              itemMatchesFilter(it.category, activeCats),
+            );
+            // A filter can empty a month out — drop it (and its label) rather
+            // than leave a labelled gap.
+            if (visibleItems.length === 0 && monthMilestones.length === 0) return null;
             return (
               <MonthBlock
                 key={key}
                 label={monthLabel(year, month)}
-                milestones={milestonesByMonth.get(key) ?? []}
-                items={itemsByMonth.get(key) ?? []}
+                milestones={monthMilestones}
+                items={visibleItems}
                 onOpen={onOpen}
               />
             );
@@ -534,20 +568,7 @@ function MonthBlock({
           >
             <div style={{ display: 'flex', alignItems: 'baseline', justifyContent: 'space-between', gap: 10 }}>
               <span style={{ fontWeight: 700, fontSize: 16, lineHeight: 1.25 }}>{it.title}</span>
-              <span
-                style={{
-                  fontSize: 10,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.05em',
-                  color: 'var(--ink-soft)',
-                  border: '1px solid var(--line)',
-                  borderRadius: 999,
-                  padding: '2px 8px',
-                  flex: '0 0 auto',
-                }}
-              >
-                {it.category}
-              </span>
+              <CategoryBadge category={it.category} />
             </div>
             {it.snippet ? (
               <div style={{ color: 'var(--ink-soft)', fontSize: 14, lineHeight: 1.45, marginTop: 6 }}>
@@ -558,5 +579,152 @@ function MonthBlock({
         ))}
       </div>
     </section>
+  );
+}
+
+/**
+ * Fixed-color category chip: emoji + label, one stable icon+color per category
+ * (see lib/categoryBadges), deliberately independent of the era accent. Renders
+ * as a filled pill with white text, so its contrast is white-on-color and holds
+ * on any era surface (light or dark). The label text is the accessible name;
+ * the emoji is decorative.
+ */
+function CategoryBadge({ category }: { category: VaultCategory }) {
+  const badge = CATEGORY_BADGES[category];
+  return (
+    <span
+      style={{
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: 4,
+        fontSize: 10,
+        fontWeight: 700,
+        textTransform: 'uppercase',
+        letterSpacing: '0.05em',
+        color: '#fff',
+        background: badge.color,
+        borderRadius: 999,
+        padding: '3px 9px',
+        flex: '0 0 auto',
+        whiteSpace: 'nowrap',
+      }}
+    >
+      <span aria-hidden>{badge.icon}</span>
+      <span>{badge.label}</span>
+    </span>
+  );
+}
+
+/**
+ * Per-era category filter. Collapsed and off by default: a "Filter" toggle that
+ * expands to a row of category chips reusing the badge icon/color set. Selecting
+ * chips hides non-matching items in place within THIS era only (state is scoped
+ * per era by the caller). Pure client-side state over already-resident Tier 0
+ * data — no fetch, no payload change. Lives inside the centered content column,
+ * well clear of the right-edge era rail.
+ */
+function EraFilter({
+  eraTitle,
+  categories,
+  active,
+  onToggle,
+  onClear,
+}: {
+  eraTitle: string;
+  categories: VaultCategory[];
+  active: ReadonlySet<VaultCategory>;
+  onToggle: (cat: VaultCategory) => void;
+  onClear: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const panelId = `era-filter-${eraTitle.replace(/\s+/g, '-').toLowerCase()}`;
+  const activeCount = active.size;
+
+  return (
+    <div style={{ marginBottom: 18 }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap' }}>
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          aria-controls={panelId}
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 7,
+            fontSize: 12,
+            fontWeight: 700,
+            letterSpacing: '0.04em',
+            textTransform: 'uppercase',
+            color: 'var(--ink-soft)',
+            background: 'var(--surface)',
+            border: '1px solid var(--line)',
+            borderRadius: 999,
+            padding: '6px 13px',
+            cursor: 'pointer',
+          }}
+        >
+          <span aria-hidden>⌕</span>
+          Filter{activeCount > 0 ? ` · ${activeCount}` : ''}
+          <span aria-hidden style={{ fontSize: 9 }}>{open ? '▲' : '▼'}</span>
+        </button>
+        {activeCount > 0 ? (
+          <button
+            type="button"
+            onClick={onClear}
+            style={{
+              fontSize: 12,
+              fontWeight: 700,
+              color: 'var(--ink-soft)',
+              background: 'transparent',
+              border: '1px solid var(--line)',
+              borderRadius: 999,
+              padding: '6px 12px',
+              cursor: 'pointer',
+            }}
+          >
+            Clear
+          </button>
+        ) : null}
+      </div>
+
+      {open ? (
+        <div
+          id={panelId}
+          role="group"
+          aria-label={`Filter ${eraTitle} by category`}
+          style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 10 }}
+        >
+          {categories.map((cat) => {
+            const badge = CATEGORY_BADGES[cat];
+            const on = active.has(cat);
+            return (
+              <button
+                key={cat}
+                type="button"
+                aria-pressed={on}
+                onClick={() => onToggle(cat)}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 5,
+                  fontSize: 12,
+                  fontWeight: 700,
+                  color: on ? '#fff' : 'var(--ink)',
+                  background: on ? badge.color : 'transparent',
+                  border: `1.5px solid ${badge.color}`,
+                  borderRadius: 999,
+                  padding: '5px 11px',
+                  cursor: 'pointer',
+                }}
+              >
+                <span aria-hidden>{badge.icon}</span>
+                <span>{badge.label}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : null}
+    </div>
   );
 }
