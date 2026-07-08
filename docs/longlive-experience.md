@@ -1,0 +1,298 @@
+# The LongLive Experience Layer
+
+Owner: Engineering. This is the source of truth for the **shipped front-end
+experience** — the interactive era/threads reader that renders at `/`. Read it
+before touching anything under `apps/web/components/longlive/**` or
+`apps/web/lib/longlive/**`.
+
+> **Why this doc exists.** `docs/architecture.md` describes the *intended*
+> Supabase-backed two-tier Vault. The experience currently shipped on the web
+> is a **self-contained, statically-authored layer** that lives entirely
+> in-repo under `lib/longlive/`. It does **not** read from Supabase, the
+> two-tier serving path, or `lib/vault.ts`. Any AI working on the site will
+> spend its time here, so this layer gets its own manual. When the two
+> converge (data moving to Supabase), update both docs in the same change.
+
+---
+
+## 1. The one-paragraph mental model
+
+The app is a single client-rendered experience (`app/page.tsx` → `<LongLive/>`)
+with **two modes**:
+
+- **Era mode** (`mode: 'era'`) — a vertical, immersive scroll through the 12
+  eras (`debut` → `tloas`). Each era re-skins the entire UI via CSS variables.
+  This is the "timeline" the `docs/architecture.md` scrubber concept feeds.
+- **Threads mode** (`mode: 'threads'`) — a cross-era "vault" that reads one
+  narrative *through-line* across her whole career (love story, fashion,
+  re-recordings, etc.), laid on a shared 2006→now axis. Threads mode uses a
+  fixed gold-on-charcoal palette (`VAULT_THEME`) to signal you've stepped out
+  of the eras.
+
+Everything else (the Clue Web mini-app, the Crossings overlay, media embeds,
+moment detail) hangs off those two modes. Navigation state lives in one store
+(`lib/longlive/store.tsx`); content lives in typed data modules
+(`lib/longlive/*.ts`); presentation is a flat set of components
+(`components/longlive/*.tsx`).
+
+---
+
+## 2. Directory map
+
+```
+apps/web/
+  app/page.tsx                     mounts <LongLive/> (the whole experience)
+  components/longlive/
+    LongLive.tsx                   app shell: reads mode, applies theme vars, routes to a mode
+    TopBar.tsx / EraSelector.tsx   era jump UI
+    TimelineScrubber.tsx           the morph-on-grab era scrubber (era mode)
+    EraStream.tsx                  the vertical era-by-era scroll (era mode)
+    EraSection.tsx                 one era: hero + lyric + media + moment grid + PIVOT strip
+    EraMedia.tsx                   click-to-play Spotify album embed (per era)
+    MomentDetail.tsx               immersive single-moment view (opened from a grid card)
+    MomentVideo.tsx                click-to-play YouTube embed (per moment)
+    ThreadsMode.tsx                threads gallery + immersive thread detail + routing
+    ThreadsTimeline.tsx            the shared career-axis rail used by every thread
+    ClueWeb.tsx                    the Easter-egg mini-app (home / trail / explore views)
+    Crossings.tsx                  two-thread intersection overlay
+    ShareSheet.tsx / SiteFooter.tsx
+  lib/longlive/
+    types.ts                       ALL shared types (Era, ContentItem, threads, motifs, crossings…)
+    eras.ts                        the 12 ERAS (data) + getEra() + per-era media
+    content.ts                     per-era moments (ContentItem[]) + getters
+    lenses.ts                      threads, thread points, easter eggs, motifs, clue pairs, crossings
+    tags.ts                        content tag metadata
+    theme.ts                       EraTheme -> CSS custom properties (the re-skin pipeline)
+    store.tsx                      the single React context store (state + actions)
+```
+
+Rule of thumb: **data and pure logic go in `lib/longlive/`; components stay
+thin.** This mirrors the repo-wide `shared/core` vs. view-layer boundary in
+`docs/architecture.md`.
+
+---
+
+## 3. Core data model (all in `types.ts`)
+
+### Era (`eras.ts` holds the 12 instances)
+```ts
+EraId = 'debut'|'fearless'|'speak-now'|'red'|'1989'|'reputation'
+      | 'lover'|'folklore'|'evermore'|'midnights'|'ttpd'|'tloas'
+Era = { id, name, shortName, years, album, intro, lyric?, image,
+        theme: EraTheme, isCurrent?, media?: EraMedia }
+```
+`theme` is what re-skins the UI (see §6). `media` is the Spotify embed (§7).
+
+### ContentItem — a "moment" within an era (`content.ts`)
+```ts
+ContentItem = { id, eraId, date (YYYY-MM-DD), title, blurb, tags: ContentTag[],
+                image, hiddenClue?, video?: MomentVideo }
+ContentTag = 'Music'|'Fashion'|'Tour'|'Relationship'|'Lore'
+```
+Authoring order doesn't matter — the UI sorts chronologically. `image`
+defaults to the era art if omitted (see `build()` in `content.ts`).
+
+### Threads / lenses (`lenses.ts`)
+```ts
+LensId = 'love-story'|'fashion'|'taylors-version'|'easter-eggs'
+       | 'hidden-clues'|'the-proposal'
+THREADS: ThreadMeta[]   // gallery cards (title, blurb, icon, accent)
+```
+Each thread owns its own dataset (relationships, runway looks, re-records,
+egg nodes, clue pairs, proposal beats). The **one contract** that puts a thread
+on the timeline is `threadPoints(id)` — see §5.
+
+### Motifs — the Clue Web trails (`lenses.ts`)
+```ts
+MotifId = 'number-13'|'hidden-messages'|'the-snake'|'color-coding'
+        | 'clocks-countdowns'|'doors-rooms'|'the-rerecordings'
+MOTIFS: Motif[]                       // trail metadata (label, blurb, icon)
+MOTIF_MEMBERSHIP: Record<MotifId, string[]>   // SOURCE OF TRUTH: egg id -> trail
+```
+
+### Media
+```ts
+EraMedia   = { spotifyAlbumId, albumTitle, youtubeId? }   // on Era
+MomentVideo = { youtubeId, title }                         // on ContentItem
+```
+
+---
+
+## 4. Navigation store (`store.tsx`)
+
+One React context. Consume via `useAppState()` (read) and `useAppActions()`
+(write). Never thread props for navigation — go through the store.
+
+State:
+```ts
+mode: 'era' | 'threads'
+eraId: EraId                 // active era in era mode
+eraJumpSeq: number           // bump to force a scroll-to-era
+lensId: LensId | null        // active thread, or null = threads gallery
+crossing: { a, b } | null    // active Crossings overlay (threads mode)
+openItemId: string | null    // open MomentDetail, or null
+selectorOpen, share
+```
+
+Key actions (all memoized):
+- `setMode`, `setEra`, `setActiveEra`, `goHome`
+- `setLens` / `clearLens` — pick a thread / return to the gallery
+- `openThread(id)` — **pivot from an era into a thread** (switches to threads mode)
+- `openEra(id)` — **pivot from a thread back into an era** (switches to era mode + jumps)
+- `openCrossing(a,b)` / `closeCrossing()` — the two-thread overlay
+- `openItem(id)` / `closeItem()` — MomentDetail
+- `saveEraScroll(snap)` / `getEraScroll()` / `clearEraScroll()` — era-stream
+  scroll restoration (see §5.6). `setEra`, `openEra`, and `goHome` all call
+  `clearEraScroll()` so explicit jumps land at the top.
+
+`LongLive.tsx` reads `mode` and renders the era stream or `ThreadsMode`, and
+applies the theme (era palette vs `VAULT_THEME`) to the shell wrapper.
+
+---
+
+## 5. The invariants that keep new content consistent
+
+**This is the most important section for any AI adding content.** The system
+is designed so new content "just works" *if* you honor these contracts. Break
+one and content silently misbehaves.
+
+### 5.1 A thread joins the timeline via `threadPoints(id)`
+Every thread maps its dataset down to a shared shape:
+```ts
+ThreadPoint = { date: string; eraId: string; label: string }
+```
+`threadPoints(id)` in `lenses.ts` is a `switch` returning `ThreadPoint[]`. From
+that array the timeline derives **everything automatically**: era-colored
+ticks (via `getEra(eraId)`), the activity density ridge, drag-scrubbing, hover
+tooltips, year labels. Era *bands* come from the global `ERAS` array, not the
+thread — so they're identical on every thread. **To add a thread: add its data,
+add a `case` to `threadPoints`, done.** No bespoke timeline code.
+
+### 5.2 Dated thread content must be wrapped in `<ThreadItem>`
+Scroll-sync (the scrubber handle following your scroll) works by reading
+`data-ll-item` / `data-ll-date` attributes off the rendered cards.
+`<ThreadItem date=...>` stamps those on. **Any thread whose cards are not
+wrapped in `ThreadItem` will render correct ticks but the handle won't track
+scroll.** (This was a real bug in "The Decode" — it's the easy thing to forget.)
+
+### 5.3 Every egg belongs to exactly one motif trail
+`MOTIF_MEMBERSHIP` in `lenses.ts` is the source of truth. Add an `EggNode` to
+`EGG_NODES` **and** to exactly one trail in `MOTIF_MEMBERSHIP`. A dev-only guard
+at the bottom of `lenses.ts` `console.error`s any unclassified node — watch for
+it. `EGG_LINKS` are the *cross-trail* connections drawn on the explore
+constellation; trails are the guided reading path.
+
+### 5.4 Threads that participate in pivots/crossings
+`CROSSING_THREADS` in `lenses.ts` lists the narrative threads offered in the
+era pivot strip and the Crossings overlay (the clue mini-apps are excluded —
+they have their own spatial UI). `threadsInEra()` and `threadCrossings()` are
+both built on `threadPoints()`, so a new thread added per §5.1 automatically
+participates once added to `CROSSING_THREADS`.
+
+### 5.5 Media IDs must be verified before commit
+Never trust a model's memory (or a web-search snippet) for a Spotify album ID
+or YouTube video ID — a wrong ID silently plays the wrong thing. Verify against
+the platform's oEmbed endpoint and confirm the returned title/author:
+```bash
+# Spotify album
+curl -s "https://open.spotify.com/oembed?url=https://open.spotify.com/album/<ID>"
+# YouTube video (check title AND author_name)
+curl -s "https://www.youtube.com/oembed?format=json&url=https://www.youtube.com/watch?v=<ID>"
+```
+Both media components are **click-to-play facades** — they mount the iframe
+only on user click, so the infinite scroll never spawns dozens of players.
+YouTube uses the privacy-enhanced `youtube-nocookie.com` domain. Poster
+thumbnails come from `i.ytimg.com` (allowlisted in `next.config.mjs`). We embed
+via official first-party players only; never re-host audio/video.
+
+### 5.6 Era-stream scroll position survives a trip to Threads
+Switching to threads mode unmounts `EraStream`, which would otherwise destroy
+the reader's scroll position, anchor era, and lazily-appended older eras. To
+avoid that dead-end the store keeps an `EraScrollSnapshot`
+(`{ anchorId, count, scrollY }`) in a ref: `EraStream` writes it continuously
+on scroll (`saveEraScroll`) and reads it once on mount (`getEraScroll`) to
+restore the exact spot (double-`requestAnimationFrame` so appended eras lay out
+before the scroll lands). **The contract:** a plain Eras↔Threads *toggle*
+restores; an *explicit jump* lands at the top. So **any new code path that
+jumps the user to a specific era must call `clearEraScroll()` first** (as
+`setEra`/`openEra`/`goHome` do) — otherwise it will wrongly restore the old
+position. Also keep the `EraStream` jump effect idempotent (it keys off the
+`eraJumpSeq` *value*, not a mount flag) so React StrictMode's double-invoke in
+dev can't clobber a restore.
+
+---
+
+## 6. Theming — how an era re-skins the whole UI
+
+`theme.ts` turns an `EraTheme` into CSS custom properties
+(`--era-bg`, `--era-surface`, `--era-surface-2`, `--era-ink`, `--era-ink-soft`,
+`--era-line`, `--era-accent`, `--era-accent-2`, `--era-glow`, `--era-font`).
+`LongLive.tsx` applies `eraStyle(era)` (or `vaultStyle()` in threads mode) to
+the shell wrapper, so **all descendants read the same tokens** and recolor
+together.
+
+Consequences for component code:
+- Style with the tokens, e.g. `text-[color:var(--era-ink-soft)]`,
+  `bg-[color:var(--era-accent)]`, `border-[color:var(--era-line)]`. Do **not**
+  hard-code hex or use raw `text-white`/`bg-black`.
+- Note the token is `--era-surface-2` (hyphen-two). A `--era-surface2` typo
+  produces an invisible/transparent surface — has bitten us twice.
+- The same tokens are what let a "payoff" recolor into its own era inside a
+  thread (e.g. The Decode) — you just render it under that era's variables.
+
+---
+
+## 7. The feature surfaces at a glance
+
+| Surface | Component | Notes |
+|---|---|---|
+| Era scroll | `EraStream` → `EraSection` | hero + lyric + `EraMedia` + moment grid + pivot strip |
+| Era scrubber | `TimelineScrubber` | morph-on-grab; snaps to era boundaries |
+| Moment detail | `MomentDetail` | opened via `openItem`; shows `MomentVideo` + hidden clue |
+| Thread gallery | `ThreadsMode`/`ThreadsGallery` | thread cards + "Where threads cross" launcher |
+| Thread detail | `ThreadsMode`/`ThreadDetail` | `ThreadsTimeline` rail + `ThreadItem` cards |
+| Clue Web | `ClueWeb` | 3 views: home (trail picker) / trail (readable) / explore (constellation) |
+| Crossings | `Crossings` | two threads on one axis; markers where they intersect |
+| Era ↔ Thread pivots | `EraSection` strip + `Crossings` links | via `openThread` / `openEra` |
+
+---
+
+## 8. Recipes
+
+**Add a moment to an era:** add a `RawItem` to the correct `EraId` array in
+`content.ts` (`id`, `date`, `title`, `blurb`, `tags`). Optionally add
+`video: { youtubeId, title }` (verify per §5.5) and/or `hiddenClue`.
+
+**Add a music video to a moment:** add `video` to that `ContentItem`. Verify
+the ID. It renders automatically in `MomentDetail`.
+
+**Add music to an era:** add `media: { spotifyAlbumId, albumTitle }` to the
+`Era` in `eras.ts`. Verify the ID.
+
+**Add a new thread:** add its data + a `ThreadMeta` entry to `THREADS`, add a
+`case` to `threadPoints()` returning `ThreadPoint[]` (§5.1), render its cards
+inside `<ThreadItem>` (§5.2), and add it to `CROSSING_THREADS` if it should
+appear in pivots/crossings (§5.4).
+
+**Add an Easter egg:** add an `EggNode` to `EGG_NODES`, classify it in
+`MOTIF_MEMBERSHIP` (§5.3), and optionally add `EGG_LINKS` to connect it on the
+constellation.
+
+**Add a clue pair (The Decode):** add a `CluePair` to `CLUE_PAIRS` in
+`lenses.ts` (plant + payoff, `confirmed` flag, sources).
+
+---
+
+## 9. Current state / known gaps
+
+- Content in `content.ts` is representative **mock** data authored in-repo, not
+  yet sourced from Supabase. The `lib/vault.ts` / two-tier serving path in
+  `docs/architecture.md` is **not** wired into this experience yet.
+- Media coverage: all 12 eras have Spotify embeds; 10 signature moments have
+  YouTube videos. 1989 + folklore point at original/deluxe (not Taylor's
+  Version) pending a product call.
+- Clue Web "explore" constellation label overlap in dense clusters is a known
+  polish item (collision-avoidance not yet implemented).
+
+Keep this file current in the same change that alters behavior here — it is the
+handoff contract for the next AI (v0, Claude Code, or Codex).
