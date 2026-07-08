@@ -507,13 +507,14 @@ const RAW: Record<EraId, RawItem[]> = {
   tloas: [
     {
       id: 'tloas-announce',
-      date: '2025-08-12',
+      date: '2025-08-13',
       dateLabel: 'August 2025',
       title: 'A new era is announced',
-      summary: 'The Life of a Showgirl is revealed — a hard turn from ink into glitter.',
+      summary:
+        'The Life of a Showgirl is revealed live on Travis Kelce’s "New Heights" podcast — a hard turn from ink into glitter.',
       body: [
-        'After the monochrome hush of the last era, the announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle.',
-        'The reveal reframes everything that came before as the build-up to a curtain call.',
+        'After the monochrome hush of the last era, the reveal comes not from a stage or a cryptic post but from a guest chair on her fiancé’s football podcast — itself a sign of how public the era would be.',
+        'The announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle, reframing everything that came before as the build-up to a curtain call.',
       ],
       tags: ['Music'],
       hiddenClue: {
@@ -522,14 +523,55 @@ const RAW: Record<EraId, RawItem[]> = {
       },
     },
     {
+      id: 'tloas-engagement',
+      date: '2025-08-26',
+      dateLabel: 'August 2025',
+      title: 'The engagement, announced in cleats and pearls',
+      summary: 'Two weeks after the album reveal, she and Travis Kelce announce their engagement on Instagram.',
+      body: [
+        'A joint Instagram post — captioned "your English teacher and your gym teacher are getting married" — confirmed the engagement to the Kansas City Chiefs tight end.',
+        'The proposal itself had happened roughly two weeks earlier at a garden in Lee’s Summit, Missouri, keeping the love story running parallel to the new album’s rollout.',
+      ],
+      tags: ['Relationship'],
+    },
+    {
       id: 'tloas-album',
       date: '2025-10-03',
       dateLabel: 'October 2025',
       title: 'The Life of a Showgirl released',
-      summary: 'The twelfth era arrives: opulent, theatrical, and unapologetically bright.',
+      summary: 'The twelfth studio album arrives: opulent, theatrical, and unapologetically bright.',
       body: [
         'The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.',
-        'It is a victory lap dressed as a cabaret: knowing, warm, and dazzling.',
+        'Produced with Max Martin and Shellback — their first new-album collaboration with her since reputation — it is a victory lap dressed as a cabaret: knowing, warm, and dazzling.',
+      ],
+      tags: ['Music'],
+    },
+    {
+      id: 'tloas-release-party-film',
+      date: '2025-10-03',
+      dateLabel: 'October 2025',
+      title: 'The Official Release Party of a Showgirl hits theaters',
+      summary:
+        'A companion film screens in cinemas worldwide alongside the album, with behind-the-scenes footage and track commentary.',
+      body: [
+        'Rolling into more than 50 territories across AMC, Cinemark, and Regal screens, the release-party film paired the album drop with lyric videos and Taylor’s own reflections on each song.',
+        'It also carried the promise of a world premiere still to come: the music video for the lead single, held back for its own big-screen debut two days later.',
+      ],
+      tags: ['Music', 'Tour'],
+    },
+    {
+      id: 'tloas-fate-of-ophelia-video',
+      video: {
+        youtubeId: 'fxeEYfVDaJI',
+        title: 'The official music video for “The Fate of Ophelia” is available now, only on YouTube',
+      },
+      date: '2025-10-05',
+      dateLabel: 'October 2025',
+      title: '“The Fate of Ophelia” video premieres',
+      summary: 'The self-directed lead-single video debuts on YouTube after its theatrical-only premiere two days earlier.',
+      body: [
+        'Written and directed by Taylor Swift, the video moves through a string of theatrical costume changes and sets, in keeping with the album’s showgirl framing.',
+        'It had already premiered on the big screen as part of the release-party film before arriving on YouTube for the wider audience.',
       ],
       tags: ['Music'],
     },
@@ -543,22 +585,54 @@ const RAW: Record<EraId, RawItem[]> = {
       tags: ['Fashion'],
     },
     {
-      id: 'tloas-single',
-      date: '2025-10-10',
-      dateLabel: 'October 2025',
-      title: 'The lead single shines',
-      summary: 'A brassy, celebratory single sets the tone for the era.',
-      body: ['Bright horns and a confident strut announce a mood of triumph rather than heartbreak.'],
-      tags: ['Music'],
-    },
-    {
       id: 'tloas-debut-chart',
       date: '2025-10-13',
       dateLabel: 'October 2025',
       title: 'A record-setting debut',
-      summary: 'The album opens at number one with era-defining first-week numbers.',
-      body: ['The launch reaffirmed her commercial dominance, opening atop the charts around the world.'],
+      summary: 'The album opens at number one with the fastest-selling first week in history.',
+      body: [
+        'The Life of a Showgirl moved north of 4 million album-equivalent units in its opening week, the biggest sales week any album has ever posted.',
+        'It became her 15th number-one album on the Billboard 200, breaking a tie with Drake and Jay-Z for the most chart-toppers among solo acts.',
+      ],
       tags: ['Lore'],
+    },
+    {
+      id: 'tloas-hot100-sweep',
+      date: '2025-10-18',
+      dateLabel: 'October 2025',
+      title: 'All twelve songs, all twelve top spots',
+      summary: 'Every track on the album lands positions 1 through 12 of the Billboard Hot 100 — a first in chart history.',
+      body: [
+        'Led by "The Fate of Ophelia" at number one, the full tracklist swept the top of the Hot 100 with no other song breaking the streak.',
+        'It was the first time in the chart’s history, dating back to the 1950s, that an entire album occupied every one of its top positions uninterrupted.',
+      ],
+      tags: ['Lore'],
+    },
+    {
+      id: 'tloas-opalite-video',
+      video: { youtubeId: '1FVF-9KQiPo', title: 'Taylor Swift - Opalite (Official Music Video)' },
+      date: '2026-01-12',
+      dateLabel: 'January 2026',
+      title: '“Opalite” arrives as the second single',
+      summary: 'A time-slip music video follows a lonesome character through the 1990s toward a gem-hued reinvention.',
+      body: [
+        'The video for "Opalite" casts Taylor as a wistful, cat-loving figure decades removed from the stage, before the song’s glow pulls her back into color.',
+        'Released as the second single, it kept the era’s pastel-orange visual thread going into the new year.',
+      ],
+      tags: ['Music'],
+    },
+    {
+      id: 'tloas-elizabeth-taylor-video',
+      video: { youtubeId: 'WqbJT_vC0rs', title: 'Taylor Swift - Elizabeth Taylor (Official Music Video)' },
+      date: '2026-03-09',
+      dateLabel: 'March 2026',
+      title: '“Elizabeth Taylor” goes to radio',
+      summary: 'The album’s third single, named for the screen icon, arrives at radio with its own official video.',
+      body: [
+        'The song went to US hot adult contemporary radio first, followed a day later by a contemporary hit radio push, extending the album’s single cycle five months after release.',
+        'A "So Glamorous Cabaret Version" and full digital package followed later that month, keeping the showgirl motif alive well into 2026.',
+      ],
+      tags: ['Music', 'Fashion'],
     },
   ],
 };
@@ -608,9 +682,11 @@ export const MILESTONES: Milestone[] = [
   { id: 'm-mid-3', eraId: 'midnights', date: '2023-10-13', label: 'Eras Tour film', kind: 'tour' },
   { id: 'm-ttpd-1', eraId: 'ttpd', date: '2024-04-19', label: 'TTPD released', kind: 'album' },
   { id: 'm-ttpd-2', eraId: 'ttpd', date: '2024-12-08', label: 'Eras Tour finale', kind: 'tour' },
-  { id: 'm-tloas-1', eraId: 'tloas', date: '2025-08-12', label: 'Era announced', kind: 'life' },
+  { id: 'm-tloas-1', eraId: 'tloas', date: '2025-08-13', label: 'Era announced', kind: 'life' },
+  { id: 'm-tloas-1b', eraId: 'tloas', date: '2025-08-26', label: 'Engagement announced', kind: 'life' },
   { id: 'm-tloas-2', eraId: 'tloas', date: '2025-10-03', label: 'Showgirl released', kind: 'album' },
   { id: 'm-tloas-3', eraId: 'tloas', date: '2025-10-13', label: 'Record debut', kind: 'award' },
+  { id: 'm-tloas-4', eraId: 'tloas', date: '2025-10-18', label: 'Hot 100 sweep', kind: 'award' },
 ];
 
 export function milestonesForEra(eraId: EraId): Milestone[] {
