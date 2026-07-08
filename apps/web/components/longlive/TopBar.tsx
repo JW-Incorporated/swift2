@@ -9,8 +9,15 @@ import { TimelineScrubber } from './TimelineScrubber';
 
 export function TopBar() {
   const { mode, eraId } = useAppState();
-  const { setMode, setSelectorOpen, openShare } = useAppActions();
+  const { setMode, setSelectorOpen, openShare, goHome } = useAppActions();
   const era = getEra(eraId);
+
+  function handleHome() {
+    goHome();
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }
 
   return (
     <header className="sticky top-0 z-40">
@@ -19,9 +26,14 @@ export function TopBar() {
 
       <div className="flex items-center justify-between gap-3 border-b border-line bg-bg/80 px-4 py-3 backdrop-blur-xl md:px-6">
         <div className="flex min-w-0 items-center gap-3">
-          <span className="font-era text-lg font-semibold tracking-tight md:text-xl">
+          <button
+            type="button"
+            onClick={handleHome}
+            aria-label="Long Live — back to home"
+            className="rounded-md font-era text-lg font-semibold tracking-tight transition-opacity hover:opacity-70 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent md:text-xl"
+          >
             Long&nbsp;Live
-          </span>
+          </button>
           <span className="hidden h-5 w-px bg-line sm:block" aria-hidden />
           {mode === 'era' ? (
             <button

@@ -31,6 +31,8 @@ export type ShareTarget =
   | { kind: 'item'; itemId: string };
 
 interface AppActions {
+  /** Reset to the main screen: era mode, current era, all overlays closed. */
+  goHome: () => void;
   setMode: (m: AppMode) => void;
   setEra: (id: EraId) => void;
   setLens: (id: LensId) => void;
@@ -58,8 +60,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSelectorOpen(false);
   }, []);
 
+  const goHome = useCallback(() => {
+    setModeRaw('era');
+    setEraId(CURRENT_ERA_ID);
+    setSelectorOpen(false);
+    setOpenItemId(null);
+    setShare(null);
+  }, []);
+
   const actions = useMemo<AppActions>(
     () => ({
+      goHome,
       setMode: setModeRaw,
       setEra,
       setLens: setLensId,
@@ -69,7 +80,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       openShare: setShare,
       closeShare: () => setShare(null),
     }),
-    [setEra],
+    [setEra, goHome],
   );
 
   const state = useMemo<AppState>(
