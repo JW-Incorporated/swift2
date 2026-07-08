@@ -862,5 +862,191 @@ export default {
         ],
       },
     },
+
+    // --- Thin-era top-up (2026-07-08, audit rollout PR 2): the era's empty
+    // release and relationship categories, filled with public record. Tour
+    // stays genuinely empty — no touring happened between the pandemic and
+    // the Eras Tour announcement (which falls in the Midnights era). New
+    // items carry the audit's additive provenance fields.
+    {
+      slug: 'evermore-deluxe-bonus-tracks',
+      year: 2021,
+      month: 1,
+      category: 'release',
+      title: 'The deluxe edition surfaces "right where you left me" — a narrator frozen in a restaurant',
+      snippet:
+        'evermore\'s two bonus tracks, "right where you left me" and "it\'s time to go," arrived digitally Jan. 7, 2021 with the deluxe edition — one about staying stuck at the table where it ended, the other about knowing when to leave.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Right_Where_You_Left_Me',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The pairing reads as a deliberate diptych — the girl who never left the restaurant versus the voice listing every time walking away was the right call, with "it\'s time to go" widely noted for its verse tracing her decision to leave Big Machine rather than re-sign. Both were written with Aaron Dessner and had shipped physically before going wide digitally.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Right_Where_You_Left_Me',
+            source_title: 'Right Where You Left Me',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)',
+            source_title: 'Evermore (Taylor Swift album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'mr-perfectly-fine-from-the-vault',
+      year: 2021,
+      month: 4,
+      category: 'release',
+      title: 'Mr. Perfectly Fine opens the vault',
+      snippet:
+        'The first From the Vault track ever released, out April 7, 2021 ahead of Fearless (Taylor\'s Version) — a 2008 castoff fans immediately read as a Joe Jonas song. Sophie Turner\'s Instagram verdict: "It\'s not NOT a bop."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Mr._Perfectly_Fine',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written solo when she was 18 and left off the original Fearless, it introduced the vault-track format that became the re-recording project\'s signature: finished songs from each album\'s original sessions, released as new. Turner — married to Jonas at the time — shared the track approvingly, and Swift reposted her, calling her a "queen."',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Mr._Perfectly_Fine',
+            source_title: 'Mr. Perfectly Fine',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'all-too-well-short-film-premiere',
+      year: 2021,
+      month: 11,
+      category: 'release',
+      title: 'All Too Well: The Short Film premieres — she wrote it, she directed it',
+      snippet:
+        'Released Nov. 12, 2021 alongside Red (Taylor\'s Version): a 15-minute film starring Sadie Sink and Dylan O\'Brien, built on the 10-minute version of the song, premiered at a fan event in New York with Sink and O\'Brien on hand.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/All_Too_Well:_The_Short_Film',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her most ambitious directing work to date — chaptered like a short story, ending with Swift herself as the older writer reading from the book of it. It went on to win the Grammy for Best Music Video and gave the era its defining visual: the scarf, finally on screen. (The premiere-night Etro pantsuit is covered separately in this era\'s fashion items.)',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/All_Too_Well:_The_Short_Film',
+            source_title: 'All Too Well: The Short Film',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'carolina-crawdads',
+      year: 2022,
+      month: 6,
+      category: 'release',
+      title: 'Carolina: a one-take murder-ballad for the marsh',
+      snippet:
+        'Written alone for Where the Crawdads Sing and produced with Aaron Dessner using only instruments available before 1953, "Carolina" arrived June 24, 2022 — evermore\'s swampy ghost, one last time.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Carolina_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift said she wrote it "in one sitting" after reading the novel, and the period-instrument constraint kept the recording deliberately spare and eerie. It earned Golden Globe and Grammy nominations for its songwriting — the folklore/evermore sound\'s formal goodbye before Midnights rebooted everything that October.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Carolina_(Taylor_Swift_song)',
+            source_title: 'Carolina (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'grammys-2021-joe-thank-you',
+      year: 2021,
+      month: 3,
+      category: 'relationship',
+      title: '"Joe, who is the first person that I play every single song that I write"',
+      snippet:
+        'The Album of the Year speech doubled as the relationship\'s most public moment yet — thanking Joe by first name on the Grammy stage: "I had the best time writing songs with you in quarantine."',
+      sourceUrl: 'https://www.grammy.com/news/taylor-swift-folklore-album-of-the-year-win-2021-grammys-acceptance-speech-video-joe-alwyn-collaborators-rewind/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Four months after the William Bowery reveal, the March 14, 2021 speech acknowledged the co-writing partnership out loud on live TV — as folklore\'s win made her the first woman with three Album of the Year Grammys. It stayed the couple\'s most public exchange until the relationship ended two years later.',
+        sources: [
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/taylor-swift-folklore-album-of-the-year-win-2021-grammys-acceptance-speech-video-joe-alwyn-collaborators-rewind/',
+            source_title: 'GRAMMY Rewind: Taylor Swift Thanks Joe Alwyn For Being Her Quarantine Co-Writer',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-makes-history-with-2021-album-of-the-year-grammy-win-gives-shout-out-to-boyfriend-joe',
+            source_title: 'Taylor Swift Makes History With 2021 Album of the Year GRAMMY Win, Gives Shout-Out to Boyfriend Joe Alwyn',
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'joe-alwyn-pound-coins',
+      year: 2022,
+      month: 4,
+      category: 'relationship',
+      title: '"If I had a pound for every time I think I\'ve been told I\'ve been engaged…"',
+      snippet:
+        'Joe Alwyn finally addressed the constant engagement rumors in an April 2022 WSJ. Magazine interview: "…then I\'d have a lot of pound coins. The truth is, if the answer was yes, I wouldn\'t say, and if the answer was no, I wouldn\'t say."',
+      sourceUrl: 'https://www.billboard.com/music/music-news/joe-alwyn-taylor-swift-engagement-rumors-response-1235061173/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The non-answer was the most he ever said publicly about the relationship\'s status — consistent with the privacy pact the couple described in Miss Americana, and a line fans quoted for years afterward whenever the rumors resurfaced.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/joe-alwyn-taylor-swift-engagement-rumors-response-1235061173/',
+            source_title: 'Joe Alwyn Is Finally Addressing Those Taylor Swift Engagement Rumors',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
