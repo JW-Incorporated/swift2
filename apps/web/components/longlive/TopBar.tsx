@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { TimelineScrubber } from './TimelineScrubber';
 
 export function TopBar() {
-  const { mode, eraId } = useAppState();
+  const { mode, eraId, lensId } = useAppState();
   const { setMode, setSelectorOpen, openShare, goHome } = useAppActions();
   const era = getEra(eraId);
 
@@ -50,7 +50,7 @@ export function TopBar() {
               )}
             </button>
           ) : (
-            <span className="truncate text-sm font-medium text-ink-soft">Lens Mode</span>
+            <span className="truncate text-sm font-medium text-ink-soft">The Threads</span>
           )}
         </div>
 
@@ -61,7 +61,7 @@ export function TopBar() {
             size="icon"
             aria-label="Share"
             onClick={() =>
-              openShare(mode === 'era' ? { kind: 'era', eraId } : { kind: 'lens', lensId: 'love-story' })
+              openShare(mode === 'era' ? { kind: 'era', eraId } : { kind: 'lens', lensId: lensId ?? 'love-story' })
             }
           >
             <Share2 />
@@ -76,8 +76,8 @@ function ModeToggle({
   mode,
   onChange,
 }: {
-  mode: 'era' | 'lens';
-  onChange: (m: 'era' | 'lens') => void;
+  mode: 'era' | 'threads';
+  onChange: (m: 'era' | 'threads') => void;
 }) {
   return (
     <div
@@ -100,19 +100,19 @@ function ModeToggle({
         )}
       >
         <Compass className="size-3.5 md:size-4" />
-        Era
+        Eras
       </button>
       <button
         role="tab"
-        aria-selected={mode === 'lens'}
-        onClick={() => onChange('lens')}
+        aria-selected={mode === 'threads'}
+        onClick={() => onChange('threads')}
         className={cn(
           'relative z-10 flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-semibold transition-colors md:text-sm',
-          mode === 'lens' ? 'text-bg' : 'text-ink-soft hover:text-ink',
+          mode === 'threads' ? 'text-bg' : 'text-ink-soft hover:text-ink',
         )}
       >
         <Layers className="size-3.5 md:size-4" />
-        Lens
+        Threads
       </button>
     </div>
   );

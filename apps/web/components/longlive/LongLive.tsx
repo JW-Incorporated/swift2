@@ -24,6 +24,11 @@ function Shell() {
     if (meta) meta.setAttribute('content', themeColor);
   }, [themeColor]);
 
+  // Landing in a new world should start at the top, not mid-scroll.
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [mode]);
+
   return (
     <div className="era-shell font-sans" style={inThreads ? vaultStyle() : eraStyle(era)}>
       <TopBar />
