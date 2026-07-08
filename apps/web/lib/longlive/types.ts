@@ -170,6 +170,28 @@ export interface EggLink {
   label: string;
 }
 
+/**
+ * A named family of related Easter eggs — a guided "trail" through the Clue Web.
+ * Every EggNode belongs to exactly one motif (see MOTIF_MEMBERSHIP in lenses).
+ */
+export type MotifId =
+  | 'number-13'
+  | 'hidden-messages'
+  | 'the-snake'
+  | 'color-coding'
+  | 'clocks-countdowns'
+  | 'doors-rooms'
+  | 'the-rerecordings';
+
+export interface Motif {
+  id: MotifId;
+  label: string;
+  /** One-line through-line for the motif. */
+  blurb: string;
+  /** lucide-react icon name, resolved to a component in the UI. */
+  icon: string;
+}
+
 export type LensId =
   | 'love-story'
   | 'fashion'

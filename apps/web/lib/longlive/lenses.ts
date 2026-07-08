@@ -1,4 +1,4 @@
-import type { CluePair, EggLink, EggNode, LensId, ReRecord, Relationship, RunwayLook, StoryBeat } from './types';
+import type { CluePair, EggLink, EggNode, LensId, Motif, MotifId, ReRecord, Relationship, RunwayLook, StoryBeat } from './types';
 import { getEra } from './eras';
 
 /**
@@ -734,6 +734,135 @@ export const EGG_LINKS: EggLink[] = [
   { from: 'egg-tloas-orange-doors', to: 'egg-tloas-album-drop', label: 'fulfilled countdown' },
   { from: 'egg-tloas-orange-doors', to: 'egg-wood-track-tloas', label: 'sparks song theory' },
 ];
+
+// ── Motif trails (the Clue Web mini-app) ────────────────────────────────────
+// Trails are the *guided* way into the Clue Web: each groups related eggs into
+// a readable story. EGG_LINKS remain the cross-trail connections drawn on the
+// exploratory constellation map. Every node belongs to exactly one trail.
+//
+// Adding an egg? Add it to EGG_NODES and to exactly one trail in
+// MOTIF_MEMBERSHIP below. The dev guard at the bottom fails loudly if a node is
+// left unclassified — that is what keeps new content consistent.
+
+export const MOTIFS: Motif[] = [
+  {
+    id: 'number-13',
+    label: 'The Number 13',
+    icon: 'Hash',
+    blurb: 'Her lucky number, hidden in dates, teasers, and track counts since day one.',
+  },
+  {
+    id: 'hidden-messages',
+    label: 'Hidden Messages',
+    icon: 'Type',
+    blurb: 'Secret capital letters and coded liner notes that trained fans to decode everything.',
+  },
+  {
+    id: 'the-snake',
+    label: 'The Snake',
+    icon: 'Spline',
+    blurb: 'An insult reclaimed as armor in reputation, then shed for butterflies in Lover.',
+  },
+  {
+    id: 'color-coding',
+    label: 'Color Coding',
+    icon: 'Palette',
+    blurb: 'Colors that forecast an era and pay off seasons — sometimes years — later.',
+  },
+  {
+    id: 'clocks-countdowns',
+    label: 'Clocks & Countdowns',
+    icon: 'Clock',
+    blurb: 'Timestamps and reveal timers pointing at one specific hour.',
+  },
+  {
+    id: 'doors-rooms',
+    label: 'Doors & Rooms',
+    icon: 'DoorOpen',
+    blurb: 'The Lover house, the folklore cabin, and the orange doors of a new era.',
+  },
+  {
+    id: 'the-rerecordings',
+    label: 'The Re-Recordings',
+    icon: 'RefreshCw',
+    blurb: 'Breadcrumbs that mapped the order of the Taylor’s Version rollout.',
+  },
+];
+
+export const MOTIF_BY_ID = Object.fromEntries(MOTIFS.map((m) => [m.id, m])) as Record<MotifId, Motif>;
+
+/** Source of truth for which eggs belong to which trail. */
+const MOTIF_MEMBERSHIP: Record<MotifId, string[]> = {
+  'number-13': ['egg-13-debut', 'egg-13-video-1989', 'egg-13-tracks-midnights'],
+  'hidden-messages': ['egg-capitals-debut', 'egg-capitals-fearless', 'egg-fearless-tv-scramble', 'egg-wood-track-tloas'],
+  'the-snake': ['egg-snake-instagram', 'egg-snake-lwymmd', 'egg-snake-me-mv'],
+  'color-coding': ['egg-red-burning', 'egg-color-daylight', 'egg-string-willow', 'egg-karma-album-theory'],
+  'clocks-countdowns': [
+    'egg-clock-lastkiss',
+    'egg-midnights-vinyl-clock',
+    'egg-grammys-two-fingers',
+    'egg-ttpd-timetable-clock',
+    'egg-ttpd-anthology-drop',
+  ],
+  'doors-rooms': [
+    'egg-loverhouse-mv',
+    'egg-cabin-folklore',
+    'egg-eras-burning-house',
+    'egg-tloas-orange-doors',
+    'egg-tloas-album-drop',
+  ],
+  'the-rerecordings': [
+    'egg-man-graffiti',
+    'egg-red-tv-rings',
+    'egg-bejeweled-elevator',
+    'egg-rep-tv-clue-bejeweled',
+    'egg-speaknow-tv-nashville',
+    'egg-1989-tv-la',
+  ],
+};
+
+const NODE_TO_MOTIF: Record<string, MotifId> = Object.entries(MOTIF_MEMBERSHIP).reduce(
+  (acc, [motif, ids]) => {
+    for (const id of ids) acc[id] = motif as MotifId;
+    return acc;
+  },
+  {} as Record<string, MotifId>,
+);
+
+/** The trail a node belongs to (undefined only if misclassified). */
+export function motifOf(nodeId: string): MotifId | undefined {
+  return NODE_TO_MOTIF[nodeId];
+}
+
+/** Nodes on a trail, oldest → newest (clue before payoff on year ties). */
+export function motifNodes(motifId: MotifId): EggNode[] {
+  return EGG_NODES.filter((n) => NODE_TO_MOTIF[n.id] === motifId).sort(
+    (a, b) => a.year - b.year || (a.kind === b.kind ? 0 : a.kind === 'clue' ? -1 : 1),
+  );
+}
+
+/** Distinct eras a trail touches, in chronological order. */
+export function motifEraIds(motifId: MotifId): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const n of motifNodes(motifId)) {
+    if (!seen.has(n.eraId)) {
+      seen.add(n.eraId);
+      out.push(n.eraId);
+    }
+  }
+  return out;
+}
+
+// Dev-only guard: every egg must live on exactly one trail. An unclassified
+// node should fail loudly here instead of silently vanishing from the UI.
+if (process.env.NODE_ENV !== 'production') {
+  const unclassified = EGG_NODES.filter((n) => !NODE_TO_MOTIF[n.id]).map((n) => n.id);
+  if (unclassified.length > 0) {
+    // eslint-disable-next-line no-console
+    console.error('[v0] Clue Web: unclassified egg nodes — add to MOTIF_MEMBERSHIP:', unclassified);
+  }
+}
 
 // ── The Proposal (sourced narrative thread) ─────────────────────────────────
 // Publicly reported facts, attributed. Framed by an independent fan project.
