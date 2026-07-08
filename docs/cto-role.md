@@ -65,7 +65,10 @@ A SessionStart hook already runs `git fetch origin`.
       anything** (commands, env files, repo map, prod-write warnings)
    4. `docs/roadmap.md` — your track (ENGINE = Wyatt/code, CONTENT =
       Joey/seed data) and the topmost unchecked work package
-   5. As needed: `docs/architecture.md` (stack + boundaries),
+   5. If touching the web UI at all: `docs/longlive-experience.md` — the
+      shipped front-end (`/`) is the static LongLive layer, not the
+      Supabase-backed reader `docs/architecture.md` originally specced.
+   6. As needed: `docs/architecture.md` (stack + boundaries),
       `docs/decisions.md` (why things are the way they are)
 4. **Then work:** spec before code on anything non-trivial, on a branch,
    to the Definition of Done. Don't touch the other track's files.
