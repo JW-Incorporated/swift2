@@ -22,21 +22,22 @@ config.resolver.nodeModulesPaths = [
 // ---------------------------------------------------------------------------
 // Singleton pinning — the load-bearing part of this config.
 //
-// npm's workspace hoisting gives this repo MULTIPLE copies of packages that
-// must be singletons in a React Native bundle:
+// This monorepo runs TWO React majors on purpose: apps/web (Next.js) is on
+// React 18.3.1 and stays there, while Expo SDK 57 puts mobile on React 19 +
+// React Native 0.86. npm resolves that split by hoisting React 18.3.1 to the
+// repo root (for web) and nesting React 19.2.x under apps/mobile/node_modules.
 //
-//   - `react`        18.3.1 at the repo root (hoisted for apps/web) AND
-//                    18.2.0 in apps/mobile/node_modules (RN 0.74's exact peer).
-//   - `react-native` 0.74.5 in apps/mobile/node_modules AND a stray 0.86.0
-//                    under node_modules/expo/node_modules (npm auto-installed
-//                    it for @expo/vector-icons' loose `react-native: *` peer;
-//                    root `overrides` cannot force auto-installed peers).
+//   - `react`        18.3.1 at the repo root (web) AND 19.2.x nested under
+//                    apps/mobile (RN 0.86's peer). If the mobile bundle picked
+//                    up the root's 18.3.1, hooks in a React-19 renderer would
+//                    crash at runtime — two React copies in one bundle.
+//   - `react-native` 0.86.0, only under apps/mobile today, but pinned defensively
+//                    so future hoisting can never split it either.
 //
-// Without pinning, imports that originate inside node_modules/expo/* walk up
-// and grab the WRONG copies: RN 0.86's TS-syntax index.js breaks Babel at
-// bundle time, and a second React instance would break hooks at runtime.
 // Pinning by module name guarantees exactly one copy of each singleton in
-// every bundle, regardless of how npm laid out the tree (locally or on EAS).
+// every bundle, anchored to the app's own node_modules, regardless of how npm
+// lays out the tree (locally or on EAS). react-native-reanimated/-worklets and
+// -gesture-handler live only under apps/mobile, so they need no pinning.
 const singletons = ['react', 'react-native'];
 
 function pinnedOrigin(name) {
