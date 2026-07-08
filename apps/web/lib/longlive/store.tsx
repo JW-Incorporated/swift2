@@ -5,6 +5,7 @@ import {
   useCallback,
   useContext,
   useMemo,
+  useRef,
   useState,
   type ReactNode,
 } from 'react';
@@ -43,6 +44,18 @@ export type ShareTarget =
   | { kind: 'lens'; lensId: LensId }
   | { kind: 'item'; itemId: string };
 
+/**
+ * A saved position in the era stream, captured when the user leaves era mode
+ * (e.g. pivots into a thread) so we can drop them back exactly where they were.
+ * Records the anchor era, how many older eras had been lazily appended, and the
+ * raw window scroll offset.
+ */
+export interface EraScrollSnapshot {
+  anchorId: EraId;
+  count: number;
+  scrollY: number;
+}
+
 interface AppActions {
   /** Reset to the main screen: era mode, current era, all overlays closed. */
   goHome: () => void;
@@ -65,6 +78,12 @@ interface AppActions {
   closeCrossing: () => void;
   openItem: (id: string) => void;
   closeItem: () => void;
+  /** Save the era-stream position when leaving era mode (for later restore). */
+  saveEraScroll: (snap: EraScrollSnapshot) => void;
+  /** Read the saved era-stream position without clearing it. */
+  getEraScroll: () => EraScrollSnapshot | null;
+  /** Invalidate any saved position — explicit jumps land at the top instead. */
+  clearEraScroll: () => void;
   setSelectorOpen: (open: boolean) => void;
   openShare: (t: ShareTarget) => void;
   closeShare: () => void;
@@ -83,12 +102,28 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [selectorOpen, setSelectorOpen] = useState(false);
   const [share, setShare] = useState<ShareTarget | null>(null);
 
-  const setEra = useCallback((id: EraId) => {
-    const valid = getEra(id).id;
-    setEraId(valid);
-    setSelectorOpen(false);
-    setEraJumpSeq((n) => n + 1);
+  // Era-stream position to restore on the next era-mode entry. Held in a ref so
+  // saving/reading it never triggers a render (the stream reads it imperatively
+  // on mount). Explicit jumps clear it so they always land at the top.
+  const eraScrollRef = useRef<EraScrollSnapshot | null>(null);
+  const saveEraScroll = useCallback((snap: EraScrollSnapshot) => {
+    eraScrollRef.current = snap;
   }, []);
+  const getEraScroll = useCallback(() => eraScrollRef.current, []);
+  const clearEraScroll = useCallback(() => {
+    eraScrollRef.current = null;
+  }, []);
+
+  const setEra = useCallback(
+    (id: EraId) => {
+      const valid = getEra(id).id;
+      clearEraScroll();
+      setEraId(valid);
+      setSelectorOpen(false);
+      setEraJumpSeq((n) => n + 1);
+    },
+    [clearEraScroll],
+  );
 
   const setActiveEra = useCallback((id: EraId) => {
     // Theming-only update from scroll; guard to avoid needless renders.
@@ -112,16 +147,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setOpenItemId(null);
   }, []);
 
-  const openEra = useCallback((id: EraId) => {
-    const valid = getEra(id).id;
-    setModeRaw('era');
-    setEraId(valid);
-    setEraJumpSeq((n) => n + 1);
-    setLensId(null);
-    setCrossing(null);
-    setSelectorOpen(false);
-    setOpenItemId(null);
-  }, []);
+  const openEra = useCallback(
+    (id: EraId) => {
+      const valid = getEra(id).id;
+      clearEraScroll();
+      setModeRaw('era');
+      setEraId(valid);
+      setEraJumpSeq((n) => n + 1);
+      setLensId(null);
+      setCrossing(null);
+      setSelectorOpen(false);
+      setOpenItemId(null);
+    },
+    [clearEraScroll],
+  );
 
   const openCrossing = useCallback((a: LensId, b: LensId) => {
     setModeRaw('threads');
@@ -131,6 +170,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const goHome = useCallback(() => {
+    clearEraScroll();
     setModeRaw('era');
     setEraId(CURRENT_ERA_ID);
     setEraJumpSeq((n) => n + 1);
@@ -139,7 +179,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSelectorOpen(false);
     setOpenItemId(null);
     setShare(null);
-  }, []);
+  }, [clearEraScroll]);
 
   const actions = useMemo<AppActions>(
     () => ({
@@ -155,11 +195,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
       closeCrossing: () => setCrossing(null),
       openItem: setOpenItemId,
       closeItem: () => setOpenItemId(null),
+      saveEraScroll,
+      getEraScroll,
+      clearEraScroll,
       setSelectorOpen,
       openShare: setShare,
       closeShare: () => setShare(null),
     }),
-    [setEra, setActiveEra, setMode, goHome, openThread, openEra, openCrossing],
+    [
+      setEra,
+      setActiveEra,
+      setMode,
+      goHome,
+      openThread,
+      openEra,
+      openCrossing,
+      saveEraScroll,
+      getEraScroll,
+      clearEraScroll,
+    ],
   );
 
   const state = useMemo<AppState>(

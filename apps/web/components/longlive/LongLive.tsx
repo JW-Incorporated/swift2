@@ -24,10 +24,11 @@ function Shell() {
     if (meta) meta.setAttribute('content', themeColor);
   }, [themeColor]);
 
-  // Landing in a new world should start at the top, not mid-scroll.
+  // Entering Threads should start at the top. Era mode manages its own scroll
+  // (EraStream restores the user's previous spot, or starts at the top).
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'auto' });
-  }, [mode]);
+    if (inThreads) window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [inThreads]);
 
   return (
     <div className="era-shell font-sans" style={inThreads ? vaultStyle() : eraStyle(era)}>
