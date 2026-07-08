@@ -4,6 +4,8 @@ node_modules/
 # Environment & secrets — never commit
 .env
 .env.*
+# ...except the value-free templates that document required vars
+!.env.example
 *.pem
 *.key
 secrets/

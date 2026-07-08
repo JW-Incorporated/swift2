@@ -1,54 +1,72 @@
-# @swift2/mobile — Expo app (scaffold)
+# @swift2/mobile — Expo app (Android-first)
 
 The iOS/Android reader. Reuses `@swift2/shared` (domain/types) and
 `@swift2/core` (Supabase data access) **unchanged** — the whole point of the
 `packages/*` boundary (see `docs/architecture.md`). Only the view layer and the
 gesture/animation runtime are mobile-specific.
 
-## Status: scaffold, NOT device-verified yet
+## Status: bundles clean, EAS-ready, NOT yet device-verified
 
-What's here and typechecked:
+What's here (typechecked, and the Android JS bundle exports headlessly —
+`npx expo export --platform android --no-bytecode` → 1.95 MB, no errors):
 
-- Reuses `createVaultClient` from `@swift2/core` (`lib/vault.ts`) — identical to
-  the web data layer, just `EXPO_PUBLIC_*` env vars.
-- `App.tsx`: a read-only, scrollable era list that loads the Tier 0 skeleton and
-  reuses `orderedEras` + the era `theme` colors from `@swift2/shared`.
-- Monorepo Metro config, Expo SDK 51 / RN 0.74 / React 18.
+- **Data layer** (`lib/vault.ts`): the SAME `createVaultClient` from
+  `@swift2/core` the web app uses, fed by `EXPO_PUBLIC_SUPABASE_URL` /
+  `EXPO_PUBLIC_SUPABASE_ANON_KEY` (copy `.env.example` → `.env` for local dev).
+- **Vault navigator** (`components/VaultNavigator.tsx`): the native counterpart
+  of `apps/web/components/VaultReader.tsx` — one era-skinned surface at a time
+  (hero, month rows, milestones + month items), all domain logic from
+  `@swift2/shared`.
+- **Era timeline scrubber** (`components/EraTimeline.tsx`): first pass of the
+  morph-on-grab navigator on the architecture's required foundation — Gesture
+  Handler + Reanimated, gesture and thumb animation entirely on the UI thread
+  (shared values in worklets, zero JS/React state per frame). JS is touched
+  once per gesture, on release, to snap + commit the era using the same
+  `@swift2/shared` snap math as the web scrubber. Milestones render as passive
+  tick marks. Snaps to era boundaries only (v1 spec).
+- **EAS config**: `eas.json` (development / preview internal APK / production
+  AAB) + `app.json` (package `com.jwincorporated.swift2`, placeholder
+  icon/splash from `scripts/make-placeholder-assets.mjs`).
 
-**Bundling status (from a headless `npx expo export --platform android`):**
+## Monorepo gotchas this app codifies (don't undo these)
 
-- ✅ **Metro resolves the monorepo packages.** An initial export failed on
-  `@react-native/virtualized-lists`; the fix was removing
-  `resolver.disableHierarchicalLookup` from `metro.config.js` (that flag is for
-  pnpm-style installs — npm workspaces hoist most deps to root but still nest a
-  few under a package's own `node_modules`, so Metro must walk up). Fixed here.
-- ⚠️ **One version-alignment issue remains before the JS bundle builds.**
-  `@expo/vector-icons` (pulled transitively by `expo`, not imported by us)
-  declares a loose `react-native` peer that npm resolves to a **future RN
-  (0.86.0)** and nests under `expo/`, so Babel then chokes on that copy. npm
-  `overrides` did **not** force it (auto-installed peer). The right fix is the
-  standard Expo one on a dev machine: **`npx expo install --fix`** (and/or
-  `npx expo-doctor`) to pin the whole SDK-51-compatible set to a single
-  react-native@0.74.x. Do this during the device-setup step below.
+npm workspace hoisting gives this repo multiple copies of packages that must be
+singletons in an RN bundle. Three committed fixes keep it sane:
 
-**Then to actually run it (needs a human on a device or emulator):**
+1. **`metro.config.js` pins `react` and `react-native` by name** to the copies
+   in `apps/mobile/node_modules`. Without it, imports originating inside
+   `node_modules/expo/*` resolve a stray RN 0.86 (`@expo/vector-icons`' loose
+   peer, auto-installed by npm — root `overrides` can't force it) which breaks
+   Babel, and the root-hoisted `react` 18.3.1 (web's) which would put TWO React
+   instances in one bundle and break hooks at runtime.
+2. **`babel.config.js` adds `react-native-reanimated/plugin` explicitly.**
+   babel-preset-expo's auto-detection resolves from the root-hoisted preset and
+   cannot see `apps/mobile/node_modules`, so worklets would silently not be
+   compiled.
+3. **Local `expo export` needs `--no-bytecode`** — the hermesc lookup resolves
+   from root `node_modules` and misses the app's RN copy. Harmless for real
+   builds: EAS release builds compile Hermes bytecode in Gradle from the app's
+   own `react-native` (0.74.5).
 
-- `npm install` at the repo root → `npx expo install --fix` (from `apps/mobile`,
-  resolves the RN version alignment above) → `cp apps/mobile/.env.example
-  apps/mobile/.env` (fill in the public Vault creds) → `npm run start
-  --workspace @swift2/mobile`, open in Expo Go / an emulator. Metro + an
-  emulator couldn't run in the authoring environment, so treat the runtime as
-  unverified until someone boots it.
-- The **morph-on-grab gesture scrubber** (Reanimated worklets + Gesture
-  Handler, UI-thread, 60fps) — the mobile half of the reference workload. This
-  screen deliberately ships the portable data/domain layer first; the native
-  scrubber is the next milestone (shares the snap math in `@swift2/shared`).
-- Moment detail + track guide sheets (the mobile counterparts of the web
-  bottom-sheets).
+Also: `newArchEnabled` is `false` — the New Architecture was still experimental
+on SDK 51; flip it when the SDK is upgraded, not before.
 
-## Why a plain list first
+## Running / building
 
-Prove the expensive architectural bet — that `shared`/`core` are genuinely
-platform-agnostic — with the cheapest possible view, before investing in the
-native gesture layer. If this list renders real Vault data on a phone, the
-data/domain reuse is validated.
+- **Local dev (human, needs a device/emulator):** `cp .env.example .env` (fill
+  in the public Vault creds) → `npm run start --workspace @swift2/mobile` →
+  open in Expo Go. The runtime is *unverified* until someone does this.
+- **Cloud APK:** see `docs/mobile-shipping-checklist.md` — one command
+  (`eas build -p android --profile preview`) after the one-time `eas login` /
+  `eas init` / env-var setup.
+
+## Next milestones
+
+- Device pass: verify gesture feel + 60fps on mid-tier Android (dev build with
+  the perf monitor; the architecture is in place but "smooth" needs a device).
+- Morph-on-grab: peek strip ↔ full navigator expansion, overscroll-to-expand,
+  scroll→timeline back-coupling (vertical axis), per architecture.md.
+- Moment detail + track guide sheets (`getMoment` / `getTrackGuide` are already
+  in `@swift2/core`, unused by mobile so far).
+- Expo SDK upgrade before any Play Store submission (SDK 51 targets Android API
+  34; Play requires 35+ — see the shipping checklist).

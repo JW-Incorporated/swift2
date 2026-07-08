@@ -2,18 +2,29 @@
   "expo": {
     "name": "Swift2 Vault",
     "slug": "swift2-vault",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "orientation": "portrait",
     "scheme": "swift2",
     "userInterfaceStyle": "dark",
-    "newArchEnabled": true,
+    "backgroundColor": "#0b0b0f",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0b0b0f"
+    },
     "assetBundlePatterns": ["**/*"],
+    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.swift2.vault"
+      "bundleIdentifier": "com.jwincorporated.swift2"
     },
     "android": {
-      "package": "com.swift2.vault"
+      "package": "com.jwincorporated.swift2",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1e1b4b"
+      }
     }
   }
 }
