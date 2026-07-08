@@ -558,9 +558,10 @@ export const CONTENT: ContentItem[] = (Object.keys(RAW) as EraId[]).flatMap((era
 );
 
 export function contentForEra(eraId: EraId): ContentItem[] {
-  // Chronological (oldest-first) so the era reads as a story from its start,
-  // and aligns top-to-bottom with the timeline scrubber.
-  return CONTENT.filter((c) => c.eraId === eraId).sort((a, b) => a.date.localeCompare(b.date));
+  // Newest-first: the experience travels *back* in time, so the most recent
+  // moment sits at the top (fresh on every visit) and you descend into the past.
+  // The timeline scrubber mirrors this — top = now, bottom = the era's start.
+  return CONTENT.filter((c) => c.eraId === eraId).sort((a, b) => b.date.localeCompare(a.date));
 }
 
 export function getContentItem(id: string): ContentItem | undefined {

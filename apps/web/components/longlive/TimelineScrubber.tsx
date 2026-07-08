@@ -42,7 +42,8 @@ export function TimelineScrubber() {
     const dates = items.map((i) => new Date(i.date).getTime());
     const bandwidth = span / 9;
     const raw = Array.from({ length: SAMPLES }, (_, s) => {
-      const t = start + (s / (SAMPLES - 1)) * span;
+      // s=0 is the top of the ridge, which now represents the newest date.
+      const t = end - (s / (SAMPLES - 1)) * span;
       let sum = 0;
       for (const d of dates) {
         const x = (t - d) / bandwidth;
@@ -52,7 +53,7 @@ export function TimelineScrubber() {
     });
     const max = Math.max(...raw, 1e-6);
     return raw.map((v) => v / max);
-  }, [items, span, start]);
+  }, [items, span, end]);
 
   // Ridge path in a 0..100 × 0..1000 viewBox, stretched to the rail with
   // preserveAspectRatio="none". x=100 is the rail; smaller x bulges leftward.
@@ -65,9 +66,10 @@ export function TimelineScrubber() {
     return `M 100 0 L ${pts.join(' L ')} L 100 1000 Z`;
   }, [density]);
 
+  // Top of the rail (0%) = newest/now; bottom (100%) = the era's start.
   const pctForDate = useCallback(
-    (ms: number) => clamp01((ms - start) / span) * 100,
-    [start, span],
+    (ms: number) => clamp01((end - ms) / span) * 100,
+    [end, span],
   );
 
   const railRef = useRef<HTMLDivElement>(null);
@@ -135,18 +137,20 @@ export function TimelineScrubber() {
   }, []);
 
   // Target date → feed scroll position (inverse of the above).
+  // Anchors are ordered by vertical position; dates now descend as you go
+  // down the page (newest at the top), so interpolate for that direction.
   const scrollToDate = useCallback((target: number) => {
     const a = anchorsRef.current;
     if (!a.length) return;
     const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
     let y: number;
-    if (target <= a[0].date) y = a[0].top;
-    else if (target >= a[a.length - 1].date) y = a[a.length - 1].top;
+    if (target >= a[0].date) y = a[0].top;
+    else if (target <= a[a.length - 1].date) y = a[a.length - 1].top;
     else {
       y = a[a.length - 1].top;
       for (let i = 0; i < a.length - 1; i++) {
-        if (target >= a[i].date && target < a[i + 1].date) {
-          const f = (target - a[i].date) / Math.max(1, a[i + 1].date - a[i].date);
+        if (target <= a[i].date && target > a[i + 1].date) {
+          const f = (a[i].date - target) / Math.max(1, a[i].date - a[i + 1].date);
           y = a[i].top + f * (a[i + 1].top - a[i].top);
           break;
         }
@@ -205,11 +209,12 @@ export function TimelineScrubber() {
   const dateFromPointer = useCallback(
     (clientY: number): number => {
       const rect = railRef.current?.getBoundingClientRect();
-      if (!rect) return start;
+      if (!rect) return end;
+      // Top of the rail = newest; bottom = the era's start.
       const f = clamp01((clientY - rect.top) / rect.height);
-      return start + f * span;
+      return end - f * span;
     },
-    [start, span],
+    [end, span],
   );
 
   const onPointerDown = useCallback(
