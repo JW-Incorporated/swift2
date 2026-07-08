@@ -169,7 +169,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
         </div>
       </header>
 
-      <div className="mx-auto max-w-3xl px-5 pb-28 md:pr-16">
+      <div className={cn('mx-auto max-w-3xl px-5 pb-28', threadId !== 'easter-eggs' && 'md:pr-16')}>
         {threadId === 'love-story' && <LoveStory />}
         {threadId === 'fashion' && <Runway />}
         {threadId === 'taylors-version' && <TaylorsVersion />}
@@ -177,7 +177,8 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
         {threadId === 'the-proposal' && <TheProposal />}
       </div>
 
-      <ThreadsTimeline threadId={threadId} />
+      {/* The Clue Web is its own spatial layout, so the career scrubber is redundant there. */}
+      {threadId !== 'easter-eggs' && <ThreadsTimeline threadId={threadId} />}
     </div>
   );
 }
