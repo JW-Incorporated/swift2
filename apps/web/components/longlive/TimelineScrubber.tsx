@@ -73,9 +73,17 @@ export function TimelineScrubber() {
   );
 
   const railRef = useRef<HTMLDivElement>(null);
+  const handleRef = useRef<HTMLSpanElement>(null);
+  const pillRef = useRef<HTMLSpanElement>(null);
   const anchorsRef = useRef<Anchor[]>([]);
   const draggingRef = useRef(false);
   const rafRef = useRef<number | null>(null);
+  /** Last time we committed a React state update while dragging (ms, Date.now()). */
+  const lastCommitRef = useRef(0);
+  /** No React setState per pointer-move: position the handle via direct DOM
+   * writes on every frame, and only commit React state (which drives the
+   * date-label text) at this throttled interval, per the 60fps scrubber rule. */
+  const DRAG_COMMIT_INTERVAL_MS = 120;
 
   const [currentDate, setCurrentDate] = useState<number | null>(null);
   const [hoverDate, setHoverDate] = useState<number | null>(null);
@@ -236,26 +244,45 @@ export function TimelineScrubber() {
       const dragging = draggingRef.current;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => {
-        setHoverDate(d);
+        // Position the handle/pill imperatively every frame (no React
+        // render on the hot path); only commit React state — which drives
+        // the date-label text — on a throttled cadence.
         if (dragging) {
-          setCurrentDate(d);
+          const pct = pctForDate(d);
+          if (handleRef.current) handleRef.current.style.top = `${pct}%`;
+          if (pillRef.current) pillRef.current.style.top = `${pct}%`;
           scrollToDate(d);
+        }
+        const now = Date.now();
+        if (!dragging || now - lastCommitRef.current >= DRAG_COMMIT_INTERVAL_MS) {
+          lastCommitRef.current = now;
+          setHoverDate(d);
+          if (dragging) setCurrentDate(d);
         }
       });
     },
-    [dateFromPointer, scrollToDate],
+    [dateFromPointer, pctForDate, scrollToDate],
   );
 
-  const endDrag = useCallback((e: React.PointerEvent) => {
-    if (draggingRef.current) {
-      draggingRef.current = false;
-      try {
-        (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-      } catch {
-        /* no-op */
+  const endDrag = useCallback(
+    (e: React.PointerEvent) => {
+      if (draggingRef.current) {
+        draggingRef.current = false;
+        // The drag-time commit is throttled, so the last few frames of
+        // motion may only exist in the DOM refs — commit the true final
+        // position to React state now.
+        const d = dateFromPointer(e.clientY);
+        setCurrentDate(d);
+        setHoverDate(d);
+        try {
+          (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+        } catch {
+          /* no-op */
+        }
       }
-    }
-  }, []);
+    },
+    [dateFromPointer],
+  );
 
   const currentPct = currentDate != null ? pctForDate(currentDate) : null;
   const pillDate = draggingRef.current && hoverDate != null ? hoverDate : currentDate;
@@ -438,6 +465,7 @@ export function TimelineScrubber() {
         {currentPct != null && (
           <>
             <span
+              ref={handleRef}
               className="absolute rounded-full border-2 transition-transform"
               style={{
                 right: RAIL_RIGHT,
@@ -452,6 +480,7 @@ export function TimelineScrubber() {
             />
             {pillDate != null && (
               <span
+                ref={pillRef}
                 className={cn(
                   'absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold tabular-nums shadow-sm transition-opacity',
                   active ? 'opacity-100' : 'opacity-90',
