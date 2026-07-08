@@ -6,6 +6,7 @@ import { Sparkles, ArrowUpRight } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
+import { EraMedia } from './EraMedia';
 import { ALL_TAGS, TAG_META } from '@/lib/longlive/tags';
 import type { ContentItem, ContentTag, Era } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
@@ -87,6 +88,7 @@ export function EraSection({ era }: { era: Era }) {
               {era.intro}
             </p>
           )}
+          {era.media && <EraMedia media={era.media} />}
         </div>
       </div>
 
