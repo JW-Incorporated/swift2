@@ -19,6 +19,7 @@ export const ERAS: Era[] = [
     tagline: 'Teenage Nashville country, curly hair and cowboy boots.',
     intro:
       'A sixteen-year-old from Pennsylvania talks her way onto Music Row and writes her own songs about high-school heartbreak. The beginning of everything.',
+    lyric: { line: 'Our song is the slamming screen door, sneakin’ out late, tapping on your window', song: 'Our Song' },
     image: '/eras/debut.png',
     theme: {
       bg: '#241a10',
@@ -44,6 +45,7 @@ export const ERAS: Era[] = [
     tagline: 'Sparkly gold fairy tales and anthemic teenage heartbreak.',
     intro:
       'The album that made her a superstar. Fairy-tale romance, princess dresses, and the first of many awards-show moments that would define a decade.',
+    lyric: { line: 'Romeo, take me somewhere we can be alone', song: 'Love Story' },
     image: '/eras/fearless.png',
     theme: {
       bg: '#2a2109',
@@ -69,6 +71,7 @@ export const ERAS: Era[] = [
     tagline: 'Written entirely solo. Ballgowns and theatrical purple light.',
     intro:
       'A defiant statement of authorship — every word written alone. Enchanted fairy tales meet theatrical drama under deep violet stage lights.',
+    lyric: { line: 'I’m wonderstruck, blushing all the way home', song: 'Enchanted' },
     image: '/eras/speak-now.png',
     theme: {
       bg: '#1c1030',
@@ -94,6 +97,7 @@ export const ERAS: Era[] = [
     tagline: 'Red lips, autumn leaves, and heartbreak across every genre.',
     intro:
       'The messy, maximalist breakup record. Crimson and rust, scarves and city lights, and a genre-hopping ambition that pointed straight at pop.',
+    lyric: { line: 'And I was there, I remember it all too well', song: 'All Too Well' },
     image: '/eras/red.png',
     theme: {
       bg: '#2a0f0c',
@@ -119,6 +123,7 @@ export const ERAS: Era[] = [
     tagline: 'A full pop reinvention. New York, Polaroids, seagulls.',
     intro:
       'She burned it all down and rebuilt as a pop star. Clean synth-pop, a Polaroid aesthetic, and the squad era that ruled the mid-2010s.',
+    lyric: { line: 'You’ve got that James Dean daydream look in your eye', song: 'Style' },
     image: '/eras/1989.png',
     theme: {
       bg: '#12212b',
@@ -144,6 +149,7 @@ export const ERAS: Era[] = [
     tagline: 'Snakes, black-and-white, armored and defiant.',
     intro:
       '“There will be no explanation. There will just be reputation.” The most-armored era: monochrome, industrial, and daring you to underestimate her.',
+    lyric: { line: 'Nothing good starts in a getaway car', song: 'Getaway Car' },
     image: '/eras/reputation.png',
     theme: {
       bg: '#0a0a0a',
@@ -169,6 +175,7 @@ export const ERAS: Era[] = [
     tagline: 'Pastel skies, glitter hearts, romance turned loud again.',
     intro:
       'After the armor came the color. A pastel dreamscape about love in all its forms — and the first album she owned outright.',
+    lyric: { line: 'Devils roll the dice, angels roll their eyes', song: 'Cruel Summer' },
     image: '/eras/lover.png',
     theme: {
       bg: '#2a1533',
@@ -194,6 +201,7 @@ export const ERAS: Era[] = [
     tagline: 'The surprise pandemic album. Cottagecore, cardigans, woods.',
     intro:
       'A quiet left turn dropped with no warning. Muted, literary, and rain-soaked — indie-folk storytelling that traded stadiums for the forest.',
+    lyric: { line: 'August slipped away into a moment in time', song: 'august' },
     image: '/eras/folklore.png',
     theme: {
       bg: '#1a1a1a',
@@ -219,6 +227,7 @@ export const ERAS: Era[] = [
     tagline: "folklore's autumn sister. Flannel, woods, piano ballads.",
     intro:
       'The woods in late autumn. A warmer, rustier companion to folklore — flannel and firelight, with some of her most intricate storytelling.',
+    lyric: { line: 'You booked the night train for a reason', song: 'champagne problems' },
     image: '/eras/evermore.png',
     theme: {
       bg: '#241611',
@@ -244,6 +253,7 @@ export const ERAS: Era[] = [
     tagline: 'Late-night, diaristic, moody blues — and the Eras Tour.',
     intro:
       'Thirteen sleepless nights across a life. Retro-glam synths, midnight blues, and the launch of the record-shattering Eras Tour.',
+    lyric: { line: 'It’s me, hi, I’m the problem, it’s me', song: 'Anti-Hero' },
     image: '/eras/midnights.png',
     theme: {
       bg: '#0e1230',
@@ -269,6 +279,7 @@ export const ERAS: Era[] = [
     tagline: 'Bruised, word-heavy, black-and-white, typewriter poetry.',
     intro:
       'A literary, ink-stained confessional — typewriter fonts, black-and-white restraint, and lyrics dense as diary pages. The chapter that closed out the Eras Tour.',
+    lyric: { line: 'You’re not Dylan Thomas, I’m not Patti Smith', song: 'The Tortured Poets Department' },
     image: '/eras/ttpd.png',
     theme: {
       bg: '#0c0c0c',

@@ -87,6 +87,11 @@ export interface Era {
   tagline: string;
   /** A couple sentences of era framing. */
   intro: string;
+  /**
+   * A signature lyric from the era's standout song, shown under the era name in
+   * the hero. Optional — falls back to `intro` when absent.
+   */
+  lyric?: { line: string; song: string };
   image: string;
   theme: EraTheme;
   isCurrent?: boolean;
