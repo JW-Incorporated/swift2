@@ -2,6 +2,8 @@
 
 This file is the standing instruction set for every AI session in this repo.
 Read it fully before doing any work. AGENTS.md points Codex to the same rules.
+Then read `docs/cto-role.md` — the engineering role, your authority limits,
+and the session bootup checklist on one page.
 
 ## The company
 
