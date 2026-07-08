@@ -8,6 +8,7 @@ team.
 - `CLAUDE.md` — operating manual for AI agents (workflow, definition of done,
   decision authority). Start here.
 - `AGENTS.md` — Codex-specific instructions (reviewer role).
+- `docs/cto-role.md` — the CTO/engineering role + new-session bootup checklist.
 - `docs/` — vision, architecture, decision log.
 - `.claude/settings.json` — shared Claude Code permissions (identical setup on
   both founders' machines).
