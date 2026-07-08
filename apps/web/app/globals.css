@@ -1,14 +1,44 @@
+@import 'tailwindcss';
+
+/*
+  Long Live — per-era theming system.
+  Semantic color utilities (bg-bg, text-ink, border-line, text-accent, …) resolve
+  to runtime CSS variables (--era-*). Those variables are set on the app shell and
+  swapped when the era changes, so the entire UI re-skins with one transition.
+*/
+@theme inline {
+  --color-bg: var(--era-bg);
+  --color-surface: var(--era-surface);
+  --color-surface-2: var(--era-surface-2);
+  --color-ink: var(--era-ink);
+  --color-ink-soft: var(--era-ink-soft);
+  --color-line: var(--era-line);
+  --color-accent: var(--era-accent);
+  --color-accent-2: var(--era-accent-2);
+
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+  --font-mono: var(--font-typewriter), ui-monospace, monospace;
+}
+
+/* Sensible defaults before the shell mounts (TTPD / current era). */
 :root {
-  --bg: #0b0b0b;
-  --surface: #161616;
-  --ink: #ededed;
-  --ink-soft: #9a9a9a;
-  --line: #2a2a2a;
-  --accent: #cfcfcf;
+  --era-bg: #0c0c0c;
+  --era-surface: #161616;
+  --era-surface-2: #1e1e1e;
+  --era-ink: #ededed;
+  --era-ink-soft: #9a9a9a;
+  --era-line: #2a2a2a;
+  --era-accent: #e8e8e8;
+  --era-accent-2: #8a8a8a;
+  --era-glow: rgba(255, 255, 255, 0.12);
+  --era-font: var(--font-serif);
+  color-scheme: dark;
 }
 
 * {
   box-sizing: border-box;
+  border-color: var(--era-line);
 }
 
 html,
@@ -18,17 +48,82 @@ body {
 }
 
 body {
-  font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-  background: var(--bg);
-  color: var(--ink);
+  background: var(--era-bg);
+  color: var(--era-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
-/* The whole surface re-skins to an era; ease the transition. */
-.era-skin {
-  min-height: 100vh;
-  background: var(--bg);
-  color: var(--ink);
+/* The wrapper whose theme variables morph between eras. */
+.era-shell {
+  min-height: 100dvh;
+  background: var(--era-bg);
+  color: var(--era-ink);
   transition:
-    background 450ms ease,
-    color 450ms ease;
+    background-color 700ms cubic-bezier(0.4, 0, 0.2, 1),
+    color 700ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Era-specific heading font (serif / sans / typewriter). */
+.font-era {
+  font-family: var(--era-font);
+}
+
+/* Hidden clue glint. */
+@keyframes glint {
+  0%,
+  100% {
+    opacity: 0.35;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.35);
+  }
+}
+.clue-glint {
+  animation: glint 2.4s ease-in-out infinite;
+}
+
+@keyframes float-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-float-up {
+  animation: float-up 600ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Thin, era-tinted scrollbars. */
+.era-shell ::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.era-shell ::-webkit-scrollbar-thumb {
+  background: var(--era-line);
+  border-radius: 999px;
+}
+.era-shell ::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .era-shell {
+    transition: none;
+  }
+  .clue-glint,
+  .animate-float-up {
+    animation: none;
+  }
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
 }
