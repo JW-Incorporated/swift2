@@ -233,12 +233,15 @@ export function TimelineScrubber() {
   const onPointerMove = useCallback(
     (e: React.PointerEvent) => {
       const d = dateFromPointer(e.clientY);
-      setHoverDate(d);
-      if (draggingRef.current) {
-        setCurrentDate(d);
-        if (rafRef.current) cancelAnimationFrame(rafRef.current);
-        rafRef.current = requestAnimationFrame(() => scrollToDate(d));
-      }
+      const dragging = draggingRef.current;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        setHoverDate(d);
+        if (dragging) {
+          setCurrentDate(d);
+          scrollToDate(d);
+        }
+      });
     },
     [dateFromPointer, scrollToDate],
   );
@@ -357,7 +360,7 @@ export function TimelineScrubber() {
           )}
           style={{ right: RAIL_RIGHT + 14, transform: 'translateY(-50%)' }}
         >
-          {new Date(start).getFullYear()}
+          {era.isCurrent ? 'now' : new Date(end).getFullYear()}
         </span>
         <span
           className={cn(
@@ -366,7 +369,7 @@ export function TimelineScrubber() {
           )}
           style={{ right: RAIL_RIGHT + 14, bottom: -4, transform: 'translateY(50%)' }}
         >
-          {era.isCurrent ? 'now' : new Date(end).getFullYear()}
+          {new Date(start).getFullYear()}
         </span>
 
         {/* Item ticks */}

@@ -392,10 +392,8 @@ export const RERECORDS: ReRecord[] = [
 // x/y are normalized 0–100 coordinates for the SVG constellation layout.
 // Dataset compiled by an AI research pass and hand-audited (URLs flattened,
 // the "Last Kiss / 1:58" fact corrected, over-confident flags demoted).
-//
-// TODO(jess): two TLOAS nodes have soft sourcing — verify/replace before we
-// present them as fact: `egg-tloas-orange-doors` (cites a YouTube news clip)
-// and `egg-wood-track-tloas` (cites an Apple Music page, and is a fan theory).
+// Both TLOAS soft-sourced nodes (`egg-tloas-orange-doors`, `egg-wood-track-tloas`)
+// are marked confirmed: false pending a stronger primary source.
 
 export const EGG_NODES: EggNode[] = [
   {
@@ -743,7 +741,7 @@ export const EGG_NODES: EggNode[] = [
     detail: 'To promote the album, 12 orange doors appear in cities worldwide with QR codes and ciphers teasing the tracks.',
     x: 95,
     y: 40,
-    confirmed: true,
+    confirmed: false,
     sources: [{ name: '7NEWS Australia', url: 'https://www.youtube.com/watch?v=utPXqqCAbzY' }],
   },
   {

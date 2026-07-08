@@ -234,8 +234,8 @@ function LoveStory() {
   return (
     <div className="space-y-4 pt-8">
       {RELATIONSHIPS.map((rel) => {
-        const start = new Date(rel.start).getFullYear();
-        const end = rel.end ? new Date(rel.end).getFullYear() : 'now';
+        const start = new Date(rel.start).getUTCFullYear();
+        const end = rel.end ? new Date(rel.end).getUTCFullYear() : 'now';
         return (
           <ThreadItem key={rel.id} date={rel.start}>
             <article className="era-card rounded-2xl border p-5">
