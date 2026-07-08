@@ -1,4 +1,4 @@
-import type { EggLink, EggNode, LensId, ReRecord, Relationship, RunwayLook } from './types';
+import type { EggLink, EggNode, LensId, ReRecord, Relationship, RunwayLook, StoryBeat } from './types';
 import { getEra } from './eras';
 
 /**
@@ -49,6 +49,13 @@ export const THREADS: ThreadMeta[] = [
     what: 'Pull the threads between hidden messages, cryptic dates, and their payoffs — the game she plays with fans across eras.',
     hero: '/eras/midnights.png',
   },
+  {
+    id: 'the-proposal',
+    title: 'The Proposal',
+    kicker: 'A love story, in real time',
+    what: 'Follow the story from a friendship bracelet to a garden proposal — the sourced, dated moments behind the engagement.',
+    hero: '/eras/lover.png',
+  },
 ];
 
 export function getThread(id: LensId): ThreadMeta {
@@ -95,6 +102,12 @@ export function threadPoints(id: LensId): ThreadPoint[] {
         date: `${n.year}-06-01`,
         eraId: n.eraId,
         label: n.label,
+      }));
+    case 'the-proposal':
+      return PROPOSAL_BEATS.map((b) => ({
+        date: b.date,
+        eraId: b.eraId,
+        label: b.title,
       }));
     default:
       return [];
@@ -333,4 +346,48 @@ export const EGG_LINKS: EggLink[] = [
   { from: 'egg-snake', to: 'egg-snake-payoff', label: 'flipped' },
   { from: 'egg-re-record', to: 'egg-re-record-payoff', label: 'fulfilled' },
   { from: 'egg-caps-payoff', to: 'egg-anthology', label: 'escalated' },
+];
+
+// ── The Proposal (sourced narrative thread) ─────────────────────────────────
+// Publicly reported facts, attributed. Framed by an independent fan project.
+
+export const PROPOSAL_BEATS: StoryBeat[] = [
+  {
+    id: 'prop-bracelet',
+    date: '2023-07-26',
+    dateLabel: 'July 2023',
+    eraId: 'midnights',
+    title: 'The friendship bracelet',
+    body: 'After attending an Eras Tour night at Arrowhead Stadium, Travis Kelce said on his New Heights podcast that he was disappointed he could not give Taylor a friendship bracelet with his phone number on it. The public shot-his-shot moment kicked everything off.',
+    quote: '“I was a little butthurt I didn’t get to meet her.”',
+    source: 'New Heights podcast',
+  },
+  {
+    id: 'prop-first-game',
+    date: '2023-09-24',
+    dateLabel: 'September 24, 2023',
+    eraId: 'midnights',
+    title: 'The first game',
+    body: 'Taylor made her first public appearance in a suite at the Chiefs–Bears game at Arrowhead, sitting beside Travis’s mother. She later said they were already together by then; the appearance sent the internet into overdrive.',
+    source: 'AP News',
+  },
+  {
+    id: 'prop-super-bowl',
+    date: '2024-02-11',
+    dateLabel: 'February 11, 2024',
+    eraId: 'midnights',
+    title: 'Super Bowl LVIII',
+    body: 'After flying in from a Tokyo Eras Tour show, Taylor watched the Chiefs win Super Bowl LVIII in Las Vegas, meeting Travis on the field afterward — one of the most-photographed embraces of the year.',
+    source: 'AP News',
+  },
+  {
+    id: 'prop-engagement',
+    date: '2025-08-26',
+    dateLabel: 'August 26, 2025',
+    eraId: 'tloas',
+    title: 'The garden proposal',
+    body: 'The couple announced their engagement on Instagram. The proposal had happened roughly two weeks earlier in a flower-filled garden in Lee’s Summit, Missouri; the ring, an old mine brilliant-cut diamond, was designed with jeweler Kindred Lubeck.',
+    quote: '“Your English teacher and your gym teacher are getting married.”',
+    source: 'People',
+  },
 ];
