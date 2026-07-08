@@ -16,6 +16,7 @@ import {
   KeyRound,
   Lock,
   MoveRight,
+  GitFork,
 } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
@@ -33,6 +34,7 @@ import type { CluePair, LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
 import { ThreadsTimeline } from './ThreadsTimeline';
 import { ClueWeb } from './ClueWeb';
+import { Crossings } from './Crossings';
 
 const ICONS: Record<LensId, typeof Heart> = {
   'love-story': Heart,
@@ -49,14 +51,15 @@ const ICONS: Record<LensId, typeof Heart> = {
  * (as rich as an era) with a career-spanning timeline on the right.
  */
 export function ThreadsMode() {
-  const { lensId } = useAppState();
+  const { lensId, crossing } = useAppState();
+  if (crossing) return <Crossings a={crossing.a} b={crossing.b} />;
   if (!lensId) return <ThreadsGallery />;
   return <ThreadDetail threadId={lensId} />;
 }
 
 /* ── Landing gallery ─────────────────────────────────────────────── */
 function ThreadsGallery() {
-  const { setLens } = useAppActions();
+  const { setLens, openCrossing } = useAppActions();
 
   return (
     <div className="mx-auto max-w-5xl px-5 pb-28 pt-10">
@@ -118,6 +121,29 @@ function ThreadsGallery() {
           );
         })}
       </div>
+
+      {/* Cross-thread pivot: lay two threads over the shared career axis. */}
+      <button
+        onClick={() => {
+          openCrossing('fashion', 'love-story');
+          window.scrollTo({ top: 0, behavior: 'auto' });
+        }}
+        className="group mt-5 flex w-full items-center gap-4 rounded-3xl border border-[color:var(--era-line)] p-5 text-left transition hover:border-[color:var(--era-accent)]"
+      >
+        <span className="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--era-bg)]">
+          <GitFork className="h-6 w-6" />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block font-[family-name:var(--era-font)] text-xl font-semibold">
+            Where threads cross
+          </span>
+          <span className="mt-1 block text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+            Overlay any two threads on one timeline and find the moments where her
+            stories intersect.
+          </span>
+        </span>
+        <ArrowRight className="h-5 w-5 shrink-0 text-[color:var(--era-ink-soft)] transition group-hover:translate-x-1 group-hover:text-[color:var(--era-accent)]" />
+      </button>
     </div>
   );
 }

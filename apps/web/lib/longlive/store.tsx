@@ -25,6 +25,11 @@ interface AppState {
   eraJumpSeq: number;
   /** Selected thread, or null on the Threads landing gallery. */
   lensId: LensId | null;
+  /**
+   * Active thread-crossing overlay (two threads on a shared axis), or null.
+   * Only meaningful in threads mode; takes precedence over the gallery/thread.
+   */
+  crossing: { a: LensId; b: LensId } | null;
   /** Currently open content item id (immersive detail), or null. */
   openItemId: string | null;
   /** Whether the era selector overlay is open. */
@@ -50,6 +55,14 @@ interface AppActions {
   setLens: (id: LensId) => void;
   /** Return to the Threads landing gallery. */
   clearLens: () => void;
+  /** Pivot from an era into a thread (switches to threads mode). */
+  openThread: (id: LensId) => void;
+  /** Pivot from a thread back into an era (switches to era mode + jumps). */
+  openEra: (id: EraId) => void;
+  /** Open the crossings overlay for a pair of threads. */
+  openCrossing: (a: LensId, b: LensId) => void;
+  /** Close the crossings overlay (back to the thread gallery). */
+  closeCrossing: () => void;
   openItem: (id: string) => void;
   closeItem: () => void;
   setSelectorOpen: (open: boolean) => void;
@@ -65,6 +78,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [eraId, setEraId] = useState<EraId>(CURRENT_ERA_ID);
   const [eraJumpSeq, setEraJumpSeq] = useState(0);
   const [lensId, setLensId] = useState<LensId | null>(null);
+  const [crossing, setCrossing] = useState<{ a: LensId; b: LensId } | null>(null);
   const [openItemId, setOpenItemId] = useState<string | null>(null);
   const [selectorOpen, setSelectorOpen] = useState(false);
   const [share, setShare] = useState<ShareTarget | null>(null);
@@ -84,7 +98,36 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const setMode = useCallback((m: AppMode) => {
     setModeRaw(m);
     // Entering Threads always lands on the gallery for a clear sense of place.
-    if (m === 'threads') setLensId(null);
+    if (m === 'threads') {
+      setLensId(null);
+      setCrossing(null);
+    }
+  }, []);
+
+  const openThread = useCallback((id: LensId) => {
+    setModeRaw('threads');
+    setCrossing(null);
+    setLensId(id);
+    setSelectorOpen(false);
+    setOpenItemId(null);
+  }, []);
+
+  const openEra = useCallback((id: EraId) => {
+    const valid = getEra(id).id;
+    setModeRaw('era');
+    setEraId(valid);
+    setEraJumpSeq((n) => n + 1);
+    setLensId(null);
+    setCrossing(null);
+    setSelectorOpen(false);
+    setOpenItemId(null);
+  }, []);
+
+  const openCrossing = useCallback((a: LensId, b: LensId) => {
+    setModeRaw('threads');
+    setLensId(null);
+    setCrossing({ a, b });
+    setOpenItemId(null);
   }, []);
 
   const goHome = useCallback(() => {
@@ -92,6 +135,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setEraId(CURRENT_ERA_ID);
     setEraJumpSeq((n) => n + 1);
     setLensId(null);
+    setCrossing(null);
     setSelectorOpen(false);
     setOpenItemId(null);
     setShare(null);
@@ -105,18 +149,22 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setActiveEra,
       setLens: setLensId,
       clearLens: () => setLensId(null),
+      openThread,
+      openEra,
+      openCrossing,
+      closeCrossing: () => setCrossing(null),
       openItem: setOpenItemId,
       closeItem: () => setOpenItemId(null),
       setSelectorOpen,
       openShare: setShare,
       closeShare: () => setShare(null),
     }),
-    [setEra, setActiveEra, setMode, goHome],
+    [setEra, setActiveEra, setMode, goHome, openThread, openEra, openCrossing],
   );
 
   const state = useMemo<AppState>(
-    () => ({ mode, eraId, eraJumpSeq, lensId, openItemId, selectorOpen, share }),
-    [mode, eraId, eraJumpSeq, lensId, openItemId, selectorOpen, share],
+    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, selectorOpen, share }),
+    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, selectorOpen, share],
   );
 
   return (

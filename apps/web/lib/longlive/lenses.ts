@@ -126,6 +126,57 @@ export function threadPoints(id: LensId): ThreadPoint[] {
   }
 }
 
+/**
+ * Narrative threads that live on the career axis (excludes the clue mini-apps,
+ * which have their own spatial UI). These are the threads offered in the era
+ * pivot strip and the Crossings overlay.
+ */
+export const CROSSING_THREADS: LensId[] = ['love-story', 'fashion', 'taylors-version', 'the-proposal'];
+
+/** Threads with at least one dated point inside the given era, with counts. */
+export function threadsInEra(eraId: string): { id: LensId; count: number }[] {
+  return CROSSING_THREADS.map((id) => ({
+    id,
+    count: threadPoints(id).filter((p) => p.eraId === eraId).length,
+  })).filter((t) => t.count > 0);
+}
+
+/** A moment where two threads have points near each other in time. */
+export interface Crossing {
+  /** Midpoint of the two dates, in ms — used to place the marker on the axis. */
+  date: number;
+  /** Era that owns the crossing (taken from thread A's point). */
+  eraId: string;
+  a: ThreadPoint;
+  b: ThreadPoint;
+  /** Absolute distance between the two points, in days. */
+  gapDays: number;
+}
+
+/**
+ * Find where two threads cross: pairs of points (one from each) that fall within
+ * `windowDays` of each other. This is what powers the intersection overlay —
+ * e.g. a fashion shift landing at the same time a relationship begins.
+ */
+export function threadCrossings(a: LensId, b: LensId, windowDays = 210): Crossing[] {
+  if (a === b) return [];
+  const pa = threadPoints(a);
+  const pb = threadPoints(b);
+  const windowMs = windowDays * 86_400_000;
+  const out: Crossing[] = [];
+  for (const x of pa) {
+    const xt = new Date(x.date).getTime();
+    for (const y of pb) {
+      const yt = new Date(y.date).getTime();
+      const gap = Math.abs(xt - yt);
+      if (gap <= windowMs) {
+        out.push({ date: (xt + yt) / 2, eraId: x.eraId, a: x, b: y, gapDays: Math.round(gap / 86_400_000) });
+      }
+    }
+  }
+  return out.sort((m, n) => n.date - m.date);
+}
+
 /** Best-effort era for a bare year (used by the reclamation timeline). */
 function eraForYear(year: number): string {
   const ms = new Date(`${year}-06-01`).getTime();
