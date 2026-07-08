@@ -7,41 +7,69 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-07-08 — Reverse the "metadata-only / never rehost" posture: present content on-site
+## 2026-07-08 — Media & content sourcing policy
 
-**Decision:** Swift2 MAY store and serve content and images itself (rehost /
-host on-site media), **reversing** the inherited rule "never store article
-bodies or rehost images — titles/snippets/links/metadata only" that lived in
-`docs/architecture.md` (a legal posture carried over from the sibling project
-Orbit). The product presents rich media on-site so users don't have to leave
-(product goal #7). The old rule is struck from the architecture coding
-standards.
+**Decision:** Replace the inherited blanket "never store article bodies or
+rehost images — metadata only" rule with a **three-part policy** that makes
+goal #7 (a rich, self-contained on-site experience — users never click out)
+achievable while confining the real legal exposure. (Refines and supersedes the
+blunt same-day "just reverse it / allow rehosting" note — that over-corrected.)
 
-**Why:** The metadata-only posture directly blocked the core product
-experience — a self-contained, image-rich on-site vault. Wyatt (CTO) judged the
-inherited Orbit legal posture does not govern Swift2's product and accepts the
-tradeoff. Surfaced by Joey's product agent as a hard conflict between the
-architecture rule and goal #7.
+1. **Text — relaxed.** We write **original summaries of events in our own
+   words** and link to sources. Facts aren't copyrightable; expression is. We
+   **never paste article bodies, lyrics, or official statements verbatim.** The
+   no-fabrication rule still applies (summaries must be real + sourced).
+   Low-risk; unblocked.
 
-**Scope — what does NOT change:** the **no-fabrication** rule (content must
-still be real and sourced) stands unchanged; the **Tier 0 payload budget**
-stands (heavy media lives off the always-resident skeleton — stored +
-CDN-served, referenced by URL, not inlined into Tier 0); UNOFFICIAL brand
-stance and RLS unchanged. This entry changes **policy**; the actual
-storage / rights / serving pipeline is separate implementation work.
+2. **Images — "don't copy; embed + license."** Media renders inside our page
+   without copying arbitrary photos to our servers:
+   - (a) **Embed public social posts via official oEmbed** (Instagram / X /
+     YouTube / TikTok) — served from the source, attributed, under the
+     platform's terms, rendered in-page.
+   - (b) **License editorial imagery** (Getty / AP, etc.) for anything we want
+     to **own** and host reliably. Owned/licensed assets may be stored +
+     CDN-served (this is the only "rehost" now allowed).
+   - **Rehosting arbitrary internet photos stays BANNED** — that's the actual
+     exposure (agency-owned imagery, Getty enforcement).
 
-**Risk + mitigation (recorded, accepted — not blocking):** rehosting
-third-party images/text is a real copyright surface. When the media pipeline is
-built, mitigate by preferring licensed / officially-embeddable / public-domain /
-owned sources, keeping attribution, and implementing a takedown path. This is an
-explicit accepted-risk call by the CTO, not a claim the risk is zero.
+3. **Monetization gate.** The affiliate/fashion (commercial) layer shifts us
+   from editorial toward commercial and raises **right-of-publicity /
+   false-endorsement** questions. **Nothing monetized ships without external
+   IP-counsel review,** and the **UNOFFICIAL fan-project disclaimer stays
+   prominent.**
 
-**Supersedes:** the `architecture.md` coding-standard rule and the "never
-rehost / hotlink-only" language in `docs/dev-quickstart.md` (both updated in this
-change). Point-in-time references in `docs/specs/`, `docs/proposals/`, and
-`docs/marketing/` predate this entry and are superseded by it; the
-"never rehosted" comments in `packages/shared/src/vault-types.ts` will be
-updated when the media pipeline actually lands.
+**Why:** The blanket ban made the product impossible (goal #7 needs on-site
+media). Joey's embed-and-license framing delivers the same UX (media in-page)
+without rehosting agency photos — better product *and* lower risk than a blanket
+reversal.
+
+**Must go to a real lawyer before we monetize (explicit):**
+- Any monetization / affiliate / commercial feature → external IP counsel
+  (right-of-publicity, false endorsement, FTC affiliate-disclosure).
+- Before accepting any **fan submissions / UGC** → register a **DMCA agent** +
+  takedown workflow (safe-harbor).
+- Editorial-imagery **licensing scope** confirmed before hosting licensed assets.
+
+**Technical implications:**
+- **oEmbed content model:** store provider + canonical post URL (+ cached
+  oEmbed HTML/metadata with attribution + fetched-at); render via provider
+  embed; respect provider ToS/rate limits; graceful fallback when a post is
+  deleted. oEmbed is an **external dependency**, so treat social embeds as
+  current/ephemeral and prefer licensed **owned** assets for permanent/hero
+  imagery.
+- **Caching + attribution** kept with every asset (credit = attribution, not a
+  license).
+- Owned/licensed media stays **off the Tier 0 payload budget**.
+
+**Unchanged:** no-fabrication rule; Tier 0 payload budget; UNOFFICIAL stance;
+RLS. Point-in-time references in `docs/specs/`, `docs/proposals/`,
+`docs/marketing/`, and the `packages/shared/src/vault-types.ts` comments predate
+this entry and are superseded by it; they'll be updated when the media pipeline
+lands.
+
+**CTO agent's evaluation (surfaced, not rubber-stamped):** agree with all three
+parts. One caveat, not a disagreement — oEmbed's external dependency means
+deleted source posts break embeds, so license/own anything that must persist.
 
 **Approved by:** Wyatt (CTO). Product direction from Joey.
 

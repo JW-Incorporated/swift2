@@ -157,15 +157,19 @@ Carried over from Orbit's discipline:
 - Conventional-commit style: `feat(vault): …`, `fix(web): …`, `docs: …`.
 - Branch per task (`feature/<name>`, `fix/<name>`); never commit to `main`.
 - Automated tests for every feature; full suite green before "done."
-- **On-site media/content is allowed.** Swift2 may store and serve content and
-  images itself so the experience is fully on-site (product goal #7 — users
-  don't leave the site). This **reverses** the inherited Orbit "metadata-only /
-  never rehost" posture — see `docs/decisions.md` (2026-07-08). When building the
-  storage/rights pipeline, prefer licensed / officially-embeddable / owned
-  sources, keep attribution, and honor takedowns. (Distinct from the Tier 0
-  payload budget: heavy media still lives off the always-resident skeleton —
-  stored + CDN-served, referenced by URL. And distinct from the still-standing
-  no-fabrication rule: content must remain real and sourced.)
+- **Media & content sourcing** (full policy + rationale: `docs/decisions.md`
+  2026-07-08). The product presents rich media on-site (goal #7 — users don't
+  click out), via a specific posture, **not** blanket rehosting:
+  - **Text:** original summaries in our own words + links; never paste article
+    bodies / lyrics / official statements verbatim.
+  - **Images:** embed public social posts via **official oEmbed** (served from
+    source, attributed) and **license** editorial imagery (Getty/AP) for owned
+    assets. Owned/licensed media may be stored + CDN-served, off the Tier 0
+    budget. **Rehosting arbitrary internet photos stays banned** — the real
+    exposure.
+  - **Monetization** (affiliate/commercial) ships only after **external
+    IP-counsel review**; UNOFFICIAL disclaimer stays prominent.
+  - Unchanged: the no-fabrication rule and the Tier 0 payload budget.
 
 ## Open questions (need Joey's vision or a later decision)
 
