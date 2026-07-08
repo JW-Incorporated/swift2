@@ -128,6 +128,11 @@ export interface ReRecord {
   note: string;
 }
 
+export interface EggSource {
+  name: string;
+  url: string;
+}
+
 export interface EggNode {
   id: string;
   label: string;
@@ -138,6 +143,10 @@ export interface EggNode {
   /** x/y in a 0–100 normalized layout space for the constellation. */
   x: number;
   y: number;
+  /** True when Taylor/her team confirmed intent; false for fan theory. */
+  confirmed?: boolean;
+  /** Citations backing the claim. */
+  sources?: EggSource[];
 }
 
 export interface EggLink {

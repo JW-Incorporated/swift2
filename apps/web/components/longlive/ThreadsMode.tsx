@@ -421,28 +421,53 @@ function Stat({ label, value }: { label: string; value: string }) {
 /* ── Clue Web (Easter Eggs) ──────────────────────────────────────── */
 function ClueWeb() {
   const [active, setActive] = useState<string | null>(null);
+  const [hovered, setHovered] = useState<string | null>(null);
   const nodeById = (id: string) => EGG_NODES.find((n) => n.id === id)!;
   const activeNode = active ? nodeById(active) : null;
+
+  // Neighborhood of the focused node (active takes priority over hover).
+  const focus = active ?? hovered;
+  const neighbors = new Set<string>();
+  if (focus) {
+    neighbors.add(focus);
+    for (const l of EGG_LINKS) {
+      if (l.from === focus) neighbors.add(l.to);
+      if (l.to === focus) neighbors.add(l.from);
+    }
+  }
+  const linkedTo = activeNode
+    ? EGG_LINKS.filter((l) => l.from === active || l.to === active).map((l) => ({
+        node: nodeById(l.from === active ? l.to : l.from),
+        label: l.label,
+      }))
+    : [];
+
+  // A node's label shows when it's in the focused neighborhood.
+  const showLabel = (id: string) => (focus ? neighbors.has(id) : false);
+  const dim = (id: string) => Boolean(focus) && !neighbors.has(id);
 
   return (
     <div className="pt-8">
       <div className="era-card overflow-hidden rounded-2xl border">
-        <div className="relative aspect-[16/10] w-full">
-          <svg viewBox="0 0 100 62" className="h-full w-full" role="img" aria-label="Clue web constellation">
+        <div
+          className="relative aspect-[4/3] w-full sm:aspect-[16/9]"
+          onMouseLeave={() => setHovered(null)}
+        >
+          <svg viewBox="0 0 100 56.25" className="h-full w-full" role="img" aria-label="Clue web constellation">
             {EGG_LINKS.map((link) => {
               const a = nodeById(link.from);
               const b = nodeById(link.to);
-              const lit = active === link.from || active === link.to;
+              const lit = focus === link.from || focus === link.to;
               return (
                 <line
                   key={`${link.from}-${link.to}`}
                   x1={a.x}
-                  y1={a.y * 0.62}
+                  y1={a.y * 0.5625}
                   x2={b.x}
-                  y2={b.y * 0.62}
+                  y2={b.y * 0.5625}
                   stroke="var(--era-accent)"
-                  strokeWidth={lit ? 0.6 : 0.25}
-                  strokeOpacity={lit ? 0.9 : 0.35}
+                  strokeWidth={lit ? 0.6 : 0.2}
+                  strokeOpacity={lit ? 0.95 : focus ? 0.1 : 0.3}
                   strokeDasharray="1.5 1.5"
                 />
               );
@@ -450,48 +475,69 @@ function ClueWeb() {
             {EGG_NODES.map((n) => {
               const era = getEra(n.eraId);
               const isActive = active === n.id;
+              const isTheory = n.confirmed === false;
               return (
                 <g
                   key={n.id}
-                  transform={`translate(${n.x} ${n.y * 0.62})`}
+                  transform={`translate(${n.x} ${n.y * 0.5625})`}
                   onClick={() => setActive(isActive ? null : n.id)}
+                  onMouseEnter={() => setHovered(n.id)}
                   className="cursor-pointer"
+                  style={{ opacity: dim(n.id) ? 0.3 : 1, transition: 'opacity 200ms' }}
                 >
                   <circle
                     r={isActive ? 2.6 : n.kind === 'payoff' ? 2 : 1.5}
                     fill={n.kind === 'payoff' ? era.theme.accent : 'var(--era-bg)'}
                     stroke={era.theme.accent}
                     strokeWidth={0.4}
+                    strokeDasharray={isTheory ? '0.8 0.6' : undefined}
                   />
-                  {n.kind === 'clue' && <circle r={0.6} fill={era.theme.accent} />}
+                  {n.kind === 'clue' && !isTheory && <circle r={0.6} fill={era.theme.accent} />}
                 </g>
               );
             })}
           </svg>
 
-          {EGG_NODES.map((n) => (
+          {EGG_NODES.filter((n) => showLabel(n.id) || active === n.id).map((n) => (
             <button
               key={n.id}
               onClick={() => setActive(active === n.id ? null : n.id)}
-              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-2 py-0.5 text-[10px] font-medium transition"
+              onMouseEnter={() => setHovered(n.id)}
+              className="pointer-events-auto absolute z-10 -translate-x-1/2 rounded-full px-2 py-0.5 text-[10px] font-medium shadow-sm transition"
               style={{
                 left: `${n.x}%`,
-                top: `${n.y}%`,
+                top: `calc(${n.y * 0.5625}% + 2.5%)`,
                 backgroundColor:
-                  active === n.id ? 'var(--era-accent)' : 'color-mix(in srgb, var(--era-surface) 85%, transparent)',
-                color: active === n.id ? 'var(--era-bg)' : 'var(--era-ink-soft)',
+                  active === n.id ? 'var(--era-accent)' : 'color-mix(in srgb, var(--era-surface) 92%, transparent)',
+                color: active === n.id ? 'var(--era-bg)' : 'var(--era-ink)',
                 border: '1px solid var(--era-line)',
               }}
             >
               {n.label}
             </button>
           ))}
+
+          {/* Legend */}
+          <div className="pointer-events-none absolute bottom-2 left-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-[10px] text-[color:var(--era-ink-soft)]">
+            <span className="flex items-center gap-1">
+              <span className="inline-block h-2 w-2 rounded-full border" style={{ borderColor: 'var(--era-accent)' }} />
+              Clue
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="inline-block h-2 w-2 rounded-full" style={{ backgroundColor: 'var(--era-accent)' }} />
+              Payoff
+            </span>
+            <span className="flex items-center gap-1">
+              <span className="inline-block h-2 w-2 rounded-full border border-dashed" style={{ borderColor: 'var(--era-accent)' }} />
+              Fan theory
+            </span>
+          </div>
         </div>
 
         <div className="border-t border-[color:var(--era-line)] p-5">
           {activeNode ? (
             <div className="clue-reveal">
-              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+              <div className="flex flex-wrap items-center gap-2 text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
                 <span
                   className="rounded-full px-2 py-0.5"
                   style={{
@@ -502,12 +548,57 @@ function ClueWeb() {
                   {getEra(activeNode.eraId).shortName} · {activeNode.year}
                 </span>
                 <span>{activeNode.kind === 'clue' ? 'Clue planted' : 'Payoff'}</span>
+                <span
+                  className="rounded-full border px-2 py-0.5"
+                  style={{ borderColor: 'var(--era-line)' }}
+                >
+                  {activeNode.confirmed === false ? 'Fan theory' : 'Confirmed'}
+                </span>
               </div>
               <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--era-ink)]">{activeNode.detail}</p>
+
+              {linkedTo.length > 0 && (
+                <div className="mt-4">
+                  <p className="text-[11px] uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+                    Pull the thread
+                  </p>
+                  <div className="mt-1.5 flex flex-wrap gap-2">
+                    {linkedTo.map(({ node, label }) => (
+                      <button
+                        key={node.id}
+                        onClick={() => setActive(node.id)}
+                        className="rounded-full border px-2.5 py-1 text-xs transition hover:bg-[color:var(--era-surface2)]"
+                        style={{ borderColor: 'var(--era-line)', color: 'var(--era-ink)' }}
+                      >
+                        {label} → {node.label}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {activeNode.sources && activeNode.sources.length > 0 && (
+                <p className="mt-4 text-xs text-[color:var(--era-ink-soft)]">
+                  Source:{' '}
+                  {activeNode.sources.map((s, i) => (
+                    <span key={s.url}>
+                      {i > 0 && ', '}
+                      <a
+                        href={s.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
+                      >
+                        {s.name}
+                      </a>
+                    </span>
+                  ))}
+                </p>
+              )}
             </div>
           ) : (
             <p className="text-sm text-[color:var(--era-ink-soft)]">
-              Tap any node to reveal the clue it planted — or the payoff it became.
+              Tap any node to reveal the clue it planted — or the payoff it became — then follow the threads it connects to.
             </p>
           )}
         </div>
