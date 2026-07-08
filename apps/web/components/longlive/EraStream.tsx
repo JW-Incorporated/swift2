@@ -56,14 +56,14 @@ export function EraStream() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Re-anchor + jump to top whenever the user explicitly jumps to an era. Skip
-  // the initial mount run so it never clobbers a scroll restore above.
-  const jumpMounted = useRef(false);
+  // Re-anchor + jump to top whenever the user explicitly jumps to an era.
+  // Keyed off the *value* of eraJumpSeq (not "has mounted") so it's idempotent:
+  // the initial value is pre-seeded as handled, and StrictMode's double-invoke
+  // of this effect can't re-trigger a jump that would clobber a scroll restore.
+  const handledJumpSeq = useRef(eraJumpSeq);
   useEffect(() => {
-    if (!jumpMounted.current) {
-      jumpMounted.current = true;
-      return;
-    }
+    if (handledJumpSeq.current === eraJumpSeq) return;
+    handledJumpSeq.current = eraJumpSeq;
     setAnchorId(eraIdRef.current);
     setCount(1);
     window.scrollTo({ top: 0, behavior: 'auto' });
