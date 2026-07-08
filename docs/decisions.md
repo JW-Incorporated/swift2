@@ -7,6 +7,37 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-08 — Web app upgraded to Next 16 / React 19 / Tailwind 4 (retroactive)
+
+**Decision:** `apps/web` moved from Next 14.2 / React 18.3 / Tailwind 3 to
+Next 16.0 / React 19.2 / Tailwind 4.3, plus a set of Radix UI primitives
+(dialog, slider, slot, toggle-group, tooltip, visually-hidden), as part of the
+LongLive front-end rewrite (PR #73, branch `dev-script-not-seen`).
+
+**Why documented after the fact:** this shipped inside v0's (Vercel's AI
+builder) large front-end rewrite rather than as a standalone decision, so it
+wasn't logged before implementation as the workflow rules require. By the
+time it surfaced in codex review, the app was already built, tested, and
+merge-ready against the new stack — reverting the framework bump would mean
+reverting the entire rewrite, not a small change. The versions typecheck,
+lint, and test clean, and the app runs correctly on them, so we're recording
+the decision now rather than unwinding working code to backfill process.
+
+**Alternatives considered:** revert to Next 14/React 18 and re-port the
+LongLive components (rejected: throws away a full day of tested, reviewed
+work over a paperwork gap, not a functional problem); keep both versions
+side by side per-workspace (rejected: `apps/web` is a single Next app, there
+is no per-route framework split to make this meaningful).
+
+**Approved by:** Joey (product), retroactively, given the rewrite was already
+built end-to-end and passing review. **Process note for future sessions:**
+framework/major-version bumps must get a decisions.md entry BEFORE
+implementation per `CLAUDE.md` rule 6 — this entry exists to close that gap
+for this specific change, not to establish after-the-fact logging as normal
+practice.
+
+---
+
 ## 2026-07-04 — Persistent glass era-rail replaces the peek-strip summon
 
 **Decision:** Drop the summon affordance entirely. The prior design (see the next

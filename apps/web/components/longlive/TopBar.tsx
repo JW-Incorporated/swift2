@@ -59,16 +59,18 @@ export function TopBar() {
 
         <div className="flex items-center gap-2">
           <ModeToggle mode={mode} onChange={setMode} />
-          <Button
-            variant="surface"
-            size="icon"
-            aria-label="Share"
-            onClick={() =>
-              openShare(mode === 'era' ? { kind: 'era', eraId } : { kind: 'lens', lensId: lensId ?? 'love-story' })
-            }
-          >
-            <Share2 />
-          </Button>
+          {(mode === 'era' || lensId != null) && (
+            <Button
+              variant="surface"
+              size="icon"
+              aria-label="Share"
+              onClick={() =>
+                openShare(mode === 'era' ? { kind: 'era', eraId } : { kind: 'lens', lensId: lensId as NonNullable<typeof lensId> })
+              }
+            >
+              <Share2 />
+            </Button>
+          )}
         </div>
       </div>
     </header>

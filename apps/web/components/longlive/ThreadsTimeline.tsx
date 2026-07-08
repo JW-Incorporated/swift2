@@ -83,9 +83,13 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
   );
 
   const railRef = useRef<HTMLDivElement>(null);
+  const handleRef = useRef<HTMLSpanElement>(null);
+  const pillRef = useRef<HTMLSpanElement>(null);
   const anchorsRef = useRef<Anchor[]>([]);
   const draggingRef = useRef(false);
   const rafRef = useRef<number | null>(null);
+  const lastCommitRef = useRef(0);
+  const DRAG_COMMIT_INTERVAL_MS = 120;
 
   const [currentDate, setCurrentDate] = useState<number | null>(null);
   const [hoverDate, setHoverDate] = useState<number | null>(null);
@@ -122,30 +126,17 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
     const a = anchorsRef.current;
     if (!a.length) return;
     const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
-    // Anchors are in DOM (top-to-bottom) order, which some threads render
-    // newest-first and others oldest-first — don't assume a direction.
-    const first = a[0];
-    const last = a[a.length - 1];
-    const ascending = last.date >= first.date;
-    const beforeFirst = ascending ? target <= first.date : target >= first.date;
-    const afterLast = ascending ? target >= last.date : target <= last.date;
-    let y: number;
-    if (beforeFirst) {
-      y = first.top;
-    } else if (afterLast) {
-      y = last.top;
-    } else {
-      y = last.top;
-      for (let i = 0; i < a.length - 1; i++) {
-        const between = ascending
-          ? target >= a[i].date && target <= a[i + 1].date
-          : target <= a[i].date && target >= a[i + 1].date;
-        if (between) {
-          const denom = a[i + 1].date - a[i].date;
-          const f = denom !== 0 ? (target - a[i].date) / denom : 0;
-          y = a[i].top + f * (a[i + 1].top - a[i].top);
-          break;
-        }
+    // Some threads (e.g. Taylor's Version) render cards out of chronological
+    // order, so DOM position isn't monotonic with date — interpolating
+    // between neighbors can land on the wrong card. Snap to the anchor with
+    // the closest date instead.
+    let y = a[0].top;
+    let bestDist = Infinity;
+    for (const anchor of a) {
+      const dist = Math.abs(anchor.date - target);
+      if (dist < bestDist) {
+        bestDist = dist;
+        y = anchor.top;
       }
     }
     window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
@@ -214,26 +205,42 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
   const onPointerMove = useCallback(
     (e: React.PointerEvent) => {
       const d = dateFromPointer(e.clientY);
-      setHoverDate(d);
-      if (draggingRef.current) {
-        setCurrentDate(d);
-        if (rafRef.current) cancelAnimationFrame(rafRef.current);
-        rafRef.current = requestAnimationFrame(() => scrollToDate(d));
-      }
+      const dragging = draggingRef.current;
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = requestAnimationFrame(() => {
+        if (dragging) {
+          const pct = pctForDate(d);
+          if (handleRef.current) handleRef.current.style.top = `${pct}%`;
+          if (pillRef.current) pillRef.current.style.top = `${pct}%`;
+          scrollToDate(d);
+        }
+        const now = Date.now();
+        if (!dragging || now - lastCommitRef.current >= DRAG_COMMIT_INTERVAL_MS) {
+          lastCommitRef.current = now;
+          setHoverDate(d);
+          if (dragging) setCurrentDate(d);
+        }
+      });
     },
-    [dateFromPointer, scrollToDate],
+    [dateFromPointer, pctForDate, scrollToDate],
   );
 
-  const endDrag = useCallback((e: React.PointerEvent) => {
-    if (draggingRef.current) {
-      draggingRef.current = false;
-      try {
-        (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
-      } catch {
-        /* no-op */
+  const endDrag = useCallback(
+    (e: React.PointerEvent) => {
+      if (draggingRef.current) {
+        draggingRef.current = false;
+        const d = dateFromPointer(e.clientY);
+        setCurrentDate(d);
+        setHoverDate(d);
+        try {
+          (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+        } catch {
+          /* no-op */
+        }
       }
-    }
-  }, []);
+    },
+    [dateFromPointer],
+  );
 
   const currentPct = currentDate != null ? pctForDate(currentDate) : null;
   const pillDate = draggingRef.current && hoverDate != null ? hoverDate : currentDate;
@@ -282,6 +289,20 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
         onPointerLeave={() => {
           if (!draggingRef.current) setActive(false);
           setHoverDate(null);
+        }}
+        onKeyDown={(e) => {
+          const base = currentDate ?? end;
+          const step = span / 24;
+          let d: number | null = null;
+          if (e.key === 'ArrowUp') d = Math.min(end, base + step);
+          else if (e.key === 'ArrowDown') d = Math.max(start, base - step);
+          else if (e.key === 'Home') d = end;
+          else if (e.key === 'End') d = start;
+          if (d != null) {
+            e.preventDefault();
+            setCurrentDate(d);
+            scrollToDate(d);
+          }
         }}
         className="pointer-events-auto relative h-[74vh] w-full cursor-ns-resize touch-none select-none outline-none"
       >
@@ -375,6 +396,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
         {currentPct != null && (
           <>
             <span
+              ref={handleRef}
               className="absolute rounded-full border-2 transition-transform"
               style={{
                 right: RAIL_RIGHT,
@@ -389,6 +411,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
             />
             {pillDate != null && (
               <span
+                ref={pillRef}
                 className={cn(
                   'absolute whitespace-nowrap rounded-full border px-2.5 py-1 text-[11px] font-semibold tabular-nums shadow-sm transition-opacity',
                   active ? 'opacity-100' : 'opacity-90',
