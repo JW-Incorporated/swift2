@@ -1,16 +1,17 @@
 'use client';
 
-import { useCallback, useEffect, useRef, useState } from 'react';
-import type { KeyboardEvent as ReactKeyboardEvent, PointerEvent as ReactPointerEvent } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { Era, Milestone, MonthItem, VaultCategory } from '@swift2/shared';
 import { eraTimelineMonths, orderedEras } from '@swift2/shared';
 import type { VaultSkeleton } from '@swift2/core';
 import { eraSkin } from '../lib/theme';
+import { buildModel } from '../lib/scrubberModel';
 import { CATEGORY_BADGES, categoriesPresent, itemMatchesFilter } from '../lib/categoryBadges';
 import { useMoment } from '../lib/useMoment';
 import { MomentDetail } from './MomentDetail';
 import { useTrackGuide } from '../lib/useTrackGuide';
 import { TrackGuide } from './TrackGuide';
+import { LoupeScrubber, LOUPE_RAIL_W } from './scrubber/LoupeScrubber';
 
 const MONTH_NAMES = [
   'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
@@ -51,16 +52,20 @@ function rangeLabel(startDate: string, endDate: string): string {
 }
 
 const HEADER_OFFSET = 0.2; // detector line at 20% down the scroll viewport
-const RAIL_W = 40; // right-edge hit strip; the visible control floats within it
 
 /**
  * The Vault reader: one continuous vertical timeline with every era stacked, so
- * scrolling moves month-by-month and flows across eras. A persistent glass rail
- * on the right edge shows every era as a colour dot; tap or drag to jump. It
- * stays in sync with scroll position and the surface re-skins to the era in view.
+ * scrolling moves month-by-month and flows across eras. The Loupe scrubber on
+ * the right edge — a glass dot-capsule with a riding date tag that blooms into a
+ * frosted magnifier on grab — navigates the timeline. It stays in sync with
+ * scroll position (two-way) and the surface re-skins to the era in view.
  */
 export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
   const eras = orderedEras(skeleton.eras);
+  const model = useMemo(
+    () => buildModel(skeleton.eras, skeleton.monthItems, skeleton.milestones),
+    [skeleton.eras, skeleton.monthItems, skeleton.milestones],
+  );
   const [activeIndex, setActiveIndex] = useState(Math.max(0, eras.length - 1));
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const sectionRefs = useRef<(HTMLElement | null)[]>([]);
@@ -127,7 +132,7 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
           top: 0,
           left: 0,
           bottom: 0,
-          right: RAIL_W, // scroller stops before the rail, so its native scrollbar never sits under the rail (F1)
+          right: LOUPE_RAIL_W, // scroller stops before the scrubber, so its native scrollbar never sits under the capsule
           overflowY: 'auto',
           background: 'var(--bg)',
         }}
@@ -154,7 +159,13 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
         ))}
       </div>
 
-      <EraRail eras={eras} activeIndex={activeIndex} onSelectEra={jumpToEra} />
+      <LoupeScrubber
+        model={model}
+        activeIndex={activeIndex}
+        scrollRef={scrollRef}
+        sectionRefs={sectionRefs}
+        onJumpToEra={jumpToEra}
+      />
 
       <MomentDetail
         state={moment.state}
@@ -171,187 +182,6 @@ export function VaultReader({ skeleton }: { skeleton: VaultSkeleton }) {
           if (trackGuide.state.status !== 'idle') trackGuide.open(trackGuide.state.eraSlug, trackGuide.state.album);
         }}
       />
-    </div>
-  );
-}
-
-/**
- * Persistent era rail — an iOS-section-scrubber crossed with a glass control:
- * a slim frosted capsule floating on the right edge holding one small colour dot
- * per era. Restrained at rest; the active dot grows and, while dragging, a
- * magnified album "bubble" appears beside it. Snaps to eras only (v1); no
- * per-frame React state beyond the coarse era index (≤1 change per boundary).
- */
-function EraRail({
-  eras,
-  activeIndex,
-  onSelectEra,
-}: {
-  eras: Era[];
-  activeIndex: number;
-  onSelectEra: (i: number) => void;
-}) {
-  const capsuleRef = useRef<HTMLDivElement | null>(null);
-  const dragBand = useRef<number | null>(null); // era band under the finger while dragging; null = not dragging
-  const keyTarget = useRef(activeIndex); // intended era for keyboard bursts (survives smooth-scroll lag)
-  const [dragIndex, setDragIndex] = useState<number | null>(null);
-  const n = eras.length;
-
-  // When not mid-drag, keep the keyboard target aligned with the scroll-derived
-  // active era so arrow keys start from where the reader actually is.
-  useEffect(() => {
-    if (dragBand.current === null) keyTarget.current = activeIndex;
-  }, [activeIndex]);
-
-  // Map a pointer's Y to an era over the glass capsule's extent (where the dots
-  // live), so the drag lines up with what's on screen.
-  const eraAtClientY = (clientY: number): number => {
-    const el = capsuleRef.current;
-    if (!el) return activeIndex;
-    const rect = el.getBoundingClientRect();
-    const f = rect.height ? (clientY - rect.top) / rect.height : 0;
-    return Math.min(n - 1, Math.max(0, Math.floor(f * n)));
-  };
-
-  // The rail's visuals follow the finger locally during a drag; the page jump is
-  // only issued when the band actually changes, so a jittery drag doesn't restart
-  // the smooth scroll on every pointermove (the F2 stutter/lag).
-  const commit = (band: number) => {
-    dragBand.current = band;
-    keyTarget.current = band;
-    setDragIndex(band);
-    onSelectEra(band);
-  };
-  const onPointerDown = (e: ReactPointerEvent<HTMLDivElement>) => {
-    e.currentTarget.setPointerCapture(e.pointerId);
-    commit(eraAtClientY(e.clientY));
-  };
-  const onPointerMove = (e: ReactPointerEvent<HTMLDivElement>) => {
-    if (dragBand.current === null) return;
-    const band = eraAtClientY(e.clientY);
-    if (band !== dragBand.current) commit(band);
-  };
-  const endDrag = () => {
-    dragBand.current = null;
-    setDragIndex(null);
-  };
-
-  // Keyboard steps from the last intended era (not the lagging scroll position),
-  // so rapid presses advance correctly; Up/Left = earlier, Down/Right = later.
-  const onKeyDown = (e: ReactKeyboardEvent<HTMLDivElement>) => {
-    let next = keyTarget.current;
-    if (e.key === 'ArrowDown' || e.key === 'ArrowRight') next += 1;
-    else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') next -= 1;
-    else if (e.key === 'Home') next = 0;
-    else if (e.key === 'End') next = n - 1;
-    else return;
-    e.preventDefault();
-    next = Math.min(n - 1, Math.max(0, next));
-    if (next !== keyTarget.current) {
-      keyTarget.current = next;
-      onSelectEra(next);
-    }
-  };
-
-  if (n === 0) return null;
-
-  // Dots + bubble follow the finger while dragging, else the scroll position.
-  const shown = dragIndex ?? activeIndex;
-  const dragging = dragIndex !== null;
-
-  return (
-    // Transparent full-height hit strip (comfortable touch target); the visible
-    // control is the slim glass capsule floating within it.
-    <div
-      role="slider"
-      aria-label="Era timeline"
-      aria-orientation="vertical"
-      aria-valuemin={0}
-      aria-valuemax={n - 1}
-      aria-valuenow={shown}
-      aria-valuetext={eras[shown]?.album}
-      tabIndex={0}
-      onPointerDown={onPointerDown}
-      onPointerMove={onPointerMove}
-      onPointerUp={endDrag}
-      onPointerCancel={endDrag}
-      onKeyDown={onKeyDown}
-      style={{
-        position: 'absolute',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: RAIL_W,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-        touchAction: 'none',
-        cursor: 'pointer',
-        zIndex: 5,
-      }}
-    >
-      <div
-        ref={capsuleRef}
-        style={{
-          position: 'relative',
-          marginRight: 10,
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: 9,
-          padding: '10px 6px',
-          borderRadius: 999,
-          background: 'rgba(255,255,255,0.10)',
-          backdropFilter: 'blur(14px) saturate(1.5)',
-          WebkitBackdropFilter: 'blur(14px) saturate(1.5)',
-          border: '1px solid rgba(255,255,255,0.22)',
-          boxShadow: '0 8px 30px rgba(0,0,0,0.22)',
-        }}
-      >
-        {eras.map((era, i) => {
-          const isActive = i === shown;
-          return (
-            <span
-              key={era.slug}
-              aria-hidden
-              style={{
-                width: isActive ? 10 : 6,
-                height: isActive ? 10 : 6,
-                borderRadius: 999,
-                background: era.theme.accent,
-                opacity: isActive ? 1 : 0.45,
-                boxShadow: isActive ? '0 0 0 3px rgba(255,255,255,0.30)' : 'none',
-                transition: 'width 180ms ease, height 180ms ease, opacity 180ms ease, box-shadow 180ms ease',
-              }}
-            />
-          );
-        })}
-
-        {/* iOS-style scrub bubble: the current album, magnified beside the dot. */}
-        {dragging ? (
-          <div
-            aria-hidden
-            style={{
-              position: 'absolute',
-              right: 'calc(100% + 12px)',
-              top: `${((shown + 0.5) / n) * 100}%`,
-              transform: 'translateY(-50%)',
-              padding: '7px 14px',
-              borderRadius: 12,
-              background: 'rgba(17,17,22,0.92)',
-              backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
-              color: '#fff',
-              fontSize: 15,
-              fontWeight: 700,
-              whiteSpace: 'nowrap',
-              boxShadow: '0 6px 22px rgba(0,0,0,0.45)',
-            }}
-          >
-            {eras[shown]?.album}
-          </div>
-        ) : null}
-      </div>
     </div>
   );
 }
