@@ -36,7 +36,7 @@ export function EraSelector() {
               Choose an era
             </h2>
             <p className="mt-1 text-sm text-[color:var(--era-ink-soft)]">
-              Eleven chapters. Tap one to step inside.
+              Twelve chapters, newest first. Tap one to step inside.
             </p>
           </div>
           <button
@@ -49,7 +49,7 @@ export function EraSelector() {
         </div>
 
         <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-          {ERAS.map((era, i) => {
+          {[...ERAS].reverse().map((era, i) => {
             const active = era.id === eraId;
             return (
               <button

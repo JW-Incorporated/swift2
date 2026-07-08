@@ -494,6 +494,63 @@ const RAW: Record<EraId, RawItem[]> = {
       tags: ['Fashion'],
     },
   ],
+  tloas: [
+    {
+      id: 'tloas-announce',
+      date: '2025-08-12',
+      dateLabel: 'August 2025',
+      title: 'A new era is announced',
+      summary: 'The Life of a Showgirl is revealed — a hard turn from ink into glitter.',
+      body: [
+        'After the monochrome hush of the last era, the announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle.',
+        'The reveal reframes everything that came before as the build-up to a curtain call.',
+      ],
+      tags: ['Music'],
+      hiddenClue: {
+        clue: 'The announcement leaned hard on the color orange — a shade barely used before.',
+        payoff: 'Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow.',
+      },
+    },
+    {
+      id: 'tloas-album',
+      date: '2025-10-03',
+      dateLabel: 'October 2025',
+      title: 'The Life of a Showgirl released',
+      summary: 'The twelfth era arrives: opulent, theatrical, and unapologetically bright.',
+      body: [
+        'The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.',
+        'It is a victory lap dressed as a cabaret: knowing, warm, and dazzling.',
+      ],
+      tags: ['Music'],
+    },
+    {
+      id: 'tloas-sequins',
+      date: '2025-10-04',
+      dateLabel: 'October 2025',
+      title: 'Orange sequins and feathers',
+      summary: 'The visual language: burnt-orange rhinestones, marabou, and spotlight sparkle.',
+      body: ['Showgirl glamour defines the styling — sequins, feathers, and a warm theatrical glow in every frame.'],
+      tags: ['Fashion'],
+    },
+    {
+      id: 'tloas-single',
+      date: '2025-10-10',
+      dateLabel: 'October 2025',
+      title: 'The lead single shines',
+      summary: 'A brassy, celebratory single sets the tone for the era.',
+      body: ['Bright horns and a confident strut announce a mood of triumph rather than heartbreak.'],
+      tags: ['Music'],
+    },
+    {
+      id: 'tloas-debut-chart',
+      date: '2025-10-13',
+      dateLabel: 'October 2025',
+      title: 'A record-setting debut',
+      summary: 'The album opens at number one with era-defining first-week numbers.',
+      body: ['The launch reaffirmed her commercial dominance, opening atop the charts around the world.'],
+      tags: ['Lore'],
+    },
+  ],
 };
 
 export const CONTENT: ContentItem[] = (Object.keys(RAW) as EraId[]).flatMap((eraId) =>
@@ -540,6 +597,9 @@ export const MILESTONES: Milestone[] = [
   { id: 'm-mid-3', eraId: 'midnights', date: '2023-10-13', label: 'Eras Tour film', kind: 'tour' },
   { id: 'm-ttpd-1', eraId: 'ttpd', date: '2024-04-19', label: 'TTPD released', kind: 'album' },
   { id: 'm-ttpd-2', eraId: 'ttpd', date: '2024-12-08', label: 'Eras Tour finale', kind: 'tour' },
+  { id: 'm-tloas-1', eraId: 'tloas', date: '2025-08-12', label: 'Era announced', kind: 'life' },
+  { id: 'm-tloas-2', eraId: 'tloas', date: '2025-10-03', label: 'Showgirl released', kind: 'album' },
+  { id: 'm-tloas-3', eraId: 'tloas', date: '2025-10-13', label: 'Record debut', kind: 'award' },
 ];
 
 export function milestonesForEra(eraId: EraId): Milestone[] {

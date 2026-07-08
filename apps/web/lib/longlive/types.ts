@@ -17,7 +17,8 @@ export type EraId =
   | 'folklore'
   | 'evermore'
   | 'midnights'
-  | 'ttpd';
+  | 'ttpd'
+  | 'tloas';
 
 export type ContentTag = 'Music' | 'Fashion' | 'Tour' | 'Relationship' | 'Lore';
 

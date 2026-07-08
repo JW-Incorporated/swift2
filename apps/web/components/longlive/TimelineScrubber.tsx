@@ -228,6 +228,23 @@ export function TimelineScrubber() {
   const currentPct = currentDate != null ? pctForDate(currentDate) : null;
   const pillDate = draggingRef.current && hoverDate != null ? hoverDate : currentDate;
 
+  // Nearest content item to the hovered position, for the preview tooltip.
+  const hoverPct = hoverDate != null ? pctForDate(hoverDate) : null;
+  const nearestItem = useMemo(() => {
+    if (hoverDate == null || !items.length) return null;
+    let best = items[0];
+    let bestDist = Infinity;
+    for (const it of items) {
+      const dist = Math.abs(new Date(it.date).getTime() - hoverDate);
+      if (dist < bestDist) {
+        bestDist = dist;
+        best = it;
+      }
+    }
+    return best;
+  }, [hoverDate, items]);
+  const showTooltip = active && !draggingRef.current && hoverPct != null && nearestItem != null;
+
   return (
     <div className="pointer-events-none fixed inset-y-0 right-0 z-30 flex w-16 items-center justify-end sm:w-20">
       {/* Legibility scrim */}
@@ -416,6 +433,43 @@ export function TimelineScrubber() {
                 {fmtMonth(pillDate)}
               </span>
             )}
+          </>
+        )}
+
+        {/* Hover preview: nearest content item */}
+        {showTooltip && nearestItem && hoverPct != null && (
+          <>
+            <span
+              aria-hidden
+              className="absolute h-2 w-2 rounded-full"
+              style={{
+                right: RAIL_RIGHT,
+                top: `${hoverPct}%`,
+                transform: 'translate(50%, -50%)',
+                background: 'var(--era-ink)',
+                opacity: 0.5,
+              }}
+            />
+            <div
+              className="pointer-events-none absolute z-10 w-40 rounded-lg border p-2.5 shadow-lg"
+              style={{
+                right: RAIL_RIGHT + 18,
+                top: `${hoverPct}%`,
+                transform: `translateY(-50%)`,
+                background: 'var(--era-surface-2)',
+                borderColor: 'var(--era-line)',
+              }}
+            >
+              <div
+                className="text-[10px] font-semibold uppercase tracking-wider"
+                style={{ color: 'var(--era-accent)' }}
+              >
+                {nearestItem.dateLabel}
+              </div>
+              <div className="mt-0.5 text-[12px] font-medium leading-snug text-[color:var(--era-ink)]">
+                {nearestItem.title}
+              </div>
+            </div>
           </>
         )}
       </div>
