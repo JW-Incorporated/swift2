@@ -21,6 +21,7 @@ export const ERAS: Era[] = [
       'A sixteen-year-old from Pennsylvania talks her way onto Music Row and writes her own songs about high-school heartbreak. The beginning of everything.',
     lyric: { line: 'Our song is the slamming screen door, sneakin’ out late, tapping on your window', song: 'Our Song' },
     image: '/eras/debut.png',
+    media: { spotifyAlbumId: '50wolXldayJCEtNKyzJERs', albumTitle: 'Taylor Swift' },
     theme: {
       bg: '#241a10',
       surface: '#2f2314',
@@ -47,6 +48,7 @@ export const ERAS: Era[] = [
       'The album that made her a superstar. Fairy-tale romance, princess dresses, and the first of many awards-show moments that would define a decade.',
     lyric: { line: 'Romeo, take me somewhere we can be alone', song: 'Love Story' },
     image: '/eras/fearless.png',
+    media: { spotifyAlbumId: '4hDok0OAJd57SGIT8xuWJH', albumTitle: "Fearless (Taylor's Version)" },
     theme: {
       bg: '#2a2109',
       surface: '#372c0d',
@@ -73,6 +75,7 @@ export const ERAS: Era[] = [
       'A defiant statement of authorship — every word written alone. Enchanted fairy tales meet theatrical drama under deep violet stage lights.',
     lyric: { line: 'I’m wonderstruck, blushing all the way home', song: 'Enchanted' },
     image: '/eras/speak-now.png',
+    media: { spotifyAlbumId: '5AEDGbliTTfjOB8TSm1sxt', albumTitle: "Speak Now (Taylor's Version)" },
     theme: {
       bg: '#1c1030',
       surface: '#27173f',
@@ -99,6 +102,7 @@ export const ERAS: Era[] = [
       'The messy, maximalist breakup record. Crimson and rust, scarves and city lights, and a genre-hopping ambition that pointed straight at pop.',
     lyric: { line: 'And I was there, I remember it all too well', song: 'All Too Well' },
     image: '/eras/red.png',
+    media: { spotifyAlbumId: '6kZ42qRrzov54LcAk4onW9', albumTitle: "Red (Taylor's Version)" },
     theme: {
       bg: '#2a0f0c',
       surface: '#381512',
@@ -125,6 +129,7 @@ export const ERAS: Era[] = [
       'She burned it all down and rebuilt as a pop star. Clean synth-pop, a Polaroid aesthetic, and the squad era that ruled the mid-2010s.',
     lyric: { line: 'You’ve got that James Dean daydream look in your eye', song: 'Style' },
     image: '/eras/1989.png',
+    media: { spotifyAlbumId: '5fy0X0JmZRZnVa2UEicIOl', albumTitle: '1989' },
     theme: {
       bg: '#12212b',
       surface: '#1a2f3c',
@@ -151,6 +156,7 @@ export const ERAS: Era[] = [
       '“There will be no explanation. There will just be reputation.” The most-armored era: monochrome, industrial, and daring you to underestimate her.',
     lyric: { line: 'Nothing good starts in a getaway car', song: 'Getaway Car' },
     image: '/eras/reputation.png',
+    media: { spotifyAlbumId: '6DEjYFkNZh67HP7R9PSZvv', albumTitle: 'reputation' },
     theme: {
       bg: '#0a0a0a',
       surface: '#141414',
@@ -177,6 +183,7 @@ export const ERAS: Era[] = [
       'After the armor came the color. A pastel dreamscape about love in all its forms — and the first album she owned outright.',
     lyric: { line: 'Devils roll the dice, angels roll their eyes', song: 'Cruel Summer' },
     image: '/eras/lover.png',
+    media: { spotifyAlbumId: '3rYkgtFOo9AlPaeKTtn6pM', albumTitle: 'Lover' },
     theme: {
       bg: '#2a1533',
       surface: '#391e45',
@@ -203,6 +210,7 @@ export const ERAS: Era[] = [
       'A quiet left turn dropped with no warning. Muted, literary, and rain-soaked — indie-folk storytelling that traded stadiums for the forest.',
     lyric: { line: 'August slipped away into a moment in time', song: 'august' },
     image: '/eras/folklore.png',
+    media: { spotifyAlbumId: '1pzvBxYgT6OVwJLtHkrdQK', albumTitle: 'folklore (deluxe version)' },
     theme: {
       bg: '#1a1a1a',
       surface: '#242422',
@@ -229,6 +237,7 @@ export const ERAS: Era[] = [
       'The woods in late autumn. A warmer, rustier companion to folklore — flannel and firelight, with some of her most intricate storytelling.',
     lyric: { line: 'You booked the night train for a reason', song: 'champagne problems' },
     image: '/eras/evermore.png',
+    media: { spotifyAlbumId: '40zKHK0aGM4PITqPy5vfQh', albumTitle: 'evermore' },
     theme: {
       bg: '#241611',
       surface: '#301e16',
@@ -255,6 +264,7 @@ export const ERAS: Era[] = [
       'Thirteen sleepless nights across a life. Retro-glam synths, midnight blues, and the launch of the record-shattering Eras Tour.',
     lyric: { line: 'It’s me, hi, I’m the problem, it’s me', song: 'Anti-Hero' },
     image: '/eras/midnights.png',
+    media: { spotifyAlbumId: '4moVP48t9bji7djUc5VOvi', albumTitle: 'Midnights' },
     theme: {
       bg: '#0e1230',
       surface: '#161b40',
@@ -281,6 +291,7 @@ export const ERAS: Era[] = [
       'A literary, ink-stained confessional — typewriter fonts, black-and-white restraint, and lyrics dense as diary pages. The chapter that closed out the Eras Tour.',
     lyric: { line: 'You’re not Dylan Thomas, I’m not Patti Smith', song: 'The Tortured Poets Department' },
     image: '/eras/ttpd.png',
+    media: { spotifyAlbumId: '1Mo4aZ8pdj6L1jx8zSwJnt', albumTitle: 'The Tortured Poets Department' },
     theme: {
       bg: '#0c0c0c',
       surface: '#161616',
@@ -306,6 +317,7 @@ export const ERAS: Era[] = [
     intro:
       'The current chapter. After the ink and restraint of the last era, everything turns warm and dazzling — burnt-orange sequins, feathers and footlights, a showgirl taking her bow.',
     image: '/eras/tloas.png',
+    media: { spotifyAlbumId: '4a6NzYL1YHRUgx9e3YZI6I', albumTitle: 'The Life of a Showgirl' },
     isCurrent: true,
     theme: {
       bg: '#2a1405',

@@ -204,7 +204,7 @@ function ThreadItem({
   );
 }
 
-/* ── Love Story ──────────────────────────────────────────────────── */
+/* ── Love Story ───────────────────────────────���──────────────────── */
 function LoveStory() {
   return (
     <div className="space-y-4 pt-8">
@@ -342,9 +342,10 @@ function DecodeCard({ clue }: { clue: CluePair }) {
   const payoffEra = getEra(clue.payoff.eraId);
 
   return (
-    <article className="era-card overflow-hidden rounded-2xl border">
-      {/* Plant */}
-      <div className="p-5">
+    <ThreadItem date={clue.plant.date}>
+      <article className="era-card overflow-hidden rounded-2xl border">
+        {/* Plant */}
+        <div className="p-5">
         <div className="flex flex-wrap items-center justify-between gap-2">
           <span
             className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
@@ -449,7 +450,8 @@ function DecodeCard({ clue }: { clue: CluePair }) {
           Decode the payoff
         </button>
       )}
-    </article>
+      </article>
+    </ThreadItem>
   );
 }
 

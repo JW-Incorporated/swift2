@@ -95,6 +95,21 @@ export interface Era {
   image: string;
   theme: EraTheme;
   isCurrent?: boolean;
+  /**
+   * Official streaming media for the era, played via legal first-party embeds
+   * (never self-hosted). Optional so an era can exist before media is attached.
+   */
+  media?: EraMedia;
+}
+
+/** Legal, embeddable streaming media attached to an era. */
+export interface EraMedia {
+  /** Spotify album ID for the official embed player (open.spotify.com/album/…). */
+  spotifyAlbumId: string;
+  /** Album title as it resolves on Spotify — verified, shown as the caption. */
+  albumTitle: string;
+  /** Optional YouTube video ID for a signature music video. */
+  youtubeId?: string;
 }
 
 // ── Lens Mode datasets ──────────────────────────────────────────────────────
