@@ -84,6 +84,6 @@ Tier 1 = on-demand moment detail + track guide.
 ## Guardrails that bite
 
 - **Never commit to `main`** — branch + PR. AI may not merge/deploy/spend without human OK (`CLAUDE.md`).
-- **Never fabricate content.** (Content must be real + sourced — this rule still stands.) On-site media/content is now **allowed** (`docs/decisions.md` 2026-07-08) — prefer licensed/embeddable sources + attribution. UNOFFICIAL — no affiliation copy.
+- **Never fabricate content.** (Real + sourced — still stands.) **Media policy** (`docs/decisions.md` 2026-07-08): original summaries in our own words + links (never paste bodies/lyrics); embed social via **oEmbed** + **license** editorial imagery — **don't rehost arbitrary photos**; monetization needs IP-counsel review. UNOFFICIAL — no affiliation copy.
 - **Business logic goes in `packages/shared`/`core`, not the view layer** — that's what keeps the mobile app a thin reuse.
 - **Two lanes:** ENGINE (Wyatt — all code) vs CONTENT (Joey — `supabase/seed/content/**`, `tracks/**`). Don't touch the other lane's files. See `docs/roadmap.md`.
