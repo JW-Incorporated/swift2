@@ -17,18 +17,53 @@ import { EraSection } from './EraSection';
  */
 export function EraStream() {
   const { eraId, eraJumpSeq } = useAppState();
-  const { setActiveEra } = useAppActions();
+  const { setActiveEra, saveEraScroll, getEraScroll } = useAppActions();
 
-  const [anchorId, setAnchorId] = useState(eraId);
-  const [count, setCount] = useState(1);
+  // If the user is returning to era mode via a plain toggle, a saved snapshot
+  // tells us where they were. Read it once at first render so the stream mounts
+  // pre-anchored (and with the same older eras appended) — no top-then-jump flash.
+  const restoreRef = useRef(getEraScroll());
+  const restore = restoreRef.current;
+
+  const [anchorId, setAnchorId] = useState(restore?.anchorId ?? eraId);
+  const [count, setCount] = useState(restore?.count ?? 1);
 
   // Read the live active era without making it an effect dependency (scroll
   // updates it constantly; only an explicit *jump* should re-anchor the stream).
   const eraIdRef = useRef(eraId);
   eraIdRef.current = eraId;
 
-  // Re-anchor + jump to top whenever the user explicitly jumps to an era.
+  // Keep live anchor/count so the scroll handler can persist them continuously.
+  const anchorRef = useRef(anchorId);
+  anchorRef.current = anchorId;
+  const countRef = useRef(count);
+  countRef.current = count;
+
+  // On mount: restore the saved scroll spot, or start at the top on a fresh
+  // entry / explicit jump. Runs once. A double rAF lets the appended eras lay
+  // out before we scroll so the offset lands on the right content. We do NOT
+  // clear the snapshot here — the store clears it on explicit jumps, so a stale
+  // one never survives — which keeps this immune to effect-ordering/StrictMode
+  // remount quirks (the snapshot is rebuilt continuously by the scroll handler).
   useEffect(() => {
+    if (restore) {
+      requestAnimationFrame(() =>
+        requestAnimationFrame(() => window.scrollTo({ top: restore.scrollY, behavior: 'auto' })),
+      );
+    } else {
+      window.scrollTo({ top: 0, behavior: 'auto' });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Re-anchor + jump to top whenever the user explicitly jumps to an era. Skip
+  // the initial mount run so it never clobbers a scroll restore above.
+  const jumpMounted = useRef(false);
+  useEffect(() => {
+    if (!jumpMounted.current) {
+      jumpMounted.current = true;
+      return;
+    }
     setAnchorId(eraIdRef.current);
     setCount(1);
     window.scrollTo({ top: 0, behavior: 'auto' });
@@ -38,7 +73,9 @@ export function EraStream() {
   const reachedBeginning = isFirstEra(sequence[sequence.length - 1].id);
   const sequenceKey = sequence.map((e) => e.id).join(',');
 
-  // Promote whichever section crosses the viewport center to "active".
+  // Promote whichever section crosses the viewport center to "active", and
+  // continuously persist the stream position so a jump into Threads (and back)
+  // can restore this exact spot — anchor era, appended eras, and scroll offset.
   useEffect(() => {
     let raf = 0;
     const pick = () => {
@@ -53,6 +90,11 @@ export function EraStream() {
           break;
         }
       }
+      saveEraScroll({
+        anchorId: anchorRef.current,
+        count: countRef.current,
+        scrollY: window.scrollY,
+      });
     };
     const onScroll = () => {
       if (!raf) raf = requestAnimationFrame(pick);
@@ -63,7 +105,7 @@ export function EraStream() {
       window.removeEventListener('scroll', onScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, [sequenceKey, setActiveEra]);
+  }, [sequenceKey, setActiveEra, saveEraScroll]);
 
   // Lazily append the next older era as the sentinel nears the viewport.
   const sentinelRef = useRef<HTMLDivElement>(null);
