@@ -157,8 +157,15 @@ Carried over from Orbit's discipline:
 - Conventional-commit style: `feat(vault): …`, `fix(web): …`, `docs: …`.
 - Branch per task (`feature/<name>`, `fix/<name>`); never commit to `main`.
 - Automated tests for every feature; full suite green before "done."
-- Never store article bodies or rehost images — titles/snippets/links/metadata
-  only (a rule inherited from Orbit's legal posture; revisit if vision changes).
+- **On-site media/content is allowed.** Swift2 may store and serve content and
+  images itself so the experience is fully on-site (product goal #7 — users
+  don't leave the site). This **reverses** the inherited Orbit "metadata-only /
+  never rehost" posture — see `docs/decisions.md` (2026-07-08). When building the
+  storage/rights pipeline, prefer licensed / officially-embeddable / owned
+  sources, keep attribution, and honor takedowns. (Distinct from the Tier 0
+  payload budget: heavy media still lives off the always-resident skeleton —
+  stored + CDN-served, referenced by URL. And distinct from the still-standing
+  no-fabrication rule: content must remain real and sourced.)
 
 ## Open questions (need Joey's vision or a later decision)
 

@@ -7,6 +7,44 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-08 — Reverse the "metadata-only / never rehost" posture: present content on-site
+
+**Decision:** Swift2 MAY store and serve content and images itself (rehost /
+host on-site media), **reversing** the inherited rule "never store article
+bodies or rehost images — titles/snippets/links/metadata only" that lived in
+`docs/architecture.md` (a legal posture carried over from the sibling project
+Orbit). The product presents rich media on-site so users don't have to leave
+(product goal #7). The old rule is struck from the architecture coding
+standards.
+
+**Why:** The metadata-only posture directly blocked the core product
+experience — a self-contained, image-rich on-site vault. Wyatt (CTO) judged the
+inherited Orbit legal posture does not govern Swift2's product and accepts the
+tradeoff. Surfaced by Joey's product agent as a hard conflict between the
+architecture rule and goal #7.
+
+**Scope — what does NOT change:** the **no-fabrication** rule (content must
+still be real and sourced) stands unchanged; the **Tier 0 payload budget**
+stands (heavy media lives off the always-resident skeleton — stored +
+CDN-served, referenced by URL, not inlined into Tier 0); UNOFFICIAL brand
+stance and RLS unchanged. This entry changes **policy**; the actual
+storage / rights / serving pipeline is separate implementation work.
+
+**Risk + mitigation (recorded, accepted — not blocking):** rehosting
+third-party images/text is a real copyright surface. When the media pipeline is
+built, mitigate by preferring licensed / officially-embeddable / public-domain /
+owned sources, keeping attribution, and implementing a takedown path. This is an
+explicit accepted-risk call by the CTO, not a claim the risk is zero.
+
+**Supersedes:** the `architecture.md` coding-standard rule and the "never
+rehost / hotlink-only" language in `docs/dev-quickstart.md` (both updated in this
+change). Point-in-time references in `docs/specs/`, `docs/proposals/`, and
+`docs/marketing/` predate this entry and are superseded by it; the
+"never rehosted" comments in `packages/shared/src/vault-types.ts` will be
+updated when the media pipeline actually lands.
+
+**Approved by:** Wyatt (CTO). Product direction from Joey.
+
 ## 2026-07-04 — Persistent glass era-rail replaces the peek-strip summon
 
 **Decision:** Drop the summon affordance entirely. The prior design (see the next
