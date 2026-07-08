@@ -7,6 +7,91 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-07 — DRAFT: Mood→Song bot ships on a deterministic matcher, no LLM
+
+**Status: DRAFT — pending Wyatt (architecture/cost) and Joey (product). Not
+approved; do not build the serving/UI layer against this yet.**
+
+**Decision:** The post-v1 Mood→Song bot's core is an **authored mood taxonomy
++ authored weighted mood↔song tags + a pure deterministic matcher** — chips
+and a synonym-lexicon free-text matcher, running client-side over a small
+static, CDN-cached payload (Vault-world data, off the Tier-0 budget). **Zero
+LLM calls anywhere in the feature**, request path or worker. The only
+sanctioned future LLM role is an *offline, capped, worker-side* lexicon miner
+that proposes taxonomy improvements as PRs. Request-path classification (even
+capped) stays banned unless Wyatt amends the standing no-request-path-LLM
+rule via a new entry. Cost model (required per CLAUDE.md before ship): LLM
+$0/month; marginal cost per interaction $0; interaction latency <1 ms after a
+~15–40 KB gz payload load; availability independent of any AI vendor.
+
+**Why:** The mood↔song mapping over a ~250-song catalog is editorial data,
+not intelligence — authoring it once beats paying a model to improvise it per
+request forever, and the deterministic version is instant, explainable, and
+cannot hallucinate songs. Free text only needs mapping onto a closed set of
+~10–25 moods, which a synonym lexicon covers for the head of real inputs,
+with starter chips as a total fallback.
+
+**Alternatives considered:** Request-path capped LLM classification
+(rejected: violates the letter of the standing rule for marginal quality on a
+closed-set problem — documented as option (c) in the proposal so the choice
+is conscious); generative "DJ" chat (rejected: open-ended per-user
+generation, the exact anti-pattern); embeddings over lyrics (rejected:
+net-new infra + rights questions, for a problem curation solves better).
+
+**Ref:** `docs/proposals/2026-07-07-chatbots-architecture.md` §3, §5. Matching
+engine + validators + strawman landed in `packages/shared/src/mood/`
+(subpath-only export, nothing imports it).
+
+**Approved by:** _pending Wyatt (boundary + data home) and Joey (taxonomy,
+bot priority)_
+
+## 2026-07-07 — DRAFT: Clownbot is worker-side pre-generation over News+Vault; blocked on the news pipeline
+
+**Status: DRAFT — pending Wyatt and Joey. Explicitly BLOCKED on: news
+pipeline built + running, v1 shipped, and issue #36's decision gate. Do not
+build.**
+
+**Decision:** Clownbot (rumor/Easter-egg ideation persona, GitHub issue #36)
+is a **serving/ideation layer, not a chat engine**: a scheduled worker stage
+after each news-pipeline cycle pre-generates a bounded pool of speculation
+"takes" from already-verified-and-labeled `news_story` rows plus Vault lore;
+users browse/retrieve the pool via a chat-costumed board with button inputs
+(no free-text box). **Zero LLM calls in any user-request path.** Generation:
+Haiku-class, hard global cap ≤30 calls/day on a durable counter (news
+pipeline's capped-client pattern, per-feature cap rows), ≤400 output
+tokens/take; worst case <$3/month. Fallback: cap hit ⇒ pool doesn't grow;
+serving never degrades. Safety is rule-based and deterministic, not
+model-trusted: schema-enforced `speculation` labeling on every take, required
+receipts (takes citing no sourced story are dropped pre-insert), a hard topic
+blocklist (health, pregnancy, sexuality, family/minors, legal wrongdoing,
+private individuals; relationship-existence speculation banned outright),
+per-take unpublish + whole-bot kill switch, and (pending Joey) an
+approve-before-publish queue. The full community theory board from issue #36
+(accounts, submissions, novelty scoring, notifications) remains
+NOT recommended — unchanged.
+
+**Why:** Gossip content is the highest defamation/misinfo-risk surface the
+product could ship (`vision.md` requires speculation be labeled, never
+asserted; feature-brief 2026-07-04 documents live public sensitivity to AI
+content about Taylor). Pre-generation over pipeline-verified sources keeps
+every take receipt-backed and human-killable, keeps cost fixed and capped
+regardless of user count, and honors the no-request-path-LLM rule instead of
+carving exceptions for the riskiest feature.
+
+**Alternatives considered:** Interactive generative chat (rejected: per-user
+request-path LLM, unbounded cost, prompt-injection + defamation surface);
+building the rumor corpus inside Clownbot (rejected: duplicates the news
+pipeline without its verify stage — the one thing that makes gossip
+survivable); shelving with no design (rejected: issue #36 explicitly asks for
+a decision artifact).
+
+**Ref:** `docs/proposals/2026-07-07-chatbots-architecture.md` §2, §4;
+`docs/proposals/2026-07-07-news-pipeline-architecture.md` (branch
+`docs/news-architecture`).
+
+**Approved by:** _pending Wyatt (caps, bot_ table group) and Joey
+(hide-vs-label rumors, moderation model, topic lines)_
+
 ## 2026-07-04 — Persistent glass era-rail replaces the peek-strip summon
 
 **Decision:** Drop the summon affordance entirely. The prior design (see the next
