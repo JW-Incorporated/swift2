@@ -122,7 +122,9 @@ export function TimelineScrubber() {
         onClick={() => setExpanded((v) => !v)}
         onPointerMove={(e) => expanded && handleMove(e.clientX)}
         onPointerLeave={() => setHoverPct(null)}
-        className="pointer-events-auto group relative border-t border-[color:var(--era-line)] bg-[color:var(--era-bg)]/90 px-5 py-2.5 backdrop-blur-xl"
+        aria-label={expanded ? 'Close timeline' : 'Open timeline navigator'}
+        aria-expanded={expanded}
+        className="pointer-events-auto group relative w-full border-t border-[color:var(--era-line)] bg-[color:var(--era-bg)]/90 px-5 py-2.5 backdrop-blur-xl"
       >
         <div ref={trackRef} className="mx-auto flex max-w-5xl items-center gap-3">
           <ChevronUp
@@ -174,7 +176,6 @@ export function TimelineScrubber() {
 function EraMilestones({ eraId }: { eraId: string }) {
   const { setEra } = useAppActions();
   const era = getEra(eraId);
-  // Local import avoided to keep bundle lean; milestones read lazily.
   const milestones = MILESTONES_BY_ERA[eraId] ?? [];
   const start = new Date(era.start).getTime();
   const end = new Date(era.end).getTime();
