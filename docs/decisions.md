@@ -7,6 +7,41 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-07 — News data model: `news_`-prefixed two-tier schema, zero coupling to Vault (DRAFT)
+
+**Status: DRAFT — needs Wyatt's approval before any migration is written.
+Nothing is implemented against this entry; it exists so the expensive-to-
+reverse shape is reviewed before news work is ever scheduled.**
+
+**Decision (proposed):** When the post-v1 News/Current world is built, its
+schema is a two-tier model adapted from Orbit's production pipeline —
+`news_raw_item` (every ingested item; many) collapsing into `news_story` (the
+deduplicated unit users read; few), plus `news_source` (config rows, with a
+credibility `tier`), `news_story_source` (audit trail / "reported by N"),
+and `news_llm_usage` (durable daily LLM-call cap counter). All news tables
+carry the **`news_` prefix**; **no foreign keys in either direction** between
+`news_*` and Vault tables; raw/internal tables get **no public RLS policies**
+(worker-only), stories are public-read like the Vault. Orbit's multi-figure
+`channels` concept is dropped — Swift2 is single-subject; search terms become
+worker config. Stories carry `verification_status` so the "hide vs. label
+fake stories" product choice stays a serving-time filter, not a schema change.
+
+**Why:** The raw→story split is what makes dedup, "N sources" credibility,
+and classify-once cost control possible, and it's proven in Orbit. The prefix
++ no-FK rule makes the 2026-07-02 "separate data worlds" decision mechanically
+enforceable rather than conventional. Deciding the shape now is cheap;
+re-shaping deployed news tables later is not.
+
+**Alternatives considered:** Single flat `news_story` table with a jsonb
+source list (rejected: loses per-item dedup keys and ingest idempotency);
+reusing Orbit's schema verbatim incl. `channels` (rejected: multi-figure
+indirection with no product behind it); schema-per-world Postgres schemas
+(viable, but a prefix is simpler and matches existing table style).
+
+**Ref:** `docs/proposals/2026-07-07-news-pipeline-architecture.md` (§4, §5).
+
+**Approved by:** _pending Wyatt_ — do not migrate before sign-off.
+
 ## 2026-07-04 — Persistent glass era-rail replaces the peek-strip summon
 
 **Decision:** Drop the summon affordance entirely. The prior design (see the next
