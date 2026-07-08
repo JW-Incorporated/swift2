@@ -335,6 +335,14 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     image: '/eras/ttpd.png',
     shopTags: ['White dress', 'Black tailoring'],
   },
+  {
+    id: 'look-tloas',
+    eraId: 'tloas',
+    name: 'Bathtub Showgirl',
+    description: 'Portofino-orange sequins, rhinestone bras, and Bob Mackie-inspired feathers — a Vegas showgirl’s victory lap.',
+    image: '/eras/tloas.png',
+    shopTags: ['Orange sequins', 'Rhinestone bra', 'Feather headpiece'],
+  },
 ];
 
 export const RERECORDS: ReRecord[] = [
