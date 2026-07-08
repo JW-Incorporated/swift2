@@ -122,14 +122,27 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
     const a = anchorsRef.current;
     if (!a.length) return;
     const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
+    // Anchors are in DOM (top-to-bottom) order, which some threads render
+    // newest-first and others oldest-first — don't assume a direction.
+    const first = a[0];
+    const last = a[a.length - 1];
+    const ascending = last.date >= first.date;
+    const beforeFirst = ascending ? target <= first.date : target >= first.date;
+    const afterLast = ascending ? target >= last.date : target <= last.date;
     let y: number;
-    if (target >= a[0].date) y = a[0].top;
-    else if (target <= a[a.length - 1].date) y = a[a.length - 1].top;
-    else {
-      y = a[a.length - 1].top;
+    if (beforeFirst) {
+      y = first.top;
+    } else if (afterLast) {
+      y = last.top;
+    } else {
+      y = last.top;
       for (let i = 0; i < a.length - 1; i++) {
-        if (target <= a[i].date && target > a[i + 1].date) {
-          const f = (a[i].date - target) / Math.max(1, a[i].date - a[i + 1].date);
+        const between = ascending
+          ? target >= a[i].date && target <= a[i + 1].date
+          : target <= a[i].date && target >= a[i + 1].date;
+        if (between) {
+          const denom = a[i + 1].date - a[i].date;
+          const f = denom !== 0 ? (target - a[i].date) / denom : 0;
           y = a[i].top + f * (a[i + 1].top - a[i].top);
           break;
         }
