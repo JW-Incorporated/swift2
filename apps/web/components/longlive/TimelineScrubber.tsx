@@ -79,6 +79,30 @@ export function TimelineScrubber() {
   const [hoverDate, setHoverDate] = useState<number | null>(null);
   const [active, setActive] = useState(false); // hovering or dragging
   const [nowPct, setNowPct] = useState<number | null>(null);
+  // First-run legend hint: shown once, dismissed on first interaction.
+  const [showHint, setShowHint] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    try {
+      if (!localStorage.getItem('ll-scrubber-hint-seen')) setShowHint(true);
+    } catch {
+      /* no-op */
+    }
+  }, []);
+
+  const dismissHint = useCallback(() => {
+    setShowHint((was) => {
+      if (was) {
+        try {
+          localStorage.setItem('ll-scrubber-hint-seen', '1');
+        } catch {
+          /* no-op */
+        }
+      }
+      return false;
+    });
+  }, []);
 
   // Measure the on-screen content items (document coordinates + their dates).
   const measure = useCallback(() => {
@@ -270,7 +294,10 @@ export function TimelineScrubber() {
         onPointerMove={onPointerMove}
         onPointerUp={endDrag}
         onPointerCancel={endDrag}
-        onPointerEnter={() => setActive(true)}
+        onPointerEnter={() => {
+          setActive(true);
+          dismissHint();
+        }}
         onPointerLeave={() => {
           if (!draggingRef.current) setActive(false);
           setHoverDate(null);
@@ -471,6 +498,46 @@ export function TimelineScrubber() {
               </div>
             </div>
           </>
+        )}
+
+        {/* First-run legend hint: explains the density ridge, shown once. */}
+        {showHint && !active && (
+          <div
+            className="clue-reveal pointer-events-auto absolute top-1/2 flex w-44 -translate-y-1/2 flex-col gap-1 rounded-lg border p-3 shadow-xl"
+            style={{
+              right: RAIL_RIGHT + 22,
+              background: 'var(--era-surface-2)',
+              borderColor: 'color-mix(in srgb, var(--era-accent) 40%, var(--era-line))',
+            }}
+          >
+            <div
+              className="text-[10px] font-semibold uppercase tracking-wider"
+              style={{ color: 'var(--era-accent)' }}
+            >
+              Timeline
+            </div>
+            <p className="text-[12px] leading-snug text-[color:var(--era-ink)]">
+              This ridge bulges where the most happened. Drag or hover to explore {era.shortName}.
+            </p>
+            <button
+              type="button"
+              onClick={dismissHint}
+              className="mt-1 self-start text-[11px] font-medium underline decoration-dotted underline-offset-2"
+              style={{ color: 'var(--era-ink-soft)' }}
+            >
+              Got it
+            </button>
+            {/* Pointer toward the ridge */}
+            <span
+              aria-hidden
+              className="absolute top-1/2 h-2 w-2 -translate-y-1/2 rotate-45 border-b border-r"
+              style={{
+                right: -5,
+                background: 'var(--era-surface-2)',
+                borderColor: 'color-mix(in srgb, var(--era-accent) 40%, var(--era-line))',
+              }}
+            />
+          </div>
         )}
       </div>
     </div>
