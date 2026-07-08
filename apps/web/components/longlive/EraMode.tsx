@@ -85,7 +85,7 @@ export function EraMode() {
 
       {/* Filter rail */}
       <div className="sticky top-[57px] z-20 border-y border-[color:var(--era-line)] bg-[color:var(--era-bg)]/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-3xl items-center gap-2 overflow-x-auto px-5 py-3">
+        <div className="mx-auto flex max-w-3xl items-center gap-2 overflow-x-auto px-5 py-3 md:pr-16">
           <span className="shrink-0 text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
             Filter
           </span>
@@ -118,7 +118,7 @@ export function EraMode() {
       </div>
 
       {/* Chronological feed */}
-      <section className="mx-auto max-w-3xl px-5 py-10">
+      <section className="mx-auto max-w-3xl px-5 py-10 md:pr-16">
         <ol className="relative space-y-5 before:absolute before:bottom-2 before:left-[7px] before:top-2 before:w-px before:bg-[color:var(--era-line)]">
           {visible.map((item) => (
             <MomentCard key={item.id} item={item} onOpen={() => openItem(item.id)} />
@@ -137,7 +137,11 @@ export function EraMode() {
 function MomentCard({ item, onOpen }: { item: ContentItem; onOpen: () => void }) {
   const hasClue = Boolean(item.hiddenClue);
   return (
-    <li className="relative pl-8">
+    <li
+      className="relative scroll-mt-28 pl-8"
+      data-ll-item={item.id}
+      data-ll-date={new Date(item.date).getTime()}
+    >
       <span
         className="absolute left-0 top-2.5 h-3.5 w-3.5 rounded-full border-2"
         style={{

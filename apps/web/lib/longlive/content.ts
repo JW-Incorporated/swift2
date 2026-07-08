@@ -328,7 +328,9 @@ export const CONTENT: ContentItem[] = (Object.keys(RAW) as EraId[]).flatMap((era
 );
 
 export function contentForEra(eraId: EraId): ContentItem[] {
-  return CONTENT.filter((c) => c.eraId === eraId).sort((a, b) => b.date.localeCompare(a.date));
+  // Chronological (oldest-first) so the era reads as a story from its start,
+  // and aligns top-to-bottom with the timeline scrubber.
+  return CONTENT.filter((c) => c.eraId === eraId).sort((a, b) => a.date.localeCompare(b.date));
 }
 
 export function getContentItem(id: string): ContentItem | undefined {
