@@ -234,7 +234,7 @@ export const ERAS: Era[] = [
     yearLabel: '2020–2022',
     tagline: "folklore's autumn sister. Flannel, woods, piano ballads.",
     intro:
-      'The woods in late autumn. A warmer, rustier companion to folklore — flannel and firelight, with some of her most intricate storytelling.',
+      'The woods in late autumn. A warmer, rustier companion to folklore �� flannel and firelight, with some of her most intricate storytelling.',
     lyric: { line: 'You booked the night train for a reason', song: 'champagne problems' },
     image: '/eras/evermore.png',
     media: { spotifyAlbumId: '40zKHK0aGM4PITqPy5vfQh', albumTitle: 'evermore' },
@@ -316,6 +316,7 @@ export const ERAS: Era[] = [
     tagline: 'Orange sequins, showgirl glitz, and a victory-lap sparkle.',
     intro:
       'The current chapter. After the ink and restraint of the last era, everything turns warm and dazzling — burnt-orange sequins, feathers and footlights, a showgirl taking her bow.',
+    lyric: { line: 'But you don’t know the life of a showgirl, babe', song: 'The Life of a Showgirl' },
     image: '/eras/tloas.png',
     media: { spotifyAlbumId: '4a6NzYL1YHRUgx9e3YZI6I', albumTitle: 'The Life of a Showgirl' },
     isCurrent: true,
