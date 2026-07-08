@@ -11,6 +11,7 @@
     "node": "24.x"
   },
   "scripts": {
+    "dev": "npm run dev --workspace=apps/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "vitest run",
     "lint": "eslint .",
