@@ -1,5 +1,5 @@
 import type { CSSProperties } from 'react';
-import type { Era, EraFont } from './types';
+import type { Era, EraFont, EraTheme } from './types';
 
 const FONT_VAR: Record<EraFont, string> = {
   serif: 'var(--font-playfair)',
@@ -9,11 +9,39 @@ const FONT_VAR: Record<EraFont, string> = {
 };
 
 /**
+ * The Threads "vault" theme. Deliberately era-agnostic — a gold-on-charcoal
+ * archive palette that signals you've stepped *out* of the era timeline and
+ * into a cross-era observatory. Shaped like an EraTheme so it flows through the
+ * same CSS-variable pipeline.
+ */
+export const VAULT_THEME: EraTheme = {
+  bg: '#0b0b0f',
+  surface: '#15151d',
+  surface2: '#1e1e28',
+  ink: '#f3efe6',
+  inkSoft: '#a3a1ad',
+  line: '#2c2c38',
+  accent: '#cba24d',
+  accent2: '#7f9cc4',
+  glow: 'rgba(203, 162, 77, 0.26)',
+  font: 'serif',
+};
+
+/**
  * Turn an era into the CSS custom properties consumed by globals.css.
  * Apply to the app-shell wrapper; changing it re-skins the whole UI.
  */
 export function eraStyle(era: Era): CSSProperties {
-  const t = era.theme;
+  return themeStyle(era.theme);
+}
+
+/** Turn the Threads vault palette into the CSS custom properties. */
+export function vaultStyle(): CSSProperties {
+  return themeStyle(VAULT_THEME);
+}
+
+/** Shared: turn any EraTheme into the runtime CSS custom properties. */
+export function themeStyle(t: EraTheme): CSSProperties {
   return {
     ['--era-bg' as string]: t.bg,
     ['--era-surface' as string]: t.surface,
