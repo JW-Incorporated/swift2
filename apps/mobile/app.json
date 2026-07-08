@@ -8,13 +8,7 @@
     "userInterfaceStyle": "dark",
     "backgroundColor": "#0b0b0f",
     "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#0b0b0f"
-    },
     "assetBundlePatterns": ["**/*"],
-    "newArchEnabled": false,
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.jwincorporated.swift2"
@@ -25,6 +19,30 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#1e1b4b"
       }
-    }
+    },
+    "plugins": [
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#0b0b0f",
+          "dark": {
+            "image": "./assets/splash.png",
+            "backgroundColor": "#0b0b0f"
+          }
+        }
+      ],
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 36,
+            "targetSdkVersion": 36,
+            "minSdkVersion": 24
+          }
+        }
+      ]
+    ]
   }
 }
