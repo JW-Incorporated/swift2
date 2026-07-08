@@ -4,11 +4,14 @@ Owner: Wyatt (CTO). This is the source of truth for stack, hosting, data, and
 coding standards. Expensive-to-reverse choices are mirrored as entries in
 `docs/decisions.md`.
 
-Status: v0.2 — stack proven against the reference workload. The web Vault
-reader (era-scrubber + two-tier serving) is built and in review, and the Expo
-mobile app is scaffolded reusing `packages/*` unchanged (validating the shared
-boundary). Product vision (`docs/vision.md`) is still Joey's to fill in; this
-doc grows as features are specced.
+Status: v0.2 — stack proven against the reference workload. The Supabase-backed
+web Vault reader (era-scrubber + two-tier serving, `VaultReader.tsx`/
+`lib/vault.ts`) was built against this plan, but is **currently unmounted** —
+`/` renders the static LongLive experience instead (see the front-end note
+below and `docs/longlive-experience.md`). The Expo mobile app is scaffolded
+reusing `packages/*` unchanged (validating the shared boundary). Product
+vision (`docs/vision.md`) is still Joey's to fill in; this doc grows as
+features are specced.
 
 > **Front-end note.** The interactive experience currently shipped on the web
 > (the era/threads reader at `/`) is a self-contained, statically-authored

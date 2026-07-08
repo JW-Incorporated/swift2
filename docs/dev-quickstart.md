@@ -8,7 +8,7 @@ Workflow + decision authority live in `CLAUDE.md`; stack rationale in
 
 | Path | What it is |
 |------|-----------|
-| `apps/web` | **Next.js (App Router) reader — the v1 product.** |
+| `apps/web` | **Next.js (App Router) reader — the v1 product.** `/` currently renders the static LongLive experience (`components/longlive/`, `lib/longlive/`) — see `docs/longlive-experience.md`. The Supabase-backed `VaultReader`/`lib/vault.ts` path below still exists in-repo but is unmounted. |
 | `apps/mobile` | Expo / React Native app. Reuses `packages/*` **unchanged**. ⚠️ Lands with **PR #42** — may not be on `main` yet. |
 | `apps/worker` | **Not code** — just holds a gitignored `.env` (`SUPABASE_DB_URL`) that the DB scripts read. No pipeline/worker in v1. |
 | `packages/shared` | Portable types + domain/nav/snap math + budget & load state machines. **No I/O, no view code.** |
@@ -59,7 +59,14 @@ After any schema change: add a migration file, apply it, and update
 ## Run the apps
 
 **Web:** `npm run dev --workspace @swift2/web` → http://localhost:3000
-(reads `apps/web/.env.local`; pulls the live Vault via public RLS read).
+renders `<LongLive/>` (`app/page.tsx`) — the shipped era/threads reader over
+**static, in-repo mock data** (`apps/web/lib/longlive/*`). It does **not**
+read Supabase. See `docs/longlive-experience.md` before touching the site UI.
+`.env.local` / the Supabase RLS read path still exist for the older
+Vault reader components (`VaultReader.tsx`, `lib/vault.ts`, `lib/useMoment.ts`,
+`lib/useTrackGuide.ts`) described below and in `docs/architecture.md`, but
+those are **not currently mounted anywhere** (`VaultReader` has no importers) —
+dead code pending the Supabase convergence noted in `docs/longlive-experience.md`.
 
 **Mobile (Expo):**
 ```
