@@ -5,10 +5,15 @@ The iOS/Android reader. Reuses `@swift2/shared` (domain/types) and
 `packages/*` boundary (see `docs/architecture.md`). Only the view layer and the
 gesture/animation runtime are mobile-specific.
 
-## Status: bundles clean, EAS-ready, NOT yet device-verified
+## Status: bundles clean on SDK 57, EAS-ready, NOT yet device-verified
 
-What's here (typechecked, and the Android JS bundle exports headlessly —
-`npx expo export --platform android --no-bytecode` → 1.95 MB, no errors):
+Stack: **Expo SDK 57 · React Native 0.86 · React 19 · Reanimated 4** (New
+Architecture on). Targets **Android API 36** (compileSdk/targetSdk 36 via
+`expo-build-properties`), above Play's API-35 floor — store-submittable, not
+just internal.
+
+What's here (typechecked, and the Android bundle exports headlessly with Hermes
+bytecode — `npx expo export --platform android` → ~3.3 MB `.hbc`, no errors):
 
 - **Data layer** (`lib/vault.ts`): the SAME `createVaultClient` from
   `@swift2/core` the web app uses, fed by `EXPO_PUBLIC_SUPABASE_URL` /
@@ -30,26 +35,30 @@ What's here (typechecked, and the Android JS bundle exports headlessly —
 
 ## Monorepo gotchas this app codifies (don't undo these)
 
-npm workspace hoisting gives this repo multiple copies of packages that must be
-singletons in an RN bundle. Three committed fixes keep it sane:
+This repo runs **two React majors on purpose** — web (Next.js) on React 18.3.1,
+mobile (Expo SDK 57) on React 19 — and npm workspace hoisting spreads the copies
+around. Three committed fixes keep the mobile bundle correct:
 
 1. **`metro.config.js` pins `react` and `react-native` by name** to the copies
-   in `apps/mobile/node_modules`. Without it, imports originating inside
-   `node_modules/expo/*` resolve a stray RN 0.86 (`@expo/vector-icons`' loose
-   peer, auto-installed by npm — root `overrides` can't force it) which breaks
-   Babel, and the root-hoisted `react` 18.3.1 (web's) which would put TWO React
-   instances in one bundle and break hooks at runtime.
-2. **`babel.config.js` adds `react-native-reanimated/plugin` explicitly.**
+   under `apps/mobile/node_modules`. npm hoists React 18.3.1 to the repo root
+   (for web) and nests React 19 under the app; without the pin the mobile bundle
+   could grab the root's React 18 and crash hooks against a React-19 renderer
+   (two React copies in one bundle). RN 0.86 lives only under the app today but
+   is pinned defensively against future hoisting.
+2. **`babel.config.js` points the worklets plugin at
+   `react-native-worklets/plugin` explicitly** (Reanimated 4 moved the transform
+   there; `react-native-reanimated/plugin` now just re-exports it).
    babel-preset-expo's auto-detection resolves from the root-hoisted preset and
-   cannot see `apps/mobile/node_modules`, so worklets would silently not be
-   compiled.
-3. **Local `expo export` needs `--no-bytecode`** — the hermesc lookup resolves
-   from root `node_modules` and misses the app's RN copy. Harmless for real
-   builds: EAS release builds compile Hermes bytecode in Gradle from the app's
-   own `react-native` (0.74.5).
+   can't see `apps/mobile/node_modules`, so worklets would silently not compile.
+3. **`babel-preset-expo` is a direct devDependency of this app.** Under SDK 57
+   npm nests it at `apps/mobile/node_modules/expo/node_modules/babel-preset-expo`,
+   where the root `@babel/core` can't resolve it (`Cannot find module
+   'babel-preset-expo'`). Declaring it directly lands a copy at
+   `apps/mobile/node_modules/babel-preset-expo` that both babel and the export
+   resolve.
 
-Also: `newArchEnabled` is `false` — the New Architecture was still experimental
-on SDK 51; flip it when the SDK is upgraded, not before.
+The New Architecture is on (SDK 57 default, and required by Reanimated 4). The
+old SDK-51 `--no-bytecode` export workaround is gone — hermesc resolves fine now.
 
 ## Running / building
 
@@ -68,5 +77,3 @@ on SDK 51; flip it when the SDK is upgraded, not before.
   scroll→timeline back-coupling (vertical axis), per architecture.md.
 - Moment detail + track guide sheets (`getMoment` / `getTrackGuide` are already
   in `@swift2/core`, unused by mobile so far).
-- Expo SDK upgrade before any Play Store submission (SDK 51 targets Android API
-  34; Play requires 35+ — see the shipping checklist).

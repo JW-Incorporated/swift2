@@ -7,9 +7,12 @@ isn't blocking an internal APK but IS blocking a store release.
 
 ## 0. What already works (state of the repo)
 
-- **[DONE]** Expo app (`apps/mobile`) bundles for Android with zero errors
-  (`npx expo export --platform android --no-bytecode`), reusing
-  `@swift2/shared` + `@swift2/core` unchanged.
+- **[DONE]** Expo **SDK 57** app (`apps/mobile`, React Native 0.86 / React 19)
+  bundles for Android with zero errors (`npx expo export --platform android`,
+  Hermes bytecode and all), reusing `@swift2/shared` + `@swift2/core` unchanged.
+- **[DONE]** Targets **Android API 36** (compileSdk/targetSdk 36 pinned via
+  `expo-build-properties`) — above Play's API-35 floor, so this is
+  store-submittable, not just internal.
 - **[DONE]** `eas.json` with three profiles: `development` (dev client APK),
   `preview` (internal-distribution APK — the "hand it to Joey" build),
   `production` (AAB for Play, remote version source, auto-increment).
@@ -65,12 +68,15 @@ eas build -p android --profile preview
 
 ## 3. Before the Play Store — engineering [TODO]s
 
-- **Expo SDK upgrade (blocking).** SDK 51 targets Android API 34; Google Play
-  requires **API 35+** for new apps/updates (since Aug 2025). Upgrade
-  `apps/mobile` to the current Expo SDK (`npx expo install expo@latest` +
-  `npx expo install --fix`, then re-run the export smoke test). Re-check the
-  three monorepo pins in `apps/mobile/README.md` after upgrading; consider
-  enabling `newArchEnabled` as part of the same pass.
+- **Android API level — [DONE], exceeds the requirement.** The app is on
+  **Expo SDK 57** (React Native 0.86, React 19), whose Android default is
+  **compileSdk / targetSdk 36** (Android 16) — pinned explicitly via the
+  `expo-build-properties` plugin in `app.json` (`minSdk 24`). Google Play's
+  floor is API 35; we target 36, the latest. The New Architecture is on by
+  default (required by Reanimated 4). Bundle re-verified after the upgrade:
+  `npx expo export --platform android` succeeds and emits Hermes bytecode
+  directly (the SDK-51 `--no-bytecode` workaround is gone). Nothing about the
+  API level blocks a store build now.
 - **Device QA pass** on a mid-tier Android: 60fps scrub (dev build + perf
   monitor), slow-network behavior, error state when Supabase is unreachable.
 - **Real branding**: replace the three placeholder PNGs in `apps/mobile/assets`
