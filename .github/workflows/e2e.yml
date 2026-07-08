@@ -1,0 +1,51 @@
+name: E2E (synthetic monitor)
+
+# Playwright smoke tests for the LIVE web Vault.
+#
+# Why this is separate from ci.yml and does NOT run on pull_request:
+# these tests exercise the real, deployed public site. The reader needs the
+# Supabase env to load Vault data, and those keys are NOT in GitHub secrets, so
+# a hermetic build here would render an empty timeline. Rather than block PR CI
+# on a live-deploy dependency (a merged PR isn't deployed yet, and prod may be
+# briefly out of sync), we run these as a synthetic monitor:
+#   - on demand (workflow_dispatch), optionally against a preview URL, and
+#   - on a daily schedule, to catch prod regressions between deploys.
+#
+# FOLLOW-UP (needs Wyatt): to also run these hermetically as a PR-CI gate,
+# add repo secrets NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY
+# (public RLS-read anon key only — never the service key). Then a PR job can
+# `npm run build --workspace @swift2/web` + `next start` and point BASE_URL at
+# http://localhost:3000, making the suite deterministic and deploy-independent.
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: 'Target URL to smoke-test (defaults to production)'
+        required: false
+        default: 'https://swift2-web-nine.vercel.app'
+  schedule:
+    # 13:00 UTC daily (~morning US). Cron runs against production only.
+    - cron: '0 13 * * *'
+
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    env:
+      # workflow_dispatch supplies an input; schedule falls back to prod.
+      BASE_URL: ${{ github.event.inputs.base_url || 'https://swift2-web-nine.vercel.app' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
+      - if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
