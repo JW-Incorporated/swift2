@@ -1,9 +1,117 @@
-import type { EggLink, EggNode, ReRecord, Relationship, RunwayLook } from './types';
+import type { EggLink, EggNode, LensId, ReRecord, Relationship, RunwayLook } from './types';
+import { getEra } from './eras';
 
 /**
  * Cross-era Lens datasets. Names and details are the widely-discussed fan
  * narratives, framed as an independent fan project (not confirmed fact).
  */
+
+/**
+ * Presentation metadata for each Thread (formerly "Lens"). The `what` line is
+ * the promise we make the instant someone opens a thread — it must answer
+ * "where am I and what am I exploring?" in one breath. `hero` reuses era art so
+ * a thread feels as rich as an era. `icon` is resolved in the component.
+ */
+export interface ThreadMeta {
+  id: LensId;
+  title: string;
+  kicker: string;
+  what: string;
+  hero: string;
+}
+
+export const THREADS: ThreadMeta[] = [
+  {
+    id: 'love-story',
+    title: 'Love Story',
+    kicker: 'The muses & the heartbreaks',
+    what: 'Trace the relationships behind the songs — who each era was written about, and the tracks they left behind.',
+    hero: '/eras/lover.png',
+  },
+  {
+    id: 'fashion',
+    title: 'The Runway',
+    kicker: 'Twelve wardrobes, one story',
+    what: 'Walk the runway of every era and watch the looks, colors, and silhouettes tell you who she was becoming.',
+    hero: '/eras/1989.png',
+  },
+  {
+    id: 'taylors-version',
+    title: "Taylor's Version",
+    kicker: 'Owning the masters',
+    what: 'Follow the re-recording campaign, album by album, as she reclaims her life’s work one vault at a time.',
+    hero: '/eras/red.png',
+  },
+  {
+    id: 'easter-eggs',
+    title: 'The Clue Web',
+    kicker: 'The secrets she plants',
+    what: 'Pull the threads between hidden messages, cryptic dates, and their payoffs — the game she plays with fans across eras.',
+    hero: '/eras/midnights.png',
+  },
+];
+
+export function getThread(id: LensId): ThreadMeta {
+  return THREADS.find((t) => t.id === id) ?? THREADS[0];
+}
+
+/** A single dated point on a thread's career-spanning timeline. */
+export interface ThreadPoint {
+  date: string;
+  eraId: string;
+  label: string;
+}
+
+/**
+ * Date-tagged points for a thread, used to render its career-wide density
+ * ridge and era-colored ticks. Each thread maps its own dataset onto a shared
+ * 2006→now axis.
+ */
+export function threadPoints(id: LensId): ThreadPoint[] {
+  switch (id) {
+    case 'love-story':
+      return RELATIONSHIPS.map((r) => ({
+        date: r.start,
+        eraId: r.eraIds[0],
+        label: r.name,
+      }));
+    case 'fashion':
+      return RUNWAY_LOOKS.map((l) => ({
+        date: getEra(l.eraId).start,
+        eraId: l.eraId,
+        label: l.name,
+      }));
+    case 'taylors-version': {
+      const pts: ThreadPoint[] = [];
+      for (const r of RERECORDS) {
+        pts.push({ date: `${r.originalYear}-01-01`, eraId: eraForYear(r.originalYear), label: `${r.album} (original)` });
+        if (r.reclaimedYear)
+          pts.push({ date: `${r.reclaimedYear}-06-01`, eraId: eraForYear(r.reclaimedYear), label: `${r.album} (Taylor's Version)` });
+      }
+      return pts;
+    }
+    case 'easter-eggs':
+      return EGG_NODES.map((n) => ({
+        date: `${n.year}-06-01`,
+        eraId: n.eraId,
+        label: n.label,
+      }));
+    default:
+      return [];
+  }
+}
+
+/** Best-effort era for a bare year (used by the reclamation timeline). */
+function eraForYear(year: number): string {
+  const ms = new Date(`${year}-06-01`).getTime();
+  // Import-light: rely on getEra via a scan of known eras through RUNWAY_LOOKS.
+  const candidates = RUNWAY_LOOKS.map((l) => getEra(l.eraId));
+  let best = candidates[0];
+  for (const e of candidates) {
+    if (new Date(e.start).getTime() <= ms) best = e;
+  }
+  return best?.id ?? 'debut';
+}
 
 export const RELATIONSHIPS: Relationship[] = [
   {

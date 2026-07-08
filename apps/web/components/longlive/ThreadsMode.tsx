@@ -1,0 +1,448 @@
+'use client';
+
+import type React from 'react';
+import { useState } from 'react';
+import Image from 'next/image';
+import {
+  Heart,
+  Shirt,
+  RefreshCw,
+  Sparkles,
+  Music,
+  ArrowLeft,
+  ArrowRight,
+} from 'lucide-react';
+import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { getEra } from '@/lib/longlive/eras';
+import { eraStyle } from '@/lib/longlive/theme';
+import {
+  RELATIONSHIPS,
+  RUNWAY_LOOKS,
+  RERECORDS,
+  EGG_NODES,
+  EGG_LINKS,
+  THREADS,
+  getThread,
+} from '@/lib/longlive/lenses';
+import type { LensId } from '@/lib/longlive/types';
+import { cn } from '@/lib/utils';
+import { ThreadsTimeline } from './ThreadsTimeline';
+
+const ICONS: Record<LensId, typeof Heart> = {
+  'love-story': Heart,
+  fashion: Shirt,
+  'taylors-version': RefreshCw,
+  'easter-eggs': Sparkles,
+};
+
+/**
+ * The Threads world. Entering lands on a gallery that answers "what is this?"
+ * before anything else; picking a thread opens an immersive, hero-headed view
+ * (as rich as an era) with a career-spanning timeline on the right.
+ */
+export function ThreadsMode() {
+  const { lensId } = useAppState();
+  if (!lensId) return <ThreadsGallery />;
+  return <ThreadDetail threadId={lensId} />;
+}
+
+/* ── Landing gallery ─────────────────────────────────────────────── */
+function ThreadsGallery() {
+  const { setLens } = useAppActions();
+
+  return (
+    <div className="mx-auto max-w-5xl px-5 pb-28 pt-10">
+      <header className="mx-auto max-w-2xl text-center">
+        <div className="inline-flex items-center gap-2 rounded-full border border-[color:var(--era-line)] px-3 py-1 text-[11px] font-medium uppercase tracking-[0.3em] text-[color:var(--era-ink-soft)]">
+          <Sparkles className="h-3.5 w-3.5" />
+          The Threads
+        </div>
+        <h1 className="mt-5 font-[family-name:var(--era-font)] text-balance text-4xl font-semibold leading-tight tracking-tight sm:text-6xl">
+          The stories between the eras
+        </h1>
+        <p className="mx-auto mt-4 max-w-xl text-pretty leading-relaxed text-[color:var(--era-ink-soft)]">
+          Eras move forward in time. Threads cut sideways — following a single
+          story as it weaves through every chapter. Pick one to pull it loose.
+        </p>
+      </header>
+
+      <div className="mt-12 grid gap-5 sm:grid-cols-2">
+        {THREADS.map((t) => {
+          const Icon = ICONS[t.id];
+          return (
+            <button
+              key={t.id}
+              onClick={() => {
+                setLens(t.id);
+                window.scrollTo({ top: 0, behavior: 'auto' });
+              }}
+              className="group relative overflow-hidden rounded-3xl border border-[color:var(--era-line)] text-left transition hover:border-[color:var(--era-accent)]"
+            >
+              <div className="relative aspect-[16/10]">
+                <Image src={t.hero || '/placeholder.svg'} alt="" fill className="object-cover transition duration-500 group-hover:scale-105" />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background:
+                      'linear-gradient(to top, var(--era-bg) 8%, color-mix(in srgb, var(--era-bg) 30%, transparent) 55%, transparent)',
+                  }}
+                />
+                <div className="absolute left-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--era-bg)]">
+                  <Icon className="h-5 w-5" />
+                </div>
+              </div>
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <div className="text-[11px] font-medium uppercase tracking-[0.25em] text-[color:var(--era-accent)]">
+                  {t.kicker}
+                </div>
+                <h2 className="mt-1.5 font-[family-name:var(--era-font)] text-2xl font-semibold">
+                  {t.title}
+                </h2>
+                <p className="mt-1.5 max-w-md text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+                  {t.what}
+                </p>
+                <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--era-ink)]">
+                  Pull the thread
+                  <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+/* ── Immersive thread detail ─────────────────────────────────────── */
+function ThreadDetail({ threadId }: { threadId: LensId }) {
+  const { clearLens } = useAppActions();
+  const meta = getThread(threadId);
+  const Icon = ICONS[threadId];
+
+  return (
+    <div>
+      {/* Hero header — matches the grandeur of an era hero. */}
+      <header className="relative overflow-hidden">
+        <div className="absolute inset-0">
+          <Image src={meta.hero || '/placeholder.svg'} alt="" fill priority className="object-cover opacity-40" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 45%, transparent) 0%, var(--era-bg) 92%)',
+            }}
+          />
+        </div>
+
+        <div className="relative mx-auto max-w-3xl px-5 pb-10 pt-12 md:pr-16">
+          <button
+            onClick={() => {
+              clearLens();
+              window.scrollTo({ top: 0, behavior: 'auto' });
+            }}
+            className="era-btn-ghost inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            All threads
+          </button>
+
+          <div className="mt-8 flex items-center gap-3">
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--era-bg)]">
+              <Icon className="h-5 w-5" />
+            </span>
+            <span className="text-[11px] font-medium uppercase tracking-[0.3em] text-[color:var(--era-accent)]">
+              {meta.kicker}
+            </span>
+          </div>
+
+          <h1 className="mt-4 font-[family-name:var(--era-font)] text-balance text-5xl font-semibold leading-[1.05] tracking-tight sm:text-6xl">
+            {meta.title}
+          </h1>
+          <p className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-[color:var(--era-ink-soft)] sm:text-lg">
+            {meta.what}
+          </p>
+        </div>
+      </header>
+
+      <div className="mx-auto max-w-3xl px-5 pb-28 md:pr-16">
+        {threadId === 'love-story' && <LoveStory />}
+        {threadId === 'fashion' && <Runway />}
+        {threadId === 'taylors-version' && <TaylorsVersion />}
+        {threadId === 'easter-eggs' && <ClueWeb />}
+      </div>
+
+      <ThreadsTimeline threadId={threadId} />
+    </div>
+  );
+}
+
+/* Wrap each dated entry so the career timeline can scroll-sync to it. */
+function ThreadItem({
+  date,
+  children,
+}: {
+  date: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div data-ll-item data-ll-date={new Date(date).getTime()} className="scroll-mt-28">
+      {children}
+    </div>
+  );
+}
+
+/* ── Love Story ──────────────────────────────────────────────────── */
+function LoveStory() {
+  return (
+    <div className="space-y-4 pt-8">
+      {RELATIONSHIPS.map((rel) => {
+        const start = new Date(rel.start).getFullYear();
+        const end = rel.end ? new Date(rel.end).getFullYear() : 'now';
+        return (
+          <ThreadItem key={rel.id} date={rel.start}>
+            <article className="era-card rounded-2xl border p-5">
+              <div className="flex flex-wrap items-baseline justify-between gap-2">
+                <h3 className="font-[family-name:var(--era-font)] text-xl font-semibold">{rel.name}</h3>
+                <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+                  {start} – {end}
+                </span>
+              </div>
+              <p className="mt-2 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{rel.note}</p>
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {rel.eraIds.map((id) => {
+                  const era = getEra(id);
+                  return (
+                    <span
+                      key={id}
+                      className="rounded-full border px-2.5 py-0.5 text-xs font-medium"
+                      style={{
+                        borderColor: era.theme.accent,
+                        color: era.theme.accent,
+                        backgroundColor: `color-mix(in srgb, ${era.theme.accent} 12%, transparent)`,
+                      }}
+                    >
+                      {era.shortName}
+                    </span>
+                  );
+                })}
+              </div>
+              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[color:var(--era-ink)]">
+                {rel.songs.map((s) => (
+                  <span key={s} className="inline-flex items-center gap-1.5">
+                    <Music className="h-3.5 w-3.5 text-[color:var(--era-accent)]" />
+                    {s}
+                  </span>
+                ))}
+              </div>
+            </article>
+          </ThreadItem>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ── Runway (Fashion) ────────────────────────────────────────────── */
+function Runway() {
+  return (
+    <div className="space-y-4 pt-8">
+      {RUNWAY_LOOKS.map((look) => {
+        const era = getEra(look.eraId);
+        return (
+          <ThreadItem key={look.id} date={era.start}>
+            <article
+              style={eraStyle(era)}
+              className="era-card overflow-hidden rounded-2xl border bg-[color:var(--era-bg)] text-[color:var(--era-ink)]"
+            >
+              <div className="flex flex-col sm:flex-row">
+                <div className="relative aspect-[4/3] sm:aspect-auto sm:w-56 sm:shrink-0">
+                  <Image src={look.image || '/placeholder.svg'} alt="" fill className="object-cover" />
+                </div>
+                <div className="p-5">
+                  <div className="text-[11px] font-medium uppercase tracking-[0.25em] text-[color:var(--era-accent)]">
+                    {era.shortName} · {era.yearLabel}
+                  </div>
+                  <h3 className="mt-1 font-[family-name:var(--era-font)] text-xl font-semibold">{look.name}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+                    {look.description}
+                  </p>
+                  <div className="mt-3 flex flex-wrap gap-1.5">
+                    {look.shopTags.map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-[color:var(--era-line)] px-2 py-0.5 text-[11px] text-[color:var(--era-ink-soft)]"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </article>
+          </ThreadItem>
+        );
+      })}
+    </div>
+  );
+}
+
+/* ── Taylor's Version ────────────────────────────────────────────── */
+function TaylorsVersion() {
+  const reclaimed = RERECORDS.filter((r) => r.reclaimedYear).length;
+  const totalVault = RERECORDS.reduce((n, r) => n + r.vaultTracks, 0);
+  return (
+    <div className="pt-8">
+      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <Stat label="Albums reclaimed" value={`${reclaimed} / ${RERECORDS.length}`} />
+        <Stat label="Vault tracks freed" value={String(totalVault)} />
+        <Stat label="Still awaiting" value={String(RERECORDS.length - reclaimed)} />
+      </div>
+      <div className="space-y-3">
+        {RERECORDS.map((r) => {
+          const done = Boolean(r.reclaimedYear);
+          return (
+            <ThreadItem key={r.id} date={`${r.reclaimedYear ?? r.originalYear}-06-01`}>
+              <article className="era-card flex items-center gap-4 rounded-2xl border p-4">
+                <div
+                  className={cn(
+                    'flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-sm font-semibold',
+                    done
+                      ? 'border-transparent bg-[color:var(--era-accent)] text-[color:var(--era-bg)]'
+                      : 'border-dashed border-[color:var(--era-line)] text-[color:var(--era-ink-soft)]',
+                  )}
+                >
+                  {done ? '✓' : '…'}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <div className="flex flex-wrap items-baseline justify-between gap-x-3">
+                    <h3 className="font-[family-name:var(--era-font)] text-lg font-semibold">{r.album}</h3>
+                    <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+                      {r.originalYear}
+                      {r.reclaimedYear ? ` → ${r.reclaimedYear}` : ' → pending'}
+                    </span>
+                  </div>
+                  <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{r.note}</p>
+                  {r.vaultTracks > 0 && (
+                    <span className="mt-2 inline-block rounded-full bg-[color:var(--era-surface-2)] px-2.5 py-0.5 text-[11px] font-medium text-[color:var(--era-accent)]">
+                      +{r.vaultTracks} vault tracks
+                    </span>
+                  )}
+                </div>
+              </article>
+            </ThreadItem>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function Stat({ label, value }: { label: string; value: string }) {
+  return (
+    <div className="era-card rounded-2xl border p-4 text-center">
+      <div className="font-[family-name:var(--era-font)] text-3xl font-semibold text-[color:var(--era-accent)]">
+        {value}
+      </div>
+      <div className="mt-1 text-xs uppercase tracking-wider text-[color:var(--era-ink-soft)]">{label}</div>
+    </div>
+  );
+}
+
+/* ── Clue Web (Easter Eggs) ──────────────────────────────────────── */
+function ClueWeb() {
+  const [active, setActive] = useState<string | null>(null);
+  const nodeById = (id: string) => EGG_NODES.find((n) => n.id === id)!;
+  const activeNode = active ? nodeById(active) : null;
+
+  return (
+    <div className="pt-8">
+      <div className="era-card overflow-hidden rounded-2xl border">
+        <div className="relative aspect-[16/10] w-full">
+          <svg viewBox="0 0 100 62" className="h-full w-full" role="img" aria-label="Clue web constellation">
+            {EGG_LINKS.map((link) => {
+              const a = nodeById(link.from);
+              const b = nodeById(link.to);
+              const lit = active === link.from || active === link.to;
+              return (
+                <line
+                  key={`${link.from}-${link.to}`}
+                  x1={a.x}
+                  y1={a.y * 0.62}
+                  x2={b.x}
+                  y2={b.y * 0.62}
+                  stroke="var(--era-accent)"
+                  strokeWidth={lit ? 0.6 : 0.25}
+                  strokeOpacity={lit ? 0.9 : 0.35}
+                  strokeDasharray="1.5 1.5"
+                />
+              );
+            })}
+            {EGG_NODES.map((n) => {
+              const era = getEra(n.eraId);
+              const isActive = active === n.id;
+              return (
+                <g
+                  key={n.id}
+                  transform={`translate(${n.x} ${n.y * 0.62})`}
+                  onClick={() => setActive(isActive ? null : n.id)}
+                  className="cursor-pointer"
+                >
+                  <circle
+                    r={isActive ? 2.6 : n.kind === 'payoff' ? 2 : 1.5}
+                    fill={n.kind === 'payoff' ? era.theme.accent : 'var(--era-bg)'}
+                    stroke={era.theme.accent}
+                    strokeWidth={0.4}
+                  />
+                  {n.kind === 'clue' && <circle r={0.6} fill={era.theme.accent} />}
+                </g>
+              );
+            })}
+          </svg>
+
+          {EGG_NODES.map((n) => (
+            <button
+              key={n.id}
+              onClick={() => setActive(active === n.id ? null : n.id)}
+              className="absolute -translate-x-1/2 -translate-y-1/2 rounded-full px-2 py-0.5 text-[10px] font-medium transition"
+              style={{
+                left: `${n.x}%`,
+                top: `${n.y}%`,
+                backgroundColor:
+                  active === n.id ? 'var(--era-accent)' : 'color-mix(in srgb, var(--era-surface) 85%, transparent)',
+                color: active === n.id ? 'var(--era-bg)' : 'var(--era-ink-soft)',
+                border: '1px solid var(--era-line)',
+              }}
+            >
+              {n.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="border-t border-[color:var(--era-line)] p-5">
+          {activeNode ? (
+            <div className="clue-reveal">
+              <div className="flex items-center gap-2 text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+                <span
+                  className="rounded-full px-2 py-0.5"
+                  style={{
+                    backgroundColor: `color-mix(in srgb, ${getEra(activeNode.eraId).theme.accent} 16%, transparent)`,
+                    color: getEra(activeNode.eraId).theme.accent,
+                  }}
+                >
+                  {getEra(activeNode.eraId).shortName} · {activeNode.year}
+                </span>
+                <span>{activeNode.kind === 'clue' ? 'Clue planted' : 'Payoff'}</span>
+              </div>
+              <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--era-ink)]">{activeNode.detail}</p>
+            </div>
+          ) : (
+            <p className="text-sm text-[color:var(--era-ink-soft)]">
+              Tap any node to reveal the clue it planted — or the payoff it became.
+            </p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
