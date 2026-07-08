@@ -141,6 +141,9 @@ Key actions (all memoized):
 - `openEra(id)` — **pivot from a thread back into an era** (switches to era mode + jumps)
 - `openCrossing(a,b)` / `closeCrossing()` — the two-thread overlay
 - `openItem(id)` / `closeItem()` — MomentDetail
+- `saveEraScroll(snap)` / `getEraScroll()` / `clearEraScroll()` — era-stream
+  scroll restoration (see §5.6). `setEra`, `openEra`, and `goHome` all call
+  `clearEraScroll()` so explicit jumps land at the top.
 
 `LongLive.tsx` reads `mode` and renders the era stream or `ThreadsMode`, and
 applies the theme (era palette vs `VAULT_THEME`) to the shell wrapper.
@@ -201,6 +204,21 @@ only on user click, so the infinite scroll never spawns dozens of players.
 YouTube uses the privacy-enhanced `youtube-nocookie.com` domain. Poster
 thumbnails come from `i.ytimg.com` (allowlisted in `next.config.mjs`). We embed
 via official first-party players only; never re-host audio/video.
+
+### 5.6 Era-stream scroll position survives a trip to Threads
+Switching to threads mode unmounts `EraStream`, which would otherwise destroy
+the reader's scroll position, anchor era, and lazily-appended older eras. To
+avoid that dead-end the store keeps an `EraScrollSnapshot`
+(`{ anchorId, count, scrollY }`) in a ref: `EraStream` writes it continuously
+on scroll (`saveEraScroll`) and reads it once on mount (`getEraScroll`) to
+restore the exact spot (double-`requestAnimationFrame` so appended eras lay out
+before the scroll lands). **The contract:** a plain Eras↔Threads *toggle*
+restores; an *explicit jump* lands at the top. So **any new code path that
+jumps the user to a specific era must call `clearEraScroll()` first** (as
+`setEra`/`openEra`/`goHome` do) — otherwise it will wrongly restore the old
+position. Also keep the `EraStream` jump effect idempotent (it keys off the
+`eraJumpSeq` *value*, not a mount flag) so React StrictMode's double-invoke in
+dev can't clobber a restore.
 
 ---
 
