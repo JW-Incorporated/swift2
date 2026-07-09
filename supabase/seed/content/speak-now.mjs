@@ -213,7 +213,8 @@ export default {
       snippet:
         '8,964 fans at Singapore Indoor Stadium — the start of a 110-show tour across 19 territories, through March 18, 2012.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg/500px-Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg',
       moment: {
         context:
           "The staging was pure Broadway ambition: nine costume changes, pyrotechnics, confetti, aerialists on trapezes, and a suspended balcony that descended over the crowd for the finale. From opening night at the Singapore Indoor Stadium, the production ran through Asia and Europe before the North American leg opened in Omaha that May — six US stadium dates included — and closed in Auckland on March 18, 2012. Announcing the run, Swift kept it simple: 'I'm so excited to go back out on tour again in 2011! The FEARLESS Tour was so much fun...'",
@@ -224,7 +225,15 @@ export default {
             url: 'https://www.billboard.com/music/music-news/taylor-swift-announces-speak-now-world-tour-950374/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg/500px-Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg',
+            credit: 'oouinouin / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              "The tour's theatrical 'Enchanted' staging, photographed in Paris on March 17, 2011 — same production as the Singapore opener, a later night on the same first international leg.",
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -1003,7 +1012,8 @@ export default {
       snippet:
         'An unauthorized MP3 of "Mine" hit the internet in early August 2010 — Big Machine answered by rushing the lead single to radio and iTunes on Aug. 4, twelve days ahead of schedule.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Taylor_Swift_-_Mine.png/250px-Taylor_Swift_-_Mine.png',
       moment: {
         context:
           'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.',
@@ -1027,7 +1037,19 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Taylor_Swift_-_Mine.png/250px-Taylor_Swift_-_Mine.png',
+            credit: 'Big Machine Records (single cover art)',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption: "Still from the official 'Mine' music video, via the video's YouTube thumbnail.",
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1104,7 +1126,8 @@ export default {
       snippet:
         'March 2011: the album\'s bluegrass-leaning critic clapback becomes single three — the one that would end up with two Grammys and a live banjo on the Grammy stage.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mean_(song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Taylor_Swift_-_Mean.png/250px-Taylor_Swift_-_Mean.png',
       moment: {
         context:
           'Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.',
@@ -1119,7 +1142,19 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Taylor_Swift_-_Mean.png/250px-Taylor_Swift_-_Mean.png',
+            credit: 'Big Machine Records (single cover art)',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/jYa1eI1hpDE/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption: "Still from the official 'Mean' music video, via the video's YouTube thumbnail.",
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1131,7 +1166,8 @@ export default {
       snippet:
         'July 18, 2011: a song written at 16 and bootlegged from 2007 bar shows becomes the album\'s fifth single — because fans simply would not stop asking for it.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Sparks_Fly_(song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Sparks_Fly_-_Single.png/250px-Sparks_Fly_-_Single.png',
       moment: {
         context:
           'A fan-filmed 2007 performance circulated online for years, and backstage requests at the 2010 CMA Music Festival pushed her to rework the song for Speak Now. The single just made official what tour setlists already knew.',
@@ -1146,7 +1182,20 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Sparks_Fly_-_Single.png/250px-Sparks_Fly_-_Single.png',
+            credit: 'Big Machine Records (single cover art)',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/oKar-tF__ac/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption:
+              "Still from the official 'Sparks Fly' music video — cut from Speak Now World Tour performance footage — via the video's YouTube thumbnail.",
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1158,7 +1207,8 @@ export default {
       snippet:
         'Nov. 21, 2011: a CD-plus-DVD of the North American leg arrives — the full show on film, plus tour covers of Train\'s "Drops of Jupiter," "Bette Davis Eyes," and the Jackson 5\'s "I Want You Back."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour_%E2%80%93_Live',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png/250px-Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
       moment: {
         context:
           'Her first live album, released through Big Machine while the era was still running; it debuted at No. 11 on the Billboard 200 with 77,000 first-week copies.',
@@ -1173,7 +1223,13 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png/250px-Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
+            credit: 'Big Machine Records (album cover art)',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1185,7 +1241,8 @@ export default {
       snippet:
         'Dec. 26, 2011: a haunted, stripped-down Hunger Games ballad with The Civil Wars lands on iTunes — a first glimpse of the indie-folk register she\'d fully move into a decade later.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
       moment: {
         context:
           'Producer T Bone Burnett had the Civil Wars over to his house after a Los Angeles show; Swift, who\'d spent two days reading the novel, wrote "Safe & Sound" with them in about two hours, singing from Katniss Everdeen\'s perspective. It went on to win the Grammy for Best Song Written for Visual Media.',
@@ -1200,7 +1257,13 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
+            credit: 'Big Machine Records (single cover art)',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1248,7 +1311,8 @@ export default {
       snippet:
         'May 27, 2011: after opening runs through Asia and Europe, the Speak Now World Tour lands stateside in Omaha — the start of a summer-and-fall North American run.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Taylor_Swift_Speak_Now_Tour_2011_2.jpg/500px-Taylor_Swift_Speak_Now_Tour_2011_2.jpg',
       moment: {
         context:
           'The North American leg became the stretch the era is remembered by — the theatrical staging, the costume changes, and above all the parade of surprise-guest duets that peaked in Los Angeles that August.',
@@ -1263,7 +1327,15 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Taylor_Swift_Speak_Now_Tour_2011_2.jpg/500px-Taylor_Swift_Speak_Now_Tour_2011_2.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'On stage during the North American leg — photographed in Pittsburgh on June 18, 2011, three weeks after the Omaha opener on the same leg.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -1446,7 +1518,7 @@ export default {
       snippet:
         'Feb. 21, 2012: promoting The Lorax, she and Zac Efron duet an acoustic "Pumped Up Kicks" on Ellen — with the lyrics rewritten to be entirely about Ellen DeGeneres.',
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-and-zac-efron-cover-pumped-up-kicks-on-ellen/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://i.ytimg.com/vi/d8kCTPPwfpM/hqdefault.jpg',
       moment: {
         context:
           'Swift had been teaching her Lorax co-star to play guitar; the rewritten cover — cheat-sheet lyrics in hand — became one of the show\'s most replayed musical bits from that year.',
@@ -1470,7 +1542,15 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/d8kCTPPwfpM/hqdefault.jpg',
+            credit: 'The Ellen Show / Warner Bros. (official YouTube clip thumbnail)',
+            caption:
+              "Swift and Zac Efron mid-duet on Ellen, Feb. 21, 2012 — thumbnail of the show's official YouTube upload of the segment.",
+            kind: 'archival',
+          },
+        ],
       },
     },
   ],
