@@ -1,0 +1,110 @@
+'use client';
+
+import { useMemo } from 'react';
+import { Clapperboard, ExternalLink } from 'lucide-react';
+import { videosForEra } from '@/lib/longlive/videos';
+import type { EraId, VideoNote, VideoNoteKind } from '@/lib/longlive/types';
+import { MomentVideo } from './MomentVideo';
+
+/**
+ * Per-era official videos rail, rendered inside EraSection. Data is static,
+ * synced at build time from the Vault video_work seed/table
+ * (lib/longlive/videos.ts); no runtime fetch. Works with a verified official
+ * YouTube upload embed via the MomentVideo click-to-play facade (poster
+ * thumbnail only until the user opts in — cheap even in the infinite scroll);
+ * works without one (e.g. theatrical tour films) render as metadata cards.
+ */
+
+const KIND_LABEL: Record<VideoNoteKind, string> = {
+  music_video: 'Music video',
+  lyric_video: 'Lyric video',
+  short_film: 'Short film',
+  tour_film: 'Tour film',
+  documentary: 'Documentary',
+  performance: 'Performance',
+};
+
+export function EraVideos({ eraId }: { eraId: EraId }) {
+  const videos = useMemo(() => videosForEra(eraId), [eraId]);
+  if (videos.length === 0) return null;
+
+  return (
+    <div className="border-t border-[color:var(--era-line)]">
+      <div className="mx-auto max-w-3xl px-5 py-10 md:pr-16">
+        <div className="flex items-center gap-2">
+          <Clapperboard className="h-4 w-4 text-[color:var(--era-accent)]" />
+          <h2 className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
+            Official videos · {videos.length}
+          </h2>
+        </div>
+
+        <div className="mt-5 grid gap-4 sm:grid-cols-2">
+          {videos.map((v) => (
+            <VideoCard key={v.slug} video={v} />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function VideoCard({ video }: { video: VideoNote }) {
+  const meta = [
+    video.kind ? KIND_LABEL[video.kind] : null,
+    video.director ? `Dir. ${video.director}` : null,
+    video.releasedOn ? video.releasedOn.slice(0, 4) : null,
+  ].filter(Boolean);
+
+  return (
+    <article className="era-card flex flex-col rounded-2xl border p-4 sm:p-5">
+      <div className="text-[11px] uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+        {meta.join(' · ')}
+      </div>
+      <h3 className="mt-1.5 font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
+        {video.title}
+      </h3>
+      {video.summary && (
+        <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          {video.summary}
+        </p>
+      )}
+
+      {video.easterEggs.length > 0 && (
+        <ul className="mt-2.5 space-y-1 text-[13px] leading-relaxed text-[color:var(--era-ink-soft)]">
+          {video.easterEggs.map((egg, i) => (
+            <li key={i} className="flex gap-2">
+              <span aria-hidden className="mt-[7px] h-1 w-1 shrink-0 rounded-full bg-[color:var(--era-accent)]" />
+              <span>{egg}</span>
+            </li>
+          ))}
+        </ul>
+      )}
+
+      {video.youtubeId && (
+        <MomentVideo
+          video={{ youtubeId: video.youtubeId, title: video.title }}
+          caption={null}
+          className="mt-4"
+        />
+      )}
+
+      <p className="mt-auto pt-3 text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+        {video.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
+        {video.sources.map((s, i) => (
+          <span key={`${s.url}-${i}`}>
+            {i > 0 && ', '}
+            <a
+              href={s.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-0.5 underline underline-offset-2 hover:text-[color:var(--era-ink)]"
+            >
+              {s.name}
+              <ExternalLink className="h-3 w-3" aria-hidden />
+            </a>
+          </span>
+        ))}
+      </p>
+    </article>
+  );
+}

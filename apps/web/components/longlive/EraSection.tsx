@@ -7,8 +7,10 @@ import { useAppActions } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
 import { tracksForEra } from '@/lib/longlive/tracks';
+import { theoriesForEra } from '@/lib/longlive/theories';
 import { threadsInEra, getThread } from '@/lib/longlive/lenses';
 import { EraMedia } from './EraMedia';
+import { EraVideos } from './EraVideos';
 import { ALL_TAGS, TAG_META } from '@/lib/longlive/tags';
 import type { ContentItem, ContentTag, Era, LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
@@ -20,10 +22,11 @@ import { cn } from '@/lib/utils';
  * scope its measurements to the era currently in view.
  */
 export function EraSection({ era }: { era: Era }) {
-  const { openItem, setSelectorOpen, openThread, openTrackGuide } = useAppActions();
+  const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide } = useAppActions();
   const [activeTags, setActiveTags] = useState<Set<ContentTag>>(new Set());
   const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
   const trackCount = useMemo(() => tracksForEra(era.id).length, [era.id]);
+  const theoryCount = useMemo(() => theoriesForEra(era.id).length, [era.id]);
 
   const items = useMemo(() => contentForEra(era.id), [era.id]);
   const visible = useMemo(() => {
@@ -91,18 +94,32 @@ export function EraSection({ era }: { era: Era }) {
           )}
           {era.media && <EraMedia media={era.media} />}
 
-          {/* Album track guide — only when this era has sourced track notes. */}
-          {trackCount > 0 && (
-            <button
-              onClick={() => openTrackGuide(era.id)}
-              className="era-btn-ghost mx-auto mt-5 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
-            >
-              <ListMusic className="h-4 w-4 text-[color:var(--era-accent)]" />
-              Track guide
-              <span className="text-xs text-[color:var(--era-ink-soft)]">
-                {trackCount} {trackCount === 1 ? 'song' : 'songs'}
-              </span>
-            </button>
+          {/* Era guides — each only when this era has sourced records. */}
+          {(trackCount > 0 || theoryCount > 0) && (
+            <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
+              {trackCount > 0 && (
+                <button
+                  onClick={() => openTrackGuide(era.id)}
+                  className="era-btn-ghost inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
+                >
+                  <ListMusic className="h-4 w-4 text-[color:var(--era-accent)]" />
+                  Track guide
+                  <span className="text-xs text-[color:var(--era-ink-soft)]">
+                    {trackCount} {trackCount === 1 ? 'song' : 'songs'}
+                  </span>
+                </button>
+              )}
+              {theoryCount > 0 && (
+                <button
+                  onClick={() => openTheoryGuide(era.id)}
+                  className="era-btn-ghost inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
+                >
+                  <Sparkles className="h-4 w-4 text-[color:var(--era-accent)]" />
+                  Theories &amp; eggs
+                  <span className="text-xs text-[color:var(--era-ink-soft)]">{theoryCount}</span>
+                </button>
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -150,6 +167,9 @@ export function EraSection({ era }: { era: Era }) {
           </p>
         )}
       </div>
+
+      {/* Official videos for the era — click-to-play embeds + metadata cards. */}
+      <EraVideos eraId={era.id} />
 
       {/* Era → Thread pivot: jump sideways into any story that runs through here. */}
       {eraThreads.length > 0 && (

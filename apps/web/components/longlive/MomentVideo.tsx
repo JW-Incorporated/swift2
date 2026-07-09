@@ -12,11 +12,21 @@ import type { MomentVideo as MomentVideoData } from '@/lib/longlive/types';
  * Perf: the iframe is heavy, so this is a click-to-play facade — until the user
  * opts in we show only YouTube's poster thumbnail (a plain <img>, no player JS).
  */
-export function MomentVideo({ video }: { video: MomentVideoData }) {
+export function MomentVideo({
+  video,
+  caption = `Official music video · ${video.title} · YouTube`,
+  className = 'mt-8',
+}: {
+  video: MomentVideoData;
+  /** Figcaption text; pass null to render the embed with no caption (the
+   * surrounding card already names the work, e.g. EraVideos). */
+  caption?: string | null;
+  className?: string;
+}) {
   const [playing, setPlaying] = useState(false);
 
   return (
-    <figure className="mt-8">
+    <figure className={className}>
       <div
         className="relative aspect-video w-full overflow-hidden rounded-2xl border"
         style={{ borderColor: 'var(--era-line)', background: 'var(--era-surface)' }}
@@ -55,9 +65,11 @@ export function MomentVideo({ video }: { video: MomentVideoData }) {
           </button>
         )}
       </div>
-      <figcaption className="mt-2 text-center text-xs text-[color:var(--era-ink-soft)]">
-        Official music video · {video.title} · YouTube
-      </figcaption>
+      {caption !== null && (
+        <figcaption className="mt-2 text-center text-xs text-[color:var(--era-ink-soft)]">
+          {caption}
+        </figcaption>
+      )}
     </figure>
   );
 }
