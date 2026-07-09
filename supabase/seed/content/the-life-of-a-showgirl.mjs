@@ -1032,6 +1032,406 @@ export default {
         photos: [],
       },
     },
+    // --- Deep timeline fill (2026-07-08, content/deep-d): song stories, the
+    // album's chart marathon, the Kelce arc between engagement and wedding,
+    // and the era's 2026 chapters. Every claim verified against its cited
+    // source(s) this session; no fabrication.
+    {
+      slug: 'elizabeth-taylor-track-two',
+      year: 2025,
+      month: 10,
+      category: 'music',
+      title: 'Elizabeth Taylor: the first song she wrote for the album',
+      snippet:
+        'Two showgirls, one lyric: White Diamonds, violet eyes, and "you\'re only as hot as your last hit" — her fame anxiety filtered through the star whose love life the press devoured first. It debuted at No. 3.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Elizabeth_Taylor_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Track two draws the parallel explicitly — the Plaza Athénée, Portofino, "I would trade the Cartier for someone to trust" — two famous women whose romances became public property. Time and Rolling Stone both read it as the album\'s thesis statement: the showgirl persona as armor, borrowed from the woman who wore it best. It was the first Showgirl song written, and it debuted at No. 3 on the Hot 100 behind "The Fate of Ophelia" and "Opalite."',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Elizabeth_Taylor_(song)',
+            source_title: 'Elizabeth Taylor (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Time',
+            url: 'https://time.com/7322774/taylor-swift-elizabeth-taylor-life-of-a-showgirl/',
+            source_title: "The Meaning Behind 'Elizabeth Taylor' on 'The Life of a Showgirl'",
+            publisher: 'Time',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-elizabeth-taylor-life-of-a-showgirl-1235440312/',
+            source_title: "Taylor Swift's Brilliant New Song 'Elizabeth Taylor': The Life of Two Showgirls",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'fate-of-ophelia-video-wardrobe',
+      year: 2025,
+      month: 10,
+      category: 'fashion',
+      title: 'The Ophelia video wardrobe: Versace crystals, Cavalli chainmail, custom Ferretti',
+      snippet:
+        'Every era of showgirl in one self-directed video — a flowing white Alberta Ferretti gown into a red crystal Versace bodysuit with matching gloves, a black chainmail Cavalli fringe dress, and a rhinestone Kelsey Randall mini.',
+      sourceUrl: 'https://www.femestella.com/the-fate-of-ophelia-music-video-every-outfit-taylor-swift-wears/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The costume parade tracks the video\'s conceit — Swift as a showgirl across different stage-history periods, from the drowned-Ophelia opening to full vaudeville. The long-beaded gown and the swimming costume later left the closet entirely: both went on display at the Rock & Roll Hall of Fame the following June.',
+        sources: [
+          {
+            outlet: 'Femestella',
+            url: 'https://www.femestella.com/the-fate-of-ophelia-music-video-every-outfit-taylor-swift-wears/',
+            source_title: "'The Fate of Ophelia' Music Video: Every Outfit Taylor Swift Wears",
+            publisher: 'Femestella',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'ABC7',
+            url: 'https://abc7.com/post/taylor-swift-new-display-rock-roll-hall-fame-features-artifacts-fate-ophelia-music-video/19390785/',
+            source_title: "A new display at the Rock & Roll Hall of Fame features artifacts from 'The Fate of Ophelia' music video",
+            publisher: 'ABC7 (ABC Owned Television Stations)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-graham-norton-destination-wedding',
+      year: 2025,
+      month: 10,
+      category: 'relationship',
+      title: 'Wedding plans, teased from a British chat-show couch',
+      snippet:
+        'On Graham Norton during release week, she said the wedding would be a big destination affair — the first real planning detail either of them had offered since the garden proposal in August.',
+      sourceUrl: 'https://www.hellomagazine.com/us/911732/travis-kelce-finally-confirms-long-awaited-taylor-swift-news-after-wedding/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The detail set off months of location speculation that neither of them fed further — and the eventual Madison Square Garden ceremony in July 2026 made the "destination" a hometown-adjacent punchline. In a September New Heights episode, guest host Jimmy Fallon had pulled the only other tidbit: "we\'re live music kind of people," per Travis.',
+        sources: [
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/us/911732/travis-kelce-finally-confirms-long-awaited-taylor-swift-news-after-wedding/',
+            source_title: 'Travis Kelce finally confirms long-awaited Taylor Swift news after wedding',
+            publisher: 'Hello! Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'The Knot',
+            url: 'https://www.theknot.com/content/taylor-swift-wedding',
+            source_title: 'Taylor Swift and Travis Kelce Are Married; Plus, Wedding Details',
+            publisher: 'The Knot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-colts-game-sighting',
+      year: 2025,
+      month: 11,
+      category: 'sighting',
+      title: 'Back in the suite window for an overtime nail-biter',
+      snippet:
+        'After weeks of slipping into Arrowhead unphotographed, she was visible celebrating the Colts game from the suite — playfully shaking her dad by the shoulders as Butker\'s kick won it 23-20 in OT.',
+      sourceUrl: 'https://www.tmz.com/2025/11/23/taylor-swift-watches-travis-kelce-win-nailbiter-kansas-city/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Nov. 23, 2025 game was her most visible Arrowhead appearance in weeks — E! noted she\'d been keeping a deliberately low profile at games through the fall, a run that ended with the Chiefs\' playoff hopes: the Christmas Broncos game a month later was expected to be Kelce\'s last at home that season.',
+        sources: [
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2025/11/23/taylor-swift-watches-travis-kelce-win-nailbiter-kansas-city/',
+            source_title: 'Taylor Swift Watches Travis Kelce, Chiefs Beat Colts in Week 12 Nail-Biter',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1425412/taylor-swift-supports-travis-kelce-at-chiefs-vs-colts-game',
+            source_title: "Taylor Swift Is Travis Kelce's No. 1 Fan at Chiefs vs. Colts Game",
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-colts-game-outfit',
+      year: 2025,
+      month: 11,
+      category: 'fashion',
+      title: 'A low-key game-day layer for the Colts game',
+      snippet:
+        'No statement piece this time — a beige, red, and white color-blocked jacket and the signature red lip, dressed for the suite rather than the cameras.',
+      sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-kansas-city-chiefs-indianapolis-colts-game-outfit/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Marie Claire filed the Nov. 23, 2025 look under "fit for a low-key fan" — a deliberate contrast to the fall\'s headline-grabbing game-day fashion (the Miu Miu bomber, the Christmas-red Frankie Shop look) during a stretch where she was mostly avoiding the broadcast cameras altogether.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-kansas-city-chiefs-indianapolis-colts-game-outfit/',
+            source_title: "Taylor Swift's Kansas City Chiefs vs. Indianapolis Colts Game Outfit Is Fit for a Low-Key Fan",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'end-of-an-era-kelce-episodes',
+      year: 2025,
+      month: 12,
+      category: 'relationship',
+      title: 'Travis joins the docuseries for its final episodes',
+      snippet:
+        'The End of an Era\'s pre-Christmas episodes brought Kelce into the frame — the tour\'s last stretch told with the relationship that started in its stands finally on camera.',
+      sourceUrl: 'https://abcnews.com/GMA/Culture/exclusive-1st-end-era-travis-kelce-joins-taylor/story?id=128488203',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'GMA\'s exclusive first look confirmed Kelce appears in the back half of the six-episode Disney+ series, which rolled out Dec. 12, 19, and 23, 2025. The docuseries also addressed the era\'s hardest moment — the cancelled Vienna shows — making it the fullest inside account of the tour\'s final year.',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/exclusive-1st-end-era-travis-kelce-joins-taylor/story?id=128488203',
+            source_title: "Exclusive 1st look: Travis Kelce joins Taylor in next episodes of 'The End of an Era'",
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-vienna-terror-plot-eras-doc-1235482119/',
+            source_title: "Taylor Swift's Eras Tour Doc Addresses Vienna Terror Plot",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-twelve-weeks-number-one',
+      year: 2026,
+      month: 1,
+      category: 'business',
+      title: 'Twelve straight weeks at No. 1 — through the entire holiday season',
+      snippet:
+        'Showgirl held the Billboard 200\'s top spot for 12 consecutive weeks into January — her second-longest run ever behind TTPD — outlasting a record seven Christmas albums crowding the top 10.',
+      sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-twelfth-week-number-one-billboard-200-1236148560/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The album never left No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby posted his biggest streaming week ever at No. 2, through its own 10th and 11th week milestones Billboard tracked one by one.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-twelfth-week-number-one-billboard-200-1236148560/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Nets 12th Week Atop Billboard 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
+            source_title: 'The Life of a Showgirl',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-luminate-2025-top-album',
+      year: 2026,
+      month: 1,
+      category: 'business',
+      title: "Luminate's 2025 crown: 5.6 million units, no contest",
+      snippet:
+        'The year-end report made it official — Showgirl was 2025\'s most-consumed album in the US at 5.607M units, roughly half a million clear of Morgan Wallen. Her fourth year-end No. 1, and second in a row.',
+      sourceUrl: 'https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Remarkable mostly for the calendar: the album had only 13 weeks of 2025 to work with (Luminate\'s tracking year closed Jan. 1, 2026) and still beat everything released in the previous nine months. It topped Billboard\'s year-end Billboard 200 albums ranking on the same math.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Is Luminate's Top Album of 2025 in U.S.",
+            publisher: 'Billboard (Luminate year-end report)',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-2025-year-end-billboard-200-album-1236130192/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Is the Top Billboard 200 Album of 2025",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'elizabeth-taylor-video-archival',
+      year: 2026,
+      month: 3,
+      category: 'music',
+      title: 'The Elizabeth Taylor video: a supercut of the real Liz',
+      snippet:
+        'Released to close Women\'s History Month — Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, and newsreel paparazzi footage, cut into a tribute instead of a performance video.',
+      sourceUrl: 'https://variety.com/2026/music/news/taylor-swift-elizabeth-taylor-music-video-1236703350/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The March 31, 2026 video is built almost entirely from archival material: scenes from nine-plus Taylor films alongside newsreels of her navigating the press. It hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video, and the era\'s first new video since "The Fate of Ophelia."',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-elizabeth-taylor-music-video-1236703350/',
+            source_title: "Taylor Swift Releases 'Elizabeth Taylor' Music Video",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-elizabeth-taylor-music-video-1235539333/',
+            source_title: "Taylor Swift Honors a Legend With New 'Elizabeth Taylor' Music Video",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rock-hall-ophelia-display',
+      year: 2026,
+      month: 6,
+      category: 'business',
+      title: 'The Rock Hall puts the Ophelia gown in Legends of Rock',
+      snippet:
+        'Cleveland\'s Rock & Roll Hall of Fame added a Showgirl display to its Legends of Rock exhibit: the long-beaded gown, the swimming costume, and dancers\' props from a video past 438 million views.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-display-rock-and-roll-hall-of-fame-1236281831/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The display opened in late June 2026 on the museum\'s fifth level — institutional-canon treatment for an era still in progress, before she is even age-eligible for induction. The artifacts come from the self-written, self-directed video whose single led the Hot 100 for 10 weeks, her longest-leading No. 1.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-display-rock-and-roll-hall-of-fame-1236281831/',
+            source_title: "New Taylor Swift Display Opens in the Rock & Roll Hall of Fame's 'Legends of Rock' Exhibit",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC7',
+            url: 'https://abc7.com/post/taylor-swift-new-display-rock-roll-hall-fame-features-artifacts-fate-ophelia-music-video/19390785/',
+            source_title: "A new display at the Rock & Roll Hall of Fame features artifacts from 'The Fate of Ophelia' music video",
+            publisher: 'ABC7 (ABC Owned Television Stations)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'kelce-new-heights-proposal-story',
+      year: 2026,
+      month: 7,
+      category: 'relationship',
+      title: 'Back on New Heights, a married man with a proposal story',
+      snippet:
+        'In his first episode after the wedding, Travis walked through the "epic" garden proposal and life as a husband — the podcast that announced the album now bookending the era\'s whole arc.',
+      sourceUrl: 'https://www.eonline.com/news/1433765/taylor-swift-travis-kelce-wedding-travis-details-proposal',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The post-wedding episode closed a loop the era opened: New Heights hosted the album reveal in August 2025, the engagement announcement followed two weeks later, and eleven months on, Kelce recapped the Madison Square Garden wedding from the same desk.',
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1433765/taylor-swift-travis-kelce-wedding-travis-details-proposal',
+            source_title: 'Travis Kelce Details "Epic" Taylor Swift Proposal in First Podcast Episode After MSG Wedding',
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reflects-taylor-swift-110036898.html',
+            source_title: "Travis Kelce Reflects on Taylor Swift Proposal in First 'New Heights' Appearance Since Starry N.Y.C. Wedding",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
     {
       slug: 'showgirl-ring-designer-wedding-invite',
       year: 2026,

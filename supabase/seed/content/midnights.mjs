@@ -1712,5 +1712,641 @@ export default {
         photos: [],
       },
     },
+
+    // --- Deep timeline fill (2026-07-08, content/deep-d): rollout, records,
+    // Eras Tour milestones, and era-spanning moments the corpus was missing.
+    // Every claim verified against its cited source(s) this session; new items
+    // carry the audit's additive provenance fields (slug + publisher/
+    // source_type/accessed_at/reliability_score) alongside legacy {outlet,url}.
+    {
+      slug: 'midnights-mayhem-with-me',
+      year: 2022,
+      month: 10,
+      category: 'release',
+      title: 'Midnights Mayhem with Me: a bingo cage announces the tracklist',
+      snippet:
+        'No cryptic clues this time — a TikTok series where a bingo cage picked the order and she announced each track title into a vintage phone. Thirteen episodes, capped by a middle-of-the-night finale blitz.',
+      sourceUrl: 'https://www.elitedaily.com/entertainment/taylor-swift-midnights-mayhem-with-me-tracklist-tiktoks-explained',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The series started Sept. 21, 2022, with episodes dropping at midnight ET — cat Meredith cameoed in episode 2, and the remaining titles were released an hour apart through the night of Oct. 7. It flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, chance decided which track title she revealed next.',
+        sources: [
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/entertainment/taylor-swift-midnights-mayhem-with-me-tracklist-tiktoks-explained',
+            source_title: "Taylor Swift's 'Midnights Mayhem With Me' Tracklist TikToks, Explained",
+            publisher: 'Elite Daily',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Taylor Swift on TikTok',
+            url: 'https://www.tiktok.com/@taylorswift/video/7151677137337208110',
+            source_title: 'Our LAST EPISODE! The season finale of Midnights Mayhem with Me',
+            publisher: 'Taylor Swift (official TikTok)',
+            source_type: 'social',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'bejeweled-video-easter-eggs',
+      year: 2022,
+      month: 10,
+      category: 'music',
+      title: '"Bejeweled" arrives with a "psychotic amount" of easter eggs',
+      snippet:
+        'Her warning, not ours. Laura Dern as the wicked stepmother, HAIM as the stepsisters, an elevator button for floor three glowing purple — the Cinderella video that quietly announced Speak Now was next.',
+      sourceUrl: 'https://www.goodmorningamerica.com/culture/story/watch-taylor-swifts-music-video-bejeweled-off-album-92029478',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Released Oct. 25, 2022, four days after the album. Dern\'s "Speak not, you tacky, tired wench" line, the three stepsisters (album three), and an orchestral "Long Live" over the closing shot all pointed at Speak Now as the next re-record — a call fans banked, and one the Nashville announcement confirmed the following May.',
+        sources: [
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/watch-taylor-swifts-music-video-bejeweled-off-album-92029478',
+            source_title: "Taylor Swift's 'Bejeweled' music video features Laura Dern, Dita Von Teese and a 'psychotic amount' of Easter eggs",
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Newsweek',
+            url: 'https://www.newsweek.com/taylor-swift-bejeweled-music-vieo-easter-eggs-cast-haim-laura-dern-1754441',
+            source_title: "All of the Taylor Swift 'Bejeweled' music video easter eggs and cast",
+            publisher: 'Newsweek',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'amas-2022-six-for-six',
+      year: 2022,
+      month: 11,
+      category: 'business',
+      title: 'Six-for-six at the AMAs, and past 40 career wins',
+      snippet:
+        'Artist of the Year for the seventh time, plus wins for Red (Taylor\'s Version) and the All Too Well short film — making her the first artist to pass 40 American Music Awards.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-sweeps-2022-amas-1234634191/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Nov. 20, 2022 sweep at the Microsoft Theater covered favorite female pop artist, favorite female country artist, favorite pop album, favorite country album, and favorite music video — a re-recorded 2012 album and its ten-minute short film winning a full month into the Midnights era.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-sweeps-2022-amas-1234634191/',
+            source_title: 'Taylor Swift Sweeps 2022 AMAs With Six of Six Wins',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2022/11/american-music-awards-winners-list-taylor-swift-scores-artist-of-the-year-1235178280/',
+            source_title: 'American Music Awards 2022 Winners List: Taylor Swift Reigns, Scores Artist Of The Year Prize',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'eras-tour-presale-meltdown',
+      year: 2022,
+      month: 11,
+      category: 'business',
+      title: 'The presale that broke Ticketmaster — and set a sales record anyway',
+      snippet:
+        '2.4 million tickets in one day, the most ever sold for an artist — while millions more fans sat in crashed queues until Ticketmaster canceled the public on-sale entirely.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Ticketmaster_controversy',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Verified Fan presale opened Nov. 15, 2022 and buckled within the hour as fans, bots, and scalpers flooded the site; Ticketmaster later blamed a massive bot attack and scrapped the general sale outright. Fans sued, and Swift said watching the mistakes unfold with no recourse had been "excruciating." The fallout carried into Washington within two months.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Ticketmaster_controversy',
+            source_title: 'Taylor Swift–Ticketmaster controversy',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-fans-sue-ticketmaster-tour-presale-meltdown/story?id=94459600',
+            source_title: 'Taylor Swift fans sue Ticketmaster over tour presale meltdown',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'ticketmaster-senate-hearing',
+      year: 2023,
+      month: 1,
+      category: 'business',
+      title: 'The Senate holds a Ticketmaster hearing, in Swiftie puns',
+      snippet:
+        'Senators quoted her lyrics while grilling Live Nation over the Eras Tour on-sale collapse — a three-hour bipartisan airing of the monopoly question, with Swifties rallying outside the Capitol.',
+      sourceUrl: 'https://www.npr.org/2023/01/24/1150942804/taylor-swift-ticketmaster-senate-hearing-live-nation',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'At the Jan. 24, 2023 Senate Judiciary hearing, Sen. Amy Klobuchar opened on consolidation people know "all too well"; Live Nation\'s CFO blamed bots, and when witnesses were asked whether Ticketmaster is a monopoly, SeatGeek\'s CEO answered "unequivocally." Klobuchar\'s case: the company controls over 70% of ticketing for major venues plus much of the promotion pipeline.',
+        sources: [
+          {
+            outlet: 'NPR',
+            url: 'https://www.npr.org/2023/01/24/1150942804/taylor-swift-ticketmaster-senate-hearing-live-nation',
+            source_title: "The Senate's Ticketmaster hearing featured plenty of Taylor Swift puns and protesters",
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Time',
+            url: 'https://time.com/6249730/ticketmaster-taylor-swift-hearing-congress/',
+            source_title: "What Happened During Congress' Hearing on Ticketmaster and the Taylor Swift Concert Mess",
+            publisher: 'Time',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-ticketmaster-senate-judiciary-committee-eras-tour/',
+            source_title: "All the Taylor Swift references from the Senate's Ticketmaster hearing",
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'speak-now-tv-announced-nashville',
+      year: 2023,
+      month: 5,
+      category: 'release',
+      title: "Speak Now (Taylor's Version) announced onstage in Nashville",
+      snippet:
+        'Wristbands turned purple across Nissan Stadium as she revealed the next re-record from the stage — the album she wrote entirely alone at 18–20, coming back July 7.',
+      sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-speak-now-taylors-version-announced-during-concert-nashville-nissan-stadium-1235605123/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The May 5, 2023 reveal opened her three-night hometown Nashville stand: entry banners ran purple-hued all day before the announcement landed mid-show. Her post that night flagged the July 7 date as "just in time for July 9th, iykyk" — the "Last Kiss" date fans have kept as an anniversary since 2010.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/music/news/taylor-swift-speak-now-taylors-version-announced-during-concert-nashville-nissan-stadium-1235605123/',
+            source_title: "Taylor Swift Announces 'Speak Now (Taylor's Version)' Is Coming Next",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-speak-now-taylors-version-release-date-1235322958/',
+            source_title: "Taylor Swift 'Speak Now (Taylor's Version)' Release Date",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'i-can-see-you-video-lautner',
+      year: 2023,
+      month: 7,
+      category: 'music',
+      title: 'The "I Can See You" video reunites the Taylors',
+      snippet:
+        'Taylor Lautner backflipping through a heist to free her from a vault — she premiered the video live in Kansas City with Lautner, Joey King, and Presley Cash walking out onstage.',
+      sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-lautner-i-can-see-you-music-video-joey-king-presley-cash-1235664478/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Premiered July 7, 2023 at the first Kansas City show, hours after Speak Now (Taylor\'s Version) dropped. Swift wrote and directed the vault-heist clip herself, cast the "Mean" video kids all grown up, and told the crowd Lautner had been "a very positive force in my life" during the original Speak Now — and did every stunt himself.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/music/news/taylor-swift-lautner-i-can-see-you-music-video-joey-king-presley-cash-1235664478/',
+            source_title: "Taylor Swift Casts Her Ex, Taylor Lautner, as Co-Star in 'I Can See You' Video",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-i-can-see-you-video-taylor-lautner-joey-king-presley-cash-1235368510/',
+            source_title: "Taylor Swift Premieres 'I Can See You' Video",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'swift-quake-seattle',
+      year: 2023,
+      month: 7,
+      category: 'tour',
+      title: 'The "Swift Quake": Seattle shows register as seismic activity',
+      snippet:
+        'Two nights at Lumen Field shook the ground like a 2.3-magnitude quake — beating the stadium\'s famous 2011 "Beast Quake," with dancing Swifties out-rumbling a Marshawn Lynch touchdown.',
+      sourceUrl: 'https://www.cbsnews.com/news/beast-quake-taylor-swift-seattle-concerts-seismic-activity-lumen-field/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off a seismometer beside the stadium: shaking roughly twice as strong as the Beast Quake, sustained for hours at a time because 144,000 fans across two nights were all moving to the same beat. The difference, she noted, was rhythm — music drives the ground in a way a single touchdown roar can\'t.',
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/beast-quake-taylor-swift-seattle-concerts-seismic-activity-lumen-field/',
+            source_title: "Beast Quake (Taylor's Version): Swift's Eras tour concerts cause seismic activity in Seattle",
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CNN',
+            url: 'https://www.cnn.com/2023/07/27/entertainment/taylor-swift-seismic-activity/index.html',
+            source_title: 'Taylor Swift fans cause record-breaking seismic activity during Seattle shows',
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'eras-tour-beige-book',
+      year: 2023,
+      month: 7,
+      category: 'business',
+      title: "The Eras Tour makes the Federal Reserve's Beige Book",
+      snippet:
+        'The Philadelphia Fed credited her three Linc shows with the city\'s strongest hotel month since the pandemic began — a pop tour surfacing in central-bank economic reporting.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-eras-tour-boosting-hotel-industry-economy-federal-reserve-1235371670/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The July 12, 2023 Beige Book flagged that May was Philadelphia\'s strongest hotel-revenue month since the pandemic\'s onset, in large part from the influx of fans for her Lincoln Financial Field dates — while Chicago broke hotel occupancy records during her Soldier Field weekend. "Swiftonomics" stopped being a joke headline and became a line item.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-eras-tour-boosting-hotel-industry-economy-federal-reserve-1235371670/',
+            source_title: "Federal Reserve Says Taylor Swift's Eras Tour Had a Massive Impact on Philadelphia Hotel Bookings",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/business/consumer/taylor-swift-federal-reserve-credits-eras-tour-boosting-hotels-tourism-rcna94046',
+            source_title: 'Federal Reserve credits Taylor Swift with boosting hotel revenues through her blockbuster Eras Tour',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Federal Reserve',
+            url: 'https://www.federalreserve.gov/monetarypolicy/beigebook202307.htm',
+            source_title: 'Beige Book — July 12, 2023',
+            publisher: 'Federal Reserve Board',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'sofi-1989-tv-announcement',
+      year: 2023,
+      month: 8,
+      category: 'release',
+      title: "1989 (Taylor's Version) announced at the final US show — on the date fans predicted",
+      snippet:
+        'Blue versions of her Speak Now, folklore, and 1989 outfits teased it all night at SoFi before the reveal: Oct. 27. Fans had already done the math — Aug. 9 was eight years, nine months, and 13 days since the original.',
+      sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Aug. 9, 2023 finale of the tour\'s first US run ended with SoFi\'s roof lit up for the announcement and Swift calling it "my most FAVORITE re-record I\'ve ever done." The date numerology (8-9, and her lucky 13) had circulated among fans for weeks — one of the rare times the fandom called an announcement to the day.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
+            source_title: "Taylor Swift Says '1989 (Taylor's Version)' Is Coming at L.A. Finale",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Washington Post',
+            url: 'https://www.washingtonpost.com/arts-entertainment/2023/08/10/taylor-swift-1989-taylors-version/',
+            source_title: "Taylor Swift announces '1989 (Taylor's Version)' at final U.S. Eras Tour show this year",
+            publisher: 'The Washington Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'bloomberg-billionaire',
+      year: 2023,
+      month: 10,
+      category: 'business',
+      title: 'Billionaire status, from the music alone',
+      snippet:
+        'Bloomberg put her net worth at $1.1 billion in October 2023 — one of the only entertainers ever to get there purely on songs and shows, no sneaker line or liquor brand required.',
+      sourceUrl: 'https://www.bloomberg.com/graphics/2023-taylor-swift-net-worth-billionaire/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Bloomberg\'s breakdown: roughly $400 million in catalog value from music released since 2019, $370 million from ticket sales and merchandise, $120 million from streaming, $110 million in real estate, and $80 million in royalties — the Eras Tour and the Taylor\'s Version project doing the compounding.',
+        sources: [
+          {
+            outlet: 'Bloomberg',
+            url: 'https://www.bloomberg.com/graphics/2023-taylor-swift-net-worth-billionaire/',
+            source_title: 'Taylor Swift Hits Billionaire Status as Net Worth Surges With Eras Tour Success',
+            publisher: 'Bloomberg',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CNBC',
+            url: 'https://www.cnbc.com/2023/10/27/taylor-swift-has-entered-her-billionaire-era.html',
+            source_title: 'Taylor Swift has reportedly entered her billionaire era with success of Eras Tour',
+            publisher: 'CNBC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'eras-film-opening-weekend',
+      year: 2023,
+      month: 10,
+      category: 'release',
+      title: 'The Eras Tour film opens to $92.8 million — the biggest concert-film debut ever',
+      snippet:
+        'Distributed straight through AMC, skipping the studios entirely: $92.8M domestic, $123.5M globally, and the second-biggest October opening of all time behind Joker.',
+      sourceUrl: 'https://variety.com/2023/film/box-office/taylor-swift-eras-tour-box-office-final-opening-weekend-record-1235757568/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Oct. 13, 2023 opening weekend played like a tour stop: theaters full of costumed fans dancing in the aisles, with minimal traditional marketing behind it. The direct-to-AMC distribution model became the template she reran two years later for the Showgirl Release Party.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/film/box-office/taylor-swift-eras-tour-box-office-final-opening-weekend-record-1235757568/',
+            source_title: 'Taylor Swift Eras Tour Box Office: Final Opening Weekend Number',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CNBC',
+            url: 'https://www.cnbc.com/2023/10/16/taylor-swift-eras-tour-box-office-weekend.html',
+            source_title: "Taylor Swift Eras Tour film posts second-best October box office opening, behind 'Joker'",
+            publisher: 'CNBC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'slut-vault-love-song',
+      year: 2023,
+      month: 10,
+      category: 'music',
+      title: '"Slut!" turns out to be a love song',
+      snippet:
+        'The vault title everyone braced for arrived as a dreamy synth-pop ballad about a romance worth the name-calling — she\'d once had to choose between it and "Blank Space" for the original 1989.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/%22Slut!%22',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift said the two songs both "cheekily play on the discussions at that time of my life around my dating life" — Blank Space made the 2014 cut, and "Slut!" waited nine years. It debuted at No. 3 on the Hot 100, and critics read the soft, tender arrangement as the point: reckoning with the slut-shaming era by refusing to write an angry song about it.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/%22Slut!%22',
+            source_title: '"Slut!"',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-1989-vault-tracks-revelations-1234864433/',
+            source_title: "The Sadness of 'Slut' — And More of Our Takeaways from Taylor Swift's New Vault Tracks",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'buenos-aires-karma-lyric-change',
+      year: 2023,
+      month: 11,
+      category: 'relationship',
+      title: '"Karma is the guy on the Chiefs" — sung with Travis watching',
+      snippet:
+        'She swapped the lyric mid-show in Buenos Aires while Kelce watched from a tent with her dad — then ran into his arms after the show for their first kiss caught on camera.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-kiss-karma-is-the-guy-on-the-chiefs-1235469366/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Nov. 11, 2023: fan video caught Kelce covering his face and grinning as Scott Swift patted his arm. He recapped it on New Heights with "I\'m enjoying life, and I sure as hell enjoyed this weekend." The line stuck — the Chiefs version of the lyric kept resurfacing at shows through the rest of the tour.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-kiss-karma-is-the-guy-on-the-chiefs-1235469366/',
+            source_title: 'Taylor Swift Changes Lyric, Kisses Travis Kelce in Buenos Aires',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/celebrity/travis-kelce-reacts-taylor-swift-karma-lyric-change-rcna124807',
+            source_title: "Travis Kelce reacts to Taylor Swift's changing 'Karma' lyrics to refer to the Chiefs",
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'youre-losing-me-streaming',
+      year: 2023,
+      month: 11,
+      category: 'music',
+      title: '"You\'re Losing Me" finally hits streaming',
+      snippet:
+        'The Midnights bonus track fans treated as the Alwyn-breakup rosetta stone went wide on Nov. 29 — her thank-you for being named Spotify\'s top global artist of 2023.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/You%27re_Losing_Me',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Previously locked to a CD-only Late Night Edition from May 2023, the song samples Swift\'s own heartbeat in its production. Jack Antonoff later revealed they wrote and recorded it on Dec. 5, 2021 — well over a year before the breakup became public, which only deepened the fan forensics around it.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/You%27re_Losing_Me',
+            source_title: "You're Losing Me",
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2023/11/taylor-swift-youre-losing-me-1235642243/',
+            source_title: "Taylor Swift Surprise-Releases 'You're Losing Me' As Thank You For Being Spotify's Top 2023 Global Artist",
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'melbourne-mcg-biggest-shows',
+      year: 2024,
+      month: 2,
+      category: 'tour',
+      title: '96,000 a night at the MCG — the biggest shows of her career',
+      snippet:
+        'Three Melbourne Cricket Ground nights, 96,000 each, 288,000 total: "those are all the biggest shows I\'ve ever played on a tour, and you did it three times."',
+      sourceUrl: 'https://deadline.com/2024/02/taylor-swift-starstruck-by-record-breaking-melbourne-crowd-mcg-eras-tour-1235829157/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Feb. 16–18, 2024 Melbourne stand opened the Australian leg at a scale no Eras Tour stadium before it had touched — she told the final crowd she was "starstruck" by the sight. The 96,000-per-night mark stood as the tour\'s attendance ceiling through its Vancouver finale.',
+        sources: [
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2024/02/taylor-swift-starstruck-by-record-breaking-melbourne-crowd-mcg-eras-tour-1235829157/',
+            source_title: 'Taylor Swift "Starstruck" By Record-Breaking Melbourne Crowd For Eras',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/taylor-swift-celebrates-eras-tour-milestone-rcna139379',
+            source_title: "Taylor Swift honors Melbourne crowd after celebrating major 'Eras Tour' milestone",
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'coachella-2024-with-travis',
+      year: 2024,
+      month: 4,
+      category: 'sighting',
+      title: 'Coachella, in a New Heights hat',
+      snippet:
+        'Days before TTPD dropped, she and Travis turned up in the Indio crowd — dancing to the Karma remix at Ice Spice\'s set and watching side-stage as Jack Antonoff played with Bleachers.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-coachella-2024-photos-1235656317/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'April 13, 2024: she wore a green New Heights cap for his podcast, he wore his usual white Happy Gilmore hat, and during Dom Dolla\'s DJ set he briefly lifted her off the ground in the crowd. A festival date night six days out from a double album nobody knew was a double album yet.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-coachella-2024-photos-1235656317/',
+            source_title: 'Taylor Swift & Travis Kelce Dance to Ice Spice, Support Jack Antonoff at Coachella 2024',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-watch-ice-spice-bleachers-coachella-2024-1235004226/',
+            source_title: 'Taylor Swift and Travis Kelce Dance to Ice Spice, Bleachers at Coachella 2024',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
