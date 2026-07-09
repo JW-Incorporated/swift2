@@ -1052,5 +1052,508 @@ export default {
         photos: [],
       },
     },
+    // --- Deep timeline fill (2026-07-08, content/deep-c): music backstories
+    // for the remaining marquee tracks, the era's missing release-category
+    // moments (singles, the holiday one-off, the concert special), the
+    // one-off shows that stood in for a tour, and the two business wavetops
+    // (the Big Machine sale + the on-air re-recording pledge) that frame the
+    // whole era. Every claim verified against its cited source. New items
+    // carry the audit's additive provenance fields; thumbnails deliberately
+    // null per the 2026-07-08 media policy (no new hotlinks).
+    {
+      slug: 'the-archer-track-five',
+      year: 2019,
+      month: 7,
+      category: 'release',
+      title: 'The Archer arrives as track five — and everyone knew what that meant',
+      snippet:
+        'Out July 23, 2019 as a promotional single, announced on an Instagram Live where she acknowledged the fan-spotted pattern herself: track five is where the most vulnerable song goes. This one asks "who could ever leave me, darling? But who could stay?"',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Archer_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A synth-heartbeat ballad written and produced with Jack Antonoff, built on self-doubt instead of a radio chorus. It never got a video or a chart push — a deliberate "this album has feelings" flare sent up between the candy-colored singles.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Archer_(Taylor_Swift_song)',
+            source_title: 'The Archer (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'lover-title-track-waltz',
+      year: 2019,
+      month: 8,
+      category: 'music',
+      title: 'Lover, the waltz she wrote alone',
+      snippet:
+        'The title track, written solo and released a week ahead of the album as its third single — a hazy, slow-dance waltz produced with Jack Antonoff, and the quietest thesis statement she\'s ever put a whole era\'s name on.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'It got its live debut in her 2019 VMAs medley days after release, and a duet remix with Shawn Mendes followed that November. The bridge — "swear to be overdramatic and true to my lover" — is written like vows on purpose.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Lover_(song)',
+            source_title: 'Lover (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'london-boy-idris-elba',
+      year: 2019,
+      month: 8,
+      category: 'music',
+      title: "London Boy opens with Idris Elba's voice, borrowed from James Corden's couch",
+      snippet:
+        'The album\'s giddy tour of Camden, Shoreditch, Brixton and Highgate starts with a sampled Idris Elba clip from The Late Late Show — the most gleefully touristy three minutes on Lover.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/London_Boy_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'British listeners immediately pointed out the geography reads like a tourist doing every borough in one afternoon — which became half the song\'s charm and a running joke online. The London romance at its center went unnamed, but nobody needed a map for that part.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/London_Boy_(song)',
+            source_title: 'London Boy (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'daylight-almost-the-title',
+      year: 2019,
+      month: 8,
+      category: 'music',
+      title: 'Daylight, the closer that almost named the album',
+      snippet:
+        'She originally intended to call the whole record Daylight before deciding it was too on-the-nose. The closer still ends the era\'s thesis out loud: "I want to be defined by the things that I love."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Daylight_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The spoken outro reframes the album as a decision rather than a mood — "not the things I hate… not the things that haunt me in the middle of the night." And "I once believed love would be burning red, but it\'s golden" retires her own Red-era metaphor in a single line.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Daylight_(Taylor_Swift_song)',
+            source_title: 'Daylight (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'cornelia-street-live-debut',
+      year: 2019,
+      month: 9,
+      category: 'music',
+      title: 'Cornelia Street, written alone — and debuted acoustic in Paris',
+      snippet:
+        'A solo write that maps a relationship onto the West Village block where she once rented a townhouse — "I\'d never walk Cornelia Street again" as the breakup\'s worst-case scenario. Its first live performance came Sept. 9, 2019, on acoustic guitar at the one-night City of Lover show.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Cornelia_Street_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The song turns losing a street to memories into the central stake of a love story — and fans made the real Cornelia Street a pilgrimage stop anyway.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Cornelia_Street_(song)',
+            source_title: 'Cornelia Street (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'false-god-snl',
+      year: 2019,
+      month: 10,
+      category: 'music',
+      title: 'False God on SNL: the deep cut nobody saw coming',
+      snippet:
+        'For her Oct. 5, 2019 Saturday Night Live slot she skipped the singles and gave "False God" — a smoky, saxophone-led album track — its live debut, alongside an acoustic "Lover."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/False_God_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Choosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth — and the neon-and-sax staging made a track that was never a single one of the era\'s defining TV moments.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/False_God_(song)',
+            source_title: 'False God (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'lover-first-owned-album',
+      year: 2019,
+      month: 8,
+      category: 'release',
+      title: "Lover: the first album she's ever owned",
+      snippet:
+        '18 tracks, out Aug. 23, 2019 — and, under her 2018 Republic Records deal, the first album in her catalog whose masters belong to Taylor Swift herself. Two months after the Big Machine sale, the timing said everything.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(album)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her Universal/Republic contract guaranteed ownership of everything she recorded going forward, which made Lover\'s release more than an era launch: it was the pivot the entire masters fight would be argued around — old catalog owned by someone else, everything new owned by her.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Lover_(album)',
+            source_title: 'Lover (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2019/music/news/taylor-swifts-masters-scooter-brauns-bullying-inside-the-big-machine-ithaca-holdings-deal-1203256640/',
+            source_title: "Taylor Swift Vs. Scooter Braun: Inside the Big Machine-Ithaca Deal",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'beautiful-ghosts-single',
+      year: 2019,
+      month: 11,
+      category: 'release',
+      title: 'Beautiful Ghosts: a single co-written with Andrew Lloyd Webber',
+      snippet:
+        'Out Nov. 15, 2019 ahead of Cats — an answer song to "Memory," written with Lloyd Webber, sung in the film by Francesca Hayward and by Taylor over the end credits.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Beautiful_Ghosts',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The in-film version belongs to newcomer Francesca Hayward; the credits version is hers. Its Golden Globe nomination for Best Original Song became the Lover era\'s one awards-season campaign — the Globes-night Etro gown is covered in this era\'s fashion items.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Beautiful_Ghosts',
+            source_title: 'Beautiful Ghosts',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'christmas-tree-farm-single',
+      year: 2019,
+      month: 12,
+      category: 'release',
+      title: 'Christmas Tree Farm, from the girl who literally grew up on one',
+      snippet:
+        'A holiday single out Dec. 6, 2019, written just days earlier — with a video cut from real Swift-family home movies shot on the Pennsylvania tree farm where she spent her childhood.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Christmas_Tree_Farm_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'It went from idea to release almost overnight — her first original Christmas music since the 2007 holiday EP — and turned her actual origin story (the Pine Ridge farm childhood) into era canon.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Christmas_Tree_Farm_(song)',
+            source_title: 'Christmas Tree Farm (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'only-the-young-documentary-song',
+      year: 2020,
+      month: 1,
+      category: 'release',
+      title: 'Only the Young: the protest song saved for the documentary',
+      snippet:
+        'Written with Joel Little in the aftermath of the 2018 midterms and held off Lover, it finally arrived Jan. 31, 2020 — over Miss Americana\'s closing minutes.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Only_the_Young_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The film shows exactly why it exists: the disillusionment of watching the 2018 Tennessee race go the wrong way despite her first-ever political endorsement. Releasing it as a documentary song, not a single, let it stay a statement.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Only_the_Young_(Taylor_Swift_song)',
+            source_title: 'Only the Young (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'city-of-lover-special-airs',
+      year: 2020,
+      month: 5,
+      category: 'release',
+      title: 'City of Lover finally airs — a concert special for a tour that never happened',
+      snippet:
+        'The one-night Paris show reached everyone else on May 17, 2020, as an ABC special, moving to Hulu and Disney+ the next day — part concert film, part accidental time capsule.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/City_of_Lover',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'By the time it aired, the pandemic had erased Lover Fest and every other live plan for the era. Watching these songs meet a live audience for the first and only time, mid-lockdown, gave the broadcast an elegy quality nobody intended when it was filmed the previous September.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/City_of_Lover',
+            source_title: 'City of Lover',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'we-can-survive-hollywood-bowl',
+      year: 2019,
+      month: 10,
+      category: 'tour',
+      title: 'Headlining We Can Survive at the Hollywood Bowl',
+      snippet:
+        'Oct. 19, 2019: closing a radio-benefit bill of Billie Eilish, Lizzo, Camila Cabello and the Jonas Brothers with a hits-and-Lover set — one of the few times the Lover era made it to a live stage at all.',
+      sourceUrl: 'https://www.billboard.com/articles/news/8533602/taylor-swift-lizzo-camila-cabello-we-can-survive',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/news/8533602/taylor-swift-lizzo-camila-cabello-we-can-survive',
+            source_title: 'Taylor Swift, Billie Eilish & More Supported a Great Cause at 7th Annual We Can Survive Concert',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/List_of_Taylor_Swift_live_performances',
+            source_title: 'List of Taylor Swift live performances',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'singles-day-gala-shanghai',
+      year: 2019,
+      month: 11,
+      category: 'tour',
+      title: "A three-song countdown gala in Shanghai for Singles' Day",
+      snippet:
+        'Nov. 10, 2019 at the Mercedes-Benz Arena: "ME!," a piano "Lover," and "You Need to Calm Down" to open Alibaba\'s 11.11 shopping-festival countdown — her only mainland China performance of the era.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-performance-shanghai-china-2019-alibaba-singles-day-8543200/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The gala precedes the world\'s biggest online shopping day — Alibaba cleared tens of billions in sales within hours of her set — and booking her as headliner was the event\'s statement of global scale. She sang "Lover" seated alone at the piano.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-performance-shanghai-china-2019-alibaba-singles-day-8543200/',
+            source_title: "Taylor Swift Performs 'Lover,' 'You Need to Calm Down' & 'ME!' in Shanghai, China",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/carlieporterfield/2019/11/11/alibaba-hits-30-billion-in-singles-day-sales-and-brings-taylor-swift-to-shanghai/',
+            source_title: "Alibaba Hits $30 Billion In Singles' Day Sales — And Brings Taylor Swift To Shanghai",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'z100-jingle-ball-30th-birthday',
+      year: 2019,
+      month: 12,
+      category: 'tour',
+      title: 'Spending her 30th birthday on the Jingle Ball stage',
+      snippet:
+        'Dec. 13, 2019 at Madison Square Garden: "I had a choice: where would I want to spend my 30th birthday?… you\'re looking at it." A crowd "Happy Birthday" singalong, a live "Christmas Tree Farm" — and, though nobody knew it, her last full show before the pandemic.',
+      sourceUrl: 'https://www.billboard.com/music/concerts/jingle-ball-new-york-recap-highlights-taylor-swift-8546344/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She opened iHeartRadio\'s Z100 Jingle Ball rather than closing it, packed the set with Lover singles, then headed to the Oscar Wilde birthday dinner covered in this era\'s sightings. Live music shut down three months later; the Lover era never got another night like it.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/concerts/jingle-ball-new-york-recap-highlights-taylor-swift-8546344/',
+            source_title: 'Jingle Ball New York 2019 Recap: Taylor Swift & More Highlights',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/List_of_Taylor_Swift_live_performances',
+            source_title: 'List of Taylor Swift live performances',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'big-machine-sale-worst-case-scenario',
+      year: 2019,
+      month: 6,
+      category: 'business',
+      title: '"My worst case scenario": Scooter Braun buys Big Machine — and her first six albums',
+      snippet:
+        'June 30, 2019: Ithaca Holdings acquired Big Machine for over $300 million, her masters included. Her Tumblr response the same day called it her "worst case scenario" — the opening shot of the defining business war of her career.',
+      sourceUrl: 'https://variety.com/2019/music/news/taylor-swifts-masters-scooter-brauns-bullying-inside-the-big-machine-ithaca-holdings-deal-1203256640/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She wrote that she\'d learned of the deal "as it was announced to the world." Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2019/music/news/taylor-swifts-masters-scooter-brauns-bullying-inside-the-big-machine-ithaca-holdings-deal-1203256640/',
+            source_title: "Taylor Swift Vs. Scooter Braun: Inside the Big Machine-Ithaca Deal",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-scooter-braun-feud-timeline/',
+            source_title: "Taylor Swift and Scooter Braun's Feud: A Timeline",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_masters_dispute',
+            source_title: 'Taylor Swift masters dispute',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'gma-rerecording-pledge',
+      year: 2019,
+      month: 8,
+      category: 'business',
+      title: 'The re-recording plan, confirmed on live TV the day before Lover dropped',
+      snippet:
+        'Asked on Good Morning America whether she really planned to re-record her Big Machine catalog: "Yeah, that\'s true, and it\'s something I\'m very excited about." Broadcast Aug. 22, 2019 — Lover arrived the next day.',
+      sourceUrl: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-record-music-year-important-artists-work-65115745',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She told Robin Roberts her contract allowed re-recording to begin in November 2020, adding, "I think artists deserve to own their own work." Fifteen months later she was in the studio doing exactly that — the AMA-night reveal covered in the folklore era.',
+        sources: [
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-record-music-year-important-artists-work-65115745',
+            source_title: "Taylor Swift performs live on 'GMA,' reveals she'll re-record her old albums",
+            publisher: 'ABC News / Good Morning America',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2019/music/news/taylor-swift-performs-on-gma-talks-re-recording-big-machine-songs-watch-1203310319/',
+            source_title: "Taylor Swift Performs on 'GMA,' Talks Re-Recording Big Machine Songs",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

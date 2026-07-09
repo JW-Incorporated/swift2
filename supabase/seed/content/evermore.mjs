@@ -1048,5 +1048,474 @@ export default {
         photos: [],
       },
     },
+    // --- Deep timeline fill (2026-07-08, content/deep-c): remaining evermore
+    // song stories, the Taylor's Version release train that ran through this
+    // era (announcements, drops, videos, one-off TV tracks), the era's odd
+    // business wavetops (theme-park lawsuits, the BRITs first, the VMA-stage
+    // Midnights handoff), and the fullest on-record relationship moment (the
+    // GQ Hype co-writing interview). Tour stays genuinely empty — no touring
+    // happened between the pandemic and the Eras Tour announcement (which
+    // falls in the Midnights era). New items carry the audit's additive
+    // provenance fields; thumbnails deliberately null per the 2026-07-08
+    // media policy (no new hotlinks).
+    {
+      slug: 'gold-rush-daydream',
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: 'gold rush, a jealousy fantasy that dismisses itself',
+      snippet:
+        'Produced with Jack Antonoff — pop shimmer amid the Dessner woodwork — its narrator falls for someone everyone falls for, spirals about her own ordinariness, then snaps out of the daydream and decides not to pursue it at all.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The whole song happens inside that single reverie — the fantasy assembles itself, curdles into insecurity, and gets shelved by the final chorus. It became a fan-favorite precisely for admitting the ugly-feeling side of wanting someone universally wanted.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)',
+            source_title: 'Evermore (Taylor Swift album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'tis-the-damn-season-overnight',
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: "'tis the damn season, written overnight during the folklore film shoot",
+      snippet:
+        'Staying at Long Pond to film the folklore sessions, she stayed up late over wine on the first night, wrote the whole song, and sang it to Aaron Dessner the next day — Dorothea\'s hometown-holiday fling, done by breakfast.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/%27Tis_the_Damn_Season',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The music was an existing Dessner instrumental he\'d never found a voice for. Its narrator is Dorothea — the same character whose namesake track sits later on the album — home for the holidays and weighing a "so much for auld lang syne" weekend with the one who stayed.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/%27Tis_the_Damn_Season',
+            source_title: "'Tis the Damn Season",
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
+            source_title: 'Aaron Dessner on the Making of Evermore',
+            publisher: 'Rolling Stone',
+            source_type: 'interview',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'happiness-week-before',
+      year: 2020,
+      month: 12,
+      category: 'music',
+      title: 'happiness, the last song finished — days before the album dropped',
+      snippet:
+        'The final track written for evermore, completed just days before release: a divorce ballad insisting "there\'ll be happiness after you, but there was happiness because of you." Both true at once — that\'s the whole trick.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Happiness_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'After the wedding fantasies and murder ballads, it\'s the record\'s most adult song: no villain, just two accurate memories of the same marriage refusing to cancel each other out. Written and produced with Aaron Dessner, in the same last-minute tradition as folklore\'s "the 1" and "hoax."',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Happiness_(Taylor_Swift_song)',
+            source_title: 'Happiness (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'love-story-tv-first-rerecording',
+      year: 2021,
+      month: 2,
+      category: 'release',
+      title: "Love Story (Taylor's Version): the first re-recording arrives at midnight",
+      snippet:
+        'Announced on Good Morning America on Feb. 11, 2021 and out that night — the first finished piece of the re-recording project, 13 years after the original, sounding almost eerily identical on purpose.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor%27s_Version)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The announcement letter set the template the whole project would follow: a full album (Fearless) coming, vault tracks from the original sessions — and stray capital letters hiding the release date in plain sight for fans to decode.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor%27s_Version)',
+            source_title: "Love Story (Taylor's Version)",
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)',
+            source_title: "Fearless (Taylor's Version)",
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'fearless-tv-release-day',
+      year: 2021,
+      month: 4,
+      category: 'release',
+      title: "Fearless (Taylor's Version): 26 songs, six from the vault",
+      snippet:
+        'Out April 9, 2021: the original era re-cut top to bottom, plus six From the Vault songs — with Keith Urban and Maren Morris turning up on tracks that never made the 2008 album.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She chased faithful-but-grown versions of songs she first sang at 18, and the vault cuts — "Mr. Perfectly Fine" chief among them, covered separately in this era — proved the project could generate new canon, not just replacements. The chart history it made is covered in this era\'s business items.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)',
+            source_title: "Fearless (Taylor's Version)",
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-tv-announcement',
+      year: 2021,
+      month: 6,
+      category: 'release',
+      title: 'Red (Taylor\'s Version) announced: "And hey, one of them is even ten minutes long"',
+      snippet:
+        'The June 18, 2021 announcement promised "all 30 songs that were meant to go on Red" — and slipped the fandom\'s white whale into a parenthetical: the 10-minute "All Too Well" was real, and it was coming.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her note described the original Red as the album of "a fractured mosaic of feelings" — and the release date later jumped forward a week to Nov. 12, a near-unheard-of move. The Janessa Leoné-hat cover reveal from the same day is covered in this era\'s fashion items.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)',
+            source_title: "Red (Taylor's Version)",
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'renegade-big-red-machine',
+      year: 2021,
+      month: 7,
+      category: 'release',
+      title: 'Renegade: guesting on Big Red Machine, the Dessner–Vernon mothership',
+      snippet:
+        'Out July 2, 2021 — Swift fronting Aaron Dessner and Justin Vernon\'s own band on "How Long Do You Think It\'s Gonna Last?", repaying the folklore/evermore collaboration in kind.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Renegade_(Big_Red_Machine_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A rare Swift feature where she\'s the guest in someone else\'s house: an anxious, galloping track about loving someone who won\'t get out of their own way. She appears twice on the album — "Birch" carries her vocals too.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Renegade_(Big_Red_Machine_song)',
+            source_title: 'Renegade (Big Red Machine song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'wildest-dreams-tv-tiktok',
+      year: 2021,
+      month: 9,
+      category: 'release',
+      title: "Wildest Dreams (Taylor's Version), rushed out because TikTok wouldn't wait",
+      snippet:
+        'When a viral slow-zoom trend sent the original "Wildest Dreams" surging on TikTok, she surprise-dropped the re-recorded version on Sept. 17, 2021 — posting that if the song was trending, fans should have her version of it.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Wildest_Dreams_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'It jumped the 1989 (Taylor\'s Version) queue entirely — the second standalone TV track after "Love Story" — and marked the first time the re-recording project visibly rerouted around a meme. The full album wouldn\'t follow for another two years.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Wildest_Dreams_(Taylor_Swift_song)',
+            source_title: 'Wildest Dreams (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'i-bet-you-think-about-me-video',
+      year: 2021,
+      month: 11,
+      category: 'release',
+      title: 'Blake Lively directs "I Bet You Think About Me" — wedding-cake carnage included',
+      snippet:
+        'The vault track got a Nov. 15, 2021 video directed by Blake Lively in her directing debut, with Miles Teller as the groom and Taylor as the red-dressed ghost of relationships past, cheerfully ruining a wedding.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/I_Bet_You_Think_About_Me',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift and Lively co-wrote the video\'s concept, and the song itself carries Chris Stapleton\'s harmonies — the twangiest thing in the entire vault. The red-velvet cake smash became one of the Red (Taylor\'s Version) rollout\'s most shared images.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/I_Bet_You_Think_About_Me',
+            source_title: 'I Bet You Think About Me',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'joker-and-the-queen-remix',
+      year: 2022,
+      month: 2,
+      category: 'release',
+      title: 'The Joker and the Queen: an Ed Sheeran duet with a nine-year Easter egg',
+      snippet:
+        'Out Feb. 11, 2022 — her verse added to Sheeran\'s piano ballad, with a video that reunites the two kids from 2013\'s "Everything Has Changed" video, now teenagers, finding each other again at college.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Joker_and_the_Queen',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Their fourth collaboration — after "Everything Has Changed," "End Game," and the vault duet "Run" — and the most sentimental: same fictional kids, same friendship, nine years later. It landed in the era\'s quietest stretch, a reminder the two write to each other\'s timelines, not the industry\'s.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Joker_and_the_Queen',
+            source_title: 'The Joker and the Queen',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'this-love-tv-summer-i-turned-pretty',
+      year: 2022,
+      month: 5,
+      category: 'release',
+      title: "This Love (Taylor's Version) arrives early, care of a TV trailer",
+      snippet:
+        'The first 1989 re-recording, released May 6, 2022 after soundtracking the trailer for Amazon\'s The Summer I Turned Pretty — whose author-showrunner Jenny Han made Swift songs the show\'s sonic signature.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Like "Wildest Dreams (Taylor\'s Version)" before it, it leapfrogged its parent album — 1989 (Taylor\'s Version) was still 17 months away — and she announced it on her socials the day the trailer dropped.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)',
+            source_title: 'This Love (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'evermore-park-lawsuits',
+      year: 2021,
+      month: 2,
+      category: 'business',
+      title: 'evermore vs. Evermore: the theme-park lawsuit that ended in a draw',
+      snippet:
+        'A Utah fantasy park sued over the album\'s name on Feb. 2, 2021; her company countersued three weeks later over the park\'s costumed performers singing "Love Story" and "Bad Blood" without a license. By late March, both sides dropped everything — no money exchanged.',
+      sourceUrl: 'https://variety.com/2021/music/news/taylor-swift-evermore-park-lawsuits-drop-utah-theme-park-trademark-1234937782/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Evermore Park alleged trademark infringement and sought millions per mark; TAS Rights Management\'s countersuit said the park had ignored BMI licensing demands for years. The saga resolved in mutual dismissals — one of the odder footnotes in the album\'s history.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2021/music/news/taylor-swift-evermore-park-lawsuits-drop-utah-theme-park-trademark-1234937782/',
+            source_title: 'Taylor Swift and Evermore Park Drop Lawsuits Against One Another, With No Money Exchanged',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-evermore-park-copyright-infringement-lawsuits-dropped-1146582/',
+            source_title: 'Taylor Swift, Evermore Park Drop Respective Copyright Infringement Lawsuits',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'brits-global-icon',
+      year: 2021,
+      month: 5,
+      category: 'business',
+      title: 'First woman ever to take the BRITs Global Icon award',
+      snippet:
+        'May 11, 2021: the BRITs\' highest honor — previously given only to Elton John, David Bowie and Robbie Williams — goes to its first woman, first non-British recipient, and youngest winner.',
+      sourceUrl: 'https://www.cnn.com/2021/05/10/entertainment/taylor-swift-brits-global-icon-intl-scli-gbr/index.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The ceremony doubled as a UK live-events pilot with an audience largely of key workers — one of the first big indoor shows of the reopening — and she was there in person to accept, mid-re-recording-era, with no album of her own to promote.',
+        sources: [
+          {
+            outlet: 'CNN',
+            url: 'https://www.cnn.com/2021/05/10/entertainment/taylor-swift-brits-global-icon-intl-scli-gbr/index.html',
+            source_title: 'Taylor Swift becomes first woman to win BRITs Global Icon award',
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'BRIT Awards',
+            url: 'https://www.brits.co.uk/news/2021/taylor-swift-to-receive-global-icon-award/',
+            source_title: 'Taylor Swift to receive Global Icon Award!',
+            publisher: 'BRIT Awards (official)',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'vmas-2022-midnights-handoff',
+      year: 2022,
+      month: 8,
+      category: 'business',
+      title: 'Video of the Year for All Too Well — then she announces Midnights from the podium',
+      snippet:
+        'Aug. 28, 2022: the short film takes the VMAs\' top prize, and mid-acceptance she drops it — "I thought it might be a fun moment to tell you that my brand-new album comes out October 21." The evermore era ended live on camera.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/2022_MTV_Video_Music_Awards',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'At midnight her socials revealed the title, Midnights — "the stories of 13 sleepless nights scattered throughout my life." The Moschino star romper she wore to the after-party, already reading as a teaser, is covered in this era\'s sighting items.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/2022_MTV_Video_Music_Awards',
+            source_title: '2022 MTV Video Music Awards',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-2022-mtv-vmas-afterparty-outfit-midnights-1235132508/',
+            source_title: "Taylor Swift's 2022 VMAs After-Party Outfit Channels Midnights",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'joe-gq-hype-accidental',
+      year: 2022,
+      month: 5,
+      category: 'relationship',
+      title: '"The most accidental thing to happen in lockdown": Joe on the co-writes',
+      snippet:
+        'In a May 2022 GQ Hype profile, Joe Alwyn finally talked about William Bowery\'s workload — "It was just messing around on a piano and singing badly and being overheard" — five credits across folklore and evermore, all by accident.',
+      sourceUrl: 'https://www.justjared.com/2022/05/09/joe-alwyn-says-writing-songs-with-taylor-swift-was-the-most-accidental-thing-to-happen-in-lockdown/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'He\'d spent two years deflecting questions about the pseudonym; this was the fullest account he ever gave — no schedule, no sessions, just lockdown time that got overheard: "What if we tried to get to the end of it together?" His credits: "exile," "betty," "champagne problems," "coney island," and "evermore."',
+        sources: [
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2022/05/09/joe-alwyn-says-writing-songs-with-taylor-swift-was-the-most-accidental-thing-to-happen-in-lockdown/',
+            source_title: "Joe Alwyn Says Writing Songs with Taylor Swift Was 'The Most Accidental Thing to Happen in Lockdown'",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'iHeart',
+            url: 'https://www.iheart.com/content/2022-05-09-joe-alwyn-opens-up-about-accidentally-writing-songs-with-taylor-swift/',
+            source_title: "Joe Alwyn Opens Up About 'Accidentally' Writing Songs With Taylor Swift",
+            publisher: 'iHeartRadio',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
