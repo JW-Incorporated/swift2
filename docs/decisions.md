@@ -7,6 +7,47 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-08 — LongLive content synced from Supabase at build time, not runtime
+
+**Decision:** `apps/web/lib/longlive/content-vault.generated.ts` (the
+generated half of the LongLive UI's content layer) is now produced by
+`scripts/sync-longlive-content.mjs` running as a Next.js `prebuild` step.
+That script tries the **live Supabase `month_item` table first** (same
+public/RLS-read `NEXT_PUBLIC_SUPABASE_URL`/`_ANON_KEY` env as the dormant
+`VaultReader` path) and **falls back to the local `supabase/seed/content/**`
+seed files** when Supabase isn't configured or the fetch fails (local dev
+without secrets, CI, or before the DB is seeded).
+
+**Why:** Earlier today the generated file was produced by a manual,
+human-remembered script run against local seed files only — content changes
+required someone to re-run it and commit the output, with no connection to
+the actual Supabase database the seed files are meant to populate. This
+closes that gap: seed the DB (`npm run db:seed:content`) → redeploy → the
+build reads fresh data automatically. It stays a **build-time** read, not a
+live per-request one — consistent with `CLAUDE.md`'s cost-discipline rule
+("keep the Vault static, no per-user DB calls in the request path") and
+`docs/architecture.md`'s Tier-0-static design. The fallback keeps local dev
+and CI working without provisioning secrets everywhere.
+
+**Alternatives considered:** wire live client-side/server-component Supabase
+reads into the LongLive UI directly (rejected for now — a much larger,
+riskier refactor across ~15 components that currently import static data
+synchronously; also reintroduces runtime DB dependency the static design
+deliberately avoids. Real architectural convergence, tracked as future work
+in `docs/longlive-experience.md` §9, not done today); keep the manual-only
+sync script (rejected — doesn't fix the actual problem, which is that
+content updates require a human to remember a step).
+
+**Not yet done:** Tier-1 `moment.context` (long-form body text) isn't fetched
+in the live path — 400+ individual queries at build time was judged not
+worth it right now; live-synced items fall back to the snippet as body, same
+as any seed item without `moment.context`. The videos/theories/tours/
+releases seed pipelines are still unsynced entirely (tracked in
+`docs/longlive-experience.md` §9).
+
+**Approved by:** Joey, in this session — explicit "go for it" on architecture
+integration #1 from the Supabase review.
+
 ## 2026-07-08 — Media & content sourcing policy
 
 **Decision:** Replace the inherited blanket "never store article bodies or
