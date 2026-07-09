@@ -110,14 +110,15 @@ export default {
       snippet:
         'Written and recorded in Sweden between European Eras Tour dates — her first full album with Max Martin and Shellback since 1989 and reputation. Twelve tracks, no Anthology-style sprawl, and a single feature: Sabrina Carpenter on the closing title track.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
       moment: {
         context:
           'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name. The cover — shot by Mert Alas and Marcus Piggott — shows Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage.',
-        // Cover-art licensing note: the album cover (Mert Alas & Marcus Piggott,
-        // label-owned) is NOT embedded/rehosted here — copyright-gated, same bar as
-        // the T16 licensing rule. TODO(founder): licensing candidate if a usable
-        // license is secured; until then it stays described-only, no image entry.
+        // Cover art added 2026-07-09 under the relaxed image policy (hotlink any
+        // real, publicly-available image with credit; no AI images). Hotlinked from
+        // Wikipedia's stable copy of the official artwork — verified HTTP 200,
+        // image/png, this session. Supersedes the earlier described-only stance.
         sources: [
           {
             outlet: 'Wikipedia',
@@ -147,7 +148,20 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
+            credit: 'Album cover photographed by Mert Alas & Marcus Piggott / Republic Records, via Wikipedia',
+            caption:
+              'The official album cover: Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia beneath the orange-glitter title.',
+            kind: 'primary',
+          },
+          // Release-day pop-up/theater-event photos were looked for on 2026-07-09
+          // but skipped: the only credited galleries found (Deadline) sit behind a
+          // bot-wall, CNN's image pages return HTTP 451 to us, and Wikimedia
+          // Commons has no release-party media — no stable, verifiable direct
+          // image URL was available, so none is force-added.
+        ],
       },
     },
     {
@@ -804,10 +818,41 @@ export default {
               "In the run-up to the ceremony: crews on ladders hang curtains across the Garden's glass entrance while security stands watch outside.",
             kind: 'archival',
           },
-          // T16 note: no additional wedding photo added — no Wikimedia Commons /
-          // confirmably-licensed photo of the event itself could be verified, and
-          // press/Getty imagery beyond the existing CBS-sourced photos is not
-          // cleanly licensable for us to add.
+          // 2026-07-09, relaxed image policy: the wire photos below (same CBS News
+          // gallery as the two above) are now hotlinked with credit. Each URL
+          // verified HTTP 200 + image/jpeg this session. All are real press photos
+          // of the actual event; no AI imagery.
+          {
+            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/0bb2c01d-717b-42d9-a2b4-08fd18f021e3/thumbnail/620x414/162fb69de698cd4a021ab5e0e34a638a/gettyimages-2284537214.jpg',
+            credit: 'Roy Rochlin/Getty Images, via CBS News',
+            caption:
+              'Guest arrivals: Hugh Grant and Anna Elisabet Eberstein arrive at Madison Square Garden on July 2, 2026, as the multi-day celebration begins.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/46f18357-e274-4e86-a5ac-b173d9b01219/thumbnail/620x414/aff0da6d159019e0ce14046348347c7b/gettyimages-2284532594.jpg',
+            credit: 'Roy Rochlin/Getty Images, via CBS News',
+            caption:
+              'Abby Wambach and Glennon Doyle arrive at Madison Square Garden for the wedding on July 3, 2026.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/5ba6ed3b-0728-43a7-a105-2fdc2beb7097/thumbnail/620x414/ca2a0b800b41ca793cc0db76270c7ef5/gettyimages-2283912122.jpg',
+            credit: 'Angela Weiss/AFP via Getty Images, via CBS News',
+            caption:
+              'The scene outside: members of the media gather at Madison Square Garden on the wedding day, July 3, 2026.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/661a9e69-70e1-4a8c-88bc-e84d2bc985c0/thumbnail/620x414/82c6463f5b68d14f30b1660eb692a0d5/gettyimages-2283918271.jpg',
+            credit: 'Tom Weller/picture alliance via Getty Images, via CBS News',
+            caption:
+              'Onlookers wait behind barriers outside Madison Square Garden ahead of the ceremony on July 3, 2026.',
+            kind: 'archival',
+          },
+          // Still none of the ceremony/reception interior: no official or wire
+          // photos from inside the ceremony/reception could be found and verified
+          // as of 2026-07-09 — only exterior/arrival wire imagery exists to add.
         ],
       },
     },
@@ -870,6 +915,11 @@ export default {
         // each `kind: 'reference'` so the UI labels them as stand-ins, never as
         // the gown itself. Licenses confirmed on the Commons file pages cited in
         // `sources` above on 2026-07-09.
+        // Re-checked 2026-07-09 under the relaxed image policy (T16 re-pass):
+        // still no published photo of the actual gown — WWD/Stylecaster confirm
+        // official wedding photos remain unreleased, and circulating "gown" images
+        // are AI fakes, which stay refused. The honest reference-only framing
+        // stands unchanged; add a real `primary` if/when one is published.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG',
@@ -1097,16 +1147,17 @@ export default {
       snippet:
         'Two weeks after the New Heights album reveal, Taylor and Travis announced their engagement in a joint Instagram post — a garden proposal, an Old Mine Cut diamond in yellow gold, and a caption that became the year\'s most-repeated line.',
       sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
       moment: {
         context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The ring is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone widely estimated at 7 to 10 carats, set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below; per the Vault\'s licensing rules its imagery is not embedded or rehosted here.',
-        // T16/engagement note: the event's only official imagery is the couple's
-        // joint Instagram post (permalink in `sources`). Instagram post imagery is
-        // not freely licensed and IG embedding depends on a Meta oEmbed app token
-        // the project doesn't hold, so NO photo is added — permalink cited as a
-        // source instead. TODO(founder): an official-post embed is pending an
-        // oEmbed-token / licensing decision; revisit if/when that lands.
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress. The ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone widely estimated at 7 to 10 carats, set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below.',
+        // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
+        // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
+        // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
+        // CDN URLs are signed/ephemeral and were skipped on purpose. Each URL
+        // verified HTTP 200 + image/jpeg this session. Supersedes the old
+        // no-embed note; the IG permalink stays cited as the primary source.
         sources: [
           {
             outlet: 'Instagram (@taylorswift, official joint post)',
@@ -1136,7 +1187,29 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'The proposal, from the couple\'s official announcement post: Kelce and Swift beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'From the same carousel: the couple embrace among the garden flowers, the new ring visible on Swift\'s hand.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'The ring close-up from the carousel: the Old Mine Cut brilliant diamond in yellow gold, designed by Travis Kelce with Kindred Lubeck of Artifex Fine Jewelry.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     // --- Deep timeline fill (2026-07-08, content/deep-d): song stories, the
