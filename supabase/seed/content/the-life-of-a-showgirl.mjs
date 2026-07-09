@@ -113,7 +113,11 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name.',
+          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name. The cover — shot by Mert Alas and Marcus Piggott — shows Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage.',
+        // Cover-art licensing note: the album cover (Mert Alas & Marcus Piggott,
+        // label-owned) is NOT embedded/rehosted here — copyright-gated, same bar as
+        // the T16 licensing rule. TODO(founder): licensing candidate if a usable
+        // license is secured; until then it stays described-only, no image entry.
         sources: [
           {
             outlet: 'Wikipedia',
@@ -131,6 +135,15 @@ export default {
             publisher: 'NPR',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-life-of-showgirl-details-cover-new-heights-1235406130/',
+            source_title: "Taylor Swift Unveils 'The Life of a Showgirl' Cover, Sabrina Carpenter Feature",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
             reliability_score: 4,
           },
         ],
@@ -358,7 +371,18 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The self-directed music video premiered inside the theatrical Release Party over release weekend, moving through vaudeville and showgirl tableaux built around the drowned-painting image. As the single kept leading the Hot 100 — a run Billboard tracked past 10 weeks, her longest-leading No. 1, out-running "Anti-Hero" — the song became the commercial spine of the era.',
+          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Swift imagined a version who instead "met someone who treated her well" and is pulled from the water. Written and produced with Max Martin and Shellback, it debuted atop the Billboard Hot 100 — her 13th No. 1 — and went on to spend 10 non-consecutive weeks at the top, her longest-running No. 1 single, out-running "Anti-Hero." Swift wrote and directed the official music video herself; it premiered inside the theatrical Official Release Party of a Showgirl over release weekend, moving through vaudeville and showgirl tableaux built around the drowned-painting image, before its own YouTube debut. The single became the commercial spine of the era.',
+        // Official MV id verified 2026-07-09 via YouTube oEmbed:
+        // https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ko70cExuzZM
+        // -> title "Taylor Swift - The Fate of Ophelia (Official Music Video)",
+        // author @TaylorSwift (official channel). Recorded here at the source of
+        // truth. TODO(sync/founder): (1) scripts/sync-longlive-content.mjs does not
+        // yet forward `moment.video` from seed items into VAULT_RAW, so this won't
+        // render until that pass-through is added; (2) the curated content.ts item
+        // `tloas-fate-of-ophelia-video` currently embeds the promo-clip id
+        // 'fxeEYfVDaJI' ("...available now, only on YouTube") — it should adopt this
+        // canonical MV id 'ko70cExuzZM'. Both are out of scope for this seed-only PR.
+        video: { youtubeId: 'ko70cExuzZM', title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)' },
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1076,8 +1100,23 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Aug. 26, 2025 announcement came via matching Instagram posts with garden-proposal photos; Swift\'s caption read "Your English teacher and your gym teacher are getting married." The ring — an elongated cushion-cut, Old Mine Cut diamond estimated at 7 to 10 carats, set in yellow gold — was designed by Kindred Lubeck of Artifex Fine Jewelry, who was later invited to the couple\'s wedding.',
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The ring is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone widely estimated at 7 to 10 carats, set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below; per the Vault\'s licensing rules its imagery is not embedded or rehosted here.',
+        // T16/engagement note: the event's only official imagery is the couple's
+        // joint Instagram post (permalink in `sources`). Instagram post imagery is
+        // not freely licensed and IG embedding depends on a Meta oEmbed app token
+        // the project doesn't hold, so NO photo is added — permalink cited as a
+        // source instead. TODO(founder): an official-post embed is pending an
+        // oEmbed-token / licensing decision; revisit if/when that lands.
         sources: [
+          {
+            outlet: 'Instagram (@taylorswift, official joint post)',
+            url: 'https://www.instagram.com/p/DN02niAXMM-/',
+            source_title: 'Taylor Swift & Travis Kelce engagement announcement (joint post)',
+            publisher: 'Instagram',
+            source_type: 'social',
+            accessed_at: '2026-07-09',
+            reliability_score: 5,
+          },
           {
             outlet: 'ABC News',
             url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
