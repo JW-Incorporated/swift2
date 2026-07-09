@@ -76,31 +76,40 @@ describe('sortTracks', () => {
 });
 
 describe('buildTrackGuide', () => {
+  const src = 'https://en.wikipedia.org/wiki/Example';
+
   it('maps seed era slugs to LongLive EraIds and passes matching slugs through', () => {
     const byEra = buildTrackGuide([
-      { eraSlug: 'tortured-poets', trackNumber: 1, trackTitle: 'Fortnight', note: 'n' },
-      { eraSlug: 'the-life-of-a-showgirl', trackNumber: 1, trackTitle: 'The Fate of Ophelia', note: 'n' },
-      { eraSlug: 'midnights', trackNumber: 1, trackTitle: 'Lavender Haze', note: 'n' },
+      { eraSlug: 'tortured-poets', trackNumber: 1, trackTitle: 'Fortnight', note: 'n', sourceUrl: src },
+      { eraSlug: 'the-life-of-a-showgirl', trackNumber: 1, trackTitle: 'The Fate of Ophelia', note: 'n', sourceUrl: src },
+      { eraSlug: 'midnights', trackNumber: 1, trackTitle: 'Lavender Haze', note: 'n', sourceUrl: src },
     ]);
     expect(Object.keys(byEra).sort()).toEqual(['midnights', 'tloas', 'ttpd']);
   });
 
   it('de-dupes repeated titles within an era (first wins) and drops noteless tracks', () => {
     const byEra = buildTrackGuide([
-      { eraSlug: 'red', trackNumber: 1, trackTitle: 'State of Grace', note: 'first' },
-      { eraSlug: 'red', trackNumber: 30, trackTitle: 'state of grace', note: 'dupe' },
-      { eraSlug: 'red', trackNumber: 2, trackTitle: 'Red', note: '' },
+      { eraSlug: 'red', trackNumber: 1, trackTitle: 'State of Grace', note: 'first', sourceUrl: src },
+      { eraSlug: 'red', trackNumber: 30, trackTitle: 'state of grace', note: 'dupe', sourceUrl: src },
+      { eraSlug: 'red', trackNumber: 2, trackTitle: 'Red', note: '', sourceUrl: src },
     ]);
     expect(byEra.red).toEqual([
-      { trackNumber: 1, title: 'State of Grace', note: 'first', sources: [] },
+      { trackNumber: 1, title: 'State of Grace', note: 'first', sources: [{ name: 'en.wikipedia.org', url: src }] },
     ]);
   });
 
   it('returns each era sorted by track number', () => {
     const byEra = buildTrackGuide([
-      { eraSlug: 'lover', trackNumber: 18, trackTitle: 'Daylight', note: 'n' },
-      { eraSlug: 'lover', trackNumber: 1, trackTitle: 'I Forgot That You Existed', note: 'n' },
+      { eraSlug: 'lover', trackNumber: 18, trackTitle: 'Daylight', note: 'n', sourceUrl: src },
+      { eraSlug: 'lover', trackNumber: 1, trackTitle: 'I Forgot That You Existed', note: 'n', sourceUrl: src },
     ]);
     expect(byEra.lover.map((t) => t.trackNumber)).toEqual([1, 18]);
+  });
+
+  it('drops tracks with no source at all', () => {
+    const byEra = buildTrackGuide([
+      { eraSlug: 'red', trackNumber: 1, trackTitle: 'State of Grace', note: 'unsourced' },
+    ]);
+    expect(byEra.red).toBeUndefined();
   });
 });

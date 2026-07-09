@@ -49,12 +49,16 @@ export function normalizeTrack({ trackNumber, trackTitle, note, sourceUrl, sourc
   const title = typeof trackTitle === 'string' ? trackTitle.trim() : '';
   const trimmedNote = typeof note === 'string' ? note.trim() : '';
   if (!title || !trimmedNote) return null;
+  const resolvedSources = sourcesFrom(sources, sourceUrl ?? null);
+  // The UI's whole point is the sourced note — a track with no real source
+  // shouldn't ship silently even if the seed/DB row otherwise looks complete.
+  if (resolvedSources.length === 0) return null;
   const n = Number(trackNumber);
   return {
     trackNumber: Number.isInteger(n) && n > 0 ? n : null,
     title,
     note: trimmedNote,
-    sources: sourcesFrom(sources, sourceUrl ?? null),
+    sources: resolvedSources,
   };
 }
 
