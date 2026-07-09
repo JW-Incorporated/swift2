@@ -17,7 +17,7 @@
 // Hand-curated items in content.ts are untouched — this only produces the
 // separate VAULT_RAW export that content.ts merges in alongside them.
 
-import { readdir, writeFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { createClient } from '@supabase/supabase-js';
@@ -25,6 +25,38 @@ import { createClient } from '@supabase/supabase-js';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'content');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'content-vault.generated.ts');
+const WEB_ENV_FILE = path.join(ROOT, 'apps', 'web', '.env.local');
+
+/**
+ * This runs as a plain `node` prebuild step, before Next's own env-file
+ * loading kicks in, so apps/web/.env.local (where the documented local
+ * Supabase creds live — see docs/dev-quickstart.md) wouldn't otherwise be
+ * seen. Load it here, without overriding real env vars a deploy platform
+ * (Vercel) already injected.
+ */
+async function loadWebEnvLocal() {
+  let raw;
+  try {
+    raw = await readFile(WEB_ENV_FILE, 'utf-8');
+  } catch {
+    return; // no .env.local — fine, e.g. on Vercel where env is injected directly
+  }
+  for (const line of raw.split('\n')) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith('#')) continue;
+    const eq = trimmed.indexOf('=');
+    if (eq === -1) continue;
+    const key = trimmed.slice(0, eq).trim();
+    let value = trimmed.slice(eq + 1).trim();
+    if (
+      (value.startsWith('"') && value.endsWith('"')) ||
+      (value.startsWith("'") && value.endsWith("'"))
+    ) {
+      value = value.slice(1, -1);
+    }
+    if (process.env[key] === undefined) process.env[key] = value;
+  }
+}
 
 // Same column list as packages/core/src/vault.ts's Tier 0 skeleton fetch —
 // keep these in sync if that query changes.
@@ -123,6 +155,17 @@ async function fetchFromSupabase() {
     console.warn('sync-longlive-content: Supabase returned 0 month_items, falling back to local seed files.');
     return null;
   }
+  if (data.length >= TIER0_MAX_ROWS) {
+    // A `.limit()` hit means this is a partial page, not the full table —
+    // writing it as VAULT_RAW would silently ship truncated content. Treat
+    // it as a failed live fetch (same as the runtime client's explicit cap
+    // check in packages/core/src/vault.ts) and fall back to the complete
+    // local seed files instead.
+    console.warn(
+      `sync-longlive-content: Supabase month_item hit the ${TIER0_MAX_ROWS}-row cap — result would be truncated, falling back to local seed files.`,
+    );
+    return null;
+  }
 
   const byEra = {};
   const seenIdsByEra = {};
@@ -175,6 +218,7 @@ async function fetchFromLocalFiles() {
 }
 
 async function main() {
+  await loadWebEnvLocal();
   const byEra = (await fetchFromSupabase()) ?? (await fetchFromLocalFiles());
 
   const lines = [];
