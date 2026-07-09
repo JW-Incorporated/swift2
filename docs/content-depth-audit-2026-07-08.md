@@ -82,9 +82,20 @@ Depth/sourcing can be checked with a script because the corpus is the only input
 
 This is fundamentally a research pass, repeated per category, not a single script — unlike the depth gate (§G's coverage-gate ticket), there's no way to mechanically enumerate "everything that really happened" from inside the repo. Treat each category as its own research task.
 
+### The real problem with breadth: it has no natural finish line
+
+Depth and sourcing are boundable — every existing item can be checked against a bar, and "done" means every item passes. Breadth is not boundable the same way: "every public appearance ever" includes thousands of paparazzi sightings, one-line radio drops, individual social posts — an open-ended set with no natural stopping point. Chasing 100% breadth before shipping means never shipping. **Joey's framing, 2026-07-09:** depth and quality are ship blockers; breadth is not — it's supposed to be a perpetual, ongoing pipeline, same as a wiki is never "finished." The question isn't "when is breadth done," it's "what breadth floor is required to ship, and what keeps growing forever after."
+
+**The fix: use an existing curated source as the significance filter, instead of enumerating everything ourselves.** Wikipedia's own editorial process has already solved "what's notable enough to include" for a public figure this well-documented — her main article, "List of awards and nominations," videography, tour articles, and similar curated lists represent a community-vetted significance bar. That turns an unbounded search ("find everything") into a bounded, checkable one ("do we cover what a standard reference already considered significant").
+
+**Three tiers, only one of which gates shipping:**
+- **Tier 1 — ship blocker.** Anything appearing in Wikipedia's own curated lists/timeline/filmography for her. Bounded, checkable, achievable before ship. This is what T17's research passes should target first, not open-ended web search.
+- **Tier 2 — fill after ship, ongoing.** Real but secondary appearances/press a fan would know but that isn't "encyclopedia significant" (the Kimmel example sits here). Good target for the standing multi-lane AI pipeline once it exists, not a pre-ship requirement.
+- **Tier 3 — never a ship gate, permanent background pipeline.** Individual social posts, one-off sightings, radio drops. This tier is supposed to be infinite; treat it as ongoing operations, not a checklist with an end.
+
 ### Action item (added to §G, see T17)
 
-- **T17 (content/research, P0):** build ground-truth checklists for the categories above, starting with late-night/talk-show appearances (the concrete Kimmel example) and tour dates (the highest-volume, most-enumerable category). Cross-check against the corpus, report gaps, fill only what's verifiable. Best suited to a dedicated research lane (ChatGPT via `codex exec`, given its web-search access) rather than folded into the existing content-depth loop.
+- **T17 (content/research, P0 for Tier 1 only):** build ground-truth checklists **sourced from Wikipedia's own curated lists first** (her main article, "List of awards and nominations," videography/filmography, tour articles) — not open-ended search — for late-night/talk-show appearances and tour dates to start. Cross-check against the corpus, report gaps, fill only what's verifiable. Tier 1 (Wikipedia-curated) is the ship-blocking scope; Tier 2/3 are explicitly NOT a pre-ship requirement — log them as an ongoing backlog instead. Best suited to a dedicated research lane (ChatGPT via `codex exec`, given its web-search access) rather than folded into the existing content-depth loop.
 
 ---
 
