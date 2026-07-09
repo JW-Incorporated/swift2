@@ -888,5 +888,388 @@ export default {
         photos: [],
       },
     },
+
+    // --- Deep timeline fill (2026-07-08, content/deep-a): singles-run release
+    // history, the songs' origin stories, the opening-act year, and the era's
+    // first awards. Every claim verified against its cited source this
+    // session; business items carry two independent sources per the framework.
+    {
+      slug: 'tim-mcgraw-debut-single',
+      year: 2006,
+      month: 6,
+      category: 'release',
+      title: 'The debut single named after somebody else',
+      snippet:
+        '"Tim McGraw" goes to country radio on June 19, 2006 — a 16-year-old\'s first single, named for another artist\'s song, out four months before anyone could buy her album.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
+      moment: {
+        context:
+          'The bet was that the sentiment — a summer love you re-live every time a certain song comes on — would out-travel the novelty of the title. It did: the single climbed to No. 6 on Hot Country Songs and introduced the writing voice the album confirmed that October.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)',
+            source_title: 'Tim McGraw (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
+            credit: 'Big Machine Records (single cover art)',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'taylor-swift-album-release',
+      year: 2006,
+      month: 10,
+      category: 'release',
+      title: 'Taylor Swift, the album, arrives',
+      snippet:
+        'Oct. 24, 2006: the self-titled debut lands — eleven tracks, her name on every writing credit, released when she was 16.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
+      thumbnailUrl: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
+      moment: {
+        context:
+          'It entered the Billboard 200 quietly and then simply refused to leave, eventually peaking at No. 5 — the slow, market-by-market climb that the next two albums would detonate.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
+            source_title: 'Taylor Swift (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
+            credit: 'Big Machine Records (debut album cover art)',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'teardrops-single-release',
+      year: 2007,
+      month: 2,
+      category: 'release',
+      title: 'Teardrops on My Guitar goes to radio — and then to pop',
+      snippet:
+        'The second single, out February 2007, did what "Tim McGraw" couldn\'t: it crossed from country radio onto the pop chart.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG',
+      moment: {
+        context:
+          'The crossover was the tell. A pop remix carried "Teardrops on My Guitar" to No. 13 on the Billboard Hot 100 — her highest pop placement until "Love Story" — and flagged, two years early, exactly where this career was headed.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar',
+            source_title: 'Teardrops on My Guitar',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG',
+            credit: 'Big Machine Records (single cover art)',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'picture-to-burn-single',
+      year: 2008,
+      month: 2,
+      category: 'release',
+      title: 'Picture to Burn closes out the debut singles',
+      snippet:
+        'The fourth and final single from the debut goes to country radio in February 2008 — with the original\'s sharpest line rewritten for airplay.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Picture_to_Burn',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+      moment: {
+        context:
+          'It peaked at No. 3 on Hot Country Songs — the fourth straight top-10 country single from an album that still hadn\'t stopped selling, closing the debut\'s radio run just as Fearless sessions ramped up.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Picture_to_Burn',
+            source_title: 'Picture to Burn',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'our-song-talent-show',
+      year: 2006,
+      month: 10,
+      category: 'music',
+      title: 'Our Song, written for the ninth-grade talent show',
+      snippet:
+        'She wrote "Our Song" to perform at her freshman-year talent show — and put it on the album after classmates spent weeks humming it back at her.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Our_Song_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'No song on the debut travelled further from its origin: a talent-show number written because she needed something upbeat to play for her class, remembered by classmates long afterward — which is how she knew it had to make the album. A year later it was her first No. 1.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Our_Song_(Taylor_Swift_song)',
+            source_title: 'Our Song (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Songfacts',
+            url: 'https://www.songfacts.com/facts/taylor-swift/our-song',
+            source_title: 'Our Song by Taylor Swift',
+            publisher: 'Songfacts',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'the-outside-written-at-12',
+      year: 2006,
+      month: 10,
+      category: 'music',
+      title: 'The Outside, written by a 12-year-old about the lunch table',
+      snippet:
+        'One of the first songs she ever wrote, at 12 — about the middle-school years when the girls at school wanted nothing to do with her — and it survived four years to make the debut album.',
+      sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/the-outside',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written years before her record deal, during the stretch of school she has described as her loneliest — it made the album at 16 as a snapshot of exactly why she started writing songs in the first place.',
+        sources: [
+          {
+            outlet: 'Songfacts',
+            url: 'https://www.songfacts.com/facts/taylor-swift/the-outside',
+            source_title: 'The Outside by Taylor Swift',
+            publisher: 'Songfacts',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
+            source_title: 'Taylor Swift (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'nsai-songwriter-artist-2007',
+      year: 2007,
+      month: 10,
+      category: 'business',
+      title: 'The youngest Songwriter/Artist of the Year in NSAI history',
+      snippet:
+        'October 2007: the Nashville Songwriters Association International names her Songwriter/Artist of the Year — the youngest winner the trade group had ever picked.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A peer-voted songwriting honor, not a fan award, handed to a 17-year-old one year into her recording career. She kept winning it — by 2010 The Boot counted that year\'s trophy as her third in four years.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift',
+            source_title: 'Taylor Swift',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'The Boot',
+            url: 'https://theboot.com/taylor-swift-nsai-awards/',
+            source_title: 'Taylor Swift Named NSAI Songwriter/Artist of the Year',
+            publisher: 'The Boot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'acm-new-female-vocalist-2008',
+      year: 2008,
+      month: 5,
+      category: 'business',
+      title: 'Her first ACM Award: Top New Female Vocalist',
+      snippet:
+        'The Academy of Country Music hands her its Top New Female Vocalist trophy in May 2008 — the first ACM Award of a career that would eventually collect the academy\'s Entertainer of the Year.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Taylor_Swift',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Won at the 43rd ACM Awards in Las Vegas — the same night as the performance everyone remembers from that show, "Should\'ve Said No" ending with her drenched under onstage rain.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/List_of_awards_and_nominations_received_by_Taylor_Swift',
+            source_title: 'List of awards and nominations received by Taylor Swift',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-acm-awards-pictures/',
+            source_title: 'Look Back at Taylor Swift at the ACM Awards, From Newcomer to Superstar',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'shouldve-said-no-acm-soaked',
+      year: 2008,
+      month: 5,
+      category: 'sighting',
+      title: 'Soaked to the skin, mid-song, at the 2008 ACMs',
+      snippet:
+        'Her "Should\'ve Said No" performance at the 2008 ACM Awards ended with her standing under a curtain of onstage rain, drenched and still singing — an early sign she understood television.',
+      sourceUrl: 'https://tasteofcountry.com/taylor-swift-acm-awards-pictures/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A debut-album deep cut staged into the night\'s most replayed moment, with water pouring down on her for the final chorus. Country outlets still rank it among her definitive award-show performances.',
+        sources: [
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-acm-awards-pictures/',
+            source_title: 'Look Back at Taylor Swift at the ACM Awards, From Newcomer to Superstar',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'YouTube',
+            url: 'https://www.youtube.com/watch?v=mUIcC8_4ABE',
+            source_title: "Taylor Swift - Should've Said No (43rd Academy Of Country Music Awards, 2008)",
+            publisher: 'YouTube',
+            source_type: 'video',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'joe-jonas-summer-2008',
+      year: 2008,
+      month: 7,
+      category: 'relationship',
+      title: 'The Joe Jonas chapter begins',
+      snippet:
+        'July 2008: she and Joe Jonas start dating — never confirmed while it was happening, exhaustively documented after it ended.',
+      sourceUrl: 'https://www.capitalfm.com/news/taylor-swift-joe-jonas-relationship-break-up/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The relationship ran July to October 2008, kept officially unacknowledged in real time. Its ending — a 27-second phone call — got an item of its own on this timeline, plus a last-minute Fearless track.',
+        sources: [
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/news/taylor-swift-joe-jonas-relationship-break-up/',
+            source_title: 'Taylor Swift And Joe Jonas: When Did They Date And Why Did They Break Up?',
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/joe-jonas-taylor-swift-a-post-breakup-timeline-8514830/',
+            source_title: 'Joe Jonas & Taylor Swift: A Post-Breakup Timeline',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'bonfires-amplifiers-fall-leg',
+      year: 2007,
+      month: 9,
+      category: 'tour',
+      title: "Opening Brad Paisley's Bonfires & Amplifiers fall leg",
+      snippet:
+        'Her 2007 of permanent opening slots rolls on: the fall leg of Brad Paisley\'s Bonfires & Amplifiers Tour, Sept. 6 through Nov. 17, after guesting on summer dates alongside Kellie Pickler and Jack Ingram.',
+      sourceUrl: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=454',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Concert archives from that fall show her billed nightly under Paisley and Rodney Atkins — the last long stretch of the opening-act years before Fearless made her the headliner.',
+        sources: [
+          {
+            outlet: 'Country Standard Time',
+            url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=454',
+            source_title: 'Brad Paisley extends tour into fall',
+            publisher: 'Country Standard Time',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Concert Archives',
+            url: 'https://www.concertarchives.org/bands/brad-paisley?page=1&year=2007',
+            source_title: "Brad Paisley's 2007 Concert & Tour History",
+            publisher: 'Concert Archives',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
