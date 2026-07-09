@@ -156,7 +156,7 @@ export function EraSection({ era }: { era: Era }) {
 
       {/* Chronological feed (newest-first). */}
       <div className="mx-auto max-w-3xl px-5 py-10 md:pr-16">
-        <ol className="relative space-y-5 before:absolute before:bottom-2 before:left-[7px] before:top-2 before:w-px before:bg-[color:var(--era-line)]">
+        <ol className="relative space-y-5">
           {visible.map((item) => (
             <MomentCard key={item.id} item={item} onOpen={() => openItem(item.id)} />
           ))}
@@ -223,20 +223,11 @@ function MomentCard({ item, onOpen }: { item: ContentItem; onOpen: () => void })
   const seen = progress.moments.has(item.id);
   return (
     <li
-      className="relative scroll-mt-28 pl-8"
+      className="relative scroll-mt-28"
       data-ll-item={item.id}
       data-ll-era={item.eraId}
       data-ll-date={new Date(item.date).getTime()}
     >
-      {/* Timeline dot doubles as the seen marker: filled once visited. */}
-      <span
-        className="absolute left-0 top-2.5 h-3.5 w-3.5 rounded-full border-2 transition-colors"
-        style={{
-          borderColor: 'var(--era-accent)',
-          backgroundColor: seen ? 'var(--era-accent)' : 'var(--era-bg)',
-        }}
-        aria-hidden
-      />
       <button
         onClick={onOpen}
         className="era-card group block w-full rounded-2xl border p-5 text-left transition"
