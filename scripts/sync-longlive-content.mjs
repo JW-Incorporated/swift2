@@ -333,6 +333,15 @@ async function main() {
   lines.push('');
   lines.push("import type { ContentTag, EraId, ImageRef } from './types';");
   lines.push('');
+  lines.push('/**');
+  lines.push(' * Build-time freshness stamp: when this module was last regenerated. The');
+  lines.push(' * sync runs on every `prebuild`, so this is effectively the deploy time.');
+  lines.push(' * Read it via contentGeneratedAt() (lib/longlive/freshness.ts) — never a');
+  lines.push(' * direct named import — so an older committed fallback without this export');
+  lines.push(' * can never crash the UI.');
+  lines.push(' */');
+  lines.push(`export const CONTENT_GENERATED_AT = ${esc(new Date().toISOString())};`);
+  lines.push('');
   lines.push('type VaultRawItem = {');
   lines.push('  id: string;');
   lines.push('  slug?: string;');
