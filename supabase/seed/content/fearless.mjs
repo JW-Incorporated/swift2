@@ -19,8 +19,11 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
       moment: {
         context:
-          "She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't.",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)' }],
+          "She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't, swapping the double suicide for a marriage proposal she felt the characters deserved. The whole thing came fast: she wrote it on her bedroom floor in about 20 minutes, then cut a rough demo in roughly 15 minutes the next day. The boy stayed anonymous — she's only ever said he was someone she never actually dated, and that when she brought him around, \"[they] all said they didn't like him. All of them!\"",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)' },
+          { outlet: 'Wide Open Country', url: 'https://www.wideopencountry.com/love-story-taylor-swift/' },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
@@ -39,8 +42,11 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Fifteen.png/250px-Taylor_Swift_-_Fifteen.png',
       moment: {
         context:
-          'Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail\'s answer: "If one girl can kind of learn from it or connect to a song like that, it\'s totally worth it."',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fifteen_(song)' }],
+          'The whole song grew backwards from one line — "Abigail gave everything she had to a boy who changed his mind" — which Swift has said she wrote first, building everything else around it. Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail\'s answer: "If one girl can kind of learn from it or connect to a song like that, it\'s totally worth it." Recording it wrecked Swift anyway — she\'s admitted she cried in the studio, "the things that make me cry are when the people I love have gone through pain and I\'ve seen it" — and when Roman White shot the surreal green-screen garden video, Abigail appeared in it as herself.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fifteen_(song)' },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/fifteen' },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Fifteen.png/250px-Taylor_Swift_-_Fifteen.png',
@@ -59,7 +65,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          'Months later at the Grammys, 20-year-old Swift became the youngest Album of the Year winner ever — a record that stood until Billie Eilish broke it a decade later.',
+          'Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later. She won four of the five categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -87,6 +93,8 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/E8AuEcoVjwZx6nd2RDfhQa.jpeg',
       moment: {
+        context:
+          'Worn Nov. 12, 2008 at Nashville\'s Sommet Center — the night after Fearless hit shelves — where she also performed "Love Story" on the show. E!\'s retrospective marks it as the turning point in her CMA style: a body-hugging silver Kaufman Franco and a sleek bun that read noticeably more polished and grown-up than the curls and sundresses of her debut-era carpets, arriving right as the album that would define the next two years did.',
         sources: [
           {
             outlet: 'E! Online',
@@ -95,6 +103,10 @@ export default {
           {
             outlet: 'Marie Claire',
             url: 'https://www.marieclaire.com/fashion/taylor-swift-gowns/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/2008_Country_Music_Association_Awards',
           },
         ],
         photos: [
@@ -116,7 +128,12 @@ export default {
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg',
       moment: {
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' }],
+        context:
+          'The 7,463-seat Roberts Municipal Stadium show on April 23, 2009 was a headlining debut she\'d deliberately delayed: "I never wanted to go into an arena and have to downsize it so there were only 5,000 or 4,000 people there... we waited a long time to make sure the headlining tour was everything I wanted it to be." Her pitch for finally topping the bill was simpler — "Headlining my own tour is a dream come true! This way I can play more music every night than I ever have before" — and the tour it launched ran 118 shows across six countries over the next 15 months.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
+          { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/' },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg',
@@ -136,8 +153,11 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/250px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
       moment: {
         context:
-          'Her mother, Andrea, on hearing it: "that\'s when I lost it... I\'ve lost it pretty much every time I\'ve heard that song since."',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)' }],
+          'Swift wrote it in summer 2008 on tour and recorded it with producer Nathan Chapman without her mother knowing, then unveiled it on Christmas Eve alongside a home video she\'d edited herself from family footage. Her mother, Andrea, on hearing it: "that\'s when I lost it... I\'ve lost it pretty much every time I\'ve heard that song since." That never stopped being true — the song had to come out of the Fearless Tour setlist because, as Andrea put it, "I kept breaking down" backstage every time it played.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)' },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/the-best-day' },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/250px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
@@ -157,7 +177,7 @@ export default {
       thumbnailUrl: 'https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75',
       moment: {
         context:
-          'West was escorted out of the venue and apologized on his blog that night. Beyoncé, who went on to win Video of the Year, invited Swift back onstage to finish the speech she\'d been denied.',
+          'The Radio City crowd went from stunned silence to a standing ovation for Swift; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too. Beyoncé, who went on to win Video of the Year, used her own acceptance to invite Swift back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -187,7 +207,12 @@ export default {
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg',
       moment: {
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' }],
+        context:
+          'The show opened with "You Belong with Me," Swift in a drum majorette uniform that dancers stripped away mid-number to reveal the sparkling silver cocktail dress underneath. It set the tone for a production she had a design hand in herself — a fairytale castle lit by more than a million lumens, LED projection walls, and a night of quick changes that ran through a crimson gown and a white wedding dress for "Love Story."',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
+          { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/' },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg',
@@ -207,6 +232,8 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1407066/revisiting-taylor-swift-and-kanye-wests-mtv-vmas-feud-15-years-later',
       thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2019/08/embed_2.jpg?w=928',
       moment: {
+        context:
+          'The Hollywood Reporter\'s VMA style retrospective logs it as a one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging. By the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
         sources: [
           {
             outlet: 'E! Online',
@@ -514,6 +541,8 @@ export default {
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/',
       thumbnailUrl: null,
       moment: {
+        context:
+          'They met on the Valentine\'s Day set in 2009 playing high-school sweethearts, and the off-screen version lasted a few months before ending quietly. It took until 2023, on Call Her Daddy, for Lautner to confirm on the record who ended it — "she did" — while making clear there was no bitterness left: he called the rekindling of their friendship "one of the greater things to happen in my life over the last year," adding, "when you respect somebody for who they are, like in their soul, it allows you to move on, forgive and continue that love in a different way."',
         sources: [
           {
             outlet: 'Billboard',
@@ -594,6 +623,8 @@ export default {
       sourceUrl: 'https://www.billboard.com/music/music-news/john-mayer-taylor-swift-duet-half-of-my-heart-performance-1235291747/',
       thumbnailUrl: null,
       moment: {
+        context:
+          'Mayer, then 31, had invited 19-year-old Swift to sing on "Half of My Heart" while he was still finishing Battle Studies, and their live duet at Z100\'s Jingle Ball made the chemistry public. The romance the rumors predicted did happen — and was over within a couple of months. The real aftermath arrived on her next album: "Dear John" called out the age gap directly, and Mayer fired back in a 2012 Rolling Stone interview, calling it "cheap songwriting" and "a really lousy thing to do."',
         sources: [
           {
             outlet: 'Billboard',
@@ -744,8 +775,14 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' }],
+          'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade. It logged 58 weeks in the top 10, a record for a country act, and was the only 2000s album to spend its entire first year there. The number kept its stature inside her own catalog, too: when The Tortured Poets Department reached an 11th week at No. 1 in July 2024, Billboard framed it as tying Fearless and 1989 as her longest-leading albums — the mark her 18-year-old self set was still the one to catch.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-ties-career-best-11-weeks-number-one-billboard-200-tortured-poets-department-1235725955/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
@@ -785,8 +822,14 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg',
       moment: {
         context:
-          'On June 5, 2010, the Fearless Tour stop at Gillette Stadium in Foxborough, Massachusetts brought in $3.7 million in ticket sales from 56,868 concertgoers — the tour\'s highest-grossing show — and made Swift the first female musician to headline and sell out Gillette Stadium.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' }],
+          'On June 5, 2010, the Fearless Tour stop at Gillette Stadium in Foxborough, Massachusetts brought in $3.7 million in ticket sales from 56,868 concertgoers — the tour\'s highest-grossing show — and made Swift the first female musician to headline and sell out Gillette Stadium. It was also the tour\'s final US date, and Billboard\'s review caught her playing to the home crowd: she pulled on a No. 13 Patriots jersey mid-show, walked the stands hugging fans through an acoustic set, and closed under the waterfall effect that soaked her at the end of every night.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-june-5-2010-foxboro-mass-957869/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg',
@@ -844,7 +887,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
       moment: {
         context:
-          'It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard\'s pop-radio chart (see February 2009).',
+          'It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard\'s pop-radio chart (see February 2009). The long tail is the real story: roughly 18 million copies sold worldwide make it one of the best-selling singles ever released, and its 6.2 million US copies still stand as her biggest-selling song at home — a lead single that outsold everything the superstar decade that followed produced.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -854,6 +897,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Wide Open Country',
+            url: 'https://www.wideopencountry.com/love-story-taylor-swift/',
+            source_title: "'Love Story': The Story Behind The Classic Taylor Swift Song",
+            publisher: 'Wide Open Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 3,
           },
         ],
         photos: [
@@ -876,7 +928,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'A devoted Grey\'s fan, she has said she cried when she heard the show wanted the song. The September 2008 premiere placement settled the tracklist question; the single followed in December and later took two Grammys — Best Country Song and Best Female Country Vocal Performance.',
+          'A devoted Grey\'s fan, she didn\'t undersell the moment: "You should\'ve seen tears streaming down my face when I got the phone call that they were going to use that song." The September 2008 premiere placement settled the tracklist question — "if it wasn\'t going to be on the show, then we weren\'t going to put it on the album," she admitted — and the song itself runs the fairy-tale imagery of the rest of Fearless in reverse. As she put it to CMT: "this is not a fairy tale at all — this is real life." The single followed in December, peaked at No. 13 on the Hot 100, and later took two Grammys: Best Country Song and Best Female Country Vocal Performance.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -885,6 +937,15 @@ export default {
             publisher: 'Wikipedia',
             source_type: 'wiki',
             accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Songfacts',
+            url: 'https://www.songfacts.com/facts/taylor-swift/white-horse',
+            source_title: 'White Horse by Taylor Swift',
+            publisher: 'Songfacts',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
             reliability_score: 2,
           },
         ],
@@ -972,7 +1033,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to the name of its subject\'s band — the era\'s Easter-egg culture, already fully operational in 2008.',
+          'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to the name of its subject\'s band — the era\'s Easter-egg culture, already fully operational in 2008. Swift texted Liles about the song after the album dropped, and his first reaction was dread: "What did I do? Because she doesn\'t really write very many nice songs about guys. So I was very relieved when it turned out to be a nice song." He eventually answered in kind, writing Swift a response song, "Try to Make It Anyway," recorded in his home studio and released in 2011.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -982,6 +1043,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'The Boot',
+            url: 'https://theboot.com/stephen-barker-liles-taylor-swift-song/',
+            source_title: "Taylor Swift's 'Hey Stephen' Inspiration Returns the Favor",
+            publisher: 'The Boot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 3,
           },
         ],
         photos: [],
@@ -999,7 +1069,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Premiered in May 2009 as the album\'s third single took off, the split-role video became the era\'s defining visual — and its VMA win that September is the reason the Kanye West moment happened at all.',
+          'Premiered in May 2009 as the album\'s third single took off, the split-role video became the era\'s defining visual — and its VMA win that September is the reason the Kanye West moment happened at all. Roman White shot it over two days at Pope John Paul II High School near her Hendersonville home town, with Swift playing both "the nerd, who is pining away for this guy that she can\'t have" and "the popular girl — horrible, scary, intimidating and perfect"; White has said the closing kiss with Lucas Till took about 45 takes. The song matched the video\'s reach, peaking at No. 2 on the Hot 100 (blocked only by "I Gotta Feeling") and becoming the first country song to top the all-genre Radio Songs airplay chart.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1008,6 +1078,15 @@ export default {
             publisher: 'Wikipedia',
             source_type: 'wiki',
             accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Songfacts',
+            url: 'https://www.songfacts.com/facts/taylor-swift/you-belong-with-me',
+            source_title: 'You Belong With Me by Taylor Swift',
+            publisher: 'Songfacts',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
             reliability_score: 2,
           },
         ],
@@ -1026,7 +1105,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Country Standard Time reported the near-instant sellout when tickets moved in early 2009; by the time the tour reached New York that August, Rolling Stone\'s review of the show read like a coronation.',
+          'Country Standard Time reported the near-instant sellout when tickets moved in early 2009; by the time the tour reached New York that August, Rolling Stone\'s review of the show read like a coronation — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage. In between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
         sources: [
           {
             outlet: 'Country Standard Time',
@@ -1098,7 +1177,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She won every category she was nominated in that night, with Fearless taking Album of the Year and "Love Story" winning Music Video of the Year — the country establishment\'s full endorsement, one year to the day after the album dropped.',
+          'She won every category she was nominated in that night, with Fearless taking Album of the Year and "Love Story" winning Music Video of the Year — the country establishment\'s full endorsement, one year to the day after the album dropped. She pulled her whole band onstage for the big one and didn\'t bother playing it cool: "I will never forget this moment because in this moment, everything I ever wanted has just happened to me." She also thanked the competition — every artist in the category, she noted, had once let her open for them.',
         sources: [
           {
             outlet: 'The Boot',
@@ -1143,7 +1222,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Country songs had crossed to pop radio for decades without finishing the climb — Shania Twain\'s "You\'re Still the One" had set the previous high-water mark at No. 3 in 1998. "Love Story" went all the way, the data point that made the eventual pop pivot look less like a risk than a formality.',
+          'Country songs had crossed to pop radio for decades without finishing the climb — Shania Twain\'s "You\'re Still the One" had set the previous high-water mark at No. 3 in 1998. "Love Story" went all the way the week ending Feb. 28, 2009, on top of a No. 4 Hot 100 peak and two weeks atop Hot Country Songs — the data point that made the eventual pop pivot look less like a risk than a formality.',
         sources: [
           {
             outlet: 'Wikipedia',
