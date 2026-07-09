@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -81,7 +91,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('White_Horse_(Taylor_Swift_song)', 'White Horse (Taylor Swift song)')],
+      sources: [
+        wiki('White_Horse_(Taylor_Swift_song)', 'White Horse (Taylor Swift song)'),
+        press(
+          'https://web.archive.org/web/20121106152258/http://www.mtv.com/news/articles/1602728/taylor-swift-talks-about-emotional-new-video-white-horse.jhtml',
+          "Taylor Swift Talks About 'Emotional' New Video For 'White Horse'",
+          'MTV News',
+          'supports the White Horse video concept and Trey Fanjoy/Stephen Colletti production context',
+        ),
+      ],
     },
     {
       slug: 'fifteen-mv',
@@ -96,7 +114,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Fifteen_(Taylor_Swift_song)', 'Fifteen (Taylor Swift song)')],
+      sources: [
+        wiki('Fifteen_(Taylor_Swift_song)', 'Fifteen (Taylor Swift song)'),
+        press(
+          'https://web.archive.org/web/20150327105811/http://www.mtv.com/news/1646390/taylor-swift-flashed-back-to-high-school-for-vma-nominated-fifteen/',
+          "Taylor Swift Flashed Back To High School For VMA-Nominated 'Fifteen'",
+          'MTV News',
+          'supports the Roman White concept, green-screen memory-world production, and VMA nomination context',
+        ),
+      ],
     },
     {
       slug: 'journey-to-fearless',
@@ -111,7 +137,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Journey_to_Fearless', 'Journey to Fearless')],
+      sources: [
+        wiki('Journey_to_Fearless', 'Journey to Fearless'),
+        press(
+          'https://www.shoutfactory.com/products/taylor-swift-journey-to-fearless',
+          'Taylor Swift: Journey to Fearless',
+          'Shout! Factory',
+          'supports the DVD/Blu-ray release and documentary-concert-film format',
+        ),
+      ],
     },
   ],
 };

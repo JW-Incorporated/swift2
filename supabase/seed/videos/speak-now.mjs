@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -94,7 +104,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('The_Story_of_Us_(song)', 'The Story of Us (song)')],
+      sources: [
+        wiki('The_Story_of_Us_(song)', 'The Story of Us (song)'),
+        press(
+          'https://tasteofcountry.com/taylor-swift-story-of-us-video/',
+          "Taylor Swift Tells 'The Story of Us' in New Video",
+          'Taste of Country',
+          'supports the library-set music-video premise and premiere coverage',
+        ),
+      ],
     },
     {
       slug: 'speak-now-world-tour-live',
@@ -109,7 +127,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Speak_Now_World_Tour', 'Speak Now World Tour', 'the live album/film is documented in the tour article')],
+      sources: [
+        wiki('Speak_Now_World_Tour', 'Speak Now World Tour', 'the live album/film is documented in the tour article'),
+        press(
+          'https://www.hollywoodreporter.com/news/general-news/taylor-swift-speak-now-tour-live-cd-dvd-263669/',
+          'Taylor Swift Announces Speak Now World Tour Live CD/DVD',
+          'The Hollywood Reporter',
+          'supports the live CD/DVD release and theatrical tour-film framing',
+        ),
+      ],
     },
   ],
 };

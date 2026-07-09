@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -93,7 +103,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Everything_Has_Changed', 'Everything Has Changed')],
+      sources: [
+        wiki('Everything_Has_Changed', 'Everything Has Changed'),
+        press(
+          'https://www.billboard.com/music/music-news/taylor-swift-ed-sheeran-return-to-childhood-in-everything-has-changed-video-watch-1565874/',
+          "Taylor Swift, Ed Sheeran Return to Childhood in 'Everything Has Changed' Video: Watch",
+          'Billboard',
+          'supports the Philip Andelman video release and child-counterpart story framing',
+        ),
+      ],
     },
     {
       slug: 'begin-again-mv',
@@ -108,7 +126,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Begin_Again_(Taylor_Swift_song)', 'Begin Again (Taylor Swift song)')],
+      sources: [
+        wiki('Begin_Again_(Taylor_Swift_song)', 'Begin Again (Taylor Swift song)'),
+        press(
+          'https://tasteofcountry.com/taylor-swift-begin-again-video/',
+          "Taylor Swift Starts Over in Scenic 'Begin Again' Video",
+          'Taste of Country',
+          'supports the Paris-shot video and moving-on visual narrative',
+        ),
+      ],
     },
   ],
 };

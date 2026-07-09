@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -113,7 +123,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Taylor_Swift:_Reputation_Stadium_Tour', 'Taylor Swift: Reputation Stadium Tour')],
+      sources: [
+        wiki('Taylor_Swift:_Reputation_Stadium_Tour', 'Taylor Swift: Reputation Stadium Tour'),
+        press(
+          'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-reputation-stadium-tour-netflix-movie-review-773808/',
+          "Taylor Swift's Reputation Film Shows Why She's One of the All-Time Greats",
+          'Rolling Stone',
+          'supports the Netflix concert-film release and Dallas stadium-show framing',
+        ),
+      ],
     },
   ],
 };
