@@ -319,6 +319,23 @@ export interface TourShow {
   sources?: SourceRef[];
 }
 
+/**
+ * One row of a tour's full per-city date ledger — deliberately DISTINCT from
+ * `TourShow`. `TourShow` is the curated "notable moment" model (hand-picked
+ * highlights with per-claim confidence + sources); `TourDate` is the plain
+ * factual ledger transcribed from the tour's Wikipedia "Tour dates" table:
+ * every night, minimal fields, no editorializing.
+ */
+export interface TourDate {
+  /** ISO date (YYYY-MM-DD). */
+  date: string;
+  city: string;
+  venue: string;
+  country?: string;
+  /** Rare factual qualifier only (e.g. 'cancelled') — never commentary. */
+  note?: string;
+}
+
 /** One headline tour. Per-show depth (`shows`) only where documented. */
 export interface Tour {
   id: string;
@@ -336,6 +353,12 @@ export interface Tour {
   surpriseSongsNote?: string | null;
   /** Notable documented shows — Eras-Tour-depth data lives here. */
   shows?: TourShow[];
+  /**
+   * Full per-city date ledger (every night), transcribed from the tour's
+   * Wikipedia "Tour dates" table. Separate from `shows` on purpose: `shows`
+   * is curated highlights, `dates` is the high-volume factual record.
+   */
+  dates?: TourDate[];
   /** Hook-voiced context, <=400 chars. */
   note: string;
   sources: SourceRef[];
