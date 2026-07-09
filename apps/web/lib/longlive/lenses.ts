@@ -85,8 +85,11 @@ export function threadPoints(id: LensId): ThreadPoint[] {
   switch (id) {
     case 'love-story':
       return RELATIONSHIPS.flatMap((r) =>
-        r.eraIds.map((eraId) => ({
-          date: r.start,
+        r.eraIds.map((eraId, i) => ({
+          // The relationship's real start date only applies to the era it
+          // began in; later eras it spans get plotted at that era's own
+          // start, since that's the earliest point it's known to overlap.
+          date: i === 0 ? r.start : getEra(eraId).start,
           eraId,
           label: r.name,
         })),

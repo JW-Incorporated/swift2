@@ -539,7 +539,10 @@ function ConstellationView({
               className="pointer-events-auto absolute z-10 -translate-x-1/2 rounded-full px-2 py-0.5 text-[10px] font-medium shadow-sm transition"
               style={{
                 left: `${n.x}%`,
-                top: `calc(${n.y * 0.5625}% + 2.5%)`,
+                // Unlike the SVG <circle>, this label is positioned via CSS
+                // against the container's own box, which isn't in the SVG's
+                // 100×56.25 viewBox space — use n.y directly, not *0.5625.
+                top: `calc(${n.y}% + 2.5%)`,
                 backgroundColor:
                   active === n.id
                     ? 'var(--era-accent)'
