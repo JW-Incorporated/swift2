@@ -23,6 +23,24 @@ const press = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
+const yt = (id, title) => ({
+  source_url: `https://www.youtube.com/watch?v=${id}`,
+  source_title: title,
+  publisher: 'Taylor Swift (official YouTube channel)',
+  source_type: 'official',
+  accessed_at: '2026-07-09',
+  reliability_score: 5,
+  excerpt: null,
+  notes: 'official upload — verified via YouTube oEmbed 2026-07-09',
+});
+const embed = (id) => ({
+  kind: 'oembed',
+  rights: 'platform_tos',
+  provider: 'youtube',
+  post_url: `https://www.youtube.com/watch?v=${id}`,
+  oembed_fetched_at: '2026-07-09',
+  attribution: 'Taylor Swift — official YouTube channel',
+});
 
 export default {
   eraSlug: 'the-life-of-a-showgirl',
@@ -48,6 +66,42 @@ export default {
           'People',
           'supports the music-video premiere timing and Swift directorial credit',
         ),
+      ],
+    },
+    {
+      slug: 'opalite-mv',
+      kind: 'music_video',
+      title: 'Opalite',
+      director: null,
+      releasedOn: '2026-01-12',
+      relatedSongs: ['Opalite'],
+      summary:
+        'A time-slip video follows a lonesome, cat-loving figure through the 1990s before the song\'s glow pulls her back into color — released as the era\'s second single.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=1FVF-9KQiPo',
+      media: [embed('1FVF-9KQiPo')],
+      sources: [
+        yt('1FVF-9KQiPo', 'Taylor Swift - Opalite (Official Music Video)'),
+        wiki('Opalite_(song)', 'Opalite (song)'),
+      ],
+    },
+    {
+      slug: 'elizabeth-taylor-mv',
+      kind: 'music_video',
+      title: 'Elizabeth Taylor',
+      director: null,
+      releasedOn: '2026-03-09',
+      relatedSongs: ['Elizabeth Taylor'],
+      summary:
+        'The album\'s third single, named for the screen icon, arrives with its own official video as part of an extended single cycle five months after the album\'s release.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=WqbJT_vC0rs',
+      media: [embed('WqbJT_vC0rs')],
+      sources: [
+        yt('WqbJT_vC0rs', 'Taylor Swift - Elizabeth Taylor (Official Music Video)'),
+        wiki('The_Life_of_a_Showgirl', 'The Life of a Showgirl', 'album article documents the single cycle and release dates'),
       ],
     },
     {

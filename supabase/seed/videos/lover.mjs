@@ -109,6 +109,24 @@ export default {
       sources: [yt('AqAJLh9wuZ0', 'Taylor Swift - The Man (Official Video)'), wiki('The_Man_(Taylor_Swift_song)', 'The Man (Taylor Swift song)')],
     },
     {
+      slug: 'christmas-tree-farm-mv',
+      kind: 'music_video',
+      title: 'Christmas Tree Farm',
+      director: 'Taylor Swift',
+      releasedOn: '2019-12-06',
+      relatedSongs: ['Christmas Tree Farm'],
+      summary:
+        'A self-directed holiday video built from real Swift-family home footage — sledding, decorating, and Taylor unwrapping her first guitar — set on the actual Pennsylvania tree farm the song is named for.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=mN3rDTAdM2o',
+      media: [embed('mN3rDTAdM2o')],
+      sources: [
+        yt('mN3rDTAdM2o', 'Taylor Swift - Christmas Tree Farm'),
+        wiki('Christmas_Tree_Farm', 'Christmas Tree Farm'),
+      ],
+    },
+    {
       slug: 'miss-americana',
       kind: 'documentary',
       title: 'Miss Americana',
