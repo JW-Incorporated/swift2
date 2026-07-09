@@ -4,6 +4,15 @@
 
 import type { ContentTag, EraId, ImageRef } from './types';
 
+/**
+ * Build-time freshness stamp: when this module was last regenerated. The
+ * sync runs on every `prebuild`, so this is effectively the deploy time.
+ * Read it via contentGeneratedAt() (lib/longlive/freshness.ts) — never a
+ * direct named import — so an older committed fallback without this export
+ * can never crash the UI.
+ */
+export const CONTENT_GENERATED_AT = "2026-07-09T19:51:48.264Z";
+
 type VaultRawItem = {
   id: string;
   slug?: string;
