@@ -13,6 +13,16 @@ const wiki = (article, title, notes) => ({
   excerpt: null,
   notes: notes ?? 'anchors the video, director, and background',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 
 export default {
   eraSlug: 'the-life-of-a-showgirl',
@@ -30,7 +40,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('The_Fate_of_Ophelia', 'The Fate of Ophelia')],
+      sources: [
+        wiki('The_Fate_of_Ophelia', 'The Fate of Ophelia'),
+        press(
+          'https://people.com/taylor-swift-the-fate-of-ophelia-music-video-11823344',
+          'Taylor Swift Debuts The Fate of Ophelia Music Video After Premiering It at Life of a Showgirl Movie Event',
+          'People',
+          'supports the music-video premiere timing and Swift directorial credit',
+        ),
+      ],
     },
     {
       slug: 'the-official-release-party-of-a-showgirl',
@@ -45,7 +63,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('The_Official_Release_Party_of_a_Showgirl', 'The Official Release Party of a Showgirl')],
+      sources: [
+        wiki('The_Official_Release_Party_of_a_Showgirl', 'The Official Release Party of a Showgirl'),
+        press(
+          'https://people.com/taylor-swift-the-fate-of-ophelia-music-video-11823344',
+          'Taylor Swift Debuts The Fate of Ophelia Music Video After Premiering It at Life of a Showgirl Movie Event',
+          'People',
+          'supports the October 2025 movie-event framing tied to the video premiere',
+        ),
+      ],
     },
   ],
 };

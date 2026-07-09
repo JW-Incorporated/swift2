@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -80,7 +90,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Lavender_Haze', 'Lavender Haze')],
+      sources: [
+        wiki('Lavender_Haze', 'Lavender Haze'),
+        press(
+          'https://pitchfork.com/news/taylor-swift-shares-new-lavender-haze-video-watch',
+          'Taylor Swift Shares New "Lavender Haze" Video: Watch',
+          'Pitchfork',
+          'supports the video release, Swift directing credit, and Laith Ashley appearance',
+        ),
+      ],
     },
     {
       slug: 'karma-mv',
@@ -110,7 +128,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Taylor_Swift:_The_Eras_Tour', 'Taylor Swift: The Eras Tour')],
+      sources: [
+        wiki('Taylor_Swift:_The_Eras_Tour', 'Taylor Swift: The Eras Tour'),
+        press(
+          'https://people.com/taylor-swift-the-eras-tour-most-watched-music-film-disney-plus-8611339',
+          '"Taylor Swift: The Eras Tour" Shatters Records and Becomes the Most-Watched Music Film on Disney+',
+          'People',
+          'supports the concert-film record context and Disney+ Taylor\'s Version release',
+        ),
+      ],
     },
   ],
 };
