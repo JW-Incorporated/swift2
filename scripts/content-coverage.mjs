@@ -88,6 +88,14 @@ const CATEGORIES = ['music', 'release', 'fashion', 'tour', 'business', 'sighting
 // aggregation boards). A record citing ONLY these is a weak-source record.
 const WEAK_SOURCE_HOSTS = ['fandom.com', 'reddit.com', 'tumblr.com', 'pinterest.com'];
 
+// Depth gate (2026-07-09 finding): sourcing alone doesn't mean a moment is
+// worth clicking into. A record below this Tier-1 body length, or with no
+// real photo (only a thumbnail/no photos array), reads as a caption, not
+// coverage — flag it for a human depth pass rather than silently shipping
+// it. Report-only, same as every other gate in this script; never a hard
+// fail, since some moments genuinely don't have more to say (yet).
+const SHALLOW_CONTEXT_CHARS = 300;
+
 // ---------------------------------------------------------------------------
 // Hard-fail detectors (2026-07-08 media policy)
 // ---------------------------------------------------------------------------
@@ -189,6 +197,9 @@ let mediaRefs = 0;
 let mediaNoRights = 0;
 let photosNoCredit = 0;
 let longExcerpts = 0;
+let shallowContext = 0;
+let noPhotos = 0;
+const shallowItems = [];
 
 const itemKeys = new Map();
 
@@ -226,6 +237,22 @@ for (const { file, fileEra, row: it } of content.rows) {
     mediaRefs += 1;
     if (!m.rights) mediaNoRights += 1; // proposed field; nothing carries it yet
     if (m.kind !== 'thumbnail' && !m.credit) photosNoCredit += 1;
+  }
+
+  // -- depth: shallow body text and/or no real photo --
+  const contextLen = (it.moment?.context ?? '').length;
+  const hasRealPhoto = (it.moment?.photos ?? []).length > 0;
+  const isShallow = contextLen < SHALLOW_CONTEXT_CHARS;
+  if (isShallow) shallowContext += 1;
+  if (!hasRealPhoto) noPhotos += 1;
+  if (isShallow || !hasRealPhoto) {
+    shallowItems.push({
+      era,
+      title: it.title,
+      contextLen,
+      hasRealPhoto,
+      sources: urls.length,
+    });
   }
 
   // -- policy hard-fails on every text field --
@@ -432,6 +459,26 @@ console.log('Media rights-status (report-only):');
 console.log(`  media references (thumbs + photos): ${mediaRefs}`);
 console.log(`  missing rights-status field:        ${mediaNoRights}  (pre-policy hotlinks; field proposed in the 2026-07-08 audit)`);
 console.log(`  detail photos without credit:       ${photosNoCredit}`);
+console.log('');
+
+console.log('Depth (report-only — 2026-07-09 gate, see §A2 of the content depth audit):');
+console.log(`  items with < ${SHALLOW_CONTEXT_CHARS}-char body (moment.context): ${shallowContext} / ${content.rows.length}`);
+console.log(`  items with no real photo (moment.photos empty):    ${noPhotos} / ${content.rows.length}`);
+if (shallowItems.length) {
+  console.log(`  Flagged items needing a depth pass (${shallowItems.length}):`);
+  const byEraFlag = new Map();
+  for (const s of shallowItems) {
+    if (!byEraFlag.has(s.era)) byEraFlag.set(s.era, []);
+    byEraFlag.get(s.era).push(s);
+  }
+  for (const [era, items] of [...byEraFlag].sort((a, b) => b[1].length - a[1].length)) {
+    console.log(`    ${era} (${items.length}):`);
+    for (const s of items) {
+      const why = [s.contextLen < SHALLOW_CONTEXT_CHARS ? `body ${s.contextLen} chars` : null, !s.hasRealPhoto ? 'no photo' : null].filter(Boolean).join(', ');
+      console.log(`      - "${String(s.title).slice(0, 60)}" — ${why} (${s.sources} source${s.sources === 1 ? '' : 's'})`);
+    }
+  }
+}
 console.log('');
 
 if (hardFails.length) {
