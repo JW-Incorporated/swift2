@@ -2,10 +2,11 @@
 
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
-import { Sparkles, ArrowUpRight, ArrowRight, Heart, Shirt, RefreshCw, Gem } from 'lucide-react';
+import { Sparkles, ArrowUpRight, ArrowRight, Heart, Shirt, RefreshCw, Gem, ListMusic } from 'lucide-react';
 import { useAppActions } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
+import { tracksForEra } from '@/lib/longlive/tracks';
 import { threadsInEra, getThread } from '@/lib/longlive/lenses';
 import { EraMedia } from './EraMedia';
 import { ALL_TAGS, TAG_META } from '@/lib/longlive/tags';
@@ -19,9 +20,10 @@ import { cn } from '@/lib/utils';
  * scope its measurements to the era currently in view.
  */
 export function EraSection({ era }: { era: Era }) {
-  const { openItem, setSelectorOpen, openThread } = useAppActions();
+  const { openItem, setSelectorOpen, openThread, openTrackGuide } = useAppActions();
   const [activeTags, setActiveTags] = useState<Set<ContentTag>>(new Set());
   const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
+  const trackCount = useMemo(() => tracksForEra(era.id).length, [era.id]);
 
   const items = useMemo(() => contentForEra(era.id), [era.id]);
   const visible = useMemo(() => {
@@ -88,6 +90,20 @@ export function EraSection({ era }: { era: Era }) {
             </p>
           )}
           {era.media && <EraMedia media={era.media} />}
+
+          {/* Album track guide — only when this era has sourced track notes. */}
+          {trackCount > 0 && (
+            <button
+              onClick={() => openTrackGuide(era.id)}
+              className="era-btn-ghost mx-auto mt-5 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
+            >
+              <ListMusic className="h-4 w-4 text-[color:var(--era-accent)]" />
+              Track guide
+              <span className="text-xs text-[color:var(--era-ink-soft)]">
+                {trackCount} {trackCount === 1 ? 'song' : 'songs'}
+              </span>
+            </button>
+          )}
         </div>
       </div>
 

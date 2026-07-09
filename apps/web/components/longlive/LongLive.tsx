@@ -9,6 +9,7 @@ import { EraStream } from './EraStream';
 import { ThreadsMode } from './ThreadsMode';
 import { EraSelector } from './EraSelector';
 import { MomentDetail } from './MomentDetail';
+import { TrackGuide } from './TrackGuide';
 import { ShareSheet } from './ShareSheet';
 import { SiteFooter } from './SiteFooter';
 
@@ -38,6 +39,7 @@ function Shell() {
 
       {/* Overlays */}
       <EraSelector />
+      <TrackGuide />
       <MomentDetail />
       <ShareSheet />
     </div>
