@@ -798,5 +798,193 @@ export default {
         photos: [],
       },
     },
+    // --- Deep timeline fill (2026-07-08, content/deep-c): completes song
+    // coverage for the standard tracklist (every folklore track now has a
+    // sourced music item somewhere in this file) and adds the era's second
+    // masters-sale wavetop. Tour and sighting remain genuinely empty — no
+    // touring happened, and the 2026-07-05 sightings research pass (above)
+    // confirmed ~zero candid sightings. New items carry the audit's additive
+    // provenance fields; thumbnails deliberately null per the 2026-07-08
+    // media policy (no new hotlinks).
+    {
+      slug: 'cardigan-self-directed-video',
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'cardigan: the lead single, with a video she directed herself',
+      snippet:
+        'folklore\'s lead single arrived with the album at midnight, its self-directed video sending Taylor through a glowing piano into forest and ocean — the love triangle\'s adult-Betty chapter, and her sixth Hot 100 No. 1.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Cardigan_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written with Aaron Dessner, it answers the triangle\'s other two songs from twenty years\' distance — "when you are young, they assume you know nothing" as the thesis. She directed the video herself and did her own hair and makeup on set (the no-glam-team shoot is covered in this era\'s fashion items).',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Cardigan_(song)',
+            source_title: 'Cardigan (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'the-1-last-minute-opener',
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'the 1, written days before release and promoted straight to opening track',
+      snippet:
+        'Aaron Dessner thought the album was finished — then a voice memo arrived days before the drop. One of the last two folklore songs written (with "hoax"), it got sequenced first, so the record opens on a wry, conversational what-if.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_1',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Dessner finished the production in a scramble while his brother added orchestration — a buzzer-beater that changed the album\'s shape and set up folklore\'s whole exercise in imagined lives before a single "real" song plays.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_1',
+            source_title: 'The 1',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'illicit-affairs-bridge',
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'illicit affairs, and the bridge that ate the song',
+      snippet:
+        'A hushed folk track about an affair\'s slow corrosion, written with Jack Antonoff, that detonates in its final minute — "you taught me a secret language I can\'t speak with anyone else" — routinely ranked among folklore\'s best writing.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Illicit_Affairs',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'It never got a single push and didn\'t need one: the whispered-to-shouted bridge became one of the album\'s signature moments, and — years later — one of the Eras Tour folklore set\'s loudest singalongs.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Illicit_Affairs',
+            source_title: 'Illicit Affairs',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'this-is-me-trying-long-pond',
+      year: 2020,
+      month: 11,
+      category: 'music',
+      title: 'this is me trying, unpacked at Long Pond',
+      snippet:
+        'In the Long Pond Studio Sessions she walked through the song\'s shifting perspectives — including a verse that touches on alcoholism and the quiet work of staying sober — one of folklore\'s heaviest songs at its lowest volume.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/This_Is_Me_Trying',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her commentary framed it around people trying their hardest while assuming nobody notices — the kid who "got wasted like all my potential," the person white-knuckling a hard stretch — with Antonoff\'s production leaving the effort audible in the vocal.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/This_Is_Me_Trying',
+            source_title: 'This Is Me Trying',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'peace-the-real-one',
+      year: 2020,
+      month: 11,
+      category: 'music',
+      title: 'peace, the most autobiographical song on the "fictional" album',
+      snippet:
+        'On a record sold as invented characters, "peace" is the confirmed exception — rooted in her personal life and the balance between private and public, built around one question: "would it be enough if I could never give you peace?"',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Peace_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Produced with Aaron Dessner, it offers everything except an ordinary life — the one thing fame permanently prices out. Fans clocked it immediately as the album\'s realest moment, and her Long Pond commentary confirmed the read.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Peace_(Taylor_Swift_song)',
+            source_title: 'Peace (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'shamrock-masters-sale',
+      year: 2020,
+      month: 11,
+      category: 'business',
+      title: 'Her masters get sold again — this time to Shamrock Capital, for about $300 million',
+      snippet:
+        'On Nov. 16, 2020 she revealed Braun\'s Ithaca had sold her first six albums to Shamrock Capital — "the second time my music had been sold without my knowledge" — and said she\'d declined to partner with the firm because Braun would keep profiting from the deal.',
+      sourceUrl: 'https://variety.com/2020/music/news/scooter-braun-sells-taylor-swift-big-machine-masters-1234832080/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her open letter said Braun\'s team had required an NDA before any purchase talks and never quoted her a price. She wished Shamrock well but wouldn\'t work with them while the terms enriched Braun — and doubled down on re-recording instead, days before the Long Pond film premiered.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2020/music/news/scooter-braun-sells-taylor-swift-big-machine-masters-1234832080/',
+            source_title: "Scooter Braun Sells Taylor Swift's Big Machine Masters for Big Payday",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-buys-back-her-catalog-explainer-1236233783/',
+            source_title: 'Taylor Swift Gets Her Masters Back: How We Got Here',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_masters_dispute',
+            source_title: 'Taylor Swift masters dispute',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
