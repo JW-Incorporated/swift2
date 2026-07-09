@@ -10,7 +10,7 @@ import { TAG_META } from '@/lib/longlive/tags';
 import { MomentVideo } from './MomentVideo';
 
 export function MomentDetail() {
-  const { openItemId } = useAppState();
+  const { openItemId, share } = useAppState();
   const { closeItem, openShare } = useAppActions();
   const [revealed, setRevealed] = useState(false);
 
@@ -28,15 +28,16 @@ export function MomentDetail() {
     }
   }, [openItemId]);
 
-  // Close on Escape.
+  // Close on Escape — but not while the share sheet is open on top of us;
+  // that overlay owns Escape until it closes itself.
   useEffect(() => {
     if (!openItemId) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') closeItem();
+      if (e.key === 'Escape' && !share) closeItem();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [openItemId, closeItem]);
+  }, [openItemId, closeItem, share]);
 
   if (!item) return null;
   const era = getEra(item.eraId);

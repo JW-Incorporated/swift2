@@ -27,7 +27,7 @@ const LANE_B_X = 76;
 const AXIS_X = 50;
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
-const fmtYear = (ms: number) => new Date(ms).getFullYear().toString();
+const fmtYear = (ms: number) => new Date(ms).getUTCFullYear().toString();
 
 function gapLabel(days: number): string {
   if (days <= 21) return 'same moment';

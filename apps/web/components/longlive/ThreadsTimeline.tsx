@@ -18,7 +18,7 @@ const RAIL_RIGHT = 26;
 const SAMPLES = 90;
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
-const fmtYear = (ms: number) => new Date(ms).getFullYear().toString();
+const fmtYear = (ms: number) => new Date(ms).getUTCFullYear().toString();
 
 interface Anchor {
   date: number;
@@ -113,10 +113,14 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
     if (ref <= a[0].top) return a[0].date;
     const last = a[a.length - 1];
     if (ref >= last.top) return last.date;
+    // Cards may not render in chronological order (e.g. Taylor's Version is
+    // album-ordered), so interpolating a date between two DOM neighbors can
+    // move backward as the user scrolls forward. Snap to whichever neighbor
+    // the scroll position is nearer to instead.
     for (let i = 0; i < a.length - 1; i++) {
       if (ref >= a[i].top && ref < a[i + 1].top) {
-        const f = (ref - a[i].top) / Math.max(1, a[i + 1].top - a[i].top);
-        return a[i].date + f * (a[i + 1].date - a[i].date);
+        const midpoint = (a[i].top + a[i + 1].top) / 2;
+        return ref < midpoint ? a[i].date : a[i + 1].date;
       }
     }
     return last.date;

@@ -23,7 +23,7 @@ interface Anchor {
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
 
 function fmtMonth(ms: number): string {
-  return new Date(ms).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+  return new Date(ms).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' });
 }
 
 export function TimelineScrubber() {
