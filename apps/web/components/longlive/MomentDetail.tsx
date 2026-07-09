@@ -18,16 +18,18 @@ export function MomentDetail() {
   const item = openItemId ? getContentItem(openItemId) : undefined;
 
   // Reset the clue reveal whenever a new item opens; lock body scroll.
+  // Only if the id actually resolves — a stale/bad ?item= deep link
+  // shouldn't lock scrolling on a modal that never renders.
   useEffect(() => {
     setRevealed(false);
-    if (openItemId) {
+    if (item) {
       const prev = document.body.style.overflow;
       document.body.style.overflow = 'hidden';
       return () => {
         document.body.style.overflow = prev;
       };
     }
-  }, [openItemId]);
+  }, [item]);
 
   // Close on Escape — but not while the share sheet is open on top of us;
   // that overlay owns Escape until it closes itself.

@@ -372,5 +372,8 @@ export function isFirstEra(id: string): boolean {
 /** Career-wide date bounds for cross-era (Threads) timelines. */
 export const CAREER_START_MS = new Date(ERAS[0].start).getTime();
 export function careerEndMs(): number {
-  return Math.max(Date.now(), new Date(ERAS[ERAS.length - 1].end).getTime());
+  // The career axis should never extend into the future — the last era's
+  // authored `end` can be a placeholder date past today (e.g. a year
+  // boundary), so cap at now rather than that authored value.
+  return Date.now();
 }

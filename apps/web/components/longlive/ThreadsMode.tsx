@@ -555,6 +555,13 @@ function TaylorsVersion() {
           const done = Boolean(r.reclaimedYear);
           return (
             <ThreadItem key={r.id} date={`${r.reclaimedYear ?? r.originalYear}-06-01`}>
+              {/* threadPoints() also emits an "(original)" tick at the
+                  release year — give it a matching anchor here so dragging
+                  near that tick lands on this card, not a nearest-date
+                  guess among unrelated cards. */}
+              {r.reclaimedYear && (
+                <span aria-hidden data-ll-item data-ll-date={new Date(`${r.originalYear}-01-01`).getTime()} className="sr-only" />
+              )}
               <article className="era-card flex items-center gap-4 rounded-2xl border p-4">
                 <div
                   className={cn(
