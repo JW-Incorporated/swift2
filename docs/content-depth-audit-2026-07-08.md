@@ -23,6 +23,39 @@ The Clue Web / Decode / theories content (sourced, confidence-graded, honest abo
 
 ---
 
+## A2. The real bar for "clicking in" (found 2026-07-09, after the sourcing/plumbing fixes shipped)
+
+Sourcing and body-text plumbing from §A were fixed overnight (614 items, real citations, real paragraphs). Joey then opened the live app and clicked into the two newest moments — real user testing, not code review — and the verdict was blunt: **still not ship-quality.** This section exists because the gap that surfaced is different from, and deeper than, anything §A–H below already covers. Treat it as the current top priority, above the P1/P2 tickets.
+
+### The two concrete failures
+
+**"Taylor and Travis marry at Madison Square Garden"** (`vault-tloas-taylor-and-travis-marry-at-madison-square-garden`): clicking in gets a 1-sentence summary, a 2-sentence body (officiant, guest list, one line on the reception), and **zero photos** — the detail view falls back to generic era art because the item has no image of its own. For arguably the single biggest real-world event in this era, a fan gets less than a tweet's worth of substance and nothing to look at.
+
+**"The wedding gown: a custom Dior Haute Couture"** (`vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep`): correctly notes no official photo existed as of authoring and correctly refuses to use AI-generated fakes (good instinct, keep that rule) — but stops there. **Nothing fills the visual gap.** A fan who can't see the actual dress yet still wants to see Jonathan Anderson's prior Dior couture work, the Elizabeth Taylor 1950 gown it reportedly referenced, or comparable silhouettes — anything that makes the entry feel researched rather than empty.
+
+### Why this is a different, deeper problem than §A's fix
+
+§A's fix made sure a citation and a real paragraph exist. It did **not** address:
+1. **Depth of commentary.** 2-3 sentences is a caption, not "everything a fan would want to know." A moment like this needs the full shape: who/what/when/where in detail, the color and texture of the event (what happened, who said what, how it was received), and connective tissue to everything else in the app (does this pay off an earlier clue/thread? does it recontextualize an older moment?).
+2. **Real photography.** The schema literally cannot hold more than one image per moment — `ContentItem.image: string` (`apps/web/lib/longlive/types.ts`) is a single field, no gallery, no per-photo caption/credit. Even a content author who found five great, rights-clean photos of the wedding has nowhere to put them today. **This is a schema gap, not a content gap** — flagged as a new, higher-priority item than anything in §F.
+3. **Reference/comparable imagery for not-yet-available real photos.** When the definitive photo doesn't exist (paparazzi hasn't caught it, official release is pending), the standard is not "show nothing" — it's "show clearly-labeled comparable/reference material": prior work by the same designer, the historical garment being referenced, similar red-carpet moments. This needs a distinct image *kind* (`reference` vs `primary`/`official`) so the UI can visually label it ("Comparable Dior gowns, for reference — the actual dress hasn't been photographed yet") rather than implying it's the real thing.
+
+### Updated requirement (supersedes the plain `image: string` line in §C.1)
+
+Every moment needs an `images` array (not a single `image`), each entry carrying:
+- `url`, `credit`/`photographer` or attribution, `caption`
+- `kind`: `'primary'` (the actual event/subject) | `'reference'` (comparable/historical material, explicitly labeled as such in the UI, never conflated with a real photo of the subject) | `'archival'` (older photos providing context)
+- Minimum bar for a "big" moment (an event this significant to the era/thread): **3+ images** where real photos exist, or **2+ clearly-labeled reference images** where they don't yet.
+
+And every moment's `body` needs to clear a substance bar before shipping, not just a sourcing bar: does it answer what a fan would actually ask next (who designed it, what did people say, how does it connect to what came before)? If the honest answer after research is "there just isn't more to say yet," that's fine — but "there wasn't time to look" is not, and a 2-sentence body on a marquee event is a strong signal nobody checked.
+
+### Action items (added to §G's ticket list, see T15–T16)
+
+- **T15 (schema, P0, blocks the rest):** replace `ContentItem.image: string` with `images: ImageRef[]` per the shape above. Engineering lane.
+- **T16 (content, P0, depends on T15):** re-pass every "major event" moment (weddings, engagements, album drops, tour milestones — not every single item, but anything a fan would call a big deal) for both real photo coverage/reference imagery and commentary depth. Start with the two examples above. Content lane.
+
+---
+
 ## B. Full content inventory
 
 *(Condensed from the inventory-mapper and UX-critic passes — see full per-file detail in agent transcripts if needed.)*
@@ -184,33 +217,35 @@ Confirmed present vs. absent, from the six audits:
 
 ### P0 — plumbing (do first, unlocks everything else)
 
-**T1. Wire the theories/videos/tracks/tours/releases seed pipelines into the live UI**
+**T15. Replace `ContentItem.image: string` with a real `images: ImageRef[]` gallery** — *NEW, top priority as of 2026-07-09*
+- Problem: the schema physically cannot hold more than one photo per moment, and has no concept of a labeled "reference/comparable" image for when the real photo doesn't exist yet. See §A2.
+- Files: `apps/web/lib/longlive/types.ts` (new `ImageRef` type: `url`, `credit`, `caption`, `kind: 'primary'|'reference'|'archival'`), `MomentDetail.tsx` (render a gallery, label non-primary images visibly), `content-vault.generated.ts`/sync script (carry through when the seed schema is extended).
+- Acceptance criteria: a moment can carry 3+ images; a `reference`-kind image renders with a visible "for reference" label, never presented as the real thing.
+- Priority: **P0**. Engineering lane. Blocks T16.
+
+**T16. Re-pass every "major event" moment for photo coverage + commentary depth** — *NEW, depends on T15*
+- Problem: even sourced, plumbed-through moments (e.g. the MSG wedding) are 2-3 sentences with zero images — a caption, not coverage. See §A2 for the standard.
+- Scope: not every item — the ones a fan would call a big deal (weddings, engagements, album drops, major tour/award moments). Start with `vault-tloas-taylor-and-travis-marry-at-madison-square-garden` and `vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep`.
+- Acceptance criteria: each re-passed moment has real photos (3+) or clearly-labeled reference images (2+), and a body that actually answers what a fan would ask next, not just a sourced summary.
+- Priority: **P0**. Content lane.
+
+**T1. Wire the theories/videos/tracks/tours/releases seed pipelines into the live UI** — ✅ done 2026-07-09 (track guide UI shipped; theories/videos still need a UI surface, tracked as follow-up)
 - Problem: fully-authored, sourced, confidence-graded content sits unused in `supabase/seed/{theories,videos,tracks,tours,releases}/**`.
 - User impact: closes the single biggest content-depth gap in the app without writing a word of new content.
 - Files: `scripts/sync-longlive-content.mjs` (extend beyond `month_item`), `apps/web/lib/longlive/types.ts` (new types per §F), new components or extensions to `ClueWeb.tsx`/era views to render theories/videos.
 - Acceptance criteria: theories render with confidence/outcome badges somewhere in the live UI; track guide accessible per-album; video metadata available to `MomentVideo`.
-- Priority: **P0**.
 
-**T2. Fix the sync script to preserve sources, full body text, and tags**
+**T2. Fix the sync script to preserve sources, full body text, and tags** — ✅ done 2026-07-09
 - Problem: `sync-longlive-content.mjs` flattens `moment.context` and drops `sources[]`/`slug`/full `tags[]`.
 - User impact: every one of the 450 vault items gains a real citation and real body text instead of a repeated one-liner.
-- Files: `scripts/sync-longlive-content.mjs`, `apps/web/lib/longlive/content-vault.generated.ts` (regenerate), `types.ts` (add `sources` field first — depends on schema change).
-- Acceptance criteria: `npm run content:coverage` shows 0 items with missing sources in the generated file; `MomentDetail` renders a source for every vault item.
-- Priority: **P0**.
 
-**T3. Add source + confidence display to `MomentDetail.tsx`**
+**T3. Add source + confidence display to `MomentDetail.tsx`** — ✅ done 2026-07-09
 - Problem: the app's primary surface shows zero attribution for any claim.
-- Files: `MomentDetail.tsx`, depends on T2/schema change.
 - Acceptance criteria: every moment with `sources` populated shows a "Sources" section; every moment with a confidence level below "confirmed" shows a visible pill.
-- Priority: **P0**.
 
-**T4. Backfill the thinnest eras** (folklore: 2 items, evermore: 1, speak-now: 2 in hand-curated `content.ts`)
-- Problem: visible, immediate quality drop-off scrolling from Red/1989 into these eras.
-- Acceptance criteria: each era reaches parity with the flagship eras' item count and prose depth (2+ paragraphs per item, sourced).
-- Priority: **P0**.
+**T4. Backfill the thinnest eras** — ✅ done 2026-07-09 (over-delivered: all 12 eras deepened via content/deep-a–d, not just the 3 originally flagged)
 
-**T5. Fix `RELATIONSHIPS` — add sources, fix `rel-5` era mislabeling, resolve the naming-convention inconsistency**
-- Priority: **P0** (factual error + credibility risk).
+**T5. Fix `RELATIONSHIPS` — add sources, fix `rel-5` era mislabeling, resolve the naming-convention inconsistency** — ✅ done 2026-07-09 (naming-convention choice still flagged for a product decision, not silently resolved)
 
 ### P1 — structural/UX
 
