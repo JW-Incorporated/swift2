@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { X, Sparkles, Share2, ArrowRight, Route } from 'lucide-react';
-import { useAppState, useAppActions } from '@/lib/longlive/store';
+import { X, Sparkles, Share2, ArrowRight, Route, Heart } from 'lucide-react';
+import {
+  useAppState,
+  useAppActions,
+  useProgress,
+  useProgressActions,
+} from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@/lib/longlive/eras';
 import { resolveMotifTrail, type MotifTarget } from '@/lib/longlive/related';
@@ -29,9 +34,19 @@ const CONFIDENCE_LABEL: Record<Confidence, string> = {
 export function MomentDetail() {
   const { openItemId, share } = useAppState();
   const { closeItem, openShare } = useAppActions();
+  const { progress } = useProgress();
+  const { markMomentVisited, toggleFavorite } = useProgressActions();
   const [revealed, setRevealed] = useState(false);
 
   const item = openItemId ? getContentItem(openItemId) : undefined;
+
+  // Opening a moment records it as visited (drives the era grid's seen dots
+  // and the returning-user counts). Keyed on the resolved item so bad deep
+  // links never record ghosts; marking is idempotent, so StrictMode's double
+  // effect run is harmless.
+  useEffect(() => {
+    if (item) markMomentVisited(item.id);
+  }, [item, markMomentVisited]);
 
   // Reset the clue reveal whenever a new item opens; lock body scroll.
   // Only if the id actually resolves — a stale/bad ?item= deep link
@@ -60,6 +75,7 @@ export function MomentDetail() {
 
   if (!item) return null;
   const era = getEra(item.eraId);
+  const isFavorite = progress.favorites.has(item.id);
   // Clue Web trail this moment cross-links to (via relatedIds), if any.
   // Resolution is best-effort: no resolvable target simply means no link.
   const trail = resolveMotifTrail(item.relatedIds);
@@ -80,6 +96,18 @@ export function MomentDetail() {
           }}
         />
         <div className="absolute right-4 top-4 flex gap-2">
+          <button
+            onClick={() => toggleFavorite(item.id)}
+            className="era-icon-btn rounded-full p-2 backdrop-blur-md"
+            aria-pressed={isFavorite}
+            aria-label={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
+          >
+            <Heart
+              className="h-5 w-5"
+              fill={isFavorite ? 'var(--era-accent)' : 'none'}
+              style={isFavorite ? { color: 'var(--era-accent)' } : undefined}
+            />
+          </button>
           <button
             onClick={() => openShare({ kind: 'item', itemId: item.id })}
             className="era-icon-btn rounded-full p-2 backdrop-blur-md"
