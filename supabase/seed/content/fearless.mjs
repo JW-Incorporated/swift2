@@ -825,5 +825,455 @@ export default {
         ],
       },
     },
+
+    // --- Deep timeline fill (2026-07-08, content/deep-a): the era's singles
+    // and reissue (release was empty), song origin stories, tour lore, the
+    // 2009 CMA sweep, and her acting/SNL firsts. Every claim verified against
+    // its cited source this session; business items carry two independent
+    // sources per the framework.
+    {
+      slug: 'love-story-single-release',
+      year: 2008,
+      month: 9,
+      category: 'release',
+      title: 'Love Story arrives two months before the album',
+      snippet:
+        'Sept. 12, 2008: the lead single from Fearless goes out ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
+      moment: {
+        context:
+          'It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard\'s pop-radio chart (see February 2009).',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+            source_title: 'Love Story (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
+            credit: 'Big Machine Records (single cover art)',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'white-horse-single-release',
+      year: 2008,
+      month: 12,
+      category: 'release',
+      title: "White Horse, the single Grey's Anatomy saved for Fearless",
+      snippet:
+        'She\'d considered holding "White Horse" for her third album — until Grey\'s Anatomy used it in its season-five premiere, and it became the second Fearless single that December.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A devoted Grey\'s fan, she has said she cried when she heard the show wanted the song. The September 2008 premiere placement settled the tracklist question; the single followed in December and later took two Grammys — Best Country Song and Best Female Country Vocal Performance.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)',
+            source_title: 'White Horse (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'fearless-platinum-edition',
+      year: 2009,
+      month: 10,
+      category: 'release',
+      title: 'Fearless: Platinum Edition adds six new songs to a No. 1 album',
+      snippet:
+        'Oct. 26, 2009: the Platinum Edition reissue drops six new tracks — "Jump Then Fall," "Untouchable," a piano "Forever & Always," "Come In with the Rain," "SuperStar," and "The Other Side of the Door."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+      moment: {
+        context:
+          'Announced Sept. 10, 2009 and released mid-tour, the reissue placed the new songs ahead of the original tracklist and paired the CD with a DVD — keeping a year-old blockbuster in the conversation straight through awards season.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
+            source_title: 'Fearless (Taylor Swift album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'today-was-a-fairytale-release',
+      year: 2010,
+      month: 1,
+      category: 'release',
+      title: 'Today Was a Fairytale breaks a download record in a week',
+      snippet:
+        'A one-off for the Valentine\'s Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Today_Was_a_Fairytale',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The record it broke was Britney Spears\'s "Womanizer." It debuted at No. 2 on the Hot 100 and went to No. 1 in Canada — all from a soundtrack single for the rom-com she was starring in with Taylor Lautner.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Today_Was_a_Fairytale',
+            source_title: 'Today Was a Fairytale',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Songfacts',
+            url: 'https://www.songfacts.com/facts/taylor-swift/today-was-a-fairytale',
+            source_title: 'Today Was a Fairytale by Taylor Swift',
+            publisher: 'Songfacts',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'hey-stephen-liner-code',
+      year: 2008,
+      month: 11,
+      category: 'music',
+      title: 'Hey Stephen, addressed to the opening act',
+      snippet:
+        'Written about Stephen Barker Liles of Love and Theft, who\'d opened shows for her — and she spelled out who it was for in the album\'s hidden liner-note code: "LOVE AND THEFT."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Hey_Stephen',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Every Fearless lyric sheet hid a capitalized-letter message inside the printed lyrics; "Hey Stephen"\'s decoded to the name of its subject\'s band — the era\'s Easter-egg culture, already fully operational in 2008.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Hey_Stephen',
+            source_title: 'Hey Stephen',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'you-belong-with-me-video',
+      year: 2009,
+      month: 5,
+      category: 'music',
+      title: 'One video, two Taylors: You Belong with Me hits screens',
+      snippet:
+        'She plays both the girl next door and the mean-girl cheerleader in the "You Belong with Me" video, opposite Lucas Till — the clip that would win Best Female Video at the VMAs.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/You_Belong_with_Me',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Premiered in May 2009 as the album\'s third single took off, the split-role video became the era\'s defining visual — and its VMA win that September is the reason the Kanye West moment happened at all.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/You_Belong_with_Me',
+            source_title: 'You Belong with Me',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'msg-sold-out-minute',
+      year: 2009,
+      month: 8,
+      category: 'tour',
+      title: 'Madison Square Garden, sold out in about a minute',
+      snippet:
+        'Her Fearless Tour stop at the Garden on Aug. 27, 2009 — tickets had sold out in roughly 60 seconds when they went on sale that winter.',
+      sourceUrl: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=3395',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Country Standard Time reported the near-instant sellout when tickets moved in early 2009; by the time the tour reached New York that August, Rolling Stone\'s review of the show read like a coronation.',
+        sources: [
+          {
+            outlet: 'Country Standard Time',
+            url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=3395',
+            source_title: 'Taylor Swift sells out fast',
+            publisher: 'Country Standard Time',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-country/taylor-swift-performs-a-fearless-set-at-madison-square-garden-246419/',
+            source_title: 'Taylor Swift Performs a "Fearless" Set at Madison Square Garden',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'bieber-wembley-broken-foot',
+      year: 2009,
+      month: 11,
+      category: 'tour',
+      title: 'Her UK opening act breaks his foot mid-song',
+      snippet:
+        'Justin Bieber — the 15-year-old opening the Fearless Tour\'s UK leg — fractured his foot during "One Time" at Wembley Arena on Nov. 23, 2009, and finished the song anyway.',
+      sourceUrl: 'https://www.justjaredjr.com/2009/11/23/justin-bieber-fractures-his-foot/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Bieber said he tripped coming down a ramp and felt his ankle roll, but sang through it — and was back opening for Swift in Manchester the next night. The booking itself is the time capsule: two teenagers on one arena bill, months before both went supernova.',
+        sources: [
+          {
+            outlet: 'Just Jared Jr.',
+            url: 'https://www.justjaredjr.com/2009/11/23/justin-bieber-fractures-his-foot/',
+            source_title: 'Justin Bieber Fractures His Foot',
+            publisher: 'Just Jared Jr.',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Long Island Press',
+            url: 'http://archive.longislandpress.com/2009/11/25/justin-bieber-performs-with-broken-foot/',
+            source_title: 'Justin Bieber Performs With Broken Foot',
+            publisher: 'Long Island Press',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'cma-entertainer-2009',
+      year: 2009,
+      month: 11,
+      category: 'business',
+      title: 'CMA Entertainer of the Year at 19 — the youngest ever',
+      snippet:
+        'Nov. 11, 2009: the CMAs hand their top prize to a 19-year-old — the youngest Entertainer of the Year in the award\'s history, and the first woman to win it since Shania Twain in 1999.',
+      sourceUrl: 'https://theboot.com/taylor-swift-wins-2009-cma-entertainer-of-the-year/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She won every category she was nominated in that night, with Fearless taking Album of the Year and "Love Story" winning Music Video of the Year — the country establishment\'s full endorsement, one year to the day after the album dropped.',
+        sources: [
+          {
+            outlet: 'The Boot',
+            url: 'https://theboot.com/taylor-swift-wins-2009-cma-entertainer-of-the-year/',
+            source_title: 'Taylor Swift Wins 2009 CMA Entertainer of the Year',
+            publisher: 'The Boot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'BMI',
+            url: 'https://www.bmi.com/news/entry/taylor_swift_wins_entertainer_of_the_year_and_more_at_2009_cma_awards',
+            source_title: 'Taylor Swift Wins Entertainer of the Year and More at 2009 CMA Awards',
+            publisher: 'BMI',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/2009_Country_Music_Association_Awards',
+            source_title: '2009 Country Music Association Awards',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'love-story-pop-crossover',
+      year: 2009,
+      month: 2,
+      category: 'business',
+      title: 'First country song ever to top pop radio',
+      snippet:
+        'The week ending Feb. 28, 2009, "Love Story" hit No. 1 on Billboard\'s Pop Songs chart — the first country crossover ever to do it.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Country songs had crossed to pop radio for decades without finishing the climb — Shania Twain\'s "You\'re Still the One" had set the previous high-water mark at No. 3 in 1998. "Love Story" went all the way, the data point that made the eventual pop pivot look less like a risk than a formality.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
+            source_title: 'Love Story (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Wide Open Country',
+            url: 'https://www.wideopencountry.com/love-story-taylor-swift/',
+            source_title: "'Love Story': The Story Behind The Classic Taylor Swift Song",
+            publisher: 'Wide Open Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'csi-haley-jones',
+      year: 2009,
+      month: 3,
+      category: 'sighting',
+      title: 'Her acting debut: a murder victim on CSI',
+      snippet:
+        'March 5, 2009: she guest-stars on CSI as Haley Jones, a motel owner\'s daughter whose death anchors the whole episode — a dream booking for a longtime fan of the show.',
+      sourceUrl: 'https://www.eonline.com/news/700262/remember-when-taylor-swift-played-a-murder-victim-on-csi-reminisce-ahead-of-the-series-finale',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents. Reviews were kinder than anyone expected — Rolling Stone said she "held her own."',
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/700262/remember-when-taylor-swift-played-a-murder-victim-on-csi-reminisce-ahead-of-the-series-finale',
+            source_title: 'Remember When Taylor Swift Played a Murder Victim on CSI?',
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Turn,_Turn,_Turn_(CSI)',
+            source_title: 'Turn, Turn, Turn (CSI)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'snl-host-monologue-song',
+      year: 2009,
+      month: 11,
+      category: 'sighting',
+      title: 'Hosting SNL — and writing her own monologue',
+      snippet:
+        'Nov. 7, 2009: she hosts Saturday Night Live and shows up with the monologue already written — as a song, skewering her own headlines before anyone else could.',
+      sourceUrl: 'https://www.rollingstone.com/tv-movies/tv-movie-news/taylor-swift-snl-monologue-seth-meyers-1234866409/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Seth Meyers has told the story since: she arrived saying "I wrote a song for the opening monologue," and it needed essentially no fixing. The "Monologue Song" joked about the exes and the interruption heard round the world — self-aware damage control, years before that became a signature move.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/tv-movies/tv-movie-news/taylor-swift-snl-monologue-seth-meyers-1234866409/',
+            source_title: "Taylor Swift's 2009 SNL Monologue Shook Seth Meyers: 'Force of Nature'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/remember-when-taylor-swift-wrote-her-own-opening-monologue-on-saturday-night-live/',
+            source_title: "Remember When Taylor Swift Wrote Her Own 'SNL' Monologue?",
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'lucas-till-spring-2009',
+      year: 2009,
+      month: 5,
+      category: 'relationship',
+      title: 'A brief real-life sequel to the You Belong with Me video',
+      snippet:
+        'She and video co-star Lucas Till dated briefly in spring 2009 — "no friction," he said later, "because we were too nice."',
+      sourceUrl: 'https://www.etonline.com/gallery/162334_taylor_swift_boyfriends/lucas-till-66523',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Till confirmed it himself in interviews: the two dated for a stretch after shooting the video, then settled back into friendship — one of the era\'s few relationship stories with no drama attached.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/gallery/162334_taylor_swift_boyfriends/lucas-till-66523',
+            source_title: "Lucas Till: Taylor Swift's Boyfriends: The 'Lover' Look Back",
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Looper',
+            url: 'https://www.looper.com/1511791/taylor-swift-you-belong-with-me-music-video-actor-lucas-till-today/',
+            source_title: "What The Actor From Taylor Swift's You Belong With Me Music Video Looks Like Today",
+            publisher: 'Looper',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

@@ -630,9 +630,9 @@ export default {
       year: 2011,
       month: 4,
       category: 'sighting',
-      title: 'An Anthropologie run the morning after her second ACM win',
+      title: 'An Anthropologie run the morning after her first ACM Entertainer of the Year win',
       snippet:
-        'Chatting on her cell phone while browsing racks at an Anthropologie in Beverly Hills — less than a day after winning Entertainer of the Year at the ACMs for the second year running.',
+        'Chatting on her cell phone while browsing racks at an Anthropologie in Beverly Hills — less than a day after her first Entertainer of the Year win at the ACMs.',
       sourceUrl: 'https://www.justjared.com/photo-gallery/2532939/taylor-swift-anthropologie-11/',
       thumbnailUrl:
         'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2011/04/swift-anthropologie/taylor-swift-anthropologie-11.jpg',
@@ -934,6 +934,491 @@ export default {
             credit: 'Eva Rinaldi / Wikimedia Commons',
           },
         ],
+      },
+    },
+
+    // --- Deep timeline fill (2026-07-08, content/deep-a): the era's full
+    // singles run + live album + Hunger Games one-off (release was empty),
+    // tour depth, the awards year, and the relationships' documented starts.
+    // Every claim verified against its cited source this session; business
+    // and relationship items carry two independent sources per the framework.
+    {
+      slug: 'mine-rush-release',
+      year: 2010,
+      month: 8,
+      category: 'release',
+      title: 'Mine leaks, so the label ships it 12 days early',
+      snippet:
+        'An unauthorized MP3 of "Mine" hit the internet in early August 2010 — Big Machine answered by rushing the lead single to radio and iTunes on Aug. 4, twelve days ahead of schedule.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
+            source_title: "Taylor Swift's 'Mine' Single Leaks",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/',
+            source_title: 'Taylor Swift Rush Releases "Mine" to Radio After Internet Leak',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'speak-now-album-release',
+      year: 2010,
+      month: 10,
+      category: 'release',
+      title: 'Speak Now arrives, no co-writers allowed',
+      snippet:
+        'Oct. 25, 2010: the third album lands — fourteen tracks written alone between 18 and 20, released into a week that ended with a million copies sold.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+      moment: {
+        context:
+          'The solo writing wasn\'t incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Speak_Now',
+            source_title: 'Speak Now',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'back-to-december-single-release',
+      year: 2010,
+      month: 11,
+      category: 'release',
+      title: 'Back to December goes to radio as single two',
+      snippet:
+        'The apology song becomes the second single in November 2010 — the first time she\'d ever sent an "I\'m sorry" to country radio.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Back_to_December',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
+      moment: {
+        context:
+          'Chosen as the follow-up to "Mine" within weeks of the album\'s release; the apology\'s recipient stayed officially unnamed until Taylor Lautner confirmed, years later, that it was him.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Back_to_December',
+            source_title: 'Back to December',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
+            credit: 'Big Machine Records (single cover art)',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'mean-single-release',
+      year: 2011,
+      month: 3,
+      category: 'release',
+      title: 'Mean, the banjo single, goes to country radio',
+      snippet:
+        'March 2011: the album\'s bluegrass-leaning critic clapback becomes single three — the one that would end up with two Grammys and a live banjo on the Grammy stage.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Mean_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Mean_(song)',
+            source_title: 'Mean (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'sparks-fly-single-release',
+      year: 2011,
+      month: 7,
+      category: 'release',
+      title: 'Sparks Fly: the fans finally get their single',
+      snippet:
+        'July 18, 2011: a song written at 16 and bootlegged from 2007 bar shows becomes the album\'s fifth single — because fans simply would not stop asking for it.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Sparks_Fly_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'A fan-filmed 2007 performance circulated online for years, and backstage requests at the 2010 CMA Music Festival pushed her to rework the song for Speak Now. The single just made official what tour setlists already knew.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Sparks_Fly_(song)',
+            source_title: 'Sparks Fly (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'speak-now-world-tour-live-album',
+      year: 2011,
+      month: 11,
+      category: 'release',
+      title: 'The first live album: Speak Now World Tour Live',
+      snippet:
+        'Nov. 21, 2011: a CD-plus-DVD of the North American leg arrives — the full show on film, plus tour covers of Train\'s "Drops of Jupiter," "Bette Davis Eyes," and the Jackson 5\'s "I Want You Back."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour_%E2%80%93_Live',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her first live album, released through Big Machine while the era was still running; it debuted at No. 11 on the Billboard 200 with 77,000 first-week copies.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour_%E2%80%93_Live',
+            source_title: 'Speak Now World Tour – Live',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'safe-and-sound-surprise-drop',
+      year: 2011,
+      month: 12,
+      category: 'release',
+      title: 'Safe & Sound appears the day after Christmas',
+      snippet:
+        'Dec. 26, 2011: a haunted, stripped-down Hunger Games ballad with The Civil Wars lands on iTunes — a first glimpse of the indie-folk register she\'d fully move into a decade later.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Producer T Bone Burnett had the Civil Wars over to his house after a Los Angeles show; Swift, who\'d spent two days reading the novel, wrote "Safe & Sound" with them in about two hours, singing from Katniss Everdeen\'s perspective. It went on to win the Grammy for Best Song Written for Visual Media.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)',
+            source_title: 'Safe & Sound (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'speak-now-title-track-origin',
+      year: 2010,
+      month: 10,
+      category: 'music',
+      title: 'Speak Now, the title track: a wedding she never crashed',
+      snippet:
+        'The album\'s namesake started with a friend\'s story — the boy she\'d loved since childhood was marrying, in Swift\'s telling, a "horrible, controlling, mean girl" — so Swift wrote the objection scene as fiction.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She filed it among the album\'s hypotheticals — songs that are "an extension of my feelings and hypothetically what I would do" — rather than autobiography, and said a dream about an ex\'s wedding helped knit the song together.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Speak_Now_(song)',
+            source_title: 'Speak Now (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/behind-the-meaning-of-taylor-swifts-speak-now/',
+            source_title: 'Behind the Meaning of Taylor Swift\'s "Speak Now"',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'speak-now-na-leg-omaha',
+      year: 2011,
+      month: 5,
+      category: 'tour',
+      title: 'The North American leg opens in Omaha',
+      snippet:
+        'May 27, 2011: after opening runs through Asia and Europe, the Speak Now World Tour lands stateside in Omaha — the start of a summer-and-fall North American run.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The North American leg became the stretch the era is remembered by — the theatrical staging, the costume changes, and above all the parade of surprise-guest duets that peaked in Los Angeles that August.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
+            source_title: 'Speak Now World Tour',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'staples-center-guest-week',
+      year: 2011,
+      month: 8,
+      category: 'tour',
+      title: 'Guest-a-night week at Staples Center',
+      snippet:
+        'Four August nights in LA, four cameos: "Baby" with Justin Bieber, "I\'m Yours" with Jason Mraz, "Tonight Tonight" with Hot Chelle Rae, and "Super Bass" with Nicki Minaj.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Speak Now tour\'s surprise-duet tradition peaked in Los Angeles, Aug. 23-28, 2011 — a different guest most nights, from country neighbors to whoever owned pop radio that month. The habit never left her shows; the Eras Tour\'s surprise-song slot is its direct descendant.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
+            source_title: 'Speak Now World Tour',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'acm-entertainer-2011',
+      year: 2011,
+      month: 4,
+      category: 'business',
+      title: 'Her first Entertainer of the Year at the ACMs',
+      snippet:
+        'April 3, 2011: the Academy of Country Music hands her its top award for the first time — "This is the first time that I\'ve ever won this," she said, on a night Miranda Lambert won four trophies.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-wins-entertainer-of-the-year-at-acm-awards-472222/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The win came mid-tour, a genuine surprise on a Lambert-dominated night, and made the industry\'s verdict on the all-solo-writing gambit explicit. The next morning she was photographed browsing an Anthropologie in Beverly Hills — see the sighting entry.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-wins-entertainer-of-the-year-at-acm-awards-472222/',
+            source_title: 'Taylor Swift Wins Entertainer of the Year at ACM Awards',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-entertainer-of-the-year-2011-acm-awards/',
+            source_title: 'Taylor Swift Takes Top Honors as Entertainer of the Year Winner at 2011 ACMs',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'billboard-woman-of-year-2011',
+      year: 2011,
+      month: 12,
+      category: 'business',
+      title: "Billboard's youngest-ever Woman of the Year",
+      snippet:
+        'Dec. 2, 2011: Billboard names her Woman of the Year at 21 — the youngest recipient in the award\'s history, on the strength of a year in which she out-sold every albums artist in any genre.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-named-billboard-woman-of-the-year-2-1164046/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Billboard\'s citation leaned on the numbers: the top-selling albums artist of the previous 12 months, an entirely self-written No. 1 album, and a sold-out world tour. She\'d win the award again in 2014, the first woman to take it twice.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-named-billboard-woman-of-the-year-2-1164046/',
+            source_title: 'Taylor Swift Named Billboard Woman of the Year',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-billboard-woman-of-the-year-2011/',
+            source_title: 'Taylor Swift Crowned 2011 Billboard Woman of the Year',
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'gyllenhaal-rumors-fall-2010',
+      year: 2010,
+      month: 11,
+      category: 'relationship',
+      title: 'The Jake Gyllenhaal rumors go public',
+      snippet:
+        'Fall 2010: a backstage SNL sighting in October becomes a Brooklyn coffee run by Thanksgiving — the never-confirmed relationship fans would spend the next decade mapping onto Red.',
+      sourceUrl: 'https://www.elitedaily.com/dating/taylor-swift-jake-gyllenhaal-rumored-relationship-timeline',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Neither ever confirmed it on the record; the timeline exists entirely through sightings — SNL in October, Gorilla Coffee on Thanksgiving — and the split reports that followed in January.',
+        sources: [
+          {
+            outlet: 'Elite Daily',
+            url: 'https://www.elitedaily.com/dating/taylor-swift-jake-gyllenhaal-rumored-relationship-timeline',
+            source_title: 'Taylor Swift and Jake Gyllenhaal\'s Rumored Relationship Timeline',
+            publisher: 'Elite Daily',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Yahoo Sports',
+            url: 'https://sports.yahoo.com/amphtml/did-taylor-swift-jake-gyllenhaal-112739224.html',
+            source_title: 'Did Taylor Swift and Jake Gyllenhaal Date?',
+            publisher: 'Yahoo',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'conor-kennedy-first-linked',
+      year: 2012,
+      month: 7,
+      category: 'relationship',
+      title: 'First linked to Conor Kennedy in Hyannis Port',
+      snippet:
+        'July 2012: reports first tie her to RFK\'s 18-year-old grandson Conor Kennedy, with sightings around the family\'s Hyannis Port compound — the start of the summer the tabloids couldn\'t get enough of.',
+      sourceUrl: 'https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The romance ran through the summer — beach sightings, family volleyball, Ethel Kennedy\'s on-record approval — and was quietly over by fall. See August\'s entries for how thoroughly it was documented.',
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind',
+            source_title: 'Taylor Swift & Conor Kennedy: Romance Rewind',
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Nicki Swift',
+            url: 'https://www.nickiswift.com/271614/the-truth-about-taylor-swifts-relationship-with-conor-kennedy/',
+            source_title: "The Truth About Taylor Swift's Relationship With Conor Kennedy",
+            publisher: 'Nicki Swift',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'zac-efron-ellen-duet',
+      year: 2012,
+      month: 2,
+      category: 'sighting',
+      title: 'Teaching Zac Efron guitar on Ellen',
+      snippet:
+        'Feb. 21, 2012: promoting The Lorax, she and Zac Efron duet an acoustic "Pumped Up Kicks" on Ellen — with the lyrics rewritten to be entirely about Ellen DeGeneres.',
+      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-and-zac-efron-cover-pumped-up-kicks-on-ellen/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift had been teaching her Lorax co-star to play guitar; the rewritten cover — cheat-sheet lyrics in hand — became one of the show\'s most replayed musical bits from that year.',
+        sources: [
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-and-zac-efron-cover-pumped-up-kicks-on-ellen/',
+            source_title: 'Taylor Swift and Zac Efron cover "Pumped Up Kicks" on "Ellen"',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'YouTube (TheEllenShow)',
+            url: 'https://www.youtube.com/watch?v=d8kCTPPwfpM',
+            source_title: 'Taylor Swift and Zac Efron Sing a Duet!',
+            publisher: 'YouTube',
+            source_type: 'video',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
       },
     },
   ],
