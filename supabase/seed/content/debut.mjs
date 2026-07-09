@@ -25,8 +25,11 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
-          "She brought it to co-writer Liz Rose that day — an idea about a senior boyfriend leaving for college — and they finished \"Tim McGraw\" together at the piano after school.",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)' }],
+          "She started singing \"When you think Tim McGraw\" to herself in freshman-year math class — the boyfriend was a senior about to leave for college, and the song became a list of things that would make him remember her. She finished it with co-writer Liz Rose at a piano after school in about fifteen minutes; her verdict, per Songfacts: \"It may be the best fifteen minutes I've ever experienced.\" Rose has always handed her the credit, saying Swift arrived \"with the idea and the melody, knowing exactly what she wanted\" — and Swift insisted it open the record: \"This song means so much to me, that's why we wanted it to be the first track on the album.\"",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)' },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/tim-mcgraw' },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
@@ -45,7 +48,12 @@ export default {
       sourceUrl: 'https://tasteofcountry.com/taylor-swift-grand-ole-opry-debut/',
       thumbnailUrl: null,
       moment: {
-        sources: [{ outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-grand-ole-opry-debut/' }],
+        context:
+          'Sept. 1, 2006: "Tim McGraw" had been at country radio for barely ten weeks, the album was still almost two months away, and the newest signing at a just-launched independent label walked onto country music\'s most sacred stage to sing her only single. Taste of Country\'s retrospective is blunt about the odds — at the time, "the notion of a teenage girl succeeding in country music seemed pretty far-fetched." The bet paid off fast enough that she spent the next several years as a regular on the Opry stage.',
+        sources: [
+          { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-grand-ole-opry-debut/' },
+          { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-grand-ole-opry-debut/' },
+        ],
         photos: [],
       },
     },
@@ -60,11 +68,14 @@ export default {
         'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
       thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/de4e0b4b6195-gettyimages-107486334.jpg',
       moment: {
+        context:
+          'The dress was the frame; the night was the milestone. "Tim McGraw" took Breakthrough Video of the Year at the 2007 CMT Music Awards — per Hello!, the first award of her career — for the Trey Fanjoy-directed video shot at a Hendersonville, Tennessee cabin once owned by Johnny Cash. Hello!\'s retrospective logs the winning look in full (strapless neckline, neutral tones, tulle skirt) and notes she changed into a shimmery sea-green gown with a long train to present another award later that evening.',
         sources: [
           {
             outlet: 'Hello!',
             url: 'https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/',
           },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)' },
         ],
         photos: [
           {
@@ -85,9 +96,12 @@ export default {
       thumbnailUrl:
         'https://media.gettyimages.com/id/77795920/photo/41st-annual-cma-awards-press-room.jpg?s=594x594&w=0&k=20&c=Pps0NDhapuDnUOXIZdnjsgbreJehja48sZzwGrprAcg=',
       moment: {
+        context:
+          'At the 41st CMA Awards in Nashville, she took the Horizon Award over a nominee class of Jason Aldean, Rodney Atkins, Little Big Town, and Kellie Pickler — and delivered the acceptance line that dates the whole era: "This is definitely the highlight of my senior year." The Horizon trophy, since renamed New Artist of the Year, was the first of the dozen career CMA Awards CBS would eventually count — handed to a 17-year-old who was, as the speech says, still technically in her senior year.',
         sources: [
           { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-reacts-to-cmas-win/' },
           { outlet: 'Forbes', url: 'https://www.forbes.com/pictures/geeg45eilhf/2007-success-is-on-the/' },
+          { outlet: 'The Boot', url: 'https://theboot.com/cma-awards-winners-list/' },
         ],
         photos: [
           {
@@ -107,7 +121,7 @@ export default {
       thumbnailUrl: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
       moment: {
         context:
-          'Her own account, on the real couple next door: "All I had to do was go home and look next door to see a perfect example of forever."',
+          'The couple came over for dinner and told the story of how they\'d met as kids — and Swift, then 16, turned it into the debut\'s only whole-life love story, written with Liz Rose and Brian Maher. Her full quote reads like a thesis statement for the album: "You can go to the grocery store and read the tabloids... it was really comforting to know that all I had to do was go home and look next door to see a perfect example of forever." Then the song disappeared: per Songfacts she didn\'t perform it again after 2008 until July 6, 2024, when it resurfaced in an Eras Tour surprise-song mashup in Amsterdam.',
         sources: [
           {
             outlet: 'Rolling Stone Australia',
@@ -133,8 +147,11 @@ export default {
       thumbnailUrl: "https://upload.wikimedia.org/wikipedia/en/6/6b/Taylor_Swift_-_Should%27ve_Said_No_artwork.png",
       moment: {
         context:
-          "She's said many of the lyrics were the actual words she used confronting a boyfriend who'd cheated on her — reworked into her second country No. 1.",
-        sources: [{ outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/Should've_Said_No" }],
+          "Written alone, two days before the album was mastered, and finished overnight with producer Nathan Chapman: \"It literally took me just 20 minutes to write,\" by her own account — about a boyfriend who'd cheated, with many lyrics lifted from the actual confrontation (\"I was living every line in this song at the time\"). She drew a line between it and her other kiss-off: where \"Picture to Burn\" was pure anger, this one was \"more of a moral statement.\" Released as the album's fifth and final single in May 2008, it became her second Hot Country Songs No. 1 — and when it hit the country top 10 that July, she became the first solo female artist since 1964 to pull five top-10 country hits from a debut album.",
+        sources: [
+          { outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/Should've_Said_No" },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/shouldve-said-no' },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6b/Taylor_Swift_-_Should%27ve_Said_No_artwork.png',
@@ -174,6 +191,8 @@ export default {
       sourceUrl: 'https://www.billboard.com/pro/taylor-swift-our-song-this-week-in-billboard-chart-history-2007/',
       thumbnailUrl: 'https://www.wideopencountry.com/wp-content/uploads/sites/4/2021/04/Untitled-design-241.png?fit=798%2C526',
       moment: {
+        context:
+          'In December 2007 it began a six-week reign at No. 1 on Hot Country Songs — a song she had written alone for her ninth-grade talent show, which made her, per Wikipedia\'s chart accounting, the youngest person ever to single-handedly write and sing a Hot Country Songs No. 1. Its jump to the top from No. 6 was the chart\'s biggest leap since 1998. She never claimed to have seen it coming: "I never thought it was going to be on an album... I never thought it would be a single, I never thought it would go No. 1."',
         sources: [
           {
             outlet: 'Billboard',
@@ -183,6 +202,7 @@ export default {
             outlet: 'Wide Open Country',
             url: 'https://www.wideopencountry.com/our-song-taylor-swift/',
           },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Our_Song_(Taylor_Swift_song)' },
         ],
         photos: [
           {
@@ -700,7 +720,8 @@ export default {
       sourceUrl: 'https://www.justjared.com/2008/11/06/joe-jonas-taylor-swift-phone-call-dump/',
       thumbnailUrl: null,
       moment: {
-        context: 'She told the story herself on Ellen the following month, timing included.',
+        context:
+          'She told the story herself on Ellen that November: "He broke up with me over the phone in 25 seconds when I was 18" — then, after checking the call log, revised the count to 27. The composure was the point of the bit: "When I find that person that is right for me... I\'m not even going to remember the boy who broke up with me over the phone." Fearless arrived that same month carrying "Forever & Always," written about watching the relationship fade — and she also told Us Weekly he\'d left for Camilla Belle ("That\'s why we broke up — because he met her"). A decade on, she recanted the takedown on the same couch, calling it "the most rebellious thing" she did as a teenager; the two eventually landed back at friendship.',
         sources: [
           { outlet: 'Just Jared', url: 'https://www.justjared.com/2008/11/06/joe-jonas-taylor-swift-phone-call-dump/' },
           {
@@ -765,7 +786,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Strait tour kicked off a 2007 in which she basically never stopped opening: Strait dates in the winter, Brad Paisley in the spring, and Tim McGraw and Faith Hill\'s stadium shows in the summer — the road apprenticeship that sold her debut album one market at a time.',
+          'The run opened Jan. 11, 2007 at the Cajundome in Lafayette, Louisiana and carried through March 3, with Ronnie Milsap also on the bill; the announcement quoted a 17-year-old who could not quite believe the booking: "I couldn\'t imagine anything more thrilling than to be on a tour with George Strait... This is surreal! I keep pinching myself to make sure this isn\'t just a dream." It kicked off a 2007 in which she basically never stopped opening — Strait in the winter, Brad Paisley in the fall, Tim McGraw and Faith Hill\'s stadium shows in the summer — the road apprenticeship that sold her debut album one market at a time.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -775,6 +796,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Country Standard Time',
+            url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=283',
+            source_title: 'Taylor Swift opens Strait tour',
+            publisher: 'Country Standard Time',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 3,
           },
         ],
         photos: [],
@@ -906,7 +936,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
-          'The bet was that the sentiment — a summer love you re-live every time a certain song comes on — would out-travel the novelty of the title. It did: the single climbed to No. 6 on Hot Country Songs and introduced the writing voice the album confirmed that October.',
+          'The bet was that the sentiment — a summer love you re-live every time a certain song comes on — would out-travel the novelty of the title; the name is there because her favorite song was a McGraw song, not because the song is about him. It worked slowly, the way everything in this era did: the single debuted at No. 86 on the Hot 100 in September and didn\'t peak (No. 40) until January, while climbing to No. 6 on Hot Country Songs across 20 Hot 100 weeks. The Trey Fanjoy video, shot at a Hendersonville cabin once owned by Johnny Cash, premiered a month after the radio release — and Rolling Stone has since ranked the single No. 11 on its list of the greatest debut singles of all time.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -915,6 +945,15 @@ export default {
             publisher: 'Wikipedia',
             source_type: 'wiki',
             accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Songfacts',
+            url: 'https://www.songfacts.com/facts/taylor-swift/tim-mcgraw',
+            source_title: 'Tim McGraw by Taylor Swift',
+            publisher: 'Songfacts',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
             reliability_score: 2,
           },
         ],
@@ -938,7 +977,7 @@ export default {
       thumbnailUrl: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
       moment: {
         context:
-          'It entered the Billboard 200 quietly and then simply refused to leave, eventually peaking at No. 5 — the slow, market-by-market climb that the next two albums would detonate.',
+          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record. It sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. Billboard\'s tenth-anniversary retrospective put it simply: she arrived, at 16, "with a fully formed idea of herself as an artist."',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -948,6 +987,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-debut-album-anniversary-7550054/',
+            source_title: "Taylor Swift's Debut Album Turns 10: A Track-by-Track Retrospective",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [
@@ -971,7 +1019,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG',
       moment: {
         context:
-          'The crossover was the tell. A pop remix carried "Teardrops on My Guitar" to No. 13 on the Billboard Hot 100 — her highest pop placement until "Love Story" — and flagged, two years early, exactly where this career was headed.',
+          'The crossover was the tell. Big Machine sent it to country radio on Feb. 20, 2007 and then — the real move — to contemporary hit radio that November; it peaked at No. 2 on Hot Country Songs and No. 13 on the Billboard Hot 100, and its 21 weeks on the Pop Songs chart (reaching the top 10) made it her first pop crossover hit. It won BMI\'s country Song of the Year in 2008, hung around the year-end charts two years running, and flagged, two years early, exactly where this career was headed.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -980,6 +1028,15 @@ export default {
             publisher: 'Wikipedia',
             source_type: 'wiki',
             accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Songfacts',
+            url: 'https://www.songfacts.com/facts/taylor-swift/teardrops-on-my-guitar',
+            source_title: 'Teardrops on My Guitar by Taylor Swift',
+            publisher: 'Songfacts',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
             reliability_score: 2,
           },
         ],
@@ -996,15 +1053,15 @@ export default {
       year: 2008,
       month: 2,
       category: 'release',
-      title: 'Picture to Burn closes out the debut singles',
+      title: 'Picture to Burn makes it four straight top 10s',
       snippet:
-        'The fourth and final single from the debut goes to country radio in February 2008 — with the original\'s sharpest line rewritten for airplay.',
+        'The fourth single from the debut goes to country radio in February 2008 — with the original\'s sharpest line rewritten for airplay.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Picture_to_Burn',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
       moment: {
         context:
-          'It peaked at No. 3 on Hot Country Songs — the fourth straight top-10 country single from an album that still hadn\'t stopped selling, closing the debut\'s radio run just as Fearless sessions ramped up.',
+          'Sent to country radio on Feb. 4, 2008, it peaked at No. 3 on Hot Country Songs and No. 28 on the Hot 100 — the fourth straight top-10 country single from an album that still hadn\'t stopped selling, with "Should\'ve Said No" still to come as the fifth that May. The Trey Fanjoy video, premiered March 14, staged the revenge fantasy with real pyrotechnics at Nashville\'s Sommet Center and cast her actual high-school best friend, Abigail Anderson, in her backup band. Billboard\'s anniversary retrospective files it as the founding document of her "woman-scorned" mode; the RIAA eventually certified it double platinum.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1014,6 +1071,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-debut-album-anniversary-7550054/',
+            source_title: "Taylor Swift's Debut Album Turns 10: A Track-by-Track Retrospective",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1031,7 +1097,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'No song on the debut travelled further from its origin: a talent-show number written because she needed something upbeat to play for her class, remembered by classmates long afterward — which is how she knew it had to make the album. A year later it was her first No. 1.',
+          'No song on the debut travelled further from its origin: a talent-show number she wrote alone as a ninth-grader, which classmates kept humming back at her long afterward — the signal that made her insist the label put it on the album. Released to country radio on Sept. 10, 2007 as the third single, it jumped from No. 6 to No. 1 on Hot Country Songs (the chart\'s biggest leap to the top since 1998) and stayed there six weeks. The Trey Fanjoy video premiered on CMT that Sept. 24, sat atop the channel\'s rotation for seven weeks, and won Video of the Year at the 2008 CMT Music Awards.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1139,7 +1205,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Won at the 43rd ACM Awards in Las Vegas — the same night as the performance everyone remembers from that show, "Should\'ve Said No" ending with her drenched under onstage rain.',
+          'She\'d been nominated for the same award in 2007 and lost; the 2008 win came on her second try, a night she was also up for Top Female Vocalist and Album of the Year. Taste of Country counts it as the first of nine career ACM trophies — a run that ends in two Entertainer of the Year awards — and it landed the same night as the performance everyone remembers from that show, "Should\'ve Said No" ending with her drenched under onstage rain.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1175,7 +1241,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'A debut-album deep cut staged into the night\'s most replayed moment, with water pouring down on her for the final chorus. Country outlets still rank it among her definitive award-show performances.',
+          'She opened the song disguised in a hooded sweatshirt and jeans, made an onstage costume change into a black dress mid-performance, and sang the final lines under pouring rain — the room answering with a standing ovation. Big Machine liked the staging enough that the footage became the song\'s official music video. Country outlets still rank it among her definitive award-show performances; it also happened the same night she collected her first ACM Award, Top New Female Vocalist.',
         sources: [
           {
             outlet: 'Taste of Country',
@@ -1185,6 +1251,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 3,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: "https://en.wikipedia.org/wiki/Should've_Said_No",
+            source_title: "Should've Said No",
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
+            reliability_score: 2,
           },
           {
             outlet: 'YouTube',
@@ -1211,7 +1286,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The relationship ran July to October 2008, kept officially unacknowledged in real time. Its ending — a 27-second phone call — got an item of its own on this timeline, plus a last-minute Fearless track.',
+          'The relationship ran July to October 2008, kept officially unacknowledged in real time — the tells were her turning up to sing with the Jonas Brothers on their Burnin\' Up tour dates and the two being spotted together at the MTV VMAs that September. Its ending — a 27-second phone call — got an item of its own on this timeline, plus a last-minute Fearless track ("Forever & Always," with fans later adding "Last Kiss" to the ledger). By 2015 the two were photographed double-dating as friends.',
         sources: [
           {
             outlet: 'Capital FM',
@@ -1247,7 +1322,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Concert archives from that fall show her billed nightly under Paisley and Rodney Atkins — the last long stretch of the opening-act years before Fearless made her the headliner.',
+          'Thirty announced fall dates, from London, Ontario through Grand Rapids, on a tour that totaled 75 shows that year — with Swift and Rodney Atkins opening the entire second leg. Country Standard Time\'s announcement is a snapshot of her mid-2007 résumé: one hit single ("Tim McGraw"), a debut album newly certified gold, and support slots for Rascal Flatts and George Strait already behind her. Concert archives from that fall show her billed nightly under Paisley — the last long stretch of the opening-act years before Fearless made her the headliner.',
         sources: [
           {
             outlet: 'Country Standard Time',
