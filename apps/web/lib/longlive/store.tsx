@@ -49,6 +49,13 @@ interface AppState {
   theoryGuideEraId: EraId | null;
   /** Whether the era selector overlay is open. */
   selectorOpen: boolean;
+  /** Whether the search overlay is open. */
+  searchOpen: boolean;
+  /**
+   * Glossary drawer state: null = closed; open with an optional entry id to
+   * scroll to / highlight (set when arriving from a search result).
+   */
+  glossary: { entryId: string | null } | null;
   /** Whether the share sheet is open, and for what target. */
   share: ShareTarget | null;
   /**
@@ -118,6 +125,11 @@ interface AppActions {
   /** Invalidate any saved position — explicit jumps land at the top instead. */
   clearEraScroll: () => void;
   setSelectorOpen: (open: boolean) => void;
+  /** Open/close the search overlay. */
+  setSearchOpen: (open: boolean) => void;
+  /** Open the glossary drawer, optionally focused on one entry. */
+  openGlossary: (entryId?: string) => void;
+  closeGlossary: () => void;
   openShare: (t: ShareTarget) => void;
   closeShare: () => void;
 }
@@ -220,6 +232,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [trackGuideEraId, setTrackGuideEraId] = useState<EraId | null>(null);
   const [theoryGuideEraId, setTheoryGuideEraId] = useState<EraId | null>(null);
   const [selectorOpen, setSelectorOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [glossary, setGlossary] = useState<{ entryId: string | null } | null>(null);
   const [share, setShare] = useState<ShareTarget | null>(null);
   const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
 
@@ -315,6 +329,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setOpenItemId(null);
     setTrackGuideEraId(null);
     setTheoryGuideEraId(null);
+    setSearchOpen(false);
+    setGlossary(null);
     setShare(null);
   }, [clearEraScroll]);
 
@@ -369,6 +385,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
       getEraScroll,
       clearEraScroll,
       setSelectorOpen,
+      setSearchOpen,
+      openGlossary: (entryId?: string) => setGlossary({ entryId: entryId ?? null }),
+      closeGlossary: () => setGlossary(null),
       openShare: setShare,
       closeShare: () => setShare(null),
     }),
@@ -388,8 +407,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const state = useMemo<AppState>(
-    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, share, clueWebTrail }),
-    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, share, clueWebTrail],
+    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail }),
+    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail],
   );
 
   return (
