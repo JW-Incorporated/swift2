@@ -9,6 +9,21 @@ import { getEra } from '@/lib/longlive/eras';
 import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
+import type { Confidence } from '@/lib/longlive/types';
+
+// At/above this tier a moment is established fact — no pill. Below it, a
+// confidence pill renders so a claim never reads as unqualified fact.
+const CONFIRMED_TIER: ReadonlySet<Confidence> = new Set(['official', 'confirmed_interview']);
+const CONFIDENCE_LABEL: Record<Confidence, string> = {
+  official: 'Official',
+  confirmed_interview: 'Confirmed',
+  reputable_reporting: 'Reported',
+  strong_fan_consensus: 'Fan consensus',
+  plausible: 'Plausible',
+  clowning: 'Clowning',
+  disproven: 'Disproven',
+  joke_meme: 'Joke / meme',
+};
 
 export function MomentDetail() {
   const { openItemId, share } = useAppState();
@@ -99,6 +114,14 @@ export function MomentDetail() {
               {TAG_META[t].label}
             </span>
           ))}
+          {item.confidence && !CONFIRMED_TIER.has(item.confidence) && (
+            <span
+              className="rounded-full border px-2.5 py-0.5 text-xs font-medium text-[color:var(--era-ink-soft)]"
+              style={{ borderColor: 'var(--era-line)' }}
+            >
+              {CONFIDENCE_LABEL[item.confidence]}
+            </span>
+          )}
         </div>
 
         <div className="mt-7 space-y-4 text-lg leading-relaxed text-[color:var(--era-ink)]">
@@ -110,6 +133,27 @@ export function MomentDetail() {
         </div>
 
         {item.video && <MomentVideo video={item.video} />}
+
+        {item.sources && item.sources.length > 0 && (
+          <div className="mt-8 border-t pt-4" style={{ borderColor: 'var(--era-line)' }}>
+            <p className="text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+              {item.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
+              {item.sources.map((s, i) => (
+                <span key={`${s.url}-${i}`}>
+                  {i > 0 && ', '}
+                  <a
+                    href={s.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
+                  >
+                    {s.name}
+                  </a>
+                </span>
+              ))}
+            </p>
+          </div>
+        )}
 
         {item.hiddenClue && (
           <div className="era-card mt-8 rounded-2xl border p-5">
