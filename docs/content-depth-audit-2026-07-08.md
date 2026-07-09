@@ -221,6 +221,39 @@ Confirmed present vs. absent, from the six audits:
 
 ---
 
+## D2. Completeness axis (breadth) — separate from depth, and unbounded
+
+Depth/quality (above) is boundable and must hit 100% before ship. Breadth —
+whether we've captured *every* real public appearance/statement/moment — is
+not boundable in the same way (there is no final list of every time Taylor
+Swift has ever appeared anywhere), so it can't be a ship gate. It still needs
+a way to measure "are we getting close," per the discovery that the corpus
+had zero Jimmy Kimmel Live appearances despite several being real and
+findable. Three tiers, in ship-priority order:
+
+- **Tier 1 — Wikipedia's own curated lists (bounded, ship-blocking).** The
+  main Taylor Swift article, "List of awards and nominations," videography,
+  and each tour's own article. These are finite, externally-curated lists —
+  "do we have every entry on this specific page" is a checkable, closeable
+  task. This is the actual completeness gate for v1.
+- **Tier 2 — real but secondary appearances (post-ship, ongoing).** Talk
+  show appearances (Kimmel, Fallon, etc.), podcast/radio appearances, award
+  show red carpets not already in Tier 1. Real and findable, but not
+  centrally indexed anywhere — fills in via an ongoing pipeline after ship,
+  never a blocker.
+- **Tier 3 — individual sightings/social posts (permanent background work).**
+  Unbounded by nature (a new one can happen any day); this is forever
+  in-progress and explicitly never a ship gate.
+
+**T17 (breadth).** Run a Tier 1 completeness check: pull Taylor Swift's own
+Wikipedia "List of awards and nominations" page, videography page, and each
+tour's Wikipedia article; confirm every entry has a corresponding item in
+`supabase/seed/**`. Report gaps as a checklist, don't silently backfill —
+backfilling is separate content work once gaps are confirmed real. Priority:
+**P1** (bounded, but not plumbing — schedule after the P0/P1 tickets in §G).
+
+---
+
 ## E. Page-by-page recommendations
 
 **Era mode (`EraSection`/`MomentDetail`):**
