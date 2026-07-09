@@ -12,6 +12,14 @@ import {
 } from 'react';
 import { CURRENT_ERA_ID, getEra } from './eras';
 import { THREADS } from './lenses';
+import {
+  emptyProgress,
+  readStoredProgress,
+  withAdded,
+  withToggled,
+  writeStoredProgress,
+  type Progress,
+} from './progress';
 import type { EraId, LensId, MotifId } from './types';
 
 export type AppMode = 'era' | 'threads';
@@ -114,8 +122,93 @@ interface AppActions {
   closeShare: () => void;
 }
 
+/**
+ * Exploration progress (visited moments, seen eggs/trails, favorites) —
+ * persisted to localStorage, in its own context pair so the low-frequency
+ * "mark seen" writes don't re-render everything hanging off AppState.
+ */
+export interface ProgressState {
+  progress: Progress;
+  /**
+   * False on the server and on the first client paint; flips true once the
+   * post-mount localStorage read lands. Progress-driven UI that should not
+   * "pop" (e.g. a completion card) can gate on it — everything renders the
+   * empty-progress state first, so server and client markup always match.
+   */
+  hydrated: boolean;
+}
+
+export interface ProgressActions {
+  /** Record that a moment's detail view was opened. Idempotent. */
+  markMomentVisited: (id: string) => void;
+  /** Record Clue Web egg nodes as read. Idempotent. */
+  markEggsSeen: (ids: readonly string[]) => void;
+  /** Record that a motif's trail view was opened. Idempotent. */
+  markTrailSeen: (motif: MotifId) => void;
+  /** Heart / un-heart a moment. */
+  toggleFavorite: (id: string) => void;
+}
+
 const StateCtx = createContext<AppState | null>(null);
 const ActionsCtx = createContext<AppActions | null>(null);
+const ProgressStateCtx = createContext<ProgressState | null>(null);
+const ProgressActionsCtx = createContext<ProgressActions | null>(null);
+
+/**
+ * SSR-safe persistence, following the TimelineScrubber hint-flag pattern:
+ * first render (server AND client) is always empty progress, the real blob is
+ * read in a mount effect, and every subsequent change is written back. If
+ * localStorage is unavailable (private mode), reads/writes silently no-op and
+ * the session simply isn't remembered.
+ */
+function ProgressProvider({ children }: { children: ReactNode }) {
+  const [progress, setProgress] = useState<Progress>(emptyProgress);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Hydrate after mount — never during render, so there is no SSR read and no
+  // hydration mismatch. StrictMode's double-invoke just re-reads the same blob.
+  useEffect(() => {
+    setProgress(readStoredProgress());
+    setHydrated(true);
+  }, []);
+
+  // Write on change — but only after hydration, so the initial empty state
+  // can never clobber a returning visitor's stored progress.
+  useEffect(() => {
+    if (hydrated) writeStoredProgress(progress);
+  }, [progress, hydrated]);
+
+  const actions = useMemo<ProgressActions>(
+    () => ({
+      markMomentVisited: (id) =>
+        setProgress((p) => {
+          const moments = withAdded(p.moments, [id]);
+          return moments === p.moments ? p : { ...p, moments };
+        }),
+      markEggsSeen: (ids) =>
+        setProgress((p) => {
+          const eggs = withAdded(p.eggs, ids);
+          return eggs === p.eggs ? p : { ...p, eggs };
+        }),
+      markTrailSeen: (motif) =>
+        setProgress((p) => {
+          const trails = withAdded(p.trails, [motif]);
+          return trails === p.trails ? p : { ...p, trails };
+        }),
+      toggleFavorite: (id) =>
+        setProgress((p) => ({ ...p, favorites: withToggled(p.favorites, id) })),
+    }),
+    [],
+  );
+
+  const state = useMemo<ProgressState>(() => ({ progress, hydrated }), [progress, hydrated]);
+
+  return (
+    <ProgressStateCtx.Provider value={state}>
+      <ProgressActionsCtx.Provider value={actions}>{children}</ProgressActionsCtx.Provider>
+    </ProgressStateCtx.Provider>
+  );
+}
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [mode, setModeRaw] = useState<AppMode>('era');
@@ -301,7 +394,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   return (
     <StateCtx.Provider value={state}>
-      <ActionsCtx.Provider value={actions}>{children}</ActionsCtx.Provider>
+      <ActionsCtx.Provider value={actions}>
+        <ProgressProvider>{children}</ProgressProvider>
+      </ActionsCtx.Provider>
     </StateCtx.Provider>
   );
 }
@@ -315,5 +410,17 @@ export function useAppState(): AppState {
 export function useAppActions(): AppActions {
   const ctx = useContext(ActionsCtx);
   if (!ctx) throw new Error('useAppActions must be used within AppProvider');
+  return ctx;
+}
+
+export function useProgress(): ProgressState {
+  const ctx = useContext(ProgressStateCtx);
+  if (!ctx) throw new Error('useProgress must be used within AppProvider');
+  return ctx;
+}
+
+export function useProgressActions(): ProgressActions {
+  const ctx = useContext(ProgressActionsCtx);
+  if (!ctx) throw new Error('useProgressActions must be used within AppProvider');
   return ctx;
 }
