@@ -169,6 +169,11 @@ async function loadSeedDir(dir, listKey) {
 
 const content = await loadSeedDir(join(seed, 'content'), 'items');
 const tracks = await loadSeedDir(join(seed, 'tracks'), 'tracks');
+// Non-month-scoped types (audit §4b) — dirs may not exist in older checkouts.
+const releases = await loadSeedDir(join(seed, 'releases'), 'releases');
+const tours = await loadSeedDir(join(seed, 'tours'), 'tours');
+const theories = await loadSeedDir(join(seed, 'theories'), 'theories');
+const videos = await loadSeedDir(join(seed, 'videos'), 'videos');
 
 // ---------------------------------------------------------------------------
 // Sweep
@@ -259,6 +264,76 @@ for (const { file, fileEra, row: t } of tracks.rows) {
   for (const hit of privateDataHits(text)) hardFails.push(`${at} [note]: private/location data — ${hit}`);
 }
 
+// New-type sweep (releases / tours / theories / videos): same stable-identity
+// + policy gates, keyed by slug instead of natural key. Also counts
+// rights-aware media refs and hard-fails any theory without its REQUIRED
+// confidence + outcome labels (un-labeled speculation must never ship).
+function sweepTyped(name, rows, textFieldsOf) {
+  const slugs = new Map();
+  for (const { file, fileEra, row } of rows) {
+    const era = row.eraSlug ?? fileEra;
+    const at = `${file} "${String(row.title ?? row.slug ?? '').slice(0, 48)}"`;
+    if (!era || !row.slug) hardFails.push(`${at}: missing stable identity (needs eraSlug + slug)`);
+    else if (slugs.has(row.slug)) hardFails.push(`${at}: duplicate ${name} slug (also in ${slugs.get(row.slug)})`);
+    else slugs.set(row.slug, file);
+
+    const urls = [...new Set((row.sources ?? []).map((s) => s.source_url ?? s.url).filter(Boolean))];
+    if (urls.length === 0) zeroSource += 1;
+    else if (urls.length === 1) singleSource += 1;
+
+    for (const m of row.media ?? []) {
+      mediaRefs += 1;
+      if (!m.rights) mediaNoRights += 1;
+    }
+    for (const s of row.sources ?? []) {
+      const ex = s.excerpt ?? '';
+      if (ex.length >= QUOTE_WARN_CHARS) longExcerpts += 1;
+    }
+
+    for (const [field, text] of textFieldsOf(row)) {
+      if (!text) continue;
+      if (looksLikeLyricsBlock(text)) hardFails.push(`${at} [${field}]: verse-like multi-line block — looks like stored lyrics`);
+      if (text.length > FIELD_FAIL_CHARS) hardFails.push(`${at} [${field}]: ${text.length} chars — article/body dump (> ${FIELD_FAIL_CHARS})`);
+      for (const span of quotedSpans(text)) {
+        if (span.length >= QUOTE_FAIL_CHARS) hardFails.push(`${at} [${field}]: verbatim quoted span of ${span.length} chars (>= ${QUOTE_FAIL_CHARS}) — statement/article dump`);
+        else if (span.length >= QUOTE_WARN_CHARS) longExcerpts += 1;
+      }
+      for (const hit of privateDataHits(text)) hardFails.push(`${at} [${field}]: private/location data — ${hit}`);
+    }
+  }
+  return slugs;
+}
+
+sweepTyped('release', releases.rows, (r) => [
+  ['title', r.title],
+  ['note', r.note],
+]);
+sweepTyped('tour', tours.rows, (r) => [
+  ['title', r.title],
+  ['note', r.note],
+  ['surpriseSongsNote', r.surpriseSongsNote],
+  ...(r.shows ?? []).flatMap((s, i) => [
+    [`shows[${i}].outfitNote`, s.outfitNote],
+    [`shows[${i}].setlistChange`, s.setlistChange],
+  ]),
+]);
+sweepTyped('theory', theories.rows, (r) => [
+  ['title', r.title],
+  ['claim', r.claim],
+  ['evidence', r.evidence],
+]);
+for (const { file, row } of theories.rows) {
+  if (!row.confidence || !row.outcome) {
+    hardFails.push(`${file} "${String(row.title ?? row.slug ?? '').slice(0, 48)}": theory without confidence+outcome — un-labeled speculation must never ship`);
+  }
+}
+sweepTyped('video', videos.rows, (r) => [
+  ['title', r.title],
+  ['summary', r.summary],
+  ['symbolism', r.symbolism],
+  ...(r.easterEggs ?? []).map((e, i) => [`easterEggs[${i}]`, e]),
+]);
+
 // Era skeleton identity (hard).
 const eraSlugs = new Set();
 for (const e of eras) {
@@ -290,6 +365,11 @@ const tourTitles = milestones.filter((m) => m.type === 'tour').map((m) => m.titl
 const missingAlbums = matchTitles(EXPECTED_ALBUM_RELEASES, albumTitles);
 const missingTours = matchTitles(EXPECTED_TOURS, tourTitles);
 
+// New-type coverage vs the same public-record expectations.
+const missingReleaseRecords = matchTitles(EXPECTED_ALBUM_RELEASES, releases.rows.map(({ row }) => row.title));
+const missingTourRecords = matchTitles(EXPECTED_TOURS, tours.rows.map(({ row }) => row.title));
+const countEras = (rows) => new Set(rows.map(({ row, fileEra }) => row.eraSlug ?? fileEra).filter(Boolean)).size;
+
 const thinEras = [];
 for (const slug of EXPECTED_ERAS) {
   const e = byEra.get(slug);
@@ -315,8 +395,10 @@ if (unexpectedEras.length) console.log(`             unexpected era slugs (updat
 console.log(`Albums:      ${albumTitles.length}/${EXPECTED_ALBUM_RELEASES.length} release milestones${missingAlbums.length ? ` — MISSING: ${missingAlbums.join(', ')}` : ''}`);
 console.log(`Tours:       ${tourTitles.length}/${EXPECTED_TOURS.length} tour milestones${missingTours.length ? ` — MISSING: ${missingTours.join(', ')}` : ''}`);
 console.log(`Songs:       ${tracks.rows.length} track notes across ${trackEras.size}/${EXPECTED_ERAS.length} era track guides${trackEras.size === 0 ? ' — track guide UNSTARTED (only the _example template exists)' : ''}`);
-console.log(`Videos:      not modeled — no video/visual-media category or shape yet (0 records)`);
-console.log(`Theories:    not modeled — no easter-egg/theory category or shape yet (0 records)`);
+console.log(`Releases:    ${releases.rows.length} release records — ${EXPECTED_ALBUM_RELEASES.length - missingReleaseRecords.length}/${EXPECTED_ALBUM_RELEASES.length} expected albums covered${missingReleaseRecords.length ? ` — MISSING: ${missingReleaseRecords.join(', ')}` : ''}`);
+console.log(`Tour recs:   ${tours.rows.length} tour records — ${EXPECTED_TOURS.length - missingTourRecords.length}/${EXPECTED_TOURS.length} expected tours covered${missingTourRecords.length ? ` — MISSING: ${missingTourRecords.join(', ')}` : ''}`);
+console.log(`Videos:      ${videos.rows.length} video works across ${countEras(videos.rows)} eras${videos.rows.length === 0 ? ' — UNSTARTED' : ''}`);
+console.log(`Theories:    ${theories.rows.length} easter-egg/theory records across ${countEras(theories.rows)} eras${theories.rows.length === 0 ? ' — UNSTARTED' : ''} (all require confidence+outcome)`);
 console.log('');
 
 console.log(`${pad('era', 24)}${num('items', 6)}  ${CATEGORIES.map((c) => pad(c.slice(0, 5), 6)).join('')}`);
@@ -357,4 +439,8 @@ if (hardFails.length) {
   for (const f of hardFails) console.error(`  ✗ ${f}`);
   process.exit(1);
 }
-console.log(`✓ no hard-fail conditions (lyrics dumps / article dumps / private-location data / unstable identity) across ${content.rows.length} items + ${tracks.rows.length} track notes`);
+console.log(
+  `✓ no hard-fail conditions (lyrics dumps / article dumps / private-location data / unstable identity) across ` +
+    `${content.rows.length} items + ${tracks.rows.length} track notes + ${releases.rows.length} releases + ` +
+    `${tours.rows.length} tours + ${theories.rows.length} theories + ${videos.rows.length} videos`,
+);
