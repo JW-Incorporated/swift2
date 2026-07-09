@@ -711,5 +711,182 @@ export default {
         photos: [],
       },
     },
+
+    // --- Thin-era top-up (2026-07-08, audit rollout PR 2): the era's empty
+    // tour and release categories, filled with public record — she had no
+    // headline tour, but 2006-2008 was two straight years of opening-act
+    // runs, plus two exclusive EPs and the deluxe reissue. New items carry
+    // the audit's additive provenance fields.
+    {
+      slug: 'rascal-flatts-opening-run',
+      year: 2006,
+      month: 10,
+      category: 'tour',
+      title: 'Her first arena tour: opening for Rascal Flatts, on a day\'s notice',
+      snippet:
+        'Rascal Flatts fired opener Eric Church mid-tour for playing too long; the 16-year-old with the nine-day-old album got his slot. Years later she sent Church her first gold record — thanks for "playing too long and too loud."',
+      sourceUrl: 'https://tasteofcountry.com/eric-church-rascal-flatts-tour-taylor-swift-secret-history/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The call came Oct. 17, 2006 — eight days after her debut album dropped — and she was on the Me and My Gang Tour\'s remaining fall dates almost immediately, her first taste of arena crowds. Church has told the story ever since, gold record and all: the note read "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
+        sources: [
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/eric-church-rascal-flatts-tour-taylor-swift-secret-history/',
+            source_title: "How Eric Church's Rascal Flatts Feud Helped Launch Taylor Swift",
+            publisher: 'Taste of Country',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Whiskey Riff',
+            url: 'https://www.whiskeyriff.com/2025/09/22/eric-church-details-the-phone-call-he-got-from-taylor-swift-when-she-replaced-him-on-2006-rascal-flatts-tour/',
+            source_title: 'Eric Church Details The Phone Call He Got From Taylor Swift When She Replaced Him On 2006 Rascal Flatts Tour',
+            publisher: 'Whiskey Riff',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'george-strait-tour-opener',
+      year: 2007,
+      month: 1,
+      category: 'tour',
+      title: "Opening for George Strait, country's biggest headliner",
+      snippet:
+        'January 2007: the new year started with a slot opening arenas for the King of Country on his 2007 tour — a 17-year-old with one album, playing to the most traditional crowds in the format.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Strait tour kicked off a 2007 in which she basically never stopped opening: Strait dates in the winter, Brad Paisley in the spring, and Tim McGraw and Faith Hill\'s stadium shows in the summer — the road apprenticeship that sold her debut album one market at a time.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
+            source_title: 'Taylor Swift (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'soul2soul-mcgraw-hill-opener',
+      year: 2007,
+      month: 6,
+      category: 'tour',
+      title: 'Opening for the actual Tim McGraw (and Faith Hill)',
+      snippet:
+        'A year after naming her debut single after him, she spent summer 2007 opening Tim McGraw and Faith Hill\'s Soul2Soul II dates — singing "Tim McGraw" on Tim McGraw\'s own tour.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Soul2Soul_II_Tour',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The booking closed the loop on the best origin story in her catalog: the single that introduced her — written in math class about a McGraw song — now performed nightly for his stadium audiences. She\'d first met him on camera at the 2007 ACM Awards, introducing herself with "Hi, I\'m Taylor" after performing the song to his face.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Soul2Soul_II_Tour',
+            source_title: 'Soul2Soul II Tour',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'holiday-collection-ep',
+      year: 2007,
+      month: 10,
+      category: 'release',
+      title: 'A holiday EP, one year into her career',
+      snippet:
+        'Sounds of the Season: The Taylor Swift Holiday Collection — six tracks, two originals ("Christmases When You Were Mine" and "Christmas Must Be Something More"), sold as a Target exclusive in October 2007.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Taylor_Swift_Holiday_Collection',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Cut quickly between tour dates, the EP mixed covers of "Last Christmas" and "Santa Baby" with the two originals — an early example of the limited-exclusive retail strategy (and the holiday-season chart bump) that Big Machine leaned on throughout the debut era.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Taylor_Swift_Holiday_Collection',
+            source_title: 'The Taylor Swift Holiday Collection',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'debut-deluxe-edition',
+      year: 2007,
+      month: 11,
+      category: 'release',
+      title: 'The deluxe edition adds three songs to the album that would not stop selling',
+      snippet:
+        'A year after release, Taylor Swift got a deluxe reissue with "I\'m Only Me When I\'m With You," "Invisible," and "A Perfectly Good Heart," plus her phone-recorded demos and music videos — a mid-run repackage of a still-climbing album.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Nov. 6, 2007 deluxe landed while the album was still gaining — it went on to log more weeks on the Billboard 200 than any other album of the 2000s decade — and the three added tracks stayed exclusive to it for years.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
+            source_title: 'Taylor Swift (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'beautiful-eyes-ep',
+      year: 2008,
+      month: 7,
+      category: 'release',
+      title: 'Beautiful Eyes: the Walmart EP that put her at No. 1 and No. 2 at once',
+      snippet:
+        'A six-track Walmart exclusive released July 15, 2008, to tide fans over before Fearless — it debuted at No. 1 on Top Country Albums with her debut sitting at No. 2, making her the first artist since LeAnn Rimes in 1997 to hold both top spots.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Beautiful_Eyes',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift downplayed it in her own announcement — she didn\'t want fans mistaking it for the second album, framing it as something to hold them over, with alternate versions and two otherwise-unreleased songs ("Beautiful Eyes" and "I Heart ?").',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Beautiful_Eyes',
+            source_title: 'Beautiful Eyes',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

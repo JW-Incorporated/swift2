@@ -112,12 +112,30 @@ export const eras = [
   {
     slug: 'tortured-poets', title: 'The Tortured Poets era',
     album: 'The Tortured Poets Department',
-    start_date: '2024-04-19', end_date: '2025-12-31', sort_order: 10,
+    // End trimmed 2025-12-31 -> 2025-10-02 so the era hands off to
+    // the-life-of-a-showgirl on its release day (audit 2026-07-08, gap #1).
+    start_date: '2024-04-19', end_date: '2025-10-02', sort_order: 10,
     theme: {
       bg: '#15151a', surface: '#21212a', ink: '#e9e6dd', inkSoft: '#9a968b',
       line: '#2d2d36', accent: '#bcb4a2',
       heroGradient: 'linear-gradient(135deg, #0d0d10 0%, #2a2a30 60%, #59544a 100%)',
       eyebrow: 'The Tortured Poets era',
+    },
+  },
+  {
+    slug: 'the-life-of-a-showgirl', title: 'The Life of a Showgirl era',
+    album: 'The Life of a Showgirl',
+    // Current era: end_date is a rolling "now" placeholder (same convention
+    // tortured-poets used before it), pushed forward as the era continues.
+    start_date: '2025-10-03', end_date: '2026-12-31', sort_order: 11,
+    theme: {
+      // Orange glitter on curtain teal — the album's Portofino-orange visual
+      // identity (glitter title lettering, showgirl feathers, mint-to-teal
+      // announcement briefcase).
+      bg: '#fdf1e3', surface: '#fff9f0', ink: '#46220e', inkSoft: '#a56b3f',
+      line: '#f3dcc0', accent: '#e0641d',
+      heroGradient: 'linear-gradient(135deg, #0e3f45 0%, #c2521f 55%, #f2a339 100%)',
+      eyebrow: 'The Life of a Showgirl era',
     },
   },
 ];
@@ -146,4 +164,5 @@ export const milestones = [
   { era_slug: 'midnights', type: 'album_release', title: "1989 (Taylor's Version) released", date: '2023-10-27' },
   { era_slug: 'midnights', type: 'tour', title: 'The Eras Tour opens', date: '2023-03-17' },
   { era_slug: 'tortured-poets', type: 'album_release', title: 'The Tortured Poets Department released', date: '2024-04-19' },
+  { era_slug: 'the-life-of-a-showgirl', type: 'album_release', title: 'The Life of a Showgirl released', date: '2025-10-03' },
 ];

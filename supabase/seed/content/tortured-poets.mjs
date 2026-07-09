@@ -635,36 +635,9 @@ export default {
         ],
       },
     },
-    // NOTE: the wedding itself (relationship category) is authored in the
-    // content/era-relationship-history-batch2 branch/PR (#56) — richer
-    // details + photos from this pass were merged into that item directly
-    // to avoid two overlapping "wedding" entries once both PRs land. Only
-    // the wedding-gown fashion angle (not covered there) lives here.
-    {
-      year: 2026,
-      month: 7,
-      category: 'fashion',
-      title: 'The wedding gown: a custom Dior Haute Couture, styled by Joseph Cassell',
-      snippet:
-        "Jonathan Anderson's first celebrity couture bridal commission at Dior — a custom gown reportedly drawing on Elizabeth Taylor's 1950 wedding dress, worn with custom Christian Louboutin shoes and Cartier jewelry.",
-      sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-wedding-dress-dior-jonathan-anderson-2-1236637523/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design rather than a runway adaptation. No official photo of the gown had been released as of the day after the wedding, and several AI-generated fakes were circulating online — none of those are used here.',
-        sources: [
-          {
-            outlet: 'The Hollywood Reporter',
-            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-wedding-dress-dior-jonathan-anderson-2-1236637523/',
-          },
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-wedding-dress-details/',
-          },
-        ],
-        photos: [],
-      },
-    },
+    // NOTE: the wedding itself, the wedding-gown fashion angle, and everything
+    // else dated after 2025-10-03 now live in the-life-of-a-showgirl.mjs —
+    // this era ends 2025-10-02 (end-date trim, audit 2026-07-08 rollout PR 2).
 
     // --- Fashion/photo depth pass 2 (2026-07-04)
     {
@@ -856,54 +829,9 @@ export default {
         photos: [],
       },
     },
-    {
-      year: 2025,
-      month: 10,
-      category: 'sighting',
-      title: 'Back at Arrowhead with Caitlin Clark, nine days after her album dropped',
-      snippet:
-        'The first publicly confirmed Chiefs game she\'d attended so far this season, chatting with Caitlin Clark and Ed Kelce in the suite as Kansas City beat Detroit 30-17 on Sunday Night Football.',
-      sourceUrl: 'https://www.espn.com/nfl/story/_/id/46577064/taylor-swift-caitlin-clark-sunday-night-football-chiefs-lions-travis-kelce',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'The Oct. 12 game came nine days after Swift released The Life of a Showgirl on Oct. 3. ESPN called it "the first public indication" of her attending a Chiefs game this season — she\'d also been at the Sept. 14 Eagles game, but wasn\'t photographed there. This was the second time Clark had joined her in a suite, after the January 2025 Texans playoff game.',
-        sources: [
-          {
-            outlet: 'ESPN',
-            url: 'https://www.espn.com/nfl/story/_/id/46577064/taylor-swift-caitlin-clark-sunday-night-football-chiefs-lions-travis-kelce',
-          },
-        ],
-        photos: [],
-      },
-    },
-    {
-      year: 2026,
-      month: 6,
-      category: 'sighting',
-      title: 'A tented lawn in Rhode Island, two weeks before the wedding',
-      snippet:
-        'Security tightened around her Watch Hill estate as a large tent went up on the Ocean House lawn next door and friends including Abigail Anderson were spotted arriving for what looked like a bachelorette weekend.',
-      sourceUrl: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/',
-      thumbnailUrl: 'https://imagez.tmz.com/image/2c/16by9/2026/06/19/2ce1e3acab1c4ea4a7e0faa9f4bb02ab_md.png',
-      moment: {
-        context:
-          'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends" — separate from the Ocean House\'s own scheduled event that weekend, which the venue confirmed was for a different couple.',
-        sources: [
-          { outlet: 'TMZ', url: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/' },
-        ],
-        photos: [
-          {
-            url: 'https://imagez.tmz.com/image/2c/16by9/2026/06/19/2ce1e3acab1c4ea4a7e0faa9f4bb02ab_md.png',
-            credit: 'TMZ',
-          },
-          {
-            url: 'https://imagez.tmz.com/image/81/4by3/2026/06/19/81b2c535bab3435487f156afbe67b6be_md.png',
-            credit: 'TMZ',
-          },
-        ],
-      },
-    },
+    // (The Oct. 12, 2025 Arrowhead/Caitlin Clark sighting and the June 2026
+    // Watch Hill pre-wedding weekend moved to the-life-of-a-showgirl.mjs —
+    // both post-date this era's 2025-10-02 end.)
 
     // --- Music backstory depth pass (2026-07-05): song-writing stories for
     // deep-cut TTPD tracks, plus a Grammy business item distinct from the
@@ -1009,27 +937,8 @@ export default {
         photos: [],
       },
     },
-    {
-      year: 2025,
-      month: 10,
-      category: 'music',
-      title: "The Black Dog: 'still nobody knows' what the song's about, she says a year later",
-      snippet:
-        'Asked on BBC Radio 2 if she\'d tipped off the real Vauxhall pub fans decided inspired the song, she said: "I did not, and still nobody knows what I\'m even talking about on that song. They think they know, they have no idea."',
-      sourceUrl: 'https://www.elitedaily.com/lifestyle/taylor-swift-the-black-dog-london-pub-review',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'The lyric describes tracking an ex whose location services were still on and watching him walk "into some bar called The Black Dog," which turned a real Vauxhall, London gastropub into a fan pilgrimage site, complete with lyric-quoting window signage and a "Taylor\'s Version" cocktail list. Speaking to BBC Radio 2\'s Scott Mills during her Life of a Showgirl press run, Swift denied tipping off the pub and declined to confirm the connection, insisting the song\'s real subject remains misunderstood.',
-        sources: [
-          {
-            outlet: 'Elite Daily',
-            url: 'https://www.elitedaily.com/lifestyle/taylor-swift-the-black-dog-london-pub-review',
-          },
-        ],
-        photos: [],
-      },
-    },
+    // (The Oct. 2025 "The Black Dog" BBC Radio 2 item moved to
+    // the-life-of-a-showgirl.mjs — it happened on the Showgirl press run.)
     {
       year: 2024,
       month: 11,
@@ -1056,44 +965,7 @@ export default {
       },
     },
 
-    // --- Real-time addition (2026-07-04): the wedding happened yesterday.
-    // Photos + extra detail (guest list, jumbotron) folded in from the
-    // parallel content/era-fashion-photos-pass branch to avoid two
-    // overlapping wedding entries once both PRs land.
-    {
-      year: 2026,
-      month: 7,
-      category: 'relationship',
-      title: 'Taylor and Travis marry at Madison Square Garden',
-      snippet:
-        'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man. Roughly 1,000 guests, and a jumbotron outside the arena reading "JUST&T MARRIED!"',
-      sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/',
-      thumbnailUrl:
-        'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
-      moment: {
-        context:
-          'Sandler, a friend of the couple, sang an original song for them at the ceremony. Both wore custom Christian Dior Haute Couture; Stevie Nicks performed at the reception. Guests included Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky, among roughly 1,000 attendees.',
-        sources: [
-          {
-            outlet: 'CBS News',
-            url: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/',
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
-            credit: 'Charly Triballeau/AFP via Getty Images',
-          },
-          {
-            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2026/07/02/e66f5b93-8b69-4557-847c-106908119407/thumbnail/620x413/06cdf599d84c9a589b8eb695f3867456/2026-07-02t205104z-316575572-rc2w5maws1vu-rtrmadp-3-people-taylor-swift-kelce.jpg',
-            credit: 'Christian Monterrosa/Reuters',
-          },
-        ],
-      },
-    },
+    // (The July 2026 Madison Square Garden wedding item moved to
+    // the-life-of-a-showgirl.mjs with this era's end-date trim.)
   ],
 };
