@@ -23,6 +23,8 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
       moment: {
+        context:
+          "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success. Red roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.",
         sources: [
           {
             outlet: 'Slate',
@@ -52,11 +54,15 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Full quote: "Basically, the scarf is a metaphor, and we turned it red because red is a very important color in this album, which is called Red."',
+          'Full quote, from the Toronto International Film Festival in 2021, where she was premiering the All Too Well short film: "Basically, the scarf is a metaphor, and we turned it red because red is a very important color in this album, which is called Red." Then she stopped herself: "And, I think when I say it\'s a metaphor ... I\'m just going to stop." The song behind the scarf started as an improvised "emotional rant" over a four-chord vamp at a February 2011 band rehearsal; co-writer Liz Rose later helped trim what she remembered as a 10-to-20-minute draft down to the 5:28 album cut — still Red\'s longest track. It was never a single and debuted at just No. 80 on the Hot 100, but became the album\'s critical standout, and when the full 10-minute version finally surfaced on Red (Taylor\'s Version) in 2021, it became the longest song ever to top the Hot 100.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
             url: 'https://www.etonline.com/taylor-swift-says-red-scarf-in-all-too-well-is-a-metaphor-190595',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/All_Too_Well',
           },
         ],
         photos: [],
@@ -73,7 +79,7 @@ export default {
         'https://s.yimg.com/ny/api/res/1.2/T7Mf_lWvn00F0CWqvCwgCA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTcyMDtjZj13ZWJw/https://media.zenfs.com/en/insider_articles_922/eee1fa46fd53738526324ef00531392a',
       moment: {
         context:
-          'Her own description: "You\'re still learning, but you know enough. You still know nothing, but you know that you know nothing." A hidden message in the liner notes — "Ashley Dianna Claire Selena" — named the friend group behind it, including Dianna Agron and Selena Gomez.',
+          'Written with Max Martin and Shellback, and — as she told Ryan Seacrest — written "about my friends." She called 22 "my favorite year of my life," and her own description of the age stuck: "You\'re still learning, but you know enough. You still know nothing, but you know that you know nothing." A hidden message in the liner notes — "Ashley Dianna Claire Selena" — named the friend group behind it, including Dianna Agron and Selena Gomez. Released as Red\'s fourth single the following March, it carried the thesis into the top 20 of the Hot 100.',
         sources: [
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/22' },
           {
@@ -99,7 +105,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png',
       moment: {
         context:
-          'Dubstep had already broken through with DJs like Skrillex and Zedd, but this was the song that carried the sound into mainstream pop radio — a genre-blending swerve critics still point to as a turning point in her sound.',
+          'Produced with Max Martin and Shellback after Swift sketched the melody on piano, the drop was there — by her account — to convey the chaotic emotions of the lyrics, not to chase a trend. Critics treated it as a hinge point anyway: the New York Times\' Jon Caramanica called the wobble a "wrecking ball" that shifted "the dynamic of not only the song but also of Ms. Swift\'s career," and the Los Angeles Times noted that while DJs like Skrillex and Zedd had popularized dubstep, this was the song that introduced it to a mainstream pop audience that had been "sonically conservative for the past half-decade." It sold 416,000 downloads in its first week — making her the first artist ever with two 400,000-download opening weeks — and peaked at No. 2 on the Hot 100.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble' }],
         photos: [
           {
@@ -119,7 +125,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "The couple in the photo was a teenage Ethel and Robert F. Kennedy, dancing in the 1940s. Taylor dedicated the song to Ethel Kennedy in Red's liner notes.",
+          "The couple in the photo was a teenage Ethel and Robert F. Kennedy, dancing in the 1940s. Swift said she found herself imagining how much fun they must have had that night, and built the lyric around two seventeen-year-olds who \"pretended they were a duchess and a prince\" at a 1945 yacht-club party. The song folded into a real friendship: she grew close to Ethel and the Kennedy family over 2012, dedicated the song to her in Red's liner notes, and that December performed an acoustic \"Starlight\" at the Robert F. Kennedy Center for Justice and Human Rights ceremony where she received the Ripple of Hope Award.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Starlight_(Taylor_Swift_song)' }],
         photos: [],
       },
@@ -134,6 +140,8 @@ export default {
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/thumb/7/72/Taylor_Swift_-_Everything_Has_Changed.png/250px-Taylor_Swift_-_Everything_Has_Changed.png',
       moment: {
+        context:
+          'Swift brought in Butch Walker to produce, saying she knew he would approach it "from an organic place, which is where [Sheeran] comes from." Released as a single in July 2013, it reached No. 32 on the Hot 100 and went double platinum, and the two performed it as a duet throughout the Red Tour. The Philip Andelman video, out that June, cast two child actors as elementary-school classmates falling into an easy friendship — with Swift and Sheeran revealed at the end as their parents.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' }],
         photos: [
           {
@@ -149,12 +157,20 @@ export default {
       category: 'tour',
       title: 'The Red Tour opens with Ed Sheeran in Omaha',
       snippet:
-        "A sold-out crowd of 27,877 got 17 songs and a surprise duet on 'Everything Has Changed' with opening act Ed Sheeran.",
+        "A sold-out opening-night crowd got 17 songs and a surprise duet on 'Everything Has Changed' with opening act Ed Sheeran.",
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Red_Tour',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg/500px-Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg',
       moment: {
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Red_Tour' }],
+        context:
+          'Opening night on March 13, 2013 drew 13,800 to Omaha\'s CenturyLink Center — the first of a two-night stand that totaled 27,877 tickets — kicking off a 66-date North American run. Thirteen of the 17 songs came from Red, delivered with a seven-piece band, dancers, pyrotechnics, and more than ten costume changes; the Omaha World-Herald described the crowd\'s "screams, whistles and cheers" melding with the band into "a relentless cacophony." Sheeran, who opened every North American date, came back mid-show to duet "Everything Has Changed" with her on the B-stage during the acoustic segment.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Red_Tour' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-opens-red-tour-in-omaha-1552195/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg/500px-Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg',
@@ -173,7 +189,7 @@ export default {
       thumbnailUrl: 'https://static3.refinery29.com/bin/entry/218/1155x/1120498/rexusa-1815036m.jpg',
       moment: {
         context:
-          'Garth Brooks, who won it in 2005, was the only other artist to have received the Pinnacle Award before her.',
+          'Garth Brooks, who won it in 2005, was the only other artist to have received the Pinnacle Award — which recognizes artists who dominate the industry — before her; she was 23. The presentation came with a tribute video of Justin Timberlake, Julia Roberts, Mick Jagger, and Carly Simon applauding her from afar, and she kept the acceptance speech cool and collected, thanking the country legends who presented it. The look was pure era signature: the wine-colored Elie Saab gown, nude Jimmy Choo sandals, and her bold red lip. She closed the night performing alongside Alison Krauss.',
         sources: [
           {
             outlet: 'Refinery29',
@@ -198,6 +214,8 @@ export default {
       sourceUrl: 'https://tasteofcountry.com/taylor-swift-red-cmt-awards/',
       thumbnailUrl: 'https://townsquare.media/site/623/files/2013/06/taylor-swift-1370483022.jpg?w=980&q=75',
       moment: {
+        context:
+          'The staging telegraphed the song before she sang a note: red lighting, red set pieces, dancers, and flag twirlers filled the stage while she worked a platform running out into the crowd, playing a crimson-colored guitar alongside her lead guitarist. The ankle-length red dress with its thigh-high slit completed the monochrome — a full commit-to-the-bit production for the title track, taking the stage after performances by Hunter Hayes and Luke Bryan.',
         sources: [{ outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-red-cmt-awards/' }],
         photos: [
           {
@@ -247,7 +265,7 @@ export default {
       thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2013/02/taylor_swift_grammys_a_p.jpg?w=2000&h=1126&crop=1',
       moment: {
         context:
-          'The gown\'s silver straps did the job a statement necklace usually would. She paired it with Jimmy Choo heels and Lorraine Schwartz jewelry, and wore her hair in a loose "Heidi braid" instead of a formal updo — a look outlets at the time noted made the gown feel modern rather than pageant-y.',
+          'The gown\'s silver straps did the job a statement necklace usually would. She paired it with Jimmy Choo heels and Lorraine Schwartz jewelry, and wore her hair in a loose "Heidi braid" instead of a formal updo — a look outlets at the time noted made the gown feel young and modern rather than pageant-y. The finishing touch was a sparkly manicure she applied herself moments before the event, and the night ended with hardware: Best Song Written for Visual Media, for "Safe & Sound" from The Hunger Games.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -761,7 +779,7 @@ export default {
         'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg',
       moment: {
         context:
-          'Swift took the Times Square stage at 11:39 p.m. on December 31, 2012, for the New Year\'s Eve broadcast, then was seen in Styles\' arms as the clock struck midnight. The kiss was caught by fans in the crowd and quickly circulated online.',
+          'Swift took the Times Square stage at 11:39 p.m. on December 31, 2012, performing "I Knew You Were Trouble" and "We Are Never Ever Getting Back Together" for Dick Clark\'s New Year\'s Rockin\' Eve, then was seen in Styles\' arms as the clock struck midnight. Styles had started the evening at Jay-Z and Coldplay\'s Barclays Center show in Brooklyn before leaving to catch her set. The kiss was caught by fans in the crowd, and by January 1 the photos were all over the gossip blogs.',
         sources: [
           {
             outlet: 'Billboard',
@@ -786,6 +804,8 @@ export default {
       sourceUrl: 'https://www.today.com/popculture/taylor-swift-harry-styles-relationship-timeline-rcna122164',
       thumbnailUrl: null,
       moment: {
+        context:
+          'The getaway in early January 2013 ended the relationship instead of cementing it: the two reportedly split after a heated argument, and Swift left the islands early — Styles stayed on, socializing with Richard Branson — while the image of her riding alone on the back of a boat became the breakup\'s unofficial portrait. The whole romance had run only a few months, but it echoed for years: "Style" and "Out of the Woods" on 1989 are widely read as chronicling it.',
         sources: [
           { outlet: 'Today', url: 'https://www.today.com/popculture/taylor-swift-harry-styles-relationship-timeline-rcna122164' },
           { outlet: 'Bustle', url: 'https://www.bustle.com/entertainment/when-did-taylor-swift-and-harry-styles-date' },
@@ -878,7 +898,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
       moment: {
         context:
-          'The announcement webcast streamed globally via Google+ Hangout, with fans submitting questions — the kind of direct-to-fans rollout that would later become her signature. The single she premiered on it went on to become her first career Hot 100 No. 1.',
+          'More than 70,000 fans were watching at the stream\'s peak as she laid out the whole plan: a 16-track album called Red, out October 22, with her first outside co-writers since she wrote all of Speak Now solo — Ed Sheeran and Max Martin among them. She explained the title as an emotional color-code, saying the songs were "all pretty much about the kind of tumultuous, crazy, insane, intense, semi-toxic relationships that I\'ve experienced in the last two years." Then she premiered "We Are Never Ever Getting Back Together," which went on to become her first career Hot 100 No. 1 — a direct-to-fans rollout she\'s been elaborating on ever since.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -888,6 +908,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-to-release-new-red-album-in-october-191751/',
+            source_title: "Taylor Swift to Release New 'Red' Album in October",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
           {
             outlet: 'The Hollywood Reporter',
@@ -955,7 +984,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The second track released from Red, sent to country radio as a counterweight to the pop-leaning lead single. It peaked in the top 10 of the Hot 100 on release-week downloads and earned a Grammy nomination for Best Country Song.',
+          'The second track released from Red, sent to country radio as a counterweight to the pop-leaning lead single. Swift described it as a song about "when you\'ve gotten through a really bad relationship and you finally dust yourself off and go on that first date after a horrible breakup." It debuted and peaked at No. 7 on the Hot 100 on release-week downloads and earned a Grammy nomination for Best Country Song. The Philip Andelman video — a solitary, contemplative walk through Paris that ends at a café — was, in her words, a "love letter" to the city, about "somebody moving on and finding yourself again."',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1009,7 +1038,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The split was reported three days after Red\'s release, ending a summer of Cape Cod sightings. A source told Us Weekly "it was just a distance thing," noting the two hadn\'t seen each other in over a month and that her promotional calendar ran without a break through the end of the year.',
+          'The split was reported three days after Red\'s release, ending a roughly three-month romance that began when the two were first spotted together in Mount Kisco, New York on July 31. The summer had folded her deep into the family — Cape Cod stays around the Kennedy compound, a visit to the grave of Conor\'s mother, and open enthusiasm from grandmother Ethel Kennedy (the same Ethel whose 1940s photo inspired "Starlight"). The ending, by all accounts, was undramatic: a source told Us Weekly "They quietly parted ways a while ago. It was just a distance thing. No hard feelings. They\'re fine," as her promotional calendar ran without a break through the end of the year.',
         sources: [
           {
             outlet: 'E! News',
@@ -1046,7 +1075,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png',
       moment: {
         context:
-          'The video cast Swift opposite a bad-boy love interest through a desert festival bender, opening with a moody spoken monologue instead of the song. Its grittier styling — including temporary pink tips — marked a deliberate image departure timed to the single\'s pop-radio push.',
+          'Directed by Anthony Mandler, the video cast Swift opposite Reeve Carney as a bad-boy love interest through a desert festival bender of bar fights and infidelity, opening with a moody spoken monologue instead of the song — landing on the line "I think that the worst part of it all wasn\'t losing him. It was losing me." Its grittier styling — including temporary pink tips — marked a deliberate image departure timed to the single\'s pop-radio push, and it paid off in hardware: Best Female Video at the 2013 MTV VMAs and YouTube Phenomenon at the 2013 YouTube Music Awards.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1123,7 +1152,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The video, released March 13, cast her real friends rather than actors and leaned into the song\'s "happy, free, confused, and lonely" thesis with a day-in-the-life party arc. The single became a top-20 Hot 100 hit and a permanent set-list fixture.',
+          'Anthony Mandler shot the video at a Malibu beach house in February 2013, and it premiered on Good Morning America on March 13 — the day after the single\'s release. It cast her real friends rather than actors, leaning into the song\'s "happy, free, confused, and lonely" thesis with a day-in-the-life arc of baking, sunbathing, and swimming. The single peaked at No. 20 on the Hot 100, was certified triple platinum, and became a permanent set-list fixture.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1219,7 +1248,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her $4 million endowment built a two-story, 7,500-square-foot wing with three classrooms, a hands-on instrument room, and a children\'s exhibit gallery — doubling the Nashville museum\'s education space. The center still operates today, with rotating displays of her artifacts.',
+          'Her $4 million endowment built a two-story, 7,500-square-foot wing with a gallery, classrooms, a studio, and a videoconference lab — doubling the Nashville museum\'s education space. The center still operates today, hosting curriculum-connected school programs, toddler programming, and family music-and-art workshops, with rotating displays of her artifacts that have included music-video pieces and Fearless Tour Hatch Show Print posters, plus an interactive recording booth and a sensory-inclusive room.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1255,7 +1284,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written by Swift and Antonoff and produced by him, the synth-driven track soundtracked the Paul Potts biopic One Chance and picked up a Golden Globe nomination for Best Original Song. The partnership it started went on to shape 1989, reputation, Lover, folklore, Midnights and beyond.',
+          'Swift wrote it with Antonoff after watching the Paul Potts biopic One Chance, reading the film as a love story and writing from the perspective of Potts\'s unfailingly supportive wife. The sound was the real tell: an \'80s-inspired synth-pop track one critic described as "You Belong With Me" run through Fun\'s synthesizers — in hindsight, a first sketch of the 1989 palette a year early. It peaked at No. 34 on the Hot 100, and its Golden Globe nomination for Best Original Song was her second in a row. The partnership it started went on to shape 1989, reputation, Lover, folklore, Midnights and beyond.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1282,7 +1311,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The pair hit it off backstage and hung out after the show; within a month Kloss was calling them BFFs, and by March 2014 they were road-tripping Big Sur together. The friendship became one of the defining squad relationships of the 1989 era that followed.',
+          'The courtship had played out in public for almost two years: Swift spotted Kloss\'s photo during a 2012 Vogue interview at Prabal Gurung\'s studio and blurted the cookies line, and Kloss tweeted right back in January 2012 — "Hey @taylorswift13 love the @voguemagazine cover! Your kitchen or mine? :)" After finally meeting at the show, the friendship moved fast: the March 2014 Big Sur road trip, regular New York outings, and by the time Rolling Stone toured Swift\'s Tribeca apartment that September, Kloss had her own guest room there, stocked with a basket of her favorite Whole Foods snacks. It became one of the defining squad relationships of the 1989 era that followed.',
         sources: [
           {
             outlet: 'E! News',
