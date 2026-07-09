@@ -2,10 +2,11 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import { X, Sparkles, Share2 } from 'lucide-react';
+import { X, Sparkles, Share2, ArrowRight, Route } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@/lib/longlive/eras';
+import { resolveMotifTrail, type MotifTarget } from '@/lib/longlive/related';
 import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
@@ -59,6 +60,9 @@ export function MomentDetail() {
 
   if (!item) return null;
   const era = getEra(item.eraId);
+  // Clue Web trail this moment cross-links to (via relatedIds), if any.
+  // Resolution is best-effort: no resolvable target simply means no link.
+  const trail = resolveMotifTrail(item.relatedIds);
 
   return (
     <div
@@ -165,9 +169,13 @@ export function MomentDetail() {
               “{item.hiddenClue.clue}”
             </p>
             {revealed ? (
-              <p className="mt-3 text-[15px] leading-relaxed text-[color:var(--era-ink-soft)] clue-reveal">
-                {item.hiddenClue.payoff}
-              </p>
+              <div className="clue-reveal">
+                <p className="mt-3 text-[15px] leading-relaxed text-[color:var(--era-ink-soft)]">
+                  {item.hiddenClue.payoff}
+                </p>
+                {/* Decoded — now hand the visitor the thread it belongs to. */}
+                <ClueWebCta trail={trail} />
+              </div>
             ) : (
               <button
                 onClick={() => setRevealed(true)}
@@ -178,7 +186,51 @@ export function MomentDetail() {
             )}
           </div>
         )}
+
+        {/* A moment can cross-link into a Clue Web trail without carrying its
+            own hidden clue — give it the same invitation as its own card. */}
+        {!item.hiddenClue && trail && (
+          <div className="era-card mt-8 rounded-2xl border p-5">
+            <div className="flex items-center gap-2 text-sm font-semibold text-[color:var(--era-accent)]">
+              <Route className="h-4 w-4" />
+              Part of a bigger pattern
+            </div>
+            <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--era-ink-soft)]">
+              This moment belongs to the “{trail.motif.label}” trail — {trail.motif.blurb}
+            </p>
+            <ClueWebCta trail={trail} />
+          </div>
+        )}
       </article>
     </div>
+  );
+}
+
+/**
+ * The moment → Clue Web jump. With a resolved trail (from relatedIds) it opens
+ * the Clue Web directly on that motif's trail; without one it falls back to a
+ * plain "Explore the Clue Web" invitation (Clue Web home) — never a dead link.
+ */
+function ClueWebCta({ trail }: { trail: MotifTarget | null }) {
+  const { openClueWebTrail, openThread } = useAppActions();
+  return (
+    <button
+      onClick={() => {
+        if (trail) openClueWebTrail(trail.motifId);
+        else openThread('easter-eggs');
+        // Same instant re-anchor every era → thread pivot uses (EraSection) —
+        // deferred a frame so it lands after this overlay's scroll lock lifts.
+        requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
+      }}
+      className="era-btn-ghost mt-4 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium"
+      aria-label={
+        trail
+          ? `Follow the ${trail.motif.label} trail in the Clue Web`
+          : 'Explore the Clue Web'
+      }
+    >
+      {trail ? 'Follow this thread in the Clue Web' : 'Explore the Clue Web'}
+      <ArrowRight className="h-4 w-4" />
+    </button>
   );
 }

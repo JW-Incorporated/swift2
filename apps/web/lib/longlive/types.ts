@@ -71,6 +71,22 @@ export interface EraTheme {
   font: EraFont;
 }
 
+/**
+ * A namespaced cross-content reference: `<type>:<id>`. This is how one piece
+ * of content points at another *kind* of content (the audit's §F cross-linking
+ * gap). Conventions the content lane should use when populating `relatedIds`:
+ *
+ *   - `motif:<MotifId>`         — a Clue Web motif trail, e.g. `motif:the-snake`
+ *   - `egg:<EggNode.id>`        — one Clue Web node,      e.g. `egg:egg-snake-instagram`
+ *   - `moment:<ContentItem.id>` — an era moment,          e.g. `moment:rep-album`
+ *   - `rel:<Relationship.id>`   — a love-story entry,     e.g. `rel:rel-5`
+ *
+ * Resolution is best-effort by design: the UI ignores ids it cannot resolve
+ * (see lib/longlive/related.ts) and never renders a dead link, so the content
+ * lane can populate these incrementally without breaking anything.
+ */
+export type RelatedId = string;
+
 export interface HiddenClue {
   /** The subtly-planted clue. */
   clue: string;
@@ -108,6 +124,12 @@ export interface ContentItem {
   hiddenClue?: HiddenClue;
   /** Optional official music video, embedded via YouTube in the detail view. */
   video?: MomentVideo;
+  /**
+   * Cross-type links (see RelatedId for the id convention). A moment whose
+   * relatedIds resolve to a Clue Web trail gets a "follow this thread"
+   * affordance in the detail view.
+   */
+  relatedIds?: RelatedId[];
 }
 
 /** An official music video embedded (never re-hosted) from YouTube. */
@@ -260,6 +282,8 @@ export interface Relationship {
   eraIds: EraId[];
   songs: string[];
   note: string;
+  /** Cross-type links (see RelatedId for the id convention). */
+  relatedIds?: RelatedId[];
 }
 
 export interface RunwayLook {
@@ -299,6 +323,12 @@ export interface EggNode {
   confirmed?: boolean;
   /** Citations backing the claim. */
   sources?: EggSource[];
+  /**
+   * Cross-type links (see RelatedId for the id convention). Note egg-to-egg
+   * connections stay in EggLink; relatedIds is for links *out* of the Clue
+   * Web (moments, relationships, …).
+   */
+  relatedIds?: RelatedId[];
 }
 
 export interface EggLink {

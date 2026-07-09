@@ -14,6 +14,7 @@ type VaultRawItem = {
   body: string[];
   tags: ContentTag[];
   sources?: { name: string; url: string }[];
+  relatedIds?: string[];
 };
 
 export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {

@@ -90,12 +90,27 @@ function tagsFrom(category, tags) {
   return out;
 }
 
+/**
+ * Namespaced cross-links (`motif:…`, `egg:…`, `moment:…`, `rel:…` — see
+ * RelatedId in apps/web/lib/longlive/types.ts). Keep only well-formed
+ * `<type>:<id>` strings; the UI additionally resolves each id against the
+ * live datasets and drops anything unresolvable, so a stale link can never
+ * render. Returns undefined (field omitted) when nothing valid remains.
+ */
+function relatedIdsFrom(relatedIds) {
+  if (!Array.isArray(relatedIds)) return undefined;
+  const out = relatedIds.filter(
+    (r) => typeof r === 'string' && /^[a-z]+:.+/.test(r),
+  );
+  return out.length ? out : undefined;
+}
+
 /** Appends one normalized item to byEra, de-duping ids within the era. */
 function addItem(
   byEra,
   seenIdsByEra,
   eraSlug,
-  { year, month, category, title, snippet, context, sources, sourceUrl, slug, tags },
+  { year, month, category, title, snippet, context, sources, sourceUrl, slug, tags, relatedIds },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
   const seenIds = (seenIdsByEra[eraId] ??= new Set());
@@ -122,6 +137,7 @@ function addItem(
     body: bodyFrom(context, snippet),
     tags: tagsFrom(category, tags),
     sources: sourcesFrom(sources, sourceUrl),
+    relatedIds: relatedIdsFrom(relatedIds),
   });
 }
 
@@ -195,9 +211,9 @@ async function fetchFromSupabase() {
       context: m?.context ?? null,
       sources: m?.sources ?? null,
       sourceUrl: row.source_url ?? null,
-      // month_item has no slug/tags column in the DB — those live only in the
-      // seed files (see fetchFromLocalFiles). Carrying them to live data needs
-      // a schema migration; tracked as a follow-up in the PR.
+      // month_item has no slug/tags/related_ids column in the DB — those live
+      // only in the seed files (see fetchFromLocalFiles). Carrying them to
+      // live data needs a schema migration; tracked as a follow-up in the PR.
     });
   }
 
@@ -229,6 +245,9 @@ async function fetchFromLocalFiles() {
         sourceUrl: item.sourceUrl ?? null,
         slug: item.slug ?? null,
         tags: item.tags ?? null,
+        // Cross-links may live on the item or its Tier-1 moment detail —
+        // accept either so the content lane can pick the natural home.
+        relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
       });
     }
   }
@@ -259,6 +278,7 @@ async function main() {
   lines.push('  body: string[];');
   lines.push('  tags: ContentTag[];');
   lines.push('  sources?: { name: string; url: string }[];');
+  lines.push('  relatedIds?: string[];');
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -277,6 +297,9 @@ async function main() {
       if (it.sources && it.sources.length) {
         const srcs = it.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
         lines.push(`      sources: [${srcs}],`);
+      }
+      if (it.relatedIds && it.relatedIds.length) {
+        lines.push(`      relatedIds: [${it.relatedIds.map(esc).join(', ')}],`);
       }
       lines.push('    },');
     }
