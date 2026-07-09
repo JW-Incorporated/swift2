@@ -30,7 +30,7 @@ export function EraVideos({ eraId }: { eraId: EraId }) {
 
   return (
     <div className="border-t border-[color:var(--era-line)]">
-      <div className="mx-auto max-w-3xl px-5 py-10 md:pr-16">
+      <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
         <div className="flex items-center gap-2">
           <Clapperboard className="h-4 w-4 text-[color:var(--era-accent)]" />
           <h2 className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">

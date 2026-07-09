@@ -68,7 +68,7 @@ export function EraSection({ era }: { era: Era }) {
           />
         </div>
 
-        <div className="relative mx-auto max-w-3xl px-5 pb-8 pt-14 text-center sm:pt-20">
+        <div className="relative mx-auto max-w-4xl px-4 pb-8 pt-14 text-center sm:pt-20">
           <button
             onClick={() => setSelectorOpen(true)}
             className="era-chip mx-auto mb-6 inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium uppercase tracking-[0.2em]"
@@ -126,7 +126,7 @@ export function EraSection({ era }: { era: Era }) {
 
       {/* Filter row (non-sticky so stacked sections don't fight for the top). */}
       <div className="border-y border-[color:var(--era-line)] bg-[color:var(--era-surface)]/40">
-        <div className="mx-auto flex max-w-3xl items-center gap-2 overflow-x-auto px-5 py-3 md:pr-16">
+        <div className="mx-auto flex max-w-4xl items-center gap-2 overflow-x-auto px-4 py-3 md:pr-8">
           <span className="shrink-0 text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
             Filter
           </span>
@@ -155,7 +155,7 @@ export function EraSection({ era }: { era: Era }) {
       </div>
 
       {/* Chronological feed (newest-first). */}
-      <div className="mx-auto max-w-3xl px-5 py-10 md:pr-16">
+      <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
         <ol className="relative space-y-5">
           {visible.map((item) => (
             <MomentCard key={item.id} item={item} onOpen={() => openItem(item.id)} />
@@ -174,7 +174,7 @@ export function EraSection({ era }: { era: Era }) {
       {/* Era → Thread pivot: jump sideways into any story that runs through here. */}
       {eraThreads.length > 0 && (
         <div className="border-t border-[color:var(--era-line)]">
-          <div className="mx-auto max-w-3xl px-5 py-8 md:pr-16">
+          <div className="mx-auto max-w-4xl px-4 py-8 md:pr-8">
             <div className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
               Threads running through {era.shortName}
             </div>
@@ -204,6 +204,21 @@ export function EraSection({ era }: { era: Era }) {
           </div>
         </div>
       )}
+
+      {/* Scrubber end-of-content sentinel (not visible). The scrubber only
+          builds its scroll anchors from [data-ll-item] elements; without this
+          marker the last anchor is the last MomentCard, so dragging to the
+          bottom of the rail stops there instead of past EraVideos/the threads
+          pivot strip below. Assigning it the era's start date (<= any real
+          item's date) keeps the anchor list's date/position ordering
+          consistent for the interpolation in TimelineScrubber. */}
+      <div
+        aria-hidden
+        data-ll-item={`${era.id}__end`}
+        data-ll-era={era.id}
+        data-ll-date={new Date(era.start).getTime()}
+        style={{ height: 0, width: 0 }}
+      />
     </section>
   );
 }
