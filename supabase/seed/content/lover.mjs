@@ -18,6 +18,8 @@ export default {
       sourceUrl: 'https://www.billboard.com/pro/taylor-swift-lover-album-debuts-at-no-1-on-billboard-200-chart/',
       thumbnailUrl: 'https://images.complex.com/complex/image/upload/ar_1.91,c_fill,g_auto,q_auto/v1723858619/sanity-new%2Ftaylor-billboard-133759040',
       moment: {
+        context:
+          "The 867,000 units broke down to 679,000 in pure sales — the biggest sales week for any album since reputation's own debut — plus 226 million on-demand streams, then the second-biggest streaming debut for an album by a woman, behind only Ariana Grande's Thank U, Next. The half-million-first-week club she now belonged to six times over (Fearless, Speak Now, Red, 1989, reputation, and now Lover) had exactly one other member in all of music: Eminem. And unlike reputation, which was held off streaming services in its early weeks, Lover posted those numbers while streaming everywhere from day one.",
         sources: [
           {
             outlet: 'Billboard',
@@ -47,8 +49,14 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_The_Man.png/250px-Taylor_Swift_-_The_Man.png',
       moment: {
         context:
-          "The double standard, as she put it: if we make a mistake, that's our fault; if we strategize so we won't make a mistake, we're calculating.",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)' }],
+          'The double standard, as she put it: if we make a mistake, that\'s our fault; if we strategize so we won\'t make a mistake, we\'re calculating — "a bit of a damned-if-we-do, damned-if-we-don\'t thing happening in music." In outtakes from her Billboard Woman of the Decade cover story, she said the song was drawn from her own career and from hearing the same stories from women across the industry — and that the pop sheen was deliberate, so listeners would end up with "a song about gender inequality stuck in their heads." Written and produced with Joel Little, it became Lover\'s fourth single in January 2020 and peaked at No. 23 on the Hot 100; its self-directed video later won her Best Direction at the 2020 VMAs, the first solo female director to take the category.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-cover-story-outtakes-the-man-8546109/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_The_Man.png/250px-Taylor_Swift_-_The_Man.png',
@@ -98,8 +106,14 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/DixieChicksMSG062003.jpg/250px-DixieChicksMSG062003.jpg',
       moment: {
         context:
-          'Her own words: "My dad got cancer when I was 13 and he got better... but things with my mom have been very different." She brought in the Dixie Chicks — Natalie Maines, Emily Strayer, and Martie Maguire — the group she\'s said made her want to do this in the first place.',
-        sources: [{ outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better" }],
+          'Her own words: "My dad got cancer when I was 13 and he got better... but things with my mom have been very different." The family actually discussed whether the song was too personal to release at all before agreeing it belonged on the album. She brought in the Dixie Chicks — Natalie Maines, Emily Strayer, and Martie Maguire, the group she\'s said made her want to do this in the first place — with Strayer\'s banjo and Maguire\'s fiddle threaded through the fingerpicked arrangement, and all three harmonizing. She has performed it live exactly once — a stripped solo piano rendition for the One World: Together at Home pandemic broadcast on April 18, 2020, one day after cancelling all her 2020 shows — having previously said she found the song too emotionally difficult to perform.',
+        sources: [
+          { outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better" },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-soon-youll-get-better-together-at-home-global-citizen-986536/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/DixieChicksMSG062003.jpg/250px-DixieChicksMSG062003.jpg',
@@ -139,10 +153,16 @@ export default {
       thumbnailUrl:
         'https://imgix.bustle.com/uploads/getty/2019/8/26/1a50b4b9-6a40-4a82-a40a-66e602f41cf5-getty-1170384770.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
       moment: {
+        context:
+          'The beaded blazer dress — strong \'80s shoulders, hitting mid-thigh, worn with thigh-high black Christian Louboutin boots and styled by Joseph Cassell — made it two Versace red carpets in a row, after her Teen Choice Awards romper earlier that month. It was also her first VMAs since 2015, and a working night: she opened the show with "You Need to Calm Down" and "Lover" in separate Versace performance looks, then used her Video of the Year acceptance to point out that the White House had yet to respond to her Equality Act petition.',
         sources: [
           {
             outlet: 'Bustle',
             url: 'https://www.bustle.com/p/taylor-swifts-2019-mtv-vmas-outfit-had-her-wearing-versace-a-second-time-in-a-row-18687070',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/taylor-swift-wears-versace-2019-mtv-vmas-1234441',
           },
         ],
         photos: [
@@ -164,7 +184,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "It topped the Hot 100 in late October 2023 — over four years after its Lover-era debut, her 10th No. 1 single and Lover's first, boosted by the Eras Tour concert film's release that same month.",
+          'It topped the Hot 100 on the chart dated October 28, 2023 — four years, one month and three weeks after it debuted, the fifth-longest climb to No. 1 in the chart\'s history. Fans had campaigned for it since 2019, and the Eras Tour\'s opening Lover set turned the campaign into a groundswell (roughly 2.3 million TikTok videos deep); a live version, a remix, and the concert film\'s October release finally pushed it over, with 18.6 million streams and a roughly 1,400% sales spike in its final chart week. It landed as her 10th career No. 1 and Lover\'s first — and, as she noted, "it\'s not even the summer anymore."',
         sources: [
           {
             outlet: 'Billboard',
@@ -191,8 +211,12 @@ export default {
         'https://imgs.capitalfm.com/images/114212?crop=16_9&width=660&relax=1&format=webp&signature=S8LzN__hymqxAV8c8HfQ_lTviEY=',
       moment: {
         context:
-          'The standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks, and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
+          'The announcement came in November 2019, weeks after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Swift embracing her role "as a woman harnessing the full power of her voice." The standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — Variety reported the song clearances were ultimately "granted within a timely manner" — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
         sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/tv-film/taylor-swift-miss-americana-netflix-documentary-release-date-8548174/',
+          },
           {
             outlet: 'Fox News',
             url: 'https://www.foxnews.com/entertainment/netflix-taylor-swift-documentary-miss-americana',
@@ -220,6 +244,8 @@ export default {
       thumbnailUrl:
         'https://s.abcnews.com/images/GMA/taylor-swift-ama-mo_hpEmbed_20191124-220255_3x2_992.jpg?w=992',
       moment: {
+        context:
+          'She took home six trophies on November 24, 2019 — five fan-voted awards, including Artist of the Year, plus Artist of the Decade, presented by Carole King — pushing her career AMA total to 29 and past Michael Jackson for the most wins in the show\'s history. The performance was the real headline: after a public standoff over whether Big Machine would clear her old catalog, she sang "The Man" in a white button-down printed with the names of the albums she no longer owned, then ran a career medley through "Love Story," "I Knew You Were Trouble" and "Blank Space," with Camila Cabello and Halsey joining "Shake It Off" and ballerina Misty Copeland dancing through "Lover." Her speech skipped the feud entirely: "All that any artist wants is to create something that lasts."',
         sources: [
           {
             outlet: 'Good Morning America',
@@ -893,7 +919,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Several album tracks got their live debuts — "Lover," "The Archer," "Cornelia Street," "Death by a Thousand Cuts" — in an intimate theater instead of a stadium. The concert later aired as a TV special in May 2020, by which point the pandemic had guaranteed its "only Lover-era show" status.',
+          'The 2,000-capacity music hall — her first Paris theater show since 2011 — held only fans who won tickets through contests and album-purchase draws, with no public sale. The 16-song set split evenly between Lover and back catalog, and several album tracks got their live debuts — "Cornelia Street," "Death by a Thousand Cuts," "The Man" — some inside a stripped acoustic segment where she talked through the songwriting; the crowd wore LED wristbands synced to the music. The concert later aired as a TV special in May 2020, by which point the pandemic had guaranteed its "only Lover-era show" status.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -903,6 +929,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-plays-lover-tracks-live-first-time-paris-watch-8529533/',
+            source_title: "Taylor Swift Plays 'Lover' Tracks Live for the First Time in Paris: Watch",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -947,7 +982,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The festival dates were initially pushed to 2021 before being scrapped outright the following February. The cancellation had one enormous creative consequence: the empty summer became folklore — and the eventual make-up show became the Eras Tour, where the Lover set finally opened every night.',
+          'Lover Fest West had been set for SoFi Stadium on July 25–26, Lover Fest East for Gillette on July 31–August 1, and her Glastonbury headline slot fell in the same sweep. Her statement asked fans to hold on: "Please, please stay healthy and safe. I\'ll see you on stage as soon as I can but right now what\'s important is committing to this quarantine, for the sake of all of us." The dates were initially pushed to 2021 — tickets carried over automatically — before being scrapped outright the following February. The cancellation had one enormous creative consequence: the empty summer became folklore — and the eventual make-up show became the Eras Tour, where the Lover set finally opened every night.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -957,6 +992,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-cancels-2020-tour-dates-986059/',
+            source_title: 'Taylor Swift Cancels All 2020 Tour Dates Due to Coronavirus',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1072,7 +1116,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'A synth-heartbeat ballad written and produced with Jack Antonoff, built on self-doubt instead of a radio chorus. It never got a video or a chart push — a deliberate "this album has feelings" flare sent up between the candy-colored singles.',
+          'A synth-heartbeat ballad written and produced with Jack Antonoff — the writing took about two hours, by his account, though the LinnDrum-and-DX7 production never breaks into a radio chorus by design. She announced it on an Instagram Live minutes before it dropped, explaining she wanted fans to hear a track five early because that slot holds the songs that are "the most honest, emotional, vulnerable, and personal." The title flips her Sagittarius archer into the era\'s sharpest self-inventory — "I\'ve been the archer, I\'ve been the prey" — and with no video or chart push, it worked as a deliberate "this album has feelings" flare sent up between the candy-colored singles. Stereogum and Slant both ranked it the sixth-best song of 2019.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1082,6 +1126,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/news/8523616/taylor-swift-the-archer-listen',
+            source_title: "Taylor Swift's 'The Archer': Listen",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1095,20 +1148,29 @@ export default {
       title: 'Lover, the waltz she wrote alone',
       snippet:
         'The title track, written solo and released a week ahead of the album as its third single — a hazy, slow-dance waltz produced with Jack Antonoff, and the quietest thesis statement she\'s ever put a whole era\'s name on.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(song)',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)',
       thumbnailUrl: null,
       moment: {
         context:
-          'It got its live debut in her 2019 VMAs medley days after release, and a duet remix with Shawn Mendes followed that November. The bridge — "swear to be overdramatic and true to my lover" — is written like vows on purpose.',
+          'She wrote it alone late one night at the piano, and the recording with Jack Antonoff at Electric Lady took about six hours; her pitch for the sound was "just the last two people on a dance floor at 3 a.m. swaying" — a song that could have played at "a wedding reception in 1980 or 1970 or now." The bridge — "swear to be overdramatic and true to my lover" — is written like vows on purpose ("I love a bridge, and I was really able to go to Bridge City," she said on release day). It got its live debut in her 2019 VMAs medley, a Shawn Mendes duet remix followed that November with verses he wrote himself, and it earned her first Grammy nomination for Song of the Year as a solo writer.',
         sources: [
           {
             outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Lover_(song)',
-            source_title: 'Lover (song)',
+            url: 'https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)',
+            source_title: 'Lover (Taylor Swift song)',
             publisher: 'Wikipedia',
             source_type: 'wiki',
-            accessed_at: '2026-07-08',
+            accessed_at: '2026-07-09',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-lover-new-song-new-album-listen-871277/',
+            source_title: "Hear Taylor Swift's Tender New Song 'Lover'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1153,7 +1215,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The spoken outro reframes the album as a decision rather than a mood — "not the things I hate… not the things that haunt me in the middle of the night." And "I once believed love would be burning red, but it\'s golden" retires her own Red-era metaphor in a single line.',
+          'She ultimately went with Lover because it "better represents the overall theme" and was more elastic as a concept — Daylight read as too obvious a daybreak sequel to reputation\'s nighttime world. The closer still does the title track\'s job: the spoken outro reframes the album as a decision rather than a mood — "not the things I hate… not the things that haunt me in the middle of the night" — and "I once believed love would be burning red, but it\'s golden" retires her own Red-era metaphor in a single line. Written and produced with Jack Antonoff, it split critics between "the album\'s best track" and too-familiar production, though the later Paris live version won particular acclaim.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1162,6 +1224,15 @@ export default {
             publisher: 'Wikipedia',
             source_type: 'wiki',
             accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Lover_(album)',
+            source_title: 'Lover (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
             reliability_score: 2,
           },
         ],
@@ -1180,7 +1251,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The song turns losing a street to memories into the central stake of a love story — and fans made the real Cornelia Street a pilgrimage stop anyway.',
+          'She rented a townhouse on the West Village block in 2016 while her Tribeca apartment was renovated, and the song bonds a relationship\'s earliest memories to that block — as she explained on Elvis Duran\'s show, "sometimes we bond our memories to the places that they happen... I wrote it alone and it ended up being one of my favorite songs." Introducing it in Paris, she added the detail fans still quote: "I wrote it in the bathtub, just for context." The chorus stake is the superstition itself — lose the person, lose the street forever — which is exactly why fans made the real Cornelia Street a pilgrimage stop anyway.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1190,6 +1261,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Songfacts',
+            url: 'https://www.songfacts.com/facts/taylor-swift/cornelia-street',
+            source_title: 'Cornelia Street by Taylor Swift — Songfacts',
+            publisher: 'Songfacts',
+            source_type: 'fan_forum',
+            accessed_at: '2026-07-09',
+            reliability_score: 3,
           },
         ],
         photos: [],
@@ -1207,7 +1287,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Choosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth — and the neon-and-sax staging made a track that was never a single one of the era\'s defining TV moments.',
+          'The staging was bare lightbulbs against pitch-black walls with smoke pooling at her feet, SNL musical director Lenny Pickett on saxophone — Slate\'s recap called it "the smoothest saxophone sound an SNL musical guest has had in years" — and Teen Vogue read her oversized black blazer and sequined pants as a last flicker of the reputation aesthetic. Choosing an untouched deep cut over "The Man" or "Cruel Summer" read as a statement about the album\'s bench depth, and made a track that was never a single one of the era\'s defining TV moments.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1217,6 +1297,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1080192/taylor-swift-gives-romantic-performance-on-snl-before-bringing-joe-alwyn-to-after-party',
+            source_title: 'Taylor Swift Gives Romantic Performance on SNL Before Bringing Joe Alwyn to After-Party',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1234,7 +1323,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her Universal/Republic contract guaranteed ownership of everything she recorded going forward, which made Lover\'s release more than an era launch: it was the pivot the entire masters fight would be argued around — old catalog owned by someone else, everything new owned by her.',
+          'Her November 2018 deal with Republic and Universal — signed just after the reputation Stadium Tour ended — guaranteed ownership of everything she recorded going forward, and she said it plainly on GMA the day before release: Lover is "the first one that I will own." Recorded between November 2018 and February 2019, it was also her first album on streaming services from its first week, and it carried three Grammy nominations, including her first solo-written Song of the Year nod for the title track. That made the release more than an era launch: it was the pivot the entire masters fight would be argued around — old catalog owned by someone else, everything new owned by her.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1254,8 +1343,22 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 4,
           },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-record-music-year-important-artists-work-65115745',
+            source_title: "Taylor Swift performs live on 'GMA,' reveals she'll re-record her old albums",
+            publisher: 'ABC News / Good Morning America',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png',
+            credit: 'Republic Records / Valheria Rocha',
+          },
+        ],
       },
     },
     {
@@ -1297,7 +1400,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'It went from idea to release almost overnight — her first original Christmas music since the 2007 holiday EP — and turned her actual origin story (the Pine Ridge farm childhood) into era canon.',
+          'The timeline was almost absurd: written December 1, vocals recorded December 2, a choir session December 3, out December 6 — her first original Christmas music since the 2007 holiday EP. The self-directed video is cut entirely from real Swift-family home movies shot at Pine Ridge Farm: sledding, Santa visits, and a young Taylor unwrapping her first guitar on Christmas morning. It reached No. 59 on the Hot 100 and No. 3 on Adult Contemporary — her actual origin story, turned into era canon in under a week.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1307,6 +1410,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/columns/pop/8545576/taylor-swift-christmas-tree-farm-video-watch',
+            source_title: "Taylor Swift Shares Family Footage in 'Christmas Tree Farm' Video: Watch",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1324,7 +1436,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The film shows exactly why it exists: the disillusionment of watching the 2018 Tennessee race go the wrong way despite her first-ever political endorsement. Releasing it as a documentary song, not a single, let it stay a statement.',
+          'The film shows exactly why it exists: the disillusionment of watching the 2018 Tennessee race go the wrong way despite her first-ever political endorsement. She told Variety she was "really upset about Tennessee going the way that it did" and that "I saw a lot of young people\'s hopes dashed... young people are the people who feel the worst effects of gun violence." The lyrics take on school shootings and voting directly — her most explicitly political writing to date — and releasing it over the documentary\'s closing minutes, not as a single, let it stay a statement. In October 2020 she granted it, free of charge, to a Biden–Harris campaign ad: the first time she had ever cleared her music for political advertising.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1334,6 +1446,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2020/music/news/taylor-swift-political-song-documentary-miss-americana-1203473948/',
+            source_title: "Taylor Swift on Her Politically Inspired New Song, 'Only the Young'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1351,7 +1472,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'By the time it aired, the pandemic had erased Lover Fest and every other live plan for the era. Watching these songs meet a live audience for the first and only time, mid-lockdown, gave the broadcast an elegy quality nobody intended when it was filmed the previous September.',
+          'ABC slotted it after the American Idol finale, trimming the 16-song Paris set to just the eight Lover tracks in a 42-minute broadcast that drew 3.63 million viewers; it hit Hulu and Disney+ the next day, and critics\' main complaint was wanting the whole show. By the time it aired, the pandemic had erased Lover Fest and every other live plan for the era — so watching these songs meet a live audience for the first and only time, mid-lockdown, gave the broadcast an elegy quality nobody intended when it was filmed the previous September.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1361,6 +1482,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-city-lover-concert-special-set-abc-broadcast-1293895/',
+            source_title: "Taylor Swift 'City of Lover Concert' Special Set for ABC Broadcast",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1486,7 +1616,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She wrote that she\'d learned of the deal "as it was announced to the world." Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.',
+          'Her Tumblr post laid out the history in one line — "For years I asked, pleaded for a chance to own my work" — and said the alternative she\'d been offered was to "sign back up to Big Machine Records and \'earn\' one album back at a time, one for every new one I turned in." She wrote that she\'d learned of the deal "as it was announced to the world"; Scott Borchetta answered with a blog post titled "It\'s Time For Some Truth," claiming he had texted her the night before, which she disputed. #IStandWithTaylor trended worldwide within hours. Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.',
         sources: [
           {
             outlet: 'Variety',
@@ -1531,7 +1661,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She told Robin Roberts her contract allowed re-recording to begin in November 2020, adding, "I think artists deserve to own their own work." Fifteen months later she was in the studio doing exactly that — the AMA-night reveal covered in the folklore era.',
+          'She told Robin Roberts exactly how the plan worked: "My contract says that starting November 2020, so next year, I can record albums 1 through 5 all over again," adding, "I think it\'s important for artists to own their work." The interview ran alongside a Central Park SummerStage concert for fans who had camped out overnight — "You Need to Calm Down," "ME!," and "Shake It Off," plus the reveal that Lover would be "the first one that I will own." Fifteen months later she was in the studio doing exactly that — the AMA-night reveal covered in the folklore era.',
         sources: [
           {
             outlet: 'Good Morning America',
