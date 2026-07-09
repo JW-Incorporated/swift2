@@ -37,14 +37,25 @@ Sourcing and body-text plumbing from §A were fixed overnight (614 items, real c
 
 §A's fix made sure a citation and a real paragraph exist. It did **not** address:
 1. **Depth of commentary.** 2-3 sentences is a caption, not "everything a fan would want to know." A moment like this needs the full shape: who/what/when/where in detail, the color and texture of the event (what happened, who said what, how it was received), and connective tissue to everything else in the app (does this pay off an earlier clue/thread? does it recontextualize an older moment?).
-2. **Real photography.** The schema literally cannot hold more than one image per moment — `ContentItem.image: string` (`apps/web/lib/longlive/types.ts`) is a single field, no gallery, no per-photo caption/credit. Even a content author who found five great, rights-clean photos of the wedding has nowhere to put them today. **This is a schema gap, not a content gap** — flagged as a new, higher-priority item than anything in §F.
+2. **Real photography.** The schema literally cannot hold more than one image per moment — `ContentItem.image: string` (`apps/web/lib/longlive/types.ts`) is a single field, no gallery, no per-photo caption/credit. Even a content author who found five great photos of the wedding has nowhere to put them today. **This is a schema gap, not a content gap** — flagged as a new, higher-priority item than anything in §F.
 3. **Reference/comparable imagery for not-yet-available real photos.** When the definitive photo doesn't exist (paparazzi hasn't caught it, official release is pending), the standard is not "show nothing" — it's "show clearly-labeled comparable/reference material": prior work by the same designer, the historical garment being referenced, similar red-carpet moments. This needs a distinct image *kind* (`reference` vs `primary`/`official`) so the UI can visually label it ("Comparable Dior gowns, for reference — the actual dress hasn't been photographed yet") rather than implying it's the real thing.
+
+> **2026-07-09 update:** `docs/decisions.md`'s 2026-07-09 entry reverses the
+> rehost ban this section originally assumed — rehosting real paparazzi/press/
+> agency photos directly (not just oEmbed, not just reference images) is now
+> an accepted, deliberate risk. This significantly widens what counts as a
+> "real photo" for the 3+ bar below: a genuine paparazzi shot of the event
+> can now be hosted directly as a `primary`-kind image. The `reference`-kind
+> labeling requirement is unchanged and still mandatory — it's a
+> user-honesty rule (don't imply a stand-in is the real thing), not a
+> copyright-avoidance mechanism, so it doesn't go away just because rehosting
+> is now allowed.
 
 ### Updated requirement (supersedes the plain `image: string` line in §C.1)
 
 Every moment needs an `images` array (not a single `image`), each entry carrying:
 - `url`, `credit`/`photographer` or attribution, `caption`
-- `kind`: `'primary'` (the actual event/subject) | `'reference'` (comparable/historical material, explicitly labeled as such in the UI, never conflated with a real photo of the subject) | `'archival'` (older photos providing context)
+- `kind`: `'primary'` (the actual event/subject — may now be a directly-hosted real photo, per the 2026-07-09 decision, not only an oEmbed) | `'reference'` (comparable/historical material, explicitly labeled as such in the UI, never conflated with a real photo of the subject) | `'archival'` (older photos providing context)
 - Minimum bar for a "big" moment (an event this significant to the era/thread): **3+ images** where real photos exist, or **2+ clearly-labeled reference images** where they don't yet.
 
 And every moment's `body` needs to clear a substance bar before shipping, not just a sourcing bar: does it answer what a fan would actually ask next (who designed it, what did people say, how does it connect to what came before)? If the honest answer after research is "there just isn't more to say yet," that's fine — but "there wasn't time to look" is not, and a 2-sentence body on a marquee event is a strong signal nobody checked.

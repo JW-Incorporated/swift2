@@ -169,17 +169,24 @@ Carried over from Orbit's discipline:
 - Branch per task (`feature/<name>`, `fix/<name>`); never commit to `main`.
 - Automated tests for every feature; full suite green before "done."
 - **Media & content sourcing** (full policy + rationale: `docs/decisions.md`
-  2026-07-08). The product presents rich media on-site (goal #7 — users don't
-  click out), via a specific posture, **not** blanket rehosting:
+  2026-07-08, **rehost ban reversed 2026-07-09** — read that later entry, it's
+  the current rule). The product presents rich media on-site (goal #7 —
+  users don't click out):
   - **Text:** original summaries in our own words + links; never paste article
     bodies / lyrics / official statements verbatim.
-  - **Images:** embed public social posts via **official oEmbed** (served from
-    source, attributed) and **license** editorial imagery (Getty/AP) for owned
-    assets. Owned/licensed media may be stored + CDN-served, off the Tier 0
-    budget. **Rehosting arbitrary internet photos stays banned** — the real
-    exposure.
+  - **Images:** embedding public social posts via **official oEmbed** is
+    still preferred where available (no hosting cost, no copy of the file).
+    **Rehosting arbitrary internet photos — paparazzi, press, agency images —
+    is now allowed** (2026-07-09 decision): the founders knowingly accepted
+    the copyright-infringement risk rather than ship a photo-thin product.
+    Licensed editorial imagery (Getty/AP) is not currently pursued (no
+    budget approved). Reference/comparable images (e.g. a designer's prior
+    work standing in for a not-yet-photographed item) must still be visibly
+    labeled as reference, never presented as the real thing — that's a user-
+    honesty rule, independent of the copyright question.
   - **Monetization** (affiliate/commercial) ships only after **external
-    IP-counsel review**; UNOFFICIAL disclaimer stays prominent.
+    IP-counsel review**; UNOFFICIAL disclaimer stays prominent — unchanged,
+    this gate did not move.
   - Unchanged: the no-fabrication rule and the Tier 0 payload budget.
 
 ## Open questions (need Joey's vision or a later decision)
