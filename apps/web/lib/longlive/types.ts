@@ -395,6 +395,25 @@ export interface CluePair {
 }
 
 /**
+ * One entry in the app's glossary — the experience's own vocabulary ("thread",
+ * "crossing", "motif trail", "vault track", …), defined in plain language so
+ * nothing in the UI is assumed knowledge. Authored by hand in
+ * lib/longlive/glossary.ts (UI/navigation vocabulary, not sourced lore).
+ */
+export interface GlossaryEntry {
+  /** Stable kebab id — used for see-also links, search targets, anchors. */
+  id: string;
+  /** The word as it appears in the UI, e.g. "Crossing". */
+  term: string;
+  /** One short plain-language definition. */
+  definition: string;
+  /** Optional concrete example usage. */
+  example?: string;
+  /** Ids of other glossary entries worth reading next. */
+  seeAlso?: string[];
+}
+
+/**
  * A single dated, sourced moment on a narrative story thread (e.g. the
  * engagement timeline). Unlike the other lens datasets, story beats carry a
  * real-world citation so fans can trust the facts.

@@ -1,6 +1,6 @@
 'use client';
 
-import { Compass, Share2, Layers } from 'lucide-react';
+import { BookOpen, Compass, Search, Share2, Layers } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getEra } from '@/lib/longlive/eras';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
@@ -9,7 +9,8 @@ import { TimelineScrubber } from './TimelineScrubber';
 
 export function TopBar() {
   const { mode, eraId, lensId } = useAppState();
-  const { setMode, setSelectorOpen, openShare, goHome } = useAppActions();
+  const { setMode, setSelectorOpen, setSearchOpen, openGlossary, openShare, goHome } =
+    useAppActions();
   const era = getEra(eraId);
 
   function handleHome() {
@@ -59,6 +60,25 @@ export function TopBar() {
 
         <div className="flex items-center gap-2">
           <ModeToggle mode={mode} onChange={setMode} />
+          <Button
+            variant="surface"
+            size="icon"
+            aria-label="Search the archive (press /)"
+            title="Search (/)"
+            onClick={() => setSearchOpen(true)}
+          >
+            <Search />
+          </Button>
+          <Button
+            variant="surface"
+            size="icon"
+            aria-label="Glossary"
+            title="Glossary"
+            className="hidden sm:inline-flex"
+            onClick={() => openGlossary()}
+          >
+            <BookOpen />
+          </Button>
           {(mode === 'era' || lensId != null) && (
             <Button
               variant="surface"
