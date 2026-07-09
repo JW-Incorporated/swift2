@@ -15,7 +15,7 @@ import { resolveMotifTrail, type MotifTarget } from '@/lib/longlive/related';
 import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
-import type { Confidence } from '@/lib/longlive/types';
+import { primaryImageRef, type Confidence, type ImageKind, type ImageRef } from '@/lib/longlive/types';
 
 // At/above this tier a moment is established fact — no pill. Below it, a
 // confidence pill renders so a claim never reads as unqualified fact.
@@ -30,6 +30,34 @@ const CONFIDENCE_LABEL: Record<Confidence, string> = {
   disproven: 'Disproven',
   joke_meme: 'Joke / meme',
 };
+
+// Anything that isn't the real photo of THIS moment gets an explicit label —
+// a stand-in must never read as the real thing. 'primary' renders no badge.
+const IMAGE_KIND_BADGE: Record<Exclude<ImageKind, 'primary'>, string> = {
+  reference: 'For reference',
+  archival: 'Archival',
+};
+const IMAGE_KIND_NOTE: Record<Exclude<ImageKind, 'primary'>, string> = {
+  reference: 'For reference — the real photo hasn’t surfaced yet.',
+  archival: 'Archival.',
+};
+
+// Hotlinked gallery/hero urls bypass Next's image optimizer (whose
+// remotePatterns allowlist covers only YouTube posters); local era art and
+// curated assets keep the optimized path.
+const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
+
+/** The little era-styled pill that marks a non-primary image. */
+function ImageKindBadge({ kind }: { kind: Exclude<ImageKind, 'primary'> }) {
+  return (
+    <span
+      className="rounded-full border px-2.5 py-0.5 text-xs font-medium text-[color:var(--era-ink-soft)]"
+      style={{ borderColor: 'var(--era-line)', backgroundColor: 'var(--era-surface)' }}
+    >
+      {IMAGE_KIND_BADGE[kind]}
+    </span>
+  );
+}
 
 export function MomentDetail() {
   const { openItemId, share } = useAppState();
@@ -79,6 +107,12 @@ export function MomentDetail() {
   // Clue Web trail this moment cross-links to (via relatedIds), if any.
   // Resolution is best-effort: no resolvable target simply means no link.
   const trail = resolveMotifTrail(item.relatedIds);
+  // Hero = the primary image (else the first one); the rest form the gallery.
+  // When even the hero is a stand-in (no primary exists) it gets the same
+  // honest labeling the gallery uses.
+  const hero: ImageRef | undefined = primaryImageRef(item);
+  const heroUrl = hero?.url ?? '/placeholder.svg';
+  const gallery = item.images.filter((img) => img !== hero);
 
   return (
     <div
@@ -87,7 +121,14 @@ export function MomentDetail() {
     >
       {/* Hero image */}
       <div className="relative h-[42vh] min-h-64 w-full">
-        <Image src={item.image || '/placeholder.svg'} alt="" fill priority className="object-cover" />
+        <Image
+          src={heroUrl}
+          alt={hero?.caption ?? ''}
+          fill
+          priority
+          unoptimized={isRemoteUrl(heroUrl)}
+          className="object-cover"
+        />
         <div
           className="absolute inset-0"
           style={{
@@ -95,6 +136,18 @@ export function MomentDetail() {
               'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 20%, transparent), var(--era-bg))',
           }}
         />
+        {/* A hero that isn't the real photo says so, right on the image.
+            bottom-14 keeps it clear of the article, which overlaps the hero's
+            bottom 2.5rem via -mt-10. */}
+        {hero && hero.kind !== 'primary' && (
+          <div className="absolute bottom-14 left-4 z-10 flex flex-wrap items-center gap-2">
+            <ImageKindBadge kind={hero.kind} />
+            <span className="text-xs text-[color:var(--era-ink-soft)]">
+              {IMAGE_KIND_NOTE[hero.kind]}
+              {hero.credit ? ` Credit: ${hero.credit}.` : ''}
+            </span>
+          </div>
+        )}
         <div className="absolute right-4 top-4 flex gap-2">
           <button
             onClick={() => toggleFavorite(item.id)}
@@ -163,6 +216,54 @@ export function MomentDetail() {
             </p>
           ))}
         </div>
+
+        {gallery.length > 0 && (
+          <div className="mt-8">
+            <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
+              Gallery
+            </p>
+            <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
+              {gallery.map((img, i) => (
+                <figure
+                  key={`${img.url}-${i}`}
+                  className="era-card overflow-hidden rounded-2xl border"
+                >
+                  <div className="relative aspect-[4/3]">
+                    <Image
+                      src={img.url}
+                      alt={img.caption ?? ''}
+                      fill
+                      unoptimized={isRemoteUrl(img.url)}
+                      className="object-cover"
+                    />
+                  </div>
+                  <figcaption className="space-y-1.5 p-3">
+                    {img.kind !== 'primary' && (
+                      <div>
+                        <ImageKindBadge kind={img.kind} />
+                      </div>
+                    )}
+                    {img.kind === 'reference' && (
+                      <p className="text-xs italic leading-relaxed text-[color:var(--era-ink-soft)]">
+                        {IMAGE_KIND_NOTE.reference}
+                      </p>
+                    )}
+                    {img.caption && (
+                      <p className="text-sm leading-relaxed text-[color:var(--era-ink)]">
+                        {img.caption}
+                      </p>
+                    )}
+                    {img.credit && (
+                      <p className="text-xs text-[color:var(--era-ink-soft)]">
+                        Credit: {img.credit}
+                      </p>
+                    )}
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          </div>
+        )}
 
         {item.video && <MomentVideo video={item.video} />}
 

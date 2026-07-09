@@ -1,4 +1,4 @@
-import type { ContentItem, EraId, Milestone } from './types';
+import type { ContentItem, EraId, ImageRef, Milestone } from './types';
 import { VAULT_RAW } from './content-vault.generated';
 
 /**
@@ -7,13 +7,30 @@ import { VAULT_RAW } from './content-vault.generated';
  * UI (chronological, oldest-first), so authoring order here is not significant.
  */
 
-type RawItem = Omit<ContentItem, 'eraId' | 'image'> & { image?: string };
+/**
+ * Authoring shape: accepts BOTH the legacy single `image` string and the new
+ * `images` gallery, so existing data (the RAW literals below and the
+ * generated VAULT_RAW) keeps compiling untouched. `build()` normalizes either
+ * form into ContentItem's non-empty `images: ImageRef[]`.
+ */
+export type RawItem = Omit<ContentItem, 'eraId' | 'images'> & {
+  image?: string;
+  images?: ImageRef[];
+};
 
-function build(eraId: EraId, items: RawItem[]): ContentItem[] {
-  return items.map((it) => ({
+/**
+ * Normalizes RawItems into ContentItems. Every item ends up with a non-empty
+ * `images` gallery: an explicit `images` array passes through verbatim; a
+ * legacy single `image` (or nothing) becomes one 'primary' entry, falling
+ * back to the era art. Exported for unit tests.
+ */
+export function build(eraId: EraId, items: RawItem[]): ContentItem[] {
+  return items.map(({ image, images, ...it }) => ({
     ...it,
     eraId,
-    image: it.image ?? `/eras/${eraId === 'ttpd' ? 'ttpd' : eraId}.png`,
+    images: images?.length
+      ? images
+      : [{ url: image ?? `/eras/${eraId === 'ttpd' ? 'ttpd' : eraId}.png`, kind: 'primary' }],
   }));
 }
 
