@@ -19,7 +19,7 @@
 
 import { readdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL } from 'node:url';
+import { fileURLToPath, pathToFileURL, URL } from 'node:url';
 import { createClient } from '@supabase/supabase-js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
@@ -97,8 +97,70 @@ function esc(s) {
   return JSON.stringify(s);
 }
 
+const VALID_TAGS = new Set(['Music', 'Fashion', 'Tour', 'Relationship', 'Lore']);
+
+/** Bare hostname (no www.) as a readable fallback source name. */
+function hostOf(url) {
+  try {
+    return new URL(url).hostname.replace(/^www\./, '');
+  } catch {
+    return url;
+  }
+}
+
+/**
+ * Full editorial body: split the Tier-1 `moment.context` into paragraphs so
+ * the detail view shows real prose, not the summary sentence repeated. Falls
+ * back to the summary only when there's genuinely no context.
+ */
+function bodyFrom(context, snippet) {
+  if (typeof context === 'string' && context.trim()) {
+    const paras = context
+      .split(/\n\s*\n+/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+    if (paras.length) return paras;
+  }
+  return [snippet];
+}
+
+/**
+ * Normalize citations from either the legacy `{outlet,url}` shape or the §5
+ * `{source_title,publisher,source_url,…}` shape into `{name,url}`, plus the
+ * item's top-level source_url. De-duped by url; drops entries without a url.
+ */
+function sourcesFrom(rawSources, sourceUrl) {
+  const out = [];
+  const seen = new Set();
+  const push = (name, url) => {
+    if (!url || typeof url !== 'string' || seen.has(url)) return;
+    seen.add(url);
+    out.push({ name: (name && String(name).trim()) || hostOf(url), url });
+  };
+  for (const s of Array.isArray(rawSources) ? rawSources : []) {
+    if (!s || typeof s !== 'object') continue;
+    push(s.name ?? s.source_title ?? s.publisher ?? s.outlet, s.url ?? s.source_url ?? s.sourceUrl);
+  }
+  push(sourceUrl ? hostOf(sourceUrl) : null, sourceUrl);
+  return out;
+}
+
+/** Category tag plus any already-valid ContentTags the item carries. */
+function tagsFrom(category, tags) {
+  const out = [CATEGORY_TO_TAG[category] ?? 'Lore'];
+  for (const t of Array.isArray(tags) ? tags : []) {
+    if (VALID_TAGS.has(t) && !out.includes(t)) out.push(t);
+  }
+  return out;
+}
+
 /** Appends one normalized item to byEra, de-duping ids within the era. */
-function addItem(byEra, seenIdsByEra, eraSlug, { year, month, category, title, snippet, context }) {
+function addItem(
+  byEra,
+  seenIdsByEra,
+  eraSlug,
+  { year, month, category, title, snippet, context, sources, sourceUrl, slug, tags },
+) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
   const seenIds = (seenIdsByEra[eraId] ??= new Set());
 
@@ -113,10 +175,18 @@ function addItem(byEra, seenIdsByEra, eraSlug, { year, month, category, title, s
   const mm = String(month).padStart(2, '0');
   const date = `${year}-${mm}-01`;
   const dateLabel = `${MONTHS[month - 1]} ${year}`;
-  const tag = CATEGORY_TO_TAG[category] ?? 'Lore';
-  const body = context ? [context] : [snippet];
 
-  (byEra[eraId] ??= []).push({ id, date, dateLabel, title, summary: snippet, body, tags: [tag] });
+  (byEra[eraId] ??= []).push({
+    id,
+    slug: typeof slug === 'string' && slug ? slug : undefined,
+    date,
+    dateLabel,
+    title,
+    summary: snippet,
+    body: bodyFrom(context, snippet),
+    tags: tagsFrom(category, tags),
+    sources: sourcesFrom(sources, sourceUrl),
+  });
 }
 
 function supabaseEnv() {
@@ -167,20 +237,39 @@ async function fetchFromSupabase() {
     return null;
   }
 
+  // Tier-1 detail (moment.context + sources) in ONE query, mapped by
+  // month_item_id. This is what stops the live site from showing the summary
+  // repeated as its own body, and gives every moment its citations.
+  const momentByItem = new Map();
+  {
+    const { data: moments, error: mErr } = await supabase
+      .from('moment')
+      .select('month_item_id,context,sources');
+    if (mErr) {
+      console.warn(
+        `sync-longlive-content: moment fetch failed (${mErr.message}); bodies fall back to summaries.`,
+      );
+    } else {
+      for (const m of moments ?? []) momentByItem.set(m.month_item_id, m);
+    }
+  }
+
   const byEra = {};
   const seenIdsByEra = {};
   for (const row of data) {
+    const m = momentByItem.get(row.id);
     addItem(byEra, seenIdsByEra, row.era_slug, {
       year: row.year,
       month: row.month,
       category: row.category,
       title: row.title,
       snippet: row.snippet,
-      // Tier 1 `moment.context` isn't fetched here (would be 400+ individual
-      // queries at build time) — body falls back to the snippet, same as any
-      // local-seed item with no moment.context. Follow-up if body richness
-      // from live data turns out to matter.
-      context: null,
+      context: m?.context ?? null,
+      sources: m?.sources ?? null,
+      sourceUrl: row.source_url ?? null,
+      // month_item has no slug/tags column in the DB — those live only in the
+      // seed files (see fetchFromLocalFiles). Carrying them to live data needs
+      // a schema migration; tracked as a follow-up in the PR.
     });
   }
 
@@ -201,13 +290,17 @@ async function fetchFromLocalFiles() {
     const { eraSlug, items } = mod.default;
 
     for (const item of items) {
-      addItem(byEra, seenIdsByEra, eraSlug, {
+      addItem(byEra, seenIdsByEra, item.eraSlug ?? eraSlug, {
         year: item.year,
         month: item.month,
         category: item.category,
         title: item.title,
         snippet: item.snippet,
         context: item.moment?.context ?? null,
+        sources: item.moment?.sources ?? null,
+        sourceUrl: item.sourceUrl ?? null,
+        slug: item.slug ?? null,
+        tags: item.tags ?? null,
       });
     }
   }
@@ -230,12 +323,14 @@ async function main() {
   lines.push('');
   lines.push('type VaultRawItem = {');
   lines.push('  id: string;');
+  lines.push('  slug?: string;');
   lines.push('  date: string;');
   lines.push('  dateLabel: string;');
   lines.push('  title: string;');
   lines.push('  summary: string;');
   lines.push('  body: string[];');
   lines.push('  tags: ContentTag[];');
+  lines.push('  sources?: { name: string; url: string }[];');
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -244,12 +339,17 @@ async function main() {
     for (const it of byEra[eraId]) {
       lines.push('    {');
       lines.push(`      id: ${esc(it.id)},`);
+      if (it.slug) lines.push(`      slug: ${esc(it.slug)},`);
       lines.push(`      date: ${esc(it.date)},`);
       lines.push(`      dateLabel: ${esc(it.dateLabel)},`);
       lines.push(`      title: ${esc(it.title)},`);
       lines.push(`      summary: ${esc(it.summary)},`);
       lines.push(`      body: [${it.body.map(esc).join(', ')}],`);
       lines.push(`      tags: [${it.tags.map(esc).join(', ')}],`);
+      if (it.sources && it.sources.length) {
+        const srcs = it.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
+        lines.push(`      sources: [${srcs}],`);
+      }
       lines.push('    },');
     }
     lines.push('  ],');

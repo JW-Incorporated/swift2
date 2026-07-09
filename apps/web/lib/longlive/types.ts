@@ -22,6 +22,23 @@ export type EraId =
 
 export type ContentTag = 'Music' | 'Fashion' | 'Tour' | 'Relationship' | 'Lore';
 
+/**
+ * How much weight a claim carries. Mirrors THEORY_CONFIDENCE in
+ * packages/shared/src/vault-types.ts (the source of truth) — same 8 values,
+ * kept in sync, not a new enum. Optional on ContentItem: a fact (the default
+ * for sourced moments) renders no pill; only a claim *below* confirmed
+ * ('official' / 'confirmed_interview') does.
+ */
+export type Confidence =
+  | 'official'
+  | 'confirmed_interview'
+  | 'reputable_reporting'
+  | 'strong_fan_consensus'
+  | 'plausible'
+  | 'clowning'
+  | 'disproven'
+  | 'joke_meme';
+
 export type MilestoneKind = 'album' | 'tour' | 'life' | 'business' | 'award';
 
 /** Font personality applied to era headings. */
@@ -49,6 +66,8 @@ export interface HiddenClue {
 
 export interface ContentItem {
   id: string;
+  /** Stable content slug from the seed (deep-linking / cross-refs). Optional. */
+  slug?: string;
   eraId: EraId;
   /** ISO date (YYYY-MM-DD) — drives chronological ordering + timeline position. */
   date: string;
@@ -60,6 +79,17 @@ export interface ContentItem {
   body: string[];
   tags: ContentTag[];
   image: string;
+  /**
+   * Citations backing this moment. Reuses the EggSource shape. Rendered as a
+   * "Sources" list in the detail view — only when non-empty (never a
+   * placeholder).
+   */
+  sources?: EggSource[];
+  /**
+   * How well-supported the claim is. Absent = a confirmed fact (no pill).
+   * Present + below confirmed-tier = a confidence pill in the detail view.
+   */
+  confidence?: Confidence;
   /** Optional hidden clue — renders the glint treatment when present. */
   hiddenClue?: HiddenClue;
   /** Optional official music video, embedded via YouTube in the detail view. */
