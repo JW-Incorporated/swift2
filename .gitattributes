@@ -1,0 +1,5 @@
+# Keep .mjs checkouts LF everywhere: vitest (esbuild) fails to parse CRLF
+# .mjs files on Windows ("SyntaxError: Invalid or unexpected token" when a
+# test imports a sync script), which core.autocrlf=true would otherwise
+# produce. Blobs are already LF, so this changes checkouts only, not history.
+*.mjs text eol=lf

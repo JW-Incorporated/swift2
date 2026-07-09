@@ -10,7 +10,10 @@ import { ThreadsMode } from './ThreadsMode';
 import { EraSelector } from './EraSelector';
 import { MomentDetail } from './MomentDetail';
 import { TrackGuide } from './TrackGuide';
+import { TheoryGuide } from './TheoryGuide';
 import { ShareSheet } from './ShareSheet';
+import { SearchOverlay } from './SearchOverlay';
+import { GlossaryDrawer } from './GlossaryDrawer';
 import { SiteFooter } from './SiteFooter';
 
 function Shell() {
@@ -40,8 +43,11 @@ function Shell() {
       {/* Overlays */}
       <EraSelector />
       <TrackGuide />
+      <TheoryGuide />
       <MomentDetail />
       <ShareSheet />
+      <GlossaryDrawer />
+      <SearchOverlay />
     </div>
   );
 }

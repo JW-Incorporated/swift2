@@ -39,6 +39,20 @@ export type Confidence =
   | 'disproven'
   | 'joke_meme';
 
+/**
+ * Where a theory's claim landed. Mirrors THEORY_OUTCOMES in
+ * packages/shared/src/vault-types.ts (the source of truth) — same 6 values,
+ * kept in sync, not a new enum. Required alongside `confidence` on every
+ * TheoryNote so speculation never renders as fact.
+ */
+export type TheoryOutcome =
+  | 'confirmed'
+  | 'partially_confirmed'
+  | 'pending'
+  | 'debunked'
+  | 'abandoned'
+  | 'unfalsifiable';
+
 export type MilestoneKind = 'album' | 'tour' | 'life' | 'business' | 'award';
 
 /** Font personality applied to era headings. */
@@ -57,11 +71,47 @@ export interface EraTheme {
   font: EraFont;
 }
 
+/**
+ * A namespaced cross-content reference: `<type>:<id>`. This is how one piece
+ * of content points at another *kind* of content (the audit's §F cross-linking
+ * gap). Conventions the content lane should use when populating `relatedIds`:
+ *
+ *   - `motif:<MotifId>`         — a Clue Web motif trail, e.g. `motif:the-snake`
+ *   - `egg:<EggNode.id>`        — one Clue Web node,      e.g. `egg:egg-snake-instagram`
+ *   - `moment:<ContentItem.id>` — an era moment,          e.g. `moment:rep-album`
+ *   - `rel:<Relationship.id>`   — a love-story entry,     e.g. `rel:rel-5`
+ *
+ * Resolution is best-effort by design: the UI ignores ids it cannot resolve
+ * (see lib/longlive/related.ts) and never renders a dead link, so the content
+ * lane can populate these incrementally without breaking anything.
+ */
+export type RelatedId = string;
+
 export interface HiddenClue {
   /** The subtly-planted clue. */
   clue: string;
   /** The payoff it pointed to. */
   payoff: string;
+}
+
+/**
+ * What an image in a moment's gallery actually IS. Anything below 'primary'
+ * renders with an explicit label in the UI so a stand-in is never mistaken
+ * for the real photo:
+ *
+ *   - 'primary'   — the real photo of THIS moment.
+ *   - 'reference' — a related stand-in; the real photo hasn't surfaced yet.
+ *   - 'archival'  — supporting archival material (covers, stills, documents).
+ */
+export type ImageKind = 'primary' | 'reference' | 'archival';
+
+/** One image in a moment's gallery. Always hotlinked — never rehosted. */
+export interface ImageRef {
+  url: string;
+  /** Credit line (attribution, not a license). */
+  credit?: string;
+  caption?: string;
+  kind: ImageKind;
 }
 
 export interface ContentItem {
@@ -78,7 +128,14 @@ export interface ContentItem {
   /** Longer editorial body shown in the immersive detail view. */
   body: string[];
   tags: ContentTag[];
-  image: string;
+  /**
+   * Image gallery — never empty after normalization (`build()` in
+   * lib/longlive/content.ts). The hero is the first 'primary' entry (else
+   * images[0]). A legacy single-image item normalizes to one 'primary' whose
+   * url may be the era-art stand-in (`/eras/<eraId>.png`) when no real photo
+   * exists — see isEraArtFallback / hasRealPrimaryImage below.
+   */
+  images: ImageRef[];
   /**
    * Citations backing this moment. Reuses the EggSource shape. Rendered as a
    * "Sources" list in the detail view — only when non-empty (never a
@@ -94,6 +151,44 @@ export interface ContentItem {
   hiddenClue?: HiddenClue;
   /** Optional official music video, embedded via YouTube in the detail view. */
   video?: MomentVideo;
+  /**
+   * Cross-type links (see RelatedId for the id convention). A moment whose
+   * relatedIds resolve to a Clue Web trail gets a "follow this thread"
+   * affordance in the detail view.
+   */
+  relatedIds?: RelatedId[];
+}
+
+/**
+ * The image a single-image surface (hero, share card, …) should show for a
+ * moment: the first 'primary' entry, else the first image at all.
+ */
+export function primaryImageRef(item: ContentItem): ImageRef | undefined {
+  return item.images.find((i) => i.kind === 'primary') ?? item.images[0];
+}
+
+/** Convenience url form of primaryImageRef, with the app-wide placeholder. */
+export function primaryImage(item: ContentItem): string {
+  return primaryImageRef(item)?.url ?? '/placeholder.svg';
+}
+
+/**
+ * True when `url` is the era-art stand-in that `build()` (content.ts)
+ * substitutes for a moment with no real photo (`/eras/<eraId>.png`). Era art
+ * is the ONLY thing served from /eras/, so the prefix is the discriminator.
+ */
+export function isEraArtFallback(url: string): boolean {
+  return url.startsWith('/eras/');
+}
+
+/**
+ * True when the moment has a REAL primary photo — a 'primary' gallery entry
+ * that is not the era-art fallback. This is the predicate depth/coverage
+ * gates should use now that the single `image` field is gone: every item has
+ * a non-empty `images`, so "has images" alone proves nothing.
+ */
+export function hasRealPrimaryImage(item: ContentItem): boolean {
+  return item.images.some((i) => i.kind === 'primary' && !isEraArtFallback(i.url));
 }
 
 /** An official music video embedded (never re-hosted) from YouTube. */
@@ -162,6 +257,69 @@ export interface TrackNote {
   sources?: EggSource[];
 }
 
+/**
+ * One easter egg or fan theory in an era's theory guide
+ * (theories.generated.ts, surfaced by the TheoryGuide overlay). Mirrors the DB
+ * `theory` row / `Theory` in packages/shared/src/vault-types.ts, reduced to
+ * what the UI renders. `confidence` + `outcome` are REQUIRED — they render as
+ * badges so speculation never reads as fact; the generator drops any record
+ * missing either (or missing a real source).
+ */
+export interface TheoryNote {
+  /** Stable kebab slug from the seed, unique per era. */
+  slug: string;
+  /** Planted-and-decoded easter egg vs. speculative fan theory. */
+  kind: 'easter_egg' | 'theory';
+  title: string;
+  /** What fans believe, in OUR words — a hook, not an essay. */
+  claim: string;
+  /** The documented evidence trail, in our words, or null. */
+  evidence: string | null;
+  confidence: Confidence;
+  outcome: TheoryOutcome;
+  /** Citations backing the record. Reuses the EggSource shape; never empty. */
+  sources: EggSource[];
+}
+
+/** What kind of visual-media work a VideoNote records. Mirrors VIDEO_KINDS in
+ * packages/shared/src/vault-types.ts. */
+export type VideoNoteKind =
+  | 'music_video'
+  | 'lyric_video'
+  | 'short_film'
+  | 'tour_film'
+  | 'documentary'
+  | 'performance';
+
+/**
+ * One official video/visual-media work in an era's videos rail
+ * (videos.generated.ts, surfaced by EraVideos). Mirrors the DB `video_work`
+ * row / `VideoWork` in packages/shared/src/vault-types.ts, reduced to what the
+ * UI renders. When `youtubeId` is present the work embeds via the MomentVideo
+ * click-to-play facade (official uploads only — never re-hosted); when null it
+ * renders as a metadata card (e.g. a theatrical tour film).
+ */
+export interface VideoNote {
+  /** Stable kebab slug from the seed, unique per era. */
+  slug: string;
+  kind: VideoNoteKind | null;
+  title: string;
+  director: string | null;
+  /** ISO date (YYYY-MM-DD) the work premiered, or null if unknown. */
+  releasedOn: string | null;
+  /** Song titles this video belongs to (display names, not slugs). */
+  relatedSongs: string[];
+  /** One-line sourced summary — a hook, not a shot list. Or null. */
+  summary: string | null;
+  /** Documented Easter eggs, one short line each. */
+  easterEggs: string[];
+  /** YouTube ID of the official upload (extracted from the seed's verified
+   * officialUrl/oEmbed media), or null when there is no official embed. */
+  youtubeId: string | null;
+  /** Citations backing the record. Reuses the EggSource shape; never empty. */
+  sources: EggSource[];
+}
+
 /** Legal, embeddable streaming media attached to an era. */
 export interface EraMedia {
   /** Spotify album ID for the official embed player (open.spotify.com/album/…). */
@@ -183,6 +341,8 @@ export interface Relationship {
   eraIds: EraId[];
   songs: string[];
   note: string;
+  /** Cross-type links (see RelatedId for the id convention). */
+  relatedIds?: RelatedId[];
 }
 
 export interface RunwayLook {
@@ -222,6 +382,12 @@ export interface EggNode {
   confirmed?: boolean;
   /** Citations backing the claim. */
   sources?: EggSource[];
+  /**
+   * Cross-type links (see RelatedId for the id convention). Note egg-to-egg
+   * connections stay in EggLink; relatedIds is for links *out* of the Clue
+   * Web (moments, relationships, …).
+   */
+  relatedIds?: RelatedId[];
 }
 
 export interface EggLink {
@@ -285,6 +451,25 @@ export interface CluePair {
   /** True when Taylor/her team confirmed intent; false for fan theory. */
   confirmed: boolean;
   sources: EggSource[];
+}
+
+/**
+ * One entry in the app's glossary — the experience's own vocabulary ("thread",
+ * "crossing", "motif trail", "vault track", …), defined in plain language so
+ * nothing in the UI is assumed knowledge. Authored by hand in
+ * lib/longlive/glossary.ts (UI/navigation vocabulary, not sourced lore).
+ */
+export interface GlossaryEntry {
+  /** Stable kebab id — used for see-also links, search targets, anchors. */
+  id: string;
+  /** The word as it appears in the UI, e.g. "Crossing". */
+  term: string;
+  /** One short plain-language definition. */
+  definition: string;
+  /** Optional concrete example usage. */
+  example?: string;
+  /** Ids of other glossary entries worth reading next. */
+  seeAlso?: string[];
 }
 
 /**
