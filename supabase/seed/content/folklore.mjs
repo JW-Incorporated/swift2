@@ -24,6 +24,8 @@ export default {
       thumbnailUrl:
         'https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1',
       moment: {
+        context:
+          'The Billboard 200 dates to 1956 and the Hot 100 to 1958, and in all those decades nobody had opened at No. 1 on both in the same week until the chart dated Aug. 8, 2020. "cardigan" did it on 34 million U.S. streams and 71,000 downloads — her sixth Hot 100 No. 1, and just the 41st song ever to debut at the top. The album side was just as lopsided: all 16 standard-edition tracks hit the Hot 100 at once, with three debuting in the top 10 ("cardigan" at No. 1, "the 1" at No. 4, "exile" at No. 6), which also made her the first artist to debut two songs in the top four simultaneously.',
         sources: [
           {
             outlet: 'BuzzFeed',
@@ -54,11 +56,15 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "The characters are entirely invented, with names borrowed as an affectionate nod to friends' kids.",
+          'The arc runs in order: James cheats on Betty over the summer ("august," told by the other girl, who thought it was real), a friend named Inez tells Betty when school starts, and James turns up at Betty\'s party to apologize ("betty") — while "cardigan" is Betty looking back on all of it from years later. The songs quote each other: James\'s "I dreamt of you all summer long" answers the events of "august," and Betty\'s "chase two girls, lose the one" calls the whole thing. Rolling Stone\'s review counted all three among the album\'s highlights — "the same love triangle, from all three different perspectives." The characters are entirely invented, with names borrowed as an affectionate nod to friends\' kids.',
         sources: [
           {
             outlet: 'ScreenRant',
             url: 'https://screenrant.com/taylor-swift-folklore-betty-august-cardigan-love-triangle-song-lyrics-explained/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/',
           },
         ],
         photos: [],
@@ -76,7 +82,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/250px-Holiday_House_on_Watch_Hill.jpg',
       moment: {
         context:
-          "Rebekah Harkness owned Swift's Rhode Island house, Holiday House, decades earlier and was gossiped about for her lavish parties; Taylor learned her story from the real estate agent and heard her own life echoing back — a scandalous socialite, a circle of famous friends, a house full of parties.",
+          "Rebekah Harkness was a middle-class divorcée from St. Louis who married Standard Oil heir William Harkness in 1947, inherited his fortune at his death in 1954, and spent it loudly — funding her own ballet company and filling Holiday House, the Watch Hill mansion Swift would buy decades later, with parties the town never stopped talking about. The song plays a classic country-storytelling trick: three verses of someone else's scandal, then the reveal — \"and then it was bought by me\" — folding Swift's own tabloid-magnet Rhode Island summers into Harkness's story of a loud woman blamed for ruining everything. It peaked at No. 13 on the Hot 100, and critics at Pitchfork, Billboard, and American Songwriter ranked it among the year's best songs.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty' }],
         photos: [
           {
@@ -100,7 +106,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her own words on where it came from: "I realized that there are people right now taking a 20-minute break between shifts at a hospital who are having this trauma happen to them." Her grandfather Dean, a Marine medic who served at Guadalcanal, never spoke about what he saw there.',
+          'Her grandfather Dean fought at the Battle of Guadalcanal and never spoke about what he saw there — Swift said she wrote the song by trying "to imagine what would happen in order to make you never be able to speak about something," then drew the line straight to 2020\'s hospital wards, where medical workers were absorbing the same unspeakable weight in twenty-minute breaks between shifts. Aaron Dessner built the ambient, chamber-style arrangement by slowing and reversing instrument recordings into glacial drones under piano and strings, leaving Swift\'s vocal hanging in the middle like a hymn. The quietest song on the album still hit No. 57 on the Hot 100 in folklore\'s all-16-tracks chart week.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Epiphany_(Taylor_Swift_song)' }],
         photos: [],
       },
@@ -115,7 +121,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'In the Long Pond Studio Sessions, Taylor described looking back at that age: "picture me in the trees before I learned civility, I used to scream ferociously anytime I wanted." She\'s never confirmed whether the friend was real or a composite.',
+          'Written and produced with Aaron Dessner, who described it as "wistful and nostalgic — looking back at childhood and those childhood feelings," the song watches a friend\'s frightening home life through a seven-year-old\'s eyes in Pennsylvania: the anger she can\'t name, the offer to run away together, folded into tree swings and make-believe. In the Long Pond Studio Sessions, Taylor described looking back at that age: "picture me in the trees before I learned civility, I used to scream ferociously anytime I wanted." She\'s never confirmed whether the friend was real or a composite. It debuted at No. 35 on the Hot 100, and critics repeatedly singled it out as one of folklore\'s most moving songs for handling the subject with that light a touch.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Seven_(Taylor_Swift_song)' }],
         photos: [],
       },
@@ -130,10 +136,16 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg',
       moment: {
+        context:
+          'Announced just hours before it hit Disney+ on Nov. 25, 2020 — a surprise drop about a surprise drop — the film was shot in September 2020 at Aaron Dessner\'s Long Pond Studio, a converted barn in the Hudson Valley where parts of folklore were engineered. It was the first time Swift, Dessner, and Jack Antonoff had ever been in a room together: the album had been made entirely remotely, and here they play all 17 songs acoustically between conversations about how each one happened, with Justin Vernon beaming in from Wisconsin for "exile." It\'s also where she confirms on camera that co-writer William Bowery is Joe Alwyn. Critics gave it a perfect 100% on Rotten Tomatoes; Rolling Stone\'s Rob Sheffield called it "a stunning musical statement in its own right." The sessions did double duty — recordings from the same stretch fed evermore, released just 15 days later.',
         sources: [
           {
             outlet: 'Wikipedia',
             url: 'https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-folklore-movie-disney-1095464/',
           },
         ],
         photos: [
@@ -155,6 +167,8 @@ export default {
       thumbnailUrl:
         'https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg',
       moment: {
+        context:
+          'The March 14, 2021 win — after Fearless in 2010 and 1989 in 2016 — made her the first woman with three Album of the Year Grammys, in a field that included Dua Lipa, Post Malone, HAIM, and Coldplay. Accepting at the pandemic-limited ceremony, she thanked Jack Antonoff, Aaron Dessner, and engineers Laura Sisk and Jonathan Low ("I had the best time writing songs with you in quarantine"), told Justin Vernon — whom she still had never met in person — "I\'m so excited to meet you someday," and thanked fans for meeting her in "this imaginary world that we created." It was her only win of the night from six nominations, and the one that mattered.',
         sources: [
           {
             outlet: 'CBS News',
@@ -187,10 +201,16 @@ export default {
       sourceUrl: 'https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/',
       thumbnailUrl: 'https://www.shefinds.com/files/2021/03/taylor-swift-top-photo.jpg',
       moment: {
+        context:
+          'The floor-length blue-and-gold Etro gown — high slit, seventies lines — was built for the night\'s most theatrical staging: a moss-covered cabin on a woodland hillside set, where she moved through "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff. Etro posted a sketch of the design after the show. It was one half of a two-look night: on the red carpet she wore a custom floral Oscar de la Renta mini with botanical appliqués tacked on individually — plus a matching mask — that fans immediately read as "floral folklore."',
         sources: [
           {
             outlet: 'SheFinds',
             url: 'https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/',
           },
         ],
         photos: [
@@ -540,7 +560,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Co-written with Aaron Dessner and the then-mysterious William Bowery, with Vernon tracking his parts from his Wisconsin studio, "exile" became folklore\'s second single and peaked at No. 6 on the Hot 100 — and its overlapping-argument bridge became the album\'s most-covered structural trick.',
+          'The song started at home: Joe Alwyn — still hidden behind the William Bowery credit — wrote the piano melody and the first verse, and Swift cut a demo singing both the male and female parts herself before Aaron Dessner shaped the arrangement and Justin Vernon tracked his side from April Base, his Wisconsin studio. The bridge is built as actual counterpoint, two independent melodic lines arguing over each other rather than trading bars — the structural trick everyone covers. Released as a single on Aug. 3, 2020, it debuted at No. 6 on the Hot 100, became Bon Iver\'s highest-charting song anywhere, and earned a Grammy nomination for Best Pop Duo/Group Performance.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -550,6 +570,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/',
+            source_title: 'Taylor Swift Leaves Her Comfort Zones Behind on the Head-Spinning, Heartbreaking Folklore',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -657,7 +686,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Sung from the perspective of seventeen-year-old James, harmonica intro and all, "betty" was the folklore track built closest to her Nashville roots — and the single choice read as a deliberate olive branch to the format she\'d left after Red. It peaked at No. 6 on Hot Country Songs.',
+          'Sung from the perspective of seventeen-year-old James — a character voiced into being partly by Joe Alwyn, whom Swift overheard "singing the entire, fully formed chorus" from another room — "betty" was the folklore track built closest to her Nashville roots. She modeled its sound on Bob Dylan, specifically The Freewheelin\' Bob Dylan and John Wesley Harding, and the guitars, pedal steel, and harmonica read as a deliberate olive branch to the format she\'d left after Red. It peaked at No. 6 on Hot Country Songs — the highest debut by a woman on that chart since Bebe Rexha\'s "Meant to Be" in 2017 — and crossed to No. 42 on the Hot 100.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -684,7 +713,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The stripped performance doubled as her return to country music\'s biggest stage since leaving the format, and stayed folklore\'s only live TV performance until the Grammys medley the following March.',
+          'Her first ACM Awards appearance in seven years was staged as minimally as the album itself: seated at the Opry with an acoustic Gibson, a single spotlight glowing behind her, one harmonica player as the entire band, in a burgundy sequined turtleneck. The audience-free, pandemic-produced broadcast made it the world television premiere of any folklore song — Variety noted "betty" is the one track on the album that harks back to early Swift country hits like "Love Story," which made it the natural pick for a country-stage homecoming. It stayed folklore\'s only live TV performance until the Grammys medley the following March.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -694,6 +723,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2020/music/news/taylor-swift-betty-acm-awards-performance-country-opry-1234772890/',
+            source_title: "Taylor Swift Sings Solo Acoustic 'Betty' on ACM Awards",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -778,12 +816,12 @@ export default {
       category: 'business',
       title: 'Six Grammy nominations for the quarantine album',
       snippet:
-        'The Nov. 24, 2020 nominations gave the surprise album a full slate: folklore for Album of the Year and Best Pop Vocal Album, "cardigan" and "exile" in the pop performance categories, "betty" for Best Country Song, and her Cats ballad "Beautiful Ghosts" for visual media.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
+        'The Nov. 24, 2020 nominations gave the surprise album a full slate: folklore for Album of the Year and Best Pop Vocal Album, "cardigan" for Song of the Year and Best Pop Solo Performance, "exile" for Best Pop Duo/Group Performance, and her Cats ballad "Beautiful Ghosts" for visual media.',
+      sourceUrl: 'https://www.eonline.com/news/1211337/taylor-swifts-folklore-sweeps-2021-grammys-nominations',
       thumbnailUrl: null,
       moment: {
         context:
-          'The "betty" country nod meant the album that left Nashville behind still landed a country nomination — and the Album of the Year slot set up the March 2021 win that made her the first woman with three AOTY trophies (covered separately in this era).',
+          'Exactly four months after an album made in secret quarantine sessions appeared with sixteen hours\' notice, it led her to six nominations — "cardigan" pulling double duty in the songwriting and pop performance fields, "exile" earning Bon Iver a pop nomination, and "Beautiful Ghosts" carrying a stray Cats credit into the visual-media category. On the night itself she went one-for-six, but the one was Album of the Year — the win that made her the first woman with three AOTY trophies (covered separately in this era).',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -793,6 +831,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1211337/taylor-swifts-folklore-sweeps-2021-grammys-nominations',
+            source_title: "Taylor Swift's folklore Sweeps 2021 Grammys Nominations",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -845,7 +892,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Dessner finished the production in a scramble while his brother added orchestration — a buzzer-beater that changed the album\'s shape and set up folklore\'s whole exercise in imagined lives before a single "real" song plays.',
+          'Swift sent Aaron Dessner a voice memo with the lyrics days before release; he finished the production in a scramble while his brother Bryce added orchestration — a buzzer-beater that changed the album\'s shape and set up folklore\'s whole exercise in imagined lives before a single "real" song plays. The machinery is almost comically simple: the piano cycles just two chords, C and F, at an easy 70 BPM, with the conversational vocal carrying the wry what-ifs on top — one of the lightest-sounding songs on a heavy record. It debuted at No. 4 on the Hot 100 in the album\'s opening week, part of Swift becoming the first artist ever to debut two songs in the chart\'s top four at once.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -872,7 +919,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'It never got a single push and didn\'t need one: the whispered-to-shouted bridge became one of the album\'s signature moments, and — years later — one of the Eras Tour folklore set\'s loudest singalongs.',
+          'The structure is the story: verses of muted, procedural regret — the parking lots, the perfume worn only for one person — then a bridge where the narrator finally erupts ("don\'t call me kid, don\'t call me baby") and the song simply stops, with no final chorus to tidy it up. Rolling Stone\'s Rob Sheffield flagged the line "a drug that only worked the first few hundred times" in his album review; the Los Angeles Times called the writing more sophisticated than any of her earlier infidelity songs. It never got a single push and didn\'t need one: it peaked at No. 44 on the Hot 100 on album-cut streaming alone, and the whispered-to-shouted bridge became one of the Eras Tour folklore set\'s loudest singalongs.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -882,6 +929,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/',
+            source_title: 'Taylor Swift Leaves Her Comfort Zones Behind on the Head-Spinning, Heartbreaking Folklore',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -899,7 +955,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her commentary framed it around people trying their hardest while assuming nobody notices — the kid who "got wasted like all my potential," the person white-knuckling a hard stretch — with Antonoff\'s production leaving the effort audible in the vocal.',
+          'Her commentary framed it around people trying their hardest while assuming nobody notices — the kid who "got wasted like all my potential," the person white-knuckling a hard stretch — and she traced part of it to her own 2016–2017 low, when "I just felt like I was worth absolutely nothing." Written and produced with Jack Antonoff (Joe Alwyn holds a co-producer credit), it wraps that fragility in organ, horns, and saxophone, with processed vocals that leave the effort audible. Rolling Stone\'s Rob Sheffield called it "the disturbingly witty tale of someone pouring her heart out, to keep herself from pouring more whiskey." It reached No. 39 on the Hot 100 in folklore\'s opening week.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -909,6 +965,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/',
+            source_title: 'Taylor Swift Leaves Her Comfort Zones Behind on the Head-Spinning, Heartbreaking Folklore',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -926,7 +991,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Produced with Aaron Dessner, it offers everything except an ordinary life — the one thing fame permanently prices out. Fans clocked it immediately as the album\'s realest moment, and her Long Pond commentary confirmed the read.',
+          'The third song she and Aaron Dessner wrote together for the album, and the one where she worked against the music on purpose: Swift said Dessner\'s composition gave her an "immediate sense of serenity," so she wrote conflicted lyrics over it — an offer of everything except an ordinary life, the one thing fame permanently prices out. The production stays nearly transparent (soft piano, harmonized basslines, a ticking pulse contributed by Justin Vernon), which is why the writing lands so hard; one critic called it the most romantic song she\'d ever written precisely because peace is the only thing she can\'t promise. Fans clocked it immediately as the album\'s realest moment, and her Long Pond commentary confirmed the read. It reached No. 58 on the Hot 100.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -953,7 +1018,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her open letter said Braun\'s team had required an NDA before any purchase talks and never quoted her a price. She wished Shamrock well but wouldn\'t work with them while the terms enriched Braun — and doubled down on re-recording instead, days before the Long Pond film premiered.',
+          'Her open letter laid out why the second sale stung like the first: Braun\'s team had required an "ironclad" NDA that would have allowed her to say only positive things about him before any buy-back talks, never quoted her a price, and — she said — required that Shamrock not notify her until the deal was already done. Shamrock offered her an equity partnership; she declined because under the terms Braun and Ithaca Holdings would keep profiting from her old catalog, though she told the firm she wished them well. Instead she doubled down: the re-recording sessions began that same November, days before the Long Pond film premiered — and the standoff only fully resolved in May 2025, when she bought the masters back from Shamrock outright.',
         sources: [
           {
             outlet: 'Variety',
