@@ -697,8 +697,8 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'tloas-fate-of-ophelia-video',
       video: {
-        youtubeId: 'fxeEYfVDaJI',
-        title: 'The official music video for “The Fate of Ophelia” is available now, only on YouTube',
+        youtubeId: 'ko70cExuzZM',
+        title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)',
       },
       date: '2025-10-05',
       dateLabel: 'October 2025',
