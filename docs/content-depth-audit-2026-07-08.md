@@ -56,6 +56,38 @@ And every moment's `body` needs to clear a substance bar before shipping, not ju
 
 ---
 
+## A3. Completeness — a third axis, separate from sourcing and depth (found 2026-07-09)
+
+§A2 measures whether an *existing* item is good enough. This section is about the items that don't exist at all. Concrete test that surfaced this: Joey's wife sent a clip of Taylor Swift on Jimmy Kimmel Live — a show she's appeared on multiple times, publicly, for over a decade. **The corpus has zero mentions of "Kimmel" anywhere** (`grep -ril kimmel supabase/seed/ apps/web/lib/longlive/` returns nothing). A 30-second web search found at least two real, dated, sourceable appearances (Oct 23, 2014, promoting *1989*; Dec 14, 2020, around *evermore*) that should exist as content items with the interview clip embedded, and don't.
+
+This is not a depth problem (§A2) or a sourcing problem (§A). It's a **coverage-completeness problem**: the content generation process has been finding *some* real events and writing them up well, but has no mechanism to know whether it found *all* of them. Depth and sourcing gates can only ever grade what's already in the corpus — they're structurally blind to what was never added.
+
+### Why "a hundred more like Kimmel" is the right way to think about it
+
+The same gap almost certainly exists across every recurring category with a real, enumerable ground truth:
+- **Late-night/talk-show appearances** — Kimmel, Fallon/Tonight Show, Ellen, Graham Norton, GMA, Today, SNL (both as host and musical guest, on different occasions).
+- **Every tour, every leg, arguably every city** — currently `supabase/seed/tours/**` has 6 tour-level records; it has no per-city/per-night granularity at all, so "she played Cardiff" or "the Eras Tour Singapore residency" isn't a thing that can exist yet even in principle.
+- **Award shows** — not just wins (which §B's inventory already tracks reasonably well) but every appearance/performance/nomination, including losses and non-performing attendances.
+- **Music videos and official visual content** — cross-check against `supabase/seed/videos/**`'s actual count vs. her real official-video catalog.
+- **Major interviews/documentaries/specials** — Miss Americana, the Long Pond Sessions, magazine cover interviews (Rolling Stone, Vogue, TIME Person of the Year), NPR Tiny Desk-style specials.
+- **Public statements** — political endorsements, award-acceptance speeches with news-making lines, brand/label statements (the Big Machine/Scooter Braun masters dispute statements, for instance).
+
+### The methodology: build a ground-truth checklist per category, then diff
+
+Depth/sourcing can be checked with a script because the corpus is the only input. Completeness can't — it requires an external ground-truth list to diff against. The process for each category:
+1. **Research the real, complete list** (web search, Wikipedia filmography/videography pages, official tour-date archives, award-show databases) — this is a research task, well-suited to a web-search-capable lane (ChatGPT/`codex exec`, or a Claude subagent with `WebSearch`).
+2. **Cross-check against the corpus** (grep/script) for each item on the ground-truth list — present or absent.
+3. **Report the gap as a real, actionable list** — not a percentage score, an actual enumerated "these N things are missing" list, same style as the depth gate's per-item output.
+4. **Fill real gaps only** — same hard rules as everywhere else in this doc: verify before adding, never invent an appearance/date/quote to fill a checklist.
+
+This is fundamentally a research pass, repeated per category, not a single script — unlike the depth gate (§G's coverage-gate ticket), there's no way to mechanically enumerate "everything that really happened" from inside the repo. Treat each category as its own research task.
+
+### Action item (added to §G, see T17)
+
+- **T17 (content/research, P0):** build ground-truth checklists for the categories above, starting with late-night/talk-show appearances (the concrete Kimmel example) and tour dates (the highest-volume, most-enumerable category). Cross-check against the corpus, report gaps, fill only what's verifiable. Best suited to a dedicated research lane (ChatGPT via `codex exec`, given its web-search access) rather than folded into the existing content-depth loop.
+
+---
+
 ## B. Full content inventory
 
 *(Condensed from the inventory-mapper and UX-critic passes — see full per-file detail in agent transcripts if needed.)*
@@ -228,6 +260,13 @@ Confirmed present vs. absent, from the six audits:
 - Scope: not every item — the ones a fan would call a big deal (weddings, engagements, album drops, major tour/award moments). Start with `vault-tloas-taylor-and-travis-marry-at-madison-square-garden` and `vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep`.
 - Acceptance criteria: each re-passed moment has real photos (3+) or clearly-labeled reference images (2+), and a body that actually answers what a fan would ask next, not just a sourced summary.
 - Priority: **P0**. Content lane.
+
+**T17. Build ground-truth completeness checklists and fill real gaps** — *NEW, see §A3*
+- Problem: zero mechanism exists to know whether the corpus contains *every* real event in a category, only whether existing items are good. Concrete proof: zero mentions of "Jimmy Kimmel Live" anywhere in the corpus despite multiple real, dated, easily-sourced appearances.
+- Scope: start with late-night/talk-show appearances and tour dates (highest-volume, most-enumerable categories); expand to award shows, official videos, major interviews/documentaries, and public statements per §A3's list.
+- Process: research the real complete list per category (web search / Wikipedia filmography-tour-award databases), diff against the corpus, report an enumerated gap list, fill only verified items.
+- Acceptance criteria: a checklist doc exists per category with a source for every "ground truth" entry; every gap either has a new, verified content item or is explicitly logged as "couldn't verify, not added."
+- Priority: **P0**. Research/content lane — best run by a web-search-capable agent (ChatGPT via `codex exec`).
 
 **T1. Wire the theories/videos/tracks/tours/releases seed pipelines into the live UI** — ✅ done 2026-07-09 (track guide UI shipped; theories/videos still need a UI surface, tracked as follow-up)
 - Problem: fully-authored, sourced, confidence-graded content sits unused in `supabase/seed/{theories,videos,tracks,tours,releases}/**`.
