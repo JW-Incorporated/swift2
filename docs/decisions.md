@@ -7,6 +7,40 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-09 — Image policy relaxed: any real public image, rehosting allowed (accept risk)
+
+**Decision:** Supersedes part 2 ("Images — don't copy; embed + license") of the
+2026-07-08 Media & content sourcing policy below. Content may now use **any real,
+publicly-available internet image** for Vault moments — **hotlinked or copied/
+rehosted to our own CDN** — with a credit line where one is available and clear
+`reference`/`archival` labels on anything that isn't the actual subject. The only
+image bar that remains: **no AI-generated fakes** (an authenticity rule, not a
+licensing one; the corpus already refuses them, e.g. the Dior wedding-gown item).
+
+**Why:** The embed-or-license rule left every "major event" moment (wedding,
+engagement, album drops, tour/award nights) with no real photography. The
+compliant routes were Wikimedia Commons (few event photos exist), oEmbed social
+(Instagram's oEmbed is token-gated → unusable by our agents), and paid editorial
+licensing (a manual account/credential step nobody has set up). Net effect: the
+depth-gate's "no photo" flags were structurally unclearable. Judged that real
+photo depth on the marquee moments is worth accepting the licensing/enforcement
+risk **for now**, pre-scale.
+
+**Risk accepted:** rehosting agency-owned imagery (Getty/AP) is the real
+enforcement exposure and is now explicitly accepted for the current pre-launch /
+low-traffic phase. Revisit before any scaled public launch or monetization — at
+which point licensing the hero/marquee assets (the 2026-07-08 policy's option b)
+becomes the safer permanent path.
+
+**Alternatives considered:** hotlink-with-credit but no rehosting (lower exposure,
+judged unnecessarily cautious for now); keep the 2026-07-08 rule (rejected — it is
+the blocker described above).
+
+**Approved by:** Wyatt (CTO), this session — "accept the risk for now… most
+relaxed." Flagged for Joey to ratify, since he authored the superseded policy and
+an earlier blunt reversal of it was walked back once as an over-correction; this
+entry records Wyatt's call and should be confirmed jointly rather than ping-ponged.
+
 ## 2026-07-08 — LongLive content synced from Supabase at build time, not runtime
 
 **Decision:** `apps/web/lib/longlive/content-vault.generated.ts` (the
