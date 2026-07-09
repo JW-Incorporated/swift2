@@ -769,11 +769,21 @@ export default {
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
             credit: 'Charly Triballeau/AFP via Getty Images',
+            caption:
+              'The jumbotron outside Madison Square Garden reading "JUST&T MARRIED!" as fans stop to photograph it, the Empire State Building behind.',
+            kind: 'primary',
           },
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2026/07/02/e66f5b93-8b69-4557-847c-106908119407/thumbnail/620x413/06cdf599d84c9a589b8eb695f3867456/2026-07-02t205104z-316575572-rc2w5maws1vu-rtrmadp-3-people-taylor-swift-kelce.jpg',
             credit: 'Christian Monterrosa/Reuters',
+            caption:
+              "In the run-up to the ceremony: crews on ladders hang curtains across the Garden's glass entrance while security stands watch outside.",
+            kind: 'archival',
           },
+          // T16 note: no additional wedding photo added — no Wikimedia Commons /
+          // confirmably-licensed photo of the event itself could be verified, and
+          // press/Getty imagery beyond the existing CBS-sourced photos is not
+          // cleanly licensable for us to add.
         ],
       },
     },
@@ -789,7 +799,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design rather than a runway adaptation. No official photo of the gown had been released as of the day after the wedding, and several AI-generated fakes were circulating online — none of those are used here.',
+          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design rather than a runway adaptation. No official photo of the gown had been released as of the day after the wedding, and several AI-generated fakes were circulating online — none of those are used here; the gallery instead shows clearly-labeled reference images of the real things the design reportedly draws on. The commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. The reported touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM costume designer Helen Rose and gifted to Elizabeth by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, in the lace-and-veil look shown in the reference image here. Per The Hollywood Reporter and Marie Claire, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -799,8 +809,66 @@ export default {
             outlet: 'Marie Claire',
             url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-wedding-dress-details/',
           },
+          {
+            outlet: 'Fashion Dive',
+            url: 'https://www.fashiondive.com/news/jonathan-anderson-dior-creative-director-haute-couture-mens-womens/749569/',
+            source_title: 'Jonathan Anderson will lead fashion at Dior',
+            publisher: 'Fashion Dive',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ElizabethTaylor.com',
+            url: 'https://elizabethtaylor.com/marriage-and-movies-the-real-life-romance-that-promoted-father-of-the-bride/',
+            source_title: "Marriage and Movies: The Real-Life Romance That Promoted 'Father of the Bride'",
+            publisher: 'House of Taylor / elizabethtaylor.com',
+            source_type: 'official',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          // License provenance for the reference images below (Commons file pages):
+          {
+            outlet: 'Wikimedia Commons (file page — Elizabeth Taylor, Father of the Bride trailer)',
+            url: 'https://commons.wikimedia.org/wiki/File:Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG',
+          },
+          {
+            outlet: 'Wikimedia Commons (file page — Jonathan Anderson dress for Loewe)',
+            url: 'https://commons.wikimedia.org/wiki/File:Dress_by_Jonathan_Anderson_for_Loewe_(51444).jpg',
+          },
+          {
+            outlet: 'Wikimedia Commons (file page — Dior, 30 Avenue Montaigne)',
+            url: 'https://commons.wikimedia.org/wiki/File:Christian_Dior,_30_Avenue_Montaigne,_Paris_2016.jpg',
+          },
         ],
-        photos: [],
+        // T16 pilot: no official photo of the gown exists and AI fakes are refused
+        // (see context). These are REAL, license-verified reference images only —
+        // each `kind: 'reference'` so the UI labels them as stand-ins, never as
+        // the gown itself. Licenses confirmed on the Commons file pages cited in
+        // `sources` above on 2026-07-09.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG',
+            credit: 'MGM trailer still, public domain (published without copyright notice) via Wikimedia Commons',
+            caption:
+              "For reference — no official photo of Taylor Swift's gown has been released. This is Elizabeth Taylor in the Helen Rose bridal look from Father of the Bride (1950); Rose also designed the real gown Elizabeth Taylor wore to marry Conrad Hilton that May, the dress the Dior design reportedly references.",
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Dress_by_Jonathan_Anderson_for_Loewe_%2851444%29.jpg',
+            credit: 'Rhododendrites / CC BY-SA 4.0 via Wikimedia Commons',
+            caption:
+              "For reference — not the wedding gown. Jonathan Anderson working in white duchess silk satin at Loewe (autumn/winter 2023-24), before he took over Dior womenswear and haute couture — a feel for the designer's hand in bridal-adjacent white silk.",
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Christian_Dior%2C_30_Avenue_Montaigne%2C_Paris_2016.jpg',
+            credit: 'Frédéric BISSON / CC BY 2.0 via Wikimedia Commons',
+            caption:
+              "For reference — Dior's historic house at 30 Avenue Montaigne, Paris, home of the haute couture ateliers where the custom gown was made.",
+            kind: 'reference',
+          },
+        ],
       },
     },
 
