@@ -22,6 +22,8 @@ export default {
       sourceUrl: 'https://www.billboard.com/pro/taylor-swift-willow-debut-number-one-hot-100/',
       thumbnailUrl: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2025/12/Taylor-Swift-Willow.jpg?w=2880',
       moment: {
+        context:
+          'On charts dated Dec. 26, 2020, "willow" opened at No. 1 with 30 million U.S. streams and 59,000 downloads while evermore launched atop the Billboard 200 — an exact repeat of what "cardigan" and folklore had done that August, and no other artist had ever pulled off the double debut twice. It was her seventh Hot 100 No. 1 and only her third No. 1 debut, after "Shake It Off" and "cardigan." The chart footnote is almost as good: "willow" fell to No. 38 the following week, at the time the steepest drop from a No. 1 debut in Hot 100 history.',
         sources: [
           {
             outlet: 'Billboard',
@@ -50,8 +52,14 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Taylor_Swift_-_Willow.png/250px-Taylor_Swift_-_Willow.png',
       moment: {
         context:
-          'Full quote: "Willow is about intrigue, desire, and the complexity that goes into wanting someone."',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Willow_(song)' }],
+          'Full quote: "Willow is about intrigue, desire, and the complexity that goes into wanting someone." The music arrived almost by accident: Aaron Dessner had an instrumental sketch he called "Westerly," named for Swift\'s Rhode Island home, and sent it over without expecting anything back — she wrote the entire song to it within the hour. The self-directed video (her third) picks up exactly where "cardigan" left off, following a golden thread through an enchanted forest, and the single later spawned a full coven of official remixes: "dancing witch," "lonely witch," and "moonlit witch" versions.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Willow_(song)' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Taylor_Swift_-_Willow.png/250px-Taylor_Swift_-_Willow.png',
@@ -72,8 +80,14 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png/250px-Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
       moment: {
         context:
-          'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime' }],
+          'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately. Swift had written the song entirely alone while deep in a true-crime documentary and podcast phase, then sent Aaron Dessner a voice memo of the finished thing; the production leans all the way into its country staging, harmonica courtesy of Josh Kaufman. It even went to country radio as a single in January 2021, and when HAIM opened Eras Tour shows in 2023, it bumped "\'tis the damn season" to become the evermore set\'s opener.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png/250px-Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
@@ -92,8 +106,14 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "Taylor gave producer Aaron Dessner her grandmother's old opera recordings to build the track around; Marjorie's soprano appears woven into the song itself, answering the line \"if I didn't know better, I'd think you were singing to me now.\"",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Marjorie_(song)' }],
+          "Taylor gave producer Aaron Dessner her grandmother's old opera recordings to build the track around; Marjorie's soprano appears woven into the song itself, answering the line \"if I didn't know better, I'd think you were singing to me now.\" Dessner called it \"one of the most experimental songs on the album — it doesn't sound that way, but when you pick apart the layers underneath it, it's pretty interesting\": beneath the hush sit synthesizers, pizzicato strings, and a rhythm bed built from software that reshuffles sampled sounds into randomized patterns. On the Eras Tour, crowds raised their phone flashlights for it nightly — a tribute to a grandmother most of them never heard sing.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Marjorie_(song)' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
+          },
+        ],
         photos: [],
       },
     },
@@ -107,8 +127,14 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift described it simply as a story about "two college sweethearts" — a character study, not autobiography.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Champagne_Problems_(Taylor_Swift_song)' }],
+          'Swift described it simply as a story about "two college sweethearts" — a character study, not autobiography. She wrote it with Joe Alwyn (as William Bowery) during the September 2020 sessions at Long Pond that were being filmed for the folklore documentary, with Aaron Dessner producing the spare, oom-pah-tinged piano ballad. Despite never being released as a single, it reached No. 21 on the Hot 100 — and on the Eras Tour it became a nightly event anyway, consistently drawing extended ovations from the crowd.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Champagne_Problems_(Taylor_Swift_song)' },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+          },
+        ],
         photos: [],
       },
     },
@@ -122,8 +148,14 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Coney_island_cover.jpeg/250px-Coney_island_cover.jpeg',
       moment: {
         context:
-          'The Dessner brothers built the instrumental and heard Berninger\'s voice in it immediately; Berninger recorded his half in Los Angeles while Taylor recorded hers at Long Pond in the Hudson Valley, never in the same room.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)' }],
+          'The Dessner brothers built the instrumental and heard Berninger\'s voice in it immediately; Berninger recorded his half at Knobworld in Los Angeles while Taylor recorded hers at Long Pond in the Hudson Valley, never in the same room. The words are another William Bowery co-write — Joe Alwyn trading breakup perspectives with her — and Aaron Dessner happily conceded the result cuts both ways: "it does really feel like Taylor, obviously, since she and William Bowery wrote all the words, but it also feels like a National song in a good way." She performed it live only three times on the Eras Tour, including a Sydney mashup with "White Horse" alongside Sabrina Carpenter.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Coney_island_cover.jpeg/250px-Coney_island_cover.jpeg',
@@ -143,6 +175,8 @@ export default {
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1',
       moment: {
+        context:
+          'Beyond the headline record, the numbers were era-defining: 179,000 of the 291,000 units were pure album sales — the biggest sales week for any album since folklore — and its 143 million on-demand streams gave a country album by a woman its largest streaming week ever. It also made her the first woman in the Billboard 200\'s 65-year history to land three new No. 1 albums in under 12 months, following folklore and evermore. The Madonna tie put her at nine chart-toppers, second among women only to Barbra Streisand\'s eleven.',
         sources: [
           {
             outlet: 'Billboard',
@@ -172,6 +206,8 @@ export default {
       thumbnailUrl:
         'https://www.guinnessworldrecords.com/news/2021/11/images/red-cover-album-and-swift-at-all-too-well-premiere-683624.jpg',
       moment: {
+        context:
+          'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone. The momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.',
         sources: [
           {
             outlet: 'Guinness World Records',
@@ -200,6 +236,8 @@ export default {
       sourceUrl: 'https://www.forbes.com/sites/hughmcintyre/2021/12/05/taylor-swift-just-lost-one-of-her-album-of-the-year-grammy-nominations/',
       thumbnailUrl: null,
       moment: {
+        context:
+          'The nomination came with an asterisk-shaped subplot: Swift was briefly up for Album of the Year twice that cycle, credited on Olivia Rodrigo\'s Sour because two of its songs drew on previously released Swift material — until the Recording Academy ruled that only writers of new material count in the category and struck her (along with Jack Antonoff and St. Vincent) from the Sour nomination, leaving evermore as her lone shot. The album then lost to the night\'s great upset: Jon Batiste\'s We Are, which had peaked at No. 86 on the Billboard 200 but rode in on 11 nominations, the most of any artist that year.',
         sources: [
           {
             outlet: 'Forbes',
@@ -225,10 +263,16 @@ export default {
       thumbnailUrl:
         'https://imgix.bustle.com/uploads/getty/2021/3/15/e69fff43-e3ed-4536-8533-035382781844-getty-1307106720.jpg?w=374&h=547&fit=crop&crop=faces&dpr=2',
       moment: {
+        context:
+          'She opened "cardigan" from the roof of the mossy cabin, surrounded by trees against a nighttime backdrop, then slipped inside to join Aaron Dessner and Jack Antonoff — the two producers behind both lockdown albums — for "august," before all three stepped out into the lit-up forest for "willow." It was the first time any of the folklore/evermore material had been performed for a television audience, and the night ended with folklore taking Album of the Year, her third career win in the category. On the red carpet beforehand: a floral-appliqué Oscar de la Renta mini, covered separately by the outlets below.',
         sources: [
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-performed-folklore-evermore-medley-2021-grammy-awards-1140876/',
           },
           {
             outlet: 'Elite Daily',
@@ -1070,7 +1114,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The whole song happens inside that single reverie — the fantasy assembles itself, curdles into insecurity, and gets shelved by the final chorus. It became a fan-favorite precisely for admitting the ugly-feeling side of wanting someone universally wanted.',
+          'The whole song happens inside that single reverie — the fantasy assembles itself, curdles into insecurity, and gets shelved by the final chorus. It became a fan-favorite precisely for admitting the ugly-feeling side of wanting someone universally wanted. It\'s a structural outlier too: the only track on evermore that Jack Antonoff co-wrote and produced, and critics heard the difference — Slate\'s track-by-track review called it "a subdued take on the spirit of 1989-style pop" that gave the album back some necessary energy.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1080,6 +1124,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Slate',
+            url: 'https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html',
+            source_title: "Taylor Swift's Evermore review: Your track-by-track guide to the new album",
+            publisher: 'Slate',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1097,7 +1150,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The music was an existing Dessner instrumental he\'d never found a voice for. Its narrator is Dorothea — the same character whose namesake track sits later on the album — home for the holidays and weighing a "so much for auld lang syne" weekend with the one who stayed.',
+          'The music was an existing Dessner instrumental he\'d never found a voice for — one he later ranked among his own career highlights: "one of my favorite things I\'ve ever made, even though it\'s an incredibly simple musical sketch." Its narrator is Dorothea — the same character whose namesake track sits later on the album — home for the holidays and weighing a "so much for auld lang syne" weekend with the one who stayed.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1160,7 +1213,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The announcement letter set the template the whole project would follow: a full album (Fearless) coming, vault tracks from the original sessions — and stray capital letters hiding the release date in plain sight for fans to decode.',
+          'The announcement letter set the template the whole project would follow: a full album (Fearless) coming, vault tracks from the original sessions — and stray capital letters hiding the release date in plain sight for fans to decode. Fans had technically heard the new recording already, via a snippet in a Match.com ad the previous December. The finished single debuted at No. 1 on Hot Country Songs, making her only the second artist ever — after Dolly Parton — to top a Billboard chart with both the original and re-recorded versions of the same song.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1223,7 +1276,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her note described the original Red as the album of "a fractured mosaic of feelings" — and the release date later jumped forward a week to Nov. 12, a near-unheard-of move. The Janessa Leoné-hat cover reveal from the same day is covered in this era\'s fashion items.',
+          'Her note described the original Red as the album of "a fractured mosaic of feelings" — happiness and freedom sitting next to devastation and torment — and set the date at Nov. 19, which later jumped forward a week to Nov. 12, a near-unheard-of move. The timing was no accident either: it came just two months after Fearless (Taylor\'s Version) proved the whole re-recording model with a 291,000-unit No. 1 week. The Janessa Leoné-hat cover reveal from the same day is covered in this era\'s fashion items.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1233,6 +1286,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/columns/pop/9589369/taylor-swift-red-taylors-version-november-release-date/',
+            source_title: "Taylor Swift Announces 'Red (Taylor's Version),' Reveals November Release Date",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1304,7 +1366,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift and Lively co-wrote the video\'s concept, and the song itself carries Chris Stapleton\'s harmonies — the twangiest thing in the entire vault. The red-velvet cake smash became one of the Red (Taylor\'s Version) rollout\'s most shared images.',
+          'Swift and Lively co-wrote the video\'s concept, and the song itself carries Chris Stapleton\'s harmonies — the twangiest thing in the entire vault. The casting kept it in the family: Miles Teller\'s bride is played by his real-life wife, Keleigh Sperry, and Swift\'s own announcement framed the collaboration as overdue — "I finally got to work with the brilliant, brave, & wickedly funny @blakelively on her directorial debut. Join us as we raise a toast, and a little hell." It was the friends\' first official creative project together, years after Swift borrowed the names of Lively and Ryan Reynolds\' daughters for folklore\'s "betty."',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1314,6 +1376,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-blake-lively-music-video-red-taylors-version-1235047645/',
+            source_title: 'Taylor Swift Releases Music Video Directed by Blake Lively',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1385,7 +1456,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Evermore Park alleged trademark infringement and sought millions per mark; TAS Rights Management\'s countersuit said the park had ignored BMI licensing demands for years. The saga resolved in mutual dismissals — one of the odder footnotes in the album\'s history.',
+          'Evermore Park alleged trademark infringement and "actual confusion" with its brand, seeking up to $2 million per counterfeit mark plus attorney fees; TAS Rights Management\'s countersuit answered that the park\'s costumed performers had been singing three Swift songs in shows while ignoring numerous licensing notices from BMI. On March 24, 2021 — barely seven weeks after the first filing — both sides dropped and dismissed everything, with a Swift spokesperson confirming no money changed hands. One of the odder footnotes in the album\'s history.',
         sources: [
           {
             outlet: 'Variety',
@@ -1421,8 +1492,17 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The ceremony doubled as a UK live-events pilot with an audience largely of key workers — one of the first big indoor shows of the reopening — and she was there in person to accept, mid-re-recording-era, with no album of her own to promote.',
+          'The ceremony doubled as a UK live-events pilot, with an O2 Arena crowd of roughly 4,000 made up largely of frontline workers — one of the first big indoor shows of the reopening — and she was there in person to accept, mid-re-recording-era, with no album of her own to promote. Game of Thrones\' Maisie Williams presented the award, and Swift aimed her speech at the room\'s newer artists: "If you\'re being met with resistance, that probably means doing something new. If you\'re experiencing turbulence or pressure, that probably means you\'re rising."',
         sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-inspires-with-brit-awards-2021-speech-video-9570789/',
+            source_title: 'Taylor Swift Offers Inspiration in Brit Awards 2021 Speech',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
           {
             outlet: 'CNN',
             url: 'https://www.cnn.com/2021/05/10/entertainment/taylor-swift-brits-global-icon-intl-scli-gbr/index.html',
@@ -1457,7 +1537,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'At midnight her socials revealed the title, Midnights — "the stories of 13 sleepless nights scattered throughout my life." The Moschino star romper she wore to the after-party, already reading as a teaser, is covered in this era\'s sighting items.',
+          'The short film swept its categories that night — Video of the Year plus Best Longform Video and Best Direction, the direction prize for Swift\'s own work behind the camera. At midnight her socials revealed the title, Midnights — "the stories of 13 sleepless nights scattered throughout my life." The Moschino star romper she wore to the after-party, already reading as a teaser, is covered in this era\'s sighting items.',
         sources: [
           {
             outlet: 'Wikipedia',
