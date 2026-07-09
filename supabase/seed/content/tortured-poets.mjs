@@ -967,5 +967,569 @@ export default {
 
     // (The July 2026 Madison Square Garden wedding item moved to
     // the-life-of-a-showgirl.mjs with this era's end-date trim.)
+
+    // --- Deep timeline fill (2026-07-08, content/deep-d): release-week
+    // records, the European leg's peaks and its darkest week, the tour's
+    // wind-down economy, and the masters buyback that closed the era's
+    // biggest storyline. Every claim verified against its cited source(s)
+    // this session; items carry the audit's additive provenance fields.
+    {
+      slug: 'ttpd-billboard-200-debut',
+      year: 2024,
+      month: 4,
+      category: 'business',
+      title: '2.61 million in week one — her 14th No. 1, tying Jay-Z',
+      snippet:
+        'The biggest album week in nine years: 2.61M units, 1.914M of them real sales, plus the largest streaming week ever logged for an album at 891 million on-demand plays.',
+      sourceUrl: 'https://www.billboard.com/lists/taylor-swift-tortured-poets-department-debut-number-one-billboard-200-chart/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On the chart dated May 4, 2024, TTPD\'s 2.61 million-unit start trailed only Adele\'s 25 (3.482M in 2015) among all weeks since late 2014 and tied her with Jay-Z for the most No. 1 albums by a soloist in the chart\'s history — a record she\'d break outright the following year with Showgirl. The 31-track Anthology\'s 891.37 million streams set a new single-week album streaming record.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-tortured-poets-department-debut-number-one-billboard-200-chart/',
+            source_title: "Taylor Swift's 'The Tortured Poets Department' No. 1 on Billboard 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/taylor-swift-first-week-figure-units-tortured-poets-department-1235984882/',
+            source_title: "Taylor Swift Debuts With 2.61 Million Units for 'The Tortured Poets Department,' the Best Number for Any Album in Nine Years",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'fortnight-top-14-sweep',
+      year: 2024,
+      month: 4,
+      category: 'business',
+      title: 'All 14: TTPD monopolizes the top of the Hot 100',
+      snippet:
+        '"Fortnight" debuted at No. 1 while the next 13 spots filled with the rest of the album — the first artist ever to hold the Hot 100\'s entire top 14, topping her own Midnights top-10 sweep.',
+      sourceUrl: 'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The May 4, 2024 chart put 32 of her songs on the Hot 100 at once. "Fortnight" — 76.2 million streams in its first week — was her 12th No. 1 and seventh to debut there, tying Ariana Grande for the most No. 1 debuts among women. She was already the only artist to have held a full top 10; TTPD stretched the block four slots deeper.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+            source_title: "Taylor Swift Sets Record With All Top 14 of Hot 100, 'Fortnight' No. 1",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/mollybohannon/2024/04/29/taylor-swift-becomes-first-artist-to-take-top-14-spots-on-billboard-hot-100-chart/',
+            source_title: 'Taylor Swift Becomes First Artist To Take Top 14 Spots On Billboard Hot 100 Chart',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'thank-you-aimee-capitalization',
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'thanK you aIMee: the capitalization does the talking',
+      snippet:
+        'The stray capitals spell KIM, and fans connected the rest — a song about outlasting a schoolyard bully, filed under grudges from 2016. By August, a live version was restyled "thank You aimEe."',
+      sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-kim-kardashian-thank-you-aimee-lyrics-rcna148523',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift has never named the subject — the Kardashian reading is fan and critic interpretation, labeled as such, built on the title\'s capitals and the 2016 phone-call feud. The plot thickened in August 2024 when a Taylor Nation email restyled the Wembley live version (mashed up with "Mean") as "thank You aimEe" — capitals now spelling YE, and fans re-litigated the whole thing overnight.',
+        sources: [
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/taylor-swift-kim-kardashian-thank-you-aimee-lyrics-rcna148523',
+            source_title: "Are Taylor Swift's 'thanK you aIMee' and 'Cassandra' About Kim Kardashian?",
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-thank-you-aimee-kanye-west-title-live-1235754448/',
+            source_title: "Taylor Swift Shifts From Kim to Ye With New Live Release of 'thank You aimEe'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'florida-dateline-escape-hatch',
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'Florida!!! — a Dateline-inspired duet with Florence Welch',
+      snippet:
+        'Her own logic: people flee to Florida after crimes and breakups alike. Florence + the Machine turn the reinvention fantasy into the album\'s biggest-sounding song.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Florida!!!',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift said the idea came from watching Dateline: fugitives run to Florida to "reinvent themselves, have a new identity, blend in" — and heartbreak, she figured, wants the same exit. Welch co-wrote the track and trades verses on it; critics singled out the power-ballad build as the Anthology-era song most built for stadiums, and it later reached Florence\'s highest-ever Hot 100 peak.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Florida!!!',
+            source_title: 'Florida!!!',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/florida-lyrics-meaning-taylor-swift-rcna149070',
+            source_title: "Taylor Swift says 'Florida!!!' was inspired by 'Dateline.' Here's why",
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'so-high-school-kelce-references',
+      year: 2024,
+      month: 4,
+      category: 'music',
+      title: 'So High School, annotated by the internet in minutes',
+      snippet:
+        'The "marry, kiss, or kill me" line traces to a viral 2016 Travis interview clip, and fans caught the nod to his impressions of his dad — the album\'s one openly giddy chapter.',
+      sourceUrl: 'https://www.today.com/popculture/music/so-high-school-taylor-swift-lyrics-meaning-rcna148574',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift hasn\'t confirmed the subject on the record — but the reading is barely a theory: in the resurfaced clip Kelce picks "kiss" for Swift in a game of marry-kiss-kill years before they met, and "I feel like laughing in the middle of practice" nods at his impressions of Ed Kelce. When the song joined the Eras Tour setlist, the staging added football-stadium light rigs, and fans took the hint as confirmation enough.',
+        sources: [
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/so-high-school-taylor-swift-lyrics-meaning-rcna148574',
+            source_title: "'So High School' Lyrics: What Does the Taylor Swift Song Mean?",
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swift-fans-thrilled-over-apparent-reference-to-travis-kelce-and-his-dad-ed-on-so-high-school',
+            source_title: "Taylor Swift Fans Thrilled Over Apparent Reference to Travis Kelce and His Dad, Ed Kelce, on 'So High School'",
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'murrayfield-scotland-records',
+      year: 2024,
+      month: 6,
+      category: 'tour',
+      title: 'Three nights, three Scottish attendance records at Murrayfield',
+      snippet:
+        'Night one beat Harry Styles\' all-time Scottish stadium record at nearly 73,000 — then nights two and three each broke it again. 220,000 fans across the weekend.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-thanks-edinburgh-eras-tour-fans-breaking-crowd-record-1235705719/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The June 7–9, 2024 Edinburgh stand opened the UK run by re-breaking its own record nightly — Swift said the crowds "truly blew me away." Seismic monitors picked up the shows here too, and CNBC pegged the UK leg\'s Edinburgh windfall at an estimated £77M+ (roughly $98M) for the local economy.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-thanks-edinburgh-eras-tour-fans-breaking-crowd-record-1235705719/',
+            source_title: "Taylor Swift Thanks Edinburgh Eras Tour Crowds for Record-Breaking Attendance: 'Truly Blew Me Away'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CNBC',
+            url: 'https://www.cnbc.com/2024/06/13/taylor-swift-eras-tour-shows-trigger-earthquake-readings-in-scotland.html',
+            source_title: "Taylor Swift's Eras Tour shows trigger earthquake readings in Scotland; estimated $98 million economic boost",
+            publisher: 'CNBC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'liverpool-100th-show',
+      year: 2024,
+      month: 6,
+      category: 'tour',
+      title: 'Show 100 at Anfield — and the news the tour will end',
+      snippet:
+        'She marked the milestone by confirming what fans dreaded: the Eras Tour closes for good in December. "The most exhausting, all-encompassing, but most joyful... thing that has ever happened in my life."',
+      sourceUrl: 'https://abcnews.go.com/GMA/Culture/taylor-swift-announces-end-eras-tour-milestone-100th/story?id=111150191',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'June 13, 2024, Anfield Stadium, Liverpool: "You know, this is actually the 100th show of the tour. That blows my mind." A spokesperson confirmed to ABC News the run would end in Vancouver on Dec. 8 — 149 shows after Glendale, with no further extensions after a tour that had already been extended repeatedly.',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/GMA/Culture/taylor-swift-announces-end-eras-tour-milestone-100th/story?id=111150191',
+            source_title: "Taylor Swift announces end of Eras Tour during milestone 100th show in Liverpool",
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-celebrates-100th-show-the-eras-tour-1235710864/',
+            source_title: 'Taylor Swift Celebrates Her 100th Show on The Eras Tour',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'travis-wembley-stage-cameo',
+      year: 2024,
+      month: 6,
+      category: 'relationship',
+      title: 'Travis Kelce, Eras Tour cast member for a night',
+      snippet:
+        'In white tie and a top hat, he carried her onto the stage during "I Can Do It With a Broken Heart" at Wembley — his idea, he later admitted, with choreography studied from Dumb and Dumber.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-eras-tour-debut-london-show-1235045292/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'June 23, 2024, the third London night: Kelce slipped in among the tuxedoed dancers who carry Swift to the couch in the TTPD set\'s vaudeville intro, and the crowd took a beat to clock that the 6-foot-5 dancer was him. He called the experience "jarring" in the best way on New Heights and confirmed he\'d pitched the cameo to her himself.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-eras-tour-debut-london-show-1235045292/',
+            source_title: 'Taylor Swift Brings Travis Kelce Onstage at London Eras Tour Show',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/travis-kelce-eras-tour-on-stage-experience-1236059951/',
+            source_title: "Travis Kelce Details 'Jarring' On-Stage Eras Tour Experience",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'vienna-shows-cancelled',
+      year: 2024,
+      month: 8,
+      category: 'tour',
+      title: 'Vienna, cancelled: a foiled plot and 250,000 unused tickets',
+      snippet:
+        'Austrian police arrested suspects planning an attack on the Ernst Happel shows, and all three nights were scrapped. She later wrote the cancellations left her with "a new sense of fear" and "tremendous guilt."',
+      sourceUrl: 'https://www.nbcnews.com/news/world/taylor-swift-concert-terror-plot-austria-foiled-2-men-arrested-shows-w-rcna165591',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Aug. 8–10, 2024 shows were called off after authorities said a 19-year-old who had pledged allegiance to ISIS planned to attack the crowds, with bomb-making materials found at his home. Swift stayed publicly silent until the tour\'s London dates were safely done, then explained she\'d been "holding my breath" — the Wembley run resumed days later under heightened security, and the tour finished without further incident.',
+        sources: [
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/news/world/taylor-swift-concert-terror-plot-austria-foiled-2-men-arrested-shows-w-rcna165591',
+            source_title: 'Taylor Swift concerts in Vienna canceled after Austrian police say foiled terrorist plot targeted shows',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-eras-tour-resumes-london-foiled-vienna-terror-plot/',
+            source_title: "Taylor Swift's Eras Tour resumes in London after foiled Vienna terror plot",
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'harris-endorsement-cat-lady',
+      year: 2024,
+      month: 9,
+      category: 'business',
+      title: 'An endorsement signed "Childless Cat Lady"',
+      snippet:
+        'Minutes after the Harris–Trump debate ended, she endorsed Kamala Harris to 283 million followers — posed with Benjamin Button, sign-off borrowed from JD Vance\'s own insult.',
+      sourceUrl: 'https://www.nbcnews.com/politics/2024-election/taylor-swift-endorses-kamala-harris-rcna170547',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Sept. 10, 2024 Instagram post called Harris "a steady-handed, gifted leader" and said AI-generated images falsely showing Swift endorsing Donald Trump had pushed her to be transparent about her actual vote. The photo — Swift holding Benjamin Button, the cat from her Time cover — and the "Childless Cat Lady" signature did the rest of the messaging.',
+        sources: [
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/politics/2024-election/taylor-swift-endorses-kamala-harris-rcna170547',
+            source_title: 'Taylor Swift endorses Kamala Harris following presidential debate',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-kamala-harris-endorsement/',
+            source_title: 'Taylor Swift endorses Kamala Harris in post signed "Childless Cat Lady"',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'us-open-2024-final',
+      year: 2024,
+      month: 9,
+      category: 'sighting',
+      title: "Box seats at Arthur Ashe for the US Open men's final",
+      snippet:
+        'A rare non-football sports date: she and Travis watched Sinner beat Fritz from a box with Patrick and Brittany Mahomes — a red-and-white checkered dress and a Gucci bucket hat between them.',
+      sourceUrl: 'https://abcnews.go.com/GMA/Culture/taylor-swift-travis-kelce-attend-us-open-mens/story?id=113500642',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Sept. 8, 2024: two days before her Harris endorsement rearranged the news cycle, the two couples took in the Grand Slam final at Arthur Ashe Stadium. The US Open\'s own coverage leaned into it — "in her tennis era" — and the outing became one of the relationship\'s most-photographed non-Arrowhead appearances of the year.',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/GMA/Culture/taylor-swift-travis-kelce-attend-us-open-mens/story?id=113500642',
+            source_title: "Taylor Swift and Travis Kelce attend US Open men's final with Patrick and Brittany Mahomes",
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'US Open',
+            url: 'https://www.usopen.org/en_US/news/articles/2024-09-08/in_her_tennis_era_taylor_swift_and_travis_kelce_attend_2024_us_open.html',
+            source_title: 'In her tennis era: Taylor Swift and Travis Kelce attend 2024 US Open',
+            publisher: 'US Open (USTA)',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'vmas-2024-seven-wins',
+      year: 2024,
+      month: 9,
+      category: 'business',
+      title: 'Seven more VMAs, and a tie with Beyoncé at 30',
+      snippet:
+        'Video of the Year for "Fortnight" made her the first artist ever to win the top prize three years running — a fifth VOTY overall, and a total that ties Beyoncé for the most VMAs, period.',
+      sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-breaks-records-2024-mtv-vma-awards-1235097031/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Sept. 11, 2024 haul: Video of the Year, Artist of the Year, Best Pop, Best Collaboration, Best Direction, Best Editing, and Song of the Summer — seven of twelve nominations. The three-peat (All Too Well in 2022, Anti-Hero in 2023, Fortnight in 2024) and fifth career VOTY are both records nobody else holds, and the night made her the most-awarded solo artist in VMAs history.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-breaks-records-2024-mtv-vma-awards-1235097031/',
+            source_title: 'Taylor Swift Broke a Whole Bunch of Records at the 2024 VMAs',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-vmas-2024-passes-beyonce-top-winner-1235773005/',
+            source_title: 'Taylor Swift Ties Beyoncé as All-Time Top VMAs Winner',
+            publisher: 'Billboard',
+            source_type: 'awards_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'eras-tour-book-target',
+      year: 2024,
+      month: 11,
+      category: 'business',
+      title: 'The Eras Tour Book sells 814,000 copies in two days',
+      snippet:
+        'Target-exclusive, $39.99, 256 pages of tour photos and her own notes: it moved 814K over Thanksgiving weekend and nearly a million in week one — 2024\'s biggest new-release print debut.',
+      sourceUrl: 'https://variety.com/2024/music/news/taylor-swift-eras-tour-book-sales-blockbuster-debut-two-days-1236236012/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Released in stores on Black Friday, Nov. 29, 2024, alongside a Target-exclusive TTPD Anthology pressing. Per Circana BookScan data, the two-day number was among the biggest for any nonfiction title in the modern era — trailing only Barack Obama\'s A Promised Land for a first week — and Target itself called it the fastest-selling new release book it had carried in four years.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/taylor-swift-eras-tour-book-sales-blockbuster-debut-two-days-1236236012/',
+            source_title: "Taylor Swift Eras Tour Book Sells Reported 814,000 Copies in Two Days",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-eras-book-sales-target-1235193109/',
+            source_title: "Taylor Swift's 'Eras Tour Book' Sells Record-Breaking 814,000 Copies in Just Two Days",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Target',
+            url: 'https://corporate.target.com/press/release/2024/12/the-official-taylor-swift-the-eras-tour-book-available-exclusively-at-target-sells-nearly',
+            source_title: "The Official 'Taylor Swift | The Eras Tour Book' Sells Nearly 1 Million Copies in First Week",
+            publisher: 'Target (press release)',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'spotify-wrapped-2024',
+      year: 2024,
+      month: 12,
+      category: 'business',
+      title: "Spotify's top global artist, again — 26.6 billion streams",
+      snippet:
+        'Wrapped 2024 crowned her the most-streamed artist on earth for the second straight year, with TTPD as the year\'s most-streamed album — and the first-ever Wrapped badge stamped on her profile.',
+      sourceUrl: 'https://newsroom.spotify.com/2024-12-04/taylor-swift-takes-the-crown-as-spotifys-global-top-artist-of-2024/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Dec. 4, 2024 reveal put her ahead of The Weeknd, Bad Bunny, Drake, and Billie Eilish on more than 26.6 billion global streams for the year — the Eras Tour and the Anthology feeding each other. Women held most of the global top-10 albums chart, with TTPD on top.',
+        sources: [
+          {
+            outlet: 'Spotify Newsroom',
+            url: 'https://newsroom.spotify.com/2024-12-04/taylor-swift-takes-the-crown-as-spotifys-global-top-artist-of-2024/',
+            source_title: "Taylor Swift Takes the Crown as Spotify's Global Top Artist of 2024",
+            publisher: 'Spotify Newsroom',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/spotify-wrapped-2024-taylor-swift-1236233812/',
+            source_title: 'Spotify Wrapped 2024: Taylor Swift Is Most-Streamed Artist, Women Dominate Global Top 10 Albums Chart',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'masters-buyback-shamrock',
+      year: 2025,
+      month: 5,
+      category: 'business',
+      title: '"All of the music I\'ve ever made... now belongs... to me"',
+      snippet:
+        'The ending the Taylor\'s Versions were building toward: she bought her first six albums back from Shamrock Capital — masters, videos, artwork, unreleased songs, everything.',
+      sourceUrl: 'https://www.billboard.com/pro/taylor-swift-regains-control-master-recordings-shamrock/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Announced May 30, 2025 in a letter on her website; Billboard reported a price around $360 million to the firm that had bought the catalog out of the Scooter Braun dispute. The same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was done and could "have its moment" someday.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-regains-control-master-recordings-shamrock/',
+            source_title: 'Taylor Swift Buys Back Her Masters From Shamrock, Reclaiming Her First Six Albums',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-buys-rights-first-six-albums-shamrock-1236413964/',
+            source_title: 'Taylor Swift Shocker: Singer Buys Back Rights to First Six Albums',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Bloomberg',
+            url: 'https://www.bloomberg.com/news/articles/2025-05-30/taylor-swift-buys-back-her-early-albums-after-years-long-crusade',
+            source_title: 'Taylor Swift Buys Back Her Early Albums After Years-Long Crusade',
+            publisher: 'Bloomberg',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
