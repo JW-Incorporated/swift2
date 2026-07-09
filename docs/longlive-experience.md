@@ -285,9 +285,21 @@ constellation.
 
 ## 9. Current state / known gaps
 
-- Content in `content.ts` is representative **mock** data authored in-repo, not
-  yet sourced from Supabase. The `lib/vault.ts` / two-tier serving path in
-  `docs/architecture.md` is **not** wired into this experience yet.
+- Content in `content.ts` is a mix of hand-curated items plus a generated
+  sync (`content-vault.generated.ts`, `VAULT_RAW`) built from
+  `supabase/seed/content/**` by `node scripts/sync-longlive-content.mjs`.
+  This keeps the UI static (no live DB read — see cost discipline in
+  `CLAUDE.md`) while letting Wyatt's content team's work actually reach the
+  live site: **re-run that script after any `supabase/seed/content/**`
+  change and commit the regenerated file.** It is not wired into CI/build
+  yet — someone has to remember to re-run it (candidate for a
+  pre-commit/CI check if this becomes a recurring gap). The videos,
+  theories, tours, and releases seed pipelines (`supabase/seed/{videos,
+  theories,tours,releases}/**`) are **not yet synced** — that's still a
+  gap, tracked as follow-up.
+- The `lib/vault.ts` / two-tier Supabase serving path in
+  `docs/architecture.md` (live DB reads, not a static sync) is **not**
+  wired into this experience yet.
 - Media coverage: all 12 eras have Spotify embeds; 10 signature moments have
   YouTube videos. 1989 + folklore point at original/deluxe (not Taylor's
   Version) pending a product call.
