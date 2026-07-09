@@ -14,7 +14,10 @@ import { cn } from '@/lib/utils';
 
 const HEADER_OFFSET = 64;
 const REF_RATIO = 0.3;
-const RAIL_RIGHT = 26;
+/** Horizontal distance (px) of the rail line from the viewport's right edge. */
+const RAIL_RIGHT = 16;
+/** Ridge SVG width (px); shrinks with the rail footprint. */
+const RIDGE_WIDTH = 28;
 const SAMPLES = 90;
 
 const clamp01 = (n: number) => Math.min(1, Math.max(0, n));
@@ -266,7 +269,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
   const showTooltip = active && !draggingRef.current && hoverPct != null && nearestPoint != null;
 
   return (
-    <div className="pointer-events-none fixed inset-y-0 right-0 z-30 flex w-16 items-center justify-end sm:w-20">
+    <div className="pointer-events-none fixed inset-y-0 right-0 z-30 flex w-10 items-center justify-end sm:w-12">
       <div
         aria-hidden
         className="absolute inset-y-0 right-0 w-full"
@@ -331,7 +334,7 @@ export function ThreadsTimeline({ threadId }: { threadId: LensId }) {
         <svg
           aria-hidden
           className="absolute inset-y-0"
-          style={{ right: RAIL_RIGHT, width: 48, height: '100%' }}
+          style={{ right: RAIL_RIGHT, width: RIDGE_WIDTH, height: '100%' }}
           viewBox="0 0 100 1000"
           preserveAspectRatio="none"
         >

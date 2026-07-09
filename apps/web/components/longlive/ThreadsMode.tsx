@@ -169,7 +169,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
           />
         </div>
 
-        <div className="relative mx-auto max-w-3xl px-5 pb-10 pt-12 md:pr-16">
+        <div className="relative mx-auto max-w-4xl px-4 pb-10 pt-12 md:pr-8">
           <button
             onClick={() => {
               clearLens();
@@ -199,7 +199,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
         </div>
       </header>
 
-      <div className={cn('mx-auto max-w-3xl px-5 pb-28', threadId !== 'easter-eggs' && 'md:pr-16')}>
+      <div className={cn('mx-auto max-w-4xl px-4 pb-28', threadId !== 'easter-eggs' && 'md:pr-8')}>
         {threadId === 'love-story' && <LoveStory />}
         {threadId === 'fashion' && <Runway />}
         {threadId === 'taylors-version' && <TaylorsVersion />}
