@@ -13,6 +13,13 @@
 // speculation about a private relationship. Sourced to 2 independent
 // outlets (stricter than the usual 1-source bar for `music`) given the
 // public-figure adjacency.
+//
+// Body-depth pass (2026-07-09): thin/empty moment.context expanded on 16
+// items, each re-verified against its cited sources via fetch on 2026-07-09;
+// strong second sources added where an item had one. The five tour-costume
+// items sourced only to the Taylor Swift Style fan blog were deliberately
+// left shallow — no independently verifiable second source exists for those
+// costume specifics, and skipping beats padding or inventing.
 
 export default {
   eraSlug: 'reputation',
@@ -28,6 +35,8 @@ export default {
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Taylor_Swift_-_Reputation.png/250px-Taylor_Swift_-_Reputation.png',
       moment: {
+        context:
+          "Withheld from streaming services for its entire first week, reputation moved 1.216 million copies in pure sales — the biggest sales week for any album since 2015 — while the No. 2 record that week, Sam Smith's The Thrill of It All, managed 66,000 units. Its 709,000 digital copies were the third-largest digital sales week in Nielsen history, and in seven days it passed Ed Sheeran's ÷ (931,000) to become 2017's best-selling album. The million-selling-week club she rejoined was her own: Speak Now (1.047 million), Red (1.208 million), and 1989 (1.287 million) had all done it first.",
         sources: [
           {
             outlet: 'Billboard',
@@ -57,7 +66,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
       moment: {
         context:
-          "She later said the bridge's phone-call line played on \"a stupid phone call I shouldn't have picked up\" — the Kanye West call at the center of their 2016 feud.",
+          "Released August 24, 2017 — one day after the album announcement — it began, by her account, as a poem about realizing she could only trust a few people. Jack Antonoff co-wrote and co-produced, and Right Said Fred earned writing credits for the \"I'm Too Sexy\" interpolation carrying the chorus. The bridge stages a phone call announcing that the old Taylor \"can't come to the phone right now\" because she's dead — and she later told Rolling Stone the device played on \"a stupid phone call I shouldn't have picked up\": the 2016 Kanye West call at the center of the Kim Kardashian \"Famous\" fallout. The single ended Despacito's 16-week run at No. 1 on the Hot 100 with the largest sales-and-streaming week of 2017.",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do' },
           {
@@ -84,7 +93,15 @@ export default {
       thumbnailUrl:
         "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png",
       moment: {
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour' }],
+        context:
+          "Opening night at University of Phoenix Stadium on May 8, 2018 grossed $7.2 million on its own, with Camila Cabello and Charli XCX opening the show — and briefly joining her on stage for a three-way \"Shake It Off.\" It was the first all-stadium tour of her career, launched behind an album rolled out with almost no press interviews: 53 shows across seven countries that would close six months later as the highest-grossing U.S. tour in Billboard Boxscore history.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments',
+          },
+        ],
         photos: [
           {
             url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png",
@@ -105,10 +122,16 @@ export default {
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg',
       moment: {
+        context:
+          "\"You might be wondering why there are so many snakes everywhere,\" she told the opening-night crowd in Glendale, before explaining that \"a couple of years ago, someone called me a snake on social media and it caught on,\" and that she went through \"some really low times\" because of it. The serpents were everywhere by design — coiling across the video screens, in her jewelry and costumes, and as set pieces flanking the stages — and the nightly speech reframed them in real time: name-calling \"doesn't have to defeat you. It can strengthen you instead.\"",
         sources: [
           {
             outlet: 'iHeartRadio',
             url: 'https://www.iheart.com/content/2018-05-08-taylor-swift-kicks-off-reputation-tour-with-big-setlist-fireworks-snakes/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments',
           },
         ],
         photos: [
@@ -133,6 +156,8 @@ export default {
       sourceUrl: 'https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji',
       thumbnailUrl: null,
       moment: {
+        context:
+          "The blackout began August 18, 2017, when her Instagram, Twitter, Tumblr, and official website all went blank at once. At noon on August 21 came the first post-wipe post: a glitchy, fuzzy clip of what was eventually recognizable as a slithering snake tail, with more fragments following over the next two days — until August 23 brought the album title, the Mert & Marcus cover, and the November 10 release date. The symbol was a pointed reclamation: after the July 2016 \"Famous\" fallout, when Kim Kardashian's \"National Snake Day\" tweet sent snake emojis flooding her accounts so heavily that Instagram tested a comment-filtering tool on her page, she made the snake the era's opening image.",
         sources: [
           {
             outlet: 'Refinery29',
@@ -156,8 +181,14 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her own reasoning: "I think there\'s something even more romantic about who\'s gonna deal with you on New Year\'s Day. Who\'s willing to give you Advil and clean up the house? I think that states more of a permanence."',
-        sources: [{ outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/New_Year's_Day_(Taylor_Swift_song)" }],
+          'Written and produced with Jack Antonoff, it got the era\'s first televised moment: a living-room performance taped at her Rhode Island home during a secret session, fans swaying around the piano, aired mid-episode during ABC\'s Scandal on November 9, 2017 — hours before the album dropped at midnight. Sent to country radio weeks later, it became her first entry on a Billboard country chart since 2013. Her reasoning for the song itself: "I think there\'s something even more romantic about who\'s gonna deal with you on New Year\'s Day. Who\'s willing to give you Advil and clean up the house? I think that states more of a permanence."',
+        sources: [
+          { outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/New_Year's_Day_(Taylor_Swift_song)" },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-new-years-day-video-live-scandal-8031153/',
+          },
+        ],
         photos: [],
       },
     },
@@ -171,10 +202,16 @@ export default {
       sourceUrl: 'https://www.rollingstone.com/music/music-news/watch-taylor-swifts-one-take-new-delicate-video-629359/',
       thumbnailUrl: 'https://i.ytimg.com/vi/3tHoEgt0zB8/maxresdefault.jpg',
       moment: {
+        context:
+          "Released March 30, 2018 as a Spotify exclusive — initially viewable only in the U.S., U.K., Sweden, and Latin America — the vertical video was shot by Swift herself in a single unbroken take, lip-syncing and twirling through a wooded clearing. Fans zeroed in on one blink-and-miss gesture: her clutching a necklace with a \"J\" pendant, read as a nod to Joe Alwyn. Where Joseph Kahn's original video was a dance-heavy fantasy about turning invisible, this one was deliberately homemade — and it finally hit YouTube for everyone on May 15.",
         sources: [
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swifts-one-take-new-delicate-video-629359/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-delicate-vertical-video-spotify-8274561/',
           },
         ],
         photos: [{ url: 'https://i.ytimg.com/vi/3tHoEgt0zB8/maxresdefault.jpg', credit: 'YouTube / Taylor Swift' }],
@@ -191,11 +228,15 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/250px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg',
       moment: {
         context:
-          'Filmed in Dallas with guest performances from Maren Morris and Sugarland, capturing the final North American stop of a tour that had just closed out as the highest-grossing U.S. tour ever, at $266.1 million.',
+          'Secretly taped on October 6 at AT&T Stadium in Arlington — the second of two Texas nights, and the tour\'s final North American stop — the film preserves the full six-act show, 63-foot cobra included, plus its one-night-only guest moments: Sugarland joining her for the first-ever live "Babe," Maren Morris on "The Middle," and openers Camila Cabello and Charli XCX returning for "Shake It Off." It landed on Netflix at 12:01 a.m. on New Year\'s Eve, weeks after the tour closed out as the highest-grossing U.S. tour ever, at $266.1 million; the trailer\'s voiceover set the era\'s arc in one line: "When she fell, she fell apart. When she rose, she rose slowly."',
         sources: [
           {
             outlet: 'Refinery29',
             url: 'https://www.refinery29.com/en-us/2018/12/219360/taylor-swift-reputation-tour-concert-movie-netflix',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-reputation-stadium-tour-film-netflix-what-to-expect-8490159/',
           },
         ],
         photos: [
@@ -216,6 +257,8 @@ export default {
       sourceUrl: 'https://www.forbes.com/sites/hughmcintyre/2018/10/10/taylor-swift-now-holds-the-record-for-the-most-american-music-award-wins-among-women/',
       thumbnailUrl: 'https://specials-images.forbesimg.com/dam/imageserve/1048528712/960x0.jpg?fit=scale',
       moment: {
+        context:
+          'She opened the October 9 show with a pyrotechnics-heavy "I Did Something Bad," then swept all four of her categories: Artist of the Year, Tour of the Year, and the pop/rock awards for Favorite Female Artist and Favorite Album — pushing her career total to 23, one behind Michael Jackson\'s all-time record of 24. Two days after breaking her political silence on Instagram, she used the Artist of the Year speech to keep the thread going: "You know what else is voted on by the people? The mid-term elections on November 6. Get out and vote."',
         sources: [
           {
             outlet: 'Forbes',
@@ -278,7 +321,7 @@ export default {
         'https://imgix.bustle.com/uploads/image/2018/3/12/c5dd79b9-3dd6-48fb-be2c-6b565fc5fe09-screen-shot-2018-03-12-at-61855-am.png?w=248&h=218&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'The teal, tiered-tassel dress was custom-made by Naeem Khan from his Spring 2018 ready-to-wear runway collection, styled with Anabela Chan earrings and Christian Louboutin pumps. It became one of the most-searched dresses of the video\'s release week.',
+          'The teal, tiered-tassel dress was custom-made by Naeem Khan from his Spring 2018 ready-to-wear runway collection — a roughly $3,500 design with a keyhole back that reads as two dresses in one, falling as a floor-length fringed column before swinging up into a mini as she dances. Styled with Anabela Chan earrings and Christian Louboutin pumps, it became one of the most-searched dresses of the video\'s release week, and fans read the dancing-in-the-rain imagery as a deliberate callback to the Fearless era.',
         sources: [
           {
             outlet: 'Bustle',
@@ -304,7 +347,7 @@ export default {
       thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2018/10/gettyimages-1048368054_copy.jpg?w=1296&h=730&crop=1',
       moment: {
         context:
-          'Designed by Olivier Rousteing from Balmain\'s Episode collection: a long-sleeved, mock-neck minidress covered edge-to-edge in tiny mirrored squares ($7,650), paired with matching disco-ball thigh-high boots, a snake ring nodding to the album, and a sleek bouffant updo with a bold black cat-eye.',
+          'Designed by Olivier Rousteing from Balmain\'s Episode collection: a long-sleeved, mock-neck minidress covered edge-to-edge in tiny mirrored squares ($7,650), paired with matching disco-ball thigh-high boots finished with solid black cap toes, a snake ring nodding to the album, and a Sixties-inspired sleek bouffant updo with a bold black cat-eye. The mirror-ball look was built for the occasion — she opened the show minutes later with the first-ever televised performance of "I Did Something Bad."',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -338,7 +381,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg',
       moment: {
         context:
-          'Director Joseph Kahn confirmed via Twitter that special-makeup artist Bill Corso — who did Ryan Reynolds\' scarred prosthetic look in "Deadpool" — created zombie Taylor for the opening graveyard scene, a look deliberately pitched as the antithesis of her earlier, more polished eras.',
+          'Director Joseph Kahn confirmed via Twitter that special-makeup artist Bill Corso — who did Ryan Reynolds\' scarred prosthetic look in "Deadpool" — created zombie Taylor for the opening graveyard scene, a look deliberately pitched as the antithesis of her earlier, more polished eras. The video was a seven-month build overall, conceived in January and shot over five days in Los Angeles that May, and the practical effects didn\'t stop at the makeup: the diamonds she bathes in were real, supplied by jeweler Neil Lane and valued at over $12 million.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -368,7 +411,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'Worn to the 2018 Billboard Music Awards — a rare red-carpet stop mid-tour — the custom Atelier Versace gown paired scattered appliques at the bust, shoulder, and hips with Casadei shoes. Donatella Versace confirmed the 800-plus build hours on Instagram weeks before the show.',
+          'Worn to the 2018 Billboard Music Awards — a rare red-carpet stop mid-tour, which she called "my first award show in a few years" — the custom Atelier Versace gown paired scattered appliques at the bust, shoulder, and hips with Casadei shoes. Donatella Versace confirmed the build time on Instagram: "This gown took more than 800 hours to bring to life." Swift won Top Female Artist that night, then thanked the house with an era-appropriate word choice, describing the feathered pink design as "delicate."',
         sources: [
           {
             outlet: 'Billboard',
@@ -759,6 +802,8 @@ export default {
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-joe-alwyn-the-favourite-2019-bafta-awards-party-8497568/',
       thumbnailUrl: null,
       moment: {
+        context:
+          'On February 10, 2019, The Favourite won seven BAFTAs — including Outstanding British Film, Best Actress for Olivia Colman, and Best Supporting Actress for Rachel Weisz — with Alwyn in the cast as Samuel Masham. Swift skipped the ceremony and red carpet entirely, surfacing at the after-party at his side in a flowing Stella McCartney gown, and let Instagram do the talking: "AHHHHH @thefavouritemovie just won 7 @bafta awards !!! Bout to go give some high fives."',
         sources: [
           {
             outlet: 'Billboard',
@@ -1083,6 +1128,15 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 2,
           },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-end-game-video-watch-1074288/',
+            source_title: "Taylor Swift Parties Around the World in 'End Game' Music Video",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
         ],
         photos: [],
       },
@@ -1171,7 +1225,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The back-to-back London surprises were the European leg\'s signature moment — 90,000-voice "Angels" footage flooded social media. Williams later joked he hadn\'t realized how big a deal the cameo would be to her audience; for UK fans it instantly entered the tour-guest hall of fame.',
+          'Horan\'s night-one cameo was a duet on his own "Slow Hands." The next night, she started "Angels" alone at the piano before Williams strode out in a Taylor Swift T-shirt, and the 90,000-voice singalong footage flooded social media — the European leg\'s signature moment. Williams later joked he hadn\'t realized how big a deal the cameo would be to her audience; for UK fans it instantly entered the tour-guest hall of fame.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1289,7 +1343,7 @@ export default {
         "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png",
       moment: {
         context:
-          'The tour that had already broken the U.S. all-time record ended its single year of touring in Japan — a compact 53-date run, all stadiums, that out-grossed the 85-show 1989 World Tour. The Dallas stop filmed weeks earlier became the Netflix concert film released that New Year\'s Eve.',
+          'The tour that had already broken the U.S. all-time record ended its single year of touring in Japan: the two Tokyo Dome nights drew 100,109 fans and $14.9 million between them, the biggest engagement of the run outside North America. The final tally — $345.7 million across a compact 53 dates, all stadiums — came in 38 percent above the 85-show 1989 World Tour\'s $250.7 million, and pushed her career touring gross past $935 million. The Dallas stop filmed weeks earlier became the Netflix concert film released that New Year\'s Eve.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1299,6 +1353,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-reputation-stadium-tour-345-million/',
+            source_title: 'Taylor Swift Closes Reputation Stadium Tour With $345 Million',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [
