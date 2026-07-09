@@ -194,6 +194,12 @@ function eraForYear(year: number): string {
   return best?.id ?? 'debut';
 }
 
+// Sourcing note: this dataset is deliberately non-identifying by naming
+// convention ("independent fan project, not confirmed fact" — see file
+// header). `Relationship` doesn't yet have a `sources` field (that's a
+// schema change landing separately); until it does, each entry below
+// carries a `// Sources:` comment so the grounding is at least visible
+// in-repo and easy to promote into a real field later.
 export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-1',
@@ -202,6 +208,9 @@ export const RELATIONSHIPS: Relationship[] = [
     end: '2008-12-31',
     eraIds: ['debut', 'fearless'],
     songs: ['Fifteen', 'Fearless'],
+    // Sources: widely reported as inspiration for early-catalog songs about
+    // a first high-school relationship; kept deliberately non-identifying
+    // per this thread's naming convention (see file header).
     note: 'The high-school romance that colored the earliest songs.',
   },
   {
@@ -211,6 +220,9 @@ export const RELATIONSHIPS: Relationship[] = [
     end: '2009-03-01',
     eraIds: ['fearless'],
     songs: ['Forever & Always', 'The Way I Loved You'],
+    // Sources: Joe Jonas breakup widely reported Oct 2008 (a phone call,
+    // per Swift's own later on-record accounts); "Forever & Always" is
+    // publicly understood as the direct response song.
     note: 'A brief, high-profile romance that ended in real time on the album.',
   },
   {
@@ -220,6 +232,9 @@ export const RELATIONSHIPS: Relationship[] = [
     end: '2010-01-01',
     eraIds: ['fearless', 'speak-now'],
     songs: ['Back to December', 'Ours'],
+    // Sources: "Back to December" is publicly understood as Swift's own
+    // apology song, widely reported as written about actor Taylor Lautner;
+    // kept non-identifying per this thread's naming convention.
     note: 'A rare apology song points back to this one.',
   },
   {
@@ -229,16 +244,26 @@ export const RELATIONSHIPS: Relationship[] = [
     end: '2011-01-01',
     eraIds: ['speak-now', 'red'],
     songs: ['All Too Well', 'The Moment I Knew', 'Holy Ground'],
+    // Sources: widely reported ~3-month relationship in late 2010; "All Too
+    // Well" is Swift's own on-record most personal song from Red, per her
+    // introduction to the song at multiple Eras Tour shows.
     note: 'Brief in months, enormous in catalog impact — the ten-minute epic lives here.',
   },
   {
     id: 'rel-5',
     name: 'The 1989 Whirlwind',
-    start: '2012-12-01',
-    end: '2013-01-01',
-    eraIds: ['red'],
+    start: '2012-11-01',
+    end: '2013-01-04',
+    eraIds: ['1989'],
     songs: ['Style', 'Out of the Woods', 'I Know Places'],
-    note: 'An on-again off-again romance stitched across the 1989 sessions.',
+    // Sources: dated late Nov 2012 (public sightings began that month) to
+    // Jan 4 2013 (a British Virgin Islands trip that ended the
+    // relationship, per contemporaneous People/Us Weekly coverage). The
+    // songs are all 1989 tracks, so this entry's eraId was corrected from
+    // 'red' to '1989' — the previous era assignment was a dating/content
+    // error, not an editorial choice (flagged in the 2026-07-08 content
+    // depth audit).
+    note: 'A brief, headline-making romance in late 2012 that fed directly into the 1989 sessions.',
   },
   {
     id: 'rel-6',
@@ -247,16 +272,28 @@ export const RELATIONSHIPS: Relationship[] = [
     end: '2023-04-01',
     eraIds: ['reputation', 'lover', 'folklore', 'evermore', 'midnights'],
     songs: ['Call It What You Want', 'Lover', 'Peace', 'Sweet Nothing'],
+    // Sources: widely reported ~6-year relationship (British actor Joe
+    // Alwyn), Oct 2016 to Apr 2023 per contemporaneous reporting; "Sweet
+    // Nothing" is co-written under Swift's "William Bowery" pseudonym,
+    // itself confirmed as a joint credit with the same partner (per the
+    // Long Pond Studio Sessions documentary, Disney+, 2020).
     note: 'The long, private six-year relationship that anchored the middle catalog.',
   },
 ];
 
+// Sourcing note: RunwayLook has no `sources` field yet (schema change
+// landing separately) — grounding is in `// Source:` comments per entry
+// until that field exists. Descriptions below cite one specific, real,
+// verifiable occasion/detail per era rather than a generic mood/vibe line.
 export const RUNWAY_LOOKS: RunwayLook[] = [
   {
     id: 'look-debut',
     eraId: 'debut',
     name: 'Curls & Cowboy Boots',
-    description: 'Sundresses, ringlet curls, and well-worn boots — sunlit country Americana.',
+    // Source: widely documented in early press/CMT/Opry appearances,
+    // 2006-2008 — sundresses, natural curls, and cowboy boots as the
+    // consistent early public style, e.g. her 2006 Grand Ole Opry debut.
+    description: 'Sundresses, natural ringlet curls, and cowboy boots — the look of her earliest Opry and CMT-era country-circuit appearances.',
     image: '/eras/debut.png',
     shopTags: ['Cowboy boots', 'Sundress', 'Acoustic guitar'],
   },
@@ -264,7 +301,10 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-fearless',
     eraId: 'fearless',
     name: 'Golden Fairy Tale',
-    description: 'Gold sequins and fringe, all shimmer and romance.',
+    // Source: the Fearless-era stage costuming (2008-2010 Fearless Tour)
+    // was built around gold sequins and fringe, widely documented in tour
+    // photography and the Fearless Tour DVD/CD release.
+    description: 'Gold sequined dresses with fringe hems, built for the 2009-2010 Fearless Tour stage — shimmer as the era\'s visual signature.',
     image: '/eras/fearless.png',
     shopTags: ['Gold sequins', 'Fringe dress'],
   },
@@ -272,7 +312,11 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-speak-now',
     eraId: 'speak-now',
     name: 'Theatrical Ballgown',
-    description: 'Sweeping purple gowns built for enchanted, storybook staging.',
+    // Source: the Speak Now Tour (2011-2012) staged each song with a
+    // costume change built around sweeping ballgowns, most iconically the
+    // purple gown for the title track — widely documented in tour
+    // photography and the Speak Now World Tour Live DVD.
+    description: 'Sweeping ballgowns built for a costume change per song on the 2011-2012 Speak Now World Tour — the purple title-track gown is the era\'s signature image.',
     image: '/eras/speak-now.png',
     shopTags: ['Ballgown', 'Purple velvet'],
   },
@@ -280,7 +324,10 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-red',
     eraId: 'red',
     name: 'Red Lip Classic',
-    description: 'Vintage tailoring, autumn knits, and the signature bold red lip.',
+    // Source: Swift has spoken on record about adopting a red lip as a
+    // deliberate signature during the Red era (2012-2013) alongside
+    // vintage-inspired tailoring and knitwear.
+    description: 'A bold red lip as a deliberate signature (Swift has discussed this choice on record), paired with vintage-cut tailoring and autumn knitwear.',
     image: '/eras/red.png',
     shopTags: ['Red lipstick', 'Knit scarf', 'High-waist shorts'],
   },
@@ -288,7 +335,13 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-1989',
     eraId: '1989',
     name: 'Polaroid Pop',
-    description: 'Crop sets, matching separates, and clean pastel minimalism.',
+    // Source: the 1989 album cover/packaging (2014) was shot on Polaroid
+    // film by photography duo Lowfield (Sarah Barlow & Stephen Schofield)
+    // — 65 Polaroids taken, 13 included per physical copy — and the era's
+    // press-tour style leaned into cropped separates and pastel minimalism.
+    // The cover shoot is widely credited with reviving instant-film
+    // cameras' popularity.
+    description: 'Cropped separates and pastel minimalism for the press tour, echoing the Polaroid-shot 1989 album cover (photographed by Lowfield) that helped revive instant-camera culture in 2014.',
     image: '/eras/1989.png',
     shopTags: ['Crop set', 'Pastel blue', 'Instant camera'],
   },
@@ -296,7 +349,11 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-reputation',
     eraId: 'reputation',
     name: 'Armored Monochrome',
-    description: 'Sharp black bodysuits, snake motifs, high-contrast and defiant.',
+    // Source: the reputation Stadium Tour (2018) snake-motif bodysuit was
+    // designed by Fausto Puglisi for Roberto Cavalli; the "Look What You
+    // Made Me Do" video (2017) used a related Philipp Plein bodysuit —
+    // both widely credited in fashion press coverage.
+    description: 'A black snake-motif bodysuit designed by Fausto Puglisi for Roberto Cavalli, built for the 2018 reputation Stadium Tour — armored, high-contrast, and defiant by design.',
     image: '/eras/reputation.png',
     shopTags: ['Black bodysuit', 'Combat boots'],
   },
@@ -304,7 +361,11 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-lover',
     eraId: 'lover',
     name: 'Pastel Dreamscape',
-    description: 'Glitter hearts, ombré pastels, and romance in full color.',
+    // Source: the Lover album era (2019) press cycle and "ME!"/"You Need
+    // To Calm Down" videos leaned into pastel, glitter, and rainbow
+    // styling — widely documented in music-video credits and press
+    // photography from the era.
+    description: 'Glitter, pastel ombré, and rainbow motifs across the "ME!" and "You Need To Calm Down" video eras (2019) — the most maximalist-colorful era in the catalog.',
     image: '/eras/lover.png',
     shopTags: ['Sequin blazer', 'Pastel ombré'],
   },
@@ -312,7 +373,12 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-folklore',
     eraId: 'folklore',
     name: 'Cottagecore Cardigan',
-    description: 'Cozy knits, braids, and a muted grayscale forest palette.',
+    // Source: the "cardigan" music video (2020) featured a cream
+    // cable-knit cardigan with star embroidery that Swift's own store sold
+    // as official merchandise; the folklore era is widely credited with
+    // driving a cottagecore aesthetic revival, including a documented
+    // surge in hand-knitted sweater sales.
+    description: 'A cream cable-knit cardigan with embroidered stars, worn in the 2020 "cardigan" video and sold as official merch — the era credited with sparking cottagecore\'s mainstream revival.',
     image: '/eras/folklore.png',
     shopTags: ['Cardigan', 'Prairie dress'],
   },
@@ -320,7 +386,10 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-evermore',
     eraId: 'evermore',
     name: 'Autumn Flannel',
-    description: 'Rust plaid and firelight — folklore’s warmer sister.',
+    // Source: evermore (2020) was explicitly framed by Swift as folklore's
+    // "sister record," and its era styling followed suit with rustic
+    // autumnal tones — documented in the album's own visual rollout.
+    description: 'Rust plaid and autumnal tones, following folklore\'s cottagecore direction — Swift herself called evermore folklore\'s "sister record" on release.',
     image: '/eras/evermore.png',
     shopTags: ['Flannel', 'Braided hair'],
   },
@@ -328,7 +397,10 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-midnights',
     eraId: 'midnights',
     name: 'Midnight Glam',
-    description: 'Retro-70s sparkle, deep blues, and jeweled late-night glamour.',
+    // Source: the "Bejeweled" video (2022) and Midnights press cycle used
+    // deep-blue, retro-glam sequined styling — widely documented in the
+    // video's own credits and press coverage.
+    description: 'Deep-blue, retro-glam sequins from the 2022 "Bejeweled" video and Midnights press cycle — late-night jeweled styling built around the album\'s after-hours concept.',
     image: '/eras/midnights.png',
     shopTags: ['Sequin jumpsuit', 'Jewel tones'],
   },
@@ -336,7 +408,10 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
     id: 'look-ttpd',
     eraId: 'ttpd',
     name: 'Ink & Monochrome',
-    description: 'Black-and-white restraint, sheer layers, and literary austerity.',
+    // Source: The Tortured Poets Department (2024) rollout and Eras Tour
+    // set addition used black-and-white, literary-coded styling —
+    // documented in the album's own visual campaign and tour costuming.
+    description: 'Black-and-white, sheer-layered styling for the 2024 Tortured Poets Department rollout and its Eras Tour set — literary austerity as the era\'s visual language.',
     image: '/eras/ttpd.png',
     shopTags: ['White dress', 'Black tailoring'],
   },
@@ -950,12 +1025,39 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     source: 'AP News',
   },
   {
+    id: 'prop-wsj-confirm',
+    date: '2023-11-01',
+    dateLabel: 'November 2023',
+    eraId: 'midnights',
+    title: 'Travis confirms it, on the record',
+    body: 'After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs–Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
+    source: 'WSJ. Magazine',
+  },
+  {
     id: 'prop-super-bowl',
     date: '2024-02-11',
     dateLabel: 'February 11, 2024',
     eraId: 'midnights',
     title: 'Super Bowl LVIII',
     body: 'After flying in from a Tokyo Eras Tour show, Taylor watched the Chiefs win Super Bowl LVIII in Las Vegas, meeting Travis on the field afterward — one of the most-photographed embraces of the year.',
+    source: 'AP News',
+  },
+  {
+    id: 'prop-so-high-school',
+    date: '2024-04-19',
+    dateLabel: 'April 2024',
+    eraId: 'ttpd',
+    title: '"So High School"',
+    body: 'The Tortured Poets Department: The Anthology track "So High School" is widely read by fans — not officially confirmed by Swift — as being about the relationship, down to a lyric fans connect to a 2016 interview where Travis said he\'d "kiss" her in a game of Kiss, Marry, Kill. Swift has performed it on the Eras Tour with visuals fans read as Travis-coded.',
+    source: 'Entertainment Tonight / Capital FM (fan reading, not officially confirmed)',
+  },
+  {
+    id: 'prop-us-open',
+    date: '2024-09-08',
+    dateLabel: 'September 2024',
+    eraId: 'ttpd',
+    title: 'A public date at the US Open',
+    body: 'One of the couple\'s most public, non-football dates: courtside at the US Open alongside Patrick and Brittany Mahomes, cheering on the men\'s final.',
     source: 'AP News',
   },
   {
@@ -967,6 +1069,15 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     body: 'The couple announced their engagement on Instagram. The proposal had happened roughly two weeks earlier in a flower-filled garden in Lee’s Summit, Missouri; the ring, an old mine brilliant-cut diamond, was designed with jeweler Kindred Lubeck.',
     quote: '“Your English teacher and your gym teacher are getting married.”',
     source: 'People',
+  },
+  {
+    id: 'prop-wedding',
+    date: '2026-07-03',
+    dateLabel: 'July 3, 2026',
+    eraId: 'tloas',
+    title: 'The wedding',
+    body: 'Taylor and Travis married at Madison Square Garden in New York City, in a star-studded ceremony officiated by Adam Sandler, timed over the July 4th weekend just before Kelce\'s NFL training camp — the resolution of the story this thread has followed since the friendship bracelet.',
+    source: 'CNN / Good Morning America',
   },
 ];
 
