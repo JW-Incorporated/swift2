@@ -26,6 +26,8 @@ export default {
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
+        context:
+          "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991. It also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
         sources: [
           {
             outlet: 'Grammy.com',
@@ -51,8 +53,14 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "Critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)' }],
+          "At six minutes and forty-three seconds, it's the longest, darkest thing on the album — a blues-inflected power ballad whose 19-year-old narrator finally asks, 'Don't you think I was too young to be messed with?' Swift said only that it was about someone who 'made my world very dark for a while,' and waved off the guessing game outright: 'How presumptuous! I never disclose who my songs are about.' On the Speak Now World Tour she staged the bridge literally, with fireworks erupting overhead as she sang 'I'm shining like fireworks over your sad, empty town' — and in June 2023 she brought it back as an Eras Tour surprise song in Minneapolis. Critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)' },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Taylor_Swift_2011crop.jpg/250px-Taylor_Swift_2011crop.jpg',
@@ -71,8 +79,14 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "In her words: people who \"attack everything about a person\" instead of offering real feedback.",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' }],
+          "In her words: people who \"attack everything about a person\" instead of offering real feedback. It's also the most defiantly country track on the record — banjo-led bluegrass with fiddle, mandolin, and handclaps — and Grammy.com would later call it, flatly, 'a deliciously twangy clapback to critic Bob Lefsetz.' The clapback worked on every level: it climbed to No. 11 on the Hot 100, sold over a million downloads within a year, and finished the arc at the 2012 Grammys, where it won Best Country Song and Best Country Solo Performance.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Taylor_Swift_Sydney.jpg/250px-Taylor_Swift_Sydney.jpg',
@@ -93,7 +107,7 @@ export default {
         'https://assets2.cbsnewsstatic.com/hub/i/r/2010/09/12/99eee01f-a642-11e2-a3f0-029118418759/thumbnail/620x449/8e0c01f51a0436c5eb408696fefc290f/AP100912090147.jpg',
       moment: {
         context:
-          'Her own framing, to New York magazine: she wanted to "write a song to him," not about him. She debuted it live at the 2010 VMAs, telling the Belfast Telegraph after: "I performed a song nobody had heard before, and I\'m proud of that. Because it was the right thing to say."',
+          'Her own framing, to New York magazine: she wanted to "write a song to him," not about him. She spent six months on it — far beyond her usual thirty-minute writing pace — and the 2010 VMA debut leaned straight into the history: the performance opened with footage of the previous year\'s interruption before she sang it seated with an acoustic guitar, finishing barefoot. She told the Belfast Telegraph after: "I performed a song nobody had heard before, and I\'m proud of that. Because it was the right thing to say." Reception split hard — some critics heard an act of grace beyond her years, others "slams disguised as \'forgiveness\'" — which made it one of the most argued-over songs on the album.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)' },
           {
@@ -120,8 +134,14 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Taylor_Swift_Speak_Now_-_Pittsburgh.jpg/500px-Taylor_Swift_Speak_Now_-_Pittsburgh.jpg',
       moment: {
         context:
-          'It was inspired by a moment backstage with her band on the final night of the Fearless Tour in 2010; she\'s kept it in her live setlists across four different tours since.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)' }],
+          'It was inspired by a moment backstage with her band on the final night of the Fearless Tour in 2010, and it never really left her shows: debuted on an NBC Thanksgiving special the month the album dropped, it became the Speak Now World Tour\'s final pre-encore song, then resurfaced on the Red Tour, the 1989 World Tour, a reputation-era piano mashup, and multiple Eras Tour arrangements. Rob Sheffield\'s Rolling Stone review said the album "peaks with \'Long Live,\' a ridiculously over-the-top prom anthem with all the epic girl-group swoon of the Ronettes or the Shirelles" — "the sort of prom song that could only come from an artist who chose to spend her high school years on a tour bus. Yet when Swift sings it, damn if you don\'t believe every word."',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/speak-now-251367/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Taylor_Swift_Speak_Now_-_Pittsburgh.jpg/500px-Taylor_Swift_Speak_Now_-_Pittsburgh.jpg',
@@ -142,7 +162,7 @@ export default {
         'https://s.yimg.com/ny/api/res/1.2/ickryvH9sKcF7tDFtwxxbw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE0NDA7Y2Y9d2VicA--/https://media.zenfs.com/en/insider_articles_922/7a2cc8fb3dc0f6c58c259f9ddd4d244f',
       moment: {
         context:
-          'The win made her only the second female artist in CMA history, after Barbara Mandrell, to win Entertainer of the Year twice.',
+          "The gown was J. Mendel pre-fall 2011 — strapless, dove grey, with an extra-long train she gathered up in one hand for the whole walk to the stage. The win itself was the bigger statement: it made her only the second female artist in CMA history, after Barbara Mandrell, to win Entertainer of the Year twice, closing out the Speak Now era's awards run at the top of country music's own room.",
         sources: [
           {
             outlet: 'E! Online',
@@ -171,8 +191,11 @@ export default {
       sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg',
       moment: {
+        context:
+          "One dress, three songs: Femestella logs the Roberto Cavalli gold ombré sequin fringe mini as the tour's recurring look for 'Sparks Fly,' 'Mine,' and 'The Story of Us,' always paired with the same Everybody Fargo black knee-high boots. That made it the workhorse of a show built around nine costume changes — while Susan Hilferty's custom chiffon gowns carried the fairy-tale numbers, the fringe was the up-tempo uniform, cut to catch arena light and movement.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
         ],
         photos: [
           {
@@ -192,7 +215,15 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
       thumbnailUrl: null,
       moment: {
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' }],
+        context:
+          "The staging was pure Broadway ambition: nine costume changes, pyrotechnics, confetti, aerialists on trapezes, and a suspended balcony that descended over the crowd for the finale. From opening night at the Singapore Indoor Stadium, the production ran through Asia and Europe before the North American leg opened in Omaha that May — six US stadium dates included — and closed in Auckland on March 18, 2012. Announcing the run, Swift kept it simple: 'I'm so excited to go back out on tour again in 2011! The FEARLESS Tour was so much fun...'",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-announces-speak-now-world-tour-950374/',
+          },
+        ],
         photos: [],
       },
     },
@@ -206,6 +237,8 @@ export default {
       sourceUrl: 'https://theboot.com/taylor-swift-grammys-2012/',
       thumbnailUrl: 'https://townsquare.media/site/623/files/2012/02/taylor-swift-456-021212.jpg?w=980&q=75',
       moment: {
+        context:
+          "Her reaction caught the full-circle absurdity of it: \"There's no feeling like writing a song about someone who hates you and is mean to you and makes your life miserable ... and then win the Grammy for it.\" She performed the song live at the ceremony and told the room what the night meant — \"It's always gonna mean the world to me, the idea of getting to go to the Grammys\" — on an evening when Speak Now itself was also up for Best Country Album.",
         sources: [
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-grammys-2012/' },
           { outlet: 'Teen Vogue', url: 'https://www.teenvogue.com/story/best-taylor-swift-grammy-moments' },
@@ -257,7 +290,7 @@ export default {
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_79322072_XL.jpg',
       moment: {
         context:
-          'Paired that night with a beaded Collette Dinnigan mini dress. A departure from the loose curls she\'d worn since 2006 — one beauty outlets would later call the exact moment bangs became her signature.',
+          'Paired that night with a beaded Collette Dinnigan mini dress. A departure from the loose curls she\'d worn since 2006 — Bustle marks it as the moment she "chopped her blonde strands into blunt, eyelash-skimming bangs that would evolve over time — and eventually become her new signature," officially trading the Fearless-era voluminous curls for a sleeker look. The fringe stuck, evolving over the following years into the look she\'s now known for — arguably the most durable style decision of her career.',
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
           { outlet: 'Bustle', url: 'https://www.bustle.com/beauty/taylor-swift-bangs' },
@@ -304,7 +337,7 @@ export default {
         'https://zpllkavmkkjnxpedhotv.supabase.co/storage/v1/render/image/public/images/shows/taylor-swift-speak-now-world-tour-57/Taylor-Swift-taylor-swift-newark-purple-04.webp',
       moment: {
         context:
-          "Hilferty is credited as costume designer on the Speak Now World Tour; the purple halter became one of the era's most recognizable looks, reused across multiple songs in the setlist.",
+          "Hilferty is credited as costume designer on the Speak Now World Tour; the purple halter became one of the era's most recognizable looks, reused across multiple songs in the setlist. Her studio's own archive of the tour pairs the original costume sketches with performance photographs — a rare look at a stage wardrobe built by a theatrical costume designer rather than assembled by a stylist, which is exactly why the show's dresses read like characters. Femestella calls the purple chiffon halter 'perhaps one of her most iconic looks' from the tour.",
         sources: [
           { outlet: 'Susan Hilferty (official)', url: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/' },
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
@@ -327,8 +360,11 @@ export default {
       sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg',
       moment: {
+        context:
+          "Femestella notes the custom white lace dress 'took the stage any time Taylor Swift sang' the song on tour. The costume matched the number's register: 'Mean' was the banjo-led, fiddle-and-mandolin track critics tagged as the most country thing on Speak Now, and mid-tour the underdog single became a double Grammy winner — Best Country Song and Best Country Solo Performance, both won in February 2012 while the tour was still on the road.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' },
         ],
         photos: [
           {
@@ -349,8 +385,11 @@ export default {
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
       moment: {
+        context:
+          "Femestella IDs it as a Theia red sequin slip, worn with the same Everybody Fargo black knee-high boots she paired with the gold Cavalli fringe — the tour's up-tempo footwear of choice. In a show of nine costume changes otherwise dominated by chiffon and fairy-tale ballgowns, the slinky red sequin for the album's angriest song was the deliberate exception.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
         ],
         photos: [
           {
@@ -371,6 +410,8 @@ export default {
       thumbnailUrl:
         'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg',
       moment: {
+        context:
+          "Hilferty — the tour's credited costume designer, whose studio archive pairs her original sketches with performance shots — built 'Haunted' its own red chiffon midi, the darker counterpart to the purple halter gown she designed for the show's fairy-tale stretch. Two custom pieces from the same hand doing opposite jobs: one dress for the era's romance, one for its ghosts.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
           { outlet: 'Susan Hilferty (official)', url: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/' },
@@ -393,8 +434,14 @@ export default {
       sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg',
       moment: {
+        context:
+          "Worn May 22, 2011 — a night she left with two trophies, including the country artist award, presented by Train's Pat Monahan, over a field of Lady Antebellum, Jason Aldean, Zac Brown Band, and Kenny Chesney. Accepting, she reached back to the ceremonies she grew up watching: 'I used to watch the Billboard Awards and see my heroes like Shania Twain and Faith Hill win these, and now... I'm just having the best time doing this.' Femestella logs the gown as Elie Saab, worn with Lorraine Schwartz jewelry.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
+          {
+            outlet: 'Taste of Country',
+            url: 'https://tasteofcountry.com/taylor-swift-billboard-music-awards-2011-country-artist-of-the-year/',
+          },
         ],
         photos: [
           {
@@ -414,9 +461,14 @@ export default {
       sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg',
       moment: {
-        context: 'She was nominated for Favorite Country Female Artist, Favorite Country Album, and Artist of the Year that night.',
+        context:
+          'She didn\'t just show up nominated — she swept all three of her categories that night: Favorite Country Female Artist, Favorite Country Album for Speak Now, and Artist of the Year, her second time taking the show\'s top prize, over a field that included Adele, Lady Gaga, and Katy Perry. Her reaction onstage: "This is so crazy!" The gold beaded Reem Acra and side ponytail made it one of the era\'s most remembered award-show looks.',
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/american-music-awards-2011-taylor-swift-wins-artist-of-the-year/',
+          },
         ],
         photos: [
           {
