@@ -858,5 +858,585 @@ export default {
         ],
       },
     },
+
+    // --- Deep timeline fill (2026-07-08): release/tour/business/relationship
+    // depth for an era that had 0 release items and 1 tour item. New items
+    // carry the audit's additive provenance fields (slug + publisher/
+    // source_type/accessed_at/reliability_score alongside legacy {outlet,url}),
+    // same convention as the-life-of-a-showgirl.mjs. Every claim verified
+    // against its cited source via search on 2026-07-08; no fabrication.
+    // Photos deliberately omitted where no already-verified image URL exists.
+    {
+      slug: 'red-announced-google-hangout',
+      year: 2012,
+      month: 8,
+      category: 'release',
+      title: 'Red announced live from her living room, on a Google+ Hangout',
+      snippet:
+        'A worldwide webcast from Nashville on August 13, 2012: the album title, the October 22 date, and — dropped the same night — a brand-new single called "We Are Never Ever Getting Back Together."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+      moment: {
+        context:
+          'The announcement webcast streamed globally via Google+ Hangout, with fans submitting questions — the kind of direct-to-fans rollout that would later become her signature. The single she premiered on it went on to become her first career Hot 100 No. 1.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
+            source_title: 'Red (Taylor Swift album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
+            source_title: "Taylor Swift's New Single Hits No. 1 on Hot 100",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-ronan-stand-up-to-cancer',
+      year: 2012,
+      month: 9,
+      category: 'music',
+      title: 'Ronan, a charity single built from a grieving mother\'s blog',
+      snippet:
+        'Written from Maya Thompson\'s blog posts about her son Ronan, who died of neuroblastoma at three — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Ronan_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift debuted the song live at the Stand Up to Cancer telethon on September 8, 2012, and released it as an iTunes-exclusive the same night, with all proceeds donated to cancer charities. She assembled the lyrics from direct quotes in Thompson\'s blog about her son, crediting her as co-writer. The song later reached No. 16 on the Hot 100 and was certified gold.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Ronan_(song)',
+            source_title: 'Ronan (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-debuts-ronan-at-stand-up-to-cancer-benefit-122781/',
+            source_title: "Taylor Swift Debuts 'Ronan' at Stand Up To Cancer Benefit",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-begin-again-single',
+      year: 2012,
+      month: 10,
+      category: 'release',
+      title: 'Begin Again sends a country valentine ahead of the pop swerve',
+      snippet:
+        'Released October 1, three weeks before the album — a soft, waltzing country ballad about a first date that heals, deliberately reassuring country radio before Red\'s dubstep drop landed.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The second track released from Red, sent to country radio as a counterweight to the pop-leaning lead single. It peaked in the top 10 of the Hot 100 on release-week downloads and earned a Grammy nomination for Best Country Song.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
+            source_title: 'Begin Again (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-title-track-names-the-album',
+      year: 2012,
+      month: 10,
+      category: 'music',
+      title: 'Red, the song that named the record',
+      snippet:
+        'Loving him was like driving a new Maserati down a dead-end street — the title track\'s color-coded theory of a relationship whose emotions ran too hot to be anything but red.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift has explained that the album took its name from this song\'s central idea: the semi-toxic relationships she was writing about were defined by intense, burning emotion — red — rather than the blues and grays of ordinary heartbreak. The song became the album\'s fifth single and a country-radio hit in 2013.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
+            source_title: 'Red (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-conor-kennedy-split',
+      year: 2012,
+      month: 10,
+      category: 'relationship',
+      title: 'The Conor Kennedy summer quietly ends',
+      snippet:
+        'Us Weekly broke it on October 25: the Hyannis Port romance had "quietly parted ways a while ago" — a source blamed distance and the wall-to-wall Red promo schedule, not drama.',
+      sourceUrl: 'https://www.eonline.com/news/357246/taylor-swift-and-conor-kennedy-breakup-anatomy-of-a-split',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The split was reported three days after Red\'s release, ending a summer of Cape Cod sightings. A source told Us Weekly "it was just a distance thing," noting the two hadn\'t seen each other in over a month and that her promotional calendar ran without a break through the end of the year.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/357246/taylor-swift-and-conor-kennedy-breakup-anatomy-of-a-split',
+            source_title: 'Taylor Swift and Conor Kennedy Breakup: Anatomy of a Split',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/report-taylor-swift-and-conor-kennedy-split/',
+            source_title: 'Report: Taylor Swift and Conor Kennedy split',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-ikywt-video-birthday',
+      year: 2012,
+      month: 12,
+      category: 'release',
+      title: 'The I Knew You Were Trouble video drops on her 23rd birthday',
+      snippet:
+        'December 13, 2012: a spoken-word intro, a pink-streaked dye job, and a festival-wasteland storyline — the most cinematic, least country video she\'d made to that point.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png',
+      moment: {
+        context:
+          'The video cast Swift opposite a bad-boy love interest through a desert festival bender, opening with a moody spoken monologue instead of the song. Its grittier styling — including temporary pink tips — marked a deliberate image departure timed to the single\'s pop-radio push.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
+            source_title: 'I Knew You Were Trouble',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-safe-and-sound-grammy',
+      year: 2013,
+      month: 2,
+      category: 'business',
+      title: 'Safe & Sound wins the first Grammy of the Red era',
+      snippet:
+        'Her haunting Hunger Games ballad with The Civil Wars took Best Song Written for Visual Media at the 55th Grammys — still the only Hunger Games song ever to win a Grammy.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written with Joy Williams and John Paul White of The Civil Wars and producer T Bone Burnett for The Hunger Games soundtrack, the song won Best Song Written for Visual Media at the February 10, 2013 ceremony, where it was also nominated for Best Country Duo/Group Performance. She performed "We Are Never Ever Getting Back Together" as the show\'s ringmaster-themed opener the same night.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)',
+            source_title: 'Safe & Sound (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'PopCrush',
+            url: 'https://popcrush.com/taylor-swift-civil-wars-best-song-written-for-visual-media-2013-grammys/',
+            source_title: 'Taylor Swift + Civil Wars Win Best Song Written for Visual Media at 2013 Grammys',
+            publisher: 'PopCrush',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'CBS Boston',
+            url: 'https://www.cbsnews.com/boston/news/taylor-swift-wins-first-grammy-of-the-night-for-hunger-games-song/',
+            source_title: "Taylor Swift Wins First GRAMMY Of The Night For 'Hunger Games' Song",
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-22-single-and-video',
+      year: 2013,
+      month: 3,
+      category: 'release',
+      title: 'The 22 video: her actual friends, an actual party',
+      snippet:
+        'The fourth single arrived March 12, 2013, with a video shot the next-best thing to candid — Taylor and her real-life friend group at a house party, trampoline and cat-ear headband included.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/22_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The video, released March 13, cast her real friends rather than actors and leaned into the song\'s "happy, free, confused, and lonely" thesis with a day-in-the-life party arc. The single became a top-20 Hot 100 hit and a permanent set-list fixture.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/22_(Taylor_Swift_song)',
+            source_title: '22 (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-buys-high-watch',
+      year: 2013,
+      month: 4,
+      category: 'business',
+      title: 'She buys High Watch, the Watch Hill mansion — in cash',
+      snippet:
+        'A $17.75 million, 5-acre oceanfront estate at the highest point of Watch Hill, Rhode Island, bought outright in 2013 — the future site of the July 4th parties and, years later, the muse for "The Last Great American Dynasty."',
+      sourceUrl: 'https://en.wikipedia.org/wiki/High_Watch',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Built in 1929-30 and later owned by Standard Oil heiress Rebekah Harkness, the estate came with more than 700 feet of private beachfront. News of the all-cash purchase broke in spring 2013; within a year the house was hosting the squad\'s Independence Day gatherings, and in 2020 Harkness\'s story became "The Last Great American Dynasty" on folklore.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/High_Watch',
+            source_title: 'High Watch',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'HELLO!',
+            url: 'https://www.hellomagazine.com/homes/514523/inside-taylor-swifts-epic-17million-rhode-island-holiday-house/',
+            source_title: "Inside Taylor Swift's $17million Rhode Island mansion",
+            publisher: 'HELLO!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-tour-surprise-guests',
+      year: 2013,
+      month: 8,
+      category: 'tour',
+      title: 'The Red Tour\'s surprise-guest parade hits its stride',
+      snippet:
+        'Carly Simon duetting "You\'re So Vain" in Foxborough; Jennifer Lopez doing "Jenny From the Block" at Staples Center — the summer 2013 stadium run turned nightly guest cameos into a Taylor Swift tour signature.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Red_Tour',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg',
+      moment: {
+        context:
+          'Simon joined her on July 27, 2013 at Gillette Stadium for the song fans have spent 50 years trying to decode; Lopez appeared August 24 at Staples Center, one of a Los Angeles guest run that also included Sara Bareilles, Ellie Goulding, Tegan and Sara, and Cher Lloyd on different nights. The rotating-cameo format carried into every tour she has mounted since.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Red_Tour',
+            source_title: 'The Red Tour',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg',
+            credit: 'Jana Zills / Wikimedia Commons',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'red-education-center-opens',
+      year: 2013,
+      month: 10,
+      category: 'business',
+      title: 'A $4 million gift opens the Taylor Swift Education Center',
+      snippet:
+        'The Country Music Hall of Fame opened its Taylor Swift Education Center on October 12, 2013 — funded by the largest individual artist donation the museum had ever received.',
+      sourceUrl: 'http://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Her $4 million endowment built a two-story, 7,500-square-foot wing with three classrooms, a hands-on instrument room, and a children\'s exhibit gallery — doubling the Nashville museum\'s education space. The center still operates today, with rotating displays of her artifacts.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'http://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
+            source_title: 'Taylor Swift Opens Education Center at Country Music Hall of Fame',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Country Music Hall of Fame',
+            url: 'https://www.countrymusichalloffame.org/learn/taylor-swift-education-center',
+            source_title: 'Taylor Swift Education Center',
+            publisher: 'Country Music Hall of Fame and Museum',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-sweeter-than-fiction',
+      year: 2013,
+      month: 10,
+      category: 'release',
+      title: 'Sweeter Than Fiction: the first Jack Antonoff collaboration',
+      snippet:
+        'A one-off single for the film One Chance, released October 21, 2013 — the first song Taylor ever made with Jack Antonoff, years before he became her most constant collaborator.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Sweeter_Than_Fiction',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written by Swift and Antonoff and produced by him, the synth-driven track soundtracked the Paul Potts biopic One Chance and picked up a Golden Globe nomination for Best Original Song. The partnership it started went on to shape 1989, reputation, Lover, folklore, Midnights and beyond.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Sweeter_Than_Fiction',
+            source_title: 'Sweeter Than Fiction',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-meets-karlie-kloss',
+      year: 2013,
+      month: 11,
+      category: 'relationship',
+      title: 'Meets Karlie Kloss at the Victoria\'s Secret Fashion Show',
+      snippet:
+        'Nearly two years after telling Vogue "I love Karlie Kloss. I want to bake cookies with her!" — and Kloss tweeting back "Your kitchen or mine?" — the two finally met at the November 2013 VS Fashion Show, where Taylor performed and Karlie walked.',
+      sourceUrl: 'https://www.eonline.com/news/1432607/taylor-swift-karlie-kloss-friendship-timeline-rift-rumors',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The pair hit it off backstage and hung out after the show; within a month Kloss was calling them BFFs, and by March 2014 they were road-tripping Big Sur together. The friendship became one of the defining squad relationships of the 1989 era that followed.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1432607/taylor-swift-karlie-kloss-friendship-timeline-rift-rumors',
+            source_title: "Inside Taylor Swift's Decades-Long Friendship With Karlie Kloss",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Hollywood Life',
+            url: 'https://hollywoodlife.com/feature/taylor-swift-karlie-kloss-4299380/',
+            source_title: "Taylor Swift & Karlie Kloss' Friendship Timeline",
+            publisher: 'Hollywood Life',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-all-too-well-grammys-2014',
+      year: 2014,
+      month: 1,
+      category: 'music',
+      title: 'All Too Well gets its first TV performance — alone at a piano at the Grammys',
+      snippet:
+        'January 26, 2014: a deep cut that was never a single, performed solo at the piano at the 56th Grammys, hair-whip and all — the moment the fan favorite became the song everyone knew.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/All_Too_Well',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Choosing a five-and-a-half-minute album track over any of Red\'s hit singles for her Grammy slot signaled how she — and fans — had come to regard the song. The headbanging piano performance became one of the ceremony\'s most replayed moments, and the song\'s stature only grew from there, culminating in the 10-minute version topping the Hot 100 in 2021.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/All_Too_Well',
+            source_title: 'All Too Well',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-bridal-shower-surprise',
+      year: 2014,
+      month: 4,
+      category: 'sighting',
+      title: 'She flies to Ohio to crash a fan\'s bridal shower',
+      snippet:
+        'Gena Gabrielle mailed her an invitation not expecting a reply — Taylor showed up in Columbus with a KitchenAid mixer, a cookbook, and hand-painted gifts, telling the room it was her first bridal shower ever.',
+      sourceUrl: 'https://abcnews.com/Entertainment/taylor-swift-surprise-fan-bridal-shower/story?id=23353944',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Gabrielle, a fan Swift had first met at a 2007 meet-and-greet, sent the invite as a long shot; Swift planned the April 2014 surprise with her management and her mom and flew to Ohio for the day. The stunned-bride video made national news — one of the era\'s defining direct-to-fans gestures, a year before Swiftmas took the same instinct to scale.',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/taylor-swift-surprise-fan-bridal-shower/story?id=23353944',
+            source_title: 'See Taylor Swift Surprise a Fan at Her Bridal Shower',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/531583/taylor-swift-crashes-bridal-shower-surprises-fan-with-kitchenaid-mixer-cookbook-more-see-the-pics',
+            source_title: 'Taylor Swift Surprises Fan at Bridal Shower',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-tour-asia-finale',
+      year: 2014,
+      month: 6,
+      category: 'tour',
+      title: 'The Red Tour takes its final bow in Singapore',
+      snippet:
+        'After 15 months and 86 shows, the tour closed June 12, 2014 at the Singapore Indoor Stadium — an Asian leg that also saw the Bangkok stop canceled in the aftermath of Thailand\'s military coup.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Red_Tour',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 2014 leg carried the show from London\'s O2 through Berlin and on to Shanghai, Jakarta, Manila and Singapore. The planned June 9 Bangkok concert was called off following the May 2014 coup d\'etat in Thailand. The Singapore finale closed out the run that Billboard would shortly crown the highest-grossing country tour of all time.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Red_Tour',
+            source_title: 'The Red Tour',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'red-taylors-version-number-one',
+      year: 2021,
+      month: 11,
+      category: 'business',
+      title: 'Red gets its do-over: Red (Taylor\'s Version) opens at No. 1',
+      snippet:
+        'Nine years later, the re-recording debuted atop the Billboard 200 with 605,000 units — the biggest sales week of 2021 for any album, her tenth No. 1, and the fastest run to four chart-toppers since a record Elton John set in 1975.',
+      sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-tenth-number-one-album-billboard-200-red-taylors-version-1235000860/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+      moment: {
+        context:
+          'Of the 605,000 first-week units (week ending Nov. 18, 2021), 369,000 were pure album sales — 2021\'s biggest sales week for any album. The 30-track set, including nine from-the-vault songs and the 10-minute "All Too Well," gave Swift her tenth Billboard 200 No. 1 and made her the fastest artist ever to notch four chart-toppers, in under 16 months — breaking a 46-year-old Elton John record.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-tenth-number-one-album-billboard-200-red-taylors-version-1235000860/',
+            source_title: "Taylor Swift's 'Red (Taylor's Version)' Debuts at No. 1 on Billboard 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2021/11/21/taylor-swift-earns-her-milestone-tenth-no-1-album-with-red-taylors-version/',
+            source_title: "Taylor Swift Earns Her Milestone Tenth No. 1 Album With 'Red (Taylor's Version)'",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            credit: 'Republic Records',
+          },
+        ],
+      },
+    },
   ],
 };
