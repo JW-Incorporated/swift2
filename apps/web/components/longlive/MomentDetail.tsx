@@ -7,6 +7,7 @@ import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@/lib/longlive/eras';
 import { TAG_META } from '@/lib/longlive/tags';
+import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 
 export function MomentDetail() {
@@ -43,7 +44,10 @@ export function MomentDetail() {
   const era = getEra(item.eraId);
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter">
+    <div
+      className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter"
+      style={eraStyle(era)}
+    >
       {/* Hero image */}
       <div className="relative h-[42vh] min-h-64 w-full">
         <Image src={item.image || '/placeholder.svg'} alt="" fill priority className="object-cover" />
