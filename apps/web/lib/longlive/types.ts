@@ -142,6 +142,26 @@ export interface Era {
   media?: EraMedia;
 }
 
+/**
+ * One song in an era's album track guide (tracks.generated.ts, surfaced by the
+ * TrackGuide overlay). Mirrors the DB `track_note` row / `TrackNote` in
+ * packages/shared/src/vault-types.ts, reduced to what the UI renders. The
+ * `note` is a short SOURCED line — meaning / background / Easter egg — never
+ * fabricated; a song with no real source simply has no row.
+ */
+export interface TrackNote {
+  /** 1-based position on the album, or null when unknown (sorted last). */
+  trackNumber: number | null;
+  title: string;
+  /** The sourced one-liner shown under the title. */
+  note: string;
+  /**
+   * Citations backing the note. Reuses the EggSource shape; rendered as a
+   * source link list only when non-empty (never an empty placeholder).
+   */
+  sources?: EggSource[];
+}
+
 /** Legal, embeddable streaming media attached to an era. */
 export interface EraMedia {
   /** Spotify album ID for the official embed player (open.spotify.com/album/…). */
