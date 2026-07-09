@@ -286,17 +286,20 @@ constellation.
 ## 9. Current state / known gaps
 
 - Content in `content.ts` is a mix of hand-curated items plus a generated
-  sync (`content-vault.generated.ts`, `VAULT_RAW`) built from
-  `supabase/seed/content/**` by `node scripts/sync-longlive-content.mjs`.
-  This keeps the UI static (no live DB read — see cost discipline in
-  `CLAUDE.md`) while letting Wyatt's content team's work actually reach the
-  live site: **re-run that script after any `supabase/seed/content/**`
-  change and commit the regenerated file.** It is not wired into CI/build
-  yet — someone has to remember to re-run it (candidate for a
-  pre-commit/CI check if this becomes a recurring gap). The videos,
-  theories, tours, and releases seed pipelines (`supabase/seed/{videos,
-  theories,tours,releases}/**`) are **not yet synced** — that's still a
-  gap, tracked as follow-up.
+  sync (`content-vault.generated.ts`, `VAULT_RAW`) produced by
+  `scripts/sync-longlive-content.mjs`, which now runs automatically as a
+  `prebuild` step (`apps/web/package.json`) on every build/deploy. It reads
+  the **live Supabase `month_item` table** when `NEXT_PUBLIC_SUPABASE_URL`/
+  `_ANON_KEY` are configured, falling back to the local
+  `supabase/seed/content/**` files otherwise (local dev without secrets,
+  CI, or before the DB is seeded). See `docs/decisions.md` 2026-07-08. This
+  keeps the UI static (build-time read, no live per-request DB call — see
+  cost discipline in `CLAUDE.md`) while content changes flow automatically:
+  `db:seed:content` → redeploy → live, no manual script-and-commit step.
+  Tier-1 `moment.context` (body text) isn't fetched live yet — see the
+  decision entry. The videos, theories, tours, and releases seed pipelines
+  (`supabase/seed/{videos,theories,tours,releases}/**`) are **not yet
+  synced at all** — that's still a gap, tracked as follow-up.
 - The `lib/vault.ts` / two-tier Supabase serving path in
   `docs/architecture.md` (live DB reads, not a static sync) is **not**
   wired into this experience yet.
