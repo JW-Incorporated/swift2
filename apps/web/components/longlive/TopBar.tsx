@@ -1,6 +1,6 @@
 'use client';
 
-import { BookOpen, Compass, Search, Share2, Layers } from 'lucide-react';
+import { BookOpen, ChevronDown, Compass, Search, Share2, Layers } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getEra } from '@/lib/longlive/eras';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
@@ -40,12 +40,17 @@ export function TopBar() {
             <button
               type="button"
               onClick={() => setSelectorOpen(true)}
-              className="group flex min-w-0 items-center gap-2 rounded-full px-2 py-1 text-left transition-colors hover:bg-surface"
+              aria-label={`${era.name} — open the eras menu`}
+              className="group flex min-w-0 items-center gap-1 rounded-full px-2 py-1 text-left transition-colors hover:bg-surface"
             >
               <span className="min-w-0 truncate text-sm font-medium text-ink">
                 <span className="sm:hidden">{era.shortName}</span>
                 <span className="hidden sm:inline">{era.name}</span>
               </span>
+              <ChevronDown
+                className="size-3.5 shrink-0 text-ink-soft transition-transform group-hover:translate-y-0.5"
+                aria-hidden
+              />
               {era.isCurrent && (
                 <span className="hidden shrink-0 items-center gap-1 rounded-full border border-accent/40 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-accent sm:inline-flex">
                   <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />

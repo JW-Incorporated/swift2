@@ -16,6 +16,7 @@ import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 import { primaryImageRef, type Confidence, type ImageKind, type ImageRef } from '@/lib/longlive/types';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 // At/above this tier a moment is established fact — no pill. Below it, a
 // confidence pill renders so a claim never reads as unqualified fact.
@@ -100,6 +101,9 @@ export function MomentDetail() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [openItemId, closeItem, share]);
+
+  // Let the mobile back-swipe gesture close this pill instead of leaving the app.
+  useBackDismiss(Boolean(item), closeItem);
 
   if (!item) return null;
   const era = getEra(item.eraId);
