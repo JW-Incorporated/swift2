@@ -35,6 +35,8 @@ interface AppState {
   crossing: { a: LensId; b: LensId } | null;
   /** Currently open content item id (immersive detail), or null. */
   openItemId: string | null;
+  /** Era whose album track guide overlay is open, or null. */
+  trackGuideEraId: EraId | null;
   /** Whether the era selector overlay is open. */
   selectorOpen: boolean;
   /** Whether the share sheet is open, and for what target. */
@@ -80,6 +82,9 @@ interface AppActions {
   closeCrossing: () => void;
   openItem: (id: string) => void;
   closeItem: () => void;
+  /** Open the album track guide overlay for an era. */
+  openTrackGuide: (id: EraId) => void;
+  closeTrackGuide: () => void;
   /** Save the era-stream position when leaving era mode (for later restore). */
   saveEraScroll: (snap: EraScrollSnapshot) => void;
   /** Read the saved era-stream position without clearing it. */
@@ -101,6 +106,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [lensId, setLensId] = useState<LensId | null>(null);
   const [crossing, setCrossing] = useState<{ a: LensId; b: LensId } | null>(null);
   const [openItemId, setOpenItemId] = useState<string | null>(null);
+  const [trackGuideEraId, setTrackGuideEraId] = useState<EraId | null>(null);
   const [selectorOpen, setSelectorOpen] = useState(false);
   const [share, setShare] = useState<ShareTarget | null>(null);
 
@@ -147,6 +153,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setLensId(id);
     setSelectorOpen(false);
     setOpenItemId(null);
+    setTrackGuideEraId(null);
   }, []);
 
   const openEra = useCallback(
@@ -160,6 +167,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setCrossing(null);
       setSelectorOpen(false);
       setOpenItemId(null);
+      setTrackGuideEraId(null);
     },
     [clearEraScroll],
   );
@@ -180,6 +188,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setCrossing(null);
     setSelectorOpen(false);
     setOpenItemId(null);
+    setTrackGuideEraId(null);
     setShare(null);
   }, [clearEraScroll]);
 
@@ -216,6 +225,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       closeCrossing: () => setCrossing(null),
       openItem: setOpenItemId,
       closeItem: () => setOpenItemId(null),
+      openTrackGuide: (id: EraId) => setTrackGuideEraId(getEra(id).id),
+      closeTrackGuide: () => setTrackGuideEraId(null),
       saveEraScroll,
       getEraScroll,
       clearEraScroll,
@@ -238,8 +249,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const state = useMemo<AppState>(
-    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, selectorOpen, share }),
-    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, selectorOpen, share],
+    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, selectorOpen, share }),
+    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, selectorOpen, share],
   );
 
   return (

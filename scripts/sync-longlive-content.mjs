@@ -17,56 +17,26 @@
 // Hand-curated items in content.ts are untouched — this only produces the
 // separate VAULT_RAW export that content.ts merges in alongside them.
 
-import { readdir, readFile, writeFile } from 'node:fs/promises';
+import { readdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath, pathToFileURL, URL } from 'node:url';
+import { pathToFileURL } from 'node:url';
 import { createClient } from '@supabase/supabase-js';
+import {
+  ROOT,
+  SLUG_TO_ERA_ID,
+  esc,
+  loadWebEnvLocal,
+  sourcesFrom,
+  supabaseEnv,
+} from './lib/longlive-sync-shared.mjs';
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'content');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'content-vault.generated.ts');
-const WEB_ENV_FILE = path.join(ROOT, 'apps', 'web', '.env.local');
-
-/**
- * This runs as a plain `node` prebuild step, before Next's own env-file
- * loading kicks in, so apps/web/.env.local (where the documented local
- * Supabase creds live — see docs/dev-quickstart.md) wouldn't otherwise be
- * seen. Load it here, without overriding real env vars a deploy platform
- * (Vercel) already injected.
- */
-async function loadWebEnvLocal() {
-  let raw;
-  try {
-    raw = await readFile(WEB_ENV_FILE, 'utf-8');
-  } catch {
-    return; // no .env.local — fine, e.g. on Vercel where env is injected directly
-  }
-  for (const line of raw.split('\n')) {
-    const trimmed = line.trim();
-    if (!trimmed || trimmed.startsWith('#')) continue;
-    const eq = trimmed.indexOf('=');
-    if (eq === -1) continue;
-    const key = trimmed.slice(0, eq).trim();
-    let value = trimmed.slice(eq + 1).trim();
-    if (
-      (value.startsWith('"') && value.endsWith('"')) ||
-      (value.startsWith("'") && value.endsWith("'"))
-    ) {
-      value = value.slice(1, -1);
-    }
-    if (process.env[key] === undefined) process.env[key] = value;
-  }
-}
 
 // Same column list as packages/core/src/vault.ts's Tier 0 skeleton fetch —
 // keep these in sync if that query changes.
 const MONTH_ITEM_COLS = 'id,era_slug,year,month,category,title,snippet,source_url,thumbnail_url';
 const TIER0_MAX_ROWS = 2000;
-
-const SLUG_TO_ERA_ID = {
-  'the-life-of-a-showgirl': 'tloas',
-  'tortured-poets': 'ttpd',
-};
 
 const CATEGORY_TO_TAG = {
   music: 'Music',
@@ -93,20 +63,7 @@ function slugify(title) {
     .slice(0, 60);
 }
 
-function esc(s) {
-  return JSON.stringify(s);
-}
-
 const VALID_TAGS = new Set(['Music', 'Fashion', 'Tour', 'Relationship', 'Lore']);
-
-/** Bare hostname (no www.) as a readable fallback source name. */
-function hostOf(url) {
-  try {
-    return new URL(url).hostname.replace(/^www\./, '');
-  } catch {
-    return url;
-  }
-}
 
 /**
  * Full editorial body: split the Tier-1 `moment.context` into paragraphs so
@@ -122,27 +79,6 @@ function bodyFrom(context, snippet) {
     if (paras.length) return paras;
   }
   return [snippet];
-}
-
-/**
- * Normalize citations from either the legacy `{outlet,url}` shape or the §5
- * `{source_title,publisher,source_url,…}` shape into `{name,url}`, plus the
- * item's top-level source_url. De-duped by url; drops entries without a url.
- */
-function sourcesFrom(rawSources, sourceUrl) {
-  const out = [];
-  const seen = new Set();
-  const push = (name, url) => {
-    if (!url || typeof url !== 'string' || seen.has(url)) return;
-    seen.add(url);
-    out.push({ name: (name && String(name).trim()) || hostOf(url), url });
-  };
-  for (const s of Array.isArray(rawSources) ? rawSources : []) {
-    if (!s || typeof s !== 'object') continue;
-    push(s.name ?? s.source_title ?? s.publisher ?? s.outlet, s.url ?? s.source_url ?? s.sourceUrl);
-  }
-  push(sourceUrl ? hostOf(sourceUrl) : null, sourceUrl);
-  return out;
 }
 
 /** Category tag plus any already-valid ContentTags the item carries. */
@@ -187,14 +123,6 @@ function addItem(
     tags: tagsFrom(category, tags),
     sources: sourcesFrom(sources, sourceUrl),
   });
-}
-
-function supabaseEnv() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const supabaseKey =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-  if (!supabaseUrl || !supabaseKey) return null;
-  return { supabaseUrl, supabaseKey };
 }
 
 /** Live source: the Supabase month_item table. Returns null if unreachable/unconfigured. */
