@@ -1,4 +1,5 @@
 import type { ContentItem, EraId, Milestone } from './types';
+import { VAULT_RAW } from './content-vault.generated';
 
 /**
  * Representative mock content. Every era gets a hero image reused from the era
@@ -637,9 +638,16 @@ const RAW: Record<EraId, RawItem[]> = {
   ],
 };
 
-export const CONTENT: ContentItem[] = (Object.keys(RAW) as EraId[]).flatMap((eraId) =>
-  build(eraId, RAW[eraId]),
-);
+// Hand-curated items plus the Supabase-content-seed sync (source of truth for
+// era coverage; regenerate via `node scripts/sync-longlive-content.mjs`).
+// Curated ids win on collision, though the generator's `vault-` id prefix
+// makes that vanishingly unlikely in practice.
+export const CONTENT: ContentItem[] = (Object.keys(RAW) as EraId[]).flatMap((eraId) => {
+  const curated = build(eraId, RAW[eraId]);
+  const curatedIds = new Set(curated.map((c) => c.id));
+  const synced = build(eraId, VAULT_RAW[eraId] ?? []).filter((c) => !curatedIds.has(c.id));
+  return [...curated, ...synced];
+});
 
 export function contentForEra(eraId: EraId): ContentItem[] {
   // Newest-first: the experience travels *back* in time, so the most recent
