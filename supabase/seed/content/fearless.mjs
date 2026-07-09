@@ -285,7 +285,7 @@ export default {
       title: 'A gold Reem Acra gown for a five-award night at the 2009 CMAs',
       snippet: 'A floor-skimming gold Reem Acra gown and an old-Hollywood pinned-back style, the night she won five Fearless-era awards.',
       sourceUrl: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/11/swift-sweeps/taylor-swift-sweeps-cmas-25.jpg',
       moment: {
         context:
           'At the Nov. 11, 2009 CMA Awards in Nashville, Swift paired the gold gown with hair pinned back in an old-Hollywood style — a more grown-up counterpoint to the sleek silver look she\'d worn the year before.',
@@ -294,8 +294,23 @@ export default {
             outlet: 'E! Online',
             url: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
           },
+          {
+            outlet: 'Just Jared Jr. (photo gallery — 2009 CMA Awards)',
+            url: 'https://www.justjaredjr.com/photo-gallery/346791/taylor-swift-sweeps-cmas-00/',
+          },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09, relaxed image policy): real press photo of
+        // the actual night, hotlinked with credit. URL verified HTTP 200 +
+        // image/jpeg this session. No AI imagery.
+        photos: [
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/11/swift-sweeps/taylor-swift-sweeps-cmas-25.jpg',
+            credit: 'Rick Diamond/Getty Images, via Just Jared Jr.',
+            caption:
+              'The gold Reem Acra gown onstage at the Nov. 11, 2009 CMA Awards, CMA crystal trophy in hand.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -925,7 +940,8 @@ export default {
       snippet:
         'She\'d considered holding "White Horse" for her third album — until Grey\'s Anatomy used it in its season-five premiere, and it became the second Fearless single that December.',
       sourceUrl: 'https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Taylor_Swift_-_White_Horse.png/250px-Taylor_Swift_-_White_Horse.png',
       moment: {
         context:
           'A devoted Grey\'s fan, she didn\'t undersell the moment: "You should\'ve seen tears streaming down my face when I got the phone call that they were going to use that song." The September 2008 premiere placement settled the tracklist question — "if it wasn\'t going to be on the show, then we weren\'t going to put it on the album," she admitted — and the song itself runs the fairy-tale imagery of the rest of Fearless in reverse. As she put it to CMT: "this is not a fairy tale at all — this is real life." The single followed in December, peaked at No. 13 on the Hot 100, and later took two Grammys: Best Country Song and Best Female Country Vocal Performance.',
@@ -949,7 +965,17 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): cover art taken from the Wikipedia
+        // article's stable upload.wikimedia.org copy; verified HTTP 200 +
+        // image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Taylor_Swift_-_White_Horse.png/250px-Taylor_Swift_-_White_Horse.png',
+            credit: 'Big Machine Records (single cover art)',
+            caption: 'Single cover art for "White Horse."',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -994,7 +1020,8 @@ export default {
       snippet:
         'A one-off for the Valentine\'s Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Today_Was_a_Fairytale',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png/250px-Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
       moment: {
         context:
           'The record it broke was Britney Spears\'s "Womanizer." It debuted at No. 2 on the Hot 100 and went to No. 1 in Canada — all from a soundtrack single for the rom-com she was starring in with Taylor Lautner.',
@@ -1018,7 +1045,17 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): cover art taken from the Wikipedia
+        // article's stable upload.wikimedia.org copy; verified HTTP 200 +
+        // image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png/250px-Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
+            credit: 'Big Machine Records (single cover art)',
+            caption: 'Single cover art for "Today Was a Fairytale."',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1066,7 +1103,7 @@ export default {
       snippet:
         'She plays both the girl next door and the mean-girl cheerleader in the "You Belong with Me" video, opposite Lucas Till — the clip that would win Best Female Video at the VMAs.',
       sourceUrl: 'https://en.wikipedia.org/wiki/You_Belong_with_Me',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg',
       moment: {
         context:
           'Premiered in May 2009 as the album\'s third single took off, the split-role video became the era\'s defining visual — and its VMA win that September is the reason the Kanye West moment happened at all. Roman White shot it over two days at Pope John Paul II High School near her Hendersonville home town, with Swift playing both "the nerd, who is pining away for this guy that she can\'t have" and "the popular girl — horrible, scary, intimidating and perfect"; White has said the closing kiss with Lucas Till took about 45 takes. The song matched the video\'s reach, peaking at No. 2 on the Hot 100 (blocked only by "I Gotta Feeling") and becoming the first country song to top the all-genre Radio Songs airplay chart.',
@@ -1090,7 +1127,26 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): cover art from the Wikipedia article's
+        // stable upload.wikimedia.org copy; video still is the thumbnail of the
+        // official upload — video id VuNIsY6JdUw verified via YouTube oEmbed
+        // this session (title "Taylor Swift - You Belong With Me", channel
+        // @TaylorSwift). Both URLs verified HTTP 200 + image content-type.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Taylor_Swift_-_You_Belong_with_Me.png/250px-Taylor_Swift_-_You_Belong_with_Me.png',
+            credit: 'Big Machine Records (single cover art)',
+            caption: 'Single cover art for "You Belong with Me."',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg',
+            credit: 'Big Machine Records / official Taylor Swift YouTube channel',
+            caption:
+              'Still from the official "You Belong with Me" music video, directed by Roman White — the dance-scene arrival in a white dress.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1102,7 +1158,8 @@ export default {
       snippet:
         'Her Fearless Tour stop at the Garden on Aug. 27, 2009 — tickets had sold out in roughly 60 seconds when they went on sale that winter.',
       sourceUrl: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=3395',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/08/swift-msg/taylor-swift-msg-nyc-concert-13.jpg',
       moment: {
         context:
           'Country Standard Time reported the near-instant sellout when tickets moved in early 2009; by the time the tour reached New York that August, Rolling Stone\'s review of the show read like a coronation — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage. In between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
@@ -1125,8 +1182,24 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 4,
           },
+          {
+            outlet: 'Just Jared Jr. (photo gallery — the Aug. 27, 2009 MSG show)',
+            url: 'https://www.justjaredjr.com/photo-gallery/269331/taylor-swift-msg-nyc-concert-13/',
+          },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09, relaxed image policy): press photo from
+        // the actual Aug. 27, 2009 MSG show (Just Jared Jr.'s gallery of the
+        // night, photos credited to Splash News). Verified HTTP 200 +
+        // image/jpeg this session. No AI imagery.
+        photos: [
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/08/swift-msg/taylor-swift-msg-nyc-concert-13.jpg',
+            credit: 'Splash News, via Just Jared Jr.',
+            caption:
+              'Opening the sold-out Madison Square Garden show in the drum-majorette uniform for "You Belong with Me," Aug. 27, 2009.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1161,8 +1234,25 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 3,
           },
+          // License provenance for the reference image below (Commons file page):
+          {
+            outlet: 'Wikimedia Commons (file page — 2009 Justin Bieber NYC 1)',
+            url: 'https://commons.wikimedia.org/wiki/File:2009_Justin_Bieber_NYC_1.JPG',
+          },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): no free or stable photo of the Wembley
+        // night itself could be verified, so this is a clearly-labeled
+        // reference image of Bieber from the same months, CC BY 2.0 per the
+        // Commons file page cited above. Verified HTTP 200 + image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/e9/2009_Justin_Bieber_NYC_1.JPG',
+            credit: 'Kerosene Photography / CC BY 2.0 via Wikimedia Commons',
+            caption:
+              'For reference — not from the Wembley show: 15-year-old Justin Bieber at a New York in-store appearance on Sept. 1, 2009, weeks before he opened the Fearless Tour\'s UK leg.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -1174,7 +1264,8 @@ export default {
       snippet:
         'Nov. 11, 2009: the CMAs hand their top prize to a 19-year-old — the youngest Entertainer of the Year in the award\'s history, and the first woman to win it since Shania Twain in 1999.',
       sourceUrl: 'https://theboot.com/taylor-swift-wins-2009-cma-entertainer-of-the-year/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/11/swift-sweeps/taylor-swift-sweeps-cmas-33.jpg',
       moment: {
         context:
           'She won every category she was nominated in that night, with Fearless taking Album of the Year and "Love Story" winning Music Video of the Year — the country establishment\'s full endorsement, one year to the day after the album dropped. She pulled her whole band onstage for the big one and didn\'t bother playing it cool: "I will never forget this moment because in this moment, everything I ever wanted has just happened to me." She also thanked the competition — every artist in the category, she noted, had once let her open for them.',
@@ -1206,8 +1297,23 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 2,
           },
+          {
+            outlet: 'Just Jared Jr. (photo gallery — 2009 CMA Awards)',
+            url: 'https://www.justjaredjr.com/photo-gallery/346791/taylor-swift-sweeps-cmas-00/',
+          },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09, relaxed image policy): real press photo
+        // of the Entertainer of the Year moment itself. Verified HTTP 200 +
+        // image/jpeg this session. No AI imagery.
+        photos: [
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/11/swift-sweeps/taylor-swift-sweeps-cmas-33.jpg',
+            credit: 'Rick Diamond/Getty Images, via Just Jared Jr.',
+            caption:
+              'Hand over her face as Faith Hill and Tim McGraw present Entertainer of the Year, Nov. 11, 2009 — the biggest of her wins that night.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1219,7 +1325,8 @@ export default {
       snippet:
         'The week ending Feb. 28, 2009, "Love Story" hit No. 1 on Billboard\'s Pop Songs chart — the first country crossover ever to do it.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
       moment: {
         context:
           'Country songs had crossed to pop radio for decades without finishing the climb — Shania Twain\'s "You\'re Still the One" had set the previous high-water mark at No. 3 in 1998. "Love Story" went all the way the week ending Feb. 28, 2009, on top of a No. 4 Hot 100 peak and two weeks atop Hot Country Songs — the data point that made the eventual pop pivot look less like a risk than a formality.',
@@ -1243,7 +1350,17 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): the song that crossed over — its cover
+        // art, from the Wikipedia article's stable upload.wikimedia.org copy.
+        // Verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
+            credit: 'Big Machine Records (single cover art)',
+            caption: 'Single cover art for "Love Story," the first country song to top Billboard\'s pop-radio chart.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
