@@ -803,5 +803,261 @@ export default {
         photos: [],
       },
     },
+
+    // --- Category depth pass (2026-07-08): fashion, business, sighting, and
+    // relationship items to clear the era's coverage gaps. Every claim
+    // verified against its cited source directly; no fabrication.
+    {
+      slug: 'showgirl-david-koma-graham-norton',
+      year: 2025,
+      month: 9,
+      category: 'fashion',
+      title: 'A jeweled David Koma LBD opens the press run on Graham Norton',
+      snippet:
+        'A little black dress lined with Midnights-coded jewels around the neckline — her first stop on the promo circuit for the album, before Fallon and Seth Meyers followed.',
+      sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-the-life-of-a-showgirl-style/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift kicked off her Life of a Showgirl press run in London on The Graham Norton Show wearing a David Koma design, then continued the tour on The Tonight Show Starring Jimmy Fallon and Late Night with Seth Meyers plus radio stops — a compact, TV-first promo cycle rather than a full magazine-cover blitz.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-the-life-of-a-showgirl-style/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Album Style, Explained",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-orange-reformation-versace',
+      year: 2025,
+      month: 9,
+      category: 'fashion',
+      title: 'The first "Showgirl orange" look: Reformation cashmere and a Versace leather mini',
+      snippet:
+        'Explaining the album\'s packaging and orange-and-mint color scheme on Sept. 20, she wore a pumpkin-hued Reformation cashmere sweater over a Versace leather mini skirt — the outfit that made "Showgirl orange" a fashion story before the record even dropped.',
+      sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-showgirl-orange-reformation-cashmere-versace-leather-mini-skirt/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The look accompanied a behind-the-scenes video about the record\'s visual identity, pairing a roughly $70 sparkly pumpkin-colored knit with high-end leather — deliberately mixing accessible and designer pieces the way she had for past eras\' promo drops.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-showgirl-orange-reformation-cashmere-versace-leather-mini-skirt/',
+            source_title: 'Taylor Swift Styles a Showgirl Orange Reformation Sweater With a Versace Leather Mini Skirt',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-selena-gomez-texans-coats',
+      year: 2025,
+      month: 12,
+      category: 'fashion',
+      title: 'Taylor and Selena Gomez coordinate opulent winter coats at Arrowhead',
+      snippet:
+        'A Miu Miu checkered bomber for Taylor, all-black shearling-trimmed for Selena — the two friends layered up for Gomez\'s first-ever Chiefs game, a Dec. 7 loss to the Texans.',
+      sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-selena-gomez-kansas-city-chiefs-houston-texans-game-winter-coats/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift\'s oversize checkered Miu Miu bomber (originally $4,600) and Gomez\'s fitted shearling-trimmed coat drew as much coverage as the game itself, which the Chiefs lost 20-10. E! Online and Marie Claire both noted it was Gomez\'s first time attending a Chiefs game with Swift.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-selena-gomez-kansas-city-chiefs-houston-texans-game-winter-coats/',
+            source_title: 'Taylor Swift and Selena Gomez Coordinate Opulent Winter Coats for the Kansas City Chiefs vs. Houston Texans Game',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1425931/taylor-swift-selena-gomez-attend-chiefs-vs-texans-game',
+            source_title: 'Taylor Swift and Selena Gomez Cheer on Travis Kelce During Chiefs vs. Texans Game',
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-emmy-nomination-eras-final-show',
+      year: 2026,
+      month: 7,
+      category: 'business',
+      title: 'The Eras Tour: The Final Show earns five Emmy nominations',
+      snippet:
+        'Her first Primetime Emmy nod in over a decade: five nominations for the Disney+ concert film, including Outstanding Variety Special, for a nearly 3.5-hour cut of the tour\'s Vancouver finale with the full Tortured Poets set added.',
+      sourceUrl: 'https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-2026-emmy-nominations-1236641549/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 2026 nominations covered Outstanding Variety Special (Prerecorded), directing for Glenn Weiss, picture editing, sound mixing, and technical direction/camerawork. Produced by Taylor Swift Productions with Silent House Productions, the film expanded the 2023 theatrical Eras Tour cut with the 45-song Vancouver setlist, including the TTPD segment Swift has called the "Female Rage" set. The 78th Emmy Awards air Sept. 14, 2026 on NBC and Peacock.',
+        sources: [
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-2026-emmy-nominations-1236641549/',
+            source_title: "Taylor Swift's 'The Eras Tour: The Final Show' Lands 5 Emmy Noms, Including One for Namesake",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-emmy-nomination-eras-tour-final-show/',
+            source_title: "Taylor Swift Gets Emmy Nomination for 'The Eras Tour: The Final Show'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-grammy-eligibility-window-miss',
+      year: 2025,
+      month: 10,
+      category: 'business',
+      title: 'A release date that costs a Grammy shot: Showgirl misses the 2026 eligibility window by 34 days',
+      snippet:
+        'The Recording Academy\'s 2026 eligibility period closed Aug. 30, 2025 — five weeks before Showgirl came out on Oct. 3. The record-shattering album ended up with zero 2026 Grammy nominations, eligible instead for the 2027 ceremony.',
+      sourceUrl: 'https://www.aol.com/articles/why-taylor-swift-doesn-t-144826491.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Outlets including E! Online and AOL confirmed the snub was purely a calendar issue, not a reception one: the 2026 Grammy eligibility window ran Aug. 31, 2024 through Aug. 30, 2025, and Showgirl\'s Oct. 3 release fell just outside it. Swift already holds 14 Grammys, including a record four Album of the Year wins; the album remains eligible for the 2027 awards.',
+        sources: [
+          {
+            outlet: 'AOL',
+            url: 'https://www.aol.com/articles/why-taylor-swift-doesn-t-144826491.html',
+            source_title: "Why Taylor Swift Doesn't Have Any 2026 Grammy Nominations for 'The Life of a Showgirl'",
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1424797/grammys-2026-why-taylor-swift-wasnt-nominated',
+            source_title: "Why Doesn't Taylor Swift Qualify for the Grammys 2026",
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-broncos-christmas-game',
+      year: 2025,
+      month: 12,
+      category: 'sighting',
+      title: 'A Christmas Day game at Arrowhead, arriving with her parents',
+      snippet:
+        'Swift showed up nearly an hour into the Dec. 25 Chiefs-Broncos game with her parents, in a red Frankie Shop bomber and her Artifex Fine engagement ring, for what was expected to be Travis Kelce\'s final home game as the Chiefs missed the playoffs.',
+      sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-kansas-city-chiefs-denver-broncos-christmas-game-outfit/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Styled by Joseph Cassell Falconer in a red Frankie Shop bomber jacket, black mini skirt, tights, knee-high boots, and a Louis Vuitton bag, Swift arrived with her parents after the 8:15 p.m. kickoff. Marie Claire noted the game\'s added weight: with the Chiefs missing the playoffs for the first time since 2014, it was expected to be Kelce\'s final appearance at Arrowhead that season.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-kansas-city-chiefs-denver-broncos-christmas-game-outfit/',
+            source_title: 'Is Taylor Swift Styling a Kansas City Chiefs vs. Denver Broncos Christmas Game Outfit?',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-engagement-announcement',
+      year: 2025,
+      month: 8,
+      category: 'relationship',
+      title: '"Your English teacher and your gym teacher are getting married": the engagement, announced on Instagram',
+      snippet:
+        'Two weeks after the New Heights album reveal, Taylor and Travis announced their engagement in a joint Instagram post — a garden proposal, an Old Mine Cut diamond in yellow gold, and a caption that became the year\'s most-repeated line.',
+      sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Aug. 26, 2025 announcement came via matching Instagram posts with garden-proposal photos; Swift\'s caption read "Your English teacher and your gym teacher are getting married." The ring — an elongated cushion-cut, Old Mine Cut diamond estimated at 7 to 10 carats, set in yellow gold — was designed by Kindred Lubeck of Artifex Fine Jewelry, who was later invited to the couple\'s wedding.',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
+            source_title: 'Taylor Swift, Travis Kelce are married: See their relationship timeline',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Lifestyle',
+            url: 'https://www.yahoo.com/lifestyle/article/a-look-back-at-taylor-swifts-one-of-a-kind-vintage-inspired-engagement-ring-from-travis-kelce-194728425.html',
+            source_title: "Taylor Swift's engagement ring from Travis Kelce is one of a kind, vintage-inspired and really expensive",
+            publisher: 'Yahoo Lifestyle',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'showgirl-ring-designer-wedding-invite',
+      year: 2026,
+      month: 7,
+      category: 'relationship',
+      title: 'The ring designer gets a wedding invite of her own',
+      snippet:
+        'Kindred Lubeck of Artifex Fine Jewelry, who designed Taylor\'s engagement ring with Travis, was among the guests at the Madison Square Garden wedding — and publicly thanked the "incredible" couple for including her.',
+      sourceUrl: 'https://www.eonline.com/news/1433683/taylor-swift-travis-kelce-invited-ring-designer-kindred-lubeck-to-wedding',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Lubeck\'s attendance closed the loop on the engagement-ring story: the jeweler who worked with Kelce on the custom Old Mine Cut design nearly a year earlier was invited to see the marriage it led to, a detail she confirmed publicly after the wedding.',
+        sources: [
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1433683/taylor-swift-travis-kelce-invited-ring-designer-kindred-lubeck-to-wedding',
+            source_title: 'Taylor Swift, Travis Kelce invited Ring Designer Kindred Lubeck to Wedding',
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
