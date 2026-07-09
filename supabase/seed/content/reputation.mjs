@@ -1225,7 +1225,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Horan\'s night-one cameo was a duet on his own "Slow Hands." The next night, she started "Angels" alone at the piano before Williams strode out in a Taylor Swift T-shirt, and the 90,000-voice singalong footage flooded social media — the European leg\'s signature moment. Williams later joked he hadn\'t realized how big a deal the cameo would be to her audience; for UK fans it instantly entered the tour-guest hall of fame.',
+          'Horan\'s night-one cameo was a duet on his own "Slow Hands." The next night, she started "Angels" alone at the piano before Williams strode out in a Taylor Swift T-shirt, and the Wembley-wide singalong footage flooded social media — the European leg\'s signature moment. Williams later joked he hadn\'t realized how big a deal the cameo would be to her audience; for UK fans it instantly entered the tour-guest hall of fame.',
         sources: [
           {
             outlet: 'Billboard',
