@@ -90,12 +90,82 @@ function tagsFrom(category, tags) {
   return out;
 }
 
+/** Allowed ImageRef.kind values (apps/web/lib/longlive/types.ts ImageKind). */
+const IMAGE_KINDS = new Set(['primary', 'reference', 'archival']);
+
+/**
+ * Builds the ImageRef[] gallery for one item from its `thumbnail_url` (the
+ * moment's real photo → kind 'primary', always first) plus the Tier-1
+ * `moment.photos` JSON array (`[{url, credit}]` per the DB schema; a photo
+ * may also carry an explicit `caption`/`kind` — unknown kinds default to
+ * 'archival' so a stand-in never silently reads as the real photo). De-dupes
+ * by url; when a photo repeats the thumbnail url its credit/caption are
+ * merged into the primary instead of being dropped. Returns undefined (field
+ * omitted) when there is no imagery at all — the engine's build() then falls
+ * back to era art. Exported for unit tests.
+ */
+export function imagesFrom(thumbnailUrl, photos) {
+  const byUrl = new Map();
+  if (typeof thumbnailUrl === 'string' && thumbnailUrl.trim()) {
+    byUrl.set(thumbnailUrl, { url: thumbnailUrl, kind: 'primary' });
+  }
+  for (const p of Array.isArray(photos) ? photos : []) {
+    if (!p || typeof p.url !== 'string' || !p.url.trim()) continue;
+    const credit = typeof p.credit === 'string' && p.credit.trim() ? p.credit : undefined;
+    const caption = typeof p.caption === 'string' && p.caption.trim() ? p.caption : undefined;
+    const existing = byUrl.get(p.url);
+    if (existing) {
+      existing.credit ??= credit;
+      existing.caption ??= caption;
+    } else {
+      byUrl.set(p.url, {
+        url: p.url,
+        credit,
+        caption,
+        kind: IMAGE_KINDS.has(p.kind) ? p.kind : 'archival',
+      });
+    }
+  }
+  const out = [...byUrl.values()];
+  return out.length ? out : undefined;
+}
+
+/**
+ * Namespaced cross-links (`motif:…`, `egg:…`, `moment:…`, `rel:…` — see
+ * RelatedId in apps/web/lib/longlive/types.ts). Keep only well-formed
+ * `<type>:<id>` strings; the UI additionally resolves each id against the
+ * live datasets and drops anything unresolvable, so a stale link can never
+ * render. Returns undefined (field omitted) when nothing valid remains.
+ */
+function relatedIdsFrom(relatedIds) {
+  if (!Array.isArray(relatedIds)) return undefined;
+  const out = relatedIds.filter(
+    (r) => typeof r === 'string' && /^[a-z]+:.+/.test(r),
+  );
+  return out.length ? out : undefined;
+}
+
 /** Appends one normalized item to byEra, de-duping ids within the era. */
 function addItem(
   byEra,
   seenIdsByEra,
   eraSlug,
-  { year, month, category, title, snippet, context, sources, sourceUrl, slug, tags, video },
+  {
+    year,
+    month,
+    category,
+    title,
+    snippet,
+    context,
+    sources,
+    sourceUrl,
+    thumbnailUrl,
+    photos,
+    slug,
+    tags,
+    video,
+    relatedIds,
+  },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
   const seenIds = (seenIdsByEra[eraId] ??= new Set());
@@ -124,8 +194,10 @@ function addItem(
     summary: snippet,
     body: bodyFrom(context, snippet),
     tags: tagsFrom(category, tags),
+    images: imagesFrom(thumbnailUrl, photos),
     sources: sourcesFrom(sources, sourceUrl),
     video: hasVideo ? { youtubeId: video.youtubeId, title: video.title } : undefined,
+    relatedIds: relatedIdsFrom(relatedIds),
   });
 }
 
@@ -169,14 +241,14 @@ async function fetchFromSupabase() {
     return null;
   }
 
-  // Tier-1 detail (moment.context + sources) in ONE query, mapped by
+  // Tier-1 detail (moment.context + sources + photos) in ONE query, mapped by
   // month_item_id. This is what stops the live site from showing the summary
-  // repeated as its own body, and gives every moment its citations.
+  // repeated as its own body, and gives every moment its citations + gallery.
   const momentByItem = new Map();
   {
     const { data: moments, error: mErr } = await supabase
       .from('moment')
-      .select('month_item_id,context,sources');
+      .select('month_item_id,context,sources,photos');
     if (mErr) {
       console.warn(
         `sync-longlive-content: moment fetch failed (${mErr.message}); bodies fall back to summaries.`,
@@ -199,9 +271,11 @@ async function fetchFromSupabase() {
       context: m?.context ?? null,
       sources: m?.sources ?? null,
       sourceUrl: row.source_url ?? null,
-      // month_item has no slug/tags/video column in the DB — those live only
-      // in the seed files (see fetchFromLocalFiles). Carrying them to live
-      // data needs a schema migration; tracked as a follow-up in the PR.
+      thumbnailUrl: row.thumbnail_url ?? null,
+      photos: m?.photos ?? null,
+      // month_item has no slug/tags/video/related_ids column in the DB — those
+      // live only in the seed files (see fetchFromLocalFiles). Carrying them
+      // to live data needs a schema migration; tracked as a follow-up in the PR.
     });
   }
 
@@ -231,9 +305,14 @@ async function fetchFromLocalFiles() {
         context: item.moment?.context ?? null,
         sources: item.moment?.sources ?? null,
         sourceUrl: item.sourceUrl ?? null,
+        thumbnailUrl: item.thumbnailUrl ?? null,
+        photos: item.moment?.photos ?? null,
         slug: item.slug ?? null,
         tags: item.tags ?? null,
         video: item.video ?? null,
+        // Cross-links may live on the item or its Tier-1 moment detail —
+        // accept either so the content lane can pick the natural home.
+        relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
       });
     }
   }
@@ -252,7 +331,7 @@ async function main() {
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
   lines.push("// Re-run that script after content-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { ContentTag, EraId } from './types';");
+  lines.push("import type { ContentTag, EraId, ImageRef } from './types';");
   lines.push('');
   lines.push('type VaultRawItem = {');
   lines.push('  id: string;');
@@ -263,8 +342,10 @@ async function main() {
   lines.push('  summary: string;');
   lines.push('  body: string[];');
   lines.push('  tags: ContentTag[];');
+  lines.push('  images?: ImageRef[];');
   lines.push('  sources?: { name: string; url: string }[];');
   lines.push('  video?: { youtubeId: string; title: string };');
+  lines.push('  relatedIds?: string[];');
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -280,12 +361,27 @@ async function main() {
       lines.push(`      summary: ${esc(it.summary)},`);
       lines.push(`      body: [${it.body.map(esc).join(', ')}],`);
       lines.push(`      tags: [${it.tags.map(esc).join(', ')}],`);
+      if (it.images && it.images.length) {
+        const imgs = it.images
+          .map((im) => {
+            const parts = [`url: ${esc(im.url)}`];
+            if (im.credit) parts.push(`credit: ${esc(im.credit)}`);
+            if (im.caption) parts.push(`caption: ${esc(im.caption)}`);
+            parts.push(`kind: ${esc(im.kind)}`);
+            return `{ ${parts.join(', ')} }`;
+          })
+          .join(', ');
+        lines.push(`      images: [${imgs}],`);
+      }
       if (it.sources && it.sources.length) {
         const srcs = it.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
         lines.push(`      sources: [${srcs}],`);
       }
       if (it.video) {
         lines.push(`      video: { youtubeId: ${esc(it.video.youtubeId)}, title: ${esc(it.video.title)} },`);
+      }
+      if (it.relatedIds && it.relatedIds.length) {
+        lines.push(`      relatedIds: [${it.relatedIds.map(esc).join(', ')}],`);
       }
       lines.push('    },');
     }
@@ -300,7 +396,14 @@ async function main() {
   console.log(`Synced ${total} items across ${Object.keys(byEra).length} eras -> ${path.relative(ROOT, OUT_FILE)}`);
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+// Only write output when invoked directly (`node scripts/sync-longlive-content.mjs`
+// or the prebuild step) — importing this module in tests just pulls in the
+// pure normalization functions above. Same guard as the other sync scripts.
+const invokedDirectly =
+  process.argv[1] && import.meta.url === pathToFileURL(path.resolve(process.argv[1])).href;
+if (invokedDirectly) {
+  main().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}

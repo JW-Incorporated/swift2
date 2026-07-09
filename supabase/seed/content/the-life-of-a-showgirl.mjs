@@ -110,10 +110,15 @@ export default {
       snippet:
         'Written and recorded in Sweden between European Eras Tour dates — her first full album with Max Martin and Shellback since 1989 and reputation. Twelve tracks, no Anthology-style sprawl, and a single feature: Sabrina Carpenter on the closing title track.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
       moment: {
         context:
-          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name.',
+          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name. The cover — shot by Mert Alas and Marcus Piggott — shows Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage.',
+        // Cover art added 2026-07-09 under the relaxed image policy (hotlink any
+        // real, publicly-available image with credit; no AI images). Hotlinked from
+        // Wikipedia's stable copy of the official artwork — verified HTTP 200,
+        // image/png, this session. Supersedes the earlier described-only stance.
         sources: [
           {
             outlet: 'Wikipedia',
@@ -133,8 +138,30 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 4,
           },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-life-of-showgirl-details-cover-new-heights-1235406130/',
+            source_title: "Taylor Swift Unveils 'The Life of a Showgirl' Cover, Sabrina Carpenter Feature",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
+            credit: 'Album cover photographed by Mert Alas & Marcus Piggott / Republic Records, via Wikipedia',
+            caption:
+              'The official album cover: Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia beneath the orange-glitter title.',
+            kind: 'primary',
+          },
+          // Release-day pop-up/theater-event photos were looked for on 2026-07-09
+          // but skipped: the only credited galleries found (Deadline) sit behind a
+          // bot-wall, CNN's image pages return HTTP 451 to us, and Wikimedia
+          // Commons has no release-party media — no stable, verifiable direct
+          // image URL was available, so none is force-added.
+        ],
       },
     },
     {
@@ -358,7 +385,18 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The self-directed music video premiered inside the theatrical Release Party over release weekend, moving through vaudeville and showgirl tableaux built around the drowned-painting image. As the single kept leading the Hot 100 — a run Billboard tracked past 10 weeks, her longest-leading No. 1, out-running "Anti-Hero" — the song became the commercial spine of the era.',
+          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Swift imagined a version who instead "met someone who treated her well" and is pulled from the water. Written and produced with Max Martin and Shellback, it debuted atop the Billboard Hot 100 — her 13th No. 1 — and went on to spend 10 non-consecutive weeks at the top, her longest-running No. 1 single, out-running "Anti-Hero." Swift wrote and directed the official music video herself; it premiered inside the theatrical Official Release Party of a Showgirl over release weekend, moving through vaudeville and showgirl tableaux built around the drowned-painting image, before its own YouTube debut. The single became the commercial spine of the era.',
+        // Official MV id verified 2026-07-09 via YouTube oEmbed:
+        // https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ko70cExuzZM
+        // -> title "Taylor Swift - The Fate of Ophelia (Official Music Video)",
+        // author @TaylorSwift (official channel). Recorded here at the source of
+        // truth. TODO(sync/founder): (1) scripts/sync-longlive-content.mjs does not
+        // yet forward `moment.video` from seed items into VAULT_RAW, so this won't
+        // render until that pass-through is added; (2) the curated content.ts item
+        // `tloas-fate-of-ophelia-video` currently embeds the promo-clip id
+        // 'fxeEYfVDaJI' ("...available now, only on YouTube") — it should adopt this
+        // canonical MV id 'ko70cExuzZM'. Both are out of scope for this seed-only PR.
+        video: { youtubeId: 'ko70cExuzZM', title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)' },
         sources: [
           {
             outlet: 'Wikipedia',
@@ -769,11 +807,52 @@ export default {
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
             credit: 'Charly Triballeau/AFP via Getty Images',
+            caption:
+              'The jumbotron outside Madison Square Garden reading "JUST&T MARRIED!" as fans stop to photograph it, the Empire State Building behind.',
+            kind: 'primary',
           },
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2026/07/02/e66f5b93-8b69-4557-847c-106908119407/thumbnail/620x413/06cdf599d84c9a589b8eb695f3867456/2026-07-02t205104z-316575572-rc2w5maws1vu-rtrmadp-3-people-taylor-swift-kelce.jpg',
             credit: 'Christian Monterrosa/Reuters',
+            caption:
+              "In the run-up to the ceremony: crews on ladders hang curtains across the Garden's glass entrance while security stands watch outside.",
+            kind: 'archival',
           },
+          // 2026-07-09, relaxed image policy: the wire photos below (same CBS News
+          // gallery as the two above) are now hotlinked with credit. Each URL
+          // verified HTTP 200 + image/jpeg this session. All are real press photos
+          // of the actual event; no AI imagery.
+          {
+            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/0bb2c01d-717b-42d9-a2b4-08fd18f021e3/thumbnail/620x414/162fb69de698cd4a021ab5e0e34a638a/gettyimages-2284537214.jpg',
+            credit: 'Roy Rochlin/Getty Images, via CBS News',
+            caption:
+              'Guest arrivals: Hugh Grant and Anna Elisabet Eberstein arrive at Madison Square Garden on July 2, 2026, as the multi-day celebration begins.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/46f18357-e274-4e86-a5ac-b173d9b01219/thumbnail/620x414/aff0da6d159019e0ce14046348347c7b/gettyimages-2284532594.jpg',
+            credit: 'Roy Rochlin/Getty Images, via CBS News',
+            caption:
+              'Abby Wambach and Glennon Doyle arrive at Madison Square Garden for the wedding on July 3, 2026.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/5ba6ed3b-0728-43a7-a105-2fdc2beb7097/thumbnail/620x414/ca2a0b800b41ca793cc0db76270c7ef5/gettyimages-2283912122.jpg',
+            credit: 'Angela Weiss/AFP via Getty Images, via CBS News',
+            caption:
+              'The scene outside: members of the media gather at Madison Square Garden on the wedding day, July 3, 2026.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/661a9e69-70e1-4a8c-88bc-e84d2bc985c0/thumbnail/620x414/82c6463f5b68d14f30b1660eb692a0d5/gettyimages-2283918271.jpg',
+            credit: 'Tom Weller/picture alliance via Getty Images, via CBS News',
+            caption:
+              'Onlookers wait behind barriers outside Madison Square Garden ahead of the ceremony on July 3, 2026.',
+            kind: 'archival',
+          },
+          // Still none of the ceremony/reception interior: no official or wire
+          // photos from inside the ceremony/reception could be found and verified
+          // as of 2026-07-09 — only exterior/arrival wire imagery exists to add.
         ],
       },
     },
@@ -789,7 +868,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design rather than a runway adaptation. No official photo of the gown had been released as of the day after the wedding, and several AI-generated fakes were circulating online — none of those are used here.',
+          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design rather than a runway adaptation. No official photo of the gown had been released as of the day after the wedding, and several AI-generated fakes were circulating online — none of those are used here; the gallery instead shows clearly-labeled reference images of the real things the design reportedly draws on. The commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. The reported touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM costume designer Helen Rose and gifted to Elizabeth by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, in the lace-and-veil look shown in the reference image here. Per The Hollywood Reporter and Marie Claire, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -799,8 +878,71 @@ export default {
             outlet: 'Marie Claire',
             url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-wedding-dress-details/',
           },
+          {
+            outlet: 'Fashion Dive',
+            url: 'https://www.fashiondive.com/news/jonathan-anderson-dior-creative-director-haute-couture-mens-womens/749569/',
+            source_title: 'Jonathan Anderson will lead fashion at Dior',
+            publisher: 'Fashion Dive',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ElizabethTaylor.com',
+            url: 'https://elizabethtaylor.com/marriage-and-movies-the-real-life-romance-that-promoted-father-of-the-bride/',
+            source_title: "Marriage and Movies: The Real-Life Romance That Promoted 'Father of the Bride'",
+            publisher: 'House of Taylor / elizabethtaylor.com',
+            source_type: 'official',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          // License provenance for the reference images below (Commons file pages):
+          {
+            outlet: 'Wikimedia Commons (file page — Elizabeth Taylor, Father of the Bride trailer)',
+            url: 'https://commons.wikimedia.org/wiki/File:Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG',
+          },
+          {
+            outlet: 'Wikimedia Commons (file page — Jonathan Anderson dress for Loewe)',
+            url: 'https://commons.wikimedia.org/wiki/File:Dress_by_Jonathan_Anderson_for_Loewe_(51444).jpg',
+          },
+          {
+            outlet: 'Wikimedia Commons (file page — Dior, 30 Avenue Montaigne)',
+            url: 'https://commons.wikimedia.org/wiki/File:Christian_Dior,_30_Avenue_Montaigne,_Paris_2016.jpg',
+          },
         ],
-        photos: [],
+        // T16 pilot: no official photo of the gown exists and AI fakes are refused
+        // (see context). These are REAL, license-verified reference images only —
+        // each `kind: 'reference'` so the UI labels them as stand-ins, never as
+        // the gown itself. Licenses confirmed on the Commons file pages cited in
+        // `sources` above on 2026-07-09.
+        // Re-checked 2026-07-09 under the relaxed image policy (T16 re-pass):
+        // still no published photo of the actual gown — WWD/Stylecaster confirm
+        // official wedding photos remain unreleased, and circulating "gown" images
+        // are AI fakes, which stay refused. The honest reference-only framing
+        // stands unchanged; add a real `primary` if/when one is published.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG',
+            credit: 'MGM trailer still, public domain (published without copyright notice) via Wikimedia Commons',
+            caption:
+              "For reference — no official photo of Taylor Swift's gown has been released. This is Elizabeth Taylor in the Helen Rose bridal look from Father of the Bride (1950); Rose also designed the real gown Elizabeth Taylor wore to marry Conrad Hilton that May, the dress the Dior design reportedly references.",
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Dress_by_Jonathan_Anderson_for_Loewe_%2851444%29.jpg',
+            credit: 'Rhododendrites / CC BY-SA 4.0 via Wikimedia Commons',
+            caption:
+              "For reference — not the wedding gown. Jonathan Anderson working in white duchess silk satin at Loewe (autumn/winter 2023-24), before he took over Dior womenswear and haute couture — a feel for the designer's hand in bridal-adjacent white silk.",
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Christian_Dior%2C_30_Avenue_Montaigne%2C_Paris_2016.jpg',
+            credit: 'Frédéric BISSON / CC BY 2.0 via Wikimedia Commons',
+            caption:
+              "For reference — Dior's historic house at 30 Avenue Montaigne, Paris, home of the haute couture ateliers where the custom gown was made.",
+            kind: 'reference',
+          },
+        ],
       },
     },
 
@@ -1005,11 +1147,27 @@ export default {
       snippet:
         'Two weeks after the New Heights album reveal, Taylor and Travis announced their engagement in a joint Instagram post — a garden proposal, an Old Mine Cut diamond in yellow gold, and a caption that became the year\'s most-repeated line.',
       sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
       moment: {
         context:
-          'The Aug. 26, 2025 announcement came via matching Instagram posts with garden-proposal photos; Swift\'s caption read "Your English teacher and your gym teacher are getting married." The ring — an elongated cushion-cut, Old Mine Cut diamond estimated at 7 to 10 carats, set in yellow gold — was designed by Kindred Lubeck of Artifex Fine Jewelry, who was later invited to the couple\'s wedding.',
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress. The ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone widely estimated at 7 to 10 carats, set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below.',
+        // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
+        // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
+        // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
+        // CDN URLs are signed/ephemeral and were skipped on purpose. Each URL
+        // verified HTTP 200 + image/jpeg this session. Supersedes the old
+        // no-embed note; the IG permalink stays cited as the primary source.
         sources: [
+          {
+            outlet: 'Instagram (@taylorswift, official joint post)',
+            url: 'https://www.instagram.com/p/DN02niAXMM-/',
+            source_title: 'Taylor Swift & Travis Kelce engagement announcement (joint post)',
+            publisher: 'Instagram',
+            source_type: 'social',
+            accessed_at: '2026-07-09',
+            reliability_score: 5,
+          },
           {
             outlet: 'ABC News',
             url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
@@ -1029,7 +1187,29 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'The proposal, from the couple\'s official announcement post: Kelce and Swift beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'From the same carousel: the couple embrace among the garden flowers, the new ring visible on Swift\'s hand.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'The ring close-up from the carousel: the Old Mine Cut brilliant diamond in yellow gold, designed by Travis Kelce with Kindred Lubeck of Artifex Fine Jewelry.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     // --- Deep timeline fill (2026-07-08, content/deep-d): song stories, the

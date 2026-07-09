@@ -2,7 +2,7 @@
 // Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.
 // Re-run that script after content-seed changes; don't edit this file directly.
 
-import type { ContentTag, EraId } from './types';
+import type { ContentTag, EraId, ImageRef } from './types';
 
 type VaultRawItem = {
   id: string;
@@ -13,8 +13,10 @@ type VaultRawItem = {
   summary: string;
   body: string[];
   tags: ContentTag[];
+  images?: ImageRef[];
   sources?: { name: string; url: string }[];
   video?: { youtubeId: string; title: string };
+  relatedIds?: string[];
 };
 
 export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
@@ -27,6 +29,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "1.287 million copies in week one — the biggest sales week for any album since Eminem's The Eminem Show in 2002, and her third album to cross a million copies in its first week.",
       body: ["1.287 million copies in week one — the biggest sales week for any album since Eminem's The Eminem Show in 2002, and her third album to cross a million copies in its first week."],
       tags: ["Lore"],
+      images: [{ url: "https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2014/11/05/taylor-swifts-1989-moves-1-287-million-copies-in-its-first-week/" }, { name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-1989-chart-rewind-2014-1235829365/" }],
     },
     {
@@ -37,6 +40,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Satire aimed at her own tabloid image — \"a girl who's crazy but seductive but glamorous but nuts but manipulative.\"",
       body: ["She's said only about half of listeners caught it was a joke; the rest took the persona at face value."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Blank_Space" }],
     },
     {
@@ -47,6 +51,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The tonal opposite of Mean — critics get a shrug and a wink instead of a wound.",
       body: ["Taylor's own framing: Mean answered critics from a hurt place; this one takes \"back the narrative\" with \"a sense of humor\" instead."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Shake_It_Off" }],
     },
     {
@@ -57,6 +62,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Not about an ex — by her own account, about a friend who tried to sabotage an entire arena tour.",
       body: ["She told Rolling Stone the person had \"hired a bunch of people out from under\" her; asked directly to name names, she said she'd \"never said anything that would point a finger in the specific direction of one specific person.\" She and Katy Perry, the widely speculated subject, publicly reconciled in 2018 with an olive branch and a joint cameo in \"You Need to Calm Down.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png/250px-Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)" }, { name: "E! Online", url: "https://www.eonline.com/news/1423684/katy-perry-supports-taylor-swifts-the-life-of-a-showgirl" }],
     },
     {
@@ -67,6 +73,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "100,320 fans across two shows at Tokyo Dome, $10.6 million combined — the start of what became 2015's highest-grossing tour.",
       body: ["100,320 fans across two shows at Tokyo Dome, $10.6 million combined — the start of what became 2015's highest-grossing tour."],
       tags: ["Tour"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Taylor_Swift_7_%2818912291189%29.jpg/250px-Taylor_Swift_7_%2818912291189%29.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_1989_World_Tour" }],
     },
     {
@@ -77,6 +84,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Heartbreak is the national anthem\" — a synth-pop rallying cry for coming back from it with your friends beside you.",
       body: ["Rolling Stone ranked it among the 100 best songs of the 2010s in 2019, calling it \"the type of relieving dance floor soul purge that the best pop can be.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/New_Romantics_(song)" }],
     },
     {
@@ -97,6 +105,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A romance set on a 1950s film shoot in Africa, with critics calling its overwhelmingly white cast a colonial-nostalgia fantasy.",
       body: ["Director Joseph Kahn defended the casting as historically accurate to the era rather than a comment on colonialism; Swift donated the video's proceeds to the African Parks Foundation of America."],
       tags: ["Music"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-wildest-dreams-video-3-billboard-650.jpg?w=650&h=430&crop=1", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swifts-wildest-dreams-video-accused-of-channeling-white-colonialism-6685110/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Wildest_Dreams" }],
     },
     {
@@ -107,6 +116,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Bandeau cutouts and intricate beadwork — the night she also won Artist of the Year.",
       body: ["Bandeau cutouts and intricate beadwork — the night she also won Artist of the Year."],
       tags: ["Fashion"],
+      images: [{ url: "https://58v76y8z87lo.hellomagazine.com/horizon/original_aspect_ratio/d02f741a61d4-taylor-a.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2015/03/84671/taylor-swift-iheart-radio-awards" }, { name: "Hello!", url: "https://www.hellomagazine.com/fashion/news/2015033053845/taylor-swift-leads-best-dressed-at-i-heart-radio-music-awards/" }],
     },
     {
@@ -117,6 +127,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Introduced by Ellie Goulding that February, the DJ-and-pop-star pairing went fully public a month after a first, subtler social-media hint.",
       body: ["Introduced by Ellie Goulding that February, the DJ-and-pop-star pairing went fully public a month after a first, subtler social-media hint."],
       tags: ["Relationship"],
+      images: [{ url: "https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef", credit: "Kevin Mazur/BMA2015/WireImage", kind: "primary" }],
       sources: [{ name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/calvin-harris-taylor-swift-breakup-twitter-rant-british-gq-interview-7850101/" }],
     },
     {
@@ -127,6 +138,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Waist cutouts, all-over sparkle, and a \"Bad Blood\" video premiere the same night.",
       body: ["Waist cutouts, all-over sparkle, and a \"Bad Blood\" video premiere the same night."],
       tags: ["Fashion"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg", credit: "Jason Merritt/Getty Images", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/31611/taylor-swift-at-the-billboard-music-awards" }],
     },
     {
@@ -137,6 +149,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"It just wasn't working anymore\" — a breakup Harris addressed directly on social media, citing love and respect that remained.",
       body: ["\"It just wasn't working anymore\" — a breakup Harris addressed directly on social media, citing love and respect that remained."],
       tags: ["Relationship"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-calvin-harris-sunglasses-2015-billboard-1548.jpg?w=942&h=628&crop=1", credit: "James Devaney/GC Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/calvin-harris-taylor-swift-breakup-twitter-rant-british-gq-interview-7850101/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html" }],
     },
     {
@@ -147,6 +160,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Taylor Swift and I are together, and we're very happy... it's not a publicity stunt\" — his own words to The Hollywood Reporter.",
       body: ["The two met at the 2016 Met Gala, just weeks after her breakup with Harris."],
       tags: ["Relationship"],
+      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/95e4e683a25b-taylor-and-tom.png", credit: "Getty/WireImage", kind: "primary" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html" }],
     },
     {
@@ -157,6 +171,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Spotted walking the shore at her Rhode Island house in matching \"I ❤ T.S.\" gear, part of a holiday party with her regular friend group.",
       body: ["Spotted walking the shore at her Rhode Island house in matching \"I ❤ T.S.\" gear, part of a holiday party with her regular friend group."],
       tags: ["Lore"],
+      images: [{ url: "https://media.zenfs.com/en/people_218/cfeb5900f3c2a1683c3455b4f84a3976", kind: "primary" }],
       sources: [{ name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html" }],
     },
     {
@@ -167,6 +182,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A brief, intensely-covered romance that started at the Met Gala ended quietly by September.",
       body: ["A brief, intensely-covered romance that started at the Met Gala ended quietly by September."],
       tags: ["Relationship"],
+      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/95e4e683a25b-taylor-and-tom.png", credit: "Getty/WireImage", kind: "primary" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html" }],
     },
     {
@@ -177,6 +193,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She'd kept it secret for months, renting a North London house and using scarves and hats to avoid being recognized.",
       body: ["Swift later confirmed the real timeline herself, in a diary entry included with a Lover deluxe edition, dated Jan. 3, 2017: \"We have been together and no one has found out for 3 months now.\""],
       tags: ["Relationship"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg", credit: "Robert Kamau/GC Images", kind: "primary" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/music/taylor-swift-joe-alwyn-relationship-timeline-rcna51604" }, { name: "The Week", url: "https://theweek.com/feature/briefing/1022534/taylor-swift-and-joe-alwyn-a-timeline-of-their-relationship" }],
     },
     {
@@ -187,6 +204,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sequined, metallic houndstooth crop top and trousers, dark cat-eye makeup, and an entire squad of models and actresses walking in formation behind her.",
       body: ["The Ashish set arrived the same month \"Bad Blood\" won Video of the Year. Swift walked the red carpet flanked by Martha Hunt, Hailee Steinfeld, Cara Delevingne, Selena Gomez, Serayah, Lily Aldridge, Gigi Hadid, and Karlie Kloss — the \"squad\" era in its full, coordinated force."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/news/170949_taylor_swift_dominated_the_2015_vmas_red_carpet_with_her_entire_bad_blood_squad" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/vmas-fashion-taylor-swift-bad-818775/" }],
     },
     {
@@ -197,6 +215,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Beaded fringe minidresses, a jeweled bodysuit, a Marilyn Monroe-style playsuit, a leather catsuit — a different sequined look for nearly every section of the show.",
       body: ["Across the tour's stops, the wardrobe ranged from a powdery-pink beaded fringe minidress to a black beaded crop top with a flared skirt, a bejeweled bra top with high-waisted cigarette pants, and a white plunging halter playsuit with swinging fringe — costume changes built for a stadium show as much as for the songs themselves."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/4aosSgmeZv7gjgHxbps5gC.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/news/a14342/taylor-swift-1989-tour-costumes/" }],
     },
     {
@@ -207,6 +226,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A strapless red crop top paired with a voluminous hot-pink satin skirt slit to the hip — worn the same night 1989 won Album of the Year.",
       body: ["The two-tone, two-piece look bared her midriff on the same red carpet where she'd go on to make history as the first woman to win Album of the Year twice."],
       tags: ["Fashion"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "Jason Merritt/Getty Images for NARAS", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why" }],
     },
     {
@@ -217,6 +237,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A dramatically shorter, blunt-cut bob with heavy fringe — a sharp departure from the long waves she'd worn through most of the 1989 era, debuted on one of the year's biggest red carpets.",
       body: ["E! Online's red-carpet coverage that night singled out the new haircut alongside the outfit as the story of her look — a bob-with-bangs silhouette she'd keep returning to in the years after."],
       tags: ["Fashion"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "Jason Merritt/Getty Images for NARAS", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why" }],
     },
     {
@@ -227,6 +248,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A cutoff denim overall dress over a coral tank, worn with white sneakers for a walk through the city — the off-duty, un-styled half of her public image.",
       body: ["One of a long run of paparazzi-caught New York street style looks E! Online has tracked over the years — mixing casual denim, sneakers, and minimal styling with the much more constructed red-carpet image from the same period."],
       tags: ["Fashion"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201678/rs_634x1024-160808163309-634taylor-swift-nyc-demin-overalls.jpg", credit: "Kristin Callahan/ACE/INFphoto.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/25013/taylor-swift-s-new-york-city-style" }],
     },
     {
@@ -237,6 +259,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Co-chairing the \"Manus x Machina\" Met Gala alongside Idris Elba and Anna Wintour, she wore a sequined Louis Vuitton mini with a snakeskin pattern, leather panels, and a cutout waist, finished with a platinum bob and burgundy lipstick.",
       body: ["The May 2, 2016 gala's theme, \"Manus x Machina: Fashion in an Age of Technology,\" was reflected in the dress's tiered ruffled skirt and space-age-leaning silver texture. She paired it with strappy gladiator heels; her platinum-blonde bob and dark burgundy lip and nails marked a sharper, edgier beauty look than her usual red-carpet glam."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2016/05/gettyimages-527338016.jpg?w=2000&h=1126&crop=1", credit: "Larry Busacca/Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/" }, { name: "Marie Claire", url: "https://www.marieclaire.com/fashion/news/a20287/taylor-swift-met-gala-dress-2016/" }],
     },
     {
@@ -247,6 +270,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "For the video's final battle scene, longtime makeup artist Lorrie Turk built a dramatic smoky eye — black and midnight-blue shadow with exaggerated winged liner — paired with a bold red lip.",
       body: ["Lorrie Turk, Swift's regular makeup artist, is credited on the \"Bad Blood\" video (with Jemma Muradian on hair). The finale look layered black and midnight-blue eyeshadow with gunpowder-grey liner smudged along both lash lines, multiple coats of mascara plus false lashes top and bottom, and a precisely applied red lip — the \"warrior\" beauty look tying together the video's ensemble cast of characters."],
       tags: ["Fashion"],
+      images: [{ url: "https://images.prismic.io/birchbox/MDFhZjY0OWUtZTM3MS00MDkxLThmOGQtMzAxNTU0MGZhMDc2_may-taylor-swift-bad-blood-700x400.jpg", credit: "Birchbox", kind: "primary" }],
       sources: [{ name: "Birchbox", url: "https://www.birchbox.com/magazine/article/taylor-swift-bad-blood-music-video-makeup" }],
     },
     {
@@ -257,6 +281,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Emma Stone, Lena Dunham, and a Slip 'N Slide built to fight the rain — the first of what became an annual squad tradition at her Rhode Island beach house.",
       body: ["Swift hosted Emma Stone, Jaime King, Ingrid Michaelson, Jessica Stam, Jessica Szohr, and Girls creator Lena Dunham, among others, for the 2014 holiday weekend at her Rhode Island house. Rain didn't stop the group — they built a giant Slip 'N Slide, baked an American-flag cake, and posed for a group \"family portrait\" that Dunham photobombed with a mock scowl and a raised middle finger. \"When the 4th of July gives you nonstop rain, make a giant slip n slide,\" Swift captioned one photo. Dunham called the weekend her personal Coachella."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201466/rs_600x600-140706155753-600.Taylor-Swift-jmd-070514_copy.jpg", credit: "Instagram", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/557177/taylor-swift-has-amazing-fourth-of-july-weekend-poses-for-family-portrait-with-9-pals-see-the-photos" }, { name: "E! Online", url: "https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide" }],
     },
     {
@@ -267,6 +292,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Weeks before either confirmed it, paparazzi caught Taylor and Calvin Harris holding hands leaving a HAIM concert at West Hollywood's Troubadour — the sighting that kicked off the dating rumors.",
       body: ["In early April 2015, weeks after they met at the BRIT Awards, Swift and Harris were photographed holding hands as they left a HAIM show at the Troubadour in West Hollywood — one of the first sightings that fueled dating rumors ahead of their public confirmation at the Billboard Music Awards that May."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201533/rs_634x1024-150403050319-634.Taylor-Swift-Calvin-Harris-JR-4315.jpg", credit: "MEP/Splash News", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/17305/taylor-swift-calvin-harris-romance-rewind" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html" }],
     },
     {
@@ -277,6 +303,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Gigi Hadid, Karlie Kloss, Lena Dunham, and Jack Antonoff swing by Taylor's New York apartment on a Thursday night — the low-key, at-home counterpart to the era's red-carpet squad appearances.",
       body: ["Gigi Hadid and Karlie Kloss were photographed arriving at Taylor's Manhattan apartment on Thursday night, May 28, 2015, along with Lena Dunham and Jack Antonoff — a quieter, at-home counterpart to the era's red-carpet squad appearances. Gigi wore Blue Life FIT leggings; Karlie carried a Dolce & Gabbana handbag."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2015/05/taylor-studded/thumbs/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-04.JPG", kind: "primary" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/2015/05/29/gigi-hadid-karlie-kloss-stop-by-taylor-swifts-nyc-party/" }, { name: "Just Jared", url: "https://www.justjared.com/photo-gallery/3380957/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-04/" }],
     },
     {
@@ -287,6 +314,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Gigi Hadid and Joe Jonas brought American-flag onesies for the whole group; Ed Sheeran, the HAIM sisters, and boyfriend Calvin Harris rounded out the guest list at the Rhode Island beach house.",
       body: ["The 2015 edition of Swift's Rhode Island Independence Day tradition drew Calvin Harris (her boyfriend at the time), Ed Sheeran, Joe Jonas, Nick Jonas, Gigi Hadid, brother Austin Swift, and the HAIM sisters. Hadid and Jonas brought matching American-flag onesies for the group, and the party featured what E! called \"the biggest inflatable slide,\" piggyback rides, and Swift doing the cooking, under sunny East Coast weather ahead of that evening's fireworks."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201564/rs_600x600-150704143749-600.TSwift-6-jmd-070415.jpg", credit: "Instagram", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/673098/10-reasons-why-taylor-swift-s-fourth-of-july-celebration-was-better-than-anyone-else-s-party" }, { name: "E! Online", url: "https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide" }],
     },
     {
@@ -297,6 +325,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Weeks after the Calvin Harris breakup, paparazzi photographed Taylor and Tom Hiddleston kissing on a beach in Westerly, Rhode Island — the candid that broke the story before either side said a word.",
       body: ["On June 15, 2016, Swift and Hiddleston were photographed kissing on a beach in Westerly, Rhode Island — the first public sighting of their relationship, surfacing just weeks after her split from Calvin Harris and shortly after she and Hiddleston met at the 2016 Met Gala. The pictures broke the story before either Swift or Hiddleston commented publicly."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016518/rs_634x1024-160618144035-634.Tom-Hiddleston-Taylor-Swift-Beach-kiss.tt.061816.jpg", credit: "TheImageDirect.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind" }, { name: "Hello!", url: "https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/" }],
     },
     {
@@ -307,6 +336,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Two weeks into the relationship, Taylor and Tom Hiddleston toured Rome's Colosseum in coordinated ensembles, photographed holding hands through the cobblestone streets.",
       body: ["On June 27, 2016, Swift and Hiddleston were photographed sightseeing at Rome's Colosseum, wearing matching ensembles and holding hands throughout — part of a European stretch of the relationship that also took them to Hiddleston's family home in Suffolk, England, before they returned to the U.S. for her Fourth of July party in Rhode Island."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016528/rs_634x1024-160628080313-634.Taylor-Swift-Tom-Hiddleston-Rome-JR-062816.jpg", credit: "INFphoto.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/19032/taylor-swift-tom-hiddleston-romance-rewind" }],
     },
     {
@@ -317,6 +347,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Navy jackets for both of them — Taylor in a blue plaid skirt, Tom in a white v-neck tee — as they moved through Los Angeles International Airport the morning of a flight to Australia.",
       body: ["On July 6, 2016, Swift and Hiddleston were photographed moving through LAX in coordinating navy jackets — she in a blue plaid skirt with flats, he in a white v-neck T-shirt — with his arm around her as they made their way through the terminal. They were bound for Australia, where Hiddleston was filming, and touched down still wearing the same matching looks the next day."],
       tags: ["Lore"],
+      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/a6f6cfa25b82-taylor-a.jpg", credit: "Rex", kind: "primary" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/2016070732300/taylor-swift-tom-hiddleston-matching-outfits-airport/" }],
     },
     {
@@ -327,6 +358,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"There are going to be people along the way who will try to undercut your success or take credit for your accomplishments or your fame\" — her message to young women, accepting music's top prize for the second time.",
       body: ["At the Feb. 15, 2016 ceremony, 1989 won Album of the Year at the 58th Grammy Awards (also winning Best Pop Vocal Album), making Swift the first woman in Grammy history to win Album of the Year twice — her first was for Fearless in 2010. She thanked the fans for \"the last 10 years\" and producer Max Martin in the same speech."],
       tags: ["Lore"],
+      images: [{ url: "https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif", credit: "The Recording Academy", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/awards/taylor-swift-album-of-the-year-speech-credit-for-fame-6875390/" }, { name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/" }],
     },
     {
@@ -337,6 +369,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Crossing 10 million units in the U.S. made her the first female artist in history to hold both a Diamond-certified single and a Diamond-certified album.",
       body: ["The RIAA certified \"Shake It Off\" Diamond on March 14, 2020, for surpassing 10 million combined sales-and-streaming units — her first single to reach that tier, following Fearless's Diamond album certification in December 2017. At the time, 1989's other singles stood at 8x Platinum (\"Blank Space\") and 6x Platinum (\"Bad Blood\"), with the album itself at 4x Platinum."],
       tags: ["Lore"],
+      images: [{ url: "https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960", credit: "Forbes", kind: "primary" }],
       sources: [{ name: "Forbes", url: "https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/" }],
     },
     {
@@ -347,6 +380,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Certified 14x Platinum by the RIAA — crossing the 10-million-unit Diamond threshold and putting her among a small group of women, including Adele, Mariah Carey, and Whitney Houston, with a Diamond album.",
       body: ["The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) and making it Swift's second Diamond album after Fearless."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "AOL", url: "https://www.aol.com/articles/only-30-albums-women-certified-202930018.html" }, { name: "RIAA Gold & Platinum Database", url: "https://www.riaa.com/gold-platinum/?tab_active=default-award&ar=Taylor+Swift&ti=1989" }],
     },
     {
@@ -357,6 +391,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Days after 1989's record-breaking opening week, her label withdrew everything — arguing free, ad-supported streaming undermined the paid tier that pays songwriters and artists more.",
       body: ["On Nov. 3, 2014, Big Machine Records pulled Swift's full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued streaming's free tier devalued music as \"an economic entity.\" Days later, Big Machine's Scott Borchetta told radio host Nikki Sixx the label didn't want to disrespect fans who'd paid for the album while friends streamed it free: \"We're being completely disrespectful to that superfan who wants to invest.\""],
       tags: ["Lore"],
+      images: [{ url: "https://blogs-images.forbes.com/bobbyowsinski/files/2014/08/670px-swift_taylor_2007_cropped_2.jpg", credit: "Forbes", kind: "primary" }],
       sources: [{ name: "CNN Money", url: "https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/music/music-news/big-machines-scott-borchetta-explains-747781/" }],
     },
     {
@@ -367,6 +402,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"We don't ask you for free iPhones. Please don't ask us to provide you with our music for no compensation\" — a Tumblr post that got Apple to pay artists during its free trial period.",
       body: ["Swift published the letter on Tumblr on June 21, 2015, objecting to Apple Music's plan not to pay royalties during its three-month free trial — a policy she said would hurt new artists and songwriters most. Apple reversed the policy within 24 hours, and Swift subsequently put 1989 on the service."],
       tags: ["Lore"],
+      images: [{ url: "https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg", credit: "Stereogum", kind: "primary" }],
       sources: [{ name: "Stereogum", url: "https://stereogum.com/1810310/read-taylor-swifts-open-letter-to-apple-music/news" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/apple-exec-eddy-cue-why-taylor-swift-was-right-39608/" }],
     },
     {
@@ -377,6 +413,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"This has been the most incredible adventure\" — eight months, 53 cities, 78 guest cameos, and the highest-grossing tour in the world for 2015.",
       body: ["The tour wrapped its third Melbourne show at AAMI Park on Dec. 12, 2015, having run 85 shows across 53 cities in 10 countries since opening in Tokyo that May. Final tallies: $250.7 million grossed and 2,278,647 tickets sold (100% of capacity) — Pollstar's highest-grossing tour worldwide for 2015. Swift posted a farewell photo with her tour crew: \"Farewell, 1989 World Tour.\""],
       tags: ["Tour"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/250px-Taylor_Swift_AAMI_Park_20151212_01.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_1989_World_Tour" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-1989-tour-ends-6805721/" }],
     },
     {
@@ -387,6 +424,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She called it the song that \"best represents\" the album — built around a real snowmobile accident and twenty stitches she'd kept out of the tabloids.",
       body: ["Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Swift on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track. The bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Taylor_Swift_-_Out_of_the_Woods.png/250px-Taylor_Swift_-_Out_of_the_Woods.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)" }],
     },
     {
@@ -398,6 +436,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "August 18, 2014: a worldwide livestream reveals the album title, the October 27 date, the Polaroid cover — and drops \"Shake It Off\" plus its video the same day.",
       body: ["On the livestream she declared the record her first documented, official pop album, formally closing the country chapter the Red era had already strained. Naming it for her birth year and fronting it with a Polaroid crop that cut off her face set the visual language for everything that followed."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "1989 (album)", url: "https://en.wikipedia.org/wiki/1989_(album)" }, { name: "Shake It Off", url: "https://en.wikipedia.org/wiki/Shake_It_Off" }],
     },
     {
@@ -442,6 +481,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "November 10, 2014: Joseph Kahn's mansion-meltdown video drops alongside American Express Unstaged — an explorable 360° app version of the video that went on to win an Emmy.",
       body: ["The video played the tabloids' \"crazy ex\" caricature to the hilt — golf clubs to the sports car included. The companion \"American Express Unstaged: Taylor Swift Experience\" app let viewers roam the mansion mid-video, and won the 2015 Creative Arts Emmy for Outstanding Original Interactive Program."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Blank Space", url: "https://en.wikipedia.org/wiki/Blank_Space" }],
     },
     {
@@ -575,6 +615,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The idea for her debut single came to her in freshman-year math class.",
       body: ["She brought it to co-writer Liz Rose that day — an idea about a senior boyfriend leaving for college — and they finished \"Tim McGraw\" together at the piano after school."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Tim_McGraw_(song)" }],
     },
     {
@@ -595,6 +636,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A strapless BCBG Max Azria gown, all tulle skirt and neutral tones, the night \"Tim McGraw\" won Breakthrough Video of the Year.",
       body: ["A strapless BCBG Max Azria gown, all tulle skirt and neutral tones, the night \"Tim McGraw\" won Breakthrough Video of the Year."],
       tags: ["Fashion"],
+      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/de4e0b4b6195-gettyimages-107486334.jpg", credit: "Michael Loccisano/Getty Images", kind: "primary" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/" }],
     },
     {
@@ -605,6 +647,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her first career CMA Award, the Horizon Award, at the 41st CMA Awards on Nov. 7, 2007 — the trophy now known as New Artist of the Year.",
       body: ["Her first career CMA Award, the Horizon Award, at the 41st CMA Awards on Nov. 7, 2007 — the trophy now known as New Artist of the Year."],
       tags: ["Lore"],
+      images: [{ url: "https://media.gettyimages.com/id/77795920/photo/41st-annual-cma-awards-press-room.jpg?s=594x594&w=0&k=20&c=Pps0NDhapuDnUOXIZdnjsgbreJehja48sZzwGrprAcg=", credit: "Bryan Bedder/Getty Images", kind: "primary" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-reacts-to-cmas-win/" }, { name: "Forbes", url: "https://www.forbes.com/pictures/geeg45eilhf/2007-success-is-on-the/" }],
     },
     {
@@ -615,6 +658,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A story of two neighbors who fell in love as kids and stayed married forever — inspired by an actual couple who lived next door.",
       body: ["Her own account, on the real couple next door: \"All I had to do was go home and look next door to see a perfect example of forever.\""],
       tags: ["Music"],
+      images: [{ url: "https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png", credit: "Big Machine Records (debut album cover art)", kind: "primary" }],
       sources: [{ name: "Rolling Stone Australia", url: "https://au.rollingstone.com/music/music-lists/taylor-swift-most-romantic-love-songs-list-82721/marys-song-oh-my-my-my-82725/" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/marys-song-oh-my-my-my" }],
     },
     {
@@ -625,6 +669,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written the same week the album was mastered — the whole song took her 20 minutes, the chorus just five.",
       body: ["She's said many of the lyrics were the actual words she used confronting a boyfriend who'd cheated on her — reworked into her second country No. 1."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/6b/Taylor_Swift_-_Should%27ve_Said_No_artwork.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Should've_Said_No" }],
     },
     {
@@ -635,6 +680,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written years before the album came out, after watching a TV special about Faith Hill's move to Nashville.",
       body: ["She wrote it at 13 while still living in Pennsylvania and making regular trips to Nashville, working out whether a music career was even reachable: \"It was tough trying to find out how I was going to get where I wanted to go... I'm really happy this is on the album, because I feel like I finally figured it out.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/A_Place_in_This_World" }],
     },
     {
@@ -645,6 +691,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Six weeks atop Hot Country Songs — the first of what would become seven country No. 1s before her pivot to pop.",
       body: ["Six weeks atop Hot Country Songs — the first of what would become seven country No. 1s before her pivot to pop."],
       tags: ["Lore"],
+      images: [{ url: "https://www.wideopencountry.com/wp-content/uploads/sites/4/2021/04/Untitled-design-241.png?fit=798%2C526", credit: "Associated Press", kind: "primary" }, { url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-performance-2007-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Ethan Miller/ACMA/Getty Images for ACMA", kind: "archival" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-our-song-this-week-in-billboard-chart-history-2007/" }, { name: "Wide Open Country", url: "https://www.wideopencountry.com/our-song-taylor-swift/" }],
     },
     {
@@ -655,6 +702,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sundresses, cowboy boots, and a mane of curls — the \"country girl meets boho\" pairing that style retrospectives point to as her original signature look.",
       body: ["Retrospectives on her style evolution single out this pairing — frilly knee-length sundresses, cowboy boots, chokers, and a side-swept mane of curls — as the throughline of her 2006-2008 red carpets and album era, before \"Fearless\" brought in gold sequins and more polish."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/whowhatwear/posts/303774/taylor-swift-style-eras-303774-1671855958167-main.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Who What Wear", url: "https://www.whowhatwear.com/taylor-swift-style-eras" }],
     },
     {
@@ -665,6 +713,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Tight, perfectly spiraled curls — the hairstyle that opens every retrospective of her look, dating to 2006 and carried through the \"Teardrops on My Guitar\" era.",
       body: ["Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/MWvKEdsvu4S2unTkFGW5dZ.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/beauty/hair/g12774421/taylor-swift-hair/" }],
     },
     {
@@ -675,6 +724,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A strapless, corseted purple gown by Sandi Spika at the 50th Grammy Awards on Feb. 10, 2008 — her red carpet debut at music's biggest night, nominated for Best New Artist.",
       body: ["She attended the 2008 Grammys as a Best New Artist nominee (the award went to Amy Winehouse) in a strapless, corseted purple gown by Sandi Spika, paired with her signature curls — a look fashion retrospectives still cite as her Grammys debut."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Who What Wear", url: "https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective" }, { name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/" }],
     },
     {
@@ -685,6 +735,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her Met Gala debut in a gold sequined Badgley Mischka gown for the \"Superheroes: Fashion and Fantasy\" theme — worn with her signature curls in a side part.",
       body: ["At 18, she made her first Met Gala appearance in a gold sequined Badgley Mischka gown playing into that year's \"Superheroes: Fashion and Fantasy\" theme — kept simple with statement drop earrings, a smoky eye, and her curls in a side part."],
       tags: ["Fashion"],
+      images: [{ url: "https://static.gofugyourself.com/uploads/2016/04/80995253-taylor-swift-met-ball-2008-510x736.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1431066/taylor-swift-met-gala-looks-dress-photos" }, { name: "Go Fug Yourself", url: "https://www.gofugyourself.com/photos/fugtrospective-taylor-swifts-met-gala-gowns/80995253-taylor-swift-met-ball-2008-510x736" }],
     },
     {
@@ -695,6 +746,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A black satin, mermaid-style gown by Elvira with matching long black gloves — her first CMA Awards red carpet, weeks after her debut album released.",
       body: ["Worn to the 40th Annual CMA Awards at Nashville's Gaylord Entertainment Center, just weeks after her self-titled debut album hit shelves — a more formal, Old-Hollywood-leaning look than the sundresses that otherwise defined her earliest red carpets."],
       tags: ["Fashion"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces", credit: "Stephen Lovekin/WireImage/Getty Images", kind: "primary" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp" }],
     },
     {
@@ -705,6 +757,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom drop-waist gown by Sandi Spika at the 42nd Academy of Country Music Awards — one of two Sandi Spika red-carpet gowns she wore that year (the other, a lavender cascading-floral piece, came at the following year's Grammys).",
       body: ["Worn on the red carpet at the MGM Grand Hotel and Casino for the 42nd ACM Awards in May 2007, before her pivot to more structured, corseted red-carpet gowns later that year and into 2008."],
       tags: ["Fashion"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces", credit: "Denise Truscello/WireImage/Getty Images", kind: "primary" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp" }],
     },
     {
@@ -715,6 +768,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Months before her album dropped, a 16-year-old Taylor Swift performed at a Yahoo Music showcase — reworking one of her own lyrics mid-song into a shout-out to Yahoo.",
       body: ["Two months before \"Taylor Swift\" released on Oct. 24, 2006, she performed at Yahoo Entertainment as part of its \"Who's Next?\" artist program — a low-key industry showcase, not a concert or red carpet. Mid-performance she swapped in a lyric namechecking Yahoo Music, a detail Yahoo's own retrospective still points to as evidence of how new and unpolished the moment was."],
       tags: ["Lore"],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTM7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8c1753b0-693b-11ee-b69e-d5b17b60c7bb", credit: "Yahoo via YouTube", kind: "primary" }],
       sources: [{ name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-performed-at-yahoo-2006-201948506.html" }],
     },
     {
@@ -725,6 +779,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Oh my God. I am on the Rascal Flatts tour!\" — her real, handwritten diary entry from Oct. 18, 2006, the day a fired opening act's bad luck became her first big tour break.",
       body: ["Rascal Flatts had just fired opener Eric Church from their \"Me and My Gang\" tour for repeatedly running long onstage. The opening it created went to 16-year-old Swift, who got the call on Oct. 17, 2006 and wrote in her diary the next day: \"Oh my God. I am on the Rascal Flatts tour! I got the call yesterday and I screamed louder than I can ever remember screaming before.\" She opened five tour dates that fall. Years later, when she earned her first gold record, she gave it to Church with a note: \"Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it.\""],
       tags: ["Lore"],
+      images: [{ url: "https://townsquare.media/site/204/files/2019/08/Taylor-Swift-Flatts.jpg?w=980&q=75", credit: "Bryan Bedder/Jason Kempin, Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/204/files/2019/08/Taylor-Rascal-Flatts-Diary-Entry.jpg?w=980&q=75", credit: "Taylor Swift's handwritten diary entry, Oct. 18, 2006", kind: "archival" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-diary-entry-2006-rascal-flatts-tour/" }],
     },
     {
@@ -735,6 +790,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"It felt impossible for a place to be that big, I was sooo insanely nervous\" — 16-year-old Swift on singing the national anthem before a sold-out Ford Field on Thanksgiving Day, 2006.",
       body: ["She sang the national anthem before the Detroit Lions hosted the Miami Dolphins on Thanksgiving Day, Nov. 23, 2006, at Ford Field — a solo, unaccompanied public appearance, a month after her debut album released, far from any stage show or red carpet. She later called back to the moment onstage during her 2023 Eras Tour stop in Detroit, describing the stadium as \"the biggest place I've ever seen in my life.\""],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-National-Anthem-as-the-Detroit-Lions-2006-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Al Messerschmidt/Getty Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-reminisces-2006-national-anthem-detroit-ford-field-1235351234/" }],
     },
     {
@@ -745,6 +801,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Cowboy boots, a knit hat, and a stripped-down national anthem on the grass behind home plate — a hometown moment at her local minor-league team's 2007 opening day.",
       body: ["Originally from nearby Wyomissing, she returned home to sing the national anthem before the Reading Phillies' 2007 opening game against the Harrisburg Senators at FirstEnergy Stadium on Thursday, April 5, 2007 — wearing cowboy boots and a knit hat, then triumphantly waving to the crowd alongside team mascot Screwball. A former Reading communications director later recalled that even then, the teenager \"had some mound presence.\""],
       tags: ["Lore"],
+      images: [{ url: "https://media.nbcphiladelphia.com/2024/02/GettyImages-1315798658.jpg?quality=85&strip=all", credit: "Krissy Krummenacker/MediaNews Group/Reading Eagle via Getty Images", kind: "primary" }],
       sources: [{ name: "WHYY", url: "https://whyy.org/articles/taylor-swift-sports-performing-national-anthem-pennsylvania-phillies/" }, { name: "NBC Philadelphia", url: "https://www.nbcphiladelphia.com/news/local/taylor-swifts-connections-to-sports-go-back-to-her-early-days-performing-the-national-anthem/3772093/" }],
     },
     {
@@ -755,6 +812,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her first American Music Awards red carpet, Nov. 18, 2007 — a jeweled Catherine Malandrino halter dress paired with black cowboy boots, the twangy country-meets-glam pairing that defined her earliest big red carpets.",
       body: ["At the 2007 American Music Awards in Los Angeles on Nov. 18, 2007, then still primarily a country artist performing with an acoustic guitar, she wore a studded Catherine Malandrino jeweled halter dress with black cowboy boots — retrospectives on her AMAs style single out the boots-on-a-red-carpet pairing as of a piece with her early \"Our Song\"/\"Tim McGraw\" era."],
       tags: ["Fashion"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201899/rs_634x1024-181009161140-634-taylor-swift-amas-2007.jpg?fit=around%7C776:1254&output-quality=90&crop=776:1254;center,top", credit: "Steve Granitz/WireImage", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/25719/taylor-swift-s-american-music-awards-looks" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
     },
     {
@@ -765,6 +823,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Invited on as a presenter, 17-year-old Swift heard Dave Grohl and Taylor Hawkins read her name for Best New Artist and couldn't contain it — stepping up to hug them both on the spot.",
       body: ["At the 50th Grammy Awards nominations announcement at the Henry Fonda Music Box Theater on Dec. 6, 2007, 17-year-old Swift was invited on as one of the presenters — and then heard her own name read out as a Best New Artist nominee, her first-ever Grammy nomination. She couldn't hold back her excitement, stepping up to hug Foo Fighters' Dave Grohl and Taylor Hawkins on the spot, drawing laughs from the room. (Amy Winehouse would go on to win the category at the ceremony two months later.)"],
       tags: ["Lore"],
+      images: [{ url: "https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg", credit: "Kevin Winter/Getty Images", kind: "primary" }],
       sources: [{ name: "The List", url: "https://www.thelist.com/1610914/taylor-swift-dave-grohl-drama-timeline/" }],
     },
     {
@@ -775,6 +834,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written about a real classmate named Drew, later publicly identified as Drew Hardwick -- who didn't know the song was about him until he showed up in her driveway years later.",
       body: ["Swift wrote the song about a classmate named Drew (widely reported, including by outlets covering his later arrest, as Drew Hardwick) who sat next to her in class -- she wanted to date him, but he kept confiding in her about another girl he liked instead. She turned the feeling into a song on the walk home from school. He didn't realize the song was about him until, by her account: \"About two years after the album came out in the States, he showed up in my driveway. Apparently he and his girlfriend had broken up so that was his first stop when he was back in town.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/teardrops-on-my-guitar" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/drew-hardwick-taylor-swift-sang-122711087.html" }],
     },
     {
@@ -785,6 +845,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Born from an after-school outburst -- \"I hate his stupid truck that he doesn't let me drive. He's such a redneck!\" -- that became the chorus of her only anger-driven song on the debut album.",
       body: ["Written with Liz Rose about a Hendersonville High classmate she'd almost dated, who preferred another girl. Mid-session, she blurted out in frustration: \"I hate his stupid truck that he doesn't let me drive. He's such a redneck! Oh my God!\" -- and the line became the chorus. She later told The Washington Post: \"It's about a guy who didn't like me back, and I got really mad, you know?\" The original album lyric -- \"That's fine; I'll tell mine you're gay\" -- was softened to \"That's fine; you won't mind if I say\" for the Feb. 4, 2008 country-radio single."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Picture_to_Burn" }],
     },
     {
@@ -815,6 +876,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Our Song\" won both Video of the Year and Female Video of the Year at the 2008 CMT Music Awards -- with a cheeky thank-you to the stylist who did her hair and dresses.",
       body: ["At the 2008 CMT Music Awards on April 14, 2008 at Nashville's Curb Events Center, \"Our Song\" won both Video of the Year and Female Video of the Year, beating a field that included Carrie Underwood, LeAnn Rimes, Martina McBride, and Miranda Lambert. Accepting, 18-year-old Swift joked: \"I want to thank Sandy Spika for making all the dresses in that video and for straightening my hair, because that's not easy,\" before tearfully thanking the fans who'd voted for her."],
       tags: ["Lore"],
+      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/74cc6c1d93db-gettyimages-80677442.jpg", credit: "Jeff Kravitz/Getty Images (performing \"Picture to Burn\" at the same ceremony)", kind: "primary" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/" }],
     },
     {
@@ -825,6 +887,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A fitted plum minidress with ruffled asymmetrical waist and metallic heels on the 2008 CMT purple carpet -- the same night \"Our Song\" won two trophies.",
       body: ["On the purple carpet at the 2008 CMT Music Awards (April 14, 2008), she wore a plum minidress with thin straps and a V-neckline, fitted through the top and flaring into asymmetrical ruffles at the waist, paired with metallic heels, a side-swept ponytail, and a sparkling headband -- before changing into a black cutout minidress, cowboy boots, and a fedora to perform \"Picture to Burn\" onstage, throwing the hat across the stage mid-song."],
       tags: ["Fashion"],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/9fZWYO_g_cw7hKHKR1dJFw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE1Mjc7Y2Y9d2VicA--/https://media.zenfs.com/en/business_insider_articles_888/949b8af84d79dc9c4a91fd85b56f9674", credit: "Jon Kopaloff/Getty Images", kind: "primary" }],
       sources: [{ name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/everything-taylor-swift-worn-cmt-112401779.html" }, { name: "Hello!", url: "https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/" }],
     },
     {
@@ -835,6 +898,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Hours of posing for photos with fans, one after another, at the Big Machine Records booth in the Nashville Convention Center — an early instance of the marathon fan meet-and-greets she'd become known for.",
       body: ["On Day 3 of the CMA Music Festival, June 7, 2008, she held an all-day meet, greet, and autograph-signing session at the Big Machine Records booth inside the Fan Fair Exhibit Hall of the Nashville Convention Center — posing for photo after photo with fans in line, an early version of the marathon meet-and-greets (including a later 13-hour signing session) she became known for."],
       tags: ["Lore"],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/.aCciUUvVRppty__Am_qwA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/the_tennessean_slideshows_726/e66c5e27810715572b9b8533bbc6a086", credit: "Jae S. Lee/The Tennessean", kind: "primary" }],
       sources: [{ name: "The Tennessean (via Yahoo)", url: "https://www.yahoo.com/entertainment/music/articles/13-collaborations-helped-taylor-swift-100535520.html" }],
     },
     {
@@ -922,6 +986,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Tim McGraw\" goes to country radio on June 19, 2006 — a 16-year-old's first single, named for another artist's song, out four months before anyone could buy her album.",
       body: ["The bet was that the sentiment — a summer love you re-live every time a certain song comes on — would out-travel the novelty of the title. It did: the single climbed to No. 6 on Hot Country Songs and introduced the writing voice the album confirmed that October."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Tim McGraw (song)", url: "https://en.wikipedia.org/wiki/Tim_McGraw_(song)" }],
     },
     {
@@ -933,6 +998,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Oct. 24, 2006: the self-titled debut lands — eleven tracks, her name on every writing credit, released when she was 16.",
       body: ["It entered the Billboard 200 quietly and then simply refused to leave, eventually peaking at No. 5 — the slow, market-by-market climb that the next two albums would detonate."],
       tags: ["Music"],
+      images: [{ url: "https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png", credit: "Big Machine Records (debut album cover art)", kind: "primary" }],
       sources: [{ name: "Taylor Swift (album)", url: "https://en.wikipedia.org/wiki/Taylor_Swift_(album)" }],
     },
     {
@@ -944,6 +1010,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The second single, out February 2007, did what \"Tim McGraw\" couldn't: it crossed from country radio onto the pop chart.",
       body: ["The crossover was the tell. A pop remix carried \"Teardrops on My Guitar\" to No. 13 on the Billboard Hot 100 — her highest pop placement until \"Love Story\" — and flagged, two years early, exactly where this career was headed."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Teardrops on My Guitar", url: "https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar" }],
     },
     {
@@ -955,6 +1022,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The fourth and final single from the debut goes to country radio in February 2008 — with the original's sharpest line rewritten for airplay.",
       body: ["It peaked at No. 3 on Hot Country Songs — the fourth straight top-10 country single from an album that still hadn't stopped selling, closing the debut's radio run just as Fearless sessions ramped up."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png", kind: "primary" }],
       sources: [{ name: "Picture to Burn", url: "https://en.wikipedia.org/wiki/Picture_to_Burn" }],
     },
     {
@@ -1044,6 +1112,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her eighth No. 1 album, with 'willow' also debuting at No. 1 — the only artist ever to pull off that double feat twice, let alone in the same year.",
       body: ["Her eighth No. 1 album, with 'willow' also debuting at No. 1 — the only artist ever to pull off that double feat twice, let alone in the same year."],
       tags: ["Lore"],
+      images: [{ url: "https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2025/12/Taylor-Swift-Willow.jpg?w=2880", credit: "Stereogum", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-willow-debut-number-one-hot-100/" }, { name: "Stereogum", url: "https://stereogum.com/2482727/the-number-ones-taylor-swifts-willow/columns/the-number-ones" }],
     },
     {
@@ -1054,6 +1123,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Taylor's own description: it \"sounds like casting a spell to make someone fall in love with you.\"",
       body: ["Full quote: \"Willow is about intrigue, desire, and the complexity that goes into wanting someone.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Taylor_Swift_-_Willow.png/250px-Taylor_Swift_-_Willow.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Willow_(song)" }],
     },
     {
@@ -1064,6 +1134,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A fictional murder mystery, complete with a cheating husband, a framed mistress, and a sister for an alibi.",
       body: ["The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png/250px-Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/No_Body,_No_Crime" }],
     },
     {
@@ -1094,6 +1165,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A breakup told from both sides, with The National's Matt Berninger trading verses with her over a slow, aching duet.",
       body: ["The Dessner brothers built the instrumental and heard Berninger's voice in it immediately; Berninger recorded his half in Los Angeles while Taylor recorded hers at Long Pond in the Hudson Valley, never in the same room."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Coney_island_cover.jpeg/250px-Coney_island_cover.jpeg", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)" }],
     },
     {
@@ -1104,6 +1176,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "291,000 units in week one — her ninth No. 1 album, tying Madonna, and the only re-recorded album in Billboard 200 history to top the chart.",
       body: ["291,000 units in week one — her ninth No. 1 album, tying Madonna, and the only re-recorded album in Billboard 200 history to top the chart."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1", credit: "Beth Garrabrant", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/articles/news/9558306/taylor-swift-fearless-taylors-version-tops-billboard-200/" }, { name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2021/04/18/taylor-swift-charts-her-ninth-no-1-album-in-the-us-with-fearless-taylors-version/" }],
     },
     {
@@ -1114,6 +1187,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean's \"American Pie.\" Taylor's own reaction: \"You guys sent a 10-minute song to Number One for the first time in history.\"",
       body: ["10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean's \"American Pie.\" Taylor's own reaction: \"You guys sent a 10-minute song to Number One for the first time in history.\""],
       tags: ["Lore"],
+      images: [{ url: "https://www.guinnessworldrecords.com/news/2021/11/images/red-cover-album-and-swift-at-all-too-well-premiere-683624.jpg", credit: "Guinness World Records", kind: "primary" }],
       sources: [{ name: "Guinness World Records", url: "https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-all-too-well-longest-number-one-billboard-1261579/" }],
     },
     {
@@ -1134,6 +1208,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A blue-and-gold Etro \"nap dress,\" performing \"cardigan,\" \"august,\" and \"willow\" from a set built to look like a tiny forest cabin.",
       body: ["A blue-and-gold Etro \"nap dress,\" performing \"cardigan,\" \"august,\" and \"willow\" from a set built to look like a tiny forest cabin."],
       tags: ["Fashion"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/15/e69fff43-e3ed-4536-8533-035382781844-getty-1307106720.jpg?w=374&h=547&fit=crop&crop=faces&dpr=2", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/" }, { name: "Elite Daily", url: "https://www.elitedaily.com/p/taylor-swifts-2021-grammys-dress-is-cottagecore-princesscore-come-to-life-65951509" }],
     },
     {
@@ -1144,6 +1219,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A lace-paneled Zimmermann \"Charm Star\" dress that read as bridal to fans within hours — paired with a Jennifer Behr tiara and antique diamond earrings.",
       body: ["The ivory gown — Zimmermann's Fall '20 \"Charm Star\" silk-organza and guipure lace maxi dress, retailing around $2,650 — features a V-neck, lace paneling and a tonal velvet bow at one shoulder. Fans immediately speculated it was a wedding dress; Zimmermann said the collection was instead inspired by \"lucky charms and fortune telling.\" She wore it with a Jennifer Behr Priscilla tiara and antique diamond and pearl earrings."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2020/12/Taylor-Swift-Wore-Zimmermann-For-Her-Willow-Music-Video-819x1024.jpg", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2020/12/10221082/shop-taylor-swift-evermore-willow-dress" }, { name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2020/12/11/taylor-swift-wore-zimmermann-for-her-willow-music-video/" }],
     },
     {
@@ -1154,6 +1230,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Revealed on Good Morning America, the cover recreates her original 2008 pose in sepia tone — in a cream Ulla Johnson blouse fans clocked as a nod to Romeo's shirt from the \"Love Story\" video.",
       body: ["The blouse is a cream satin \"Fernanda\" top from Ulla Johnson ($395). Fans noted it closely resembles the Shakespearean-style shirt worn by actor Justin Gaston as the Romeo character in the 2008 \"Love Story\" video, reading it as a symbolic callback: she no longer needs a knight in shining armor because she is her own."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png/250px-Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/celebrity/a35498019/taylor-swift-outfit-new-fearless-cover-easter-egg/" }],
     },
     {
@@ -1164,6 +1241,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Beige peacoat, red lipstick, and a sold-out-within-hours burgundy velvet \"Mattie\" cap by independent designer Janessa Leoné, shot in a 1932 Chevrolet Cabriolet.",
       body: ["Leoné had no advance notice her \"Mattie\" cap would appear on the cover, telling Billboard: \"It came as a total surprise to see her sport Mattie on the album cover — we were genuinely shocked, but thrilled.\" She said the shoot was not a team collaboration — Swift's stylist chose the piece independently — and the cap sold out on Leoné's site immediately after the reveal on June 18, 2021."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/9589789/taylor-swift-red-taylors-version-hat-album-cover-janessa-leone/" }],
     },
     {
@@ -1174,6 +1252,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Overlined red-liner-and-matte-lipstick \"siren red\" mouth, a fine-tipped black liquid cat eye, and flat-ironed, straight-across bangs — the signature beauty look of the re-release run.",
       body: ["Bustle's breakdown of the look: red lip liner as a base with matte red lipstick layered on top and slightly overlined at the cupid's bow; a \"minimal yet striking\" black liquid cat eye with a fine-tipped flick; and straight-across bangs re-created with a flat iron, angled at 45 degrees for dimension, plus an inner-corner highlight to open the eyes."],
       tags: ["Fashion"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/11/11/d57460dd-88cc-4d90-b3f8-6b5b0cdacf9a-getty-155669360.jpg?w=248&h=345&fit=crop&crop=focalpoint&fp-x=0.4787&fp-y=0.9655&dpr=2", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/style/taylor-swift-red-beauty-look" }],
     },
     {
@@ -1184,6 +1263,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An off-the-shoulder Alaïa knit jumpsuit for the 10-minute \"All Too Well\" performance on SNL, swapped for an Anine Bing houndstooth blazer and Aquazzura platform boots at the after-party with Blake Lively.",
       body: ["For her November 13, 2021 SNL performance of \"All Too Well (10 Minute Version),\" Swift wore a skin-tight off-the-shoulder Alaïa stretch-knit jumpsuit (about $3,590) with Jennifer Zeuner Holland earrings and Loeffler Randall ankle booties. At the after-party the following night at L'Avenue in New York with Blake Lively, she layered a houndstooth blazer by Anine Bing and platform boots by Aquazzura over the same jumpsuit."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.shefinds.com/files/2021/11/taylor-swift-snl-performance.jpg", credit: "Will Heath/NBC", kind: "primary" }, { url: "https://imgix.bustle.com/uploads/getty/2021/11/15/5927994a-87f7-41ae-9f97-576f50f1747f-getty-1353171506.jpg?w=414&h=736&fit=crop&crop=faces&duotone=000000%2Cff6813&dpr=2", credit: "Getty Images", kind: "archival" }],
       sources: [{ name: "SheFinds", url: "https://www.shefinds.com/collections/taylor-swift-turned-heads-in-this-skintight-bodysuit-on-snl-you-can-see-everything/" }, { name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-snl-after-party-outfit-houndstooth-blazer-platform-boots/amp" }],
     },
     {
@@ -1194,6 +1274,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Beyond the Zimmermann \"bridal\" gown, the video's closing carnival-tent scene puts her in a $4,800 Gucci maxi dress made from Liberty London floral fabric — a third, lesser-discussed look from the same shoot.",
       body: ["Steal Her Style's scene-by-scene breakdown of the \"willow\" video counts three distinct looks: a Magnolia Pearl \"Layla\" tank dress over her own \"cardigan\" merch sweater for the opening cabin scene; the Zimmermann \"Charm Star\" lace gown with Jennifer Behr tiara for the carnival-tent \"wedding\" scene; and, for the video's final scene, a Gucci maxi dress made from Liberty of London floral-print fabric, retailing around $4,800 — a look far less discussed by fans than the \"bridal\" Zimmermann gown but confirmed as part of the same December 2020 shoot."],
       tags: ["Fashion"],
+      images: [{ url: "https://stealherstyle.net/wp-content/uploads/2020/12/taylorswift_w3-500x350.jpg", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Steal Her Style", url: "https://stealherstyle.net/2020/12/11/taylor-swift-willow-music-video/" }, { name: "Social Media Style", url: "https://www.socialmediastyle.org/post/taylor-swift-s-beige-lace-panel-dress-from-the-willow-music-video-off-of-the-evermore-album" }],
     },
     {
@@ -1204,6 +1285,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A separate look from her Etro performance gown: a vividly floral Oscar de la Renta Spring '21 mini dress with mesh bell sleeves and individually tacked-on botanical appliqués, worn to arrive at the (pandemic-scaled) red carpet before her folklore/evermore medley.",
       body: ["For her red-carpet arrival at the March 14, 2021 Grammys — where folklore won Album of the Year — Swift wore a mini dress from Oscar de la Renta's Spring 2021 collection: long mesh bell sleeves, a mock neck, and bold 3D floral embroidery with botanical appliqués tacked on individually. She paired it with pink Christian Louboutin \"Rose Amelie\" peep-toe ankle-strap heels and Cathy Waterman jewelry — a separate outfit from the navy-and-gold Etro paisley gown she changed into to perform the folklore/evermore medley later that night."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/03/15/taylor-swift-wore-oscar-de-la-renta-etro-to-the-2021-grammy-awards/" }, { name: "E! News", url: "https://www.eonline.com/news/1248131/taylor-swift-brought-the-flower-power-to-the-2021-grammys-and-were-here-for-it" }],
     },
     {
@@ -1214,6 +1296,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A double-breasted, gold-buttoned Etro velvet suit with contrast black lapels, worn to the November 12, 2021 New York premiere of her self-directed \"All Too Well\" short film with Dylan O'Brien and Sadie Sink.",
       body: ["At the AMC Lincoln Square 13 premiere of her self-written-and-directed \"All Too Well\" short film, Swift wore a purple velvet Etro pantsuit with padded shoulders and contrasting black lapels, styled with Melinda Maria jewelry. Co-stars Dylan O'Brien and Sadie Sink joined her on the carpet for the film built around the 10-minute version of \"All Too Well\" from Red (Taylor's Version), released that week."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Etro-To-The-All-Too-Well-New-York-Premiere.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-etro-to-the-all-too-well-new-york-premiere/" }, { name: "Just Jared", url: "https://www.justjared.com/2021/11/12/taylor-swift-walks-red-carpet-at-all-too-well-short-film-premiere-with-dylan-obrien-sadie-sink/" }],
     },
     {
@@ -1224,6 +1307,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An ivory mod-style mini dress from Zuhair Murad's Resort 2022 collection, gold beaded trim at the neckline and sleeves, worn to promote Red (Taylor's Version) on Jimmy Fallon's show days before the album's release.",
       body: ["Promoting Red (Taylor's Version) on The Tonight Show Starring Jimmy Fallon, Swift wore an ivory shift dress from Lebanese couturier Zuhair Murad's Resort 2022 collection, with gold beaded trim at the neckline and sleeves and oversized pockets. She paired it with gold Christian Louboutin \"So Kate\" pumps, Lark & Berry jewelry, and her signature red lip."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }, { name: "Vogue Arabia", url: "https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/" }],
     },
     {
@@ -1234,6 +1318,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An off-the-shoulder David Koma mini dress worked in the designer's signature crystal embellishment, paired with Aquazzura \"Love Link\" crystal slingbacks for a same-week Red (TV) promo stop on Seth Meyers' show.",
       body: ["For her Late Night with Seth Meyers stop the same week she released Red (Taylor's Version), Swift changed into an off-the-shoulder David Koma mini dress covered in the designer's signature structured crystal embellishment, worn with Aquazzura \"Love Link\" crystal-embellished slingback pumps — a different David Koma piece from the navy sequin dress she'd wear days later in her SNL sketch cameo."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/latenightseth-254951110_1087887028417877_8037280291044973019_n.jpg", credit: "NBC", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }],
     },
     {
@@ -1244,6 +1329,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A navy one-shoulder sequined David Koma mini dress, worn for her surprise sung cameo in the \"Please Don't Destroy\" trio's viral \"Three Sad Virgins\" sketch on the same November 13, 2021 SNL episode as her \"All Too Well\" performance.",
       body: ["On the same episode where she performed \"All Too Well (10 Minute Version),\" Swift also made a surprise appearance in \"Please Don't Destroy\" — the SNL writing trio of John Higgins, Ben Marshall and Martin Herlihy's musical sketch \"Three Sad Virgins,\" starring Pete Davidson. Per the writers, they doubted she'd agree to do it, but she said yes immediately when asked; she appears at the sketch's bridge, in a navy one-shoulder sequined David Koma mini dress, singing comedic insults about the trio. The sketch went on to rack up tens of millions of YouTube views."],
       tags: ["Fashion"],
+      images: [{ url: "https://stealherstyle.net/wp-content/uploads/2021/11/taylorswiftsnl5-500x350.jpg", credit: "NBC", kind: "primary" }],
       sources: [{ name: "NBC Insider", url: "https://www.nbc.com/nbc-insider/three-sad-virgins-snl-taylor-swift-cast-lyrics" }, { name: "Steal Her Style", url: "https://stealherstyle.net/2021/11/14/taylor-swift-saturday-night-live-outfits/" }],
     },
     {
@@ -1254,6 +1340,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "While Joe Alwyn wrapped filming in Belfast, she turned up at Shu Restaurant for staff selfies one night, then stayed for a local busker's entire three-hour set at The Tipsy Bird the next.",
       body: ["Swift was in Belfast to support Joe Alwyn as he finished filming the BBC/Hulu adaptation of Sally Rooney's \"Conversations with Friends.\" On Thursday, September 9, 2021, she dined at Shu Restaurant on the Lisburn Road and posed for selfies with staff, who posted that she \"was so lovely and really is a beautiful person inside and out.\" The next night, Friday September 10, she turned up at The Tipsy Bird cocktail bar in the city centre and stayed for musician Tiernán Heffron's full three-hour set, joining a singalong and tipping him afterward; Heffron said, \"It's not everyday Taylor Swift walks into your gig and stays for your whole three hour set. She was the most lovely person!\" The bar confirmed her visit and posed for a photo with its team."],
       tags: ["Lore"],
+      images: [{ url: "https://www.rte.ie/images/001825a9-500.jpg", credit: "The Tipsy Bird via Facebook", kind: "primary" }],
       sources: [{ name: "RTÉ", url: "https://www.rte.ie/entertainment/2021/0913/1246573-taylor-swift-thrills-fans-at-a-belfast-bar/" }, { name: "Irish News", url: "https://www.irishnews.com/magazine/entertainment/2021/09/13/news/taylor-swift-thrills-fans-at-a-belfast-bar-2447182/" }, { name: "NME", url: "https://www.nme.com/news/music/taylor-swift-watches-young-singer-songwriters-set-at-belfast-bar-3045454" }],
     },
     {
@@ -1264,6 +1351,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Fans spotted her walk out mid-set for a \"Gasoline\"/\"Love Story\" mashup with her old 1989 tourmates — her first time back on any stage since December 2019.",
       body: ["At HAIM's sold-out show at London's O2 Arena on July 21, 2022 — their last UK date before heading to US tour dates — Swift walked out mid-set, telling the crowd of roughly 20,000: \"I heard that my girls were playing in London at the O2 and I thought, 'I'm gonna have to see that.' And it looks like there's about 20,000 other people that also thought that, too.\" She joined the sisters, who opened for her 1989 World Tour in 2015, for a mashup of their collaboration \"Gasoline\" with her own \"Love Story,\" wearing a black sports bra and the same custom Louis Vuitton trousers HAIM had worn throughout their tour. She added: \"I haven't been on stage in a very long time. It's nice…it's nice, it's very nice [to be back].\""],
       tags: ["Lore"],
+      images: [{ url: "https://d2a0gza273xfgz.cloudfront.net/577070/uploads/41561940-0962-11ed-8b88-f5960538964e_1200_630.png", credit: "HAIM via Instagram", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-haim-love-story-gasoline-mashup-o2-arena-1386538/" }, { name: "E! Online", url: "https://www.eonline.com/news/1339032/taylor-swift-joins-haim-for-a-surprise-performance-and-its-the-love-story-we-always-needed" }],
     },
     {
@@ -1274,6 +1362,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Caught mid-heatwave in baseball caps, sunglasses and iced coffees, holding hands and talking — a rare candid, unposed sighting of the notoriously private couple out together.",
       body: ["On July 14, 2022, during a London heatwave with temperatures near 90 degrees, paparazzi photographed Swift and Alwyn holding hands and talking over iced coffees in a park. She wore dark denim shorts, sunglasses and a white baseball cap; he wore blue shorts, a white t-shirt, sneakers and a blue cap. E! Online reported the photos were credited to Backgrid."],
       tags: ["Lore"],
+      images: [{ url: "https://hollywoodlife.com/wp-content/uploads/2022/07/taylor-swift-joe-alwyn-london-coffee-date-embed2.jpg", credit: "Backgrid", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/1338054/taylor-swift-and-joe-alwyn-enjoy-cute-coffee-date-while-out-in-london" }, { name: "HollywoodLife", url: "https://hollywoodlife.com/2022/07/14/taylor-swift-joe-alwyn-holding-hands-london-denim-shorts-photos/" }],
     },
     {
@@ -1284,6 +1373,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Straight from the ceremony where she announced her next album, she was photographed arriving at the after-party in a Moschino romper embroidered with silver stars — a color and motif nodding to Midnights.",
       body: ["Hours after revealing her tenth studio album, Midnights, during her Video of the Year acceptance speech at the 2022 MTV VMAs, Swift was photographed arriving at Republic Records' post-show party at the Fleur Room in New York City on August 28, 2022. She wore a royal blue silk mini romper by Moschino embroidered with glittery stars — which Nylon described as \"channeling 'midnight'\" — paired with a fuzzy jacket, platform sparkly sandals from Alexander McQueen, ANANYA jewelry, and her signature red lip."],
       tags: ["Lore"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-2022-mtv-vmas-after-party-outfit" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-2022-mtv-vmas-afterparty-outfit-midnights-1235132508/" }],
     },
     {
@@ -1294,6 +1384,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Swift wrote and recorded the closing duet during the pandemic at Marcus Mumford's home studio in Devon, where he called her \"the most phenomenal houseguest\" before she asked him to sing on it: \"I chose Cowboy Like Me. Man, I love that song.\"",
       body: ["Swift finished much of evermore's second half at Scarlet Pimpernel, the home studio of Mumford & Sons' Marcus Mumford in Devon, England, working there with producer Aaron Dessner. On the Table Manners podcast, Mumford recalled Dessner asking to borrow his studio for an artist he was producing — Mumford joked, \"Beyoncé or something?\" — before learning it was Swift, who arrived \"right at the end of COVID.\" He called her \"the most phenomenal houseguest,\" joking that he \"burned a lot of vegetables for her\" and that \"her candle game was excellent.\" In a separate interview with The Sunday Times, Mumford said: \"Taylor came to my studio, played me some music and asked if I wanted to sing on anything. I chose Cowboy Like Me. Man, I love that song.\" Asked whether she arrived with heavy security, he said: \"Ha, no, none of that. She stayed over and was a great house guest. Straightforward, easy-going. She ate my cauliflower salad.\" Justin Vernon also played drums on the track, and Josh Kaufman added lap steel, harmonica and mandolin."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/250px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg", credit: "Sachyn Mital via Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/marcus-mumford-taylor-swift-phenomenal-houseguest-studio-1236112442/" }, { name: "Yahoo News UK (The Sunday Times)", url: "https://uk.news.yahoo.com/taylor-swift-stayed-over-marcus-013726926.html" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Cowboy_like_Me" }],
     },
     {
@@ -1324,6 +1415,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Every re-recorded and vault track hit the Hot 100 at once — Billboard: \"the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100's history.\"",
       body: ["In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor's Version) debuted on the Hot 100 simultaneously. Billboard: \"Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100's history.\" The same week, Swift also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. Over the chart's 63-year history, only Drake, with 27 total titles charted after Scorpion's 2018 release, has ever had more entries from one act on a single week's survey."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)" }],
     },
     {
@@ -1334,6 +1426,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Accepting NSAI's Songwriter-Artist of the Decade award, Swift publicly explained her three lyric-writing styles for the first time: \"Quill,\" \"Fountain Pen\" and \"Glitter Gel Pen.\"",
       body: ["At the 5th annual Nashville Songwriter Awards at the Ryman Auditorium on September 20, 2022, the Nashville Songwriters Association International named Swift its Songwriter-Artist of the Decade. Accepting the honor, she said: \"This award celebrates my family and my co-writers and my team. My friends and my fiercest fans and my harshest detractors and everyone who entered my life or left it.\" She also revealed, publicly for the first time, a framework she uses to sort her own lyrics: \"Quill\" lyrics lean on antiquated, literary language (she cited \"ivy\"); \"Fountain Pen\" lyrics — \"most of my lyrics fall into this category\" — pair a modern storyline with \"a poetic twist\" (she cited \"All Too Well\"); and \"Glitter Gel Pen\" lyrics are \"frivolous, carefree, bouncy, syncopated perfectly to the beat\" (she cited \"Shake It Off\"). She admitted she'd \"never talked about this publicly before, because, well, it's dorky.\""],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2022/09/taylor-swift-performs-nsai-nashville-songwriter-awards-2022-billboard-1548.png?w=1024", credit: "Terry Wyatt/Getty Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/country/taylor-swift-nashville-songwriter-awards-full-speech-1235142144/" }, { name: "WSMV", url: "https://www.wsmv.com/2022/09/20/taylor-swift-receives-songwriter-artist-decade/" }],
     },
     {
@@ -1344,6 +1437,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She wore a cap and gown \"for the very first time,\" per her own Instagram caption, to receive an honorary Doctor of Fine Arts from NYU and deliver its 2022 commencement address at Yankee Stadium.",
       body: ["On May 18, 2022, Swift received an honorary Doctor of Fine Arts from New York University and delivered the commencement address to its graduating class at Yankee Stadium, captioning an Instagram post ahead of the ceremony: \"Wearing a cap and gown for the very first time.\" In her speech she joked, \"I'm 90% sure the main reason I'm here is because I have a song called '22,'\" and told graduates she \"never got to have the normal college experience\" because she was homeschooled while touring. She described writing as her constant: \"Everything I do is just an extension of my writing, whether it's directing videos or a short film.\" Her closing advice: \"Never be ashamed of trying. Effortlessness is a myth,\" and \"my mistakes led to the best things in my life.\""],
       tags: ["Lore"],
+      images: [{ url: "https://assets1.cbsnewsstatic.com/hub/i/r/2022/05/18/066b689c-0e18-49aa-966a-7f08eeddd78d/thumbnail/1200x630/333d073afd2d380fa574745fdb2e40e7/gettyimages-1240747838-1.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-nyu-honorary-degree-commencement-address-2022/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-nyu-commencement-speech-full-transcript-1235072824/" }],
     },
     {
@@ -1354,6 +1448,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "At the Beacon Theatre for a live conversation about her short film, Swift revealed easter eggs, talked directing ambitions, and broke into an unplanned performance of the 10-minute song — with Lively and Reynolds singing along from the audience.",
       body: ["On June 11, 2022, Swift appeared at the Tribeca Festival's Beacon Theatre for \"A Conversation with Taylor Swift,\" screening her self-written-and-directed \"All Too Well\" short film and discussing its making with filmmaker Mike Mills. Per Variety: \"the notoriously private pop star also revealed easter eggs in the short film, discussed her ambitions to direct a movie and treated fans to a surprise performance of 'All Too Well.' Seated near the stage, Blake Lively and Ryan Reynolds were among the many in the crowd who enthusiastically sung along, clapped and took videos of Swift throughout the lengthy track.\""],
       tags: ["Lore"],
+      images: [{ url: "https://variety.com/wp-content/uploads/2022/06/taylor-swift-all-too-well.jpg?w=1000&h=563&crop=1", credit: "Evan Agostini/Invision/AP", kind: "primary" }],
       sources: [{ name: "Variety", url: "https://variety.com/2022/film/news/taylor-swift-all-too-well-tribeca-festival-1235291648/" }],
     },
     {
@@ -1597,6 +1692,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Inspired by a boy she never actually dated — one her family and friends \"all said they didn't like.\"",
       body: ["She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }],
     },
     {
@@ -1607,6 +1703,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A freshman-year memory, built around one line about her best friend Abigail's heartbreak.",
       body: ["Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail's answer: \"If one girl can kind of learn from it or connect to a song like that, it's totally worth it.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Fifteen.png/250px-Taylor_Swift_-_Fifteen.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fifteen_(song)" }],
     },
     {
@@ -1617,6 +1714,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "592,000 copies in week one, debuting at No. 1 on the Billboard 200.",
       body: ["Months later at the Grammys, 20-year-old Swift became the youngest Album of the Year winner ever — a record that stood until Billie Eilish broke it a decade later."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "American Songwriter", url: "https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/" }, { name: "Guinness World Records", url: "https://www.guinnessworldrecords.com/world-records/607151-youngest-solo-artist-to-win-album-of-the-year-at-the-grammy-awards" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
     },
     {
@@ -1627,6 +1725,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A body-hugging silver Kaufman Franco gown, hair pinned into a sleek bun, at the 42nd CMA Awards.",
       body: ["A body-hugging silver Kaufman Franco gown, hair pinned into a sleek bun, at the 42nd CMA Awards."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/E8AuEcoVjwZx6nd2RDfhQa.jpeg", credit: "Marie Claire", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years" }, { name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-gowns/" }],
     },
     {
@@ -1637,6 +1736,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Evansville, Indiana gave her the key to the city and declared it \"Taylor Swift Day\" — the start of her first-ever headlining tour.",
       body: ["Evansville, Indiana gave her the key to the city and declared it \"Taylor Swift Day\" — the start of her first-ever headlining tour."],
       tags: ["Tour"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_Tour" }],
     },
     {
@@ -1647,6 +1747,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Recorded in secret while on tour, then given to her mother as a Christmas surprise with a home-movie video to match.",
       body: ["Her mother, Andrea, on hearing it: \"that's when I lost it... I've lost it pretty much every time I've heard that song since.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/250px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)" }],
     },
     {
@@ -1657,6 +1758,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"I'mma let you finish, but Beyoncé had one of the best videos of all time\" — Kanye West interrupted her VMA speech for \"You Belong With Me\" in front of a live audience.",
       body: ["West was escorted out of the venue and apologized on his blog that night. Beyoncé, who went on to win Video of the Year, invited Swift back onstage to finish the speech she'd been denied."],
       tags: ["Lore"],
+      images: [{ url: "https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75", credit: "Taste of Country", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/" }, { name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-kanye-west-interruption-2009-vmas/" }],
     },
     {
@@ -1667,6 +1769,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The opening number: a drum majorette uniform torn away mid-song to reveal a sparkling silver cocktail dress underneath.",
       body: ["The opening number: a drum majorette uniform torn away mid-song to reveal a sparkling silver cocktail dress underneath."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_Tour" }],
     },
     {
@@ -1677,6 +1780,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A floor-length silver gown, matching the Moonman she was mid-speech with when Kanye West took the mic.",
       body: ["A floor-length silver gown, matching the Moonman she was mid-speech with when Kanye West took the mic."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2019/08/embed_2.jpg?w=928", credit: "The Hollywood Reporter", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/1407066/revisiting-taylor-swift-and-kanye-wests-mtv-vmas-feud-15-years-later" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/see-taylor-swifts-mtv-video-music-awards-11-year-style-evolution-1234123/" }],
     },
     {
@@ -1687,6 +1791,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A sequined Kaufmanfranco mini dress, Christian Louboutin heels, and a curled updo on the London red carpet.",
       body: ["Worn Feb. 18, 2009 in London, the look paired a Kaufmanfranco sparkly mini with a Judith Leiber clutch and David Yurman jewelry — an early sign of the sleeker, sparklier red-carpet era Fearless ushered in."],
       tags: ["Fashion"],
+      images: [{ url: "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/1ad829fe-c8e1-4226-87a4-ce32e97a570b/BRIT+Awards+February+2009+Taylor+Swift+Style+Feature+Image.png", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://www.taylorswiftstyle.com/post-grid/brit-021809" }, { name: "Taylor Swift Style", url: "https://www.taylorswiftstyle.com/fearless" }],
     },
     {
@@ -1707,6 +1812,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A navy, off-the-shoulder KaufmanFranco sequin gown, Louboutin pumps, and Lorraine Schwartz earrings — worn the night Fearless won Album of the Year.",
       body: ["At the Jan. 31, 2010 Grammys, held at the Nokia Theatre in Los Angeles, the KaufmanFranco Blue Sequin Off-the-Shoulder Gown was the glam counterpoint to a night that netted her four trophies, including Album of the Year for Fearless."],
       tags: ["Fashion"],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2023/02/Depositphotos_15014271_XL.jpg?resize=800%2C1204&ssl=1", credit: "Depositphotos", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/" }],
     },
     {
@@ -1717,6 +1823,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her long, shoulder-length curls — the signature look of the Fearless era — swept to one side at the 2010 Grammys.",
       body: ["Entertainment Tonight's hair-timeline retrospective singles out this look: curls swept to the side \"to make room for all of her awards\" the night Fearless won Album of the Year and Best Country Album."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.etonline.com/sites/default/files/styles/640xh/public/slides/152871/set_taylor_swift_96311259.jpg?width=1024&quality=80", credit: "Entertainment Tonight", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/gallery/152871_taylor_swift_hair_timeline/68589" }],
     },
     {
@@ -1727,6 +1834,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A French Connection 'Tallulah' skirt, Christian Louboutin 'Babel' leather boots, and Nordstrom floral tights for The Late Show with David Letterman.",
       body: ["Worn Nov. 10, 2008 in New York for a Letterman taping, days before Fearless hit shelves — a low-key, mixed-designer look (French Connection skirt, Louboutin boots) typical of her pre-tour press-run style."],
       tags: ["Fashion"],
+      images: [{ url: "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/7d638f75-6b9b-4ff6-b9d2-06e0871c2dba/David+Letterman+November+2008+Taylor+Swift+Style+Feature+Image.png", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://www.taylorswiftstyle.com/post-grid/letterman-111008" }],
     },
     {
@@ -1737,6 +1845,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A white BCBG Max Azria Corozo cocktail dress paired with stacked bracelets for a March 2009 Daily Telegraph feature.",
       body: ["Shot for The Daily Telegraph in March 2009, the BCBG Max Azria Corozo cocktail dress was styled with stacked bracelets — a recurring accessory choice fashion writers flag as signature to her Fearless-era press look."],
       tags: ["Fashion"],
+      images: [{ url: "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/eca000d7-4a7b-4b27-b5b3-4d4fef296c74/The+Daily+Telegraph+March+2009+Taylor+Swift+Style+Feature+Image.png", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://www.taylorswiftstyle.com/post-grid/dailytelegraph-030109" }],
     },
     {
@@ -1747,6 +1856,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A mauve Dolce & Gabbana cocktail dress, worn when \"White Horse\" won Best Country Song at the 2010 Grammys pre-telecast ceremony.",
       body: ["Held earlier in the day before the televised main event (where she'd later wear the blue KaufmanFranco gown), the pre-telecast ceremony was where \"White Horse\" picked up Best Country Song and Best Female Country Vocal Performance — her first two Grammy wins."],
       tags: ["Fashion"],
+      images: [{ url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2010/01/swift-white/taylor-swift-white-horse-winner-01.jpg", credit: "Larry Busacca/Getty Images", kind: "primary" }],
       sources: [{ name: "JustJared Jr.", url: "https://www.justjaredjr.com/2010/01/31/taylor-swift-white-horse-grammy-winner/" }],
     },
     {
@@ -1757,6 +1867,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A white Jenny Packham Resort 2010 mini dress, Christian Louboutin pumps, and Neil Lane jewelry at the Nokia Theatre.",
       body: ["Worn Jan. 6, 2010 at the Nokia Theatre L.A. Live, the night she won Favorite Female Artist — a leggy, sparkle-free mini in contrast to the sequined gowns dominating her other red-carpet stops that awards season."],
       tags: ["Fashion"],
+      images: [{ url: "https://taylorswiftstyled.com/wp-content/uploads/2013/11/tumblr_mvz5kkqgn61r4fk4fo1_1280.jpg?w=750&h=688", credit: "Taylor Swift Styled", kind: "primary" }],
       sources: [{ name: "Taylor Swift Styled", url: "https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-wins-favorite-female-artist-at-2010-peoples-choice-awards-960796/" }],
     },
     {
@@ -1767,6 +1878,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A deep-purple John Galliano 'Buckle Strap Dress' at the 2010 CMT Music Awards in Nashville — the first year she wore her hair straight for the show.",
       body: ["Worn June 9, 2010 at Bridgestone Arena, the John Galliano dress marked a style pivot for the CMTs — the first year her signature curls gave way to straight blonde hair on that red carpet."],
       tags: ["Fashion"],
+      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/e2a6da3bf8ab-gettyimages-101937337.jpg", credit: "Getty Images / Hello!", kind: "primary" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/" }],
     },
     {
@@ -1777,6 +1889,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Paparazzi photograph her and co-star Taylor Lautner filming track-and-field scenes at an LA high school — months before their romance went public.",
       body: ["Shot July 30, 2009, the candids show Lautner clearing a high-jump bar on the track-and-field equipment while the pair filmed their Valentine’s Day roles as high school sweethearts — among the earliest public photos of the two Taylors together."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-01.jpg", credit: "Just Jared Jr.", kind: "primary" }, { url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-05.jpg", credit: "Just Jared Jr.", kind: "archival" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/photo-gallery/231981/taylor-lautner-taylor-swift-team-01/" }],
     },
     {
@@ -1787,6 +1900,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Spotted together at a Kings–Blue Jackets game after she picked him up from LAX — the outing that confirmed the \"Taylor Squared\" romance rumors.",
       body: ["On Oct. 25, 2009, Swift picked Lautner up from the airport and the two headed to a Los Angeles Kings–Columbus Blue Jackets game at the Staples Center, then were seen together in a Beverly Hills hotel lobby that night. An eyewitness said Swift \"was all dolled up and looked super pretty,\" while Lautner \"was hiding under a hoody.\""],
       tags: ["Lore"],
+      images: [{ url: "https://townsquare.media/site/623/files/2009/10/swift-lautner.jpg", credit: "Townsquare Media / The Boot", kind: "primary" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-taylor-lautner-3/" }],
     },
     {
@@ -1807,6 +1921,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Photographed leaving a Beverly Hills dinner with Taylor Lautner, carrying a giant pink box and a stuffed polar bear.",
       body: ["On Dec. 3, 2009, after afternoon reshoots for Valentine’s Day at a local high school, Swift and Lautner grabbed a snack at Menchie’s Frozen Yogurt and met up with co-star Emma Roberts (in a brunette wig) before heading to dinner at Benihana in Beverly Hills."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-01.jpg", credit: "Just Jared Jr.", kind: "primary" }, { url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-05.jpg", credit: "Just Jared Jr.", kind: "archival" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/2009/12/04/taylor-lautner-taylor-swift-benihana-buds/" }],
     },
     {
@@ -1817,6 +1932,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Peering into the case at a Baskin-Robbins in New York City with new friend Emma Stone, after a full day on set.",
       body: ["Swift described the Dec. 9, 2009 outing herself: \"Photo shoot all day, followed by dinner with Emma Stone. Then we wandered around a candy store like wide-eyed little kids.\" The pair had dinner at Otto Restaurant before stopping at the ice cream shop."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/emma-taylor/emma-stone-taylor-swift-baskin-robbins-01.jpg", credit: "Just Jared Jr.", kind: "primary" }, { url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/emma-taylor/emma-stone-taylor-swift-baskin-robbins-03.jpg", credit: "Just Jared Jr.", kind: "archival" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/2009/12/10/taylor-swift-emma-stone-baskin-robbins-besties/" }],
     },
     {
@@ -1837,6 +1953,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Photographed arriving at Sydney Airport days before kicking off the Fearless Tour’s five-date run across Australia.",
       body: ["Swift landed in Sydney on Feb. 5, 2010 ahead of the Australian leg of the Fearless Tour, which opened in Brisbane and included a Feb. 7 show at Sydney’s Allphones Arena before moving on to Melbourne."],
       tags: ["Lore"],
+      images: [{ url: "https://taylorpictures.net/albums/candids/2010/5-2%20Arriving%20to%20Sydneys%20Airport/normal_001.jpg", credit: "Taylor Swift Web Photo Gallery", kind: "primary" }],
       sources: [{ name: "Taylor Swift Web Photo Gallery", url: "https://taylorpictures.net/thumbnails.php?album=812" }],
     },
     {
@@ -1847,6 +1964,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An off-duty afternoon at Pinz Bowling Center with Selena Gomez, early in a friendship that would become one of her most enduring.",
       body: ["On March 23, 2010, Swift and Gomez spent the afternoon bowling with a group of friends at Pinz Bowling Center in Studio City, California — a casual, camera-ready hangout from the earliest stretch of their friendship."],
       tags: ["Lore"],
+      images: [{ url: "https://taylorpictures.net/albums/candids/2010/23-3%20Selena%20Gomez%20and%20Taylor%20Swift%20at%20Pinz%20Bowling%20in%20Studio%20City/normal_001.jpg", credit: "Taylor Swift Web Photo Gallery", kind: "primary" }],
       sources: [{ name: "Taylor Swift Web Photo Gallery", url: "https://www.taylorpictures.net/displayimage.php?album=874&pid=47589" }],
     },
     {
@@ -1857,6 +1975,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
       body: ["She's said the inspiration was an ex-boyfriend whose lies took a while to surface: \"He came across as Prince Charming [...] who had a lot of secrets that he didn't tell me about.\" The situation became a \"breaking point\" where she felt she had to walk away before getting hurt further. She wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png/250px-Taylor_Swift_-_You%27re_Not_Sorry.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry" }],
     },
     {
@@ -1877,6 +1996,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written about her breakup with Joe Jonas — the last song she finished for Fearless, one day before the album was mastered.",
       body: ["Swift pleaded with Big Machine's Scott Borchetta to add the track a day before the tracklist was finalized, because it was about \"something really, really dramatic and crazy.\" She's described her writing process as reactive: \"I can write something, call up my producer, we can get in the studio, put a rush on it, get an overnight mix.\" On Ellen that November, she first guessed Jonas had ended things \"over the phone in 25 seconds,\" then said she'd actually checked her call log afterward and corrected herself: it was 27 seconds — \"that's got to be a record.\" She felt she \"owed it\" to fans to be open about it; Jonas later called her response \"flattering.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Forever_%26_Always" }],
     },
     {
@@ -1887,6 +2007,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A cover of a Luna Halo rock song her label president introduced her to — reworked into a stripped-down country-pop bonus track.",
       body: ["Swift discovered Luna Halo's \"Untouchable\" when her label president gave her the band's album, then debuted a stripped-down cover during a 2008 \"Stripped\" session before including a reworked version — new lyrics and arrangement, earning her a co-writing credit — on the Fearless: Platinum Edition. Luna Halo's Nathan Barlowe on her pick: \"She could have chosen any cover in the world, but that's what she chose.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-untouchable/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Luna_Halo_(album)" }],
     },
     {
@@ -1897,6 +2018,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Eleven non-consecutive weeks atop the Billboard 200: the longest run for a female country album, and for any album released in the 2000s.",
       body: ["After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
     },
     {
@@ -1907,6 +2029,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "3.217 million copies sold in the US in 2009 alone, making 20-year-old Swift the youngest artist — and only female country act — with a calendar-year best-seller.",
       body: ["With 3.217 million copies sold in the United States throughout 2009, Fearless was the year's best-selling album in the country, making Swift, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year. It also spent a total of 58 weeks in the Billboard 200's top 10 — a record for a country musician, and the only 2000s album to spend its first full year there."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
     },
     {
@@ -1917,6 +2040,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "56,868 fans and $3.7 million in ticket sales — the Fearless Tour's single highest-grossing night.",
       body: ["On June 5, 2010, the Fearless Tour stop at Gillette Stadium in Foxborough, Massachusetts brought in $3.7 million in ticket sales from 56,868 concertgoers — the tour's highest-grossing show — and made Swift the first female musician to headline and sell out Gillette Stadium."],
       tags: ["Tour"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_Tour" }],
     },
     {
@@ -1927,6 +2051,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A draped, chiffon-embroidered wisteria Marchesa gown, Christian Louboutin heels, and Neil Lane jewels at the Academy of Country Music Awards.",
       body: ["At the April 18, 2010 ACM Awards at Las Vegas’ MGM Grand Garden Arena, 20-year-old Swift wore the Marchesa gown on the carpet ahead of nominations including Entertainer of the Year, then changed mid-performance into a Carmen Marc Valvo dress she tore away on stage."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2010/04/taylor-swift-acm-awards.jpg", credit: "Just Jared Jr.", kind: "primary" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/2010/04/18/taylor-swift-is-acm-amazing/" }, { name: "Just Jared", url: "https://www.justjared.com/2010/04/18/taylor-swift-acm-awards-2010-performance/" }],
     },
     {
@@ -1938,6 +2063,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sept. 12, 2008: the lead single from Fearless goes out ahead of the album — and starts a climb that wouldn't stop until it had topped pop radio too.",
       body: ["It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard's pop-radio chart (see February 2009)."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Love Story (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }],
     },
     {
@@ -1960,6 +2086,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Oct. 26, 2009: the Platinum Edition reissue drops six new tracks — \"Jump Then Fall,\" \"Untouchable,\" a piano \"Forever & Always,\" \"Come In with the Rain,\" \"SuperStar,\" and \"The Other Side of the Door.\"",
       body: ["Announced Sept. 10, 2009 and released mid-tour, the reissue placed the new songs ahead of the original tracklist and paired the CD with a DVD — keeping a year-old blockbuster in the conversation straight through awards season."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Fearless (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
     },
     {
@@ -2082,6 +2209,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Announced the day before release — then Swift became the first artist ever to debut atop the Hot 100 (with 'cardigan') and the Billboard 200 in the same week.",
       body: ["Announced the day before release — then Swift became the first artist ever to debut atop the Hot 100 (with 'cardigan') and the Billboard 200 in the same week."],
       tags: ["Lore"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1", credit: "Beth Garrabrant", kind: "primary" }],
       sources: [{ name: "BuzzFeed", url: "https://www.buzzfeed.com/eleanorbate/taylor-swift-folklore-cardigan-charts" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-becomes-first-artist-open-atop-hot-100-billboard-200-same-week-1305638/" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
     },
     {
@@ -2102,6 +2230,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A real St. Louis divorcée, a Rhode Island mansion, and a swimming-pool-full-of-champagne legend — until the final verse turns the story into Taylor's own.",
       body: ["Rebekah Harkness owned Swift's Rhode Island house, Holiday House, decades earlier and was gossiped about for her lavish parties; Taylor learned her story from the real estate agent and heard her own life echoing back — a scandalous socialite, a circle of famous friends, a house full of parties."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/250px-Holiday_House_on_Watch_Hill.jpg", credit: "Wikimedia Commons", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rebekah_Harkness_publicity_photo.jpg/250px-Rebekah_Harkness_publicity_photo.jpg", credit: "Wikimedia Commons (public domain publicity photo)", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty" }],
     },
     {
@@ -2132,6 +2261,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A surprise Disney+ release, filmed in a secluded Hudson Valley studio with Aaron Dessner and Jack Antonoff — her first time directing a film.",
       body: ["A surprise Disney+ release, filmed in a secluded Hudson Valley studio with Aaron Dessner and Jack Antonoff — her first time directing a film."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg", credit: "Disney+ (official poster)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions" }],
     },
     {
@@ -2142,6 +2272,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A third Grammy for Album of the Year — joining Frank Sinatra, Paul Simon, and Stevie Wonder as the only artists ever to do it three times.",
       body: ["A third Grammy for Album of the Year — joining Frank Sinatra, Paul Simon, and Stevie Wonder as the only artists ever to do it three times."],
       tags: ["Lore"],
+      images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg", credit: "Kevin Mazur/Getty Images for The Recording Academy", kind: "primary" }, { url: "https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg?w=942&h=628&crop=1", credit: "Kevin Winter/Getty Images for The Recording Academy", kind: "archival" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/" }, { name: "Billboard", url: "https://www.billboard.com/music/awards/taylor-swift-wins-album-of-the-year-2021-grammy-awards-folklore-9540496/" }],
     },
     {
@@ -2152,6 +2283,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A blue-and-gold Etro gown for a Grammy-night medley of \"cardigan,\" \"august,\" and \"willow\" with Aaron Dessner and Jack Antonoff.",
       body: ["A blue-and-gold Etro gown for a Grammy-night medley of \"cardigan,\" \"august,\" and \"willow\" with Aaron Dessner and Jack Antonoff."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.shefinds.com/files/2021/03/taylor-swift-top-photo.jpg", credit: "SplashNews", kind: "primary" }],
       sources: [{ name: "SheFinds", url: "https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/" }],
     },
     {
@@ -2162,6 +2294,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A loose white nightgown-style \"nap dress\" worn through nearly the whole \"cardigan\" video, finished with an oversized cable-knit cardigan — the look that helped push cottagecore into the mainstream.",
       body: ["Swift wears one outfit for nearly the entire \"cardigan\" video: a flowing white nightgown-style dress in the \"nap dress\" trend that broke out in 2020, worn with the cream cable-knit cardigan (star embroidery, folklore patch) at the end. Filmed under pandemic protocols with a skeleton crew, social distancing, and an on-set medical inspector."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/taylor-swifts-nap-dress-pays-homage-to-whimsy-1595575441.jpg", credit: "Taylor Swift/VEVO", kind: "primary" }],
       sources: [{ name: "Nicki Swift", url: "https://www.nickiswift.com/229802/hidden-details-you-missed-in-taylor-swifts-new-cardigan-video/" }, { name: "Elite Daily", url: "https://www.elitedaily.com/p/taylor-swifts-outfit-from-her-cardigan-music-video-is-the-easiest-to-copy-29940067" }],
     },
     {
@@ -2172,6 +2305,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "With pandemic protocols keeping hair and makeup artists off set, Swift did her own — natural, barely-there makeup and two low braided buns — for both the \"cardigan\" video and the album photoshoot.",
       body: ["Swift later recalled the DIY process for the album art: \"Just was like, 'Guess I'll braid it? I don't know.'\" Gone were the red lips and cat-eyes of prior eras; in their place, natural waves, a messy low bun or two braided knots, and makeup-free close-ups — a stripped-down beauty look that matched the album's whole visual turn."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/intro-1595575441.jpg", credit: "Taylor Swift/VEVO", kind: "primary" }],
       sources: [{ name: "ET Online", url: "https://www.etonline.com/taylor-swift-recalls-doing-her-own-hair-and-makeup-for-folklore-album-art-guess-ill-braid-it-229646" }, { name: "Nicki Swift", url: "https://www.nickiswift.com/229802/hidden-details-you-missed-in-taylor-swifts-new-cardigan-video/" }],
     },
     {
@@ -2182,6 +2316,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Shot by Beth Garrabrant with no styling team on hand, in black and white for the first time — Swift standing alone in a misty forest in a plaid coat over a white prairie dress.",
       body: ["Swift styled her own hair, makeup, and wardrobe for the shoot — cardigans, oversized plaid blazers, and rugby shirts, worn in the summer heat of a friend's forest. She and photographer Beth Garrabrant referenced Surrealist work and early autochromes and ambrotypes, and shot the whole series in black and white, a first for Garrabrant, who usually works in color. It was a deliberate departure from her earlier album cycles' larger production teams."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-folklore-photoshoot-by-photographer-beth-garrabrant/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
     },
     {
@@ -2192,6 +2327,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "For her directorial debut on Disney+, Swift wore the Free People Lux Velvet Shirt Dress with a Tiffany & Co. bracelet — a cozy, intimate wardrobe matching the stripped-down studio set.",
       body: ["Swift wore the Free People Lux Velvet Shirt Dress, paired with a Tiffany & Co. Infinity bracelet and a Melinda Maria Soleil stacking ring set, while filming the Long Pond Studio Sessions with Aaron Dessner and Jack Antonoff — a soft, low-key wardrobe fitting the candlelit, unplugged staging of the special."],
       tags: ["Fashion"],
+      images: [{ url: "https://fashionsizzle.com/wp-content/uploads/2020/11/462213.jpg", kind: "primary" }],
       sources: [{ name: "Fashion Sizzle", url: "https://fashionsizzle.com/2020/11/28/taylor-swift-wore-free-people-blouse-shirt-dress-for-folklore-the-long-pond-studio-sessions/" }],
     },
     {
@@ -2202,6 +2338,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A cream cable-knit cardigan with gray star embroidery and a \"folklore album\" patch, sold on her official store — it sold out almost instantly in July 2020 and stayed a coveted rarity for years.",
       body: ["The cardigan Swift wears at the end of the \"cardigan\" video — tan cable knit, navy stripes, gray elbow patches, star embroidery, and a \"folklore album\" patch on the chest — went up for sale on her official store alongside the album and sold out almost immediately. It became one of the most sought-after pieces of Swift merch, not restocked again until 2024."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4", credit: "Taylor Swift Store", kind: "primary" }],
       sources: [{ name: "Her Campus", url: "https://www.hercampus.com/style/taylor-swift-folklore-cardigan-restock/" }],
     },
     {
@@ -2460,6 +2597,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "867,000 units in week one — her sixth consecutive No. 1 album, and the first time a woman had six albums each sell over 500,000 copies in a week.",
       body: ["867,000 units in week one — her sixth consecutive No. 1 album, and the first time a woman had six albums each sell over 500,000 copies in a week."],
       tags: ["Lore"],
+      images: [{ url: "https://images.complex.com/complex/image/upload/ar_1.91,c_fill,g_auto,q_auto/v1723858619/sanity-new%2Ftaylor-billboard-133759040", credit: "Complex", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-lover-album-debuts-at-no-1-on-billboard-200-chart/" }, { name: "Complex", url: "https://www.complex.com/music/a/cmplxtara-mahadevan/taylor-swift-lover-number-1-billboard" }],
     },
     {
@@ -2470,6 +2608,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her own words: \"We [women] have to curate and cater everything, but we have to make it look like an accident.\"",
       body: ["The double standard, as she put it: if we make a mistake, that's our fault; if we strategize so we won't make a mistake, we're calculating."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_The_Man.png/250px-Taylor_Swift_-_The_Man.png", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)" }],
     },
     {
@@ -2480,6 +2619,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The video ends with a call to sign her petition for the Equality Act; by the VMAs that August, it had half a million signatures.",
       body: ["She personally wrote to her home-state senator, Lamar Alexander, urging support: \"For American citizens to be denied jobs or housing based on who they love or how they identify is un-American and cruel.\" Accepting Video of the Year at the VMAs, she noted the petition had \"five times the amount that it would need to warrant a response from the White House.\""],
       tags: ["Lore"],
+      images: [{ url: "https://www.advocate.com/media-library/taylor-swift.jpg?id=32665462&width=1245&height=700&quality=65&coordinates=0%2C0%2C0%2C2", credit: "The Advocate", kind: "primary" }],
       sources: [{ name: "The Advocate", url: "https://www.advocate.com/news/2019/6/17/taylor-swift-releases-lgbtq-packed-video-you-need-calm-down" }, { name: "Elite Daily", url: "https://www.elitedaily.com/p/heres-how-to-sign-taylor-swifts-petition-supporting-the-equality-act-18700857" }],
     },
     {
@@ -2490,6 +2630,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The hardest song she's ever had to write, by her own account — about her mother's cancer diagnosis.",
       body: ["Her own words: \"My dad got cancer when I was 13 and he got better... but things with my mom have been very different.\" She brought in the Dixie Chicks — Natalie Maines, Emily Strayer, and Martie Maguire — the group she's said made her want to do this in the first place."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/DixieChicksMSG062003.jpg/250px-DixieChicksMSG062003.jpg", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better" }],
     },
     {
@@ -2500,6 +2641,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A song written after crying over a rom-com — whose director had made that movie while listening to Taylor's own 1989.",
       body: ["Director Jennifer Kaytin Robinson said her film \"Someone Great\" was mainly inspired by 1989, especially \"Clean.\" Taylor, after the song came from watching that film: \"I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that's ever happened to me.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png/250px-Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)" }],
     },
     {
@@ -2510,6 +2652,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An 80s-shouldered, kaleidoscope Versace blazer dress and thigh-high sequined boots, three days after Lover dropped.",
       body: ["An 80s-shouldered, kaleidoscope Versace blazer dress and thigh-high sequined boots, three days after Lover dropped."],
       tags: ["Fashion"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2019/8/26/1a50b4b9-6a40-4a82-a40a-66e602f41cf5-getty-1170384770.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2", credit: "Dimitrios Kambouris/Getty Images", kind: "primary" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/p/taylor-swifts-2019-mtv-vmas-outfit-had-her-wearing-versace-a-second-time-in-a-row-18687070" }],
     },
     {
@@ -2530,6 +2673,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She said the men who now owned her masters, Scooter Braun and Scott Borchetta, refused to let her use any old music or performance footage in the documentary.",
       body: ["The standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks, and the finished documentary never mentions Braun, Borchetta, or Big Machine by name."],
       tags: ["Lore"],
+      images: [{ url: "https://imgs.capitalfm.com/images/114212?crop=16_9&width=660&relax=1&format=webp&signature=S8LzN__hymqxAV8c8HfQ_lTviEY=", credit: "Netflix", kind: "primary" }],
       sources: [{ name: "Fox News", url: "https://www.foxnews.com/entertainment/netflix-taylor-swift-documentary-miss-americana" }, { name: "Capital FM", url: "https://www.capitalfm.com/artists/taylor-swift/miss-americana-trailer-netflix-documentary/" }, { name: "billboard.com", url: "https://www.billboard.com/culture/tv-film/taylor-swift-miss-americana-netflix-documentary-release-date-8548174/" }],
     },
     {
@@ -2540,6 +2684,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Named Artist of the Decade, then broke Michael Jackson's all-time AMA wins record in the same night.",
       body: ["Named Artist of the Decade, then broke Michael Jackson's all-time AMA wins record in the same night."],
       tags: ["Lore"],
+      images: [{ url: "https://s.abcnews.com/images/GMA/taylor-swift-ama-mo_hpEmbed_20191124-220255_3x2_992.jpg?w=992", credit: "Good Morning America", kind: "primary" }],
       sources: [{ name: "Good Morning America", url: "https://www.goodmorningamerica.com/culture/story/american-music-awards-2019-taylor-swift-breaks-records-67284943" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-ama-singer-beats-michael-jackson-for-most-american-music-awards-2019-performance-artist-of-the-decade/" }],
     },
     {
@@ -2550,6 +2695,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Styled by Joseph Cassell Falconer, the video traded Reputation black-and-white for tulle, pastels, and bold suiting — including a Monique Lhuillier tea-length dress and a lemon-yellow power suit.",
       body: ["Longtime stylist Joseph Cassell Falconer put her through seven looks for the video, including a floral Monique Lhuillier tea-length dress with Alison Lou earrings and Roger Vivier shoes, an Alexander McQueen floral jacket-and-shorts set, and a ruffled Amorphose top over an Monica Ivena tulle skirt — the first full preview of the pastel \"Lover\" aesthetic."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-04/taylor-swift-me-music-video-1280.jpg", credit: "Entertainment Tonight", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/see-every-dreamy-outfit-taylor-swift-wears-in-me-music-video-124147" }, { name: "Refinery29", url: "https://www.refinery29.com/en-us/2019/04/230942/taylor-swift-me-music-video-outfit-looks-shop" }],
     },
     {
@@ -2560,6 +2706,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Five outfit changes in the trailer-park video, from a peach Agent Provocateur robe to a rainbow wig with a Marina Hoermanseder western shirt and gold Saint Laurent shorts, ending in a French fries costume playing off Katy Perry's Met Gala burger dress.",
       body: ["The looks tracked the video's scenes: a peach silk Agent Provocateur robe and Sophia Webster heels to open, a pink Norma Kamali bikini with a faux-fur Vivetta jacket poolside, then a rainbow wig with a purple Marina Hoermanseder western shirt, gold metallic Saint Laurent shorts, and Irregular Choice unicorn boots. It closes with a French fries costume and red Buffalo London x Opening Ceremony sandals, a direct callback to Katy Perry's cheeseburger look at the 2019 Met Gala."],
       tags: ["Fashion"],
+      images: [{ url: "https://imgix.bustle.com/uploads/image/2019/6/17/f3cd39cc-0f96-4c8f-af70-5273c123505a-screen-shot-2019-06-17-at-115556-am.png?w=248&h=139&fit=crop&crop=faces&dpr=2", credit: "Taylor Swift / YouTube via Bustle", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/all-of-taylor-swifts-fabulous-outfits-from-you-need-to-calm-down-music-video-shop-the-looks-127156" }, { name: "Bustle", url: "https://www.bustle.com/p/all-the-looks-from-taylor-swifts-you-need-to-calm-down-music-video-are-a-rainbow-dream-18010763" }],
     },
     {
@@ -2580,6 +2727,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She walked the American Music Awards red carpet in a green Julien Macdonald gown before changing into a shirt printed with the names of her old albums to perform \"The Man.\"",
       body: ["The shimmering green gown came the same night she was named Artist of the Decade and broke the all-time AMA wins record, before she changed into a white button-up printed with the names of the \"stolen\" albums she no longer owned masters to, to perform \"The Man.\""],
       tags: ["Fashion"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/20191024/rs_634x1024-191124163526-634-taylor-swift-2019-AMAs-red-carpet-fashion.jpg", credit: "Steve Granitz/WireImage", kind: "primary" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1095478/revisiting-taylor-swift-s-gorgeous-american-music-awards-looks" }],
     },
     {
@@ -2590,6 +2738,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The morning before Lover dropped, she played Central Park in multi-colored Jessica Jones sequin shorts, a sheer Helmut Lang blouse over a Wolford bodysuit, and glitter-soled René Caovilla Karlotta boots.",
       body: ["Performing \"Me!,\" \"You Need to Calm Down,\" and \"Shake It Off\" at Central Park's SummerStage on August 22, 2019, one day ahead of the Lover release. Footwear News (via Yahoo) named each piece: Jessica Jones sequin high-waisted shorts, a Helmut Lang sheer pink blouse, a Wolford bodysuit, and René Caovilla's black suede Karlotta booties with a glitter-covered sole."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-gma-aug-2019-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-outfit-gma-performance-photos-8528049/" }, { name: "Yahoo / Footwear News", url: "https://www.yahoo.com/lifestyle/taylor-swift-ren-caovilla-boots-155958921.html" }],
     },
     {
@@ -2600,6 +2749,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "In the pastel-house music video, she plays guitar in a yellow Johanna Ortiz \"Ladies Who Lunch\" tiered dress with matching Rebecca de Ravenel \"Les Bonbons\" ball earrings and an orange headband.",
       body: ["The \"Lover\" video, released August 29, 2019, follows a couple through a color-coded house spanning different Taylor eras. The sunshine-yellow tiered dress is identified as Johanna Ortiz's \"Ladies Who Lunch\" style, paired with Rebecca de Ravenel \"Les Bonbons\" drop earrings — part of the video's wider pastel wardrobe built around the album's central proposal scene."],
       tags: ["Fashion"],
+      images: [{ url: "https://medias.spotern.com/spots/w640/226/226542-1566837979.jpg", credit: "Spotern", kind: "primary" }],
       sources: [{ name: "Spotern", url: "https://www.spotern.com/en/spot/video/taylor-swift-lover-official-music-video/226542/yellow-tiered-dress-of-taylor-swift-in-the-music-video-lover" }, { name: "Social Media Style", url: "https://www.socialmediastyle.org/post/taylor-swift-s-yellow-ball-earrings-and-tiered-dress-from-the-lover-music-video" }],
     },
     {
@@ -2610,6 +2760,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Opening with pyrotechnics for \"ME!,\" she performed the Hammerstein Ballroom show in a black-and-purple sequined romper with Kat Maconie's glitter-jeweled \"Frida\" block heels.",
       body: ["Headlining the Amazon Prime Day Concert at Hammerstein Ballroom on July 10, 2019 alongside Dua Lipa, SZA, and Becky G, she opened with \"Me!\" in a sparkling black-and-purple striped sequin romper. Footwear News named her shoes as Kat Maconie's $370 \"Frida\" style — thick block heels with dark, reflective jewel detailing and a thin silver ankle strap."],
       tags: ["Fashion"],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5", credit: "Footwear News", kind: "primary" }],
       sources: [{ name: "Yahoo / Footwear News", url: "https://www.yahoo.com/entertainment/taylor-swift-steals-spotlight-block-152845330.html" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/amazon-prime-day-concert-recap-taylor-swift-8519537/" }],
     },
     {
@@ -2620,6 +2771,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "For the Cats world premiere in New York, she wore a strapless Oscar de la Renta gown with giant 3D floral appliqué across the bodice and a train — designed by the label's Laura Kim and Fernando Garcia.",
       body: ["At the December 19, 2019 premiere in New York (with Joe Alwyn attending but staying off the official carpet), the strapless gown's vintage-tapestry-style floral brocade and dimensional 3D blossoms were credited to Oscar de la Renta's creative directors Laura Kim and Fernando Garcia, styled with red silk heels and her signature red lip."],
       tags: ["Fashion"],
+      images: [{ url: "https://graziamagazine.com/wp-content/uploads/2019/12/taylor-swift-attends-the-world-premiere-of-cats-at-alice-news-photo-1576544616.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Grazia", url: "https://graziamagazine.com/articles/taylor-swift-cats-premiere-oscar-de-la-renta/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-cats-premiere-dress-red-carpet-8546528/" }],
     },
     {
@@ -2630,6 +2782,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "To play her male alter ego in The Man, makeup artist Bill Corso spent four to six hours a day building a new jawline, nose, brows, and facial hair with a muscle suit and dark contacts.",
       body: ["For the self-directed video released February 27, 2020, makeup artist Bill Corso — known for Nicole Kidman's Bombshell transformation — led a team of more than six people to turn Swift into \"Tyler Swift.\" The look combined a muscle suit, eyebrow wigs, and facial prosthetics for a new jawline and nose, with movement coaches Stephen Galloway and Spenser Theberge teaching her masculine gait and mannerisms. The video closes on a before-and-after reveal of the disguise."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.nme.com/wp-content/uploads/2020/02/tay-696x442.png", credit: "NME", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-the-man-music-video-makeup-959829/" }, { name: "NME", url: "https://www.nme.com/news/music/taylor-behind-the-scenes-the-man-video-transformation-2616077" }],
     },
     {
@@ -2640,6 +2793,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A grey-and-white checked Carmen March jumpsuit, coat, and heels for the Sundance Film Festival premiere of her documentary — a notable, more mature departure from her usual red-carpet look.",
       body: ["The wide-legged, belted jumpsuit, trenchcoat, and heels were all in matching grey-and-white plaid, from Carmen March's Fall 2019 collection, worn with Mateo earrings, rings, and matching checked shoes on January 23, 2020, in Park City, Utah."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-sundance-2020-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Neilson Barnard/Getty Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-plaid-outfit-sundance-photo-8548953/" }, { name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2020/01/24/taylor-swift-wore-carmen-march-to-the-taylor-swift-miss-americana-sundance-film-festival-premiere/" }],
     },
     {
@@ -2650,6 +2804,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Fresh off three VMA wins, she changed into a black sequined jumpsuit and spent Republic Records' after-party at The Fleur Room posing with longtime friends Gigi and Bella Hadid.",
       body: ["At Republic Records' after-party at The Fleur Room inside Moxy Chelsea on August 26, 2019 — hours after winning Video of the Year for \"You Need to Calm Down\" — she changed into a black sequined jumpsuit with a bold red lip, gold eyeshadow, and sparkly purple nails. She was photographed posing repeatedly with the Hadid sisters, Gigi in a beige corset and matching pants and Bella in a nude two-piece, with \"You Need to Calm Down\" co-stars Jesse Tyler Ferguson and Justin Mikita also there."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-gigi-hadid-bella-hadid-2019-billboard-vmas-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-vmas-after-party-outfit-sparkly-black-jumpsuit-photos-8528483/" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swift-celebrates-vma-wins-at-after-party-with-gigi-and-bella-hadid-131320" }],
     },
     {
@@ -2660,6 +2815,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Straight from her acoustic \"Lover\" and \"False God\" performances on SNL, she and Joe Alwyn were photographed holding hands heading into Zuma for the cast's after-party.",
       body: ["On October 6, 2019, hours after performing acoustic renditions of \"Lover\" and \"False God\" on Saturday Night Live, she and boyfriend Joe Alwyn were photographed holding hands as they headed into Zuma in New York for the cast's after-party. She kept her performance look — an oversized black Ambush blazer, crystal-embellished Libertine flare pants, and Christian Louboutin shoes — while Alwyn wore a grey shirt with a black jacket."],
       tags: ["Lore"],
+      images: [{ url: "https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-10/swiftalwyn2.jpg?h=5c0d22e0&width=1024&quality=80", credit: "Entertainment Tonight", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swift-and-joe-alwyn-seen-hand-in-hand-outside-snl-after-party-133881" }, { name: "E! News", url: "https://www.eonline.com/news/1080192/taylor-swift-gives-romantic-performance-on-snl-before-bringing-joe-alwyn-to-after-party" }],
     },
     {
@@ -2670,6 +2826,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "After opening Z100's Jingle Ball, she gathered close friends — Blake Lively, Ryan Reynolds, and Gigi Hadid among them — for a 10 p.m. birthday dinner at Oscar Wilde restaurant in New York.",
       body: ["On December 13, 2019 — her 30th birthday — she opened the show at Z100's Jingle Ball, then friends joined her for a 10 p.m. dinner party at Oscar Wilde restaurant in New York City. Blake Lively was photographed leading the way out of the restaurant with husband Ryan Reynolds that Friday night, among a guest list that also included Gigi Hadid, Martha Hunt, and boyfriend Joe Alwyn."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/thumbs/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg", credit: "Backgrid", kind: "primary" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2019/12/14/blake-lively-ryan-reynolds-help-taylor-swift-celebrate-her-30th-birthday-in-nyc/" }],
     },
     {
@@ -2680,6 +2837,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Days after they celebrated her 30th birthday together, cameras caught her and Joe Alwyn walking hand-in-hand under a shield of umbrellas as they left the Cats premiere in New York.",
       body: ["On December 16, 2019, after the New York premiere of Tom Hooper's Cats — where Alwyn attended but stayed off the official red carpet — cameras caught the couple walking hand-in-hand under a shield of umbrellas as they left the theater together. She wore an Oscar de la Renta gown with floral appliqué for the carpet; Alwyn reportedly sat next to her during the screening."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/20191117/rs_634x1024-191217033401-634-Taylor-Swift-Joe-Alwyn-JR-121719.jpg", credit: "JosiahW / BACKGRID", kind: "primary" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1103481/taylor-swift-and-joe-alwyn-show-rare-pda-after-the-cats-premiere" }],
     },
     {
@@ -2690,6 +2848,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "At the CAA after-party for the 2020 Golden Globes, an eyewitness said she leaned in to kiss Joe Alwyn \"several times\" as the two grabbed drinks and mingled at the Sunset Tower Hotel.",
       body: ["At Creative Artists Agency's after-party at the Sunset Tower Hotel in Los Angeles on January 5, 2020, an eyewitness said the couple \"looked inseparable and really in love. Taylor had her arm on Joe, and she leaned in to kiss him several times.\" She wore a sparkly black dress with a metallic clutch; Alwyn was in a classic tuxedo. She had been nominated for Best Original Song for her Cats ballad \"Beautiful Ghosts,\" while Alwyn was there to support his Harriet co-stars."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/202006/rs_600x600-200106064034-600-Taylor-Swift-LT-010620-BGUS_1829706_002.jpg", credit: "Coleman-Rayner", kind: "primary" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1108537/taylor-swift-and-joe-alwyn-are-the-chicest-couple-at-the-2020-golden-globes-after-party" }],
     },
     {
@@ -2700,6 +2859,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Notoriously private about their relationship, the couple's lockdown togetherness leaked out sideways: Joe Alwyn posted Instagram Stories of Taylor's cat Benjamin Button hiding in a grocery bag, a box, and under a rug.",
       body: ["On April 29, 2020, Joe Alwyn shared three photos to his Instagram Stories of Benjamin Button — the kitten Taylor adopted after he appeared in her \"ME!\" video — peeking out of a paper grocery bag, poking his head from a cardboard box, and tucked underneath a rug, along with a selfie holding a glass of wine. The notoriously private couple rarely appeared on each other's social media, so fans took the cat cameo as a rare, sideways glimpse of them quarantining together during the pandemic."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/thumbs/joe-alwayn-button-pics-ig-story-01.jpg", credit: "Joe Alwyn / Instagram", kind: "primary" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2020/04/29/joe-alwyn-shares-cute-pics-of-girlfriend-taylor-swifts-cat-benjamin-button-during-quarantine/" }, { name: "Capital FM", url: "https://www.capitalfm.com/artists/taylor-swift/boyfriend-joe-alwyn-benjamin-button/" }],
     },
     {
@@ -2710,6 +2870,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Days before \"You Need to Calm Down\" dropped, she showed up unannounced at the Stonewall Inn's 50th-anniversary Pride event: \"Thank you for having me, Stonewall. Happy Pride!\"",
       body: ["In mid-June 2019, days ahead of releasing \"You Need to Calm Down,\" Swift made a surprise appearance at AEG and the Stonewall Inn's invitation-only Pride celebration marking the 50th anniversary of the Stonewall uprising, headlined by Jesse Tyler Ferguson. She performed an acoustic \"Shake It Off,\" telling the crowd, \"Thank you for having me, Stonewall. Happy Pride!\" before inviting Ferguson onstage for a duet, saying she'd heard it was his favorite karaoke song."],
       tags: ["Lore"],
+      images: [{ url: "https://s.abcnews.com/images/GMA/taylor-swift-stonewall-gty-mo-20190615_hpMain_16x9_992.jpg?w=992", credit: "Getty Images via ABC News", kind: "primary" }],
       sources: [{ name: "ABC News", url: "https://abcnews.com/Entertainment/taylor-swift-makes-surprise-appearance-stonewall-inn-performs/story?id=63731487" }, { name: "BuzzFeed News", url: "https://www.buzzfeed.com/adeonibada/taylor-swift-surprise-performance-stonewall-inn-nyc-pride" }],
     },
     {
@@ -2720,6 +2881,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "St. Vincent, on writing it: \"Gosh, it was really casual... just some people in a room jammin'.\" Taylor's own pitch: \"a desperate summer love that might be doomed from the start.\"",
       body: ["Swift wrote the song with Jack Antonoff and St. Vincent (Annie Clark), who later described their process to NME as \"really casual... just some people in a room jammin'.\" In her own Spotify storyline note, Swift wrote: \"I wanted this song to feel like a desperate summer love that might be doomed from the start. My favorite line from this song is 'I love you. Ain't that the worst thing you ever heard?'\" It wasn't released as a single in 2019 — it took the Eras Tour, four years later, to send it to No. 1."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Cruel_Summer.png/250px-Taylor_Swift_-_Cruel_Summer.png", kind: "primary" }],
       sources: [{ name: "NME", url: "https://www.nme.com/big-reads/st-vincent-cover-interview-2021-daddys-home-2912166" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/cruel-summer" }],
     },
     {
@@ -2750,6 +2912,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Accepting the inaugural award, she said: \"The pressure that could have crushed us made us into diamonds instead\" — then used the speech to relitigate the Scooter Braun masters fight.",
       body: ["At Billboard's Women in Music event on December 12, 2019 at the Hollywood Palladium, Swift became the first recipient of the magazine's Woman of the Decade award, recognizing five No. 1 albums, five No. 1 singles, and three stadium tours across the 2010s. In her speech she said: \"I now have come to expect that with good news comes some sort of pushback, but I didn't know that then... the pressure that could have crushed us made us into diamonds instead.\" She also addressed the sale of her masters, noting it happened \"without my approval, consultation, or consent,\" and told Billboard's accompanying cover story: \"I do want my music to live on. I do want it to be in movies, I do want it to be in commercials.\""],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-bb29-2019-feat-billboard-ylajkse-1500.jpg", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/awards/taylor-swift-woman-of-the-decade-speech-billboard-women-in-music-8546156/" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-cover-story-interview-billboard-women-in-music-2019-8545822/" }],
     },
     {
@@ -2760,6 +2923,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Nominated for Best Original Song (\"Beautiful Ghosts,\" from Cats), she wore a navy Etro ball gown with a bold gold floral print, keyhole cutout, and low-cut back — a nod to the Lover era's rainbow palette.",
       body: ["At the January 5, 2020 Golden Globes, where she was nominated for Best Original Song for her Cats ballad \"Beautiful Ghosts\" (co-written with Andrew Lloyd Webber), Swift wore a custom Etro gown: a navy jacquard base with a bold golden floral pattern, a keyhole cutout at the midriff, straps extending into a low-cut open back, and a structured floral train. She paired it with drop earrings set with navy, emerald, and diamond stones, swapping her signature red lip for a pink nude. Joe Alwyn, there to support Harriet co-stars, wore a dark tuxedo."],
       tags: ["Fashion"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2020/1/6/36da59a0-670b-451b-bd63-4ef9b0134e59-getty-1197739056.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2", credit: "Getty Images via Bustle", kind: "primary" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/p/taylor-swifts-2020-golden-globes-dress-was-a-not-so-subtle-nod-to-her-lover-album-19766894" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swift-and-joe-alwyn-look-sensational-at-2020-golden-globes-137952" }],
     },
     {
@@ -3014,6 +3178,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Six nights at midnight, Oct 21–26 — the whole album on iHeartRadio stations nationwide, with Taylor sharing some of the stories behind the songs herself.",
       body: ["Six nights at midnight, Oct 21–26 — the whole album on iHeartRadio stations nationwide, with Taylor sharing some of the stories behind the songs herself."],
       tags: ["Music"],
+      images: [{ url: "https://i.iheart.com/v3/re/new_assets/6351759fded3848f2718dc48", credit: "iHeart", kind: "primary" }],
       sources: [{ name: "iHeartRadio", url: "https://www.iheart.com/content/2022-10-20-celebrate-midnights-with-taylor-swift-on-iheartradio/" }],
     },
     {
@@ -3024,6 +3189,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "184.6 million album streams in 24 hours, while Taylor's full catalog hit 228 million streams — Spotify's biggest day ever for both, album and artist.",
       body: ["184.6 million album streams in 24 hours, while Taylor's full catalog hit 228 million streams — Spotify's biggest day ever for both, album and artist."],
       tags: ["Lore"],
+      images: [{ url: "https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/Screenshot_20221022-153332.png", credit: "Spotify Newsroom", kind: "primary" }],
       sources: [{ name: "Spotify Newsroom", url: "https://newsroom.spotify.com/2022-10-22/taylor-swift-breaks-two-records-with-midnights-becoming-the-most-streamed-artist-on-spotify/" }, { name: "Guinness World Records", url: "https://www.guinnessworldrecords.com/news/2022/10/taylor-swifts-album-midnights-smashes-three-spotify-records-723058" }],
     },
     {
@@ -3034,6 +3200,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "1.578 million equivalent units in week one — Swift's 11th No. 1 album, tying Barbra Streisand for the most by a woman.",
       body: ["1.578 million equivalent units in week one — Swift's 11th No. 1 album, tying Barbra Streisand for the most by a woman."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2022/10/02-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024", credit: "Beth Garrabrant/Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-midnights-debut-number-one-billboard-200-albums-chart-1235163377/" }, { name: "GoldDerby", url: "https://www.goldderby.com/article/2022/taylor-swift-billboard-charts-midnights/" }],
     },
     {
@@ -3044,6 +3211,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Three versions of herself confronting body image and insecurity — including a scale reading 'fat' that got edited out after online criticism.",
       body: ["She's described the song as coming from feeling her life had become 'unmanageably sized' and struggling 'with the idea of not feeling like a person' — what she's called a 'guided tour' through the things she hates about herself."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Anti-Hero_(song)" }],
     },
     {
@@ -3054,6 +3222,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "716,000 units in week one, the biggest album week of 2023 — her 12th No. 1 on the Billboard 200.",
       body: ["716,000 units in week one, the biggest album week of 2023 — her 12th No. 1 on the Billboard 200."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-Speak-Now-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024", credit: "Beth Garrabrant/Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-number-one-debut-billboard-200-chart-1235372565/" }, { name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2023/07/16/taylor-swift-charts-her-twelfth-no-1-album-with-the-massive-speak-now-taylors-version/" }],
     },
     {
@@ -3064,6 +3233,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "1.653 million units in week one, 693,000 on vinyl alone — a new all-time vinyl sales record, and her 13th No. 1 album.",
       body: ["1.653 million units in week one, 693,000 on vinyl alone — a new all-time vinyl sales record, and her 13th No. 1 album."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-aa-1548.jpg?w=1024", credit: "Beth Garrabrant/Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-1989-taylors-version-number-one-billboard-200-albums-chart-1235463917/" }, { name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2023/11/05/taylor-swift-scores-the-biggest-debut-of-the-year-with-1989-taylors-version/" }],
     },
     {
@@ -3084,6 +3254,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "$261.6 million worldwide, pushed past Michael Jackson's This Is It after opening in China — a record that had stood for 14 years.",
       body: ["$261.6 million worldwide, pushed past Michael Jackson's This Is It after opening in China — a record that had stood for 14 years."],
       tags: ["Music"],
+      images: [{ url: "https://d1io3yog0oux5.cloudfront.net/_d611dc0f0c17c10e30defd93f67e7758/amctheatres/db/2287/20608/social_image_resized.jpg", credit: "AMC Theatres", kind: "primary" }],
       sources: [{ name: "AMC Theatres", url: "https://investor.amctheatres.com/news-events/press-releases/detail/348/taylor-swift-the-eras-tour-concert-film-is-now-the-highest-grossing-theatrical-release-in-history-among-concert-and-documentary-films" }, { name: "Billboard", url: "https://www.billboard.com/culture/tv-film/taylor-swift-eras-tour-movie-box-office-record-michael-jackson-this-is-it-1235577518/" }],
     },
     {
@@ -3094,6 +3265,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "44 songs, 3 hours and 15 minutes at State Farm Stadium — opening night moved era by era through songs from all 10 studio albums.",
       body: ["44 songs, 3 hours and 15 minutes at State Farm Stadium — opening night moved era by era through songs from all 10 studio albums."],
       tags: ["Tour"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024", credit: "Kevin Mazur/Getty Images for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/" }],
     },
     {
@@ -3114,6 +3286,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A Roberto Cavalli two-piece and Christian Louboutin boots for the 1989 set — one look in a night of nonstop costume changes.",
       body: ["A Roberto Cavalli two-piece and Christian Louboutin boots for the 1989 set — one look in a night of nonstop costume changes."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg", credit: "John Shearer/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3134,6 +3307,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her own reaction: \"This is the proudest and happiest I've ever felt, and the most creatively fulfilled and free I've ever been.\"",
       body: ["Her own reaction: \"This is the proudest and happiest I've ever felt, and the most creatively fulfilled and free I've ever been.\""],
       tags: ["Lore"],
+      images: [{ url: "https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg", credit: "CBS News", kind: "primary" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/" }, { name: "Forbes", url: "https://www.forbes.com/sites/conormurray/2023/12/06/every-major-event-in-taylor-swifts-record-breaking-2023-from-the-eras-tour-to-time-person-of-the-year/" }],
     },
     {
@@ -3144,6 +3318,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"They simply grew apart and plan to remain friends\" — the end of a relationship she'd kept almost entirely out of public view since 2016.",
       body: ["\"They simply grew apart and plan to remain friends\" — the end of a relationship she'd kept almost entirely out of public view since 2016."],
       tags: ["Relationship"],
+      images: [{ url: "https://media.cnn.com/api/v1/images/stellar/prod/230408204518-taylor-swift-joe-alwyn-split-restricted.jpg?c=16x9&q=w_800,c_fill", credit: "CNN", kind: "primary" }],
       sources: [{ name: "CNN", url: "https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/joe-alwyn-breaks-silence-taylor-swift-breakup-1235710711/" }],
     },
     {
@@ -3174,6 +3349,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Taylor watched Kansas City rout Chicago 41–10 from Travis's family suite at Arrowhead, sitting beside his mother Donna in a red-and-white Chiefs jacket.",
       body: ["Taylor watched Kansas City rout Chicago 41–10 from Travis's family suite at Arrowhead, sitting beside his mother Donna in a red-and-white Chiefs jacket."],
       tags: ["Lore"],
+      images: [{ url: "https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill", credit: "CNN", kind: "primary" }],
       sources: [{ name: "CNN", url: "https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/" }],
     },
     {
@@ -3184,6 +3360,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She'd been dating Travis for weeks by the time cameras found her at Arrowhead — but this was the night the relationship became public record.",
       body: ["She'd been dating Travis for weeks by the time cameras found her at Arrowhead — but this was the night the relationship became public record."],
       tags: ["Relationship"],
+      images: [{ url: "https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill", credit: "CNN", kind: "primary" }],
       sources: [{ name: "CNN", url: "https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/" }, { name: "Billboard", url: "https://www.billboard.com/lists/taylor-swift-travis-kelce-relationship-timeline/" }],
     },
     {
@@ -3194,6 +3371,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "No designer red carpet moment — her first Arrowhead look was Doen, denim, New Balance sneakers, and a New Era Chiefs windbreaker.",
       body: ["No designer red carpet moment — her first Arrowhead look was Doen, denim, New Balance sneakers, and a New Era Chiefs windbreaker."],
       tags: ["Fashion"],
+      images: [{ url: "https://s.yimg.com/lo/mysterio/api/F6510B1490131D766EE623D8D54FBFDF7986E378788F30D426FF890B0C3AD8D7/subgraphmysterio/resizefill_w1200_h901;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Faol_the_independent_us_877%2Fd0e4dfcb09c96b32c7af5936c6d4e1d6", credit: "AOL", kind: "primary" }],
       sources: [{ name: "WWD", url: "https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/" }],
     },
     {
@@ -3204,6 +3382,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A reputation-coded black gown with gold accents and a thigh-high slit on the pink carpet.",
       body: ["A reputation-coded black gown with gold accents and a thigh-high slit on the pink carpet."],
       tags: ["Fashion"],
+      images: [{ url: "https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg", credit: "NBC News", kind: "primary" }],
       sources: [{ name: "NBC News", url: "https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947" }],
     },
     {
@@ -3214,6 +3393,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Nine Moonmen, tying a record untouched since Peter Gabriel's 1987 sweep — including all four top categories in one night.",
       body: ["Nine Moonmen, tying a record untouched since Peter Gabriel's 1987 sweep — including all four top categories in one night."],
       tags: ["Lore"],
+      images: [{ url: "https://i0.wp.com/www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1", credit: "TheWrap", kind: "primary" }],
       sources: [{ name: "TheWrap", url: "https://www.thewrap.com/taylor-swift-most-video-of-the-year-wins-vmas-2023/" }, { name: "NBC News", url: "https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947" }],
     },
     {
@@ -3224,6 +3404,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An unpromoted 2019 album track, revived by the Eras Tour setlist and a viral moment, becomes her 10th Hot 100 No. 1 on the chart dated Oct. 23.",
       body: ["The fifth-longest wait for a No. 1 in Hot 100 history — four years, one month, three weeks after it debuted at No. 29."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/08/taylor-swift-eras-tour-los-angeles-night-4-sofi-stadium-2023-billboard-1548.jpg?w=1024", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/" }, { name: "Variety", url: "https://variety.com/2023/music/news/taylor-swift-cruel-summer-hot-100-number-1-surge-1235764652/" }],
     },
     {
@@ -3234,6 +3415,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Blake Lively, Ryan Reynolds, and Hugh Jackman joined her to watch Kansas City beat the Jets — the broadcast drew the biggest Sunday audience since the last Super Bowl.",
       body: ["Blake Lively, Ryan Reynolds, and Hugh Jackman joined her to watch Kansas City beat the Jets — the broadcast drew the biggest Sunday audience since the last Super Bowl."],
       tags: ["Lore"],
+      images: [{ url: "https://variety.com/wp-content/uploads/2023/10/GettyImages-1712353673.jpg?w=1000&h=563&crop=1", credit: "Elsa/Getty Images", kind: "primary" }],
       sources: [{ name: "Variety", url: "https://variety.com/2023/music/news/taylor-swift-attends-travis-kelce-chiefs-jets-game-hugh-jackman-blake-lively-1235741837/" }],
     },
     {
@@ -3244,6 +3426,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A full-length blue gown with floral decals for the Eras Tour film premiere at The Grove — where Beyoncé stopped by to pose with her on the carpet.",
       body: ["A full-length blue gown with floral decals for the Eras Tour film premiere at The Grove — where Beyoncé stopped by to pose with her on the carpet."],
       tags: ["Fashion"],
+      images: [{ url: "https://wwd.com/wp-content/uploads/2023/10/taylor-swift-the-eras-tour-premiere-1.jpg?w=1000&h=563&crop=1", credit: "WWD", kind: "primary" }],
       sources: [{ name: "Variety", url: "https://variety.com/2023/music/news/taylor-swift-eras-tour-premiere-the-grove-1235752172/" }],
     },
     {
@@ -3254,6 +3437,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"I've never dated anyone with that kind of aura about them\" — his first on-record confirmation of the relationship, in WSJ. Magazine.",
       body: ["On the scrutiny she lives under: \"The scrutiny she gets, how much she has a magnifying glass on her, every single day... and she's just living, enjoying life.\""],
       tags: ["Relationship"],
+      images: [{ url: "https://www.inquirer.com/resizer/v2/WZM56FNWJVQU4MGIKUF22L3Q2Q.jpg?auth=01fbce1493c6c84b5774b263114dc5841e2f76b4491df6f62ec647e96e55ef1a&width=760&height=507&smart=true", credit: "The Philadelphia Inquirer", kind: "primary" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/travis-kelce-dating-taylor-swift-wsj-magazine-rcna125990" }, { name: "The Philadelphia Inquirer", url: "https://www.inquirer.com/entertainment/travis-kelce-wall-street-journal-interview-taylor-swift-20231120.html" }],
     },
     {
@@ -3264,6 +3448,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A Khaite mini skirt and a vintage-’90s Chiefs jumper, styled with Mejuri jewelry and Larroudé boots.",
       body: ["A Khaite mini skirt and a vintage-’90s Chiefs jumper, styled with Mejuri jewelry and Larroudé boots."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/RdZNsvNDCZtsUCwJmMbUv7.jpg", credit: "Marie Claire", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-chiefs-game-outfits-ranked/" }],
     },
     {
@@ -3274,6 +3459,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She arrived at Arrowhead on Christmas alongside a companion dressed as Santa; the Raiders upset the Chiefs 20–14 in the most-watched Christmas Day game since 1989.",
       body: ["She arrived at Arrowhead on Christmas alongside a companion dressed as Santa; the Raiders upset the Chiefs 20–14 in the most-watched Christmas Day game since 1989."],
       tags: ["Lore"],
+      images: [{ url: "https://www.si.com/.image/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/MjAyODIzMzIzNDA5NzIwMzMy/ap23344816547403.jpg", credit: "AP", kind: "primary" }],
       sources: [{ name: "Sports Illustrated", url: "https://www.si.com/nfl/2023/12/25/raiders-chiefs-taylor-swift-arrives-with-santa-claus-fans-love-it" }],
     },
     {
@@ -3284,6 +3470,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A black bodysuit with her cat Benjamin Button on one cover, a crystal-embellished Area mini dress in reputation-coded gray on another.",
       body: ["A third cover leaned cozy fall: a cream turtleneck and denim jacket, styled with slicked-back bangs instead of her usual curls."],
       tags: ["Fashion"],
+      images: [{ url: "https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER3_-600x800.jpg", credit: "TIME", kind: "primary" }, { url: "https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER1_-600x800.jpg", credit: "TIME", kind: "archival" }],
       sources: [{ name: "PetaPixel", url: "https://petapixel.com/2023/12/06/photographers-reveal-story-behind-taylor-swifts-time-person-of-the-year-covers/" }, { name: "Bustle", url: "https://www.bustle.com/style/taylor-swift-time-person-of-the-year-covers-reputation-style" }],
     },
     {
@@ -3294,6 +3481,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Below-zero temperatures for the Chiefs' playoff opener against Miami — she watched from a box with Donna Kelce, wrapped in a red puffer jacket bearing Travis's name and number.",
       body: ["Below-zero temperatures for the Chiefs' playoff opener against Miami — she watched from a box with Donna Kelce, wrapped in a red puffer jacket bearing Travis's name and number."],
       tags: ["Lore"],
+      images: [{ url: "https://www.rollingstone.com/wp-content/uploads/2024/01/TaylorSwiftChiefs-1.jpeg?w=1600&h=900&crop=1", credit: "Ed Zurga/AP via Rolling Stone", kind: "primary" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/taylor-swift-chiefs-dolphins-game-playoffs-rcna133047" }],
     },
     {
@@ -3304,6 +3492,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She kissed Travis on the field as Kansas City beat Baltimore to reach a second straight Super Bowl.",
       body: ["She kissed Travis on the field as Kansas City beat Baltimore to reach a second straight Super Bowl."],
       tags: ["Relationship"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/01/Taylor-swift-travis-kelce-jan-28-2024-baltimore-billboard-1548.jpg", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-curls-chiefs-ravens-afc-championship-game-1235591057/" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-afc-championship-kansas-city-chiefs-baltimore-ravens-travis-kelce/" }],
     },
     {
@@ -3314,6 +3503,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A strapless white Schiaparelli gown with a thigh-high slit — and a choker shaped like a clock face set to midnight.",
       body: ["A strapless white Schiaparelli gown with a thigh-high slit — and a choker shaped like a clock face set to midnight."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1986392520-EMBED-2024.jpg?w=408", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-schiaparelli-dress-2024-grammys-1236164497/" }],
     },
     {
@@ -3324,6 +3514,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Presented by Céline Dion in a rare public appearance — Swift's fourth AOTY win, more than any artist in Grammy history.",
       body: ["Presented by Céline Dion in a rare public appearance — Swift's fourth AOTY win, more than any artist in Grammy history."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-2024-grammy-awards-fourth-album-of-the-year-win/" }],
     },
     {
@@ -3334,6 +3525,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A Dion Lee corset top and bedazzled Area jeans, accessorized with jewelry stamped 87 — plus a red Erin Andrews bomber for team spirit.",
       body: ["A Dion Lee corset top and bedazzled Area jeans, accessorized with jewelry stamped 87 — plus a red Erin Andrews bomber for team spirit."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1", credit: "Patrick T. Fallon/AFP via Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/" }],
     },
     {
@@ -3344,6 +3536,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She flew in from her Tokyo Eras Tour date to reach Super Bowl LVIII in time, arriving with Blake Lively and Ice Spice among her guests.",
       body: ["She flew in from her Tokyo Eras Tour date to reach Super Bowl LVIII in time, arriving with Blake Lively and Ice Spice among her guests."],
       tags: ["Lore"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-2003760399-copy.jpg?w=1296&h=730&crop=1", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-attends-2024-super-bowl-travis-kelce-1235821940/" }],
     },
     {
@@ -3354,6 +3547,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Singapore's government offered financial incentives to keep the Eras Tour's only Southeast Asia stop there — a deal its neighbors publicly complained about.",
       body: ["Singapore's Prime Minister Lee Hsien Loong called it \"a very successful arrangement,\" funded from a post-pandemic tourism-recovery budget."],
       tags: ["Tour"],
+      images: [{ url: "https://static.time.com/v3/assets/bltea6093859af6183b/bltc2ec949c9ace970b/698a490516d8847cd4c3d41a/Taylor-Swift-Singapore-Eras-Tour.jpg?branch=production&width=2400&quality=75&auto=webp&crop=16:9", credit: "Getty Images via Time", kind: "primary" }],
       sources: [{ name: "Time", url: "https://time.com/6836711/taylor-swift-eras-tour-exclusive-singapore-southeast-asia-governments-reactions/" }],
     },
     {
@@ -3364,6 +3558,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Swift's pink-toned Lover era on opening night was a Versace bodysuit paired with knee-high Christian Louboutin boots.",
       body: ["The Lover set opened the very first Eras Tour show at State Farm Stadium in Glendale, Arizona on March 17, 2023 — the first of several costume changes documented look-by-look by Billboard that night."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/Taylor-Swift-outfit-gallery-night-1-billboard-1240.jpg", credit: "Kevin Winter/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3374,6 +3569,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A sparkling gold fringe mini-dress by Roberto Cavalli, paired again with knee-high Christian Louboutin boots, for the Fearless segment of Eras Tour night one.",
       body: ["A sparkling gold fringe mini-dress by Roberto Cavalli, paired again with knee-high Christian Louboutin boots, for the Fearless segment of Eras Tour night one."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg", credit: "Kevin Winter/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3384,6 +3580,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A mustard orange Etro dress with delicate embroidery, worn with a matching cape and Christian Louboutin boots for the evermore segment.",
       body: ["A mustard orange Etro dress with delicate embroidery, worn with a matching cape and Christian Louboutin boots for the evermore segment."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/03-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg", credit: "Kevin Mazur/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3394,6 +3591,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A Roberto Cavalli catsuit with a leg and arm cut-out, plus matching Roberto Cavalli boots, for the reputation segment — the version she wore for the tour's first year-plus of shows.",
       body: ["A Roberto Cavalli catsuit with a leg and arm cut-out, plus matching Roberto Cavalli boots, for the reputation segment — the version she wore for the tour's first year-plus of shows."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg", credit: "Kevin Winter/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3404,6 +3602,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The Red segment recreated her iconic look from the \"22\" music video, made by Ashish, for the Eras Tour's opening night.",
       body: ["The Red segment recreated her iconic look from the \"22\" music video, made by Ashish, for the Eras Tour's opening night."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/05-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg", credit: "Kevin Mazur/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3414,6 +3613,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A voluminous Nicole + Felicia princess gown for the Speak Now segment of Eras Tour night one.",
       body: ["A voluminous Nicole + Felicia princess gown for the Speak Now segment of Eras Tour night one."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/06-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg", credit: "John Shearer/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3424,6 +3624,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A flowing purple Alberta Ferretti dress captured the woodsy feel of Folklore on Eras Tour opening night.",
       body: ["A flowing purple Alberta Ferretti dress captured the woodsy feel of Folklore on Eras Tour opening night."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg", credit: "Kevin Mazur/GI for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3434,6 +3635,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "For the acoustic surprise-song portion of the night, Swift stunned in a magenta Jessica Jones dress.",
       body: ["The acoustic set is where Swift plays two surprise songs each night, swapped every show — night one's gown was a standout among the outfit changes fans tracked show to show."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-acoustic-guitar-march-17-2023-billboard-1548.jpg", credit: "Kevin Mazur/Getty Images for TAS Rights Management", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3444,6 +3646,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An Oscar de la Renta faux fur coat and crystal T-shirt gave way to a shining navy blue Oscar de la Renta bodysuit and Christian Louboutin boots to close the Midnights set.",
       body: ["An Oscar de la Renta faux fur coat and crystal T-shirt gave way to a shining navy blue Oscar de la Renta bodysuit and Christian Louboutin boots to close the Midnights set."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/07-Taylor-Swift-outfit-gallery-night-1-billboard-1548-1.jpg", credit: "John Shearer/G for TAS Rights Management", kind: "primary" }, { url: "https://www.billboard.com/wp-content/uploads/2023/03/09-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg", credit: "Kevin Mazur/GI for TAS Rights Management", kind: "archival" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-the-eras-tour-night-one-outfits-1235289639/" }],
     },
     {
@@ -3454,6 +3657,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom sparkling green Gucci gown by Sabato de Sarno, paired with green Christian Louboutin pumps and De Beers diamonds — plus a snake-like ring stack fans read as a reputation nod.",
       body: ["Styled by her go-to stylist Joseph Cassell for the January 7, 2024 ceremony, where she was nominated for Cinematic and Box Office Achievement for the Eras Tour concert film."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/01/taylor-swift-02-golden-globes-2024-billboard-1548.jpg?w=1024", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/awards/taylor-swift-golden-globes-dress-2024-1235577071/" }],
     },
     {
@@ -3464,6 +3668,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A long-sleeve, mock-neck Roberto Cavalli crop top and matching skirt by designer Fausto Puglisi, covered edge to edge in silver and blue sequins and beads meant to read as a night sky — a direct nod to the Midnights album she was there representing.",
       body: ["Worn to the Feb. 5, 2023 ceremony at Crypto.com Arena, the custom Roberto Cavalli two-piece — designed by the house's Fausto Puglisi — was paired with diamond-and-turquoise statement earrings from Lorraine Schwartz."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg", credit: "Getty Images", kind: "primary" }, { url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg", credit: "Getty Images", kind: "archival" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2023/02/06/taylor-swift-wore-roberto-cavalli-to-the-2023-grammy-awards/" }, { name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-roberto-cavalli-2023-grammy-awards-1235509202/" }],
     },
     {
@@ -3474,6 +3679,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Burlesque legend Dita Von Teese coached Taylor through the martini-glass dance number and worked with stylist Joseph Cassell and costumer Catherine D'Lish on the crystal-covered costumes; makeup artist Pat McGrath built roughly 30 distinct looks for the video, including a jeweled cat-eye and a red ombré lip.",
       body: ["Von Teese told Billboard it was a \"true pleasure\" working with Swift, who she coached on the burlesque choreography for the \"Bejeweled\" video's giant-martini-glass scene, alongside Swift's longtime stylist Joseph Cassell and burlesque costumer Catherine D'Lish. Separately, makeup artist Pat McGrath — who cameos in the video as \"Queen Pat\" — told E! she created about 30 different looks for the shoot, including a contoured red ombré lip built from three products (Legendary Wear Matte Lipstick in \"Elson 4\" and PermaGel Ultra Glide Lip Pencils in Deep Dive and Blood Lust), plus a jeweled smoky cat-eye using an unreleased shadow palette from her own line."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn01.justjared.com/wp-content/uploads/headlines/2022/10/bejeweled-cameos.jpg", credit: "Just Jared", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/dita-von-teese-taylor-swift-bejewled-music-video-1235161045/" }, { name: "E! Online", url: "https://www.eonline.com/news/1352071/pat-mcgrath-reveals-the-hidden-gems-behind-taylor-swifts-glitzy-makeup-in-bejeweled-music-video" }],
     },
     {
@@ -3484,6 +3690,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A black Versace dress with an asymmetrical line of the house's signature gold buttons, a thigh-high slit, and Jimmy Choo stiletto pumps — styled by Joseph Cassell, the same stylist behind her Eras Tour looks.",
       body: ["Worn to the Sept. 12, 2023 MTV VMAs — the night she won Video of the Year for \"Anti-Hero\" among nine total Moon Man wins — the look was finished with a stack of necklaces from Joseph Saidian and Sons and an Anita Ko diamond ear cuff."],
       tags: ["Fashion"],
+      images: [{ url: "https://wwd.com/wp-content/uploads/2023/09/taylor-swift-mtv-vmas-2023-photo.jpg?w=1000&h=563&crop=1", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-mtv-vmas-2023-red-carpet-versace-1235806480/" }],
     },
     {
@@ -3494,6 +3701,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Backstage footage from \"The End of an Era\" finally revealed the exact product: MAC's Locked Kiss 24HR Lipstick in \"Ruby True,\" applied by longtime makeup artist Lorrie Turk over a Smashbox lip liner to keep it from feathering under stage lights and rain.",
       body: ["The exact shade had been a mystery to fans for years until behind-the-scenes docuseries footage caught Turk applying it: MAC Locked Kiss 24HR Lipstick in \"Ruby True,\" a classic blue-red, layered over Smashbox's Be Legendary Line & Prime Pencil and set with Charlotte Tilbury Airbrush Flawless Finish Setting Powder — a combination built specifically to survive multi-hour shows and outdoor-stadium weather."],
       tags: ["Fashion"],
+      images: [{ url: "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/f7e15f4a-04b0-4e6b-ac03-07f3e67b9387/1223+Taylor+Swift+Style+Makeup+Feature.png", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://www.taylorswiftstyle.com/post-grid/teoae-erasredlipstick" }],
     },
     {
@@ -3504,6 +3712,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A white lace-trimmed slip mini dress under a light-violet Free People \"Renata\" faux fur coat, styled with shag-inspired bangs, glittery eyeshadow, and glossy pink lips for the self-directed 70s-themed video.",
       body: ["The white silky slip has floral lace at the neckline and thigh-skimming cutouts along the hem, under the Free People Renata Faux Fur Coat; other looks in the video include an oversized T-shirt worn as a dress and a separate 70s-inflected knit top. The video, which Swift co-directed, leans fully into a groovy, retro aesthetic — loose beachy waves, shag bangs, and warm-toned glam."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.shefinds.com/files/2023/01/Taylor-Swift-16.jpg", credit: "SheFinds", kind: "primary" }],
       sources: [{ name: "SheFinds", url: "https://www.shefinds.com/collections/taylor-swift-lavender-haze-lacy-slip-mini-dress-music-video/" }, { name: "Hello!", url: "https://www.hellomagazine.com/hfm/20230127162890/taylor-swift-lavender-haze-fashion-beauty-moments/" }],
     },
     {
@@ -3514,6 +3723,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A black-and-white gingham Coach minidress with a Peter Pan collar and a cherry motif running down the bodice like a tie, worn \"skipping down a yellow brick road\" in the surprise \"Karma\" video, premiered live at the Eras Tour's New Jersey stop.",
       body: ["The Coach Gingham Tie Collar Mini Dress (retail $550) featured in the \"Karma\" video, which premiered an hour early for the crowd at MetLife Stadium on May 26, 2023 before its official online release — the same New Jersey stand where she debuted a silver leotard, a gold dress, and a new \"Enchanted\" princess gown on the Eras Tour stage."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/05/coach-gingham-dress-edited.jpeg?w=1000", credit: "Coach", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/culture/product-recommendations/taylor-swift-karma-video-dress-where-to-buy-1235342478/" }, { name: "Newsweek", url: "https://www.newsweek.com/taylor-swift-eras-tour-karma-video-east-rutherford-new-jersey-1995065" }],
     },
     {
@@ -3524,6 +3734,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Straight off the Eras Tour film's LA premiere, she landed in Kansas City, arrived in a Chiefs zip-up about 45 minutes before kickoff, and was driven by golf cart to a private box to watch with Donna Kelce again.",
       body: ["It was her third Chiefs game of the 2023 season, played the Thursday night of Oct. 12 — she waved and smiled at fans on her way in before the 8:15 p.m. ET kickoff."],
       tags: ["Lore"],
+      images: [{ url: "https://sportshub.cbsistatic.com/i/r/2023/10/12/40650345-0cc6-4ceb-b781-c837359fee06/thumbnail/770x433/d8fdf57d237d253925cb3ab88bc67608/swift-chiefs-g.jpg", credit: "CBS Sports", kind: "primary" }],
       sources: [{ name: "CBS Sports", url: "https://www.cbssports.com/nfl/news/look-taylor-swift-arrives-at-broncos-chiefs-thursday-night-game-to-watch-travis-kelce/" }, { name: "Today", url: "https://www.today.com/popculture/news/taylor-swift-chiefs-broncos-game-rcna120152" }],
     },
     {
@@ -3534,6 +3745,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She popped onscreen for four words — \"Once again, Ice Spice\" — during the season 49 premiere, then that night was seen cuddling through an intimate sushi dinner with Travis at Nobu, the first time the two had shown that much public affection.",
       body: ["On the Oct. 14, 2023 premiere hosted by Pete Davidson, Travis also got his own cameo — popping up after Kenan Thompson joked about wanting real football talk instead of Taylor gossip. Neither performed with the cast. Hours later, TMZ caught the couple holding hands past the sushi bar at Nobu in Manhattan, Travis greeting the chefs, before sitting down to a meal an eyewitness described as spent \"cuddling throughout.\""],
       tags: ["Lore"],
+      images: [{ url: "https://imagez.tmz.com/image/8e/16by9/2023/10/15/8e0d4df878864a078bb032f7b54342f4_md.jpg", kind: "primary" }, { url: "https://imagez.tmz.com/image/77/4by3/2023/10/15/77f8e73e44f34d2ead2e55f2444bc657_md.jpg", credit: "TMZ", kind: "archival" }, { url: "https://imagez.tmz.com/image/a3/4by3/2023/10/15/a3a8f095ff4f49268d0bf9ce369a40d1_md.jpg", credit: "TMZ", kind: "archival" }],
       sources: [{ name: "TMZ", url: "https://www.tmz.com/2023/10/15/taylor-swift-ice-spice-snl-travis-kelce-pete-davidson-nobu/" }, { name: "Variety", url: "https://variety.com/2023/tv/news/taylor-swift-snl-premiere-travis-kelce-cameo-1235756487/" }],
     },
     {
@@ -3544,6 +3756,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "For her fourth Chiefs game of the season, a friendship bracelet reading '87' surrounded by hearts — plus a celebratory handshake with Brittany Mahomes every time Kansas City scored.",
       body: ["The Oct. 22, 2023 win over the Los Angeles Chargers at Arrowhead — afterward, she and Travis were seen holding hands and leaving the stadium together in his convertible."],
       tags: ["Lore"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2023/10/23/b8956637-edbb-49a6-9f42-58fe6268b05c-getty-1750806324.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2", credit: "Getty Images via Bustle", kind: "primary" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/entertainment/taylor-swift-friendship-bracelet-travis-kelce-tribute" }],
     },
     {
@@ -3564,6 +3777,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Leaving a Japanese restaurant on Bond Street, she locked arms with Selena Gomez and held Brittany Mahomes's hand, with Sophie Turner, Gigi Hadid, and Cara Delevingne close behind — a rare all-friends outing between Chiefs games and Eras Tour dates.",
       body: ["Leaving a Japanese restaurant on Bond Street, she locked arms with Selena Gomez and held Brittany Mahomes's hand, with Sophie Turner, Gigi Hadid, and Cara Delevingne close behind — a rare all-friends outing between Chiefs games and Eras Tour dates."],
       tags: ["Lore"],
+      images: [{ url: "https://imagez.tmz.com/image/b8/4by3/2023/11/05/b8a558e9361042cca1e7b95fea55ef56_md.jpg", credit: "TMZ", kind: "primary" }, { url: "https://imagez.tmz.com/image/df/4by3/2023/11/05/dfa5b127c6b4466c92fb3894cf22f85c_md.jpg", credit: "TMZ", kind: "archival" }],
       sources: [{ name: "TMZ", url: "https://www.tmz.com/2023/11/05/taylor-swift-selena-gomez-sophie-turner-gigi-hadid-brittany-mahomes-dinner-new-york/" }],
     },
     {
@@ -3574,6 +3788,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A black Clio Peppiatt cocktail dress covered in silver crescent moons and stars, a furry coat, and Blake Lively's hand to hold walking into The Box nightclub — Travis stayed behind in Kansas City for mandatory Chiefs practice.",
       body: ["The main party was Dec. 13, 2023, following a lower-key Dec. 12 gathering at Zero Bond with Selena Gomez — two nights of celebrating turning 34 with Miles Teller and Keleigh Sperry also along for both."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/12/01-taylor-swift-dec-13-2023-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-birthday-blake-lively-miles-teller-photos-1235556824/" }],
     },
     {
@@ -3584,6 +3799,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A double-date New Year's Eve in Kansas City — a kiss with Travis at midnight, and a photo with Patrick and Brittany Mahomes that raced past a million views, hours after watching the Chiefs beat Cincinnati 25–17.",
       body: ["A double-date New Year's Eve in Kansas City — a kiss with Travis at midnight, and a photo with Patrick and Brittany Mahomes that raced past a million views, hours after watching the Chiefs beat Cincinnati 25–17."],
       tags: ["Lore"],
+      images: [{ url: "https://assets.newsweek.com/wp-content/uploads/2025/08/2330299-taylor-swift-travis-kelce.jpg?w=1600&quality=80&webp=1", credit: "Newsweek", kind: "primary" }],
       sources: [{ name: "Newsweek", url: "https://www.newsweek.com/taylor-swift-travis-kelce-patrick-brittany-mahomes-kansas-city-chiefs-photo-1857056" }],
     },
     {
@@ -3594,6 +3810,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Braving frigid temperatures at Highmark Stadium, she watched the Chiefs beat the Bills 27–24 from a suite alongside Travis's brother Jason — while some Bills fans in the crowd held up a sign reading they'd come \"for Taylor.\"",
       body: ["Jan. 21, 2024, at the AFC Divisional Round in Orchard Park, New York — her second straight playoff-game appearance, following the Wild Card round the week before."],
       tags: ["Lore"],
+      images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2024/01/21/3ea9f4b6-39c9-4026-aea6-be7d5a44af76/thumbnail/620x413/fe93c98a06090411f5266f68af3ce8b1/gettyimages-1950919592.jpg", credit: "Getty Images via CBS News", kind: "primary" }, { url: "https://assets1.cbsnewsstatic.com/hub/i/r/2024/01/21/bc1ab4aa-2929-4189-b2bb-a0b408647c54/thumbnail/620x413/9555c45396dfac8af60912df8cfb71ac/gettyimages-1950836092.jpg", credit: "Getty Images via CBS News", kind: "archival" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-travis-kelce-chiefs-buffalo-bills-highmark/" }],
     },
     {
@@ -3863,6 +4080,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "1.208 million copies in week one — the strongest opening week for any album since Eminem's The Eminem Show in 2002, and her second million-selling debut in a row.",
       body: ["1.208 million copies in week one — the strongest opening week for any album since Eminem's The Eminem Show in 2002, and her second million-selling debut in a row."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Slate", url: "https://slate.com/culture/2012/10/taylor-swift-album-sales-record-1-2-million-copies-of-red-sold-in-first-week-according-to-soundscan.html" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)" }],
     },
     {
@@ -3883,6 +4101,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Not a love song — a carefree ode to being \"happy, free, confused, and lonely\" all in the same year, with her girls beside her.",
       body: ["Her own description: \"You're still learning, but you know enough. You still know nothing, but you know that you know nothing.\" A hidden message in the liner notes — \"Ashley Dianna Claire Selena\" — named the friend group behind it, including Dianna Agron and Selena Gomez."],
       tags: ["Music"],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/T7Mf_lWvn00F0CWqvCwgCA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTcyMDtjZj13ZWJw/https://media.zenfs.com/en/insider_articles_922/eee1fa46fd53738526324ef00531392a", credit: "WireImage", kind: "primary" }],
       sources: [{ name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/22" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/complete-timeline-taylor-swift-dianna-124601988.html" }],
     },
     {
@@ -3893,6 +4112,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being \"sonically conservative.\"",
       body: ["Dubstep had already broken through with DJs like Skrillex and Zedd, but this was the song that carried the sound into mainstream pop radio — a genre-blending swerve critics still point to as a turning point in her sound."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble" }],
     },
     {
@@ -3913,6 +4133,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
       body: ["Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/72/Taylor_Swift_-_Everything_Has_Changed.png/250px-Taylor_Swift_-_Everything_Has_Changed.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Everything_Has_Changed" }],
     },
     {
@@ -3923,6 +4144,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A sold-out crowd of 27,877 got 17 songs and a surprise duet on 'Everything Has Changed' with opening act Ed Sheeran.",
       body: ["A sold-out crowd of 27,877 got 17 songs and a surprise duet on 'Everything Has Changed' with opening act Ed Sheeran."],
       tags: ["Tour"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg/500px-Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Red_Tour" }],
     },
     {
@@ -3933,6 +4155,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A wine-colored Elie Saab gown at the CMAs, the night she became the first woman ever to receive the Pinnacle Award.",
       body: ["Garth Brooks, who won it in 2005, was the only other artist to have received the Pinnacle Award before her."],
       tags: ["Fashion"],
+      images: [{ url: "https://static3.refinery29.com/bin/entry/218/1155x/1120498/rexusa-1815036m.jpg", credit: "MediaPunch Inc/REX USA", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2013/11/56892/taylor-swift-cma-awards" }],
     },
     {
@@ -3943,6 +4166,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A red dress, a red guitar, a red light show — she introduced the title track to CMT viewers at the 2013 CMT Music Awards.",
       body: ["A red dress, a red guitar, a red light show — she introduced the title track to CMT viewers at the 2013 CMT Music Awards."],
       tags: ["Fashion"],
+      images: [{ url: "https://townsquare.media/site/623/files/2013/06/taylor-swift-1370483022.jpg?w=980&q=75", credit: "Jason Merritt/Getty Images", kind: "primary" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-red-cmt-awards/" }],
     },
     {
@@ -3953,6 +4177,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A crimson lipstick makeup artist Gucci Westman first put on her in 2009 hardened into a full-blown signature during Red — inseparable from the album's visual identity.",
       body: ["Westman recalled Swift's team initially resisting: \"Taylor doesn't wear red.\" She talked Swift into it anyway for a 2009 Allure shoot. By the Red era, the bold red lip — paired with winged eyeliner and blunt bangs — had become one of the most recognizable pieces of Swift's image, as prominent in press photos as the album's title color itself."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-makeup-artist-red-lip-1235648989/" }],
     },
     {
@@ -3963,6 +4188,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A cream-and-white chiffon J. Mendel gown with silver beaded straps, paired with a loose, disheveled braid — soft and youthful instead of formal Old Hollywood.",
       body: ["The gown's silver straps did the job a statement necklace usually would. She paired it with Jimmy Choo heels and Lorraine Schwartz jewelry, and wore her hair in a loose \"Heidi braid\" instead of a formal updo — a look outlets at the time noted made the gown feel modern rather than pageant-y."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2013/02/taylor_swift_grammys_a_p.jpg?w=2000&h=1126&crop=1", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/music/music-news/grammys-2013-taylor-swift-wears-j-mendel-gown-heidi-hair-poll-420170/" }],
     },
     {
@@ -3973,6 +4199,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sparkling oxfords, Keds, and high-waisted shorts on nearly every red carpet and stage appearance — a 1950s-inflected throughline across the whole era, from the VMAs to the Grammys.",
       body: ["Documented instances include the 2012 MTV VMAs performance of \"We Are Never Ever Getting Back Together\" and white high-waisted shorts at the February 2013 Grammys. Fashion director Melissa Liebling-Goldberg told Fox News the retro high-waist look was a deliberate throughline: \"Taylor Swift is really bringing back the retro look of a high waist.\""],
       tags: ["Fashion"],
+      images: [{ url: "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/96/96/shorts08.jpg?ve=1&tl=1", credit: "Fox News", kind: "primary" }],
       sources: [{ name: "Fox News", url: "https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts" }],
     },
     {
@@ -3983,6 +4210,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Designer Marina Toybina built 23 custom looks for Swift and 103 for her dancers — draped, sewn, and hand-finished in just over three weeks to match the tour's choreography and set list.",
       body: ["Toybina said her direction came from \"Taylor's songs, as well as our passion, art and individuality,\" designing each costume to \"tell its own story\" as an extension of Swift's stage presence. The build — 128 pieces total — involved custom draping and handwork finished only after choreography and setlist were locked."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg/500px-Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swifts-costume-designer-talks-612119/" }],
     },
     {
@@ -3993,6 +4221,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A thin metal cat-ear headband topped with rhinestones, worn through a girls'-weekend disco party — one of the most requested and recreated accessories to come out of the Red era.",
       body: ["Shot with Swift's real-life friend group, the video leans into a deliberately care-free, Instagram-filtered vibe — trampolines, a pool, a baking scene, and a sparkly off-the-shoulder disco outfit for the party sequence. The Urban Outfitters cat-ear headband became one of the most-requested items from the video and is still recreated by fans at Eras Tour \"22\" sing-alongs."],
       tags: ["Fashion"],
+      images: [{ url: "https://townsquare.media/site/182/files/2013/03/taylorswift22.jpg?w=980&q=75", credit: "YouTube/Big Machine Records", kind: "primary" }],
       sources: [{ name: "K94.5", url: "https://k945.com/taylor-swift-22-music-video/" }],
     },
     {
@@ -4003,6 +4232,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A nude lace Jenny Packham gown embellished with sparkling red-and-gold rose appliques on the red carpet at the 46th CMA Awards, paired with straightened hair and bangs instead of her usual curls.",
       body: ["Swift was up for Entertainer of the Year, Female Artist of the Year, and Musical Event of the Year (for her Civil Wars collaboration \"Safe & Sound\") at the Nov. 1, 2012 ceremony, just ten days after Red's release. The tan lace Jenny Packham gown was embellished with red-and-gold sequin rose shapes, keeping the red carpet look tied to the album's namesake color, and she wore her signature bold red lip with straightened hair and blunt bangs."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2012/11/46th_CMA_Awards_12.jpg?w=1500", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/gallery/cma-2012-arrivals-taylor-swift-385607/" }],
     },
     {
@@ -4013,6 +4243,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A long-sleeved blue Zuhair Murad mini dress with sheer side panels — hair pulled into a ponytail to show off the cutouts, makeup built around a dramatic cat eye and an unexpected bright pink lip instead of her usual red.",
       body: ["Worn to the May 19, 2013 Billboard Music Awards at the MGM Grand Garden Arena, the vibrant blue long-sleeve mini by Zuhair Murad had sheer inserts along the sides; she pulled her hair into a ponytail specifically to keep the cutout detail visible, then paired it with strappy metallic Jimmy Choo pumps and Ofira jewelry. The makeup swapped her signature red lip for a bright pink one under a dramatic cat eye — a rare departure from the era's usual red-lip formula."],
       tags: ["Fashion"],
+      images: [{ url: "https://hollywoodlife.com/wp-content/uploads/2013/05/taylor-swift-billboards-fashion-front-back-ftr.jpg?resize=384%2C216", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Hollywood Life", url: "https://hollywoodlife.com/2013/05/19/taylor-swift-billboard-awards-dress-2013-pics/" }],
     },
     {
@@ -4023,6 +4254,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A plunging, crystal-embellished black Hervé Léger by Max Azria gown at the MTV VMAs, styled with retro pin curls, a smokey eye, and a crimson-coated lip and nails for a full vintage-glam look the night she won Best Female Video.",
       body: ["At the Aug. 25, 2013 MTV VMAs in Brooklyn, where she won the Moon Man for Best Female Video, the plunging, beaded black Hervé Léger gown was paired with statement earrings instead of a necklace so nothing competed with the neckline. Hair and makeup went full \"femme-fatale\": tight retro pin curls, a smokey eye, and a crimson-coated lip and matching nails — the red-lip signature carried through to the nail polish."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2013/08/Herve-Leger-Gown.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2013/08/26/taylor-swift-in-herve-leger-by-max-azria-2013-mtv-video-music-awards-vmas/" }],
     },
     {
@@ -4033,6 +4265,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A gold-spangled Julien Macdonald gown at the American Music Awards, tousled bedhead waves instead of a formal updo — pulled straight off the Fall 2013 runway and modified with a sheer mesh panel over the torso cutout.",
       body: ["At the Nov. 24, 2013 American Music Awards, where she won four trophies including Artist of the Year, Swift wore a gold-spangled Julien Macdonald gown taken from his Fall 2013 runway collection. Her team altered the runway piece by adding a sheer mesh panel across the triangular torso cutout, paired with strappy metallic sandals and loose, tousled waves rather than a sleek updo."],
       tags: ["Fashion"],
+      images: [{ url: "https://townsquare.media/site/252/files/2013/11/taylor-swift5.jpg?w=980&q=75", credit: "Jason Kempin/Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/252/files/2013/11/taylor-swift-11.jpg?w=980&q=75", credit: "Jason Kempin/Getty Images", kind: "archival" }],
       sources: [{ name: "Mix 95.7", url: "https://mix957gr.com/taylor-swift-dress-2013-american-music-awards-red-carpet-photos/" }],
     },
     {
@@ -4043,6 +4276,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A gold lamé, short-sleeve Gucci Première gown with a crystal mesh overlay and crystal gemstone detail at the neckline, arms, and waist — a rare designer-runway red carpet moment mid-Red-era.",
       body: ["Worn to the Jan. 26, 2014 Grammy Awards at the Staples Center, the fitted Gucci Première gown was built from gold lamé under a crystal mesh overlay, with crystal gemstone detailing at the neckline, arms, and waist. She paired it with Jimmy Choo heels and clutch and Lorraine Schwartz jewelry — one of the more directly high-fashion, runway-driven looks of the era, ahead of the pop pivot into 1989."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2019/12/taylor.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2014/01/27/taylor-swift-gucci-premiere-2014-grammy-awards/" }],
     },
     {
@@ -4053,6 +4287,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A powder-blue, alphabet-printed Mary Katrantzou romper at the 2014 VMAs — paired with a blunt bob and a bolder, more pop-leaning silhouette that fans and critics read as the first visible sign of the shift toward 1989.",
       body: ["At the Aug. 24, 2014 MTV VMAs at The Forum in Inglewood, Swift wore a long-sleeve, high-cut powder-blue romper from Mary Katrantzou's Resort 2015 collection, printed with an abstract alphabet motif, paired with maroon peep-toe booties, Lorraine Schwartz jewelry, and Elie Saab heels. Styled with the blunt bob she debuted earlier that year, the polarizing, fashion-forward look landed two months before Red-era companion album cycle closed and 1989 was announced — a visible pivot point critics pointed to afterward as the first red-carpet signal of the coming pop reinvention."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2014/08/TaylorSwiftInMaryKatrantzou2014VMA.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2014/08/25/taylor-swift-mary-katrantzou-2014-mtv-video-music-awards-vma/" }],
     },
     {
@@ -4063,6 +4298,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Photographed walking through Central Park with Harry Styles on December 2, 2012 — the first public sighting of the two together, joined by his stylist Lou Teasdale.",
       body: ["Photographers caught the pair on a Sunday walk through Central Park in New York City, weeks after they were first linked. They were joined by Styles' stylist, Lou Teasdale. The outing became the first widely circulated set of photos confirming the relationship, kicking off two months of tabloid coverage that ran through their British Virgin Islands breakup in January."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2012/12/swift-styles/taylor-swift-harry-styles-central-park-stroll-03.jpg", credit: "Just Jared", kind: "primary" }],
       sources: [{ name: "Just Jared", url: "http://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/" }],
     },
     {
@@ -4073,6 +4309,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Spotted with Harry Styles in Bowness-on-Windermere on December 13, 2012 — sightseeing, feeding white doves in the town square, and shopping at the Beatrix Potter store and a local jewelry shop.",
       body: ["The pair spent about five hours in the Lake District village of Bowness, days after their relationship went public. Pandora jewelry shop manager Claire Dibbs, who met them when they wandered in, recalled: \"They were just walking past and one of my colleagues saw them. I was hyperventilating.\" She said Swift \"introduced herself, she was really lovely\" and told her she loved the area. The visit came days after an earlier stop in Derbyshire that same week."],
       tags: ["Lore"],
+      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/9823df43ca73-harry-styles-z.jpg", credit: "HELLO!", kind: "primary" }],
       sources: [{ name: "HELLO!", url: "https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/" }],
     },
     {
@@ -4083,6 +4320,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Days after the Times Square kiss, fans spotted Swift and Styles having dinner and drinks at the beachfront restaurant CocoMaya on Virgin Gorda on January 3, 2013 — a trip Us Weekly reported was a surprise for her.",
       body: ["The pair were photographed at CocoMaya, a beach restaurant on Virgin Gorda in the British Virgin Islands, the day after arriving on the island. The vacation ended abruptly — reports at the time described a blowout fight, and Swift flew home alone on January 4, the same day she was photographed sitting alone on a boat in a blue dress, an image she'd reference a decade later in \"Is It Over Now?\""],
       tags: ["Lore"],
+      images: [{ url: "https://hollywoodlife.com/wp-content/uploads/2013/01/taylor-swift-harry-styles-virgin-gorda-ftr1.jpg?resize=384%2C216", credit: "Twitter", kind: "primary" }],
       sources: [{ name: "HollywoodLife", url: "https://hollywoodlife.com/2013/01/04/harry-styles-taylor-swift-virgin-islands-vacation-gorda/" }],
     },
     {
@@ -4093,6 +4331,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Spotted leaving a London pub with fellow musician Tom Odell on February 21, 2013 — the night after both attended the BRIT Awards, where Odell won Critics' Choice — before the pair headed to the Groucho Club together.",
       body: ["Photographers caught Swift leaving a pub with Odell in London the Thursday after the BRIT Awards, where Odell had won the Critics' Choice Award. The pair then went on to the Groucho Club, a members' club in Soho. Swift had been in London earlier that day leaving a radio station appearance. The outing fueled brief dating speculation, though nothing came of it publicly beyond the one night out."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/02/swift-odell/taylor-swift-london-night-out-with-tom-odell-01.jpg", credit: "Just Jared", kind: "primary" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/390649/taylor-swift-goes-out-with-british-singer-tom-odell-in-london" }, { name: "Just Jared", url: "https://www.justjared.com/photo-gallery/2816649/taylor-swift-london-night-out-with-tom-odell-01/" }],
     },
     {
@@ -4103,6 +4342,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Photographed rehearsing in all-black practice clothes with her hair in a messy ponytail, mid-choreography, just two days before the Red Tour's March 13, 2013 opening night in Omaha.",
       body: ["Photos published March 11, 2013 showed Swift running through choreography in practice gear ahead of the tour's opening week, caught mid-movement with one hand raised as though playing to an imaginary crowd — a rare glimpse of the unglamorous rehearsal process behind the tour's eventual 128-costume, arena-scale production."],
       tags: ["Lore"],
+      images: [{ url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-1.jpg?w=980&q=75", credit: "TSA / Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=75", credit: "TSA / Getty Images", kind: "archival" }],
       sources: [{ name: "PopCrush", url: "https://popcrush.com/taylor-swift-red-tour-rehearsal-pics/" }],
     },
     {
@@ -4113,6 +4353,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Red's lead single leapt from No. 72 to No. 1 in a single week — her first career Hot 100 chart-topper on her 46th entry, after 'You Belong With Me' and 'Today Was a Fairytale' had both stalled at No. 2.",
       body: ["The song sold 623,000 downloads in its first week — the highest one-week digital sales total ever by a female artist at the time, and second all-time behind only Flo Rida's \"Right Round.\" It entered the Hot 100 Airplay chart at No. 25 before jumping to No. 14 the next week on a 29% surge in radio audience. The single led the rollout for Red's October 22 release, arriving as Swift's first Hot 100 No. 1 after two previous singles had each peaked at No. 2."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/40/We_Are_Never_Ever_Getting_Back_Together.png/250px-We_Are_Never_Ever_Getting_Back_Together.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/" }],
     },
     {
@@ -4123,6 +4364,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "86 shows across 12 countries sold 1.7 million tickets and grossed $150,184,971 — surpassing the $141 million record set by Tim McGraw and Faith Hill's Soul2Soul tour.",
       body: ["Final box office figures put the tour at $150,184,971 in gross revenue from 1,702,933 sold tickets across 86 shows in 12 countries over a 15-month run from its March 13, 2013 Omaha opener to its June 12, 2014 close in Singapore. That total broke the prior country-touring record of $141 million held by Tim McGraw and Faith Hill's Soul2Soul tour (2006-2007). The single best-performing stop was a two-night stand at Gillette Stadium in Foxborough, Massachusetts, which drew 110,712 fans and $9.4 million in ticket sales; London's O2 Arena led the arena dates with $5.8 million from 74,740 tickets across five shows."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg", credit: "Jana Zills / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://billboard.com/articles/news/6150193/taylor-swift-red-all-time-country-tour" }],
     },
     {
@@ -4133,6 +4375,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Album of the Year and Best Country Album nods at the January 26, 2014 ceremony — losing Album of the Year to Daft Punk's Random Access Memories and Best Country Album to Kacey Musgraves' debut, Same Trailer Different Park.",
       body: ["At the 56th Annual Grammy Awards, Red was one of five Album of the Year nominees alongside Sara Bareilles' The Blessed Unrest, Kendrick Lamar's Good Kid, M.A.A.D City, and Macklemore & Ryan Lewis' The Heist — the trophy went to Daft Punk's Random Access Memories. In Best Country Album, Red competed against Jason Aldean's Night Train, Tim McGraw's Two Lanes of Freedom, and Blake Shelton's Based on a True Story..., with Kacey Musgraves' debut Same Trailer Different Park taking the win. It was Swift's second Album of the Year nomination (after Fearless won in 2010) and her only Grammy shutout of the decade."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/56th_Annual_Grammy_Awards" }],
     },
     {
@@ -4163,6 +4406,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Caught on camera by a reveler as the ball dropped — the clearest public confirmation of a relationship that had started weeks earlier.",
       body: ["Swift took the Times Square stage at 11:39 p.m. on December 31, 2012, for the New Year's Eve broadcast, then was seen in Styles' arms as the clock struck midnight. The kiss was caught by fans in the crowd and quickly circulated online."],
       tags: ["Relationship"],
+      images: [{ url: "https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg", credit: "Just Jared", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/news/128673_Taylor_Swift_Harry_Styles_New_Years_Eve_Kiss" }],
     },
     {
@@ -4183,6 +4427,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Days spent driving up the Pacific Coast Highway with Karlie Kloss in March 2014 — redwoods, cliffs, and a beach stop at Pfeiffer Big Sur State Park, all documented on Instagram as \"the best road trip ever.\"",
       body: ["Swift and Kloss — who'd met just four months earlier backstage at the November 2013 Victoria's Secret Fashion Show — shared a self-documented road trip up the Northern California coast in early March 2014, stopping at redwood forests, ocean cliffs, and Pfeiffer Big Sur State Park. Swift captioned one post \"California here we come, right back where we started from... ROAD TRIP!!\" and another simply \"This forest situation,\" while Kloss wrote \"Karlie ♥ Taylor\" in the sand at the beach. Swift summed up the trip on Instagram: \"Beach, forests, cliffs, Northern California, sand, flower picking... Best road trip ever.\""],
       tags: ["Lore"],
+      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/73900276f68b-road-trip2-z.jpg", credit: "Instagram / HELLO!", kind: "primary" }, { url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/f710f8fef400-road-trip-z.jpg", credit: "Instagram / HELLO!", kind: "archival" }, { url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/2269843edce4-road-trip3-z.jpg", credit: "Instagram / HELLO!", kind: "archival" }],
       sources: [{ name: "HELLO!", url: "https://www.hellomagazine.com/fashion/2014030617340/karlie-kloss-taylor-swift-instagram-pictures-road-trip/" }],
     },
     {
@@ -4193,6 +4438,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Paparazzi photos of Swift walking around New York carrying her new Scottish Fold kitten by hand sparked a wave of coverage — she later explained why: \"the kitten freaks out about being put in the cat carrier.\"",
       body: ["After being photographed multiple times in September 2014 carrying kitten Olivia Benson through New York City rather than using a carrier, Swift explained the habit in an Access Hollywood interview: \"The kitten freaks out about being put in the cat carrier ... she freaks out when she's in there. So I was just like, 'OK, all right, we're gonna just do this!'\" She downplayed the distance involved: \"It was like a ten foot walk from my door to the car!\" — and noted the kitten seemed unbothered by the cameras: \"the cat is looking straight at the cameras!\""],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2014823/rs_634x1024-140923101708-634.Taylor-Swift-Olivia-Benson-JR-92314.jpg", credit: "JR / E! News", kind: "primary" }],
       sources: [{ name: "ABC News", url: "https://abcnews.com/Entertainment/taylor-swift-explains-carries-cat-olivia-benson/story?id=25755359" }, { name: "E! News", url: "https://www.eonline.com/news/583118/taylor-swift-explains-why-she-carries-cat-olivia-benson-around-new-york" }],
     },
     {
@@ -4204,6 +4450,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A worldwide webcast from Nashville on August 13, 2012: the album title, the October 22 date, and — dropped the same night — a brand-new single called \"We Are Never Ever Getting Back Together.\"",
       body: ["The announcement webcast streamed globally via Google+ Hangout, with fans submitting questions — the kind of direct-to-fans rollout that would later become her signature. The single she premiered on it went on to become her first career Hot 100 No. 1."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Red (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)" }, { name: "Taylor Swift's New Single Hits No. 1 on Hot 100", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/" }],
     },
     {
@@ -4259,6 +4506,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "December 13, 2012: a spoken-word intro, a pink-streaked dye job, and a festival-wasteland storyline — the most cinematic, least country video she'd made to that point.",
       body: ["The video cast Swift opposite a bad-boy love interest through a desert festival bender, opening with a moody spoken monologue instead of the song. Its grittier styling — including temporary pink tips — marked a deliberate image departure timed to the single's pop-radio push."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "I Knew You Were Trouble", url: "https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble" }],
     },
     {
@@ -4303,6 +4551,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Carly Simon duetting \"You're So Vain\" in Foxborough; Jennifer Lopez doing \"Jenny From the Block\" at Staples Center — the summer 2013 stadium run turned nightly guest cameos into a Taylor Swift tour signature.",
       body: ["Simon joined her on July 27, 2013 at Gillette Stadium for the song fans have spent 50 years trying to decode; Lopez appeared August 24 at Staples Center, one of a Los Angeles guest run that also included Sara Bareilles, Ellie Goulding, Tegan and Sara, and Cher Lloyd on different nights. The rotating-cameo format carried into every tour she has mounted since."],
       tags: ["Tour"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg", credit: "Jana Zills / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "The Red Tour", url: "https://en.wikipedia.org/wiki/The_Red_Tour" }],
     },
     {
@@ -4380,6 +4629,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Nine years later, the re-recording debuted atop the Billboard 200 with 605,000 units — the biggest sales week of 2021 for any album, her tenth No. 1, and the fastest run to four chart-toppers since a record Elton John set in 1975.",
       body: ["Of the 605,000 first-week units (week ending Nov. 18, 2021), 369,000 were pure album sales — 2021's biggest sales week for any album. The 30-track set, including nine from-the-vault songs and the 10-minute \"All Too Well,\" gave Swift her tenth Billboard 200 No. 1 and made her the fastest artist ever to notch four chart-toppers, in under 16 months — breaking a 46-year-old Elton John record."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Taylor Swift's 'Red (Taylor's Version)' Debuts at No. 1 on Billboard 200", url: "https://www.billboard.com/music/chart-beat/taylor-swift-tenth-number-one-album-billboard-200-red-taylors-version-1235000860/" }, { name: "Taylor Swift Earns Her Milestone Tenth No. 1 Album With 'Red (Taylor's Version)'", url: "https://www.forbes.com/sites/hughmcintyre/2021/11/21/taylor-swift-earns-her-milestone-tenth-no-1-album-with-red-taylors-version/" }],
     },
   ],
@@ -4392,6 +4642,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "1.238 million units in week one — the only artist in Nielsen history with four different million-selling album weeks.",
       body: ["1.238 million units in week one — the only artist in Nielsen history with four different million-selling album weeks."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Taylor_Swift_-_Reputation.png/250px-Taylor_Swift_-_Reputation.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-reputation-debuts-no-1-billboard-200-albums/" }, { name: "Refinery29", url: "https://www.refinery29.com/en-us/2017/11/182106/taylor-swift-reputation-billboard-chart" }],
     },
     {
@@ -4402,6 +4653,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "By her own account, it began as a poem about deciding who she could trust.",
       body: ["She later said the bridge's phone-call line played on \"a stupid phone call I shouldn't have picked up\" — the Kanye West call at the center of their 2016 feud."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/" }],
     },
     {
@@ -4412,6 +4664,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "59,157 fans at University of Phoenix Stadium — breaking the venue's attendance record, set by One Direction in 2014, by 2,633 seats.",
       body: ["59,157 fans at University of Phoenix Stadium — breaking the venue's attendance record, set by One Direction in 2014, by 2,633 seats."],
       tags: ["Tour"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Reputation_Stadium_Tour" }],
     },
     {
@@ -4422,6 +4675,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Taylor's own explanation, on stage: she was called a snake on social media, and rather than let it define her, she made it the tour's whole visual language — in her words, something that 'can strengthen you instead.'",
       body: ["Taylor's own explanation, on stage: she was called a snake on social media, and rather than let it define her, she made it the tour's whole visual language — in her words, something that 'can strengthen you instead.'"],
       tags: ["Tour"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg", credit: "Ronald Woan / Wikimedia Commons", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg/250px-Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg", credit: "Julio Enriquez / Wikimedia Commons", kind: "archival" }],
       sources: [{ name: "iHeartRadio", url: "https://www.iheart.com/content/2018-05-08-taylor-swift-kicks-off-reputation-tour-with-big-setlist-fireworks-snakes/" }],
     },
     {
@@ -4452,6 +4706,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Two weeks after the elaborate original, a Spotify-exclusive alternate: Taylor, alone in the woods, singing straight into a single unbroken shot.",
       body: ["Two weeks after the elaborate original, a Spotify-exclusive alternate: Taylor, alone in the woods, singing straight into a single unbroken shot."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/3tHoEgt0zB8/maxresdefault.jpg", credit: "YouTube / Taylor Swift", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/watch-taylor-swifts-one-take-new-delicate-video-629359/" }],
     },
     {
@@ -4462,6 +4717,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Announced on her 29th birthday, filmed secretly at her last North American tour stop, released globally at 12:01 a.m. on New Year's Eve.",
       body: ["Filmed in Dallas with guest performances from Maren Morris and Sugarland, capturing the final North American stop of a tour that had just closed out as the highest-grossing U.S. tour ever, at $266.1 million."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/250px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg", credit: "Melodies1917 / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2018/12/219360/taylor-swift-reputation-tour-concert-movie-netflix" }],
     },
     {
@@ -4472,6 +4728,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Four more trophies at the 2018 AMAs pushed her past Whitney Houston for the most American Music Award wins ever by a woman.",
       body: ["Four more trophies at the 2018 AMAs pushed her past Whitney Houston for the most American Music Award wins ever by a woman."],
       tags: ["Lore"],
+      images: [{ url: "https://specials-images.forbesimg.com/dam/imageserve/1048528712/960x0.jpg?fit=scale", credit: "Jeff Kravitz/FilmMagic", kind: "primary" }],
       sources: [{ name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2018/10/10/taylor-swift-now-holds-the-record-for-the-most-american-music-award-wins-among-women/" }, { name: "Billboard", url: "https://www.billboard.com/music/awards/2018-amas-recap-taylor-swift-cardi-b-8479215/" }],
     },
     {
@@ -4482,6 +4739,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A black-and-red, sequined Roberto Cavalli bodysuit with cutouts and a serpent motif, worn for the \"Look What You Made Me Do\" segment of every stadium show.",
       body: ["Roberto Cavalli designed the original snake-cutout bodysuit for the reputation Stadium Tour leg of the show. It went unchanged for the entire 131-show run — the only outfit on the tour that never got a variation — until Swift debuted a reworked black-and-gold version six years later on the Eras Tour."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg", credit: "Ronald Woan / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-reputation-gold-reputation-bodysuit-doc-series-1235487475/" }],
     },
     {
@@ -4492,6 +4750,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom Naeem Khan piece from his Spring 2018 collection — layered tassels that swing into a mini as she twirls through the one-take video.",
       body: ["The teal, tiered-tassel dress was custom-made by Naeem Khan from his Spring 2018 ready-to-wear runway collection, styled with Anabela Chan earrings and Christian Louboutin pumps. It became one of the most-searched dresses of the video's release week."],
       tags: ["Fashion"],
+      images: [{ url: "https://imgix.bustle.com/uploads/image/2018/3/12/c5dd79b9-3dd6-48fb-be2c-6b565fc5fe09-screen-shot-2018-03-12-at-61855-am.png?w=248&h=218&fit=crop&crop=faces&dpr=2", credit: "Bustle", kind: "primary" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/p/where-to-buy-taylor-swifts-delicate-blue-tassel-dress-thats-causing-a-fashion-frenzy-8469568" }],
     },
     {
@@ -4502,6 +4761,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A mirrored, all-silver Balmain minidress and matching thigh-high boots — Olivier Rousteing's design, worn the same night she performed \"I Did Something Bad\" and won Artist of the Year.",
       body: ["Designed by Olivier Rousteing from Balmain's Episode collection: a long-sleeved, mock-neck minidress covered edge-to-edge in tiny mirrored squares ($7,650), paired with matching disco-ball thigh-high boots, a snake ring nodding to the album, and a sleek bouffant updo with a bold black cat-eye."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2018/10/gettyimages-1048368054_copy.jpg?w=1296&h=730&crop=1", credit: "Getty Images", kind: "primary" }, { url: "https://imgix.bustle.com/wmag/2018/10/09/5bbd2d31a36ed72d939f3ec2_GettyImages-1048354800.jpg?w=414&h=276&fit=crop&crop=faces&dpr=2", credit: "Getty Images", kind: "archival" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/american-music-awards-taylor-swift-wears-badass-balmain-outfit-1150928/" }, { name: "W Magazine", url: "https://www.wmagazine.com/story/taylor-swift-balmain-disco-ball-2018-american-music-awards" }],
     },
     {
@@ -4512,6 +4772,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The grave-crawling zombie look that opens the video was created by Bill Corso — the makeup artist behind Deadpool's scarred face — confirmed on record by director Joseph Kahn.",
       body: ["Director Joseph Kahn confirmed via Twitter that special-makeup artist Bill Corso — who did Ryan Reynolds' scarred prosthetic look in \"Deadpool\" — created zombie Taylor for the opening graveyard scene, a look deliberately pitched as the antithesis of her earlier, more polished eras."],
       tags: ["Fashion"],
+      images: [{ url: "https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg", credit: "YouTube / Taylor Swift", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing" }],
     },
     {
@@ -4522,6 +4783,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Blush-pink, one-shoulder, a thigh-high slit, and a floor-sweeping half-cape of appliqued feathers — Donatella Versace said the piece took over 800 hours to build.",
       body: ["Worn to the 2018 Billboard Music Awards — a rare red-carpet stop mid-tour — the custom Atelier Versace gown paired scattered appliques at the bust, shoulder, and hips with Casadei shoes. Donatella Versace confirmed the 800-plus build hours on Instagram weeks before the show."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", kind: "primary" }, { url: "https://thefashion-court.com/wp-content/uploads/2018/05/taylor-swift-atelier-versace-bbmas-2018.png", credit: "The Fashion Court", kind: "archival" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/8457333/taylor-swift-bbma-dress-800-hours-to-make" }, { name: "The Fashion Court", url: "https://thefashion-court.com/2018/05/taylor-swift-2018-billboard-music-awards/" }],
     },
     {
@@ -4532,6 +4794,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Debuted night two in Chicago: a custom Jessica Jones bodysuit and matching jacket with intricate glitter cutout patterns, worn with Christian Louboutin boots.",
       body: ["Jessica Jones, Swift's longtime tour costume designer, reworked the \"...Ready For It?\" opening-number look partway through the run — swapping in a bodysuit-and-jacket set covered edge to edge in cutout glitter patterning."],
       tags: ["Fashion"],
+      images: [{ url: "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/06/tumblr_p9wqzvce8h1r4fk4fo1_r1_1280.jpg?w=1100", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/06/06/reputation-tour-110-version-2-ready-for-it/" }],
     },
     {
@@ -4542,6 +4805,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "One of three custom Jessica Jones bodysuits Taylor rotated through for the \"Blank Space\"/\"Bad Blood\"/\"Should've Said No\" block — this version in dense sparkling green, worn with Christian Louboutin boots.",
       body: ["Jessica Jones designed at least three versions of this sequined bodysuit across the tour's run for the \"Dress\"-nicknamed segment; the sparkling green iteration debuted in the summer 2018 European leg."],
       tags: ["Fashion"],
+      images: [{ url: "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/07/22/reputation-tour-blank-space-bad/" }],
     },
     {
@@ -4552,6 +4816,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A rainbow, tiered-tassel custom Jessica Jones mini dress Taylor herself nicknamed her \"cotton candy\" dress — one of four versions built for the segment.",
       body: ["Jessica Jones built four rotating versions of this fringed mini dress for the \"Delicate\"/\"Shake It Off\" segment; this rainbow-tassel take was the one Taylor nicknamed her \"cotton candy\" dress on stage."],
       tags: ["Fashion"],
+      images: [{ url: "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pcati7kyz11r4fk4fo1_r1_1280.jpg?w=1100", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/07/23/reputation-tour-delicateshake-it-off/" }],
     },
     {
@@ -4562,6 +4827,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "For the \"There's Nothing Holding Me Back\" duet stop, a custom Jessica Jones snake-print bodysuit layered under a red camouflage sequined jacket with a buckle waist, plus custom Christian Louboutin boots.",
       body: ["Worn in Pasadena on May 18, 2018, when Shawn Mendes joined the tour for \"There's Nothing Holding Me Back\": a Jessica Jones snake-pattern bodysuit under a red camo sequined jacket with buckle detailing, styled with custom Louboutin boots."],
       tags: ["Fashion"],
+      images: [{ url: "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p917q0nrgd1r4fk4fo1_1280.jpg?w=1100", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/05/20/reputation-tour-theres-nothing-holding-me-2/" }],
     },
     {
@@ -4572,6 +4838,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom Jessica Jones gown for the show's emotional final segment — the blogger who's tracked every tour costume called it a grown-up echo of a Jenny Packham piece from the Fearless Tour.",
       body: ["Closing the show over \"Call It What You Want\" into \"This Is Why We Can't Have Nice Things,\" Taylor wore a custom Jessica Jones gown styled with Christian Louboutin boots."],
       tags: ["Fashion"],
+      images: [{ url: "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/05/11/reputation-tour-call-it-what-you-want-this/" }],
     },
     {
@@ -4582,6 +4849,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Paparazzi caught Taylor and Joe Alwyn leaving The Flask, a traditional North London pub, after fish and chips and a pint each — one of only a handful of public sightings during a deliberately private relationship.",
       body: ["Photographed leaving The Flask, a centuries-old pub in North London, on May 30, 2018, mid-way through a break in the reputation Stadium Tour. Swift wore a striped tank top and skirt; Alwyn kept it casual in a white T-shirt and jeans. The two spent about 45 minutes inside over fish and chips and pints of London Pride before leaving in a waiting car — one of the rare unstaged sightings the notoriously private couple allowed during this era."],
       tags: ["Lore"],
+      images: [{ url: "https://imgix.bustle.com/wmag/2018/06/01/5b11723f15af2220684cbe78_GettyImages-963107270.jpg?w=414&h=276&fit=crop&crop=faces&dpr=2", credit: "Jo Hale/Getty Images", kind: "primary" }],
       sources: [{ name: "W Magazine", url: "https://www.wmagazine.com/story/taylor-swift-joe-alwyn-photographed-date-london" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-steps-mini-skirt-232044419.html" }],
     },
     {
@@ -4592,6 +4860,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "No star-studded Rhode Island party this year — instead, Taylor and Joe Alwyn were photographed hand in hand on a beach in Turks and Caicos over the holiday weekend, swimming and snorkeling during a tour break.",
       body: ["During a break in the reputation Stadium Tour's summer leg, Swift and Alwyn spent the July 4, 2018 weekend at an oceanfront villa in Turks and Caicos rather than hosting her usual Rhode Island gathering. Paparazzi photographed the couple walking the shoreline hand in hand, swimming, and snorkeling; an eyewitness told E! News they kept a low profile the entire stay, splitting time between the villa's beach, pool, and gym."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201869/rs_634x1024-180709130925-634-Taylor-Swift-Joe-Alwayn-Turks-And-Caicos-JR-070918.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "SBMF / BACKGRID", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/950442/taylor-swift-and-joe-alwyn-hold-hands-in-turks-and-caicos" }, { name: "Just Jared Jr.", url: "https://www.justjaredjr.com/2018/07/05/taylor-swift-vacations-with-joe-alwyn-in-turks-caicos/" }],
     },
     {
@@ -4602,6 +4871,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Taylor and Joe Alwyn were photographed holding hands leaving Hawksmoor Seven Dials, a Covent Garden steakhouse, after a two-and-a-half-hour dinner during a break in the reputation Stadium Tour.",
       body: ["On August 22, 2018, during a five-day break from touring, Swift and Alwyn dined at Hawksmoor Seven Dials in Covent Garden, arriving around 8 p.m. with security and leaving hand in hand roughly two and a half hours later. They reportedly shared fillet steaks with spinach and mac and cheese, toasting with wine in a private section of the restaurant. Swift wore an off-the-shoulder green dress and a necklace bearing Alwyn's initial."],
       tags: ["Lore"],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/8s7AwHFL8l1fcEO1Nzrakg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02MjQ7Y2Y9d2VicA--/https://media.zenfs.com/en-US/homerun/elle_570/932921f24da6dde86e34cff9ab62a007", credit: "BACKGRID", kind: "primary" }, { url: "https://s.yimg.com/ny/api/res/1.2/BUHEwdl3nKDJks5lcyY46g--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTEwNDY7Y2Y9d2VicA--/https://media.zenfs.com/en-US/homerun/elle_570/c5e18120192022d5561829bc16d9961e", credit: "BACKGRID", kind: "archival" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/962926/inside-taylor-swift-and-joe-alwyn-s-romantic-dinner-date-in-london" }, { name: "Elle (via Yahoo)", url: "https://www.yahoo.com/lifestyle/taylor-swift-joe-alwyn-ate-182400550.html" }],
     },
     {
@@ -4612,6 +4882,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Swift avoided The Favourite's red carpet entirely, watching from inside Lincoln Center and catching up with Jennifer Lawrence, then left hand in hand with Alwyn through a back exit.",
       body: ["On September 28, 2018, Swift attended the New York Film Festival premiere of The Favourite to support Alwyn, who co-starred alongside Emma Stone and Rachel Weisz. She skipped the red carpet where her boyfriend posed with castmates, instead watching the screening from inside Lincoln Center's theater, where she was seen chatting with Jennifer Lawrence. Photographers caught the couple leaving hand in hand through a side exit afterward, in a sparkling red-and-black sequined dress, Jimmy Choo pumps, and Eva Fehren jewelry."],
       tags: ["Lore"],
+      images: [{ url: "https://imgix.bustle.com/wmag/2018/09/29/5baf8bb27359e94f4fc119bb_GettyImages-1042761566.jpg?w=414&h=531&fit=crop&crop=faces&dpr=2", credit: "Jackson Lee/GC Images", kind: "primary" }],
       sources: [{ name: "W Magazine", url: "https://www.wmagazine.com/story/taylor-swift-joe-alwyn-the-favourite-premiere" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-joe-alwyn-the-favourite-premiere-8477522/" }],
     },
     {
@@ -4622,6 +4893,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Swift made a rare public appearance at best friend Gigi Hadid's 24th birthday party in New York, skipping the party's all-denim dress code for a red checkered blazer and floral dress.",
       body: ["Swift attended Gigi Hadid's 24th birthday celebration at L'Avenue at Saks in New York City on April 22, 2019, alongside guests including Martha Hunt, Hailee Steinfeld, Ashley Graham, and Hadid's mother Yolanda. Photographers caught her arriving in a red checkered blazer over a floral dress, having opted out of the party's denim theme. Appearances at friends' private events were among the only places she was reliably photographed during this deliberately low-profile stretch."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-nyc-April-22-2019-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Gotham/GC Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-gigi-hadid-birthday-party-photos-8508341/" }, { name: "Refinery29", url: "https://www.refinery29.com/en-us/2019/04/230667/taylor-swift-gigi-hadid-birthday-surprise-appearance" }],
     },
     {
@@ -4672,6 +4944,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "At the 61st Grammys, reputation — 2018's top seller — picked up a single nomination, Best Pop Vocal Album, and was shut out of Album, Record, and Song of the Year.",
       body: ["Reputation was the best-selling album of both 2017 and 2018, but by the 61st Annual Grammy Awards in February 2019 it had one nomination to show for it: Best Pop Vocal Album. None of its singles — \"Look What You Made Me Do,\" \"...Ready for It?,\" \"End Game,\" \"New Year's Day,\" \"Gorgeous,\" or \"Delicate\" — made the cut for Record, Song, or Album of the Year, making it, per Rolling Stone, her least-nominated LP since her self-titled 2006 debut."],
       tags: ["Lore"],
+      images: [{ url: "https://www.rollingstone.com/wp-content/uploads/2018/12/taylor-swift-biggest-loser.jpg?w=1600&h=900&crop=1", credit: "Frank Micelotta/PictureGroup/REX Shutterstock", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-reputation-grammys-snub-764008/" }],
     },
     {
@@ -4682,6 +4955,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "$266.1 million and 2,068,399 tickets across 38 U.S. stadium shows passed the Rolling Stones' prior record — the biggest gross in Billboard Boxscore's history since it began tracking in 1990.",
       body: ["The reputation Stadium Tour's North American leg (May 8-Oct. 6, 2018) grossed $266.1 million from 2,068,399 tickets over 38 shows, breaking the U.S. touring record the Rolling Stones had held since their 2005-07 A Bigger Bang tour grossed $245 million — across 70 shows, nearly double what Swift needed."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-reputation-tour-nov-21-2018-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Jun Sato/TAS18/Getty Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-reputation-stadium-tour-breaks-record-highest-grossing-us-tour/" }],
     },
     {
@@ -4702,6 +4976,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "One of the last documented sightings of the reputation stretch: Taylor and Joe Alwyn hiking Franklin Canyon Park in Beverly Hills, caught holding hands by paparazzi.",
       body: ["Photographed holding hands while hiking the Franklin Canyon Park Trail in Beverly Hills on Sunday, March 3, 2019, Taylor wore a yellow crop top, high-waisted denim shorts, and rainbow Nike sneakers, with Joe Alwyn alongside her. It was one of only a handful of documented sightings of the couple during this stretch of the era."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-04.jpg", credit: "Just Jared", kind: "primary" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2019/03/04/taylor-swift-joe-alwyn-hold-hands-while-hiking-in-l-a/" }],
     },
     {
@@ -4713,6 +4988,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Premiered at the VMAs on August 27, 2017, then racked up 43.2 million views in a day — past Psy, past Adele — averaging 30,000 views a minute.",
       body: ["Joseph Kahn's video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy's \"Gentleman\" (36 million YouTube views) and Adele's \"Hello\" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day and first-week Spotify streams."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Taylor Swift's 'Look What You Made Me Do' Smashes YouTube's 24-Hour Record", url: "https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/" }, { name: "Taylor Swift's 'Look What You Made Me Do' Sets YouTube 24-Hour Streams Record", url: "https://www.billboard.com/pro/taylor-swift-psy-youtube-24-hour-streams-record/" }],
     },
     {
@@ -4823,6 +5099,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "November 21, 2018: the second of two Tokyo Dome nights ends the 53-show run — $345.7 million grossed worldwide, the highest-grossing tour of her career to that point.",
       body: ["The tour that had already broken the U.S. all-time record ended its single year of touring in Japan — a compact 53-date run, all stadiums, that out-grossed the 85-show 1989 World Tour. The Dallas stop filmed weeks earlier became the Netflix concert film released that New Year's Eve."],
       tags: ["Tour"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Reputation Stadium Tour", url: "https://en.wikipedia.org/wiki/Reputation_Stadium_Tour" }],
     },
     {
@@ -4846,6 +5123,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "1,047,000 copies in week one — the first album since Lil Wayne's Tha Carter III to cross a million in its opening week.",
       body: ["1,047,000 copies in week one — the first album since Lil Wayne's Tha Carter III to cross a million in its opening week."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-speak-now-sales-charts/" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
     },
     {
@@ -4856,6 +5134,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A slow-burning ballad about a 19-year-old narrator naming the damage after the fact.",
       body: ["Critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'"],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Taylor_Swift_2011crop.jpg/250px-Taylor_Swift_2011crop.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)" }],
     },
     {
@@ -4866,6 +5145,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Not a relationship song — this one's aimed straight at her critics.",
       body: ["In her words: people who \"attack everything about a person\" instead of offering real feedback."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Taylor_Swift_Sydney.jpg/250px-Taylor_Swift_Sydney.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Mean_(song)" }],
     },
     {
@@ -4876,6 +5156,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A year after the 2009 VMA interruption, she wrote him a song about forgiveness instead of anger.",
       body: ["Her own framing, to New York magazine: she wanted to \"write a song to him,\" not about him. She debuted it live at the 2010 VMAs, telling the Belfast Telegraph after: \"I performed a song nobody had heard before, and I'm proud of that. Because it was the right thing to say.\""],
       tags: ["Music"],
+      images: [{ url: "https://assets2.cbsnewsstatic.com/hub/i/r/2010/09/12/99eee01f-a642-11e2-a3f0-029118418759/thumbnail/620x449/8e0c01f51a0436c5eb408696fefc290f/AP100912090147.jpg", credit: "AP Photo/Matt Sayles", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-vmas-2010-innocent-lyrics-reflect-on-kanye-west-incident/" }],
     },
     {
@@ -4886,6 +5167,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"The first love song that I've written to my team\" — a thank-you to the band and crew who built her career brick by brick.",
       body: ["It was inspired by a moment backstage with her band on the final night of the Fearless Tour in 2010; she's kept it in her live setlists across four different tours since."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Taylor_Swift_Speak_Now_-_Pittsburgh.jpg/500px-Taylor_Swift_Speak_Now_-_Pittsburgh.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)" }],
     },
     {
@@ -4896,6 +5178,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A dove-grey J. Mendel gown with a billowing train, held up the whole walk to the stage for her second CMA Entertainer of the Year award.",
       body: ["The win made her only the second female artist in CMA history, after Barbara Mandrell, to win Entertainer of the Year twice."],
       tags: ["Fashion"],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/ickryvH9sKcF7tDFtwxxbw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE0NDA7Y2Y9d2VicA--/https://media.zenfs.com/en/insider_articles_922/7a2cc8fb3dc0f6c58c259f9ddd4d244f", credit: "Jason Kempin/Getty Images", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years" }, { name: "Yahoo Entertainment (Insider)", url: "https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html" }],
     },
     {
@@ -4906,6 +5189,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A gold ombré sequin fringe mini and black knee-high boots — her go-to Speak Now Tour look for three of the album's songs.",
       body: ["A gold ombré sequin fringe mini and black knee-high boots — her go-to Speak Now Tour look for three of the album's songs."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
     },
     {
@@ -4926,6 +5210,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Best Country Song and Best Country Solo Performance at the 54th Grammys — performed live, banjo in hand.",
       body: ["Best Country Song and Best Country Solo Performance at the 54th Grammys — performed live, banjo in hand."],
       tags: ["Lore"],
+      images: [{ url: "https://townsquare.media/site/623/files/2012/02/taylor-swift-456-021212.jpg?w=980&q=75", credit: "AP Photo/Matt Sayles", kind: "primary" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-grammys-2012/" }, { name: "Teen Vogue", url: "https://www.teenvogue.com/story/best-taylor-swift-grammy-moments" }],
     },
     {
@@ -4936,6 +5221,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A strapless red sweetheart gown with waist ruching and a thigh-high slit — a bolder red-carpet turn the same month Speak Now took over the charts.",
       body: ["Designed by Monique Lhuillier, paired with diamond earrings; part of the same CMA red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown."],
       tags: ["Fashion"],
+      images: [{ url: "https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859", credit: "Larry Busacca/Getty Images", kind: "primary" }],
       sources: [{ name: "Yahoo Entertainment (Insider)", url: "https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html" }],
     },
     {
@@ -4946,6 +5232,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She chopped her hair into blunt, eyelash-skimming bangs at the AMAs — a look that would become a recurring signature over the next decade.",
       body: ["Paired that night with a beaded Collette Dinnigan mini dress. A departure from the loose curls she'd worn since 2006 — one beauty outlets would later call the exact moment bangs became her signature."],
       tags: ["Fashion"],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_79322072_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Bustle", url: "https://www.bustle.com/beauty/taylor-swift-bangs" }],
     },
     {
@@ -4956,6 +5243,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A loose curly updo with a J. Mendel pink chiffon dress, Prada heels, and Neil Lane jewels — peak Speak Now-era red carpet styling.",
       body: ["Worn the night she won Favorite Country Artist at the 2011 People's Choice Awards."],
       tags: ["Fashion"],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12961917_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
     },
     {
@@ -4966,6 +5254,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom purple chiffon halter gown by costume designer Susan Hilferty — worn for the title track, 'Fearless,' 'Last Kiss,' and more across the Speak Now World Tour.",
       body: ["Hilferty is credited as costume designer on the Speak Now World Tour; the purple halter became one of the era's most recognizable looks, reused across multiple songs in the setlist."],
       tags: ["Fashion"],
+      images: [{ url: "https://zpllkavmkkjnxpedhotv.supabase.co/storage/v1/render/image/public/images/shows/taylor-swift-speak-now-world-tour-57/Taylor-Swift-taylor-swift-newark-purple-04.webp", credit: "Susan Hilferty (costume designer)", kind: "primary" }],
       sources: [{ name: "Susan Hilferty (official)", url: "https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/" }, { name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
     },
     {
@@ -4976,6 +5265,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom white lace Alice + Olivia dress, worn during 'Mean' performances across the Speak Now World Tour.",
       body: ["A custom white lace Alice + Olivia dress, worn during 'Mean' performances across the Speak Now World Tour."],
       tags: ["Fashion"],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
     },
     {
@@ -4986,6 +5276,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A Theia red sequin slip dress with black knee-high boots, worn for the tour's 'Better Than Revenge' performances.",
       body: ["A Theia red sequin slip dress with black knee-high boots, worn for the tour's 'Better Than Revenge' performances."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
     },
     {
@@ -4996,6 +5287,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Another Susan Hilferty custom piece — a red chiffon midi-length dress worn for the tour's 'Haunted' performances.",
       body: ["Another Susan Hilferty custom piece — a red chiffon midi-length dress worn for the tour's 'Haunted' performances."],
       tags: ["Fashion"],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Susan Hilferty (official)", url: "https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/" }],
     },
     {
@@ -5006,6 +5298,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A strapless Elie Saab gown covered top to bottom in pink sequins, with side-swept curls — a glamorous but still youthful red-carpet look.",
       body: ["A strapless Elie Saab gown covered top to bottom in pink sequins, with side-swept curls — a glamorous but still youthful red-carpet look."],
       tags: ["Fashion"],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
     },
     {
@@ -5016,6 +5309,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A sparkly gold strapless Reem Acra beaded gown paired with a side ponytail at the 2011 AMAs, where she was up for Artist of the Year.",
       body: ["She was nominated for Favorite Country Female Artist, Favorite Country Album, and Artist of the Year that night."],
       tags: ["Fashion"],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
     },
     {
@@ -5026,6 +5320,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The album cover itself is a fashion moment: a strapless purple ombre chiffon gown by Reem Acra, fading from deep violet to pale lilac.",
       body: ["The Reem Acra gown for the Speak Now cover shoot set the visual identity for the whole era, released the same month the album hit shelves."],
       tags: ["Fashion"],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg", credit: "Reem Acra / Big Machine Records", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
     },
     {
@@ -5036,6 +5331,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A Glamour magazine cover timed to Speak Now's release, part of the press run that reintroduced her post-bangs, post-breakout look to a wider readership.",
       body: ["A Glamour magazine cover timed to Speak Now's release, part of the press run that reintroduced her post-bangs, post-breakout look to a wider readership."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG", credit: "Glamour", kind: "primary" }],
       sources: [{ name: "Catherine Angiel (archival)", url: "https://catherineangiel.com/blogs/editorial/glamour-magazine-cover-november-2010-taylor-swift" }],
     },
     {
@@ -5046,6 +5342,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A beaded gold strapless Zuhair Murad minidress with a corset back, gold Jimmy Choo platform sandals and clutch, and pinned-back hair at the Vanity Fair Oscars after-party.",
       body: ["Worn February 27, 2011 at the Sunset Tower Hotel party, one of her earliest red-carpet turns in Zuhair Murad — a designer she'd return to repeatedly through 2012."],
       tags: ["Fashion"],
+      images: [{ url: "https://townsquare.media/site/204/files/2011/02/taylor-swift.jpg?w=980&q=75", credit: "Townsquare Media", kind: "primary" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/" }],
     },
     {
@@ -5056,6 +5353,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A white halterneck dress by Rafael Cennamo, styled with a Ranjana Khan belt, Neil Lane jewelry, and Fendi shoes for a deliberately Marilyn Monroe-inspired look.",
       body: ["Worn the night she won the Ultimate Choice Award at the 2011 Teen Choice Awards."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.aceshowbiz.com/images/wennpic/preview/taylor-swift-2011-teen-choice-awards-01.jpg", credit: "WENN", kind: "primary" }],
       sources: [{ name: "AceShowbiz", url: "https://www.aceshowbiz.com/news/view/00042706.html" }],
     },
     {
@@ -5066,6 +5364,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Bohemian styling by fashion editor Tonne Goodman, in pieces from Rodarte, Jil Sander, and Rag & Bone, for the February 2012 issue titled \"The Single Life\" — her debut Vogue cover.",
       body: ["The issue hit newsstands January 24, 2012; Testino and Goodman styled the shoot around a loose, bohemian wardrobe rather than red-carpet gowns."],
       tags: ["Fashion"],
+      images: [{ url: "https://fashiongonerogue.com/wp-content/uploads/igr/preview/01/taylor_swift1.jpg", credit: "Mario Testino / Vogue US", kind: "primary" }],
       sources: [{ name: "Fashion Gone Rogue", url: "https://www.fashiongonerogue.com/taylor-swift-mario-testino-vogue-february-2012/" }],
     },
     {
@@ -5076,6 +5375,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A gold Zuhair Murad Couture gown with a Mandarin collar, heart-shaped cutout, and mermaid skirt with a short train — worn on the red carpet before her banjo-driven \"Mean\" performance.",
       body: ["Worn on the same night she won two Grammys for \"Mean\" (Best Country Song, Best Country Solo Performance); the gown was pulled from Zuhair Murad's haute couture line."],
       tags: ["Fashion"],
+      images: [{ url: "https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg", credit: "Style Darling Daily", kind: "primary" }],
       sources: [{ name: "Style Darling Daily", url: "https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/" }],
     },
     {
@@ -5086,6 +5386,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The day after Speak Now hit shelves, she played a surprise set for travelers in JetBlue's Terminal 5 lounge — no tickets sold, just whoever happened to be flying that day.",
       body: ["Held October 27, 2010 as part of JetBlue's 'Live From T5' concert series at JFK Airport, the pop-up show happened past security — only passengers already ticketed out of that terminal could catch it. She played selections from Speak Now, released one day earlier."],
       tags: ["Lore"],
+      images: [{ url: "https://archive.longislandpress.com/wp-content/uploads/2010/10/swift.jpg?w=358", credit: "Kevin Kane/FilmMagic", kind: "primary" }],
       sources: [{ name: "Long Island Press", url: "https://archive.longislandpress.com/2010/10/28/taylor-swift-performs-at-jfk-airport-photos/" }],
     },
     {
@@ -5096,6 +5397,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She and rumored boyfriend Jake Gyllenhaal stopped into Gorilla Coffee in Brooklyn's Park Slope on Thanksgiving morning, asking an employee to help pick out beans before ordering lattes.",
       body: ["A witness told Just Jared the pair \"asked one of the coffee shop employees for help picking out beans\" and \"both seemed super nice\" before ordering lattes on November 25, 2010. Gyllenhaal's sister Maggie lives in the Park Slope neighborhood, making it a family-adjacent holiday visit. The outing — and the scarf Swift left behind that day — became a touchstone for fans after \"All Too Well\" referenced it two years later."],
       tags: ["Lore"],
+      images: [{ url: "https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2010/11/25/taylor-swift-jake-gyllenhaal-thanksgiving-in-brooklyn/" }],
     },
     {
@@ -5106,6 +5408,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Chatting on her cell phone while browsing racks at an Anthropologie in Beverly Hills — less than a day after her first Entertainer of the Year win at the ACMs.",
       body: ["Photographed April 4, 2011 carrying a Ralph Lauren Collection crossbody bag. The night before, she'd performed new single \"Mean\" and picked up the Entertainer of the Year trophy at the 2011 Academy of Country Music Awards in Las Vegas."],
       tags: ["Lore"],
+      images: [{ url: "https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2011/04/swift-anthropologie/taylor-swift-anthropologie-11.jpg", credit: "WENN", kind: "primary" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2011/04/06/taylor-swift-anthropologie-after-acms/" }, { name: "justjared.com", url: "https://www.justjared.com/photo-gallery/2532939/taylor-swift-anthropologie-11/" }],
     },
     {
@@ -5116,6 +5419,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Stopping to say hi to a fan on her way out of Il Pastaio in Beverly Hills after dinner with her mom — and, unpictured that night, new friend Dianna Agron.",
       body: ["Photographed March 30, 2012 in Beverly Hills; Just Jared Jr. reported she'd eaten alongside mom Andrea and \"good friend Dianna Agron (not pictured).\" Swift and the Glee star had grown close that year while Swift was recording Red between tour dates. Later that same day, Swift received Nickelodeon's Big Help Award from Michelle Obama at the Kids' Choice Awards."],
       tags: ["Lore"],
+      images: [{ url: "https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2012/03/taylor-swift-il-pastaio.jpg", credit: "INFdaily", kind: "primary" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/2012/03/31/taylor-swift-il-pastaio-pretty/" }],
     },
     {
@@ -5126,6 +5430,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Hand in hand in the shallows off Cape Cod in a red polka-dot bikini — the most photographed stretch of her brief summer romance with Conor Kennedy.",
       body: ["By mid-August 2012 the two were photographed wading and embracing in the water off the Kennedy family's stretch of Cape Cod, part of a summer Swift spent largely at the Kennedys' Hyannis Port compound after she and Conor — RFK's 18-year-old grandson — were first linked that July. Days later they were photographed strolling Hyannis Port and joining his family for outdoor volleyball."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg", credit: "Paul Adao/INFphoto.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind" }],
     },
     {
@@ -5136,6 +5441,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "On August 19, 2012, Taylor joined Conor Kennedy at his mother Mary Richardson Kennedy's gravesite — one of the last photographed moments of their summer romance.",
       body: ["Mary Richardson Kennedy had died in May 2012; reports at the time said Swift accompanied Conor to the grave and helped clear overgrown brush from the site. It's remembered as one of the final documented moments of the two together — the relationship reportedly ended by October."],
       tags: ["Lore"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2012722/634.ConorKennedy.TaylorSwift.081912.jpeg", credit: "Paul Adao/INFphoto.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind" }],
     },
     {
@@ -5156,6 +5462,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Guys get what they deserve in my songs, and if they deserve an apology, they should get one\" — her first-ever apology track, later confirmed by Taylor Lautner as being about him.",
       body: ["In interviews before Speak Now's release, Swift explained she'd broken her own pattern: \"Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that.\" It was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she'd dated in late 2009, confirmed in a 2016 interview that he was the song's subject."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Back_to_December" }],
     },
     {
@@ -5166,6 +5473,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written after an awkward run-in with an ex at an awards show — \"I felt like I was standing alone in a crowded room,\" she told her mom that night, then wrote the song.",
       body: ["Swift was inspired by an uncomfortable encounter with an ex-boyfriend at an awards show — she wanted to talk to him but couldn't get past the awkwardness. Back home, she told her mother, \"I felt like I was standing alone in a crowded room,\" and wrote the lyrics from there. She later told USA Today's Brian Mansfield that the subject behind \"The Story of Us\" was the same person behind \"Dear John.\" It was the last song she wrote for Speak Now."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_The_Story_of_Us.png/250px-Taylor_Swift_-_The_Story_of_Us.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Story_of_Us_(song)" }],
     },
     {
@@ -5176,6 +5484,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "All 14 standard-edition tracks credited to Swift alone — a direct answer to critics who doubted a 20-year-old could really write her own songs.",
       body: ["Swift wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour. She's since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track \"If This Was a Movie\" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
     },
     {
@@ -5216,6 +5525,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"I wrote the lyric, 'I'm wonderstruck, blushing all the way home,' for the song 'Enchanted' about the first time you meet someone\" — her debut Elizabeth Arden fragrance, out October 2011.",
       body: ["Swift partnered with Elizabeth Arden on Wonderstruck, her first fragrance, released in US stores in October 2011. She named it directly after her own lyric: \"I wrote the lyric, 'I'm wonderstruck, blushing all the way home,' for the song 'Enchanted' about the first time you meet someone,\" adding that fragrance helps \"shape someone's first impression and memory of you.\" It became her best-selling perfume, and alongside Justin Bieber's \"Someday,\" helped drive a reported 57% jump in celebrity-fragrance sales that year."],
       tags: ["Lore"],
+      images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2011/05/23/53b1ba11-a643-11e2-a3f0-029118418759/thumbnail/620x465/6ded1ec08ebf35d9984941dd471c60be/114504493.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-launches-new-perfume-175194/" }],
     },
     {
@@ -5226,6 +5536,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "110 shows, 19 territories, 1.64 million tickets sold — Billboard's final tally for the tour that closed out the era on March 18, 2012.",
       body: ["Billboard estimated the Speak Now World Tour's total gross at $123.7 million, from 1,642,435 tickets sold across its 110-date run spanning 19 territories, from its February 2011 Singapore opener through its final show on March 18, 2012."],
       tags: ["Lore"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/250px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour" }],
     },
     {
@@ -5248,6 +5559,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Oct. 25, 2010: the third album lands — fourteen tracks written alone between 18 and 20, released into a week that ended with a million copies sold.",
       body: ["The solo writing wasn't incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Speak Now", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
     },
     {
@@ -5259,6 +5571,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The apology song becomes the second single in November 2010 — the first time she'd ever sent an \"I'm sorry\" to country radio.",
       body: ["Chosen as the follow-up to \"Mine\" within weeks of the album's release; the apology's recipient stayed officially unnamed until Taylor Lautner confirmed, years later, that it was him."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Back to December", url: "https://en.wikipedia.org/wiki/Back_to_December" }],
     },
     {
@@ -5424,9 +5737,10 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "October 2025",
       title: "The Life of a Showgirl arrives: 12 tracks, Max Martin and Shellback, one guest",
       summary: "Written and recorded in Sweden between European Eras Tour dates — her first full album with Max Martin and Shellback since 1989 and reputation. Twelve tracks, no Anthology-style sprawl, and a single feature: Sabrina Carpenter on the closing title track.",
-      body: ["On New Heights she described slipping to Sweden during the Eras Tour's 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name."],
+      body: ["On New Heights she described slipping to Sweden during the Eras Tour's 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name. The cover — shot by Mert Alas and Marcus Piggott — shows Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais's Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: \"My day ends in a bathtub, not usually in a bedazzled dress,\" she said, wanting the artwork to be \"about what happened offstage\" rather than onstage."],
       tags: ["Music"],
-      sources: [{ name: "The Life of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl" }, { name: "Taylor Swift talks new album on 'New Heights' podcast", url: "https://www.npr.org/2025/08/14/nx-s1-5502415/taylor-swift-podcast-new-album-life-showgirl-kelce" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png", credit: "Album cover photographed by Mert Alas & Marcus Piggott / Republic Records, via Wikipedia", caption: "The official album cover: Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais's Ophelia beneath the orange-glitter title.", kind: "primary" }],
+      sources: [{ name: "The Life of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl" }, { name: "Taylor Swift talks new album on 'New Heights' podcast", url: "https://www.npr.org/2025/08/14/nx-s1-5502415/taylor-swift-podcast-new-album-life-showgirl-kelce" }, { name: "Taylor Swift Unveils 'The Life of a Showgirl' Cover, Sabrina Carpenter Feature", url: "https://www.rollingstone.com/music/music-news/taylor-swift-life-of-showgirl-details-cover-new-heights-1235406130/" }],
     },
     {
       id: "vault-tloas-the-official-release-party-of-a-showgirl-turns-movie-theater",
@@ -5501,7 +5815,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "October 2025",
       title: "The Fate of Ophelia: Hamlet's drowned girl, rescued — and a 13th Hot 100 No. 1",
       summary: "The opener flips Millais's Ophelia (the same painting the cover restages): this narrator gets pulled out of the water by a love that \"saved my heart.\" It debuted at No. 1 — her 13th chart-topper, on brand for her — and stayed there deep into the winter.",
-      body: ["The self-directed music video premiered inside the theatrical Release Party over release weekend, moving through vaudeville and showgirl tableaux built around the drowned-painting image. As the single kept leading the Hot 100 — a run Billboard tracked past 10 weeks, her longest-leading No. 1, out-running \"Anti-Hero\" — the song became the commercial spine of the era."],
+      body: ["Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais's Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Swift imagined a version who instead \"met someone who treated her well\" and is pulled from the water. Written and produced with Max Martin and Shellback, it debuted atop the Billboard Hot 100 — her 13th No. 1 — and went on to spend 10 non-consecutive weeks at the top, her longest-running No. 1 single, out-running \"Anti-Hero.\" Swift wrote and directed the official music video herself; it premiered inside the theatrical Official Release Party of a Showgirl over release weekend, moving through vaudeville and showgirl tableaux built around the drowned-painting image, before its own YouTube debut. The single became the commercial spine of the era."],
       tags: ["Music"],
       sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia" }, { name: "Taylor Swift's 'The Fate of Ophelia' No. 1 on Hot 100 for 10th Week", url: "https://www.billboard.com/lists/taylor-swift-hot-100-the-fate-of-ophelia-10th-week/" }],
     },
@@ -5624,6 +5938,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Security tightened around her Watch Hill estate as a large tent went up on the Ocean House lawn next door and friends including Abigail Anderson were spotted arriving for what looked like a bachelorette weekend.",
       body: ["TMZ reported the gathering the weekend of June 19-20, 2026 as a \"bachelorette-style gathering centered around Taylor and her closest girlfriends\" — separate from the Ocean House's own scheduled event that weekend, which the venue confirmed was for a different couple."],
       tags: ["Lore"],
+      images: [{ url: "https://imagez.tmz.com/image/2c/16by9/2026/06/19/2ce1e3acab1c4ea4a7e0faa9f4bb02ab_md.png", credit: "TMZ", kind: "primary" }, { url: "https://imagez.tmz.com/image/81/4by3/2026/06/19/81b2c535bab3435487f156afbe67b6be_md.png", credit: "TMZ", kind: "archival" }],
       sources: [{ name: "TMZ", url: "https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/" }],
     },
     {
@@ -5635,6 +5950,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man. Roughly 1,000 guests, and a jumbotron outside the arena reading \"JUST&T MARRIED!\"",
       body: ["Sandler, a friend of the couple, sang an original song for them at the ceremony. Both wore custom Christian Dior Haute Couture; Stevie Nicks performed at the reception. Guests included Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky, among roughly 1,000 attendees."],
       tags: ["Relationship"],
+      images: [{ url: "https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg", credit: "Charly Triballeau/AFP via Getty Images", caption: "The jumbotron outside Madison Square Garden reading \"JUST&T MARRIED!\" as fans stop to photograph it, the Empire State Building behind.", kind: "primary" }, { url: "https://assets3.cbsnewsstatic.com/hub/i/r/2026/07/02/e66f5b93-8b69-4557-847c-106908119407/thumbnail/620x413/06cdf599d84c9a589b8eb695f3867456/2026-07-02t205104z-316575572-rc2w5maws1vu-rtrmadp-3-people-taylor-swift-kelce.jpg", credit: "Christian Monterrosa/Reuters", caption: "In the run-up to the ceremony: crews on ladders hang curtains across the Garden's glass entrance while security stands watch outside.", kind: "archival" }, { url: "https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/0bb2c01d-717b-42d9-a2b4-08fd18f021e3/thumbnail/620x414/162fb69de698cd4a021ab5e0e34a638a/gettyimages-2284537214.jpg", credit: "Roy Rochlin/Getty Images, via CBS News", caption: "Guest arrivals: Hugh Grant and Anna Elisabet Eberstein arrive at Madison Square Garden on July 2, 2026, as the multi-day celebration begins.", kind: "primary" }, { url: "https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/46f18357-e274-4e86-a5ac-b173d9b01219/thumbnail/620x414/aff0da6d159019e0ce14046348347c7b/gettyimages-2284532594.jpg", credit: "Roy Rochlin/Getty Images, via CBS News", caption: "Abby Wambach and Glennon Doyle arrive at Madison Square Garden for the wedding on July 3, 2026.", kind: "primary" }, { url: "https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/5ba6ed3b-0728-43a7-a105-2fdc2beb7097/thumbnail/620x414/ca2a0b800b41ca793cc0db76270c7ef5/gettyimages-2283912122.jpg", credit: "Angela Weiss/AFP via Getty Images, via CBS News", caption: "The scene outside: members of the media gather at Madison Square Garden on the wedding day, July 3, 2026.", kind: "archival" }, { url: "https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/661a9e69-70e1-4a8c-88bc-e84d2bc985c0/thumbnail/620x414/82c6463f5b68d14f30b1660eb692a0d5/gettyimages-2283918271.jpg", credit: "Tom Weller/picture alliance via Getty Images, via CBS News", caption: "Onlookers wait behind barriers outside Madison Square Garden ahead of the ceremony on July 3, 2026.", kind: "archival" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/" }, { name: "Billboard", url: "https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/" }],
     },
     {
@@ -5644,9 +5960,10 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "July 2026",
       title: "The wedding gown: a custom Dior Haute Couture, styled by Joseph Cassell",
       summary: "Jonathan Anderson's first celebrity couture bridal commission at Dior — a custom gown reportedly drawing on Elizabeth Taylor's 1950 wedding dress, worn with custom Christian Louboutin shoes and Cartier jewelry.",
-      body: ["Swift, Travis and longtime stylist Joseph Cassell worked directly with Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design rather than a runway adaptation. No official photo of the gown had been released as of the day after the wedding, and several AI-generated fakes were circulating online — none of those are used here."],
+      body: ["Swift, Travis and longtime stylist Joseph Cassell worked directly with Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design rather than a runway adaptation. No official photo of the gown had been released as of the day after the wedding, and several AI-generated fakes were circulating online — none of those are used here; the gallery instead shows clearly-labeled reference images of the real things the design reportedly draws on. The commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. The reported touchstone is Elizabeth Taylor's gown for her May 6, 1950 wedding to Conrad \"Nicky\" Hilton: designed by MGM costume designer Helen Rose and gifted to Elizabeth by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, in the lace-and-veil look shown in the reference image here. Per The Hollywood Reporter and Marie Claire, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry."],
       tags: ["Fashion"],
-      sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-wedding-dress-dior-jonathan-anderson-2-1236637523/" }, { name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-wedding-dress-details/" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG", credit: "MGM trailer still, public domain (published without copyright notice) via Wikimedia Commons", caption: "For reference — no official photo of Taylor Swift's gown has been released. This is Elizabeth Taylor in the Helen Rose bridal look from Father of the Bride (1950); Rose also designed the real gown Elizabeth Taylor wore to marry Conrad Hilton that May, the dress the Dior design reportedly references.", kind: "reference" }, { url: "https://upload.wikimedia.org/wikipedia/commons/9/95/Dress_by_Jonathan_Anderson_for_Loewe_%2851444%29.jpg", credit: "Rhododendrites / CC BY-SA 4.0 via Wikimedia Commons", caption: "For reference — not the wedding gown. Jonathan Anderson working in white duchess silk satin at Loewe (autumn/winter 2023-24), before he took over Dior womenswear and haute couture — a feel for the designer's hand in bridal-adjacent white silk.", kind: "reference" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f7/Christian_Dior%2C_30_Avenue_Montaigne%2C_Paris_2016.jpg", credit: "Frédéric BISSON / CC BY 2.0 via Wikimedia Commons", caption: "For reference — Dior's historic house at 30 Avenue Montaigne, Paris, home of the haute couture ateliers where the custom gown was made.", kind: "reference" }],
+      sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-wedding-dress-dior-jonathan-anderson-2-1236637523/" }, { name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-wedding-dress-details/" }, { name: "Jonathan Anderson will lead fashion at Dior", url: "https://www.fashiondive.com/news/jonathan-anderson-dior-creative-director-haute-couture-mens-womens/749569/" }, { name: "Marriage and Movies: The Real-Life Romance That Promoted 'Father of the Bride'", url: "https://elizabethtaylor.com/marriage-and-movies-the-real-life-romance-that-promoted-father-of-the-bride/" }, { name: "Wikimedia Commons (file page — Elizabeth Taylor, Father of the Bride trailer)", url: "https://commons.wikimedia.org/wiki/File:Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG" }, { name: "Wikimedia Commons (file page — Jonathan Anderson dress for Loewe)", url: "https://commons.wikimedia.org/wiki/File:Dress_by_Jonathan_Anderson_for_Loewe_(51444).jpg" }, { name: "Wikimedia Commons (file page — Dior, 30 Avenue Montaigne)", url: "https://commons.wikimedia.org/wiki/File:Christian_Dior,_30_Avenue_Montaigne,_Paris_2016.jpg" }],
     },
     {
       id: "vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto",
@@ -5721,9 +6038,10 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "August 2025",
       title: "\"Your English teacher and your gym teacher are getting married\": the engagement, announced on Instagram",
       summary: "Two weeks after the New Heights album reveal, Taylor and Travis announced their engagement in a joint Instagram post — a garden proposal, an Old Mine Cut diamond in yellow gold, and a caption that became the year's most-repeated line.",
-      body: ["The Aug. 26, 2025 announcement came via matching Instagram posts with garden-proposal photos; Swift's caption read \"Your English teacher and your gym teacher are getting married.\" The ring — an elongated cushion-cut, Old Mine Cut diamond estimated at 7 to 10 carats, set in yellow gold — was designed by Kindred Lubeck of Artifex Fine Jewelry, who was later invited to the couple's wedding."],
+      body: ["The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce's New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift's caption: \"Your English teacher and your gym teacher are getting married 🧨\" — a line that became one of the year's most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress. The ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone widely estimated at 7 to 10 carats, set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York's Artifex Fine Jewelry; Lubeck was later invited to the couple's wedding. The post itself is the primary document of the moment, cited below."],
       tags: ["Relationship"],
-      sources: [{ name: "Taylor Swift, Travis Kelce are married: See their relationship timeline", url: "https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742" }, { name: "Taylor Swift's engagement ring from Travis Kelce is one of a kind, vintage-inspired and really expensive", url: "https://www.yahoo.com/lifestyle/article/a-look-back-at-taylor-swifts-one-of-a-kind-vintage-inspired-engagement-ring-from-travis-kelce-194728425.html" }],
+      images: [{ url: "https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The proposal, from the couple's official announcement post: Kelce and Swift beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.", kind: "primary" }, { url: "https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "From the same carousel: the couple embrace among the garden flowers, the new ring visible on Swift's hand.", kind: "primary" }, { url: "https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The ring close-up from the carousel: the Old Mine Cut brilliant diamond in yellow gold, designed by Travis Kelce with Kindred Lubeck of Artifex Fine Jewelry.", kind: "primary" }],
+      sources: [{ name: "Taylor Swift & Travis Kelce engagement announcement (joint post)", url: "https://www.instagram.com/p/DN02niAXMM-/" }, { name: "Taylor Swift, Travis Kelce are married: See their relationship timeline", url: "https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742" }, { name: "Taylor Swift's engagement ring from Travis Kelce is one of a kind, vintage-inspired and really expensive", url: "https://www.yahoo.com/lifestyle/article/a-look-back-at-taylor-swifts-one-of-a-kind-vintage-inspired-engagement-ring-from-travis-kelce-194728425.html" }],
     },
     {
       id: "vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album",
@@ -5867,6 +6185,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She revealed the April 19 release date mid-speech while accepting Best Pop Vocal Album, then ended the night as the first artist to win Album of the Year four times.",
       body: ["She revealed the April 19 release date mid-speech while accepting Best Pop Vocal Album, then ended the night as the first artist to win Album of the Year four times."],
       tags: ["Music"],
+      images: [{ url: "https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg", credit: "Kevin Winter/Getty Images for The Recording Academy", kind: "primary" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-announces-new-album-the-tortured-poets-department-grammys-2024/" }],
     },
     {
@@ -5877,6 +6196,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "300+ million streams on release day alone, plus 'Fortnight' becoming the most-streamed song Spotify had ever seen in a single day.",
       body: ["300+ million streams on release day alone, plus 'Fortnight' becoming the most-streamed song Spotify had ever seen in a single day."],
       tags: ["Lore"],
+      images: [{ url: "https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_5-1-1440x1440.jpg", credit: "Spotify Newsroom", kind: "primary" }],
       sources: [{ name: "Spotify Newsroom", url: "https://newsroom.spotify.com/2024-04-19/tortured-poets-department-taylor-swift-library-los-angeles/" }, { name: "Forbes", url: "https://www.forbes.com/sites/mollybohannon/2024/04/22/all-the-records-taylor-swifts-the-tortured-poets-department-has-broken-so-far/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-tortured-poets-passes-billion-spotify-streams-1235665087/" }],
     },
     {
@@ -5887,6 +6207,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The fastest album ever to hit a billion Spotify streams — all 31 tracks, Anthology included, inside five days.",
       body: ["The fastest album ever to hit a billion Spotify streams — all 31 tracks, Anthology included, inside five days."],
       tags: ["Lore"],
+      images: [{ url: "https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/TSwift-Square-header-1440x1440.jpg", credit: "Spotify Newsroom", kind: "primary" }],
       sources: [{ name: "Spotify Newsroom", url: "https://newsroom.spotify.com/2024-04-24/tortured-poets-department-taylor-swift-one-billion-record-streams/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-tortured-poets-passes-billion-spotify-streams-1235665087/" }],
     },
     {
@@ -5897,6 +6218,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A pulsing '80s-inspired synth ballad that opens the album, with Post Malone on the hook.",
       body: ["Taylor's own description of the album's fatalism: \"You ended up not with the person that you loved and now you just have to live with that every day.\""],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fortnight_(song)" }],
     },
     {
@@ -5927,6 +6249,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A woman who leaves relationships the moment they turn — fans trace the title to a real 1900s aristocrat divorced five times over.",
       body: ["Lady Idina Sackville, part of the scandalous \"Happy Valley set\" in 1930s colonial Kenya, earned the \"bolter\" nickname after leaving her husband for another man; her own great-granddaughter wrote a 2008 biography by the same title. Taylor has never confirmed the connection."],
       tags: ["Music"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2024/2/22/9b7b54e9-11ab-43f1-90fa-51af4b2737da-getty-2015053197.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2", credit: "Graham Denholm/TAS24/Getty Images Entertainment", kind: "primary" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/entertainment/taylor-swift-the-bolter-theory-lady-idina-sackville" }],
     },
     {
@@ -5937,6 +6260,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "New songs from the album folded into the setlist in Paris — Taylor's own nickname for the segment, from her Instagram caption.",
       body: ["Her exact caption: \"This post is dedicated to the new Tortured Poets section of the Eras Tour (aka Female Rage The Musical!)\""],
       tags: ["Tour"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300", credit: "Kevin Mazur/TAS24/Getty Images", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-eras-tour-set-list-post-1235019481/" }],
     },
     {
@@ -5947,6 +6271,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her first show back after TTPD dropped — she gave \"Paris\" and \"loml\" their live debuts at Paris La Défense Arena.",
       body: ["Her first show back after TTPD dropped — she gave \"Paris\" and \"loml\" their live debuts at Paris La Défense Arena."],
       tags: ["Tour"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Kevin Mazur/TAS24/Getty Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/lists/taylor-swift-paris-eras-tour-europe/" }],
     },
     {
@@ -5957,6 +6282,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A brand-new crystal bodysuit for the opening numbers, then a gown printed with her own lyrics for the new album's songs.",
       body: ["A brand-new crystal bodysuit for the opening numbers, then a gown printed with her own lyrics for the new album's songs."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=204", credit: "Kevin Mazur/TAS24/Getty Images", kind: "primary" }, { url: "https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300", credit: "Kevin Mazur/TAS24/Getty Images", kind: "archival" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-eras-tour-paris-show-1235680098/" }],
     },
     {
@@ -5977,6 +6303,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A rare in-season appearance between international tour legs, cheering on a Chiefs win over the Saints.",
       body: ["A rare in-season appearance between international tour legs, cheering on a Chiefs win over the Saints."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-glitter-freckles-chiefs-game-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Jamie Squire/Getty Images", kind: "primary" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-monday-night-football-style-glitter-freckles-plaid-dress-boots-1235795383/" }],
     },
     {
@@ -5987,6 +6314,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Home for the Broncos game on Nov. 10, then back again to watch Kansas City beat the Raiders on Nov. 29.",
       body: ["Home for the Broncos game on Nov. 10, then back again to watch Kansas City beat the Raiders on Nov. 29."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/11/taylor-swift-2024-chiefs-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Jamie Squire/Getty Images", kind: "primary" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-chiefs-broncos-nfl-game-1235824990/" }],
     },
     {
@@ -5997,6 +6325,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "BC Place, 149 shows and 21 months after Glendale — more than 50,000 fans for the last night of the tour.",
       body: ["BC Place, 149 shows and 21 months after Glendale — more than 50,000 fans for the last night of the tour."],
       tags: ["Tour"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-vancouver-fearless-dec-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Kevin Winter/TAS24/Getty Images", kind: "primary" }],
       sources: [{ name: "NBC News", url: "https://www.nbcnews.com/pop-culture/pop-culture-news/end-era-taylor-swifts-eras-tour-coming-close-vancouver-rcna183279" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-eras-tour-ends-message-photos-1235853564/" }],
     },
     {
@@ -6007,6 +6336,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A final tally of $2,077,618,725 across 10.17 million tickets — roughly double the previous all-time tour record.",
       body: ["A final tally of $2,077,618,725 across 10.17 million tickets — roughly double the previous all-time tour record."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Emma McIntyre/TAS24/Getty Images", kind: "primary" }],
       sources: [{ name: "Forbes", url: "https://www.forbes.com/sites/maryroeloffs/2024/12/09/taylor-swifts-eras-tour-grossed-2-billion-double-any-other-tour-in-history-report-says/" }, { name: "Variety", url: "https://variety.com/2024/music/news/taylor-swift-2-billion-eras-tour-gross-1236243254/" }, { name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-eras-tour-earnings-2-billion-sales-1235847513/" }],
     },
     {
@@ -6027,6 +6357,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Back at her second straight Super Bowl to support Travis — this time drawing boos from a pro-Eagles crowd as Kansas City lost, 40–22.",
       body: ["Back at her second straight Super Bowl to support Travis — this time drawing boos from a pro-Eagles crowd as Kansas City lost, 40–22."],
       tags: ["Lore"],
+      images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2025/02/10/730950cd-100f-4bdf-9500-9ddfae69e3a2/thumbnail/620x413/17ecc99a76627497275a0395c0802f6e/gettyimages-2198604289.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "CBS News Philadelphia", url: "https://www.cbsnews.com/philadelphia/news/taylor-swift-philadelphia-eagles-fans-boo-super-bowl/" }],
     },
     {
@@ -6037,6 +6368,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A Saint Laurent double-breasted blazer, crystal denim shorts, and white Paris Texas boots — red-and-white, coordinated for game day.",
       body: ["A Saint Laurent double-breasted blazer, crystal denim shorts, and white Paris Texas boots — red-and-white, coordinated for game day."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/P5J7PGVYFxPyyTdzTVpya3.jpg", credit: "Getty Images", kind: "primary" }, { url: "https://cdn.mos.cms.futurecdn.net/cpMbV3jceZ6rfU2apDrhta.jpg", credit: "Getty Images", kind: "archival" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-2025-super-bowl-outfit/" }],
     },
     {
@@ -6047,6 +6379,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Travis proposed in the backyard of his Kansas City home; the two announced their engagement together on Instagram.",
       body: ["Travis proposed in the backyard of his Kansas City home; the two announced their engagement together on Instagram."],
       tags: ["Relationship"],
+      images: [{ url: "https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg", credit: "ABC News", kind: "primary" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-travis-kelce-engaged/" }, { name: "Newsweek", url: "https://www.newsweek.com/entertainment/taylor-swift-wedding-buzz-timeline-of-her-relationship-with-travis-kelce-12156460" }],
     },
     {
@@ -6057,6 +6390,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom Old Mine cushion-cut diamond by NYC goldsmith Kindred Lubeck — Taylor had shown Travis the designer's work over a year before he proposed.",
       body: ["A custom Old Mine cushion-cut diamond by NYC goldsmith Kindred Lubeck — Taylor had shown Travis the designer's work over a year before he proposed."],
       tags: ["Fashion"],
+      images: [{ url: "https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg", credit: "ABC News", kind: "primary" }],
       sources: [{ name: "Complex", url: "https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand" }, { name: "ABC News", url: "https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-engagement-ring/story?id=124993837" }],
     },
     {
@@ -6067,6 +6401,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A sharp turn from Midnights' glitz — greige, \"color-leached\" tones, off-the-shoulder slip tops from The Row and Saint Laurent, in bedroom-set portraits shot by Beth Garrabrant.",
       body: ["Stylists traced the era's Victorian-gothic, corseted-mourning-gown throughline across red carpets and the tour, mixing high couture (Schiaparelli, Alaïa, Gabriela Hearst) with accessible brands like Free People and Reformation."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/iLujwgsEwXSAYA4yN98NKS.jpg", credit: "Beth Garrabrant", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-tortured-poets-department-fashion-explained/" }],
     },
     {
@@ -6077,6 +6412,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The black Victorian-gothic ensemble from the music video — gown by Elena Velez, top by UNTTLD — later went on display on the Eras Tour's Songbook Trail.",
       body: ["The black Victorian-gothic ensemble from the music video — gown by Elena Velez, top by UNTTLD — later went on display on the Eras Tour's Songbook Trail."],
       tags: ["Fashion"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fortnight_(song)" }],
     },
     {
@@ -6087,6 +6423,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom Christian Dior look from the Resort 2025 collection — plaid bustier, open cape-like skirt, thigh-high Stuart Weitzman boots, and lace-up gloves. Fans called it \"Reputation\"-coded.",
       body: ["Styled by Joseph Cassell Falconer, with a plaid choker matching the corset print, a classic blow-out, and heavy black eyeliner with a lighter red lip."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg", credit: "Getty Images", kind: "primary" }, { url: "https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd.jpg", credit: "Getty Images", kind: "archival" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/" }, { name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-christian-dior-outfit-mtv-vmas-1236609528/" }],
     },
     {
@@ -6097,6 +6434,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A one-shoulder sequined red minidress with a Lorraine Schwartz thigh chain spelling \"T\" — for Travis — plus Casadei heels.",
       body: ["A one-shoulder sequined red minidress with a Lorraine Schwartz thigh chain spelling \"T\" — for Travis — plus Casadei heels."],
       tags: ["Fashion"],
+      images: [{ url: "https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1412664/grammys-2025-taylor-swift-red-carpet-fashion-moment" }, { name: "CBS News Los Angeles", url: "https://www.cbsnews.com/losangeles/news/grammys-red-carpet-2025-highlights/" }],
     },
     {
@@ -6107,6 +6445,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.",
       body: ["Travis coordinated in a Ralph Lauren black polo and khaki shorts for the same garden shoot."],
       tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg", credit: "Getty Images", kind: "primary" }, { url: "https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg", credit: "Getty Images", kind: "archival" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/" }],
     },
     {
@@ -6117,6 +6456,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom off-white Schiaparelli Haute Couture gown by Daniel Roseberry — draped silk crepe with corset-style lacing at the back and a thigh-high slit — worn on the 2024 Grammys red carpet hours before revealing the new album.",
       body: ["Adapted from a look in Schiaparelli's Fall 2023 couture collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony. Swift paired it with opera-length gloves, black peep-toe pumps, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face."],
       tags: ["Fashion"],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg", credit: "Matt Winkelmeyer/Getty Images for The Recording Academy", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-2024-grammys-dress-schiaparelli-1235815411/" }],
     },
     {
@@ -6127,6 +6467,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The video's opening scene puts her in Australian designer Toni Matičevski's \"Candescence\" gown from his Spring/Summer 2024 collection — crisp pearl-white cotton gathered at the hip into a high-low, sculptural silhouette.",
       body: ["The gown is one of several distinct costume changes across the \"Fortnight\" video's different vignettes — a separate look from the black Elena Velez/Unttld gothic ensemble already covered elsewhere in this era, and from the Celine-designed piece in the video's rain-soaked finale."],
       tags: ["Fashion"],
+      images: [{ url: "https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-toni-maticevski-gown-fortnight-music-video-1236321522/" }],
     },
     {
@@ -6137,6 +6478,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Rehearsal-style outfits built from independent activewear labels: a plum Popflex Active skort, a lavender Popflex tulle skirt with a matching corset bra, and a scalloped tennis skirt from Kansas-based WISKII Active, paired with custom Christian Louboutin ankle boots.",
       body: ["The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour's stage costuming."],
       tags: ["Fashion"],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2024/8/21/4f10d125/london-england-august-15.jpg?w=248&h=372&fit=crop&crop=focalpoint&dpr=2&fp-x=0.5303&fp-y=0.2761", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "The Zoe Report", url: "https://www.thezoereport.com/culture/taylor-swift-i-can-do-it-with-a-broken-heart-music-video-outfits" }],
     },
     {
@@ -6147,6 +6489,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sat between her parents Scott and Andrea for the Jan. 18 divisional-round game at Arrowhead, with Caitlin Clark — personally invited by Travis — a row back and Ed Kelce also in the suite.",
       body: ["Kansas City beat Houston 23-14 to advance to the AFC Championship. It was Clark's first Chiefs game of the season, and this time the invitation came directly from Travis Kelce — Clark had previously joined Swift at a home game after Swift invited her during the Eras Tour's Indianapolis stop."],
       tags: ["Lore"],
+      images: [{ url: "https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg", credit: "Jamie Squire/Getty Images", kind: "primary" }],
       sources: [{ name: "Sports Illustrated", url: "https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift" }],
     },
     {
@@ -6157,6 +6500,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Watched the Jan. 26 AFC Championship win over Buffalo from a VIP suite, then shared a kiss with Travis in the falling confetti with his mom Donna Kelce right there for it.",
       body: ["Kansas City beat Buffalo 32-29 to reach a second straight Super Bowl; Kelce had two catches for 19 yards in the win."],
       tags: ["Lore"],
+      images: [{ url: "https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg", credit: "AP", kind: "primary" }, { url: "https://i.abcnewsfe.com/a/746ae3a7-ce19-4c9c-a703-bc8dfc6d5f42/taylor-swift1-gty-ml-250127_1737980240663_hpEmbed_17x16.jpg", credit: "Getty Images", kind: "archival" }],
       sources: [{ name: "ABC News", url: "https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249" }],
     },
     {
@@ -6167,6 +6511,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Stepped out for a swanky June 29 dinner in New York City in a pink mini dress with gold buttons and beige heels, Travis alongside her in a plain white top and trousers.",
       body: ["Stepped out for a swanky June 29 dinner in New York City in a pink mini dress with gold buttons and beige heels, Travis alongside her in a plain white top and trousers."],
       tags: ["Lore"],
+      images: [{ url: "https://imagez.tmz.com/image/bd/4by3/2025/06/29/bdcd54eaf03b410c93442064867db68e_md.jpg", credit: "TMZ", kind: "primary" }, { url: "https://imagez.tmz.com/image/33/4by3/2025/06/29/335496e8dfee4b8a934279081aac5d24_md.jpg", credit: "TMZ", kind: "archival" }],
       sources: [{ name: "TMZ", url: "https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/" }],
     },
     {

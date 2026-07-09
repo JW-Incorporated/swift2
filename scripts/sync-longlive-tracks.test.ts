@@ -50,9 +50,9 @@ describe('normalizeTrack', () => {
   });
 
   it('coerces missing/invalid track numbers to null', () => {
-    // normalizeTrack drops any track with no real source, so this fixture
-    // needs one — otherwise it returns null and never exercises trackNumber.
-    const base = { trackTitle: 'Song', note: 'A note.', sourceUrl: 'https://example.com/song' };
+    // sourceUrl matters here: normalizeTrack drops unsourced tracks outright
+    // (codex finding on T1), which would make every assertion vacuous.
+    const base = { trackTitle: 'Song', note: 'A note.', sourceUrl: 'https://example.com/a' };
     expect(normalizeTrack({ ...base, trackNumber: undefined })?.trackNumber).toBeNull();
     expect(normalizeTrack({ ...base, trackNumber: 0 })?.trackNumber).toBeNull();
     expect(normalizeTrack({ ...base, trackNumber: 2.5 })?.trackNumber).toBeNull();

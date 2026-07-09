@@ -12,7 +12,15 @@ import {
 } from 'react';
 import { CURRENT_ERA_ID, getEra } from './eras';
 import { THREADS } from './lenses';
-import type { EraId, LensId } from './types';
+import {
+  emptyProgress,
+  readStoredProgress,
+  withAdded,
+  withToggled,
+  writeStoredProgress,
+  type Progress,
+} from './progress';
+import type { EraId, LensId, MotifId } from './types';
 
 export type AppMode = 'era' | 'threads';
 
@@ -37,10 +45,25 @@ interface AppState {
   openItemId: string | null;
   /** Era whose album track guide overlay is open, or null. */
   trackGuideEraId: EraId | null;
+  /** Era whose theories/easter-eggs overlay is open, or null. */
+  theoryGuideEraId: EraId | null;
   /** Whether the era selector overlay is open. */
   selectorOpen: boolean;
+  /** Whether the search overlay is open. */
+  searchOpen: boolean;
+  /**
+   * Glossary drawer state: null = closed; open with an optional entry id to
+   * scroll to / highlight (set when arriving from a search result).
+   */
+  glossary: { entryId: string | null } | null;
   /** Whether the share sheet is open, and for what target. */
   share: ShareTarget | null;
+  /**
+   * Pending Clue Web trail focus, set by cross-links (openClueWebTrail) so the
+   * Clue Web opens directly on that motif's trail instead of its home screen.
+   * Consumed (cleared) by ClueWeb once it lands there.
+   */
+  clueWebTrail: MotifId | null;
 }
 
 export type ShareTarget =
@@ -74,6 +97,13 @@ interface AppActions {
   clearLens: () => void;
   /** Pivot from an era into a thread (switches to threads mode). */
   openThread: (id: LensId) => void;
+  /**
+   * Pivot from anywhere into the Clue Web, landing directly on one motif's
+   * trail (a cross-link jump — e.g. a moment's "follow this thread").
+   */
+  openClueWebTrail: (motif: MotifId) => void;
+  /** Consume the pending trail focus (called by ClueWeb after landing). */
+  clearClueWebTrail: () => void;
   /** Pivot from a thread back into an era (switches to era mode + jumps). */
   openEra: (id: EraId) => void;
   /** Open the crossings overlay for a pair of threads. */
@@ -85,6 +115,9 @@ interface AppActions {
   /** Open the album track guide overlay for an era. */
   openTrackGuide: (id: EraId) => void;
   closeTrackGuide: () => void;
+  /** Open the theories/easter-eggs overlay for an era. */
+  openTheoryGuide: (id: EraId) => void;
+  closeTheoryGuide: () => void;
   /** Save the era-stream position when leaving era mode (for later restore). */
   saveEraScroll: (snap: EraScrollSnapshot) => void;
   /** Read the saved era-stream position without clearing it. */
@@ -92,12 +125,102 @@ interface AppActions {
   /** Invalidate any saved position — explicit jumps land at the top instead. */
   clearEraScroll: () => void;
   setSelectorOpen: (open: boolean) => void;
+  /** Open/close the search overlay. */
+  setSearchOpen: (open: boolean) => void;
+  /** Open the glossary drawer, optionally focused on one entry. */
+  openGlossary: (entryId?: string) => void;
+  closeGlossary: () => void;
   openShare: (t: ShareTarget) => void;
   closeShare: () => void;
 }
 
+/**
+ * Exploration progress (visited moments, seen eggs/trails, favorites) —
+ * persisted to localStorage, in its own context pair so the low-frequency
+ * "mark seen" writes don't re-render everything hanging off AppState.
+ */
+export interface ProgressState {
+  progress: Progress;
+  /**
+   * False on the server and on the first client paint; flips true once the
+   * post-mount localStorage read lands. Progress-driven UI that should not
+   * "pop" (e.g. a completion card) can gate on it — everything renders the
+   * empty-progress state first, so server and client markup always match.
+   */
+  hydrated: boolean;
+}
+
+export interface ProgressActions {
+  /** Record that a moment's detail view was opened. Idempotent. */
+  markMomentVisited: (id: string) => void;
+  /** Record Clue Web egg nodes as read. Idempotent. */
+  markEggsSeen: (ids: readonly string[]) => void;
+  /** Record that a motif's trail view was opened. Idempotent. */
+  markTrailSeen: (motif: MotifId) => void;
+  /** Heart / un-heart a moment. */
+  toggleFavorite: (id: string) => void;
+}
+
 const StateCtx = createContext<AppState | null>(null);
 const ActionsCtx = createContext<AppActions | null>(null);
+const ProgressStateCtx = createContext<ProgressState | null>(null);
+const ProgressActionsCtx = createContext<ProgressActions | null>(null);
+
+/**
+ * SSR-safe persistence, following the TimelineScrubber hint-flag pattern:
+ * first render (server AND client) is always empty progress, the real blob is
+ * read in a mount effect, and every subsequent change is written back. If
+ * localStorage is unavailable (private mode), reads/writes silently no-op and
+ * the session simply isn't remembered.
+ */
+function ProgressProvider({ children }: { children: ReactNode }) {
+  const [progress, setProgress] = useState<Progress>(emptyProgress);
+  const [hydrated, setHydrated] = useState(false);
+
+  // Hydrate after mount — never during render, so there is no SSR read and no
+  // hydration mismatch. StrictMode's double-invoke just re-reads the same blob.
+  useEffect(() => {
+    setProgress(readStoredProgress());
+    setHydrated(true);
+  }, []);
+
+  // Write on change — but only after hydration, so the initial empty state
+  // can never clobber a returning visitor's stored progress.
+  useEffect(() => {
+    if (hydrated) writeStoredProgress(progress);
+  }, [progress, hydrated]);
+
+  const actions = useMemo<ProgressActions>(
+    () => ({
+      markMomentVisited: (id) =>
+        setProgress((p) => {
+          const moments = withAdded(p.moments, [id]);
+          return moments === p.moments ? p : { ...p, moments };
+        }),
+      markEggsSeen: (ids) =>
+        setProgress((p) => {
+          const eggs = withAdded(p.eggs, ids);
+          return eggs === p.eggs ? p : { ...p, eggs };
+        }),
+      markTrailSeen: (motif) =>
+        setProgress((p) => {
+          const trails = withAdded(p.trails, [motif]);
+          return trails === p.trails ? p : { ...p, trails };
+        }),
+      toggleFavorite: (id) =>
+        setProgress((p) => ({ ...p, favorites: withToggled(p.favorites, id) })),
+    }),
+    [],
+  );
+
+  const state = useMemo<ProgressState>(() => ({ progress, hydrated }), [progress, hydrated]);
+
+  return (
+    <ProgressStateCtx.Provider value={state}>
+      <ProgressActionsCtx.Provider value={actions}>{children}</ProgressActionsCtx.Provider>
+    </ProgressStateCtx.Provider>
+  );
+}
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [mode, setModeRaw] = useState<AppMode>('era');
@@ -107,8 +230,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [crossing, setCrossing] = useState<{ a: LensId; b: LensId } | null>(null);
   const [openItemId, setOpenItemId] = useState<string | null>(null);
   const [trackGuideEraId, setTrackGuideEraId] = useState<EraId | null>(null);
+  const [theoryGuideEraId, setTheoryGuideEraId] = useState<EraId | null>(null);
   const [selectorOpen, setSelectorOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [glossary, setGlossary] = useState<{ entryId: string | null } | null>(null);
   const [share, setShare] = useState<ShareTarget | null>(null);
+  const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
 
   // Era-stream position to restore on the next era-mode entry. Held in a ref so
   // saving/reading it never triggers a render (the stream reads it imperatively
@@ -154,6 +281,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSelectorOpen(false);
     setOpenItemId(null);
     setTrackGuideEraId(null);
+    setTheoryGuideEraId(null);
   }, []);
 
   const openEra = useCallback(
@@ -168,8 +296,19 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSelectorOpen(false);
       setOpenItemId(null);
       setTrackGuideEraId(null);
+      setTheoryGuideEraId(null);
     },
     [clearEraScroll],
+  );
+
+  // The Clue Web lives inside the 'easter-eggs' thread; a cross-link jump is
+  // openThread plus a pending trail focus that ClueWeb consumes on landing.
+  const openClueWebTrail = useCallback(
+    (motif: MotifId) => {
+      setClueWebTrail(motif);
+      openThread('easter-eggs');
+    },
+    [openThread],
   );
 
   const openCrossing = useCallback((a: LensId, b: LensId) => {
@@ -189,6 +328,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setSelectorOpen(false);
     setOpenItemId(null);
     setTrackGuideEraId(null);
+    setTheoryGuideEraId(null);
+    setSearchOpen(false);
+    setGlossary(null);
     setShare(null);
   }, [clearEraScroll]);
 
@@ -221,16 +363,31 @@ export function AppProvider({ children }: { children: ReactNode }) {
       clearLens: () => setLensId(null),
       openThread,
       openEra,
+      openClueWebTrail,
+      clearClueWebTrail: () => setClueWebTrail(null),
       openCrossing,
       closeCrossing: () => setCrossing(null),
       openItem: setOpenItemId,
       closeItem: () => setOpenItemId(null),
-      openTrackGuide: (id: EraId) => setTrackGuideEraId(getEra(id).id),
+      // The two era-hero overlays are mutually exclusive — opening one always
+      // closes the other so they can never stack.
+      openTrackGuide: (id: EraId) => {
+        setTheoryGuideEraId(null);
+        setTrackGuideEraId(getEra(id).id);
+      },
       closeTrackGuide: () => setTrackGuideEraId(null),
+      openTheoryGuide: (id: EraId) => {
+        setTrackGuideEraId(null);
+        setTheoryGuideEraId(getEra(id).id);
+      },
+      closeTheoryGuide: () => setTheoryGuideEraId(null),
       saveEraScroll,
       getEraScroll,
       clearEraScroll,
       setSelectorOpen,
+      setSearchOpen,
+      openGlossary: (entryId?: string) => setGlossary({ entryId: entryId ?? null }),
+      closeGlossary: () => setGlossary(null),
       openShare: setShare,
       closeShare: () => setShare(null),
     }),
@@ -241,6 +398,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       goHome,
       openThread,
       openEra,
+      openClueWebTrail,
       openCrossing,
       saveEraScroll,
       getEraScroll,
@@ -249,13 +407,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const state = useMemo<AppState>(
-    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, selectorOpen, share }),
-    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, selectorOpen, share],
+    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail }),
+    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail],
   );
 
   return (
     <StateCtx.Provider value={state}>
-      <ActionsCtx.Provider value={actions}>{children}</ActionsCtx.Provider>
+      <ActionsCtx.Provider value={actions}>
+        <ProgressProvider>{children}</ProgressProvider>
+      </ActionsCtx.Provider>
     </StateCtx.Provider>
   );
 }
@@ -269,5 +429,17 @@ export function useAppState(): AppState {
 export function useAppActions(): AppActions {
   const ctx = useContext(ActionsCtx);
   if (!ctx) throw new Error('useAppActions must be used within AppProvider');
+  return ctx;
+}
+
+export function useProgress(): ProgressState {
+  const ctx = useContext(ProgressStateCtx);
+  if (!ctx) throw new Error('useProgress must be used within AppProvider');
+  return ctx;
+}
+
+export function useProgressActions(): ProgressActions {
+  const ctx = useContext(ProgressActionsCtx);
+  if (!ctx) throw new Error('useProgressActions must be used within AppProvider');
   return ctx;
 }

@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Hash,
   Type,
@@ -15,6 +15,7 @@ import {
   Sparkles,
   Network,
   Route,
+  Check,
 } from 'lucide-react';
 import { getEra } from '@/lib/longlive/eras';
 import {
@@ -26,6 +27,13 @@ import {
   motifEraIds,
   motifOf,
 } from '@/lib/longlive/lenses';
+import { clueWebProgress, trailProgress } from '@/lib/longlive/progress';
+import {
+  useAppActions,
+  useAppState,
+  useProgress,
+  useProgressActions,
+} from '@/lib/longlive/store';
 import type { EggNode, Motif, MotifId } from '@/lib/longlive/types';
 
 /** Motif icon strings (from the data) resolved to lucide components. */
@@ -67,8 +75,23 @@ type View =
  * as an explicit, opt-in "explore" mode rather than the confusing front door.
  */
 export function ClueWeb() {
-  const [view, setView] = useState<View>({ kind: 'home' });
+  // A cross-link (a moment's "follow this thread") may have queued a trail to
+  // land on; start there instead of home. Initialized from state so the first
+  // paint is already the trail (no home-screen flash).
+  const { clueWebTrail } = useAppState();
+  const { clearClueWebTrail } = useAppActions();
+  const [view, setView] = useState<View>(() =>
+    clueWebTrail ? { kind: 'trail', motif: clueWebTrail } : { kind: 'home' },
+  );
   const topRef = useRef<HTMLDivElement>(null);
+
+  // Consume the pending focus once landed — and honor a new one if a cross-
+  // link fires while the Clue Web is already mounted.
+  useEffect(() => {
+    if (!clueWebTrail) return;
+    setView({ kind: 'trail', motif: clueWebTrail });
+    clearClueWebTrail();
+  }, [clueWebTrail, clearClueWebTrail]);
 
   const go = (next: View) => {
     setView(next);
@@ -113,12 +136,15 @@ function ClueHome({
   onOpenTrail: (m: MotifId) => void;
   onOpenMap: () => void;
 }) {
+  // Real exploration progress (localStorage-backed): empty on first paint,
+  // then fills in after the post-mount hydrate — never an SSR mismatch.
+  const { progress, hydrated } = useProgress();
   const stats = useMemo(() => {
     const clues = EGG_NODES.filter((n) => n.kind === 'clue').length;
-    const payoffs = EGG_NODES.filter((n) => n.kind === 'payoff').length;
     const eras = new Set(EGG_NODES.map((n) => n.eraId)).size;
-    return { clues, payoffs, eras, trails: MOTIFS.length };
-  }, []);
+    return { clues, eras, ...clueWebProgress(progress) };
+  }, [progress]);
+  const returning = hydrated && stats.eggsSeen > 0;
 
   return (
     <div>
@@ -141,11 +167,26 @@ function ClueHome({
         </div>
       </section>
 
-      {/* Stats */}
+      {/* Returning-visitor progress line — only once real progress exists. */}
+      {returning && (
+        <p className="mt-4 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          Welcome back — you&apos;ve spotted{' '}
+          <strong className="text-[color:var(--era-accent)]">
+            {stats.eggsSeen} of {stats.eggsTotal}
+          </strong>{' '}
+          eggs across{' '}
+          <strong className="text-[color:var(--era-accent)]">
+            {stats.trailsExplored} of {stats.trailsTotal}
+          </strong>{' '}
+          trails.
+        </p>
+      )}
+
+      {/* Stats — the explored counts are the visitor's own progress. */}
       <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+        <MiniStat value={`${stats.eggsSeen}/${stats.eggsTotal}`} label="Eggs explored" />
+        <MiniStat value={`${stats.trailsExplored}/${stats.trailsTotal}`} label="Trails explored" />
         <MiniStat value={String(stats.clues)} label="Clues planted" />
-        <MiniStat value={String(stats.payoffs)} label="Payoffs" />
-        <MiniStat value={String(stats.trails)} label="Trails" />
         <MiniStat value={String(stats.eras)} label="Eras spanned" />
       </div>
 
@@ -225,6 +266,9 @@ function TrailCard({ motif, onOpen }: { motif: Motif; onOpen: () => void }) {
   const Icon = motifIcon(motif);
   const nodes = motifNodes(motif.id);
   const eraIds = motifEraIds(motif.id);
+  // Per-trail visited progress; empty until the post-mount hydrate.
+  const { progress } = useProgress();
+  const tp = trailProgress(progress.eggs, motif.id);
   return (
     <button
       onClick={onOpen}
@@ -240,6 +284,18 @@ function TrailCard({ motif, onOpen }: { motif: Motif; onOpen: () => void }) {
           </h3>
           <span className="text-xs text-[color:var(--era-ink-soft)]">
             {nodes.length} clues · {eraIds.length} eras
+            {tp.complete ? (
+              <span className="ml-1.5 inline-flex items-center gap-0.5 font-medium text-[color:var(--era-accent)]">
+                <Check className="h-3 w-3" aria-hidden />
+                Decoded
+              </span>
+            ) : (
+              tp.seen > 0 && (
+                <span className="ml-1.5 text-[color:var(--era-accent)]">
+                  · {tp.seen}/{tp.total} seen
+                </span>
+              )
+            )}
           </span>
         </div>
       </div>
@@ -285,6 +341,19 @@ function TrailView({
   const Icon = motifIcon(motif);
   const nodes = motifNodes(motifId);
 
+  // Opening a trail records it as explored (drives the home "X/Y" counts).
+  const { progress, hydrated } = useProgress();
+  const { markTrailSeen } = useProgressActions();
+  useEffect(() => {
+    markTrailSeen(motifId);
+  }, [motifId, markTrailSeen]);
+
+  // The end-state: once every node on this trail has been read (this visit or
+  // a previous one), a completion card closes out the spine. Gated on hydrated
+  // so it can only appear post-mount — a stable first paint, no SSR mismatch.
+  const tp = trailProgress(progress.eggs, motifId);
+  const complete = hydrated && tp.complete;
+
   return (
     <div>
       <button
@@ -321,6 +390,8 @@ function TrailView({
         ))}
       </div>
 
+      {complete && <TrailCompleteCard motif={motif} nodes={nodes} onBack={onBack} />}
+
       <button
         onClick={() => onOpenMap(motifId)}
         className="era-card group mt-6 flex w-full items-center justify-between gap-3 rounded-2xl border p-4 text-left transition hover:border-[color:var(--era-accent)]"
@@ -331,6 +402,76 @@ function TrailView({
         </span>
         <ArrowRight className="h-4 w-4 shrink-0 text-[color:var(--era-accent)] transition-transform group-hover:translate-x-0.5" />
       </button>
+    </div>
+  );
+}
+
+/**
+ * The trail's end-state: shown once every node has been read. Themed to the
+ * era the trail resolves in (the payoff end), with the full era span as dots —
+ * a quiet payoff, not a trophy screen.
+ */
+function TrailCompleteCard({
+  motif,
+  nodes,
+  onBack,
+}: {
+  motif: Motif;
+  nodes: EggNode[];
+  onBack: () => void;
+}) {
+  const finalEra = getEra(nodes[nodes.length - 1].eraId);
+  const eraIds = motifEraIds(motif.id);
+  return (
+    <div
+      className="clue-reveal era-card relative mt-6 overflow-hidden rounded-2xl border p-6 text-center"
+      style={{ borderColor: finalEra.theme.accent }}
+    >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0"
+        style={{
+          background: `linear-gradient(to bottom, color-mix(in srgb, ${finalEra.theme.accent} 12%, transparent), transparent 65%)`,
+        }}
+      />
+      <div className="relative">
+        <span
+          className="inline-flex h-12 w-12 items-center justify-center rounded-full"
+          style={{ backgroundColor: finalEra.theme.accent, color: finalEra.theme.bg }}
+        >
+          <Check className="h-6 w-6" />
+        </span>
+        <div className="mt-4 text-[11px] font-medium uppercase tracking-[0.3em] text-[color:var(--era-ink-soft)]">
+          Trail decoded
+        </div>
+        <h3 className="mt-2 font-[family-name:var(--era-font)] text-2xl font-semibold">
+          You&apos;ve followed “{motif.label}” to the end
+        </h3>
+        <p className="mx-auto mt-2 max-w-md text-pretty text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          Every clue on this trail — all {nodes.length}, from {getEra(nodes[0].eraId).shortName} to{' '}
+          {finalEra.shortName} — is now part of your decode.
+        </p>
+        <div className="mt-4 flex items-center justify-center gap-1.5">
+          {eraIds.map((id) => {
+            const era = getEra(id);
+            return (
+              <span
+                key={id}
+                className="h-2.5 w-2.5 rounded-full"
+                style={{ backgroundColor: era.theme.accent }}
+                title={era.shortName}
+              />
+            );
+          })}
+        </div>
+        <button
+          onClick={onBack}
+          className="era-btn-ghost mt-5 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium"
+        >
+          Pick your next trail
+          <ArrowRight className="h-4 w-4" />
+        </button>
+      </div>
     </div>
   );
 }
@@ -347,8 +488,29 @@ function NodeRow({
   const isPayoff = node.kind === 'payoff';
   const links = linksFor(node.id);
 
+  // Reading a node marks it seen: once the card is meaningfully in view
+  // (~60%), record it and disconnect. Marking is idempotent, so re-renders
+  // and StrictMode double-mounts are harmless.
+  const { markEggsSeen } = useProgressActions();
+  const rowRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const el = rowRef.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          markEggsSeen([node.id]);
+          io.disconnect();
+        }
+      },
+      { threshold: 0.6 },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, [node.id, markEggsSeen]);
+
   return (
-    <div className="relative">
+    <div className="relative" ref={rowRef}>
       <span
         aria-hidden
         className="absolute -left-6 top-2 h-3.5 w-3.5 rounded-full border-2"
@@ -445,6 +607,13 @@ function ConstellationView({
   const [active, setActive] = useState<string | null>(initialNodeId);
   const [hovered, setHovered] = useState<string | null>(null);
   const [filter, setFilter] = useState<MotifId | null>(initialMotif);
+
+  // Revealing a node's detail panel counts as reading it. Effect (not the
+  // click handler) so a cross-link's initialNodeId is recorded too.
+  const { markEggsSeen } = useProgressActions();
+  useEffect(() => {
+    if (active) markEggsSeen([active]);
+  }, [active, markEggsSeen]);
 
   const nodeById = (id: string) => EGG_NODES.find((n) => n.id === id)!;
   const activeNode = active ? nodeById(active) : null;
