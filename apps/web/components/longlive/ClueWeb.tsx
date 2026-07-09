@@ -1,7 +1,7 @@
 'use client';
 
 import type React from 'react';
-import { useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Hash,
   Type,
@@ -26,6 +26,7 @@ import {
   motifEraIds,
   motifOf,
 } from '@/lib/longlive/lenses';
+import { useAppActions, useAppState } from '@/lib/longlive/store';
 import type { EggNode, Motif, MotifId } from '@/lib/longlive/types';
 
 /** Motif icon strings (from the data) resolved to lucide components. */
@@ -67,8 +68,23 @@ type View =
  * as an explicit, opt-in "explore" mode rather than the confusing front door.
  */
 export function ClueWeb() {
-  const [view, setView] = useState<View>({ kind: 'home' });
+  // A cross-link (a moment's "follow this thread") may have queued a trail to
+  // land on; start there instead of home. Initialized from state so the first
+  // paint is already the trail (no home-screen flash).
+  const { clueWebTrail } = useAppState();
+  const { clearClueWebTrail } = useAppActions();
+  const [view, setView] = useState<View>(() =>
+    clueWebTrail ? { kind: 'trail', motif: clueWebTrail } : { kind: 'home' },
+  );
   const topRef = useRef<HTMLDivElement>(null);
+
+  // Consume the pending focus once landed — and honor a new one if a cross-
+  // link fires while the Clue Web is already mounted.
+  useEffect(() => {
+    if (!clueWebTrail) return;
+    setView({ kind: 'trail', motif: clueWebTrail });
+    clearClueWebTrail();
+  }, [clueWebTrail, clearClueWebTrail]);
 
   const go = (next: View) => {
     setView(next);

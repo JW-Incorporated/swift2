@@ -12,7 +12,7 @@ import {
 } from 'react';
 import { CURRENT_ERA_ID, getEra } from './eras';
 import { THREADS } from './lenses';
-import type { EraId, LensId } from './types';
+import type { EraId, LensId, MotifId } from './types';
 
 export type AppMode = 'era' | 'threads';
 
@@ -43,6 +43,12 @@ interface AppState {
   selectorOpen: boolean;
   /** Whether the share sheet is open, and for what target. */
   share: ShareTarget | null;
+  /**
+   * Pending Clue Web trail focus, set by cross-links (openClueWebTrail) so the
+   * Clue Web opens directly on that motif's trail instead of its home screen.
+   * Consumed (cleared) by ClueWeb once it lands there.
+   */
+  clueWebTrail: MotifId | null;
 }
 
 export type ShareTarget =
@@ -76,6 +82,13 @@ interface AppActions {
   clearLens: () => void;
   /** Pivot from an era into a thread (switches to threads mode). */
   openThread: (id: LensId) => void;
+  /**
+   * Pivot from anywhere into the Clue Web, landing directly on one motif's
+   * trail (a cross-link jump — e.g. a moment's "follow this thread").
+   */
+  openClueWebTrail: (motif: MotifId) => void;
+  /** Consume the pending trail focus (called by ClueWeb after landing). */
+  clearClueWebTrail: () => void;
   /** Pivot from a thread back into an era (switches to era mode + jumps). */
   openEra: (id: EraId) => void;
   /** Open the crossings overlay for a pair of threads. */
@@ -115,6 +128,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [theoryGuideEraId, setTheoryGuideEraId] = useState<EraId | null>(null);
   const [selectorOpen, setSelectorOpen] = useState(false);
   const [share, setShare] = useState<ShareTarget | null>(null);
+  const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
 
   // Era-stream position to restore on the next era-mode entry. Held in a ref so
   // saving/reading it never triggers a render (the stream reads it imperatively
@@ -180,6 +194,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [clearEraScroll],
   );
 
+  // The Clue Web lives inside the 'easter-eggs' thread; a cross-link jump is
+  // openThread plus a pending trail focus that ClueWeb consumes on landing.
+  const openClueWebTrail = useCallback(
+    (motif: MotifId) => {
+      setClueWebTrail(motif);
+      openThread('easter-eggs');
+    },
+    [openThread],
+  );
+
   const openCrossing = useCallback((a: LensId, b: LensId) => {
     setModeRaw('threads');
     setLensId(null);
@@ -230,6 +254,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
       clearLens: () => setLensId(null),
       openThread,
       openEra,
+      openClueWebTrail,
+      clearClueWebTrail: () => setClueWebTrail(null),
       openCrossing,
       closeCrossing: () => setCrossing(null),
       openItem: setOpenItemId,
@@ -260,6 +286,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       goHome,
       openThread,
       openEra,
+      openClueWebTrail,
       openCrossing,
       saveEraScroll,
       getEraScroll,
@@ -268,8 +295,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const state = useMemo<AppState>(
-    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, share }),
-    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, share],
+    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, share, clueWebTrail }),
+    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, share, clueWebTrail],
   );
 
   return (
