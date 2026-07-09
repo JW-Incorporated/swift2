@@ -803,5 +803,583 @@ export default {
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Taylor_Swift_-_Out_of_the_Woods.png/250px-Taylor_Swift_-_Out_of_the_Woods.png', credit: 'Big Machine Records' }],
       },
     },
+
+    // --- Deep timeline fill (2026-07-08): release/tour depth for an era that
+    // had 0 release items, plus the rollout, fan-culture, and business moments
+    // the era is famous for. New items carry the audit's additive provenance
+    // fields (slug + publisher/source_type/accessed_at/reliability_score
+    // alongside legacy {outlet,url}), same convention as
+    // the-life-of-a-showgirl.mjs. Every claim verified against its cited
+    // source via search on 2026-07-08; no fabrication. Photos deliberately
+    // omitted where no already-verified image URL exists.
+    {
+      slug: '1989-announced-yahoo-livestream',
+      year: 2014,
+      month: 8,
+      category: 'release',
+      title: 'A Yahoo livestream announces 1989 — her "first documented, official pop album"',
+      snippet:
+        'August 18, 2014: a worldwide livestream reveals the album title, the October 27 date, the Polaroid cover — and drops "Shake It Off" plus its video the same day.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/1989_(album)',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png',
+      moment: {
+        context:
+          'On the livestream she declared the record her first documented, official pop album, formally closing the country chapter the Red era had already strained. Naming it for her birth year and fronting it with a Polaroid crop that cut off her face set the visual language for everything that followed.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/1989_(album)',
+            source_title: '1989 (album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Shake_It_Off',
+            source_title: 'Shake It Off',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-secret-sessions',
+      year: 2014,
+      month: 10,
+      category: 'release',
+      title: 'The Secret Sessions: 89 fans at a time, in her living rooms',
+      snippet:
+        'Through September and October she hand-picked fans off the internet and played them 1989 early — at her homes in New York, LA, Rhode Island, her mom\'s place in Nashville, and a London hotel — baking the cookies herself. Nobody leaked a note.',
+      sourceUrl: 'https://www.nylon.com/entertainment/oral-history-of-taylor-swifts-1989-secret-sessions',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Each session hosted 89 fans, selected by Swift herself from social media. She previewed the full album weeks before release, talked through the songs, posed for photos, and served homemade chocolate chip and toasted coconut cookies. Despite hundreds of fans hearing it early, the album never leaked — a loyalty story the fandom still retells, and a rollout ritual she repeated for reputation.',
+        sources: [
+          {
+            outlet: 'NYLON',
+            url: 'https://www.nylon.com/entertainment/oral-history-of-taylor-swifts-1989-secret-sessions',
+            source_title: "An Oral History Of Taylor Swift's '1989' Secret Sessions",
+            publisher: 'NYLON',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2014/09/22/taylor-swift-invites-fans-to-her-home-for-1989-secret-sessions/',
+            source_title: "Taylor Swift Invites Fans to Her Home for '1989' Secret Sessions",
+            publisher: 'Just Jared',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-welcome-to-new-york-schools',
+      year: 2014,
+      month: 10,
+      category: 'music',
+      title: 'Welcome to New York, with the proceeds going to the city\'s schools',
+      snippet:
+        'The synth-drenched opener that announced the move to New York — and whose sales she donated to New York City public schools.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Track one of 1989 doubled as a mission statement for the era\'s move from Nashville to Manhattan. When the city named her its tourism campaign face that same week, she announced the song\'s proceeds would go to the NYC Department of Education.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(Taylor_Swift_song)',
+            source_title: 'Welcome to New York (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'NYC & Company',
+            url: 'https://www.business.nyctourism.com/press-media/press-releases/nyc-company-announces-taylor-swift-as-new-york-citys-global-welcome-ambassa',
+            source_title: "NYC & Company Announces Taylor Swift as New York City's Global Welcome Ambassador",
+            publisher: 'NYC Tourism + Conventions',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-nyc-welcome-ambassador',
+      year: 2014,
+      month: 10,
+      category: 'business',
+      title: 'New York names her its Global Welcome Ambassador',
+      snippet:
+        'Release-day promotion, city-scale: on October 27, 2014, NYC & Company made the Pennsylvania-born, Nashville-raised new Manhattanite the face of New York tourism — unpaid, announced live on Good Morning America.',
+      sourceUrl: 'https://www.business.nyctourism.com/press-media/press-releases/nyc-company-announces-taylor-swift-as-new-york-citys-global-welcome-ambassa',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The city\'s tourism arm built its global "Welcome to New York" campaign around the 1989 opener, with Swift fronting videos explaining New York slang and landmarks. NYC & Company confirmed she wasn\'t paid for the role; the appointment drew both delight and eye-rolls from lifelong New Yorkers, which only fed the coverage.',
+        sources: [
+          {
+            outlet: 'NYC & Company',
+            url: 'https://www.business.nyctourism.com/press-media/press-releases/nyc-company-announces-taylor-swift-as-new-york-citys-global-welcome-ambassa',
+            source_title: "NYC & Company Announces Taylor Swift as New York City's Global Welcome Ambassador",
+            publisher: 'NYC Tourism + Conventions',
+            source_type: 'official',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Skift',
+            url: 'https://skift.com/2014/10/27/new-york-city-taps-taylor-swift-as-its-global-welcome-ambassador/',
+            source_title: 'New York City Taps Taylor Swift As Its Global Welcome Ambassador',
+            publisher: 'Skift',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-blank-space-interactive-video',
+      year: 2014,
+      month: 11,
+      category: 'release',
+      title: 'The Blank Space video arrives with its own interactive app',
+      snippet:
+        'November 10, 2014: Joseph Kahn\'s mansion-meltdown video drops alongside American Express Unstaged — an explorable 360° app version of the video that went on to win an Emmy.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Blank_Space',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+      moment: {
+        context:
+          'The video played the tabloids\' "crazy ex" caricature to the hilt — golf clubs to the sports car included. The companion "American Express Unstaged: Taylor Swift Experience" app let viewers roam the mansion mid-video, and won the 2015 Creative Arts Emmy for Outstanding Original Interactive Program.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Blank_Space',
+            source_title: 'Blank Space',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      slug: '1989-swiftmas',
+      year: 2014,
+      month: 12,
+      category: 'sighting',
+      title: 'Swiftmas: hand-wrapped packages, one hand-delivered to Connecticut',
+      snippet:
+        'She stalked her own fans\' Tumblrs, picked out personalized gifts, wrapped them herself, and shipped "SwiftEx" boxes across the country — then drove to Connecticut to hand one mom and son their presents in person.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-swiftmas-6415161/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The December 2014 gift blitz — fans dubbed it "Swiftmas" — was documented in a behind-the-scenes YouTube video showing her wrapping marathon, complete with cats asleep on the wrapping paper. One 31-pound box included a Polaroid camera, blankets, candles, and $200 in gift cards; the fan reaction videos became a holiday news cycle of their own.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-swiftmas-6415161/',
+            source_title: "Taylor Swift's 'Swiftmas': Fans Talk Receiving Gifts",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/3651775/behind-the-scenes-of-taylor-swifts-swiftmas-christmas-gift-extravaganza/',
+            source_title: "Behind the Scenes of Taylor Swift's 'Swiftmas' Christmas Gift Extravaganza",
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-this-sick-beat-trademarks',
+      year: 2015,
+      month: 1,
+      category: 'business',
+      title: 'She trademarks "This Sick Beat" (and "Party Like It\'s 1989")',
+      snippet:
+        'Filings with the U.S. Patent and Trademark Office locked down lyric phrases from 1989 — "This Sick Beat," "Nice to Meet You. Where You Been?," "Could Show You Incredible Things" — before bootleg merch could.',
+      sourceUrl: 'https://abcnews.com/Entertainment/taylor-swift-files-trademark-sick-beat-1989-phrases/story?id=28575143',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The January 2015 filings covered use of the phrases on merchandise from T-shirts to guitar straps. The move — mocked by some, studied by others — became a case study in how aggressively her team protected the 1989 economy, and "This Sick Beat" was formally registered within weeks.',
+        sources: [
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/Entertainment/taylor-swift-files-trademark-sick-beat-1989-phrases/story?id=28575143',
+            source_title: "Taylor Swift Files to Trademark 'This Sick Beat' and Other 1989 Phrases",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2015/02/04/taylor-swift-has-trademarked-the-phrase-this-sick-beat/',
+            source_title: "Taylor Swift Has Trademarked The Phrase 'This Sick Beat'",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-style-video',
+      year: 2015,
+      month: 2,
+      category: 'release',
+      title: 'The Style video trades plot for pure atmosphere',
+      snippet:
+        'Released February 13, 2015: shattered mirrors, projected faces, a fog-drenched forest — a moody, near-abstract video that looked like nothing she\'d put out before.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery of Swift and her love interest projected onto each other. Critics read the art-film styling as another marker of the pop reinvention — the 1989 era\'s aesthetic confidence extending to its videos.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)',
+            source_title: 'Style (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-bad-blood-video-vevo-record',
+      year: 2015,
+      month: 5,
+      category: 'release',
+      title: 'Bad Blood premieres at the BBMAs and breaks the Vevo record',
+      snippet:
+        'The star-packed revenge fantasy — Selena Gomez, Kendrick Lamar, Mariska Hargitay, half the squad in neon codenames — opened the May 17, 2015 Billboard Music Awards and pulled 20.1 million views in 24 hours.',
+      sourceUrl: 'https://time.com/3892980/bad-blood-music-video-record/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The 24-hour total broke Nicki Minaj\'s "Anaconda" record of 19.6 million Vevo views. Joseph Kahn\'s sci-fi action treatment gave each cast member a comic-book alias — Selena Gomez as Arsyn, Karlie Kloss as Knockout, Lena Dunham as Lucky Fiori — turning the squad itself into the video\'s marketing engine.',
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/3892980/bad-blood-music-video-record/',
+            source_title: "Taylor Swift's 'Bad Blood' Music Video Breaks Vevo World Record",
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2015/05/21/taylor-swifts-bad-blood-video-breaks-a-record-with-20-million-views-in-its-first-24-hours/',
+            source_title: "Taylor Swift's 'Bad Blood' Video Breaks A Record With 20 Million Views In Its First 24 Hours",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-hyde-park-runway',
+      year: 2015,
+      month: 6,
+      category: 'tour',
+      title: 'Hyde Park, 65,000 people, and a literal squad runway',
+      snippet:
+        'At British Summer Time on June 27, 2015, she turned the "Style" bridge into a catwalk — Cara Delevingne, Kendall Jenner, Karlie Kloss, Gigi Hadid, Martha Hunt, and Serena Williams strutting the stage in front of 65,000.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-1989-tour-kendall-jenner-cara-delevingne-style-london-6612932/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Hyde Park festival date was the UK centerpiece of the 1989 World Tour, with Ellie Goulding, Vance Joy, John Newman and Rae Morris supporting. The nightly celebrity-walk segment reached its peak form here — a tennis legend and half the world\'s top models on one stage, mid-song.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-1989-tour-kendall-jenner-cara-delevingne-style-london-6612932/',
+            source_title: "Taylor Swift's '1989' Tour: Kendall Jenner, Cara Delevingne & More Join Her for 'Style' in London",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-189-1230492',
+            source_title: "Taylor Swift announces trio of UK live dates as part of '1989' world tour",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-kobe-staples-banner',
+      year: 2015,
+      month: 8,
+      category: 'tour',
+      title: 'Kobe Bryant raises a banner for her at Staples Center',
+      snippet:
+        'August 21, 2015: mid-show, Kobe walked out and unveiled a banner in the rafters — 16 sold-out Staples Center shows, the most of any artist, hanging alongside the Lakers\' 16 championships.',
+      sourceUrl: 'https://www.billboard.com/music/pop/kobe-bryant-surprise-taylor-swift-banner-staples-center-ryan-tedder-6671158/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The surprise came during the fifth night of her 1989 residency at the arena. "This is a big deal," Bryant told the crowd before the banner dropped. Ryan Tedder joined her onstage the same night — one stop in a five-night LA guest run that also produced the Mary J. Blige and Justin Timberlake cameos fans still trade clips of.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/kobe-bryant-surprise-taylor-swift-banner-staples-center-ryan-tedder-6671158/',
+            source_title: "Kobe Bryant Surprises Taylor Swift With Championship Banner at L.A.'s Staples Center",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS Sports',
+            url: 'https://www.cbssports.com/nba/news/video-kobe-bryant-gives-staples-center-banner-to-taylor-swift/',
+            source_title: 'VIDEO: Kobe Bryant gives Staples Center banner to Taylor Swift',
+            publisher: 'CBS Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-world-tour-live-film',
+      year: 2015,
+      month: 12,
+      category: 'release',
+      title: 'The 1989 World Tour Live lands as an Apple Music exclusive',
+      snippet:
+        'Released December 20, 2015: Jonas Åkerlund\'s film of the Sydney show — 76,000 fans at ANZ Stadium — stitched with backstage footage and the tour\'s parade of surprise guests.',
+      sourceUrl: 'https://www.billboard.com/pro/taylor-swift-1989-world-tour-live-concert-film-apple-music-dec-20/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Six months after her open letter got Apple to reverse its trial-period royalty policy, the concert film arrived as an Apple Music exclusive — the reconciliation made product. It captured the November 28 Sydney stop plus guest moments from across the tour, from Mick Jagger to Imagine Dragons.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-1989-world-tour-live-concert-film-apple-music-dec-20/',
+            source_title: "Taylor Swift '1989 World Tour Live' Concert Film Coming to Apple Music",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-1989-world-tour-848317/',
+            source_title: "Taylor Swift '1989 World Tour Live' Concert Film Coming to Apple Music",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-out-of-the-woods-video-nye',
+      year: 2015,
+      month: 12,
+      category: 'release',
+      title: 'The Out of the Woods video closes the era on New Year\'s Eve',
+      snippet:
+        'Premiered December 31, 2015 on Dick Clark\'s New Year\'s Rockin\' Eve: Taylor pursued through forests, blizzards, and mudslides by the woods themselves — ending back on the beach where she started.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-out-of-the-woods-premiere-new-years-rockin-eve-6820708/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The sixth 1989 single\'s video, shot in New Zealand, rendered the song\'s anxiety as literal wilderness — grasping branches, frozen lakes, a wall of fire. Its closing title card, "She lost him. But she found herself. And somehow that was everything," reads as the era\'s thesis statement, dropped as the year turned.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-out-of-the-woods-premiere-new-years-rockin-eve-6820708/',
+            source_title: "Taylor Swift 'Out of the Woods' Video Premiere Will Hit New Year's Rockin' Eve",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/Entertainment/taylor-swift-debut-woods-music-video-years-rockin/story?id=35897285',
+            source_title: "Taylor Swift to Debut 'Out of the Woods' Music Video During 'New Year's Rockin' Eve' on ABC",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-taylor-vs-treadmill',
+      year: 2016,
+      month: 4,
+      category: 'business',
+      title: 'Taylor vs. Treadmill: the Apple Music ad that sold a Drake song',
+      snippet:
+        'April 1, 2016: an Apple Music spot of Taylor rapping Drake and Future\'s "Jumpman" on a treadmill — then eating the floor — went so viral that "Jumpman" iTunes sales jumped 431%.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-apple-music-ad-campaign-7318684/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The gag ad — captioned #TaylorvsTreadmill — racked up more than 20 million views on Facebook and Instagram within days, boosted Apple\'s #gymflow playlist plays 325%, and put a two-year-old rap song back up the charts. It marked how completely the Apple relationship had flipped since the 2015 royalty standoff.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-apple-music-ad-campaign-7318684/',
+            source_title: "Taylor Swift Raps Drake & Future's 'Jumpman,' Falls Off Treadmill in Apple Music Ad",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2016/04/07/taylor-swifts-apple-music-commercial-spurred-a-431-jump-in-sales-for-drake/',
+            source_title: "Taylor Swift's Apple Music Commercial Spurred A 431% Jump In Sales For Drake",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-nils-sjoberg-reveal',
+      year: 2016,
+      month: 7,
+      category: 'relationship',
+      title: 'Nils Sjöberg unmasked: she secretly wrote Calvin Harris\'s biggest hit of the year',
+      snippet:
+        'July 13, 2016: her team confirmed the pseudonymous songwriter behind "This Is What You Came For" was Taylor herself — and her ex responded with a now-infamous string of tweets.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-calvin-harris-co-wrote-this-is-what-you-came-for-pseudonym-7438158/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift had written the Rihanna-fronted hit under the name Nils Sjöberg while she and Harris were still together, keeping it secret so the relationship wouldn\'t overshadow the song — she even sings backing vocals on it. After the credit surfaced post-breakup, Harris confirmed it on Twitter but added it was "hurtful" that her team let the story out, turning a songwriting footnote into the summer\'s defining pop feud.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-calvin-harris-co-wrote-this-is-what-you-came-for-pseudonym-7438158/',
+            source_title: "Taylor Swift Co-Wrote Calvin Harris' 'This is What You Came For' Under Pseudonym",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2016/music/news/calvin-harris-blasts-taylor-swift-songwriting-credit-this-is-what-you-came-for-1201813531/',
+            source_title: 'Calvin Harris Blasts Taylor Swift Over Songwriting Credit',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: '1989-taylors-version-announced',
+      year: 2023,
+      month: 8,
+      category: 'release',
+      title: '1989 (Taylor\'s Version) announced in head-to-toe blue at SoFi Stadium',
+      snippet:
+        'August 9, 2023, the final U.S. Eras Tour show: after a night of suspiciously blue outfit swaps, she announced the 1989 re-recording from the stage — due October 27, nine years to the day after the original.',
+      sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Fans clocked the Easter egg immediately: blue variants of the Speak Now, folklore, and 1989 act costumes across the night, capped by the reveal and a long-awaited "New Romantics" as a surprise song. The crowd of 70,000 at the sixth SoFi show turned the announcement into the loudest moment of the U.S. leg.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
+            source_title: "Taylor Swift Reveals '1989 (Taylor's Version)' Is Coming at L.A. Tour Finale",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-eras-tour-la-recap-night-6-best-moments-sofi-stadium/',
+            source_title: "6 Best Moments From Night 6 of Taylor Swift's Eras Tour at LA's SoFi Stadium",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

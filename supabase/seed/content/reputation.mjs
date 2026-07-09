@@ -901,5 +901,449 @@ export default {
         ],
       },
     },
+
+    // --- Deep timeline fill (2026-07-08): rollout, tour, business, and
+    // relationship depth — the era's biggest business stories (the political
+    // post, the UMG deal) were missing entirely. New items carry the audit's
+    // additive provenance fields (slug + publisher/source_type/accessed_at/
+    // reliability_score alongside legacy {outlet,url}), same convention as
+    // the-life-of-a-showgirl.mjs. Every claim verified against its cited
+    // source via search on 2026-07-08; no fabrication. Photos deliberately
+    // omitted where no already-verified image URL exists.
+    {
+      slug: 'rep-lwymmd-video-youtube-record',
+      year: 2017,
+      month: 8,
+      category: 'release',
+      title: 'The Look What You Made Me Do video shatters YouTube\'s 24-hour record',
+      snippet:
+        'Premiered at the VMAs on August 27, 2017, then racked up 43.2 million views in a day — past Psy, past Adele — averaging 30,000 views a minute.',
+      sourceUrl: 'https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/',
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+      moment: {
+        context:
+          'Joseph Kahn\'s video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy\'s "Gentleman" (36 million YouTube views) and Adele\'s "Hello" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day and first-week Spotify streams.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/',
+            source_title: "Taylor Swift's 'Look What You Made Me Do' Smashes YouTube's 24-Hour Record",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-psy-youtube-24-hour-streams-record/',
+            source_title: "Taylor Swift's 'Look What You Made Me Do' Sets YouTube 24-Hour Streams Record",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'rep-ready-for-it-college-football',
+      year: 2017,
+      month: 9,
+      category: 'release',
+      title: '...Ready for It? debuts inside a college football broadcast',
+      snippet:
+        'The album\'s opener premiered September 2, 2017, soundtracking a hype promo for Alabama vs. Florida State on ABC — reputation\'s second single, delivered to a stadium audience before pop radio got it.',
+      sourceUrl: 'https://variety.com/2017/music/news/taylor-swift-teases-ready-for-it-espn-football-1202546044/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The minute-long clip scored footage of the teams taking the field during the ABC/ESPN broadcast, with the full song hitting streaming that night and radio the next morning. Dropping a pop single through a football telecast read very differently six years later, once the NFL became part of her story.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2017/music/news/taylor-swift-teases-ready-for-it-espn-football-1202546044/',
+            source_title: "Taylor Swift Teases New Song 'Ready For It' on ESPN College Football",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/ca/news/877508/taylor-swift-teases-brand-new-song-ready-for-it-during-college-football-game',
+            source_title: 'Taylor Swift Releases New Song "...Ready For It?" After Teasing It During College Football Game',
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rep-gorgeous-baby-voice',
+      year: 2017,
+      month: 10,
+      category: 'music',
+      title: 'Gorgeous opens with a baby saying the title — Blake and Ryan\'s daughter',
+      snippet:
+        'Released October 20, 2017: the giddy track five preview of the album\'s softer side, with a liner-notes credit fans obsessed over — "baby intro voice" by James Reynolds, Blake Lively and Ryan Reynolds\' daughter.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The third track released ahead of reputation swapped the vengeful lead-single mode for flustered crush comedy. The one-word cameo came about after Swift played a demo for Lively and Reynolds and their toddler kept repeating "gorgeous" — the credit made her the youngest name in the album\'s liner notes.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)',
+            source_title: 'Gorgeous (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2017/10/20/taylor-swift-drops-new-single-gorgeous-from-upcoming-album-reputation/',
+            source_title: "Taylor Swift Drops New Single 'Gorgeous' From Upcoming Album 'Reputation'",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rep-secret-sessions',
+      year: 2017,
+      month: 10,
+      category: 'release',
+      title: 'The reputation Secret Sessions: 500 fans, four houses, zero leaks',
+      snippet:
+        'London on October 13, Rhode Island on the 18th and 19th, LA on the 22nd, Nashville on the 25th — she played reputation to 500 hand-picked fans in her own homes, and not one song leaked.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-reputation-secret-sessions-london-7998688/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Reviving the 1989 rollout ritual, Swift selected fans from social media herself and talked through each track before playing it. Behind-the-scenes footage aired on Good Morning America days before release. For an album rolled out with almost no press interviews, the living-room listening parties were the promotional strategy.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-reputation-secret-sessions-london-7998688/',
+            source_title: "Taylor Swift 'Reputation' Secret Sessions: Fans Listen to Album in London",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/Entertainment/exclusive-1st-inside-taylor-swifts-secret-sessions-reputation/story?id=50973344',
+            source_title: "Exclusive 1st look inside Taylor Swift's secret sessions for 'Reputation'",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rep-end-game-video',
+      year: 2018,
+      month: 1,
+      category: 'release',
+      title: 'The End Game video: Miami, Tokyo, London — with Ed Sheeran and Future',
+      snippet:
+        'Joseph Kahn\'s globe-hopping party video for the album\'s only guest-feature track dropped in January 2018 — yacht in Miami, arcade in Tokyo, double-decker in London.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/End_Game_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The fourth single from reputation is the only track in her catalog to date pairing her with both a rapper (Future) and Ed Sheeran on one song. The video leaned into the album\'s reputation motif — a neon "reputation" sign flickers through the London sequence — while keeping the era\'s no-interviews rollout intact.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/End_Game_(Taylor_Swift_song)',
+            source_title: 'End Game (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rep-babe-to-sugarland',
+      year: 2018,
+      month: 4,
+      category: 'music',
+      title: 'She gives Babe, a Red-era outtake, to Sugarland',
+      snippet:
+        'Written with Train\'s Pat Monahan for Red and left off the album, "Babe" surfaced April 20, 2018 as a Sugarland single — with Taylor on the track and, later, playing the other woman in its Mad Men-styled video.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Babe_(Sugarland_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift pitched the six-year-old outtake to the duo when she heard they\'d reunited. She sang backing vocals, and the two acts performed it together live for the first time at the reputation Stadium Tour\'s Arlington finale that October. Her own version eventually arrived in 2021 as a from-the-vault track on Red (Taylor\'s Version).',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Babe_(Sugarland_song)',
+            source_title: 'Babe (Sugarland song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'The Boot',
+            url: 'https://theboot.com/sugarland-taylor-swift-pat-monahan-babe/',
+            source_title: "Taylor Swift Co-Wrote One of Sugarland's New Songs With Train's Pat Monahan",
+            publisher: 'The Boot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rep-katy-perry-olive-branch',
+      year: 2018,
+      month: 5,
+      category: 'relationship',
+      title: 'Katy Perry sends a literal olive branch on opening night',
+      snippet:
+        'Waiting in Taylor\'s dressing room before the May 8, 2018 tour kickoff: an actual olive branch and a handwritten note from Katy Perry beginning "Hello old friend" — the public end of pop\'s longest-running feud.',
+      sourceUrl: 'https://www.billboard.com/articles/columns/pop/8455152/katy-perry-sends-taylor-swift-olive-branch-instagram',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          '"So I just got to my dressing room and found this actual olive branch. This means so much," Swift said on her Instagram Story before taking the stage in Glendale. The gesture closed the loop on the falling-out widely understood to be behind "Bad Blood" — and set up their on-camera reunion in the "You Need to Calm Down" video a year later.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/columns/pop/8455152/katy-perry-sends-taylor-swift-olive-branch-instagram',
+            source_title: 'Katy Perry Literally Extended an Olive Branch to Taylor Swift For Reputation Tour Opening Night',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/news/music-news/katy-perry-sends-taylor-swift-an-olive-branch-tour-1110405/',
+            source_title: 'Katy Perry Sends Taylor Swift an Olive Branch',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rep-wembley-guest-nights',
+      year: 2018,
+      month: 6,
+      category: 'tour',
+      title: 'Two Wembley nights, two British icons: Niall Horan, then Robbie Williams',
+      snippet:
+        'June 22, 2018: Niall Horan joins her at Wembley Stadium. June 23: Robbie Williams walks out in a Taylor Swift T-shirt for a stadium-wide "Angels" singalong she started at the piano.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-robbie-williams-angels-london-video-8462415/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The back-to-back London surprises were the European leg\'s signature moment — 90,000-voice "Angels" footage flooded social media. Williams later joked he hadn\'t realized how big a deal the cameo would be to her audience; for UK fans it instantly entered the tour-guest hall of fame.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-robbie-williams-angels-london-video-8462415/',
+            source_title: "Taylor Swift and Robbie Williams Sing 'Angels' in London on Reputation Stadium Tour",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-robbie-williams-angels-wembley-2343193',
+            source_title: "Watch Taylor Swift bring out Robbie Williams to sing 'Angels' at Wembley",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rep-political-post-voter-registration',
+      year: 2018,
+      month: 10,
+      category: 'business',
+      title: 'She breaks her political silence — and voter registrations spike',
+      snippet:
+        'An October 7, 2018 Instagram post endorsing two Tennessee Democrats ended a career of political silence. Vote.org counted roughly 65,000 new registrations from 18-to-29-year-olds in the day that followed.',
+      sourceUrl: 'https://time.com/5419276/taylor-swift-instagram-post-voter-registration-spike/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          '"In the past I\'ve been reluctant to publicly voice my political opinions, but due to several events in my life and in the world in the past two years, I feel very differently about that now," she wrote, endorsing Phil Bredesen for Senate and Jim Cooper for House. Vote.org attributed a surge of about 65,000 registrations among 18-to-29-year-olds nationwide in the following 24 hours — one of the clearest measured cases of celebrity influence on registration, and the pivot point for the activism that carried into the Lover era and Miss Americana.',
+        sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/5419276/taylor-swift-instagram-post-voter-registration-spike/',
+            source_title: "Taylor's First Political Endorsements Caused a Swift Spike in Voter Registrations",
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-political-instagram-post-appears-to-spur-voter-registration-today-2018-10-09/',
+            source_title: "Taylor Swift's political Instagram post appears to spur voter registration",
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/politics/politics-news/taylor-swift-instagram-post-causes-voter-registration-spike-734975/',
+            source_title: "Taylor Swift's Instagram Post Causes Spike in Voter Registration",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rep-signs-with-republic-umg',
+      year: 2018,
+      month: 11,
+      category: 'business',
+      title: 'She leaves Big Machine for Republic — and owns her masters going forward',
+      snippet:
+        'November 19, 2018: after 13 years, a new deal with Universal\'s Republic Records guarantees she owns every master she records from here on — and forces a Spotify-equity payout clause for every UMG artist.',
+      sourceUrl: 'https://variety.com/2018/music/news/taylor-swift-news-alert-1203032124/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The contract\'s headline term — ownership of her future master recordings — became the fault line of the next year\'s Big Machine catalog fight and the entire Taylor\'s Version project. She also negotiated that if UMG sold its Spotify shares, proceeds would be distributed to all its artists on a non-recoupable basis, a condition she called non-negotiable and framed as leverage on behalf of other musicians.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2018/music/news/taylor-swift-news-alert-1203032124/',
+            source_title: 'Taylor Swift Signs Landmark New Deal With Universal Music Group',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/pro/news/taylor-swift-universal-republic-deal-spotify-758102/',
+            source_title: "How Taylor Swift's Deal With Universal Affects Other Artists",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'rep-tour-closes-tokyo',
+      year: 2018,
+      month: 11,
+      category: 'tour',
+      title: 'The reputation Stadium Tour closes at the Tokyo Dome',
+      snippet:
+        'November 21, 2018: the second of two Tokyo Dome nights ends the 53-show run — $345.7 million grossed worldwide, the highest-grossing tour of her career to that point.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
+      thumbnailUrl:
+        "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png",
+      moment: {
+        context:
+          'The tour that had already broken the U.S. all-time record ended its single year of touring in Japan — a compact 53-date run, all stadiums, that out-grossed the 85-show 1989 World Tour. The Dallas stop filmed weeks earlier became the Netflix concert film released that New Year\'s Eve.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
+            source_title: 'Reputation Stadium Tour',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [
+          {
+            url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png",
+            credit: 'Big Machine Records',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'rep-golden-globes-date-night',
+      year: 2019,
+      month: 1,
+      category: 'relationship',
+      title: 'A surprise Golden Globes appearance turns into a rare public date night',
+      snippet:
+        'She materialized at the January 2019 Golden Globes as an unannounced presenter with Idris Elba — then spent the after-party circuit at Joe Alwyn\'s side, holding hands at the Fox/FX/Hulu party while The Favourite celebrated its wins.',
+      sourceUrl: 'https://www.eonline.com/news/1002592/inside-taylor-swift-and-joe-alwyn-s-golden-globes-date-night',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The two arrived and walked carpets separately — she to present, he with his Favourite castmates — before reuniting at the after-parties, where witnesses described her beelining to his table. Alongside the BAFTAs weeks later, it was as public as the famously private couple got during the whole reputation stretch.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1002592/inside-taylor-swift-and-joe-alwyn-s-golden-globes-date-night',
+            source_title: "Inside Taylor Swift and Joe Alwyn's Golden Globes Date Night",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'W Magazine',
+            url: 'https://www.wmagazine.com/story/joe-alwyn-taylor-swift-golden-globes-afterparties',
+            source_title: 'How Joe Alwyn and Taylor Swift Managed the Golden Globes Afterparty Circuit',
+            publisher: 'W Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
