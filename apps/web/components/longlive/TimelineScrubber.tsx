@@ -31,7 +31,13 @@ export function TimelineScrubber() {
   const era = getEra(eraId);
 
   const start = useMemo(() => new Date(era.start).getTime(), [era.start]);
-  const end = useMemo(() => new Date(era.end).getTime(), [era.end]);
+  // The current era's authored end date can sit in the future (a season/
+  // year boundary); the rail's top means "now", so don't let the scrubber
+  // span into dates that haven't happened yet.
+  const end = useMemo(() => {
+    const authoredEnd = new Date(era.end).getTime();
+    return era.isCurrent ? Math.min(authoredEnd, Date.now()) : authoredEnd;
+  }, [era.end, era.isCurrent]);
   const span = Math.max(1, end - start);
 
   const items = useMemo(() => contentForEra(eraId), [eraId]);
@@ -115,9 +121,12 @@ export function TimelineScrubber() {
   }, []);
 
   // Measure the on-screen content items (document coordinates + their dates).
+  // Scoped to the active era — once the infinite stream has appended
+  // neighboring eras, an unscoped query would pull in their anchors too and
+  // let scrollToDate jump out of the era this scrubber is supposed to cover.
   const measure = useCallback(() => {
     const els = Array.from(
-      document.querySelectorAll<HTMLElement>('[data-ll-item]'),
+      document.querySelectorAll<HTMLElement>(`[data-ll-item][data-ll-era="${eraId}"]`),
     );
     anchorsRef.current = els
       .map((el) => ({
@@ -125,7 +134,7 @@ export function TimelineScrubber() {
         top: el.getBoundingClientRect().top + window.scrollY,
       }))
       .sort((a, b) => a.top - b.top);
-  }, []);
+  }, [eraId]);
 
   // Feed scroll → current reading date.
   const dateFromScroll = useCallback((): number | null => {
