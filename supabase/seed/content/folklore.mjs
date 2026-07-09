@@ -494,5 +494,309 @@ export default {
         photos: [],
       },
     },
+
+    // --- Thin-era top-up (2026-07-08, audit rollout PR 2): release items,
+    // remaining song stories, the era's business wavetops, and the one real,
+    // sourced relationship moment (the William Bowery reveal). Tour and
+    // sighting stay genuinely empty — no touring happened and the 2026-07-05
+    // sightings research pass (above) confirmed ~zero candid sightings.
+    // New items carry the audit's additive provenance fields.
+    {
+      slug: 'folklore-sixteen-hour-announcement',
+      year: 2020,
+      month: 7,
+      category: 'release',
+      title: 'Sixteen hours\' notice: the announcement that invented the surprise era',
+      snippet:
+        '"Most of the things I had planned this summer didn\'t end up happening, but there is something I hadn\'t planned on that DID happen" — posted the morning of July 23, 2020. The album arrived at midnight.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — with the "cardigan" video, shot under pandemic protocols, dropping alongside it at midnight. The no-lead-time surprise drop became a template she would reuse for evermore five months later.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
+            source_title: 'Folklore (Taylor Swift album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'exile-bon-iver-duet',
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'exile: a break-up seen from both sides, with Bon Iver in the other corner',
+      snippet:
+        'Justin Vernon\'s low growl and Taylor\'s answer, talking past each other in the same chorus — "you never gave a warning sign" / "I gave so many signs." Recorded remotely, the two never in the same room.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Exile_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Co-written with Aaron Dessner and the then-mysterious William Bowery, with Vernon tracking his parts from his Wisconsin studio, "exile" became folklore\'s second single and peaked at No. 6 on the Hot 100 — and its overlapping-argument bridge became the album\'s most-covered structural trick.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Exile_(Taylor_Swift_song)',
+            source_title: 'Exile (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'my-tears-ricochet-first-written',
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'my tears ricochet, the first song written for the album — alone',
+      snippet:
+        'The first folklore song she wrote, and one she wrote solo: a narrator singing at her own funeral to the "embittered tormentor" who showed up anyway. Track five, of course.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/My_Tears_Ricochet',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Swift described it as being about "a person who was your best friend" turning on you, and in a December 2020 Entertainment Weekly interview confirmed it (with "mad woman") as one of the songs that grew out of the 2019 sale of her masters. Produced with Jack Antonoff, it holds folklore\'s track-five slot in her vulnerable-song tradition.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/My_Tears_Ricochet',
+            source_title: 'My Tears Ricochet',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-says-her-dispute-with-scooter-braun-felt-like-a-divorce-2834880',
+            source_title: 'Taylor Swift says her dispute with Scooter Braun felt like a divorce',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'august-augusta-or-augustine',
+      year: 2020,
+      month: 7,
+      category: 'music',
+      title: 'august, and the girl Taylor says might be named Augusta. Or Augustine.',
+      snippet:
+        'The love triangle\'s third narrator never gets named in the lyrics — she\'s just the summer that "slipped away." In the Long Pond Sessions, Taylor mused the character was "Augusta or Augustine," and fans made it canon.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/August_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written and produced with Jack Antonoff, "august" is the triangle\'s sympathetic wildcard — Swift said the character "lost the good fight" but deserved kindness rather than blame for a romance that was never really hers. Critics consistently ranked it among folklore\'s best tracks, and its final-minute outro became a fan-favorite live moment years before it ever got played live.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/August_(Taylor_Swift_song)',
+            source_title: 'August (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'the-lakes-deluxe-bonus',
+      year: 2020,
+      month: 8,
+      category: 'release',
+      title: 'the lakes: the Lake District escape fantasy, saved for the deluxe edition',
+      snippet:
+        'The lone bonus track — a Windermere daydream about quitting the discourse and moving somewhere the poets went to die — arrived Aug. 18 on folklore\'s deluxe editions, three weeks after the album.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/The_Lakes_(song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Written with Jack Antonoff and inspired by England\'s Lake District and its Romantic poets, "the lakes" was folklore\'s intended epilogue — Swift later said she considered it the album\'s thesis statement about retreating from public life, which is why it closed every deluxe pressing rather than opening anything.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Lakes_(song)',
+            source_title: 'The Lakes (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'betty-country-radio-single',
+      year: 2020,
+      month: 8,
+      category: 'release',
+      title: 'betty goes to country radio — her first country single since 2013',
+      snippet:
+        'The love triangle\'s apology song, sent to country radio on Aug. 17, 2020: her first single on the format since the Red era, a homecoming pitched from inside an indie-folk album.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Betty_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Sung from the perspective of seventeen-year-old James, harmonica intro and all, "betty" was the folklore track built closest to her Nashville roots — and the single choice read as a deliberate olive branch to the format she\'d left after Red. It peaked at No. 6 on Hot Country Songs.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Betty_(Taylor_Swift_song)',
+            source_title: 'Betty (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'betty-acm-awards-performance',
+      year: 2020,
+      month: 9,
+      category: 'music',
+      title: "folklore's first live moment: betty, alone at the Grand Ole Opry House",
+      snippet:
+        'Her first ACM Awards performance in seven years, Sept. 16, 2020 — just Taylor, an acoustic guitar, and "betty" on the Opry stage of a mostly empty, pandemic-staged show. The first time any folklore song was performed live.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Betty_(Taylor_Swift_song)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The stripped performance doubled as her return to country music\'s biggest stage since leaving the format, and stayed folklore\'s only live TV performance until the Grammys medley the following March.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Betty_(Taylor_Swift_song)',
+            source_title: 'Betty (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'william-bowery-is-joe',
+      year: 2020,
+      month: 11,
+      category: 'relationship',
+      title: 'William Bowery is Joe: the Long Pond reveal',
+      snippet:
+        'folklore\'s mystery co-writer — credited on "exile" and "betty" — turned out to be Joe Alwyn, confirmed on camera in the Long Pond Studio Sessions: "Joe plays piano beautifully, and he\'s always just playing and making things up… Joe had written that entire piano part."',
+      sourceUrl: 'https://www.eonline.com/news/1212449/taylor-swift-reveals-the-identity-of-folklores-mystery-co-writer-william-bowery',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Fans had theorized for months about the unknown name in the credits. The pseudonym stitched together Alwyn\'s composer great-grandfather William Alwyn and the Bowery Hotel, an early landmark of the couple\'s relationship — and "Bowery" would go on to co-write on evermore and Midnights under the same name.',
+        sources: [
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1212449/taylor-swift-reveals-the-identity-of-folklores-mystery-co-writer-william-bowery',
+            source_title: "Taylor Swift Reveals the Identity of folklore's Mystery Co-Writer William Bowery",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/artists/taylor-swift/william-bowery-joe-alwyn-folklore-exile/',
+            source_title: 'Taylor Swift confirms Joe Alwyn is mystery Folklore writer William Bowery',
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'amas-2020-rerecording-reveal',
+      year: 2020,
+      month: 11,
+      category: 'business',
+      title: "Artist of the Year, accepted from the studio: 'I'm re-recording all of my old music'",
+      snippet:
+        'She skipped the 2020 AMAs despite winning three awards — explaining on video: "The reason I\'m not there tonight is I\'m actually re-recording all of my old music in the studio where we originally recorded it." The Taylor\'s Version project, announced mid-acceptance-speech.',
+      sourceUrl: 'https://variety.com/2020/music/news/taylor-swift-wins-three-american-music-awards-says-shes-mia-because-of-recording-all-of-my-old-music-1234837818/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Nov. 22, 2020 wins — her third straight Artist of the Year, plus favorite pop/rock female and favorite music video for "cardigan" — pushed her career AMA total from 29 to 32, extending her own all-time record. The re-recording reveal, dropped almost as an aside, set up the Taylor\'s Version era that would define the next three years.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2020/music/news/taylor-swift-wins-three-american-music-awards-says-shes-mia-because-of-recording-all-of-my-old-music-1234837818/',
+            source_title: "Taylor Swift Wins Top AMA; MIA Due to 'Recording All My Old Music'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-artist-of-the-year-2020-american-music-awards/',
+            source_title: 'Taylor Swift takes home third straight artist of the year award at 2020 AMAs',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'folklore-six-grammy-nominations',
+      year: 2020,
+      month: 11,
+      category: 'business',
+      title: 'Six Grammy nominations for the quarantine album',
+      snippet:
+        'The Nov. 24, 2020 nominations gave the surprise album a full slate: folklore for Album of the Year and Best Pop Vocal Album, "cardigan" and "exile" in the pop performance categories, "betty" for Best Country Song, and her Cats ballad "Beautiful Ghosts" for visual media.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The "betty" country nod meant the album that left Nashville behind still landed a country nomination — and the Album of the Year slot set up the March 2021 win that made her the first woman with three AOTY trophies (covered separately in this era).',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
+            source_title: 'Folklore (Taylor Swift album)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };

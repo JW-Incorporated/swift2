@@ -875,5 +875,182 @@ export default {
         ],
       },
     },
+
+    // --- Thin-era top-up (2026-07-08, audit rollout PR 2): the era's empty
+    // release, tour, and relationship categories, filled with public record —
+    // the one Lover-era concert, the festival that never happened, the film
+    // releases, and the doc's rare on-record relationship material. New items
+    // carry the audit's additive provenance fields.
+    {
+      slug: 'city-of-lover-paris',
+      year: 2019,
+      month: 9,
+      category: 'tour',
+      title: 'City of Lover: the only full Lover concert there would ever be',
+      snippet:
+        'One night at L\'Olympia in Paris, Sept. 9, 2019 — a fans-only show for contest winners from 37 countries, and the first and last time most Lover songs were played to a live audience.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/City_of_Lover',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Several album tracks got their live debuts — "Lover," "The Archer," "Cornelia Street," "Death by a Thousand Cuts" — in an intimate theater instead of a stadium. The concert later aired as a TV special in May 2020, by which point the pandemic had guaranteed its "only Lover-era show" status.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/City_of_Lover',
+            source_title: 'City of Lover',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'lover-fest-announced',
+      year: 2019,
+      month: 9,
+      category: 'tour',
+      title: 'Lover Fest: a festival instead of a tour',
+      snippet:
+        'Her announced plan for the era, revealed Sept. 17, 2019: skip the full stadium slog and throw a handful of self-headlined festival weekends instead — including opening the brand-new SoFi Stadium in Los Angeles.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Lover_Fest',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Lover Fest East and West were set for summer 2020 — Foxborough\'s Gillette Stadium and two nights at SoFi, which she would have been the first performer ever to open — plus European festival dates. She framed the format as a deliberate breather after the reputation Stadium Tour: fewer shows, bigger parties.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Lover_Fest',
+            source_title: 'Lover Fest',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'lover-fest-2020-cancelled',
+      year: 2020,
+      month: 4,
+      category: 'tour',
+      title: 'Lover Fest falls to the pandemic',
+      snippet:
+        'On April 17, 2020, she called off all her 2020 live dates: "I\'m so sad I won\'t be able to see you guys in concert this year, but I know this is the right decision." The era that skipped the tour ended up with no shows at all.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Lover_Fest',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The festival dates were initially pushed to 2021 before being scrapped outright the following February. The cancellation had one enormous creative consequence: the empty summer became folklore — and the eventual make-up show became the Eras Tour, where the Lover set finally opened every night.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Lover_Fest',
+            source_title: 'Lover Fest',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'cats-beautiful-ghosts',
+      year: 2019,
+      month: 12,
+      category: 'release',
+      title: 'Cats arrives: Bombalurina, digital fur, and "Beautiful Ghosts"',
+      snippet:
+        'Her movie-musical debut hit theaters Dec. 20, 2019 — a critically savaged film she emerged from mostly unscathed, plus "Beautiful Ghosts," the original ballad she wrote with Andrew Lloyd Webber that earned a Golden Globe nomination.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Beautiful_Ghosts',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She played Bombalurina in Tom Hooper\'s adaptation and co-wrote "Beautiful Ghosts" as a response song to "Memory," sung in the film by Francesca Hayward. Critics roasted the movie and largely exempted her scene; the song\'s Globe nomination gave the Lover era its one awards-season campaign.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Beautiful_Ghosts',
+            source_title: 'Beautiful Ghosts',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'miss-americana-premiere',
+      year: 2020,
+      month: 1,
+      category: 'release',
+      title: 'Miss Americana opens Sundance, then hits Netflix',
+      snippet:
+        'Lana Wilson\'s documentary premiered opening night at Sundance on Jan. 23, 2020 and landed on Netflix eight days later — the eating-disorder disclosure, the political-silence fight with her own team, and the sexual-assault trial, all on the record.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Miss_Americana',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The film tracks the deliberate dismantling of the "good girl" reflex — built around the 2018 decision to break political silence over her team\'s objections — and gave fans the era\'s defining self-assessment: a star relearning what she actually wanted to say. It remains the most unguarded long-form footage of her career.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Miss_Americana',
+            source_title: 'Miss Americana',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'miss-americana-joe-on-the-record',
+      year: 2020,
+      month: 1,
+      category: 'relationship',
+      title: '"Someone with a really wonderfully normal, balanced, grounded life"',
+      snippet:
+        'Miss Americana put her relationship on the record for the first time — without ever saying Joe Alwyn\'s name: "I was falling in love with someone who had a really wonderfully normal, balanced, grounded life."',
+      sourceUrl: 'https://www.etonline.com/taylor-swifts-miss-americana-everything-she-says-about-joe-alwyn-and-having-children-140665',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'She also explains the privacy itself as a joint decision: "We decided together that we wanted our relationship to be private." Director Lana Wilson later said Alwyn was left almost entirely offscreen on purpose — the relationship "wasn\'t related to the themes in the film," and filming it "felt disrespectful and weird." Those few sentences stood for years as the couple\'s only direct on-record commentary.',
+        sources: [
+          {
+            outlet: 'Entertainment Tonight',
+            url: 'https://www.etonline.com/taylor-swifts-miss-americana-everything-she-says-about-joe-alwyn-and-having-children-140665',
+            source_title: "Taylor Swift's 'Miss Americana': Everything She Says About Joe Alwyn and Having Children",
+            publisher: 'Entertainment Tonight',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1410865/why-taylor-swifts-ex-joe-alwyn-was-barely-in-her-miss-americana-documentary',
+            source_title: "Why Taylor Swift's Ex Joe Alwyn Was Barely in Her Miss Americana Documentary",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
