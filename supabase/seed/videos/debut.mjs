@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -92,7 +102,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Picture_to_Burn', 'Picture to Burn')],
+      sources: [
+        wiki('Picture_to_Burn', 'Picture to Burn'),
+        press(
+          'https://theboot.com/video-premiere-picture-to-burn-taylor-swift/',
+          "Video Premiere: 'Picture to Burn,' Taylor Swift",
+          'The Boot',
+          'supports the music-video premiere and early-video revenge-comedy framing',
+        ),
+      ],
     },
   ],
 };

@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -62,7 +72,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('I_Can_Do_It_with_a_Broken_Heart', 'I Can Do It with a Broken Heart')],
+      sources: [
+        wiki('I_Can_Do_It_with_a_Broken_Heart', 'I Can Do It with a Broken Heart'),
+        press(
+          'https://people.com/taylor-swift-releases-i-can-do-it-with-a-broken-heart-music-video-8698971',
+          "Taylor Swift Offers Inside Look at Tour - and Confirms How She Gets Onstage - with 'I Can Do It with a Broken Heart' Video",
+          'People',
+          'supports the Eras Tour rehearsal/backstage footage and August 2024 video release',
+        ),
+      ],
     },
   ],
 };

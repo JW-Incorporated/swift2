@@ -39,6 +39,16 @@ const official = (source_url, source_title, publisher, notes) => ({
   excerpt: null,
   notes,
 });
+const awards = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'awards_database',
+  accessed_at: '2026-07-09',
+  reliability_score: 5,
+  excerpt: null,
+  notes,
+});
 
 export default {
   releases: [
@@ -65,7 +75,15 @@ export default {
         'Our Song',
       ],
       note: 'The debut, written largely during her freshman year of high school — it spent more weeks on the Billboard 200 than any album of the 2000s decade.',
-      sources: [wiki('Taylor_Swift_(album)', 'Taylor Swift (album)')],
+      sources: [
+        wiki('Taylor_Swift_(album)', 'Taylor Swift (album)'),
+        awards(
+          'https://www.grammy.com/artists/taylor-swift/15450',
+          'Taylor Swift | 14 Grammy Wins, 4 Album of the year',
+          'Recording Academy',
+          'supports the debut-era context: Big Machine release, age-16 breakthrough, and songwriting autonomy',
+        ),
+      ],
     },
     {
       slug: 'napster-live',
@@ -156,7 +174,15 @@ export default {
         'Change',
       ],
       note: 'The album that made her the youngest artist (at the time) to win the Grammy for Album of the Year — and 2009’s best-selling album in the US.',
-      sources: [wiki('Fearless_(Taylor_Swift_album)', 'Fearless (Taylor Swift album)')],
+      sources: [
+        wiki('Fearless_(Taylor_Swift_album)', 'Fearless (Taylor Swift album)'),
+        awards(
+          'https://www.grammy.com/artists/taylor-swift/15450',
+          'Taylor Swift | 14 Grammy Wins, 4 Album of the year',
+          'Recording Academy',
+          'supports the Fearless breakthrough, 2009 best-selling-album context, and 2010 Album of the Year win',
+        ),
+      ],
     },
     {
       slug: 'fearless-platinum-edition',
@@ -217,7 +243,15 @@ export default {
         'Long Live',
       ],
       note: 'Written entirely by Taylor alone, ages 18 to 20 — her answer to critics who doubted she wrote her own songs. Over a million copies sold in week one.',
-      sources: [wiki('Speak_Now', 'Speak Now')],
+      sources: [
+        wiki('Speak_Now', 'Speak Now'),
+        awards(
+          'https://www.grammy.com/artists/taylor-swift/15450',
+          'Taylor Swift | 14 Grammy Wins, 4 Album of the year',
+          'Recording Academy',
+          'supports the entirely self-written Speak Now context and Grammy-era recognition',
+        ),
+      ],
     },
     {
       slug: 'speak-now-world-tour-live',
@@ -259,7 +293,15 @@ export default {
         'Begin Again',
       ],
       note: 'The pivot record — country songwriting meets pop production (first Max Martin/Shellback collaborations), anchored by the fan-canonized All Too Well.',
-      sources: [wiki('Red_(Taylor_Swift_album)', 'Red (Taylor Swift album)')],
+      sources: [
+        wiki('Red_(Taylor_Swift_album)', 'Red (Taylor Swift album)'),
+        press(
+          'https://pitchfork.com/reviews/albums/taylor-swift-red',
+          'Red',
+          'Pitchfork',
+          'supports the Red-era country-to-pop pivot and Max Martin/Shellback collaboration context',
+        ),
+      ],
     },
     {
       slug: '1989',
@@ -286,7 +328,21 @@ export default {
         'Clean',
       ],
       note: 'Her "first documented, official pop album" — named for her birth year, it swept Album of the Year at the Grammys and rewired her career.',
-      sources: [wiki('1989_(album)', '1989 (album)')],
+      sources: [
+        wiki('1989_(album)', '1989 (album)'),
+        press(
+          'https://time.com/3533569/taylor-swift-1989-review/',
+          'Review: 1989 Marks a Paradigm Swift',
+          'Time',
+          'supports the official pop-album pivot and Max Martin pop-production context',
+        ),
+        awards(
+          'https://www.grammy.com/artists/taylor-swift/15450',
+          'Taylor Swift | 14 Grammy Wins, 4 Album of the year',
+          'Recording Academy',
+          'supports the 1989 Album of the Year win and pop-category Grammy context',
+        ),
+      ],
     },
     {
       slug: 'reputation',
@@ -315,7 +371,15 @@ export default {
         "New Year's Day",
       ],
       note: 'The no-press, no-singles-cycle comeback after the 2016 snake summer — electropop armor on the outside, a love story underneath. Her last Big Machine album.',
-      sources: [wiki('Reputation_(album)', 'Reputation (album)')],
+      sources: [
+        wiki('Reputation_(album)', 'Reputation (album)'),
+        awards(
+          'https://www.grammy.com/artists/taylor-swift/15450',
+          'Taylor Swift | 14 Grammy Wins, 4 Album of the year',
+          'Recording Academy',
+          'supports the post-1989 public-retreat context and reputation Stadium Tour commercial impact',
+        ),
+      ],
     },
     {
       slug: 'spotify-singles',
@@ -367,7 +431,15 @@ export default {
         'Daylight',
       ],
       note: 'The first album she has owned outright from day one — her Republic Records debut after leaving Big Machine, and the pastel reset after reputation.',
-      sources: [wiki('Lover_(album)', 'Lover (album)')],
+      sources: [
+        wiki('Lover_(album)', 'Lover (album)'),
+        press(
+          'https://time.com/5651221/taylor-swift-lover-references-explained/',
+          "Your Guide to the Many, Many References Taylor Swift Drops in the Lover Album",
+          'Time',
+          'supports the August 23, 2019 release and 18-track Lover album context',
+        ),
+      ],
     },
     {
       slug: 'live-from-clear-channel-stripped-2008',
@@ -417,7 +489,21 @@ export default {
         'hoax',
       ],
       note: 'The surprise lockdown album, announced 16 hours before release — indie-folk storytelling with Aaron Dessner and Jack Antonoff. Album of the Year Grammy #3.',
-      sources: [wiki('Folklore_(Taylor_Swift_album)', 'Folklore (Taylor Swift album)')],
+      sources: [
+        wiki('Folklore_(Taylor_Swift_album)', 'Folklore (Taylor Swift album)'),
+        press(
+          'https://pitchfork.com/news/the-nationals-aaron-dessner-talks-taylor-swifts-new-album-folklore',
+          "The National's Aaron Dessner Talks Taylor Swift's New Album folklore",
+          'Pitchfork',
+          'supports the surprise July 2020 release and Aaron Dessner collaboration context',
+        ),
+        awards(
+          'https://www.grammy.com/artists/taylor-swift/15450',
+          'Taylor Swift | 14 Grammy Wins, 4 Album of the year',
+          'Recording Academy',
+          'supports the folklore Album of the Year win',
+        ),
+      ],
     },
     {
       slug: 'folklore-the-long-pond-studio-sessions',
@@ -429,7 +515,15 @@ export default {
       trackCount: 17,
       parentReleaseSlug: 'folklore',
       note: 'The stripped live companion to the Disney+ film — folklore performed straight through at Long Pond with Dessner and Antonoff, plus "the lakes".',
-      sources: [wiki('Folklore:_The_Long_Pond_Studio_Sessions', 'Folklore: The Long Pond Studio Sessions')],
+      sources: [
+        wiki('Folklore:_The_Long_Pond_Studio_Sessions', 'Folklore: The Long Pond Studio Sessions'),
+        press(
+          'https://www.teenvogue.com/story/taylor-swift-folklore-special-disney-plus',
+          'Taylor Swift Is Releasing a "Folklore" Special on Disney+',
+          'Teen Vogue',
+          'supports the Disney+ film/release context for the Long Pond companion record',
+        ),
+      ],
     },
     {
       slug: 'evermore',
@@ -458,7 +552,15 @@ export default {
         'evermore',
       ],
       note: "folklore's \"sister album,\" dropped five months later as a second surprise — announced two days before her 31st birthday because 13 is her lucky number backwards.",
-      sources: [wiki('Evermore_(Taylor_Swift_album)', 'Evermore (Taylor Swift album)')],
+      sources: [
+        wiki('Evermore_(Taylor_Swift_album)', 'Evermore (Taylor Swift album)'),
+        press(
+          'https://www.vanityfair.com/style/2020/12/taylor-swift-evermore-review',
+          'Taylor Swift Shakes Off More of Her Self-Consciousness on Evermore',
+          'Vanity Fair',
+          'supports the December 2020 release and folklore sister-album context',
+        ),
+      ],
     },
     {
       slug: 'fearless-taylors-version',
@@ -498,7 +600,15 @@ export default {
         'Bye Bye Baby',
       ],
       note: 'The first re-recording in the masters battle — 26 tracks, including six never-released songs "From the Vault." Proof of concept for the whole project.',
-      sources: [wiki('Fearless_(Taylor%27s_Version)', "Fearless (Taylor's Version)")],
+      sources: [
+        wiki('Fearless_(Taylor%27s_Version)', "Fearless (Taylor's Version)"),
+        press(
+          'https://pitchfork.com/reviews/albums/taylor-swift-fearless-taylors-version',
+          "Fearless (Taylor's Version)",
+          'Pitchfork',
+          'supports the first Taylor\'s Version release and re-recording-project context',
+        ),
+      ],
     },
     {
       slug: 'red-taylors-version',
@@ -542,7 +652,15 @@ export default {
         'All Too Well (10 Minute Version)',
       ],
       note: 'Thirty tracks capped by the ten-minute All Too Well — the version fans spent nine years asking for, which promptly became the longest #1 in Hot 100 history.',
-      sources: [wiki('Red_(Taylor%27s_Version)', "Red (Taylor's Version)")],
+      sources: [
+        wiki('Red_(Taylor%27s_Version)', "Red (Taylor's Version)"),
+        press(
+          'https://pitchfork.com/reviews/albums/taylor-swift-red-taylors-version',
+          "Red (Taylor's Version)",
+          'Pitchfork',
+          'supports the re-recorded Red release and vault/ten-minute All Too Well context',
+        ),
+      ],
     },
     {
       slug: 'midnights',
@@ -611,7 +729,15 @@ export default {
         'Dear Reader',
       ],
       note: 'Announced at literally 3am the night of release: seven more songs from the Midnights sessions, "we think of them as this special surprise".',
-      sources: [wiki('Midnights', 'Midnights', '3am Edition date + added tracks documented in the album article')],
+      sources: [
+        wiki('Midnights', 'Midnights', '3am Edition date + added tracks documented in the album article'),
+        press(
+          'https://ew.com/music/taylor-swift-reveals-midnights-album-surprise-seven-more-songs/',
+          'Taylor Swift reveals chaotic surprise for "Midnights" album: 7 more new songs',
+          'Entertainment Weekly',
+          'supports the 3am surprise release and seven added songs',
+        ),
+      ],
     },
     {
       slug: 'lover-live-from-paris',
@@ -668,7 +794,15 @@ export default {
         'Karma (feat. Ice Spice)',
       ],
       note: 'The Eras-Tour-summer expansion: Hits Different goes streaming-wide, Lana gets a full feature on Snow on the Beach, and Ice Spice joins Karma.',
-      sources: [wiki('Midnights', 'Midnights', "Til Dawn Edition date + added tracks documented in the album article")],
+      sources: [
+        wiki('Midnights', 'Midnights', "Til Dawn Edition date + added tracks documented in the album article"),
+        press(
+          'https://people.com/music/taylor-swift-announces-midnights-til-dawn-edition-ice-spice-lana-del-rey/',
+          "Taylor Swift Announces Midnights (Til Dawn Edition) Featuring Ice Spice and More Lana Del Rey",
+          'People',
+          'supports the Til Dawn Edition additions: Hits Different, More Lana Del Rey, and Karma featuring Ice Spice',
+        ),
+      ],
     },
     {
       slug: 'speak-now-taylors-version',
@@ -704,7 +838,15 @@ export default {
         'Timeless',
       ],
       note: 'Announced on stage in Nashville mid-Eras-Tour — the all-self-written album returns with vault guests Fall Out Boy and Hayley Williams.',
-      sources: [wiki('Speak_Now_(Taylor%27s_Version)', "Speak Now (Taylor's Version)")],
+      sources: [
+        wiki('Speak_Now_(Taylor%27s_Version)', "Speak Now (Taylor's Version)"),
+        press(
+          'https://pitchfork.com/news/taylor-swift-breaks-record-for-most-no-1-albums-by-a-female-artist-with-speak-now-taylors-version',
+          "Taylor Swift Breaks Record for Most No. 1 Albums by a Female Artist With Speak Now (Taylor's Version)",
+          'Pitchfork',
+          "supports the Speak Now (Taylor's Version) release, vault expansion, and chart context",
+        ),
+      ],
     },
     {
       slug: '1989-taylors-version',
@@ -739,7 +881,15 @@ export default {
         'Is It Over Now?',
       ],
       note: 'Announced at the final US Eras Tour show of 2023 (8/9, wink) — nine years to the season after the original, with five vault tracks fans decoded via Google puzzles.',
-      sources: [wiki('1989_(Taylor%27s_Version)', "1989 (Taylor's Version)")],
+      sources: [
+        wiki('1989_(Taylor%27s_Version)', "1989 (Taylor's Version)"),
+        press(
+          'https://pitchfork.com/reviews/albums/taylor-swift-1989-taylors-version',
+          "1989 (Taylor's Version)",
+          'Pitchfork',
+          "supports the 1989 (Taylor's Version) re-recording and vault-track context",
+        ),
+      ],
     },
     {
       slug: 'the-tortured-poets-department',

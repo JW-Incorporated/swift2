@@ -22,6 +22,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -82,7 +92,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('I_Bet_You_Think_About_Me', 'I Bet You Think About Me')],
+      sources: [
+        wiki('I_Bet_You_Think_About_Me', 'I Bet You Think About Me'),
+        press(
+          'https://www.teenvogue.com/story/taylor-swift-i-bet-you-think-about-me-music-video-blake-lively',
+          "Taylor Swift to Release 'I Bet You Think About Me' Music Video Directed By Blake Lively",
+          'Teen Vogue',
+          "supports Blake Lively's directorial debut and the music-video rollout",
+        ),
+      ],
     },
   ],
 };

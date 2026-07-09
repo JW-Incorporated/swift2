@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -122,7 +132,21 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Out_of_the_Woods_(song)', 'Out of the Woods (song)')],
+      sources: [
+        wiki('Out_of_the_Woods_(song)', 'Out of the Woods (song)'),
+        press(
+          'https://time.com/4164964/taylor-swift-new-music-video-out-woods-watch/',
+          "Watch Taylor Swift's New Music Video 'Out of the Woods'",
+          'Time',
+          "supports the New Year's Eve premiere and video imagery",
+        ),
+        press(
+          'https://www.vanityfair.com/hollywood/2015/12/taylor-swift-out-of-the-woods-music-video-announcement',
+          'Taylor Swift Will Close Out Her Stellar 2015 with a New Music Video',
+          'Vanity Fair',
+          "supports the New Year's Rockin' Eve video-premiere setup",
+        ),
+      ],
     },
     {
       slug: 'new-romantics-mv',
@@ -152,7 +176,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('The_1989_World_Tour_Live', 'The 1989 World Tour Live')],
+      sources: [
+        wiki('The_1989_World_Tour_Live', 'The 1989 World Tour Live'),
+        press(
+          'https://www.billboard.com/music/pop/taylor-swift-1989-world-tour-live-concert-film-apple-music-6805694/',
+          "Taylor Swift '1989 World Tour Live' Concert Film Coming to Apple Music: Watch Trailer",
+          'Billboard',
+          'supports the Apple Music concert-film release and Sydney-tour-film framing',
+        ),
+      ],
     },
   ],
 };
