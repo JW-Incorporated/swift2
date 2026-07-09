@@ -38,8 +38,8 @@ try {
       await client.query(
         `insert into public.tour
            (slug, era_slug, title, opened_on, closed_on, legs, show_count,
-            surprise_songs_note, shows, note, sources)
-         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)`,
+            surprise_songs_note, shows, note, sources, dates)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)`,
         [
           t.slug,
           t.eraSlug,
@@ -52,6 +52,7 @@ try {
           JSON.stringify(t.shows ?? []),
           t.note ?? '',
           JSON.stringify(t.sources ?? []),
+          JSON.stringify(t.dates ?? []),
         ],
       );
       count += 1;
