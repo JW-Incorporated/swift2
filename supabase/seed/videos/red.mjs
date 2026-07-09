@@ -44,6 +44,39 @@ export default {
   eraSlug: 'red',
   videos: [
     {
+      slug: 'safe-and-sound-mv',
+      kind: 'music_video',
+      title: 'Safe & Sound',
+      director: null,
+      releasedOn: '2012-02-13',
+      relatedSongs: ['Safe & Sound'],
+      summary:
+        'A barefoot walk through a Watertown, Tennessee forest and cemetery in a long white gown, intercut with The Civil Wars performing by firelight — recorded for The Hunger Games soundtrack, dotted with mockingjay references.',
+      symbolism: null,
+      easterEggs: ['Swift finds a mockingjay pin during the woods sequence, tying the video to the film\'s central symbol.'],
+      officialUrl: 'https://www.youtube.com/watch?v=RzhAS_GnJIc',
+      media: [embed('RzhAS_GnJIc')],
+      sources: [
+        yt('RzhAS_GnJIc', 'Safe & Sound feat. The Civil Wars (The Hunger Games: Songs From District 12 And Beyond)'),
+        wiki('Safe_%26_Sound_(Taylor_Swift_song)', 'Safe & Sound (Taylor Swift song)'),
+      ],
+    },
+    {
+      slug: 'red-mv',
+      kind: 'music_video',
+      title: 'Red',
+      director: 'Kenny Jackson',
+      releasedOn: '2013-07-03',
+      relatedSongs: ['Red'],
+      summary:
+        'An edited concert-performance video cut from live shows in front of thousands of fans, rather than a scripted narrative — the album\'s fourth single.',
+      symbolism: null,
+      easterEggs: [],
+      officialUrl: 'https://www.youtube.com/watch?v=Zlot0i3Zykw',
+      media: [embed('Zlot0i3Zykw')],
+      sources: [yt('Zlot0i3Zykw', 'Taylor Swift - Red'), wiki('Red_(Taylor_Swift_song)', 'Red (Taylor Swift song)')],
+    },
+    {
       slug: 'we-are-never-ever-getting-back-together-mv',
       kind: 'music_video',
       title: 'We Are Never Ever Getting Back Together',
