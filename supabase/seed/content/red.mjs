@@ -739,12 +739,22 @@ export default {
       snippet:
         'A "howling, U2-style epic with reverb-drenched guitars," per Rolling Stone — Taylor\'s own description was simpler: "This sounds like the feeling of falling in love in an epic way."',
       sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/8/8a/Taylor_Swift_-_State_of_Grace.png/250px-Taylor_Swift_-_State_of_Grace.png',
       moment: {
         context:
           'Previewing the song on Good Morning America, Swift explained: "I wrote this song about when you first fall in love with someone. The possibilities. Kind of thinking about the different ways that it could go." On the sound she added: "It\'s a really big sound. To me, this sounds like the feeling of falling in love in an epic way" — a deliberate departure into arena rock that opens the album before its country roots resurface. A stripped-down acoustic version included on the Target-exclusive edition was, in her words, "really acoustic and like emotional and sweet."',
         sources: [{ outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace' }],
-        photos: [],
+        // Real-photo pass (2026-07-09): promotional single cover from Wikipedia's
+        // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8a/Taylor_Swift_-_State_of_Grace.png/250px-Taylor_Swift_-_State_of_Grace.png',
+            credit: 'Big Machine Records',
+            caption: 'Promotional single cover for "State of Grace," released ahead of the album in October 2012.',
+            kind: 'primary',
+          },
+        ],
       },
     },
 
@@ -757,7 +767,8 @@ export default {
       snippet:
         'A duet with Snow Patrol\'s Gary Lightbody, born from a relationship where "you never know when he\'s going to leave... but he always does come back" — Ed Sheeran made the introduction.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Last_Time_(Taylor_Swift_song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png',
       moment: {
         context:
           'Swift told NPR the song was inspired by an unreliable partner: "You never know when he\'s going to leave, you never know when he\'s going to come back, but he always does come back." She described picturing a boyfriend on his knees outside a door, promising "this is the last time," while his girlfriend waits inside, torn on whether to let him back in: "It\'s a really fragile emotion you\'re dealing with when you want to love someone, but you don\'t know if it\'s smart to." The collaboration came together after her friend Ed Sheeran introduced her to Lightbody in spring 2012; the track was produced by Jacknife Lee, known for his work with Snow Patrol and U2.',
@@ -765,7 +776,16 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Last_Time_(Taylor_Swift_song)' },
           { outlet: 'NPR', url: 'https://www.npr.org/2012/11/03/164186569/taylor-swift-my-confidence-is-easy-to-shake' },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): official single cover from Wikipedia's
+        // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png',
+            credit: 'Big Machine Records',
+            caption: 'Official single cover for "The Last Time" featuring Gary Lightbody of Snow Patrol.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -945,7 +965,8 @@ export default {
       snippet:
         'Written from Maya Thompson\'s blog posts about her son Ronan, who died of neuroblastoma at three — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Ronan_(song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/250px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
       moment: {
         context:
           'Swift debuted the song live at the Stand Up to Cancer telethon on September 8, 2012, and released it as an iTunes-exclusive the same night, with all proceeds donated to cancer charities. She assembled the lyrics from direct quotes in Thompson\'s blog about her son, crediting her as co-writer. The song later reached No. 16 on the Hot 100 and was certified gold.',
@@ -969,7 +990,19 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): Wikimedia Commons hosts a public-domain
+        // vector replica of the text-only "Ronan" single cover (the artwork is
+        // below the threshold of originality). Faithful to the real cover but not
+        // the original raster file, so kind 'reference' with an honest caption.
+        // Verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/250px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
+            credit: 'Big Machine Records (vector replica via Wikimedia Commons)',
+            caption: 'The "Ronan" single cover — shown here as a faithful vector replica of the text-only artwork, hosted on Wikimedia Commons.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -981,7 +1014,8 @@ export default {
       snippet:
         'Released October 1, three weeks before the album — a soft, waltzing country ballad about a first date that heals, deliberately reassuring country radio before Red\'s dubstep drop landed.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Taylor_Swift_-_Begin_Again.png/250px-Taylor_Swift_-_Begin_Again.png',
       moment: {
         context:
           'The second track released from Red, sent to country radio as a counterweight to the pop-leaning lead single. Swift described it as a song about "when you\'ve gotten through a really bad relationship and you finally dust yourself off and go on that first date after a horrible breakup." It debuted and peaked at No. 7 on the Hot 100 on release-week downloads and earned a Grammy nomination for Best Country Song. The Philip Andelman video — a solitary, contemplative walk through Paris that ends at a café — was, in her words, a "love letter" to the city, about "somebody moving on and finding yourself again."',
@@ -996,7 +1030,16 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
+        // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Taylor_Swift_-_Begin_Again.png/250px-Taylor_Swift_-_Begin_Again.png',
+            credit: 'Big Machine Records',
+            caption: 'Single cover art for "Begin Again," released October 1, 2012.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1008,7 +1051,8 @@ export default {
       snippet:
         'Loving him was like driving a new Maserati down a dead-end street — the title track\'s color-coded theory of a relationship whose emotions ran too hot to be anything but red.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/c/c0/Taylor_Swift_-_Red_%28Single%29.png/250px-Taylor_Swift_-_Red_%28Single%29.png',
       moment: {
         context:
           'Swift has explained that the album took its name from this song\'s central idea: the semi-toxic relationships she was writing about were defined by intense, burning emotion — red — rather than the blues and grays of ordinary heartbreak. The song became the album\'s fifth single and a country-radio hit in 2013.',
@@ -1023,7 +1067,16 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
+        // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c0/Taylor_Swift_-_Red_%28Single%29.png/250px-Taylor_Swift_-_Red_%28Single%29.png',
+            credit: 'Big Machine Records',
+            caption: 'Single cover art for "Red," the album\'s fifth single.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1104,7 +1157,8 @@ export default {
       snippet:
         'Her haunting Hunger Games ballad with The Civil Wars took Best Song Written for Visual Media at the 55th Grammys — still the only Hunger Games song ever to win a Grammy.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
       moment: {
         context:
           'Written with Joy Williams and John Paul White of The Civil Wars and producer T Bone Burnett for The Hunger Games soundtrack, the song won Best Song Written for Visual Media at the February 10, 2013 ceremony, where it was also nominated for Best Country Duo/Group Performance. She performed "We Are Never Ever Getting Back Together" as the show\'s ringmaster-themed opener the same night.',
@@ -1137,7 +1191,18 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
+        // upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
+        // kind 'archival': the item is about the Grammy win; the cover is the
+        // winning song's artwork, not a photo of the ceremony moment.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
+            credit: 'Big Machine Records',
+            caption: 'Single cover for "Safe & Sound" (feat. The Civil Wars), which won Best Song Written for Visual Media at the 55th Grammys.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1149,7 +1214,7 @@ export default {
       snippet:
         'The fourth single arrived March 12, 2013, with a video shot the next-best thing to candid — Taylor and her real-life friend group at a house party, trampoline and cat-ear headband included.',
       sourceUrl: 'https://en.wikipedia.org/wiki/22_(Taylor_Swift_song)',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://i.ytimg.com/vi/AgFeZr5ptV8/hqdefault.jpg',
       moment: {
         context:
           'Anthony Mandler shot the video at a Malibu beach house in February 2013, and it premiered on Good Morning America on March 13 — the day after the single\'s release. It cast her real friends rather than actors, leaning into the song\'s "happy, free, confused, and lonely" thesis with a day-in-the-life arc of baking, sunbathing, and swimming. The single peaked at No. 20 on the Hot 100, was certified triple platinum, and became a permanent set-list fixture.',
@@ -1164,7 +1229,18 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): thumbnail of the official "22" music
+        // video. Video id AgFeZr5ptV8 verified via YouTube oEmbed this session:
+        // title "Taylor Swift - 22", channel "Taylor Swift" (@TaylorSwift).
+        // Thumbnail URL verified HTTP 200 + image/jpeg.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/AgFeZr5ptV8/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube',
+            caption: 'Taylor in the "not a lot going on at the moment" tee — thumbnail from the official "22" music video.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1176,7 +1252,8 @@ export default {
       snippet:
         'A $17.75 million, 5-acre oceanfront estate at the highest point of Watch Hill, Rhode Island, bought outright in 2013 — the future site of the July 4th parties and, years later, the muse for "The Last Great American Dynasty."',
       sourceUrl: 'https://en.wikipedia.org/wiki/High_Watch',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/500px-Holiday_House_on_Watch_Hill.jpg',
       moment: {
         context:
           'Built in 1929-30 and later owned by Standard Oil heiress Rebekah Harkness, the estate came with more than 700 feet of private beachfront. News of the all-cash purchase broke in spring 2013; within a year the house was hosting the squad\'s Independence Day gatherings, and in 2020 Harkness\'s story became "The Last Great American Dynasty" on folklore.',
@@ -1200,7 +1277,18 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): Wikimedia Commons photo of the actual
+        // estate, seen from the Watch Hill shoreline (CC BY 2.0, author JJBers).
+        // Distant public view — no private-location detail beyond what the
+        // Wikipedia article itself publishes. Verified HTTP 200 + image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/500px-Holiday_House_on_Watch_Hill.jpg',
+            credit: 'JJBers via Wikimedia Commons (CC BY 2.0)',
+            caption: 'The Watch Hill, Rhode Island shoreline, with High Watch ("Holiday House") visible on the bluff among the neighboring homes.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1245,7 +1333,8 @@ export default {
       snippet:
         'The Country Music Hall of Fame opened its Taylor Swift Education Center on October 12, 2013 — funded by the largest individual artist donation the museum had ever received.',
       sourceUrl: 'http://www.rollingstone.com/music/news/taylor-swift-opens-education-center-at-country-music-hall-of-fame-20131013',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Taylor_Swift_Education_Center_%2849328753061%29.jpg/500px-Taylor_Swift_Education_Center_%2849328753061%29.jpg',
       moment: {
         context:
           'Her $4 million endowment built a two-story, 7,500-square-foot wing with a gallery, classrooms, a studio, and a videoconference lab — doubling the Nashville museum\'s education space. The center still operates today, hosting curriculum-connected school programs, toddler programming, and family music-and-art workshops, with rotating displays of her artifacts that have included music-video pieces and Fearless Tour Hatch Show Print posters, plus an interactive recording booth and a sensory-inclusive room.',
@@ -1269,7 +1358,18 @@ export default {
             reliability_score: 5,
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): Wikimedia Commons photo of the actual
+        // center's signage (CC BY 2.0, author Jeremy Thompson), taken December
+        // 2019 — the center as it still operates, not the 2013 opening event,
+        // hence kind 'archival' and the dated caption. Verified HTTP 200 + image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Taylor_Swift_Education_Center_%2849328753061%29.jpg/500px-Taylor_Swift_Education_Center_%2849328753061%29.jpg',
+            credit: 'Jeremy Thompson via Wikimedia Commons (CC BY 2.0)',
+            caption: 'The Taylor Swift Education Center at the Country Music Hall of Fame in Nashville, photographed in 2019.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1281,7 +1381,8 @@ export default {
       snippet:
         'A one-off single for the film One Chance, released October 21, 2013 — the first song Taylor ever made with Jack Antonoff, years before he became her most constant collaborator.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Sweeter_Than_Fiction',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png',
       moment: {
         context:
           'Swift wrote it with Antonoff after watching the Paul Potts biopic One Chance, reading the film as a love story and writing from the perspective of Potts\'s unfailingly supportive wife. The sound was the real tell: an \'80s-inspired synth-pop track one critic described as "You Belong With Me" run through Fun\'s synthesizers — in hindsight, a first sketch of the 1989 palette a year early. It peaked at No. 34 on the Hot 100, and its Golden Globe nomination for Best Original Song was her second in a row. The partnership it started went on to shape 1989, reputation, Lover, folklore, Midnights and beyond.',
@@ -1296,7 +1397,16 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): official single cover from Wikipedia's
+        // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png',
+            credit: 'Big Machine Records',
+            caption: 'Official single cover for "Sweeter Than Fiction," from the One Chance soundtrack.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1407,7 +1517,8 @@ export default {
       snippet:
         'After 15 months and 86 shows, the tour closed June 12, 2014 at the Singapore Indoor Stadium — an Asian leg that also saw the Bangkok stop canceled in the aftermath of Thailand\'s military coup.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Red_Tour',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg/500px-Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg',
       moment: {
         context:
           'The 2014 leg carried the show from London\'s O2 through Berlin and on to Shanghai, Jakarta, Manila and Singapore. The planned June 9 Bangkok concert was called off following the May 2014 coup d\'etat in Thailand. The Singapore finale closed out the run that Billboard would shortly crown the highest-grossing country tour of all time.',
@@ -1422,7 +1533,19 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        // Real-photo pass (2026-07-09): Wikimedia Commons photo from the closing
+        // Singapore stand itself (CC BY-SA 4.0, author Weslam123, dated June 9,
+        // 2014 at the Singapore Indoor Stadium) — the finale was June 12 at the
+        // same venue, so kind 'archival' with the date in the caption.
+        // Verified HTTP 200 + image/jpeg.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg/500px-Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg',
+            credit: 'Weslam123 via Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Performing at the Singapore Indoor Stadium on June 9, 2014, during the Red Tour\'s closing Singapore stand.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
