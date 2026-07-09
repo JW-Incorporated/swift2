@@ -94,6 +94,26 @@ export interface HiddenClue {
   payoff: string;
 }
 
+/**
+ * What an image in a moment's gallery actually IS. Anything below 'primary'
+ * renders with an explicit label in the UI so a stand-in is never mistaken
+ * for the real photo:
+ *
+ *   - 'primary'   — the real photo of THIS moment.
+ *   - 'reference' — a related stand-in; the real photo hasn't surfaced yet.
+ *   - 'archival'  — supporting archival material (covers, stills, documents).
+ */
+export type ImageKind = 'primary' | 'reference' | 'archival';
+
+/** One image in a moment's gallery. Always hotlinked — never rehosted. */
+export interface ImageRef {
+  url: string;
+  /** Credit line (attribution, not a license). */
+  credit?: string;
+  caption?: string;
+  kind: ImageKind;
+}
+
 export interface ContentItem {
   id: string;
   /** Stable content slug from the seed (deep-linking / cross-refs). Optional. */
@@ -108,7 +128,14 @@ export interface ContentItem {
   /** Longer editorial body shown in the immersive detail view. */
   body: string[];
   tags: ContentTag[];
-  image: string;
+  /**
+   * Image gallery — never empty after normalization (`build()` in
+   * lib/longlive/content.ts). The hero is the first 'primary' entry (else
+   * images[0]). A legacy single-image item normalizes to one 'primary' whose
+   * url may be the era-art stand-in (`/eras/<eraId>.png`) when no real photo
+   * exists — see isEraArtFallback / hasRealPrimaryImage below.
+   */
+  images: ImageRef[];
   /**
    * Citations backing this moment. Reuses the EggSource shape. Rendered as a
    * "Sources" list in the detail view — only when non-empty (never a
@@ -130,6 +157,38 @@ export interface ContentItem {
    * affordance in the detail view.
    */
   relatedIds?: RelatedId[];
+}
+
+/**
+ * The image a single-image surface (hero, share card, …) should show for a
+ * moment: the first 'primary' entry, else the first image at all.
+ */
+export function primaryImageRef(item: ContentItem): ImageRef | undefined {
+  return item.images.find((i) => i.kind === 'primary') ?? item.images[0];
+}
+
+/** Convenience url form of primaryImageRef, with the app-wide placeholder. */
+export function primaryImage(item: ContentItem): string {
+  return primaryImageRef(item)?.url ?? '/placeholder.svg';
+}
+
+/**
+ * True when `url` is the era-art stand-in that `build()` (content.ts)
+ * substitutes for a moment with no real photo (`/eras/<eraId>.png`). Era art
+ * is the ONLY thing served from /eras/, so the prefix is the discriminator.
+ */
+export function isEraArtFallback(url: string): boolean {
+  return url.startsWith('/eras/');
+}
+
+/**
+ * True when the moment has a REAL primary photo — a 'primary' gallery entry
+ * that is not the era-art fallback. This is the predicate depth/coverage
+ * gates should use now that the single `image` field is gone: every item has
+ * a non-empty `images`, so "has images" alone proves nothing.
+ */
+export function hasRealPrimaryImage(item: ContentItem): boolean {
+  return item.images.some((i) => i.kind === 'primary' && !isEraArtFallback(i.url));
 }
 
 /** An official music video embedded (never re-hosted) from YouTube. */
