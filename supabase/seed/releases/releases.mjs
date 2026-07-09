@@ -19,6 +19,26 @@ const wiki = (article, title, notes) => ({
   excerpt: null,
   notes: notes ?? 'anchors release date, label, and tracklist',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
+const official = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'official',
+  accessed_at: '2026-07-09',
+  reliability_score: 5,
+  excerpt: null,
+  notes,
+});
 
 export default {
   releases: [
@@ -48,6 +68,18 @@ export default {
       sources: [wiki('Taylor_Swift_(album)', 'Taylor Swift (album)')],
     },
     {
+      slug: 'napster-live',
+      eraSlug: 'debut',
+      kind: 'ep',
+      title: 'Napster Live',
+      releaseDate: '2006-10-24',
+      label: 'Big Machine',
+      trackCount: null,
+      parentReleaseSlug: null,
+      note: 'A Napster-exclusive live EP from the debut rollout; the corpus tracks it as a real release but leaves the tracklist blank until a stronger listing is verified.',
+      sources: [wiki('Taylor_Swift_albums_discography', 'Taylor Swift albums discography', 'anchors the EP release date, label, and Napster-exclusive status')],
+    },
+    {
       slug: 'the-taylor-swift-holiday-collection',
       eraSlug: 'debut',
       kind: 'ep',
@@ -66,6 +98,18 @@ export default {
       ],
       note: 'A six-song holiday EP — four covers plus two originals — first sold as a Target exclusive under the title Sounds of the Season.',
       sources: [wiki('The_Taylor_Swift_Holiday_Collection', 'The Taylor Swift Holiday Collection')],
+    },
+    {
+      slug: 'itunes-live-from-soho',
+      eraSlug: 'debut',
+      kind: 'ep',
+      title: 'iTunes Live from SoHo',
+      releaseDate: '2008-01-15',
+      label: 'Big Machine',
+      trackCount: 8,
+      parentReleaseSlug: null,
+      note: 'An iTunes-exclusive live EP from the debut era; the release is represented here without an ordered tracklist until a stronger listing is verified.',
+      sources: [wiki('Taylor_Swift_albums_discography', 'Taylor Swift albums discography', 'anchors the EP release date, label, and iTunes-exclusive status')],
     },
     {
       slug: 'beautiful-eyes',
@@ -176,6 +220,18 @@ export default {
       sources: [wiki('Speak_Now', 'Speak Now')],
     },
     {
+      slug: 'speak-now-world-tour-live',
+      eraSlug: 'speak-now',
+      kind: 'live',
+      title: 'Speak Now World Tour - Live',
+      releaseDate: '2011-11-21',
+      label: 'Big Machine',
+      trackCount: 16,
+      parentReleaseSlug: 'speak-now',
+      note: 'The first live album/video-album release from the Speak Now World Tour, issued as a CD plus DVD/Blu-ray package.',
+      sources: [wiki('Speak_Now_World_Tour_%E2%80%93_Live', 'Speak Now World Tour - Live', 'anchors release date, label, format, and track count')],
+    },
+    {
       slug: 'red',
       eraSlug: 'red',
       kind: 'album',
@@ -262,6 +318,26 @@ export default {
       sources: [wiki('Reputation_(album)', 'Reputation (album)')],
     },
     {
+      slug: 'spotify-singles',
+      eraSlug: 'reputation',
+      kind: 'ep',
+      title: 'Spotify Singles',
+      releaseDate: '2018-04-13',
+      label: 'Big Machine',
+      trackCount: 2,
+      parentReleaseSlug: null,
+      note: 'A Spotify-exclusive two-track session: an acoustic Delicate and a cover of Earth, Wind & Fire\'s September, recorded in Nashville.',
+      sources: [
+        wiki('Taylor_Swift_albums_discography', 'Taylor Swift albums discography', 'anchors the EP release date and Spotify-exclusive status'),
+        official(
+          'https://newsroom.spotify.com/2018-04-13/taylor-swift-records-delicate-and-earth-wind-fires-september-for-spotify-singles/',
+          "Taylor Swift Records Delicate and Earth, Wind & Fire's September for Spotify Singles",
+          'Spotify',
+          'official Spotify announcement for the two-track Spotify Singles release',
+        ),
+      ],
+    },
+    {
       slug: 'lover',
       eraSlug: 'lover',
       kind: 'album',
@@ -292,6 +368,26 @@ export default {
       ],
       note: 'The first album she has owned outright from day one — her Republic Records debut after leaving Big Machine, and the pastel reset after reputation.',
       sources: [wiki('Lover_(album)', 'Lover (album)')],
+    },
+    {
+      slug: 'live-from-clear-channel-stripped-2008',
+      eraSlug: 'lover',
+      kind: 'live',
+      title: 'Live from Clear Channel Stripped 2008',
+      releaseDate: '2020-04-24',
+      label: 'Big Machine',
+      trackCount: null,
+      parentReleaseSlug: null,
+      note: 'A 2008 radio-session live album released by Big Machine in 2020 without Swift\'s approval; included for discography completeness, not endorsement.',
+      sources: [
+        wiki('Live_from_Clear_Channel_Stripped_2008', 'Live from Clear Channel Stripped 2008'),
+        press(
+          'https://pitchfork.com/news/taylor-swift-says-former-label-is-releasing-unapproved-live-album-of-hers-tonight',
+          'Taylor Swift Live Album Released by Former Label Despite Her Disapproval',
+          'Pitchfork',
+          'supports the release context and Swift objection',
+        ),
+      ],
     },
     {
       slug: 'folklore',
@@ -473,7 +569,15 @@ export default {
         'Mastermind',
       ],
       note: '"13 sleepless nights" as a concept album — it broke Spotify’s single-day record and made her the first artist to occupy the entire Hot 100 top 10 at once.',
-      sources: [wiki('Midnights', 'Midnights')],
+      sources: [
+        wiki('Midnights', 'Midnights'),
+        press(
+          'https://pitchfork.com/news/taylor-swift-reveals-new-album-midnights-full-tracklist',
+          "Taylor Swift Reveals New Album Midnights' Full Tracklist, Including New Song With Lana Del Rey",
+          'Pitchfork',
+          'supports the release date, 13-track standard edition, and album rollout context',
+        ),
+      ],
     },
     {
       slug: 'midnights-3am-edition',
@@ -508,6 +612,26 @@ export default {
       ],
       note: 'Announced at literally 3am the night of release: seven more songs from the Midnights sessions, "we think of them as this special surprise".',
       sources: [wiki('Midnights', 'Midnights', '3am Edition date + added tracks documented in the album article')],
+    },
+    {
+      slug: 'lover-live-from-paris',
+      eraSlug: 'midnights',
+      kind: 'live',
+      title: 'Lover (Live from Paris)',
+      releaseDate: '2023-02-14',
+      label: 'Republic',
+      trackCount: 8,
+      parentReleaseSlug: 'lover',
+      note: 'A heart-shaped vinyl live album from the 2019 City of Lover concert, released on Valentine\'s Day during the Midnights era.',
+      sources: [
+        wiki('Lover_(Live_from_Paris)', 'Lover (Live from Paris)'),
+        press(
+          'https://www.theguardian.com/music/2025/feb/14/taylor-swift-surpasses-madonna-as-female-artist-with-most-uk-no-1-albums',
+          'Taylor Swift surpasses Madonna as female artist with most UK No 1 albums',
+          'The Guardian',
+          'supports the live-album release and later chart context',
+        ),
+      ],
     },
     {
       slug: 'midnights-the-til-dawn-edition',
@@ -645,7 +769,15 @@ export default {
         'Clara Bow',
       ],
       note: 'Announced from the Grammys stage while winning Album of the Year #4 — the quill-pen breakup opus that became Spotify’s most-streamed album in a single day.',
-      sources: [wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department')],
+      sources: [
+        wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department'),
+        press(
+          'https://www.teenvogue.com/story/taylor-swift-new-album-tortured-poets-department',
+          "Taylor Swift's Tortured Poets Department: Double Album, Tracklist, Bonus Songs, Release Date, and Everything to Know",
+          'Teen Vogue',
+          'supports the April 19, 2024 release, standard tracklist, and feature credits',
+        ),
+      ],
     },
     {
       slug: 'ttpd-the-anthology',
@@ -690,7 +822,15 @@ export default {
         'The Manuscript',
       ],
       note: '"It’s a 2am surprise": two hours after release, the 16-track album doubled into a 31-track anthology — "I’ve written so much tortured poetry in the past 2 years".',
-      sources: [wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department', 'Anthology drop + added tracks documented in the album article')],
+      sources: [
+        wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department', 'Anthology drop + added tracks documented in the album article'),
+        press(
+          'https://www.teenvogue.com/story/taylor-swift-new-album-tortured-poets-department',
+          "Taylor Swift's Tortured Poets Department: Double Album, Tracklist, Bonus Songs, Release Date, and Everything to Know",
+          'Teen Vogue',
+          'supports The Anthology as the surprise double-album expansion and its added songs',
+        ),
+      ],
     },
     {
       slug: 'the-life-of-a-showgirl',
@@ -716,7 +856,15 @@ export default {
         'The Life of a Showgirl',
       ],
       note: 'Announced on the New Heights podcast in a burst of orange — 12 tracks written mid-Eras-Tour with Max Martin and Shellback, closing with the Sabrina Carpenter title duet.',
-      sources: [wiki('The_Life_of_a_Showgirl', 'The Life of a Showgirl')],
+      sources: [
+        wiki('The_Life_of_a_Showgirl', 'The Life of a Showgirl'),
+        press(
+          'https://apnews.com/article/c4262686b5b68ee210f7571b8716ab51',
+          "Taylor Swift announces 12th studio album, 'The Life of a Showgirl,' shares release date",
+          'Associated Press',
+          'supports the October 3, 2025 release date, 12-track count, producers, and Sabrina Carpenter feature',
+        ),
+      ],
     },
   ],
 };

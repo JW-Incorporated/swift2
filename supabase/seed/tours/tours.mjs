@@ -18,6 +18,16 @@ const wiki = (article, title, notes) => ({
   excerpt: null,
   notes: notes ?? 'anchors dates, legs, and show count',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 
 export default {
   tours: [
@@ -170,7 +180,15 @@ export default {
         },
       ],
       note: 'All ten (then eleven) eras in one three-hour show, 149 times across five continents — the first tour in history to gross over one billion dollars, then the first past two.',
-      sources: [wiki('The_Eras_Tour', 'The Eras Tour')],
+      sources: [
+        wiki('The_Eras_Tour', 'The Eras Tour'),
+        press(
+          'https://apnews.com/article/118a7f5ea4609c5d3072a29152e387bb',
+          "Taylor Swift's Eras Tour ends by shattering own record, grossing an estimated $2.2B, Pollstar says",
+          'Associated Press',
+          'supports the completed tour, 149-show count, and record gross context',
+        ),
+      ],
     },
   ],
 };

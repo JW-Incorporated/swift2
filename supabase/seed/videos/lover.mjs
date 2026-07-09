@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -111,7 +121,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Miss_Americana', 'Miss Americana')],
+      sources: [
+        wiki('Miss_Americana', 'Miss Americana'),
+        press(
+          'https://www.vanityfair.com/hollywood/2020/01/taylor-swift-netflix-miss-americana',
+          "Taylor Swift Gets On the Right Side of History in First Trailer for Netflix's Miss Americana",
+          'Vanity Fair',
+          'supports the Netflix/Sundance release context and documentary framing',
+        ),
+      ],
     },
     {
       slug: 'city-of-lover',
@@ -126,7 +144,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Taylor_Swift_City_of_Lover_Concert', 'Taylor Swift City of Lover Concert')],
+      sources: [
+        wiki('Taylor_Swift_City_of_Lover_Concert', 'Taylor Swift City of Lover Concert'),
+        press(
+          'https://pitchfork.com/news/listen-to-taylor-swifts-city-of-lover-film-soundtrack',
+          "Listen to Taylor Swift's City of Lover Film Soundtrack",
+          'Pitchfork',
+          'supports the ABC premiere date, Paris concert source, and streaming follow-up',
+        ),
+      ],
     },
   ],
 };

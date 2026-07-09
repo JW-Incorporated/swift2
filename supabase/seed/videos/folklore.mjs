@@ -21,6 +21,16 @@ const yt = (id, title) => ({
   excerpt: null,
   notes: 'official upload — verified via YouTube oEmbed 2026-07-08',
 });
+const press = (source_url, source_title, publisher, notes) => ({
+  source_url,
+  source_title,
+  publisher,
+  source_type: 'reputable_press',
+  accessed_at: '2026-07-09',
+  reliability_score: 4,
+  excerpt: null,
+  notes,
+});
 const embed = (id) => ({
   kind: 'oembed',
   rights: 'platform_tos',
@@ -62,7 +72,15 @@ export default {
       easterEggs: [],
       officialUrl: null,
       media: [],
-      sources: [wiki('Folklore:_The_Long_Pond_Studio_Sessions', 'Folklore: The Long Pond Studio Sessions')],
+      sources: [
+        wiki('Folklore:_The_Long_Pond_Studio_Sessions', 'Folklore: The Long Pond Studio Sessions'),
+        press(
+          'https://www.teenvogue.com/story/taylor-swift-folklore-special-disney-plus',
+          'Taylor Swift Is Releasing a "Folklore" Special on Disney+',
+          'Teen Vogue',
+          'supports the Disney+ surprise-release timing and film premise',
+        ),
+      ],
     },
   ],
 };
