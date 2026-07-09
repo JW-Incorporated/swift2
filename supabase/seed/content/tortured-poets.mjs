@@ -695,8 +695,8 @@ export default {
           },
         ],
         photos: [
-          { url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg', credit: 'Getty Images' },
-          { url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg', credit: 'Getty Images' },
+          { url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg', credit: 'Taylor Swift' },
+          { url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg', credit: 'Taylor Swift' },
         ],
       },
     },
@@ -1331,7 +1331,7 @@ export default {
       year: 2024,
       month: 8,
       category: 'tour',
-      title: 'Vienna, cancelled: a foiled plot and 250,000 unused tickets',
+      title: 'Vienna, cancelled: a foiled plot, three sold-out shows',
       snippet:
         'Austrian police arrested suspects planning an attack on the Ernst Happel shows, and all three nights were scrapped. She later wrote the cancellations left her with "a new sense of fear" and "tremendous guilt."',
       sourceUrl: 'https://www.nbcnews.com/news/world/taylor-swift-concert-terror-plot-austria-foiled-2-men-arrested-shows-w-rcna165591',

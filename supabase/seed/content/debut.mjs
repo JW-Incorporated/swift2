@@ -745,12 +745,12 @@ export default {
       category: 'tour',
       title: 'Her first arena tour: opening for Rascal Flatts, on a day\'s notice',
       snippet:
-        'Rascal Flatts fired opener Eric Church mid-tour for playing too long; the 16-year-old with the nine-day-old album got his slot. Years later she sent Church her first gold record — thanks for "playing too long and too loud."',
+        'Rascal Flatts fired opener Eric Church mid-tour for playing too long; the 16-year-old, days from releasing her debut album, got his slot. Years later she sent Church her first gold record — thanks for "playing too long and too loud."',
       sourceUrl: 'https://tasteofcountry.com/eric-church-rascal-flatts-tour-taylor-swift-secret-history/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The call came Oct. 17, 2006 — eight days after her debut album dropped — and she was on the Me and My Gang Tour\'s remaining fall dates almost immediately, her first taste of arena crowds. Church has told the story ever since, gold record and all: the note read "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
+          'The call came Oct. 17, 2006 — a week before her self-titled debut album dropped on Oct. 24 — and she was on the Me and My Gang Tour\'s remaining fall dates almost immediately, her first taste of arena crowds. Church has told the story ever since, gold record and all: the note read "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
         sources: [
           {
             outlet: 'Taste of Country',
@@ -1318,21 +1318,12 @@ export default {
       title: "Opening Brad Paisley's Bonfires & Amplifiers fall leg",
       snippet:
         'Her 2007 of permanent opening slots rolls on: the fall leg of Brad Paisley\'s Bonfires & Amplifiers Tour, Sept. 6 through Nov. 17, after guesting on summer dates alongside Kellie Pickler and Jack Ingram.',
-      sourceUrl: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=454',
+      sourceUrl: 'https://www.concertarchives.org/bands/brad-paisley?page=1&year=2007',
       thumbnailUrl: null,
       moment: {
         context:
-          'Thirty announced fall dates, from London, Ontario through Grand Rapids, on a tour that totaled 75 shows that year — with Swift and Rodney Atkins opening the entire second leg. Country Standard Time\'s announcement is a snapshot of her mid-2007 résumé: one hit single ("Tim McGraw"), a debut album newly certified gold, and support slots for Rascal Flatts and George Strait already behind her. Concert archives from that fall show her billed nightly under Paisley — the last long stretch of the opening-act years before Fearless made her the headliner.',
+          'Thirty announced fall dates, from London, Ontario through Grand Rapids, on a tour that totaled 75 shows that year — with Swift and Rodney Atkins opening the entire second leg. Her mid-2007 résumé at the time: one hit single ("Tim McGraw"), a debut album newly certified gold, and support slots for Rascal Flatts and George Strait already behind her. Concert archives from that fall show her billed nightly under Paisley — the last long stretch of the opening-act years before Fearless made her the headliner.',
         sources: [
-          {
-            outlet: 'Country Standard Time',
-            url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=454',
-            source_title: 'Brad Paisley extends tour into fall',
-            publisher: 'Country Standard Time',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 3,
-          },
           {
             outlet: 'Concert Archives',
             url: 'https://www.concertarchives.org/bands/brad-paisley?page=1&year=2007',
