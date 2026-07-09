@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node ../../scripts/sync-longlive-content.mjs && node ../../scripts/sync-longlive-tracks.mjs",
+    "prebuild": "node ../../scripts/sync-longlive-content.mjs && node ../../scripts/sync-longlive-tracks.mjs && node ../../scripts/sync-longlive-theories.mjs && node ../../scripts/sync-longlive-videos.mjs",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit"

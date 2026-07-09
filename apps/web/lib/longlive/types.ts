@@ -39,6 +39,20 @@ export type Confidence =
   | 'disproven'
   | 'joke_meme';
 
+/**
+ * Where a theory's claim landed. Mirrors THEORY_OUTCOMES in
+ * packages/shared/src/vault-types.ts (the source of truth) — same 6 values,
+ * kept in sync, not a new enum. Required alongside `confidence` on every
+ * TheoryNote so speculation never renders as fact.
+ */
+export type TheoryOutcome =
+  | 'confirmed'
+  | 'partially_confirmed'
+  | 'pending'
+  | 'debunked'
+  | 'abandoned'
+  | 'unfalsifiable';
+
 export type MilestoneKind = 'album' | 'tour' | 'life' | 'business' | 'award';
 
 /** Font personality applied to era headings. */
@@ -160,6 +174,69 @@ export interface TrackNote {
    * source link list only when non-empty (never an empty placeholder).
    */
   sources?: EggSource[];
+}
+
+/**
+ * One easter egg or fan theory in an era's theory guide
+ * (theories.generated.ts, surfaced by the TheoryGuide overlay). Mirrors the DB
+ * `theory` row / `Theory` in packages/shared/src/vault-types.ts, reduced to
+ * what the UI renders. `confidence` + `outcome` are REQUIRED — they render as
+ * badges so speculation never reads as fact; the generator drops any record
+ * missing either (or missing a real source).
+ */
+export interface TheoryNote {
+  /** Stable kebab slug from the seed, unique per era. */
+  slug: string;
+  /** Planted-and-decoded easter egg vs. speculative fan theory. */
+  kind: 'easter_egg' | 'theory';
+  title: string;
+  /** What fans believe, in OUR words — a hook, not an essay. */
+  claim: string;
+  /** The documented evidence trail, in our words, or null. */
+  evidence: string | null;
+  confidence: Confidence;
+  outcome: TheoryOutcome;
+  /** Citations backing the record. Reuses the EggSource shape; never empty. */
+  sources: EggSource[];
+}
+
+/** What kind of visual-media work a VideoNote records. Mirrors VIDEO_KINDS in
+ * packages/shared/src/vault-types.ts. */
+export type VideoNoteKind =
+  | 'music_video'
+  | 'lyric_video'
+  | 'short_film'
+  | 'tour_film'
+  | 'documentary'
+  | 'performance';
+
+/**
+ * One official video/visual-media work in an era's videos rail
+ * (videos.generated.ts, surfaced by EraVideos). Mirrors the DB `video_work`
+ * row / `VideoWork` in packages/shared/src/vault-types.ts, reduced to what the
+ * UI renders. When `youtubeId` is present the work embeds via the MomentVideo
+ * click-to-play facade (official uploads only — never re-hosted); when null it
+ * renders as a metadata card (e.g. a theatrical tour film).
+ */
+export interface VideoNote {
+  /** Stable kebab slug from the seed, unique per era. */
+  slug: string;
+  kind: VideoNoteKind | null;
+  title: string;
+  director: string | null;
+  /** ISO date (YYYY-MM-DD) the work premiered, or null if unknown. */
+  releasedOn: string | null;
+  /** Song titles this video belongs to (display names, not slugs). */
+  relatedSongs: string[];
+  /** One-line sourced summary — a hook, not a shot list. Or null. */
+  summary: string | null;
+  /** Documented Easter eggs, one short line each. */
+  easterEggs: string[];
+  /** YouTube ID of the official upload (extracted from the seed's verified
+   * officialUrl/oEmbed media), or null when there is no official embed. */
+  youtubeId: string | null;
+  /** Citations backing the record. Reuses the EggSource shape; never empty. */
+  sources: EggSource[];
 }
 
 /** Legal, embeddable streaming media attached to an era. */
