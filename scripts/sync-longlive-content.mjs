@@ -95,7 +95,7 @@ function addItem(
   byEra,
   seenIdsByEra,
   eraSlug,
-  { year, month, category, title, snippet, context, sources, sourceUrl, slug, tags },
+  { year, month, category, title, snippet, context, sources, sourceUrl, slug, tags, video },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
   const seenIds = (seenIdsByEra[eraId] ??= new Set());
@@ -112,6 +112,9 @@ function addItem(
   const date = `${year}-${mm}-01`;
   const dateLabel = `${MONTHS[month - 1]} ${year}`;
 
+  const hasVideo =
+    video && typeof video.youtubeId === 'string' && video.youtubeId && typeof video.title === 'string' && video.title;
+
   (byEra[eraId] ??= []).push({
     id,
     slug: typeof slug === 'string' && slug ? slug : undefined,
@@ -122,6 +125,7 @@ function addItem(
     body: bodyFrom(context, snippet),
     tags: tagsFrom(category, tags),
     sources: sourcesFrom(sources, sourceUrl),
+    video: hasVideo ? { youtubeId: video.youtubeId, title: video.title } : undefined,
   });
 }
 
@@ -195,9 +199,9 @@ async function fetchFromSupabase() {
       context: m?.context ?? null,
       sources: m?.sources ?? null,
       sourceUrl: row.source_url ?? null,
-      // month_item has no slug/tags column in the DB — those live only in the
-      // seed files (see fetchFromLocalFiles). Carrying them to live data needs
-      // a schema migration; tracked as a follow-up in the PR.
+      // month_item has no slug/tags/video column in the DB — those live only
+      // in the seed files (see fetchFromLocalFiles). Carrying them to live
+      // data needs a schema migration; tracked as a follow-up in the PR.
     });
   }
 
@@ -229,6 +233,7 @@ async function fetchFromLocalFiles() {
         sourceUrl: item.sourceUrl ?? null,
         slug: item.slug ?? null,
         tags: item.tags ?? null,
+        video: item.video ?? null,
       });
     }
   }
@@ -259,6 +264,7 @@ async function main() {
   lines.push('  body: string[];');
   lines.push('  tags: ContentTag[];');
   lines.push('  sources?: { name: string; url: string }[];');
+  lines.push('  video?: { youtubeId: string; title: string };');
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -277,6 +283,9 @@ async function main() {
       if (it.sources && it.sources.length) {
         const srcs = it.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
         lines.push(`      sources: [${srcs}],`);
+      }
+      if (it.video) {
+        lines.push(`      video: { youtubeId: ${esc(it.video.youtubeId)}, title: ${esc(it.video.title)} },`);
       }
       lines.push('    },');
     }
