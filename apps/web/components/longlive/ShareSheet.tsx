@@ -7,8 +7,11 @@ import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { getContentItem } from '@/lib/longlive/content';
 import { getThread } from '@/lib/longlive/lenses';
+import { momentShareCopy, type ShareCopy } from '@/lib/longlive/share';
 import { eraStyle } from '@/lib/longlive/theme';
-import type { Era } from '@/lib/longlive/types';
+import { primaryImage, type Era } from '@/lib/longlive/types';
+
+const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
 
 export function ShareSheet() {
   const { share } = useAppState();
@@ -38,6 +41,10 @@ export function ShareSheet() {
   let kicker: string;
   let title: string;
   let subtitle: string;
+  /** Rich moment share copy (T12); null falls back to `${title} — ${subtitle}`. */
+  let richCopy: ShareCopy | null = null;
+  /** Card imagery — the moment's primary photo for item shares, era art otherwise. */
+  let cardImage: string | undefined;
 
   if (share.kind === 'item') {
     const item = getContentItem(share.itemId);
@@ -45,6 +52,10 @@ export function ShareSheet() {
     kicker = `${era.name} · ${item?.dateLabel ?? ''}`;
     title = item?.title ?? '';
     subtitle = item?.summary ?? '';
+    if (item) {
+      richCopy = momentShareCopy(item, era);
+      cardImage = primaryImage(item);
+    }
   } else if (share.kind === 'era') {
     era = getEra(share.eraId);
     kicker = era.yearLabel;
@@ -74,16 +85,18 @@ export function ShareSheet() {
   })();
 
   async function onShare() {
-    const text = `${title} — ${subtitle}`;
+    // Moment shares carry the rich copy (title + era + date + summary);
+    // era/lens shares keep the existing thin form.
+    const copy = richCopy ?? { title, text: `${title} — ${subtitle}` };
     if (navigator.share) {
       try {
-        await navigator.share({ title, text, url: shareUrl });
+        await navigator.share({ title: copy.title, text: copy.text, url: shareUrl });
         return;
       } catch {
         /* user cancelled — fall through to copy */
       }
     }
-    await navigator.clipboard.writeText(`${text} ${shareUrl}`);
+    await navigator.clipboard.writeText(`${copy.text} ${shareUrl}`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   }
@@ -112,7 +125,13 @@ export function ShareSheet() {
         {/* The shareable card preview */}
         <div className="overflow-hidden rounded-3xl border border-[color:var(--era-line)] bg-[color:var(--era-bg)] shadow-2xl">
           <div className="relative aspect-[4/5]">
-            <Image src={era.image || '/placeholder.svg'} alt="" fill className="object-cover opacity-60" />
+            <Image
+              src={cardImage || era.image || '/placeholder.svg'}
+              alt=""
+              fill
+              unoptimized={isRemoteUrl(cardImage || era.image || '')}
+              className="object-cover opacity-60"
+            />
             <div
               className="absolute inset-0"
               style={{

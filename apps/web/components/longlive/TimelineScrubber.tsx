@@ -4,6 +4,7 @@ import type React from 'react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getEra } from '@/lib/longlive/eras';
 import { contentForEra, milestonesForEra } from '@/lib/longlive/content';
+import { truncate } from '@/lib/longlive/format';
 import { useAppState } from '@/lib/longlive/store';
 import { cn } from '@/lib/utils';
 
@@ -527,7 +528,7 @@ export function TimelineScrubber() {
               }}
             />
             <div
-              className="pointer-events-none absolute z-10 w-40 rounded-lg border p-2.5 shadow-lg"
+              className="pointer-events-none absolute z-10 w-48 rounded-lg border p-2.5 shadow-lg"
               style={{
                 right: RAIL_RIGHT + 18,
                 top: `${hoverPct}%`,
@@ -545,6 +546,11 @@ export function TimelineScrubber() {
               <div className="mt-0.5 text-[12px] font-medium leading-snug text-[color:var(--era-ink)]">
                 {nearestItem.title}
               </div>
+              {nearestItem.summary && (
+                <p className="mt-1 text-[11px] leading-snug text-[color:var(--era-ink-soft)]">
+                  {truncate(nearestItem.summary, 140)}
+                </p>
+              )}
             </div>
           </>
         )}
