@@ -340,12 +340,15 @@ export function TimelineScrubber() {
         onKeyDown={(e) => {
           if (currentDate == null) return;
           const step = span / 24;
+          // Top of the rail = newest, so ArrowUp moves toward `end`.
           if (e.key === 'ArrowUp') {
-            const d = Math.max(start, currentDate - step);
+            e.preventDefault();
+            const d = Math.min(end, currentDate + step);
             setCurrentDate(d);
             scrollToDate(d);
           } else if (e.key === 'ArrowDown') {
-            const d = Math.min(end, currentDate + step);
+            e.preventDefault();
+            const d = Math.max(start, currentDate - step);
             setCurrentDate(d);
             scrollToDate(d);
           }

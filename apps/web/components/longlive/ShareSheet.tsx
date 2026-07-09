@@ -63,8 +63,15 @@ export function ShareSheet() {
     subtitle = 'A journey through every era.';
   }
 
-  const shareUrl =
-    typeof window !== 'undefined' ? window.location.href : 'https://longlive.app';
+  // Point the shared link at the actual target (deep link via ?item=/?lens=/
+  // ?era=, read on mount by AppProvider) rather than just the current page.
+  const shareUrl = (() => {
+    const base = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : 'https://longlive.app';
+    if (share.kind === 'item') return `${base}?item=${encodeURIComponent(share.itemId)}`;
+    if (share.kind === 'lens') return `${base}?lens=${encodeURIComponent(share.lensId)}`;
+    if (share.kind === 'era') return `${base}?era=${encodeURIComponent(share.eraId)}`;
+    return base;
+  })();
 
   async function onShare() {
     const text = `${title} — ${subtitle}`;

@@ -4,12 +4,14 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useRef,
   useState,
   type ReactNode,
 } from 'react';
 import { CURRENT_ERA_ID, getEra } from './eras';
+import { THREADS } from './lenses';
 import type { EraId, LensId } from './types';
 
 export type AppMode = 'era' | 'threads';
@@ -180,6 +182,25 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setOpenItemId(null);
     setShare(null);
   }, [clearEraScroll]);
+
+  // Deep link support: a shared URL (?item=, ?lens=, or ?era=) lands the
+  // visitor on the shared target instead of the default experience. One-time
+  // read on mount — ongoing navigation stays state-only, not URL-synced.
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const item = params.get('item');
+    const lens = params.get('lens');
+    const era = params.get('era');
+    if (item) {
+      setOpenItemId(item);
+    } else if (lens && THREADS.some((t) => t.id === lens)) {
+      openThread(lens as LensId);
+    } else if (era) {
+      setEra(era as EraId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const actions = useMemo<AppActions>(
     () => ({
