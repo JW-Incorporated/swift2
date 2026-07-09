@@ -343,10 +343,10 @@ export const RUNWAY_LOOKS: RunwayLook[] = [
   {
     id: 'look-tloas',
     eraId: 'tloas',
-    name: 'Showgirl Sequins',
-    description: 'Orange-gold sequins and feathers — full stage-lit spectacle.',
+    name: 'Bathtub Showgirl',
+    description: 'Portofino-orange sequins, rhinestone bras, and Bob Mackie-inspired feathers — a Vegas showgirl’s victory lap.',
     image: '/eras/tloas.png',
-    shopTags: ['Sequin leotard', 'Feather boa', 'Orange sequins'],
+    shopTags: ['Orange sequins', 'Rhinestone bra', 'Feather headpiece'],
   },
 ];
 
