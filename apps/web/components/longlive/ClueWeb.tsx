@@ -58,7 +58,7 @@ function linksFor(nodeId: string): { other: EggNode; label: string }[] {
 type View =
   | { kind: 'home' }
   | { kind: 'trail'; motif: MotifId }
-  | { kind: 'map'; motif: MotifId | null };
+  | { kind: 'map'; motif: MotifId | null; nodeId?: string };
 
 /**
  * The Clue Web — a self-contained mini-app. It has its own internal navigation
@@ -91,10 +91,15 @@ export function ClueWeb() {
           motifId={view.motif}
           onBack={() => go({ kind: 'home' })}
           onOpenMap={(m) => go({ kind: 'map', motif: m })}
+          onOpenNode={(id) => go({ kind: 'map', motif: null, nodeId: id })}
         />
       )}
       {view.kind === 'map' && (
-        <ConstellationView initialMotif={view.motif} onBack={() => go({ kind: 'home' })} />
+        <ConstellationView
+          initialMotif={view.motif}
+          initialNodeId={view.nodeId ?? null}
+          onBack={() => go({ kind: 'home' })}
+        />
       )}
     </div>
   );
@@ -269,10 +274,12 @@ function TrailView({
   motifId,
   onBack,
   onOpenMap,
+  onOpenNode,
 }: {
   motifId: MotifId;
   onBack: () => void;
   onOpenMap: (m: MotifId) => void;
+  onOpenNode: (nodeId: string) => void;
 }) {
   const motif = MOTIF_BY_ID[motifId];
   const Icon = motifIcon(motif);
@@ -310,7 +317,7 @@ function TrailView({
           style={{ backgroundColor: 'var(--era-line)' }}
         />
         {nodes.map((node) => (
-          <NodeRow key={node.id} node={node} />
+          <NodeRow key={node.id} node={node} onOpenNode={onOpenNode} />
         ))}
       </div>
 
@@ -328,7 +335,13 @@ function TrailView({
   );
 }
 
-function NodeRow({ node }: { node: EggNode }) {
+function NodeRow({
+  node,
+  onOpenNode,
+}: {
+  node: EggNode;
+  onOpenNode: (nodeId: string) => void;
+}) {
   const era = getEra(node.eraId);
   const isTheory = node.confirmed === false;
   const isPayoff = node.kind === 'payoff';
@@ -381,14 +394,17 @@ function NodeRow({ node }: { node: EggNode }) {
               Connects to
             </span>
             {links.map(({ other, label }) => (
-              <span
+              <button
                 key={other.id}
-                className="rounded-full border px-2 py-0.5 text-[11px] text-[color:var(--era-ink-soft)]"
+                type="button"
+                onClick={() => onOpenNode(other.id)}
+                className="rounded-full border px-2 py-0.5 text-[11px] text-[color:var(--era-ink-soft)] transition hover:bg-[color:var(--era-surface-2)] hover:text-[color:var(--era-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color:var(--era-accent)]"
                 style={{ borderColor: 'var(--era-line)' }}
                 title={label}
+                aria-label={`${label}: see ${other.label} on the constellation`}
               >
                 {other.label}
-              </span>
+              </button>
             ))}
           </div>
         )}
@@ -419,12 +435,14 @@ function NodeRow({ node }: { node: EggNode }) {
 /* ── Constellation: the free-form explore map (opt-in) ───────────────── */
 function ConstellationView({
   initialMotif,
+  initialNodeId = null,
   onBack,
 }: {
   initialMotif: MotifId | null;
+  initialNodeId?: string | null;
   onBack: () => void;
 }) {
-  const [active, setActive] = useState<string | null>(null);
+  const [active, setActive] = useState<string | null>(initialNodeId);
   const [hovered, setHovered] = useState<string | null>(null);
   const [filter, setFilter] = useState<MotifId | null>(initialMotif);
 
