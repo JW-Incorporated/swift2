@@ -48,6 +48,8 @@ export default {
         'https://newsroom.spotify.com/2022-10-22/taylor-swift-breaks-two-records-with-midnights-becoming-the-most-streamed-artist-on-spotify/',
       thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/Screenshot_20221022-153332.png',
       moment: {
+        context:
+          "The 184.6 million album streams blew past the single-day record Drake's Certified Lover Boy had set at 153.4 million in 2021, and the 228 million catalog-wide streams took the most-streamed-artist-in-a-day mark from Bad Bunny, who'd held it since May 2022 at 183 million. Guinness World Records logged the day as three records at once: most-streamed album in 24 hours, most day-one streams for an album, and most-streamed act in a single day. The launch had a runway, too — Spotify and Swift had partnered to reveal Midnights lyrics on billboards around the world in the lead-up to release, her fifth album in roughly two years.",
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -78,6 +80,8 @@ export default {
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2022/10/02-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
       moment: {
+        context:
+          "The 1.578 million units broke down to 1.14 million in pure sales — 575,000 of them on vinyl, the biggest vinyl week since electronic tracking began in 1991 — plus 549 million on-demand streams, the third-largest streaming week any album had ever posted. It was the largest week for any album since Adele's 25 in 2015, and it made Swift the only artist in history with five different albums that each sold a million copies in a single week. The 11th No. 1 tied Barbra Streisand for the most Billboard 200 chart-toppers by a woman — a tie Swift would break eight months later when Speak Now (Taylor's Version) became her 12th.",
         sources: [
           {
             outlet: 'Billboard',
@@ -107,8 +111,11 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png',
       moment: {
         context:
-          "She's described the song as coming from feeling her life had become 'unmanageably sized' and struggling 'with the idea of not feeling like a person' — what she's called a 'guided tour' through the things she hates about herself.",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' }],
+          "Swift wrote and directed the video herself and premiered it on YouTube eight hours after the song dropped, reuniting with cinematographer Rina Yang. It splits her in three — a 'current' Taylor in a 1970s-style suburban kitchen, an early-2010s version in a tour dance outfit, and a giant who crawls into a neighbor's dinner party — and peaks with a dream-sequence funeral where Mike Birbiglia, John Early, and Mary Elizabeth Ellis, as her sons and daughter-in-law, discover she's left them each 13 cents (the real assets went to the cats). The scale scene — one Taylor stepping on a bathroom scale that reads 'fat' while another shakes her head, an allusion to her past struggles with eating disorders — was edited out after online criticism, a cut that drew its own backlash from commentators arguing she shouldn't have to sanitize her own trauma. She's described the song as coming from feeling her life had become 'unmanageably sized' and struggling 'with the idea of not feeling like a person' — a 'guided tour' through the things she hates about herself.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)' },
+          { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-midnights-3am-anti-hero-video/' },
+        ],
         photos: [
           { url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png', credit: 'Republic Records' },
         ],
@@ -126,6 +133,8 @@ export default {
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-Speak-Now-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
       moment: {
+        context:
+          "507,000 of the 716,000 units were pure sales, including 268,500 on vinyl — at the time the second-largest vinyl week since tracking began in 1991, behind only Midnights' own 575,000. The bigger headline: No. 1 album number twelve moved her past Barbra Streisand's 11 for the most Billboard 200 chart-toppers by any woman — a record the two had shared for barely nine months — and pulled her even with Drake for third all-time, behind only The Beatles (19) and Jay-Z (14). The 22-track set paired the re-recorded 2010 album with previously unreleased From the Vault songs, her third re-record after Fearless and Red in 2021.",
         sources: [
           {
             outlet: 'Billboard',
@@ -156,6 +165,8 @@ export default {
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-aa-1548.jpg?w=1024',
       moment: {
+        context:
+          "The 1.653 million-unit week ran on 1.359 million traditional sales — the largest sales week of her entire career, and the biggest for any album since Adele's 25 moved 3.482 million in 2015 — with 693,000 of those on vinyl, smashing the modern-era vinyl record Midnights had set at 575,000 just a year earlier. It also out-opened the original: 1989 debuted with 1.287 million in November 2014 on its way to 11 nonconsecutive weeks at No. 1. Chart-topper number thirteen — her lucky number — kept her tied with Drake for the third-most No. 1 albums in Billboard 200 history and extended her record among women.",
         sources: [
           {
             outlet: 'Billboard',
@@ -203,6 +214,8 @@ export default {
       thumbnailUrl:
         'https://d1io3yog0oux5.cloudfront.net/_d611dc0f0c17c10e30defd93f67e7758/amctheatres/db/2287/20608/social_image_resized.jpg',
       moment: {
+        context:
+          "The film's initial nine-week run grossed $179.2 million; the record fell only after a Dec. 31, 2023 China opening through Alibaba Pictures added $8.7 million and carried the total past This Is It's $261.2 million by roughly $400,000. It already owned the biggest opening weekend of any concert film — $123.5 million globally ($92.8 million domestic), beating Justin Bieber: Never Say Never's 2011 mark — landing it among 2023's top 20 films. AMC chairman Adam Aron sent his \"congratulations and eternal gratitude\" in the press release, which also noted the film's nomination in the Golden Globes' inaugural Cinematic and Box Office Achievement category.",
         sources: [
           {
             outlet: 'AMC Theatres',
@@ -232,8 +245,14 @@ export default {
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
       moment: {
+        context:
+          'Over 70,000 fans filled State Farm Stadium for her first stadium show since the reputation tour ended in 2018 — "So tonight, we\'re going to be going through an adventure, one era at a time," she told the crowd. The night opened with "Miss Americana & the Heartbreak Prince" in a Versace bodysuit and closed with "Karma," with a folklore cabin, snake motifs for reputation, and white confetti falling like snow through the ten-minute "All Too Well" in between; folklore and Midnights got the deepest dives "to make up for lost time." Rolling Stone\'s review compared the era-by-era acts — each with its own costumes, staging, and visuals — to a Broadway production, and she even joked from the stage about the fans\' evermore discourse: "I absolutely love it, despite what some of you say on TikTok."',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-live-reviews/taylor-swift-the-eras-tour-glendale-review-1234699496/',
+          },
         ],
         photos: [
           {
@@ -254,10 +273,16 @@ export default {
         'https://www.billboard.com/music/music-news/taylor-swift-arizona-city-renamed-eras-tour-1235285285/',
       thumbnailUrl: null,
       moment: {
+        context:
+          'Mayor Jerry Weiers — quickly dubbed "Mayor Swiftie" — announced the two-day renaming at a March 13 press conference where officials handed out pastel "Welcome to Swift City" T-shirts, reading a proclamation packed with lyric puns: there was no "need to calm down," the city was "fearless and doing something highly unusual," writing "our own love story" and greeting every Swiftie "in style." Fans were encouraged to share smiles "that could light up this whole town" on social media. The occasion earned it: she became the first act ever to sell out two nights at State Farm Stadium on a single tour, with GAYLE and Paramore opening the Arizona shows.',
         sources: [
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swift-arizona-city-renamed-eras-tour-1235285285/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/glendale-arizona-renamed-swift-city-taylor-swift-eras-tour-1234695783/',
           },
         ],
         photos: [],
@@ -299,11 +324,14 @@ export default {
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-midnights-3am-edition-1235159092/',
       thumbnailUrl: null,
       moment: {
+        context:
+          'She teased a "special very chaotic surprise" earlier in the evening, and at 3 a.m. ET — midnight Pacific — it landed: seven more songs, adding roughly 25 minutes to the album. "I think of Midnights as a complete concept album, with those 13 songs forming a full picture of the intensities of that mystifying, mad hour," she wrote, calling the extras "3am tracks" from the journey to find that magic 13. The seven — The Great War, Bigger Than the Whole Sky, Paris, High Infidelity, Glitch, Would\'ve, Could\'ve, Should\'ve, and Dear Reader — were written primarily with Jack Antonoff and folklore/evermore collaborator Aaron Dessner, and framed as an extension of the vault-track habit: "Lately, I\'ve been loving the feeling of sharing more of our creative process with you."',
         sources: [
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-midnights-3am-edition-1235159092/',
           },
+          { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-midnights-3am-anti-hero-video/' },
         ],
         photos: [],
       },
@@ -319,6 +347,8 @@ export default {
       thumbnailUrl:
         'https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg',
       moment: {
+        context:
+          'The pick capped the exact year the citation ran through: an Eras Tour so big the Federal Reserve noted its boost to tourism, a concert film AMC was already calling the highest-grossing ever after a $90 million-plus domestic opening weekend, billionaire status reached that fall — helped by 1989 (Taylor\'s Version) — and the title of Spotify\'s most-streamed artist of 2023. Her full line to Time ended with a wink at the spectacle of it all: "Ultimately, we can convolute it all we want, or try to overcomplicate it, but there\'s only one question... Are you not entertained?"',
         sources: [
           {
             outlet: 'CBS News',
@@ -354,6 +384,8 @@ export default {
       thumbnailUrl:
         'https://media.cnn.com/api/v1/images/stellar/prod/230408204518-taylor-swift-joe-alwyn-split-restricted.jpg?c=16x9&q=w_800,c_fill',
       moment: {
+        context:
+          'Alwyn didn\'t address it publicly for over a year. When he finally did, in a June 2024 Sunday Times Style interview, he called it "a long, loving, fully committed relationship" and said he\'d hope "anyone and everyone can empathize and understand the difficulties that come with the end" of one — adding that what felt abnormal wasn\'t the split but that "one week later, it\'s suddenly in the public domain." The relationship had run from 2016 to early 2023 almost entirely out of frame by design: "It was never something to commodify," he said, "and I see no reason to change that now."',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html' },
           {
@@ -379,7 +411,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Never confirmed on the record by either party. A source told the press they were "not really compatible with each other" — an insider noted her friends "aren\'t shocked" it fizzled so soon after a six-year relationship ended.',
+          'Never confirmed on the record by either party — but the history ran back nearly a decade. They met at a 1975 show in Los Angeles in November 2014 and exchanged numbers, Healy spent 2015–16 alternately stoking and batting down romance rumors, and in September 2022 he revealed the band had recorded a Midnights collaboration with Swift that didn\'t make the album. In January 2023 she surprise-joined the 1975 onstage in London to debut "Anti-Hero" live; by May, weeks after the Alwyn split, he was at her Nashville Eras Tour shows and sources had them reconnecting through Jack Antonoff. By early June it was done — "they are both extremely busy and realized they\'re not really compatible," one source said — though a year later, fans combed The Tortured Poets Department for songs they read as being about him.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -427,8 +459,14 @@ export default {
       thumbnailUrl:
         'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
+        context:
+          'Three days earlier, Travis had put the invitation on the record on The Pat McAfee Show: "I told her that I\'ve seen her rock a stage in Arrowhead, and she might have to come see me rock the stage at Arrowhead." She took him up on it — and when he caught a three-yard touchdown pass in the third quarter, Fox cameras found her jumping and screaming in the glass-enclosed suite beside Donna Kelce. Patrick Mahomes admitted afterward he\'d felt "a little pressure" to get Kelce a touchdown with her watching; the two were spotted leaving Arrowhead together after the 41-10 rout.',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/story/_/id/38481870/taylor-swift-accepts-travis-kelce-invite-chiefs-game',
+          },
         ],
         photos: [
           {
@@ -449,6 +487,8 @@ export default {
       thumbnailUrl:
         'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
+        context:
+          'By his own later math on The Pat McAfee Show, they\'d "known each other for close to a month" by kickoff — quiet late-summer talking that started after his friendship-bracelet story went viral in July. What made Sept. 24 the unofficial announcement was everything after the final whistle: they walked out of Arrowhead together and drove off in his convertible — "slid off in the getaway car," as he put it — and two days later he acknowledged her publicly for the first time on New Heights: "Shout out to Taylor for pulling up. That was pretty ballsy... she looked amazing." Neither ever staged a confirmation; the getaway car did it for them.',
         sources: [
           { outlet: 'CNN', url: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/' },
           {
@@ -521,9 +561,12 @@ export default {
       thumbnailUrl:
         'https://i0.wp.com/www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1',
       moment: {
+        context:
+          'Every one of the nine trophies traced back to Midnights: "Anti-Hero" alone swept Video of the Year, Song of the Year, Best Pop, Best Direction, Best Cinematography, Best Editing, and Best Visual Effects, with Artist of the Year and Album of the Year rounding out the night — nine wins from 11 nominations. The Video of the Year trophy was the historic one: her fourth in the show\'s top category, after "Bad Blood" (2015), "You Need to Calm Down" (2019), and "All Too Well: The Short Film" (2022), in a category where no other artist — not Beyoncé, Rihanna, or Eminem — has more than two.',
         sources: [
           { outlet: 'TheWrap', url: 'https://www.thewrap.com/taylor-swift-most-video-of-the-year-wins-vmas-2023/' },
           { outlet: 'NBC News', url: 'https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/2023_MTV_Video_Music_Awards' },
         ],
         photos: [
           {
@@ -546,7 +589,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/08/taylor-swift-eras-tour-los-angeles-night-4-sofi-stadium-2023-billboard-1548.jpg?w=1024',
       moment: {
         context:
-          "The fifth-longest wait for a No. 1 in Hot 100 history — four years, one month, three weeks after it debuted at No. 29.",
+          "The fifth-longest wait for a No. 1 in Hot 100 history — four years, one month, three weeks after it debuted at No. 29. The final push came from the Eras Tour concert film: the week it hit theaters, the song jumped from No. 9 on 18.6 million streams (up 35%), 41,000 downloads (up 1,482%, juiced by new live and LP Giobbi remix versions released Oct. 18), and 77.8 million in radio audience, taking the chart's Streaming and Sales Gainer honors in the same frame. It made her one of just 11 artists ever to reach ten Hot 100 No. 1s — with a song her label never promoted as a proper single in 2019.",
         sources: [
           {
             outlet: 'Billboard',
@@ -623,7 +666,7 @@ export default {
         'https://www.inquirer.com/resizer/v2/WZM56FNWJVQU4MGIKUF22L3Q2Q.jpg?auth=01fbce1493c6c84b5774b263114dc5841e2f76b4491df6f62ec647e96e55ef1a&width=760&height=507&smart=true',
       moment: {
         context:
-          'On the scrutiny she lives under: "The scrutiny she gets, how much she has a magnifying glass on her, every single day... and she\'s just living, enjoying life."',
+          'The WSJ. Magazine profile was also where he confirmed how it actually started: "There were definitely people she knew that knew who I was" working in his corner after the friendship-bracelet story, and by the time they met, "we had already kind of been talking, so I knew we could have a nice dinner and, like, a conversation, and what goes from there will go from there." On the scrutiny she lives under: "The scrutiny she gets, how much she has a magnifying glass on her, every single day, paparazzi outside her house, outside every restaurant she goes to... and she\'s just living, enjoying life." His own rule for navigating it: "The biggest thing to me was making sure I don\'t say anything that would push Taylor away."',
         sources: [
           { outlet: 'Today', url: 'https://www.today.com/popculture/travis-kelce-dating-taylor-swift-wsj-magazine-rcna125990' },
           {
@@ -688,7 +731,8 @@ export default {
       sourceUrl: 'https://petapixel.com/2023/12/06/photographers-reveal-story-behind-taylor-swifts-time-person-of-the-year-covers/',
       thumbnailUrl: 'https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER3_-600x800.jpg',
       moment: {
-        context: 'A third cover leaned cozy fall: a cream turtleneck and denim jacket, styled with slicked-back bangs instead of her usual curls.',
+        context:
+          'Dutch fashion duo Inez van Lamsweerde and Vinoodh Matadin — who\'d previously shot her for Vogue in 2019 — photographed all three covers during the Eras Tour year. The Benjamin Button image was a long-held ambition of theirs, modeled on Bill Hayward\'s 1970s book Cat People: "It speaks to a sense of carrying everything on your shoulders but being defiant while doing so," they said, calling the final frame everything at once — "her glamor, her power, her sense of empathy of carrying the whole world on her shoulders." A third cover leaned cozy fall: a cream turtleneck and denim jacket, styled with slicked-back bangs instead of her usual curls. Time chose her from nine finalists, a field that included King Charles III, Sam Altman, and Barbie.',
         sources: [
           {
             outlet: 'PetaPixel',
@@ -735,6 +779,8 @@ export default {
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-curls-chiefs-ravens-afc-championship-game-1235591057/',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/01/Taylor-swift-travis-kelce-jan-28-2024-baltimore-billboard-1548.jpg',
       moment: {
+        context:
+          'The Chiefs beat the Ravens 17-10 at M&T Bank Stadium — Travis caught the game\'s first touchdown — and she came down to the field afterward for the kiss and his on-camera declaration: "Believe it, baby, we going to Las Vegas, Nevada." She\'d watched from a suite with Brittany Mahomes, Cara Delevingne, and Keleigh Teller, hair air-dried into the natural curls of her debut era against the Baltimore rain, a week after sitting with Jason and Kylie Kelce for the Bills game. Her verdict on the sport that season, via Time: "Football is awesome, it turns out. I\'ve been missing out my whole life."',
         sources: [
           {
             outlet: 'Billboard',
@@ -762,10 +808,16 @@ export default {
       sourceUrl: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-schiaparelli-dress-2024-grammys-1236164497/',
       thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1986392520-EMBED-2024.jpg?w=408',
       moment: {
+        context:
+          'Schiaparelli\'s Daniel Roseberry adapted the design for her from the house\'s fall 2023 ready-to-wear, and stylist Joseph Cassell finished it with black opera-length gloves — but the choker was the story: a Lorraine Schwartz piece holding over 300 carats of black and white diamonds around a vintage watch, its hands set to midnight for the album she was nominated for. She played it up on the red carpet, asking publicist Tree Paine, "Do you need to set my watch?" ("Nope, it\'s already perfect. Midnight.") The black-and-white palette had fans betting on a reputation (Taylor\'s Version) announcement that night; the actual reveal turned out to be The Tortured Poets Department.',
         sources: [
           {
             outlet: 'WWD',
             url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-schiaparelli-dress-2024-grammys-1236164497/',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-2024-grammys-dress-schiaparelli-1235815411/',
           },
         ],
         photos: [
@@ -785,6 +837,8 @@ export default {
       sourceUrl: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
       moment: {
+        context:
+          'The Feb. 4, 2024 win broke a three-way tie with Frank Sinatra, Stevie Wonder, and Paul Simon, who had each stopped at three Album of the Year trophies. Her speech skipped the milestone talk entirely: "I would love to tell you that this is the best moment of my life, but I feel this happy when I finish a song, or when I crack the code to a bridge I love... For me, the award is the work." Earlier that night she\'d already made the bigger news — using her Best Pop Vocal Album acceptance to announce The Tortured Poets Department, complete with an April 19 release date, out of nowhere. Travis Kelce\'s read on the evening: she was "rewriting the history books herself."',
         sources: [
           { outlet: 'Grammy.com', url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech' },
           {
