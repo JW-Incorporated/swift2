@@ -523,6 +523,16 @@ export default {
       snippet:
         'Beyond the Zimmermann "bridal" gown, the video\'s closing scene puts her in a $4,800 Gucci maxi dress made from Liberty London floral fabric — a third, lesser-discussed look from the same shoot.',
       sourceUrl: 'https://stealherstyle.net/2020/12/11/taylor-swift-willow-music-video/',
+      // Image-fix pass (2026-07-10 retry): ticket #194 — broadened search
+      // (Wikimedia Commons, Getty editorial, official TaylorSwiftVEVO/BRIT-style
+      // YouTube thumbnails in all resolutions, Billboard's storyboard-vs-frame
+      // piece, taylorswiftstyle.com) turned up no clean single still of this
+      // specific "final scene" Gucci look — every YouTube auto-thumbnail/
+      // storyboard frame checked (maxresdefault, hqdefault, sddefault, 0-3.jpg)
+      // shows a different scene (the Zimmermann bridal moment or the cloak/
+      // witch scene), and press coverage of this look doesn't exist beyond
+      // this one fan-style-blog composite. No verified replacement found;
+      // left as the record's only photo per protocol fallback. SKIPPED-FINAL.
       thumbnailUrl: 'https://stealherstyle.net/wp-content/uploads/2020/12/taylorswift_w3-500x350.jpg',
       moment: {
         context:
@@ -1859,7 +1869,17 @@ export default {
       snippet:
         'May 11, 2021: the BRITs\' highest honor — previously given only to Elton John, David Bowie and Robbie Williams — goes to its first woman, first non-British recipient, and youngest winner.',
       sourceUrl: 'https://www.cnn.com/2021/05/10/entertainment/taylor-swift-brits-global-icon-intl-scli-gbr/index.html',
-      thumbnailUrl: 'https://i.ytimg.com/vi/C2GIudCXxxg/hqdefault.jpg',
+      // Image-fix pass (2026-07-10 retry): ticket #216 — old YouTube still had
+      // a 'billboard NEWS' channel-branding logo baked into the frame (cosmetic
+      // only per the checker; subject/era were already correct). Broadened
+      // search found E! Online's own hosted copy of the Ian West/PA Images via
+      // Getty Images wire photo from the ceremony — a clean editorial shot with
+      // no logo overlay. URL verified HTTP 200 + image/jpeg; visually confirmed
+      // (Swift on the BRITs 2021 stage in the Miu Miu two-piece, holding up the
+      // Global Icon trophy, Mastercard-branded podium visible as event signage
+      // — not an added watermark).
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/2021411/rs_1200x1200-210511142237-1200..2-taylor-swift-brit-awards-2021.jpg',
       moment: {
         context:
           'The ceremony doubled as a UK live-events pilot, with an O2 Arena crowd of roughly 4,000 made up largely of frontline workers — one of the first big indoor shows of the reopening — and she was there in person to accept, mid-re-recording-era, with no album of her own to promote.\n\nGame of Thrones\' Maisie Williams presented the award, and Swift aimed her speech at the room\'s newer artists: "If you\'re being met with resistance, that probably means doing something new. If you\'re experiencing turbulence or pressure, that probably means you\'re rising."',
@@ -1892,15 +1912,17 @@ export default {
             reliability_score: 5,
           },
         ],
-        // Real-photo pass (2026-07-09): still from Billboard's official YouTube
-        // coverage of the win, id verified via oEmbed (title + Billboard channel).
-        // URL verified HTTP 200 + image/jpeg; thumbnail visually confirmed
-        // (Swift holding the Global Icon statuette against the BRITs 2021 backdrop).
+        // Image-fix pass (2026-07-10 retry): ticket #216 — replaced the
+        // logo-overlaid YouTube still with the Ian West/PA Images via Getty
+        // Images wire photo (hosted on eonline.com's own CDN), a clean shot
+        // with no channel-branding overlay. URL verified HTTP 200 + image/jpeg;
+        // visually confirmed (Swift on the BRITs 2021 stage, Miu Miu two-piece,
+        // holding the Global Icon trophy aloft).
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/C2GIudCXxxg/hqdefault.jpg',
-            credit: 'Billboard News / YouTube (press coverage still)',
-            caption: 'Swift with the Global Icon statuette at the 2021 BRIT Awards, from Billboard News\'s coverage of the night.',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2021411/rs_1200x1200-210511142237-1200..2-taylor-swift-brit-awards-2021.jpg',
+            credit: 'Ian West/PA Images via Getty Images',
+            caption: 'Swift holds up the Global Icon trophy on stage at the 2021 BRIT Awards.',
             kind: 'archival',
           },
         ],

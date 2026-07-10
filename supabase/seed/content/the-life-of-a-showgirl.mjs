@@ -1468,27 +1468,36 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Broadcast still from the game itself, hotlinked from Marie
-        // Claire's credited copy (credit: Amazon Prime; MC's own caption:
-        // "spotted on the Chiefs vs. Broncos broadcast in a red bomber
-        // jacket"). Verified HTTP 200 + image/jpeg and visually confirmed.
-        // Image-fix pass (2026-07-10, ticket #339): checker flagged this as a
-        // moire'd screenshot-of-a-screen with a "CHIEFS KINGDOM" lower-third
-        // and NFL|prime bug. Searched for a clean editorial replacement
-        // (Getty/AP suite shots, Marie Claire's own gallery); the only other
-        // candidate found (Marie Claire's second Future CDN image) is an
-        // unwatermarked crowd photo of Swift, but its own caption ties it to
-        // "the 2025-2026 season" generally, not confirmably this Dec. 25
-        // game or the red bomber — it doesn't pass the exact-subject gate,
-        // so it was rejected. No other verified candidate was found. Since
-        // this is the moment's only photo, leaving as-is per protocol
-        // (SKIPPED, needs manual) rather than writing an unverified URL.
+        // Image-fix pass (2026-07-10 retry, ticket #339): first pass
+        // rejected Marie Claire's futurecdn frame (moire'd screenshot-of-a-
+        // screen with a "CHIEFS KINGDOM" lower-third and NFL|prime bug) and
+        // found no replacement. Broadened the search this pass: checked
+        // Getty's own site search (zero results for this event — wire
+        // photogs evidently didn't have access; Prime's broadcast cameras
+        // caught this moment, not press photographers), Marie Claire's full
+        // gallery (its only other candidate, alt-tagged "Taylor Swift in the
+        // stands... football game," is undated/generic — rejected, same as
+        // last pass), a Yahoo/Page Six listicle whose two "Getty Images"-
+        // credited photos both downloaded and visually turned out to be
+        // recycled 2024/2025 AFC-Championship-celebration shots (wrong
+        // outfit, wrong game — rejected after opening them), and a Just
+        // Jared pre-game speculation post whose thumbnail is Swift in a
+        // Chiefs crewneck, not the bomber (wrong outfit — rejected). Found
+        // one candidate that verifies clean: Taylor Swift Style's own
+        // Dec. 25 2025 gallery page runs a tighter, un-moired crop of the
+        // same NFL/Amazon Prime broadcast footage (no lower-third, no
+        // NFL|prime bug, no scan-line artifacts) — downloaded and visually
+        // confirmed the red Frankie Shop bomber, dark Louis Vuitton bag, and
+        // engagement ring, matching the caption exactly. Verified HTTP 200 +
+        // image/webp via curl. Site itself is a long-running, press-cited
+        // fashion-ID archive (not a wire service), so kept the credit
+        // traceable to the underlying broadcast source it names.
         photos: [
           {
-            url: 'https://cdn.mos.cms.futurecdn.net/DMkDVFeRJHoeMajC8tixt.jpg',
-            credit: 'Amazon Prime broadcast, via Marie Claire',
+            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/30ea9668-3908-4972-a828-f97ff5fdbcf4/1225+Taylor+Swift+Chiefs+vs+Broncos+Feature.png',
+            credit: 'NFL via Amazon Prime broadcast, via Taylor Swift Style',
             caption:
-              'From the Prime broadcast of the Christmas Day game: Swift in the red Frankie Shop bomber in the Arrowhead concourse.',
+              'From the Prime broadcast of the Christmas Day game: Swift in the red Frankie Shop bomber, Louis Vuitton bag on her arm and engagement ring visible.',
             kind: 'primary',
           },
         ],

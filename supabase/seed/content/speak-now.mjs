@@ -776,7 +776,15 @@ export default {
       snippet:
         'Stopping to say hi to a fan on her way out of Il Pastaio in Beverly Hills after dinner with her mom — and, unpictured that night, new friend Dianna Agron.',
       sourceUrl: 'https://www.justjaredjr.com/2012/03/31/taylor-swift-il-pastaio-pretty/',
-      thumbnailUrl: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2012/03/taylor-swift-il-pastaio.jpg',
+      // Image-fix pass (2026-07-10 retry): swapped the flagged 300x200 two-panel
+      // headline collage (cdn01.justjaredjr.com) for a single full-resolution frame
+      // from the same Just Jared Jr. gallery (816x1222, credited INFdaily) — Taylor
+      // in the yellow dress bending to greet a young fan inside Il Pastaio, matching
+      // this moment's snippet. Verified via curl (200 OK, image/jpeg) and visual
+      // inspection; not a collage/watermark-junk image. Source gallery:
+      // https://www.justjaredjr.com/photo-gallery/466473/taylor-swift-il-pastaio-01/
+      thumbnailUrl:
+        'https://jj-justjaredjr-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2012/03/taylor-pastaio/taylor-swift-il-pastaio-01.JPG',
       moment: {
         context:
           "Photographed March 30, 2012 in Beverly Hills; Just Jared Jr. reported she'd eaten alongside mom Andrea and \"good friend Dianna Agron (not pictured).\"\n\nSwift and the Glee star had grown close that year while Swift was recording Red between tour dates. The next day, Swift received Nickelodeon's Big Help Award from Michelle Obama at the Kids' Choice Awards.",
@@ -788,7 +796,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2012/03/taylor-swift-il-pastaio.jpg',
+            url: 'https://jj-justjaredjr-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2012/03/taylor-pastaio/taylor-swift-il-pastaio-01.JPG',
             credit: 'INFdaily',
           },
         ],

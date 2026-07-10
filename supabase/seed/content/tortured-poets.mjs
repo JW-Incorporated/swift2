@@ -990,7 +990,10 @@ export default {
       sourceUrl: 'https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/',
       // Image-fix pass (2026-07-10): #361 — was the two-panel collage removed from photos[] below;
       // pointed thumbnailUrl at the same single-frame photo that remains there.
-      thumbnailUrl: 'https://imagez.tmz.com/image/33/4by3/2025/06/29/335496e8dfee4b8a934279081aac5d24_md.jpg',
+      // Image-fix pass (2026-07-10 retry): #362 — swapped in the clean, unbordered frame from
+      // the same June 28, 2025 shoot (see photos[] below) to replace the TMZ letterbox crop.
+      thumbnailUrl:
+        'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
       moment: {
         context:
           'The Saturday, June 28, 2025 dinner date put her in a $3,500 Balmain houndstooth tweed A-line minidress — chain-metal straps, oversized gold buttons, frayed trim — with taupe Christian Louboutin "Miss Jane" sandals and an Aspinal of London trunk bag, while Travis kept it simple in a fresh white top, trousers, and black loafers.\n\nE! priced the full look near $30,000 once the jewelry was counted: a $22,500 Panthère de Cartier necklace on a gold-and-diamond chain, a $3,400 Ofira "Tattoo" diamond ring, and a diamond-studded gold Rolex — red-carpet hardware deployed for a restaurant run, photographed on the way in and published the next morning.',
@@ -1005,15 +1008,19 @@ export default {
         // two-panel collage behind TMZ's black grunge divider, the junk-collage pattern the
         // protocol rejects). The single-frame photo below already covers the same outing, so this
         // record keeps at least one photo.
-        // #362 — the remaining single-frame photo still carries TMZ's black speckled letterbox
-        // border on 3 sides; vision-confirmed subject is correct and the file is otherwise fine
-        // (single frame, no watermark/logo). Searched TMZ's own size variants (_lg/_xl/_zoom/16by9)
-        // and Yahoo/E!/NBC-affiliate coverage of the same June 28, 2025 outing for an unbordered or
-        // Getty/press-hosted equivalent; none was found on an allowlisted host or without the same
-        // baked-in border. No crop/edit tooling is available to me, so left as-is — SKIPPED, needs
-        // a human with image-editing access to crop or a different agency's frame of the same night.
+        // Image-fix pass (2026-07-10 retry): #362 — broadened search beyond the allowlist found a
+        // clean, unbordered single frame of the same June 28, 2025 outing (same construction-site
+        // fence/black SUV backdrop as the old TMZ crop): Yahoo Entertainment's syndication of a
+        // TheImageDirect.com photo — the same agency credited on E! News's coverage of this outing
+        // (already an outlet cited in sources[] above). curl-verified HTTP 200 / image/jpeg;
+        // vision-confirmed full-body shot of Swift in the pale-pink tweed Balmain mini dress with
+        // gold buttons, holding Kelce's hand, a bystander behind — no letterbox, watermark, or
+        // collage. Replaced the TMZ bordered photo with it.
         photos: [
-          { url: 'https://imagez.tmz.com/image/33/4by3/2025/06/29/335496e8dfee4b8a934279081aac5d24_md.jpg', credit: 'TMZ' },
+          {
+            url: 'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
+            credit: 'The Image Direct',
+          },
         ],
       },
     },

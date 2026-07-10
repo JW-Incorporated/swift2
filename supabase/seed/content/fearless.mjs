@@ -585,6 +585,19 @@ export default {
         // allowlisted hosts), so that watermark issue is left unresolved —
         // flagging for manual sourcing rather than stripping the item to zero
         // photos.
+        // Image-fix pass (2026-07-10 retry): broadened the search well past
+        // the allowlist — Getty (multiple phrasings, oldest-sort, and the
+        // "celebrity sightings bauer-griffin archival" event feed directly),
+        // Wikimedia Commons (Category:Taylor_Swift_in_2009 and
+        // Category:Taylor_Lautner_in_2009 — VMAs/Twilight/Comic-Con only,
+        // nothing from this shoot), YouTube/official studio channels (movie
+        // clips only, no candid stills), and Flickr (one repost of this same
+        // paparazzi shot exists but is marked All Rights Reserved, not CC).
+        // Getty has zero editorial coverage of this specific July 30, 2009
+        // set day under any Swift/Lautner keyword combination — the shoot
+        // appears to have been exclusive to Just Jared's own agency and
+        // never got broader syndication. No clean candidate found; ticket
+        // #203 stays SKIPPED-FINAL, sole photo left in place.
         photos: [
           {
             url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-05.jpg',
@@ -728,6 +741,18 @@ export default {
         // verified (not covered by Getty or other allowlisted hosts), so that
         // watermark issue is left unresolved — flagging for manual sourcing
         // rather than stripping the item to zero photos.
+        // Image-fix pass (2026-07-10 retry): broadened the search well past
+        // the allowlist — Getty (multiple phrasings, oldest-sort on both the
+        // "taylor-swift-emma-stone" tag and the "celebrity sightings
+        // bauer-griffin archival" event feed directly — earliest hit is
+        // April 2010, nothing from Dec. 2009), Wikimedia Commons
+        // (Category:Taylor_Swift_in_2009 — VMA photos only), YouTube/press
+        // (no candid stills beyond the Just Jared gallery), and Flickr/other
+        // aggregators (hawtcelebs, gotceleb, celebmafia — no hits for this
+        // outing at all). This Dec. 9, 2009 Baskin-Robbins outing appears to
+        // have been exclusive to Just Jared's own agency and never got
+        // broader syndication. No clean candidate found; ticket #206 stays
+        // SKIPPED-FINAL, sole photo left in place.
         photos: [
           {
             url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/emma-taylor/emma-stone-taylor-swift-baskin-robbins-01.jpg',
