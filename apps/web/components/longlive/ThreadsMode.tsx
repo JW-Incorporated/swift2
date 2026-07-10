@@ -24,7 +24,6 @@ import { eraStyle } from '@/lib/longlive/theme';
 import {
   RELATIONSHIPS,
   RUNWAY_LOOKS,
-  RERECORDS,
   PROPOSAL_BEATS,
   CLUE_PAIRS,
   THREADS,
@@ -35,6 +34,7 @@ import { cn } from '@/lib/utils';
 import { ThreadsTimeline } from './ThreadsTimeline';
 import { ClueWeb } from './ClueWeb';
 import { Crossings } from './Crossings';
+import { TaylorsVersionThread } from './taylors-version/TaylorsVersionThread';
 
 const ICONS: Record<LensId, typeof Heart> = {
   'love-story': Heart,
@@ -44,6 +44,10 @@ const ICONS: Record<LensId, typeof Heart> = {
   'hidden-clues': KeyRound,
   'the-proposal': Gem,
 };
+
+/** Threads with their own self-contained temporal axis — the career scrubber
+ * would be a redundant, competing timeline for these. */
+const NO_SCRUBBER_THREADS = new Set<LensId>(['easter-eggs', 'taylors-version']);
 
 /**
  * The Threads world. Entering lands on a gallery that answers "what is this?"
@@ -199,17 +203,19 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
         </div>
       </header>
 
-      <div className={cn('mx-auto max-w-4xl px-4 pb-28', threadId !== 'easter-eggs' && 'md:pr-8')}>
+      <div className={cn('mx-auto max-w-4xl px-4 pb-28', !NO_SCRUBBER_THREADS.has(threadId) && 'md:pr-8')}>
         {threadId === 'love-story' && <LoveStory />}
         {threadId === 'fashion' && <Runway />}
-        {threadId === 'taylors-version' && <TaylorsVersion />}
+        {threadId === 'taylors-version' && <TaylorsVersionThread />}
         {threadId === 'easter-eggs' && <ClueWeb />}
         {threadId === 'hidden-clues' && <Decode />}
         {threadId === 'the-proposal' && <TheProposal />}
       </div>
 
-      {/* The Clue Web is its own spatial layout, so the career scrubber is redundant there. */}
-      {threadId !== 'easter-eggs' && <ThreadsTimeline threadId={threadId} />}
+      {/* The Clue Web is its own spatial layout, and Taylor's Version has its own
+          ownership-timeline chart as its temporal axis — a second scrubber would
+          create two competing time axes for both (see docs/threads-rework-2026-07-10.md). */}
+      {!NO_SCRUBBER_THREADS.has(threadId) && <ThreadsTimeline threadId={threadId} />}
     </div>
   );
 }
@@ -539,71 +545,5 @@ function Runway() {
   );
 }
 
-/* ── Taylor's Version ────────────────────────────────────────────── */
-function TaylorsVersion() {
-  const reclaimed = RERECORDS.filter((r) => r.reclaimedYear).length;
-  const totalVault = RERECORDS.reduce((n, r) => n + r.vaultTracks, 0);
-  return (
-    <div className="pt-8">
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Albums reclaimed" value={`${reclaimed} / ${RERECORDS.length}`} />
-        <Stat label="Vault tracks freed" value={String(totalVault)} />
-        <Stat label="Still awaiting" value={String(RERECORDS.length - reclaimed)} />
-      </div>
-      <div className="space-y-3">
-        {RERECORDS.map((r) => {
-          const done = Boolean(r.reclaimedYear);
-          return (
-            <ThreadItem key={r.id} date={`${r.reclaimedYear ?? r.originalYear}-06-01`}>
-              {/* threadPoints() also emits an "(original)" tick at the
-                  release year — give it a matching anchor here so dragging
-                  near that tick lands on this card, not a nearest-date
-                  guess among unrelated cards. */}
-              {r.reclaimedYear && (
-                <span aria-hidden data-ll-item data-ll-date={new Date(`${r.originalYear}-01-01`).getTime()} className="sr-only" />
-              )}
-              <article className="era-card flex items-center gap-4 rounded-2xl border p-4">
-                <div
-                  className={cn(
-                    'flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-sm font-semibold',
-                    done
-                      ? 'border-transparent bg-[color:var(--era-accent)] text-[color:var(--era-bg)]'
-                      : 'border-dashed border-[color:var(--era-line)] text-[color:var(--era-ink-soft)]',
-                  )}
-                >
-                  {done ? '✓' : '…'}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                    <h3 className="font-[family-name:var(--era-font)] text-lg font-semibold">{r.album}</h3>
-                    <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-                      {r.originalYear}
-                      {r.reclaimedYear ? ` → ${r.reclaimedYear}` : ' → pending'}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{r.note}</p>
-                  {r.vaultTracks > 0 && (
-                    <span className="mt-2 inline-block rounded-full bg-[color:var(--era-surface-2)] px-2.5 py-0.5 text-[11px] font-medium text-[color:var(--era-accent)]">
-                      +{r.vaultTracks} vault tracks
-                    </span>
-                  )}
-                </div>
-              </article>
-            </ThreadItem>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="era-card rounded-2xl border p-4 text-center">
-      <div className="font-[family-name:var(--era-font)] text-3xl font-semibold text-[color:var(--era-accent)]">
-        {value}
-      </div>
-      <div className="mt-1 text-xs uppercase tracking-wider text-[color:var(--era-ink-soft)]">{label}</div>
-    </div>
-  );
-}
+/* Taylor's Version now lives in ./taylors-version/TaylorsVersionThread.tsx —
+   see docs/threads-rework-2026-07-10.md for why it replaced this. */
