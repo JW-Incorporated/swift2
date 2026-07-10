@@ -590,4 +590,9 @@ export interface StoryBeat {
   source?: string;
   /** Optional pull-quote (a caption, lyric, or public statement). */
   quote?: string;
+  /** A real photo of this specific beat, or a labeled 'reference' stand-in
+   * when the real moment hasn't been photographed/isn't available — reuses
+   * ImageRef so the same 'reference'-never-implies-'primary' rule from
+   * MomentDetail applies here too. */
+  image?: ImageRef;
 }

@@ -12,7 +12,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Gem,
-  Quote,
   KeyRound,
   GitFork,
 } from 'lucide-react';
@@ -21,7 +20,6 @@ import { getEra } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import {
   RUNWAY_LOOKS,
-  PROPOSAL_BEATS,
   THREADS,
   getThread,
 } from '@/lib/longlive/lenses';
@@ -33,6 +31,7 @@ import { Crossings } from './Crossings';
 import { TaylorsVersionThread } from './taylors-version/TaylorsVersionThread';
 import { DecodeThread } from './decode/DecodeThread';
 import { LoveStoryThread } from './love-story/LoveStoryThread';
+import { ProposalThread } from './proposal/ProposalThread';
 
 const ICONS: Record<LensId, typeof Heart> = {
   'love-story': Heart,
@@ -45,7 +44,15 @@ const ICONS: Record<LensId, typeof Heart> = {
 
 /** Threads with their own self-contained temporal axis — the career scrubber
  * would be a redundant, competing timeline for these. */
-const NO_SCRUBBER_THREADS = new Set<LensId>(['easter-eggs', 'taylors-version', 'hidden-clues', 'love-story']);
+const NO_SCRUBBER_THREADS = new Set<LensId>([
+  'easter-eggs',
+  'taylors-version',
+  'hidden-clues',
+  'love-story',
+  // The Proposal spans only 2023-2026; the shared 2006-today scrubber would
+  // crush this tight arc into ~15% of the rail.
+  'the-proposal',
+]);
 
 /**
  * The Threads world. Entering lands on a gallery that answers "what is this?"
@@ -207,7 +214,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
         {threadId === 'taylors-version' && <TaylorsVersionThread />}
         {threadId === 'easter-eggs' && <ClueWeb />}
         {threadId === 'hidden-clues' && <DecodeThread />}
-        {threadId === 'the-proposal' && <TheProposal />}
+        {threadId === 'the-proposal' && <ProposalThread />}
       </div>
 
       {/* The Clue Web is its own spatial layout, and Taylor's Version has its own
@@ -236,69 +243,8 @@ function ThreadItem({
 /* Love Story now lives in ./love-story/LoveStoryThread.tsx — see
    docs/threads-rework-2026-07-10.md for why it replaced this. */
 
-/* ── The Proposal (sourced story thread) ─────────────────────────── */
-function TheProposal() {
-  return (
-    <div className="pt-8">
-      <div className="relative space-y-4 pl-6">
-        {/* Vertical spine */}
-        <span
-          aria-hidden
-          className="absolute bottom-2 left-[7px] top-2 w-px"
-          style={{ backgroundColor: 'var(--era-line)' }}
-        />
-        {PROPOSAL_BEATS.map((beat) => {
-          const era = getEra(beat.eraId);
-          return (
-            <ThreadItem key={beat.id} date={beat.date}>
-              <div className="relative">
-                {/* Era-colored node on the spine */}
-                <span
-                  aria-hidden
-                  className="absolute -left-6 top-2 h-3.5 w-3.5 rounded-full border-2"
-                  style={{ borderColor: era.theme.accent, backgroundColor: 'var(--era-bg)' }}
-                />
-                <article className="era-card rounded-2xl border p-5">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span
-                      className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
-                      style={{
-                        backgroundColor: `color-mix(in srgb, ${era.theme.accent} 14%, transparent)`,
-                        color: era.theme.accent,
-                      }}
-                    >
-                      {era.shortName} · {beat.dateLabel}
-                    </span>
-                    {beat.source && (
-                      <span className="text-[11px] uppercase tracking-wider text-[color:var(--era-ink-soft)]">
-                        Source: {beat.source}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold">
-                    {beat.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-                    {beat.body}
-                  </p>
-                  {beat.quote && (
-                    <blockquote className="mt-3 flex gap-2 border-l-2 pl-3 text-[15px] italic leading-relaxed text-[color:var(--era-ink)]" style={{ borderColor: era.theme.accent }}>
-                      <Quote className="mt-1 h-3.5 w-3.5 shrink-0 text-[color:var(--era-accent)]" />
-                      <span>{beat.quote}</span>
-                    </blockquote>
-                  )}
-                </article>
-              </div>
-            </ThreadItem>
-          );
-        })}
-      </div>
-      <p className="mt-6 text-center text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
-        Compiled from public reporting by an independent fan project. Not affiliated with or endorsed by Taylor Swift.
-      </p>
-    </div>
-  );
-}
+/* The Proposal now lives in ./proposal/ProposalThread.tsx — see
+   docs/threads-rework-2026-07-10.md for why it replaced this. */
 
 /* The Decode now lives in ./decode/DecodeThread.tsx — see
    docs/threads-rework-2026-07-10.md for why it replaced this. */
