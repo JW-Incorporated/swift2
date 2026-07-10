@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { ChevronDown, Vault, Disc3, Calendar } from 'lucide-react';
 import type { ReRecord } from '@/lib/longlive/types';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { SpotifyCompare } from './SpotifyCompare';
 
 /**
@@ -13,6 +14,12 @@ import { SpotifyCompare } from './SpotifyCompare';
 export function AlbumNarrativeCard({ album, index }: { album: ReRecord; index: number }) {
   const [expanded, setExpanded] = useState(false);
   const isPending = album.reclaimedYear === null;
+
+  // Let the mobile back-swipe gesture collapse an expanded album instead of
+  // leaving the app — same pattern as the app's other overlays. Cards can
+  // stack (multiple expanded at once); useBackDismiss's shared stack
+  // collapses the most-recently-expanded one first.
+  useBackDismiss(expanded, () => setExpanded(false));
 
   return (
     <article className="era-card overflow-hidden" style={{ borderLeft: `3px solid ${isPending ? 'var(--status-pending-ink)' : album.color}` }}>
