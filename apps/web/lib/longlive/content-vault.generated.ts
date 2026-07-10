@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef, LensId } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-10T18:44:17.238Z";
+export const CONTENT_GENERATED_AT = "2026-07-10T18:48:50.687Z";
 
 type VaultRawItem = {
   id: string;
