@@ -51,11 +51,16 @@ export type RawItem = Omit<ContentItem, 'eraId' | 'images'> & {
  */
 export function build(eraId: EraId, items: RawItem[]): ContentItem[] {
   return items.map(({ image, images, threadIds, ...it }) => {
-    // Explicit threadIds (an opt-in tag on the seed row) always wins; absent
-    // that, fall back to whatever the item's tags imply by default. Merged
-    // here — not in the sync script — so hand-curated RAW items below get
-    // the exact same treatment as items synced from supabase/seed/content.
-    const resolvedThreadIds = threadIds?.length ? threadIds : defaultThreadIdsForTags(it.tags);
+    // Explicit threadIds (an opt-in tag on the seed row) ADD to whatever the
+    // item's tags imply by default — an explicit opt-in never removes a tag
+    // default, matching the ContentItem.threadIds doc. Merged here — not in
+    // the sync script — so hand-curated RAW items below get the exact same
+    // treatment as items synced from supabase/seed/content.
+    const defaults = defaultThreadIdsForTags(it.tags);
+    const resolvedThreadIds = [
+      ...defaults,
+      ...(threadIds ?? []).filter((id) => !defaults.includes(id)),
+    ];
     return {
       ...it,
       eraId,
