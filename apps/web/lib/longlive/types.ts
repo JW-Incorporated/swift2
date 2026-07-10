@@ -239,22 +239,45 @@ export interface Era {
 
 /**
  * One song in an era's album track guide (tracks.generated.ts, surfaced by the
- * TrackGuide overlay). Mirrors the DB `track_note` row / `TrackNote` in
- * packages/shared/src/vault-types.ts, reduced to what the UI renders. The
- * `note` is a short SOURCED line — meaning / background / Easter egg — never
- * fabricated; a song with no real source simply has no row.
+ * TrackGuide overlay + a per-song TrackDetail page). Mirrors the DB
+ * `track_note` row / `TrackNote` in packages/shared/src/vault-types.ts,
+ * reduced to what the UI renders. The `note` is a short SOURCED line —
+ * meaning / background / Easter egg — never fabricated; a song with no real
+ * source simply has no row.
  */
 export interface TrackNote {
   /** 1-based position on the album, or null when unknown (sorted last). */
   trackNumber: number | null;
   title: string;
-  /** The sourced one-liner shown under the title. */
+  /** The sourced one-liner shown under the title in the Track Guide list. */
   note: string;
   /**
    * Citations backing the note. Reuses the EggSource shape; rendered as a
    * source link list only when non-empty (never an empty placeholder).
    */
   sources?: EggSource[];
+  /**
+   * The per-song deep-dive: real, researched paragraphs (why she wrote it,
+   * what it's about, its place in the album/era) — the actual "article"
+   * shown on the song's TrackDetail page. Optional: most songs start with
+   * just `note` until a research pass writes the full piece. Never
+   * fabricated — same standard as `body` on ContentItem.
+   */
+  discussion?: string[];
+  /**
+   * A FEW short illustrative lines quoted from the song (not full lyrics —
+   * see docs/decisions.md 2026-07-09, which supersedes an earlier "reproduce
+   * full lyrics" decision after further discussion). Used to ground the
+   * `discussion` in the actual words, the way music journalism quotes a
+   * couplet — never the complete song.
+   */
+  quotedLines?: string[];
+  /**
+   * Citations for `discussion`/`quotedLines` specifically (independent of
+   * `sources`, which backs the shorter `note`) — interviews, official
+   * statements, or reputable music journalism the analysis is grounded in.
+   */
+  discussionSources?: EggSource[];
 }
 
 /**

@@ -7,7 +7,37 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-07-09 — Full song lyrics may be reproduced on-site
+## 2026-07-09 — Superseded same-day: full lyrics reproduction rejected in favor of per-song analysis + short quotes
+
+**Decision:** The entry directly below this one ("Full song lyrics may be
+reproduced on-site") is superseded after further discussion, the same day it
+was written. We will NOT reproduce complete song lyrics anywhere in the app.
+
+Instead, every song gets its own page (`TrackDetail`, reached from the Track
+Guide) with real, researched discussion — why she wrote it, what it's about,
+its place in the album/era — grounded with a FEW short illustrative quoted
+lines, the way music journalism quotes a couplet. This is exactly the
+existing "original words + links, never paste verbatim" rule already applied
+everywhere else in the app; there was never a real reason to treat songs
+differently.
+
+**Why the reversal:** a licensing/API tangent (Musixmatch, Genius) was
+explored and dropped — Joey correctly pointed out that's solving the wrong
+problem. The actual work is research and writing (what the song means, why
+it was written), same as every other content pass in this app, not a data
+source to license.
+
+**Implementation note (2026-07-09):** it turned out every seeded track
+already carries real, sourced `summary`/`inspiration`/`easterEggs` fields
+(written during an earlier content pass) that were never surfaced in the UI
+at all — another instance of this app's recurring "plumbing, not writing"
+gap. The `TrackDetail` page's discussion is auto-derived from those fields
+where no hand-written `discussion` override exists, so all ~244 songs got
+real per-song pages with zero new content-writing required for this pass.
+
+**Approved by:** Joey (product), 2026-07-09.
+
+## 2026-07-09 — Full song lyrics may be reproduced on-site (SUPERSEDED, see entry above)
 
 **Decision:** Reproducing complete song lyrics (not just short quoted lines)
 is allowed in the track guide / song-meaning sections, at the same risk

@@ -38,9 +38,25 @@ try {
     for (const t of tracks) {
       await client.query(
         `insert into public.track_note
-           (era_slug, track_title, track_number, note, source_url, sources)
-         values ($1,$2,$3,$4,$5,$6)`,
-        [eraSlug, t.trackTitle, t.trackNumber ?? null, t.note ?? '', t.sourceUrl ?? null, JSON.stringify(t.sources ?? [])],
+           (era_slug, track_title, track_number, note, source_url, sources,
+            discussion, quoted_lines, discussion_source_url, discussion_sources,
+            summary, inspiration, easter_eggs)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
+        [
+          eraSlug,
+          t.trackTitle,
+          t.trackNumber ?? null,
+          t.note ?? '',
+          t.sourceUrl ?? null,
+          JSON.stringify(t.sources ?? []),
+          JSON.stringify(t.discussion ?? []),
+          JSON.stringify(t.quotedLines ?? []),
+          t.discussionSourceUrl ?? null,
+          JSON.stringify(t.discussionSources ?? []),
+          t.summary ?? '',
+          t.inspiration ?? '',
+          t.easterEggs ?? '',
+        ],
       );
       notes += 1;
     }
