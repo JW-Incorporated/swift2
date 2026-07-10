@@ -121,8 +121,14 @@ async function prepBatches(opts) {
     if (!existsSync(detPath)) { log('--claims-only needs deterministic.json; run `scan` first.'); return; }
     const det = JSON.parse(await readFile(detPath, 'utf8'));
     const claimKeys = new Set(det.filter((f) => f.checker === 'fact.claim-risk').map((f) => f.itemRef.key));
-    factualItems = items.filter((it) => claimKeys.has(it.key));
-    log(`--claims-only: ${factualItems.length} claim-bearing items for factual (images still cover all).`);
+    // Latest-news eras are reviewed IN FULL regardless of claim signals: a
+    // hallucinated narrative event ("recapped the wedding on the podcast") carries
+    // no stat/superlative, so claim-only filtering would blind us to exactly the
+    // highest-stakes miss. Everywhere else, focus on claim-bearing items.
+    const latest = new Set(CONFIG.visibility.latestNewsEras);
+    factualItems = items.filter((it) => claimKeys.has(it.key) || latest.has(it.era));
+    const forced = factualItems.filter((it) => !claimKeys.has(it.key)).length;
+    log(`--claims-only: ${factualItems.length} factual items (${claimKeys.size} claim-bearing + ${forced} forced-in from latest-news eras; images cover all).`);
   }
   const dir = join(FINDINGS_DIR, 'agent-input');
   await mkdir(join(dir, 'factual'), { recursive: true });
