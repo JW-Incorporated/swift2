@@ -25,6 +25,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 30,
       category: 'business',
       title: 'Red sells 1.2 million copies — the biggest week in a decade',
       snippet:
@@ -55,6 +56,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: 'All Too Well, and the scarf that became a metaphor',
       snippet:
@@ -92,6 +94,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: '22, a birthday letter to her closest friends',
       snippet: 'Not a love song — a carefree ode to being "happy, free, confused, and lonely" all in the same year, with her girls beside her.',
@@ -119,6 +122,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 9,
       category: 'music',
       title: 'I Knew You Were Trouble brings dubstep to pop radio',
       snippet: 'A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being "sonically conservative."',
@@ -139,6 +143,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: 'Starlight, built from an old photo of two teenagers dancing',
       snippet: 'A black-and-white photo of a young couple sneaking into a yacht-club party — she imagined the rest, and wrote a whole song around it.',
@@ -167,6 +172,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
       snippet: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
@@ -217,6 +223,7 @@ export default {
     {
       year: 2013,
       month: 11,
+      day: 6,
       category: 'fashion',
       title: 'A wine-red Elie Saab gown for a historic Pinnacle Award',
       snippet: 'A wine-colored Elie Saab gown at the CMAs, the night she became the first woman ever to receive the Pinnacle Award.',
@@ -242,6 +249,7 @@ export default {
     {
       year: 2013,
       month: 6,
+      day: 5,
       category: 'fashion',
       title: "An ankle-length red dress with a thigh-high slit for 'Red' at the CMTs",
       snippet:
@@ -294,6 +302,7 @@ export default {
     {
       year: 2013,
       month: 2,
+      day: 10,
       category: 'fashion',
       title: 'A J. Mendel gown and a Heidi braid at the 2013 Grammys',
       snippet:
@@ -347,6 +356,7 @@ export default {
     {
       year: 2013,
       month: 3,
+      day: 13,
       category: 'fashion',
       title: '128 costumes for the Red Tour, hand-built in three weeks',
       snippet:
@@ -374,6 +384,7 @@ export default {
     {
       year: 2013,
       month: 3,
+      day: 13,
       category: 'fashion',
       title: "A rhinestone cat-ear headband defines the '22' video look",
       snippet:
@@ -720,7 +731,8 @@ export default {
     // --- Business/chart + music + sightings depth pass (2026-07-05) ---
     {
       year: 2012,
-      month: 10,
+      month: 8,
+      day: 22,
       category: 'business',
       title: "'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
       snippet:
@@ -749,6 +761,7 @@ export default {
     {
       year: 2014,
       month: 7,
+      day: 3,
       category: 'business',
       title: 'The Red Tour closes as the highest-grossing country tour of all time',
       snippet:
@@ -776,6 +789,7 @@ export default {
     {
       year: 2014,
       month: 1,
+      day: 26,
       category: 'business',
       title: 'Red goes into the Grammys with two nominations — and leaves with neither',
       snippet:
@@ -797,6 +811,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 16,
       category: 'music',
       title: 'State of Grace opens Red with her first arena-rock swing',
       snippet:
@@ -825,6 +840,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: 'The Last Time turns an on-again-off-again relationship into a two-voice duet',
       snippet:
@@ -923,6 +939,7 @@ export default {
     {
       year: 2014,
       month: 3,
+      day: 6,
       category: 'sighting',
       title: 'A California road trip with new best friend Karlie Kloss',
       snippet:
@@ -957,6 +974,7 @@ export default {
     {
       year: 2014,
       month: 9,
+      day: 16,
       category: 'sighting',
       title: 'Carrying kitten Olivia Benson down the street instead of using a cat carrier',
       snippet:
@@ -1136,6 +1154,7 @@ export default {
       slug: 'red-title-track-names-the-album',
       year: 2012,
       month: 10,
+      day: 2,
       category: 'music',
       title: 'Red, the song that named the record',
       snippet:
@@ -1354,6 +1373,7 @@ export default {
       slug: 'red-buys-high-watch',
       year: 2013,
       month: 4,
+      day: 28,
       category: 'business',
       title: 'She buys High Watch, the Watch Hill mansion — in cash',
       snippet:
@@ -1523,6 +1543,7 @@ export default {
       slug: 'red-meets-karlie-kloss',
       year: 2013,
       month: 11,
+      day: 13,
       category: 'relationship',
       title: 'Meets Karlie Kloss at the Victoria\'s Secret Fashion Show',
       snippet:
@@ -1711,7 +1732,7 @@ export default {
       slug: 'red-taylors-version-number-one',
       year: 2021,
       month: 11,
-      day: 18,
+      day: 21,
       category: 'business',
       title: 'Red gets its do-over: Red (Taylor\'s Version) opens at No. 1',
       snippet:
