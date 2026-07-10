@@ -12,29 +12,26 @@ import {
   ArrowLeft,
   ArrowRight,
   Gem,
-  Quote,
   KeyRound,
-  Lock,
-  MoveRight,
   GitFork,
 } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import {
-  RELATIONSHIPS,
   RUNWAY_LOOKS,
-  RERECORDS,
-  PROPOSAL_BEATS,
-  CLUE_PAIRS,
   THREADS,
   getThread,
 } from '@/lib/longlive/lenses';
-import type { CluePair, LensId } from '@/lib/longlive/types';
+import type { LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
 import { ThreadsTimeline } from './ThreadsTimeline';
 import { ClueWeb } from './ClueWeb';
 import { Crossings } from './Crossings';
+import { TaylorsVersionThread } from './taylors-version/TaylorsVersionThread';
+import { DecodeThread } from './decode/DecodeThread';
+import { LoveStoryThread } from './love-story/LoveStoryThread';
+import { ProposalThread } from './proposal/ProposalThread';
 
 const ICONS: Record<LensId, typeof Heart> = {
   'love-story': Heart,
@@ -44,6 +41,18 @@ const ICONS: Record<LensId, typeof Heart> = {
   'hidden-clues': KeyRound,
   'the-proposal': Gem,
 };
+
+/** Threads with their own self-contained temporal axis — the career scrubber
+ * would be a redundant, competing timeline for these. */
+const NO_SCRUBBER_THREADS = new Set<LensId>([
+  'easter-eggs',
+  'taylors-version',
+  'hidden-clues',
+  'love-story',
+  // The Proposal spans only 2023-2026; the shared 2006-today scrubber would
+  // crush this tight arc into ~15% of the rail.
+  'the-proposal',
+]);
 
 /**
  * The Threads world. Entering lands on a gallery that answers "what is this?"
@@ -199,17 +208,19 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
         </div>
       </header>
 
-      <div className={cn('mx-auto max-w-4xl px-4 pb-28', threadId !== 'easter-eggs' && 'md:pr-8')}>
-        {threadId === 'love-story' && <LoveStory />}
+      <div className={cn('mx-auto max-w-4xl px-4 pb-28', !NO_SCRUBBER_THREADS.has(threadId) && 'md:pr-8')}>
+        {threadId === 'love-story' && <LoveStoryThread />}
         {threadId === 'fashion' && <Runway />}
-        {threadId === 'taylors-version' && <TaylorsVersion />}
+        {threadId === 'taylors-version' && <TaylorsVersionThread />}
         {threadId === 'easter-eggs' && <ClueWeb />}
-        {threadId === 'hidden-clues' && <Decode />}
-        {threadId === 'the-proposal' && <TheProposal />}
+        {threadId === 'hidden-clues' && <DecodeThread />}
+        {threadId === 'the-proposal' && <ProposalThread />}
       </div>
 
-      {/* The Clue Web is its own spatial layout, so the career scrubber is redundant there. */}
-      {threadId !== 'easter-eggs' && <ThreadsTimeline threadId={threadId} />}
+      {/* The Clue Web is its own spatial layout, and Taylor's Version has its own
+          ownership-timeline chart as its temporal axis — a second scrubber would
+          create two competing time axes for both (see docs/threads-rework-2026-07-10.md). */}
+      {!NO_SCRUBBER_THREADS.has(threadId) && <ThreadsTimeline threadId={threadId} />}
     </div>
   );
 }
@@ -229,271 +240,14 @@ function ThreadItem({
   );
 }
 
-/* ── Love Story ───────────────────────────────�����──────────────────── */
-function LoveStory() {
-  return (
-    <div className="space-y-4 pt-8">
-      {RELATIONSHIPS.map((rel) => {
-        const start = new Date(rel.start).getUTCFullYear();
-        const end = rel.end ? new Date(rel.end).getUTCFullYear() : 'now';
-        return (
-          <ThreadItem key={rel.id} date={rel.start}>
-            <article className="era-card rounded-2xl border p-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="font-[family-name:var(--era-font)] text-xl font-semibold">{rel.name}</h3>
-                <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-                  {start} – {end}
-                </span>
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{rel.note}</p>
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {rel.eraIds.map((id) => {
-                  const era = getEra(id);
-                  return (
-                    <span
-                      key={id}
-                      className="rounded-full border px-2.5 py-0.5 text-xs font-medium"
-                      style={{
-                        borderColor: era.theme.accent,
-                        color: era.theme.accent,
-                        backgroundColor: `color-mix(in srgb, ${era.theme.accent} 12%, transparent)`,
-                      }}
-                    >
-                      {era.shortName}
-                    </span>
-                  );
-                })}
-              </div>
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[color:var(--era-ink)]">
-                {rel.songs.map((s) => (
-                  <span key={s} className="inline-flex items-center gap-1.5">
-                    <Music className="h-3.5 w-3.5 text-[color:var(--era-accent)]" />
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </article>
-          </ThreadItem>
-        );
-      })}
-    </div>
-  );
-}
+/* Love Story now lives in ./love-story/LoveStoryThread.tsx — see
+   docs/threads-rework-2026-07-10.md for why it replaced this. */
 
-/* ── The Proposal (sourced story thread) ─────────────────────────── */
-function TheProposal() {
-  return (
-    <div className="pt-8">
-      <div className="relative space-y-4 pl-6">
-        {/* Vertical spine */}
-        <span
-          aria-hidden
-          className="absolute bottom-2 left-[7px] top-2 w-px"
-          style={{ backgroundColor: 'var(--era-line)' }}
-        />
-        {PROPOSAL_BEATS.map((beat) => {
-          const era = getEra(beat.eraId);
-          return (
-            <ThreadItem key={beat.id} date={beat.date}>
-              <div className="relative">
-                {/* Era-colored node on the spine */}
-                <span
-                  aria-hidden
-                  className="absolute -left-6 top-2 h-3.5 w-3.5 rounded-full border-2"
-                  style={{ borderColor: era.theme.accent, backgroundColor: 'var(--era-bg)' }}
-                />
-                <article className="era-card rounded-2xl border p-5">
-                  <div className="flex flex-wrap items-center justify-between gap-2">
-                    <span
-                      className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
-                      style={{
-                        backgroundColor: `color-mix(in srgb, ${era.theme.accent} 14%, transparent)`,
-                        color: era.theme.accent,
-                      }}
-                    >
-                      {era.shortName} · {beat.dateLabel}
-                    </span>
-                    {beat.source && (
-                      <span className="text-[11px] uppercase tracking-wider text-[color:var(--era-ink-soft)]">
-                        Source: {beat.source}
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold">
-                    {beat.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-                    {beat.body}
-                  </p>
-                  {beat.quote && (
-                    <blockquote className="mt-3 flex gap-2 border-l-2 pl-3 text-[15px] italic leading-relaxed text-[color:var(--era-ink)]" style={{ borderColor: era.theme.accent }}>
-                      <Quote className="mt-1 h-3.5 w-3.5 shrink-0 text-[color:var(--era-accent)]" />
-                      <span>{beat.quote}</span>
-                    </blockquote>
-                  )}
-                </article>
-              </div>
-            </ThreadItem>
-          );
-        })}
-      </div>
-      <p className="mt-6 text-center text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
-        Compiled from public reporting by an independent fan project. Not affiliated with or endorsed by Taylor Swift.
-      </p>
-    </div>
-  );
-}
+/* The Proposal now lives in ./proposal/ProposalThread.tsx — see
+   docs/threads-rework-2026-07-10.md for why it replaced this. */
 
-/* ── The Decode (hidden clue → payoff reveal) ────────────────────── */
-function monthsBetween(a: string, b: string): string {
-  const d1 = new Date(a);
-  const d2 = new Date(b);
-  const months = Math.max(
-    0,
-    (d2.getFullYear() - d1.getFullYear()) * 12 + (d2.getMonth() - d1.getMonth()),
-  );
-  if (months < 1) return 'days later';
-  if (months < 12) return `${months} month${months === 1 ? '' : 's'} later`;
-  const years = Math.floor(months / 12);
-  const rem = months % 12;
-  return rem === 0
-    ? `${years} year${years === 1 ? '' : 's'} later`
-    : `${years} yr ${rem} mo later`;
-}
-
-function DecodeCard({ clue }: { clue: CluePair }) {
-  const [decoded, setDecoded] = useState(false);
-  const plantEra = getEra(clue.plant.eraId);
-  const payoffEra = getEra(clue.payoff.eraId);
-
-  return (
-    <ThreadItem date={clue.plant.date}>
-      <article className="era-card overflow-hidden rounded-2xl border">
-        {/* Plant */}
-        <div className="p-5">
-        <div className="flex flex-wrap items-center justify-between gap-2">
-          <span
-            className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
-            style={{
-              backgroundColor: `color-mix(in srgb, ${plantEra.theme.accent} 14%, transparent)`,
-              color: plantEra.theme.accent,
-            }}
-          >
-            Planted · {plantEra.shortName} · {clue.plant.dateLabel}
-          </span>
-          <span
-            className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wider text-[color:var(--era-ink-soft)]"
-            style={{ borderColor: 'var(--era-line)' }}
-          >
-            {clue.confirmed ? 'Confirmed' : 'Fan theory'}
-          </span>
-        </div>
-        <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold">
-          {clue.title}
-        </h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-          {clue.plant.what}
-        </p>
-      </div>
-
-      {/* The thread across time */}
-      <div
-        className="relative flex items-center gap-3 border-y px-5 py-2.5"
-        style={{ borderColor: 'var(--era-line)' }}
-      >
-        <span
-          aria-hidden
-          className="h-px flex-1"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(to right, var(--era-accent) 0 4px, transparent 4px 8px)',
-            opacity: decoded ? 0.9 : 0.4,
-            transition: 'opacity 400ms',
-          }}
-        />
-        <span className="whitespace-nowrap text-[11px] uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-          {monthsBetween(clue.plant.date, clue.payoff.date)}
-        </span>
-        <span
-          aria-hidden
-          className="h-px flex-1"
-          style={{
-            backgroundImage:
-              'repeating-linear-gradient(to right, var(--era-accent) 0 4px, transparent 4px 8px)',
-            opacity: decoded ? 0.9 : 0.4,
-            transition: 'opacity 400ms',
-          }}
-        />
-      </div>
-
-      {/* Payoff — sealed until decoded */}
-      {decoded ? (
-        <div className="clue-reveal p-5">
-          <div className="flex flex-wrap items-center gap-2">
-            <span
-              className="rounded-full px-2.5 py-0.5 text-[11px] font-medium uppercase tracking-widest"
-              style={{
-                backgroundColor: `color-mix(in srgb, ${payoffEra.theme.accent} 14%, transparent)`,
-                color: payoffEra.theme.accent,
-              }}
-            >
-              Payoff · {payoffEra.shortName} · {clue.payoff.dateLabel}
-            </span>
-          </div>
-          <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--era-ink)]">
-            {clue.payoff.what}
-          </p>
-          <p className="mt-3 flex items-start gap-2 text-sm italic leading-relaxed text-[color:var(--era-ink-soft)]">
-            <MoveRight className="mt-1 h-3.5 w-3.5 shrink-0 text-[color:var(--era-accent)]" />
-            <span>{clue.connection}</span>
-          </p>
-          <p className="mt-3 text-xs text-[color:var(--era-ink-soft)]">
-            Source:{' '}
-            {clue.sources.map((s, i) => (
-              <span key={`${s.url}-${i}`}>
-                {i > 0 && ', '}
-                <a
-                  href={s.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
-                >
-                  {s.name}
-                </a>
-              </span>
-            ))}
-          </p>
-        </div>
-      ) : (
-        <button
-          type="button"
-          onClick={() => setDecoded(true)}
-          className="group flex w-full items-center justify-center gap-2 p-5 text-sm font-semibold transition-colors hover:bg-[color:var(--era-surface-2)]"
-          style={{ color: 'var(--era-accent)' }}
-        >
-          <Lock className="h-4 w-4 transition-transform group-hover:-translate-y-px" />
-          Decode the payoff
-        </button>
-      )}
-      </article>
-    </ThreadItem>
-  );
-}
-
-function Decode() {
-  return (
-    <div className="pt-8">
-      <div className="space-y-4">
-        {CLUE_PAIRS.map((clue) => (
-          <DecodeCard key={clue.id} clue={clue} />
-        ))}
-      </div>
-      <p className="mt-6 text-center text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
-        Clues compiled from public reporting by an independent fan project. “Fan theory” tags mark connections Taylor has not confirmed.
-      </p>
-    </div>
-  );
-}
+/* The Decode now lives in ./decode/DecodeThread.tsx — see
+   docs/threads-rework-2026-07-10.md for why it replaced this. */
 
 /* ── Runway (Fashion) ────────────────────────────────────────────── */
 function Runway() {
@@ -539,71 +293,5 @@ function Runway() {
   );
 }
 
-/* ── Taylor's Version ────────────────────────────────────────────── */
-function TaylorsVersion() {
-  const reclaimed = RERECORDS.filter((r) => r.reclaimedYear).length;
-  const totalVault = RERECORDS.reduce((n, r) => n + r.vaultTracks, 0);
-  return (
-    <div className="pt-8">
-      <div className="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
-        <Stat label="Albums reclaimed" value={`${reclaimed} / ${RERECORDS.length}`} />
-        <Stat label="Vault tracks freed" value={String(totalVault)} />
-        <Stat label="Still awaiting" value={String(RERECORDS.length - reclaimed)} />
-      </div>
-      <div className="space-y-3">
-        {RERECORDS.map((r) => {
-          const done = Boolean(r.reclaimedYear);
-          return (
-            <ThreadItem key={r.id} date={`${r.reclaimedYear ?? r.originalYear}-06-01`}>
-              {/* threadPoints() also emits an "(original)" tick at the
-                  release year — give it a matching anchor here so dragging
-                  near that tick lands on this card, not a nearest-date
-                  guess among unrelated cards. */}
-              {r.reclaimedYear && (
-                <span aria-hidden data-ll-item data-ll-date={new Date(`${r.originalYear}-01-01`).getTime()} className="sr-only" />
-              )}
-              <article className="era-card flex items-center gap-4 rounded-2xl border p-4">
-                <div
-                  className={cn(
-                    'flex h-11 w-11 shrink-0 items-center justify-center rounded-full border text-sm font-semibold',
-                    done
-                      ? 'border-transparent bg-[color:var(--era-accent)] text-[color:var(--era-bg)]'
-                      : 'border-dashed border-[color:var(--era-line)] text-[color:var(--era-ink-soft)]',
-                  )}
-                >
-                  {done ? '✓' : '…'}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <div className="flex flex-wrap items-baseline justify-between gap-x-3">
-                    <h3 className="font-[family-name:var(--era-font)] text-lg font-semibold">{r.album}</h3>
-                    <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-                      {r.originalYear}
-                      {r.reclaimedYear ? ` → ${r.reclaimedYear}` : ' → pending'}
-                    </span>
-                  </div>
-                  <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{r.note}</p>
-                  {r.vaultTracks > 0 && (
-                    <span className="mt-2 inline-block rounded-full bg-[color:var(--era-surface-2)] px-2.5 py-0.5 text-[11px] font-medium text-[color:var(--era-accent)]">
-                      +{r.vaultTracks} vault tracks
-                    </span>
-                  )}
-                </div>
-              </article>
-            </ThreadItem>
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-function Stat({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="era-card rounded-2xl border p-4 text-center">
-      <div className="font-[family-name:var(--era-font)] text-3xl font-semibold text-[color:var(--era-accent)]">
-        {value}
-      </div>
-      <div className="mt-1 text-xs uppercase tracking-wider text-[color:var(--era-ink-soft)]">{label}</div>
-    </div>
-  );
-}
+/* Taylor's Version now lives in ./taylors-version/TaylorsVersionThread.tsx —
+   see docs/threads-rework-2026-07-10.md for why it replaced this. */

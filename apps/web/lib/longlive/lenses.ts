@@ -1,4 +1,4 @@
-import type { CluePair, EggLink, EggNode, LensId, Motif, MotifId, ReRecord, Relationship, RunwayLook, StoryBeat } from './types';
+import type { CluePair, EggLink, EggNode, LensId, Motif, MotifId, ReRecord, Relationship, RunwayLook, SinglePeriod, StoryBeat } from './types';
 import { getEra } from './eras';
 
 /**
@@ -194,90 +194,229 @@ function eraForYear(year: number): string {
   return best?.id ?? 'debut';
 }
 
-// Sourcing note: this dataset is deliberately non-identifying by naming
-// convention ("independent fan project, not confirmed fact" — see file
-// header). `Relationship` doesn't yet have a `sources` field (that's a
-// schema change landing separately); until it does, each entry below
-// carries a `// Sources:` comment so the grounding is at least visible
-// in-repo and easy to promote into a real field later.
+// Sourcing note: switched from a deliberately non-identifying naming
+// convention to real names on 2026-07-10 (see docs/decisions.md) — the Love
+// Story thread's whole premise is "who was she with, when," so hiding names
+// defeated the feature. `Relationship` doesn't yet have a `sources` field
+// (a schema change landing separately); until it does, each entry below
+// carries a `// Sources:` comment so the grounding is visible in-repo.
+// Dates verified via web research 2026-07-10, not from memory — see the
+// per-entry comments for the specific caveats where public reporting is
+// genuinely imprecise (Mayer's end date, Alwyn's start date).
 export const RELATIONSHIPS: Relationship[] = [
   {
-    id: 'rel-1',
-    name: 'The Debut Sweetheart',
-    start: '2008-01-01',
-    end: '2008-12-31',
+    id: 'rel-jonas',
+    name: 'Joe Jonas',
+    start: '2008-07-01',
+    end: '2008-10-15',
     eraIds: ['debut', 'fearless'],
-    songs: ['Fifteen', 'Fearless'],
-    // Sources: widely reported as inspiration for early-catalog songs about
-    // a first high-school relationship; kept deliberately non-identifying
-    // per this thread's naming convention (see file header).
-    note: 'The high-school romance that colored the earliest songs.',
-  },
-  {
-    id: 'rel-2',
-    name: 'The Fearless Actor',
-    start: '2008-12-01',
-    end: '2009-03-01',
-    eraIds: ['fearless'],
     songs: ['Forever & Always', 'The Way I Loved You'],
-    // Sources: Joe Jonas breakup widely reported Oct 2008 (a phone call,
-    // per Swift's own later on-record accounts); "Forever & Always" is
-    // publicly understood as the direct response song.
-    note: 'A brief, high-profile romance that ended in real time on the album.',
+    // Sources: Jonas ended it via a 27-second phone call, later confirmed by
+    // Swift on The Ellen DeGeneres Show; she said the breakup coincided with
+    // his next relationship (Camilla Belle). "Forever & Always" is the
+    // publicly understood direct response song. https://www.billboard.com/music/pop/joe-jonas-taylor-swift-a-post-breakup-timeline-8514830/
+    note: 'A brief, high-profile summer romance that ended in a 27-second phone call — and fueled half of Fearless.',
   },
   {
-    id: 'rel-3',
-    name: 'The Speak Now Muse',
-    start: '2009-10-01',
-    end: '2010-01-01',
-    eraIds: ['fearless', 'speak-now'],
-    songs: ['Back to December', 'Ours'],
-    // Sources: "Back to December" is publicly understood as Swift's own
-    // apology song, widely reported as written about actor Taylor Lautner;
-    // kept non-identifying per this thread's naming convention.
-    note: 'A rare apology song points back to this one.',
+    id: 'rel-lautner',
+    name: 'Taylor Lautner',
+    start: '2009-09-01',
+    end: '2009-12-01',
+    eraIds: ['fearless'],
+    songs: ['Back to December'],
+    // Sources: met filming Valentine's Day (2009); consistently spotted
+    // together Sept-Nov 2009 (VMAs, hockey games); "Back to December" is
+    // Swift's own on-record apology song about this relationship.
+    // https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/
+    note: 'A fall romance that began on a film set — the rare apology song points back to this one.',
   },
   {
-    id: 'rel-4',
-    name: 'The Red Heartbreak',
-    start: '2010-11-01',
+    id: 'rel-mayer',
+    name: 'John Mayer',
+    start: '2009-12-01',
+    end: '2010-02-01',
+    eraIds: ['fearless'],
+    songs: ['Dear John'],
+    // Sources: reported as an official couple from Dec 2009; end date is
+    // genuinely imprecise in public reporting (some outlets cite a Feb 2010
+    // split; Mayer publicly presented Swift an award with warm remarks in
+    // June 2010) — using the earlier, more-cited Feb 2010 window rather than
+    // asserting false precision. https://hollywoodlife.com/feature/taylor-swift-john-mayer-relationship-timeline-5130309/
+    note: 'Brief and complicated — "Dear John" is seven minutes long for a reason.',
+  },
+  {
+    id: 'rel-gyllenhaal',
+    name: 'Jake Gyllenhaal',
+    start: '2010-10-01',
     end: '2011-01-01',
-    eraIds: ['speak-now', 'red'],
-    songs: ['All Too Well', 'The Moment I Knew', 'Holy Ground'],
-    // Sources: widely reported ~3-month relationship in late 2010; "All Too
-    // Well" is Swift's own on-record most personal song from Red, per her
-    // introduction to the song at multiple Eras Tour shows.
-    note: 'Brief in months, enormous in catalog impact — the ten-minute epic lives here.',
+    eraIds: ['fearless', 'speak-now'],
+    songs: ['All Too Well (10 Minute Version)', 'The Moment I Knew', 'We Are Never Ever Getting Back Together'],
+    // Sources: spotted together backstage at SNL Oct 2010; split confirmed
+    // early Jan 2011. "All Too Well" is Swift's own on-record most personal
+    // song, per her introduction to it at multiple Eras Tour shows.
+    // https://www.yahoo.com/entertainment/music/articles/taylor-swift-dating-history-jake-172100349.html
+    note: 'Three months in late 2010 — "All Too Well" is the definitive artifact.',
   },
   {
-    id: 'rel-5',
-    name: 'The 1989 Whirlwind',
-    start: '2012-11-01',
-    end: '2013-01-04',
-    eraIds: ['1989'],
+    id: 'rel-kennedy',
+    name: 'Conor Kennedy',
+    start: '2012-07-01',
+    end: '2012-10-01',
+    eraIds: ['speak-now'],
+    songs: [],
+    // Sources: met at a July 4th party, confirmed couple by late July 2012;
+    // amicable October 2012 split, reportedly due to Kennedy still being in
+    // high school and long-distance strain. https://www.eonline.com/news/357246/taylor-swift-and-conor-kennedy-breakup-anatomy-of-a-split
+    note: 'A summer romance near the Kennedy family compound in Hyannis Port — barely left a lyrical trace.',
+  },
+  {
+    id: 'rel-styles',
+    name: 'Harry Styles',
+    start: '2012-12-01',
+    end: '2013-01-07',
+    eraIds: ['red'],
     songs: ['Style', 'Out of the Woods', 'I Know Places'],
-    // Sources: dated late Nov 2012 (public sightings began that month) to
-    // Jan 4 2013 (a British Virgin Islands trip that ended the
-    // relationship, per contemporaneous People/Us Weekly coverage). The
-    // songs are all 1989 tracks, so this entry's eraId was corrected from
-    // 'red' to '1989' — the previous era assignment was a dating/content
-    // error, not an editorial choice (flagged in the 2026-07-08 content
-    // depth audit).
-    note: 'A brief, headline-making romance in late 2012 that fed directly into the 1989 sessions.',
+    // Sources: first photographed together early Dec 2012; breakup reported
+    // Jan 7 2013 during a British Virgin Islands trip. Songs are all 1989
+    // tracks (fed directly into that album's sessions).
+    // https://hollywoodlife.com/feature/taylor-swift-and-harry-styles-complete-relationship-timeline-5180276/
+    note: 'A headline-making New Year’s romance that fed directly into the 1989 sessions.',
   },
   {
-    id: 'rel-6',
-    name: 'The Reputation Love',
-    start: '2016-10-01',
-    end: '2023-04-01',
+    id: 'rel-harris',
+    name: 'Calvin Harris',
+    start: '2015-03-01',
+    end: '2016-06-01',
+    eraIds: ['1989'],
+    songs: ['This Is What You Came For'],
+    // Sources: first public confirmation ~late March 2015 (Wikipedia-cited
+    // timeline); breakup reported by People June 1 2016, confirmed by CNN
+    // June 2-3 2016. Swift's uncredited co-writing credit on "This Is What
+    // You Came For" (as "Nils Sjoberg") was revealed after the split.
+    // https://www.cnn.com/2016/06/02/entertainment/taylor-swift-calvin-harris-split
+    note: '15 months. A secret co-writing credit became a whole story.',
+  },
+  {
+    id: 'rel-hiddleston',
+    name: 'Tom Hiddleston',
+    start: '2016-06-15',
+    end: '2016-09-06',
+    eraIds: ['1989', 'reputation'],
+    songs: ['Getaway Car'],
+    // Sources: first publicly documented June 15 2016 (The Sun published
+    // photos); split reported by People/Us Weekly Sept 6 2016.
+    // https://www.billboard.com/music/pop/taylor-swift-tom-hiddleston-relationship-timeline-7424146/
+    note: 'The "Hiddleswift" summer — "Getaway Car" and reputation were already loading.',
+  },
+  {
+    id: 'rel-alwyn',
+    name: 'Joe Alwyn',
+    start: '2016-11-12',
+    end: '2023-04-08',
     eraIds: ['reputation', 'lover', 'folklore', 'evermore', 'midnights'],
-    songs: ['Call It What You Want', 'Lover', 'Peace', 'Sweet Nothing'],
-    // Sources: widely reported ~6-year relationship (British actor Joe
-    // Alwyn), Oct 2016 to Apr 2023 per contemporaneous reporting; "Sweet
-    // Nothing" is co-written under Swift's "William Bowery" pseudonym,
-    // itself confirmed as a joint credit with the same partner (per the
-    // Long Pond Studio Sessions documentary, Disney+, 2020).
-    note: 'The long, private six-year relationship that anchored the middle catalog.',
+    songs: ['Call It What You Want', 'Lover', 'cardigan', 'exile', 'champagne problems', 'Sweet Nothing'],
+    // Sources: start date is the least-precise in this dataset — the first
+    // solid public sighting was Swift attending Alwyn's "Billy Lynn's Long
+    // Halftime Walk" premiere Nov 12 2016 (used here); some fan-reconstructed
+    // timelines claim an earlier September 2016 start, but neither Swift nor
+    // Alwyn ever confirmed exact timing, so the more-verifiable premiere date
+    // is used rather than asserting false precision. Split reported April 8
+    // 2023 by Entertainment Tonight; Alwyn later called it "six and a half
+    // years" that "ran its course." "Sweet Nothing" and "cardigan"/"exile"
+    // are co-written under Swift's "William Bowery" pseudonym, confirmed as
+    // a joint credit with Alwyn per the Long Pond Studio Sessions
+    // documentary (Disney+, 2020).
+    // https://www.etonline.com/joe-alwyn-breaks-his-silence-on-taylor-swift-breakup-i-have-made-peace-with-that-227482
+    note: 'Six and a half quiet years — reputation, Lover, folklore, evermore, and Midnights were all written inside it.',
+  },
+  {
+    id: 'rel-kelce',
+    name: 'Travis Kelce',
+    start: '2023-09-24',
+    end: null,
+    eraIds: ['midnights', 'ttpd', 'tloas'],
+    songs: ['Karma (feat. Ice Spice)', 'Is It Over Now? (Taylor’s Version)', 'So High School'],
+    // Sources: Kelce publicly invited Swift via his "New Heights" podcast in
+    // July 2023 after a friendship-bracelet mishap at an Eras Tour show;
+    // Swift told TIME "by the time I went to that first game, we were a
+    // couple" — that first Chiefs game was Sept 24 2023, used here as the
+    // relationship start. Engaged Aug 26 2025; married July 3 2026 at
+    // Madison Square Garden. https://www.billboard.com/lists/taylor-swift-travis-kelce-relationship-timeline/
+    note: 'The friendship bracelet, the games, the engagement, the Madison Square Garden wedding — the resolution.',
+  },
+];
+
+// Solo/single stretches between the relationships above — first-class
+// entries (not derived gaps) so the Love Story thread can answer "who she
+// wasn't with" as well as "who she was." Dates verified 2026-07-10 against
+// the same research pass as RELATIONSHIPS; gaps under ~1 month between
+// adjacent relationships (where public reporting isn't precise enough to
+// place a meaningful boundary) are folded into the neighboring relationship
+// rather than represented as a separate sliver.
+export const SINGLE_PERIODS: SinglePeriod[] = [
+  {
+    id: 'single-early',
+    start: '2006-01-01',
+    end: '2008-07-01',
+    eraIds: ['debut'],
+    songs: ['Tim McGraw', 'Our Song', 'Teardrops on My Guitar'],
+    note: 'Rising as a teenage songwriter — writing about love mostly from the outside looking in, before any of it was public.',
+  },
+  {
+    id: 'single-2008',
+    start: '2008-10-15',
+    end: '2009-09-01',
+    eraIds: ['debut', 'fearless'],
+    songs: ['You Belong with Me', 'The Best Day'],
+    note: 'Channeled the Jonas breakup into Fearless, which became the most-awarded country album in history.',
+  },
+  {
+    id: 'single-2010',
+    start: '2010-02-01',
+    end: '2010-10-01',
+    eraIds: ['fearless', 'speak-now'],
+    songs: ['Mine', 'Speak Now'],
+    note: 'Wrote all of Speak Now solo — a deliberate statement of authorship after whispers that others wrote her hits.',
+  },
+  {
+    id: 'single-2011',
+    start: '2011-01-01',
+    end: '2012-07-01',
+    eraIds: ['speak-now'],
+    songs: ['Mean', 'Long Live', 'Enchanted'],
+    note: 'The Speak Now World Tour, fully solo.',
+  },
+  {
+    id: 'single-2012',
+    start: '2012-10-01',
+    end: '2012-12-01',
+    eraIds: ['speak-now', 'red'],
+    songs: ['22', 'Begin Again'],
+    note: 'The Red rollout — finishing the album that reinvented her sound.',
+  },
+  {
+    id: 'single-2013',
+    start: '2013-01-07',
+    end: '2015-03-01',
+    eraIds: ['red', '1989'],
+    songs: ['Shake It Off', 'Blank Space', 'Bad Blood'],
+    note: 'The "squad" era — peak pop, moving to New York, becoming untouchable.',
+  },
+  {
+    id: 'single-2016',
+    start: '2016-09-06',
+    end: '2016-11-12',
+    eraIds: ['1989', 'reputation'],
+    songs: [],
+    note: 'A brief, quiet stretch between very public relationships.',
+  },
+  {
+    id: 'single-2023',
+    start: '2023-04-08',
+    end: '2023-09-24',
+    eraIds: ['midnights'],
+    songs: ['The Smallest Man Who Ever Lived', 'loml', 'So Long, London'],
+    note: 'Five months — the Eras Tour already mid-run, The Tortured Poets Department already being written.',
   },
 ];
 
@@ -431,48 +570,131 @@ export const RERECORDS: ReRecord[] = [
     album: 'Taylor Swift',
     originalYear: 2006,
     reclaimedYear: null,
+    reclaimedDate: null,
     vaultTracks: 0,
-    note: 'Announced but not yet released as a Taylor’s Version.',
+    color: '#c9a84c',
+    note: 'The debut that started everything — hers again since the 2025 buyback, but still the last album awaiting its Taylor’s Version.',
+    context:
+      'Taylor Swift’s 2006 debut was recorded when she was 14–15 years old and signed to Big Machine as part of the deal her parents helped negotiate. The label held the masters from day one. When Scooter Braun acquired Ithaca Holdings (which by then owned Big Machine) in June 2019, this album — along with the other five — transferred without Swift’s knowledge or consent. Ownership finally returned to her in the May 2025 buyback from Shamrock Capital, but a re-recorded Taylor’s Version has still not been released.',
+    whyNow:
+      'With the masters now hers, the pressure that drove the re-recording campaign is gone — a debut Taylor’s Version would now be an artistic choice rather than a reclamation tactic. No release date has been confirmed.',
+    vaultHighlight: null,
+    fanReaction:
+      'Fan communities have debated for years whether the re-record can capture the rough-hewn charm of a 15-year-old’s debut. The anticipation is a running thread on Swiftie forums.',
+    // Verified via Spotify's own album page. No Taylor's Version exists yet — still a Big Machine master.
+    spotify: { original: '7mzrIsaAjnXihW3InKjlC3', taylorsVersion: null },
   },
   {
     id: 'rr-fearless',
     album: 'Fearless',
     originalYear: 2008,
     reclaimedYear: 2021,
+    reclaimedDate: 'Apr 9, 2021',
     vaultTracks: 6,
-    note: 'The first reclaimed album — the project’s proof of concept.',
+    color: '#d4a830',
+    note: 'The first reclaimed album — the project’s proof of concept, with 6 vault tracks.',
+    context:
+      // Source: https://www.vanityfair.com/style/2020/12/taylor-swift-love-story-re-recording-ryan-reynolds-match-ad
+      // (Dec 2020 Match.com/Ryan Reynolds ad preview) and the Feb 11, 2021
+      // formal Fearless TV announcement — replaces an earlier draft's
+      // unverified Braun/Cadillac-licensing and "November 2020" claims,
+      // which Codex correctly flagged as fabricated.
+      'Fearless won four Grammy Awards in 2010 including Album of the Year, making it a particularly high-stakes opening move. Swift first previewed the re-recorded "Love Story" in a December 2020 Match.com ad starring Ryan Reynolds, then formally announced Fearless (Taylor\'s Version) on February 11, 2021. The released version included six "From the Vault" tracks that hadn\'t appeared on the Platinum Edition.',
+    whyNow:
+      'Fearless was the strategic beachhead. By re-recording the Grammy Album of the Year first, Swift demonstrated the project could produce culturally legitimate work, not a pale copy — a real test of whether listeners would switch, and by most metrics they did.',
+    vaultHighlight:
+      '"Mr. Perfectly Fine" — a breakup anthem many fans read as being about Joe Jonas, which went viral on TikTok within hours of release and charted on the Hot 100 despite being a vault track written around 2008.',
+    fanReaction:
+      'Swifties streamed the TV version en masse to displace the original on charts. "Mr. Perfectly Fine" became a cultural moment of its own within the fan community.',
+    // Taylor's Version verified via Spotify. Original Big Machine master intentionally
+    // omitted — it is not the canonical release Taylor directs fans to.
+    spotify: { original: null, taylorsVersion: '4hDok0OAJd57SGIT8xuWJH' },
   },
   {
     id: 'rr-speak-now',
     album: 'Speak Now',
     originalYear: 2010,
     reclaimedYear: 2023,
+    reclaimedDate: 'Jul 7, 2023',
     vaultTracks: 6,
-    note: 'Reclaimed with vault tracks fans had waited over a decade to hear.',
+    color: '#9b6bb5',
+    note: 'The self-written album — every song penned solo. Reclaimed with 6 vault tracks fans had waited over a decade to hear.',
+    context:
+      'Speak Now has a unique place in the catalog: Taylor wrote every song herself, without co-writers, a deliberate statement about her craft at 18–20. Its re-recording was announced during a stadium show on the Eras Tour in May 2023, giving the reveal a theatrical weight no press release could match.',
+    whyNow:
+      'The Eras Tour created a live-event vehicle for the re-record rollout that no previous album had — announcing it mid-concert placed Speak Now TV directly in the cultural conversation at the peak of the tour’s media saturation.',
+    vaultHighlight:
+      '"Castles Crumbling" featuring Hayley Williams — an unexpected collaboration that gave the vault track an entirely different emotional weight than the solo recording fans had long imagined.',
+    fanReaction:
+      'The Hayley Williams collaboration set fan communities alight; Paramore fans who weren’t in the Swiftie orbit engaged with the re-recording project too.',
+    spotify: { original: null, taylorsVersion: '5AEDGbliTTfjOB8TSm1sxt' },
   },
   {
     id: 'rr-red',
     album: 'Red',
     originalYear: 2012,
     reclaimedYear: 2021,
+    reclaimedDate: 'Nov 12, 2021',
     vaultTracks: 9,
-    note: 'Home of the ten-minute version that became a cultural event.',
+    color: '#c94040',
+    note: 'Home of the ten-minute version that became a cultural event. The largest vault of any re-record, at 9 tracks.',
+    context:
+      'Red (Taylor’s Version) arrived in November 2021 with the long-rumored full-length version of "All Too Well." The original 5-minute version had been a fan-favorite deep cut; the 10-minute version had been the subject of speculation for years after a clip appeared to show Swift performing a longer version at a rehearsal. Its release was paired with a 15-minute short film directed by Swift and starring Dylan O’Brien and Sadie Sink.',
+    whyNow:
+      'Red TV arrived during the window when TikTok had made "All Too Well" newly viral with a younger generation — the conditions for the 10-minute version to land as a cultural event.',
+    vaultHighlight:
+      // Source: https://pitchfork.com/news/taylor-swift-sets-new-record-for-longest-no-1-song-with-all-too-well-10-minute-version
+      '"All Too Well (10 Minute Version)" — one of the most anticipated vault tracks in pop music history. It debuted at #1 on the Billboard Hot 100 and became the longest song ever to top the chart.',
+    fanReaction:
+      'The 10-minute version became a generational reference point online. The accompanying short film was submitted for Emmy consideration.',
+    spotify: { original: null, taylorsVersion: '6kZ42qRrzov54LcAk4onW9' },
   },
   {
     id: 'rr-1989',
     album: '1989',
     originalYear: 2014,
     reclaimedYear: 2023,
+    reclaimedDate: 'Oct 27, 2023',
     vaultTracks: 5,
-    note: 'The blockbuster pop record reclaimed to record-breaking numbers.',
+    color: '#6aadcc',
+    note: 'The blockbuster pop record reclaimed to record-breaking numbers, re-released at the apex of the Eras Tour media cycle.',
+    context:
+      // Source: https://ew.com/music/taylor-swift-reveals-1989-taylors-version-next-re-recorded-album/
+      // Announced from the stage at the final SoFi Stadium show (Los Angeles),
+      // the last date of the Eras Tour's opening 2023 North American leg —
+      // not a Japan/New Zealand claim, which Codex correctly flagged as
+      // fabricated (the tour had no New Zealand leg at all).
+      '1989 defined the first half of the 2010s commercially — three Hot 100 #1 singles and five consecutive top-10 hits, a complete pop crossover — and its masters were among the most valuable in the catalog. Swift announced 1989 TV from the stage at her final SoFi Stadium show in Los Angeles on August 9, 2023. All five vault tracks were previously unreleased.',
+    whyNow:
+      '1989 TV arrived at the exact moment the Eras Tour concert film was entering theaters, creating a double-release media event that made October 2023 a prolonged cultural moment.',
+    vaultHighlight:
+      '"Slut!" — its deliberately provocative title sparked immediate conversation, and the song itself (a bubbly anthem reclaiming the word) became a streaming standout.',
+    fanReaction:
+      'The vault-track titles were teased only as symbols before being decoded by the fan community as a group puzzle — "Slut!" in particular drove enormous conversation before a single second of audio had been heard.',
+    // Both verified via Spotify — 1989 is the one album where a true side-by-side
+    // is available. Original is the standard 13-track edition (not Deluxe), to
+    // match the TV core tracklist for a fair comparison.
+    spotify: { original: '2QJmrSgbdM35R67eoGQo4j', taylorsVersion: '64LU4c1nfjz1t4VnGhagcg' },
   },
   {
     id: 'rr-reputation',
     album: 'reputation',
     originalYear: 2017,
     reclaimedYear: null,
+    reclaimedDate: null,
     vaultTracks: 0,
-    note: 'Widely anticipated but still awaiting its Taylor’s Version.',
+    color: '#555555',
+    note: 'Hers again since the 2025 buyback, but its Taylor’s Version remains unreleased — the most anticipated re-record left.',
+    context:
+      'reputation was Swift’s most stylistically extreme pivot — industrial pop production and a deliberately confrontational public persona adopted after years of media narrative she couldn’t control. Like the debut, its original master returned to her in the May 2025 Shamrock buyback, ending the ownership dispute. A re-recorded Taylor’s Version has still not arrived.',
+    whyNow:
+      'Now that she owns it outright, a reputation (Taylor’s Version) is no longer about reclaiming leverage — it’s about whether and how she chooses to revisit her darkest, most theatrical era. That ambiguity has given it an almost mythological pre-release status in fan communities.',
+    vaultHighlight: null,
+    fanReaction:
+      'Fan-made countdown clocks and theory posts about a reputation TV announcement have become their own genre — the absence of news is the news.',
+    // Owned again since the 2025 buyback; no Taylor's Version yet, so the
+    // original master is still the only release on streaming.
+    spotify: { original: '6DEjYFkNZh67HP7R9PSZvv', taylorsVersion: null },
   },
 ];
 
@@ -1004,6 +1226,11 @@ if (process.env.NODE_ENV !== 'production') {
 // ── The Proposal (sourced narrative thread) ─────────────────────────────────
 // Publicly reported facts, attributed. Framed by an independent fan project.
 
+// Photo URLs verified curl-200 2026-07-10; every 'primary' is a real photo of
+// that specific beat, every 'reference' is honestly labeled as a stand-in
+// (see StoryBeat.image doc comment and the MomentDetail ImageKind rule this
+// mirrors). prop-bracelet has none — that specific backstage moment was
+// never photographed, and no stand-in was close enough to be honest.
 export const PROPOSAL_BEATS: StoryBeat[] = [
   {
     id: 'prop-bracelet',
@@ -1023,6 +1250,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'The first game',
     body: 'Taylor made her first public appearance in a suite at the Chiefs–Bears game at Arrowhead, sitting beside Travis’s mother. She later said they were already together by then; the appearance sent the internet into overdrive.',
     source: 'AP News',
+    image: {
+      url: 'https://media.gettyimages.com/id/1687515467/photo/chicago-bears-v-kansas-city-chiefs.jpg?s=594x594&w=0&k=20&c=FGdNMqOCjAn5FMo56beiwN5SGbvr-tWdlmbeckNwmnU=',
+      credit: 'Cooper Neill/Getty Images',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-wsj-confirm',
@@ -1032,6 +1264,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'Travis confirms it, on the record',
     body: 'After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs–Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
     source: 'WSJ. Magazine',
+    image: {
+      url: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
+      credit: 'Gregory Harris/WSJ. Magazine',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-super-bowl',
@@ -1041,6 +1278,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'Super Bowl LVIII',
     body: 'After flying in from a Tokyo Eras Tour show, Taylor watched the Chiefs win Super Bowl LVIII in Las Vegas, meeting Travis on the field afterward — one of the most-photographed embraces of the year.',
     source: 'AP News',
+    image: {
+      url: 'https://media.gettyimages.com/id/2004247309/photo/super-bowl-lviii-san-francisco-49ers-v-kansas-city-chiefs.jpg?s=594x594&w=0&k=20&c=F98AY-963y-PkSf1E7bis-zkuCD98jJ2UfJx66twCeE=',
+      credit: 'Ezra Shaw/Getty Images',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-so-high-school',
@@ -1050,6 +1292,16 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: '"So High School"',
     body: 'The Tortured Poets Department: The Anthology track "So High School" is widely read by fans — not officially confirmed by Swift — as being about the relationship, down to a lyric fans connect to a 2016 interview where Travis said he\'d "kiss" her in a game of Kiss, Marry, Kill. Swift has performed it on the Eras Tour with visuals fans read as Travis-coded.',
     source: 'Entertainment Tonight / Capital FM (fan reading, not officially confirmed)',
+    image: {
+      // No photo of the song/lyric moment itself exists — this is Travis's
+      // real Wembley onstage cameo (June 23, 2024), the closest honest
+      // stand-in for a lyric-interpretation beat. Kept as 'reference', never
+      // implied to depict the song itself.
+      url: 'https://media.gettyimages.com/id/2158904096/photo/night-three-of-taylor-swift-the-eras-tour-london-uk.jpg?s=594x594&w=0&k=20&c=m45ybgwacP_HmQX7uL24FKHsLEnrDmW2UTr3yBkS0OQ=',
+      credit: 'Gareth Cattermole/TAS24/Getty Images',
+      kind: 'reference',
+      caption: 'Travis Kelce\'s Eras Tour cameo at Wembley — not the "So High School" moment itself.',
+    },
   },
   {
     id: 'prop-us-open',
@@ -1059,6 +1311,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'A public date at the US Open',
     body: 'One of the couple\'s most public, non-football dates: courtside at the US Open alongside Patrick and Brittany Mahomes, cheering on the men\'s final.',
     source: 'AP News',
+    image: {
+      url: 'https://media.gettyimages.com/id/2170859161/photo/2024-us-open-final-day.jpg?s=594x594&w=0&k=20&c=mPpF-fOGuGycRwxt_XQBiprQP7dpruaFFcSvM-nEIdQ=',
+      credit: 'Jamie Squire/Getty Images',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-engagement',
@@ -1069,6 +1326,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     body: 'The couple announced their engagement on Instagram. The proposal had happened roughly two weeks earlier in a flower-filled garden in Lee’s Summit, Missouri; the ring, an old mine brilliant-cut diamond, was designed with jeweler Kindred Lubeck.',
     quote: '“Your English teacher and your gym teacher are getting married.”',
     source: 'People',
+    image: {
+      url: 'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
+      credit: 'via @taylorswift/Instagram (ABC News)',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-wedding',
@@ -1078,6 +1340,14 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'The wedding',
     body: 'Taylor and Travis married at Madison Square Garden in New York City, in a star-studded ceremony officiated by Adam Sandler, timed over the July 4th weekend just before Kelce\'s NFL training camp — the resolution of the story this thread has followed since the friendship bracelet.',
     source: 'CNN / Good Morning America',
+    image: {
+      // The public "JUST T&T MARRIED!" exterior jumbotron announcement, not
+      // ceremony photos — no ceremony photos are public.
+      url: 'https://media.gettyimages.com/id/2284267696/photo/swift-kelce-wedding-mania.jpg?s=594x594&w=0&k=20&c=0ir2eDFT9T5T1K1edSOTglmC-uaHjV8gUmKCjaJieu8=',
+      credit: 'Sara Konradi for The Washington Post via Getty Images',
+      kind: 'reference',
+      caption: 'The public announcement outside Madison Square Garden — no ceremony photos are public.',
+    },
   },
 ];
 
