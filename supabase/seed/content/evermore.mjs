@@ -15,6 +15,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 26,
       category: 'business',
       title: 'evermore makes her the first artist to top both charts at once — twice',
       snippet:
@@ -45,6 +46,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "willow, and the spell it's supposed to sound like",
       snippet: 'Taylor\'s own description: it "sounds like casting a spell to make someone fall in love with you."',
@@ -71,6 +73,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'no body, no crime, a murder ballad with HAIM',
       snippet:
@@ -99,6 +102,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "marjorie, sung back by her grandmother's own voice",
       snippet: "A tribute to her grandmother, the opera singer Marjorie Finlay — and, in the outro, literally her voice.",
@@ -131,6 +135,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'champagne problems, a fictional proposal gone wrong',
       snippet: 'A Christmas-party engagement, planned in secret and turned down on the spot — entirely invented, co-written with Joe Alwyn under his William Bowery pseudonym.',
@@ -162,6 +167,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'coney island, a duet built for The National',
       snippet: 'A breakup told from both sides, with The National\'s Matt Berninger trading verses with her over a slow, aching duet.',
@@ -188,6 +194,7 @@ export default {
     {
       year: 2021,
       month: 4,
+      day: 18,
       category: 'business',
       title: 'Fearless (Taylor\'s Version) is the first re-recorded album ever to hit No. 1',
       snippet:
@@ -219,6 +226,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 22,
       category: 'business',
       title: 'All Too Well (10 Minute Version) becomes the longest song ever to hit No. 1',
       snippet:
@@ -262,8 +270,9 @@ export default {
       },
     },
     {
-      year: 2022,
-      month: 4,
+      year: 2021,
+      month: 11,
+      day: 23,
       category: 'business',
       title: 'evermore gets an Album of the Year nod, its only nomination',
       snippet:
@@ -301,6 +310,7 @@ export default {
     {
       year: 2021,
       month: 3,
+      day: 14,
       category: 'fashion',
       title: 'A folklore medley, staged like a cabin in an enchanted forest',
       snippet: 'A blue-and-gold Etro "nap dress," performing "cardigan," "august," and "willow" from a set built to look like a tiny forest cabin.',
@@ -356,6 +366,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'fashion',
       title: 'The ivory Zimmermann gown from the "willow" video',
       snippet:
@@ -387,6 +398,7 @@ export default {
     {
       year: 2021,
       month: 2,
+      day: 11,
       category: 'fashion',
       title: "A sepia Fearless (Taylor's Version) cover, with a Love Story Easter egg",
       snippet:
@@ -414,6 +426,7 @@ export default {
     {
       year: 2021,
       month: 6,
+      day: 18,
       category: 'fashion',
       title: "A vintage Chevrolet, a burgundy cap, and the Red (Taylor's Version) cover",
       snippet:
@@ -477,6 +490,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 13,
       category: 'fashion',
       title: 'A skin-tight Alaïa jumpsuit for "All Too Well" on SNL, then a houndstooth blazer after',
       snippet:
@@ -518,6 +532,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'fashion',
       title: 'The "willow" video\'s final scene: a Gucci Liberty-print floral maxi dress',
       snippet:
@@ -558,6 +573,7 @@ export default {
     {
       year: 2021,
       month: 3,
+      day: 14,
       category: 'fashion',
       title: 'A 3D-floral Oscar de la Renta mini dress for the 2021 Grammys red carpet',
       snippet:
@@ -589,6 +605,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 12,
       category: 'fashion',
       title: 'A purple velvet Etro pantsuit for the "All Too Well" short film premiere',
       snippet:
@@ -620,6 +637,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 11,
       category: 'fashion',
       title: 'A gold-beaded Zuhair Murad shift dress for The Tonight Show',
       snippet:
@@ -651,6 +669,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 11,
       category: 'fashion',
       title: 'A crystal-strewn David Koma mini dress for Late Night with Seth Meyers',
       snippet:
@@ -678,6 +697,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 13,
       category: 'fashion',
       title: 'A David Koma sequin mini dress for her surprise "Three Sad Virgins" SNL cameo',
       snippet:
@@ -726,6 +746,7 @@ export default {
     {
       year: 2021,
       month: 9,
+      day: 9,
       category: 'sighting',
       title: 'A Belfast weekend: a restaurant selfie, then a three-hour bar set',
       snippet:
@@ -751,6 +772,7 @@ export default {
     {
       year: 2022,
       month: 7,
+      day: 21,
       category: 'sighting',
       title: "A surprise cameo at HAIM's sold-out O2 Arena show",
       snippet:
@@ -790,6 +812,7 @@ export default {
     {
       year: 2022,
       month: 7,
+      day: 14,
       category: 'sighting',
       title: 'A paparazzi-caught coffee stroll through a London park with Joe Alwyn',
       snippet:
@@ -814,6 +837,7 @@ export default {
     {
       year: 2022,
       month: 8,
+      day: 28,
       category: 'sighting',
       title: 'Spotted leaving the VMAs in a Midnights-teasing star romper',
       snippet:
@@ -841,6 +865,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "cowboy like me, cut at Marcus Mumford's home studio",
       snippet:
@@ -873,6 +898,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "the evermore title track's bridge, written after the fact by Bon Iver's Justin Vernon",
       snippet:
@@ -905,6 +931,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "tolerate it, the 10/8 track Dessner almost didn't send her",
       snippet:
@@ -937,6 +964,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 27,
       category: 'business',
       title: "Red (Taylor's Version) sets a new Hot 100 record: 26 debuts in a single week",
       snippet:
@@ -969,6 +997,7 @@ export default {
     {
       year: 2022,
       month: 9,
+      day: 20,
       category: 'business',
       title: 'Nashville Songwriters name her Songwriter-Artist of the Decade — and she debuts her "pen" framework',
       snippet:
@@ -1000,6 +1029,7 @@ export default {
     {
       year: 2022,
       month: 5,
+      day: 18,
       category: 'sighting',
       title: "An honorary NYU doctorate, and a graduation-cap 'first'",
       snippet:
@@ -1031,6 +1061,7 @@ export default {
     {
       year: 2022,
       month: 6,
+      day: 11,
       category: 'sighting',
       title: "A Tribeca Q&A ends in a surprise \"All Too Well\" singalong, Blake Lively and Ryan Reynolds in the crowd",
       snippet:
@@ -1080,6 +1111,7 @@ export default {
       slug: 'evermore-deluxe-bonus-tracks',
       year: 2021,
       month: 1,
+      day: 7,
       category: 'release',
       title: 'The deluxe edition surfaces "right where you left me" — a narrator frozen in a restaurant',
       snippet:
@@ -1136,6 +1168,7 @@ export default {
       slug: 'mr-perfectly-fine-from-the-vault',
       year: 2021,
       month: 4,
+      day: 7,
       category: 'release',
       title: 'Mr. Perfectly Fine opens the vault',
       snippet:
@@ -1182,6 +1215,7 @@ export default {
       slug: 'all-too-well-short-film-premiere',
       year: 2021,
       month: 11,
+      day: 12,
       category: 'release',
       title: 'All Too Well: The Short Film premieres — she wrote it, she directed it',
       snippet:
@@ -1219,6 +1253,7 @@ export default {
       slug: 'carolina-crawdads',
       year: 2022,
       month: 6,
+      day: 24,
       category: 'release',
       title: 'Carolina: a one-take murder-ballad for the marsh',
       snippet:
@@ -1265,6 +1300,7 @@ export default {
       slug: 'grammys-2021-joe-thank-you',
       year: 2021,
       month: 3,
+      day: 14,
       category: 'relationship',
       title: '"Joe, who is the first person that I play every single song that I write"',
       snippet:
@@ -1313,6 +1349,7 @@ export default {
       slug: 'joe-alwyn-pound-coins',
       year: 2022,
       month: 4,
+      day: 20,
       category: 'relationship',
       title: '"If I had a pound for every time I think I\'ve been told I\'ve been engaged…"',
       snippet:
@@ -1362,6 +1399,7 @@ export default {
       slug: 'gold-rush-daydream',
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'gold rush, a jealousy fantasy that dismisses itself',
       snippet:
@@ -1408,6 +1446,7 @@ export default {
       slug: 'tis-the-damn-season-overnight',
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "'tis the damn season, written overnight during the folklore film shoot",
       snippet:
@@ -1454,6 +1493,7 @@ export default {
       slug: 'happiness-week-before',
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'happiness, the last song finished — days before the album dropped',
       snippet:
@@ -1491,6 +1531,7 @@ export default {
       slug: 'love-story-tv-first-rerecording',
       year: 2021,
       month: 2,
+      day: 11,
       category: 'release',
       title: "Love Story (Taylor's Version): the first re-recording arrives at midnight",
       snippet:
@@ -1537,6 +1578,7 @@ export default {
       slug: 'fearless-tv-release-day',
       year: 2021,
       month: 4,
+      day: 9,
       category: 'release',
       title: "Fearless (Taylor's Version): 26 songs, six from the vault",
       snippet:
@@ -1574,6 +1616,7 @@ export default {
       slug: 'red-tv-announcement',
       year: 2021,
       month: 6,
+      day: 18,
       category: 'release',
       title: 'Red (Taylor\'s Version) announced: "And hey, one of them is even ten minutes long"',
       snippet:
@@ -1620,6 +1663,7 @@ export default {
       slug: 'renegade-big-red-machine',
       year: 2021,
       month: 7,
+      day: 2,
       category: 'release',
       title: 'Renegade: guesting on Big Red Machine, the Dessner–Vernon mothership',
       snippet:
@@ -1657,6 +1701,7 @@ export default {
       slug: 'wildest-dreams-tv-tiktok',
       year: 2021,
       month: 9,
+      day: 17,
       category: 'release',
       title: "Wildest Dreams (Taylor's Version), rushed out because TikTok wouldn't wait",
       snippet:
@@ -1694,6 +1739,7 @@ export default {
       slug: 'i-bet-you-think-about-me-video',
       year: 2021,
       month: 11,
+      day: 15,
       category: 'release',
       title: 'Blake Lively directs "I Bet You Think About Me" — wedding-cake carnage included',
       snippet:
@@ -1742,6 +1788,7 @@ export default {
       slug: 'joker-and-the-queen-remix',
       year: 2022,
       month: 2,
+      day: 11,
       category: 'release',
       title: 'The Joker and the Queen: an Ed Sheeran duet with a nine-year Easter egg',
       snippet:
@@ -1779,6 +1826,7 @@ export default {
       slug: 'this-love-tv-summer-i-turned-pretty',
       year: 2022,
       month: 5,
+      day: 6,
       category: 'release',
       title: "This Love (Taylor's Version) arrives early, care of a TV trailer",
       snippet:
@@ -1816,6 +1864,7 @@ export default {
       slug: 'evermore-park-lawsuits',
       year: 2021,
       month: 2,
+      day: 2,
       category: 'business',
       title: 'evermore vs. Evermore: the theme-park lawsuit that ended in a draw',
       snippet:
@@ -1864,6 +1913,7 @@ export default {
       slug: 'brits-global-icon',
       year: 2021,
       month: 5,
+      day: 11,
       category: 'business',
       title: 'First woman ever to take the BRITs Global Icon award',
       snippet:
@@ -1932,6 +1982,7 @@ export default {
       slug: 'vmas-2022-midnights-handoff',
       year: 2022,
       month: 8,
+      day: 28,
       category: 'business',
       title: 'Video of the Year for All Too Well — then she announces Midnights from the podium',
       snippet:
@@ -1989,6 +2040,7 @@ export default {
       slug: 'joe-gq-hype-accidental',
       year: 2022,
       month: 5,
+      day: 9,
       category: 'relationship',
       title: '"The most accidental thing to happen in lockdown": Joe on the co-writes',
       snippet:
