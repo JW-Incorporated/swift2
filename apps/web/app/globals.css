@@ -169,6 +169,29 @@ body {
   box-shadow: 0 10px 40px -20px var(--era-glow);
 }
 
+/* A second, slightly-recessed surface tier for nested cards (e.g. a sidebar
+   panel inside an era-card) — same border/radius language, one step darker. */
+.era-card-2 {
+  background: var(--era-surface-2);
+  border: 1px solid var(--era-line);
+  border-radius: 0.5rem;
+}
+
+/*
+  Fixed semantic status colors, independent of the active era theme — used by
+  threads that visualize a status/ownership axis (e.g. Taylor's Version).
+  Deliberately NOT era-* tokens: "reclaimed" should read as positive green
+  whether the active era is TTPD's monochrome or Lover's pastel.
+*/
+:root {
+  --status-disputed: color-mix(in srgb, #c94040 16%, transparent);
+  --status-disputed-ink: #d16a6a;
+  --status-reclaimed: color-mix(in srgb, #4caf6e 16%, transparent);
+  --status-reclaimed-ink: #5fc383;
+  --status-pending: color-mix(in srgb, #d4a830 16%, transparent);
+  --status-pending-ink: #dbb94a;
+}
+
 .era-chip {
   background: color-mix(in srgb, var(--era-accent) 14%, transparent);
   color: var(--era-accent);
