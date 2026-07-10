@@ -11,6 +11,7 @@ export default {
     {
       year: 2008,
       month: 9,
+      day: 15,
       category: 'music',
       title: "Love Story, and the boy her family didn't approve of",
       snippet:
@@ -35,6 +36,7 @@ export default {
     {
       year: 2008,
       month: 11,
+      day: 11,
       category: 'music',
       title: "Fifteen, written for her best friend Abigail",
       snippet: "A freshman-year memory, built around one line about her best friend Abigail's heartbreak.",
@@ -58,6 +60,7 @@ export default {
     {
       year: 2008,
       month: 11,
+      day: 11,
       category: 'business',
       title: 'Fearless makes her the youngest Album of the Year winner — for a decade',
       snippet: '592,000 copies in week one, debuting at No. 1 on the Billboard 200.',
@@ -87,6 +90,7 @@ export default {
     {
       year: 2008,
       month: 11,
+      day: 12,
       category: 'fashion',
       title: 'A silver Kaufman Franco gown for the 2008 CMAs',
       snippet: 'A body-hugging silver Kaufman Franco gown, hair pinned into a sleek bun, at the 42nd CMA Awards.',
@@ -120,6 +124,7 @@ export default {
     {
       year: 2009,
       month: 4,
+      day: 23,
       category: 'tour',
       title: 'The Fearless Tour opens to a sold-out crowd in 30 seconds',
       snippet:
@@ -145,6 +150,7 @@ export default {
     {
       year: 2008,
       month: 11,
+      day: 11,
       category: 'music',
       title: 'The Best Day, a secret Christmas gift for her mom',
       snippet: 'Recorded in secret while on tour, then given to her mother as a Christmas surprise with a home-movie video to match.',
@@ -169,6 +175,7 @@ export default {
     {
       year: 2009,
       month: 9,
+      day: 13,
       category: 'business',
       title: 'Wins Best Female Video, then Kanye West takes the mic',
       snippet:
@@ -199,6 +206,7 @@ export default {
     {
       year: 2009,
       month: 4,
+      day: 23,
       category: 'fashion',
       title: 'A marching-band reveal to open the Fearless Tour',
       snippet:
@@ -226,6 +234,7 @@ export default {
     {
       year: 2009,
       month: 9,
+      day: 13,
       category: 'fashion',
       title: 'A silver sequined gown, worn into an interruption no one saw coming',
       snippet: 'A floor-length silver gown, matching the Moonman she was mid-speech with when Kanye West took the mic.',
@@ -257,6 +266,7 @@ export default {
     {
       year: 2009,
       month: 2,
+      day: 18,
       category: 'fashion',
       title: 'A sparkly Kaufmanfranco mini and a curled updo at the 2009 BRIT Awards',
       snippet: 'A sequined Kaufmanfranco mini dress, Christian Louboutin heels, and a curled updo on the London red carpet.',
@@ -281,6 +291,7 @@ export default {
     {
       year: 2009,
       month: 11,
+      day: 11,
       category: 'fashion',
       title: 'A gold Reem Acra gown for a four-award sweep at the 2009 CMAs',
       snippet: 'A floor-skimming gold Reem Acra gown and an old-Hollywood pinned-back style, the night she swept all four of her CMA nominations.',
@@ -320,6 +331,7 @@ export default {
     {
       year: 2010,
       month: 1,
+      day: 31,
       category: 'fashion',
       title: 'A blue sequined KaufmanFranco gown for a four-Grammy night',
       snippet: 'A navy, off-the-shoulder KaufmanFranco sequin gown, Louboutin pumps, and Lorraine Schwartz earrings — worn the night Fearless won Album of the Year.',
@@ -349,6 +361,7 @@ export default {
     {
       year: 2010,
       month: 1,
+      day: 31,
       category: 'fashion',
       title: "Curls swept to the side to make room for four Grammys",
       snippet: "Her long, shoulder-length curls — the signature look of the Fearless era — swept to one side at the 2010 Grammys.",
@@ -380,6 +393,7 @@ export default {
     {
       year: 2008,
       month: 11,
+      day: 10,
       category: 'fashion',
       title: 'A French Connection Tallulah skirt for a Letterman appearance',
       snippet: "A French Connection 'Tallulah' skirt, Christian Louboutin 'Babel' leather boots, and Nordstrom floral tights for The Late Show with David Letterman.",
@@ -430,6 +444,7 @@ export default {
     {
       year: 2010,
       month: 1,
+      day: 31,
       category: 'fashion',
       title: 'A mauve Dolce & Gabbana dress for her first Grammy win',
       snippet: 'A mauve Dolce & Gabbana cocktail dress, worn when "White Horse" won Best Country Song at the 2010 Grammys pre-telecast ceremony.',
@@ -460,6 +475,7 @@ export default {
     {
       year: 2010,
       month: 1,
+      day: 6,
       category: 'fashion',
       title: "A Jenny Packham resort mini for the 2010 People's Choice Awards",
       snippet: 'A white Jenny Packham Resort 2010 mini dress, Christian Louboutin pumps, and Neil Lane jewelry at the Nokia Theatre.',
@@ -489,6 +505,7 @@ export default {
     {
       year: 2010,
       month: 6,
+      day: 9,
       category: 'fashion',
       title: 'A John Galliano buckle-strap dress for the 2010 CMT Music Awards',
       snippet: "A deep-purple John Galliano 'Buckle Strap Dress' at the 2010 CMT Music Awards in Nashville — the first year she wore her hair straight for the show.",
@@ -520,6 +537,7 @@ export default {
     {
       year: 2009,
       month: 7,
+      day: 30,
       category: 'sighting',
       title: 'Caught on the Valentine’s Day set with Taylor Lautner',
       snippet: 'Paparazzi photograph her and co-star Taylor Lautner filming track-and-field scenes at an LA high school — months before their romance went public.',
@@ -553,6 +571,7 @@ export default {
     {
       year: 2009,
       month: 10,
+      day: 25,
       category: 'sighting',
       title: 'A hockey date with Taylor Lautner at the Staples Center',
       snippet: 'Spotted together at a Kings–Blue Jackets game after she picked him up from LAX — the outing that confirmed the "Taylor Squared" romance rumors.',
@@ -616,6 +635,7 @@ export default {
     {
       year: 2009,
       month: 12,
+      day: 3,
       category: 'sighting',
       title: 'Benihana and Menchie’s frozen yogurt with Taylor Lautner',
       snippet: 'Photographed leaving a Beverly Hills dinner with Taylor Lautner, carrying a giant pink box and a stuffed polar bear.',
@@ -645,6 +665,7 @@ export default {
     {
       year: 2009,
       month: 12,
+      day: 9,
       category: 'sighting',
       title: 'Ice cream with Emma Stone after a day of photo shoots',
       snippet: 'Peering into the case at a Baskin-Robbins in New York City with new friend Emma Stone, after a full day on set.',
@@ -678,6 +699,7 @@ export default {
     {
       year: 2009,
       month: 12,
+      day: 11,
       category: 'relationship',
       title: 'A duet with John Mayer fuels dating rumors',
       snippet: "A live 'Half of My Heart' at Z100's Jingle Ball, obvious onstage chemistry, a 13-year age gap — and rumors that became a real, brief relationship.",
@@ -719,6 +741,7 @@ export default {
     {
       year: 2010,
       month: 2,
+      day: 5,
       category: 'sighting',
       title: 'Touching down in Sydney for the tour’s Australian leg',
       snippet: 'Photographed arriving at Sydney Airport days before kicking off the Fearless Tour’s five-date run across Australia.',
@@ -742,6 +765,7 @@ export default {
     {
       year: 2010,
       month: 3,
+      day: 23,
       category: 'sighting',
       title: 'Bowling with Selena Gomez in Studio City',
       snippet: 'An off-duty afternoon at Pinz Bowling Center with Selena Gomez, early in a friendship that would become one of her most enduring.',
@@ -773,6 +797,7 @@ export default {
     {
       year: 2008,
       month: 10,
+      day: 28,
       category: 'music',
       title: "You're Not Sorry, and the ex-boyfriend who felt like Prince Charming",
       snippet: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
@@ -794,6 +819,7 @@ export default {
     {
       year: 2008,
       month: 11,
+      day: 11,
       category: 'music',
       title: 'The Way I Loved You, written with John Rich about missing the chaos',
       snippet: 'She met a guy who seemed perfect on paper — then wrote a song, with country outlaw John Rich, about missing an ex who wasn\'t.',
@@ -821,6 +847,7 @@ export default {
     {
       year: 2008,
       month: 11,
+      day: 11,
       category: 'music',
       title: 'Forever & Always, added a day before the tracklist was locked',
       snippet: 'Written about her breakup with Joe Jonas — the last song she finished for Fearless, one day before the album was mastered.',
@@ -842,6 +869,7 @@ export default {
     {
       year: 2009,
       month: 10,
+      day: 26,
       category: 'music',
       title: "Untouchable, the one Fearless song she didn't write alone from scratch",
       snippet: 'A cover of a Luna Halo rock song her label president introduced her to — reworked into a stripped-down country-pop bonus track.',
@@ -911,6 +939,7 @@ export default {
     {
       year: 2010,
       month: 6,
+      day: 5,
       category: 'tour',
       title: 'First woman to headline and sell out Gillette Stadium',
       snippet: '56,868 fans and $3.7 million in ticket sales — the Fearless Tour\'s single highest-grossing night.',
@@ -939,6 +968,7 @@ export default {
     {
       year: 2010,
       month: 4,
+      day: 18,
       category: 'fashion',
       title: 'A wisteria Marchesa gown for the 2010 ACM Awards',
       snippet: 'A draped, chiffon-embroidered wisteria Marchesa gown, Christian Louboutin heels, and Neil Lane jewels at the Academy of Country Music Awards.',
@@ -979,6 +1009,7 @@ export default {
       slug: 'love-story-single-release',
       year: 2008,
       month: 9,
+      day: 15,
       category: 'release',
       title: 'Love Story arrives two months before the album',
       snippet:
@@ -1021,6 +1052,7 @@ export default {
       slug: 'white-horse-single-release',
       year: 2008,
       month: 12,
+      day: 8,
       category: 'release',
       title: "White Horse, the single Grey's Anatomy saved for Fearless",
       snippet:
@@ -1068,6 +1100,7 @@ export default {
       slug: 'fearless-platinum-edition',
       year: 2009,
       month: 10,
+      day: 26,
       category: 'release',
       title: 'Fearless: Platinum Edition adds six new songs to a No. 1 album',
       snippet:
@@ -1101,6 +1134,7 @@ export default {
       slug: 'today-was-a-fairytale-release',
       year: 2010,
       month: 1,
+      day: 19,
       category: 'release',
       title: 'Today Was a Fairytale breaks a download record in a week',
       snippet:
@@ -1148,6 +1182,7 @@ export default {
       slug: 'hey-stephen-liner-code',
       year: 2008,
       month: 11,
+      day: 11,
       category: 'music',
       title: 'Hey Stephen, addressed to the opening act',
       snippet:
@@ -1203,6 +1238,7 @@ export default {
       slug: 'you-belong-with-me-video',
       year: 2009,
       month: 5,
+      day: 4,
       category: 'music',
       title: 'One video, two Taylors: You Belong with Me hits screens',
       snippet:
@@ -1258,6 +1294,7 @@ export default {
       slug: 'msg-sold-out-minute',
       year: 2009,
       month: 8,
+      day: 27,
       category: 'tour',
       title: 'Madison Square Garden, sold out in about a minute',
       snippet:
@@ -1311,6 +1348,7 @@ export default {
       slug: 'bieber-wembley-broken-foot',
       year: 2009,
       month: 11,
+      day: 23,
       category: 'tour',
       title: 'Her UK opening act breaks his foot mid-song',
       snippet:
@@ -1364,6 +1402,7 @@ export default {
       slug: 'cma-entertainer-2009',
       year: 2009,
       month: 11,
+      day: 11,
       category: 'business',
       title: 'CMA Entertainer of the Year at 19 — the youngest ever',
       snippet:
@@ -1425,6 +1464,7 @@ export default {
       slug: 'love-story-pop-crossover',
       year: 2009,
       month: 2,
+      day: 28,
       category: 'business',
       title: 'First country song ever to top pop radio',
       snippet:
@@ -1472,6 +1512,7 @@ export default {
       slug: 'csi-haley-jones',
       year: 2009,
       month: 3,
+      day: 5,
       category: 'sighting',
       title: 'Her acting debut: a murder victim on CSI',
       snippet:
@@ -1520,6 +1561,7 @@ export default {
       slug: 'snl-host-monologue-song',
       year: 2009,
       month: 11,
+      day: 7,
       category: 'sighting',
       title: 'Hosting SNL — and writing her own monologue',
       snippet:
