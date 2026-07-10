@@ -49,6 +49,27 @@ describe('RUNWAY_LOOKS', () => {
       expect(covered.has(era.id), `no runway look for era "${era.id}"`).toBe(true);
     }
   });
+
+  it('has 2-3 real, credited photos per era (30 total) — no placeholders', () => {
+    const total = RUNWAY_LOOKS.reduce((n, look) => n + look.images.length, 0);
+    expect(total, 'total photo count across all eras').toBe(30);
+
+    for (const look of RUNWAY_LOOKS) {
+      expect(
+        look.images.length,
+        `"${look.id}" should have 2-3 photos, has ${look.images.length}`,
+      ).toBeGreaterThanOrEqual(2);
+      expect(look.images.length).toBeLessThanOrEqual(3);
+
+      for (const img of look.images) {
+        expect(img.url, `"${look.id}" image url`).toMatch(/^https?:\/\//);
+        expect(img.url, `"${look.id}" image url must not be a local placeholder`).not.toMatch(/^\/(placeholder|eras)\//);
+        expect(img.credit, `"${look.id}" image missing a credit`).toBeTruthy();
+        expect(img.caption, `"${look.id}" image missing a caption`).toBeTruthy();
+        expect(img.kind, `"${look.id}" image kind`).toBe('primary');
+      }
+    }
+  });
 });
 
 describe('EGG_NODES motif classification', () => {

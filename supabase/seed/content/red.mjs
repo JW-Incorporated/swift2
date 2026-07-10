@@ -25,6 +25,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 30,
       category: 'business',
       title: 'Red sells 1.2 million copies — the biggest week in a decade',
       snippet:
@@ -55,6 +56,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: 'All Too Well, and the scarf that became a metaphor',
       snippet:
@@ -92,6 +94,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: '22, a birthday letter to her closest friends',
       snippet: 'Not a love song — a carefree ode to being "happy, free, confused, and lonely" all in the same year, with her girls beside her.',
@@ -119,6 +122,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 9,
       category: 'music',
       title: 'I Knew You Were Trouble brings dubstep to pop radio',
       snippet: 'A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being "sonically conservative."',
@@ -139,6 +143,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: 'Starlight, built from an old photo of two teenagers dancing',
       snippet: 'A black-and-white photo of a young couple sneaking into a yacht-club party — she imagined the rest, and wrote a whole song around it.',
@@ -167,6 +172,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: 'Everything Has Changed, written on a trampoline with Ed Sheeran',
       snippet: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
@@ -188,6 +194,7 @@ export default {
     {
       year: 2013,
       month: 3,
+      day: 13,
       category: 'tour',
       title: 'The Red Tour opens with Ed Sheeran in Omaha',
       snippet:
@@ -216,6 +223,7 @@ export default {
     {
       year: 2013,
       month: 11,
+      day: 6,
       category: 'fashion',
       title: 'A wine-red Elie Saab gown for a historic Pinnacle Award',
       snippet: 'A wine-colored Elie Saab gown at the CMAs, the night she became the first woman ever to receive the Pinnacle Award.',
@@ -241,6 +249,7 @@ export default {
     {
       year: 2013,
       month: 6,
+      day: 5,
       category: 'fashion',
       title: "An ankle-length red dress with a thigh-high slit for 'Red' at the CMTs",
       snippet:
@@ -293,6 +302,7 @@ export default {
     {
       year: 2013,
       month: 2,
+      day: 10,
       category: 'fashion',
       title: 'A J. Mendel gown and a Heidi braid at the 2013 Grammys',
       snippet:
@@ -346,6 +356,7 @@ export default {
     {
       year: 2013,
       month: 3,
+      day: 13,
       category: 'fashion',
       title: '128 costumes for the Red Tour, hand-built in three weeks',
       snippet:
@@ -373,6 +384,7 @@ export default {
     {
       year: 2013,
       month: 3,
+      day: 13,
       category: 'fashion',
       title: "A rhinestone cat-ear headband defines the '22' video look",
       snippet:
@@ -399,6 +411,7 @@ export default {
     {
       year: 2012,
       month: 11,
+      day: 1,
       category: 'fashion',
       title: 'A Jenny Packham lace gown blooms with red at the 2012 CMAs',
       snippet:
@@ -425,6 +438,7 @@ export default {
     {
       year: 2013,
       month: 5,
+      day: 19,
       category: 'fashion',
       title: 'A Zuhair Murad mini dress and a bright pink lip at the Billboard Music Awards',
       snippet:
@@ -452,6 +466,7 @@ export default {
     {
       year: 2013,
       month: 8,
+      day: 25,
       category: 'fashion',
       title: 'Retro pin curls and a crimson-crystal Hervé Léger gown at the 2013 VMAs',
       snippet:
@@ -478,6 +493,7 @@ export default {
     {
       year: 2013,
       month: 11,
+      day: 24,
       category: 'fashion',
       title: 'A gold Julien Macdonald gown, altered with a hidden message',
       snippet:
@@ -509,6 +525,7 @@ export default {
     {
       year: 2014,
       month: 1,
+      day: 26,
       category: 'fashion',
       title: 'A crystal-mesh Gucci Première gown for the 2014 Grammys',
       snippet:
@@ -535,6 +552,7 @@ export default {
     {
       year: 2014,
       month: 8,
+      day: 24,
       category: 'fashion',
       title: 'A Mary Katrantzou romper signals the turn toward 1989',
       snippet:
@@ -563,6 +581,7 @@ export default {
     {
       year: 2012,
       month: 12,
+      day: 2,
       category: 'sighting',
       title: "A Central Park stroll confirms she's dating Harry Styles",
       snippet:
@@ -594,6 +613,7 @@ export default {
     {
       year: 2012,
       month: 12,
+      day: 13,
       category: 'sighting',
       title: 'A birthday minibreak to the Lake District, spotted feeding doves and shopping for Beatrix Potter gifts',
       snippet:
@@ -620,6 +640,7 @@ export default {
     {
       year: 2013,
       month: 1,
+      day: 3,
       category: 'sighting',
       title: 'A Virgin Islands getaway, spotted at dinner at CocoMaya',
       snippet:
@@ -651,6 +672,7 @@ export default {
     {
       year: 2013,
       month: 2,
+      day: 21,
       category: 'sighting',
       title: 'A late-night out with singer-songwriter Tom Odell after the BRITs',
       snippet:
@@ -682,6 +704,7 @@ export default {
     {
       year: 2013,
       month: 3,
+      day: 11,
       category: 'sighting',
       title: 'Caught mid-rehearsal for the Red Tour, days before it opened',
       snippet:
@@ -708,7 +731,8 @@ export default {
     // --- Business/chart + music + sightings depth pass (2026-07-05) ---
     {
       year: 2012,
-      month: 10,
+      month: 8,
+      day: 22,
       category: 'business',
       title: "'We Are Never Ever Getting Back Together' becomes her first-ever Hot 100 No. 1",
       snippet:
@@ -737,6 +761,7 @@ export default {
     {
       year: 2014,
       month: 7,
+      day: 3,
       category: 'business',
       title: 'The Red Tour closes as the highest-grossing country tour of all time',
       snippet:
@@ -764,6 +789,7 @@ export default {
     {
       year: 2014,
       month: 1,
+      day: 26,
       category: 'business',
       title: 'Red goes into the Grammys with two nominations — and leaves with neither',
       snippet:
@@ -785,6 +811,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 16,
       category: 'music',
       title: 'State of Grace opens Red with her first arena-rock swing',
       snippet:
@@ -813,6 +840,7 @@ export default {
     {
       year: 2012,
       month: 10,
+      day: 22,
       category: 'music',
       title: 'The Last Time turns an on-again-off-again relationship into a two-voice duet',
       snippet:
@@ -842,6 +870,7 @@ export default {
     {
       year: 2012,
       month: 12,
+      day: 31,
       category: 'relationship',
       title: "A New Year's Eve kiss with Harry Styles in Times Square",
       snippet: 'Caught on camera by a reveler as the ball dropped — the clearest public confirmation of a relationship that had started weeks earlier.',
@@ -869,6 +898,7 @@ export default {
     {
       year: 2013,
       month: 1,
+      day: 4,
       category: 'relationship',
       title: 'A British Virgin Islands trip ends the relationship',
       snippet: 'A vacation together turned into a breakup, and a photo of her alone on the back of a boat went viral in its aftermath.',
@@ -909,6 +939,7 @@ export default {
     {
       year: 2014,
       month: 3,
+      day: 6,
       category: 'sighting',
       title: 'A California road trip with new best friend Karlie Kloss',
       snippet:
@@ -943,6 +974,7 @@ export default {
     {
       year: 2014,
       month: 9,
+      day: 16,
       category: 'sighting',
       title: 'Carrying kitten Olivia Benson down the street instead of using a cat carrier',
       snippet:
@@ -983,6 +1015,7 @@ export default {
       slug: 'red-announced-google-hangout',
       year: 2012,
       month: 8,
+      day: 13,
       category: 'release',
       title: 'Red announced live from her living room, on a Google+ Hangout',
       snippet:
@@ -1033,6 +1066,7 @@ export default {
       slug: 'red-ronan-stand-up-to-cancer',
       year: 2012,
       month: 9,
+      day: 8,
       category: 'music',
       title: 'Ronan, a charity single built from a grieving mother\'s blog',
       snippet:
@@ -1082,6 +1116,7 @@ export default {
       slug: 'red-begin-again-single',
       year: 2012,
       month: 10,
+      day: 1,
       category: 'release',
       title: 'Begin Again sends a country valentine ahead of the pop swerve',
       snippet:
@@ -1119,6 +1154,7 @@ export default {
       slug: 'red-title-track-names-the-album',
       year: 2012,
       month: 10,
+      day: 2,
       category: 'music',
       title: 'Red, the song that named the record',
       snippet:
@@ -1156,6 +1192,7 @@ export default {
       slug: 'red-conor-kennedy-split',
       year: 2012,
       month: 10,
+      day: 25,
       category: 'relationship',
       title: 'The Conor Kennedy summer quietly ends',
       snippet:
@@ -1205,6 +1242,7 @@ export default {
       slug: 'red-ikywt-video-birthday',
       year: 2012,
       month: 12,
+      day: 13,
       category: 'release',
       title: 'The I Knew You Were Trouble video drops on her 23rd birthday',
       snippet:
@@ -1238,6 +1276,7 @@ export default {
       slug: 'red-safe-and-sound-grammy',
       year: 2013,
       month: 2,
+      day: 10,
       category: 'business',
       title: 'Safe & Sound wins the first Grammy of the Red era',
       snippet:
@@ -1295,6 +1334,7 @@ export default {
       slug: 'red-22-single-and-video',
       year: 2013,
       month: 3,
+      day: 12,
       category: 'release',
       title: 'The 22 video: her actual friends, an actual party',
       snippet:
@@ -1333,6 +1373,7 @@ export default {
       slug: 'red-buys-high-watch',
       year: 2013,
       month: 4,
+      day: 28,
       category: 'business',
       title: 'She buys High Watch, the Watch Hill mansion — in cash',
       snippet:
@@ -1381,6 +1422,7 @@ export default {
       slug: 'red-tour-surprise-guests',
       year: 2013,
       month: 8,
+      day: 24,
       category: 'tour',
       title: 'The Red Tour\'s surprise-guest parade hits its stride',
       snippet:
@@ -1414,6 +1456,7 @@ export default {
       slug: 'red-education-center-opens',
       year: 2013,
       month: 10,
+      day: 12,
       category: 'business',
       title: 'A $4 million gift opens the Taylor Swift Education Center',
       snippet:
@@ -1462,6 +1505,7 @@ export default {
       slug: 'red-sweeter-than-fiction',
       year: 2013,
       month: 10,
+      day: 21,
       category: 'release',
       title: 'Sweeter Than Fiction: the first Jack Antonoff collaboration',
       snippet:
@@ -1499,7 +1543,8 @@ export default {
       slug: 'red-meets-karlie-kloss',
       year: 2013,
       month: 11,
-      category: 'relationship',
+      day: 13,
+      category: 'sighting',
       title: 'Meets Karlie Kloss at the Victoria\'s Secret Fashion Show',
       snippet:
         'Nearly two years after telling Vogue "I love Karlie Kloss. I want to bake cookies with her!" — and Kloss tweeting back "Your kitchen or mine?" — the two finally met at the November 2013 VS Fashion Show, where Taylor performed and Karlie walked.',
@@ -1549,6 +1594,7 @@ export default {
       slug: 'red-all-too-well-grammys-2014',
       year: 2014,
       month: 1,
+      day: 26,
       category: 'music',
       title: 'All Too Well gets its first TV performance — alone at a piano at the Grammys',
       snippet:
@@ -1597,6 +1643,7 @@ export default {
       slug: 'red-bridal-shower-surprise',
       year: 2014,
       month: 4,
+      day: 17,
       category: 'sighting',
       title: 'She flies to Ohio to crash a fan\'s bridal shower',
       snippet:
@@ -1644,6 +1691,7 @@ export default {
       slug: 'red-tour-asia-finale',
       year: 2014,
       month: 6,
+      day: 12,
       category: 'tour',
       title: 'The Red Tour takes its final bow in Singapore',
       snippet:
@@ -1684,6 +1732,7 @@ export default {
       slug: 'red-taylors-version-number-one',
       year: 2021,
       month: 11,
+      day: 21,
       category: 'business',
       title: 'Red gets its do-over: Red (Taylor\'s Version) opens at No. 1',
       snippet:

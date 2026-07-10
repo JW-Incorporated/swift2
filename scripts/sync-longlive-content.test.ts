@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 // The generator only writes files when invoked directly; importing it here
 // just pulls in its pure normalization functions.
-import { addItem, imagesFrom } from './sync-longlive-content.mjs';
+import { addItem, imagesFrom, threadIdsFrom } from './sync-longlive-content.mjs';
 
 describe('imagesFrom', () => {
   it('maps thumbnail_url to the primary image', () => {
@@ -82,5 +82,25 @@ describe('addItem date precision', () => {
     addItem(byEra, {}, 'debut', { ...base, title: 'Test Item 2', year: 2026, month: 7, day: 4.5 });
     expect(byEra.debut[0].dateLabel).toBe('July 2026');
     expect(byEra.debut[1].dateLabel).toBe('July 2026');
+  });
+});
+
+describe('threadIdsFrom', () => {
+  it('passes through known LensIds', () => {
+    expect(threadIdsFrom(['taylors-version', 'easter-eggs'])).toEqual([
+      'taylors-version',
+      'easter-eggs',
+    ]);
+  });
+
+  it('drops unknown values (typo-guard) rather than passing them through', () => {
+    expect(threadIdsFrom(['taylors-version', 'not-a-real-thread'])).toEqual(['taylors-version']);
+  });
+
+  it('returns undefined for a non-array, an empty array, or all-invalid input', () => {
+    expect(threadIdsFrom(null)).toBeUndefined();
+    expect(threadIdsFrom(undefined)).toBeUndefined();
+    expect(threadIdsFrom([])).toBeUndefined();
+    expect(threadIdsFrom(['nope'])).toBeUndefined();
   });
 });
