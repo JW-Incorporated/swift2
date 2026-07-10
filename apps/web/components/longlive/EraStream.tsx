@@ -80,13 +80,36 @@ export function EraStream() {
     const neededCount = Math.max(1, eraIndex(CURRENT_ERA_ID) - eraIndex(targetId) + 1);
     setAnchorId(CURRENT_ERA_ID);
     setCount(neededCount);
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        const el = document.querySelector<HTMLElement>(`[data-ll-section="${targetId}"]`);
-        const top = el ? el.getBoundingClientRect().top + window.scrollY : 0;
-        window.scrollTo({ top, behavior: 'auto' });
-      }),
-    );
+
+    // A jump can re-render every era between "now" and the target at once —
+    // on a slow connection (mobile, most visibly) their images are often
+    // still loading when the initial scroll fires. Each image that finishes
+    // loading after that shifts the page layout, so a single scroll-once-
+    // after-two-rAFs lands correctly at that instant but then drifts as more
+    // images arrive above the target — landing "in the middle of the era" or
+    // on the wrong one, non-reproducibly depending on load timing. Re-correct
+    // for a short settle window instead of trusting one snapshot.
+    let cancelled = false;
+    const correct = () => {
+      if (cancelled) return;
+      const el = document.querySelector<HTMLElement>(`[data-ll-section="${targetId}"]`);
+      const top = el ? el.getBoundingClientRect().top + window.scrollY : 0;
+      window.scrollTo({ top, behavior: 'auto' });
+    };
+    requestAnimationFrame(() => requestAnimationFrame(correct));
+
+    const ro = new ResizeObserver(correct);
+    ro.observe(document.body);
+    const settleTimer = window.setTimeout(() => {
+      cancelled = true;
+      ro.disconnect();
+    }, 1500);
+
+    return () => {
+      cancelled = true;
+      ro.disconnect();
+      window.clearTimeout(settleTimer);
+    };
   }, [eraJumpSeq]);
 
   const sequence = useMemo(() => erasBackFrom(anchorId, count), [anchorId, count]);
