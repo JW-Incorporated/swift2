@@ -42,29 +42,83 @@ as the near-term mitigation and files an enrollment ticket for Microsoft
 **PhotoDNA Cloud** + NCMEC reporting. Nudity/NSFW can later be handled locally by
 **NudeNet** (self-hosted, no API) — a checker seam exists for it.
 
-## Usage
+## Run it — one command
+
 ```bash
-node scripts/content-engine/run.mjs scan            # deterministic checkers → findings + report
-node scripts/content-engine/run.mjs scan --no-images # skip the network image pass (fast)
-node scripts/content-engine/run.mjs prep-agents      # write scoped inputs for the agent passes → .findings/agent-input/
-# … agents review those inputs and drop findings JSON into .findings/ …
-node scripts/content-engine/run.mjs ingest           # merge deterministic + agent findings
-node scripts/content-engine/run.mjs issues           # DRY-RUN: show what would be filed
-node scripts/content-engine/run.mjs issues --create  # file GitHub issues (idempotent via fingerprint)
+npm run cie            # full pipeline; previews the issues it WOULD file (dry-run)
+npm run cie:file       # …same, but actually files/updates the GitHub issues
 ```
-Issues: P0/P1 get individual issues; P2/P3 roll up into one issue per checker.
-A confidence floor (0.5) keeps "verify-this" routing signals out of the tracker —
-those feed the agent passes, whose *confirmed* findings become the real tickets.
+
+(equivalently `node scripts/content-engine/run.mjs all [--create]`.)
+
+That single command runs the whole **deterministic** layer end-to-end — scan →
+prepare agent batches → ingest → write the run report → file issues — and then
+prints how to run the **agent** layer (the LLM review passes). It is **idempotent
+and read-only**: re-run it any time; it never edits content, and it never opens a
+duplicate issue (each is fingerprinted).
+
+### Prerequisites
+- **Node 24** (repo default).
+- **`gh` CLI authenticated** with issue-write access to the repo (`gh auth status`)
+  — only needed for `--create`; the dry-run needs nothing.
+- No npm install and no API keys required for the deterministic layer. (An optional
+  `GOOGLE_VISION_API_KEY` turns on automated image SafeSearch — see below.)
+
+### The two-step reality (why it's not *only* shell)
+The deterministic checks run in Node. The **agent passes** (factual verification,
+image vision) need an LLM, so `npm run cie` prepares their inputs and stops there.
+To run them, open this repo in **Claude Code** and say:
+
+> "run the content integrity engine agent passes"
+
+Claude reads `agent/prompts/{factual,image}.md` + the batch inputs under
+`.findings/agent-input/`, writes findings JSON back into `.findings/`, and then you
+re-run `npm run cie:file` to fold those in and file the tickets. (To fully automate
+later, replace that step with an API-backed runner emitting the same `Finding`
+JSON — nothing else changes.)
+
+### Individual phases (if you don't want the wrapper)
+```bash
+node scripts/content-engine/run.mjs scan [--no-images]  # deterministic checkers → findings + report
+node scripts/content-engine/run.mjs prep-batches        # scoped inputs for the agent passes
+node scripts/content-engine/run.mjs ingest              # merge deterministic + agent findings
+node scripts/content-engine/run.mjs report              # write the committed run report
+node scripts/content-engine/run.mjs issues [--create]   # dry-run, or file (idempotent via fingerprint)
+```
+
+**Ticketing:** confirmed/agent-verified defects each get their own actionable
+issue; mechanical deterministic P2/P3 (size-based image quality, unvetted hosts)
+roll up into one tracking issue per checker. A confidence floor (0.5) keeps
+"verify-this" routing signals out of the tracker — those feed the agent passes,
+whose *confirmed* findings become the real tickets.
+
+### Optional: automated image moderation
+Set `GOOGLE_VISION_API_KEY` in the environment and the `image.safety` checker runs
+Google Cloud Vision **SafeSearch** over every hotlinked image, filing a P0
+escalation for anything LIKELY/VERY_LIKELY adult/racy/violent. Without the key it
+cleanly no-ops (the host-reputation allowlist remains the near-term net). The seam
+is provider-agnostic — swap for AWS Rekognition or Hive by editing one function in
+`checkers/image-moderation.mjs`. CSAM is deliberately **not** handled here; that's
+the PhotoDNA/NCMEC enrollment ticket.
 
 ## Layout
 ```
 scripts/content-engine/
-  run.mjs                  CLI / orchestrator
+  run.mjs                  CLI / orchestrator (`all` = one-command pipeline)
   config.mjs               tiers, thresholds, image-host allowlist, safety pre-filters
   lib/{corpus,finding,visibility,report,issues}.mjs
-  checkers/{numeric-date,redlines,image-liveness}.mjs   deterministic
-  agent/{schema.md, prompts/*.md}                        the agent-review contract
-  .findings/               per-run findings JSON + image cache (gitignored)
+  checkers/
+    numeric-date.mjs       deterministic: claim-risk router (superlatives, records,
+                           dates, AND attributed events/public statements)
+    redlines.mjs           deterministic: pasted lyrics / dumps / private info
+    image-liveness.mjs     deterministic: dead URLs, junk/low-res, unvetted hosts
+    image-moderation.mjs   API-gated: Google Vision SafeSearch (no-op without key)
+  agent/
+    schema.md              the Finding JSON contract every agent emits
+    prompts/factual.md     factual-review agent instructions (read bodies, confirm
+                           events actually happened — not headline-matching)
+    prompts/image.md       image vision-review agent instructions
+  .findings/               per-run findings JSON, batch inputs, image cache (gitignored)
 docs/audits/engine/<date>-cie-run.md                      committed run report
 ```
 

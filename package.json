@@ -29,7 +29,9 @@
     "check:budget": "tsx scripts/check-tier0-budget.mjs",
     "check:budget:seed": "tsx scripts/check-budget-from-seed.mjs",
     "validate:content": "node scripts/validate-content.mjs",
-    "content:coverage": "node scripts/content-coverage.mjs"
+    "content:coverage": "node scripts/content-coverage.mjs",
+    "cie": "node scripts/content-engine/run.mjs all",
+    "cie:file": "node scripts/content-engine/run.mjs all --create"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",
