@@ -12,7 +12,8 @@ export default {
   items: [
     {
       year: 2014,
-      month: 10,
+      month: 11,
+      day: 5,
       category: 'business',
       title: '1989 becomes her third million-copy opening week',
       snippet:
@@ -37,7 +38,8 @@ export default {
     },
     {
       year: 2014,
-      month: 10,
+      month: 11,
+      day: 10,
       category: 'music',
       title: 'Blank Space, and the joke half the audience missed',
       snippet:
@@ -56,7 +58,8 @@ export default {
     },
     {
       year: 2014,
-      month: 10,
+      month: 8,
+      day: 18,
       category: 'music',
       title: 'Shake It Off, and the pivot from victim to punchline-maker',
       snippet: 'The tonal opposite of Mean — critics get a shrug and a wink instead of a wound.',
@@ -74,7 +77,8 @@ export default {
     },
     {
       year: 2014,
-      month: 10,
+      month: 9,
+      day: 8,
       category: 'music',
       title: 'Bad Blood, and the friendship it ended',
       snippet:
@@ -117,6 +121,7 @@ export default {
     {
       year: 2014,
       month: 10,
+      day: 27,
       category: 'music',
       title: 'New Romantics, the deluxe-track Rolling Stone later called one of the decade\'s best',
       snippet: '"Heartbreak is the national anthem" — a synth-pop rallying cry for coming back from it with your friends beside you.',
@@ -135,6 +140,7 @@ export default {
     {
       year: 2014,
       month: 10,
+      day: 27,
       category: 'music',
       title: 'Clean, and the storm that washes everything out',
       snippet: 'The album\'s closing track, built entirely around one metaphor: heartbreak as addiction, and finally getting clean of it.',
@@ -159,7 +165,8 @@ export default {
     },
     {
       year: 2015,
-      month: 8,
+      month: 9,
+      day: 2,
       category: 'music',
       title: 'Wildest Dreams draws colonialism criticism for its overwhelmingly white 1950s Africa',
       snippet:
@@ -212,6 +219,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 17,
       category: 'relationship',
       title: 'Calvin Harris and Taylor go public at the Billboard Music Awards',
       snippet: 'Introduced by Ellie Goulding that February, the DJ-and-pop-star pairing went fully public a month after a first, subtler social-media hint.',
@@ -255,6 +263,7 @@ export default {
     {
       year: 2016,
       month: 6,
+      day: 1,
       category: 'relationship',
       title: 'Taylor and Calvin Harris split after 15 months',
       snippet: '"It just wasn\'t working anymore" — a breakup Harris addressed directly on social media, citing love and respect that remained.',
@@ -279,6 +288,7 @@ export default {
     {
       year: 2016,
       month: 7,
+      day: 14,
       category: 'relationship',
       title: 'Tom Hiddleston, weeks after the Calvin Harris split',
       snippet: '"Taylor Swift and I are together, and we\'re very happy... it\'s not a publicity stunt" — his own words to The Hollywood Reporter.',
@@ -328,6 +338,7 @@ export default {
     {
       year: 2016,
       month: 9,
+      day: 6,
       category: 'relationship',
       title: 'Hiddleswift ends after three months',
       snippet: 'A brief, intensely-covered romance that started at the Met Gala ended quietly by September.',
@@ -352,6 +363,7 @@ export default {
     {
       year: 2017,
       month: 5,
+      day: 16,
       category: 'relationship',
       title: 'The Sun breaks the news: quietly dating Joe Alwyn since the fall',
       snippet: "She'd kept it secret for months, renting a North London house and using scarves and hats to avoid being recognized.",
@@ -378,6 +390,7 @@ export default {
     {
       year: 2015,
       month: 8,
+      day: 30,
       category: 'fashion',
       title: 'A houndstooth Ashish crop-top pantsuit leads the "Bad Blood" squad onto the VMAs carpet',
       snippet: 'Sequined, metallic houndstooth crop top and trousers, dark cat-eye makeup, and an entire squad of models and actresses walking in formation behind her.',
@@ -402,6 +415,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 5,
       category: 'fashion',
       title: 'The 1989 World Tour wardrobe: a rotating closet of sparkle',
       snippet: 'Beaded fringe minidresses, a jeweled bodysuit, a Marilyn Monroe-style playsuit, a leather catsuit — a different sequined look for nearly every section of the show.',
@@ -422,6 +436,7 @@ export default {
     {
       year: 2016,
       month: 2,
+      day: 15,
       category: 'fashion',
       title: 'A red bandeau top and a thigh-slit magenta maxi skirt at the 2016 Grammys',
       snippet: 'A strapless red crop top paired with a voluminous hot-pink satin skirt slit to the hip — worn the same night 1989 won Album of the Year.',
@@ -446,6 +461,7 @@ export default {
     {
       year: 2016,
       month: 2,
+      day: 15,
       category: 'fashion',
       title: 'A blunt bob with bangs replaces the signature curls at the 2016 Grammys',
       snippet: 'A dramatically shorter, blunt-cut bob with heavy fringe — a sharp departure from the long waves she\'d worn through most of the 1989 era, debuted on one of the year\'s biggest red carpets.',
@@ -520,6 +536,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 17,
       category: 'fashion',
       title: '"Bad Blood" video\'s warrior makeup: winged eyes and a red lip by Lorrie Turk',
       snippet:
@@ -578,6 +595,7 @@ export default {
     {
       year: 2015,
       month: 4,
+      day: 2,
       category: 'sighting',
       title: 'Hand in hand after a HAIM show at the Troubadour — the first Calvin Harris sighting',
       snippet:
@@ -626,6 +644,7 @@ export default {
     {
       year: 2015,
       month: 7,
+      day: 4,
       category: 'sighting',
       title: 'Matching flag onesies for the Fourth of July, Calvin Harris included',
       snippet:
@@ -857,6 +876,7 @@ export default {
     {
       year: 2014,
       month: 10,
+      day: 14,
       category: 'music',
       title: 'Out of the Woods: a voice memo written to Jack Antonoff\'s track mid-flight',
       snippet:
@@ -968,6 +988,7 @@ export default {
       slug: '1989-welcome-to-new-york-schools',
       year: 2014,
       month: 10,
+      day: 20,
       category: 'music',
       title: 'Welcome to New York, with the proceeds going to the city\'s schools',
       snippet:
@@ -1150,6 +1171,7 @@ export default {
       slug: '1989-this-sick-beat-trademarks',
       year: 2015,
       month: 1,
+      day: 29,
       category: 'business',
       title: 'She trademarks "This Sick Beat" (and "Party Like It\'s 1989")',
       snippet:
