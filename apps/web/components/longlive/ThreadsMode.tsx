@@ -19,13 +19,13 @@ import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import {
-  RUNWAY_LOOKS,
   THREADS,
   getThread,
 } from '@/lib/longlive/lenses';
 import type { LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
 import { ThreadsTimeline } from './ThreadsTimeline';
+import { RunwayThread } from './runway/RunwayThread';
 import { ClueWeb } from './ClueWeb';
 import { Crossings } from './Crossings';
 import { TaylorsVersionThread } from './taylors-version/TaylorsVersionThread';
@@ -210,7 +210,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
 
       <div className={cn('mx-auto max-w-4xl px-4 pb-28', !NO_SCRUBBER_THREADS.has(threadId) && 'md:pr-8')}>
         {threadId === 'love-story' && <LoveStoryThread />}
-        {threadId === 'fashion' && <Runway />}
+        {threadId === 'fashion' && <RunwayThread />}
         {threadId === 'taylors-version' && <TaylorsVersionThread />}
         {threadId === 'easter-eggs' && <ClueWeb />}
         {threadId === 'hidden-clues' && <DecodeThread />}
@@ -249,49 +249,8 @@ function ThreadItem({
 /* The Decode now lives in ./decode/DecodeThread.tsx — see
    docs/threads-rework-2026-07-10.md for why it replaced this. */
 
-/* ── Runway (Fashion) ────────────────────────────────────────────── */
-function Runway() {
-  return (
-    <div className="space-y-4 pt-8">
-      {RUNWAY_LOOKS.map((look) => {
-        const era = getEra(look.eraId);
-        return (
-          <ThreadItem key={look.id} date={era.start}>
-            <article
-              style={eraStyle(era)}
-              className="era-card overflow-hidden rounded-2xl border bg-[color:var(--era-bg)] text-[color:var(--era-ink)]"
-            >
-              <div className="flex flex-col sm:flex-row">
-                <div className="relative aspect-[4/3] sm:aspect-auto sm:w-56 sm:shrink-0">
-                  <Image src={look.image || '/placeholder.svg'} alt="" fill className="object-cover" />
-                </div>
-                <div className="p-5">
-                  <div className="text-[11px] font-medium uppercase tracking-[0.25em] text-[color:var(--era-accent)]">
-                    {era.shortName} · {era.yearLabel}
-                  </div>
-                  <h3 className="mt-1 font-[family-name:var(--era-font)] text-xl font-semibold">{look.name}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-                    {look.description}
-                  </p>
-                  <div className="mt-3 flex flex-wrap gap-1.5">
-                    {look.shopTags.map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-[color:var(--era-line)] px-2 py-0.5 text-[11px] text-[color:var(--era-ink-soft)]"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </article>
-          </ThreadItem>
-        );
-      })}
-    </div>
-  );
-}
+/* Runway (Fashion) now lives in ./runway/RunwayThread.tsx — see
+   docs/threads-rework-2026-07-10.md for why it replaced this. */
 
 /* Taylor's Version now lives in ./taylors-version/TaylorsVersionThread.tsx —
    see docs/threads-rework-2026-07-10.md for why it replaced this. */
