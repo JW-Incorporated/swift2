@@ -241,7 +241,7 @@ export default {
       thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg',
       moment: {
         context:
-          'The sparkling white Balmain jumpsuit — low-cut, backless, beaded all over, with cutouts at the waist — was the look E! filed as her fashion game taken \"to the next level,\" and she styled it against type: a smoky eye and pale, glossy nude lips instead of the signature red lipstick.\n\nThe accessory did the marketing: a black-and-red clutch that literally read \"Bad Blood,\" teasing the video she would world-premiere on that very broadcast at the MGM Grand on May 17, 2015 — the Joseph Kahn revenge fantasy that opened the show and broke the Vevo 24-hour record within a day.',
+          'The sparkling white Balmain jumpsuit — low-cut, backless, beaded all over, with cutouts at the waist — was the look E! filed as her fashion game taken "to the next level," and she styled it against type: a smoky eye and pale, glossy nude lips instead of the signature red lipstick.\n\nThe accessory did the marketing: a black-and-red clutch that literally read "Bad Blood," teasing the video she would world-premiere on that very broadcast at the MGM Grand on May 17, 2015 — the Joseph Kahn revenge fantasy that opened the show and broke the Vevo 24-hour record within a day.',
         sources: [
           { outlet: 'E! Online', url: 'https://www.eonline.com/photos/31611/taylor-swift-at-the-billboard-music-awards' },
           { outlet: 'Bustle', url: 'https://www.bustle.com/articles/83746-taylor-swift-attends-2015-billboard-awards-red-carpet-in-a-white-jumpsuit-bad-blood-clutch' },
