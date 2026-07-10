@@ -50,6 +50,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "official",
       outcome: "confirmed",
       sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }],
+      relatedSlugs: ["debut:lucky-number-13", "folklore:woodvale"],
     },
   ],
   "fearless": [
@@ -84,6 +85,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "strong_fan_consensus",
       outcome: "debunked",
       sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }],
+      relatedSlugs: ["evermore:thirteen-backwards"],
     },
     {
       slug: "teenage-love-triangle",
@@ -116,6 +118,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "official",
       outcome: "confirmed",
       sources: [{ name: "ME!", url: "https://en.wikipedia.org/wiki/Me!" }],
+      relatedSlugs: ["reputation:snake-reclamation"],
     },
     {
       slug: "mastermind-doctrine",
@@ -126,6 +129,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "official",
       outcome: "confirmed",
       sources: [{ name: "Cultural impact of Taylor Swift", url: "https://en.wikipedia.org/wiki/Cultural_impact_of_Taylor_Swift" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties" }],
+      relatedSlugs: ["debut:liner-notes-hidden-messages"],
     },
   ],
   "midnights": [
@@ -148,6 +152,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "strong_fan_consensus",
       outcome: "confirmed",
       sources: [{ name: "Bejeweled (song)", url: "https://en.wikipedia.org/wiki/Bejeweled_(song)" }, { name: "Speak Now (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor%27s_Version)" }],
+      relatedSlugs: ["lover:mastermind-doctrine"],
     },
     {
       slug: "vault-puzzles-1989",
@@ -168,6 +173,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "strong_fan_consensus",
       outcome: "confirmed",
       sources: [{ name: "1989 (Taylor's Version)", url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)" }],
+      relatedSlugs: ["midnights:album-color-canon"],
     },
     {
       slug: "album-color-canon",
@@ -178,6 +184,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "strong_fan_consensus",
       outcome: "partially_confirmed",
       sources: [{ name: "The Eras Tour", url: "https://en.wikipedia.org/wiki/The_Eras_Tour" }, { name: "Cultural impact of Taylor Swift", url: "https://en.wikipedia.org/wiki/Cultural_impact_of_Taylor_Swift" }],
+      relatedSlugs: ["midnights:eight-nine-sofi"],
     },
     {
       slug: "surprise-song-metagame",
@@ -220,6 +227,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "official",
       outcome: "confirmed",
       sources: [{ name: "Red (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)" }],
+      relatedSlugs: ["fearless:vault-track-anagram-reveal"],
     },
   ],
   "reputation": [
@@ -254,6 +262,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "official",
       outcome: "confirmed",
       sources: [{ name: "Speak Now (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor%27s_Version)" }],
+      relatedSlugs: ["fearless:vault-track-anagram-reveal", "red:vault-track-word-puzzle-reveal"],
     },
   ],
   "tloas": [
@@ -266,6 +275,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "strong_fan_consensus",
       outcome: "partially_confirmed",
       sources: [{ name: "The Life of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl" }],
+      relatedSlugs: ["midnights:album-color-canon"],
     },
     {
       slug: "ophelia-rewrite",
@@ -276,6 +286,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "reputable_reporting",
       outcome: "confirmed",
       sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia" }],
+      relatedSlugs: ["ttpd:peter-pan-throughline"],
     },
   ],
   "ttpd": [
@@ -288,6 +299,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "reputable_reporting",
       outcome: "pending",
       sources: [{ name: "The Tortured Poets Department", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
+      relatedSlugs: ["reputation:snake-reclamation"],
     },
     {
       slug: "peter-pan-throughline",
@@ -298,6 +310,7 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       confidence: "reputable_reporting",
       outcome: "partially_confirmed",
       sources: [{ name: "The Tortured Poets Department", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }, { name: "cardigan (song)", url: "https://en.wikipedia.org/wiki/Cardigan_(song)" }],
+      relatedSlugs: ["folklore:teenage-love-triangle"],
     },
   ],
 };

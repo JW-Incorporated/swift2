@@ -32,11 +32,11 @@ import {
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'videos');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'videos.generated.ts');
 
-// Same columns the seed runner (scripts/seed-videos.mjs) writes (minus
-// symbolism, which the UI doesn't render yet). Explicit `.limit()` + cap
-// check so a partial page can never silently ship a truncated rail.
+// Same columns the seed runner (scripts/seed-videos.mjs) writes. Explicit
+// `.limit()` + cap check so a partial page can never silently ship a
+// truncated rail.
 const VIDEO_COLS =
-  'era_slug,slug,kind,title,director,released_on,related_songs,summary,easter_eggs,official_url,media,sources';
+  'era_slug,slug,kind,title,director,released_on,related_songs,summary,easter_eggs,symbolism,official_url,media,sources';
 const MAX_ROWS = 2000;
 
 /** Mirrors VIDEO_KINDS in packages/shared/src/vault-types.ts. */
@@ -125,6 +125,7 @@ export function normalizeVideo(raw) {
     )
       .map(trimmed)
       .filter(Boolean),
+    symbolism: trimmed(raw.symbolism) || null,
     youtubeId: resolveYoutubeId({
       media: raw.media,
       officialUrl: raw.officialUrl ?? raw.official_url,
@@ -194,6 +195,7 @@ export function renderModule(byEra) {
       lines.push(`      relatedSongs: [${v.relatedSongs.map(esc).join(', ')}],`);
       lines.push(`      summary: ${v.summary === null ? 'null' : esc(v.summary)},`);
       lines.push(`      easterEggs: [${v.easterEggs.map(esc).join(', ')}],`);
+      lines.push(`      symbolism: ${v.symbolism === null ? 'null' : esc(v.symbolism)},`);
       lines.push(`      youtubeId: ${v.youtubeId === null ? 'null' : esc(v.youtubeId)},`);
       const srcs = v.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
       lines.push(`      sources: [${srcs}],`);

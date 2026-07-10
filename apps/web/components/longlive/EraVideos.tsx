@@ -69,6 +69,12 @@ function VideoCard({ video }: { video: VideoNote }) {
         </p>
       )}
 
+      {video.symbolism && (
+        <p className="mt-2.5 text-[13px] italic leading-relaxed text-[color:var(--era-ink-soft)]">
+          {video.symbolism}
+        </p>
+      )}
+
       {video.easterEggs.length > 0 && (
         <ul className="mt-2.5 space-y-1 text-[13px] leading-relaxed text-[color:var(--era-ink-soft)]">
           {video.easterEggs.map((egg, i) => (
