@@ -20,6 +20,7 @@ const base = {
   relatedSongs: ['Anti-Hero'],
   summary: 'Release-day centerpiece.',
   easterEggs: ['The will scene.'],
+  symbolism: 'The will as a metaphor for legacy and self-judgment.',
   officialUrl: 'https://www.youtube.com/watch?v=b1kbLwvqugk',
   media: [],
   sources: src,
@@ -78,6 +79,7 @@ describe('normalizeVideo', () => {
       relatedSongs: ['Anti-Hero'],
       summary: 'Release-day centerpiece.',
       easterEggs: ['The will scene.'],
+      symbolism: 'The will as a metaphor for legacy and self-judgment.',
       youtubeId: 'b1kbLwvqugk',
       sources: [{ name: 'Example', url: 'https://en.wikipedia.org/wiki/Example' }],
     });
