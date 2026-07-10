@@ -653,7 +653,12 @@ export const RERECORDS: ReRecord[] = [
     color: '#6aadcc',
     note: 'The blockbuster pop record reclaimed to record-breaking numbers, re-released at the apex of the Eras Tour media cycle.',
     context:
-      '1989 defined the first half of the 2010s commercially — five #1 singles, a complete pop crossover — and its masters were among the most valuable in the catalog. Swift announced 1989 TV during the Japanese leg of the Eras Tour on August 9, 2023; the release date fell during the tour’s New Zealand run. All five vault tracks were previously unreleased.',
+      // Source: https://ew.com/music/taylor-swift-reveals-1989-taylors-version-next-re-recorded-album/
+      // Announced from the stage at the final SoFi Stadium show (Los Angeles),
+      // the last date of the Eras Tour's opening 2023 North American leg —
+      // not a Japan/New Zealand claim, which Codex correctly flagged as
+      // fabricated (the tour had no New Zealand leg at all).
+      '1989 defined the first half of the 2010s commercially — five #1 singles, a complete pop crossover — and its masters were among the most valuable in the catalog. Swift announced 1989 TV from the stage at her final SoFi Stadium show in Los Angeles on August 9, 2023. All five vault tracks were previously unreleased.',
     whyNow:
       '1989 TV arrived at the exact moment the Eras Tour concert film was entering theaters, creating a double-release media event that made October 2023 a prolonged cultural moment.',
     vaultHighlight:
@@ -1334,7 +1339,7 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
       // ceremony photos — no ceremony photos are public.
       url: 'https://media.gettyimages.com/id/2284267696/photo/swift-kelce-wedding-mania.jpg?s=594x594&w=0&k=20&c=0ir2eDFT9T5T1K1edSOTglmC-uaHjV8gUmKCjaJieu8=',
       credit: 'Sara Konradi for The Washington Post via Getty Images',
-      kind: 'primary',
+      kind: 'reference',
       caption: 'The public announcement outside Madison Square Garden — no ceremony photos are public.',
     },
   },
