@@ -17,7 +17,7 @@
 //     key / track natural key missing or duplicated)
 //
 // See docs/content/content-audit-2026-07-08.md for the thresholds' rationale.
-import { readdirSync } from 'node:fs';
+import { existsSync, readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 
@@ -479,6 +479,47 @@ if (shallowItems.length) {
     }
   }
 }
+console.log('');
+
+// ---------------------------------------------------------------------------
+// Knowledge-graph density (report-only — T18/T23). The app's whole promise is
+// connective tissue (this clue pays off there, this song answers that one), but
+// `relatedIds` is not yet a field on the main content feed. This counts the
+// explicit cross-links that DO exist so the number becomes meaningful the moment
+// T9's relatedIds lands — and makes "the graph is empty" impossible to miss.
+// Reads defensively: absent fields simply count as zero, never an error.
+const relOf = (o) => (Array.isArray(o) ? o.filter(Boolean).length : 0);
+const contentLinks = content.rows.reduce((n, { row: it }) => n + relOf(it.relatedIds ?? it.moment?.relatedIds), 0);
+const trackLinks = tracks.rows.reduce((n, { row: t }) => n + relOf(t.relatedIds), 0);
+const theoryLinks = theories.rows.reduce((n, { row: r }) => n + relOf(r.relatedSlugs), 0);
+console.log('Knowledge-graph density (report-only — T18/T23):');
+console.log(`  content items with relatedIds:      ${content.rows.filter(({ row: it }) => relOf(it.relatedIds ?? it.moment?.relatedIds) > 0).length} / ${content.rows.length}  (${contentLinks} links)`);
+console.log(`  track notes with relatedIds:        ${tracks.rows.filter(({ row: t }) => relOf(t.relatedIds) > 0).length} / ${tracks.rows.length}  (${trackLinks} links)`);
+console.log(`  theories with relatedSlugs:         ${theories.rows.filter(({ row: r }) => relOf(r.relatedSlugs) > 0).length} / ${theories.rows.length}  (${theoryLinks} links)`);
+console.log('');
+
+// ---------------------------------------------------------------------------
+// Pipeline reach (report-only — T18/T23). A seed pipeline can be fully authored
+// and pass every gate while never reaching the live UI (it's only "shipped" once
+// a *.generated.ts exists for it under apps/web/lib/longlive/). This flags any
+// seeded-but-unsynced pipeline so authored-yet-invisible content can't recur
+// silently — the single largest depth gap the T18 audit found.
+const generatedDir = join(here, '..', 'apps', 'web', 'lib', 'longlive');
+const PIPELINE_REACH = [
+  { name: 'content', rows: content.rows.length, generated: 'content-vault.generated.ts' },
+  { name: 'tracks', rows: tracks.rows.length, generated: 'tracks.generated.ts' },
+  { name: 'theories', rows: theories.rows.length, generated: 'theories.generated.ts' },
+  { name: 'videos', rows: videos.rows.length, generated: 'videos.generated.ts' },
+  { name: 'tours', rows: tours.rows.length, generated: 'tours.generated.ts' },
+  { name: 'releases', rows: releases.rows.length, generated: 'releases.generated.ts' },
+];
+console.log('Pipeline reach — seeded vs. synced to the live UI (report-only — T18/T23):');
+for (const p of PIPELINE_REACH) {
+  const synced = existsSync(join(generatedDir, p.generated));
+  const mark = p.rows > 0 && !synced ? '  << SEEDED, UNSYNCED (zero UI reach)' : '';
+  console.log(`  ${pad(p.name, 12)}${num(p.rows, 4)} records  ${synced ? 'synced   ' : 'UNSYNCED '} (${p.generated})${mark}`);
+}
+console.log('  Note: flagged counts above reflect the seed corpus on the current branch — verify against main (T18).');
 console.log('');
 
 if (hardFails.length) {

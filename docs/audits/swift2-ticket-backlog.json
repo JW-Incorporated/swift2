@@ -1,0 +1,296 @@
+{
+  "audit": "swift2-knowledge-architecture-v1",
+  "date": "2026-07-09",
+  "numbering_note": "Continues the T1-T17 scheme from content-depth-audit-2026-07-08.md. New tickets begin at T18.",
+  "priority_key": {
+    "P0": "credibility/trust/copyright",
+    "P1": "major depth or knowledge-graph gap",
+    "P2": "improvement",
+    "P3": "polish"
+  },
+  "owner_types": ["ENG", "CONTENT", "RESEARCH", "PRODUCT"],
+  "open_prior_tickets": [
+    { "id": "T6", "title": "localStorage progress/visited/completion layer", "priority": "P1", "owner": "ENG", "status": "open" },
+    { "id": "T7", "title": "search + glossary", "priority": "P1", "owner": "ENG", "status": "open" },
+    { "id": "T8", "title": "Clue Web connects-to chips clickable in trail view", "priority": "P1", "owner": "ENG", "status": "open" },
+    { "id": "T9", "title": "relatedIds cross-linking field (moment/egg/thread/song)", "priority": "P1", "owner": "ENG", "status": "open" },
+    { "id": "T10", "title": "expand Proposal beats / Runway occasions / Clue Web ttpd-tloas", "priority": "P1", "owner": "CONTENT", "status": "open" },
+    { "id": "T11-T14", "title": "polish: freshness banner, share cards, scrubber-hover summary, TV-edition call", "priority": "P2", "owner": "ENG", "status": "open" },
+    { "id": "T15", "title": "ContentItem.images: ImageRef[] gallery schema + sync + MomentDetail gallery", "priority": "P0", "owner": "ENG", "status": "specified-but-unmerged" },
+    { "id": "T16", "title": "major-event photo + depth re-pass", "priority": "P0", "owner": "CONTENT", "status": "authored-on-branches-unlanded" },
+    { "id": "T17", "title": "Wikipedia Tier-1 breadth backfill (awards/videos/tour dates)", "priority": "P0", "owner": "RESEARCH", "status": "audit-doc-done-stranded; backfill-open" }
+  ],
+  "tickets": [
+    {
+      "id": "T18",
+      "title": "Reconcile and land the stranded depth work and audit docs",
+      "priority": "P0",
+      "effort": "M",
+      "category": "content-ops/merge-reconciliation",
+      "owner": "ENG+CONTENT",
+      "surface_files": [
+        "supabase/seed/content/*.mjs",
+        "branch content/<era>-full (x10, unmerged)",
+        "branch content/debut-body-depth-t16 (#114)",
+        "docs/breadth-audit-2026-07-09.md (on content/lover-full)",
+        "docs/qa-era-depth-spotcheck-2026-07-09.md (on content/reputation-full)"
+      ],
+      "problem": "The full-standard depth pass lives on ten unmerged *-full branches; main still shows 491/614 items flagged. Two audit docs exist only on branches. main has its own QA edits, so a blind merge would clobber them.",
+      "why_it_matters": "The depth problem is unlanded, not unwritten - highest-leverage P0, and a credibility risk (claimed state != deployed state).",
+      "acceptance_criteria": "Every *-full branch merged (keeping main's QA fixes) or closed as superseded with a reason; both audit docs under docs/; fresh content:coverage on main shows flags drop to the branches' level; no silent force-pushes.",
+      "data_model_implications": "none",
+      "definition_of_done": "main coverage matches intended full-standard state; no depth work remains only on a branch; decisions.md notes the reconciliation."
+    },
+    {
+      "id": "T19",
+      "title": "The Song Meaning surface (per-song deep view)",
+      "priority": "P1",
+      "effort": "L",
+      "category": "feature+content",
+      "owner": "ENG->CONTENT",
+      "surface_files": [
+        "apps/web/components/longlive/TrackGuide.tsx",
+        "apps/web/lib/longlive/types.ts (TrackNote)",
+        "packages/shared/src/vault-types.ts (TrackNote)",
+        "supabase/seed/tracks/*.mjs",
+        "scripts/sync-longlive-tracks.mjs"
+      ],
+      "problem": "No home for 'what does this song mean?'. TrackNote is a one-line hook (flat TrackRow); no meaning essay, lyric snippet, song links, or 'what Taylor said'.",
+      "why_it_matters": "Highest single content lever; turns the Track Guide from an index into a destination.",
+      "acceptance_criteria": "Tapping a TrackRow opens a per-song detail with: original-words meaning (2+ paragraphs, sourced); short lyric snippets <=300 chars, never full song; relatedIds to connected songs; cited 'what Taylor has said'. Phased rollout, flagship/most-searched songs first.",
+      "data_model_implications": "Extend TrackNote with optional meaning, lyricSnippets[{line,source}], relatedIds[], commentary[{quote,source}]. Excerpt >=300 hard-fail already guards the snippet cap.",
+      "definition_of_done": "Detail renders for songs with new fields; others keep the one-liner; a phase-1 set authored+sourced; gates green."
+    },
+    {
+      "id": "T20",
+      "title": "Sync the theories seed to a live Theory surface",
+      "priority": "P1",
+      "effort": "M",
+      "category": "plumbing",
+      "owner": "ENG",
+      "surface_files": [
+        "scripts/sync-longlive-content.mjs (or new sync-longlive-theories.mjs)",
+        "apps/web/lib/longlive/lenses.ts + theories.generated.ts",
+        "apps/web/components/longlive/ClueWeb.tsx",
+        "supabase/seed/theories/** (27 records)"
+      ],
+      "problem": "theories/** is fully authored with required confidence+outcome and is better structured than the in-repo EGG_NODES the Clue Web renders - and has zero UI reach.",
+      "why_it_matters": "Closes a major depth gap with content that already exists and passes gates; unifies two divergent theory datasets.",
+      "acceptance_criteria": "Theories render with confidence+outcome badges (reuse the pill); fact/theory stay structurally separated; no ambiguous double source of truth vs EGG_NODES.",
+      "data_model_implications": "UI Theory type mirroring vault-types.ts; decide if EGG_NODES becomes a projection of the seed.",
+      "definition_of_done": "Every seed theory reachable in the UI; badges correct; coverage green."
+    },
+    {
+      "id": "T21",
+      "title": "Sync the videos seed + wire the era video rail to it",
+      "priority": "P1",
+      "effort": "M",
+      "category": "plumbing+light-content",
+      "owner": "ENG",
+      "surface_files": [
+        "supabase/seed/videos/** (65 records)",
+        "new sync path + generated module",
+        "apps/web/components/longlive/MomentVideo.tsx",
+        "apps/web/components/longlive/EraMedia.tsx",
+        "apps/web/components/longlive/EraSection.tsx"
+      ],
+      "problem": "~10 signature moments have a video vs 62 real MVs; the 65-record videos/** seed is unsynced.",
+      "why_it_matters": "Video rail is a natural Cultural-Impact + Shareability surface running at ~15% coverage.",
+      "acceptance_criteria": "Era videos render from the seed via verified oEmbed facades (click-to-play, youtube-nocookie); no unverified IDs; filmography/TV/commercials out of scope pending the decision on where they live.",
+      "data_model_implications": "UI Video type; MomentVideo may generalize to read the synced set.",
+      "definition_of_done": "Era rails show seeded MVs; IDs verified; gates green."
+    },
+    {
+      "id": "T22",
+      "title": "Sync tours + releases seeds to the live UI",
+      "priority": "P2",
+      "effort": "M",
+      "category": "plumbing",
+      "owner": "ENG",
+      "surface_files": [
+        "supabase/seed/tours/tours.mjs",
+        "supabase/seed/releases/releases.mjs",
+        "new sync + generated modules",
+        "a tours/releases surface"
+      ],
+      "problem": "Both pipelines are seeded (6 tours w/ Eras leg+show detail; 29 releases) and unsynced; the Eras date ledger has nowhere to render.",
+      "why_it_matters": "Unlocks tour/release depth already written; feeds Timeline and Cultural-Impact.",
+      "acceptance_criteria": "Tour + release records render live; Eras leg/show data visible; no schema regressions.",
+      "data_model_implications": "UI Tour/Release types mirroring vault-types.ts.",
+      "definition_of_done": "Records reachable in the UI; gates green."
+    },
+    {
+      "id": "T23",
+      "title": "Extend content-coverage.mjs: knowledge-graph density + pipeline-reach gates",
+      "priority": "P2",
+      "effort": "S",
+      "category": "tooling/guardrail",
+      "owner": "ENG",
+      "surface_files": ["scripts/content-coverage.mjs"],
+      "problem": "The gate measures body length, sources, media rights, and policy hard-fails, but not cross-link density or whether a seeded pipeline reaches the UI - the two things this audit found most broken.",
+      "why_it_matters": "Turns the audit into a standing guardrail so 'authored but unreachable/unlinked' can't recur silently.",
+      "acceptance_criteria": "Report-only (no new hard-fail): (a) graph density - count records with relatedIds (reads row.relatedIds ?? row.moment?.relatedIds); (b) pipeline reach - for each seed type report whether a *.generated.ts exists (flags theories/videos/tours/releases as seeded-unsynced); (c) optional branch-vs-main drift reminder.",
+      "data_model_implications": "none (reads optional fields defensively)",
+      "definition_of_done": "New sections print; exit behavior unchanged; CI stays green."
+    },
+    {
+      "id": "T24",
+      "title": "Awards as a structured corpus",
+      "priority": "P2",
+      "effort": "L",
+      "category": "data-model+research",
+      "owner": "RESEARCH+ENG",
+      "surface_files": [
+        "new supabase/seed/awards/**",
+        "packages/shared/src/vault-types.ts (Award shape)",
+        "a UI surface",
+        "scripts/content-coverage.mjs (expectations)"
+      ],
+      "problem": "Awards covered only as scattered narrative; source lists 690 wins / 1,640 nominations with no award-entry schema. T17 can't close without one.",
+      "why_it_matters": "Awards are a bounded, enumerable Tier-1 completeness axis.",
+      "acceptance_criteria": "An Award shape (body, year, work, category, result, source_url); a first import of major bodies (Grammy/AMA/VMA/CMA/Billboard); coverage per body. Scope decision required first.",
+      "data_model_implications": "New Award type + seed dir + coverage expectations.",
+      "definition_of_done": "Award records render + are gated; scope decision logged.",
+      "blocked_by_decision": "awards-scope"
+    },
+    {
+      "id": "T25",
+      "title": "Media rights-status backfill + missing credits",
+      "priority": "P2",
+      "effort": "M",
+      "category": "compliance/data-hygiene",
+      "owner": "CONTENT+ENG",
+      "surface_files": [
+        "supabase/seed/content/*.mjs (media)",
+        "supabase/seed/theories|videos (media)",
+        "scripts/content-coverage.mjs (rights report)"
+      ],
+      "problem": "707/751 media refs carry no rights-status; 7 detail photos have no credit. The rights-aware media shape (audit S5) was specified, not applied.",
+      "why_it_matters": "Rights-status + credit keep the (now permissive) media policy defensible; also unblocks a clean T15 gallery.",
+      "acceptance_criteria": "Every media ref gets rights (oembed|owned|hotlink_legacy) + a credit; the 7 uncredited photos fixed; coverage 'missing rights-status' -> 0.",
+      "data_model_implications": "Apply the S5 rights-aware media object; missing fields treated as hotlink_legacy.",
+      "definition_of_done": "Rights report clean; no AI-fake images; reference stand-ins still labeled."
+    },
+    {
+      "id": "T26",
+      "title": "Land the known factual corrections + the rel-5 era mislabel",
+      "priority": "P0",
+      "effort": "S",
+      "category": "correctness",
+      "owner": "CONTENT",
+      "surface_files": [
+        "supabase/seed/content/debut.mjs",
+        "supabase/seed/content/tortured-poets.mjs",
+        "supabase/seed/content/reputation.mjs",
+        "apps/web/lib/longlive/lenses.ts (RELATIONSHIPS rel-5)"
+      ],
+      "problem": "QA spot-check found real errors (Rascal Flatts date [fixed on main via unmerged #114], Vienna '250,000 tickets', Getty-vs-Taylor engagement-photo credit, 90k 'Angels' wording) mostly corrected only on branches; rel-5 still mis-filed under Red.",
+      "why_it_matters": "Exactly the errors a real fan clocks instantly.",
+      "acceptance_criteria": "Each flagged claim on main corrected or softened to its source; rel-5 era corrected + sourced + vagueness convention applied; folds into T18 where overlapping.",
+      "data_model_implications": "none",
+      "definition_of_done": "QA spot-check flags all resolved on main."
+    },
+    {
+      "id": "T27",
+      "title": "De-thin and source the Relationships and Runway threads",
+      "priority": "P1",
+      "effort": "M",
+      "category": "content+light-schema",
+      "owner": "CONTENT+ENG",
+      "surface_files": [
+        "apps/web/lib/longlive/lenses.ts (RELATIONSHIPS 6, RUNWAY_LOOKS 12)",
+        "apps/web/lib/longlive/types.ts (Relationship, RunwayLook)"
+      ],
+      "problem": "Relationships have no sources and one sentence each; Runway is one look per era with 11/12 missing designer/occasion. Both feed Crossings.",
+      "why_it_matters": "Two of six threads score <2.0 and drag Crossings with them.",
+      "acceptance_criteria": "sources on every relationship; multiple dated occasion-specific runway looks per era (Showgirl is the template); relationship naming convention applied consistently (needs decision first).",
+      "data_model_implications": "Add sources?: EggSource[] to Relationship and RunwayLook; optional designer/occasion on RunwayLook.",
+      "definition_of_done": "Both threads sourced+de-thinned; Crossings visibly richer.",
+      "blocked_by_decision": "relationship-naming-convention"
+    },
+    {
+      "id": "T28",
+      "title": "Empty-filter state gets a one-tap Clear filter",
+      "priority": "P3",
+      "effort": "S",
+      "category": "ux-polish",
+      "owner": "ENG",
+      "surface_files": ["apps/web/components/longlive/EraSection.tsx"],
+      "problem": "'No moments match that filter in this era.' is a dead end.",
+      "why_it_matters": "Removes a small friction point on the main feed.",
+      "acceptance_criteria": "The empty state offers a one-tap clear-filter action.",
+      "data_model_implications": "none",
+      "definition_of_done": "Clear-filter action present and working."
+    },
+    {
+      "id": "T29",
+      "title": "Thread gallery cards preview their depth",
+      "priority": "P3",
+      "effort": "S",
+      "category": "ux-polish",
+      "owner": "ENG",
+      "surface_files": ["apps/web/components/longlive/ThreadsMode.tsx"],
+      "problem": "Cards show title + kicker + one line; no sense of what's inside.",
+      "why_it_matters": "Previews depth before the click; improves Shareability/Replay.",
+      "acceptance_criteria": "Each card shows an item count + one representative highlight.",
+      "data_model_implications": "none",
+      "definition_of_done": "Cards render count + highlight."
+    },
+    {
+      "id": "T30",
+      "title": "Trim the 4 over-cap verbatim excerpts",
+      "priority": "P2",
+      "effort": "S",
+      "category": "copyright-discipline",
+      "owner": "CONTENT",
+      "surface_files": ["4 moment.context fields flagged >=300 chars by content:coverage"],
+      "problem": "4 verbatim pull-quotes exceed the 300-char excerpt cap (below the 600 hard-fail, so off-policy not blocking).",
+      "why_it_matters": "Keeps the excerpt cap honest.",
+      "acceptance_criteria": "Each trimmed to <=300 or converted to original-words summary + link; coverage 'verbatim excerpts >=300' -> 0.",
+      "data_model_implications": "none",
+      "definition_of_done": "Excerpt count at 0."
+    },
+    {
+      "id": "T31",
+      "title": "Ask the Vault - worker-side semantic search (AI; decision-gated)",
+      "priority": "P2",
+      "effort": "L",
+      "category": "ai-feature",
+      "owner": "ENG+PRODUCT",
+      "surface_files": ["new worker per docs/architecture.md AI rules", "apps/web/components/longlive/TopBar.tsx"],
+      "problem": "The corpus is rich but only keyword-searchable (once T7 lands); natural-language queries aren't answerable.",
+      "why_it_matters": "Natural-language recall over 600+ items is a real superfan differentiator.",
+      "architecture_constraint": "Worker-side only, hard-capped, rule-based fallback (keyword search) when model unavailable/over-budget, never synchronous per request, decision-log cost entry before shipping. Precompute embeddings offline; no live per-request model calls in the reader.",
+      "acceptance_criteria": "NL queries resolve to real corpus items with sources; fallback works with the model disabled; cost entry logged.",
+      "data_model_implications": "Offline-built embedding index over the corpus.",
+      "definition_of_done": "Feature behind the constraint; decision logged.",
+      "blocked_by_decision": "ai-cost-entry"
+    },
+    {
+      "id": "T32",
+      "title": "Editor aid: suggested relatedIds (AI; offline batch)",
+      "priority": "P3",
+      "effort": "M",
+      "category": "ai-tooling",
+      "owner": "ENG",
+      "surface_files": ["offline script (not in request path)", "depends on T9"],
+      "problem": "Building the knowledge graph (T9) by hand across 600+ items is slow.",
+      "why_it_matters": "Accelerates the connective-tissue work that the app's value depends on.",
+      "architecture_constraint": "Offline batch only; suggestions are proposals a human accepts, never auto-written; no runtime model calls.",
+      "acceptance_criteria": "A script proposes candidate relatedIds; a human accepts/rejects; nothing auto-commits.",
+      "data_model_implications": "none (consumes T9's relatedIds field)",
+      "definition_of_done": "Script produces reviewable suggestions; no auto-commit.",
+      "depends_on": ["T9"]
+    }
+  ],
+  "needs_a_decision": [
+    { "id": "quiz-feature", "question": "Quiz/trivia as a real feature, or shelve? No quiz surface exists; Quiz shape sketched in depth-audit S C.5." },
+    { "id": "required-confidence-main-feed", "question": "Make ContentItem.confidence required so the main feed never renders unlabeled below-confirmed claims?" },
+    { "id": "accounts-ugc", "question": "Accounts/UGC for cross-device progress sync? T6 progress is client-only by design; confirm v1 stays account-less." },
+    { "id": "awards-scope", "question": "Awards: curated highlights only, or the full 1,640-nomination structured corpus? Blocks T24." },
+    { "id": "filmography-home", "question": "Do filmography/TV/commercials live in videos/** or a new seed type? Blocks the non-MV part of T21." },
+    { "id": "eras-tour-date-scope", "question": "T17 tour bar: 'legs + notable shows' (current) or every one of 149 date rows?" },
+    { "id": "relationship-naming-convention", "question": "Coy on older exes vs blunt on recent ones - pick one rule to apply everywhere (blocks T27; flagged unresolved since T5)." },
+    { "id": "monetization", "question": "Shop-the-look/affiliate still blocked on external IP counsel; confirm still parked." }
+  ]
+}
