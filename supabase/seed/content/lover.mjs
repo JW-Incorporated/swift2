@@ -10,7 +10,8 @@ export default {
   items: [
     {
       year: 2019,
-      month: 8,
+      month: 9,
+      day: 1,
       category: 'business',
       title: 'Lover makes her the first woman with six half-million album weeks',
       snippet:
@@ -41,6 +42,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 23,
       category: 'music',
       title: 'The Man, and the double standard behind it',
       snippet:
@@ -69,6 +71,7 @@ export default {
     {
       year: 2019,
       month: 6,
+      day: 17,
       category: 'business',
       title: 'You Need to Calm Down turns a music video into an Equality Act petition',
       snippet:
@@ -100,6 +103,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 23,
       category: 'music',
       title: "Soon You'll Get Better, written for her mother",
       snippet: "The hardest song she's ever had to write, by her own account — about her mother's cancer diagnosis.",
@@ -128,6 +132,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 23,
       category: 'music',
       title: 'Death By A Thousand Cuts, borrowed from a Netflix movie that borrowed from her',
       snippet: 'A song written after crying over a rom-com — whose director had made that movie while listening to Taylor\'s own 1989.',
@@ -150,6 +155,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 26,
       category: 'fashion',
       title: 'A rainbow Versace blazer for the 2019 VMAs',
       snippet: 'An 80s-shouldered, kaleidoscope Versace blazer dress and thigh-high sequined boots, three days after Lover dropped.',
@@ -178,8 +184,9 @@ export default {
       },
     },
     {
-      year: 2019,
-      month: 9,
+      year: 2023,
+      month: 10,
+      day: 28,
       category: 'business',
       title: 'Cruel Summer takes four years to become a No. 1',
       snippet:
@@ -211,6 +218,7 @@ export default {
     {
       year: 2019,
       month: 11,
+      day: 14,
       category: 'business',
       title: 'Miss Americana is announced amid a fight over her own back catalog',
       snippet:
@@ -247,6 +255,7 @@ export default {
     {
       year: 2019,
       month: 11,
+      day: 24,
       category: 'business',
       title: 'Artist of the Decade, and a record 29 AMA wins',
       snippet: 'Named Artist of the Decade, then broke Michael Jackson\'s all-time AMA wins record in the same night.',
@@ -278,6 +287,7 @@ export default {
     {
       year: 2019,
       month: 4,
+      day: 26,
       category: 'fashion',
       title: 'Seven pastel outfit changes in the ME! video',
       snippet:
@@ -312,6 +322,7 @@ export default {
     {
       year: 2019,
       month: 6,
+      day: 17,
       category: 'fashion',
       title: 'Rainbow wig, western shirt, and a French fries costume in You Need to Calm Down',
       snippet:
@@ -343,6 +354,7 @@ export default {
     {
       year: 2019,
       month: 6,
+      day: 17,
       category: 'fashion',
       title: 'The glitter heart eye that became the Lover era\'s signature',
       snippet:
@@ -375,6 +387,7 @@ export default {
     {
       year: 2019,
       month: 11,
+      day: 24,
       category: 'fashion',
       title: 'A shimmering green Julien Macdonald gown at the 2019 AMAs',
       snippet: 'She walked the American Music Awards red carpet in a green Julien Macdonald gown before changing into a shirt printed with the names of her old albums to perform "The Man."',
@@ -405,6 +418,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 22,
       category: 'fashion',
       title: 'Jessica Jones sequin shorts and René Caovilla boots for the pre-release GMA set',
       snippet:
@@ -439,6 +453,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 22,
       category: 'fashion',
       title: 'A Johanna Ortiz tiered dress for the Lover video\'s proposal scene',
       snippet:
@@ -473,6 +488,7 @@ export default {
     {
       year: 2019,
       month: 7,
+      day: 10,
       category: 'fashion',
       title: 'A sequined romper and Kat Maconie heels at the Amazon Prime Day concert',
       snippet:
@@ -504,6 +520,7 @@ export default {
     {
       year: 2019,
       month: 12,
+      day: 16,
       category: 'fashion',
       title: 'A floral Oscar de la Renta gown, by Laura Kim and Fernando Garcia, at the Cats premiere',
       snippet:
@@ -535,6 +552,7 @@ export default {
     {
       year: 2020,
       month: 2,
+      day: 27,
       category: 'fashion',
       title: 'Bill Corso\'s six-person prosthetic transformation for The Man',
       snippet:
@@ -565,6 +583,7 @@ export default {
     {
       year: 2020,
       month: 1,
+      day: 23,
       category: 'fashion',
       title: 'Head-to-toe plaid at the Miss Americana Sundance premiere',
       snippet: 'A grey-and-white checked Carmen March jumpsuit, coat, and heels for the Sundance Film Festival premiere of her documentary — a notable, more mature departure from her usual red-carpet look.',
@@ -595,6 +614,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 26,
       category: 'sighting',
       title: 'A sequined jumpsuit and a Hadid-sister hang at the VMAs after-party',
       snippet:
@@ -627,6 +647,7 @@ export default {
     {
       year: 2019,
       month: 10,
+      day: 5,
       category: 'sighting',
       title: 'Hand-in-hand with Joe Alwyn at the SNL after-party',
       snippet:
@@ -658,6 +679,7 @@ export default {
     {
       year: 2019,
       month: 12,
+      day: 13,
       category: 'sighting',
       title: 'Blake Lively and Ryan Reynolds help her ring in 30 at Oscar Wilde',
       snippet:
@@ -686,6 +708,7 @@ export default {
     {
       year: 2019,
       month: 12,
+      day: 16,
       category: 'sighting',
       title: 'Hand in hand under an umbrella after the Cats premiere',
       snippet:
@@ -713,6 +736,7 @@ export default {
     {
       year: 2020,
       month: 1,
+      day: 5,
       category: 'sighting',
       title: 'Kisses at the bar during the Golden Globes after-party',
       snippet:
@@ -741,6 +765,7 @@ export default {
     {
       year: 2020,
       month: 4,
+      day: 29,
       category: 'sighting',
       title: "Joe Alwyn's Instagram gives away a quarantine with Taylor's cat",
       snippet:
@@ -774,6 +799,7 @@ export default {
     {
       year: 2019,
       month: 6,
+      day: 14,
       category: 'sighting',
       title: 'A surprise "Shake It Off" at the Stonewall Inn for Pride\'s 50th anniversary',
       snippet:
@@ -804,6 +830,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 23,
       category: 'music',
       title: 'Cruel Summer, born from a casual jam with St. Vincent and Jack Antonoff',
       snippet:
@@ -830,6 +857,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 23,
       category: 'music',
       title: "I Forgot That You Existed, the track built to end Reputation's cycle of grieving",
       snippet:
@@ -859,6 +887,7 @@ export default {
     {
       year: 2019,
       month: 8,
+      day: 23,
       category: 'music',
       title: "Miss Americana & the Heartbreak Prince, a high school built from 2018's political disillusionment",
       snippet:
@@ -891,6 +920,7 @@ export default {
     {
       year: 2019,
       month: 12,
+      day: 12,
       category: 'business',
       title: "Billboard names her the first-ever Woman of the Decade",
       snippet:
@@ -921,6 +951,7 @@ export default {
     {
       year: 2020,
       month: 1,
+      day: 5,
       category: 'fashion',
       title: 'A custom Etro floral gown, a "Lover"-coded look for the 2020 Golden Globes',
       snippet:
@@ -959,6 +990,7 @@ export default {
       slug: 'city-of-lover-paris',
       year: 2019,
       month: 9,
+      day: 9,
       category: 'tour',
       title: 'City of Lover: the only full Lover concert there would ever be',
       snippet:
@@ -1002,6 +1034,7 @@ export default {
       slug: 'lover-fest-announced',
       year: 2019,
       month: 9,
+      day: 17,
       category: 'tour',
       title: 'Lover Fest: a festival instead of a tour',
       snippet:
@@ -1045,6 +1078,7 @@ export default {
       slug: 'lover-fest-2020-cancelled',
       year: 2020,
       month: 4,
+      day: 17,
       category: 'tour',
       title: 'Lover Fest falls to the pandemic',
       snippet:
@@ -1088,6 +1122,7 @@ export default {
       slug: 'cats-beautiful-ghosts',
       year: 2019,
       month: 12,
+      day: 20,
       category: 'release',
       title: 'Cats arrives: Bombalurina, digital fur, and "Beautiful Ghosts"',
       snippet:
@@ -1130,6 +1165,7 @@ export default {
       slug: 'miss-americana-premiere',
       year: 2020,
       month: 1,
+      day: 23,
       category: 'release',
       title: 'Miss Americana opens Sundance, then hits Netflix',
       snippet:
@@ -1163,6 +1199,7 @@ export default {
       slug: 'miss-americana-joe-on-the-record',
       year: 2020,
       month: 1,
+      day: 31,
       category: 'relationship',
       title: '"Someone with a really wonderfully normal, balanced, grounded life"',
       snippet:
@@ -1214,6 +1251,7 @@ export default {
       slug: 'the-archer-track-five',
       year: 2019,
       month: 7,
+      day: 23,
       category: 'release',
       title: 'The Archer arrives as track five — and everyone knew what that meant',
       snippet:
@@ -1256,6 +1294,7 @@ export default {
       slug: 'lover-title-track-waltz',
       year: 2019,
       month: 8,
+      day: 16,
       category: 'music',
       title: 'Lover, the waltz she wrote alone',
       snippet:
@@ -1299,6 +1338,7 @@ export default {
       slug: 'london-boy-idris-elba',
       year: 2019,
       month: 8,
+      day: 23,
       category: 'music',
       title: "London Boy opens with Idris Elba's voice, borrowed from James Corden's couch",
       snippet:
@@ -1333,6 +1373,7 @@ export default {
       slug: 'daylight-almost-the-title',
       year: 2019,
       month: 8,
+      day: 23,
       category: 'music',
       title: 'Daylight, the closer that almost named the album',
       snippet:
@@ -1376,6 +1417,7 @@ export default {
       slug: 'cornelia-street-live-debut',
       year: 2019,
       month: 9,
+      day: 9,
       category: 'music',
       title: 'Cornelia Street, written alone — and debuted acoustic in Paris',
       snippet:
@@ -1419,6 +1461,7 @@ export default {
       slug: 'false-god-snl',
       year: 2019,
       month: 10,
+      day: 5,
       category: 'music',
       title: 'False God on SNL: the deep cut nobody saw coming',
       snippet:
@@ -1462,6 +1505,7 @@ export default {
       slug: 'lover-first-owned-album',
       year: 2019,
       month: 8,
+      day: 23,
       category: 'release',
       title: "Lover: the first album she's ever owned",
       snippet:
@@ -1513,6 +1557,7 @@ export default {
       slug: 'beautiful-ghosts-single',
       year: 2019,
       month: 11,
+      day: 15,
       category: 'release',
       title: 'Beautiful Ghosts: a single co-written with Andrew Lloyd Webber',
       snippet:
@@ -1546,6 +1591,7 @@ export default {
       slug: 'christmas-tree-farm-single',
       year: 2019,
       month: 12,
+      day: 6,
       category: 'release',
       title: 'Christmas Tree Farm, from the girl who literally grew up on one',
       snippet:
@@ -1594,6 +1640,7 @@ export default {
       slug: 'only-the-young-documentary-song',
       year: 2020,
       month: 1,
+      day: 31,
       category: 'release',
       title: 'Only the Young: the protest song saved for the documentary',
       snippet:
@@ -1636,6 +1683,7 @@ export default {
       slug: 'city-of-lover-special-airs',
       year: 2020,
       month: 5,
+      day: 17,
       category: 'release',
       title: 'City of Lover finally airs — a concert special for a tour that never happened',
       snippet:
@@ -1678,6 +1726,7 @@ export default {
       slug: 'we-can-survive-hollywood-bowl',
       year: 2019,
       month: 10,
+      day: 19,
       category: 'tour',
       title: 'Headlining We Can Survive at the Hollywood Bowl',
       snippet:
@@ -1730,6 +1779,7 @@ export default {
       slug: 'singles-day-gala-shanghai',
       year: 2019,
       month: 11,
+      day: 10,
       category: 'tour',
       title: "A three-song countdown gala in Shanghai for Singles' Day",
       snippet:
@@ -1773,6 +1823,7 @@ export default {
       slug: 'z100-jingle-ball-30th-birthday',
       year: 2019,
       month: 12,
+      day: 13,
       category: 'tour',
       title: 'Spending her 30th birthday on the Jingle Ball stage',
       snippet:
@@ -1816,6 +1867,7 @@ export default {
       slug: 'big-machine-sale-worst-case-scenario',
       year: 2019,
       month: 6,
+      day: 30,
       category: 'business',
       title: '"My worst case scenario": Scooter Braun buys Big Machine — and her first six albums',
       snippet:
@@ -1868,6 +1920,7 @@ export default {
       slug: 'gma-rerecording-pledge',
       year: 2019,
       month: 8,
+      day: 22,
       category: 'business',
       title: 'The re-recording plan, confirmed on live TV the day before Lover dropped',
       snippet:
