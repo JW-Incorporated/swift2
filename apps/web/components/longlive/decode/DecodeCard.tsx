@@ -19,6 +19,7 @@ import {
 import { getEra } from '@/lib/longlive/eras';
 import { erasBetween, gapYears } from '@/lib/longlive/decode';
 import { DECODE_MOTIF_META, type CluePair, type DecodeMotifId } from '@/lib/longlive/types';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 const MOTIF_ICON: Record<DecodeMotifId, LucideIcon> = {
   number: Hash,
@@ -61,6 +62,12 @@ export function DecodeCard({
   const gapText = gap === 0 ? 'Same year' : gap === 1 ? '1 year' : `${gap} years`;
   const hook = clue.hook ?? clue.title;
   const verdict = clue.verdict ?? clue.connection;
+
+  // Let the mobile back-swipe gesture hide a revealed payoff instead of
+  // leaving the app — same pattern as the app's other overlays. Cards can
+  // stack (multiple revealed at once); useBackDismiss's shared stack
+  // dismisses the most-recently-revealed one first.
+  useBackDismiss(revealed, onToggle);
 
   return (
     <article

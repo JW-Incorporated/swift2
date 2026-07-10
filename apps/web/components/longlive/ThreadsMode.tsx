@@ -24,6 +24,7 @@ import {
 } from '@/lib/longlive/lenses';
 import type { LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { ThreadsTimeline } from './ThreadsTimeline';
 import { RunwayThread } from './runway/RunwayThread';
 import { ClueWeb } from './ClueWeb';
@@ -61,6 +62,13 @@ const NO_SCRUBBER_THREADS = new Set<LensId>([
  */
 export function ThreadsMode() {
   const { lensId, crossing } = useAppState();
+  const { clearLens } = useAppActions();
+
+  // Let the mobile back-swipe gesture (and the browser back button) return to
+  // the thread gallery instead of leaving the app — same pattern as the other
+  // 8 overlays that already use this hook.
+  useBackDismiss(Boolean(lensId), clearLens);
+
   if (crossing) return <Crossings a={crossing.a} b={crossing.b} />;
   if (!lensId) return <ThreadsGallery />;
   return <ThreadDetail threadId={lensId} />;
