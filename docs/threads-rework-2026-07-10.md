@@ -11,7 +11,8 @@ runs low) can pick up a self-contained package without needing this
 conversation's context or v0 access. Each links back to this doc.
 
 - [#369](https://github.com/JW-Incorporated/swift2/issues/369) — WS1 final
-  Codex confirmation review
+  Codex confirmation review — **closed, shipped without the 6th round per
+  Joey's explicit call**, PR #430 open
 - [#370](https://github.com/JW-Incorporated/swift2/issues/370) — Codex
   review backlog for PR #332 (4 threads)
 - [#371](https://github.com/JW-Incorporated/swift2/issues/371) — Mobile
@@ -62,22 +63,27 @@ it from scratch.
   pass could launch. Mobile not spot-checked. Built off `main`, not stacked
   on `content/thread-taylors-version` — expect a small merge conflict in
   `ThreadsMode.tsx` when both land.
-- [ ] `content/day-level-dates` (worktree `../Swift2-datebackfill`) — no PR
-  yet. **5 Codex confirmation rounds completed, real fixes applied every
-  round** — this branch surfaced a recurring bug class (an item's own
-  sourced text states an explicit chart-cover date, e.g. "the Hot 100 dated
-  Oct. 18, 2025," but the item's year/month/day fields used a different
-  date — usually an earlier report/announcement date instead of the actual
-  chart date). Found and fixed **9 total instances** of this pattern across
-  lover.mjs, the-life-of-a-showgirl.mjs (+ its content.ts curated duplicate),
+- [x] ~~`content/day-level-dates`~~ **SHIPPED WITHOUT THE 6TH ROUND — explicit
+  Joey decision, 2026-07-10.** PR #430 open:
+  https://github.com/JW-Incorporated/swift2/pull/430. 5 Codex confirmation
+  rounds completed, real fixes applied every round — this branch surfaced a
+  recurring bug class (an item's own sourced text states an explicit
+  chart-cover date, e.g. "the Hot 100 dated Oct. 18, 2025," but the item's
+  year/month/day fields used a different date — usually an earlier
+  report/announcement date instead of the actual chart date). Found and
+  fixed **9 total instances** of this pattern across lover.mjs,
+  the-life-of-a-showgirl.mjs (+ its content.ts curated duplicate),
   folklore.mjs, 1989.mjs, and tortured-poets.mjs (3 instances). A one-off
   scanner script was written mid-session to catch this pattern corpus-wide
   (not committed — see the commit messages for its logic if useful to
-  recreate). **A 6th confirmation pass ("do a truly exhaustive final sweep,
+  recreate). A 6th confirmation pass ("do a truly exhaustive final sweep,
   this needs to be the last one") was about to launch when the 3:41 PM quota
-  wall hit — not yet run.** Given the recurrence rate, do not assume round 5
-  was the last real finding; budget for at least one more round. Still needs
-  a PR opened once clean.
+  wall hit; **Joey opted to ship without it rather than wait**. Given the
+  recurrence rate, there's a real (not zero) chance 1-2 more instances of
+  this exact bug class remain undiscovered — noted explicitly in the PR
+  description as a known residual risk, not hidden. A cheap follow-up: rerun
+  the chart-date scanner pattern (or a real Codex pass) once quota allows,
+  even post-merge.
 
 ## Why this exists
 
