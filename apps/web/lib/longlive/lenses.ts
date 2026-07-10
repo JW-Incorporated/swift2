@@ -594,7 +594,12 @@ export const RERECORDS: ReRecord[] = [
     color: '#d4a830',
     note: 'The first reclaimed album — the project’s proof of concept, with 6 vault tracks.',
     context:
-      'Fearless won four Grammy Awards in 2010 including Album of the Year, making it a particularly high-stakes opening move. Swift chose it first partly because Braun had already tried to leverage its masters — licensing “Love Story” to a Cadillac ad without notifying her. She announced the re-recording in November 2020, just as that controversy was fresh in the public mind. The released version included six “From the Vault” tracks that hadn’t appeared on the Platinum Edition.',
+      // Source: https://www.vanityfair.com/style/2020/12/taylor-swift-love-story-re-recording-ryan-reynolds-match-ad
+      // (Dec 2020 Match.com/Ryan Reynolds ad preview) and the Feb 11, 2021
+      // formal Fearless TV announcement — replaces an earlier draft's
+      // unverified Braun/Cadillac-licensing and "November 2020" claims,
+      // which Codex correctly flagged as fabricated.
+      'Fearless won four Grammy Awards in 2010 including Album of the Year, making it a particularly high-stakes opening move. Swift first previewed the re-recorded "Love Story" in a December 2020 Match.com ad starring Ryan Reynolds, then formally announced Fearless (Taylor\'s Version) on February 11, 2021. The released version included six "From the Vault" tracks that hadn\'t appeared on the Platinum Edition.',
     whyNow:
       'Fearless was the strategic beachhead. By re-recording the Grammy Album of the Year first, Swift demonstrated the project could produce culturally legitimate work, not a pale copy — a real test of whether listeners would switch, and by most metrics they did.',
     vaultHighlight:
@@ -638,7 +643,8 @@ export const RERECORDS: ReRecord[] = [
     whyNow:
       'Red TV arrived during the window when TikTok had made "All Too Well" newly viral with a younger generation — the conditions for the 10-minute version to land as a cultural event.',
     vaultHighlight:
-      '"All Too Well (10 Minute Version)" — one of the most anticipated vault tracks in pop music history. It debuted at #1 on the Billboard Hot 100, making Swift the first artist to replace herself at #1 with a re-recorded track.',
+      // Source: https://pitchfork.com/news/taylor-swift-sets-new-record-for-longest-no-1-song-with-all-too-well-10-minute-version
+      '"All Too Well (10 Minute Version)" — one of the most anticipated vault tracks in pop music history. It debuted at #1 on the Billboard Hot 100 and became the longest song ever to top the chart.',
     fanReaction:
       'The 10-minute version became a generational reference point online. The accompanying short film was submitted for Emmy consideration.',
     spotify: { original: null, taylorsVersion: '6kZ42qRrzov54LcAk4onW9' },
@@ -658,7 +664,7 @@ export const RERECORDS: ReRecord[] = [
       // the last date of the Eras Tour's opening 2023 North American leg —
       // not a Japan/New Zealand claim, which Codex correctly flagged as
       // fabricated (the tour had no New Zealand leg at all).
-      '1989 defined the first half of the 2010s commercially — five #1 singles, a complete pop crossover — and its masters were among the most valuable in the catalog. Swift announced 1989 TV from the stage at her final SoFi Stadium show in Los Angeles on August 9, 2023. All five vault tracks were previously unreleased.',
+      '1989 defined the first half of the 2010s commercially — three Hot 100 #1 singles and five consecutive top-10 hits, a complete pop crossover — and its masters were among the most valuable in the catalog. Swift announced 1989 TV from the stage at her final SoFi Stadium show in Los Angeles on August 9, 2023. All five vault tracks were previously unreleased.',
     whyNow:
       '1989 TV arrived at the exact moment the Eras Tour concert film was entering theaters, creating a double-release media event that made October 2023 a prolonged cultural moment.',
     vaultHighlight:
