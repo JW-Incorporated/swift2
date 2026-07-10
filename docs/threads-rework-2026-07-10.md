@@ -1,8 +1,19 @@
 # Threads rework + day-level dates — 2026-07-10 initiative tracker
 
+> ⚠️ **ARCHIVED — this is a historical record, not a live tracker. Do not
+> update it further.** It exists to explain how the 2026-07-10 session
+> survived getting cut off mid-work, and to document a few gotchas (the
+> Codex CLI cwd bug, the v0-push-access safety rule) that don't have a
+> natural home in GitHub. **For current/open work, GitHub Issues is the
+> source of truth** — search `gh issue list` or the repo's Issues tab, not
+> this file. If you're a future session tempted to sync new ticket status
+> into this doc: don't — file or update a GitHub issue instead, and leave
+> this file exactly as it was left on 2026-07-10.
+
 **Read this first if you're picking this up cold** (new session, session-limit
-interruption, or a different founder's agent). This doc is the source of
-truth for status — check here before re-deriving anything from git history.
+interruption, or a different founder's agent) **from before 2026-07-10 ended**
+— for anything after that, just check GitHub Issues. This doc was the source
+of truth for status *at the time*; it is not maintained going forward.
 
 ## Status: 5 of 6 Threads shipped, 6th (Clue Web) handed off as a ticket
 
