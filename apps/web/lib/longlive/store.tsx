@@ -45,6 +45,12 @@ interface AppState {
   openItemId: string | null;
   /** Era whose album track guide overlay is open, or null. */
   trackGuideEraId: EraId | null;
+  /**
+   * Currently open track detail (immersive per-song page), keyed as
+   * `${eraId}::${trackNumber ?? 'x'}::${title}` (TrackNote has no stable id).
+   * Stacks on top of the track guide overlay, or null when closed.
+   */
+  openTrackKey: string | null;
   /** Era whose theories/easter-eggs overlay is open, or null. */
   theoryGuideEraId: EraId | null;
   /** Whether the era selector overlay is open. */
@@ -115,6 +121,9 @@ interface AppActions {
   /** Open the album track guide overlay for an era. */
   openTrackGuide: (id: EraId) => void;
   closeTrackGuide: () => void;
+  /** Open a single song's detail page (stacks on top of the track guide). */
+  openTrack: (key: string) => void;
+  closeTrack: () => void;
   /** Open the theories/easter-eggs overlay for an era. */
   openTheoryGuide: (id: EraId) => void;
   closeTheoryGuide: () => void;
@@ -230,6 +239,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [crossing, setCrossing] = useState<{ a: LensId; b: LensId } | null>(null);
   const [openItemId, setOpenItemId] = useState<string | null>(null);
   const [trackGuideEraId, setTrackGuideEraId] = useState<EraId | null>(null);
+  const [openTrackKey, setOpenTrackKey] = useState<string | null>(null);
   const [theoryGuideEraId, setTheoryGuideEraId] = useState<EraId | null>(null);
   const [selectorOpen, setSelectorOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -373,9 +383,15 @@ export function AppProvider({ children }: { children: ReactNode }) {
       // closes the other so they can never stack.
       openTrackGuide: (id: EraId) => {
         setTheoryGuideEraId(null);
+        setOpenTrackKey(null);
         setTrackGuideEraId(getEra(id).id);
       },
-      closeTrackGuide: () => setTrackGuideEraId(null),
+      closeTrackGuide: () => {
+        setOpenTrackKey(null);
+        setTrackGuideEraId(null);
+      },
+      openTrack: setOpenTrackKey,
+      closeTrack: () => setOpenTrackKey(null),
       openTheoryGuide: (id: EraId) => {
         setTrackGuideEraId(null);
         setTheoryGuideEraId(getEra(id).id);
@@ -407,8 +423,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const state = useMemo<AppState>(
-    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail }),
-    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail],
+    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail }),
+    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail],
   );
 
   return (

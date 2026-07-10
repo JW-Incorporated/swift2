@@ -35,8 +35,61 @@ const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'tracks.gener
 // Same columns the seed runner (scripts/seed-tracks.mjs) writes. Explicit
 // `.limit()` + cap check so a partial page can never silently ship a
 // truncated track guide (same guard as sync-longlive-content.mjs).
-const TRACK_NOTE_COLS = 'era_slug,track_title,track_number,note,source_url,sources';
+const TRACK_NOTE_COLS =
+  'era_slug,track_title,track_number,note,source_url,sources,discussion,quoted_lines,discussion_source_url,discussion_sources,summary,inspiration,easter_eggs';
 const MAX_ROWS = 2000;
+
+/**
+ * Normalizes a track's deep-dive content into `{ discussion, quotedLines,
+ * discussionSources } | null`. Two ways a track gets a deep-dive:
+ *
+ * 1. Explicit `discussion` (array of paragraphs, or a string split on blank
+ *    lines) with its own `discussionSources`/`discussionSourceUrl` citation —
+ *    for hand-written pieces that go beyond the one-line `note`.
+ * 2. Auto-derived from the already-authored `summary` + `inspiration` +
+ *    `easterEggs` fields every seeded track already carries (one paragraph
+ *    each, in that order, skipping any that are empty) — these were written
+ *    and sourced already but never reached the UI; this is plumbing, not new
+ *    writing. Uses the track's own `sources` as the citation in this path
+ *    (there's no separate discussion-specific source when it's derived from
+ *    fields the main sources already back).
+ *
+ * `quotedLines` (a few short illustrative lines, never full lyrics) only
+ * comes from the explicit path — nothing auto-derives quoted lyrics.
+ * Returns null when neither path yields real, sourced content.
+ */
+export function discussionFrom(
+  { discussion, quotedLines, discussionSourceUrl, discussionSources, summary, inspiration, easterEggs },
+  fallbackSources,
+) {
+  let paras;
+  if (Array.isArray(discussion)) {
+    paras = discussion.map((p) => (typeof p === 'string' ? p.trim() : '')).filter(Boolean);
+  } else if (typeof discussion === 'string' && discussion.trim()) {
+    paras = discussion
+      .split(/\n\s*\n+/)
+      .map((p) => p.trim())
+      .filter(Boolean);
+  } else {
+    paras = [];
+  }
+  const lines = Array.isArray(quotedLines)
+    ? quotedLines.map((l) => (typeof l === 'string' ? l.trim() : '')).filter(Boolean)
+    : [];
+
+  if (paras.length) {
+    const resolvedSources = sourcesFrom(discussionSources, discussionSourceUrl ?? null);
+    if (resolvedSources.length === 0) return null;
+    return { discussion: paras, quotedLines: lines, discussionSources: resolvedSources };
+  }
+
+  // Auto-derive from the fields every seeded track already carries.
+  const derived = [summary, inspiration, easterEggs]
+    .map((p) => (typeof p === 'string' ? p.trim() : ''))
+    .filter(Boolean);
+  if (!derived.length || !fallbackSources.length) return null;
+  return { discussion: derived, quotedLines: lines, discussionSources: fallbackSources };
+}
 
 /**
  * Normalize one raw track (seed-file or DB shape) into the UI's TrackNote
@@ -45,7 +98,20 @@ const MAX_ROWS = 2000;
  * already say "skip a track entirely if no real source exists" — this is the
  * defensive mirror of that).
  */
-export function normalizeTrack({ trackNumber, trackTitle, note, sourceUrl, sources }) {
+export function normalizeTrack({
+  trackNumber,
+  trackTitle,
+  note,
+  sourceUrl,
+  sources,
+  discussion,
+  quotedLines,
+  discussionSourceUrl,
+  discussionSources,
+  summary,
+  inspiration,
+  easterEggs,
+}) {
   const title = typeof trackTitle === 'string' ? trackTitle.trim() : '';
   const trimmedNote = typeof note === 'string' ? note.trim() : '';
   if (!title || !trimmedNote) return null;
@@ -54,11 +120,22 @@ export function normalizeTrack({ trackNumber, trackTitle, note, sourceUrl, sourc
   // shouldn't ship silently even if the seed/DB row otherwise looks complete.
   if (resolvedSources.length === 0) return null;
   const n = Number(trackNumber);
+  const discussionResult = discussionFrom(
+    { discussion, quotedLines, discussionSourceUrl, discussionSources, summary, inspiration, easterEggs },
+    resolvedSources,
+  );
   return {
     trackNumber: Number.isInteger(n) && n > 0 ? n : null,
     title,
     note: trimmedNote,
     sources: resolvedSources,
+    ...(discussionResult
+      ? {
+          discussion: discussionResult.discussion,
+          quotedLines: discussionResult.quotedLines,
+          discussionSources: discussionResult.discussionSources,
+        }
+      : {}),
   };
 }
 
@@ -124,6 +201,16 @@ export function renderModule(byEra) {
         const srcs = t.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
         lines.push(`      sources: [${srcs}],`);
       }
+      if (t.discussion && t.discussion.length) {
+        lines.push(`      discussion: [${t.discussion.map(esc).join(', ')}],`);
+        if (t.quotedLines && t.quotedLines.length) {
+          lines.push(`      quotedLines: [${t.quotedLines.map(esc).join(', ')}],`);
+        }
+        const discSrcs = t.discussionSources
+          .map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`)
+          .join(', ');
+        lines.push(`      discussionSources: [${discSrcs}],`);
+      }
       lines.push('    },');
     }
     lines.push('  ],');
@@ -174,6 +261,13 @@ async function fetchFromSupabase() {
     note: row.note,
     sourceUrl: row.source_url,
     sources: row.sources,
+    discussion: row.discussion,
+    quotedLines: row.quoted_lines,
+    discussionSourceUrl: row.discussion_source_url,
+    discussionSources: row.discussion_sources,
+    summary: row.summary,
+    inspiration: row.inspiration,
+    easterEggs: row.easter_eggs,
   }));
   console.log(`sync-longlive-tracks: loaded ${entries.length} track notes from Supabase (live).`);
   return buildTrackGuide(entries);
