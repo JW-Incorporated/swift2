@@ -1762,7 +1762,7 @@ export default {
       slug: 'eras-tour-book-target',
       year: 2024,
       month: 11,
-      day: 29,
+      day: 30,
       category: 'business',
       title: 'The Eras Tour Book sells 814,000 copies in two days',
       snippet:
