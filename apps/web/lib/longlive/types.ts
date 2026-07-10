@@ -383,7 +383,8 @@ export interface RunwayLook {
   eraId: EraId;
   name: string;
   description: string;
-  image: string;
+  /** Real, credited photos for this era's style story — always at least one. */
+  images: ImageRef[];
   shopTags: string[];
 }
 
