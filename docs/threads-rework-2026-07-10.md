@@ -48,6 +48,23 @@ sketches committed, no implementation started.
   ticket asking Wyatt's CIE pipeline to close tickets when their fix lands
 - [#431](https://github.com/JW-Incorporated/swift2/issues/431) — The Clue
   Web thread, handed off whole (see "Status" above)
+- [#433](https://github.com/JW-Incorporated/swift2/issues/433) — bug: Runway
+  thread content renders oldest-to-newest, backwards vs. the site's
+  established newest-first convention (root cause + fix location identified)
+- [#434](https://github.com/JW-Incorporated/swift2/issues/434) — Love Story's
+  18 entries need the deep per-entry content v0 originally designed (recap,
+  impact, theories, photos, auto-derived Era cross-links, clickable
+  confidence-tagged song links) — deliberately scoped down when built,
+  unblocked now that WS2's tag-derivation infra is merged
+- [#435](https://github.com/JW-Incorporated/swift2/issues/435) — bug:
+  browser/swipe back doesn't work inside Threads (gallery<->detail, and
+  within-thread entry expand/collapse) — the app already has a proven fix
+  pattern (`useBackDismiss`) used in 8 other places, just never applied here
+- [#436](https://github.com/JW-Incorporated/swift2/issues/436) — Threads and
+  Eras don't cross-link anywhere in the shipped UI despite WS2's
+  `contentForThread()`/`RelatedId` infrastructure existing with zero
+  consumers — the app's core "Eras move forward, Threads cut sideways"
+  promise isn't actually built yet, in either direction
 
 ## ⚠️ Known residual review gap — read before touching PR #332/#425's content again
 
