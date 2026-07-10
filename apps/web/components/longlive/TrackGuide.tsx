@@ -8,6 +8,7 @@ import { getEra } from '@/lib/longlive/eras';
 import { tracksForEra } from '@/lib/longlive/tracks';
 import { eraStyle } from '@/lib/longlive/theme';
 import { trackKey } from './TrackDetail';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { EraId, TrackNote } from '@/lib/longlive/types';
 
 /**
@@ -45,6 +46,9 @@ export function TrackGuide() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open, closeTrackGuide, share]);
+
+  // Let the mobile back-swipe gesture close this guide instead of leaving the app.
+  useBackDismiss(open, closeTrackGuide);
 
   if (!era || tracks.length === 0) return null;
 

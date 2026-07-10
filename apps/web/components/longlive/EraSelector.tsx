@@ -6,6 +6,7 @@ import { X } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { ERAS } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 export function EraSelector() {
   const { selectorOpen, eraId } = useAppState();
@@ -24,6 +25,9 @@ export function EraSelector() {
       window.removeEventListener('keydown', onKey);
     };
   }, [selectorOpen, setSelectorOpen]);
+
+  // Let the mobile back-swipe gesture close the selector instead of leaving the app.
+  useBackDismiss(selectorOpen, () => setSelectorOpen(false));
 
   if (!selectorOpen) return null;
 

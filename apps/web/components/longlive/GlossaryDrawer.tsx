@@ -5,6 +5,7 @@ import { BookOpen, X } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { GLOSSARY, getGlossaryEntry } from '@/lib/longlive/glossary';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { GlossaryEntry } from '@/lib/longlive/types';
 
 /**
@@ -63,6 +64,9 @@ export function GlossaryDrawer() {
       document.body.style.overflow = prev;
     };
   }, [open]);
+
+  // Let the mobile back-swipe gesture close the drawer instead of leaving the app.
+  useBackDismiss(open, closeGlossary);
 
   if (!open) return null;
 

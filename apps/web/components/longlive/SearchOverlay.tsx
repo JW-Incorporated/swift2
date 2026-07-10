@@ -24,6 +24,7 @@ import {
   type SearchTarget,
 } from '@/lib/longlive/search';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 /**
  * The search overlay (audit T7): a command-palette-style panel over the whole
@@ -111,6 +112,9 @@ export function SearchOverlay() {
       document.body.style.overflow = prev;
     };
   }, [searchOpen]);
+
+  // Let the mobile back-swipe gesture close search instead of leaving the app.
+  useBackDismiss(searchOpen, () => setSearchOpen(false));
 
   // Reset per-open state so search always starts fresh.
   useEffect(() => {
