@@ -4,86 +4,109 @@
 interruption, or a different founder's agent). This doc is the source of
 truth for status — check here before re-deriving anything from git history.
 
-## Hand-off packages (GitHub issues)
+## Status: 5 of 6 Threads shipped, 6th (Clue Web) handed off as a ticket
 
-Opened 2026-07-10 so Wyatt's session (which has budget when Joey's/Claude's
-runs low) can pick up a self-contained package without needing this
-conversation's context or v0 access. Each links back to this doc.
+All 4 PRs from this initiative merged to `main` on 2026-07-10: **#249** (WS2
+tag-derivation), **#430** (WS1 day-level dates), **#332** (Taylor's Version /
+Decode / Love Story / Proposal), **#425** (Runway) — merged in that order by
+Claude, with Joey's explicit go-ahead ("let's merge all these PR"), resolving
+real conflicts between them (two seed items where WS1's day-additions and
+WS2's category-corrections both needed keeping; a `docs/decisions.md`
+entry-ordering conflict; the anticipated `ThreadsMode.tsx` conflict between
+#332 and #425). Verified with a full regenerate + validate + typecheck + test
+pass after each merge, plus a live browser check on the final tree.
+
+**The Clue Web (6th thread) was handed to Wyatt as issue
+[#431](https://github.com/JW-Incorporated/swift2/issues/431)** rather than
+built here — v0's chat for it never captured real code (see the issue for
+why), so it's a from-scratch implementation guided by a very thorough
+prose spec, not a port like the other 5. Branch `content/thread-clue-web`
+(worktree `../Swift2-thread-clue-web`) has the handoff doc + reference
+sketches committed, no implementation started.
+
+## Hand-off packages (GitHub issues) — status
 
 - [#369](https://github.com/JW-Incorporated/swift2/issues/369) — WS1 final
   Codex confirmation review — **closed, shipped without the 6th round per
-  Joey's explicit call**, PR #430 open
+  Joey's explicit call**, PR #430 merged
 - [#370](https://github.com/JW-Incorporated/swift2/issues/370) — Codex
-  review backlog for PR #332 (4 threads)
+  review backlog for PR #332 — **open, unresolved**: PR #332 merged with its
+  5th confirmation pass never having completed (cut off by the 3:41 PM quota
+  wall) — see "Known residual review gap" below
 - [#371](https://github.com/JW-Incorporated/swift2/issues/371) — Mobile
-  spot-check for PR #332's 4 threads
+  spot-check for PR #332 + Runway's 5 threads — **still open, still
+  unresolved**, nothing in this initiative has had mobile verified
 - [#372](https://github.com/JW-Incorporated/swift2/issues/372) — The Runway
-  thread integration — **done, PR #425 open**, issue left open pending its
-  Codex review (folded into the same review backlog as #370)
+  thread — **done, PR #425 merged**, but same gap as #332: its 2nd
+  confirmation pass never ran either
+- [#428](https://github.com/JW-Incorporated/swift2/issues/428) — a false
+  alarm Claude filed about Wyatt's CIE tool being deleted; corrected and
+  closed same-day after Wyatt's session pushed back with the real branch
+  topology. Worth reading if you're ever tempted to compare commits across
+  branches without checking `git merge-base --is-ancestor` first.
+- [#429](https://github.com/JW-Incorporated/swift2/issues/429) — feedback
+  ticket asking Wyatt's CIE pipeline to close tickets when their fix lands
+- [#431](https://github.com/JW-Incorporated/swift2/issues/431) — The Clue
+  Web thread, handed off whole (see "Status" above)
 
-## ⚠️ PENDING CODEX REVIEW — do not merge until this section is empty
+## ⚠️ Known residual review gap — read before touching PR #332/#425's content again
 
 Codex hit its usage limit twice on 2026-07-10: first ~10:39 AM (cleared,
-resumed), then again after a burst of ~10 review jobs, this time until **3:41
-PM**. Joey approved continuing to build with careful self-review in the
-meantime rather than blocking, on the explicit condition that this gets
-tracked so nothing merges unreviewed. **Whoever picks this up: run
-`/codex:adversarial-review` (or `/codex:review`) on each branch below before
-merging, fix any findings, then remove it from this list.**
+resumed), then again after a burst of ~10 review jobs, until 3:41 PM. Joey
+approved continuing to build with careful self-review in the meantime, on
+the condition it stayed tracked. **What actually happened: WS1 (#430) got 5
+full Codex-verified rounds and shipped on Joey's explicit call to skip the
+6th. PR #332 and #425 were NOT so lucky** — both had real, multi-round,
+Codex-verified fix cycles (detailed below), but the confirmation pass that
+would have validated the LAST round of fixes on each got cut off mid-run by
+the second quota wall and never re-ran before Joey said "let's merge all
+these PR" and they went in. This is not hidden — flagging plainly: **the
+final fixes on #332 and #425 are self-verified (typecheck/tests/manual
+browser check) but not Codex-confirmed clean.** Given every prior round on
+both branches found real issues, treat this as a real, non-zero-probability
+gap, not a formality. A cheap, valuable follow-up for whoever has Codex
+budget: run one more adversarial review against current `main` covering the
+files these branches touched (`lenses.ts`, `ThreadsMode.tsx`,
+`components/longlive/{taylors-version,decode,love-story,proposal,runway}/**`)
+and fix anything it finds via a normal small PR — no need to reopen #370/#372
+for this, just do it and reference them.
 
-All three branches below went through **multiple real review rounds** before
-the second quota wall hit — this was not a single self-review, it was several
-Codex-verified fix cycles. Read each branch's commit log for the exact
-findings/fixes; summarized here so a fresh session doesn't have to re-derive
-it from scratch.
+**PR #332** (Taylor's Version, Decode, Love Story, Proposal) — 4 Codex review
+rounds completed, fixes applied after each: (1) self-caught issues before
+first review (vaultTracks bug, wrong Spotify ID, decode.ts era-id mismatch,
+Love Story style conflict); (2) fabricated 1989 TV tour-location claim
+(Japan/New Zealand — the tour never had a NZ leg), a wedding-beat image
+wrongly marked `kind: 'primary'` when it's a stand-in, an accidentally-
+committed dev-mode `next-env.d.ts`; (3) 3 more fabricated RERECORDS claims
+(Braun/Cadillac ad, wrong Fearless TV announcement date, two wrong chart-
+record claims); (4) Calvin Harris note contradicting the dataset's own Joe
+Alwyn entry, a verbatim-quote policy violation in BuybackBeat.tsx. Mobile
+viewport still not spot-checked (browser-resize tool limitation this
+session).
 
-- [ ] `content/thread-taylors-version` (worktree `../Swift2-thread-tv`) — PR
-  #332 (draft): https://github.com/JW-Incorporated/swift2/pull/332. Covers
-  Taylor's Version, The Decode, Love Story, AND The Proposal. **4 Codex review
-  rounds completed, fixes applied after each**: (1) self-caught issues before
-  first review (vaultTracks bug, wrong Spotify ID, decode.ts era-id mismatch,
-  Love Story style conflict); (2) fabricated 1989 TV tour-location claim
-  (Japan/New Zealand — the tour never had a NZ leg), a wedding-beat image
-  wrongly marked `kind: 'primary'` when it's a stand-in, an accidentally-
-  committed dev-mode `next-env.d.ts`; (3) 3 more fabricated RERECORDS claims
-  (Braun/Cadillac ad, wrong Fearless TV announcement date, two wrong chart-
-  record claims); (4) Calvin Harris note contradicting the dataset's own Joe
-  Alwyn entry, a verbatim-quote policy violation in BuybackBeat.tsx. **A 5th
-  confirmation pass was launched and cut off mid-run by the 3:41 PM quota
-  wall — status unknown, re-run this one first.** Mobile viewport still not
-  spot-checked (browser-resize tool limitation this session).
-- [ ] `content/thread-runway` (worktree `../Swift2-thread-runway`) — PR
-  #425 (draft): https://github.com/JW-Incorporated/swift2/pull/425. All 12
-  `RUNWAY_LOOKS` entries carry real credited photos. **1 Codex review round
-  completed, fixes applied**: a Debut-caption date error (said "days before"
-  the album released when the CMA red carpet was actually 13 days after —
-  fixed to "two weeks after"), and missing test coverage for the new photo
-  invariants (now added: 30 total, 2-3/era, real URLs, credits/captions,
-  primary kind). **Not yet re-confirmed** — quota ran out before a second
-  pass could launch. Mobile not spot-checked. Built off `main`, not stacked
-  on `content/thread-taylors-version` — expect a small merge conflict in
-  `ThreadsMode.tsx` when both land.
-- [x] ~~`content/day-level-dates`~~ **SHIPPED WITHOUT THE 6TH ROUND — explicit
-  Joey decision, 2026-07-10.** PR #430 open:
-  https://github.com/JW-Incorporated/swift2/pull/430. 5 Codex confirmation
-  rounds completed, real fixes applied every round — this branch surfaced a
-  recurring bug class (an item's own sourced text states an explicit
-  chart-cover date, e.g. "the Hot 100 dated Oct. 18, 2025," but the item's
-  year/month/day fields used a different date — usually an earlier
-  report/announcement date instead of the actual chart date). Found and
-  fixed **9 total instances** of this pattern across lover.mjs,
-  the-life-of-a-showgirl.mjs (+ its content.ts curated duplicate),
-  folklore.mjs, 1989.mjs, and tortured-poets.mjs (3 instances). A one-off
-  scanner script was written mid-session to catch this pattern corpus-wide
-  (not committed — see the commit messages for its logic if useful to
-  recreate). A 6th confirmation pass ("do a truly exhaustive final sweep,
-  this needs to be the last one") was about to launch when the 3:41 PM quota
-  wall hit; **Joey opted to ship without it rather than wait**. Given the
-  recurrence rate, there's a real (not zero) chance 1-2 more instances of
-  this exact bug class remain undiscovered — noted explicitly in the PR
-  description as a known residual risk, not hidden. A cheap follow-up: rerun
-  the chart-date scanner pattern (or a real Codex pass) once quota allows,
-  even post-merge.
+**PR #425** (Runway) — 1 Codex review round completed, fixes applied: a
+Debut-caption date error (said "days before" the album released when the
+CMA red carpet was actually 13 days after — fixed to "two weeks after"), and
+missing test coverage for the new photo invariants (now added: 30 total,
+2-3/era, real URLs, credits/captions, primary kind). Mobile not spot-checked.
+
+**WS1** (`content/day-level-dates`, PR #430, merged) — 5 Codex confirmation
+rounds completed, real fixes applied every round — this branch surfaced a
+recurring bug class (an item's own sourced text states an explicit
+chart-cover date, e.g. "the Hot 100 dated Oct. 18, 2025," but the item's
+year/month/day fields used a different date — usually an earlier
+report/announcement date instead of the actual chart date). Found and fixed
+**9 total instances** of this pattern across lover.mjs,
+the-life-of-a-showgirl.mjs (+ its content.ts curated duplicate),
+folklore.mjs, 1989.mjs, and tortured-poets.mjs (3 instances). A one-off
+scanner script was written mid-session to catch this pattern corpus-wide
+(not committed — see the commit messages for its logic if useful to
+recreate). A 6th confirmation pass ("do a truly exhaustive final sweep, this
+needs to be the last one") was about to launch when the 3:41 PM quota wall
+hit; Joey opted to ship without it rather than wait. Given the recurrence
+rate, there's a real (not zero) chance 1-2 more instances of this exact bug
+class remain undiscovered in the merged corpus — a cheap follow-up: rerun
+the chart-date scanner pattern (or a real Codex pass) once quota allows.
 
 ## Why this exists
 
@@ -222,11 +245,12 @@ updated as each lands:
 
 | Order | Thread | Why this position | Status |
 |---|---|---|---|
-| 1 | **Taylor's Version** | Clearest data mapping (`RERECORDS` already fits); mostly needs deeper narrative text, not new photos | ✅ PR #332: https://github.com/JW-Incorporated/swift2/pull/332 |
-| 2 | **The Decode** | Mostly a browsing/filtering UX enhancement on an already-rich dataset (42 `CLUE_PAIRS` — corrected count, not the 117 an earlier session note guessed) | ✅ PR #332 (same as row 1) |
-| 3 | **Love Story** | Needs a new `SINGLE_PERIODS` dataset alongside `RELATIONSHIPS` (see data-shape note below); moderate | ✅ PR #332 (same as rows 1-2) |
-| 4 | **The Proposal** | Needs real sourced photos per beat — heavier research lift | ✅ PR #332 (same branch as rows 1-3) |
-| 5 | **The Runway** | Needs the most new content: multiple real sourced photos per era (not the current 1), plus narrative on how/why style changed each era | ✅ PR #425: https://github.com/JW-Incorporated/swift2/pull/425 (own branch `content/thread-runway`, off `main` — not stacked on PR #332, expect a small merge conflict in `ThreadsMode.tsx` when both land) |
+| 1 | **Taylor's Version** | Clearest data mapping (`RERECORDS` already fits); mostly needs deeper narrative text, not new photos | ✅ **MERGED** — PR #332: https://github.com/JW-Incorporated/swift2/pull/332 |
+| 2 | **The Decode** | Mostly a browsing/filtering UX enhancement on an already-rich dataset (42 `CLUE_PAIRS` — corrected count, not the 117 an earlier session note guessed) | ✅ **MERGED** — PR #332 (same as row 1) |
+| 3 | **Love Story** | Needs a new `SINGLE_PERIODS` dataset alongside `RELATIONSHIPS` (see data-shape note below); moderate | ✅ **MERGED** — PR #332 (same as rows 1-2) |
+| 4 | **The Proposal** | Needs real sourced photos per beat — heavier research lift | ✅ **MERGED** — PR #332 (same branch as rows 1-3) |
+| 5 | **The Runway** | Needs the most new content: multiple real sourced photos per era (not the current 1), plus narrative on how/why style changed each era | ✅ **MERGED** — PR #425: https://github.com/JW-Incorporated/swift2/pull/425 |
+| 6 | **The Clue Web** | UX/onboarding refinement only, not a rebuild — Joey likes the mechanic, found it unintuitive | 🎫 **Handed off, not built** — issue #431: https://github.com/JW-Incorporated/swift2/issues/431 (Wyatt). v0's chat never captured real code for this one — see the issue for why. |
 
 **Data-shape note on Love Story:** `contentForThread('love-story')` (WS2)
 returns individual dated *moments* (~40 of them), not relationship *spans*
