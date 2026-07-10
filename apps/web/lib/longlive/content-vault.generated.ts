@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-10T17:59:52.876Z";
+export const CONTENT_GENERATED_AT = "2026-07-10T18:09:32.944Z";
 
 type VaultRawItem = {
   id: string;
@@ -32,8 +32,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
   "1989": [
     {
       id: "vault-1989-1989-becomes-her-third-million-copy-opening-week",
-      date: "2014-11-05",
-      dateLabel: "November 5, 2014",
+      date: "2014-11-15",
+      dateLabel: "November 15, 2014",
       title: "1989 becomes her third million-copy opening week",
       summary: "1.287 million copies in week one — the biggest sales week for any album since Eminem's The Eminem Show in 2002, and her third album to cross a million copies in its first week.",
       body: ["The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.", "Billboard's chart recap put the scale plainly: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and stayed there for 11 weeks; only three albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, and 1989 (Taylor's Version) itself."],
@@ -2285,8 +2285,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
   "folklore": [
     {
       id: "vault-folklore-folklore-makes-her-the-first-artist-to-top-both-charts-at-on",
-      date: "2020-08-03",
-      dateLabel: "August 3, 2020",
+      date: "2020-08-08",
+      dateLabel: "August 8, 2020",
       title: "folklore makes her the first artist to top both charts at once",
       summary: "Announced the day before release — then Swift became the first artist ever to debut atop the Hot 100 (with 'cardigan') and the Billboard 200 in the same week.",
       body: ["The Billboard 200 dates to 1956 and the Hot 100 to 1958, and in all those decades nobody had opened at No. 1 on both in the same week until the chart dated Aug. 8, 2020. \"cardigan\" did it on 34 million U.S. streams and 71,000 downloads — her sixth Hot 100 No. 1, and just the 41st song ever to debut at the top.", "The album side was just as lopsided: all 16 standard-edition tracks hit the Hot 100 at once, with three debuting in the top 10 (\"cardigan\" at No. 1, \"the 1\" at No. 4, \"exile\" at No. 6), which also made her the first artist to debut two songs in the top four simultaneously. For a record announced sixteen hours before release, with no lead single and no rollout, the double crown read as proof the surprise-drop model hadn't cost her anything at all."],
@@ -2483,8 +2483,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     },
     {
       id: "vault-folklore-folklore-becomes-the-first-million-selling-album-of-2020-in-",
-      date: "2020-10-25",
-      dateLabel: "October 25, 2020",
+      date: "2020-10-31",
+      dateLabel: "October 31, 2020",
       title: "folklore becomes the first million-selling album of 2020 in the US",
       summary: "By late October, folklore had sold 1.038 million copies in the US — the first album to cross a million that year — while returning to No. 1 on the Billboard 200 for an eighth nonconsecutive week.",
       body: ["On the chart dated Oct. 31, 2020, folklore returned to No. 1 on the Billboard 200 for an eighth nonconsecutive week after selling another 57,000 copies in the U.S. in the tracking week ending Oct. 22 — pushing its total past 1.038 million copies sold and making it the first album to sell a million copies in the U.S. in 2020.", "The back-to-back symmetry was hard to miss: Swift's prior album, Lover, had been the only album to sell a million U.S. copies in 2019, with 1.09 million that year. In a collapsing sales market, she had now delivered each year's first album to cross the million mark two years running — one made as a maximalist pop rollout, the other with sixteen hours' notice from lockdown."],
@@ -6829,8 +6829,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     },
     {
       id: "vault-ttpd-the-smallest-man-who-ever-lived-the-distorted-bridge-that-cl",
-      date: "2024-04-29",
-      dateLabel: "April 29, 2024",
+      date: "2024-05-04",
+      dateLabel: "May 4, 2024",
       title: "The Smallest Man Who Ever Lived: the distorted bridge that closed out a historic chart sweep",
       summary: "A hushed piano ballad in 7/4 time that detonates into a distorted-vocal rock bridge — and the song that filled the No. 14 slot when TTPD became the first album ever to hold the entire top 14 of the Hot 100 at once.",
       body: ["Written and produced with Aaron Dessner and recorded partly in Biarritz, France, the song switches from a 7/4 verse-and-chorus meter to 4/4 for a bridge that swaps its piano ballad restraint for distorted vocals and a rock climax.", "The Nation's Stephanie Burt called it \"the harshest, most dismissive, most condemnatory song that Swift has ever written,\" while Rolling Stone's Rob Sheffield ranked it among her best breakup songs. On the Hot 100 dated May 4, 2024, it landed at No. 14 — the closing slot in the week TTPD's 31 tracks (plus \"Cruel Summer\") gave Swift the entire top 14 simultaneously, a first for any artist."],
@@ -6852,8 +6852,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     {
       id: "vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z",
       slug: "ttpd-billboard-200-debut",
-      date: "2024-04-28",
-      dateLabel: "April 28, 2024",
+      date: "2024-05-04",
+      dateLabel: "May 4, 2024",
       title: "2.61 million in week one — her 14th No. 1, tying Jay-Z",
       summary: "The biggest album week in nine years: 2.61M units, 1.914M of them real sales, plus the largest streaming week ever logged for an album at 891 million on-demand plays.",
       body: ["On the chart dated May 4, 2024, TTPD's 2.61 million-unit start trailed only Adele's 25 (3.482M in 2015) among all weeks since late 2014 and tied her with Jay-Z for the most No. 1 albums by a soloist in the chart's history — a record she'd break outright the following year with Showgirl.", "The 31-track Anthology's 891.37 million streams set a new single-week album streaming record."],

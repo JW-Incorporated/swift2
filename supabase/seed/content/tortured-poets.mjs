@@ -1151,8 +1151,8 @@ export default {
     },
     {
       year: 2024,
-      month: 4,
-      day: 29,
+      month: 5,
+      day: 4,
       category: 'music',
       title: 'The Smallest Man Who Ever Lived: the distorted bridge that closed out a historic chart sweep',
       snippet:
@@ -1231,8 +1231,8 @@ export default {
     {
       slug: 'ttpd-billboard-200-debut',
       year: 2024,
-      month: 4,
-      day: 28,
+      month: 5,
+      day: 4,
       category: 'business',
       title: '2.61 million in week one — her 14th No. 1, tying Jay-Z',
       snippet:

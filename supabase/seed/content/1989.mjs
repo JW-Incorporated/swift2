@@ -13,7 +13,7 @@ export default {
     {
       year: 2014,
       month: 11,
-      day: 5,
+      day: 15,
       category: 'business',
       title: '1989 becomes her third million-copy opening week',
       snippet:
