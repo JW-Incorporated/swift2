@@ -17,7 +17,8 @@ export default {
   items: [
     {
       year: 2006,
-      month: 10,
+      month: 6,
+      day: 19,
       category: 'music',
       title: 'The math-class idea behind "Tim McGraw"',
       snippet: 'The idea for her debut single came to her in freshman-year math class.',
@@ -67,6 +68,7 @@ export default {
     {
       year: 2007,
       month: 4,
+      day: 16,
       category: 'fashion',
       title: 'A strapless BCBG gown for her first CMT win',
       snippet:
@@ -122,6 +124,7 @@ export default {
     {
       year: 2006,
       month: 10,
+      day: 24,
       category: 'music',
       title: "Mary's Song, borrowed from the couple next door",
       snippet: "A story of two neighbors who fell in love as kids and stayed married forever — inspired by an actual couple who lived next door.",
@@ -148,6 +151,7 @@ export default {
     {
       year: 2006,
       month: 10,
+      day: 24,
       category: 'music',
       title: "Should've Said No, written in 20 minutes",
       snippet: "Written the same week the album was mastered — the whole song took her 20 minutes, the chorus just five.",
@@ -171,6 +175,7 @@ export default {
     {
       year: 2006,
       month: 10,
+      day: 24,
       category: 'music',
       title: 'A Place in This World, written at 13',
       snippet: 'Written years before the album came out, after watching a TV special about Faith Hill\'s move to Nashville.',
@@ -192,6 +197,7 @@ export default {
     {
       year: 2007,
       month: 12,
+      day: 22,
       category: 'business',
       title: 'Our Song becomes her first No. 1',
       snippet:
@@ -309,6 +315,7 @@ export default {
     {
       year: 2008,
       month: 5,
+      day: 5,
       category: 'fashion',
       title: 'A gold sequined Badgley Mischka gown for her first Met Gala',
       snippet:
@@ -338,6 +345,7 @@ export default {
     {
       year: 2006,
       month: 11,
+      day: 6,
       category: 'fashion',
       title: 'A black satin Elvira mermaid gown for her first CMA Awards',
       snippet:
@@ -362,6 +370,7 @@ export default {
     {
       year: 2007,
       month: 5,
+      day: 15,
       category: 'fashion',
       title: 'A Sandi Spika drop-waist gown for the 2007 ACM Awards',
       snippet:
@@ -558,6 +567,7 @@ export default {
     {
       year: 2006,
       month: 10,
+      day: 24,
       category: 'music',
       title: 'Teardrops on My Guitar, and the classmate who showed up in her driveway',
       snippet:
@@ -586,6 +596,7 @@ export default {
     {
       year: 2006,
       month: 10,
+      day: 24,
       category: 'music',
       title: 'Picture to Burn, and the line rewritten for radio',
       snippet:
@@ -875,7 +886,8 @@ export default {
     {
       slug: 'soul2soul-mcgraw-hill-opener',
       year: 2007,
-      month: 6,
+      month: 7,
+      day: 9,
       category: 'tour',
       title: 'Opening for the actual Tim McGraw (and Faith Hill)',
       snippet:
@@ -1197,6 +1209,7 @@ export default {
       slug: 'our-song-talent-show',
       year: 2006,
       month: 10,
+      day: 24,
       category: 'music',
       title: 'Our Song, written for the ninth-grade talent show',
       snippet:
@@ -1239,6 +1252,7 @@ export default {
       slug: 'the-outside-written-at-12',
       year: 2006,
       month: 10,
+      day: 24,
       category: 'music',
       title: 'The Outside, written by a 12-year-old about the lunch table',
       snippet:
@@ -1281,6 +1295,7 @@ export default {
       slug: 'nsai-songwriter-artist-2007',
       year: 2007,
       month: 10,
+      day: 16,
       category: 'business',
       title: 'The youngest Songwriter/Artist of the Year in NSAI history',
       snippet:
@@ -1323,6 +1338,7 @@ export default {
       slug: 'acm-new-female-vocalist-2008',
       year: 2008,
       month: 5,
+      day: 18,
       category: 'business',
       title: 'Her first ACM Award: Top New Female Vocalist',
       snippet:
@@ -1365,6 +1381,7 @@ export default {
       slug: 'shouldve-said-no-acm-soaked',
       year: 2008,
       month: 5,
+      day: 18,
       category: 'sighting',
       title: 'Soaked to the skin, mid-song, at the 2008 ACMs',
       snippet:
