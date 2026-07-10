@@ -37,20 +37,18 @@ export function BuybackBeat() {
 
         <blockquote className="my-5 max-w-2xl pl-4" style={{ borderLeft: '3px solid var(--status-reclaimed-ink)' }}>
           <p className="text-pretty font-serif text-lg italic leading-relaxed md:text-xl" style={{ color: 'var(--era-ink)' }}>
-            &ldquo;All of the music I&apos;ve ever made now belongs to me. All the music videos, all the concert films, the album art and photography,
-            the unreleased songs, the memories, the magic, the madness. Every single era. My entire life&apos;s work.&rdquo;
+            &ldquo;My entire life&apos;s work.&rdquo;
           </p>
           <cite className="mt-2 block text-xs uppercase tracking-widest not-italic" style={{ color: 'var(--era-ink-soft)' }}>
-            — Taylor Swift, letter to fans · May 30, 2025
+            — Taylor Swift, on owning everything she&apos;s ever made · letter to fans, May 30, 2025
           </cite>
         </blockquote>
 
         <p className="mb-6 max-w-2xl text-sm leading-relaxed md:text-base" style={{ color: 'var(--era-ink-soft)' }}>
           After six years of being unable to buy her own recordings, Taylor purchased her entire back catalog outright from Shamrock Capital — the
           private-equity firm that had acquired the masters from Scooter Braun in 2020. Every original recording of the first six albums, the music
-          videos, album art, and unreleased material: hers. She framed it as Shamrock being the first party to offer her the music &ldquo;outright,
-          with no strings attached, no partnership, with full autonomy&rdquo;; many also argue the re-recording campaign softened the ground by
-          undercutting the originals&apos; market value.
+          videos, album art, and unreleased material: hers. She said Shamrock was the first owner willing to sell to her with no partnership terms
+          attached; many also argue the re-recording campaign softened the ground by undercutting the originals&apos; market value.
         </p>
 
         <div className="grid gap-3 sm:grid-cols-2">
