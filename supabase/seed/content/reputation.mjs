@@ -518,10 +518,18 @@ export default {
             url: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
           },
         ],
+        // Image-fix pass (2026-07-10 retry): swapped the watermarked
+        // tayswiftstyle collage for a single clean Getty Images editorial
+        // shot from Soldier Field, Chicago, June 2, 2018 — the exact debut
+        // date this record cites — showing Taylor in the bodysuit-and-jacket
+        // opening-number set, drenched in rain; verified HTTP 200 +
+        // image/jpeg and eyeballed this session.
         photos: [
           {
-            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/06/tumblr_p9wqzvce8h1r4fk4fo1_r1_1280.jpg?w=1100',
-            credit: 'Taylor Swift Style',
+            url: 'https://media.gettyimages.com/id/966470964/photo/taylor-swift-reputation-stadium-tour.jpg?s=594x594&w=0&k=20&c=qpjD-YCFO4IFRdoS07AsJHnqRTn-mz8qWtqFFraFFZ0=',
+            credit: 'John Shearer/TAS18/Getty Images',
+            caption: 'Taylor Swift performing the "...Ready For It?" opening number in the reworked bodysuit-and-jacket set at Soldier Field, June 2, 2018.',
+            kind: 'archival',
           },
         ],
       },
@@ -548,6 +556,14 @@ export default {
             url: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
           },
         ],
+        // Image-fix pass (2026-07-10 retry): SKIPPED — broadened search
+        // (Wikimedia Commons across all 6 dated tour-stop categories incl.
+        // Minneapolis's 86-file set; Getty editorial galleries for Chicago,
+        // MetLife, Landover/FedExField, and Wembley; Billboard/HollywoodLife/
+        // Femestella outfit roundups) found plenty of the OTHER rotating
+        // "Dress"-segment bodysuits (black, red) but no verified photo of
+        // this specific dense-sparkling-green variant. Left as-is; still the
+        // record's only photo, so not stripped per protocol.
         photos: [
           {
             url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100',
@@ -578,10 +594,20 @@ export default {
             url: 'https://www.billboard.com/music/pop/taylor-swift-stuck-mid-air-sparkly-basket-at-philadelphia-concert-reputation-tour-8465462/',
           },
         ],
+        // Image-fix pass (2026-07-10 retry): swapped the watermarked
+        // tayswiftstyle collage for a single clean Getty Images editorial
+        // shot from MetLife Stadium, July 22, 2018 (one day before this
+        // record's source blog post) — shows Taylor in the blue/pink
+        // tinsel-fringe "cotton candy" dress in front of the show's large
+        // illuminated snake set piece, matching the CIE finding's
+        // description of the original photo; verified HTTP 200 +
+        // image/jpeg and eyeballed this session.
         photos: [
           {
-            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pcati7kyz11r4fk4fo1_r1_1280.jpg?w=1100',
-            credit: 'Taylor Swift Style',
+            url: 'https://media.gettyimages.com/id/1004129336/photo/east-rutherford-nj-taylor-swift-swift-performs-onstage-during-the-taylor-swift-reputation.jpg?s=612x612&w=0&k=20&c=ZFwV3GLrIALEaen0WKvTgnFcKmQr4QrmRSvGUUlUle4=',
+            credit: 'Kevin Mazur/TAS18/Getty Images',
+            caption: 'Taylor Swift performing in the "cotton candy" tinsel-fringe dress at MetLife Stadium, July 22, 2018.',
+            kind: 'archival',
           },
         ],
       },
@@ -645,6 +671,14 @@ export default {
             url: 'https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments',
           },
         ],
+        // Image-fix pass (2026-07-10 retry): SKIPPED — broadened search
+        // (Wikimedia Commons across all 6 dated tour-stop categories;
+        // Getty editorial galleries for Santa Clara, Denver, Chicago,
+        // MetLife, and Landover/FedExField; Billboard/HollywoodLife/
+        // Femestella outfit roundups) turned up several other closing-block
+        // gowns (plain black, black/gold) but no verified photo clearly
+        // matching this navy/iridescent-paillette variant. Left as-is;
+        // still the record's only photo, so not stripped per protocol.
         photos: [
           {
             url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100',
