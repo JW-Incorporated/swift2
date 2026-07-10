@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef, LensId } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-10T05:31:36.078Z";
+export const CONTENT_GENERATED_AT = "2026-07-10T05:39:53.531Z";
 
 type VaultRawItem = {
   id: string;
@@ -4763,7 +4763,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       title: "Meets Karlie Kloss at the Victoria's Secret Fashion Show",
       summary: "Nearly two years after telling Vogue \"I love Karlie Kloss. I want to bake cookies with her!\" — and Kloss tweeting back \"Your kitchen or mine?\" — the two finally met at the November 2013 VS Fashion Show, where Taylor performed and Karlie walked.",
       body: ["The courtship had played out in public for almost two years: Swift spotted Kloss's photo during a 2012 Vogue interview at Prabal Gurung's studio and blurted the cookies line, and Kloss tweeted right back in January 2012 — \"Hey @taylorswift13 love the @voguemagazine cover! Your kitchen or mine? :)\"", "After finally meeting at the show, the friendship moved fast: the March 2014 Big Sur road trip, regular New York outings, and by the time Rolling Stone toured Swift's Tribeca apartment that September, Kloss had her own guest room there, stocked with a basket of her favorite Whole Foods snacks. It became one of the defining squad relationships of the 1989 era that followed."],
-      tags: ["Relationship"],
+      tags: ["Lore"],
       images: [{ url: "https://townsquare.media/site/252/files/2013/12/TaylorSwift26.jpg?w=980&q=75", credit: "Bryan Bedder, Getty Images / PopCrush", caption: "Swift performing \"I Knew You Were Trouble\" during the Snow Angels finale of the 2013 Victoria's Secret Fashion Show — the night she and Karlie Kloss finally met.", kind: "archival" }],
       sources: [{ name: "Inside Taylor Swift's Decades-Long Friendship With Karlie Kloss", url: "https://www.eonline.com/news/1432607/taylor-swift-karlie-kloss-friendship-timeline-rift-rumors" }, { name: "Taylor Swift & Karlie Kloss' Friendship Timeline", url: "https://hollywoodlife.com/feature/taylor-swift-karlie-kloss-4299380/" }],
     },
@@ -5249,7 +5249,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       title: "Katy Perry sends a literal olive branch on opening night",
       summary: "Waiting in Taylor's dressing room before the May 8, 2018 tour kickoff: an actual olive branch and a handwritten note from Katy Perry beginning \"Hello old friend\" — the public end of pop's longest-running feud.",
       body: ["\"So I just got to my dressing room and found this actual olive branch. This means so much,\" Swift said on her Instagram Story before taking the stage in Glendale, captioning the clip \"Thank you Katy\" with a heart. Only the note's opening — \"Hello old friend\" — was fully legible in the video; fans spent the night squinting at the rest of Perry's handwriting.", "The gesture closed the loop on the falling-out widely understood to be behind \"Bad Blood,\" a feud that had shadowed both discographies for four years — and it set up their on-camera reunion in the \"You Need to Calm Down\" video a year later."],
-      tags: ["Relationship"],
+      tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/katy-perry-taylor-swift-2010-billboard-1548.jpg?w=600", credit: "Billboard", caption: "Perry and Swift in 2010, before the falling-out — the file photo Billboard ran with news of the olive branch.", kind: "archival" }],
       sources: [{ name: "Katy Perry Literally Extended an Olive Branch to Taylor Swift For Reputation Tour Opening Night", url: "https://www.billboard.com/articles/columns/pop/8455152/katy-perry-sends-taylor-swift-olive-branch-instagram" }, { name: "Katy Perry Sends Taylor Swift an Olive Branch", url: "https://www.hollywoodreporter.com/news/music-news/katy-perry-sends-taylor-swift-an-olive-branch-tour-1110405/" }],
     },

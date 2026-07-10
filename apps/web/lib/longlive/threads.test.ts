@@ -52,9 +52,19 @@ describe('build() thread derivation', () => {
     expect(item.threadIds).toBeUndefined();
   });
 
-  it('an explicit threadIds on the raw item overrides the tag-based default entirely', () => {
+  it('an explicit threadIds on the raw item adds to the tag-based default, not replaces it', () => {
     const [item] = build('1989', [raw({ tags: ['Music'], threadIds: ['taylors-version'] })]);
     expect(item.threadIds).toEqual(['taylors-version']);
+  });
+
+  it('a Fashion item explicitly opted into taylors-version keeps BOTH threads (regression: explicit used to drop the tag default)', () => {
+    const [item] = build('1989', [raw({ tags: ['Fashion'], threadIds: ['taylors-version'] })]);
+    expect(item.threadIds).toEqual(['fashion', 'taylors-version']);
+  });
+
+  it('does not duplicate a thread already implied by the tag default even if also listed explicitly', () => {
+    const [item] = build('1989', [raw({ tags: ['Relationship'], threadIds: ['love-story'] })]);
+    expect(item.threadIds).toEqual(['love-story']);
   });
 
   it('explicit threadIds works even with no tag-based default available (easter-eggs has none)', () => {

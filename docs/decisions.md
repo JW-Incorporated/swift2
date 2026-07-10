@@ -18,8 +18,19 @@ hand-authored TypeScript arrays in `apps/web/lib/longlive/lenses.ts`
 Going forward, thread membership is derived from **tags on content items**
 (new items in `supabase/seed/content/**` get one or more thread tags at
 authoring time) rather than a second, hand-maintained data source. A thread's
-rendered list is a query/selector over tagged content, not a separate array
-that has to be remembered and kept in sync by hand.
+rendered list should be a query/selector over tagged content, not a separate
+array that has to be remembered and kept in sync by hand.
+
+**Rollout is two phases, not one landing:** phase 1 (2026-07-10, this PR) is
+the derivation mechanism itself — `ContentItem.threadIds`, the
+`contentForThread()` selector, real tagged data via the existing
+Relationship/Fashion category defaults. **`ThreadsMode.tsx` still renders
+from the old `lenses.ts` arrays as of this PR — the mechanism exists but
+nothing consumes it yet.** Phase 2, done per-thread as each thread's UI
+rework lands (tracked in `docs/threads-rework-2026-07-10.md`), is wiring the
+actual rendered UI to `contentForThread()` and retiring the corresponding
+old array. Don't read this decision as "Threads already render from tagged
+content" until phase 2 closes per thread.
 
 **Why:** Joey flagged that new content isn't naturally flowing into Threads —
 e.g. real relationship/sighting content added to an era file has no path
