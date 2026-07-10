@@ -22,6 +22,7 @@ export default {
       slug: 'showgirl-announced-on-new-heights',
       year: 2025,
       month: 8,
+      day: 12,
       category: 'release',
       title: 'A mint-green briefcase on New Heights: album No. 12, announced on her first-ever podcast',
       snippet:
@@ -291,6 +292,7 @@ export default {
       slug: 'showgirl-four-million-week',
       year: 2025,
       month: 10,
+      day: 18,
       category: 'business',
       title: '4.002 million in a week: the biggest album debut ever measured',
       snippet:
@@ -335,6 +337,7 @@ export default {
       slug: 'showgirl-spotify-records',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'business',
       title: "Spotify's 2025 single-day streaming record falls in under 11 hours",
       snippet:
@@ -428,6 +431,7 @@ export default {
       slug: 'showgirl-hot-100-top-12-sweep',
       year: 2025,
       month: 10,
+      day: 18,
       category: 'business',
       title: "All 12 tracks debut as the Hot 100's entire top 12",
       snippet:
@@ -465,6 +469,7 @@ export default {
       slug: 'fate-of-ophelia-lead-single',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'music',
       title: 'The Fate of Ophelia: Hamlet\'s drowned girl, rescued — and a 13th Hot 100 No. 1',
       snippet:
@@ -879,6 +884,7 @@ export default {
       slug: 'eras-tour-final-show-film',
       year: 2025,
       month: 12,
+      day: 12,
       category: 'tour',
       title: 'The Final Show: the full Vancouver closer, streaming at last',
       snippet:
@@ -931,6 +937,7 @@ export default {
       slug: 'arrowhead-caitlin-clark-october',
       year: 2025,
       month: 10,
+      day: 12,
       category: 'sighting',
       title: 'Back at Arrowhead with Caitlin Clark, nine days after her album dropped',
       snippet:
@@ -1244,6 +1251,7 @@ export default {
       slug: 'showgirl-orange-reformation-versace',
       year: 2025,
       month: 9,
+      day: 20,
       category: 'fashion',
       title: 'The first "Showgirl orange" look: Reformation cashmere and a Versace leather mini',
       snippet:
@@ -1282,6 +1290,7 @@ export default {
       slug: 'showgirl-selena-gomez-texans-coats',
       year: 2025,
       month: 12,
+      day: 7,
       category: 'fashion',
       title: 'Taylor and Selena Gomez coordinate opulent winter coats at Arrowhead',
       snippet:
@@ -1378,6 +1387,7 @@ export default {
       slug: 'showgirl-grammy-eligibility-window-miss',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'business',
       title: 'A release date that costs a Grammy shot: Showgirl misses the 2026 eligibility window by 34 days',
       snippet:
@@ -1425,6 +1435,7 @@ export default {
       slug: 'showgirl-broncos-christmas-game',
       year: 2025,
       month: 12,
+      day: 25,
       category: 'sighting',
       title: 'A Christmas Day game at Arrowhead, arriving with her parents',
       snippet:
@@ -1464,6 +1475,7 @@ export default {
       slug: 'showgirl-engagement-announcement',
       year: 2025,
       month: 8,
+      day: 26,
       category: 'relationship',
       title: '"Your English teacher and your gym teacher are getting married": the engagement, announced on Instagram',
       snippet:
@@ -1653,6 +1665,7 @@ export default {
       slug: 'showgirl-graham-norton-destination-wedding',
       year: 2025,
       month: 10,
+      day: 2,
       category: 'relationship',
       title: 'Wedding plans, teased from a British chat-show couch',
       snippet:
@@ -1699,6 +1712,7 @@ export default {
       slug: 'showgirl-colts-game-sighting',
       year: 2025,
       month: 11,
+      day: 23,
       category: 'sighting',
       title: 'Back in the suite window for an overtime nail-biter',
       snippet:
@@ -1748,6 +1762,7 @@ export default {
       slug: 'showgirl-colts-game-outfit',
       year: 2025,
       month: 11,
+      day: 23,
       category: 'fashion',
       title: 'A low-key game-day layer for the Colts game',
       snippet:
@@ -1881,6 +1896,7 @@ export default {
       slug: 'showgirl-luminate-2025-top-album',
       year: 2026,
       month: 1,
+      day: 1,
       category: 'business',
       title: "Luminate's 2025 crown: 5.6 million units, no contest",
       snippet:
@@ -1925,6 +1941,7 @@ export default {
       slug: 'elizabeth-taylor-video-archival',
       year: 2026,
       month: 3,
+      day: 31,
       category: 'music',
       title: 'The Elizabeth Taylor video: a supercut of the real Liz',
       snippet:
