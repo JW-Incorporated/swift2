@@ -236,6 +236,34 @@ async function issues(opts) {
   }
 }
 
+// One entry point that spins up the whole engine. The DETERMINISTIC layer +
+// reporting + issue-filing run end-to-end here in Node. The AGENT layer (factual
+// / image / safety review) needs an LLM, so `all` prepares its batch inputs and
+// prints exactly how to run it; when those agents have written their findings,
+// re-running `all` folds them in. Idempotent throughout — safe to re-run.
+async function all(opts) {
+  log('━━ Content Integrity Engine ━━\n');
+  log('[1/5] Deterministic scan (facts/redlines/images)…');
+  await scan(opts);
+  log('\n[2/5] Preparing agent-review batches…');
+  await prepBatches(opts);
+  log('\n[3/5] Ingesting all findings (deterministic + any agent output)…');
+  await ingest();
+  log('\n[4/5] Writing run report…');
+  await report();
+  log(`\n[5/5] ${opts.create ? 'Filing GitHub issues…' : 'Issue preview (dry-run)…'}`);
+  await issues(opts);
+  log('\n━━ Agent-review layer (the LLM passes) ━━');
+  log('The deterministic layer is done. To run the agent passes (factual + image');
+  log('review), open this repo in Claude Code and say:');
+  log('    "run the content integrity engine agent passes"');
+  log('Claude reads scripts/content-engine/agent/prompts/{factual,image}.md and the');
+  log('batch inputs under .findings/agent-input/, writes findings to .findings/, then');
+  log('you re-run this command to fold them in and file the tickets:');
+  log(`    node scripts/content-engine/run.mjs all${opts.create ? ' --create' : ' --create   # (add --create to actually file)'}`);
+  log('\nRead-only: no seed/DB/generated content is ever modified.');
+}
+
 const [cmd, ...rest] = process.argv.slice(2);
 const opts = {
   noImages: rest.includes('--no-images'),
@@ -243,6 +271,13 @@ const opts = {
   create: rest.includes('--create'),
   limit: rest.includes('--limit') ? Number(rest[rest.indexOf('--limit') + 1]) : Infinity,
 };
-const cmds = { scan, 'prep-agents': prepAgents, 'prep-batches': prepBatches, ingest, report, issues };
-(cmds[cmd] ?? (async () => { log('commands: scan [--no-images] | prep-agents | ingest | issues [--create] [--limit N]'); }))(opts)
+const cmds = { all, scan, 'prep-agents': prepAgents, 'prep-batches': prepBatches, ingest, report, issues };
+(cmds[cmd] ?? (async () => {
+  log('Content Integrity Engine — read-only content checker → GitHub issues.\n');
+  log('One command (recommended):');
+  log('  node scripts/content-engine/run.mjs all            # full pipeline, dry-run issues');
+  log('  node scripts/content-engine/run.mjs all --create   # …and file the GitHub issues\n');
+  log('Individual phases:');
+  log('  scan [--no-images] | prep-batches | ingest | report | issues [--create] [--limit N]');
+}))(opts)
   .catch((e) => { console.error(e); process.exit(1); });
