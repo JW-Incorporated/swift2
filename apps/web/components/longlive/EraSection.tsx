@@ -12,6 +12,7 @@ import { threadsInEra, getThread } from '@/lib/longlive/lenses';
 import { EraMedia } from './EraMedia';
 import { EraVideos } from './EraVideos';
 import { ALL_TAGS, TAG_META } from '@/lib/longlive/tags';
+import { primaryImageRef } from '@/lib/longlive/types';
 import type { ContentItem, ContentTag, Era, LensId } from '@/lib/longlive/types';
 import { cn } from '@/lib/utils';
 
@@ -59,11 +60,16 @@ export function EraSection({ era }: { era: Era }) {
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
           <Image src={era.image || '/placeholder.svg'} alt="" fill priority className="object-cover opacity-40" />
+          {/* Fades in from era-bg at the very top (blending into the solid-
+              color EraTransition band above this section, so the image
+              doesn't start abruptly at full opacity right at the seam) and
+              back out to era-bg at the bottom (for text legibility), instead
+              of the old hard-stop gradient that left a visible cut. */}
           <div
             className="absolute inset-0"
             style={{
               background:
-                'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 55%, transparent) 0%, var(--era-bg) 92%)',
+                'linear-gradient(to bottom, var(--era-bg) 0%, color-mix(in srgb, var(--era-bg) 55%, transparent) 18%, color-mix(in srgb, var(--era-bg) 55%, transparent) 55%, var(--era-bg) 100%)',
             }}
           />
         </div>
@@ -157,8 +163,8 @@ export function EraSection({ era }: { era: Era }) {
       {/* Chronological feed (newest-first). */}
       <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
         <ol className="relative space-y-5">
-          {visible.map((item) => (
-            <MomentCard key={item.id} item={item} onOpen={() => openItem(item.id)} />
+          {visible.map((item, i) => (
+            <MomentCard key={item.id} item={item} index={i} onOpen={() => openItem(item.id)} />
           ))}
         </ol>
         {visible.length === 0 && (
@@ -230,12 +236,18 @@ const PIVOT_ICONS: Partial<Record<LensId, typeof Heart>> = {
   'the-proposal': Gem,
 };
 
-function MomentCard({ item, onOpen }: { item: ContentItem; onOpen: () => void }) {
+function MomentCard({ item, index, onOpen }: { item: ContentItem; index: number; onOpen: () => void }) {
   const hasClue = Boolean(item.hiddenClue);
   // Visited-state (localStorage-backed). First paint is always "unseen" —
   // progress hydrates post-mount, so server and client markup match.
   const { progress } = useProgress();
   const seen = progress.moments.has(item.id);
+  const hero = primaryImageRef(item);
+  // A two-tier rhythm (one in four cards "featured", full-width image on
+  // top) instead of every card being an identical text block — a feed
+  // that's visually uniform end to end is one users' eyes gloss over.
+  const featured = hero != null && index % 4 === 0;
+
   return (
     <li
       className="relative scroll-mt-28"
@@ -245,46 +257,73 @@ function MomentCard({ item, onOpen }: { item: ContentItem; onOpen: () => void })
     >
       <button
         onClick={onOpen}
-        className="era-card group block w-full rounded-2xl border p-5 text-left transition"
+        className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
       >
-        <div className="flex items-baseline justify-between gap-3">
-          <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-            {item.dateLabel}
-          </span>
-          <span className="flex shrink-0 items-center gap-2">
-            {seen && (
-              <span className="inline-flex items-center gap-1 text-[10px] font-medium uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-                <Check className="h-3 w-3" aria-hidden />
-                Seen
+        {hero && (
+          <div className={cn('relative w-full overflow-hidden', featured ? 'aspect-[16/9]' : 'aspect-[21/9]')}>
+            <Image
+              src={hero.url}
+              alt=""
+              fill
+              unoptimized={/^https?:\/\//.test(hero.url)}
+              className="object-cover transition duration-300 group-hover:scale-[1.03]"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(to top, color-mix(in srgb, var(--era-surface) 85%, transparent), transparent 50%)',
+              }}
+            />
+          </div>
+        )}
+
+        <div className={featured ? 'p-6' : 'p-5'}>
+          <div className="flex items-baseline justify-between gap-3">
+            <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+              {item.dateLabel}
+            </span>
+            <span className="flex shrink-0 items-center gap-2">
+              {seen && (
+                <span className="inline-flex items-center gap-1 text-[10px] font-medium uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+                  <Check className="h-3 w-3" aria-hidden />
+                  Seen
+                </span>
+              )}
+              <ArrowUpRight className="h-4 w-4 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
+            </span>
+          </div>
+
+          <h3
+            className={cn(
+              'mt-2 font-[family-name:var(--era-font)] font-semibold leading-snug',
+              featured ? 'text-2xl' : 'text-xl',
+            )}
+          >
+            {item.title}
+          </h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+            {item.summary}
+          </p>
+
+          <div className="mt-3 flex flex-wrap items-center gap-1.5">
+            {item.tags.map((t) => (
+              <span
+                key={t}
+                className="rounded-full px-2 py-0.5 text-[11px] font-medium"
+                style={{ backgroundColor: `hsl(${TAG_META[t].hue} / 0.16)`, color: `hsl(${TAG_META[t].hue})` }}
+              >
+                {TAG_META[t].label}
+              </span>
+            ))}
+            {hasClue && (
+              <span className="clue-glint ml-auto inline-flex items-center gap-1 text-[11px] font-medium text-[color:var(--era-accent)]">
+                <Sparkles className="h-3 w-3" />
+                Hidden clue
               </span>
             )}
-            <ArrowUpRight className="h-4 w-4 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
-          </span>
-        </div>
-
-        <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
-          {item.title}
-        </h3>
-        <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
-          {item.summary}
-        </p>
-
-        <div className="mt-3 flex flex-wrap items-center gap-1.5">
-          {item.tags.map((t) => (
-            <span
-              key={t}
-              className="rounded-full px-2 py-0.5 text-[11px] font-medium"
-              style={{ backgroundColor: `hsl(${TAG_META[t].hue} / 0.16)`, color: `hsl(${TAG_META[t].hue})` }}
-            >
-              {TAG_META[t].label}
-            </span>
-          ))}
-          {hasClue && (
-            <span className="clue-glint ml-auto inline-flex items-center gap-1 text-[11px] font-medium text-[color:var(--era-accent)]">
-              <Sparkles className="h-3 w-3" />
-              Hidden clue
-            </span>
-          )}
+          </div>
         </div>
       </button>
     </li>

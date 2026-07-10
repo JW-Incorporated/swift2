@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo } from 'react';
-import { Clapperboard, ExternalLink } from 'lucide-react';
+import { Clapperboard } from 'lucide-react';
 import { videosForEra } from '@/lib/longlive/videos';
 import type { EraId, VideoNote, VideoNoteKind } from '@/lib/longlive/types';
 import { MomentVideo } from './MomentVideo';
@@ -94,23 +94,10 @@ function VideoCard({ video }: { video: VideoNote }) {
         />
       )}
 
-      <p className="mt-auto pt-3 text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
-        {video.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
-        {video.sources.map((s, i) => (
-          <span key={`${s.url}-${i}`}>
-            {i > 0 && ', '}
-            <a
-              href={s.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-0.5 underline underline-offset-2 hover:text-[color:var(--era-ink)]"
-            >
-              {s.name}
-              <ExternalLink className="h-3 w-3" aria-hidden />
-            </a>
-          </span>
-        ))}
-      </p>
+      {/* Sources intentionally omitted here — this card renders directly in
+          the un-gated main feed (no click-through detail page for videos
+          yet), and citations belong on an expanded page, not the main
+          scroll, per direct product feedback. */}
     </article>
   );
 }

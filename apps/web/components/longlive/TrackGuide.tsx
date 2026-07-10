@@ -125,7 +125,7 @@ function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
         </div>
         <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{track.note}</p>
         {track.sources && track.sources.length > 0 && (
-          <p className="mt-2 text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+          <p className="mt-2 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
             {track.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
             {track.sources.map((s, i) => (
               <span key={`${s.url}-${i}`}>
