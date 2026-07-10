@@ -4,6 +4,21 @@
 interruption, or a different founder's agent). This doc is the source of
 truth for status — check here before re-deriving anything from git history.
 
+## Hand-off packages (GitHub issues)
+
+Opened 2026-07-10 so Wyatt's session (which has budget when Joey's/Claude's
+runs low) can pick up a self-contained package without needing this
+conversation's context or v0 access. Each links back to this doc.
+
+- [#369](https://github.com/JW-Incorporated/swift2/issues/369) — WS1 final
+  Codex confirmation review
+- [#370](https://github.com/JW-Incorporated/swift2/issues/370) — Codex
+  review backlog for PR #332 (4 threads)
+- [#371](https://github.com/JW-Incorporated/swift2/issues/371) — Mobile
+  spot-check for PR #332's 4 threads
+- [#372](https://github.com/JW-Incorporated/swift2/issues/372) — The Runway
+  thread integration (Claude is starting this now; packaged as a fallback)
+
 ## ⚠️ PENDING CODEX REVIEW — do not merge until this section is empty
 
 Codex hit its usage limit mid-session on 2026-07-10 (retry suggested ~10:39
