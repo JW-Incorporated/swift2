@@ -302,6 +302,14 @@ export interface TheoryNote {
   outcome: TheoryOutcome;
   /** Citations backing the record. Reuses the EggSource shape; never empty. */
   sources: EggSource[];
+  /**
+   * Cross-links to other theories, pre-resolved at generation time to
+   * `${EraId}:${slug}` pairs (unlike ContentItem.relatedIds' typed
+   * namespace convention, these always point to another theory). The UI
+   * additionally re-resolves each against the live per-era theory lists and
+   * drops anything unresolvable, so a stale link can never render.
+   */
+  relatedSlugs?: string[];
 }
 
 /** What kind of visual-media work a VideoNote records. Mirrors VIDEO_KINDS in
@@ -336,6 +344,8 @@ export interface VideoNote {
   summary: string | null;
   /** Documented Easter eggs, one short line each. */
   easterEggs: string[];
+  /** Documented visual/narrative symbolism — a sourced sentence, or null. */
+  symbolism: string | null;
   /** YouTube ID of the official upload (extracted from the seed's verified
    * officialUrl/oEmbed media), or null when there is no official embed. */
   youtubeId: string | null;

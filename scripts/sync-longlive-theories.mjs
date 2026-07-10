@@ -32,10 +32,10 @@ import {
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'theories');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'theories.generated.ts');
 
-// Same columns the seed runner (scripts/seed-theories.mjs) writes (minus
-// related_slugs, which the UI doesn't render yet). Explicit `.limit()` + cap
-// check so a partial page can never silently ship a truncated guide.
-const THEORY_COLS = 'era_slug,slug,kind,title,claim,evidence,confidence,outcome,sources';
+// Same columns the seed runner (scripts/seed-theories.mjs) writes. Explicit
+// `.limit()` + cap check so a partial page can never silently ship a
+// truncated guide.
+const THEORY_COLS = 'era_slug,slug,kind,title,claim,evidence,confidence,outcome,sources,related_slugs';
 const MAX_ROWS = 2000;
 
 // Mirrors THEORY_CONFIDENCE / THEORY_OUTCOMES in packages/shared/src/
@@ -69,7 +69,29 @@ const trimmed = (v) => (typeof v === 'string' ? v.trim() : '');
  * badge-labeled speculation, so a record missing its slug, title, claim,
  * a valid confidence, a valid outcome, or a real source is dropped.
  */
-export function normalizeTheory({ slug, kind, title, claim, evidence, confidence, outcome, sources }) {
+/**
+ * Resolves raw `relatedSlugs` entries (seed shape: `<seed-era-slug>:<theory-
+ * slug>`, e.g. `debut:lucky-number-13`) to `${EraId}:${slug}` pairs the UI
+ * can look up directly, mapping the seed's era slug through SLUG_TO_ERA_ID
+ * the same way era content does. Malformed entries are dropped rather than
+ * guessed at; cross-existence (does the target theory actually exist) is
+ * checked live by the UI, not here, since a related theory in another file
+ * may not have been processed yet at this point in the build.
+ */
+export function relatedSlugsFrom(relatedSlugs) {
+  if (!Array.isArray(relatedSlugs)) return [];
+  const out = [];
+  for (const r of relatedSlugs) {
+    if (typeof r !== 'string') continue;
+    const m = r.match(/^([a-z0-9-]+):(.+)$/);
+    if (!m) continue;
+    const eraId = SLUG_TO_ERA_ID[m[1]] ?? m[1];
+    out.push(`${eraId}:${m[2]}`);
+  }
+  return out;
+}
+
+export function normalizeTheory({ slug, kind, title, claim, evidence, confidence, outcome, sources, relatedSlugs }) {
   const cleanSlug = trimmed(slug);
   const cleanTitle = trimmed(title);
   const cleanClaim = trimmed(claim);
@@ -77,6 +99,7 @@ export function normalizeTheory({ slug, kind, title, claim, evidence, confidence
   if (!CONFIDENCE_VALUES.has(confidence) || !OUTCOME_VALUES.has(outcome)) return null;
   const resolvedSources = sourcesFrom(sources, null);
   if (resolvedSources.length === 0) return null;
+  const resolvedRelated = relatedSlugsFrom(relatedSlugs);
   return {
     slug: cleanSlug,
     kind: kind === 'easter_egg' ? 'easter_egg' : 'theory',
@@ -86,6 +109,7 @@ export function normalizeTheory({ slug, kind, title, claim, evidence, confidence
     confidence,
     outcome,
     sources: resolvedSources,
+    ...(resolvedRelated.length ? { relatedSlugs: resolvedRelated } : {}),
   };
 }
 
@@ -136,6 +160,9 @@ export function renderModule(byEra) {
       lines.push(`      outcome: ${esc(t.outcome)},`);
       const srcs = t.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
       lines.push(`      sources: [${srcs}],`);
+      if (t.relatedSlugs && t.relatedSlugs.length) {
+        lines.push(`      relatedSlugs: [${t.relatedSlugs.map(esc).join(', ')}],`);
+      }
       lines.push('    },');
     }
     lines.push('  ],');
@@ -191,6 +218,7 @@ async function fetchFromSupabase() {
     confidence: row.confidence,
     outcome: row.outcome,
     sources: row.sources,
+    relatedSlugs: row.related_slugs,
   }));
   console.log(`sync-longlive-theories: loaded ${entries.length} theories from Supabase (live).`);
   return buildTheoryGuide(entries);
