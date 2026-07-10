@@ -46,6 +46,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 25,
       category: 'music',
       title: "Dear John's slow-burn reckoning",
       snippet: 'A slow-burning ballad about a 19-year-old narrator naming the damage after the fact.',
@@ -72,6 +73,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 19,
       category: 'music',
       title: 'Mean, written straight at her critics',
       snippet: "Not a relationship song — this one's aimed straight at her critics.",
@@ -98,6 +100,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 25,
       category: 'music',
       title: 'Innocent, a song written to Kanye West, not about him',
       snippet:
@@ -126,6 +129,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 25,
       category: 'music',
       title: "Long Live, a love song to her band",
       snippet: '"The first love song that I\'ve written to my team" — a thank-you to the band and crew who built her career brick by brick.',
@@ -153,6 +157,7 @@ export default {
     {
       year: 2011,
       month: 11,
+      day: 9,
       category: 'fashion',
       title: 'A dove-grey J. Mendel gown for her second Entertainer of the Year win',
       snippet:
@@ -184,6 +189,7 @@ export default {
     {
       year: 2011,
       month: 2,
+      day: 9,
       category: 'fashion',
       title: 'A gold Roberto Cavalli fringe dress for Sparks Fly, Mine, and The Story of Us',
       snippet:
@@ -208,6 +214,7 @@ export default {
     {
       year: 2011,
       month: 2,
+      day: 9,
       category: 'tour',
       title: 'The Speak Now World Tour opens in Singapore',
       snippet:
@@ -239,6 +246,7 @@ export default {
     {
       year: 2012,
       month: 2,
+      day: 12,
       category: 'business',
       title: 'Mean wins two Grammys the same night',
       snippet:
@@ -265,6 +273,7 @@ export default {
     {
       year: 2010,
       month: 11,
+      day: 10,
       category: 'fashion',
       title: 'A red Monique Lhuillier gown at the 2010 CMA Awards',
       snippet:
@@ -292,6 +301,7 @@ export default {
     {
       year: 2010,
       month: 11,
+      day: 21,
       category: 'fashion',
       title: 'Blunt bangs debut at the 2010 American Music Awards',
       snippet:
@@ -316,6 +326,7 @@ export default {
     {
       year: 2011,
       month: 1,
+      day: 5,
       category: 'fashion',
       title: "A curly updo and J. Mendel pink chiffon at the People's Choice Awards",
       snippet:
@@ -340,6 +351,7 @@ export default {
     {
       year: 2011,
       month: 2,
+      day: 9,
       category: 'fashion',
       title: "Susan Hilferty's purple chiffon halter dress becomes the tour's signature",
       snippet:
@@ -365,6 +377,7 @@ export default {
     {
       year: 2011,
       month: 2,
+      day: 9,
       category: 'fashion',
       title: "A white lace Alice + Olivia dress for 'Mean' on the Speak Now Tour",
       snippet:
@@ -389,6 +402,7 @@ export default {
     {
       year: 2011,
       month: 2,
+      day: 9,
       category: 'fashion',
       title: "A red sequin Theia slip dress for 'Better Than Revenge'",
       snippet:
@@ -414,6 +428,7 @@ export default {
     {
       year: 2011,
       month: 2,
+      day: 9,
       category: 'fashion',
       title: "A red chiffon Susan Hilferty dress closes out 'Haunted'",
       snippet:
@@ -439,6 +454,7 @@ export default {
     {
       year: 2011,
       month: 5,
+      day: 22,
       category: 'fashion',
       title: 'A pink Elie Saab sequin gown at the Billboard Music Awards',
       snippet:
@@ -466,6 +482,7 @@ export default {
     {
       year: 2011,
       month: 11,
+      day: 20,
       category: 'fashion',
       title: 'A gold Reem Acra gown and side ponytail at the American Music Awards',
       snippet:
@@ -495,6 +512,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 25,
       category: 'fashion',
       title: 'A purple ombre Reem Acra gown on the Speak Now album cover',
       snippet:
@@ -547,6 +565,7 @@ export default {
     {
       year: 2011,
       month: 2,
+      day: 27,
       category: 'fashion',
       title: 'A gold Zuhair Murad minidress at the Vanity Fair Oscar party',
       snippet:
@@ -570,6 +589,7 @@ export default {
     {
       year: 2011,
       month: 8,
+      day: 7,
       category: 'fashion',
       title: 'A Marilyn Monroe-inspired white halter dress at the Teen Choice Awards',
       snippet:
@@ -594,6 +614,7 @@ export default {
     {
       year: 2012,
       month: 1,
+      day: 24,
       category: 'fashion',
       title: 'Her first Vogue cover, shot by Mario Testino',
       snippet:
@@ -620,6 +641,7 @@ export default {
     {
       year: 2012,
       month: 2,
+      day: 12,
       category: 'fashion',
       title: 'A gold Zuhair Murad Couture gown on the 2012 Grammys red carpet',
       snippet:
@@ -650,6 +672,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 27,
       category: 'sighting',
       title: 'A surprise JetBlue concert for travelers at JFK',
       snippet:
@@ -680,6 +703,7 @@ export default {
     {
       year: 2010,
       month: 11,
+      day: 25,
       category: 'sighting',
       title: 'A Thanksgiving-morning coffee run with Jake Gyllenhaal',
       snippet:
@@ -710,6 +734,7 @@ export default {
     {
       year: 2011,
       month: 4,
+      day: 4,
       category: 'sighting',
       title: 'An Anthropologie run the morning after her first ACM Entertainer of the Year win',
       snippet:
@@ -741,6 +766,7 @@ export default {
     {
       year: 2012,
       month: 3,
+      day: 30,
       category: 'sighting',
       title: 'Dinner with mom Andrea (and Dianna Agron, just out of frame) at Il Pastaio',
       snippet:
@@ -793,6 +819,7 @@ export default {
     {
       year: 2012,
       month: 8,
+      day: 19,
       category: 'sighting',
       title: "A quiet visit to Mary Kennedy's gravesite",
       snippet:
@@ -826,6 +853,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 25,
       category: 'music',
       title: "Enchanted was almost the album's title, and hid a coded name in the liner notes",
       snippet:
@@ -850,6 +878,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 12,
       category: 'music',
       title: 'Back to December, her first apology song',
       snippet:
@@ -871,6 +900,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 25,
       category: 'music',
       title: 'The Story of Us, written after a crowded-room encounter',
       snippet:
@@ -893,6 +923,7 @@ export default {
     {
       year: 2010,
       month: 10,
+      day: 25,
       category: 'business',
       title: 'Speak Now: the only album Taylor Swift has ever written entirely alone',
       snippet:
@@ -915,6 +946,7 @@ export default {
     {
       year: 2011,
       month: 11,
+      day: 30,
       category: 'business',
       title: 'Speak Now earns a Best Country Album Grammy nomination',
       snippet:
@@ -945,6 +977,7 @@ export default {
     {
       year: 2011,
       month: 1,
+      day: 4,
       category: 'relationship',
       title: 'A brief, rumored relationship with Jake Gyllenhaal ends',
       snippet: 'Roughly three months after a backstage sighting at Saturday Night Live sparked speculation, reports of a split surfaced in January.',
@@ -1036,6 +1069,7 @@ export default {
     {
       year: 2012,
       month: 3,
+      day: 18,
       category: 'business',
       title: 'The Speak Now World Tour closes out at $123.7 million',
       snippet:
@@ -1065,6 +1099,7 @@ export default {
       slug: 'mine-rush-release',
       year: 2010,
       month: 8,
+      day: 4,
       category: 'release',
       title: 'Mine leaks, so the label ships it 12 days early',
       snippet:
@@ -1123,6 +1158,7 @@ export default {
       slug: 'speak-now-album-release',
       year: 2010,
       month: 10,
+      day: 25,
       category: 'release',
       title: 'Speak Now arrives, no co-writers allowed',
       snippet:
@@ -1156,6 +1192,7 @@ export default {
       slug: 'back-to-december-single-release',
       year: 2010,
       month: 11,
+      day: 15,
       category: 'release',
       title: 'Back to December goes to radio as single two',
       snippet:
@@ -1188,6 +1225,7 @@ export default {
       slug: 'mean-single-release',
       year: 2011,
       month: 3,
+      day: 7,
       category: 'release',
       title: 'Mean, the banjo single, goes to country radio',
       snippet:
@@ -1237,6 +1275,7 @@ export default {
       slug: 'sparks-fly-single-release',
       year: 2011,
       month: 7,
+      day: 18,
       category: 'release',
       title: 'Sparks Fly: the fans finally get their single',
       snippet:
@@ -1278,6 +1317,7 @@ export default {
       slug: 'speak-now-world-tour-live-album',
       year: 2011,
       month: 11,
+      day: 21,
       category: 'release',
       title: 'The first live album: Speak Now World Tour Live',
       snippet:
@@ -1312,6 +1352,7 @@ export default {
       slug: 'safe-and-sound-surprise-drop',
       year: 2011,
       month: 12,
+      day: 26,
       category: 'release',
       title: 'Safe & Sound appears the day after Christmas',
       snippet:
@@ -1346,6 +1387,7 @@ export default {
       slug: 'speak-now-title-track-origin',
       year: 2010,
       month: 10,
+      day: 5,
       category: 'music',
       title: 'Speak Now, the title track: a wedding she never crashed',
       snippet:
@@ -1389,6 +1431,7 @@ export default {
       slug: 'speak-now-na-leg-omaha',
       year: 2011,
       month: 5,
+      day: 27,
       category: 'tour',
       title: 'The North American leg opens in Omaha',
       snippet:
@@ -1425,6 +1468,7 @@ export default {
       slug: 'staples-center-guest-week',
       year: 2011,
       month: 8,
+      day: 23,
       category: 'tour',
       title: 'Guest-a-night week at Staples Center',
       snippet:
@@ -1460,6 +1504,7 @@ export default {
       slug: 'acm-entertainer-2011',
       year: 2011,
       month: 4,
+      day: 3,
       category: 'business',
       title: 'Her first Entertainer of the Year at the ACMs',
       snippet:
@@ -1504,10 +1549,11 @@ export default {
       slug: 'billboard-woman-of-year-2011',
       year: 2011,
       month: 12,
+      day: 2,
       category: 'business',
       title: "Billboard's youngest-ever Woman of the Year",
       snippet:
-        'Dec. 2, 2011: Billboard names her Woman of the Year at 21 — the youngest recipient in the award\'s history, on the strength of a year in which she out-sold every albums artist in any genre.',
+        'Dec. 2, 2011: Billboard honors her as Woman of the Year at 21 — the youngest recipient in the award\'s history, on the strength of a year in which she out-sold every albums artist in any genre.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-named-billboard-woman-of-the-year-2-1164046/',
       thumbnailUrl: null,
       moment: {
@@ -1548,6 +1594,7 @@ export default {
       slug: 'gyllenhaal-rumors-fall-2010',
       year: 2010,
       month: 11,
+      day: 25,
       category: 'relationship',
       title: 'The Jake Gyllenhaal rumors go public',
       snippet:
@@ -1592,6 +1639,7 @@ export default {
       slug: 'conor-kennedy-first-linked',
       year: 2012,
       month: 7,
+      day: 25,
       category: 'relationship',
       title: 'First linked to Conor Kennedy in Hyannis Port',
       snippet:
@@ -1636,6 +1684,7 @@ export default {
       slug: 'zac-efron-ellen-duet',
       year: 2012,
       month: 2,
+      day: 21,
       category: 'sighting',
       title: 'Teaching Zac Efron guitar on Ellen',
       snippet:

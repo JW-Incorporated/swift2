@@ -21,6 +21,7 @@ export default {
     {
       year: 2024,
       month: 2,
+      day: 4,
       category: 'release',
       title: 'TTPD announced live at the Grammys before her record fourth AOTY win',
       snippet:
@@ -52,6 +53,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'business',
       title: "Tortured Poets breaks Spotify's single-day record",
       snippet:
@@ -87,6 +89,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 24,
       category: 'business',
       title: 'A billion streams in one week',
       snippet:
@@ -118,6 +121,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'Fortnight opens the album, with Post Malone on the hook',
       snippet: "A pulsing '80s-inspired synth ballad that opens the album, with Post Malone on the hook.",
@@ -145,6 +149,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'release',
       title: 'A 2am surprise: TTPD was a secret double album all along',
       snippet:
@@ -180,6 +185,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'Clara Bow, and the industry habit of replacing women with women',
       snippet: '"You look like Clara Bow in this light... Stevie Nicks in \'75" — then, in the last verse, the label pitches the same line about her.',
@@ -204,6 +210,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'The Bolter, and the 1930s socialite fans think inspired it',
       snippet: 'A woman who leaves relationships the moment they turn — fans trace the title to a real 1900s aristocrat divorced five times over.',
@@ -234,6 +241,7 @@ export default {
     {
       year: 2024,
       month: 5,
+      day: 9,
       category: 'tour',
       title: "TTPD joins the Eras Tour as 'Female Rage The Musical'",
       snippet:
@@ -266,6 +274,7 @@ export default {
     {
       year: 2024,
       month: 5,
+      day: 9,
       category: 'tour',
       title: 'The European leg opens in Paris, with two live debuts',
       snippet:
@@ -294,6 +303,7 @@ export default {
     {
       year: 2024,
       month: 5,
+      day: 9,
       category: 'fashion',
       title: 'A new crystal bodysuit, and a dress covered in lyrics',
       snippet: 'A brand-new crystal bodysuit for the opening numbers, then a gown printed with her own lyrics for the new album\'s songs.',
@@ -324,6 +334,7 @@ export default {
     {
       year: 2024,
       month: 8,
+      day: 20,
       category: 'tour',
       title: 'Eight nights at Wembley — more than any solo artist ever',
       snippet:
@@ -359,6 +370,7 @@ export default {
     {
       year: 2024,
       month: 10,
+      day: 7,
       category: 'sighting',
       title: 'Back at Arrowhead for a Monday night win over New Orleans',
       snippet: 'A rare in-season appearance between international tour legs, cheering on a Chiefs win over the Saints.',
@@ -386,6 +398,7 @@ export default {
     {
       year: 2024,
       month: 11,
+      day: 10,
       category: 'sighting',
       title: 'Two more Chiefs games in three weeks: Denver, then Las Vegas',
       snippet: 'Home for the Broncos game on Nov. 10, then back again to watch Kansas City beat the Raiders on Nov. 29.',
@@ -420,6 +433,7 @@ export default {
     {
       year: 2024,
       month: 12,
+      day: 8,
       category: 'tour',
       title: 'The Eras Tour takes its final bow in Vancouver',
       snippet: 'BC Place, 149 shows and 21 months after Glendale — more than 50,000 fans for the last night of the tour.',
@@ -450,6 +464,7 @@ export default {
     {
       year: 2024,
       month: 12,
+      day: 9,
       category: 'business',
       title: 'The first tour ever to gross $2 billion',
       snippet: 'A final tally of $2,077,618,725 across 10.17 million tickets — roughly double the previous all-time tour record.',
@@ -484,6 +499,7 @@ export default {
     {
       year: 2024,
       month: 11,
+      day: 8,
       category: 'business',
       title: 'A record 7th Album of the Year nomination, for TTPD',
       snippet: 'The most Album of the Year nominations ever for a female artist, announced for the 2025 Grammys.',
@@ -514,6 +530,7 @@ export default {
     {
       year: 2025,
       month: 2,
+      day: 9,
       category: 'sighting',
       title: 'Booed at the Superdome, cheering for a three-peat that fell short',
       snippet: 'Back at her second straight Super Bowl to support Travis — this time drawing boos from a pro-Eagles crowd as Kansas City lost, 40–22.',
@@ -544,6 +561,7 @@ export default {
     {
       year: 2025,
       month: 2,
+      day: 9,
       category: 'fashion',
       title: 'Super Bowl LIX: an oversized white blazer, in Chiefs colors',
       snippet: 'A Saint Laurent double-breasted blazer, crystal denim shorts, and white Paris Texas boots — red-and-white, coordinated for game day.',
@@ -570,6 +588,7 @@ export default {
     {
       year: 2025,
       month: 8,
+      day: 26,
       category: 'relationship',
       title: '"Your English teacher and your gym teacher are getting married"',
       snippet: 'Travis proposed in the backyard of his Kansas City home; the two announced their engagement together on Instagram.',
@@ -596,6 +615,7 @@ export default {
     {
       year: 2025,
       month: 8,
+      day: 26,
       category: 'fashion',
       title: 'The ring: an antique-style cut from a goldsmith she\'d had her eye on',
       snippet: "A custom Old Mine cushion-cut diamond by NYC goldsmith Kindred Lubeck — Taylor had shown Travis the designer's work over a year before he proposed.",
@@ -631,6 +651,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'fashion',
       title: "TTPD's grunge, tea-stained aesthetic: the album photography",
       snippet:
@@ -661,6 +682,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'fashion',
       title: "'Fortnight' video costuming: an Elena Velez gothic gown",
       snippet:
@@ -690,6 +712,7 @@ export default {
     {
       year: 2024,
       month: 9,
+      day: 11,
       category: 'fashion',
       title: '2024 VMAs red carpet: a tartan Dior corset and cape',
       snippet:
@@ -718,6 +741,7 @@ export default {
     {
       year: 2025,
       month: 2,
+      day: 2,
       category: 'fashion',
       title: "2025 Grammys red carpet: sequined Vivienne Westwood, in Chiefs red",
       snippet:
@@ -749,6 +773,7 @@ export default {
     {
       year: 2025,
       month: 8,
+      day: 26,
       category: 'fashion',
       title: 'Engagement photos: a Polo Ralph Lauren dress in the garden',
       snippet:
@@ -782,6 +807,7 @@ export default {
     {
       year: 2024,
       month: 2,
+      day: 4,
       category: 'fashion',
       title: 'A draped Schiaparelli gown the same night TTPD was announced',
       snippet:
@@ -813,6 +839,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'fashion',
       title: 'A sculptural white Toni Matičevski gown opens the "Fortnight" video',
       snippet:
@@ -839,6 +866,7 @@ export default {
     {
       year: 2024,
       month: 8,
+      day: 20,
       category: 'fashion',
       title: 'Popflex and WISKII athleisure for "I Can Do It With a Broken Heart"',
       snippet:
@@ -877,6 +905,7 @@ export default {
     {
       year: 2025,
       month: 1,
+      day: 18,
       category: 'sighting',
       title: 'Back in the family suite for a Chiefs-Texans divisional playoff win',
       snippet:
@@ -904,6 +933,7 @@ export default {
     {
       year: 2025,
       month: 1,
+      day: 26,
       category: 'sighting',
       title: 'A confetti kiss after the Chiefs punch their Super Bowl ticket',
       snippet:
@@ -935,6 +965,7 @@ export default {
     {
       year: 2025,
       month: 6,
+      day: 28,
       category: 'sighting',
       title: 'A pink mini dress for a Saturday-night dinner date',
       snippet:
@@ -960,6 +991,7 @@ export default {
     {
       year: 2025,
       month: 9,
+      day: 14,
       category: 'sighting',
       title: "Unseen at the Eagles rematch, then photographed at Mahomes' birthday",
       snippet:
@@ -1001,6 +1033,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'Down Bad, and the alien-abduction metaphor for being love-bombed',
       snippet:
@@ -1033,6 +1066,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: "So Long, London keeps her 'track five' tradition alive",
       snippet:
@@ -1061,6 +1095,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: "loml flips its own acronym: 'love of my life' becomes 'the loss of my life'",
       snippet:
@@ -1086,6 +1121,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'I Can Fix Him (No Really I Can): a saloon-twang song about the savior complex',
       snippet:
@@ -1115,7 +1151,8 @@ export default {
     },
     {
       year: 2024,
-      month: 4,
+      month: 5,
+      day: 4,
       category: 'music',
       title: 'The Smallest Man Who Ever Lived: the distorted bridge that closed out a historic chart sweep',
       snippet:
@@ -1149,6 +1186,7 @@ export default {
     {
       year: 2024,
       month: 11,
+      day: 8,
       category: 'business',
       title: "Fortnight's Grammy double: nominated for both Record and Song of the Year",
       snippet:
@@ -1193,7 +1231,8 @@ export default {
     {
       slug: 'ttpd-billboard-200-debut',
       year: 2024,
-      month: 4,
+      month: 5,
+      day: 4,
       category: 'business',
       title: '2.61 million in week one — her 14th No. 1, tying Jay-Z',
       snippet:
@@ -1238,7 +1277,8 @@ export default {
     {
       slug: 'fortnight-top-14-sweep',
       year: 2024,
-      month: 4,
+      month: 5,
+      day: 4,
       category: 'business',
       title: 'All 14: TTPD monopolizes the top of the Hot 100',
       snippet:
@@ -1284,6 +1324,7 @@ export default {
       slug: 'thank-you-aimee-capitalization',
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'thanK you aIMee: the capitalization does the talking',
       snippet:
@@ -1329,6 +1370,7 @@ export default {
       slug: 'florida-dateline-escape-hatch',
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'Florida!!! — a Dateline-inspired duet with Florence Welch',
       snippet:
@@ -1374,6 +1416,7 @@ export default {
       slug: 'so-high-school-kelce-references',
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'So High School, annotated by the internet in minutes',
       snippet:
@@ -1419,6 +1462,7 @@ export default {
       slug: 'murrayfield-scotland-records',
       year: 2024,
       month: 6,
+      day: 7,
       category: 'tour',
       title: 'Three nights, three Scottish attendance records at Murrayfield',
       snippet:
@@ -1465,6 +1509,7 @@ export default {
       slug: 'liverpool-100th-show',
       year: 2024,
       month: 6,
+      day: 13,
       category: 'tour',
       title: 'Show 100 at Anfield — and the news the tour will end',
       snippet:
@@ -1511,6 +1556,7 @@ export default {
       slug: 'travis-wembley-stage-cameo',
       year: 2024,
       month: 6,
+      day: 23,
       category: 'relationship',
       title: 'Travis Kelce, Eras Tour cast member for a night',
       snippet:
@@ -1557,6 +1603,7 @@ export default {
       slug: 'vienna-shows-cancelled',
       year: 2024,
       month: 8,
+      day: 7,
       category: 'tour',
       title: 'Vienna, cancelled: a foiled plot, three sold-out shows',
       snippet:
@@ -1603,6 +1650,7 @@ export default {
       slug: 'harris-endorsement-cat-lady',
       year: 2024,
       month: 9,
+      day: 10,
       category: 'business',
       title: 'An endorsement signed "Childless Cat Lady"',
       snippet:
@@ -1650,6 +1698,7 @@ export default {
       slug: 'us-open-2024-final',
       year: 2024,
       month: 9,
+      day: 8,
       category: 'sighting',
       title: "Box seats at Arthur Ashe for the US Open men's final",
       snippet:
@@ -1696,6 +1745,7 @@ export default {
       slug: 'vmas-2024-seven-wins',
       year: 2024,
       month: 9,
+      day: 11,
       category: 'business',
       title: 'Seven more VMAs, and a tie with Beyoncé at 30',
       snippet:
@@ -1742,6 +1792,7 @@ export default {
       slug: 'eras-tour-book-target',
       year: 2024,
       month: 11,
+      day: 30,
       category: 'business',
       title: 'The Eras Tour Book sells 814,000 copies in two days',
       snippet:
@@ -1797,6 +1848,7 @@ export default {
       slug: 'spotify-wrapped-2024',
       year: 2024,
       month: 12,
+      day: 4,
       category: 'business',
       title: "Spotify's top global artist, again — 26.6 billion streams",
       snippet:
@@ -1842,6 +1894,7 @@ export default {
       slug: 'masters-buyback-shamrock',
       year: 2025,
       month: 5,
+      day: 30,
       category: 'business',
       title: '"All of the music I\'ve ever made... now belongs... to me"',
       snippet:

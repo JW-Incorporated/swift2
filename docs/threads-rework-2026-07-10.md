@@ -4,6 +4,87 @@
 interruption, or a different founder's agent). This doc is the source of
 truth for status — check here before re-deriving anything from git history.
 
+## Hand-off packages (GitHub issues)
+
+Opened 2026-07-10 so Wyatt's session (which has budget when Joey's/Claude's
+runs low) can pick up a self-contained package without needing this
+conversation's context or v0 access. Each links back to this doc.
+
+- [#369](https://github.com/JW-Incorporated/swift2/issues/369) — WS1 final
+  Codex confirmation review — **closed, shipped without the 6th round per
+  Joey's explicit call**, PR #430 open
+- [#370](https://github.com/JW-Incorporated/swift2/issues/370) — Codex
+  review backlog for PR #332 (4 threads)
+- [#371](https://github.com/JW-Incorporated/swift2/issues/371) — Mobile
+  spot-check for PR #332's 4 threads
+- [#372](https://github.com/JW-Incorporated/swift2/issues/372) — The Runway
+  thread integration — **done, PR #425 open**, issue left open pending its
+  Codex review (folded into the same review backlog as #370)
+
+## ⚠️ PENDING CODEX REVIEW — do not merge until this section is empty
+
+Codex hit its usage limit twice on 2026-07-10: first ~10:39 AM (cleared,
+resumed), then again after a burst of ~10 review jobs, this time until **3:41
+PM**. Joey approved continuing to build with careful self-review in the
+meantime rather than blocking, on the explicit condition that this gets
+tracked so nothing merges unreviewed. **Whoever picks this up: run
+`/codex:adversarial-review` (or `/codex:review`) on each branch below before
+merging, fix any findings, then remove it from this list.**
+
+All three branches below went through **multiple real review rounds** before
+the second quota wall hit — this was not a single self-review, it was several
+Codex-verified fix cycles. Read each branch's commit log for the exact
+findings/fixes; summarized here so a fresh session doesn't have to re-derive
+it from scratch.
+
+- [ ] `content/thread-taylors-version` (worktree `../Swift2-thread-tv`) — PR
+  #332 (draft): https://github.com/JW-Incorporated/swift2/pull/332. Covers
+  Taylor's Version, The Decode, Love Story, AND The Proposal. **4 Codex review
+  rounds completed, fixes applied after each**: (1) self-caught issues before
+  first review (vaultTracks bug, wrong Spotify ID, decode.ts era-id mismatch,
+  Love Story style conflict); (2) fabricated 1989 TV tour-location claim
+  (Japan/New Zealand — the tour never had a NZ leg), a wedding-beat image
+  wrongly marked `kind: 'primary'` when it's a stand-in, an accidentally-
+  committed dev-mode `next-env.d.ts`; (3) 3 more fabricated RERECORDS claims
+  (Braun/Cadillac ad, wrong Fearless TV announcement date, two wrong chart-
+  record claims); (4) Calvin Harris note contradicting the dataset's own Joe
+  Alwyn entry, a verbatim-quote policy violation in BuybackBeat.tsx. **A 5th
+  confirmation pass was launched and cut off mid-run by the 3:41 PM quota
+  wall — status unknown, re-run this one first.** Mobile viewport still not
+  spot-checked (browser-resize tool limitation this session).
+- [ ] `content/thread-runway` (worktree `../Swift2-thread-runway`) — PR
+  #425 (draft): https://github.com/JW-Incorporated/swift2/pull/425. All 12
+  `RUNWAY_LOOKS` entries carry real credited photos. **1 Codex review round
+  completed, fixes applied**: a Debut-caption date error (said "days before"
+  the album released when the CMA red carpet was actually 13 days after —
+  fixed to "two weeks after"), and missing test coverage for the new photo
+  invariants (now added: 30 total, 2-3/era, real URLs, credits/captions,
+  primary kind). **Not yet re-confirmed** — quota ran out before a second
+  pass could launch. Mobile not spot-checked. Built off `main`, not stacked
+  on `content/thread-taylors-version` — expect a small merge conflict in
+  `ThreadsMode.tsx` when both land.
+- [x] ~~`content/day-level-dates`~~ **SHIPPED WITHOUT THE 6TH ROUND — explicit
+  Joey decision, 2026-07-10.** PR #430 open:
+  https://github.com/JW-Incorporated/swift2/pull/430. 5 Codex confirmation
+  rounds completed, real fixes applied every round — this branch surfaced a
+  recurring bug class (an item's own sourced text states an explicit
+  chart-cover date, e.g. "the Hot 100 dated Oct. 18, 2025," but the item's
+  year/month/day fields used a different date — usually an earlier
+  report/announcement date instead of the actual chart date). Found and
+  fixed **9 total instances** of this pattern across lover.mjs,
+  the-life-of-a-showgirl.mjs (+ its content.ts curated duplicate),
+  folklore.mjs, 1989.mjs, and tortured-poets.mjs (3 instances). A one-off
+  scanner script was written mid-session to catch this pattern corpus-wide
+  (not committed — see the commit messages for its logic if useful to
+  recreate). A 6th confirmation pass ("do a truly exhaustive final sweep,
+  this needs to be the last one") was about to launch when the 3:41 PM quota
+  wall hit; **Joey opted to ship without it rather than wait**. Given the
+  recurrence rate, there's a real (not zero) chance 1-2 more instances of
+  this exact bug class remain undiscovered — noted explicitly in the PR
+  description as a known residual risk, not hidden. A cheap follow-up: rerun
+  the chart-date scanner pattern (or a real Codex pass) once quota allows,
+  even post-merge.
+
 ## Why this exists
 
 Joey's brief (2026-07-10): the Threads section (`/` → Threads tab,
@@ -41,8 +122,8 @@ Joey 2026-07-10. Implementation is WS2 below — foundational, not delegated.
 
 | WS | What | Branch/worktree | Owner | Status |
 |----|------|------------------|-------|--------|
-| **WS1** | Day-level date backfill across all 12 era seed files | `content/day-level-dates` (worktree at `../Swift2-datebackfill`) | Codex CLI (delegated via `codex:codex-rescue`, running in background as of 2026-07-10) | 🟡 in progress — Codex is finishing the 8 partial files + starting fearless/lover/midnights/speak-now, committing per-file. Check `git log` in that worktree to see how far it got if resuming. |
-| **WS2** | Threads content architecture: tag-based derivation replacing hand-authored `lenses.ts` arrays | `feature/threads-content-architecture` (worktree at `../Swift2-threads-rework`, branched clean from `main`) | Claude (foundational — not delegated) | 🟡 core mechanism implemented, tests written, verifying now |
+| **WS1** | Day-level date backfill across all 12 era seed files | `content/day-level-dates` (worktree at `../Swift2-datebackfill`) | Codex CLI (delegated), Claude committed + fixed fact-check findings | 🟡 10/12 files have real partial day-coverage (20-95% depending on how much is actually sourceable), committed in 11 small per-file/fix commits on `content/day-level-dates`, not pushed yet. `midnights.mjs` and `speak-now.mjs` are still fully untouched (0 items). A Codex fact-check pass (`/codex:adversarial-review`) sample-checked the added dates and found 4 real date/event-type mismatches (day was real but anchored to the wrong event — e.g. release date used for a chart-report date) — all 4 fixed. **That check was a sample, not exhaustive** — per its own next-steps, a fuller re-audit of chart/report/certification-dated items for the same release-vs-report drift is still open. |
+| **WS2** | Threads content architecture: tag-based derivation replacing hand-authored `lenses.ts` arrays | `feature/threads-content-architecture` (worktree at `../Swift2-threads-rework`) | Claude (foundational — not delegated) | ✅ PR #249 open: https://github.com/JW-Incorporated/swift2/pull/249 — reviewed (adversarial + confirming pass, both clean), not yet merged |
 
 **WS2 implementation notes:** added `ContentItem.threadIds?: LensId[]`
 (`types.ts`). Resolved in `build()` (`content.ts`) via
@@ -88,6 +169,76 @@ ThreadsTimeline.tsx`) make sense for this thread, given most threads don't
 scroll far enough today to make it functional? Each thread decides
 independently — no rule that it must be present.
 
+## Phase 3 (2026-07-10, started): integrate 5 of 6 v0 designs into the live site
+
+Joey reviewed the six v0 chats himself and iterated directly with v0 (see
+"iterating with v0 directly" below). Verdict: 5 of 6 are ready to build in —
+**everything except The Clue Web**, which stays as-is for now.
+
+**Hard safety rule, per an actual prior incident
+([[v0-shared-branch-collision]] in Claude's memory — 2026-07-08, v0 pushed
+unannounced commits to a branch Claude was mid-review on): v0 is NEVER given
+push/publish/GitHub-sync access to this repo.** All integration work reads
+v0's output via the read-only Platform API (`getChat`) only. Every actual
+commit, branch, and push happens through normal git in this repo, done by
+Claude — never by clicking Publish in v0 or connecting it to GitHub. If a
+future session is tempted to "just let v0 open the PR," don't — re-read this
+section first.
+
+**Iterating with v0 directly:** Joey can keep replying in any of the 6 chat
+URLs to refine a design. Whoever integrates a thread should re-fetch the
+chat via `getChat` right before starting that thread's work (not rely on
+what an earlier session already read) in case it changed.
+
+### Execution model
+
+- **Claude**: the actual code integration — porting each v0 component into
+  `ThreadsMode.tsx` (or new dedicated files), wiring to real data, tests.
+  Kept on Claude specifically because it requires deep context on this
+  codebase already built up this session; re-deriving that in a fresh
+  subagent per thread would be wasteful.
+- **Codex** (`codex:adversarial-review` / `codex:review`): review pass on
+  every thread's integration before it's called done, same bar as WS1/WS2.
+- **Gemini CLI** (`gemini -p "..."`, direct — MCP registration for it is
+  broken, see the gotcha above): a second-opinion pass, used for whichever
+  parts benefit most from independent verification (fact-checking sourced
+  content is the best fit found so far).
+- **Claude subagents with WebSearch**: parallel real-content research (photo
+  sourcing with credits, narrative depth, date verification) — these don't
+  need this session's codebase context, just the sourcing/no-fabrication
+  rules, so they run well in the background while integration proceeds.
+
+### Sequencing
+
+Integration (wiring into the shared `ThreadsMode.tsx`, testing, PR) happens
+**one thread at a time** — parallel edits to a shared file across agents is
+exactly the kind of collision this whole initiative exists to avoid.
+Content-research prep (photos, narrative) for later threads can and does run
+in parallel with an earlier thread's integration, since research doesn't
+touch code.
+
+Planned order (easiest data mapping → most new content needed), status
+updated as each lands:
+
+| Order | Thread | Why this position | Status |
+|---|---|---|---|
+| 1 | **Taylor's Version** | Clearest data mapping (`RERECORDS` already fits); mostly needs deeper narrative text, not new photos | ✅ PR #332: https://github.com/JW-Incorporated/swift2/pull/332 |
+| 2 | **The Decode** | Mostly a browsing/filtering UX enhancement on an already-rich dataset (42 `CLUE_PAIRS` — corrected count, not the 117 an earlier session note guessed) | ✅ PR #332 (same as row 1) |
+| 3 | **Love Story** | Needs a new `SINGLE_PERIODS` dataset alongside `RELATIONSHIPS` (see data-shape note below); moderate | ✅ PR #332 (same as rows 1-2) |
+| 4 | **The Proposal** | Needs real sourced photos per beat — heavier research lift | ✅ PR #332 (same branch as rows 1-3) |
+| 5 | **The Runway** | Needs the most new content: multiple real sourced photos per era (not the current 1), plus narrative on how/why style changed each era | ✅ PR #425: https://github.com/JW-Incorporated/swift2/pull/425 (own branch `content/thread-runway`, off `main` — not stacked on PR #332, expect a small merge conflict in `ThreadsMode.tsx` when both land) |
+
+**Data-shape note on Love Story:** `contentForThread('love-story')` (WS2)
+returns individual dated *moments* (~40 of them), not relationship *spans*
+— there's no field linking a moment to which relationship it belongs to.
+Aggregating moments into spans isn't a good fit for the tag-derivation
+mechanism; relationship spans (name/start/end/songs/note) stay a small,
+hand-curated dataset in `lenses.ts` (it's ~10-12 stable entries over a
+20-year career, not high-volume weekly content — the "flows in
+automatically" problem WS2 solved doesn't really apply at this
+granularity). Single/solo periods get the same treatment: a small dedicated
+dataset, not derived from tagged content.
+
 ## Gotcha: Codex CLI sandbox root vs. git worktrees
 
 `codex-companion.mjs`'s write sandbox anchors to whatever directory it's
@@ -101,6 +252,48 @@ launch confirmation). Fix: `cd` into the actual worktree directory *before*
 invoking `node codex-companion.mjs ...`, so its own `workspaceRoot` resolves
 there. Always verify a job's `workspaceRoot` in its status JSON matches the
 directory you actually wanted it to write to.
+
+## Wyatt's parallel track: the Content Integrity Engine ("Karen")
+
+Not part of this initiative directly, but discovered while assessing his
+progress on 2026-07-10 — noting here since it affects the same content files
+this initiative touches, and has a real gap worth knowing about.
+
+Wyatt (via a separate, more-capacity Claude Code session, Opus-driven) built
+a read-only content-scanning tool at `scripts/content-engine/` (branch
+`fix/karen-tickets`, aliased `npm run karen`) that reads the whole
+`supabase/seed/**` corpus, reasons about factual/safety/image-quality issues
+via a deterministic layer + an LLM agent-review fleet, and files GitHub
+issues (`cie` label family: `cie:P0`-`cie:P3`, `cie:fact`, `cie:image`).
+Full operator playbook: `scripts/content-engine/RUNBOOK.md` (as of the
+commit that added it — see below).
+
+**Status as of 2026-07-10 ~11 AM:** ~284 `cie`-labeled issues filed from a
+full-corpus run. Fix-wave commits on `fix/karen-tickets` claim ~274 tickets'
+worth of fixes applied (171 factual across 3 waves, 103 of 119 attempted
+image fixes across 3 waves + a retry). Only **5 of ~284** `cie` issues are
+actually closed on GitHub, though — this is very likely just bookkeeping
+debt, not broken automation: the RUNBOOK's own "Finalize" step (step 5) only
+generates a committed report, it never closes tickets. If Wyatt wants the
+issue tracker to reflect reality, closing fixed tickets needs to be a
+deliberate pass (matching commit ticket-number lists like `a2aafa8`'s
+against `gh issue close`), not something to expect for free.
+
+**Bigger flag — likely accidental:** the entire `scripts/content-engine/`
+tool directory (17 files, the tool itself) was deleted in the very same
+commit that applied the first wave of factual fixes (`a2aafa8` on
+`fix/karen-tickets`) and has stayed deleted through every commit since,
+including the branch tip. The RUNBOOK (written in an earlier commit,
+`c306d03`) explicitly says the engine "lives at `scripts/content-engine/`
+... until merged" and "Do NOT merge the engine PR without explicit
+approval" — nothing in that plan calls for deleting it mid-fix-application.
+No commit message on this branch mentions removing it on purpose. **If
+Wyatt tries to re-run `scan`/`ingest`/`issues --create` (e.g. to verify the
+fixes, or to finally close out tickets) on the current tip of
+`fix/karen-tickets`, the tool won't be there.** Worth flagging to him
+directly rather than assuming he already knows — an agent deep in "apply
+fix wave N" mode is exactly the kind of task where a stray broad
+delete/checkout wouldn't get noticed.
 
 ## How to resume if a session dies mid-work
 
