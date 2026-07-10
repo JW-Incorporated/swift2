@@ -244,7 +244,10 @@ export default {
         "New songs from the album folded into the setlist in Paris — Taylor's own nickname for the segment, from her Instagram caption.",
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-eras-tour-set-list-post-1235019481/',
       thumbnailUrl:
-        'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300',
+        // Image-fix pass (2026-07-10): #343 — was ?w=300 (300x198, soft/pixelated). Raised to the
+        // ?w=942&h=628&crop=1 variant of the same Billboard photo, already live elsewhere in this
+        // file; curl-verified HTTP 200 image/jpeg and vision-confirmed same subject at full res.
+        'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           'Her caption dedicated the post "to the new Tortured Poets section of the Eras Tour (aka Female Rage The Musical!)" and credited a crew that spent the tour\'s two-month break building it: "we really didn\'t take any time off."\n\nSeven TTPD songs entered the show — "But Daddy I Love Him," "So High School," "Who\'s Afraid of Little Old Me?," "Down Bad," "Fortnight," "The Smallest Man Who Ever Lived," and "I Can Do It With a Broken Heart" — with original choreography, new costumes, and moody staging built on muted tones, paper, and a typewriter. Fitting a new era in meant real surgery on the three-hour show: the Lover and folklore sets lost songs, and Red moved up to follow Fearless directly.',
@@ -257,7 +260,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Mazur/TAS24/Getty Images',
           },
         ],
@@ -302,7 +305,10 @@ export default {
       title: 'A new crystal bodysuit, and a dress covered in lyrics',
       snippet: 'A brand-new crystal bodysuit for the opening numbers, then a gown printed with her own lyrics for the new album\'s songs.',
       sourceUrl: 'https://www.billboard.com/photos/taylor-swift-eras-tour-paris-show-1235680098/',
-      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=204',
+      // Image-fix pass (2026-07-10): #344 — thumbnailUrl was ?w=204 (204x300 thumbnail). Raised to
+      // ?w=942, the same Billboard photo at full res; curl-verified HTTP 200 image/jpeg and
+      // vision-confirmed the orange/red crystal bodysuit and ombre boots, matching the caption.
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=942',
       moment: {
         context:
           'The "Fortnight" gown was custom Vivienne Westwood Couture: a draped, corseted dress inscribed with the song\'s own confession — "I love you, it\'s ruining my life" — finished with a three-row orb-detail choker in black agate.\n\nIt opened a run of Westwood one-offs across the European leg; by Milan, a new white taffeta corset dress arrived with "Who\'s afraid of little old me?" spelled out in black crystals. The same Paris night refreshed the rest of the wardrobe too, with the new crystal bodysuit and boots for the opening Lover set plus first-time looks in the Fearless and 1989 sets.',
@@ -315,11 +321,14 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=204',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=942',
             credit: 'Kevin Mazur/TAS24/Getty Images',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300',
+            // Image-fix pass (2026-07-10): #343 — second usage of the same ?w=300 low-res URL
+            // flagged on the "Female Rage The Musical" moment; raised to the ?w=942&h=628&crop=1
+            // full-res variant (curl-verified 200/image/jpeg, vision-confirmed same photo).
+            url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Mazur/TAS24/Getty Images',
           },
         ],
@@ -563,10 +572,21 @@ export default {
           {
             url: 'https://cdn.mos.cms.futurecdn.net/P5J7PGVYFxPyyTdzTVpya3.jpg',
             credit: 'Getty Images',
+            // Image-fix pass (2026-07-10): #341 — vision-confirmed no blazer is visible here (white
+            // tank top and denim shorts in the Superdome suite). Searched Marie Claire, WWD, Billboard,
+            // Hollywood Reporter, Time, and Wikimedia Commons for an arrival/entry shot showing the
+            // blazer itself; every candidate found was either the same suite look or unverifiable on
+            // an allowlisted host. Added a caption so the photo doesn't misrepresent what's pictured.
+            caption:
+              'In the Superdome suite after removing the Saint Laurent blazer for the game — the blazer itself was worn on arrival.',
           },
           {
             url: 'https://cdn.mos.cms.futurecdn.net/cpMbV3jceZ6rfU2apDrhta.jpg',
             credit: 'Getty Images',
+            // Image-fix pass (2026-07-10): #342 — same finding as #341: no blazer in frame. Caption
+            // added rather than an unverified replacement URL; see note on the sibling photo above.
+            caption:
+              'Full-length view in the Superdome suite, blazer already off; the white tank top and crystal-denim shorts were worn underneath it.',
           },
         ],
       },
@@ -844,6 +864,13 @@ export default {
           {
             url: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
             credit: 'Republic Records',
+            // Image-fix pass (2026-07-10): #345 — vision-confirmed this is a studio/lookbook shot
+            // of the correct gown on a runway/lookbook model (not Swift); searched WWD, YouTube's
+            // official "Fortnight" video default thumbnail, and press for a Swift-wearing-it still
+            // and found none verifiable. Added caption so the record doesn't misrepresent the model
+            // as Swift; garment and designer are still correctly identified.
+            caption:
+              'Designer lookbook image of Toni Matičevski\'s "Candescence" gown, shown here on a runway/lookbook model — not Swift, who wears the same gown in the "Fortnight" video\'s opening scene.',
           },
         ],
       },
@@ -856,8 +883,14 @@ export default {
       snippet:
         'Rehearsal-style outfits built from independent activewear labels: a plum Popflex Active skort, a lavender Popflex tulle skirt with a matching corset bra, and a scalloped tennis skirt from Kansas-based WISKII Active, paired with custom Christian Louboutin ankle boots.',
       sourceUrl: 'https://www.thezoereport.com/culture/taylor-swift-i-can-do-it-with-a-broken-heart-music-video-outfits',
+      // Image-fix pass (2026-07-10): #346 — old thumbnailUrl was a bedazzled Eras Tour stage
+      // costume, not the Popflex/WISKII backstage athleisure this moment is about. Replaced with a
+      // screenshot of the plum Popflex Active skort look from the official "I Can Do It With a
+      // Broken Heart" video, sourced via Blogilates (the Popflex founder's own site, already a
+      // cited source below); curl-verified HTTP 200 image/png and vision-confirmed single-frame,
+      // no watermark/collage, matching the "plum Popflex Active skort" described in the context.
       thumbnailUrl:
-        'https://imgix.bustle.com/uploads/getty/2024/8/21/4f10d125/london-england-august-15.jpg?w=248&h=372&fit=crop&crop=focalpoint&dpr=2&fp-x=0.5303&fp-y=0.2761',
+        'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
       moment: {
         context:
           'The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour\'s stage costuming.\n\nFor Popflex founder Cassey Ho — the Blogilates creator who designs the line — the placement was surreal: she wrote that her heart pounded and her team\'s Slack "blew up" as she stood frozen in front of the TV counting her own designs onscreen, with Popflex pieces (including the viral lavender Pirouette skort and the Twirl skort) appearing four separate times in the video.',
@@ -873,8 +906,11 @@ export default {
         ],
         photos: [
           {
-            url: 'https://imgix.bustle.com/uploads/getty/2024/8/21/4f10d125/london-england-august-15.jpg?w=248&h=372&fit=crop&crop=focalpoint&dpr=2&fp-x=0.5303&fp-y=0.2761',
-            credit: 'Getty Images',
+            // Image-fix pass (2026-07-10): #346 — replaced the Eras Tour stage-costume photo (see
+            // thumbnailUrl note above) with the same verified Blogilates video screenshot.
+            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
+            credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
+            caption: 'The plum Popflex Active skort from the video\'s backstage rehearsal footage.',
           },
         ],
       },
@@ -952,7 +988,9 @@ export default {
       snippet:
         'Stepped out for a swanky Saturday-night dinner in New York City in a pink mini dress with gold buttons and beige heels, Travis alongside her in a plain white top and trousers.',
       sourceUrl: 'https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/',
-      thumbnailUrl: 'https://imagez.tmz.com/image/bd/4by3/2025/06/29/bdcd54eaf03b410c93442064867db68e_md.jpg',
+      // Image-fix pass (2026-07-10): #361 — was the two-panel collage removed from photos[] below;
+      // pointed thumbnailUrl at the same single-frame photo that remains there.
+      thumbnailUrl: 'https://imagez.tmz.com/image/33/4by3/2025/06/29/335496e8dfee4b8a934279081aac5d24_md.jpg',
       moment: {
         context:
           'The Saturday, June 28, 2025 dinner date put her in a $3,500 Balmain houndstooth tweed A-line minidress — chain-metal straps, oversized gold buttons, frayed trim — with taupe Christian Louboutin "Miss Jane" sandals and an Aspinal of London trunk bag, while Travis kept it simple in a fresh white top, trousers, and black loafers.\n\nE! priced the full look near $30,000 once the jewelry was counted: a $22,500 Panthère de Cartier necklace on a gold-and-diamond chain, a $3,400 Ofira "Tattoo" diamond ring, and a diamond-studded gold Rolex — red-carpet hardware deployed for a restaurant run, photographed on the way in and published the next morning.',
@@ -963,8 +1001,18 @@ export default {
             url: 'https://www.eonline.com/news/1419311/taylor-swift-wears-s22-500-necklace-on-travis-kelce-date-night',
           },
         ],
+        // Image-fix pass (2026-07-10): #361 — removed the bdcd54... photo (vision-confirmed a
+        // two-panel collage behind TMZ's black grunge divider, the junk-collage pattern the
+        // protocol rejects). The single-frame photo below already covers the same outing, so this
+        // record keeps at least one photo.
+        // #362 — the remaining single-frame photo still carries TMZ's black speckled letterbox
+        // border on 3 sides; vision-confirmed subject is correct and the file is otherwise fine
+        // (single frame, no watermark/logo). Searched TMZ's own size variants (_lg/_xl/_zoom/16by9)
+        // and Yahoo/E!/NBC-affiliate coverage of the same June 28, 2025 outing for an unbordered or
+        // Getty/press-hosted equivalent; none was found on an allowlisted host or without the same
+        // baked-in border. No crop/edit tooling is available to me, so left as-is — SKIPPED, needs
+        // a human with image-editing access to crop or a different agency's frame of the same night.
         photos: [
-          { url: 'https://imagez.tmz.com/image/bd/4by3/2025/06/29/bdcd54eaf03b410c93442064867db68e_md.jpg', credit: 'TMZ' },
           { url: 'https://imagez.tmz.com/image/33/4by3/2025/06/29/335496e8dfee4b8a934279081aac5d24_md.jpg', credit: 'TMZ' },
         ],
       },

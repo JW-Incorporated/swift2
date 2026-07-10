@@ -75,7 +75,11 @@ export default {
         'The video ends with a call to sign her petition for the Equality Act; by the VMAs that August, it had half a million signatures.',
       sourceUrl: 'https://www.advocate.com/news/2019/6/17/taylor-swift-releases-lgbtq-packed-video-you-need-calm-down',
       thumbnailUrl:
-        'https://www.advocate.com/media-library/taylor-swift.jpg?id=32665462&width=1245&height=700&quality=65&coordinates=0%2C0%2C0%2C2',
+        // Image-fix pass (2026-07-10): #239 — Advocate crop had a "VIDEO SCREENSHOT" watermark baked into the
+        // pixels (confirmed even on the un-cropped source). Replaced with an eonline.com frame from the same video
+        // (curl-verified HTTP 200 image/jpeg); visually confirmed Taylor in the trailer-park pink fur coat/pearl
+        // sunglasses look, no watermark, no collage.
+        'https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top',
       moment: {
         context:
           'The video itself, released June 17, 2019 and produced with Todrick Hall, packed its trailer-park block party with LGBTQ figures — Ellen DeGeneres, Billy Porter, Laverne Cox, RuPaul, the Queer Eye cast, Adam Rippon, and Jesse Tyler Ferguson with his real-life husband Justin Mikita — and closed on the on-screen ask: "Let\'s show our pride by demanding that, on a national level, our laws truly treat all our citizens equally." The Advocate called it her most pro-LGBTQ statement ever, and one of the most political stances she had taken with her music.\n\nShe personally wrote to her home-state senator, Lamar Alexander, urging support: "For American citizens to be denied jobs or housing based on who they love or how they identify, in my opinion, is un-American and cruel." Accepting Video of the Year at the VMAs, she noted the petition had "five times the amount that it would need to warrant a response from the White House."',
@@ -91,8 +95,8 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.advocate.com/media-library/taylor-swift.jpg?id=32665462&width=1245&height=700&quality=65&coordinates=0%2C0%2C0%2C2',
-            credit: 'The Advocate',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top',
+            credit: 'E! News (video still)',
           },
         ],
       },
@@ -218,7 +222,12 @@ export default {
       sourceUrl:
         'https://www.billboard.com/culture/tv-film/taylor-swift-miss-americana-netflix-documentary-release-date-8548174/',
       thumbnailUrl:
-        'https://imgs.capitalfm.com/images/114212?crop=16_9&width=660&relax=1&format=webp&signature=S8LzN__hymqxAV8c8HfQ_lTviEY=',
+        // Image-fix pass (2026-07-10): #236 — capitalfm URL was a two-panel news collage (red-carpet photo +
+        // poster) with a hard seam; replaced with the official Miss Americana one-sheet poster alone, sourced from
+        // its enwiki infobox file. curl-verified HTTP 200 image/jpeg and visually confirmed: single poster, no
+        // collage, "MISS AMERICANA / A NETFLIX ORIGINAL DOCUMENTARY / TAYLOR SWIFT / NETFLIX | JAN 31" with
+        // Sundance laurel.
+        'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg',
       moment: {
         context:
           'The announcement came in November 2019, months after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Swift embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — Variety reported the song clearances were ultimately "granted within a timely manner" — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
@@ -238,8 +247,9 @@ export default {
         ],
         photos: [
           {
-            url: 'https://imgs.capitalfm.com/images/114212?crop=16_9&width=660&relax=1&format=webp&signature=S8LzN__hymqxAV8c8HfQ_lTviEY=',
-            credit: 'Netflix',
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg',
+            credit: 'Netflix (documentary poster art)',
+            kind: 'primary',
           },
         ],
       },
@@ -318,7 +328,11 @@ export default {
         'Five outfit changes in the trailer-park video, from a peach Agent Provocateur robe to a rainbow wig with a Marina Hoermanseder western shirt and gold Saint Laurent shorts, ending in a French fries costume playing off Katy Perry\'s Met Gala burger dress.',
       sourceUrl: 'https://www.etonline.com/all-of-taylor-swifts-fabulous-outfits-from-you-need-to-calm-down-music-video-shop-the-looks-127156',
       thumbnailUrl:
-        'https://imgix.bustle.com/uploads/image/2019/6/17/f3cd39cc-0f96-4c8f-af70-5273c123505a-screen-shot-2019-06-17-at-115556-am.png?w=248&h=139&fit=crop&crop=faces&dpr=2',
+        // Image-fix pass (2026-07-10): #237 — old bustle still was the opening trailer-park scene (pearl
+        // sunglasses/fur coat), none of the three named looks. Replaced with a billboard.com still (curl-verified
+        // HTTP 200 image/jpeg, no watermark) visually confirmed showing Taylor in the French fries costume next to
+        // Katy Perry's burger costume — the closing look this moment specifically calls out.
+        'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1',
       moment: {
         context:
           'The looks tracked the video\'s scenes: a peach silk Agent Provocateur robe and Sophia Webster heels to open, a pink Norma Kamali bikini with a faux-fur Vivetta jacket poolside, then a rainbow wig with a purple Marina Hoermanseder western shirt, gold metallic Saint Laurent shorts, and Irregular Choice unicorn boots.\n\nIt closes with a French fries costume and red Buffalo London x Opening Ceremony sandals, a direct callback to Katy Perry\'s cheeseburger look at the 2019 Met Gala.',
@@ -334,8 +348,9 @@ export default {
         ],
         photos: [
           {
-            url: 'https://imgix.bustle.com/uploads/image/2019/6/17/f3cd39cc-0f96-4c8f-af70-5273c123505a-screen-shot-2019-06-17-at-115556-am.png?w=248&h=139&fit=crop&crop=faces&dpr=2',
-            credit: 'Taylor Swift / YouTube via Bustle',
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1',
+            credit: 'Billboard',
+            caption: "Taylor in the closing French fries costume, next to Katy Perry's burger costume.",
           },
         ],
       },
@@ -665,7 +680,10 @@ export default {
       sourceUrl:
         'https://www.justjared.com/2019/12/14/blake-lively-ryan-reynolds-help-taylor-swift-celebrate-her-30th-birthday-in-nyc/',
       thumbnailUrl:
-        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/thumbs/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
+        // Image-fix pass (2026-07-10): #234 — swapped /thumbs/ 80x120 crop for the full-res original on the same
+        // JustJared S3 path; curl-verified HTTP 200 image/jpeg and visually confirmed Blake Lively (red coat) and
+        // Ryan Reynolds (glasses, burgundy jacket) exiting the venue at night.
+        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
       moment: {
         context:
           "On December 13, 2019 — her 30th birthday — she opened the show at Z100's Jingle Ball, then friends joined her for a 10 p.m. dinner party at Oscar Wilde restaurant in New York City.\n\nBlake Lively was photographed leading the way out of the restaurant with husband Ryan Reynolds that Friday night, among a guest list that also included Gigi Hadid, Martha Hunt, and boyfriend Joe Alwyn.",
@@ -677,7 +695,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/thumbs/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
+            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
             credit: 'Backgrid',
           },
         ],
@@ -720,7 +738,11 @@ export default {
       sourceUrl:
         'https://www.eonline.com/news/1108537/taylor-swift-and-joe-alwyn-are-the-chicest-couple-at-the-2020-golden-globes-after-party',
       thumbnailUrl:
-        'https://akns-images.eonline.com/eol_images/Entire_Site/202006/rs_600x600-200106064034-600-Taylor-Swift-LT-010620-BGUS_1829706_002.jpg',
+        // Image-fix pass (2026-07-10): #240 — old crop showed Taylor alone mid-conversation, no Joe Alwyn, no kiss.
+        // Replaced with a same-agency (Coleman-Rayner) frame from E! News's "Romance Rewind" gallery, dated/
+        // captioned to this same Jan 2020 Golden Globes after-party; curl-verified HTTP 200 image/jpeg and visually
+        // confirmed Taylor with her arm around Joe Alwyn's head in a close embrace, both in black formalwear.
+        'https://akns-images.eonline.com/eol_images/Entire_Site/202007/rs_634x1024-200107091907-634-taylor-swift-joe-alwyn.cm.1720.jpg',
       moment: {
         context:
           'At Creative Artists Agency\'s after-party at the Sunset Tower Hotel in Los Angeles on January 5, 2020, an eyewitness said the couple "looked inseparable and really in love. Taylor had her arm on Joe, and she leaned in to kiss him several times."\n\nShe wore a sparkly black dress with a metallic clutch; Alwyn was in a classic tuxedo. She had been nominated for Best Original Song for her Cats ballad "Beautiful Ghosts," while Alwyn was there to support his Harriet co-stars.',
@@ -732,7 +754,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202006/rs_600x600-200106064034-600-Taylor-Swift-LT-010620-BGUS_1829706_002.jpg',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202007/rs_634x1024-200107091907-634-taylor-swift-joe-alwyn.cm.1720.jpg',
             credit: 'Coleman-Rayner',
           },
         ],
@@ -748,7 +770,10 @@ export default {
       sourceUrl:
         'https://www.justjared.com/2020/04/29/joe-alwyn-shares-cute-pics-of-girlfriend-taylor-swifts-cat-benjamin-button-during-quarantine/',
       thumbnailUrl:
-        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/thumbs/joe-alwayn-button-pics-ig-story-01.jpg',
+        // Image-fix pass (2026-07-10): #235 — swapped /thumbs/ 80x120 crop for the full-res original on the same
+        // JustJared S3 path; curl-verified HTTP 200 image/jpeg and visually confirmed it's Joe Alwyn's selfie
+        // holding a glass of wine, the same IG-story image referenced in the context text below.
+        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/joe-alwayn-button-pics-ig-story-01.jpg',
       moment: {
         context:
           'On April 29, 2020, Joe Alwyn shared three photos to his Instagram Stories of Benjamin Button — the kitten Taylor adopted after he appeared in her "ME!" video — peeking out of a paper grocery bag, poking his head from a cardboard box, and tucked underneath a rug, along with a selfie holding a glass of wine.\n\nThe notoriously private couple rarely appeared on each other\'s social media, so fans took the cat cameo as a rare, sideways glimpse of them quarantining together during the pandemic.',
@@ -764,7 +789,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/thumbs/joe-alwayn-button-pics-ig-story-01.jpg',
+            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/joe-alwayn-button-pics-ig-story-01.jpg',
             credit: 'Joe Alwyn / Instagram',
           },
         ],
