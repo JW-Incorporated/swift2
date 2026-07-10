@@ -41,6 +41,7 @@ export default {
     {
       year: 2006,
       month: 9,
+      day: 1,
       category: 'sighting',
       title: 'Her Grand Ole Opry debut, in a sundress at 16',
       snippet:
@@ -94,6 +95,7 @@ export default {
     {
       year: 2007,
       month: 11,
+      day: 7,
       category: 'business',
       title: 'Wins her first CMA Award — the Horizon Award',
       snippet:
@@ -276,6 +278,7 @@ export default {
     {
       year: 2008,
       month: 2,
+      day: 10,
       category: 'fashion',
       title: 'A purple Sandi Spika gown for her first Grammys',
       snippet:
@@ -413,6 +416,7 @@ export default {
     {
       year: 2006,
       month: 10,
+      day: 18,
       category: 'sighting',
       title: "Her diary entry the day she got the call to open for Rascal Flatts",
       snippet:
@@ -440,6 +444,7 @@ export default {
     {
       year: 2006,
       month: 11,
+      day: 23,
       category: 'sighting',
       title: 'Singing the anthem at a Detroit Lions Thanksgiving game, 16 years old',
       snippet:
@@ -468,6 +473,7 @@ export default {
     {
       year: 2007,
       month: 4,
+      day: 5,
       category: 'sighting',
       title: 'Home to Pennsylvania to sing the anthem at a Reading Phillies game',
       snippet:
@@ -498,6 +504,7 @@ export default {
     {
       year: 2007,
       month: 11,
+      day: 18,
       category: 'fashion',
       title: 'A studded Catherine Malandrino dress and cowboy boots at the 2007 AMAs',
       snippet:
@@ -524,6 +531,7 @@ export default {
     {
       year: 2007,
       month: 12,
+      day: 6,
       category: 'sighting',
       title: 'A hug for Dave Grohl the second she heard her first Grammy nomination',
       snippet:
@@ -600,6 +608,7 @@ export default {
     {
       year: 2007,
       month: 8,
+      day: 21,
       category: 'sighting',
       title: 'A surprise duet with a 14-year-old AGT finalist, off a red-eye flight',
       snippet:
@@ -625,6 +634,7 @@ export default {
     {
       year: 2008,
       month: 1,
+      day: 17,
       category: 'sighting',
       title: 'Her first Ellen appearance, talking Sony/ATV at 14',
       snippet:
@@ -656,6 +666,7 @@ export default {
     {
       year: 2008,
       month: 4,
+      day: 14,
       category: 'business',
       title: 'Our Song wins two trophies at the 2008 CMT Music Awards',
       snippet:
@@ -679,6 +690,7 @@ export default {
     {
       year: 2008,
       month: 4,
+      day: 14,
       category: 'fashion',
       title: 'A plum ruffled minidress for the 2008 CMT purple carpet',
       snippet:
@@ -713,6 +725,7 @@ export default {
     {
       year: 2008,
       month: 6,
+      day: 7,
       category: 'sighting',
       title: "An all-day meet-and-greet marathon at CMA Fest's Fan Fair",
       snippet:
@@ -777,6 +790,7 @@ export default {
       slug: 'rascal-flatts-opening-run',
       year: 2006,
       month: 10,
+      day: 17,
       category: 'tour',
       title: 'Her first arena tour: opening for Rascal Flatts, on a day\'s notice',
       snippet:
@@ -819,6 +833,7 @@ export default {
       slug: 'george-strait-tour-opener',
       year: 2007,
       month: 1,
+      day: 11,
       category: 'tour',
       title: "Opening for George Strait, country's biggest headliner",
       snippet:
@@ -903,6 +918,7 @@ export default {
       slug: 'holiday-collection-ep',
       year: 2007,
       month: 10,
+      day: 14,
       category: 'release',
       title: 'A holiday EP, one year into her career',
       snippet:
@@ -936,6 +952,7 @@ export default {
       slug: 'debut-deluxe-edition',
       year: 2007,
       month: 11,
+      day: 6,
       category: 'release',
       title: 'The deluxe edition adds three songs to the album that would not stop selling',
       snippet:
@@ -969,6 +986,7 @@ export default {
       slug: 'beautiful-eyes-ep',
       year: 2008,
       month: 7,
+      day: 15,
       category: 'release',
       title: 'Beautiful Eyes: the Walmart EP that put her at No. 1 and No. 2 at once',
       snippet:
@@ -1007,6 +1025,7 @@ export default {
       slug: 'tim-mcgraw-debut-single',
       year: 2006,
       month: 6,
+      day: 19,
       category: 'release',
       title: 'The debut single named after somebody else',
       snippet:
@@ -1049,6 +1068,7 @@ export default {
       slug: 'taylor-swift-album-release',
       year: 2006,
       month: 10,
+      day: 24,
       category: 'release',
       title: 'Taylor Swift, the album, arrives',
       snippet:
@@ -1090,6 +1110,7 @@ export default {
       slug: 'teardrops-single-release',
       year: 2007,
       month: 2,
+      day: 20,
       category: 'release',
       title: 'Teardrops on My Guitar goes to radio — and then to pop',
       snippet:
@@ -1132,6 +1153,7 @@ export default {
       slug: 'picture-to-burn-single',
       year: 2008,
       month: 2,
+      day: 4,
       category: 'release',
       title: 'Picture to Burn makes it four straight top 10s',
       snippet:
@@ -1436,6 +1458,7 @@ export default {
       slug: 'bonfires-amplifiers-fall-leg',
       year: 2007,
       month: 9,
+      day: 6,
       category: 'tour',
       title: "Opening Brad Paisley's Bonfires & Amplifiers fall leg",
       snippet:
