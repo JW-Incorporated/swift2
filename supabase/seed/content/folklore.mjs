@@ -187,7 +187,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b5/Folklore_The_Long_Pond_Studio_Sessions_Poster.jpg',
       moment: {
         context:
-          'Announced just hours before it hit Disney+ on Nov. 25, 2020 — a surprise drop about a surprise drop — the film was shot in September 2020 at Aaron Dessner\'s Long Pond Studio, a converted barn in the Hudson Valley where parts of folklore were engineered. It was the first time Swift, Dessner, and Jack Antonoff had ever been in a room together: the album had been made entirely remotely, and here they play all 17 songs acoustically between conversations about how each one happened, with Justin Vernon beaming in from Wisconsin for "exile."\n\nIt\'s also where she confirms on camera that co-writer William Bowery is Joe Alwyn. Critics gave it a perfect 100% on Rotten Tomatoes; Rolling Stone\'s Rob Sheffield called it "a stunning musical statement in its own right." The sessions did double duty — recordings from the same stretch fed evermore, released just 15 days later.',
+          'Announced just hours before it hit Disney+ on Nov. 25, 2020 — a surprise drop about a surprise drop — the film was shot in September 2020 at Aaron Dessner\'s Long Pond Studio, a converted barn in the Hudson Valley where parts of folklore were engineered. It was the first time Swift, Dessner, and Jack Antonoff had ever been in a room together: the album had been made entirely remotely, and here they play all 17 songs acoustically between conversations about how each one happened, with Justin Vernon beaming in from Wisconsin for "exile."\n\nIt\'s also where she confirms on camera that co-writer William Bowery is Joe Alwyn. Critics gave it a perfect 100% on Rotten Tomatoes; Rolling Stone\'s Rob Sheffield called it "a stunning musical statement in its own right." The sessions did double duty — recordings from the same stretch fed evermore, released just 16 days later.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -258,7 +258,7 @@ export default {
       thumbnailUrl: 'https://www.shefinds.com/files/2021/03/taylor-swift-top-photo.jpg',
       moment: {
         context:
-          'The floor-length blue-and-gold Etro gown — high slit, seventies lines — was built for the night\'s most theatrical staging: a moss-covered cabin on a woodland hillside set, where she moved through "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff. Etro posted a sketch of the design after the show.\n\nIt was one half of a two-look night: on the red carpet she wore a custom floral Oscar de la Renta mini with botanical appliqués tacked on individually — plus a matching mask — that fans immediately read as "floral folklore."',
+          'The floor-length blue-and-gold Etro gown — high slit, seventies lines — was built for the night\'s most theatrical staging: a moss-covered cabin on a woodland hillside set, where she moved through "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff. Etro posted a sketch of the design after the show.\n\nIt was one half of a two-look night: on the red carpet she wore a custom floral Oscar de la Renta mini with botanical appliqués tacked on individually — plus a matching mask — a look Oscar de la Renta itself billed as "Floral Folklore."',
         sources: [
           {
             outlet: 'SheFinds',
@@ -442,9 +442,10 @@ export default {
         'https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4',
       moment: {
         context:
-          'The cardigan Swift wears at the end of the "cardigan" video — tan cable knit, navy stripes, gray elbow patches, star embroidery, and a "folklore album" patch on the chest — went up for sale on her official store alongside the album and sold out almost immediately. It became one of the most sought-after pieces of Swift merch of the whole decade.\n\nIt wasn\'t restocked until July 24, 2024 — folklore\'s fourth anniversary — and even then only as a 72-hour window, priced at $70 with a four-per-order limit. The rerun wasn\'t quite the original, either: the 2024 version moved the star embroidery to the arms and swapped the folklore chest patch for a Taylor Swift one, which kept the true 2020 cardigan a collector\'s item.',
+          'The cardigan Swift wears at the end of the "cardigan" video — tan cable knit, navy stripes, gray elbow patches, star embroidery, and a "folklore album" patch on the chest — went up for sale on her official store alongside the album and sold out almost immediately. It became one of the most sought-after pieces of Swift merch of the whole decade.\n\nIt wasn\'t restocked until July 24, 2024 — folklore\'s fourth anniversary — and even then only as a 72-hour window, priced at $70 with a four-per-order limit. The rerun wasn\'t quite the original, either: the 2024 version swapped the folklore chest patch for a Taylor Swift one and ran longer than the original, which kept the true 2020 cardigan a collector\'s item.',
         sources: [
           { outlet: 'Her Campus', url: 'https://www.hercampus.com/style/taylor-swift-folklore-cardigan-restock/' },
+          { outlet: 'Capital FM', url: 'https://www.capitalfm.com/news/music/taylor-swift-cardigans-merch/' },
         ],
         photos: [
           {
@@ -498,7 +499,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'In a December 2020 Entertainment Weekly interview, Swift confirmed "mad woman" (along with "my tears ricochet") grew out of her 2019 masters dispute with Scooter Braun and former label boss Scott Borchetta, saying the fallout from the 15-year professional relationship left her "very triggered by any stories, movies, or narratives revolving from divorce."\n\nOn the song itself, co-written and produced with Aaron Dessner, Swift said its theme of gaslighting was "the most rage-provoking element of being a female." The track works the accusation in circles — a woman called crazy acting exactly as crazy as she\'s been told she is — and it sits directly before "epiphany" in the tracklist, two of the album\'s heaviest songs back to back.',
+          'In a December 2020 Entertainment Weekly interview, Swift confirmed "mad woman" (along with "my tears ricochet") grew out of her 2019 masters dispute with Scooter Braun and former label boss Scott Borchetta, saying the fallout from the 15-year professional relationship left her "very triggered by any stories, movies, or narratives revolving around divorce."\n\nOn the song itself, co-written and produced with Aaron Dessner, Swift said its theme of gaslighting was "the most rage-provoking element of being a female." The track works the accusation in circles — a woman called crazy acting exactly as crazy as she\'s been told she is — and it sits directly before "epiphany" in the tracklist, two of the album\'s heaviest songs back to back.',
         sources: [
           {
             outlet: 'NME',
@@ -638,12 +639,12 @@ export default {
       category: 'business',
       title: 'Rolling Stone names folklore the best album of 2020',
       snippet:
-        "Topping Rolling Stone's year-end ranking over releases from Lil Baby, Pop Smoke, The Weeknd, and Juice WRLD, folklore was called potentially \"the definitive quarantine album.\"",
+        "Topping Rolling Stone's year-end ranking of the 50 best albums of 2020, folklore was called potentially \"the definitive quarantine album.\"",
       sourceUrl: 'https://www.rollingstone.com/music/music-lists/best-albums-2020-1096814/taylor-swift-folklore-1096815/',
       thumbnailUrl: null,
       moment: {
         context:
-          "Rolling Stone put folklore at No. 1 on its year-end list of the 50 best albums of 2020, calling it potentially \"the definitive quarantine album\" — the top spot on a list that also featured releases from Lil Baby, Pop Smoke, The Weeknd, and Juice WRLD.\n\nThe writeup framed the win as a creative consequence of the shutdown: without the pressure of a typical rollout, \"Swift shed the über-pop trappings of her previous album, Lover, for a project that put her once-in-a-generation songwriting talent front and center,\" with contributions from the National's Aaron Dessner and Bon Iver's Justin Vernon.",
+          "Rolling Stone put folklore at No. 1 on its year-end list of the 50 best albums of 2020, calling it potentially \"the definitive quarantine album.\"\n\nThe writeup framed the win as a creative consequence of the shutdown: without the pressure of a typical rollout, \"Swift shed the über-pop trappings of her previous album, Lover, for a project that put her once-in-a-generation songwriting talent front and center,\" with contributions from the National's Aaron Dessner and Bon Iver's Justin Vernon.",
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -810,7 +811,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written and produced with Jack Antonoff, "august" is the triangle\'s sympathetic wildcard — Swift said the character "lost the good fight" but deserved kindness rather than blame for a romance that was never really hers. It entered the Hot 100 at No. 23 in the album\'s opening week, and the outro builds to what one critic described as a full-orchestra major-chord climax — the album\'s biggest purely musical release.\n\nIts stature only grew with time: Rolling Stone\'s Rob Sheffield ranked it fifth among all of Swift\'s songs in his 2021 catalog ranking, calling it "the album\'s most plainly beautiful ballad," and it earned a spot in the Grammys 2021 folklore medley and the Eras Tour\'s folklore act.',
+          'Written and produced with Jack Antonoff, "august" is the triangle\'s sympathetic wildcard — Swift framed the character sympathetically, deserving kindness rather than blame for a romance that was never really hers. It entered the Hot 100 at No. 23 in the album\'s opening week, and the outro builds to what one critic described as a full-orchestra major-chord climax — the album\'s biggest purely musical release.\n\nIts stature only grew with time: Rolling Stone\'s Rob Sheffield ranked it fifth among all of Swift\'s songs in his 2021 catalog ranking, calling it "the album\'s most plainly beautiful ballad," and it earned a spot in the Grammys 2021 folklore medley and the Eras Tour\'s folklore act.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -980,7 +981,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Fans had theorized for months about the unknown name in the credits of "exile" and "betty" — with Alwyn always the leading suspect — until the Long Pond Studio Sessions premiered on Disney+ on Nov. 25, 2020, and she settled it on camera, describing how Alwyn had written the "exile" piano part and how she\'d overheard him singing what became the "betty" chorus.\n\nThe pseudonym stitched together Alwyn\'s composer great-grandfather William Alwyn and the Bowery Hotel, an early landmark of the couple\'s relationship — and "Bowery" would go on to co-write on evermore and Midnights under the same name.',
+          'Fans had theorized for months about the unknown name in the credits of "exile" and "betty" — with Alwyn always the leading suspect — until the Long Pond Studio Sessions premiered on Disney+ on Nov. 25, 2020, and she settled it on camera, describing how Alwyn had written the "exile" piano part and how she\'d overheard him singing what became the "betty" chorus.\n\nThe pseudonym stitched together Alwyn\'s composer great-grandfather William Alwyn and the Bowery — the New York neighborhood where Alwyn said he spent a lot of time when he first moved to the city, not, as fans once theorized, the Bowery Hotel — and "Bowery" would go on to co-write on evermore and Midnights under the same name.',
         sources: [
           {
             outlet: 'E! News',
@@ -999,6 +1000,10 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/joe-alwyn-william-bowery-pen-name-origin-taylor-swift-1235073220/',
           },
         ],
         // Real-photo pass (2026-07-09): CC BY-SA 3.0 photo of Joe Alwyn from

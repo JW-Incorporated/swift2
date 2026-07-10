@@ -62,6 +62,10 @@ export default {
             outlet: 'Refinery29',
             url: 'https://www.refinery29.com/en-us/2017/11/182106/taylor-swift-reputation-billboard-chart',
           },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/brittanyhodak/2017/11/20/taylor-swifts-reputation-outsold-every-other-album-on-the-billboard-200-combined/',
+          },
         ],
         photos: [
           {
@@ -358,7 +362,7 @@ export default {
         'https://imgix.bustle.com/uploads/image/2018/3/12/c5dd79b9-3dd6-48fb-be2c-6b565fc5fe09-screen-shot-2018-03-12-at-61855-am.png?w=248&h=218&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'The teal, tiered-tassel dress was custom-made by Naeem Khan from his Spring 2018 ready-to-wear runway collection — a roughly $3,500 design with a keyhole back that reads as two dresses in one, falling as a floor-length fringed column before swinging up into a mini as she dances.\n\nStyled with Anabela Chan earrings and Christian Louboutin pumps, it became one of the most-searched dresses of the video\'s release week, and fans read the dancing-in-the-rain imagery as a deliberate callback to the Fearless era.',
+          'The teal, tiered-tassel dress was custom-made by Naeem Khan from his Spring 2018 ready-to-wear runway collection — a roughly $3,500 design with a keyhole back that reads as two dresses in one, falling as a floor-length fringed column before swinging up into a mini as she dances.\n\nStyled with Anabela Chan earrings and Christian Louboutin pumps, it set off a where-to-buy frenzy in the video\'s release week.',
         sources: [
           {
             outlet: 'Bustle',
@@ -516,7 +520,7 @@ export default {
       thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100',
       moment: {
         context:
-          'Jessica Jones designed at least three versions of this sequined bodysuit across the tour\'s run for the "Dress"-nicknamed segment; per the Taylor Swift Style archive, the sparkling green iteration debuted in the summer 2018 European leg.\n\nThat leg was a compressed, three-country sprint: Manchester\'s Etihad Stadium on June 8-9, a 133,034-ticket double at Dublin\'s Croke Park on June 15-16, and the two Wembley nights of June 22-23 that drew 143,427 — the stretch of the tour where the rotating costume variants gave repeat European ticket-holders a genuinely different-looking show night to night.',
+          'Jessica Jones designed at least three versions of this sequined bodysuit across the tour\'s run for the "Dress"-nicknamed segment; the Taylor Swift Style archive had documented all three versions, including this sparkling green iteration, by July 2018.\n\nThe European leg that summer was a compressed, three-country sprint: Manchester\'s Etihad Stadium on June 8-9, a 133,034-ticket double at Dublin\'s Croke Park on June 15-16, and the two Wembley nights of June 22-23 that drew 143,427 — the kind of run where rotating costume variants gave repeat European ticket-holders a genuinely different-looking show night to night.',
         sources: [
           {
             outlet: 'Taylor Swift Style',
@@ -925,7 +929,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 11, and the one most fans read as being about Joe Alwyn — completes reputation\'s arc: "It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are."\n\nFans got it a week before the album: released November 3, 2017 as the rollout\'s final promotional single, it debuted at No. 27 on the Hot 100 and arrived with a deliberately homemade lyric video — Swift in minimal makeup with an acoustic guitar, a bonfire, a horse, a dog — the first unguarded look at the domestic life the album\'s back half describes.',
+          'At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 14, and the one most fans read as being about Joe Alwyn — completes reputation\'s arc: "It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are."\n\nFans got it a week before the album: released November 3, 2017 as the rollout\'s final promotional single, it debuted at No. 27 on the Hot 100 and arrived with a deliberately homemade lyric video — Swift in minimal makeup with an acoustic guitar, a bonfire, a horse, a dog — the first unguarded look at the domestic life the album\'s back half describes.',
         sources: [
           {
             outlet: 'iHeartRadio',
@@ -955,13 +959,13 @@ export default {
       category: 'business',
       title: "One nomination for the year's best-selling album",
       snippet:
-        'At the 61st Grammys, reputation — 2018\'s top seller — picked up a single nomination, Best Pop Vocal Album, and was shut out of Album, Record, and Song of the Year.',
+        "At the 61st Grammys, reputation — Billboard's No. 1 album of 2018 — picked up a single nomination, Best Pop Vocal Album, and was shut out of Album, Record, and Song of the Year.",
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-grammys-snub-764008/',
       thumbnailUrl:
         'https://www.rollingstone.com/wp-content/uploads/2018/12/taylor-swift-biggest-loser.jpg?w=1600&h=900&crop=1',
       moment: {
         context:
-          "Reputation was the best-selling album of both 2017 and 2018, but by the 61st Annual Grammy Awards in February 2019 it had one nomination to show for it: Best Pop Vocal Album.\n\nNone of its singles — \"Look What You Made Me Do,\" \"...Ready for It?,\" \"End Game,\" \"New Year's Day,\" \"Gorgeous,\" or \"Delicate\" — made the cut for Record, Song, or Album of the Year, making it, per Rolling Stone, her least-nominated LP since her self-titled 2006 debut.",
+          "Reputation was the best-selling album of 2017 and the No. 1 album on Billboard's 2018 year-end Billboard 200, but by the 61st Annual Grammy Awards in February 2019 it had one nomination to show for it: Best Pop Vocal Album.\n\nNone of its singles — \"Look What You Made Me Do,\" \"...Ready for It?,\" \"End Game,\" \"New Year's Day,\" \"Gorgeous,\" or \"Delicate\" — made the cut for Record, Song, or Album of the Year, making it, per Rolling Stone, her least-nominated LP since her self-titled 2006 debut.",
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1009,13 +1013,13 @@ export default {
       category: 'sighting',
       title: 'A Malibu hike, and an outfit that read like a lyric',
       snippet:
-        "Their first sighting together in months: a 90-minute Malibu hike, Joe Alwyn in the exact \"dark jeans and Nikes\" from Delicate's opening line, two days before its surprise second video.",
+        "Their first sighting together in months: a 90-minute Malibu hike, Joe Alwyn in the exact \"dark jeans and Nikes\" from Delicate's opening line, four days before the Delicate video premiered.",
       sourceUrl:
         'https://www.etonline.com/taylor-swift-steps-out-for-romantic-hike-with-boyfriend-joe-alwyn-see-the-pic-98043',
       thumbnailUrl: null,
       moment: {
         context:
-          'Photographed hiking in Malibu on March 7, 2018 — their first sighting together in months — Taylor wore black running shorts, a dark gray tank top, and a black hoodie tied around her waist; Joe Alwyn wore dark jeans and Nike sneakers. A source told E! News "they were deep in conversation for most of the hike and their attention was focused solely on one another."\n\nFans quickly noted Alwyn\'s outfit matched Delicate\'s opening line, "Dark jeans and your Nikes, look at you" — two days before Swift released the song\'s surprise one-take Spotify video.',
+          'Photographed hiking in Malibu on March 7, 2018 — their first sighting together in months — Taylor wore black running shorts, a dark gray tank top, and a black hoodie tied around her waist; Joe Alwyn wore dark jeans and Nike sneakers. A source told E! News "they were deep in conversation for most of the hike and their attention was focused solely on one another."\n\nFans quickly noted Alwyn\'s outfit matched Delicate\'s opening line, "Dark jeans and your Nikes, look at you" — four days before Joseph Kahn\'s Delicate video premiered at the March 11 iHeartRadio Music Awards.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -1091,7 +1095,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
       moment: {
         context:
-          'Joseph Kahn\'s video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy\'s "Gentleman" (36 million YouTube views) and Adele\'s "Hello" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day and first-week Spotify streams.\n\nThe records stacked up across platforms at once: hourly viewing peaked above 3 million, the lyric video set YouTube\'s first-day record for that format, and the single took Spotify\'s global first-24-hours streaming mark too. The stage for all of it was pointed — the video premiered at the MTV Video Music Awards, the same show where the 2009 interruption that opens this whole story had happened eight years earlier.',
+          'Joseph Kahn\'s video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy\'s "Gentleman" (36 million YouTube views) and Adele\'s "Hello" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day Spotify streams and fastest-selling digital single.\n\nThe records stacked up across platforms at once: hourly viewing peaked above 3 million, the lyric video set YouTube\'s first-day record for that format, and the single took Spotify\'s global first-24-hours streaming mark too. The stage for all of it was pointed — the video premiered at the MTV Video Music Awards, the same show where the 2009 interruption that opens this whole story had happened eight years earlier.',
         sources: [
           {
             outlet: 'Variety',
@@ -1282,7 +1286,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The fourth single from reputation is the only track in her catalog to date pairing her with both a rapper (Future) and Ed Sheeran on one song. The video leaned into the album\'s reputation motif — a neon "reputation" sign flickers through the London sequence — while keeping the era\'s no-interviews rollout intact.\n\nJoseph Kahn\'s cut landed overnight on January 12, 2018 — his third video of the era after "Look What You Made Me Do" and "...Ready for It?" — and played as a world tour of the album\'s id: a yacht party in Miami, karaoke and vending-machine snacks with Sheeran in Tokyo, kebabs and a New Year\'s Eve house party in London.',
+          'The third single from reputation is the only track in her catalog to date pairing her with both a rapper (Future) and Ed Sheeran on one song. The video leaned into the album\'s reputation motif — a neon "reputation" sign flickers through the London sequence — while keeping the era\'s no-interviews rollout intact.\n\nJoseph Kahn\'s cut landed overnight on January 12, 2018 — his third video of the era after "Look What You Made Me Do" and "...Ready for It?" — and played as a world tour of the album\'s id: a yacht party in Miami, karaoke and vending-machine snacks with Sheeran in Tokyo, kebabs and a New Year\'s Eve house party in London.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1470,12 +1474,12 @@ export default {
       category: 'business',
       title: 'She breaks her political silence — and voter registrations spike',
       snippet:
-        'An October 7, 2018 Instagram post endorsing two Tennessee Democrats ended a career of political silence. Vote.org counted roughly 65,000 new registrations from 18-to-29-year-olds in the day that followed.',
+        'An October 7, 2018 Instagram post endorsing two Tennessee Democrats ended a career of political silence. Vote.org counted roughly 65,000 new registrations nationwide in the day that followed.',
       sourceUrl: 'https://time.com/5419276/taylor-swift-instagram-post-voter-registration-spike/',
       thumbnailUrl: null,
       moment: {
         context:
-          '"In the past I\'ve been reluctant to publicly voice my political opinions, but due to several events in my life and in the world in the past two years, I feel very differently about that now," she wrote, endorsing Phil Bredesen for Senate and Jim Cooper for House.\n\nVote.org attributed a surge of about 65,000 registrations among 18-to-29-year-olds nationwide in the following 24 hours — one of the clearest measured cases of celebrity influence on registration, and the pivot point for the activism that carried into the Lover era and Miss Americana.',
+          '"In the past I\'ve been reluctant to publicly voice my political opinions, but due to several events in my life and in the world in the past two years, I feel very differently about that now," she wrote, endorsing Phil Bredesen for Senate and Jim Cooper for House.\n\nVote.org attributed a surge of about 65,000 registrations nationwide in the following 24 hours — one of the clearest measured cases of celebrity influence on registration, and the pivot point for the activism that carried into the Lover era and Miss Americana.',
         sources: [
           {
             outlet: 'TIME',

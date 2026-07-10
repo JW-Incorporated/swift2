@@ -191,7 +191,7 @@ export default {
       category: 'business',
       title: 'Fearless (Taylor\'s Version) is the first re-recorded album ever to hit No. 1',
       snippet:
-        '291,000 units in week one — her ninth No. 1 album, tying Madonna, and the only re-recorded album in Billboard 200 history to top the chart.',
+        '291,000 units in week one — her ninth No. 1 album, tying Madonna, and the first re-recorded album in Billboard 200 history to top the chart.',
       sourceUrl: 'https://www.billboard.com/articles/news/9558306/taylor-swift-fearless-taylors-version-tops-billboard-200/',
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1',
@@ -228,7 +228,7 @@ export default {
         'https://www.guinnessworldrecords.com/news/2021/11/images/red-cover-album-and-swift-at-all-too-well-premiere-683624.jpg',
       moment: {
         context:
-          'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.',
+          'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.',
         sources: [
           {
             outlet: 'Guinness World Records',
@@ -237,6 +237,10 @@ export default {
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-all-too-well-longest-number-one-billboard-1261579/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/morgan-wallen-single-week-hot-100-record-36-songs-one-thing-at-a-time-1235285241/',
           },
         ],
         photos: [
@@ -295,7 +299,7 @@ export default {
         'https://imgix.bustle.com/uploads/getty/2021/3/15/e69fff43-e3ed-4536-8533-035382781844-getty-1307106720.jpg?w=374&h=547&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'She opened "cardigan" from the roof of the mossy cabin, surrounded by trees against a nighttime backdrop, then slipped inside to join Aaron Dessner and Jack Antonoff — the two producers behind both lockdown albums — for "august," before all three stepped out into the lit-up forest for "willow."\n\nIt was the first time any of the folklore/evermore material had been performed for a television audience, and the night ended with folklore taking Album of the Year, her third career win in the category. On the red carpet beforehand: a floral-appliqué Oscar de la Renta mini, covered separately by the outlets below.',
+          'She opened "cardigan" from the roof of the mossy cabin, surrounded by trees against a nighttime backdrop, then slipped inside to join Aaron Dessner and Jack Antonoff — the two producers behind both lockdown albums — for "august," before all three stepped out into the lit-up forest for "willow."\n\nIt was her first awards-show performance of the era\'s material since a solo acoustic "betty" at the September 2020 ACM Awards — and the first TV performance of "cardigan," "august" and "willow" — and the night ended with folklore taking Album of the Year, her third career win in the category. On the red carpet beforehand: a floral-appliqué Oscar de la Renta mini, covered separately by the outlets below.',
         sources: [
           {
             outlet: 'Billboard',
@@ -308,6 +312,10 @@ export default {
           {
             outlet: 'Elite Daily',
             url: 'https://www.elitedaily.com/p/taylor-swifts-2021-grammys-dress-is-cottagecore-princesscore-come-to-life-65951509',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-country/taylor-swift-betty-2020-acm-awards-1058897/',
           },
         ],
         photos: [
@@ -438,7 +446,7 @@ export default {
       thumbnailUrl: 'https://www.shefinds.com/files/2021/11/taylor-swift-snl-performance.jpg',
       moment: {
         context:
-          'For her November 13, 2021 SNL performance of "All Too Well (10 Minute Version)," Swift wore a skin-tight off-the-shoulder Alaïa stretch-knit jumpsuit (about $3,590) with Jennifer Zeuner Holland earrings and Loeffler Randall ankle booties.\n\nAt the after-party the following night at L\'Avenue in New York with Blake Lively, she layered a houndstooth blazer by Anine Bing and platform boots by Aquazzura over the same jumpsuit.',
+          'For her November 13, 2021 SNL performance of "All Too Well (10 Minute Version)," Swift wore a skin-tight off-the-shoulder Alaïa stretch-knit jumpsuit (about $3,590) with Jennifer Zeuner Holland earrings and Loeffler Randall ankle booties.\n\nAt the after-party that night at L\'Avenue in New York with Blake Lively, she layered a houndstooth blazer by Anine Bing and platform boots by Aquazzura over the same jumpsuit.',
         sources: [
           {
             outlet: 'SheFinds',
@@ -469,12 +477,12 @@ export default {
       category: 'fashion',
       title: 'The "willow" video\'s final scene: a Gucci Liberty-print floral maxi dress',
       snippet:
-        'Beyond the Zimmermann "bridal" gown, the video\'s closing carnival-tent scene puts her in a $4,800 Gucci maxi dress made from Liberty London floral fabric — a third, lesser-discussed look from the same shoot.',
+        'Beyond the Zimmermann "bridal" gown, the video\'s closing scene puts her in a $4,800 Gucci maxi dress made from Liberty London floral fabric — a third, lesser-discussed look from the same shoot.',
       sourceUrl: 'https://stealherstyle.net/2020/12/11/taylor-swift-willow-music-video/',
       thumbnailUrl: 'https://stealherstyle.net/wp-content/uploads/2020/12/taylorswift_w3-500x350.jpg',
       moment: {
         context:
-          'Steal Her Style\'s scene-by-scene breakdown of the "willow" video counts three distinct looks: a Magnolia Pearl "Layla" tank dress over her own "cardigan" merch sweater for the opening cabin scene; the Zimmermann "Charm Star" lace gown with Jennifer Behr tiara for the carnival-tent "wedding" scene.\n\nFor the video\'s final scene: a Gucci maxi dress made from Liberty of London floral-print fabric, retailing around $4,800 — a look far less discussed by fans than the "bridal" Zimmermann gown but confirmed as part of the same December 2020 shoot.',
+          'Steal Her Style\'s breakdown of the "willow" video counts three distinct looks: a Magnolia Pearl "Layla" tank dress over her own "cardigan" merch sweater for the opening scene; the Zimmermann "Charm Star" lace gown with Jennifer Behr tiara for the "wedding" scene.\n\nFor the video\'s final scene: a Gucci maxi dress made from Liberty of London floral-print fabric, retailing around $4,800 — a look far less discussed by fans than the "bridal" Zimmermann gown but confirmed as part of the same December 2020 shoot.',
         sources: [
           {
             outlet: 'Steal Her Style',
@@ -676,7 +684,7 @@ export default {
       category: 'sighting',
       title: "A surprise cameo at HAIM's sold-out O2 Arena show",
       snippet:
-        'Fans spotted her walk out mid-set for a "Gasoline"/"Love Story" mashup with her old 1989 tourmates — her first time back on any stage since December 2019.',
+        'Fans spotted her walk out mid-set for a "Gasoline"/"Love Story" mashup with her old 1989 tourmates — a rare return to a concert stage.',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-haim-love-story-gasoline-mashup-o2-arena-1386538/',
       thumbnailUrl: 'https://d2a0gza273xfgz.cloudfront.net/577070/uploads/41561940-0962-11ed-8b88-f5960538964e_1200_630.png',
       moment: {
@@ -751,7 +759,7 @@ export default {
       category: 'music',
       title: "cowboy like me, cut at Marcus Mumford's home studio",
       snippet:
-        'Swift wrote and recorded the closing duet during the pandemic at Marcus Mumford\'s home studio in Devon, where he called her "the most phenomenal houseguest" before she asked him to sing on it: "I chose Cowboy Like Me. Man, I love that song."',
+        'Swift recorded this late-album duet during the pandemic at Marcus Mumford\'s home studio in Devon, where he called her "the most phenomenal houseguest" before she asked him to sing on it: "I chose Cowboy Like Me. Man, I love that song."',
       sourceUrl: 'https://www.billboard.com/music/music-news/marcus-mumford-taylor-swift-phenomenal-houseguest-studio-1236112442/',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/250px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg',
@@ -853,13 +861,17 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
-          'In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor\'s Version) debuted on the Hot 100 simultaneously. Billboard: "Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100\'s history."\n\nThe same week, Swift also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. Over the chart\'s 63-year history, only Drake, with 27 total titles charted after Scorpion\'s 2018 release, has ever had more entries from one act on a single week\'s survey.',
+          'In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor\'s Version) debuted on the Hot 100 simultaneously. Billboard: "Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100\'s history."\n\nThe same week, Swift also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. At the time, only Drake — with 27 total titles charted after Scorpion\'s 2018 release — had ever had more entries from one act on a single week\'s survey; Morgan Wallen has since surpassed both marks, with 36 songs in 2023 and 37 in 2025.',
         sources: [
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/',
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/morgan-wallen-record-breaking-songs-hot-100-simultaneously-1235981641/',
+          },
         ],
         photos: [
           {
@@ -1669,7 +1681,7 @@ export default {
       category: 'release',
       title: "This Love (Taylor's Version) arrives early, care of a TV trailer",
       snippet:
-        'The first 1989 re-recording, released May 6, 2022 after soundtracking the trailer for Amazon\'s The Summer I Turned Pretty — whose author-showrunner Jenny Han made Swift songs the show\'s sonic signature.',
+        'The second 1989 re-recording (after "Wildest Dreams (Taylor\'s Version)"), released May 6, 2022 after soundtracking the trailer for Amazon\'s The Summer I Turned Pretty — whose author-showrunner Jenny Han made Swift songs the show\'s sonic signature.',
       sourceUrl: 'https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/be/This_Love_%28Taylor%27s_Version%29.png/250px-This_Love_%28Taylor%27s_Version%29.png',
       moment: {
