@@ -16,7 +16,12 @@ import { EraSection } from './EraSection';
  * theme). Scrolling past Debut lands on the origin end-cap.
  */
 export function EraStream() {
-  const { eraId, eraJumpSeq } = useAppState();
+  const { eraId, eraJumpSeq, scrubbing } = useAppState();
+  // Read the live scrubbing flag without making it an effect dependency —
+  // toggling it shouldn't tear down/rebuild the scroll listener, it should
+  // just change what a single already-running listener does on its next call.
+  const scrubbingRef = useRef(scrubbing);
+  scrubbingRef.current = scrubbing;
   const { setActiveEra, saveEraScroll, getEraScroll } = useAppActions();
 
   // If the user is returning to era mode via a plain toggle, a saved snapshot
@@ -95,6 +100,19 @@ export function EraStream() {
     let raf = 0;
     const pick = () => {
       raf = 0;
+      // The TimelineScrubber's own auto-scroll during a drag can cross into
+      // the next era's viewport-center; flipping the active era mid-drag
+      // would swap the scrubber's whole per-era anchor set out from under
+      // the still-active gesture (it reads as the rail jumping). Hold the
+      // active era steady until the drag ends, which forces one resync.
+      if (scrubbingRef.current) {
+        saveEraScroll({
+          anchorId: anchorRef.current,
+          count: countRef.current,
+          scrollY: window.scrollY,
+        });
+        return;
+      }
       const center = window.innerHeight / 2;
       const sections = document.querySelectorAll<HTMLElement>('[data-ll-section]');
       for (const el of sections) {

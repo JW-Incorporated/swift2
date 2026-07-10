@@ -5,7 +5,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { getEra } from '@/lib/longlive/eras';
 import { contentForEra, milestonesForEra } from '@/lib/longlive/content';
 import { truncate } from '@/lib/longlive/format';
-import { useAppState } from '@/lib/longlive/store';
+import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { cn } from '@/lib/utils';
 
 /** Reference line for "what am I reading" — header + a bit into the viewport. */
@@ -31,6 +31,7 @@ function fmtMonth(ms: number): string {
 
 export function TimelineScrubber() {
   const { eraId } = useAppState();
+  const { setScrubbing } = useAppActions();
   const era = getEra(eraId);
 
   const start = useMemo(() => new Date(era.start).getTime(), [era.start]);
@@ -313,12 +314,17 @@ export function TimelineScrubber() {
       e.preventDefault();
       draggingRef.current = true;
       setActive(true);
+      // Tell EraStream to hold the active era steady for the duration of the
+      // drag — otherwise the drag's own auto-scroll can cross into the next
+      // era's viewport-center, flipping the active era (and this scrubber's
+      // whole per-era anchor set) out from under the still-active gesture.
+      setScrubbing(true);
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
       const d = dateFromPointer(e.clientY);
       setCurrentDate(d);
       scrollToDate(d);
     },
-    [dateFromPointer, scrollToDate],
+    [dateFromPointer, scrollToDate, setScrubbing],
   );
 
   const onPointerMove = useCallback(
@@ -362,9 +368,15 @@ export function TimelineScrubber() {
         } catch {
           /* no-op */
         }
+        setScrubbing(false);
+        // EraStream's active-era detection was held while dragging (see
+        // onPointerDown) and only re-runs on a real scroll event; dragging
+        // may have ended without one firing since the last auto-scroll, so
+        // force one resync now that it's safe to re-anchor.
+        window.dispatchEvent(new Event('scroll'));
       }
     },
-    [dateFromPointer],
+    [dateFromPointer, setScrubbing],
   );
 
   const currentPct = currentDate != null ? pctForDate(currentDate) : null;
