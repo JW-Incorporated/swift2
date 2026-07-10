@@ -184,9 +184,9 @@ export default {
       },
     },
     {
-      year: 2019,
+      year: 2023,
       month: 10,
-      day: 23,
+      day: 28,
       category: 'business',
       title: 'Cruel Summer takes four years to become a No. 1',
       snippet:

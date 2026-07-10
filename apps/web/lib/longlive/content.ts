@@ -738,7 +738,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: 'tloas-debut-chart',
-      date: '2025-10-13',
+      date: '2025-10-18',
       dateLabel: 'October 2025',
       title: 'A record-setting debut',
       summary: 'The album opens at number one with the fastest-selling first week in history.',
@@ -844,7 +844,7 @@ export const MILESTONES: Milestone[] = [
   { id: 'm-tloas-1', eraId: 'tloas', date: '2025-08-13', label: 'Era announced', kind: 'life' },
   { id: 'm-tloas-1b', eraId: 'tloas', date: '2025-08-26', label: 'Engagement announced', kind: 'life' },
   { id: 'm-tloas-2', eraId: 'tloas', date: '2025-10-03', label: 'Showgirl released', kind: 'album' },
-  { id: 'm-tloas-3', eraId: 'tloas', date: '2025-10-13', label: 'Record debut', kind: 'award' },
+  { id: 'm-tloas-3', eraId: 'tloas', date: '2025-10-18', label: 'Record debut', kind: 'award' },
   { id: 'm-tloas-4', eraId: 'tloas', date: '2025-10-18', label: 'Hot 100 sweep', kind: 'award' },
 ];
 

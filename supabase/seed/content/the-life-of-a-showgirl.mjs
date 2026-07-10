@@ -296,7 +296,7 @@ export default {
       slug: 'showgirl-four-million-week',
       year: 2025,
       month: 10,
-      day: 13,
+      day: 18,
       category: 'business',
       title: '4.002 million in a week: the biggest album debut ever measured',
       snippet:

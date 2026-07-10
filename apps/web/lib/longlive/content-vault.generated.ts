@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-10T17:50:35.421Z";
+export const CONTENT_GENERATED_AT = "2026-07-10T17:59:52.876Z";
 
 type VaultRawItem = {
   id: string;
@@ -2765,8 +2765,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     },
     {
       id: "vault-lover-cruel-summer-takes-four-years-to-become-a-no-1",
-      date: "2019-10-23",
-      dateLabel: "October 23, 2019",
+      date: "2023-10-28",
+      dateLabel: "October 28, 2023",
       title: "Cruel Summer takes four years to become a No. 1",
       summary: "Debuted at No. 29 in 2019, fell to No. 71 the next week — until the Eras Tour revived it in 2023 and finally pushed it to No. 1.",
       body: ["It topped the Hot 100 on the chart dated October 28, 2023 — four years, one month and three weeks after it debuted, the fifth-longest climb to No. 1 in the chart's history.", "Fans had campaigned for it since 2019, and the Eras Tour's opening Lover set turned the campaign into a groundswell (roughly 2.3 million TikTok videos deep); a live version, a remix, and the concert film's October release finally pushed it over, with 18.6 million streams and a roughly 1,400% sales spike in its final chart week. It landed as her 10th career No. 1 and Lover's first — and, as she noted, \"it's not even the summer anymore.\""],
@@ -5988,8 +5988,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     {
       id: "vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure",
       slug: "showgirl-four-million-week",
-      date: "2025-10-13",
-      dateLabel: "October 13, 2025",
+      date: "2025-10-18",
+      dateLabel: "October 18, 2025",
       title: "4.002 million in a week: the biggest album debut ever measured",
       summary: "The largest single-week total in Billboard 200 history — 4.002 million equivalent units, about 3.48 million of them pure sales, past Adele's decade-old 25 record. It's her 15th No. 1 album, breaking her tie with Drake and Jay-Z for the most among soloists.",
       body: ["The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album since Billboard began tracking by Luminate's modern methodology. She'd already passed Adele's 3.378 million-unit 2015 benchmark for 25 within five days, retiring a record that had stood for a decade and that many chart-watchers assumed the streaming era had made permanently unreachable.", "It was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: \"I'll cherish this feeling forever.\""],
