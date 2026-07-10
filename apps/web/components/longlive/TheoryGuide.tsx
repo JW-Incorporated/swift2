@@ -7,6 +7,7 @@ import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { theoriesForEra, resolveRelatedTheory } from '@/lib/longlive/theories';
 import { eraStyle } from '@/lib/longlive/theme';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { Confidence, TheoryNote, TheoryOutcome } from '@/lib/longlive/types';
 
 /**
@@ -70,6 +71,9 @@ export function TheoryGuide() {
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
   }, [open, closeTheoryGuide, share]);
+
+  // Let the mobile back-swipe gesture close this guide instead of leaving the app.
+  useBackDismiss(open, closeTheoryGuide);
 
   if (!era || theories.length === 0) return null;
 
