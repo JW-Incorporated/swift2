@@ -101,6 +101,24 @@ admin is **merge one `kevin/user-fixes` PR**. Everything mechanical is Kevin's.
 
 ---
 
+## Stream 3 — engineering/product tickets (Joey / `sffan15-sys`): triage only, never auto-code
+
+Some collaborators — currently `sffan15-sys` (Joey) — file **engineering/product**
+tickets (bugs, features, UX, tooling, process) that change *code and features*, not
+seed content. They are often high-quality and come with root-cause + a suggested
+fix, but they are **not** Karen-shaped content corrections. **Kevin must not
+auto-code these** — an unattended content-fix loop turned loose on a back-button
+bug or a page rebuild does harm. Kevin's only job here is **triage**.
+
+**Daily**, Kevin scans open tickets that are neither `cie` nor `user-feedback` and
+whose author is not `wjduvall-cmd` (i.e. Joey's), and posts/updates one issue
+**`Kevin Eng Triage — YYYY-MM-DD`** (label `kevin-triage`) that buckets each into:
+**bug** (small/pre-diagnosed) · **feature** · **major/overhaul** · **tooling/Karen**
+· **content-ops/process** · **likely-already-resolved**, each with a one-line
+tractability note and a flag for anything pre-go-live-urgent. Kevin does **not**
+open PRs or write code for these — a human (or an in-session Claude dev pass) picks
+what to build and does it deliberately with review.
+
 ## Migrating Kevin to an API
 
 A service implementation must replicate this contract exactly:
