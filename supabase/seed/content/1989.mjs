@@ -97,6 +97,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 5,
       category: 'tour',
       title: 'The 1989 World Tour opens with two sold-out nights in Tokyo',
       snippet:
@@ -181,6 +182,7 @@ export default {
     {
       year: 2015,
       month: 3,
+      day: 29,
       category: 'fashion',
       title: 'A black cutout KaufmanFranco mini at the iHeartRadio Awards',
       snippet: 'Bandeau cutouts and intricate beadwork — the night she also won Artist of the Year.',
@@ -234,6 +236,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 17,
       category: 'fashion',
       title: 'A sparkling white Balmain jumpsuit for the Billboard Music Awards',
       snippet: 'Waist cutouts, all-over sparkle, and a "Bad Blood" video premiere the same night.',
@@ -300,6 +303,7 @@ export default {
     {
       year: 2016,
       month: 7,
+      day: 3,
       category: 'sighting',
       title: 'A Fourth of July beach walk in Rhode Island',
       snippet: "Spotted walking the shore at her Rhode Island house in matching \"I ❤ T.S.\" gear, part of a holiday party with her regular friend group.",
@@ -485,6 +489,7 @@ export default {
     {
       year: 2016,
       month: 5,
+      day: 2,
       category: 'fashion',
       title: 'A silver snakeskin Louis Vuitton mini co-chairing the 2016 Met Gala',
       snippet:
@@ -595,6 +600,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 28,
       category: 'sighting',
       title: "Gigi Hadid and Karlie Kloss stop by the NYC apartment for a night in",
       snippet:
@@ -645,6 +651,7 @@ export default {
     {
       year: 2016,
       month: 6,
+      day: 15,
       category: 'sighting',
       title: 'Caught kissing on a Rhode Island beach — the first Hiddleswift sighting',
       snippet:
@@ -667,6 +674,7 @@ export default {
     {
       year: 2016,
       month: 6,
+      day: 27,
       category: 'sighting',
       title: 'Sightseeing at the Colosseum, hand in hand, in matching outfits',
       snippet:
@@ -683,6 +691,7 @@ export default {
     {
       year: 2016,
       month: 7,
+      day: 6,
       category: 'sighting',
       title: 'Matching outfits through LAX, hours before a flight to Australia',
       snippet:
@@ -711,6 +720,7 @@ export default {
     {
       year: 2016,
       month: 2,
+      day: 15,
       category: 'business',
       title: '1989 wins Album of the Year — making her the first woman to win it twice',
       snippet:
@@ -736,6 +746,7 @@ export default {
     {
       year: 2020,
       month: 3,
+      day: 14,
       category: 'business',
       title: '"Shake It Off" becomes her first Diamond-certified single',
       snippet:
@@ -757,6 +768,7 @@ export default {
     {
       year: 2025,
       month: 9,
+      day: 30,
       category: 'business',
       title: '1989 itself goes Diamond, joining Fearless as her second 10-million-unit album',
       snippet:
@@ -776,6 +788,7 @@ export default {
     {
       year: 2014,
       month: 11,
+      day: 3,
       category: 'business',
       title: 'Pulls her entire catalog from Spotify',
       snippet:
@@ -798,6 +811,7 @@ export default {
     {
       year: 2015,
       month: 6,
+      day: 21,
       category: 'business',
       title: '"To Apple, Love, Taylor" — an open letter reverses Apple Music\'s royalty policy in under a day',
       snippet:
@@ -820,6 +834,7 @@ export default {
     {
       year: 2015,
       month: 12,
+      day: 12,
       category: 'tour',
       title: 'The 1989 World Tour closes in Melbourne: 85 shows, $250.7 million, 2.28 million tickets',
       snippet:
@@ -868,6 +883,7 @@ export default {
       slug: '1989-announced-yahoo-livestream',
       year: 2014,
       month: 8,
+      day: 18,
       category: 'release',
       title: 'A Yahoo livestream announces 1989 — her "first documented, official pop album"',
       snippet:
@@ -1004,6 +1020,7 @@ export default {
       slug: '1989-nyc-welcome-ambassador',
       year: 2014,
       month: 10,
+      day: 27,
       category: 'business',
       title: 'New York names her its Global Welcome Ambassador',
       snippet:
@@ -1047,6 +1064,7 @@ export default {
       slug: '1989-blank-space-interactive-video',
       year: 2014,
       month: 11,
+      day: 10,
       category: 'release',
       title: 'The Blank Space video arrives with its own interactive app',
       snippet:
@@ -1175,6 +1193,7 @@ export default {
       slug: '1989-style-video',
       year: 2015,
       month: 2,
+      day: 13,
       category: 'release',
       title: 'The Style video trades plot for pure atmosphere',
       snippet:
@@ -1218,6 +1237,7 @@ export default {
       slug: '1989-bad-blood-video-vevo-record',
       year: 2015,
       month: 5,
+      day: 17,
       category: 'release',
       title: 'Bad Blood premieres at the BBMAs and breaks the Vevo record',
       snippet:
@@ -1261,6 +1281,7 @@ export default {
       slug: '1989-hyde-park-runway',
       year: 2015,
       month: 6,
+      day: 27,
       category: 'tour',
       title: 'Hyde Park, 65,000 people, and a literal squad runway',
       snippet:
@@ -1304,6 +1325,7 @@ export default {
       slug: '1989-kobe-staples-banner',
       year: 2015,
       month: 8,
+      day: 21,
       category: 'tour',
       title: 'Kobe Bryant raises a banner for her at Staples Center',
       snippet:
@@ -1347,6 +1369,7 @@ export default {
       slug: '1989-world-tour-live-film',
       year: 2015,
       month: 12,
+      day: 20,
       category: 'release',
       title: 'The 1989 World Tour Live lands as an Apple Music exclusive',
       snippet:
@@ -1390,6 +1413,7 @@ export default {
       slug: '1989-out-of-the-woods-video-nye',
       year: 2015,
       month: 12,
+      day: 31,
       category: 'release',
       title: 'The Out of the Woods video closes the era on New Year\'s Eve',
       snippet:
@@ -1433,6 +1457,7 @@ export default {
       slug: '1989-taylor-vs-treadmill',
       year: 2016,
       month: 4,
+      day: 1,
       category: 'business',
       title: 'Taylor vs. Treadmill: the Apple Music ad that sold a Drake song',
       snippet:
@@ -1476,6 +1501,7 @@ export default {
       slug: '1989-nils-sjoberg-reveal',
       year: 2016,
       month: 7,
+      day: 13,
       category: 'relationship',
       title: 'Nils Sjöberg unmasked: she secretly wrote Calvin Harris\'s biggest hit of the year',
       snippet:
@@ -1528,6 +1554,7 @@ export default {
       slug: '1989-taylors-version-announced',
       year: 2023,
       month: 8,
+      day: 9,
       category: 'release',
       title: '1989 (Taylor\'s Version) announced in head-to-toe blue at SoFi Stadium',
       snippet:
