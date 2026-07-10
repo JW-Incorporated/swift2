@@ -9,6 +9,7 @@ import { getContentItem } from '@/lib/longlive/content';
 import { getThread } from '@/lib/longlive/lenses';
 import { momentShareCopy, type ShareCopy } from '@/lib/longlive/share';
 import { eraStyle } from '@/lib/longlive/theme';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { primaryImage, type Era } from '@/lib/longlive/types';
 
 const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
@@ -33,6 +34,11 @@ export function ShareSheet() {
       };
     }
   }, [share, closeShare]);
+
+  // Let the mobile back-swipe gesture close this sheet instead of leaving the
+  // app (it stacks above the moment pill's own entry, so back closes the
+  // sheet first, then the pill).
+  useBackDismiss(Boolean(share), closeShare);
 
   if (!share) return null;
 
