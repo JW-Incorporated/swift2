@@ -188,6 +188,7 @@ export default {
     {
       year: 2013,
       month: 3,
+      day: 13,
       category: 'tour',
       title: 'The Red Tour opens with Ed Sheeran in Omaha',
       snippet:
@@ -399,6 +400,7 @@ export default {
     {
       year: 2012,
       month: 11,
+      day: 1,
       category: 'fashion',
       title: 'A Jenny Packham lace gown blooms with red at the 2012 CMAs',
       snippet:
@@ -425,6 +427,7 @@ export default {
     {
       year: 2013,
       month: 5,
+      day: 19,
       category: 'fashion',
       title: 'A Zuhair Murad mini dress and a bright pink lip at the Billboard Music Awards',
       snippet:
@@ -452,6 +455,7 @@ export default {
     {
       year: 2013,
       month: 8,
+      day: 25,
       category: 'fashion',
       title: 'Retro pin curls and a crimson-crystal Hervé Léger gown at the 2013 VMAs',
       snippet:
@@ -478,6 +482,7 @@ export default {
     {
       year: 2013,
       month: 11,
+      day: 24,
       category: 'fashion',
       title: 'A gold Julien Macdonald gown, altered with a hidden message',
       snippet:
@@ -509,6 +514,7 @@ export default {
     {
       year: 2014,
       month: 1,
+      day: 26,
       category: 'fashion',
       title: 'A crystal-mesh Gucci Première gown for the 2014 Grammys',
       snippet:
@@ -535,6 +541,7 @@ export default {
     {
       year: 2014,
       month: 8,
+      day: 24,
       category: 'fashion',
       title: 'A Mary Katrantzou romper signals the turn toward 1989',
       snippet:
@@ -563,6 +570,7 @@ export default {
     {
       year: 2012,
       month: 12,
+      day: 2,
       category: 'sighting',
       title: "A Central Park stroll confirms she's dating Harry Styles",
       snippet:
@@ -594,6 +602,7 @@ export default {
     {
       year: 2012,
       month: 12,
+      day: 13,
       category: 'sighting',
       title: 'A birthday minibreak to the Lake District, spotted feeding doves and shopping for Beatrix Potter gifts',
       snippet:
@@ -620,6 +629,7 @@ export default {
     {
       year: 2013,
       month: 1,
+      day: 3,
       category: 'sighting',
       title: 'A Virgin Islands getaway, spotted at dinner at CocoMaya',
       snippet:
@@ -651,6 +661,7 @@ export default {
     {
       year: 2013,
       month: 2,
+      day: 21,
       category: 'sighting',
       title: 'A late-night out with singer-songwriter Tom Odell after the BRITs',
       snippet:
@@ -682,6 +693,7 @@ export default {
     {
       year: 2013,
       month: 3,
+      day: 11,
       category: 'sighting',
       title: 'Caught mid-rehearsal for the Red Tour, days before it opened',
       snippet:
@@ -842,6 +854,7 @@ export default {
     {
       year: 2012,
       month: 12,
+      day: 31,
       category: 'relationship',
       title: "A New Year's Eve kiss with Harry Styles in Times Square",
       snippet: 'Caught on camera by a reveler as the ball dropped — the clearest public confirmation of a relationship that had started weeks earlier.',
@@ -869,6 +882,7 @@ export default {
     {
       year: 2013,
       month: 1,
+      day: 4,
       category: 'relationship',
       title: 'A British Virgin Islands trip ends the relationship',
       snippet: 'A vacation together turned into a breakup, and a photo of her alone on the back of a boat went viral in its aftermath.',
@@ -983,6 +997,7 @@ export default {
       slug: 'red-announced-google-hangout',
       year: 2012,
       month: 8,
+      day: 13,
       category: 'release',
       title: 'Red announced live from her living room, on a Google+ Hangout',
       snippet:
@@ -1033,6 +1048,7 @@ export default {
       slug: 'red-ronan-stand-up-to-cancer',
       year: 2012,
       month: 9,
+      day: 8,
       category: 'music',
       title: 'Ronan, a charity single built from a grieving mother\'s blog',
       snippet:
@@ -1082,6 +1098,7 @@ export default {
       slug: 'red-begin-again-single',
       year: 2012,
       month: 10,
+      day: 1,
       category: 'release',
       title: 'Begin Again sends a country valentine ahead of the pop swerve',
       snippet:
@@ -1156,6 +1173,7 @@ export default {
       slug: 'red-conor-kennedy-split',
       year: 2012,
       month: 10,
+      day: 25,
       category: 'relationship',
       title: 'The Conor Kennedy summer quietly ends',
       snippet:
@@ -1205,6 +1223,7 @@ export default {
       slug: 'red-ikywt-video-birthday',
       year: 2012,
       month: 12,
+      day: 13,
       category: 'release',
       title: 'The I Knew You Were Trouble video drops on her 23rd birthday',
       snippet:
@@ -1238,6 +1257,7 @@ export default {
       slug: 'red-safe-and-sound-grammy',
       year: 2013,
       month: 2,
+      day: 10,
       category: 'business',
       title: 'Safe & Sound wins the first Grammy of the Red era',
       snippet:
@@ -1295,6 +1315,7 @@ export default {
       slug: 'red-22-single-and-video',
       year: 2013,
       month: 3,
+      day: 12,
       category: 'release',
       title: 'The 22 video: her actual friends, an actual party',
       snippet:
@@ -1381,6 +1402,7 @@ export default {
       slug: 'red-tour-surprise-guests',
       year: 2013,
       month: 8,
+      day: 24,
       category: 'tour',
       title: 'The Red Tour\'s surprise-guest parade hits its stride',
       snippet:
@@ -1414,6 +1436,7 @@ export default {
       slug: 'red-education-center-opens',
       year: 2013,
       month: 10,
+      day: 12,
       category: 'business',
       title: 'A $4 million gift opens the Taylor Swift Education Center',
       snippet:
@@ -1462,6 +1485,7 @@ export default {
       slug: 'red-sweeter-than-fiction',
       year: 2013,
       month: 10,
+      day: 21,
       category: 'release',
       title: 'Sweeter Than Fiction: the first Jack Antonoff collaboration',
       snippet:
@@ -1549,6 +1573,7 @@ export default {
       slug: 'red-all-too-well-grammys-2014',
       year: 2014,
       month: 1,
+      day: 26,
       category: 'music',
       title: 'All Too Well gets its first TV performance — alone at a piano at the Grammys',
       snippet:
@@ -1597,6 +1622,7 @@ export default {
       slug: 'red-bridal-shower-surprise',
       year: 2014,
       month: 4,
+      day: 17,
       category: 'sighting',
       title: 'She flies to Ohio to crash a fan\'s bridal shower',
       snippet:
@@ -1644,6 +1670,7 @@ export default {
       slug: 'red-tour-asia-finale',
       year: 2014,
       month: 6,
+      day: 12,
       category: 'tour',
       title: 'The Red Tour takes its final bow in Singapore',
       snippet:
@@ -1684,6 +1711,7 @@ export default {
       slug: 'red-taylors-version-number-one',
       year: 2021,
       month: 11,
+      day: 18,
       category: 'business',
       title: 'Red gets its do-over: Red (Taylor\'s Version) opens at No. 1',
       snippet:
