@@ -53,9 +53,18 @@ may 404, or may be about something narrower/different than the claim.
    `safety.illegal` P0 `escalate:true`.
 
 ## Method
-- Use **WebFetch** on the record's cited `sources` to check grounding.
+- **Read the article body, never the headline alone.** WebFetch each cited
+  `source` and read enough of the actual text to confirm it contains the specific
+  claim. A headline about a "proposal" can sit on an article that never mentions a
+  "wedding"; a title that says "ties the record" can front a body that lists
+  different numbers. Judging support from the title/URL slug is the headline trap
+  that let the miss through — do not repeat it. If a source won't load, say so and
+  treat the claim as unverified, not confirmed.
 - Use **WebSearch** for independent corroboration on recent/high-visibility
   claims (don't trust a single source on a marquee stat).
+- **Do not skimp.** Spend the tokens: fetch every source that matters, cross-check
+  the marquee claims against a second independent source, and read bodies fully.
+  A missed error is far more expensive than the fetches.
 - Verify **before** flagging. Quote the exact span in `excerpt`. Put what the
   source actually said vs. the claim in `evidence`. Be honest with `confidence`
   (≥0.5 files as a ticket; <0.5 is a review note — use it when you can't fully
