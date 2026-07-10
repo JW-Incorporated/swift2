@@ -19,10 +19,16 @@ export default {
       thumbnailUrl:
         'https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg',
       moment: {
+        context:
+          'Accepting Best Pop Vocal Album for Midnights — her 13th career Grammy — she told the room: "I want to say thank you to the fans by telling you a secret that I\'ve been keeping from you for the last two years, which is that my brand new album comes out April 19th." Fans primed by her lucky number 13 had bet on a Reputation (Taylor\'s Version) reveal; instead, a black-and-white cover photo of her lying in bed hit Instagram minutes later, captioned with lines about muses and love bombs. By the end of the night she had Album of the Year for Midnights too, making her the first artist ever to win the category four times.',
         sources: [
           {
             outlet: 'CBS News',
             url: 'https://www.cbsnews.com/news/taylor-swift-announces-new-album-the-tortured-poets-department-grammys-2024/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-grammys-tortured-poets-department-1234960908/',
           },
         ],
         photos: [
@@ -44,6 +50,8 @@ export default {
         'https://newsroom.spotify.com/2024-04-19/tortured-poets-department-taylor-swift-library-los-angeles/',
       thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_5-1-1440x1440.jpg',
       moment: {
+        context:
+          'The album cleared 300 million Spotify streams before its first day was out — the first album in the platform\'s history to cross either the 200 million or 300 million single-day marks — while "Fortnight" displaced the single-day record for any song, and Swift set the single-day artist record too. The takeover had a physical footprint: for three days before release, Spotify ran an open-air "poetry library" pop-up at The Grove in Los Angeles, revealing new lyrics from the album each day. The artist single-day record she broke was her own, set when 1989 (Taylor\'s Version) arrived in October 2023.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -77,6 +85,8 @@ export default {
         'https://newsroom.spotify.com/2024-04-24/tortured-poets-department-taylor-swift-one-billion-record-streams/',
       thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/TSwift-Square-header-1440x1440.jpg',
       moment: {
+        context:
+          'No album had ever reached a billion Spotify streams within five days; Spotify confirmed the milestone on April 24. It capped a stretch where a record fell almost daily — most pre-saved album on the platform\'s Countdown Pages the day before release, most-streamed album in a single day on day one, then most-streamed album in a single week logged before an actual week had even elapsed. "Fortnight" led the charge as the most-streamed song in a single day in Spotify history.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -106,8 +116,14 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
       moment: {
         context:
-          'Taylor\'s own description of the album\'s fatalism: "You ended up not with the person that you loved and now you just have to live with that every day."',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' }],
+          'Written with Post Malone and Jack Antonoff, the downtempo synth-pop opener carries what Taylor called the album\'s fatalism — "You ended up not with the person that you loved and now you just have to live with that every day" — with Malone recording his harmonies and bridge hooks at his home studio in Los Angeles. The video, which Swift directed herself with cinematographer Rodrigo Prieto shooting in black and white, casts Malone as her lover and reunites Dead Poets Society co-stars Ethan Hawke and Josh Charles as mad scientists administering her electroshock therapy; critics caught echoes of Poor Things, Frankenstein, and silent-era German Expressionism. The song debuted at No. 1 on the Hot 100 — her 12th chart-topper and Post Malone\'s fifth — after breaking Spotify\'s single-day streaming record, and its video went on to take Video of the Year at the 2024 VMAs.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
@@ -128,11 +144,15 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her caption: "I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you."',
+          'She had teased a mysterious 2 a.m. countdown, and delivered on it two hours after the midnight release: "It\'s a 2am surprise: The Tortured Poets Department is a secret DOUBLE album. I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you." Four of the 15 Anthology tracks — "The Manuscript," "The Bolter," "The Albatross," and "The Black Dog" — had already been teased as bonus cuts scattered across physical variants; the rest were entirely new, pushing the full album past the two-hour mark. Her sign-off handed the record over: "And now the story isn\'t mine anymore... it\'s all yours."',
         sources: [
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/pop/taylor-swift-2am-surprise-secret-double-album-the-tortured-poets-department-1235660643/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-tortured-poets-department-the-anthology-announcement-1235007251/',
           },
         ],
         photos: [],
@@ -190,12 +210,14 @@ export default {
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300',
       moment: {
-        context: 'Her exact caption: "This post is dedicated to the new Tortured Poets section of the Eras Tour (aka Female Rage The Musical!)"',
+        context:
+          'Her caption dedicated the post "to the new Tortured Poets section of the Eras Tour (aka Female Rage The Musical!)" and credited a crew that spent the tour\'s two-month break building it: "we really didn\'t take any time off." Seven TTPD songs entered the show — "But Daddy I Love Him," "So High School," "Who\'s Afraid of Little Old Me?," "Down Bad," "Fortnight," "The Smallest Man Who Ever Lived," and "I Can Do It With a Broken Heart" — with original choreography, new costumes, and moody staging built on muted tones, paper, and a typewriter. Fitting a new era in meant real surgery on the three-hour show: the Lover and folklore sets lost songs, and Red moved up to follow Fearless directly.',
         sources: [
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-eras-tour-set-list-post-1235019481/',
           },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/lists/taylor-swift-paris-eras-tour-europe/' },
         ],
         photos: [
           {
@@ -220,8 +242,14 @@ export default {
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
+        context:
+          'May 9, 2024 at La Défense Arena was her first performance anywhere since TTPD arrived, and the setlist treated it as a premiere: an acoustic "Paris" — a song she said would make its live debut only in its namesake city — a piano rendition of "loml," and the unveiling of the full seven-song Tortured Poets section with its muted, typewriter-strewn staging. Other eras got refreshed too, with "cardigan" now sung from the roof of a transparent wooden cabin under autumnal light, and she worked the crowd in French between songs. Paramore, the openers for the whole European leg, kicked off the night with a Talking Heads cover.',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/lists/taylor-swift-paris-eras-tour-europe/' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-eras-tour-set-list-post-1235019481/',
+          },
         ],
         photos: [
           {
@@ -240,8 +268,14 @@ export default {
       sourceUrl: 'https://www.billboard.com/photos/taylor-swift-eras-tour-paris-show-1235680098/',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=204',
       moment: {
+        context:
+          'The "Fortnight" gown was custom Vivienne Westwood Couture: a draped, corseted dress inscribed with the song\'s own confession — "I love you, it\'s ruining my life" — finished with a three-row orb-detail choker in black agate. It opened a run of Westwood one-offs across the European leg; by Milan, a new white taffeta corset dress arrived with "Who\'s afraid of little old me?" spelled out in black crystals. The same Paris night refreshed the rest of the wardrobe too, with the new crystal bodysuit and boots for the opening Lover set plus first-time looks in the Fearless and 1989 sets.',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/photos/taylor-swift-eras-tour-paris-show-1235680098/' },
+          {
+            outlet: 'Vivienne Westwood',
+            url: 'https://www.viviennewestwood.com/westwood-world/news-and-projects/taylor-swift-the-eras-tour/',
+          },
         ],
         photos: [
           {
@@ -265,11 +299,16 @@ export default {
       sourceUrl: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-breaks-record-eras-tour-london-wembley-stadium-1235980429/',
       thumbnailUrl: null,
       moment: {
-        context: '"You just made me the first solo artist to ever play Wembley eight times in a single tour," she told the crowd on her final 2024 London night.',
+        context:
+          '"You just made me the first solo artist to ever play Wembley eight times in a single tour," she told the crowd on her final 2024 London night — Michael Jackson\'s seven-show stand on the 1988 Bad Tour had stood as the mark for 36 years. All eight nights sold out, poured over £300 million into London\'s economy by the stadium\'s own accounting, and had the Wembley arch relit in a different era\'s colors through each show; afterward, the venue shipped a bespoke guitar and personalized plectrums to Nashville as a thank-you. The Aug. 20 record-setter doubled as the European leg\'s finale, with Florence Welch joining for the live debut of "Florida!!!" and the "I Can Do It With a Broken Heart" video premiering on the screens after the show.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
             url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-breaks-record-eras-tour-london-wembley-stadium-1235980429/',
+          },
+          {
+            outlet: 'Wembley Stadium',
+            url: 'https://www.wembleystadium.com/news/2024/08/23/10/34/Wembley-Stadium-has-gifted-Taylor-Swift-a-bespoke-guitar-to-mark-her-record-breaking-achievement',
           },
         ],
         photos: [],
@@ -334,6 +373,8 @@ export default {
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-vancouver-fearless-dec-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
+        context:
+          'The Dec. 6–8 farewell stand at BC Place drew roughly 60,000 fans a night, with all three shows professionally filmed for a then-unannounced project. The final surprise-song slot went out swinging — "Long Live" and a "New Year\'s Day"/"The Manuscript" mashup to close — after "The Tortured Poets Department" itself surfaced on night two and her parents watched a "Never Grow Up"/"The Best Day" pairing on night one. Three days later she posted 17 photos from the finale with a caption borrowed from "All Too Well": "It was rare. I was there. I remember it."',
         sources: [
           {
             outlet: 'NBC News',
@@ -362,6 +403,8 @@ export default {
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
+        context:
+          'Her production company confirmed the totals to The New York Times: 10,168,008 tickets across 149 shows on six continents, at an average of $204 a seat — roughly double the previous all-time record, Coldplay\'s $1 billion Music of the Spheres run, which needed more dates to get there. The figure counts tickets only; merchandise, the record-grossing concert film, and the Eras Tour Book all sit outside the tally. Pollstar had already estimated the tour crossed the billion-dollar line in November 2023 — the second billion took barely a year more.',
         sources: [
           {
             outlet: 'Forbes',
@@ -393,7 +436,8 @@ export default {
       sourceUrl: 'https://www.eonline.com/news/1409681/taylor-swifts-historic-2025-grammy-nominations-prove-shes-anything-but-a-tortured-poet',
       thumbnailUrl: null,
       moment: {
-        context: 'The Grammy itself went to Beyoncé\'s Cowboy Carter at the February 2025 ceremony, ending Swift\'s bid for a fifth Album of the Year win.',
+        context:
+          'The nomination broke her tie with Barbra Streisand — at six apiece — for the most Album of the Year nods by any female artist, putting TTPD on a ledger that already held Fearless, Red, 1989, folklore, evermore, and Midnights. The same announcement gave "Fortnight" a Song of the Year nomination, her eighth in that category and a record no other songwriter holds, en route to a 58-nomination career total. Her stated stance on the stakes: "For me, the award is the work. All I want to do is keep being able to do this." The Grammy itself went to Beyoncé\'s Cowboy Carter at the February 2025 ceremony, ending Swift\'s bid for a fifth Album of the Year win.',
         sources: [
           {
             outlet: 'E! Online',
@@ -414,10 +458,16 @@ export default {
       thumbnailUrl:
         'https://assets3.cbsnewsstatic.com/hub/i/r/2025/02/10/730950cd-100f-4bdf-9500-9ddfae69e3a2/thumbnail/620x413/17ecc99a76627497275a0395c0802f6e/gettyimages-2198604289.jpg',
       moment: {
+        context:
+          'When the Superdome video boards found her suite during a first-quarter break — right after Adam Sandler and Paul Rudd drew cheers — the heavily pro-Eagles crowd booed, and cameras caught the side-eye and wrinkled nose she shot to Ice Spice beside her before the two laughed it off. Her section also held her brother Austin, the Haim sisters, longtime friend Ashley Avignone, and the Kelce family, watching the first Chiefs playoff loss she had ever attended. Donald Trump piled on from Truth Social ("MAGA is very unforgiving!"); Serena Williams answered on X: "I love you @taylorswift13 dont listen to those booo!!"',
         sources: [
           {
             outlet: 'CBS News Philadelphia',
             url: 'https://www.cbsnews.com/philadelphia/news/taylor-swift-philadelphia-eagles-fans-boo-super-bowl/',
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1413228/super-bowl-taylor-swift-booed-on-jumbotron',
           },
         ],
         photos: [
@@ -461,6 +511,8 @@ export default {
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-engaged/',
       thumbnailUrl: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
       moment: {
+        context:
+          'The caption on the joint Aug. 26, 2025 post — "Your English teacher and your gym teacher are getting married" — ran over photos of a garden proposal scene set among pink and white roses, soundtracked on Instagram by "So High School," her TTPD song about him. Travis had actually proposed about two weeks earlier; his father Ed learned the news by FaceTime from the couple while standing at an Eagles practice. It closed the loop on a courtship that started when Kelce attended the Eras Tour in Kansas City in 2023 and vented about her on New Heights — or as Swift later put it, "This podcast got me a boyfriend."',
         sources: [
           { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-engaged/' },
           {
@@ -485,6 +537,8 @@ export default {
       sourceUrl: 'https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand',
       thumbnailUrl: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
       moment: {
+        context:
+          'Travis worked directly with Kindred Lubeck — the goldsmith, hand-engraver, and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry, whose work Swift had shown him admiringly well before the proposal — on a 3.63-carat old mine brilliant-cut diamond set in a hand-engraved yellow gold band with an engraved halo and smaller accent stones. The old mine cut is a genuinely antique geometry, common from the early 1700s to the late 1800s: squarer than a modern brilliant, with a smaller table, larger culet, and higher crown. Swift\'s verdict on the ring she never had to spec: "I didn\'t know what I would want, but he did somehow."',
         sources: [
           {
             outlet: 'Complex',
@@ -541,12 +595,21 @@ export default {
       category: 'fashion',
       title: "'Fortnight' video costuming: an Elena Velez gothic gown",
       snippet:
-        'The black Victorian-gothic ensemble from the music video — gown by Elena Velez, top by UNTTLD — later went on display on the Eras Tour\'s Songbook Trail.',
+        'The black Victorian-gothic ensemble from the music video — gown by Elena Velez, top by UNTTLD — later went on display on the V&A\'s Taylor Swift | Songbook Trail.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fortnight_(song)',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg',
       moment: {
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' }],
+        context:
+          'The pieces came from Elena Velez\'s Fall 2024 runway collection — Velez, the 2022 CFDA Emerging Designer of the Year, was raised in Milwaukee by a single mother who captained ships on the Great Lakes, and told Vogue her aim is a "more multi-dimensional representation of womanhood, good and bad." Months after the video, the ensemble got museum treatment as one of 13 theatrically staged stops on the V&A\'s free Taylor Swift | Songbook Trail in London (July 27–Sept. 8, 2024), where the museum described it as fusing "monochromatic elements of B-movie sci-fi with a Victorian gothic aesthetic."',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' },
+          { outlet: 'V&A', url: 'https://www.vam.ac.uk/articles/va-trail-taylor-swift-songbook' },
+          {
+            outlet: 'Milwaukee Journal Sentinel',
+            url: 'https://www.yahoo.com/entertainment/taylor-swifts-outfit-fortnight-video-011351237.html',
+          },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg',
@@ -594,6 +657,8 @@ export default {
       thumbnailUrl:
         'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg',
       moment: {
+        context:
+          'The custom one-shoulder Vivienne Westwood mini read as a message: Chiefs red, worn Feb. 2 at Crypto.com Arena exactly one week before Kansas City\'s Super Bowl LIX matchup with the Eagles, with the Lorraine Schwartz diamond thigh chain dangling a single "T" fans immediately read as Travis, absent while he prepared for the game. Casadei heels finished the look as she carried six nominations into the night, including her record seventh Album of the Year nod for The Tortured Poets Department.',
         sources: [
           {
             outlet: 'E! News',
@@ -630,8 +695,8 @@ export default {
           },
         ],
         photos: [
-          { url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg', credit: 'Getty Images' },
-          { url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg', credit: 'Getty Images' },
+          { url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg', credit: 'Taylor Swift' },
+          { url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg', credit: 'Taylor Swift' },
         ],
       },
     },
@@ -1266,7 +1331,7 @@ export default {
       year: 2024,
       month: 8,
       category: 'tour',
-      title: 'Vienna, cancelled: a foiled plot and 250,000 unused tickets',
+      title: 'Vienna, cancelled: a foiled plot, three sold-out shows',
       snippet:
         'Austrian police arrested suspects planning an attack on the Ernst Happel shows, and all three nights were scrapped. She later wrote the cancellations left her with "a new sense of fear" and "tremendous guilt."',
       sourceUrl: 'https://www.nbcnews.com/news/world/taylor-swift-concert-terror-plot-austria-foiled-2-men-arrested-shows-w-rcna165591',

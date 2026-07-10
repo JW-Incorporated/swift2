@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
-import { ERAS, erasBackFrom, isFirstEra, getEra } from '@/lib/longlive/eras';
+import { ERAS, erasBackFrom, isFirstEra, getEra, eraIndex, CURRENT_ERA_ID } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import type { Era } from '@/lib/longlive/types';
 import { EraSection } from './EraSection';
@@ -56,17 +56,32 @@ export function EraStream() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Re-anchor + jump to top whenever the user explicitly jumps to an era.
+  // Re-anchor + jump to the chosen era whenever the user explicitly jumps.
   // Keyed off the *value* of eraJumpSeq (not "has mounted") so it's idempotent:
   // the initial value is pre-seeded as handled, and StrictMode's double-invoke
   // of this effect can't re-trigger a jump that would clobber a scroll restore.
+  //
+  // The stream always anchors at the newest (current) era and extends back
+  // just far enough to include the chosen era, rather than re-anchoring AT the
+  // chosen era — anchoring there would strand the user with no way to scroll
+  // back up toward more recent eras (the stream only ever grows *older* going
+  // down), which was the reported "can't scroll forward after an era-menu
+  // jump" bug.
   const handledJumpSeq = useRef(eraJumpSeq);
   useEffect(() => {
     if (handledJumpSeq.current === eraJumpSeq) return;
     handledJumpSeq.current = eraJumpSeq;
-    setAnchorId(eraIdRef.current);
-    setCount(1);
-    window.scrollTo({ top: 0, behavior: 'auto' });
+    const targetId = eraIdRef.current;
+    const neededCount = Math.max(1, eraIndex(CURRENT_ERA_ID) - eraIndex(targetId) + 1);
+    setAnchorId(CURRENT_ERA_ID);
+    setCount(neededCount);
+    requestAnimationFrame(() =>
+      requestAnimationFrame(() => {
+        const el = document.querySelector<HTMLElement>(`[data-ll-section="${targetId}"]`);
+        const top = el ? el.getBoundingClientRect().top + window.scrollY : 0;
+        window.scrollTo({ top, behavior: 'auto' });
+      }),
+    );
   }, [eraJumpSeq]);
 
   const sequence = useMemo(() => erasBackFrom(anchorId, count), [anchorId, count]);
