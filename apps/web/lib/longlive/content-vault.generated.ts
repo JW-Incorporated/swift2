@@ -2,7 +2,7 @@
 // Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.
 // Re-run that script after content-seed changes; don't edit this file directly.
 
-import type { ContentTag, EraId, ImageRef } from './types';
+import type { ContentTag, EraId, ImageRef, LensId } from './types';
 
 /**
  * Build-time freshness stamp: when this module was last regenerated. The
@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-10T01:49:21.982Z";
+export const CONTENT_GENERATED_AT = "2026-07-10T05:31:36.078Z";
 
 type VaultRawItem = {
   id: string;
@@ -26,6 +26,7 @@ type VaultRawItem = {
   sources?: { name: string; url: string }[];
   video?: { youtubeId: string; title: string };
   relatedIds?: string[];
+  threadIds?: LensId[];
 };
 
 export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
