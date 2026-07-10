@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-10T13:11:23.393Z";
+export const CONTENT_GENERATED_AT = "2026-07-10T17:50:35.421Z";
 
 type VaultRawItem = {
   id: string;
@@ -6024,8 +6024,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     {
       id: "vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12",
       slug: "showgirl-hot-100-top-12-sweep",
-      date: "2025-10-13",
-      dateLabel: "October 13, 2025",
+      date: "2025-10-18",
+      dateLabel: "October 18, 2025",
       title: "All 12 tracks debut as the Hot 100's entire top 12",
       summary: "Every song on the album landed inside the top 12 of the Hot 100 in its first week — the whole tracklist, in a block — making her the first artist ever to monopolize the chart's top 10 three separate times.",
       body: ["On the Hot 100 dated Oct. 18, 2025, the chart's top 12 positions and the album's 12-song tracklist were the same list: \"The Fate of Ophelia\" at No. 1, \"Elizabeth Taylor\" at No. 3, \"Opalite\" at No. 2, and every other track slotted in behind them, with nothing else — no other artist, no other song — inside the top 12.", "She first claimed a full top 10 with Midnights in 2022, again with TTPD's top-14 sweep in 2024, and now a third time, making her the only artist ever to monopolize the chart's top 10 on three occasions. This one was unique in shape: a 12-track album occupying exactly the top 12, the complete tracklist with nothing left over — a chart picture only possible because she kept the album short."],

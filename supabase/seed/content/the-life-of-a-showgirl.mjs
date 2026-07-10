@@ -436,7 +436,7 @@ export default {
       slug: 'showgirl-hot-100-top-12-sweep',
       year: 2025,
       month: 10,
-      day: 13,
+      day: 18,
       category: 'business',
       title: "All 12 tracks debut as the Hot 100's entire top 12",
       snippet:
