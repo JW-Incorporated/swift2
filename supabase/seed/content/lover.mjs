@@ -10,8 +10,8 @@ export default {
   items: [
     {
       year: 2019,
-      month: 8,
-      day: 23,
+      month: 9,
+      day: 1,
       category: 'business',
       title: 'Lover makes her the first woman with six half-million album weeks',
       snippet:

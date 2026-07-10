@@ -1896,7 +1896,7 @@ export default {
       slug: 'showgirl-luminate-2025-top-album',
       year: 2026,
       month: 1,
-      day: 1,
+      day: 14,
       category: 'business',
       title: "Luminate's 2025 crown: 5.6 million units, no contest",
       snippet:

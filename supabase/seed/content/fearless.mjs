@@ -1013,7 +1013,7 @@ export default {
       category: 'release',
       title: 'Love Story arrives two months before the album',
       snippet:
-        'Sept. 12, 2008: the lead single from Fearless goes out ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
+        'Sept. 15, 2008: the lead single from Fearless goes out to country radio ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
