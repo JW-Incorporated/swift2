@@ -15,6 +15,7 @@ import { resolveMotifTrail, type MotifTarget } from '@/lib/longlive/related';
 import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
+import { ZoomableImage } from './ZoomableImage';
 import { primaryImageRef, type Confidence, type ImageKind, type ImageRef } from '@/lib/longlive/types';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
@@ -232,15 +233,14 @@ export function MomentDetail() {
                   key={`${img.url}-${i}`}
                   className="era-card overflow-hidden rounded-2xl border"
                 >
-                  <div className="relative aspect-[4/3]">
-                    <Image
-                      src={img.url}
-                      alt={img.caption ?? ''}
-                      fill
-                      unoptimized={isRemoteUrl(img.url)}
-                      className="object-cover"
-                    />
-                  </div>
+                  {/* Pinch/double-tap zoomable — the body-scroll lock above
+                      breaks native browser zoom-and-pan, so the viewer drives
+                      the gestures itself, scoped to this frame. */}
+                  <ZoomableImage
+                    src={img.url}
+                    alt={img.caption ?? ''}
+                    unoptimized={isRemoteUrl(img.url)}
+                  />
                   <figcaption className="space-y-1.5 p-3">
                     {img.kind !== 'primary' && (
                       <div>
