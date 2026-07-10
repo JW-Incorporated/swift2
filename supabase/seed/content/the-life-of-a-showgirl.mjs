@@ -1009,24 +1009,38 @@ export default {
       snippet:
         'Security tightened around her Watch Hill estate as a large tent went up on the Ocean House lawn next door and friends including Abigail Anderson were spotted arriving for what looked like a bachelorette weekend.',
       sourceUrl: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/',
-      thumbnailUrl: 'https://imagez.tmz.com/image/2c/16by9/2026/06/19/2ce1e3acab1c4ea4a7e0faa9f4bb02ab_md.png',
+      // Image-fix pass (2026-07-10): swapped the watermarked TMZ collage
+      // thumbnail for the verified AP tent/Ocean House photo below (see
+      // photos[0]) — same fix as ticket #337.
+      thumbnailUrl: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
       moment: {
         context:
           'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends" — separate from the Ocean House\'s own scheduled event that weekend, which the venue confirmed was for a different couple. The tells were logistical rather than official: extra security around the Watch Hill estate, a large tent rising on the lawn next door, and longtime friends — Abigail Anderson among the arrivals fans identified — converging on the small Rhode Island town at once.\n\nThe location was its own callback. Watch Hill is the "holiday house" of the 2020 song "the last great american dynasty" — the Rebekah Harkness mansion Swift bought in 2013, the site of the Fourth of July parties of the 1989 era — so a pre-wedding weekend there read to fans as the personal-lore equivalent of a hometown send-off, two weeks before the Madison Square Garden ceremony. Neither Swift nor her team ever confirmed the party; the venue-level reporting here is TMZ\'s, labeled as such.',
         sources: [
           { outlet: 'TMZ', url: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/' },
         ],
+        // Image-fix pass (2026-07-10): both TMZ photos here (tickets #337,
+        // #338) were junk news-graphics — a watermarked collage with a
+        // celebrity inset, and a watermarked long-lens shot with a blurred
+        // face. Replaced with two AP Photo/Robert F. Bukaty images (June 20,
+        // 2026, Westerly RI) sourced via Fortune and The Washington Times'
+        // wire copy: the Ocean House lawn tent, and a security guard at
+        // Swift's Watch Hill estate. Both curl-verified HTTP 200 +
+        // image/jpeg and visually confirmed this session — clean, unwatermarked,
+        // single photos matching the moment's context (the tent, and the
+        // tightened estate security).
         photos: [
           {
-            url: 'https://imagez.tmz.com/image/2c/16by9/2026/06/19/2ce1e3acab1c4ea4a7e0faa9f4bb02ab_md.png',
-            credit: 'TMZ',
-            caption: 'The tent going up on the lawn beside the Watch Hill estate, from TMZ\'s report on the June 19-20 weekend.',
+            url: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
+            credit: 'AP Photo/Robert F. Bukaty, via Fortune',
+            caption:
+              'A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation.',
             kind: 'primary',
           },
           {
-            url: 'https://imagez.tmz.com/image/81/4by3/2026/06/19/81b2c535bab3435487f156afbe67b6be_md.png',
-            credit: 'TMZ',
-            caption: 'A second angle from TMZ\'s report on the pre-wedding gathering in Watch Hill, Rhode Island.',
+            url: 'https://twt-thumbs.washtimes.com/media/image/2026/06/21/Swift_Wedding_Speculation_6953__c0-242-5784-3614_s885x516.jpg?18921fe33b20ba0427c28b6eeae09fd9ded1b3cc',
+            credit: 'AP Photo/Robert F. Bukaty, via The Washington Times',
+            caption: 'A security guard stands watch at Swift\'s Watch Hill "Holiday House" estate, June 20, 2026.',
             kind: 'primary',
           },
         ],
@@ -1458,6 +1472,17 @@ export default {
         // Claire's credited copy (credit: Amazon Prime; MC's own caption:
         // "spotted on the Chiefs vs. Broncos broadcast in a red bomber
         // jacket"). Verified HTTP 200 + image/jpeg and visually confirmed.
+        // Image-fix pass (2026-07-10, ticket #339): checker flagged this as a
+        // moire'd screenshot-of-a-screen with a "CHIEFS KINGDOM" lower-third
+        // and NFL|prime bug. Searched for a clean editorial replacement
+        // (Getty/AP suite shots, Marie Claire's own gallery); the only other
+        // candidate found (Marie Claire's second Future CDN image) is an
+        // unwatermarked crowd photo of Swift, but its own caption ties it to
+        // "the 2025-2026 season" generally, not confirmably this Dec. 25
+        // game or the red bomber — it doesn't pass the exact-subject gate,
+        // so it was rejected. No other verified candidate was found. Since
+        // this is the moment's only photo, leaving as-is per protocol
+        // (SKIPPED, needs manual) rather than writing an unverified URL.
         photos: [
           {
             url: 'https://cdn.mos.cms.futurecdn.net/DMkDVFeRJHoeMajC8tixt.jpg',
@@ -2046,19 +2071,20 @@ export default {
             reliability_score: 4,
           },
         ],
-        // The ABC7 image is a two-panel composite: the display photo
-        // (courtesy Rock & Roll Hall of Fame) beside an AP file photo of
-        // Swift. Hotlinked from ABC7's stable CDN; verified HTTP 200 +
-        // image/jpeg and visually confirmed. Commons building photo
-        // (CC BY-SA 4.0, MusikAnimal) adds the venue.
+        // Image-fix pass (2026-07-10, ticket #340): removed the ABC7
+        // two-panel composite (display photo + AP file photo of Swift, with
+        // an "ON THE RED CARPET abc" station bug and "AP/EVAN AGOSTINI" text
+        // baked in) — a broadcaster news-graphic, not a single photo. Looked
+        // for a clean direct photo of the Legends of Rock case (ABC7's own
+        // gallery images 3-6 are dead/empty; Billboard's art is a video
+        // screengrab, not the case; no Getty/AP/Rock Hall press photo of the
+        // case itself was found). ABC7's second gallery image is a single
+        // (non-composite) shot of the gown but still carries the same
+        // station bug, so it was rejected too rather than trading one
+        // logo'd image for another. Falling back to the Commons venue photo
+        // below as the moment's sole (verified) photo; needs manual sourcing
+        // of a clean case photo if one surfaces later.
         photos: [
-          {
-            url: 'https://cdn.abcotvs.com/dip/images/19390968_062626-otrc-taylorswiftrrdisplay-img.jpg',
-            credit: 'Rock & Roll Hall of Fame / AP (Evan Agostini), via ABC7',
-            caption:
-              'ABC7\'s composite: at right, the actual Legends of Rock case — the beaded "Fate of Ophelia" gown on a mannequin beside imagery of the swim costume; at left, an AP file photo of Swift.',
-            kind: 'primary',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
             credit: 'MusikAnimal, CC BY-SA 4.0, via Wikimedia Commons',

@@ -90,7 +90,12 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/38/Taylor_Swift_-_Betty.png/250px-Taylor_Swift_-_Betty.png',
             credit: 'Republic Records',
-            caption: 'Official single cover for "betty" — James\'s apology, sung from the party on Betty\'s porch.',
+            // Image-fix pass (2026-07-10): ticket #232 — viewed the file: its
+            // on-image text reads "betty — Live from the 2020 Academy of Country
+            // Music Awards," i.e. this is the ACM-live artwork, not the plain
+            // studio single cover. Caption fixed to match; image kept (correct
+            // official artwork for the song, just the live variant).
+            caption: 'Cover art for "betty (Live from the 2020 Academy of Country Music Awards)" — James\'s apology, sung from the party on Betty\'s porch.',
             kind: 'primary',
           },
         ],
@@ -104,15 +109,22 @@ export default {
       snippet:
         "A real St. Louis divorcée, a Rhode Island mansion, and a swimming-pool-full-of-champagne legend — until the final verse turns the story into Taylor's own.",
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty',
+      // Image-fix pass (2026-07-10): ticket #233 — swapped 250px thumb for the
+      // 1280px render of the same Commons file (curl-verified HTTP 200 +
+      // image/jpeg; downloaded and viewed — the white Holiday House mansion is
+      // clearly discernible at this size, vs. indistinct at 250px).
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/250px-Holiday_House_on_Watch_Hill.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/1280px-Holiday_House_on_Watch_Hill.jpg',
       moment: {
         context:
           "Rebekah Harkness was a middle-class divorcée from St. Louis who married Standard Oil heir William Harkness in 1947, inherited his fortune at his death in 1954, and spent it loudly — funding her own ballet company and filling Holiday House, the Watch Hill mansion Swift would buy decades later, with parties the town never stopped talking about.\n\nThe song plays a classic country-storytelling trick: three verses of someone else's scandal, then the reveal — \"and then it was bought by me\" — folding Swift's own tabloid-magnet Rhode Island summers into Harkness's story of a loud woman blamed for ruining everything. It peaked at No. 13 on the Hot 100, and critics at Pitchfork, Billboard, and American Songwriter ranked it among the year's best songs.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/250px-Holiday_House_on_Watch_Hill.jpg',
+            // Image-fix pass (2026-07-10): ticket #233 — same fix as the
+            // thumbnailUrl above: 1280px render of the same Commons file,
+            // verified HTTP 200 + image/jpeg and confirmed legible by eye.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/1280px-Holiday_House_on_Watch_Hill.jpg',
             credit: 'Wikimedia Commons',
             caption: 'Holiday House on Watch Hill, Rhode Island — Rebekah Harkness\'s mansion, later Swift\'s.',
             kind: 'archival',
@@ -168,7 +180,13 @@ export default {
         // this session). Verified HTTP 200 + image/jpeg.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg/330px-Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg',
+            // Image-fix pass (2026-07-10): ticket #231 — 330px render of this
+            // ultra-wide panorama was only ~101px tall (cabin/performer
+            // indiscernible). Swapped to the 1280px render of the same Commons
+            // file, verified HTTP 200 + image/jpeg and confirmed by eye: moon,
+            // cabin silhouette, and the white-dressed performer are all clearly
+            // visible at this size.
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_The_Folklore_Set_Era_%2853110011978%29.jpg',
             credit: 'Paolo V (CC BY 2.0), via Wikimedia Commons',
             caption: 'The folklore set\'s moonlit cabin at the Eras Tour, where the album\'s songs were finally staged live.',
             kind: 'archival',
@@ -255,7 +273,16 @@ export default {
       snippet:
         'A blue-and-gold Etro gown for a Grammy-night medley of "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff.',
       sourceUrl: 'https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/',
-      thumbnailUrl: 'https://www.shefinds.com/files/2021/03/taylor-swift-top-photo.jpg',
+      // Image-fix pass (2026-07-10): ticket #227 — the shefinds.com image was
+      // the January 2020 Sundance red-carpet look (SUNDANCE step-and-repeat
+      // visible in frame), wrong event/year/outfit for this record. Replaced
+      // with Billboard's photo of the actual 2021 Grammys folklore/evermore
+      // medley performance (moss-covered cabin staging, Jack Antonoff on
+      // guitar, Swift in the gold/blue Etro gown) — verified HTTP 200 +
+      // image/jpeg, downloaded and confirmed by eye, credit line from the
+      // Billboard article caption.
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           'The floor-length blue-and-gold Etro gown — high slit, seventies lines — was built for the night\'s most theatrical staging: a moss-covered cabin on a woodland hillside set, where she moved through "cardigan," "august," and "willow" with Aaron Dessner and Jack Antonoff. Etro posted a sketch of the design after the show.\n\nIt was one half of a two-look night: on the red carpet she wore a custom floral Oscar de la Renta mini with botanical appliqués tacked on individually — plus a matching mask — a look Oscar de la Renta itself billed as "Floral Folklore."',
@@ -271,8 +298,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.shefinds.com/files/2021/03/taylor-swift-top-photo.jpg',
-            credit: 'SplashNews',
+            // Image-fix pass (2026-07-10): ticket #227 — same replacement as
+            // thumbnailUrl above (see comment there for verification detail).
+            url: 'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1',
+            credit: 'TAS Rights Management 2021, via Getty Images / Billboard',
             caption: 'The custom Etro gown during the folklore medley staging at the 2021 Grammys.',
             kind: 'primary',
           },
@@ -917,7 +946,12 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Joan_Baez_Bob_Dylan_crop.jpg/500px-Joan_Baez_Bob_Dylan_crop.jpg',
             credit: 'Rowland Scherman (public domain), via Wikimedia Commons',
-            caption: 'Bob Dylan (with Joan Baez, 1963) — Swift modeled the song\'s sound on his early records.',
+            // Image-fix pass (2026-07-10): ticket #238 — this Commons file is the
+            // "_crop" that removes Joan Baez from frame (verified by viewing the
+            // image: Dylan alone with harmonica rack, no Baez visible), so the
+            // caption naming her was wrong. Dropped the Baez mention; image kept
+            // as-is (correct subject: Dylan, 1963).
+            caption: 'Bob Dylan in 1963 — Swift modeled the song\'s sound on his early records.',
             kind: 'archival',
           },
         ],
