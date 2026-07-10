@@ -122,7 +122,7 @@ export default {
       releasedOn: null,
       relatedSongs: ['Sparks Fly'],
       summary:
-        'A storm-lit romance staged around the lyric\'s central image — lightning as the moment of falling — for the album\'s fourth single.',
+        'A live-performance video compiled from Speak Now World Tour footage, directed by Christian Lamb and released August 2011 — the album\'s fifth single.',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=oKar-tF__ac',
@@ -137,7 +137,7 @@ export default {
       releasedOn: null,
       relatedSongs: ['Ours'],
       summary:
-        'Taylor plays an office worker grinding through corporate monotony — bus commute, water-cooler small talk — until the day ends with her boyfriend, played by Zach Gilford, waiting outside.',
+        'Taylor plays an office worker grinding through corporate monotony — bus commute, water-cooler small talk — until the day ends at the airport, where she reunites with her boyfriend, a soldier returning home, played by Zach Gilford.',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=LZ34LlaIk88',
@@ -152,7 +152,7 @@ export default {
       releasedOn: '2023-07-08',
       relatedSongs: ['I Can See You (Taylor\'s Version) (From the Vault)'],
       summary:
-        'A vault-track heist: Joey King, Taylor Lautner, and Presley Cash break Taylor out of imprisonment in a vault — a metaphor for reclaiming her masters — premiered live at the first Eras Tour show.',
+        'A vault-track heist: Joey King, Taylor Lautner, and Presley Cash break Taylor out of imprisonment in a vault — a metaphor for reclaiming her masters — premiered live at the July 7, 2023 Kansas City stop of the Eras Tour, the night Speak Now (Taylor\'s Version) dropped.',
       symbolism: 'The vault break-out literalizes the re-recording project itself: taking her art back from Big Machine.',
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=lVkKLf4DCn8',
@@ -170,7 +170,7 @@ export default {
       releasedOn: '2011-11-21',
       relatedSongs: [],
       summary:
-        'The theatrical Speak Now show — aerial ballet, the levitating balcony, the sparkler-burst Long Live finale — captured across the 2011 arena run and released as a live CD/DVD.',
+        'The theatrical Speak Now show — aerial ballet, the levitating balcony, the confetti-showered Love Story finale performed from a flying balcony — captured across the 2011 arena run and released as a live CD/DVD.',
       symbolism: null,
       easterEggs: [],
       officialUrl: null,

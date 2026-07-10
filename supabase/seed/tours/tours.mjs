@@ -1203,7 +1203,7 @@ export default {
           city: 'Omaha, NE',
           venue: 'CenturyLink Center',
           setlistChange:
-            'Opening night sold out all 27,877 seats — the Red-era production debuted with its dial-turned-up staging.',
+            'Opening night sold out — 13,800 fans, the first of a two-night Omaha stand totaling 27,877 tickets — the Red-era production debuted with its dial-turned-up staging.',
           confidence: 'reputable_reporting',
           sources: [
             wiki(

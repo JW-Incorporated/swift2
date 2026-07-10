@@ -107,7 +107,7 @@ export default {
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
       producers: ['Nathan Chapman', 'Taylor Swift'],
-      note: 'The flirtiest track on Fearless, addressed by name to a real musician — who found out like everyone else, from the liner-note code.',
+      note: 'The flirtiest track on Fearless, addressed by name to a real musician — Stephen Barker Liles of Love and Theft, who got a heads-up text from Taylor herself ("Hey, Track 4") while fans decoded the liner-note code.',
       summary:
         'A confession disguised as a serenade: she lists all the girls who might like the boy, then makes her own case with a wink.',
       inspiration:
@@ -202,8 +202,19 @@ export default {
       inspiration:
         'Swift recounted arriving at a session furious about a mixed-signals almost-relationship; the song is essentially that rant, structured.',
       themes: ['mixed signals', 'frustration', 'self-respect'],
-      sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      sources: [ALBUM],
+      sourceUrl: 'https://taylorswiftswitzerland.jimdoweb.com/album-eras/fearless/the-songs/',
+      sources: [
+        {
+          source_url: 'https://taylorswiftswitzerland.jimdoweb.com/album-eras/fearless/the-songs/',
+          source_title: 'Fearless — The Songs',
+          publisher: 'Taylor Swift Switzerland',
+          source_type: 'fan_site',
+          accessed_at: ACCESSED,
+          reliability_score: 2,
+          notes: "Swift's cut-by-cut commentary on the Liz Rose writing session",
+        },
+        ALBUM,
+      ],
     },
     {
       slug: 'youre-not-sorry',

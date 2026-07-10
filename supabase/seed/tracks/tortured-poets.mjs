@@ -475,7 +475,7 @@ export default {
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The 90s-rock crush song that made a grown superstar feel sixteen again — bleachers, video games, and one very identifiable touch-football reference.',
+      note: 'The 90s-rock crush song that made a grown superstar feel sixteen again — video games and one very identifiable "marry, kiss, or kill" reference.',
       summary:
         'New love that regresses her to gym-class butterflies: teasing, truth-or-dare, learning someone’s aunts’ names. The Anthology’s second unambiguous burst of happiness, read universally toward the same tight end as The Alchemy.',
       inspiration:
@@ -483,8 +483,20 @@ export default {
       themes: ['regression to giddiness', 'new love', 'being known simply'],
       fanLore:
         'Fan reading (near-universal): the Kelce song — supported by his documented on-camera reactions at the Eras Tour.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/So_High_School',
-      sources: [wiki('So High School', 'So_High_School', 'song article: readings'), ALBUM],
+      sourceUrl: 'https://www.capitalfm.com/news/music/taylor-swift-so-high-school-eras-tour-travis-kelce/',
+      sources: [
+        wiki('So High School', 'So_High_School', 'song article: readings'),
+        {
+          source_url: 'https://www.capitalfm.com/news/music/taylor-swift-so-high-school-eras-tour-travis-kelce/',
+          source_title: "Taylor Swift's 'So High School' Travis Kelce References Explained",
+          publisher: 'Capital FM',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED,
+          reliability_score: 3,
+          notes: "'marry, kiss, or kill' lyric and Kelce's 2016 interview clip; bleachers as Eras Tour staging, not a lyric",
+        },
+        ALBUM,
+      ],
     },
     {
       slug: 'i-hate-it-here',
@@ -494,7 +506,7 @@ export default {
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The escapist’s manifesto — secret gardens, imaginary decades, and a much-debated line about which century she would actually survive.',
+      note: 'The escapist’s manifesto — secret gardens, imaginary decades, and a much-debated line about which decade she would actually survive.',
       summary:
         'When the present is unbearable she emigrates inward: books, invented worlds, lunar vacations. The nostalgia-with-asterisks verse (the 1830s, minus everything wrong with the 1830s) generated its own documented discourse cycle.',
       inspiration: null,
