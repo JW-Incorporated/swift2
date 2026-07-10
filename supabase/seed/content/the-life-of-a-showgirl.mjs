@@ -22,7 +22,7 @@ export default {
       slug: 'showgirl-announced-on-new-heights',
       year: 2025,
       month: 8,
-      day: 12,
+      day: 13,
       category: 'release',
       title: 'A mint-green briefcase on New Heights: album No. 12, announced on her first-ever podcast',
       snippet:
@@ -80,6 +80,7 @@ export default {
       slug: 'showgirl-mert-marcus-portraits',
       year: 2025,
       month: 8,
+      day: 13,
       category: 'fashion',
       title: 'The showgirl portraits: Mert and Marcus, rhinestones, and an Ophelia bathtub cover',
       snippet:
@@ -138,6 +139,7 @@ export default {
       slug: 'showgirl-release-day',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'release',
       title: 'The Life of a Showgirl arrives: 12 tracks, Max Martin and Shellback, one guest',
       snippet:
@@ -201,6 +203,7 @@ export default {
       slug: 'showgirl-release-party-theaters',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'release',
       title: 'The Official Release Party of a Showgirl turns movie theaters into listening parties',
       snippet:
@@ -248,6 +251,7 @@ export default {
       slug: 'showgirl-box-office-number-one',
       year: 2025,
       month: 10,
+      day: 5,
       category: 'business',
       title: 'An album release party wins the box office: $34.1M domestic, $50M+ worldwide',
       snippet:
@@ -292,7 +296,7 @@ export default {
       slug: 'showgirl-four-million-week',
       year: 2025,
       month: 10,
-      day: 18,
+      day: 13,
       category: 'business',
       title: '4.002 million in a week: the biggest album debut ever measured',
       snippet:
@@ -384,6 +388,7 @@ export default {
       slug: 'showgirl-vinyl-record-week',
       year: 2025,
       month: 10,
+      day: 13,
       category: 'business',
       title: '1.334 million vinyl LPs in seven days — the first million-vinyl week ever tracked',
       snippet:
@@ -431,7 +436,7 @@ export default {
       slug: 'showgirl-hot-100-top-12-sweep',
       year: 2025,
       month: 10,
-      day: 18,
+      day: 13,
       category: 'business',
       title: "All 12 tracks debut as the Hot 100's entire top 12",
       snippet:
@@ -469,7 +474,7 @@ export default {
       slug: 'fate-of-ophelia-lead-single',
       year: 2025,
       month: 10,
-      day: 3,
+      day: 13,
       category: 'music',
       title: 'The Fate of Ophelia: Hamlet\'s drowned girl, rescued — and a 13th Hot 100 No. 1',
       snippet:
@@ -534,6 +539,7 @@ export default {
       slug: 'father-figure-george-michael',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'music',
       title: "Father Figure rebuilds George Michael's 1988 hit — with his estate's blessing",
       snippet:
@@ -596,6 +602,7 @@ export default {
       slug: 'eldest-daughter-track-five',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'music',
       title: 'Eldest Daughter: the first track five that ends somewhere safe',
       snippet:
@@ -640,6 +647,7 @@ export default {
       slug: 'showgirl-title-track-sabrina',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'music',
       title: 'The title track hands the last word to Sabrina Carpenter',
       snippet:
@@ -685,6 +693,7 @@ export default {
       slug: 'opalite-second-number-one',
       year: 2026,
       month: 2,
+      day: 23,
       category: 'music',
       title: 'Opalite follows Ophelia to No. 1',
       snippet:
@@ -731,6 +740,7 @@ export default {
       slug: 'ruin-the-friendship-hendersonville',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'music',
       title: 'Ruin the Friendship: a regret from Hendersonville High',
       snippet:
@@ -775,6 +785,7 @@ export default {
       slug: 'actually-romantic-one-sided-feud',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'music',
       title: "Actually Romantic: the diss track she frames as a compliment",
       snippet:
@@ -830,6 +841,7 @@ export default {
       slug: 'end-of-an-era-docuseries',
       year: 2025,
       month: 12,
+      day: 12,
       category: 'release',
       title: 'The End of an Era: the Eras Tour docuseries lands on Disney+',
       snippet:
@@ -970,6 +982,7 @@ export default {
       slug: 'black-dog-still-nobody-knows',
       year: 2025,
       month: 10,
+      day: 6,
       category: 'music',
       title: "The Black Dog: 'still nobody knows' what the song's about, she says a year later",
       snippet:
@@ -1002,6 +1015,7 @@ export default {
       slug: 'watch-hill-bachelorette-weekend',
       year: 2026,
       month: 6,
+      day: 19,
       category: 'sighting',
       title: 'A tented lawn in Rhode Island, two weeks before the wedding',
       snippet:
@@ -1034,6 +1048,7 @@ export default {
       slug: 'msg-wedding',
       year: 2026,
       month: 7,
+      day: 3,
       category: 'relationship',
       title: 'Taylor and Travis marry at Madison Square Garden',
       snippet:
@@ -1111,6 +1126,7 @@ export default {
       slug: 'wedding-gown-dior-anderson',
       year: 2026,
       month: 7,
+      day: 3,
       category: 'fashion',
       title: 'The wedding gown: a custom Dior Haute Couture, styled by Joseph Cassell',
       snippet:
@@ -1203,7 +1219,8 @@ export default {
     {
       slug: 'showgirl-david-koma-graham-norton',
       year: 2025,
-      month: 9,
+      month: 10,
+      day: 2,
       category: 'fashion',
       title: 'A jeweled David Koma LBD opens the press run on Graham Norton',
       snippet:
@@ -1340,6 +1357,7 @@ export default {
       slug: 'showgirl-emmy-nomination-eras-final-show',
       year: 2026,
       month: 7,
+      day: 9,
       category: 'business',
       title: 'The Eras Tour: The Final Show earns five Emmy nominations',
       snippet:
@@ -1554,6 +1572,7 @@ export default {
       slug: 'elizabeth-taylor-track-two',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'music',
       title: 'Elizabeth Taylor: the first song she wrote for the album',
       snippet:
@@ -1609,6 +1628,7 @@ export default {
       slug: 'fate-of-ophelia-video-wardrobe',
       year: 2025,
       month: 10,
+      day: 3,
       category: 'fashion',
       title: 'The Ophelia video wardrobe: Versace crystals, Cavalli chainmail, custom Ferretti',
       snippet:
@@ -1802,6 +1822,7 @@ export default {
       slug: 'end-of-an-era-kelce-episodes',
       year: 2025,
       month: 12,
+      day: 18,
       category: 'relationship',
       title: 'Travis joins the docuseries for its final episodes',
       snippet:
@@ -1850,6 +1871,7 @@ export default {
       slug: 'showgirl-twelve-weeks-number-one',
       year: 2026,
       month: 1,
+      day: 4,
       category: 'business',
       title: 'Twelve straight weeks at No. 1 — through the entire holiday season',
       snippet:
@@ -1989,6 +2011,7 @@ export default {
       slug: 'rock-hall-ophelia-display',
       year: 2026,
       month: 6,
+      day: 26,
       category: 'business',
       title: 'The Rock Hall puts the Ophelia gown in Legends of Rock',
       snippet:
@@ -2044,6 +2067,7 @@ export default {
       slug: 'kelce-new-heights-proposal-story',
       year: 2026,
       month: 7,
+      day: 8,
       category: 'relationship',
       title: 'Back on New Heights, a married man with a proposal story',
       snippet:
@@ -2091,6 +2115,7 @@ export default {
       slug: 'showgirl-ring-designer-wedding-invite',
       year: 2026,
       month: 7,
+      day: 7,
       category: 'relationship',
       title: 'The ring designer gets a wedding invite of her own',
       snippet:
