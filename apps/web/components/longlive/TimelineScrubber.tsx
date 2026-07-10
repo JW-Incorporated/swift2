@@ -82,7 +82,16 @@ export function TimelineScrubber() {
   const DRAG_COMMIT_INTERVAL_MS = 120;
 
   const [currentDate, setCurrentDate] = useState<number | null>(null);
+  // The handle's committed rail position. Set directly from the drag's own
+  // position math — NEVER recomputed from currentDate via pctForDate, which
+  // would re-introduce the position→date→position snapping (dates are
+  // month-granularity; many anchors share one date) on every throttled
+  // render during a drag, i.e. a periodic snap-back mid-gesture.
+  const [currentPct, setCurrentPct] = useState<number | null>(null);
   const [hoverDate, setHoverDate] = useState<number | null>(null);
+  // Same reasoning as currentPct: set directly from position, not derived
+  // from hoverDate via pctForDate.
+  const [hoverPct, setHoverPct] = useState<number | null>(null);
   const [active, setActive] = useState(false); // hovering or dragging
   const [nowPct, setNowPct] = useState<number | null>(null);
   // Bumped after every measure() so date->position lookups (ticks, milestones,
@@ -231,29 +240,42 @@ export function TimelineScrubber() {
     return `M 100 0 L ${pts.join(' L ')} L 100 1000 Z`;
   }, [density, end, span, pctForDate]);
 
-  // Feed scroll → current reading date.
-  const dateFromScroll = useCallback((): number | null => {
+  // Feed scroll → current reading position + date. Position comes straight
+  // from the scroll offset (never via date), same reasoning as fromPointer.
+  const fromScroll = useCallback((): { pct: number; date: number } | null => {
     if (!anchorsRef.current.length) return null;
     const ref = window.scrollY + HEADER_OFFSET + window.innerHeight * REF_RATIO;
-    return dateForTop(ref);
-  }, [dateForTop]);
+    return { pct: pctForTop(ref), date: dateForTop(ref) };
+  }, [pctForTop, dateForTop]);
 
-  // Target date → feed scroll position (inverse of the above).
+  // Scrolls the feed so document-Y `y` lands at the reading reference line.
+  const scrollToY = useCallback((y: number) => {
+    const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
+    window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
+  }, []);
+
+  // Target date → feed scroll position (inverse of the above). Only for
+  // date-space callers (keyboard step nav) — pointer-drag must NOT round-trip
+  // through this: dates are month-granularity, so many anchors share one
+  // date, and topForDate collapses them all to the same handful of Y
+  // positions, snapping the scroll to the wrong spot for most drag positions.
+  // See yFromPointer below for the drag path, which stays in position-space.
   const scrollToDate = useCallback(
     (target: number) => {
       if (!anchorsRef.current.length) return;
-      const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
-      const y = topForDate(target);
-      window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
+      scrollToY(topForDate(target));
     },
-    [topForDate],
+    [topForDate, scrollToY],
   );
 
   const syncFromScroll = useCallback(() => {
     if (draggingRef.current) return;
-    const d = dateFromScroll();
-    if (d != null) setCurrentDate(d);
-  }, [dateFromScroll]);
+    const r = fromScroll();
+    if (r) {
+      setCurrentDate(r.date);
+      setCurrentPct(r.pct);
+    }
+  }, [fromScroll]);
 
   // Wire up measurement + scroll listeners; re-measure on era/filter/layout change.
   useEffect(() => {
@@ -297,16 +319,28 @@ export function TimelineScrubber() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [eraId, measure, syncFromScroll, start, end]);
 
-  const dateFromPointer = useCallback(
-    (clientY: number): number => {
+  // Finger/pointer Y → { y: document-Y, pct, date }, computed in POSITION
+  // space throughout (never round-tripping through date and back — dates are
+  // month-granularity, so many anchors share one date, and converting
+  // position→date→position again collapses the drag to whichever anchor
+  // happens to share that date, snapping the scroll to the wrong spot for
+  // most of the rail). `date` here is derived from the already-resolved `y`,
+  // purely for display (the pill label) — it's never used to re-derive a
+  // position.
+  const fromPointer = useCallback(
+    (clientY: number): { y: number; pct: number; date: number } => {
       const rect = railRef.current?.getBoundingClientRect();
-      if (!rect) return end;
-      const f = clamp01((clientY - rect.top) / rect.height);
-      // Pre-measure fallback (calendar-linear); matches pctForDate's fallback.
-      if (anchorsRef.current.length < 2) return end - f * span;
-      return dateForTop(topForPct(f * 100));
+      const f = clamp01(rect ? (clientY - rect.top) / rect.height : 0);
+      if (anchorsRef.current.length < 2) {
+        // Pre-measure fallback (calendar-linear); matches pctForDate's fallback.
+        const date = end - f * span;
+        return { y: 0, pct: clamp01((end - date) / span) * 100, date };
+      }
+      const pct = f * 100;
+      const y = topForPct(pct);
+      return { y, pct, date: dateForTop(y) };
     },
-    [end, span, dateForTop, topForPct],
+    [end, span, topForPct, dateForTop],
   );
 
   const onPointerDown = useCallback(
@@ -320,16 +354,18 @@ export function TimelineScrubber() {
       // whole per-era anchor set) out from under the still-active gesture.
       setScrubbing(true);
       (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
-      const d = dateFromPointer(e.clientY);
-      setCurrentDate(d);
-      scrollToDate(d);
+      const { y, pct, date } = fromPointer(e.clientY);
+      setCurrentDate(date);
+      setCurrentPct(pct);
+      if (anchorsRef.current.length >= 2) scrollToY(y);
+      else scrollToDate(date);
     },
-    [dateFromPointer, scrollToDate, setScrubbing],
+    [fromPointer, scrollToY, scrollToDate, setScrubbing],
   );
 
   const onPointerMove = useCallback(
     (e: React.PointerEvent) => {
-      const d = dateFromPointer(e.clientY);
+      const { y, pct, date } = fromPointer(e.clientY);
       const dragging = draggingRef.current;
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = requestAnimationFrame(() => {
@@ -337,20 +373,24 @@ export function TimelineScrubber() {
         // render on the hot path); only commit React state — which drives
         // the date-label text — on a throttled cadence.
         if (dragging) {
-          const pct = pctForDate(d);
           if (handleRef.current) handleRef.current.style.top = `${pct}%`;
           if (pillRef.current) pillRef.current.style.top = `${pct}%`;
-          scrollToDate(d);
+          if (anchorsRef.current.length >= 2) scrollToY(y);
+          else scrollToDate(date);
         }
         const now = Date.now();
         if (!dragging || now - lastCommitRef.current >= DRAG_COMMIT_INTERVAL_MS) {
           lastCommitRef.current = now;
-          setHoverDate(d);
-          if (dragging) setCurrentDate(d);
+          setHoverDate(date);
+          setHoverPct(pct);
+          if (dragging) {
+            setCurrentDate(date);
+            setCurrentPct(pct);
+          }
         }
       });
     },
-    [dateFromPointer, pctForDate, scrollToDate],
+    [fromPointer, scrollToY, scrollToDate],
   );
 
   const endDrag = useCallback(
@@ -360,9 +400,11 @@ export function TimelineScrubber() {
         // The drag-time commit is throttled, so the last few frames of
         // motion may only exist in the DOM refs — commit the true final
         // position to React state now.
-        const d = dateFromPointer(e.clientY);
-        setCurrentDate(d);
-        setHoverDate(d);
+        const { pct, date } = fromPointer(e.clientY);
+        setCurrentDate(date);
+        setCurrentPct(pct);
+        setHoverDate(date);
+        setHoverPct(pct);
         try {
           (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
         } catch {
@@ -376,14 +418,10 @@ export function TimelineScrubber() {
         window.dispatchEvent(new Event('scroll'));
       }
     },
-    [dateFromPointer, setScrubbing],
+    [fromPointer, setScrubbing],
   );
 
-  const currentPct = currentDate != null ? pctForDate(currentDate) : null;
   const pillDate = draggingRef.current && hoverDate != null ? hoverDate : currentDate;
-
-  // Nearest content item to the hovered position, for the preview tooltip.
-  const hoverPct = hoverDate != null ? pctForDate(hoverDate) : null;
   const nearestItem = useMemo(() => {
     if (hoverDate == null || !items.length) return null;
     let best = items[0];
@@ -435,20 +473,25 @@ export function TimelineScrubber() {
         onPointerLeave={() => {
           if (!draggingRef.current) setActive(false);
           setHoverDate(null);
+          setHoverPct(null);
         }}
         onKeyDown={(e) => {
           if (currentDate == null) return;
           const step = span / 24;
-          // Top of the rail = newest, so ArrowUp moves toward `end`.
+          // Top of the rail = newest, so ArrowUp moves toward `end`. Discrete
+          // date-stepping (not a continuous drag), so deriving pct from date
+          // here is fine — no gesture to snap out from under.
           if (e.key === 'ArrowUp') {
             e.preventDefault();
             const d = Math.min(end, currentDate + step);
             setCurrentDate(d);
+            setCurrentPct(pctForDate(d));
             scrollToDate(d);
           } else if (e.key === 'ArrowDown') {
             e.preventDefault();
             const d = Math.max(start, currentDate - step);
             setCurrentDate(d);
+            setCurrentPct(pctForDate(d));
             scrollToDate(d);
           }
         }}

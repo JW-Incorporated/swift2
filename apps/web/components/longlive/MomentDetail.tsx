@@ -273,7 +273,9 @@ export function MomentDetail() {
 
         {item.sources && item.sources.length > 0 && (
           <div className="mt-8 border-t pt-4" style={{ borderColor: 'var(--era-line)' }}>
-            <p className="text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+            {/* Footnote-scale, academic-text style — citations belong here on
+                the expanded page, small, not competing with the article. */}
+            <p className="text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
               {item.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
               {item.sources.map((s, i) => (
                 <span key={`${s.url}-${i}`}>

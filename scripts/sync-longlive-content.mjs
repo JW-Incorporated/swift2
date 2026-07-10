@@ -35,7 +35,7 @@ const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'content-vaul
 
 // Same column list as packages/core/src/vault.ts's Tier 0 skeleton fetch —
 // keep these in sync if that query changes.
-const MONTH_ITEM_COLS = 'id,era_slug,year,month,category,title,snippet,source_url,thumbnail_url';
+const MONTH_ITEM_COLS = 'id,era_slug,year,month,day,category,title,snippet,source_url,thumbnail_url';
 const TIER0_MAX_ROWS = 2000;
 
 const CATEGORY_TO_TAG = {
@@ -146,13 +146,14 @@ function relatedIdsFrom(relatedIds) {
 }
 
 /** Appends one normalized item to byEra, de-duping ids within the era. */
-function addItem(
+export function addItem(
   byEra,
   seenIdsByEra,
   eraSlug,
   {
     year,
     month,
+    day,
     category,
     title,
     snippet,
@@ -178,9 +179,18 @@ function addItem(
   }
   seenIds.add(id);
 
+  // `day` is optional — most items are still only known to month precision.
+  // When present (1-31, validated), the item gets a real calendar date and
+  // dateLabel ("July 9, 2026"); otherwise falls back to the 1st of the month
+  // for sort/positioning purposes only, with a month-level label ("July
+  // 2026") so the UI never implies false day-precision.
+  const validDay = Number.isInteger(day) && day >= 1 && day <= 31 ? day : null;
   const mm = String(month).padStart(2, '0');
-  const date = `${year}-${mm}-01`;
-  const dateLabel = `${MONTHS[month - 1]} ${year}`;
+  const dd = String(validDay ?? 1).padStart(2, '0');
+  const date = `${year}-${mm}-${dd}`;
+  const dateLabel = validDay
+    ? `${MONTHS[month - 1]} ${validDay}, ${year}`
+    : `${MONTHS[month - 1]} ${year}`;
 
   const hasVideo =
     video && typeof video.youtubeId === 'string' && video.youtubeId && typeof video.title === 'string' && video.title;
@@ -265,6 +275,7 @@ async function fetchFromSupabase() {
     addItem(byEra, seenIdsByEra, row.era_slug, {
       year: row.year,
       month: row.month,
+      day: row.day,
       category: row.category,
       title: row.title,
       snippet: row.snippet,
@@ -299,6 +310,7 @@ async function fetchFromLocalFiles() {
       addItem(byEra, seenIdsByEra, item.eraSlug ?? eraSlug, {
         year: item.year,
         month: item.month,
+        day: item.day ?? null,
         category: item.category,
         title: item.title,
         snippet: item.snippet,

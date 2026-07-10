@@ -108,7 +108,7 @@ export function TrackDetail() {
         )}
 
         {(track.discussionSources ?? track.sources) && (
-          <p className="mt-8 text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+          <p className="mt-8 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
             {(track.discussionSources ?? track.sources)!.length > 1 ? 'Sources:' : 'Source:'}{' '}
             {(track.discussionSources ?? track.sources)!.map((s, i) => (
               <span key={`${s.url}-${i}`}>

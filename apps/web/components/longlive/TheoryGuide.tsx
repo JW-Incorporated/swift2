@@ -191,7 +191,7 @@ function TheoryCard({ theory }: { theory: TheoryNote }) {
         </p>
       )}
 
-      <p className="mt-3 text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+      <p className="mt-3 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
         {theory.sources.length > 1 ? 'Sources:' : 'Source:'}{' '}
         {theory.sources.map((s, i) => (
           <span key={`${s.url}-${i}`}>
