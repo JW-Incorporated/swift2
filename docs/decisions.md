@@ -7,6 +7,57 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-10 — Threads content derives from tagged content items, not hand-authored arrays
+
+**Decision:** The six Threads (`love-story`, `fashion`, `taylors-version`,
+`easter-eggs`, `hidden-clues`, `the-proposal`) currently render from
+hand-authored TypeScript arrays in `apps/web/lib/longlive/lenses.ts`
+(`RELATIONSHIPS`, `RUNWAY_LOOKS`, `RERECORDS`, `PROPOSAL_BEATS`, `CLUE_PAIRS`,
+`EGG_NODES`/`EGG_LINKS`), completely disconnected from
+`supabase/seed/content/**` — the pipeline every Era moment flows through.
+Going forward, thread membership is derived from **tags on content items**
+(new items in `supabase/seed/content/**` get one or more thread tags at
+authoring time) rather than a second, hand-maintained data source. A thread's
+rendered list should be a query/selector over tagged content, not a separate
+array that has to be remembered and kept in sync by hand.
+
+**Rollout is two phases, not one landing:** phase 1 (2026-07-10, this PR) is
+the derivation mechanism itself — `ContentItem.threadIds`, the
+`contentForThread()` selector, real tagged data via the existing
+Relationship/Fashion category defaults. **`ThreadsMode.tsx` still renders
+from the old `lenses.ts` arrays as of this PR — the mechanism exists but
+nothing consumes it yet.** Phase 2, done per-thread as each thread's UI
+rework lands (tracked in `docs/threads-rework-2026-07-10.md`), is wiring the
+actual rendered UI to `contentForThread()` and retiring the corresponding
+old array. Don't read this decision as "Threads already render from tagged
+content" until phase 2 closes per thread.
+
+**Why:** Joey flagged that new content isn't naturally flowing into Threads —
+e.g. real relationship/sighting content added to an era file has no path
+into the Love Story thread unless someone remembers to also hand-edit
+`lenses.ts`. That's a structural drift risk, not a one-off oversight: the
+two data sources will keep diverging as content authoring continues weekly
+(see `docs/roadmap.md` J7). Auto-deriving from tags means new tagged content
+appears in the right thread automatically, the same guarantee Era moments
+already have.
+
+**What this does NOT change:** thread-specific narrative structure that
+doesn't map to a single content item — e.g. Love Story's single/solo periods
+between relationships, or the Clue Web's motif-trail groupings and node-link
+graph — still needs dedicated schema beyond a tag on one item. Those get
+first-class fields/tables of their own (not another parallel hand-authored
+array); the tag-derivation decision applies to "which content items surface
+in which thread," not to every piece of thread-specific presentation data.
+
+**Alternatives considered:** (1) keep `lenses.ts` hand-authored, add a
+process rule + CI lint flagging likely-missed cases — rejected as treating
+the symptom, not the drift; (2) hybrid — ship the current thread reworks
+against today's `lenses.ts` shape, migrate after launch — rejected because
+every thread rework happening now is the natural point to build the tagged
+shape once instead of building on the old shape and migrating twice.
+
+**Approved by:** Joey (product), 2026-07-10.
+
 ## 2026-07-09 — Superseded same-day: full lyrics reproduction rejected in favor of per-song analysis + short quotes
 
 **Decision:** The entry directly below this one ("Full song lyrics may be
