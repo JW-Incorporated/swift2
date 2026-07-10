@@ -20,6 +20,8 @@ export default {
       sourceUrl: 'https://www.forbes.com/sites/hughmcintyre/2014/11/05/taylor-swifts-1989-moves-1-287-million-copies-in-its-first-week/',
       thumbnailUrl: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg',
       moment: {
+        context:
+          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first. Billboard's chart recap put the scale plainly: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and stayed there for 11 weeks; only three albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, and 1989 (Taylor's Version) itself.",
         sources: [
           {
             outlet: 'Forbes',
@@ -44,8 +46,11 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
       moment: {
         context:
-          "She's said only about half of listeners caught it was a joke; the rest took the persona at face value.",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Blank_Space' }],
+          "She's said only about half of listeners caught it was a joke; the rest took the persona at face value — which was almost the point, since the song was written as a satirical, self-referential nod to a tabloid caricature she'd decided was \"kind of hilarious\" once she stopped feeling attacked by it. The joke worked commercially either way: after debuting at No. 18, \"Blank Space\" knocked \"Shake It Off\" out of No. 1 in its third week, making her the first woman in the Hot 100's 56-year history to succeed herself at the top — only nine acts, from the Beatles to the Black Eyed Peas, had ever done it. It held No. 1 for seven straight weeks and was eventually certified 8x Platinum.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Blank_Space' },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/pro/taylor-swift-blank-space-hot-100/' },
+        ],
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
       },
     },
@@ -59,8 +64,11 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg',
       moment: {
         context:
-          "Taylor's own framing: Mean answered critics from a hurt place; this one takes \"back the narrative\" with \"a sense of humor\" instead.",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Shake_It_Off' }],
+          "In her Rolling Stone cover story that fall, she spelled out the shift: \"Mean\" had answered critics \"from kind of a victimized perspective,\" while years of having \"every part of my life dissected — my choices, my actions, my words, my body, my style, my music\" taught her a different response: \"you can either let it break you, or you can get really good at dodging punches.\" Written and produced with Max Martin and Shellback — she pictured it as the song that drags reluctant dancers onto the floor at a wedding — it dropped the same day as the album-announcement livestream and entered the Hot 100 at No. 1, just the 22nd song ever to debut on top. Four nonconsecutive weeks at No. 1 later, it was on its way to becoming her first Diamond-certified single.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Shake_It_Off' },
+          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/' },
+        ],
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg', credit: 'Big Machine Records' }],
       },
     },
@@ -96,7 +104,12 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Taylor_Swift_7_%2818912291189%29.jpg/250px-Taylor_Swift_7_%2818912291189%29.jpg',
       moment: {
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' }],
+        context:
+          'Opening night on May 5, 2015 packed the 55,000-seat Tokyo Dome, with a light-up wristband on every seat pulsing and changing color in sync with the show. She opened with "Welcome to New York" against a mock Manhattan skyline, ran at least ten costume changes across nearly two hours, and swapped an opening act for video testimonials from Selena Gomez, HAIM, and the rest of the friend group. "This year changed my life and I wanted to come here to say thank you," she told the crowd, before closing with "Shake It Off" on a rotating catwalk under falling confetti. The two Tokyo shows drew 100,320 fans and grossed $10.6 million — the start of an 85-show run that ended as 2015\'s highest-grossing tour worldwide.',
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-1989-tour-kickoff-tokyo-6553995/' },
+        ],
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Taylor_Swift_7_%2818912291189%29.jpg/250px-Taylor_Swift_7_%2818912291189%29.jpg', credit: 'Wikimedia Commons' }],
       },
     },
@@ -110,8 +123,11 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png',
       moment: {
         context:
-          "Rolling Stone ranked it among the 100 best songs of the 2010s in 2019, calling it \"the type of relieving dance floor soul purge that the best pop can be.\"",
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' }],
+          "Recorded with Max Martin and Shellback, it was relegated to the deluxe edition in 2014, then finally released as 1989's seventh and last single in February 2016 — with a Jonas Åkerlund video stitched from 1989 World Tour footage that premiered exclusively on Apple Music. Rolling Stone's 2019 decade-end list ranked it No. 58 among the 100 best songs of the 2010s, calling it \"the type of relieving dance floor soul purge that the best pop can be\" and arguing the bonus track was the album's real thesis — a heartbroken hopeless romantic finding power in the pain. Critics keep ranking it among her best songs, usually with the same complaint attached: it never made the standard tracklist.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' },
+          { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-lists/the-100-best-songs-of-the-2010s-917532/taylor-swift-new-romantics-917602/' },
+        ],
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
       },
     },
@@ -125,8 +141,11 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has described the song around a drought-then-storm metaphor for finally washing away what used to hurt — a storm you let in on purpose instead of blocking out. She finished the lyrics and melody alone, then brought it to Imogen Heap to co-produce.',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clean_(song)' }],
+          "The idea arrived in London, when she realized she'd spent two weeks in the same city as an ex without once thinking of him — the moment you notice the hurt is gone. She finished the lyrics and melody alone, then recorded it with Imogen Heap in a single day at Heap's Hideaway Studio, done after two takes, with Heap layering mbira, vibraphone, drums, and keyboards under the vocal. Heap later admitted she'd \"assumed Taylor didn't write too much of her own music\" and came away insisting the lyrics were entirely Swift's. On the 1989 World Tour it became the show's confessional centerpiece, prefaced nightly by spoken reflections on mistakes and self-worth — and it kept resurfacing as an Eras Tour surprise song a decade later.",
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clean_(song)' },
+          { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/imogen-heap-taylor-swift-write-music-1989-clean-6304250/' },
+        ],
         photos: [],
       },
     },
@@ -141,13 +160,13 @@ export default {
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-wildest-dreams-video-3-billboard-650.jpg?w=650&h=430&crop=1',
       moment: {
         context:
-          'Director Joseph Kahn defended the casting as historically accurate to the era rather than a comment on colonialism; Swift donated the video\'s proceeds to the African Parks Foundation of America.',
+          "Joseph Kahn shot the video in Botswana and South Africa as a doomed romance between Swift's old-Hollywood actress and Scott Eastwood's co-star on a 1950s film set. Critics at multiple outlets read the safari fantasy and its overwhelmingly white cast as colonial nostalgia — African-studies professor Matthew Carotenuto pointed to a genre of \"pith-helmet-and-khaki-clad men as civilizing heroes\" — while Kahn countered that the casting was historically accurate to the segregated 1950s productions it depicted, not a statement on colonialism. Swift donated the video's proceeds to the African Parks Foundation of America for wildlife conservation. The controversy never dented the song's run: it became 1989's fifth consecutive top-10 hit, peaking at No. 5 on the Hot 100.",
         sources: [
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swifts-wildest-dreams-video-accused-of-channeling-white-colonialism-6685110/',
           },
-          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Wildest_Dreams' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Wildest_Dreams_(Taylor_Swift_song)' },
         ],
         photos: [{ url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-wildest-dreams-video-3-billboard-650.jpg?w=650&h=430&crop=1', credit: 'Big Machine Records' }],
       },
@@ -188,6 +207,8 @@ export default {
       sourceUrl: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
       thumbnailUrl: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef',
       moment: {
+        context:
+          "Ellie Goulding played matchmaker at the February 2015 Elle Style Awards in London, and the two were spotted flirting at a BRIT Awards afterparty the very next night, followed by a trip to Nashville together. Harris dropped the first public hint himself that April — an Instagram post of Swift's cats — before the paparazzi caught them holding hands leaving a HAIM show at the Troubadour. The Billboard Music Awards that May made it unmistakable: they sat together all night, with cameras catching \"a smooch and plenty of hugs\" as she went up to collect her awards. By their one-year mark he was engraving the date — 3.6.15 — on a locket.",
         sources: [
           {
             outlet: 'Yahoo Entertainment',
@@ -225,6 +246,8 @@ export default {
       sourceUrl: 'https://www.billboard.com/music/music-news/calvin-harris-taylor-swift-breakup-twitter-rant-british-gq-interview-7850101/',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calvin-harris-sunglasses-2015-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
+        context:
+          "The June 2016 split arrived through an insider's shrug — \"it just wasn't working anymore\" — but Harris's real retrospective came later, in a British GQ interview after his tweets about the \"This Is What You Came For\" songwriting credit had blown up. \"It was completely the wrong instinct,\" he admitted, describing a stretch where \"it felt like things were piling on top of me and that was when I snapped,\" protecting \"what I see as my one talent in the world being belittled.\" His sharpest observation was about the coverage itself: the breakup, he noted, was \"way more heavily publicized than the relationship itself.\"",
         sources: [
           {
             outlet: 'Billboard',
@@ -247,7 +270,8 @@ export default {
       sourceUrl: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
       thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/95e4e683a25b-taylor-and-tom.png',
       moment: {
-        context: 'The two met at the 2016 Met Gala, just weeks after her breakup with Harris.',
+        context:
+          "The two met at the 2016 Met Gala, where they danced together — he later recalled sitting next to her at dinner that night and finding her \"very charming.\" What followed ran at whirlwind speed: beach photos in Rhode Island, sightseeing in Rome, a stretch in England, then Australia's Gold Coast, where he was filming Thor: Ragnarok. Even the era's most memed image had a mundane explanation — the \"I ❤ T.S.\" tank top from her July 4th party, he told GQ, was a joke among friends after he'd hurt his back and needed to keep the sun off. His Hollywood Reporter confirmation was the rare mid-relationship on-record statement, and he never walked it back: \"Of course it was real,\" he said after the split.",
         sources: [
           {
             outlet: 'Hello!',
@@ -288,6 +312,8 @@ export default {
       sourceUrl: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
       thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/95e4e683a25b-taylor-and-tom.png',
       moment: {
+        context:
+          "The September 2016 ending was reported as amicable — and strikingly quiet for a romance that had been photographed on three continents in twelve weeks. Hiddleston said little afterward, but what he did say pushed back on the theory that it had all been staged: \"Of course it was real,\" he told GQ, while acknowledging that a relationship lived that publicly takes real work — a nod to the media glare that, by most accounts, helped end it. \"Hiddleswift\" had become shorthand for celebrity-romance overexposure in a single summer.",
         sources: [
           {
             outlet: 'Hello!',
@@ -713,7 +739,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png',
       moment: {
         context:
-          'The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) and making it Swift\'s second Diamond album after Fearless.',
+          'The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) almost eleven years after release, and making it Swift\'s second Diamond album after Fearless (certified in December 2017). The company is thin: only 31 albums by women or female-fronted acts have ever gone Diamond, and the double puts her alongside Madonna, Whitney Houston, Mariah Carey, Celine Dion, Shania Twain, Britney Spears, Adele, and The Chicks among the women with more than one — with Twain and Houston leading at three apiece.',
         sources: [
           { outlet: 'AOL', url: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html' },
           { outlet: 'RIAA Gold & Platinum Database', url: 'https://www.riaa.com/gold-platinum/?tab_active=default-award&ar=Taylor+Swift&ti=1989' },
@@ -754,7 +780,7 @@ export default {
       thumbnailUrl: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg',
       moment: {
         context:
-          'Swift published the letter on Tumblr on June 21, 2015, objecting to Apple Music\'s plan not to pay royalties during its three-month free trial — a policy she said would hurt new artists and songwriters most. Apple reversed the policy within 24 hours, and Swift subsequently put 1989 on the service.',
+          'Swift published the letter on Tumblr on Sunday, June 21, 2015, announcing she was withholding 1989 from Apple Music and objecting to the plan not to pay royalties during the three-month free trial. She insisted it wasn\'t about her: "This is about the new artist or band that has just released their first single and will not be paid for its success." Apple\'s Eddy Cue later described reading the letter that morning — "it solidified quickly that we needed a change" — and by that night he had announced the reversal on Twitter, conceding the trial structure "was clearly something that was not working." Less than 24 hours from Tumblr post to policy change; 1989 subsequently went up on the service.',
         sources: [
           { outlet: 'Stereogum', url: 'https://stereogum.com/1810310/read-taylor-swifts-open-letter-to-apple-music/news' },
           {
@@ -824,7 +850,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png',
       moment: {
         context:
-          'On the livestream she declared the record her first documented, official pop album, formally closing the country chapter the Red era had already strained. Naming it for her birth year and fronting it with a Polaroid crop that cut off her face set the visual language for everything that followed.',
+          'On the livestream she declared the record her first documented, official pop album, formally closing the country chapter the Red era had already strained — a pivot her own label resisted. Big Machine\'s Scott Borchetta, hearing the finished album, asked her to add country tracks with fiddle; she refused, reasoning that "if you chase two rabbits, you lose them both," and the label settled for not promoting it to country radio at all. Max Martin came aboard as co-executive producer to keep the synth-pop palette cohesive, "Shake It Off" dropped the same day and entered the Hot 100 at No. 1, and naming the album for her birth year — fronted by a Polaroid crop that cut off her face — set the visual language for everything that followed.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -897,20 +923,29 @@ export default {
       title: 'Welcome to New York, with the proceeds going to the city\'s schools',
       snippet:
         'The synth-drenched opener that announced the move to New York — and whose sales she donated to New York City public schools.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(Taylor_Swift_song)',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(song)',
       thumbnailUrl: null,
       moment: {
         context:
-          'Track one of 1989 doubled as a mission statement for the era\'s move from Nashville to Manhattan. When the city named her its tourism campaign face that same week, she announced the song\'s proceeds would go to the NYC Department of Education.',
+          'Track one of 1989 doubled as a mission statement for the era\'s move from Nashville to Manhattan — she\'d relocated in April 2014, and put the song first to mark the city as a formative influence on the record\'s "wide-eyed optimism." She wrote and produced it with Ryan Tedder, who programmed the first draft on a Juno-106 synth in about three hours. Actual New Yorkers were split — critics called the portrait idealized, one noting it skipped the subway rats and closet-sized bedrooms — but the charity piece was concrete: in February 2015 the Department of Education confirmed a $50,000 donation from the single\'s sales, more than a first-year NYC public school teacher\'s starting salary at the time.',
         sources: [
           {
             outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(Taylor_Swift_song)',
-            source_title: 'Welcome to New York (Taylor Swift song)',
+            url: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(song)',
+            source_title: 'Welcome to New York (song)',
             publisher: 'Wikipedia',
             source_type: 'wiki',
-            accessed_at: '2026-07-08',
+            accessed_at: '2026-07-09',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-donated-50k-new-york-public-schools-welcome-to-new-york-6480453/',
+            source_title: "Taylor Swift Donated $50k to NYC Public Schools From 'Welcome to New York' Sales",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
           {
             outlet: 'NYC & Company',
@@ -974,7 +1009,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
       moment: {
         context:
-          'The video played the tabloids\' "crazy ex" caricature to the hilt — golf clubs to the sports car included. The companion "American Express Unstaged: Taylor Swift Experience" app let viewers roam the mansion mid-video, and won the 2015 Creative Arts Emmy for Outstanding Original Interactive Program.',
+          'Joseph Kahn shot the mansion meltdown at Oheka Castle on Long Island, borrowing Stanley Kubrick\'s symmetrical framing while Swift played the tabloids\' "crazy ex" caricature to the hilt — golf clubs to the sports car included. The companion "AMEX Unstaged: Taylor Swift Experience" app let viewers roam the mansion in interactive 360° mid-video, discovering easter eggs and side characters outside the linear cut. It won the 2015 Emmy for Outstanding Creative Achievement in Interactive Media — Original Interactive Program, with Swift credited as artist and executive producer: her first Emmy, earned for a music video\'s companion app.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -984,6 +1019,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Television Academy',
+            url: 'https://www.televisionacademy.com/shows/amex-unstaged-taylor-swift-experience',
+            source_title: 'AMEX Unstaged: Taylor Swift Experience | Emmy Awards and Nominations',
+            publisher: 'Television Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-09',
+            reliability_score: 5,
           },
         ],
         photos: [
@@ -1042,7 +1086,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The January 2015 filings covered use of the phrases on merchandise from T-shirts to guitar straps. The move — mocked by some, studied by others — became a case study in how aggressively her team protected the 1989 economy, and "This Sick Beat" was formally registered within weeks.',
+          'The January 2015 filings covered "This Sick Beat," "Party Like It\'s 1989," "Cause We Never Go Out of Style," "Could Show You Incredible Things," and "Nice to Meet You. Where You Been?" — plus her name, signature, and initials — across product categories running from T-shirts and guitar straps to paper products and handbags. Forbes framed it as pre-tour housekeeping ahead of the May kickoff: locking down the 1989 merch economy before bootleggers could, with the round described as only the first. The move — mocked by some, studied by others — became a case study in how aggressively her team protected the era\'s business, and "This Sick Beat" was formally registered within weeks.',
         sources: [
           {
             outlet: 'ABC News',
@@ -1078,7 +1122,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery of Swift and her love interest projected onto each other. Critics read the art-film styling as another marker of the pop reinvention — the 1989 era\'s aesthetic confidence extending to its videos.',
+          'Director Kyle Newman\'s treatment abandoned narrative for double-exposure imagery — Swift and English actor Dominic Sherwood projected onto each other, the relationship replayed in shards of broken mirror and hazy flashbacks by the sea, in the woods, and behind the wheel. Billboard called it "gorgeously shot," conceding the plot was thinner than "Blank Space" but that the atmosphere could carry a perfume ad; other critics caught echoes of True Detective\'s title sequence, Mulholland Drive, and Chris Isaak\'s "Wicked Game" video. The art-film styling extended the pop reinvention to her videos — and the song underneath, a No. 6 Hot 100 peak at the time, has only climbed in critical standing since, routinely ranked among the finest pure pop songs in her catalog.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1088,6 +1132,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-style-video-6472752/',
+            source_title: "Taylor Swift 'Style': Watch the Dreamy Music Video Here",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [],
@@ -1141,7 +1194,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Hyde Park festival date was the UK centerpiece of the 1989 World Tour, with Ellie Goulding, Vance Joy, John Newman and Rae Morris supporting. The nightly celebrity-walk segment reached its peak form here — a tennis legend and half the world\'s top models on one stage, mid-song.',
+          'The Hyde Park festival date was the UK centerpiece of the 1989 World Tour, with Ellie Goulding, Vance Joy, John Newman and Rae Morris supporting. The nightly celebrity-walk segment reached its peak form here — a tennis legend and half the world\'s top models strutting the catwalk mid-"Style," with Cara Delevingne carrying the U.K. flag down the stage. Billboard framed it as the live extension of the "Bad Blood" casting trick: the famous-friends roster deployed as part of the show itself.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1213,7 +1266,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Six months after her open letter got Apple to reverse its trial-period royalty policy, the concert film arrived as an Apple Music exclusive — the reconciliation made product. It captured the November 28 Sydney stop plus guest moments from across the tour, from Mick Jagger to Imagine Dragons.',
+          'Six months after her open letter got Apple to reverse its trial-period royalty policy, the concert film arrived as an Apple Music exclusive — the reconciliation made product, released December 20 as pre-Christmas ammunition for the streaming service. Jonas Åkerlund\'s cut captured the full November 28 show before 70,000 at Sydney\'s ANZ Stadium, stitched with never-before-seen backstage and rehearsal footage plus guest moments from across the tour, from Mick Jagger to Imagine Dragons. Her own pitch, in the announcement: "I wondered what would happen if I invited the most amazing artists in the world to come out with me and perform on my stage — would they do it?"',
         sources: [
           {
             outlet: 'Billboard',

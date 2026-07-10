@@ -7,67 +7,70 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-07-09 — Rehosting arbitrary internet images is now allowed (supersedes the 2026-07-08 media policy's rehost ban)
+## 2026-07-09 — Full song lyrics may be reproduced on-site
 
-**Decision:** The "rehosting arbitrary internet photos stays BANNED" line in
-the 2026-07-08 media & content sourcing policy (below) is reversed. The app
-may now download and host real images found online — paparazzi photos, press
-photos, fan-captured photos, agency (Getty/AP/etc.) photos — directly on our
-own infrastructure, without a license and without going through oEmbed. This
-is a **knowing, deliberate risk acceptance**, not a reassessment that the
-underlying legal exposure went away.
+**Decision:** Reproducing complete song lyrics (not just short quoted lines)
+is allowed in the track guide / song-meaning sections, at the same risk
+tolerance as the photo-rehosting decision below: a knowing acceptance of
+copyright-infringement exposure rather than an oversight.
 
-**What this does NOT change:**
-- The **no-fabrication rule** (never invent an event, quote, or claim) is
-  untouched — this decision is only about image *sourcing*, not factual
-  content.
-- **Never claim a reference/comparable image is the real thing.** If we host
-  a photo of Jonathan Anderson's prior Dior work as a stand-in for a wedding
-  dress no photo exists of yet, it still must be visibly labeled as
-  reference material, not presented as the actual dress. That's an honesty
-  requirement to users, independent of the copyright question this entry
-  addresses.
-- Monetization still requires external IP-counsel review before shipping
-  (unchanged from 2026-07-08) — accepting infringement risk on a free,
-  non-monetized fan project is a different risk calculus than doing it on a
-  revenue-generating product, and that gate stays in place.
+**The actual risk being accepted, stated plainly:** song lyrics are
+copyrighted works; the NMPA and Genius have both pursued infringement claims
+over unlicensed lyric reproduction, historically more aggressively than
+photo agencies pursue paparazzi-photo rehosting. This is a **larger** legal
+exposure than the photo decision, not an equivalent one, even though the
+same "knowing acceptance" framing applies.
 
-**Why we're doing this anyway:** the app's whole premise (real, deep,
-photo-rich coverage of Taylor Swift's public life) is materially weaker
-without real photos, and the founders have decided the legal exposure is
-worth accepting rather than shipping a photo-thin product. oEmbed-only
-sourcing covers a meaningful slice (anything with a live public social post)
-but leaves a large, permanent gap — paparazzi-only sightings, older events
-with no surviving public post, professionally-shot red-carpet/tour photos —
-that would otherwise never get a real image under any circumstance.
+**What this does NOT change:** the no-fabrication rule; text elsewhere (event
+summaries, moment bodies) still must be original words + links, never pasted
+verbatim, per the 2026-07-08 media policy below.
 
-**The actual risk being accepted, stated plainly (not softened):**
-Photographs are copyrighted by the photographer/agency, not by the subject —
-Taylor Swift being in a photo gives neither her nor us any rights to it.
-Paparazzi/editorial agencies (Backgrid, Splash News, MEGA, Getty, AP, Bauer-
-Griffin, etc.) actively monitor for and enforce against unauthorized use;
-their business model depends on licensing these exact images. US copyright
-law permits statutory damages up to $150,000 per work for willful
-infringement, and "fair use" is a narrow, fact-specific, expensive-to-
-litigate defense — being a small non-commercial fan project reduces
-likelihood of enforcement but is not a legal shield. Realistic exposure
-short of a lawsuit: DMCA takedown requests (routine, mostly just
-disruptive), hosting-provider action if a complaint escalates. Realistic
-worst case: a rights-holder pursuing a claim, which carries real monetary
-and legal exposure per the statutory-damages figure above.
+**Approved by:** Joey (product), 2026-07-09.
 
-**Alternatives considered:** oEmbed-only (rejected — leaves the biggest,
-most-requested content (weddings, engagements, historical sightings) with
-no image, permanently, which the founders judged worse than the legal risk);
-paid editorial licensing (rejected for now — founders have decided not to
-spend money on image licensing at this time; revisit if the risk calculus
-or budget changes).
+## 2026-07-09 — Deuxmoi may be cited as a source, always explicitly labeled
 
-**Approved by:** Joey (product) and Wyatt (CTO/engineering), 2026-07-09, in
-person — explicit, informed acceptance of the risk described above, not a
-default or an oversight.
+**Decision:** Deuxmoi (an anonymous gossip/blind-item Instagram account that
+publishes unverified reader-submitted tips, not a reported news outlet with
+editorial standards) may be used as a source. It must always be labeled
+transparently as "Source: Deuxmoi" — never disguised as or blended with
+reputable-press citations — so users can see for themselves that a claim
+traces back to an anonymous tip account rather than confirmed reporting.
 
----
+**Why:** Some real information about Taylor Swift genuinely does surface
+first through Deuxmoi before (or instead of) verified press pickup.
+Transparency about the source, not exclusion of it, is the honesty
+mechanism — consistent with the existing confidence-label system
+(`official` / `confirmed_interview` / `reputable_reporting` / etc. in
+`apps/web/lib/longlive/types.ts`); a Deuxmoi-sourced claim should carry a
+low confidence label (`plausible` or below), never `confirmed` or `official`.
+
+**Approved by:** Joey (product), 2026-07-09.
+
+## 2026-07-09 — Rehosting real internet photos IS allowed (resolves a conflict with the entry below)
+
+**Decision:** The "Media & content sourcing policy" entry directly below this
+one (dated 2026-07-08, approved by Wyatt) reinstated a ban on rehosting
+arbitrary internet photos, calling an earlier same-day reversal an
+"over-correction." That reinstatement is **superseded** — full rehosting of
+real internet photos (paparazzi/press/agency images) **is** the current
+policy, confirmed directly by Joey.
+
+**Why this needed resolving explicitly:** the two entries directly
+contradicted each other, and — independent of which one was "supposed" to be
+current — Wyatt's content team had already shipped multiple merged PRs
+rehosting real photos under what their own commit messages called "the
+relaxed image policy" (e.g. `content/showgirl-marquee-photos`,
+`content/red-photos`). Docs and shipped code disagreed; per CLAUDE.md's
+"disagreements surface, not settle" rule, this was raised to Joey rather than
+silently picked.
+
+**What stands, unchanged from the 2026-07-08 entry below:** the no-fabrication
+rule, the reference/comparable-image honesty-labeling requirement (never
+present a stand-in as the real photo), and the monetization IP-counsel gate.
+oEmbed is still the *preferred* path for social-post embeds (no hosting cost),
+but is no longer the only way images may appear on-site.
+
+**Approved by:** Joey (product), 2026-07-09.
 
 ## 2026-07-08 — LongLive content synced from Supabase at build time, not runtime
 
