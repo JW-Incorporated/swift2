@@ -1,5 +1,30 @@
-import type { ContentItem, EraId, ImageRef, Milestone } from './types';
+import type { ContentItem, ContentTag, EraId, ImageRef, LensId, Milestone } from './types';
 import { VAULT_RAW } from './content-vault.generated';
+
+/**
+ * Default thread membership implied by a content tag — the mechanism behind
+ * "new content flows into Threads automatically" (docs/decisions.md
+ * 2026-07-10). Only tags with an unambiguous, always-true thread mapping
+ * belong here: a 'Relationship'-tagged item is *always* Love Story material,
+ * a 'Fashion'-tagged item is *always* Runway material. Threads with no such
+ * 1:1 tag ('taylors-version', 'easter-eggs', 'hidden-clues', 'the-proposal')
+ * are opt-in only, via an item's explicit `threadIds` — adding a case here
+ * would silently over-include unrelated content.
+ */
+const DEFAULT_THREAD_IDS_BY_TAG: Partial<Record<ContentTag, LensId>> = {
+  Relationship: 'love-story',
+  Fashion: 'fashion',
+};
+
+/** Exported for unit tests. */
+export function defaultThreadIdsForTags(tags: ContentTag[]): LensId[] {
+  const out: LensId[] = [];
+  for (const t of tags) {
+    const id = DEFAULT_THREAD_IDS_BY_TAG[t];
+    if (id && !out.includes(id)) out.push(id);
+  }
+  return out;
+}
 
 /**
  * Representative mock content. Every era gets a hero image reused from the era
@@ -25,13 +50,26 @@ export type RawItem = Omit<ContentItem, 'eraId' | 'images'> & {
  * back to the era art. Exported for unit tests.
  */
 export function build(eraId: EraId, items: RawItem[]): ContentItem[] {
-  return items.map(({ image, images, ...it }) => ({
-    ...it,
-    eraId,
-    images: images?.length
-      ? images
-      : [{ url: image ?? `/eras/${eraId === 'ttpd' ? 'ttpd' : eraId}.png`, kind: 'primary' }],
-  }));
+  return items.map(({ image, images, threadIds, ...it }) => {
+    // Explicit threadIds (an opt-in tag on the seed row) ADD to whatever the
+    // item's tags imply by default — an explicit opt-in never removes a tag
+    // default, matching the ContentItem.threadIds doc. Merged here — not in
+    // the sync script — so hand-curated RAW items below get the exact same
+    // treatment as items synced from supabase/seed/content.
+    const defaults = defaultThreadIdsForTags(it.tags);
+    const resolvedThreadIds = [
+      ...defaults,
+      ...(threadIds ?? []).filter((id) => !defaults.includes(id)),
+    ];
+    return {
+      ...it,
+      eraId,
+      images: images?.length
+        ? images
+        : [{ url: image ?? `/eras/${eraId === 'ttpd' ? 'ttpd' : eraId}.png`, kind: 'primary' }],
+      threadIds: resolvedThreadIds.length ? resolvedThreadIds : undefined,
+    };
+  });
 }
 
 const RAW: Record<EraId, RawItem[]> = {
@@ -738,7 +776,7 @@ const RAW: Record<EraId, RawItem[]> = {
     },
     {
       id: 'tloas-debut-chart',
-      date: '2025-10-13',
+      date: '2025-10-18',
       dateLabel: 'October 2025',
       title: 'A record-setting debut',
       summary: 'The album opens at number one with the fastest-selling first week in history.',
@@ -844,7 +882,7 @@ export const MILESTONES: Milestone[] = [
   { id: 'm-tloas-1', eraId: 'tloas', date: '2025-08-13', label: 'Era announced', kind: 'life' },
   { id: 'm-tloas-1b', eraId: 'tloas', date: '2025-08-26', label: 'Engagement announced', kind: 'life' },
   { id: 'm-tloas-2', eraId: 'tloas', date: '2025-10-03', label: 'Showgirl released', kind: 'album' },
-  { id: 'm-tloas-3', eraId: 'tloas', date: '2025-10-13', label: 'Record debut', kind: 'award' },
+  { id: 'm-tloas-3', eraId: 'tloas', date: '2025-10-18', label: 'Record debut', kind: 'award' },
   { id: 'm-tloas-4', eraId: 'tloas', date: '2025-10-18', label: 'Hot 100 sweep', kind: 'award' },
 ];
 

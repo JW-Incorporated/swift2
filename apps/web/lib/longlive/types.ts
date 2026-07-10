@@ -157,6 +157,23 @@ export interface ContentItem {
    * affordance in the detail view.
    */
   relatedIds?: RelatedId[];
+  /**
+   * Threads (see LensId) this item belongs to. Two ways this gets set, both
+   * in `build()` (lib/longlive/content.ts) so every item — hand-curated or
+   * synced from `supabase/seed/content/**` — goes through the same logic:
+   *   1. Default-by-tag (`defaultThreadIdsForTags`): 'Relationship' tags
+   *      imply 'love-story', 'Fashion' tags imply 'fashion' — no authoring
+   *      action needed, so existing and future content flows into those two
+   *      threads automatically.
+   *   2. Explicit opt-in: an item can set this directly (on the seed row, as
+   *      `threadIds`) for threads with no tag-based default — 'taylors-version',
+   *      'easter-eggs', 'hidden-clues', 'the-proposal' — or to add a thread
+   *      beyond its tag default.
+   * See docs/decisions.md 2026-07-10 for why this replaced hand-authored
+   * per-thread arrays in lenses.ts. Query via `contentForThread()` in
+   * lib/longlive/threads.ts, not by filtering CONTENT directly.
+   */
+  threadIds?: LensId[];
 }
 
 /**

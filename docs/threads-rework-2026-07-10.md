@@ -279,21 +279,18 @@ issue tracker to reflect reality, closing fixed tickets needs to be a
 deliberate pass (matching commit ticket-number lists like `a2aafa8`'s
 against `gh issue close`), not something to expect for free.
 
-**Bigger flag — likely accidental:** the entire `scripts/content-engine/`
-tool directory (17 files, the tool itself) was deleted in the very same
-commit that applied the first wave of factual fixes (`a2aafa8` on
-`fix/karen-tickets`) and has stayed deleted through every commit since,
-including the branch tip. The RUNBOOK (written in an earlier commit,
-`c306d03`) explicitly says the engine "lives at `scripts/content-engine/`
-... until merged" and "Do NOT merge the engine PR without explicit
-approval" — nothing in that plan calls for deleting it mid-fix-application.
-No commit message on this branch mentions removing it on purpose. **If
-Wyatt tries to re-run `scan`/`ingest`/`issues --create` (e.g. to verify the
-fixes, or to finally close out tickets) on the current tip of
-`fix/karen-tickets`, the tool won't be there.** Worth flagging to him
-directly rather than assuming he already knows — an agent deep in "apply
-fix wave N" mode is exactly the kind of task where a stray broad
-delete/checkout wouldn't get noticed.
+**CORRECTION (was wrong, leaving struck through for the record):** ~~the
+entire `scripts/content-engine/` tool directory was deleted mid-fix-
+application on `fix/karen-tickets`~~ — false alarm, my mistake. The RUNBOOK
+commit (`c306d03`) is on a *different* branch, `feature/content-integrity-
+engine` (PR #139, open, correctly marked "do not merge without review").
+`fix/karen-tickets` branches from `f044725` and was content-only from the
+start — Wyatt deliberately split the engine (its own branch/PR) from the
+fix-application work (content-only branch). Nothing was deleted; I compared
+two commits from different branches as if they shared history without
+checking ancestry first (`git merge-base --is-ancestor` would have caught
+this immediately). Corrected via a comment on issue #428 after Wyatt's
+session flagged it — see that thread if you want the full back-and-forth.
 
 ## How to resume if a session dies mid-work
 
