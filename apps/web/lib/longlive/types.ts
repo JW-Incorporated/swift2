@@ -392,8 +392,25 @@ export interface ReRecord {
   album: string;
   originalYear: number;
   reclaimedYear: number | null;
+  /** Human display date of the TV release, e.g. "Apr 9, 2021". null = not re-recorded yet. */
+  reclaimedDate: string | null;
   vaultTracks: number;
+  /** Per-album accent used on the ownership-timeline chart row and card rail. */
+  color: string;
   note: string;
+  /** Deeper editorial: the masters-dispute context specific to this album. */
+  context: string;
+  /** Why this album was re-recorded at this point in the campaign (or, for a
+   * still-pending album, why it hasn't been yet). */
+  whyNow: string;
+  /** The single most culturally significant vault track, or null (e.g. a
+   * pending album with no vault tracks released yet). */
+  vaultHighlight: string | null;
+  fanReaction: string;
+  /** Verified Spotify album IDs — null on either side is a real, checked
+   * absence (no TV yet, or the original master isn't the canonical release
+   * Taylor points fans to), never an unverified guess. */
+  spotify: { original: string | null; taylorsVersion: string | null };
 }
 
 export interface EggSource {
