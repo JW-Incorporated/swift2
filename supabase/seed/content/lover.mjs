@@ -185,7 +185,8 @@ export default {
     },
     {
       year: 2019,
-      month: 9,
+      month: 10,
+      day: 23,
       category: 'business',
       title: 'Cruel Summer takes four years to become a No. 1',
       snippet:
@@ -764,6 +765,7 @@ export default {
     {
       year: 2020,
       month: 4,
+      day: 29,
       category: 'sighting',
       title: "Joe Alwyn's Instagram gives away a quarantine with Taylor's cat",
       snippet:
