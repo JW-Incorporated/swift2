@@ -4,6 +4,16 @@
 // verified against its cited source directly. See
 // docs/marketing/content-framework-2026-07-03.md for the no-fabrication
 // rule and the light-touch (link-first) authoring model this follows.
+//
+// T16 full-era pass (2026-07-09, content/ttpd-full): every item brought to
+// the 2+ paragraph body standard (paragraphs split on blank lines by
+// sync-longlive-content.mjs) and every item given at least one real photo —
+// Wikipedia-hosted cover art, official-channel YouTube stills (each video ID
+// re-verified via YouTube oEmbed this session), CC-licensed Wikimedia
+// Commons concert photos, or credited press/agency CDN images per the
+// 2026-07-09 relaxed hotlink policy in docs/decisions.md. Every photo URL
+// curl-verified HTTP 200 + image/* this session; non-cover images visually
+// confirmed against their captions. No AI-generated imagery.
 
 export default {
   eraSlug: 'tortured-poets',
@@ -20,7 +30,7 @@ export default {
         'https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg',
       moment: {
         context:
-          'Accepting Best Pop Vocal Album for Midnights — her 13th career Grammy — she told the room: "I want to say thank you to the fans by telling you a secret that I\'ve been keeping from you for the last two years, which is that my brand new album comes out April 19th." Fans primed by her lucky number 13 had bet on a Reputation (Taylor\'s Version) reveal; instead, a black-and-white cover photo of her lying in bed hit Instagram minutes later, captioned with lines about muses and love bombs. By the end of the night she had Album of the Year for Midnights too, making her the first artist ever to win the category four times.',
+          'Accepting Best Pop Vocal Album for Midnights — her 13th career Grammy — she told the room: "I want to say thank you to the fans by telling you a secret that I\'ve been keeping from you for the last two years, which is that my brand new album comes out April 19th."\n\nFans primed by her lucky number 13 had bet on a Reputation (Taylor\'s Version) reveal; instead, a black-and-white cover photo of her lying in bed hit Instagram minutes later, captioned with lines about muses and love bombs. By the end of the night she had Album of the Year for Midnights too, making her the first artist ever to win the category four times.',
         sources: [
           {
             outlet: 'CBS News',
@@ -51,7 +61,7 @@ export default {
       thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_5-1-1440x1440.jpg',
       moment: {
         context:
-          'The album cleared 300 million Spotify streams before its first day was out — the first album in the platform\'s history to cross either the 200 million or 300 million single-day marks — while "Fortnight" displaced the single-day record for any song, and Swift set the single-day artist record too. The takeover had a physical footprint: for three days before release, Spotify ran an open-air "poetry library" pop-up at The Grove in Los Angeles, revealing new lyrics from the album each day. The artist single-day record she broke was her own, set when 1989 (Taylor\'s Version) arrived in October 2023.',
+          'The album cleared 300 million Spotify streams before its first day was out — the first album in the platform\'s history to cross either the 200 million or 300 million single-day marks — while "Fortnight" displaced the single-day record for any song, and Swift set the single-day artist record too.\n\nThe takeover had a physical footprint: for three days before release, Spotify ran an open-air "poetry library" pop-up at The Grove in Los Angeles, revealing new lyrics from the album each day. The artist single-day record she broke was her own, set when 1989 (Taylor\'s Version) arrived in October 2023.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -86,7 +96,7 @@ export default {
       thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/TSwift-Square-header-1440x1440.jpg',
       moment: {
         context:
-          'No album had ever reached a billion Spotify streams within five days; Spotify confirmed the milestone on April 24. It capped a stretch where a record fell almost daily — most pre-saved album on the platform\'s Countdown Pages the day before release, most-streamed album in a single day on day one, then most-streamed album in a single week logged before an actual week had even elapsed. "Fortnight" led the charge as the most-streamed song in a single day in Spotify history.',
+          'No album had ever reached a billion Spotify streams within five days; Spotify confirmed the milestone on April 24.\n\nIt capped a stretch where a record fell almost daily — most pre-saved album on the platform\'s Countdown Pages the day before release, most-streamed album in a single day on day one, then most-streamed album in a single week logged before an actual week had even elapsed. "Fortnight" led the charge as the most-streamed song in a single day in Spotify history.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -116,7 +126,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
       moment: {
         context:
-          'Written with Post Malone and Jack Antonoff, the downtempo synth-pop opener carries what Taylor called the album\'s fatalism — "You ended up not with the person that you loved and now you just have to live with that every day" — with Malone recording his harmonies and bridge hooks at his home studio in Los Angeles. The video, which Swift directed herself with cinematographer Rodrigo Prieto shooting in black and white, casts Malone as her lover and reunites Dead Poets Society co-stars Ethan Hawke and Josh Charles as mad scientists administering her electroshock therapy; critics caught echoes of Poor Things, Frankenstein, and silent-era German Expressionism. The song debuted at No. 1 on the Hot 100 — her 12th chart-topper and Post Malone\'s fifth — after breaking Spotify\'s single-day streaming record, and its video went on to take Video of the Year at the 2024 VMAs.',
+          'Written with Post Malone and Jack Antonoff, the downtempo synth-pop opener carries what Taylor called the album\'s fatalism — "You ended up not with the person that you loved and now you just have to live with that every day" — with Malone recording his harmonies and bridge hooks at his home studio in Los Angeles.\n\nThe video, which Swift directed herself with cinematographer Rodrigo Prieto shooting in black and white, casts Malone as her lover and reunites Dead Poets Society co-stars Ethan Hawke and Josh Charles as mad scientists administering her electroshock therapy; critics caught echoes of Poor Things, Frankenstein, and silent-era German Expressionism. The song debuted at No. 1 on the Hot 100 — her 12th chart-topper and Post Malone\'s fifth — after breaking Spotify\'s single-day streaming record, and its video went on to take Video of the Year at the 2024 VMAs.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' },
           {
@@ -144,7 +154,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She had teased a mysterious 2 a.m. countdown, and delivered on it two hours after the midnight release: "It\'s a 2am surprise: The Tortured Poets Department is a secret DOUBLE album. I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you." Four of the 15 Anthology tracks — "The Manuscript," "The Bolter," "The Albatross," and "The Black Dog" — had already been teased as bonus cuts scattered across physical variants; the rest were entirely new, pushing the full album past the two-hour mark. Her sign-off handed the record over: "And now the story isn\'t mine anymore... it\'s all yours."',
+          'She had teased a mysterious 2 a.m. countdown, and delivered on it two hours after the midnight release: "It\'s a 2am surprise: The Tortured Poets Department is a secret DOUBLE album. I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you."\n\nFour of the 15 Anthology tracks — "The Manuscript," "The Bolter," "The Albatross," and "The Black Dog" — had already been teased as bonus cuts scattered across physical variants; the rest were entirely new, pushing the full album past the two-hour mark. Her sign-off handed the record over: "And now the story isn\'t mine anymore... it\'s all yours."',
         sources: [
           {
             outlet: 'Billboard',
@@ -155,7 +165,16 @@ export default {
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-tortured-poets-department-the-anthology-announcement-1235007251/',
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): The Anthology cover from Wikipedia's
+        // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/The_Tortured_Poets_Department_The_Anthology.png/250px-The_Tortured_Poets_Department_The_Anthology.png',
+            credit: 'Republic Records',
+            caption: 'Cover of The Tortured Poets Department: The Anthology, the 31-track edition revealed at 2 a.m.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -168,9 +187,18 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her own explanation: "I picked women who have done great things in the past and have been these archetypes of greatness in the entertainment industry" — then showed how the industry sells every new woman as a replacement for the last.',
+          'Written and produced with Aaron Dessner at Long Pond Studios, "Clara Bow" closes the standard album at track 16 by walking through the lineage of women the industry anoints and then swaps out: the narrator is told she looks like Clara Bow — the silent-film star who defined the 1920s "It girl" — then "Stevie Nicks in \'75," before the final verse turns the machine on its own author, with an executive pitching the next new girl as looking like Taylor Swift. Her own explanation: "I picked women who have done great things in the past and have been these archetypes of greatness in the entertainment industry" — then showed how the industry sells every new woman as a replacement for the last.\n\nBow\'s descendants embraced the closer: her family called the song a "testament" to the actress\'s legacy and its lyrics "hauntingly beautiful," despite Swift never consulting them beforehand. Critics highlighted the track\'s self-aware framing of fame\'s churn — NPR later named it among the best songs of 2024 — and it reached No. 21 on the Hot 100 in TTPD\'s record-sweeping first week.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clara_Bow_(song)' }],
-        photos: [],
+        // T16 photo pass (2026-07-09): official lyric-video still — video ID
+        // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/fcVUbmdQfaE/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the official "Clara Bow" lyric video on Taylor Swift\'s YouTube channel.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -184,11 +212,15 @@ export default {
         'https://imgix.bustle.com/uploads/getty/2024/2/22/9b7b54e9-11ab-43f1-90fa-51af4b2737da-getty-2015053197.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'Lady Idina Sackville, part of the scandalous "Happy Valley set" in 1930s colonial Kenya, earned the "bolter" nickname after leaving her husband for another man; her own great-granddaughter wrote a 2008 biography by the same title. Taylor has never confirmed the connection.',
+          'Lady Idina Sackville, part of the scandalous "Happy Valley set" in 1930s colonial Kenya, earned the "bolter" nickname after leaving her husband for another man; her own great-granddaughter, Frances Osborne, wrote a 2008 biography by the same title. Taylor has never confirmed the connection.\n\nThe Anthology track itself — written and produced with Aaron Dessner — sketches "an endearing and mischievous woman" who charms the "trophy hunters" pursuing her and escapes at every turn. Literary-minded listeners also point to Nancy Mitford\'s 1945 novel The Pursuit of Love, whose absentee mother figure is nicknamed "the Bolter" for serially abandoning her marriages; like the Sackville theory, it remains an interpretation fans and critics supplied, not one Swift has endorsed.',
         sources: [
           {
             outlet: 'Bustle',
             url: 'https://www.bustle.com/entertainment/taylor-swift-the-bolter-theory-lady-idina-sackville',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Bolter_(song)',
           },
         ],
         photos: [
@@ -211,7 +243,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300',
       moment: {
         context:
-          'Her caption dedicated the post "to the new Tortured Poets section of the Eras Tour (aka Female Rage The Musical!)" and credited a crew that spent the tour\'s two-month break building it: "we really didn\'t take any time off." Seven TTPD songs entered the show — "But Daddy I Love Him," "So High School," "Who\'s Afraid of Little Old Me?," "Down Bad," "Fortnight," "The Smallest Man Who Ever Lived," and "I Can Do It With a Broken Heart" — with original choreography, new costumes, and moody staging built on muted tones, paper, and a typewriter. Fitting a new era in meant real surgery on the three-hour show: the Lover and folklore sets lost songs, and Red moved up to follow Fearless directly.',
+          'Her caption dedicated the post "to the new Tortured Poets section of the Eras Tour (aka Female Rage The Musical!)" and credited a crew that spent the tour\'s two-month break building it: "we really didn\'t take any time off."\n\nSeven TTPD songs entered the show — "But Daddy I Love Him," "So High School," "Who\'s Afraid of Little Old Me?," "Down Bad," "Fortnight," "The Smallest Man Who Ever Lived," and "I Can Do It With a Broken Heart" — with original choreography, new costumes, and moody staging built on muted tones, paper, and a typewriter. Fitting a new era in meant real surgery on the three-hour show: the Lover and folklore sets lost songs, and Red moved up to follow Fearless directly.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -243,7 +275,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'May 9, 2024 at La Défense Arena was her first performance anywhere since TTPD arrived, and the setlist treated it as a premiere: an acoustic "Paris" — a song she said would make its live debut only in its namesake city — a piano rendition of "loml," and the unveiling of the full seven-song Tortured Poets section with its muted, typewriter-strewn staging. Other eras got refreshed too, with "cardigan" now sung from the roof of a transparent wooden cabin under autumnal light, and she worked the crowd in French between songs. Paramore, the openers for the whole European leg, kicked off the night with a Talking Heads cover.',
+          'May 9, 2024 at La Défense Arena was her first performance anywhere since TTPD arrived, and the setlist treated it as a premiere: an acoustic "Paris" — a song she said would make its live debut only in its namesake city — a piano rendition of "loml," and the unveiling of the full seven-song Tortured Poets section with its muted, typewriter-strewn staging.\n\nOther eras got refreshed too, with "cardigan" now sung from the roof of a transparent wooden cabin under autumnal light, and she worked the crowd in French between songs. Paramore, the openers for the whole European leg, kicked off the night with a Talking Heads cover.',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/lists/taylor-swift-paris-eras-tour-europe/' },
           {
@@ -269,7 +301,7 @@ export default {
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=204',
       moment: {
         context:
-          'The "Fortnight" gown was custom Vivienne Westwood Couture: a draped, corseted dress inscribed with the song\'s own confession — "I love you, it\'s ruining my life" — finished with a three-row orb-detail choker in black agate. It opened a run of Westwood one-offs across the European leg; by Milan, a new white taffeta corset dress arrived with "Who\'s afraid of little old me?" spelled out in black crystals. The same Paris night refreshed the rest of the wardrobe too, with the new crystal bodysuit and boots for the opening Lover set plus first-time looks in the Fearless and 1989 sets.',
+          'The "Fortnight" gown was custom Vivienne Westwood Couture: a draped, corseted dress inscribed with the song\'s own confession — "I love you, it\'s ruining my life" — finished with a three-row orb-detail choker in black agate.\n\nIt opened a run of Westwood one-offs across the European leg; by Milan, a new white taffeta corset dress arrived with "Who\'s afraid of little old me?" spelled out in black crystals. The same Paris night refreshed the rest of the wardrobe too, with the new crystal bodysuit and boots for the opening Lover set plus first-time looks in the Fearless and 1989 sets.',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/photos/taylor-swift-eras-tour-paris-show-1235680098/' },
           {
@@ -300,7 +332,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          '"You just made me the first solo artist to ever play Wembley eight times in a single tour," she told the crowd on her final 2024 London night — Michael Jackson\'s seven-show stand on the 1988 Bad Tour had stood as the mark for 36 years. All eight nights sold out, poured over £300 million into London\'s economy by the stadium\'s own accounting, and had the Wembley arch relit in a different era\'s colors through each show; afterward, the venue shipped a bespoke guitar and personalized plectrums to Nashville as a thank-you. The Aug. 20 record-setter doubled as the European leg\'s finale, with Florence Welch joining for the live debut of "Florida!!!" and the "I Can Do It With a Broken Heart" video premiering on the screens after the show.',
+          '"You just made me the first solo artist to ever play Wembley eight times in a single tour," she told the crowd on her final 2024 London night — Michael Jackson\'s seven-show stand on the 1988 Bad Tour had stood as the mark for 36 years.\n\nAll eight nights sold out, poured over £300 million into London\'s economy by the stadium\'s own accounting, and had the Wembley arch relit in a different era\'s colors through each show; afterward, the venue shipped a bespoke guitar and personalized plectrums to Nashville as a thank-you. The Aug. 20 record-setter doubled as the European leg\'s finale, with Florence Welch joining for the live debut of "Florida!!!" and the "I Can Do It With a Broken Heart" video premiering on the screens after the show.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -311,19 +343,31 @@ export default {
             url: 'https://www.wembleystadium.com/news/2024/08/23/10/34/Wembley-Stadium-has-gifted-Taylor-Swift-a-bespoke-guitar-to-mark-her-record-breaking-achievement',
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): CC BY 4.0 Wikimedia Commons photo from
+        // the Aug. 19, 2024 Wembley show. Verified HTTP 200 + image/jpeg;
+        // visually confirmed (Wembley bowl mid-show, arch overhead).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg/960px-Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg',
+            credit: 'BrigidLIS via Wikimedia Commons, CC BY 4.0',
+            caption: 'Wembley Stadium during the 1989 set on Aug. 19, 2024 — night seven of the record eight-show stand.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
       year: 2024,
       month: 10,
       category: 'sighting',
-      title: 'Back at Arrowhead for a Sunday night win over New Orleans',
+      title: 'Back at Arrowhead for a Monday night win over New Orleans',
       snippet: 'A rare in-season appearance between international tour legs, cheering on a Chiefs win over the Saints.',
       sourceUrl: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582',
       thumbnailUrl:
         'https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-glitter-freckles-chiefs-game-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
+        context:
+          'The Oct. 7, 2024 Monday Night Football matchup against the Saints came in the closing days of the Eras Tour\'s two-month break, less than two weeks before the tour resumed in Miami on Oct. 18. She watched from a suite flanked by both families\' patriarchs — her father Scott Swift and Travis\'s father Ed Kelce.\n\nThe look drew nearly as much coverage as the game: a plaid, off-the-shoulder minidress with black knee-high platform boots, finished with glitter freckles scattered across her nose and cheeks — a sparkly game-day beauty flourish Billboard flagged as the night\'s standout detail.',
         sources: [
           { outlet: 'Today', url: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582' },
           {
@@ -348,11 +392,21 @@ export default {
       sourceUrl: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/11/taylor-swift-2024-chiefs-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
+        context:
+          'The Nov. 10 Broncos game — her third straight home game, watched with her parents Scott and Andrea in a red-and-black checkered blazer over a black corset and coordinating skirt — ended in the wildest finish of the Chiefs\' season: Leo Chenal blocked Denver\'s 35-yard field-goal attempt as time expired to preserve a 16-14 win and a 9-0 start.\n\nShe was back for the Black Friday game on Nov. 29, joining her father and Donna Kelce in a red half-zip to watch Kansas City edge the Raiders 19-17 in the NFL\'s Black Friday game, streamed on Prime Video. It made five Arrowhead games on the season for her — all of them Chiefs wins.',
         sources: [
           { outlet: 'Today', url: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582' },
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swift-travis-kelce-chiefs-broncos-nfl-game-1235824990/',
+          },
+          {
+            outlet: 'Kansas City Chiefs',
+            url: 'https://www.chiefs.com/news/chiefs-defeat-broncos-16-14-behind-a-walk-off-blocked-field-goal',
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/taylor-swift-chiefs-raiders-nfl-black-friday-game-rcna181662',
           },
         ],
         photos: [
@@ -374,7 +428,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-vancouver-fearless-dec-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'The Dec. 6–8 farewell stand at BC Place drew roughly 60,000 fans a night, with all three shows professionally filmed for a then-unannounced project. The final surprise-song slot went out swinging — "Long Live" and a "New Year\'s Day"/"The Manuscript" mashup to close — after "The Tortured Poets Department" itself surfaced on night two and her parents watched a "Never Grow Up"/"The Best Day" pairing on night one. Three days later she posted 17 photos from the finale with a caption borrowed from "All Too Well": "It was rare. I was there. I remember it."',
+          'The Dec. 6–8 farewell stand at BC Place drew roughly 60,000 fans a night, with all three shows professionally filmed for a then-unannounced project.\n\nThe final surprise-song slot went out swinging — "Long Live" and a "New Year\'s Day"/"The Manuscript" mashup to close — after "The Tortured Poets Department" itself surfaced on night two and her parents watched a "Never Grow Up"/"The Best Day" pairing on night one. Three days later she posted 17 photos from the finale with a caption borrowed from "All Too Well": "It was rare. I was there. I remember it."',
         sources: [
           {
             outlet: 'NBC News',
@@ -404,7 +458,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'Her production company confirmed the totals to The New York Times: 10,168,008 tickets across 149 shows on six continents, at an average of $204 a seat — roughly double the previous all-time record, Coldplay\'s $1 billion Music of the Spheres run, which needed more dates to get there. The figure counts tickets only; merchandise, the record-grossing concert film, and the Eras Tour Book all sit outside the tally. Pollstar had already estimated the tour crossed the billion-dollar line in November 2023 — the second billion took barely a year more.',
+          'Her production company confirmed the totals to The New York Times: 10,168,008 tickets across 149 shows on six continents, at an average of $204 a seat — roughly double the previous all-time record, Coldplay\'s $1 billion Music of the Spheres run, which needed more dates to get there.\n\nThe figure counts tickets only; merchandise, the record-grossing concert film, and the Eras Tour Book all sit outside the tally. Pollstar had already estimated the tour crossed the billion-dollar line in November 2023 — the second billion took barely a year more.',
         sources: [
           {
             outlet: 'Forbes',
@@ -437,7 +491,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The nomination broke her tie with Barbra Streisand — at six apiece — for the most Album of the Year nods by any female artist, putting TTPD on a ledger that already held Fearless, Red, 1989, folklore, evermore, and Midnights. The same announcement gave "Fortnight" a Song of the Year nomination, her eighth in that category and a record no other songwriter holds, en route to a 58-nomination career total. Her stated stance on the stakes: "For me, the award is the work. All I want to do is keep being able to do this." The Grammy itself went to Beyoncé\'s Cowboy Carter at the February 2025 ceremony, ending Swift\'s bid for a fifth Album of the Year win.',
+          'The nomination broke her tie with Barbra Streisand — at six apiece — for the most Album of the Year nods by any female artist, putting TTPD on a ledger that already held Fearless, Red, 1989, folklore, evermore, and Midnights.\n\nThe same announcement gave "Fortnight" a Song of the Year nomination, her eighth in that category and a record no other songwriter holds, en route to a 58-nomination career total. Her stated stance on the stakes: "For me, the award is the work. All I want to do is keep being able to do this." The Grammy itself went to Beyoncé\'s Cowboy Carter at the February 2025 ceremony, ending Swift\'s bid for a fifth Album of the Year win.',
         sources: [
           {
             outlet: 'E! Online',
@@ -445,7 +499,16 @@ export default {
           },
           { outlet: 'NPR', url: 'https://www.npr.org/2025/02/02/nx-s1-5279565/2025-grammys-beyonce-kendrick-lamar' },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): the nominated album's cover from
+        // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png/250px-Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            credit: 'Republic Records',
+            caption: 'The Tortured Poets Department — her record seventh Album of the Year nominee.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -459,7 +522,7 @@ export default {
         'https://assets3.cbsnewsstatic.com/hub/i/r/2025/02/10/730950cd-100f-4bdf-9500-9ddfae69e3a2/thumbnail/620x413/17ecc99a76627497275a0395c0802f6e/gettyimages-2198604289.jpg',
       moment: {
         context:
-          'When the Superdome video boards found her suite during a first-quarter break — right after Adam Sandler and Paul Rudd drew cheers — the heavily pro-Eagles crowd booed, and cameras caught the side-eye and wrinkled nose she shot to Ice Spice beside her before the two laughed it off. Her section also held her brother Austin, the Haim sisters, longtime friend Ashley Avignone, and the Kelce family, watching the first Chiefs playoff loss she had ever attended. Donald Trump piled on from Truth Social ("MAGA is very unforgiving!"); Serena Williams answered on X: "I love you @taylorswift13 dont listen to those booo!!"',
+          'When the Superdome video boards found her suite during a first-quarter break — right after Adam Sandler and Paul Rudd drew cheers — the heavily pro-Eagles crowd booed, and cameras caught the side-eye and wrinkled nose she shot to Ice Spice beside her before the two laughed it off.\n\nHer section also held her brother Austin, the Haim sisters, longtime friend Ashley Avignone, and the Kelce family, watching the first Chiefs playoff loss she had ever attended. Donald Trump piled on from Truth Social ("MAGA is very unforgiving!"); Serena Williams answered on X: "I love you @taylorswift13 dont listen to those booo!!"',
         sources: [
           {
             outlet: 'CBS News Philadelphia',
@@ -487,6 +550,8 @@ export default {
       sourceUrl: 'https://www.marieclaire.com/fashion/taylor-swift-2025-super-bowl-outfit/',
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/P5J7PGVYFxPyyTdzTVpya3.jpg',
       moment: {
+        context:
+          'Styled by Joseph Cassell Falconer, the Feb. 9, 2025 Superdome look built Chiefs red-and-white out of luxury basics: a shell-white Saint Laurent blazer with exaggerated shoulders worn open over a white Alaïa bodysuit styled like a tank top, custom crystal-embellished Purple Brand denim shorts, white over-the-knee Paris Texas boots, and a red Givenchy Nano Voyou bag carrying the team\'s other color.\n\nThe jewelry did the sentimental work: the custom Lorraine Schwartz ruby "T" necklace — repurposed from her Grammys-week styling a week earlier — plus a Retrouvai ruby ring and a Logan Hollowell gold hand chain. Marie Claire read the sharp tailoring as a callback to the Versace blazers she wore performing "The Man" on tour; the game itself went far worse than the outfit, with Kansas City\'s three-peat bid ending 40-22.',
         sources: [
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-2025-super-bowl-outfit/' },
         ],
@@ -512,7 +577,7 @@ export default {
       thumbnailUrl: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
       moment: {
         context:
-          'The caption on the joint Aug. 26, 2025 post — "Your English teacher and your gym teacher are getting married" — ran over photos of a garden proposal scene set among pink and white roses, soundtracked on Instagram by "So High School," her TTPD song about him. Travis had actually proposed about two weeks earlier; his father Ed learned the news by FaceTime from the couple while standing at an Eagles practice. It closed the loop on a courtship that started when Kelce attended the Eras Tour in Kansas City in 2023 and vented about her on New Heights — or as Swift later put it, "This podcast got me a boyfriend."',
+          'The caption on the joint Aug. 26, 2025 post — "Your English teacher and your gym teacher are getting married" — ran over photos of a garden proposal scene set among pink and white roses, soundtracked on Instagram by "So High School," her TTPD song about him.\n\nTravis had actually proposed about two weeks earlier; his father Ed learned the news by FaceTime from the couple while standing at an Eagles practice. It closed the loop on a courtship that started when Kelce attended the Eras Tour in Kansas City in 2023 and vented about her on New Heights — or as Swift later put it, "This podcast got me a boyfriend."',
         sources: [
           { outlet: 'CBS News', url: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-engaged/' },
           {
@@ -538,7 +603,7 @@ export default {
       thumbnailUrl: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
       moment: {
         context:
-          'Travis worked directly with Kindred Lubeck — the goldsmith, hand-engraver, and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry, whose work Swift had shown him admiringly well before the proposal — on a 3.63-carat old mine brilliant-cut diamond set in a hand-engraved yellow gold band with an engraved halo and smaller accent stones. The old mine cut is a genuinely antique geometry, common from the early 1700s to the late 1800s: squarer than a modern brilliant, with a smaller table, larger culet, and higher crown. Swift\'s verdict on the ring she never had to spec: "I didn\'t know what I would want, but he did somehow."',
+          'Travis worked directly with Kindred Lubeck — the goldsmith, hand-engraver, and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry, whose work Swift had shown him admiringly well before the proposal — on a 3.63-carat old mine brilliant-cut diamond set in a hand-engraved yellow gold band with an engraved halo and smaller accent stones.\n\nThe old mine cut is a genuinely antique geometry, common from the early 1700s to the late 1800s: squarer than a modern brilliant, with a smaller table, larger culet, and higher crown. Swift\'s verdict on the ring she never had to spec: "I didn\'t know what I would want, but he did somehow."',
         sources: [
           {
             outlet: 'Complex',
@@ -574,11 +639,15 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/iLujwgsEwXSAYA4yN98NKS.jpg',
       moment: {
         context:
-          'Stylists traced the era\'s Victorian-gothic, corseted-mourning-gown throughline across red carpets and the tour, mixing high couture (Schiaparelli, Alaïa, Gabriela Hearst) with accessible brands like Free People and Reformation.',
+          'Beth Garrabrant — the photographer behind the folklore and Midnights campaigns — shot the TTPD package as intimate bedroom scenes: tea-soaked sepia, stark black-and-white, and "greige" color-leached tones, with Swift in half-undone slip pieces from The Row, Saint Laurent, Khaite, and Meshki. The dishabille styling was the point — an album about coming apart, photographed mid-unraveling, and a hard swerve from Midnights\' jewel-toned glitz.\n\nStylists traced the era\'s Victorian-gothic, corseted-mourning-gown throughline across red carpets and the tour, mixing high couture (Schiaparelli, Alaïa, Gabriela Hearst) with accessible brands like Free People and Reformation.',
         sources: [
           {
             outlet: 'Marie Claire',
             url: 'https://www.marieclaire.com/fashion/taylor-swift-tortured-poets-department-fashion-explained/',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
           },
         ],
         photos: [
@@ -601,7 +670,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg',
       moment: {
         context:
-          'The pieces came from Elena Velez\'s Fall 2024 runway collection — Velez, the 2022 CFDA Emerging Designer of the Year, was raised in Milwaukee by a single mother who captained ships on the Great Lakes, and told Vogue her aim is a "more multi-dimensional representation of womanhood, good and bad." Months after the video, the ensemble got museum treatment as one of 13 theatrically staged stops on the V&A\'s free Taylor Swift | Songbook Trail in London (July 27–Sept. 8, 2024), where the museum described it as fusing "monochromatic elements of B-movie sci-fi with a Victorian gothic aesthetic."',
+          'The pieces came from Elena Velez\'s Fall 2024 runway collection — Velez, the 2022 CFDA Emerging Designer of the Year, was raised in Milwaukee by a single mother who captained ships on the Great Lakes, and told Vogue her aim is a "more multi-dimensional representation of womanhood, good and bad."\n\nMonths after the video, the ensemble got museum treatment as one of 13 theatrically staged stops on the V&A\'s free Taylor Swift | Songbook Trail in London (July 27–Sept. 8, 2024), where the museum described it as fusing "monochromatic elements of B-movie sci-fi with a Victorian gothic aesthetic."',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fortnight_(song)' },
           { outlet: 'V&A', url: 'https://www.vam.ac.uk/articles/va-trail-taylor-swift-songbook' },
@@ -629,7 +698,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg',
       moment: {
         context:
-          'Styled by Joseph Cassell Falconer, with a plaid choker matching the corset print, a classic blow-out, and heavy black eyeliner with a lighter red lip.',
+          'The Sept. 11, 2024 look adapted a runway design from Dior\'s Resort 2025 collection — a show Dior staged in Scotland — into a tartan bustier with black hot pants and an open skirt that Marie Claire described as flowing behind her "like a Highland warrior\'s cape." Joseph Cassell Falconer styled it with Stuart Weitzman thigh-high boots, lace-up leather gloves, and a plaid choker cut to match the corset print; hair was a classic blow-out over heavy black eyeliner and a lighter-than-usual red lip.\n\nFans immediately filed the black-and-plaid punk styling as "Reputation"-coded — the same guessing game her black Versace VMAs look had set off in 2023 — though she never commented on the inspiration. Whatever the signal, the night itself became a record haul: she left with seven Moon Persons, including her third straight Video of the Year.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -658,7 +727,7 @@ export default {
         'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg',
       moment: {
         context:
-          'The custom one-shoulder Vivienne Westwood mini read as a message: Chiefs red, worn Feb. 2 at Crypto.com Arena exactly one week before Kansas City\'s Super Bowl LIX matchup with the Eagles, with the Lorraine Schwartz diamond thigh chain dangling a single "T" fans immediately read as Travis, absent while he prepared for the game. Casadei heels finished the look as she carried six nominations into the night, including her record seventh Album of the Year nod for The Tortured Poets Department.',
+          'The custom one-shoulder Vivienne Westwood mini read as a message: Chiefs red, worn Feb. 2 at Crypto.com Arena exactly one week before Kansas City\'s Super Bowl LIX matchup with the Eagles, with the Lorraine Schwartz diamond thigh chain dangling a single "T" fans immediately read as Travis, absent while he prepared for the game.\n\nCasadei heels finished the look as she carried six nominations into the night, including her record seventh Album of the Year nod for The Tortured Poets Department.',
         sources: [
           {
             outlet: 'E! News',
@@ -687,11 +756,16 @@ export default {
       sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
       moment: {
-        context: 'Travis coordinated in a Ralph Lauren black polo and khaki shorts for the same garden shoot.',
+        context:
+          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.',
         sources: [
           {
             outlet: 'Marie Claire',
             url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
+          },
+          {
+            outlet: 'L\'Officiel',
+            url: 'https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details',
           },
         ],
         photos: [
@@ -717,7 +791,7 @@ export default {
         'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
       moment: {
         context:
-          'Adapted from a look in Schiaparelli\'s Fall 2023 couture collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony. Swift paired it with opera-length gloves, black peep-toe pumps, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face.',
+          'Adapted from a look in Schiaparelli\'s Fall 2023 couture collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony.\n\nSwift paired it with opera-length gloves, black peep-toe pumps, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face.',
         sources: [
           {
             outlet: 'Red Carpet Fashion Awards',
@@ -747,7 +821,7 @@ export default {
       thumbnailUrl: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
       moment: {
         context:
-          'The gown is one of several distinct costume changes across the "Fortnight" video\'s different vignettes — a separate look from the black Elena Velez/Unttld gothic ensemble already covered elsewhere in this era, and from the Celine-designed piece in the video\'s rain-soaked finale.',
+          'The "Candescence" gown, from Matičevski\'s Spring 2024 collection, is engineered like sculpture: a strapless bodice with internal boning and a rounded, collar-skimming neckline, in crisp pearl-white crinkled cotton gathered asymmetrically at the hip into a high-low skirt. It surfaces in the video\'s most-teased beat — Swift hurling an object at a glass pane — and WWD framed the bridal-coded silhouette as the romantic counterweight to the video\'s asylum gothic.\n\nThe gown is one of several distinct costume changes across the "Fortnight" video\'s different vignettes — a separate look from the black Elena Velez/Unttld gothic ensemble already covered elsewhere in this era, and from the Celine-designed piece in the video\'s rain-soaked finale.',
         sources: [
           {
             outlet: 'WWD',
@@ -774,11 +848,15 @@ export default {
         'https://imgix.bustle.com/uploads/getty/2024/8/21/4f10d125/london-england-august-15.jpg?w=248&h=372&fit=crop&crop=focalpoint&dpr=2&fp-x=0.5303&fp-y=0.2761',
       moment: {
         context:
-          'The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour\'s stage costuming.',
+          'The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour\'s stage costuming.\n\nFor Popflex founder Cassey Ho — the Blogilates creator who designs the line — the placement was surreal: she wrote that her heart pounded and her team\'s Slack "blew up" as she stood frozen in front of the TV counting her own designs onscreen, with Popflex pieces (including the viral lavender Pirouette skort and the Twirl skort) appearing four separate times in the video.',
         sources: [
           {
             outlet: 'The Zoe Report',
             url: 'https://www.thezoereport.com/culture/taylor-swift-i-can-do-it-with-a-broken-heart-music-video-outfits',
+          },
+          {
+            outlet: 'Blogilates',
+            url: 'https://www.blogilates.com/blog/popflex-taylor-swift-music-video-outfits/',
           },
         ],
         photos: [
@@ -808,7 +886,7 @@ export default {
         'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
       moment: {
         context:
-          "Kansas City beat Houston 23-14 to advance to the AFC Championship. It was Clark's first Chiefs game of the season, and this time the invitation came directly from Travis Kelce — Clark had previously joined Swift at a home game after Swift invited her during the Eras Tour's Indianapolis stop.",
+          "Kansas City beat Houston 23-14 to advance to the AFC Championship, pulling away from a 13-6 halftime lead in the Jan. 18, 2025 divisional-round game at Arrowhead. Swift watched from the family suite between her parents, Scott and Andrea, with Ed Kelce alongside — the postseason continuation of a regular season she'd spent as an Arrowhead fixture.\n\nIt was Caitlin Clark's first Chiefs game of the season, and this time the invitation came directly from Travis Kelce — Clark had previously joined Swift at a home game after Swift invited her during the Eras Tour's Indianapolis stop. Clark, who had passed on the offseason Unrivaled league, sat a row back from the suite's front line.",
         sources: [
           {
             outlet: 'Sports Illustrated',
@@ -834,7 +912,8 @@ export default {
       thumbnailUrl:
         'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
       moment: {
-        context: 'Kansas City beat Buffalo 32-29 to reach a second straight Super Bowl; Kelce had two catches for 19 yards in the win.',
+        context:
+          'Kansas City beat Buffalo 32-29 in the Jan. 26, 2025 AFC Championship at Arrowhead, sending the Chiefs to a second straight Super Bowl — and a Feb. 9 shot at becoming the first NFL team ever to win three in a row. Kelce had two catches for 19 yards in the win, his fifth conference title as a Chief.\n\nWhen the confetti cannons fired, cameras found the night\'s defining image: Swift and Kelce kissing amid the falling paper with Donna Kelce beside them. By ABC\'s tally, the Chiefs had won every game Swift attended that season — eight regular-season dates at Arrowhead plus both playoff rounds — a streak that would finally break two weeks later in New Orleans.',
         sources: [
           {
             outlet: 'ABC News',
@@ -859,12 +938,18 @@ export default {
       category: 'sighting',
       title: 'A pink mini dress for a Saturday-night dinner date',
       snippet:
-        'Stepped out for a swanky June 29 dinner in New York City in a pink mini dress with gold buttons and beige heels, Travis alongside her in a plain white top and trousers.',
+        'Stepped out for a swanky Saturday-night dinner in New York City in a pink mini dress with gold buttons and beige heels, Travis alongside her in a plain white top and trousers.',
       sourceUrl: 'https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/',
       thumbnailUrl: 'https://imagez.tmz.com/image/bd/4by3/2025/06/29/bdcd54eaf03b410c93442064867db68e_md.jpg',
       moment: {
+        context:
+          'The Saturday, June 28, 2025 dinner date put her in a $3,500 Balmain houndstooth tweed A-line minidress — chain-metal straps, oversized gold buttons, frayed trim — with taupe Christian Louboutin "Miss Jane" sandals and an Aspinal of London trunk bag, while Travis kept it simple in a fresh white top, trousers, and black loafers.\n\nE! priced the full look near $30,000 once the jewelry was counted: a $22,500 Panthère de Cartier necklace on a gold-and-diamond chain, a $3,400 Ofira "Tattoo" diamond ring, and a diamond-studded gold Rolex — red-carpet hardware deployed for a restaurant run, photographed on the way in and published the next morning.',
         sources: [
           { outlet: 'TMZ', url: 'https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/' },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1419311/taylor-swift-wears-s22-500-necklace-on-travis-kelce-date-night',
+          },
         ],
         photos: [
           { url: 'https://imagez.tmz.com/image/bd/4by3/2025/06/29/bdcd54eaf03b410c93442064867db68e_md.jpg', credit: 'TMZ' },
@@ -883,7 +968,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Philadelphia beat Kansas City 20-17. Hours later, Swift and Kelce turned up at Patrick Mahomes\' 30th birthday, hosted by Brittany Mahomes at Travis and Patrick\'s new steakhouse 1587 Prime, where Swift wore a black-and-ivory plaid Simkhai vest and matching skirt with dark red Gucci platform heels.',
+          'Philadelphia beat Kansas City 20-17 in the Sept. 14, 2025 Super Bowl rematch — and for once, the cameras never found her: no arrival shots, no suite cutaways, just a source confirming to E! that she was in the building for her first game since the engagement announcement.\n\nThe proof of the day came that night instead. Swift and Kelce turned up at Patrick Mahomes\' 30th birthday, hosted by Brittany Mahomes at Travis and Patrick\'s new steakhouse 1587 Prime, where Swift wore a black-and-ivory plaid Simkhai vest and matching skirt with dark red Gucci platform heels; country singer Kane Brown posted the group photo — "Happy birthday Pat & congrats TT" — the next day.',
         sources: [
           { outlet: 'E! News', url: 'https://www.eonline.com/news/1421829/taylor-swift-at-travis-kelces-chiefs-eagles-game' },
           {
@@ -891,7 +976,18 @@ export default {
             url: 'https://www.eonline.com/news/1422599/taylor-swift-travis-kelce-at-patrick-mahomes-30th-birthday-party',
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): no photo of Swift exists from this
+        // game (the point of the item) and the party photos are third-party
+        // Instagram posts — so a clearly-labeled reference image of the venue
+        // per the audit's §A2 stand-in rule. CC BY-SA 4.0, Wikimedia Commons.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg/960px-Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg',
+            credit: 'Kj1595 via Wikimedia Commons, CC BY-SA 4.0',
+            caption: 'Reference image: Arrowhead Stadium (2019 file photo). No photos of Swift surfaced from this game — she attended unseen, confirmed by a source to E!.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     // (The Oct. 12, 2025 Arrowhead/Caitlin Clark sighting and the June 2026
@@ -913,7 +1009,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'In Amazon Music\'s track-by-track commentary, Swift said: "The metaphor in \'Down Bad\' is that I was comparing sort of the idea of being love bombed, where someone rocks your world and dazzles you and then just kind of abandons you," likening it to alien abduction: "This girl is abducted by aliens but she wanted to stay with them, and then when they drop her back off in her hometown, she\'s like, \'Wait, no, where are you going... I liked it there!\'" The song debuted at No. 2 on the Hot 100, directly behind "Fortnight," as part of TTPD\'s historic sweep of the chart\'s entire top 14.',
+          'In Amazon Music\'s track-by-track commentary, Swift said: "The metaphor in \'Down Bad\' is that I was comparing sort of the idea of being love bombed, where someone rocks your world and dazzles you and then just kind of abandons you," likening it to alien abduction: "This girl is abducted by aliens but she wanted to stay with them, and then when they drop her back off in her hometown, she\'s like, \'Wait, no, where are you going... I liked it there!\'"\n\nThe song debuted at No. 2 on the Hot 100, directly behind "Fortnight," as part of TTPD\'s historic sweep of the chart\'s entire top 14.',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -921,7 +1017,17 @@ export default {
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Down_Bad_(Taylor_Swift_song)' },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): CC BY 4.0 Commons photo of the song's
+        // Eras Tour staging — the abduction metaphor made literal. Verified
+        // HTTP 200 + image/jpeg; visually confirmed (saucer + beam onstage).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg/960px-Taylor_Swift_Eras_Tour_TTPD_Set_Down_Bad.jpg',
+            credit: 'Vixy13 via Wikimedia Commons, CC BY 4.0',
+            caption: 'The "Down Bad" staging in the Eras Tour\'s TTPD set (Paris, May 2024): a flying saucer beams its light down on the abandoned narrator.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -935,12 +1041,21 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On a 2019 Instagram Live, Swift explained the tradition fans had spotted across her albums: "Track five is kind of a tradition that really started with you guys. Because I didn\'t realize I was doing this, but as I was making albums, I guess, I don\'t know why, but instinctively I was just kind of putting a very vulnerable, personal, honest, emotional song as track five... Because you noticed this, I kind of started to put the songs that were really honest, emotional and vulnerable and personal as track fives." "So Long, London," written and produced with Aaron Dessner, peaked at No. 5 on the Hot 100 and No. 4 on the Billboard Global 200.',
+          'On a 2019 Instagram Live, Swift explained the tradition fans had spotted across her albums: "Track five is kind of a tradition that really started with you guys. Because I didn\'t realize I was doing this, but as I was making albums, I guess, I don\'t know why, but instinctively I was just kind of putting a very vulnerable, personal, honest, emotional song as track five... Because you noticed this, I kind of started to put the songs that were really honest, emotional and vulnerable and personal as track fives."\n\n"So Long, London," written and produced with Aaron Dessner, peaked at No. 5 on the Hot 100 and No. 4 on the Billboard Global 200.',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/lists/taylor-swift-track-fives-ranked/' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/So_Long,_London' },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): official lyric-video still — video ID
+        // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/CCUr2pNJft4/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the official "So Long, London" lyric video on Taylor Swift\'s YouTube channel.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -954,9 +1069,18 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Recorded at Long Pond Studios with vocals captured at Electric Lady (New York) and Prime Recording (Nashville), and mixed by Serban Ghenea, "loml" builds as a conventional "love of my life" ballad until its closing lines reveal the title\'s other reading. Critics singled out the reversal: The A.V. Club and Uproxx both praised the lyrical twist on the phrase, calling the final line a "perfectly simple epitaph."',
+          'Recorded at Long Pond Studios with vocals captured at Electric Lady (New York) and Prime Recording (Nashville), and mixed by Serban Ghenea, "loml" builds as a conventional "love of my life" ballad until its closing lines reveal the title\'s other reading.\n\nCritics singled out the reversal: The A.V. Club and Uproxx both praised the lyrical twist on the phrase, calling the final line a "perfectly simple epitaph."',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Loml' }],
-        photos: [],
+        // T16 photo pass (2026-07-09): official lyric-video still — video ID
+        // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/GZ4vaTRn0HU/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the official "loml" lyric video on Taylor Swift\'s YouTube channel.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -970,14 +1094,23 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Recorded across Conway (Los Angeles), Electric Lady (New York), and Rue Boyer A (Paris), the track leans on Western and Americana textures — tremolo guitars, Moog Voyager, Mellotron — that critics described as sounding "like it comes straight out of an Old West saloon." The lyrics track a narrator convinced she can reform an unreliable partner despite everyone\'s warnings, before the chorus\'s title refrain buckles into doubt on the final repeat.',
+          'Recorded across Conway (Los Angeles), Electric Lady (New York), and Rue Boyer A (Paris), the track leans on Western and Americana textures — tremolo guitars, Moog Voyager, Mellotron — that critics described as sounding "like it comes straight out of an Old West saloon."\n\nThe lyrics track a narrator convinced she can reform an unreliable partner despite everyone\'s warnings, before the chorus\'s title refrain buckles into doubt on the final repeat.',
         sources: [
           {
             outlet: 'Wikipedia',
             url: 'https://en.wikipedia.org/wiki/I_Can_Fix_Him_(No_Really_I_Can)',
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): official lyric-video still — video ID
+        // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/OKWfv-x2rdU/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the official "I Can Fix Him (No Really I Can)" lyric video on Taylor Swift\'s YouTube channel.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -991,7 +1124,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written and produced with Aaron Dessner and recorded partly in Biarritz, France, the song switches from a 7/4 verse-and-chorus meter to 4/4 for a bridge that swaps its piano ballad restraint for distorted vocals and a rock climax. The Nation\'s Stephanie Burt called it "the harshest, most dismissive, most condemnatory song that Swift has ever written," while Rolling Stone\'s Rob Sheffield ranked it among her best breakup songs. On the Hot 100 dated May 4, 2024, it landed at No. 14 — the closing slot in the week TTPD\'s 31 tracks (plus "Cruel Summer") gave Swift the entire top 14 simultaneously, a first for any artist.',
+          'Written and produced with Aaron Dessner and recorded partly in Biarritz, France, the song switches from a 7/4 verse-and-chorus meter to 4/4 for a bridge that swaps its piano ballad restraint for distorted vocals and a rock climax.\n\nThe Nation\'s Stephanie Burt called it "the harshest, most dismissive, most condemnatory song that Swift has ever written," while Rolling Stone\'s Rob Sheffield ranked it among her best breakup songs. On the Hot 100 dated May 4, 2024, it landed at No. 14 — the closing slot in the week TTPD\'s 31 tracks (plus "Cruel Summer") gave Swift the entire top 14 simultaneously, a first for any artist.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived' },
           {
@@ -999,7 +1132,16 @@ export default {
             url: 'https://www.forbes.com/sites/mollybohannon/2024/04/29/taylor-swift-becomes-first-artist-to-take-top-14-spots-on-billboard-hot-100-chart/',
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): official lyric-video still — video ID
+        // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/Atdzfj8LcuY/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the official "The Smallest Man Who Ever Lived" lyric video on Taylor Swift\'s YouTube channel.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     // (The Oct. 2025 "The Black Dog" BBC Radio 2 item moved to
@@ -1015,7 +1157,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Reacting from the Toronto stop of the Eras Tour after the Nov. 8, 2024 nominations announcement, Swift told the crowd: "Everything that happens is a direct reflection of the passion you show, and you guys got this album nominated for six Grammys. So thank you." The Song of the Year nod for "Fortnight" gave her eight career nominations in that category, the most of any artist. None of the six converted into a win at the Feb. 2, 2025 ceremony, where Beyoncé\'s Cowboy Carter took Album of the Year.',
+          'Reacting from the Toronto stop of the Eras Tour after the Nov. 8, 2024 nominations announcement, Swift told the crowd: "Everything that happens is a direct reflection of the passion you show, and you guys got this album nominated for six Grammys. So thank you."\n\nThe Song of the Year nod for "Fortnight" gave her eight career nominations in that category, the most of any artist. None of the six converted into a win at the Feb. 2, 2025 ceremony, where Beyoncé\'s Cowboy Carter took Album of the Year.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1026,7 +1168,17 @@ export default {
             url: 'https://www.capitalfm.com/news/music/taylor-swift-grammys-nominations-2025/',
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): still from the Grammy-nominated
+        // official music video (Best Music Video nominee) — video ID verified
+        // via YouTube oEmbed (author @TaylorSwift) this session.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the "Fortnight" music video — itself a 2025 Grammy nominee for Best Music Video alongside the song\'s Record and Song of the Year nods.',
+            kind: 'archival',
+          },
+        ],
       },
     },
 
@@ -1050,7 +1202,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the chart dated May 4, 2024, TTPD\'s 2.61 million-unit start trailed only Adele\'s 25 (3.482M in 2015) among all weeks since late 2014 and tied her with Jay-Z for the most No. 1 albums by a soloist in the chart\'s history — a record she\'d break outright the following year with Showgirl. The 31-track Anthology\'s 891.37 million streams set a new single-week album streaming record.',
+          'On the chart dated May 4, 2024, TTPD\'s 2.61 million-unit start trailed only Adele\'s 25 (3.482M in 2015) among all weeks since late 2014 and tied her with Jay-Z for the most No. 1 albums by a soloist in the chart\'s history — a record she\'d break outright the following year with Showgirl.\n\nThe 31-track Anthology\'s 891.37 million streams set a new single-week album streaming record.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1071,7 +1223,16 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): the chart-topping album's cover from
+        // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png/250px-Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            credit: 'Republic Records',
+            caption: 'The Tortured Poets Department cover, shot by Beth Garrabrant — the album behind the biggest sales week in nine years.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1086,7 +1247,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The May 4, 2024 chart put 32 of her songs on the Hot 100 at once. "Fortnight" — 76.2 million streams in its first week — was her 12th No. 1 and seventh to debut there, tying Ariana Grande for the most No. 1 debuts among women. She was already the only artist to have held a full top 10; TTPD stretched the block four slots deeper.',
+          'The May 4, 2024 chart put 32 of her songs on the Hot 100 at once. "Fortnight" — 76.2 million streams in its first week — was her 12th No. 1 and seventh to debut there, tying Ariana Grande for the most No. 1 debuts among women.\n\nShe was already the only artist to have held a full top 10; TTPD stretched the block four slots deeper.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1107,7 +1268,16 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): the No. 1 single's cover art from
+        // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Taylor_Swift_-_Fortnight.png/250px-Taylor_Swift_-_Fortnight.png',
+            credit: 'Republic Records',
+            caption: 'Single artwork for "Fortnight," which led the historic top-14 sweep from No. 1.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1122,7 +1292,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has never named the subject — the Kardashian reading is fan and critic interpretation, labeled as such, built on the title\'s capitals and the 2016 phone-call feud. The plot thickened in August 2024 when a Taylor Nation email restyled the Wembley live version (mashed up with "Mean") as "thank You aimEe" — capitals now spelling YE, and fans re-litigated the whole thing overnight.',
+          'Swift has never named the subject — the Kardashian reading is fan and critic interpretation, labeled as such, built on the title\'s capitals and the 2016 phone-call feud.\n\nThe plot thickened in August 2024 when a Taylor Nation email restyled the Wembley live version (mashed up with "Mean") as "thank You aimEe" — capitals now spelling YE, and fans re-litigated the whole thing overnight.',
         sources: [
           {
             outlet: 'Today',
@@ -1143,7 +1313,16 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): official lyric-video still — video ID
+        // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/oaBJlKXBvjk/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the official "thanK you aIMee" lyric video, stray capitals intact.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1158,7 +1337,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift said the idea came from watching Dateline: fugitives run to Florida to "reinvent themselves, have a new identity, blend in" — and heartbreak, she figured, wants the same exit. Welch co-wrote the track and trades verses on it; critics singled out the power-ballad build as the Anthology-era song most built for stadiums, and it later reached Florence\'s highest-ever Hot 100 peak.',
+          'Swift said the idea came from watching Dateline: fugitives run to Florida to "reinvent themselves, have a new identity, blend in" — and heartbreak, she figured, wants the same exit.\n\nWelch co-wrote the track and trades verses on it; critics singled out the power-ballad build as the Anthology-era song most built for stadiums, and it later reached Florence\'s highest-ever Hot 100 peak.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1179,7 +1358,16 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): official lyric-video still — video ID
+        // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/uEssK8o3jKg/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the official "Florida!!! (feat. Florence + The Machine)" lyric video.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1194,7 +1382,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift hasn\'t confirmed the subject on the record — but the reading is barely a theory: in the resurfaced clip Kelce picks "kiss" for Swift in a game of marry-kiss-kill years before they met, and "I feel like laughing in the middle of practice" nods at his impressions of Ed Kelce. When the song joined the Eras Tour setlist, the staging added football-stadium light rigs, and fans took the hint as confirmation enough.',
+          'Swift hasn\'t confirmed the subject on the record — but the reading is barely a theory: in the resurfaced clip Kelce picks "kiss" for Swift in a game of marry-kiss-kill years before they met, and "I feel like laughing in the middle of practice" nods at his impressions of Ed Kelce.\n\nWhen the song joined the Eras Tour setlist, the staging added football-stadium light rigs, and fans took the hint as confirmation enough.',
         sources: [
           {
             outlet: 'Today',
@@ -1215,7 +1403,16 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): official lyric-video still — video ID
+        // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/w-FkV0EM_CU/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the official "So High School" lyric video on Taylor Swift\'s YouTube channel.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1230,7 +1427,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The June 7–9, 2024 Edinburgh stand opened the UK run by re-breaking its own record nightly — Swift said the crowds "truly blew me away." Seismic monitors picked up the shows here too, and CNBC pegged the UK leg\'s Edinburgh windfall at an estimated £77M+ (roughly $98M) for the local economy.',
+          'The June 7–9, 2024 Edinburgh stand opened the UK run by re-breaking its own record nightly: night one\'s crowd of nearly 73,000 took the all-time Scottish stadium-concert attendance record, and nights two and three each topped it again, putting roughly 220,000 fans through Murrayfield in a single weekend. Swift thanked the city for crowds that "truly blew me away."\n\nThe stand registered beyond the stadium, literally — seismic monitors picked up the shows — and CNBC pegged the UK leg\'s Edinburgh windfall at an estimated £77M+ (roughly $98M) for the local economy.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1251,7 +1448,17 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): Getty tour photo hosted on Billboard's
+        // CDN (from its Edinburgh coverage, the first source above). Verified
+        // HTTP 200 + image/jpeg; visually confirmed (folklore-set moss piano).
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/06/Taylor-Swift-_-The-Eras-Tour-Edinburgh-Scotland-02-2024-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images (via Billboard)',
+            caption: 'The folklore set at Murrayfield Stadium, Edinburgh, during the record-breaking June 2024 stand.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1266,7 +1473,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'June 13, 2024, Anfield Stadium, Liverpool: "You know, this is actually the 100th show of the tour. That blows my mind." A spokesperson confirmed to ABC News the run would end in Vancouver on Dec. 8 — 149 shows after Glendale, with no further extensions after a tour that had already been extended repeatedly.',
+          'June 13, 2024, Anfield Stadium, Liverpool: "You know, this is actually the 100th show of the tour. That blows my mind."\n\nA spokesperson confirmed to ABC News the run would end in Vancouver on Dec. 8 — 149 shows after Glendale, with no further extensions after a tour that had already been extended repeatedly.',
         sources: [
           {
             outlet: 'ABC News',
@@ -1287,7 +1494,17 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): photo from ABC News' coverage of the
+        // Liverpool stand (image dated June 15, 2024, on ABC's own CDN).
+        // Verified HTTP 200 + image/jpeg; visually confirmed (onstage, Lover-set bodysuit).
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/93f66532-3cd0-4fd1-8a10-52594110c859/taylor-swift-nc-jt-240615_1718457109716_hpMain_16x9.jpg?w=1600',
+            credit: 'ABC News',
+            caption: 'Onstage during the June 2024 Anfield stand in Liverpool, where show 100 doubled as the end-date announcement.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1302,7 +1519,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'June 23, 2024, the third London night: Kelce slipped in among the tuxedoed dancers who carry Swift to the couch in the TTPD set\'s vaudeville intro, and the crowd took a beat to clock that the 6-foot-5 dancer was him. He called the experience "jarring" in the best way on New Heights and confirmed he\'d pitched the cameo to her himself.',
+          'June 23, 2024, the third London night: Kelce slipped in among the tuxedoed dancers who carry Swift to the couch in the TTPD set\'s vaudeville intro, and the crowd took a beat to clock that the 6-foot-5 dancer was him.\n\nHe called the experience "jarring" in the best way on New Heights and confirmed he\'d pitched the cameo to her himself.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1323,7 +1540,17 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): Getty photo from Rolling Stone's own
+        // coverage of this night (filename: night three, London). Verified
+        // HTTP 200 + image/jpeg; visually confirmed (Fearless set, Wembley).
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/06/TaylorSwiftNightThreeLondon-1.jpg?w=1600',
+            credit: 'Getty Images (via Rolling Stone)',
+            caption: 'Swift onstage at Wembley on June 23, 2024 — the night Kelce joined the TTPD set\'s tuxedoed cast.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1338,7 +1565,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Aug. 8–10, 2024 shows were called off after authorities said a 19-year-old who had pledged allegiance to ISIS planned to attack the crowds, with bomb-making materials found at his home. Swift stayed publicly silent until the tour\'s London dates were safely done, then explained she\'d been "holding my breath" — the Wembley run resumed days later under heightened security, and the tour finished without further incident.',
+          'The Aug. 8–10, 2024 shows were called off after authorities said a 19-year-old who had pledged allegiance to ISIS planned to attack the crowds, with bomb-making materials found at his home.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done, then explained she\'d been "holding my breath" — the Wembley run resumed days later under heightened security, and the tour finished without further incident.',
         sources: [
           {
             outlet: 'NBC News',
@@ -1359,7 +1586,17 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): the shows never happened, so no event
+        // photo can exist — a clearly-labeled reference image of the venue
+        // per the audit's §A2 stand-in rule. Public domain, Wikimedia Commons.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ernst-Happel-Stadion_02.jpg/960px-Ernst-Happel-Stadion_02.jpg',
+            credit: 'Peter Gugerell, public domain, via Wikimedia Commons',
+            caption: 'Reference image: Ernst Happel Stadium in Vienna, where all three sold-out shows were cancelled — the concerts themselves never took place.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -1374,7 +1611,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Sept. 10, 2024 Instagram post called Harris "a steady-handed, gifted leader" and said AI-generated images falsely showing Swift endorsing Donald Trump had pushed her to be transparent about her actual vote. The photo — Swift holding Benjamin Button, the cat from her Time cover — and the "Childless Cat Lady" signature did the rest of the messaging.',
+          'The Sept. 10, 2024 Instagram post called Harris "a steady-handed, gifted leader" and said AI-generated images falsely showing Swift endorsing Donald Trump had pushed her to be transparent about her actual vote.\n\nThe photo — Swift holding Benjamin Button, the cat from her Time cover — and the "Childless Cat Lady" signature did the rest of the messaging.',
         sources: [
           {
             outlet: 'NBC News',
@@ -1395,7 +1632,18 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): Getty file photo CBS News ran with its
+        // endorsement coverage (the endorsement itself was an Instagram post,
+        // whose cat portrait is not freely rehostable). Verified HTTP 200 +
+        // image/jpeg; visually confirmed (Swift onstage, 2024).
+        photos: [
+          {
+            url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2024/09/11/edfca45c-3300-45c7-9daf-30c51d86fe4e/thumbnail/1200x630g2/528b3593333d50ff51e0e52340b1ca69/gettyimages-2166943469.jpg',
+            credit: 'Getty Images (via CBS News)',
+            caption: 'Swift in 2024 — the file photo CBS News ran with its coverage of the endorsement, which itself was an Instagram post.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1410,7 +1658,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Sept. 8, 2024: two days before her Harris endorsement rearranged the news cycle, the two couples took in the Grand Slam final at Arthur Ashe Stadium. The US Open\'s own coverage leaned into it — "in her tennis era" — and the outing became one of the relationship\'s most-photographed non-Arrowhead appearances of the year.',
+          'Sept. 8, 2024: two days before her Harris endorsement rearranged the news cycle, the two couples took in the Grand Slam final at Arthur Ashe Stadium.\n\nThe US Open\'s own coverage leaned into it — "in her tennis era" — and the outing became one of the relationship\'s most-photographed non-Arrowhead appearances of the year.',
         sources: [
           {
             outlet: 'ABC News',
@@ -1431,7 +1679,17 @@ export default {
             reliability_score: 5,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): AP photo from ABC News' coverage of
+        // this outing, on ABC's own CDN. Verified HTTP 200 + image/jpeg;
+        // visually confirmed (both couples in the Arthur Ashe box).
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/667ac5d8-cb5f-48cd-9230-89ea434a7644/Taylor-Travis-Patrick-Brittany-USOpen-1-ap-jm-240908_1725821927016_hpMain_16x9.jpg?w=1600',
+            credit: 'AP (via ABC News)',
+            caption: 'Swift, Brittany Mahomes, Travis Kelce, and Patrick Mahomes in the box at Arthur Ashe Stadium, Sept. 8, 2024.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1446,7 +1704,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Sept. 11, 2024 haul: Video of the Year, Artist of the Year, Best Pop, Best Collaboration, Best Direction, Best Editing, and Song of the Summer — seven of twelve nominations. The three-peat (All Too Well in 2022, Anti-Hero in 2023, Fortnight in 2024) and fifth career VOTY are both records nobody else holds, and the night made her the most-awarded solo artist in VMAs history.',
+          'The Sept. 11, 2024 haul: Video of the Year, Artist of the Year, Best Pop, Best Collaboration, Best Direction, Best Editing, and Song of the Summer — seven of twelve nominations.\n\nThe three-peat (All Too Well in 2022, Anti-Hero in 2023, Fortnight in 2024) and fifth career VOTY are both records nobody else holds, and the night made her the most-awarded solo artist in VMAs history.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1467,7 +1725,17 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): Getty ceremony photo from Rolling
+        // Stone's own records coverage (first source above). Verified HTTP
+        // 200 + image/jpeg; visually confirmed (Moon Person in hand, onstage).
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/09/taylor-record-for-VOY-awards.jpg?resize=1600%2C900',
+            credit: 'Getty Images (via Rolling Stone)',
+            caption: 'Accepting one of seven Moon Persons at the 2024 VMAs on Sept. 11, 2024 — including a record third straight Video of the Year.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1482,7 +1750,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Released in stores on Black Friday, Nov. 29, 2024, alongside a Target-exclusive TTPD Anthology pressing. Per Circana BookScan data, the two-day number was among the biggest for any nonfiction title in the modern era — trailing only Barack Obama\'s A Promised Land for a first week — and Target itself called it the fastest-selling new release book it had carried in four years.',
+          'Released in stores on Black Friday, Nov. 29, 2024, alongside a Target-exclusive TTPD Anthology pressing.\n\nPer Circana BookScan data, the two-day number was among the biggest for any nonfiction title in the modern era — trailing only Barack Obama\'s A Promised Land for a first week — and Target itself called it the fastest-selling new release book it had carried in four years.',
         sources: [
           {
             outlet: 'Variety',
@@ -1512,7 +1780,17 @@ export default {
             reliability_score: 5,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): product image of the book from
+        // Variety's sales coverage (first source above). Verified HTTP 200 +
+        // image/png; visually confirmed (the book itself).
+        photos: [
+          {
+            url: 'https://variety.com/wp-content/uploads/2024/12/targetbook.png?w=1000',
+            credit: 'Target (via Variety)',
+            caption: 'The Eras Tour Book — 256 pages, $39.99, Target-exclusive, and 2024\'s biggest new-release print debut.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1527,7 +1805,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Dec. 4, 2024 reveal put her ahead of The Weeknd, Bad Bunny, Drake, and Billie Eilish on more than 26.6 billion global streams for the year — the Eras Tour and the Anthology feeding each other. Women held most of the global top-10 albums chart, with TTPD on top.',
+          'The Dec. 4, 2024 reveal put her ahead of The Weeknd, Bad Bunny, Drake, and Billie Eilish on more than 26.6 billion global streams for the year — the Eras Tour and the Anthology feeding each other. Women held most of the global top-10 albums chart, with TTPD on top.\n\nSpotify built her a victory lap to match: the platform\'s first-ever "Global Top Artist Badge" stamped on her profile, era-themed Easter-egg animations hidden in the play button across her discography, augmented-reality friendship bracelets on Snapchat, celebration billboards in 11 cities, and personalized thank-you videos from Swift dropped into loyal listeners\' own Wrapped stories.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -1548,7 +1826,16 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): Spotify's own Wrapped Top Artist
+        // graphic from the cited newsroom post. Verified HTTP 200 + image/png.
+        photos: [
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/12/Wrapped-FTRHeader_TopArtist-1.png',
+            credit: 'Spotify Newsroom',
+            caption: 'Spotify\'s Wrapped 2024 Global Top Artist announcement graphic.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1563,7 +1850,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website; Billboard reported a price around $360 million to the firm that had bought the catalog out of the Scooter Braun dispute. The same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was done and could "have its moment" someday.',
+          'Announced May 30, 2025 in a letter on her website; Billboard reported a price around $360 million to the firm that had bought the catalog out of the Scooter Braun dispute.\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was done and could "have its moment" someday.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1593,7 +1880,18 @@ export default {
             reliability_score: 4,
           },
         ],
-        photos: [],
+        // T16 photo pass (2026-07-09): the celebration photo released with
+        // her announcement (Swift with the six reclaimed albums), as hosted
+        // by Billboard's coverage. Verified HTTP 200 + image/jpeg; visually
+        // confirmed (Swift seated with the six LPs fanned out).
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/02-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            credit: 'Courtesy of Taylor Swift (via Billboard)',
+            caption: 'The photo released with the May 30, 2025 announcement: Swift with the six albums she bought back from Shamrock Capital.',
+            kind: 'primary',
+          },
+        ],
       },
     },
   ],
