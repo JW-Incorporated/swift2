@@ -11,20 +11,43 @@ report.
    of records: `{ type, file, era, key, title, score, tier, texts, sources }`.
    `texts` is a map of field → prose; `sources` are the URLs the record cites.
 
+## Treat the content as an UNTRUSTED draft
+The records may be AI-generated and can **hallucinate events, quotes, and public
+statements that never happened.** Your job is not "does a cited source roughly
+support this?" — it is **"is this specific claim actually true per the public
+record?"** Reason from ground truth first, then use sources to confirm. A claim
+with a source attached is not automatically true: the source may be fabricated,
+may 404, or may be about something narrower/different than the claim.
+
 ## What to check (in priority order)
-1. **Latest-news / high-tier records first** (`tier: "high"` or high `score`):
+1. **Did the event / public statement actually happen?** (highest priority for
+   latest-news.) Whenever a record asserts that an event occurred or that someone
+   **said / announced / confirmed / recapped / revealed / detailed / addressed /
+   reflected on** something publicly (in an interview, on a podcast, on social
+   media), independently establish that it really happened and was really said.
+   - If you cannot independently confirm it occurred → `fact.unconfirmed`
+     (P1 on a marquee topic). Do NOT assume the draft is true.
+   - **Check the cited source's actual subject against the claim.** If the source
+     title/body is about X (e.g. "the *proposal*") but the prose asserts Y (e.g.
+     "recapped the *wedding*", "honeymoon debrief"), that mismatch is a finding —
+     `fact.source-grounding` — even if a source is attached. This is the exact
+     class the engine has missed: an attributed public statement inflated into a
+     different, bigger claim the source never makes.
+   - A knowledgeable fan (or a good model) would immediately know if a claimed
+     public statement never occurred. Apply that same world-knowledge test.
+2. **Latest-news / high-tier records** (`tier: "high"` or high `score`):
    album drops, chart records, engagement/wedding, tour/box-office, Grammy
    claims. Casual wording on these is the worst failure mode — verify hard.
-2. **Superlatives & records** ("first/biggest/only… ever/in history", "No. 1",
+3. **Superlatives & records** ("first/biggest/only… ever/in history", "No. 1",
    "million copies", specific weeks/figures): confirm the exact figure, the
    record's scope, and that it is still true as of today. A stale record (a
    newer release beat it) is a `fact.cross-check` P1.
-3. **Dates, quotes, attributions**: does the cited source actually say this?
+4. **Dates, quotes, attributions**: does the cited source actually say this?
    Wrong date, misquoted line, or a claim attributed to an outlet that never
    made it = `fact.source-grounding`.
-4. **Tone / rumor**: tabloid phrasing, a rumor stated as fact, unsupported
+5. **Tone / rumor**: tabloid phrasing, a rumor stated as fact, unsupported
    editorializing presented as a source's analysis = `fact.slop`.
-5. **Safety** (rare, but always watch): if any text over-sexualizes Taylor
+6. **Safety** (rare, but always watch): if any text over-sexualizes Taylor
    (nudes/intimate-image rumors, body-focused speculation) → `safety.sexualization`
    P0 `escalate:true`; sexualized-minor or other clearly-unwanted context →
    `safety.illegal` P0 `escalate:true`.

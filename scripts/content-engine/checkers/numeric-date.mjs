@@ -11,6 +11,13 @@ const SUPERLATIVE = /\b(first|biggest|largest|highest|longest|most|best|youngest
 const SCOPE = /\b(ever|in history|of all time|all[- ]time|to date|on record|in the world|worldwide|of the (?:decade|century|year))\b/i;
 const CHARTY = /\b(no\.?\s*1|#\s*1|number one|debuts? at|album of the year|grammy|billion(?:aire)?)\b/i;
 const QUANT = /(\$[\d][\d,.]*|\b\d[\d,]*\s*(?:million|billion|thousand|records?|weeks?|shows?|tickets?|copies|units|nights?|%)\b)/i;
+// Attributed public statements / event-occurrence claims — the class that has NO
+// stat/superlative and so used to slip through with zero scrutiny, but is a prime
+// place for a hallucinated event ("recapped the wedding on the podcast"). A verb
+// of public utterance/occurrence near a public venue or recency marker gets routed.
+const ATTRIBUTION = /\b(said|told|announced|confirmed|revealed|recounted|recapped|detailed|addressed|reflected|opened up|spoke about|talked about|walked through|debriefed|shared|posted|tweeted|explained|admitted)\b/i;
+const PUBLIC_VENUE = /\b(podcast|episode|interview|new heights|instagram|red carpet|press conference|on stage|onstage|livestream|statement|first-person|honeymoon debrief)\b/i;
+const RECENCY = /\b(yesterday|last night|this (?:week|morning|weekend)|days? ago|just|recently|now a|newly[- ]wed|post[- ]wedding)\b/i;
 
 const splitSentences = (t) => t.split(/(?<=[.!?])\s+/).map((s) => s.trim()).filter(Boolean);
 const nowYmd = new Date().toISOString().slice(0, 10);
@@ -54,17 +61,23 @@ export async function check(items) {
         const hasScopeOrNum = SCOPE.test(s) || QUANT.test(s) || CHARTY.test(s);
         const isSuperlativeClaim = hasSuper && hasScopeOrNum;
         const isRecordStat = CHARTY.test(s) && QUANT.test(s);
-        if (!isSuperlativeClaim && !isRecordStat) continue;
+        // Attributed public statement / event-occurrence: a verb of utterance or
+        // occurrence next to a public venue or a recency marker. High-risk for a
+        // fabricated event even with no number in the sentence.
+        const isEventClaim = ATTRIBUTION.test(s) && (PUBLIC_VENUE.test(s) || RECENCY.test(s));
+        if (!isSuperlativeClaim && !isRecordStat && !isEventClaim) continue;
 
-        // Priority: high-visibility + single-source superlatives are the worst.
-        const severity = hi && singleSource ? 'P1' : hi || isSuperlativeClaim ? 'P2' : 'P3';
+        // Priority: high-visibility + single-source claims are the worst; an
+        // event-occurrence claim on a latest-news item is exactly the miss class.
+        const severity = hi ? 'P1' : isSuperlativeClaim || isEventClaim ? 'P2' : 'P3';
+        const kind = isEventClaim ? 'Event/statement-occurrence' : isSuperlativeClaim ? 'Superlative' : 'Record/stat';
         findings.push(makeFinding({
           checker: id, severity,
           title: `Verify claim: "${s.slice(0, 70)}${s.length > 70 ? '…' : ''}"`,
           itemRef: { type: it.type, file: it.file, era: it.era, key: it.key, field },
           excerpt: s.slice(0, 400),
-          evidence: `${isSuperlativeClaim ? 'Superlative' : 'Record/stat'} claim${hi ? ' on a HIGH-VISIBILITY item' : ''}${singleSource ? ', single-sourced' : ''}. Needs source-grounded verification (exact figure, record scope, date).`,
-          suggestedFix: 'Confirm the exact figure/record against a primary source; soften to what the source supports if it overstates.',
+          evidence: `${kind} claim${hi ? ' on a HIGH-VISIBILITY item' : ''}${singleSource ? ', single-sourced' : ''}. ${isEventClaim ? 'Confirm the event/public statement actually occurred and that the cited source is about THIS claim (not a narrower/different one) — do not assume the draft is true.' : 'Needs source-grounded verification (exact figure, record scope, date).'}`,
+          suggestedFix: isEventClaim ? 'Independently confirm the event/statement happened; if unconfirmed or the source is about something else, correct or cut it.' : 'Confirm the exact figure/record against a primary source; soften to what the source supports if it overstates.',
           // Sub-issue-floor by design: claim-risk ROUTES claims to the factual
           // agent (which files confirmed errors); it is never itself a defect.
           confidence: hi && singleSource ? 0.45 : 0.3,

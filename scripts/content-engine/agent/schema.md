@@ -29,6 +29,7 @@ list; a false "error" ticket is worse than none.
 ```
 
 ## Checker ids (use the right one)
+- `fact.unconfirmed` — content asserts an event happened or a public statement was made, but it cannot be independently confirmed to have occurred (possibly hallucinated), OR the cited source is about something narrower/different than the claim (e.g. source is about a *proposal*, prose claims a *wedding* recap). The engine's #1 blind spot — reason from ground truth, not just source-matching.
 - `fact.source-grounding` — a claim is not supported / is contradicted by its cited source, or the source is dead.
 - `fact.cross-check` — high-visibility/latest-news claim that independent sources disagree with.
 - `fact.slop` — casual/imprecise wording, an unsupported superlative, tabloid tone, or a rumor stated as fact.
