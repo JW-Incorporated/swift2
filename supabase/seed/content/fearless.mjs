@@ -356,7 +356,7 @@ export default {
       thumbnailUrl: 'https://www.etonline.com/sites/default/files/styles/640xh/public/slides/152871/set_taylor_swift_96311259.jpg?width=1024&quality=80',
       moment: {
         context:
-          'Entertainment Tonight\'s hair-timeline retrospective singles out this look: curls swept to the side "to make room for all of her awards" the night Fearless won Album of the Year and Best Country Album.\n\nThe side-swept style did a lot of on-camera work that evening — she performed twice, including a "Rhiannon" duet with Fleetwood Mac\'s Stevie Nicks, and made four trips to the podium at Staples Center. It was a signature outing for the ringlet curls she\'d worn since her debut, still reading as the era\'s calling card from every camera angle.',
+          'Entertainment Tonight\'s hair-timeline retrospective singles out this look: curls swept to the side "to make room for all of her awards" the night Fearless won Album of the Year and Best Country Album.\n\nThe side-swept style did a lot of on-camera work that evening — she performed a medley with Fleetwood Mac\'s Stevie Nicks and made four trips to the podium at Staples Center. It was a signature outing for the ringlet curls she\'d worn since her debut, still reading as the era\'s calling card from every camera angle.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
