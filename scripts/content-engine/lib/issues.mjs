@@ -1,8 +1,10 @@
 // Findings → GitHub issues. Idempotent (a fingerprint marker in each body means
-// a re-run never opens a duplicate). To avoid issue spam: P0/P1 get individual
-// issues (they need action); P2/P3 roll up into ONE issue per checker with an
-// instance list. The engine only PROPOSES — an issue is a fix-it ticket, never
-// a content change.
+// a re-run never opens a duplicate). Every specific, actionable defect gets its
+// OWN closeable ticket — P0/P1 always, and P2/P3 for the concrete-defect
+// checkers (factual errors, wrong/junk images). Only genuinely bulk-advisory
+// checkers (image.host-reputation: "this host is unvetted, eyeball it") roll up
+// into a single tracking issue, so 194 non-defects don't drown the tracker.
+// The engine only PROPOSES — an issue is a fix-it ticket, never a content change.
 import { execFile } from 'node:child_process';
 import { promisify } from 'node:util';
 import { writeFileSync, unlinkSync } from 'node:fs';
@@ -13,6 +15,12 @@ import { CONFIG } from '../config.mjs';
 
 const exec = promisify(execFile);
 const PFX = CONFIG.output.issueLabelPrefix;
+
+// Rollup vs individual is decided by SOURCE, not checker: deterministic P2/P3
+// findings are mechanical/bulk (size-based image.quality, host-reputation,
+// claim-risk) and roll up into one tracking issue per checker; agent findings
+// are specific verified judgments (a wrong fact, a collage, an off-era photo)
+// and each files as its own actionable ticket. P0/P1 always file individually.
 
 async function gh(args, opts = {}) {
   return exec('gh', args, { maxBuffer: 1024 * 1024 * 16, ...opts });
@@ -26,6 +34,8 @@ const LABELS = [
   [`${PFX}:P3`, '0e8a16', 'CIE P3 — polish'],
   [`${PFX}:safety`, '000000', 'CIE safety/red-line finding'],
   [`${PFX}:escalate`, 'b60205', 'CIE — human review required now'],
+  [`${PFX}:image`, '1d76db', 'CIE image finding (quality/relevance/safety)'],
+  [`${PFX}:fact`, 'c2e0c6', 'CIE factual finding'],
 ];
 
 export async function ensureLabels() {
@@ -99,13 +109,18 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
   const skipped = [];
   let count = 0;
 
-  // 1) P0/P1 — individual issues.
-  for (const f of ranked.filter((f) => f.severity === 'P0' || f.severity === 'P1')) {
+  // 1) Individual issues — all P0/P1, plus every agent-sourced P2/P3 (a specific
+    //  verified defect). One closeable ticket each.
+  const individual = ranked.filter((f) =>
+    f.severity === 'P0' || f.severity === 'P1' || f.source !== 'deterministic');
+  for (const f of individual) {
     if (count >= limit) break;
     const fp = fingerprint(f);
     if (!dryRun && (await existsByFp(fp))) { skipped.push(fp); continue; }
     const labels = [PFX, `${PFX}:${f.severity}`];
     if (f.checker.startsWith('safety.')) labels.push(`${PFX}:safety`);
+    if (f.checker.startsWith('image.')) labels.push(`${PFX}:image`);
+    if (f.checker.startsWith('fact.')) labels.push(`${PFX}:fact`);
     if (f.escalate) labels.push(`${PFX}:escalate`);
     const title = `[CIE ${f.severity}] ${f.title}`;
     const r = await createIssue({ title, body: bodyFor(f, fp), labels }, dryRun);
@@ -113,8 +128,9 @@ export async function createIssues(findings, { dryRun = true, limit = Infinity, 
     count++;
   }
 
-  // 2) P2/P3 — one rollup issue per checker (instances listed inside).
-  const lower = ranked.filter((f) => f.severity === 'P2' || f.severity === 'P3');
+  // 2) Rollups — deterministic P2/P3 only: one tracking issue per checker.
+  const lower = ranked.filter((f) =>
+    (f.severity === 'P2' || f.severity === 'P3') && f.source === 'deterministic');
   const byChecker = new Map();
   for (const f of lower) {
     if (!byChecker.has(f.checker)) byChecker.set(f.checker, []);

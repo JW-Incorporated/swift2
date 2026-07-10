@@ -23,8 +23,11 @@ import { CONFIG } from './config.mjs';
 import * as numericDate from './checkers/numeric-date.mjs';
 import * as redlines from './checkers/redlines.mjs';
 import * as imageLiveness from './checkers/image-liveness.mjs';
+import * as imageModeration from './checkers/image-moderation.mjs';
 
-const DET_CHECKERS = [numericDate, redlines, imageLiveness];
+// imageModeration no-ops without GOOGLE_VISION_API_KEY, so it is safe to always
+// include — it only does work (and costs) when a moderation key is provisioned.
+const DET_CHECKERS = [numericDate, redlines, imageLiveness, imageModeration];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
 const log = (...a) => console.log(...a);
 const today = () => new Date().toISOString().slice(0, 10);
@@ -60,6 +63,7 @@ async function scan(opts) {
     const name = checker.id ?? 'checker';
     process.stdout.write(`  running ${name}… `);
     const fs = await checker.check(items, { log });
+    for (const f of fs) f.source = 'deterministic'; // mechanical → rolls up (agent judgments file individually)
     log(`${fs.length} findings`);
     findings.push(...fs);
   }
@@ -99,6 +103,62 @@ async function prepAgents() {
 
   log(`prep-agents → ${join(CONFIG.output.findingsDir, 'agent-input')}/`);
   log(`  safety-candidates: ${cands.length} · high-visibility: ${high.length} · images: ${images.length}`);
+}
+
+// Chunk the WHOLE corpus into agent-sized batch inputs so the agent layer can
+// cover all 985 items / 585 images (not just the high-visibility sample). Each
+// batch file is a self-contained input one subagent reviews, writing findings to
+// .findings/agent-<name>.json. A manifest lists every batch for the orchestrator.
+async function prepBatches(opts) {
+  const items = await loadCorpus();
+  const dir = join(FINDINGS_DIR, 'agent-input');
+  await mkdir(join(dir, 'factual'), { recursive: true });
+  await mkdir(join(dir, 'images'), { recursive: true });
+
+  const factualSize = opts.factualSize ?? 28;
+  const imageSize = opts.imageSize ?? 40;
+  const pad = (n) => String(n).padStart(3, '0');
+  const manifest = { date: today(), factual: [], images: [] };
+
+  // Factual batches — grouped by era (keeps a batch topically coherent), large
+  // eras split into chunks. Full texts + sources travel with each record.
+  const byEra = new Map();
+  for (const it of items) {
+    if (!byEra.has(it.era)) byEra.set(it.era, []);
+    byEra.get(it.era).push(it);
+  }
+  let fIdx = 0;
+  for (const [era, list] of [...byEra].sort((a, b) => b[1].length - a[1].length)) {
+    for (let i = 0; i < list.length; i += factualSize) {
+      const chunk = list.slice(i, i + factualSize).map((it) => ({
+        type: it.type, file: it.file, era: it.era, key: it.key, title: it.title,
+        score: visibilityScore(it), tier: tier(it),
+        texts: it.texts, sources: it.sources.map((s) => s.url),
+      }));
+      const name = `factual-${pad(fIdx)}-${era}`;
+      await writeFile(join(dir, 'factual', `${name}.json`), JSON.stringify(chunk, null, 2), 'utf8');
+      manifest.factual.push({ name, era, count: chunk.length, input: `agent-input/factual/${name}.json`, output: `agent-${name}.json` });
+      fIdx++;
+    }
+  }
+
+  // Image batches — every distinct image with caption + where-used context.
+  const images = imageIndex(items).map((im) => ({
+    url: im.url, caption: im.caption,
+    usedBy: im.usedBy.map((u) => ({ key: u.key, caption: u.caption, file: u.file })),
+  }));
+  let iIdx = 0;
+  for (let i = 0; i < images.length; i += imageSize) {
+    const chunk = images.slice(i, i + imageSize);
+    const name = `image-${pad(iIdx)}`;
+    await writeFile(join(dir, 'images', `${name}.json`), JSON.stringify(chunk, null, 2), 'utf8');
+    manifest.images.push({ name, count: chunk.length, input: `agent-input/images/${name}.json`, output: `agent-${name}.json` });
+    iIdx++;
+  }
+
+  await writeFile(join(dir, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
+  log(`prep-batches → ${manifest.factual.length} factual batches (${items.length} items), ${manifest.images.length} image batches (${images.length} images)`);
+  log(`  manifest → ${join(CONFIG.output.findingsDir, 'agent-input', 'manifest.json')}`);
 }
 
 async function ingest() {
@@ -163,6 +223,6 @@ const opts = {
   create: rest.includes('--create'),
   limit: rest.includes('--limit') ? Number(rest[rest.indexOf('--limit') + 1]) : Infinity,
 };
-const cmds = { scan, 'prep-agents': prepAgents, ingest, report, issues };
+const cmds = { scan, 'prep-agents': prepAgents, 'prep-batches': prepBatches, ingest, report, issues };
 (cmds[cmd] ?? (async () => { log('commands: scan [--no-images] | prep-agents | ingest | issues [--create] [--limit N]'); }))(opts)
   .catch((e) => { console.error(e); process.exit(1); });

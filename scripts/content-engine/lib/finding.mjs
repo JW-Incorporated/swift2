@@ -30,6 +30,10 @@ export function makeFinding(f) {
   return {
     checker: f.checker,
     severity: f.severity,
+    // 'deterministic' = a mechanical rule/size/probe result (bulk; rolls up);
+    // 'agent' = a specific human/vision/source-checked judgment (files as its own
+    // ticket). Agent findings (loaded from JSON) omit this, so default to 'agent'.
+    source: f.source === 'deterministic' ? 'deterministic' : 'agent',
     title: String(f.title).slice(0, 200),
     itemRef: {
       type: ref.type ?? 'unknown',
