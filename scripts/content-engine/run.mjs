@@ -110,6 +110,34 @@ async function ingest() {
   return all;
 }
 
+async function report() {
+  const merged = existsSync(join(FINDINGS_DIR, 'merged.json'))
+    ? JSON.parse(await readFile(join(FINDINGS_DIR, 'merged.json'), 'utf8')).map(makeFinding)
+    : dedupe(await loadAllFindings());
+  if (!merged.length) return log('no findings — run scan + ingest first.');
+  // The report is the human-facing record: show the FILABLE set (confidence
+  // ≥0.5 or escalated) as the headline, and footnote the sub-floor claim-risk
+  // signals that were routed to the agent passes rather than filed as tickets.
+  const filable = merged.filter((f) => f.confidence >= 0.5 || f.escalate);
+  const routed = merged.length - filable.length;
+  const items = await loadCorpus();
+  const checkers = [...new Set(merged.map((f) => f.checker))].sort();
+  const note = [
+    `> **Filable findings shown below** (confidence ≥ 0.5). A further **${routed}** deterministic claim-risk signals`,
+    '> (superlatives / records / dates, confidence < 0.5) were routed to the factual-review agent passes rather',
+    '> than filed as tickets — that routing is by design, so the tracker stays actionable. Agent-confirmed',
+    '> factual errors from those passes appear here as `fact.*` findings.',
+    '>',
+    '> Two layers ran: **deterministic** (`fact.claim-risk`, `safety.redline`, `image.liveness/quality/host-reputation`)',
+    '> and **agent** (`fact.source-grounding/cross-check/slop`, `safety.sexualization/illegal`, `image.relevance/safety`).',
+  ].join('\n');
+  const reportPath = await writeReport(filable, {
+    date: today(), itemCount: items.length, imageCount: imageIndex(items).length,
+    checkers, note,
+  });
+  log(`report → ${reportPath.replace(ROOT, '.')} (${filable.length} filable, ${routed} routed)`);
+}
+
 async function issues(opts) {
   const merged = existsSync(join(FINDINGS_DIR, 'merged.json'))
     ? JSON.parse(await readFile(join(FINDINGS_DIR, 'merged.json'), 'utf8')).map(makeFinding)
@@ -135,6 +163,6 @@ const opts = {
   create: rest.includes('--create'),
   limit: rest.includes('--limit') ? Number(rest[rest.indexOf('--limit') + 1]) : Infinity,
 };
-const cmds = { scan, 'prep-agents': prepAgents, ingest, issues };
+const cmds = { scan, 'prep-agents': prepAgents, ingest, report, issues };
 (cmds[cmd] ?? (async () => { log('commands: scan [--no-images] | prep-agents | ingest | issues [--create] [--limit N]'); }))(opts)
   .catch((e) => { console.error(e); process.exit(1); });
