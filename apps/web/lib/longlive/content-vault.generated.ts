@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-10T18:09:32.944Z";
+export const CONTENT_GENERATED_AT = "2026-07-10T18:16:17.182Z";
 
 type VaultRawItem = {
   id: string;
@@ -6864,8 +6864,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     {
       id: "vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100",
       slug: "fortnight-top-14-sweep",
-      date: "2024-04-29",
-      dateLabel: "April 29, 2024",
+      date: "2024-05-04",
+      dateLabel: "May 4, 2024",
       title: "All 14: TTPD monopolizes the top of the Hot 100",
       summary: "\"Fortnight\" debuted at No. 1 while the next 13 spots filled with the rest of the album — the first artist ever to hold the Hot 100's entire top 14, topping her own Midnights top-10 sweep.",
       body: ["The May 4, 2024 chart put 32 of her songs on the Hot 100 at once. \"Fortnight\" — 76.2 million streams in its first week — was her 12th No. 1 and seventh to debut there, tying Ariana Grande for the most No. 1 debuts among women.", "She was already the only artist to have held a full top 10; TTPD stretched the block four slots deeper."],
