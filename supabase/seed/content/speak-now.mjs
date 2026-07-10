@@ -552,7 +552,12 @@ export default {
       snippet:
         'A beaded gold strapless Zuhair Murad minidress with a corset back, gold Jimmy Choo platform sandals and clutch, and pinned-back hair at the Vanity Fair Oscars after-party.',
       sourceUrl: 'https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/',
-      thumbnailUrl: 'https://townsquare.media/site/204/files/2011/02/taylor-swift.jpg?w=980&q=75',
+      // Image-fix pass (2026-07-10): townsquare.media URL now serves a dead 'Taste of Country' logo
+      // placeholder (curl-verified content-type image/jpeg but pixels show the logo, not Taylor).
+      // Replaced with a verified Getty Images photo (id 109489184, HTTP 200, image/jpeg, visually
+      // confirmed: Taylor in the gold beaded strapless Zuhair Murad minidress at the 2011 Vanity
+      // Fair Oscar Party, Sunset Tower, Feb 27 2011).
+      thumbnailUrl: 'https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=',
       moment: {
         context:
           'Worn February 27, 2011 at the Sunset Tower Hotel party, one of her earliest red-carpet turns in Zuhair Murad — a designer she\'d return to repeatedly through 2012.\n\nShe skipped the Academy Awards ceremony itself and went straight to the after-party, where Taste of Country reported she spent the night catching up with friends Emma Stone and Selena Gomez. The beaded gold minidress — corset back, matching gold platforms and clutch — previewed a designer relationship with a payoff already scheduled: a year later she walked the 2012 Grammys red carpet in gold Zuhair Murad Couture on the night "Mean" won twice.',
@@ -561,8 +566,14 @@ export default {
         ],
         photos: [
           {
-            url: 'https://townsquare.media/site/204/files/2011/02/taylor-swift.jpg?w=980&q=75',
-            credit: 'Townsquare Media',
+            // Image-fix pass (2026-07-10): old townsquare.media URL was a dead hotlink serving a
+            // 'Taste of Country' logo placeholder, not a photo. Replaced with Getty Images id
+            // 109489184 (curl-verified HTTP 200 image/jpeg; Read-viewed: matches caption exactly —
+            // gold beaded strapless Zuhair Murad minidress, Vanity Fair Oscar Party red carpet).
+            url: 'https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=',
+            credit: 'Jon Kopaloff/Getty Images',
+            caption: 'Arriving at the Vanity Fair Oscar Party at Sunset Tower, February 27, 2011, in the gold Zuhair Murad minidress.',
+            kind: 'primary',
           },
         ],
       },
@@ -575,7 +586,11 @@ export default {
       snippet:
         "A white halterneck dress by Rafael Cennamo, styled with a Ranjana Khan belt, Neil Lane jewelry, and Fendi shoes for a deliberately Marilyn Monroe-inspired look.",
       sourceUrl: 'https://www.aceshowbiz.com/news/view/00042706.html',
-      thumbnailUrl: 'https://www.aceshowbiz.com/images/wennpic/preview/taylor-swift-2011-teen-choice-awards-01.jpg',
+      // Image-fix pass (2026-07-10): old aceshowbiz 320x395 'preview' thumbnail was a tight
+      // head-and-shoulders crop that barely showed the halter strap. Replaced with a verified Getty
+      // Images full-length photo (id 139353810, HTTP 200, image/jpeg, visually confirmed: the white
+      // halter dress with belted waist, full skirt, at the 2011 Teen Choice Awards red carpet).
+      thumbnailUrl: 'https://media.gettyimages.com/id/139353810/photo/universal-city-ca-taylor-swift-arrives-at-teen-choice-2011-at-the-gibson-amphitheatre-on.jpg?s=612x612&w=0&k=20&c=ikjub89NrsPL5br_63iqmNw_mXtseHJbQAYLDJEjpo8=',
       moment: {
         context:
           "The look was a deliberate Old-Hollywood homage: a white halterneck dress by Rafael Cennamo, styled with a Ranjana Khan belt, Neil Lane jewelry, and Fendi shoes — Marilyn Monroe by way of a 21-year-old country-pop star, worn with her hair pulled back in a ponytail.\n\nThe occasion earned the reference: at the August 7, 2011 show at Universal City's Gibson Amphitheatre she received the Ultimate Choice Award, the show's honorary top prize. She also won five voted categories outright that night — Choice Female Artist, both country awards ('Mean' took Country Track), Break-Up Song for 'Back to December,' and Red Carpet Fashion Icon ('Mine' was only a nominee for Choice Love Song, which went to Selena Gomez & the Scene) — plus the Ultimate Choice Award, a near-sweep powered by Speak Now's singles run.",
@@ -585,8 +600,14 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.aceshowbiz.com/images/wennpic/preview/taylor-swift-2011-teen-choice-awards-01.jpg',
-            credit: 'WENN',
+            // Image-fix pass (2026-07-10): old aceshowbiz preview crop showed only a sliver of the
+            // halter neckline at low res. Replaced with Getty Images id 139353810 (curl-verified
+            // HTTP 200 image/jpeg; Read-viewed: full-length shot clearly showing the white halter
+            // dress with jeweled belt at the 2011 Teen Choice Awards).
+            url: 'https://media.gettyimages.com/id/139353810/photo/universal-city-ca-taylor-swift-arrives-at-teen-choice-2011-at-the-gibson-amphitheatre-on.jpg?s=612x612&w=0&k=20&c=ikjub89NrsPL5br_63iqmNw_mXtseHJbQAYLDJEjpo8=',
+            credit: 'Gregg DeGuire/FilmMagic',
+            caption: 'Arriving at the 2011 Teen Choice Awards in the Marilyn Monroe-inspired white halter dress.',
+            kind: 'primary',
           },
         ],
       },
@@ -685,8 +706,12 @@ export default {
       snippet:
         "She and rumored boyfriend Jake Gyllenhaal stopped into Gorilla Coffee in Brooklyn's Park Slope on Thanksgiving morning, asking an employee to help pick out beans before ordering lattes.",
       sourceUrl: 'https://www.justjared.com/2010/11/25/taylor-swift-jake-gyllenhaal-thanksgiving-in-brooklyn/',
+      // Image-fix pass (2026-07-10): old cdn01.justjared.com URL was a 300x300 two-panel collage
+      // with a visible 'JUST JARED' watermark and no disclosure caption on this entry. Replaced with
+      // a cleaner, non-watermarked, higher-res CBS News editorial composite (still two file photos,
+      // now honestly captioned as such) — curl-verified HTTP 200 image/jpeg, Read-viewed.
       thumbnailUrl:
-        'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
+        'https://assets1.cbsnewsstatic.com/hub/i/r/2010/10/27/43706a70-a643-11e2-a3f0-029118418759/thumbnail/620x465/dd9752d17c8aaecefe080fa1a6f4c4e0/Swift-Gyllenhaal.jpg',
       moment: {
         context:
           'A witness told Just Jared the pair "asked one of the coffee shop employees for help picking out beans" and "both seemed super nice" before ordering lattes on November 25, 2010.\n\nGyllenhaal\'s sister Maggie lives in the Park Slope neighborhood, making it a family-adjacent holiday visit. The outing — and the scarf fans believe she left at Maggie Gyllenhaal\'s nearby home around this time — became a touchstone after "All Too Well" referenced a scarf left at "your sister\'s house" two years later.',
@@ -698,10 +723,15 @@ export default {
         ],
         photos: [
           {
-            url: 'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
-            credit: 'Getty Images',
+            // Image-fix pass (2026-07-10): old justjared.com collage carried a watermark, was
+            // 300x300, and (unlike the other slots reusing this image) had no disclosure caption.
+            // Replaced with a non-watermarked, higher-res CBS News two-photo composite (curl-verified
+            // HTTP 200 image/jpeg; Read-viewed: clean side-by-side of Taylor and Jake, captioned
+            // honestly below as file photos, not the coffee run itself).
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2010/10/27/43706a70-a643-11e2-a3f0-029118418759/thumbnail/620x465/dd9752d17c8aaecefe080fa1a6f4c4e0/Swift-Gyllenhaal.jpg',
+            credit: 'Getty Images (via CBS News)',
             caption:
-              "Just Jared's report art for the sighting — side-by-side file photos of the two, not the coffee run itself.",
+              "Side-by-side file photos of the two — not the coffee run itself, which produced few clean photos.",
             kind: 'reference',
           },
         ],
@@ -1014,8 +1044,13 @@ export default {
       snippet:
         '"I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone" — her debut Elizabeth Arden fragrance, out October 2011.',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-launches-new-perfume-175194/',
+      // Image-fix pass (2026-07-10): old cbsnewsstatic URL was a May 2011 Billboard Music Awards
+      // red-carpet shot with no connection to the October 2011 Wonderstruck launch. Replaced with a
+      // verified Getty Images photo (id 129173267, HTTP 200, image/jpeg, visually confirmed: the
+      // 'Wonderstruck' step-and-repeat backdrop is visible behind her) taken at the actual launch
+      // event at Macy's Herald Square, October 13, 2011.
       thumbnailUrl:
-        'https://assets3.cbsnewsstatic.com/hub/i/r/2011/05/23/53b1ba11-a643-11e2-a3f0-029118418759/thumbnail/620x465/6ded1ec08ebf35d9984941dd471c60be/114504493.jpg',
+        'https://media.gettyimages.com/id/129173267/photo/taylor-swifts-wonderstruck-fragrance-launch.jpg?s=594x594&w=0&k=20&c=ibJp3dK0NvxFinzatkJl7lOPCieM5xP3asbvei7IB8s=',
       moment: {
         context:
           'Swift partnered with Elizabeth Arden on Wonderstruck, her first fragrance, released in US stores in October 2011.\n\nShe named it directly after her own lyric: "I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone," adding that fragrance helps "shape someone\'s first impression and memory of you." It became her best-selling perfume, and alongside Justin Bieber\'s "Someday," helped drive a reported 57% jump in celebrity-fragrance sales that year.',
@@ -1027,8 +1062,15 @@ export default {
         ],
         photos: [
           {
-            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2011/05/23/53b1ba11-a643-11e2-a3f0-029118418759/thumbnail/620x465/6ded1ec08ebf35d9984941dd471c60be/114504493.jpg',
-            credit: 'Getty Images',
+            // Image-fix pass (2026-07-10): old cbsnewsstatic URL was a generic BBMAs red-carpet
+            // photo from five months earlier with nothing tying it to the fragrance. Replaced with
+            // Getty Images id 129173267 (curl-verified HTTP 200 image/jpeg; Read-viewed: 'Wonderstruck'
+            // logo visible on the step-and-repeat behind her), taken at the Macy's Herald Square
+            // launch event, October 13, 2011.
+            url: 'https://media.gettyimages.com/id/129173267/photo/taylor-swifts-wonderstruck-fragrance-launch.jpg?s=594x594&w=0&k=20&c=ibJp3dK0NvxFinzatkJl7lOPCieM5xP3asbvei7IB8s=',
+            credit: 'Cindy Ord/Getty Images',
+            caption: "At her Wonderstruck fragrance launch at Macy's Herald Square, October 13, 2011 in New York City.",
+            kind: 'primary',
           },
         ],
       },
