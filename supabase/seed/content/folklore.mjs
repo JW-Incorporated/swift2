@@ -24,7 +24,7 @@ export default {
     {
       year: 2020,
       month: 8,
-      day: 3,
+      day: 8,
       category: 'business',
       title: 'folklore makes her the first artist to top both charts at once',
       snippet:
@@ -622,7 +622,7 @@ export default {
     {
       year: 2020,
       month: 10,
-      day: 25,
+      day: 31,
       category: 'business',
       title: 'folklore becomes the first million-selling album of 2020 in the US',
       snippet:
