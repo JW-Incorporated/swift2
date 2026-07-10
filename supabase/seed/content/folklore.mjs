@@ -179,6 +179,7 @@ export default {
     {
       year: 2020,
       month: 11,
+      day: 25,
       category: 'release',
       title: 'folklore: The Long Pond Studio Sessions marks her directorial debut',
       snippet:
@@ -211,6 +212,7 @@ export default {
     {
       year: 2021,
       month: 3,
+      day: 14,
       category: 'business',
       title: 'folklore makes her the first woman to win Album of the Year three times',
       snippet:
@@ -388,6 +390,7 @@ export default {
     {
       year: 2020,
       month: 11,
+      day: 25,
       category: 'fashion',
       title: 'A Free People velvet shirt dress for the Long Pond Studio Sessions',
       snippet:
@@ -839,6 +842,7 @@ export default {
       slug: 'the-lakes-deluxe-bonus',
       year: 2020,
       month: 8,
+      day: 18,
       category: 'release',
       title: 'the lakes: the Lake District escape fantasy, saved for the deluxe edition',
       snippet:
@@ -882,6 +886,7 @@ export default {
       slug: 'betty-country-radio-single',
       year: 2020,
       month: 8,
+      day: 17,
       category: 'release',
       title: 'betty goes to country radio — her first country single since 2013',
       snippet:
@@ -926,6 +931,7 @@ export default {
       slug: 'betty-acm-awards-performance',
       year: 2020,
       month: 9,
+      day: 16,
       category: 'music',
       title: "folklore's first live moment: betty, alone at the Grand Ole Opry House",
       snippet:
@@ -972,6 +978,7 @@ export default {
       slug: 'william-bowery-is-joe',
       year: 2020,
       month: 11,
+      day: 25,
       category: 'relationship',
       title: 'William Bowery is Joe: the Long Pond reveal',
       snippet:
@@ -1018,6 +1025,7 @@ export default {
       slug: 'amas-2020-rerecording-reveal',
       year: 2020,
       month: 11,
+      day: 22,
       category: 'business',
       title: "Artist of the Year, accepted from the studio: 'I'm re-recording all of my old music'",
       snippet:
@@ -1064,6 +1072,7 @@ export default {
       slug: 'folklore-six-grammy-nominations',
       year: 2020,
       month: 11,
+      day: 24,
       category: 'business',
       title: 'Six Grammy nominations for the quarantine album',
       snippet:
@@ -1328,6 +1337,7 @@ export default {
       slug: 'shamrock-masters-sale',
       year: 2020,
       month: 11,
+      day: 16,
       category: 'business',
       title: 'Her masters get sold again — this time to Shamrock Capital, for about $300 million',
       snippet:
