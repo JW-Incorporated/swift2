@@ -1277,8 +1277,8 @@ export default {
     {
       slug: 'fortnight-top-14-sweep',
       year: 2024,
-      month: 4,
-      day: 29,
+      month: 5,
+      day: 4,
       category: 'business',
       title: 'All 14: TTPD monopolizes the top of the Hot 100',
       snippet:
