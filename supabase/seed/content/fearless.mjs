@@ -58,9 +58,9 @@ export default {
       },
     },
     {
-      year: 2008,
-      month: 11,
-      day: 11,
+      year: 2010,
+      month: 1,
+      day: 31,
       category: 'business',
       title: 'Fearless makes her the youngest Album of the Year winner — for a decade',
       snippet: '592,000 copies in week one, debuting at No. 1 on the Billboard 200.',
@@ -417,6 +417,7 @@ export default {
     {
       year: 2009,
       month: 3,
+      day: 1,
       category: 'fashion',
       title: 'A white BCBG Max Azria cocktail dress for a Daily Telegraph shoot',
       snippet: 'A white BCBG Max Azria Corozo cocktail dress paired with stacked bracelets for a March 2009 Daily Telegraph feature.',
@@ -891,8 +892,9 @@ export default {
       },
     },
     {
-      year: 2008,
-      month: 11,
+      year: 2009,
+      month: 3,
+      day: 14,
       category: 'business',
       title: 'Fearless spends 11 weeks at No. 1 — a record for the whole decade',
       snippet: 'Eleven non-consecutive weeks atop the Billboard 200: the longest run for a female country album, and for any album released in the 2000s.',
@@ -917,8 +919,9 @@ export default {
       },
     },
     {
-      year: 2009,
-      month: 12,
+      year: 2010,
+      month: 1,
+      day: 7,
       category: 'business',
       title: 'The best-selling album in America — for all of 2009',
       snippet: '3.217 million copies sold in the US in 2009 alone, making 20-year-old Swift the youngest artist — and only female country act — with a calendar-year best-seller.',
@@ -1134,7 +1137,7 @@ export default {
       slug: 'today-was-a-fairytale-release',
       year: 2010,
       month: 1,
-      day: 19,
+      day: 26,
       category: 'release',
       title: 'Today Was a Fairytale breaks a download record in a week',
       snippet:
