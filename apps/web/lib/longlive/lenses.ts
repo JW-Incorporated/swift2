@@ -1215,6 +1215,11 @@ if (process.env.NODE_ENV !== 'production') {
 // ── The Proposal (sourced narrative thread) ─────────────────────────────────
 // Publicly reported facts, attributed. Framed by an independent fan project.
 
+// Photo URLs verified curl-200 2026-07-10; every 'primary' is a real photo of
+// that specific beat, every 'reference' is honestly labeled as a stand-in
+// (see StoryBeat.image doc comment and the MomentDetail ImageKind rule this
+// mirrors). prop-bracelet has none — that specific backstage moment was
+// never photographed, and no stand-in was close enough to be honest.
 export const PROPOSAL_BEATS: StoryBeat[] = [
   {
     id: 'prop-bracelet',
@@ -1234,6 +1239,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'The first game',
     body: 'Taylor made her first public appearance in a suite at the Chiefs–Bears game at Arrowhead, sitting beside Travis’s mother. She later said they were already together by then; the appearance sent the internet into overdrive.',
     source: 'AP News',
+    image: {
+      url: 'https://media.gettyimages.com/id/1687515467/photo/chicago-bears-v-kansas-city-chiefs.jpg?s=594x594&w=0&k=20&c=FGdNMqOCjAn5FMo56beiwN5SGbvr-tWdlmbeckNwmnU=',
+      credit: 'Cooper Neill/Getty Images',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-wsj-confirm',
@@ -1243,6 +1253,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'Travis confirms it, on the record',
     body: 'After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs–Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
     source: 'WSJ. Magazine',
+    image: {
+      url: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
+      credit: 'Gregory Harris/WSJ. Magazine',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-super-bowl',
@@ -1252,6 +1267,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'Super Bowl LVIII',
     body: 'After flying in from a Tokyo Eras Tour show, Taylor watched the Chiefs win Super Bowl LVIII in Las Vegas, meeting Travis on the field afterward — one of the most-photographed embraces of the year.',
     source: 'AP News',
+    image: {
+      url: 'https://media.gettyimages.com/id/2004247309/photo/super-bowl-lviii-san-francisco-49ers-v-kansas-city-chiefs.jpg?s=594x594&w=0&k=20&c=F98AY-963y-PkSf1E7bis-zkuCD98jJ2UfJx66twCeE=',
+      credit: 'Ezra Shaw/Getty Images',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-so-high-school',
@@ -1261,6 +1281,16 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: '"So High School"',
     body: 'The Tortured Poets Department: The Anthology track "So High School" is widely read by fans — not officially confirmed by Swift — as being about the relationship, down to a lyric fans connect to a 2016 interview where Travis said he\'d "kiss" her in a game of Kiss, Marry, Kill. Swift has performed it on the Eras Tour with visuals fans read as Travis-coded.',
     source: 'Entertainment Tonight / Capital FM (fan reading, not officially confirmed)',
+    image: {
+      // No photo of the song/lyric moment itself exists — this is Travis's
+      // real Wembley onstage cameo (June 23, 2024), the closest honest
+      // stand-in for a lyric-interpretation beat. Kept as 'reference', never
+      // implied to depict the song itself.
+      url: 'https://media.gettyimages.com/id/2158904096/photo/night-three-of-taylor-swift-the-eras-tour-london-uk.jpg?s=594x594&w=0&k=20&c=m45ybgwacP_HmQX7uL24FKHsLEnrDmW2UTr3yBkS0OQ=',
+      credit: 'Gareth Cattermole/TAS24/Getty Images',
+      kind: 'reference',
+      caption: 'Travis Kelce\'s Eras Tour cameo at Wembley — not the "So High School" moment itself.',
+    },
   },
   {
     id: 'prop-us-open',
@@ -1270,6 +1300,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'A public date at the US Open',
     body: 'One of the couple\'s most public, non-football dates: courtside at the US Open alongside Patrick and Brittany Mahomes, cheering on the men\'s final.',
     source: 'AP News',
+    image: {
+      url: 'https://media.gettyimages.com/id/2170859161/photo/2024-us-open-final-day.jpg?s=594x594&w=0&k=20&c=mPpF-fOGuGycRwxt_XQBiprQP7dpruaFFcSvM-nEIdQ=',
+      credit: 'Jamie Squire/Getty Images',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-engagement',
@@ -1280,6 +1315,11 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     body: 'The couple announced their engagement on Instagram. The proposal had happened roughly two weeks earlier in a flower-filled garden in Lee’s Summit, Missouri; the ring, an old mine brilliant-cut diamond, was designed with jeweler Kindred Lubeck.',
     quote: '“Your English teacher and your gym teacher are getting married.”',
     source: 'People',
+    image: {
+      url: 'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
+      credit: 'via @taylorswift/Instagram (ABC News)',
+      kind: 'primary',
+    },
   },
   {
     id: 'prop-wedding',
@@ -1289,6 +1329,14 @@ export const PROPOSAL_BEATS: StoryBeat[] = [
     title: 'The wedding',
     body: 'Taylor and Travis married at Madison Square Garden in New York City, in a star-studded ceremony officiated by Adam Sandler, timed over the July 4th weekend just before Kelce\'s NFL training camp — the resolution of the story this thread has followed since the friendship bracelet.',
     source: 'CNN / Good Morning America',
+    image: {
+      // The public "JUST T&T MARRIED!" exterior jumbotron announcement, not
+      // ceremony photos — no ceremony photos are public.
+      url: 'https://media.gettyimages.com/id/2284267696/photo/swift-kelce-wedding-mania.jpg?s=594x594&w=0&k=20&c=0ir2eDFT9T5T1K1edSOTglmC-uaHjV8gUmKCjaJieu8=',
+      credit: 'Sara Konradi for The Washington Post via Getty Images',
+      kind: 'primary',
+      caption: 'The public announcement outside Madison Square Garden — no ceremony photos are public.',
+    },
   },
 ];
 
