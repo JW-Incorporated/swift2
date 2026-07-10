@@ -46,6 +46,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "willow, and the spell it's supposed to sound like",
       snippet: 'Taylor\'s own description: it "sounds like casting a spell to make someone fall in love with you."',
@@ -72,6 +73,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'no body, no crime, a murder ballad with HAIM',
       snippet:
@@ -100,6 +102,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "marjorie, sung back by her grandmother's own voice",
       snippet: "A tribute to her grandmother, the opera singer Marjorie Finlay — and, in the outro, literally her voice.",
@@ -132,6 +135,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'champagne problems, a fictional proposal gone wrong',
       snippet: 'A Christmas-party engagement, planned in secret and turned down on the spot — entirely invented, co-written with Joe Alwyn under his William Bowery pseudonym.',
@@ -163,6 +167,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'coney island, a duet built for The National',
       snippet: 'A breakup told from both sides, with The National\'s Matt Berninger trading verses with her over a slow, aching duet.',
@@ -189,6 +194,7 @@ export default {
     {
       year: 2021,
       month: 4,
+      day: 18,
       category: 'business',
       title: 'Fearless (Taylor\'s Version) is the first re-recorded album ever to hit No. 1',
       snippet:
@@ -220,6 +226,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 22,
       category: 'business',
       title: 'All Too Well (10 Minute Version) becomes the longest song ever to hit No. 1',
       snippet:
@@ -249,8 +256,9 @@ export default {
       },
     },
     {
-      year: 2022,
-      month: 4,
+      year: 2021,
+      month: 11,
+      day: 23,
       category: 'business',
       title: 'evermore gets an Album of the Year nod, its only nomination',
       snippet:
@@ -288,6 +296,7 @@ export default {
     {
       year: 2021,
       month: 3,
+      day: 14,
       category: 'fashion',
       title: 'A folklore medley, staged like a cabin in an enchanted forest',
       snippet: 'A blue-and-gold Etro "nap dress," performing "cardigan," "august," and "willow" from a set built to look like a tiny forest cabin.',
@@ -324,6 +333,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'fashion',
       title: 'The ivory Zimmermann gown from the "willow" video',
       snippet:
@@ -470,6 +480,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'fashion',
       title: 'The "willow" video\'s final scene: a Gucci Liberty-print floral maxi dress',
       snippet:
@@ -564,6 +575,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 11,
       category: 'fashion',
       title: 'A gold-beaded Zuhair Murad shift dress for The Tonight Show',
       snippet:
@@ -595,6 +607,7 @@ export default {
     {
       year: 2021,
       month: 11,
+      day: 11,
       category: 'fashion',
       title: 'A crystal-strewn David Koma mini dress for Late Night with Seth Meyers',
       snippet:
@@ -759,6 +772,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "cowboy like me, cut at Marcus Mumford's home studio",
       snippet:
@@ -791,6 +805,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "the evermore title track's bridge, written after the fact by Bon Iver's Justin Vernon",
       snippet:
@@ -823,6 +838,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "tolerate it, the 10/8 track Dessner almost didn't send her",
       snippet:
@@ -1270,6 +1286,7 @@ export default {
       slug: 'gold-rush-daydream',
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'gold rush, a jealousy fantasy that dismisses itself',
       snippet:
@@ -1316,6 +1333,7 @@ export default {
       slug: 'tis-the-damn-season-overnight',
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: "'tis the damn season, written overnight during the folklore film shoot",
       snippet:
@@ -1362,6 +1380,7 @@ export default {
       slug: 'happiness-week-before',
       year: 2020,
       month: 12,
+      day: 11,
       category: 'music',
       title: 'happiness, the last song finished — days before the album dropped',
       snippet:
@@ -1887,6 +1906,7 @@ export default {
       slug: 'joe-gq-hype-accidental',
       year: 2022,
       month: 5,
+      day: 9,
       category: 'relationship',
       title: '"The most accidental thing to happen in lockdown": Joe on the co-writes',
       snippet:
