@@ -45,7 +45,7 @@ export default {
       category: 'business',
       title: 'Midnights breaks Spotify in a single day',
       snippet:
-        "184.6 million album streams in 24 hours, while Taylor's full catalog hit 228 million streams — Spotify's biggest day ever for both, album and artist.",
+        "184.6 million album streams in 24 hours, while Taylor's full catalog hit 228 million streams — at the time Spotify's biggest day ever for both, album and artist, records she'd break herself with The Tortured Poets Department in 2024.",
       sourceUrl:
         'https://newsroom.spotify.com/2022-10-22/taylor-swift-breaks-two-records-with-midnights-becoming-the-most-streamed-artist-on-spotify/',
       thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/Screenshot_20221022-153332.png',
@@ -83,7 +83,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2022/10/02-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
       moment: {
         context:
-          "The 1.578 million units broke down to 1.14 million in pure sales — 575,000 of them on vinyl, the biggest vinyl week since electronic tracking began in 1991 — plus 549 million on-demand streams, the third-largest streaming week any album had ever posted. It was the largest week for any album since Adele's 25 in 2015, and it made Swift the only artist in history with five different albums that each sold a million copies in a single week.\n\nThe 11th No. 1 tied Barbra Streisand for the most Billboard 200 chart-toppers by a woman — a tie Swift would break eight months later when Speak Now (Taylor's Version) became her 12th.",
+          "The 1.578 million units broke down to 1.14 million in pure sales — 575,000 of them on vinyl — at the time the biggest vinyl week since electronic tracking began in 1991, a record she would go on to break repeatedly — plus 549 million on-demand streams, the third-largest streaming week any album had ever posted. It was the largest week for any album since Adele's 25 in 2015, and it made Swift the only artist in history with five different albums that each sold a million copies in a single week.\n\nThe 11th No. 1 tied Barbra Streisand for the most Billboard 200 chart-toppers by a woman — a tie Swift would break eight months later when Speak Now (Taylor's Version) became her 12th.",
         sources: [
           {
             outlet: 'Billboard',
@@ -127,9 +127,9 @@ export default {
       year: 2023,
       month: 7,
       category: 'business',
-      title: "Speak Now (Taylor's Version) has 2023's biggest album week",
+      title: "Speak Now (Taylor's Version) has 2023's biggest album week to that point",
       snippet:
-        "716,000 units in week one, the biggest album week of 2023 — her 12th No. 1 on the Billboard 200.",
+        "716,000 units in week one, the biggest album week of 2023 to that point — her 12th No. 1 on the Billboard 200.",
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-number-one-debut-billboard-200-chart-1235372565/',
       thumbnailUrl:
@@ -168,7 +168,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-aa-1548.jpg?w=1024',
       moment: {
         context:
-          "The 1.653 million-unit week ran on 1.359 million traditional sales — the largest sales week of her entire career, and the biggest for any album since Adele's 25 moved 3.482 million in 2015 — with 693,000 of those on vinyl, smashing the modern-era vinyl record Midnights had set at 575,000 just a year earlier.\n\nIt also out-opened the original: 1989 debuted with 1.287 million in November 2014 on its way to 11 nonconsecutive weeks at No. 1. Chart-topper number thirteen — her lucky number — kept her tied with Drake for the third-most No. 1 albums in Billboard 200 history and extended her record among women.",
+          "The 1.653 million-unit week ran on 1.359 million traditional sales — then the largest sales week of her entire career, and the biggest for any album since Adele's 25 moved 3.482 million in 2015 — with 693,000 of those on vinyl, a new vinyl record she'd break again with The Tortured Poets Department and The Life of a Showgirl, smashing the modern-era vinyl record Midnights had set at 575,000 just a year earlier.\n\nIt also out-opened the original: 1989 debuted with 1.287 million in November 2014 on its way to 11 nonconsecutive weeks at No. 1. Chart-topper number thirteen — her lucky number — kept her tied with Drake for the third-most No. 1 albums in Billboard 200 history and extended her record among women.",
         sources: [
           {
             outlet: 'Billboard',
@@ -257,7 +257,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
       moment: {
         context:
-          'Over 70,000 fans filled State Farm Stadium for her first stadium show since the reputation tour ended in 2018 — "So tonight, we\'re going to be going through an adventure, one era at a time," she told the crowd. The night opened with "Miss Americana & the Heartbreak Prince" in a Versace bodysuit and closed with "Karma," with a folklore cabin, snake motifs for reputation, and white confetti falling like snow through the ten-minute "All Too Well" in between; folklore and Midnights got the deepest dives "to make up for lost time."\n\nRolling Stone\'s review compared the era-by-era acts — each with its own costumes, staging, and visuals — to a Broadway production, and she even joked from the stage about the fans\' evermore discourse: "I absolutely love it, despite what some of you say on TikTok."',
+          'More than 69,000 fans filled State Farm Stadium for her first stadium show since the reputation tour ended in 2018 — "So tonight, we\'re going to be going through an adventure, one era at a time," she told the crowd. The night opened with "Miss Americana & the Heartbreak Prince" in a Versace bodysuit and closed with "Karma," with a folklore cabin, snake motifs for reputation, and white confetti falling like snow through the ten-minute "All Too Well" in between; folklore and Midnights got the deepest dives "to make up for lost time."\n\nRolling Stone\'s review compared the era-by-era acts — each with its own costumes, staging, and visuals — to a Broadway production, and she even joked from the stage about the fans\' evermore discourse: "I absolutely love it, despite what some of you say on TikTok."',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/' },
           {
@@ -643,7 +643,7 @@ export default {
       category: 'business',
       title: "Cruel Summer hits No. 1 — four years after it came out",
       snippet:
-        'An unpromoted 2019 album track, revived by the Eras Tour setlist and a viral moment, becomes her 10th Hot 100 No. 1 on the chart dated Oct. 23.',
+        'An unpromoted 2019 album track, revived by the Eras Tour setlist and a viral moment, becomes her 10th Hot 100 No. 1 on the chart dated Oct. 28.',
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
       thumbnailUrl:
@@ -1195,7 +1195,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg',
       moment: {
         context:
-          "The folklore act came dressed in a flowing purple Alberta Ferretti gown — loose, layered, and photographed by Kevin Mazur for Billboard's night-one gallery — the closest thing the show had to the album's cardigan-and-cottage softness rendered as stagewear.\n\nfolklore was also one of the two albums the show dug deepest into — it and Midnights got the longest acts \"to make up for lost time,\" as she put it on the night — and the act played out around the on-stage folklore cabin, the gown moving like the era's whole misty aesthetic in fabric form.",
+          "The folklore act came dressed in a flowing purple Alberta Ferretti gown — loose, layered, and photographed by Kevin Mazur for Billboard's night-one gallery — the closest thing the show had to the album's cardigan-and-cottage softness rendered as stagewear.\n\nfolklore was also one of the two albums the show dug deepest into — it and Midnights got the longest acts, making up for the eras she never toured — and the act played out around the on-stage folklore cabin, the gown moving like the era's whole misty aesthetic in fabric form.",
         sources: [
           {
             outlet: 'Billboard',
@@ -1307,7 +1307,7 @@ export default {
         'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg',
       moment: {
         context:
-          'Worn to the Feb. 5, 2023 ceremony at Crypto.com Arena, the custom Roberto Cavalli two-piece — designed by the house\'s Fausto Puglisi — was paired with diamond-and-turquoise statement earrings from Lorraine Schwartz, coordinated blue eye makeup, and a matching blue manicure, with her regular team of stylist Joseph Cassell Falconer, hairstylist Jemma Muradian, and makeup artist Lorrie Turk behind the look.\n\nThe design worked as a double reference: the midnight-blue base read as Midnights itself, while the scatter of silvery-white embellishment across the crop top and skirt was widely taken as a nod to "Midnight Rain." Red Carpet Fashion Awards called the whole thing "a fashion equivalent of a homerun" — an album cover translated into eveningwear on the night Midnights\' campaign hit the Grammys.',
+          'Worn to the Feb. 5, 2023 ceremony at Crypto.com Arena, the custom Roberto Cavalli two-piece — designed by the house\'s Fausto Puglisi — was paired with statement earrings of diamonds, purple sapphires and turquoise-blue paraiba tourmalines from Lorraine Schwartz, coordinated blue eye makeup, and a matching blue manicure, with her regular team of stylist Joseph Cassell Falconer, hairstylist Jemma Muradian, and makeup artist Lorrie Turk behind the look.\n\nThe design worked as a double reference: the midnight-blue base read as Midnights itself, while the scatter of silvery-white embellishment across the crop top and skirt was widely taken as a nod to "Midnight Rain." Red Carpet Fashion Awards called the whole thing "a fashion equivalent of a homerun" — an album cover translated into eveningwear on the night Midnights\' campaign hit the Grammys.',
         sources: [
           {
             outlet: 'Red Carpet Fashion Awards',
@@ -1424,7 +1424,7 @@ export default {
       thumbnailUrl: 'https://www.shefinds.com/files/2023/01/Taylor-Swift-16.jpg',
       moment: {
         context:
-          'The white silky slip has floral lace at the neckline and thigh-skimming cutouts along the hem, under the Free People Renata Faux Fur Coat; other looks in the video include an oversized T-shirt worn as a dress and a separate 70s-inflected knit top.\n\nThe video, which Swift co-directed, leans fully into a groovy, retro aesthetic — loose beachy waves, shag bangs, and warm-toned glam.',
+          'The white silky slip has floral lace at the neckline and thigh-skimming cutouts along the hem, under the Free People Renata Faux Fur Coat; other looks in the video include an oversized T-shirt worn as a dress and a separate 70s-inflected knit top.\n\nThe video, which Swift wrote and directed, leans fully into a groovy, retro aesthetic — loose beachy waves, shag bangs, and warm-toned glam.',
         sources: [
           {
             outlet: 'SheFinds',
@@ -1774,7 +1774,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          '"Sweet Nothing" is credited to Swift, Jack Antonoff, and William Bowery — the pseudonym Alwyn had already used on folklore and evermore. He explained the name\'s origin on The Kelly Clarkson Show: "It was a combination of William... my great-grandfather — who I actually never met — [who] was a composer. He wrote a lot of classical music, and he wrote a lot of film scores. And then Bowery is the area in New York that I spent a lot of time in when I first moved over there."\n\nHe and Swift chose to write under a shared pseudonym, he said, "so the people, first and foremost, would listen to the music first before dissecting the fact that we did it together." The song itself leans into small, sheltered domestic memories — a pebble collected on a trip to Wicklow, quiet moments at home — as a refuge from "cunning" outsiders and her own critical inner voice.',
+          '"Sweet Nothing" is credited to Swift and William Bowery — the pseudonym Alwyn had already used on folklore and evermore — with Jack Antonoff co-producing. He explained the name\'s origin on The Kelly Clarkson Show: "It was a combination of William... my great-grandfather — who I actually never met — [who] was a composer. He wrote a lot of classical music, and he wrote a lot of film scores. And then Bowery is the area in New York that I spent a lot of time in when I first moved over there."\n\nHe and Swift chose to write under a shared pseudonym, he said, "so the people, first and foremost, would listen to the music first before dissecting the fact that we did it together." The song itself leans into small, sheltered domestic memories — a pebble collected on a trip to Wicklow, quiet moments at home — as a refuge from "cunning" outsiders and her own critical inner voice.',
         sources: [
           {
             outlet: 'The Things',
@@ -1900,7 +1900,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the chart dated Nov. 5, 2022, Swift became, in Billboard\'s words, "the first artist to claim the survey\'s entire top 10 in a single frame," surpassing Drake, who\'d held nine of the top 10 in September 2021.\n\nLed by "Anti-Hero" (59.7 million streams) at No. 1, the top 10 ran Lavender Haze, Maroon, Snow on the Beach, You\'re on Your Own Kid, Midnight Rain, Bejeweled, Question...?, Karma, and Vigilante Shit — all from the same album, which also became the first LP ever to land 10 songs in the Hot 100\'s top 10 at once. This is the record flagged as unconfirmed-by-a-second-source in this file\'s original October 2022 batch; Wikipedia\'s "Anti-Hero" entry independently corroborates it.',
+          'On the chart dated Nov. 5, 2022, Swift became, in Billboard\'s words, "the first artist to claim the survey\'s entire top 10 in a single frame," surpassing Drake, who\'d held nine of the top 10 in September 2021.\n\nLed by "Anti-Hero" (59.7 million streams) at No. 1, the top 10 ran Lavender Haze, Maroon, Snow on the Beach, Midnight Rain, Bejeweled, Question...?, You\'re on Your Own Kid, Karma, and Vigilante Shit — all from the same album, which also became the first LP ever to land 10 songs in the Hot 100\'s top 10 at once.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2054,12 +2054,12 @@ export default {
       category: 'business',
       title: 'Six-for-six at the AMAs, and past 40 career wins',
       snippet:
-        'Artist of the Year for the seventh time, plus wins for Red (Taylor\'s Version) and the All Too Well short film — making her the first artist to pass 40 American Music Awards.',
+        'Artist of the Year for the seventh time, plus wins for Red (Taylor\'s Version) and the All Too Well short film — bringing her career total to a record 40 American Music Awards.',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-sweeps-2022-amas-1234634191/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The Nov. 20, 2022 sweep at the Microsoft Theater covered favorite female pop artist, favorite female country artist, favorite pop album, favorite country album, and favorite music video — a re-recorded 2012 album and its ten-minute short film winning a full month into the Midnights era, alongside a seventh Artist of the Year. Accepting, she pointed the credit outward: "I have the fans to thank, essentially, for my happiness," signing off with "thank you, underlined with 13 exclamation points."\n\nThe re-record project got its own acceptance-speech paragraph — "I cannot tell you how much my re-recorded albums mean to me" — and the six-for-six night pushed her career total past 40 American Music Awards, extending her lead as the most-awarded artist in the show\'s history. The timing added subtext: the sweep landed five days after the Eras Tour presale had melted Ticketmaster down.',
+          'The Nov. 20, 2022 sweep at the Microsoft Theater covered favorite female pop artist, favorite female country artist, favorite pop album, favorite country album, and favorite music video — a re-recorded 2012 album and its ten-minute short film winning a full month into the Midnights era, alongside a seventh Artist of the Year. Accepting, she pointed the credit outward: "I have the fans to thank, essentially, for my happiness," signing off with "thank you, underlined with 13 exclamation points."\n\nThe re-record project got its own acceptance-speech paragraph — "I cannot tell you how much my re-recorded albums mean to me" — and the six-for-six night pushed her career total to 40 American Music Awards, extending her lead as the most-awarded artist in the show\'s history. The timing added subtext: the sweep landed five days after the Eras Tour presale had melted Ticketmaster down.',
         sources: [
           {
             outlet: 'Rolling Stone',

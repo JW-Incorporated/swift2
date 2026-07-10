@@ -25,7 +25,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
-          "She started singing \"When you think Tim McGraw\" to herself in freshman-year math class — the boyfriend was a senior about to leave for college, and the song became a list of things that would make him remember her. She finished it with co-writer Liz Rose at a piano after school in about fifteen minutes; her verdict, per Songfacts: \"It may be the best fifteen minutes I've ever experienced.\"\n\nRose has always handed her the credit, saying Swift arrived \"with the idea and the melody, knowing exactly what she wanted\" — and Swift insisted it open the record: \"This song means so much to me, that's why we wanted it to be the first track on the album.\"",
+          "She started singing \"When you think Tim McGraw\" to herself in freshman-year math class — the boyfriend was a senior about to leave for college, and the song became a list of things that would make him remember her. She finished it with co-writer Liz Rose at a piano after school in about fifteen minutes; her verdict, per Songfacts: \"It may be the best fifteen minutes I've ever experienced.\"\n\nRose has always handed her the credit, saying Swift arrived with the idea and the melody and knew exactly what she wanted — and Swift insisted it open the record: \"This song means so much to me, that's why we wanted it to be the first track on the album.\"",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/tim-mcgraw' },
@@ -153,7 +153,7 @@ export default {
       thumbnailUrl: "https://upload.wikimedia.org/wikipedia/en/6/6b/Taylor_Swift_-_Should%27ve_Said_No_artwork.png",
       moment: {
         context:
-          "Written alone, two days before the album was mastered, and finished overnight with producer Nathan Chapman: \"It literally took me just 20 minutes to write,\" by her own account — about a boyfriend who'd cheated, with many lyrics lifted from the actual confrontation (\"I was living every line in this song at the time\"). She drew a line between it and her other kiss-off: where \"Picture to Burn\" was pure anger, this one was \"more of a moral statement.\"\n\nReleased as the album's fifth and final single in May 2008, it became her second Hot Country Songs No. 1 — and when it hit the country top 10 that July, she became the first solo female artist since 1964 to pull five top-10 country hits from a debut album.",
+          "Written alone, two days before the album was mastered, and finished overnight with producer Nathan Chapman: \"It literally took me just 20 minutes to write,\" by her own account — about a boyfriend who'd cheated, with many lyrics lifted from the actual confrontation (\"I was living every line in this song at the time\"). She drew a line between it and her other kiss-off: where \"Picture to Burn\" was pure anger, this one was \"more of a moral statement.\"\n\nReleased as the album's fifth and final single in May 2008, it became her second Hot Country Songs No. 1 — and when it hit the country top 10 that July, she became the first solo female artist in the chart's history (dating to 1964) with five top-10 country hits from a debut album.",
         sources: [
           { outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/Should've_Said_No" },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/shouldve-said-no' },
@@ -178,7 +178,10 @@ export default {
       moment: {
         context:
           'She wrote it at 13 while still living in Pennsylvania and making regular trips to Nashville, working out whether a music career was even reachable:\n\n"It was tough trying to find out how I was going to get where I wanted to go... I\'m really happy this is on the album, because I feel like I finally figured it out."',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/A_Place_in_This_World' }],
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/A_Place_in_This_World' },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/a-place-in-this-world' },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
@@ -260,7 +263,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/MWvKEdsvu4S2unTkFGW5dZ.jpg',
       moment: {
         context:
-          'Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras.\n\nIt became shorthand for the whole era: W Magazine\'s evolution piece literally names the period after it, "the curly-haired country girl of the Taylor Swift era." The ringlets read as unstudied and homespun, matching the sundress-and-boots styling — and their eventual disappearance (straightened for the "reputation" turn, later a soft wave) is one of the clearest visual markers fans use to date a photo to a given era. Even in 2008 she was joking about the upkeep, thanking her stylist at the CMT Awards "for straightening my hair, because that\'s not easy."',
+          'Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras.\n\nIt became shorthand for the whole era: W Magazine\'s evolution piece literally names the period after it, "the curly-haired country girl of the Taylor Swift era." The ringlets read as unstudied and homespun, matching the sundress-and-boots styling — and their eventual disappearance (loosened around 2011 and fully straightened by the Red era, long before reputation\'s sleeker looks) is one of the clearest visual markers fans use to date a photo to a given era. Even in 2008 she was joking about the upkeep, thanking her stylist at the CMT Awards "for straightening my hair, because that\'s not easy."',
         sources: [
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/beauty/hair/g12774421/taylor-swift-hair/' },
           { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
@@ -284,7 +287,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg',
       moment: {
         context:
-          'She attended the 2008 Grammys as a Best New Artist nominee (the award went to Amy Winehouse) in a strapless, corseted purple gown by Sandi Spika, paired with her signature curls — a look fashion retrospectives still cite as her Grammys debut.\n\nAt 18 she wasn\'t yet a Grammy performer or winner, just a first-time nominee working the carpet at music\'s biggest night — the nomination itself the headline, arriving off a debut album that had refused to stop selling. Who What Wear and Femestella both treat this purple gown as the opening frame of a Grammys red-carpet history that would run for well over a decade; the following year, in a blue KaufmanFranco gown, she\'d be walking it as a four-time winner.',
+          'She attended the 2008 Grammys as a Best New Artist nominee (the award went to Amy Winehouse) in a strapless, corseted purple gown by Sandi Spika, paired with her signature curls — a look fashion retrospectives still cite as her Grammys debut.\n\nAt 18 she wasn\'t yet a Grammy performer or winner, just a first-time nominee working the carpet at music\'s biggest night — the nomination itself the headline, arriving off a debut album that had refused to stop selling. Who What Wear and Femestella both treat this purple gown as the opening frame of a Grammys red-carpet history that would run for well over a decade; two years later, in a blue KaufmanFranco gown at the 2010 ceremony, she\'d leave the same carpet a four-time winner.',
         sources: [
           {
             outlet: 'Who What Wear',
@@ -421,7 +424,7 @@ export default {
       thumbnailUrl: 'https://townsquare.media/site/204/files/2019/08/Taylor-Swift-Flatts.jpg?w=980&q=75',
       moment: {
         context:
-          'Rascal Flatts had just fired opener Eric Church from their "Me and My Gang" tour for repeatedly running long onstage. The opening it created went to 16-year-old Swift, who got the call on Oct. 17, 2006 and wrote in her diary the next day: "Oh my God. I am on the Rascal Flatts tour! I got the call yesterday and I screamed louder than I can ever remember screaming before." She opened five tour dates that fall.\n\nYears later, when she earned her first gold record, she gave it to Church with a note: "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
+          'Rascal Flatts had just fired opener Eric Church from their "Me and My Gang" tour for repeatedly running long onstage. The opening it created went to 16-year-old Swift, who got the call on Oct. 17, 2006 and wrote in her diary the next day: "Oh my God. I am on the Rascal Flatts tour! I got the call yesterday and I screamed louder than I can ever remember screaming before." She opened the tour\'s remaining dates that fall (Oct. 19-Nov. 3, 2006).\n\nYears later, when she earned her first gold record, she gave it to Church with a note: "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
         sources: [
           { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-diary-entry-2006-rascal-flatts-tour/' },
         ],
@@ -608,7 +611,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Fourteen-year-old America\'s Got Talent finalist Julienne Irwin\'s wish, if she made the finals, was to duet with her favorite singer. Swift agreed: "I can\'t wait to sing with Julienne on America\'s Got Talent. She\'s such a sweetheart, and I\'m so unbelievably honored that she chose me..."\n\nOn Aug. 21, 2007, she flew overnight from a tour date in Rapid City, South Dakota to Los Angeles for the live finale, where the pair performed "Teardrops on My Guitar" together in front of 12.1 million viewers, before Swift continued on to a show in Minneapolis.',
+          'Fourteen-year-old America\'s Got Talent finalist Julienne Irwin\'s wish, if she made the finals, was to duet with her favorite singer. Swift agreed: "I can\'t wait to sing with Julienne on America\'s Got Talent. She\'s such a sweetheart, and I\'m so unbelievably honored that she chose me..."\n\nOn Aug. 21, 2007, she flew overnight from a tour date in Rapid City, South Dakota to Los Angeles for the live finale, where the pair performed "Teardrops on My Guitar" together, before Swift continued on to a show in Minneapolis.',
         sources: [
           { outlet: 'Country Standard Time', url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=851' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Julienne_Irwin' },
@@ -869,7 +872,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The booking closed the loop on the best origin story in her catalog: the single that introduced her — written in math class about a McGraw song — now performed nightly for his stadium audiences.\n\nShe\'d first met him on camera at the 2007 ACM Awards, introducing herself with "Hi, I\'m Taylor" after performing the song to his face.',
+          'The booking closed the loop on the best origin story in her catalog: the single that introduced her — written in math class about a McGraw song — now performed for his audiences at the select summer dates she opened.\n\nShe\'d first met him on camera at the 2007 ACM Awards, introducing herself with "Hi, I\'m Taylor" after performing the song to his face.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -939,12 +942,12 @@ export default {
       category: 'release',
       title: 'The deluxe edition adds three songs to the album that would not stop selling',
       snippet:
-        'A year after release, Taylor Swift got a deluxe reissue with "I\'m Only Me When I\'m With You," "Invisible," and "A Perfectly Good Heart," plus her phone-recorded demos and music videos — a mid-run repackage of a still-climbing album.',
+        'A year after release, Taylor Swift got a deluxe reissue with "I\'m Only Me When I\'m With You," "Invisible," and "A Perfectly Good Heart," plus the era\'s music videos, behind-the-scenes footage, and a recording of her first phone call with Tim McGraw — a mid-run repackage of a still-climbing album.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       thumbnailUrl: null,
       moment: {
         context:
-          'The Nov. 6, 2007 deluxe reissue landed while the album was still climbing — she\'d just won the CMA Horizon Award the previous night, and the record went on to log 157 weeks on the Billboard 200, more than any other album of the 2000s decade. The three additions — "I\'m Only Me When I\'m With You," "Invisible," and "A Perfectly Good Heart" — stayed exclusive to the edition for years.\n\nThe package doubled as a fan artifact: it bundled her phone-recorded songwriting demos and the era\'s music videos, letting buyers hear the songs in the rough form she\'d first cut them. Repackaging a still-selling debut to extend its shelf life — rather than rushing the follow-up — was exactly the patience the slow-burn "Taylor Swift" campaign was built on; "Fearless" was still a year away.',
+          'The Nov. 6, 2007 deluxe reissue landed while the album was still climbing — she\'d win the CMA Horizon Award the following night, and the record went on to log 157 weeks on the Billboard 200, more than any other album of the 2000s decade. The three additions — "I\'m Only Me When I\'m With You," "Invisible," and "A Perfectly Good Heart" — stayed exclusive to the edition for years.\n\nThe package doubled as a fan artifact: it bundled a DVD of the era\'s music videos ("Tim McGraw," "Teardrops on My Guitar," and "Our Song"), behind-the-scenes footage, and a recording of her first phone conversation with Tim McGraw. Repackaging a still-selling debut to extend its shelf life — rather than rushing the follow-up — was exactly the patience the slow-burn "Taylor Swift" campaign was built on; "Fearless" was still a year away.',
         sources: [
           {
             outlet: 'Wikipedia',
