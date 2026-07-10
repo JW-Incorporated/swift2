@@ -21,7 +21,7 @@ export default {
       thumbnailUrl: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg',
       moment: {
         context:
-          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.\n\nBillboard's chart recap put the scale plainly: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and stayed there for 11 weeks; only three albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, and 1989 (Taylor's Version) itself.",
+          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.\n\nBillboard's chart recap put the scale plainly: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and spent 11 nonconsecutive weeks at No. 1; only four albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, 1989 (Taylor's Version) itself, and The Life of a Showgirl.",
         sources: [
           {
             outlet: 'Forbes',
@@ -30,6 +30,10 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/chart-beat/taylor-swift-1989-chart-rewind-2014-1235829365/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-life-of-a-showgirl-number-one-billboard-200/',
           },
         ],
         photos: [{ url: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg', credit: 'Big Machine Records' }],
@@ -83,9 +87,17 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png/250px-Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png',
       moment: {
         context:
-          "She told Rolling Stone the person had \"hired a bunch of people out from under\" her; asked directly to name names, she said she'd \"never said anything that would point a finger in the specific direction of one specific person.\"\n\nKaty Perry, the widely speculated subject — the falling-out reportedly traced to a 2014 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia.",
+          "She told Rolling Stone the person had \"tried to hire a bunch of people out from under\" her; a year later she told GQ she'd \"never said anything that would point a finger in the specific direction of one specific person.\"\n\nKaty Perry, the widely speculated subject — the falling-out reportedly traced to a 2013 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia.",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/706891/taylor-swift-on-bad-blood-being-about-katy-perry-it-doesn-t-point-to-any-one-person',
+          },
           {
             outlet: 'E! Online',
             url: 'https://www.eonline.com/news/1423684/katy-perry-supports-taylor-swifts-the-life-of-a-showgirl',
@@ -744,11 +756,19 @@ export default {
       thumbnailUrl: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960',
       moment: {
         context:
-          'The RIAA certified "Shake It Off" Diamond on March 14, 2020, for surpassing 10 million combined sales-and-streaming units — her first single to reach that tier, following Fearless\'s Diamond album certification in December 2017.\n\nAt the time, 1989\'s other singles stood at 8x Platinum ("Blank Space") and 6x Platinum ("Bad Blood"), with the album itself at 4x Platinum.',
+          'The RIAA certified "Shake It Off" Diamond on March 13, 2020, for surpassing 10 million combined sales-and-streaming units — her first single to reach that tier, following Fearless\'s Diamond album certification in December 2017.\n\nAt the time, 1989\'s other singles stood at 8x Platinum ("Blank Space") and 6x Platinum ("Bad Blood"), with "Wildest Dreams" at 4x Platinum and the album itself certified 9x Platinum.',
         sources: [
           {
             outlet: 'Forbes',
             url: 'https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/',
+          },
+          {
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2020/03/14/taylor-swifts-shake-it-off-earns-diamond-certification-in-us-lover-album-reaches-2x-platinum/',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2023/10/10/taylor-swifts-1989-songs-ranked/',
           },
         ],
         photos: [{ url: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960', credit: 'Forbes' }],
@@ -784,7 +804,7 @@ export default {
       thumbnailUrl: 'https://blogs-images.forbes.com/bobbyowsinski/files/2014/08/670px-swift_taylor_2007_cropped_2.jpg',
       moment: {
         context:
-          'On Nov. 3, 2014, Big Machine Records pulled Swift\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued streaming\'s free tier devalued music as "an economic entity."\n\nDays later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
+          'On Nov. 3, 2014, Big Machine Records pulled Swift\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued that "music should not be free"; she spelled out her objection to Spotify\'s ad-supported free tier in interviews that November.\n\nDays later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
         sources: [
           { outlet: 'CNN Money', url: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html' },
           {
@@ -1140,7 +1160,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The January 2015 filings covered "This Sick Beat," "Party Like It\'s 1989," "Cause We Never Go Out of Style," "Could Show You Incredible Things," and "Nice to Meet You. Where You Been?" — plus her name, signature, and initials — across product categories running from T-shirts and guitar straps to paper products and handbags. Forbes framed it as pre-tour housekeeping ahead of the May kickoff: locking down the 1989 merch economy before bootleggers could, with the round described as only the first.\n\nThe move — mocked by some, studied by others — became a case study in how aggressively her team protected the era\'s business, and "This Sick Beat" was formally registered within weeks.',
+          'The filings — made with the USPTO in October 2014 and surfacing in the press that January — covered "This Sick Beat," "Party Like It\'s 1989," "Cause We Never Go Out of Style," "Could Show You Incredible Things," and "Nice to Meet You. Where You Been?" — plus her name, signature, and initials — across product categories running from T-shirts and guitar straps to paper products and handbags. Forbes framed it as pre-tour housekeeping ahead of the May kickoff: locking down the 1989 merch economy before bootleggers could, with the round described as only the first.\n\nThe move — mocked by some, studied by others — became a case study in how aggressively her team protected the era\'s business; the applications were still pending as of early 2015, with registrations granted later.',
         sources: [
           {
             outlet: 'ABC News',
@@ -1355,7 +1375,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Six months after her open letter got Apple to reverse its trial-period royalty policy, the concert film arrived as an Apple Music exclusive — the reconciliation made product, released December 20 as pre-Christmas ammunition for the streaming service.\n\nJonas Åkerlund\'s cut captured the full November 28 show before 70,000 at Sydney\'s ANZ Stadium, stitched with never-before-seen backstage and rehearsal footage plus guest moments from across the tour, from Mick Jagger to Imagine Dragons. Her own pitch, in the announcement: "I wondered what would happen if I invited the most amazing artists in the world to come out with me and perform on my stage — would they do it?"',
+          'Six months after her open letter got Apple to reverse its trial-period royalty policy, the concert film arrived as an Apple Music exclusive — the reconciliation made product, released December 20 as pre-Christmas ammunition for the streaming service.\n\nJonas Åkerlund\'s cut captured the full November 28 show before 76,000 at Sydney\'s ANZ Stadium, stitched with never-before-seen backstage and rehearsal footage plus guest moments from across the tour, from Mick Jagger to Imagine Dragons. Her own pitch, in the announcement: "I wondered what would happen if I invited the most amazing artists in the world to come out with me and perform on my stage — would they do it?"',
         sources: [
           {
             outlet: 'Billboard',
@@ -1531,12 +1551,12 @@ export default {
       category: 'release',
       title: '1989 (Taylor\'s Version) announced in head-to-toe blue at SoFi Stadium',
       snippet:
-        'August 9, 2023, the final U.S. Eras Tour show: after a night of suspiciously blue outfit swaps, she announced the 1989 re-recording from the stage — due October 27, nine years to the day after the original.',
+        'August 9, 2023, the final show of the Eras Tour\'s first U.S. leg: after a night of suspiciously blue outfit swaps, she announced the 1989 re-recording from the stage — due October 27, nine years to the day after the original.',
       sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Fans clocked the Easter egg immediately: blue variants of the Speak Now, folklore, and 1989 act costumes across the night, capped by the reveal and a long-awaited "New Romantics" as a surprise song. The crowd of 70,000 at the sixth SoFi show turned the announcement into the loudest moment of the U.S. leg.\n\nThe date was its own Easter egg — Oct. 27, 2023, nine years to the day after the original album. "I think instead of just telling you about it, I think I just should sort of show you something," she said before the screens flipped 1989 blue. The surprise-song set doubled down: "New Romantics" on guitar (the last 1989 track she hadn\'t yet played on the tour) and "New Year\'s Day" on piano, plus an onstage thank-you to fans for making the re-recordings matter: "It was so generous of you to care about something that I cared about."',
+          'Fans clocked the Easter egg immediately: blue variants of the Speak Now, folklore, and 1989 act costumes across the night, capped by the reveal and a long-awaited "New Romantics" as a surprise song. The crowd of 70,000 at the sixth SoFi show turned the announcement into the loudest moment of the U.S. leg.\n\nThe date was its own Easter egg — Oct. 27, 2023, nine years to the day after the original album. "Instead of telling you about it, I think I\'ll just sort of show you," she said before the screens flipped 1989 blue. The surprise-song set doubled down: "New Romantics" on guitar (the last 1989 track she hadn\'t yet played on the tour) and "New Year\'s Day" on piano, plus an onstage thank-you to fans for making the re-recordings matter: "It was so generous of you to care about something that I cared about."',
         sources: [
           {
             outlet: 'Variety',

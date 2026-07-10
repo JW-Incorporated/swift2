@@ -63,7 +63,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Full quote, from the Toronto International Film Festival in 2021, where she was premiering the All Too Well short film: "Basically, the scarf is a metaphor, and we turned it red because red is a very important color in this album, which is called Red." Then she stopped herself: "And, I think when I say it\'s a metaphor ... I\'m just going to stop."\n\nThe song behind the scarf started as an improvised "emotional rant" over a four-chord vamp at a February 2011 band rehearsal; co-writer Liz Rose later helped trim what she remembered as a 10-to-20-minute draft down to the 5:28 album cut — still Red\'s longest track. It was never a single and debuted at just No. 80 on the Hot 100, but became the album\'s critical standout, and when the full 10-minute version finally surfaced on Red (Taylor\'s Version) in 2021, it became the longest song ever to top the Hot 100.',
+          'Full quote, from the Toronto International Film Festival in September 2022, where she screened the All Too Well short film (the film premiered in New York in November 2021): "Basically, the scarf is a metaphor, and we turned it red because red is a very important color in this album, which is called Red." Then she stopped herself: "And, I think when I say it\'s a metaphor ... I\'m just going to stop."\n\nThe song behind the scarf started as an improvised "emotional rant" over a four-chord vamp at a February 2011 band rehearsal; co-writer Liz Rose later helped trim what she remembered as a 10-to-20-minute draft down to the 5:28 album cut — still Red\'s longest track. It was never a single and debuted at just No. 80 on the Hot 100, but became the album\'s critical standout, and when the full 10-minute version finally surfaced on Red (Taylor\'s Version) in 2021, it became the longest song ever to top the Hot 100.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -223,7 +223,7 @@ export default {
       thumbnailUrl: 'https://static3.refinery29.com/bin/entry/218/1155x/1120498/rexusa-1815036m.jpg',
       moment: {
         context:
-          'Garth Brooks, who won it in 2005, was the only other artist to have received the Pinnacle Award — which recognizes artists who dominate the industry — before her; she was 23.\n\nThe presentation came with a tribute video of Justin Timberlake, Julia Roberts, Mick Jagger, and Carly Simon applauding her from afar, and she kept the acceptance speech cool and collected, thanking the country legends who presented it. The look was pure era signature: the wine-colored Elie Saab gown, nude Jimmy Choo sandals, and her bold red lip. She closed the night performing alongside Alison Krauss.',
+          'Garth Brooks, who won it in 2005, was the only other artist to have received the Pinnacle Award — which recognizes artists who dominate the industry — before her; she was 23.\n\nThe presentation came with a tribute video of Justin Timberlake, Julia Roberts, Mick Jagger, and Carly Simon applauding her from afar, and she kept the acceptance speech cool and collected, thanking the country legends who presented it. The look was pure era signature: the wine-colored Elie Saab gown, nude Jimmy Choo sandals, and her bold red lip. She also performed an acoustic "Red" alongside Alison Krauss and Vince Gill that night.',
         sources: [
           {
             outlet: 'Refinery29',
@@ -349,7 +349,7 @@ export default {
       category: 'fashion',
       title: '128 costumes for the Red Tour, hand-built in three weeks',
       snippet:
-        "Designer Marina Toybina built 23 custom looks for Swift and 103 for her dancers — draped, sewn, and hand-finished in just over three weeks to match the tour's choreography and set list.",
+        "Designer Marina Toybina built more than 125 pieces — 23 custom looks for Swift and over 100 for her dancers — draped, sewn, and hand-finished in just over three weeks to match the tour's choreography and set list.",
       sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swifts-costume-designer-talks-612119/',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg/500px-Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg',
@@ -543,7 +543,7 @@ export default {
       thumbnailUrl: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2014/08/TaylorSwiftInMaryKatrantzou2014VMA.jpg',
       moment: {
         context:
-          'At the Aug. 24, 2014 MTV VMAs at The Forum in Inglewood, Swift wore a long-sleeve, high-cut powder-blue romper from Mary Katrantzou\'s Resort 2015 collection, printed with an abstract alphabet motif, paired with maroon peep-toe booties, Lorraine Schwartz jewelry, and Elie Saab heels.\n\nStyled with the blunt bob she debuted earlier that year, the polarizing, fashion-forward look landed two months before Red-era companion album cycle closed and 1989 was announced — a visible pivot point critics pointed to afterward as the first red-carpet signal of the coming pop reinvention.',
+          'At the Aug. 24, 2014 MTV VMAs at The Forum in Inglewood, Swift wore a long-sleeve, high-cut powder-blue romper from Mary Katrantzou\'s Resort 2015 collection, printed with an abstract alphabet motif, paired with maroon peep-toe Elie Saab booties and Lorraine Schwartz jewelry.\n\nStyled with the blunt bob she debuted earlier that year, the polarizing, fashion-forward look came six days after the Aug. 18, 2014 announcement of 1989 — the same night she performed "Shake It Off" — and about two months before the album\'s Oct. 27 release, an early red-carpet statement of the coming pop era.',
         sources: [
           {
             outlet: 'Red Carpet Fashion Awards',
@@ -597,12 +597,12 @@ export default {
       category: 'sighting',
       title: 'A birthday minibreak to the Lake District, spotted feeding doves and shopping for Beatrix Potter gifts',
       snippet:
-        'Spotted with Harry Styles in Bowness-on-Windermere on December 13, 2012 — sightseeing, feeding white doves in the town square, and shopping at the Beatrix Potter store and a local jewelry shop.',
+        'Spotted with Harry Styles in Bowness-on-Windermere on December 10, 2012 — sightseeing, feeding white doves in the town square, and shopping at the Beatrix Potter store and a local jewelry shop.',
       sourceUrl: 'https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/',
       thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/9823df43ca73-harry-styles-z.jpg',
       moment: {
         context:
-          'The pair spent about five hours in the Lake District village of Bowness on December 13 — Swift\'s 23rd birthday — days after their relationship went public, with Styles reportedly bringing his parents along for the trip. The itinerary was pure tourist: feeding the white doves in the town square, browsing Beatrix Potter World, and wandering in and out of local shops.\n\nPandora jewelry shop manager Claire Dibbs, who met them when they wandered in, recalled: "They were just walking past and one of my colleagues saw them. I was hyperventilating." She said Swift "introduced herself, she was really lovely" and told her she loved the area. The visit came days after an earlier stop in Derbyshire that same week.',
+          'The pair spent about five hours in the Lake District village of Bowness on December 10, 2012 — ahead of Swift\'s 23rd birthday on December 13 — and days after their relationship went public, with Styles reportedly bringing his parents along for the trip. The itinerary was pure tourist: feeding the white doves in the town square, browsing Beatrix Potter World, and wandering in and out of local shops.\n\nPandora jewelry shop manager Claire Dibbs, who met them when they wandered in, recalled: "They were just walking past and one of my colleagues saw them. I was hyperventilating." She said Swift "introduced herself, she was really lovely" and told her she loved the area. The visit came days after an earlier stop in Sheffield that same week.',
         sources: [
           {
             outlet: 'HELLO!',
@@ -772,7 +772,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
       moment: {
         context:
-          'At the 56th Annual Grammy Awards, Red was one of five Album of the Year nominees alongside Sara Bareilles\' The Blessed Unrest, Kendrick Lamar\'s Good Kid, M.A.A.D City, and Macklemore & Ryan Lewis\' The Heist — the trophy went to Daft Punk\'s Random Access Memories.\n\nIn Best Country Album, Red competed against Jason Aldean\'s Night Train, Tim McGraw\'s Two Lanes of Freedom, and Blake Shelton\'s Based on a True Story..., with Kacey Musgraves\' debut Same Trailer Different Park taking the win. It was Swift\'s second Album of the Year nomination (after Fearless won in 2010) and her only Grammy shutout of the decade.',
+          'At the 56th Annual Grammy Awards, Red was one of five Album of the Year nominees alongside Sara Bareilles\' The Blessed Unrest, Kendrick Lamar\'s Good Kid, M.A.A.D City, and Macklemore & Ryan Lewis\' The Heist — the trophy went to Daft Punk\'s Random Access Memories.\n\nIn Best Country Album, Red competed against Jason Aldean\'s Night Train, Tim McGraw\'s Two Lanes of Freedom, and Blake Shelton\'s Based on a True Story..., with Kacey Musgraves\' debut Same Trailer Different Park taking the win. It was Swift\'s second Album of the Year nomination (after Fearless won in 2010) and a rare winless Grammy night.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/56th_Annual_Grammy_Awards' }],
         photos: [
           {
@@ -1085,7 +1085,7 @@ export default {
       category: 'release',
       title: 'Begin Again sends a country valentine ahead of the pop swerve',
       snippet:
-        'Released October 1, three weeks before the album — a soft, waltzing country ballad about a first date that heals, deliberately reassuring country radio before Red\'s dubstep drop landed.',
+        'Sent to country radio October 1 (after a Sept. 25 digital release), three weeks before the album — a soft, waltzing country ballad about a first date that heals, deliberately reassuring country radio before Red\'s dubstep drop landed.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Taylor_Swift_-_Begin_Again.png/250px-Taylor_Swift_-_Begin_Again.png',
@@ -1605,7 +1605,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Gabrielle, a fan Swift had first met at a 2007 meet-and-greet, sent the invite as a long shot; Swift found it going through fan mail at her management office and planned the April 17, 2014 surprise herself, flying to Columbus for the day. She narrated the trip in a video posted afterward: "There\'s this girl named Gena, who has been coming to my shows for years ... I\'ve never been to a bridal shower, so we are going to fly to Ohio today."\n\nShe arrived carrying gifts — the KitchenAid mixer, a cookbook, and hand-painted presents among them — and posed for photos with the stunned bride and her guests. The video made national news, one of the era\'s defining direct-to-fans gestures, a year before Swiftmas took the same instinct to scale.',
+          'Gabrielle, a fan Swift had first met at a 2007 meet-and-greet, sent the invite as a long shot; Swift found it going through fan mail at her management office and planned the April 2014 surprise herself, flying to Columbus for the day. She narrated the trip in a video posted afterward: "There\'s this girl named Gena, who has been coming to my shows for years ... I\'ve never been to a bridal shower, so we are going to fly to Ohio today."\n\nShe arrived carrying gifts — the KitchenAid mixer, a cookbook, and hand-painted presents among them — and posed for photos with the stunned bride and her guests. The video made national news, one of the era\'s defining direct-to-fans gestures, a year before Swiftmas took the same instinct to scale.',
         sources: [
           {
             outlet: 'ABC News',
@@ -1687,13 +1687,13 @@ export default {
       category: 'business',
       title: 'Red gets its do-over: Red (Taylor\'s Version) opens at No. 1',
       snippet:
-        'Nine years later, the re-recording debuted atop the Billboard 200 with 605,000 units — the biggest sales week of 2021 for any album, her tenth No. 1, and the fastest run to four chart-toppers since a record Elton John set in 1975.',
+        "Nine years later, the re-recording debuted atop the Billboard 200 with 605,000 units — 2021's biggest sales week for any album to that point, her tenth No. 1, and the fastest run to four chart-toppers by a solo artist, breaking Elton John's 1975 record.",
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-tenth-number-one-album-billboard-200-red-taylors-version-1235000860/',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
-          'Of the 605,000 first-week units (week ending Nov. 18, 2021), 369,000 were pure album sales — 2021\'s biggest sales week for any album — including 114,000 on vinyl, at the time the largest vinyl sales week of the modern chart era. The 30-track set, including nine from-the-vault songs and the 10-minute "All Too Well," gave Swift her tenth Billboard 200 No. 1 and made her the fastest artist ever to notch four chart-toppers, in under 16 months — breaking a 46-year-old Elton John record.\n\nThe streaming side told the same story: 303 million on-demand streams, the biggest streaming week ever recorded for a country album. The tenth No. 1 also put her in company only Barbra Streisand (with 11) had reached among women — a chart footnote that doubled as vindication for the re-recording project itself.',
+          'Of the 605,000 first-week units (week ending Nov. 18, 2021), 369,000 were pure album sales — 2021\'s biggest sales week for any album to that point, a mark Adele\'s 30 topped a week later — including 114,000 on vinyl, at the time the largest vinyl sales week of the modern chart era. The 30-track set, including nine from-the-vault songs and the 10-minute "All Too Well," gave Swift her tenth Billboard 200 No. 1 and made her the fastest solo artist ever to notch four chart-toppers, in under 16 months — breaking a 46-year-old Elton John record.\n\nThe streaming side told the same story: 303 million on-demand streams, the biggest streaming week ever recorded for a country album. The tenth No. 1 also put her in company only Barbra Streisand (with 11) had reached among women — a chart footnote that doubled as vindication for the re-recording project itself.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1712,6 +1712,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/adele-30-billboard-200-albums-chart-debut-1235003213/',
+            source_title: "Adele's '30' Debuts Atop the Billboard 200 With 2021's Biggest Sales Week",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-08',
+            reliability_score: 5,
           },
         ],
         photos: [
