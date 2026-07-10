@@ -81,6 +81,27 @@ function bodyFrom(context, snippet) {
   return [snippet];
 }
 
+/**
+ * Per-moment imagery. The Tier-0 `thumbnailUrl` is the card/hero image; the
+ * Tier-1 `moment.photos[]` are the detail gallery (each with credit/caption).
+ * Before this the sync dropped BOTH, so every synced moment fell back to
+ * generic era art in content.ts even when it had its own real photo — the
+ * "recently pushed photos don't show" bug. `image` is the single hero (thumb,
+ * or the first photo when there's no thumb); `images` is the full gallery.
+ */
+function imageryFrom(thumbnailUrl, photos) {
+  const gallery = (Array.isArray(photos) ? photos : [])
+    .filter((p) => p && typeof p.url === 'string' && p.url)
+    .map((p) => ({
+      url: p.url,
+      credit: typeof p.credit === 'string' && p.credit ? p.credit : undefined,
+      caption: typeof p.caption === 'string' && p.caption ? p.caption : undefined,
+      kind: p.kind === 'reference' || p.kind === 'archival' ? p.kind : 'primary',
+    }));
+  const thumb = typeof thumbnailUrl === 'string' && thumbnailUrl ? thumbnailUrl : undefined;
+  return { image: thumb ?? gallery[0]?.url, images: gallery };
+}
+
 /** Category tag plus any already-valid ContentTags the item carries. */
 function tagsFrom(category, tags) {
   const out = [CATEGORY_TO_TAG[category] ?? 'Lore'];
@@ -95,7 +116,7 @@ function addItem(
   byEra,
   seenIdsByEra,
   eraSlug,
-  { year, month, category, title, snippet, context, sources, sourceUrl, slug, tags },
+  { year, month, category, title, snippet, context, sources, sourceUrl, slug, tags, thumbnailUrl, photos },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
   const seenIds = (seenIdsByEra[eraId] ??= new Set());
@@ -112,6 +133,8 @@ function addItem(
   const date = `${year}-${mm}-01`;
   const dateLabel = `${MONTHS[month - 1]} ${year}`;
 
+  const { image, images } = imageryFrom(thumbnailUrl, photos);
+
   (byEra[eraId] ??= []).push({
     id,
     slug: typeof slug === 'string' && slug ? slug : undefined,
@@ -122,6 +145,8 @@ function addItem(
     body: bodyFrom(context, snippet),
     tags: tagsFrom(category, tags),
     sources: sourcesFrom(sources, sourceUrl),
+    image,
+    images,
   });
 }
 
@@ -172,7 +197,7 @@ async function fetchFromSupabase() {
   {
     const { data: moments, error: mErr } = await supabase
       .from('moment')
-      .select('month_item_id,context,sources');
+      .select('month_item_id,context,sources,photos');
     if (mErr) {
       console.warn(
         `sync-longlive-content: moment fetch failed (${mErr.message}); bodies fall back to summaries.`,
@@ -195,6 +220,8 @@ async function fetchFromSupabase() {
       context: m?.context ?? null,
       sources: m?.sources ?? null,
       sourceUrl: row.source_url ?? null,
+      thumbnailUrl: row.thumbnail_url ?? null,
+      photos: m?.photos ?? null,
       // month_item has no slug/tags column in the DB — those live only in the
       // seed files (see fetchFromLocalFiles). Carrying them to live data needs
       // a schema migration; tracked as a follow-up in the PR.
@@ -229,6 +256,8 @@ async function fetchFromLocalFiles() {
         sourceUrl: item.sourceUrl ?? null,
         slug: item.slug ?? null,
         tags: item.tags ?? null,
+        thumbnailUrl: item.thumbnailUrl ?? null,
+        photos: item.moment?.photos ?? null,
       });
     }
   }
@@ -259,6 +288,10 @@ async function main() {
   lines.push('  body: string[];');
   lines.push('  tags: ContentTag[];');
   lines.push('  sources?: { name: string; url: string }[];');
+  lines.push('  image?: string;');
+  lines.push(
+    "  images?: { url: string; credit?: string; caption?: string; kind: 'primary' | 'reference' | 'archival' }[];",
+  );
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -277,6 +310,19 @@ async function main() {
       if (it.sources && it.sources.length) {
         const srcs = it.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
         lines.push(`      sources: [${srcs}],`);
+      }
+      if (it.image) lines.push(`      image: ${esc(it.image)},`);
+      if (it.images && it.images.length) {
+        const imgs = it.images
+          .map((im) => {
+            const parts = [`url: ${esc(im.url)}`];
+            if (im.credit) parts.push(`credit: ${esc(im.credit)}`);
+            if (im.caption) parts.push(`caption: ${esc(im.caption)}`);
+            parts.push(`kind: ${esc(im.kind)}`);
+            return `{ ${parts.join(', ')} }`;
+          })
+          .join(', ');
+        lines.push(`      images: [${imgs}],`);
       }
       lines.push('    },');
     }

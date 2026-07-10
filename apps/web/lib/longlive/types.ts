@@ -64,6 +64,19 @@ export interface HiddenClue {
   payoff: string;
 }
 
+/**
+ * One image attached to a moment. `kind` lets the UI label non-primary imagery
+ * honestly: `reference` = a comparable/historical stand-in (the real photo
+ * doesn't exist yet), `archival` = older context photo, `primary` = the actual
+ * subject. Synced from the Tier-1 `moment.photos[]` seed/DB field.
+ */
+export interface ImageRef {
+  url: string;
+  credit?: string;
+  caption?: string;
+  kind: 'primary' | 'reference' | 'archival';
+}
+
 export interface ContentItem {
   id: string;
   /** Stable content slug from the seed (deep-linking / cross-refs). Optional. */
@@ -79,6 +92,13 @@ export interface ContentItem {
   body: string[];
   tags: ContentTag[];
   image: string;
+  /**
+   * Full per-moment gallery (hero + additional photos), synced from the Tier-1
+   * `moment.photos[]`. `image` above stays the single hero/card thumbnail for
+   * back-compat; `images` is the detail-view gallery. Absent when the moment
+   * has no real photos (the card then uses era-fallback art).
+   */
+  images?: ImageRef[];
   /**
    * Citations backing this moment. Reuses the EggSource shape. Rendered as a
    * "Sources" list in the detail view — only when non-empty (never a

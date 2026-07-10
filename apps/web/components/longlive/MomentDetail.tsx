@@ -67,7 +67,14 @@ export function MomentDetail() {
     >
       {/* Hero image */}
       <div className="relative h-[42vh] min-h-64 w-full">
-        <Image src={item.image || '/placeholder.svg'} alt="" fill priority className="object-cover" />
+        <Image
+          src={item.image || '/placeholder.svg'}
+          alt=""
+          fill
+          priority
+          className="object-cover"
+          unoptimized={/^https?:\/\//.test(item.image || '')}
+        />
         <div
           className="absolute inset-0"
           style={{
@@ -131,6 +138,39 @@ export function MomentDetail() {
             </p>
           ))}
         </div>
+
+        {item.images && item.images.filter((im) => im.url !== item.image).length > 0 && (
+          <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+            {item.images
+              .filter((im) => im.url !== item.image)
+              .map((im, i) => (
+                <figure
+                  key={`${im.url}-${i}`}
+                  className="era-card overflow-hidden rounded-2xl border"
+                  style={{ borderColor: 'var(--era-line)' }}
+                >
+                  <div className="relative aspect-[4/3] w-full">
+                    {/* Hotlinked from the source per the media policy — unoptimized
+                        so next/image loads it directly instead of proxying an
+                        unallowlisted host. */}
+                    <Image src={im.url} alt={im.caption ?? ''} fill className="object-cover" unoptimized />
+                    {im.kind !== 'primary' && (
+                      <span className="absolute left-2 top-2 rounded-full bg-black/60 px-2 py-0.5 text-[11px] font-medium text-white backdrop-blur-sm">
+                        {im.kind === 'reference' ? 'For reference' : 'Archival'}
+                      </span>
+                    )}
+                  </div>
+                  {(im.caption || im.credit) && (
+                    <figcaption className="px-3 py-2 text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+                      {im.caption}
+                      {im.caption && im.credit ? ' · ' : ''}
+                      {im.credit && <span className="italic">{im.credit}</span>}
+                    </figcaption>
+                  )}
+                </figure>
+              ))}
+          </div>
+        )}
 
         {item.video && <MomentVideo video={item.video} />}
 
