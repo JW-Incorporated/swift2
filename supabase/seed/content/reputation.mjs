@@ -154,11 +154,14 @@ export default {
             url: 'https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments',
           },
         ],
+        // T-img pass (2026-07-10): dropped the Getaway Car performance photo
+        // from this moment — that file shows Taylor alone in a silver jacket
+        // with no snake staging visible, and it's already correctly used on
+        // the dedicated Getaway Car moment. No verified Commons photo of the
+        // tour's cobra prop/snake-screen visuals was found this session, so
+        // this moment keeps its other, unflagged tour photo rather than
+        // adding an unverified replacement.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg',
-            credit: 'Ronald Woan / Wikimedia Commons',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg/250px-Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg',
             credit: 'Julio Enriquez / Wikimedia Commons',
@@ -241,7 +244,7 @@ export default {
       snippet:
         'Two weeks after the elaborate original, a Spotify-exclusive alternate: Taylor, alone in the woods, singing straight into a single unbroken shot.',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/watch-taylor-swifts-one-take-new-delicate-video-629359/',
-      thumbnailUrl: 'https://i.ytimg.com/vi/3tHoEgt0zB8/maxresdefault.jpg',
+      thumbnailUrl: 'https://i.ytimg.com/vi/MBR2kxt7RK8/maxresdefault.jpg',
       moment: {
         context:
           "Released March 30, 2018 as a Spotify exclusive — initially viewable only in the U.S., U.K., Sweden, and Latin America — the vertical video was shot by Swift herself in a single unbroken take, lip-syncing and twirling through a wooded clearing. Fans zeroed in on one blink-and-miss gesture: her clutching a necklace with a \"J\" pendant, read as a nod to Joe Alwyn.\n\nWhere Joseph Kahn's original video was a dance-heavy fantasy about turning invisible, this one was deliberately homemade — and it finally hit YouTube for everyone on May 15.",
@@ -255,7 +258,14 @@ export default {
             url: 'https://www.billboard.com/music/pop/taylor-swift-delicate-vertical-video-spotify-8274561/',
           },
         ],
-        photos: [{ url: 'https://i.ytimg.com/vi/3tHoEgt0zB8/maxresdefault.jpg', credit: 'YouTube / Taylor Swift' }],
+        // T-img pass (2026-07-10): video ID 3tHoEgt0zB8 was a third-party
+        // news-reaction upload (a news anchor talking with a small inset),
+        // not the vertical video itself. Swapped to MBR2kxt7RK8, the
+        // Big Machine Label Group-published "Delicate (Vertical Version)" —
+        // its maxresdefault thumbnail is a single VEVO-branded frame of
+        // Taylor alone in the foggy wooded clearing, no collage seam;
+        // verified HTTP 200 + image/jpeg and eyeballed this session.
+        photos: [{ url: 'https://i.ytimg.com/vi/MBR2kxt7RK8/maxresdefault.jpg', credit: 'YouTube / Taylor Swift (Big Machine Label Group)' }],
       },
     },
     {
@@ -419,7 +429,7 @@ export default {
       snippet:
         'The grave-crawling zombie look that opens the video was created by Bill Corso — the makeup artist behind Deadpool\'s scarred face — confirmed on record by director Joseph Kahn.',
       sourceUrl: 'https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing',
-      thumbnailUrl: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           'Director Joseph Kahn confirmed via Twitter that special-makeup artist Bill Corso — who did Ryan Reynolds\' scarred prosthetic look in "Deadpool" — created zombie Taylor for the opening graveyard scene, a look deliberately pitched as the antithesis of her earlier, more polished eras.\n\nThe video was a seven-month build overall, conceived in January and shot over five days in Los Angeles that May, and the practical effects didn\'t stop at the makeup: the diamonds she bathes in were real, supplied by jeweler Neil Lane and valued at over $12 million.',
@@ -429,7 +439,18 @@ export default {
             url: 'https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing',
           },
         ],
-        photos: [{ url: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg', credit: 'YouTube / Taylor Swift' }],
+        // T-img pass (2026-07-10): swapped the video's bathtub-scene YouTube
+        // thumbnail for Billboard's behind-the-scenes zombie-transformation
+        // photo — verified HTTP 200 + image/jpeg and eyeballed this session;
+        // it actually shows the graveyard zombie makeup the moment is about.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Billboard',
+            caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.",
+            kind: 'archival',
+          },
+        ],
       },
     },
 
@@ -467,10 +488,6 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Billboard',
-          },
-          {
-            url: 'https://thefashion-court.com/wp-content/uploads/2018/05/taylor-swift-atelier-versace-bbmas-2018.png',
-            credit: 'The Fashion Court',
           },
         ],
       },
@@ -577,7 +594,8 @@ export default {
       snippet:
         'For the "There\'s Nothing Holding Me Back" duet stop, a custom Jessica Jones snake-print bodysuit layered under a red camouflage sequined jacket with a buckle waist, plus custom Christian Louboutin boots.',
       sourceUrl: 'https://tayswiftstyle.wordpress.com/2018/05/20/reputation-tour-theres-nothing-holding-me-2/',
-      thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p917q0nrgd1r4fk4fo1_1280.jpg?w=1100',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/media/taylor-swift-shawn-mendes-live-2018-u-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           'Worn in Pasadena on May 18, 2018, when Shawn Mendes joined the tour for "There\'s Nothing Holdin\' Me Back": a Jessica Jones snake-pattern bodysuit under a red camo sequined jacket with buckle detailing, styled with custom Louboutin boots.\n\nThe cameo it dressed was one of the North American leg\'s biggest surprise-guest gets. Swift had teased it that afternoon with a rehearsal clip, then opened Mendes\' hit herself — singing the first verse solo before calling him out — at the fourth show of the tour, night one of a two-night Rose Bowl stand that sold 118,084 tickets.',
@@ -591,10 +609,16 @@ export default {
             url: 'https://www.billboard.com/music/pop/taylor-swift-shawn-mendes-theres-nothing-holdin-me-back-reputation-statium-tour-8456817/',
           },
         ],
+        // T-img pass (2026-07-10): swapped the watermarked tayswiftstyle
+        // collage for Billboard's clean single photo of the actual Rose Bowl
+        // duet — shows both Mendes and Swift in the red camo sequined jacket;
+        // verified HTTP 200 + image/jpeg and eyeballed this session.
         photos: [
           {
-            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p917q0nrgd1r4fk4fo1_1280.jpg?w=1100',
-            credit: 'Taylor Swift Style',
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-shawn-mendes-live-2018-u-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Christopher Polk/TAS18/Getty Images',
+            caption: 'Shawn Mendes and Taylor Swift performing "There\'s Nothing Holdin\' Me Back" at the Rose Bowl, May 18, 2018.',
+            kind: 'archival',
           },
         ],
       },
@@ -650,7 +674,7 @@ export default {
         'Paparazzi caught Taylor and Joe Alwyn leaving The Flask, a traditional North London pub, after fish and chips and a pint each — one of only a handful of public sightings during a deliberately private relationship.',
       sourceUrl: 'https://www.wmagazine.com/story/taylor-swift-joe-alwyn-photographed-date-london',
       thumbnailUrl:
-        'https://imgix.bustle.com/wmag/2018/06/01/5b11723f15af2220684cbe78_GettyImages-963107270.jpg?w=414&h=276&fit=crop&crop=faces&dpr=2',
+        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2018/05/swift-lunch/taylor-swift-joe-alwyn-step-out-for-lunch-date-in-london-04.jpg',
       moment: {
         context:
           'Photographed leaving The Flask, a centuries-old pub in North London, on May 30, 2018, mid-way through a break in the reputation Stadium Tour. Swift wore a striped tank top and skirt; Alwyn kept it casual in a white T-shirt and jeans.\n\nThe two spent about 45 minutes inside over fish and chips and pints of London Pride before leaving in a waiting car — one of the rare unstaged sightings the notoriously private couple allowed during this era.',
@@ -663,11 +687,23 @@ export default {
             outlet: 'Yahoo Entertainment',
             url: 'https://www.yahoo.com/entertainment/taylor-swift-steps-mini-skirt-232044419.html',
           },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2018/05/31/taylor-swift-joe-alwyn-step-out-for-lunch-date-in-london/',
+          },
         ],
+        // T-img pass (2026-07-10): the old Bustle/W Mag file art was a Getty
+        // concert still with no pub, food, or Alwyn in frame. Replaced with
+        // an actual paparazzi shot from this outing — both of them heading to
+        // the car after the Flask lunch — sourced from Just Jared's post on
+        // this exact date/event; verified HTTP 200 + image/jpeg and eyeballed
+        // this session.
         photos: [
           {
-            url: 'https://imgix.bustle.com/wmag/2018/06/01/5b11723f15af2220684cbe78_GettyImages-963107270.jpg?w=414&h=276&fit=crop&crop=faces&dpr=2',
-            credit: 'Jo Hale/Getty Images',
+            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2018/05/swift-lunch/taylor-swift-joe-alwyn-step-out-for-lunch-date-in-london-04.jpg',
+            credit: 'Backgrid USA',
+            caption: 'Taylor and Joe Alwyn heading to the car after their fish-and-chips stop at The Flask, May 30, 2018.',
+            kind: 'archival',
           },
         ],
       },
@@ -1055,7 +1091,7 @@ export default {
         'One of the last documented sightings of the reputation stretch: Taylor and Joe Alwyn hiking Franklin Canyon Park in Beverly Hills, caught holding hands by paparazzi.',
       sourceUrl: 'https://www.justjared.com/2019/03/04/taylor-swift-joe-alwyn-hold-hands-while-hiking-in-l-a/',
       thumbnailUrl:
-        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-04.jpg',
+        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-02.jpg',
       moment: {
         context:
           'Photographed holding hands while hiking the Franklin Canyon Park Trail in Beverly Hills on Sunday, March 3, 2019, Taylor wore a yellow crop top, high-waisted denim shorts, and rainbow Nike sneakers, with Joe Alwyn alongside her. It was one of only a handful of documented sightings of the couple during this stretch of the era.\n\nIt also capped the era\'s most visible run for the two: the Golden Globes after-party circuit in January, the BAFTAs in February, and now a Sunday trail hike in workout clothes — the guarded privacy of the reputation years relaxing, by degrees, as the era wound down toward its successor.',
@@ -1065,9 +1101,15 @@ export default {
             url: 'https://www.justjared.com/2019/03/04/taylor-swift-joe-alwyn-hold-hands-while-hiking-in-l-a/',
           },
         ],
+        // T-img pass (2026-07-10): swapped to frame -02 from the same Just
+        // Jared photo set — verified HTTP 200 + image/jpeg and eyeballed this
+        // session: both faces visible, holding hands on the trail, no large
+        // watermark (unlike frame -04, which is faces-hidden-from-behind and
+        // heavily watermarked, and stays reserved for the 2018 Malibu-hike
+        // stand-in reference photo).
         photos: [
           {
-            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-04.jpg',
+            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-02.jpg',
             credit: 'Just Jared',
           },
         ],

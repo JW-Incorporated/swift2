@@ -96,8 +96,7 @@ export default {
       title: '22, a birthday letter to her closest friends',
       snippet: 'Not a love song — a carefree ode to being "happy, free, confused, and lonely" all in the same year, with her girls beside her.',
       sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/22',
-      thumbnailUrl:
-        'https://s.yimg.com/ny/api/res/1.2/T7Mf_lWvn00F0CWqvCwgCA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTcyMDtjZj13ZWJw/https://media.zenfs.com/en/insider_articles_922/eee1fa46fd53738526324ef00531392a',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Taylor_Swift_-_22.png/250px-Taylor_Swift_-_22.png',
       moment: {
         context:
           'Written with Max Martin and Shellback, and — as she told Ryan Seacrest — written "about my friends." She called 22 "my favorite year of my life," and her own description of the age stuck: "You\'re still learning, but you know enough. You still know nothing, but you know that you know nothing."\n\nA hidden message in the liner notes — "Ashley Dianna Claire Selena" — named the friend group behind it, including Dianna Agron and Selena Gomez. Released as Red\'s fourth single the following March, it carried the thesis into the top 20 of the Hot 100.',
@@ -108,10 +107,16 @@ export default {
             url: 'https://www.yahoo.com/entertainment/complete-timeline-taylor-swift-dianna-124601988.html',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the Yahoo/zenfs URL was a
+        // two-panel collage stitching Dianna Agron (Golden Globes carpet)
+        // next to Taylor (ACM Awards carpet) — two unrelated red-carpet
+        // photos, not a "22"-appropriate image. Replaced with the song's
+        // own official single cover art. Verified HTTP 200 + image/png +
+        // subject visually confirmed this session.
         photos: [
           {
-            url: 'https://s.yimg.com/ny/api/res/1.2/T7Mf_lWvn00F0CWqvCwgCA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTcyMDtjZj13ZWJw/https://media.zenfs.com/en/insider_articles_922/eee1fa46fd53738526324ef00531392a',
-            credit: 'WireImage',
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Taylor_Swift_-_22.png/250px-Taylor_Swift_-_22.png',
+            credit: 'Big Machine Records',
           },
         ],
       },
@@ -299,7 +304,8 @@ export default {
         'A cream-and-white chiffon J. Mendel gown with silver beaded straps, paired with a loose, disheveled braid — soft and youthful instead of formal Old Hollywood.',
       sourceUrl:
         'https://www.hollywoodreporter.com/music/music-news/grammys-2013-taylor-swift-wears-j-mendel-gown-heidi-hair-poll-420170/',
-      thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2013/02/taylor_swift_grammys_a_p.jpg?w=2000&h=1126&crop=1',
+      thumbnailUrl:
+        'https://assets3.cbsnewsstatic.com/hub/i/r/2013/02/10/51455457-a645-11e2-a3f0-029118418759/thumbnail/620x1005/cf494e8cba2e12a4982a8d12d080d3f7/161394430.jpg',
       moment: {
         context:
           'The gown\'s silver straps did the job a statement necklace usually would. She paired it with Jimmy Choo heels and Lorraine Schwartz jewelry, and wore her hair in a loose "Heidi braid" instead of a formal updo — a look outlets at the time noted made the gown feel young and modern rather than pageant-y.\n\nThe finishing touch was a sparkly manicure she applied herself moments before the event, and the night ended with hardware: Best Song Written for Visual Media, for "Safe & Sound" from The Hunger Games.',
@@ -309,10 +315,16 @@ export default {
             url: 'https://www.hollywoodreporter.com/music/music-news/grammys-2013-taylor-swift-wears-j-mendel-gown-heidi-hair-poll-420170/',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the Hollywood Reporter asset had
+        // a circular picture-in-picture inset (a close-up of the braid)
+        // baked into the file itself, over the main red-carpet shot.
+        // Replaced with a single un-composited CBS News photo of the same
+        // gown and braid at the 2013 Grammys. Verified HTTP 200 + image/jpeg
+        // + subject visually confirmed this session.
         photos: [
           {
-            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2013/02/taylor_swift_grammys_a_p.jpg?w=2000&h=1126&crop=1',
-            credit: 'Getty Images',
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2013/02/10/51455457-a645-11e2-a3f0-029118418759/thumbnail/620x1005/cf494e8cba2e12a4982a8d12d080d3f7/161394430.jpg',
+            credit: 'CBS News',
           },
         ],
       },
@@ -325,7 +337,7 @@ export default {
       snippet:
         'Sparkling oxfords, Keds, and high-waisted shorts on nearly every red carpet and stage appearance — a 1950s-inflected throughline across the whole era, from the VMAs to the Grammys.',
       sourceUrl: 'https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts',
-      thumbnailUrl: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/96/96/shorts08.jpg?ve=1&tl=1',
+      thumbnailUrl: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1',
       moment: {
         context:
           'Documented instances stack up across the whole album cycle: the 2012 MTV VMAs performance of "We Are Never Ever Getting Back Together," the iHeartRadio Music Festival that September, the MTV European Music Awards in November, both coasts\' Jingle Balls that December — KIIS FM in Los Angeles and Z100 at Madison Square Garden — and white high-waisted shorts at the February 2013 Grammys. The silhouette even followed her off duty, turning up in a retro black-and-white swimsuit while paddleboarding in Westerly, Rhode Island.\n\nFashion director Melissa Liebling-Goldberg told Fox News the retro high-waist look was a deliberate throughline: "Taylor Swift is really bringing back the retro look of a high waist." The appeal, she explained, was practical as much as nostalgic — "the trick to making it flattering is finding the right proportion to your torso" — and versatile enough to work "with everything from retro bikinis to flared skirts to short shorts."',
@@ -335,9 +347,15 @@ export default {
             url: 'https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the original URL requested Fox's
+        // 96x96 thumbnail rendition (3 KB, unusable). Swapped to the same
+        // CDN asset's 1200x1200 rendition — same photo, same host, just a
+        // usable size. Verified HTTP 200 + image/jpeg + subject visually
+        // confirmed this session (Swift on stage in striped top and
+        // high-waisted black shorts, arm raised over the crowd).
         photos: [
           {
-            url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/96/96/shorts08.jpg?ve=1&tl=1',
+            url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1',
             credit: 'Fox News',
           },
         ],
@@ -430,7 +448,7 @@ export default {
       snippet:
         'A long-sleeved blue Zuhair Murad mini dress with sheer side panels — hair pulled into a ponytail to show off the cutouts, makeup built around a dramatic cat eye and an unexpected bright pink lip instead of her usual red.',
       sourceUrl: 'https://hollywoodlife.com/2013/05/19/taylor-swift-billboard-awards-dress-2013-pics/',
-      thumbnailUrl: 'https://hollywoodlife.com/wp-content/uploads/2013/05/taylor-swift-billboards-fashion-front-back-ftr.jpg?resize=384%2C216',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013420/rs_634x1024-130520071003-634.gomez.swift.ls.52013_copy.jpg',
       moment: {
         context:
           'Worn to the May 19, 2013 Billboard Music Awards at the MGM Grand Garden Arena, the vibrant blue long-sleeve mini by Zuhair Murad had sheer inserts along the sides; she pulled her hair into a ponytail specifically to keep the cutout detail visible, then paired it with strappy metallic Jimmy Choo pumps and Ofira jewelry. The makeup swapped her signature red lip for a bright pink one under a dramatic cat eye — a rare departure from the era\'s usual red-lip formula.\n\nThe dress got plenty of camera time: Swift was the night\'s biggest winner, taking home eight trophies including Top Artist, Top Female Artist, and Top Billboard 200 Album for Red — a haul that made the 2013 Billboard Music Awards one of the single most decorated evenings of the entire era.',
@@ -441,10 +459,18 @@ export default {
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/2013_Billboard_Music_Awards' },
         ],
+        // T16 image-fix pass (2026-07-10): the HollywoodLife URL was a
+        // two-panel "front/back" feature-graphic thumbnail resized to
+        // 384x216. Replaced with a single E! News frame of Swift in the
+        // same blue Zuhair Murad dress at the event (pictured with Selena
+        // Gomez). Verified HTTP 200 + image/jpeg + subject visually
+        // confirmed this session.
         photos: [
           {
-            url: 'https://hollywoodlife.com/wp-content/uploads/2013/05/taylor-swift-billboards-fashion-front-back-ftr.jpg?resize=384%2C216',
-            credit: 'Getty Images',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013420/rs_634x1024-130520071003-634.gomez.swift.ls.52013_copy.jpg',
+            credit: 'E! News',
+            caption:
+              'Swift in the blue Zuhair Murad mini at the 2013 Billboard Music Awards, pictured with Selena Gomez.',
           },
         ],
       },
@@ -457,7 +483,7 @@ export default {
       snippet:
         'A plunging, crystal-embellished black Hervé Léger by Max Azria gown at the MTV VMAs, styled with retro pin curls, a smokey eye, and a crimson-coated lip and nails for a full vintage-glam look the night she won Best Female Video.',
       sourceUrl: 'https://www.redcarpet-fashionawards.com/2013/08/26/taylor-swift-in-herve-leger-by-max-azria-2013-mtv-video-music-awards-vmas/',
-      thumbnailUrl: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2013/08/Herve-Leger-Gown.jpg',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013725/rs_634x1024-130825184000-634.tay.cm.82513.jpg',
       moment: {
         context:
           'At the Aug. 25, 2013 MTV VMAs in Brooklyn, where she won the Moon Man for Best Female Video, the plunging, beaded black Hervé Léger gown was paired with statement earrings instead of a necklace so nothing competed with the neckline.\n\nHair and makeup went full "femme-fatale": tight retro pin curls, a smokey eye, and a crimson-coated lip and matching nails — the red-lip signature carried through to the nail polish. Fashion press read the whole package as "major temptress mode" — a vampy, vintage-glam detour from her usual awards-show sweetness, and one of the clearest signals that the era\'s styling had ambitions beyond country-ingenue.',
@@ -467,10 +493,16 @@ export default {
             url: 'https://www.redcarpet-fashionawards.com/2013/08/26/taylor-swift-in-herve-leger-by-max-azria-2013-mtv-video-music-awards-vmas/',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the redcarpet-fashionawards URL
+        // was actually a Herve Leger lookbook product shot of an anonymous
+        // model in a plain black dress — not Taylor Swift, not the VMAs.
+        // Replaced with an E! News red-carpet photo of Swift herself in the
+        // crystal-embellished gown with pin curls at the 2013 VMAs. Verified
+        // HTTP 200 + image/jpeg + subject visually confirmed this session.
         photos: [
           {
-            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2013/08/Herve-Leger-Gown.jpg',
-            credit: 'Getty Images',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013725/rs_634x1024-130825184000-634.tay.cm.82513.jpg',
+            credit: 'E! News',
           },
         ],
       },
@@ -514,7 +546,8 @@ export default {
       snippet:
         'A gold lamé, short-sleeve Gucci Première gown with a crystal mesh overlay and crystal gemstone detail at the neckline, arms, and waist — a rare designer-runway red carpet moment mid-Red-era.',
       sourceUrl: 'https://www.redcarpet-fashionawards.com/2014/01/27/taylor-swift-gucci-premiere-2014-grammy-awards/',
-      thumbnailUrl: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2019/12/taylor.jpg',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/2014026/rs_634x1024-140126164619-634-taylor-swift-grammy.ls.12614_copy_2.jpg',
       moment: {
         context:
           'Worn to the Jan. 26, 2014 Grammy Awards at the Staples Center, the fitted Gucci Première gown was built from gold lamé under a crystal mesh overlay, with crystal gemstone detailing at the neckline, arms, and waist. On the red carpet Swift herself compared the armored, glittering effect to "chainmail," and she styled it with a side-parted ponytail and a pink lip to soften all that sparkle.\n\nShe paired it with Jimmy Choo heels and clutch and Lorraine Schwartz jewelry — one of the more directly high-fashion, runway-driven looks of the era, ahead of the pop pivot into 1989. Fashion critics filed it under glamorous-sparkle comfort zone — "expected" rather than experimental, but "still lovely" — on a night she attended as a four-time nominee.',
@@ -524,10 +557,16 @@ export default {
             url: 'https://www.redcarpet-fashionawards.com/2014/01/27/taylor-swift-gucci-premiere-2014-grammy-awards/',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the redcarpet-fashionawards URL
+        // was a side-by-side collage (a lookbook comparison panel pasted
+        // next to the real red-carpet shot) with an "RCFA" watermark.
+        // Replaced with a single, un-composited E! News photo of Swift
+        // alone on the 2014 Grammys red carpet in the gown. Verified HTTP
+        // 200 + image/jpeg + subject visually confirmed this session.
         photos: [
           {
-            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2019/12/taylor.jpg',
-            credit: 'Getty Images',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2014026/rs_634x1024-140126164619-634-taylor-swift-grammy.ls.12614_copy_2.jpg',
+            credit: 'E! News',
           },
         ],
       },
@@ -540,7 +579,8 @@ export default {
       snippet:
         "A powder-blue, alphabet-printed Mary Katrantzou romper at the 2014 VMAs — paired with a blunt bob and a bolder, more pop-leaning silhouette that fans and critics read as the first visible sign of the shift toward 1989.",
       sourceUrl: 'https://www.redcarpet-fashionawards.com/2014/08/25/taylor-swift-mary-katrantzou-2014-mtv-video-music-awards-vma/',
-      thumbnailUrl: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2014/08/TaylorSwiftInMaryKatrantzou2014VMA.jpg',
+      thumbnailUrl:
+        'https://akns-images.eonline.com/eol_images/Entire_Site/2014724/rs_634x1024-140824172545-634-taylor-swift-mtv-vma.ls.82414.jpg',
       moment: {
         context:
           'At the Aug. 24, 2014 MTV VMAs at The Forum in Inglewood, Swift wore a long-sleeve, high-cut powder-blue romper from Mary Katrantzou\'s Resort 2015 collection, printed with an abstract alphabet motif, paired with maroon peep-toe Elie Saab booties and Lorraine Schwartz jewelry.\n\nStyled with the blunt bob she debuted earlier that year, the polarizing, fashion-forward look came six days after the Aug. 18, 2014 announcement of 1989 — the same night she performed "Shake It Off" — and about two months before the album\'s Oct. 27 release, an early red-carpet statement of the coming pop era.',
@@ -550,10 +590,16 @@ export default {
             url: 'https://www.redcarpet-fashionawards.com/2014/08/25/taylor-swift-mary-katrantzou-2014-mtv-video-music-awards-vma/',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the redcarpet-fashionawards URL
+        // was a side-by-side comparison graphic — an anonymous lookbook
+        // model on the left, Taylor on the right — with a text overlay and
+        // an "RCFA" watermark. Replaced with a single E! News photo of
+        // Swift alone on the 2014 VMAs red carpet in the romper. Verified
+        // HTTP 200 + image/jpeg + subject visually confirmed this session.
         photos: [
           {
-            url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2014/08/TaylorSwiftInMaryKatrantzou2014VMA.jpg',
-            credit: 'Getty Images',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2014724/rs_634x1024-140824172545-634-taylor-swift-mtv-vma.ls.82414.jpg',
+            credit: 'E! News',
           },
         ],
       },
@@ -568,8 +614,7 @@ export default {
       snippet:
         'Photographed walking through Central Park with Harry Styles on December 2, 2012 — the first public sighting of the two together, joined by his stylist Lou Teasdale.',
       sourceUrl: 'http://www.justjared.com/2012/12/02/taylor-swift-harry-styles-central-park-stroll/',
-      thumbnailUrl:
-        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2012/12/swift-styles/taylor-swift-harry-styles-central-park-stroll-03.jpg',
+      thumbnailUrl: 'https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800',
       moment: {
         context:
           "Photographers caught the pair on a Sunday walk through Central Park in New York City, weeks after they were first linked — a route that took them through the Central Park Zoo, with fans posting their own sightings in real time. They weren't alone: Styles' stylist Lou Teasdale came along with her fiancé Tom and their baby daughter Lux in a stroller, making the whole outing look less like a photo op and more like a family Sunday.\n\nAn eyewitness told E! News, \"Harry and Taylor were walking next to each other. They seemed happy to be together, talking and smiling.\" The outing became the first widely circulated set of photos confirming the relationship — following earlier sightings of Styles at her X Factor rehearsals — and kicked off two months of tabloid coverage that ran through their British Virgin Islands breakup in January.",
@@ -583,10 +628,19 @@ export default {
             url: 'https://www.eonline.com/news/367789/taylor-swift-and-one-direction-s-harry-styles-spotted-together-at-central-park-zoo',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the Just Jared frame had a
+        // "JUST JARED" watermark and a neon-yellow border. Replaced with a
+        // real Getty Images (GC Images) photo of the same December 2012
+        // Central Park walk, hosted on Bustle's image CDN — the identical
+        // photo already used as an archival reference on the BVI breakup
+        // moment elsewhere in this file. Verified HTTP 200 + image/jpeg +
+        // subject visually confirmed this session (Swift's burgundy coat and
+        // yellow scarf, Styles' olive bomber and black beanie, fall foliage).
         photos: [
           {
-            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2012/12/swift-styles/taylor-swift-harry-styles-central-park-stroll-03.jpg',
-            credit: 'Just Jared',
+            url: 'https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800',
+            credit: 'GC Images / Getty Images, via Bustle',
+            kind: 'primary',
           },
         ],
       },
@@ -599,7 +653,7 @@ export default {
       snippet:
         'Spotted with Harry Styles in Bowness-on-Windermere on December 10, 2012 — sightseeing, feeding white doves in the town square, and shopping at the Beatrix Potter store and a local jewelry shop.',
       sourceUrl: 'https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/',
-      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/9823df43ca73-harry-styles-z.jpg',
+      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/ea807ef4c932-bowness-z.jpg',
       moment: {
         context:
           'The pair spent about five hours in the Lake District village of Bowness on December 10, 2012 — ahead of Swift\'s 23rd birthday on December 13 — and days after their relationship went public, with Styles reportedly bringing his parents along for the trip. The itinerary was pure tourist: feeding the white doves in the town square, browsing Beatrix Potter World, and wandering in and out of local shops.\n\nPandora jewelry shop manager Claire Dibbs, who met them when they wandered in, recalled: "They were just walking past and one of my colleagues saw them. I was hyperventilating." She said Swift "introduced herself, she was really lovely" and told her she loved the area. The visit came days after an earlier stop in Sheffield that same week.',
@@ -609,10 +663,22 @@ export default {
             url: 'https://www.hellomagazine.com/celebrities/2012121310465/taylor-swift-harry-lake-district/',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the prior URL was actually a
+        // photo from the earlier December 2, 2012 Central Park stroll (same
+        // outfits, urban NYC park) mislabeled as the Lake District trip — no
+        // village, lake, doves, or shops in frame. No paparazzi photo of the
+        // couple in Bowness could be verified this session, so this ships a
+        // real HELLO! photo of Bowness-on-Windermere itself (the visit's
+        // actual location, from HELLO!'s own coverage of the trip) as kind
+        // 'reference', with a caption that says outright it does not show
+        // Swift or Styles. Verified HTTP 200 + image/jpeg this session.
         photos: [
           {
-            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/9823df43ca73-harry-styles-z.jpg',
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/ea807ef4c932-bowness-z.jpg',
             credit: 'HELLO!',
+            caption:
+              'Bowness-on-Windermere, the Lake District village where the visit took place — not a photo of Swift or Styles, who could not be verified in any available frame from the trip.',
+            kind: 'reference',
           },
         ],
       },
@@ -625,8 +691,7 @@ export default {
       snippet:
         "Days after the Times Square kiss, fans spotted Swift and Styles having dinner and drinks at the beachfront restaurant CocoMaya on Virgin Gorda on January 3, 2013 — a trip Us Weekly reported was a surprise for her.",
       sourceUrl: 'https://hollywoodlife.com/2013/01/04/harry-styles-taylor-swift-virgin-islands-vacation-gorda/',
-      thumbnailUrl:
-        'https://hollywoodlife.com/wp-content/uploads/2013/01/taylor-swift-harry-styles-virgin-gorda-ftr1.jpg?resize=384%2C216',
+      thumbnailUrl: 'https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800',
       moment: {
         context:
           "The pair were photographed at CocoMaya, a beach restaurant on Virgin Gorda in the British Virgin Islands, the day after arriving on the island. Fans at the restaurant posted photos of the two at dinner and drinks — the kind of low-key sighting that had defined the whole two-month relationship, from Central Park to the Lake District.\n\nThe vacation ended abruptly: reports at the time described a blowout fight, and Swift flew home alone on January 4. E! News reported she was photographed that day leaving U.S. Customs in St. Johns with her bodyguards — five bags in tow — boarding a boat by herself, with a source saying she \"looked a bit sad and not very happy.\" One frame from that departure, sitting alone on the back of the boat in a blue dress, became the breakup's defining image — one she'd reference a decade later in \"Is It Over Now?\"",
@@ -640,10 +705,22 @@ export default {
             url: 'https://www.eonline.com/news/376598/taylor-swift-spotted-on-boat-without-harry-styles-amid-breakup-reports',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the HollywoodLife URL was a
+        // two-panel vertical collage of blurry fan snapshots (Styles with
+        // fans on top, Swift with fans on bottom) — the two never appear
+        // together in it, and no clean single photo of the CocoMaya dinner
+        // itself could be verified this session. Shipping the same real
+        // Getty (GC Images) photo of the couple from weeks earlier in New
+        // York used elsewhere in this file, as kind 'reference', with a
+        // caption disclosing it predates the Virgin Gorda trip. Verified
+        // HTTP 200 + image/jpeg this session.
         photos: [
           {
-            url: 'https://hollywoodlife.com/wp-content/uploads/2013/01/taylor-swift-harry-styles-virgin-gorda-ftr1.jpg?resize=384%2C216',
-            credit: 'Twitter',
+            url: 'https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800',
+            credit: 'GC Images / Getty Images, via Bustle',
+            caption:
+              'Swift and Styles in New York in December 2012, weeks before this trip — no verified photo of the CocoMaya dinner itself exists beyond a low-quality fan-photo collage.',
+            kind: 'reference',
           },
         ],
       },
@@ -656,8 +733,7 @@ export default {
       snippet:
         "Spotted leaving a London pub with fellow musician Tom Odell on February 21, 2013 — the night after both attended the BRIT Awards, where Odell won Critics' Choice — before the pair headed to the Groucho Club together.",
       sourceUrl: 'https://www.eonline.com/news/390649/taylor-swift-goes-out-with-british-singer-tom-odell-in-london',
-      thumbnailUrl:
-        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/02/swift-odell/taylor-swift-london-night-out-with-tom-odell-01.jpg',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013121/634.SwiftOdell.ms.022113_copy.jpg',
       moment: {
         context:
           "Photographers caught Swift leaving a pub with Odell in London the Thursday after the BRIT Awards, where Odell had won the Critics' Choice Award. The pair then went on to the Groucho Club, a members' club in Soho. Swift had been in London earlier that day leaving a radio station appearance, and E! noted the two had been spotted \"getting flirty\" backstage at the BRITs the night before.\n\nThe awards show itself had been a full Swift production: she performed \"We Are Never Ever Getting Back Together\" in an old-fashioned white wedding dress, removed mid-song to reveal black hot pants and a lacy halter top, lost Best International Female Solo Artist to Lana Del Rey, then danced through the after-party alongside Frank Ocean, Carey Mulligan, Marcus Mumford, and Ellie Goulding. The Odell outing fueled brief dating speculation, though nothing came of it publicly beyond the one night out.",
@@ -671,10 +747,16 @@ export default {
             url: 'https://www.justjared.com/photo-gallery/2816649/taylor-swift-london-night-out-with-tom-odell-01/',
           },
         ],
+        // T16 image-fix pass (2026-07-10): the Just Jared frame was
+        // watermarked and, worse, didn't actually show Odell in the shot —
+        // just Swift and a security escort. Replaced with an E! News frame
+        // from the same night showing both Swift and Odell leaving the pub
+        // doorway together, unwatermarked. Verified HTTP 200 + image/jpeg +
+        // subject visually confirmed this session.
         photos: [
           {
-            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/02/swift-odell/taylor-swift-london-night-out-with-tom-odell-01.jpg',
-            credit: 'Just Jared',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013121/634.SwiftOdell.ms.022113_copy.jpg',
+            credit: 'E! News',
           },
         ],
       },
@@ -846,8 +928,7 @@ export default {
       title: "A New Year's Eve kiss with Harry Styles in Times Square",
       snippet: 'Caught on camera by a reveler as the ball dropped — the clearest public confirmation of a relationship that had started weeks earlier.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/',
-      thumbnailUrl:
-        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/stylus/2673339-taylor-swift-nye-2013-617-409.jpg',
       moment: {
         context:
           'Swift took the Times Square stage at 11:39 p.m. on December 31, 2012, performing "I Knew You Were Trouble" and "We Are Never Ever Getting Back Together" for Dick Clark\'s New Year\'s Rockin\' Eve, then was seen in Styles\' arms as the clock struck midnight.\n\nStyles had started the evening at Jay-Z and Coldplay\'s Barclays Center show in Brooklyn before leaving to catch her set. The kiss was caught by fans in the crowd, and by January 1 the photos were all over the gossip blogs.',
@@ -858,10 +939,22 @@ export default {
           },
           { outlet: 'Entertainment Tonight', url: 'https://www.etonline.com/news/128673_Taylor_Swift_Harry_Styles_New_Years_Eve_Kiss' },
         ],
+        // T16 image-fix pass (2026-07-10): every available frame of the
+        // actual kiss (Just Jared's set, an E! News crop) is heavily
+        // motion-blurred and/or carries a watermark or picture-in-picture
+        // inset — no clean, clearly-identifiable frame of the kiss itself
+        // could be verified this session. Shipping instead a sharp,
+        // un-watermarked Billboard photo of Swift performing in Times
+        // Square earlier that same New Year's Eve, as kind 'reference',
+        // with a caption that says outright it is not the kiss photo.
+        // Verified HTTP 200 + image/jpeg this session.
         photos: [
           {
-            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2013/01/swift-kiss/taylor-swift-harry-styles-kiss-at-midnight-on-new-years-eve-pics-03.jpg',
-            credit: 'Just Jared',
+            url: 'https://www.billboard.com/wp-content/uploads/stylus/2673339-taylor-swift-nye-2013-617-409.jpg',
+            credit: 'Billboard',
+            caption:
+              'Swift performing in Times Square earlier on New Year\'s Eve 2012 — not the midnight kiss photo itself, which exists only as blurred/watermarked paparazzi frames.',
+            kind: 'reference',
           },
         ],
       },
