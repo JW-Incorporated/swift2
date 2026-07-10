@@ -111,6 +111,19 @@ async function prepAgents() {
 // .findings/agent-<name>.json. A manifest lists every batch for the orchestrator.
 async function prepBatches(opts) {
   const items = await loadCorpus();
+  // Factual fleet can be focused; the IMAGE fleet always covers the full corpus.
+  // --claims-only: restrict FACTUAL to items the deterministic claim-risk router
+  // flagged (superlatives/records/dates) — reviewing claim-free items is
+  // low-yield, so this focuses agent spend where facts live. Images are unaffected.
+  let factualItems = items;
+  if (opts.claimsOnly) {
+    const detPath = join(FINDINGS_DIR, 'deterministic.json');
+    if (!existsSync(detPath)) { log('--claims-only needs deterministic.json; run `scan` first.'); return; }
+    const det = JSON.parse(await readFile(detPath, 'utf8'));
+    const claimKeys = new Set(det.filter((f) => f.checker === 'fact.claim-risk').map((f) => f.itemRef.key));
+    factualItems = items.filter((it) => claimKeys.has(it.key));
+    log(`--claims-only: ${factualItems.length} claim-bearing items for factual (images still cover all).`);
+  }
   const dir = join(FINDINGS_DIR, 'agent-input');
   await mkdir(join(dir, 'factual'), { recursive: true });
   await mkdir(join(dir, 'images'), { recursive: true });
@@ -123,7 +136,7 @@ async function prepBatches(opts) {
   // Factual batches — grouped by era (keeps a batch topically coherent), large
   // eras split into chunks. Full texts + sources travel with each record.
   const byEra = new Map();
-  for (const it of items) {
+  for (const it of factualItems) {
     if (!byEra.has(it.era)) byEra.set(it.era, []);
     byEra.get(it.era).push(it);
   }
@@ -157,7 +170,7 @@ async function prepBatches(opts) {
   }
 
   await writeFile(join(dir, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
-  log(`prep-batches → ${manifest.factual.length} factual batches (${items.length} items), ${manifest.images.length} image batches (${images.length} images)`);
+  log(`prep-batches → ${manifest.factual.length} factual batches (${factualItems.length} items), ${manifest.images.length} image batches (${images.length} images)`);
   log(`  manifest → ${join(CONFIG.output.findingsDir, 'agent-input', 'manifest.json')}`);
 }
 
@@ -220,6 +233,7 @@ async function issues(opts) {
 const [cmd, ...rest] = process.argv.slice(2);
 const opts = {
   noImages: rest.includes('--no-images'),
+  claimsOnly: rest.includes('--claims-only'),
   create: rest.includes('--create'),
   limit: rest.includes('--limit') ? Number(rest[rest.indexOf('--limit') + 1]) : Infinity,
 };
