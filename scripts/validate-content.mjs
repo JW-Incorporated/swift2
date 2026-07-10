@@ -73,6 +73,21 @@ const SOURCE_TYPES = new Set([
 const MEDIA_KINDS = new Set(['oembed', 'owned', 'hotlink_legacy']);
 const MEDIA_RIGHTS = new Set(['platform_tos', 'licensed', 'hotlink_legacy']);
 
+// Keep in sync with LensId (apps/web/lib/longlive/types.ts) and
+// VALID_THREAD_IDS (sync-longlive-content.mjs). An unknown value here is
+// always an authoring typo — sync-longlive-content.mjs silently drops
+// unknown threadIds so a bad build doesn't ship broken JS, but that means a
+// typo would otherwise fail closed (item just doesn't join the thread) with
+// no signal. Catching it here as a hard error is what gives that signal.
+const THREAD_IDS = new Set([
+  'love-story',
+  'fashion',
+  'taylors-version',
+  'easter-eggs',
+  'hidden-clues',
+  'the-proposal',
+]);
+
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 const EXCERPT_CAP = 300; // audit §5 — hard cap on verbatim source excerpts
@@ -125,6 +140,14 @@ for (const file of readdirSync(contentDir).filter((f) => f.endsWith('.mjs') && !
     if ((it.moment?.context ?? '').length > 2000) err(`moment.context ${it.moment.context.length} > 2000 (DB CHECK)`);
 
     if (!(it.sourceUrl || it.moment?.sources?.length > 0)) warn('no sourceUrl and no moment.sources (link-first model)');
+
+    if (it.threadIds != null) {
+      if (!Array.isArray(it.threadIds)) err('threadIds must be an array');
+      else
+        for (const t of it.threadIds) {
+          if (!THREAD_IDS.has(t)) err(`threadIds contains unknown thread "${t}" — not in ${[...THREAD_IDS].join('|')}`);
+        }
+    }
 
     const span = eraSpan.get(eraSlug);
     if (span && Number.isInteger(it.year) && Number.isInteger(it.month)) {
