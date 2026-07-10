@@ -30,6 +30,8 @@
     "check:budget:seed": "tsx scripts/check-budget-from-seed.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
+    "karen": "node scripts/content-engine/run.mjs all",
+    "karen:file": "node scripts/content-engine/run.mjs all --create",
     "cie": "node scripts/content-engine/run.mjs all",
     "cie:file": "node scripts/content-engine/run.mjs all --create"
   },

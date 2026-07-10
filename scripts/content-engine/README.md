@@ -42,14 +42,20 @@ as the near-term mitigation and files an enrollment ticket for Microsoft
 **PhotoDNA Cloud** + NCMEC reporting. Nudity/NSFW can later be handled locally by
 **NudeNet** (self-hosted, no API) — a checker seam exists for it.
 
+> **Driving a full run as the Claude Code agent?** Follow
+> [`RUNBOOK.md`](./RUNBOOK.md) — the operator playbook for spinning up the whole
+> engine (deterministic layer + the agent-review fleet) from a cold session.
+
 ## Run it — one command
 
 ```bash
-npm run cie            # full pipeline; previews the issues it WOULD file (dry-run)
-npm run cie:file       # …same, but actually files/updates the GitHub issues
+npm run karen          # full pipeline; previews the issues it WOULD file (dry-run)
+npm run karen:file     # …same, but actually files/updates the GitHub issues
 ```
 
-(equivalently `node scripts/content-engine/run.mjs all [--create]`.)
+The command is **`karen`** — she reviews the content and files complaints, but
+never touches anything herself. (`npm run cie` is a synonym; equivalently
+`node scripts/content-engine/run.mjs karen [--create]`.)
 
 That single command runs the whole **deterministic** layer end-to-end — scan →
 prepare agent batches → ingest → write the run report → file issues — and then

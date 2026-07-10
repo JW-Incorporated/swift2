@@ -271,7 +271,7 @@ const opts = {
   create: rest.includes('--create'),
   limit: rest.includes('--limit') ? Number(rest[rest.indexOf('--limit') + 1]) : Infinity,
 };
-const cmds = { all, scan, 'prep-agents': prepAgents, 'prep-batches': prepBatches, ingest, report, issues };
+const cmds = { all, karen: all, scan, 'prep-agents': prepAgents, 'prep-batches': prepBatches, ingest, report, issues };
 (cmds[cmd] ?? (async () => {
   log('Content Integrity Engine — read-only content checker → GitHub issues.\n');
   log('One command (recommended):');
