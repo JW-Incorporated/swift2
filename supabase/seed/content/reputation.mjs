@@ -1413,7 +1413,7 @@ export default {
       year: 2018,
       month: 5,
       day: 8,
-      category: 'relationship',
+      category: 'sighting',
       title: 'Katy Perry sends a literal olive branch on opening night',
       snippet:
         'Waiting in Taylor\'s dressing room before the May 8, 2018 tour kickoff: an actual olive branch and a handwritten note from Katy Perry beginning "Hello old friend" — the public end of pop\'s longest-running feud.',

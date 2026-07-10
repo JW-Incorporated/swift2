@@ -1544,7 +1544,7 @@ export default {
       year: 2013,
       month: 11,
       day: 13,
-      category: 'relationship',
+      category: 'sighting',
       title: 'Meets Karlie Kloss at the Victoria\'s Secret Fashion Show',
       snippet:
         'Nearly two years after telling Vogue "I love Karlie Kloss. I want to bake cookies with her!" — and Kloss tweeting back "Your kitchen or mine?" — the two finally met at the November 2013 VS Fashion Show, where Taylor performed and Karlie walked.',
