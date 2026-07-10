@@ -22,42 +22,62 @@ conversation's context or v0 access. Each links back to this doc.
 
 ## ⚠️ PENDING CODEX REVIEW — do not merge until this section is empty
 
-Codex hit its usage limit mid-session on 2026-07-10 (retry suggested ~10:39
-AM). Joey approved continuing to build with careful self-review in the
+Codex hit its usage limit twice on 2026-07-10: first ~10:39 AM (cleared,
+resumed), then again after a burst of ~10 review jobs, this time until **3:41
+PM**. Joey approved continuing to build with careful self-review in the
 meantime rather than blocking, on the explicit condition that this gets
 tracked so nothing merges unreviewed. **Whoever picks this up: run
 `/codex:adversarial-review` (or `/codex:review`) on each branch below before
 merging, fix any findings, then remove it from this list.**
 
+All three branches below went through **multiple real review rounds** before
+the second quota wall hit — this was not a single self-review, it was several
+Codex-verified fix cycles. Read each branch's commit log for the exact
+findings/fixes; summarized here so a fresh session doesn't have to re-derive
+it from scratch.
+
 - [ ] `content/thread-taylors-version` (worktree `../Swift2-thread-tv`) — PR
-  #332 (draft): https://github.com/JW-Incorporated/swift2/pull/332. **Now
-  covers Taylor's Version, The Decode, Love Story, AND The Proposal**
-  (bundled onto one branch since Codex went down mid-session — four separate
-  commits, still individually reviewable). Zero Codex review so far on any
-  of the four. Self-reviewed only — see the PR description for what was
-  caught in each (a vaultTracks data bug, a wrong Spotify ID, a decode.ts
-  era-id mismatch, a Love Story background/backgroundImage style conflict;
-  Proposal had no code bug — a suspected Getty hotlink-protection issue
-  turned out to be a one-off dev-server image load stall, confirmed by
-  reloading and re-checking all 7 beats). All four manually verified in a
-  running dev server (desktop) — mobile viewport not yet spot-checked on
-  any of them.
+  #332 (draft): https://github.com/JW-Incorporated/swift2/pull/332. Covers
+  Taylor's Version, The Decode, Love Story, AND The Proposal. **4 Codex review
+  rounds completed, fixes applied after each**: (1) self-caught issues before
+  first review (vaultTracks bug, wrong Spotify ID, decode.ts era-id mismatch,
+  Love Story style conflict); (2) fabricated 1989 TV tour-location claim
+  (Japan/New Zealand — the tour never had a NZ leg), a wedding-beat image
+  wrongly marked `kind: 'primary'` when it's a stand-in, an accidentally-
+  committed dev-mode `next-env.d.ts`; (3) 3 more fabricated RERECORDS claims
+  (Braun/Cadillac ad, wrong Fearless TV announcement date, two wrong chart-
+  record claims); (4) Calvin Harris note contradicting the dataset's own Joe
+  Alwyn entry, a verbatim-quote policy violation in BuybackBeat.tsx. **A 5th
+  confirmation pass was launched and cut off mid-run by the 3:41 PM quota
+  wall — status unknown, re-run this one first.** Mobile viewport still not
+  spot-checked (browser-resize tool limitation this session).
 - [ ] `content/thread-runway` (worktree `../Swift2-thread-runway`) — PR
   #425 (draft): https://github.com/JW-Incorporated/swift2/pull/425. All 12
-  `RUNWAY_LOOKS` entries now carry real credited photos instead of
-  placeholders. Zero Codex review. Self-reviewed and desktop-verified in a
-  running dev server (all 12 eras' feature + gallery photos, re-theming,
-  scrubber sync) — mobile not spot-checked (browser-resize tool didn't
-  change the rendered viewport this session). Built off `main`, not
-  stacked on `content/thread-taylors-version` — expect a small merge
-  conflict in `ThreadsMode.tsx`'s import list/JSX when both land.
-- [ ] `content/day-level-dates` (worktree `../Swift2-datebackfill`) — DID get
-  a full adversarial review + fixes, and a separate date fact-check pass +
-  fixes (both real, both completed before the quota hit — see the two
-  commits with "Codex" in their messages). Only the *final confirmation*
-  review after those fixes got stuck for 43 minutes on the quota wall and
-  was canceled. Needs one more pass to confirm the fixes actually landed
-  clean, not a from-scratch review.
+  `RUNWAY_LOOKS` entries carry real credited photos. **1 Codex review round
+  completed, fixes applied**: a Debut-caption date error (said "days before"
+  the album released when the CMA red carpet was actually 13 days after —
+  fixed to "two weeks after"), and missing test coverage for the new photo
+  invariants (now added: 30 total, 2-3/era, real URLs, credits/captions,
+  primary kind). **Not yet re-confirmed** — quota ran out before a second
+  pass could launch. Mobile not spot-checked. Built off `main`, not stacked
+  on `content/thread-taylors-version` — expect a small merge conflict in
+  `ThreadsMode.tsx` when both land.
+- [ ] `content/day-level-dates` (worktree `../Swift2-datebackfill`) — no PR
+  yet. **5 Codex confirmation rounds completed, real fixes applied every
+  round** — this branch surfaced a recurring bug class (an item's own
+  sourced text states an explicit chart-cover date, e.g. "the Hot 100 dated
+  Oct. 18, 2025," but the item's year/month/day fields used a different
+  date — usually an earlier report/announcement date instead of the actual
+  chart date). Found and fixed **9 total instances** of this pattern across
+  lover.mjs, the-life-of-a-showgirl.mjs (+ its content.ts curated duplicate),
+  folklore.mjs, 1989.mjs, and tortured-poets.mjs (3 instances). A one-off
+  scanner script was written mid-session to catch this pattern corpus-wide
+  (not committed — see the commit messages for its logic if useful to
+  recreate). **A 6th confirmation pass ("do a truly exhaustive final sweep,
+  this needs to be the last one") was about to launch when the 3:41 PM quota
+  wall hit — not yet run.** Given the recurrence rate, do not assume round 5
+  was the last real finding; budget for at least one more round. Still needs
+  a PR opened once clean.
 
 ## Why this exists
 
@@ -226,6 +246,48 @@ launch confirmation). Fix: `cd` into the actual worktree directory *before*
 invoking `node codex-companion.mjs ...`, so its own `workspaceRoot` resolves
 there. Always verify a job's `workspaceRoot` in its status JSON matches the
 directory you actually wanted it to write to.
+
+## Wyatt's parallel track: the Content Integrity Engine ("Karen")
+
+Not part of this initiative directly, but discovered while assessing his
+progress on 2026-07-10 — noting here since it affects the same content files
+this initiative touches, and has a real gap worth knowing about.
+
+Wyatt (via a separate, more-capacity Claude Code session, Opus-driven) built
+a read-only content-scanning tool at `scripts/content-engine/` (branch
+`fix/karen-tickets`, aliased `npm run karen`) that reads the whole
+`supabase/seed/**` corpus, reasons about factual/safety/image-quality issues
+via a deterministic layer + an LLM agent-review fleet, and files GitHub
+issues (`cie` label family: `cie:P0`-`cie:P3`, `cie:fact`, `cie:image`).
+Full operator playbook: `scripts/content-engine/RUNBOOK.md` (as of the
+commit that added it — see below).
+
+**Status as of 2026-07-10 ~11 AM:** ~284 `cie`-labeled issues filed from a
+full-corpus run. Fix-wave commits on `fix/karen-tickets` claim ~274 tickets'
+worth of fixes applied (171 factual across 3 waves, 103 of 119 attempted
+image fixes across 3 waves + a retry). Only **5 of ~284** `cie` issues are
+actually closed on GitHub, though — this is very likely just bookkeeping
+debt, not broken automation: the RUNBOOK's own "Finalize" step (step 5) only
+generates a committed report, it never closes tickets. If Wyatt wants the
+issue tracker to reflect reality, closing fixed tickets needs to be a
+deliberate pass (matching commit ticket-number lists like `a2aafa8`'s
+against `gh issue close`), not something to expect for free.
+
+**Bigger flag — likely accidental:** the entire `scripts/content-engine/`
+tool directory (17 files, the tool itself) was deleted in the very same
+commit that applied the first wave of factual fixes (`a2aafa8` on
+`fix/karen-tickets`) and has stayed deleted through every commit since,
+including the branch tip. The RUNBOOK (written in an earlier commit,
+`c306d03`) explicitly says the engine "lives at `scripts/content-engine/`
+... until merged" and "Do NOT merge the engine PR without explicit
+approval" — nothing in that plan calls for deleting it mid-fix-application.
+No commit message on this branch mentions removing it on purpose. **If
+Wyatt tries to re-run `scan`/`ingest`/`issues --create` (e.g. to verify the
+fixes, or to finally close out tickets) on the current tip of
+`fix/karen-tickets`, the tool won't be there.** Worth flagging to him
+directly rather than assuming he already knows — an agent deep in "apply
+fix wave N" mode is exactly the kind of task where a stray broad
+delete/checkout wouldn't get noticed.
 
 ## How to resume if a session dies mid-work
 
