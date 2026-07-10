@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-09T21:04:05.947Z";
+export const CONTENT_GENERATED_AT = "2026-07-10T00:00:27.001Z";
 
 type VaultRawItem = {
   id: string;
@@ -926,8 +926,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       date: "2006-10-01",
       dateLabel: "October 2006",
       title: "Her first arena tour: opening for Rascal Flatts, on a day's notice",
-      summary: "Rascal Flatts fired opener Eric Church mid-tour for playing too long; the 16-year-old with the nine-day-old album got his slot. Years later she sent Church her first gold record — thanks for \"playing too long and too loud.\"",
-      body: ["The call came Oct. 17, 2006 — eight days after her debut album dropped — and she was on the Me and My Gang Tour's remaining fall dates almost immediately, her first taste of arena crowds. Church has told the story ever since, gold record and all: the note read \"Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it.\""],
+      summary: "Rascal Flatts fired opener Eric Church mid-tour for playing too long; the 16-year-old, days from releasing her debut album, got his slot. Years later she sent Church her first gold record — thanks for \"playing too long and too loud.\"",
+      body: ["The call came Oct. 17, 2006 — a week before her self-titled debut album dropped on Oct. 24 — and she was on the Me and My Gang Tour's remaining fall dates almost immediately, her first taste of arena crowds. Church has told the story ever since, gold record and all: the note read \"Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it.\""],
       tags: ["Tour"],
       sources: [{ name: "How Eric Church's Rascal Flatts Feud Helped Launch Taylor Swift", url: "https://tasteofcountry.com/eric-church-rascal-flatts-tour-taylor-swift-secret-history/" }, { name: "Eric Church Details The Phone Call He Got From Taylor Swift When She Replaced Him On 2006 Rascal Flatts Tour", url: "https://www.whiskeyriff.com/2025/09/22/eric-church-details-the-phone-call-he-got-from-taylor-swift-when-she-replaced-him-on-2006-rascal-flatts-tour/" }],
     },
@@ -1107,9 +1107,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "September 2007",
       title: "Opening Brad Paisley's Bonfires & Amplifiers fall leg",
       summary: "Her 2007 of permanent opening slots rolls on: the fall leg of Brad Paisley's Bonfires & Amplifiers Tour, Sept. 6 through Nov. 17, after guesting on summer dates alongside Kellie Pickler and Jack Ingram.",
-      body: ["Thirty announced fall dates, from London, Ontario through Grand Rapids, on a tour that totaled 75 shows that year — with Swift and Rodney Atkins opening the entire second leg. Country Standard Time's announcement is a snapshot of her mid-2007 résumé: one hit single (\"Tim McGraw\"), a debut album newly certified gold, and support slots for Rascal Flatts and George Strait already behind her. Concert archives from that fall show her billed nightly under Paisley — the last long stretch of the opening-act years before Fearless made her the headliner."],
+      body: ["Thirty announced fall dates, from London, Ontario through Grand Rapids, on a tour that totaled 75 shows that year — with Swift and Rodney Atkins opening the entire second leg. Her mid-2007 résumé at the time: one hit single (\"Tim McGraw\"), a debut album newly certified gold, and support slots for Rascal Flatts and George Strait already behind her. Concert archives from that fall show her billed nightly under Paisley — the last long stretch of the opening-act years before Fearless made her the headliner."],
       tags: ["Tour"],
-      sources: [{ name: "Brad Paisley extends tour into fall", url: "https://www.countrystandardtime.com/news/newsitem.asp?xid=454" }, { name: "Brad Paisley's 2007 Concert & Tour History", url: "https://www.concertarchives.org/bands/brad-paisley?page=1&year=2007" }],
+      sources: [{ name: "Brad Paisley's 2007 Concert & Tour History", url: "https://www.concertarchives.org/bands/brad-paisley?page=1&year=2007" }],
     },
   ],
   "evermore": [
@@ -5085,7 +5085,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       dateLabel: "June 2018",
       title: "Two Wembley nights, two British icons: Niall Horan, then Robbie Williams",
       summary: "June 22, 2018: Niall Horan joins her at Wembley Stadium. June 23: Robbie Williams walks out in a Taylor Swift T-shirt for a stadium-wide \"Angels\" singalong she started at the piano.",
-      body: ["Horan's night-one cameo was a duet on his own \"Slow Hands.\" The next night, she started \"Angels\" alone at the piano before Williams strode out in a Taylor Swift T-shirt, and the 90,000-voice singalong footage flooded social media — the European leg's signature moment. Williams later joked he hadn't realized how big a deal the cameo would be to her audience; for UK fans it instantly entered the tour-guest hall of fame."],
+      body: ["Horan's night-one cameo was a duet on his own \"Slow Hands.\" The next night, she started \"Angels\" alone at the piano before Williams strode out in a Taylor Swift T-shirt, and the Wembley-wide singalong footage flooded social media — the European leg's signature moment. Williams later joked he hadn't realized how big a deal the cameo would be to her audience; for UK fans it instantly entered the tour-guest hall of fame."],
       tags: ["Tour"],
       sources: [{ name: "Taylor Swift and Robbie Williams Sing 'Angels' in London on Reputation Stadium Tour", url: "https://www.billboard.com/music/pop/taylor-swift-robbie-williams-angels-london-video-8462415/" }, { name: "Watch Taylor Swift bring out Robbie Williams to sing 'Angels' at Wembley", url: "https://www.nme.com/news/music/taylor-swift-robbie-williams-angels-wembley-2343193" }],
     },
@@ -6474,7 +6474,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.",
       body: ["Travis coordinated in a Ralph Lauren black polo and khaki shorts for the same garden shoot."],
       tags: ["Fashion"],
-      images: [{ url: "https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg", credit: "Getty Images", kind: "primary" }, { url: "https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg", credit: "Getty Images", kind: "archival" }],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg", credit: "Taylor Swift", kind: "primary" }, { url: "https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg", credit: "Taylor Swift", kind: "archival" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/" }],
     },
     {
@@ -6702,11 +6702,11 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "Taylor Swift Brings Travis Kelce Onstage at London Eras Tour Show", url: "https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-eras-tour-debut-london-show-1235045292/" }, { name: "Travis Kelce Details 'Jarring' On-Stage Eras Tour Experience", url: "https://variety.com/2024/music/news/travis-kelce-eras-tour-on-stage-experience-1236059951/" }],
     },
     {
-      id: "vault-ttpd-vienna-cancelled-a-foiled-plot-and-250-000-unused-tickets",
+      id: "vault-ttpd-vienna-cancelled-a-foiled-plot-three-sold-out-shows",
       slug: "vienna-shows-cancelled",
       date: "2024-08-01",
       dateLabel: "August 2024",
-      title: "Vienna, cancelled: a foiled plot and 250,000 unused tickets",
+      title: "Vienna, cancelled: a foiled plot, three sold-out shows",
       summary: "Austrian police arrested suspects planning an attack on the Ernst Happel shows, and all three nights were scrapped. She later wrote the cancellations left her with \"a new sense of fear\" and \"tremendous guilt.\"",
       body: ["The Aug. 8–10, 2024 shows were called off after authorities said a 19-year-old who had pledged allegiance to ISIS planned to attack the crowds, with bomb-making materials found at his home. Swift stayed publicly silent until the tour's London dates were safely done, then explained she'd been \"holding my breath\" — the Wembley run resumed days later under heightened security, and the tour finished without further incident."],
       tags: ["Tour"],
