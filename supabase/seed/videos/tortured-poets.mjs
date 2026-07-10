@@ -51,7 +51,7 @@ export default {
       releasedOn: '2024-04-19',
       relatedSongs: ['Fortnight'],
       summary:
-        'Black-and-white asylum-for-poets imagery: Taylor is committed to a "forgotten words" institution, typewriters spark, and Post Malone shares the desk — with Dead Poets Society\'s Ethan Hawke and Josh Charles as the doctors.',
+        'Black-and-white asylum-for-poets imagery: Taylor is committed to an asylum and later enters a room marked "The Tortured Poets Department," where Post Malone types across from her — with Dead Poets Society\'s Ethan Hawke and Josh Charles as the doctors.',
       symbolism:
         'The typewriter-era styling and the institution of tortured poets literalize the album\'s conceit: heartbreak processed as manuscript, "I love you, it\'s ruining my life" typed instead of said.',
       easterEggs: ['Ethan Hawke and Josh Charles — two of the original Dead Poets Society cast — cameo as the doctors, a casting-level pun on the album title.'],

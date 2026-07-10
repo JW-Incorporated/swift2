@@ -19,7 +19,7 @@ export default {
       kind: 'theory',
       title: '"no it\'s becky"',
       claim:
-        'The 2014 Tumblr joke: a photo of Taylor captioned as a girl named Becky who "died of marijuana overdose," answered with "no it\'s becky." Fans ran with Becky as Taylor\'s alter ego — and Taylor got the joke.',
+        'The 2014 Tumblr joke: a photo of Taylor captioned as a girl named Becky who "snorted marijuana at a party and died," answered with "no it\'s becky." Fans ran with Becky as Taylor\'s alter ego — and Taylor got the joke.',
       evidence:
         'Born as a Tumblr exchange during her famously online 1989-era presence. Taylor canonized the meme herself by wearing a "no its becky" T-shirt, turning a fandom in-joke into official-adjacent lore.',
       confidence: 'joke_meme',
@@ -27,12 +27,12 @@ export default {
       relatedSlugs: [],
       sources: [
         {
-          source_url: 'https://knowyourmeme.com/memes/becky',
-          source_title: 'Becky',
-          publisher: 'Know Your Meme',
-          source_type: 'fan_forum',
+          source_url: 'https://time.com/3430491/taylor-swift-internet-meme-no-its-becky-tshirt/',
+          source_title: "Taylor Swift Wears 'no its becky' T-Shirt",
+          publisher: 'Time',
+          source_type: 'reputable_press',
           accessed_at: '2026-07-08',
-          reliability_score: 2,
+          reliability_score: 4,
           excerpt: null,
           notes: 'documents the original Tumblr post and the meme\'s spread — the meme itself is the subject here',
         },

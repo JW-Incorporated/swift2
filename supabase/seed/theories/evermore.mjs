@@ -19,7 +19,7 @@ export default {
       kind: 'easter_egg',
       title: 'Dropped when 13 runs backwards',
       claim:
-        'evermore arrived two days before her 31st birthday — and she said the timing was the point: 31 is 13 backwards, so the surprise album marked "the most aligned" birthday she could give fans.',
+        'evermore arrived two days before her 31st birthday — and she said the timing was the point: she\'d been excited about turning 31 "because it\'s my lucky number backwards, which is why I wanted to surprise you with this now."',
       evidence:
         'Stated in her own announcement of the album: the 31/13 mirror was her framing, not a fan read. The numerology habit that started with hand-painted 13s now sets release dates.',
       confidence: 'official',

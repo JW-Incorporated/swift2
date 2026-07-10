@@ -110,7 +110,7 @@ export default {
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff', 'Max Martin'],
       isSingle: true,
-      note: 'The first Swift–Antonoff single — anxious love rendered as a chanted loop, with a confirmed secret snowmobile crash buried in the bridge.',
+      note: 'The first Swift–Antonoff cut on a Taylor Swift album — anxious love rendered as a chanted loop, with a confirmed secret snowmobile crash buried in the bridge.',
       summary:
         'A fragile relationship where every month felt like a cliffhanger: are we safe yet, are we clear yet — panic as a chorus you cannot stop repeating.',
       inspiration:
@@ -312,7 +312,7 @@ export default {
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Imogen Heap'],
       producers: ['Taylor Swift', 'Imogen Heap'],
-      note: 'The Imogen Heap closer, written after realizing she had spent a week in London without thinking of an ex once — sobriety metaphors and all.',
+      note: 'The Imogen Heap closer, written after realizing she had spent two weeks in London without thinking of an ex once — sobriety metaphors and all.',
       summary:
         'Healing framed as detox: the drought, the flood, and finally the morning you notice the wound stopped needing checking. Her tour-speech centerpiece for years.',
       inspiration:

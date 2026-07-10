@@ -51,7 +51,7 @@ export default {
       releasedOn: null,
       relatedSongs: ['Love Story'],
       summary:
-        'The period-piece blockbuster: a campus meet-cute dissolves into a full Regency-styled castle romance, ballgown and all, ending on the proposal the song rewrites into Romeo and Juliet with a happy ending.',
+        'The period-piece blockbuster: a campus meet-cute dissolves into a full Regency-styled castle romance, ballgown and all, ending with the two reunited across a field — the happy ending the song writes over Romeo and Juliet.',
       symbolism:
         'The dual-timeline device (present-day glance, imagined past) became a signature she returned to through Wildest Dreams and beyond.',
       easterEggs: [],
@@ -162,7 +162,7 @@ export default {
       releasedOn: '2021-04-09',
       relatedSongs: ['The Best Day (Taylor\'s Version)'],
       summary:
-        'A re-cut of the original home-movie video released alongside Fearless (Taylor\'s Version), refreshing the family-footage tribute for the re-recording era.',
+        'A new home-movie video built from never-before-seen family footage spanning her childhood to young adulthood, released three weeks after Fearless (Taylor\'s Version) — extending the original tribute for the re-recording era.',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=n0cde-Km05o',

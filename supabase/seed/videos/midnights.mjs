@@ -108,7 +108,7 @@ export default {
       releasedOn: null,
       relatedSongs: ['Karma'],
       summary:
-        'Released with the Til Dawn edition remix: cosmic Taylor rides mythological karma imagery — a giant cat, a wrecking-ball moon — with Ice Spice materializing for the new verse.',
+        'Released with the Til Dawn edition remix: cosmic Taylor rides mythological karma imagery — a giant cat, a lassoed moon — with Ice Spice materializing for the new verse.',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=XzOvgu3GPwY',
