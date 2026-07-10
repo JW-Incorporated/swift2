@@ -2,12 +2,13 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import { X, ListMusic } from 'lucide-react';
+import { X, ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { tracksForEra } from '@/lib/longlive/tracks';
 import { eraStyle } from '@/lib/longlive/theme';
-import type { TrackNote } from '@/lib/longlive/types';
+import { trackKey } from './TrackDetail';
+import type { EraId, TrackNote } from '@/lib/longlive/types';
 
 /**
  * The album track guide — an immersive per-era overlay (same pattern as
@@ -89,7 +90,7 @@ export function TrackGuide() {
 
         <ol className="mt-8 space-y-3">
           {tracks.map((t) => (
-            <TrackRow key={`${t.trackNumber ?? 'x'}-${t.title}`} track={t} />
+            <TrackRow key={`${t.trackNumber ?? 'x'}-${t.title}`} eraId={era.id} track={t} />
           ))}
         </ol>
       </div>
@@ -97,9 +98,12 @@ export function TrackGuide() {
   );
 }
 
-function TrackRow({ track }: { track: TrackNote }) {
-  return (
-    <li className="era-card flex gap-4 rounded-2xl border p-4 sm:p-5">
+function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
+  const { openTrack } = useAppActions();
+  const hasDeepDive = Boolean(track.discussion && track.discussion.length > 0);
+
+  const body = (
+    <>
       <span
         className="w-7 shrink-0 pt-0.5 text-right font-[family-name:var(--era-font)] text-lg font-semibold tabular-nums text-[color:var(--era-accent)]"
         aria-hidden
@@ -107,9 +111,14 @@ function TrackRow({ track }: { track: TrackNote }) {
         {track.trackNumber ?? '·'}
       </span>
       <div className="min-w-0 flex-1">
-        <h2 className="font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
-          {track.title}
-        </h2>
+        <div className="flex items-baseline justify-between gap-3">
+          <h2 className="font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
+            {track.title}
+          </h2>
+          {hasDeepDive && (
+            <ArrowUpRight className="h-4 w-4 shrink-0 text-[color:var(--era-ink-soft)]" aria-hidden />
+          )}
+        </div>
         <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{track.note}</p>
         {track.sources && track.sources.length > 0 && (
           <p className="mt-2 text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
@@ -130,6 +139,21 @@ function TrackRow({ track }: { track: TrackNote }) {
           </p>
         )}
       </div>
+    </>
+  );
+
+  if (!hasDeepDive) {
+    return <li className="era-card flex gap-4 rounded-2xl border p-4 sm:p-5">{body}</li>;
+  }
+
+  return (
+    <li>
+      <button
+        onClick={() => openTrack(trackKey(eraId, track))}
+        className="era-card group flex w-full gap-4 rounded-2xl border p-4 text-left transition sm:p-5"
+      >
+        {body}
+      </button>
     </li>
   );
 }

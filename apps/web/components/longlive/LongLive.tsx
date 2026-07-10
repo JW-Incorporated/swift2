@@ -10,6 +10,7 @@ import { ThreadsMode } from './ThreadsMode';
 import { EraSelector } from './EraSelector';
 import { MomentDetail } from './MomentDetail';
 import { TrackGuide } from './TrackGuide';
+import { TrackDetail } from './TrackDetail';
 import { TheoryGuide } from './TheoryGuide';
 import { ShareSheet } from './ShareSheet';
 import { SearchOverlay } from './SearchOverlay';
@@ -43,6 +44,7 @@ function Shell() {
       {/* Overlays */}
       <EraSelector />
       <TrackGuide />
+      <TrackDetail />
       <TheoryGuide />
       <MomentDetail />
       <ShareSheet />

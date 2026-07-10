@@ -58,6 +58,70 @@ describe('normalizeTrack', () => {
     expect(normalizeTrack({ ...base, trackNumber: 2.5 })?.trackNumber).toBeNull();
     expect(normalizeTrack({ ...base, trackNumber: '7' })?.trackNumber).toBe(7);
   });
+
+  it('auto-derives discussion from summary/inspiration/easterEggs using the track sources', () => {
+    const t = normalizeTrack({
+      trackTitle: 'willow',
+      note: 'The lead single.',
+      sourceUrl: 'https://en.wikipedia.org/wiki/Willow_(song)',
+      summary: 'Devotion cast as a spell.',
+      inspiration: 'Written to a Dessner instrumental in minutes.',
+      easterEggs: 'The video picks up where cardigan left off.',
+    });
+    expect(t?.discussion).toEqual([
+      'Devotion cast as a spell.',
+      'Written to a Dessner instrumental in minutes.',
+      'The video picks up where cardigan left off.',
+    ]);
+    expect(t?.quotedLines).toEqual([]);
+    expect(t?.discussionSources).toEqual(t?.sources);
+  });
+
+  it('skips missing summary/inspiration/easterEggs fields rather than inserting blanks', () => {
+    const t = normalizeTrack({
+      trackTitle: 'Song',
+      note: 'A note.',
+      sourceUrl: 'https://example.com/a',
+      inspiration: 'Only this field is present.',
+    });
+    expect(t?.discussion).toEqual(['Only this field is present.']);
+  });
+
+  it('does not add a discussion field when there is no summary/inspiration/easterEggs/discussion at all', () => {
+    const t = normalizeTrack({
+      trackTitle: 'Song',
+      note: 'A note.',
+      sourceUrl: 'https://example.com/a',
+    });
+    expect(t?.discussion).toBeUndefined();
+    expect(t?.quotedLines).toBeUndefined();
+    expect(t?.discussionSources).toBeUndefined();
+  });
+
+  it('prefers an explicit discussion + its own citation over the auto-derived fields', () => {
+    const t = normalizeTrack({
+      trackTitle: 'Song',
+      note: 'A note.',
+      sourceUrl: 'https://example.com/a',
+      summary: 'Would have been auto-derived.',
+      discussion: ['A hand-written paragraph.', 'A second paragraph.'],
+      quotedLines: ['A short illustrative line.'],
+      discussionSourceUrl: 'https://example.com/deep-dive',
+    });
+    expect(t?.discussion).toEqual(['A hand-written paragraph.', 'A second paragraph.']);
+    expect(t?.quotedLines).toEqual(['A short illustrative line.']);
+    expect(t?.discussionSources).toEqual([{ name: 'example.com', url: 'https://example.com/deep-dive' }]);
+  });
+
+  it('drops an explicit discussion with no citation at all (never ships unsourced)', () => {
+    const t = normalizeTrack({
+      trackTitle: 'Song',
+      note: 'A note.',
+      sourceUrl: 'https://example.com/a',
+      discussion: ['A hand-written paragraph with no citation.'],
+    });
+    expect(t?.discussion).toBeUndefined();
+  });
 });
 
 describe('sortTracks', () => {

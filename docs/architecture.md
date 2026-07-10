@@ -168,20 +168,18 @@ Carried over from Orbit's discipline:
 - Conventional-commit style: `feat(vault): …`, `fix(web): …`, `docs: …`.
 - Branch per task (`feature/<name>`, `fix/<name>`); never commit to `main`.
 - Automated tests for every feature; full suite green before "done."
-- **Media & content sourcing** (full policy + rationale: `docs/decisions.md`
-  2026-07-08, **rehost ban reinstated then re-reversed 2026-07-09 — read that
-  later entry, it's the current rule**). The product presents rich media
-  on-site (goal #7 — users don't click out):
+- **Media & content sourcing** (full policy + rationale: `docs/decisions.md`,
+  2026-07-09 "no rules against hosting photos"). The product presents rich
+  media on-site (goal #7 — users don't click out):
   - **Text:** original summaries in our own words + links; never paste article
     bodies / lyrics / official statements verbatim.
-  - **Images:** embedding public social posts via **official oEmbed** is
-    preferred where available (no hosting cost, no copy of the file), and
-    licensed editorial imagery (Getty/AP) may be stored + CDN-served for owned
-    assets. **Rehosting real internet photos — paparazzi, press, agency
-    images — is also allowed** (confirmed 2026-07-09): a knowing risk
-    acceptance rather than an oversight. Reference/comparable images (e.g. a
-    designer's prior work standing in for a not-yet-photographed item) must
-    still be visibly labeled as reference, never presented as the real thing.
+  - **Images: no hosting restriction.** Any real photo may appear on-site by
+    any means — oEmbed, hotlink, or **rehost/CDN** (paparazzi, press, agency
+    all included), with a credit line where available. A knowing risk
+    acceptance, not an oversight. The only image rules are content-integrity:
+    **no AI-generated fakes,** and reference/comparable stand-ins (e.g. a
+    designer's prior work standing in for a not-yet-photographed item) must be
+    visibly labeled as reference, never presented as the real thing.
   - **Monetization** (affiliate/commercial) ships only after **external
     IP-counsel review**; UNOFFICIAL disclaimer stays prominent.
   - Unchanged: the no-fabrication rule and the Tier 0 payload budget.
