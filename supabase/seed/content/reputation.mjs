@@ -43,6 +43,7 @@ export default {
     {
       year: 2017,
       month: 11,
+      day: 20,
       category: 'business',
       title: 'reputation sells more than the rest of the chart combined',
       snippet:
@@ -73,7 +74,8 @@ export default {
     },
     {
       year: 2017,
-      month: 11,
+      month: 8,
+      day: 24,
       category: 'music',
       title: 'Look What You Made Me Do, and the phone call it started with',
       snippet: 'By her own account, it began as a poem about deciding who she could trust.',
@@ -130,6 +132,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 8,
       category: 'tour',
       title: 'Snakes everywhere, on purpose',
       snippet:
@@ -166,6 +169,7 @@ export default {
     {
       year: 2017,
       month: 8,
+      day: 21,
       category: 'release',
       title: 'The snake video that announced reputation',
       snippet:
@@ -327,6 +331,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 8,
       category: 'fashion',
       title: "The reputation Stadium Tour's snake bodysuit",
       snippet:
@@ -354,6 +359,7 @@ export default {
     {
       year: 2018,
       month: 3,
+      day: 30,
       category: 'fashion',
       title: 'The teal fringe dress in the second Delicate video',
       snippet:
@@ -381,6 +387,7 @@ export default {
     {
       year: 2018,
       month: 10,
+      day: 9,
       category: 'fashion',
       title: 'A disco-ball Balmain look for the 2018 AMAs',
       snippet:
@@ -415,6 +422,7 @@ export default {
     {
       year: 2017,
       month: 8,
+      day: 27,
       category: 'fashion',
       title: 'Zombie makeup for Look What You Made Me Do',
       snippet:
@@ -444,6 +452,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 20,
       category: 'fashion',
       title: 'An 800-hour Atelier Versace gown for her first red carpet in two years',
       snippet:
@@ -479,6 +488,7 @@ export default {
     {
       year: 2018,
       month: 6,
+      day: 2,
       category: 'fashion',
       title: 'The reputation tour opening number gets a glitter-cutout upgrade',
       snippet:
@@ -513,6 +523,7 @@ export default {
     {
       year: 2018,
       month: 7,
+      day: 22,
       category: 'fashion',
       title: 'A sparkling green bodysuit for the "Dress" segment',
       snippet:
@@ -605,6 +616,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 8,
       category: 'fashion',
       title: 'The "Call It What You Want"/"...Nice Things" closer dress',
       snippet:
@@ -823,6 +835,7 @@ export default {
     {
       year: 2017,
       month: 11,
+      day: 10,
       category: 'music',
       title: "The Getaway Car bridge, written in under 30 seconds on camera",
       snippet:
@@ -855,6 +868,7 @@ export default {
     {
       year: 2017,
       month: 11,
+      day: 10,
       category: 'music',
       title: "Delicate's confession: 'could something fake...affect something real?'",
       snippet:
@@ -964,8 +978,9 @@ export default {
       },
     },
     {
-      year: 2019,
-      month: 2,
+      year: 2018,
+      month: 12,
+      day: 7,
       category: 'business',
       title: "One nomination for the year's best-selling album",
       snippet:
@@ -992,7 +1007,8 @@ export default {
     },
     {
       year: 2018,
-      month: 10,
+      month: 11,
+      day: 30,
       category: 'business',
       title: 'Breaking a Rolling Stones record set a decade earlier — in almost half the shows',
       snippet:
@@ -1246,6 +1262,7 @@ export default {
       slug: 'rep-secret-sessions',
       year: 2017,
       month: 10,
+      day: 13,
       category: 'release',
       title: 'The reputation Secret Sessions: 500 fans, four houses, zero leaks',
       snippet:
@@ -1443,6 +1460,7 @@ export default {
       slug: 'rep-wembley-guest-nights',
       year: 2018,
       month: 6,
+      day: 22,
       category: 'tour',
       title: 'Two Wembley nights, two British icons: Niall Horan, then Robbie Williams',
       snippet:
