@@ -76,14 +76,16 @@ low confidence label (`plausible` or below), never `confirmed` or `official`.
 
 **Approved by:** Joey (product), 2026-07-09.
 
-## 2026-07-09 — Rehosting real internet photos IS allowed (resolves a conflict with the entry below)
+## 2026-07-09 — Hosting/rehosting real internet photos IS allowed — no rules against it
 
-**Decision:** The "Media & content sourcing policy" entry directly below this
-one (dated 2026-07-08, approved by Wyatt) reinstated a ban on rehosting
-arbitrary internet photos, calling an earlier same-day reversal an
-"over-correction." That reinstatement is **superseded** — full rehosting of
-real internet photos (paparazzi/press/agency images) **is** the current
-policy, confirmed directly by Joey.
+**Decision:** There is **no rule against hosting photos.** Any real photo may
+appear on-site by **any** means — embedded via oEmbed, hotlinked, or
+**copied/rehosted to our own CDN** — with a credit line where available. Every
+prior ban or restriction on rehosting is **deleted**, including the one that
+had stood in the "Media & content sourcing policy" entry below (dated
+2026-07-08, which had called an earlier same-day reversal an "over-correction").
+That ban text has been removed from that entry too, so the log no longer
+contradicts itself. Confirmed directly by Joey and Wyatt.
 
 **Why this needed resolving explicitly:** the two entries directly
 contradicted each other, and — independent of which one was "supposed" to be
@@ -157,16 +159,15 @@ blunt same-day "just reverse it / allow rehosting" note — that over-corrected.
    no-fabrication rule still applies (summaries must be real + sourced).
    Low-risk; unblocked.
 
-2. **Images — "don't copy; embed + license."** Media renders inside our page
-   without copying arbitrary photos to our servers:
-   - (a) **Embed public social posts via official oEmbed** (Instagram / X /
-     YouTube / TikTok) — served from the source, attributed, under the
-     platform's terms, rendered in-page.
-   - (b) **License editorial imagery** (Getty / AP, etc.) for anything we want
-     to **own** and host reliably. Owned/licensed assets may be stored +
-     CDN-served (this is the only "rehost" now allowed).
-   - **Rehosting arbitrary internet photos stays BANNED** — that's the actual
-     exposure (agency-owned imagery, Getty enforcement).
+2. **Images — no hosting restriction (see the 2026-07-09 entry above).** Any
+   real photo may appear on-site by **any** means — embedded via oEmbed,
+   hotlinked, or **copied/rehosted to our own CDN** — with a credit line where
+   available. There is **no ban on rehosting** (the clause that used to sit here
+   banning "arbitrary internet photos" is **deleted**). oEmbed remains a
+   convenient path for social posts, not a requirement. The only image rules
+   that remain are content-integrity, not hosting: **no AI-generated fakes,**
+   and **clearly label any reference/comparable stand-in** so it's never
+   presented as the real thing.
 
 3. **Monetization gate.** The affiliate/fashion (commercial) layer shifts us
    from editorial toward commercial and raises **right-of-publicity /
@@ -174,10 +175,12 @@ blunt same-day "just reverse it / allow rehosting" note — that over-corrected.
    IP-counsel review,** and the **UNOFFICIAL fan-project disclaimer stays
    prominent.**
 
-**Why:** The blanket ban made the product impossible (goal #7 needs on-site
-media). Joey's embed-and-license framing delivers the same UX (media in-page)
-without rehosting agency photos — better product *and* lower risk than a blanket
-reversal.
+**Why:** The inherited blanket "metadata only" ban made the product impossible
+(goal #7 needs on-site media). The image half of this policy has since been
+fully opened up — see the 2026-07-09 "no rules against hosting" entry above,
+which is the current word: hosting/rehosting real photos (paparazzi, press,
+agency) is allowed, with credit; only AI fakes and mislabeled stand-ins are
+barred.
 
 **Must go to a real lawyer before we monetize (explicit):**
 - Any monetization / affiliate / commercial feature → external IP counsel
