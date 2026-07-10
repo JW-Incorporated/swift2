@@ -78,7 +78,7 @@ export default {
         'https://www.advocate.com/media-library/taylor-swift.jpg?id=32665462&width=1245&height=700&quality=65&coordinates=0%2C0%2C0%2C2',
       moment: {
         context:
-          'The video itself, released June 17, 2019 and produced with Todrick Hall, packed its trailer-park block party with LGBTQ figures — Ellen DeGeneres, Billy Porter, Laverne Cox, RuPaul, the Queer Eye cast, Adam Rippon, and Jesse Tyler Ferguson with his real-life husband Justin Mikita — and closed on the on-screen ask: "Let\'s show our pride by demanding that, on a national level, our laws truly treat all our citizens equally." The Advocate called it her most pro-LGBTQ statement ever, and one of the most political stances she had taken with her music.\n\nShe personally wrote to her home-state senator, Lamar Alexander, urging support: "For American citizens to be denied jobs or housing based on who they love or how they identify is un-American and cruel." Accepting Video of the Year at the VMAs, she noted the petition had "five times the amount that it would need to warrant a response from the White House."',
+          'The video itself, released June 17, 2019 and produced with Todrick Hall, packed its trailer-park block party with LGBTQ figures — Ellen DeGeneres, Billy Porter, Laverne Cox, RuPaul, the Queer Eye cast, Adam Rippon, and Jesse Tyler Ferguson with his real-life husband Justin Mikita — and closed on the on-screen ask: "Let\'s show our pride by demanding that, on a national level, our laws truly treat all our citizens equally." The Advocate called it her most pro-LGBTQ statement ever, and one of the most political stances she had taken with her music.\n\nShe personally wrote to her home-state senator, Lamar Alexander, urging support: "For American citizens to be denied jobs or housing based on who they love or how they identify, in my opinion, is un-American and cruel." Accepting Video of the Year at the VMAs, she noted the petition had "five times the amount that it would need to warrant a response from the White House."',
         sources: [
           {
             outlet: 'The Advocate',
@@ -221,7 +221,7 @@ export default {
         'https://imgs.capitalfm.com/images/114212?crop=16_9&width=660&relax=1&format=webp&signature=S8LzN__hymqxAV8c8HfQ_lTviEY=',
       moment: {
         context:
-          'The announcement came in November 2019, weeks after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Swift embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — Variety reported the song clearances were ultimately "granted within a timely manner" — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
+          'The announcement came in November 2019, months after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Swift embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — Variety reported the song clearances were ultimately "granted within a timely manner" — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
         sources: [
           {
             outlet: 'Billboard',
@@ -440,7 +440,7 @@ export default {
       year: 2019,
       month: 8,
       category: 'fashion',
-      title: 'A Johanna Ortiz tiered dress for the Lover video\'s proposal scene',
+      title: 'A Johanna Ortiz tiered dress for the Lover music video',
       snippet:
         'In the pastel-house music video, she plays guitar in a yellow Johanna Ortiz "Ladies Who Lunch" tiered dress with matching Rebecca de Ravenel "Les Bonbons" ball earrings and an orange headband.',
       sourceUrl: 'https://www.spotern.com/en/spot/video/taylor-swift-lover-official-music-video/226542/yellow-tiered-dress-of-taylor-swift-in-the-music-video-lover',
@@ -630,13 +630,13 @@ export default {
       category: 'sighting',
       title: 'Hand-in-hand with Joe Alwyn at the SNL after-party',
       snippet:
-        'Straight from her acoustic "Lover" and "False God" performances on SNL, she and Joe Alwyn were photographed holding hands heading into Zuma for the cast\'s after-party.',
+        'Straight from a stripped-down "Lover" and "False God"\'s saxophone-led live debut on SNL, she and Joe Alwyn were photographed holding hands heading into Zuma for the cast\'s after-party.',
       sourceUrl: 'https://www.etonline.com/taylor-swift-and-joe-alwyn-seen-hand-in-hand-outside-snl-after-party-133881',
       thumbnailUrl:
         'https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-10/swiftalwyn2.jpg?h=5c0d22e0&width=1024&quality=80',
       moment: {
         context:
-          'On October 6, 2019, hours after performing acoustic renditions of "Lover" and "False God" on Saturday Night Live, she and boyfriend Joe Alwyn were photographed holding hands as they headed into Zuma in New York for the cast\'s after-party.\n\nShe kept her performance look — an oversized black Ambush blazer, crystal-embellished Libertine flare pants, and Christian Louboutin shoes — while Alwyn wore a grey shirt with a black jacket.',
+          'On October 6, 2019, hours after performing a stripped-down "Lover" and giving "False God" its saxophone-led live debut on Saturday Night Live, she and boyfriend Joe Alwyn were photographed holding hands as they headed into Zuma in New York for the cast\'s after-party.\n\nShe kept her performance look — an oversized black Ambush blazer, crystal-embellished Libertine flare pants, and Christian Louboutin shoes — while Alwyn wore a grey shirt with a black jacket.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -777,12 +777,12 @@ export default {
       category: 'sighting',
       title: 'A surprise "Shake It Off" at the Stonewall Inn for Pride\'s 50th anniversary',
       snippet:
-        'Days before "You Need to Calm Down" dropped, she showed up unannounced at the Stonewall Inn\'s 50th-anniversary Pride event: "Thank you for having me, Stonewall. Happy Pride!"',
+        'Hours after "You Need to Calm Down" dropped, she showed up unannounced at the Stonewall Inn\'s 50th-anniversary Pride event: "Thank you for having me, Stonewall. Happy Pride!"',
       sourceUrl: 'https://abcnews.com/Entertainment/taylor-swift-makes-surprise-appearance-stonewall-inn-performs/story?id=63731487',
       thumbnailUrl: 'https://s.abcnews.com/images/GMA/taylor-swift-stonewall-gty-mo-20190615_hpMain_16x9_992.jpg?w=992',
       moment: {
         context:
-          'In mid-June 2019, days ahead of releasing "You Need to Calm Down," Swift made a surprise appearance at AEG and the Stonewall Inn\'s invitation-only Pride celebration marking the 50th anniversary of the Stonewall uprising, headlined by Jesse Tyler Ferguson.\n\nShe performed an acoustic "Shake It Off," telling the crowd, "Thank you for having me, Stonewall. Happy Pride!" before inviting Ferguson onstage for a duet, saying she\'d heard it was his favorite karaoke song.',
+          'In mid-June 2019, hours after releasing "You Need to Calm Down," Swift made a surprise appearance at AEG and the Stonewall Inn\'s invitation-only Pride celebration marking the 50th anniversary of the Stonewall uprising, headlined by Jesse Tyler Ferguson.\n\nShe performed an acoustic "Shake It Off," telling the crowd, "Thank you for having me, Stonewall. Happy Pride!" before inviting Ferguson onstage for a duet, saying she\'d heard it was his favorite karaoke song.',
         sources: [
           {
             outlet: 'ABC News',
@@ -962,7 +962,7 @@ export default {
       category: 'tour',
       title: 'City of Lover: the only full Lover concert there would ever be',
       snippet:
-        'One night at L\'Olympia in Paris, Sept. 9, 2019 — a fans-only show for contest winners from 37 countries, and the first and last time most Lover songs were played to a live audience.',
+        'One night at L\'Olympia in Paris, Sept. 9, 2019 — a fans-only show for contest winners from 37 countries, and, until the Eras Tour, the only time most Lover songs were played to a live audience.',
       sourceUrl: 'https://en.wikipedia.org/wiki/City_of_Lover',
       thumbnailUrl: null,
       moment: {
@@ -985,6 +985,15 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/',
+            source_title: 'Every Surprise Song Taylor Swift Has Played on the Eras Tour',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-10',
             reliability_score: 4,
           },
         ],
@@ -1096,7 +1105,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She played Bombalurina in Tom Hooper\'s adaptation and co-wrote "Beautiful Ghosts" as a response song to "Memory," sung in the film by Francesca Hayward. Critics roasted the movie and largely exempted her scene; the song\'s Globe nomination gave the Lover era its one awards-season campaign.\n\nThe wreckage around her roughly ten minutes of screen time was historic: a 19% Rotten Tomatoes score, a worldwide gross of $75.5 million against a budget of $80–100 million, and seven Razzies including Worst Picture. The "digital fur technology" became its own news story — the first release went out with visual-effects glitches (including a shot where Judi Dench\'s human hand, wedding ring and all, was visible), and Universal took the near-unprecedented step of shipping a patched version with "improved visual effects" to theaters on December 22, two days into the run. Reviewers consistently noted Swift seemed to be one of the few people onscreen having fun.',
+          'She played Bombalurina in Tom Hooper\'s adaptation and co-wrote "Beautiful Ghosts" as a response song to "Memory," sung in the film by Francesca Hayward. Critics roasted the movie and largely exempted her scene; the song\'s Globe nomination gave the Lover era its one awards-season campaign.\n\nThe wreckage around her roughly ten minutes of screen time was historic: a 19% Rotten Tomatoes score, a worldwide gross of $75.5 million against a budget of $80–100 million, and six Razzies including Worst Picture. The "digital fur technology" became its own news story — the first release went out with visual-effects glitches (including a shot where Judi Dench\'s human hand, wedding ring and all, was visible), and Universal took the near-unprecedented step of shipping a patched version with "improved visual effects" to theaters on December 22, two days into the run. Reviewers consistently noted Swift seemed to be one of the few people onscreen having fun.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1686,7 +1695,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer three-song set — "Blank Space," "ME!," and an emotional "Lover" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. Rolling Stone\'s recap put the night\'s haul at more than $135,000 from tickets and Twitter activations, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
+          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer five-song set — "Blank Space," "ME!," an emotional "Lover," "You Need to Calm Down," and "Shake It Off" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. Rolling Stone\'s recap put the night\'s haul at more than $135,000 from tickets and Twitter activations, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1824,7 +1833,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her Tumblr post laid out the history in one line — "For years I asked, pleaded for a chance to own my work" — and said the alternative she\'d been offered was to "sign back up to Big Machine Records and \'earn\' one album back at a time, one for every new one I turned in."\n\nShe wrote that she\'d learned of the deal "as it was announced to the world"; Scott Borchetta answered with a blog post titled "It\'s Time For Some Truth," claiming he had texted her the night before, which she disputed. #IStandWithTaylor trended worldwide within hours. Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.',
+          'Her Tumblr post laid out the history in one line — "For years I asked, pleaded for a chance to own my work" — and said the alternative she\'d been offered was to "sign back up to Big Machine Records and \'earn\' one album back at a time, one for every new one I turned in."\n\nShe wrote that she\'d learned of the deal "as it was announced to the world"; Scott Borchetta answered with a blog post titled "So, It\'s Time For Some Truth," claiming he had texted her the night before, which she disputed. #IStandWithTaylor trended worldwide within hours. Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.',
         sources: [
           {
             outlet: 'Variety',

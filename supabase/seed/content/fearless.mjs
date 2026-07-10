@@ -65,7 +65,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          'Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the five categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
+          'Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -680,7 +680,7 @@ export default {
       month: 12,
       category: 'relationship',
       title: 'A duet with John Mayer fuels dating rumors',
-      snippet: "A live 'Half of My Heart' at Z100's Jingle Ball, obvious onstage chemistry, a 13-year age gap — and rumors that became a real, brief relationship.",
+      snippet: "A live 'Half of My Heart' at Z100's Jingle Ball, obvious onstage chemistry, a 12-year age gap — and rumors that became a real, brief relationship.",
       sourceUrl: 'https://www.billboard.com/music/music-news/john-mayer-taylor-swift-duet-half-of-my-heart-performance-1235291747/',
       thumbnailUrl:
         'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-z100/taylor-swift-jingle-ball-z100-35.jpg',
@@ -721,7 +721,7 @@ export default {
       month: 2,
       category: 'sighting',
       title: 'Touching down in Sydney for the tour’s Australian leg',
-      snippet: 'Photographed arriving at Sydney Airport days before kicking off the Fearless Tour’s five-date run across Australia.',
+      snippet: "Photographed arriving at Sydney Airport mid-leg — the day after the Fearless Tour's five-city Australian run opened in Brisbane, and the day before her two Acer Arena shows.",
       sourceUrl: 'https://taylorpictures.net/thumbnails.php?album=812',
       thumbnailUrl: 'https://taylorpictures.net/albums/candids/2010/5-2%20Arriving%20to%20Sydneys%20Airport/normal_001.jpg',
       moment: {
@@ -872,7 +872,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade. It logged 58 weeks in the top 10, a record for a country act, and was the only 2000s album to spend its entire first year there.\n\nThe number kept its stature inside her own catalog, too: when The Tortured Poets Department reached an 11th week at No. 1 in July 2024, Billboard framed it as tying Fearless and 1989 as her longest-leading albums — the mark her 18-year-old self set was still the one to catch.',
+          'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade. It logged 58 weeks in the top 10, a record for a country act, and was the only 2000s album to spend its entire first year there.\n\nThe number kept its stature inside her own catalog for a while, too: when The Tortured Poets Department reached an 11th week at No. 1 in July 2024, Billboard framed it as tying Fearless and 1989 as her longest-leading albums — before TTPD pushed on to 17 weeks, the 11-week mark her teenage self set was the one to catch for 15 years.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' },
           {
@@ -946,7 +946,7 @@ export default {
       thumbnailUrl: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2010/04/taylor-swift-acm-awards.jpg',
       moment: {
         context:
-          'At the April 18, 2010 ACM Awards at Las Vegas’ MGM Grand Garden Arena, 20-year-old Swift wore the Marchesa gown on the carpet ahead of nominations including Entertainer of the Year, then changed mid-performance into a Carmen Marc Valvo dress she tore away on stage.\n\nFor once the trophies went elsewhere: despite nominations that also spanned Album of the Year and both Single Record and Song of the Year for "You Belong with Me," she went home empty-handed, with Entertainer of the Year going to Carrie Underwood. Her performance slot went to "Change" — one of the only major award nights of the era where the draped wisteria chiffon, not a sweep, was the headline.',
+          'At the April 18, 2010 ACM Awards at Las Vegas’ MGM Grand Garden Arena, 20-year-old Swift wore the Marchesa gown on the carpet ahead of nominations including Entertainer of the Year, then changed mid-performance into a Carmen Marc Valvo dress she tore away on stage.\n\nFor once the trophies went elsewhere: despite nominations spanning Entertainer of the Year, Top Female Vocalist of the Year, and Song of the Year and Video of the Year for "You Belong with Me," she went home empty-handed, with Entertainer of the Year going to Carrie Underwood. Her performance slot went to "Change" — one of the only major award nights of the era where the draped wisteria chiffon, not a sweep, was the headline.',
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -982,7 +982,7 @@ export default {
       category: 'release',
       title: 'Love Story arrives two months before the album',
       snippet:
-        'Sept. 12, 2008: the lead single from Fearless goes out ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
+        'Sept. 15, 2008: the lead single from Fearless goes out ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
@@ -1481,7 +1481,7 @@ export default {
         'https://akns-images.eonline.com/eol_images/Entire_Site/2015825/rs_600x600-150925152931-600.taylor-swift-csi.jpg',
       moment: {
         context:
-          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Swift, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — Rolling Stone said she "held her own."\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes CSI later handed the same murder-victim treatment to Justin Bieber and John Mayer — both of whom, like Swift, orbit this exact era of her story.',
+          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Swift, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — Rolling Stone said she "held her own."\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes she followed John Mayer (a season-seven murder victim) and paved the way for Justin Bieber to get the same treatment later.',
         sources: [
           {
             outlet: 'E! Online',

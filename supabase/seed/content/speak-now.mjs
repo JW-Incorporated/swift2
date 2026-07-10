@@ -528,7 +528,7 @@ export default {
         'https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG',
       moment: {
         context:
-          "The November 2010 issue put her on the cover in a shimmery light-blue off-the-shoulder Dior dress, and it hit newsstands October 12 — thirteen days before Speak Now itself arrived — making it one of the first big glossy covers of the album's press cycle.\n\nInside, the interview ran through the new album, her songwriting reflex — 'everything that happens to me gets put into a song' — and what she said she actually looked for in a relationship: 'character and honesty and trust' over status. She also confirmed she'd stayed friends with Taylor Lautner, the ex that Speak Now's 'Back to December' would soon be traced back to.",
+          "The November 2010 issue put her on the cover in a shimmery light-blue sequined look, and it hit newsstands October 12 — thirteen days before Speak Now itself arrived — making it one of the first big glossy covers of the album's press cycle.\n\nInside, the interview ran through the new album, her songwriting reflex — 'everything that happens to me gets put into a song' — and what she said she actually looked for in a relationship: 'character and honesty and trust' over status. She also confirmed she'd stayed friends with Taylor Lautner, the ex that Speak Now's 'Back to December' would soon be traced back to.",
         sources: [
           {
             outlet: 'Catherine Angiel (archival)',
@@ -578,7 +578,7 @@ export default {
       thumbnailUrl: 'https://www.aceshowbiz.com/images/wennpic/preview/taylor-swift-2011-teen-choice-awards-01.jpg',
       moment: {
         context:
-          "The look was a deliberate Old-Hollywood homage: a white halterneck dress by Rafael Cennamo, styled with a Ranjana Khan belt, Neil Lane jewelry, and Fendi shoes — Marilyn Monroe by way of a 21-year-old country-pop star, worn with her hair pulled back in a ponytail.\n\nThe occasion earned the reference: at the August 7, 2011 show at Universal City's Gibson Amphitheatre she received the Ultimate Choice Award, the show's honorary top prize. She also swept six voted categories outright that night — Choice Female Artist, both country awards ('Mean' took Country Track), Love Song for 'Mine,' Break-Up Song for 'Back to December,' and Red Carpet Fashion Icon — a near-shutout powered by Speak Now's singles run.",
+          "The look was a deliberate Old-Hollywood homage: a white halterneck dress by Rafael Cennamo, styled with a Ranjana Khan belt, Neil Lane jewelry, and Fendi shoes — Marilyn Monroe by way of a 21-year-old country-pop star, worn with her hair pulled back in a ponytail.\n\nThe occasion earned the reference: at the August 7, 2011 show at Universal City's Gibson Amphitheatre she received the Ultimate Choice Award, the show's honorary top prize. She also won five voted categories outright that night — Choice Female Artist, both country awards ('Mean' took Country Track), Break-Up Song for 'Back to December,' and Red Carpet Fashion Icon ('Mine' was only a nominee for Choice Love Song, which went to Selena Gomez & the Scene) — plus the Ultimate Choice Award, a near-sweep powered by Speak Now's singles run.",
         sources: [
           { outlet: 'AceShowbiz', url: 'https://www.aceshowbiz.com/news/view/00042706.html' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/2011_Teen_Choice_Awards' },
@@ -689,7 +689,7 @@ export default {
         'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
       moment: {
         context:
-          'A witness told Just Jared the pair "asked one of the coffee shop employees for help picking out beans" and "both seemed super nice" before ordering lattes on November 25, 2010.\n\nGyllenhaal\'s sister Maggie lives in the Park Slope neighborhood, making it a family-adjacent holiday visit. The outing — and the scarf Swift left behind that day — became a touchstone for fans after "All Too Well" referenced it two years later.',
+          'A witness told Just Jared the pair "asked one of the coffee shop employees for help picking out beans" and "both seemed super nice" before ordering lattes on November 25, 2010.\n\nGyllenhaal\'s sister Maggie lives in the Park Slope neighborhood, making it a family-adjacent holiday visit. The outing — and the scarf fans believe she left at Maggie Gyllenhaal\'s nearby home around this time — became a touchstone after "All Too Well" referenced a scarf left at "your sister\'s house" two years later.',
         sources: [
           {
             outlet: 'Just Jared',
@@ -749,7 +749,7 @@ export default {
       thumbnailUrl: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2012/03/taylor-swift-il-pastaio.jpg',
       moment: {
         context:
-          "Photographed March 30, 2012 in Beverly Hills; Just Jared Jr. reported she'd eaten alongside mom Andrea and \"good friend Dianna Agron (not pictured).\"\n\nSwift and the Glee star had grown close that year while Swift was recording Red between tour dates. Later that same day, Swift received Nickelodeon's Big Help Award from Michelle Obama at the Kids' Choice Awards.",
+          "Photographed March 30, 2012 in Beverly Hills; Just Jared Jr. reported she'd eaten alongside mom Andrea and \"good friend Dianna Agron (not pictured).\"\n\nSwift and the Glee star had grown close that year while Swift was recording Red between tour dates. The next day, Swift received Nickelodeon's Big Help Award from Michelle Obama at the Kids' Choice Awards.",
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -1045,7 +1045,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/250px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
       moment: {
         context:
-          "Billboard estimated the Speak Now World Tour's total gross at $123.7 million, from 1,642,435 tickets sold across its 110-date run spanning 19 territories, from its February 2011 Singapore opener through its final show on March 18, 2012.\n\nInside those numbers: the North American leg alone accounted for roughly 1.5 million of the tickets, the run included her first six US stadium dates — a preview of the scale that would become her default — and the closing night landed at Auckland's Vector Arena. Adjusted for inflation, the $123.7 million works out to roughly $173 million in 2025 dollars, earned by a 22-year-old on an album she wrote entirely alone.",
+          "Billboard estimated the Speak Now World Tour's total gross at $123.7 million, from 1,642,435 tickets sold across its 110-date run spanning 19 territories, from its February 2011 Singapore opener through its final show on March 18, 2012.\n\nInside those numbers: the North American leg alone accounted for roughly 1.5 million of the tickets, the run was her first tour with multiple US stadium shows — six football stadiums — and the closing night landed at Auckland's Vector Arena. Adjusted for inflation, the $123.7 million works out to roughly $173 million in 2025 dollars, earned by a 22-year-old on an album she wrote entirely alone.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' }],
         photos: [
           {
@@ -1197,7 +1197,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Taylor_Swift_-_Mean.png/250px-Taylor_Swift_-_Mean.png',
       moment: {
         context:
-          'Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.\n\nReleased to country radio March 7, 2011, it debuted at No. 11 on the Hot 100 and passed a million digital copies by that August. The Declan Whitebloom video — shot over two days at Los Angeles\' Orpheum Theatre with young actors Joey King and Presley Cash — reframed the critic clapback as an anti-bullying story, and Grammy.com\'s retrospective still reads the song the way fans did in 2011: "a deliciously twangy clapback to critic Bob Lefsetz."',
+          'Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.\n\nIt had already debuted and peaked at No. 11 on the Hot 100 on album-week sales in 2010; released to country radio March 7, 2011, it passed a million digital copies by that August. The Declan Whitebloom video — shot over two days at Los Angeles\' Orpheum Theatre with young actors Joey King and Presley Cash — reframed the critic clapback as an anti-bullying story, and Grammy.com\'s retrospective still reads the song the way fans did in 2011: "a deliciously twangy clapback to critic Bob Lefsetz."',
         sources: [
           {
             outlet: 'Wikipedia',
