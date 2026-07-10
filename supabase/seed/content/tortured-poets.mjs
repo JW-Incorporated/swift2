@@ -21,6 +21,7 @@ export default {
     {
       year: 2024,
       month: 2,
+      day: 4,
       category: 'release',
       title: 'TTPD announced live at the Grammys before her record fourth AOTY win',
       snippet:
@@ -52,6 +53,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'business',
       title: "Tortured Poets breaks Spotify's single-day record",
       snippet:
@@ -119,6 +121,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'Fortnight opens the album, with Post Malone on the hook',
       snippet: "A pulsing '80s-inspired synth ballad that opens the album, with Post Malone on the hook.",
@@ -146,6 +149,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'release',
       title: 'A 2am surprise: TTPD was a secret double album all along',
       snippet:
@@ -181,6 +185,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'Clara Bow, and the industry habit of replacing women with women',
       snippet: '"You look like Clara Bow in this light... Stevie Nicks in \'75" — then, in the last verse, the label pitches the same line about her.',
@@ -205,6 +210,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'The Bolter, and the 1930s socialite fans think inspired it',
       snippet: 'A woman who leaves relationships the moment they turn — fans trace the title to a real 1900s aristocrat divorced five times over.',
@@ -235,6 +241,7 @@ export default {
     {
       year: 2024,
       month: 5,
+      day: 9,
       category: 'tour',
       title: "TTPD joins the Eras Tour as 'Female Rage The Musical'",
       snippet:
@@ -296,6 +303,7 @@ export default {
     {
       year: 2024,
       month: 5,
+      day: 9,
       category: 'fashion',
       title: 'A new crystal bodysuit, and a dress covered in lyrics',
       snippet: 'A brand-new crystal bodysuit for the opening numbers, then a gown printed with her own lyrics for the new album\'s songs.',
@@ -390,6 +398,7 @@ export default {
     {
       year: 2024,
       month: 11,
+      day: 10,
       category: 'sighting',
       title: 'Two more Chiefs games in three weeks: Denver, then Las Vegas',
       snippet: 'Home for the Broncos game on Nov. 10, then back again to watch Kansas City beat the Raiders on Nov. 29.',
@@ -424,6 +433,7 @@ export default {
     {
       year: 2024,
       month: 12,
+      day: 8,
       category: 'tour',
       title: 'The Eras Tour takes its final bow in Vancouver',
       snippet: 'BC Place, 149 shows and 21 months after Glendale — more than 50,000 fans for the last night of the tour.',
@@ -454,6 +464,7 @@ export default {
     {
       year: 2024,
       month: 12,
+      day: 9,
       category: 'business',
       title: 'The first tour ever to gross $2 billion',
       snippet: 'A final tally of $2,077,618,725 across 10.17 million tickets — roughly double the previous all-time tour record.',
@@ -488,6 +499,7 @@ export default {
     {
       year: 2024,
       month: 11,
+      day: 8,
       category: 'business',
       title: 'A record 7th Album of the Year nomination, for TTPD',
       snippet: 'The most Album of the Year nominations ever for a female artist, announced for the 2025 Grammys.',
@@ -518,6 +530,7 @@ export default {
     {
       year: 2025,
       month: 2,
+      day: 9,
       category: 'sighting',
       title: 'Booed at the Superdome, cheering for a three-peat that fell short',
       snippet: 'Back at her second straight Super Bowl to support Travis — this time drawing boos from a pro-Eagles crowd as Kansas City lost, 40–22.',
@@ -602,6 +615,7 @@ export default {
     {
       year: 2025,
       month: 8,
+      day: 26,
       category: 'fashion',
       title: 'The ring: an antique-style cut from a goldsmith she\'d had her eye on',
       snippet: "A custom Old Mine cushion-cut diamond by NYC goldsmith Kindred Lubeck — Taylor had shown Travis the designer's work over a year before he proposed.",
@@ -637,6 +651,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'fashion',
       title: "TTPD's grunge, tea-stained aesthetic: the album photography",
       snippet:
@@ -667,6 +682,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'fashion',
       title: "'Fortnight' video costuming: an Elena Velez gothic gown",
       snippet:
@@ -823,6 +839,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'fashion',
       title: 'A sculptural white Toni Matičevski gown opens the "Fortnight" video',
       snippet:
@@ -849,6 +866,7 @@ export default {
     {
       year: 2024,
       month: 8,
+      day: 20,
       category: 'fashion',
       title: 'Popflex and WISKII athleisure for "I Can Do It With a Broken Heart"',
       snippet:
@@ -1015,6 +1033,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'Down Bad, and the alien-abduction metaphor for being love-bombed',
       snippet:
@@ -1047,6 +1066,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: "So Long, London keeps her 'track five' tradition alive",
       snippet:
@@ -1075,6 +1095,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: "loml flips its own acronym: 'love of my life' becomes 'the loss of my life'",
       snippet:
@@ -1100,6 +1121,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'I Can Fix Him (No Really I Can): a saloon-twang song about the savior complex',
       snippet:
@@ -1130,6 +1152,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 29,
       category: 'music',
       title: 'The Smallest Man Who Ever Lived: the distorted bridge that closed out a historic chart sweep',
       snippet:
@@ -1209,6 +1232,7 @@ export default {
       slug: 'ttpd-billboard-200-debut',
       year: 2024,
       month: 4,
+      day: 28,
       category: 'business',
       title: '2.61 million in week one — her 14th No. 1, tying Jay-Z',
       snippet:
@@ -1254,6 +1278,7 @@ export default {
       slug: 'fortnight-top-14-sweep',
       year: 2024,
       month: 4,
+      day: 29,
       category: 'business',
       title: 'All 14: TTPD monopolizes the top of the Hot 100',
       snippet:
@@ -1299,6 +1324,7 @@ export default {
       slug: 'thank-you-aimee-capitalization',
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'thanK you aIMee: the capitalization does the talking',
       snippet:
@@ -1344,6 +1370,7 @@ export default {
       slug: 'florida-dateline-escape-hatch',
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'Florida!!! — a Dateline-inspired duet with Florence Welch',
       snippet:
@@ -1389,6 +1416,7 @@ export default {
       slug: 'so-high-school-kelce-references',
       year: 2024,
       month: 4,
+      day: 19,
       category: 'music',
       title: 'So High School, annotated by the internet in minutes',
       snippet:
@@ -1434,6 +1462,7 @@ export default {
       slug: 'murrayfield-scotland-records',
       year: 2024,
       month: 6,
+      day: 7,
       category: 'tour',
       title: 'Three nights, three Scottish attendance records at Murrayfield',
       snippet:
@@ -1574,6 +1603,7 @@ export default {
       slug: 'vienna-shows-cancelled',
       year: 2024,
       month: 8,
+      day: 7,
       category: 'tour',
       title: 'Vienna, cancelled: a foiled plot, three sold-out shows',
       snippet:
