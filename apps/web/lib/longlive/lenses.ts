@@ -294,7 +294,7 @@ export const RELATIONSHIPS: Relationship[] = [
     // June 2-3 2016. Swift's uncredited co-writing credit on "This Is What
     // You Came For" (as "Nils Sjoberg") was revealed after the split.
     // https://www.cnn.com/2016/06/02/entertainment/taylor-swift-calvin-harris-split
-    note: '15 months — the longest relationship before Travis. A secret co-writing credit became a whole story.',
+    note: '15 months. A secret co-writing credit became a whole story.',
   },
   {
     id: 'rel-hiddleston',
