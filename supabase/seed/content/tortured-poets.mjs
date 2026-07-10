@@ -87,6 +87,7 @@ export default {
     {
       year: 2024,
       month: 4,
+      day: 24,
       category: 'business',
       title: 'A billion streams in one week',
       snippet:
@@ -266,6 +267,7 @@ export default {
     {
       year: 2024,
       month: 5,
+      day: 9,
       category: 'tour',
       title: 'The European leg opens in Paris, with two live debuts',
       snippet:
@@ -324,6 +326,7 @@ export default {
     {
       year: 2024,
       month: 8,
+      day: 20,
       category: 'tour',
       title: 'Eight nights at Wembley — more than any solo artist ever',
       snippet:
@@ -359,6 +362,7 @@ export default {
     {
       year: 2024,
       month: 10,
+      day: 7,
       category: 'sighting',
       title: 'Back at Arrowhead for a Monday night win over New Orleans',
       snippet: 'A rare in-season appearance between international tour legs, cheering on a Chiefs win over the Saints.',
@@ -544,6 +548,7 @@ export default {
     {
       year: 2025,
       month: 2,
+      day: 9,
       category: 'fashion',
       title: 'Super Bowl LIX: an oversized white blazer, in Chiefs colors',
       snippet: 'A Saint Laurent double-breasted blazer, crystal denim shorts, and white Paris Texas boots — red-and-white, coordinated for game day.',
@@ -570,6 +575,7 @@ export default {
     {
       year: 2025,
       month: 8,
+      day: 26,
       category: 'relationship',
       title: '"Your English teacher and your gym teacher are getting married"',
       snippet: 'Travis proposed in the backyard of his Kansas City home; the two announced their engagement together on Instagram.',
@@ -690,6 +696,7 @@ export default {
     {
       year: 2024,
       month: 9,
+      day: 11,
       category: 'fashion',
       title: '2024 VMAs red carpet: a tartan Dior corset and cape',
       snippet:
@@ -718,6 +725,7 @@ export default {
     {
       year: 2025,
       month: 2,
+      day: 2,
       category: 'fashion',
       title: "2025 Grammys red carpet: sequined Vivienne Westwood, in Chiefs red",
       snippet:
@@ -749,6 +757,7 @@ export default {
     {
       year: 2025,
       month: 8,
+      day: 26,
       category: 'fashion',
       title: 'Engagement photos: a Polo Ralph Lauren dress in the garden',
       snippet:
@@ -782,6 +791,7 @@ export default {
     {
       year: 2024,
       month: 2,
+      day: 4,
       category: 'fashion',
       title: 'A draped Schiaparelli gown the same night TTPD was announced',
       snippet:
@@ -877,6 +887,7 @@ export default {
     {
       year: 2025,
       month: 1,
+      day: 18,
       category: 'sighting',
       title: 'Back in the family suite for a Chiefs-Texans divisional playoff win',
       snippet:
@@ -904,6 +915,7 @@ export default {
     {
       year: 2025,
       month: 1,
+      day: 26,
       category: 'sighting',
       title: 'A confetti kiss after the Chiefs punch their Super Bowl ticket',
       snippet:
@@ -935,6 +947,7 @@ export default {
     {
       year: 2025,
       month: 6,
+      day: 28,
       category: 'sighting',
       title: 'A pink mini dress for a Saturday-night dinner date',
       snippet:
@@ -960,6 +973,7 @@ export default {
     {
       year: 2025,
       month: 9,
+      day: 14,
       category: 'sighting',
       title: "Unseen at the Eagles rematch, then photographed at Mahomes' birthday",
       snippet:
@@ -1149,6 +1163,7 @@ export default {
     {
       year: 2024,
       month: 11,
+      day: 8,
       category: 'business',
       title: "Fortnight's Grammy double: nominated for both Record and Song of the Year",
       snippet:
@@ -1465,6 +1480,7 @@ export default {
       slug: 'liverpool-100th-show',
       year: 2024,
       month: 6,
+      day: 13,
       category: 'tour',
       title: 'Show 100 at Anfield — and the news the tour will end',
       snippet:
@@ -1511,6 +1527,7 @@ export default {
       slug: 'travis-wembley-stage-cameo',
       year: 2024,
       month: 6,
+      day: 23,
       category: 'relationship',
       title: 'Travis Kelce, Eras Tour cast member for a night',
       snippet:
@@ -1603,6 +1620,7 @@ export default {
       slug: 'harris-endorsement-cat-lady',
       year: 2024,
       month: 9,
+      day: 10,
       category: 'business',
       title: 'An endorsement signed "Childless Cat Lady"',
       snippet:
@@ -1650,6 +1668,7 @@ export default {
       slug: 'us-open-2024-final',
       year: 2024,
       month: 9,
+      day: 8,
       category: 'sighting',
       title: "Box seats at Arthur Ashe for the US Open men's final",
       snippet:
@@ -1696,6 +1715,7 @@ export default {
       slug: 'vmas-2024-seven-wins',
       year: 2024,
       month: 9,
+      day: 11,
       category: 'business',
       title: 'Seven more VMAs, and a tie with Beyoncé at 30',
       snippet:
@@ -1742,6 +1762,7 @@ export default {
       slug: 'eras-tour-book-target',
       year: 2024,
       month: 11,
+      day: 29,
       category: 'business',
       title: 'The Eras Tour Book sells 814,000 copies in two days',
       snippet:
@@ -1797,6 +1818,7 @@ export default {
       slug: 'spotify-wrapped-2024',
       year: 2024,
       month: 12,
+      day: 4,
       category: 'business',
       title: "Spotify's top global artist, again — 26.6 billion streams",
       snippet:
@@ -1842,6 +1864,7 @@ export default {
       slug: 'masters-buyback-shamrock',
       year: 2025,
       month: 5,
+      day: 30,
       category: 'business',
       title: '"All of the music I\'ve ever made... now belongs... to me"',
       snippet:
