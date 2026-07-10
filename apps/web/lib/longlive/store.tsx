@@ -55,6 +55,15 @@ interface AppState {
   theoryGuideEraId: EraId | null;
   /** Whether the era selector overlay is open. */
   selectorOpen: boolean;
+  /**
+   * True while the user is actively dragging the TimelineScrubber. EraStream's
+   * scroll-driven active-era detection checks this and skips re-anchoring
+   * while true — the scrubber's own auto-scroll can otherwise cross into the
+   * next era's viewport-center mid-drag, flipping the active era (and with it
+   * the scrubber's whole per-era anchor set) out from under the still-active
+   * gesture, which reads as the rail jumping partway through a drag.
+   */
+  scrubbing: boolean;
   /** Whether the search overlay is open. */
   searchOpen: boolean;
   /**
@@ -134,6 +143,8 @@ interface AppActions {
   /** Invalidate any saved position — explicit jumps land at the top instead. */
   clearEraScroll: () => void;
   setSelectorOpen: (open: boolean) => void;
+  /** Mark whether the TimelineScrubber is currently being dragged. */
+  setScrubbing: (v: boolean) => void;
   /** Open/close the search overlay. */
   setSearchOpen: (open: boolean) => void;
   /** Open the glossary drawer, optionally focused on one entry. */
@@ -242,6 +253,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [openTrackKey, setOpenTrackKey] = useState<string | null>(null);
   const [theoryGuideEraId, setTheoryGuideEraId] = useState<EraId | null>(null);
   const [selectorOpen, setSelectorOpen] = useState(false);
+  const [scrubbing, setScrubbing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [glossary, setGlossary] = useState<{ entryId: string | null } | null>(null);
   const [share, setShare] = useState<ShareTarget | null>(null);
@@ -401,6 +413,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       getEraScroll,
       clearEraScroll,
       setSelectorOpen,
+      setScrubbing,
       setSearchOpen,
       openGlossary: (entryId?: string) => setGlossary({ entryId: entryId ?? null }),
       closeGlossary: () => setGlossary(null),
@@ -423,8 +436,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const state = useMemo<AppState>(
-    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail }),
-    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, searchOpen, glossary, share, clueWebTrail],
+    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, scrubbing, searchOpen, glossary, share, clueWebTrail }),
+    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, scrubbing, searchOpen, glossary, share, clueWebTrail],
   );
 
   return (
