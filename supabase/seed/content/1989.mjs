@@ -12,7 +12,8 @@ export default {
   items: [
     {
       year: 2014,
-      month: 10,
+      month: 11,
+      day: 15,
       category: 'business',
       title: '1989 becomes her third million-copy opening week',
       snippet:
@@ -37,7 +38,8 @@ export default {
     },
     {
       year: 2014,
-      month: 10,
+      month: 11,
+      day: 10,
       category: 'music',
       title: 'Blank Space, and the joke half the audience missed',
       snippet:
@@ -56,7 +58,8 @@ export default {
     },
     {
       year: 2014,
-      month: 10,
+      month: 8,
+      day: 18,
       category: 'music',
       title: 'Shake It Off, and the pivot from victim to punchline-maker',
       snippet: 'The tonal opposite of Mean — critics get a shrug and a wink instead of a wound.',
@@ -74,7 +77,8 @@ export default {
     },
     {
       year: 2014,
-      month: 10,
+      month: 9,
+      day: 8,
       category: 'music',
       title: 'Bad Blood, and the friendship it ended',
       snippet:
@@ -97,6 +101,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 5,
       category: 'tour',
       title: 'The 1989 World Tour opens with two sold-out nights in Tokyo',
       snippet:
@@ -116,6 +121,7 @@ export default {
     {
       year: 2014,
       month: 10,
+      day: 27,
       category: 'music',
       title: 'New Romantics, the deluxe-track Rolling Stone later called one of the decade\'s best',
       snippet: '"Heartbreak is the national anthem" — a synth-pop rallying cry for coming back from it with your friends beside you.',
@@ -134,6 +140,7 @@ export default {
     {
       year: 2014,
       month: 10,
+      day: 27,
       category: 'music',
       title: 'Clean, and the storm that washes everything out',
       snippet: 'The album\'s closing track, built entirely around one metaphor: heartbreak as addiction, and finally getting clean of it.',
@@ -158,7 +165,8 @@ export default {
     },
     {
       year: 2015,
-      month: 8,
+      month: 9,
+      day: 2,
       category: 'music',
       title: 'Wildest Dreams draws colonialism criticism for its overwhelmingly white 1950s Africa',
       snippet:
@@ -181,6 +189,7 @@ export default {
     {
       year: 2015,
       month: 3,
+      day: 29,
       category: 'fashion',
       title: 'A black cutout KaufmanFranco mini at the iHeartRadio Awards',
       snippet: 'Bandeau cutouts and intricate beadwork — the night she also won Artist of the Year.',
@@ -210,6 +219,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 17,
       category: 'relationship',
       title: 'Calvin Harris and Taylor go public at the Billboard Music Awards',
       snippet: 'Introduced by Ellie Goulding that February, the DJ-and-pop-star pairing went fully public a month after a first, subtler social-media hint.',
@@ -234,6 +244,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 17,
       category: 'fashion',
       title: 'A sparkling white Balmain jumpsuit for the Billboard Music Awards',
       snippet: 'Waist cutouts, all-over sparkle, and a "Bad Blood" video premiere the same night.',
@@ -252,6 +263,7 @@ export default {
     {
       year: 2016,
       month: 6,
+      day: 1,
       category: 'relationship',
       title: 'Taylor and Calvin Harris split after 15 months',
       snippet: '"It just wasn\'t working anymore" — a breakup Harris addressed directly on social media, citing love and respect that remained.',
@@ -276,6 +288,7 @@ export default {
     {
       year: 2016,
       month: 7,
+      day: 14,
       category: 'relationship',
       title: 'Tom Hiddleston, weeks after the Calvin Harris split',
       snippet: '"Taylor Swift and I are together, and we\'re very happy... it\'s not a publicity stunt" — his own words to The Hollywood Reporter.',
@@ -300,6 +313,7 @@ export default {
     {
       year: 2016,
       month: 7,
+      day: 3,
       category: 'sighting',
       title: 'A Fourth of July beach walk in Rhode Island',
       snippet: "Spotted walking the shore at her Rhode Island house in matching \"I ❤ T.S.\" gear, part of a holiday party with her regular friend group.",
@@ -324,6 +338,7 @@ export default {
     {
       year: 2016,
       month: 9,
+      day: 6,
       category: 'relationship',
       title: 'Hiddleswift ends after three months',
       snippet: 'A brief, intensely-covered romance that started at the Met Gala ended quietly by September.',
@@ -348,6 +363,7 @@ export default {
     {
       year: 2017,
       month: 5,
+      day: 16,
       category: 'relationship',
       title: 'The Sun breaks the news: quietly dating Joe Alwyn since the fall',
       snippet: "She'd kept it secret for months, renting a North London house and using scarves and hats to avoid being recognized.",
@@ -374,6 +390,7 @@ export default {
     {
       year: 2015,
       month: 8,
+      day: 30,
       category: 'fashion',
       title: 'A houndstooth Ashish crop-top pantsuit leads the "Bad Blood" squad onto the VMAs carpet',
       snippet: 'Sequined, metallic houndstooth crop top and trousers, dark cat-eye makeup, and an entire squad of models and actresses walking in formation behind her.',
@@ -398,6 +415,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 5,
       category: 'fashion',
       title: 'The 1989 World Tour wardrobe: a rotating closet of sparkle',
       snippet: 'Beaded fringe minidresses, a jeweled bodysuit, a Marilyn Monroe-style playsuit, a leather catsuit — a different sequined look for nearly every section of the show.',
@@ -418,6 +436,7 @@ export default {
     {
       year: 2016,
       month: 2,
+      day: 15,
       category: 'fashion',
       title: 'A red bandeau top and a thigh-slit magenta maxi skirt at the 2016 Grammys',
       snippet: 'A strapless red crop top paired with a voluminous hot-pink satin skirt slit to the hip — worn the same night 1989 won Album of the Year.',
@@ -442,6 +461,7 @@ export default {
     {
       year: 2016,
       month: 2,
+      day: 15,
       category: 'fashion',
       title: 'A blunt bob with bangs replaces the signature curls at the 2016 Grammys',
       snippet: 'A dramatically shorter, blunt-cut bob with heavy fringe — a sharp departure from the long waves she\'d worn through most of the 1989 era, debuted on one of the year\'s biggest red carpets.',
@@ -485,6 +505,7 @@ export default {
     {
       year: 2016,
       month: 5,
+      day: 2,
       category: 'fashion',
       title: 'A silver snakeskin Louis Vuitton mini co-chairing the 2016 Met Gala',
       snippet:
@@ -515,6 +536,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 17,
       category: 'fashion',
       title: '"Bad Blood" video\'s warrior makeup: winged eyes and a red lip by Lorrie Turk',
       snippet:
@@ -573,6 +595,7 @@ export default {
     {
       year: 2015,
       month: 4,
+      day: 2,
       category: 'sighting',
       title: 'Hand in hand after a HAIM show at the Troubadour — the first Calvin Harris sighting',
       snippet:
@@ -595,6 +618,7 @@ export default {
     {
       year: 2015,
       month: 5,
+      day: 28,
       category: 'sighting',
       title: "Gigi Hadid and Karlie Kloss stop by the NYC apartment for a night in",
       snippet:
@@ -620,6 +644,7 @@ export default {
     {
       year: 2015,
       month: 7,
+      day: 4,
       category: 'sighting',
       title: 'Matching flag onesies for the Fourth of July, Calvin Harris included',
       snippet:
@@ -645,6 +670,7 @@ export default {
     {
       year: 2016,
       month: 6,
+      day: 15,
       category: 'sighting',
       title: 'Caught kissing on a Rhode Island beach — the first Hiddleswift sighting',
       snippet:
@@ -667,6 +693,7 @@ export default {
     {
       year: 2016,
       month: 6,
+      day: 27,
       category: 'sighting',
       title: 'Sightseeing at the Colosseum, hand in hand, in matching outfits',
       snippet:
@@ -683,6 +710,7 @@ export default {
     {
       year: 2016,
       month: 7,
+      day: 6,
       category: 'sighting',
       title: 'Matching outfits through LAX, hours before a flight to Australia',
       snippet:
@@ -711,6 +739,7 @@ export default {
     {
       year: 2016,
       month: 2,
+      day: 15,
       category: 'business',
       title: '1989 wins Album of the Year — making her the first woman to win it twice',
       snippet:
@@ -736,6 +765,7 @@ export default {
     {
       year: 2020,
       month: 3,
+      day: 14,
       category: 'business',
       title: '"Shake It Off" becomes her first Diamond-certified single',
       snippet:
@@ -757,6 +787,7 @@ export default {
     {
       year: 2025,
       month: 9,
+      day: 30,
       category: 'business',
       title: '1989 itself goes Diamond, joining Fearless as her second 10-million-unit album',
       snippet:
@@ -776,6 +807,7 @@ export default {
     {
       year: 2014,
       month: 11,
+      day: 3,
       category: 'business',
       title: 'Pulls her entire catalog from Spotify',
       snippet:
@@ -798,6 +830,7 @@ export default {
     {
       year: 2015,
       month: 6,
+      day: 21,
       category: 'business',
       title: '"To Apple, Love, Taylor" — an open letter reverses Apple Music\'s royalty policy in under a day',
       snippet:
@@ -820,6 +853,7 @@ export default {
     {
       year: 2015,
       month: 12,
+      day: 12,
       category: 'tour',
       title: 'The 1989 World Tour closes in Melbourne: 85 shows, $250.7 million, 2.28 million tickets',
       snippet:
@@ -842,6 +876,7 @@ export default {
     {
       year: 2014,
       month: 10,
+      day: 14,
       category: 'music',
       title: 'Out of the Woods: a voice memo written to Jack Antonoff\'s track mid-flight',
       snippet:
@@ -868,6 +903,7 @@ export default {
       slug: '1989-announced-yahoo-livestream',
       year: 2014,
       month: 8,
+      day: 18,
       category: 'release',
       title: 'A Yahoo livestream announces 1989 — her "first documented, official pop album"',
       snippet:
@@ -952,6 +988,7 @@ export default {
       slug: '1989-welcome-to-new-york-schools',
       year: 2014,
       month: 10,
+      day: 20,
       category: 'music',
       title: 'Welcome to New York, with the proceeds going to the city\'s schools',
       snippet:
@@ -1004,6 +1041,7 @@ export default {
       slug: '1989-nyc-welcome-ambassador',
       year: 2014,
       month: 10,
+      day: 27,
       category: 'business',
       title: 'New York names her its Global Welcome Ambassador',
       snippet:
@@ -1047,6 +1085,7 @@ export default {
       slug: '1989-blank-space-interactive-video',
       year: 2014,
       month: 11,
+      day: 10,
       category: 'release',
       title: 'The Blank Space video arrives with its own interactive app',
       snippet:
@@ -1132,6 +1171,7 @@ export default {
       slug: '1989-this-sick-beat-trademarks',
       year: 2015,
       month: 1,
+      day: 29,
       category: 'business',
       title: 'She trademarks "This Sick Beat" (and "Party Like It\'s 1989")',
       snippet:
@@ -1175,6 +1215,7 @@ export default {
       slug: '1989-style-video',
       year: 2015,
       month: 2,
+      day: 13,
       category: 'release',
       title: 'The Style video trades plot for pure atmosphere',
       snippet:
@@ -1218,6 +1259,7 @@ export default {
       slug: '1989-bad-blood-video-vevo-record',
       year: 2015,
       month: 5,
+      day: 17,
       category: 'release',
       title: 'Bad Blood premieres at the BBMAs and breaks the Vevo record',
       snippet:
@@ -1261,6 +1303,7 @@ export default {
       slug: '1989-hyde-park-runway',
       year: 2015,
       month: 6,
+      day: 27,
       category: 'tour',
       title: 'Hyde Park, 65,000 people, and a literal squad runway',
       snippet:
@@ -1304,6 +1347,7 @@ export default {
       slug: '1989-kobe-staples-banner',
       year: 2015,
       month: 8,
+      day: 21,
       category: 'tour',
       title: 'Kobe Bryant raises a banner for her at Staples Center',
       snippet:
@@ -1347,6 +1391,7 @@ export default {
       slug: '1989-world-tour-live-film',
       year: 2015,
       month: 12,
+      day: 20,
       category: 'release',
       title: 'The 1989 World Tour Live lands as an Apple Music exclusive',
       snippet:
@@ -1390,6 +1435,7 @@ export default {
       slug: '1989-out-of-the-woods-video-nye',
       year: 2015,
       month: 12,
+      day: 31,
       category: 'release',
       title: 'The Out of the Woods video closes the era on New Year\'s Eve',
       snippet:
@@ -1433,6 +1479,7 @@ export default {
       slug: '1989-taylor-vs-treadmill',
       year: 2016,
       month: 4,
+      day: 1,
       category: 'business',
       title: 'Taylor vs. Treadmill: the Apple Music ad that sold a Drake song',
       snippet:
@@ -1476,6 +1523,7 @@ export default {
       slug: '1989-nils-sjoberg-reveal',
       year: 2016,
       month: 7,
+      day: 13,
       category: 'relationship',
       title: 'Nils Sjöberg unmasked: she secretly wrote Calvin Harris\'s biggest hit of the year',
       snippet:
@@ -1528,6 +1576,7 @@ export default {
       slug: '1989-taylors-version-announced',
       year: 2023,
       month: 8,
+      day: 9,
       category: 'release',
       title: '1989 (Taylor\'s Version) announced in head-to-toe blue at SoFi Stadium',
       snippet:

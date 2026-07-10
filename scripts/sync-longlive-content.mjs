@@ -65,6 +65,20 @@ function slugify(title) {
 
 const VALID_TAGS = new Set(['Music', 'Fashion', 'Tour', 'Relationship', 'Lore']);
 
+// Keep in sync with LensId (apps/web/lib/longlive/types.ts). 'love-story' and
+// 'fashion' don't need explicit opt-in — they're implied by the Relationship/
+// Fashion tags via defaultThreadIdsForTags() in content.ts — but a seed item
+// can still list them explicitly to be thorough; either way validation here
+// just guards against typos.
+const VALID_THREAD_IDS = new Set([
+  'love-story',
+  'fashion',
+  'taylors-version',
+  'easter-eggs',
+  'hidden-clues',
+  'the-proposal',
+]);
+
 /**
  * Full editorial body: split the Tier-1 `moment.context` into paragraphs so
  * the detail view shows real prose, not the summary sentence repeated. Falls
@@ -88,6 +102,20 @@ function tagsFrom(category, tags) {
     if (VALID_TAGS.has(t) && !out.includes(t)) out.push(t);
   }
   return out;
+}
+
+/**
+ * Explicit thread opt-ins from the seed row, validated against known LensIds.
+ * The tag-based defaults (Relationship -> love-story, Fashion -> fashion)
+ * are applied later, in content.ts's build() — not here — so hand-curated
+ * and synced items go through identical default logic. Returns undefined
+ * (field omitted) when the item has no explicit opt-in, same convention as
+ * relatedIdsFrom.
+ */
+export function threadIdsFrom(threadIds) {
+  if (!Array.isArray(threadIds)) return undefined;
+  const out = threadIds.filter((t) => VALID_THREAD_IDS.has(t));
+  return out.length ? out : undefined;
 }
 
 /** Allowed ImageRef.kind values (apps/web/lib/longlive/types.ts ImageKind). */
@@ -164,6 +192,7 @@ export function addItem(
     photos,
     slug,
     tags,
+    threadIds,
     video,
     relatedIds,
   },
@@ -208,6 +237,7 @@ export function addItem(
     sources: sourcesFrom(sources, sourceUrl),
     video: hasVideo ? { youtubeId: video.youtubeId, title: video.title } : undefined,
     relatedIds: relatedIdsFrom(relatedIds),
+    threadIds: threadIdsFrom(threadIds),
   });
 }
 
@@ -284,9 +314,14 @@ async function fetchFromSupabase() {
       sourceUrl: row.source_url ?? null,
       thumbnailUrl: row.thumbnail_url ?? null,
       photos: m?.photos ?? null,
-      // month_item has no slug/tags/video/related_ids column in the DB — those
-      // live only in the seed files (see fetchFromLocalFiles). Carrying them
-      // to live data needs a schema migration; tracked as a follow-up in the PR.
+      // month_item has no slug/tags/video/related_ids/thread_ids column in
+      // the DB — those live only in the seed files (see fetchFromLocalFiles).
+      // Carrying them to live data needs a schema migration; tracked as a
+      // follow-up in the PR. Category-based thread defaults (Relationship ->
+      // love-story, Fashion -> fashion) still apply to live-fetched items,
+      // since those derive from `tags` in content.ts's build(), not from
+      // this explicit threadIds field — only the *explicit* opt-in for the
+      // other four threads is unavailable on live data until that migration.
     });
   }
 
@@ -321,6 +356,7 @@ async function fetchFromLocalFiles() {
         photos: item.moment?.photos ?? null,
         slug: item.slug ?? null,
         tags: item.tags ?? null,
+        threadIds: item.threadIds ?? null,
         video: item.video ?? null,
         // Cross-links may live on the item or its Tier-1 moment detail —
         // accept either so the content lane can pick the natural home.
@@ -343,7 +379,7 @@ async function main() {
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
   lines.push("// Re-run that script after content-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { ContentTag, EraId, ImageRef } from './types';");
+  lines.push("import type { ContentTag, EraId, ImageRef, LensId } from './types';");
   lines.push('');
   lines.push('/**');
   lines.push(' * Build-time freshness stamp: when this module was last regenerated. The');
@@ -367,6 +403,7 @@ async function main() {
   lines.push('  sources?: { name: string; url: string }[];');
   lines.push('  video?: { youtubeId: string; title: string };');
   lines.push('  relatedIds?: string[];');
+  lines.push('  threadIds?: LensId[];');
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -403,6 +440,9 @@ async function main() {
       }
       if (it.relatedIds && it.relatedIds.length) {
         lines.push(`      relatedIds: [${it.relatedIds.map(esc).join(', ')}],`);
+      }
+      if (it.threadIds && it.threadIds.length) {
+        lines.push(`      threadIds: [${it.threadIds.map(esc).join(', ')}],`);
       }
       lines.push('    },');
     }
