@@ -12,7 +12,9 @@ import { cn } from '@/lib/utils';
 const HEADER_OFFSET = 64;
 const REF_RATIO = 0.3;
 /** Horizontal distance (px) of the rail line from the viewport's right edge. */
-const RAIL_RIGHT = 26;
+const RAIL_RIGHT = 16;
+/** Ridge SVG width (px); shrinks with the rail footprint. */
+const RIDGE_WIDTH = 28;
 /** Density curve resolution. */
 const SAMPLES = 72;
 
@@ -44,7 +46,10 @@ export function TimelineScrubber() {
   const items = useMemo(() => contentForEra(eraId), [eraId]);
   const milestones = useMemo(() => milestonesForEra(eraId), [eraId]);
 
-  // Smoothed activity density (Gaussian kernel over item dates).
+  // Smoothed activity density (Gaussian kernel over item dates). This stays
+  // date-based (it's describing *when* things happened), but is drawn against
+  // the anchor-based (rendered-position) axis below so its bulges line up
+  // with where the ticks actually sit on the rail.
   const density = useMemo(() => {
     const dates = items.map((i) => new Date(i.date).getTime());
     const bandwidth = span / 9;
@@ -61,23 +66,6 @@ export function TimelineScrubber() {
     const max = Math.max(...raw, 1e-6);
     return raw.map((v) => v / max);
   }, [items, span, end]);
-
-  // Ridge path in a 0..100 × 0..1000 viewBox, stretched to the rail with
-  // preserveAspectRatio="none". x=100 is the rail; smaller x bulges leftward.
-  const ridgePath = useMemo(() => {
-    const pts = density.map((v, s) => {
-      const y = (s / (SAMPLES - 1)) * 1000;
-      const x = 100 - v * 100;
-      return `${x.toFixed(2)} ${y.toFixed(2)}`;
-    });
-    return `M 100 0 L ${pts.join(' L ')} L 100 1000 Z`;
-  }, [density]);
-
-  // Top of the rail (0%) = newest/now; bottom (100%) = the era's start.
-  const pctForDate = useCallback(
-    (ms: number) => clamp01((end - ms) / span) * 100,
-    [end, span],
-  );
 
   const railRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<HTMLSpanElement>(null);
@@ -96,6 +84,11 @@ export function TimelineScrubber() {
   const [hoverDate, setHoverDate] = useState<number | null>(null);
   const [active, setActive] = useState(false); // hovering or dragging
   const [nowPct, setNowPct] = useState<number | null>(null);
+  // Bumped after every measure() so date->position lookups (ticks, milestones,
+  // ridge, ...) — which read the anchors ref directly during render — repaint
+  // once real layout is known, instead of staying pinned to the pre-measure
+  // calendar-linear fallback.
+  const [anchorsVersion, setAnchorsVersion] = useState(0);
   // First-run legend hint: shown once, dismissed on first interaction.
   const [showHint, setShowHint] = useState(false);
 
@@ -121,10 +114,22 @@ export function TimelineScrubber() {
     });
   }, []);
 
+  // Calendar-linear fallback, used only before the DOM has been measured
+  // (first paint) so ticks/milestones have *something* sane to render.
+  const pctForDateLinear = useCallback(
+    (ms: number) => clamp01((end - ms) / span) * 100,
+    [end, span],
+  );
+
   // Measure the on-screen content items (document coordinates + their dates).
   // Scoped to the active era — once the infinite stream has appended
   // neighboring eras, an unscoped query would pull in their anchors too and
   // let scrollToDate jump out of the era this scrubber is supposed to cover.
+  // EraSection also renders a zero-size end-of-content sentinel
+  // (data-ll-item={`${eraId}__end`}) after its videos/threads blocks, dated
+  // at the era's start — that becomes this array's last (bottom-most) entry,
+  // so the rail's 100% position resolves to the true end of the era's
+  // rendered content, not just the last moment card.
   const measure = useCallback(() => {
     const els = Array.from(
       document.querySelectorAll<HTMLElement>(`[data-ll-item][data-ll-era="${eraId}"]`),
@@ -135,47 +140,113 @@ export function TimelineScrubber() {
         top: el.getBoundingClientRect().top + window.scrollY,
       }))
       .sort((a, b) => a.top - b.top);
+    setAnchorsVersion((v) => v + 1);
   }, [eraId]);
+
+  // Date -> document-Y, by interpolating across the measured anchors.
+  // Anchors are ordered by vertical position; dates descend as you go down
+  // the page (newest at the top), so interpolate for that direction.
+  const topForDate = useCallback((target: number): number => {
+    const a = anchorsRef.current;
+    if (!a.length) return 0;
+    if (target >= a[0].date) return a[0].top;
+    const last = a[a.length - 1];
+    if (target <= last.date) return last.top;
+    for (let i = 0; i < a.length - 1; i++) {
+      if (target <= a[i].date && target > a[i + 1].date) {
+        const f = (a[i].date - target) / Math.max(1, a[i].date - a[i + 1].date);
+        return a[i].top + f * (a[i + 1].top - a[i].top);
+      }
+    }
+    return last.top;
+  }, []);
+
+  // Document-Y -> date (inverse of the above); used both to sync the pill
+  // label while free-scrolling and to read back a date from an arbitrary
+  // rail position.
+  const dateForTop = useCallback(
+    (top: number): number => {
+      const a = anchorsRef.current;
+      if (!a.length) return end;
+      if (top <= a[0].top) return a[0].date;
+      const last = a[a.length - 1];
+      if (top >= last.top) return last.date;
+      for (let i = 0; i < a.length - 1; i++) {
+        if (top >= a[i].top && top < a[i + 1].top) {
+          const f = (top - a[i].top) / Math.max(1, a[i + 1].top - a[i].top);
+          return a[i].date + f * (a[i + 1].date - a[i].date);
+        }
+      }
+      return last.date;
+    },
+    [end],
+  );
+
+  // Rail position (0..100) is linear in *rendered position*, not calendar
+  // date: equal drag distance covers equal scroll distance. A pure
+  // date-linear rail feels "wrong"/non-linear whenever content is bursty
+  // (dense weeks next to quiet months) — the handle crawls through busy
+  // stretches and rockets through quiet ones relative to what's on screen.
+  // Anchoring the axis to measured DOM position instead makes the rail
+  // behave like a real scrollbar for this era's content, and — combined with
+  // the end-of-content sentinel above — guarantees 100% is the true bottom.
+  const pctForTop = useCallback((top: number): number => {
+    const a = anchorsRef.current;
+    if (a.length < 2) return 0;
+    const railSpan = Math.max(1, a[a.length - 1].top - a[0].top);
+    return clamp01((top - a[0].top) / railSpan) * 100;
+  }, []);
+
+  const topForPct = useCallback((pct: number): number => {
+    const a = anchorsRef.current;
+    if (a.length < 2) return 0;
+    const railSpan = a[a.length - 1].top - a[0].top;
+    return a[0].top + (pct / 100) * railSpan;
+  }, []);
+
+  // Date -> rail position. Before the DOM has been measured, fall back to
+  // the calendar-linear formula so first paint has something sane; once
+  // anchors are known, position is linear in rendered content, not date.
+  const pctForDate = useCallback(
+    (ms: number): number => {
+      if (anchorsRef.current.length < 2) return pctForDateLinear(ms);
+      return pctForTop(topForDate(ms));
+    },
+    [pctForDateLinear, pctForTop, topForDate],
+  );
+
+  // Ridge path in a 0..100 × 0..1000 viewBox, stretched to the rail with
+  // preserveAspectRatio="none". x=100 is the rail; smaller x bulges leftward.
+  // Sampled at even calendar steps (that's what "density" means) but each
+  // sample is placed at its anchor-based rail position so the bulge lines up
+  // with the (now position-linear) ticks.
+  const ridgePath = useMemo(() => {
+    const pts = density.map((v, s) => {
+      const t = end - (s / (SAMPLES - 1)) * span;
+      const y = clamp01(pctForDate(t) / 100) * 1000;
+      const x = 100 - v * 100;
+      return `${x.toFixed(2)} ${y.toFixed(2)}`;
+    });
+    return `M 100 0 L ${pts.join(' L ')} L 100 1000 Z`;
+  }, [density, end, span, pctForDate]);
 
   // Feed scroll → current reading date.
   const dateFromScroll = useCallback((): number | null => {
-    const a = anchorsRef.current;
-    if (!a.length) return null;
+    if (!anchorsRef.current.length) return null;
     const ref = window.scrollY + HEADER_OFFSET + window.innerHeight * REF_RATIO;
-    if (ref <= a[0].top) return a[0].date;
-    const last = a[a.length - 1];
-    if (ref >= last.top) return last.date;
-    for (let i = 0; i < a.length - 1; i++) {
-      if (ref >= a[i].top && ref < a[i + 1].top) {
-        const f = (ref - a[i].top) / Math.max(1, a[i + 1].top - a[i].top);
-        return a[i].date + f * (a[i + 1].date - a[i].date);
-      }
-    }
-    return last.date;
-  }, []);
+    return dateForTop(ref);
+  }, [dateForTop]);
 
   // Target date → feed scroll position (inverse of the above).
-  // Anchors are ordered by vertical position; dates now descend as you go
-  // down the page (newest at the top), so interpolate for that direction.
-  const scrollToDate = useCallback((target: number) => {
-    const a = anchorsRef.current;
-    if (!a.length) return;
-    const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
-    let y: number;
-    if (target >= a[0].date) y = a[0].top;
-    else if (target <= a[a.length - 1].date) y = a[a.length - 1].top;
-    else {
-      y = a[a.length - 1].top;
-      for (let i = 0; i < a.length - 1; i++) {
-        if (target <= a[i].date && target > a[i + 1].date) {
-          const f = (a[i].date - target) / Math.max(1, a[i].date - a[i + 1].date);
-          y = a[i].top + f * (a[i + 1].top - a[i].top);
-          break;
-        }
-      }
-    }
-    window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
-  }, []);
+  const scrollToDate = useCallback(
+    (target: number) => {
+      if (!anchorsRef.current.length) return;
+      const offset = HEADER_OFFSET + window.innerHeight * REF_RATIO;
+      const y = topForDate(target);
+      window.scrollTo({ top: y - offset, behavior: draggingRef.current ? 'auto' : 'smooth' });
+    },
+    [topForDate],
+  );
 
   const syncFromScroll = useCallback(() => {
     if (draggingRef.current) return;
@@ -222,17 +293,19 @@ export function TimelineScrubber() {
       window.clearTimeout(t);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
-  }, [eraId, measure, syncFromScroll, pctForDate, start, end]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [eraId, measure, syncFromScroll, start, end]);
 
   const dateFromPointer = useCallback(
     (clientY: number): number => {
       const rect = railRef.current?.getBoundingClientRect();
       if (!rect) return end;
-      // Top of the rail = newest; bottom = the era's start.
       const f = clamp01((clientY - rect.top) / rect.height);
-      return end - f * span;
+      // Pre-measure fallback (calendar-linear); matches pctForDate's fallback.
+      if (anchorsRef.current.length < 2) return end - f * span;
+      return dateForTop(topForPct(f * 100));
     },
-    [end, span],
+    [end, span, dateForTop, topForPct],
   );
 
   const onPointerDown = useCallback(
@@ -314,8 +387,12 @@ export function TimelineScrubber() {
   }, [hoverDate, items]);
   const showTooltip = active && !draggingRef.current && hoverPct != null && nearestItem != null;
 
+  // Referencing anchorsVersion keeps these renders in sync with measure()
+  // without changing any of the pure pct-lookup functions above.
+  void anchorsVersion;
+
   return (
-    <div className="pointer-events-none fixed inset-y-0 right-0 z-30 flex w-16 items-center justify-end sm:w-20">
+    <div className="pointer-events-none fixed inset-y-0 right-0 z-30 flex w-10 items-center justify-end sm:w-12">
       {/* Legibility scrim */}
       <div
         aria-hidden
@@ -369,7 +446,7 @@ export function TimelineScrubber() {
         <svg
           aria-hidden
           className="absolute inset-y-0"
-          style={{ right: RAIL_RIGHT, width: 48, height: '100%' }}
+          style={{ right: RAIL_RIGHT, width: RIDGE_WIDTH, height: '100%' }}
           viewBox="0 0 100 1000"
           preserveAspectRatio="none"
         >
