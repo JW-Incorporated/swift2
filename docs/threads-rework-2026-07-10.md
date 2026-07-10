@@ -17,7 +17,8 @@ conversation's context or v0 access. Each links back to this doc.
 - [#371](https://github.com/JW-Incorporated/swift2/issues/371) — Mobile
   spot-check for PR #332's 4 threads
 - [#372](https://github.com/JW-Incorporated/swift2/issues/372) — The Runway
-  thread integration (Claude is starting this now; packaged as a fallback)
+  thread integration — **done, PR #425 open**, issue left open pending its
+  Codex review (folded into the same review backlog as #370)
 
 ## ⚠️ PENDING CODEX REVIEW — do not merge until this section is empty
 
@@ -41,6 +42,15 @@ merging, fix any findings, then remove it from this list.**
   reloading and re-checking all 7 beats). All four manually verified in a
   running dev server (desktop) — mobile viewport not yet spot-checked on
   any of them.
+- [ ] `content/thread-runway` (worktree `../Swift2-thread-runway`) — PR
+  #425 (draft): https://github.com/JW-Incorporated/swift2/pull/425. All 12
+  `RUNWAY_LOOKS` entries now carry real credited photos instead of
+  placeholders. Zero Codex review. Self-reviewed and desktop-verified in a
+  running dev server (all 12 eras' feature + gallery photos, re-theming,
+  scrubber sync) — mobile not spot-checked (browser-resize tool didn't
+  change the rendered viewport this session). Built off `main`, not
+  stacked on `content/thread-taylors-version` — expect a small merge
+  conflict in `ThreadsMode.tsx`'s import list/JSX when both land.
 - [ ] `content/day-level-dates` (worktree `../Swift2-datebackfill`) — DID get
   a full adversarial review + fixes, and a separate date fact-check pass +
   fixes (both real, both completed before the quota hit — see the two
@@ -190,7 +200,7 @@ updated as each lands:
 | 2 | **The Decode** | Mostly a browsing/filtering UX enhancement on an already-rich dataset (42 `CLUE_PAIRS` — corrected count, not the 117 an earlier session note guessed) | ✅ PR #332 (same as row 1) |
 | 3 | **Love Story** | Needs a new `SINGLE_PERIODS` dataset alongside `RELATIONSHIPS` (see data-shape note below); moderate | ✅ PR #332 (same as rows 1-2) |
 | 4 | **The Proposal** | Needs real sourced photos per beat — heavier research lift | ✅ PR #332 (same branch as rows 1-3) |
-| 5 | **The Runway** | Needs the most new content: multiple real sourced photos per era (not the current 1), plus narrative on how/why style changed each era | ⬜ Photo research done (30 verified real photos, 2-3/era, saved to session scratchpad — needs re-extracting into a committed doc, see below), no code work started |
+| 5 | **The Runway** | Needs the most new content: multiple real sourced photos per era (not the current 1), plus narrative on how/why style changed each era | ✅ PR #425: https://github.com/JW-Incorporated/swift2/pull/425 (own branch `content/thread-runway`, off `main` — not stacked on PR #332, expect a small merge conflict in `ThreadsMode.tsx` when both land) |
 
 **Data-shape note on Love Story:** `contentForThread('love-story')` (WS2)
 returns individual dated *moments* (~40 of them), not relationship *spans*
