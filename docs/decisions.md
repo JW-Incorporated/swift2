@@ -7,6 +7,35 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-10 — Love Story thread uses real names, not the earlier non-identifying convention
+
+**Decision:** `RELATIONSHIPS` in `lenses.ts` previously used deliberately
+non-identifying labels ("The Debut Sweetheart," "The Fearless Actor") per a
+naming convention set in an earlier session. The Love Story thread rework
+switches to real names (Joe Jonas, Taylor Lautner, John Mayer, Jake
+Gyllenhaal, Conor Kennedy, Harry Styles, Calvin Harris, Tom Hiddleston, Joe
+Alwyn, Travis Kelce).
+
+**Why:** The thread's entire premise — both the original product brief
+("who each era was written about") and the v0 design built against it — is
+answering "who was she with, when." A relationship thread that hides who
+defeats its own purpose. All of these are widely-reported public
+relationships between public figures (nothing private or contested), and
+this app's photo/media policy (2026-07-09 entries above) already accepted a
+more permissive posture than the caution the non-identifying convention
+implied.
+
+**Alternatives considered:** Keep non-identifying labels — rejected, makes
+the shipped feature confusing/useless relative to what was actually asked
+for and designed.
+
+**Approved by:** Claude, acting on the explicit product brief for this
+thread rework — flagging here rather than treating silently, since it
+reverses a previously deliberate convention. Low-risk/easily reversible
+(display strings, not data-model or infra), so implementing directly rather
+than blocking on a synchronous approval; revert is a one-line diff if this
+call is wrong.
+
 ## 2026-07-09 — Superseded same-day: full lyrics reproduction rejected in favor of per-song analysis + short quotes
 
 **Decision:** The entry directly below this one ("Full song lyrics may be

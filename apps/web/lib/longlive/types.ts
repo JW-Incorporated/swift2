@@ -378,6 +378,23 @@ export interface Relationship {
   relatedIds?: RelatedId[];
 }
 
+/**
+ * A solo/single stretch on the Love Story thread — the gaps between
+ * relationships, treated as first-class timeline entries (not derived gaps)
+ * because they matter to the story: who she was with, and who she wasn't.
+ */
+export interface SinglePeriod {
+  id: string;
+  start: string;
+  /** null = the most recent solo stretch before her next relationship began
+   * has no meaningful "end" distinct from that relationship's start. */
+  end: string | null;
+  eraIds: EraId[];
+  note: string;
+  /** Songs associated with what she was writing/releasing during this stretch. */
+  songs?: string[];
+}
+
 export interface RunwayLook {
   id: string;
   eraId: EraId;

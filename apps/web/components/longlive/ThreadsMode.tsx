@@ -20,7 +20,6 @@ import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import {
-  RELATIONSHIPS,
   RUNWAY_LOOKS,
   PROPOSAL_BEATS,
   THREADS,
@@ -33,6 +32,7 @@ import { ClueWeb } from './ClueWeb';
 import { Crossings } from './Crossings';
 import { TaylorsVersionThread } from './taylors-version/TaylorsVersionThread';
 import { DecodeThread } from './decode/DecodeThread';
+import { LoveStoryThread } from './love-story/LoveStoryThread';
 
 const ICONS: Record<LensId, typeof Heart> = {
   'love-story': Heart,
@@ -45,7 +45,7 @@ const ICONS: Record<LensId, typeof Heart> = {
 
 /** Threads with their own self-contained temporal axis — the career scrubber
  * would be a redundant, competing timeline for these. */
-const NO_SCRUBBER_THREADS = new Set<LensId>(['easter-eggs', 'taylors-version', 'hidden-clues']);
+const NO_SCRUBBER_THREADS = new Set<LensId>(['easter-eggs', 'taylors-version', 'hidden-clues', 'love-story']);
 
 /**
  * The Threads world. Entering lands on a gallery that answers "what is this?"
@@ -202,7 +202,7 @@ function ThreadDetail({ threadId }: { threadId: LensId }) {
       </header>
 
       <div className={cn('mx-auto max-w-4xl px-4 pb-28', !NO_SCRUBBER_THREADS.has(threadId) && 'md:pr-8')}>
-        {threadId === 'love-story' && <LoveStory />}
+        {threadId === 'love-story' && <LoveStoryThread />}
         {threadId === 'fashion' && <Runway />}
         {threadId === 'taylors-version' && <TaylorsVersionThread />}
         {threadId === 'easter-eggs' && <ClueWeb />}
@@ -233,56 +233,8 @@ function ThreadItem({
   );
 }
 
-/* ── Love Story ───────────────────────────────�����──────────────────── */
-function LoveStory() {
-  return (
-    <div className="space-y-4 pt-8">
-      {RELATIONSHIPS.map((rel) => {
-        const start = new Date(rel.start).getUTCFullYear();
-        const end = rel.end ? new Date(rel.end).getUTCFullYear() : 'now';
-        return (
-          <ThreadItem key={rel.id} date={rel.start}>
-            <article className="era-card rounded-2xl border p-5">
-              <div className="flex flex-wrap items-baseline justify-between gap-2">
-                <h3 className="font-[family-name:var(--era-font)] text-xl font-semibold">{rel.name}</h3>
-                <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-                  {start} – {end}
-                </span>
-              </div>
-              <p className="mt-2 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{rel.note}</p>
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {rel.eraIds.map((id) => {
-                  const era = getEra(id);
-                  return (
-                    <span
-                      key={id}
-                      className="rounded-full border px-2.5 py-0.5 text-xs font-medium"
-                      style={{
-                        borderColor: era.theme.accent,
-                        color: era.theme.accent,
-                        backgroundColor: `color-mix(in srgb, ${era.theme.accent} 12%, transparent)`,
-                      }}
-                    >
-                      {era.shortName}
-                    </span>
-                  );
-                })}
-              </div>
-              <div className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-[color:var(--era-ink)]">
-                {rel.songs.map((s) => (
-                  <span key={s} className="inline-flex items-center gap-1.5">
-                    <Music className="h-3.5 w-3.5 text-[color:var(--era-accent)]" />
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </article>
-          </ThreadItem>
-        );
-      })}
-    </div>
-  );
-}
+/* Love Story now lives in ./love-story/LoveStoryThread.tsx — see
+   docs/threads-rework-2026-07-10.md for why it replaced this. */
 
 /* ── The Proposal (sourced story thread) ─────────────────────────── */
 function TheProposal() {
