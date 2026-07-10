@@ -27,7 +27,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
         context:
-          "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991. It also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
+          "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.\n\nIt also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
         sources: [
           {
             outlet: 'Grammy.com',
@@ -53,7 +53,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "At six minutes and forty-three seconds, it's the longest, darkest thing on the album — a blues-inflected power ballad whose 19-year-old narrator finally asks, 'Don't you think I was too young to be messed with?' Swift said only that it was about someone who 'made my world very dark for a while,' and waved off the guessing game outright: 'How presumptuous! I never disclose who my songs are about.' On the Speak Now World Tour she staged the bridge literally, with fireworks erupting overhead as she sang 'I'm shining like fireworks over your sad, empty town' — and in June 2023 she brought it back as an Eras Tour surprise song in Minneapolis. Critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'",
+          "At six minutes and forty-three seconds, it's the longest, darkest thing on the album — a blues-inflected power ballad whose 19-year-old narrator finally asks, 'Don't you think I was too young to be messed with?' Swift said only that it was about someone who 'made my world very dark for a while,' and waved off the guessing game outright: 'How presumptuous! I never disclose who my songs are about.'\n\nOn the Speak Now World Tour she staged the bridge literally, with fireworks erupting overhead as she sang 'I'm shining like fireworks over your sad, empty town' — and in June 2023 she brought it back as an Eras Tour surprise song in Minneapolis. Critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)' },
           {
@@ -79,7 +79,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          "In her words: people who \"attack everything about a person\" instead of offering real feedback. It's also the most defiantly country track on the record — banjo-led bluegrass with fiddle, mandolin, and handclaps — and Grammy.com would later call it, flatly, 'a deliciously twangy clapback to critic Bob Lefsetz.' The clapback worked on every level: it climbed to No. 11 on the Hot 100, sold over a million downloads within a year, and finished the arc at the 2012 Grammys, where it won Best Country Song and Best Country Solo Performance.",
+          "In her words: people who \"attack everything about a person\" instead of offering real feedback. It's also the most defiantly country track on the record — banjo-led bluegrass with fiddle, mandolin, and handclaps — and Grammy.com would later call it, flatly, 'a deliciously twangy clapback to critic Bob Lefsetz.'\n\nThe clapback worked on every level: it climbed to No. 11 on the Hot 100, sold over a million downloads within a year, and finished the arc at the 2012 Grammys, where it won Best Country Song and Best Country Solo Performance.",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' },
           {
@@ -107,7 +107,7 @@ export default {
         'https://assets2.cbsnewsstatic.com/hub/i/r/2010/09/12/99eee01f-a642-11e2-a3f0-029118418759/thumbnail/620x449/8e0c01f51a0436c5eb408696fefc290f/AP100912090147.jpg',
       moment: {
         context:
-          'Her own framing, to New York magazine: she wanted to "write a song to him," not about him. She spent six months on it — far beyond her usual thirty-minute writing pace — and the 2010 VMA debut leaned straight into the history: the performance opened with footage of the previous year\'s interruption before she sang it seated with an acoustic guitar, finishing barefoot. She told the Belfast Telegraph after: "I performed a song nobody had heard before, and I\'m proud of that. Because it was the right thing to say." Reception split hard — some critics heard an act of grace beyond her years, others "slams disguised as \'forgiveness\'" — which made it one of the most argued-over songs on the album.',
+          'Her own framing, to New York magazine: she wanted to "write a song to him," not about him. She spent six months on it — far beyond her usual thirty-minute writing pace — and the 2010 VMA debut leaned straight into the history: the performance opened with footage of the previous year\'s interruption before she sang it seated with an acoustic guitar, finishing barefoot.\n\nShe told the Belfast Telegraph after: "I performed a song nobody had heard before, and I\'m proud of that. Because it was the right thing to say." Reception split hard — some critics heard an act of grace beyond her years, others "slams disguised as \'forgiveness\'" — which made it one of the most argued-over songs on the album.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)' },
           {
@@ -134,7 +134,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Taylor_Swift_Speak_Now_-_Pittsburgh.jpg/500px-Taylor_Swift_Speak_Now_-_Pittsburgh.jpg',
       moment: {
         context:
-          'It was inspired by a moment backstage with her band on the final night of the Fearless Tour in 2010, and it never really left her shows: debuted on an NBC Thanksgiving special the month the album dropped, it became the Speak Now World Tour\'s final pre-encore song, then resurfaced on the Red Tour, the 1989 World Tour, a reputation-era piano mashup, and multiple Eras Tour arrangements. Rob Sheffield\'s Rolling Stone review said the album "peaks with \'Long Live,\' a ridiculously over-the-top prom anthem with all the epic girl-group swoon of the Ronettes or the Shirelles" — "the sort of prom song that could only come from an artist who chose to spend her high school years on a tour bus. Yet when Swift sings it, damn if you don\'t believe every word."',
+          'It was inspired by a moment backstage with her band on the final night of the Fearless Tour in 2010, and it never really left her shows: debuted on an NBC Thanksgiving special the month the album dropped, it became the Speak Now World Tour\'s final pre-encore song, then resurfaced on the Red Tour, the 1989 World Tour, a reputation-era piano mashup, and multiple Eras Tour arrangements.\n\nRob Sheffield\'s Rolling Stone review said the album "peaks with \'Long Live,\' a ridiculously over-the-top prom anthem with all the epic girl-group swoon of the Ronettes or the Shirelles" — "the sort of prom song that could only come from an artist who chose to spend her high school years on a tour bus. Yet when Swift sings it, damn if you don\'t believe every word."',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)' },
           {
@@ -162,7 +162,7 @@ export default {
         'https://s.yimg.com/ny/api/res/1.2/ickryvH9sKcF7tDFtwxxbw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE0NDA7Y2Y9d2VicA--/https://media.zenfs.com/en/insider_articles_922/7a2cc8fb3dc0f6c58c259f9ddd4d244f',
       moment: {
         context:
-          "The gown was J. Mendel pre-fall 2011 — strapless, dove grey, with an extra-long train she gathered up in one hand for the whole walk to the stage. The win itself was the bigger statement: it made her only the second female artist in CMA history, after Barbara Mandrell, to win Entertainer of the Year twice, closing out the Speak Now era's awards run at the top of country music's own room.",
+          "The gown was J. Mendel pre-fall 2011 — strapless, dove grey, with an extra-long train she gathered up in one hand for the whole walk to the stage.\n\nThe win itself was the bigger statement: it made her only the second female artist in CMA history, after Barbara Mandrell, to win Entertainer of the Year twice, closing out the Speak Now era's awards run at the top of country music's own room.",
         sources: [
           {
             outlet: 'E! Online',
@@ -192,7 +192,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg',
       moment: {
         context:
-          "One dress, three songs: Femestella logs the Roberto Cavalli gold ombré sequin fringe mini as the tour's recurring look for 'Sparks Fly,' 'Mine,' and 'The Story of Us,' always paired with the same Everybody Fargo black knee-high boots. That made it the workhorse of a show built around nine costume changes — while Susan Hilferty's custom chiffon gowns carried the fairy-tale numbers, the fringe was the up-tempo uniform, cut to catch arena light and movement.",
+          "One dress, three songs: Femestella logs the Roberto Cavalli gold ombré sequin fringe mini as the tour's recurring look for 'Sparks Fly,' 'Mine,' and 'The Story of Us,' always paired with the same Everybody Fargo black knee-high boots.\n\nThat made it the workhorse of a show built around nine costume changes — while Susan Hilferty's custom chiffon gowns carried the fairy-tale numbers, the fringe was the up-tempo uniform, cut to catch arena light and movement.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
@@ -217,7 +217,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg/500px-Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg',
       moment: {
         context:
-          "The staging was pure Broadway ambition: nine costume changes, pyrotechnics, confetti, aerialists on trapezes, and a suspended balcony that descended over the crowd for the finale. From opening night at the Singapore Indoor Stadium, the production ran through Asia and Europe before the North American leg opened in Omaha that May — six US stadium dates included — and closed in Auckland on March 18, 2012. Announcing the run, Swift kept it simple: 'I'm so excited to go back out on tour again in 2011! The FEARLESS Tour was so much fun...'",
+          "The staging was pure Broadway ambition: nine costume changes, pyrotechnics, confetti, aerialists on trapezes, and a suspended balcony that descended over the crowd for the finale.\n\nFrom opening night at the Singapore Indoor Stadium, the production ran through Asia and Europe before the North American leg opened in Omaha that May — six US stadium dates included — and closed in Auckland on March 18, 2012. Announcing the run, Swift kept it simple: 'I'm so excited to go back out on tour again in 2011! The FEARLESS Tour was so much fun...'",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
           {
@@ -247,7 +247,7 @@ export default {
       thumbnailUrl: 'https://townsquare.media/site/623/files/2012/02/taylor-swift-456-021212.jpg?w=980&q=75',
       moment: {
         context:
-          "Her reaction caught the full-circle absurdity of it: \"There's no feeling like writing a song about someone who hates you and is mean to you and makes your life miserable ... and then win the Grammy for it.\" She performed the song live at the ceremony and told the room what the night meant — \"It's always gonna mean the world to me, the idea of getting to go to the Grammys\" — on an evening when Speak Now itself was also up for Best Country Album.",
+          "Her reaction caught the full-circle absurdity of it: \"There's no feeling like writing a song about someone who hates you and is mean to you and makes your life miserable ... and then win the Grammy for it.\"\n\nShe performed the song live at the ceremony and told the room what the night meant — \"It's always gonna mean the world to me, the idea of getting to go to the Grammys\" — on an evening when Speak Now itself was also up for Best Country Album.",
         sources: [
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-grammys-2012/' },
           { outlet: 'Teen Vogue', url: 'https://www.teenvogue.com/story/best-taylor-swift-grammy-moments' },
@@ -273,12 +273,13 @@ export default {
       thumbnailUrl: 'https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859',
       moment: {
         context:
-          'Designed by Monique Lhuillier, paired with diamond earrings; part of the same CMA red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.',
+          "Designed by Monique Lhuillier — strapless with a sweetheart neckline, ruching at the waist, and a floor-length skirt slit to the thigh — and paired with diamond earrings. Insider's CMA retrospective files it as a classic rather than a showstopper, part of the same red-carpet arc that ran through her 2011 dove-grey J. Mendel Entertainer of the Year gown.\n\nThe night carried more weight than the dress: at that November 10, 2010 ceremony at Nashville's Bridgestone Arena, she performed 'Back to December' — the stripped-back staging the Los Angeles Times graded a B+, noting she 'kept it simple' and 'rose to the occasion.' Five days later, the apology ballad went to country radio as Speak Now's second single.",
         sources: [
           {
             outlet: 'Yahoo Entertainment (Insider)',
             url: 'https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html',
           },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' },
         ],
         photos: [
           {
@@ -299,7 +300,7 @@ export default {
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_79322072_XL.jpg',
       moment: {
         context:
-          'Paired that night with a beaded Collette Dinnigan mini dress. A departure from the loose curls she\'d worn since 2006 — Bustle marks it as the moment she "chopped her blonde strands into blunt, eyelash-skimming bangs that would evolve over time — and eventually become her new signature," officially trading the Fearless-era voluminous curls for a sleeker look. The fringe stuck, evolving over the following years into the look she\'s now known for — arguably the most durable style decision of her career.',
+          'Paired that night with a beaded Collette Dinnigan mini dress. A departure from the loose curls she\'d worn since 2006 — Bustle marks it as the moment she "chopped her blonde strands into blunt, eyelash-skimming bangs that would evolve over time — and eventually become her new signature," officially trading the Fearless-era voluminous curls for a sleeker look.\n\nThe fringe stuck, evolving over the following years into the look she\'s now known for — arguably the most durable style decision of her career.',
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
           { outlet: 'Bustle', url: 'https://www.bustle.com/beauty/taylor-swift-bangs' },
@@ -322,9 +323,11 @@ export default {
       sourceUrl: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/',
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12961917_XL.jpg',
       moment: {
-        context: "Worn the night she won Favorite Country Artist at the 2011 People's Choice Awards.",
+        context:
+          "The look was peak Speak Now-era red carpet: a pink J. Mendel chiffon dress with a loose, curly updo, Prada heels, and Neil Lane jewels — soft, romantic styling that matched the album's fairy-tale visual register.\n\nShe wore it to the 37th People's Choice Awards at the Nokia Theatre in Los Angeles on January 5, 2011, where she won Favorite Country Artist — a fan-voted trophy landing barely two months into the album's chart run. She was also nominated for Favorite Female Artist that night, a category that went to Katy Perry.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/37th_People%27s_Choice_Awards' },
         ],
         photos: [
           {
@@ -346,7 +349,7 @@ export default {
         'https://zpllkavmkkjnxpedhotv.supabase.co/storage/v1/render/image/public/images/shows/taylor-swift-speak-now-world-tour-57/Taylor-Swift-taylor-swift-newark-purple-04.webp',
       moment: {
         context:
-          "Hilferty is credited as costume designer on the Speak Now World Tour; the purple halter became one of the era's most recognizable looks, reused across multiple songs in the setlist. Her studio's own archive of the tour pairs the original costume sketches with performance photographs — a rare look at a stage wardrobe built by a theatrical costume designer rather than assembled by a stylist, which is exactly why the show's dresses read like characters. Femestella calls the purple chiffon halter 'perhaps one of her most iconic looks' from the tour.",
+          "Hilferty is credited as costume designer on the Speak Now World Tour; the purple halter became one of the era's most recognizable looks, reused across multiple songs in the setlist.\n\nHer studio's own archive of the tour pairs the original costume sketches with performance photographs — a rare look at a stage wardrobe built by a theatrical costume designer rather than assembled by a stylist, which is exactly why the show's dresses read like characters. Femestella calls the purple chiffon halter 'perhaps one of her most iconic looks' from the tour.",
         sources: [
           { outlet: 'Susan Hilferty (official)', url: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/' },
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
@@ -370,7 +373,7 @@ export default {
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg',
       moment: {
         context:
-          "Femestella notes the custom white lace dress 'took the stage any time Taylor Swift sang' the song on tour. The costume matched the number's register: 'Mean' was the banjo-led, fiddle-and-mandolin track critics tagged as the most country thing on Speak Now, and mid-tour the underdog single became a double Grammy winner — Best Country Song and Best Country Solo Performance, both won in February 2012 while the tour was still on the road.",
+          "Femestella notes the custom white lace dress 'took the stage any time Taylor Swift sang' the song on tour.\n\nThe costume matched the number's register: 'Mean' was the banjo-led, fiddle-and-mandolin track critics tagged as the most country thing on Speak Now, and mid-tour the underdog single became a double Grammy winner — Best Country Song and Best Country Solo Performance, both won in February 2012 while the tour was still on the road.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' },
@@ -395,7 +398,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg',
       moment: {
         context:
-          "Femestella IDs it as a Theia red sequin slip, worn with the same Everybody Fargo black knee-high boots she paired with the gold Cavalli fringe — the tour's up-tempo footwear of choice. In a show of nine costume changes otherwise dominated by chiffon and fairy-tale ballgowns, the slinky red sequin for the album's angriest song was the deliberate exception.",
+          "Femestella IDs it as a Theia red sequin slip, worn with the same Everybody Fargo black knee-high boots she paired with the gold Cavalli fringe — the tour's up-tempo footwear of choice.\n\nIn a show of nine costume changes otherwise dominated by chiffon and fairy-tale ballgowns, the slinky red sequin for the album's angriest song was the deliberate exception.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' },
@@ -420,7 +423,7 @@ export default {
         'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg',
       moment: {
         context:
-          "Hilferty — the tour's credited costume designer, whose studio archive pairs her original sketches with performance shots — built 'Haunted' its own red chiffon midi, the darker counterpart to the purple halter gown she designed for the show's fairy-tale stretch. Two custom pieces from the same hand doing opposite jobs: one dress for the era's romance, one for its ghosts.",
+          "Hilferty — the tour's credited costume designer, whose studio archive pairs her original sketches with performance shots — built 'Haunted' its own red chiffon midi, the darker counterpart to the purple halter gown she designed for the show's fairy-tale stretch.\n\nTwo custom pieces from the same hand doing opposite jobs: one dress for the era's romance, one for its ghosts.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
           { outlet: 'Susan Hilferty (official)', url: 'https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/' },
@@ -444,7 +447,7 @@ export default {
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg',
       moment: {
         context:
-          "Worn May 22, 2011 — a night she left with two trophies, including the country artist award, presented by Train's Pat Monahan, over a field of Lady Antebellum, Jason Aldean, Zac Brown Band, and Kenny Chesney. Accepting, she reached back to the ceremonies she grew up watching: 'I used to watch the Billboard Awards and see my heroes like Shania Twain and Faith Hill win these, and now... I'm just having the best time doing this.' Femestella logs the gown as Elie Saab, worn with Lorraine Schwartz jewelry.",
+          "Worn May 22, 2011 — a night she left with two trophies, including the country artist award, presented by Train's Pat Monahan, over a field of Lady Antebellum, Jason Aldean, Zac Brown Band, and Kenny Chesney.\n\nAccepting, she reached back to the ceremonies she grew up watching: 'I used to watch the Billboard Awards and see my heroes like Shania Twain and Faith Hill win these, and now... I'm just having the best time doing this.' Femestella logs the gown as Elie Saab, worn with Lorraine Schwartz jewelry.",
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
           {
@@ -471,7 +474,7 @@ export default {
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg',
       moment: {
         context:
-          'She didn\'t just show up nominated — she swept all three of her categories that night: Favorite Country Female Artist, Favorite Country Album for Speak Now, and Artist of the Year, her second time taking the show\'s top prize, over a field that included Adele, Lady Gaga, and Katy Perry. Her reaction onstage: "This is so crazy!" The gold beaded Reem Acra and side ponytail made it one of the era\'s most remembered award-show looks.',
+          'She didn\'t just show up nominated — she swept all three of her categories that night: Favorite Country Female Artist, Favorite Country Album for Speak Now, and Artist of the Year, her second time taking the show\'s top prize, over a field that included Adele, Lady Gaga, and Katy Perry.\n\nHer reaction onstage: "This is so crazy!" The gold beaded Reem Acra and side ponytail made it one of the era\'s most remembered award-show looks.',
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
           {
@@ -500,9 +503,10 @@ export default {
       thumbnailUrl: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg',
       moment: {
         context:
-          'The Reem Acra gown for the Speak Now cover shoot set the visual identity for the whole era, released the same month the album hit shelves.',
+          'The Reem Acra gown for the Speak Now cover shoot set the visual identity for the whole era: strapless purple ombre chiffon fading from deep violet to pale lilac, photographed mid-twirl with curled hair and red lipstick.\n\nThe purple was less a dress choice than a thesis — it became the era\'s color outright. The Speak Now World Tour picked the thread straight up, with costume designer Susan Hilferty building a custom purple chiffon halter gown that became the show\'s signature look. The image she twirled in on the cover was, in effect, the version of the era every arena later got.',
         sources: [
           { outlet: 'Femestella', url: 'https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' },
         ],
         photos: [
           {
@@ -523,11 +527,14 @@ export default {
       thumbnailUrl:
         'https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG',
       moment: {
+        context:
+          "The November 2010 issue put her on the cover in a shimmery light-blue off-the-shoulder Dior dress, and it hit newsstands October 12 — thirteen days before Speak Now itself arrived — making it one of the first big glossy covers of the album's press cycle.\n\nInside, the interview ran through the new album, her songwriting reflex — 'everything that happens to me gets put into a song' — and what she said she actually looked for in a relationship: 'character and honesty and trust' over status. She also confirmed she'd stayed friends with Taylor Lautner, the ex that Speak Now's 'Back to December' would soon be traced back to.",
         sources: [
           {
             outlet: 'Catherine Angiel (archival)',
             url: 'https://catherineangiel.com/blogs/editorial/glamour-magazine-cover-november-2010-taylor-swift',
           },
+          { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-glamour-magazine-interview/' },
         ],
         photos: [
           {
@@ -548,7 +555,7 @@ export default {
       thumbnailUrl: 'https://townsquare.media/site/204/files/2011/02/taylor-swift.jpg?w=980&q=75',
       moment: {
         context:
-          'Worn February 27, 2011 at the Sunset Tower Hotel party, one of her earliest red-carpet turns in Zuhair Murad — a designer she\'d return to repeatedly through 2012.',
+          'Worn February 27, 2011 at the Sunset Tower Hotel party, one of her earliest red-carpet turns in Zuhair Murad — a designer she\'d return to repeatedly through 2012.\n\nShe skipped the Academy Awards ceremony itself and went straight to the after-party, where Taste of Country reported she spent the night catching up with friends Emma Stone and Selena Gomez. The beaded gold minidress — corset back, matching gold platforms and clutch — previewed a designer relationship with a payoff already scheduled: a year later she walked the 2012 Grammys red carpet in gold Zuhair Murad Couture on the night "Mean" won twice.',
         sources: [
           { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/' },
         ],
@@ -570,8 +577,12 @@ export default {
       sourceUrl: 'https://www.aceshowbiz.com/news/view/00042706.html',
       thumbnailUrl: 'https://www.aceshowbiz.com/images/wennpic/preview/taylor-swift-2011-teen-choice-awards-01.jpg',
       moment: {
-        context: 'Worn the night she won the Ultimate Choice Award at the 2011 Teen Choice Awards.',
-        sources: [{ outlet: 'AceShowbiz', url: 'https://www.aceshowbiz.com/news/view/00042706.html' }],
+        context:
+          "The look was a deliberate Old-Hollywood homage: a white halterneck dress by Rafael Cennamo, styled with a Ranjana Khan belt, Neil Lane jewelry, and Fendi shoes — Marilyn Monroe by way of a 21-year-old country-pop star, worn with her hair pulled back in a ponytail.\n\nThe occasion earned the reference: at the August 7, 2011 show at Universal City's Gibson Amphitheatre she received the Ultimate Choice Award, the show's honorary top prize. She also swept six voted categories outright that night — Choice Female Artist, both country awards ('Mean' took Country Track), Love Song for 'Mine,' Break-Up Song for 'Back to December,' and Red Carpet Fashion Icon — a near-shutout powered by Speak Now's singles run.",
+        sources: [
+          { outlet: 'AceShowbiz', url: 'https://www.aceshowbiz.com/news/view/00042706.html' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/2011_Teen_Choice_Awards' },
+        ],
         photos: [
           {
             url: 'https://www.aceshowbiz.com/images/wennpic/preview/taylor-swift-2011-teen-choice-awards-01.jpg',
@@ -590,7 +601,8 @@ export default {
       sourceUrl: 'https://www.fashiongonerogue.com/taylor-swift-mario-testino-vogue-february-2012/',
       thumbnailUrl: 'https://fashiongonerogue.com/wp-content/uploads/igr/preview/01/taylor_swift1.jpg',
       moment: {
-        context: 'The issue hit newsstands January 24, 2012; Testino and Goodman styled the shoot around a loose, bohemian wardrobe rather than red-carpet gowns.',
+        context:
+          "Her debut American Vogue cover — the February 2012 issue, cover line 'The Single Life' — hit newsstands January 24, 2012, shot by Mario Testino with styling by Vogue fashion editor Tonne Goodman.\n\nGoodman built the shoot around a loose, bohemian wardrobe rather than red-carpet gowns, pulling pieces from Rodarte, Jil Sander, and Rag & Bone — a deliberate image reset in the closing months of the Speak Now era, trading the fairy-tale ballgowns of the tour for fashion-editorial ease just as she was writing what would become Red.",
         sources: [
           {
             outlet: 'Fashion Gone Rogue',
@@ -617,12 +629,13 @@ export default {
         'https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg',
       moment: {
         context:
-          'Worn on the same night she won two Grammys for "Mean" (Best Country Song, Best Country Solo Performance); the gown was pulled from Zuhair Murad\'s haute couture line.',
+          'Pulled from Zuhair Murad\'s haute couture line — a gold gown with a Mandarin collar, heart-shaped cutout, and mermaid skirt trailing a short train — it was her second gold Murad inside a year, after the Vanity Fair Oscar-party minidress the previous February.\n\nThe night made the dress a footnote: "Mean" won Best Country Song and Best Country Solo Performance, and she performed it live at the ceremony, banjo in hand, altering a lyric mid-song to reference winning at the Grammys — closing the loop on a track written straight back at her critics.',
         sources: [
           {
             outlet: 'Style Darling Daily',
             url: 'https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/',
           },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Mean_(song)' },
         ],
         photos: [
           {
@@ -640,16 +653,20 @@ export default {
       category: 'sighting',
       title: 'A surprise JetBlue concert for travelers at JFK',
       snippet:
-        "The day after Speak Now hit shelves, she played a surprise set for travelers in JetBlue's Terminal 5 lounge — no tickets sold, just whoever happened to be flying that day.",
+        "Two days after Speak Now hit shelves, she played a surprise set for travelers in JetBlue's Terminal 5 lounge — no tickets sold, just whoever happened to be flying that day.",
       sourceUrl: 'https://archive.longislandpress.com/2010/10/28/taylor-swift-performs-at-jfk-airport-photos/',
       thumbnailUrl: 'https://archive.longislandpress.com/wp-content/uploads/2010/10/swift.jpg?w=358',
       moment: {
         context:
-          "Held October 27, 2010 as part of JetBlue's 'Live From T5' concert series at JFK Airport, the pop-up show happened past security — only passengers already ticketed out of that terminal could catch it. She played selections from Speak Now, released one day earlier.",
+          "Held October 27, 2010 as part of JetBlue's 'Live From T5' concert series at JFK Airport, the pop-up show happened past security, in the terminal's Marketplace — only passengers already ticketed out of that terminal could catch it, and no tickets were ever sold. She played selections from Speak Now, released two days earlier.\n\nThe airport set was only half the stunt: afterward she boarded a chartered JetBlue 'Flight Across America' to Los Angeles and performed again mid-flight. The Live From T5 series had launched in 2009, and JetBlue's 2010 lineup put her alongside Sarah McLachlan and Daughtry — though neither of them arrived two days removed from the industry's biggest sales week in five years.",
         sources: [
           {
             outlet: 'Long Island Press',
             url: 'https://archive.longislandpress.com/2010/10/28/taylor-swift-performs-at-jfk-airport-photos/',
+          },
+          {
+            outlet: 'PR Newswire (JetBlue)',
+            url: 'https://www.prnewswire.com/news-releases/taylor-swift-to-perform-at-jetblue-airways-jfk-terminal-5-as-part-of-live-from-t5-concert-series-105443353.html',
           },
         ],
         photos: [
@@ -672,7 +689,7 @@ export default {
         'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
       moment: {
         context:
-          'A witness told Just Jared the pair "asked one of the coffee shop employees for help picking out beans" and "both seemed super nice" before ordering lattes on November 25, 2010. Gyllenhaal\'s sister Maggie lives in the Park Slope neighborhood, making it a family-adjacent holiday visit. The outing — and the scarf Swift left behind that day — became a touchstone for fans after "All Too Well" referenced it two years later.',
+          'A witness told Just Jared the pair "asked one of the coffee shop employees for help picking out beans" and "both seemed super nice" before ordering lattes on November 25, 2010.\n\nGyllenhaal\'s sister Maggie lives in the Park Slope neighborhood, making it a family-adjacent holiday visit. The outing — and the scarf Swift left behind that day — became a touchstone for fans after "All Too Well" referenced it two years later.',
         sources: [
           {
             outlet: 'Just Jared',
@@ -683,6 +700,9 @@ export default {
           {
             url: 'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
             credit: 'Getty Images',
+            caption:
+              "Just Jared's report art for the sighting — side-by-side file photos of the two, not the coffee run itself.",
+            kind: 'reference',
           },
         ],
       },
@@ -699,11 +719,15 @@ export default {
         'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2011/04/swift-anthropologie/taylor-swift-anthropologie-11.jpg',
       moment: {
         context:
-          'Photographed April 4, 2011 carrying a Ralph Lauren Collection crossbody bag. The night before, she\'d performed new single "Mean" and picked up the Entertainer of the Year trophy at the 2011 Academy of Country Music Awards in Las Vegas.',
+          'Photographed April 4, 2011 carrying a Ralph Lauren Collection crossbody bag. The night before, she\'d performed new single "Mean" and picked up the Entertainer of the Year trophy at the 2011 Academy of Country Music Awards in Las Vegas.\n\nThat award — her first Entertainer win from the ACMs, and a fan-voted one — had left her visibly stunned at the MGM Grand: "This is the first time that I\'ve ever won this and I\'m just losing my mind," she told the room. The morning-after errand run, phone to her ear at the clothing racks, caught the era\'s whiplash in a single frame: country music\'s newly crowned top entertainer, browsing a Beverly Hills boutique like any other 21-year-old.',
         sources: [
           {
             outlet: 'Just Jared',
             url: 'https://www.justjared.com/2011/04/06/taylor-swift-anthropologie-after-acms/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-wins-entertainer-of-the-year-at-acm-awards-472222/',
           },
         ],
         photos: [
@@ -725,7 +749,7 @@ export default {
       thumbnailUrl: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2012/03/taylor-swift-il-pastaio.jpg',
       moment: {
         context:
-          "Photographed March 30, 2012 in Beverly Hills; Just Jared Jr. reported she'd eaten alongside mom Andrea and \"good friend Dianna Agron (not pictured).\" Swift and the Glee star had grown close that year while Swift was recording Red between tour dates. Later that same day, Swift received Nickelodeon's Big Help Award from Michelle Obama at the Kids' Choice Awards.",
+          "Photographed March 30, 2012 in Beverly Hills; Just Jared Jr. reported she'd eaten alongside mom Andrea and \"good friend Dianna Agron (not pictured).\"\n\nSwift and the Glee star had grown close that year while Swift was recording Red between tour dates. Later that same day, Swift received Nickelodeon's Big Help Award from Michelle Obama at the Kids' Choice Awards.",
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -751,7 +775,7 @@ export default {
       thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
       moment: {
         context:
-          "By mid-August 2012 the two were photographed wading and embracing in the water off the Kennedy family's stretch of Cape Cod, part of a summer Swift spent largely at the Kennedys' Hyannis Port compound after she and Conor — RFK's 18-year-old grandson — were first linked that July. Days later they were photographed strolling Hyannis Port and joining his family for outdoor volleyball.",
+          "By mid-August 2012 the two were photographed wading and embracing in the water off the Kennedy family's stretch of Cape Cod, part of a summer Swift spent largely at the Kennedys' Hyannis Port compound after she and Conor — RFK's 18-year-old grandson — were first linked that July.\n\nDays later they were photographed strolling Hyannis Port and joining his family for outdoor volleyball.",
         sources: [
           {
             outlet: 'E! Online',
@@ -778,11 +802,15 @@ export default {
         'https://akns-images.eonline.com/eol_images/Entire_Site/2012722/634.ConorKennedy.TaylorSwift.081912.jpeg',
       moment: {
         context:
-          "Mary Richardson Kennedy had died in May 2012; reports at the time said Swift accompanied Conor to the grave and helped clear overgrown brush from the site. It's remembered as one of the final documented moments of the two together — the relationship reportedly ended by October.",
+          "Mary Richardson Kennedy had died in May 2012; reports at the time said Swift accompanied Conor to the grave and helped clear overgrown brush from the site. It's remembered as one of the final documented moments of the two together — the relationship reportedly ended by October.\n\nE! Online's account had her in a floral pink dress and black sunglasses, joined by Kennedy family and friends for what amounted to an impromptu memorial. It landed just days after she'd attended a Kennedy cousin's wedding with Conor — the appearance that briefly spawned a 'wedding crash' tabloid story E! itself predicted would blow over — and in hindsight it reads as the quiet close of the summer the tabloids couldn't get enough of.",
         sources: [
           {
             outlet: 'E! Online',
             url: 'https://www.eonline.com/photos/6573/taylor-swift-conor-kennedy-romance-rewind',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/340153/taylor-swift-bonds-with-conor-kennedy-s-family-at-graveyard-before-wedding-drama',
           },
         ],
         photos: [
@@ -806,9 +834,17 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift wrote "Enchanted" about a man she was infatuated with after meeting him in person in New York City, deliberately using the word "wonderstruck" because he\'d used it in an email to her after they met. The album booklet\'s hidden-message code for the song reads "A-D-A-M." Media speculation pointed to Owl City\'s Adam Young; he responded on his website in February 2011 confirming his own feelings and posted a cover with rewritten lyrics ("Taylor I was so in love with you"), but Swift never confirmed or denied it, and never replied. "Enchanted" was originally the working title for the whole album until Big Machine president Scott Borchetta pushed for a name reflecting a more grown-up perspective.',
+          'Swift wrote "Enchanted" about a man she was infatuated with after meeting him in person in New York City, deliberately using the word "wonderstruck" because he\'d used it in an email to her after they met. The album booklet\'s hidden-message code for the song reads "A-D-A-M." Media speculation pointed to Owl City\'s Adam Young; he responded on his website in February 2011 confirming his own feelings and posted a cover with rewritten lyrics ("Taylor I was so in love with you"), but Swift never confirmed or denied it, and never replied.\n\n"Enchanted" was originally the working title for the whole album until Big Machine president Scott Borchetta pushed for a name reflecting a more grown-up perspective. The song still got the fairy-tale treatment the discarded title implied: on the Speak Now World Tour she performed it in a ball gown atop a winding staircase with ballerinas behind her, and in 2011 her debut fragrance, Wonderstruck, took its name straight from the song\'s borrowed word.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Enchanted_(Taylor_Swift_song)' }],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg/500px-Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg',
+            credit: 'oouinouin / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              "Performing 'Enchanted' on the Speak Now World Tour in Paris, March 2011 — the ball-gown-and-staircase staging the song got every night.",
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -822,7 +858,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
       moment: {
         context:
-          'In interviews before Speak Now\'s release, Swift explained she\'d broken her own pattern: "Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that." It was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she\'d dated in late 2009, confirmed in a 2016 interview that he was the song\'s subject.',
+          'In interviews before Speak Now\'s release, Swift explained she\'d broken her own pattern: "Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that."\n\nIt was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she\'d dated in late 2009, confirmed in a 2016 interview that he was the song\'s subject.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' }],
         photos: [
           {
@@ -844,7 +880,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_The_Story_of_Us.png/250px-Taylor_Swift_-_The_Story_of_Us.png',
       moment: {
         context:
-          'Swift was inspired by an uncomfortable encounter with an ex-boyfriend at an awards show — she wanted to talk to him but couldn\'t get past the awkwardness. Back home, she told her mother, "I felt like I was standing alone in a crowded room," and wrote the lyrics from there. She later told USA Today\'s Brian Mansfield that the subject behind "The Story of Us" was the same person behind "Dear John." It was the last song she wrote for Speak Now.',
+          'Swift was inspired by an uncomfortable encounter with an ex-boyfriend at an awards show — she wanted to talk to him but couldn\'t get past the awkwardness. Back home, she told her mother, "I felt like I was standing alone in a crowded room," and wrote the lyrics from there.\n\nShe later told USA Today\'s Brian Mansfield that the subject behind "The Story of Us" was the same person behind "Dear John." It was the last song she wrote for Speak Now.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Story_of_Us_(song)' }],
         photos: [
           {
@@ -866,7 +902,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
         context:
-          'Swift wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour. She\'s since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track "If This Was a Movie" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer.',
+          'Swift wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour.\n\nShe\'s since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track "If This Was a Movie" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' }],
         photos: [
           {
@@ -887,7 +923,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Nominations for the 54th Annual Grammy Awards were announced November 30, 2011; Speak Now was nominated for Best Country Album alongside Jason Aldean\'s "My Kinda Party," Eric Church\'s "Chief," Blake Shelton\'s "Red River Blue," and George Strait\'s "Here for a Good Time." Lady Antebellum\'s "Own the Night" won the category at the February 12, 2012 ceremony; Speak Now\'s single "Mean" won Best Country Song and Best Country Solo Performance that same night.',
+          'Nominations for the 54th Annual Grammy Awards were announced November 30, 2011; Speak Now was nominated for Best Country Album alongside Jason Aldean\'s "My Kinda Party," Eric Church\'s "Chief," Blake Shelton\'s "Red River Blue," and George Strait\'s "Here for a Good Time."\n\nLady Antebellum\'s "Own the Night" won the category at the February 12, 2012 ceremony; Speak Now\'s single "Mean" won Best Country Song and Best Country Solo Performance that same night.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' },
           {
@@ -895,7 +931,13 @@ export default {
             url: 'https://www.hollywoodreporter.com/music/music-news/grammy-awards-2012-winners-whitney-houston-death-adele-289778/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+            credit: 'Big Machine Records (album cover art)',
+            kind: 'primary',
+          },
+        ],
       },
     },
 
@@ -910,7 +952,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The relationship was never confirmed on the record by either party — known publicly through sightings and reporting, including a backstage appearance at an October 2010 "Saturday Night Live" hosted by Swift\'s friend Emma Stone.',
+          'The relationship was never confirmed on the record by either party — known publicly through sightings and reporting, including a backstage appearance at an October 2010 "Saturday Night Live" hosted by Swift\'s friend Emma Stone.\n\nWhat reporting there was sketched both ends of the arc: Gwyneth Paltrow later said she had introduced the two at a dinner party, and by January, sources were telling Us Weekly that Gyllenhaal "wasn\'t feeling it anymore and was uncomfortable with all the attention," with the nine-year age gap doing quiet work in every account. Neither of them ever put a word of it on the record — which is exactly why fans would spend the next decade reading Red as its documentation.',
         sources: [
           {
             outlet: 'Elite Daily',
@@ -921,7 +963,15 @@ export default {
             url: 'https://sports.yahoo.com/amphtml/did-taylor-swift-jake-gyllenhaal-112739224.html',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
+            credit: 'Getty Images (via Just Jared)',
+            caption:
+              "Just Jared's side-by-side report art for the Thanksgiving 2010 Brooklyn sighting — file photos of the two, shown for reference; the coffee run itself produced few clean photos.",
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -934,7 +984,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Ethel Kennedy, on the relationship: "We should be so lucky." A source on the breakup, reported that October: "They quietly parted ways a while ago. It was just a distance thing. No hard feelings."',
+          'Ethel Kennedy, on the relationship: "We should be so lucky." A source on the breakup, reported that October: "They quietly parted ways a while ago. It was just a distance thing. No hard feelings."\n\nThe documented arc was brief but dense: first spotted together at a Mount Kisco, New York pizza restaurant on July 25, 2012, then a public debut at the family\'s Hyannis Port compound the following weekend, then beach afternoons and family volleyball through August. She went as far as buying a seven-bedroom Hyannis Port house near the compound for a reported $4.9 million — the summer\'s most over-literal commitment to a romance that didn\'t survive the fall.',
         sources: [
           {
             outlet: 'E! Online',
@@ -945,7 +995,15 @@ export default {
             url: 'https://www.nickiswift.com/271614/the-truth-about-taylor-swifts-relationship-with-conor-kennedy/',
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
+            credit: 'Paul Adao/INFphoto.com',
+            caption:
+              'Wading off Cape Cod in mid-August 2012 — the most photographed stretch of the summer romance.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -960,7 +1018,7 @@ export default {
         'https://assets3.cbsnewsstatic.com/hub/i/r/2011/05/23/53b1ba11-a643-11e2-a3f0-029118418759/thumbnail/620x465/6ded1ec08ebf35d9984941dd471c60be/114504493.jpg',
       moment: {
         context:
-          'Swift partnered with Elizabeth Arden on Wonderstruck, her first fragrance, released in US stores in October 2011. She named it directly after her own lyric: "I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone," adding that fragrance helps "shape someone\'s first impression and memory of you." It became her best-selling perfume, and alongside Justin Bieber\'s "Someday," helped drive a reported 57% jump in celebrity-fragrance sales that year.',
+          'Swift partnered with Elizabeth Arden on Wonderstruck, her first fragrance, released in US stores in October 2011.\n\nShe named it directly after her own lyric: "I wrote the lyric, \'I\'m wonderstruck, blushing all the way home,\' for the song \'Enchanted\' about the first time you meet someone," adding that fragrance helps "shape someone\'s first impression and memory of you." It became her best-selling perfume, and alongside Justin Bieber\'s "Someday," helped drive a reported 57% jump in celebrity-fragrance sales that year.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -987,7 +1045,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/250px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
       moment: {
         context:
-          "Billboard estimated the Speak Now World Tour's total gross at $123.7 million, from 1,642,435 tickets sold across its 110-date run spanning 19 territories, from its February 2011 Singapore opener through its final show on March 18, 2012.",
+          "Billboard estimated the Speak Now World Tour's total gross at $123.7 million, from 1,642,435 tickets sold across its 110-date run spanning 19 territories, from its February 2011 Singapore opener through its final show on March 18, 2012.\n\nInside those numbers: the North American leg alone accounted for roughly 1.5 million of the tickets, the run included her first six US stadium dates — a preview of the scale that would become her default — and the closing night landed at Auckland's Vector Arena. Adjusted for inflation, the $123.7 million works out to roughly $173 million in 2025 dollars, earned by a 22-year-old on an album she wrote entirely alone.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' }],
         photos: [
           {
@@ -1016,7 +1074,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Taylor_Swift_-_Mine.png/250px-Taylor_Swift_-_Mine.png',
       moment: {
         context:
-          'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.',
+          'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.\n\nThe numbers vindicated the scramble: originally slated for August 16, the single debuted at No. 3 on the Hot 100 with 297,000 downloads — at the time the eighth-biggest sales debut ever for a digital song. The music video, co-directed by Swift and Roman White and shot in Kennebunkport, Maine with British actor Toby Hemingway as the love interest (she cast him after seeing Feast of Love), premiered on CMT August 27 and went on to win Video of the Year at the 2011 CMT Music Awards.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1026,6 +1084,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Mine_(Taylor_Swift_song)',
+            source_title: 'Mine (Taylor Swift song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-09',
+            reliability_score: 2,
           },
           {
             outlet: 'CBS News',
@@ -1065,7 +1132,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
         context:
-          'The solo writing wasn\'t incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective.',
+          'The solo writing wasn\'t incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective.\n\nShe\'d written the fourteen tracks on the road, co-producing with Nathan Chapman: "I\'d get my best ideas at 3:00 a.m. in Arkansas, and I didn\'t have a co-writer around so I would just finish it," she explained. The new title fit her definition of the whole record — the moment "where it\'s almost too late, and you\'ve got to either say what it is you are feeling or deal with the consequences forever." The market answered with 1,047,000 first-week copies and a No. 1 debut on the Billboard 200.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1097,7 +1164,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
       moment: {
         context:
-          'Chosen as the follow-up to "Mine" within weeks of the album\'s release; the apology\'s recipient stayed officially unnamed until Taylor Lautner confirmed, years later, that it was him.',
+          'Chosen as the follow-up to "Mine" within weeks of the album\'s release; the apology\'s recipient stayed officially unnamed until Taylor Lautner confirmed, years later, that it was him.\n\nIt went to country radio on November 15, 2010 — five days after she premiered it at the CMA Awards at Nashville\'s Bridgestone Arena, a stripped-back performance the Los Angeles Times graded a B+. The single climbed to No. 6 on the Hot 100 and No. 3 on Hot Country Songs, and its Yoann Lemoine-directed video — all snow and distance, built, in the director\'s words, "to work on the coldness of feelings in a very visual way" — premiered that January.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1130,7 +1197,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Taylor_Swift_-_Mean.png/250px-Taylor_Swift_-_Mean.png',
       moment: {
         context:
-          'Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.',
+          'Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.\n\nReleased to country radio March 7, 2011, it debuted at No. 11 on the Hot 100 and passed a million digital copies by that August. The Declan Whitebloom video — shot over two days at Los Angeles\' Orpheum Theatre with young actors Joey King and Presley Cash — reframed the critic clapback as an anti-bullying story, and Grammy.com\'s retrospective still reads the song the way fans did in 2011: "a deliciously twangy clapback to critic Bob Lefsetz."',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1140,6 +1207,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/',
+            source_title: "How Speak Now Cemented Taylor Swift's Songwriting Legacy",
+            publisher: 'The Recording Academy',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-09',
+            reliability_score: 4,
           },
         ],
         photos: [
@@ -1170,7 +1246,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Sparks_Fly_-_Single.png/250px-Sparks_Fly_-_Single.png',
       moment: {
         context:
-          'A fan-filmed 2007 performance circulated online for years, and backstage requests at the 2010 CMA Music Festival pushed her to rework the song for Speak Now. The single just made official what tour setlists already knew.',
+          'A fan-filmed 2007 performance circulated online for years, and backstage requests at the 2010 CMA Music Festival pushed her to rework the song for Speak Now. The single just made official what tour setlists already knew.\n\nThe studio version kept the original arrangement while retouching lyrics she\'d written at 16. As the album\'s fifth single it reached No. 17 on the Hot 100 and went all the way to No. 1 on Hot Country Songs that November, eventually certified platinum — and, fittingly for a song the live shows kept alive, its Christian Lamb-directed video was cut entirely from Speak Now World Tour concert footage.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1211,7 +1287,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png/250px-Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
       moment: {
         context:
-          'Her first live album, released through Big Machine while the era was still running; it debuted at No. 11 on the Billboard 200 with 77,000 first-week copies.',
+          'Her first live album, released through Big Machine while the era was still running; it debuted at No. 11 on the Billboard 200 with 77,000 first-week copies.\n\nThe package ran 79 minutes on CD and two hours on the DVD, directed by Ryan Polito from footage shot across the tour\'s North American leg. Beyond the Billboard 200 debut it climbed to No. 2 on Top Country Albums — and it preserved the tour\'s cover-song habit on record, from Train\'s "Drops of Jupiter" to the Jackson 5\'s "I Want You Back," years before surprise covers hardened into a formal nightly slot on her tours.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1245,7 +1321,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
       moment: {
         context:
-          'Producer T Bone Burnett had the Civil Wars over to his house after a Los Angeles show; Swift, who\'d spent two days reading the novel, wrote "Safe & Sound" with them in about two hours, singing from Katniss Everdeen\'s perspective. It went on to win the Grammy for Best Song Written for Visual Media.',
+          'Producer T Bone Burnett had the Civil Wars over to his house after a Los Angeles show; Swift, who\'d spent two days reading the novel, wrote "Safe & Sound" with them in about two hours, singing from Katniss Everdeen\'s perspective. It went on to win the Grammy for Best Song Written for Visual Media.\n\nAs a release it was an outlier on every axis: an out-of-cycle soundtrack single with no album of her own attached, debuting at No. 30 on the Hot 100 on 136,000 first-week downloads. The Philip Andelman-directed video — Swift barefoot in a white dress, walking woods and a cemetery in Watertown, Tennessee — premiered on MTV that February, and the song picked up a Golden Globe nomination for Best Original Song, losing to Adele\'s "Skyfall."',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1278,7 +1354,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She filed it among the album\'s hypotheticals — songs that are "an extension of my feelings and hypothetically what I would do" — rather than autobiography, and said a dream about an ex\'s wedding helped knit the song together.',
+          'She filed it among the album\'s hypotheticals — songs that are "an extension of my feelings and hypothetically what I would do" — rather than autobiography, and said a dream about an ex\'s wedding helped knit the song together.\n\nOn the page it\'s a full screwball plot: the narrator sneaks into the wedding uninvited, hides in the curtains, interrupts the ceremony at the moment tradition invites objections, and leaves with the groom. And it did real chart work for a non-single, debuting at No. 8 on the Hot 100 on album-release sales — her sixth top-ten debut, breaking a record previously held by Mariah Carey.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1286,7 +1362,7 @@ export default {
             source_title: 'Speak Now (song)',
             publisher: 'Wikipedia',
             source_type: 'wiki',
-            accessed_at: '2026-07-08',
+            accessed_at: '2026-07-09',
             reliability_score: 2,
           },
           {
@@ -1299,7 +1375,14 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+            credit: 'Big Machine Records (album cover art)',
+            caption: 'The album the title track named — the song that gave Speak Now its thesis and its cover line.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1315,7 +1398,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Taylor_Swift_Speak_Now_Tour_2011_2.jpg/500px-Taylor_Swift_Speak_Now_Tour_2011_2.jpg',
       moment: {
         context:
-          'The North American leg became the stretch the era is remembered by — the theatrical staging, the costume changes, and above all the parade of surprise-guest duets that peaked in Los Angeles that August.',
+          'The North American leg became the stretch the era is remembered by — the theatrical staging, the costume changes, and above all the parade of surprise-guest duets that peaked in Los Angeles that August.\n\nOpening night was May 27, 2011 at the Qwest Center in Omaha, and the leg ran deep into November, folding in the tour\'s six US stadium dates along the way. It was also the stretch the cameras kept: the Speak Now World Tour Live CD/DVD released that November was assembled from footage shot across these North American shows.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1350,7 +1433,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Speak Now tour\'s surprise-duet tradition peaked in Los Angeles, Aug. 23-28, 2011 — a different guest most nights, from country neighbors to whoever owned pop radio that month. The habit never left her shows; the Eras Tour\'s surprise-song slot is its direct descendant.',
+          'The Speak Now tour\'s surprise-duet tradition peaked in Los Angeles, Aug. 23-28, 2011 — a different guest most nights, from country neighbors to whoever owned pop radio that month. The habit never left her shows; the Eras Tour\'s surprise-song slot is its direct descendant.\n\nThe four LA nights were just the densest run of a leg-long habit: across North America the guest list also pulled in Usher, T.I., B.o.B, Selena Gomez, James Taylor, Switchfoot\'s Jon Foreman, and Jimmy Eat World\'s Jim Adkins. The point read clearly even then — a country headliner treating genre as a non-issue, one borrowed pop, R&B, or soft-rock catalog at a time.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1362,7 +1445,15 @@ export default {
             reliability_score: 2,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Taylor_Swift_Speak_Now_Tour_2011_2.jpg/500px-Taylor_Swift_Speak_Now_Tour_2011_2.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'The Speak Now World Tour on the same North American leg, photographed in Pittsburgh in June 2011 — for reference: no freely licensed photo of the Staples Center guest nights themselves exists.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -1377,7 +1468,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The win came mid-tour, a genuine surprise on a Lambert-dominated night, and made the industry\'s verdict on the all-solo-writing gambit explicit. The next morning she was photographed browsing an Anthropologie in Beverly Hills — see the sighting entry.',
+          'The win came mid-tour, a genuine surprise on a Lambert-dominated night, and made the industry\'s verdict on the all-solo-writing gambit explicit. The next morning she was photographed browsing an Anthropologie in Beverly Hills — see the sighting entry.\n\nShe worked the night too, performing "Mean" at the MGM Grand Garden Arena, then watched Miranda Lambert collect trophy after trophy before the fan-voted final award turned her way. Her speech ran on disbelief — "This is the first time that I\'ve ever won this and I\'m just losing my mind" — and, fresh off the tour\'s overseas legs, she called the award a wonderful welcome-home gift.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1398,7 +1489,15 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://townsquare.media/site/204/files/2011/04/taylor-swift-acms-b.jpg?w=980&q=75',
+            credit: 'Ethan Miller/Getty Images (via Taste of Country)',
+            caption:
+              'The moment itself: hand over mouth as the Entertainer of the Year announcement lands in Las Vegas, April 3, 2011.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1413,7 +1512,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Billboard\'s citation leaned on the numbers: the top-selling albums artist of the previous 12 months, an entirely self-written No. 1 album, and a sold-out world tour. She\'d win the award again in 2014, the first woman to take it twice.',
+          'Billboard\'s citation leaned on the numbers: the top-selling albums artist of the previous 12 months, an entirely self-written No. 1 album, and a sold-out world tour. She\'d win the award again in 2014, the first woman to take it twice.\n\nThe honor was announced October 11, 2011 and presented December 2 at Billboard\'s Women in Music event at Capitale in New York. Editorial director Bill Werde\'s framing put songwriting, not spectacle, at the center: "Taylor has shown the power of good songwriting with music that has transcended genres."',
         sources: [
           {
             outlet: 'Billboard',
@@ -1434,7 +1533,15 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75',
+            credit: 'Dave Hogan/Getty Images (via Taste of Country)',
+            caption:
+              "On stage mid-Speak Now era with the crystal-fretted '13' guitar — the touring-and-sales year Billboard's citation leaned on.",
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1449,7 +1556,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Neither ever confirmed it on the record; the timeline exists entirely through sightings — SNL in October, Gorilla Coffee on Thanksgiving — and the split reports that followed in January.',
+          'Neither ever confirmed it on the record; the timeline exists entirely through sightings — SNL in October, Gorilla Coffee on Thanksgiving — and the split reports that followed in January.\n\nThe reported origin was a Gwyneth Paltrow dinner party ("I\'ve just known Jake for a long time," she later explained), and even the SNL night had its own choreography — a source told People the two "walked around together backstage, but they were careful not to be seen too close." By Thanksgiving he\'d reportedly brought her to sister Maggie Gyllenhaal\'s Brooklyn neighborhood for the holiday, which is how a Park Slope coffee shop ended up in the fan-history books.',
         sources: [
           {
             outlet: 'Elite Daily',
@@ -1470,7 +1577,15 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
+            credit: 'Getty Images (via Just Jared)',
+            caption:
+              "Just Jared's side-by-side report art for the Thanksgiving coffee-run sighting that anchored the rumor timeline — file photos of the two, shown for reference.",
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -1485,7 +1600,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The romance ran through the summer — beach sightings, family volleyball, Ethel Kennedy\'s on-record approval — and was quietly over by fall. See August\'s entries for how thoroughly it was documented.',
+          'The romance ran through the summer — beach sightings, family volleyball, Ethel Kennedy\'s on-record approval — and was quietly over by fall. See August\'s entries for how thoroughly it was documented.\n\nThe first documented sighting was decidedly low-stakes: pizza at a Mount Kisco, New York restaurant on July 25, 2012, followed by a public debut at the Hyannis Port compound the next weekend. Within a month she\'d reportedly bought a seven-bedroom house near the compound for $4.9 million — the paper trail of a summer that fans would later hear processed on Red\'s quieter back half.',
         sources: [
           {
             outlet: 'E! Online',
@@ -1506,7 +1621,15 @@ export default {
             reliability_score: 3,
           },
         ],
-        photos: [],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
+            credit: 'Paul Adao/INFphoto.com',
+            caption:
+              'Off Cape Cod in mid-August 2012, a few weeks after the two were first linked in July.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -1521,7 +1644,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/d8kCTPPwfpM/hqdefault.jpg',
       moment: {
         context:
-          'Swift had been teaching her Lorax co-star to play guitar; the rewritten cover — cheat-sheet lyrics in hand — became one of the show\'s most replayed musical bits from that year.',
+          'Swift had been teaching her Lorax co-star to play guitar; the rewritten cover — cheat-sheet lyrics in hand — became one of the show\'s most replayed musical bits from that year.\n\nBoth were voicing characters in The Lorax, and the guitar lessons were real: "He had like one lesson," Swift said, marveling that he was already good at it, having taught him the Foster the People song herself. The two spent the rest of the appearance laughing off dating rumors and insisting they were just friends — which only helped the duet clip travel.',
         sources: [
           {
             outlet: 'CBS News',
