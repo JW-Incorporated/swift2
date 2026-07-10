@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import { X, Sparkles, Egg, HelpCircle } from 'lucide-react';
+import { X, Sparkles, Egg, HelpCircle, ArrowRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { theoriesForEra } from '@/lib/longlive/theories';
+import { theoriesForEra, resolveRelatedTheory } from '@/lib/longlive/theories';
 import { eraStyle } from '@/lib/longlive/theme';
 import type { Confidence, TheoryNote, TheoryOutcome } from '@/lib/longlive/types';
 
@@ -136,6 +136,10 @@ function countLine(eggCount: number, theoryCount: number): string {
 function TheoryCard({ theory }: { theory: TheoryNote }) {
   const KindIcon = theory.kind === 'easter_egg' ? Egg : HelpCircle;
   const settled = SETTLED_OUTCOMES.has(theory.outcome);
+  const { openTheoryGuide } = useAppActions();
+  const related = (theory.relatedSlugs ?? [])
+    .map(resolveRelatedTheory)
+    .filter((r): r is NonNullable<typeof r> => r !== null);
 
   return (
     <li className="era-card rounded-2xl border p-5">
@@ -199,6 +203,24 @@ function TheoryCard({ theory }: { theory: TheoryNote }) {
           </span>
         ))}
       </p>
+
+      {related.length > 0 && (
+        <div className="mt-3 flex flex-wrap gap-1.5">
+          {related.map(({ eraId, theory: t }) => (
+            <button
+              key={`${eraId}:${t.slug}`}
+              onClick={() => openTheoryGuide(eraId)}
+              className="era-btn-ghost inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[11px] font-medium"
+            >
+              {t.title}
+              <span className="text-[10px] text-[color:var(--era-ink-soft)]">
+                {getEra(eraId).shortName}
+              </span>
+              <ArrowRight className="h-3 w-3 text-[color:var(--era-ink-soft)]" />
+            </button>
+          ))}
+        </div>
+      )}
     </li>
   );
 }

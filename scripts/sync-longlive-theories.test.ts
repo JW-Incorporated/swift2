@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 // The generator only writes files when invoked directly; importing it here
 // just pulls in its pure normalization functions.
-import { buildTheoryGuide, normalizeTheory } from './sync-longlive-theories.mjs';
+import { buildTheoryGuide, normalizeTheory, relatedSlugsFrom } from './sync-longlive-theories.mjs';
 
 const src = [{ source_url: 'https://en.wikipedia.org/wiki/Example', source_title: 'Example', publisher: 'Wikipedia' }];
 
@@ -63,6 +63,33 @@ describe('normalizeTheory', () => {
   it('drops records with no real source', () => {
     expect(normalizeTheory({ ...base, sources: [] })).toBeNull();
     expect(normalizeTheory({ ...base, sources: undefined })).toBeNull();
+  });
+
+  it('resolves relatedSlugs through SLUG_TO_ERA_ID and drops malformed entries', () => {
+    const t = normalizeTheory({
+      ...base,
+      relatedSlugs: ['debut:lucky-number-13', 'the-life-of-a-showgirl:orange-door', 'malformed', 42, ''],
+    });
+    expect(t?.relatedSlugs).toEqual(['debut:lucky-number-13', 'tloas:orange-door']);
+  });
+
+  it('omits relatedSlugs entirely when empty or absent (no empty-array placeholder)', () => {
+    expect(normalizeTheory({ ...base, relatedSlugs: [] })?.relatedSlugs).toBeUndefined();
+    expect(normalizeTheory({ ...base })?.relatedSlugs).toBeUndefined();
+  });
+});
+
+describe('relatedSlugsFrom', () => {
+  it('maps seed era slugs to EraIds and passes already-correct EraIds through', () => {
+    expect(relatedSlugsFrom(['tortured-poets:peter-pan', 'midnights:karma'])).toEqual([
+      'ttpd:peter-pan',
+      'midnights:karma',
+    ]);
+  });
+
+  it('returns an empty array for non-array input', () => {
+    expect(relatedSlugsFrom(undefined)).toEqual([]);
+    expect(relatedSlugsFrom(null)).toEqual([]);
   });
 });
 
