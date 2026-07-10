@@ -12,8 +12,9 @@ import { threadsInEra, getThread } from '@/lib/longlive/lenses';
 import { EraMedia } from './EraMedia';
 import { EraVideos } from './EraVideos';
 import { ALL_TAGS, TAG_META } from '@/lib/longlive/tags';
-import { primaryImageRef } from '@/lib/longlive/types';
+import { hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
 import type { ContentItem, ContentTag, Era, LensId } from '@/lib/longlive/types';
+import { assignFeedTiers, type CardTier } from '@/lib/longlive/feed-tiers';
 import { cn } from '@/lib/utils';
 
 /**
@@ -34,6 +35,10 @@ export function EraSection({ era }: { era: Era }) {
     if (activeTags.size === 0) return items;
     return items.filter((it) => it.tags.some((t) => activeTags.has(t)));
   }, [items, activeTags]);
+  // Card silhouette per item — recomputed against whatever's actually on
+  // screen (so filtering doesn't reference invisible items), but a pure
+  // function of that list's ids, so it's stable across re-renders.
+  const tiers = useMemo(() => assignFeedTiers(visible), [visible]);
 
   const presentTags = useMemo(() => {
     const s = new Set<ContentTag>();
@@ -163,8 +168,13 @@ export function EraSection({ era }: { era: Era }) {
       {/* Chronological feed (newest-first). */}
       <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
         <ol className="relative space-y-5">
-          {visible.map((item, i) => (
-            <MomentCard key={item.id} item={item} index={i} onOpen={() => openItem(item.id)} />
+          {visible.map((item) => (
+            <MomentCard
+              key={item.id}
+              item={item}
+              tier={tiers.get(item.id) ?? 'text'}
+              onOpen={() => openItem(item.id)}
+            />
           ))}
         </ol>
         {visible.length === 0 && (
@@ -236,31 +246,181 @@ const PIVOT_ICONS: Partial<Record<LensId, typeof Heart>> = {
   'the-proposal': Gem,
 };
 
-function MomentCard({ item, index, onOpen }: { item: ContentItem; index: number; onOpen: () => void }) {
+/** Date/tags/clue/seen row shared by every card tier. */
+function MomentMeta({
+  item,
+  seen,
+  size = 'default',
+}: {
+  item: ContentItem;
+  seen: boolean;
+  size?: 'default' | 'compact';
+}) {
   const hasClue = Boolean(item.hiddenClue);
-  // Visited-state (localStorage-backed). First paint is always "unseen" —
-  // progress hydrates post-mount, so server and client markup match.
+  return (
+    <div className="flex items-baseline justify-between gap-3">
+      <span
+        className={cn(
+          'uppercase tracking-widest text-[color:var(--era-ink-soft)]',
+          size === 'compact' ? 'text-[10px]' : 'text-xs',
+        )}
+      >
+        {item.dateLabel}
+      </span>
+      <span className="flex shrink-0 items-center gap-2">
+        {hasClue && (
+          <span className="clue-glint inline-flex items-center gap-1 text-[11px] font-medium text-[color:var(--era-accent)]">
+            <Sparkles className="h-3 w-3" />
+            {size === 'default' && 'Hidden clue'}
+          </span>
+        )}
+        {seen && (
+          <span className="inline-flex items-center gap-1 text-[10px] font-medium uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+            <Check className="h-3 w-3" aria-hidden />
+            {size === 'default' && 'Seen'}
+          </span>
+        )}
+        {size === 'default' && (
+          <ArrowUpRight className="h-4 w-4 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
+        )}
+      </span>
+    </div>
+  );
+}
+
+function TagRow({ tags }: { tags: ContentTag[] }) {
+  if (tags.length === 0) return null;
+  return (
+    <div className="mt-3 flex flex-wrap items-center gap-1.5">
+      {tags.map((t) => (
+        <span
+          key={t}
+          className="rounded-full px-2 py-0.5 text-[11px] font-medium"
+          style={{ backgroundColor: `hsl(${TAG_META[t].hue} / 0.16)`, color: `hsl(${TAG_META[t].hue})` }}
+        >
+          {TAG_META[t].label}
+        </span>
+      ))}
+    </div>
+  );
+}
+
+function MomentCard({ item, tier, onOpen }: { item: ContentItem; tier: CardTier; onOpen: () => void }) {
   const { progress } = useProgress();
   const seen = progress.moments.has(item.id);
-  const hero = primaryImageRef(item);
-  // A two-tier rhythm (one in four cards "featured", full-width image on
-  // top) instead of every card being an identical text block — a feed
-  // that's visually uniform end to end is one users' eyes gloss over.
-  const featured = hero != null && index % 4 === 0;
+  const hero = hasRealPrimaryImage(item) ? primaryImageRef(item) : undefined;
 
+  const listItemProps = {
+    className: 'relative scroll-mt-28',
+    'data-ll-item': item.id,
+    'data-ll-era': item.eraId,
+    'data-ll-date': new Date(item.date).getTime(),
+  } as const;
+
+  // CHAPTER BREAK — rare (paced out in feed-tiers.ts), full-bleed image,
+  // big serif title. Registers as an event specifically because it's rare.
+  if (tier === 'hero' && hero) {
+    return (
+      <li {...listItemProps}>
+        <button onClick={onOpen} className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition">
+          <div className="relative aspect-[16/9] w-full overflow-hidden">
+            <Image
+              src={hero.url}
+              alt=""
+              fill
+              unoptimized={/^https?:\/\//.test(hero.url)}
+              className="object-cover transition duration-300 group-hover:scale-[1.03]"
+            />
+            <div
+              aria-hidden
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(to top, color-mix(in srgb, var(--era-surface) 88%, transparent), transparent 55%)',
+              }}
+            />
+          </div>
+          <div className="p-6">
+            <MomentMeta item={item} seen={seen} />
+            <h3 className="mt-2 font-[family-name:var(--era-font)] text-balance text-2xl font-semibold leading-snug sm:text-3xl">
+              {item.title}
+            </h3>
+            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+              {item.summary}
+            </p>
+            <TagRow tags={item.tags} />
+          </div>
+        </button>
+      </li>
+    );
+  }
+
+  // DENSE ROW — routine, day-to-day items. Tight, subordinate, small
+  // thumbnail if there's a real one. Several of these packed together make
+  // the next full card read as an event by contrast.
+  if (tier === 'chip') {
+    return (
+      <li {...listItemProps}>
+        <button
+          onClick={onOpen}
+          className="era-card group flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition"
+        >
+          {hero && (
+            <div className="relative size-11 shrink-0 overflow-hidden rounded-lg">
+              <Image
+                src={hero.url}
+                alt=""
+                fill
+                unoptimized={/^https?:\/\//.test(hero.url)}
+                className="object-cover"
+              />
+            </div>
+          )}
+          <div className="min-w-0 flex-1">
+            <MomentMeta item={item} seen={seen} size="compact" />
+            <h3 className="mt-0.5 truncate font-[family-name:var(--era-font)] text-[15px] font-semibold leading-snug">
+              {item.title}
+            </h3>
+          </div>
+          <ArrowUpRight className="h-3.5 w-3.5 shrink-0 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
+        </button>
+      </li>
+    );
+  }
+
+  // BREATHER — deliberately no image (either none exists, or this card was
+  // chosen to break up a run of image cards), but typographically chosen,
+  // not a degraded fallback: bigger date, more air, a left accent rule.
+  if (tier === 'text') {
+    return (
+      <li {...listItemProps}>
+        <button
+          onClick={onOpen}
+          className="era-card group block w-full rounded-2xl border-l-4 py-4 pl-5 pr-5 text-left transition"
+          style={{ borderLeftColor: 'var(--era-accent)' }}
+        >
+          <MomentMeta item={item} seen={seen} />
+          <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
+            {item.title}
+          </h3>
+          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+            {item.summary}
+          </p>
+          <TagRow tags={item.tags} />
+        </button>
+      </li>
+    );
+  }
+
+  // WORKHORSE (media) — the default: contained image + text.
   return (
-    <li
-      className="relative scroll-mt-28"
-      data-ll-item={item.id}
-      data-ll-era={item.eraId}
-      data-ll-date={new Date(item.date).getTime()}
-    >
+    <li {...listItemProps}>
       <button
         onClick={onOpen}
         className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
       >
         {hero && (
-          <div className={cn('relative w-full overflow-hidden', featured ? 'aspect-[16/9]' : 'aspect-[21/9]')}>
+          <div className="relative aspect-[21/9] w-full overflow-hidden">
             <Image
               src={hero.url}
               alt=""
@@ -278,52 +438,15 @@ function MomentCard({ item, index, onOpen }: { item: ContentItem; index: number;
             />
           </div>
         )}
-
-        <div className={featured ? 'p-6' : 'p-5'}>
-          <div className="flex items-baseline justify-between gap-3">
-            <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-              {item.dateLabel}
-            </span>
-            <span className="flex shrink-0 items-center gap-2">
-              {seen && (
-                <span className="inline-flex items-center gap-1 text-[10px] font-medium uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-                  <Check className="h-3 w-3" aria-hidden />
-                  Seen
-                </span>
-              )}
-              <ArrowUpRight className="h-4 w-4 text-[color:var(--era-ink-soft)] transition group-hover:text-[color:var(--era-accent)]" />
-            </span>
-          </div>
-
-          <h3
-            className={cn(
-              'mt-2 font-[family-name:var(--era-font)] font-semibold leading-snug',
-              featured ? 'text-2xl' : 'text-xl',
-            )}
-          >
+        <div className="p-5">
+          <MomentMeta item={item} seen={seen} />
+          <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
             {item.title}
           </h3>
           <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
             {item.summary}
           </p>
-
-          <div className="mt-3 flex flex-wrap items-center gap-1.5">
-            {item.tags.map((t) => (
-              <span
-                key={t}
-                className="rounded-full px-2 py-0.5 text-[11px] font-medium"
-                style={{ backgroundColor: `hsl(${TAG_META[t].hue} / 0.16)`, color: `hsl(${TAG_META[t].hue})` }}
-              >
-                {TAG_META[t].label}
-              </span>
-            ))}
-            {hasClue && (
-              <span className="clue-glint ml-auto inline-flex items-center gap-1 text-[11px] font-medium text-[color:var(--era-accent)]">
-                <Sparkles className="h-3 w-3" />
-                Hidden clue
-              </span>
-            )}
-          </div>
+          <TagRow tags={item.tags} />
         </div>
       </button>
     </li>
