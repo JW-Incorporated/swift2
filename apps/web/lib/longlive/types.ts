@@ -485,7 +485,32 @@ export interface CluePoint {
   eraId: EraId;
   /** What happened at this point. */
   what: string;
+  /**
+   * The receipt: her actual words at this point (lyric, spoken quote, liner
+   * note) — short and iconic. Optional; the UI degrades gracefully without
+   * it. Same discipline as media IDs: never trust memory for a quote, verify
+   * against a primary source before hardcoding, and it's a *snippet* only
+   * (docs/decisions.md 2026-07-09) — never a complete lyric.
+   */
+  line?: string;
+  /** Citation for `line`, e.g. a song title or interview name. */
+  lineCite?: string;
 }
+
+/** A coarse category for what kind of clue a CluePair is — distinct from the
+ * Clue Web's MotifId (a different feature, `easter-eggs` thread). Optional:
+ * the UI hides the motif badge rather than guessing when absent. */
+export type DecodeMotifId = 'number' | 'object' | 'lyric' | 'name' | 'structural' | 'theme' | 'political';
+
+export const DECODE_MOTIF_META: Record<DecodeMotifId, { label: string }> = {
+  number: { label: 'Number' },
+  object: { label: 'Object' },
+  lyric: { label: 'Lyric' },
+  name: { label: 'Name' },
+  structural: { label: 'Structure' },
+  theme: { label: 'Theme' },
+  political: { label: 'Movement' },
+};
 
 /**
  * A hidden clue Taylor planted at one point that paid off later. Rendered as an
@@ -494,6 +519,14 @@ export interface CluePoint {
 export interface CluePair {
   id: string;
   title: string;
+  /** Dramatic one-line teaser shown as the card's headline. Optional —
+   * falls back to `title` when absent, rather than requiring every one of
+   * the 100+ existing pairs to be rewritten before this field is useful. */
+  hook?: string;
+  /** Punchy fan-voice takeaway shown once the payoff is revealed. Optional —
+   * falls back to `connection` when absent, same reasoning as `hook`. */
+  verdict?: string;
+  motif?: DecodeMotifId;
   plant: CluePoint;
   payoff: CluePoint;
   /** One-sentence through-line connecting plant → payoff. */
