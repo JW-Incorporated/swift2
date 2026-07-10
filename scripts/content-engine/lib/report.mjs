@@ -20,6 +20,7 @@ export async function writeReport(findings, meta) {
   L.push('');
   L.push(`**Totals:** ${ranked.length} findings — P0 ${bySev.P0} · P1 ${bySev.P1} · P2 ${bySev.P2} · P3 ${bySev.P3}`);
   L.push('');
+  if (meta.note) { L.push(meta.note); L.push(''); }
   if (escalations.length) {
     L.push(`## ⚠️ Escalations (${escalations.length}) — human review required now`);
     for (const f of escalations) L.push(`- **${f.title}** — ${f.itemRef.file} — ${f.evidence}`);
