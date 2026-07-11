@@ -1,0 +1,72 @@
+# Brief mailer — emails the 6 AM Founders' Brief To Joey, CC Wyatt (Joey's
+# ask, 2026-07-11). Deterministic, zero AI. Runs after the brief + watchdog
+# window: 14:50 UTC = 7:50 AM PDT / 6:50 AM PST.
+#
+# Requires the repo secret GMAIL_APP_PASSWORD (a Gmail App Password for
+# sffan15@gmail.com — founder-only setup, see the TX bank issue). Until the
+# secret exists this workflow skips quietly; delivery still happens via the
+# brief's cc @mentions (GitHub notification email).
+name: brief-mailer
+on:
+  schedule:
+    - cron: "50 14 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  issues: read
+
+jobs:
+  mail-brief:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Find today's brief
+        id: brief
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TODAY=$(TZ=America/Los_Angeles date +%F)
+          TITLE="Founders' Brief — ${TODAY}"
+          NUM=$(gh issue list --repo "$REPO" --label founders-brief \
+            --search "\"$TITLE\" in:title" --state all --json number --jq '.[0].number // empty')
+          if [ -z "$NUM" ]; then
+            echo "No brief for $TODAY — nothing to mail (watchdog owns alerting)."
+            echo "found=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "found=true" >> "$GITHUB_OUTPUT"
+            echo "number=$NUM" >> "$GITHUB_OUTPUT"
+            gh issue view "$NUM" --repo "$REPO" --json title,body,url > brief.json
+          fi
+
+      - name: Send To Joey, CC Wyatt
+        if: steps.brief.outputs.found == 'true'
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -z "${GMAIL_APP_PASSWORD}" ]; then
+            echo "GMAIL_APP_PASSWORD secret not set — skipping (delivery falls back to @mention email)."
+            exit 0
+          fi
+          python3 - << 'PY'
+          import json, os, smtplib
+          from email.message import EmailMessage
+
+          with open('brief.json', encoding='utf-8') as f:
+              brief = json.load(f)
+
+          msg = EmailMessage()
+          msg['Subject'] = brief['title']
+          msg['From'] = 'sffan15@gmail.com'
+          msg['To'] = 'sffan15@gmail.com'
+          msg['Cc'] = 'Wjduvall@gmail.com'
+          msg.set_content(
+              f"{brief['body']}\n\n---\nTick your boxes here: {brief['url']}\n"
+              "(Sent by the brief-mailer Action — deterministic, no AI involved.)"
+          )
+          with smtplib.SMTP_SSL('smtp.gmail.com', 465) as s:
+              s.login('sffan15@gmail.com', os.environ['GMAIL_APP_PASSWORD'])
+              s.send_message(msg)
+          print('Brief mailed: To sffan15@gmail.com, Cc Wjduvall@gmail.com')
+          PY
