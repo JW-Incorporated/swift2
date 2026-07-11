@@ -414,9 +414,12 @@ async function fetchFromSupabase() {
 
 /** Fallback source: the local supabase/seed/tracks/*.mjs files. */
 async function fetchFromLocalFiles() {
-  // Files starting with "_" are templates, not real content (same convention
-  // as scripts/seed-tracks.mjs).
-  const files = (await readdir(SEED_DIR)).filter((f) => f.endsWith('.mjs') && !f.startsWith('_'));
+  // Files starting with "_" are templates, not real content; `.dossiers.mjs`
+  // files are per-era side modules imported by their era file (same
+  // convention as scripts/seed-tracks.mjs).
+  const files = (await readdir(SEED_DIR)).filter(
+    (f) => f.endsWith('.mjs') && !f.startsWith('_') && !f.endsWith('.dossiers.mjs'),
+  );
 
   const entries = [];
   for (const file of files.sort()) {

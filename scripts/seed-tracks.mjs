@@ -18,9 +18,11 @@ if (!connectionString) {
   process.exit(1);
 }
 
-// Files starting with "_" are templates, not real content.
+// Files starting with "_" are templates, not real content. `.dossiers.mjs`
+// files are per-era side modules imported by their era file (issue #440) —
+// not standalone seeds.
 const files = readdirSync(tracksDir)
-  .filter((f) => f.endsWith('.mjs') && !f.startsWith('_'))
+  .filter((f) => f.endsWith('.mjs') && !f.startsWith('_') && !f.endsWith('.dossiers.mjs'))
   .sort();
 
 const client = new pg.Client({ connectionString, ssl: { rejectUnauthorized: false } });
