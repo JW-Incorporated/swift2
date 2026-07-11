@@ -64,6 +64,14 @@ mode still propagates decisions.
   comment the answer with a citation and close the bank item — do not ask
   founders. If precedent is close but not exact, bank it and say why
   precedent doesn't cover it.
+- **Reversibility test (2026-07-11 decision, `docs/decisions.md`):** before
+  banking anything, ask whether it's reversible within a reasonable window
+  (brief user-visible exposure before a founder reverses it does not count
+  against reversibility) **and** it's outside the non-ratchetable set (§5.3
+  of the operating-model proposal — product direction, brand voice/public
+  posting, legal/policy, pricing, spending, merge/deploy authority, charter
+  changes). If both hold, this is T1: decide it, journal it, report it in
+  the next brief — do not bank it as a founder-decision issue.
 - **The ratchet:** when founders answer the same class of question the same
   way twice, propose a standing rule in the next brief ("may I auto-approve
   this class?"). The proposal is itself a T2 decision; nothing is
