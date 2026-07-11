@@ -8,7 +8,7 @@ Workflow + decision authority live in `CLAUDE.md`; stack rationale in
 
 | Path | What it is |
 |------|-----------|
-| `apps/web` | **Next.js (App Router) reader — the v1 product.** |
+| `apps/web` | **Next.js (App Router) reader — the v1 product.** `/` currently renders the static LongLive experience (`components/longlive/`, `lib/longlive/`) — see `docs/longlive-experience.md`. The Supabase-backed `VaultReader`/`lib/vault.ts` path below still exists in-repo but is unmounted. |
 | `apps/mobile` | Expo / React Native app. Reuses `packages/*` **unchanged**. ⚠️ Lands with **PR #42** — may not be on `main` yet. |
 | `apps/worker` | **Not code** — just holds a gitignored `.env` (`SUPABASE_DB_URL`) that the DB scripts read. No pipeline/worker in v1. |
 | `packages/shared` | Portable types + domain/nav/snap math + budget & load state machines. **No I/O, no view code.** |
@@ -59,7 +59,14 @@ After any schema change: add a migration file, apply it, and update
 ## Run the apps
 
 **Web:** `npm run dev --workspace @swift2/web` → http://localhost:3000
-(reads `apps/web/.env.local`; pulls the live Vault via public RLS read).
+renders `<LongLive/>` (`app/page.tsx`) — the shipped era/threads reader over
+**static, in-repo mock data** (`apps/web/lib/longlive/*`). It does **not**
+read Supabase. See `docs/longlive-experience.md` before touching the site UI.
+`.env.local` / the Supabase RLS read path still exist for the older
+Vault reader components (`VaultReader.tsx`, `lib/vault.ts`, `lib/useMoment.ts`,
+`lib/useTrackGuide.ts`) described below and in `docs/architecture.md`, but
+those are **not currently mounted anywhere** (`VaultReader` has no importers) —
+dead code pending the Supabase convergence noted in `docs/longlive-experience.md`.
 
 **Mobile (Expo):**
 ```
@@ -69,7 +76,7 @@ cp .env.example .env                        # fill in EXPO_PUBLIC_* creds
 npm run start --workspace @swift2/mobile    # open in Expo Go / emulator
 ```
 
-## Data model (5 tables · RLS public-read · titles/snippets/links only — never article bodies)
+## Data model (5 tables · RLS public-read)
 
 - `era` — slug, album, start/end, sort_order, `theme` (jsonb), cover art.
 - `milestone` — album releases + tours (the scrubber's wavetop nav anchors).
@@ -84,6 +91,6 @@ Tier 1 = on-demand moment detail + track guide.
 ## Guardrails that bite
 
 - **Never commit to `main`** — branch + PR. AI may not merge/deploy/spend without human OK (`CLAUDE.md`).
-- **Never fabricate content.** Never store article bodies or rehost images (hotlink only). UNOFFICIAL — no affiliation copy.
+- **Never fabricate content.** (Real + sourced — still stands.) **Media policy** (`docs/decisions.md` 2026-07-09 "no rules against hosting photos"): original summaries in our own words + links (never paste bodies/lyrics — see the 2026-07-09 lyrics entry for that exception); **hosting real internet photos is unrestricted** — embed, hotlink, or rehost/CDN (paparazzi/press/agency all fine), with credit, a knowing risk acceptance. Only image bars: **no AI fakes**, and reference/comparable stand-ins must be visibly labeled as such. Monetization needs IP-counsel review. UNOFFICIAL — no affiliation copy.
 - **Business logic goes in `packages/shared`/`core`, not the view layer** — that's what keeps the mobile app a thin reuse.
 - **Two lanes:** ENGINE (Wyatt — all code) vs CONTENT (Joey — `supabase/seed/content/**`, `tracks/**`). Don't touch the other lane's files. See `docs/roadmap.md`.

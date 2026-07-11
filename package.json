@@ -11,6 +11,7 @@
     "node": "24.x"
   },
   "scripts": {
+    "dev": "npm run dev --workspace @swift2/web",
     "typecheck": "npm run typecheck --workspaces --if-present",
     "test": "vitest run",
     "test:e2e": "playwright test",
@@ -22,9 +23,14 @@
     "db:seed": "node --env-file=apps/worker/.env scripts/seed-eras.mjs",
     "db:seed:content": "node --env-file=apps/worker/.env scripts/seed-content.mjs",
     "db:seed:tracks": "node --env-file=apps/worker/.env scripts/seed-tracks.mjs",
+    "db:seed:releases": "node --env-file=apps/worker/.env scripts/seed-releases.mjs",
+    "db:seed:tours": "node --env-file=apps/worker/.env scripts/seed-tours.mjs",
+    "db:seed:theories": "node --env-file=apps/worker/.env scripts/seed-theories.mjs",
+    "db:seed:videos": "node --env-file=apps/worker/.env scripts/seed-videos.mjs",
     "check:budget": "tsx scripts/check-tier0-budget.mjs",
     "check:budget:seed": "tsx scripts/check-budget-from-seed.mjs",
-    "validate:content": "node scripts/validate-content.mjs"
+    "validate:content": "node scripts/validate-content.mjs",
+    "content:coverage": "node scripts/content-coverage.mjs"
   },
   "devDependencies": {
     "@eslint/js": "^9.9.0",

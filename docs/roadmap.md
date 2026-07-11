@@ -4,6 +4,15 @@ The **what/how** lives in `docs/specs/2026-07-03-vault-mvp-v1-spec.md`. This doc
 is the **who/when**, split into two tracks so Wyatt and Joey (each with their AI
 session) work in parallel toward a ship by Taylor's wedding.
 
+> **Known gap (as of the LongLive rewrite):** CONTENT-track authoring below
+> targets the Supabase `month_item`/`moment`/`track_note` schema, but the
+> front-end shipped at `/` (`docs/longlive-experience.md`) currently reads
+> static mock data from `apps/web/lib/longlive/*`, not Supabase. The
+> ENGINE-track UI work below (W3/W4/etc.) built the older `VaultReader`
+> reader, which is not the component mounted today. Reconciling the two —
+> wiring LongLive to real seeded content — is unscheduled; don't assume
+> content authored per this roadmap is visible in the live app yet.
+
 ## ▶ How to start a session — just say "start working"
 
 Each founder's agent owns ONE track. You never need to name a work package —

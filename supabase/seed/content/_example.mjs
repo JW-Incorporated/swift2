@@ -15,6 +15,10 @@ export default {
     {
       year: 2019,
       month: 8,
+      // day (OPTIONAL, 1-31): add when the exact date is documented, for a
+      // real "August 26, 2019" label instead of just "August 2019". Most
+      // items are still month-only — omit rather than guess a day.
+      // day: 26,
       category: 'fashion',
       title: 'Butterfly jumpsuit at the VMAs',
       snippet: 'One-line preview of the look — a hook, not the article.',

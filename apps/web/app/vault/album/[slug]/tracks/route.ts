@@ -6,11 +6,12 @@ import { loadTrackGuide } from '../../../../../lib/vault';
 // Edge-cached; content is static between deploys.
 export const revalidate = 3600;
 
-export async function GET(_req: Request, { params }: { params: { slug: string } }) {
+export async function GET(_req: Request, { params }: { params: Promise<{ slug: string }> }) {
   try {
-    const tracks = await loadTrackGuide(params.slug);
+    const { slug } = await params;
+    const tracks = await loadTrackGuide(slug);
     return NextResponse.json(
-      { eraSlug: params.slug, tracks },
+      { eraSlug: slug, tracks },
       { headers: { 'Cache-Control': 'public, s-maxage=3600, stale-while-revalidate=86400' } },
     );
   } catch (err) {
