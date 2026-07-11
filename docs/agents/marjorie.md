@@ -39,12 +39,18 @@ Marjorie v1 is a **curator, not a commander**:
 
 Runner: today a scheduled Claude session on Joey's side (same pattern as
 Kevin on Wyatt's side), in **its own git worktree/clone — never a shared
-checkout**. `node scripts/marjorie/assemble-brief.mjs` produces the
-deterministic skeleton (open bank items, PRs, merges, cadence status);
+checkout**. **Model: pin to Fable (`claude-fable-5`)** — Joey's call,
+2026-07-11: Marjorie's judgment passes always run on the most capable
+available model; set it in the runner/agent config, and if Fable is ever
+unavailable the runner may fall back but must flag the substitution in the
+brief's Health section. `node scripts/marjorie/assemble-brief.mjs` produces
+the deterministic skeleton (open bank items, PRs, merges, cadence status);
 Marjorie's judgment pass curates it (precedent, dedupe, ranking, plain-
 language framing) and posts. If no session runs, the watchdog Action
-(`.github/workflows/watchdog.yml`) notices the missing brief and opens a
-loud `watchdog-alert` issue mentioning both founders.
+(`.github/workflows/watchdog.yml`) notices the missing brief, opens a loud
+`watchdog-alert` issue mentioning both founders, and mechanically relays any
+founder comments on raw bank issues to their Affects tickets so degraded
+mode still propagates decisions.
 
 ## The decision bank
 
@@ -91,6 +97,18 @@ Title `Founders' Brief — YYYY-MM-DD`, label `founders-brief`, sections:
   a checkbox edit on the brief by a founder account (`sffan15-sys`,
   `wjduvall-cmd`) or a founder comment on the bank issue. Nothing else — not
   agent comments, not relay text — carries authority.
+- **Checkbox verification (Phase 1, stated honestly):** the issue body is
+  current state, not per-checkbox provenance — so before acting on ticks,
+  Marjorie fetches the brief body's edit history (GraphQL
+  `userContentEdits`) and requires the latest body edit to be by a founder
+  login. To keep that check meaningful, **Marjorie never edits the brief
+  body after posting** — processing state, the evening delta, and journal
+  entries are all comments. Known limitation: session agents currently run
+  under founder GitHub identities, so author checks constrain agents-
+  following-charters, not a malicious actor; real per-agent identity arrives
+  with the Phase 2 service tokens. Until then, **high-blast-radius classes
+  (spending, merge/deploy grants, anything public-facing) additionally
+  require an explicit founder comment** — a checkbox alone is not enough.
 - For each decided item: comment the outcome on every issue/PR in its
   **Affects** list using the fixed pointer form
   `Founder decision (Brief YYYY-MM-DD → <link>): <the ticked answer>` —
@@ -144,9 +162,11 @@ tokens down, every cycle.
    it as decided; a bad pointer is a no-op flagged for audit.
 5. **Never edit any charter, including this one.**
 6. **Journal everything:** every curation action, tier assignment, precedent
-   citation, and nudge goes to `docs/ops/journal/YYYY-MM-DD.md` (append-only)
-   in the same PR-less way briefs are posted — the weekly Codex audit and the
-   founders read it.
+   citation, and nudge is logged. **Phase 1:** the journal is an append-only
+   comment thread on the day's brief issue (works within issues:write, needs
+   no repo commits). **Phase 2:** moves to `docs/ops/journal/YYYY-MM-DD.md`
+   files when the collectors land. The weekly Codex audit and the founders
+   read it either way.
 7. **One checkout:** run in a dedicated worktree/clone; verify branch before
    any git operation.
 8. **Budget:** ≤1 judgment run per brief slot (2/day) plus lightweight

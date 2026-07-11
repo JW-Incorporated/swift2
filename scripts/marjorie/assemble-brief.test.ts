@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { buildBrief, extractField, extractOptions } from './assemble-brief.mjs';
+import { buildBrief, extractField, extractOptions, todayLA } from './assemble-brief.mjs';
 
 const NOW = new Date('2026-07-12T13:00:00Z').getTime();
 
@@ -42,6 +42,19 @@ describe('extractField', () => {
   });
   it('is empty for a missing field', () => {
     expect(extractField(formBody, 'Deadline')).toBe('');
+  });
+  it('survives regex metacharacters in the label (real form labels have them)', () => {
+    const body = '### Recommendation + why\nA, because safety.\n### Deadline (only if real)\n2026-07-20';
+    expect(extractField(body, 'Recommendation + why')).toBe('A, because safety.');
+    expect(extractField(body, 'Deadline (only if real)')).toBe('2026-07-20');
+  });
+});
+
+describe('todayLA', () => {
+  it('renders the LA-clock date, not UTC', () => {
+    // 2026-07-12 02:30 UTC is still 2026-07-11 in Los Angeles (PDT, UTC-7)
+    expect(todayLA(new Date('2026-07-12T02:30:00Z'))).toBe('2026-07-11');
+    expect(todayLA(new Date('2026-07-12T14:00:00Z'))).toBe('2026-07-12');
   });
 });
 

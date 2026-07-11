@@ -1,26 +1,31 @@
 # The watchdog — dumb code that watches the watchers (incl. Marjorie).
 # Operating model §4.2/§6: a non-LLM heartbeat, independent of every session
-# cron it monitors. If today's Founders' Brief hasn't appeared by ~75 minutes
-# past its 6:00 AM America/Los_Angeles deadline, open (or refresh) a loud
-# watchdog-alert issue mentioning both founders. Deliberately zero AI.
+# cron it monitors. Two jobs, deliberately zero AI:
+#   1. brief-heartbeat — if today's Founders' Brief hasn't appeared, open (or
+#      refresh) a loud watchdog-alert issue mentioning both founders.
+#   2. degraded-propagation — runs only when the brief is missing: founder
+#      comments on raw bank issues still reach the tickets they unblock
+#      (operating model §5.2: answers propagate with zero LLM in the loop).
 #
-# Cron is UTC. 6:00 AM PDT = 13:00 UTC → check at 14:15 UTC (07:15 PDT).
-# PST winter drift means the check runs at 06:15 local — earlier, still after
-# the deadline, so no missed alerts (an extra hour of grace is not needed).
+# Cron is UTC; the brief deadline is 6:00 AM America/Los_Angeles.
+# 14:30 UTC = 7:30 AM PDT (90 min grace) / 6:30 AM PST (30 min grace) —
+# the uneven winter grace is intentional and preferred over DST-shifted
+# double schedules; 30 minutes is still comfortably past the deadline.
 name: watchdog
 on:
   schedule:
-    - cron: "15 14 * * *"
+    - cron: "30 14 * * *"
   workflow_dispatch: {}
 
 permissions:
   issues: write
 
 jobs:
-  brief-heartbeat:
+  watchdog:
     runs-on: ubuntu-latest
     steps:
-      - name: Verify today's Founders' Brief exists
+      - name: Check today's Founders' Brief exists
+        id: brief
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
@@ -30,19 +35,32 @@ jobs:
           TITLE="Founders' Brief — ${TODAY}"
           FOUND=$(gh issue list --repo "$REPO" --label founders-brief \
             --search "\"$TITLE\" in:title" --state all --json number --jq 'length')
+          echo "today=$TODAY" >> "$GITHUB_OUTPUT"
           if [ "$FOUND" -gt 0 ]; then
+            echo "missing=false" >> "$GITHUB_OUTPUT"
             echo "OK: brief for $TODAY exists."
-            exit 0
+          else
+            echo "missing=true" >> "$GITHUB_OUTPUT"
+            echo "MISSING: no brief titled '$TITLE'"
           fi
-          echo "MISSING: no brief titled '$TITLE'"
+
+      - name: Alert founders (brief missing)
+        if: steps.brief.outputs.missing == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          TODAY: ${{ steps.brief.outputs.today }}
+        run: |
+          set -euo pipefail
           ALERT_TITLE="Watchdog: no Founders' Brief for ${TODAY}"
           EXISTING=$(gh issue list --repo "$REPO" --label watchdog-alert \
             --search "\"$ALERT_TITLE\" in:title" --state open --json number --jq '.[0].number // empty')
           BODY="@sffan15-sys @wjduvall-cmd — Marjorie's 6:00 AM brief for ${TODAY} has not been posted.
 
-          Degraded mode (charter, docs/agents/marjorie.md): the decision bank still works —
+          Degraded mode (charter: docs/agents/marjorie.md): the decision bank still works —
           read the open [founder-decision issues](https://github.com/${REPO}/issues?q=is%3Aissue+is%3Aopen+label%3Afounder-decision)
-          raw and answer by comment; your comments are authoritative on their own.
+          raw and answer by comment; your comments are authoritative on their own, and this
+          workflow's propagation job relays them to the tickets they unblock.
 
           Likely cause: the Marjorie session/cron didn't run. Restart it, or run
           \`node scripts/marjorie/assemble-brief.mjs\` for the skeleton."
@@ -52,4 +70,34 @@ jobs:
             gh issue create --repo "$REPO" --label watchdog-alert \
               --title "$ALERT_TITLE" --body "$BODY"
           fi
-          exit 1
+
+      - name: Degraded-mode propagation (founder answers → Affects tickets)
+        if: steps.brief.outputs.missing == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # For each open bank issue: if a FOUNDER commented in the last 25h,
+          # cross-post a pointer to every ticket in its "### Affects" field.
+          # Idempotence: skip if we already pointed at that founder comment.
+          SINCE=$(date -u -d '25 hours ago' +%Y-%m-%dT%H:%M:%SZ)
+          for NUM in $(gh issue list --repo "$REPO" --label founder-decision \
+              --state open --limit 100 --json number --jq '.[].number'); do
+            COMMENT=$(gh api "repos/${REPO}/issues/${NUM}/comments" \
+              --jq "[.[] | select(.user.login == \"sffan15-sys\" or .user.login == \"wjduvall-cmd\")
+                     | select(.created_at > \"${SINCE}\")] | last // empty")
+            [ -z "$COMMENT" ] && continue
+            C_URL=$(echo "$COMMENT" | jq -r '.html_url')
+            C_BODY=$(echo "$COMMENT" | jq -r '.body' | head -c 400)
+            BODY_FIELD=$(gh issue view "$NUM" --repo "$REPO" --json body \
+              --jq '.body' | awk '/^###[[:space:]]*Affects/{f=1;next} /^###/{f=0} f' )
+            for T in $(echo "$BODY_FIELD" | grep -oE '#[0-9]+' | tr -d '#' | sort -u); do
+              ALREADY=$(gh api "repos/${REPO}/issues/${T}/comments" \
+                --jq "[.[] | select(.body | contains(\"${C_URL}\"))] | length")
+              [ "$ALREADY" -gt 0 ] && continue
+              gh issue comment "$T" --repo "$REPO" --body \
+                "Founder decision (degraded-mode relay → ${C_URL}) on bank item #${NUM}: ${C_BODY}"
+              echo "relayed #${NUM} founder comment to #${T}"
+            done
+          done
