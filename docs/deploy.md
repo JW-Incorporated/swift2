@@ -30,9 +30,22 @@ Set for **Production** (and Preview, for the GitHub path):
 |-----|------------------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Project Settings → API → **Project URL** |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | same page → Project API keys → **`anon` `public`** |
+| `GITHUB_FEEDBACK_TOKEN` | **Feedback button only** — a GitHub token with `issues:write` on the repo (fine-grained PAT scoped to `JW-Incorporated/swift2` → Issues: Read & write, or a GitHub App installation token). Server-side only; never `NEXT_PUBLIC_`. |
+| `FEEDBACK_REPO` *(optional)* | Repo the feedback button files issues into. Defaults to `JW-Incorporated/swift2`. |
 
 ⚠️ **Anon/public key only.** Never the `service_role` key — Vault reads are RLS
 public, so anon is sufficient and the key is safe to expose client-side.
+
+🔒 **`GITHUB_FEEDBACK_TOKEN` is a server secret.** The `/api/feedback` route (a
+serverless function) uses it to file a GitHub issue per submission; the token is
+never sent to the browser. Without it, the feedback button degrades gracefully
+(it returns a friendly "not wired up yet" message instead of erroring), so
+Preview/local builds don't need it. Scope the token as narrowly as possible
+(Issues: write only) and rotate if leaked. **The route deliberately does NOT
+fall back to a generic `GITHUB_TOKEN`** — this endpoint is public and
+unauthenticated, so it must run on this narrowly-scoped token or not at all
+(if only a broad `GITHUB_TOKEN` is present, the button stays in the graceful
+degraded state rather than borrowing those wider permissions).
 
 ## Path A — CLI (no GitHub org ownership required)
 
