@@ -130,6 +130,16 @@ tractability note and a flag for anything pre-go-live-urgent. Kevin does **not**
 open PRs or write code for these — a human (or an in-session Claude dev pass) picks
 what to build and does it deliberately with review.
 
+> **Handoff (2026-07-11, once Austin activates):** the **tractable subset** —
+> `bug (small/pre-diagnosed)` and `ready/greenlit` buckets that also pass
+> Austin's scope fence (`docs/agents/austin.md`: reversibility, change-type
+> allowlist, diff bounds, founder/desk-authored) — becomes the defined
+> "in-session Claude" for those tickets, on a cadence instead of ad hoc.
+> Kevin's own role and invariants are unchanged: he still triages, still
+> never codes; his triage output is Austin's *intake*, never authorization —
+> every Austin PR is human-merged (v1). Everything outside that subset stays
+> exactly as this section says: a human picks it up deliberately.
+
 Because these tickets are where humans **discuss** (Joey signs off on a phased
 plan, changes a priority, or says "resolved" in a comment), the triage pass
 **reads each ticket's comments** (invariant 7) and reflects the latest human
