@@ -12,12 +12,17 @@ Kevin the ticket handler).
 
 Create a small, fixed team of **four named persona authors** — each a living
 agent with a committed charter, an invocable agent definition, and a beat —
-plus a **deterministic routing table** that assigns every piece of site copy to
-exactly one author. Every content item gets an `author` field and an on-site
-byline. Going backward, a script bylines all ~985 existing items for free and
-we rewrite **only** the items that fail their persona's voice check — not all
-of them. Going forward, every new Taylor event flows through one pipeline:
-route → persona drafts → Karen checks per-persona voice → Codex reviews → seed.
+plus a **routing table** that gives every piece of site copy a default author,
+with explicit per-item overrides where a beat call needs judgment. Authorship
+is **derived at sync time**, not stored in the DB, so it costs no migration
+and renames stay cheap. Going backward, the sync derivation bylines all ~985
+existing items for free and we rewrite **only** the items that fail their
+persona's voice check — not all of them. Going forward, every new Taylor
+event flows through one pipeline: route → persona drafts → Karen checks
+per-persona voice → Codex reviews → seed.
+
+*(Revised 2026-07-11 after Codex adversarial review — see PR #463 for the
+findings this version addresses.)*
 
 ---
 
@@ -48,10 +53,10 @@ veto/rename; the beat structure is the load-bearing part.**
 
 | Persona | Mnemonic | Beat (routing) | Voice sketch |
 |---|---|---|---|
-| **Theo** | *theory* | `music`, `release`, track dossiers | Music-theory and lyrics nerd. Talks keys, bridges, production credits, five-albums-ago callbacks. Precise, a little breathless about a good key change. |
+| **Theo** | *theory* | `music`, `release`, `video`, track dossiers, music videos | Music-theory and lyrics nerd. Talks keys, bridges, production credits, five-albums-ago callbacks. Precise, a little breathless about a good key change. |
 | **Loren** | *lore* | Theories, egg threads / clowning content | The Easter-egg hunter. Speaks fluent clown, numerology, and timestamp forensics. Playful, self-aware ("we've been wrong before"), never states a theory as fact. |
 | **Vera** | *couture* | `fashion`, `sighting` | Red-carpet and street-style historian. Names designers from a blurry photo, connects outfits to eras. Visual, decisive, warm. |
-| **Deb** | *debut-era OG* | `relationship`, `business`, `tour` | Been a fan since MySpace. The timeline historian — masters-heist receipts, relationship chronology, tour history. Dry, exact, protective of getting dates right. |
+| **Deb** | *debut-era OG* | `relationship`, `business`, `tour`, tour films/documentaries | Been a fan since MySpace. The timeline historian — masters-heist receipts, relationship chronology, tour history. Dry, exact, protective of getting dates right. |
 
 - **Site chrome copy** (`docs/copy/*` — about, first-run, disclaimers, UI
   microcopy) is **unsigned house voice**, credited to the desk as a whole,
@@ -81,33 +86,47 @@ Each persona is persistent infrastructure, not a one-off prompt:
    persistence that makes the same author show up across sessions instead of
    being reinvented each time.
 
-## 3. Assignment: the routing table (deterministic, committed)
+## 3. Assignment: routing table + explicit overrides
 
-Per CLAUDE.md rule 8, "who takes which copy" is **code, not judgment**:
+Per CLAUDE.md rule 8, the *default* for "who takes which copy" is **code, not
+judgment** — but real items straddle beats (a `music` item that's really a
+friendship-feud timeline; a `tour` item that's really a fashion moment), so
+the table gives a default, not a verdict:
 
 - `scripts/copy-desk/routing.mjs` exports one function
   `routeAuthor({ surface, category }) -> personaSlug` backed by a literal
-  table (the beat column above). Surfaces: era month-items (by `category`),
-  track dossiers, theories/egg threads, videos (routed by the video's
-  category), site chrome (`house`).
-- The table is total: every valid surface/category combination maps to
-  exactly one author, so routing never needs an LLM, never drifts, and the
-  backfill and the forward pipeline share the same function.
-- Genuinely ambiguous new surfaces (a content type the table doesn't know)
-  fail loudly in `validate-content.mjs` — the desk editor (the Claude session
-  doing the work) extends the table in the same PR, which makes the decision
-  reviewable.
+  table. It must be **total over every real surface**, explicitly including:
+  era month-items by `category` (`sighting`/`fashion` → Vera,
+  `relationship`/`business`/`tour` → Deb, `music`/`release`/`video` → Theo),
+  track dossiers (Theo), theories/egg threads (Loren), `video_work` rows by
+  their own category (`music_video`/`lyric_video`/`live` → Theo,
+  `tour_film`/`documentary` → Deb), standalone release and tour tables
+  (Theo / Deb), and site chrome (`house`). Building the table starts from the
+  actual CHECK constraints in the migrations, not from this paragraph.
+- **Per-item override:** a seed item may carry an optional
+  `author: '<slug>'` field. The validator accepts it (it's an explicit,
+  reviewable editorial call in the diff); absence means the routing default.
+  This is how "Bad Blood, the friendship it ended" lands on Deb's desk even
+  though its category is `music` — judgment happens once, in a PR, and is
+  recorded in data rather than re-litigated.
+- An unknown surface/category fails loudly in `validate-content.mjs`; the
+  desk editor extends the table in the same PR.
 
-## 4. Data model
+## 4. Data model: derived, not stored
 
-- New `author` column on `month_item` (and the corresponding field on track
-  dossiers, theories, and videos in the seed/longlive layer), values
-  CHECK-constrained to the persona slugs + `house`.
-- `scripts/validate-content.mjs` requires the field and re-derives it via
-  `routeAuthor()` — a mismatch between the stored author and the routing
-  table is a validation error, so the table can't silently drift from data.
-- Sync scripts (`sync-longlive-*.mjs`) carry `author` through to the web
-  layer.
+Authorship is a pure function of `(surface, category, optional override)`, so
+we **don't** persist it in Postgres — no new column, no migration, no CHECK
+constraint to churn when a persona is renamed:
+
+- `sync-longlive-*.mjs` compute `author` via `routeAuthor()` (+ seed
+  override) when building the web layer's generated content, and emit it as a
+  field there. The seed runner and DB schema are untouched.
+- Persona **slugs are permanent identifiers**; display names/avatars live in
+  the charter and can change without touching content. A beat reassignment is
+  one routing-table edit + regenerated sync output.
+- Honest scope note: this still touches each sync script, the generated
+  longlive types, fallback/live parity, and the byline UI — smaller than a
+  schema change, but Phase 1–2 work, not a one-liner.
 
 ## 5. Backward pass over existing copy — cheap by design
 
@@ -115,20 +134,29 @@ Joey's framing: assessing every piece of text on the site is real work and
 must be efficient. The design principle: **byline everything by script;
 rewrite only what fails its author's voice check.**
 
-1. **Byline backfill (near-zero cost).** One script run applies
-   `routeAuthor()` to all ~985 seed items + 12 dossiers + theories + videos
-   and writes the `author` field. Deterministic, reviewable as one diff, done
-   in minutes.
+1. **Byline backfill (near-zero cost).** Since authorship is derived at sync
+   time (§4), all ~985 seed items + 12 dossiers + theories + videos get
+   bylines the moment routing lands — no per-item work. To be explicit about
+   what this claims: a backfilled byline means *this desk now owns this item*
+   (accountability going forward), **not** that the old copy already conforms
+   to the persona's voice. Conformance is Phase 3.
 2. **Voice-conformance scan (Karen, not rewrites).** Karen's per-persona
    voice checks (§7) run over the bylined corpus and emit findings per item,
-   exactly like the existing CIE fact/safety scans. This turns "assess every
-   piece of text" into a ranked worklist instead of a blanket rewrite.
+   exactly like the existing CIE fact/safety scans. This is triage, not
+   proof: the deterministic layer catches what it can catch; the agent layer
+   is best-effort. The full-corpus agent scan is itself the main assessment
+   cost of the retro pass — budget it like a CIE run (the 2026-07-10 run
+   covered 985 items), and QA it by human-sampling a slice of *unflagged*
+   items before trusting the "only rewrite failures" claim.
 3. **Targeted rewrites (batched, delegated).** Only flagged items get
    rewritten, batched by era/persona, drafted via the standing ChatGPT
    delegation model (`scripts/ask-chatgpt.mjs` with the persona charter in
    the prompt), fact-checked and integrated by Claude, Codex-reviewed, human
-   spot-check on the first batch per persona. The #461 naming-rule retro
-   pass folds into these same batches — one touch per item, not two.
+   spot-check on the first batch per persona. **#461's retro naming pass is
+   independent and proceeds on its own schedule** — it does not wait for
+   this. If its pass hasn't run by the time a Phase 3 batch touches an era,
+   coordinate so each item is edited once; otherwise Phase 3 batches simply
+   must pass the already-shipped naming linter.
 
 ## 6. Forward pipeline: how new Taylor events get authored
 
@@ -157,13 +185,22 @@ away. When personas land:
 
 - Karen's voice checks become **two-tier**: universal house rules (AI-tells,
   naming rule, length — exactly #461's linter) run on everything; then the
-  item's `author` field selects that persona's machine-checkable charter
-  section for a second pass (deterministic tic/diction checks + an agent
-  "does this read like Theo?" judgment, same two-layer shape as the existing
-  CIE).
-- A charter rule that Karen can't check gets removed from the charter — this
-  is the forcing function that keeps personas from becoming unenforceable
-  vibes.
+  item's derived author selects that persona's charter checks for a second
+  pass, same two-layer shape as the existing CIE.
+- **What "machine-checkable" concretely means** (adjectives like "warm" or
+  "dry" are voice *sketches* for the writer, never checks):
+  - *Deterministic layer:* per-persona lexicon allow/ban lists, required
+    structural moves (e.g. Loren must carry an explicit speculation marker on
+    every theory claim; Theo's dossier sections must reference musical craft
+    at least once), tic-frequency caps. Pattern rules, CI-stable.
+  - *Agent layer:* "does this read like Theo?" is a judgment call and is
+    treated as one — its findings are **advisory (P2-style ticket fodder),
+    never a merge gate**. Only the deterministic layer gates.
+  - *Calibration fixtures:* each charter ships with a committed golden set —
+    ≥5 passing and ≥5 failing sample items — and the deterministic checks
+    must classify the golden set correctly in tests. A charter rule that
+    can't be expressed this way stays a writer-facing sketch and is dropped
+    from the checkable section.
 
 ## 8. On-site author credit (the product feature)
 
@@ -177,24 +214,31 @@ away. When personas land:
   that these are the site's editorial characters — personas our team writes
   through — not disguised real people. Pretending they're human staff is a
   trust risk the moment anyone asks; owning it is on-brand. **Exact framing
-  is Joey's call (see open questions).**
+  is Joey's call, and it is a Phase 0 gate, not an open thread: bylines do
+  not ship (Phase 2) until the disclosure framing is approved.** A public
+  byline with unsettled disclosure is the one part of this that's hard to
+  walk back.
 
 ## 9. Phasing & acceptance criteria
 
-**Phase 0 — decide (this spec).** Joey approves persona count/names/beats +
-credit UI direction; Wyatt approves data-model/pipeline shape. Decision-log
-entry added (draft in §11). *Done when: spec approved, decisions.md updated.*
+**Phase 0 — decide (this spec).** Joey approves persona count/names/beats,
+credit UI direction, **and the disclosure framing (gates Phase 2)**; Wyatt
+approves data-model/pipeline shape. Decision-log entry added (draft in §11).
+*Done when: spec approved, decisions.md updated.*
 
-**Phase 1 — the desk exists.** Four charters + agent definitions + desk-notes
-files; `routing.mjs` + tests; `author` field, migration, validator + sync
-support. *Done when: `validate-content.mjs` fails on a missing/misrouted
-author; each persona agent can be invoked and drafts a sample item that
-passes house checks.*
+**Phase 1 — the desk exists.** Four charters (with golden-set fixtures) +
+agent definitions + desk-notes files; `routing.mjs` + tests, total over the
+real surfaces in the migrations; validator support for the optional
+`author` override; sync scripts derive and emit `author`. No DB migration.
+*Done when: `validate-content.mjs` fails on an unroutable item; routing +
+golden-set tests pass; each persona agent can be invoked and drafts a sample
+item that passes house checks.*
 
-**Phase 2 — bylines everywhere (backward, cheap part).** Backfill script run;
-all existing content carries an author; byline UI + meet-the-desk page ship.
-*Done when: every item/dossier/theory shows a correct byline on mobile and
-desktop; desk page live.*
+**Phase 2 — bylines everywhere (backward, cheap part).** Sync-derived
+bylines land for all existing content; byline UI + meet-the-desk page ship
+(disclosure framing already approved in Phase 0). *Done when: every
+item/dossier/theory shows a correct byline on mobile and desktop; desk page
+live.*
 
 **Phase 3 — voice conformance (backward, work part).** Karen per-persona
 checks land; scan the corpus; rewrite flagged items in batches (folding in
@@ -213,7 +257,8 @@ Each phase is a separate PR train; #461 must not wait on any of it.
    hooks; rename freely. Count (4) is a recommendation, not sacred — but
    every added persona is a permanent maintenance cost (charter + checks).
 2. **Disclosure framing** on the meet-the-desk page — "editorial characters"
-   (recommended), or something else?
+   (recommended), or something else? *(Decided in Phase 0; gates Phase 2 —
+   see §8.)*
 3. **Byline surfaces** — detail views only at first (recommended), or feeds
    too?
 
@@ -221,9 +266,11 @@ Each phase is a separate PR train; #461 must not wait on any of it.
 
 > **2026-07-XX — Persona author desk.** Adopt four named persona authors
 > (charters in `docs/content-ops/personas/`) layered on the #449 house voice;
-> deterministic category→author routing in `scripts/copy-desk/routing.mjs`;
-> `author` field on all content; on-site bylines with honest
-> editorial-characters framing. Expensive to reverse because bylines are
-> user-visible and the author field threads through schema, seeds, sync, and
-> Karen. Cost model: authoring-time only, no runtime LLM calls; retro pass
-> bylines by script and rewrites only voice-check failures.
+> category→author routing in `scripts/copy-desk/routing.mjs` with explicit
+> per-item seed overrides; authorship **derived at sync time, never stored in
+> the DB** (persona slugs permanent, display names mutable); on-site bylines
+> with honest editorial-characters framing, gated on approved disclosure.
+> Expensive to reverse because bylines are user-visible and authorship
+> threads through routing, sync, and Karen. Cost model: authoring-time only,
+> no runtime LLM calls; retro pass bylines via sync derivation and rewrites
+> only voice-check failures (full-corpus Karen scan is the assessment cost).
