@@ -66,11 +66,6 @@ interface AppState {
   scrubbing: boolean;
   /** Whether the search overlay is open. */
   searchOpen: boolean;
-  /**
-   * Glossary drawer state: null = closed; open with an optional entry id to
-   * scroll to / highlight (set when arriving from a search result).
-   */
-  glossary: { entryId: string | null } | null;
   /** Whether the share sheet is open, and for what target. */
   share: ShareTarget | null;
   /**
@@ -154,9 +149,6 @@ interface AppActions {
   setScrubbing: (v: boolean) => void;
   /** Open/close the search overlay. */
   setSearchOpen: (open: boolean) => void;
-  /** Open the glossary drawer, optionally focused on one entry. */
-  openGlossary: (entryId?: string) => void;
-  closeGlossary: () => void;
   openShare: (t: ShareTarget) => void;
   closeShare: () => void;
 }
@@ -262,7 +254,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const [selectorOpen, setSelectorOpen] = useState(false);
   const [scrubbing, setScrubbing] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [glossary, setGlossary] = useState<{ entryId: string | null } | null>(null);
   const [share, setShare] = useState<ShareTarget | null>(null);
   const [clueWebTrail, setClueWebTrail] = useState<MotifId | null>(null);
 
@@ -359,7 +350,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setTrackGuideEraId(null);
     setTheoryGuideEraId(null);
     setSearchOpen(false);
-    setGlossary(null);
     setShare(null);
   }, [clearEraScroll]);
 
@@ -427,8 +417,6 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setSelectorOpen,
       setScrubbing,
       setSearchOpen,
-      openGlossary: (entryId?: string) => setGlossary({ entryId: entryId ?? null }),
-      closeGlossary: () => setGlossary(null),
       openShare: setShare,
       closeShare: () => setShare(null),
     }),
@@ -448,8 +436,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const state = useMemo<AppState>(
-    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, scrubbing, searchOpen, glossary, share, clueWebTrail }),
-    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, scrubbing, searchOpen, glossary, share, clueWebTrail],
+    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, scrubbing, searchOpen, share, clueWebTrail }),
+    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, scrubbing, searchOpen, share, clueWebTrail],
   );
 
   return (

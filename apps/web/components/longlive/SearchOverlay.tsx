@@ -2,7 +2,6 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
-  BookOpen,
   Clapperboard,
   Compass,
   CornerDownLeft,
@@ -45,7 +44,6 @@ const TYPE_ICON: Record<SearchDocType, typeof Search> = {
   theory: Lightbulb,
   track: Music2,
   video: Clapperboard,
-  glossary: BookOpen,
 };
 
 /** Starter queries shown in the empty state — one per corner of the archive. */
@@ -169,9 +167,6 @@ export function SearchOverlay() {
       case 'trail':
         actions.openClueWebTrail(target.motifId);
         break;
-      case 'glossary':
-        actions.openGlossary(target.entryId);
-        break;
     }
   }
 
@@ -218,7 +213,7 @@ export function SearchOverlay() {
             aria-expanded={flat.length > 0}
             aria-controls="ll-search-results"
             aria-activedescendant={active ? optionId(active.doc.key) : undefined}
-            aria-label="Search moments, songs, eggs, theories, videos, and glossary"
+            aria-label="Search moments, songs, eggs, theories, and videos"
             placeholder="Search the archive…"
             autoComplete="off"
             autoCorrect="off"
@@ -240,7 +235,7 @@ export function SearchOverlay() {
           {showEmptyHint && (
             <div className="px-4 py-8 text-center">
               <p className="text-sm text-[color:var(--era-ink-soft)]">
-                Moments, songs, Easter eggs, theories, videos, glossary — the whole archive.
+                Moments, songs, Easter eggs, theories, videos — the whole archive.
               </p>
               <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
                 {SUGGESTIONS.map((s) => (

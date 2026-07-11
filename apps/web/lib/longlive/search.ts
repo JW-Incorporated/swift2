@@ -1,6 +1,5 @@
 import { CONTENT } from './content';
 import { ERAS } from './eras';
-import { GLOSSARY } from './glossary';
 import { EGG_NODES, motifOf } from './lenses';
 import { tracksForEra } from './tracks';
 import { theoriesForEra } from './theories';
@@ -11,7 +10,7 @@ import type { EraId, MotifId } from './types';
  * Long Live — client-side search (audit T7 / §E.11).
  *
  * A static in-memory index over content that is ALREADY shipped to the client
- * (moments, eras, tracks, theories, videos, Clue Web eggs, glossary terms).
+ * (moments, eras, tracks, theories, videos, Clue Web eggs).
  * No backend, no per-user request, no fetch — the index is built lazily once
  * per session from the same modules the UI renders from, so it can never
  * drift from what is on screen (and respects the repo's cost-discipline
@@ -26,7 +25,7 @@ import type { EraId, MotifId } from './types';
 /**
  * Where selecting a result takes you — mapped 1:1 onto existing store
  * actions by the SearchOverlay (openItem / openEra / openTrackGuide /
- * openTheoryGuide / openClueWebTrail / openGlossary). Search introduces no
+ * openTheoryGuide / openClueWebTrail). Search introduces no
  * new navigation surface of its own.
  */
 export type SearchTarget =
@@ -34,10 +33,9 @@ export type SearchTarget =
   | { kind: 'era'; eraId: EraId }
   | { kind: 'track-guide'; eraId: EraId }
   | { kind: 'theory-guide'; eraId: EraId }
-  | { kind: 'trail'; motifId: MotifId }
-  | { kind: 'glossary'; entryId: string };
+  | { kind: 'trail'; motifId: MotifId };
 
-export type SearchDocType = 'moment' | 'era' | 'track' | 'theory' | 'video' | 'egg' | 'glossary';
+export type SearchDocType = 'moment' | 'era' | 'track' | 'theory' | 'video' | 'egg';
 
 export interface SearchDoc {
   /** Unique across the whole index (`<type>:<id>`). */
@@ -145,7 +143,6 @@ const GROUP_META: { type: SearchDocType; label: string }[] = [
   { type: 'theory', label: 'Theories & eggs' },
   { type: 'track', label: 'Songs' },
   { type: 'video', label: 'Videos' },
-  { type: 'glossary', label: 'Glossary' },
 ];
 
 /**
@@ -294,20 +291,6 @@ export function buildSearchIndex(): SearchDoc[] {
         ),
       );
     }
-  }
-
-  for (const entry of GLOSSARY) {
-    docs.push(
-      makeDoc(
-        'glossary',
-        entry.id,
-        entry.term,
-        entry.definition,
-        null,
-        { kind: 'glossary', entryId: entry.id },
-        [entry.definition, entry.example ?? ''],
-      ),
-    );
   }
 
   return docs;
