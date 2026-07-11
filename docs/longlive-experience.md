@@ -285,6 +285,23 @@ the ID. It renders automatically in `MomentDetail`.
 (content track owns those files), then `node scripts/sync-longlive-tracks.mjs`
 regenerates `tracks.generated.ts` (also runs automatically on `prebuild`). The
 UI shows only songs that have a sourced note — never an empty placeholder row.
+Beyond the note, a seed track can carry (issue #440):
+- **Essential facts** — `slug`, `release`, `releaseDate`, `writers`,
+  `producers`, `isSingle`, `singleReleaseDate`, `themes`. Grouped by the
+  generator into `TrackNote.facts` and rendered as the facts card on the
+  song's `TrackDetail` page. A dated `singleReleaseDate` implies single
+  status.
+- **A dossier** — `dossier: { whyItMatters, meaning: { confirmed, supported,
+  fanTheories }, connections, live, voices, sources }` (shape: `TrackDossier`
+  in `types.ts`). The generator DROPS a dossier whose `sources` is empty.
+  Meaning tiers are structurally separated and render with the site's
+  existing pill language (accent fill = confirmed, solid border = supported,
+  dashed border = fan theory) — never blend a fan reading into a confirmed
+  tier. `connections` entries are `{ relatedId, label, why }`, where `why`
+  must explain the relationship; `song:<slug>` ids resolve against the whole
+  track guide (slugs must stay globally unique — tested), `moment:<id>`
+  against era content, and unresolvable ids are skipped silently (also
+  tested against real data, so a typo fails CI rather than shipping dead).
 
 **Add/edit a theory or easter egg (era guide):** author it in
 `supabase/seed/theories/<era-slug>.mjs` (content track owns those files; a

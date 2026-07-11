@@ -3,6 +3,8 @@
 // prose in our own words — never lyrics. Anything not publicly confirmed is
 // labeled a fan reading. Sources follow the provenance format in
 // docs/content/content-audit-2026-07-08.md §5 (all URLs verified 2026-07-08).
+import DOSSIERS from './the-life-of-a-showgirl.dossiers.mjs';
+
 const ACCESSED = '2026-07-08';
 const wiki = (title, path, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${path}`,
@@ -21,9 +23,7 @@ const ALBUM = wiki(
 const WRITERS = ['Taylor Swift', 'Max Martin', 'Shellback'];
 const PRODUCERS = ['Taylor Swift', 'Max Martin', 'Shellback'];
 
-export default {
-  eraSlug: 'the-life-of-a-showgirl',
-  tracks: [
+const TRACKS = [
     {
       slug: 'the-fate-of-ophelia',
       trackNumber: 1,
@@ -267,5 +267,19 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
       sources: [ALBUM],
     },
-  ],
+];
+
+// Per-song dossiers (issue #440 Phase 1) live in the .dossiers.mjs side file
+// to keep this file diffable; attach them by slug. A dossier keyed to a slug
+// that doesn't exist here is an authoring typo — fail loudly, not silently.
+{
+  const slugs = new Set(TRACKS.map((t) => t.slug));
+  for (const key of Object.keys(DOSSIERS)) {
+    if (!slugs.has(key)) throw new Error(`dossier for unknown track slug: ${key}`);
+  }
+}
+
+export default {
+  eraSlug: 'the-life-of-a-showgirl',
+  tracks: TRACKS.map((t) => (DOSSIERS[t.slug] ? { ...t, dossier: DOSSIERS[t.slug] } : t)),
 };
