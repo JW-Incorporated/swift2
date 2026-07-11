@@ -81,6 +81,23 @@ seed generator, not hand-enter rows (CLAUDE.md rule 8).
 | **J6** | Content QA + editorial coverage pass before launch | ⬜ |
 | **J7** | **Post-launch, weekly cadence, fallback for whatever J3.5b didn't clear pre-launch:** bring any remaining thin eras from wavetop to Active-tier depth, one per week, each publicly announced (social) as an "era drop." **Contingent on Joey committing to and sustaining the weekly external announcement** — the depth work alone does nothing for retention without it (see `docs/marketing/ship-readiness-review-2026-07-04.md`). If that commitment isn't sustainable, fall back to shipping depth silently with no retention claim attached. | ⬜ post-launch |
 
+## 📡 Launch-ops & growth track (post-launch, automated — added 2026-07-11)
+
+Once the site is live, operating it is a standing, automated function, not a
+side task: **goal #1 growth, goal #2 keeping the fan base loving the app**
+(Joey, 2026-07-11). Design + org model:
+`docs/proposals/2026-07-11-agentic-operating-model.md` (pending founder
+approval — the WPs below inherit its desk/charter pattern and don't start
+before it's approved).
+
+| WP | What | Status |
+|----|------|--------|
+| **L1** | **Watch desk (launch gate):** uptime + error monitoring on key routes, cost-cap watch, Tier-3 paging path; usage-analytics stack decided (decision entry) and baseline wired | ⬜ pre-launch |
+| **L2** | **Feedback loop:** in-app feedback (PR #427) + app-store reviews + social complaints funneled into Kevin's triage; recurring themes surface as banked product decisions | ⬜ at launch |
+| **L3** | **Growth & Community desk, listening-first:** daily social/media/fandom scan (r/TaylorSwift, X, app stores) → sentiment + opportunity digest in the Founders' Brief | ⬜ at launch |
+| **L4** | **Automated announcements:** era-drop (J7) + feature announcements as a draft queue founders approve in the brief; scheduled autopost only after a clean track record + explicit founder sign-off per channel | ⬜ post-launch |
+| **L5** | **Scheduled marketing:** /marketing runs monthly by schedule; verdicts land as banked decisions; `docs/marketing/growth-plan.md` maintained from real metrics, founder-reviewed quarterly | ⬜ post-launch |
+
 ## 🎁 Ported from Orbit — and the important caveat
 
 **Done (verifiable facts only):** all **11 era themes** (colors/gradients/
