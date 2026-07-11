@@ -133,6 +133,13 @@ interface AppActions {
   /** Open a single song's detail page (stacks on top of the track guide). */
   openTrack: (key: string) => void;
   closeTrack: () => void;
+  /**
+   * Jump straight to a song's detail page in a specific era — the song-to-song
+   * connection hop (issue #440 §10). Unlike openTrack (which assumes the
+   * track guide underneath is already on the right era), this retargets the
+   * guide too, so a cross-era hop lands with a consistent guide behind it.
+   */
+  openSong: (eraId: EraId, key: string) => void;
   /** Open the theories/easter-eggs overlay for an era. */
   openTheoryGuide: (id: EraId) => void;
   closeTheoryGuide: () => void;
@@ -404,6 +411,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
       },
       openTrack: setOpenTrackKey,
       closeTrack: () => setOpenTrackKey(null),
+      openSong: (eraId: EraId, key: string) => {
+        setTheoryGuideEraId(null);
+        setTrackGuideEraId(getEra(eraId).id);
+        setOpenTrackKey(key);
+      },
       openTheoryGuide: (id: EraId) => {
         setTrackGuideEraId(null);
         setTheoryGuideEraId(getEra(id).id);

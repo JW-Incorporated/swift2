@@ -80,6 +80,10 @@ export interface EraTheme {
  *   - `egg:<EggNode.id>`        — one Clue Web node,      e.g. `egg:egg-snake-instagram`
  *   - `moment:<ContentItem.id>` — an era moment,          e.g. `moment:rep-album`
  *   - `rel:<Relationship.id>`   — a love-story entry,     e.g. `rel:rel-5`
+ *   - `song:<TrackNote.slug>`   — a track-guide song,     e.g. `song:the-fate-of-ophelia`
+ *     (slugs are unique per era; keep them globally unique when authoring —
+ *     resolution scans all eras and takes the first match, see
+ *     lib/longlive/tracks.ts)
  *
  * Resolution is best-effort by design: the UI ignores ids it cannot resolve
  * (see lib/longlive/related.ts) and never renders a dead link, so the content
@@ -255,6 +259,99 @@ export interface Era {
 }
 
 /**
+ * The essential-facts card for a song (issue #440 §3) — public-record data
+ * grouped into one object per Joey's "grouped fields" sign-off on #440, so
+ * the generated file stays diffable and the fact card renders from a single
+ * optional prop. All fields optional: facts render only when known, never as
+ * placeholder rows.
+ */
+export interface TrackFacts {
+  /** Release the track appears on, e.g. "The Life of a Showgirl". */
+  release?: string;
+  /** ISO release date of that release (YYYY-MM-DD). */
+  releaseDate?: string;
+  writers?: string[];
+  producers?: string[];
+  isSingle?: boolean;
+  /** ISO date the track was released as a single, when it was one. */
+  singleReleaseDate?: string;
+  /** Editorial theme tags, e.g. "rescue", "literary allusion". */
+  themes?: string[];
+}
+
+/**
+ * The tiered meaning split (issue #440 §5): what the song is about, with
+ * confirmation status structurally separated so a fan reading can never be
+ * mistaken for something Taylor said. Each tier is paragraphs of ORIGINAL
+ * prose (never lyrics); the tier labels reuse the site's existing
+ * confidence-pill visual language (TheoryGuide/MomentDetail), not a new one.
+ */
+export interface TrackMeaning {
+  /** Taylor / a collaborator / an authoritative source directly explained it. */
+  confirmed?: string[];
+  /** Well-supported by the song + public context, but not directly confirmed. */
+  supported?: string[];
+  /** Popular, explicitly-unconfirmed fan readings. */
+  fanTheories?: string[];
+}
+
+/** One live-performance highlight (issue #440 §13) — real, sourced, dated. */
+export interface TrackLiveMoment {
+  /** ISO date (YYYY-MM-DD) or YYYY-MM when only the month is documented. */
+  date?: string;
+  /** Where it happened, e.g. "Saturday Night Live" or "Eras Tour — São Paulo N3". */
+  event: string;
+  /** What made it notable, in our own words. */
+  note: string;
+}
+
+/**
+ * What Taylor or a collaborator has said about the song (issue #440 §18/§19)
+ * — paraphrased in the site's editorial voice with at most a short
+ * illustrative excerpt, per the verbatim-quote policy in docs/decisions.md.
+ */
+export interface TrackVoice {
+  /** Who said it, e.g. "Taylor Swift" or "Max Martin". */
+  who: string;
+  /** Where/when it was said, e.g. "New Heights podcast, August 2025". */
+  context?: string;
+  /** The substance, reframed — never a pasted quote block. */
+  note: string;
+}
+
+/**
+ * One explained catalog connection (issue #440 §10): every connection says
+ * WHY the two pieces relate, never just name-drops. `relatedId` uses the
+ * standard RelatedId namespaces (`song:` / `moment:` / `motif:` / `egg:`);
+ * unresolvable ids are skipped at render time, never dead links.
+ */
+export interface TrackConnection {
+  relatedId: RelatedId;
+  /** Display label, e.g. the other song's title. */
+  label: string;
+  /** The explained relationship — the actual point of the section. */
+  why: string;
+}
+
+/**
+ * The per-song dossier (issue #440 Phase 1): everything beyond the one-line
+ * note and the narrative discussion, grouped per Joey's sign-off. The
+ * generator drops a dossier whose `sources` list is empty — dossier claims
+ * (live history, collaborator words, why-it-matters framing) never ship
+ * unsourced, same rule as `discussion`.
+ */
+export interface TrackDossier {
+  /** "Why this song matters" — the editorial case for caring (issue #440 §2). */
+  whyItMatters?: string[];
+  meaning?: TrackMeaning;
+  connections?: TrackConnection[];
+  live?: TrackLiveMoment[];
+  voices?: TrackVoice[];
+  /** Citations backing the dossier's claims. Never empty when a dossier ships. */
+  sources: EggSource[];
+}
+
+/**
  * One song in an era's album track guide (tracks.generated.ts, surfaced by the
  * TrackGuide overlay + a per-song TrackDetail page). Mirrors the DB
  * `track_note` row / `TrackNote` in packages/shared/src/vault-types.ts,
@@ -263,6 +360,12 @@ export interface Era {
  * source simply has no row.
  */
 export interface TrackNote {
+  /**
+   * Stable kebab id from the seed, unique per era (keep globally unique —
+   * it's the `song:<slug>` RelatedId target). Optional: legacy rows without
+   * one simply can't be linked to.
+   */
+  slug?: string;
   /** 1-based position on the album, or null when unknown (sorted last). */
   trackNumber: number | null;
   title: string;
@@ -295,6 +398,14 @@ export interface TrackNote {
    * statements, or reputable music journalism the analysis is grounded in.
    */
   discussionSources?: EggSource[];
+  /**
+   * Essential facts (writers/producers/release/single status/themes). Most of
+   * this was already authored in the seed files and just never reached the UI
+   * — see issue #440's Phase 0.
+   */
+  facts?: TrackFacts;
+  /** The Phase-1 dossier: why-it-matters, tiered meaning, connections, live history, voices. */
+  dossier?: TrackDossier;
 }
 
 /**
