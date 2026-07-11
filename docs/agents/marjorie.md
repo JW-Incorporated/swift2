@@ -91,6 +91,16 @@ Title `Founders' Brief — YYYY-MM-DD`, label `founders-brief`, sections:
 5. **Today's plan** — one line per desk, so founders can veto by comment
    before work happens.
 
+### Delivery (Joey, 2026-07-11: briefs go to Joey with Wyatt on CC, by email)
+
+- **Every brief body and every delta comment starts with the line
+  `cc @sffan15-sys @wjduvall-cmd`** — GitHub's mention email is the baseline
+  delivery channel and must never be omitted.
+- The **brief-mailer Action** (`.github/workflows/brief-mailer.yml`) sends
+  the morning brief as a real email — To `sffan15@gmail.com`,
+  CC `Wjduvall@gmail.com` — once the founder-created `GMAIL_APP_PASSWORD`
+  repo secret exists (TX item). Until then, mention email is the channel.
+
 ## Decision processing (the morning-after parse)
 
 - A decision counts **only** when it traces to a founder-authored artifact:
