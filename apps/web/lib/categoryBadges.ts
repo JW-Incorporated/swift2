@@ -35,6 +35,7 @@ export const CATEGORY_BADGES: Record<VaultCategory, CategoryBadge> = {
   business: { icon: '💼', label: 'Business', color: '#b45309' }, // amber
   music: { icon: '🎵', label: 'Music', color: '#047857' }, // emerald
   release: { icon: '💿', label: 'Release', color: '#0e7490' }, // cyan
+  video: { icon: '🎬', label: 'Video', color: '#86198f' }, // fuchsia
 };
 
 /**

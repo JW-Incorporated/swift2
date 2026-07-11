@@ -1,0 +1,194 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import Image from 'next/image';
+import { X, Check, Copy, Share2 } from 'lucide-react';
+import { useAppState, useAppActions } from '@/lib/longlive/store';
+import { getEra } from '@/lib/longlive/eras';
+import { getContentItem } from '@/lib/longlive/content';
+import { getThread } from '@/lib/longlive/lenses';
+import { momentShareCopy, type ShareCopy } from '@/lib/longlive/share';
+import { eraStyle } from '@/lib/longlive/theme';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
+import { primaryImage, type Era } from '@/lib/longlive/types';
+
+const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
+
+export function ShareSheet() {
+  const { share } = useAppState();
+  const { closeShare } = useAppActions();
+  const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    setCopied(false);
+    if (share) {
+      const prev = document.body.style.overflow;
+      document.body.style.overflow = 'hidden';
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') closeShare();
+      };
+      window.addEventListener('keydown', onKey);
+      return () => {
+        document.body.style.overflow = prev;
+        window.removeEventListener('keydown', onKey);
+      };
+    }
+  }, [share, closeShare]);
+
+  // Let the mobile back-swipe gesture close this sheet instead of leaving the
+  // app (it stacks above the moment pill's own entry, so back closes the
+  // sheet first, then the pill).
+  useBackDismiss(Boolean(share), closeShare);
+
+  if (!share) return null;
+
+  // Resolve the card's era + copy from the share target.
+  let era: Era;
+  let kicker: string;
+  let title: string;
+  let subtitle: string;
+  /** Rich moment share copy (T12); null falls back to `${title} — ${subtitle}`. */
+  let richCopy: ShareCopy | null = null;
+  /** Card imagery — the moment's primary photo for item shares, era art otherwise. */
+  let cardImage: string | undefined;
+
+  if (share.kind === 'item') {
+    const item = getContentItem(share.itemId);
+    era = getEra(item?.eraId ?? 'ttpd');
+    kicker = `${era.name} · ${item?.dateLabel ?? ''}`;
+    title = item?.title ?? '';
+    subtitle = item?.summary ?? '';
+    if (item) {
+      richCopy = momentShareCopy(item, era);
+      cardImage = primaryImage(item);
+    }
+  } else if (share.kind === 'era') {
+    era = getEra(share.eraId);
+    kicker = era.yearLabel;
+    title = era.name;
+    subtitle = era.tagline;
+  } else if (share.kind === 'lens') {
+    const thread = getThread(share.lensId);
+    era = getEra('ttpd');
+    kicker = thread.kicker;
+    title = thread.title;
+    subtitle = thread.what;
+  } else {
+    era = getEra('ttpd');
+    kicker = 'Lens';
+    title = 'Long Live';
+    subtitle = 'A journey through every era.';
+  }
+
+  // Point the shared link at the actual target (deep link via ?item=/?lens=/
+  // ?era=, read on mount by AppProvider) rather than just the current page.
+  const shareUrl = (() => {
+    const base = typeof window !== 'undefined' ? window.location.origin + window.location.pathname : 'https://longlive.app';
+    if (share.kind === 'item') return `${base}?item=${encodeURIComponent(share.itemId)}`;
+    if (share.kind === 'lens') return `${base}?lens=${encodeURIComponent(share.lensId)}`;
+    if (share.kind === 'era') return `${base}?era=${encodeURIComponent(share.eraId)}`;
+    return base;
+  })();
+
+  async function onShare() {
+    // Moment shares carry the rich copy (title + era + date + summary);
+    // era/lens shares keep the existing thin form.
+    const copy = richCopy ?? { title, text: `${title} — ${subtitle}` };
+    if (navigator.share) {
+      try {
+        await navigator.share({ title: copy.title, text: copy.text, url: shareUrl });
+        return;
+      } catch {
+        /* user cancelled — fall through to copy */
+      }
+    }
+    await navigator.clipboard.writeText(`${copy.text} ${shareUrl}`);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  }
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] flex items-center justify-center bg-black/70 p-4 backdrop-blur-sm detail-enter"
+      onClick={closeShare}
+    >
+      <div
+        className="w-full max-w-sm"
+        onClick={(e) => e.stopPropagation()}
+        style={eraStyle(era)}
+      >
+        <div className="mb-3 flex items-center justify-between">
+          <span className="text-sm font-medium text-white/80">Share card</span>
+          <button
+            onClick={closeShare}
+            className="rounded-full bg-white/10 p-1.5 text-white/80 hover:bg-white/20"
+            aria-label="Close share"
+          >
+            <X className="h-4 w-4" />
+          </button>
+        </div>
+
+        {/* The shareable card preview */}
+        <div className="overflow-hidden rounded-3xl border border-[color:var(--era-line)] bg-[color:var(--era-bg)] shadow-2xl">
+          <div className="relative aspect-[4/5]">
+            <Image
+              src={cardImage || era.image || '/placeholder.svg'}
+              alt=""
+              fill
+              unoptimized={isRemoteUrl(cardImage || era.image || '')}
+              className="object-cover opacity-60"
+            />
+            <div
+              className="absolute inset-0"
+              style={{
+                background:
+                  'linear-gradient(to top, var(--era-bg) 8%, color-mix(in srgb, var(--era-bg) 30%, transparent))',
+              }}
+            />
+            <div className="absolute inset-0 flex flex-col justify-end p-6">
+              <span className="text-xs uppercase tracking-[0.22em] text-[color:var(--era-ink-soft)]">
+                {kicker}
+              </span>
+              <h3 className="mt-2 font-era text-3xl font-semibold leading-tight text-[color:var(--era-ink)]">
+                {title}
+              </h3>
+              <p className="mt-2 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+                {subtitle}
+              </p>
+              <div className="mt-4 flex items-center gap-2">
+                <span
+                  className="h-1 w-8 rounded-full"
+                  style={{ backgroundColor: 'var(--era-accent)' }}
+                />
+                <span className="text-[11px] font-semibold uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+                  Long Live
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex gap-2">
+          <button
+            onClick={onShare}
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-[color:var(--era-accent)] px-4 py-3 text-sm font-semibold text-[color:var(--era-bg)] transition hover:opacity-90"
+          >
+            {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
+            {copied ? 'Copied!' : 'Share'}
+          </button>
+          <button
+            onClick={async () => {
+              await navigator.clipboard.writeText(shareUrl);
+              setCopied(true);
+              setTimeout(() => setCopied(false), 2000);
+            }}
+            className="era-btn-ghost flex items-center justify-center gap-2 rounded-full px-4 py-3 text-sm font-medium"
+            aria-label="Copy link"
+          >
+            <Copy className="h-4 w-4" />
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
