@@ -1,7 +1,9 @@
 # Proposal: Agentic Operating Model v2 — desks, a chief of staff, and the daily brief
 
-**Status: proposed (design-debate run 2026-07-11) — needs Joey + Wyatt approval.
-Nothing here is implemented; nothing changes CLAUDE.md authority until approved.**
+**Status: APPROVED — Joey (product) + Wyatt (CTO), 2026-07-11 (merged as PR
+#472; Wyatt's sign-off relayed by Joey in session, including the §5.4
+merge-authority co-sign). Build proceeds per §10. CLAUDE.md's merge rule is
+amended only when the §5.4 gate and its CI preconditions actually ship.**
 
 Requested by Joey (2026-07-11): assess every current agent and rule, then design
 the agentic architecture that scales this company with *less* founder input —
@@ -198,6 +200,49 @@ audit. The chief of staff earns its own autonomy the same way every desk does.
    and the journal-delta count in each brief makes *omissions* visible, not
    just actions.
 
+### 4.2b The manager hat — the team improves itself between projects
+
+*(Added by Joey, 2026-07-11, post-approval: the top agent also wears a
+manager hat. This agentic team will build the next app, and the one after —
+so someone must own tracking what worked, what didn't, and pushing
+improvements. Quality up, tokens down, on a constant iterating cycle.)*
+
+Marjorie's second job: **the team itself is a product we iterate.** The org,
+its charters, and its track record are a reusable asset that carries to every
+future project — improving it compounds across everything we ever build.
+
+**Quantitative — collected by dumb scripts (rule 8), never self-reported:**
+a deterministic collector pulls per-desk/per-agent measures from GitHub and
+run logs into `ops/metrics/` data files:
+
+- **Tokens + spend per run, and per merged outcome** — the north-star ratio
+  is cost per shipped result, not raw burn.
+- **No-op run ratio** (Joey's idleness example): a desk whose cadence mostly
+  finds nothing is a candidate for a slower cadence, a reshaped role, or
+  retirement — data decides, not attachment to the org chart.
+- **Findings-per-PR by authoring agent** (Joey's example: one builder
+  generating more Codex errors than another) — persistent outliers trigger a
+  root-cause look: bad charter? wrong model/effort for the job? wrong task
+  split?
+- **Cycle time** (ticket → PR → merge), **rework rate** (reverts +
+  follow-up-fix commits), **escaped defects** (Karen findings on already-
+  merged content), **founder-decision turnaround and carry-over rate** (are
+  we asking good questions?).
+
+**Qualitative — lessons learned, continuously:** every desk keeps an
+append-only notes file (the copy-desk personas already do); Marjorie runs a
+one-paragraph **monthly mini-retro** inside the brief, and a full
+**end-of-project retro** (`docs/retros/<project>.md`) whose output is
+concrete: which roles change, merge, or retire; which cadences tune; which
+charter amendments to propose — each shipped as a banked decision, so
+founders approve the "team v-next" before the next project starts.
+
+**Guardrails:** metrics are collected deterministically (Marjorie interprets
+numbers it cannot edit); role changes and retirements are always T2 founder
+decisions — the manager hat proposes, never restructures unilaterally; and
+the weekly Codex org audit spot-checks the metrics pipeline so the manager's
+dashboard can't quietly flatter the manager.
+
 ### 4.3 The desks (existing agents, chartered and completed)
 
 | Desk | Members | What changes vs today |
@@ -385,8 +430,9 @@ merge" line and is **the single biggest decision in this proposal**.
 
 **Answered (Joey, 2026-07-11 — see §9-Q1):** granted in direction, with the
 standing goal that autonomous merging becomes normal as trust is earned
-class-by-class. The engineering preconditions above are unchanged and Wyatt's
-sign-off is pending; until both exist, human-merge continues in practice.
+class-by-class. **Wyatt co-signed the same day** (relayed by Joey). The
+engineering preconditions above are unchanged; until the gate + inertness
+check exist in CI, human-merge continues in practice.
 
 ## 6. How agents actually run (implementation shape, not code)
 
@@ -498,11 +544,10 @@ it's allowed to do.
    Standing product goal: autonomous merging becomes normal, not exceptional.
    What still gates it: (a) the §5.4 engineering preconditions stand — the
    deterministic gate mechanism, content-inertness in CI first, expansion
-   class-by-class with a track record per class; (b) **Wyatt's sign-off** —
-   merge/release authority is a CTO-side call under the role split, so this
-   is Joey's product direction + a pending Wyatt approval, recorded per the
-   "disagreements surface" rule (no disagreement yet — just not his signature
-   yet). Deploys remain human until separately revisited.
+   class-by-class with a track record per class; (b) **Wyatt's sign-off —
+   given later the same day** (relayed by Joey), completing the grant: only
+   the engineering preconditions gate it now. Deploys remain human until
+   separately revisited.
 2. **T3 paging: SMS primary, email backup.** SMS needs a provider account
    (e.g. Twilio) — that's a TX/spend item (founders create it, agent preps
    instructions; cost is trivial but it's still an account + spend). Until
@@ -527,7 +572,8 @@ it's allowed to do.
   door for Joey's daily drops (#464). One week of value before anything else.
 - **Phase 2:** charter-ify every existing agent under `docs/agents/`
   (Karen, Kevin, v0, delegation scripts), stand up the ops journal, cadence
-  health, weekly Codex org audit.
+  health, weekly Codex org audit, and the **manager-hat telemetry
+  collectors + retro cadence** (§4.2b).
 - **Phase 3 (pre-launch, pulled forward per Joey 2026-07-11):** Growth &
   Community desk stands up — marketing agent (first deliverable: the launch
   campaign plan), social listening baseline, account-creation TX items in an
@@ -542,9 +588,10 @@ Each phase is a PR train with its own spec; none blocks V1 launch work — and
 per #468's priority rule, V2 engine work stays Wyatt-filler and simply plugs
 into the intake door when it exists.
 
-## 11. Draft decision-log entry (copied to `docs/decisions.md` on approval)
+## 11. Decision-log entry (recorded in `docs/decisions.md`, 2026-07-11 — the
+log is authoritative; the copy below is for context)
 
-> **2026-07-XX — Agentic operating model v2.** Adopt the desk model: chartered,
+> **2026-07-11 — Agentic operating model v2.** Adopt the desk model: chartered,
 > sandboxed agents (`docs/agents/`) with artifact-only interfaces; a chief-of-
 > staff agent (Marjorie) that routes work, maintains precedent, watches
 > cadences, and banks all founder decisions into one daily Founders' Brief;
@@ -552,13 +599,16 @@ into the intake door when it exists.
 > autonomy ratchet and a non-ratchetable strategic set. Brief cadence: 6:00
 > AM main + 8:00 PM changes-only delta (Joey). T3 paging: SMS primary once
 > the provider account exists (TX item), email until then and as backup
-> (Joey). Merge authority: granted in direction by Joey — autonomous merging
+> (Joey). Merge authority: granted by both founders — autonomous merging
 > is the standing goal, earned class-by-class behind a deterministic gate,
-> content-inertness CI first, Wyatt sign-off pending. Post-launch ops
-> (Watch, Growth & Community) follow the same pattern, listening/draft-first
-> with earned autonomy. Expensive to reverse: org process, founder habits,
-> and charter contracts that future service agents must honor. Cost:
-> build-side scheduled runs with per-charter caps; zero runtime LLM.
+> content-inertness CI first. Growth desk pulled forward to pre-launch;
+> Marjorie additionally wears the manager hat (§4.2b): deterministic team
+> telemetry + retros driving quality-up/tokens-down across projects.
+> Post-launch ops (Watch, Growth & Community) follow the same pattern,
+> listening/draft-first with earned autonomy. Expensive to reverse: org
+> process, founder habits, and charter contracts that future service agents
+> must honor. Cost: build-side scheduled runs with per-charter caps; zero
+> runtime LLM.
 
 ## 12. Alternatives considered
 
@@ -606,9 +656,9 @@ degraded mode rather than competing with it.
 
 **Assumptions this rests on:** founders actually tick the brief most days
 (unticked items only carry over — nothing auto-approves); auto-merge stays
-off in practice until its CI preconditions land and Wyatt co-signs the grant
-Joey has already given in direction (§9-Q1); session-cron reliability is
-bridged by the watchdog until service migration.
+off in practice until its CI preconditions land (the grant itself is now
+complete — both founders, 2026-07-11); session-cron reliability is bridged
+by the watchdog until service migration.
 
 ---
 
