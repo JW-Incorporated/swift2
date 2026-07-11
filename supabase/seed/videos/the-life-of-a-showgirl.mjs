@@ -76,7 +76,7 @@ export default {
       releasedOn: '2026-01-12',
       relatedSongs: ['Opalite'],
       summary:
-        'A time-slip video follows a lonesome, cat-loving figure through the 1990s before the song\'s glow pulls her back into color — released as the era\'s second single.',
+        'A 1990s-styled rom-com in which Swift\'s lonely Pet Rock owner and Domhnall Gleeson\'s cactus owner are brought together by a magical "Opalite" spray — released as the era\'s second single.',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=1FVF-9KQiPo',

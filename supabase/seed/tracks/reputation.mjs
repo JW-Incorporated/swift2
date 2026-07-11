@@ -179,7 +179,7 @@ export default {
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback', 'Oscar Görres'],
       producers: ['Max Martin', 'Shellback', 'Oscar Görres'],
-      note: 'The album’s trapdoor track — the one song from reputation that went unperformed on its own stadium tour.',
+      note: 'The album’s trapdoor track — the only reputation song left off its own stadium tour’s main setlist, surfacing only as an occasional acoustic surprise.',
       summary:
         'A dissolve into someone behind closed doors, with the Vonnegut-echo title shrugging at everything outside them. Fans know it mainly as the great unplayed deep cut.',
       inspiration: null,
