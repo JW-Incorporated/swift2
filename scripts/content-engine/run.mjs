@@ -11,7 +11,7 @@
 //   node scripts/content-engine/run.mjs issues          # DRY-RUN: show issues that would be filed
 //   node scripts/content-engine/run.mjs issues --create [--limit N]
 import { readdirSync, existsSync } from 'node:fs';
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { ROOT, loadCorpus, imageIndex } from './lib/corpus.mjs';
 import { rank, dedupe, makeFinding } from './lib/finding.mjs';
@@ -59,7 +59,9 @@ async function scan(opts) {
 
   const findings = [];
   for (const checker of DET_CHECKERS) {
-    if (opts.noImages && checker === imageLiveness) { log('  (skipping image pass: --no-images)'); continue; }
+    // --no-images skips BOTH network image passes — liveness probing AND the
+    // Vision moderation call (which costs real API money when a key is set).
+    if (opts.noImages && (checker === imageLiveness || checker === imageModeration)) { log(`  (skipping ${checker.id}: --no-images)`); continue; }
     const name = checker.id ?? 'checker';
     process.stdout.write(`  running ${name}… `);
     const fs = await checker.check(items, { log });
@@ -139,6 +141,24 @@ async function prepBatches(opts) {
   const pad = (n) => String(n).padStart(3, '0');
   const manifest = { date: today(), factual: [], images: [] };
 
+  // Stale-output invalidation (review finding): an agent output is only valid
+  // for the exact input it reviewed. If a batch's input content changes (or the
+  // batch disappears), its old agent-<name>.json + dispatch marker must go —
+  // otherwise a nightly re-run after content changes would "look done" and
+  // ingest stale findings. Unchanged inputs keep their outputs, so re-running
+  // `all` to fold agent results in stays safe.
+  let invalidated = 0;
+  async function writeBatch(path, name, json) {
+    const prev = existsSync(path) ? await readFile(path, 'utf8') : null;
+    if (prev === json) return; // unchanged — keep any existing agent output
+    await writeFile(path, json, 'utf8');
+    if (prev !== null) {
+      await rm(join(FINDINGS_DIR, `agent-${name}.json`), { force: true });
+      await rm(join(FINDINGS_DIR, 'dispatched', name), { force: true });
+      invalidated++;
+    }
+  }
+
   // Factual batches — grouped by era (keeps a batch topically coherent), large
   // eras split into chunks. Full texts + sources travel with each record.
   const byEra = new Map();
@@ -155,7 +175,7 @@ async function prepBatches(opts) {
         texts: it.texts, sources: it.sources.map((s) => s.url),
       }));
       const name = `factual-${pad(fIdx)}-${era}`;
-      await writeFile(join(dir, 'factual', `${name}.json`), JSON.stringify(chunk, null, 2), 'utf8');
+      await writeBatch(join(dir, 'factual', `${name}.json`), name, JSON.stringify(chunk, null, 2));
       manifest.factual.push({ name, era, count: chunk.length, input: `agent-input/factual/${name}.json`, output: `agent-${name}.json` });
       fIdx++;
     }
@@ -170,10 +190,19 @@ async function prepBatches(opts) {
   for (let i = 0; i < images.length; i += imageSize) {
     const chunk = images.slice(i, i + imageSize);
     const name = `image-${pad(iIdx)}`;
-    await writeFile(join(dir, 'images', `${name}.json`), JSON.stringify(chunk, null, 2), 'utf8');
+    await writeBatch(join(dir, 'images', `${name}.json`), name, JSON.stringify(chunk, null, 2));
     manifest.images.push({ name, count: chunk.length, input: `agent-input/images/${name}.json`, output: `agent-${name}.json` });
     iIdx++;
   }
+
+  // Batches that vanished from the manifest (corpus shrank / regrouped): their
+  // outputs are orphans — purge so ingest can't resurrect findings for content
+  // that no longer exists in that shape.
+  const live = new Set([...manifest.factual, ...manifest.images].map((b) => `agent-${b.name}.json`));
+  for (const f of readdirSync(FINDINGS_DIR).filter((f) => f.startsWith('agent-') && f.endsWith('.json'))) {
+    if (!live.has(f)) { await rm(join(FINDINGS_DIR, f), { force: true }); invalidated++; }
+  }
+  if (invalidated) log(`  (${invalidated} stale agent outputs invalidated — inputs changed since they were reviewed)`);
 
   await writeFile(join(dir, 'manifest.json'), JSON.stringify(manifest, null, 2), 'utf8');
   log(`prep-batches → ${manifest.factual.length} factual batches (${factualItems.length} items), ${manifest.images.length} image batches (${images.length} images)`);

@@ -16,6 +16,14 @@ a ticket is a separate human (or apply-agent) step, out of scope by design.
 - **Two engines, one ticket stream.** Cheap **deterministic** checkers run in
   Node with no deps; the **agent** layer does the judgment work (fact-checking,
   safety classification, image vision). Both emit the same `Finding` shape.
+- **Trust model (read before running with credentials):** the corpus loader
+  dynamically imports `supabase/seed/**` — seed files are *executed*, exactly
+  like the seed runner and `validate-content.mjs` do. "Read-only" means the
+  engine never writes content; it does not sandbox the seeds. **Run only on
+  `main` or your own branches, never on an unreviewed PR's checkout**, since
+  the process carries `gh` write auth (and optionally a Vision API key). The
+  planned content-inertness CI check (operating model §5.4, decisions.md
+  2026-07-11) removes this caveat by making seed files provably data-only.
 
 ## Layers
 | Layer | Checker | What it catches | Kind |
