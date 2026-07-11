@@ -78,10 +78,14 @@ export default {
         'The video ends with a call to sign her petition for the Equality Act; by the VMAs that August, it had half a million signatures.',
       sourceUrl: 'https://www.advocate.com/news/2019/6/17/taylor-swift-releases-lgbtq-packed-video-you-need-calm-down',
       thumbnailUrl:
-        'https://www.advocate.com/media-library/taylor-swift.jpg?id=32665462&width=1245&height=700&quality=65&coordinates=0%2C0%2C0%2C2',
+        // Image-fix pass (2026-07-10): #239 — Advocate crop had a "VIDEO SCREENSHOT" watermark baked into the
+        // pixels (confirmed even on the un-cropped source). Replaced with an eonline.com frame from the same video
+        // (curl-verified HTTP 200 image/jpeg); visually confirmed Taylor in the trailer-park pink fur coat/pearl
+        // sunglasses look, no watermark, no collage.
+        'https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top',
       moment: {
         context:
-          'The video itself, released June 17, 2019 and produced with Todrick Hall, packed its trailer-park block party with LGBTQ figures — Ellen DeGeneres, Billy Porter, Laverne Cox, RuPaul, the Queer Eye cast, Adam Rippon, and Jesse Tyler Ferguson with his real-life husband Justin Mikita — and closed on the on-screen ask: "Let\'s show our pride by demanding that, on a national level, our laws truly treat all our citizens equally." The Advocate called it her most pro-LGBTQ statement ever, and one of the most political stances she had taken with her music.\n\nShe personally wrote to her home-state senator, Lamar Alexander, urging support: "For American citizens to be denied jobs or housing based on who they love or how they identify is un-American and cruel." Accepting Video of the Year at the VMAs, she noted the petition had "five times the amount that it would need to warrant a response from the White House."',
+          'The video itself, released June 17, 2019 and produced with Todrick Hall, packed its trailer-park block party with LGBTQ figures — Ellen DeGeneres, Billy Porter, Laverne Cox, RuPaul, the Queer Eye cast, Adam Rippon, and Jesse Tyler Ferguson with his real-life husband Justin Mikita — and closed on the on-screen ask: "Let\'s show our pride by demanding that, on a national level, our laws truly treat all our citizens equally." The Advocate called it her most pro-LGBTQ statement ever, and one of the most political stances she had taken with her music.\n\nShe personally wrote to her home-state senator, Lamar Alexander, urging support: "For American citizens to be denied jobs or housing based on who they love or how they identify, in my opinion, is un-American and cruel." Accepting Video of the Year at the VMAs, she noted the petition had "five times the amount that it would need to warrant a response from the White House."',
         sources: [
           {
             outlet: 'The Advocate',
@@ -94,8 +98,8 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.advocate.com/media-library/taylor-swift.jpg?id=32665462&width=1245&height=700&quality=65&coordinates=0%2C0%2C0%2C2',
-            credit: 'The Advocate',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201969/rs_1043x646-190709093159-taylor-swift-music-video-2.jpg?fit=around%7C1043:646&output-quality=90&crop=1043:646;center,top',
+            credit: 'E! News (video still)',
           },
         ],
       },
@@ -226,10 +230,15 @@ export default {
       sourceUrl:
         'https://www.billboard.com/culture/tv-film/taylor-swift-miss-americana-netflix-documentary-release-date-8548174/',
       thumbnailUrl:
-        'https://imgs.capitalfm.com/images/114212?crop=16_9&width=660&relax=1&format=webp&signature=S8LzN__hymqxAV8c8HfQ_lTviEY=',
+        // Image-fix pass (2026-07-10): #236 — capitalfm URL was a two-panel news collage (red-carpet photo +
+        // poster) with a hard seam; replaced with the official Miss Americana one-sheet poster alone, sourced from
+        // its enwiki infobox file. curl-verified HTTP 200 image/jpeg and visually confirmed: single poster, no
+        // collage, "MISS AMERICANA / A NETFLIX ORIGINAL DOCUMENTARY / TAYLOR SWIFT / NETFLIX | JAN 31" with
+        // Sundance laurel.
+        'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg',
       moment: {
         context:
-          'The announcement came in November 2019, weeks after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Swift embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — Variety reported the song clearances were ultimately "granted within a timely manner" — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
+          'The announcement came in November 2019, months after the Big Machine sale, with Lana Wilson\'s film set to open Sundance on January 23 and hit Netflix eight days later — billed by Netflix as Swift embracing her role "as a woman harnessing the full power of her voice."\n\nThe standoff also threatened a planned AMA medley of her old hits; both were cleared within weeks — Variety reported the song clearances were ultimately "granted within a timely manner" — and the finished documentary never mentions Braun, Borchetta, or Big Machine by name.',
         sources: [
           {
             outlet: 'Billboard',
@@ -246,8 +255,9 @@ export default {
         ],
         photos: [
           {
-            url: 'https://imgs.capitalfm.com/images/114212?crop=16_9&width=660&relax=1&format=webp&signature=S8LzN__hymqxAV8c8HfQ_lTviEY=',
-            credit: 'Netflix',
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg',
+            credit: 'Netflix (documentary poster art)',
+            kind: 'primary',
           },
         ],
       },
@@ -329,7 +339,11 @@ export default {
         'Five outfit changes in the trailer-park video, from a peach Agent Provocateur robe to a rainbow wig with a Marina Hoermanseder western shirt and gold Saint Laurent shorts, ending in a French fries costume playing off Katy Perry\'s Met Gala burger dress.',
       sourceUrl: 'https://www.etonline.com/all-of-taylor-swifts-fabulous-outfits-from-you-need-to-calm-down-music-video-shop-the-looks-127156',
       thumbnailUrl:
-        'https://imgix.bustle.com/uploads/image/2019/6/17/f3cd39cc-0f96-4c8f-af70-5273c123505a-screen-shot-2019-06-17-at-115556-am.png?w=248&h=139&fit=crop&crop=faces&dpr=2',
+        // Image-fix pass (2026-07-10): #237 — old bustle still was the opening trailer-park scene (pearl
+        // sunglasses/fur coat), none of the three named looks. Replaced with a billboard.com still (curl-verified
+        // HTTP 200 image/jpeg, no watermark) visually confirmed showing Taylor in the French fries costume next to
+        // Katy Perry's burger costume — the closing look this moment specifically calls out.
+        'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1',
       moment: {
         context:
           'The looks tracked the video\'s scenes: a peach silk Agent Provocateur robe and Sophia Webster heels to open, a pink Norma Kamali bikini with a faux-fur Vivetta jacket poolside, then a rainbow wig with a purple Marina Hoermanseder western shirt, gold metallic Saint Laurent shorts, and Irregular Choice unicorn boots.\n\nIt closes with a French fries costume and red Buffalo London x Opening Ceremony sandals, a direct callback to Katy Perry\'s cheeseburger look at the 2019 Met Gala.',
@@ -345,8 +359,9 @@ export default {
         ],
         photos: [
           {
-            url: 'https://imgix.bustle.com/uploads/image/2019/6/17/f3cd39cc-0f96-4c8f-af70-5273c123505a-screen-shot-2019-06-17-at-115556-am.png?w=248&h=139&fit=crop&crop=faces&dpr=2',
-            credit: 'Taylor Swift / YouTube via Bustle',
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1',
+            credit: 'Billboard',
+            caption: "Taylor in the closing French fries costume, next to Katy Perry's burger costume.",
           },
         ],
       },
@@ -455,7 +470,7 @@ export default {
       month: 8,
       day: 22,
       category: 'fashion',
-      title: 'A Johanna Ortiz tiered dress for the Lover video\'s proposal scene',
+      title: 'A Johanna Ortiz tiered dress for the Lover music video',
       snippet:
         'In the pastel-house music video, she plays guitar in a yellow Johanna Ortiz "Ladies Who Lunch" tiered dress with matching Rebecca de Ravenel "Les Bonbons" ball earrings and an orange headband.',
       sourceUrl: 'https://www.spotern.com/en/spot/video/taylor-swift-lover-official-music-video/226542/yellow-tiered-dress-of-taylor-swift-in-the-music-video-lover',
@@ -651,13 +666,13 @@ export default {
       category: 'sighting',
       title: 'Hand-in-hand with Joe Alwyn at the SNL after-party',
       snippet:
-        'Straight from her acoustic "Lover" and "False God" performances on SNL, she and Joe Alwyn were photographed holding hands heading into Zuma for the cast\'s after-party.',
+        'Straight from a stripped-down "Lover" and "False God"\'s saxophone-led live debut on SNL, she and Joe Alwyn were photographed holding hands heading into Zuma for the cast\'s after-party.',
       sourceUrl: 'https://www.etonline.com/taylor-swift-and-joe-alwyn-seen-hand-in-hand-outside-snl-after-party-133881',
       thumbnailUrl:
         'https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-10/swiftalwyn2.jpg?h=5c0d22e0&width=1024&quality=80',
       moment: {
         context:
-          'On October 6, 2019, hours after performing acoustic renditions of "Lover" and "False God" on Saturday Night Live, she and boyfriend Joe Alwyn were photographed holding hands as they headed into Zuma in New York for the cast\'s after-party.\n\nShe kept her performance look — an oversized black Ambush blazer, crystal-embellished Libertine flare pants, and Christian Louboutin shoes — while Alwyn wore a grey shirt with a black jacket.',
+          'On October 6, 2019, hours after performing a stripped-down "Lover" and giving "False God" its saxophone-led live debut on Saturday Night Live, she and boyfriend Joe Alwyn were photographed holding hands as they headed into Zuma in New York for the cast\'s after-party.\n\nShe kept her performance look — an oversized black Ambush blazer, crystal-embellished Libertine flare pants, and Christian Louboutin shoes — while Alwyn wore a grey shirt with a black jacket.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -687,7 +702,10 @@ export default {
       sourceUrl:
         'https://www.justjared.com/2019/12/14/blake-lively-ryan-reynolds-help-taylor-swift-celebrate-her-30th-birthday-in-nyc/',
       thumbnailUrl:
-        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/thumbs/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
+        // Image-fix pass (2026-07-10): #234 — swapped /thumbs/ 80x120 crop for the full-res original on the same
+        // JustJared S3 path; curl-verified HTTP 200 image/jpeg and visually confirmed Blake Lively (red coat) and
+        // Ryan Reynolds (glasses, burgundy jacket) exiting the venue at night.
+        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
       moment: {
         context:
           "On December 13, 2019 — her 30th birthday — she opened the show at Z100's Jingle Ball, then friends joined her for a 10 p.m. dinner party at Oscar Wilde restaurant in New York City.\n\nBlake Lively was photographed leading the way out of the restaurant with husband Ryan Reynolds that Friday night, among a guest list that also included Gigi Hadid, Martha Hunt, and boyfriend Joe Alwyn.",
@@ -699,7 +717,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/thumbs/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
+            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2019/12/lively-bdayp/blake-lively-ryan-reynolds-at-taylor-swift-party-01.jpg',
             credit: 'Backgrid',
           },
         ],
@@ -744,7 +762,11 @@ export default {
       sourceUrl:
         'https://www.eonline.com/news/1108537/taylor-swift-and-joe-alwyn-are-the-chicest-couple-at-the-2020-golden-globes-after-party',
       thumbnailUrl:
-        'https://akns-images.eonline.com/eol_images/Entire_Site/202006/rs_600x600-200106064034-600-Taylor-Swift-LT-010620-BGUS_1829706_002.jpg',
+        // Image-fix pass (2026-07-10): #240 — old crop showed Taylor alone mid-conversation, no Joe Alwyn, no kiss.
+        // Replaced with a same-agency (Coleman-Rayner) frame from E! News's "Romance Rewind" gallery, dated/
+        // captioned to this same Jan 2020 Golden Globes after-party; curl-verified HTTP 200 image/jpeg and visually
+        // confirmed Taylor with her arm around Joe Alwyn's head in a close embrace, both in black formalwear.
+        'https://akns-images.eonline.com/eol_images/Entire_Site/202007/rs_634x1024-200107091907-634-taylor-swift-joe-alwyn.cm.1720.jpg',
       moment: {
         context:
           'At Creative Artists Agency\'s after-party at the Sunset Tower Hotel in Los Angeles on January 5, 2020, an eyewitness said the couple "looked inseparable and really in love. Taylor had her arm on Joe, and she leaned in to kiss him several times."\n\nShe wore a sparkly black dress with a metallic clutch; Alwyn was in a classic tuxedo. She had been nominated for Best Original Song for her Cats ballad "Beautiful Ghosts," while Alwyn was there to support his Harriet co-stars.',
@@ -756,7 +778,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202006/rs_600x600-200106064034-600-Taylor-Swift-LT-010620-BGUS_1829706_002.jpg',
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202007/rs_634x1024-200107091907-634-taylor-swift-joe-alwyn.cm.1720.jpg',
             credit: 'Coleman-Rayner',
           },
         ],
@@ -773,7 +795,10 @@ export default {
       sourceUrl:
         'https://www.justjared.com/2020/04/29/joe-alwyn-shares-cute-pics-of-girlfriend-taylor-swifts-cat-benjamin-button-during-quarantine/',
       thumbnailUrl:
-        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/thumbs/joe-alwayn-button-pics-ig-story-01.jpg',
+        // Image-fix pass (2026-07-10): #235 — swapped /thumbs/ 80x120 crop for the full-res original on the same
+        // JustJared S3 path; curl-verified HTTP 200 image/jpeg and visually confirmed it's Joe Alwyn's selfie
+        // holding a glass of wine, the same IG-story image referenced in the context text below.
+        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/joe-alwayn-button-pics-ig-story-01.jpg',
       moment: {
         context:
           'On April 29, 2020, Joe Alwyn shared three photos to his Instagram Stories of Benjamin Button — the kitten Taylor adopted after he appeared in her "ME!" video — peeking out of a paper grocery bag, poking his head from a cardboard box, and tucked underneath a rug, along with a selfie holding a glass of wine.\n\nThe notoriously private couple rarely appeared on each other\'s social media, so fans took the cat cameo as a rare, sideways glimpse of them quarantining together during the pandemic.',
@@ -789,7 +814,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/thumbs/joe-alwayn-button-pics-ig-story-01.jpg',
+            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2020/04/joe-cat/joe-alwayn-button-pics-ig-story-01.jpg',
             credit: 'Joe Alwyn / Instagram',
           },
         ],
@@ -803,12 +828,12 @@ export default {
       category: 'sighting',
       title: 'A surprise "Shake It Off" at the Stonewall Inn for Pride\'s 50th anniversary',
       snippet:
-        'Days before "You Need to Calm Down" dropped, she showed up unannounced at the Stonewall Inn\'s 50th-anniversary Pride event: "Thank you for having me, Stonewall. Happy Pride!"',
+        'Hours after "You Need to Calm Down" dropped, she showed up unannounced at the Stonewall Inn\'s 50th-anniversary Pride event: "Thank you for having me, Stonewall. Happy Pride!"',
       sourceUrl: 'https://abcnews.com/Entertainment/taylor-swift-makes-surprise-appearance-stonewall-inn-performs/story?id=63731487',
       thumbnailUrl: 'https://s.abcnews.com/images/GMA/taylor-swift-stonewall-gty-mo-20190615_hpMain_16x9_992.jpg?w=992',
       moment: {
         context:
-          'In mid-June 2019, days ahead of releasing "You Need to Calm Down," Swift made a surprise appearance at AEG and the Stonewall Inn\'s invitation-only Pride celebration marking the 50th anniversary of the Stonewall uprising, headlined by Jesse Tyler Ferguson.\n\nShe performed an acoustic "Shake It Off," telling the crowd, "Thank you for having me, Stonewall. Happy Pride!" before inviting Ferguson onstage for a duet, saying she\'d heard it was his favorite karaoke song.',
+          'In mid-June 2019, hours after releasing "You Need to Calm Down," Swift made a surprise appearance at AEG and the Stonewall Inn\'s invitation-only Pride celebration marking the 50th anniversary of the Stonewall uprising, headlined by Jesse Tyler Ferguson.\n\nShe performed an acoustic "Shake It Off," telling the crowd, "Thank you for having me, Stonewall. Happy Pride!" before inviting Ferguson onstage for a duet, saying she\'d heard it was his favorite karaoke song.',
         sources: [
           {
             outlet: 'ABC News',
@@ -994,7 +1019,7 @@ export default {
       category: 'tour',
       title: 'City of Lover: the only full Lover concert there would ever be',
       snippet:
-        'One night at L\'Olympia in Paris, Sept. 9, 2019 — a fans-only show for contest winners from 37 countries, and the first and last time most Lover songs were played to a live audience.',
+        'One night at L\'Olympia in Paris, Sept. 9, 2019 — a fans-only show for contest winners from 37 countries, and, until the Eras Tour, the only time most Lover songs were played to a live audience.',
       sourceUrl: 'https://en.wikipedia.org/wiki/City_of_Lover',
       thumbnailUrl: null,
       moment: {
@@ -1017,6 +1042,15 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/',
+            source_title: 'Every Surprise Song Taylor Swift Has Played on the Eras Tour',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-10',
             reliability_score: 4,
           },
         ],
@@ -1131,7 +1165,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She played Bombalurina in Tom Hooper\'s adaptation and co-wrote "Beautiful Ghosts" as a response song to "Memory," sung in the film by Francesca Hayward. Critics roasted the movie and largely exempted her scene; the song\'s Globe nomination gave the Lover era its one awards-season campaign.\n\nThe wreckage around her roughly ten minutes of screen time was historic: a 19% Rotten Tomatoes score, a worldwide gross of $75.5 million against a budget of $80–100 million, and seven Razzies including Worst Picture. The "digital fur technology" became its own news story — the first release went out with visual-effects glitches (including a shot where Judi Dench\'s human hand, wedding ring and all, was visible), and Universal took the near-unprecedented step of shipping a patched version with "improved visual effects" to theaters on December 22, two days into the run. Reviewers consistently noted Swift seemed to be one of the few people onscreen having fun.',
+          'She played Bombalurina in Tom Hooper\'s adaptation and co-wrote "Beautiful Ghosts" as a response song to "Memory," sung in the film by Francesca Hayward. Critics roasted the movie and largely exempted her scene; the song\'s Globe nomination gave the Lover era its one awards-season campaign.\n\nThe wreckage around her roughly ten minutes of screen time was historic: a 19% Rotten Tomatoes score, a worldwide gross of $75.5 million against a budget of $80–100 million, and six Razzies including Worst Picture. The "digital fur technology" became its own news story — the first release went out with visual-effects glitches (including a shot where Judi Dench\'s human hand, wedding ring and all, was visible), and Universal took the near-unprecedented step of shipping a patched version with "improved visual effects" to theaters on December 22, two days into the run. Reviewers consistently noted Swift seemed to be one of the few people onscreen having fun.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1735,7 +1769,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer three-song set — "Blank Space," "ME!," and an emotional "Lover" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. Rolling Stone\'s recap put the night\'s haul at more than $135,000 from tickets and Twitter activations, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
+          'The annual 97.1 AMP Radio benefit was part of the era\'s strange, tour-less rhythm: award shows, radio nights, and one Paris theater instead of stadiums — which made every one-off like this feel outsized.\n\nHer five-song set — "Blank Space," "ME!," an emotional "Lover," "You Need to Calm Down," and "Shake It Off" — was sung into a pink microphone for Breast Cancer Awareness Month, at a benefit supporting the American Cancer Society. Rolling Stone\'s recap put the night\'s haul at more than $135,000 from tickets and Twitter activations, with a backstage celebrity bowling stunt adding to the total, and the bill around her ran deep: Billie Eilish, Lizzo, Camila Cabello, the Jonas Brothers, Marshmello, Becky G, and a surprise Halsey set.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1876,7 +1910,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her Tumblr post laid out the history in one line — "For years I asked, pleaded for a chance to own my work" — and said the alternative she\'d been offered was to "sign back up to Big Machine Records and \'earn\' one album back at a time, one for every new one I turned in."\n\nShe wrote that she\'d learned of the deal "as it was announced to the world"; Scott Borchetta answered with a blog post titled "It\'s Time For Some Truth," claiming he had texted her the night before, which she disputed. #IStandWithTaylor trended worldwide within hours. Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.',
+          'Her Tumblr post laid out the history in one line — "For years I asked, pleaded for a chance to own my work" — and said the alternative she\'d been offered was to "sign back up to Big Machine Records and \'earn\' one album back at a time, one for every new one I turned in."\n\nShe wrote that she\'d learned of the deal "as it was announced to the world"; Scott Borchetta answered with a blog post titled "So, It\'s Time For Some Truth," claiming he had texted her the night before, which she disputed. #IStandWithTaylor trended worldwide within hours. Everything that follows in this era traces back to this sale: the AMA standoff, Miss Americana\'s framing, the on-air re-recording pledge — and eventually the entire Taylor\'s Version project.',
         sources: [
           {
             outlet: 'Variety',

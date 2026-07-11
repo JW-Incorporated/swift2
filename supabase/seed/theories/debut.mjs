@@ -38,12 +38,21 @@ export default {
       claim:
         'From the debut album onward, the lyric booklets hid messages: read only the capitalized letters in each printed lyric and they spell out a secret line about the song.',
       evidence:
-        'A confirmed, deliberate practice — the booklet codes ran from the 2006 debut through the Big Machine albums and trained the fandom to decode everything that followed. She later said the clue-planting simply moved from liner notes into videos, posts, and performances.',
+        'A confirmed, deliberate practice — the booklet codes ran from the 2006 debut through 1989 (2014) and trained the fandom to decode everything that followed. She later said the clue-planting simply moved from liner notes into videos, posts, and performances.',
       confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: [],
       sources: [
-        wiki('Cultural_impact_of_Taylor_Swift', 'Cultural impact of Taylor Swift', 'documents the hidden-message liner notes as the origin of easter-egg culture'),
+        {
+          source_url: 'https://www.today.com/today/amp/rcna51887',
+          source_title: "A Complete History of Taylor Swift's Best Easter Eggs",
+          publisher: 'Today.com',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-08',
+          reliability_score: 4,
+          excerpt: null,
+          notes: 'documents the capital-letter liner-note codes running from the 2006 debut through 1989 (2014)',
+        },
         wiki('Swifties', 'Swifties'),
       ],
     },

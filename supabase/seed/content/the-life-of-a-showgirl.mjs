@@ -31,7 +31,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The countdown appeared on her website at 12:12 a.m. ET on Aug. 12, 2025; the full episode aired the next evening. On it she pulled the blurred mint-green briefcase from behind the desk — mint green with an orange "TS" — revealed the 12-track list ending in a Sabrina Carpenter feature, and talked through the era\'s orange-glitter look. It was her first-ever podcast appearance, staged on her boyfriend\'s own show, and it doubled as the most unguarded long-form interview she had given in years: two hours of album talk, football talk, and the couple\'s dynamic on camera.\n\nThe internet did not hold. The livestream crashed under the load about an hour and 44 minutes in, with the concurrent count peaking at 1.3 million viewers — a figure Guinness World Records certified as the most concurrent views ever for a podcast on YouTube. Within 24 hours the episode had roughly 13 million YouTube views, per Variety\'s tally. The announcement\'s mechanics became the era\'s template: every detail, from the 12:12 a.m. timestamp to the reveal\'s staging on the Kelce brothers\' set, was read by fans as deliberate.',
+          'A countdown on her website expired at 12:12 a.m. ET on Aug. 12, 2025, revealing the teaser; the full episode aired the next evening. On it she pulled the blurred mint-green briefcase from behind the desk — mint green with an orange "TS" — revealed the 12-track list ending in a Sabrina Carpenter feature, and talked through the era\'s orange-glitter look. It was her first-ever podcast appearance, staged on her boyfriend\'s own show, and it doubled as the most unguarded long-form interview she had given in years: two hours of album talk, football talk, and the couple\'s dynamic on camera.\n\nThe internet did not hold. The livestream crashed under the load about an hour and 44 minutes in, with the concurrent count peaking at 1.3 million viewers — a figure Guinness World Records certified as the most concurrent views ever for a podcast on YouTube. Within 24 hours the episode had roughly 13 million YouTube views, per Variety\'s tally. The announcement\'s mechanics became the era\'s template: every detail, from the 12:12 a.m. timestamp to the reveal\'s staging on the Kelce brothers\' set, was read by fans as deliberate.',
         sources: [
           {
             outlet: 'NBC News',
@@ -89,7 +89,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift said the submerged cover glamorizes the offstage side of the Eras Tour — every show "ends with [her] in a bathtub" — choosing a behind-the-scenes image over full showgirl mode because the songs are about what she was going through offstage. The title is lettered in orange glitter, and the wider shoot\'s bejeweled bodysuits and feather headdresses were described by critics as the most provocative, glamorous visual identity of her career. It reunited her with Mert Alas and Marcus Piggott, the duo behind reputation\'s black-and-white newsprint portraits — their first Swift shoot since 2017, now flipped from monochrome menace to full Vegas color.\n\nMarie Claire\'s wardrobe breakdown of the album packaging reads like a showgirl-history syllabus: vintage Bob Mackie — the designer synonymous with Cher and the Las Vegas stage — appears on several alternate covers, alongside custom Gucci, The Blonds, a Kelsey Randall chainmail dress, Fleur du Mal lingerie, and an Annie\'s Ibiza mini with Lorraine Schwartz jewels. The feathered backstage portrait shown here, styled dressing-room-mirror-and-all, is the shoot\'s thesis in one frame: the glamour machine photographed from inside the dressing room rather than from the audience.',
+          'Swift said the submerged cover glamorizes the offstage side of the Eras Tour — her day "ends in a bathtub, not usually in a bedazzled dress" — choosing a behind-the-scenes image over full showgirl mode because the songs are about what she was going through offstage. The title is lettered in orange glitter, and the wider shoot\'s bejeweled bodysuits and feather headdresses were described by critics as the most provocative, glamorous visual identity of her career. It reunited her with Mert Alas and Marcus Piggott, the duo behind reputation\'s black-and-white newsprint portraits — their first Swift shoot since 2017, now flipped from monochrome menace to full Vegas color.\n\nMarie Claire\'s wardrobe breakdown of the album packaging reads like a showgirl-history syllabus: vintage Bob Mackie — the designer synonymous with Cher and the Las Vegas stage — appears on several alternate covers, alongside custom Gucci, The Blonds, a Kelsey Randall chainmail dress, Fleur du Mal lingerie, and an Annie\'s Ibiza mini with Lorraine Schwartz jewels. The feathered backstage portrait shown here, styled dressing-room-mirror-and-all, is the shoot\'s thesis in one frame: the glamour machine photographed from inside the dressing room rather than from the audience.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -260,7 +260,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes of content playing on a loop of showtimes — no plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release that weekend.\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. Screen Daily\'s box-office analysis treated the weekend as a structural story as much as a Swift story: proof that a big enough artist can rent the entire theatrical apparatus for a weekend and turn an album release into a box-office event, without a studio in the deal.',
+          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes of content playing on a loop of showtimes — no plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release that weekend.\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. The weekend reads as a structural story as much as a Swift story: proof that a big enough artist can rent the entire theatrical apparatus for a weekend and turn an album release into a box-office event, without a studio in the deal.',
         sources: [
           {
             outlet: 'Screen Daily',
@@ -305,7 +305,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album since Billboard began tracking by Luminate\'s modern methodology. She\'d already passed Adele\'s 3.378 million-unit 2015 benchmark for 25 within five days, retiring a record that had stood for a decade and that many chart-watchers assumed the streaming era had made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."',
+          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album since Billboard began tracking by Luminate\'s modern methodology. She\'d already passed Adele\'s 3.482 million-unit 2015 benchmark for 25 within five days, retiring a record that had stood for a decade and that many chart-watchers assumed the streaming era had made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."',
         sources: [
           {
             outlet: 'Billboard',
@@ -656,7 +656,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The song tells the story of a veteran performer named Kitty and the young singer studying her, and the casting does the subtext: Carpenter went from Eras Tour opener in 2023-24 to arena headliner in her own right by the time the album dropped. It was the pairing fans most wanted from the tracklist reveal on New Heights, and the reason the feature stayed the announcement\'s biggest talking point through release week.\n\nThe track doubles as the album\'s mission statement — the "life of a showgirl" the title promises turns out to be Kitty\'s hard-won stage wisdom, handed down the way the real Swift-Carpenter relationship played out in stadium wings for two years. The lyric sheet even preserves a scrap of documentary audio from the tour that connected them: the printed lyrics include Swift\'s onstage "give it up for... Sabrina!" moment, folding the Eras Tour itself into the album\'s closing minutes. Ending the record on a duet with her own former opener made the succession theme explicit: the album about being a showgirl closes by introducing the next one.',
+          'The song tells the story of a veteran performer named Kitty and the young singer studying her, and the casting does the subtext: Carpenter went from Eras Tour opener in 2023-24 to arena headliner in her own right by the time the album dropped. It was the pairing fans most wanted from the tracklist reveal on New Heights, and the reason the feature stayed the announcement\'s biggest talking point through release week.\n\nThe track doubles as the album\'s mission statement — the "life of a showgirl" the title promises turns out to be Kitty\'s hard-won stage wisdom, handed down the way the real Swift-Carpenter relationship played out in stadium wings for two years. The lyric sheet closes on a scripted curtain-call exchange between the two of them — Swift\'s "Give it up for the band / And the dancers / And of course, Sabrina," answered by Carpenter\'s "I love you, Taylor!" — laid over real crowd noise recorded at the final Eras Tour show in Vancouver, folding the tour\'s actual sound into the album\'s closing minutes. Ending the record on a duet with her own former opener made the succession theme explicit: the album about being a showgirl closes by introducing the next one.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -693,16 +693,16 @@ export default {
       slug: 'opalite-second-number-one',
       year: 2026,
       month: 2,
-      day: 23,
+      day: 28,
       category: 'music',
       title: 'Opalite follows Ophelia to No. 1',
       snippet:
-        'The sunny track three — widely heard by fans and critics as her Travis song, its title a man-made stone standing in for a happiness you build yourself — became the album\'s second Hot 100 No. 1 in February 2026, taking the top spot from "The Fate of Ophelia."',
+        'The sunny track three — widely heard by fans and critics as her Travis song, its title a man-made stone standing in for a happiness you build yourself — became the album\'s second Hot 100 No. 1 on the chart dated Feb. 28, 2026, months after "The Fate of Ophelia" had wrapped its own 10-week run at the top.',
       sourceUrl: 'https://slate.com/culture/2026/02/taylor-swift-opalite-billboard-hot-100-song-ophelia.html',
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated. Kelce, for his part, called it his favorite song on the album on New Heights. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push came in January 2026, with radio releases and a run of remixes (Chris Lake, BUNT., Skream among them), and in its 19th chart week it finally took the top spot from its own album-mate. Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: back-to-back No. 1s from the same 12-track album, months after release, with the second one dethroning the first.',
+          'Swift has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated. Kelce, for his part, called it his favorite song on the album on New Heights. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push, including a run of remixes (Chris Lake, BUNT., Skream, and Ely Oaks among them), landed in mid-February 2026, and on the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.',
         sources: [
           {
             outlet: 'Slate',
@@ -721,6 +721,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-09',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-opalite-hot-100-number-one/',
+            source_title: "Taylor Swift's 'Opalite' Hits No. 1 on the Hot 100",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-10',
+            reliability_score: 5,
           },
         ],
         // Single artwork filename taken from the Wikipedia article's HTML;
@@ -749,7 +758,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has not named the song\'s subject — the Lang connection is fan interpretation, labeled as such, but it rests on public record: she sang at a close friend\'s funeral in 2010 and thanked "Jeff Lang" from the BMI Country Awards stage that year, saying she used to play him her songs first. Fans lined those facts up with the song\'s Hendersonville high-school setting and its final verse — the narrator learning at a funeral that the feeling had been mutual — within hours of release.\n\nWhat elevated the theory beyond lyric forensics was the family\'s response. Lang\'s mother told The Tennessean she wished she could thank Swift for "keeping his name alive," effectively blessing the reading without Swift ever confirming it. The lyric\'s advice — ruin the friendship, kiss your friend while you can — lands as the album\'s quietest gut-punch, a country-storytelling move (the twist verse, the moral) smuggled onto her glossiest pop record.',
+          'Swift has not named the song\'s subject — the Lang connection is fan interpretation, labeled as such, but it rests on public record: she sang at a close friend\'s funeral in 2010 and thanked "Jeff Lang" from the BMI Country Awards stage that year, saying she used to play him her songs first. Fans lined those facts up with the song\'s Hendersonville high-school setting and its final verse — the narrator getting the news of his death and singing at his grave, regretting she never kissed him and admitting "we\'ll never know why" — within hours of release.\n\nWhat elevated the theory beyond lyric forensics was the family\'s response. Lang\'s mother told The Tennessean she wished she could thank Swift for "keeping his name alive," effectively blessing the reading without Swift ever confirming it. The lyric\'s advice — ruin the friendship, kiss your friend while you can — lands as the album\'s quietest gut-punch, a country-storytelling move (the twist verse, the moral) smuggled onto her glossiest pop record.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -905,7 +914,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Paired with the End of an Era docuseries for the same-day premiere, the film preserves the tour\'s final setlist end-to-end — the version of the show that closed out the highest-grossing tour ever, ten months after the last confetti fell in Vancouver. Where the 2023 theatrical film had to trim songs for runtime, the streaming cut runs the full Vancouver marathon, including the Tortured Poets segment added for the 2024 legs — the set Swift called the "Female Rage" chapter — that no prior filmed version contained.\n\nThe pairing was a deliberate double release: the docuseries tells you what the tour cost to make and end, and The Final Show is the artifact itself, shot at BC Place on Dec. 8, 2024 — show 149 of 149. Together they turned mid-December 2025 into a Disney+ event weekend, and the concert film went on to earn five Emmy nominations the following summer, including Outstanding Variety Special.',
+          'Paired with the End of an Era docuseries for the same-day premiere, the film preserves the tour\'s final setlist end-to-end — the version of the show that closed out the highest-grossing tour ever, a year after the last confetti fell in Vancouver. Where the 2023 theatrical film had to trim songs for runtime, the streaming cut runs the full Vancouver marathon, including the Tortured Poets segment added for the 2024 legs — the set Swift called the "Female Rage" chapter — that no prior filmed version contained.\n\nThe pairing was a deliberate double release: the docuseries tells you what the tour cost to make and end, and The Final Show is the artifact itself, shot at BC Place on Dec. 8, 2024 — show 149 of 149. Together they turned mid-December 2025 into a Disney+ event weekend, and the concert film went on to earn five Emmy nominations the following summer, including Outstanding Variety Special.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1021,24 +1030,38 @@ export default {
       snippet:
         'Security tightened around her Watch Hill estate as a large tent went up on the Ocean House lawn next door and friends including Abigail Anderson were spotted arriving for what looked like a bachelorette weekend.',
       sourceUrl: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/',
-      thumbnailUrl: 'https://imagez.tmz.com/image/2c/16by9/2026/06/19/2ce1e3acab1c4ea4a7e0faa9f4bb02ab_md.png',
+      // Image-fix pass (2026-07-10): swapped the watermarked TMZ collage
+      // thumbnail for the verified AP tent/Ocean House photo below (see
+      // photos[0]) — same fix as ticket #337.
+      thumbnailUrl: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
       moment: {
         context:
           'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends" — separate from the Ocean House\'s own scheduled event that weekend, which the venue confirmed was for a different couple. The tells were logistical rather than official: extra security around the Watch Hill estate, a large tent rising on the lawn next door, and longtime friends — Abigail Anderson among the arrivals fans identified — converging on the small Rhode Island town at once.\n\nThe location was its own callback. Watch Hill is the "holiday house" of the 2020 song "the last great american dynasty" — the Rebekah Harkness mansion Swift bought in 2013, the site of the Fourth of July parties of the 1989 era — so a pre-wedding weekend there read to fans as the personal-lore equivalent of a hometown send-off, two weeks before the Madison Square Garden ceremony. Neither Swift nor her team ever confirmed the party; the venue-level reporting here is TMZ\'s, labeled as such.',
         sources: [
           { outlet: 'TMZ', url: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/' },
         ],
+        // Image-fix pass (2026-07-10): both TMZ photos here (tickets #337,
+        // #338) were junk news-graphics — a watermarked collage with a
+        // celebrity inset, and a watermarked long-lens shot with a blurred
+        // face. Replaced with two AP Photo/Robert F. Bukaty images (June 20,
+        // 2026, Westerly RI) sourced via Fortune and The Washington Times'
+        // wire copy: the Ocean House lawn tent, and a security guard at
+        // Swift's Watch Hill estate. Both curl-verified HTTP 200 +
+        // image/jpeg and visually confirmed this session — clean, unwatermarked,
+        // single photos matching the moment's context (the tent, and the
+        // tightened estate security).
         photos: [
           {
-            url: 'https://imagez.tmz.com/image/2c/16by9/2026/06/19/2ce1e3acab1c4ea4a7e0faa9f4bb02ab_md.png',
-            credit: 'TMZ',
-            caption: 'The tent going up on the lawn beside the Watch Hill estate, from TMZ\'s report on the June 19-20 weekend.',
+            url: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
+            credit: 'AP Photo/Robert F. Bukaty, via Fortune',
+            caption:
+              'A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation.',
             kind: 'primary',
           },
           {
-            url: 'https://imagez.tmz.com/image/81/4by3/2026/06/19/81b2c535bab3435487f156afbe67b6be_md.png',
-            credit: 'TMZ',
-            caption: 'A second angle from TMZ\'s report on the pre-wedding gathering in Watch Hill, Rhode Island.',
+            url: 'https://twt-thumbs.washtimes.com/media/image/2026/06/21/Swift_Wedding_Speculation_6953__c0-242-5784-3614_s885x516.jpg?18921fe33b20ba0427c28b6eeae09fd9ded1b3cc',
+            credit: 'AP Photo/Robert F. Bukaty, via The Washington Times',
+            caption: 'A security guard stands watch at Swift\'s Watch Hill "Holiday House" estate, June 20, 2026.',
             kind: 'primary',
           },
         ],
@@ -1277,7 +1300,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The look accompanied a behind-the-scenes video about the record\'s visual identity — posted by Taylor Nation on Sept. 20, with Swift talking through the album\'s orange-and-mint packaging on camera in front of set art from the era\'s shoots. Fans clocked the outfit as the messaging: the album wasn\'t out for two more weeks, and she was already dressed in its color.\n\nThe styling formula was classic Swift promo-craft, pairing a roughly $70 sparkly pumpkin-colored Reformation knit with a high-end Versace leather mini — deliberately mixing accessible and designer pieces the way she had for past eras\' drops, so the look could be copied at two price points. Marie Claire\'s coverage marked it as the moment "Showgirl orange" became a fashion story in its own right, ahead of the record itself.',
+          'The look accompanied a behind-the-scenes video about the record\'s visual identity — posted by Taylor Nation on Sept. 20, with Swift talking through the album\'s orange-and-mint packaging on camera in front of set art from the era\'s shoots. Fans clocked the outfit as the messaging: the album wasn\'t out for two more weeks, and she was already dressed in its color.\n\nThe styling formula was classic Swift promo-craft, pairing a sold-out Reformation cashmere crew in Showgirl orange with a high-end Versace leather mini, while a roughly $70 sparkly pumpkin cardigan on her merch store offered fans a budget-friendly version of the color — deliberately mixing accessible and designer pieces the way she had for past eras\' drops, so the look could be copied at two price points. Marie Claire\'s coverage marked it as the moment "Showgirl orange" became a fashion story in its own right, ahead of the record itself.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -1474,16 +1497,36 @@ export default {
             reliability_score: 4,
           },
         ],
-        // Broadcast still from the game itself, hotlinked from Marie
-        // Claire's credited copy (credit: Amazon Prime; MC's own caption:
-        // "spotted on the Chiefs vs. Broncos broadcast in a red bomber
-        // jacket"). Verified HTTP 200 + image/jpeg and visually confirmed.
+        // Image-fix pass (2026-07-10 retry, ticket #339): first pass
+        // rejected Marie Claire's futurecdn frame (moire'd screenshot-of-a-
+        // screen with a "CHIEFS KINGDOM" lower-third and NFL|prime bug) and
+        // found no replacement. Broadened the search this pass: checked
+        // Getty's own site search (zero results for this event — wire
+        // photogs evidently didn't have access; Prime's broadcast cameras
+        // caught this moment, not press photographers), Marie Claire's full
+        // gallery (its only other candidate, alt-tagged "Taylor Swift in the
+        // stands... football game," is undated/generic — rejected, same as
+        // last pass), a Yahoo/Page Six listicle whose two "Getty Images"-
+        // credited photos both downloaded and visually turned out to be
+        // recycled 2024/2025 AFC-Championship-celebration shots (wrong
+        // outfit, wrong game — rejected after opening them), and a Just
+        // Jared pre-game speculation post whose thumbnail is Swift in a
+        // Chiefs crewneck, not the bomber (wrong outfit — rejected). Found
+        // one candidate that verifies clean: Taylor Swift Style's own
+        // Dec. 25 2025 gallery page runs a tighter, un-moired crop of the
+        // same NFL/Amazon Prime broadcast footage (no lower-third, no
+        // NFL|prime bug, no scan-line artifacts) — downloaded and visually
+        // confirmed the red Frankie Shop bomber, dark Louis Vuitton bag, and
+        // engagement ring, matching the caption exactly. Verified HTTP 200 +
+        // image/webp via curl. Site itself is a long-running, press-cited
+        // fashion-ID archive (not a wire service), so kept the credit
+        // traceable to the underlying broadcast source it names.
         photos: [
           {
-            url: 'https://cdn.mos.cms.futurecdn.net/DMkDVFeRJHoeMajC8tixt.jpg',
-            credit: 'Amazon Prime broadcast, via Marie Claire',
+            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/30ea9668-3908-4972-a828-f97ff5fdbcf4/1225+Taylor+Swift+Chiefs+vs+Broncos+Feature.png',
+            credit: 'NFL via Amazon Prime broadcast, via Taylor Swift Style',
             caption:
-              'From the Prime broadcast of the Christmas Day game: Swift in the red Frankie Shop bomber in the Arrowhead concourse.',
+              'From the Prime broadcast of the Christmas Day game: Swift in the red Frankie Shop bomber, Louis Vuitton bag on her arm and engagement ring visible.',
             kind: 'primary',
           },
         ],
@@ -1503,7 +1546,7 @@ export default {
         'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
       moment: {
         context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone widely estimated at 7 to 10 carats, set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage eleven months later.',
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone widely estimated at 7 to 10 carats, set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.',
         // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
         // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
         // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
@@ -1581,7 +1624,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Track two draws the parallel explicitly — the Plaza Athénée, Portofino, "I would trade the Cartier for someone to trust" — two famous women whose romances became public property. Time and Rolling Stone both read it as the album\'s thesis statement: the showgirl persona as armor, borrowed from the woman who wore it best. The specificity is the trick — White Diamonds (the Taylor fragrance empire), the violet eyes, "you\'re only as hot as your last hit" — Swift writing her own fame anxiety in another woman\'s biography, the way "the last great american dynasty" once used Rebekah Harkness.\n\nIt was the first Showgirl song written, which makes it the era\'s seed: the Elizabeth Taylor fixation came before the album had a title, and it kept paying off — the song debuted at No. 3 on the Hot 100 behind "The Fate of Ophelia" and "Opalite," got an archival-footage music video the following March, and, per The Hollywood Reporter\'s wedding coverage, reportedly echoed into the Dior wedding gown modeled on Elizabeth Taylor\'s 1950 bridal look.',
+          'Track two draws the parallel explicitly — the Plaza Athénée, Portofino, "I would trade the Cartier for someone to trust" — two famous women whose romances became public property. Time and Rolling Stone both read it as the album\'s thesis statement: the showgirl persona as armor, borrowed from the woman who wore it best. The specificity is the trick — White Diamonds (the Taylor fragrance empire), the violet eyes, "you\'re only as hot as your last hit" — Swift writing her own fame anxiety in another woman\'s biography, the way "the last great american dynasty" once used Rebekah Harkness.\n\nIt was the first Showgirl song written, which makes it the era\'s seed: the Elizabeth Taylor fixation came before the album had a title, and it kept paying off — the song debuted at No. 3 on the Hot 100 behind "The Fate of Ophelia" and "Opalite," got an archival-footage music video the following March, and, per SheKnows\' wedding coverage tracing to Daily Mail reporting, reportedly echoed into the Dior wedding gown modeled on Elizabeth Taylor\'s 1950 bridal look.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1609,6 +1652,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'SheKnows',
+            url: 'https://www.sheknows.com/entertainment/articles/1235032198/taylor-swift-wedding-look-elizabeth-taylor/',
+            source_title: "Taylor Swift's Wedding Look Was Elizabeth Taylor-Coded",
+            publisher: 'SheKnows',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-10',
+            reliability_score: 3,
           },
         ],
         // Public-domain MGM publicity still of the song's namesake; license
@@ -1689,12 +1741,12 @@ export default {
       category: 'relationship',
       title: 'Wedding plans, teased from a British chat-show couch',
       snippet:
-        'On Graham Norton during release week, she said the wedding would be a big destination affair — the first real planning detail either of them had offered since the garden proposal in August.',
+        'On Graham Norton during release week, she called the wedding "huge," said planning would start once album promotion wrapped, and ruled out trimming the guest list — the most concrete planning detail she\'d offered herself since the garden proposal in August.',
       sourceUrl: 'https://www.hellomagazine.com/us/911732/travis-kelce-finally-confirms-long-awaited-taylor-swift-news-after-wedding/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The tease came from the same Oct. 2 Graham Norton taping that opened the press run — the David Koma appearance — when the host pried gently at wedding plans and got the era\'s first concrete detail: big, destination, happening. It set off months of location speculation that neither of them fed further — and almost none of the guessing had Manhattan in it.\n\nThe eventual Madison Square Garden ceremony in July 2026 made "destination" a hometown-adjacent punchline — the destination was a subway ride for half the guest list. In a September New Heights episode, guest host Jimmy Fallon had pulled the only other planning tidbit either of them ever gave: "we\'re live music kind of people," per Travis — which, in hindsight, was the whole answer. They got married in a concert venue.',
+          'The tease came from the same Oct. 2 Graham Norton taping that opened the press run — the David Koma appearance — when the host pried gently at wedding plans and got the era\'s first concrete detail from Taylor herself: she called the wedding "huge," said planning wouldn\'t start until after album promotion wrapped, and said she wasn\'t about to trim the guest list — small weddings, she said, are the stressful ones. It set off months of location speculation that neither of them fed further.\n\nThe eventual Madison Square Garden ceremony in July 2026 made all that speculation moot — the venue was a subway ride for half the guest list. In a September New Heights episode, guest Jimmy Fallon had pulled the only other planning tidbit either of them ever gave: "we\'re live music kind of people," per Travis — which, in hindsight, was the whole answer. They got married in a concert venue.',
         sources: [
           {
             outlet: 'Hello!',
@@ -1704,6 +1756,24 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 3,
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1423387/taylor-swift-on-graham-norton-travis-kelce-wedding-plans',
+            source_title: 'Taylor Swift on Graham Norton, Travis Kelce Wedding Plans',
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-10',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBC Insider',
+            url: 'https://www.nbc.com/nbc-insider/jimmy-fallon-new-heights-travis-kelce-wedding-planning-taylor-swift',
+            source_title: 'Jimmy Fallon Asks Travis Kelce About Wedding Planning With Taylor Swift on New Heights',
+            publisher: 'NBC Insider',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-10',
+            reliability_score: 4,
           },
           {
             outlet: 'The Knot',
@@ -1722,7 +1792,7 @@ export default {
             url: 'https://cdn.mos.cms.futurecdn.net/PJsDTgPm4oKabghVVGKLNM-1920-80.jpg',
             credit: 'Alamy, via Marie Claire',
             caption:
-              'On the Graham Norton Show couch, Oct. 2, 2025 — the appearance where the "big destination wedding" line dropped.',
+              'On the Graham Norton Show couch, Oct. 2, 2025 — the appearance where she called the wedding "huge" and ruled out a small guest list.',
             kind: 'archival',
           },
         ],
@@ -1741,7 +1811,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Nov. 23, 2025 game was her most visible Arrowhead appearance in weeks — E! noted she\'d been keeping a deliberately low profile at games through the fall, attending without being shown on broadcasts. This time the suite window gave her away: fans in the stands filmed her reaction as Harrison Butker\'s overtime kick beat the Colts 23-20, TMZ describing her screaming, jumping, and playfully shaking her father Scott by the shoulders in celebration.\n\nThe sighting marked the practical end of the invisible-fan experiment: with the Chiefs\' playoff hopes fading, the remaining home slate was short — the Christmas Broncos game a month later was expected to be Kelce\'s last at home that season — and her appearances got more visible, not less, as the season wound down. The low-profile stretch itself became part of the era\'s story: the most-photographed woman in the NFL\'s orbit spending most of a season successfully unphotographed.',
+          'The Nov. 23, 2025 game was her most visible Arrowhead appearance in weeks — E! noted she\'d been keeping a deliberately low profile at games through the fall, attending without being shown on broadcasts. This time the suite window gave her away: fans in the stands filmed her reaction as Harrison Butker\'s overtime kick beat the Colts 23-20, TMZ describing her screaming and jumping, and E! reporting she was seen playfully shaking her father Scott by the shoulders in celebration.\n\nThe sighting marked the practical end of the invisible-fan experiment: with the Chiefs\' playoff hopes fading, the remaining home slate was short — the Christmas Broncos game a month later was expected to be Kelce\'s last at home that season — and her appearances got more visible, not less, as the season wound down. The low-profile stretch itself became part of the era\'s story: the most-photographed woman in the NFL\'s orbit spending most of a season successfully unphotographed.',
         sources: [
           {
             outlet: 'TMZ',
@@ -1873,14 +1943,14 @@ export default {
       month: 1,
       day: 4,
       category: 'business',
-      title: 'Twelve straight weeks at No. 1 — through the entire holiday season',
+      title: 'Twelve weeks at No. 1 — through the entire holiday season',
       snippet:
-        'Showgirl held the Billboard 200\'s top spot for 12 consecutive weeks into January — her second-longest run ever behind TTPD — outlasting a record seven Christmas albums crowding the top 10.',
+        'Showgirl held the Billboard 200\'s top spot for 12 nonconsecutive weeks into January — her second-longest run ever behind TTPD — outlasting a record seven Christmas albums crowding the top 10.',
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-twelfth-week-number-one-billboard-200-1236148560/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The album never left No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby posted his biggest streaming week ever at No. 2, through its own 10th and 11th week milestones Billboard tracked one by one. Holding the top spot across December is the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard.\n\nShowgirl didn\'t cede a single week to any of them. Twelve consecutive weeks made it her second-longest run at No. 1 ever, behind only The Tortured Poets Department\'s 2024 reign, and the streak meant the album was still on top when Luminate crowned it 2025\'s most-consumed album in January — a wire-to-wire quarter that turned the release-week fireworks into a sustained occupation.',
+          'The album spent nearly every week at No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby posted his biggest streaming week ever at No. 2, through its own 10th and 11th week milestones Billboard tracked one by one — ceding the top spot only once, for a single week in early December, when Stray Kids\' EP "Just Do It" opened strong before Showgirl reclaimed No. 1. Holding the top spot across December is still the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard, and none of them budged it for more than that one week.\n\nTwelve nonconsecutive weeks made it her second-longest run at No. 1 ever, behind only The Tortured Poets Department\'s 2024 reign, and the album was still on top when Luminate crowned it 2025\'s most-consumed album in January — a holiday quarter that turned the release-week fireworks into a sustained occupation.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1889,6 +1959,15 @@ export default {
             publisher: 'Billboard',
             source_type: 'chart_database',
             accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-11th-week-number-one-billboard-200-1236146314/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Reaches 11th Week Atop Billboard 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-10',
             reliability_score: 5,
           },
           {
@@ -2041,19 +2120,20 @@ export default {
             reliability_score: 4,
           },
         ],
-        // The ABC7 image is a two-panel composite: the display photo
-        // (courtesy Rock & Roll Hall of Fame) beside an AP file photo of
-        // Swift. Hotlinked from ABC7's stable CDN; verified HTTP 200 +
-        // image/jpeg and visually confirmed. Commons building photo
-        // (CC BY-SA 4.0, MusikAnimal) adds the venue.
+        // Image-fix pass (2026-07-10, ticket #340): removed the ABC7
+        // two-panel composite (display photo + AP file photo of Swift, with
+        // an "ON THE RED CARPET abc" station bug and "AP/EVAN AGOSTINI" text
+        // baked in) — a broadcaster news-graphic, not a single photo. Looked
+        // for a clean direct photo of the Legends of Rock case (ABC7's own
+        // gallery images 3-6 are dead/empty; Billboard's art is a video
+        // screengrab, not the case; no Getty/AP/Rock Hall press photo of the
+        // case itself was found). ABC7's second gallery image is a single
+        // (non-composite) shot of the gown but still carries the same
+        // station bug, so it was rejected too rather than trading one
+        // logo'd image for another. Falling back to the Commons venue photo
+        // below as the moment's sole (verified) photo; needs manual sourcing
+        // of a clean case photo if one surfaces later.
         photos: [
-          {
-            url: 'https://cdn.abcotvs.com/dip/images/19390968_062626-otrc-taylorswiftrrdisplay-img.jpg',
-            credit: 'Rock & Roll Hall of Fame / AP (Evan Agostini), via ABC7',
-            caption:
-              'ABC7\'s composite: at right, the actual Legends of Rock case — the beaded "Fate of Ophelia" gown on a mannequin beside imagery of the swim costume; at left, an AP file photo of Swift.',
-            kind: 'primary',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
             credit: 'MusikAnimal, CC BY-SA 4.0, via Wikimedia Commons',
@@ -2071,12 +2151,12 @@ export default {
       category: 'relationship',
       title: 'Back on New Heights, a married man with a proposal story',
       snippet:
-        'In his first episode after the wedding, Travis walked through the "epic" garden proposal and life as a husband — the podcast that announced the album now bookending the era\'s whole arc.',
+        'In his first episode after the wedding, Travis finally told the proposal story — confirming he was already planning to ask Taylor to marry him during their August 2025 podcast taping — the podcast that announced the album now bookending the era\'s whole arc.',
       sourceUrl: 'https://www.eonline.com/news/1433765/taylor-swift-travis-kelce-wedding-travis-details-proposal',
       thumbnailUrl: null,
       moment: {
         context:
-          'The post-wedding episode closed a loop the era opened: New Heights hosted the album reveal in August 2025, the engagement announcement followed two weeks later, and eleven months on, Kelce recapped the Madison Square Garden wedding from the same desk. Per E!\'s recap, he walked through the garden proposal, calling it "epic," and talked about settling into married life.\n\nThe episode\'s existence was itself the story. The wedding produced no interviews, no magazine exclusive, no official photos — the couple\'s only first-person accounting of the biggest celebrity event of 2026 came, characteristically, through the podcast that has functioned as the relationship\'s official record since 2023: the show that started it (the failed friendship-bracelet handoff), announced the album, and now got the honeymoon debrief.',
+          'The post-wedding episode closed a loop the era opened: New Heights hosted the album reveal in August 2025, the engagement announcement followed two weeks later, and eleven months on, Kelce used the same desk to finally tell the proposal story — confirming that during that August 2025 taping, he was already planning to ask Taylor to marry him. Per E!\'s recap, he called starting the podcast season with her "pretty epic."\n\nThe episode\'s existence was itself notable. The wedding itself remains publicly unrecounted — no interviews, no magazine exclusive, no official photos — but the proposal finally got its telling, characteristically, through the podcast that has functioned as the relationship\'s official record since 2023: the show that started it (the failed friendship-bracelet handoff), announced the album, and now got the proposal\'s own origin story.',
         sources: [
           {
             outlet: 'E! Online',
@@ -2105,7 +2185,7 @@ export default {
             url: 'https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg',
             credit: 'New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)',
             caption:
-              'Archival: the August 2025 Taylor Swift episode of New Heights — the same show, and the same desk, where Kelce recapped the wedding eleven months later.',
+              'Archival: the August 2025 Taylor Swift episode of New Heights — the same show, and the same desk, where Kelce finally told the proposal story eleven months later.',
             kind: 'archival',
           },
         ],

@@ -68,7 +68,7 @@ export default {
       releasedOn: '2021-11-12',
       relatedSongs: ['All Too Well (10 Minute Version)'],
       summary:
-        'Fifteen minutes starring Sadie Sink and Dylan O\'Brien: the whole arc of the fan-canonized breakup epic — the kitchen dance, the car fight, the scarf — released with Red (Taylor\'s Version) and premiered theatrically.',
+        'Fifteen minutes starring Sadie Sink and Dylan O\'Brien: the whole arc of the fan-canonized breakup epic — the refrigerator-light dance, the kitchen fight, the scarf — released with Red (Taylor\'s Version) and premiered theatrically.',
       symbolism:
         'The closing scene jumps years ahead to an author reading from a book titled All Too Well: the song\'s thesis that she keeps custody of the story by writing it.',
       easterEggs: [],

@@ -47,7 +47,7 @@ export default {
       category: 'business',
       title: 'Midnights breaks Spotify in a single day',
       snippet:
-        "184.6 million album streams in 24 hours, while Taylor's full catalog hit 228 million streams — Spotify's biggest day ever for both, album and artist.",
+        "184.6 million album streams in 24 hours, while Taylor's full catalog hit 228 million streams — at the time Spotify's biggest day ever for both, album and artist, records she'd break herself with The Tortured Poets Department in 2024.",
       sourceUrl:
         'https://newsroom.spotify.com/2022-10-22/taylor-swift-breaks-two-records-with-midnights-becoming-the-most-streamed-artist-on-spotify/',
       thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/Screenshot_20221022-153332.png',
@@ -86,7 +86,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2022/10/02-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
       moment: {
         context:
-          "The 1.578 million units broke down to 1.14 million in pure sales — 575,000 of them on vinyl, the biggest vinyl week since electronic tracking began in 1991 — plus 549 million on-demand streams, the third-largest streaming week any album had ever posted. It was the largest week for any album since Adele's 25 in 2015, and it made Swift the only artist in history with five different albums that each sold a million copies in a single week.\n\nThe 11th No. 1 tied Barbra Streisand for the most Billboard 200 chart-toppers by a woman — a tie Swift would break eight months later when Speak Now (Taylor's Version) became her 12th.",
+          "The 1.578 million units broke down to 1.14 million in pure sales — 575,000 of them on vinyl — at the time the biggest vinyl week since electronic tracking began in 1991, a record she would go on to break repeatedly — plus 549 million on-demand streams, the third-largest streaming week any album had ever posted. It was the largest week for any album since Adele's 25 in 2015, and it made Swift the only artist in history with five different albums that each sold a million copies in a single week.\n\nThe 11th No. 1 tied Barbra Streisand for the most Billboard 200 chart-toppers by a woman — a tie Swift would break eight months later when Speak Now (Taylor's Version) became her 12th.",
         sources: [
           {
             outlet: 'Billboard',
@@ -132,9 +132,9 @@ export default {
       month: 7,
       day: 16,
       category: 'business',
-      title: "Speak Now (Taylor's Version) has 2023's biggest album week",
+      title: "Speak Now (Taylor's Version) has 2023's biggest album week to that point",
       snippet:
-        "716,000 units in week one, the biggest album week of 2023 — her 12th No. 1 on the Billboard 200.",
+        "716,000 units in week one, the biggest album week of 2023 to that point — her 12th No. 1 on the Billboard 200.",
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-number-one-debut-billboard-200-chart-1235372565/',
       thumbnailUrl:
@@ -173,7 +173,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-aa-1548.jpg?w=1024',
       moment: {
         context:
-          "The 1.653 million-unit week ran on 1.359 million traditional sales — the largest sales week of her entire career, and the biggest for any album since Adele's 25 moved 3.482 million in 2015 — with 693,000 of those on vinyl, smashing the modern-era vinyl record Midnights had set at 575,000 just a year earlier.\n\nIt also out-opened the original: 1989 debuted with 1.287 million in November 2014 on its way to 11 nonconsecutive weeks at No. 1. Chart-topper number thirteen — her lucky number — kept her tied with Drake for the third-most No. 1 albums in Billboard 200 history and extended her record among women.",
+          "The 1.653 million-unit week ran on 1.359 million traditional sales — then the largest sales week of her entire career, and the biggest for any album since Adele's 25 moved 3.482 million in 2015 — with 693,000 of those on vinyl, a new vinyl record she'd break again with The Tortured Poets Department and The Life of a Showgirl, smashing the modern-era vinyl record Midnights had set at 575,000 just a year earlier.\n\nIt also out-opened the original: 1989 debuted with 1.287 million in November 2014 on its way to 11 nonconsecutive weeks at No. 1. Chart-topper number thirteen — her lucky number — kept her tied with Drake for the third-most No. 1 albums in Billboard 200 history and extended her record among women.",
         sources: [
           {
             outlet: 'Billboard',
@@ -229,7 +229,7 @@ export default {
       sourceUrl:
         'https://investor.amctheatres.com/news-events/press-releases/detail/348/taylor-swift-the-eras-tour-concert-film-is-now-the-highest-grossing-theatrical-release-in-history-among-concert-and-documentary-films',
       thumbnailUrl:
-        'https://d1io3yog0oux5.cloudfront.net/_d611dc0f0c17c10e30defd93f67e7758/amctheatres/db/2287/20608/social_image_resized.jpg',
+        'https://upload.wikimedia.org/wikipedia/en/d/d6/Taylor_Swift_The_Eras_Tour_film_promotional_poster.png',
       moment: {
         context:
           "The film's initial nine-week run grossed $179.2 million; the record fell only after a Dec. 31, 2023 China opening through Alibaba Pictures added $8.7 million and carried the total past This Is It's $261.2 million by roughly $400,000.\n\nIt already owned the biggest opening weekend of any concert film — $123.5 million globally ($92.8 million domestic), beating Justin Bieber: Never Say Never's 2011 mark — landing it among 2023's top 20 films. AMC chairman Adam Aron sent his \"congratulations and eternal gratitude\" in the press release, which also noted the film's nomination in the Golden Globes' inaugural Cinematic and Box Office Achievement category.",
@@ -245,8 +245,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://d1io3yog0oux5.cloudfront.net/_d611dc0f0c17c10e30defd93f67e7758/amctheatres/db/2287/20608/social_image_resized.jpg',
-            credit: 'AMC Theatres',
+            url: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Taylor_Swift_The_Eras_Tour_film_promotional_poster.png',
+            credit: 'AMC Theatres / Taylor Swift Productions (theatrical release poster)',
+            caption: 'The official theatrical release poster for "Taylor Swift: The Eras Tour," which became the highest-grossing concert film ever.',
+            kind: 'primary',
           },
         ],
       },
@@ -264,7 +266,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
       moment: {
         context:
-          'Over 70,000 fans filled State Farm Stadium for her first stadium show since the reputation tour ended in 2018 — "So tonight, we\'re going to be going through an adventure, one era at a time," she told the crowd. The night opened with "Miss Americana & the Heartbreak Prince" in a Versace bodysuit and closed with "Karma," with a folklore cabin, snake motifs for reputation, and white confetti falling like snow through the ten-minute "All Too Well" in between; folklore and Midnights got the deepest dives "to make up for lost time."\n\nRolling Stone\'s review compared the era-by-era acts — each with its own costumes, staging, and visuals — to a Broadway production, and she even joked from the stage about the fans\' evermore discourse: "I absolutely love it, despite what some of you say on TikTok."',
+          'More than 69,000 fans filled State Farm Stadium for her first stadium show since the reputation tour ended in 2018 — "So tonight, we\'re going to be going through an adventure, one era at a time," she told the crowd. The night opened with "Miss Americana & the Heartbreak Prince" in a Versace bodysuit and closed with "Karma," with a folklore cabin, snake motifs for reputation, and white confetti falling like snow through the ten-minute "All Too Well" in between; folklore and Midnights got the deepest dives "to make up for lost time."\n\nRolling Stone\'s review compared the era-by-era acts — each with its own costumes, staging, and visuals — to a Broadway production, and she even joked from the stage about the fans\' evermore discourse: "I absolutely love it, despite what some of you say on TikTok."',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/' },
           {
@@ -426,7 +428,7 @@ export default {
         '"They simply grew apart and plan to remain friends" — the end of a relationship she\'d kept almost entirely out of public view since 2016.',
       sourceUrl: 'https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html',
       thumbnailUrl:
-        'https://media.cnn.com/api/v1/images/stellar/prod/230408204518-taylor-swift-joe-alwyn-split-restricted.jpg?c=16x9&q=w_800,c_fill',
+        'https://upload.wikimedia.org/wikipedia/commons/5/5d/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109799784%29_%28cropped%29.jpg',
       moment: {
         context:
           'Alwyn didn\'t address it publicly for over a year. When he finally did, in a June 2024 Sunday Times Style interview, he called it "a long, loving, fully committed relationship" and said he\'d hope "anyone and everyone can empathize and understand the difficulties that come with the end" of one — adding that what felt abnormal wasn\'t the split but that "one week later, it\'s suddenly in the public domain."\n\nThe relationship had run from 2016 to early 2023 almost entirely out of frame by design: "It was never something to commodify," he said, "and I see no reason to change that now."',
@@ -439,8 +441,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://media.cnn.com/api/v1/images/stellar/prod/230408204518-taylor-swift-joe-alwyn-split-restricted.jpg?c=16x9&q=w_800,c_fill',
-            credit: 'CNN',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109799784%29_%28cropped%29.jpg',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption: 'Swift performing the Midnights set on the Eras Tour, the album era during which the breakup was confirmed.',
+            kind: 'archival',
           },
         ],
       },
@@ -581,7 +585,7 @@ export default {
         'No designer red carpet moment — her first Arrowhead look was Doen, denim, New Balance sneakers, and a New Era Chiefs windbreaker.',
       sourceUrl: 'https://wwd.com/fashion-news/fashion-features/gallery/taylor-swift-chiefs-game-outfits-photos-1236673626/',
       thumbnailUrl:
-        'https://s.yimg.com/lo/mysterio/api/F6510B1490131D766EE623D8D54FBFDF7986E378788F30D426FF890B0C3AD8D7/subgraphmysterio/resizefill_w1200_h901;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Faol_the_independent_us_877%2Fd0e4dfcb09c96b32c7af5936c6d4e1d6',
+        'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
       moment: {
         context:
           "The full Sept. 24, 2023 look: a white Dôen tank, Ksubi denim shorts, New Balance 550 sneakers in Chiefs colors, and a red-and-white New Era Chiefs windbreaker. Marie Claire, ranking every game-day outfit she'd worn since, put this one dead last at No. 23 — not as an insult, but because it was the baseline: \"an outfit every NFL fan has worn to an early-season game at one time or another, with a few trendy additions.\"\n\nThat was also exactly why it landed. The pieces were fan-accessible and instantly shoppable rather than designer-flexing — a deliberate first impression for a debut in someone else's arena, before her game-day wardrobe leveled up into custom pieces, four-figure jewelry stacks, and the Kristin Juszczyk puffer that earned its own NFL deal.",
@@ -597,8 +601,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://s.yimg.com/lo/mysterio/api/F6510B1490131D766EE623D8D54FBFDF7986E378788F30D426FF890B0C3AD8D7/subgraphmysterio/resizefill_w1200_h901;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Faol_the_independent_us_877%2Fd0e4dfcb09c96b32c7af5936c6d4e1d6',
-            credit: 'AOL',
+            url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
+            credit: 'CNN',
+            caption: 'The white Dôen tank and Chiefs windbreaker draped over her arm, in the Arrowhead suite on Sept. 24, 2023.',
+            kind: 'fashion',
           },
         ],
       },
@@ -662,7 +668,7 @@ export default {
       category: 'business',
       title: "Cruel Summer hits No. 1 — four years after it came out",
       snippet:
-        'An unpromoted 2019 album track, revived by the Eras Tour setlist and a viral moment, was announced as her 10th Hot 100 No. 1 on Oct. 23.',
+        'An unpromoted 2019 album track, revived by the Eras Tour setlist and a viral moment, was announced Oct. 23 as her 10th Hot 100 No. 1 — on the Billboard chart dated Oct. 28.',
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
       thumbnailUrl:
@@ -729,7 +735,8 @@ export default {
       snippet:
         "A full-length blue gown with floral decals for the Eras Tour film premiere at The Grove — where Beyoncé stopped by to pose with her on the carpet.",
       sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-eras-tour-premiere-the-grove-1235752172/',
-      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2023/10/taylor-swift-the-eras-tour-premiere-1.jpg?w=1000&h=563&crop=1',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2023/10/beyonce-taylor-swift-eras-film-premiere-2023-billboard-1548.jpg?w=1000',
       moment: {
         context:
           "For the Oct. 11, 2023 world premiere at AMC The Grove 14 — the Los Angeles mall was shut down for the event — she wore a strapless Oscar de la Renta gown with floral embroidery and cutout details, a roughly $12,000 dress that Neiman Marcus was advertising to Swifties on Facebook within days. She debuted a curly bob with it, and the blue palette read as a nod to 1989 (Taylor's Version), then two weeks from release.\n\nThe carpet's biggest gasp wasn't the dress: Beyoncé arrived to support her, and the two posed together on the carpet — a photo op that instantly buried years of manufactured rivalry narratives. The film itself, directed by Sam Wrench and running 2 hours 45 minutes, opened wide two days later.",
@@ -739,8 +746,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://wwd.com/wp-content/uploads/2023/10/taylor-swift-the-eras-tour-premiere-1.jpg?w=1000&h=563&crop=1',
-            credit: 'WWD',
+            url: 'https://www.billboard.com/wp-content/uploads/2023/10/beyonce-taylor-swift-eras-film-premiere-2023-billboard-1548.jpg?w=1000',
+            credit: 'John Shearer/Getty Images for TAS via Billboard',
+            caption: 'Taylor in the blue floral Oscar de la Renta gown with Beyoncé at The Grove premiere, Oct. 11, 2023.',
+            kind: 'fashion',
           },
         ],
       },
@@ -802,7 +811,7 @@ export default {
         'She arrived at Arrowhead on Christmas alongside a companion dressed as Santa; the Raiders upset the Chiefs 20–14 in the most-watched Christmas Day game since 1989.',
       sourceUrl: 'https://www.si.com/nfl/2023/12/25/raiders-chiefs-taylor-swift-arrives-with-santa-claus-fans-love-it',
       thumbnailUrl:
-        'https://www.si.com/.image/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/MjAyODIzMzIzNDA5NzIwMzMy/ap23344816547403.jpg',
+        'https://www.billboard.com/wp-content/uploads/2023/12/taylor-swift-chiefs-raiders-christmas-2023-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           "The entrance was the show: she walked into Arrowhead on Dec. 25, 2023 alongside a companion in a full Santa suit, and the clip ricocheted around social media before kickoff — \"Santa and Taylor Swift have arrived,\" as Sports Illustrated logged it, with fans fixating on the outfit and the bow in her hair.\n\nThe look itself was a holiday-coded version of her high-low game-day formula: a plaid Hill House Home skirt, a shearling-lined jacket from Gigi Hadid's Guest in Residence label, chunky Prada loafers, Foundrae jewelry, a red Polo Ralph Lauren sweater, and a Jennifer Behr bow — Marie Claire ranked it 10th among all her Chiefs-game outfits. The football cooperated less: the Raiders spoiled Christmas with a 20-14 upset in the most-watched Christmas Day game since 1989.",
@@ -818,8 +827,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.si.com/.image/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/MjAyODIzMzIzNDA5NzIwMzMy/ap23344816547403.jpg',
-            credit: 'AP',
+            url: 'https://www.billboard.com/wp-content/uploads/2023/12/taylor-swift-chiefs-raiders-christmas-2023-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Kirby Lee/Getty Images via Billboard',
+            caption: 'Taylor in the red No. 87 Santa hat and red sweater, in the Arrowhead suite on Christmas Day 2023.',
+            kind: 'sighting',
           },
         ],
       },
@@ -1234,7 +1245,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-The-Eras-Tour-opening-night-billboard-1548.jpg',
       moment: {
         context:
-          "The folklore act came dressed in a flowing purple Alberta Ferretti gown — loose, layered, and photographed by Kevin Mazur for Billboard's night-one gallery — the closest thing the show had to the album's cardigan-and-cottage softness rendered as stagewear.\n\nfolklore was also one of the two albums the show dug deepest into — it and Midnights got the longest acts \"to make up for lost time,\" as she put it on the night — and the act played out around the on-stage folklore cabin, the gown moving like the era's whole misty aesthetic in fabric form.",
+          "The folklore act came dressed in a flowing purple Alberta Ferretti gown — loose, layered, and photographed by Kevin Mazur for Billboard's night-one gallery — the closest thing the show had to the album's cardigan-and-cottage softness rendered as stagewear.\n\nfolklore was also one of the two albums the show dug deepest into — it and Midnights got the longest acts, making up for the eras she never toured — and the act played out around the on-stage folklore cabin, the gown moving like the era's whole misty aesthetic in fabric form.",
         sources: [
           {
             outlet: 'Billboard',
@@ -1350,7 +1361,7 @@ export default {
         'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg',
       moment: {
         context:
-          'Worn to the Feb. 5, 2023 ceremony at Crypto.com Arena, the custom Roberto Cavalli two-piece — designed by the house\'s Fausto Puglisi — was paired with diamond-and-turquoise statement earrings from Lorraine Schwartz, coordinated blue eye makeup, and a matching blue manicure, with her regular team of stylist Joseph Cassell Falconer, hairstylist Jemma Muradian, and makeup artist Lorrie Turk behind the look.\n\nThe design worked as a double reference: the midnight-blue base read as Midnights itself, while the scatter of silvery-white embellishment across the crop top and skirt was widely taken as a nod to "Midnight Rain." Red Carpet Fashion Awards called the whole thing "a fashion equivalent of a homerun" — an album cover translated into eveningwear on the night Midnights\' campaign hit the Grammys.',
+          'Worn to the Feb. 5, 2023 ceremony at Crypto.com Arena, the custom Roberto Cavalli two-piece — designed by the house\'s Fausto Puglisi — was paired with statement earrings of diamonds, purple sapphires and turquoise-blue paraiba tourmalines from Lorraine Schwartz, coordinated blue eye makeup, and a matching blue manicure, with her regular team of stylist Joseph Cassell Falconer, hairstylist Jemma Muradian, and makeup artist Lorrie Turk behind the look.\n\nThe design worked as a double reference: the midnight-blue base read as Midnights itself, while the scatter of silvery-white embellishment across the crop top and skirt was widely taken as a nod to "Midnight Rain." Red Carpet Fashion Awards called the whole thing "a fashion equivalent of a homerun" — an album cover translated into eveningwear on the night Midnights\' campaign hit the Grammys.',
         sources: [
           {
             outlet: 'Red Carpet Fashion Awards',
@@ -1413,7 +1424,8 @@ export default {
       snippet:
         'A black Versace dress with an asymmetrical line of the house\'s signature gold buttons, a thigh-high slit, and Jimmy Choo stiletto pumps — styled by Joseph Cassell, the same stylist behind her Eras Tour looks.',
       sourceUrl: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-mtv-vmas-2023-red-carpet-versace-1235806480/',
-      thumbnailUrl: 'https://wwd.com/wp-content/uploads/2023/09/taylor-swift-mtv-vmas-2023-photo.jpg?w=1000&h=563&crop=1',
+      thumbnailUrl:
+        'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
       moment: {
         context:
           'Worn to the Sept. 12, 2023 MTV VMAs — the night she won Video of the Year for "Anti-Hero" among nine total Moon Person wins — the black Versace ran its asymmetrical line of the house\'s signature gold buttons down the bodice, with a thigh-high slit over Jimmy Choo stiletto pumps. The look was finished with a stack of necklaces from Joseph Saidian and Sons and an Anita Ko diamond ear cuff.\n\nStylist Joseph Cassell — the same hand behind her Eras Tour wardrobe — kept the formula consistent with her biggest awards-night looks of the era: one house, one dark statement piece, gold hardware doing the accent work. In a season when every appearance was scanned for re-record clues, the black-and-gold palette was read as reputation-coded on sight.',
@@ -1425,8 +1437,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://wwd.com/wp-content/uploads/2023/09/taylor-swift-mtv-vmas-2023-photo.jpg?w=1000&h=563&crop=1',
-            credit: 'Getty Images',
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
+            credit: 'NBC News',
+            caption: 'The black Versace gown with its line of gold buttons and thigh-high slit, on the 2023 VMAs pink carpet.',
+            kind: 'fashion',
           },
         ],
       },
@@ -1440,7 +1454,7 @@ export default {
         'Backstage footage from "The End of an Era" finally revealed the exact product: MAC\'s Locked Kiss 24HR Lipstick in "Ruby True," applied by longtime makeup artist Lorrie Turk over a Smashbox lip liner to keep it from feathering under stage lights and rain.',
       sourceUrl: 'https://www.taylorswiftstyle.com/post-grid/teoae-erasredlipstick',
       thumbnailUrl:
-        'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/f7e15f4a-04b0-4e6b-ac03-07f3e67b9387/1223+Taylor+Swift+Style+Makeup+Feature.png',
+        'https://upload.wikimedia.org/wikipedia/commons/f/f3/Taylor_Swift_The_Eras_Tour_The_Red_Era_Set_%2853109971409%29.jpg',
       moment: {
         context:
           'The exact shade had been a mystery to fans for years until behind-the-scenes docuseries footage caught Turk applying it: MAC Locked Kiss 24HR Lipstick in "Ruby True," a classic blue-red.\n\nThe durability was the real trade secret: layered over Smashbox\'s Be Legendary Line & Prime Pencil and set with Charlotte Tilbury Airbrush Flawless Finish Setting Powder, the combination was built specifically to survive multi-hour shows and outdoor-stadium weather — the same lip at song 1 and song 44, through rain shows included.',
@@ -1452,8 +1466,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/f7e15f4a-04b0-4e6b-ac03-07f3e67b9387/1223+Taylor+Swift+Style+Makeup+Feature.png',
-            credit: 'Taylor Swift Style',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Taylor_Swift_The_Eras_Tour_The_Red_Era_Set_%2853109971409%29.jpg',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption: "Swift performing the Red set on the Eras Tour, wearing the MAC Locked Kiss 24HR lipstick in \"Ruby True\" that became her signature stage lip.",
+            kind: 'fashion',
           },
         ],
       },
@@ -1467,10 +1483,10 @@ export default {
       snippet:
         'A white lace-trimmed slip mini dress under a light-violet Free People "Renata" faux fur coat, styled with shag-inspired bangs, glittery eyeshadow, and glossy pink lips for the self-directed 70s-themed video.',
       sourceUrl: 'https://www.shefinds.com/collections/taylor-swift-lavender-haze-lacy-slip-mini-dress-music-video/',
-      thumbnailUrl: 'https://www.shefinds.com/files/2023/01/Taylor-Swift-16.jpg',
+      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/cdb2d2b2b516-tcoatz-z.jpg',
       moment: {
         context:
-          'The white silky slip has floral lace at the neckline and thigh-skimming cutouts along the hem, under the Free People Renata Faux Fur Coat; other looks in the video include an oversized T-shirt worn as a dress and a separate 70s-inflected knit top.\n\nThe video, which Swift co-directed, leans fully into a groovy, retro aesthetic — loose beachy waves, shag bangs, and warm-toned glam.',
+          'The white silky slip has floral lace at the neckline and thigh-skimming cutouts along the hem, under the Free People Renata Faux Fur Coat; other looks in the video include an oversized T-shirt worn as a dress and a separate 70s-inflected knit top.\n\nThe video, which Swift wrote and directed, leans fully into a groovy, retro aesthetic — loose beachy waves, shag bangs, and warm-toned glam.',
         sources: [
           {
             outlet: 'SheFinds',
@@ -1483,8 +1499,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.shefinds.com/files/2023/01/Taylor-Swift-16.jpg',
-            credit: 'SheFinds',
+            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/cdb2d2b2b516-tcoatz-z.jpg',
+            credit: 'Taylor Swift / Republic Records (music video still) via Hello!',
+            caption: 'The lace slip dress and Free People faux fur coat, on the 70s-themed set of the self-directed "Lavender Haze" video.',
+            kind: 'primary',
           },
         ],
       },
@@ -1571,7 +1589,7 @@ export default {
       snippet:
         'She popped onscreen for four words — "Once again, Ice Spice" — during the season 49 premiere, then that night was seen cuddling through an intimate sushi dinner with Travis at Nobu, the first time the two had shown that much public affection.',
       sourceUrl: 'https://www.tmz.com/2023/10/15/taylor-swift-ice-spice-snl-travis-kelce-pete-davidson-nobu/',
-      thumbnailUrl: 'https://imagez.tmz.com/image/8e/16by9/2023/10/15/8e0d4df878864a078bb032f7b54342f4_md.jpg',
+      thumbnailUrl: 'https://imagez.tmz.com/image/77/4by3/2023/10/15/77f8e73e44f34d2ead2e55f2444bc657_md.jpg',
       moment: {
         context:
           'On the Oct. 14, 2023 premiere hosted by Pete Davidson, Travis also got his own cameo — popping up after Kenan Thompson joked about wanting real football talk instead of Taylor gossip. Neither performed with the cast.\n\nHours later, TMZ caught the couple holding hands past the sushi bar at Nobu in Manhattan, Travis greeting the chefs, before sitting down to a meal an eyewitness described as spent "cuddling throughout."',
@@ -1590,10 +1608,6 @@ export default {
             url: 'https://imagez.tmz.com/image/77/4by3/2023/10/15/77f8e73e44f34d2ead2e55f2444bc657_md.jpg',
             credit: 'TMZ',
           },
-          {
-            url: 'https://imagez.tmz.com/image/a3/4by3/2023/10/15/a3a8f095ff4f49268d0bf9ce369a40d1_md.jpg',
-            credit: 'TMZ',
-          },
         ],
       },
     },
@@ -1607,7 +1621,7 @@ export default {
         "For her fourth Chiefs game of the season, a friendship bracelet reading '87' surrounded by hearts — plus a celebratory handshake with Brittany Mahomes every time Kansas City scored.",
       sourceUrl: 'https://www.bustle.com/entertainment/taylor-swift-friendship-bracelet-travis-kelce-tribute',
       thumbnailUrl:
-        'https://imgix.bustle.com/uploads/getty/2023/10/23/b8956637-edbb-49a6-9f42-58fe6268b05c-getty-1750806324.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
+        'https://imgix.bustle.com/uploads/getty/2023/10/23/b8956637-edbb-49a6-9f42-58fe6268b05c-getty-1750806324.jpg?w=1200&fit=max',
       moment: {
         context:
           'For the Oct. 22, 2023 Chargers game at Arrowhead — her fourth of the season — the accessory did the talking: a friendship bracelet spelling out "87" with hearts on both sides, worn with a Chiefs sweater in the family suite, where she sat with Brittany Mahomes and the Mahomeses\' infant son.\n\nThe suite footage became its own subplot: she and Brittany broke out a celebratory handshake every time Kansas City scored a touchdown. After the win, Travis held her hand out of the stadium and opened the convertible door for her — the "getaway car" exit becoming a post-game ritual of its own.',
@@ -1619,7 +1633,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://imgix.bustle.com/uploads/getty/2023/10/23/b8956637-edbb-49a6-9f42-58fe6268b05c-getty-1750806324.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
+            url: 'https://imgix.bustle.com/uploads/getty/2023/10/23/b8956637-edbb-49a6-9f42-58fe6268b05c-getty-1750806324.jpg?w=1200&fit=max',
             credit: 'Getty Images via Bustle',
           },
         ],
@@ -1728,7 +1742,7 @@ export default {
       snippet:
         "A double-date New Year's Eve in Kansas City — a kiss with Travis at midnight, and a photo with Patrick and Brittany Mahomes that raced past a million views, hours after watching the Chiefs beat Cincinnati 25–17.",
       sourceUrl: 'https://www.newsweek.com/taylor-swift-travis-kelce-patrick-brittany-mahomes-kansas-city-chiefs-photo-1857056',
-      thumbnailUrl: 'https://assets.newsweek.com/wp-content/uploads/2025/08/2330299-taylor-swift-travis-kelce.jpg?w=1600&quality=80&webp=1',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2023/12/taylor-swift-dec-31-2023-kansas-city-chiefs-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           "The day ran football-first: she watched the Chiefs close out 2023 by beating Cincinnati 25-17 on Dec. 31, then the couples reconvened for a New Year's Eve party where a midnight kiss with Travis — caught on fan video — did the year-in-review headline writing for every outlet in the celebrity press.\n\nThe four-person photo was the artifact that lasted: Swift with a drink in one hand and the other arm wrapped around Kelce, leaning into Brittany Mahomes' hug while Patrick beamed alongside — a frame that blew past a million views almost immediately. The comments wrote themselves; as one viral reply put it, she had \"one hand on her drink the other on her man... girl has her priorities straight.\"",
@@ -1740,8 +1754,10 @@ export default {
         ],
         photos: [
           {
-            url: 'https://assets.newsweek.com/wp-content/uploads/2025/08/2330299-taylor-swift-travis-kelce.jpg?w=1600&quality=80&webp=1',
-            credit: 'Newsweek',
+            url: 'https://www.billboard.com/wp-content/uploads/2023/12/taylor-swift-dec-31-2023-kansas-city-chiefs-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Jamie Squire/Getty Images via Billboard',
+            caption: "Taylor Swift watches from the Arrowhead suite as the Chiefs beat the Bengals 25-17 on Dec. 31, 2023, hours before the Mahomeses' New Year's Eve party.",
+            kind: 'sighting',
           },
         ],
       },
@@ -1830,7 +1846,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          '"Sweet Nothing" is credited to Swift, Jack Antonoff, and William Bowery — the pseudonym Alwyn had already used on folklore and evermore. He explained the name\'s origin on The Kelly Clarkson Show: "It was a combination of William... my great-grandfather — who I actually never met — [who] was a composer. He wrote a lot of classical music, and he wrote a lot of film scores. And then Bowery is the area in New York that I spent a lot of time in when I first moved over there."\n\nHe and Swift chose to write under a shared pseudonym, he said, "so the people, first and foremost, would listen to the music first before dissecting the fact that we did it together." The song itself leans into small, sheltered domestic memories — a pebble collected on a trip to Wicklow, quiet moments at home — as a refuge from "cunning" outsiders and her own critical inner voice.',
+          '"Sweet Nothing" is credited to Swift and William Bowery — the pseudonym Alwyn had already used on folklore and evermore — with Jack Antonoff co-producing. He explained the name\'s origin on The Kelly Clarkson Show: "It was a combination of William... my great-grandfather — who I actually never met — [who] was a composer. He wrote a lot of classical music, and he wrote a lot of film scores. And then Bowery is the area in New York that I spent a lot of time in when I first moved over there."\n\nHe and Swift chose to write under a shared pseudonym, he said, "so the people, first and foremost, would listen to the music first before dissecting the fact that we did it together." The song itself leans into small, sheltered domestic memories — a pebble collected on a trip to Wicklow, quiet moments at home — as a refuge from "cunning" outsiders and her own critical inner voice.',
         sources: [
           {
             outlet: 'The Things',
@@ -1959,7 +1975,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the chart dated Nov. 5, 2022, Swift became, in Billboard\'s words, "the first artist to claim the survey\'s entire top 10 in a single frame," surpassing Drake, who\'d held nine of the top 10 in September 2021.\n\nLed by "Anti-Hero" (59.7 million streams) at No. 1, the top 10 ran Lavender Haze, Maroon, Snow on the Beach, You\'re on Your Own Kid, Midnight Rain, Bejeweled, Question...?, Karma, and Vigilante Shit — all from the same album, which also became the first LP ever to land 10 songs in the Hot 100\'s top 10 at once. This is the record flagged as unconfirmed-by-a-second-source in this file\'s original October 2022 batch; Wikipedia\'s "Anti-Hero" entry independently corroborates it.',
+          'On the chart dated Nov. 5, 2022, Swift became, in Billboard\'s words, "the first artist to claim the survey\'s entire top 10 in a single frame," surpassing Drake, who\'d held nine of the top 10 in September 2021.\n\nLed by "Anti-Hero" (59.7 million streams) at No. 1, the top 10 ran Lavender Haze, Maroon, Snow on the Beach, Midnight Rain, Bejeweled, Question...?, You\'re on Your Own Kid, Karma, and Vigilante Shit — all from the same album, which also became the first LP ever to land 10 songs in the Hot 100\'s top 10 at once.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2117,12 +2133,12 @@ export default {
       category: 'business',
       title: 'Six-for-six at the AMAs, and past 40 career wins',
       snippet:
-        'Artist of the Year for the seventh time, plus wins for Red (Taylor\'s Version) and the All Too Well short film — making her the first artist to pass 40 American Music Awards.',
+        'Artist of the Year for the seventh time, plus wins for Red (Taylor\'s Version) and the All Too Well short film — bringing her career total to a record 40 American Music Awards.',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-sweeps-2022-amas-1234634191/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The Nov. 20, 2022 sweep at the Microsoft Theater covered favorite female pop artist, favorite female country artist, favorite pop album, favorite country album, and favorite music video — a re-recorded 2012 album and its ten-minute short film winning a full month into the Midnights era, alongside a seventh Artist of the Year. Accepting, she pointed the credit outward: "I have the fans to thank, essentially, for my happiness," signing off with "thank you, underlined with 13 exclamation points."\n\nThe re-record project got its own acceptance-speech paragraph — "I cannot tell you how much my re-recorded albums mean to me" — and the six-for-six night pushed her career total past 40 American Music Awards, extending her lead as the most-awarded artist in the show\'s history. The timing added subtext: the sweep landed five days after the Eras Tour presale had melted Ticketmaster down.',
+          'The Nov. 20, 2022 sweep at the Microsoft Theater covered favorite female pop artist, favorite female country artist, favorite pop album, favorite country album, and favorite music video — a re-recorded 2012 album and its ten-minute short film winning a full month into the Midnights era, alongside a seventh Artist of the Year. Accepting, she pointed the credit outward: "I have the fans to thank, essentially, for my happiness," signing off with "thank you, underlined with 13 exclamation points."\n\nThe re-record project got its own acceptance-speech paragraph — "I cannot tell you how much my re-recorded albums mean to me" — and the six-for-six night pushed her career total to 40 American Music Awards, extending her lead as the most-awarded artist in the show\'s history. The timing added subtext: the sweep landed five days after the Eras Tour presale had melted Ticketmaster down.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -2342,7 +2358,7 @@ export default {
         // Wikipedia (the song article's screenshot file); verified HTTP 200 + image/png.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/87/I_Can_See_You_%E2%80%93_Taylor_Swift_%28music_video_screenshot%29.png/250px-I_Can_See_You_%E2%80%93_Taylor_Swift_%28music_video_screenshot%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/87/I_Can_See_You_%E2%80%93_Taylor_Swift_%28music_video_screenshot%29.png',
             credit: 'Taylor Swift / Republic Records (music video still)',
             caption: 'A still from the self-directed "I Can See You" vault-heist video.',
             kind: 'primary',

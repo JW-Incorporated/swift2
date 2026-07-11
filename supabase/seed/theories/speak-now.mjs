@@ -50,7 +50,7 @@ export default {
       claim:
         'Swift unveiled the full Speak Now (Taylor\'s Version) track list, including its "From the Vault" songs, directly via social media on June 5, 2023, ahead of the album\'s July 7, 2023 release — continuing her established pattern of announcing re-record vault tracks in a dedicated reveal moment rather than a traditional press release.',
       evidence:
-        'The reveal followed the same re-record playbook used for Fearless and Red (Taylor\'s Version): a single, fan-facing announcement post naming every vault track and its guest, rather than a label press cycle — by this point a recognizable, repeatable promo format for the re-recording project.',
+        'Fearless and Red (Taylor\'s Version) vault tracks had each been revealed through a cryptic scrambled-word "vault" puzzle video fans had to decode. Speak Now (TV) skipped the puzzle: a single, fan-facing announcement post named every vault track and its guest directly, rather than a label press cycle — a simplification of the earlier playbook, not a repeat of it.',
       confidence: 'official',
       outcome: 'confirmed',
       relatedSlugs: ['fearless:vault-track-anagram-reveal', 'red:vault-track-word-puzzle-reveal'],

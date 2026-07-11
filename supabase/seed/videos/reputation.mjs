@@ -56,7 +56,7 @@ export default {
         'Every set piece answers a headline from the preceding decade — the era\'s whole thesis is that she is burying the old narratives on camera.',
       easterEggs: [
         'The gravestone reads Nils Sjöberg — the pseudonym she used as a songwriter on "This Is What You Came For."',
-        '"The old Taylor can\'t come to the phone right now" is delivered by the lineup of her past era selves.',
+        '"The old Taylor can\'t come to the phone right now" is delivered from atop a mountain of her past selves; the closing lineup of fifteen era-Taylors instead bickers over her old media narratives.',
         'The "Junior Jewels" shirt from You Belong with Me returns, now scrawled with her real friends\' names.',
       ],
       officialUrl: 'https://www.youtube.com/watch?v=3tmd-ClpJxA',
