@@ -469,9 +469,17 @@ following the same charter/cadence/sandbox pattern:
   app-store reviews and social complaints funnel into one triage; recurring
   themes become banked product decisions with evidence attached.
 
-Launch gating: Watch desk minimum (uptime + error paging + analytics baseline)
-ships **before** public launch; Growth desk can start listening-only at launch
-and earn posting autonomy after.
+**Timing (revised per Joey, 2026-07-11 — pulled forward):** a launch is
+itself a marketing event, so the Growth desk does **not** wait for launch.
+Pre-launch: the marketing agent stands up with its first deliverable being
+the **launch campaign plan**; social listening starts early to establish a
+baseline (what does Swiftie social sentiment look like *before* we exist);
+and social account creation (a founder TX action with real lead time) lands
+in an early brief with prepared instructions. Watch desk minimum (uptime +
+error paging + analytics baseline) also ships before public launch. Posting
+autonomy still graduates the careful way (draft queue → per-channel founder
+grant) — pulling the desk forward changes when it starts working, not what
+it's allowed to do.
 
 ## 8. What this deliberately does NOT change
 
@@ -507,6 +515,10 @@ and earn posting autonomy after.
    day, new content shipped/authored today (era items, dossiers, drops), and
    anything that will stall overnight without an answer. The delta is short
    by charter: no restating the morning brief, changes only.
+4. **Growth desk timing: pulled forward to pre-launch** (added same day).
+   The marketing agent and social listening start before launch — first
+   deliverable is the launch campaign plan, plus an early baseline and
+   account-creation lead time. See §7 timing and Phase 3.
 
 ## 10. Rollout phases
 
@@ -516,9 +528,13 @@ and earn posting autonomy after.
 - **Phase 2:** charter-ify every existing agent under `docs/agents/`
   (Karen, Kevin, v0, delegation scripts), stand up the ops journal, cadence
   health, weekly Codex org audit.
-- **Phase 3 (launch gate):** Watch desk minimum + analytics stack decision.
-- **Phase 4 (post-launch):** Growth & Community desk, listening-first;
-  scheduled /marketing; growth plan doc.
+- **Phase 3 (pre-launch, pulled forward per Joey 2026-07-11):** Growth &
+  Community desk stands up — marketing agent (first deliverable: the launch
+  campaign plan), social listening baseline, account-creation TX items in an
+  early brief. Watch desk minimum + analytics stack decision remain the
+  launch gate.
+- **Phase 4 (launch + after):** announcement draft queue goes live with the
+  launch campaign; growth plan doc maintained from real metrics.
 - **Phase 5 (earned):** autonomy ratchets — scoped merge authority (§5.4),
   scheduled autoposting — each individually founder-approved.
 
