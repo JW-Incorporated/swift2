@@ -1,5 +1,24 @@
 # Deploying the web reader (Vercel)
 
+## The one URL that matters
+
+**https://swift2-ten.vercel.app/** is the real, shared production deployment
+(Joey's Vercel account/project). This is the only URL to use for QA, status
+checks, or "is it live" questions — verify against this doc if a PR comment
+or chat message claims a different URL, rather than trusting it at face
+value.
+
+**https://swift2-web-nine.vercel.app/** is a *separate*, personal Vercel
+project (Wyatt's account) used only when v0 is doing UX exploration work. It
+is not the product, is not kept in sync with `main`, and should never be
+cited as "the live site."
+
+The `Vercel – swift2` GitHub check failing with "Git author must have access"
+on PRs authored as `wjduvall-cmd` is a known, harmless cross-account quirk —
+Wyatt's commits don't have push-deploy access to Joey's personal Vercel
+project, but this doesn't block `main`'s actual production deploys or mean
+the code is broken.
+
 `apps/web` is a Next.js app in an npm-workspaces monorepo. Two ways to deploy —
 use the **CLI path** if you're not a GitHub org owner yet.
 
