@@ -3,11 +3,16 @@
 Owner: Wyatt (CTO). Status: **PROPOSAL — pending Wyatt (architecture) and Joey
 (product questions in §9)**. Date: 2026-07-07.
 
-> **Scope guard.** v1 is Vault-only (`docs/decisions.md`, 2026-07-03). This doc
-> is **de-risking groundwork for the post-v1 News/Current world**, not a build
-> plan for now. Nothing here touches the Vault's runtime path, and nothing in
-> it is scheduled until v1 ships and Joey specs the news product. The only code
-> that lands with this proposal is the low-obsolescence subset in §8.
+> **Scope guard.** v1 is Vault-only (`docs/decisions.md`, 2026-07-03) — this
+> defers the **automated** ingestion/clustering/ranking/notification engine
+> described below, not recent content in general (see the 2026-07-11
+> clarification in `docs/decisions.md`: the Vault has always covered anything
+> already-happened, regardless of recency; recent events get added manually
+> until this pipeline exists). This doc is **de-risking groundwork for the
+> post-v1 News/Current world**, not a build plan for now. Nothing here touches
+> the Vault's runtime path, and nothing in it is scheduled until v1 ships and
+> Joey specs the news product. The only code that lands with this proposal is
+> the low-obsolescence subset in §8.
 
 ## 1. Why now
 
