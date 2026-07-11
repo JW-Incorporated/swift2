@@ -261,8 +261,13 @@ rank by cost-of-delay.
 
 ### 5.2 The brief
 
-One issue per day, **`Founders' Brief — YYYY-MM-DD`**, generalizing Kevin's
-digest format (checkbox blocks, because founders tick boxes — proven pattern):
+Two per day (Joey, 2026-07-11): **`Founders' Brief — YYYY-MM-DD`** at
+**6:00 AM** — the main artifact, full format below — and an **evening delta
+comment** on the same issue at **8:00 PM** covering only what changed since
+morning and what's immediately needed (newly-blocking decisions, content
+shipped/authored today, anything that stalls overnight unanswered). The
+delta never restates the morning brief. Format generalizes Kevin's digest
+(checkbox blocks, because founders tick boxes — proven pattern):
 
 1. **Decisions needed** — each banked item as an A-or-B checkbox block.
    **All boxes start unchecked** (Kevin's proven format — a pre-checked box
@@ -376,8 +381,12 @@ human-merge regardless of the founders' answer to §9-Q1.
 
 Code, schema, infra, workflow, and docs PRs stay human-merge until separately
 revisited. Deploys stay human, full stop. This amends CLAUDE.md's "AI may not
-merge" line and is **the single biggest decision in this proposal** — default
-if unanswered: not granted, everything stays human-merge.
+merge" line and is **the single biggest decision in this proposal**.
+
+**Answered (Joey, 2026-07-11 — see §9-Q1):** granted in direction, with the
+standing goal that autonomous merging becomes normal as trust is earned
+class-by-class. The engineering preconditions above are unchanged and Wyatt's
+sign-off is pending; until both exist, human-merge continues in practice.
 
 ## 6. How agents actually run (implementation shape, not code)
 
@@ -474,15 +483,30 @@ and earn posting autonomy after.
 - Repo remains the only source of truth; this proposal adds artifacts, not
   side-channels.
 
-## 9. Open founder decisions
+## 9. Founder decisions — answered by Joey, 2026-07-11
 
-1. **Scoped merge authority for content-fix PRs after a 2-week track record —
-   yes or no?** (§5.4; default if silent: no, human-merge continues.)
-2. **T3 paging channel:** where do fires reach you — push notification, email,
-   or SMS? (Pick one; everything else lands in the daily brief.)
-3. **Brief timing:** one fixed time (e.g. 9:00) or morning + evening split
-   (decisions AM, plan-veto PM)? Recommendation: one, 9:00, expand only if
-   carry-over gets chronic.
+1. **Merge authority: GRANTED in direction, and more ambitious than the
+   recommendation.** Joey's words: make the AI so good it can push regularly.
+   Standing product goal: autonomous merging becomes normal, not exceptional.
+   What still gates it: (a) the §5.4 engineering preconditions stand — the
+   deterministic gate mechanism, content-inertness in CI first, expansion
+   class-by-class with a track record per class; (b) **Wyatt's sign-off** —
+   merge/release authority is a CTO-side call under the role split, so this
+   is Joey's product direction + a pending Wyatt approval, recorded per the
+   "disagreements surface" rule (no disagreement yet — just not his signature
+   yet). Deploys remain human until separately revisited.
+2. **T3 paging: SMS primary, email backup.** SMS needs a provider account
+   (e.g. Twilio) — that's a TX/spend item (founders create it, agent preps
+   instructions; cost is trivial but it's still an account + spend). Until
+   that exists, email is the live channel from day one, and SMS switches to
+   primary the day the account does.
+3. **Brief cadence: two briefs.** **6:00 AM — the main brief** (full §5.2
+   format: decisions, founder actions, shipped/in-flight, health, today's
+   plan). **8:00 PM — the evening delta**: only what changed since 6:00 AM
+   and what's immediately needed — decisions that became blocking during the
+   day, new content shipped/authored today (era items, dossiers, drops), and
+   anything that will stall overnight without an answer. The delta is short
+   by charter: no restating the morning brief, changes only.
 
 ## 10. Rollout phases
 
@@ -508,13 +532,17 @@ into the intake door when it exists.
 > sandboxed agents (`docs/agents/`) with artifact-only interfaces; a chief-of-
 > staff agent (Marjorie) that routes work, maintains precedent, watches
 > cadences, and banks all founder decisions into one daily Founders' Brief;
-> tiered interrupt authority (T0–T3 + TX) with an autonomy ratchet (repeated
-> identical founder answers become standing rules). Post-launch ops (Watch,
-> Growth & Community) follow the same pattern, listening/draft-first with
-> earned autonomy. Merge authority unchanged pending the §5.4 decision.
-> Expensive to reverse: org process, founder habits, and charter contracts
-> that future service agents must honor. Cost: build-side scheduled runs with
-> per-charter caps; zero runtime LLM.
+> tiered interrupt authority (T0–T3 + TX) with a founder-approved-only
+> autonomy ratchet and a non-ratchetable strategic set. Brief cadence: 6:00
+> AM main + 8:00 PM changes-only delta (Joey). T3 paging: SMS primary once
+> the provider account exists (TX item), email until then and as backup
+> (Joey). Merge authority: granted in direction by Joey — autonomous merging
+> is the standing goal, earned class-by-class behind a deterministic gate,
+> content-inertness CI first, Wyatt sign-off pending. Post-launch ops
+> (Watch, Growth & Community) follow the same pattern, listening/draft-first
+> with earned autonomy. Expensive to reverse: org process, founder habits,
+> and charter contracts that future service agents must honor. Cost:
+> build-side scheduled runs with per-charter caps; zero runtime LLM.
 
 ## 12. Alternatives considered
 
@@ -561,8 +589,9 @@ finding, and every simpler alternative is *contained in* this design as its
 degraded mode rather than competing with it.
 
 **Assumptions this rests on:** founders actually tick the brief most days
-(unticked items only carry over — nothing auto-approves); scoped merge
-authority stays off until explicitly granted; session-cron reliability is
+(unticked items only carry over — nothing auto-approves); auto-merge stays
+off in practice until its CI preconditions land and Wyatt co-signs the grant
+Joey has already given in direction (§9-Q1); session-cron reliability is
 bridged by the watchdog until service migration.
 
 ---
