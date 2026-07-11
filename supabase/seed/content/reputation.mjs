@@ -43,6 +43,7 @@ export default {
     {
       year: 2017,
       month: 11,
+      day: 20,
       category: 'business',
       title: 'reputation sells more than the rest of the chart combined',
       snippet:
@@ -77,7 +78,8 @@ export default {
     },
     {
       year: 2017,
-      month: 11,
+      month: 8,
+      day: 24,
       category: 'music',
       title: 'Look What You Made Me Do, and the phone call it started with',
       snippet: 'By her own account, it began as a poem about deciding who she could trust.',
@@ -105,6 +107,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 8,
       category: 'tour',
       title: 'reputation Stadium Tour opens to a record crowd',
       snippet:
@@ -133,6 +136,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 8,
       category: 'tour',
       title: 'Snakes everywhere, on purpose',
       snippet:
@@ -172,6 +176,7 @@ export default {
     {
       year: 2017,
       month: 8,
+      day: 21,
       category: 'release',
       title: 'The snake video that announced reputation',
       snippet:
@@ -208,6 +213,7 @@ export default {
     {
       year: 2017,
       month: 11,
+      day: 9,
       category: 'music',
       title: "New Year's Day closes reputation on a quiet, acoustic note",
       snippet: 'After an album about scandal and revenge, the final track is a piano ballad about who does the dishes the morning after.',
@@ -239,6 +245,7 @@ export default {
     {
       year: 2018,
       month: 3,
+      day: 30,
       category: 'release',
       title: 'A second, stripped-down Delicate video — just her, a clearing, and one take',
       snippet:
@@ -271,6 +278,7 @@ export default {
     {
       year: 2018,
       month: 12,
+      day: 31,
       category: 'release',
       title: 'The reputation Stadium Tour film premieres on Netflix, New Year\'s Eve',
       snippet: 'Announced on her 29th birthday, filmed secretly at her last North American tour stop, released globally at 12:01 a.m. on New Year\'s Eve.',
@@ -301,6 +309,7 @@ export default {
     {
       year: 2018,
       month: 10,
+      day: 9,
       category: 'business',
       title: '23 AMA wins — more than any woman in history',
       snippet:
@@ -336,6 +345,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 8,
       category: 'fashion',
       title: "The reputation Stadium Tour's snake bodysuit",
       snippet:
@@ -363,6 +373,7 @@ export default {
     {
       year: 2018,
       month: 3,
+      day: 30,
       category: 'fashion',
       title: 'The teal fringe dress in the second Delicate video',
       snippet:
@@ -390,6 +401,7 @@ export default {
     {
       year: 2018,
       month: 10,
+      day: 9,
       category: 'fashion',
       title: 'A disco-ball Balmain look for the 2018 AMAs',
       snippet:
@@ -424,6 +436,7 @@ export default {
     {
       year: 2017,
       month: 8,
+      day: 27,
       category: 'fashion',
       title: 'Zombie makeup for Look What You Made Me Do',
       snippet:
@@ -464,6 +477,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 20,
       category: 'fashion',
       title: 'An 800-hour Atelier Versace gown for her first red carpet in two years',
       snippet:
@@ -495,6 +509,7 @@ export default {
     {
       year: 2018,
       month: 6,
+      day: 2,
       category: 'fashion',
       title: 'The reputation tour opening number gets a glitter-cutout upgrade',
       snippet:
@@ -537,6 +552,7 @@ export default {
     {
       year: 2018,
       month: 7,
+      day: 22,
       category: 'fashion',
       title: 'A sparkling green bodysuit for the "Dress" segment',
       snippet:
@@ -575,6 +591,7 @@ export default {
     {
       year: 2018,
       month: 7,
+      day: 14,
       category: 'fashion',
       title: 'The "cotton candy" dress for "Delicate"/"Shake It Off"',
       snippet:
@@ -615,6 +632,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 18,
       category: 'fashion',
       title: 'A snake bodysuit and red camo jacket for the Shawn Mendes duet',
       snippet:
@@ -652,6 +670,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 8,
       category: 'fashion',
       title: 'The "Call It What You Want"/"...Nice Things" closer dress',
       snippet:
@@ -702,6 +721,7 @@ export default {
     {
       year: 2018,
       month: 5,
+      day: 30,
       category: 'sighting',
       title: 'A fish-and-chips pub date at The Flask, no red carpet in sight',
       snippet:
@@ -745,6 +765,7 @@ export default {
     {
       year: 2018,
       month: 7,
+      day: 4,
       category: 'sighting',
       title: 'A rare Fourth of July, just the two of them, in Turks and Caicos',
       snippet:
@@ -776,6 +797,7 @@ export default {
     {
       year: 2018,
       month: 8,
+      day: 22,
       category: 'sighting',
       title: 'Steak, wine, and a rare London date night at Hawksmoor',
       snippet:
@@ -811,6 +833,7 @@ export default {
     {
       year: 2018,
       month: 9,
+      day: 28,
       category: 'sighting',
       title: 'Skipping the red carpet to support Joe Alwyn at the New York Film Festival',
       snippet:
@@ -842,6 +865,7 @@ export default {
     {
       year: 2019,
       month: 4,
+      day: 22,
       category: 'sighting',
       title: 'A denim-themed birthday party for Gigi Hadid — sans denim',
       snippet:
@@ -885,6 +909,7 @@ export default {
     {
       year: 2017,
       month: 11,
+      day: 10,
       category: 'music',
       title: "The Getaway Car bridge, written in under 30 seconds on camera",
       snippet:
@@ -917,6 +942,7 @@ export default {
     {
       year: 2017,
       month: 11,
+      day: 10,
       category: 'music',
       title: "Delicate's confession: 'could something fake...affect something real?'",
       snippet:
@@ -955,6 +981,7 @@ export default {
     {
       year: 2019,
       month: 2,
+      day: 10,
       category: 'relationship',
       title: 'A rare public appearance with Joe Alwyn at the BAFTAs',
       snippet: 'The notoriously private couple stepped out together at the after-party, celebrating "The Favourite" winning seven BAFTAs.',
@@ -990,6 +1017,7 @@ export default {
     {
       year: 2017,
       month: 11,
+      day: 3,
       category: 'music',
       title: 'Call It What You Want closes the arc: rebellion, then falling in love',
       snippet:
@@ -1024,8 +1052,9 @@ export default {
       },
     },
     {
-      year: 2019,
-      month: 2,
+      year: 2018,
+      month: 12,
+      day: 7,
       category: 'business',
       title: "One nomination for the year's best-selling album",
       snippet:
@@ -1052,7 +1081,8 @@ export default {
     },
     {
       year: 2018,
-      month: 10,
+      month: 11,
+      day: 30,
       category: 'business',
       title: 'Breaking a Rolling Stones record set a decade earlier — in almost half the shows',
       snippet:
@@ -1080,6 +1110,7 @@ export default {
     {
       year: 2018,
       month: 3,
+      day: 7,
       category: 'sighting',
       title: 'A Malibu hike, and an outfit that read like a lyric',
       snippet:
@@ -1119,6 +1150,7 @@ export default {
     {
       year: 2019,
       month: 3,
+      day: 3,
       category: 'sighting',
       title: 'Hand in hand on the Franklin Canyon trail, near the era\'s close',
       snippet:
@@ -1162,6 +1194,7 @@ export default {
       slug: 'rep-lwymmd-video-youtube-record',
       year: 2017,
       month: 8,
+      day: 27,
       category: 'release',
       title: 'The Look What You Made Me Do video shatters YouTube\'s 24-hour record',
       snippet:
@@ -1204,6 +1237,7 @@ export default {
       slug: 'rep-ready-for-it-college-football',
       year: 2017,
       month: 9,
+      day: 2,
       category: 'release',
       title: '...Ready for It? debuts inside a college football broadcast',
       snippet:
@@ -1261,6 +1295,7 @@ export default {
       slug: 'rep-gorgeous-baby-voice',
       year: 2017,
       month: 10,
+      day: 20,
       category: 'music',
       title: 'Gorgeous opens with a baby saying the title — Blake and Ryan\'s daughter',
       snippet:
@@ -1307,6 +1342,7 @@ export default {
       slug: 'rep-secret-sessions',
       year: 2017,
       month: 10,
+      day: 13,
       category: 'release',
       title: 'The reputation Secret Sessions: 500 fans, four houses, zero leaks',
       snippet:
@@ -1354,6 +1390,7 @@ export default {
       slug: 'rep-end-game-video',
       year: 2018,
       month: 1,
+      day: 12,
       category: 'release',
       title: 'The End Game video: Miami, Tokyo, London — with Ed Sheeran and Future',
       snippet:
@@ -1408,6 +1445,7 @@ export default {
       slug: 'rep-babe-to-sugarland',
       year: 2018,
       month: 4,
+      day: 20,
       category: 'music',
       title: 'She gives Babe, a Red-era outtake, to Sugarland',
       snippet:
@@ -1454,7 +1492,8 @@ export default {
       slug: 'rep-katy-perry-olive-branch',
       year: 2018,
       month: 5,
-      category: 'relationship',
+      day: 8,
+      category: 'sighting',
       title: 'Katy Perry sends a literal olive branch on opening night',
       snippet:
         'Waiting in Taylor\'s dressing room before the May 8, 2018 tour kickoff: an actual olive branch and a handwritten note from Katy Perry beginning "Hello old friend" — the public end of pop\'s longest-running feud.',
@@ -1501,6 +1540,7 @@ export default {
       slug: 'rep-wembley-guest-nights',
       year: 2018,
       month: 6,
+      day: 22,
       category: 'tour',
       title: 'Two Wembley nights, two British icons: Niall Horan, then Robbie Williams',
       snippet:
@@ -1547,6 +1587,7 @@ export default {
       slug: 'rep-political-post-voter-registration',
       year: 2018,
       month: 10,
+      day: 7,
       category: 'business',
       title: 'She breaks her political silence — and voter registrations spike',
       snippet:
@@ -1604,6 +1645,7 @@ export default {
       slug: 'rep-signs-with-republic-umg',
       year: 2018,
       month: 11,
+      day: 19,
       category: 'business',
       title: 'She leaves Big Machine for Republic — and owns her masters going forward',
       snippet:
@@ -1650,6 +1692,7 @@ export default {
       slug: 'rep-tour-closes-tokyo',
       year: 2018,
       month: 11,
+      day: 21,
       category: 'tour',
       title: 'The reputation Stadium Tour closes at the Tokyo Dome',
       snippet:
@@ -1692,6 +1735,7 @@ export default {
       slug: 'rep-golden-globes-date-night',
       year: 2019,
       month: 1,
+      day: 6,
       category: 'relationship',
       title: 'A surprise Golden Globes appearance turns into a rare public date night',
       snippet:
