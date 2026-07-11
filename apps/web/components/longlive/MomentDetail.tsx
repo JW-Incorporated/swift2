@@ -11,12 +11,13 @@ import {
 } from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@/lib/longlive/eras';
+import { getThread } from '@/lib/longlive/lenses';
 import { resolveMotifTrail, type MotifTarget } from '@/lib/longlive/related';
 import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 import { ZoomableImage } from './ZoomableImage';
-import { primaryImageRef, type Confidence, type ImageKind, type ImageRef } from '@/lib/longlive/types';
+import { primaryImageRef, type Confidence, type ImageKind, type ImageRef, type LensId } from '@/lib/longlive/types';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 // At/above this tier a moment is established fact — no pill. Below it, a
@@ -336,7 +337,59 @@ export function MomentDetail() {
             <ClueWebCta trail={trail} />
           </div>
         )}
+
+        {/* Era -> Thread, generalized beyond the Clue Web (issue #436): any
+            moment tagged into a thread (via ContentItem.threadIds — today,
+            Relationship/Fashion tags imply Love Story/Runway automatically)
+            gets a "follow this thread" link. 'easter-eggs' is excluded here
+            because a Clue Web cross-link already gets the richer, specific
+            trail invitation above rather than a bare thread-home link. */}
+        <FollowThreadsRow threadIds={item.threadIds} />
       </article>
+    </div>
+  );
+}
+
+/**
+ * The moment → any thread it belongs to, generalized from the Clue-Web-only
+ * motif trail above to `ContentItem.threadIds` generally (issue #436). Reuses
+ * the same `openThread` pivot every era -> thread jump already uses.
+ */
+function FollowThreadsRow({ threadIds }: { threadIds: LensId[] | undefined }) {
+  const { openThread } = useAppActions();
+  const ids = (threadIds ?? []).filter((id) => id !== 'easter-eggs');
+  if (ids.length === 0) return null;
+
+  return (
+    <div className="era-card mt-8 rounded-2xl border p-5">
+      <div className="flex items-center gap-2 text-sm font-semibold text-[color:var(--era-accent)]">
+        <Route className="h-4 w-4" />
+        Part of a bigger story
+      </div>
+      <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--era-ink-soft)]">
+        This moment is part of {ids.length > 1 ? 'these threads' : 'a thread'} that cuts across eras.
+      </p>
+      <div className="mt-4 flex flex-wrap gap-2">
+        {ids.map((id) => {
+          const meta = getThread(id);
+          return (
+            <button
+              key={id}
+              onClick={() => {
+                openThread(id);
+                // Same instant re-anchor every era → thread pivot uses (EraSection) —
+                // deferred a frame so it lands after this overlay's scroll lock lifts.
+                requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
+              }}
+              className="era-btn-ghost inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium"
+              aria-label={`Follow the ${meta.title} thread`}
+            >
+              Follow {meta.title}
+              <ArrowRight className="h-4 w-4" />
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 }
