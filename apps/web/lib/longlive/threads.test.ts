@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { build, defaultThreadIdsForTags, type RawItem } from './content';
-import { contentForThread } from './threads';
+import { contentForThread, contentForThreadInEra, contentForThreadInRange } from './threads';
 
 function raw(partial: Partial<RawItem> = {}): RawItem {
   return {
@@ -97,5 +97,53 @@ describe('contentForThread', () => {
     // not as tagged ContentItems — this documents the current gap rather
     // than asserting it should stay empty forever.
     expect(contentForThread('the-proposal')).toEqual([]);
+  });
+});
+
+// issue #436: Thread -> Eras cross-link (per-entry, auto-derived).
+describe('contentForThreadInRange', () => {
+  it('only returns love-story content dated inside [start, end]', () => {
+    const items = contentForThreadInRange('love-story', '2023-09-24', '2026-07-10');
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.threadIds).toContain('love-story');
+      expect(item.date >= '2023-09-24').toBe(true);
+      expect(item.date <= '2026-07-10').toBe(true);
+    }
+  });
+
+  it('excludes love-story content outside the window', () => {
+    // Joe Jonas (2008) is well outside the Kelce-era window used above.
+    const items = contentForThreadInRange('love-story', '2023-09-24', '2026-07-10');
+    expect(items.some((i) => i.date < '2023-09-24')).toBe(false);
+  });
+
+  it('treats a null end as open-ended (uses today)', () => {
+    const bounded = contentForThreadInRange('love-story', '2023-09-24', '2026-07-10');
+    const openEnded = contentForThreadInRange('love-story', '2023-09-24', null);
+    // Open-ended should include at least everything the bounded query found.
+    for (const item of bounded) {
+      expect(openEnded.some((i) => i.id === item.id)).toBe(true);
+    }
+  });
+
+  it('returns an empty array when nothing overlaps the window', () => {
+    expect(contentForThreadInRange('love-story', '1990-01-01', '1990-12-31')).toEqual([]);
+  });
+});
+
+describe('contentForThreadInEra', () => {
+  it('only returns fashion content from the requested era', () => {
+    const items = contentForThreadInEra('fashion', 'red');
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.threadIds).toContain('fashion');
+      expect(item.eraId).toBe('red');
+    }
+  });
+
+  it('returns an empty array for a thread with no tagged content in any era', () => {
+    // Same gap documented above for contentForThread('the-proposal').
+    expect(contentForThreadInEra('the-proposal', 'debut')).toEqual([]);
   });
 });

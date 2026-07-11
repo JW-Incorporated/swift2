@@ -3,6 +3,8 @@
 import { X, Heart, Star, Music, BookText } from 'lucide-react';
 import { getEra } from '@/lib/longlive/eras';
 import { durationLabel, monthsBetween, soloLeadIn, type LoveStoryEntry } from '@/lib/longlive/love-story';
+import { contentForThreadInRange } from '@/lib/longlive/threads';
+import { FromTheEras } from '../FromTheEras';
 
 function fmtYear(iso: string): string {
   return new Date(iso).getFullYear().toString();
@@ -22,6 +24,10 @@ function entryColor(entry: LoveStoryEntry): string {
 export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntry; timeline: LoveStoryEntry[]; onClose: () => void }) {
   const isRel = entry.kind === 'relationship';
   const color = entryColor(entry);
+  // Auto-derived Era cross-links (issue #436): everything tagged into the
+  // Love Story thread whose date falls inside this entry's own window — not
+  // hand-authored per relationship/solo period.
+  const eraLinks = contentForThreadInRange('love-story', entry.start, entry.end);
 
   return (
     <div className="era-card relative mt-3 overflow-hidden" style={{ borderLeftWidth: '3px', borderLeftColor: color }}>
@@ -85,6 +91,8 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
             </div>
           </section>
         )}
+
+        {eraLinks.length > 0 && <FromTheEras items={eraLinks} />}
 
         {isRel && entry.eraIds.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
