@@ -17,6 +17,15 @@ import { CONFIG } from '../config.mjs';
 // by url; entries expire so hotlink-rot is eventually re-checked.
 const CACHE_PATH = join(ROOT, CONFIG.output.findingsDir, 'image-cache.json');
 const CACHE_TTL_MS = 7 * 24 * 60 * 60 * 1000;
+// Failures get a much shorter cache life: a transient timeout/5xx must not be
+// filed as "broken" for a week (review finding). Definitive gone-forever
+// statuses (404/410) keep the full TTL.
+const FAIL_TTL_MS = 60 * 60 * 1000;
+const cacheFresh = (entry, now) => {
+  if (!entry) return false;
+  const definitive = entry.r.ok || entry.r.status === 404 || entry.r.status === 410 || entry.r.blocked;
+  return now - entry.ts < (definitive ? CACHE_TTL_MS : FAIL_TTL_MS);
+};
 function loadCache() {
   try { return JSON.parse(readFileSync(CACHE_PATH, 'utf8')); } catch { return {}; }
 }
@@ -44,7 +53,12 @@ export function imageMeta(buf) {
     try {
       if (fmt === 'VP8 ') return { format: 'webp', width: (buf.readUInt16LE(26) & 0x3fff), height: (buf.readUInt16LE(28) & 0x3fff) };
       if (fmt === 'VP8L') { const b = buf.readUInt32LE(21); return { format: 'webp', width: (b & 0x3fff) + 1, height: ((b >> 14) & 0x3fff) + 1 }; }
-      if (fmt === 'VP8X') return { format: 'webp', width: ((buf[24] | (buf[25] << 8) | (buf[26] << 16)) & 0xffffff) + 1, height: ((buf[27] | (buf[28] << 8) | (buf[29] << 16)) & 0xffffff) + 1 };
+      if (fmt === 'VP8X') {
+        // A truncated VP8X header would coerce undefined bytes to 0 and yield a
+        // bogus 1×1 (found in review); require the full 30-byte header first.
+        if (buf.length < 30) return { format: 'webp' };
+        return { format: 'webp', width: ((buf[24] | (buf[25] << 8) | (buf[26] << 16)) & 0xffffff) + 1, height: ((buf[27] | (buf[28] << 8) | (buf[29] << 16)) & 0xffffff) + 1 };
+      }
     } catch { return { format: 'webp' }; }
     return { format: 'webp' };
   }
@@ -66,22 +80,59 @@ export function imageMeta(buf) {
 
 function hostOf(url) { try { return new URL(url).hostname.toLowerCase(); } catch { return null; } }
 
+// SSRF guard: seed data is repo-controlled but probed unattended, so never let
+// a URL point the probe at loopback/RFC1918/link-local/metadata targets.
+// Hostname-level check (applied to the original URL and the post-redirect one).
+export function isPrivateHost(host) {
+  if (!host) return true;
+  if (host === 'localhost' || host.endsWith('.localhost') || host.endsWith('.local') || host.endsWith('.internal')) return true;
+  if (host === '::1' || host.startsWith('fe80:') || host.startsWith('fd') || host.startsWith('fc')) return true;
+  const m = host.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/);
+  if (!m) return false;
+  const [a, b] = [Number(m[1]), Number(m[2])];
+  return a === 127 || a === 10 || a === 0 || (a === 172 && b >= 16 && b <= 31)
+    || (a === 192 && b === 168) || (a === 169 && b === 254);
+}
+
+// Read at most `cap` bytes from a fetch body, then abort the connection — a
+// Range header is advisory and a hostile/misconfigured server can ignore it.
+async function readCapped(res, cap, ctrl) {
+  const chunks = [];
+  let total = 0;
+  const reader = res.body?.getReader();
+  if (!reader) return Buffer.alloc(0);
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      chunks.push(Buffer.from(value));
+      total += value.length;
+      if (total >= cap) { ctrl.abort(); break; }
+    }
+  } catch { /* aborted after cap — expected */ }
+  return Buffer.concat(chunks, Math.min(total, cap));
+}
+
 // Descriptive UA per Wikimedia's User-Agent policy (a thin UA gets throttled).
 const UA = 'Swift2-ContentIntegrityEngine/1.0 (content-QA bot; +https://github.com/JW-Incorporated/swift2; wjduvall@gmail.com)';
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
+const BUF_CAP = 256 * 1024;
+
 async function probeOnce(url) {
+  if (isPrivateHost(hostOf(url))) return { blocked: true, reason: 'private/internal host' };
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), C.fetchTimeoutMs);
   try {
     const res = await fetch(url, { headers: { Range: 'bytes=0-131071', 'User-Agent': UA, Accept: 'image/*' }, signal: ctrl.signal, redirect: 'follow' });
+    if (isPrivateHost(hostOf(res.url))) { ctrl.abort(); return { blocked: true, reason: 'redirected to a private/internal host' }; }
     const ct = (res.headers.get('content-type') || '').split(';')[0].trim().toLowerCase();
     if (res.status === 429 || res.status === 503) {
       const ra = Number(res.headers.get('retry-after')) || 0;
       return { rateLimited: true, retryAfter: ra };
     }
     if (!res.ok && res.status !== 206) return { ok: false, status: res.status };
-    const buf = Buffer.from(await res.arrayBuffer());
+    const buf = await readCapped(res, BUF_CAP, ctrl);
     return { ok: true, status: res.status, contentType: ct, bytes: buf.length, meta: imageMeta(buf) };
   } catch (e) {
     return { ok: false, error: e.name === 'AbortError' ? 'timeout' : e.message };
@@ -130,7 +181,7 @@ export async function check(items, ctx = {}) {
   let cacheHits = 0;
   const probes = await pool(imgs, C.concurrency, async (im) => {
     const c = cache[im.url];
-    if (c && now - c.ts < CACHE_TTL_MS && !c.r.unverified) { cacheHits++; return { im, r: c.r }; }
+    if (cacheFresh(c, now) && !c.r.unverified) { cacheHits++; return { im, r: c.r }; }
     const r = await probe(im.url);
     if (!r.unverified) cache[im.url] = { ts: now, r };
     return { im, r };
@@ -154,6 +205,18 @@ export async function check(items, ctx = {}) {
     }
     // Rate-limited despite retries — report as unverified, never as broken.
     if (r.unverified) { unverified++; continue; }
+    // SSRF guard tripped — a seed image pointing inside the network is its own
+    // finding (and the probe never ran).
+    if (r.blocked) {
+      findings.push(makeFinding({
+        checker: 'image.host-reputation', severity: 'P1',
+        title: `Image URL targets a ${r.reason}`,
+        itemRef: refOf(im), excerpt: im.url,
+        evidence: `Probe refused: ${r.reason}. Seed images must be public internet URLs. ${usedNote(im)}`,
+        suggestedFix: 'Replace with a public, reputable image URL.', confidence: 0.9,
+      }));
+      continue;
+    }
     // Liveness / format
     if (!r.ok) {
       findings.push(makeFinding({
