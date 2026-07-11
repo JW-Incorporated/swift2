@@ -97,9 +97,12 @@ Title `Founders' Brief — YYYY-MM-DD`, label `founders-brief`, sections:
   `cc @sffan15-sys @wjduvall-cmd`** — GitHub's mention email is the baseline
   delivery channel and must never be omitted.
 - The **brief-mailer Action** (`.github/workflows/brief-mailer.yml`) sends
-  the morning brief as a real email — To `sffan15@gmail.com`,
-  CC `Wjduvall@gmail.com` — once the founder-created `GMAIL_APP_PASSWORD`
-  repo secret exists (TX item). Until then, mention email is the channel.
+  the morning brief as a real email — **From Marjorie's own Gmail account**
+  (Joey's call, 2026-07-11: the chief of staff writes from her own address),
+  To `sffan15@gmail.com`, CC `Wjduvall@gmail.com` — once the founders create
+  that account and set the `MARJORIE_EMAIL` repo variable +
+  `GMAIL_APP_PASSWORD` secret (TX item #484). Until then, mention email is
+  the channel.
 
 ## Decision processing (the morning-after parse)
 
