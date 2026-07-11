@@ -49,8 +49,17 @@ export function extractOptions(body) {
 
 export function extractField(body, label) {
   if (!body) return '';
-  const m = body.match(new RegExp(`###\\s*${label}[^\\n]*\\n+([\\s\\S]*?)(?=\\n###|\\s*$)`, 'i'));
+  const safe = label.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const m = body.match(new RegExp(`###\\s*${safe}[^\\n]*\\n+([\\s\\S]*?)(?=\\n###|\\s*$)`, 'i'));
   return m ? m[1].trim() : '';
+}
+
+// Brief dates follow the desk's clock (America/Los_Angeles), not UTC — an
+// evening recovery run after 5 PM PT must not mint tomorrow's title.
+export function todayLA(now = new Date()) {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'America/Los_Angeles', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(now);
 }
 
 function hoursOld(iso, now) {
@@ -114,6 +123,6 @@ export function buildBrief(state, { date, now = Date.now() } = {}) {
 const invokedDirectly = process.argv[1] && import.meta.url.endsWith(
   process.argv[1].split(/[\\/]/).pop());
 if (invokedDirectly) {
-  const date = process.argv[2] || new Date().toISOString().slice(0, 10);
+  const date = process.argv[2] || todayLA();
   process.stdout.write(buildBrief(fetchState(), { date }) + '\n');
 }
