@@ -7,9 +7,13 @@ import { NextResponse } from 'next/server';
 //
 // This is a DYNAMIC handler (a Vercel serverless function), unlike the static
 // vault routes. It needs a server-side GitHub token with issues:write —
-// `GITHUB_FEEDBACK_TOKEN` (falls back to `GITHUB_TOKEN`). Repo defaults to
-// `JW-Incorporated/swift2`, overridable via `FEEDBACK_REPO`. Without a token it
-// degrades cleanly (503 + friendly message) so local/CI builds don't need it.
+// `GITHUB_FEEDBACK_TOKEN` ONLY. It deliberately does NOT fall back to a bare
+// `GITHUB_TOKEN`: this endpoint is public and unauthenticated, so it must run on
+// a narrowly-scoped token (issues:write on the feedback repo, nothing more), not
+// whatever broad-permission default token the deploy env happens to expose. Repo
+// defaults to `JW-Incorporated/swift2`, overridable via `FEEDBACK_REPO`. Without
+// the feedback token it degrades cleanly (503 + friendly message) so local/CI
+// builds don't need it.
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
@@ -50,25 +54,45 @@ function rateLimited(ip: string): boolean {
 const clip = (s: unknown, n: number): string =>
   typeof s === 'string' ? s.slice(0, n) : '';
 
-/** One-line, sanitized issue title from the first line of the message. */
-function titleFrom(message: string): string {
-  const firstLine = message.split('\n').find((l) => l.trim())?.trim() ?? 'User feedback';
-  const trimmed = firstLine.length > 72 ? `${firstLine.slice(0, 69)}…` : firstLine;
-  return `[Feedback] ${trimmed}`;
+// Defang GitHub autolinks in UNTRUSTED user text. This endpoint is public and
+// unauthenticated, and everything a submitter sends (the message AND every
+// client-supplied location/environment field) lands in a GitHub issue body.
+// Without this, a submitter could `@someone` to ping a real person, or write
+// `#123` / `owner/repo#123` to spam cross-reference backlinks + notifications
+// onto unrelated issues — straight from an anonymous form. A zero-width space
+// after the sigil stops GitHub from linkifying it while staying invisible.
+// (Blockquoting alone does NOT prevent autolinking — GitHub still linkifies
+// mentions/refs inside `> ` quotes; code spans do, which is why the backtick-
+// wrapped fields below are already safe and left untouched.)
+const ZWSP = '​';
+export function defangGitHub(s: string): string {
+  return s.replace(/([@#])(?=[A-Za-z0-9_-])/g, `$1${ZWSP}`);
 }
 
-function bodyFrom(message: string, loc: Location): string {
+/** One-line, sanitized issue title from the first line of the message. */
+export function titleFrom(message: string): string {
+  const firstLine = message.split('\n').find((l) => l.trim())?.trim() ?? 'User feedback';
+  const trimmed = firstLine.length > 72 ? `${firstLine.slice(0, 69)}…` : firstLine;
+  // Titles don't autolink, but keep them tidy/consistent with the body.
+  return `[Feedback] ${defangGitHub(trimmed)}`;
+}
+
+export function bodyFrom(message: string, loc: Location): string {
+  // Neutralize markdown/backticks in client-supplied free-text by rendering it
+  // as a code span (GitHub renders code literally — no autolink, no markdown).
+  const code = (s: string): string => (s ? `\`${s.replace(/`/g, "'")}\`` : '');
+
   const locLines = [
     loc.eraName || loc.eraId
-      ? `- **Era:** ${clip(loc.eraName, 80) || ''}${loc.eraId ? ` (\`${clip(loc.eraId, 40)}\`)` : ''}`
+      ? `- **Era:** ${defangGitHub(clip(loc.eraName, 80)) || ''}${loc.eraId ? ` (\`${clip(loc.eraId, 40)}\`)` : ''}`
       : null,
-    loc.mode ? `- **View:** ${clip(loc.mode, 40)}${loc.view ? ` — ${clip(loc.view, 120)}` : ''}` : null,
+    loc.mode ? `- **View:** ${defangGitHub(clip(loc.mode, 40))}${loc.view ? ` — ${defangGitHub(clip(loc.view, 120))}` : ''}` : null,
     loc.openMomentId ? `- **Open moment:** \`${clip(loc.openMomentId, 200)}\`` : null,
     loc.openTrackKey ? `- **Open track:** \`${clip(loc.openTrackKey, 200)}\`` : null,
     loc.trackGuideEraId ? `- **Track guide:** \`${clip(loc.trackGuideEraId, 40)}\`` : null,
     loc.theoryGuideEraId ? `- **Theory guide:** \`${clip(loc.theoryGuideEraId, 40)}\`` : null,
     loc.lensId ? `- **Thread/lens:** \`${clip(loc.lensId, 40)}\`` : null,
-    loc.url ? `- **URL:** ${clip(loc.url, 300)}` : null,
+    loc.url ? `- **URL:** ${code(clip(loc.url, 300))}` : null,
   ].filter(Boolean);
 
   return [
@@ -76,8 +100,9 @@ function bodyFrom(message: string, loc: Location): string {
     '',
     '**What they reported:**',
     '',
-    // Blockquote each line so multi-line feedback renders cleanly.
-    message
+    // Blockquote each line so multi-line feedback renders cleanly. Defang first
+    // so mentions/refs in the feedback text can't ping people or backlink issues.
+    defangGitHub(message)
       .split('\n')
       .map((l) => `> ${l}`)
       .join('\n'),
@@ -86,10 +111,10 @@ function bodyFrom(message: string, loc: Location): string {
     locLines.length ? locLines.join('\n') : '- _(no location captured)_',
     '',
     '**Environment:**',
-    `- Page: ${clip(loc.pageTitle, 200) || '—'}`,
-    `- Viewport: ${clip(loc.viewport, 40) || '—'}`,
-    `- User agent: ${clip(loc.userAgent, 400) || '—'}`,
-    `- Time: ${clip(loc.ts, 40) || new Date().toISOString()}`,
+    `- Page: ${code(clip(loc.pageTitle, 200)) || '—'}`,
+    `- Viewport: ${code(clip(loc.viewport, 40)) || '—'}`,
+    `- User agent: ${code(clip(loc.userAgent, 400)) || '—'}`,
+    `- Time: ${code(clip(loc.ts, 40)) || new Date().toISOString()}`,
     '',
     '---',
     '_User-submitted via the in-app feedback button. Triage separately from Karen tickets (different fix workflow, TBD)._',
@@ -124,7 +149,9 @@ export async function POST(req: Request): Promise<Response> {
     );
   }
 
-  const token = process.env.GITHUB_FEEDBACK_TOKEN || process.env.GITHUB_TOKEN;
+  // Feedback-scoped token ONLY — no fallback to a broad GITHUB_TOKEN on a
+  // public, unauthenticated endpoint (see file header).
+  const token = process.env.GITHUB_FEEDBACK_TOKEN;
   const repo = process.env.FEEDBACK_REPO || 'JW-Incorporated/swift2';
   if (!token) {
     // No token wired up (e.g. local/preview). Log for visibility; tell the user
