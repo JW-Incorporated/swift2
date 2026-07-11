@@ -15,6 +15,7 @@ import { TheoryGuide } from './TheoryGuide';
 import { ShareSheet } from './ShareSheet';
 import { SearchOverlay } from './SearchOverlay';
 import { SiteFooter } from './SiteFooter';
+import { FeedbackButton } from './FeedbackButton';
 
 function Shell() {
   const { mode, eraId } = useAppState();
@@ -48,6 +49,9 @@ function Shell() {
       <MomentDetail />
       <ShareSheet />
       <SearchOverlay />
+
+      {/* Always-available issue reporter, fixed bottom-right. */}
+      <FeedbackButton />
     </div>
   );
 }
