@@ -7,6 +7,34 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-11 — Clarification: "V1 is Vault-only" defers the automated engine, not recent content
+
+**Decision:** The 2026-07-03 "V1 scope is Vault only" decision (below) means
+the **automated** ingestion/clustering/ranking/notification engine (the
+News/Current pipeline in `docs/proposals/2026-07-07-news-pipeline-architecture.md`)
+is deferred to V2 — not that the Vault excludes recent events. The Vault's
+scope has always been "anything that has already happened," and recency
+doesn't disqualify content: an event from last week is exactly as valid a
+Vault item as an event from 2008, as long as it's sourced and authored
+through the normal Vault pipeline (Karen, the editorial voice standard, the
+sourcing bar) like everything else.
+
+Until V2's automated engine ships, recent content is added **manually** —
+Joey brings in subject matter (real, already-happened events) as they occur,
+which gets distilled into short, sourced Vault moments the same way any
+other era content is authored. This is expected to be a daily habit, not an
+edge case.
+
+**Why:** This ambiguity caused a real mistake (2026-07-11): three
+manually-curated, already-happened news subjects were initially treated as
+conflicting with "V1 is Vault-only," when the actual scope boundary is
+specifically about the *automated engine*, not about content recency. See
+`JW-Incorporated/swift2` issue #464 for the incident this clarifies.
+
+**Approved by:** Joey
+
+---
+
 ## 2026-07-10 — Track dossier data model: grouped fields on TrackNote, one jsonb dossier column
 
 **Decision:** The Track Guide overhaul (issue #440) extends `TrackNote` with
