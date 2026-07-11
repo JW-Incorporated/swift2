@@ -7,6 +7,374 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-10 — Threads content derives from tagged content items, not hand-authored arrays
+
+**Decision:** The six Threads (`love-story`, `fashion`, `taylors-version`,
+`easter-eggs`, `hidden-clues`, `the-proposal`) currently render from
+hand-authored TypeScript arrays in `apps/web/lib/longlive/lenses.ts`
+(`RELATIONSHIPS`, `RUNWAY_LOOKS`, `RERECORDS`, `PROPOSAL_BEATS`, `CLUE_PAIRS`,
+`EGG_NODES`/`EGG_LINKS`), completely disconnected from
+`supabase/seed/content/**` — the pipeline every Era moment flows through.
+Going forward, thread membership is derived from **tags on content items**
+(new items in `supabase/seed/content/**` get one or more thread tags at
+authoring time) rather than a second, hand-maintained data source. A thread's
+rendered list should be a query/selector over tagged content, not a separate
+array that has to be remembered and kept in sync by hand.
+
+**Rollout is two phases, not one landing:** phase 1 (2026-07-10, this PR) is
+the derivation mechanism itself — `ContentItem.threadIds`, the
+`contentForThread()` selector, real tagged data via the existing
+Relationship/Fashion category defaults. **`ThreadsMode.tsx` still renders
+from the old `lenses.ts` arrays as of this PR — the mechanism exists but
+nothing consumes it yet.** Phase 2, done per-thread as each thread's UI
+rework lands (tracked in `docs/threads-rework-2026-07-10.md`), is wiring the
+actual rendered UI to `contentForThread()` and retiring the corresponding
+old array. Don't read this decision as "Threads already render from tagged
+content" until phase 2 closes per thread.
+
+**Why:** Joey flagged that new content isn't naturally flowing into Threads —
+e.g. real relationship/sighting content added to an era file has no path
+into the Love Story thread unless someone remembers to also hand-edit
+`lenses.ts`. That's a structural drift risk, not a one-off oversight: the
+two data sources will keep diverging as content authoring continues weekly
+(see `docs/roadmap.md` J7). Auto-deriving from tags means new tagged content
+appears in the right thread automatically, the same guarantee Era moments
+already have.
+
+**What this does NOT change:** thread-specific narrative structure that
+doesn't map to a single content item — e.g. Love Story's single/solo periods
+between relationships, or the Clue Web's motif-trail groupings and node-link
+graph — still needs dedicated schema beyond a tag on one item. Those get
+first-class fields/tables of their own (not another parallel hand-authored
+array); the tag-derivation decision applies to "which content items surface
+in which thread," not to every piece of thread-specific presentation data.
+
+**Alternatives considered:** (1) keep `lenses.ts` hand-authored, add a
+process rule + CI lint flagging likely-missed cases — rejected as treating
+the symptom, not the drift; (2) hybrid — ship the current thread reworks
+against today's `lenses.ts` shape, migrate after launch — rejected because
+every thread rework happening now is the natural point to build the tagged
+shape once instead of building on the old shape and migrating twice.
+
+**Approved by:** Joey (product), 2026-07-10.
+
+## 2026-07-10 — Love Story thread uses real names, not the earlier non-identifying convention
+
+**Decision:** `RELATIONSHIPS` in `lenses.ts` previously used deliberately
+non-identifying labels ("The Debut Sweetheart," "The Fearless Actor") per a
+naming convention set in an earlier session. The Love Story thread rework
+switches to real names (Joe Jonas, Taylor Lautner, John Mayer, Jake
+Gyllenhaal, Conor Kennedy, Harry Styles, Calvin Harris, Tom Hiddleston, Joe
+Alwyn, Travis Kelce).
+
+**Why:** The thread's entire premise — both the original product brief
+("who each era was written about") and the v0 design built against it — is
+answering "who was she with, when." A relationship thread that hides who
+defeats its own purpose. All of these are widely-reported public
+relationships between public figures (nothing private or contested), and
+this app's photo/media policy (2026-07-09 entries above) already accepted a
+more permissive posture than the caution the non-identifying convention
+implied.
+
+**Alternatives considered:** Keep non-identifying labels — rejected, makes
+the shipped feature confusing/useless relative to what was actually asked
+for and designed.
+
+**Approved by:** Claude, acting on the explicit product brief for this
+thread rework — flagging here rather than treating silently, since it
+reverses a previously deliberate convention. Low-risk/easily reversible
+(display strings, not data-model or infra), so implementing directly rather
+than blocking on a synchronous approval; revert is a one-line diff if this
+call is wrong.
+=======
+## 2026-07-10 — Threads content derives from tagged content items, not hand-authored arrays
+
+**Decision:** The six Threads (`love-story`, `fashion`, `taylors-version`,
+`easter-eggs`, `hidden-clues`, `the-proposal`) currently render from
+hand-authored TypeScript arrays in `apps/web/lib/longlive/lenses.ts`
+(`RELATIONSHIPS`, `RUNWAY_LOOKS`, `RERECORDS`, `PROPOSAL_BEATS`, `CLUE_PAIRS`,
+`EGG_NODES`/`EGG_LINKS`), completely disconnected from
+`supabase/seed/content/**` — the pipeline every Era moment flows through.
+Going forward, thread membership is derived from **tags on content items**
+(new items in `supabase/seed/content/**` get one or more thread tags at
+authoring time) rather than a second, hand-maintained data source. A thread's
+rendered list should be a query/selector over tagged content, not a separate
+array that has to be remembered and kept in sync by hand.
+
+**Rollout is two phases, not one landing:** phase 1 (2026-07-10, this PR) is
+the derivation mechanism itself — `ContentItem.threadIds`, the
+`contentForThread()` selector, real tagged data via the existing
+Relationship/Fashion category defaults. **`ThreadsMode.tsx` still renders
+from the old `lenses.ts` arrays as of this PR — the mechanism exists but
+nothing consumes it yet.** Phase 2, done per-thread as each thread's UI
+rework lands (tracked in `docs/threads-rework-2026-07-10.md`), is wiring the
+actual rendered UI to `contentForThread()` and retiring the corresponding
+old array. Don't read this decision as "Threads already render from tagged
+content" until phase 2 closes per thread.
+
+**Why:** Joey flagged that new content isn't naturally flowing into Threads —
+e.g. real relationship/sighting content added to an era file has no path
+into the Love Story thread unless someone remembers to also hand-edit
+`lenses.ts`. That's a structural drift risk, not a one-off oversight: the
+two data sources will keep diverging as content authoring continues weekly
+(see `docs/roadmap.md` J7). Auto-deriving from tags means new tagged content
+appears in the right thread automatically, the same guarantee Era moments
+already have.
+
+**What this does NOT change:** thread-specific narrative structure that
+doesn't map to a single content item — e.g. Love Story's single/solo periods
+between relationships, or the Clue Web's motif-trail groupings and node-link
+graph — still needs dedicated schema beyond a tag on one item. Those get
+first-class fields/tables of their own (not another parallel hand-authored
+array); the tag-derivation decision applies to "which content items surface
+in which thread," not to every piece of thread-specific presentation data.
+
+**Alternatives considered:** (1) keep `lenses.ts` hand-authored, add a
+process rule + CI lint flagging likely-missed cases — rejected as treating
+the symptom, not the drift; (2) hybrid — ship the current thread reworks
+against today's `lenses.ts` shape, migrate after launch — rejected because
+every thread rework happening now is the natural point to build the tagged
+shape once instead of building on the old shape and migrating twice.
+
+**Approved by:** Joey (product), 2026-07-10.
+>>>>>>> origin/main
+
+## 2026-07-09 — Superseded same-day: full lyrics reproduction rejected in favor of per-song analysis + short quotes
+
+**Decision:** The entry directly below this one ("Full song lyrics may be
+reproduced on-site") is superseded after further discussion, the same day it
+was written. We will NOT reproduce complete song lyrics anywhere in the app.
+
+Instead, every song gets its own page (`TrackDetail`, reached from the Track
+Guide) with real, researched discussion — why she wrote it, what it's about,
+its place in the album/era — grounded with a FEW short illustrative quoted
+lines, the way music journalism quotes a couplet. This is exactly the
+existing "original words + links, never paste verbatim" rule already applied
+everywhere else in the app; there was never a real reason to treat songs
+differently.
+
+**Why the reversal:** a licensing/API tangent (Musixmatch, Genius) was
+explored and dropped — Joey correctly pointed out that's solving the wrong
+problem. The actual work is research and writing (what the song means, why
+it was written), same as every other content pass in this app, not a data
+source to license.
+
+**Implementation note (2026-07-09):** it turned out every seeded track
+already carries real, sourced `summary`/`inspiration`/`easterEggs` fields
+(written during an earlier content pass) that were never surfaced in the UI
+at all — another instance of this app's recurring "plumbing, not writing"
+gap. The `TrackDetail` page's discussion is auto-derived from those fields
+where no hand-written `discussion` override exists, so all ~244 songs got
+real per-song pages with zero new content-writing required for this pass.
+
+**Approved by:** Joey (product), 2026-07-09.
+
+## 2026-07-09 — Full song lyrics may be reproduced on-site (SUPERSEDED, see entry above)
+
+**Decision:** Reproducing complete song lyrics (not just short quoted lines)
+is allowed in the track guide / song-meaning sections, at the same risk
+tolerance as the photo-rehosting decision below: a knowing acceptance of
+copyright-infringement exposure rather than an oversight.
+
+**The actual risk being accepted, stated plainly:** song lyrics are
+copyrighted works; the NMPA and Genius have both pursued infringement claims
+over unlicensed lyric reproduction, historically more aggressively than
+photo agencies pursue paparazzi-photo rehosting. This is a **larger** legal
+exposure than the photo decision, not an equivalent one, even though the
+same "knowing acceptance" framing applies.
+
+**What this does NOT change:** the no-fabrication rule; text elsewhere (event
+summaries, moment bodies) still must be original words + links, never pasted
+verbatim, per the 2026-07-08 media policy below.
+
+**Approved by:** Joey (product), 2026-07-09.
+
+## 2026-07-09 — Deuxmoi may be cited as a source, always explicitly labeled
+
+**Decision:** Deuxmoi (an anonymous gossip/blind-item Instagram account that
+publishes unverified reader-submitted tips, not a reported news outlet with
+editorial standards) may be used as a source. It must always be labeled
+transparently as "Source: Deuxmoi" — never disguised as or blended with
+reputable-press citations — so users can see for themselves that a claim
+traces back to an anonymous tip account rather than confirmed reporting.
+
+**Why:** Some real information about Taylor Swift genuinely does surface
+first through Deuxmoi before (or instead of) verified press pickup.
+Transparency about the source, not exclusion of it, is the honesty
+mechanism — consistent with the existing confidence-label system
+(`official` / `confirmed_interview` / `reputable_reporting` / etc. in
+`apps/web/lib/longlive/types.ts`); a Deuxmoi-sourced claim should carry a
+low confidence label (`plausible` or below), never `confirmed` or `official`.
+
+**Approved by:** Joey (product), 2026-07-09.
+
+## 2026-07-09 — Hosting/rehosting real internet photos IS allowed — no rules against it
+
+**Decision:** There is **no rule against hosting photos.** Any real photo may
+appear on-site by **any** means — embedded via oEmbed, hotlinked, or
+**copied/rehosted to our own CDN** — with a credit line where available. Every
+prior ban or restriction on rehosting is **deleted**, including the one that
+had stood in the "Media & content sourcing policy" entry below (dated
+2026-07-08, which had called an earlier same-day reversal an "over-correction").
+That ban text has been removed from that entry too, so the log no longer
+contradicts itself. Confirmed directly by Joey and Wyatt.
+
+**Why this needed resolving explicitly:** the two entries directly
+contradicted each other, and — independent of which one was "supposed" to be
+current — Wyatt's content team had already shipped multiple merged PRs
+rehosting real photos under what their own commit messages called "the
+relaxed image policy" (e.g. `content/showgirl-marquee-photos`,
+`content/red-photos`). Docs and shipped code disagreed; per CLAUDE.md's
+"disagreements surface, not settle" rule, this was raised to Joey rather than
+silently picked.
+
+**What stands, unchanged from the 2026-07-08 entry below:** the no-fabrication
+rule, the reference/comparable-image honesty-labeling requirement (never
+present a stand-in as the real photo), and the monetization IP-counsel gate.
+oEmbed is still the *preferred* path for social-post embeds (no hosting cost),
+but is no longer the only way images may appear on-site.
+
+**Approved by:** Joey (product), 2026-07-09.
+
+## 2026-07-08 — LongLive content synced from Supabase at build time, not runtime
+
+**Decision:** `apps/web/lib/longlive/content-vault.generated.ts` (the
+generated half of the LongLive UI's content layer) is now produced by
+`scripts/sync-longlive-content.mjs` running as a Next.js `prebuild` step.
+That script tries the **live Supabase `month_item` table first** (same
+public/RLS-read `NEXT_PUBLIC_SUPABASE_URL`/`_ANON_KEY` env as the dormant
+`VaultReader` path) and **falls back to the local `supabase/seed/content/**`
+seed files** when Supabase isn't configured or the fetch fails (local dev
+without secrets, CI, or before the DB is seeded).
+
+**Why:** Earlier today the generated file was produced by a manual,
+human-remembered script run against local seed files only — content changes
+required someone to re-run it and commit the output, with no connection to
+the actual Supabase database the seed files are meant to populate. This
+closes that gap: seed the DB (`npm run db:seed:content`) → redeploy → the
+build reads fresh data automatically. It stays a **build-time** read, not a
+live per-request one — consistent with `CLAUDE.md`'s cost-discipline rule
+("keep the Vault static, no per-user DB calls in the request path") and
+`docs/architecture.md`'s Tier-0-static design. The fallback keeps local dev
+and CI working without provisioning secrets everywhere.
+
+**Alternatives considered:** wire live client-side/server-component Supabase
+reads into the LongLive UI directly (rejected for now — a much larger,
+riskier refactor across ~15 components that currently import static data
+synchronously; also reintroduces runtime DB dependency the static design
+deliberately avoids. Real architectural convergence, tracked as future work
+in `docs/longlive-experience.md` §9, not done today); keep the manual-only
+sync script (rejected — doesn't fix the actual problem, which is that
+content updates require a human to remember a step).
+
+**Not yet done:** Tier-1 `moment.context` (long-form body text) isn't fetched
+in the live path — 400+ individual queries at build time was judged not
+worth it right now; live-synced items fall back to the snippet as body, same
+as any seed item without `moment.context`. The videos/theories/tours/
+releases seed pipelines are still unsynced entirely (tracked in
+`docs/longlive-experience.md` §9).
+
+**Approved by:** Joey, in this session — explicit "go for it" on architecture
+integration #1 from the Supabase review.
+
+## 2026-07-08 — Media & content sourcing policy
+
+**Decision:** Replace the inherited blanket "never store article bodies or
+rehost images — metadata only" rule with a **three-part policy** that makes
+goal #7 (a rich, self-contained on-site experience — users never click out)
+achievable while confining the real legal exposure. (Refines and supersedes the
+blunt same-day "just reverse it / allow rehosting" note — that over-corrected.)
+
+1. **Text — relaxed.** We write **original summaries of events in our own
+   words** and link to sources. Facts aren't copyrightable; expression is. We
+   **never paste article bodies, lyrics, or official statements verbatim.** The
+   no-fabrication rule still applies (summaries must be real + sourced).
+   Low-risk; unblocked.
+
+2. **Images — no hosting restriction (see the 2026-07-09 entry above).** Any
+   real photo may appear on-site by **any** means — embedded via oEmbed,
+   hotlinked, or **copied/rehosted to our own CDN** — with a credit line where
+   available. There is **no ban on rehosting** (the clause that used to sit here
+   banning "arbitrary internet photos" is **deleted**). oEmbed remains a
+   convenient path for social posts, not a requirement. The only image rules
+   that remain are content-integrity, not hosting: **no AI-generated fakes,**
+   and **clearly label any reference/comparable stand-in** so it's never
+   presented as the real thing.
+
+3. **Monetization gate.** The affiliate/fashion (commercial) layer shifts us
+   from editorial toward commercial and raises **right-of-publicity /
+   false-endorsement** questions. **Nothing monetized ships without external
+   IP-counsel review,** and the **UNOFFICIAL fan-project disclaimer stays
+   prominent.**
+
+**Why:** The inherited blanket "metadata only" ban made the product impossible
+(goal #7 needs on-site media). The image half of this policy has since been
+fully opened up — see the 2026-07-09 "no rules against hosting" entry above,
+which is the current word: hosting/rehosting real photos (paparazzi, press,
+agency) is allowed, with credit; only AI fakes and mislabeled stand-ins are
+barred.
+
+**Must go to a real lawyer before we monetize (explicit):**
+- Any monetization / affiliate / commercial feature → external IP counsel
+  (right-of-publicity, false endorsement, FTC affiliate-disclosure).
+- Before accepting any **fan submissions / UGC** → register a **DMCA agent** +
+  takedown workflow (safe-harbor).
+- Editorial-imagery **licensing scope** confirmed before hosting licensed assets.
+
+**Technical implications:**
+- **oEmbed content model:** store provider + canonical post URL (+ cached
+  oEmbed HTML/metadata with attribution + fetched-at); render via provider
+  embed; respect provider ToS/rate limits; graceful fallback when a post is
+  deleted. oEmbed is an **external dependency**, so treat social embeds as
+  current/ephemeral and prefer licensed **owned** assets for permanent/hero
+  imagery.
+- **Caching + attribution** kept with every asset (credit = attribution, not a
+  license).
+- Owned/licensed media stays **off the Tier 0 payload budget**.
+
+**Unchanged:** no-fabrication rule; Tier 0 payload budget; UNOFFICIAL stance;
+RLS. Point-in-time references in `docs/specs/`, `docs/proposals/`,
+`docs/marketing/`, and the `packages/shared/src/vault-types.ts` comments predate
+this entry and are superseded by it; they'll be updated when the media pipeline
+lands.
+
+**CTO agent's evaluation (surfaced, not rubber-stamped):** agree with all three
+parts. One caveat, not a disagreement — oEmbed's external dependency means
+deleted source posts break embeds, so license/own anything that must persist.
+
+**Approved by:** Wyatt (CTO). Product direction from Joey.
+
+## 2026-07-08 — Web app upgraded to Next 16 / React 19 / Tailwind 4 (retroactive)
+
+**Decision:** `apps/web` moved from Next 14.2 / React 18.3 / Tailwind 3 to
+Next 16.0 / React 19.2 / Tailwind 4.3, plus a set of Radix UI primitives
+(dialog, slider, slot, toggle-group, tooltip, visually-hidden), as part of the
+LongLive front-end rewrite (PR #73, branch `dev-script-not-seen`).
+
+**Why documented after the fact:** this shipped inside v0's (Vercel's AI
+builder) large front-end rewrite rather than as a standalone decision, so it
+wasn't logged before implementation as the workflow rules require. By the
+time it surfaced in codex review, the app was already built, tested, and
+merge-ready against the new stack — reverting the framework bump would mean
+reverting the entire rewrite, not a small change. The versions typecheck,
+lint, and test clean, and the app runs correctly on them, so we're recording
+the decision now rather than unwinding working code to backfill process.
+
+**Alternatives considered:** revert to Next 14/React 18 and re-port the
+LongLive components (rejected: throws away a full day of tested, reviewed
+work over a paperwork gap, not a functional problem); keep both versions
+side by side per-workspace (rejected: `apps/web` is a single Next app, there
+is no per-route framework split to make this meaningful).
+
+**Approved by:** Joey (product), retroactively, given the rewrite was already
+built end-to-end and passing review. **Process note for future sessions:**
+framework/major-version bumps must get a decisions.md entry BEFORE
+implementation per `CLAUDE.md` rule 6 — this entry exists to close that gap
+for this specific change, not to establish after-the-fact logging as normal
+practice.
+
+---
+
 ## 2026-07-04 — Persistent glass era-rail replaces the peek-strip summon
 
 **Decision:** Drop the summon affordance entirely. The prior design (see the next
