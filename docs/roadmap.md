@@ -92,11 +92,11 @@ before it's approved).
 
 | WP | What | Status |
 |----|------|--------|
-| **L1** | **Watch desk (launch gate):** uptime + error monitoring on key routes, cost-cap watch, Tier-3 paging path; usage-analytics stack decided (decision entry) and baseline wired | ⬜ pre-launch |
+| **L1** | **Watch desk (launch gate):** first define which serving path is authoritative for users (the static LongLive `/` vs the Supabase-wired path — see the known gap at the top of this doc), then uptime + error monitoring on that path's key routes, cost-cap watch, Tier-3 paging; usage-analytics stack decided (decision entry) and baseline wired | ⬜ pre-launch |
 | **L2** | **Feedback loop:** in-app feedback (PR #427) + app-store reviews + social complaints funneled into Kevin's triage; recurring themes surface as banked product decisions | ⬜ at launch |
 | **L3** | **Growth & Community desk, listening-first:** daily social/media/fandom scan (r/TaylorSwift, X, app stores) → sentiment + opportunity digest in the Founders' Brief | ⬜ at launch |
 | **L4** | **Automated announcements:** era-drop (J7) + feature announcements as a draft queue founders approve in the brief; scheduled autopost only after a clean track record + explicit founder sign-off per channel | ⬜ post-launch |
-| **L5** | **Scheduled marketing:** /marketing runs monthly by schedule; verdicts land as banked decisions; `docs/marketing/growth-plan.md` maintained from real metrics, founder-reviewed quarterly | ⬜ post-launch |
+| **L5** | **Standing marketing agent (replaces the /marketing command, which Joey judged not-a-team):** monthly research cadence with state between runs (recommended → shipped → measured), verdicts land as banked decisions; `docs/marketing/growth-plan.md` maintained from real metrics, founder-reviewed quarterly | ⬜ post-launch |
 
 ## 🎁 Ported from Orbit — and the important caveat
 
