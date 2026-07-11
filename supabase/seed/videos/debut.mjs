@@ -130,7 +130,7 @@ export default {
       releasedOn: null,
       relatedSongs: ['Picture to Burn'],
       summary:
-        'Revenge-fantasy split-screen: Taylor and her band trash an ex\'s house in her imagination while she sits primly in the truck outside — the first of many satirical self-aware villain turns.',
+        'Revenge fantasy: Taylor and her friend Abigail spy on the ex from a parked truck, then Taylor leads her band inside to trash his house in her imagination while Abigail keeps watch outside — the first of many satirical self-aware villain turns.',
       symbolism: null,
       easterEggs: [],
       officialUrl: null,

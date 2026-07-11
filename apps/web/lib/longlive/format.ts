@@ -39,6 +39,18 @@ export function formatRelativeTime(iso: string | null | undefined, nowMs: number
 }
 
 /**
+ * "October 2025"-style label for an ISO date (YYYY-MM-DD), for content that
+ * has a real date but no hand-authored `dateLabel` — e.g. a music video's
+ * `releasedOn` when it's duplicated into the main timeline (EraSection).
+ * UTC-anchored so a bare YYYY-MM-DD string never shifts a day backward in a
+ * negative-offset timezone.
+ */
+export function formatMonthYear(iso: string): string {
+  const d = new Date(`${iso}T00:00:00Z`);
+  return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+
+/**
  * Truncates prose to at most `max` characters on a word boundary, appending a
  * single ellipsis. Used by the scrubber hover preview and share copy so a
  * summary reads as a teaser, not a wall of text.

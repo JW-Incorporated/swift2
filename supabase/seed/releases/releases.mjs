@@ -370,7 +370,7 @@ export default {
         'Call It What You Want',
         "New Year's Day",
       ],
-      note: 'The no-press, no-singles-cycle comeback after the 2016 snake summer — electropop armor on the outside, a love story underneath. Her last Big Machine album.',
+      note: 'The no-press comeback after the 2016 snake summer — no interviews, just singles and snake teasers — electropop armor on the outside, a love story underneath. Her last Big Machine album.',
       sources: [
         wiki('Reputation_(album)', 'Reputation (album)'),
         awards(
@@ -551,7 +551,7 @@ export default {
         'closure',
         'evermore',
       ],
-      note: "folklore's \"sister album,\" dropped five months later as a second surprise — announced two days before her 31st birthday because 13 is her lucky number backwards.",
+      note: "folklore's \"sister album,\" dropped five months later as a second surprise — dropped two days before her 31st birthday because 13 is her lucky number backwards.",
       sources: [
         wiki('Evermore_(Taylor_Swift_album)', 'Evermore (Taylor Swift album)'),
         press(
@@ -728,7 +728,7 @@ export default {
         "Would've, Could've, Should've",
         'Dear Reader',
       ],
-      note: 'Announced at literally 3am the night of release: seven more songs from the Midnights sessions, "we think of them as this special surprise".',
+      note: 'Announced at literally 3am the night of release: seven more songs from the Midnights sessions — the "special very chaotic surprise" she had teased, which she called "3am tracks".',
       sources: [
         wiki('Midnights', 'Midnights', '3am Edition date + added tracks documented in the album article'),
         press(
@@ -918,7 +918,7 @@ export default {
         'The Alchemy',
         'Clara Bow',
       ],
-      note: 'Announced from the Grammys stage while winning Album of the Year #4 — the quill-pen breakup opus that became Spotify’s most-streamed album in a single day.',
+      note: 'Announced from the Grammys stage while accepting Best Pop Vocal Album — the same night she won her record fourth Album of the Year — the quill-pen breakup opus that became Spotify’s most-streamed album in a single day.',
       sources: [
         wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department'),
         press(
@@ -971,7 +971,7 @@ export default {
         'Robin',
         'The Manuscript',
       ],
-      note: '"It’s a 2am surprise": two hours after release, the 16-track album doubled into a 31-track anthology — "I’ve written so much tortured poetry in the past 2 years".',
+      note: '"It’s a 2am surprise": two hours after release, the 16-track album doubled into a 31-track anthology — "I’d written so much tortured poetry in the past 2 years".',
       sources: [
         wiki('The_Tortured_Poets_Department', 'The Tortured Poets Department', 'Anthology drop + added tracks documented in the album article'),
         press(

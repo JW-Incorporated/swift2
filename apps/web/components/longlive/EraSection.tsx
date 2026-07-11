@@ -19,6 +19,7 @@ import {
   ChevronDown,
   ChevronUp,
   type LucideIcon,
+  Clapperboard,
 } from 'lucide-react';
 import { useAppActions, useProgress } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
@@ -26,14 +27,24 @@ import { contentForEra } from '@/lib/longlive/content';
 import { tracksForEra } from '@/lib/longlive/tracks';
 import { theoriesForEra } from '@/lib/longlive/theories';
 import { threadsInEra, getThread } from '@/lib/longlive/lenses';
+import { videosForEra, musicVideosForEra } from '@/lib/longlive/videos';
+import { formatMonthYear } from '@/lib/longlive/format';
 import { EraMedia } from './EraMedia';
 import { EraVideos } from './EraVideos';
+import { MomentVideo } from './MomentVideo';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS, itemMatchesFilter, tagsPresent } from '@/lib/longlive/tagBadges';
 import { hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
-import type { ContentItem, ContentTag, Era, LensId } from '@/lib/longlive/types';
+import type { ContentItem, ContentTag, Era, LensId, VideoNote } from '@/lib/longlive/types';
 import { assignFeedTiers, type CardTier } from '@/lib/longlive/feed-tiers';
 import { cn } from '@/lib/utils';
+
+/** A dated music video (see musicVideosForEra) eligible for a timeline entry. */
+type TimelineVideo = VideoNote & { releasedOn: string };
+
+/** One entry in the merged, newest-first main feed: either a curated moment
+ * or a music video duplicated in from the era's videos (issue #439). */
+type FeedEntry = { kind: 'moment'; item: ContentItem } | { kind: 'video'; video: TimelineVideo };
 
 /**
  * A single era in the infinite stream. Themed locally via eraStyle so stacked
@@ -57,6 +68,7 @@ export function EraSection({ era }: { era: Era }) {
   const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
   const trackCount = useMemo(() => tracksForEra(era.id).length, [era.id]);
   const theoryCount = useMemo(() => theoriesForEra(era.id).length, [era.id]);
+  const videoCount = useMemo(() => videosForEra(era.id).length, [era.id]);
 
   const items = useMemo(() => contentForEra(era.id), [era.id]);
   // Pure client-side filter over already-resident Tier 0 data — no fetch, no
@@ -75,7 +87,49 @@ export function EraSection({ era }: { era: Era }) {
   // function of that list's ids, so it's stable across re-renders.
   const tiers = useMemo(() => assignFeedTiers(visible), [visible]);
 
-  const presentTags = useMemo(() => tagsPresent(items.map((it) => it.tags)), [items]);
+  // Music videos duplicated into the main timeline (issue #439), dated to
+  // their release date, alongside — not instead of — the EraVideos rail
+  // below. Skip any whose youtubeId is already embedded on a curated moment
+  // above (e.g. a lead-single video that's also its own narrative beat) so
+  // the same video never appears twice in this same list.
+  const embeddedVideoIds = useMemo(
+    () => new Set(items.map((it) => it.video?.youtubeId).filter((id): id is string => Boolean(id))),
+    [items],
+  );
+  const timelineVideos = useMemo(
+    () => musicVideosForEra(era.id).filter((v) => !v.youtubeId || !embeddedVideoIds.has(v.youtubeId)),
+    [era.id, embeddedVideoIds],
+  );
+  const visibleTimelineVideos = useMemo(
+    () => (activeTags.size === 0 || activeTags.has('Music') ? timelineVideos : []),
+    [timelineVideos, activeTags],
+  );
+  // Merge the (already tag-filtered) moments with the (already tag-gated)
+  // video entries into one newest-first feed, keeping cross-type ordering
+  // correct instead of just concatenating the two lists.
+  const feedEntries = useMemo(() => {
+    const entries: FeedEntry[] = [
+      ...visible.map((item): FeedEntry => ({ kind: 'moment', item })),
+      ...visibleTimelineVideos.map((video): FeedEntry => ({ kind: 'video', video })),
+    ];
+    return entries.sort((a, b) => {
+      const dateA = a.kind === 'moment' ? a.item.date : a.video.releasedOn;
+      const dateB = b.kind === 'moment' ? b.item.date : b.video.releasedOn;
+      return dateB.localeCompare(dateA);
+    });
+  }, [visible, visibleTimelineVideos]);
+
+  // tagsPresent() keeps chip order canonical; a video-only 'Music' presence
+  // (issue #439) is folded in via a synthetic tag list rather than bypassing
+  // the shared helper, so the filter's "only offer tags this era actually
+  // uses" guarantee still holds for the timeline-video case too.
+  const presentTags = useMemo(
+    () =>
+      tagsPresent(
+        timelineVideos.length > 0 ? [...items.map((it) => it.tags), ['Music']] : items.map((it) => it.tags),
+      ),
+    [items, timelineVideos],
+  );
 
   function toggleTag(tag: ContentTag) {
     setActiveTags((prev) => {
@@ -141,7 +195,7 @@ export function EraSection({ era }: { era: Era }) {
           {era.media && <EraMedia media={era.media} />}
 
           {/* Era guides — each only when this era has sourced records. */}
-          {(trackCount > 0 || theoryCount > 0) && (
+          {(trackCount > 0 || theoryCount > 0 || videoCount > 0) && (
             <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
               {trackCount > 0 && (
                 <button
@@ -163,6 +217,20 @@ export function EraSection({ era }: { era: Era }) {
                   <Sparkles className="h-4 w-4 text-[color:var(--era-accent)]" />
                   Theories &amp; eggs
                   <span className="text-xs text-[color:var(--era-ink-soft)]">{theoryCount}</span>
+                </button>
+              )}
+              {videoCount > 0 && (
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById(`era-videos-${era.id}`)
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                  className="era-btn-ghost inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
+                >
+                  <Clapperboard className="h-4 w-4 text-[color:var(--era-accent)]" />
+                  Videos
+                  <span className="text-xs text-[color:var(--era-ink-soft)]">{videoCount}</span>
                 </button>
               )}
             </div>
@@ -243,19 +311,25 @@ export function EraSection({ era }: { era: Era }) {
         </div>
       )}
 
-      {/* Chronological feed (newest-first). */}
+      {/* Chronological feed (newest-first). Music videos (issue #439) are
+          merged in alongside curated moments, dated to their release date —
+          the fuller card for each still lives in the EraVideos rail below. */}
       <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
         <ol className="relative space-y-5">
-          {visible.map((item) => (
-            <MomentCard
-              key={item.id}
-              item={item}
-              tier={tiers.get(item.id) ?? 'text'}
-              onOpen={() => openItem(item.id)}
-            />
-          ))}
+          {feedEntries.map((entry) =>
+            entry.kind === 'video' ? (
+              <VideoMomentCard key={`era-video-${entry.video.slug}`} video={entry.video} eraId={era.id} />
+            ) : (
+              <MomentCard
+                key={entry.item.id}
+                item={entry.item}
+                tier={tiers.get(entry.item.id) ?? 'text'}
+                onOpen={() => openItem(entry.item.id)}
+              />
+            ),
+          )}
         </ol>
-        {visible.length === 0 && (
+        {feedEntries.length === 0 && (
           <p className="py-16 text-center text-sm text-[color:var(--era-ink-soft)]">
             No moments match that filter in this era.
           </p>
@@ -334,6 +408,45 @@ const TAG_ICON: Record<ContentTag, LucideIcon> = {
   Relationship: Heart,
   Lore: ScrollText,
 };
+
+/**
+ * Lightweight timeline entry for a music video duplicated in from
+ * musicVideosForEra (issue #439 part 2). Deliberately thinner than
+ * MomentCard's tiers — director/symbolism/easter-egg depth stays in the
+ * EraVideos rail card below; this is just the date, title, and the same
+ * click-to-play facade (MomentVideo) used everywhere else a video embeds.
+ */
+function VideoMomentCard({ video, eraId }: { video: TimelineVideo; eraId: Era['id'] }) {
+  return (
+    <li
+      className="relative scroll-mt-28"
+      data-ll-item={`era-video-${video.slug}`}
+      data-ll-era={eraId}
+      data-ll-date={new Date(video.releasedOn).getTime()}
+    >
+      <div className="era-card block w-full rounded-2xl border p-5">
+        <div className="flex items-baseline justify-between gap-3">
+          <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+            {formatMonthYear(video.releasedOn)}
+          </span>
+          <span className="flex shrink-0 items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent)]">
+            <Clapperboard className="h-3.5 w-3.5" />
+            Music video
+          </span>
+        </div>
+        <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
+          {video.title}
+        </h3>
+        {video.summary && (
+          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{video.summary}</p>
+        )}
+        {video.youtubeId && (
+          <MomentVideo video={{ youtubeId: video.youtubeId, title: video.title }} caption={null} className="mt-4" />
+        )}
+      </div>
+    </li>
+  );
+}
 
 /** Date/tags/clue/seen row shared by every card tier. */
 function MomentMeta({

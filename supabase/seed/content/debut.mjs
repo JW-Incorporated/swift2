@@ -26,7 +26,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
-          "She started singing \"When you think Tim McGraw\" to herself in freshman-year math class — the boyfriend was a senior about to leave for college, and the song became a list of things that would make him remember her. She finished it with co-writer Liz Rose at a piano after school in about fifteen minutes; her verdict, per Songfacts: \"It may be the best fifteen minutes I've ever experienced.\"\n\nRose has always handed her the credit, saying Swift arrived \"with the idea and the melody, knowing exactly what she wanted\" — and Swift insisted it open the record: \"This song means so much to me, that's why we wanted it to be the first track on the album.\"",
+          "She started singing \"When you think Tim McGraw\" to herself in freshman-year math class — the boyfriend was a senior about to leave for college, and the song became a list of things that would make him remember her. She finished it with co-writer Liz Rose at a piano after school in about fifteen minutes; her verdict, per Songfacts: \"It may be the best fifteen minutes I've ever experienced.\"\n\nRose has always handed her the credit, saying Swift arrived with the idea and the melody and knew exactly what she wanted — and Swift insisted it open the record: \"This song means so much to me, that's why we wanted it to be the first track on the album.\"",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/tim-mcgraw' },
@@ -129,7 +129,10 @@ export default {
       title: "Mary's Song, borrowed from the couple next door",
       snippet: "A story of two neighbors who fell in love as kids and stayed married forever — inspired by an actual couple who lived next door.",
       sourceUrl: 'https://au.rollingstone.com/music/music-lists/taylor-swift-most-romantic-love-songs-list-82721/marys-song-oh-my-my-my-82725/',
-      thumbnailUrl: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
+      // Image-fix pass (2026-07-10): CIE #156 — old songfacts.com cover was a 145x145 low-res
+      // file, visibly soft when scaled up. Swapped (thumbnail + moment photo) for Wikipedia's
+      // 500x500 non-free cover file (curl 200, image/png; opened and viewed — correct debut cover).
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
       moment: {
         context:
           'The couple came over for dinner and told the story of how they\'d met as kids — and Swift, then 16, turned it into the debut\'s only whole-life love story, written with Liz Rose and Brian Maher. Her full quote reads like a thesis statement for the album: "You can go to the grocery store and read the tabloids... it was really comforting to know that all I had to do was go home and look next door to see a perfect example of forever."\n\nThen the song disappeared: per Songfacts she didn\'t perform it again after 2008 until July 6, 2024, when it resurfaced in an Eras Tour surprise-song mashup in Amsterdam.',
@@ -142,8 +145,8 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
-            credit: 'Big Machine Records (debut album cover art)',
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
+            credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
           },
         ],
       },
@@ -159,7 +162,7 @@ export default {
       thumbnailUrl: "https://upload.wikimedia.org/wikipedia/en/6/6b/Taylor_Swift_-_Should%27ve_Said_No_artwork.png",
       moment: {
         context:
-          "Written alone, two days before the album was mastered, and finished overnight with producer Nathan Chapman: \"It literally took me just 20 minutes to write,\" by her own account — about a boyfriend who'd cheated, with many lyrics lifted from the actual confrontation (\"I was living every line in this song at the time\"). She drew a line between it and her other kiss-off: where \"Picture to Burn\" was pure anger, this one was \"more of a moral statement.\"\n\nReleased as the album's fifth and final single in May 2008, it became her second Hot Country Songs No. 1 — and when it hit the country top 10 that July, she became the first solo female artist since 1964 to pull five top-10 country hits from a debut album.",
+          "Written alone, two days before the album was mastered, and finished overnight with producer Nathan Chapman: \"It literally took me just 20 minutes to write,\" by her own account — about a boyfriend who'd cheated, with many lyrics lifted from the actual confrontation (\"I was living every line in this song at the time\"). She drew a line between it and her other kiss-off: where \"Picture to Burn\" was pure anger, this one was \"more of a moral statement.\"\n\nReleased as the album's fifth and final single in May 2008, it became her second Hot Country Songs No. 1 — and when it hit the country top 10 that July, she became the first solo female artist in the chart's history (dating to 1964) with five top-10 country hits from a debut album.",
         sources: [
           { outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/Should've_Said_No" },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/shouldve-said-no' },
@@ -185,7 +188,10 @@ export default {
       moment: {
         context:
           'She wrote it at 13 while still living in Pennsylvania and making regular trips to Nashville, working out whether a music career was even reachable:\n\n"It was tough trying to find out how I was going to get where I wanted to go... I\'m really happy this is on the album, because I feel like I finally figured it out."',
-        sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/A_Place_in_This_World' }],
+        sources: [
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/A_Place_in_This_World' },
+          { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/a-place-in-this-world' },
+        ],
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
@@ -240,8 +246,10 @@ export default {
       snippet:
         'Sundresses, cowboy boots, and a mane of curls — the "country girl meets boho" pairing that style retrospectives point to as her original signature look.',
       sourceUrl: 'https://www.whowhatwear.com/taylor-swift-style-eras',
+      // Image-fix pass (2026-07-10): CIE #157 — thumbnail shared the same broken collage URL as
+      // the moment photo below; updated together.
       thumbnailUrl:
-        'https://cdn.mos.cms.futurecdn.net/whowhatwear/posts/303774/taylor-swift-style-eras-303774-1671855958167-main.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/330px-Taylor_Swift_%282007%29_retouched.jpg',
       moment: {
         context:
           'Retrospectives on her style evolution single out this pairing — frilly knee-length sundresses, cowboy boots, chokers, and a side-swept mane of curls — as the throughline of her 2006-2008 red carpets and album era, before "Fearless" brought in gold sequins and more polish.\n\nW Magazine\'s style-evolution piece files the whole period under one figure: "the curly-haired country girl of the Taylor Swift era." The look wasn\'t incidental — it was of a piece with the music, a teenager with an acoustic guitar singing confessional country, dressed like the girl-next-door those songs were narrated by. It read as authenticity first and fashion second, which is exactly why later eras could get so much mileage out of subverting it.',
@@ -251,8 +259,14 @@ export default {
         ],
         photos: [
           {
-            url: 'https://cdn.mos.cms.futurecdn.net/whowhatwear/posts/303774/taylor-swift-style-eras-303774-1671855958167-main.jpg',
-            credit: 'Getty Images',
+            // Image-fix pass (2026-07-10): CIE #157 — old photo was a Who What Wear designed
+            // editorial mood-board collage (product cutouts, a red-carpet photo, illustrations,
+            // and "taylor swift" typeset), not a real photograph. Replaced with the era-correct
+            // sundress-and-curls performance photo already used elsewhere in this file (curl 200,
+            // image/jpeg; opened and viewed — matches "sundresses, cowboy boots, and curls";
+            // CC BY 2.0, Brian Cantoni via Wikimedia Commons).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/330px-Taylor_Swift_%282007%29_retouched.jpg',
+            credit: 'Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, 2007 (era-correct sundress-and-curls look)',
           },
         ],
       },
@@ -268,7 +282,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/MWvKEdsvu4S2unTkFGW5dZ.jpg',
       moment: {
         context:
-          'Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras.\n\nIt became shorthand for the whole era: W Magazine\'s evolution piece literally names the period after it, "the curly-haired country girl of the Taylor Swift era." The ringlets read as unstudied and homespun, matching the sundress-and-boots styling — and their eventual disappearance (straightened for the "reputation" turn, later a soft wave) is one of the clearest visual markers fans use to date a photo to a given era. Even in 2008 she was joking about the upkeep, thanking her stylist at the CMT Awards "for straightening my hair, because that\'s not easy."',
+          'Hair retrospectives mark 2006 as the starting point of her signature curl — a mane of tight, spiraled ringlets she wore through her first album cycle before loosening the curl pattern in later eras.\n\nIt became shorthand for the whole era: W Magazine\'s evolution piece literally names the period after it, "the curly-haired country girl of the Taylor Swift era." The ringlets read as unstudied and homespun, matching the sundress-and-boots styling — and their eventual disappearance (loosened around 2011 and fully straightened by the Red era, long before reputation\'s sleeker looks) is one of the clearest visual markers fans use to date a photo to a given era. Even in 2008 she was joking about the upkeep, thanking her stylist at the CMT Awards "for straightening my hair, because that\'s not easy."',
         sources: [
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/beauty/hair/g12774421/taylor-swift-hair/' },
           { outlet: 'W Magazine', url: 'https://www.wmagazine.com/fashion/taylor-swift-style-evolution' },
@@ -293,7 +307,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg',
       moment: {
         context:
-          'She attended the 2008 Grammys as a Best New Artist nominee (the award went to Amy Winehouse) in a strapless, corseted purple gown by Sandi Spika, paired with her signature curls — a look fashion retrospectives still cite as her Grammys debut.\n\nAt 18 she wasn\'t yet a Grammy performer or winner, just a first-time nominee working the carpet at music\'s biggest night — the nomination itself the headline, arriving off a debut album that had refused to stop selling. Who What Wear and Femestella both treat this purple gown as the opening frame of a Grammys red-carpet history that would run for well over a decade; the following year, in a blue KaufmanFranco gown, she\'d be walking it as a four-time winner.',
+          'She attended the 2008 Grammys as a Best New Artist nominee (the award went to Amy Winehouse) in a strapless, corseted purple gown by Sandi Spika, paired with her signature curls — a look fashion retrospectives still cite as her Grammys debut.\n\nAt 18 she wasn\'t yet a Grammy performer or winner, just a first-time nominee working the carpet at music\'s biggest night — the nomination itself the headline, arriving off a debut album that had refused to stop selling. Who What Wear and Femestella both treat this purple gown as the opening frame of a Grammys red-carpet history that would run for well over a decade; two years later, in a blue KaufmanFranco gown at the 2010 ceremony, she\'d leave the same carpet a four-time winner.',
         sources: [
           {
             outlet: 'Who What Wear',
@@ -431,18 +445,20 @@ export default {
       snippet:
         '"Oh my God. I am on the Rascal Flatts tour!" — her real, handwritten diary entry from Oct. 18, 2006, the day a fired opening act\'s bad luck became her first big tour break.',
       sourceUrl: 'https://tasteofcountry.com/taylor-swift-diary-entry-2006-rascal-flatts-tour/',
-      thumbnailUrl: 'https://townsquare.media/site/204/files/2019/08/Taylor-Swift-Flatts.jpg?w=980&q=75',
+      // Image-fix pass (2026-07-10): CIE #154 — thumbnail shared the same broken collage URL as
+      // the first moment photo below; both fixed together (see photos[] comment).
+      thumbnailUrl: 'https://townsquare.media/site/204/files/2019/08/Taylor-Rascal-Flatts-Diary-Entry.jpg?w=980&q=75',
       moment: {
         context:
-          'Rascal Flatts had just fired opener Eric Church from their "Me and My Gang" tour for repeatedly running long onstage. The opening it created went to 16-year-old Swift, who got the call on Oct. 17, 2006 and wrote in her diary the next day: "Oh my God. I am on the Rascal Flatts tour! I got the call yesterday and I screamed louder than I can ever remember screaming before." She opened five tour dates that fall.\n\nYears later, when she earned her first gold record, she gave it to Church with a note: "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
+          'Rascal Flatts had just fired opener Eric Church from their "Me and My Gang" tour for repeatedly running long onstage. The opening it created went to 16-year-old Swift, who got the call on Oct. 17, 2006 and wrote in her diary the next day: "Oh my God. I am on the Rascal Flatts tour! I got the call yesterday and I screamed louder than I can ever remember screaming before." She opened the tour\'s remaining dates that fall (Oct. 19-Nov. 3, 2006).\n\nYears later, when she earned her first gold record, she gave it to Church with a note: "Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it."',
         sources: [
           { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-diary-entry-2006-rascal-flatts-tour/' },
         ],
         photos: [
-          {
-            url: 'https://townsquare.media/site/204/files/2019/08/Taylor-Swift-Flatts.jpg?w=980&q=75',
-            credit: 'Bryan Bedder/Jason Kempin, Getty Images',
-          },
+          // Image-fix pass (2026-07-10): CIE #154 — removed the Taylor-Swift-Flatts.jpg photo: it
+          // was a side-by-side collage (2019 Lover-era Taylor left, Rascal Flatts performing right),
+          // ~13 years off-era and not a single photo. The diary-page photo below is on-topic and
+          // stands alone; no replacement photo needed for this item.
           {
             url: 'https://townsquare.media/site/204/files/2019/08/Taylor-Rascal-Flatts-Diary-Entry.jpg?w=980&q=75',
             credit: "Taylor Swift's handwritten diary entry, Oct. 18, 2006",
@@ -628,7 +644,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Fourteen-year-old America\'s Got Talent finalist Julienne Irwin\'s wish, if she made the finals, was to duet with her favorite singer. Swift agreed: "I can\'t wait to sing with Julienne on America\'s Got Talent. She\'s such a sweetheart, and I\'m so unbelievably honored that she chose me..."\n\nOn Aug. 21, 2007, she flew overnight from a tour date in Rapid City, South Dakota to Los Angeles for the live finale, where the pair performed "Teardrops on My Guitar" together in front of 12.1 million viewers, before Swift continued on to a show in Minneapolis.',
+          'Fourteen-year-old America\'s Got Talent finalist Julienne Irwin\'s wish, if she made the finals, was to duet with her favorite singer. Swift agreed: "I can\'t wait to sing with Julienne on America\'s Got Talent. She\'s such a sweetheart, and I\'m so unbelievably honored that she chose me..."\n\nOn Aug. 21, 2007, she flew overnight from a tour date in Rapid City, South Dakota to Los Angeles for the live finale, where the pair performed "Teardrops on My Guitar" together, before Swift continued on to a show in Minneapolis.',
         sources: [
           { outlet: 'Country Standard Time', url: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=851' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Julienne_Irwin' },
@@ -667,8 +683,13 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Taylor_in_Concert.jpg/330px-Taylor_in_Concert.jpg',
-            credit: 'Wikimedia Commons — Taylor Swift performing, debut era (archival, era context; not the Ellen appearance)',
+            // Image-fix pass (2026-07-10): CIE #158 — old photo (Taylor_in_Concert.jpg) was a noisy/
+            // soft 330x285 amateur concert shot, the weakest image in the file. Replaced with a
+            // sharper, already-verified 2007 Commons performance photo (curl 200, image/jpeg;
+            // opened and viewed — clean shot of Taylor Swift performing live; CC BY-SA 2.0,
+            // minds-eye/Sehome Bay via Wikimedia Commons).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG/330px-Swift%2C_Taylor_%282007%29_cropped_2.JPG',
+            credit: 'minds-eye/Sehome Bay, Wikimedia Commons (CC BY-SA 2.0) — Taylor Swift performing, 2007 (archival, era context; not the Ellen appearance)',
             kind: 'archival',
           },
         ],
@@ -703,15 +724,19 @@ export default {
       month: 4,
       day: 14,
       category: 'fashion',
-      title: 'A plum ruffled minidress for the 2008 CMT purple carpet',
+      // Image-fix pass (2026-07-10): CIE #159 — verified photo is her real 2008 CMT purple-carpet
+      // look (backdrop reads "CMT MUSIC AWARDS 08"); it's a plum V-neck gown with a draped,
+      // handkerchief hem to mid-calf, not a ruffled minidress. Reworded title/snippet/context to
+      // match what she actually wore; image is correct and unchanged.
+      title: 'A plum draped, handkerchief-hem dress for the 2008 CMT purple carpet',
       snippet:
-        'A fitted plum minidress with ruffled asymmetrical waist and metallic heels on the 2008 CMT purple carpet -- the same night "Our Song" won two trophies.',
+        'A plum V-neck gown with a draped, handkerchief hem and metallic heels on the 2008 CMT purple carpet -- the same night "Our Song" won two trophies.',
       sourceUrl: 'https://www.yahoo.com/entertainment/everything-taylor-swift-worn-cmt-112401779.html',
       thumbnailUrl:
         'https://s.yimg.com/ny/api/res/1.2/9fZWYO_g_cw7hKHKR1dJFw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE1Mjc7Y2Y9d2VicA--/https://media.zenfs.com/en/business_insider_articles_888/949b8af84d79dc9c4a91fd85b56f9674',
       moment: {
         context:
-          'On the purple carpet at the 2008 CMT Music Awards (April 14, 2008), she wore a plum minidress with thin straps and a V-neckline, fitted through the top and flaring into asymmetrical ruffles at the waist, paired with metallic heels, a side-swept ponytail, and a sparkling headband.\n\nBefore changing into a black cutout minidress, cowboy boots, and a fedora to perform "Picture to Burn" onstage, throwing the hat across the stage mid-song.',
+          'On the purple carpet at the 2008 CMT Music Awards (April 14, 2008), she wore a plum V-neck gown, fitted through the bodice and falling into a draped, handkerchief hem to mid-calf, paired with metallic heels, a side-swept ponytail, and a sparkling headband.\n\nBefore changing into a black cutout minidress, cowboy boots, and a fedora to perform "Picture to Burn" onstage, throwing the hat across the stage mid-song.',
         sources: [
           {
             outlet: 'Yahoo Entertainment',
@@ -833,8 +858,15 @@ export default {
         ],
         photos: [
           {
-            url: 'https://townsquare.media/site/204/files/2019/08/Taylor-Swift-Flatts.jpg?w=980&q=75',
-            credit: 'Bryan Bedder/Jason Kempin, Getty Images (Taylor Swift and Rascal Flatts, era context)',
+            // Image-fix pass (2026-07-10): CIE #140 — old photo (Taylor-Swift-Flatts.jpg) was a
+            // side-by-side collage: 2019 Lover-era Taylor (blunt bob, purple blazer, pastel
+            // "Lover" guitar) left, Rascal Flatts performing right — ~13 years off-era and not a
+            // single photo. This was this item's only photo, so per protocol it needed a verified
+            // replacement rather than removal. Replaced with an already-verified 2007 Commons
+            // photo (curl 200, image/jpeg; opened and viewed — Taylor Swift on stage at a mic
+            // stand holding a gold-record plaque, white dress, era-correct; CC BY 2.0, Brian Cantoni).
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
+            credit: 'Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift, 2007 (archival, era context; not the Rascal Flatts tour)',
             kind: 'archival',
           },
         ],
@@ -896,7 +928,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The booking closed the loop on the best origin story in her catalog: the single that introduced her — written in math class about a McGraw song — now performed nightly for his stadium audiences.\n\nShe\'d first met him on camera at the 2007 ACM Awards, introducing herself with "Hi, I\'m Taylor" after performing the song to his face.',
+          'The booking closed the loop on the best origin story in her catalog: the single that introduced her — written in math class about a McGraw song — now performed for his audiences at the select summer dates she opened.\n\nShe\'d first met him on camera at the 2007 ACM Awards, introducing herself with "Hi, I\'m Taylor" after performing the song to his face.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -968,12 +1000,12 @@ export default {
       category: 'release',
       title: 'The deluxe edition adds three songs to the album that would not stop selling',
       snippet:
-        'A year after release, Taylor Swift got a deluxe reissue with "I\'m Only Me When I\'m With You," "Invisible," and "A Perfectly Good Heart," plus her phone-recorded demos and music videos — a mid-run repackage of a still-climbing album.',
+        'A year after release, Taylor Swift got a deluxe reissue with "I\'m Only Me When I\'m With You," "Invisible," and "A Perfectly Good Heart," plus the era\'s music videos, behind-the-scenes footage, and a recording of her first phone call with Tim McGraw — a mid-run repackage of a still-climbing album.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
       thumbnailUrl: null,
       moment: {
         context:
-          'The Nov. 6, 2007 deluxe reissue landed while the album was still climbing — she\'d just won the CMA Horizon Award the previous night, and the record went on to log 157 weeks on the Billboard 200, more than any other album of the 2000s decade. The three additions — "I\'m Only Me When I\'m With You," "Invisible," and "A Perfectly Good Heart" — stayed exclusive to the edition for years.\n\nThe package doubled as a fan artifact: it bundled her phone-recorded songwriting demos and the era\'s music videos, letting buyers hear the songs in the rough form she\'d first cut them. Repackaging a still-selling debut to extend its shelf life — rather than rushing the follow-up — was exactly the patience the slow-burn "Taylor Swift" campaign was built on; "Fearless" was still a year away.',
+          'The Nov. 6, 2007 deluxe reissue landed while the album was still climbing — she\'d win the CMA Horizon Award the following night, and the record went on to log 157 weeks on the Billboard 200, more than any other album of the 2000s decade. The three additions — "I\'m Only Me When I\'m With You," "Invisible," and "A Perfectly Good Heart" — stayed exclusive to the edition for years.\n\nThe package doubled as a fan artifact: it bundled a DVD of the era\'s music videos ("Tim McGraw," "Teardrops on My Guitar," and "Our Song"), behind-the-scenes footage, and a recording of her first phone conversation with Tim McGraw. Repackaging a still-selling debut to extend its shelf life — rather than rushing the follow-up — was exactly the patience the slow-burn "Taylor Swift" campaign was built on; "Fearless" was still a year away.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -987,8 +1019,12 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
-            credit: 'Big Machine Records (debut album cover art)',
+            // Image-fix pass (2026-07-10): CIE #156 — old songfacts.com cover was a 145x145
+            // low-res file. Swapped for Wikipedia's 500x500 non-free cover file (curl 200,
+            // image/png; opened and viewed — correct debut cover). For 'debut-deluxe-edition'
+            // kept the standard cover (no verified deluxe-specific cover art found this session).
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
+            credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
             kind: 'primary',
           },
         ],
@@ -1086,7 +1122,10 @@ export default {
       snippet:
         'Oct. 24, 2006: the self-titled debut lands — eleven tracks, her name on every writing credit, released when she was 16.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
-      thumbnailUrl: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
+      // Image-fix pass (2026-07-10): CIE #156 — old songfacts.com cover was a 145x145 low-res
+      // file, most obvious on this hero release item. Swapped (thumbnail + moment photo) for
+      // Wikipedia's 500x500 non-free cover file (curl 200, image/png; opened and viewed).
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
       moment: {
         context:
           'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record.\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. Billboard\'s tenth-anniversary retrospective put it simply: she arrived, at 16, "with a fully formed idea of herself as an artist."',
@@ -1112,8 +1151,8 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
-            credit: 'Big Machine Records (debut album cover art)',
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
+            credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
           },
         ],
       },
@@ -1284,8 +1323,11 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.songfacts.com/img-artalbums-145-831fd1a25b37f2e356edb212022f061b.png',
-            credit: 'Big Machine Records (debut album cover art)',
+            // Image-fix pass (2026-07-10): CIE #156 — old songfacts.com cover was a 145x145
+            // low-res file. Swapped for Wikipedia's 500x500 non-free cover file (curl 200,
+            // image/png; opened and viewed — correct debut cover).
+            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
+            credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
             kind: 'primary',
           },
         ],
