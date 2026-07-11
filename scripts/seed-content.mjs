@@ -55,9 +55,9 @@ try {
       }
       const res = await client.query(
         `insert into public.month_item
-           (era_slug, year, month, category, title, snippet, source_url, thumbnail_url)
-         values ($1,$2,$3,$4,$5,$6,$7,$8) returning id`,
-        [eraSlug, it.year, it.month, it.category, it.title, it.snippet ?? '', it.sourceUrl ?? null, it.thumbnailUrl ?? null],
+           (era_slug, year, month, day, category, title, snippet, source_url, thumbnail_url)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning id`,
+        [eraSlug, it.year, it.month, it.day ?? null, it.category, it.title, it.snippet ?? '', it.sourceUrl ?? null, it.thumbnailUrl ?? null],
       );
       items += 1;
       if (it.moment) {
