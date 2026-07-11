@@ -7,7 +7,7 @@
 //                 so this doubles as the near-term image-safety net.
 // Exact-subject/appropriateness judgments are the vision-agent's job; this is
 // the cheap, no-model first pass.
-import { existsSync, readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join } from 'node:path';
 import { makeFinding } from '../lib/finding.mjs';
 import { imageIndex, ROOT } from '../lib/corpus.mjs';
