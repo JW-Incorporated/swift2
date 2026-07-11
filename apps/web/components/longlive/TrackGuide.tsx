@@ -104,7 +104,7 @@ export function TrackGuide() {
 
 function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
   const { openTrack } = useAppActions();
-  const hasDeepDive = Boolean(track.discussion && track.discussion.length > 0);
+  const hasDeepDive = Boolean((track.discussion && track.discussion.length > 0) || track.dossier);
 
   const body = (
     <>
