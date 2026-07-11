@@ -21,7 +21,7 @@ her current checks are necessary, not sufficient.
 | G-C | **Depth: worthy-of-Taylor** (#441 + #440 phases) — Karen can't see thinness; only 12/244 songs have dossiers | 🔴 TLOAS only (#440 Phase 1); no depth/photo/cross-link checkers | #441 checkers into Karen; per-era dossier plan = #440 Phases 2–3 · Integrity + Content desks |
 | G-D | **Track-guide UX** — Joey's 2026-07-11 report: song clicks broken on TLOAS, "Released" row shows album, most eras have zero clickable songs | 🔴 bugs filed (see tickets); unclickable-era problem is G-C's data gap surfacing in UI | Fix click bug + Released row · Build desk (Austin-eligible if triaged tractable); dossier coverage → G-C |
 | G-E | **Karen nightly, actually nightly** — merged today (#139) but never yet run on schedule; 2026-07-11 full scan pending in this session | 🟡 engine on main; cadence not wired | Wire nightly run (Wyatt-side cron or routine) + fold report into brief Health · Integrity desk |
-| G-F | **Zero open P0/P1 content findings** — Karen's ticket queue drained before ship | 🔴 424+ deterministic findings on 2026-07-11 scan (mostly claim-risk routing + images; P1s incl. real broken images) | Kevin's hourly fix stream + agent factual passes; count reports in every brief · Ticket ops |
+| G-F | **Zero open P0/P1 content findings** — Karen full criteria, queue drained before ship | 🟡 2026-07-11 full scan: 716 findings, but only **1 filable P1** (broken image) — 231 P1 claim-risk signals await the agent factual passes; 484 P2s are mostly image-quality/host advisories | Fix the broken image; run the agent factual+image passes on the batch inputs; counts in every brief · Integrity + Ticket ops |
 | G-G | **Watch desk minimum (L1)** — uptime/error paging on the authoritative user path + analytics baseline | 🔴 not built; analytics decision #477 unanswered | Tick #477 · founders; then L1 build · Watch/Build desk |
 | G-H | **Legal pages (G5)** — privacy + ToS covering feedback data (already collected!), minors, analytics consent | 🔴 nothing exists | Draft for IP-counsel review per existing gate · founders + Content desk |
 | G-I | **Backups (G4)** — Supabase restore runbook tested once | 🔴 unverified | Verify tier, document, test one restore · Build desk |
@@ -52,6 +52,9 @@ in the audit ticket. Results:
 - **1 verify:** LGAD "peaked No. 13" chart digit (routed to factual pass).
 
 Read: Karen's *current* criteria catch sourcing/safety/images well, and the
-corpus mostly passes them. The distance to Joey's bar lives in the two
-checks Karen doesn't have yet (voice G-B, depth G-C) — which is why those
-gates exist and why "Karen-clean" is redefined to include them.
+corpus mostly passes them — the same day's full deterministic scan (985
+items, 585 images) produced exactly **one filable P1** and zero P0s, with
+none of the 20 sampled items carrying a filable finding. The distance to
+Joey's bar lives in the two checks Karen doesn't have yet (voice G-B, depth
+G-C) plus the pending agent factual passes — which is why those gates exist
+and why "Karen-clean" is redefined to include them.
