@@ -16,6 +16,16 @@
 //     identity — content/lyrical/Easter-egg notes only (per the 2026-07-04 brief).
 //   - sources: [{ outlet, url }] — same shape as moment.sources.
 //
+//   - writers / producers (OPTIONAL): string[] of public-record credits.
+//   - release (OPTIONAL): the album/single title, e.g. 'Midnights'.
+//   - releaseDate (OPTIONAL): ISO date (YYYY-MM-DD) the release came out.
+//   - singleReleaseDate (OPTIONAL): ISO date the track was released as its
+//     own single, if ever.
+//   - themes (OPTIONAL): string[] of short documented lyrical/thematic tags.
+//   These all flow straight to the UI's "essential facts" area on the song's
+//   TrackDetail page — no separate source needed beyond the row's own
+//   `sources` above.
+//
 //   - discussion (OPTIONAL): string[] of real, researched paragraphs — why
 //     she wrote it, what it's about, its place in the album/era. This is the
 //     actual "article" shown on the song's TrackDetail page. Requires its OWN

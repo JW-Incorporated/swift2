@@ -40,8 +40,9 @@ try {
         `insert into public.track_note
            (era_slug, track_title, track_number, note, source_url, sources,
             discussion, quoted_lines, discussion_source_url, discussion_sources,
-            summary, inspiration, easter_eggs)
-         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)`,
+            summary, inspiration, easter_eggs,
+            writers, producers, release, release_date, single_release_date, themes)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)`,
         [
           eraSlug,
           t.trackTitle,
@@ -56,6 +57,12 @@ try {
           t.summary ?? '',
           t.inspiration ?? '',
           t.easterEggs ?? '',
+          JSON.stringify(t.writers ?? []),
+          JSON.stringify(t.producers ?? []),
+          t.release ?? null,
+          t.releaseDate ?? null,
+          t.singleReleaseDate ?? null,
+          JSON.stringify(t.themes ?? []),
         ],
       );
       notes += 1;

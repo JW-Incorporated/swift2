@@ -4,15 +4,11 @@ import { useEffect } from 'react';
 import { X, ListMusic } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { tracksForEra } from '@/lib/longlive/tracks';
+import { formatMonthYear } from '@/lib/longlive/format';
+import { trackKey, tracksForEra } from '@/lib/longlive/tracks';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { TrackNote } from '@/lib/longlive/types';
-
-/** Same composite key TrackRow/TrackGuide use — TrackNote has no stable id. */
-export function trackKey(eraId: string, track: TrackNote): string {
-  return `${eraId}::${track.trackNumber ?? 'x'}::${track.title}`;
-}
 
 /**
  * A single song's deep-dive page: real researched discussion of what it
@@ -79,6 +75,8 @@ export function TrackDetail() {
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{track.note}</p>
 
+        <TrackFacts track={track} />
+
         {track.discussion && track.discussion.length > 0 ? (
           <div className="mt-6 space-y-4">
             {track.discussion.map((para, i) => (
@@ -126,6 +124,73 @@ export function TrackDetail() {
           </p>
         )}
       </div>
+    </div>
+  );
+}
+
+/**
+ * The song's already-authored-but-previously-dropped essential facts —
+ * credits, release date, single release date, documented themes. Renders
+ * only the rows that exist for this track; a song still missing all of them
+ * (most, until a later phase's research pass) shows nothing here at all.
+ */
+function TrackFacts({ track }: { track: TrackNote }) {
+  const hasRelease = Boolean(track.release || track.releaseDate);
+  const hasFacts =
+    hasRelease ||
+    track.singleReleaseDate ||
+    (track.writers && track.writers.length > 0) ||
+    (track.producers && track.producers.length > 0);
+
+  if (!hasFacts && !(track.themes && track.themes.length > 0)) return null;
+
+  return (
+    <div className="mt-5">
+      {hasFacts && (
+        <dl className="space-y-1.5 text-xs leading-relaxed text-[color:var(--era-ink-soft)]">
+          {hasRelease && (
+            <div className="flex flex-wrap gap-x-1.5">
+              <dt className="font-medium text-[color:var(--era-ink)]">From</dt>
+              <dd>
+                {track.release}
+                {track.release && track.releaseDate ? ' · ' : ''}
+                {track.releaseDate ? formatMonthYear(track.releaseDate) : ''}
+              </dd>
+            </div>
+          )}
+          {track.singleReleaseDate && (
+            <div className="flex flex-wrap gap-x-1.5">
+              <dt className="font-medium text-[color:var(--era-ink)]">Released as a single</dt>
+              <dd>{formatMonthYear(track.singleReleaseDate)}</dd>
+            </div>
+          )}
+          {track.writers && track.writers.length > 0 && (
+            <div className="flex flex-wrap gap-x-1.5">
+              <dt className="font-medium text-[color:var(--era-ink)]">Writers</dt>
+              <dd>{track.writers.join(', ')}</dd>
+            </div>
+          )}
+          {track.producers && track.producers.length > 0 && (
+            <div className="flex flex-wrap gap-x-1.5">
+              <dt className="font-medium text-[color:var(--era-ink)]">Producers</dt>
+              <dd>{track.producers.join(', ')}</dd>
+            </div>
+          )}
+        </dl>
+      )}
+      {track.themes && track.themes.length > 0 && (
+        <div className={`flex flex-wrap gap-1.5 ${hasFacts ? 'mt-3' : ''}`}>
+          {track.themes.map((theme) => (
+            <span
+              key={theme}
+              className="rounded-full border px-2.5 py-0.5 text-[10px] uppercase tracking-wider text-[color:var(--era-ink-soft)]"
+              style={{ borderColor: 'var(--era-line)' }}
+            >
+              {theme}
+            </span>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

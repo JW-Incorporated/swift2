@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { TRACKS_RAW } from './tracks.generated';
-import { tracksForEra } from './tracks';
+import { trackKey, tracksForEra } from './tracks';
 import { ERAS } from './eras';
 
 // Guards the generated track-guide data against generator drift: everything
@@ -46,6 +46,27 @@ describe('tracksForEra', () => {
     // assume that — it backs a conditional entry point in the era hero.
     for (const era of ERAS) {
       expect(Array.isArray(tracksForEra(era.id))).toBe(true);
+    }
+  });
+});
+
+describe('trackKey', () => {
+  it('composes era + track number + title (TrackNote has no stable id of its own)', () => {
+    expect(trackKey('midnights', { trackNumber: 3, title: 'Anti-Hero', note: 'n', sources: [] })).toBe(
+      'midnights::3::Anti-Hero',
+    );
+  });
+
+  it('falls back to "x" for an unnumbered track', () => {
+    expect(trackKey('folklore', { trackNumber: null, title: 'the lakes', note: 'n', sources: [] })).toBe(
+      'folklore::x::the lakes',
+    );
+  });
+
+  it('is unique per real track in the generated catalog (no collisions within an era)', () => {
+    for (const era of ERAS) {
+      const keys = tracksForEra(era.id).map((t) => trackKey(era.id, t));
+      expect(new Set(keys).size, `era ${era.id} has colliding track keys`).toBe(keys.length);
     }
   });
 });

@@ -80,6 +80,15 @@ export interface EraTheme {
  *   - `egg:<EggNode.id>`        — one Clue Web node,      e.g. `egg:egg-snake-instagram`
  *   - `moment:<ContentItem.id>` — an era moment,          e.g. `moment:rep-album`
  *   - `rel:<Relationship.id>`   — a love-story entry,     e.g. `rel:rel-5`
+ *   - `song:<EraId>:<trackKey>` — an album track,         e.g.
+ *     `song:midnights:midnights::3::Anti-Hero` (the id after the era is the
+ *     same composite `trackKey()` TrackDetail/TrackGuide already use to
+ *     identify a track, from lib/longlive/tracks.ts — TrackNote has no
+ *     stable id of its own). Built once here (issue #440 Track Guide
+ *     overhaul, Phase 0) so #434's Love Story cross-links can reuse the exact
+ *     same mechanism instead of inventing a second one. See
+ *     `songTargetOf`/`songRelatedId` in lib/longlive/related.ts — mechanism
+ *     only, no song-to-song content authored yet.
  *
  * Resolution is best-effort by design: the UI ignores ids it cannot resolve
  * (see lib/longlive/related.ts) and never renders a dead link, so the content
@@ -295,6 +304,21 @@ export interface TrackNote {
    * statements, or reputable music journalism the analysis is grounded in.
    */
   discussionSources?: EggSource[];
+  // -- essential-facts fields (issue #440 Track Guide overhaul, Phase 0) --
+  // Already authored in the seed files; plumbed through here so they finally
+  // reach the UI. Never fabricated — same standard as the rest of TrackNote.
+  /** Public-record writing credits. */
+  writers?: string[];
+  /** Public-record production credits. */
+  producers?: string[];
+  /** Album/single title the track was released on, e.g. "Midnights". */
+  release?: string;
+  /** ISO date (YYYY-MM-DD) the track's parent release came out. */
+  releaseDate?: string;
+  /** ISO date (YYYY-MM-DD) the track was released as its own single, if ever. */
+  singleReleaseDate?: string;
+  /** Documented lyrical/thematic tags, e.g. "self-loathing", "adult heartbreak". */
+  themes?: string[];
 }
 
 /**

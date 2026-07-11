@@ -9,7 +9,8 @@
  */
 
 import { MOTIF_BY_ID, motifOf } from './lenses';
-import type { Motif, MotifId, RelatedId } from './types';
+import { trackKey, tracksForEra } from './tracks';
+import type { EraId, Motif, MotifId, RelatedId, TrackNote } from './types';
 
 /** A resolved Clue Web trail target. */
 export interface MotifTarget {
@@ -54,4 +55,48 @@ export function resolveMotifTrail(relatedIds: readonly RelatedId[] | undefined):
     if (target) return target;
   }
   return null;
+}
+
+/** A resolved album-track target. */
+export interface SongTarget {
+  eraId: EraId;
+  track: TrackNote;
+}
+
+/**
+ * Build a `song:<eraId>:<trackKey>` related id for a track — the inverse of
+ * `songTargetOf`. Built once here (issue #440 Track Guide overhaul, Phase 0)
+ * so #434's Love Story cross-links can reuse the exact same id format instead
+ * of inventing a second one; no song-to-song content is authored by this
+ * change, just the mechanism.
+ */
+export function songRelatedId(eraId: EraId, track: TrackNote): RelatedId {
+  return `song:${eraId}:${trackKey(eraId, track)}`;
+}
+
+/**
+ * Resolve ONE related id to the track it names, if any.
+ *
+ *   - `song:<eraId>:<trackKey>` → that track, found via `tracksForEra(eraId)`
+ *     + the same composite `trackKey()` TrackDetail/TrackGuide use to
+ *     identify a track (TrackNote has no stable id of its own).
+ *
+ * Every other namespace, malformed ids, an unknown era, or a track that no
+ * longer exists in that era's list resolve to null — same best-effort,
+ * never-a-dead-link discipline as `motifTargetOf`.
+ */
+export function songTargetOf(relatedId: RelatedId): SongTarget | null {
+  const sep = relatedId.indexOf(':');
+  if (sep <= 0 || sep === relatedId.length - 1) return null;
+  const kind = relatedId.slice(0, sep);
+  if (kind !== 'song') return null;
+
+  const rest = relatedId.slice(sep + 1);
+  const eraSep = rest.indexOf(':');
+  if (eraSep <= 0 || eraSep === rest.length - 1) return null;
+  const eraId = rest.slice(0, eraSep) as EraId;
+  const key = rest.slice(eraSep + 1);
+
+  const track = tracksForEra(eraId).find((t) => trackKey(eraId, t) === key);
+  return track ? { eraId, track } : null;
 }
