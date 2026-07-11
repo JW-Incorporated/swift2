@@ -138,6 +138,44 @@ signal in the triage buckets — e.g. move a plan-approved ticket to a
 or bump priority a comment raised. Kevin still never auto-codes; it surfaces the
 decision, a human acts.
 
+### Stream 3 comment radar (fast poll — filed as #451)
+
+Once-daily triage is too slow for **coordination between two AI sessions**
+(Joey's and Wyatt's), which happens in comments: a review finding on an open PR,
+or an answer to a "decisions needed" item on a phased plan, can otherwise sit
+unread for up to a day. (This mechanism exists because we hit exactly that — a
+PR collected three more commits after a review flagged four issues, none
+addressed, because nothing re-read the comment.) So, **in addition to** the daily
+triage, Kevin runs a **cheap, frequent comment radar**:
+
+1. **Deterministic, LLM-cheap check every ~10 min** (materially shorter than
+   daily; tune freely). ONE repo-wide API call —
+   `gh api "/repos/JW-Incorporated/swift2/issues/comments?since=<~13-min-ago>&per_page=100"`
+   (covers issue *and* PR-conversation comments) — plus, for open PRs, a glance
+   at new review state. Drop bot/self authors (`vercel`, `github-actions`,
+   `wjduvall-cmd`/self). NEW = human comments in the window on Stream-3 threads
+   (eng/product tickets + their PRs), minus comment IDs already surfaced (Kevin
+   records surfaced IDs in the radar issue below, so re-runs are idempotent and
+   the ~3-min window overlap never double-flags).
+2. **If NEW is empty → stop immediately** ("radar: no new comments"). No agents,
+   no real reasoning — same "compute NEW before doing work" discipline as
+   Stream 1. Real reasoning is spent only when something new actually appears.
+3. **If NEW is non-empty**, Kevin reads each thread and, per the fixed behavior
+   table below, **surfaces** it — it never codes.
+
+| New comment is… | Kevin does (never auto-codes) |
+|---|---|
+| A **review finding on an open PR** (approve / changes-requested / a plain list of issues) | Surface it **prominently** to Wyatt: post/refresh one pinned **`Kevin Review Radar — YYYY-MM-DD`** issue (label `kevin-radar`) summarizing the finding, the PR, and a direct link, so it can't be lost while the PR keeps collecting commits. Flag actionable code review as "needs Wyatt / in-session dev pass." |
+| An **answer to an open "decisions needed" item** on a phased-plan or triage post | Update that plan/triage entry to record the decision and mark the item **ready-to-build** for Wyatt. |
+| Anything else Stream-3 relevant | Note it in the radar issue. |
+
+**The `never auto-code Stream 3` invariant is unchanged and explicitly
+preserved.** Faster comment-awareness feeds *better, faster surfacing* to a human
+(or an in-session Claude dev pass) — it must never be read as license to start
+writing code against a product/UX ticket or a PR review unattended. An
+unattended loop turned loose on a back-button bug or a page rebuild does harm;
+that boundary stays exactly as strict as it is today.
+
 ## Migrating Kevin to an API
 
 A service implementation must replicate this contract exactly:
@@ -151,6 +189,11 @@ A service implementation must replicate this contract exactly:
   verify-first image re-sourcing; emit/refresh one PR with `Closes #`.
 - **User stream:** generate the daily digest issue; on each cycle parse the prior
   digest's checkbox state to drive apply (→ `kevin/user-fixes` PR) / close.
+- **Stream 3 comment radar:** subscribe to issue/PR-comment + PR-review **webhooks**
+  (the API port's answer to the session cron's ~10-min poll — true zero-LLM until
+  an event fires); on a human comment, run the radar behavior table and refresh
+  the `kevin-radar` issue. Idempotency = surfaced comment IDs recorded in that
+  issue. **Still never auto-codes Stream 3.**
 - **Secrets:** a GitHub token with `issues:write` + `contents:write` (for PRs).
   Never commit it; inject via env/secret manager.
 - **Invariants:** enforce the "Hard invariants" section in code — especially
