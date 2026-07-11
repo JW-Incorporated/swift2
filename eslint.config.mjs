@@ -5,7 +5,7 @@ import tseslint from 'typescript-eslint';
 // this root config covers the TypeScript packages + worker.
 export default tseslint.config(
   {
-    ignores: ['**/node_modules/**', '**/dist/**', '**/.next/**', 'apps/web/**'],
+    ignores: ['**/node_modules/**', '**/dist/**', '**/.next/**', 'apps/web/**', '.claude/**'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -20,6 +20,11 @@ export default tseslint.config(
         console: 'readonly',
         fetch: 'readonly',
         Buffer: 'readonly',
+        URL: 'readonly',
+        setTimeout: 'readonly',
+        clearTimeout: 'readonly',
+        AbortController: 'readonly',
+        Intl: 'readonly',
       },
     },
   },
