@@ -22,10 +22,17 @@ export interface ThreadMeta {
 
 export const THREADS: ThreadMeta[] = [
   {
+    id: 'the-proposal',
+    title: 'End Game',
+    kicker: 'A love story, in real time',
+    what: 'Follow the story from a friendship bracelet to a garden proposal — the sourced, dated moments behind the engagement.',
+    hero: '/eras/lover.png',
+  },
+  {
     id: 'love-story',
-    title: 'Love Story',
-    kicker: 'The muses & the heartbreaks',
-    what: 'Trace the relationships behind the songs — who each era was written about, and the tracks they left behind.',
+    title: 'Blank Spaces',
+    kicker: 'The one that stuck',
+    what: 'The real love story — Travis, and the friendship bracelet that started it — while every era before him gets its own name, not this one.',
     hero: '/eras/lover.png',
   },
   {
@@ -55,13 +62,6 @@ export const THREADS: ThreadMeta[] = [
     kicker: 'One clue, one payoff',
     what: 'Take a single hidden clue and decode it — reveal the payoff it was pointing to, and watch the thread stretch across the months between them.',
     hero: '/eras/ttpd.png',
-  },
-  {
-    id: 'the-proposal',
-    title: 'The Proposal',
-    kicker: 'A love story, in real time',
-    what: 'Follow the story from a friendship bracelet to a garden proposal — the sourced, dated moments behind the engagement.',
-    hero: '/eras/lover.png',
   },
 ];
 
