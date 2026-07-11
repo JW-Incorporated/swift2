@@ -1,5 +1,4 @@
 import { describe, expect, it } from 'vitest';
-import { GLOSSARY } from './glossary';
 import {
   MAX_RESULTS_PER_TYPE,
   buildSearchIndex,
@@ -160,14 +159,9 @@ describe('buildSearchIndex (real data)', () => {
 
   it('covers every content type', () => {
     const types = new Set(index.map((d) => d.type));
-    for (const t of ['era', 'moment', 'egg', 'track', 'theory', 'video', 'glossary'] as SearchDocType[]) {
+    for (const t of ['era', 'moment', 'egg', 'track', 'theory', 'video'] as SearchDocType[]) {
       expect(types.has(t), `index missing type "${t}"`).toBe(true);
     }
-  });
-
-  it('indexes every glossary entry', () => {
-    const glossaryDocs = index.filter((d) => d.type === 'glossary');
-    expect(glossaryDocs).toHaveLength(GLOSSARY.length);
   });
 
   it('finds a known moment by a straight-quote query', () => {
@@ -180,13 +174,6 @@ describe('buildSearchIndex (real data)', () => {
     const eggs = groups.find((g) => g.type === 'egg');
     expect(eggs).toBeDefined();
     expect(eggs!.results.every((r) => r.doc.target.kind === 'trail')).toBe(true);
-  });
-
-  it('finds the "crossing" glossary entry with a glossary target', () => {
-    const flat = flattenGroups(searchDocs(index, 'crossing'));
-    const hit = flat.find((r) => r.doc.key === 'glossary:crossing');
-    expect(hit).toBeDefined();
-    expect(hit!.doc.target).toEqual({ kind: 'glossary', entryId: 'crossing' });
   });
 
   it('every doc has a snippet and a resolvable target shape', () => {
