@@ -799,6 +799,7 @@ export default {
     {
       year: 2020,
       month: 3,
+      day: 13,
       category: 'business',
       title: '"Shake It Off" becomes her first Diamond-certified single',
       snippet:

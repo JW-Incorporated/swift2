@@ -680,6 +680,7 @@ export default {
       slug: 'opalite-second-number-one',
       year: 2026,
       month: 2,
+      day: 28,
       category: 'music',
       title: 'Opalite follows Ophelia to No. 1',
       snippet:
