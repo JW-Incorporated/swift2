@@ -1,0 +1,38 @@
+name: Content intake (Taylor event drop)
+description: "The single door for real-world events that should become site content. Joey's daily drops and (later) the V2 engine both file these."
+title: "[intake] <what happened, in one line>"
+labels: ["intake"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Vault scope is **anything that has already happened** — recency doesn't
+        disqualify (decision, 2026-07-11). Full flow: `docs/content-ops/intake.md`.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened
+      description: The event in your own words. Rough is fine — the desk distills it.
+    validations:
+      required: true
+  - type: input
+    id: when
+    attributes:
+      label: When
+      description: Date (or best known) of the event itself, not of this filing.
+      placeholder: "2026-07-09"
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources / links
+      description: |
+        Anything you have — article URLs, social posts, screenshots described in words.
+        No links is OK to file, but nothing ships until real sources are found
+        (sourcing bar: relationship/business items need two independent outlets).
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes (optional)
+      description: "Anything else — e.g. 'this feels like a Loren egg-thread thing', urgency, related items."
