@@ -361,6 +361,13 @@ if unanswered: not granted, everything stays human-merge.
   the Phase-1 watchdog is a GitHub Action, independent of every cron it
   watches: a dead cron becomes a loud issue within the hour, not a silent
   gap discovered days later.
+- **One checkout per agent, no exceptions:** every scheduled or parallel
+  session runs in its own git worktree/clone. Two sessions sharing one
+  working directory can switch branches under each other mid-commit — it
+  happened *during this proposal's own drafting* (2026-07-11: a parallel
+  session branched off this doc's branch and flipped the shared checkout;
+  a commit landed on the wrong branch and needed cherry-pick + revert
+  surgery). This line is in every charter's hard invariants.
 - **Charters are runtime contracts:** each `docs/agents/<name>.md` is loaded
   by its runner; the "migrate to an API-backed service" section in Kevin's
   charter becomes the standard closing section of every charter, so any desk
