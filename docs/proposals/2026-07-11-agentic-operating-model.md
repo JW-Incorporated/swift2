@@ -359,8 +359,8 @@ field — so answers still reach desks with zero LLM in the loop.
 | Tier | What | Handling |
 |---|---|---|
 | **T0** | Inside a desk charter | Agent just does it. Logged in its artifacts. |
-| **T1** | Cross-desk coordination: priorities, scheduling, routing, precedent-covered questions | **Marjorie decides**, journal-logged, visible in next brief (founders can veto after the fact — everything T1 is reversible by design). **In v1, routing and scheduling are propose-only** (§4.2): day-one T1 is precedent citation, dedup/ranking, and brief assembly; unilateral routing activates in Phase 2 after the first audit. |
-| **T2** | Founder decisions: spec approvals, product direction, merge/deploy approvals, policy changes, anything expensive to reverse | **Banked** → daily brief. |
+| **T1** | Cross-desk coordination (priorities, scheduling, routing, precedent-covered questions), **and — per Joey's 2026-07-11 directive — any decision reversible within a reasonable window**, unless it falls in the non-ratchetable set below | **Marjorie decides**, journal-logged, visible in next brief (founders can veto/reverse after the fact). **Reversibility test:** can the state/artifact be undone within a reasonable window — brief exposure before a founder catches and reverses it does **not** disqualify a decision as reversible (Joey, 2026-07-11: "who cares if a few users see it? The founders will catch it and reverse it with reasonable timing, and therefore reasonable damage control"). **In v1, routing and scheduling are propose-only** (§4.2): day-one T1 is precedent citation, dedup/ranking, and brief assembly; unilateral routing activates in Phase 2 after the first audit. |
+| **T2** | Decisions that are **not** reversible within a reasonable window, **or** fall in the non-ratchetable set regardless of reversibility: spec approvals, product direction, merge/deploy approvals, policy changes | **Banked** → daily brief. |
 | **T3** | Fires: site down, legal/safety exposure, security incident, runaway cost, anything a one-day delay makes materially worse | **Page now** (channel = founder decision, §9), plus a brief entry. |
 | **TX** | Things AI cannot legally/physically do: accounts, banking, signatures | Banked as founder-action items with prepared instructions. |
 
@@ -383,6 +383,20 @@ the *ratchet mechanism* — pattern-matched auto-promotion — not explicit
 founder grants. Founders can still deliberately delegate a narrow slice of
 one of these (the §5.4 merge gate; §7's per-channel template autoposting) by
 decision entry; that's a founder choosing, not Marjorie inferring.
+
+**How the reversibility test (2026-07-11) interacts with the non-ratchetable
+set — stated explicitly since Joey's directive and this list could otherwise
+read as contradictory:** the non-ratchetable set is a **hard floor**, not
+subject to the reversibility test. A charter change or a pricing decision
+stays T2 even if someone judges the specific instance "reversible" — the
+same reasoning that keeps this set off the precedent ratchet (a
+pattern-matcher, or a reversibility judgment, can miss context) applies here
+too. Reversibility is a **new, independent route into T1** for decisions
+outside the non-ratchetable set (e.g. #477's analytics-vendor choice, which
+is exactly the case that surfaced the need for this) — it does not shrink
+the non-ratchetable set itself. **Recommendation, not yet a separate founder
+ruling — flagging as this doc's own interpretation call:** treat it this
+way unless a founder says otherwise.
 
 ### 5.5 When a banked item genuinely blocks a desk
 
@@ -564,6 +578,19 @@ it's allowed to do.
    The marketing agent and social listening start before launch — first
    deliverable is the launch campaign plan, plus an early baseline and
    account-creation lead time. See §7 timing and Phase 3.
+5. **T2 gate redefined: reversibility is the criterion (2026-07-11, issue
+   #482).** Approved in full for decisions going forward: if a decision is
+   reversible within a reasonable window, Marjorie decides it and reports
+   it — founders reverse it after the fact if they disagree. Brief exposure
+   before a reversal does **not** disqualify something as reversible ("who
+   cares if a few users see it... reasonable timing, reasonable damage
+   control" — Joey). The non-ratchetable set (above) is unaffected — it's a
+   hard floor regardless of reversibility, not overridden by this. See §5.3
+   for the full table update. **Not yet resolved: does this apply
+   retroactively** to items already in the decision bank / already answered?
+   Joey: "I think I should apply retroactively but I don't know if I fully
+   understand the implications" — open, tracked on #482, not assumed either
+   way.
 
 ## 10. Rollout phases
 
