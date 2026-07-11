@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { TRACKS_RAW } from './tracks.generated';
 import { resolveConnections, songTargetOf, tracksForEra } from './tracks';
-import { getContentItem } from './content';
+import { CONTENT, getContentItem } from './content';
 import { ERAS } from './eras';
 
 // Guards the generated track-guide data against generator drift: everything
@@ -66,6 +66,16 @@ describe('tracks.generated.ts invariants', () => {
     }
   });
 
+  it('all 12 TLOAS tracks ship a dossier (issue #440 Phase-1 acceptance — a dropped dossier is a regression, not a gap)', () => {
+    // The generator silently drops a dossier that loses its sources; this
+    // pins the content wave so that failure mode breaks CI instead.
+    const tloas = TRACKS_RAW.tloas ?? [];
+    expect(tloas.length).toBe(12);
+    for (const t of tloas) {
+      expect(t.dossier, `${t.title} lost its dossier`).toBeDefined();
+    }
+  });
+
   it('every dossier ships with sources (the generator contract, re-asserted on real data)', () => {
     for (const tracks of Object.values(TRACKS_RAW)) {
       for (const t of tracks) {
@@ -97,16 +107,23 @@ describe('songTargetOf', () => {
 
 describe('resolveConnections', () => {
   it('resolves song and moment ids, skipping unknowns and self-links', () => {
+    // Any real moment id will do — the resolver is what's under test.
+    const realMomentId = CONTENT[0].id;
     const resolved = resolveConnections(
       [
         { relatedId: 'song:the-fate-of-ophelia', label: 'The Fate of Ophelia', why: 'w' },
-        { relatedId: 'song:the-fate-of-ophelia', label: 'self', why: 'w' },
+        { relatedId: `moment:${realMomentId}`, label: 'A real moment', why: 'w' },
+        { relatedId: 'moment:not-a-real-moment-xyz', label: 'n', why: 'w' },
+        { relatedId: 'song:the-fate-of-ophelia', label: 'dupe still resolves', why: 'w' },
         { relatedId: 'song:nope-nope', label: 'n', why: 'w' },
         { relatedId: 'motif:the-snake', label: 'n', why: 'w' },
       ],
       undefined,
     );
-    expect(resolved).toHaveLength(2);
+    expect(resolved).toHaveLength(3);
+    expect(resolved[0].kind).toBe('song');
+    expect(resolved[1].kind).toBe('moment');
+    expect(resolved[1].kind === 'moment' && resolved[1].item.id).toBe(realMomentId);
     expect(
       resolveConnections(
         [{ relatedId: 'song:the-fate-of-ophelia', label: 'self', why: 'w' }],

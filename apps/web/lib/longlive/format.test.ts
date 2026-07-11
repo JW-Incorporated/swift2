@@ -63,6 +63,11 @@ describe('formatFullDate', () => {
 
   it('returns unparseable input as-is rather than "Invalid Date"', () => {
     expect(formatFullDate('unknown')).toBe('unknown');
+    expect(formatFullDate('2025-13')).toBe('2025-13');
+  });
+
+  it('rejects rolled-over calendar dates instead of shifting them (2025-02-30 is not March 2)', () => {
+    expect(formatFullDate('2025-02-30')).toBe('2025-02-30');
   });
 });
 

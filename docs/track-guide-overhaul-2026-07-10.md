@@ -31,8 +31,8 @@ this branch.
 | Fact-check the draft | ✅ all 11 new URLs return 200; Eldest Daughter confirmed-tier claim verified against Swift's Amazon Music commentary (WebFetch); no live/voices claims shipped unsourced (sections omitted) |
 | Regenerate + full `npm test` + typecheck | ✅ 266 tests green, typecheck clean |
 | Docs: longlive-experience.md §8 recipe, decisions.md grouped-model entry | ✅ |
-| `/codex:review` (or adversarial) on the branch, fix findings | ⬜ TODO |
-| PR referencing #440 (TL;DR-first description per CLAUDE.md) | ⬜ TODO |
+| Codex adversarial review (via codex exec — the /codex:review skill is user-invoke-only), fix findings | ✅ 7 findings (1 high: is_single DB semantics; 2 med: core mapper drift, Escape overlay stacking; 1 med a11y: button-wrapping-links; 3 low), ALL fixed; findings record: `docs/briefs/codex-review-track-guide-phase1.md` |
+| PR referencing #440 (TL;DR-first description per CLAUDE.md) | ✅ see PR link on the issue |
 
 ## Verified fact pack (2026-07-10, via WebSearch — safe to reuse)
 
