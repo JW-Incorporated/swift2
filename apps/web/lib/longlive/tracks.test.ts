@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { TRACKS_RAW } from './tracks.generated';
-import { tracksForEra } from './tracks';
+import { resolveConnections, songTargetOf, tracksForEra } from './tracks';
+import { getContentItem } from './content';
 import { ERAS } from './eras';
 
 // Guards the generated track-guide data against generator drift: everything
@@ -37,6 +38,85 @@ describe('tracks.generated.ts invariants', () => {
         expect(numbers.slice(firstNull).every((n) => n === null), `era ${eraId} mixes null into numbered run`).toBe(true);
       }
     }
+  });
+
+  it('slugs are globally unique across eras (song:<slug> resolution depends on it)', () => {
+    const seen = new Map<string, string>();
+    for (const [eraId, tracks] of Object.entries(TRACKS_RAW)) {
+      for (const t of tracks) {
+        if (!t.slug) continue;
+        expect(seen.get(t.slug), `slug ${t.slug} in both ${seen.get(t.slug)} and ${eraId}`).toBeUndefined();
+        seen.set(t.slug, eraId);
+      }
+    }
+  });
+
+  it('every dossier connection resolves to real data (no silently-dead links shipped)', () => {
+    for (const [eraId, tracks] of Object.entries(TRACKS_RAW)) {
+      for (const t of tracks) {
+        for (const c of t.dossier?.connections ?? []) {
+          const resolves = c.relatedId.startsWith('song:')
+            ? songTargetOf(c.relatedId) !== null
+            : c.relatedId.startsWith('moment:')
+              ? getContentItem(c.relatedId.slice('moment:'.length)) !== undefined
+              : false;
+          expect(resolves, `${eraId}/${t.title}: unresolvable connection ${c.relatedId}`).toBe(true);
+        }
+      }
+    }
+  });
+
+  it('every dossier ships with sources (the generator contract, re-asserted on real data)', () => {
+    for (const tracks of Object.values(TRACKS_RAW)) {
+      for (const t of tracks) {
+        if (!t.dossier) continue;
+        expect(t.dossier.sources.length).toBeGreaterThan(0);
+        for (const s of t.dossier.sources) {
+          expect(s.url).toMatch(/^https?:\/\//);
+        }
+      }
+    }
+  });
+});
+
+describe('songTargetOf', () => {
+  it('resolves a known slug to its era + track', () => {
+    // 'the-fate-of-ophelia' is stable seeded data (tloas track 1).
+    const target = songTargetOf('song:the-fate-of-ophelia');
+    expect(target?.eraId).toBe('tloas');
+    expect(target?.track.title).toBe('The Fate of Ophelia');
+  });
+
+  it('returns null for other namespaces, unknown slugs, and malformed ids', () => {
+    expect(songTargetOf('moment:rep-album')).toBeNull();
+    expect(songTargetOf('song:not-a-real-slug-xyz')).toBeNull();
+    expect(songTargetOf('song:')).toBeNull();
+    expect(songTargetOf('the-fate-of-ophelia')).toBeNull();
+  });
+});
+
+describe('resolveConnections', () => {
+  it('resolves song and moment ids, skipping unknowns and self-links', () => {
+    const resolved = resolveConnections(
+      [
+        { relatedId: 'song:the-fate-of-ophelia', label: 'The Fate of Ophelia', why: 'w' },
+        { relatedId: 'song:the-fate-of-ophelia', label: 'self', why: 'w' },
+        { relatedId: 'song:nope-nope', label: 'n', why: 'w' },
+        { relatedId: 'motif:the-snake', label: 'n', why: 'w' },
+      ],
+      undefined,
+    );
+    expect(resolved).toHaveLength(2);
+    expect(
+      resolveConnections(
+        [{ relatedId: 'song:the-fate-of-ophelia', label: 'self', why: 'w' }],
+        'the-fate-of-ophelia',
+      ),
+    ).toHaveLength(0);
+  });
+
+  it('returns empty for undefined input', () => {
+    expect(resolveConnections(undefined)).toEqual([]);
   });
 });
 
