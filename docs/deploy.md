@@ -22,7 +22,11 @@ serverless function) uses it to file a GitHub issue per submission; the token is
 never sent to the browser. Without it, the feedback button degrades gracefully
 (it returns a friendly "not wired up yet" message instead of erroring), so
 Preview/local builds don't need it. Scope the token as narrowly as possible
-(Issues: write only) and rotate if leaked.
+(Issues: write only) and rotate if leaked. **The route deliberately does NOT
+fall back to a generic `GITHUB_TOKEN`** — this endpoint is public and
+unauthenticated, so it must run on this narrowly-scoped token or not at all
+(if only a broad `GITHUB_TOKEN` is present, the button stays in the graceful
+degraded state rather than borrowing those wider permissions).
 
 ## Path A — CLI (no GitHub org ownership required)
 
