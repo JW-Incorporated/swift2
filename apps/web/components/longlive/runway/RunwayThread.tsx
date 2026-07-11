@@ -4,6 +4,8 @@ import Image from 'next/image';
 import { getEra } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import { RUNWAY_LOOKS } from '@/lib/longlive/lenses';
+import { contentForThreadInEra } from '@/lib/longlive/threads';
+import { FromTheEras } from '../FromTheEras';
 
 // Hotlinked photo URLs bypass Next's image optimizer (whose remotePatterns
 // allowlist covers only YouTube posters) — same pattern as MomentDetail.
@@ -21,9 +23,15 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
 export function RunwayThread() {
   return (
     <div className="space-y-10 pt-8">
-      {RUNWAY_LOOKS.map((look) => {
+      {/* RUNWAY_LOOKS is authored oldest-first for readability; render newest-first
+          to match the site-wide convention (top = now) and the adjacent scrubber.
+          Copy before reversing — never mutate the exported array. (#433) */}
+      {[...RUNWAY_LOOKS].reverse().map((look) => {
         const era = getEra(look.eraId);
         const [feature, ...rest] = look.images;
+        // Auto-derived Era cross-links (issue #436): fashion-tagged content
+        // from this same era — not hand-authored per look.
+        const eraLinks = contentForThreadInEra('fashion', look.eraId);
         return (
           <div
             key={look.id}
@@ -109,6 +117,12 @@ export function RunwayThread() {
                   </span>
                 ))}
               </div>
+
+              {eraLinks.length > 0 && (
+                <div className="px-5 pb-5 sm:px-7">
+                  <FromTheEras items={eraLinks} />
+                </div>
+              )}
             </section>
           </div>
         );

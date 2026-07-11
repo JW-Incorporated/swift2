@@ -3,11 +3,8 @@
 import { useEffect, useState } from 'react';
 import { formatRelativeTime } from '@/lib/longlive/format';
 import { contentGeneratedAt } from '@/lib/longlive/freshness';
-import { useAppActions } from '@/lib/longlive/store';
 
 export function SiteFooter() {
-  const { openGlossary } = useAppActions();
-
   // Content-freshness label ("Vault refreshed 3 days ago"). Computed after
   // mount — relative time depends on the visitor's clock, so rendering it
   // during SSR would risk a hydration mismatch (same pattern as the scrubber
@@ -26,13 +23,6 @@ export function SiteFooter() {
         endorsed by, or connected to Taylor Swift or her representatives. All
         narratives are widely-discussed fan interpretations, not confirmed fact.
       </p>
-      <button
-        type="button"
-        onClick={() => openGlossary()}
-        className="mt-4 text-xs font-medium text-[color:var(--era-ink-soft)] underline underline-offset-4 transition-colors hover:text-[color:var(--era-ink)]"
-      >
-        Glossary — what “thread”, “crossing” &amp; “vault” mean here
-      </button>
       {freshness && (
         <p className="mt-4 text-[11px] tracking-wide text-[color:var(--era-ink-soft)] opacity-80">
           Vault refreshed {freshness}

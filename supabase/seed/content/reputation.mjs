@@ -63,6 +63,10 @@ export default {
             outlet: 'Refinery29',
             url: 'https://www.refinery29.com/en-us/2017/11/182106/taylor-swift-reputation-billboard-chart',
           },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/brittanyhodak/2017/11/20/taylor-swifts-reputation-outsold-every-other-album-on-the-billboard-200-combined/',
+          },
         ],
         photos: [
           {
@@ -154,11 +158,14 @@ export default {
             url: 'https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments',
           },
         ],
+        // T-img pass (2026-07-10): dropped the Getaway Car performance photo
+        // from this moment — that file shows Taylor alone in a silver jacket
+        // with no snake staging visible, and it's already correctly used on
+        // the dedicated Getaway Car moment. No verified Commons photo of the
+        // tour's cobra prop/snake-screen visuals was found this session, so
+        // this moment keeps its other, unflagged tour photo rather than
+        // adding an unverified replacement.
         photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg',
-            credit: 'Ronald Woan / Wikimedia Commons',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg/250px-Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg',
             credit: 'Julio Enriquez / Wikimedia Commons',
@@ -244,7 +251,7 @@ export default {
       snippet:
         'Two weeks after the elaborate original, a Spotify-exclusive alternate: Taylor, alone in the woods, singing straight into a single unbroken shot.',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/watch-taylor-swifts-one-take-new-delicate-video-629359/',
-      thumbnailUrl: 'https://i.ytimg.com/vi/3tHoEgt0zB8/maxresdefault.jpg',
+      thumbnailUrl: 'https://i.ytimg.com/vi/MBR2kxt7RK8/maxresdefault.jpg',
       moment: {
         context:
           "Released March 30, 2018 as a Spotify exclusive — initially viewable only in the U.S., U.K., Sweden, and Latin America — the vertical video was shot by Swift herself in a single unbroken take, lip-syncing and twirling through a wooded clearing. Fans zeroed in on one blink-and-miss gesture: her clutching a necklace with a \"J\" pendant, read as a nod to Joe Alwyn.\n\nWhere Joseph Kahn's original video was a dance-heavy fantasy about turning invisible, this one was deliberately homemade — and it finally hit YouTube for everyone on May 15.",
@@ -258,7 +265,14 @@ export default {
             url: 'https://www.billboard.com/music/pop/taylor-swift-delicate-vertical-video-spotify-8274561/',
           },
         ],
-        photos: [{ url: 'https://i.ytimg.com/vi/3tHoEgt0zB8/maxresdefault.jpg', credit: 'YouTube / Taylor Swift' }],
+        // T-img pass (2026-07-10): video ID 3tHoEgt0zB8 was a third-party
+        // news-reaction upload (a news anchor talking with a small inset),
+        // not the vertical video itself. Swapped to MBR2kxt7RK8, the
+        // Big Machine Label Group-published "Delicate (Vertical Version)" —
+        // its maxresdefault thumbnail is a single VEVO-branded frame of
+        // Taylor alone in the foggy wooded clearing, no collage seam;
+        // verified HTTP 200 + image/jpeg and eyeballed this session.
+        photos: [{ url: 'https://i.ytimg.com/vi/MBR2kxt7RK8/maxresdefault.jpg', credit: 'YouTube / Taylor Swift (Big Machine Label Group)' }],
       },
     },
     {
@@ -369,7 +383,7 @@ export default {
         'https://imgix.bustle.com/uploads/image/2018/3/12/c5dd79b9-3dd6-48fb-be2c-6b565fc5fe09-screen-shot-2018-03-12-at-61855-am.png?w=248&h=218&fit=crop&crop=faces&dpr=2',
       moment: {
         context:
-          'The teal, tiered-tassel dress was custom-made by Naeem Khan from his Spring 2018 ready-to-wear runway collection — a roughly $3,500 design with a keyhole back that reads as two dresses in one, falling as a floor-length fringed column before swinging up into a mini as she dances.\n\nStyled with Anabela Chan earrings and Christian Louboutin pumps, it became one of the most-searched dresses of the video\'s release week, and fans read the dancing-in-the-rain imagery as a deliberate callback to the Fearless era.',
+          'The teal, tiered-tassel dress was custom-made by Naeem Khan from his Spring 2018 ready-to-wear runway collection — a roughly $3,500 design with a keyhole back that reads as two dresses in one, falling as a floor-length fringed column before swinging up into a mini as she dances.\n\nStyled with Anabela Chan earrings and Christian Louboutin pumps, it set off a where-to-buy frenzy in the video\'s release week.',
         sources: [
           {
             outlet: 'Bustle',
@@ -428,7 +442,7 @@ export default {
       snippet:
         'The grave-crawling zombie look that opens the video was created by Bill Corso — the makeup artist behind Deadpool\'s scarred face — confirmed on record by director Joseph Kahn.',
       sourceUrl: 'https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing',
-      thumbnailUrl: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg',
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           'Director Joseph Kahn confirmed via Twitter that special-makeup artist Bill Corso — who did Ryan Reynolds\' scarred prosthetic look in "Deadpool" — created zombie Taylor for the opening graveyard scene, a look deliberately pitched as the antithesis of her earlier, more polished eras.\n\nThe video was a seven-month build overall, conceived in January and shot over five days in Los Angeles that May, and the practical effects didn\'t stop at the makeup: the diamonds she bathes in were real, supplied by jeweler Neil Lane and valued at over $12 million.',
@@ -438,7 +452,18 @@ export default {
             url: 'https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing',
           },
         ],
-        photos: [{ url: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg', credit: 'YouTube / Taylor Swift' }],
+        // T-img pass (2026-07-10): swapped the video's bathtub-scene YouTube
+        // thumbnail for Billboard's behind-the-scenes zombie-transformation
+        // photo — verified HTTP 200 + image/jpeg and eyeballed this session;
+        // it actually shows the graveyard zombie makeup the moment is about.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Billboard',
+            caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.",
+            kind: 'archival',
+          },
+        ],
       },
     },
 
@@ -478,10 +503,6 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Billboard',
           },
-          {
-            url: 'https://thefashion-court.com/wp-content/uploads/2018/05/taylor-swift-atelier-versace-bbmas-2018.png',
-            credit: 'The Fashion Court',
-          },
         ],
       },
     },
@@ -512,10 +533,18 @@ export default {
             url: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
           },
         ],
+        // Image-fix pass (2026-07-10 retry): swapped the watermarked
+        // tayswiftstyle collage for a single clean Getty Images editorial
+        // shot from Soldier Field, Chicago, June 2, 2018 — the exact debut
+        // date this record cites — showing Taylor in the bodysuit-and-jacket
+        // opening-number set, drenched in rain; verified HTTP 200 +
+        // image/jpeg and eyeballed this session.
         photos: [
           {
-            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/06/tumblr_p9wqzvce8h1r4fk4fo1_r1_1280.jpg?w=1100',
-            credit: 'Taylor Swift Style',
+            url: 'https://media.gettyimages.com/id/966470964/photo/taylor-swift-reputation-stadium-tour.jpg?s=594x594&w=0&k=20&c=qpjD-YCFO4IFRdoS07AsJHnqRTn-mz8qWtqFFraFFZ0=',
+            credit: 'John Shearer/TAS18/Getty Images',
+            caption: 'Taylor Swift performing the "...Ready For It?" opening number in the reworked bodysuit-and-jacket set at Soldier Field, June 2, 2018.',
+            kind: 'archival',
           },
         ],
       },
@@ -532,7 +561,7 @@ export default {
       thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100',
       moment: {
         context:
-          'Jessica Jones designed at least three versions of this sequined bodysuit across the tour\'s run for the "Dress"-nicknamed segment; per the Taylor Swift Style archive, the sparkling green iteration debuted in the summer 2018 European leg.\n\nThat leg was a compressed, three-country sprint: Manchester\'s Etihad Stadium on June 8-9, a 133,034-ticket double at Dublin\'s Croke Park on June 15-16, and the two Wembley nights of June 22-23 that drew 143,427 — the stretch of the tour where the rotating costume variants gave repeat European ticket-holders a genuinely different-looking show night to night.',
+          'Jessica Jones designed at least three versions of this sequined bodysuit across the tour\'s run for the "Dress"-nicknamed segment; the Taylor Swift Style archive had documented all three versions, including this sparkling green iteration, by July 2018.\n\nThe European leg that summer was a compressed, three-country sprint: Manchester\'s Etihad Stadium on June 8-9, a 133,034-ticket double at Dublin\'s Croke Park on June 15-16, and the two Wembley nights of June 22-23 that drew 143,427 — the kind of run where rotating costume variants gave repeat European ticket-holders a genuinely different-looking show night to night.',
         sources: [
           {
             outlet: 'Taylor Swift Style',
@@ -543,6 +572,14 @@ export default {
             url: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
           },
         ],
+        // Image-fix pass (2026-07-10 retry): SKIPPED — broadened search
+        // (Wikimedia Commons across all 6 dated tour-stop categories incl.
+        // Minneapolis's 86-file set; Getty editorial galleries for Chicago,
+        // MetLife, Landover/FedExField, and Wembley; Billboard/HollywoodLife/
+        // Femestella outfit roundups) found plenty of the OTHER rotating
+        // "Dress"-segment bodysuits (black, red) but no verified photo of
+        // this specific dense-sparkling-green variant. Left as-is; still the
+        // record's only photo, so not stripped per protocol.
         photos: [
           {
             url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100',
@@ -574,10 +611,20 @@ export default {
             url: 'https://www.billboard.com/music/pop/taylor-swift-stuck-mid-air-sparkly-basket-at-philadelphia-concert-reputation-tour-8465462/',
           },
         ],
+        // Image-fix pass (2026-07-10 retry): swapped the watermarked
+        // tayswiftstyle collage for a single clean Getty Images editorial
+        // shot from MetLife Stadium, July 22, 2018 (one day before this
+        // record's source blog post) — shows Taylor in the blue/pink
+        // tinsel-fringe "cotton candy" dress in front of the show's large
+        // illuminated snake set piece, matching the CIE finding's
+        // description of the original photo; verified HTTP 200 +
+        // image/jpeg and eyeballed this session.
         photos: [
           {
-            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pcati7kyz11r4fk4fo1_r1_1280.jpg?w=1100',
-            credit: 'Taylor Swift Style',
+            url: 'https://media.gettyimages.com/id/1004129336/photo/east-rutherford-nj-taylor-swift-swift-performs-onstage-during-the-taylor-swift-reputation.jpg?s=612x612&w=0&k=20&c=ZFwV3GLrIALEaen0WKvTgnFcKmQr4QrmRSvGUUlUle4=',
+            credit: 'Kevin Mazur/TAS18/Getty Images',
+            caption: 'Taylor Swift performing in the "cotton candy" tinsel-fringe dress at MetLife Stadium, July 22, 2018.',
+            kind: 'archival',
           },
         ],
       },
@@ -591,7 +638,8 @@ export default {
       snippet:
         'For the "There\'s Nothing Holding Me Back" duet stop, a custom Jessica Jones snake-print bodysuit layered under a red camouflage sequined jacket with a buckle waist, plus custom Christian Louboutin boots.',
       sourceUrl: 'https://tayswiftstyle.wordpress.com/2018/05/20/reputation-tour-theres-nothing-holding-me-2/',
-      thumbnailUrl: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p917q0nrgd1r4fk4fo1_1280.jpg?w=1100',
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/media/taylor-swift-shawn-mendes-live-2018-u-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           'Worn in Pasadena on May 18, 2018, when Shawn Mendes joined the tour for "There\'s Nothing Holdin\' Me Back": a Jessica Jones snake-pattern bodysuit under a red camo sequined jacket with buckle detailing, styled with custom Louboutin boots.\n\nThe cameo it dressed was one of the North American leg\'s biggest surprise-guest gets. Swift had teased it that afternoon with a rehearsal clip, then opened Mendes\' hit herself — singing the first verse solo before calling him out — at the fourth show of the tour, night one of a two-night Rose Bowl stand that sold 118,084 tickets.',
@@ -605,10 +653,16 @@ export default {
             url: 'https://www.billboard.com/music/pop/taylor-swift-shawn-mendes-theres-nothing-holdin-me-back-reputation-statium-tour-8456817/',
           },
         ],
+        // T-img pass (2026-07-10): swapped the watermarked tayswiftstyle
+        // collage for Billboard's clean single photo of the actual Rose Bowl
+        // duet — shows both Mendes and Swift in the red camo sequined jacket;
+        // verified HTTP 200 + image/jpeg and eyeballed this session.
         photos: [
           {
-            url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p917q0nrgd1r4fk4fo1_1280.jpg?w=1100',
-            credit: 'Taylor Swift Style',
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-shawn-mendes-live-2018-u-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Christopher Polk/TAS18/Getty Images',
+            caption: 'Shawn Mendes and Taylor Swift performing "There\'s Nothing Holdin\' Me Back" at the Rose Bowl, May 18, 2018.',
+            kind: 'archival',
           },
         ],
       },
@@ -636,6 +690,14 @@ export default {
             url: 'https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments',
           },
         ],
+        // Image-fix pass (2026-07-10 retry): SKIPPED — broadened search
+        // (Wikimedia Commons across all 6 dated tour-stop categories;
+        // Getty editorial galleries for Santa Clara, Denver, Chicago,
+        // MetLife, and Landover/FedExField; Billboard/HollywoodLife/
+        // Femestella outfit roundups) turned up several other closing-block
+        // gowns (plain black, black/gold) but no verified photo clearly
+        // matching this navy/iridescent-paillette variant. Left as-is;
+        // still the record's only photo, so not stripped per protocol.
         photos: [
           {
             url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100',
@@ -666,7 +728,7 @@ export default {
         'Paparazzi caught Taylor and Joe Alwyn leaving The Flask, a traditional North London pub, after fish and chips and a pint each — one of only a handful of public sightings during a deliberately private relationship.',
       sourceUrl: 'https://www.wmagazine.com/story/taylor-swift-joe-alwyn-photographed-date-london',
       thumbnailUrl:
-        'https://imgix.bustle.com/wmag/2018/06/01/5b11723f15af2220684cbe78_GettyImages-963107270.jpg?w=414&h=276&fit=crop&crop=faces&dpr=2',
+        'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2018/05/swift-lunch/taylor-swift-joe-alwyn-step-out-for-lunch-date-in-london-04.jpg',
       moment: {
         context:
           'Photographed leaving The Flask, a centuries-old pub in North London, on May 30, 2018, mid-way through a break in the reputation Stadium Tour. Swift wore a striped tank top and skirt; Alwyn kept it casual in a white T-shirt and jeans.\n\nThe two spent about 45 minutes inside over fish and chips and pints of London Pride before leaving in a waiting car — one of the rare unstaged sightings the notoriously private couple allowed during this era.',
@@ -679,11 +741,23 @@ export default {
             outlet: 'Yahoo Entertainment',
             url: 'https://www.yahoo.com/entertainment/taylor-swift-steps-mini-skirt-232044419.html',
           },
+          {
+            outlet: 'Just Jared',
+            url: 'https://www.justjared.com/2018/05/31/taylor-swift-joe-alwyn-step-out-for-lunch-date-in-london/',
+          },
         ],
+        // T-img pass (2026-07-10): the old Bustle/W Mag file art was a Getty
+        // concert still with no pub, food, or Alwyn in frame. Replaced with
+        // an actual paparazzi shot from this outing — both of them heading to
+        // the car after the Flask lunch — sourced from Just Jared's post on
+        // this exact date/event; verified HTTP 200 + image/jpeg and eyeballed
+        // this session.
         photos: [
           {
-            url: 'https://imgix.bustle.com/wmag/2018/06/01/5b11723f15af2220684cbe78_GettyImages-963107270.jpg?w=414&h=276&fit=crop&crop=faces&dpr=2',
-            credit: 'Jo Hale/Getty Images',
+            url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2018/05/swift-lunch/taylor-swift-joe-alwyn-step-out-for-lunch-date-in-london-04.jpg',
+            credit: 'Backgrid USA',
+            caption: 'Taylor and Joe Alwyn heading to the car after their fish-and-chips stop at The Flask, May 30, 2018.',
+            kind: 'archival',
           },
         ],
       },
@@ -953,7 +1027,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 11, and the one most fans read as being about Joe Alwyn — completes reputation\'s arc: "It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are."\n\nFans got it a week before the album: released November 3, 2017 as the rollout\'s final promotional single, it debuted at No. 27 on the Hot 100 and arrived with a deliberately homemade lyric video — Swift in minimal makeup with an acoustic guitar, a bonfire, a horse, a dog — the first unguarded look at the domestic life the album\'s back half describes.',
+          'At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 14, and the one most fans read as being about Joe Alwyn — completes reputation\'s arc: "It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are."\n\nFans got it a week before the album: released November 3, 2017 as the rollout\'s final promotional single, it debuted at No. 27 on the Hot 100 and arrived with a deliberately homemade lyric video — Swift in minimal makeup with an acoustic guitar, a bonfire, a horse, a dog — the first unguarded look at the domestic life the album\'s back half describes.',
         sources: [
           {
             outlet: 'iHeartRadio',
@@ -984,13 +1058,13 @@ export default {
       category: 'business',
       title: "One nomination for the year's best-selling album",
       snippet:
-        'At the 61st Grammys, reputation — 2018\'s top seller — picked up a single nomination, Best Pop Vocal Album, and was shut out of Album, Record, and Song of the Year.',
+        "At the 61st Grammys, reputation — Billboard's No. 1 album of 2018 — picked up a single nomination, Best Pop Vocal Album, and was shut out of Album, Record, and Song of the Year.",
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-grammys-snub-764008/',
       thumbnailUrl:
         'https://www.rollingstone.com/wp-content/uploads/2018/12/taylor-swift-biggest-loser.jpg?w=1600&h=900&crop=1',
       moment: {
         context:
-          "Reputation was the best-selling album of both 2017 and 2018, but by the 61st Annual Grammy Awards in February 2019 it had one nomination to show for it: Best Pop Vocal Album.\n\nNone of its singles — \"Look What You Made Me Do,\" \"...Ready for It?,\" \"End Game,\" \"New Year's Day,\" \"Gorgeous,\" or \"Delicate\" — made the cut for Record, Song, or Album of the Year, making it, per Rolling Stone, her least-nominated LP since her self-titled 2006 debut.",
+          "Reputation was the best-selling album of 2017 and the No. 1 album on Billboard's 2018 year-end Billboard 200, but by the 61st Annual Grammy Awards in February 2019 it had one nomination to show for it: Best Pop Vocal Album.\n\nNone of its singles — \"Look What You Made Me Do,\" \"...Ready for It?,\" \"End Game,\" \"New Year's Day,\" \"Gorgeous,\" or \"Delicate\" — made the cut for Record, Song, or Album of the Year, making it, per Rolling Stone, her least-nominated LP since her self-titled 2006 debut.",
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1040,13 +1114,13 @@ export default {
       category: 'sighting',
       title: 'A Malibu hike, and an outfit that read like a lyric',
       snippet:
-        "Their first sighting together in months: a 90-minute Malibu hike, Joe Alwyn in the exact \"dark jeans and Nikes\" from Delicate's opening line, two days before its surprise second video.",
+        "Their first sighting together in months: a 90-minute Malibu hike, Joe Alwyn in the exact \"dark jeans and Nikes\" from Delicate's opening line, four days before the Delicate video premiered.",
       sourceUrl:
         'https://www.etonline.com/taylor-swift-steps-out-for-romantic-hike-with-boyfriend-joe-alwyn-see-the-pic-98043',
       thumbnailUrl: null,
       moment: {
         context:
-          'Photographed hiking in Malibu on March 7, 2018 — their first sighting together in months — Taylor wore black running shorts, a dark gray tank top, and a black hoodie tied around her waist; Joe Alwyn wore dark jeans and Nike sneakers. A source told E! News "they were deep in conversation for most of the hike and their attention was focused solely on one another."\n\nFans quickly noted Alwyn\'s outfit matched Delicate\'s opening line, "Dark jeans and your Nikes, look at you" — two days before Swift released the song\'s surprise one-take Spotify video.',
+          'Photographed hiking in Malibu on March 7, 2018 — their first sighting together in months — Taylor wore black running shorts, a dark gray tank top, and a black hoodie tied around her waist; Joe Alwyn wore dark jeans and Nike sneakers. A source told E! News "they were deep in conversation for most of the hike and their attention was focused solely on one another."\n\nFans quickly noted Alwyn\'s outfit matched Delicate\'s opening line, "Dark jeans and your Nikes, look at you" — four days before Joseph Kahn\'s Delicate video premiered at the March 11 iHeartRadio Music Awards.',
         sources: [
           {
             outlet: 'Entertainment Tonight',
@@ -1083,7 +1157,7 @@ export default {
         'One of the last documented sightings of the reputation stretch: Taylor and Joe Alwyn hiking Franklin Canyon Park in Beverly Hills, caught holding hands by paparazzi.',
       sourceUrl: 'https://www.justjared.com/2019/03/04/taylor-swift-joe-alwyn-hold-hands-while-hiking-in-l-a/',
       thumbnailUrl:
-        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-04.jpg',
+        'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-02.jpg',
       moment: {
         context:
           'Photographed holding hands while hiking the Franklin Canyon Park Trail in Beverly Hills on Sunday, March 3, 2019, Taylor wore a yellow crop top, high-waisted denim shorts, and rainbow Nike sneakers, with Joe Alwyn alongside her. It was one of only a handful of documented sightings of the couple during this stretch of the era.\n\nIt also capped the era\'s most visible run for the two: the Golden Globes after-party circuit in January, the BAFTAs in February, and now a Sunday trail hike in workout clothes — the guarded privacy of the reputation years relaxing, by degrees, as the era wound down toward its successor.',
@@ -1093,9 +1167,15 @@ export default {
             url: 'https://www.justjared.com/2019/03/04/taylor-swift-joe-alwyn-hold-hands-while-hiking-in-l-a/',
           },
         ],
+        // T-img pass (2026-07-10): swapped to frame -02 from the same Just
+        // Jared photo set — verified HTTP 200 + image/jpeg and eyeballed this
+        // session: both faces visible, holding hands on the trail, no large
+        // watermark (unlike frame -04, which is faces-hidden-from-behind and
+        // heavily watermarked, and stays reserved for the 2018 Malibu-hike
+        // stand-in reference photo).
         photos: [
           {
-            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-04.jpg',
+            url: 'https://jj-justjared-media.s3.us-east-1.amazonaws.com/wp-content/uploads/2019/03/taylor-hiking/taylor-swift-joe-alwyn-go-hiking-02.jpg',
             credit: 'Just Jared',
           },
         ],
@@ -1124,7 +1204,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
       moment: {
         context:
-          'Joseph Kahn\'s video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy\'s "Gentleman" (36 million YouTube views) and Adele\'s "Hello" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day and first-week Spotify streams.\n\nThe records stacked up across platforms at once: hourly viewing peaked above 3 million, the lyric video set YouTube\'s first-day record for that format, and the single took Spotify\'s global first-24-hours streaming mark too. The stage for all of it was pointed — the video premiered at the MTV Video Music Awards, the same show where the 2009 interruption that opens this whole story had happened eight years earlier.',
+          'Joseph Kahn\'s video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy\'s "Gentleman" (36 million YouTube views) and Adele\'s "Hello" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day Spotify streams and fastest-selling digital single.\n\nThe records stacked up across platforms at once: hourly viewing peaked above 3 million, the lyric video set YouTube\'s first-day record for that format, and the single took Spotify\'s global first-24-hours streaming mark too. The stage for all of it was pointed — the video premiered at the MTV Video Music Awards, the same show where the 2009 interruption that opens this whole story had happened eight years earlier.',
         sources: [
           {
             outlet: 'Variety',
@@ -1319,7 +1399,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The fourth single from reputation is the only track in her catalog to date pairing her with both a rapper (Future) and Ed Sheeran on one song. The video leaned into the album\'s reputation motif — a neon "reputation" sign flickers through the London sequence — while keeping the era\'s no-interviews rollout intact.\n\nJoseph Kahn\'s cut landed overnight on January 12, 2018 — his third video of the era after "Look What You Made Me Do" and "...Ready for It?" — and played as a world tour of the album\'s id: a yacht party in Miami, karaoke and vending-machine snacks with Sheeran in Tokyo, kebabs and a New Year\'s Eve house party in London.',
+          'The third single from reputation is the only track in her catalog to date pairing her with both a rapper (Future) and Ed Sheeran on one song. The video leaned into the album\'s reputation motif — a neon "reputation" sign flickers through the London sequence — while keeping the era\'s no-interviews rollout intact.\n\nJoseph Kahn\'s cut landed overnight on January 12, 2018 — his third video of the era after "Look What You Made Me Do" and "...Ready for It?" — and played as a world tour of the album\'s id: a yacht party in Miami, karaoke and vending-machine snacks with Sheeran in Tokyo, kebabs and a New Year\'s Eve house party in London.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1511,12 +1591,12 @@ export default {
       category: 'business',
       title: 'She breaks her political silence — and voter registrations spike',
       snippet:
-        'An October 7, 2018 Instagram post endorsing two Tennessee Democrats ended a career of political silence. Vote.org counted roughly 65,000 new registrations from 18-to-29-year-olds in the day that followed.',
+        'An October 7, 2018 Instagram post endorsing two Tennessee Democrats ended a career of political silence. Vote.org counted roughly 65,000 new registrations nationwide in the day that followed.',
       sourceUrl: 'https://time.com/5419276/taylor-swift-instagram-post-voter-registration-spike/',
       thumbnailUrl: null,
       moment: {
         context:
-          '"In the past I\'ve been reluctant to publicly voice my political opinions, but due to several events in my life and in the world in the past two years, I feel very differently about that now," she wrote, endorsing Phil Bredesen for Senate and Jim Cooper for House.\n\nVote.org attributed a surge of about 65,000 registrations among 18-to-29-year-olds nationwide in the following 24 hours — one of the clearest measured cases of celebrity influence on registration, and the pivot point for the activism that carried into the Lover era and Miss Americana.',
+          '"In the past I\'ve been reluctant to publicly voice my political opinions, but due to several events in my life and in the world in the past two years, I feel very differently about that now," she wrote, endorsing Phil Bredesen for Senate and Jim Cooper for House.\n\nVote.org attributed a surge of about 65,000 registrations nationwide in the following 24 hours — one of the clearest measured cases of celebrity influence on registration, and the pivot point for the activism that carried into the Lover era and Miss Americana.',
         sources: [
           {
             outlet: 'TIME',

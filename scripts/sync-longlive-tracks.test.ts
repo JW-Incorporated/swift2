@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 // The generator only writes files when invoked directly; importing it here
 // just pulls in its pure normalization functions.
-import { buildTrackGuide, normalizeTrack, sortTracks } from './sync-longlive-tracks.mjs';
+import {
+  buildTrackGuide,
+  dossierFrom,
+  factsFrom,
+  normalizeTrack,
+  sortTracks,
+} from './sync-longlive-tracks.mjs';
 
 describe('normalizeTrack', () => {
   it('normalizes a seed-shape track into the UI TrackNote shape', () => {
@@ -98,6 +104,35 @@ describe('normalizeTrack', () => {
     expect(t?.discussionSources).toBeUndefined();
   });
 
+  it('passes slug, grouped facts, and a valid dossier through to the output', () => {
+    const t = normalizeTrack({
+      slug: ' opalite ',
+      trackNumber: 3,
+      trackTitle: 'Opalite',
+      note: 'A note.',
+      sourceUrl: 'https://example.com/a',
+      release: 'The Life of a Showgirl',
+      writers: ['Taylor Swift'],
+      dossier: {
+        whyItMatters: ['Why.'],
+        sources: [{ name: 'Example', url: 'https://example.com/b' }],
+      },
+    });
+    expect(t?.slug).toBe('opalite');
+    expect(t?.facts).toEqual({ release: 'The Life of a Showgirl', writers: ['Taylor Swift'] });
+    expect(t?.dossier).toEqual({
+      whyItMatters: ['Why.'],
+      sources: [{ name: 'Example', url: 'https://example.com/b' }],
+    });
+  });
+
+  it('omits slug/facts/dossier keys entirely when absent (keeps generated file lean)', () => {
+    const t = normalizeTrack({ trackTitle: 'Song', note: 'A note.', sourceUrl: 'https://example.com/a' });
+    expect(t && 'slug' in t).toBe(false);
+    expect(t && 'facts' in t).toBe(false);
+    expect(t && 'dossier' in t).toBe(false);
+  });
+
   it('prefers an explicit discussion + its own citation over the auto-derived fields', () => {
     const t = normalizeTrack({
       trackTitle: 'Song',
@@ -121,6 +156,93 @@ describe('normalizeTrack', () => {
       discussion: ['A hand-written paragraph with no citation.'],
     });
     expect(t?.discussion).toBeUndefined();
+  });
+});
+
+describe('factsFrom', () => {
+  it('groups the seed fact fields, trimming and dropping empties', () => {
+    expect(
+      factsFrom({
+        release: ' The Life of a Showgirl ',
+        releaseDate: '2025-10-03',
+        writers: ['Taylor Swift', ' ', 'Max Martin'],
+        producers: [],
+        isSingle: true,
+        singleReleaseDate: '2025-10-03',
+        themes: ['rescue'],
+      }),
+    ).toEqual({
+      release: 'The Life of a Showgirl',
+      releaseDate: '2025-10-03',
+      writers: ['Taylor Swift', 'Max Martin'],
+      isSingle: true,
+      singleReleaseDate: '2025-10-03',
+      themes: ['rescue'],
+    });
+  });
+
+  it('implies single status from a dated single release', () => {
+    expect(factsFrom({ singleReleaseDate: '2014-11-10' })).toEqual({
+      isSingle: true,
+      singleReleaseDate: '2014-11-10',
+    });
+  });
+
+  it('returns null when nothing is known (no empty facts card)', () => {
+    expect(factsFrom({})).toBeNull();
+    expect(factsFrom({ writers: [], themes: ['  '], isSingle: false })).toBeNull();
+  });
+});
+
+describe('dossierFrom', () => {
+  const sources = [{ name: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Example' }];
+
+  it('normalizes a full dossier, dropping malformed entries', () => {
+    const d = dossierFrom({
+      whyItMatters: [' The case for caring. ', ''],
+      meaning: {
+        confirmed: ['She said so.'],
+        supported: [],
+        fanTheories: ['Fans think so.'],
+      },
+      connections: [
+        { relatedId: 'song:opalite', label: 'Opalite', why: 'Same rescued-love arc.' },
+        { relatedId: 'song:x', label: '', why: 'missing label — dropped' },
+      ],
+      live: [
+        { date: '2025-10-05', event: 'YouTube premiere', note: 'The video debut.' },
+        { event: '', note: 'missing event — dropped' },
+      ],
+      voices: [
+        { who: 'Taylor Swift', context: 'New Heights, Aug 2025', note: 'Framed the album as joyful.' },
+        { who: 'Nobody', note: '' },
+      ],
+      sources,
+    });
+    expect(d).toEqual({
+      whyItMatters: ['The case for caring.'],
+      meaning: { confirmed: ['She said so.'], fanTheories: ['Fans think so.'] },
+      connections: [{ relatedId: 'song:opalite', label: 'Opalite', why: 'Same rescued-love arc.' }],
+      live: [{ date: '2025-10-05', event: 'YouTube premiere', note: 'The video debut.' }],
+      voices: [
+        { who: 'Taylor Swift', context: 'New Heights, Aug 2025', note: 'Framed the album as joyful.' },
+      ],
+      sources,
+    });
+  });
+
+  it('drops a dossier with content but no sources (never ships unsourced)', () => {
+    expect(dossierFrom({ whyItMatters: ['A claim.'], sources: [] })).toBeNull();
+    expect(dossierFrom({ whyItMatters: ['A claim.'] })).toBeNull();
+  });
+
+  it('returns null for empty/absent/malformed dossiers', () => {
+    expect(dossierFrom(undefined)).toBeNull();
+    expect(dossierFrom(null)).toBeNull();
+    expect(dossierFrom({})).toBeNull();
+    expect(dossierFrom({ sources })).toBeNull();
+    expect(dossierFrom([])).toBeNull();
+    expect(dossierFrom('nope')).toBeNull();
   });
 });
 

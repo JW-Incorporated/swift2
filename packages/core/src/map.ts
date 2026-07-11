@@ -96,8 +96,20 @@ function asSources(value: unknown): MomentSource[] {
   if (!Array.isArray(value)) return [];
   return value
     .filter((s): s is Record<string, unknown> => Boolean(s) && typeof s === 'object')
-    .map((s) => ({ outlet: String(s['outlet'] ?? ''), url: asUrl(s['url']) }))
+    .map((s) => ({
+      // Accept both the legacy {outlet,url} shape and the rich §5 provenance
+      // shape ({source_title,publisher,source_url,…}) the seed runners store.
+      outlet: String(s['outlet'] ?? s['source_title'] ?? s['publisher'] ?? ''),
+      url: asUrl(s['url'] ?? s['source_url']),
+    }))
     .filter((s) => s.url !== '');
+}
+
+/** Trimmed non-empty strings from a jsonb array, or undefined when none. */
+function asStringList(value: unknown): string[] | undefined {
+  if (!Array.isArray(value)) return undefined;
+  const out = value.filter((s): s is string => typeof s === 'string' && s.trim() !== '');
+  return out.length ? out : undefined;
 }
 
 function asPhotos(value: unknown): MomentPhoto[] {
@@ -128,9 +140,24 @@ export interface TrackNoteRow {
   note: string;
   source_url: string | null;
   sources: unknown;
+  // Additive columns (issue #440 Phase 0 migration) — optional so the mapper
+  // stays compatible with a DB that hasn't run the migration yet.
+  slug?: string | null;
+  release?: string | null;
+  release_date?: string | null;
+  writers?: unknown;
+  producers?: unknown;
+  is_single?: boolean | null;
+  single_release_date?: string | null;
+  themes?: unknown;
+  dossier?: unknown;
 }
 
 export function mapTrackNote(row: TrackNoteRow): TrackNote {
+  const dossier =
+    row.dossier && typeof row.dossier === 'object' && !Array.isArray(row.dossier) && Object.keys(row.dossier).length
+      ? (row.dossier as Record<string, unknown>)
+      : undefined;
   return {
     id: row.id,
     eraSlug: row.era_slug,
@@ -139,5 +166,14 @@ export function mapTrackNote(row: TrackNoteRow): TrackNote {
     note: row.note,
     sourceUrl: row.source_url,
     sources: asSources(row.sources),
+    ...(row.slug ? { slug: row.slug } : {}),
+    ...(row.release ? { release: row.release } : {}),
+    ...(row.release_date ? { releaseDate: row.release_date } : {}),
+    ...(asStringList(row.writers) ? { writers: asStringList(row.writers) } : {}),
+    ...(asStringList(row.producers) ? { producers: asStringList(row.producers) } : {}),
+    ...(row.is_single ? { isSingle: true } : {}),
+    ...(row.single_release_date ? { singleReleaseDate: row.single_release_date } : {}),
+    ...(asStringList(row.themes) ? { themes: asStringList(row.themes) } : {}),
+    ...(dossier ? { dossier } : {}),
   };
 }

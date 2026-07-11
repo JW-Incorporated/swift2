@@ -2,49 +2,134 @@
 
 import { useMemo, useState } from 'react';
 import Image from 'next/image';
-import { Sparkles, ArrowUpRight, ArrowRight, Heart, Shirt, RefreshCw, Gem, ListMusic, Check } from 'lucide-react';
+import {
+  Sparkles,
+  ArrowUpRight,
+  ArrowRight,
+  Heart,
+  Shirt,
+  RefreshCw,
+  Gem,
+  ListMusic,
+  Check,
+  Music,
+  Mic2,
+  ScrollText,
+  SlidersHorizontal,
+  ChevronDown,
+  ChevronUp,
+  type LucideIcon,
+  Clapperboard,
+} from 'lucide-react';
 import { useAppActions, useProgress } from '@/lib/longlive/store';
 import { eraStyle } from '@/lib/longlive/theme';
 import { contentForEra } from '@/lib/longlive/content';
 import { tracksForEra } from '@/lib/longlive/tracks';
 import { theoriesForEra } from '@/lib/longlive/theories';
 import { threadsInEra, getThread } from '@/lib/longlive/lenses';
+import { videosForEra, musicVideosForEra } from '@/lib/longlive/videos';
+import { formatMonthYear } from '@/lib/longlive/format';
 import { EraMedia } from './EraMedia';
 import { EraVideos } from './EraVideos';
-import { ALL_TAGS, TAG_META } from '@/lib/longlive/tags';
+import { MomentVideo } from './MomentVideo';
+import { TAG_META } from '@/lib/longlive/tags';
+import { TAG_COLORS, itemMatchesFilter, tagsPresent } from '@/lib/longlive/tagBadges';
 import { hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
-import type { ContentItem, ContentTag, Era, LensId } from '@/lib/longlive/types';
+import type { ContentItem, ContentTag, Era, LensId, VideoNote } from '@/lib/longlive/types';
 import { assignFeedTiers, type CardTier } from '@/lib/longlive/feed-tiers';
 import { cn } from '@/lib/utils';
+
+/** A dated music video (see musicVideosForEra) eligible for a timeline entry. */
+type TimelineVideo = VideoNote & { releasedOn: string };
+
+/** One entry in the merged, newest-first main feed: either a curated moment
+ * or a music video duplicated in from the era's videos (issue #439). */
+type FeedEntry = { kind: 'moment'; item: ContentItem } | { kind: 'video'; video: TimelineVideo };
 
 /**
  * A single era in the infinite stream. Themed locally via eraStyle so stacked
  * sections each wear their own palette, while the global chrome tracks whichever
  * section is active. Items are tagged with data-ll-era so the scrubber can
  * scope its measurements to the era currently in view.
+ *
+ * Renders as one chronological list per docs/marketing/content-framework-
+ * 2026-07-03.md §4 — never split into category-grouped sub-sections, so
+ * "browse time like a timeline" (vision.md) holds. Each card carries a fixed
+ * icon+color category badge (TagRow, via lib/longlive/tagBadges) and the
+ * optional per-era filter below reuses that same icon/color set.
  */
 export function EraSection({ era }: { era: Era }) {
   const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide } = useAppActions();
   const [activeTags, setActiveTags] = useState<Set<ContentTag>>(new Set());
+  // Collapsed by default (content-framework doc's addendum: "off by default,
+  // not a persistent filter row on every one of ~230 months") — a toggle
+  // reveals the chip row, scoped to this era's own local state.
+  const [filterOpen, setFilterOpen] = useState(false);
   const eraThreads = useMemo(() => threadsInEra(era.id), [era.id]);
   const trackCount = useMemo(() => tracksForEra(era.id).length, [era.id]);
   const theoryCount = useMemo(() => theoriesForEra(era.id).length, [era.id]);
+  const videoCount = useMemo(() => videosForEra(era.id).length, [era.id]);
 
   const items = useMemo(() => contentForEra(era.id), [era.id]);
+  // Pure client-side filter over already-resident Tier 0 data — no fetch, no
+  // payload/schema change. Non-matching items are simply omitted from the
+  // rendered list (same mechanism the pre-existing tag filter used), which
+  // TimelineScrubber's own ResizeObserver already re-measures against
+  // gracefully (see its "Catch layout changes from filtering" handling) —
+  // the scrubber's rail, drag gesture and era position are unaffected, it
+  // just remeasures the (now shorter) visible content.
   const visible = useMemo(() => {
     if (activeTags.size === 0) return items;
-    return items.filter((it) => it.tags.some((t) => activeTags.has(t)));
+    return items.filter((it) => itemMatchesFilter(it.tags, activeTags));
   }, [items, activeTags]);
   // Card silhouette per item — recomputed against whatever's actually on
   // screen (so filtering doesn't reference invisible items), but a pure
   // function of that list's ids, so it's stable across re-renders.
   const tiers = useMemo(() => assignFeedTiers(visible), [visible]);
 
-  const presentTags = useMemo(() => {
-    const s = new Set<ContentTag>();
-    items.forEach((it) => it.tags.forEach((t) => s.add(t)));
-    return s;
-  }, [items]);
+  // Music videos duplicated into the main timeline (issue #439), dated to
+  // their release date, alongside — not instead of — the EraVideos rail
+  // below. Skip any whose youtubeId is already embedded on a curated moment
+  // above (e.g. a lead-single video that's also its own narrative beat) so
+  // the same video never appears twice in this same list.
+  const embeddedVideoIds = useMemo(
+    () => new Set(items.map((it) => it.video?.youtubeId).filter((id): id is string => Boolean(id))),
+    [items],
+  );
+  const timelineVideos = useMemo(
+    () => musicVideosForEra(era.id).filter((v) => !v.youtubeId || !embeddedVideoIds.has(v.youtubeId)),
+    [era.id, embeddedVideoIds],
+  );
+  const visibleTimelineVideos = useMemo(
+    () => (activeTags.size === 0 || activeTags.has('Music') ? timelineVideos : []),
+    [timelineVideos, activeTags],
+  );
+  // Merge the (already tag-filtered) moments with the (already tag-gated)
+  // video entries into one newest-first feed, keeping cross-type ordering
+  // correct instead of just concatenating the two lists.
+  const feedEntries = useMemo(() => {
+    const entries: FeedEntry[] = [
+      ...visible.map((item): FeedEntry => ({ kind: 'moment', item })),
+      ...visibleTimelineVideos.map((video): FeedEntry => ({ kind: 'video', video })),
+    ];
+    return entries.sort((a, b) => {
+      const dateA = a.kind === 'moment' ? a.item.date : a.video.releasedOn;
+      const dateB = b.kind === 'moment' ? b.item.date : b.video.releasedOn;
+      return dateB.localeCompare(dateA);
+    });
+  }, [visible, visibleTimelineVideos]);
+
+  // tagsPresent() keeps chip order canonical; a video-only 'Music' presence
+  // (issue #439) is folded in via a synthetic tag list rather than bypassing
+  // the shared helper, so the filter's "only offer tags this era actually
+  // uses" guarantee still holds for the timeline-video case too.
+  const presentTags = useMemo(
+    () =>
+      tagsPresent(
+        timelineVideos.length > 0 ? [...items.map((it) => it.tags), ['Music']] : items.map((it) => it.tags),
+      ),
+    [items, timelineVideos],
+  );
 
   function toggleTag(tag: ContentTag) {
     setActiveTags((prev) => {
@@ -53,6 +138,10 @@ export function EraSection({ era }: { era: Era }) {
       else next.add(tag);
       return next;
     });
+  }
+
+  function clearTags() {
+    setActiveTags(new Set());
   }
 
   return (
@@ -106,7 +195,7 @@ export function EraSection({ era }: { era: Era }) {
           {era.media && <EraMedia media={era.media} />}
 
           {/* Era guides — each only when this era has sourced records. */}
-          {(trackCount > 0 || theoryCount > 0) && (
+          {(trackCount > 0 || theoryCount > 0 || videoCount > 0) && (
             <div className="mt-5 flex flex-wrap items-center justify-center gap-2.5">
               {trackCount > 0 && (
                 <button
@@ -130,54 +219,117 @@ export function EraSection({ era }: { era: Era }) {
                   <span className="text-xs text-[color:var(--era-ink-soft)]">{theoryCount}</span>
                 </button>
               )}
+              {videoCount > 0 && (
+                <button
+                  onClick={() =>
+                    document
+                      .getElementById(`era-videos-${era.id}`)
+                      ?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                  }
+                  className="era-btn-ghost inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium"
+                >
+                  <Clapperboard className="h-4 w-4 text-[color:var(--era-accent)]" />
+                  Videos
+                  <span className="text-xs text-[color:var(--era-ink-soft)]">{videoCount}</span>
+                </button>
+              )}
             </div>
           )}
         </div>
       </div>
 
-      {/* Filter row (non-sticky so stacked sections don't fight for the top). */}
-      <div className="border-y border-[color:var(--era-line)] bg-[color:var(--era-surface)]/40">
-        <div className="mx-auto flex max-w-4xl items-center gap-2 overflow-x-auto px-4 py-3 md:pr-8">
-          <span className="shrink-0 text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
-            Filter
-          </span>
-          {ALL_TAGS.map((tag) => {
-            const present = presentTags.has(tag);
-            const active = activeTags.has(tag);
-            return (
+      {/* Per-era category filter: collapsed/off by default (only rendered at
+          all when this era actually has tagged content), non-sticky so
+          stacked sections don't fight for the top. Reuses the same
+          icon+color set as the card badges below. */}
+      {presentTags.length > 0 && (
+        <div className="border-y border-[color:var(--era-line)] bg-[color:var(--era-surface)]/40">
+          <div className="mx-auto max-w-4xl px-4 py-3 md:pr-8">
+            <div className="flex flex-wrap items-center gap-2">
               <button
-                key={tag}
-                disabled={!present}
-                onClick={() => toggleTag(tag)}
-                className={cn(
-                  'shrink-0 rounded-full border px-3 py-1 text-xs font-medium transition',
-                  active
-                    ? 'border-transparent text-[color:var(--era-bg)]'
-                    : 'border-[color:var(--era-line)] text-[color:var(--era-ink-soft)] hover:text-[color:var(--era-ink)]',
-                  !present && 'cursor-not-allowed opacity-30',
-                )}
-                style={active ? { backgroundColor: `hsl(${TAG_META[tag].hue})` } : undefined}
+                type="button"
+                onClick={() => setFilterOpen((o) => !o)}
+                aria-expanded={filterOpen}
+                aria-controls={`era-filter-${era.id}`}
+                className="era-btn-ghost inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 text-xs font-medium uppercase tracking-widest"
               >
-                {TAG_META[tag].label}
+                <SlidersHorizontal className="h-3.5 w-3.5" />
+                Filter
+                {activeTags.size > 0 && (
+                  <span
+                    className="inline-flex h-4 min-w-4 items-center justify-center rounded-full px-1 text-[10px] font-bold"
+                    style={{ backgroundColor: 'var(--era-accent)', color: 'var(--era-bg)' }}
+                  >
+                    {activeTags.size}
+                  </span>
+                )}
+                {filterOpen ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
               </button>
-            );
-          })}
-        </div>
-      </div>
+              {activeTags.size > 0 && (
+                <button
+                  type="button"
+                  onClick={clearTags}
+                  className="text-xs font-medium text-[color:var(--era-ink-soft)] underline decoration-dotted underline-offset-2 hover:text-[color:var(--era-ink)]"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
 
-      {/* Chronological feed (newest-first). */}
+            {filterOpen && (
+              <div
+                id={`era-filter-${era.id}`}
+                role="group"
+                aria-label={`Filter ${era.shortName} by category`}
+                className="mt-3 flex flex-wrap gap-2"
+              >
+                {presentTags.map((tag) => {
+                  const active = activeTags.has(tag);
+                  const Icon = TAG_ICON[tag];
+                  const color = TAG_COLORS[tag];
+                  return (
+                    <button
+                      key={tag}
+                      type="button"
+                      aria-pressed={active}
+                      onClick={() => toggleTag(tag)}
+                      className="inline-flex items-center gap-1.5 rounded-full border px-3 py-1 text-xs font-semibold transition"
+                      style={{
+                        backgroundColor: active ? color : 'transparent',
+                        borderColor: color,
+                        color: active ? '#fff' : color,
+                      }}
+                    >
+                      <Icon className="h-3.5 w-3.5" aria-hidden />
+                      {TAG_META[tag].label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Chronological feed (newest-first). Music videos (issue #439) are
+          merged in alongside curated moments, dated to their release date —
+          the fuller card for each still lives in the EraVideos rail below. */}
       <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
         <ol className="relative space-y-5">
-          {visible.map((item) => (
-            <MomentCard
-              key={item.id}
-              item={item}
-              tier={tiers.get(item.id) ?? 'text'}
-              onOpen={() => openItem(item.id)}
-            />
-          ))}
+          {feedEntries.map((entry) =>
+            entry.kind === 'video' ? (
+              <VideoMomentCard key={`era-video-${entry.video.slug}`} video={entry.video} eraId={era.id} />
+            ) : (
+              <MomentCard
+                key={entry.item.id}
+                item={entry.item}
+                tier={tiers.get(entry.item.id) ?? 'text'}
+                onOpen={() => openItem(entry.item.id)}
+              />
+            ),
+          )}
         </ol>
-        {visible.length === 0 && (
+        {feedEntries.length === 0 && (
           <p className="py-16 text-center text-sm text-[color:var(--era-ink-soft)]">
             No moments match that filter in this era.
           </p>
@@ -246,6 +398,56 @@ const PIVOT_ICONS: Partial<Record<LensId, typeof Heart>> = {
   'the-proposal': Gem,
 };
 
+/** One stable icon per content tag — the other half of the category badge
+ * (paired with the fixed colors in lib/longlive/tagBadges). Reused by both
+ * the card badge (TagRow) and the per-era filter chips above. */
+const TAG_ICON: Record<ContentTag, LucideIcon> = {
+  Music,
+  Fashion: Shirt,
+  Tour: Mic2,
+  Relationship: Heart,
+  Lore: ScrollText,
+};
+
+/**
+ * Lightweight timeline entry for a music video duplicated in from
+ * musicVideosForEra (issue #439 part 2). Deliberately thinner than
+ * MomentCard's tiers — director/symbolism/easter-egg depth stays in the
+ * EraVideos rail card below; this is just the date, title, and the same
+ * click-to-play facade (MomentVideo) used everywhere else a video embeds.
+ */
+function VideoMomentCard({ video, eraId }: { video: TimelineVideo; eraId: Era['id'] }) {
+  return (
+    <li
+      className="relative scroll-mt-28"
+      data-ll-item={`era-video-${video.slug}`}
+      data-ll-era={eraId}
+      data-ll-date={new Date(video.releasedOn).getTime()}
+    >
+      <div className="era-card block w-full rounded-2xl border p-5">
+        <div className="flex items-baseline justify-between gap-3">
+          <span className="text-xs uppercase tracking-widest text-[color:var(--era-ink-soft)]">
+            {formatMonthYear(video.releasedOn)}
+          </span>
+          <span className="flex shrink-0 items-center gap-1.5 text-[11px] font-medium uppercase tracking-widest text-[color:var(--era-accent)]">
+            <Clapperboard className="h-3.5 w-3.5" />
+            Music video
+          </span>
+        </div>
+        <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
+          {video.title}
+        </h3>
+        {video.summary && (
+          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{video.summary}</p>
+        )}
+        {video.youtubeId && (
+          <MomentVideo video={{ youtubeId: video.youtubeId, title: video.title }} caption={null} className="mt-4" />
+        )}
+      </div>
+    </li>
+  );
+}
+
 /** Date/tags/clue/seen row shared by every card tier. */
 function MomentMeta({
   item,
@@ -288,19 +490,29 @@ function MomentMeta({
   );
 }
 
+/**
+ * Category badge row: icon + fixed-color filled pill, one per tag on this
+ * item (content-framework doc §4 — icon+color, not the old era-accent-tinted
+ * text label). Colors come from lib/longlive/tagBadges (era-independent), so
+ * a category reads the same across every era's re-skin.
+ */
 function TagRow({ tags }: { tags: ContentTag[] }) {
   if (tags.length === 0) return null;
   return (
     <div className="mt-3 flex flex-wrap items-center gap-1.5">
-      {tags.map((t) => (
-        <span
-          key={t}
-          className="rounded-full px-2 py-0.5 text-[11px] font-medium"
-          style={{ backgroundColor: `hsl(${TAG_META[t].hue} / 0.16)`, color: `hsl(${TAG_META[t].hue})` }}
-        >
-          {TAG_META[t].label}
-        </span>
-      ))}
+      {tags.map((t) => {
+        const Icon = TAG_ICON[t];
+        return (
+          <span
+            key={t}
+            className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[11px] font-semibold text-white"
+            style={{ backgroundColor: TAG_COLORS[t] }}
+          >
+            <Icon className="h-3 w-3" aria-hidden />
+            {TAG_META[t].label}
+          </span>
+        );
+      })}
     </div>
   );
 }

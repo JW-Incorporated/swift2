@@ -36,7 +36,7 @@ export default {
       claim:
         'Fans read the "Bejeweled" video — the purple gown, the pointed floor-three elevator button, the Enchanted-coded ballroom — as a coded reveal that Speak Now (Taylor\'s Version), album three, was next. It was.',
       evidence:
-        'Taylor said on release day that the video was stuffed with easter eggs; the fandom filed the purple/third-floor cluster under Speak Now within hours. Eight months later the Nashville announcement proved the read. The clean template of clue -> consensus -> confirmation.',
+        'Taylor said on release day that the video was stuffed with easter eggs; the fandom filed the purple/third-floor cluster under Speak Now within hours. Just over six months later the Nashville announcement proved the read. The clean template of clue -> consensus -> confirmation.',
       confidence: 'strong_fan_consensus',
       outcome: 'confirmed',
       relatedSlugs: ['lover:mastermind-doctrine'],
