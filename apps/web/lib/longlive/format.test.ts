@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatRelativeTime, truncate } from './format';
+import { formatMonthYear, formatRelativeTime, truncate } from './format';
 
 const NOW = Date.parse('2026-07-09T12:00:00.000Z');
 
@@ -34,6 +34,19 @@ describe('formatRelativeTime', () => {
     expect(formatRelativeTime('2026-01-09T12:00:00.000Z', NOW)).toBe('5 months ago');
     expect(formatRelativeTime('2025-06-01T12:00:00.000Z', NOW)).toBe('1 year ago');
     expect(formatRelativeTime('2020-07-09T12:00:00.000Z', NOW)).toBe('6 years ago');
+  });
+});
+
+describe('formatMonthYear', () => {
+  it('formats a bare ISO date as "Month Year"', () => {
+    expect(formatMonthYear('2025-10-05')).toBe('October 2025');
+    expect(formatMonthYear('2014-08-18')).toBe('August 2014');
+  });
+
+  it('never shifts a day backward across timezones (UTC-anchored)', () => {
+    // A first-of-month date is the case most likely to roll back a day in a
+    // negative-offset local timezone if this weren't UTC-anchored.
+    expect(formatMonthYear('2026-01-01')).toBe('January 2026');
   });
 });
 
