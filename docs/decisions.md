@@ -39,6 +39,14 @@ structural, not a discipline lapse).
 preconditions from the gap analysis — G3 branch protection enabled and G10
 kill switch documented.** Austin runs nothing until those land.
 
+**Activated same day (Joey, #494):** bundle approved; G10 done; **G3 turned
+out to be paywalled** (GitHub requires Pro/Team for protection on private
+repos — the gap analysis wrongly called it a free toggle). Joey chose
+**option C — waive G3 for now — with option A (upgrade the org to GitHub
+Team, then enable the ruleset) explicitly wanted later**; the upgrade is
+banked as a TX item. Until it lands, "never push main" remains
+charter-enforced rather than mechanical — a known, founder-accepted gap.
+
 ## 2026-07-11 — Marjorie's T2 gate redefined: reversibility is the criterion
 
 **Decision:** Going forward, if a decision is reversible within a reasonable
