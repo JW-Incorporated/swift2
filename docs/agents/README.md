@@ -29,7 +29,7 @@ agent's outputs).
 | Charter | Agent | Status |
 |---|---|---|
 | [`marjorie.md`](marjorie.md) | Chief of staff + manager | Phase 1 — active |
-| [`austin.md`](austin.md) | Build desk autonomous lane | **Inactive** — awaiting founder ticks + G3/G10 preconditions |
+| [`austin.md`](austin.md) | Build desk autonomous lane | **Active** (2026-07-11, #494; G3 waived pending the Team-plan upgrade) |
 | `../kevin.md` | Ticket ops (moves here in Phase 2) | Active on Wyatt's side |
 | *(Phase 2)* | Karen (Integrity), v0, delegation scripts | Charters pending |
 | *(Phase 1, copy desk)* | Theo, Loren, Vera, Deb — `docs/content-ops/personas/` | Spec approved (#463) |
