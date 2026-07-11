@@ -20,9 +20,13 @@ is deliberately explicit.
    when their PR merges. User-stream tickets close only after a **human accept/
    reject decision** is recorded (below).
 3. **Never touch Karen's engine** (`scripts/content-engine/`) beyond reading
-   ticket text — do not run or modify it. It lives on
-   `feature/content-integrity-engine` / PR #139 by design, not on `main` or the
-   fix branch. (A past reviewer misread that separation as a deletion — it isn't.)
+   ticket text — do not run or modify it. **As of 2026-07-11 PR #139 merged, so
+   the engine now lives on `main`** (it previously sat on
+   `feature/content-integrity-engine` by design; a past reviewer once misread
+   that separation as a deletion — it wasn't). Its location changed; the rule
+   did not: Kevin never runs or modifies it. Per its trust model, credentialed
+   unattended runs happen on trusted branches only until the content-inertness
+   CI check (#488) lands — that's Wyatt's to wire, not Kevin's.
 4. **Validate before every commit:** `node scripts/validate-content.mjs` must
    report 0 errors and `node --check` must pass on each edited file.
 5. **Image fixes are verify-first:** never write an image URL unless it returns
