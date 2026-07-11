@@ -21,7 +21,10 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
 export function RunwayThread() {
   return (
     <div className="space-y-10 pt-8">
-      {RUNWAY_LOOKS.map((look) => {
+      {/* RUNWAY_LOOKS is authored oldest-first for readability; render newest-first
+          to match the site-wide convention (top = now) and the adjacent scrubber.
+          Copy before reversing — never mutate the exported array. (#433) */}
+      {[...RUNWAY_LOOKS].reverse().map((look) => {
         const era = getEra(look.eraId);
         const [feature, ...rest] = look.images;
         return (
