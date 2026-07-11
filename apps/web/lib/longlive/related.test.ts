@@ -1,6 +1,9 @@
 import { describe, expect, it } from 'vitest';
+import { ERAS } from './eras';
 import { EGG_NODES, MOTIFS, motifOf } from './lenses';
-import { motifTargetOf, resolveMotifTrail } from './related';
+import { motifTargetOf, resolveMotifTrail, songRelatedId, songTargetOf } from './related';
+import { trackKey, tracksForEra } from './tracks';
+import type { TrackNote } from './types';
 
 describe('motifTargetOf', () => {
   it('resolves motif:<id> for every trail in the data', () => {
@@ -58,5 +61,41 @@ describe('resolveMotifTrail', () => {
 
   it('returns null when nothing resolves', () => {
     expect(resolveMotifTrail(['moment:rep-album', 'garbage', 'egg:nope'])).toBeNull();
+  });
+});
+
+describe('songRelatedId / songTargetOf', () => {
+  const sampleTrack: TrackNote = { trackNumber: 3, title: 'Anti-Hero', note: 'n', sources: [] };
+
+  it('builds the documented song:<eraId>:<trackKey> format', () => {
+    expect(songRelatedId('midnights', sampleTrack)).toBe(
+      `song:midnights:${trackKey('midnights', sampleTrack)}`,
+    );
+  });
+
+  it('round-trips every track in the generated catalog through songRelatedId -> songTargetOf', () => {
+    for (const era of ERAS) {
+      for (const track of tracksForEra(era.id)) {
+        const id = songRelatedId(era.id, track);
+        const target = songTargetOf(id);
+        expect(target, `${id} should resolve`).not.toBeNull();
+        expect(target!.eraId).toBe(era.id);
+        expect(target!.track).toBe(track);
+      }
+    }
+  });
+
+  it('returns null for an unknown era, an unknown track, and non-song namespaces', () => {
+    expect(songTargetOf('song:not-a-real-era:midnights::3::Anti-Hero')).toBeNull();
+    expect(songTargetOf('song:midnights:midnights::99::Not A Real Song')).toBeNull();
+    expect(songTargetOf('motif:the-snake')).toBeNull();
+    expect(songTargetOf('moment:rep-album')).toBeNull();
+  });
+
+  it('returns null for malformed ids', () => {
+    expect(songTargetOf('')).toBeNull();
+    expect(songTargetOf('song:')).toBeNull(); // empty id after namespace
+    expect(songTargetOf('song:midnights')).toBeNull(); // no track-key segment
+    expect(songTargetOf('song:midnights:')).toBeNull(); // empty track-key
   });
 });

@@ -36,8 +36,26 @@ const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'tracks.gener
 // `.limit()` + cap check so a partial page can never silently ship a
 // truncated track guide (same guard as sync-longlive-content.mjs).
 const TRACK_NOTE_COLS =
-  'era_slug,track_title,track_number,note,source_url,sources,discussion,quoted_lines,discussion_source_url,discussion_sources,summary,inspiration,easter_eggs';
+  'era_slug,track_title,track_number,note,source_url,sources,discussion,quoted_lines,discussion_source_url,discussion_sources,summary,inspiration,easter_eggs,writers,producers,release,release_date,single_release_date,themes';
 const MAX_ROWS = 2000;
+
+/**
+ * Trim a string field, or undefined when blank/absent — never surfaces an
+ * empty string as "present" (same discipline as the rest of this file).
+ */
+export function cleanString(v) {
+  return typeof v === 'string' && v.trim() ? v.trim() : undefined;
+}
+
+/**
+ * Trim + drop-empty entries of a string array, or undefined when the result
+ * would be empty — never surfaces an empty array as "present".
+ */
+export function cleanStringArray(v) {
+  if (!Array.isArray(v)) return undefined;
+  const out = v.map((s) => (typeof s === 'string' ? s.trim() : '')).filter(Boolean);
+  return out.length ? out : undefined;
+}
 
 /**
  * Normalizes a track's deep-dive content into `{ discussion, quotedLines,
@@ -111,6 +129,12 @@ export function normalizeTrack({
   summary,
   inspiration,
   easterEggs,
+  writers,
+  producers,
+  release,
+  releaseDate,
+  singleReleaseDate,
+  themes,
 }) {
   const title = typeof trackTitle === 'string' ? trackTitle.trim() : '';
   const trimmedNote = typeof note === 'string' ? note.trim() : '';
@@ -124,6 +148,16 @@ export function normalizeTrack({
     { discussion, quotedLines, discussionSourceUrl, discussionSources, summary, inspiration, easterEggs },
     resolvedSources,
   );
+  // Already-authored credit/release facts (issue #440 Phase 0) — these exist
+  // in the seed files today but were dropped before reaching the UI; this is
+  // plumbing, not new writing. Each is omitted entirely when blank/empty
+  // rather than shipping an empty string/array as if it were real data.
+  const cleanedWriters = cleanStringArray(writers);
+  const cleanedProducers = cleanStringArray(producers);
+  const cleanedRelease = cleanString(release);
+  const cleanedReleaseDate = cleanString(releaseDate);
+  const cleanedSingleReleaseDate = cleanString(singleReleaseDate);
+  const cleanedThemes = cleanStringArray(themes);
   return {
     trackNumber: Number.isInteger(n) && n > 0 ? n : null,
     title,
@@ -136,6 +170,12 @@ export function normalizeTrack({
           discussionSources: discussionResult.discussionSources,
         }
       : {}),
+    ...(cleanedWriters ? { writers: cleanedWriters } : {}),
+    ...(cleanedProducers ? { producers: cleanedProducers } : {}),
+    ...(cleanedRelease ? { release: cleanedRelease } : {}),
+    ...(cleanedReleaseDate ? { releaseDate: cleanedReleaseDate } : {}),
+    ...(cleanedSingleReleaseDate ? { singleReleaseDate: cleanedSingleReleaseDate } : {}),
+    ...(cleanedThemes ? { themes: cleanedThemes } : {}),
   };
 }
 
@@ -200,6 +240,18 @@ export function renderModule(byEra) {
       if (t.sources.length) {
         const srcs = t.sources.map((s) => `{ name: ${esc(s.name)}, url: ${esc(s.url)} }`).join(', ');
         lines.push(`      sources: [${srcs}],`);
+      }
+      if (t.writers && t.writers.length) {
+        lines.push(`      writers: [${t.writers.map(esc).join(', ')}],`);
+      }
+      if (t.producers && t.producers.length) {
+        lines.push(`      producers: [${t.producers.map(esc).join(', ')}],`);
+      }
+      if (t.release) lines.push(`      release: ${esc(t.release)},`);
+      if (t.releaseDate) lines.push(`      releaseDate: ${esc(t.releaseDate)},`);
+      if (t.singleReleaseDate) lines.push(`      singleReleaseDate: ${esc(t.singleReleaseDate)},`);
+      if (t.themes && t.themes.length) {
+        lines.push(`      themes: [${t.themes.map(esc).join(', ')}],`);
       }
       if (t.discussion && t.discussion.length) {
         lines.push(`      discussion: [${t.discussion.map(esc).join(', ')}],`);
@@ -268,6 +320,12 @@ async function fetchFromSupabase() {
     summary: row.summary,
     inspiration: row.inspiration,
     easterEggs: row.easter_eggs,
+    writers: row.writers,
+    producers: row.producers,
+    release: row.release,
+    releaseDate: row.release_date,
+    singleReleaseDate: row.single_release_date,
+    themes: row.themes,
   }));
   console.log(`sync-longlive-tracks: loaded ${entries.length} track notes from Supabase (live).`);
   return buildTrackGuide(entries);

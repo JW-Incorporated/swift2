@@ -5,9 +5,8 @@ import Image from 'next/image';
 import { X, ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { tracksForEra } from '@/lib/longlive/tracks';
+import { trackKey, tracksForEra } from '@/lib/longlive/tracks';
 import { eraStyle } from '@/lib/longlive/theme';
-import { trackKey } from './TrackDetail';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { EraId, TrackNote } from '@/lib/longlive/types';
 

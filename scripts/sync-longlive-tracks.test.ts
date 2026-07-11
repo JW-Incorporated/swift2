@@ -1,7 +1,44 @@
 import { describe, expect, it } from 'vitest';
 // The generator only writes files when invoked directly; importing it here
 // just pulls in its pure normalization functions.
-import { buildTrackGuide, normalizeTrack, sortTracks } from './sync-longlive-tracks.mjs';
+import {
+  buildTrackGuide,
+  cleanString,
+  cleanStringArray,
+  normalizeTrack,
+  sortTracks,
+} from './sync-longlive-tracks.mjs';
+
+describe('cleanString', () => {
+  it('trims and returns non-blank strings', () => {
+    expect(cleanString('  Midnights  ')).toBe('Midnights');
+  });
+
+  it('returns undefined for blank/non-string input (never surfaces empty as present)', () => {
+    expect(cleanString('')).toBeUndefined();
+    expect(cleanString('   ')).toBeUndefined();
+    expect(cleanString(null)).toBeUndefined();
+    expect(cleanString(undefined)).toBeUndefined();
+    expect(cleanString(42)).toBeUndefined();
+  });
+});
+
+describe('cleanStringArray', () => {
+  it('trims entries and drops blanks', () => {
+    expect(cleanStringArray(['  Taylor Swift ', '', '  Jack Antonoff', '   '])).toEqual([
+      'Taylor Swift',
+      'Jack Antonoff',
+    ]);
+  });
+
+  it('returns undefined for non-arrays and for arrays that end up empty', () => {
+    expect(cleanStringArray(undefined)).toBeUndefined();
+    expect(cleanStringArray(null)).toBeUndefined();
+    expect(cleanStringArray('not an array')).toBeUndefined();
+    expect(cleanStringArray([])).toBeUndefined();
+    expect(cleanStringArray(['', '   '])).toBeUndefined();
+  });
+});
 
 describe('normalizeTrack', () => {
   it('normalizes a seed-shape track into the UI TrackNote shape', () => {
@@ -121,6 +158,44 @@ describe('normalizeTrack', () => {
       discussion: ['A hand-written paragraph with no citation.'],
     });
     expect(t?.discussion).toBeUndefined();
+  });
+
+  it('passes through the already-authored credit/release fields (issue #440 Phase 0)', () => {
+    const t = normalizeTrack({
+      trackTitle: 'Lavender Haze',
+      note: 'A note.',
+      sourceUrl: 'https://example.com/a',
+      writers: [' Taylor Swift ', 'Jack Antonoff'],
+      producers: ['Taylor Swift', '  '],
+      release: '  Midnights  ',
+      releaseDate: '2022-10-21',
+      singleReleaseDate: '2023-01-27',
+      themes: ['protecting love from scrutiny', ''],
+    });
+    expect(t?.writers).toEqual(['Taylor Swift', 'Jack Antonoff']);
+    expect(t?.producers).toEqual(['Taylor Swift']);
+    expect(t?.release).toBe('Midnights');
+    expect(t?.releaseDate).toBe('2022-10-21');
+    expect(t?.singleReleaseDate).toBe('2023-01-27');
+    expect(t?.themes).toEqual(['protecting love from scrutiny']);
+  });
+
+  it('omits credit/release fields entirely when absent or blank (never an empty placeholder)', () => {
+    const t = normalizeTrack({
+      trackTitle: 'Song',
+      note: 'A note.',
+      sourceUrl: 'https://example.com/a',
+      writers: [],
+      producers: undefined,
+      release: '   ',
+      themes: ['   ', ''],
+    });
+    expect(t?.writers).toBeUndefined();
+    expect(t?.producers).toBeUndefined();
+    expect(t?.release).toBeUndefined();
+    expect(t?.releaseDate).toBeUndefined();
+    expect(t?.singleReleaseDate).toBeUndefined();
+    expect(t?.themes).toBeUndefined();
   });
 });
 

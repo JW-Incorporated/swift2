@@ -8,7 +8,8 @@ import { getEra } from '@/lib/longlive/eras';
 import { theoriesForEra, resolveRelatedTheory } from '@/lib/longlive/theories';
 import { eraStyle } from '@/lib/longlive/theme';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import type { Confidence, TheoryNote, TheoryOutcome } from '@/lib/longlive/types';
+import type { TheoryNote, TheoryOutcome } from '@/lib/longlive/types';
+import { ConfidencePill } from './ConfidencePill';
 
 /**
  * The era theories & easter eggs guide — an immersive per-era overlay (same
@@ -18,18 +19,6 @@ import type { Confidence, TheoryNote, TheoryOutcome } from '@/lib/longlive/types
  * (lib/longlive/theories.ts); no runtime fetch. Only records with a real
  * source exist in the data — never an empty placeholder.
  */
-
-// Same wording as MomentDetail's confidence pill, extended to all 8 tiers.
-const CONFIDENCE_LABEL: Record<Confidence, string> = {
-  official: 'Official',
-  confirmed_interview: 'Confirmed in interview',
-  reputable_reporting: 'Reported',
-  strong_fan_consensus: 'Fan consensus',
-  plausible: 'Plausible',
-  clowning: 'Clowning',
-  disproven: 'Disproven',
-  joke_meme: 'Joke / meme',
-};
 
 const OUTCOME_LABEL: Record<TheoryOutcome, string> = {
   confirmed: 'Confirmed',
@@ -154,13 +143,7 @@ function TheoryCard({ theory }: { theory: TheoryNote }) {
           {theory.kind === 'easter_egg' ? 'Easter egg' : 'Fan theory'}
         </span>
         <div className="flex flex-wrap items-center gap-1.5">
-          <span
-            className="rounded-full border px-2 py-0.5 text-[10px] uppercase tracking-wider text-[color:var(--era-ink-soft)]"
-            style={{ borderColor: 'var(--era-line)' }}
-            title="How much weight the claim carries"
-          >
-            {CONFIDENCE_LABEL[theory.confidence]}
-          </span>
+          <ConfidencePill confidence={theory.confidence} />
           <span
             className="rounded-full px-2 py-0.5 text-[10px] uppercase tracking-wider"
             style={

@@ -243,6 +243,15 @@ export interface TrackNote {
   isFromTheVault?: boolean;
   /** ISO date the track was released as a single, or null if never. */
   singleReleaseDate?: string | null;
+  // -- additive optional fields (issue #440 Track Guide overhaul, Phase 0) --
+  /** Public-record production credits. */
+  producers?: string[];
+  /** Album/single title the track was released on, e.g. "Midnights". */
+  release?: string;
+  /** ISO date the track's parent release came out, or null if unknown. */
+  releaseDate?: string | null;
+  /** Documented lyrical/thematic tags, e.g. "self-loathing", "adult heartbreak". */
+  themes?: string[];
 }
 
 export interface YearMonth {

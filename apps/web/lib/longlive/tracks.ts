@@ -12,3 +12,12 @@ import { TRACKS_RAW } from './tracks.generated';
 export function tracksForEra(eraId: EraId): TrackNote[] {
   return TRACKS_RAW[eraId] ?? [];
 }
+
+/**
+ * Composite key for a track — TrackNote has no stable id of its own, so
+ * TrackDetail/TrackGuide (and the `song:` RelatedId resolver in related.ts)
+ * all identify a track by era + track number + title instead.
+ */
+export function trackKey(eraId: string, track: TrackNote): string {
+  return `${eraId}::${track.trackNumber ?? 'x'}::${track.title}`;
+}
