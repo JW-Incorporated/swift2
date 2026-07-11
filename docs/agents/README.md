@@ -29,10 +29,30 @@ agent's outputs).
 | Charter | Agent | Status |
 |---|---|---|
 | [`marjorie.md`](marjorie.md) | Chief of staff + manager | Phase 1 — active |
+| [`austin.md`](austin.md) | Build desk autonomous lane | **Inactive** — awaiting founder ticks + G3/G10 preconditions |
 | `../kevin.md` | Ticket ops (moves here in Phase 2) | Active on Wyatt's side |
 | *(Phase 2)* | Karen (Integrity), v0, delegation scripts | Charters pending |
 | *(Phase 1, copy desk)* | Theo, Loren, Vera, Deb — `docs/content-ops/personas/` | Spec approved (#463) |
 | *(Phase 3)* | Growth & Community, Watch | Pre-launch |
+
+## The kill switch — pausing the org (gap analysis G10)
+
+To stop all autonomous activity **right now**:
+
+1. **Scheduled agents:** disable every routine at
+   <https://claude.ai/code/routines> (Marjorie's 6 AM / 8 PM runs, any Austin
+   runner). Disabling is instant and reversible; no work is lost — all state
+   lives in GitHub artifacts.
+2. **Session crons on founder machines** (Kevin, on Wyatt's side): stop the
+   session/scheduler task on that machine.
+3. **What keeps running on purpose:** the watchdog and CI are dumb GitHub
+   Actions — they only observe and alert. To silence even those, disable the
+   workflows under the repo's Actions tab.
+4. **Freezing one desk only:** disable just its routine; its queue simply
+   accumulates (labels keep working) and the brief's Health section shows
+   the stopped cadence.
+5. **Degraded mode is always available:** the decision bank is plain labeled
+   issues — founders can read and answer everything with every agent off.
 
 ## Labels the desks own
 

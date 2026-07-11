@@ -7,6 +7,38 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-11 — Build desk autonomous lane (Austin) — approved in direction, activation gated
+
+**Decision:** The Build desk gains an autonomous lane: **Austin**
+(`docs/agents/austin.md`), a chartered agent that implements eng tickets
+Kevin's triage labels tractable — and only those that also pass the
+reversibility criterion (entry below), a semantic change-type allowlist
+(no migrations/deps/workflows/API-routes/governance-docs; tests never
+weakened), diff bounds (≤5 files/≤150 lines), and founder-or-desk
+authorship. Rails: atomic claim (assignment + revalidation), stop triggers
+instead of invention, regression test per bug fix, mandatory Codex review
+with **no self-rebuttal**, human merge of every PR (v1), 2-attempt ledger,
+2 starts/day, WIP limit of 3 open PRs blocking new claims. Autonomy expands
+only class-by-class by founder grant (the §5.4 gate) — Austin never merges,
+same as every agent. Kevin's charter records the handoff; his
+never-auto-code invariant is unchanged (his triage is intake, the founder's
+merge click is authorization).
+
+**Why:** #470 — a fully-specified two-line fix — sat unbuilt for hours
+because executing the queued tractable backlog was no one's job (gap
+analysis: `docs/reviews/2026-07-11-operating-model-gap-analysis.md`, G1).
+Design + Codex round: `docs/proposals/2026-07-11-build-desk-autonomous-lane.md`.
+
+**Alternatives considered:** let Kevin auto-code Stream 3 (rejected — his
+charter's unattended-loop concern is sound, and mixing triage with
+execution removes a check); humans-only forever (rejected — the gap is
+structural, not a discipline lapse).
+
+**Approved by:** Joey (direction + commissioning, 2026-07-11).
+**Activation gated on:** brief ticks for activate/name/caps **plus two
+preconditions from the gap analysis — G3 branch protection enabled and G10
+kill switch documented.** Austin runs nothing until those land.
+
 ## 2026-07-11 — Marjorie's T2 gate redefined: reversibility is the criterion
 
 **Decision:** Going forward, if a decision is reversible within a reasonable
