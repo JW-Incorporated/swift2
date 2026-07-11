@@ -7,6 +7,42 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-11 — Agentic operating model v2 (desks, chief of staff, Founders' Brief)
+
+**Decision:** Adopt the desk model: chartered, sandboxed agents
+(`docs/agents/`) with artifact-only interfaces; a chief-of-staff agent
+(**Marjorie**) that curates a decision bank (`founder-decision` label +
+required template) into a **6:00 AM Founders' Brief + 8:00 PM changes-only
+delta**; tiered interrupt authority (T0–T3 + TX) with a founder-approved-only
+autonomy ratchet and a non-ratchetable strategic set; a non-LLM GitHub-Action
+watchdog watching Marjorie; decision provenance only from founder-authored
+artifacts. **Merge authority granted by both founders:** autonomous merging
+is the standing goal, earned class-by-class behind a deterministic merge gate
+(never an LLM), starting with content-fix PRs once a content-inertness check
+exists in CI; deploys stay human. **T3 paging:** SMS primary once the
+provider account exists (TX item), email until then and as backup. **Growth &
+Community desk starts pre-launch** (launch campaign plan, listening baseline,
+account-creation lead time); the /marketing command is retired for a standing
+marketing agent. **Marjorie also wears the manager hat** (Joey, same day):
+deterministic team telemetry (tokens/outcome, no-op run ratio, findings-per-
+PR by agent, cycle time, rework, escaped defects) + monthly mini-retros and
+end-of-project retros proposing team changes as banked decisions — quality
+up, tokens down, every cycle, because this team builds the next app too.
+
+**Why:** founder attention is the scarcest resource; today every agent
+interrupts ad hoc and nobody owns the queue. Full design + two-round Codex
+debate record: `docs/proposals/2026-07-11-agentic-operating-model.md`
+(PR #472); launch-ops work tracked as roadmap L-track.
+
+**Alternatives considered:** pure deterministic digest with no chief-of-staff
+(largely adopted as Marjorie's v1 scope and the degraded mode); many always-on
+role agents (rejected 2026-07-02, ceremony at 2-person scale); wait for V2
+engine (rejected — interrupt tax and intake gap are today-problems).
+
+**Approved by:** Joey (product) + Wyatt (CTO), 2026-07-11 — Wyatt's sign-off
+relayed by Joey in session; PRs #472/#463 merged by founders same day.
+CLAUDE.md's merge rule is amended only when the gate + CI preconditions ship.
+
 ## 2026-07-11 — Clarification: "V1 is Vault-only" defers the automated engine, not recent content
 
 **Decision:** The 2026-07-03 "V1 scope is Vault only" decision (below) means
