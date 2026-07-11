@@ -1,0 +1,55 @@
+# The watchdog — dumb code that watches the watchers (incl. Marjorie).
+# Operating model §4.2/§6: a non-LLM heartbeat, independent of every session
+# cron it monitors. If today's Founders' Brief hasn't appeared by ~75 minutes
+# past its 6:00 AM America/Los_Angeles deadline, open (or refresh) a loud
+# watchdog-alert issue mentioning both founders. Deliberately zero AI.
+#
+# Cron is UTC. 6:00 AM PDT = 13:00 UTC → check at 14:15 UTC (07:15 PDT).
+# PST winter drift means the check runs at 06:15 local — earlier, still after
+# the deadline, so no missed alerts (an extra hour of grace is not needed).
+name: watchdog
+on:
+  schedule:
+    - cron: "15 14 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  issues: write
+
+jobs:
+  brief-heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Verify today's Founders' Brief exists
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TODAY=$(TZ=America/Los_Angeles date +%F)
+          TITLE="Founders' Brief — ${TODAY}"
+          FOUND=$(gh issue list --repo "$REPO" --label founders-brief \
+            --search "\"$TITLE\" in:title" --state all --json number --jq 'length')
+          if [ "$FOUND" -gt 0 ]; then
+            echo "OK: brief for $TODAY exists."
+            exit 0
+          fi
+          echo "MISSING: no brief titled '$TITLE'"
+          ALERT_TITLE="Watchdog: no Founders' Brief for ${TODAY}"
+          EXISTING=$(gh issue list --repo "$REPO" --label watchdog-alert \
+            --search "\"$ALERT_TITLE\" in:title" --state open --json number --jq '.[0].number // empty')
+          BODY="@sffan15-sys @wjduvall-cmd — Marjorie's 6:00 AM brief for ${TODAY} has not been posted.
+
+          Degraded mode (charter, docs/agents/marjorie.md): the decision bank still works —
+          read the open [founder-decision issues](https://github.com/${REPO}/issues?q=is%3Aissue+is%3Aopen+label%3Afounder-decision)
+          raw and answer by comment; your comments are authoritative on their own.
+
+          Likely cause: the Marjorie session/cron didn't run. Restart it, or run
+          \`node scripts/marjorie/assemble-brief.mjs\` for the skeleton."
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "$REPO" --body "Still missing as of $(date -u +'%H:%M UTC')."
+          else
+            gh issue create --repo "$REPO" --label watchdog-alert \
+              --title "$ALERT_TITLE" --body "$BODY"
+          fi
+          exit 1
