@@ -30,7 +30,7 @@ export default {
     {
       slug: 'peter-pan-throughline',
       kind: 'easter_egg',
-      title: 'Peter, seven years later',
+      title: 'Peter, four years later',
       claim:
         'The Anthology track "Peter" reads as the grown-up ending to folklore\'s Peter-and-Wendy thread — fans hold that the boy who "lost Wendy" in "cardigan" is the same Peter who finally never comes back here.',
       evidence:

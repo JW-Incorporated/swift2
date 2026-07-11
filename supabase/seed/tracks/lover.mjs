@@ -48,7 +48,7 @@ export default {
       writers: ['Taylor Swift', 'Jack Antonoff', 'Annie Clark'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       singleReleaseDate: '2023-06-20',
-      note: 'Co-written with St. Vincent, denied a 2019 single run by the pandemic — then screamed nightly on the Eras Tour until it hit No. 1 four years late.',
+      note: 'Co-written with St. Vincent, denied a planned 2020 single run by the pandemic — then screamed nightly on the Eras Tour until it hit No. 1 four years late.',
       summary:
         'A secret summer romance conducted through garden gates and bad decisions, with the catalog’s most famous bridge-yell about blurting out love. Its 2023 chart-topping resurrection is the great fan-willed correction.',
       inspiration:

@@ -22,7 +22,7 @@ export default {
       thumbnailUrl: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg',
       moment: {
         context:
-          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.\n\nBillboard's chart recap put the scale plainly: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and stayed there for 11 weeks; only three albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, and 1989 (Taylor's Version) itself.",
+          "The seven-day frame ending Nov. 2, 2014 produced the biggest sales week for any album since The Eminem Show in 2002, and made her the only woman with three albums to each clear a million copies in a week — Speak Now and Red had done it first.\n\nBillboard's chart recap put the scale plainly: 1989 outsold the Nos. 2 through 107 albums on that week's Billboard 200 combined, in a year when no other album had even approached seven figures in a week. It debuted at No. 1 on the chart dated Nov. 15, 2014 and spent 11 nonconsecutive weeks at No. 1; only four albums have posted a bigger single week since — Adele's 25, The Tortured Poets Department, 1989 (Taylor's Version) itself, and The Life of a Showgirl.",
         sources: [
           {
             outlet: 'Forbes',
@@ -31,6 +31,10 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/chart-beat/taylor-swift-1989-chart-rewind-2014-1235829365/',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-life-of-a-showgirl-number-one-billboard-200/',
           },
         ],
         photos: [{ url: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg', credit: 'Big Machine Records' }],
@@ -87,9 +91,17 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png/250px-Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png',
       moment: {
         context:
-          "She told Rolling Stone the person had \"hired a bunch of people out from under\" her; asked directly to name names, she said she'd \"never said anything that would point a finger in the specific direction of one specific person.\"\n\nKaty Perry, the widely speculated subject — the falling-out reportedly traced to a 2014 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia.",
+          "She told Rolling Stone the person had \"tried to hire a bunch of people out from under\" her; a year later she told GQ she'd \"never said anything that would point a finger in the specific direction of one specific person.\"\n\nKaty Perry, the widely speculated subject — the falling-out reportedly traced to a 2013 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia.",
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/',
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/706891/taylor-swift-on-bad-blood-being-about-katy-perry-it-doesn-t-point-to-any-one-person',
+          },
           {
             outlet: 'E! Online',
             url: 'https://www.eonline.com/news/1423684/katy-perry-supports-taylor-swifts-the-life-of-a-showgirl',
@@ -107,7 +119,7 @@ export default {
       snippet:
         '100,320 fans across two shows at Tokyo Dome, $10.6 million combined — the start of what became 2015\'s highest-grossing tour.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Taylor_Swift_7_%2818912291189%29.jpg/250px-Taylor_Swift_7_%2818912291189%29.jpg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg',
       moment: {
         context:
           'Opening night on May 5, 2015 packed the 55,000-seat Tokyo Dome, with a light-up wristband on every seat pulsing and changing color in sync with the show. She opened with "Welcome to New York" against a mock Manhattan skyline, ran at least ten costume changes across nearly two hours, and swapped an opening act for video testimonials from Selena Gomez, HAIM, and the rest of the friend group.\n\n"This year changed my life and I wanted to come here to say thank you," she told the crowd, before closing with "Shake It Off" on a rotating catwalk under falling confetti. The two Tokyo shows drew 100,320 fans and grossed $10.6 million — the start of an 85-show run that ended as 2015\'s highest-grossing tour worldwide.',
@@ -115,7 +127,12 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/taylor-swift-1989-tour-kickoff-tokyo-6553995/' },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Taylor_Swift_7_%2818912291189%29.jpg/250px-Taylor_Swift_7_%2818912291189%29.jpg', credit: 'Wikimedia Commons' }],
+        // Image-fix pass (2026-07-10): #168 — old photo was Commons-verified but shot in
+        // Glasgow, six weeks after this Tokyo Dome opener. Swapped for a Commons "own work"
+        // photo actually dated/described as Tokyo Dome, 6 May 2015 (CC BY-SA 4.0, photographer
+        // Johndavis2004); curl-verified 200/image-jpeg, downloaded and visually confirmed
+        // Taylor onstage with a guitar and a visible exit-sign pictogram consistent with Japan.
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'archival', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.' }],
       },
     },
     {
@@ -293,7 +310,7 @@ export default {
       title: 'Tom Hiddleston, weeks after the Calvin Harris split',
       snippet: '"Taylor Swift and I are together, and we\'re very happy... it\'s not a publicity stunt" — his own words to The Hollywood Reporter.',
       sourceUrl: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
-      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/95e4e683a25b-taylor-and-tom.png',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201643/rs_600x600-160503143431-600.Taylor-Swift-Tom-Hiddleston-Dancing.ms.050316.jpg',
       moment: {
         context:
           "The two met at the 2016 Met Gala, where they danced together — he later recalled sitting next to her at dinner that night and finding her \"very charming.\" What followed ran at whirlwind speed: beach photos in Rhode Island, sightseeing in Rome, a stretch in England, then Australia's Gold Coast, where he was filming Thor: Ragnarok.\n\nEven the era's most memed image had a mundane explanation — the \"I ❤ T.S.\" tank top from her July 4th party, he told GQ, was a joke among friends after he'd hurt his back and needed to keep the sun off. His Hollywood Reporter confirmation was the rare mid-relationship on-record statement, and he never walked it back: \"Of course it was real,\" he said after the split.",
@@ -307,7 +324,13 @@ export default {
             url: 'https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html',
           },
         ],
-        photos: [{ url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/95e4e683a25b-taylor-and-tom.png', credit: 'Getty/WireImage' }],
+        // Image-fix pass (2026-07-10): #167 — old photo was a hard-seamed two-panel
+        // collage (Taylor and Hiddleston photographed separately, pasted together), also
+        // reused on the "Hiddleswift ends" moment below. Swapped for E! Online's own single
+        // photo of the two dancing together at the 2016 Met Gala — "where it all began" per
+        // that outlet's own captioning; curl-verified 200/image-jpeg, downloaded and visually
+        // confirmed both of them together in one frame.
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201643/rs_600x600-160503143431-600.Taylor-Swift-Tom-Hiddleston-Dancing.ms.050316.jpg', credit: 'E! Online', kind: 'archival', caption: 'Dancing together at the 2016 Met Gala afterparty, where the two met — the start of the relationship this moment covers.' }],
       },
     },
     {
@@ -318,7 +341,7 @@ export default {
       title: 'A Fourth of July beach walk in Rhode Island',
       snippet: "Spotted walking the shore at her Rhode Island house in matching \"I ❤ T.S.\" gear, part of a holiday party with her regular friend group.",
       sourceUrl: 'https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html',
-      thumbnailUrl: 'https://media.zenfs.com/en/people_218/cfeb5900f3c2a1683c3455b4f84a3976',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201663/rs_634x1024-160703191428-634.Taylor-Swift-Tom-Hiddleston-4th-of-july.tt.070316.jpg',
       moment: {
         context:
           "The walk came the day before the fireworks: on July 3, 2016, photographers caught the couple strolling the shore below her Rhode Island house, Hiddleston in the instantly memed \"I ❤ T.S.\" tank top with a temporary heart-and-\"T\" tattoo on his arm. The holiday party rolled on around them with Blake Lively, Karlie Kloss, and the rest of the regular squad in attendance; a friend's Instagram group shot of the couple, later deleted, became the weekend's defining image.\n\nThe tank top eventually got a mundane explanation — a joke among friends, Hiddleston told GQ, after he'd hurt his back and needed to keep the sun off — but in the moment it crystallized the public's disbelief at how fast \"Hiddleswift\" was moving: they'd met at the Met Gala in May, gone public in June, and were doing matching swimwear on her beach by the Fourth of July.",
@@ -332,7 +355,13 @@ export default {
             url: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
           },
         ],
-        photos: [{ url: 'https://media.zenfs.com/en/people_218/cfeb5900f3c2a1683c3455b4f84a3976', credit: null }],
+        // Image-fix pass (2026-07-10): #166 — old photo (media.zenfs.com) actually showed
+        // the two kissing at the Colosseum in Rome (late June 2016), not a Rhode Island beach
+        // — a different moment already covers Rome separately elsewhere in this file. Swapped
+        // for E! Online's own photo captioned "PDA in the Ocean," dated July 3, 2016, matching
+        // this moment's Fourth-of-July Rhode Island beach party; curl-verified 200/image-jpeg,
+        // downloaded and visually confirmed the two embracing in ocean water.
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201663/rs_634x1024-160703191428-634.Taylor-Swift-Tom-Hiddleston-4th-of-july.tt.070316.jpg', credit: 'E! Online', kind: 'archival', caption: 'In the water at the July 3, 2016 Rhode Island Independence Day party — the same weekend as the memed "I ❤ T.S." tank top.' }],
       },
     },
     {
@@ -343,7 +372,7 @@ export default {
       title: 'Hiddleswift ends after three months',
       snippet: 'A brief, intensely-covered romance that started at the Met Gala ended quietly by September.',
       sourceUrl: 'https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/',
-      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/95e4e683a25b-taylor-and-tom.png',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016628/rs_634x1024-160728100815-634.Taylor-Swift-Tom-Hiddleston-Exclusive-Dinner-Date-J4R-072816.jpg',
       moment: {
         context:
           "The September 2016 ending was reported as amicable — and strikingly quiet for a romance that had been photographed on three continents in twelve weeks.\n\nHiddleston said little afterward, but what he did say pushed back on the theory that it had all been staged: \"Of course it was real,\" he told GQ, while acknowledging that a relationship lived that publicly takes real work — a nod to the media glare that, by most accounts, helped end it. \"Hiddleswift\" had become shorthand for celebrity-romance overexposure in a single summer.",
@@ -357,7 +386,12 @@ export default {
             url: 'https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html',
           },
         ],
-        photos: [{ url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/95e4e683a25b-taylor-and-tom.png', credit: 'Getty/WireImage' }],
+        // Image-fix pass (2026-07-10): #167 — same two-panel collage flagged on the moment
+        // above (Taylor and Hiddleston shot separately, pasted together). Swapped for E!
+        // Online's own photo of their July 27, 2016 dinner-date exit — captioned by that
+        // outlet as their last sighting together before the September split; curl-verified
+        // 200/image-jpeg, downloaded and visually confirmed the two together hand-in-hand.
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016628/rs_634x1024-160728100815-634.Taylor-Swift-Tom-Hiddleston-Exclusive-Dinner-Date-J4R-072816.jpg', credit: 'E! Online', kind: 'archival', caption: 'Leaving a dinner date hand-in-hand, July 27, 2016 — their last publicly photographed sighting together before the September split.' }],
       },
     },
     {
@@ -379,7 +413,14 @@ export default {
           },
           { outlet: 'The Week', url: 'https://theweek.com/feature/briefing/1022534/taylor-swift-and-joe-alwyn-a-timeline-of-their-relationship' },
         ],
-        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', credit: 'Robert Kamau/GC Images' }],
+        // Image-fix pass (2026-07-10): #169 — image is genuinely Taylor and Joe Alwyn
+        // (verified subject correct) but the outfit/context (oversized blazer, SNL
+        // afterparty at Zuma, bodyguard, Chase sign) matches their October 5-6, 2019 NYC
+        // outing, not this May 2017 story — no public couple photos exist from 2017, which
+        // is the point of the "quietly dating" scoop. Caption corrected to the real date
+        // instead of replacing the URL, per protocol fallback for a real-but-mismatched-date
+        // photo; no other 2017-dated couple photo passed the sourcing gates.
+        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', credit: 'Robert Kamau/GC Images', kind: 'archival', caption: 'Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun\'s scoop; no public photos of the couple exist from the May 2017 period this moment covers.' }],
       },
     },
 
@@ -420,7 +461,7 @@ export default {
       title: 'The 1989 World Tour wardrobe: a rotating closet of sparkle',
       snippet: 'Beaded fringe minidresses, a jeweled bodysuit, a Marilyn Monroe-style playsuit, a leather catsuit — a different sequined look for nearly every section of the show.',
       sourceUrl: 'https://www.marieclaire.com/fashion/news/a14342/taylor-swift-1989-tour-costumes/',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/4aosSgmeZv7gjgHxbps5gC.jpg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png',
       moment: {
         context:
           'Across the tour\'s stops, the wardrobe ranged from a powdery-pink beaded fringe minidress to a black beaded crop top with a flared skirt, a bejeweled bra top with high-waisted cigarette pants, and a white plunging halter playsuit with swinging fringe — costume changes built for a stadium show as much as for the songs themselves.\n\nMarie Claire\'s costume roundup ran to a dozen distinct stage looks: a jewel-toned sequined bomber it compared to rainbow fish scales, a light-up LED crop-top-and-skirt set matching her backup dancers, a second-skin black leather catsuit, a bright green beaded flapper romper, and glittery lace-up platform ankle boots grounding the lot — a deliberately rotating closet for a show whose Tokyo opening night alone had run at least ten costume changes.',
@@ -430,7 +471,12 @@ export default {
             url: 'https://www.marieclaire.com/fashion/news/a14342/taylor-swift-1989-tour-costumes/',
           },
         ],
-        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/4aosSgmeZv7gjgHxbps5gC.jpg', credit: 'Getty Images' }],
+        // Image-fix pass (2026-07-10): #177 — old photo was a hard-seamed three-panel
+        // editorial collage, not a single photograph. Swapped for the Commons Ford Field
+        // sequin-jacket shot already verified elsewhere in this file (CC BY-SA 2.0,
+        // tonyshek); captioned here as one look from the rotating wardrobe rather than
+        // implying it's the only one.
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png', credit: 'tonyshek / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', caption: 'One of the tour\'s many sequined stage looks (Ford Field, Detroit, May 30, 2015) — the wardrobe rotated night to night.' }],
       },
     },
     {
@@ -575,7 +621,7 @@ export default {
       snippet:
         "Emma Stone, Lena Dunham, and a Slip 'N Slide built to fight the rain — the first of what became an annual squad tradition at her Rhode Island beach house.",
       sourceUrl: 'https://www.eonline.com/news/557177/taylor-swift-has-amazing-fourth-of-july-weekend-poses-for-family-portrait-with-9-pals-see-the-photos',
-      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201466/rs_600x600-140706155753-600.Taylor-Swift-jmd-070514_copy.jpg',
+      thumbnailUrl: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2014/07/swift-king/taylor-swift-emma-stone-fourth-of-july-weekend-04.jpg',
       moment: {
         context:
           "Swift hosted Emma Stone, Jaime King, Ingrid Michaelson, Jessica Stam, Jessica Szohr, and Girls creator Lena Dunham, among others, for the 2014 holiday weekend at her Rhode Island house.\n\nRain didn't stop the group — they built a giant Slip 'N Slide, baked an American-flag cake, and posed for a group \"family portrait\" that Dunham photobombed with a mock scowl and a raised middle finger. \"When the 4th of July gives you nonstop rain, make a giant slip n slide,\" Swift captioned one photo. Dunham called the weekend her personal Coachella.",
@@ -589,7 +635,12 @@ export default {
             url: 'https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide',
           },
         ],
-        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201466/rs_600x600-140706155753-600.Taylor-Swift-jmd-070514_copy.jpg', credit: 'Instagram' }],
+        // Image-fix pass (2026-07-10): #173 — old photo was a Slip 'N Slide action shot
+        // (a guest on an inflatable turtle), not the posed "family portrait." Swapped for
+        // Just Jared's actual full-resolution group couch photo from the same weekend (curl-
+        // verified 200/image-jpeg, downloaded and visually confirmed the full posed squad,
+        // Taylor included, on a couch — matching the moment's "family portrait" description).
+        photos: [{ url: 'https://jj-justjared-media.s3.amazonaws.com/wp-content/uploads/2014/07/swift-king/taylor-swift-emma-stone-fourth-of-july-weekend-04.jpg', credit: 'Just Jared', kind: 'archival', caption: "The posed \"family portrait\" from the rain-soaked July 2014 Rhode Island weekend." }],
       },
     },
     {
@@ -624,7 +675,7 @@ export default {
       snippet:
         "Gigi Hadid, Karlie Kloss, Lena Dunham, and Jack Antonoff swing by Taylor's New York apartment on a Thursday night — the low-key, at-home counterpart to the era's red-carpet squad appearances.",
       sourceUrl: 'https://www.justjaredjr.com/2015/05/29/gigi-hadid-karlie-kloss-stop-by-taylor-swifts-nyc-party/',
-      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2015/05/taylor-studded/thumbs/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-04.JPG',
+      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2015/05/taylor-studded/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-02.JPG',
       moment: {
         context:
           "Gigi Hadid and Karlie Kloss were photographed arriving at Taylor's Manhattan apartment on Thursday night, May 28, 2015, along with Lena Dunham and Jack Antonoff — a quieter, at-home counterpart to the era's red-carpet squad appearances.\n\nThe paparazzi shots outside caught the details anyway: Gigi in Blue Life FIT leggings, Karlie carrying a Dolce & Gabbana handbag — enough for Just Jared to run the arrivals as a photo set of their own, which was the era's squad culture in miniature: even a Thursday night in was coverage.",
@@ -638,7 +689,12 @@ export default {
             url: 'https://www.justjared.com/photo-gallery/3380957/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-04/',
           },
         ],
-        photos: [{ url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2015/05/taylor-studded/thumbs/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-04.JPG', credit: null }],
+        // Image-fix pass (2026-07-10): #160 — old URL was an 80x120px /thumbs/ crop that,
+        // at full size, actually shows Lena Dunham, not Gigi Hadid or Karlie Kloss. Checked
+        // the full-res sibling images in the same Just Jared set (dropping /thumbs/ from the
+        // path) and found -02.JPG actually shows Gigi Hadid arriving; curl-verified 200/
+        // image-jpeg at full resolution, downloaded and visually confirmed her face/outfit.
+        photos: [{ url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2015/05/taylor-studded/taylor-swift-hosts-star-studded-party-at-her-nyc-apartment-02.JPG', credit: 'Just Jared Jr.', kind: 'archival', caption: 'Gigi Hadid arriving at the party, May 28, 2015.' }],
       },
     },
     {
@@ -650,7 +706,7 @@ export default {
       snippet:
         'Gigi Hadid and Joe Jonas brought American-flag onesies for the whole group; Ed Sheeran, the HAIM sisters, and boyfriend Calvin Harris rounded out the guest list at the Rhode Island beach house.',
       sourceUrl: 'https://www.eonline.com/news/673098/10-reasons-why-taylor-swift-s-fourth-of-july-celebration-was-better-than-anyone-else-s-party',
-      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201564/rs_600x600-150704143749-600.TSwift-6-jmd-070415.jpg',
+      thumbnailUrl: 'https://akns-images.eonline.com/eol_images/Entire_Site/201563/rs_600x600-150703170056-600.Taylor-Swift-Calvin-Harris-Instagram.ms.070315.JPG',
       moment: {
         context:
           "The 2015 edition of Swift's Rhode Island Independence Day tradition drew Calvin Harris (her boyfriend at the time), Ed Sheeran, Joe Jonas, Nick Jonas, Gigi Hadid, brother Austin Swift, and the HAIM sisters.\n\nHadid and Jonas brought matching American-flag onesies for the group, and the party featured what E! called \"the biggest inflatable slide,\" piggyback rides, and Swift doing the cooking, under sunny East Coast weather ahead of that evening's fireworks.",
@@ -664,7 +720,14 @@ export default {
             url: 'https://www.eonline.com/news/864384/taylor-swift-s-4th-of-july-party-squad-a-visual-guide',
           },
         ],
-        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201564/rs_600x600-150704143749-600.TSwift-6-jmd-070415.jpg', credit: 'Instagram' }],
+        // Image-fix pass (2026-07-10): #170 — old photo was the famous towel-jump shot,
+        // which shows neither onesies nor Calvin Harris. The onesie Polaroids Taylor posted
+        // that weekend have since been deleted from Instagram and aren't recoverable on an
+        // allowlisted host, so swapped for E! Online's own photo of Calvin Harris giving her
+        // a piggyback ride, dated July 3, 2015 (the same party) — curl-verified 200/image-
+        // jpeg, downloaded and visually confirmed both of them together; caption corrected
+        // to describe what's actually shown rather than implying onesies.
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201563/rs_600x600-150703170056-600.Taylor-Swift-Calvin-Harris-Instagram.ms.070315.JPG', credit: 'E! Online / Instagram', kind: 'archival', caption: 'Calvin Harris giving Taylor a piggyback ride at the July 3, 2015 Rhode Island Independence Day party — the same weekend as the group\'s flag-onesie photos.' }],
       },
     },
     {
@@ -765,7 +828,7 @@ export default {
     {
       year: 2020,
       month: 3,
-      day: 14,
+      day: 13,
       category: 'business',
       title: '"Shake It Off" becomes her first Diamond-certified single',
       snippet:
@@ -774,11 +837,19 @@ export default {
       thumbnailUrl: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960',
       moment: {
         context:
-          'The RIAA certified "Shake It Off" Diamond on March 14, 2020, for surpassing 10 million combined sales-and-streaming units — her first single to reach that tier, following Fearless\'s Diamond album certification in December 2017.\n\nAt the time, 1989\'s other singles stood at 8x Platinum ("Blank Space") and 6x Platinum ("Bad Blood"), with the album itself at 4x Platinum.',
+          'The RIAA certified "Shake It Off" Diamond on March 13, 2020, for surpassing 10 million combined sales-and-streaming units — her first single to reach that tier, following Fearless\'s Diamond album certification in December 2017.\n\nAt the time, 1989\'s other singles stood at 8x Platinum ("Blank Space") and 6x Platinum ("Bad Blood"), with "Wildest Dreams" at 4x Platinum and the album itself certified 9x Platinum.',
         sources: [
           {
             outlet: 'Forbes',
             url: 'https://www.forbes.com/sites/bryanrolli/2020/03/14/taylor-swift-shake-it-off-riaa-diamond-certification/',
+          },
+          {
+            outlet: 'Headline Planet',
+            url: 'https://headlineplanet.com/home/2020/03/14/taylor-swifts-shake-it-off-earns-diamond-certification-in-us-lover-album-reaches-2x-platinum/',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2023/10/10/taylor-swifts-1989-songs-ranked/',
           },
         ],
         photos: [{ url: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960', credit: 'Forbes' }],
@@ -813,10 +884,10 @@ export default {
       snippet:
         "Days after 1989's record-breaking opening week, her label withdrew everything — arguing free, ad-supported streaming undermined the paid tier that pays songwriters and artists more.",
       sourceUrl: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html',
-      thumbnailUrl: 'https://blogs-images.forbes.com/bobbyowsinski/files/2014/08/670px-swift_taylor_2007_cropped_2.jpg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg',
       moment: {
         context:
-          'On Nov. 3, 2014, Big Machine Records pulled Swift\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued streaming\'s free tier devalued music as "an economic entity."\n\nDays later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
+          'On Nov. 3, 2014, Big Machine Records pulled Swift\'s full back catalog from Spotify, a week after 1989 released without ever appearing on the service. It followed a July 2014 Wall Street Journal op-ed in which she argued that "music should not be free"; she spelled out her objection to Spotify\'s ad-supported free tier in interviews that November.\n\nDays later, Big Machine\'s Scott Borchetta told radio host Nikki Sixx the label didn\'t want to disrespect fans who\'d paid for the album while friends streamed it free: "We\'re being completely disrespectful to that superfan who wants to invest."',
         sources: [
           { outlet: 'CNN Money', url: 'https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html' },
           {
@@ -824,7 +895,13 @@ export default {
             url: 'https://www.hollywoodreporter.com/music/music-news/big-machines-scott-borchetta-explains-747781/',
           },
         ],
-        photos: [{ url: 'https://blogs-images.forbes.com/bobbyowsinski/files/2014/08/670px-swift_taylor_2007_cropped_2.jpg', credit: 'Forbes' }],
+        // Image-fix pass (2026-07-10): #162 / #146 — old photo (Forbes-hosted, filename says
+        // "swift_taylor_2007") was a 7-years-off debut-era shot: curly hair, acoustic guitar,
+        // country styling — nothing like 1989-era Taylor. Swapped for a Commons "own work"
+        // photo of her onstage on the 1989 World Tour, short bob included (CC BY-SA 2.0,
+        // GabboT); curl-verified 200/image-jpeg, downloaded and visually confirmed the
+        // correct 1989-era look.
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg', credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', caption: 'Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.' }],
       },
     },
     {
@@ -1180,7 +1257,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The January 2015 filings covered "This Sick Beat," "Party Like It\'s 1989," "Cause We Never Go Out of Style," "Could Show You Incredible Things," and "Nice to Meet You. Where You Been?" — plus her name, signature, and initials — across product categories running from T-shirts and guitar straps to paper products and handbags. Forbes framed it as pre-tour housekeeping ahead of the May kickoff: locking down the 1989 merch economy before bootleggers could, with the round described as only the first.\n\nThe move — mocked by some, studied by others — became a case study in how aggressively her team protected the era\'s business, and "This Sick Beat" was formally registered within weeks.',
+          'The filings — made with the USPTO in October 2014 and surfacing in the press that January — covered "This Sick Beat," "Party Like It\'s 1989," "Cause We Never Go Out of Style," "Could Show You Incredible Things," and "Nice to Meet You. Where You Been?" — plus her name, signature, and initials — across product categories running from T-shirts and guitar straps to paper products and handbags. Forbes framed it as pre-tour housekeeping ahead of the May kickoff: locking down the 1989 merch economy before bootleggers could, with the round described as only the first.\n\nThe move — mocked by some, studied by others — became a case study in how aggressively her team protected the era\'s business; the applications were still pending as of early 2015, with registrations granted later.',
         sources: [
           {
             outlet: 'ABC News',
@@ -1400,7 +1477,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Six months after her open letter got Apple to reverse its trial-period royalty policy, the concert film arrived as an Apple Music exclusive — the reconciliation made product, released December 20 as pre-Christmas ammunition for the streaming service.\n\nJonas Åkerlund\'s cut captured the full November 28 show before 70,000 at Sydney\'s ANZ Stadium, stitched with never-before-seen backstage and rehearsal footage plus guest moments from across the tour, from Mick Jagger to Imagine Dragons. Her own pitch, in the announcement: "I wondered what would happen if I invited the most amazing artists in the world to come out with me and perform on my stage — would they do it?"',
+          'Six months after her open letter got Apple to reverse its trial-period royalty policy, the concert film arrived as an Apple Music exclusive — the reconciliation made product, released December 20 as pre-Christmas ammunition for the streaming service.\n\nJonas Åkerlund\'s cut captured the full November 28 show before 76,000 at Sydney\'s ANZ Stadium, stitched with never-before-seen backstage and rehearsal footage plus guest moments from across the tour, from Mick Jagger to Imagine Dragons. Her own pitch, in the announcement: "I wondered what would happen if I invited the most amazing artists in the world to come out with me and perform on my stage — would they do it?"',
         sources: [
           {
             outlet: 'Billboard',
@@ -1580,12 +1657,12 @@ export default {
       category: 'release',
       title: '1989 (Taylor\'s Version) announced in head-to-toe blue at SoFi Stadium',
       snippet:
-        'August 9, 2023, the final U.S. Eras Tour show: after a night of suspiciously blue outfit swaps, she announced the 1989 re-recording from the stage — due October 27, nine years to the day after the original.',
+        'August 9, 2023, the final show of the Eras Tour\'s first U.S. leg: after a night of suspiciously blue outfit swaps, she announced the 1989 re-recording from the stage — due October 27, nine years to the day after the original.',
       sourceUrl: 'https://variety.com/2023/music/news/taylor-swift-announces-1989-taylors-version-coming-la-tour-finale-sofi-stadium-1235692622/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Fans clocked the Easter egg immediately: blue variants of the Speak Now, folklore, and 1989 act costumes across the night, capped by the reveal and a long-awaited "New Romantics" as a surprise song. The crowd of 70,000 at the sixth SoFi show turned the announcement into the loudest moment of the U.S. leg.\n\nThe date was its own Easter egg — Oct. 27, 2023, nine years to the day after the original album. "I think instead of just telling you about it, I think I just should sort of show you something," she said before the screens flipped 1989 blue. The surprise-song set doubled down: "New Romantics" on guitar (the last 1989 track she hadn\'t yet played on the tour) and "New Year\'s Day" on piano, plus an onstage thank-you to fans for making the re-recordings matter: "It was so generous of you to care about something that I cared about."',
+          'Fans clocked the Easter egg immediately: blue variants of the Speak Now, folklore, and 1989 act costumes across the night, capped by the reveal and a long-awaited "New Romantics" as a surprise song. The crowd of 70,000 at the sixth SoFi show turned the announcement into the loudest moment of the U.S. leg.\n\nThe date was its own Easter egg — Oct. 27, 2023, nine years to the day after the original album. "Instead of telling you about it, I think I\'ll just sort of show you," she said before the screens flipped 1989 blue. The surprise-song set doubled down: "New Romantics" on guitar (the last 1989 track she hadn\'t yet played on the tour) and "New Year\'s Day" on piano, plus an onstage thank-you to fans for making the re-recordings matter: "It was so generous of you to care about something that I cared about."',
         sources: [
           {
             outlet: 'Variety',
