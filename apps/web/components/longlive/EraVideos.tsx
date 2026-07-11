@@ -29,7 +29,7 @@ export function EraVideos({ eraId }: { eraId: EraId }) {
   if (videos.length === 0) return null;
 
   return (
-    <div className="border-t border-[color:var(--era-line)]">
+    <div id={`era-videos-${eraId}`} className="scroll-mt-28 border-t border-[color:var(--era-line)]">
       <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
         <div className="flex items-center gap-2">
           <Clapperboard className="h-4 w-4 text-[color:var(--era-accent)]" />
