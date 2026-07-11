@@ -35,6 +35,7 @@ import {
   useProgressActions,
 } from '@/lib/longlive/store';
 import type { EggNode, Motif, MotifId } from '@/lib/longlive/types';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 /** Motif icon strings (from the data) resolved to lucide components. */
 const MOTIF_ICONS: Record<string, typeof Hash> = {
@@ -100,6 +101,12 @@ export function ClueWeb() {
       topRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }),
     );
   };
+
+  // Let the mobile back-swipe gesture return to the Clue Web's home screen
+  // instead of leaving the app — same pattern as the app's other overlays.
+  // Matches the existing in-app back buttons, which already return straight
+  // to home rather than stepping back one level at a time.
+  useBackDismiss(view.kind !== 'home', () => go({ kind: 'home' }));
 
   return (
     <div ref={topRef} className="scroll-mt-24 pt-8">
