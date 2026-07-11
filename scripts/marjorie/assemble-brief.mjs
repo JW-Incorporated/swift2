@@ -13,7 +13,6 @@
 import { execFileSync } from 'node:child_process';
 
 const REPO = 'JW-Incorporated/swift2';
-const FOUNDERS = ['sffan15-sys', 'wjduvall-cmd'];
 
 function gh(args) {
   return JSON.parse(execFileSync('gh', args, { encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 }));
