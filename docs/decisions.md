@@ -7,6 +7,35 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-10 — Track dossier data model: grouped fields on TrackNote, one jsonb dossier column
+
+**Decision:** The Track Guide overhaul (issue #440) extends `TrackNote` with
+two grouped optional objects instead of ~20 flat fields: `facts`
+(writers/producers/release/single status/themes — data the seed files already
+authored but the seed runner's INSERT list dropped) and `dossier`
+(why-it-matters, tiered meaning, explained connections, live highlights,
+collaborator voices, required sources). DB-side, the facts get real columns
+(queryable scalars) and the dossier is ONE `jsonb` column validated by the
+sync generator, not a column per section. Cross-song linking uses a new
+`song:<slug>` RelatedId namespace on the existing `RelatedId` convention —
+not a parallel linking system — which requires track slugs to stay globally
+unique (asserted in tests). Meaning tiers reuse the existing
+confidence-pill visual language (accent = confirmed, solid = supported,
+dashed = fan theory), not a new one.
+
+**Why:** grouped fields keep `tracks.generated.ts` diffable and let the UI
+render whole sections from one prop; a single validated jsonb column avoids
+a migration per future dossier section while the shape is still evolving
+(Phases 2–3 of #440 will add more); reusing `RelatedId` was an explicit
+acceptance criterion on the ticket.
+
+**Alternatives considered:** one flat interface with ~20 optional fields
+(rejected by Joey on the ticket — "Grouped fields"); a full page instead of
+the overlay (rejected — "Overlay"); extending the Clue Web motif system now
+(deferred — blocked on #445's rebuild landing first, per Kevin's plan).
+
+**Approved by:** Joey (product) on issue #440, 2026-07-10.
+
 ## 2026-07-10 — Threads content derives from tagged content items, not hand-authored arrays
 
 **Decision:** The six Threads (`love-story`, `fashion`, `taylors-version`,

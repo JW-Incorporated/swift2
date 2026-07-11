@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { formatMonthYear, formatRelativeTime, truncate } from './format';
+import { formatFullDate, formatMonthYear, formatRelativeTime, truncate } from './format';
 
 const NOW = Date.parse('2026-07-09T12:00:00.000Z');
 
@@ -47,6 +47,22 @@ describe('formatMonthYear', () => {
     // A first-of-month date is the case most likely to roll back a day in a
     // negative-offset local timezone if this weren't UTC-anchored.
     expect(formatMonthYear('2026-01-01')).toBe('January 2026');
+  });
+});
+
+describe('formatFullDate', () => {
+  it('formats a full ISO date, UTC-anchored', () => {
+    expect(formatFullDate('2025-10-03')).toBe('October 3, 2025');
+    expect(formatFullDate('2026-01-01')).toBe('January 1, 2026');
+  });
+
+  it('handles the partial forms dossier dates are authored in', () => {
+    expect(formatFullDate('2025-10')).toBe('October 2025');
+    expect(formatFullDate('2025')).toBe('2025');
+  });
+
+  it('returns unparseable input as-is rather than "Invalid Date"', () => {
+    expect(formatFullDate('unknown')).toBe('unknown');
   });
 });
 
