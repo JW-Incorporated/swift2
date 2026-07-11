@@ -3,6 +3,8 @@
 // prose in our own words — never lyrics. Anything not publicly confirmed is
 // labeled a fan reading. Sources follow the provenance format in
 // docs/content/content-audit-2026-07-08.md §5 (all URLs verified 2026-07-08).
+import DOSSIERS from './the-life-of-a-showgirl.dossiers.mjs';
+
 const ACCESSED = '2026-07-08';
 const wiki = (title, path, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${path}`,
@@ -21,9 +23,7 @@ const ALBUM = wiki(
 const WRITERS = ['Taylor Swift', 'Max Martin', 'Shellback'];
 const PRODUCERS = ['Taylor Swift', 'Max Martin', 'Shellback'];
 
-export default {
-  eraSlug: 'the-life-of-a-showgirl',
-  tracks: [
+const TRACKS = [
     {
       slug: 'the-fate-of-ophelia',
       trackNumber: 1,
@@ -34,7 +34,7 @@ export default {
       producers: PRODUCERS,
       isSingle: true,
       singleReleaseDate: '2025-10-03',
-      note: 'The lead single and opener, debuting at No. 1 on the Hot 100 and leading the chart for a career-long run of consecutive weeks.',
+      note: 'The lead single and opener, debuting at No. 1 on the Hot 100 and leading the chart for a career-longest 10 non-consecutive weeks.',
       summary:
         'A drowning woman gets pulled back to shore by a love that arrives in time — the album\'s mission statement in miniature, rescue instead of ruin.',
       inspiration:
@@ -170,7 +170,7 @@ export default {
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'The album\'s shortest and most-argued-about track — Swift\'s own intro frames it as about someone with a one-sided grudge against her.',
+      note: 'One of the album\'s shortest and most-argued-about tracks — Swift\'s own intro frames it as about someone with a one-sided grudge against her.',
       summary:
         'The narrator reframes a rival\'s hostility as a backhanded compliment: living rent-free in someone\'s head, spun as flattery instead of an attack.',
       inspiration:
@@ -224,7 +224,7 @@ export default {
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'A pointed look at "cancel culture" and public judgment, told partly from the perspective of antagonistic characters.',
+      note: 'A pointed look at "cancel culture" and public judgment, doubling as a loyalty pledge to friends who\'ve been through it.',
       summary:
         'The narrator stands by friends the public has turned on, questioning how quickly online judgment forms and how selectively it gets applied.',
       inspiration:
@@ -258,7 +258,7 @@ export default {
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'The closing title track and the album\'s only feature: a duet with Sabrina Carpenter, who opened the Eras Tour\'s early legs before her own breakout.',
+      note: 'The closing title track and the album\'s only feature: a duet with Sabrina Carpenter, who opened the Eras Tour\'s Latin America and Australia/Singapore legs before her own breakout.',
       summary:
         'A veteran performer named Kitty passes hard-won stage wisdom to a younger singer studying her — an elder showgirl and a rising one, trading the cost of the spotlight for its rewards.',
       inspiration:
@@ -267,5 +267,19 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
       sources: [ALBUM],
     },
-  ],
+];
+
+// Per-song dossiers (issue #440 Phase 1) live in the .dossiers.mjs side file
+// to keep this file diffable; attach them by slug. A dossier keyed to a slug
+// that doesn't exist here is an authoring typo — fail loudly, not silently.
+{
+  const slugs = new Set(TRACKS.map((t) => t.slug));
+  for (const key of Object.keys(DOSSIERS)) {
+    if (!slugs.has(key)) throw new Error(`dossier for unknown track slug: ${key}`);
+  }
+}
+
+export default {
+  eraSlug: 'the-life-of-a-showgirl',
+  tracks: TRACKS.map((t) => (DOSSIERS[t.slug] ? { ...t, dossier: DOSSIERS[t.slug] } : t)),
 };

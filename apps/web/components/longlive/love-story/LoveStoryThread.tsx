@@ -5,6 +5,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 import { getEra } from '@/lib/longlive/eras';
 import { RELATIONSHIPS, SINGLE_PERIODS } from '@/lib/longlive/lenses';
 import { durationLabel, mergedTimeline, monthsBetween, type LoveStoryEntry } from '@/lib/longlive/love-story';
+import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import { EntryDetail } from './EntryDetail';
 
 const TIMELINE_START = new Date('2006-01-01').getTime();
@@ -43,6 +44,10 @@ export function LoveStoryThread() {
   const activeEntry = activeId ? timeline.find((e) => e.id === activeId) ?? null : null;
 
   const toggle = (id: string) => setActiveId((prev) => (prev === id ? null : id));
+
+  // Let the mobile back-swipe gesture close an expanded entry instead of
+  // leaving the app — same pattern as the app's other overlays.
+  useBackDismiss(Boolean(activeId), () => setActiveId(null));
 
   const relCount = RELATIONSHIPS.length;
   const totalRelMonths = RELATIONSHIPS.reduce((acc, r) => acc + monthsBetween(r.start, r.end), 0);

@@ -69,7 +69,7 @@ export default {
       releasedOn: '2013-07-03',
       relatedSongs: ['Red'],
       summary:
-        'An edited concert-performance video cut from live shows in front of thousands of fans, rather than a scripted narrative — the album\'s fourth single.',
+        'An edited concert-performance video cut from live shows in front of thousands of fans, rather than a scripted narrative — the album\'s fifth single.',
       symbolism: null,
       easterEggs: [],
       officialUrl: 'https://www.youtube.com/watch?v=Zlot0i3Zykw',
@@ -117,7 +117,7 @@ export default {
         'Shot like a home movie of the best day off ever: real-friends hangout energy, the "not a lot going on at the moment" tee, a beach-party ending — breakfast at midnight canonized.',
       symbolism: null,
       easterEggs: [
-        'The hipster-glasses-and-tee look returned a decade later in the Anti-Hero video and as an Eras Tour costume — the era cross-reference fans clock instantly.',
+        'Anti-Hero\'s party ghosts wear the 22 video\'s heart-shaped sunglasses and cat ears, and the "not a lot going on at the moment" tee returned — reworded — as an Eras Tour costume.',
       ],
       officialUrl: 'https://www.youtube.com/watch?v=AgFeZr5ptV8',
       media: [embed('AgFeZr5ptV8')],

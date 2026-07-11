@@ -68,7 +68,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          'Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the five categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
+          'Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -221,10 +221,17 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/' },
         ],
+        // Image-fix pass (2026-07-10): this Los Angeles tour-stage photo does not
+        // itself show the marching-band costume (right tour/era, loose pairing
+        // per review) — caption reworded to describe it as a general Fearless
+        // Tour stage photo rather than the specific band-uniform reveal. No
+        // Commons photo of that exact costume moment could be verified.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg',
             credit: 'Wikimedia Commons',
+            caption: 'For reference — Swift performing on the Fearless Tour stage in Los Angeles; not the specific band-uniform reveal described here.',
+            kind: 'reference',
           },
         ],
       },
@@ -239,7 +246,7 @@ export default {
       title: 'A silver sequined gown, worn into an interruption no one saw coming',
       snippet: 'A floor-length silver gown, matching the Moonman she was mid-speech with when Kanye West took the mic.',
       sourceUrl: 'https://www.eonline.com/news/1407066/revisiting-taylor-swift-and-kanye-wests-mtv-vmas-feud-15-years-later',
-      thumbnailUrl: 'https://www.hollywoodreporter.com/wp-content/uploads/2019/08/embed_2.jpg?w=928',
+      thumbnailUrl: 'https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=',
       moment: {
         context:
           'The Hollywood Reporter\'s VMA style retrospective logs it as a one-shoulder, skin-toned KaufmanFranco gown covered in silver beads and sequins, finished with a bold red lip — and she\'d arrived at the show in a Cinderella-style coach, leaning all the way into the fairytale staging.\n\nBy the time Beyoncé called her back out at the end of the night to finish her speech, she\'d already changed into the red strapless vintage dress from her performance — so the gown of the era\'s most infamous televised moment was only on screen for those few minutes.',
@@ -253,10 +260,18 @@ export default {
             url: 'https://www.hollywoodreporter.com/news/general-news/see-taylor-swifts-mtv-video-music-awards-11-year-style-evolution-1234123/',
           },
         ],
+        // Image-fix pass (2026-07-10): the Hollywood Reporter frame was a
+        // two-panel collage (this gown plus a different red dress); replaced
+        // with a single un-collaged Getty red-carpet arrivals frame of the
+        // silver sequined gown. Verified HTTP 200 + image/jpeg and visually
+        // confirmed (one-shoulder silver/nude sequined gown, VMA '09 backdrop)
+        // this session.
         photos: [
           {
-            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2019/08/embed_2.jpg?w=928',
-            credit: 'The Hollywood Reporter',
+            url: 'https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=',
+            credit: 'Michael Loccisano/Getty Images',
+            caption: 'The silver sequined KaufmanFranco gown on the VMA red carpet, Sept. 13, 2009.',
+            kind: 'primary',
           },
         ],
       },
@@ -296,7 +311,7 @@ export default {
       title: 'A gold Reem Acra gown for a four-award sweep at the 2009 CMAs',
       snippet: 'A floor-skimming gold Reem Acra gown and an old-Hollywood pinned-back style, the night she swept all four of her CMA nominations.',
       sourceUrl: 'https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years',
-      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/11/swift-sweeps/taylor-swift-sweeps-cmas-25.jpg',
+      thumbnailUrl: 'https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=',
       moment: {
         context:
           'At the Nov. 11, 2009 CMA Awards in Nashville, Swift paired the gold gown with hair pinned back in an old-Hollywood style — a more grown-up counterpoint to the sleek silver look she\'d worn the year before. E!\'s CMA style retrospective remembers her looking "like a total award-winning star," in "a gold Reem Acra gown that skimmed the floor."\n\nThe styling matched the scoreboard: she swept all four categories she was nominated in that night — Entertainer of the Year, Female Vocalist of the Year, Album of the Year for Fearless, and Music Video of the Year for "Love Story" — becoming the youngest Entertainer of the Year winner in CMA history.',
@@ -314,15 +329,17 @@ export default {
             url: 'https://www.justjaredjr.com/photo-gallery/346791/taylor-swift-sweeps-cmas-00/',
           },
         ],
-        // T16 photo pass (2026-07-09, relaxed image policy): real press photo of
-        // the actual night, hotlinked with credit. URL verified HTTP 200 +
-        // image/jpeg this session. No AI imagery.
+        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried a
+        // baked-in watermark; replaced with an unwatermarked Getty red-carpet
+        // frame from the same Nov. 11, 2009 CMA Awards. Verified HTTP 200 +
+        // image/jpeg and visually confirmed (gold sequined gown, CMA Awards
+        // step-and-repeat) this session.
         photos: [
           {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/11/swift-sweeps/taylor-swift-sweeps-cmas-25.jpg',
-            credit: 'Rick Diamond/Getty Images, via Just Jared Jr.',
+            url: 'https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=',
+            credit: 'Taylor Hill/WireImage, via Getty Images',
             caption:
-              'The gold Reem Acra gown onstage at the Nov. 11, 2009 CMA Awards, CMA crystal trophy in hand.',
+              'The gold Reem Acra gown on the red carpet at the Nov. 11, 2009 CMA Awards.',
             kind: 'primary',
           },
         ],
@@ -451,7 +468,7 @@ export default {
       snippet: 'A mauve Dolce & Gabbana cocktail dress, worn when "White Horse" won Best Country Song at the 2010 Grammys pre-telecast ceremony.',
       sourceUrl: 'https://www.justjaredjr.com/2010/01/31/taylor-swift-white-horse-grammy-winner/',
       thumbnailUrl:
-        'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2010/01/swift-white/taylor-swift-white-horse-winner-01.jpg',
+        'https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=',
       moment: {
         context:
           'Held earlier in the day before the televised main event (where she\'d later wear the blue KaufmanFranco gown), the pre-telecast ceremony was where "White Horse" picked up Best Country Song and Best Female Country Vocal Performance — the first two Grammy wins of her career.\n\nThe mauve Dolce & Gabbana cocktail dress ended up in the record books almost by accident: by night\'s end she had four trophies including Album of the Year, so the low-key afternoon look is what she\'s wearing in the photos of the wins that started the count. Just Jared Jr.\'s gallery from the ceremony catches her accepting with the gramophone in hand.',
@@ -465,10 +482,19 @@ export default {
             url: 'https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards',
           },
         ],
+        // Image-fix pass (2026-07-10): the previous hotlink was actually from
+        // the Jan. 30 "Salute to Icons" gala the night before (silver dress,
+        // with Katy Perry) rather than this Jan. 31 pre-telecast win; replaced
+        // with an unwatermarked Getty frame of her onstage at the actual
+        // pre-telecast ceremony in the mauve dress. Verified HTTP 200 +
+        // image/jpeg and visually confirmed (mauve/dusty-rose cocktail dress,
+        // Staples Center pre-telecast stage) this session.
         photos: [
           {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2010/01/swift-white/taylor-swift-white-horse-winner-01.jpg',
-            credit: 'Larry Busacca/Getty Images',
+            url: 'https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=',
+            credit: 'Kevin Winter/Getty Images',
+            caption: 'Accepting Best Country Song for "White Horse" at the Jan. 31, 2010 Grammy pre-telecast ceremony.',
+            kind: 'primary',
           },
         ],
       },
@@ -481,7 +507,7 @@ export default {
       title: "A Jenny Packham resort mini for the 2010 People's Choice Awards",
       snippet: 'A white Jenny Packham Resort 2010 mini dress, Christian Louboutin pumps, and Neil Lane jewelry at the Nokia Theatre.',
       sourceUrl: 'https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/',
-      thumbnailUrl: 'https://taylorswiftstyled.com/wp-content/uploads/2013/11/tumblr_mvz5kkqgn61r4fk4fo1_1280.jpg?w=750&h=688',
+      thumbnailUrl: 'https://media.gettyimages.com/id/95615213/photo/peoples-choice-awards-2010-inside.jpg?s=594x594&w=0&k=20&c=i2sE4_vzMgI0z9xq55bKp3xHMw8YS29LcycMA7v6bWU=',
       moment: {
         context:
           'Worn Jan. 6, 2010 at the Nokia Theatre L.A. Live, the night she won Favorite Female Artist — a leggy, sparkle-free mini in contrast to the sequined gowns dominating her other red-carpet stops that awards season.\n\nThe win itself came over a heavyweight ballot — Beyoncé, Britney Spears, Carrie Underwood and Pink — and she read the moment as an omen for the year ahead: "What a beautiful, beautiful way to start out a new decade," she told the crowd, crediting the fans as "the ones who choose which songs on the radio you want to turn up." Twenty-five days later, the omen paid off with four Grammys.',
@@ -495,10 +521,17 @@ export default {
             url: 'https://www.billboard.com/music/music-news/taylor-swift-wins-favorite-female-artist-at-2010-peoples-choice-awards-960796/',
           },
         ],
+        // Image-fix pass (2026-07-10): the taylorswiftstyled.com hotlink was a
+        // two-panel dress-comparison collage; replaced with a single unwatermarked
+        // Getty frame backstage at the actual show. Verified HTTP 200 +
+        // image/jpeg and visually confirmed (white Jenny Packham mini, holding
+        // the Favorite Female Artist trophy) this session.
         photos: [
           {
-            url: 'https://taylorswiftstyled.com/wp-content/uploads/2013/11/tumblr_mvz5kkqgn61r4fk4fo1_1280.jpg?w=750&h=688',
-            credit: 'Taylor Swift Styled',
+            url: 'https://media.gettyimages.com/id/95615213/photo/peoples-choice-awards-2010-inside.jpg?s=594x594&w=0&k=20&c=i2sE4_vzMgI0z9xq55bKp3xHMw8YS29LcycMA7v6bWU=',
+            credit: 'Michael Buckner/Getty Images',
+            caption: 'Backstage in the Jenny Packham mini with her Favorite Female Artist trophy, Jan. 6, 2010.',
+            kind: 'primary',
           },
         ],
       },
@@ -543,7 +576,11 @@ export default {
       title: 'Caught on the Valentine’s Day set with Taylor Lautner',
       snippet: 'Paparazzi photograph her and co-star Taylor Lautner filming track-and-field scenes at an LA high school — months before their romance went public.',
       sourceUrl: 'https://www.justjaredjr.com/photo-gallery/231981/taylor-lautner-taylor-swift-team-01/',
-      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-01.jpg',
+      // Image-fix pass (2026-07-10): team-01.jpg (previous thumbnail) showed
+      // Lautner alone with crew — no Taylor Swift in frame — so the thumbnail
+      // now points at the companion team-05.jpg, which does show her. See the
+      // photos array below for the full note on that swap.
+      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-05.jpg',
       moment: {
         context:
           'Shot July 30, 2009, the candids show Lautner clearing a high-jump bar on the track-and-field equipment while the pair filmed their Valentine’s Day roles as high school sweethearts — among the earliest public photos of the two Taylors together.\n\nThe Garry Marshall ensemble rom-com, released Feb. 12, 2010, cast Swift as Felicia and Lautner as Willy — a young couple written to represent "the freshness of new love" — in what was her feature-film acting debut. The chemistry visible in these set photos read on screen, too: the pair went on to earn a Best Kiss nomination at the 2010 MTV Movie Awards.',
@@ -557,11 +594,30 @@ export default {
             url: 'https://en.wikipedia.org/wiki/Valentine%27s_Day_(2010_film)',
           },
         ],
+        // Image-fix pass (2026-07-10): removed team-01.jpg — it showed
+        // Lautner alone with film crew; Taylor Swift does not appear in it at
+        // all, on a moment specifically about her being on set. The remaining
+        // team-05.jpg does show her (pulling on the track-and-field tee) and
+        // is the item's sole photo now; it still carries a Just Jared
+        // watermark and no unwatermarked replacement of this July 30, 2009
+        // set day could be verified (not covered by Getty or other
+        // allowlisted hosts), so that watermark issue is left unresolved —
+        // flagging for manual sourcing rather than stripping the item to zero
+        // photos.
+        // Image-fix pass (2026-07-10 retry): broadened the search well past
+        // the allowlist — Getty (multiple phrasings, oldest-sort, and the
+        // "celebrity sightings bauer-griffin archival" event feed directly),
+        // Wikimedia Commons (Category:Taylor_Swift_in_2009 and
+        // Category:Taylor_Lautner_in_2009 — VMAs/Twilight/Comic-Con only,
+        // nothing from this shoot), YouTube/official studio channels (movie
+        // clips only, no candid stills), and Flickr (one repost of this same
+        // paparazzi shot exists but is marked All Rights Reserved, not CC).
+        // Getty has zero editorial coverage of this specific July 30, 2009
+        // set day under any Swift/Lautner keyword combination — the shoot
+        // appears to have been exclusive to Just Jared's own agency and
+        // never got broader syndication. No clean candidate found; ticket
+        // #203 stays SKIPPED-FINAL, sole photo left in place.
         photos: [
-          {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-01.jpg',
-            credit: 'Just Jared Jr.',
-          },
           {
             url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-05.jpg',
             credit: 'Just Jared Jr.',
@@ -577,15 +633,23 @@ export default {
       title: 'A hockey date with Taylor Lautner at the Staples Center',
       snippet: 'Spotted together at a Kings–Blue Jackets game after she picked him up from LAX — the outing that confirmed the "Taylor Squared" romance rumors.',
       sourceUrl: 'https://theboot.com/taylor-swift-taylor-lautner-3/',
-      thumbnailUrl: 'https://townsquare.media/site/623/files/2009/10/swift-lautner.jpg',
+      thumbnailUrl: 'https://media.gettyimages.com/id/92338597/photo/columbus-blue-jackets-v-los-angeles-kings.jpg?s=594x594&w=0&k=20&c=mRN-Vj_Vy27121bqUS3wWF1EjIx5iemjLkCSp5v9gn4=',
       moment: {
         context:
           'On Oct. 25, 2009, Swift picked Lautner up from the airport and the two headed to a Los Angeles Kings–Columbus Blue Jackets game at the Staples Center, then were seen together in a Beverly Hills hotel lobby that night.\n\nAn eyewitness said Swift "was all dolled up and looked super pretty," while Lautner "was hiding under a hoody."',
         sources: [{ outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-taylor-lautner-3/' }],
+        // Image-fix pass (2026-07-10): the previous townsquare.media hotlink
+        // was serving the site's own placeholder/logo graphic, not a real
+        // photo. Replaced with a genuine Getty photo from the actual Oct. 25,
+        // 2009 Kings-Blue Jackets game. Verified HTTP 200 + image/jpeg and
+        // visually confirmed (both Swift and Lautner seated together at the
+        // game) this session.
         photos: [
           {
-            url: 'https://townsquare.media/site/623/files/2009/10/swift-lautner.jpg',
-            credit: 'Townsquare Media / The Boot',
+            url: 'https://media.gettyimages.com/id/92338597/photo/columbus-blue-jackets-v-los-angeles-kings.jpg?s=594x594&w=0&k=20&c=mRN-Vj_Vy27121bqUS3wWF1EjIx5iemjLkCSp5v9gn4=',
+            credit: 'Andrew D. Bernstein/NHLI via Getty Images',
+            caption: 'Together in the stands at the Kings-Blue Jackets game, Staples Center, Oct. 25, 2009.',
+            kind: 'primary',
           },
         ],
       },
@@ -603,7 +667,7 @@ export default {
       snippet: 'A set romance that became real, then ended quietly by December — Lautner later confirmed on the record that she was the one who ended it.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/',
       thumbnailUrl:
-        'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-10.jpg',
+        'https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=',
       moment: {
         context:
           'They met on the Valentine\'s Day set in 2009 playing high-school sweethearts, and the off-screen version lasted a few months before ending quietly.\n\nIt took until 2023, on Call Her Daddy, for Lautner to confirm on the record who ended it — "she did" — while making clear there was no bitterness left: he called the rekindling of their friendship "one of the greater things to happen in my life over the last year," adding, "when you respect somebody for who they are, like in their soul, it allows you to move on, forgive and continue that love in a different way."',
@@ -617,17 +681,17 @@ export default {
             url: 'https://www.yahoo.com/entertainment/taylor-swift-taylor-lautner-relationship-130738009.html',
           },
         ],
-        // T16 photo pass (2026-07-09, relaxed image policy): real paparazzi
-        // photo of the couple during the relationship (the Dec. 3, 2009
-        // Valentine's Day reshoot day, from the same Just Jared Jr. gallery
-        // cited on the Benihana sighting). Verified HTTP 200 + image/jpeg and
-        // visually confirmed (both Taylors, pink box in hand) this session.
+        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried a
+        // baked-in watermark; replaced with an unwatermarked Getty candid of
+        // the couple from the same Dec. 3, 2009 outing. Verified HTTP 200 +
+        // image/jpeg and visually confirmed (both Taylors together) this
+        // session.
         photos: [
           {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-10.jpg',
-            credit: 'Just Jared Jr.',
+            url: 'https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=',
+            credit: 'Bauer-Griffin/GC Images',
             caption:
-              'Together in Los Angeles on the Dec. 3, 2009 Valentine\'s Day reshoot day — weeks before the quiet breakup.',
+              'Together in Los Angeles on Dec. 3, 2009 — weeks before the quiet breakup.',
             kind: 'primary',
           },
         ],
@@ -641,7 +705,7 @@ export default {
       title: 'Benihana and Menchie’s frozen yogurt with Taylor Lautner',
       snippet: 'Photographed leaving a Beverly Hills dinner with Taylor Lautner, carrying a giant pink box and a stuffed polar bear.',
       sourceUrl: 'https://www.justjaredjr.com/2009/12/04/taylor-lautner-taylor-swift-benihana-buds/',
-      thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-01.jpg',
+      thumbnailUrl: 'https://media.gettyimages.com/id/2230718733/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=uw4mj6X64bIucRaYDJQvGPQFTGIKZdPj-q1YXerW31Q=',
       moment: {
         context:
           'On Dec. 3, 2009, after afternoon reshoots for Valentine’s Day at a local high school, Swift and Lautner grabbed a snack at Menchie’s Frozen Yogurt and met up with co-star Emma Roberts (in a brunette wig) before heading to dinner at Benihana in Beverly Hills.\n\nThe paparazzi set caught the details that made the outing a fan favorite: the pair leaving with a giant pink box — presumed chocolates, per Just Jared Jr. — and a giant stuffed polar bear. The day had started as work, with the reshoots staged in the bleachers of a football field, and ended as one of the pair’s last widely photographed outings before the quiet December breakup.',
@@ -651,14 +715,19 @@ export default {
             url: 'https://www.justjaredjr.com/2009/12/04/taylor-lautner-taylor-swift-benihana-buds/',
           },
         ],
+        // Image-fix pass (2026-07-10): benihana-01.jpg carried a baked-in Just
+        // Jared watermark, replaced with an unwatermarked Getty candid from
+        // the same Dec. 3, 2009 outing. benihana-05.jpg was removed outright —
+        // it actually showed a young woman at a fence gate (not Swift or
+        // Lautner, likely Emma Roberts on set) and didn't depict this outing
+        // at all. Verified the replacement HTTP 200 + image/jpeg and visually
+        // confirmed (both Swift and Lautner together) this session.
         photos: [
           {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-01.jpg',
-            credit: 'Just Jared Jr.',
-          },
-          {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-benihana/taylor-swift-lautner-benihana-05.jpg',
-            credit: 'Just Jared Jr.',
+            url: 'https://media.gettyimages.com/id/2230718733/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=uw4mj6X64bIucRaYDJQvGPQFTGIKZdPj-q1YXerW31Q=',
+            credit: 'Bauer-Griffin/GC Images',
+            caption: 'Together in Los Angeles on the Dec. 3, 2009 outing.',
+            kind: 'primary',
           },
         ],
       },
@@ -685,13 +754,30 @@ export default {
             url: 'https://www.wideopencountry.com/taylor-swift-emma-stone-friendship/',
           },
         ],
+        // Image-fix pass (2026-07-10): removed baskin-robbins-03.jpg — it
+        // showed Swift alone; Emma Stone does not appear in it, on a moment
+        // specifically about the two of them together. The remaining
+        // baskin-robbins-01.jpg does show both of them and is the item's sole
+        // photo now; it still carries Just Jared watermarks and no
+        // unwatermarked replacement of this Dec. 9, 2009 outing could be
+        // verified (not covered by Getty or other allowlisted hosts), so that
+        // watermark issue is left unresolved — flagging for manual sourcing
+        // rather than stripping the item to zero photos.
+        // Image-fix pass (2026-07-10 retry): broadened the search well past
+        // the allowlist — Getty (multiple phrasings, oldest-sort on both the
+        // "taylor-swift-emma-stone" tag and the "celebrity sightings
+        // bauer-griffin archival" event feed directly — earliest hit is
+        // April 2010, nothing from Dec. 2009), Wikimedia Commons
+        // (Category:Taylor_Swift_in_2009 — VMA photos only), YouTube/press
+        // (no candid stills beyond the Just Jared gallery), and Flickr/other
+        // aggregators (hawtcelebs, gotceleb, celebmafia — no hits for this
+        // outing at all). This Dec. 9, 2009 Baskin-Robbins outing appears to
+        // have been exclusive to Just Jared's own agency and never got
+        // broader syndication. No clean candidate found; ticket #206 stays
+        // SKIPPED-FINAL, sole photo left in place.
         photos: [
           {
             url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/emma-taylor/emma-stone-taylor-swift-baskin-robbins-01.jpg',
-            credit: 'Just Jared Jr.',
-          },
-          {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/emma-taylor/emma-stone-taylor-swift-baskin-robbins-03.jpg',
             credit: 'Just Jared Jr.',
           },
         ],
@@ -703,10 +789,10 @@ export default {
       day: 11,
       category: 'relationship',
       title: 'A duet with John Mayer fuels dating rumors',
-      snippet: "A live 'Half of My Heart' at Z100's Jingle Ball, obvious onstage chemistry, a 13-year age gap — and rumors that became a real, brief relationship.",
+      snippet: "A live 'Half of My Heart' at Z100's Jingle Ball, obvious onstage chemistry, a 12-year age gap — and rumors that became a real, brief relationship.",
       sourceUrl: 'https://www.billboard.com/music/music-news/john-mayer-taylor-swift-duet-half-of-my-heart-performance-1235291747/',
       thumbnailUrl:
-        'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-z100/taylor-swift-jingle-ball-z100-35.jpg',
+        'https://media.gettyimages.com/id/94673660/photo/z100s-jingle-ball-2009-presented-by-h-m-show.jpg?s=594x594&w=0&k=20&c=E59rBFYnR4Ncd9xBGTWP2Z7eMj8WOUs75Hy4l1odmC8=',
       moment: {
         context:
           'Mayer, then 31, had invited 19-year-old Swift to sing on "Half of My Heart" while he was still finishing Battle Studies, and their live duet at Z100\'s Jingle Ball made the chemistry public. The romance the rumors predicted did happen — and was over within a couple of months.\n\nThe real aftermath arrived on her next album: "Dear John" called out the age gap directly, and Mayer fired back in a 2012 Rolling Stone interview, calling it "cheap songwriting" and "a really lousy thing to do."',
@@ -724,14 +810,14 @@ export default {
             url: 'https://www.justjaredjr.com/2009/12/12/taylor-swift-jingles-all-the-way/',
           },
         ],
-        // T16 photo pass (2026-07-09, relaxed image policy): real press photo
-        // of the duet itself, from Just Jared Jr.'s gallery of the Dec. 11,
-        // 2009 Z100 Jingle Ball. Verified HTTP 200 + image/jpeg and visually
+        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried a
+        // baked-in watermark; replaced with an unwatermarked Getty photo of
+        // the same duet. Verified HTTP 200 + image/jpeg and visually
         // confirmed (Swift and Mayer sharing the MSG stage) this session.
         photos: [
           {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/12/swift-z100/taylor-swift-jingle-ball-z100-35.jpg',
-            credit: 'Just Jared Jr.',
+            url: 'https://media.gettyimages.com/id/94673660/photo/z100s-jingle-ball-2009-presented-by-h-m-show.jpg?s=594x594&w=0&k=20&c=E59rBFYnR4Ncd9xBGTWP2Z7eMj8WOUs75Hy4l1odmC8=',
+            credit: 'Kevin Mazur/WireImage',
             caption:
               'Onstage with John Mayer for the "Half of My Heart" duet at Z100\'s Jingle Ball, Madison Square Garden, Dec. 11, 2009.',
             kind: 'primary',
@@ -745,9 +831,9 @@ export default {
       day: 5,
       category: 'sighting',
       title: 'Touching down in Sydney for the tour’s Australian leg',
-      snippet: 'Photographed arriving at Sydney Airport days before kicking off the Fearless Tour’s five-date run across Australia.',
+      snippet: "Photographed arriving at Sydney Airport mid-leg — the day after the Fearless Tour's five-city Australian run opened in Brisbane, and the day before her two Acer Arena shows.",
       sourceUrl: 'https://taylorpictures.net/thumbnails.php?album=812',
-      thumbnailUrl: 'https://taylorpictures.net/albums/candids/2010/5-2%20Arriving%20to%20Sydneys%20Airport/normal_001.jpg',
+      thumbnailUrl: 'https://taylorpictures.net/albums/candids/2010/5-2%20Arriving%20to%20Sydneys%20Airport/001.jpg',
       moment: {
         context:
           'Swift landed in Sydney on Feb. 5, 2010 ahead of the Australian leg of the Fearless Tour — a five-city, week-long run that had opened at the Brisbane Entertainment Centre the night before and reached Sydney’s Acer Arena for two shows on Feb. 6 and 7.\n\nThe leg carried on through Newcastle, Melbourne’s Rod Laver Arena and Adelaide by Feb. 12, with country trio Gloriana opening, and played to roughly 78,000 people across the week — the Fearless show’s only visit to Australia before the tour wrapped that July.',
@@ -755,9 +841,14 @@ export default {
           { outlet: 'Taylor Swift Web Photo Gallery', url: 'https://taylorpictures.net/thumbnails.php?album=812' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
         ],
+        // Image-fix pass (2026-07-10): the previous URL was the gallery's
+        // 205x400 "normal_" thumbnail preview; swapped to the same gallery's
+        // full-size original (same filename, no "normal_" prefix). Verified
+        // HTTP 200 + image/jpeg (2500x4859) and visually confirmed (red dress,
+        // curled hair, night arrival) this session.
         photos: [
           {
-            url: 'https://taylorpictures.net/albums/candids/2010/5-2%20Arriving%20to%20Sydneys%20Airport/normal_001.jpg',
+            url: 'https://taylorpictures.net/albums/candids/2010/5-2%20Arriving%20to%20Sydneys%20Airport/001.jpg',
             credit: 'Taylor Swift Web Photo Gallery',
           },
         ],
@@ -902,7 +993,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
       moment: {
         context:
-          'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade. It logged 58 weeks in the top 10, a record for a country act, and was the only 2000s album to spend its entire first year there.\n\nThe number kept its stature inside her own catalog, too: when The Tortured Poets Department reached an 11th week at No. 1 in July 2024, Billboard framed it as tying Fearless and 1989 as her longest-leading albums — the mark her 18-year-old self set was still the one to catch.',
+          'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade. It logged 58 weeks in the top 10, a record for a country act, and was the only 2000s album to spend its entire first year there.\n\nThe number kept its stature inside her own catalog for a while, too: when The Tortured Poets Department reached an 11th week at No. 1 in July 2024, Billboard framed it as tying Fearless and 1989 as her longest-leading albums — before TTPD pushed on to 17 weeks, the 11-week mark her teenage self set was the one to catch for 15 years.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' },
           {
@@ -976,10 +1067,10 @@ export default {
       title: 'A wisteria Marchesa gown for the 2010 ACM Awards',
       snippet: 'A draped, chiffon-embroidered wisteria Marchesa gown, Christian Louboutin heels, and Neil Lane jewels at the Academy of Country Music Awards.',
       sourceUrl: 'https://www.justjaredjr.com/2010/04/18/taylor-swift-is-acm-amazing/',
-      thumbnailUrl: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2010/04/taylor-swift-acm-awards.jpg',
+      thumbnailUrl: 'https://media.gettyimages.com/id/98533973/photo/45th-annual-academy-of-country-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=67QbByMHXPBbPhVd880zAhmLEoz7-Hm5Ns4unn8vrnA=',
       moment: {
         context:
-          'At the April 18, 2010 ACM Awards at Las Vegas’ MGM Grand Garden Arena, 20-year-old Swift wore the Marchesa gown on the carpet ahead of nominations including Entertainer of the Year, then changed mid-performance into a Carmen Marc Valvo dress she tore away on stage.\n\nFor once the trophies went elsewhere: despite nominations that also spanned Album of the Year and both Single Record and Song of the Year for "You Belong with Me," she went home empty-handed, with Entertainer of the Year going to Carrie Underwood. Her performance slot went to "Change" — one of the only major award nights of the era where the draped wisteria chiffon, not a sweep, was the headline.',
+          'At the April 18, 2010 ACM Awards at Las Vegas’ MGM Grand Garden Arena, 20-year-old Swift wore the Marchesa gown on the carpet ahead of nominations including Entertainer of the Year, then changed mid-performance into a Carmen Marc Valvo dress she tore away on stage.\n\nFor once the trophies went elsewhere: despite nominations spanning Entertainer of the Year, Top Female Vocalist of the Year, and Song of the Year and Video of the Year for "You Belong with Me," she went home empty-handed, with Entertainer of the Year going to Carrie Underwood. Her performance slot went to "Change" — one of the only major award nights of the era where the draped wisteria chiffon, not a sweep, was the headline.',
         sources: [
           {
             outlet: 'Just Jared Jr.',
@@ -994,10 +1085,17 @@ export default {
             url: 'https://en.wikipedia.org/wiki/45th_Academy_of_Country_Music_Awards',
           },
         ],
+        // Image-fix pass (2026-07-10): the Just Jared Jr. headline hotlink was
+        // a 300x300 two-panel fan-site collage; replaced with a single
+        // full-length Getty arrivals frame. Verified HTTP 200 + image/jpeg and
+        // visually confirmed (draped lavender/wisteria one-shoulder Marchesa
+        // gown, ACM step-and-repeat) this session.
         photos: [
           {
-            url: 'https://cdn01.justjaredjr.com/wp-content/uploads/headlines/2010/04/taylor-swift-acm-awards.jpg',
-            credit: 'Just Jared Jr.',
+            url: 'https://media.gettyimages.com/id/98533973/photo/45th-annual-academy-of-country-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=67QbByMHXPBbPhVd880zAhmLEoz7-Hm5Ns4unn8vrnA=',
+            credit: 'Jon Kopaloff/FilmMagic, via Getty Images',
+            caption: 'The wisteria Marchesa gown on the red carpet at the April 18, 2010 ACM Awards.',
+            kind: 'primary',
           },
         ],
       },
@@ -1304,7 +1402,7 @@ export default {
         'Her Fearless Tour stop at the Garden on Aug. 27, 2009 — tickets had sold out in roughly 60 seconds when they went on sale that winter.',
       sourceUrl: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=3395',
       thumbnailUrl:
-        'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/08/swift-msg/taylor-swift-msg-nyc-concert-13.jpg',
+        'https://media.gettyimages.com/id/90123054/photo/taylor-swift-fearless-tour-2009-in-new-york-city.jpg?s=594x594&w=0&k=20&c=EC4gdnl3KTm305fgyn1obvUpdu10yO8fz8KVrigs_II=',
       moment: {
         context:
           'Country Standard Time reported the near-instant sellout when tickets moved in early 2009; by the time the tour reached New York that August, Rolling Stone\'s review of the show read like a coronation — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage.\n\nIn between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
@@ -1332,16 +1430,19 @@ export default {
             url: 'https://www.justjaredjr.com/photo-gallery/269331/taylor-swift-msg-nyc-concert-13/',
           },
         ],
-        // T16 photo pass (2026-07-09, relaxed image policy): press photo from
-        // the actual Aug. 27, 2009 MSG show (Just Jared Jr.'s gallery of the
-        // night, photos credited to Splash News). Verified HTTP 200 +
-        // image/jpeg this session. No AI imagery.
+        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried two
+        // baked-in watermarks; replaced with an unwatermarked Getty photo from
+        // the same Aug. 27, 2009 MSG show (this frame shows the fringed
+        // mini-dress guitar segment rather than the marching-band opener, so
+        // the caption below was reworded to match what the photo actually
+        // shows). Verified HTTP 200 + image/jpeg and visually confirmed this
+        // session.
         photos: [
           {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/08/swift-msg/taylor-swift-msg-nyc-concert-13.jpg',
-            credit: 'Splash News, via Just Jared Jr.',
+            url: 'https://media.gettyimages.com/id/90123054/photo/taylor-swift-fearless-tour-2009-in-new-york-city.jpg?s=594x594&w=0&k=20&c=EC4gdnl3KTm305fgyn1obvUpdu10yO8fz8KVrigs_II=',
+            credit: 'Jason Kempin/Getty Images',
             caption:
-              'Opening the sold-out Madison Square Garden show in the drum-majorette uniform for "You Belong with Me," Aug. 27, 2009.',
+              'Onstage at the sold-out Madison Square Garden show, Aug. 27, 2009.',
             kind: 'primary',
           },
         ],
@@ -1412,7 +1513,7 @@ export default {
         'Nov. 11, 2009: the CMAs hand their top prize to a 19-year-old — the youngest Entertainer of the Year in the award\'s history, and the first woman to win it since Shania Twain in 1999.',
       sourceUrl: 'https://theboot.com/taylor-swift-wins-2009-cma-entertainer-of-the-year/',
       thumbnailUrl:
-        'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/11/swift-sweeps/taylor-swift-sweeps-cmas-33.jpg',
+        'https://media.gettyimages.com/id/92999603/photo/the-43rd-annual-cma-awards-performances-and-awards.jpg?s=594x594&w=0&k=20&c=c0ywESeQ4T5SlLbIozC6BDQv2g71urPuzthsW__5Dn8=',
       moment: {
         context:
           'She won every category she was nominated in that night, with Fearless taking Album of the Year and "Love Story" winning Music Video of the Year — the country establishment\'s full endorsement, one year to the day after the album dropped.\n\nShe pulled her whole band onstage for the big one and didn\'t bother playing it cool: "I will never forget this moment because in this moment, everything I ever wanted has just happened to me." She also thanked the competition — every artist in the category, she noted, had once let her open for them.',
@@ -1449,15 +1550,19 @@ export default {
             url: 'https://www.justjaredjr.com/photo-gallery/346791/taylor-swift-sweeps-cmas-00/',
           },
         ],
-        // T16 photo pass (2026-07-09, relaxed image policy): real press photo
-        // of the Entertainer of the Year moment itself. Verified HTTP 200 +
-        // image/jpeg this session. No AI imagery.
+        // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried
+        // watermarks in both top corners; replaced with an unwatermarked
+        // Getty photo of the same Entertainer of the Year acceptance moment
+        // (Faith Hill and Tim McGraw are not in this particular frame, so the
+        // caption below was reworded to match what the photo actually shows).
+        // Verified HTTP 200 + image/jpeg and visually confirmed (gold gown,
+        // hand to face at the mic) this session.
         photos: [
           {
-            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/11/swift-sweeps/taylor-swift-sweeps-cmas-33.jpg',
-            credit: 'Rick Diamond/Getty Images, via Just Jared Jr.',
+            url: 'https://media.gettyimages.com/id/92999603/photo/the-43rd-annual-cma-awards-performances-and-awards.jpg?s=594x594&w=0&k=20&c=c0ywESeQ4T5SlLbIozC6BDQv2g71urPuzthsW__5Dn8=',
+            credit: 'Frank Micelotta/Getty Images',
             caption:
-              'Hand over her face as Faith Hill and Tim McGraw present Entertainer of the Year, Nov. 11, 2009 — the biggest of her wins that night.',
+              'Accepting Entertainer of the Year in the gold gown, Nov. 11, 2009 — the biggest of her wins that night.',
             kind: 'primary',
           },
         ],
@@ -1525,7 +1630,7 @@ export default {
         'https://akns-images.eonline.com/eol_images/Entire_Site/2015825/rs_600x600-150925152931-600.taylor-swift-csi.jpg',
       moment: {
         context:
-          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Swift, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — Rolling Stone said she "held her own."\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes CSI later handed the same murder-victim treatment to Justin Bieber and John Mayer — both of whom, like Swift, orbit this exact era of her story.',
+          'In "Turn, Turn, Turn," CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character\'s parents — Swift, then 19, playing 16-year-old Haley Jones across the episode\'s time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — Rolling Stone said she "held her own."\n\nThe episode aired March 5, 2009, right at the peak of Fearless\'s chart run, and the stunt casting aged into a tradition: E!\'s retrospective notes she followed John Mayer (a season-seven murder victim) and paved the way for Justin Bieber to get the same treatment later.',
         sources: [
           {
             outlet: 'E! Online',

@@ -12,3 +12,18 @@ import { VIDEOS_RAW } from './videos.generated';
 export function videosForEra(eraId: EraId): VideoNote[] {
   return VIDEOS_RAW[eraId] ?? [];
 }
+
+/**
+ * Music videos for an era that carry a real release date — i.e. the subset
+ * that's eligible to also render as its own dated entry in the main
+ * chronological timeline (EraSection), duplicating (not replacing) its card
+ * in the EraVideos rail above. Scoped to `kind === 'music_video'` only, per
+ * the issue #439 request; lyric videos / short films / tour films etc. stay
+ * rail-only for now. A video with no `releasedOn` has nowhere to sit on a
+ * dated timeline, so it's excluded here (it still appears in the rail).
+ */
+export function musicVideosForEra(eraId: EraId): (VideoNote & { releasedOn: string })[] {
+  return videosForEra(eraId).filter(
+    (v): v is VideoNote & { releasedOn: string } => v.kind === 'music_video' && v.releasedOn != null,
+  );
+}

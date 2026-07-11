@@ -211,7 +211,7 @@ export default {
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
       producers: ['Taylor Swift', 'Nathan Chapman'],
-      note: 'One dazzling first meeting, replayed all night — decades later it became a viral wedding-and-TikTok standard and an Eras Tour showstopper.',
+      note: 'One dazzling first meeting, replayed all night — more than a decade later it became a viral wedding-and-TikTok standard and an Eras Tour showstopper.',
       summary:
         'The afterglow of meeting someone wonderstruck-level interesting, and the spiraling hope that he is not going home to somebody else.',
       inspiration:
@@ -493,7 +493,7 @@ export default {
       writers: ['Taylor Swift'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       isFromTheVault: true,
-      note: 'A duet with Paramore’s Hayley Williams about fearing the fall from grace — written a decade before the 2016 pile-on made it prophetic.',
+      note: 'A duet with Paramore’s Hayley Williams about fearing the fall from grace — written six years before the 2016 pile-on made it prophetic.',
       summary:
         'A ruler watches the kingdom turn: cheers becoming jeers, and the terror of disappointing everyone who once chanted your name. Fans read it as Long Live’s shadow twin.',
       inspiration:

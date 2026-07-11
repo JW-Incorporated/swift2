@@ -105,7 +105,7 @@ export default {
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Robert Ellis Orrall', 'Angelo Petraglia'],
       producers: ['Nathan Chapman'],
-      note: 'Written at 13, shortly after landing in Nashville — a kid narrating the exact uncertainty she was living.',
+      note: 'Written at 13, while shuttling between Pennsylvania and Nashville trying to break in — a kid narrating the exact uncertainty she was living.',
       summary:
         'A wide-eyed mission statement: alone in a new town, unsure of the path, but certain there is one and determined to walk it.',
       inspiration:

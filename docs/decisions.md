@@ -7,6 +7,130 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-11 — Agentic operating model v2 (desks, chief of staff, Founders' Brief)
+
+**Decision:** Adopt the desk model: chartered, sandboxed agents
+(`docs/agents/`) with artifact-only interfaces; a chief-of-staff agent
+(**Marjorie**) that curates a decision bank (`founder-decision` label +
+required template) into a **6:00 AM Founders' Brief + 8:00 PM changes-only
+delta**; tiered interrupt authority (T0–T3 + TX) with a founder-approved-only
+autonomy ratchet and a non-ratchetable strategic set; a non-LLM GitHub-Action
+watchdog watching Marjorie; decision provenance only from founder-authored
+artifacts. **Merge authority granted by both founders:** autonomous merging
+is the standing goal, earned class-by-class behind a deterministic merge gate
+(never an LLM), starting with content-fix PRs once a content-inertness check
+exists in CI; deploys stay human. **T3 paging:** SMS primary once the
+provider account exists (TX item), email until then and as backup. **Growth &
+Community desk starts pre-launch** (launch campaign plan, listening baseline,
+account-creation lead time); the /marketing command is retired for a standing
+marketing agent. **Marjorie also wears the manager hat** (Joey, same day):
+deterministic team telemetry (tokens/outcome, no-op run ratio, findings-per-
+PR by agent, cycle time, rework, escaped defects) + monthly mini-retros and
+end-of-project retros proposing team changes as banked decisions — quality
+up, tokens down, every cycle, because this team builds the next app too.
+
+**Why:** founder attention is the scarcest resource; today every agent
+interrupts ad hoc and nobody owns the queue. Full design + two-round Codex
+debate record: `docs/proposals/2026-07-11-agentic-operating-model.md`
+(PR #472); launch-ops work tracked as roadmap L-track.
+
+**Alternatives considered:** pure deterministic digest with no chief-of-staff
+(largely adopted as Marjorie's v1 scope and the degraded mode); many always-on
+role agents (rejected 2026-07-02, ceremony at 2-person scale); wait for V2
+engine (rejected — interrupt tax and intake gap are today-problems).
+
+**Approved by:** Joey (product) + Wyatt (CTO), 2026-07-11 — Wyatt's sign-off
+relayed by Joey in session; PRs #472/#463 merged by founders same day.
+CLAUDE.md's merge rule is amended only when the gate + CI preconditions ship.
+
+## 2026-07-11 — Clarification: "V1 is Vault-only" defers the automated engine, not recent content
+
+**Decision:** The 2026-07-03 "V1 scope is Vault only" decision (below) means
+the **automated** ingestion/clustering/ranking/notification engine (the
+News/Current pipeline in `docs/proposals/2026-07-07-news-pipeline-architecture.md`)
+is deferred to V2 — not that the Vault excludes recent events. The Vault's
+scope has always been "anything that has already happened," and recency
+doesn't disqualify content: an event from last week is exactly as valid a
+Vault item as an event from 2008, as long as it's sourced and authored
+through the normal Vault pipeline (Karen, the editorial voice standard, the
+sourcing bar) like everything else.
+
+Until V2's automated engine ships, recent content is added **manually** —
+Joey brings in subject matter (real, already-happened events) as they occur,
+which gets distilled into short, sourced Vault moments the same way any
+other era content is authored. This is expected to be a daily habit, not an
+edge case.
+
+**Why:** This ambiguity caused a real mistake (2026-07-11): three
+manually-curated, already-happened news subjects were initially treated as
+conflicting with "V1 is Vault-only," when the actual scope boundary is
+specifically about the *automated engine*, not about content recency. See
+`JW-Incorporated/swift2` issue #464 for the incident this clarifies.
+
+**Approved by:** Joey
+
+---
+
+## 2026-07-11 — Persona author copy desk
+
+**Decision:** Adopt four named persona authors (charters in
+`docs/content-ops/personas/`) layered on the #449 house voice — Theo (music/
+releases/dossiers), Loren (theories/eggs), Vera (fashion/sightings), Deb
+(relationships/business/tour); names are Joey's to rename before bylines
+ship. Category→author routing lives in `scripts/copy-desk/routing.mjs` with
+explicit per-item seed overrides; authorship is **derived at sync time, never
+stored in the DB** (persona slugs permanent, display names mutable); on-site
+bylines + a meet-the-desk page with honest editorial-characters framing,
+gated on Joey approving the disclosure wording. Karen gains per-persona voice
+checks (deterministic checks gate; agent judgment advisory only), calibrated
+against committed golden fixtures per charter.
+
+**Why:** One anonymous voice reads like an aggregator (#462); personas make
+authorship legible and voice maintainable, and deriving (not storing) the
+author keeps renames/beat changes a one-file edit. Retro pass is cheap by
+design: bylines come free from sync derivation; only voice-check failures get
+rewritten.
+
+**Alternatives considered:** replace the single #449 voice standard entirely
+(rejected — personas are a dial within house rules, so #461 proceeds
+unchanged); store `author` as a CHECK-constrained DB column (rejected in
+Codex review — duplicates derived data, makes renames a migration).
+
+**Ref:** `docs/specs/2026-07-11-persona-authors-copy-desk.md` (PR #463),
+issue #462.
+
+**Approved by:** Joey (product) + Wyatt (CTO), 2026-07-11 — Wyatt's sign-off
+relayed by Joey in session.
+
+## 2026-07-10 — Track dossier data model: grouped fields on TrackNote, one jsonb dossier column
+
+**Decision:** The Track Guide overhaul (issue #440) extends `TrackNote` with
+two grouped optional objects instead of ~20 flat fields: `facts`
+(writers/producers/release/single status/themes — data the seed files already
+authored but the seed runner's INSERT list dropped) and `dossier`
+(why-it-matters, tiered meaning, explained connections, live highlights,
+collaborator voices, required sources). DB-side, the facts get real columns
+(queryable scalars) and the dossier is ONE `jsonb` column validated by the
+sync generator, not a column per section. Cross-song linking uses a new
+`song:<slug>` RelatedId namespace on the existing `RelatedId` convention —
+not a parallel linking system — which requires track slugs to stay globally
+unique (asserted in tests). Meaning tiers reuse the existing
+confidence-pill visual language (accent = confirmed, solid = supported,
+dashed = fan theory), not a new one.
+
+**Why:** grouped fields keep `tracks.generated.ts` diffable and let the UI
+render whole sections from one prop; a single validated jsonb column avoids
+a migration per future dossier section while the shape is still evolving
+(Phases 2–3 of #440 will add more); reusing `RelatedId` was an explicit
+acceptance criterion on the ticket.
+
+**Alternatives considered:** one flat interface with ~20 optional fields
+(rejected by Joey on the ticket — "Grouped fields"); a full page instead of
+the overlay (rejected — "Overlay"); extending the Clue Web motif system now
+(deferred — blocked on #445's rebuild landing first, per Kevin's plan).
+
+**Approved by:** Joey (product) on issue #440, 2026-07-10.
+
 ## 2026-07-10 — Threads content derives from tagged content items, not hand-authored arrays
 
 **Decision:** The six Threads (`love-story`, `fashion`, `taylors-version`,
@@ -86,58 +210,6 @@ reverses a previously deliberate convention. Low-risk/easily reversible
 (display strings, not data-model or infra), so implementing directly rather
 than blocking on a synchronous approval; revert is a one-line diff if this
 call is wrong.
-=======
-## 2026-07-10 — Threads content derives from tagged content items, not hand-authored arrays
-
-**Decision:** The six Threads (`love-story`, `fashion`, `taylors-version`,
-`easter-eggs`, `hidden-clues`, `the-proposal`) currently render from
-hand-authored TypeScript arrays in `apps/web/lib/longlive/lenses.ts`
-(`RELATIONSHIPS`, `RUNWAY_LOOKS`, `RERECORDS`, `PROPOSAL_BEATS`, `CLUE_PAIRS`,
-`EGG_NODES`/`EGG_LINKS`), completely disconnected from
-`supabase/seed/content/**` — the pipeline every Era moment flows through.
-Going forward, thread membership is derived from **tags on content items**
-(new items in `supabase/seed/content/**` get one or more thread tags at
-authoring time) rather than a second, hand-maintained data source. A thread's
-rendered list should be a query/selector over tagged content, not a separate
-array that has to be remembered and kept in sync by hand.
-
-**Rollout is two phases, not one landing:** phase 1 (2026-07-10, this PR) is
-the derivation mechanism itself — `ContentItem.threadIds`, the
-`contentForThread()` selector, real tagged data via the existing
-Relationship/Fashion category defaults. **`ThreadsMode.tsx` still renders
-from the old `lenses.ts` arrays as of this PR — the mechanism exists but
-nothing consumes it yet.** Phase 2, done per-thread as each thread's UI
-rework lands (tracked in `docs/threads-rework-2026-07-10.md`), is wiring the
-actual rendered UI to `contentForThread()` and retiring the corresponding
-old array. Don't read this decision as "Threads already render from tagged
-content" until phase 2 closes per thread.
-
-**Why:** Joey flagged that new content isn't naturally flowing into Threads —
-e.g. real relationship/sighting content added to an era file has no path
-into the Love Story thread unless someone remembers to also hand-edit
-`lenses.ts`. That's a structural drift risk, not a one-off oversight: the
-two data sources will keep diverging as content authoring continues weekly
-(see `docs/roadmap.md` J7). Auto-deriving from tags means new tagged content
-appears in the right thread automatically, the same guarantee Era moments
-already have.
-
-**What this does NOT change:** thread-specific narrative structure that
-doesn't map to a single content item — e.g. Love Story's single/solo periods
-between relationships, or the Clue Web's motif-trail groupings and node-link
-graph — still needs dedicated schema beyond a tag on one item. Those get
-first-class fields/tables of their own (not another parallel hand-authored
-array); the tag-derivation decision applies to "which content items surface
-in which thread," not to every piece of thread-specific presentation data.
-
-**Alternatives considered:** (1) keep `lenses.ts` hand-authored, add a
-process rule + CI lint flagging likely-missed cases — rejected as treating
-the symptom, not the drift; (2) hybrid — ship the current thread reworks
-against today's `lenses.ts` shape, migrate after launch — rejected because
-every thread rework happening now is the natural point to build the tagged
-shape once instead of building on the old shape and migrating twice.
-
-**Approved by:** Joey (product), 2026-07-10.
->>>>>>> origin/main
 
 ## 2026-07-09 — Superseded same-day: full lyrics reproduction rejected in favor of per-song analysis + short quotes
 
@@ -372,6 +444,43 @@ framework/major-version bumps must get a decisions.md entry BEFORE
 implementation per `CLAUDE.md` rule 6 — this entry exists to close that gap
 for this specific change, not to establish after-the-fact logging as normal
 practice.
+
+---
+
+## 2026-07-07 — News data model: `news_`-prefixed two-tier schema, zero coupling to Vault (DRAFT)
+
+**Status: DRAFT — needs Wyatt's approval before any migration is written.
+Nothing is implemented against this entry; it exists so the expensive-to-
+reverse shape is reviewed before news work is ever scheduled.**
+
+**Decision (proposed):** When the post-v1 News/Current world is built, its
+schema is a two-tier model adapted from Orbit's production pipeline —
+`news_raw_item` (every ingested item; many) collapsing into `news_story` (the
+deduplicated unit users read; few), plus `news_source` (config rows, with a
+credibility `tier`), `news_story_source` (audit trail / "reported by N"),
+and `news_llm_usage` (durable daily LLM-call cap counter). All news tables
+carry the **`news_` prefix**; **no foreign keys in either direction** between
+`news_*` and Vault tables; raw/internal tables get **no public RLS policies**
+(worker-only), stories are public-read like the Vault. Orbit's multi-figure
+`channels` concept is dropped — Swift2 is single-subject; search terms become
+worker config. Stories carry `verification_status` so the "hide vs. label
+fake stories" product choice stays a serving-time filter, not a schema change.
+
+**Why:** The raw→story split is what makes dedup, "N sources" credibility,
+and classify-once cost control possible, and it's proven in Orbit. The prefix
++ no-FK rule makes the 2026-07-02 "separate data worlds" decision mechanically
+enforceable rather than conventional. Deciding the shape now is cheap;
+re-shaping deployed news tables later is not.
+
+**Alternatives considered:** Single flat `news_story` table with a jsonb
+source list (rejected: loses per-item dedup keys and ingest idempotency);
+reusing Orbit's schema verbatim incl. `channels` (rejected: multi-figure
+indirection with no product behind it); schema-per-world Postgres schemas
+(viable, but a prefix is simpler and matches existing table style).
+
+**Ref:** `docs/proposals/2026-07-07-news-pipeline-architecture.md` (§4, §5).
+
+**Approved by:** _pending Wyatt_ — do not migrate before sign-off.
 
 ---
 

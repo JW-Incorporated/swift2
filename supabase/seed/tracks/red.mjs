@@ -321,7 +321,7 @@ export default {
       writers: ['Taylor Swift', 'Ed Sheeran'],
       producers: ['Butch Walker'],
       isSingle: true,
-      note: 'Written with Ed Sheeran on a trampoline in her backyard — the session that kicked off pop’s most durable friendship.',
+      note: 'Written with Ed Sheeran on a trampoline in her backyard — an early session in what became pop’s most durable friendship.',
       summary:
         'The first-meeting butterflies duet: two people who just met and already divide time into before and after.',
       inspiration:

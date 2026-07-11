@@ -99,7 +99,7 @@ export default {
       thumbnailUrl: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/TSwift-Square-header-1440x1440.jpg',
       moment: {
         context:
-          'No album had ever reached a billion Spotify streams within five days; Spotify confirmed the milestone on April 24.\n\nIt capped a stretch where a record fell almost daily — most pre-saved album on the platform\'s Countdown Pages the day before release, most-streamed album in a single day on day one, then most-streamed album in a single week logged before an actual week had even elapsed. "Fortnight" led the charge as the most-streamed song in a single day in Spotify history.',
+          'No album had ever reached a billion Spotify streams within five days; Spotify confirmed the milestone on April 24.\n\nIt capped a stretch where a record fell almost daily — most pre-saved album on the platform\'s Countdown Pages the day before release, most-streamed album in a single day on day one, then most-streamed album in a single week logged before an actual week had even elapsed. "Fortnight" led the charge as the most-streamed song in a single day in Spotify history — a record that stood until her own "The Fate of Ophelia" broke it in October 2025.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -108,6 +108,10 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/music/music-news/taylor-swift-tortured-poets-passes-billion-spotify-streams-1235665087/',
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/taylor-swifts-the-fate-of-ophelia-becomes-most-streamed-song-in-a-single-day-on-spotify-as-new-album-shatters-records-across-platforms/',
           },
         ],
         photos: [
@@ -248,7 +252,10 @@ export default {
         "New songs from the album folded into the setlist in Paris — Taylor's own nickname for the segment, from her Instagram caption.",
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-eras-tour-set-list-post-1235019481/',
       thumbnailUrl:
-        'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300',
+        // Image-fix pass (2026-07-10): #343 — was ?w=300 (300x198, soft/pixelated). Raised to the
+        // ?w=942&h=628&crop=1 variant of the same Billboard photo, already live elsewhere in this
+        // file; curl-verified HTTP 200 image/jpeg and vision-confirmed same subject at full res.
+        'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           'Her caption dedicated the post "to the new Tortured Poets section of the Eras Tour (aka Female Rage The Musical!)" and credited a crew that spent the tour\'s two-month break building it: "we really didn\'t take any time off."\n\nSeven TTPD songs entered the show — "But Daddy I Love Him," "So High School," "Who\'s Afraid of Little Old Me?," "Down Bad," "Fortnight," "The Smallest Man Who Ever Lived," and "I Can Do It With a Broken Heart" — with original choreography, new costumes, and moody staging built on muted tones, paper, and a typewriter. Fitting a new era in meant real surgery on the three-hour show: the Lover and folklore sets lost songs, and Red moved up to follow Fearless directly.',
@@ -261,7 +268,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Mazur/TAS24/Getty Images',
           },
         ],
@@ -284,7 +291,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'May 9, 2024 at La Défense Arena was her first performance anywhere since TTPD arrived, and the setlist treated it as a premiere: an acoustic "Paris" — a song she said would make its live debut only in its namesake city — a piano rendition of "loml," and the unveiling of the full seven-song Tortured Poets section with its muted, typewriter-strewn staging.\n\nOther eras got refreshed too, with "cardigan" now sung from the roof of a transparent wooden cabin under autumnal light, and she worked the crowd in French between songs. Paramore, the openers for the whole European leg, kicked off the night with a Talking Heads cover.',
+          'May 9, 2024 at La Défense Arena was her first performance anywhere since TTPD arrived, and the setlist treated it as a premiere: an acoustic "Paris" — a song she said would make its live debut only in its namesake city — a piano rendition of "loml," and the unveiling of the full seven-song Tortured Poets section with its muted, typewriter-strewn staging.\n\nOther eras got refreshed too, with "cardigan" now sung from the roof of a transparent wooden cabin under autumnal light, and she worked the crowd in French between songs. Paramore, the openers for the whole European leg, worked a Talking Heads cover into their set.',
         sources: [
           { outlet: 'Billboard', url: 'https://www.billboard.com/lists/taylor-swift-paris-eras-tour-europe/' },
           {
@@ -308,7 +315,10 @@ export default {
       title: 'A new crystal bodysuit, and a dress covered in lyrics',
       snippet: 'A brand-new crystal bodysuit for the opening numbers, then a gown printed with her own lyrics for the new album\'s songs.',
       sourceUrl: 'https://www.billboard.com/photos/taylor-swift-eras-tour-paris-show-1235680098/',
-      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=204',
+      // Image-fix pass (2026-07-10): #344 — thumbnailUrl was ?w=204 (204x300 thumbnail). Raised to
+      // ?w=942, the same Billboard photo at full res; curl-verified HTTP 200 image/jpeg and
+      // vision-confirmed the orange/red crystal bodysuit and ombre boots, matching the caption.
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=942',
       moment: {
         context:
           'The "Fortnight" gown was custom Vivienne Westwood Couture: a draped, corseted dress inscribed with the song\'s own confession — "I love you, it\'s ruining my life" — finished with a three-row orb-detail choker in black agate.\n\nIt opened a run of Westwood one-offs across the European leg; by Milan, a new white taffeta corset dress arrived with "Who\'s afraid of little old me?" spelled out in black crystals. The same Paris night refreshed the rest of the wardrobe too, with the new crystal bodysuit and boots for the opening Lover set plus first-time looks in the Fearless and 1989 sets.',
@@ -321,11 +331,14 @@ export default {
         ],
         photos: [
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=204',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=942',
             credit: 'Kevin Mazur/TAS24/Getty Images',
           },
           {
-            url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=300',
+            // Image-fix pass (2026-07-10): #343 — second usage of the same ?w=300 low-res URL
+            // flagged on the "Female Rage The Musical" moment; raised to the ?w=942&h=628&crop=1
+            // full-res variant (curl-verified 200/image/jpeg, vision-confirmed same photo).
+            url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Mazur/TAS24/Getty Images',
           },
         ],
@@ -406,7 +419,7 @@ export default {
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/11/taylor-swift-2024-chiefs-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'The Nov. 10 Broncos game — her third straight home game, watched with her parents Scott and Andrea in a red-and-black checkered blazer over a black corset and coordinating skirt — ended in the wildest finish of the Chiefs\' season: Leo Chenal blocked Denver\'s 35-yard field-goal attempt as time expired to preserve a 16-14 win and a 9-0 start.\n\nShe was back for the Black Friday game on Nov. 29, joining her father and Donna Kelce in a red half-zip to watch Kansas City edge the Raiders 19-17 in the NFL\'s Black Friday game, streamed on Prime Video. It made five Arrowhead games on the season for her — all of them Chiefs wins.',
+          'The Nov. 10 Broncos game — her fifth straight home game, watched with her parents Scott and Andrea in a red-and-black checkered blazer over a black corset and coordinating skirt — ended in the wildest finish of the Chiefs\' season: Leo Chenal blocked Denver\'s 35-yard field-goal attempt as time expired to preserve a 16-14 win and a 9-0 start.\n\nShe was back for the Black Friday game on Nov. 29, joining her father and Donna Kelce in a red half-zip to watch Kansas City edge the Raiders 19-17 in the NFL\'s Black Friday game, streamed on Prime Video. It made six Arrowhead games on the season for her — all of them Chiefs wins.',
         sources: [
           { outlet: 'Today', url: 'https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582' },
           {
@@ -473,7 +486,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'Her production company confirmed the totals to The New York Times: 10,168,008 tickets across 149 shows on six continents, at an average of $204 a seat — roughly double the previous all-time record, Coldplay\'s $1 billion Music of the Spheres run, which needed more dates to get there.\n\nThe figure counts tickets only; merchandise, the record-grossing concert film, and the Eras Tour Book all sit outside the tally. Pollstar had already estimated the tour crossed the billion-dollar line in November 2023 — the second billion took barely a year more.',
+          'Her production company confirmed the totals to The New York Times: 10,168,008 tickets across 149 shows on five continents, at an average of $204 a seat — roughly double the previous all-time record, Coldplay\'s $1 billion Music of the Spheres run, which needed more dates to get there.\n\nThe figure counts tickets only; merchandise, the record-grossing concert film, and the Eras Tour Book all sit outside the tally. Pollstar had already estimated the tour crossed the billion-dollar line in November 2023 — the second billion took barely a year more.',
         sources: [
           {
             outlet: 'Forbes',
@@ -577,10 +590,21 @@ export default {
           {
             url: 'https://cdn.mos.cms.futurecdn.net/P5J7PGVYFxPyyTdzTVpya3.jpg',
             credit: 'Getty Images',
+            // Image-fix pass (2026-07-10): #341 — vision-confirmed no blazer is visible here (white
+            // tank top and denim shorts in the Superdome suite). Searched Marie Claire, WWD, Billboard,
+            // Hollywood Reporter, Time, and Wikimedia Commons for an arrival/entry shot showing the
+            // blazer itself; every candidate found was either the same suite look or unverifiable on
+            // an allowlisted host. Added a caption so the photo doesn't misrepresent what's pictured.
+            caption:
+              'In the Superdome suite after removing the Saint Laurent blazer for the game — the blazer itself was worn on arrival.',
           },
           {
             url: 'https://cdn.mos.cms.futurecdn.net/cpMbV3jceZ6rfU2apDrhta.jpg',
             credit: 'Getty Images',
+            // Image-fix pass (2026-07-10): #342 — same finding as #341: no blazer in frame. Caption
+            // added rather than an unverified replacement URL; see note on the sibling photo above.
+            caption:
+              'Full-length view in the Superdome suite, blazer already off; the white tank top and crystal-denim shorts were worn underneath it.',
           },
         ],
       },
@@ -591,7 +615,7 @@ export default {
       day: 26,
       category: 'relationship',
       title: '"Your English teacher and your gym teacher are getting married"',
-      snippet: 'Travis proposed in the backyard of his Kansas City home; the two announced their engagement together on Instagram.',
+      snippet: 'Travis proposed in the garden of his home in Leawood, Kansas, outside Kansas City; the two announced their engagement together on Instagram.',
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-engaged/',
       thumbnailUrl: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
       moment: {
@@ -602,6 +626,10 @@ export default {
           {
             outlet: 'Newsweek',
             url: 'https://www.newsweek.com/entertainment/taylor-swift-wedding-buzz-timeline-of-her-relationship-with-travis-kelce-12156460',
+          },
+          {
+            outlet: 'KCUR',
+            url: 'https://www.kcur.org/arts-life/2025-08-27/taylor-swift-travis-kelce-proposal-leawood-lees-summit-engagement',
           },
         ],
         photos: [
@@ -623,7 +651,7 @@ export default {
       thumbnailUrl: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
       moment: {
         context:
-          'Travis worked directly with Kindred Lubeck — the goldsmith, hand-engraver, and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry, whose work Swift had shown him admiringly well before the proposal — on a 3.63-carat old mine brilliant-cut diamond set in a hand-engraved yellow gold band with an engraved halo and smaller accent stones.\n\nThe old mine cut is a genuinely antique geometry, common from the early 1700s to the late 1800s: squarer than a modern brilliant, with a smaller table, larger culet, and higher crown. Swift\'s verdict on the ring she never had to spec: "I didn\'t know what I would want, but he did somehow."',
+          'Travis worked directly with Kindred Lubeck — the goldsmith, hand-engraver, and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry, whose work Swift had shown him admiringly well before the proposal — on an old mine brilliant-cut diamond of undisclosed size (expert estimates range from 8 to 15 carats) set in a hand-engraved yellow gold band.\n\nThe old mine cut is a genuinely antique geometry, common from the early 1700s to the late 1800s: squarer than a modern brilliant, with a smaller table, larger culet, and higher crown. Swift\'s verdict on the ring she never had to spec: "I didn\'t know what I would want, but he did somehow."',
         sources: [
           {
             outlet: 'Complex',
@@ -632,6 +660,10 @@ export default {
           {
             outlet: 'ABC News',
             url: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-engagement-ring/story?id=124993837',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/maryroeloffs/2025/08/27/taylor-swifts-engagement-ring-may-be-13-carats-expert-says-and-is-worth-an-estimated-650000/',
           },
         ],
         photos: [
@@ -817,7 +849,7 @@ export default {
         'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
       moment: {
         context:
-          'Adapted from a look in Schiaparelli\'s Fall 2023 couture collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony.\n\nSwift paired it with opera-length gloves, black peep-toe pumps, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face.',
+          'Adapted from a look in Schiaparelli\'s Fall 2023 ready-to-wear collection, the gown added a dramatic train and high leg slit for the Feb. 4, 2024 ceremony.\n\nSwift paired it with opera-length gloves, black Giuseppe Zanotti sandals, and more than 300 carats of black-and-white diamonds from Lorraine Schwartz, including a choker built around a vintage watch face.',
         sources: [
           {
             outlet: 'Red Carpet Fashion Awards',
@@ -859,6 +891,13 @@ export default {
           {
             url: 'https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000',
             credit: 'Republic Records',
+            // Image-fix pass (2026-07-10): #345 — vision-confirmed this is a studio/lookbook shot
+            // of the correct gown on a runway/lookbook model (not Swift); searched WWD, YouTube's
+            // official "Fortnight" video default thumbnail, and press for a Swift-wearing-it still
+            // and found none verifiable. Added caption so the record doesn't misrepresent the model
+            // as Swift; garment and designer are still correctly identified.
+            caption:
+              'Designer lookbook image of Toni Matičevski\'s "Candescence" gown, shown here on a runway/lookbook model — not Swift, who wears the same gown in the "Fortnight" video\'s opening scene.',
           },
         ],
       },
@@ -872,8 +911,14 @@ export default {
       snippet:
         'Rehearsal-style outfits built from independent activewear labels: a plum Popflex Active skort, a lavender Popflex tulle skirt with a matching corset bra, and a scalloped tennis skirt from Kansas-based WISKII Active, paired with custom Christian Louboutin ankle boots.',
       sourceUrl: 'https://www.thezoereport.com/culture/taylor-swift-i-can-do-it-with-a-broken-heart-music-video-outfits',
+      // Image-fix pass (2026-07-10): #346 — old thumbnailUrl was a bedazzled Eras Tour stage
+      // costume, not the Popflex/WISKII backstage athleisure this moment is about. Replaced with a
+      // screenshot of the plum Popflex Active skort look from the official "I Can Do It With a
+      // Broken Heart" video, sourced via Blogilates (the Popflex founder's own site, already a
+      // cited source below); curl-verified HTTP 200 image/png and vision-confirmed single-frame,
+      // no watermark/collage, matching the "plum Popflex Active skort" described in the context.
       thumbnailUrl:
-        'https://imgix.bustle.com/uploads/getty/2024/8/21/4f10d125/london-england-august-15.jpg?w=248&h=372&fit=crop&crop=focalpoint&dpr=2&fp-x=0.5303&fp-y=0.2761',
+        'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
       moment: {
         context:
           'The video, styled around Eras Tour rehearsal footage, mixed pieces from small activewear brands (Popflex Active, WISKII Active) with Golden Goose sneakers and an Awe Inspired gold pendant necklace — a deliberately unglamorous, backstage counterpoint to the tour\'s stage costuming.\n\nFor Popflex founder Cassey Ho — the Blogilates creator who designs the line — the placement was surreal: she wrote that her heart pounded and her team\'s Slack "blew up" as she stood frozen in front of the TV counting her own designs onscreen, with Popflex pieces (including the viral lavender Pirouette skort and the Twirl skort) appearing four separate times in the video.',
@@ -889,8 +934,11 @@ export default {
         ],
         photos: [
           {
-            url: 'https://imgix.bustle.com/uploads/getty/2024/8/21/4f10d125/london-england-august-15.jpg?w=248&h=372&fit=crop&crop=focalpoint&dpr=2&fp-x=0.5303&fp-y=0.2761',
-            credit: 'Getty Images',
+            // Image-fix pass (2026-07-10): #346 — replaced the Eras Tour stage-costume photo (see
+            // thumbnailUrl note above) with the same verified Blogilates video screenshot.
+            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
+            credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
+            caption: 'The plum Popflex Active skort from the video\'s backstage rehearsal footage.',
           },
         ],
       },
@@ -915,7 +963,7 @@ export default {
         'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
       moment: {
         context:
-          "Kansas City beat Houston 23-14 to advance to the AFC Championship, pulling away from a 13-6 halftime lead in the Jan. 18, 2025 divisional-round game at Arrowhead. Swift watched from the family suite between her parents, Scott and Andrea, with Ed Kelce alongside — the postseason continuation of a regular season she'd spent as an Arrowhead fixture.\n\nIt was Caitlin Clark's first Chiefs game of the season, and this time the invitation came directly from Travis Kelce — Clark had previously joined Swift at a home game after Swift invited her during the Eras Tour's Indianapolis stop. Clark, who had passed on the offseason Unrivaled league, sat a row back from the suite's front line.",
+          "Kansas City beat Houston 23-14 to advance to the AFC Championship, pulling away from a 13-6 halftime lead in the Jan. 18, 2025 divisional-round game at Arrowhead. Swift watched from the family suite between her parents, Scott and Andrea, with Ed Kelce alongside — the postseason continuation of a regular season she'd spent as an Arrowhead fixture.\n\nIt was Caitlin Clark's first Chiefs game of the season, and this time the invitation came directly from Travis Kelce — Swift had previously invited her to a game via a handwritten letter during the Eras Tour's Indianapolis stop, but this was Clark's first time taking her up on it. Clark, who had passed on the offseason Unrivaled league, sat a row back from the suite's front line.",
         sources: [
           {
             outlet: 'Sports Illustrated',
@@ -971,7 +1019,12 @@ export default {
       snippet:
         'Stepped out for a swanky Saturday-night dinner in New York City in a pink mini dress with gold buttons and beige heels, Travis alongside her in a plain white top and trousers.',
       sourceUrl: 'https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/',
-      thumbnailUrl: 'https://imagez.tmz.com/image/bd/4by3/2025/06/29/bdcd54eaf03b410c93442064867db68e_md.jpg',
+      // Image-fix pass (2026-07-10): #361 — was the two-panel collage removed from photos[] below;
+      // pointed thumbnailUrl at the same single-frame photo that remains there.
+      // Image-fix pass (2026-07-10 retry): #362 — swapped in the clean, unbordered frame from
+      // the same June 28, 2025 shoot (see photos[] below) to replace the TMZ letterbox crop.
+      thumbnailUrl:
+        'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
       moment: {
         context:
           'The Saturday, June 28, 2025 dinner date put her in a $3,500 Balmain houndstooth tweed A-line minidress — chain-metal straps, oversized gold buttons, frayed trim — with taupe Christian Louboutin "Miss Jane" sandals and an Aspinal of London trunk bag, while Travis kept it simple in a fresh white top, trousers, and black loafers.\n\nE! priced the full look near $30,000 once the jewelry was counted: a $22,500 Panthère de Cartier necklace on a gold-and-diamond chain, a $3,400 Ofira "Tattoo" diamond ring, and a diamond-studded gold Rolex — red-carpet hardware deployed for a restaurant run, photographed on the way in and published the next morning.',
@@ -982,9 +1035,23 @@ export default {
             url: 'https://www.eonline.com/news/1419311/taylor-swift-wears-s22-500-necklace-on-travis-kelce-date-night',
           },
         ],
+        // Image-fix pass (2026-07-10): #361 — removed the bdcd54... photo (vision-confirmed a
+        // two-panel collage behind TMZ's black grunge divider, the junk-collage pattern the
+        // protocol rejects). The single-frame photo below already covers the same outing, so this
+        // record keeps at least one photo.
+        // Image-fix pass (2026-07-10 retry): #362 — broadened search beyond the allowlist found a
+        // clean, unbordered single frame of the same June 28, 2025 outing (same construction-site
+        // fence/black SUV backdrop as the old TMZ crop): Yahoo Entertainment's syndication of a
+        // TheImageDirect.com photo — the same agency credited on E! News's coverage of this outing
+        // (already an outlet cited in sources[] above). curl-verified HTTP 200 / image/jpeg;
+        // vision-confirmed full-body shot of Swift in the pale-pink tweed Balmain mini dress with
+        // gold buttons, holding Kelce's hand, a bystander behind — no letterbox, watermark, or
+        // collage. Replaced the TMZ bordered photo with it.
         photos: [
-          { url: 'https://imagez.tmz.com/image/bd/4by3/2025/06/29/bdcd54eaf03b410c93442064867db68e_md.jpg', credit: 'TMZ' },
-          { url: 'https://imagez.tmz.com/image/33/4by3/2025/06/29/335496e8dfee4b8a934279081aac5d24_md.jpg', credit: 'TMZ' },
+          {
+            url: 'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
+            credit: 'The Image Direct',
+          },
         ],
       },
     },
@@ -1161,7 +1228,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Written and produced with Aaron Dessner and recorded partly in Biarritz, France, the song switches from a 7/4 verse-and-chorus meter to 4/4 for a bridge that swaps its piano ballad restraint for distorted vocals and a rock climax.\n\nThe Nation\'s Stephanie Burt called it "the harshest, most dismissive, most condemnatory song that Swift has ever written," while Rolling Stone\'s Rob Sheffield ranked it among her best breakup songs. On the Hot 100 dated May 4, 2024, it landed at No. 14 — the closing slot in the week TTPD\'s 31 tracks (plus "Cruel Summer") gave Swift the entire top 14 simultaneously, a first for any artist.',
+          'Written and produced with Aaron Dessner and recorded partly in Biarritz, France, the song switches from a 7/4 verse-and-chorus meter to 4/4 for a bridge that swaps its piano ballad restraint for distorted vocals and a rock climax.\n\nThe Nation\'s Stephanie Burt called it "the harshest, most dismissive, most condemnatory song that Swift has ever written," while Rolling Stone\'s Rob Sheffield ranked it among her best breakup songs. On the Hot 100 dated May 4, 2024, it landed at No. 14 — the closing slot the week TTPD\'s 31 tracks filled the entire top 14, a first for any artist, with "Cruel Summer" charting too for 32 songs on the Hot 100 at once.',
         sources: [
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived' },
           {
@@ -1425,7 +1492,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift hasn\'t confirmed the subject on the record — but the reading is barely a theory: in the resurfaced clip Kelce picks "kiss" for Swift in a game of marry-kiss-kill years before they met, and "I feel like laughing in the middle of practice" nods at his impressions of Ed Kelce.\n\nWhen the song joined the Eras Tour setlist, the staging added football-stadium light rigs, and fans took the hint as confirmation enough.',
+          'Swift hasn\'t confirmed the subject on the record — but the reading is barely a theory: in the resurfaced clip Kelce picks "kiss" for Swift in a game of marry-kiss-kill years before they met, and "I feel like laughing in the middle of practice" nods at his impressions of Ed Kelce.\n\nWhen the song joined the Eras Tour setlist, the staging added on-stage bleachers and football-field visuals, and fans took the hint as confirmation enough.',
         sources: [
           {
             outlet: 'Today',
@@ -1612,7 +1679,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Aug. 8–10, 2024 shows were called off after authorities said a 19-year-old who had pledged allegiance to ISIS planned to attack the crowds, with bomb-making materials found at his home.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done, then explained she\'d been "holding my breath" — the Wembley run resumed days later under heightened security, and the tour finished without further incident.',
+          'The Aug. 8–10, 2024 shows were called off after authorities said a 19-year-old who had pledged allegiance to ISIS planned to attack the crowds, with bomb-making materials found at his home.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done, then explained that her silence "was actually showing restraint" — the Wembley run resumed days later under heightened security, and the tour finished without further incident.',
         sources: [
           {
             outlet: 'NBC News',
