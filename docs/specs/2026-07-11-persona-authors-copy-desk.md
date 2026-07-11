@@ -1,6 +1,10 @@
 # Spec: The Copy Desk — persona authors as living agents
 
-**Status: proposed — needs Joey (product) + Wyatt (architecture) approval before any build.**
+**Status: APPROVED — Joey (product) + Wyatt (architecture), 2026-07-11
+(Wyatt's sign-off relayed by Joey in session). Build may proceed per the §9
+phases. Still owed from Joey before Phase 2 ships: final persona names and
+the disclosure framing (§10) — names default to Theo/Loren/Vera/Deb until he
+says otherwise.**
 
 Resolves issue #462 (parked pending "a real spec" — this is it). Builds on the
 merged single-voice standard (`docs/content-ops/editorial-voice-and-pipeline.md`,

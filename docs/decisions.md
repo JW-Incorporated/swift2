@@ -35,6 +35,37 @@ specifically about the *automated engine*, not about content recency. See
 
 ---
 
+## 2026-07-11 — Persona author copy desk
+
+**Decision:** Adopt four named persona authors (charters in
+`docs/content-ops/personas/`) layered on the #449 house voice — Theo (music/
+releases/dossiers), Loren (theories/eggs), Vera (fashion/sightings), Deb
+(relationships/business/tour); names are Joey's to rename before bylines
+ship. Category→author routing lives in `scripts/copy-desk/routing.mjs` with
+explicit per-item seed overrides; authorship is **derived at sync time, never
+stored in the DB** (persona slugs permanent, display names mutable); on-site
+bylines + a meet-the-desk page with honest editorial-characters framing,
+gated on Joey approving the disclosure wording. Karen gains per-persona voice
+checks (deterministic checks gate; agent judgment advisory only), calibrated
+against committed golden fixtures per charter.
+
+**Why:** One anonymous voice reads like an aggregator (#462); personas make
+authorship legible and voice maintainable, and deriving (not storing) the
+author keeps renames/beat changes a one-file edit. Retro pass is cheap by
+design: bylines come free from sync derivation; only voice-check failures get
+rewritten.
+
+**Alternatives considered:** replace the single #449 voice standard entirely
+(rejected — personas are a dial within house rules, so #461 proceeds
+unchanged); store `author` as a CHECK-constrained DB column (rejected in
+Codex review — duplicates derived data, makes renames a migration).
+
+**Ref:** `docs/specs/2026-07-11-persona-authors-copy-desk.md` (PR #463),
+issue #462.
+
+**Approved by:** Joey (product) + Wyatt (CTO), 2026-07-11 — Wyatt's sign-off
+relayed by Joey in session.
+
 ## 2026-07-10 — Track dossier data model: grouped fields on TrackNote, one jsonb dossier column
 
 **Decision:** The Track Guide overhaul (issue #440) extends `TrackNote` with
