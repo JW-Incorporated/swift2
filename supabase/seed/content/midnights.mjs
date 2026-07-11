@@ -20,6 +20,7 @@ export default {
     {
       year: 2022,
       month: 10,
+      day: 21,
       category: 'music',
       title: "iHeartRadio's six-night Midnights takeover",
       snippet:
@@ -42,6 +43,7 @@ export default {
     {
       year: 2022,
       month: 10,
+      day: 21,
       category: 'business',
       title: 'Midnights breaks Spotify in a single day',
       snippet:
@@ -73,6 +75,7 @@ export default {
     {
       year: 2022,
       month: 10,
+      day: 30,
       category: 'business',
       title: 'Midnights debuts at No. 1 on the Billboard 200',
       snippet:
@@ -105,6 +108,7 @@ export default {
     {
       year: 2022,
       month: 10,
+      day: 21,
       category: 'music',
       title: "The 'Anti-Hero' video, and the scale scene that got cut",
       snippet:
@@ -126,6 +130,7 @@ export default {
     {
       year: 2023,
       month: 7,
+      day: 16,
       category: 'business',
       title: "Speak Now (Taylor's Version) has 2023's biggest album week to that point",
       snippet:
@@ -190,6 +195,7 @@ export default {
     {
       year: 2023,
       month: 10,
+      day: 27,
       category: 'music',
       title: 'A vault track that almost made the original 1989',
       snippet: 'A vault track that almost made the original 1989 — cut, then resurrected nearly a decade later.',
@@ -250,6 +256,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'tour',
       title: 'The Eras Tour kicks off in Glendale',
       snippet:
@@ -278,6 +285,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'tour',
       title: 'Glendale becomes Swift City for the weekend',
       snippet:
@@ -314,6 +322,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'Roberto Cavalli and Louboutin for the 1989 set',
       snippet:
@@ -342,6 +351,7 @@ export default {
     {
       year: 2022,
       month: 10,
+      day: 21,
       category: 'release',
       title: 'Midnights (3am Edition) surprises fans with 7 more songs',
       snippet:
@@ -373,6 +383,7 @@ export default {
     {
       year: 2023,
       month: 12,
+      day: 6,
       category: 'business',
       title: 'Time names her 2023 Person of the Year',
       snippet:
@@ -410,6 +421,7 @@ export default {
     {
       year: 2023,
       month: 4,
+      day: 9,
       category: 'relationship',
       title: 'Taylor and Joe Alwyn confirm their breakup after six years',
       snippet:
@@ -471,6 +483,7 @@ export default {
     {
       year: 2023,
       month: 7,
+      day: 26,
       category: 'relationship',
       title: "The friendship bracelet Travis couldn't deliver",
       snippet:
@@ -507,6 +520,7 @@ export default {
     {
       year: 2023,
       month: 9,
+      day: 24,
       category: 'sighting',
       title: 'First Chiefs game: cheering on from the family suite',
       snippet:
@@ -535,6 +549,7 @@ export default {
     {
       year: 2023,
       month: 9,
+      day: 24,
       category: 'relationship',
       title: 'The game the world decided made it official',
       snippet:
@@ -563,6 +578,7 @@ export default {
     {
       year: 2023,
       month: 9,
+      day: 24,
       category: 'fashion',
       title: 'Game-day debut: a Doen tank, denim shorts, and a Chiefs windbreaker',
       snippet:
@@ -596,6 +612,7 @@ export default {
     {
       year: 2023,
       month: 9,
+      day: 12,
       category: 'fashion',
       title: 'A black-and-gold gown for a record VMA night',
       snippet: 'A reputation-coded black gown with gold accents and a thigh-high slit on the pink carpet.',
@@ -620,6 +637,7 @@ export default {
     {
       year: 2023,
       month: 9,
+      day: 12,
       category: 'business',
       title: 'A record-tying 9 VMA wins in one night',
       snippet:
@@ -646,10 +664,11 @@ export default {
     {
       year: 2023,
       month: 10,
+      day: 23,
       category: 'business',
       title: "Cruel Summer hits No. 1 — four years after it came out",
       snippet:
-        'An unpromoted 2019 album track, revived by the Eras Tour setlist and a viral moment, becomes her 10th Hot 100 No. 1 on the chart dated Oct. 28.',
+        'An unpromoted 2019 album track, revived by the Eras Tour setlist and a viral moment, was announced Oct. 23 as her 10th Hot 100 No. 1 — on the Billboard chart dated Oct. 28.',
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/',
       thumbnailUrl:
@@ -678,6 +697,7 @@ export default {
     {
       year: 2023,
       month: 10,
+      day: 1,
       category: 'sighting',
       title: 'A box full of A-listers at MetLife Stadium',
       snippet:
@@ -709,6 +729,7 @@ export default {
     {
       year: 2023,
       month: 10,
+      day: 11,
       category: 'fashion',
       title: 'A blue floral gown, and a surprise Beyoncé reunion',
       snippet:
@@ -736,6 +757,7 @@ export default {
     {
       year: 2023,
       month: 11,
+      day: 20,
       category: 'relationship',
       title: 'Travis makes it official, on the record',
       snippet:
@@ -764,6 +786,7 @@ export default {
     {
       year: 2023,
       month: 12,
+      day: 10,
       category: 'fashion',
       title: 'High-low styling for the Bills game: Khaite, vintage, and Mejuri',
       snippet: 'A Khaite mini skirt and a vintage-’90s Chiefs jumper, styled with Mejuri jewelry and Larroudé boots.',
@@ -781,6 +804,7 @@ export default {
     {
       year: 2023,
       month: 12,
+      day: 25,
       category: 'sighting',
       title: 'A Santa-costumed entrance for a Christmas Day upset',
       snippet:
@@ -814,6 +838,7 @@ export default {
     {
       year: 2023,
       month: 12,
+      day: 6,
       category: 'fashion',
       title: "TIME's Person of the Year cover shoot, in three looks",
       snippet: 'A black bodysuit with her cat Benjamin Button on one cover, a crystal-embellished Area mini dress in reputation-coded gray on another.',
@@ -841,6 +866,7 @@ export default {
     {
       year: 2024,
       month: 1,
+      day: 13,
       category: 'sighting',
       title: 'A frigid Wild Card game, bundled in a No. 87 puffer',
       snippet:
@@ -868,6 +894,7 @@ export default {
     {
       year: 2024,
       month: 1,
+      day: 28,
       category: 'relationship',
       title: 'A kiss to celebrate the AFC Championship',
       snippet: 'She kissed Travis on the field as Kansas City beat Baltimore to reach a second straight Super Bowl.',
@@ -897,6 +924,7 @@ export default {
     {
       year: 2024,
       month: 2,
+      day: 4,
       category: 'fashion',
       title: 'Custom Schiaparelli, with a Midnights clock hidden in the choker',
       snippet: 'A strapless white Schiaparelli gown with a thigh-high slit — and a choker shaped like a clock face set to midnight.',
@@ -926,6 +954,7 @@ export default {
     {
       year: 2024,
       month: 2,
+      day: 4,
       category: 'business',
       title: 'A record fourth Album of the Year Grammy, for Midnights',
       snippet: 'Presented by Céline Dion in a rare public appearance — Swift\'s fourth AOTY win, more than any artist in Grammy history.',
@@ -952,6 +981,7 @@ export default {
     {
       year: 2024,
       month: 2,
+      day: 11,
       category: 'fashion',
       title: 'Super Bowl LVIII: a sheer corset, Area jeans, and his number in rubies',
       snippet:
@@ -979,6 +1009,7 @@ export default {
     {
       year: 2024,
       month: 2,
+      day: 11,
       category: 'sighting',
       title: 'Tokyo to Las Vegas: making the Super Bowl after four Eras shows',
       snippet:
@@ -1006,6 +1037,7 @@ export default {
     {
       year: 2024,
       month: 3,
+      day: 2,
       category: 'tour',
       title: 'Six Singapore shows, and a regional exclusivity deal that made headlines',
       snippet:
@@ -1043,6 +1075,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'A pink-toned Versace bodysuit opens the Lover set',
       snippet:
@@ -1069,6 +1102,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'Roberto Cavalli gold fringe for the Fearless set',
       snippet:
@@ -1095,6 +1129,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'A mustard Etro gown and cape for evermore',
       snippet:
@@ -1121,6 +1156,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'The original reputation catsuit, cut-outs and all',
       snippet:
@@ -1147,6 +1183,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'The Ashish "22" outfit, recreated for Red',
       snippet:
@@ -1173,6 +1210,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'A Nicole + Felicia princess gown for Speak Now',
       snippet: 'A voluminous Nicole + Felicia princess gown for the Speak Now segment of Eras Tour night one.',
@@ -1198,6 +1236,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'A flowing purple Alberta Ferretti dress for Folklore',
       snippet: "A flowing purple Alberta Ferretti dress captured the woodsy feel of Folklore on Eras Tour opening night.",
@@ -1224,6 +1263,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'A magenta Jessica Jones gown for the surprise-song set',
       snippet: 'For the acoustic surprise-song portion of the night, Swift stunned in a magenta Jessica Jones dress.',
@@ -1250,6 +1290,7 @@ export default {
     {
       year: 2023,
       month: 3,
+      day: 17,
       category: 'fashion',
       title: 'Oscar de la Renta closes the night for Midnights',
       snippet:
@@ -1281,6 +1322,7 @@ export default {
     {
       year: 2024,
       month: 1,
+      day: 7,
       category: 'fashion',
       title: 'A sparkling green Gucci gown at the Golden Globes',
       snippet:
@@ -1309,6 +1351,7 @@ export default {
     {
       year: 2023,
       month: 2,
+      day: 5,
       category: 'fashion',
       title: 'A midnight-blue, star-scattered Roberto Cavalli look at the 2023 Grammys',
       snippet:
@@ -1344,6 +1387,7 @@ export default {
     {
       year: 2022,
       month: 10,
+      day: 25,
       category: 'fashion',
       title: 'A Dita Von Teese-styled burlesque scene and Pat McGrath\'s 30-look makeup for "Bejeweled"',
       snippet:
@@ -1374,6 +1418,7 @@ export default {
     {
       year: 2023,
       month: 9,
+      day: 12,
       category: 'fashion',
       title: 'A black Versace gown with gold buttons at the 2023 VMAs',
       snippet:
@@ -1432,6 +1477,7 @@ export default {
     {
       year: 2023,
       month: 1,
+      day: 27,
       category: 'fashion',
       title: 'A 70s lace slip dress and Free People fur coat for "Lavender Haze"',
       snippet:
@@ -1464,6 +1510,7 @@ export default {
     {
       year: 2023,
       month: 5,
+      day: 26,
       category: 'fashion',
       title: 'A Coach gingham minidress for the "Karma" surprise video',
       snippet:
@@ -1504,6 +1551,7 @@ export default {
     {
       year: 2023,
       month: 10,
+      day: 12,
       category: 'sighting',
       title: 'A Thursday-night Broncos game, one day after the Eras film premiere',
       snippet:
@@ -1535,6 +1583,7 @@ export default {
     {
       year: 2023,
       month: 10,
+      day: 14,
       category: 'sighting',
       title: 'A wordless SNL cameo, then dinner at Nobu',
       snippet:
@@ -1565,6 +1614,7 @@ export default {
     {
       year: 2023,
       month: 10,
+      day: 22,
       category: 'sighting',
       title: "A friendship bracelet with his number, for the Chargers game",
       snippet:
@@ -1592,6 +1642,7 @@ export default {
     {
       year: 2023,
       month: 11,
+      day: 11,
       category: 'sighting',
       title: 'Travis flies to Buenos Aires for the second Eras Tour show there',
       snippet:
@@ -1627,6 +1678,7 @@ export default {
     {
       year: 2023,
       month: 11,
+      day: 4,
       category: 'sighting',
       title: 'A girls-only night out on Bond Street',
       snippet:
@@ -1657,6 +1709,7 @@ export default {
     {
       year: 2023,
       month: 12,
+      day: 13,
       category: 'sighting',
       title: 'A crescent-moon dress for her 34th birthday, with Blake Lively',
       snippet:
@@ -1683,6 +1736,7 @@ export default {
     {
       year: 2023,
       month: 12,
+      day: 31,
       category: 'sighting',
       title: 'Ringing in 2024 with the Mahomeses',
       snippet:
@@ -1711,6 +1765,7 @@ export default {
     {
       year: 2024,
       month: 1,
+      day: 21,
       category: 'sighting',
       title: 'A frigid divisional round in Buffalo, seated with Jason Kelce',
       snippet:
@@ -1751,6 +1806,7 @@ export default {
     {
       year: 2022,
       month: 10,
+      day: 7,
       category: 'music',
       title: 'A Mad Men rerun gave Midnights its opening track',
       snippet:
@@ -1844,6 +1900,7 @@ export default {
     {
       year: 2023,
       month: 11,
+      day: 29,
       category: 'music',
       title: 'Lana Del Rey reveals how much of "Snow on the Beach" is actually her',
       snippet:
@@ -1877,6 +1934,7 @@ export default {
     {
       year: 2023,
       month: 12,
+      day: 6,
       category: 'music',
       title: 'The Phantom Thread ending that inspired "Mastermind"',
       snippet:
@@ -1908,6 +1966,7 @@ export default {
     {
       year: 2022,
       month: 11,
+      day: 5,
       category: 'business',
       title: 'Every spot in the Hot 100 top 10, all at once',
       snippet:
@@ -1939,6 +1998,7 @@ export default {
     {
       year: 2023,
       month: 6,
+      day: 10,
       category: 'business',
       title: 'Midnights knocks Morgan Wallen off the top of the chart',
       snippet:
@@ -1977,6 +2037,7 @@ export default {
       slug: 'midnights-mayhem-with-me',
       year: 2022,
       month: 10,
+      day: 7,
       category: 'release',
       title: 'Midnights Mayhem with Me: a bingo cage announces the tracklist',
       snippet:
@@ -2022,6 +2083,7 @@ export default {
       slug: 'bejeweled-video-easter-eggs',
       year: 2022,
       month: 10,
+      day: 25,
       category: 'music',
       title: '"Bejeweled" arrives with a "psychotic amount" of easter eggs',
       snippet:
@@ -2067,6 +2129,7 @@ export default {
       slug: 'amas-2022-six-for-six',
       year: 2022,
       month: 11,
+      day: 20,
       category: 'business',
       title: 'Six-for-six at the AMAs, and past 40 career wins',
       snippet:
@@ -2113,6 +2176,7 @@ export default {
       slug: 'eras-tour-presale-meltdown',
       year: 2022,
       month: 11,
+      day: 15,
       category: 'business',
       title: 'The presale that broke Ticketmaster — and set a sales record anyway',
       snippet:
@@ -2158,6 +2222,7 @@ export default {
       slug: 'ticketmaster-senate-hearing',
       year: 2023,
       month: 1,
+      day: 24,
       category: 'business',
       title: 'The Senate holds a Ticketmaster hearing, in Swiftie puns',
       snippet:
@@ -2213,6 +2278,7 @@ export default {
       slug: 'speak-now-tv-announced-nashville',
       year: 2023,
       month: 5,
+      day: 5,
       category: 'release',
       title: "Speak Now (Taylor's Version) announced onstage in Nashville",
       snippet:
@@ -2258,6 +2324,7 @@ export default {
       slug: 'i-can-see-you-video-lautner',
       year: 2023,
       month: 7,
+      day: 7,
       category: 'music',
       title: 'The "I Can See You" video reunites the Taylors',
       snippet:
@@ -2303,6 +2370,7 @@ export default {
       slug: 'swift-quake-seattle',
       year: 2023,
       month: 7,
+      day: 22,
       category: 'tour',
       title: 'The "Swift Quake": Seattle shows register as seismic activity',
       snippet:
@@ -2349,6 +2417,7 @@ export default {
       slug: 'eras-tour-beige-book',
       year: 2023,
       month: 7,
+      day: 12,
       category: 'business',
       title: "The Eras Tour makes the Federal Reserve's Beige Book",
       snippet:
@@ -2404,6 +2473,7 @@ export default {
       slug: 'sofi-1989-tv-announcement',
       year: 2023,
       month: 8,
+      day: 9,
       category: 'release',
       title: "1989 (Taylor's Version) announced at the final US show — on the date fans predicted",
       snippet:
@@ -2450,6 +2520,7 @@ export default {
       slug: 'bloomberg-billionaire',
       year: 2023,
       month: 10,
+      day: 26,
       category: 'business',
       title: 'Billionaire status, from the music alone',
       snippet:
@@ -2495,6 +2566,7 @@ export default {
       slug: 'eras-film-opening-weekend',
       year: 2023,
       month: 10,
+      day: 13,
       category: 'release',
       title: 'The Eras Tour film opens to $92.8 million — the biggest concert-film debut ever',
       snippet:
@@ -2540,6 +2612,7 @@ export default {
       slug: 'slut-vault-love-song',
       year: 2023,
       month: 10,
+      day: 27,
       category: 'music',
       title: '"Slut!" turns out to be a love song',
       snippet:
@@ -2585,6 +2658,7 @@ export default {
       slug: 'buenos-aires-karma-lyric-change',
       year: 2023,
       month: 11,
+      day: 11,
       category: 'relationship',
       title: '"Karma is the guy on the Chiefs" — sung with Travis watching',
       snippet:
@@ -2631,6 +2705,7 @@ export default {
       slug: 'youre-losing-me-streaming',
       year: 2023,
       month: 11,
+      day: 29,
       category: 'music',
       title: '"You\'re Losing Me" finally hits streaming',
       snippet:
@@ -2676,6 +2751,7 @@ export default {
       slug: 'melbourne-mcg-biggest-shows',
       year: 2024,
       month: 2,
+      day: 16,
       category: 'tour',
       title: '96,000 a night at the MCG — the biggest shows of her career',
       snippet:
@@ -2722,6 +2798,7 @@ export default {
       slug: 'coachella-2024-with-travis',
       year: 2024,
       month: 4,
+      day: 13,
       category: 'sighting',
       title: 'Coachella, in a New Heights hat',
       snippet:

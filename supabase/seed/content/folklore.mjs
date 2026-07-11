@@ -23,7 +23,8 @@ export default {
   items: [
     {
       year: 2020,
-      month: 7,
+      month: 8,
+      day: 8,
       category: 'business',
       title: 'folklore makes her the first artist to top both charts at once',
       snippet:
@@ -57,6 +58,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'A fictional teenage love triangle, told across three songs',
       snippet:
@@ -104,6 +106,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: "The last great american dynasty, and the widow she found in her own house",
       snippet:
@@ -141,6 +144,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'epiphany, from a WWII battlefield to a 2020 hospital ward',
       snippet: 'Her grandfather at Guadalcanal in 1942, a nurse on a COVID ward in 2020 — two kinds of trauma nobody comes home able to talk about.',
@@ -166,6 +170,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'seven, a childhood friendship remembered in fragments',
       snippet: 'A seven-year-old\'s memory of a friend in a house she calls "haunted" — too young to understand why, old enough to want to run away with her.',
@@ -197,6 +202,7 @@ export default {
     {
       year: 2020,
       month: 11,
+      day: 25,
       category: 'release',
       title: 'folklore: The Long Pond Studio Sessions marks her directorial debut',
       snippet:
@@ -229,6 +235,7 @@ export default {
     {
       year: 2021,
       month: 3,
+      day: 14,
       category: 'business',
       title: 'folklore makes her the first woman to win Album of the Year three times',
       snippet:
@@ -268,6 +275,7 @@ export default {
     {
       year: 2021,
       month: 3,
+      day: 14,
       category: 'fashion',
       title: 'A custom Etro gown for the folklore/evermore medley',
       snippet:
@@ -313,6 +321,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'fashion',
       title: 'The "cardigan" video: a nap dress and the cottagecore uniform',
       snippet:
@@ -350,6 +359,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'fashion',
       title: 'No glam team: self-styled hair and makeup for the folklore era',
       snippet:
@@ -388,6 +398,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'fashion',
       title: 'The folklore album cover: a self-directed, black-and-white photoshoot',
       snippet:
@@ -417,6 +428,7 @@ export default {
     {
       year: 2020,
       month: 11,
+      day: 25,
       category: 'fashion',
       title: 'A Free People velvet shirt dress for the Long Pond Studio Sessions',
       snippet:
@@ -462,6 +474,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'fashion',
       title: 'The original folklore cardigan sells out and becomes a piece of merch history',
       snippet:
@@ -494,6 +507,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'mirrorball, written right after the Lover Fest tour was scrapped',
       snippet:
@@ -520,6 +534,7 @@ export default {
     {
       year: 2020,
       month: 12,
+      day: 9,
       category: 'music',
       title: 'mad woman, and the dispute Taylor confirmed inspired it',
       snippet:
@@ -552,6 +567,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'invisible string, and "a single thread that ties you to your fate"',
       snippet:
@@ -578,6 +594,7 @@ export default {
     {
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'hoax, the last song written for the album',
       snippet:
@@ -604,6 +621,7 @@ export default {
     {
       year: 2020,
       month: 8,
+      day: 2,
       category: 'business',
       title: "folklore's surprise debut: 846,000 units and her seventh No. 1 album",
       snippet:
@@ -634,6 +652,7 @@ export default {
     {
       year: 2020,
       month: 10,
+      day: 31,
       category: 'business',
       title: 'folklore becomes the first million-selling album of 2020 in the US',
       snippet:
@@ -703,6 +722,7 @@ export default {
       slug: 'folklore-sixteen-hour-announcement',
       year: 2020,
       month: 7,
+      day: 23,
       category: 'release',
       title: 'Sixteen hours\' notice: the announcement that invented the surprise era',
       snippet:
@@ -740,6 +760,7 @@ export default {
       slug: 'exile-bon-iver-duet',
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'exile: a break-up seen from both sides, with Bon Iver in the other corner',
       snippet:
@@ -786,6 +807,7 @@ export default {
       slug: 'my-tears-ricochet-first-written',
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'my tears ricochet, the first song written for the album — alone',
       snippet:
@@ -832,6 +854,7 @@ export default {
       slug: 'august-augusta-or-augustine',
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'august, and the girl Taylor says might be named Augusta. Or Augustine.',
       snippet:
@@ -869,6 +892,7 @@ export default {
       slug: 'the-lakes-deluxe-bonus',
       year: 2020,
       month: 8,
+      day: 18,
       category: 'release',
       title: 'the lakes: the Lake District escape fantasy, saved for the deluxe edition',
       snippet:
@@ -912,6 +936,7 @@ export default {
       slug: 'betty-country-radio-single',
       year: 2020,
       month: 8,
+      day: 17,
       category: 'release',
       title: 'betty goes to country radio — her first country single since 2013',
       snippet:
@@ -961,6 +986,7 @@ export default {
       slug: 'betty-acm-awards-performance',
       year: 2020,
       month: 9,
+      day: 16,
       category: 'music',
       title: "folklore's first live moment: betty, alone at the Grand Ole Opry House",
       snippet:
@@ -1007,6 +1033,7 @@ export default {
       slug: 'william-bowery-is-joe',
       year: 2020,
       month: 11,
+      day: 25,
       category: 'relationship',
       title: 'William Bowery is Joe: the Long Pond reveal',
       snippet:
@@ -1057,6 +1084,7 @@ export default {
       slug: 'amas-2020-rerecording-reveal',
       year: 2020,
       month: 11,
+      day: 22,
       category: 'business',
       title: "Artist of the Year, accepted from the studio: 'I'm re-recording all of my old music'",
       snippet:
@@ -1103,6 +1131,7 @@ export default {
       slug: 'folklore-six-grammy-nominations',
       year: 2020,
       month: 11,
+      day: 24,
       category: 'business',
       title: 'Six Grammy nominations for the quarantine album',
       snippet:
@@ -1157,6 +1186,7 @@ export default {
       slug: 'cardigan-self-directed-video',
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'cardigan: the lead single, with a video she directed herself',
       snippet:
@@ -1201,6 +1231,7 @@ export default {
       slug: 'the-1-last-minute-opener',
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'the 1, written days before release and promoted straight to opening track',
       snippet:
@@ -1238,6 +1269,7 @@ export default {
       slug: 'illicit-affairs-bridge',
       year: 2020,
       month: 7,
+      day: 24,
       category: 'music',
       title: 'illicit affairs, and the bridge that ate the song',
       snippet:
@@ -1284,6 +1316,7 @@ export default {
       slug: 'this-is-me-trying-long-pond',
       year: 2020,
       month: 11,
+      day: 25,
       category: 'music',
       title: 'this is me trying, unpacked at Long Pond',
       snippet:
@@ -1330,6 +1363,7 @@ export default {
       slug: 'peace-the-real-one',
       year: 2020,
       month: 11,
+      day: 25,
       category: 'music',
       title: 'peace, the most autobiographical song on the "fictional" album',
       snippet:
@@ -1367,6 +1401,7 @@ export default {
       slug: 'shamrock-masters-sale',
       year: 2020,
       month: 11,
+      day: 16,
       category: 'business',
       title: 'Her masters get sold again — this time to Shamrock Capital, for about $300 million',
       snippet:

@@ -157,6 +157,23 @@ export interface ContentItem {
    * affordance in the detail view.
    */
   relatedIds?: RelatedId[];
+  /**
+   * Threads (see LensId) this item belongs to. Two ways this gets set, both
+   * in `build()` (lib/longlive/content.ts) so every item — hand-curated or
+   * synced from `supabase/seed/content/**` — goes through the same logic:
+   *   1. Default-by-tag (`defaultThreadIdsForTags`): 'Relationship' tags
+   *      imply 'love-story', 'Fashion' tags imply 'fashion' — no authoring
+   *      action needed, so existing and future content flows into those two
+   *      threads automatically.
+   *   2. Explicit opt-in: an item can set this directly (on the seed row, as
+   *      `threadIds`) for threads with no tag-based default — 'taylors-version',
+   *      'easter-eggs', 'hidden-clues', 'the-proposal' — or to add a thread
+   *      beyond its tag default.
+   * See docs/decisions.md 2026-07-10 for why this replaced hand-authored
+   * per-thread arrays in lenses.ts. Query via `contentForThread()` in
+   * lib/longlive/threads.ts, not by filtering CONTENT directly.
+   */
+  threadIds?: LensId[];
 }
 
 /**
@@ -378,12 +395,30 @@ export interface Relationship {
   relatedIds?: RelatedId[];
 }
 
+/**
+ * A solo/single stretch on the Love Story thread — the gaps between
+ * relationships, treated as first-class timeline entries (not derived gaps)
+ * because they matter to the story: who she was with, and who she wasn't.
+ */
+export interface SinglePeriod {
+  id: string;
+  start: string;
+  /** null = the most recent solo stretch before her next relationship began
+   * has no meaningful "end" distinct from that relationship's start. */
+  end: string | null;
+  eraIds: EraId[];
+  note: string;
+  /** Songs associated with what she was writing/releasing during this stretch. */
+  songs?: string[];
+}
+
 export interface RunwayLook {
   id: string;
   eraId: EraId;
   name: string;
   description: string;
-  image: string;
+  /** Real, credited photos for this era's style story — always at least one. */
+  images: ImageRef[];
   shopTags: string[];
 }
 
@@ -392,8 +427,25 @@ export interface ReRecord {
   album: string;
   originalYear: number;
   reclaimedYear: number | null;
+  /** Human display date of the TV release, e.g. "Apr 9, 2021". null = not re-recorded yet. */
+  reclaimedDate: string | null;
   vaultTracks: number;
+  /** Per-album accent used on the ownership-timeline chart row and card rail. */
+  color: string;
   note: string;
+  /** Deeper editorial: the masters-dispute context specific to this album. */
+  context: string;
+  /** Why this album was re-recorded at this point in the campaign (or, for a
+   * still-pending album, why it hasn't been yet). */
+  whyNow: string;
+  /** The single most culturally significant vault track, or null (e.g. a
+   * pending album with no vault tracks released yet). */
+  vaultHighlight: string | null;
+  fanReaction: string;
+  /** Verified Spotify album IDs — null on either side is a real, checked
+   * absence (no TV yet, or the original master isn't the canonical release
+   * Taylor points fans to), never an unverified guess. */
+  spotify: { original: string | null; taylorsVersion: string | null };
 }
 
 export interface EggSource {
@@ -468,7 +520,32 @@ export interface CluePoint {
   eraId: EraId;
   /** What happened at this point. */
   what: string;
+  /**
+   * The receipt: her actual words at this point (lyric, spoken quote, liner
+   * note) — short and iconic. Optional; the UI degrades gracefully without
+   * it. Same discipline as media IDs: never trust memory for a quote, verify
+   * against a primary source before hardcoding, and it's a *snippet* only
+   * (docs/decisions.md 2026-07-09) — never a complete lyric.
+   */
+  line?: string;
+  /** Citation for `line`, e.g. a song title or interview name. */
+  lineCite?: string;
 }
+
+/** A coarse category for what kind of clue a CluePair is — distinct from the
+ * Clue Web's MotifId (a different feature, `easter-eggs` thread). Optional:
+ * the UI hides the motif badge rather than guessing when absent. */
+export type DecodeMotifId = 'number' | 'object' | 'lyric' | 'name' | 'structural' | 'theme' | 'political';
+
+export const DECODE_MOTIF_META: Record<DecodeMotifId, { label: string }> = {
+  number: { label: 'Number' },
+  object: { label: 'Object' },
+  lyric: { label: 'Lyric' },
+  name: { label: 'Name' },
+  structural: { label: 'Structure' },
+  theme: { label: 'Theme' },
+  political: { label: 'Movement' },
+};
 
 /**
  * A hidden clue Taylor planted at one point that paid off later. Rendered as an
@@ -477,6 +554,14 @@ export interface CluePoint {
 export interface CluePair {
   id: string;
   title: string;
+  /** Dramatic one-line teaser shown as the card's headline. Optional —
+   * falls back to `title` when absent, rather than requiring every one of
+   * the 100+ existing pairs to be rewritten before this field is useful. */
+  hook?: string;
+  /** Punchy fan-voice takeaway shown once the payoff is revealed. Optional —
+   * falls back to `connection` when absent, same reasoning as `hook`. */
+  verdict?: string;
+  motif?: DecodeMotifId;
   plant: CluePoint;
   payoff: CluePoint;
   /** One-sentence through-line connecting plant → payoff. */
@@ -523,4 +608,9 @@ export interface StoryBeat {
   source?: string;
   /** Optional pull-quote (a caption, lyric, or public statement). */
   quote?: string;
+  /** A real photo of this specific beat, or a labeled 'reference' stand-in
+   * when the real moment hasn't been photographed/isn't available — reuses
+   * ImageRef so the same 'reference'-never-implies-'primary' rule from
+   * MomentDetail applies here too. */
+  image?: ImageRef;
 }
