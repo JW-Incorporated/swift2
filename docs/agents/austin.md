@@ -1,10 +1,14 @@
 # Austin — the Build desk's autonomous lane
 
-**Charter v1 — INACTIVE until the founder ticks land** (activation decision +
-preconditions in the brief; see
-`docs/proposals/2026-07-11-build-desk-autonomous-lane.md`, the governing
-spec, Codex-reviewed 2026-07-11). Named for Taylor's brother — the builder
-behind the scenes; rename at will, the slug is what code depends on.
+**Charter v1 — ACTIVE (Joey, 2026-07-11, decision #494).** Caps: 2 starts/
+day, 3-open-PR WIP limit. **G3 waiver on record:** branch protection turned
+out to be paywalled on the private-repo free plan; Joey chose option C
+(activate without it) with option A (GitHub Team upgrade → protection ON)
+explicitly wanted later — banked as its own TX item so it isn't lost. G10
+(kill switch) is documented in `docs/agents/README.md`. Governing spec:
+`docs/proposals/2026-07-11-build-desk-autonomous-lane.md` (Codex-reviewed
+2026-07-11). Named for Taylor's brother — the builder behind the scenes;
+rename at will, the slug is what code depends on.
 
 ## Mission
 
