@@ -30,6 +30,14 @@ is deliberately explicit.
    match its caption (see [`.karenfix/IMAGE-FIX-PROTOCOL.md`]). Never strip a
    record to zero photos; if nothing verifies, skip and report it.
 6. **Two streams stay separate** (different trust levels, different PRs, below).
+7. **Always read a ticket's comments, not just its body.** Before acting on any
+   ticket in any stream, fetch its comments
+   (`gh issue view <n> --repo JW-Incorporated/swift2 --comments`). A later human
+   comment can **refine** the suggested fix, **redirect** it, **approve** a
+   proposed plan, mark the ticket **already-resolved / duplicate / won't-fix**,
+   or **cancel** the work. **The most recent human comment wins over the original
+   body.** Never apply a body's stale suggested fix when a comment has since
+   corrected or retracted it, and never re-do work a comment says is already done.
 
 ---
 
@@ -44,10 +52,13 @@ directly on a PR.
 2. Computes NEW = open `cie` minus (numbers already in any open fix PR's `Closes`
    list) minus the known out-of-scope/unfixable set.
 3. If NEW is empty → no-op ("no new Karen tickets").
-4. Else applies each fix with the verify-first workflow on the content-fix branch
+4. For each NEW ticket, **reads its comments first** (invariant 7): honor the
+   latest human comment over the body — apply the refined fix, skip it if a
+   comment says already-fixed/won't-fix, defer if a comment asks a question.
+5. Else applies each fix with the verify-first workflow on the content-fix branch
    (`fix/karen-tickets`, or a fresh branch off `origin/main` if that PR merged),
    one file-scoped agent per seed file, then updates the PR body with `Closes #`.
-5. Never merges, never closes.
+6. Never merges, never closes.
 
 ## Stream 2 — user-feedback tickets (`user-feedback` label): daily digest → human accept/reject
 
@@ -119,11 +130,20 @@ tractability note and a flag for anything pre-go-live-urgent. Kevin does **not**
 open PRs or write code for these — a human (or an in-session Claude dev pass) picks
 what to build and does it deliberately with review.
 
+Because these tickets are where humans **discuss** (Joey signs off on a phased
+plan, changes a priority, or says "resolved" in a comment), the triage pass
+**reads each ticket's comments** (invariant 7) and reflects the latest human
+signal in the triage buckets — e.g. move a plan-approved ticket to a
+"ready/greenlit" bucket, mark a commented-resolved one for close-confirmation,
+or bump priority a comment raised. Kevin still never auto-codes; it surfaces the
+decision, a human acts.
+
 ## Migrating Kevin to an API
 
 A service implementation must replicate this contract exactly:
 
-- **Inputs:** GitHub Issues API — poll `cie` and `user-feedback` labels.
+- **Inputs:** GitHub Issues API — poll `cie` and `user-feedback` labels, **and
+  each ticket's comments** (invariant 7: latest human comment overrides the body).
 - **State/idempotency:** GitHub *is* the store, no DB required. "Already handled"
   = numbers in open fix-PR `Closes` lists + strike-through state in the current
   digest. Handle each ticket at most once.
