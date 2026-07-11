@@ -1,16 +1,16 @@
 'use client';
 
-import { BookOpen, ChevronDown, Compass, Search, Share2, Layers } from 'lucide-react';
+import { ChevronDown, Compass, Search, Share2, Layers } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { getEra } from '@/lib/longlive/eras';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { Button } from '@/components/ui/button';
 import { TimelineScrubber } from './TimelineScrubber';
+import { TOPBAR_ACTIONS_CLASS, TOPBAR_LEFT_CLASS, TOPBAR_ROW_CLASS } from './topbarLayout';
 
 export function TopBar() {
   const { mode, eraId, lensId } = useAppState();
-  const { setMode, setSelectorOpen, setSearchOpen, openGlossary, openShare, goHome } =
-    useAppActions();
+  const { setMode, setSelectorOpen, setSearchOpen, openShare, goHome } = useAppActions();
   const era = getEra(eraId);
 
   function handleHome() {
@@ -25,8 +25,8 @@ export function TopBar() {
       {/* Peek strip / timeline lives at the very top in era mode. */}
       {mode === 'era' && <TimelineScrubber />}
 
-      <div className="flex items-center justify-between gap-2 border-b border-line bg-bg/80 px-4 py-3 backdrop-blur-xl md:gap-3 md:px-6">
-        <div className="flex min-w-0 items-center gap-2 md:gap-3">
+      <div className={TOPBAR_ROW_CLASS}>
+        <div className={TOPBAR_LEFT_CLASS}>
           <button
             type="button"
             onClick={handleHome}
@@ -59,12 +59,13 @@ export function TopBar() {
               )}
             </button>
           ) : (
-            <span className="truncate text-sm font-medium text-ink-soft">The Threads</span>
+            <span className="min-w-0 truncate text-sm font-medium text-ink-soft">The Threads</span>
           )}
         </div>
 
-        <div className="flex items-center gap-2">
-          <ModeToggle mode={mode} onChange={setMode} />
+        <ModeToggle mode={mode} onChange={setMode} />
+
+        <div className={TOPBAR_ACTIONS_CLASS}>
           <Button
             variant="surface"
             size="icon"
@@ -73,16 +74,6 @@ export function TopBar() {
             onClick={() => setSearchOpen(true)}
           >
             <Search />
-          </Button>
-          <Button
-            variant="surface"
-            size="icon"
-            aria-label="Glossary"
-            title="Glossary"
-            className="hidden sm:inline-flex"
-            onClick={() => openGlossary()}
-          >
-            <BookOpen />
           </Button>
           {(mode === 'era' || lensId != null) && (
             <Button
