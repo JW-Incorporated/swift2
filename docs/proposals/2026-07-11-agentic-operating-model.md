@@ -250,8 +250,10 @@ A GitHub label **`founder-decision`** + an issue template every agent must use:
 
 - **What's being decided** (one sentence) · **Context** (three sentences max,
   links for depth) · **Options A/B(/C)** · **Agent recommendation + why** ·
-  **Cost of delay** (what stalls while this waits) · **Tier** (2 = banked,
-  3 = paged) · **Deadline** if real.
+  **Cost of delay** (what stalls while this waits) · **Affects** (the exact
+  ticket/PR numbers this decision unblocks — machine-readable, so answer
+  propagation is mechanical) · **Tier** (2 = banked, 3 = paged) · **Deadline**
+  if real.
 
 Any agent may deposit. Marjorie curates continuously: dedupe, merge, check
 precedent (answer + close instead of banking, citing the decision entry), and
@@ -286,19 +288,28 @@ brief rather than separate issues.
 **Marjorie's mutation rights, exactly** (so the artifact rule stays honest):
 Marjorie may add **comments and labels** on any desk's issues/PRs; it may
 close only artifacts it owns (bank items, briefs). It never edits another
-agent's issue/PR bodies and never closes a desk's tickets. Propagation is a
-comment of the fixed form *"Founder decision (Brief YYYY-MM-DD → link): …"*,
-quoting the founder's ticked answer. Kevin's "latest human comment wins"
-invariant extends one clause: a Marjorie comment in exactly this relay form
-carries the founder's authority (it links to the checkbox the founder ticked);
-any other agent comment does not.
+agent's issue/PR bodies and never closes a desk's tickets.
+
+**Decision provenance — authority never lives in a relay** (Codex round 2:
+any agent could type a magic comment form, so no comment form may *carry*
+authority). The authoritative object is always **an artifact authored by a
+founder's GitHub account**: the brief edit that ticked a checkbox, or a
+founder comment on the bank issue. A propagation comment ("Founder decision,
+Brief YYYY-MM-DD → link: …") is a *pointer*, not a warrant: before acting on
+one, a desk's deterministic runner verifies the linked artifact exists and
+its author is a founder account (one API call). A relay pointing at nothing,
+or at a non-founder artifact, is a no-op flagged to the audit. This also
+fixes degraded mode: with Marjorie down, a founder's direct comment on the
+bank issue is already authoritative, and the watchdog Action (dumb code)
+cross-posts pointer comments to the ticket numbers in the item's **Affects**
+field — so answers still reach desks with zero LLM in the loop.
 
 ### 5.3 Interrupt tiers (the authority model)
 
 | Tier | What | Handling |
 |---|---|---|
 | **T0** | Inside a desk charter | Agent just does it. Logged in its artifacts. |
-| **T1** | Cross-desk coordination: priorities, scheduling, routing, precedent-covered questions | **Marjorie decides**, journal-logged, visible in next brief (founders can veto after the fact — everything T1 is reversible by design). |
+| **T1** | Cross-desk coordination: priorities, scheduling, routing, precedent-covered questions | **Marjorie decides**, journal-logged, visible in next brief (founders can veto after the fact — everything T1 is reversible by design). **In v1, routing and scheduling are propose-only** (§4.2): day-one T1 is precedent citation, dedup/ranking, and brief assembly; unilateral routing activates in Phase 2 after the first audit. |
 | **T2** | Founder decisions: spec approvals, product direction, merge/deploy approvals, policy changes, anything expensive to reverse | **Banked** → daily brief. |
 | **T3** | Fires: site down, legal/safety exposure, security incident, runaway cost, anything a one-day delay makes materially worse | **Page now** (channel = founder decision, §9), plus a brief entry. |
 | **TX** | Things AI cannot legally/physically do: accounts, banking, signatures | Banked as founder-action items with prepared instructions. |
@@ -312,20 +323,27 @@ then recorded in `docs/decisions.md`. Marjorie never self-promotes a class.
 That's the ratchet that makes asks *decrease* over time, which is the
 difference between this design and a notification system.
 
-**The non-ratchetable set (never leaves T2, no matter how many identical
-answers accumulate):** product direction and feature scope, brand voice and
-anything publicly posted, legal/policy posture, pricing/monetization, spending,
-merge/deploy authority itself, and charter changes. Two similar answers can
-differ on context a pattern-matcher can't see; these classes stay human
-forever unless founders amend this list by decision entry.
+**The non-ratchetable set (the precedent ratchet may never automate these,
+no matter how many identical answers accumulate):** product direction and
+feature scope, brand voice and public posting, legal/policy posture,
+pricing/monetization, spending, merge/deploy authority itself, and charter
+changes. Two similar answers can differ on context a pattern-matcher can't
+see. To be precise about what "non-ratchetable" bars (Codex round 2): it bars
+the *ratchet mechanism* — pattern-matched auto-promotion — not explicit
+founder grants. Founders can still deliberately delegate a narrow slice of
+one of these (the §5.4 merge gate; §7's per-channel template autoposting) by
+decision entry; that's a founder choosing, not Marjorie inferring.
 
 ### 5.5 When a banked item genuinely blocks a desk
 
 If a T2 item leaves a desk with *no* chartered work at all (rare by queue
-discipline, but real — e.g. a launch-gate approval), Marjorie sends **one**
-same-day nudge on the founders' channel containing only that item. It doesn't
-wait for tomorrow's brief, and it doesn't page as if it were a fire. One
-nudge, then it carries in the brief with its cost-of-delay escalating.
+discipline, but real — e.g. a launch-gate approval), it becomes
+nudge-eligible. **The nudge channel is capped org-wide, not per item** (Codex
+round 2: per-item nudges quietly rebuild the interrupt firehose): at most
+**one nudge message per day total**, batching every currently-blocking item,
+and an item may appear in a nudge **once ever** — after that it only carries
+in the brief with its cost-of-delay escalating. It doesn't page as if it were
+a fire.
 
 ### 5.4 Merge authority — the one big CLAUDE.md change, decided by founders
 
@@ -345,6 +363,16 @@ Kevin's never-merge invariants don't change (an earlier draft had Marjorie
 merging, which contradicted its own charter — Codex, round 1). The founders'
 grant lives in CLAUDE.md plus the gate's reviewable config; revoking it is
 deleting a workflow file.
+
+**Hard precondition (Codex round 2): the allowed paths must be inert data
+first.** Today `supabase/seed/content/**` files are executable `.mjs` modules
+imported by the seed/validate scripts — a path-clean PR could smuggle live
+code that runs in CI and later against the DB. Before the gate can be
+granted, CI gains a **content-inertness check** (parse each seed file and
+reject anything beyond a single default-exported object literal — no
+statements, no imports, no computed code), and "generated content files"
+gets an exact path allowlist. No inertness check in CI → the class stays
+human-merge regardless of the founders' answer to §9-Q1.
 
 Code, schema, infra, workflow, and docs PRs stay human-merge until separately
 revisited. Deploys stay human, full stop. This amends CLAUDE.md's "AI may not
@@ -400,8 +428,9 @@ following the same charter/cadence/sandbox pattern:
   from founder-approved templates. **Graduated authority:** starts as a draft
   queue in the brief (founder ticks approve); may move to scheduled autopost
   per channel only after a clean track record **plus** a channel policy doc
-  (voice, unofficial-app disclosure, what never gets said) **plus** explicit
-  founder sign-off per channel. A crisis-stop rule ships with the first
+  (voice, unofficial-app disclosure, what never gets said) **plus** an
+  explicit founder grant recorded as a decision entry — the deliberate
+  carve-out §5.3 permits; the precedent ratchet can never confer this. A crisis-stop rule ships with the first
   channel: any reply storm, press pickup, or legal-adjacent mention → posting
   freezes, founders paged. **Engagement replies (conversing as the brand) are
   out of automation scope indefinitely** — live brand voice in fandom politics
@@ -558,4 +587,18 @@ v1 scope and fallback posture. Joey (mid-debate, 2026-07-11): /marketing
 doesn't act like a team, wants agents — folded into §2.4/§7 (command retired,
 standing Growth-desk agent).
 
-**Round 2:** recorded below after the second review.
+**Round 2 (Codex adversarial review, 2026-07-11) — 5 findings, all accepted:**
+relay-comment spoofing + degraded-mode propagation gap → §5.2 rewritten:
+authority lives only in founder-authored artifacts, relays are verified
+pointers, the watchdog Action does mechanical propagation via the bank
+template's new **Affects** field; auto-merge gate bypass via executable
+seed `.mjs` files → §5.4 hard precondition: CI content-inertness check
+(export-only object literals) + exact generated-file allowlist before any
+grant; Marjorie v1 routing authority stated inconsistently between §4.2 and
+§5.3 → T1 table now says routing/scheduling are propose-only in v1;
+per-item same-day nudges could rebuild the interrupt firehose → §5.5 capped
+at one batched nudge message per day org-wide, once ever per item;
+autoposting appeared to contradict the non-ratchetable set → §5.3 now
+distinguishes ratchet-conferred (never) from founder-granted-by-decision-
+entry (allowed, narrow) autonomy. Codex confirmed the remaining round-1
+revisions as substantive. Debate closed after two rounds per protocol.
