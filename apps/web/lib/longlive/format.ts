@@ -51,6 +51,31 @@ export function formatMonthYear(iso: string): string {
 }
 
 /**
+ * "October 3, 2025"-style label for an ISO date. Accepts the partial forms
+ * dossier/fact dates are authored in: YYYY-MM-DD (full date), YYYY-MM (month
+ * + year), or bare YYYY (year as-is). Same UTC anchoring as formatMonthYear
+ * so a date never shifts a day backward in a negative-offset timezone.
+ */
+export function formatFullDate(iso: string): string {
+  if (/^\d{4}$/.test(iso)) return iso;
+  if (/^\d{4}-\d{2}$/.test(iso)) {
+    // Validate the month — '2025-13' must not render as 'Invalid Date'.
+    return /-(0[1-9]|1[0-2])$/.test(iso) ? formatMonthYear(`${iso}-01`) : iso;
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
+  const d = new Date(`${iso}T00:00:00Z`);
+  // Reject rolled-over dates too ('2025-02-30' parses as March 2) — a typo'd
+  // source date should surface as-is, not as a silently wrong calendar day.
+  if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== iso) return iso;
+  return d.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
+/**
  * Truncates prose to at most `max` characters on a word boundary, appending a
  * single ellipsis. Used by the scrubber hover preview and share copy so a
  * summary reads as a teaser, not a wall of text.

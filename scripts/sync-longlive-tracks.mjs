@@ -36,7 +36,7 @@ const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'tracks.gener
 // `.limit()` + cap check so a partial page can never silently ship a
 // truncated track guide (same guard as sync-longlive-content.mjs).
 const TRACK_NOTE_COLS =
-  'era_slug,track_title,track_number,note,source_url,sources,discussion,quoted_lines,discussion_source_url,discussion_sources,summary,inspiration,easter_eggs';
+  'era_slug,track_title,track_number,note,source_url,sources,discussion,quoted_lines,discussion_source_url,discussion_sources,summary,inspiration,easter_eggs,slug,release,release_date,writers,producers,is_single,single_release_date,themes,dossier';
 const MAX_ROWS = 2000;
 
 /**
@@ -91,6 +91,116 @@ export function discussionFrom(
   return { discussion: derived, quotedLines: lines, discussionSources: fallbackSources };
 }
 
+/** Trimmed non-empty strings from a raw array, or undefined when none survive. */
+function stringList(raw) {
+  if (!Array.isArray(raw)) return undefined;
+  const out = raw.map((s) => (typeof s === 'string' ? s.trim() : '')).filter(Boolean);
+  return out.length ? out : undefined;
+}
+
+/** A single trimmed non-empty string, or undefined. */
+function str(raw) {
+  return typeof raw === 'string' && raw.trim() ? raw.trim() : undefined;
+}
+
+/**
+ * Normalize the essential-facts fields (issue #440 Phase 0 — these were
+ * already authored in the seed files, this just carries them through) into
+ * the UI's grouped `TrackFacts` object, or null when nothing is known.
+ * Accepts both the seed camelCase shape and (via the caller's column
+ * mapping) the DB snake_case shape.
+ */
+export function factsFrom({ release, releaseDate, writers, producers, isSingle, singleReleaseDate, themes }) {
+  const facts = {};
+  const rel = str(release);
+  if (rel) facts.release = rel;
+  const relDate = str(releaseDate);
+  if (relDate) facts.releaseDate = relDate;
+  const w = stringList(writers);
+  if (w) facts.writers = w;
+  const p = stringList(producers);
+  if (p) facts.producers = p;
+  const single = str(singleReleaseDate);
+  // A dated single release implies single status even when the seed row
+  // didn't set the flag explicitly (authoring drift across era files).
+  if (isSingle === true || single) facts.isSingle = true;
+  if (single) facts.singleReleaseDate = single;
+  const t = stringList(themes);
+  if (t) facts.themes = t;
+  return Object.keys(facts).length ? facts : null;
+}
+
+/**
+ * Validate + normalize a raw `dossier` object (seed field or DB jsonb) into
+ * the UI's `TrackDossier` shape, or null when it has no renderable content.
+ * Same no-unsourced-content rule as `discussionFrom`: a dossier with claims
+ * but an empty `sources` list is dropped entirely (and logged, since that's
+ * an authoring error, not an expected state).
+ */
+export function dossierFrom(raw) {
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null;
+
+  const out = {};
+  const whyItMatters = stringList(raw.whyItMatters);
+  if (whyItMatters) out.whyItMatters = whyItMatters;
+
+  if (raw.meaning && typeof raw.meaning === 'object') {
+    const meaning = {};
+    const confirmed = stringList(raw.meaning.confirmed);
+    if (confirmed) meaning.confirmed = confirmed;
+    const supported = stringList(raw.meaning.supported);
+    if (supported) meaning.supported = supported;
+    const fanTheories = stringList(raw.meaning.fanTheories);
+    if (fanTheories) meaning.fanTheories = fanTheories;
+    if (Object.keys(meaning).length) out.meaning = meaning;
+  }
+
+  if (Array.isArray(raw.connections)) {
+    const connections = raw.connections
+      .map((c) => c && { relatedId: str(c.relatedId), label: str(c.label), why: str(c.why) })
+      .filter((c) => c && c.relatedId && c.label && c.why);
+    if (connections.length) out.connections = connections;
+  }
+
+  if (Array.isArray(raw.live)) {
+    const live = raw.live
+      .map((m) => {
+        if (!m) return null;
+        const event = str(m.event);
+        const note = str(m.note);
+        if (!event || !note) return null;
+        const date = str(m.date);
+        return date ? { date, event, note } : { event, note };
+      })
+      .filter(Boolean);
+    if (live.length) out.live = live;
+  }
+
+  if (Array.isArray(raw.voices)) {
+    const voices = raw.voices
+      .map((v) => {
+        if (!v) return null;
+        const who = str(v.who);
+        const note = str(v.note);
+        if (!who || !note) return null;
+        const context = str(v.context);
+        return context ? { who, context, note } : { who, note };
+      })
+      .filter(Boolean);
+    if (voices.length) out.voices = voices;
+  }
+
+  if (!Object.keys(out).length) return null;
+
+  const sources = sourcesFrom(raw.sources, null);
+  if (!sources.length) {
+    console.warn('sync-longlive-tracks: dropping a dossier with content but no sources (authoring error).');
+    return null;
+  }
+  out.sources = sources;
+  return out;
+}
+
 /**
  * Normalize one raw track (seed-file or DB shape) into the UI's TrackNote
  * shape, or null when it isn't renderable. The UI's whole point is the
@@ -99,6 +209,7 @@ export function discussionFrom(
  * defensive mirror of that).
  */
 export function normalizeTrack({
+  slug,
   trackNumber,
   trackTitle,
   note,
@@ -111,6 +222,14 @@ export function normalizeTrack({
   summary,
   inspiration,
   easterEggs,
+  release,
+  releaseDate,
+  writers,
+  producers,
+  isSingle,
+  singleReleaseDate,
+  themes,
+  dossier,
 }) {
   const title = typeof trackTitle === 'string' ? trackTitle.trim() : '';
   const trimmedNote = typeof note === 'string' ? note.trim() : '';
@@ -124,7 +243,11 @@ export function normalizeTrack({
     { discussion, quotedLines, discussionSourceUrl, discussionSources, summary, inspiration, easterEggs },
     resolvedSources,
   );
+  const trimmedSlug = str(slug);
+  const facts = factsFrom({ release, releaseDate, writers, producers, isSingle, singleReleaseDate, themes });
+  const dossierResult = dossierFrom(dossier);
   return {
+    ...(trimmedSlug ? { slug: trimmedSlug } : {}),
     trackNumber: Number.isInteger(n) && n > 0 ? n : null,
     title,
     note: trimmedNote,
@@ -136,6 +259,8 @@ export function normalizeTrack({
           discussionSources: discussionResult.discussionSources,
         }
       : {}),
+    ...(facts ? { facts } : {}),
+    ...(dossierResult ? { dossier: dossierResult } : {}),
   };
 }
 
@@ -194,6 +319,7 @@ export function renderModule(byEra) {
     lines.push(`  ${esc(eraId)}: [`);
     for (const t of byEra[eraId]) {
       lines.push('    {');
+      if (t.slug) lines.push(`      slug: ${esc(t.slug)},`);
       lines.push(`      trackNumber: ${t.trackNumber === null ? 'null' : t.trackNumber},`);
       lines.push(`      title: ${esc(t.title)},`);
       lines.push(`      note: ${esc(t.note)},`);
@@ -211,6 +337,10 @@ export function renderModule(byEra) {
           .join(', ');
         lines.push(`      discussionSources: [${discSrcs}],`);
       }
+      // Grouped objects (facts/dossier) are emitted as plain JSON — already
+      // normalized above, and JSON is valid TS object-literal syntax.
+      if (t.facts) lines.push(`      facts: ${JSON.stringify(t.facts)},`);
+      if (t.dossier) lines.push(`      dossier: ${JSON.stringify(t.dossier)},`);
       lines.push('    },');
     }
     lines.push('  ],');
@@ -256,6 +386,7 @@ async function fetchFromSupabase() {
 
   const entries = data.map((row) => ({
     eraSlug: row.era_slug,
+    slug: row.slug,
     trackNumber: row.track_number,
     trackTitle: row.track_title,
     note: row.note,
@@ -268,6 +399,14 @@ async function fetchFromSupabase() {
     summary: row.summary,
     inspiration: row.inspiration,
     easterEggs: row.easter_eggs,
+    release: row.release,
+    releaseDate: row.release_date,
+    writers: row.writers,
+    producers: row.producers,
+    isSingle: row.is_single,
+    singleReleaseDate: row.single_release_date,
+    themes: row.themes,
+    dossier: row.dossier,
   }));
   console.log(`sync-longlive-tracks: loaded ${entries.length} track notes from Supabase (live).`);
   return buildTrackGuide(entries);
@@ -275,9 +414,12 @@ async function fetchFromSupabase() {
 
 /** Fallback source: the local supabase/seed/tracks/*.mjs files. */
 async function fetchFromLocalFiles() {
-  // Files starting with "_" are templates, not real content (same convention
-  // as scripts/seed-tracks.mjs).
-  const files = (await readdir(SEED_DIR)).filter((f) => f.endsWith('.mjs') && !f.startsWith('_'));
+  // Files starting with "_" are templates, not real content; `.dossiers.mjs`
+  // files are per-era side modules imported by their era file (same
+  // convention as scripts/seed-tracks.mjs).
+  const files = (await readdir(SEED_DIR)).filter(
+    (f) => f.endsWith('.mjs') && !f.startsWith('_') && !f.endsWith('.dossiers.mjs'),
+  );
 
   const entries = [];
   for (const file of files.sort()) {

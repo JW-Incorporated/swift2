@@ -243,6 +243,23 @@ export interface TrackNote {
   isFromTheVault?: boolean;
   /** ISO date the track was released as a single, or null if never. */
   singleReleaseDate?: string | null;
+  // -- additive optional fields (issue #440 Phase 0: essential facts + dossier) --
+  /** Public-record production credits. */
+  producers?: string[];
+  /** Release the track appears on, e.g. "The Life of a Showgirl". */
+  release?: string;
+  /** ISO release date of that release (YYYY-MM-DD). */
+  releaseDate?: string;
+  isSingle?: boolean;
+  /** Editorial theme tags. */
+  themes?: string[];
+  /**
+   * The per-song dossier (why-it-matters / tiered meaning / connections /
+   * live history / collaborator voices), stored as one jsonb column. The
+   * authoritative field-level shape is `TrackDossier` in
+   * apps/web/lib/longlive/types.ts; the sync generator validates it.
+   */
+  dossier?: Record<string, unknown>;
 }
 
 export interface YearMonth {
