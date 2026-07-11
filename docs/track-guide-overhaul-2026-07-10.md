@@ -26,11 +26,11 @@ this branch.
 | Phase 0: migration `20260710160000_track_note_facts_dossier.sql`, seed-tracks INSERT, sync generator (`factsFrom`/`dossierFrom`), web `TrackFacts`/`TrackDossier` types, shared vault-types, `song:<slug>` RelatedId + `songTargetOf`/`resolveConnections` (tracks.ts), `openSong` store action | ✅ built, typecheck clean |
 | Phase 1 UI: `TrackDetail.tsx` dossier rebuild (facts card, why-it-matters, tiered meaning w/ existing pill language, on-stage, voices, connections), TrackGuide row opens on dossier too, `formatFullDate` in format.ts | ✅ built, typecheck clean |
 | Generator tests (`scripts/sync-longlive-tracks.test.ts`) extended for facts/dossier | ✅ written |
-| Web tests for `songTargetOf`/`resolveConnections` + generated invariants | ⬜ TODO |
-| Content wave: TLOAS dossiers | 🟡 **delegated to ChatGPT via `node scripts/ask-chatgpt.mjs` (codex exec), per Joey's explicit instruction to save Claude tokens.** Brief: `docs/briefs/tloas-dossier-brief-2026-07-10.md`. Output lands at `supabase/seed/tracks/the-life-of-a-showgirl.dossiers.draft.mjs` (a NEW draft file — Codex must not edit existing files). |
-| Fact-check Codex's draft (every URL + claim; media-id/oEmbed rule), merge into `the-life-of-a-showgirl.mjs` as `dossier:` fields, delete the draft file + brief | ⬜ TODO |
-| Regenerate (`node scripts/sync-longlive-tracks.mjs`), full `npm test` + typecheck | ⬜ TODO |
-| Docs: longlive-experience.md §3/§8 (TrackFacts/TrackDossier + authoring recipe), decisions.md entry for the grouped shape | ⬜ TODO |
+| Web tests for `songTargetOf`/`resolveConnections` + generated invariants | ✅ |
+| Content wave: TLOAS dossiers (drafted by ChatGPT via codex exec per Joey's token-saving call; brief in `docs/briefs/`) | ✅ all 12 tracks; lives in `supabase/seed/tracks/the-life-of-a-showgirl.dossiers.mjs`, attached by slug in the era file (loaders skip `.dossiers.mjs`) |
+| Fact-check the draft | ✅ all 11 new URLs return 200; Eldest Daughter confirmed-tier claim verified against Swift's Amazon Music commentary (WebFetch); no live/voices claims shipped unsourced (sections omitted) |
+| Regenerate + full `npm test` + typecheck | ✅ 266 tests green, typecheck clean |
+| Docs: longlive-experience.md §8 recipe, decisions.md grouped-model entry | ✅ |
 | `/codex:review` (or adversarial) on the branch, fix findings | ⬜ TODO |
 | PR referencing #440 (TL;DR-first description per CLAUDE.md) | ⬜ TODO |
 
