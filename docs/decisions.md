@@ -7,6 +7,44 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-11 — Marjorie's T2 gate redefined: reversibility is the criterion
+
+**Decision:** Going forward, if a decision is reversible within a reasonable
+window, Marjorie (or the relevant desk) decides it unilaterally and reports
+it — founders reverse it after the fact if they disagree. Brief user-visible
+exposure before a founder catches and reverses something does **not**
+disqualify it as reversible. This is a new, independent route into T1 for
+decisions outside the non-ratchetable set (`docs/proposals/2026-07-11-agentic-operating-model.md`
+§5.3: product direction/scope, brand voice/public posting, legal/policy,
+pricing, spending, merge/deploy authority, charter changes) — that set
+remains a hard floor, gated regardless of whether a specific instance seems
+reversible, unaffected by this decision.
+
+**Why:** #477 (choice of analytics vendor) got banked as a T2 founder
+decision even though switching vendors later is cheap and easy — the
+ticket's own text said so. The prior T2 definition mixed named categories
+(spec approvals, product direction, policy changes) with "anything expensive
+to reverse," so a genuinely-reversible instance still consumed founder
+attention because of its category. Joey's directive: define risk by
+reversibility, not category — "who cares if a few users see it? The
+founders will catch it and reverse it with reasonable timing, and therefore
+reasonable damage control."
+
+**Alternatives considered:** Keep the ratchet as the only path to T1
+(rejected — requires two identical founder answers before Marjorie can act,
+which is slower than a founder just stating the general rule directly, as
+happened here). Redefine T2 by category only, tuning which categories
+qualify (rejected — reversibility is the actual test Joey stated; recasting
+it as category-tuning would drift from what was actually decided).
+
+**Not yet resolved — explicitly not decided either way:** whether this
+applies retroactively to items already in the decision bank or already
+answered. Joey: "I think I should apply retroactively but I don't know if I
+fully understand the implications." Tracked on issue #482; not implemented
+until resolved.
+
+**Approved by:** Joey (founder), issue #482, 2026-07-11.
+
 ## 2026-07-11 — Agentic operating model v2 (desks, chief of staff, Founders' Brief)
 
 **Decision:** Adopt the desk model: chartered, sandboxed agents
