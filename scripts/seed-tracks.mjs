@@ -66,7 +66,9 @@ try {
           t.releaseDate ?? null,
           JSON.stringify(t.writers ?? []),
           JSON.stringify(t.producers ?? []),
-          Boolean(t.isSingle),
+          // A dated single release implies single status (mirror of the sync
+          // generator's factsFrom) — 30 seed rows have only the date.
+          Boolean(t.isSingle) || Boolean(t.singleReleaseDate),
           t.singleReleaseDate ?? null,
           JSON.stringify(t.themes ?? []),
           JSON.stringify(t.dossier ?? {}),

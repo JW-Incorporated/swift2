@@ -19,7 +19,7 @@ import type { EraId, TrackNote } from '@/lib/longlive/types';
  * note exist in the data, so gaps in an album's numbering are expected.
  */
 export function TrackGuide() {
-  const { trackGuideEraId, share } = useAppState();
+  const { trackGuideEraId, openTrackKey, share } = useAppState();
   const { closeTrackGuide } = useAppActions();
 
   const era = trackGuideEraId ? getEra(trackGuideEraId) : undefined;
@@ -36,16 +36,18 @@ export function TrackGuide() {
     };
   }, [open]);
 
-  // Close on Escape — unless the share sheet is layered on top; that overlay
-  // owns Escape until it closes itself.
+  // Close on Escape — unless the share sheet or a song's TrackDetail is
+  // layered on top; the top-most overlay owns Escape until it closes itself
+  // (otherwise one Escape while a song is open would tear down the whole
+  // guide stack, since closeTrackGuide clears the open track too).
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share) closeTrackGuide();
+      if (e.key === 'Escape' && !share && !openTrackKey) closeTrackGuide();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [open, closeTrackGuide, share]);
+  }, [open, closeTrackGuide, share, openTrackKey]);
 
   // Let the mobile back-swipe gesture close this guide instead of leaving the app.
   useBackDismiss(open, closeTrackGuide);
@@ -106,8 +108,11 @@ function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
   const { openTrack } = useAppActions();
   const hasDeepDive = Boolean((track.discussion && track.discussion.length > 0) || track.dossier);
 
-  const body = (
-    <>
+  // The deep-dive affordance is a button around the TITLE ROW only — never
+  // around the whole card, whose source links are themselves interactive
+  // (nesting <a> inside <button> is invalid HTML and breaks keyboard/SR use).
+  return (
+    <li className="era-card flex gap-4 rounded-2xl border p-4 sm:p-5">
       <span
         className="w-7 shrink-0 pt-0.5 text-right font-[family-name:var(--era-font)] text-lg font-semibold tabular-nums text-[color:var(--era-accent)]"
         aria-hidden
@@ -115,14 +120,24 @@ function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
         {track.trackNumber ?? '·'}
       </span>
       <div className="min-w-0 flex-1">
-        <div className="flex items-baseline justify-between gap-3">
-          <h2 className="font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
-            {track.title}
-          </h2>
-          {hasDeepDive && (
-            <ArrowUpRight className="h-4 w-4 shrink-0 text-[color:var(--era-ink-soft)]" aria-hidden />
-          )}
-        </div>
+        {hasDeepDive ? (
+          <button
+            onClick={() => openTrack(trackKey(eraId, track))}
+            className="group flex w-full items-baseline justify-between gap-3 text-left"
+            aria-label={`${track.title} — open song dossier`}
+          >
+            <h2 className="font-[family-name:var(--era-font)] text-lg font-semibold leading-snug underline-offset-4 group-hover:underline">
+              {track.title}
+            </h2>
+            <ArrowUpRight className="h-4 w-4 shrink-0 self-center text-[color:var(--era-ink-soft)]" aria-hidden />
+          </button>
+        ) : (
+          <div className="flex items-baseline justify-between gap-3">
+            <h2 className="font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
+              {track.title}
+            </h2>
+          </div>
+        )}
         <p className="mt-1 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{track.note}</p>
         {track.sources && track.sources.length > 0 && (
           <p className="mt-2 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
@@ -143,21 +158,6 @@ function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
           </p>
         )}
       </div>
-    </>
-  );
-
-  if (!hasDeepDive) {
-    return <li className="era-card flex gap-4 rounded-2xl border p-4 sm:p-5">{body}</li>;
-  }
-
-  return (
-    <li>
-      <button
-        onClick={() => openTrack(trackKey(eraId, track))}
-        className="era-card group flex w-full gap-4 rounded-2xl border p-4 text-left transition sm:p-5"
-      >
-        {body}
-      </button>
     </li>
   );
 }

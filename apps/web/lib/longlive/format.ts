@@ -58,9 +58,15 @@ export function formatMonthYear(iso: string): string {
  */
 export function formatFullDate(iso: string): string {
   if (/^\d{4}$/.test(iso)) return iso;
-  if (/^\d{4}-\d{2}$/.test(iso)) return formatMonthYear(`${iso}-01`);
+  if (/^\d{4}-\d{2}$/.test(iso)) {
+    // Validate the month — '2025-13' must not render as 'Invalid Date'.
+    return /-(0[1-9]|1[0-2])$/.test(iso) ? formatMonthYear(`${iso}-01`) : iso;
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
   const d = new Date(`${iso}T00:00:00Z`);
-  if (Number.isNaN(d.getTime())) return iso;
+  // Reject rolled-over dates too ('2025-02-30' parses as March 2) — a typo'd
+  // source date should surface as-is, not as a silently wrong calendar day.
+  if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== iso) return iso;
   return d.toLocaleDateString('en-US', {
     month: 'long',
     day: 'numeric',
