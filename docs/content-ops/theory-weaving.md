@@ -1,6 +1,8 @@
 # Theory Weaving
 
-**Proposed standard (v1)** — comment or file a ticket to change.
+**Standard (v1).** The core rule below is **authoritative** — owner ruling
+2026-07-10: _"weave theories into `moment.context`, no new schema."_ Everything
+else (sourcing bar, pipeline) is proposed; comment or file a ticket to change.
 
 Formalizes: `JW-Incorporated/swift2` issue #35, "Content: weave sourced fan
 theories into existing song entries." Grounded in:
@@ -67,22 +69,28 @@ Codex reviews (voice, fabrication, and specifically checks the
 relationship/private-life exclusion is actually respected, not just
 asserted) → human spot-check on the first batch before scaling.
 
+## Resolved decision (2026-07-10)
+
+**Owner ruling: fan theories for #35 are woven as a sourced line inside the
+song's existing `moment.context`. No new schema, no new category, no new
+table for this work.** The core rule above is the authoritative shape.
+
+This settles the previously-flagged conflict with the standalone
+`supabase/seed/theories/<era>.mjs` `Theory` table: that table still ships
+and is not deleted by this ruling, but **#35 fan-theory content does not go
+into it** — it goes into `moment.context`. The `Theory` table stays whatever
+it already is for its existing records; #35 does not extend or feed it.
+
+> ⚠️ **Coordinate with #445.** #445's P1 (the "clowning universe" migration)
+> proposes *extending* the `theories` seed with substantial new schema
+> (`kind:'tradition'`, `beats`, `camps`, `echoes`, a migration). That is a
+> different body of work (easter-egg clue corpus, not #35 fan-theory weaving),
+> but the "no new schema" ruling here is worth reconciling against #445's
+> schema-heavy P1 before either starts. Logged for owner/Joey to confirm the
+> two are intentionally scoped apart.
+
 ## Open questions
 
-- **The repo already contains a separate, standalone theories shape that
-  appears to diverge from this ticket's "no new category, no schema change"
-  instruction.** `supabase/seed/theories/<era>.mjs` seeds a dedicated
-  `Theory` table (`kind: theory | easter_egg`, required `confidence` +
-  `outcome` badges, its own `npm run db:seed:theories`), documented in
-  `docs/content/content-audit-2026-07-08.md` — not the "one sourced line
-  inside the song's existing `moment.context`" shape this ticket and the
-  2026-07-04 feature brief describe. The private-life/relationship
-  exclusion is carried over correctly into that shape's template, but the
-  "no new category, no schema change" premise this document is built on
-  does not match what's actually seeded. This proposal does not resolve
-  that conflict — it needs a decision (which shape is authoritative, or
-  whether both are intentionally kept) logged in `docs/decisions.md` before
-  more theory content is authored under either one.
 - No stated re-review cadence for a theory whose "documented" status
   changes later (e.g. a widely-covered theory gets debunked or officially
   confirmed after it's written) — not addressed in the ticket or the
