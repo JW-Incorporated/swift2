@@ -20,7 +20,7 @@ User feedback said The Decode and The Clue Web are "both interesting, but neithe
 
 - Requested by Joey (CEO) 2026-07-10 in response to pre-release reviewer feedback, with full artistic license granted to Claude for the product design. Spec authored by Claude Code the same day.
 - This spec **supersedes the direction of #431** (Clue Web onboarding refinement) — see §10. It **coordinates with, and partially delivers, #436** (threads↔eras weaving).
-- Product sign-offs still needed from Joey are collected in §11. Everything else is engineering license.
+- Product sign-offs were collected in §11 — **all four approved by Joey, 2026-07-10 (every default stood)**. Everything else is engineering license.
 - The implementing session should copy this spec into `docs/specs/2026-07-10-mastermind-invisible-strings-spec.md` in the P1 PR (knowledge lives in the repo), and add the `docs/decisions.md` entry drafted in §12.
 
 ## 1. Why — the original intent, restated
@@ -259,12 +259,12 @@ Bejeweled→Speak Now TV · Google vault puzzles · the Karma album (eternal) ·
 - CIE (`cie:*` issues) — migration re-verification (§4.2.6) should close any CIE ticket it incidentally fixes, per #429's workflow rule.
 - **Pre-existing repo damage found during this debate** (Codex round 1): `docs/decisions.md` on `origin/main` contains stray merge-conflict markers (`=======` at :89, `>>>>>>> origin/main` at :140) trapping the 2026-07-10 threads-derivation entry inside a marker block. A standalone fix PR resolves the markers (keeping ALL entries, per the never-discard-on-conflict rule) **before** P1 appends this initiative's decision entry to that file.
 
-## 11. Joey sign-offs (product) — everything else is engineering license
+## 11. Joey sign-offs (product) — **RESOLVED 2026-07-10: Joey approved all defaults**
 
-1. **Names** — a true A-or-B, with the two AIs split (surfaced per the disagreement rule): **(A) Claude recommends** Mastermind + Invisible Strings — her own vocabulary, instantly resonant for the superfan-clown target user, literal kicker lines carrying the explanation ("She plants. We clown." / "Every symbol she's ever repeated, mapped"). **(B) Codex recommends** literal-first names — Case Files + Symbol Atlas — arguing casual fans won't infer the song references. Claude's rebuttal: this product's stated audience IS the deep-lore fan, and every gallery card already pairs title+kicker+what so nobody navigates on title alone. Joey picks.
-2. **Clown-card copy register** (§5.5, §8) — sign off on one screenshot's worth of copy before P2 ships.
-3. **Open Board launch list** (P5) — the 5–8 open cases we go live with.
-4. Confirmation of the **no-AI-symbolic-art** call (§6) since #431 framed it as his decision.
+1. **Names** — a true A-or-B, with the two AIs split (surfaced per the disagreement rule): **(A) Claude recommends** Mastermind + Invisible Strings — her own vocabulary, instantly resonant for the superfan-clown target user, literal kicker lines carrying the explanation ("She plants. We clown." / "Every symbol she's ever repeated, mapped"). **(B) Codex recommends** literal-first names — Case Files + Symbol Atlas — arguing casual fans won't infer the song references. Claude's rebuttal: this product's stated audience IS the deep-lore fan, and every gallery card already pairs title+kicker+what so nobody navigates on title alone. **→ Joey picked A (2026-07-10): Mastermind + Invisible Strings ship.**
+2. **Clown-card copy register** (§5.5, §8) — **→ APPROVED as designed (2026-07-10)**: ships as the personal, shareable, local-only prediction notebook; P2 still shows Joey one screenshot's worth of copy as a courtesy check, not a gate.
+3. **Open Board launch list** (P5) — **→ APPROVED approach (2026-07-10)**: finalize the 5–8 cases at P5 authoring time from the §9.1 candidates, status-verified against sources.
+4. Confirmation of the **no-AI-symbolic-art** call (§6) since #431 framed it as his decision. **→ CONFIRMED (2026-07-10): no AI-generated symbolic art.**
 
 ## 12. Decisions entry to add in P1 (draft)
 
@@ -312,11 +312,8 @@ Plus:
 
 ## 15. Open questions
 
-1. Naming sign-off (§11.1) — Joey.
-2. Clown-card copy register (§11.2) — Joey, one screenshot's worth.
-3. Open Board launch list (§11.3) — Joey, from P5 candidates.
-4. AI-symbolic-art confirmation (§11.4) — Joey (proposal says no).
-5. Case detail: expand-in-place vs. overlay — engineer's call at P2, both
+1.–4. **Resolved 2026-07-10** — Joey approved all four §11 defaults (names: Mastermind + Invisible Strings; clown card as designed; open-board list at P5 authoring; no AI art).
+2. Case detail: expand-in-place vs. overlay — engineer's call at P2, both
    compatible with deep-linking via the store.
 
 ## 16. Non-goals / guardrails
@@ -365,4 +362,4 @@ Per the design-debate protocol, the debate stops after two rounds; the round-2 p
 
 **We will build the unified case-file corpus, rendered as two threads.** All easter-egg content — the 42 Decode clue pairs, the 30 Clue Web nodes and their 23 links, the 27 era theories, and the 8 orphaned hidden-clue strings — migrates into ONE extended theories corpus (cases with beat spines: plant → clowning → payoff, motif memberships, camps for open cases), and the two threads become two reads of that single source: **Mastermind** (`hidden-clues`) is the case-file board — solved cases to reminisce over with the kept tap-to-reveal mechanic, an Open Board of live cases with local-only camp picks, and sourced fan-discourse beats supplying the missing middle of every story — and **Invisible Strings** (`easter-eggs`) is the symbol atlas — the kept home→trail→constellation structure re-aimed at the corpus, every trail ending at that symbol's open cases. Both weave bidirectionally into the era timeline (exhibits on moments, cases in pivot strips, TheoryGuide links), delivered in five PRs per §9.
 
-It won the debate because the alternatives each fail a requirement this satisfies: keeping two hand-authored datasets (or adding a third) preserves the triple-authoring drift that produced the reviewer feedback; a single merged mega-thread erases the two genuinely different reading modes (story-time vs. symbol-space) Joey already validated; UGC participation is a moderation/backend product this company has explicitly walled off; and hand-authoring in `lenses.ts` contradicts the already-locked derive-from-seeds architecture decision. Codex attacked the design across two rounds (18 findings total); every finding was accepted into the spec or explicitly rebutted in the appendix, and the two surviving disagreements — thread naming (song-allusion vs. literal) and clown-card keep-vs-cut — are surfaced to Joey in §11 rather than settled, per the disagreement rule. Assumptions the verdict rests on: Joey confirms the four §11 sign-offs (defaults: the song names ship; the clown card ships as a personal, shareable, local-only notebook), and PR #443 (decisions.md conflict-marker fix) merges before P1 appends to that file.
+It won the debate because the alternatives each fail a requirement this satisfies: keeping two hand-authored datasets (or adding a third) preserves the triple-authoring drift that produced the reviewer feedback; a single merged mega-thread erases the two genuinely different reading modes (story-time vs. symbol-space) Joey already validated; UGC participation is a moderation/backend product this company has explicitly walled off; and hand-authoring in `lenses.ts` contradicts the already-locked derive-from-seeds architecture decision. Codex attacked the design across two rounds (18 findings total); every finding was accepted into the spec or explicitly rebutted in the appendix, and the two surviving disagreements — thread naming (song-allusion vs. literal) and clown-card keep-vs-cut — are surfaced to Joey in §11 rather than settled, per the disagreement rule. Joey confirmed all four §11 sign-offs on 2026-07-10 (the song names ship; the clown card ships as the personal, shareable, local-only notebook; the open-board list is finalized at P5 authoring; no AI-symbolic art). Remaining assumption: PR #443 (decisions.md conflict-marker fix) merges before P1 appends to that file.
