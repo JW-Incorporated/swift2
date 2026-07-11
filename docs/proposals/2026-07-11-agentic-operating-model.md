@@ -22,14 +22,6 @@ The target state: **founders spend ~20 minutes once a day** ticking decisions in
 a single brief, plus genuine emergencies. Everything else runs itself inside
 written charters, with agents checking each other instead of asking humans.
 
-**The brief is a ceiling on asks, not a lockbox on answers.** Banked items are
-ordinary GitHub issues the moment they're filed — a founder who's around can
-answer any of them at any time and unblock work immediately. Once a day is the
-*maximum* the org demands of you, not a queue you're forbidden to touch early.
-And desks are required to keep non-blocked work in their queue: a banked
-decision parks *that item*, never the whole desk (see §5.5 for the case where
-it truly blocks everything).
-
 ## 2. Current state — the full inventory
 
 ### 2.1 The agents we actually have (as of 2026-07-11)
@@ -91,12 +83,9 @@ secret reads are denied at the harness level; merges are `ask`).
 5. **Authority is only defined for Claude-in-a-session.** CLAUDE.md's
    may/may-not list doesn't distinguish Kevin from Karen from a future social
    agent. Each new agent needs its authority derived, not improvised.
-6. **Departments are modes that run only when remembered.** /marketing has
-   barely run; nothing schedules it, it holds no state between runs, and it
-   can't watch anything. Joey's verdict (2026-07-11): it doesn't act like a
-   marketing *team* — "need agents instead." A command that produces one
-   brief per invocation structurally can't be a team; "fully automated
-   growth" can't be built from human-remembered commands.
+6. **Departments are modes that run only when remembered.** /marketing has run
+   twice ever; nothing schedules it. "Fully automated growth" can't be built
+   from human-remembered commands.
 7. **No production ops exist at all.** No uptime watch, no error monitoring,
    no analytics, no social listening, no posting pipeline. All of it is needed
    at launch and none of it is roadmapped (fixed in §7 + roadmap update).
@@ -118,9 +107,8 @@ secret reads are denied at the harness level; merges are `ask`).
    job's *trigger* is deterministic and cheap.
 4. **Autonomy is earned and ratcheted, not granted.** New authority ships in
    draft/queue mode first; auto mode follows a clean track record and a
-   founder sign-off. Founder answers become **precedent** that prevents the
-   same question being asked twice — with hard limits on what precedent may
-   ever automate (§5.3: the non-ratchetable set).
+   founder sign-off. And every founder answer becomes **precedent** that
+   prevents the same question being asked twice.
 5. **Interrupt budget is the scarce resource.** The design optimizes founder
    attention, not agent convenience: one brief a day, page only for fires.
 6. **Everything in the repo, absolute dates, one file per fact** — unchanged.
@@ -151,12 +139,6 @@ Joey renames at will; the slug in charters is what code depends on.)*
 **Mission:** keep every desk unblocked and every founder ask batched. Marjorie
 is the only agent whose job is the *org itself*.
 
-**Day-one scope is deliberately small (Codex, round 1):** Marjorie v1 is a
-curator — it assembles the brief, dedupes/ranks the bank, cites precedent,
-runs the cadence check, and *proposes* routing. Unilateral T1 routing
-authority activates in Phase 2, after the first weekly audit has a journal to
-audit. The chief of staff earns its own autonomy the same way every desk does.
-
 **Owns:**
 - **The decision bank** (§5) and the once-daily **Founders' Brief**.
 - **Precedent:** before banking any ask, search `docs/decisions.md` + past
@@ -179,24 +161,12 @@ audit. The chief of staff earns its own autonomy the same way every desk does.
 - May not edit any charter, including its own — charter changes are
   founder-approved PRs ("constitutional amendments").
 
-**Audited by, three layers (who watches the watcher):**
-1. **A dumb watchdog that is not Marjorie:** a scheduled GitHub Action (plain
-   code, zero LLM) that verifies the brief exists by its deadline, each desk's
-   cadence artifact appeared, and the journal grew when the brief says actions
-   were taken. On failure it opens a loud issue and hits the founders' T3
-   channel. Marjorie cannot be its own heartbeat, and the watchdog is too
-   simple to drift.
-2. **Degraded mode by construction:** the decision bank is just labeled GitHub
-   issues — if Marjorie is down, founders read the raw `founder-decision` list
-   and desks keep depositing. Nothing routes *through* Marjorie as a runtime
-   dependency; it curates, it isn't a bus.
-3. **Weekly Codex org audit** — cross-provider review of the ops journal + a
-   sample of routed items against the charters: banked what it should have
-   decided (timidity)? decided what it should have banked (overreach)?
-   mis-routed? Findings go in the next brief. Founders see every Marjorie
-   action's effects daily, so silent drift has a one-day detection window —
-   and the journal-delta count in each brief makes *omissions* visible, not
-   just actions.
+**Audited by:** a **weekly Codex org audit** — cross-provider review of the ops
+journal + a sample of routed items against the charters: did Marjorie bank
+things it should have decided (timidity), decide things it should have banked
+(overreach), or mis-route? Findings go in the next brief. Founders see every
+Marjorie action's effects in the daily brief, so silent drift has a one-day
+detection window.
 
 ### 4.3 The desks (existing agents, chartered and completed)
 
@@ -206,7 +176,7 @@ audit. The chief of staff earns its own autonomy the same way every desk does.
 | **Content** | Copy-desk personas (PR #463) + **the intake process** | Intake formalized (closes #464's flag): founder drops and (later) V2-engine events land as `intake` issues; a deterministic script routes each to a persona per the copy-desk routing table; sources verified; normal draft→Karen→Codex pipeline. Joey's daily drops get a defined, single door. |
 | **Integrity** | Karen | Unchanged in role; gains per-persona voice checks (#463) and depth/photo/cross-link checkers (#441). Nightly cadence becomes real and Marjorie-watched. |
 | **Ticket ops** | Kevin | Unchanged in role (the charter is good). Stream 2/3 digests **merge into the Founders' Brief** as sections, so founders read one artifact, not three. Comment-radar cadence (#451) stays Kevin's, deterministic-first. |
-| **Growth & Community** | New (post-launch, §7) | Social listening + gated announcement posting, feedback sentiment, era-drop announcements (J7), a standing marketing agent replacing the retired /marketing command. |
+| **Growth & Community** | New (post-launch, §7) | Social listening + posting, feedback sentiment, era-drop announcements (J7), scheduled /marketing runs. |
 | **Watch** | New (post-launch, §7) | Uptime, errors, cost caps, usage analytics. The only desk with Tier-3 paging authority besides Marjorie. |
 
 **Sandboxing, uniformly:** every desk gets (a) a charter at `docs/agents/<name>.md`
@@ -215,18 +185,9 @@ audit. The chief of staff earns its own autonomy the same way every desk does.
 may write, which paths it may touch, which scripts it may run — enforced by
 settings allowlists and, for service agents later, token scopes); (c) an
 artifact interface (its outputs are issues/PRs/reports with its label, and no
-agent edits another's artifacts — Marjorie's exact mutation rights in §5.2).
-**v0 gets a one-page charter too** — branch naming it must use and the rule
-that it never pushes to a branch with an open PR under review (the collision
-that already happened).
-
-**Honesty note on enforcement today:** `.claude/settings.json` is currently
-one global profile (broad Edit/Write/gh allowances; merges ask-gated;
-force-push/reset/secrets denied). Until desks run as separate processes with
-their own tokens (Phase 2+, and the service migrations each charter already
-plans for), per-desk sandboxing is charter + review discipline plus the
-handful of global denies — real but soft. The proposal claims the *direction*
-(mechanical enforcement per desk), not that it exists on day one.
+agent edits another's artifacts). **v0 gets a one-page charter too** — branch
+naming it must use and the rule that it never pushes to a branch with an open
+PR under review (the collision that already happened).
 
 ### 4.4 Checks and balances — who watches whom
 
@@ -262,11 +223,8 @@ rank by cost-of-delay.
 One issue per day, **`Founders' Brief — YYYY-MM-DD`**, generalizing Kevin's
 digest format (checkbox blocks, because founders tick boxes — proven pattern):
 
-1. **Decisions needed** — each banked item as an A-or-B checkbox block.
-   **All boxes start unchecked** (Kevin's proven format — a pre-checked box
-   would let a "recommendation" be processed as if a founder had decided).
-   The recommended option is *labeled* "(recommended)", never pre-ticked;
-   unticked items simply carry over.
+1. **Decisions needed** — each banked item as an A-or-B checkbox block with
+   the recommendation pre-marked. Ticking the recommendation is one click.
 2. **Founder-action items** — things AI *cannot* do (create accounts, DNS,
    payments, legal signatures), each with prepared step-by-step instructions
    so the founder executes in minutes.
@@ -283,16 +241,6 @@ and unblocks the desks. Unticked items carry over with their cost-of-delay
 restated. Kevin's Stream-2 digest and Eng-Triage become sections 1a/3a of this
 brief rather than separate issues.
 
-**Marjorie's mutation rights, exactly** (so the artifact rule stays honest):
-Marjorie may add **comments and labels** on any desk's issues/PRs; it may
-close only artifacts it owns (bank items, briefs). It never edits another
-agent's issue/PR bodies and never closes a desk's tickets. Propagation is a
-comment of the fixed form *"Founder decision (Brief YYYY-MM-DD → link): …"*,
-quoting the founder's ticked answer. Kevin's "latest human comment wins"
-invariant extends one clause: a Marjorie comment in exactly this relay form
-carries the founder's authority (it links to the checkbox the founder ticked);
-any other agent comment does not.
-
 ### 5.3 Interrupt tiers (the authority model)
 
 | Tier | What | Handling |
@@ -304,28 +252,11 @@ any other agent comment does not.
 | **TX** | Things AI cannot legally/physically do: accounts, banking, signatures | Banked as founder-action items with prepared instructions. |
 
 The **T1 line is the actual autonomy dial.** Day one, T1 is narrow (routing,
-scheduling, precedent citation). When founders answer a T2 the same way twice,
-Marjorie may **propose** a standing rule in the brief ("may I auto-approve
-this class going forward?") — and that proposal is itself a T2 decision:
-nothing moves to T1/T0 until a founder explicitly approves the rule, which is
-then recorded in `docs/decisions.md`. Marjorie never self-promotes a class.
-That's the ratchet that makes asks *decrease* over time, which is the
-difference between this design and a notification system.
-
-**The non-ratchetable set (never leaves T2, no matter how many identical
-answers accumulate):** product direction and feature scope, brand voice and
-anything publicly posted, legal/policy posture, pricing/monetization, spending,
-merge/deploy authority itself, and charter changes. Two similar answers can
-differ on context a pattern-matcher can't see; these classes stay human
-forever unless founders amend this list by decision entry.
-
-### 5.5 When a banked item genuinely blocks a desk
-
-If a T2 item leaves a desk with *no* chartered work at all (rare by queue
-discipline, but real — e.g. a launch-gate approval), Marjorie sends **one**
-same-day nudge on the founders' channel containing only that item. It doesn't
-wait for tomorrow's brief, and it doesn't page as if it were a fire. One
-nudge, then it carries in the brief with its cost-of-delay escalating.
+scheduling, precedent citation). Every time founders answer a T2 the same way
+twice, Marjorie proposes a standing rule in the brief ("may I auto-approve
+this class going forward?") — accepted rules move that class to T1/T0
+permanently. That's the ratchet that makes asks *decrease* over time, which is
+the difference between this design and a notification system.
 
 ### 5.4 Merge authority — the one big CLAUDE.md change, decided by founders
 
@@ -333,49 +264,30 @@ Everything above fits inside today's rules. The largest *remaining* founder
 tax will be merges: at scale, content-fix PRs (Kevin's streams, persona
 rewrites) arrive daily and every one needs a human click today.
 
-**Recommendation:** after the model runs ~2 weeks, allow auto-merge for
-exactly one class: PRs that (a) touch only `supabase/seed/content/**` or
-generated content files, (b) green CI including content validation, (c)
-Codex-review clean, (d) originate from a chartered desk's stream.
+**Recommendation:** after the model runs ~2 weeks, grant Marjorie **scoped
+merge authority** for exactly one class: PRs that (a) touch only
+`supabase/seed/content/**` or generated content files, (b) green CI including
+content validation, (c) Codex-review clean, (d) originate from a chartered
+desk's stream. Code, schema, infra, workflow, and docs PRs stay human-merge
+forever until separately revisited. Deploys stay human, full stop.
 
-**Mechanism matters:** this is implemented as a **deterministic merge gate** —
-a dumb bot/Action that mechanically verifies (a)–(d) and merges, with a token
-scoped to exactly that. **No LLM agent merges anything:** Marjorie's and
-Kevin's never-merge invariants don't change (an earlier draft had Marjorie
-merging, which contradicted its own charter — Codex, round 1). The founders'
-grant lives in CLAUDE.md plus the gate's reviewable config; revoking it is
-deleting a workflow file.
-
-Code, schema, infra, workflow, and docs PRs stay human-merge until separately
-revisited. Deploys stay human, full stop. This amends CLAUDE.md's "AI may not
-merge" line and is **the single biggest decision in this proposal** — default
-if unanswered: not granted, everything stays human-merge.
+This amends CLAUDE.md's "AI may not merge" line and is called out as **the
+single biggest decision in this proposal** — default if unanswered: not
+granted, everything stays human-merge.
 
 ## 6. How agents actually run (implementation shape, not code)
 
-- **Today's pattern continues, eyes open:** desk cadences run as scheduled
-  Claude sessions/routines (Kevin's pattern), with deterministic scripts for
-  triggers and polling (GitHub API "anything new since <timestamp>" costs no
-  LLM tokens — #451's ask). Session crons are the *known-fragile interim*,
-  not the destination — Kevin's own charter says so — which is exactly why
-  the Phase-1 watchdog is a GitHub Action, independent of every cron it
-  watches: a dead cron becomes a loud issue within the hour, not a silent
-  gap discovered days later.
+- **Today's pattern continues:** desk cadences run as scheduled Claude
+  sessions/routines (Kevin already proves hourly/daily session crons work),
+  with deterministic scripts for triggers and polling (GitHub API "anything
+  new since <timestamp>" costs no LLM tokens — #451's ask).
 - **Charters are runtime contracts:** each `docs/agents/<name>.md` is loaded
   by its runner; the "migrate to an API-backed service" section in Kevin's
   charter becomes the standard closing section of every charter, so any desk
   can be ported off session-crons without redesign (V2's engine, #468, will
   force this for intake anyway).
-- **Cost, stated concretely rather than hand-waved:** the standing LLM burn
-  is bounded by cadence — Marjorie daily (curation + brief assembly; the
-  polling under it is free API calls), Karen nightly, Kevin's judgment runs
-  only when deterministic polling finds something new, Codex org audit
-  weekly, marketing agent monthly, Watch desk ~zero LLM (deterministic
-  checks; judgment only on anomaly). Each charter states a per-run budget;
-  the brief's health section reports actual spend vs a **monthly cap for all
-  scheduled work combined** — breaching the cap is itself a banked decision
-  (raise it or cut a cadence). Platform costs (social APIs are often paid)
-  are TX/spend items before any desk depends on them. All of it is
+- **Cost:** every scheduled desk states its per-run token budget in its
+  charter; Marjorie's health check includes spend vs cap. All of it is
   build-side (Max windows / capped API) — **no runtime LLM in user paths**,
   unchanged.
 
@@ -388,27 +300,17 @@ following the same charter/cadence/sandbox pattern:
 - **Social listening:** daily scan of r/TaylorSwift, X/Twitter Swiftie circles,
   app-store reviews, and media mentions of the app → sentiment + opportunity
   digest into the brief (fan-love metric, goal #2).
-- **Social posting — announcements only:** era-drop announcements (the J7
-  cadence the retention plan already depends on) and feature announcements,
-  from founder-approved templates. **Graduated authority:** starts as a draft
-  queue in the brief (founder ticks approve); may move to scheduled autopost
-  per channel only after a clean track record **plus** a channel policy doc
-  (voice, unofficial-app disclosure, what never gets said) **plus** explicit
-  founder sign-off per channel. A crisis-stop rule ships with the first
-  channel: any reply storm, press pickup, or legal-adjacent mention → posting
-  freezes, founders paged. **Engagement replies (conversing as the brand) are
-  out of automation scope indefinitely** — live brand voice in fandom politics
-  is a risk no track record earns (Codex, round 1); a human posts those, with
-  desk-drafted suggestions at most. Account creation and any paid platform
-  API are TX/spend items (founders act, with prepared instructions).
-- **Marketing as a team, not a command (Joey, 2026-07-11):** the /marketing
-  command is **retired**. Its research protocol (segments → evidence →
-  candidate features → Codex challenge → verdict) survives as one *cadenced
-  job* of a standing Growth-desk agent that also holds state between runs
-  (what was recommended, what shipped, what the metrics then showed — the
-  feedback loop a one-shot command can never close). Monthly by schedule plus
-  on-demand; verdicts land as banked decisions; approved features flow to the
-  Build desk as issues.
+- **Social posting:** era-drop announcements (the J7 cadence the retention
+  plan already depends on), feature announcements, engagement replies.
+  **Graduated authority:** starts as a draft queue in the brief (founder ticks
+  approve); moves to scheduled autopost per channel after a clean track record
+  + founder sign-off. Account creation is TX (founders act, with prepared
+  instructions). Public posting is the second-riskiest authority in this doc
+  after merges — it starts human-gated.
+- **Marketing research:** /marketing stops being a remembered command and runs
+  **monthly by schedule** (plus on-demand), its verdict landing as banked
+  decisions; approved features flow to the Build desk as issues, exactly as
+  the command already specifies.
 - **Growth plan:** a living `docs/marketing/growth-plan.md` the desk maintains
   from real metrics — reviewed quarterly by founders as a banked decision.
 
@@ -480,75 +382,9 @@ into the intake door when it exists.
 > that future service agents must honor. Cost: build-side scheduled runs with
 > per-charter caps; zero runtime LLM.
 
-## 12. Alternatives considered
-
-- **"Just generalize Kevin's digest" — a deterministic aggregator, charters,
-  heartbeats, and no chief-of-staff agent at all** (Codex's round-1
-  counter-proposal). Largely *adopted*: the bank is plain labeled issues, the
-  watchdog is a dumb Action, polling is deterministic, and Marjorie v1 is
-  little more than the curation pass over that machinery. What a pure
-  aggregator can't do — and what Joey's ask requires — is the judgment slice:
-  precedent lookup ("was this already decided?"), dedup/merge of related
-  asks, cost-of-delay ranking, proposing ratchet rules, and routing new work
-  by charter. That slice is one small daily LLM run on top of the simple
-  design, not a different architecture. If Marjorie's audits go badly, delete
-  the curation pass and the simple design is what remains — that's the
-  fallback posture, by construction.
-- **A standing human-style org with many always-on agents** (separate
-  PM/engineer/reviewer roles) — already rejected in `docs/decisions.md`
-  (2026-07-02, "ceremony without benefit at 2-person scale"). This proposal
-  keeps roles as *cadenced jobs with charters*, not resident processes;
-  nothing runs when there's nothing to do.
-- **Do nothing until V2's content engine forces it** — rejected: the founder
-  interrupt tax and the intake gap (#464) are today-problems, and Phase 1
-  costs a week while paying back immediately.
-
----
-
-## Verdict
-
-**We will build the desk model with a deliberately small chief of staff.**
-One decision bank (labeled GitHub issues with a required template), one
-Founders' Brief per day assembled by Marjorie — a curator whose judgment
-slice (precedent, dedup, ranking, routing proposals) sits on top of purely
-deterministic machinery (label queries, cadence polling, a GitHub-Action
-watchdog that watches Marjorie itself), so the org degrades gracefully to
-"founders read labeled issues" if any agent dies. Tiered authority (T0–T3 +
-TX) with a founder-approved-only ratchet and a hard non-ratchetable set keeps
-strategic decisions human forever while operational asks decay toward zero.
-Existing agents keep their charters and invariants unchanged; /marketing is
-retired in favor of a standing Growth-desk agent; post-launch ops (Watch,
-Growth & Community) join as desks under the same pattern, listening/draft
--first. It won the debate because every riskier alternative (an authoritative
-LLM orchestrator, auto-merging agents, autonomous brand voice) lost a round-1
-finding, and every simpler alternative is *contained in* this design as its
-degraded mode rather than competing with it.
-
-**Assumptions this rests on:** founders actually tick the brief most days
-(unticked items only carry over — nothing auto-approves); scoped merge
-authority stays off until explicitly granted; session-cron reliability is
-bridged by the watchdog until service migration.
-
 ---
 
 ## Appendix A — design-debate record
 
-**Round 1 (Codex adversarial review, 2026-07-11) — 12 findings, all accepted:**
-daily-batch stall risk → §1 "ceiling not lockbox" + §5.5 same-day nudge;
-Marjorie SPOF/who-watches-watcher → §4.2 three-layer audit incl. non-LLM
-watchdog + degraded mode; merge authority contradicted never-merge invariants
-→ §5.4 deterministic merge gate, no LLM merges anything; pre-marked checkbox
-= accidental auto-approval → §5.2 all boxes start unchecked; unsafe precedent
-ratchet → §5.3 propose-only ratchet + non-ratchetable set; artifact-mutation
-ambiguity → §5.2 exact mutation rights + relay-comment form; session-cron
-fragility → §6 watchdog independence; sandbox aspirational → §4.3 honesty
-note; cost hand-waved → §6 cadence-bounded burn + monthly cap as banked
-decision; social posting brand risk → §7 announcements-only, channel policy,
-crisis-stop, engagement replies out of scope indefinitely; monitoring the
-wrong surface → roadmap L1 now requires defining the authoritative user path
-first; simpler-design comparison missing → §12, largely adopted as Marjorie's
-v1 scope and fallback posture. Joey (mid-debate, 2026-07-11): /marketing
-doesn't act like a team, wants agents — folded into §2.4/§7 (command retired,
-standing Growth-desk agent).
-
-**Round 2:** recorded below after the second review.
+*(Round 1 and Round 2 Codex findings and their resolutions are recorded here
+after each round; see PR discussion for full transcripts.)*
