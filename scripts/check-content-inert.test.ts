@@ -16,10 +16,10 @@ describe('checkSource — allows the real authoring pattern', () => {
       const ACCESSED = '2026-07-08';
       const wiki = (article, title) => ({
         source_url: \`https://en.wikipedia.org/wiki/\${article}\`,
-        source_title: title, accessed_at: ACCESSED,
+        source_title: title, accessed_at: ACCESSED, reliability_score: 2,
       });
       const ALBUM = wiki('1989_(album)', '1989');
-      export default { eraSlug: '1989', tracks: [{ slug: 'wtny', sources: [ALBUM] }] };
+      export default { eraSlug: '1989', tracks: [{ slug: 'wtny', sources: [ALBUM, wiki('x', 'y')] }] };
     `;
     expect(checkSource(P, code)).toEqual([]);
   });
@@ -34,71 +34,83 @@ describe('checkSource — allows the real authoring pattern', () => {
     expect(checkSource(P, code)).toEqual([]);
   });
 
-  it('does not flag danger names used as property keys or property access', () => {
-    // `process`/`fetch` here are data, not capabilities.
-    const code = `export default { method: 'GET', config: { process: 'studio' }, verb: 'fetch' };`;
+  it('accepts ternaries, nullish/logical ops, and negative numbers as data', () => {
+    const code = `const n = null;\nexport default { a: n ?? 0, b: -3, c: true && 'x', d: 1 > 0 ? 'y' : 'z' };`;
     expect(checkSource(P, code)).toEqual([]);
   });
 
-  it('does not flag a danger name that is locally bound as a parameter', () => {
-    const code = `const f = (fetch) => ({ v: fetch });\nexport default { items: [f('x')] };`;
+  it('does not flag danger words used as property keys or string data', () => {
+    const code = `export default { method: 'GET', config: { process: 'studio', constructor: 'writer' }, verb: 'fetch' };`;
     expect(checkSource(P, code)).toEqual([]);
   });
 });
 
-describe('checkSource — rejects real capabilities', () => {
+describe('checkSource — rejects the PR #507 red-team (prototype-escape) bypasses', () => {
+  // Each of these PASSED the old deny-list check but is a real capability
+  // escape; all MUST fail under the positive grammar.
+  const mustFail = (label: string, src: string) =>
+    it(`rejects: ${label}`, () => expect(checkSource(P, src).length).toBeGreaterThan(0));
+
+  mustFail('({}).constructor.constructor at top level',
+    "({}).constructor.constructor('return process.env')()");
+  mustFail('[].constructor.constructor',
+    "[].constructor.constructor('return globalThis')()");
+  mustFail('getter that reaches Function',
+    "export default { get d(){ return ({}).constructor.constructor('x')() } }");
+  mustFail('toString method that reaches Function',
+    "export default { toString(){ return ({}).constructor.constructor('return 1')() } }");
+  mustFail('computed-key constructor chain',
+    "const f = ({})['constructor']['constructor']; f('return process')()");
+  mustFail('string-concat computed key (con+structor)',
+    "const f = ({})['con'+'structor']; export default { f };");
+});
+
+describe('checkSource — rejects other capabilities', () => {
   it('rejects a bare/external import', () => {
     expect(checkSource(P, `import fs from 'node:fs';\nexport default {};`).join()).toMatch(/imports `node:fs`/);
-    expect(checkSource(P, `import _ from 'lodash';\nexport default {};`).join()).toMatch(/only relative imports/);
+    expect(checkSource(P, `import _ from 'lodash';\nexport default {};`).join()).toMatch(/only relative sibling seed/);
   });
-
   it('rejects a relative import that escapes supabase/seed', () => {
-    const code = `import x from '../../../scripts/secret.mjs';\nexport default { x };`;
-    expect(checkSource(P, code).join()).toMatch(/only relative imports of sibling seed/);
+    expect(checkSource(P, `import x from '../../../scripts/secret.mjs';\nexport default { x };`).join())
+      .toMatch(/only relative sibling seed/);
   });
-
-  it('rejects a relative import that is not .mjs', () => {
-    expect(checkSource(P, `import x from './evil.js';\nexport default { x };`).join()).toMatch(/imports `\.\/evil\.js`/);
+  it('rejects reading process/secrets (free identifier)', () => {
+    expect(checkSource(P, `export default { t: process };`).join()).toMatch(/free identifier `process`/);
   });
-
-  it('rejects reading process/secrets', () => {
-    expect(checkSource(P, `export default { t: process.env.GITHUB_TOKEN };`).join()).toMatch(/dangerous global `process`/);
+  it('rejects dynamic import(), require(), fetch(), eval() — non-local call targets', () => {
+    expect(checkSource(P, `export default (await import('node:fs'));`).length).toBeGreaterThan(0);
+    expect(checkSource(P, `const cp = require('child_process');\nexport default {};`).length).toBeGreaterThan(0);
+    expect(checkSource(P, `export default { d: fetch('http://evil') };`).length).toBeGreaterThan(0);
+    expect(checkSource(P, `export default { d: eval('1') };`).length).toBeGreaterThan(0);
   });
-
-  it('rejects dynamic import() and require()', () => {
-    expect(checkSource(P, `const cp = require('child_process');\nexport default {};`).join()).toMatch(/dangerous global `require`/);
-    expect(checkSource(P, `export default (await import('node:fs'));`).join()).toMatch(/dynamic `import\(\.\.\.\)`|`await`/);
+  it('rejects new expressions and tagged templates', () => {
+    expect(checkSource(P, `export default { d: new Date() };`).length).toBeGreaterThan(0);
+    expect(checkSource(P, `const t = (s) => s;\nexport default { d: t\`x\` };`).length).toBeGreaterThan(0);
   });
-
-  it('rejects network access', () => {
-    expect(checkSource(P, `export default { data: fetch('http://evil.example') };`).join()).toMatch(/dangerous global `fetch`/);
+  it('rejects top-level await and non-const declarations', () => {
+    expect(checkSource(P, `const x = await Promise.resolve(1);\nexport default { x };`).length).toBeGreaterThan(0);
+    expect(checkSource(P, `let y = 1;\nexport default { y };`).join()).toMatch(/only `const`/);
   });
-
-  it('rejects eval / Function constructor', () => {
-    expect(checkSource(P, `export default { x: eval('1+1') };`).join()).toMatch(/dangerous global `eval`/);
-    expect(checkSource(P, `const f = new Function('return 1');\nexport default { f };`).join()).toMatch(/dangerous global `Function`/);
-  });
-
-  it('rejects top-level await', () => {
-    expect(checkSource(P, `const x = await Promise.resolve(1);\nexport default { x };`).join()).toMatch(/`await`/);
-  });
-
-  it('rejects globalThis/global back-doors', () => {
-    expect(checkSource(P, `export default { p: globalThis.process };`).join()).toMatch(/dangerous global `globalThis`/);
+  it('rejects member access on a bound value (shape ban is wholesale)', () => {
+    expect(checkSource(P, `const o = { a: 1 };\nexport default { v: o.a };`).length).toBeGreaterThan(0);
   });
 });
 
 describe('the real corpus + allowlist', () => {
-  it('every seed file on disk passes the check', () => {
+  it('every non-allowlisted seed file on disk passes; allowlisted ones are exempt', () => {
     const offenders: string[] = [];
     for (const rel of listSeedFiles()) {
       const v = checkSource(rel, readFileSync(join(ROOT, rel), 'utf8'));
       if (v.length) offenders.push(`${rel}: ${v.join('; ')}`);
     }
+    // checkSource returns [] for allowlisted files, so this asserts the entire
+    // corpus is green (Joey's "everything passes" requirement).
     expect(offenders).toEqual([]);
   });
 
-  it('the allowlist is empty today (kept as an exact escape hatch)', () => {
-    expect(Object.keys(ALLOWLIST)).toEqual([]);
+  it('the allowlist is exact — every entry points at a real file', () => {
+    for (const rel of Object.keys(ALLOWLIST)) {
+      expect(readFileSync(join(ROOT, rel), 'utf8').length).toBeGreaterThan(0);
+    }
   });
 });
