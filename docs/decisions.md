@@ -7,6 +7,23 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-12 — Product name and domain: Long Live / longlivets.com
+
+**Decision:** The product's public name is **Long Live**. The website
+domain will be **longlivets.com** — Joey is purchasing it now; Wyatt will
+get it wired up (DNS/hosting) soon after. This resolves the "name TBD"
+placeholder in `CLAUDE.md` and unblocks social-account naming (#518) and
+any other naming-dependent work.
+
+**Why:** Joey's call — the shipped reader was already internally called
+"Long Live," and this makes it the actual public/company brand rather than
+just a feature name.
+
+**Alternatives considered:** None recorded; a direct founder decision, not
+a debated option set.
+
+**Approved by:** Joey.
+
 ## 2026-07-12 — Absorbed improvements from Joey's external AI review (charters amended)
 
 **Decision:** From the ChatGPT/Gemini assessments Joey commissioned, absorb
