@@ -22,7 +22,7 @@ review code line-by-line — they review behavior and outcomes.
 
 ## The product
 
-Taylor Swift fan app (name TBD), targeting web + mobile.
+Taylor Swift fan app, **Long Live** (longlivets.com), targeting web + mobile.
 Vision: `docs/vision.md`. Stack + standards: `docs/architecture.md`. Roadmap +
 who-owns-what: `docs/roadmap.md`. **How to run/test/seed — commands, env, repo
 map: `docs/dev-quickstart.md` (read before running anything).** **The shipped
