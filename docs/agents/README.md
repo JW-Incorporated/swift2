@@ -30,6 +30,8 @@ agent's outputs).
 |---|---|---|
 | [`marjorie.md`](marjorie.md) | Chief of staff + manager | Phase 1 — active |
 | [`austin.md`](austin.md) | Build desk autonomous lane | **Active** (2026-07-11, #494; G3 waived pending the Team-plan upgrade) |
+| [`nils.md`](nils.md) | The critic — walks the site daily, tickets what's unworthy | **Active** (2026-07-11, Joey directive) |
+| [`content-shift.md`](content-shift.md) | The standing writer — authors intake + experience + depth tickets | **Active** (2026-07-11, Joey directive) |
 | `../kevin.md` | Ticket ops (moves here in Phase 2) | Active on Wyatt's side |
 | *(Phase 2)* | Karen (Integrity), v0, delegation scripts | Charters pending |
 | *(Phase 1, copy desk)* | Theo, Loren, Vera, Deb — `docs/content-ops/personas/` | Spec approved (#463) |
