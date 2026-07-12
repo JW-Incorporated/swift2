@@ -107,3 +107,16 @@ lock, ticket comments = attempt ledger, labels = state); enforce every hard
 invariant in code; token scoped to contents+PR+issues on this repo only —
 never org-wide, never founder-identity (gap analysis G14 is the deadline
 for that split).
+
+## Amendments (2026-07-12, founder-approved)
+
+1. **Empty-queue fallback.** If Kevin's triage yields no in-scope tickets,
+   Austin does NOT exit idle: he takes the topmost `launch-gate`-labeled
+   engineering item that fits his scope fence (the fence itself is
+   unchanged), or, failing that, records "queue empty, no in-scope
+   launch-gate work" as his idle reason.
+2. **Claim-lease expiry.** A claim (assignment + comment) older than 24h
+   with no branch/PR activity is stale: any later run may unclaim it with a
+   note. A crashed run never holds a ticket forever.
+3. **Review rounds are bounded at two**, then the tiebreak rule in
+   Marjorie's charter applies.

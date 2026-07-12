@@ -7,6 +7,30 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-12 — Absorbed improvements from Joey's external AI review (charters amended)
+
+**Decision:** From the ChatGPT/Gemini assessments Joey commissioned, absorb
+four improvements (rejecting prompt-over-charter authority, precondition
+skipping, and unbounded in-session loops): (1) reporting-is-not-progress +
+idle-reason discipline (a briefs-only day is a failed org day); (2)
+empty-queue fallbacks — no desk idles while gates are red (Austin falls back
+to launch-gate work; Content Shift flags supply gaps); (3) claim-lease
+expiry (24h) + reviews bounded at two rounds with Marjorie as tiebreak for
+reversible matters; (4) the completion model — a per-surface coverage
+matrix in docs/launch-readiness.md judged against the DEPLOYED site (Nils
+now walks the live prod URL; three consecutive clean passes close a
+surface), plus a zero-AI daily prod smoke check in the watchdog, and Karen's
+nightly wired as a registered runner. Merge/deploy autonomy stays on the
+already-approved ladder behind #488 (inertness) + #496 (branch protection),
+now prioritized to the top of Wyatt's queue.
+
+**Why:** the external reviews' valid core — close the loop through
+merge→deploy→verify, and never let coordination substitute for progress —
+without adopting their mechanism (pasted prompts overriding charters), which
+is the authority-laundering pattern the provenance design exists to resist.
+
+**Approved by:** Joey (in session, 2026-07-12 — 'Go. Merge it too').
+
 ## 2026-07-11 — Build desk autonomous lane (Austin) — approved in direction, activation gated
 
 **Decision:** The Build desk gains an autonomous lane: **Austin**
