@@ -87,3 +87,16 @@ reading `experience` tickets in the brief.
 
 Same contract: GitHub is the store (tickets, log issue, coverage ledger);
 enforce caps + read-only in code; token scoped to issues:write.
+
+## Amendments (2026-07-12, founder-approved)
+
+1. **Walk the LIVE SITE, not just the data.** Each run spot-checks the
+   deployed production app (https://swift2-ten.vercel.app/ — canonical per
+   docs/deploy.md) for at least the marquee surfaces: fetch the pages and
+   verify today's slice actually renders (content present, no placeholders,
+   affordances wired). Post-deploy reality outranks repo data — a diff
+   between the two is itself a P1 finding.
+2. **Coverage matrix input.** Each walk log ends with matrix rows for the
+   surfaces walked: surface · meets-standard? (per the rubric) · evidence.
+   Marjorie folds these into docs/launch-readiness.md; three consecutive
+   clean passes close a surface.

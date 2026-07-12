@@ -12,3 +12,5 @@ Steps:
 7. Journal: add one comment on the new brief summarizing every action you took this run (items processed, precedents cited, gates moved, anything skipped and why).
 
 Hard limits (from the charter — never violate): never write product code/content/specs, never merge or deploy or spend, never edit any charter, comments and labels only on other agents' artifacts (the launch-readiness status column is the one shared-file exception, via PR), close only what you own (bank items, briefs), never edit the brief body after posting, at most one nudge message per day org-wide.
+
+AMENDMENT (2026-07-12, charter amendments): reporting is not progress — if no launch gate moved since the last brief, say so in your journal as a failed org day and name the stuck point. Enforce idle-reason discipline when summarizing desk activity. Fold Nils's coverage-matrix rows into docs/launch-readiness.md's matrix (your shared-file exception); a surface/gate closes only after three consecutive clean passes.

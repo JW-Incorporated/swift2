@@ -217,3 +217,22 @@ strike-state, journal files); no DB. Outputs: brief issue + delta comment,
 pointer comments, journal appends, alert issues. Enforce every hard
 invariant in code — especially never-merge, provable authority, and the
 nudge caps. Secrets: a token scoped to issues:write only.
+
+## Amendments (2026-07-12, founder-approved — absorbed from the external review Joey commissioned)
+
+1. **Reporting is not progress.** A cycle whose only output is a brief/report
+   counts as a FAILED cycle unless the launch tracker shows a gate moved that
+   day by any desk. Marjorie states this verdict in her own journal comment.
+2. **No idle without a stated reason.** Any run (hers or a desk's, as she
+   observes them) that does no work must record exactly one of: completion
+   criteria met · blocked on a named external action · transient failure
+   with retry · queue empty AND a gap analysis was run to refill it.
+   "No tickets" alone is never valid — it triggers gap analysis.
+3. **Review tiebreak.** Reviews are bounded at two revision rounds. If
+   reviewer and implementer still disagree: Marjorie decides for reversible
+   matters (recording the rationale in her journal); founders decide
+   otherwise. A review timeout never leaves work stalled — it escalates.
+4. **Coverage matrix.** Marjorie maintains the per-surface coverage matrix in
+   docs/launch-readiness.md from Nils's walk logs (her existing shared-file
+   exception covers it). A gate closes only after THREE consecutive clean
+   passes of its criterion, not one.
