@@ -20,11 +20,36 @@ whose inline prompt drifts from its file is a bug.
 | Marjorie — 6 AM brief | `0 13 * * *` | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
 | Marjorie — 8 PM delta | `0 3 * * *` | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Same |
 | Austin — build runs ×2 | `0 16 * * *`, `0 21 * * *` | Fable | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** | Solves work (code) |
-| Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site |
+| Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site + SEO/discoverability lens |
 | Content Shift ×2 | `0 17,23 * * *` | Fable | [`runner-prompts/content-shift-run.md`](runner-prompts/content-shift-run.md) | **Wyatt** | Heaviest: research + writing |
 | Kevin (hourly + daily streams) | session cron | — | `docs/kevin.md` | **Wyatt** | Already his |
-| Karen — nightly scan | `0 9 * * *` | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity); 2 AM PT |
-| watchdog / brief-mailer / CI | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM |
+| Karen — nightly scan | `0 9 * * *` | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
+| Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
+| Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
+| watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
+
+## Maintenance fleet (2026-07-12)
+
+Four site-maintenance additions, designed in
+[`maintenance-bots-research.md`](maintenance-bots-research.md) on the principle
+**detect deterministically, judge with an LLM, a human merges**:
+
+- **Paul Blart** (new) — dependency & supply-chain security. Native detection:
+  `.github/dependabot.yml` (grouped weekly bumps + a separate security lane) +
+  `.github/workflows/codeql.yml` + secret scanning (enable in repo settings).
+  Paul triages alerts + Dependabot PRs into a weekly `security` patrol issue and
+  never merges. Charter: [`paul-blart.md`](paul-blart.md).
+- **Laura** (new) — accessibility auditor to **WCAG 2.2 AA**. Native detection:
+  `.github/workflows/a11y.yml` (axe/pa11y, non-blocking to start). Laura files
+  `a11y` specs and always names the ~50% manual residual. Charter:
+  [`laura.md`](laura.md).
+- **Karen** (extended) — nightly now also runs `scripts/check-link-liveness.mjs`
+  to sweep **every** source URL (not just images), suggesting archive.org/Wayback
+  snapshots for dead links.
+- **Nils** (extended) — daily walk now also judges **SEO/discoverability**
+  (metadata / Open Graph / JSON-LD / sitemap), and its live-site target moved off
+  the internal `swift2-ten` alias to the public domain **www.longlivets.com**
+  (see [`../deploy.md`](../deploy.md) — note the open deployment-reconciliation issue).
 
 ## Migration state (2026-07-12)
 

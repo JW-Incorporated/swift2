@@ -2,11 +2,25 @@
 
 ## The one URL that matters
 
-**https://swift2-ten.vercel.app/** is the real, shared production deployment
-(Joey's Vercel account/project). This is the only URL to use for QA, status
-checks, or "is it live" questions — verify against this doc if a PR comment
-or chat message claims a different URL, rather than trusting it at face
-value.
+**https://www.longlivets.com/** (the apex `https://longlivets.com`
+308-redirects to it) is the **public production site** — the product, and the
+URL to use for QA, status checks, and "is it live" questions. Named per the
+product decision in PR #519; it supersedes the `swift2-ten` alias below.
+
+> ⚠️ **Known issue (2026-07-12):** the public domain has been observed serving a
+> **stale deployment**, and there are multiple Vercel projects bound to this
+> repo — `swift2-web` (Wyatt's account) receives the GitHub/CI deploys but its
+> bare alias 404s (`DEPLOYMENT_NOT_FOUND`), while `swift2-ten.vercel.app`
+> (historically "Joey's project") serves a *different* build again. Deciding
+> which project owns production + the custom domain, and setting the domain to
+> follow Production, is a **Vercel-dashboard task for the founders** (tracked in
+> the deployment reconciliation issue). Until it's resolved a
+> repo-vs-`longlivets.com` diff is expected — Nils and Laura will flag it.
+
+**https://swift2-ten.vercel.app/** — historically cited here as production
+(Joey's Vercel project); now treat it as an **internal alias that may lag** the
+public domain. Do not cite it as "the live site"; confirm against
+`www.longlivets.com`.
 
 **https://swift2-web-nine.vercel.app/** is a *separate*, personal Vercel
 project (Wyatt's account) used only when v0 is doing UX exploration work. It
