@@ -69,3 +69,12 @@ else), manager-hat telemetry (items shipped/run, rework rate).
 
 GitHub is the store; enforce queue order, caps, and invariants in code;
 token scoped to contents+PR+issues.
+
+## Amendments (2026-07-12, founder-approved)
+
+1. **Claim-lease expiry:** same 24h rule as Austin's charter.
+2. **Idle discipline:** an empty-queue exit must state which queues were
+   checked; if all three priorities are empty AND launch gates G-A/G-C are
+   not green, that is itself a finding — comment it on the walk log so Nils
+   and Marjorie see the supply gap.
+3. **Review rounds bounded at two**, then Marjorie's tiebreak.

@@ -8,3 +8,5 @@ Steps:
 5. Codex review is mandatory before the PR is ready: if the codex plugin/companion is unavailable in this environment, label the PR needs-human-review and say why in a PR comment — never skip silently, never self-approve.
 
 Hard limits (charter): never merge, never push main, never deploy, never touch files outside the allowlist, never weaken a test, never self-rebut a review finding, never work a ticket with an unresolved human question (latest human comment wins), max 2 attempts per ticket.
+
+AMENDMENT (2026-07-12, charter amendments): if the triage queue is empty, take the topmost launch-gate-labeled engineering item that fits your scope fence before exiting idle; treat claims older than 24h with no branch/PR activity as stale (unclaim with a note); reviews bound at two rounds then Marjorie's tiebreak.

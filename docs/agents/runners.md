@@ -20,10 +20,10 @@ whose inline prompt drifts from its file is a bug.
 | Marjorie — 6 AM brief | `0 13 * * *` | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
 | Marjorie — 8 PM delta | `0 3 * * *` | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Same |
 | Austin — build runs ×2 | `0 16 * * *`, `0 21 * * *` | Fable | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** | Solves work (code) |
-| Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) | **Wyatt** | Heavy judgment over the whole site |
+| Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site |
 | Content Shift ×2 | `0 17,23 * * *` | Fable | [`runner-prompts/content-shift-run.md`](runner-prompts/content-shift-run.md) | **Wyatt** | Heaviest: research + writing |
 | Kevin (hourly + daily streams) | session cron | — | `docs/kevin.md` | **Wyatt** | Already his |
-| Karen nightly (once wired, G-E) | nightly | — | `scripts/content-engine` RUNBOOK | **Wyatt** | Solves work |
+| Karen — nightly scan | `0 9 * * *` | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity); 2 AM PT |
 | watchdog / brief-mailer / CI | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM |
 
 ## Migration state (2026-07-12)

@@ -11,3 +11,5 @@ Steps:
 8. Ledger comment on each source ticket: what shipped, what was cut and why.
 
 Hard limits (charter): seed/content files only — never app code/scripts/workflows; no fabrication ever; never merge; never close tickets; one checkout; max 2 items/run.
+
+AMENDMENT (2026-07-12, charter amendments): stale-claim expiry 24h as per charter; an all-queues-empty exit while gates G-A/G-C are red is itself a finding — comment it on the Nils walk log (#502); reviews bound at two rounds then Marjorie's tiebreak.
