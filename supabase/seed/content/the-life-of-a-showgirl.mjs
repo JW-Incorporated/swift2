@@ -2269,16 +2269,16 @@ export default {
       slug: 'first-newlywed-appearance-juju-wedding',
       year: 2026,
       month: 7,
-      day: 11,
+      day: 10,
       category: 'sighting',
       title: "First sighting since the wedding: pink Markarian, at a friend's big day",
       snippet:
         'Eight days after their own Madison Square Garden wedding, Taylor and Travis showed up as guests at Kansas City teammate JuJu Smith-Schuster\'s wedding — Taylor in a pink Markarian gown, both of them visibly wearing their new rings.',
-      sourceUrl: 'https://www.billboard.com/culture/lifestyle/taylor-swift-travis-kelce-wedding-nfl-juju-smith-schuster-1236292369/',
-      thumbnailUrl: null,
+      sourceUrl: 'https://www.tmz.com/2026/07/10/taylor-swift-and-travis-kelce-seen-first-time-since-wedding/',
+      thumbnailUrl: 'https://imagez.tmz.com/image/43/16by9/2026/07/11/435b7e695e334893923e269c987b46f6_xl.jpg',
       moment: {
         context:
-          'Eight days after their July 3 wedding at Madison Square Garden, Taylor and Travis made their first public appearance as a married couple — not at a press event or a project of their own, but as guests at former Kansas City teammate JuJu Smith-Schuster\'s wedding to Laura Kruk, held July 11 at the Ritz-Carlton in Laguna Niguel, California.\n\nTaylor wore a strapless pink and red floral-brocade gown from Markarian, paired with her usual red lipstick; Travis wore a black suit. The pair were photographed holding hands on the way in — the first clear look at both of them wearing their wedding bands. Smith-Schuster was Travis\'s teammate through the Chiefs\' Super Bowl LVII run and stayed close with the couple afterward; he and Kruk were among the 1,000 guests at Taylor and Travis\'s own wedding, making this something of a return trip.',
+          'Eight days after their July 3 wedding at Madison Square Garden, Taylor and Travis made their first public appearance as a married couple — not at a press event or a project of their own, but as guests at former Kansas City teammate JuJu Smith-Schuster\'s wedding to Laura Kruk, held July 10 at the Ritz-Carlton in Laguna Niguel, California.\n\nTaylor wore a strapless pink and red floral-brocade gown from Markarian, paired with her usual red lipstick; Travis wore a black suit. The pair were photographed holding hands on the way in — the first clear look at both of them wearing their wedding bands. Smith-Schuster was Travis\'s teammate through the Chiefs\' Super Bowl LVII run and stayed close with the couple afterward; he and Kruk were among the 1,000 guests at Taylor and Travis\'s own wedding, making this something of a return trip.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2297,6 +2297,20 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 3,
+          },
+        ],
+        // Verified 2026-07-12: HTTP 200, real JPEG (2048x1152), downloaded
+        // and viewed directly — confirms Travis in a black suit + sunglasses
+        // and Taylor in the pink floral-brocade gown, outdoor wedding
+        // setting. TMZ's own hosted/watermarked photo, not a hotlink to a
+        // third party's copy.
+        photos: [
+          {
+            url: 'https://imagez.tmz.com/image/43/16by9/2026/07/11/435b7e695e334893923e269c987b46f6_xl.jpg',
+            credit: 'TMZ.com',
+            caption:
+              "Taylor in the pink Markarian gown and Travis in a black suit, arriving at JuJu Smith-Schuster's wedding.",
+            kind: 'primary',
           },
         ],
       },
