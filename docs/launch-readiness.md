@@ -28,6 +28,8 @@ her current checks are necessary, not sufficient.
 | G-J | **Ops hygiene** — G2 merge=deploy decision made; G13 Vercel double-project noise resolved; #496 branch protection | 🔴 all three open | Founder decisions (banked) |
 | G-K | **The launch campaign** — Growth desk's first deliverable (pre-launch per decisions) | 🔴 desk not stood up (Phase 3 pulled forward, not started) | Stand up Growth desk charter + campaign plan · next build slot |
 
+> **2026-07-12 — auto-merge precondition NOT met:** #488's content-inertness checker merged (PR #507) but a red-team found a prototype-escape bypass (#508). The founder-approved content auto-merge gate (§5.4) stays OFF until #508 clears. G3 branch protection IS live; #488 is the last precondition and it is now reopened-in-effect via #508.
+
 ## What "done" looks like
 
 Every row 🟢, then a founders' go/no-go in the brief. No new categories of
