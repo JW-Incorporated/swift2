@@ -62,6 +62,22 @@ Easter-egg culture references.
   they're authored, not one.
 - **"Independent" = two different outlets/bylines**, not two
   re-syndications of the same wire story.
+- **Exception: fan theories and Easter eggs are not held to the two-source
+  bar above.** This applies to any item tagged as a theory (`kind: 'theory'`
+  or `'easter_egg'` in the theories pipeline, or an item explicitly
+  presented as fan interpretation rather than reported fact) — a real,
+  large part of this site. They follow their own, separate standard:
+  **one sourced line** documenting that the theory exists and what it
+  claims (`docs/content-ops/theory-weaving.md`,
+  `docs/content-ops/song-annotation-standard.md`), plus the confidence/
+  outcome tiering that already marks a theory as unconfirmed. Requiring two
+  independent outlets to report on a fan theory as if it were a factual
+  claim would be the wrong bar — a theory's sourcing question is "does a
+  real source show this theory exists and what it says," not "is this
+  confirmed by two outlets," since confirmation is exactly what a theory,
+  by definition, doesn't have yet. The two-source rule stays exactly as
+  strict as written above for actual `relationship`/`business` factual
+  claims — this exception is scoped to theory-tagged content only.
 
 ### Source classes
 
