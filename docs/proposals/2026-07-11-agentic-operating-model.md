@@ -431,7 +431,7 @@ deleting a workflow file.
 **Hard precondition (Codex round 2): the allowed paths must be inert data
 first.** Today `supabase/seed/content/**` files are executable `.mjs` modules
 imported by the seed/validate scripts — a path-clean PR could smuggle live
-code that runs in CI and later against the DB. Before the gate can be
+code that runs in CI and later against the DB. (**Update 2026-07-12:** the first checker implementation, PR #507, shipped as a deny-list of dangerous global *names* and was found bypassable via prototype-escape — a `.constructor.constructor` chain reaches the Function constructor without naming it. Tracked as blocker #508. The wording "single default-exported object literal" in this section was itself too narrow for the real corpus; the correct spec is *capability-inertness proven by a positive grammar*, not a literal shape.) Before the gate can be
 granted, CI gains a **content-inertness check** (parse each seed file and
 reject anything beyond a single default-exported object literal — no
 statements, no imports, no computed code), and "generated content files"
