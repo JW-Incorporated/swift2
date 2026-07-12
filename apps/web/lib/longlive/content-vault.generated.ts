@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef, LensId } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-11T00:33:06.406Z";
+export const CONTENT_GENERATED_AT = "2026-07-12T10:09:06.787Z";
 
 type VaultRawItem = {
   id: string;
@@ -6429,6 +6429,39 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The work that earned the invitation: the Old Mine Cut diamond in yellow gold Lubeck designed with Kelce, from the couple's engagement announcement.", kind: "archival" }],
       sources: [{ name: "Taylor Swift, Travis Kelce invited Ring Designer Kindred Lubeck to Wedding", url: "https://www.eonline.com/news/1433683/taylor-swift-travis-kelce-invited-ring-designer-kindred-lubeck-to-wedding" }],
+    },
+    {
+      id: "vault-tloas-new-york-city-confirms-the-price-tag-on-taylors-wedding-over",
+      slug: "nyc-wedding-permit-fee",
+      date: "2026-07-10",
+      dateLabel: "July 10, 2026",
+      title: "New York City confirms the price tag on Taylor's wedding: over $160K",
+      summary: "Mayor Zohran Mamdani says Taylor paid more than $160,000 for the permit and city response around her Madison Square Garden wedding — but that's a different claim than \"she covered every dollar of NYPD overtime,\" and the two shouldn't get blurred together.",
+      body: ["New York City Mayor Zohran Mamdani confirmed Taylor paid more than $160,000 for the event permit tied to her July 3 wedding to Travis Kelce at Madison Square Garden — a figure covering the permit itself plus the city's response to an event that closed streets, rerouted traffic, and pulled in a heavy NYPD presence around the Garden and Penn Station.", "Worth being precise about what that number does and doesn't confirm. Mamdani tied the payment to \"the permit and the response to that event,\" but nothing public has itemized the $160K into permit fees versus traffic control versus actual police overtime — so the accurate read is \"Taylor paid for the permit and the associated city response,\" not \"she personally covered every dollar of NYPD overtime\" or \"taxpayers paid nothing at all.\" Separately, and worth not conflating with this: Taylor and Travis also donated $26 million to charities around the wedding, including groups supporting NYPD and FDNY families — real money, but philanthropy, not a city-services invoice."],
+      tags: ["Relationship"],
+      sources: [{ name: "Taylor Swift paid New York City more than $160k for wedding permit, mayor says", url: "https://abcnews.com/GMA/Culture/taylor-swift-paid-new-york-city-160k-wedding/story?id=134655199" }, { name: "Taylor Swift Paid 'Over $160,000' to Obtain NYC Permit for MSG Wedding, Says Zohran Mamdani", url: "https://www.rollingstone.com/music/music-news/taylor-swift-nyc-permit-cost-msg-wedding-zohran-mamdani-1235592197/" }],
+    },
+    {
+      id: "vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends",
+      slug: "first-newlywed-appearance-juju-wedding",
+      date: "2026-07-11",
+      dateLabel: "July 11, 2026",
+      title: "First sighting since the wedding: pink Markarian, at a friend's big day",
+      summary: "Eight days after their own Madison Square Garden wedding, Taylor and Travis showed up as guests at Kansas City teammate JuJu Smith-Schuster's wedding — Taylor in a pink Markarian gown, both of them visibly wearing their new rings.",
+      body: ["Eight days after their July 3 wedding at Madison Square Garden, Taylor and Travis made their first public appearance as a married couple — not at a press event or a project of their own, but as guests at former Kansas City teammate JuJu Smith-Schuster's wedding to Laura Kruk, held July 11 at the Ritz-Carlton in Laguna Niguel, California.", "Taylor wore a strapless pink and red floral-brocade gown from Markarian, paired with her usual red lipstick; Travis wore a black suit. The pair were photographed holding hands on the way in — the first clear look at both of them wearing their wedding bands. Smith-Schuster was Travis's teammate through the Chiefs' Super Bowl LVII run and stayed close with the couple afterward; he and Kruk were among the 1,000 guests at Taylor and Travis's own wedding, making this something of a return trip."],
+      tags: ["Lore"],
+      sources: [{ name: "Taylor Swift, Travis Kelce Attend Wedding as First Outing After Marrying", url: "https://www.billboard.com/culture/lifestyle/taylor-swift-travis-kelce-wedding-nfl-juju-smith-schuster-1236292369/" }, { name: "Newlyweds Taylor Swift & Travis Kelce: See First Photos of Couple Since Wedding", url: "https://www.tmz.com/2026/07/10/taylor-swift-and-travis-kelce-seen-first-time-since-wedding/" }],
+    },
+    {
+      id: "vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom",
+      slug: "i-knew-it-i-knew-you-oscar-buzz",
+      date: "2026-07-07",
+      dateLabel: "July 7, 2026",
+      title: "\"I Knew It, I Knew You\" enters the Oscar conversation — not a nominee, not yet",
+      summary: "Taylor's Toy Story 5 song, co-written with Jack Antonoff, is drawing real Best Original Song buzz — including praise from a rival songwriter — but nothing about an actual nomination is decided.",
+      body: ["Taylor's original song for Toy Story 5, \"I Knew It, I Knew You\" (co-written with Jack Antonoff), has become part of the real conversation around the 2027 Best Original Song Oscar race — not because of hype, but because of who's saying so. At the July 7 premiere for Disney's live-action Moana, Lin-Manuel Miranda — writer of \"Along the Way,\" his own new song for that film, and a two-time Best Original Song nominee himself for animated Moana's \"How Far I'll Go\" — told PEOPLE, \"I love Taylor, and I love that song. I thought her song for 'Toy Story 5' was really fun,\" adding that when writing for a character, \"you're not thinking about the Oscars... you're thinking, 'How on earth do I pull this off? How can it feel honest and true?'\"", "The song has real momentum behind that praise: it topped the Billboard Hot 100 for two weeks running. None of that makes it a nominee — the Academy hasn't ruled on eligibility, nothing has been shortlisted, and the formal submission window hasn't closed. What's real right now is that two of the year's highest-profile original songs, both written for existing franchise characters rather than as standalone singles, are being talked about in the same breath — including by the person who'd be competing against it."],
+      tags: ["Music"],
+      sources: [{ name: "'Moana': Lin-Manuel Miranda on Writing the Song 'Along The Way' in a Week and Being in the Oscar Race With Taylor Swift", url: "https://variety.com/2026/film/news/moana-lin-manuel-miranda-oscar-race-taylor-swift-1236802380/" }, { name: "Welcome to the Oscar Race, 'Toy Story 5' and Taylor Swift", url: "https://www.hollywoodreporter.com/movies/movie-news/welcome-to-the-oscar-race-toy-story-5-taylor-swift-1236618102/" }],
     },
   ],
   "ttpd": [
