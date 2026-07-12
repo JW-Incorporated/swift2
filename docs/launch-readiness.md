@@ -58,3 +58,23 @@ none of the 20 sampled items carrying a filable finding. The distance to
 Joey's bar lives in the two checks Karen doesn't have yet (voice G-B, depth
 G-C) plus the pending agent factual passes — which is why those gates exist
 and why "Karen-clean" is redefined to include them.
+
+## Coverage matrix (absorbed 2026-07-12 — the completion model)
+
+Judged against the **deployed product** (https://swift2-ten.vercel.app/),
+not tickets. Nils reports rows in each walk log; Marjorie folds them in
+here; a surface (and ultimately a gate) closes only after **three
+consecutive clean passes**. Standards: the Nils rubric + content-ops docs.
+
+| Surface | Standard met? | Last verdict | Evidence |
+|---|---|---|---|
+| Era timelines ×11 (months, moments) | 🔴 unverified against rubric | 2026-07-11 sample: depth uneven | 20-sample audit |
+| Thread: Blank Spaces (incl. solo periods) | 🔴 fails | 2026-07-11 (Joey) | one-line solo period 2013–15 |
+| Threads: other 5 | 🔴 unverified, suspected thin | — | Joey: "nearly every thread the same" |
+| Track guide: TLOAS | 🔴 fails | 2026-07-11 | click bug #498, Released row #499 |
+| Track guides: other 10 eras | 🔴 fails | 2026-07-11 | 12/244 songs have dossiers |
+| Videos / theories | 🟡 partial | 2026-07-11 sample | passes Karen letter, depth unscored |
+| Chrome copy (first-run, about) | 🟡 unscored | — | J5 open |
+
+Nils's daily walks replace the 🔴-unverified cells with real verdicts within
+one rotation (~a week); the matrix is the objective launch answer.

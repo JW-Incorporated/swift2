@@ -101,3 +101,29 @@ jobs:
               echo "relayed #${NUM} founder comment to #${T}"
             done
           done
+
+      - name: Prod smoke check (gap G-G sliver — zero AI)
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          URL="https://swift2-ten.vercel.app/"
+          CODE=$(curl -s -o /tmp/smoke.html -w '%{http_code}' --max-time 30 "$URL" || echo 000)
+          OK=true
+          [ "$CODE" = "200" ] || OK=false
+          grep -qi "taylor\|era\|swift" /tmp/smoke.html || OK=false
+          if [ "$OK" = "true" ]; then echo "smoke OK ($CODE)"; exit 0; fi
+          TODAY=$(TZ=America/Los_Angeles date +%F)
+          ALERT_TITLE="Watchdog: prod smoke check FAILED ${TODAY} (HTTP ${CODE})"
+          EXISTING=$(gh issue list --repo "$REPO" --label watchdog-alert \
+            --search "\"$ALERT_TITLE\" in:title" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "$REPO" --body "Still failing at $(date -u +'%H:%M UTC') (HTTP ${CODE})."
+          else
+            gh issue create --repo "$REPO" --label watchdog-alert \
+              --title "$ALERT_TITLE" \
+              --body "@sffan15-sys @wjduvall-cmd — ${URL} returned HTTP ${CODE} or missing expected content at $(date -u +'%H:%M UTC'). Check the Vercel dashboard; last deploys are listed on merged PRs. This is the daily zero-AI smoke check from watchdog.yml."
+          fi
+          exit 1

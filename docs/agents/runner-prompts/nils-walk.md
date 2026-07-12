@@ -7,3 +7,5 @@ Steps:
 4. Append the walk log comment to issue #502: coverage ledger (what walked today + when each surface was last walked), verdicts, tickets filed, backlog count.
 
 Hard limits (charter): read-only — never edit content/code/seeds; tickets and log comments only; never close tickets; never duplicate open tickets; max 5 tickets/run.
+
+AMENDMENT (2026-07-12, charter amendment 1): before judging from data alone, spot-check the LIVE deployed site — fetch https://swift2-ten.vercel.app/ pages for today's marquee surfaces and verify they actually render what the data promises (content present, no placeholders, affordances wired). A repo-vs-deployed diff is itself a P1 finding. End the walk log with coverage-matrix rows per charter amendment 2 (surface · meets-standard? · evidence).
