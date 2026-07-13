@@ -1020,6 +1020,49 @@ export default {
         ],
       },
     },
+    // Content Shift (2026-07-13, ticket #617 fix-shape item 3): the June 10
+    // MSG venue-foreshadowing sighting, previously missing from the vault.
+    // Note for the End Game thread author: the ticket framed this as a
+    // couple's venue clue, but Travis was NOT at this game — Chiefs
+    // mandatory minicamp ran June 9-11 in Kansas City (Yahoo). Facts
+    // triangulated across Billboard, Rolling Stone, E!, SI, NBA.com and
+    // Yahoo search-indexed content; direct page fetches and image
+    // verification are blocked by this environment's network policy, so no
+    // thumbnail/photos — left for the photo pass (T16 pattern).
+    {
+      slug: 'stevie-knicks-nba-finals-game-4',
+      year: 2026,
+      month: 6,
+      day: 10,
+      category: 'sighting',
+      title: '"Stevie Knicks" courtside: the Garden, three weeks before the wedding',
+      snippet:
+        'Courtside for NBA Finals Game 4 with Este and Alana Haim, in homemade Knicks-pun tees — hers reads "Stevie Knicks" — Taylor watches New York erase a 29-point deficit and steal it on a put-back with 1.2 seconds left. Three weeks later, same building: the wedding.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-nba-finals-game-4-haim-stevie-knicks-shirt-1236270180/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The shirts were Alana Haim\'s craft project — $3 Gildan tees from Michaels, hand-lettered in orange: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-nba-finals-game-4-haim-stevie-knicks-shirt-1236270180/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-knicks-nba-finals-haim-1235575812/',
+          },
+          {
+            outlet: 'NBA.com',
+            url: 'https://www.nba.com/news/taylor-swift-attends-2026-nba-finals-game-4-at-madison-square-garden',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-shows-love-taylor-202611050.html',
+          },
+        ],
+      },
+    },
     {
       slug: 'watch-hill-bachelorette-weekend',
       year: 2026,
@@ -1546,7 +1589,7 @@ export default {
         'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
       moment: {
         context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone widely estimated at 7 to 10 carats, set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.',
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.',
         // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
         // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
         // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
@@ -1580,6 +1623,22 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 3,
+          },
+          // Carat-range reconciliation (2026-07-13, ticket #615 item 3): this
+          // item said "7 to 10 carats" while the TTPD ring item said "8 to
+          // 15" — the site contradicted itself. Unified both to the full
+          // documented spread: named-expert estimates run from 7-8 carats
+          // (Lauren B. Shmueli, Simone Kendle via Today) through ~8 (Benjamin
+          // Khordipour via Fortune) up to 10-15 (Deborah Villepigue via
+          // Forbes). Today source added below as the low-end anchor.
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776',
+            source_title: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses",
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-13',
+            reliability_score: 4,
           },
         ],
         photos: [
