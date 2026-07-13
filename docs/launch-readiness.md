@@ -16,7 +16,7 @@ her current checks are necessary, not sufficient.
 
 | # | Gate | Status 2026-07-11 | Next action · owner |
 |---|---|---|---|
-| G-A | **Content depth: J3.5** — Midnights + TTPD at Active-tier, relationship/sighting/fashion-weighted (fixed launch gate, decisions 2026-07-04) | 🟡 first pass landed; never audited against the rubric; Joey's spot-check untimed (J3.5-next) | Rows-per-month audit vs rubric → gap list → **Content Shift queue (priority 3)** · Content desk; spot-check timing · Joey |
+| G-A | **Content depth: J3.5** — Midnights + TTPD at Active-tier, relationship/sighting/fashion-weighted (fixed launch gate, decisions 2026-07-04) | 🟡 moving — 2026-07-12: +3 sourced July-2026 moments merged (#510, #517); first rows-per-month gap audit ran and 2 TTPD gap items await merge (PR #523, remaining-gaps ledger in its description); full rubric audit still open; Joey's spot-check untimed (J3.5-next) | Rows-per-month audit vs rubric → gap list → **Content Shift queue (priority 3)** · Content desk; spot-check timing · Joey |
 | G-B | **Voice: the Swiftie bar** (#461) — Taylor-not-Swift rule + fan-editor voice, enforced not aspirational | 🔴 rule approved, linter unbuilt, retro pass not run; today's 20-sample audit confirms bare-"Swift" prose in live content | Build the #461 word-choice checker into Karen; run retro pass batched by era · Integrity + Content desks |
 | G-C | **Depth: worthy-of-Taylor** (#441 + #440 phases) — Karen can't see thinness; only 12/244 songs have dossiers; whole narrative periods (thread solo-eras etc.) sit near-empty | 🟡 **Nils (the critic, docs/agents/nils.md) now walks the site daily and tickets what's unworthy; the Content Shift (docs/agents/content-shift.md) authors those tickets on a 2×/day cadence** — machinery live 2026-07-11; the backlog itself still large | Nils tickets → Content Shift burns them; #441 checkers into Karen; dossier waves per #440 · Critic + Content + Integrity desks |
 | G-D | **Track-guide UX** — Joey's 2026-07-11 report: song clicks broken on TLOAS, "Released" row shows album, most eras have zero clickable songs | 🔴 bugs filed (see tickets); unclickable-era problem is G-C's data gap surfacing in UI | Fix click bug + Released row · Build desk (Austin-eligible if triaged tractable); dossier coverage → G-C |
@@ -25,10 +25,11 @@ her current checks are necessary, not sufficient.
 | G-G | **Watch desk minimum (L1)** — uptime/error paging on the authoritative user path + analytics baseline | 🔴 not built; analytics decision #477 unanswered | Tick #477 · founders; then L1 build · Watch/Build desk |
 | G-H | **Legal pages (G5)** — privacy + ToS covering feedback data (already collected!), minors, analytics consent | 🔴 nothing exists | Draft for IP-counsel review per existing gate · founders + Content desk |
 | G-I | **Backups (G4)** — Supabase restore runbook tested once | 🔴 unverified | Verify tier, document, test one restore · Build desk |
-| G-J | **Ops hygiene** — G2 merge=deploy decision made; G13 Vercel double-project noise resolved; #496 branch protection | 🔴 all three open | Founder decisions (banked) |
+| G-J | **Ops hygiene** — G2 merge=deploy decision made; G13 Vercel double-project noise resolved; #496 branch protection | 🟡 branch protection LIVE (ruleset `protect-main`, founder-confirmed 2026-07-12); G2 merge=deploy still undecided; G13 escalated — longlivets.com serves a stale build, founder dashboard action needed (#522) | Founder decisions (banked) |
 | G-K | **The launch campaign** — Growth desk's first deliverable (pre-launch per decisions) | 🔴 desk not stood up (Phase 3 pulled forward, not started) | Stand up Growth desk charter + campaign plan · next build slot |
 
 > **2026-07-12 — auto-merge precondition NOT met:** #488's content-inertness checker merged (PR #507) but a red-team found a prototype-escape bypass (#508). The founder-approved content auto-merge gate (§5.4) stays OFF until #508 clears. G3 branch protection IS live; #488 is the last precondition and it is now reopened-in-effect via #508.
+> **2026-07-12 PM status:** PR #512 merged (positive-grammar rewrite; all five red-team bypasses now fail as fixtures) and #508 is **closed** — the code-side precondition is met (one allowlisted file remains human-review-only, #511). Turning §5.4 auto-merge ON is still an explicit founder grant, not automatic.
 
 ## What "done" looks like
 
