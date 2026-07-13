@@ -6,12 +6,8 @@ import { getEra } from '@/lib/longlive/eras';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { Button } from '@/components/ui/button';
 import { TimelineScrubber } from './TimelineScrubber';
-import {
-  TOPBAR_ACTIONS_CLASS,
-  TOPBAR_LEFT_CLASS,
-  TOPBAR_ROW_CLASS,
-  topbarShareTarget,
-} from './topbarLayout';
+import { topbarShareTarget } from '@/lib/longlive/share';
+import { TOPBAR_ACTIONS_CLASS, TOPBAR_LEFT_CLASS, TOPBAR_ROW_CLASS } from './topbarLayout';
 
 export function TopBar() {
   const { mode, eraId, lensId } = useAppState();
@@ -80,15 +76,17 @@ export function TopBar() {
           >
             <Search />
           </Button>
-          {/* Always rendered so the actions group never changes width (the
-              toggle-shift bug, #453). On the plain Threads gallery there is
-              no share copy yet, so the button is disabled there (#492). */}
+          {/* Always rendered, disabled when there's nothing to share — never
+              conditionally removed; see topbarShareTarget (#492/#453). */}
           <Button
             variant="surface"
             size="icon"
             aria-label="Share"
+            title="Share"
             disabled={shareTarget == null}
-            onClick={() => shareTarget != null && openShare(shareTarget)}
+            onClick={() => {
+              if (shareTarget) openShare(shareTarget);
+            }}
           >
             <Share2 />
           </Button>
