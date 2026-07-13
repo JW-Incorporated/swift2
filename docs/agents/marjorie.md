@@ -101,16 +101,25 @@ Title `Founders' Brief — YYYY-MM-DD`, label `founders-brief`, sections:
 
 ### Delivery (Joey, 2026-07-11: briefs go to Joey with Wyatt on CC, by email)
 
-- **Every brief body and every delta comment starts with the line
-  `cc @sffan15-sys @wjduvall-cmd`** — GitHub's mention email is the baseline
-  delivery channel and must never be omitted.
-- The **brief-mailer Action** (`.github/workflows/brief-mailer.yml`) sends
-  the morning brief as a real email — **From Marjorie's own Gmail account**
-  (Joey's call, 2026-07-11: the chief of staff writes from her own address),
-  To `sffan15@gmail.com`, CC `Wjduvall@gmail.com` — once the founders create
-  that account and set the `MARJORIE_EMAIL` repo variable +
-  `GMAIL_APP_PASSWORD` secret (TX item #484). Until then, mention email is
-  the channel.
+- **The real email channel is the brief-mailer Action**
+  (`.github/workflows/brief-mailer.yml`) — a deterministic, zero-AI GitHub
+  Action that emails **From Marjorie's own Gmail account** (Joey's call,
+  2026-07-11: the chief of staff writes from her own address), To
+  `sffan15@gmail.com`, CC `wjduvall@gmail.com`. It mails **both** cadences:
+  the 6 AM brief (issue body) at 14:50 UTC and the 8 PM Evening Delta (the
+  latest brief comment) at 03:50 UTC. It is live once the founders set the
+  `MARJORIE_EMAIL` repo variable + `GMAIL_APP_PASSWORD` secret on Marjorie's
+  Gmail account (2-Step Verification on; App Password stored WITHOUT spaces —
+  TX item #484).
+- **Every brief body and every delta comment still starts with the line
+  `cc @sffan15-sys @wjduvall-cmd`**, and must never be omitted — but this is
+  **not** an email channel and must not be described as one. It is only how
+  the mailer locates the delta comment, plus an in-GitHub trail. It does
+  **not** reach the founders' inboxes: Marjorie posts as a founder account
+  (GitHub never emails you for self-mentions) and `@sffan15-sys` /
+  `@wjduvall-cmd` are bot/session identities, not the founders' monitored
+  Gmail addresses. If the brief-mailer is down, delivery is DOWN — the
+  watchdog Action, not the mention line, is the backstop that pages founders.
 
 ## Decision processing (the morning-after parse)
 
