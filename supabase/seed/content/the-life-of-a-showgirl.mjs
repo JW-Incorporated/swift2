@@ -2087,6 +2087,54 @@ export default {
       },
     },
     {
+      slug: 'songwriters-hall-of-fame-induction',
+      year: 2026,
+      month: 6,
+      day: 11,
+      category: 'music',
+      title: 'The youngest woman in the Songwriters Hall of Fame',
+      snippet:
+        'At 36, Taylor becomes the youngest woman ever inducted into the Songwriters Hall of Fame — only Stevie Wonder got there younger. Steven Spielberg handles the surprise introduction, and Travis and both moms watch from her table, three weeks before the wedding.',
+      sourceUrl: 'https://www.pbs.org/newshour/arts/taylor-swift-becomes-the-youngest-woman-inducted-into-the-songwriters-hall-of-fame-at-age-36',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, and KISS\'s Gene Simmons and Paul Stanley — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nHer speech ran past the twenty-minute mark, and the room got the songwriter version of her origin story — she held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her. Spielberg\'s introduction was her own doing, in a way: when the Hall asked which of her heroes she\'d want presenting, she named him. And the seating chart told the engagement-year story on its own — Travis, Andrea Swift, and Donna Kelce at her table, twenty-two days before the Madison Square Garden wedding.',
+        sources: [
+          {
+            outlet: 'PBS NewsHour',
+            url: 'https://www.pbs.org/newshour/arts/taylor-swift-becomes-the-youngest-woman-inducted-into-the-songwriters-hall-of-fame-at-age-36',
+            source_title: 'Taylor Swift becomes the youngest woman inducted into the Songwriters Hall of Fame at age 36',
+            publisher: 'PBS NewsHour',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-13',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-songwriters-hall-of-fame-acceptance-speech-1236779180/',
+            source_title: 'Taylor Swift Thanks Family, Tears Up at Songwriters Hall of Fame 2026',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-13',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-songwriters-hall-of-fame-induction-speech-1236271403/',
+            source_title: "Here's Taylor Swift's Full 20-Minute Induction Speech at the 2026 Songwriters Hall of Fame",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-13',
+            reliability_score: 4,
+          },
+        ],
+        // No photo yet: direct image-URL verification is blocked in this
+        // environment (T16 pattern) — leave for the photo pass rather than
+        // hotlink unverified.
+      },
+    },
+    {
       slug: 'rock-hall-ophelia-display',
       year: 2026,
       month: 6,
