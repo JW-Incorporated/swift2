@@ -22,7 +22,10 @@ whose inline prompt drifts from its file is a bug.
 | Austin — build runs ×2 | `0 16 * * *`, `0 21 * * *` | Fable | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** | Solves work (code) |
 | Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site + SEO/discoverability lens |
 | Content Shift ×2 | `0 17,23 * * *` | Fable | [`runner-prompts/content-shift-run.md`](runner-prompts/content-shift-run.md) | **Wyatt** | Heaviest: research + writing |
-| Kevin (hourly + daily streams) | session cron | — | `docs/kevin.md` | **Wyatt** | Already his |
+| Kevin — S1 Karen solver | `17 11 * * *` | Fable | [`runner-prompts/kevin-stream1-karen.md`](runner-prompts/kevin-stream1-karen.md) | **Wyatt** | Fixes cie tickets; runs after Karen, before the brief |
+| Kevin — S2 user digest | `13 15 * * *` | Fable | [`runner-prompts/kevin-stream2-digest.md`](runner-prompts/kevin-stream2-digest.md) | **Wyatt** | Daily feedback digest for human accept/reject |
+| Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
+| Kevin — S3 comment radar | `23 0-5,13-23 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Hourly 6am–10pm PT (skips overnight); surfaces cross-session comments |
 | Karen — nightly scan | `0 9 * * *` | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
@@ -49,7 +52,7 @@ Four site-maintenance additions, designed in
 - **Nils** (extended) — daily walk now also judges **SEO/discoverability**
   (metadata / Open Graph / JSON-LD / sitemap), and its live-site target moved off
   the internal `swift2-ten` alias to the public domain **www.longlivets.com**
-  (see [`../deploy.md`](../deploy.md) — note the open deployment-reconciliation issue).
+  (see [`../deploy.md`](../deploy.md)).
 
 ## Migration state (2026-07-12)
 
@@ -63,6 +66,18 @@ are live** — no missed briefs, no dead cadences. Cutover:
 2. Wyatt comments "live" on the handoff ticket (#504) with his routine IDs.
 3. **Every** Joey-side routine gets **disabled** (kept as warm spares — the
    kill-switch doc covers both sets).
+
+## Kevin cloud move (2026-07-12)
+
+Kevin's four streams moved off the session-scoped cron onto cloud routines (rows
+above), for durability. Design notes: S1 runs daily right after Karen (not
+hourly — new cie tickets only appear once Karen's nightly scan files them); the
+S3 comment radar runs hourly and is capped to 06:00–22:00 PT because cross-session
+comments are rare overnight, and its prompt is **lazy** (one cheap `gh` poll first;
+loads `docs/kevin.md` and reasons only on a real new comment — the ~16 empty runs/
+day stay cheap). Tradeoff vs. the old ~10-min session poll: up to ~1h surfacing
+latency and a cloud cold-boot per run; the endgame in `docs/kevin.md` (webhooks)
+removes both. Cron floor is 1 hour, so sub-hourly radar is not expressible in cloud.
 
 ## Rules
 

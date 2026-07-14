@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { momentShareCopy } from './share';
+import { momentShareCopy, topbarShareTarget } from './share';
 
 describe('momentShareCopy', () => {
   it('builds title and self-contained text from the moment + era', () => {
@@ -29,6 +29,26 @@ describe('momentShareCopy', () => {
     );
     expect(copy.text.endsWith('…')).toBe(true);
     // prefix + truncated summary stays comfortably short for share targets
-    expect(copy.text.length).toBeLessThanOrEqual('1989 arrives (1989, October 2014) — '.length + 181);
+    expect(copy.text.length).toBeLessThanOrEqual(
+      '1989 arrives (1989, October 2014) — '.length + 181,
+    );
+  });
+});
+
+describe('topbarShareTarget', () => {
+  it('shares the era in era mode', () => {
+    expect(topbarShareTarget('era', 'tloas', null)).toEqual({ kind: 'era', eraId: 'tloas' });
+  });
+
+  it('shares the open thread in threads mode', () => {
+    expect(topbarShareTarget('threads', 'tloas', 'love-story')).toEqual({
+      kind: 'lens',
+      lensId: 'love-story',
+    });
+  });
+
+  // #492: null = render the button disabled, never hide it (see the JSDoc).
+  it('returns null in threads mode with no thread open (gallery or crossing)', () => {
+    expect(topbarShareTarget('threads', 'tloas', null)).toBeNull();
   });
 });

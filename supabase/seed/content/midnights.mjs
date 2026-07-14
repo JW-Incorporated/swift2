@@ -128,6 +128,34 @@ export default {
       },
     },
     {
+      year: 2022,
+      month: 12,
+      day: 9,
+      category: 'business',
+      title: 'The next project is a movie: Searchlight signs her to direct',
+      snippet:
+        "Seven weeks after Midnights, the follow-up announcement isn't music at all — Searchlight Pictures reveals Taylor will write and direct her first feature film, from an original script she's already written.",
+      sourceUrl: 'https://variety.com/2022/film/news/taylor-swift-feature-directing-debut-searchlight-pictures-1235455606/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The December 9 announcement was deliberately spare: an original script, written by Taylor, to be produced by Searchlight — the specialty studio behind Nomadland and The Shape of Water — with plot and casting kept under wraps. Searchlight presidents David Greenbaum and Matthew Greenfield called her "a once in a generation artist and storyteller," adding it was "a genuine joy and privilege to collaborate with her as she embarks on this exciting and new creative journey."\n\nThe timing made it read as a promotion, not a pivot: she came into the deal fresh off All Too Well: The Short Film, which had just won her Best Direction at the 2022 VMAs, and she had written and directed the Anti-Hero video herself weeks earlier. Directing a feature was the logical next rung on a ladder she had been climbing in public, one music video at a time.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/film/news/taylor-swift-feature-directing-debut-searchlight-pictures-1235455606/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-feature-length-directorial-debut-original-script-searchlight-1234644555/',
+          },
+        ],
+        // No photo: the announcement had no event imagery; direct image-URL
+        // verification is blocked in this environment (T16 pattern) — leave
+        // for the photo pass rather than hotlink unverified.
+      },
+    },
+    {
       year: 2023,
       month: 7,
       day: 16,

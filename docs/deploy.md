@@ -2,36 +2,23 @@
 
 ## The one URL that matters
 
-**https://www.longlivets.com/** (the apex `https://longlivets.com`
-308-redirects to it) is the **public production site** — the product, and the
-URL to use for QA, status checks, and "is it live" questions. Named per the
-product decision in PR #519; it supersedes the `swift2-ten` alias below.
+**https://www.longlivets.com/** (also reachable via https://longlivets.com/,
+which redirects) is the real, shared production deployment — verified live
+2026-07-12. As of that date the project runs entirely on **Wyatt's Vercel
+team**, with Joey added as a team member; Joey's own personal Vercel account
+was downgraded to Hobby and is no longer in the deploy path at all.
 
-> ⚠️ **Known issue (2026-07-12):** the public domain has been observed serving a
-> **stale deployment**, and there are multiple Vercel projects bound to this
-> repo — `swift2-web` (Wyatt's account) receives the GitHub/CI deploys but its
-> bare alias 404s (`DEPLOYMENT_NOT_FOUND`), while `swift2-ten.vercel.app`
-> (historically "Joey's project") serves a *different* build again. Deciding
-> which project owns production + the custom domain, and setting the domain to
-> follow Production, is a **Vercel-dashboard task for the founders** (tracked in
-> the deployment reconciliation issue). Until it's resolved a
-> repo-vs-`longlivets.com` diff is expected — Nils and Laura will flag it.
+**Superseded — do not cite either of these anymore:** `swift2-ten.vercel.app`
+(Joey's old personal project) and `swift2-web-nine.vercel.app` (Wyatt's old
+personal sandbox, used for v0 UX exploration) were both pre-2026-07-12
+arrangements. Neither is the current production URL.
 
-**https://swift2-ten.vercel.app/** — historically cited here as production
-(Joey's Vercel project); now treat it as an **internal alias that may lag** the
-public domain. Do not cite it as "the live site"; confirm against
-`www.longlivets.com`.
-
-**https://swift2-web-nine.vercel.app/** is a *separate*, personal Vercel
-project (Wyatt's account) used only when v0 is doing UX exploration work. It
-is not the product, is not kept in sync with `main`, and should never be
-cited as "the live site."
-
-The `Vercel – swift2` GitHub check failing with "Git author must have access"
-on PRs authored as `wjduvall-cmd` is a known, harmless cross-account quirk —
-Wyatt's commits don't have push-deploy access to Joey's personal Vercel
-project, but this doesn't block `main`'s actual production deploys or mean
-the code is broken.
+The historical `Vercel – swift2` GitHub check failing with "Git author must
+have access" on PRs authored as `wjduvall-cmd` was a cross-account quirk from
+when Joey's and Wyatt's commits belonged to different Vercel teams. Now that
+both identities are on one team, this should no longer occur — if it does
+resurface, that's a real regression worth investigating, not the old known-
+harmless case.
 
 `apps/web` is a Next.js app in an npm-workspaces monorepo. Two ways to deploy —
 use the **CLI path** if you're not a GitHub org owner yet.

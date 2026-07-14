@@ -409,6 +409,43 @@ export default {
       },
     },
     {
+      slug: 'yankee-stadium-alcs-game-1',
+      year: 2024,
+      month: 10,
+      day: 14,
+      category: 'sighting',
+      title: 'Date night at Yankee Stadium for ALCS Game 1',
+      snippet:
+        'A bye-week baseball date: she and Travis watched the Yankees take Game 1 of the ALCS from a right-field suite, four nights before the Eras Tour restarted in Miami.',
+      sourceUrl:
+        'https://www.espn.com/nfl/story/_/id/41796394/taylor-swift-travis-kelce-new-york-yankees-cleveland-guardians-alcs-game-one',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.",
+        sources: [
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/story/_/id/41796394/taylor-swift-travis-kelce-new-york-yankees-cleveland-guardians-alcs-game-one',
+            source_title: 'Taylor Swift and Travis Kelce in attendance for Game 1 of Guardians-Yankees ALCS series',
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'MLB.com',
+            url: 'https://www.mlb.com/news/taylor-swift-travis-kelce-attend-alcs-game-1-2024',
+            source_title: 'Taylor Swift and Travis Kelce attend ALCS Game 1 2024',
+            publisher: 'MLB.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-12',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
       year: 2024,
       month: 11,
       day: 10,
@@ -651,7 +688,7 @@ export default {
       thumbnailUrl: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
       moment: {
         context:
-          'Travis worked directly with Kindred Lubeck — the goldsmith, hand-engraver, and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry, whose work Swift had shown him admiringly well before the proposal — on an old mine brilliant-cut diamond of undisclosed size (expert estimates range from 8 to 15 carats) set in a hand-engraved yellow gold band.\n\nThe old mine cut is a genuinely antique geometry, common from the early 1700s to the late 1800s: squarer than a modern brilliant, with a smaller table, larger culet, and higher crown. Swift\'s verdict on the ring she never had to spec: "I didn\'t know what I would want, but he did somehow."',
+          'Travis worked directly with Kindred Lubeck — the goldsmith, hand-engraver, and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry, whose work Swift had shown him admiringly well before the proposal — on an old mine brilliant-cut diamond of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10 — though the appraiser Forbes cited thought it could be exactly 13, her signature number) set in a hand-engraved yellow gold band.\n\nThe old mine cut is a genuinely antique geometry, common from the early 1700s to the late 1800s: squarer than a modern brilliant, with a smaller table, larger culet, and higher crown. Taylor\'s verdict on the ring she never had to spec: "I didn\'t know what I would want, but he did somehow."',
         sources: [
           {
             outlet: 'Complex',
@@ -664,6 +701,16 @@ export default {
           {
             outlet: 'Forbes',
             url: 'https://www.forbes.com/sites/maryroeloffs/2025/08/27/taylor-swifts-engagement-ring-may-be-13-carats-expert-says-and-is-worth-an-estimated-650000/',
+          },
+          // Carat-range reconciliation (2026-07-13, ticket #615 item 3):
+          // unified with the TLOAS engagement item, which previously said
+          // "7 to 10" against this item's "8 to 15." Low end (7-8 carats:
+          // Lauren B. Shmueli, Simone Kendle) via Today; high end (10-15,
+          // "very possible" 13: Deborah Villepigue) via the Forbes piece
+          // already cited above.
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776',
           },
         ],
         photos: [
@@ -1662,6 +1709,44 @@ export default {
             credit: 'Getty Images (via Rolling Stone)',
             caption: 'Swift onstage at Wembley on June 23, 2024 — the night Kelce joined the TTPD set\'s tuxedoed cast.',
             kind: 'archival',
+          },
+        ],
+      },
+    },
+    {
+      slug: 'munich-olympiaberg-hill',
+      year: 2024,
+      month: 7,
+      day: 28,
+      category: 'tour',
+      title: "Munich's hill: the biggest free show of the Eras Tour",
+      snippet:
+        'Tens of thousands of ticketless fans climbed the Olympiaberg overlooking the Olympiastadion — and Taylor counted them from the stage: 74,000 inside, "and if the reports are correct, about 50,000 beautiful people outside the stadium."',
+      sourceUrl:
+        'https://variety.com/2024/music/global/taylor-swift-munich-fans-outside-stadium-hilltop-crowds-1236088585/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Munich\'s Olympiastadion sits in a park below a hill with a clear sightline into the bowl — a vantage point no other stop on the tour offered — and for the July 27–28, 2024 shows the Olympiaberg filled with an estimated 40,000 people on the Saturday night alone, watching the whole three-hour production for free. On the Sunday, the tour\'s last night in Germany, she thanked them mid-show: "whether you\'re in the stadium or outside of the stadium... we are so lucky to be here with you."',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/global/taylor-swift-munich-fans-outside-stadium-hilltop-crowds-1236088585/',
+            source_title:
+              "Taylor Swift Thanks '50,000 Beautiful People Outside the Stadium' as Munich Shows Draw Massive Hilltop Crowds",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-12',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2024/07/taylor-swift-eras-tour-munch-giant-hill/',
+            source_title: "50,000 people watched Taylor Swift's concert on a hill outside of the stadium in Munich",
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-12',
+            reliability_score: 4,
           },
         ],
       },
