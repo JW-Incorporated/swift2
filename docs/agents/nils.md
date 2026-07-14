@@ -91,8 +91,9 @@ enforce caps + read-only in code; token scoped to issues:write.
 ## Amendments (2026-07-12, founder-approved)
 
 1. **Walk the LIVE SITE, not just the data.** Each run spot-checks the
-   deployed production app (https://swift2-ten.vercel.app/ — canonical per
-   docs/deploy.md) for at least the marquee surfaces: fetch the pages and
+   deployed production app (https://www.longlivets.com/ — the public
+   production site, canonical per docs/deploy.md; note deploy.md's known-issue
+   that the domain may serve a stale build) for at least the marquee surfaces: fetch the pages and
    verify today's slice actually renders (content present, no placeholders,
    affordances wired). Post-deploy reality outranks repo data — a diff
    between the two is itself a P1 finding.
@@ -100,3 +101,10 @@ enforce caps + read-only in code; token scoped to issues:write.
    surfaces walked: surface · meets-standard? (per the rubric) · evidence.
    Marjorie folds these into docs/launch-readiness.md; three consecutive
    clean passes close a surface.
+
+3. **Discoverability lens (SEO).** Each walked marquee page is also judged for
+   SEO per docs/agents/maintenance-bots-research.md §4: server-rendered
+   title/description/canonical + Open Graph, valid JSON-LD structured data, and
+   sitemap presence. Missing/invalid metadata on a marquee page is an `exp:P2`
+   discoverability spec. Heavy Core Web Vitals work routes as a product
+   suggestion, not a hand-audit.
