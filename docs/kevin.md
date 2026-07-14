@@ -5,10 +5,19 @@ by design: [Karen](../scripts/content-engine/README.md) (the Content Integrity
 Engine) is **read-only** and never edits content; **Kevin** proposes/applies
 fixes but never files Karen's tickets and never runs or modifies Karen's engine.
 
-Today Kevin runs as a **session-scoped Claude Code cron** (an hourly Karen-fix job
-plus a daily user-feedback digest). The intent is to move Kevin to a standalone
-**API-backed service**; this document is the contract that port must honor, so it
-is deliberately explicit.
+As of 2026-07-12 Kevin runs as **four scheduled cloud routines** on Wyatt's
+account (registered in [`docs/agents/runners.md`](agents/runners.md), prompts in
+`agents/runner-prompts/kevin-*.md`): S1 Karen solver (daily, after Karen), S2
+user digest (daily), S3 eng triage (daily), and the S3 comment radar (hourly
+06:00–22:00 PT, skipping the overnight dead hours). This replaced the earlier
+**session-scoped Claude Code cron** — it is more durable (survives session death)
+but is still an interim: the comment radar polls hourly where the eventual
+**API-backed service** target below uses webhooks (zero-LLM until an event
+fires). The radar's cloud prompt is deliberately lazy — a cheap deterministic
+comment check runs first and Kevin's full context loads only on a real hit — so
+the frequent empty runs stay cheap. This document remains the contract that both
+the cloud routines and any future service port must honor, so it is deliberately
+explicit.
 
 ---
 
