@@ -1,6 +1,7 @@
-import type { ContentItem, EraId, RelatedId, TrackConnection, TrackNote } from './types';
+import type { ContentItem, EraId, RelatedId, TrackConnection, TrackFacts, TrackNote } from './types';
 import { TRACKS_RAW } from './tracks.generated';
 import { getContentItem } from './content';
+import { formatFullDate } from './format';
 
 /**
  * Per-album song track guide — static data synced at build time from the
@@ -12,6 +13,17 @@ import { getContentItem } from './content';
 
 export function tracksForEra(eraId: EraId): TrackNote[] {
   return TRACKS_RAW[eraId] ?? [];
+}
+
+/**
+ * Value of the facts card's Released row (issue #458). The card already sits
+ * inside the album's own guide, so the album name is redundant next to the
+ * date: prefer the date alone, and show `facts.release` only when there is a
+ * release name but no date to format. Undefined = no row.
+ */
+export function releasedFactValue(facts: TrackFacts): string | undefined {
+  if (facts.releaseDate) return formatFullDate(facts.releaseDate);
+  return facts.release || undefined;
 }
 
 /** A `song:<slug>` RelatedId resolved to its era + track. */
