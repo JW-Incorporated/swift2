@@ -6,12 +6,14 @@ import { getEra } from '@/lib/longlive/eras';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
 import { Button } from '@/components/ui/button';
 import { TimelineScrubber } from './TimelineScrubber';
+import { topbarShareTarget } from '@/lib/longlive/share';
 import { TOPBAR_ACTIONS_CLASS, TOPBAR_LEFT_CLASS, TOPBAR_ROW_CLASS } from './topbarLayout';
 
 export function TopBar() {
   const { mode, eraId, lensId } = useAppState();
   const { setMode, setSelectorOpen, setSearchOpen, openShare, goHome } = useAppActions();
   const era = getEra(eraId);
+  const shareTarget = topbarShareTarget(mode, eraId, lensId);
 
   function handleHome() {
     goHome();
@@ -63,9 +65,8 @@ export function TopBar() {
           )}
         </div>
 
-        <ModeToggle mode={mode} onChange={setMode} />
-
         <div className={TOPBAR_ACTIONS_CLASS}>
+          <ModeToggle mode={mode} onChange={setMode} />
           <Button
             variant="surface"
             size="icon"
@@ -75,18 +76,20 @@ export function TopBar() {
           >
             <Search />
           </Button>
-          {(mode === 'era' || lensId != null) && (
-            <Button
-              variant="surface"
-              size="icon"
-              aria-label="Share"
-              onClick={() =>
-                openShare(mode === 'era' ? { kind: 'era', eraId } : { kind: 'lens', lensId: lensId as NonNullable<typeof lensId> })
-              }
-            >
-              <Share2 />
-            </Button>
-          )}
+          {/* Always rendered, disabled when there's nothing to share — never
+              conditionally removed; see topbarShareTarget (#492/#453). */}
+          <Button
+            variant="surface"
+            size="icon"
+            aria-label="Share"
+            title="Share"
+            disabled={shareTarget == null}
+            onClick={() => {
+              if (shareTarget) openShare(shareTarget);
+            }}
+          >
+            <Share2 />
+          </Button>
         </div>
       </div>
     </header>
