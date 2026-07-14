@@ -15,7 +15,7 @@ import {
 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { tracksForEra, resolveConnections } from '@/lib/longlive/tracks';
+import { tracksForEra, resolveConnections, releasedFactValue } from '@/lib/longlive/tracks';
 import { eraStyle } from '@/lib/longlive/theme';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
@@ -266,14 +266,8 @@ function Section({
 /** Essential facts (issue #440 §3) — renders only rows that are known. */
 function FactsCard({ facts }: { facts: TrackFacts }) {
   const rows: Array<[string, string]> = [];
-  if (facts.release) {
-    rows.push([
-      'Released',
-      facts.releaseDate ? `${facts.release} · ${formatFullDate(facts.releaseDate)}` : facts.release,
-    ]);
-  } else if (facts.releaseDate) {
-    rows.push(['Released', formatFullDate(facts.releaseDate)]);
-  }
+  const released = releasedFactValue(facts);
+  if (released) rows.push(['Released', released]);
   if (facts.writers?.length) rows.push(['Written by', facts.writers.join(', ')]);
   if (facts.producers?.length) rows.push(['Produced by', facts.producers.join(', ')]);
   if (facts.isSingle) {
