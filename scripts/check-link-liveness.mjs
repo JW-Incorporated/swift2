@@ -46,6 +46,8 @@ function extractUrls(text) {
   return raw.map((u) => u.replace(/[.,;]+$/, ''));
 }
 
+// AbortSignal is a Node 18+ / browser global; declare it for eslint's no-undef.
+/* global AbortSignal */
 async function check(url) {
   const ac = AbortSignal.timeout(TIMEOUT_MS);
   try {

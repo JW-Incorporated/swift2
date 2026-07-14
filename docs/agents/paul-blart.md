@@ -19,7 +19,12 @@ reviewed, malicious/abandoned packages flagged. Zero CVEs sitting unseen; zero
 
 - **Dependabot** (`.github/dependabot.yml`) — grouped version updates on a weekly
   cadence + security updates on their own faster lane; opens the PRs.
-- **CodeQL** (`.github/workflows/codeql.yml`) — code scanning each PR.
+- **CodeQL** (`.github/workflows/codeql.yml`) — code scanning on PRs, pushes to
+  `main`, and weekly. **Dormant until enabled:** CodeQL upload requires repo-level
+  Code Scanning (Settings → Code security and analysis). The job is gated on repo
+  variable `CODE_SCANNING_ENABLED=true` so it cleanly skips (not fails) until a
+  founder turns scanning on and sets that variable. Paul flags in his report if it
+  reads as still-dormant.
 - **Secret scanning + push protection** — repo setting (enable in Settings →
   Code security). Paul flags in his report if it reads as off.
 - **Dependency graph / SBOM** — GitHub-exportable (SPDX/CycloneDX).

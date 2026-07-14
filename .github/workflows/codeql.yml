@@ -10,6 +10,12 @@ on:
 jobs:
   analyze:
     name: Analyze (javascript-typescript)
+    # CodeQL upload needs repo-level Code Scanning enabled (GitHub Advanced
+    # Security). Until a founder turns it on (Settings → Code security and
+    # analysis → Code scanning) and sets repo variable CODE_SCANNING_ENABLED=true,
+    # this job SKIPS — a clean neutral status, not a red failure. See
+    # docs/agents/paul-blart.md.
+    if: vars.CODE_SCANNING_ENABLED == 'true'
     runs-on: ubuntu-latest
     permissions:
       security-events: write
