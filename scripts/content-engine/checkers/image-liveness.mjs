@@ -119,17 +119,36 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 const BUF_CAP = 256 * 1024;
 
-async function probeOnce(url) {
+// Statuses that mean "the host REFUSED our probe", not "the image is gone". A
+// live image hotlinked from a CDN (Wikimedia, Getty, Akamai/E!, imgix, Yahoo,
+// Forbes…) commonly answers our unattended probe this way — datacenter runner
+// IP + a bot User-Agent + a Range request trip anti-bot/hotlink rules even
+// though the exact URL returns 200 in a real browser. Only 404/410 (+ non-image
+// bodies and hard connection failures) are true hotlink-rot. Refusals are
+// retried once WITHOUT Range, then reported as UNVERIFIED (never filed as
+// "broken") — the same discipline already applied to 429 throttling. Sketchy
+// hosts still surface via the P2 image.host-reputation finding.
+const REFUSED_STATUS = new Set([400, 401, 403, 406, 451]);
+
+async function probeOnce(url, useRange = true) {
   if (isPrivateHost(hostOf(url))) return { blocked: true, reason: 'private/internal host' };
   const ctrl = new AbortController();
   const t = setTimeout(() => ctrl.abort(), C.fetchTimeoutMs);
   try {
-    const res = await fetch(url, { headers: { Range: 'bytes=0-131071', 'User-Agent': UA, Accept: 'image/*' }, signal: ctrl.signal, redirect: 'follow' });
+    const headers = { 'User-Agent': UA, Accept: 'image/*' };
+    if (useRange) headers.Range = 'bytes=0-131071';
+    const res = await fetch(url, { headers, signal: ctrl.signal, redirect: 'follow' });
     if (isPrivateHost(hostOf(res.url))) { ctrl.abort(); return { blocked: true, reason: 'redirected to a private/internal host' }; }
     const ct = (res.headers.get('content-type') || '').split(';')[0].trim().toLowerCase();
     if (res.status === 429 || res.status === 503) {
       const ra = Number(res.headers.get('retry-after')) || 0;
       return { rateLimited: true, retryAfter: ra };
+    }
+    if (REFUSED_STATUS.has(res.status)) {
+      // Some CDNs reject only the Range request — retry once as a plain GET
+      // before concluding the host refused us.
+      if (useRange) { ctrl.abort(); return probeOnce(url, false); }
+      return { refused: true, status: res.status };
     }
     if (!res.ok && res.status !== 206) return { ok: false, status: res.status };
     const buf = await readCapped(res, BUF_CAP, ctrl);
@@ -141,12 +160,14 @@ async function probeOnce(url) {
   }
 }
 
-// Retry rate-limits with exponential backoff. A persistent 429 is reported as
-// "unverified" (NOT broken) so throttling never masquerades as a dead image.
+// Retry rate-limits with exponential backoff. A persistent 429 — or an outright
+// refusal (401/403/…) — is reported as "unverified" (NOT broken) so throttling
+// and anti-bot blocks never masquerade as a dead image.
 async function probe(url) {
   let attempt = 0;
   for (;;) {
     const r = await probeOnce(url);
+    if (r.refused) return { unverified: true, reason: `host refused the probe (HTTP ${r.status}) — anti-bot/hotlink block, not confirmed dead` };
     if (!r.rateLimited) return r;
     attempt++;
     if (attempt > 4) return { unverified: true, reason: 'rate-limited (429) after retries' };
@@ -203,7 +224,8 @@ export async function check(items, ctx = {}) {
         confidence: 0.5,
       }));
     }
-    // Rate-limited despite retries — report as unverified, never as broken.
+    // Throttled or refused despite retries — report as unverified, never as
+    // broken (a host blocking our bot is not proof the image is gone).
     if (r.unverified) { unverified++; continue; }
     // SSRF guard tripped — a seed image pointing inside the network is its own
     // finding (and the probe never ran).
@@ -255,6 +277,6 @@ export async function check(items, ctx = {}) {
       }));
     }
   }
-  if (unverified && ctx.log) ctx.log(`  (${unverified} images unverified — host kept rate-limiting; not filed as broken)`);
+  if (unverified && ctx.log) ctx.log(`  (${unverified} images unverified — host throttled or refused the probe; not filed as broken)`);
   return findings;
 }
