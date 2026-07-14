@@ -147,6 +147,21 @@ describe('releasedFactValue', () => {
     expect(value).not.toContain('The Life of a Showgirl');
   });
 
+  it("drops edition-variant release names too when a date exists (the ticket's letter — pinned deliberately)", () => {
+    // ~57 tracks have a release that is NOT the album being viewed (vault,
+    // deluxe/3am editions, charity single, soundtrack). Per #458's explicit
+    // instruction the date still wins; whether those should instead keep
+    // their name (e.g. shown only when release ≠ the era's album) is flagged
+    // on the PR as an open product call for Joey. If he opts to keep them,
+    // this is the assertion to flip.
+    expect(
+      releasedFactValue({
+        release: "Red (Taylor's Version) — From The Vault",
+        releaseDate: '2021-11-12',
+      }),
+    ).toBe('November 12, 2021');
+  });
+
   it('falls back to the release name only when there is no date', () => {
     expect(releasedFactValue({ release: 'The Life of a Showgirl' })).toBe(
       'The Life of a Showgirl',
