@@ -688,7 +688,7 @@ export default {
       thumbnailUrl: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
       moment: {
         context:
-          'Travis worked directly with Kindred Lubeck — the goldsmith, hand-engraver, and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry, whose work Swift had shown him admiringly well before the proposal — on an old mine brilliant-cut diamond of undisclosed size (expert estimates range from 8 to 15 carats) set in a hand-engraved yellow gold band.\n\nThe old mine cut is a genuinely antique geometry, common from the early 1700s to the late 1800s: squarer than a modern brilliant, with a smaller table, larger culet, and higher crown. Swift\'s verdict on the ring she never had to spec: "I didn\'t know what I would want, but he did somehow."',
+          'Travis worked directly with Kindred Lubeck — the goldsmith, hand-engraver, and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry, whose work Swift had shown him admiringly well before the proposal — on an old mine brilliant-cut diamond of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10 — though the appraiser Forbes cited thought it could be exactly 13, her signature number) set in a hand-engraved yellow gold band.\n\nThe old mine cut is a genuinely antique geometry, common from the early 1700s to the late 1800s: squarer than a modern brilliant, with a smaller table, larger culet, and higher crown. Taylor\'s verdict on the ring she never had to spec: "I didn\'t know what I would want, but he did somehow."',
         sources: [
           {
             outlet: 'Complex',
@@ -701,6 +701,16 @@ export default {
           {
             outlet: 'Forbes',
             url: 'https://www.forbes.com/sites/maryroeloffs/2025/08/27/taylor-swifts-engagement-ring-may-be-13-carats-expert-says-and-is-worth-an-estimated-650000/',
+          },
+          // Carat-range reconciliation (2026-07-13, ticket #615 item 3):
+          // unified with the TLOAS engagement item, which previously said
+          // "7 to 10" against this item's "8 to 15." Low end (7-8 carats:
+          // Lauren B. Shmueli, Simone Kendle) via Today; high end (10-15,
+          // "very possible" 13: Deborah Villepigue) via the Forbes piece
+          // already cited above.
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776',
           },
         ],
         photos: [
