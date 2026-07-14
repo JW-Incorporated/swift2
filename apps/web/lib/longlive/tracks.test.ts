@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { TRACKS_RAW } from './tracks.generated';
-import { resolveConnections, songTargetOf, tracksForEra } from './tracks';
+import { releasedFactValue, resolveConnections, songTargetOf, tracksForEra } from './tracks';
 import { CONTENT, getContentItem } from './content';
 import { ERAS } from './eras';
 
@@ -134,6 +134,44 @@ describe('resolveConnections', () => {
 
   it('returns empty for undefined input', () => {
     expect(resolveConnections(undefined)).toEqual([]);
+  });
+});
+
+describe('releasedFactValue', () => {
+  it('shows only the date when a release date exists — never the album name (issue #458 regression)', () => {
+    const value = releasedFactValue({
+      release: 'The Life of a Showgirl',
+      releaseDate: '2025-09-05',
+    });
+    expect(value).toBe('September 5, 2025');
+    expect(value).not.toContain('The Life of a Showgirl');
+  });
+
+  it("drops edition-variant release names too when a date exists (the ticket's letter — pinned deliberately)", () => {
+    // ~57 tracks have a release that is NOT the album being viewed (vault,
+    // deluxe/3am editions, charity single, soundtrack). Per #458's explicit
+    // instruction the date still wins; whether those should instead keep
+    // their name (e.g. shown only when release ≠ the era's album) is flagged
+    // on the PR as an open product call for Joey. If he opts to keep them,
+    // this is the assertion to flip.
+    expect(
+      releasedFactValue({
+        release: "Red (Taylor's Version) — From The Vault",
+        releaseDate: '2021-11-12',
+      }),
+    ).toBe('November 12, 2021');
+  });
+
+  it('falls back to the release name only when there is no date', () => {
+    expect(releasedFactValue({ release: 'The Life of a Showgirl' })).toBe(
+      'The Life of a Showgirl',
+    );
+  });
+
+  it('formats a date-only fact and returns undefined when neither field is known', () => {
+    expect(releasedFactValue({ releaseDate: '2025-09-05' })).toBe('September 5, 2025');
+    expect(releasedFactValue({})).toBeUndefined();
+    expect(releasedFactValue({ release: '' })).toBeUndefined();
   });
 });
 
