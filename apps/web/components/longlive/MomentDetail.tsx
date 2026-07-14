@@ -16,6 +16,7 @@ import { resolveMotifTrail, type MotifTarget } from '@/lib/longlive/related';
 import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
+import { extractYouTubeId } from '@swift2/shared';
 import { ZoomableImage } from './ZoomableImage';
 import { primaryImageRef, type Confidence, type ImageKind, type ImageRef, type LensId } from '@/lib/longlive/types';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
@@ -274,6 +275,21 @@ export function MomentDetail() {
 
         {item.sources && item.sources.length > 0 && (
           <div className="mt-8 border-t pt-4" style={{ borderColor: 'var(--era-line)' }}>
+            {/* A source that is a YouTube link embeds as a click-to-play facade
+                (poster thumbnail only until the reader opts in — no iframe loads
+                on mount, so this stays cheap in the feed), reusing MomentVideo.
+                The citation line below still lists every source for the record. */}
+            {item.sources.map((s, i) => {
+              const youtubeId = extractYouTubeId(s.url);
+              return youtubeId ? (
+                <MomentVideo
+                  key={`src-vid-${s.url}-${i}`}
+                  video={{ youtubeId, title: s.name }}
+                  caption={s.name}
+                  className="mb-4"
+                />
+              ) : null;
+            })}
             {/* Footnote-scale, academic-text style — citations belong here on
                 the expanded page, small, not competing with the article. */}
             <p className="text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
