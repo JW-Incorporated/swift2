@@ -1412,6 +1412,56 @@ export default {
         ],
       },
     },
+
+    // --- G-A depth pass: Active-month payoff beats (2026-07-15)
+    {
+      slug: 'all-too-well-grammy-best-music-video',
+      year: 2023,
+      month: 2,
+      day: 5,
+      category: 'business',
+      title: 'All Too Well: The Short Film wins the Grammy that makes her an award-winning director',
+      snippet:
+        'The 10-minute version’s short film takes Best Music Video at the 2023 Grammys — and no artist had ever won the category as the sole director of their own video before. Her reaction: “…acknowledge me as a director, and in doing so, acknowledge my work to try and reclaim my music… I’m blown away.”',
+      sourceUrl:
+        'https://www.rollingstone.com/music/music-news/taylor-swift-award-winning-director-best-music-video-grammys-2023-1234674183/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The win landed early — announced at the afternoon Premiere Ceremony, before the telecast — so it was the film’s co-producer Saul Germaine who accepted, thanking Taylor from the podium: “It was an incredible honor to tell this story with you.” The history in it: Grammy voters had never before handed Best Music Video to an artist with a sole directing credit on their own video. She wrote, directed, and starred in the short film alongside Sadie Sink and Dylan O’Brien.\n\nHer posted response drew the line fans drew too, from the directing credit straight back to the rerecording project the ten-minute “All Too Well” anchors: “For the Recording Academy and my peers to acknowledge me as a director, and in doing so, acknowledge my work to try and reclaim my music… I’m blown away.” She spent the evening ceremony in the star-scattered midnight-blue Cavalli from that afternoon’s red carpet — Midnights’ own Grammy night, the record fourth Album of the Year, was still a year away.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-award-winning-director-best-music-video-grammys-2023-1234674183/',
+            source_title:
+              'Taylor Swift Is Officially an Award-Winning Director With Her Best Music Video Grammy 2023 Win',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-2023-grammys-dress-winner-all-too-well-music-video-1235213021/',
+            source_title: 'Taylor Swift & Fans React to Grammy Win for ‘All Too Well’ Music Video',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'GRAMMY.com',
+            url: 'https://www.grammy.com/news/taylor-swift-all-too-well-the-short-film-best-music-video-winner-2023-grammys',
+            source_title:
+              'Taylor Swift Makes GRAMMY History (Again) With Best Music Video Win For "All Too Well: The Short Film"',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-15',
+            reliability_score: 5,
+          },
+        ],
+      },
+    },
     {
       year: 2022,
       month: 10,
