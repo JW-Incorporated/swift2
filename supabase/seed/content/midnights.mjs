@@ -2869,5 +2869,73 @@ export default {
         ],
       },
     },
+
+    // --- Content Shift pass (2026-07-15, ticket #654): the era's cold open.
+    // Aug + Sep 2022 were the only empty months in the era's span — the VMAs
+    // announcement and Midnights Mayhem are the two beats that start the
+    // story. Sourcing note: direct page fetches were proxy-blocked this
+    // session (every outlet host returned 403), so each claim below was
+    // cross-confirmed across multiple independent web-search results instead
+    // of a single fetched page; source URLs are real and search-verified.
+    // No thumbnails/photos — hotlinks can't be liveness-checked this session
+    // (house rule: verify before hotlinking).
+    {
+      year: 2022,
+      month: 8,
+      day: 28,
+      category: 'release',
+      title: '"Meet me at midnight": a new album, announced mid-acceptance-speech',
+      snippet:
+        'Accepting Video of the Year at the VMAs — her record third — Taylor drops it almost as an aside: the brand-new album is out October 21, and she\'ll "tell you more at midnight." She did.',
+      sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-new-album-announcement-vmas-speech-1235132031/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Aug. 28, 2022 VMAs at Newark\'s Prudential Center gave All Too Well: The Short Film the night\'s top prize — Taylor\'s third career Video of the Year win, a VMAs record — and she spent the speech\'s last beat on something else entirely: "I thought it might be a fun moment to tell you that my brand new album comes out October 21. I will tell you more at midnight."\n\nAt midnight the reveal landed on her socials: Midnights, "the stories of 13 sleepless nights scattered throughout my life" — pitched as "a collection of music written in the middle of the night, a journey through terrors and sweet dreams," her first all-new album since folklore and evermore in 2020. The announcement itself was staged as lore: the stroke-of-midnight timing was the album\'s concept, performed in real time.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-new-album-announcement-vmas-speech-1235132031/',
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2022/08/taylor-swift-new-album-release-date-mtv-vma-video-of-the-year-1235101906/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-announces-new-album-1234583475/',
+          },
+        ],
+      },
+    },
+    {
+      year: 2022,
+      month: 9,
+      day: 21,
+      category: 'music',
+      title: 'Midnights Mayhem with Me: fate, a bingo cage, and thirteen ping-pong balls',
+      snippet:
+        'No cryptic clues this time — a TikTok series where a bingo cage full of numbered balls decides which track title Taylor announces into a red phone. First ball out: 13. "Track 13 is called Mastermind." Of course it was.',
+      sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Launched at midnight ET on Sep. 21, 2022, the TikTok series ran on one gloriously lo-fi mechanic: thirteen ping-pong balls in a bingo cage — "this technologically advanced device," as Taylor put it — "to help me allow fate to decide exactly what track titles I\'m going to be announcing, and in what order." A ball drops, she lifts a red phone receiver, and a title is read out. Episode one drew ball 13 and gave the era its thesis statement: "Mastermind."\n\nThirteen episodes later the series wrapped on Oct. 7, the final titles posted an hour apart — album opener "Lavender Haze," "You\'re On Your Own, Kid," "Labyrinth," "Sweet Nothings," and "Snow On The Beach" with Lana Del Rey — completing the tracklist two weeks before release. It became the rollout\'s defining fan ritual: appointment-viewing at midnight for a lottery ball.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-midnights-album-tracklist-3314098',
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/taylor-swift-midnights-tracklist-song-names-rcna50738',
+          },
+        ],
+      },
+    },
   ],
 };
