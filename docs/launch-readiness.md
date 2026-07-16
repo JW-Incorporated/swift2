@@ -14,6 +14,39 @@ link). "Launch-ready" for content = **Karen-clean under her FULL criteria**
 — which per G-V below means Karen must first gain the voice + depth checks;
 her current checks are necessary, not sufficient.
 
+## What each gate means (plain English) + what the colors mean
+
+Founder-facing surfaces (the brief's scoreboard above all) use the **plain
+name**, never the bare code — codes exist for agents and tickets.
+
+| Code | Plain name — "we can't launch until…" |
+|---|---|
+| G-A | **Every era has enough content** (Midnights + TTPD filled to the depth bar) |
+| G-B | **It sounds like a fan wrote it** (says "Taylor," never "Swift" — enforced by a checker, not vibes) |
+| G-C | **No thin or empty pages** (song pages, threads, and story arcs are worthy of her) |
+| G-D | **Songs open when you tap them** (the track-guide click bug Joey found) |
+| G-E | **The nightly content-safety scan actually runs every night** |
+| G-F | **Zero serious content errors open** (facts, images, sourcing) |
+| G-G | **We find out when the site breaks** (uptime alarms + visitor analytics) |
+| G-H | **Privacy policy + terms of service exist** |
+| G-I | **Backups exist and a restore has been tested once** |
+| G-J | **The deploy/monitoring plumbing is healthy** (right URLs probed, branch protection on) |
+| G-K | **A launch marketing plan exists** |
+| G-L | **Mobile navigation is obvious to a new user** (Joey's gate: the era/threads switcher) |
+
+**Status colors — defined, not vibes:**
+
+- 🟢 **done** — the gate's criterion is met and verified (three consecutive
+  clean passes where the criterion is a recurring check). Nothing left to do.
+- 🟡 **moving** — someone is actively on it and it advanced within the last
+  2 briefs.
+- 🔴 **stalled** — not started, blocked, or no movement for 2+ briefs. A red
+  row always names what it's waiting on.
+
+A color change is claimable only with a link (PR, run, founder comment).
+Every founder-facing rendering of this table carries the one-line legend:
+`🟢 done · 🟡 moving · 🔴 stalled — red rows say what they're waiting on`.
+
 | # | Gate | Status 2026-07-11 | Next action · owner |
 |---|---|---|---|
 | G-A | **Content depth: J3.5** — Midnights + TTPD at Active-tier, relationship/sighting/fashion-weighted (fixed launch gate, decisions 2026-07-04) | 🟡 moving — 2026-07-14: merge day — #523 (TTPD July+Oct gaps), #622, #624 all landed; Content Shift same-day PR #643 open (NYT songwriters interview #635 + Eras Tour final NA leg #628); full rubric audit still open; Joey's spot-check untimed (J3.5-next) | Merge #643; rows-per-month audit vs rubric → gap list → **Content Shift queue (priority 3)** · Content desk; spot-check timing · Joey |
