@@ -79,25 +79,45 @@ mode still propagates decisions.
   product direction/scope, brand voice/public posting, legal, pricing,
   spending, merge/deploy authority, charter changes.
 
-## Brief format
+## Brief format (rewritten 2026-07-15 — Joey's directive: a CEO rundown, not a project log)
 
-Title `Founders' Brief — YYYY-MM-DD`, label `founders-brief`, sections:
+Title `Founders' Brief — YYYY-MM-DD`, label `founders-brief`. **The brief is
+what a CEO reads on a phone in 30 seconds**: status, counts, launch
+proximity, and a checklist of what needs them. It is scannable or it is
+wrong.
 
-1. **Decisions needed** — one block per banked item, ranked by cost-of-delay.
-   A/B checkboxes, **all unchecked**; the recommended option is labeled
-   "(recommended)", never pre-ticked. Each block links the bank issue and
-   restates Affects.
-2. **Founder-action items** — TX items (accounts, payments, signatures) with
-   prepared step-by-step instructions.
-3. **Shipped & in flight** — outcomes since the last brief: merged PRs, PRs
-   awaiting review (and whose), Karen findings summary (count + worst).
-   Kevin's Stream-2 digest and Eng-Triage fold in here as subsections once
-   Kevin's runner posts them to the brief (tracked in the Kevin-integration
-   ticket) — until then, link the latest standalone digests.
-4. **Health** — cadence dashboard (each desk's last run: green/red), spend
-   vs. the monthly scheduled-work cap.
-5. **Today's plan** — one line per desk, so founders can veto by comment
-   before work happens.
+**Hard caps (violating these is a charter violation, not a style choice):**
+body ≤ 60 lines and ≤ 450 words; no paragraph over 2 sentences; every bullet
+one line. All rationale, caveats, history, and process narration go in the
+**journal comment**, never the body. Write issue/PR numbers inside links
+(`[merge the Grammys payoff](url)`), never as bare number soup.
+
+Sections, in this order:
+
+1. **⏱️ Today in 30 seconds** — at most 5 bullets:
+   - 🚦 **Launch:** N/M gates green (Δ vs yesterday) — top blocker in ≤ 6 words
+   - ✍️ **Content:** X new pieces live · Y in review
+   - ⚙️ **Systems:** desks ran N/N ✅ · site up ✅ · anything broken named in 3 words
+   - 🫵 **Needs you:** count + total minutes
+   - *(post-launch adds)* 👥 **Users:** feedback items received, worst one named
+2. **✅ Your checklist** — every founder ask as a `- [ ]` one-liner:
+   verb-first, time estimate, one link. If it needs more than one line to
+   explain, it isn't ready for the checklist — bank it instead. Decision
+   items keep A/B checkboxes (all unchecked, "(recommended)" labeled).
+3. **📊 Scoreboard** — the gate table stripped to three columns: Gate ·
+   🟢🟡🔴 · next step + owner in ≤ 8 words. Under it, one line of counts:
+   PRs merged yesterday · new content pieces · open tickets by desk ·
+   *(post-launch)* feedback received.
+4. **📝 Notes** — max 5 bullets, one line each, only what a CEO must know
+   today (a risk, a decision made under standing authority, an anomaly).
+   Zero history, zero self-reference.
+5. **Today's plan** — one line per desk, plain language, so founders can
+   veto by comment before work happens.
+
+End with a single link line: `Full detail: journal comment below.` The
+deterministic skeleton (`scripts/marjorie/assemble-brief.mjs`) provides raw
+material in its own section order; this template supersedes that order —
+curation means compressing the skeleton into this shape, not appending to it.
 
 ### Delivery (Joey, 2026-07-11: briefs go to Joey with Wyatt on CC, by email)
 
@@ -105,12 +125,17 @@ Title `Founders' Brief — YYYY-MM-DD`, label `founders-brief`, sections:
   (`.github/workflows/brief-mailer.yml`) — a deterministic, zero-AI GitHub
   Action that emails **From Marjorie's own Gmail account** (Joey's call,
   2026-07-11: the chief of staff writes from her own address), To
-  `sffan15@gmail.com`, CC `wjduvall@gmail.com`. It mails **both** cadences:
+  `sffan15@gmail.com`, CC `wjduvall@gmail.com`. Since 2026-07-15 it sends
+  multipart HTML (GitHub-rendered GFM — tables and checklists arrive as
+  tables and checklists, not raw markdown), with a plain-text fallback. It mails **both** cadences:
   the 6 AM brief (issue body) at 14:50 UTC and the 8 PM Evening Delta (the
   latest brief comment) at 03:50 UTC. It is live once the founders set the
   `MARJORIE_EMAIL` repo variable + `GMAIL_APP_PASSWORD` secret on Marjorie's
   Gmail account (2-Step Verification on; App Password stored WITHOUT spaces —
-  TX item #484).
+  TX item #484). Marjorie's address is `majorieswift00@gmail.com` — **that
+  spelling, with no second "r", is correct**; the account was registered that
+  way (a mismatch here caused the 535 BadCredentials outage fixed 2026-07-15,
+  so never "fix" the spelling without re-checking the actual account).
 - **Every brief body and every delta comment still starts with the line
   `cc @sffan15-sys @wjduvall-cmd`**, and must never be omitted — but this is
   **not** an email channel and must not be described as one. It is only how
