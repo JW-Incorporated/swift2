@@ -7,6 +7,34 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-16 — Founders talk to Marjorie by replying to her emails
+
+**Decision (Joey):** Replying to a brief/delta email is now a real channel
+to Marjorie. A deterministic Action (`marjorie-inbox.yml`) reads her Gmail
+inbox every 30 minutes, verifies the reply comes from a founder address
+with a passing DKIM signature, and relays it onto the brief issue as a
+`📧 Reply from <founder>` comment; Marjorie answers at her next run and
+her reply reaches the founder via the next mailed brief/delta.
+
+**Authority boundary (the important part):** relayed email is
+**conversation-grade, never decision-grade.** Decisions still trace only
+to founder-authored GitHub artifacts (checkbox edits, native comments) —
+email is spoofable in ways a GitHub login is not, so the high-blast-radius
+set (spending, merge/deploy grants, charters, security) can never be
+granted by email; Marjorie restates any emailed decision as a bank item
+for native confirmation.
+
+**Why:** Joey asked to talk to Marjorie directly; email reply is the
+lowest-friction interface he already lives in. Zero AI in the relay; ~30
+runs/day of seconds-long Actions time.
+
+**Alternatives considered:** a live chat with Marjorie (rejected for now —
+she is a twice-daily scheduled runner, not a resident service; a chat
+implies a paid always-on session); founders commenting on GitHub (still
+works, still the only decision-grade path).
+
+**Approved by:** Joey (in-session, 2026-07-16).
+
 ## 2026-07-15 — Era Secrets: every era entry teaches the fan something new
 
 **Decision (Joey, product call):** Integrate the "Era Secrets" concept —
