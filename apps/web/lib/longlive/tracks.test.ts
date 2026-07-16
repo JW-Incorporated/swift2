@@ -1,8 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { TRACKS_RAW } from './tracks.generated';
-import { releasedFactValue, resolveConnections, songTargetOf, tracksForEra } from './tracks';
+import { keepExploring, nextTrackOnAlbum, releasedFactValue, resolveConnections, songTargetOf, tracksForEra } from './tracks';
 import { CONTENT, getContentItem } from './content';
 import { ERAS } from './eras';
+import type { TrackNote } from './types';
 
 // Guards the generated track-guide data against generator drift: everything
 // the TrackGuide overlay assumes about tracks.generated.ts is asserted here.
@@ -134,6 +135,51 @@ describe('resolveConnections', () => {
 
   it('returns empty for undefined input', () => {
     expect(resolveConnections(undefined)).toEqual([]);
+  });
+});
+
+describe('nextTrackOnAlbum / keepExploring (Joey 2026-07-15: next song leads the section)', () => {
+  // Use a real era with 2+ numbered tracks so the tests survive data churn.
+  const entry = (Object.entries(TRACKS_RAW) as [Parameters<typeof tracksForEra>[0], TrackNote[]][])
+    .find(([, t]) => t.filter((x) => x.trackNumber != null).length >= 2)!;
+  const eraId = entry[0];
+  const numbered = entry[1].filter((t) => t.trackNumber != null);
+  const first = numbered[0];
+  const last = numbered[numbered.length - 1];
+
+  it('returns the following numbered track, and null on the last one', () => {
+    const next = nextTrackOnAlbum(eraId, first);
+    expect(next).not.toBeNull();
+    expect(next!.trackNumber!).toBeGreaterThan(first.trackNumber!);
+    expect(nextTrackOnAlbum(eraId, last)).toBeNull();
+  });
+
+  it('keepExploring puts the next song FIRST, even with no curated connections', () => {
+    const out = keepExploring(eraId, first);
+    expect(out.length).toBeGreaterThan(0);
+    expect(out[0].kind).toBe('song');
+    expect(out[0].kind === 'song' && out[0].track.slug).toBe(nextTrackOnAlbum(eraId, first)!.slug);
+    expect(out[0].connection.why).toContain('up next on');
+  });
+
+  it('de-dupes a curated connection that already points at the next song', () => {
+    const next = nextTrackOnAlbum(eraId, first)!;
+    const withDupe = {
+      ...first,
+      dossier: {
+        ...(first.dossier ?? { sources: [] }),
+        connections: [{ relatedId: `song:${next.slug}` as const, label: next.title, why: 'curated dupe' }],
+      },
+    };
+    const out = keepExploring(eraId, withDupe);
+    const hits = out.filter((c) => c.kind === 'song' && c.track.slug === next.slug);
+    expect(hits).toHaveLength(1);
+    expect(hits[0].connection.why).toContain('up next on');
+  });
+
+  it('falls back to curated connections alone on the album closer', () => {
+    const out = keepExploring(eraId, last);
+    expect(out.every((c) => !(c.kind === 'song' && c.connection.why.includes('up next on')))).toBe(true);
   });
 });
 

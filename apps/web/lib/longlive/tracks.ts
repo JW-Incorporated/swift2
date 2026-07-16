@@ -1,6 +1,7 @@
 import type { ContentItem, EraId, RelatedId, TrackConnection, TrackFacts, TrackNote } from './types';
 import { TRACKS_RAW } from './tracks.generated';
 import { getContentItem } from './content';
+import { getEra } from './eras';
 import { formatFullDate } from './format';
 
 /**
@@ -80,4 +81,43 @@ export function resolveConnections(
     }
   }
   return out;
+}
+
+/**
+ * The next numbered song on the same album, or null on the last (or an
+ * unnumbered) track. TRACKS_RAW is generator-sorted (track number ascending,
+ * unnumbered last), so "next" is the first later entry with a greater number.
+ */
+export function nextTrackOnAlbum(eraId: EraId, track: TrackNote): TrackNote | null {
+  if (track.trackNumber == null) return null;
+  return (
+    tracksForEra(eraId).find(
+      (t) => t.trackNumber != null && t.trackNumber > track.trackNumber! && t.slug !== track.slug,
+    ) ?? null
+  );
+}
+
+/**
+ * The "Keep exploring" list (issue #498 follow-ups / Joey 2026-07-15):
+ * the FIRST entry is always the album's next song — the strongest "related"
+ * item there is — followed by the dossier's curated connections (de-duped
+ * against the next song so it never appears twice). Songs with no curated
+ * connections still get the next-song entry, so the section is never empty
+ * mid-album.
+ */
+export function keepExploring(eraId: EraId, track: TrackNote): ResolvedConnection[] {
+  const curated = resolveConnections(track.dossier?.connections, track.slug);
+  const next = nextTrackOnAlbum(eraId, track);
+  if (!next) return curated;
+  const nextEntry: ResolvedConnection = {
+    kind: 'song',
+    eraId,
+    track: next,
+    connection: {
+      relatedId: `song:${next.slug}` as RelatedId,
+      label: next.title,
+      why: `Track ${next.trackNumber} — up next on ${getEra(eraId).album}.`,
+    },
+  };
+  return [nextEntry, ...curated.filter((c) => !(c.kind === 'song' && c.track.slug === next.slug))];
 }
