@@ -41,19 +41,38 @@ function onPopState() {
   }
 }
 
+function installListener() {
+  if (listenerInstalled) return;
+  // Installed once and left in place: it must still observe (and swallow)
+  // the popstate emitted by the LAST overlay's UI-close, after the stack
+  // is already empty.
+  window.addEventListener('popstate', onPopState);
+  listenerInstalled = true;
+}
+
+/**
+ * Imperative variant for top-level NAVIGATIONS (era jumps, mode switches,
+ * thread opens — #498 follow-up "back-swipe exits the app on many screens"):
+ * pushes one history entry whose back-gesture pop runs `onDismiss` (which
+ * should restore the pre-navigation state). Nav entries have no UI-close, so
+ * unlike the hook there is no cleanup path — they are consumed only by the
+ * back gesture, or superseded by later entries. Shares the overlay stack, so
+ * LIFO order holds across overlays and navigations (an overlay opened after
+ * an era jump closes first; the next back undoes the jump).
+ */
+export function pushBackEntry(onDismiss: () => void) {
+  installListener();
+  stack.push({ dismiss: onDismiss, dismissedByPop: false });
+  window.history.pushState({ llOverlay: true }, '');
+}
+
 export function useBackDismiss(active: boolean, onDismiss: () => void) {
   const onDismissRef = useRef(onDismiss);
   onDismissRef.current = onDismiss;
 
   useEffect(() => {
     if (!active) return;
-    if (!listenerInstalled) {
-      // Installed once and left in place: it must still observe (and swallow)
-      // the popstate emitted by the LAST overlay's UI-close, after the stack
-      // is already empty.
-      window.addEventListener('popstate', onPopState);
-      listenerInstalled = true;
-    }
+    installListener();
     const entry: StackEntry = {
       dismiss: () => onDismissRef.current(),
       dismissedByPop: false,
