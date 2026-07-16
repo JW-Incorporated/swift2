@@ -7,6 +7,38 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-15 — The "Choose an era" screen becomes the landing page
+
+**Decision (Joey, product call):** The site's first screen is the era
+chooser — the existing EraSelector grid design ("Choose an era · Twelve
+chapters, newest first"), promoted from a pop-up overlay to a **real
+landing page**: the **Long Live** wordmark at the top, the **Eras / Threads
+toggle** prominent up there with it, then the era grid. Tapping an era (or
+Threads) steps inside the experience as today.
+
+**Why:** New visitors currently land mid-experience and don't know what the
+site is — the era/threads switcher is invisible to them (#634, the MOBILE
+launch gate). The chooser grid communicates the entire concept in one
+glance: twelve eras, pick where to start. It solves first-visit
+comprehension *inside* the product, without an explanatory landing page —
+which Joey considers against the ethos of good web design and holds only as
+the fallback if this doesn't work.
+
+**Alternatives considered:** (a) two-row top nav with the eras/threads
+toggle as a full-width second row — Joey's earlier idea, superseded by this
+same-day; (b) an explanatory marketing landing page — rejected unless the
+chooser-as-landing fails with real users.
+
+**Implementation notes (not part of the decision):** needs real thinking on
+returning-visitor behavior (skip straight to their era? show chooser with
+"HERE" state?), back-gesture semantics from the chooser, and it naturally
+advances SEO/discoverability (#653) by giving the site a real front door.
+Tracked in the implementation ticket; this unblocks the MOBILE gate's
+design-intent ask (#634).
+
+**Approved by:** Joey (explicit in-session directive, 2026-07-15: "call it
+a decision and ask the team to implement it").
+
 ## 2026-07-15 — Autonomy expansion: content merges + work self-assignment
 
 **Decision:** Two founder bottlenecks are removed from the daily pipeline:
