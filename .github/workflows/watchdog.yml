@@ -109,7 +109,7 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
-          URL="https://swift2-ten.vercel.app/"
+          URL="https://www.longlivets.com/"
           CODE=$(curl -s -o /tmp/smoke.html -w '%{http_code}' --max-time 30 "$URL" || echo 000)
           OK=true
           [ "$CODE" = "200" ] || OK=false
