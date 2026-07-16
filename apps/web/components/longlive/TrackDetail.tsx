@@ -15,11 +15,11 @@ import {
 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
-import { tracksForEra, resolveConnections, releasedFactValue } from '@/lib/longlive/tracks';
+import { tracksForEra, keepExploring, releasedFactValue } from '@/lib/longlive/tracks';
 import { eraStyle } from '@/lib/longlive/theme';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
-import type { EggSource, TrackFacts, TrackMeaning, TrackNote } from '@/lib/longlive/types';
+import type { EggSource, EraId, TrackFacts, TrackMeaning, TrackNote } from '@/lib/longlive/types';
 
 /** Same composite key TrackRow/TrackGuide use — TrackNote has no stable id. */
 export function trackKey(eraId: string, track: TrackNote): string {
@@ -204,7 +204,7 @@ export function TrackDetail() {
           </Section>
         )}
 
-        {dossier?.connections && <ConnectionsSection track={track} />}
+        <ConnectionsSection eraId={era.id} track={track} />
 
         {sources.length > 0 && (
           <p className="mt-10 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
@@ -374,14 +374,16 @@ function MeaningTier({
 }
 
 /**
- * Explained catalog connections (issue #440 §10/§22). Song targets hop to
- * that song's own dossier (openSong retargets the guide underneath); moment
- * targets close this overlay stack first — MomentDetail sits at a lower
- * z-index and would otherwise open invisibly behind this one.
+ * Explained catalog connections (issue #440 §10/§22). The first entry is
+ * always the album's next song (Joey, 2026-07-15 — lib keepExploring), then
+ * the curated connections. Song targets hop to that song's own dossier
+ * (openSong retargets the guide underneath); moment targets close this
+ * overlay stack first — MomentDetail sits at a lower z-index and would
+ * otherwise open invisibly behind this one.
  */
-function ConnectionsSection({ track }: { track: TrackNote }) {
+function ConnectionsSection({ eraId, track }: { eraId: EraId; track: TrackNote }) {
   const { openSong, openItem, closeTrackGuide } = useAppActions();
-  const resolved = resolveConnections(track.dossier?.connections, track.slug);
+  const resolved = keepExploring(eraId, track);
   if (resolved.length === 0) return null;
 
   return (
