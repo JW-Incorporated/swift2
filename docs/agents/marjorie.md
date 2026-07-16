@@ -145,7 +145,9 @@ curation means compressing the skeleton into this shape, not appending to it.
   `sffan15@gmail.com`, CC `wjduvall@gmail.com`. Since 2026-07-15 it sends
   multipart HTML (GitHub-rendered GFM — tables and checklists arrive as
   tables and checklists, not raw markdown), with a plain-text fallback. It mails **both** cadences:
-  the 6 AM brief (issue body) at 14:50 UTC and the 8 PM Evening Delta (the
+  the morning brief (issue body) at 12:45 UTC — anchored so it is **in
+  founder inboxes by 6:00 AM PT** (Joey, 2026-07-16), which requires the
+  brief run itself to fire at 12:00 UTC and post by ~12:40 — and the 8 PM Evening Delta (the
   latest brief comment) at 03:50 UTC. It is live once the founders set the
   `MARJORIE_EMAIL` repo variable + `GMAIL_APP_PASSWORD` secret on Marjorie's
   Gmail account (2-Step Verification on; App Password stored WITHOUT spaces —

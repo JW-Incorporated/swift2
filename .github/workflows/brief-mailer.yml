@@ -1,11 +1,14 @@
 # Brief mailer — emails Marjorie's updates to the founders' real inboxes.
 # From Marjorie's own Gmail, To Joey, CC Wyatt (Joey's calls, 2026-07-11).
 # Deterministic, zero AI. Two sends per day:
-#   - 13:40 UTC (~6:40 AM PDT): the 6 AM Founders' Brief (issue body).
-#     (Joey, 2026-07-16: the old 14:50 slot meant a 7:50 AM email — he expects
-#     the brief with his morning, so this runs ~20-25 min after Marjorie's
-#     13:00 UTC brief run posts. If her run ever posts later than 13:40 the
-#     mailer skips quietly and the 14:30 watchdog window is the alarm.)
+#   - 12:45 UTC (~5:45 AM PDT): the Founders' Brief (issue body). Joey's
+#     requirement (2026-07-16): the email is IN HIS INBOX BY 6:00 AM.
+#     Actions cron can slip 5-15 min, so the send is anchored at 5:45 PDT;
+#     Marjorie's brief trigger must fire at 12:00 UTC (registry: docs/agents/
+#     runners.md) so the brief exists ~12:25. If it doesn't exist yet the
+#     mailer skips quietly and the 14:30 watchdog window is the alarm.
+#     UTC-anchored on purpose (org precedent): winter sends land an hour
+#     earlier in PST — still in the inbox by 6:00, never after.
 #   - 03:50 UTC (~7:50/8:50 PM PT): the 8 PM Evening Delta (latest brief comment).
 #
 # This Action is THE real email channel. The brief's `cc @mention` line is only a
@@ -23,7 +26,7 @@
 name: brief-mailer
 on:
   schedule:
-    - cron: "40 13 * * *"  # morning brief (~6:40 AM PDT; see header note)
+    - cron: "45 12 * * *"  # morning brief (inbox by 6:00 AM PT; see header note)
     - cron: "50 3 * * *"   # evening delta
   workflow_dispatch:
     inputs:
