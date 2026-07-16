@@ -7,6 +7,35 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-15 — Era Secrets: every era entry teaches the fan something new
+
+**Decision (Joey, product call):** Integrate the "Era Secrets" concept —
+full research + design in `docs/proposals/2026-07-15-era-secrets.md` —
+into the site. Core thesis, Joey verbatim: *"if a fan can learn something
+they didn't know, they will ascribe value to the website."* Approved
+scope, content-first sequencing: (1) author per-era secrets pools +
+liner-note-code eggs into the existing content waves; (2) the **Era
+Secret card** — one sourced, obscure, daily-rotating fact as the first
+thing inside every era; (3) the **Track Five pill** — the artist-confirmed
+track-5 tradition as a badge + cross-era rail in every Track Guide; (4)
+later: "How every era ends" thread and secrets-found progress counter.
+No runtime LLM anywhere — secrets are seed data on a deterministic daily
+rotation (runtime-cost rule upheld).
+
+**Why:** The Track 5 insight generalizes: the catalog is full of
+artist-confirmed, fandom-documented patterns (track-13 grandparent
+tributes, liner-note codes and the 1989 inversion, the healing-closer
+arc, "seven" at seven) that even engaged fans haven't all seen. Surfacing
+one at era entry is the cheapest possible proof of the site's depth at
+the exact moment a visitor forms their value judgment.
+
+**Alternatives considered:** Quiz/gamification-first (deferred — progress
+counter is phase 2); random-per-pageload rotation (rejected — daily
+deterministic feels curated and costs nothing).
+
+**Approved by:** Joey (in-session, 2026-07-15: "log them as decisions from
+me to integrate into the site"); Marjorie owns run order + routing.
+
 ## 2026-07-15 — The "Choose an era" screen becomes the landing page
 
 **Decision (Joey, product call):** The site's first screen is the era
