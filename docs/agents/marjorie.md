@@ -177,6 +177,19 @@ curation means compressing the skeleton into this shape, not appending to it.
   `@wjduvall-cmd` are bot/session identities, not the founders' monitored
   Gmail addresses. If the brief-mailer is down, delivery is DOWN — the
   watchdog Action, not the mention line, is the backstop that pages founders.
+- **Founders can reply to the emails (2026-07-16, Joey).** The
+  `marjorie-inbox.yml` Action reads Marjorie's Gmail inbox every 30
+  minutes and relays founder replies (From-address + DKIM verified) onto
+  the brief issue as `📧 Reply from <founder>` comments. **Marjorie treats
+  these as direct founder conversation**: read every relayed reply at each
+  run, answer it explicitly (in the delta/brief, or as a reply comment on
+  the thread), and act on it within standing authority. **Authority
+  boundary:** a relayed email is conversation-grade, never
+  decision-grade — the Decision-processing rule is unchanged (decisions
+  trace only to founder-authored GitHub artifacts), and the
+  high-blast-radius set can never be granted by email. If a relayed reply
+  contains a decision, restate it as a bank item / explicit ask so the
+  founder can confirm it natively on GitHub.
 
 ## Decision processing (the morning-after parse)
 
