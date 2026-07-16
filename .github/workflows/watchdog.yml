@@ -102,7 +102,7 @@ jobs:
             done
           done
 
-      - name: Prod smoke check (gap G-G sliver — zero AI)
+      - name: Prod smoke check (gap ALARMS sliver — zero AI)
         if: always()
         env:
           GH_TOKEN: ${{ github.token }}

@@ -106,9 +106,9 @@ Sections, in this order:
    items keep A/B checkboxes (all unchecked, "(recommended)" labeled).
 3. **📊 Scoreboard** — the gate table stripped to three columns: Gate ·
    🟢🟡🔴 · next step + owner in ≤ 8 words. The Gate column uses the
-   **plain-English names** from launch-readiness.md's "What each gate
-   means" table — never bare codes like "G-A" (the code may ride in
-   parentheses). Directly under the table, always print the legend line:
+   **gate names** from launch-readiness.md's "What each gate means" table
+   (DEPTH, VOICE, SONGS, …) with the plain meaning where the word alone
+   isn't obvious — never the legacy "G-A"-style letter codes. Directly under the table, always print the legend line:
    `🟢 done · 🟡 moving · 🔴 stalled — red rows say what they're waiting
    on`. Under that, one line of counts: PRs merged yesterday · new content
    pieces · open tickets by desk · *(post-launch)* feedback received.
