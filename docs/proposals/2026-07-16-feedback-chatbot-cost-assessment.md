@@ -100,3 +100,73 @@ whether that's worth the abuse surface, not the tokens.
 3. Measure the pilot on one number: usable content-gap tickets per week
    vs. the form baseline. If chat doesn't beat the form meaningfully,
    the pennies weren't the point and neither is the feature.
+
+---
+
+# Pilot spec (captured 2026-07-16 — POTENTIAL FUTURE DECISION, not approved)
+
+**Status: dormant by Joey's call, 2026-07-16 ("let's capture the spec as a
+potential future decision"). Activation trigger:** the form baseline (#679
+fixed + ≥3 weeks of data) yields disappointing content-gap volume or
+quality, and Joey says go. When activated: copy this spec into a
+decision-log entry, then build. Tracker issue: see the dormant
+`[future decision]` ticket referencing this doc.
+
+## What it does
+
+A "💬 Tell us what's missing" button (beside the existing feedback button)
+opens a small chat panel. A bounded Claude Haiku 4.5 triager converses with
+the fan — understands the report, asks at most TWO clarifying questions
+(era? song? what did you expect to find?) — then either (a) files a GitHub
+issue labeled `user-feedback,chatbot` with a structured body (surface ·
+expected · actual · era/song refs · verbatim quotes) and tells the user
+"logged — thank you," or (b) politely declines out-of-scope requests and
+points at the form. It does nothing else: no site questions answered, no
+content opinions, no free chat.
+
+## User-visible behavior
+
+- Chat panel, mobile-first, ≤6 bot turns then auto-close with a "use the
+  form for more" hand-off
+- Bot always states it's an automated helper in its first message
+- On success the user sees confirmation (not the ticket URL — tickets may
+  carry internal labels); on any cap/failure the panel degrades to the
+  existing form pre-filled with the transcript text
+
+## Hard caps (the design, per the assessment)
+
+- ≤6 bot turns/conversation · ≤500 chars/user message · `max_tokens` 300
+- ≤3 conversations per visitor/day (cookie + IP heuristic), ≤200
+  conversations/day site-wide (then form-only until midnight UTC)
+- Console spend cap as backstop; alert threshold at 50%
+- System prompt is a frozen, cached prefix; model pinned `claude-haiku-4-5`
+
+## Guardrails
+
+- Server-side proxy route (`/api/feedback-chat`) holds the API key; the
+  browser never sees it
+- Ticket bodies defanged exactly like form submissions (they are untrusted
+  input to Kevin/Austin); bot instructed it may ONLY emit the structured
+  ticket tool-call, never site actions
+- Refusal/injection attempts end the conversation with the form hand-off;
+  zero retries
+
+## Acceptance criteria
+
+- All caps verified by tests (turn, length, per-visitor, site-wide, spend)
+- Injection suite: 10 canned attacks produce no off-script behavior
+- Filed tickets parse into Kevin's triage unchanged
+- Success metric wired: usable content-gap tickets/week, chatbot vs form,
+  reported in the brief's counts line
+
+## Files affected (expected)
+
+`apps/web/app/api/feedback-chat/route.ts` (new) · a `FeedbackChat`
+component beside `FeedbackButton` · rate-limit/session state (KV or
+signed cookie) · tests · decision-log entry · this doc flips to APPROVED.
+
+## Cost model (from Part 1)
+
+~1.5¢/conversation (≤1¢ cached); 200/day site-wide cap ⇒ **hard ceiling
+≈ $3/day ≈ $90/month**, expected single digits. Rule-based fallback = the
+form, always.
