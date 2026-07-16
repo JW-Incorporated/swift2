@@ -20,6 +20,7 @@ import {
   writeStoredProgress,
   type Progress,
 } from './progress';
+import { pushBackEntry } from './useBackDismiss';
 import type { EraId, LensId, MotifId } from './types';
 
 export type AppMode = 'era' | 'threads';
@@ -269,15 +270,44 @@ export function AppProvider({ children }: { children: ReactNode }) {
     eraScrollRef.current = null;
   }, []);
 
+  // Top-level navigations (era jumps, mode switches, thread opens) are pure
+  // state — without a history entry the mobile back-swipe leaves the app
+  // (Joey, 2026-07-15: "swiping back still takes me out of the app on many
+  // screens"). Each pushes one entry that restores the pre-navigation state;
+  // the module-level stack in useBackDismiss keeps LIFO order with overlays.
+  const navStateRef = useRef({ mode, eraId, lensId, crossing });
+  navStateRef.current = { mode, eraId, lensId, crossing };
+  const suppressNavPushRef = useRef(false);
+
+  const restoreNav = useCallback((prev: typeof navStateRef.current) => {
+    suppressNavPushRef.current = true;
+    setModeRaw(prev.mode);
+    setEraId(prev.eraId);
+    setLensId(prev.lensId);
+    setCrossing(prev.crossing);
+    // Jump the era stream to the restored era — unless a scroll snapshot
+    // exists (mode-switch return), which the stream restores more precisely.
+    if (prev.mode === 'era' && eraScrollRef.current == null) setEraJumpSeq((n) => n + 1);
+    suppressNavPushRef.current = false;
+  }, []);
+
+  const pushNav = useCallback(() => {
+    if (suppressNavPushRef.current) return;
+    const prev = { ...navStateRef.current };
+    pushBackEntry(() => restoreNav(prev));
+  }, [restoreNav]);
+
   const setEra = useCallback(
     (id: EraId) => {
       const valid = getEra(id).id;
+      const cur = navStateRef.current;
+      if (valid !== cur.eraId || cur.mode !== 'era') pushNav();
       clearEraScroll();
       setEraId(valid);
       setSelectorOpen(false);
       setEraJumpSeq((n) => n + 1);
     },
-    [clearEraScroll],
+    [clearEraScroll, pushNav],
   );
 
   const setActiveEra = useCallback((id: EraId) => {
@@ -285,28 +315,39 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setEraId((prev) => (prev === id ? prev : getEra(id).id));
   }, []);
 
-  const setMode = useCallback((m: AppMode) => {
-    setModeRaw(m);
-    // Entering Threads always lands on the gallery for a clear sense of place.
-    if (m === 'threads') {
-      setLensId(null);
-      setCrossing(null);
-    }
-  }, []);
+  const setMode = useCallback(
+    (m: AppMode) => {
+      if (m !== navStateRef.current.mode) pushNav();
+      setModeRaw(m);
+      // Entering Threads always lands on the gallery for a clear sense of place.
+      if (m === 'threads') {
+        setLensId(null);
+        setCrossing(null);
+      }
+    },
+    [pushNav],
+  );
 
-  const openThread = useCallback((id: LensId) => {
-    setModeRaw('threads');
-    setCrossing(null);
-    setLensId(id);
-    setSelectorOpen(false);
-    setOpenItemId(null);
-    setTrackGuideEraId(null);
-    setTheoryGuideEraId(null);
-  }, []);
+  const openThread = useCallback(
+    (id: LensId) => {
+      const cur = navStateRef.current;
+      if (!(cur.mode === 'threads' && cur.lensId === id && !cur.crossing)) pushNav();
+      setModeRaw('threads');
+      setCrossing(null);
+      setLensId(id);
+      setSelectorOpen(false);
+      setOpenItemId(null);
+      setTrackGuideEraId(null);
+      setTheoryGuideEraId(null);
+    },
+    [pushNav],
+  );
 
   const openEra = useCallback(
     (id: EraId) => {
       const valid = getEra(id).id;
+      const cur = navStateRef.current;
+      if (cur.mode !== 'era' || valid !== cur.eraId) pushNav();
       clearEraScroll();
       setModeRaw('era');
       setEraId(valid);
@@ -318,7 +359,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       setTrackGuideEraId(null);
       setTheoryGuideEraId(null);
     },
-    [clearEraScroll],
+    [clearEraScroll, pushNav],
   );
 
   // The Clue Web lives inside the 'easter-eggs' thread; a cross-link jump is
@@ -362,6 +403,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     const item = params.get('item');
     const lens = params.get('lens');
     const era = params.get('era');
+    // A deep link is the visitor's FIRST state, not a navigation away from
+    // one — pushing a back-entry here would trap the first back gesture.
+    suppressNavPushRef.current = true;
     if (item) {
       setOpenItemId(item);
     } else if (lens && THREADS.some((t) => t.id === lens)) {
@@ -369,6 +413,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     } else if (era) {
       setEra(era as EraId);
     }
+    suppressNavPushRef.current = false;
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
