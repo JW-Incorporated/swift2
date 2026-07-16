@@ -1890,6 +1890,55 @@ export default {
         ],
       },
     },
+    // --- G-A depth pass: July 2024 European-leg gap (2026-07-15)
+    {
+      slug: 'gelsenkirchen-swiftkirchen',
+      year: 2024,
+      month: 7,
+      day: 17,
+      category: 'tour',
+      title: 'Welcome to Swiftkirchen: Gelsenkirchen renames itself for the Eras Tour',
+      snippet:
+        'New town signs went up before the tour’s three sold-out Veltins-Arena nights, July 17–19: “Swiftkirchen.” The rename was one fan’s idea — Aleshanee Westhoff petitioned Mayor Karin Welge, and the city let her install the first sign herself.',
+      sourceUrl:
+        'https://www.billboard.com/music/music-news/taylor-swifts-eras-tour-german-city-changes-name-1235724323/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Aleshanee Westhoff wrote to Mayor Karin Welge with the idea and started a petition behind it; Welge answered that it was “a great idea to temporarily rename Gelsenkirchen to ‘Swiftkirchen’” and had Westhoff install the first sign on Ebertstraße, with more posted at high-traffic spots around town ahead of the shows.\n\nFor the three nights the city also staged “Taylor Town” fan festivities — karaoke and DJ sets, a Swift-themed tram, and a new stone on Gelsenkirchen’s Walk of Fame. The Washington Post ran a whole piece on how improbable the pairing was (“the most unlikely city on Taylor Swift’s Europe tour”) — which was exactly the charm: for one July week, a renamed industrial town was the center of the Swiftie map.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swifts-eras-tour-german-city-changes-name-1235724323/',
+            source_title:
+              'City in Germany Temporarily Renames Itself ‘Swiftkirchen’ Ahead of Taylor Swift’s Eras Tour Stops',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Washington Post',
+            url: 'https://www.washingtonpost.com/world/2024/07/18/gelsenkirchen-taylor-swift-europe-tour/',
+            source_title: 'Gelsenkirchen is the most unlikely city on Taylor Swift’s Europe tour',
+            publisher: 'The Washington Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-15',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/taylor-swift-germany-city-gelsenkirchen-name-change-eras-tour/',
+            source_title:
+              "Taylor Swift Gets German City Gelsenkirchen Renamed in Her Honor Ahead of Eras Tour Stop: 'Swiftkirchen'",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-15',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
     {
       slug: 'munich-olympiaberg-hill',
       year: 2024,
