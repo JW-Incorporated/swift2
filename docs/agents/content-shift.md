@@ -14,8 +14,8 @@ Phase 1), shifts author *as* the routed persona; until then, house voice.)
    daily drops. Same-day is the target.
 2. **Experience tickets** (`experience`, Nils) in severity order — thin
    periods, missing narratives, depth gaps.
-3. **Launch-gate content work** — J3.5 rubric gaps (G-A), era depth batches
-   (J3.5b), dossier waves (#440 phases, G-C).
+3. **Launch-gate content work** — J3.5 rubric gaps (DEPTH), era depth batches
+   (J3.5b), dossier waves (#440 phases, WORTHY).
 4. Karen's `cie:fact` tickets when Kevin's stream is backed up (never his
    image protocol — that stays Kevin's).
 
@@ -74,7 +74,7 @@ token scoped to contents+PR+issues.
 
 1. **Claim-lease expiry:** same 24h rule as Austin's charter.
 2. **Idle discipline:** an empty-queue exit must state which queues were
-   checked; if all three priorities are empty AND launch gates G-A/G-C are
+   checked; if all three priorities are empty AND launch gates DEPTH/WORTHY are
    not green, that is itself a finding — comment it on the walk log so Nils
    and Marjorie see the supply gap.
 3. **Review rounds bounded at two**, then Marjorie's tiebreak.
