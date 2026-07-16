@@ -108,11 +108,22 @@ function TrackRow({ eraId, track }: { eraId: EraId; track: TrackNote }) {
   const { openTrack } = useAppActions();
   const hasDeepDive = Boolean((track.discussion && track.discussion.length > 0) || track.dossier);
 
-  // The deep-dive affordance is a button around the TITLE ROW only — never
-  // around the whole card, whose source links are themselves interactive
-  // (nesting <a> inside <button> is invalid HTML and breaks keyboard/SR use).
+  // The WHOLE CARD opens the song (#498: Joey — "you should be able to click
+  // anywhere in the rectangle"). The card must stay an <li>, not a <button>:
+  // its source links are themselves interactive, and nesting <a> inside
+  // <button> is invalid HTML and breaks keyboard/SR use. So the title-row
+  // <button> remains the semantic/keyboard control, and the card adds a
+  // pointer-only onClick that defers to any real link/button under the tap.
   return (
-    <li className="era-card flex gap-4 rounded-2xl border p-4 sm:p-5">
+    <li
+      className={`era-card flex gap-4 rounded-2xl border p-4 sm:p-5${hasDeepDive ? ' cursor-pointer' : ''}`}
+      onClick={(e) => {
+        if (!hasDeepDive) return;
+        // A tap on a source link (or the title button itself) is theirs.
+        if ((e.target as HTMLElement).closest('a, button')) return;
+        openTrack(trackKey(eraId, track));
+      }}
+    >
       <span
         className="w-7 shrink-0 pt-0.5 text-right font-[family-name:var(--era-font)] text-lg font-semibold tabular-nums text-[color:var(--era-accent)]"
         aria-hidden
