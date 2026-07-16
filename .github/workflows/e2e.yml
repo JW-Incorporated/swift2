@@ -23,7 +23,7 @@ on:
       base_url:
         description: 'Target URL to smoke-test (defaults to production)'
         required: false
-        default: 'https://swift2-web-nine.vercel.app'
+        default: 'https://www.longlivets.com'
   schedule:
     # 13:00 UTC daily (~morning US). Cron runs against production only.
     - cron: '0 13 * * *'
@@ -33,7 +33,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       # workflow_dispatch supplies an input; schedule falls back to prod.
-      BASE_URL: ${{ github.event.inputs.base_url || 'https://swift2-web-nine.vercel.app' }}
+      BASE_URL: ${{ github.event.inputs.base_url || 'https://www.longlivets.com' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
