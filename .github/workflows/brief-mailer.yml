@@ -1,7 +1,11 @@
 # Brief mailer — emails Marjorie's updates to the founders' real inboxes.
 # From Marjorie's own Gmail, To Joey, CC Wyatt (Joey's calls, 2026-07-11).
 # Deterministic, zero AI. Two sends per day:
-#   - 14:50 UTC (~7:50 AM PT): the 6 AM Founders' Brief (issue body).
+#   - 13:40 UTC (~6:40 AM PDT): the 6 AM Founders' Brief (issue body).
+#     (Joey, 2026-07-16: the old 14:50 slot meant a 7:50 AM email — he expects
+#     the brief with his morning, so this runs ~20-25 min after Marjorie's
+#     13:00 UTC brief run posts. If her run ever posts later than 13:40 the
+#     mailer skips quietly and the 14:30 watchdog window is the alarm.)
 #   - 03:50 UTC (~7:50/8:50 PM PT): the 8 PM Evening Delta (latest brief comment).
 #
 # This Action is THE real email channel. The brief's `cc @mention` line is only a
@@ -19,7 +23,7 @@
 name: brief-mailer
 on:
   schedule:
-    - cron: "50 14 * * *"  # morning brief
+    - cron: "40 13 * * *"  # morning brief (~6:40 AM PDT; see header note)
     - cron: "50 3 * * *"   # evening delta
   workflow_dispatch:
     inputs:
