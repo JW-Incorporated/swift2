@@ -17,7 +17,7 @@ whose inline prompt drifts from its file is a bug.
 
 | Runner | Cadence (UTC) | Model | Prompt file | Account | Why this side |
 |---|---|---|---|---|---|
-| Marjorie — 6 AM brief | `0 13 * * *` | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
+| Marjorie — morning brief | `0 12 * * *` (was `0 13` — moved 2026-07-16 so the emailed brief is in founder inboxes **by 6:00 AM PT**, Joey's requirement; the 12:45 UTC mailer needs the brief posted by ~12:40) | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
 | Marjorie — 8 PM delta | `0 3 * * *` | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Same |
 | Austin — build runs ×2 | `0 16 * * *`, `0 21 * * *` | Fable | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** | Solves work (code) |
 | Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site + SEO/discoverability lens |
