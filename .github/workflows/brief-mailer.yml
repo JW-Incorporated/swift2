@@ -21,7 +21,14 @@ on:
   schedule:
     - cron: "50 14 * * *"  # morning brief
     - cron: "50 3 * * *"   # evening delta
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "What to send: auto (pick by clock, like the schedule), brief, or delta"
+        required: false
+        default: auto
+        type: choice
+        options: [auto, brief, delta]
 
 permissions:
   issues: read
@@ -37,10 +44,13 @@ jobs:
           REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
-          HOUR=$(date -u +%H)
-          # Early-UTC runs are the evening delta; later runs are the morning brief.
-          # (10# forces base-10 so leading-zero hours like 08/09 don't parse as octal.)
-          if [ "$((10#$HOUR))" -lt 12 ]; then MODE=delta; else MODE=brief; fi
+          MODE="${{ github.event.inputs.mode || 'auto' }}"
+          if [ "$MODE" = "auto" ]; then
+            HOUR=$(date -u +%H)
+            # Early-UTC runs are the evening delta; later runs are the morning brief.
+            # (10# forces base-10 so leading-zero hours like 08/09 don't parse as octal.)
+            if [ "$((10#$HOUR))" -lt 12 ]; then MODE=delta; else MODE=brief; fi
+          fi
           # America/Los_Angeles date selects the right brief for both: the morning
           # run -> today's brief; the evening run (early UTC = PT evening of the same
           # LA day) -> the brief the delta was commented on.
