@@ -106,6 +106,19 @@ Sections, in this order:
    verb-first, time estimate, one link. If it needs more than one line to
    explain, it isn't ready for the checklist — bank it instead. Decision
    items keep A/B checkboxes (all unchecked, "(recommended)" labeled).
+   **Written for a smart non-software human (Joey, 2026-07-16: "as a
+   non-software native speaking human, these things have to make better
+   sense to me").** The test: could someone who has never used GitHub do
+   this from the line alone? Rules — no unexplained software words
+   (commit, SHA, deploy, env var, rebase, PR: translate or drop them);
+   say what to CLICK and where, not what to "do" ("open this link, copy
+   the ID shown next to 'Production', paste it as a comment" — not "paste
+   the deployed commit SHA"); say what the item accomplishes in product
+   terms ("so we can prove the live site runs the fixed code"), not in
+   gate/ticket jargon; and if an ask can't be written that way, it is not
+   a founder ask — route it to a desk instead. Before asking at all:
+   could an agent answer this itself (e.g. by probing the live site)?
+   Asks that agents can self-serve never reach the checklist.
 3. **📊 Scoreboard** — the gate table stripped to three columns: Gate ·
    🟢🟡🔴 · next step + owner in ≤ 8 words. The Gate column uses the
    **gate names** from launch-readiness.md's "What each gate means" table
