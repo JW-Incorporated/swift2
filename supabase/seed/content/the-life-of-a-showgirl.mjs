@@ -2146,6 +2146,57 @@ export default {
       },
     },
     {
+      slug: 'nyt-greatest-songwriters-interview',
+      year: 2026,
+      month: 4,
+      day: 28,
+      category: 'music',
+      title: 'One of the 30 greatest living American songwriters — and a rare half-hour on the craft',
+      snippet:
+        'The New York Times names Taylor one of the 30 greatest living American songwriters, and the accompanying sit-down is the real gift: 30 minutes on camera about nothing but the writing — the emo roots, "may the best idea win," and why decoding who a song is about is "sort of like a paternity test. That dude didn\'t write the song. I did."',
+      sourceUrl: 'https://www.youtube.com/watch?v=5B8-TJ8vsKY',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Times\' list, published April 28, 2026, was assembled from more than 250 music insiders and six of its own critics — unranked, and putting her alongside Bob Dylan, Dolly Parton, Jay-Z, Kendrick Lamar, Missy Elliott, and Bad Bunny. The accompanying video interview is the part fans kept: an uninterrupted half-hour where the only subject is the songwriting.\n\nThe takeaways travel well. Country storytelling pulled her in first, but the other early wire was emo — Dashboard Confessional and Fall Out Boy get named checks. Her collaboration rule: "May the best idea win... I don\'t care if it came from you, you or me. If it\'s better, that\'s what goes in the song" — adding "I do kind of like it when people challenge me on something." And on the fandom\'s favorite sport, she pushed back harder than she ever has: "When it gets a little bit weird for me is when people act like it\'s sort of like a paternity test... That dude didn\'t write the song. I did."\n\nThe timing made it land as the opening beat of a craft-canonization spring: six weeks later she\'d be the youngest woman ever inducted into the Songwriters Hall of Fame.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-greatest-songwriters-interview-things-learned/',
+            source_title: "7 Things We Learned From Taylor Swift's 'Greatest Living American Songwriters' Interview",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-fans-trying-to-figure-out-who-songs-about-weird-1236732071/',
+            source_title: "Taylor Swift Says It's 'Weird' When Fans Turn Songs Into 'Paternity Tests' to Figure Out Who She's Talking About",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Detroit News',
+            url: 'https://www.detroitnews.com/story/entertainment/music/2026/04/29/taylor-swift-songwriting-paternity-test/89852693007/',
+            source_title: "Taylor Swift battles fans conducting 'paternity test' on her songwriting",
+            publisher: 'The Detroit News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+        ],
+        // Video id 5B8-TJ8vsKY verified 2026-07-14 via web search title match
+        // ("Taylor Swift: The Stories Behind Her Biggest Songs (Exclusive
+        // Interview)"). oEmbed + thumbnail checks unavailable this session
+        // (proxy blocks youtube.com/i.ytimg.com), so no hotlinked photo —
+        // add one once verifiable.
+        video: { youtubeId: '5B8-TJ8vsKY', title: 'Taylor Swift: The Stories Behind Her Biggest Songs (Exclusive Interview)' },
+      },
+    },
+    {
       slug: 'songwriters-hall-of-fame-induction',
       year: 2026,
       month: 6,

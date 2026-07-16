@@ -445,6 +445,183 @@ export default {
         ],
       },
     },
+    // --- The Eras Tour's final act (Oct–Nov 2024): the closing North
+    // American leg between Wembley and the Vancouver finale. Added for
+    // issue #628 (Nils, 2026-07-14 walk) — the goodbye laps, not just the
+    // accounting afterwards.
+    {
+      slug: 'eras-tour-miami-return',
+      year: 2024,
+      month: 10,
+      day: 18,
+      category: 'tour',
+      title: 'The tour comes home: three nights in Miami, with Florence Welch in tow',
+      snippet:
+        'After a two-month break, the Eras Tour opens its final leg at Hard Rock Stadium — and Florence Welch walks out for a live "Florida!!!", not once but on all three nights.',
+      sourceUrl: 'https://deadline.com/2024/10/taylor-swift-eras-tour-miami-night-one-review-florence-welch-1236120710/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The first show since Wembley on Aug. 20 — 61,000 fans at Hard Rock Stadium on Oct. 18, 2024, and the start of the tour\'s last lap. The break showed in the details: new looks throughout, including a silver Fearless dress and a black Midnights bodysuit scattered with stars and a moon, plus setlist changes for the final leg.\n\nThe headline moment was the TTPD set: Florence Welch appeared for "Florida!!!" live — the duet fans had been asking about since the album dropped — and rather than a one-night stunt, she came back for it on Oct. 19 and 20 too, making the duet a fixture of the whole Miami stand.',
+        sources: [
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2024/10/taylor-swift-eras-tour-miami-night-one-review-florence-welch-1236120710/',
+            source_title: 'Taylor Swift Dazzles In Miami, Kicking Off Final Leg Of Eras Tour With Help From Florence Welch — And A Little Rain',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Holler',
+            url: 'https://holler.country/news/breaking/taylor-swift-and-florence-welch-bring-florida-to-the-the-eras-tour-in-miami-for-all-three-nights/',
+            source_title: "Taylor Swift & Florence Welch Bring 'Florida!!!' to the The Eras Tour in Miami For All Three Nights",
+            publisher: 'Holler',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'eras-tour-new-orleans-sabrina',
+      year: 2024,
+      month: 10,
+      day: 26,
+      category: 'tour',
+      title: 'Sabrina Carpenter crashes the Superdome',
+      snippet:
+        'Night two in New Orleans: Taylor announces she\'s about to sing a song that isn\'t hers, starts strumming "Espresso" — and Sabrina Carpenter appears for a three-song mashup with "Please Please Please" and "Is It Over Now?"',
+      sourceUrl:
+        'https://www.nola.com/entertainment_life/taylor_swift/sabrina-carpenter-taylor-swift-surprise-songs/article_166bb366-93e4-11ef-aa8f-77e530d02cf8.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Caesars Superdome residency ran Oct. 25–27, 2024, and the Saturday show got the leg\'s biggest surprise-song swing. Taylor almost never performs covers, so the setup — telling the sold-out dome she was about to sing something that wasn\'t hers — was its own tell. Sabrina Carpenter, fresh off opening the tour\'s 2023 Latin American leg, joined her at the piano end of the acoustic set for a mashup threading Carpenter\'s "Espresso" and "Please Please Please" through "Is It Over Now?"\n\nFan video of the duet racked up millions of views within a day, and the moment instantly joined the tour\'s all-timer surprise-guest list alongside Miami\'s Florence Welch cameo the weekend before.',
+        sources: [
+          {
+            outlet: 'NOLA.com',
+            url: 'https://www.nola.com/entertainment_life/taylor_swift/sabrina-carpenter-taylor-swift-surprise-songs/article_166bb366-93e4-11ef-aa8f-77e530d02cf8.html',
+            source_title: "Taylor Swift surprises New Orleans with Sabrina Carpenter, 'Espresso' duet at Eras Tour",
+            publisher: 'NOLA.com | The Times-Picayune',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Fox 8 New Orleans',
+            url: 'https://www.fox8live.com/2024/10/27/sabrina-carpenters-appearance-stuns-sold-out-superdome-audience-night-2-taylor-swift-eras-tour-stop-new-orleans/',
+            source_title: "Sabrina Carpenter's appearance stuns sold-out Superdome audience Night 2 of Taylor Swift Eras tour stop in New Orleans",
+            publisher: 'Fox 8 New Orleans (WVUE)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Axios New Orleans',
+            url: 'https://www.axios.com/local/new-orleans/2024/10/27/photos-taylor-swift-eras-tour-sabrina-carpenter',
+            source_title: "In photos: Taylor Swift's Eras Tour in New Orleans",
+            publisher: 'Axios',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'eras-tour-indianapolis-us-finale',
+      year: 2024,
+      month: 11,
+      day: 1,
+      category: 'tour',
+      title: 'The last American shows: Indianapolis breaks its own record three nights running',
+      snippet:
+        'The U.S. goodbye at Lucas Oil Stadium — the building\'s concert attendance record falls on night one, again on night two, and again on night three. 207,000 fans over one weekend.',
+      sourceUrl:
+        'https://www.wthr.com/article/entertainment/music/taylor-swift-eras-tour-indianapolis-night-3-third-concert-lucas-oil-stadium-us-stop/531-4bb86738-e858-4583-bc44-28d5554e7c8f',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl — because economically, they were. Visit Indy projected an impact in the hundreds of millions, on par with hosting the 2012 Super Bowl, with roughly 81% of ticket holders coming from out of state and downtown rebranding itself "Swift City" for the weekend.\n\nInside the building, each crowd topped 69,000 and each night broke the concert attendance record the previous one had just set — Taylor announced the third consecutive record from the stage on Sunday, putting the weekend at 207,000 fans total. Caitlin Clark turned up on night two, and the last American surprise-song slots landed with the finality fans expected: after Indy, only Toronto and Vancouver remained.',
+        sources: [
+          {
+            outlet: 'WTHR',
+            url: 'https://www.wthr.com/article/entertainment/music/taylor-swift-eras-tour-indianapolis-night-3-third-concert-lucas-oil-stadium-us-stop/531-4bb86738-e858-4583-bc44-28d5554e7c8f',
+            source_title: "Lucas Oil Stadium attendance record broken for 3rd consecutive night of Taylor Swift's Eras Tour",
+            publisher: 'WTHR (NBC Indianapolis)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'WFYI',
+            url: 'https://www.wfyi.org/news/articles/taylor-swift-final-eras-tour-stop-indianapolis-record-attendance',
+            source_title: "Lavender haze lingers over Indy after Taylor Swift's final U.S. Eras Tour concerts",
+            publisher: 'WFYI (NPR Indianapolis)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Fox 59',
+            url: 'https://fox59.com/news/entertainment/indianapolis-stop-on-taylor-swifts-eras-tour-expected-to-boost-citys-economy/',
+            source_title: "Indianapolis stop on Taylor Swift's Eras tour expected to boost city's economy",
+            publisher: 'Fox 59 Indianapolis',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'eras-tour-toronto-goodbye',
+      year: 2024,
+      month: 11,
+      day: 14,
+      category: 'tour',
+      title: 'The long Canadian goodbye: six nights in Toronto',
+      snippet:
+        '"Toronto, we are sooo back!" Six sold-out nights at Rogers Centre — Nov. 14–16 and 21–23 — the tour\'s only Canadian residency before the finale, with the Prime Minister trading friendship bracelets in the crowd.',
+      sourceUrl: 'https://www.cbc.ca/news/entertainment/taylor-swift-night-one-1.7383718',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Eras Tour\'s penultimate stop stretched across two weekends — Nov. 14–16 and 21–23, 2024 — the longest residency of the closing leg and Taylor\'s first Canadian shows since 2018. CBC\'s opening-night dispatch caught the mood of a city that had waited out the entire tour: "Toronto, we are sooo back!"\n\nBy the second weekend the crowd itself was the story: Prime Minister Justin Trudeau brought his family to the Nov. 22 show, where fan video caught him dancing to "You Don\'t Own Me" during the pre-show countdown and swapping friendship bracelets with Swifties on the concourse. Six nights, six sellouts — and then only Vancouver was left.',
+        sources: [
+          {
+            outlet: 'CBC News',
+            url: 'https://www.cbc.ca/news/entertainment/taylor-swift-night-one-1.7383718',
+            source_title: "'Toronto, we are sooo back!': Taylor Swift takes fans through her eras on epic opening night",
+            publisher: 'CBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBC News',
+            url: 'https://www.cbc.ca/news/canada/toronto/trudeau-taylor-swift-toronto-eras-tour-1.7391709',
+            source_title: 'Justin Trudeau attends Taylor Swift show in Toronto with family members',
+            publisher: 'CBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-justin-trudeau-eras-tour-toronto-concert-1235837460/',
+            source_title: 'Taylor Swift Inspires Canadian PM Justin Trudeau to Bust a Move at Eras Tour in Toronto',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+        ],
+      },
+    },
     {
       year: 2024,
       month: 11,
