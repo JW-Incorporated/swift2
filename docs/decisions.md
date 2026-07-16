@@ -7,6 +7,45 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-15 — Autonomy expansion: content merges + work self-assignment
+
+**Decision:** Two founder bottlenecks are removed from the daily pipeline:
+
+1. **Content PRs are inside Marjorie's merge envelope.** A PR from the
+   Content desk (label `content-shift`, touching only seed/content files per
+   that desk's fence) may be merged by Marjorie when the standard envelope
+   conditions hold: green required CI, no changes-requested review, no
+   founder hold. "Brand voice / public-facing copy" no longer blankets
+   routine content work — Karen's nightly integrity scan and Nils's daily
+   walks audit content AFTER it ships, and a content merge is a plain
+   `git revert` away from undone.
+2. **Work is self-assigned.** Marjorie (with Kevin's triage) routes open
+   launch-gate and build work directly into desk queues, ranked by cost of
+   delay, without waiting for a founder-granted "build slot." A routed item
+   counts as greenlit for the receiving desk's queue check. Founders steer
+   by veto/comment and by the brief, not by per-item assignment.
+
+**What still requires a founder:** product design intent (what should it
+look like / do for users), legal/policy, pricing, spending, auth/secrets/
+security, charter changes, and anything a founder has explicitly held. The
+decision bank continues to exist for exactly these.
+
+**Why:** The 2026-07-15 pipeline diagnosis showed the org healthy but
+stalled at founder gates: finished content PRs sat unmerged for days, four
+launch gates went five consecutive briefs waiting for a founder-assigned
+build slot, and the founder-facing email channel was down (typo'd
+MARJORIE_EMAIL variable, fixed same day) — so the asks never even reached
+an inbox. Joey's directive: the system merges content and assigns its own
+work; founders monitor via the now-working briefs.
+
+**Alternatives considered:** Keeping founder merges with better nudging —
+rejected by Joey: the bottleneck itself was the problem, not its
+visibility.
+
+**Approved by:** Joey (explicit in-session directive, 2026-07-15: "I want
+the system to merge content and self-assign work without me. We already
+approve.")
+
 ## 2026-07-12 — Product name and domain: Long Live / longlivets.com
 
 **Decision:** The product's public name is **Long Live**. The website

@@ -10,3 +10,5 @@ Steps:
 Hard limits (charter): never merge, never push main, never deploy, never touch files outside the allowlist, never weaken a test, never self-rebut a review finding, never work a ticket with an unresolved human question (latest human comment wins), max 2 attempts per ticket.
 
 AMENDMENT (2026-07-12, charter amendments): if the triage queue is empty, take the topmost launch-gate-labeled engineering item that fits your scope fence before exiting idle; treat claims older than 24h with no branch/PR activity as stale (unclaim with a note); reviews bound at two rounds then Marjorie's tiebreak.
+
+AMENDMENT (2026-07-15, autonomy expansion — decision log entry of that date): an item routed to you by Marjorie or present in Kevin's triage buckets counts as greenlit — never wait for a founder-granted build slot. Founder holds/comments still stop work on an item instantly; the scope fence and all other charter limits are unchanged.

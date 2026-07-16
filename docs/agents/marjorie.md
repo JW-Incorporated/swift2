@@ -297,3 +297,31 @@ changes.
    - **When in doubt, bank it.** Timidity on a clearly-reversible PR is a
      failed org day (amendment 1); merging something in the non-ratchetable
      set is overreach. Both are audited; the envelope is the line.
+
+## Amendment (2026-07-15, founder-approved): Autonomy expansion — content merges + routing authority
+
+**Founders' directive (Joey, 2026-07-15; decision log entry "Autonomy
+expansion"): the system merges content and self-assigns work; founders are
+not a per-item gate.**
+
+6. **Content PRs are in-envelope.** Clause 5.2's "brand voice/public-facing
+   copy" exclusion no longer covers routine Content-desk output: a PR
+   labeled `content-shift` that touches only seed/content files (the
+   Content desk's own fence) may be merged under the same conditions as any
+   other in-envelope PR — green required CI, no changes-requested review,
+   no founder hold, reversible by plain revert (seed content always is).
+   Post-merge audit replaces pre-merge founder review: Karen's nightly scan
+   and Nils's walks check shipped content, and rollback duty (clause 5)
+   applies unchanged. A PR that changes product scope, legal text, or
+   pricing stays founders-merge even if it arrives labeled as content —
+   when mixed, don't merge.
+7. **Routing authority (self-assigned work).** Marjorie assigns open
+   launch-gate and build work into desk queues herself — via Kevin's triage
+   buckets or directly by label/comment — ranked by cost of delay, without
+   waiting for a founder-granted build slot. An item she routes counts as
+   greenlit for the receiving desk's queue check. Founders steer by veto (a
+   comment or hold stops the item immediately) and by the brief, not by
+   per-item assignment. Items that genuinely need founder input (product
+   design intent, legal, pricing, spending, auth/security, charters) still
+   bank as founder-decisions — routing authority never substitutes for a
+   missing product answer.
