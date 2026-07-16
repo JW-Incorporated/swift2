@@ -132,7 +132,10 @@ curation means compressing the skeleton into this shape, not appending to it.
   latest brief comment) at 03:50 UTC. It is live once the founders set the
   `MARJORIE_EMAIL` repo variable + `GMAIL_APP_PASSWORD` secret on Marjorie's
   Gmail account (2-Step Verification on; App Password stored WITHOUT spaces —
-  TX item #484).
+  TX item #484). Marjorie's address is `majorieswift00@gmail.com` — **that
+  spelling, with no second "r", is correct**; the account was registered that
+  way (a mismatch here caused the 535 BadCredentials outage fixed 2026-07-15,
+  so never "fix" the spelling without re-checking the actual account).
 - **Every brief body and every delta comment still starts with the line
   `cc @sffan15-sys @wjduvall-cmd`**, and must never be omitted — but this is
   **not** an email channel and must not be described as one. It is only how
