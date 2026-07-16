@@ -128,6 +128,8 @@ jobs:
           # Plain-text part: fallback for clients that refuse HTML.
           msg.set_content(
               f"{p['body']}\n\n---\nOpen / tick your boxes here: {p['url']}\n"
+              "You can REPLY to this email to talk to Marjorie — replies land on the\n"
+              "brief thread within ~30 minutes and she answers at her next run.\n"
               "(Sent by the brief-mailer Action — deterministic, no AI involved.)"
           )
           # HTML part (what Gmail shows): GitHub-rendered GFM in a phone-width
@@ -151,6 +153,8 @@ jobs:
           </style></head><body><div class="wrap">
           {body_html}
           <p class="footer"><a href="{p['url']}">Open on GitHub / tick your boxes</a><br>
+          <b>Reply to this email to talk to Marjorie</b> — replies land on the brief
+          thread within ~30 minutes and she answers at her next run.<br>
           Sent by the brief-mailer Action — deterministic, no AI involved.</p>
           </div></body></html>""", subtype='html')
           try:
