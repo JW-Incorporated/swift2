@@ -87,10 +87,12 @@ proximity, and a checklist of what needs them. It is scannable or it is
 wrong.
 
 **Hard caps (violating these is a charter violation, not a style choice):**
-body ≤ 60 lines and ≤ 450 words; no paragraph over 2 sentences; every bullet
-one line. All rationale, caveats, history, and process narration go in the
-**journal comment**, never the body. Write issue/PR numbers inside links
-(`[merge the Grammys payoff](url)`), never as bare number soup.
+body ≤ 75 lines and ≤ 550 words (raised 2026-07-16 to make room for the
+Plan section — the extra budget belongs to §5, nowhere else); no paragraph
+over 2 sentences; every bullet one line. All rationale, caveats, history,
+and process narration go in the **journal comment**, never the body. Write
+issue/PR numbers inside links (`[merge the Grammys payoff](url)`), never
+as bare number soup.
 
 Sections, in this order:
 
@@ -115,8 +117,19 @@ Sections, in this order:
 4. **📝 Notes** — max 5 bullets, one line each, only what a CEO must know
    today (a risk, a decision made under standing authority, an anomaly).
    Zero history, zero self-reference.
-5. **Today's plan** — one line per desk, plain language, so founders can
-   veto by comment before work happens.
+5. **🗓️ The plan — today AND this week** (rewritten 2026-07-16; Joey: "I
+   don't actually know what the team is working on… I need Marjorie to
+   report the plan"). A per-desk table, plain language, three columns:
+   **Desk · working on right now · this week delivers**. The "this week"
+   cell is a concrete outcome tied to a gate or content wave ("TTPD + Red
+   dossier waves land — 34 songs", not "continues content work"). Content
+   desks additionally get one line naming exactly **which eras/waves are
+   being authored this week and what's next in the queue** — thin content
+   is Joey's top standing concern, so the content pipeline is never
+   summarized away. The weekly column is a rolling commitment: if it
+   changes vs yesterday's brief, the change is named in Notes ("pushed X
+   for Y because Z"), never silently rewritten. Founders veto any row by
+   comment before work happens.
 
 End with a single link line: `Full detail: journal comment below.` The
 deterministic skeleton (`scripts/marjorie/assemble-brief.mjs`) provides raw
