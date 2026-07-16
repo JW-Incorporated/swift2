@@ -1,5 +1,6 @@
 import type { ContentItem, ContentTag, EraId, ImageRef, LensId, Milestone } from './types';
 import { VAULT_RAW } from './content-vault.generated';
+import { formatFullDate, formatMonthYear } from './format';
 
 /**
  * Default thread membership implied by a content tag — the mechanism behind
@@ -44,12 +45,37 @@ export type RawItem = Omit<ContentItem, 'eraId' | 'images'> & {
 };
 
 /**
+ * WS1 (#369) researched real day-level dates for the hand-curated moments,
+ * but their authored `dateLabel`s stayed month-only ('June 2006'), and since
+ * curated items win the CONTENT merge below, the site showed month+year
+ * again (#682). A label that is exactly the month form of its own date adds
+ * no information the date doesn't already carry, so render the full date
+ * instead. Any other label ('Spring 2007', '2011 Tour') is a deliberate
+ * editorial label for a period moment and passes through untouched — those
+ * items carry placeholder dates (typically the 1st of the month), and
+ * deriving a day label from a placeholder would fabricate precision we
+ * don't have. Exported for unit tests.
+ */
+export function dayPrecisionLabel(date: string, label: string): string {
+  return label === formatMonthYear(date) ? formatFullDate(date) : label;
+}
+
+/**
  * Normalizes RawItems into ContentItems. Every item ends up with a non-empty
  * `images` gallery: an explicit `images` array passes through verbatim; a
  * legacy single `image` (or nothing) becomes one 'primary' entry, falling
- * back to the era art. Exported for unit tests.
+ * back to the era art. `deriveDayLabels` upgrades month-only `dateLabel`s to
+ * the full date (see dayPrecisionLabel) — set for hand-curated items, whose
+ * dates are day-precision but whose labels predate WS1; NOT for vault-synced
+ * items, whose generator already encodes date precision in the label (a
+ * month-precision item gets a placeholder day-01 date and a month label —
+ * see scripts/sync-longlive-content.mjs). Exported for unit tests.
  */
-export function build(eraId: EraId, items: RawItem[]): ContentItem[] {
+export function build(
+  eraId: EraId,
+  items: RawItem[],
+  opts?: { deriveDayLabels?: boolean },
+): ContentItem[] {
   return items.map(({ image, images, threadIds, ...it }) => {
     // Explicit threadIds (an opt-in tag on the seed row) ADD to whatever the
     // item's tags imply by default — an explicit opt-in never removes a tag
@@ -64,6 +90,7 @@ export function build(eraId: EraId, items: RawItem[]): ContentItem[] {
     return {
       ...it,
       eraId,
+      dateLabel: opts?.deriveDayLabels ? dayPrecisionLabel(it.date, it.dateLabel) : it.dateLabel,
       images: images?.length
         ? images
         : [{ url: image ?? `/eras/${eraId === 'ttpd' ? 'ttpd' : eraId}.png`, kind: 'primary' }],
@@ -832,7 +859,7 @@ const RAW: Record<EraId, RawItem[]> = {
 // Curated ids win on collision, though the generator's `vault-` id prefix
 // makes that vanishingly unlikely in practice.
 export const CONTENT: ContentItem[] = (Object.keys(RAW) as EraId[]).flatMap((eraId) => {
-  const curated = build(eraId, RAW[eraId]);
+  const curated = build(eraId, RAW[eraId], { deriveDayLabels: true });
   const curatedIds = new Set(curated.map((c) => c.id));
   const synced = build(eraId, VAULT_RAW[eraId] ?? []).filter((c) => !curatedIds.has(c.id));
   return [...curated, ...synced];
