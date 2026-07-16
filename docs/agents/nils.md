@@ -57,7 +57,7 @@ For every surface he walks, Nils asks, in order:
   file the worst 5 and note the count in the log.
 - A run log comment (surfaces walked, verdicts, tickets filed) on the
   standing `Nils walk log` issue; counts feed the brief's launch-gate
-  section (G-C).
+  section (WORTHY).
 
 ## Hard invariants
 
