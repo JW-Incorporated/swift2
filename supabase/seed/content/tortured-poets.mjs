@@ -2276,5 +2276,43 @@ export default {
         ],
       },
     },
+
+    // --- Content Shift pass (2026-07-15, ticket #629): the 2025 Grammys
+    // payoff. The two Nov 2024 nomination items set up the night; this item
+    // resolves the arc (both nomination items already carry their own
+    // "none converted" resolution lines). Sourcing note: direct page fetches
+    // were proxy-blocked this session (every outlet host returned 403), so
+    // each claim was cross-confirmed across multiple independent web-search
+    // results; source URLs are real and search-verified. No photo — hotlinks
+    // can't be liveness-checked this session.
+    {
+      year: 2025,
+      month: 2,
+      day: 2,
+      category: 'business',
+      title: 'Grammys night: six nominations, zero wins — and the moment everyone kept anyway',
+      snippet:
+        'TTPD goes 0-for-6 at the 2025 Grammys. The image that survives the night isn\'t a loss — it\'s Taylor presenting Best Country Album to a stunned Beyoncé for Cowboy Carter, one Album of the Year titan handing the genre trophy to the other.',
+      sourceUrl: 'https://www.foxnews.com/entertainment/taylor-swift-leaves-grammys-no-awards-following-record-breaking-year',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Feb. 2, 2025 ceremony resolved all six nominations against her: Album of the Year went to Beyoncé\'s Cowboy Carter, "Not Like Us" swept Record of the Year, Song of the Year, and Best Music Video past "Fortnight," "Die With a Smile" took Best Pop Duo/Group Performance over "us.," and Sabrina Carpenter\'s Short n\' Sweet beat TTPD for Best Pop Vocal Album. Cameras kept finding her having a good night anyway — raising a glass when Kendrick Lamar\'s record swept, cheering when her tour opener Sabrina won.\n\nThe beat everyone kept came mid-show: Taylor presenting Best Country Album to a visibly stunned Beyoncé — her first-ever country win, from the artist whose own country-to-pop arc made her the category\'s most famous graduate. When Cowboy Carter later took Album of the Year, Taylor and Jay-Z clinked champagne glasses in the audience — a graceful coda to a night the internet had framed all week as a face-off.',
+        sources: [
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/taylor-swift-leaves-grammys-no-awards-following-record-breaking-year',
+          },
+          {
+            outlet: 'NBC Connecticut',
+            url: 'https://www.nbcconnecticut.com/entertainment/entertainment-news/beyonce-wins-grammy-best-country-album-taylor-swift/3489643/',
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1412913/grammys-2025-how-taylor-swift-and-jay-z-celebrated-beyonces-aoty-win-together',
+          },
+        ],
+      },
+    },
   ],
 };
