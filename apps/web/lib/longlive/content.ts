@@ -1,6 +1,5 @@
 import type { ContentItem, ContentTag, EraId, ImageRef, LensId, Milestone } from './types';
 import { VAULT_RAW } from './content-vault.generated';
-import { formatFullDate, formatMonthYear } from './format';
 
 /**
  * Default thread membership implied by a content tag — the mechanism behind
@@ -31,6 +30,15 @@ export function defaultThreadIdsForTags(tags: ContentTag[]): LensId[] {
  * Representative mock content. Every era gets a hero image reused from the era
  * art; a real API would supply per-moment imagery. Ordering is handled in the
  * UI (chronological, oldest-first), so authoring order here is not significant.
+ *
+ * dateLabel rule (#682 — the WS1 day-precision relapse): when `date` is a
+ * researched day-precision date, the label must show the day — write the
+ * formatFullDate() form ('June 19, 2006'), never the bare month ('June
+ * 2006'). When the day is genuinely unknown or the moment spans a period,
+ * use an editorial period label ('Spring 2007', 'Late 2012') with a
+ * representative placeholder date — a bare month+year label is
+ * indistinguishable from a masked day-precision date, so a test
+ * (content.test.ts) rejects it on curated items.
  */
 
 /**
@@ -45,37 +53,12 @@ export type RawItem = Omit<ContentItem, 'eraId' | 'images'> & {
 };
 
 /**
- * WS1 (#369) researched real day-level dates for the hand-curated moments,
- * but their authored `dateLabel`s stayed month-only ('June 2006'), and since
- * curated items win the CONTENT merge below, the site showed month+year
- * again (#682). A label that is exactly the month form of its own date adds
- * no information the date doesn't already carry, so render the full date
- * instead. Any other label ('Spring 2007', '2011 Tour') is a deliberate
- * editorial label for a period moment and passes through untouched — those
- * items carry placeholder dates (typically the 1st of the month), and
- * deriving a day label from a placeholder would fabricate precision we
- * don't have. Exported for unit tests.
- */
-export function dayPrecisionLabel(date: string, label: string): string {
-  return label === formatMonthYear(date) ? formatFullDate(date) : label;
-}
-
-/**
  * Normalizes RawItems into ContentItems. Every item ends up with a non-empty
  * `images` gallery: an explicit `images` array passes through verbatim; a
  * legacy single `image` (or nothing) becomes one 'primary' entry, falling
- * back to the era art. `deriveDayLabels` upgrades month-only `dateLabel`s to
- * the full date (see dayPrecisionLabel) — set for hand-curated items, whose
- * dates are day-precision but whose labels predate WS1; NOT for vault-synced
- * items, whose generator already encodes date precision in the label (a
- * month-precision item gets a placeholder day-01 date and a month label —
- * see scripts/sync-longlive-content.mjs). Exported for unit tests.
+ * back to the era art. Exported for unit tests.
  */
-export function build(
-  eraId: EraId,
-  items: RawItem[],
-  opts?: { deriveDayLabels?: boolean },
-): ContentItem[] {
+export function build(eraId: EraId, items: RawItem[]): ContentItem[] {
   return items.map(({ image, images, threadIds, ...it }) => {
     // Explicit threadIds (an opt-in tag on the seed row) ADD to whatever the
     // item's tags imply by default — an explicit opt-in never removes a tag
@@ -90,7 +73,6 @@ export function build(
     return {
       ...it,
       eraId,
-      dateLabel: opts?.deriveDayLabels ? dayPrecisionLabel(it.date, it.dateLabel) : it.dateLabel,
       images: images?.length
         ? images
         : [{ url: image ?? `/eras/${eraId === 'ttpd' ? 'ttpd' : eraId}.png`, kind: 'primary' }],
@@ -105,7 +87,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: 'debut-tim-mcgraw',
       video: { youtubeId: 'GkD20ajVxnY', title: 'Taylor Swift - Tim McGraw' },
       date: '2006-06-19',
-      dateLabel: 'June 2006',
+      dateLabel: 'June 19, 2006',
       title: '“Tim McGraw” arrives',
       summary:
         'A debut single named after a country legend announces a 16-year-old songwriter with an unusual gift for specifics.',
@@ -135,7 +117,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: 'debut-our-song',
       video: { youtubeId: 'Jb2stN7kH28', title: 'Taylor Swift - Our Song' },
       date: '2007-09-08',
-      dateLabel: 'September 2007',
+      dateLabel: 'September 8, 2007',
       title: '“Our Song” hits number one',
       summary:
         'At 17, she becomes the youngest person to single-handedly write and perform a number-one country hit.',
@@ -149,7 +131,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'fearless-album',
       date: '2008-11-11',
-      dateLabel: 'November 2008',
+      dateLabel: 'November 11, 2008',
       title: 'Fearless changes everything',
       summary:
         'The fairy-tale record that turns a promising country act into a global phenomenon.',
@@ -162,7 +144,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'fearless-vmas',
       date: '2009-09-13',
-      dateLabel: 'September 2009',
+      dateLabel: 'September 13, 2009',
       title: 'The interrupted speech',
       summary:
         'A VMAs moment becomes pop-culture lore and a defining public turning point.',
@@ -180,7 +162,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'speak-now-album',
       date: '2010-10-25',
-      dateLabel: 'October 2010',
+      dateLabel: 'October 25, 2010',
       title: 'Written entirely alone',
       summary:
         'A response to critics who doubted her songwriting: every word, solo.',
@@ -193,7 +175,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'speak-now-mine',
       date: '2010-08-04',
-      dateLabel: 'August 2010',
+      dateLabel: 'August 4, 2010',
       title: '"Mine" leaks early, ships anyway',
       summary: 'The lead single was rushed to radio and iTunes after an unauthorized online leak.',
       body: ['"Mine" was announced via livestream and scheduled for an August 16 release, but an early leak forced Big Machine Records to rush it to country radio and iTunes on August 4 instead — nearly two weeks ahead of plan.'],
@@ -214,7 +196,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'speak-now-mean',
       date: '2011-03-14',
-      dateLabel: 'March 2011',
+      dateLabel: 'March 14, 2011',
       title: '"Mean" answers a critic',
       summary: 'A banjo-driven single written directly about online criticism she\'d received.',
       body: ['Swift has said "Mean" was written in direct response to a critical review — a rare moment of the album engaging a critic rather than an ex, and one of Speak Now\'s more overtly personal tracks.'],
@@ -223,7 +205,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'speak-now-enchanted',
       date: '2011-05-03',
-      dateLabel: 'May 2011',
+      dateLabel: 'May 3, 2011',
       title: '"Enchanted," a fan favorite',
       summary: 'A sprawling, six-minute love-at-first-sight song that became one of the album\'s most enduring deep cuts.',
       body: ['Never released as an official single, "Enchanted" nonetheless became one of Speak Now\'s most fan-beloved tracks — its extended, key-changing structure a favorite live moment on the Speak Now World Tour.'],
@@ -232,7 +214,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'speak-now-taylors-version',
       date: '2023-07-07',
-      dateLabel: 'July 2023',
+      dateLabel: 'July 7, 2023',
       title: 'Speak Now (Taylor\'s Version)',
       summary: 'The third re-recording arrives with six previously unreleased "From the Vault" tracks.',
       body: ['Speak Now (Taylor\'s Version) released July 7, 2023, with six vault tracks, including "Castles Crumbling" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she\'s said was written entirely without a co-writer.'],
@@ -243,7 +225,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'red-album',
       date: '2012-10-22',
-      dateLabel: 'October 2012',
+      dateLabel: 'October 22, 2012',
       title: 'Red: heartbreak in every genre',
       summary:
         'The transitional masterpiece that pointed straight at pop stardom.',
@@ -262,7 +244,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: 'red-wanegbt',
       video: { youtubeId: 'WA4iX5D9Z64', title: 'Taylor Swift - We Are Never Ever Getting Back Together' },
       date: '2012-08-13',
-      dateLabel: 'August 2012',
+      dateLabel: 'August 13, 2012',
       title: '“We Are Never Ever Getting Back Together”',
       summary: 'The gleeful kiss-off lead single that announced a decisive pop pivot.',
       body: [
@@ -275,7 +257,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: 'red-begin-again',
       video: { youtubeId: 'cMPEd8m79Hw', title: 'Taylor Swift - Begin Again' },
       date: '2012-10-01',
-      dateLabel: 'October 2012',
+      dateLabel: 'October 1, 2012',
       title: '“Begin Again” as the soft landing',
       summary: 'A gentle promotional single about hope after heartbreak.',
       body: ['Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.'],
@@ -294,7 +276,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: 'red-i-knew-you',
       video: { youtubeId: 'vNoKguSdy4Y', title: 'Taylor Swift - I Knew You Were Trouble' },
       date: '2012-11-12',
-      dateLabel: 'November 2012',
+      dateLabel: 'November 12, 2012',
       title: '“I Knew You Were Trouble” goes global',
       summary: 'A dubstep-tinged drop that pushed her sound to its poppiest edge yet.',
       body: ['The bass-heavy breakdown scandalized country purists and delighted everyone else, cementing the genre crossover.'],
@@ -303,7 +285,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'red-snl',
       date: '2012-11-03',
-      dateLabel: 'November 2012',
+      dateLabel: 'November 3, 2012',
       title: 'A run of TV performances',
       summary: 'Late-night and award-show stages keep Red everywhere at once.',
       body: ['A dense promotional stretch put the album on every major stage as the release momentum peaked.'],
@@ -312,7 +294,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'red-grammys-2013',
       date: '2013-02-10',
-      dateLabel: 'February 2013',
+      dateLabel: 'February 10, 2013',
       title: 'The circus-themed Grammy opener',
       summary: 'A theatrical performance opens the ceremony and previews the tour’s scale.',
       body: ['Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle.'],
@@ -321,7 +303,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'red-tour',
       date: '2013-03-13',
-      dateLabel: 'March 2013',
+      dateLabel: 'March 13, 2013',
       title: 'The Red Tour begins',
       summary: 'Her most ambitious production yet crosses continents and shatters country touring records.',
       body: [
@@ -333,7 +315,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'red-everything-changed',
       date: '2013-07-06',
-      dateLabel: 'July 2013',
+      dateLabel: 'July 6, 2013',
       title: '“Everything Has Changed” duet',
       summary: 'A folk-pop collaboration extends the album’s long single run.',
       body: ['A tender duet kept Red on the charts deep into 2013, well over a year after release.'],
@@ -344,7 +326,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: '1989-album',
       date: '2014-10-27',
-      dateLabel: 'October 2014',
+      dateLabel: 'October 27, 2014',
       title: 'The pop reinvention',
       summary:
         'A clean break from country: synths, New York, and a Polaroid aesthetic.',
@@ -357,7 +339,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: '1989-shake-it-off',
       video: { youtubeId: 'nfWlot6h_JM', title: 'Taylor Swift - Shake It Off' },
       date: '2014-08-18',
-      dateLabel: 'August 2014',
+      dateLabel: 'August 18, 2014',
       title: '“Shake It Off” launches the era',
       summary: 'A brass-driven lead single announces the full pop pivot from a stadium stage.',
       body: ['Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts.'],
@@ -367,7 +349,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: '1989-blank-space',
       video: { youtubeId: 'e-ORhEE9VVg', title: 'Taylor Swift - Blank Space' },
       date: '2014-11-10',
-      dateLabel: 'November 2014',
+      dateLabel: 'November 10, 2014',
       title: '“Blank Space” flips the narrative',
       summary: 'A self-aware satire of her own tabloid image becomes a defining smash.',
       body: ['By playing the “boy-crazy” caricature for laughs, she seized control of the story and scored another number one.'],
@@ -395,7 +377,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: '1989-bad-blood',
       video: { youtubeId: 'QcIy9NiNbmo', title: 'Taylor Swift - Bad Blood ft. Kendrick Lamar' },
       date: '2015-05-17',
-      dateLabel: 'May 2015',
+      dateLabel: 'May 17, 2015',
       title: '“Bad Blood” short film',
       summary: 'A star-studded cinematic music video doubles as an event premiere.',
       body: ['The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.'],
@@ -404,7 +386,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: '1989-world-tour',
       date: '2015-05-05',
-      dateLabel: 'May 2015',
+      dateLabel: 'May 5, 2015',
       title: 'The 1989 World Tour',
       summary: 'A parade of surprise guests turns each show into an event.',
       body: [
@@ -416,7 +398,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: '1989-aoty',
       date: '2016-02-15',
-      dateLabel: 'February 2016',
+      dateLabel: 'February 15, 2016',
       title: 'Second Album of the Year',
       summary: 'She becomes the first woman to win the top Grammy twice.',
       body: ['Accepting the award, she used the moment to speak directly to young women about crediting their own work.'],
@@ -429,7 +411,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'rep-album',
       date: '2017-11-10',
-      dateLabel: 'November 2017',
+      dateLabel: 'November 10, 2017',
       title: 'reputation strikes back',
       summary:
         'Armored, monochrome, and defiant — the sound of rebuilding on her own terms.',
@@ -446,7 +428,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'rep-tour',
       date: '2018-05-08',
-      dateLabel: 'May 2018',
+      dateLabel: 'May 8, 2018',
       title: 'Giant snakes, record numbers',
       summary: 'The Reputation Stadium Tour becomes the highest-grossing US tour at the time.',
       body: ['Towering cobra stage design and a stadium-scale production reset expectations for her live shows.'],
@@ -457,7 +439,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'lover-album',
       date: '2019-08-23',
-      dateLabel: 'August 2019',
+      dateLabel: 'August 23, 2019',
       title: 'Color returns with Lover',
       summary:
         'A pastel love letter — and the first album she would fully own.',
@@ -469,7 +451,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'lover-masters',
       date: '2019-06-30',
-      dateLabel: 'June 2019',
+      dateLabel: 'June 30, 2019',
       title: 'The masters are sold',
       summary:
         'Her back catalog changes hands without her — igniting a fight to reclaim her work.',
@@ -487,7 +469,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'folklore-album',
       date: '2020-07-24',
-      dateLabel: 'July 2020',
+      dateLabel: 'July 24, 2020',
       title: 'A surprise in the woods',
       summary:
         'Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.',
@@ -513,7 +495,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'folklore-teenage-love-triangle',
       date: '2020-07-25',
-      dateLabel: 'July 2020',
+      dateLabel: 'July 25, 2020',
       title: 'The teenage love triangle',
       summary: 'Three songs — "cardigan," "august," and "betty" — tell one story from three points of view.',
       body: [
@@ -525,7 +507,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'folklore-william-bowery',
       date: '2020-11-25',
-      dateLabel: 'November 2020',
+      dateLabel: 'November 25, 2020',
       title: 'William Bowery revealed',
       summary: 'The mystery co-writer credited on "exile" and "betty" is confirmed as Joe Alwyn.',
       body: [
@@ -537,7 +519,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'folklore-aoty',
       date: '2021-03-14',
-      dateLabel: 'March 2021',
+      dateLabel: 'March 14, 2021',
       title: 'A third Album of the Year',
       summary: 'folklore wins the Grammy for Album of the Year, her third — the most by a woman.',
       body: [
@@ -549,7 +531,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'folklore-long-pond',
       date: '2020-11-25',
-      dateLabel: 'November 2020',
+      dateLabel: 'November 25, 2020',
       title: 'The Long Pond Studio Sessions',
       summary: 'A Disney+ concert film performs the album live for the first time, in the studio it was written in.',
       body: ['Filmed at Long Pond Studio in upstate New York with producers Aaron Dessner and Jack Antonoff, the special was the first live performance of any folklore song and doubled as the William Bowery reveal.'],
@@ -560,7 +542,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'evermore-album',
       date: '2020-12-11',
-      dateLabel: 'December 2020',
+      dateLabel: 'December 11, 2020',
       title: 'folklore’s sister arrives',
       summary:
         'A second surprise album in five months — warmer, rustier, and just as literary.',
@@ -574,7 +556,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: 'evermore-willow',
       video: { youtubeId: 'RsEZmictANA', title: 'Taylor Swift - willow' },
       date: '2020-12-11',
-      dateLabel: 'December 2020',
+      dateLabel: 'December 11, 2020',
       title: '"willow" leads the era',
       summary: 'The lead single doubles as the album\'s only official single release.',
       body: ['"willow" was released same-day as the album as its lead single and only Hot 100 top-10 hit from evermore — later performed live for the first time at the 2021 Grammys.'],
@@ -583,7 +565,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'evermore-no-body-no-crime',
       date: '2020-12-11',
-      dateLabel: 'December 2020',
+      dateLabel: 'December 11, 2020',
       title: '"no body no crime" with HAIM',
       summary: 'A murder-ballad duet featuring sisters Este, Danielle, and Alana Haim, named as characters in the song.',
       body: ['The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Swift to perform it live during the Eras Tour years later.'],
@@ -592,7 +574,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'evermore-champagne-problems',
       date: '2020-12-11',
-      dateLabel: 'December 2020',
+      dateLabel: 'December 11, 2020',
       title: '"champagne problems"',
       summary: 'A co-write with William Bowery (Joe Alwyn) about a declined proposal.',
       body: ['One of two evermore tracks co-written with "William Bowery," "champagne problems" narrates a failed proposal — widely read by fans as one of the album\'s emotional centerpieces.'],
@@ -601,7 +583,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'evermore-right-where-you-left-me',
       date: '2021-01-07',
-      dateLabel: 'January 2021',
+      dateLabel: 'January 7, 2021',
       title: 'The deluxe edition adds two tracks',
       summary: '"right where you left me" and "it\'s time to go" arrive a month after the album.',
       body: ['A deluxe edition released three weeks after the original, adding "right where you left me" and "it\'s time to go" — both later folded into the era\'s standard track list on streaming.'],
@@ -610,7 +592,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'evermore-marjorie',
       date: '2020-12-11',
-      dateLabel: 'December 2020',
+      dateLabel: 'December 11, 2020',
       title: '"marjorie," for her grandmother',
       summary: 'A tribute built partly from archival recordings of Swift\'s late grandmother, opera singer Marjorie Finlay.',
       body: ['The song incorporates real vocal recordings of Marjorie Finlay, Swift\'s grandmother and a professional opera singer who died in 2003 — Swift has spoken about writing it as a way of "bringing her back."'],
@@ -621,7 +603,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'midnights-album',
       date: '2022-10-21',
-      dateLabel: 'October 2022',
+      dateLabel: 'October 21, 2022',
       title: 'Thirteen sleepless nights',
       summary:
         'A return to pop as a diary of midnights across her life.',
@@ -633,7 +615,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'midnights-3am',
       date: '2022-10-22',
-      dateLabel: 'October 2022',
+      dateLabel: 'October 22, 2022',
       title: 'The 3am edition surprise',
       summary: 'Seven extra tracks land three hours after release, a now-signature move.',
       body: ['Hours after midnight, a “3am Edition” expanded the album — rewarding the fans who stayed up.'],
@@ -643,7 +625,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: 'midnights-antihero',
       video: { youtubeId: 'b1kbLwvqugk', title: 'Taylor Swift - Anti-Hero (Official Music Video)' },
       date: '2022-10-24',
-      dateLabel: 'October 2022',
+      dateLabel: 'October 24, 2022',
       title: '“Anti-Hero” dominates',
       summary: 'A candid single about self-doubt becomes her biggest solo hit in years.',
       body: ['Its confessional humor and inescapable chorus made “Anti-Hero” the defining pop single of the season.'],
@@ -652,7 +634,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'midnights-chart-record',
       date: '2022-11-05',
-      dateLabel: 'November 2022',
+      dateLabel: 'November 5, 2022',
       title: 'Every top-ten slot at once',
       summary: 'She becomes the first artist to monopolize the entire top ten of the Hot 100.',
       body: ['The album’s dominance rewrote the record books, occupying all ten of the chart’s highest positions in a single week.'],
@@ -661,7 +643,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'midnights-ticket-chaos',
       date: '2022-11-15',
-      dateLabel: 'November 2022',
+      dateLabel: 'November 15, 2022',
       title: 'The ticket frenzy',
       summary: 'Unprecedented demand for the Eras Tour crashes the sales system and reaches Washington.',
       body: ['The scramble for tickets became a national news story — and eventually a subject of political hearings.'],
@@ -670,7 +652,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'midnights-eras-tour',
       date: '2023-03-17',
-      dateLabel: 'March 2023',
+      dateLabel: 'March 17, 2023',
       title: 'The Eras Tour begins',
       summary:
         'A career-spanning show becomes a global cultural and economic event.',
@@ -686,7 +668,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'midnights-film',
       date: '2023-10-13',
-      dateLabel: 'October 2023',
+      dateLabel: 'October 13, 2023',
       title: 'The Eras Tour hits cinemas',
       summary: 'A concert film breaks box-office records for the format.',
       body: ['Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.'],
@@ -697,7 +679,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'ttpd-album',
       date: '2024-04-19',
-      dateLabel: 'April 2024',
+      dateLabel: 'April 19, 2024',
       title: 'The Tortured Poets Department',
       summary:
         'A literary, ink-stained double album — the most word-heavy record of her career.',
@@ -714,7 +696,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'ttpd-typewriter',
       date: '2024-04-20',
-      dateLabel: 'April 2024',
+      dateLabel: 'April 20, 2024',
       title: 'Ink, typewriters and monochrome',
       summary: 'The most restrained visual era: black, white, and typewritten confession.',
       body: ['Grayscale styling and typewriter motifs frame the era as a literary confessional.'],
@@ -725,7 +707,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'tloas-announce',
       date: '2025-08-13',
-      dateLabel: 'August 2025',
+      dateLabel: 'August 13, 2025',
       title: 'A new era is announced',
       summary:
         'The Life of a Showgirl is revealed live on Travis Kelce’s "New Heights" podcast — a hard turn from ink into glitter.',
@@ -742,7 +724,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'tloas-engagement',
       date: '2025-08-26',
-      dateLabel: 'August 2025',
+      dateLabel: 'August 26, 2025',
       title: 'The engagement, announced in cleats and pearls',
       summary: 'Two weeks after the album reveal, she and Travis Kelce announce their engagement on Instagram.',
       body: [
@@ -754,7 +736,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'tloas-album',
       date: '2025-10-03',
-      dateLabel: 'October 2025',
+      dateLabel: 'October 3, 2025',
       title: 'The Life of a Showgirl released',
       summary: 'The twelfth studio album arrives: opulent, theatrical, and unapologetically bright.',
       body: [
@@ -766,7 +748,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'tloas-release-party-film',
       date: '2025-10-03',
-      dateLabel: 'October 2025',
+      dateLabel: 'October 3, 2025',
       title: 'The Official Release Party of a Showgirl hits theaters',
       summary:
         'A companion film screens in cinemas worldwide alongside the album, with behind-the-scenes footage and track commentary.',
@@ -783,7 +765,7 @@ const RAW: Record<EraId, RawItem[]> = {
         title: 'Taylor Swift - The Fate of Ophelia (Official Music Video)',
       },
       date: '2025-10-05',
-      dateLabel: 'October 2025',
+      dateLabel: 'October 5, 2025',
       title: '“The Fate of Ophelia” video premieres',
       summary: 'The self-directed lead-single video debuts on YouTube after its theatrical-only premiere two days earlier.',
       body: [
@@ -795,7 +777,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'tloas-sequins',
       date: '2025-10-04',
-      dateLabel: 'October 2025',
+      dateLabel: 'October 4, 2025',
       title: 'Orange sequins and feathers',
       summary: 'The visual language: burnt-orange rhinestones, marabou, and spotlight sparkle.',
       body: ['Showgirl glamour defines the styling — sequins, feathers, and a warm theatrical glow in every frame.'],
@@ -804,7 +786,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'tloas-debut-chart',
       date: '2025-10-18',
-      dateLabel: 'October 2025',
+      dateLabel: 'October 18, 2025',
       title: 'A record-setting debut',
       summary: 'The album opens at number one with the fastest-selling first week in history.',
       body: [
@@ -816,7 +798,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'tloas-hot100-sweep',
       date: '2025-10-18',
-      dateLabel: 'October 2025',
+      dateLabel: 'October 18, 2025',
       title: 'All twelve songs, all twelve top spots',
       summary: 'Every track on the album lands positions 1 through 12 of the Billboard Hot 100 — a first in chart history.',
       body: [
@@ -829,7 +811,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: 'tloas-opalite-video',
       video: { youtubeId: '1FVF-9KQiPo', title: 'Taylor Swift - Opalite (Official Music Video)' },
       date: '2026-01-12',
-      dateLabel: 'January 2026',
+      dateLabel: 'January 12, 2026',
       title: '“Opalite” arrives as the second single',
       summary: 'A time-slip music video follows a lonesome character through the 1990s toward a gem-hued reinvention.',
       body: [
@@ -842,7 +824,7 @@ const RAW: Record<EraId, RawItem[]> = {
       id: 'tloas-elizabeth-taylor-video',
       video: { youtubeId: 'WqbJT_vC0rs', title: 'Taylor Swift - Elizabeth Taylor (Official Music Video)' },
       date: '2026-03-09',
-      dateLabel: 'March 2026',
+      dateLabel: 'March 9, 2026',
       title: '“Elizabeth Taylor” goes to radio',
       summary: 'The album’s third single, named for the screen icon, arrives at radio with its own official video.',
       body: [
@@ -859,7 +841,7 @@ const RAW: Record<EraId, RawItem[]> = {
 // Curated ids win on collision, though the generator's `vault-` id prefix
 // makes that vanishingly unlikely in practice.
 export const CONTENT: ContentItem[] = (Object.keys(RAW) as EraId[]).flatMap((eraId) => {
-  const curated = build(eraId, RAW[eraId], { deriveDayLabels: true });
+  const curated = build(eraId, RAW[eraId]);
   const curatedIds = new Set(curated.map((c) => c.id));
   const synced = build(eraId, VAULT_RAW[eraId] ?? []).filter((c) => !curatedIds.has(c.id));
   return [...curated, ...synced];
