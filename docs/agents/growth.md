@@ -35,6 +35,28 @@ every outward-facing action stays behind a founder approval.
    issue) halts all queued/scheduled posts on all channels immediately; the
    desk confirms the halt in the next brief.
 
+## The automated posting pipeline (built 2026-07-17, issue #738)
+
+`social/queue/**.json` → `.github/workflows/social-poster.yml` (runs every
+30 min) → `scripts/social/post-queue.mjs`, which posts to X and Instagram
+and files each item under `social/posted/` (success) or `social/failed/`
+(3 failed attempts). Full schema and the founder crisis-stop switch
+(`SOCIAL_FREEZE` repo variable — instant halt, no PR needed) are documented
+in `social/README.md`. This automates only the *shipping* step — writing a
+queue item still requires an `approvedBy`/`approvedAt` pair the poster
+checks, and the desk only ever sets those after a real founder approval
+(Slack, brief, or in-session), never on its own judgment. Per-run and daily
+per-platform caps live in `scripts/social/lib/queue.mjs`, not as config —
+changing them is a normal code change, reviewed like any other.
+
+Live once these exist (founder TX, issue #738): an X (Twitter) developer
+App on `@longlivetscom` with Read+Write permissions → repo secrets
+`X_API_KEY`, `X_API_KEY_SECRET`, `X_ACCESS_TOKEN`, `X_ACCESS_TOKEN_SECRET`;
+and a Meta Graph API long-lived token + the linked IG account's numeric ID →
+repo secrets `IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID`. X image/video
+posting isn't implemented yet (text-only) — Instagram carries all media
+posts until that's built.
+
 ## Founder-notification buckets (reuse the existing system — never invent a new channel)
 
 - **Draft post approvals** → the Founders' Brief (6 AM / 8 PM delta) under a
