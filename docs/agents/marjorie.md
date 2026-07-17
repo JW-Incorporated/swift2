@@ -168,7 +168,9 @@ curation means compressing the skeleton into this shape, not appending to it.
   **standard spelling, with the "r"** (2026-07-17: Joey retired the
   typo-registered `majorieswift00@gmail.com` account and created this
   correctly-spelled one; `MARJORIE_EMAIL` + `GMAIL_APP_PASSWORD` were
-  rotated the same day; old-account mail forwards to the new address).
+  rotated the same day). The old account is **deleted** — mail sent to it
+  bounces, so replies to pre-2026-07-17 brief emails are lost by design;
+  founders reply only to briefs from the new address.
   Any address written here MUST match the actual registered account and the
   repo variable exactly — a mismatch caused the 535 BadCredentials outage
   fixed 2026-07-15 — so never edit this line without re-checking both.
