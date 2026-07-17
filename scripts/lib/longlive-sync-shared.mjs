@@ -43,6 +43,18 @@ export async function loadWebEnvLocal() {
   }
 }
 
+/**
+ * Which source the sync generators read. The repo's seed files are the source
+ * of truth — they are what content PRs review and merge, and the DB is only
+ * ever populated from them — so the default build reads seeds and needs no
+ * credentials. The live Supabase read is opt-in via LONGLIVE_SYNC_SOURCE=db
+ * for the day the DB carries content the repo doesn't (none today). See
+ * docs/decisions.md 2026-07-17 (supersedes the 2026-07-08 DB-first entry).
+ */
+export function preferDbSource() {
+  return process.env.LONGLIVE_SYNC_SOURCE === 'db';
+}
+
 /** Public Supabase creds from the environment, or null when not configured. */
 export function supabaseEnv() {
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;

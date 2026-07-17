@@ -2,17 +2,19 @@
 // Regenerates apps/web/lib/longlive/content-vault.generated.ts — the
 // LongLive UI's static content layer (see docs/longlive-experience.md §9).
 //
-// Source of truth, in priority order:
-//   1. Live Supabase `month_item` table, when NEXT_PUBLIC_SUPABASE_URL +
-//      NEXT_PUBLIC_SUPABASE_ANON_KEY are set (same public/RLS-read creds as
-//      apps/web/.env.local — see docs/dev-quickstart.md). This is what makes
-//      content changes flow to the live site: seed the DB, redeploy, the
-//      build picks up fresh data. No live per-request DB calls — this runs
-//      at build time (wired as `prebuild` in apps/web/package.json), keeping
-//      the shipped UI fully static per the project's cost-discipline rule.
-//   2. Local supabase/seed/content/*.mjs files, when Supabase isn't
-//      configured or the live fetch fails (local dev without secrets, CI,
-//      or before the DB has been seeded). Same output shape either way.
+// Source of truth: the local supabase/seed/content/*.mjs files — the same
+// files content PRs review and merge, so merged content is live on the next
+// deploy with no credentials and no operational re-seed step (decision
+// 2026-07-17; supersedes the 2026-07-08 DB-first order, which served stale
+// content whenever the DB wasn't re-seeded). Runs at build time (wired as
+// `prebuild` in apps/web/package.json), keeping the shipped UI fully static
+// per the project's cost-discipline rule.
+//
+// Opt-in: set LONGLIVE_SYNC_SOURCE=db to read the live Supabase `month_item`
+// table first instead (public/RLS-read creds as in apps/web/.env.local — see
+// docs/dev-quickstart.md), with seed files as fallback. Only useful if the DB
+// ever carries content the repo doesn't (none today). Same output shape
+// either way.
 //
 // Hand-curated items in content.ts are untouched — this only produces the
 // separate VAULT_RAW export that content.ts merges in alongside them.
@@ -26,6 +28,7 @@ import {
   SLUG_TO_ERA_ID,
   esc,
   loadWebEnvLocal,
+  preferDbSource,
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
@@ -366,13 +369,15 @@ async function fetchFromLocalFiles() {
   }
 
   const total = Object.values(byEra).reduce((n, arr) => n + arr.length, 0);
-  console.log(`sync-longlive-content: loaded ${total} items from local seed files (fallback).`);
+  console.log(`sync-longlive-content: loaded ${total} items from local seed files (source of truth).`);
   return byEra;
 }
 
 async function main() {
   await loadWebEnvLocal();
-  const byEra = (await fetchFromSupabase()) ?? (await fetchFromLocalFiles());
+  const byEra = preferDbSource()
+    ? ((await fetchFromSupabase()) ?? (await fetchFromLocalFiles()))
+    : await fetchFromLocalFiles();
 
   const lines = [];
   lines.push('// GENERATED FILE — do not hand-edit.');

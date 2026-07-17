@@ -340,26 +340,26 @@ constellation.
 
 - Content in `content.ts` is a mix of hand-curated items plus a generated
   sync (`content-vault.generated.ts`, `VAULT_RAW`) produced by
-  `scripts/sync-longlive-content.mjs`, which now runs automatically as a
+  `scripts/sync-longlive-content.mjs`, which runs automatically as a
   `prebuild` step (`apps/web/package.json`) on every build/deploy. It reads
-  the **live Supabase `month_item` table** when `NEXT_PUBLIC_SUPABASE_URL`/
-  `_ANON_KEY` are configured, falling back to the local
-  `supabase/seed/content/**` files otherwise (local dev without secrets,
-  CI, or before the DB is seeded). See `docs/decisions.md` 2026-07-08. This
-  keeps the UI static (build-time read, no live per-request DB call — see
-  cost discipline in `CLAUDE.md`) while content changes flow automatically:
-  `db:seed:content` → redeploy → live, no manual script-and-commit step.
-  Tier-1 `moment.context` (body text) isn't fetched live yet — see the
-  decision entry. The per-album track guide follows the same pattern:
-  `scripts/sync-longlive-tracks.mjs` (also a `prebuild` step) reads the live
-  `track_note` table when configured, else `supabase/seed/tracks/**`, and
-  writes `tracks.generated.ts` (rendered by the `TrackGuide` overlay). The
+  the **local `supabase/seed/content/**` files** — the repo is the source of
+  truth, so a merged content PR is live on the next deploy with no
+  credentials or re-seed step (see `docs/decisions.md` 2026-07-17, which
+  supersedes the 2026-07-08 DB-first order after it served stale content).
+  Setting `LONGLIVE_SYNC_SOURCE=db` makes the build read the live Supabase
+  `month_item` table first instead (seeds as fallback) — only useful if the
+  DB ever carries content the repo doesn't. Either way the UI stays static
+  (build-time read, no live per-request DB call — see cost discipline in
+  `CLAUDE.md`). The per-album track guide follows the same pattern:
+  `scripts/sync-longlive-tracks.mjs` (also a `prebuild` step) reads
+  `supabase/seed/tracks/**` (opt-in: live `track_note` table) and writes
+  `tracks.generated.ts` (rendered by the `TrackGuide` overlay). The
   theories and videos pipelines follow the same pattern (audit T1):
-  `scripts/sync-longlive-theories.mjs` (live `theory` table, else
-  `supabase/seed/theories/**`) writes `theories.generated.ts` (rendered by
-  `TheoryGuide`), and `scripts/sync-longlive-videos.mjs` (live `video_work`
-  table, else `supabase/seed/videos/**`) writes `videos.generated.ts`
-  (rendered by `EraVideos`). The tours and releases seed pipelines
+  `scripts/sync-longlive-theories.mjs` (`supabase/seed/theories/**`, opt-in
+  live `theory` table) writes `theories.generated.ts` (rendered by
+  `TheoryGuide`), and `scripts/sync-longlive-videos.mjs`
+  (`supabase/seed/videos/**`, opt-in live `video_work` table) writes
+  `videos.generated.ts` (rendered by `EraVideos`). The tours and releases seed pipelines
   (`supabase/seed/{tours,releases}/**`) are **not yet synced at all** —
   that's still a gap, tracked as follow-up.
 - The `lib/vault.ts` / two-tier Supabase serving path in
