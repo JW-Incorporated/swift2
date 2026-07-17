@@ -13,6 +13,13 @@
 # Until the four X secrets or the two IG values are set, that platform's
 # posts simply fail with a clear error and stay queued for retry — nothing
 # posts silently wrong.
+#
+# main is branch-protected (PR + a passing "build" check required), so the
+# state commit below (which items posted/failed/retried) can't push to main
+# directly — found the hard way on the 2026-07-17 test run, whose two items
+# posted-vs-not correctly but then couldn't persist that fact, which would
+# have silently reposted them on the next scheduled run. It goes through a
+# throwaway branch + auto-merging PR instead, satisfying both rules.
 name: social-poster
 on:
   schedule:
@@ -21,6 +28,7 @@ on:
 
 permissions:
   contents: write
+  pull-requests: write
 
 concurrency:
   group: social-poster
@@ -47,14 +55,22 @@ jobs:
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
         run: node scripts/social/post-queue.mjs
 
-      - name: Commit queue state changes
+      - name: Commit queue state changes (via PR — main is branch-protected)
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add social/queue social/posted social/failed
           if git diff --cached --quiet; then
             echo "No queue changes to commit."
-          else
-            git commit -m "social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
-            git push
+            exit 0
           fi
+          BRANCH="social-poster/state-$(date -u +%Y%m%d%H%M%S)"
+          git checkout -b "$BRANCH"
+          git commit -m "social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+          git push origin "$BRANCH"
+          gh pr create --title "social-poster: queue state $(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+            --body "Automated queue state update (posted/failed/retry attempts) from this scheduled run. No content decisions are made here — see the run log for what happened to each item." \
+            --base main --head "$BRANCH"
+          gh pr merge "$BRANCH" --squash --auto --delete-branch
