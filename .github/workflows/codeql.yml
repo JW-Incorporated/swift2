@@ -1,0 +1,32 @@
+# CodeQL — code scanning for Paul Blart's detection layer (docs/agents/paul-blart.md).
+name: CodeQL
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "27 12 * * 1"  # weekly Monday, offset minute
+jobs:
+  analyze:
+    name: Analyze (javascript-typescript)
+    # CodeQL upload needs repo-level Code Scanning enabled (GitHub Advanced
+    # Security). Until a founder turns it on (Settings → Code security and
+    # analysis → Code scanning) and sets repo variable CODE_SCANNING_ENABLED=true,
+    # this job SKIPS — a clean neutral status, not a red failure. See
+    # docs/agents/paul-blart.md.
+    if: vars.CODE_SCANNING_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+      - uses: github/codeql-action/init@v4
+        with:
+          languages: javascript-typescript
+          queries: security-and-quality
+      - uses: github/codeql-action/analyze@v4
+        with:
+          category: "/language:javascript-typescript"

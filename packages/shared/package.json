@@ -7,7 +7,8 @@
   "types": "src/index.ts",
   "exports": {
     ".": "./src/index.ts",
-    "./mood": "./src/mood/index.ts"
+    "./mood": "./src/mood/index.ts",
+    "./news": "./src/news/index.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit"

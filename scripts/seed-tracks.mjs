@@ -18,9 +18,11 @@ if (!connectionString) {
   process.exit(1);
 }
 
-// Files starting with "_" are templates, not real content.
+// Files starting with "_" are templates, not real content. `.dossiers.mjs`
+// files are per-era side modules imported by their era file (issue #440) —
+// not standalone seeds.
 const files = readdirSync(tracksDir)
-  .filter((f) => f.endsWith('.mjs') && !f.startsWith('_'))
+  .filter((f) => f.endsWith('.mjs') && !f.startsWith('_') && !f.endsWith('.dossiers.mjs'))
   .sort();
 
 const client = new pg.Client({ connectionString, ssl: { rejectUnauthorized: false } });
@@ -38,9 +40,39 @@ try {
     for (const t of tracks) {
       await client.query(
         `insert into public.track_note
-           (era_slug, track_title, track_number, note, source_url, sources)
-         values ($1,$2,$3,$4,$5,$6)`,
-        [eraSlug, t.trackTitle, t.trackNumber ?? null, t.note ?? '', t.sourceUrl ?? null, JSON.stringify(t.sources ?? [])],
+           (era_slug, track_title, track_number, note, source_url, sources,
+            discussion, quoted_lines, discussion_source_url, discussion_sources,
+            summary, inspiration, easter_eggs,
+            slug, release, release_date, writers, producers,
+            is_single, single_release_date, themes, dossier)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,
+                 $14,$15,$16,$17,$18,$19,$20,$21,$22)`,
+        [
+          eraSlug,
+          t.trackTitle,
+          t.trackNumber ?? null,
+          t.note ?? '',
+          t.sourceUrl ?? null,
+          JSON.stringify(t.sources ?? []),
+          JSON.stringify(t.discussion ?? []),
+          JSON.stringify(t.quotedLines ?? []),
+          t.discussionSourceUrl ?? null,
+          JSON.stringify(t.discussionSources ?? []),
+          t.summary ?? '',
+          t.inspiration ?? '',
+          t.easterEggs ?? '',
+          t.slug ?? null,
+          t.release ?? null,
+          t.releaseDate ?? null,
+          JSON.stringify(t.writers ?? []),
+          JSON.stringify(t.producers ?? []),
+          // A dated single release implies single status (mirror of the sync
+          // generator's factsFrom) — 30 seed rows have only the date.
+          Boolean(t.isSingle) || Boolean(t.singleReleaseDate),
+          t.singleReleaseDate ?? null,
+          JSON.stringify(t.themes ?? []),
+          JSON.stringify(t.dossier ?? {}),
+        ],
       );
       notes += 1;
     }

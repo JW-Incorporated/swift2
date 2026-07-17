@@ -9,6 +9,8 @@ team.
   decision authority). Start here.
 - `AGENTS.md` — Codex-specific instructions (reviewer role).
 - `docs/cto-role.md` — the CTO/engineering role + new-session bootup checklist.
+- `docs/longlive-experience.md` — source of truth for the shipped front-end
+  (the era/threads reader at `/`). Read before touching web UI code.
 - `docs/` — vision, architecture, decision log.
 - `.claude/settings.json` — shared Claude Code permissions (identical setup on
   both founders' machines).

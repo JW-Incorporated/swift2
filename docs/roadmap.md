@@ -4,6 +4,15 @@ The **what/how** lives in `docs/specs/2026-07-03-vault-mvp-v1-spec.md`. This doc
 is the **who/when**, split into two tracks so Wyatt and Joey (each with their AI
 session) work in parallel toward a ship by Taylor's wedding.
 
+> **Known gap (as of the LongLive rewrite):** CONTENT-track authoring below
+> targets the Supabase `month_item`/`moment`/`track_note` schema, but the
+> front-end shipped at `/` (`docs/longlive-experience.md`) currently reads
+> static mock data from `apps/web/lib/longlive/*`, not Supabase. The
+> ENGINE-track UI work below (W3/W4/etc.) built the older `VaultReader`
+> reader, which is not the component mounted today. Reconciling the two —
+> wiring LongLive to real seeded content — is unscheduled; don't assume
+> content authored per this roadmap is visible in the live app yet.
+
 ## ▶ How to start a session — just say "start working"
 
 Each founder's agent owns ONE track. You never need to name a work package —
@@ -50,7 +59,7 @@ Max rate-limit window.
 | **W5** | `apps/web`: moment detail fetch + degraded states (slow/timeout/404/offline/superseded-tap) | ✅ folded into **#23** (tap-to-open over the continuous reader; supersedes #31) |
 | **W6** | Tier 0 payload budget gate (≤2MB gz / ≤10MB parsed): pure `evaluateTier0Budget` + `npm run check:budget`; windowed-prefetch fallback only if a real payload fails | ✅ (#28) — **wired into CI** via `check:budget:seed` (#40, assembled from seed files, no creds). 100 items = 0.6% of budget. `validate:content` also gates seed rows in CI |
 | **W7** | Song **track guide** (non-month-scoped): `track_note` table + `GET /vault/album/[slug]/tracks` + `db:seed:tracks`, off the Tier 0 payload — unblocks full-catalog song coverage | ✅ built + migrated (`docs/decisions.md` 2026-07-04); **reader UI shipped in #23** (TrackGuide bottom-sheet, on-demand per album) |
-| **W8** | `apps/mobile`: Expo app reusing `shared`/`core` — read-only era list first, native Reanimated + Gesture Handler scrubber next | 🟡 **DRAFT #42** — scaffold typechecks in CI reusing shared+core **unchanged** (proves the boundary); needs a device / Expo Go boot before merge |
+| **W8** | `apps/mobile`: Expo app reusing `shared`/`core` — read-only era list first, native Reanimated + Gesture Handler scrubber next | 🟡 **PR #67** (supersedes closed draft #42) — native Vault navigator + one-command EAS Android build, Expo 57 / API 36; needs rebase onto `main` + a founder device test before merge |
 | **Wh** | Data-access hardening from the architecture double-check (Codex + self audit) | ✅ (#43) — explicit Tier 0 columns, stable ordering, portable auth options, row-cap guard, url-type mappers, no error leakage. `docs/reviews/2026-07-04-architecture-double-check.md` |
 
 ## ✍️ Joey track — content (spec step 3 + theming values)
@@ -71,6 +80,23 @@ seed generator, not hand-enter rows (CLAUDE.md rule 8).
 | **J5** | Per-era theming polish + cover art (theme values already seeded; refine) · product copy (first-run explainer, UNOFFICIAL/about) | ⬜ |
 | **J6** | Content QA + editorial coverage pass before launch | ⬜ |
 | **J7** | **Post-launch, weekly cadence, fallback for whatever J3.5b didn't clear pre-launch:** bring any remaining thin eras from wavetop to Active-tier depth, one per week, each publicly announced (social) as an "era drop." **Contingent on Joey committing to and sustaining the weekly external announcement** — the depth work alone does nothing for retention without it (see `docs/marketing/ship-readiness-review-2026-07-04.md`). If that commitment isn't sustainable, fall back to shipping depth silently with no retention claim attached. | ⬜ post-launch |
+
+## 📡 Launch-ops & growth track (post-launch, automated — added 2026-07-11)
+
+Once the site is live, operating it is a standing, automated function, not a
+side task: **goal #1 growth, goal #2 keeping the fan base loving the app**
+(Joey, 2026-07-11). Design + org model:
+`docs/proposals/2026-07-11-agentic-operating-model.md` (pending founder
+approval — the WPs below inherit its desk/charter pattern and don't start
+before it's approved).
+
+| WP | What | Status |
+|----|------|--------|
+| **L1** | **Watch desk (launch gate):** first define which serving path is authoritative for users (the static LongLive `/` vs the Supabase-wired path — see the known gap at the top of this doc), then uptime + error monitoring on that path's key routes, cost-cap watch, Tier-3 paging; usage-analytics stack decided (decision entry) and baseline wired | ⬜ pre-launch |
+| **L2** | **Feedback loop:** in-app feedback (PR #427) + app-store reviews + social complaints funneled into Kevin's triage; recurring themes surface as banked product decisions | ⬜ at launch |
+| **L3** | **Growth & Community desk, listening-first:** daily social/media/fandom scan (r/TaylorSwift, X, app stores) → sentiment + opportunity digest in the Founders' Brief; social-account creation TX items surfaced early (lead time) | ⬜ **pre-launch** (pulled forward 2026-07-11, Joey) |
+| **L4** | **Automated announcements:** era-drop (J7) + feature announcements as a draft queue founders approve in the brief; scheduled autopost only via an explicit per-channel founder grant (decision entry + channel policy + crisis-stop rule — never via the autonomy ratchet); engagement replies stay human indefinitely | ⬜ post-launch |
+| **L5** | **Standing marketing agent (replaces the /marketing command, which Joey judged not-a-team):** monthly research cadence with state between runs (recommended → shipped → measured), verdicts land as banked decisions; `docs/marketing/growth-plan.md` maintained from real metrics, founder-reviewed quarterly. **First deliverable: the launch campaign plan** | ⬜ **pre-launch** (pulled forward 2026-07-11, Joey) |
 
 ## 🎁 Ported from Orbit — and the important caveat
 

@@ -1,5 +1,25 @@
 # Deploying the web reader (Vercel)
 
+## The one URL that matters
+
+**https://www.longlivets.com/** (also reachable via https://longlivets.com/,
+which redirects) is the real, shared production deployment — verified live
+2026-07-12. As of that date the project runs entirely on **Wyatt's Vercel
+team**, with Joey added as a team member; Joey's own personal Vercel account
+was downgraded to Hobby and is no longer in the deploy path at all.
+
+**Superseded — do not cite either of these anymore:** `swift2-ten.vercel.app`
+(Joey's old personal project) and `swift2-web-nine.vercel.app` (Wyatt's old
+personal sandbox, used for v0 UX exploration) were both pre-2026-07-12
+arrangements. Neither is the current production URL.
+
+The historical `Vercel – swift2` GitHub check failing with "Git author must
+have access" on PRs authored as `wjduvall-cmd` was a cross-account quirk from
+when Joey's and Wyatt's commits belonged to different Vercel teams. Now that
+both identities are on one team, this should no longer occur — if it does
+resurface, that's a real regression worth investigating, not the old known-
+harmless case.
+
 `apps/web` is a Next.js app in an npm-workspaces monorepo. Two ways to deploy —
 use the **CLI path** if you're not a GitHub org owner yet.
 
@@ -11,9 +31,22 @@ Set for **Production** (and Preview, for the GitHub path):
 |-----|------------------|
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Project Settings → API → **Project URL** |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | same page → Project API keys → **`anon` `public`** |
+| `GITHUB_FEEDBACK_TOKEN` | **Feedback button only** — a GitHub token with `issues:write` on the repo (fine-grained PAT scoped to `JW-Incorporated/swift2` → Issues: Read & write, or a GitHub App installation token). Server-side only; never `NEXT_PUBLIC_`. |
+| `FEEDBACK_REPO` *(optional)* | Repo the feedback button files issues into. Defaults to `JW-Incorporated/swift2`. |
 
 ⚠️ **Anon/public key only.** Never the `service_role` key — Vault reads are RLS
 public, so anon is sufficient and the key is safe to expose client-side.
+
+🔒 **`GITHUB_FEEDBACK_TOKEN` is a server secret.** The `/api/feedback` route (a
+serverless function) uses it to file a GitHub issue per submission; the token is
+never sent to the browser. Without it, the feedback button degrades gracefully
+(it returns a friendly "not wired up yet" message instead of erroring), so
+Preview/local builds don't need it. Scope the token as narrowly as possible
+(Issues: write only) and rotate if leaked. **The route deliberately does NOT
+fall back to a generic `GITHUB_TOKEN`** — this endpoint is public and
+unauthenticated, so it must run on this narrowly-scoped token or not at all
+(if only a broad `GITHUB_TOKEN` is present, the button stays in the graceful
+degraded state rather than borrowing those wider permissions).
 
 ## Path A — CLI (no GitHub org ownership required)
 

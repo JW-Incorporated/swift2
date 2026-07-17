@@ -1,0 +1,94 @@
+/**
+ * Small pure text/date formatting helpers shared across the LongLive UI.
+ * No imports, no DOM — everything here is unit-testable in isolation.
+ */
+
+const MINUTE = 60_000;
+const HOUR = 60 * MINUTE;
+const DAY = 24 * HOUR;
+
+/**
+ * Relative "3 days ago"-style label for an ISO timestamp, measured against
+ * `nowMs`. Returns null for a missing/unparseable input so callers can simply
+ * not render the label — never a crash, never a "NaN years ago". A timestamp
+ * slightly in the future (clock skew between build machine and visitor) reads
+ * as "just now".
+ */
+export function formatRelativeTime(iso: string | null | undefined, nowMs: number): string | null {
+  if (!iso) return null;
+  const then = Date.parse(iso);
+  if (Number.isNaN(then)) return null;
+
+  const diff = nowMs - then;
+  if (diff < MINUTE) return 'just now';
+  if (diff < HOUR) {
+    const m = Math.floor(diff / MINUTE);
+    return m === 1 ? '1 minute ago' : `${m} minutes ago`;
+  }
+  if (diff < DAY) {
+    const h = Math.floor(diff / HOUR);
+    return h === 1 ? '1 hour ago' : `${h} hours ago`;
+  }
+  const days = Math.floor(diff / DAY);
+  if (days === 1) return 'yesterday';
+  if (days < 31) return `${days} days ago`;
+  const months = Math.floor(days / 30.44);
+  if (months < 12) return months === 1 ? '1 month ago' : `${months} months ago`;
+  const years = Math.floor(days / 365);
+  return years === 1 ? '1 year ago' : `${years} years ago`;
+}
+
+/**
+ * "October 2025"-style label for an ISO date (YYYY-MM-DD), for content that
+ * has a real date but no hand-authored `dateLabel` — e.g. a music video's
+ * `releasedOn` when it's duplicated into the main timeline (EraSection).
+ * UTC-anchored so a bare YYYY-MM-DD string never shifts a day backward in a
+ * negative-offset timezone.
+ */
+export function formatMonthYear(iso: string): string {
+  const d = new Date(`${iso}T00:00:00Z`);
+  return d.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+}
+
+/**
+ * "October 3, 2025"-style label for an ISO date. Accepts the partial forms
+ * dossier/fact dates are authored in: YYYY-MM-DD (full date), YYYY-MM (month
+ * + year), or bare YYYY (year as-is). Same UTC anchoring as formatMonthYear
+ * so a date never shifts a day backward in a negative-offset timezone.
+ */
+export function formatFullDate(iso: string): string {
+  if (/^\d{4}$/.test(iso)) return iso;
+  if (/^\d{4}-\d{2}$/.test(iso)) {
+    // Validate the month — '2025-13' must not render as 'Invalid Date'.
+    return /-(0[1-9]|1[0-2])$/.test(iso) ? formatMonthYear(`${iso}-01`) : iso;
+  }
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return iso;
+  const d = new Date(`${iso}T00:00:00Z`);
+  // Reject rolled-over dates too ('2025-02-30' parses as March 2) — a typo'd
+  // source date should surface as-is, not as a silently wrong calendar day.
+  if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== iso) return iso;
+  return d.toLocaleDateString('en-US', {
+    month: 'long',
+    day: 'numeric',
+    year: 'numeric',
+    timeZone: 'UTC',
+  });
+}
+
+/**
+ * Truncates prose to at most `max` characters on a word boundary, appending a
+ * single ellipsis. Used by the scrubber hover preview and share copy so a
+ * summary reads as a teaser, not a wall of text.
+ */
+export function truncate(text: string, max = 140): string {
+  const t = text.trim();
+  if (t.length <= max) return t;
+  // Cut, then back up to the last word boundary (but never past the midpoint,
+  // so one enormous word can't collapse the whole preview).
+  let cut = t.slice(0, max);
+  const lastSpace = cut.lastIndexOf(' ');
+  if (lastSpace > max / 2) cut = cut.slice(0, lastSpace);
+  // Drop trailing punctuation that reads badly before an ellipsis.
+  cut = cut.replace(/[\s,;:.—–-]+$/, '');
+  return `${cut}…`;
+}

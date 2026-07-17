@@ -4,11 +4,22 @@ Owner: Wyatt (CTO). This is the source of truth for stack, hosting, data, and
 coding standards. Expensive-to-reverse choices are mirrored as entries in
 `docs/decisions.md`.
 
-Status: v0.2 — stack proven against the reference workload. The web Vault
-reader (era-scrubber + two-tier serving) is built and in review, and the Expo
-mobile app is scaffolded reusing `packages/*` unchanged (validating the shared
-boundary). Product vision (`docs/vision.md`) is still Joey's to fill in; this
-doc grows as features are specced.
+Status: v0.2 — stack proven against the reference workload. The Supabase-backed
+web Vault reader (era-scrubber + two-tier serving, `VaultReader.tsx`/
+`lib/vault.ts`) was built against this plan, but is **currently unmounted** —
+`/` renders the static LongLive experience instead (see the front-end note
+below and `docs/longlive-experience.md`). The Expo mobile app is scaffolded
+reusing `packages/*` unchanged (validating the shared boundary). Product
+vision (`docs/vision.md`) is still Joey's to fill in; this doc grows as
+features are specced.
+
+> **Front-end note.** The interactive experience currently shipped on the web
+> (the era/threads reader at `/`) is a self-contained, statically-authored
+> layer under `apps/web/components/longlive/**` + `apps/web/lib/longlive/**`.
+> It does not yet read from the Supabase two-tier path described below. That
+> layer has its own manual: **`docs/longlive-experience.md`** — read it before
+> working on the site UI. This doc remains the source of truth for the
+> underlying stack/data plan the two will converge on.
 
 ---
 
@@ -157,8 +168,21 @@ Carried over from Orbit's discipline:
 - Conventional-commit style: `feat(vault): …`, `fix(web): …`, `docs: …`.
 - Branch per task (`feature/<name>`, `fix/<name>`); never commit to `main`.
 - Automated tests for every feature; full suite green before "done."
-- Never store article bodies or rehost images — titles/snippets/links/metadata
-  only (a rule inherited from Orbit's legal posture; revisit if vision changes).
+- **Media & content sourcing** (full policy + rationale: `docs/decisions.md`,
+  2026-07-09 "no rules against hosting photos"). The product presents rich
+  media on-site (goal #7 — users don't click out):
+  - **Text:** original summaries in our own words + links; never paste article
+    bodies / lyrics / official statements verbatim.
+  - **Images: no hosting restriction.** Any real photo may appear on-site by
+    any means — oEmbed, hotlink, or **rehost/CDN** (paparazzi, press, agency
+    all included), with a credit line where available. A knowing risk
+    acceptance, not an oversight. The only image rules are content-integrity:
+    **no AI-generated fakes,** and reference/comparable stand-ins (e.g. a
+    designer's prior work standing in for a not-yet-photographed item) must be
+    visibly labeled as reference, never presented as the real thing.
+  - **Monetization** (affiliate/commercial) ships only after **external
+    IP-counsel review**; UNOFFICIAL disclaimer stays prominent.
+  - Unchanged: the no-fabrication rule and the Tier 0 payload budget.
 
 ## Open questions (need Joey's vision or a later decision)
 

@@ -1,0 +1,174 @@
+# Brief mailer — emails Marjorie's updates to the founders' real inboxes.
+# From Marjorie's own Gmail, To Joey, CC Wyatt (Joey's calls, 2026-07-11).
+# Deterministic, zero AI. Two sends per day:
+#   - 12:45 UTC (~5:45 AM PDT): the Founders' Brief (issue body). Joey's
+#     requirement (2026-07-16): the email is IN HIS INBOX BY 6:00 AM.
+#     Actions cron can slip 5-15 min, so the send is anchored at 5:45 PDT;
+#     Marjorie's brief trigger must fire at 12:00 UTC (registry: docs/agents/
+#     runners.md) so the brief exists ~12:25. If it doesn't exist yet the
+#     mailer skips quietly and the 14:30 watchdog window is the alarm.
+#     UTC-anchored on purpose (org precedent): winter sends land an hour
+#     earlier in PST — still in the inbox by 6:00, never after.
+#   - 03:50 UTC (~7:50/8:50 PM PT): the 8 PM Evening Delta (latest brief comment).
+#
+# This Action is THE real email channel. The brief's `cc @mention` line is only a
+# GitHub notification aid, NOT email delivery: Marjorie posts as a founder account
+# (self-mentions don't email), and @sffan15-sys / @wjduvall-cmd are bot identities,
+# not the founders' monitored inboxes. See docs/agents/marjorie.md › Delivery.
+#
+# Founder setup (issue #484): a Gmail account for Marjorie with 2-Step Verification
+# ON, then:
+#   - repo VARIABLE  MARJORIE_EMAIL      = that address
+#   - repo SECRET    GMAIL_APP_PASSWORD  = a 16-char App Password on THAT account
+# Gmail shows App Passwords as "xxxx xxxx xxxx xxxx"; SMTP AUTH needs them with NO
+# spaces. This workflow strips spaces defensively and, on auth failure, prints
+# exactly what to re-check. Until both var+secret exist, it skips quietly.
+name: brief-mailer
+on:
+  schedule:
+    - cron: "45 12 * * *"  # morning brief (inbox by 6:00 AM PT; see header note)
+    - cron: "50 3 * * *"   # evening delta
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "What to send: auto (pick by clock, like the schedule), brief, or delta"
+        required: false
+        default: auto
+        type: choice
+        options: [auto, brief, delta]
+
+permissions:
+  issues: read
+
+jobs:
+  mail:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pick the brief or delta to send
+        id: pick
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          MODE="${{ github.event.inputs.mode || 'auto' }}"
+          if [ "$MODE" = "auto" ]; then
+            HOUR=$(date -u +%H)
+            # Early-UTC runs are the evening delta; later runs are the morning brief.
+            # (10# forces base-10 so leading-zero hours like 08/09 don't parse as octal.)
+            if [ "$((10#$HOUR))" -lt 12 ]; then MODE=delta; else MODE=brief; fi
+          fi
+          # America/Los_Angeles date selects the right brief for both: the morning
+          # run -> today's brief; the evening run (early UTC = PT evening of the same
+          # LA day) -> the brief the delta was commented on.
+          TODAY=$(TZ=America/Los_Angeles date +%F)
+          TITLE="Founders' Brief — ${TODAY}"
+          NUM=$(gh issue list --repo "$REPO" --label founders-brief \
+            --search "\"$TITLE\" in:title" --state all --json number --jq '.[0].number // empty')
+          if [ -z "$NUM" ]; then
+            echo "No brief for $TODAY ($MODE) — nothing to mail (watchdog owns alerting)."
+            echo "found=false" >> "$GITHUB_OUTPUT"; exit 0
+          fi
+          if [ "$MODE" = "brief" ]; then
+            gh issue view "$NUM" --repo "$REPO" --json title,body,url \
+              | jq '{subject: .title, body: .body, url: .url}' > payload.json
+          else
+            gh issue view "$NUM" --repo "$REPO" --json title,url,comments > raw.json
+            # The Evening Delta is the newest comment whose first line is the cc line
+            # (journal/processing comments don't start with "cc @").
+            DELTA=$(jq -c '[.comments[] | select((.body|split("\n")[0]) | startswith("cc @"))] | last // empty' raw.json)
+            if [ -z "$DELTA" ] || [ "$DELTA" = "null" ]; then
+              echo "No Evening Delta comment on #$NUM yet — nothing to mail."
+              echo "found=false" >> "$GITHUB_OUTPUT"; exit 0
+            fi
+            jq -n --argjson d "$DELTA" --slurpfile r raw.json \
+              '{subject: ("Evening Delta — " + $r[0].title), body: $d.body, url: ($d.url // $r[0].url)}' > payload.json
+          fi
+          # Render the markdown body to HTML with GitHub's own GFM renderer
+          # (same engine as the issue page — tables, task lists, links all
+          # render; zero extra dependencies). Emoji checkboxes instead of
+          # <input> tags: Gmail strips form elements.
+          jq -r '.body' payload.json \
+            | sed -e 's/^\(\s*\)- \[ \]/\1- ☐/' -e 's/^\(\s*\)- \[[xX]\]/\1- ☑/' > body.md
+          gh api markdown -X POST -f mode=gfm -f "context=${REPO}" -F "text=@body.md" > body.html
+          echo "found=true" >> "$GITHUB_OUTPUT"
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+
+      - name: Send From Marjorie, To Joey, CC Wyatt
+        if: steps.pick.outputs.found == 'true'
+        env:
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${MARJORIE_EMAIL:-}" ] || [ -z "${GMAIL_APP_PASSWORD:-}" ]; then
+            echo "MARJORIE_EMAIL variable and/or GMAIL_APP_PASSWORD secret not set —"
+            echo "skipping (see docs/agents/marjorie.md › Delivery; setup: issue #484)."
+            exit 0
+          fi
+          python3 - << 'PY'
+          import json, os, smtplib
+          from email.message import EmailMessage
+
+          with open('payload.json', encoding='utf-8') as f:
+              p = json.load(f)
+          sender = os.environ['MARJORIE_EMAIL'].strip()
+          # Gmail App Passwords are shown as "xxxx xxxx xxxx xxxx"; SMTP AUTH needs
+          # them with NO spaces. Stripping is the #1 fix for 535 BadCredentials.
+          pw = os.environ['GMAIL_APP_PASSWORD'].replace(' ', '').strip()
+
+          with open('body.html', encoding='utf-8') as f:
+              body_html = f.read()
+
+          msg = EmailMessage()
+          msg['Subject'] = p['subject']
+          msg['From'] = f'Marjorie (swift2 chief of staff) <{sender}>'
+          msg['To'] = 'sffan15@gmail.com'
+          msg['Cc'] = 'wjduvall@gmail.com'
+          # Plain-text part: fallback for clients that refuse HTML.
+          msg.set_content(
+              f"{p['body']}\n\n---\nOpen / tick your boxes here: {p['url']}\n"
+              "You can REPLY to this email to talk to Marjorie — replies land on the\n"
+              "brief thread within ~30 minutes and she answers at her next run.\n"
+              "(Sent by the brief-mailer Action — deterministic, no AI involved.)"
+          )
+          # HTML part (what Gmail shows): GitHub-rendered GFM in a phone-width
+          # wrapper with bordered tables. Styles are inline/in-head because
+          # Gmail ignores external CSS.
+          msg.add_alternative(f"""<!DOCTYPE html>
+          <html><head><meta charset="utf-8"><style>
+            body {{ font-family: -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+                   font-size: 15px; line-height: 1.5; color: #1f2328; margin: 0; padding: 12px; }}
+            .wrap {{ max-width: 720px; margin: 0 auto; }}
+            h1, h2 {{ font-size: 18px; border-bottom: 1px solid #d0d7de; padding-bottom: 4px; }}
+            h3 {{ font-size: 16px; }}
+            table {{ border-collapse: collapse; width: 100%; margin: 8px 0; }}
+            th, td {{ border: 1px solid #d0d7de; padding: 5px 9px; text-align: left;
+                     vertical-align: top; font-size: 14px; }}
+            th {{ background: #f6f8fa; }}
+            code {{ background: #f6f8fa; padding: 1px 4px; border-radius: 4px; font-size: 13px; }}
+            a {{ color: #0969da; }}
+            .footer {{ color: #57606a; font-size: 13px; margin-top: 16px;
+                      border-top: 1px solid #d0d7de; padding-top: 8px; }}
+          </style></head><body><div class="wrap">
+          {body_html}
+          <p class="footer"><a href="{p['url']}">Open on GitHub / tick your boxes</a><br>
+          <b>Reply to this email to talk to Marjorie</b> — replies land on the brief
+          thread within ~30 minutes and she answers at her next run.<br>
+          Sent by the brief-mailer Action — deterministic, no AI involved.</p>
+          </div></body></html>""", subtype='html')
+          try:
+              with smtplib.SMTP_SSL('smtp.gmail.com', 465) as s:
+                  s.login(sender, pw)
+                  s.send_message(msg)
+          except smtplib.SMTPAuthenticationError as e:
+              raise SystemExit(
+                  f"Gmail auth failed for {sender} (535 BadCredentials). Re-check, in order:\n"
+                  f"  1. GMAIL_APP_PASSWORD is a 16-char App Password (NOT the account\n"
+                  f"     login password), stored WITHOUT spaces.\n"
+                  f"  2. 2-Step Verification is ON for {sender} (App Passwords require it).\n"
+                  f"  3. MARJORIE_EMAIL is the SAME account the App Password was generated on.\n"
+                  f"Gmail said: {e}"
+              )
+          print(f"Mailed [{p['subject']}] To sffan15@gmail.com, Cc wjduvall@gmail.com")
+          PY
