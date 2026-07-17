@@ -50,7 +50,7 @@ export default {
         '1.238 million units in week one — the only artist in Nielsen history with four different million-selling album weeks.',
       sourceUrl: 'https://www.billboard.com/pro/taylor-swift-reputation-debuts-no-1-billboard-200-albums/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Taylor_Swift_-_Reputation.png/250px-Taylor_Swift_-_Reputation.png',
+        'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
       moment: {
         context:
           "Withheld from streaming services for its entire first week, reputation moved 1.216 million copies in pure sales — the biggest sales week for any album since 2015 — while the No. 2 record that week, Sam Smith's The Thrill of It All, managed 66,000 units. Its 709,000 digital copies were the third-largest digital sales week in Nielsen history, and in seven days it passed Ed Sheeran's ÷ (931,000) to become 2017's best-selling album.\n\nThe million-selling-week club she rejoined was her own: Speak Now (1.047 million), Red (1.208 million), and 1989 (1.287 million) had all done it first — no other artist in Nielsen's history had even one week that size four times. For a record rolled out with no press interviews, a wiped social feed, and a deliberate streaming holdout, the number was the whole argument: the audience showed up anyway.",
@@ -70,7 +70,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Taylor_Swift_-_Reputation.png/250px-Taylor_Swift_-_Reputation.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -85,7 +85,7 @@ export default {
       snippet: 'By her own account, it began as a poem about deciding who she could trust.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+        'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
       relatedIds: [
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-1989-the-full-call-leaks-and-she-was-telling-the-truth',
@@ -102,7 +102,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -118,7 +118,7 @@ export default {
         "59,157 fans at University of Phoenix Stadium — breaking the venue's attendance record, set by One Direction in 2014, by 2,633 seats.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
       thumbnailUrl:
-        "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png",
+        "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png",
       moment: {
         context:
           "Opening night at University of Phoenix Stadium on May 8, 2018 grossed $7.2 million on its own, with Camila Cabello and Charli XCX opening the show — and briefly joining her on stage for a three-way \"Shake It Off.\" The 59,157 fans in the building broke a venue attendance record One Direction had held since 2014, and they broke it by 2,633 seats.\n\nIt was the first all-stadium tour of her career, launched behind an album rolled out with almost no press interviews: 53 shows across seven countries that would close six months later as the highest-grossing U.S. tour in Billboard Boxscore history.",
@@ -131,7 +131,7 @@ export default {
         ],
         photos: [
           {
-            url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png",
+            url: "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png",
             credit: 'Big Machine Records',
           },
         ],
@@ -148,7 +148,7 @@ export default {
       sourceUrl:
         'https://www.iheart.com/content/2018-05-08-taylor-swift-kicks-off-reputation-tour-with-big-setlist-fireworks-snakes/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg',
       moment: {
         context:
           "\"You might be wondering why there are so many snakes everywhere,\" she told the opening-night crowd in Glendale, before explaining that \"a couple of years ago, someone called me a snake on social media and it caught on,\" and that she went through \"some really low times\" because of it.\n\nThe serpents were everywhere by design — coiling across the video screens, in her jewelry and costumes, and as set pieces flanking the stages — and the nightly speech reframed them in real time: name-calling \"doesn't have to defeat you. It can strengthen you instead.\"",
@@ -171,7 +171,7 @@ export default {
         // adding an unverified replacement.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg/250px-Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/aa/Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg',
             credit: 'Julio Enriquez / Wikimedia Commons',
           },
         ],
@@ -207,7 +207,7 @@ export default {
         // upload.wikimedia.org copy, verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Taylor_Swift_-_Reputation.png/250px-Taylor_Swift_-_Reputation.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
             credit: 'Big Machine Records',
             caption: 'The Mert & Marcus album cover revealed on August 23, 2017 — the payoff of the three-day snake-video teaser rollout.',
             kind: 'archival',
@@ -239,7 +239,7 @@ export default {
         // lived on the tour as the piano mashup this photo captures.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg',
             credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
             caption: "At the reputation piano in Seattle, May 22, 2018 — on tour the song was performed as a “Long Live / New Year's Day” piano mashup.",
             kind: 'archival',
@@ -289,7 +289,7 @@ export default {
       snippet: 'Announced on her 29th birthday, filmed secretly at her last North American tour stop, released globally at 12:01 a.m. on New Year\'s Eve.',
       sourceUrl: 'https://www.refinery29.com/en-us/2018/12/219360/taylor-swift-reputation-tour-concert-movie-netflix',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/250px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/1280px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg',
       moment: {
         context:
           'Secretly taped on October 6 at AT&T Stadium in Arlington — the second of two Texas nights, and the tour\'s final North American stop — the film preserves the full six-act show, 63-foot cobra included, plus its one-night-only guest moments: Sugarland joining her for the first-ever live "Babe," Maren Morris on "The Middle," and openers Camila Cabello and Charli XCX returning for "Shake It Off."\n\nIt landed on Netflix at 12:01 a.m. on New Year\'s Eve, weeks after the tour closed out as the highest-grossing U.S. tour ever, at $266.1 million; the trailer\'s voiceover set the era\'s arc in one line: "When she fell, she fell apart. When she rose, she rose slowly."',
@@ -305,7 +305,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/250px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/1280px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg',
             credit: 'Melodies1917 / Wikimedia Commons',
           },
         ],
@@ -357,7 +357,7 @@ export default {
         'Black sequins, cutouts, and a serpent motif for the "Look What You Made Me Do" staging — a look so definitive that the Eras Tour later rebuilt it as a Roberto Cavalli snake bodysuit.',
       sourceUrl: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-gold-reputation-bodysuit-doc-series-1235487475/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
       moment: {
         context:
           'The sparkling, snake-themed bodysuit-and-boots silhouette she wore for the "Look What You Made Me Do" staging became one of the tour\'s signature images — the era\'s reclaimed insult rendered as stagewear, captured here mid-song in Seattle.\n\nThe look outlived the tour itself. When the Eras Tour revived reputation as a full act in 2023, Roberto Cavalli built its black-and-red sequined snake bodysuit in the same mold — and that costume went unchanged for 131 shows, the only Eras Tour look that never got a variation, until a black-and-gold rework debuted at Miami\'s Hard Rock Stadium on October 18, 2024. Stylist Joseph Cassell\'s team raced the calendar to finish the new version, an origin story told in the third episode of The End of an Era; Swift\'s own verdict on the swap, posted to Instagram: "I got some new outfits, and it\'s always nice when the crowd notices that."',
@@ -369,7 +369,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg',
             credit: 'Ronald Woan / Wikimedia Commons',
           },
         ],
@@ -936,7 +936,7 @@ export default {
         // already used elsewhere in this file). Live shot of the song itself.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg',
             credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Performing "Getaway Car" on the reputation Stadium Tour in Seattle, May 22, 2018.',
             kind: 'archival',
@@ -1048,7 +1048,7 @@ export default {
         // of originality). Verified HTTP 200 + image/jpeg and visually checked.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Taylor_Swift_-_Call_It_What_You_Want.jpg/250px-Taylor_Swift_-_Call_It_What_You_Want.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Taylor_Swift_-_Call_It_What_You_Want.jpg',
             credit: 'Big Machine Records, via Wikimedia Commons',
             caption: 'Single art for "Call It What You Want," released November 3, 2017 — the handwritten title on kraft paper.',
             kind: 'primary',
@@ -1206,7 +1206,7 @@ export default {
         'Premiered at the VMAs on August 27, 2017, then racked up 43.2 million views in a day — past Psy, past Adele — averaging 30,000 views a minute.',
       sourceUrl: 'https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+        'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
       moment: {
         context:
           'Joseph Kahn\'s video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy\'s "Gentleman" (36 million YouTube views) and Adele\'s "Hello" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day Spotify streams and fastest-selling digital single.\n\nThe records stacked up across platforms at once: hourly viewing peaked above 3 million, the lyric video set YouTube\'s first-day record for that format, and the single took Spotify\'s global first-24-hours streaming mark too. The stage for all of it was pointed — the video premiered at the MTV Video Music Awards, the same show where the 2009 interruption that opens this whole story had happened eight years earlier.',
@@ -1232,7 +1232,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1335,7 +1335,7 @@ export default {
         // Verified HTTP 200 + image/png and visually checked this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/71/Gorgeous_Taylor.png/250px-Gorgeous_Taylor.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/71/Gorgeous_Taylor.png',
             credit: 'Big Machine Records',
             caption: 'Single cover art for "Gorgeous," released October 20, 2017.',
             kind: 'primary',
@@ -1432,7 +1432,7 @@ export default {
         // channel @TaylorSwift). Both HTTP 200 + image/*.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1d/End_Game_%28Official_Single_Cover%29_by_Taylor_Swift.png/250px-End_Game_%28Official_Single_Cover%29_by_Taylor_Swift.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/1/1d/End_Game_%28Official_Single_Cover%29_by_Taylor_Swift.png',
             credit: 'Big Machine Records',
             caption: 'Official single cover for "End Game" featuring Ed Sheeran and Future.',
             kind: 'primary',
@@ -1485,7 +1485,7 @@ export default {
         // Big Machine Records). Verified HTTP 200 + image/png, visually checked.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Sugarland_Babe.png/250px-Sugarland_Babe.png',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Sugarland_Babe.png',
             credit: 'Big Machine Records, via Wikimedia Commons',
             caption: 'Single art for Sugarland\'s "Babe," featuring Taylor Swift — released April 20, 2018.',
             kind: 'primary',
@@ -1685,7 +1685,7 @@ export default {
         // for a paper-deal story with no event photo of its own.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Taylor_Swift_-_Reputation_Tour_Seattle_-_I_Did_Something_Bad.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_I_Did_Something_Bad.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Taylor_Swift_-_Reputation_Tour_Seattle_-_I_Did_Something_Bad.jpg',
             credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'On the reputation Stadium Tour in May 2018 — the final album cycle recorded under the Big Machine contract she was leaving.',
             kind: 'archival',
@@ -1704,7 +1704,7 @@ export default {
         'November 21, 2018: the second of two Tokyo Dome nights ends the 53-show run — $345.7 million grossed worldwide, the highest-grossing tour of her career to that point.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
       thumbnailUrl:
-        "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png",
+        "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png",
       moment: {
         context:
           'The tour that had already broken the U.S. all-time record ended its single year of touring in Japan: the two Tokyo Dome nights drew 100,109 fans and $14.9 million between them, the highest-grossing engagement of the run outside North America.\n\nThe final tally — $345.7 million across a compact 53 dates, all stadiums — came in 38 percent above the 85-show 1989 World Tour\'s $250.7 million, and pushed her career touring gross past $935 million. The Dallas stop filmed weeks earlier became the Netflix concert film released that New Year\'s Eve.',
@@ -1730,7 +1730,7 @@ export default {
         ],
         photos: [
           {
-            url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png",
+            url: "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png",
             credit: 'Big Machine Records',
           },
         ],

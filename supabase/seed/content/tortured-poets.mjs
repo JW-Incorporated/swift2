@@ -131,7 +131,7 @@ export default {
       snippet: "A pulsing '80s-inspired synth ballad that opens the album, with Post Malone on the hook.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Fortnight_(song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/1280px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
       moment: {
         context:
           'Written with Post Malone and Jack Antonoff, the downtempo synth-pop opener carries what Taylor called the album\'s fatalism — "You ended up not with the person that you loved and now you just have to live with that every day" — with Malone recording his harmonies and bridge hooks at his home studio in Los Angeles.\n\nThe video, which Swift directed herself with cinematographer Rodrigo Prieto shooting in black and white, casts Malone as her lover and reunites Dead Poets Society co-stars Ethan Hawke and Josh Charles as mad scientists administering her electroshock therapy; critics caught echoes of Poor Things, Frankenstein, and silent-era German Expressionism. The song debuted at No. 1 on the Hot 100 — her 12th chart-topper and Post Malone\'s fifth — after breaking Spotify\'s single-day streaming record, and its video went on to take Video of the Year at the 2024 VMAs.',
@@ -144,7 +144,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/1280px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
             credit: 'Wikimedia Commons',
           },
         ],
@@ -178,7 +178,7 @@ export default {
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/The_Tortured_Poets_Department_The_Anthology.png/250px-The_Tortured_Poets_Department_The_Anthology.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/1/1b/The_Tortured_Poets_Department_The_Anthology.png',
             credit: 'Republic Records',
             caption: 'Cover of The Tortured Poets Department: The Anthology, the 31-track edition revealed at 2 a.m.',
             kind: 'primary',
@@ -203,7 +203,7 @@ export default {
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/fcVUbmdQfaE/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/fcVUbmdQfaE/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "Clara Bow" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
@@ -746,7 +746,7 @@ export default {
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png/250px-Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
             credit: 'Republic Records',
             caption: 'The Tortured Poets Department — her record seventh Album of the Year nominee.',
             kind: 'archival',
@@ -1464,7 +1464,7 @@ export default {
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/Atdzfj8LcuY/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/Atdzfj8LcuY/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "The Smallest Man Who Ever Lived" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
@@ -1557,7 +1557,7 @@ export default {
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png/250px-Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
             credit: 'Republic Records',
             caption: 'The Tortured Poets Department cover, shot by Beth Garrabrant — the album behind the biggest sales week in nine years.',
             kind: 'primary',
@@ -1603,7 +1603,7 @@ export default {
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Taylor_Swift_-_Fortnight.png/250px-Taylor_Swift_-_Fortnight.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Taylor_Swift_-_Fortnight.png',
             credit: 'Republic Records',
             caption: 'Single artwork for "Fortnight," which led the historic top-14 sweep from No. 1.',
             kind: 'primary',
@@ -1649,7 +1649,7 @@ export default {
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/oaBJlKXBvjk/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/oaBJlKXBvjk/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "thanK you aIMee" lyric video, stray capitals intact.',
             kind: 'archival',
