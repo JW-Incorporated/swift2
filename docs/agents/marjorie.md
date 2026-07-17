@@ -164,10 +164,16 @@ curation means compressing the skeleton into this shape, not appending to it.
   latest brief comment) at 03:50 UTC. It is live once the founders set the
   `MARJORIE_EMAIL` repo variable + `GMAIL_APP_PASSWORD` secret on Marjorie's
   Gmail account (2-Step Verification on; App Password stored WITHOUT spaces —
-  TX item #484). Marjorie's address is `majorieswift00@gmail.com` — **that
-  spelling, with no second "r", is correct**; the account was registered that
-  way (a mismatch here caused the 535 BadCredentials outage fixed 2026-07-15,
-  so never "fix" the spelling without re-checking the actual account).
+  TX item #484). Marjorie's address is `marjorieswift00@gmail.com` —
+  **standard spelling, with the "r"** (2026-07-17: Joey retired the
+  typo-registered `majorieswift00@gmail.com` account and created this
+  correctly-spelled one; `MARJORIE_EMAIL` + `GMAIL_APP_PASSWORD` were
+  rotated the same day). The old account is **deleted** — mail sent to it
+  bounces, so replies to pre-2026-07-17 brief emails are lost by design;
+  founders reply only to briefs from the new address.
+  Any address written here MUST match the actual registered account and the
+  repo variable exactly — a mismatch caused the 535 BadCredentials outage
+  fixed 2026-07-15 — so never edit this line without re-checking both.
 - **Every brief body and every delta comment still starts with the line
   `cc @sffan15-sys @wjduvall-cmd`**, and must never be omitted — but this is
   **not** an email channel and must not be described as one. It is only how
