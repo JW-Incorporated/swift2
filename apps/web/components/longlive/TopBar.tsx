@@ -13,6 +13,11 @@ export function TopBar() {
   const { mode, eraId, lensId } = useAppState();
   const { setMode, setSelectorOpen, setSearchOpen, openShare, goHome } = useAppActions();
   const era = getEra(eraId);
+
+  // The landing page renders its own wordmark + toggle instead (#684); the
+  // shell never mounts TopBar there, this guard just narrows the type.
+  if (mode === 'landing') return null;
+
   const shareTarget = topbarShareTarget(mode, eraId, lensId);
 
   function handleHome() {
@@ -96,18 +101,26 @@ export function TopBar() {
   );
 }
 
-function ModeToggle({
+export function ModeToggle({
   mode,
   onChange,
+  alwaysShowLabels = false,
 }: {
   mode: 'era' | 'threads';
   onChange: (m: 'era' | 'threads') => void;
+  /** Landing page (#684): the toggle is the front door's primary control, so
+   *  its labels must be visible on every viewport, not just sm+. */
+  alwaysShowLabels?: boolean;
 }) {
+  const labelClass = alwaysShowLabels ? undefined : 'hidden sm:inline';
   return (
     <div
       role="tablist"
       aria-label="Navigation mode"
-      className="relative flex w-auto items-center rounded-full border border-line bg-surface p-1 sm:w-[196px]"
+      className={cn(
+        'relative flex w-auto items-center rounded-full border border-line bg-surface p-1',
+        alwaysShowLabels ? 'w-[196px]' : 'sm:w-[196px]',
+      )}
     >
       <span
         aria-hidden
@@ -124,7 +137,7 @@ function ModeToggle({
         )}
       >
         <Compass className="size-3.5 md:size-4" />
-        <span className="hidden sm:inline">Eras</span>
+        <span className={labelClass}>Eras</span>
       </button>
       <button
         role="tab"
@@ -136,7 +149,7 @@ function ModeToggle({
         )}
       >
         <Layers className="size-3.5 md:size-4" />
-        <span className="hidden sm:inline">Threads</span>
+        <span className={labelClass}>Threads</span>
       </button>
     </div>
   );

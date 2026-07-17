@@ -18,8 +18,14 @@ before touching anything under `apps/web/components/longlive/**` or
 ## 1. The one-paragraph mental model
 
 The app is a single client-rendered experience (`app/page.tsx` → `<LongLive/>`)
-with **two modes**:
+with **three modes**:
 
+- **Landing** (`mode: 'landing'`) — the site's front door (#684, founder
+  decision 2026-07-15): the Long Live wordmark, the Eras/Threads toggle, and
+  the twelve-era grid as a real page. Every fresh load starts here on every
+  platform; deep links (`?item=`/`?lens=`/`?era=`, routed by
+  `lib/longlive/deepLink.ts`) bypass it. `goHome` returns here, and the back
+  gesture from a first navigation lands back here via the nav stack.
 - **Era mode** (`mode: 'era'`) — a vertical, immersive scroll through the 12
   eras (`debut` → `tloas`). Each era re-skins the entire UI via CSS variables.
   This is the "timeline" the `docs/architecture.md` scrubber concept feeds.
@@ -44,7 +50,9 @@ apps/web/
   app/page.tsx                     mounts <LongLive/> (the whole experience)
   components/longlive/
     LongLive.tsx                   app shell: reads mode, applies theme vars, routes to a mode
-    TopBar.tsx / EraSelector.tsx   era jump UI
+    LandingPage.tsx                the front door: wordmark + mode toggle + era grid (#684)
+    EraGrid.tsx                    the twelve-era tile grid (shared: landing + EraSelector)
+    TopBar.tsx / EraSelector.tsx   era jump UI (TopBar hidden on the landing page)
     TimelineScrubber.tsx           the morph-on-grab era scrubber (era mode)
     EraStream.tsx                  the vertical era-by-era scroll (era mode)
     EraSection.tsx                 one era: hero + lyric + media + moment grid + PIVOT strip
@@ -134,7 +142,7 @@ One React context. Consume via `useAppState()` (read) and `useAppActions()`
 
 State:
 ```ts
-mode: 'era' | 'threads'
+mode: 'landing' | 'era' | 'threads'   // 'landing' = the front door (#684)
 eraId: EraId                 // active era in era mode
 eraJumpSeq: number           // bump to force a scroll-to-era
 lensId: LensId | null        // active thread, or null = threads gallery
@@ -144,7 +152,8 @@ selectorOpen, share
 ```
 
 Key actions (all memoized):
-- `setMode`, `setEra`, `setActiveEra`, `goHome`
+- `setMode`, `setEra`, `setActiveEra`, `goHome` — `goHome` returns to the
+  landing page; `setEra` always enters era mode (it's also the deep-link path)
 - `setLens` / `clearLens` — pick a thread / return to the gallery
 - `openThread(id)` — **pivot from an era into a thread** (switches to threads mode)
 - `openEra(id)` — **pivot from a thread back into an era** (switches to era mode + jumps)

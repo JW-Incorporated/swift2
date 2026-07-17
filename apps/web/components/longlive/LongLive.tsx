@@ -5,6 +5,7 @@ import { AppProvider, useAppState } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { eraStyle, vaultStyle, VAULT_THEME } from '@/lib/longlive/theme';
 import { TopBar } from './TopBar';
+import { LandingPage } from './LandingPage';
 import { EraStream } from './EraStream';
 import { ThreadsMode } from './ThreadsMode';
 import { EraSelector } from './EraSelector';
@@ -21,24 +22,28 @@ function Shell() {
   const { mode, eraId } = useAppState();
   const era = getEra(eraId);
   const inThreads = mode === 'threads';
+  const onLanding = mode === 'landing';
 
-  // Keep the document theme-color in sync with the active surface.
+  // Keep the document theme-color in sync with the active surface. The
+  // landing page (#684) shares the current era's palette, like the selector.
   const themeColor = inThreads ? VAULT_THEME.bg : era.theme.bg;
   useEffect(() => {
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) meta.setAttribute('content', themeColor);
   }, [themeColor]);
 
-  // Entering Threads should start at the top. Era mode manages its own scroll
-  // (EraStream restores the user's previous spot, or starts at the top).
+  // Entering Threads or the landing page should start at the top. Era mode
+  // manages its own scroll (EraStream restores the user's previous spot, or
+  // starts at the top).
   useEffect(() => {
-    if (inThreads) window.scrollTo({ top: 0, behavior: 'auto' });
-  }, [inThreads]);
+    if (mode !== 'era') window.scrollTo({ top: 0, behavior: 'auto' });
+  }, [mode]);
 
   return (
     <div className="era-shell font-sans" style={inThreads ? vaultStyle() : eraStyle(era)}>
-      <TopBar />
-      <main>{inThreads ? <ThreadsMode /> : <EraStream />}</main>
+      {/* The landing page carries its own wordmark + toggle — no TopBar. */}
+      {!onLanding && <TopBar />}
+      <main>{onLanding ? <LandingPage /> : inThreads ? <ThreadsMode /> : <EraStream />}</main>
       <SiteFooter />
 
       {/* Overlays */}

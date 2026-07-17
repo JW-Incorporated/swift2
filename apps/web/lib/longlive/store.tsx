@@ -10,6 +10,7 @@ import {
   useState,
   type ReactNode,
 } from 'react';
+import { deepLinkTarget } from './deepLink';
 import { CURRENT_ERA_ID, getEra } from './eras';
 import { THREADS } from './lenses';
 import {
@@ -23,7 +24,7 @@ import {
 import { pushBackEntry } from './useBackDismiss';
 import type { EraId, LensId, MotifId } from './types';
 
-export type AppMode = 'era' | 'threads';
+export type AppMode = 'landing' | 'era' | 'threads';
 
 interface AppState {
   mode: AppMode;
@@ -243,7 +244,9 @@ function ProgressProvider({ children }: { children: ReactNode }) {
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
-  const [mode, setModeRaw] = useState<AppMode>('era');
+  // The landing page is the site's front door (#684): every fresh load starts
+  // there; deep links (?item/?lens/?era) bypass it in the mount effect below.
+  const [mode, setModeRaw] = useState<AppMode>('landing');
   const [eraId, setEraId] = useState<EraId>(CURRENT_ERA_ID);
   const [eraJumpSeq, setEraJumpSeq] = useState(0);
   const [lensId, setLensId] = useState<LensId | null>(null);
@@ -303,6 +306,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       const cur = navStateRef.current;
       if (valid !== cur.eraId || cur.mode !== 'era') pushNav();
       clearEraScroll();
+      setModeRaw('era');
       setEraId(valid);
       setSelectorOpen(false);
       setEraJumpSeq((n) => n + 1);
@@ -379,11 +383,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     setOpenItemId(null);
   }, []);
 
+  // Home is the landing page (#684) — the same front door every visitor gets.
   const goHome = useCallback(() => {
     clearEraScroll();
-    setModeRaw('era');
+    setModeRaw('landing');
     setEraId(CURRENT_ERA_ID);
-    setEraJumpSeq((n) => n + 1);
     setLensId(null);
     setCrossing(null);
     setSelectorOpen(false);
@@ -395,23 +399,26 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, [clearEraScroll]);
 
   // Deep link support: a shared URL (?item=, ?lens=, or ?era=) lands the
-  // visitor on the shared target instead of the default experience. One-time
+  // visitor on the shared target instead of the landing page. One-time
   // read on mount — ongoing navigation stays state-only, not URL-synced.
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    const params = new URLSearchParams(window.location.search);
-    const item = params.get('item');
-    const lens = params.get('lens');
-    const era = params.get('era');
+    const target = deepLinkTarget(
+      window.location.search,
+      THREADS.map((t) => t.id),
+    );
+    if (!target) return;
     // A deep link is the visitor's FIRST state, not a navigation away from
     // one — pushing a back-entry here would trap the first back gesture.
     suppressNavPushRef.current = true;
-    if (item) {
-      setOpenItemId(item);
-    } else if (lens && THREADS.some((t) => t.id === lens)) {
-      openThread(lens as LensId);
-    } else if (era) {
-      setEra(era as EraId);
+    if (target.kind === 'item') {
+      // The moment overlay reads over the era stream, not the landing page.
+      setModeRaw('era');
+      setOpenItemId(target.id);
+    } else if (target.kind === 'lens') {
+      openThread(target.id as LensId);
+    } else {
+      setEra(target.id as EraId);
     }
     suppressNavPushRef.current = false;
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -481,8 +488,38 @@ export function AppProvider({ children }: { children: ReactNode }) {
   );
 
   const state = useMemo<AppState>(
-    () => ({ mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, scrubbing, searchOpen, share, clueWebTrail }),
-    [mode, eraId, eraJumpSeq, lensId, crossing, openItemId, trackGuideEraId, openTrackKey, theoryGuideEraId, selectorOpen, scrubbing, searchOpen, share, clueWebTrail],
+    () => ({
+      mode,
+      eraId,
+      eraJumpSeq,
+      lensId,
+      crossing,
+      openItemId,
+      trackGuideEraId,
+      openTrackKey,
+      theoryGuideEraId,
+      selectorOpen,
+      scrubbing,
+      searchOpen,
+      share,
+      clueWebTrail,
+    }),
+    [
+      mode,
+      eraId,
+      eraJumpSeq,
+      lensId,
+      crossing,
+      openItemId,
+      trackGuideEraId,
+      openTrackKey,
+      theoryGuideEraId,
+      selectorOpen,
+      scrubbing,
+      searchOpen,
+      share,
+      clueWebTrail,
+    ],
   );
 
   return (
