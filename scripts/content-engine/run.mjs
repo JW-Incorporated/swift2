@@ -23,6 +23,7 @@ import { CONFIG } from './config.mjs';
 import * as numericDate from './checkers/numeric-date.mjs';
 import * as redlines from './checkers/redlines.mjs';
 import * as imageUrlQuality from './checkers/image-url-quality.mjs';
+import * as photoSparsity from './checkers/photo-sparsity.mjs';
 import * as imageLiveness from './checkers/image-liveness.mjs';
 import * as imageModeration from './checkers/image-moderation.mjs';
 
@@ -31,7 +32,7 @@ import * as imageModeration from './checkers/image-moderation.mjs';
 // imageUrlQuality is network-free, so it runs even under --no-images / egress
 // blocks — it is the fallback that keeps the image-quality gate alive when the
 // byte-level resolution check in imageLiveness can't reach hosts.
-const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, imageLiveness, imageModeration];
+const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageLiveness, imageModeration];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
 const log = (...a) => console.log(...a);
 const today = () => new Date().toISOString().slice(0, 10);
