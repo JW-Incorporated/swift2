@@ -1547,5 +1547,149 @@ export default {
         ],
       },
     },
+
+    // ---- Origin-story pass (issue #718, Content Shift 2026-07-17) ----
+    // The three beats below predate the era window (2006-10-24 start), which
+    // the validator flags as a WARN by design — contentForEra filters by
+    // eraId, so pre-window origin dates render at the timeline's bottom, the
+    // deepest point of the descend-into-the-past design. Days are omitted
+    // where outlets only document the month (never guess a day).
+    // Sources verified via web search 2026-07-17; this environment blocks
+    // direct URL fetches (network policy), so per-URL liveness was not
+    // re-checked.
+    {
+      slug: 'bluebird-cafe-showcase',
+      year: 2004,
+      month: 11,
+      category: 'business',
+      title: 'The Bluebird Cafe night: a 14-year-old, and a label that didn\'t exist yet',
+      snippet:
+        'November 2004, an industry showcase at Nashville\'s tiny Bluebird Cafe: in the audience is Scott Borchetta, a label exec already planning his exit — and the teenager on the stool becomes the reason Big Machine gets built.',
+      sourceUrl:
+        'https://www.forbes.com/sites/mattcraig/2025/09/26/scott-borchetta-interview-big-machine-20th-anniversary-taylor-swift-nascar/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The setup makes the payoff: earlier that year, at 14, she had walked away from a development deal at RCA — the biggest label in Nashville — because, in her words, "they wanted to shelf me" until she was about 18, and she wanted her songs out while they still matched the teenage life they were written from. So the girl playing the Bluebird that November was a free agent by choice.\n\nBorchetta, then a DreamWorks Nashville executive who knew his label was going away, heard her in that listening room and made her an offer with nothing behind it but himself: sign with the label he was about to start. She took the bet, he launched Big Machine in 2005, and the founding gamble of both careers — hers on herself, his on her — traces back to one round in that tiny listening room. Two decades on, Borchetta was still retelling it in Big Machine anniversary interviews.',
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/mattcraig/2025/09/26/scott-borchetta-interview-big-machine-20th-anniversary-taylor-swift-nascar/',
+            source_title: "From Taylor Swift To Nascar: Under The Hood Of Scott Borchetta's Big Machine",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/country/the-bluebird-cafe-taylor-swift-dierks-bentley-oral-history-7880979/',
+            source_title:
+              "Oral History of Nashville's Bluebird Cafe: Taylor Swift, Maren Morris, Dierks Bentley & More on the Legendary Venue",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/they-wanted-to-shelf-me-the-story-behind-a-14-year-old-taylor-swift-denying-the-biggest-record-label-in-nashville/',
+            source_title:
+              '"They Wanted to Shelf Me": The Story Behind a 14-Year-Old Taylor Swift Denying the "Biggest Record Label in Nashville"',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-17',
+            reliability_score: 3,
+            notes: 'carries her "they wanted to shelf me" quote and the RCA walkaway account',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'myspace-native-fanbase',
+      year: 2005,
+      month: 8,
+      day: 31,
+      category: 'business',
+      title: 'The MySpace page she ran herself — the first Swiftie army',
+      snippet:
+        'Her MySpace went up on Aug. 31, 2005 — and she ran it herself: the bio, the blogs, the replies to fans. When country radio shrugged at a teenage girl, her label answered with her play counts.',
+      sourceUrl: 'https://www.fastcompany.com/1795743/meet-scott-borchetta-music-industry-maverick-who-launched-taylor-swift',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Before the album, there was the page. She was already on MySpace because, as Borchetta later told Fast Company, "that\'s how she and her friends were talking to each other" — so the platform-native teenager did her own marketing: wrote her bio and blogs, and answered fans one by one, building the direct artist-to-fan line the whole fandom still runs on.\n\nThe numbers became the argument. Country radio programmers were openly skeptical that a 16-year-old girl could hold country listeners; per Wikipedia\'s accounting, her songs racked up more than 45 million MySpace plays, and Borchetta took those play counts to the skeptics as proof the audience already existed. By late 2008 The New York Times was profiling her as the first country star whose fame was MySpace-born.\n\nEverything the site now calls parasocial-by-design — the replies, the Easter eggs, fans as co-conspirators — starts here, on a page she typed herself.',
+        sources: [
+          {
+            outlet: 'Fast Company',
+            url: 'https://www.fastcompany.com/1795743/meet-scott-borchetta-music-industry-maverick-who-launched-taylor-swift',
+            source_title: 'Meet Scott Borchetta, the Music-Industry Maverick Who Launched Taylor Swift',
+            publisher: 'Fast Company',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The New York Times',
+            url: 'https://www.nytimes.com/2008/11/09/arts/music/09cara.html',
+            source_title: 'My Music, MySpace, My Life',
+            publisher: 'The New York Times',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Swifties',
+            source_title: 'Swifties',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-17',
+            reliability_score: 2,
+            notes: 'page-creation date (Aug. 31, 2005) and the 45-million-plays figure shown to radio',
+          },
+        ],
+        photos: [],
+      },
+    },
+    {
+      slug: 'acm-2007-hi-im-taylor',
+      year: 2007,
+      month: 5,
+      day: 15,
+      category: 'music',
+      title: '"Hi, I\'m Taylor" — sung at Tim McGraw, then said to him',
+      snippet:
+        'Her awards-show debut, May 15, 2007: she sings "Tim McGraw" straight at Tim McGraw in the ACMs front row — a man she has never met — then walks down, sticks out her hand, and introduces herself: "Hi, I\'m Taylor."',
+      sourceUrl:
+        'https://www.rollingstone.com/music/music-news/watch-taylor-swift-sing-tim-mcgraw-academy-of-country-music-awards-2007-732961/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The nerviest bit of stagecraft of the whole debut era. At 17, in her first awards-show performance, she sang "Tim McGraw" at the 42nd ACM Awards with the song\'s namesake sitting in the front row next to Faith Hill — and they had never met. When it ended she walked up, offered McGraw her hand and said "Hi, I\'m Taylor"; he shook it and hugged her, and she turned to the camera and mouthed "Tim McGraw!"\n\nThe handshake became the era\'s defining clip: the introduction she\'d written into a song a year earlier, finally performed in person, on national TV, on her own terms. Months later she\'d be opening for McGraw and Hill on tour — the follow-up the moment all but scheduled.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swift-sing-tim-mcgraw-academy-of-country-music-awards-2007-732961/',
+            source_title: 'Flashback: Taylor Swift Makes Her Awards Show Debut in 2007',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-17',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/remember-when-taylor-swift-performed-tim-mcgraw-in-front-of-tim-mcgraw-at-the-acms/',
+            source_title: 'Remember When: Taylor Swift Performed "Tim McGraw" In Front of Tim McGraw at the ACMs',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-17',
+            reliability_score: 3,
+          },
+        ],
+        photos: [],
+      },
+    },
   ],
 };
