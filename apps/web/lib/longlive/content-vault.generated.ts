@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef, LensId } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-17T14:52:57.221Z";
+export const CONTENT_GENERATED_AT = "2026-07-17T23:29:01.188Z";
 
 type VaultRawItem = {
   id: string;
@@ -50,7 +50,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Satire aimed at her own tabloid image — \"a girl who's crazy but seductive but glamorous but nuts but manipulative.\"",
       body: ["She's said only about half of listeners caught it was a joke; the rest took the persona at face value — which was almost the point, since the song was written as a satirical, self-referential nod to a tabloid caricature she'd decided was \"kind of hilarious\" once she stopped feeling attacked by it.", "The joke worked commercially either way: after debuting at No. 18, \"Blank Space\" knocked \"Shake It Off\" out of No. 1 in its third week, making her the first woman in the Hot 100's 56-year history to succeed herself at the top — only nine acts, from the Beatles to the Black Eyed Peas, had ever done it. It held No. 1 for seven straight weeks and was eventually certified 8x Platinum."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Blank_Space" }, { name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-blank-space-hot-100/" }],
     },
     {
@@ -72,7 +72,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Not about an ex — by her own account, about a friend who tried to sabotage an entire arena tour.",
       body: ["She told Rolling Stone the person had \"tried to hire a bunch of people out from under\" her; a year later she told GQ she'd \"never said anything that would point a finger in the specific direction of one specific person.\"", "Katy Perry, the widely speculated subject — the falling-out reportedly traced to a 2013 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png/250px-Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/" }, { name: "E! Online", url: "https://www.eonline.com/news/706891/taylor-swift-on-bad-blood-being-about-katy-perry-it-doesn-t-point-to-any-one-person" }, { name: "E! Online", url: "https://www.eonline.com/news/1423684/katy-perry-supports-taylor-swifts-the-life-of-a-showgirl" }],
     },
     {
@@ -94,7 +94,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Heartbreak is the national anthem\" — a synth-pop rallying cry for coming back from it with your friends beside you.",
       body: ["Recorded with Max Martin and Shellback, it was relegated to the deluxe edition in 2014, then finally released as 1989's seventh and last single in February 2016 — with a Jonas Åkerlund video stitched from 1989 World Tour footage that premiered exclusively on Apple Music.", "Rolling Stone's 2019 decade-end list ranked it No. 58 among the 100 best songs of the 2010s, calling it \"the type of relieving dance floor soul purge that the best pop can be\" and arguing the bonus track was the album's real thesis — a heartbroken hopeless romantic finding power in the pain. Critics keep ranking it among her best songs, usually with the same complaint attached: it never made the standard tracklist."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/New_Romantics_(song)" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-lists/the-100-best-songs-of-the-2010s-917532/taylor-swift-new-romantics-917602/" }],
     },
     {
@@ -392,7 +392,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Certified 14x Platinum by the RIAA — crossing the 10-million-unit Diamond threshold and putting her among a small group of women, including Adele, Mariah Carey, and Whitney Houston, with a Diamond album.",
       body: ["The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) almost eleven years after release, and making it Swift's second Diamond album after Fearless (certified in December 2017).", "The company is thin: only 31 albums by women or female-fronted acts have ever gone Diamond, and the double puts her alongside Madonna, Whitney Houston, Mariah Carey, Celine Dion, Shania Twain, Britney Spears, Adele, and The Chicks among the women with more than one — with Twain and Houston leading at three apiece."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "AOL", url: "https://www.aol.com/articles/only-30-albums-women-certified-202930018.html" }, { name: "RIAA Gold & Platinum Database", url: "https://www.riaa.com/gold-platinum/?tab_active=default-award&ar=Taylor+Swift&ti=1989" }],
     },
     {
@@ -425,7 +425,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"This has been the most incredible adventure\" — eight months, 53 cities, 78 guest cameos, and the highest-grossing tour in the world for 2015.",
       body: ["The tour wrapped its third Melbourne show at AAMI Park on Dec. 12, 2015, having run 85 shows across 53 cities in 10 countries since opening in Tokyo that May.", "Final tallies: $250.7 million grossed and 2,278,647 tickets sold (100% of capacity) — Pollstar's highest-grossing tour worldwide for 2015. Swift posted a farewell photo with her tour crew: \"Farewell, 1989 World Tour.\""],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/250px-Taylor_Swift_AAMI_Park_20151212_01.jpg", credit: "Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/1280px-Taylor_Swift_AAMI_Park_20151212_01.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_1989_World_Tour" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-1989-tour-ends-6805721/" }],
     },
     {
@@ -436,7 +436,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She called it the song that \"best represents\" the album — built around a real snowmobile accident and twenty stitches she'd kept out of the tabloids.",
       body: ["Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Swift on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.", "The bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Taylor_Swift_-_Out_of_the_Woods.png/250px-Taylor_Swift_-_Out_of_the_Woods.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)" }],
     },
     {
@@ -448,7 +448,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "August 18, 2014: a worldwide livestream reveals the album title, the October 27 date, the Polaroid cover — and drops \"Shake It Off\" plus its video the same day.",
       body: ["On the livestream she declared the record her first documented, official pop album, formally closing the country chapter the Red era had already strained — a pivot her own label resisted. Big Machine's Scott Borchetta, hearing the finished album, asked her to add country tracks with fiddle; she refused, reasoning that \"if you chase two rabbits, you lose them both,\" and the label settled for not promoting it to country radio at all.", "Max Martin came aboard as co-executive producer to keep the synth-pop palette cohesive, \"Shake It Off\" dropped the same day and entered the Hot 100 at No. 1, and naming the album for her birth year — fronted by a Polaroid crop that cut off her face — set the visual language for everything that followed."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "1989 (album)", url: "https://en.wikipedia.org/wiki/1989_(album)" }, { name: "Shake It Off", url: "https://en.wikipedia.org/wiki/Shake_It_Off" }],
     },
     {
@@ -496,7 +496,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "November 10, 2014: Joseph Kahn's mansion-meltdown video drops alongside American Express Unstaged — an explorable 360° app version of the video that went on to win an Emmy.",
       body: ["Joseph Kahn shot the mansion meltdown at Oheka Castle on Long Island, borrowing Stanley Kubrick's symmetrical framing while Swift played the tabloids' \"crazy ex\" caricature to the hilt — golf clubs to the sports car included. The companion \"AMEX Unstaged: Taylor Swift Experience\" app let viewers roam the mansion in interactive 360° mid-video, discovering easter eggs and side characters outside the linear cut.", "It won the 2015 Emmy for Outstanding Creative Achievement in Interactive Media — Original Interactive Program, with Swift credited as artist and executive producer: her first Emmy, earned for a music video's companion app."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Blank Space", url: "https://en.wikipedia.org/wiki/Blank_Space" }, { name: "AMEX Unstaged: Taylor Swift Experience | Emmy Awards and Nominations", url: "https://www.televisionacademy.com/shows/amex-unstaged-taylor-swift-experience" }],
     },
     {
@@ -580,7 +580,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Released December 20, 2015: Jonas Åkerlund's film of the Sydney show — 76,000 fans at ANZ Stadium — stitched with backstage footage and the tour's parade of surprise guests.",
       body: ["Six months after her open letter got Apple to reverse its trial-period royalty policy, the concert film arrived as an Apple Music exclusive — the reconciliation made product, released December 20 as pre-Christmas ammunition for the streaming service.", "Jonas Åkerlund's cut captured the full November 28 show before 76,000 at Sydney's ANZ Stadium, stitched with never-before-seen backstage and rehearsal footage plus guest moments from across the tour, from Mick Jagger to Imagine Dragons. Her own pitch, in the announcement: \"I wondered what would happen if I invited the most amazing artists in the world to come out with me and perform on my stage — would they do it?\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/The_1989_World_Tour.png/250px-The_1989_World_Tour.png", credit: "Big Machine Records", caption: "The official 1989 World Tour poster art — the tour the Apple Music film documents, shot at the Nov. 28, 2015 Sydney show.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/6d/The_1989_World_Tour.png", credit: "Big Machine Records", caption: "The official 1989 World Tour poster art — the tour the Apple Music film documents, shot at the Nov. 28, 2015 Sydney show.", kind: "archival" }],
       sources: [{ name: "Taylor Swift '1989 World Tour Live' Concert Film Coming to Apple Music", url: "https://www.billboard.com/pro/taylor-swift-1989-world-tour-live-concert-film-apple-music-dec-20/" }, { name: "Taylor Swift '1989 World Tour Live' Concert Film Coming to Apple Music", url: "https://www.hollywoodreporter.com/music/music-news/taylor-swift-1989-world-tour-848317/" }],
     },
     {
@@ -592,7 +592,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Premiered December 31, 2015 on Dick Clark's New Year's Rockin' Eve: Taylor pursued through forests, blizzards, and mudslides by the woods themselves — ending back on the beach where she started.",
       body: ["The sixth 1989 single's video, shot in New Zealand, rendered the song's anxiety as literal wilderness — grasping branches, frozen lakes, a wall of fire. Its closing title card, \"She lost him. But she found herself. And somehow that was everything,\" reads as the era's thesis statement, dropped as the year turned.", "ABC treated the premiere as event television: the network announced it on Good Morning America on Dec. 22, then slotted the debut into Dick Clark's New Year's Rockin' Eve with Ryan Seacrest — the same broadcast rhythm as a ball drop. Timing-wise it bookended the campaign almost exactly: \"Shake It Off\" had opened the era in August 2014, and this closed the original album's video run fourteen months after release, with one deluxe-track single still to come."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/JLf9q36UsBk/hqdefault.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Mud-caked and mid-pursuit — a still from the official 'Out of the Woods' video, premiered on New Year's Rockin' Eve, Dec. 31, 2015.", kind: "archival" }],
+      images: [{ url: "https://i.ytimg.com/vi/JLf9q36UsBk/maxresdefault.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Mud-caked and mid-pursuit — a still from the official 'Out of the Woods' video, premiered on New Year's Rockin' Eve, Dec. 31, 2015.", kind: "archival" }],
       sources: [{ name: "Taylor Swift 'Out of the Woods' Video Premiere Will Hit New Year's Rockin' Eve", url: "https://www.billboard.com/music/pop/taylor-swift-out-of-the-woods-premiere-new-years-rockin-eve-6820708/" }, { name: "Taylor Swift to Debut 'Out of the Woods' Music Video During 'New Year's Rockin' Eve' on ABC", url: "https://abcnews.go.com/Entertainment/taylor-swift-debut-woods-music-video-years-rockin/story?id=35897285" }],
     },
     {
@@ -616,7 +616,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "July 13, 2016: her team confirmed the pseudonymous songwriter behind \"This Is What You Came For\" was Taylor herself — and her ex responded with a now-infamous string of tweets.",
       body: ["Swift had written the Rihanna-fronted hit — released April 29, 2016 — under the name Nils Sjöberg while she and Harris were still together, keeping it secret so the relationship wouldn't overshadow the song. She picked the pseudonym because those are two of the most common Swedish male names, and she even sings uncredited backing vocals on the track.", "After the credit surfaced post-breakup, Harris confirmed it on Twitter — she \"wrote the lyrics and contributed some background vocals\" while he wrote, produced, and arranged it — but added it was \"hurtful\" that her team let the story out, turning a songwriting footnote into the summer's defining pop feud."],
       tags: ["Relationship"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a8/This_Is_What_You_Came_For_cover.png/250px-This_Is_What_You_Came_For_cover.png", credit: "Westbury Road / Sony Music", caption: "The single art for \"This Is What You Came For\" — credited on release to Calvin Harris featuring Rihanna, with \"Nils Sjöberg\" in the songwriting credits.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a8/This_Is_What_You_Came_For_cover.png", credit: "Westbury Road / Sony Music", caption: "The single art for \"This Is What You Came For\" — credited on release to Calvin Harris featuring Rihanna, with \"Nils Sjöberg\" in the songwriting credits.", kind: "primary" }],
       sources: [{ name: "Taylor Swift Co-Wrote Calvin Harris' 'This is What You Came For' Under Pseudonym", url: "https://www.billboard.com/music/music-news/taylor-swift-calvin-harris-co-wrote-this-is-what-you-came-for-pseudonym-7438158/" }, { name: "Calvin Harris Blasts Taylor Swift Over Songwriting Credit", url: "https://variety.com/2016/music/news/calvin-harris-blasts-taylor-swift-songwriting-credit-this-is-what-you-came-for-1201813531/" }, { name: "This Is What You Came For", url: "https://en.wikipedia.org/wiki/This_Is_What_You_Came_For" }],
     },
     {
@@ -674,7 +674,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The idea for her debut single came to her in freshman-year math class.",
       body: ["She started singing \"When you think Tim McGraw\" to herself in freshman-year math class — the boyfriend was a senior about to leave for college, and the song became a list of things that would make him remember her. She finished it with co-writer Liz Rose at a piano after school in about fifteen minutes; her verdict, per Songfacts: \"It may be the best fifteen minutes I've ever experienced.\"", "Rose has always handed her the credit, saying Swift arrived with the idea and the melody and knew exactly what she wanted — and Swift insisted it open the record: \"This song means so much to me, that's why we wanted it to be the first track on the album.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Tim_McGraw_(song)" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/tim-mcgraw" }],
     },
     {
@@ -685,7 +685,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A white sundress, natural curls, and \"Tim McGraw\" — before the album that made her famous had even come out.",
       body: ["Sept. 1, 2006: \"Tim McGraw\" had been at country radio for barely ten weeks, the album was still almost two months away, and the newest signing at a just-launched independent label walked onto country music's most sacred stage to sing her only single. Taste of Country's retrospective is blunt about the odds — at the time, \"the notion of a teenage girl succeeding in country music seemed pretty far-fetched.\"", "The bet paid off fast enough that she spent the next several years as a regular on the Opry stage."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/330px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)", kind: "archival" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-grand-ole-opry-debut/" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-grand-ole-opry-debut/" }],
     },
     {
@@ -740,7 +740,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written years before the album came out, after watching a TV special about Faith Hill's move to Nashville.",
       body: ["She wrote it at 13 while still living in Pennsylvania and making regular trips to Nashville, working out whether a music career was even reachable:", "\"It was tough trying to find out how I was going to get where I wanted to go... I'm really happy this is on the album, because I feel like I finally figured it out.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/A_Place_in_This_World" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/a-place-in-this-world" }],
     },
     {
@@ -762,7 +762,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sundresses, cowboy boots, and a mane of curls — the \"country girl meets boho\" pairing that style retrospectives point to as her original signature look.",
       body: ["Retrospectives on her style evolution single out this pairing — frilly knee-length sundresses, cowboy boots, chokers, and a side-swept mane of curls — as the throughline of her 2006-2008 red carpets and album era, before \"Fearless\" brought in gold sequins and more polish.", "W Magazine's style-evolution piece files the whole period under one figure: \"the curly-haired country girl of the Taylor Swift era.\" The look wasn't incidental — it was of a piece with the music, a teenager with an acoustic guitar singing confessional country, dressed like the girl-next-door those songs were narrated by. It read as authenticity first and fashion second, which is exactly why later eras could get so much mileage out of subverting it."],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/330px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, 2007 (era-correct sundress-and-curls look)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, 2007 (era-correct sundress-and-curls look)", kind: "primary" }],
       sources: [{ name: "Who What Wear", url: "https://www.whowhatwear.com/taylor-swift-style-eras" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
     },
     {
@@ -894,7 +894,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written about a real classmate named Drew, later publicly identified as Drew Hardwick -- who didn't know the song was about him until he showed up in her driveway years later.",
       body: ["Swift wrote the song about a classmate named Drew (widely reported, including by outlets covering his later arrest, as Drew Hardwick) who sat next to her in class -- she wanted to date him, but he kept confiding in her about another girl he liked instead. She turned the feeling into a song on the walk home from school.", "He didn't realize the song was about him until, by her account: \"About two years after the album came out in the States, he showed up in my driveway. Apparently he and his girlfriend had broken up so that was his first stop when he was back in town.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG", credit: "Big Machine Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/teardrops-on-my-guitar" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/drew-hardwick-taylor-swift-sang-122711087.html" }],
     },
     {
@@ -905,7 +905,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Born from an after-school outburst -- \"I hate his stupid truck that he doesn't let me drive. He's such a redneck!\" -- that became the chorus of her only anger-driven song on the debut album.",
       body: ["Written with Liz Rose about a Hendersonville High classmate she'd almost dated, who preferred another girl. Mid-session, she blurted out in frustration: \"I hate his stupid truck that he doesn't let me drive. He's such a redneck! Oh my God!\" -- and the line became the chorus.", "She later told The Washington Post: \"It's about a guy who didn't like me back, and I got really mad, you know?\" The original album lyric -- \"That's fine; I'll tell mine you're gay\" -- was softened to \"That's fine; you won't mind if I say\" for the Feb. 4, 2008 country-radio single."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Picture_to_Burn" }],
     },
     {
@@ -916,7 +916,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"I can't wait to sing with Julienne...she's such a sweetheart\" -- Swift flew overnight from a Rapid City tour stop to duet on the America's Got Talent finale.",
       body: ["Fourteen-year-old America's Got Talent finalist Julienne Irwin's wish, if she made the finals, was to duet with her favorite singer. Swift agreed: \"I can't wait to sing with Julienne on America's Got Talent. She's such a sweetheart, and I'm so unbelievably honored that she chose me...\"", "On Aug. 21, 2007, she flew overnight from a tour date in Rapid City, South Dakota to Los Angeles for the live finale, where the pair performed \"Teardrops on My Guitar\" together, before Swift continued on to a show in Minneapolis."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG/330px-Swift%2C_Taylor_%282007%29_cropped_2.JPG", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the AGT finale)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the AGT finale)", kind: "archival" }],
       sources: [{ name: "Country Standard Time", url: "https://www.countrystandardtime.com/news/newsitem.asp?xid=851" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Julienne_Irwin" }],
     },
     {
@@ -927,7 +927,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "At 18, on Ellen for the first time -- talking about landing a Sony/ATV songwriting deal at 14 and the Nashville move that followed.",
       body: ["She made her first appearance on The Ellen DeGeneres Show on Jan. 17, 2008, at 18, as \"Teardrops on My Guitar\" climbed the charts -- discussing how she signed a songwriting deal with Sony/ATV Music Publishing at 14 and the move toward Nashville that followed. It was the first of what became a recurring guest spot across her career, through 2019.", "The backstory she was telling is one of the era's foundational decisions: per Wikipedia, she signed with Sony/ATV Tree in 2004, at 14 the youngest writer in that publishing company's history, after her father moved the family from Pennsylvania to Hendersonville, Tennessee to give her a real shot at country. It came right after she'd walked away from an RCA Records development deal rather than sit in development until 18 — she wanted her songs out while they still matched her teenage life, and that impatience is arguably the reason the debut album exists when it does."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG/330px-Swift%2C_Taylor_%282007%29_cropped_2.JPG", credit: "minds-eye/Sehome Bay, Wikimedia Commons (CC BY-SA 2.0) — Taylor Swift performing, 2007 (archival, era context; not the Ellen appearance)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG", credit: "minds-eye/Sehome Bay, Wikimedia Commons (CC BY-SA 2.0) — Taylor Swift performing, 2007 (archival, era context; not the Ellen appearance)", kind: "archival" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-ellen-appearances-8511659/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Taylor_Swift" }],
     },
     {
@@ -971,7 +971,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Three months of dating, over in less time than it takes to order coffee — she checked the call log after and said, \"that's got to be a record.\"",
       body: ["She told the story herself on Ellen that November: \"He broke up with me over the phone in 25 seconds when I was 18\" — then, after checking the call log, revised the count to 27. The composure was the point of the bit: \"When I find that person that is right for me... I'm not even going to remember the boy who broke up with me over the phone.\"", "Fearless arrived that same month carrying \"Forever & Always,\" written about watching the relationship fade — and she also told Us Weekly he'd left for Camilla Belle (\"That's why we broke up — because he met her\"). A decade on, she recanted the takedown on the same couch, calling it \"the most rebellious thing\" she did as a teenager; the two eventually landed back at friendship."],
       tags: ["Relationship"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/330px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)", kind: "archival" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2008/11/06/joe-jonas-taylor-swift-phone-call-dump/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-joe-jonas-ups-175948631.html" }],
     },
     {
@@ -983,7 +983,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Rascal Flatts fired opener Eric Church mid-tour for playing too long; the 16-year-old, days from releasing her debut album, got his slot. Years later she sent Church her first gold record — thanks for \"playing too long and too loud.\"",
       body: ["The call came Oct. 17, 2006 — a week before her self-titled debut album dropped on Oct. 24 — and she was on the Me and My Gang Tour's remaining fall dates almost immediately, her first taste of arena crowds.", "Church has told the story ever since, gold record and all: the note read \"Thanks for playing too long and too loud on the Flatts tour. I sincerely appreciate it.\""],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift, 2007 (archival, era context; not the Rascal Flatts tour)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift, 2007 (archival, era context; not the Rascal Flatts tour)", kind: "archival" }],
       sources: [{ name: "How Eric Church's Rascal Flatts Feud Helped Launch Taylor Swift", url: "https://tasteofcountry.com/eric-church-rascal-flatts-tour-taylor-swift-secret-history/" }, { name: "Eric Church Details The Phone Call He Got From Taylor Swift When She Replaced Him On 2006 Rascal Flatts Tour", url: "https://www.whiskeyriff.com/2025/09/22/eric-church-details-the-phone-call-he-got-from-taylor-swift-when-she-replaced-him-on-2006-rascal-flatts-tour/" }],
     },
     {
@@ -995,7 +995,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "January 2007: the new year started with a slot opening arenas for the King of Country on his 2007 tour — a 17-year-old with one album, playing to the most traditional crowds in the format.",
       body: ["The run opened Jan. 11, 2007 at the Cajundome in Lafayette, Louisiana and carried through March 3, with Ronnie Milsap also on the bill; the announcement quoted a 17-year-old who could not quite believe the booking: \"I couldn't imagine anything more thrilling than to be on a tour with George Strait... This is surreal! I keep pinching myself to make sure this isn't just a dream.\"", "It kicked off a 2007 in which she basically never stopped opening — Strait in the winter, Brad Paisley in the fall, Tim McGraw and Faith Hill's stadium shows in the summer — the road apprenticeship that sold her debut album one market at a time."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Strait tour)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Strait tour)", kind: "archival" }],
       sources: [{ name: "Taylor Swift (album)", url: "https://en.wikipedia.org/wiki/Taylor_Swift_(album)" }, { name: "Taylor Swift opens Strait tour", url: "https://www.countrystandardtime.com/news/newsitem.asp?xid=283" }],
     },
     {
@@ -1007,7 +1007,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A year after naming her debut single after him, she spent summer 2007 opening Tim McGraw and Faith Hill's Soul2Soul II dates — singing \"Tim McGraw\" on Tim McGraw's own tour.",
       body: ["The booking closed the loop on the best origin story in her catalog: the single that introduced her — written in math class about a McGraw song — now performed for his audiences at the select summer dates she opened.", "She'd first met him on camera at the 2007 ACM Awards, introducing herself with \"Hi, I'm Taylor\" after performing the song to his face."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG/330px-Swift%2C_Taylor_%282007%29_cropped_2.JPG", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Soul2Soul dates)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Soul2Soul dates)", kind: "archival" }],
       sources: [{ name: "Soul2Soul II Tour", url: "https://en.wikipedia.org/wiki/Soul2Soul_II_Tour" }, { name: "Taylor Swift (album)", url: "https://en.wikipedia.org/wiki/Taylor_Swift_(album)" }],
     },
     {
@@ -1019,7 +1019,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sounds of the Season: The Taylor Swift Holiday Collection — six tracks, two originals (\"Christmases When You Were Mine\" and \"Christmas Must Be Something More\"), sold as a Target exclusive in October 2007.",
       body: ["Released Oct. 14, 2007 as \"Sounds of the Season: The Taylor Swift Holiday Collection,\" a Target exclusive — six tracks produced by Nathan Chapman, mixing covers of \"Last Christmas,\" \"Santa Baby,\" \"Silent Night,\" and \"White Christmas\" with two originals: \"Christmases When You Were Mine\" (co-written with Liz Rose and Chapman) and the solo-written \"Christmas Must Be Something More.\" She was barely a year into her recording career and still opening arenas for other people.", "It was an early example of the limited-exclusive retail play — and the holiday-season chart bump — that Big Machine leaned on all through the debut era. The EP got a wide re-release on Dec. 2, 2008 and another Target run in 2009; after the reissue it peaked at No. 20 on the Billboard 200, topped Top Holiday Albums, and went on to sell more than a million US copies, eventually certified platinum."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/72/The_Taylor_Swift_Holiday_Collection.png/250px-The_Taylor_Swift_Holiday_Collection.png", credit: "Big Machine Records (EP cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/72/The_Taylor_Swift_Holiday_Collection.png", credit: "Big Machine Records (EP cover art)", kind: "primary" }],
       sources: [{ name: "The Taylor Swift Holiday Collection", url: "https://en.wikipedia.org/wiki/The_Taylor_Swift_Holiday_Collection" }],
     },
     {
@@ -1043,7 +1043,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A six-track Walmart exclusive released July 15, 2008, to tide fans over before Fearless — it debuted at No. 1 on Top Country Albums with her debut sitting at No. 2, making her the first artist since LeAnn Rimes in 1997 to hold both top spots.",
       body: ["A six-track Walmart exclusive released July 15, 2008, built from alternate versions plus two otherwise-unreleased songs, \"Beautiful Eyes\" and \"I Heart ?.\" It debuted at No. 1 on Top Country Albums with her still-selling debut sitting right behind it at No. 2 — making her the first act since LeAnn Rimes in 1997 to hold both of the chart's top two spots at once.", "Swift deliberately capped the pressing and said so in her own announcement, wary of overexposing fans a year out from her real second album: \"I'm only letting my record company make a small amount of these. The last thing I want any of you to think is that we are putting out too many releases.\" The whole point was a stopgap — something to hold the audience until \"Fearless\" that November."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Beautiful_Eyes.png/250px-Beautiful_Eyes.png", credit: "Big Machine Records (EP cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/ba/Beautiful_Eyes.png", credit: "Big Machine Records (EP cover art)", kind: "primary" }],
       sources: [{ name: "Beautiful Eyes", url: "https://en.wikipedia.org/wiki/Beautiful_Eyes" }],
     },
     {
@@ -1055,7 +1055,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Tim McGraw\" goes to country radio on June 19, 2006 — a 16-year-old's first single, named for another artist's song, out four months before anyone could buy her album.",
       body: ["The bet was that the sentiment — a summer love you re-live every time a certain song comes on — would out-travel the novelty of the title; the name is there because her favorite song was a McGraw song, not because the song is about him.", "It worked slowly, the way everything in this era did: the single debuted at No. 86 on the Hot 100 in September and didn't peak (No. 40) until January, while climbing to No. 6 on Hot Country Songs across 20 Hot 100 weeks. The Trey Fanjoy video, shot at a Hendersonville cabin once owned by Johnny Cash, premiered a month after the radio release — and Rolling Stone has since ranked the single No. 11 on its list of the greatest debut singles of all time."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Tim McGraw (song)", url: "https://en.wikipedia.org/wiki/Tim_McGraw_(song)" }, { name: "Tim McGraw by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/tim-mcgraw" }],
     },
     {
@@ -1079,7 +1079,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The second single, out February 2007, did what \"Tim McGraw\" couldn't: it crossed from country radio onto the pop chart.",
       body: ["The crossover was the tell. Big Machine sent it to country radio on Feb. 20, 2007 and then — the real move — to contemporary hit radio that November; it peaked at No. 2 on Hot Country Songs and No. 13 on the Billboard Hot 100, and its 21 weeks on the Pop Songs chart (reaching the top 10) made it her first pop crossover hit.", "It won BMI's country Song of the Year in 2008, hung around the year-end charts two years running, and flagged, two years early, exactly where this career was headed."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG", credit: "Big Machine Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Teardrops on My Guitar", url: "https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar" }, { name: "Teardrops on My Guitar by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/teardrops-on-my-guitar" }],
     },
     {
@@ -1091,7 +1091,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The fourth single from the debut goes to country radio in February 2008 — with the original's sharpest line rewritten for airplay.",
       body: ["Sent to country radio on Feb. 4, 2008, it peaked at No. 3 on Hot Country Songs and No. 28 on the Hot 100 — the fourth straight top-10 country single from an album that still hadn't stopped selling, with \"Should've Said No\" still to come as the fifth that May.", "The Trey Fanjoy video, premiered March 14, staged the revenge fantasy with real pyrotechnics at Nashville's Sommet Center and cast her actual high-school best friend, Abigail Anderson, in her backup band. Billboard's anniversary retrospective files it as the founding document of her \"woman-scorned\" mode; the RIAA eventually certified it double platinum."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Picture to Burn", url: "https://en.wikipedia.org/wiki/Picture_to_Burn" }, { name: "Taylor Swift's Debut Album Turns 10: A Track-by-Track Retrospective", url: "https://www.billboard.com/music/pop/taylor-swift-debut-album-anniversary-7550054/" }],
     },
     {
@@ -1103,7 +1103,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She wrote \"Our Song\" to perform at her freshman-year talent show — and put it on the album after classmates spent weeks humming it back at her.",
       body: ["No song on the debut travelled further from its origin: a talent-show number she wrote alone as a ninth-grader, which classmates kept humming back at her long afterward — the signal that made her insist the label put it on the album.", "Released to country radio on Sept. 10, 2007 as the third single, it jumped from No. 6 to No. 1 on Hot Country Songs (the chart's biggest leap to the top since 1998) and stayed there six weeks. The Trey Fanjoy video premiered on CMT that Sept. 24, sat atop the channel's rotation for seven weeks, and won Video of the Year at the 2008 CMT Music Awards."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/Taylor_Swift_-_Our_Song.png/250px-Taylor_Swift_-_Our_Song.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/4e/Taylor_Swift_-_Our_Song.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Our Song (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Our_Song_(Taylor_Swift_song)" }, { name: "Our Song by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/our-song" }],
     },
     {
@@ -1127,7 +1127,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "October 2007: the Nashville Songwriters Association International names her Songwriter/Artist of the Year — the youngest winner the trade group had ever picked.",
       body: ["A peer-voted songwriting honor, not a fan award — handed to a 17-year-old one year into her recording career. Per Wikipedia's account she became the youngest person the Nashville Songwriters Association International had ever named Songwriter/Artist of the Year, a recognition from the town's professional writers rather than radio programmers or the record-buying public.", "The timing frames the whole era: this was the same stretch that produced her first CMA Horizon Award and her first Grammy nomination, all before \"Fearless.\" And she kept winning the NSAI trophy — by the 2010 ceremony The Boot counted that year's as her third in four years, quoting the speech where she traced it all back to the city: \"I discovered a town where they told cool stories in magical ways, and that was Nashville.\""],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the NSAI ceremony)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the NSAI ceremony)", kind: "archival" }],
       sources: [{ name: "Taylor Swift", url: "https://en.wikipedia.org/wiki/Taylor_Swift" }, { name: "Taylor Swift Named NSAI Songwriter/Artist of the Year", url: "https://theboot.com/taylor-swift-nsai-awards/" }],
     },
     {
@@ -1163,7 +1163,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "July 2008: she and Joe Jonas start dating — never confirmed while it was happening, exhaustively documented after it ended.",
       body: ["The relationship ran July to October 2008, kept officially unacknowledged in real time — the tells were her turning up to sing with the Jonas Brothers on their Burnin' Up tour dates and the two being spotted together at the MTV VMAs that September.", "Its ending — a 27-second phone call — got an item of its own on this timeline, plus a last-minute Fearless track (\"Forever & Always,\" with fans later adding \"Last Kiss\" to the ledger). By 2015 the two were photographed double-dating as friends."],
       tags: ["Relationship"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/330px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)", kind: "archival" }],
       sources: [{ name: "Taylor Swift And Joe Jonas: When Did They Date And Why Did They Break Up?", url: "https://www.capitalfm.com/news/taylor-swift-joe-jonas-relationship-break-up/" }, { name: "Joe Jonas & Taylor Swift: A Post-Breakup Timeline", url: "https://www.billboard.com/music/pop/joe-jonas-taylor-swift-a-post-breakup-timeline-8514830/" }],
     },
     {
@@ -1175,8 +1175,41 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her 2007 of permanent opening slots rolls on: the fall leg of Brad Paisley's Bonfires & Amplifiers Tour, Sept. 6 through Nov. 17, after guesting on summer dates alongside Kellie Pickler and Jack Ingram.",
       body: ["Thirty announced fall dates, from London, Ontario through Grand Rapids, on a tour that totaled 75 shows that year — with Swift and Rodney Atkins opening the entire second leg. Her mid-2007 résumé at the time: one hit single (\"Tim McGraw\"), a debut album newly certified gold, and support slots for Rascal Flatts and George Strait already behind her.", "Concert archives from that fall show her billed nightly under Paisley — the last long stretch of the opening-act years before Fearless made her the headliner."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/330px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Paisley tour)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Paisley tour)", kind: "archival" }],
       sources: [{ name: "Brad Paisley's 2007 Concert & Tour History", url: "https://www.concertarchives.org/bands/brad-paisley?page=1&year=2007" }],
+    },
+    {
+      id: "vault-debut-the-bluebird-cafe-night-a-14-year-old-and-a-label-that-didnt",
+      slug: "bluebird-cafe-showcase",
+      date: "2004-11-01",
+      dateLabel: "November 2004",
+      title: "The Bluebird Cafe night: a 14-year-old, and a label that didn't exist yet",
+      summary: "November 2004, an industry showcase at Nashville's tiny Bluebird Cafe: in the audience is Scott Borchetta, a label exec already planning his exit — and the teenager on the stool becomes the reason Big Machine gets built.",
+      body: ["The setup makes the payoff: earlier that year, at 14, she had walked away from a development deal at RCA — the biggest label in Nashville — because, in her words, \"they wanted to shelf me\" until she was about 18, and she wanted her songs out while they still matched the teenage life they were written from. So the girl playing the Bluebird that November was a free agent by choice.", "Borchetta, then a DreamWorks Nashville executive who knew his label was going away, heard her in that listening room and made her an offer with nothing behind it but himself: sign with the label he was about to start. She took the bet, he launched Big Machine in 2005, and the founding gamble of both careers — hers on herself, his on her — traces back to one round in that tiny listening room. Two decades on, Borchetta was still retelling it in Big Machine anniversary interviews."],
+      tags: ["Lore"],
+      sources: [{ name: "From Taylor Swift To Nascar: Under The Hood Of Scott Borchetta's Big Machine", url: "https://www.forbes.com/sites/mattcraig/2025/09/26/scott-borchetta-interview-big-machine-20th-anniversary-taylor-swift-nascar/" }, { name: "Oral History of Nashville's Bluebird Cafe: Taylor Swift, Maren Morris, Dierks Bentley & More on the Legendary Venue", url: "https://www.billboard.com/music/country/the-bluebird-cafe-taylor-swift-dierks-bentley-oral-history-7880979/" }, { name: "\"They Wanted to Shelf Me\": The Story Behind a 14-Year-Old Taylor Swift Denying the \"Biggest Record Label in Nashville\"", url: "https://americansongwriter.com/they-wanted-to-shelf-me-the-story-behind-a-14-year-old-taylor-swift-denying-the-biggest-record-label-in-nashville/" }],
+    },
+    {
+      id: "vault-debut-the-myspace-page-she-ran-herself-the-first-swiftie-army",
+      slug: "myspace-native-fanbase",
+      date: "2005-08-31",
+      dateLabel: "August 31, 2005",
+      title: "The MySpace page she ran herself — the first Swiftie army",
+      summary: "Her MySpace went up on Aug. 31, 2005 — and she ran it herself: the bio, the blogs, the replies to fans. When country radio shrugged at a teenage girl, her label answered with her play counts.",
+      body: ["Before the album, there was the page. She was already on MySpace because, as Borchetta later told Fast Company, \"that's how she and her friends were talking to each other\" — so the platform-native teenager did her own marketing: wrote her bio and blogs, and answered fans one by one, building the direct artist-to-fan line the whole fandom still runs on.", "The numbers became the argument. Country radio programmers were openly skeptical that a 16-year-old girl could hold country listeners; per Wikipedia's accounting, her songs racked up more than 45 million MySpace plays, and Borchetta took those play counts to the skeptics as proof the audience already existed. By late 2008 The New York Times was profiling her as the first country star whose fame was MySpace-born.", "Everything the site now calls parasocial-by-design — the replies, the Easter eggs, fans as co-conspirators — starts here, on a page she typed herself."],
+      tags: ["Lore"],
+      sources: [{ name: "Meet Scott Borchetta, the Music-Industry Maverick Who Launched Taylor Swift", url: "https://www.fastcompany.com/1795743/meet-scott-borchetta-music-industry-maverick-who-launched-taylor-swift" }, { name: "My Music, MySpace, My Life", url: "https://www.nytimes.com/2008/11/09/arts/music/09cara.html" }, { name: "Swifties", url: "https://en.wikipedia.org/wiki/Swifties" }],
+    },
+    {
+      id: "vault-debut-hi-im-taylor-sung-at-tim-mcgraw-then-said-to-him",
+      slug: "acm-2007-hi-im-taylor",
+      date: "2007-05-15",
+      dateLabel: "May 15, 2007",
+      title: "\"Hi, I'm Taylor\" — sung at Tim McGraw, then said to him",
+      summary: "Her awards-show debut, May 15, 2007: she sings \"Tim McGraw\" straight at Tim McGraw in the ACMs front row — a man she has never met — then walks down, sticks out her hand, and introduces herself: \"Hi, I'm Taylor.\"",
+      body: ["The nerviest bit of stagecraft of the whole debut era. At 17, in her first awards-show performance, she sang \"Tim McGraw\" at the 42nd ACM Awards with the song's namesake sitting in the front row next to Faith Hill — and they had never met. When it ended she walked up, offered McGraw her hand and said \"Hi, I'm Taylor\"; he shook it and hugged her, and she turned to the camera and mouthed \"Tim McGraw!\"", "The handshake became the era's defining clip: the introduction she'd written into a song a year earlier, finally performed in person, on national TV, on her own terms. Months later she'd be opening for McGraw and Hill on tour — the follow-up the moment all but scheduled."],
+      tags: ["Music"],
+      sources: [{ name: "Flashback: Taylor Swift Makes Her Awards Show Debut in 2007", url: "https://www.rollingstone.com/music/music-news/watch-taylor-swift-sing-tim-mcgraw-academy-of-country-music-awards-2007-732961/" }, { name: "Remember When: Taylor Swift Performed \"Tim McGraw\" In Front of Tim McGraw at the ACMs", url: "https://americansongwriter.com/remember-when-taylor-swift-performed-tim-mcgraw-in-front-of-tim-mcgraw-at-the-acms/" }],
     },
   ],
   "evermore": [
@@ -1199,7 +1232,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Taylor's own description: it \"sounds like casting a spell to make someone fall in love with you.\"",
       body: ["Full quote: \"Willow is about intrigue, desire, and the complexity that goes into wanting someone.\" The music arrived almost by accident: Aaron Dessner had an instrumental sketch he called \"Westerly,\" named for Swift's Rhode Island home, and sent it over without expecting anything back — she wrote the entire song to it within the hour.", "The self-directed video (her third) picks up exactly where \"cardigan\" left off, following a golden thread through an enchanted forest, and the single later spawned a full coven of official remixes: \"dancing witch,\" \"lonely witch,\" and \"moonlit witch\" versions."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Taylor_Swift_-_Willow.png/250px-Taylor_Swift_-_Willow.png", credit: "Republic Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/9/9a/Taylor_Swift_-_Willow.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Willow_(song)" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/" }],
     },
     {
@@ -1210,7 +1243,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A fictional murder mystery, complete with a cheating husband, a framed mistress, and a sister for an alibi.",
       body: ["The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.", "Swift had written the song entirely alone while deep in a true-crime documentary and podcast phase, then sent Aaron Dessner a voice memo of the finished thing; the production leans all the way into its country staging, harmonica courtesy of Josh Kaufman. It even went to country radio as a single in January 2021, and when HAIM opened Eras Tour shows in 2023, it bumped \"'tis the damn season\" to become the evermore set's opener."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png/250px-Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png", credit: "Republic Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/No_Body,_No_Crime" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/" }],
     },
     {
@@ -1243,7 +1276,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A breakup told from both sides, with The National's Matt Berninger trading verses with her over a slow, aching duet.",
       body: ["The Dessner brothers built the instrumental and heard Berninger's voice in it immediately; Berninger recorded his half at Knobworld in Los Angeles while Taylor recorded hers at Long Pond in the Hudson Valley, never in the same room.", "The words are another William Bowery co-write — Joe Alwyn trading breakup perspectives with her — and Aaron Dessner happily conceded the result cuts both ways: \"it does really feel like Taylor, obviously, since she and William Bowery wrote all the words, but it also feels like a National song in a good way.\" She performed it live only three times on the Eras Tour, including a Sydney mashup with \"White Horse\" alongside Sabrina Carpenter."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Coney_island_cover.jpeg/250px-Coney_island_cover.jpeg", credit: "Republic Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/c7/Coney_island_cover.jpeg", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/" }],
     },
     {
@@ -1265,7 +1298,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean's \"American Pie.\" Taylor's own reaction: \"You guys sent a 10-minute song to Number One for the first time in history.\"",
       body: ["At 10:13 it dethroned Don McLean's 8:37 \"American Pie,\" which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor's Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of \"All Too Well\" combined for 54.4 million U.S. Spotify streams in the debut week alone.", "The momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records (album cover art)", caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records (album cover art)", caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.", kind: "primary" }],
       sources: [{ name: "Guinness World Records", url: "https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-all-too-well-longest-number-one-billboard-1261579/" }, { name: "Billboard", url: "https://www.billboard.com/music/chart-beat/morgan-wallen-single-week-hot-100-record-36-songs-one-thing-at-a-time-1235285241/" }],
     },
     {
@@ -1276,7 +1309,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Nominated for the Grammys' biggest award, with no other nods for the album — it lost to Jon Batiste's We Are at the 64th ceremony.",
       body: ["The nomination came with an asterisk-shaped subplot: Swift was briefly up for Album of the Year twice that cycle, credited on Olivia Rodrigo's Sour because two of its songs drew on previously released Swift material — until the Recording Academy ruled that only writers of new material count in the category and struck her (along with Jack Antonoff and St. Vincent) from the Sour nomination, leaving evermore as her lone shot.", "The album then lost to the night's great upset: Jon Batiste's We Are, which had peaked at No. 86 on the Billboard 200 but rode in on 11 nominations, the most of any artist that year."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0a/Taylor_Swift_-_Evermore.png/250px-Taylor_Swift_-_Evermore.png", credit: "Republic Records (album cover art)", caption: "evermore's album cover — the album's lone nomination at the 64th Grammys was for the night's biggest award.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png", credit: "Republic Records (album cover art)", caption: "evermore's album cover — the album's lone nomination at the 64th Grammys was for the night's biggest award.", kind: "primary" }],
       sources: [{ name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2021/12/05/taylor-swift-just-lost-one-of-her-album-of-the-year-grammy-nominations/" }, { name: "Billboard", url: "https://www.billboard.com/music/awards/jon-batiste-album-of-the-year-2022-grammys-why-it-won-1235054841/" }],
     },
     {
@@ -1309,7 +1342,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Revealed on Good Morning America, the cover recreates her original 2008 pose in sepia tone — in a cream Ulla Johnson blouse fans clocked as a nod to Romeo's shirt from the \"Love Story\" video.",
       body: ["The cover, revealed on Good Morning America on February 11, 2021 — the same morning she announced the re-recording project, with \"Love Story (Taylor's Version)\" arriving that night — recreates the original 2008 album's windswept pose in warm sepia tone. The blouse she wears in it is a cream satin \"Fernanda\" top from Ulla Johnson ($395).", "Fans noted the top closely resembles the Shakespearean-style shirt worn by actor Justin Gaston as the Romeo character in the 2008 \"Love Story\" video, reading it as a symbolic callback: she no longer needs a knight in shining armor because she is her own."],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png/250px-Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/celebrity/a35498019/taylor-swift-outfit-new-fearless-cover-easter-egg/" }],
     },
     {
@@ -1320,7 +1353,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Beige peacoat, red lipstick, and a sold-out-within-hours burgundy velvet \"Mattie\" cap by independent designer Janessa Leoné, shot in a 1932 Chevrolet Cabriolet.",
       body: ["Leoné had no advance notice her \"Mattie\" cap would appear on the cover, telling Billboard: \"It came as a total surprise to see her sport Mattie on the album cover — we were genuinely shocked, but thrilled.\"", "She said the shoot was not a team collaboration — Swift's stylist chose the piece independently — and the cap sold out on Leoné's site immediately after the reveal on June 18, 2021."],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/9589789/taylor-swift-red-taylors-version-hat-album-cover-janessa-leone/" }],
     },
     {
@@ -1463,7 +1496,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Swift recorded this late-album duet during the pandemic at Marcus Mumford's home studio in Devon, where he called her \"the most phenomenal houseguest\" before she asked him to sing on it: \"I chose Cowboy Like Me. Man, I love that song.\"",
       body: ["Swift finished much of evermore's second half at Scarlet Pimpernel, the home studio of Mumford & Sons' Marcus Mumford in Devon, England, working there with producer Aaron Dessner. On the Table Manners podcast, Mumford recalled Dessner asking to borrow his studio for an artist he was producing — Mumford joked, \"Beyoncé or something?\" — before learning it was Swift, who arrived \"right at the end of COVID.\" He called her \"the most phenomenal houseguest,\" joking that he \"burned a lot of vegetables for her\" and that \"her candle game was excellent.\"", "In a separate interview with The Sunday Times, Mumford said: \"Taylor came to my studio, played me some music and asked if I wanted to sing on anything. I chose Cowboy Like Me. Man, I love that song.\" Asked whether she arrived with heavy security, he said: \"Ha, no, none of that. She stayed over and was a great house guest. Straightforward, easy-going. She ate my cauliflower salad.\"", "Justin Vernon also played drums on the track, and Josh Kaufman added lap steel, harmonica and mandolin."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/250px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg", credit: "Sachyn Mital via Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/1280px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg", credit: "Sachyn Mital via Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/marcus-mumford-taylor-swift-phenomenal-houseguest-studio-1236112442/" }, { name: "Yahoo News UK (The Sunday Times)", url: "https://uk.news.yahoo.com/taylor-swift-stayed-over-marcus-013726926.html" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Cowboy_like_Me" }],
     },
     {
@@ -1496,7 +1529,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Every re-recorded and vault track hit the Hot 100 at once — Billboard: \"the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100's history.\"",
       body: ["In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor's Version) debuted on the Hot 100 simultaneously. Billboard: \"Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100's history.\"", "The same week, Swift also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. At the time, only Drake — with 27 total titles charted after Scorpion's 2018 release — had ever had more entries from one act on a single week's survey; Morgan Wallen has since surpassed both marks, with 36 songs in 2023 and 37 in 2025."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)" }, { name: "Billboard", url: "https://www.billboard.com/music/chart-beat/morgan-wallen-record-breaking-songs-hot-100-simultaneously-1235981641/" }],
     },
     {
@@ -1553,7 +1586,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The first From the Vault track ever released, out April 7, 2021 ahead of Fearless (Taylor's Version) — a 2008 castoff fans immediately read as a Joe Jonas song. Sophie Turner's Instagram verdict: \"It's not NOT a bop.\"",
       body: ["Written solo when she was 18 and left off the original Fearless, it introduced the vault-track format that became the re-recording project's signature: finished songs from each album's original sessions, released as new. Produced with Jack Antonoff for the 2021 release, it debuted at No. 90 on the Hot 100 and climbed to No. 30, reaching No. 2 on Hot Country Songs — remarkable mileage for a thirteen-year-old castoff.", "Then there was the subplot: fans immediately read the song as a Joe Jonas post-mortem, and Turner — married to Jonas at the time — posted it to her Instagram story with the now-famous verdict, \"It's not NOT a bop.\" Swift reposted her with a Game of Thrones bow, writing that she was \"forever bending the knee\" for the queen of the north."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png/250px-Taylor_Swift_-_Mr._Perfectly_Fine.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"Mr. Perfectly Fine (Taylor's Version) (From the Vault).\"", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"Mr. Perfectly Fine (Taylor's Version) (From the Vault).\"", kind: "primary" }],
       sources: [{ name: "Mr. Perfectly Fine", url: "https://en.wikipedia.org/wiki/Mr._Perfectly_Fine" }, { name: "Taylor Swift Responds to Sophie Turner's 'Mr. Perfectly Fine' Reaction", url: "https://www.billboard.com/articles/columns/pop/9552800/taylor-swift-responds-sophie-turner-reaction-mr-perfectly-fine" }],
     },
     {
@@ -1565,7 +1598,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Released Nov. 12, 2021 alongside Red (Taylor's Version): a 15-minute film starring Sadie Sink and Dylan O'Brien, built on the 10-minute version of the song, premiered at a fan event in New York with Sink and O'Brien on hand.",
       body: ["Her most ambitious directing work to date — shot on 35mm by cinematographer Rina Yang and chaptered like a short story, ending with Swift herself as the older writer reading from the book of it. Sadie Sink and Dylan O'Brien carry the film as the couple; Swift has said she would not have gone ahead with making it had Sink turned the part down.", "It went on to win the Grammy for Best Music Video — with Swift as the sole credited director — and gave the era its defining visual: the scarf, finally on screen. Its VMAs sweep the following summer — Video of the Year, plus an album announcement from the podium — is covered in this era's business items. (The premiere-night Etro pantsuit is covered separately in this era's fashion items.)"],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/All_Too_Well_short_film_poster.jpg/250px-All_Too_Well_short_film_poster.jpg", credit: "Republic Records (film poster)", caption: "Poster for All Too Well: The Short Film, starring Sadie Sink and Dylan O'Brien.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/69/All_Too_Well_short_film_poster.jpg", credit: "Republic Records (film poster)", caption: "Poster for All Too Well: The Short Film, starring Sadie Sink and Dylan O'Brien.", kind: "primary" }],
       sources: [{ name: "All Too Well: The Short Film", url: "https://en.wikipedia.org/wiki/All_Too_Well:_The_Short_Film" }],
     },
     {
@@ -1577,7 +1610,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written alone for Where the Crawdads Sing and produced with Aaron Dessner using only instruments available before 1953, \"Carolina\" arrived June 24, 2022 — evermore's swampy ghost, one last time.",
       body: ["Swift revealed she had written it \"alone in the middle of the night\" about a year and a half before its release, keeping its existence secret; she and Aaron Dessner then, in her words, \"meticulously worked on a sound that we felt would be authentic to the moment when this story takes place.\" The period constraint was strict — recorded in a single take, using only instruments that existed before 1953, fiddle and mandolin and acoustic guitar among them — keeping it deliberately spare and eerie.", "It earned a Golden Globe nomination for Best Original Song and a Grammy nomination for Best Song Written for Visual Media, and made the Oscars' Best Original Song shortlist — the folklore/evermore sound's formal goodbye before Midnights rebooted everything that October."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/Taylor_Swift_-_Carolina.png/250px-Taylor_Swift_-_Carolina.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"Carolina,\" from the Where the Crawdads Sing soundtrack.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"Carolina,\" from the Where the Crawdads Sing soundtrack.", kind: "primary" }],
       sources: [{ name: "Carolina (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Carolina_(Taylor_Swift_song)" }, { name: "Taylor Swift Treats 'Carolina' Like 'Folklore' in 'Where the Crawdads Sing' End Credits Theme", url: "https://variety.com/2022/music/news/taylor-swift-drops-carolina-track-released-where-crawdads-sing-movie-1235302333/" }],
     },
     {
@@ -1601,7 +1634,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Joe Alwyn finally addressed the constant engagement rumors in an April 2022 WSJ. Magazine interview: \"…then I'd have a lot of pound coins. The truth is, if the answer was yes, I wouldn't say, and if the answer was no, I wouldn't say.\"",
       body: ["The line landed in a WSJ. Magazine profile published April 20, 2022, while he promoted Conversations with Friends, and the non-answer was the most he ever said publicly about the relationship's status: \"The truth is, if the answer was yes, I wouldn't say, and if the answer was no, I wouldn't say.\"", "He explained the reflex in the same interview: \"We live in a culture that people expect so much to be given. So that if you're not posting all the time about what you're doing... does that make you a recluse?\" It was consistent with the privacy pact the couple described in Miss Americana — and a line fans quoted for years afterward whenever the rumors resurfaced."],
       tags: ["Relationship"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg/250px-Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg", credit: "GabboT (CC BY-SA 2.0) via Wikimedia Commons", caption: "Joe Alwyn at the Toronto International Film Festival, September 2022 — a few months after the WSJ. Magazine interview.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/f/ff/Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg", credit: "GabboT (CC BY-SA 2.0) via Wikimedia Commons", caption: "Joe Alwyn at the Toronto International Film Festival, September 2022 — a few months after the WSJ. Magazine interview.", kind: "primary" }],
       sources: [{ name: "Joe Alwyn Is Finally Addressing Those Taylor Swift Engagement Rumors", url: "https://www.billboard.com/music/music-news/joe-alwyn-taylor-swift-engagement-rumors-response-1235061173/" }],
     },
     {
@@ -1649,7 +1682,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Announced on Good Morning America on Feb. 11, 2021 and out that night — the first finished piece of the re-recording project, 13 years after the original, sounding almost eerily identical on purpose.",
       body: ["The announcement letter set the template the whole project would follow: a full album (Fearless) coming, vault tracks from the original sessions — and stray capital letters hiding the release date in plain sight for fans to decode.", "Fans had technically heard the new recording already, via a snippet in a Match.com ad the previous December. The finished single debuted at No. 1 on Hot Country Songs, making her only the second artist ever — after Dolly Parton — to top a Billboard chart with both the original and re-recorded versions of the same song."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"Love Story (Taylor's Version),\" the first re-recording released.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"Love Story (Taylor's Version),\" the first re-recording released.", kind: "primary" }],
       sources: [{ name: "Love Story (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor%27s_Version)" }, { name: "Fearless (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)" }],
     },
     {
@@ -1661,7 +1694,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Out April 9, 2021: the original era re-cut top to bottom, plus six From the Vault songs — with Keith Urban and Maren Morris turning up on tracks that never made the 2008 album.",
       body: ["She chased faithful-but-grown versions of songs she first sang at 18: the twenty re-recordings were produced with Christopher Rowe, and critics heard sharper instrumentation and a deeper, stronger voice — though some reviewers missed the teenage earnestness of the originals.", "The six From the Vault cuts, produced with Jack Antonoff and Aaron Dessner, proved the project could generate new canon, not just replacements — \"Mr. Perfectly Fine\" chief among them (covered separately in this era), plus \"You All Over Me\" with Maren Morris and \"That's When\" with Keith Urban. The chart history it made is covered in this era's business items."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png/250px-Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records / Beth Garrabrant (album cover)", caption: "Album artwork for Fearless (Taylor's Version), released April 9, 2021.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records / Beth Garrabrant (album cover)", caption: "Album artwork for Fearless (Taylor's Version), released April 9, 2021.", kind: "primary" }],
       sources: [{ name: "Fearless (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)" }],
     },
     {
@@ -1673,7 +1706,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The June 18, 2021 announcement promised \"all 30 songs that were meant to go on Red\" — and slipped the fandom's white whale into a parenthetical: the 10-minute \"All Too Well\" was real, and it was coming.",
       body: ["Her note described the original Red as the album of \"a fractured mosaic of feelings\" — happiness and freedom sitting next to devastation and torment — and set the date at Nov. 19, which later jumped forward a week to Nov. 12, a near-unheard-of move.", "The timing was no accident either: it came just two months after Fearless (Taylor's Version) proved the whole re-recording model with a 291,000-unit No. 1 week. The Janessa Leoné-hat cover reveal from the same day is covered in this era's fashion items."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records / Beth Garrabrant (album cover)", caption: "The Red (Taylor's Version) cover, revealed with the June 18, 2021 announcement.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records / Beth Garrabrant (album cover)", caption: "The Red (Taylor's Version) cover, revealed with the June 18, 2021 announcement.", kind: "primary" }],
       sources: [{ name: "Red (Taylor's Version)", url: "https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)" }, { name: "Taylor Swift Announces 'Red (Taylor's Version),' Reveals November Release Date", url: "https://www.billboard.com/articles/columns/pop/9589369/taylor-swift-red-taylors-version-november-release-date/" }],
     },
     {
@@ -1685,7 +1718,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Out July 2, 2021 — Swift fronting Aaron Dessner and Justin Vernon's own band on \"How Long Do You Think It's Gonna Last?\", repaying the folklore/evermore collaboration in kind.",
       body: ["A rare Swift feature where she's the guest in someone else's house: an anxious, galloping track about loving someone who won't get out of their own way, written with Aaron Dessner and recorded across the project's home bases — Long Pond in the Hudson Valley, Kitty Committee in Los Angeles, and April Base in Eau Claire, Wisconsin.", "Dessner's own account: \"Taylor's words hit me so hard when I heard her first voice memo and still do, every time. Justin lifted the song further into the heavens.\" The single gave Big Red Machine their first-ever Hot 100 entry, peaking at No. 73 — and she appears twice on the album, since \"Birch\" carries her vocals too."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png/250px-Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png", credit: "37d03d / Jagjaguwar (single cover art)", caption: "Cover artwork for Big Red Machine's \"Renegade,\" featuring Taylor Swift.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png", credit: "37d03d / Jagjaguwar (single cover art)", caption: "Cover artwork for Big Red Machine's \"Renegade,\" featuring Taylor Swift.", kind: "primary" }],
       sources: [{ name: "Renegade (Big Red Machine song)", url: "https://en.wikipedia.org/wiki/Renegade_(Big_Red_Machine_song)" }],
     },
     {
@@ -1721,7 +1754,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Out Feb. 11, 2022 — her verse added to Sheeran's piano ballad, with a video that reunites the two kids from 2013's \"Everything Has Changed\" video, now teenagers, finding each other again at college.",
       body: ["Their fourth collaboration — after \"Everything Has Changed,\" \"End Game,\" and the vault duet \"Run\" — and the most sentimental: the video brings back Ava Ames and Jack Lewis, the child actors from the 2013 \"Everything Has Changed\" video, now teenagers finding each other again at college.", "The Easter eggs run deeper than the casting: the text-message exchange shown in the video is a real one between Sheeran and Swift that she had shared publicly back in 2015, and a framed photo from the original video sits in frame. It landed in the era's quietest stretch, a reminder the two write to each other's timelines, not the industry's."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png/250px-Ed_Sheeran_-_The_Joker_and_the_Queen.png", credit: "Asylum / Atlantic Records (single cover art)", caption: "Cover artwork for Ed Sheeran's \"The Joker and the Queen,\" featuring Taylor Swift.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png", credit: "Asylum / Atlantic Records (single cover art)", caption: "Cover artwork for Ed Sheeran's \"The Joker and the Queen,\" featuring Taylor Swift.", kind: "primary" }],
       sources: [{ name: "The Joker and the Queen", url: "https://en.wikipedia.org/wiki/The_Joker_and_the_Queen" }],
     },
     {
@@ -1733,7 +1766,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The second 1989 re-recording (after \"Wildest Dreams (Taylor's Version)\"), released May 6, 2022 after soundtracking the trailer for Amazon's The Summer I Turned Pretty — whose author-showrunner Jenny Han made Swift songs the show's sonic signature.",
       body: ["Like \"Wildest Dreams (Taylor's Version)\" before it, it leapfrogged its parent album — 1989 (Taylor's Version) was still 17 months away — after a snippet soundtracked the first trailer for Amazon's The Summer I Turned Pretty on May 5, 2022; she announced the full track on her socials the day the trailer dropped, and it arrived the next day.", "Critics heard a gentler remake: more subdued synths, vocals less processed and more resonant, with a lean toward indie rock. The re-recording reached No. 42 on the Hot 100 — a significantly stronger showing than the original 2014 album cut ever managed."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/be/This_Love_%28Taylor%27s_Version%29.png/250px-This_Love_%28Taylor%27s_Version%29.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"This Love (Taylor's Version),\" the first 1989 re-recording released.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png", credit: "Republic Records (single cover art)", caption: "Cover artwork for \"This Love (Taylor's Version),\" the first 1989 re-recording released.", kind: "primary" }],
       sources: [{ name: "This Love (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)" }],
     },
     {
@@ -1745,7 +1778,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A Utah fantasy park sued over the album's name on Feb. 2, 2021; her company countersued three weeks later over the park's costumed performers singing \"Love Story\" and \"Bad Blood\" without a license. By late March, both sides dropped everything — no money exchanged.",
       body: ["Evermore Park alleged trademark infringement and \"actual confusion\" with its brand, seeking up to $2 million per counterfeit mark plus attorney fees; TAS Rights Management's countersuit answered that the park's costumed performers had been singing three Swift songs in shows while ignoring numerous licensing notices from BMI.", "On March 24, 2021 — barely seven weeks after the first filing — both sides dropped and dismissed everything, with a Swift spokesperson confirming no money changed hands. One of the odder footnotes in the album's history."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0a/Taylor_Swift_-_Evermore.png/250px-Taylor_Swift_-_Evermore.png", credit: "Republic Records (album cover art)", caption: "evermore's album art — the name at the center of the dueling suits. (No usable photo of the Utah park itself; the album artwork stands in.)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png", credit: "Republic Records (album cover art)", caption: "evermore's album art — the name at the center of the dueling suits. (No usable photo of the Utah park itself; the album artwork stands in.)", kind: "primary" }],
       sources: [{ name: "Taylor Swift and Evermore Park Drop Lawsuits Against One Another, With No Money Exchanged", url: "https://variety.com/2021/music/news/taylor-swift-evermore-park-lawsuits-drop-utah-theme-park-trademark-1234937782/" }, { name: "Taylor Swift, Evermore Park Drop Respective Copyright Infringement Lawsuits", url: "https://www.rollingstone.com/music/music-news/taylor-swift-evermore-park-copyright-infringement-lawsuits-dropped-1146582/" }],
     },
     {
@@ -1781,7 +1814,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "In a May 2022 GQ Hype profile, Joe Alwyn finally talked about William Bowery's workload — \"It was just messing around on a piano and singing badly and being overheard\" — five credits across folklore and evermore, all by accident.",
       body: ["He'd spent two years deflecting questions about the pseudonym; this was the fullest account he ever gave: \"It was really the most accidental thing to happen in lockdown. It wasn't like, 'It's three o'clock, it's time to write a song!'\"", "The rest of the origin story stayed just as casual — \"messing around on a piano and singing badly,\" being overheard, \"and then thinking, you know, what if we tried to get to the end of it together?\" No schedule, no sessions. His credits: \"exile,\" \"betty,\" \"champagne problems,\" \"coney island,\" and \"evermore.\""],
       tags: ["Relationship"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Joe_Alwyn_during_an_interview%2C_August_2018.png/250px-Joe_Alwyn_during_an_interview%2C_August_2018.png", credit: "Collider Video (CC BY-SA 3.0) via Wikimedia Commons", caption: "Joe Alwyn during a 2018 interview — years into the same press-shy stretch the GQ Hype profile finally opened up.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Joe_Alwyn_during_an_interview%2C_August_2018.png", credit: "Collider Video (CC BY-SA 3.0) via Wikimedia Commons", caption: "Joe Alwyn during a 2018 interview — years into the same press-shy stretch the GQ Hype profile finally opened up.", kind: "primary" }],
       sources: [{ name: "Joe Alwyn Says Writing Songs with Taylor Swift Was 'The Most Accidental Thing to Happen in Lockdown'", url: "https://www.justjared.com/2022/05/09/joe-alwyn-says-writing-songs-with-taylor-swift-was-the-most-accidental-thing-to-happen-in-lockdown/" }, { name: "Joe Alwyn Opens Up About 'Accidentally' Writing Songs With Taylor Swift", url: "https://www.iheart.com/content/2022-05-09-joe-alwyn-opens-up-about-accidentally-writing-songs-with-taylor-swift/" }],
     },
   ],
@@ -1794,7 +1827,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Inspired by a boy she never actually dated — one her family and friends \"all said they didn't like.\"",
       body: ["She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't, swapping the double suicide for a marriage proposal she felt the characters deserved.", "The whole thing came fast: she wrote it on her bedroom floor in about 20 minutes, then cut a rough demo in roughly 15 minutes the next day. The boy stayed anonymous — she's only ever said he was someone she never actually dated, and that when she brought him around, \"[they] all said they didn't like him. All of them!\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }, { name: "Wide Open Country", url: "https://www.wideopencountry.com/love-story-taylor-swift/" }],
     },
     {
@@ -1805,7 +1838,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A freshman-year memory, built around one line about her best friend Abigail's heartbreak.",
       body: ["The whole song grew backwards from one line — \"Abigail gave everything she had to a boy who changed his mind\" — which Swift has said she wrote first, building everything else around it. Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail's answer: \"If one girl can kind of learn from it or connect to a song like that, it's totally worth it.\"", "Recording it wrecked Swift anyway — she's admitted she cried in the studio, \"the things that make me cry are when the people I love have gone through pain and I've seen it\" — and when Roman White shot the surreal green-screen garden video, Abigail appeared in it as herself."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Fifteen.png/250px-Taylor_Swift_-_Fifteen.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fifteen_(song)" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/fifteen" }],
     },
     {
@@ -1816,7 +1849,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "592,000 copies in week one, debuting at No. 1 on the Billboard 200.",
       body: ["Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.", "She won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: \"When we're 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we're gonna be telling over and over again — in 2010, that we got to win Album of the Year.\""],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "American Songwriter", url: "https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/" }, { name: "Guinness World Records", url: "https://www.guinnessworldrecords.com/world-records/607151-youngest-solo-artist-to-win-album-of-the-year-at-the-grammy-awards" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
     },
     {
@@ -1849,7 +1882,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Recorded in secret while on tour, then given to her mother as a Christmas surprise with a home-movie video to match.",
       body: ["Swift wrote it in summer 2008 on tour and recorded it with producer Nathan Chapman without her mother knowing, then unveiled it on Christmas Eve alongside a home video she'd edited herself from family footage.", "Her mother, Andrea, on hearing it: \"that's when I lost it... I've lost it pretty much every time I've heard that song since.\" That never stopped being true — the song had to come out of the Fearless Tour setlist because, as Andrea put it, \"I kept breaking down\" backstage every time it played."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/250px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/the-best-day" }],
     },
     {
@@ -2080,7 +2113,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
       body: ["She's said the inspiration was an ex-boyfriend whose lies took a while to surface: \"He came across as Prince Charming [...] who had a lot of secrets that he didn't tell me about.\" The situation became a \"breaking point\" where she felt she had to walk away before getting hurt further.", "She wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png/250px-Taylor_Swift_-_You%27re_Not_Sorry.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry" }],
     },
     {
@@ -2091,7 +2124,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She met a guy who seemed perfect on paper — then wrote a song, with country outlaw John Rich, about missing an ex who wasn't.",
       body: ["Swift was inspired after meeting someone who seemed like the ideal partner but didn't feel as exciting as a more toxic ex. She brought the idea to a writing session with John Rich, saying he related \"because he is that complicated, frustrating messy guy in his relationships.\"", "She called the collaboration \"just so cool\" and Rich \"an incredible writer\"; he, in turn, was impressed by her songwriting and connection with her audience at her age."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records (album cover art)", caption: "Cover art for Fearless, the album that carries \"The Way I Loved You.\"", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records (album cover art)", caption: "Cover art for Fearless, the album that carries \"The Way I Loved You.\"", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Way_I_Loved_You" }],
     },
     {
@@ -2113,7 +2146,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A cover of a Luna Halo rock song her label president introduced her to — reworked into a stripped-down country-pop bonus track.",
       body: ["Swift discovered Luna Halo's \"Untouchable\" when her label president gave her the band's album, then debuted a stripped-down cover during a 2008 \"Stripped\" session before including a reworked version — new lyrics and arrangement, earning her a co-writing credit — on the Fearless: Platinum Edition.", "Luna Halo's Nathan Barlowe on her pick: \"She could have chosen any cover in the world, but that's what she chose.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-untouchable/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Luna_Halo_(album)" }],
     },
     {
@@ -2124,7 +2157,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Eleven non-consecutive weeks atop the Billboard 200: the longest run for a female country album, and for any album released in the 2000s.",
       body: ["After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade. It logged 58 weeks in the top 10, a record for a country act, and was the only 2000s album to spend its entire first year there.", "The number kept its stature inside her own catalog for a while, too: when The Tortured Poets Department reached an 11th week at No. 1 in July 2024, Billboard framed it as tying Fearless and 1989 as her longest-leading albums — before TTPD pushed on to 17 weeks, the 11-week mark her teenage self set was the one to catch for 15 years."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }, { name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-ties-career-best-11-weeks-number-one-billboard-200-tortured-poets-department-1235725955/" }],
     },
     {
@@ -2135,7 +2168,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "3.217 million copies sold in the US in 2009 alone, making 20-year-old Swift the youngest artist — and only female country act — with a calendar-year best-seller.",
       body: ["With 3.217 million copies sold in the United States throughout 2009, Fearless was the year's best-selling album in the country, making Swift, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year.", "It also spent a total of 58 weeks in the Billboard 200's top 10 — a record for a country musician, and the only 2000s album to spend its first full year there."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
     },
     {
@@ -2169,7 +2202,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sept. 15, 2008: the lead single from Fearless goes out to country radio ahead of the album — and starts a climb that wouldn't stop until it had topped pop radio too.",
       body: ["It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard's pop-radio chart (see February 2009).", "The long tail is the real story: roughly 18 million copies sold worldwide make it one of the best-selling singles ever released, and its 6.2 million US copies still stand as her biggest-selling song at home — a lead single that outsold everything the superstar decade that followed produced."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Love Story (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }, { name: "'Love Story': The Story Behind The Classic Taylor Swift Song", url: "https://www.wideopencountry.com/love-story-taylor-swift/" }],
     },
     {
@@ -2181,7 +2214,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She'd considered holding \"White Horse\" for her third album — until Grey's Anatomy used it in its season-five premiere, and it became the second Fearless single that December.",
       body: ["A devoted Grey's fan, she didn't undersell the moment: \"You should've seen tears streaming down my face when I got the phone call that they were going to use that song.\" The September 2008 premiere placement settled the tracklist question — \"if it wasn't going to be on the show, then we weren't going to put it on the album,\" she admitted — and the song itself runs the fairy-tale imagery of the rest of Fearless in reverse. As she put it to CMT: \"this is not a fairy tale at all — this is real life.\"", "The single followed in December, peaked at No. 13 on the Hot 100, and later took two Grammys: Best Country Song and Best Female Country Vocal Performance."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Taylor_Swift_-_White_Horse.png/250px-Taylor_Swift_-_White_Horse.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"White Horse.\"", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"White Horse.\"", kind: "primary" }],
       sources: [{ name: "White Horse (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)" }, { name: "White Horse by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/white-horse" }],
     },
     {
@@ -2193,7 +2226,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Oct. 26, 2009: the Platinum Edition reissue drops six new tracks — \"Jump Then Fall,\" \"Untouchable,\" a piano \"Forever & Always,\" \"Come In with the Rain,\" \"SuperStar,\" and \"The Other Side of the Door.\"",
       body: ["Announced Sept. 10, 2009 and released mid-tour, the reissue placed the six new songs ahead of the original tracklist and paired the CD with a DVD — keeping a year-old blockbuster in the conversation straight through awards season.", "The DVD side was a fan-service time capsule: the music videos for \"Change,\" \"The Best Day,\" \"Love Story,\" \"White Horse\" and \"You Belong with Me,\" behind-the-scenes footage from the latter three shoots and from the Fearless Tour's opening night, plus \"Thug Story\" — the CMT Awards rap spoof with T-Pain. The reissue also queued up one more single: the title track, \"Fearless,\" released that January."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Fearless (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
     },
     {
@@ -2205,7 +2238,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A one-off for the Valentine's Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.",
       body: ["The record it broke was Britney Spears's \"Womanizer.\" It debuted at No. 2 on the Hot 100 and went to No. 1 in Canada — her first Canadian Hot 100 chart-topper — all from a soundtrack single for the rom-com she was starring in with Taylor Lautner.", "The song itself was a leftover: she'd written it back in summer 2008 and offered it to the film's producers because it didn't fit the album she was building. Twelve days after release she sang it at the 52nd Grammys in a medley with Stevie Nicks — the performance whose shaky vocals drew enough criticism that her label chief publicly defended her — and it finally joined the era's official canon on Fearless (Taylor's Version) in 2021."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png/250px-Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"Today Was a Fairytale.\"", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"Today Was a Fairytale.\"", kind: "primary" }],
       sources: [{ name: "Today Was a Fairytale", url: "https://en.wikipedia.org/wiki/Today_Was_a_Fairytale" }, { name: "Today Was a Fairytale by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/today-was-a-fairytale" }],
     },
     {
@@ -2229,7 +2262,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She plays both the girl next door and the mean-girl cheerleader in the \"You Belong with Me\" video, opposite Lucas Till — the clip that would win Best Female Video at the VMAs.",
       body: ["Premiered in May 2009 as the album's third single took off, the split-role video became the era's defining visual — and its VMA win that September is the reason the Kanye West moment happened at all.", "Roman White shot it over two days at Pope John Paul II High School near her Hendersonville home town, with Swift playing both \"the nerd, who is pining away for this guy that she can't have\" and \"the popular girl — horrible, scary, intimidating and perfect\"; White has said the closing kiss with Lucas Till took about 45 takes. The song matched the video's reach, peaking at No. 2 on the Hot 100 (blocked only by \"I Gotta Feeling\") and becoming the first country song to top the all-genre Radio Songs airplay chart."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg", credit: "Big Machine Records / official Taylor Swift YouTube channel", caption: "Still from the official \"You Belong with Me\" music video, directed by Roman White — the dance-scene arrival in a white dress.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Taylor_Swift_-_You_Belong_with_Me.png/250px-Taylor_Swift_-_You_Belong_with_Me.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"You Belong with Me.\"", kind: "primary" }],
+      images: [{ url: "https://i.ytimg.com/vi/VuNIsY6JdUw/hqdefault.jpg", credit: "Big Machine Records / official Taylor Swift YouTube channel", caption: "Still from the official \"You Belong with Me\" music video, directed by Roman White — the dance-scene arrival in a white dress.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_You_Belong_with_Me.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"You Belong with Me.\"", kind: "primary" }],
       sources: [{ name: "You Belong with Me", url: "https://en.wikipedia.org/wiki/You_Belong_with_Me" }, { name: "You Belong With Me by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/you-belong-with-me" }],
     },
     {
@@ -2277,7 +2310,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The week ending Feb. 28, 2009, \"Love Story\" hit No. 1 on Billboard's Pop Songs chart — the first country crossover ever to do it.",
       body: ["Country songs had crossed to pop radio for decades without finishing the climb — Shania Twain's \"You're Still the One\" had set the previous high-water mark at No. 3 in 1998.", "\"Love Story\" went all the way the week ending Feb. 28, 2009, on top of a No. 4 Hot 100 peak and two weeks atop Hot Country Songs — the data point that made the eventual pop pivot look less like a risk than a formality."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"Love Story,\" the first country song to top Billboard's pop-radio chart.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png", credit: "Big Machine Records (single cover art)", caption: "Single cover art for \"Love Story,\" the first country song to top Billboard's pop-radio chart.", kind: "primary" }],
       sources: [{ name: "Love Story (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }, { name: "'Love Story': The Story Behind The Classic Taylor Swift Song", url: "https://www.wideopencountry.com/love-story-taylor-swift/" }],
     },
     {
@@ -2337,7 +2370,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Three songs, one summer romance, three different narrators — cardigan, betty, and august.",
       body: ["The arc runs in order: James cheats on Betty over the summer (\"august,\" told by the other girl, who thought it was real), a friend named Inez tells Betty when school starts, and James turns up at Betty's party to apologize (\"betty\") — while \"cardigan\" is Betty looking back on all of it from years later. The characters are entirely invented, with names borrowed as an affectionate nod to friends' kids.", "The songs quote each other: James's \"I dreamt of you all summer long\" answers the events of \"august,\" and Betty's \"chase two girls, lose the one\" calls the whole thing. Rolling Stone's review counted all three among the album's highlights — \"the same love triangle, from all three different perspectives\" — and decoding which narrator held which detail became the album's first fan parlor game in the hours after release."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Taylor_Swift_-_Cardigan.png/250px-Taylor_Swift_-_Cardigan.png", credit: "Republic Records", caption: "Official single cover for \"cardigan\" — adult Betty's chapter of the triangle.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/en/thumb/3/38/Taylor_Swift_-_Betty.png/250px-Taylor_Swift_-_Betty.png", credit: "Republic Records", caption: "Cover art for \"betty (Live from the 2020 Academy of Country Music Awards)\" — James's apology, sung from the party on Betty's porch.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/07/Taylor_Swift_-_Cardigan.png", credit: "Republic Records", caption: "Official single cover for \"cardigan\" — adult Betty's chapter of the triangle.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/en/3/38/Taylor_Swift_-_Betty.png", credit: "Republic Records", caption: "Cover art for \"betty (Live from the 2020 Academy of Country Music Awards)\" — James's apology, sung from the party on Betty's porch.", kind: "primary" }],
       sources: [{ name: "ScreenRant", url: "https://screenrant.com/taylor-swift-folklore-betty-august-cardigan-love-triangle-song-lyrics-explained/" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/" }],
     },
     {
@@ -2348,7 +2381,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A real St. Louis divorcée, a Rhode Island mansion, and a swimming-pool-full-of-champagne legend — until the final verse turns the story into Taylor's own.",
       body: ["Rebekah Harkness was a middle-class divorcée from St. Louis who married Standard Oil heir William Harkness in 1947, inherited his fortune at his death in 1954, and spent it loudly — funding her own ballet company and filling Holiday House, the Watch Hill mansion Swift would buy decades later, with parties the town never stopped talking about.", "The song plays a classic country-storytelling trick: three verses of someone else's scandal, then the reveal — \"and then it was bought by me\" — folding Swift's own tabloid-magnet Rhode Island summers into Harkness's story of a loud woman blamed for ruining everything. It peaked at No. 13 on the Hot 100, and critics at Pitchfork, Billboard, and American Songwriter ranked it among the year's best songs."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/1280px-Holiday_House_on_Watch_Hill.jpg", credit: "Wikimedia Commons", caption: "Holiday House on Watch Hill, Rhode Island — Rebekah Harkness's mansion, later Swift's.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rebekah_Harkness_publicity_photo.jpg/250px-Rebekah_Harkness_publicity_photo.jpg", credit: "Wikimedia Commons (public domain publicity photo)", caption: "Rebekah Harkness, the \"mad\" widow of the song's first three verses.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Holiday_House_on_Watch_Hill.jpg/1280px-Holiday_House_on_Watch_Hill.jpg", credit: "Wikimedia Commons", caption: "Holiday House on Watch Hill, Rhode Island — Rebekah Harkness's mansion, later Swift's.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/c/c2/Rebekah_Harkness_publicity_photo.jpg", credit: "Wikimedia Commons (public domain publicity photo)", caption: "Rebekah Harkness, the \"mad\" widow of the song's first three verses.", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty" }],
     },
     {
@@ -2436,7 +2469,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Shot by Beth Garrabrant with no styling team on hand, in black and white for the first time — Swift standing alone in a misty forest in a plaid coat over a white prairie dress.",
       body: ["Swift styled her own hair, makeup, and wardrobe for the shoot — cardigans, oversized plaid blazers, and rugby shirts, worn in the summer heat of a friend's forest. She and photographer Beth Garrabrant referenced Surrealist work and early autochromes and ambrotypes, and shot the whole series in black and white, a first for Garrabrant, who usually works in color.", "It was a deliberate departure from her earlier album cycles' larger production teams — no glam squad, no set build, just the two of them in the woods. The resulting frame of Swift standing small among the trees became the cover, and the surrounding shots were posted as a grid of captionless black-and-white photos in the July 23 announcement."],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "The folklore album cover — Beth Garrabrant's black-and-white forest frame.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "The folklore album cover — Beth Garrabrant's black-and-white forest frame.", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-folklore-photoshoot-by-photographer-beth-garrabrant/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
     },
     {
@@ -2513,7 +2546,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "With essentially no advance promotion, folklore opened with 846,000 equivalent album units — 615,000 in pure sales plus 289.85 million on-demand streams, the biggest streaming week of 2020 for any album by a woman.",
       body: ["folklore debuted atop the Billboard 200 with 846,000 equivalent album units — Swift's seventh No. 1 album — including 615,000 in pure album sales, the largest sales week for any album since her own Lover (679,000) the year before.", "Its 218,000 in streaming-equivalent units came from 289.85 million on-demand streams of the album's tracks, the largest streaming week of 2020 for an album by a woman. The number settled an open industry question in one week: a hushed indie-folk record with no lead single, no physical retail lead time, and sixteen hours of promotion had just posted the biggest U.S. sales week of any album in nearly a year."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "folklore, which opened with 846,000 equivalent units in its first week.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "folklore, which opened with 846,000 equivalent units in its first week.", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-folklore-billboard-200-number-1/" }],
     },
     {
@@ -2535,7 +2568,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Topping Rolling Stone's year-end ranking of the 50 best albums of 2020, folklore was called potentially \"the definitive quarantine album.\"",
       body: ["Rolling Stone put folklore at No. 1 on its year-end list of the 50 best albums of 2020, calling it potentially \"the definitive quarantine album.\"", "The writeup framed the win as a creative consequence of the shutdown: without the pressure of a typical rollout, \"Swift shed the über-pop trappings of her previous album, Lover, for a project that put her once-in-a-generation songwriting talent front and center,\" with contributions from the National's Aaron Dessner and Bon Iver's Justin Vernon."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "folklore — Rolling Stone's No. 1 album of 2020.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "folklore — Rolling Stone's No. 1 album of 2020.", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-lists/best-albums-2020-1096814/taylor-swift-folklore-1096815/" }],
     },
     {
@@ -2547,7 +2580,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Most of the things I had planned this summer didn't end up happening, but there is something I hadn't planned on that DID happen\" — posted the morning of July 23, 2020. The album arrived at midnight.",
       body: ["After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely \"in isolation\" — with the \"cardigan\" video, shot under pandemic protocols, dropping alongside it at midnight. The announcement came dressed as its own reveal: a grid of captionless black-and-white forest photographs from the Beth Garrabrant cover shoot, posted with no advance warning of any kind.", "The rollout compression extended to retail — deluxe CDs and vinyl in alternate covers went up only through her own website — and the no-lead-time surprise drop became a template she would reuse for evermore five months later."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "The cover art revealed in the July 23, 2020 announcement post.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "The cover art revealed in the July 23, 2020 announcement post.", kind: "primary" }],
       sources: [{ name: "Folklore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
     },
     {
@@ -2595,7 +2628,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The lone bonus track — a Windermere daydream about quitting the discourse and moving somewhere the poets went to die — arrived Aug. 18 on folklore's deluxe editions, three weeks after the album.",
       body: ["Written with Jack Antonoff and inspired by England's Lake District and its Romantic poets, \"the lakes\" was folklore's intended epilogue — Swift later said she considered it the album's thesis statement about retreating from public life, which is why it closed every deluxe pressing rather than opening anything. The Wordsworth homage is built right into the writing, down to the pun critics flagged on the poet's own name: \"tell me what are my words worth.\"", "Antonoff had first imagined it as a big orchestral piece before Swift asked for the scaled-down arrangement that shipped — and the bigger version eventually surfaced anyway: a fuller, orchestral \"original version\" was released on July 24, 2021, to mark folklore's first anniversary."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a2/The_Lakes_%28Original_Version%29_-_Taylor_Swift.png", credit: "Republic Records", caption: "Cover art for \"the lakes (original version),\" released on folklore's first anniversary.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/William_Wordsworth_by_Henry_William_Pickersgill.jpg/250px-William_Wordsworth_by_Henry_William_Pickersgill.jpg", credit: "Henry William Pickersgill (public domain), via Wikimedia Commons", caption: "William Wordsworth, the Lake Poet behind the lyric's \"what are my words worth\" pun.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a2/The_Lakes_%28Original_Version%29_-_Taylor_Swift.png", credit: "Republic Records", caption: "Cover art for \"the lakes (original version),\" released on folklore's first anniversary.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/William_Wordsworth_by_Henry_William_Pickersgill.jpg/1280px-William_Wordsworth_by_Henry_William_Pickersgill.jpg", credit: "Henry William Pickersgill (public domain), via Wikimedia Commons", caption: "William Wordsworth, the Lake Poet behind the lyric's \"what are my words worth\" pun.", kind: "archival" }],
       sources: [{ name: "The Lakes (song)", url: "https://en.wikipedia.org/wiki/The_Lakes_(song)" }],
     },
     {
@@ -2607,7 +2640,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The love triangle's apology song, sent to country radio on Aug. 17, 2020: her first single on the format since the Red era, a homecoming pitched from inside an indie-folk album.",
       body: ["Sung from the perspective of seventeen-year-old James — a character voiced into being partly by Joe Alwyn, whom Swift overheard \"singing the entire, fully formed chorus\" from another room — \"betty\" was the folklore track built closest to her Nashville roots. She modeled its sound on Bob Dylan, specifically The Freewheelin' Bob Dylan and John Wesley Harding, and the guitars, pedal steel, and harmonica read as a deliberate olive branch to the format she'd left after Red.", "Sent to country radio on Aug. 17, 2020, it peaked at No. 6 on Hot Country Songs — the highest debut by a woman on that chart since Bebe Rexha's \"Meant to Be\" in 2017 — and crossed to No. 42 on the Hot 100. It stayed a one-off: rather than a full country return, it was a postcard to the old neighborhood from an album that lived somewhere else entirely."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/3/38/Taylor_Swift_-_Betty.png/250px-Taylor_Swift_-_Betty.png", credit: "Republic Records", caption: "Official single cover for \"betty,\" her first country-radio single since 2013.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Joan_Baez_Bob_Dylan_crop.jpg/500px-Joan_Baez_Bob_Dylan_crop.jpg", credit: "Rowland Scherman (public domain), via Wikimedia Commons", caption: "Bob Dylan in 1963 — Swift modeled the song's sound on his early records.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/3/38/Taylor_Swift_-_Betty.png", credit: "Republic Records", caption: "Official single cover for \"betty,\" her first country-radio single since 2013.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Joan_Baez_Bob_Dylan_crop.jpg/500px-Joan_Baez_Bob_Dylan_crop.jpg", credit: "Rowland Scherman (public domain), via Wikimedia Commons", caption: "Bob Dylan in 1963 — Swift modeled the song's sound on his early records.", kind: "archival" }],
       sources: [{ name: "Betty (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Betty_(Taylor_Swift_song)" }],
     },
     {
@@ -2655,7 +2688,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The Nov. 24, 2020 nominations gave the surprise album a full slate: folklore for Album of the Year and Best Pop Vocal Album, \"cardigan\" for Song of the Year and Best Pop Solo Performance, \"exile\" for Best Pop Duo/Group Performance, and her Cats ballad \"Beautiful Ghosts\" for visual media.",
       body: ["Exactly four months after an album made in secret quarantine sessions appeared with sixteen hours' notice, it led her to six nominations — \"cardigan\" pulling double duty in the songwriting and pop performance fields, \"exile\" earning Bon Iver a pop nomination, and \"Beautiful Ghosts\" carrying a stray Cats credit into the visual-media category.", "On the night itself she went one-for-six, but the one was Album of the Year — the win that made her the first woman with three AOTY trophies (covered separately in this era). The haul also made the industry's verdict plain: a record with no conventional campaign behind it had become one of the night's most-nominated projects anyway."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Taylor_Swift_-_Cardigan.png/250px-Taylor_Swift_-_Cardigan.png", credit: "Republic Records", caption: "\"cardigan,\" nominated for both Song of the Year and Best Pop Solo Performance.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/07/Taylor_Swift_-_Cardigan.png", credit: "Republic Records", caption: "\"cardigan,\" nominated for both Song of the Year and Best Pop Solo Performance.", kind: "primary" }],
       sources: [{ name: "Folklore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }, { name: "Taylor Swift's folklore Sweeps 2021 Grammys Nominations", url: "https://www.eonline.com/news/1211337/taylor-swifts-folklore-sweeps-2021-grammys-nominations" }],
     },
     {
@@ -2667,7 +2700,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "folklore's lead single arrived with the album at midnight, its self-directed video sending Taylor through a glowing piano into forest and ocean — the love triangle's adult-Betty chapter, and her sixth Hot 100 No. 1.",
       body: ["Written with Aaron Dessner, it answers the triangle's other two songs from twenty years' distance — \"when you are young, they assume you know nothing\" as the thesis. The song began as an instrumental Dessner had titled \"Maple,\" sent over on April 27, 2020; Swift finished the songwriting in about five hours.", "She wrote, directed, and styled the video herself, and did her own hair and makeup on set (the no-glam-team shoot is covered in this era's fashion items). Its story runs through three worlds — a candlelit cottage, a mossy forest where the piano pours a waterfall, and a storm-tossed sea where she clings to the instrument — before returning her, and the cardigan, safely home. Under COVID protocols, cinematographer Rodrigo Prieto shot much of it with a camera on a remotely operated robotic arm, with color-coded wristbands marking who could work near the unmasked performer."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Taylor_Swift_-_Cardigan.png/250px-Taylor_Swift_-_Cardigan.png", credit: "Republic Records", caption: "Official single cover for \"cardigan,\" folklore's lead single.", kind: "primary" }, { url: "https://i.ytimg.com/vi/K-a8s8OLBSE/hqdefault.jpg", credit: "Taylor Swift via YouTube (official music video)", caption: "The candlelit piano that opens the self-directed \"cardigan\" video.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/07/Taylor_Swift_-_Cardigan.png", credit: "Republic Records", caption: "Official single cover for \"cardigan,\" folklore's lead single.", kind: "primary" }, { url: "https://i.ytimg.com/vi/K-a8s8OLBSE/hqdefault.jpg", credit: "Taylor Swift via YouTube (official music video)", caption: "The candlelit piano that opens the self-directed \"cardigan\" video.", kind: "archival" }],
       sources: [{ name: "Cardigan (song)", url: "https://en.wikipedia.org/wiki/Cardigan_(song)" }],
     },
     {
@@ -2751,7 +2784,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her own words: \"We [women] have to curate and cater everything, but we have to make it look like an accident.\"",
       body: ["The double standard, as she put it: if we make a mistake, that's our fault; if we strategize so we won't make a mistake, we're calculating — \"a bit of a damned-if-we-do, damned-if-we-don't thing happening in music.\"", "In outtakes from her Billboard Woman of the Decade cover story, she said the song was drawn from her own career and from hearing the same stories from women across the industry — and that the pop sheen was deliberate, so listeners would end up with \"a song about gender inequality stuck in their heads.\" Written and produced with Joel Little, it became Lover's fourth single in January 2020 and peaked at No. 23 on the Hot 100; its self-directed video later won her Best Direction at the 2020 VMAs, the first solo female director to take the category."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_The_Man.png/250px-Taylor_Swift_-_The_Man.png", credit: "Republic Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_The_Man.png", credit: "Republic Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-cover-story-outtakes-the-man-8546109/" }],
     },
     {
@@ -2773,7 +2806,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The hardest song she's ever had to write, by her own account — about her mother's cancer diagnosis.",
       body: ["Her own words: \"My dad got cancer when I was 13 and he got better... but things with my mom have been very different.\" The family actually discussed whether the song was too personal to release at all before agreeing it belonged on the album.", "She brought in the Dixie Chicks — Natalie Maines, Emily Strayer, and Martie Maguire, the group she's said made her want to do this in the first place — with Strayer's banjo and Maguire's fiddle threaded through the fingerpicked arrangement, and all three harmonizing. She has performed it live exactly once — a stripped solo piano rendition for the One World: Together at Home pandemic broadcast on April 18, 2020, one day after cancelling all her 2020 shows — having previously said she found the song too emotionally difficult to perform."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/DixieChicksMSG062003.jpg/250px-DixieChicksMSG062003.jpg", credit: "Wasted Time R (CC BY-SA 2.5), via Wikimedia Commons", caption: "The Dixie Chicks — who harmonize on \"Soon You'll Get Better\" — performing in 2003.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/9/9f/DixieChicksMSG062003.jpg", credit: "Wasted Time R (CC BY-SA 2.5), via Wikimedia Commons", caption: "The Dixie Chicks — who harmonize on \"Soon You'll Get Better\" — performing in 2003.", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-soon-youll-get-better-together-at-home-global-citizen-986536/" }],
     },
     {
@@ -2784,7 +2817,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A song written after crying over a rom-com — whose director had made that movie while listening to Taylor's own 1989.",
       body: ["Director Jennifer Kaytin Robinson said her film \"Someone Great\" was mainly inspired by 1989, especially \"Clean.\" Taylor, after the song came from watching that film: \"I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that's ever happened to me.\"", "The song also settled a question she had raised about herself in print: in a March 2019 essay she wondered whether finding happiness would dull a catalog built on breakup songs, and resolved to write from friends' experiences, books, and fictional characters instead of only her own life. She later told NPR's Tiny Desk audience she had absorbed breakup books and movies while making Lover — this track is the proof of concept. Its live debut came acoustically at the one-night City of Lover show in Paris, the version whose artwork appears here."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png/250px-Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png", credit: "Republic Records (single cover art, Live from Paris version)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png", credit: "Republic Records (single cover art, Live from Paris version)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)" }],
     },
     {
@@ -2806,7 +2839,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Debuted at No. 29 in 2019, fell to No. 71 the next week — until the Eras Tour revived it in 2023 and finally pushed it to No. 1.",
       body: ["It topped the Hot 100 on the chart dated October 28, 2023 — four years, one month and three weeks after it debuted, the fifth-longest climb to No. 1 in the chart's history.", "Fans had campaigned for it since 2019, and the Eras Tour's opening Lover set turned the campaign into a groundswell (roughly 2.3 million TikTok videos deep); a live version, a remix, and the concert film's October release finally pushed it over, with 18.6 million streams and a roughly 1,400% sales spike in its final chart week. It landed as her 10th career No. 1 and Lover's first — and, as she noted, \"it's not even the summer anymore.\""],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Cruel_Summer.png/250px-Taylor_Swift_-_Cruel_Summer.png", credit: "Republic Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png", credit: "Republic Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-cruel-summer-number-one-hot-100-1235452093/" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-cruel-summer-tops-billboard-hot-100-1234860029/" }],
     },
     {
@@ -2861,7 +2894,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "On the Lover album cover, shot by Valheria Rocha, she swapped her signature red lip for bright fuchsia and outlined one eye in a giant glittery heart, with streaks of pink and blue through her hair.",
       body: ["Swift credited the cover to \"the artistic genius that is @valheria123\" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era's videos and press cycle.", "Every element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Because Swift's beauty choices have a history of doubling as Easter eggs, Refinery29 noted fans immediately began hunting for a hidden meaning — and, more practically, planning recreations: \"All of us are going to show up with glittery heart to the tour,\" as one put it, back when the era was still supposed to get one."],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cd/Taylor_Swift_-_Lover.png/250px-Taylor_Swift_-_Lover.png", credit: "Republic Records / Valheria Rocha (album cover art)", caption: "The Lover album cover, shot by Valheria Rocha — the glitter heart eye in its original context.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png", credit: "Republic Records / Valheria Rocha (album cover art)", caption: "The Lover album cover, shot by Valheria Rocha — the glitter heart eye in its original context.", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2019/06/235426/taylor-swift-lover-album-heart-makeup" }, { name: "YouBeauty", url: "https://www.youbeauty.com/celebs/taylor-swift-provides-summer-makeup-inspo-on-her-lover-album-cover/" }],
     },
     {
@@ -3026,7 +3059,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "St. Vincent, on writing it: \"Gosh, it was really casual... just some people in a room jammin'.\" Taylor's own pitch: \"a desperate summer love that might be doomed from the start.\"",
       body: ["Swift wrote the song with Jack Antonoff and St. Vincent (Annie Clark), who later described their process to NME as \"really casual... just some people in a room jammin'.\"", "In her own Spotify storyline note, Swift wrote: \"I wanted this song to feel like a desperate summer love that might be doomed from the start. My favorite line from this song is 'I love you. Ain't that the worst thing you ever heard?'\" It wasn't released as a single in 2019 — it took the Eras Tour, four years later, to send it to No. 1."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Cruel_Summer.png/250px-Taylor_Swift_-_Cruel_Summer.png", credit: "Republic Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png", credit: "Republic Records (single cover art)", kind: "primary" }],
       sources: [{ name: "NME", url: "https://www.nme.com/big-reads/st-vincent-cover-interview-2021-daddys-home-2912166" }, { name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/cruel-summer" }],
     },
     {
@@ -3118,7 +3151,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her movie-musical debut hit theaters Dec. 20, 2019 — a critically savaged film she emerged from mostly unscathed, plus \"Beautiful Ghosts,\" the original ballad she wrote with Andrew Lloyd Webber that earned a Golden Globe nomination.",
       body: ["She played Bombalurina in Tom Hooper's adaptation and co-wrote \"Beautiful Ghosts\" as a response song to \"Memory,\" sung in the film by Francesca Hayward. Critics roasted the movie and largely exempted her scene; the song's Globe nomination gave the Lover era its one awards-season campaign.", "The wreckage around her roughly ten minutes of screen time was historic: a 19% Rotten Tomatoes score, a worldwide gross of $75.5 million against a budget of $80–100 million, and six Razzies including Worst Picture. The \"digital fur technology\" became its own news story — the first release went out with visual-effects glitches (including a shot where Judi Dench's human hand, wedding ring and all, was visible), and Universal took the near-unprecedented step of shipping a patched version with \"improved visual effects\" to theaters on December 22, two days into the run. Reviewers consistently noted Swift seemed to be one of the few people onscreen having fun."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Cats_2019_poster.jpg/250px-Cats_2019_poster.jpg", credit: "Universal Pictures (theatrical release poster)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/cf/Cats_2019_poster.jpg", credit: "Universal Pictures (theatrical release poster)", kind: "primary" }],
       sources: [{ name: "Beautiful Ghosts", url: "https://en.wikipedia.org/wiki/Beautiful_Ghosts" }, { name: "Cats (2019 film)", url: "https://en.wikipedia.org/wiki/Cats_(2019_film)" }],
     },
     {
@@ -3130,7 +3163,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Lana Wilson's documentary premiered opening night at Sundance on Jan. 23, 2020 and landed on Netflix eight days later — the eating-disorder disclosure, the political-silence fight with her own team, and the sexual-assault trial, all on the record.",
       body: ["The film tracks the deliberate dismantling of the \"good girl\" reflex — built around the 2018 decision to break political silence over her team's objections — and gave fans the era's defining self-assessment: a star relearning what she actually wanted to say. It remains the most unguarded long-form footage of her career.", "The title comes from \"Miss Americana & the Heartbreak Prince,\" the Lover track about political disillusionment, and the disclosures went well beyond politics: her struggles with body dysmorphia and an eating disorder, her mother's cancer, the toxic online pile-ons, and the sexual assault trial all get direct treatment for the first time. Critics received it as a turning point — a 91% Rotten Tomatoes score, a National Board of Review selection as one of 2020's five best documentaries, and a consensus that the film marked \"a pivotal moment\" in how Swift told her own story."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/250px-Taylor_Swift_-_Miss_Americana.jpg", credit: "Netflix (official release poster)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/ae/Taylor_Swift_-_Miss_Americana.jpg", credit: "Netflix (official release poster)", kind: "primary" }],
       sources: [{ name: "Miss Americana", url: "https://en.wikipedia.org/wiki/Miss_Americana" }],
     },
     {
@@ -3154,7 +3187,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Out July 23, 2019 as a promotional single, announced on an Instagram Live where she acknowledged the fan-spotted pattern herself: track five is where the most vulnerable song goes. This one asks \"who could ever leave me, darling? But who could stay?\"",
       body: ["A synth-heartbeat ballad written and produced with Jack Antonoff — the writing took about two hours, by his account, though the LinnDrum-and-DX7 production never breaks into a radio chorus by design.", "She announced it on an Instagram Live minutes before it dropped, explaining she wanted fans to hear a track five early because that slot holds the songs that are \"the most honest, emotional, vulnerable, and personal.\" The title flips her Sagittarius archer into the era's sharpest self-inventory — \"I've been the archer, I've been the prey\" — and with no video or chart push, it worked as a deliberate \"this album has feelings\" flare sent up between the candy-colored singles. Stereogum and Slant both ranked it the sixth-best song of 2019."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Taylor_Swift_-_The_Archer.png/250px-Taylor_Swift_-_The_Archer.png", credit: "Republic Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/0f/Taylor_Swift_-_The_Archer.png", credit: "Republic Records (single cover art)", kind: "primary" }],
       sources: [{ name: "The Archer (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/The_Archer_(Taylor_Swift_song)" }, { name: "Taylor Swift's 'The Archer': Listen", url: "https://www.billboard.com/articles/news/8523616/taylor-swift-the-archer-listen" }],
     },
     {
@@ -3238,7 +3271,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Out Nov. 15, 2019 ahead of Cats — an answer song to \"Memory,\" written with Lloyd Webber, sung in the film by Francesca Hayward and by Taylor over the end credits.",
       body: ["The in-film version belongs to newcomer Francesca Hayward; the credits version is hers. Its Golden Globe nomination for Best Original Song became the Lover era's one awards-season campaign — the Globes-night Etro gown is covered in this era's fashion items.", "The writing story is the good part: during December 2018 rehearsals at Lloyd Webber's London studio, he played the melody at the piano and she started improvising lyrics on the spot — by his account they \"wrote 90 percent of it pretty much over an afternoon.\" It later added a Grammy nomination for Best Song Written for Visual Media, her third in the category, and in 2021 Lloyd Webber said the collaboration was his one enjoyable part of working on the Cats film — a movie whose wreckage otherwise spared almost no one."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Taylor_Swift_-_Beautiful_Ghosts.png/250px-Taylor_Swift_-_Beautiful_Ghosts.png", credit: "Republic Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/82/Taylor_Swift_-_Beautiful_Ghosts.png", credit: "Republic Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Beautiful Ghosts", url: "https://en.wikipedia.org/wiki/Beautiful_Ghosts" }],
     },
     {
@@ -3250,7 +3283,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A holiday single out Dec. 6, 2019, written just days earlier — with a video cut from real Swift-family home movies shot on the Pennsylvania tree farm where she spent her childhood.",
       body: ["The timeline was almost absurd: written December 1, vocals recorded December 2, a choir session December 3, out December 6 — her first original Christmas music since the 2007 holiday EP.", "The self-directed video is cut entirely from real Swift-family home movies shot at Pine Ridge Farm: sledding, Santa visits, and a young Taylor unwrapping her first guitar on Christmas morning. It reached No. 59 on the Hot 100 and No. 3 on Adult Contemporary — her actual origin story, turned into era canon in under a week."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e6/Taylor_Swift_-_Christmas_Tree_Farm.png/250px-Taylor_Swift_-_Christmas_Tree_Farm.png", credit: "Republic Records (single cover art)", kind: "primary" }, { url: "https://i.ytimg.com/vi/mN3rDTAdM2o/hqdefault.jpg", credit: "Republic Records / YouTube (official music video still)", caption: "Swift-family home-movie footage — still from the official 'Christmas Tree Farm' video on Taylor Swift's YouTube channel.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e6/Taylor_Swift_-_Christmas_Tree_Farm.png", credit: "Republic Records (single cover art)", kind: "primary" }, { url: "https://i.ytimg.com/vi/mN3rDTAdM2o/hqdefault.jpg", credit: "Republic Records / YouTube (official music video still)", caption: "Swift-family home-movie footage — still from the official 'Christmas Tree Farm' video on Taylor Swift's YouTube channel.", kind: "archival" }],
       sources: [{ name: "Christmas Tree Farm (song)", url: "https://en.wikipedia.org/wiki/Christmas_Tree_Farm_(song)" }, { name: "Taylor Swift Shares Family Footage in 'Christmas Tree Farm' Video: Watch", url: "https://www.billboard.com/articles/columns/pop/8545576/taylor-swift-christmas-tree-farm-video-watch" }],
     },
     {
@@ -3262,7 +3295,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written with Joel Little in the aftermath of the 2018 midterms and held off Lover, it finally arrived Jan. 31, 2020 — over Miss Americana's closing minutes.",
       body: ["The film shows exactly why it exists: the disillusionment of watching the 2018 Tennessee race go the wrong way despite her first-ever political endorsement. She told Variety she was \"really upset about Tennessee going the way that it did\" and that \"I saw a lot of young people's hopes dashed... young people are the people who feel the worst effects of gun violence.\"", "The lyrics take on school shootings and voting directly — her most explicitly political writing to date — and releasing it over the documentary's closing minutes, not as a single, let it stay a statement. In October 2020 she granted it, free of charge, to a Biden–Harris campaign ad: the first time she had ever cleared her music for political advertising."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/69/Taylor_Swift_-_Only_the_Young.png/250px-Taylor_Swift_-_Only_the_Young.png", credit: "Republic Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/69/Taylor_Swift_-_Only_the_Young.png", credit: "Republic Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Only the Young (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Only_the_Young_(Taylor_Swift_song)" }, { name: "Taylor Swift on Her Politically Inspired New Song, 'Only the Young'", url: "https://variety.com/2020/music/news/taylor-swift-political-song-documentary-miss-americana-1203473948/" }],
     },
     {
@@ -3274,7 +3307,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The one-night Paris show reached everyone else on May 17, 2020, as an ABC special, moving to Hulu and Disney+ the next day — part concert film, part accidental time capsule.",
       body: ["ABC slotted it after the American Idol finale, trimming the 16-song Paris set to just the eight Lover tracks in a 42-minute broadcast that drew 3.63 million viewers; it hit Hulu and Disney+ the next day, and critics' main complaint was wanting the whole show.", "By the time it aired, the pandemic had erased Lover Fest and every other live plan for the era — so watching these songs meet a live audience for the first and only time, mid-lockdown, gave the broadcast an elegy quality nobody intended when it was filmed the previous September."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png/250px-City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png", credit: "ABC / Republic Records (broadcast promotional art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/ae/City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png", credit: "ABC / Republic Records (broadcast promotional art)", kind: "primary" }],
       sources: [{ name: "City of Lover", url: "https://en.wikipedia.org/wiki/City_of_Lover" }, { name: "Taylor Swift 'City of Lover Concert' Special Set for ABC Broadcast", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-city-lover-concert-special-set-abc-broadcast-1293895/" }],
     },
     {
@@ -4320,7 +4353,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "1.208 million copies in week one — the strongest opening week for any album since Eminem's The Eminem Show in 2002, and her second million-selling debut in a row.",
       body: ["Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.", "Red roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Slate", url: "https://slate.com/culture/2012/10/taylor-swift-album-sales-record-1-2-million-copies-of-red-sold-in-first-week-according-to-soundscan.html" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)" }],
     },
     {
@@ -4331,7 +4364,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The scarf in the lyrics — Taylor's called it \"a metaphor,\" then stopped herself before saying more.",
       body: ["Full quote, from the Toronto International Film Festival in September 2022, where she screened the All Too Well short film (the film premiered in New York in November 2021): \"Basically, the scarf is a metaphor, and we turned it red because red is a very important color in this album, which is called Red.\" Then she stopped herself: \"And, I think when I say it's a metaphor ... I'm just going to stop.\"", "The song behind the scarf started as an improvised \"emotional rant\" over a four-chord vamp at a February 2011 band rehearsal; co-writer Liz Rose later helped trim what she remembered as a 10-to-20-minute draft down to the 5:28 album cut — still Red's longest track. It was never a single and debuted at just No. 80 on the Hot 100, but became the album's critical standout, and when the full 10-minute version finally surfaced on Red (Taylor's Version) in 2021, it became the longest song ever to top the Hot 100."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/5/55/Taylor_Swift_-_All_Too_Well_%2810_Minute_Version%29_%28Taylor%27s_Version%29_%28From_The_Vault%29.png/250px-Taylor_Swift_-_All_Too_Well_%2810_Minute_Version%29_%28Taylor%27s_Version%29_%28From_The_Vault%29.png", credit: "Republic Records", caption: "Single art for \"All Too Well (10 Minute Version) (Taylor's Version) (From the Vault)\" — the 2021 release that finally took the song to No. 1.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/5/55/Taylor_Swift_-_All_Too_Well_%2810_Minute_Version%29_%28Taylor%27s_Version%29_%28From_The_Vault%29.png", credit: "Republic Records", caption: "Single art for \"All Too Well (10 Minute Version) (Taylor's Version) (From the Vault)\" — the 2021 release that finally took the song to No. 1.", kind: "archival" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swift-says-red-scarf-in-all-too-well-is-a-metaphor-190595" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/All_Too_Well" }],
     },
     {
@@ -4342,7 +4375,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Not a love song — a carefree ode to being \"happy, free, confused, and lonely\" all in the same year, with her girls beside her.",
       body: ["Written with Max Martin and Shellback, and — as she told Ryan Seacrest — written \"about my friends.\" She called 22 \"my favorite year of my life,\" and her own description of the age stuck: \"You're still learning, but you know enough. You still know nothing, but you know that you know nothing.\"", "A hidden message in the liner notes — \"Ashley Dianna Claire Selena\" — named the friend group behind it, including Dianna Agron and Selena Gomez. Released as Red's fourth single the following March, it carried the thesis into the top 20 of the Hot 100."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Taylor_Swift_-_22.png/250px-Taylor_Swift_-_22.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_22.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/22" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/complete-timeline-taylor-swift-dianna-124601988.html" }],
     },
     {
@@ -4353,7 +4386,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being \"sonically conservative.\"",
       body: ["Produced with Max Martin and Shellback after Swift sketched the melody on piano, the drop was there — by her account — to convey the chaotic emotions of the lyrics, not to chase a trend.", "Critics treated it as a hinge point anyway: the New York Times' Jon Caramanica called the wobble a \"wrecking ball\" that shifted \"the dynamic of not only the song but also of Ms. Swift's career,\" and the Los Angeles Times noted that while DJs like Skrillex and Zedd had popularized dubstep, this was the song that introduced it to a mainstream pop audience that had been \"sonically conservative for the past half-decade.\" It sold 416,000 downloads in its first week — making her the first artist ever with two 400,000-download opening weeks — and peaked at No. 2 on the Hot 100."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble" }],
     },
     {
@@ -4375,7 +4408,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
       body: ["Swift brought in Butch Walker to produce, saying she knew he would approach it \"from an organic place, which is where [Sheeran] comes from.\" Released as a single in July 2013, it reached No. 32 on the Hot 100 — and did even better in Sheeran's home market, hitting the top 10 in the UK and Ireland — went double platinum in the US, and became a live duet throughout the Red Tour's North American run, which Sheeran opened.", "The Philip Andelman video, out that June, cast two child actors as elementary-school classmates falling into an easy friendship — with Swift and Sheeran revealed at the end as their parents. The story got an epilogue nine years later: the same two actors, grown up, were brought back for Sheeran's 2022 \"The Joker and the Queen\" video (featuring Swift), which outlets read as a deliberate sequel."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/72/Taylor_Swift_-_Everything_Has_Changed.png/250px-Taylor_Swift_-_Everything_Has_Changed.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Everything_Has_Changed" }],
     },
     {
@@ -4419,7 +4452,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A crimson lipstick makeup artist Gucci Westman first put on her in 2009 hardened into a full-blown signature during Red — inseparable from the album's visual identity.",
       body: ["The origin story is specific: prepping a 2009 Allure cover shoot, Westman recalled, \"I remember I really wanted to do a red lip on her because I hadn't seen her in a red lip before.\" The resistance came from close to home — \"her mom, if I'm allowed to say this, was like, 'Well, Taylor doesn't wear red'\" — but Westman asked to try it anyway, and the shoot went ahead with the crimson lip.", "By the Red era, the bold red lip — paired with winged eyeliner and blunt bangs — had become one of the most recognizable pieces of Swift's image, as prominent in press photos as the album's title color itself. Looking back years later, with the red lip still turning up everywhere from the Eras Tour to the 2024 Grammys, Westman put it simply: \"Look at her now ... That was her first red.\""],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-makeup-artist-red-lip-1235648989/" }],
     },
     {
@@ -4595,7 +4628,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Red's lead single leapt from No. 72 to No. 1 in a single week — her first career Hot 100 chart-topper on her 46th entry, after 'You Belong With Me' and 'Today Was a Fairytale' had both stalled at No. 2.",
       body: ["The song sold 623,000 downloads in its first week — the highest one-week digital sales total ever by a female artist at the time, and second all-time behind only Flo Rida's \"Right Round.\" It entered the Hot 100 Airplay chart at No. 25 before jumping to No. 14 the next week on a 29% surge in radio audience. The single led the rollout for Red's October 22 release, arriving as Swift's first Hot 100 No. 1 after two previous singles had each peaked at No. 2.", "The song itself was written almost by accident: a friend of an ex dropped by the studio while Swift was working with Max Martin and Shellback and mentioned rumors the couple were reconciling — after the friend left, Swift picked up an acoustic guitar, improvised the refrain on the spot, and the three finished the song in about 25 minutes. It went on to spend three non-consecutive weeks at No. 1 and pick up a Record of the Year nomination at the Grammys — even as country radio kept it out of the Country Airplay top ten, an early flashpoint in the was-she-still-country debate that shadowed the whole album."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/4/40/We_Are_Never_Ever_Getting_Back_Together.png/250px-We_Are_Never_Ever_Getting_Back_Together.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together" }],
     },
     {
@@ -4617,7 +4650,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Album of the Year and Best Country Album nods at the January 26, 2014 ceremony — losing Album of the Year to Daft Punk's Random Access Memories and Best Country Album to Kacey Musgraves' debut, Same Trailer Different Park.",
       body: ["At the 56th Annual Grammy Awards, Red was one of five Album of the Year nominees alongside Sara Bareilles' The Blessed Unrest, Kendrick Lamar's Good Kid, M.A.A.D City, and Macklemore & Ryan Lewis' The Heist — the trophy went to Daft Punk's Random Access Memories.", "In Best Country Album, Red competed against Jason Aldean's Night Train, Tim McGraw's Two Lanes of Freedom, and Blake Shelton's Based on a True Story..., with Kacey Musgraves' debut Same Trailer Different Park taking the win. It was Swift's second Album of the Year nomination (after Fearless won in 2010) and a rare winless Grammy night."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/56th_Annual_Grammy_Awards" }],
     },
     {
@@ -4628,7 +4661,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A \"howling, U2-style epic with reverb-drenched guitars,\" per Rolling Stone — Taylor's own description was simpler: \"This sounds like the feeling of falling in love in an epic way.\"",
       body: ["Previewing the song on Good Morning America, Swift explained: \"I wrote this song about when you first fall in love with someone. The possibilities. Kind of thinking about the different ways that it could go.\"", "On the sound she added: \"It's a really big sound. To me, this sounds like the feeling of falling in love in an epic way\" — a deliberate departure into arena rock that opens the album before its country roots resurface. A stripped-down acoustic version included on the Target-exclusive edition was, in her words, \"really acoustic and like emotional and sweet.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8a/Taylor_Swift_-_State_of_Grace.png/250px-Taylor_Swift_-_State_of_Grace.png", credit: "Big Machine Records", caption: "Promotional single cover for \"State of Grace,\" released ahead of the album in October 2012.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8a/Taylor_Swift_-_State_of_Grace.png", credit: "Big Machine Records", caption: "Promotional single cover for \"State of Grace,\" released ahead of the album in October 2012.", kind: "primary" }],
       sources: [{ name: "Songfacts", url: "https://www.songfacts.com/facts/taylor-swift/state-of-grace" }],
     },
     {
@@ -4639,7 +4672,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A duet with Snow Patrol's Gary Lightbody, born from a relationship where \"you never know when he's going to leave... but he always does come back\" — Ed Sheeran made the introduction.",
       body: ["Swift told NPR the song was inspired by an unreliable partner: \"You never know when he's going to leave, you never know when he's going to come back, but he always does come back.\"", "She described picturing a boyfriend on his knees outside a door, promising \"this is the last time,\" while his girlfriend waits inside, torn on whether to let him back in: \"It's a really fragile emotion you're dealing with when you want to love someone, but you don't know if it's smart to.\" The collaboration came together after her friend Ed Sheeran introduced her to Lightbody in spring 2012; the track was produced by Jacknife Lee, known for his work with Snow Patrol and U2."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png", credit: "Big Machine Records", caption: "Official single cover for \"The Last Time\" featuring Gary Lightbody of Snow Patrol.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png", credit: "Big Machine Records", caption: "Official single cover for \"The Last Time\" featuring Gary Lightbody of Snow Patrol.", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Last_Time_(Taylor_Swift_song)" }, { name: "NPR", url: "https://www.npr.org/2012/11/03/164186569/taylor-swift-my-confidence-is-easy-to-shake" }],
     },
     {
@@ -4695,7 +4728,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A worldwide webcast from Nashville on August 13, 2012: the album title, the October 22 date, and — dropped the same night — a brand-new single called \"We Are Never Ever Getting Back Together.\"",
       body: ["More than 70,000 fans were watching at the stream's peak as she laid out the whole plan: a 16-track album called Red, out October 22, with her first outside co-writers since she wrote all of Speak Now solo — Ed Sheeran and Max Martin among them.", "She explained the title as an emotional color-code, saying the songs were \"all pretty much about the kind of tumultuous, crazy, insane, intense, semi-toxic relationships that I've experienced in the last two years.\" Then she premiered \"We Are Never Ever Getting Back Together,\" which went on to become her first career Hot 100 No. 1 — a direct-to-fans rollout she's been elaborating on ever since."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Red (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)" }, { name: "Taylor Swift to Release New 'Red' Album in October", url: "https://www.rollingstone.com/music/music-news/taylor-swift-to-release-new-red-album-in-october-191751/" }, { name: "Taylor Swift's New Single Hits No. 1 on Hot 100", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/" }],
     },
     {
@@ -4707,7 +4740,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written from Maya Thompson's blog posts about her son Ronan, who died of neuroblastoma at three — Thompson gets a co-writing credit, and every dollar went to fighting cancer.",
       body: ["Swift debuted the song live at the Stand Up to Cancer telethon on September 8, 2012, and released it as an iTunes-exclusive the same night, with all proceeds donated to cancer charities. She assembled the lyrics from direct quotes in Thompson's blog about her son, crediting her as co-writer — with Thompson's share of the proceeds going to her Ronan Thompson Foundation. The song reached No. 16 on the Hot 100 and was certified gold, and Thompson told MTV that Swift \"got it in a way that most people don't.\"", "Swift has treated the song as close to unperformable since: she has sung it live only twice, at the 2012 telethon and again on August 17, 2015 in Glendale, Arizona, when Thompson attended the 1989 World Tour. She re-recorded it for Red (Taylor's Version) in 2021 — after writing to Thompson for permission, explaining that Red was \"an album of heartbreak and healing ... and of the loss of an imagined future alongside someone.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/250px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png", credit: "Big Machine Records (vector replica via Wikimedia Commons)", caption: "The \"Ronan\" single cover — shown here as a faithful vector replica of the text-only artwork, hosted on Wikimedia Commons.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png", credit: "Big Machine Records (vector replica via Wikimedia Commons)", caption: "The \"Ronan\" single cover — shown here as a faithful vector replica of the text-only artwork, hosted on Wikimedia Commons.", kind: "primary" }],
       sources: [{ name: "Ronan (song)", url: "https://en.wikipedia.org/wiki/Ronan_(song)" }, { name: "Taylor Swift Debuts 'Ronan' at Stand Up To Cancer Benefit", url: "https://www.rollingstone.com/music/music-news/taylor-swift-debuts-ronan-at-stand-up-to-cancer-benefit-122781/" }],
     },
     {
@@ -4719,7 +4752,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sent to country radio October 1 (after a Sept. 25 digital release), three weeks before the album — a soft, waltzing country ballad about a first date that heals, deliberately reassuring country radio before Red's dubstep drop landed.",
       body: ["The second track released from Red, sent to country radio as a counterweight to the pop-leaning lead single. Swift described it as a song about \"when you've gotten through a really bad relationship and you finally dust yourself off and go on that first date after a horrible breakup.\"", "It debuted and peaked at No. 7 on the Hot 100 on release-week downloads and earned a Grammy nomination for Best Country Song. The Philip Andelman video — a solitary, contemplative walk through Paris that ends at a café — was, in her words, a \"love letter\" to the city, about \"somebody moving on and finding yourself again.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Taylor_Swift_-_Begin_Again.png/250px-Taylor_Swift_-_Begin_Again.png", credit: "Big Machine Records", caption: "Single cover art for \"Begin Again,\" released October 1, 2012.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png", credit: "Big Machine Records", caption: "Single cover art for \"Begin Again,\" released October 1, 2012.", kind: "primary" }],
       sources: [{ name: "Begin Again (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)" }],
     },
     {
@@ -4731,7 +4764,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Loving him was like driving a new Maserati down a dead-end street — the title track's color-coded theory of a relationship whose emotions ran too hot to be anything but red.",
       body: ["Swift has explained that the album took its name from this song's central idea: the semi-toxic relationships she was writing about were defined by intense, burning emotion — red — rather than the blues and grays of ordinary heartbreak. The lyric maps feelings to colors directly: losing him was blue, missing him was dark gray, loving him was red. She wrote it on September 7, 2011, on the flight home to Nashville after a Tacoma, Washington show, homesick and still mid-tour.", "On release week the track debuted at No. 6 on the Hot 100 on album-preview downloads, then became the album's fifth single in June 2013, peaking at No. 2 on Hot Country Songs across a 42-week run — at the time the longest-charting single of her career. Its biggest television moment came at the November 2013 CMA Awards, reworked acoustically with Alison Krauss on fiddle and Vince Gill on harmony."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/c/c0/Taylor_Swift_-_Red_%28Single%29.png/250px-Taylor_Swift_-_Red_%28Single%29.png", credit: "Big Machine Records", caption: "Single cover art for \"Red,\" the album's fifth single.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png", credit: "Big Machine Records", caption: "Single cover art for \"Red,\" the album's fifth single.", kind: "primary" }],
       sources: [{ name: "Red (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)" }],
     },
     {
@@ -4755,7 +4788,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "December 13, 2012: a spoken-word intro, a pink-streaked dye job, and a festival-wasteland storyline — the most cinematic, least country video she'd made to that point.",
       body: ["Directed by Anthony Mandler, the video cast Swift opposite Reeve Carney as a bad-boy love interest through a desert festival bender of bar fights and infidelity, opening with a moody spoken monologue instead of the song — landing on the line \"I think that the worst part of it all wasn't losing him. It was losing me.\"", "Its grittier styling — including temporary pink tips — marked a deliberate image departure timed to the single's pop-radio push, and it paid off in hardware: Best Female Video at the 2013 MTV VMAs and YouTube Phenomenon at the 2013 YouTube Music Awards."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "I Knew You Were Trouble", url: "https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble" }],
     },
     {
@@ -4767,7 +4800,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her haunting Hunger Games ballad with The Civil Wars took Best Song Written for Visual Media at the 55th Grammys — still the only Hunger Games song ever to win a Grammy.",
       body: ["Written with Joy Williams and John Paul White of The Civil Wars and producer T Bone Burnett for The Hunger Games soundtrack, the song won Best Song Written for Visual Media at the February 10, 2013 ceremony, where it was also nominated for Best Country Duo/Group Performance. She performed \"We Are Never Ever Getting Back Together\" as the show's ringmaster-themed opener the same night.", "The collaboration itself came together in a single two-hour writing session at Burnett's home in fall 2011, after Swift spent two days reading the novel to get inside Katniss Everdeen's head. Released as a surprise iTunes drop on December 26, 2011, it debuted at No. 30 on the Hot 100, eventually went double platinum, and picked up a Golden Globe nomination for Best Original Song along the way — with a Philip Andelman video of Swift walking barefoot through a Watertown, Tennessee forest in a white gown."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png", credit: "Big Machine Records", caption: "Single cover for \"Safe & Sound\" (feat. The Civil Wars), which won Best Song Written for Visual Media at the 55th Grammys.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png", credit: "Big Machine Records", caption: "Single cover for \"Safe & Sound\" (feat. The Civil Wars), which won Best Song Written for Visual Media at the 55th Grammys.", kind: "primary" }],
       sources: [{ name: "Safe & Sound (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)" }, { name: "Taylor Swift + Civil Wars Win Best Song Written for Visual Media at 2013 Grammys", url: "https://popcrush.com/taylor-swift-civil-wars-best-song-written-for-visual-media-2013-grammys/" }, { name: "Taylor Swift Wins First GRAMMY Of The Night For 'Hunger Games' Song", url: "https://www.cbsnews.com/boston/news/taylor-swift-wins-first-grammy-of-the-night-for-hunger-games-song/" }],
     },
     {
@@ -4827,7 +4860,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A one-off single for the film One Chance, released October 21, 2013 — the first song Taylor ever made with Jack Antonoff, years before he became her most constant collaborator.",
       body: ["Swift wrote it with Antonoff after watching the Paul Potts biopic One Chance, reading the film as a love story and writing from the perspective of Potts's unfailingly supportive wife.", "The sound was the real tell: an '80s-inspired synth-pop track one critic described as \"You Belong With Me\" run through Fun's synthesizers — in hindsight, a first sketch of the 1989 palette a year early. It peaked at No. 34 on the Hot 100, and its Golden Globe nomination for Best Original Song was her second in a row. The partnership it started went on to shape 1989, reputation, Lover, folklore, Midnights and beyond."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png", credit: "Big Machine Records", caption: "Official single cover for \"Sweeter Than Fiction,\" from the One Chance soundtrack.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/2/29/Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png", credit: "Big Machine Records", caption: "Official single cover for \"Sweeter Than Fiction,\" from the One Chance soundtrack.", kind: "primary" }],
       sources: [{ name: "Sweeter Than Fiction", url: "https://en.wikipedia.org/wiki/Sweeter_Than_Fiction" }],
     },
     {
@@ -4900,7 +4933,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "1.238 million units in week one — the only artist in Nielsen history with four different million-selling album weeks.",
       body: ["Withheld from streaming services for its entire first week, reputation moved 1.216 million copies in pure sales — the biggest sales week for any album since 2015 — while the No. 2 record that week, Sam Smith's The Thrill of It All, managed 66,000 units. Its 709,000 digital copies were the third-largest digital sales week in Nielsen history, and in seven days it passed Ed Sheeran's ÷ (931,000) to become 2017's best-selling album.", "The million-selling-week club she rejoined was her own: Speak Now (1.047 million), Red (1.208 million), and 1989 (1.287 million) had all done it first — no other artist in Nielsen's history had even one week that size four times. For a record rolled out with no press interviews, a wiped social feed, and a deliberate streaming holdout, the number was the whole argument: the audience showed up anyway."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Taylor_Swift_-_Reputation.png/250px-Taylor_Swift_-_Reputation.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-reputation-debuts-no-1-billboard-200-albums/" }, { name: "Refinery29", url: "https://www.refinery29.com/en-us/2017/11/182106/taylor-swift-reputation-billboard-chart" }, { name: "Forbes", url: "https://www.forbes.com/sites/brittanyhodak/2017/11/20/taylor-swifts-reputation-outsold-every-other-album-on-the-billboard-200-combined/" }],
     },
     {
@@ -4911,7 +4944,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "By her own account, it began as a poem about deciding who she could trust.",
       body: ["Released August 24, 2017 — one day after the album announcement — it began, by her account, as a poem about realizing she could only trust a few people. Jack Antonoff co-wrote and co-produced, and Right Said Fred earned writing credits for the \"I'm Too Sexy\" interpolation carrying the chorus.", "The bridge stages a phone call announcing that the old Taylor \"can't come to the phone right now\" because she's dead — and she later told Rolling Stone the device played on \"a stupid phone call I shouldn't have picked up\": the 2016 Kanye West call at the center of the Kim Kardashian \"Famous\" fallout. The single ended Despacito's 16-week run at No. 1 on the Hot 100 with the largest sales-and-streaming week of 2017."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Look_What_You_Made_Me_Do" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/taylor-swift-rolling-stone-interview-880794/" }],
       relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative", "moment:vault-1989-the-full-call-leaks-and-she-was-telling-the-truth"],
     },
@@ -4923,7 +4956,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "59,157 fans at University of Phoenix Stadium — breaking the venue's attendance record, set by One Direction in 2014, by 2,633 seats.",
       body: ["Opening night at University of Phoenix Stadium on May 8, 2018 grossed $7.2 million on its own, with Camila Cabello and Charli XCX opening the show — and briefly joining her on stage for a three-way \"Shake It Off.\" The 59,157 fans in the building broke a venue attendance record One Direction had held since 2014, and they broke it by 2,633 seats.", "It was the first all-stadium tour of her career, launched behind an album rolled out with almost no press interviews: 53 shows across seven countries that would close six months later as the highest-grossing U.S. tour in Billboard Boxscore history."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Reputation_Stadium_Tour" }, { name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments" }],
     },
     {
@@ -4934,7 +4967,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Taylor's own explanation, on stage: she was called a snake on social media, and rather than let it define her, she made it the tour's whole visual language — in her words, something that 'can strengthen you instead.'",
       body: ["\"You might be wondering why there are so many snakes everywhere,\" she told the opening-night crowd in Glendale, before explaining that \"a couple of years ago, someone called me a snake on social media and it caught on,\" and that she went through \"some really low times\" because of it.", "The serpents were everywhere by design — coiling across the video screens, in her jewelry and costumes, and as set pieces flanking the stages — and the nightly speech reframed them in real time: name-calling \"doesn't have to defeat you. It can strengthen you instead.\""],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg/250px-Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg", credit: "Julio Enriquez / Wikimedia Commons", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/a/aa/Taylor_Swift_Sports_Authority_Field_05.25.18_%2842328420702%29.jpg", credit: "Julio Enriquez / Wikimedia Commons", kind: "archival" }],
       sources: [{ name: "iHeartRadio", url: "https://www.iheart.com/content/2018-05-08-taylor-swift-kicks-off-reputation-tour-with-big-setlist-fireworks-snakes/" }, { name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments" }],
     },
     {
@@ -4945,7 +4978,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She wiped her social media clean, then reappeared three days later with a slithering snake video — a reclaimed symbol before the album title and Nov. 10 release date dropped.",
       body: ["The blackout began August 18, 2017, when her Instagram, Twitter, Tumblr, and official website all went blank at once. At noon on August 21 came the first post-wipe post: a glitchy, fuzzy clip of what was eventually recognizable as a slithering snake tail, with more fragments following over the next two days — until August 23 brought the album title, the Mert & Marcus cover, and the November 10 release date.", "The symbol was a pointed reclamation: after the July 2016 \"Famous\" fallout, when Kim Kardashian's \"National Snake Day\" tweet sent snake emojis flooding her accounts so heavily that Instagram tested a comment-filtering tool on her page, she made the snake the era's opening image."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/f/f2/Taylor_Swift_-_Reputation.png/250px-Taylor_Swift_-_Reputation.png", credit: "Big Machine Records", caption: "The Mert & Marcus album cover revealed on August 23, 2017 — the payoff of the three-day snake-video teaser rollout.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png", credit: "Big Machine Records", caption: "The Mert & Marcus album cover revealed on August 23, 2017 — the payoff of the three-day snake-video teaser rollout.", kind: "archival" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-reputation-new-album-7941019/" }],
       relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative"],
     },
@@ -4957,7 +4990,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "After an album about scandal and revenge, the final track is a piano ballad about who does the dishes the morning after.",
       body: ["Written and produced with Jack Antonoff, it got the era's first televised moment: a living-room performance taped at her Rhode Island home during a secret session, fans swaying around the piano, aired mid-episode during ABC's Scandal on November 9, 2017 — hours before the album dropped at midnight.", "Sent to country radio weeks later, it became her first entry on a Billboard country chart since 2013. Her reasoning for the song itself: \"I think there's something even more romantic about who's gonna deal with you on New Year's Day. Who's willing to give you Advil and clean up the house? I think that states more of a permanence.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg", credit: "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)", caption: "At the reputation piano in Seattle, May 22, 2018 — on tour the song was performed as a “Long Live / New Year's Day” piano mashup.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/1f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg", credit: "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)", caption: "At the reputation piano in Seattle, May 22, 2018 — on tour the song was performed as a “Long Live / New Year's Day” piano mashup.", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/New_Year's_Day_(Taylor_Swift_song)" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-new-years-day-video-live-scandal-8031153/" }],
     },
     {
@@ -4979,7 +5012,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Announced on her 29th birthday, filmed secretly at her last North American tour stop, released globally at 12:01 a.m. on New Year's Eve.",
       body: ["Secretly taped on October 6 at AT&T Stadium in Arlington — the second of two Texas nights, and the tour's final North American stop — the film preserves the full six-act show, 63-foot cobra included, plus its one-night-only guest moments: Sugarland joining her for the first-ever live \"Babe,\" Maren Morris on \"The Middle,\" and openers Camila Cabello and Charli XCX returning for \"Shake It Off.\"", "It landed on Netflix at 12:01 a.m. on New Year's Eve, weeks after the tour closed out as the highest-grossing U.S. tour ever, at $266.1 million; the trailer's voiceover set the era's arc in one line: \"When she fell, she fell apart. When she rose, she rose slowly.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/250px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg", credit: "Melodies1917 / Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6d/Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg/1280px-Taylor_Swift_performing_Fearless_during_Reputation_Stadium_Tour_-_New_Jersey%2C_2018.jpg", credit: "Melodies1917 / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2018/12/219360/taylor-swift-reputation-tour-concert-movie-netflix" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-reputation-stadium-tour-film-netflix-what-to-expect-8490159/" }],
     },
     {
@@ -5001,7 +5034,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Black sequins, cutouts, and a serpent motif for the \"Look What You Made Me Do\" staging — a look so definitive that the Eras Tour later rebuilt it as a Roberto Cavalli snake bodysuit.",
       body: ["The sparkling, snake-themed bodysuit-and-boots silhouette she wore for the \"Look What You Made Me Do\" staging became one of the tour's signature images — the era's reclaimed insult rendered as stagewear, captured here mid-song in Seattle.", "The look outlived the tour itself. When the Eras Tour revived reputation as a full act in 2023, Roberto Cavalli built its black-and-red sequined snake bodysuit in the same mold — and that costume went unchanged for 131 shows, the only Eras Tour look that never got a variation, until a black-and-gold rework debuted at Miami's Hard Rock Stadium on October 18, 2024. Stylist Joseph Cassell's team raced the calendar to finish the new version, an origin story told in the third episode of The End of an Era; Swift's own verdict on the swap, posted to Instagram: \"I got some new outfits, and it's always nice when the crowd notices that.\""],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg", credit: "Ronald Woan / Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg", credit: "Ronald Woan / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-reputation-gold-reputation-bodysuit-doc-series-1235487475/" }],
     },
     {
@@ -5166,7 +5199,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Jack Antonoff caught it on Taylor's iPhone: \"the only time in my life...that a camera was ever on when magic actually happened.\"",
       body: ["Taylor wrote and produced Getaway Car with Jack Antonoff, and its bridge came together in under 30 seconds during a studio session she happened to be recording on her phone — footage that later circulated widely, showing the song's climactic turn arriving in real time.", "Antonoff called the clip singular in his career: \"That was the only time in my life — million hours I've spent in studios — that a camera was ever on when magic actually happened. She just had her iPhone on for whatever reason...I think that's why that video became so popular, because it was real.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg", credit: "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)", caption: "Performing \"Getaway Car\" on the reputation Stadium Tour in Seattle, May 22, 2018.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Getaway_Car.jpg", credit: "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)", caption: "Performing \"Getaway Car\" on the reputation Stadium Tour in Seattle, May 22, 2018.", kind: "archival" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/jack-antonoff-on-working-with-taylor-swift-and-viral-getaway-car-video-1234852109/" }],
     },
     {
@@ -5199,7 +5232,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"It starts with...rebellion, or anger, or angst...and then falling in love, and realizing you settle into what your priorities are\" — her own map of reputation, with this song as the landing point.",
       body: ["At the same iHeartRadio release-party special, Taylor described how Call It What You Want — track 14, and the one most fans read as being about Joe Alwyn — completes reputation's arc: \"It starts with just getting out any kind of rebellion, or anger, or angst, or whatever. And then, like, falling in love, and realizing that you kind of settle into what your priorities are.\"", "Fans got it a week before the album: released November 3, 2017 as the rollout's final promotional single, it debuted at No. 27 on the Hot 100 and arrived with a deliberately homemade lyric video — Swift in minimal makeup with an acoustic guitar, a bonfire, a horse, a dog — the first unguarded look at the domestic life the album's back half describes."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Taylor_Swift_-_Call_It_What_You_Want.jpg/250px-Taylor_Swift_-_Call_It_What_You_Want.jpg", credit: "Big Machine Records, via Wikimedia Commons", caption: "Single art for \"Call It What You Want,\" released November 3, 2017 — the handwritten title on kraft paper.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/9/92/Taylor_Swift_-_Call_It_What_You_Want.jpg", credit: "Big Machine Records, via Wikimedia Commons", caption: "Single art for \"Call It What You Want,\" released November 3, 2017 — the handwritten title on kraft paper.", kind: "primary" }],
       sources: [{ name: "iHeartRadio", url: "https://www.iheart.com/content/2017-11-10-taylor-swifts-iheartradio-reputation-release-party-everything-we-learned/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Call_It_What_You_Want_(Taylor_Swift_song)" }],
     },
     {
@@ -5255,7 +5288,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Premiered at the VMAs on August 27, 2017, then racked up 43.2 million views in a day — past Psy, past Adele — averaging 30,000 views a minute.",
       body: ["Joseph Kahn's video — zombie Taylor, snake throne, and a closing lineup of her past selves bickering with each other — beat Psy's \"Gentleman\" (36 million YouTube views) and Adele's \"Hello\" (27.7 million Vevo views) for the biggest 24-hour debut ever at the time. The song later collected Guinness World Records for first-day Spotify streams and fastest-selling digital single.", "The records stacked up across platforms at once: hourly viewing peaked above 3 million, the lyric video set YouTube's first-day record for that format, and the single took Spotify's global first-24-hours streaming mark too. The stage for all of it was pointed — the video premiered at the MTV Video Music Awards, the same show where the 2009 interruption that opens this whole story had happened eight years earlier."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png/250px-Taylor_Swift_-_Look_What_You_Made_Me_Do.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Taylor Swift's 'Look What You Made Me Do' Smashes YouTube's 24-Hour Record", url: "https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/" }, { name: "Taylor Swift's 'Look What You Made Me Do' Sets YouTube 24-Hour Streams Record", url: "https://www.billboard.com/pro/taylor-swift-psy-youtube-24-hour-streams-record/" }],
     },
     {
@@ -5279,7 +5312,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Released October 20, 2017: the giddy track five preview of the album's softer side, with a liner-notes credit fans obsessed over — \"baby intro voice\" by James Reynolds, Blake Lively and Ryan Reynolds' daughter.",
       body: ["The third track released ahead of reputation swapped the vengeful lead-single mode for flustered crush comedy, and it debuted at No. 13 on the Hot 100 — proof the rollout's pull didn't depend on a revenge narrative.", "The one-word cameo came about after Swift played a demo for Lively and Reynolds and their toddler kept repeating \"gorgeous\" — the credit made her the youngest name in the album's liner notes, and the kind of decodable detail (which friend? whose baby?) that kept fans treating every liner-note line of this era as a puzzle."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/7/71/Gorgeous_Taylor.png/250px-Gorgeous_Taylor.png", credit: "Big Machine Records", caption: "Single cover art for \"Gorgeous,\" released October 20, 2017.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/71/Gorgeous_Taylor.png", credit: "Big Machine Records", caption: "Single cover art for \"Gorgeous,\" released October 20, 2017.", kind: "primary" }],
       sources: [{ name: "Gorgeous (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Gorgeous_(Taylor_Swift_song)" }, { name: "Taylor Swift Drops New Single 'Gorgeous' From Upcoming Album 'Reputation'", url: "https://www.forbes.com/sites/hughmcintyre/2017/10/20/taylor-swift-drops-new-single-gorgeous-from-upcoming-album-reputation/" }],
     },
     {
@@ -5303,7 +5336,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Joseph Kahn's globe-hopping party video for the album's only guest-feature track dropped in January 2018 — yacht in Miami, arcade in Tokyo, double-decker in London.",
       body: ["The third single from reputation is the only track in her catalog to date pairing her with both a rapper (Future) and Ed Sheeran on one song. The video leaned into the album's reputation motif — a neon \"reputation\" sign flickers through the London sequence — while keeping the era's no-interviews rollout intact.", "Joseph Kahn's cut landed overnight on January 12, 2018 — his third video of the era after \"Look What You Made Me Do\" and \"...Ready for It?\" — and played as a world tour of the album's id: a yacht party in Miami, karaoke and vending-machine snacks with Sheeran in Tokyo, kebabs and a New Year's Eve house party in London."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/1/1d/End_Game_%28Official_Single_Cover%29_by_Taylor_Swift.png/250px-End_Game_%28Official_Single_Cover%29_by_Taylor_Swift.png", credit: "Big Machine Records", caption: "Official single cover for \"End Game\" featuring Ed Sheeran and Future.", kind: "primary" }, { url: "https://i.ytimg.com/vi/dfnCAmr569k/hqdefault.jpg", credit: "YouTube / Taylor Swift", caption: "The Tokyo stretch of Joseph Kahn's \"End Game\" video, released January 12, 2018.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/1/1d/End_Game_%28Official_Single_Cover%29_by_Taylor_Swift.png", credit: "Big Machine Records", caption: "Official single cover for \"End Game\" featuring Ed Sheeran and Future.", kind: "primary" }, { url: "https://i.ytimg.com/vi/dfnCAmr569k/hqdefault.jpg", credit: "YouTube / Taylor Swift", caption: "The Tokyo stretch of Joseph Kahn's \"End Game\" video, released January 12, 2018.", kind: "archival" }],
       sources: [{ name: "End Game (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/End_Game_(Taylor_Swift_song)" }, { name: "Taylor Swift Parties Around the World in 'End Game' Music Video", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-end-game-video-watch-1074288/" }],
     },
     {
@@ -5315,7 +5348,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written with Train's Pat Monahan for Red and left off the album, \"Babe\" surfaced April 20, 2018 as a Sugarland single — with Taylor on the track and, later, playing the other woman in its Mad Men-styled video.",
       body: ["Swift pitched the six-year-old outtake to the duo when she heard they'd reunited. She sang backing vocals — audible echoing through the chorus and bridge under Jennifer Nettles' lead — and the single climbed to No. 8 on Hot Country Songs.", "Anthony Mandler's video, teased at the CMT Music Awards and released June 9, 2018, cast Swift against type as the other woman: a 1960s, Mad Men-styled secretary opposite Brandon Routh's straying husband. The two acts finally performed it together live at the reputation Stadium Tour's Arlington finale that October, and her own version eventually arrived in 2021 as a from-the-vault track on Red (Taylor's Version)."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Sugarland_Babe.png/250px-Sugarland_Babe.png", credit: "Big Machine Records, via Wikimedia Commons", caption: "Single art for Sugarland's \"Babe,\" featuring Taylor Swift — released April 20, 2018.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/f/fd/Sugarland_Babe.png", credit: "Big Machine Records, via Wikimedia Commons", caption: "Single art for Sugarland's \"Babe,\" featuring Taylor Swift — released April 20, 2018.", kind: "primary" }],
       sources: [{ name: "Babe (Sugarland song)", url: "https://en.wikipedia.org/wiki/Babe_(Sugarland_song)" }, { name: "Taylor Swift Co-Wrote One of Sugarland's New Songs With Train's Pat Monahan", url: "https://theboot.com/sugarland-taylor-swift-pat-monahan-babe/" }],
     },
     {
@@ -5363,7 +5396,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "November 19, 2018: after 13 years, a new deal with Universal's Republic Records guarantees she owns every master she records from here on — and forces a Spotify-equity payout clause for every UMG artist.",
       body: ["The contract's headline term — ownership of her future master recordings — became the fault line of the next year's Big Machine catalog fight and the entire Taylor's Version project. She also negotiated that if UMG sold its Spotify shares, proceeds would be distributed to all its artists on a non-recoupable basis, a condition she called non-negotiable and framed as leverage on behalf of other musicians.", "Her own words put the weight on that second clause: the payout condition \"meant more to me than any other deal point,\" she wrote, casting the signing not as a label change but as \"positive change for creators\" — the first of the era-ending business moves that would define the next several years of her career."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Taylor_Swift_-_Reputation_Tour_Seattle_-_I_Did_Something_Bad.jpg/250px-Taylor_Swift_-_Reputation_Tour_Seattle_-_I_Did_Something_Bad.jpg", credit: "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)", caption: "On the reputation Stadium Tour in May 2018 — the final album cycle recorded under the Big Machine contract she was leaving.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/5/58/Taylor_Swift_-_Reputation_Tour_Seattle_-_I_Did_Something_Bad.jpg", credit: "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)", caption: "On the reputation Stadium Tour in May 2018 — the final album cycle recorded under the Big Machine contract she was leaving.", kind: "archival" }],
       sources: [{ name: "Taylor Swift Signs Landmark New Deal With Universal Music Group", url: "https://variety.com/2018/music/news/taylor-swift-news-alert-1203032124/" }, { name: "How Taylor Swift's Deal With Universal Affects Other Artists", url: "https://www.rollingstone.com/pro/news/taylor-swift-universal-republic-deal-spotify-758102/" }],
     },
     {
@@ -5375,7 +5408,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "November 21, 2018: the second of two Tokyo Dome nights ends the 53-show run — $345.7 million grossed worldwide, the highest-grossing tour of her career to that point.",
       body: ["The tour that had already broken the U.S. all-time record ended its single year of touring in Japan: the two Tokyo Dome nights drew 100,109 fans and $14.9 million between them, the highest-grossing engagement of the run outside North America.", "The final tally — $345.7 million across a compact 53 dates, all stadiums — came in 38 percent above the 85-show 1989 World Tour's $250.7 million, and pushed her career touring gross past $935 million. The Dallas stop filmed weeks earlier became the Netflix concert film released that New Year's Eve."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png/250px-Taylor_Swift%27s_Reputation_Stadium_tour.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Reputation Stadium Tour", url: "https://en.wikipedia.org/wiki/Reputation_Stadium_Tour" }, { name: "Taylor Swift Closes Reputation Stadium Tour With $345 Million", url: "https://www.billboard.com/pro/taylor-swift-reputation-stadium-tour-345-million/" }],
     },
     {
@@ -5400,7 +5433,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "1,047,000 copies in week one — the first album since Lil Wayne's Tha Carter III to cross a million in its opening week.",
       body: ["It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.", "It also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-speak-now-sales-charts/" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
     },
     {
@@ -5411,7 +5444,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A slow-burning ballad about a 19-year-old narrator naming the damage after the fact.",
       body: ["At six minutes and forty-three seconds, it's the longest, darkest thing on the album — a blues-inflected power ballad whose 19-year-old narrator finally asks, 'Don't you think I was too young to be messed with?' Swift said only that it was about someone who 'made my world very dark for a while,' and waved off the guessing game outright: 'How presumptuous! I never disclose who my songs are about.'", "On the Speak Now World Tour she staged the bridge literally, with fireworks erupting overhead as she sang 'I'm shining like fireworks over your sad, empty town' — and in June 2023 she brought it back as an Eras Tour surprise song in Minneapolis. Critic Rob Sheffield called it 'a failed quasi-relationship, with no happy ending, no moral, no solution.'"],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Taylor_Swift_2011crop.jpg/250px-Taylor_Swift_2011crop.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_2011crop.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)" }, { name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/" }],
     },
     {
@@ -5422,7 +5455,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Not a relationship song — this one's aimed straight at her critics.",
       body: ["In her words: people who \"attack everything about a person\" instead of offering real feedback. It's also the most defiantly country track on the record — banjo-led bluegrass with fiddle, mandolin, and handclaps — and Grammy.com would later call it, flatly, 'a deliciously twangy clapback to critic Bob Lefsetz.'", "The clapback worked on every level: it climbed to No. 11 on the Hot 100, sold over a million downloads within a year, and finished the arc at the 2012 Grammys, where it won Best Country Song and Best Country Solo Performance."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Taylor_Swift_Sydney.jpg/250px-Taylor_Swift_Sydney.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/7c/Taylor_Swift_Sydney.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Mean_(song)" }, { name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/" }],
     },
     {
@@ -5741,7 +5774,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Guys get what they deserve in my songs, and if they deserve an apology, they should get one\" — her first-ever apology track, later confirmed by Taylor Lautner as being about him.",
       body: ["In interviews before Speak Now's release, Swift explained she'd broken her own pattern: \"Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that.\"", "It was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she'd dated in late 2009, confirmed in a 2016 interview that he was the song's subject."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Back_to_December" }],
     },
     {
@@ -5752,7 +5785,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Written after an awkward run-in with an ex at an awards show — \"I felt like I was standing alone in a crowded room,\" she told her mom that night, then wrote the song.",
       body: ["Swift was inspired by an uncomfortable encounter with an ex-boyfriend at an awards show — she wanted to talk to him but couldn't get past the awkwardness. Back home, she told her mother, \"I felt like I was standing alone in a crowded room,\" and wrote the lyrics from there.", "She later told USA Today's Brian Mansfield that the subject behind \"The Story of Us\" was the same person behind \"Dear John.\" It was the last song she wrote for Speak Now."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_The_Story_of_Us.png/250px-Taylor_Swift_-_The_Story_of_Us.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_The_Story_of_Us.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Story_of_Us_(song)" }],
     },
     {
@@ -5763,7 +5796,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "All 14 standard-edition tracks credited to Swift alone — a direct answer to critics who doubted a 20-year-old could really write her own songs.",
       body: ["Swift wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour.", "She's since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track \"If This Was a Movie\" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
     },
     {
@@ -5774,7 +5807,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Nominated for Best Country Album at the 54th Grammy Awards — the same ceremony where its single \"Mean\" won two trophies outright.",
       body: ["Nominations for the 54th Annual Grammy Awards were announced November 30, 2011; Speak Now was nominated for Best Country Album alongside Jason Aldean's \"My Kinda Party,\" Eric Church's \"Chief,\" Blake Shelton's \"Red River Blue,\" and George Strait's \"Here for a Good Time.\"", "Lady Antebellum's \"Own the Night\" won the category at the February 12, 2012 ceremony; Speak Now's single \"Mean\" won Best Country Song and Best Country Solo Performance that same night."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records (album cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records (album cover art)", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/music/music-news/grammy-awards-2012-winners-whitney-houston-death-adele-289778/" }],
     },
     {
@@ -5818,7 +5851,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "110 shows, 19 territories, 1.64 million tickets sold — Billboard's final tally for the tour that closed out the era on March 18, 2012.",
       body: ["Billboard estimated the Speak Now World Tour's total gross at $123.7 million, from 1,642,435 tickets sold across its 110-date run spanning 19 territories, from its February 2011 Singapore opener through its final show on March 18, 2012.", "Inside those numbers: the North American leg alone accounted for roughly 1.5 million of the tickets, the run was her first tour with multiple US stadium shows — six football stadiums — and the closing night landed at Auckland's Vector Arena. Adjusted for inflation, the $123.7 million works out to roughly $173 million in 2025 dollars, earned by a 22-year-old on an album she wrote entirely alone."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/250px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/1280px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour" }],
     },
     {
@@ -5830,7 +5863,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An unauthorized MP3 of \"Mine\" hit the internet in early August 2010 — Big Machine answered by rushing the lead single to radio and iTunes on Aug. 4, twelve days ahead of schedule.",
       body: ["She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. \"Mine\" introduced Speak Now two and a half months before the album arrived.", "The numbers vindicated the scramble: originally slated for August 16, the single debuted at No. 3 on the Hot 100 with 297,000 downloads — at the time the eighth-biggest sales debut ever for a digital song. The music video, co-directed by Swift and Roman White and shot in Kennebunkport, Maine with British actor Toby Hemingway as the love interest (she cast him after seeing Feast of Love), premiered on CMT August 27 and went on to win Video of the Year at the 2011 CMT Music Awards."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Taylor_Swift_-_Mine.png/250px-Taylor_Swift_-_Mine.png", credit: "Big Machine Records (single cover art)", kind: "primary" }, { url: "https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg", credit: "Big Machine Records / YouTube (official music video still)", caption: "Still from the official 'Mine' music video, via the video's YouTube thumbnail.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/5/56/Taylor_Swift_-_Mine.png", credit: "Big Machine Records (single cover art)", kind: "primary" }, { url: "https://i.ytimg.com/vi/XPBwXKgDTdE/hqdefault.jpg", credit: "Big Machine Records / YouTube (official music video still)", caption: "Still from the official 'Mine' music video, via the video's YouTube thumbnail.", kind: "archival" }],
       sources: [{ name: "Taylor Swift's 'Mine' Single Leaks", url: "https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/" }, { name: "Mine (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Mine_(Taylor_Swift_song)" }, { name: "Taylor Swift Rush Releases \"Mine\" to Radio After Internet Leak", url: "https://www.cbsnews.com/news/taylor-swift-rush-releases-mine-to-radio-after-internet-leak-speak-now-album-in-october/" }],
     },
     {
@@ -5842,7 +5875,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Oct. 25, 2010: the third album lands — fourteen tracks written alone between 18 and 20, released into a week that ended with a million copies sold.",
       body: ["The solo writing wasn't incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective.", "She'd written the fourteen tracks on the road, co-producing with Nathan Chapman: \"I'd get my best ideas at 3:00 a.m. in Arkansas, and I didn't have a co-writer around so I would just finish it,\" she explained. The new title fit her definition of the whole record — the moment \"where it's almost too late, and you've got to either say what it is you are feeling or deal with the consequences forever.\" The market answered with 1,047,000 first-week copies and a No. 1 debut on the Billboard 200."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary" }],
       sources: [{ name: "Speak Now", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
     },
     {
@@ -5854,7 +5887,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The apology song becomes the second single in November 2010 — the first time she'd ever sent an \"I'm sorry\" to country radio.",
       body: ["Chosen as the follow-up to \"Mine\" within weeks of the album's release; the apology's recipient stayed officially unnamed until Taylor Lautner confirmed, years later, that it was him.", "It went to country radio on November 15, 2010 — five days after she premiered it at the CMA Awards at Nashville's Bridgestone Arena, a stripped-back performance the Los Angeles Times graded a B+. The single climbed to No. 6 on the Hot 100 and No. 3 on Hot Country Songs, and its Yoann Lemoine-directed video — all snow and distance, built, in the director's words, \"to work on the coldness of feelings in a very visual way\" — premiered that January."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png", credit: "Big Machine Records (single cover art)", kind: "primary" }],
       sources: [{ name: "Back to December", url: "https://en.wikipedia.org/wiki/Back_to_December" }],
     },
     {
@@ -5866,7 +5899,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "March 2011: the album's bluegrass-leaning critic clapback becomes single three — the one that would end up with two Grammys and a live banjo on the Grammy stage.",
       body: ["Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.", "It had already debuted and peaked at No. 11 on the Hot 100 on album-week sales in 2010; released to country radio March 7, 2011, it passed a million digital copies by that August. The Declan Whitebloom video — shot over two days at Los Angeles' Orpheum Theatre with young actors Joey King and Presley Cash — reframed the critic clapback as an anti-bullying story, and Grammy.com's retrospective still reads the song the way fans did in 2011: \"a deliciously twangy clapback to critic Bob Lefsetz.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Taylor_Swift_-_Mean.png/250px-Taylor_Swift_-_Mean.png", credit: "Big Machine Records (single cover art)", kind: "primary" }, { url: "https://i.ytimg.com/vi/jYa1eI1hpDE/hqdefault.jpg", credit: "Big Machine Records / YouTube (official music video still)", caption: "Still from the official 'Mean' music video, via the video's YouTube thumbnail.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/2/2d/Taylor_Swift_-_Mean.png", credit: "Big Machine Records (single cover art)", kind: "primary" }, { url: "https://i.ytimg.com/vi/jYa1eI1hpDE/hqdefault.jpg", credit: "Big Machine Records / YouTube (official music video still)", caption: "Still from the official 'Mean' music video, via the video's YouTube thumbnail.", kind: "archival" }],
       sources: [{ name: "Mean (song)", url: "https://en.wikipedia.org/wiki/Mean_(song)" }, { name: "How Speak Now Cemented Taylor Swift's Songwriting Legacy", url: "https://www.grammy.com/news/taylor-swift-speak-now-taylors-version-legacy-songs-mine-dear-john-mean/" }],
     },
     {
@@ -5878,7 +5911,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "July 18, 2011: a song written at 16 and bootlegged from 2007 bar shows becomes the album's fifth single — because fans simply would not stop asking for it.",
       body: ["A fan-filmed 2007 performance circulated online for years, and backstage requests at the 2010 CMA Music Festival pushed her to rework the song for Speak Now. The single just made official what tour setlists already knew.", "The studio version kept the original arrangement while retouching lyrics she'd written at 16. As the album's fifth single it reached No. 17 on the Hot 100 and went all the way to No. 1 on Hot Country Songs that November, eventually certified platinum — and, fittingly for a song the live shows kept alive, its Christian Lamb-directed video was cut entirely from Speak Now World Tour concert footage."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Sparks_Fly_-_Single.png/250px-Sparks_Fly_-_Single.png", credit: "Big Machine Records (single cover art)", kind: "primary" }, { url: "https://i.ytimg.com/vi/oKar-tF__ac/hqdefault.jpg", credit: "Big Machine Records / YouTube (official music video still)", caption: "Still from the official 'Sparks Fly' music video — cut from Speak Now World Tour performance footage — via the video's YouTube thumbnail.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/9/91/Sparks_Fly_-_Single.png", credit: "Big Machine Records (single cover art)", kind: "primary" }, { url: "https://i.ytimg.com/vi/oKar-tF__ac/hqdefault.jpg", credit: "Big Machine Records / YouTube (official music video still)", caption: "Still from the official 'Sparks Fly' music video — cut from Speak Now World Tour performance footage — via the video's YouTube thumbnail.", kind: "archival" }],
       sources: [{ name: "Sparks Fly (song)", url: "https://en.wikipedia.org/wiki/Sparks_Fly_(song)" }],
     },
     {
@@ -5890,7 +5923,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Nov. 21, 2011: a CD-plus-DVD of the North American leg arrives — the full show on film, plus tour covers of Train's \"Drops of Jupiter,\" \"Bette Davis Eyes,\" and the Jackson 5's \"I Want You Back.\"",
       body: ["Her first live album, released through Big Machine while the era was still running; it debuted at No. 11 on the Billboard 200 with 77,000 first-week copies.", "The package ran 79 minutes on CD and two hours on the DVD, directed by Ryan Polito from footage shot across the tour's North American leg. Beyond the Billboard 200 debut it climbed to No. 2 on Top Country Albums — and it preserved the tour's cover-song habit on record, from Train's \"Drops of Jupiter\" to the Jackson 5's \"I Want You Back,\" years before surprise covers hardened into a formal nightly slot on her tours."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png/250px-Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png", credit: "Big Machine Records (album cover art)", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png", credit: "Big Machine Records (album cover art)", kind: "primary" }],
       sources: [{ name: "Speak Now World Tour – Live", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour_%E2%80%93_Live" }],
     },
     {
@@ -5914,7 +5947,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The album's namesake started with a friend's story — the boy she'd loved since childhood was marrying, in Swift's telling, a \"horrible, controlling, mean girl\" — so Swift wrote the objection scene as fiction.",
       body: ["She filed it among the album's hypotheticals — songs that are \"an extension of my feelings and hypothetically what I would do\" — rather than autobiography, and said a dream about an ex's wedding helped knit the song together.", "On the page it's a full screwball plot: the narrator sneaks into the wedding uninvited, hides in the curtains, interrupts the ceremony at the moment tradition invites objections, and leaves with the groom. And it did real chart work for a non-single, debuting at No. 8 on the Hot 100 on album-release sales — her sixth top-ten debut, breaking a record previously held by Mariah Carey."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records (album cover art)", caption: "The album the title track named — the song that gave Speak Now its thesis and its cover line.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records (album cover art)", caption: "The album the title track named — the song that gave Speak Now its thesis and its cover line.", kind: "primary" }],
       sources: [{ name: "Speak Now (song)", url: "https://en.wikipedia.org/wiki/Speak_Now_(song)" }, { name: "Behind the Meaning of Taylor Swift's \"Speak Now\"", url: "https://americansongwriter.com/behind-the-meaning-of-taylor-swifts-speak-now/" }],
     },
     {
@@ -6012,7 +6045,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Teased by a 12:12 a.m. countdown, revealed on Travis and Jason Kelce's New Heights: a briefcase with an orange \"TS,\" a title, and an Oct. 3 date. The episode set a Guinness World Record with 1.3 million concurrent YouTube viewers — the most ever for a podcast.",
       body: ["A countdown on her website expired at 12:12 a.m. ET on Aug. 12, 2025, revealing the teaser; the full episode aired the next evening. On it she pulled the blurred mint-green briefcase from behind the desk — mint green with an orange \"TS\" — revealed the 12-track list ending in a Sabrina Carpenter feature, and talked through the era's orange-glitter look. It was her first-ever podcast appearance, staged on her boyfriend's own show, and it doubled as the most unguarded long-form interview she had given in years: two hours of album talk, football talk, and the couple's dynamic on camera.", "The internet did not hold. The livestream crashed under the load about an hour and 44 minutes in, with the concurrent count peaking at 1.3 million viewers — a figure Guinness World Records certified as the most concurrent views ever for a podcast on YouTube. Within 24 hours the episode had roughly 13 million YouTube views, per Variety's tally. The announcement's mechanics became the era's template: every detail, from the 12:12 a.m. timestamp to the reveal's staging on the Kelce brothers' set, was read by fans as deliberate."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg", credit: "New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)", caption: "The thumbnail of the record-breaking New Heights episode itself — Swift between Travis and Jason Kelce, holding The Life of a Showgirl artwork on the set where album No. 12 was announced.", kind: "primary" }],
+      images: [{ url: "https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg", credit: "New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)", caption: "The thumbnail of the record-breaking New Heights episode itself — Swift between Travis and Jason Kelce, holding The Life of a Showgirl artwork on the set where album No. 12 was announced.", kind: "primary" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2025-08/250814-travis-kelce-taylor-swift-16x9-mn-1200-675781.jpg", credit: "New Heights, via NBC News", caption: "Mid-episode at the New Heights desk, Aug. 13, 2025 — her first-ever podcast appearance, on the show where the album was announced.", kind: "archival" }],
       sources: [{ name: "Taylor Swift sets Guinness World Record with 'New Heights' podcast appearance", url: "https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-sets-guinness-world-record-new-heights-podcast-appearance-rcna227245" }, { name: "Taylor Swift's 'New Heights' Podcast Ratings in 24 Hours", url: "https://variety.com/2025/music/news/taylor-swift-new-heights-podcast-views-life-of-a-showgirl-1236489806/" }, { name: "Taylor Swift announces track list and release date for new album on 'New Heights' podcast", url: "https://www.cnn.com/entertainment/live-news/new-heights-taylor-swift-album-announcement-08-13-25" }],
     },
     {
@@ -6407,7 +6440,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "On Graham Norton during release week, she called the wedding \"huge,\" said planning would start once album promotion wrapped, and ruled out trimming the guest list — the most concrete planning detail she'd offered herself since the garden proposal in August.",
       body: ["The tease came from the same Oct. 2 Graham Norton taping that opened the press run — the David Koma appearance — when the host pried gently at wedding plans and got the era's first concrete detail from Taylor herself: she called the wedding \"huge,\" said planning wouldn't start until after album promotion wrapped, and said she wasn't about to trim the guest list — small weddings, she said, are the stressful ones. It set off months of location speculation that neither of them fed further.", "The eventual Madison Square Garden ceremony in July 2026 made all that speculation moot — the venue was a subway ride for half the guest list. In a September New Heights episode, guest Jimmy Fallon had pulled the only other planning tidbit either of them ever gave: \"we're live music kind of people,\" per Travis — which, in hindsight, was the whole answer. They got married in a concert venue."],
       tags: ["Relationship"],
-      images: [{ url: "https://cdn.mos.cms.futurecdn.net/PJsDTgPm4oKabghVVGKLNM-1920-80.jpg", credit: "Alamy, via Marie Claire", caption: "On the Graham Norton Show couch, Oct. 2, 2025 — the appearance where she called the wedding \"huge\" and ruled out a small guest list.", kind: "archival" }],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/oGZmWZYsJXLBXALnDQk7X4.jpg", credit: "Alamy, via Marie Claire", caption: "On the Graham Norton Show couch in the black David Koma dress, Oct. 2, 2025 — the appearance where she called the wedding \"huge\" and ruled out a small guest list.", kind: "primary" }, { url: "https://cdn.mos.cms.futurecdn.net/PJsDTgPm4oKabghVVGKLNM-1920-80.jpg", credit: "Alamy, via Marie Claire", caption: "On the Graham Norton Show couch, Oct. 2, 2025 — the appearance where she called the wedding \"huge\" and ruled out a small guest list.", kind: "archival" }, { url: "https://cdn.mos.cms.futurecdn.net/WaJNJAWscy5SEzxxRpSQQm.jpg", credit: "Alamy, via Marie Claire", caption: "Mid-interview at the taping — the Artifex engagement ring visible on her hand while the wedding talk happened.", kind: "archival" }, { url: "https://cdn.mos.cms.futurecdn.net/ZitCnEiHQVnUnBmHPedDZB.jpg", credit: "Alamy, via Marie Claire", caption: "The full couch: Swift with Graham Norton and fellow guests Cillian Murphy, Greta Lee, Jodie Turner-Smith, Domhnall Gleeson, and Lewis Capaldi.", kind: "archival" }],
       sources: [{ name: "Travis Kelce finally confirms long-awaited Taylor Swift news after wedding", url: "https://www.hellomagazine.com/us/911732/travis-kelce-finally-confirms-long-awaited-taylor-swift-news-after-wedding/" }, { name: "Taylor Swift on Graham Norton, Travis Kelce Wedding Plans", url: "https://www.eonline.com/news/1423387/taylor-swift-on-graham-norton-travis-kelce-wedding-plans" }, { name: "Jimmy Fallon Asks Travis Kelce About Wedding Planning With Taylor Swift on New Heights", url: "https://www.nbc.com/nbc-insider/jimmy-fallon-new-heights-travis-kelce-wedding-planning-taylor-swift" }, { name: "Taylor Swift and Travis Kelce Are Married; Plus, Wedding Details", url: "https://www.theknot.com/content/taylor-swift-wedding" }],
     },
     {
@@ -6525,7 +6558,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "In his first episode after the wedding, Travis finally told the proposal story — confirming he was already planning to ask Taylor to marry him during their August 2025 podcast taping — the podcast that announced the album now bookending the era's whole arc.",
       body: ["The post-wedding episode closed a loop the era opened: New Heights hosted the album reveal in August 2025, the engagement announcement followed two weeks later, and eleven months on, Kelce used the same desk to finally tell the proposal story — confirming that during that August 2025 taping, he was already planning to ask Taylor to marry him. Per E!'s recap, he called starting the podcast season with her \"pretty epic.\"", "The episode's existence was itself notable. The wedding itself remains publicly unrecounted — no interviews, no magazine exclusive, no official photos — but the proposal finally got its telling, characteristically, through the podcast that has functioned as the relationship's official record since 2023: the show that started it (the failed friendship-bracelet handoff), announced the album, and now got the proposal's own origin story."],
       tags: ["Relationship"],
-      images: [{ url: "https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg", credit: "New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)", caption: "Archival: the August 2025 Taylor Swift episode of New Heights — the same show, and the same desk, where Kelce finally told the proposal story eleven months later.", kind: "archival" }],
+      images: [{ url: "https://i.ytimg.com/vi/LnpmnyCIbNQ/maxresdefault.jpg", credit: "New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)", caption: "The season-finale episode itself — Jason, guest Tom Brady, and a newly married Travis, in the first New Heights released after the wedding, where the proposal story finally got told.", kind: "primary" }, { url: "https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg", credit: "New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)", caption: "Archival: the August 2025 Taylor Swift episode of New Heights — the same show, and the same desk, where Kelce finally told the proposal story eleven months later.", kind: "archival" }],
       sources: [{ name: "Travis Kelce Details \"Epic\" Taylor Swift Proposal in First Podcast Episode After MSG Wedding", url: "https://www.eonline.com/news/1433765/taylor-swift-travis-kelce-wedding-travis-details-proposal" }, { name: "Travis Kelce Reflects on Taylor Swift Proposal in First 'New Heights' Appearance Since Starry N.Y.C. Wedding", url: "https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-reflects-taylor-swift-110036898.html" }],
     },
     {
@@ -6537,7 +6570,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Kindred Lubeck of Artifex Fine Jewelry, who designed Taylor's engagement ring with Travis, was among the guests at the Madison Square Garden wedding — and publicly thanked the \"incredible\" couple for including her.",
       body: ["Lubeck's attendance closed the loop on the engagement-ring story: the jeweler who worked with Kelce on the custom Old Mine Cut design nearly a year earlier was invited to see the marriage it led to, a detail she confirmed publicly after the wedding, thanking the \"incredible\" couple for including her.", "It was a fitting coda for the person whose work had carried an outsized share of the era's symbolism. Lubeck — the goldsmith, hand engraver, and vintage-jewelry specialist behind New York's Artifex Fine Jewelry — was catapulted from independent-studio obscurity to global attention overnight when the ring close-up hit the couple's August 2025 announcement post, and the invitation suggested the collaboration had been personal rather than transactional. A guest list that ran from Hugh Grant to Stevie Nicks also had room for the woman who made the ring."],
       tags: ["Relationship"],
-      images: [{ url: "https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The work that earned the invitation: the Old Mine Cut diamond in yellow gold Lubeck designed with Kelce, from the couple's engagement announcement.", kind: "archival" }],
+      images: [{ url: "https://media.zenfs.com/en/people_218/9c00317fa1b3074f60e013cdbc8628a6", credit: "Kindred Lubeck/Instagram; @taylorswift/Instagram (via People/Yahoo)", caption: "The designer and the design: Kindred Lubeck on the wedding night she was invited to, beside the Old Mine Cut ring that earned the invitation.", kind: "primary" }, { url: "https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The work that earned the invitation: the Old Mine Cut diamond in yellow gold Lubeck designed with Kelce, from the couple's engagement announcement.", kind: "archival" }],
       sources: [{ name: "Taylor Swift, Travis Kelce invited Ring Designer Kindred Lubeck to Wedding", url: "https://www.eonline.com/news/1433683/taylor-swift-travis-kelce-invited-ring-designer-kindred-lubeck-to-wedding" }],
     },
     {
@@ -6549,6 +6582,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Mayor Zohran Mamdani says Taylor paid more than $160,000 for the permit and city response around her Madison Square Garden wedding — but that's a different claim than \"she covered every dollar of NYPD overtime,\" and the two shouldn't get blurred together.",
       body: ["New York City Mayor Zohran Mamdani confirmed Taylor paid more than $160,000 for the event permit tied to her July 3 wedding to Travis Kelce at Madison Square Garden — a figure covering the permit itself plus the city's response to an event that closed streets, rerouted traffic, and pulled in a heavy NYPD presence around the Garden and Penn Station.", "Worth being precise about what that number does and doesn't confirm. Mamdani tied the payment to \"the permit and the response to that event,\" but nothing public has itemized the $160K into permit fees versus traffic control versus actual police overtime — so the accurate read is \"Taylor paid for the permit and the associated city response,\" not \"she personally covered every dollar of NYPD overtime\" or \"taxpayers paid nothing at all.\" Separately, and worth not conflating with this: Taylor and Travis also donated $26 million to charities around the wedding, including groups supporting NYPD and FDNY families — real money, but philanthropy, not a city-services invoice."],
       tags: ["Relationship"],
+      images: [{ url: "https://cdn.abcotvs.com/dip/images/19437803_070226-wabc-msg-no-parking-ap-img.jpg", credit: "AP, via ABC7 New York", caption: "The city response the permit paid for: NYPD \"No Parking\" signs going up at the barriers around Madison Square Garden ahead of the wedding weekend.", kind: "primary" }],
       sources: [{ name: "Taylor Swift paid New York City more than $160k for wedding permit, mayor says", url: "https://abcnews.com/GMA/Culture/taylor-swift-paid-new-york-city-160k-wedding/story?id=134655199" }, { name: "Taylor Swift Paid 'Over $160,000' to Obtain NYC Permit for MSG Wedding, Says Zohran Mamdani", url: "https://www.rollingstone.com/music/music-news/taylor-swift-nyc-permit-cost-msg-wedding-zohran-mamdani-1235592197/" }],
     },
     {
@@ -6617,7 +6651,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A pulsing '80s-inspired synth ballad that opens the album, with Post Malone on the hook.",
       body: ["Written with Post Malone and Jack Antonoff, the downtempo synth-pop opener carries what Taylor called the album's fatalism — \"You ended up not with the person that you loved and now you just have to live with that every day\" — with Malone recording his harmonies and bridge hooks at his home studio in Los Angeles.", "The video, which Swift directed herself with cinematographer Rodrigo Prieto shooting in black and white, casts Malone as her lover and reunites Dead Poets Society co-stars Ethan Hawke and Josh Charles as mad scientists administering her electroshock therapy; critics caught echoes of Poor Things, Frankenstein, and silent-era German Expressionism. The song debuted at No. 1 on the Hot 100 — her 12th chart-topper and Post Malone's fifth — after breaking Spotify's single-day streaming record, and its video went on to take Video of the Year at the 2024 VMAs."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/500px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg", credit: "Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/1280px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fortnight_(song)" }, { name: "Billboard", url: "https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/" }],
     },
     {
@@ -6628,7 +6662,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Two hours after the album dropped, a second post: \"The Tortured Poets Department is a secret DOUBLE album.\" The Anthology added 15 more songs, 31 total.",
       body: ["She had teased a mysterious 2 a.m. countdown, and delivered on it two hours after the midnight release: \"It's a 2am surprise: The Tortured Poets Department is a secret DOUBLE album. I'd written so much tortured poetry in the past 2 years and wanted to share it all with you.\"", "Four of the 15 Anthology tracks — \"The Manuscript,\" \"The Bolter,\" \"The Albatross,\" and \"The Black Dog\" — had already been teased as bonus cuts scattered across physical variants; the rest were entirely new, pushing the full album past the two-hour mark. Her sign-off handed the record over: \"And now the story isn't mine anymore... it's all yours.\""],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/1/1b/The_Tortured_Poets_Department_The_Anthology.png/250px-The_Tortured_Poets_Department_The_Anthology.png", credit: "Republic Records", caption: "Cover of The Tortured Poets Department: The Anthology, the 31-track edition revealed at 2 a.m.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/1/1b/The_Tortured_Poets_Department_The_Anthology.png", credit: "Republic Records", caption: "Cover of The Tortured Poets Department: The Anthology, the 31-track edition revealed at 2 a.m.", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-2am-surprise-secret-double-album-the-tortured-poets-department-1235660643/" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-the-tortured-poets-department-the-anthology-announcement-1235007251/" }],
     },
     {
@@ -6639,7 +6673,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"You look like Clara Bow in this light... Stevie Nicks in '75\" — then, in the last verse, the label pitches the same line about her.",
       body: ["Written and produced with Aaron Dessner at Long Pond Studios, \"Clara Bow\" closes the standard album at track 16 by walking through the lineage of women the industry anoints and then swaps out: the narrator is told she looks like Clara Bow — the silent-film star who defined the 1920s \"It girl\" — then \"Stevie Nicks in '75,\" before the final verse turns the machine on its own author, with an executive pitching the next new girl as looking like Taylor Swift. Her own explanation: \"I picked women who have done great things in the past and have been these archetypes of greatness in the entertainment industry\" — then showed how the industry sells every new woman as a replacement for the last.", "Bow's descendants embraced the closer: her family called the song a \"testament\" to the actress's legacy and its lyrics \"hauntingly beautiful,\" despite Swift never consulting them beforehand. Critics highlighted the track's self-aware framing of fame's churn — NPR later named it among the best songs of 2024 — and it reached No. 21 on the Hot 100 in TTPD's record-sweeping first week."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/fcVUbmdQfaE/hqdefault.jpg", credit: "YouTube / Taylor Swift", caption: "Still from the official \"Clara Bow\" lyric video on Taylor Swift's YouTube channel.", kind: "archival" }],
+      images: [{ url: "https://i.ytimg.com/vi/fcVUbmdQfaE/maxresdefault.jpg", credit: "YouTube / Taylor Swift", caption: "Still from the official \"Clara Bow\" lyric video on Taylor Swift's YouTube channel.", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Clara_Bow_(song)" }],
     },
     {
@@ -6804,7 +6838,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The most Album of the Year nominations ever for a female artist, announced for the 2025 Grammys.",
       body: ["The nomination broke her tie with Barbra Streisand — at six apiece — for the most Album of the Year nods by any female artist, putting TTPD on a ledger that already held Fearless, Red, 1989, folklore, evermore, and Midnights.", "The same announcement gave \"Fortnight\" a Song of the Year nomination, her eighth in that category and a record no other songwriter holds, en route to a 58-nomination career total. Her stated stance on the stakes: \"For me, the award is the work. All I want to do is keep being able to do this.\" The Grammy itself went to Beyoncé's Cowboy Carter at the February 2025 ceremony, ending Swift's bid for a fifth Album of the Year win."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png/250px-Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png", credit: "Republic Records", caption: "The Tortured Poets Department — her record seventh Album of the Year nominee.", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png", credit: "Republic Records", caption: "The Tortured Poets Department — her record seventh Album of the Year nominee.", kind: "archival" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/1409681/taylor-swifts-historic-2025-grammy-nominations-prove-shes-anything-but-a-tortured-poet" }, { name: "NPR", url: "https://www.npr.org/2025/02/02/nx-s1-5279565/2025-grammys-beyonce-kendrick-lamar" }],
     },
     {
@@ -7035,7 +7069,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A hushed piano ballad in 7/4 time that detonates into a distorted-vocal rock bridge — and the song that filled the No. 14 slot when TTPD became the first album ever to hold the entire top 14 of the Hot 100 at once.",
       body: ["Written and produced with Aaron Dessner and recorded partly in Biarritz, France, the song switches from a 7/4 verse-and-chorus meter to 4/4 for a bridge that swaps its piano ballad restraint for distorted vocals and a rock climax.", "The Nation's Stephanie Burt called it \"the harshest, most dismissive, most condemnatory song that Swift has ever written,\" while Rolling Stone's Rob Sheffield ranked it among her best breakup songs. On the Hot 100 dated May 4, 2024, it landed at No. 14 — the closing slot the week TTPD's 31 tracks filled the entire top 14, a first for any artist, with \"Cruel Summer\" charting too for 32 songs on the Hot 100 at once."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/Atdzfj8LcuY/hqdefault.jpg", credit: "YouTube / Taylor Swift", caption: "Still from the official \"The Smallest Man Who Ever Lived\" lyric video on Taylor Swift's YouTube channel.", kind: "archival" }],
+      images: [{ url: "https://i.ytimg.com/vi/Atdzfj8LcuY/maxresdefault.jpg", credit: "YouTube / Taylor Swift", caption: "Still from the official \"The Smallest Man Who Ever Lived\" lyric video on Taylor Swift's YouTube channel.", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived" }, { name: "Forbes", url: "https://www.forbes.com/sites/mollybohannon/2024/04/29/taylor-swift-becomes-first-artist-to-take-top-14-spots-on-billboard-hot-100-chart/" }],
     },
     {
@@ -7058,7 +7092,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The biggest album week in nine years: 2.61M units, 1.914M of them real sales, plus the largest streaming week ever logged for an album at 891 million on-demand plays.",
       body: ["On the chart dated May 4, 2024, TTPD's 2.61 million-unit start trailed only Adele's 25 (3.482M in 2015) among all weeks since late 2014 and tied her with Jay-Z for the most No. 1 albums by a soloist in the chart's history — a record she'd break outright the following year with Showgirl.", "The 31-track Anthology's 891.37 million streams set a new single-week album streaming record."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png/250px-Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png", credit: "Republic Records", caption: "The Tortured Poets Department cover, shot by Beth Garrabrant — the album behind the biggest sales week in nine years.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png", credit: "Republic Records", caption: "The Tortured Poets Department cover, shot by Beth Garrabrant — the album behind the biggest sales week in nine years.", kind: "primary" }],
       sources: [{ name: "Taylor Swift's 'The Tortured Poets Department' No. 1 on Billboard 200", url: "https://www.billboard.com/lists/taylor-swift-tortured-poets-department-debut-number-one-billboard-200-chart/" }, { name: "Taylor Swift Debuts With 2.61 Million Units for 'The Tortured Poets Department,' the Best Number for Any Album in Nine Years", url: "https://variety.com/2024/music/news/taylor-swift-first-week-figure-units-tortured-poets-department-1235984882/" }],
     },
     {
@@ -7070,7 +7104,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Fortnight\" debuted at No. 1 while the next 13 spots filled with the rest of the album — the first artist ever to hold the Hot 100's entire top 14, topping her own Midnights top-10 sweep.",
       body: ["The May 4, 2024 chart put 32 of her songs on the Hot 100 at once. \"Fortnight\" — 76.2 million streams in its first week — was her 12th No. 1 and seventh to debut there, tying Ariana Grande for the most No. 1 debuts among women.", "She was already the only artist to have held a full top 10; TTPD stretched the block four slots deeper."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Taylor_Swift_-_Fortnight.png/250px-Taylor_Swift_-_Fortnight.png", credit: "Republic Records", caption: "Single artwork for \"Fortnight,\" which led the historic top-14 sweep from No. 1.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/9/91/Taylor_Swift_-_Fortnight.png", credit: "Republic Records", caption: "Single artwork for \"Fortnight,\" which led the historic top-14 sweep from No. 1.", kind: "primary" }],
       sources: [{ name: "Taylor Swift Sets Record With All Top 14 of Hot 100, 'Fortnight' No. 1", url: "https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/" }, { name: "Taylor Swift Becomes First Artist To Take Top 14 Spots On Billboard Hot 100 Chart", url: "https://www.forbes.com/sites/mollybohannon/2024/04/29/taylor-swift-becomes-first-artist-to-take-top-14-spots-on-billboard-hot-100-chart/" }],
     },
     {
@@ -7082,7 +7116,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The stray capitals spell KIM, and fans connected the rest — a song about outlasting a schoolyard bully, filed under grudges from 2016. By August, a live version was restyled \"thank You aimEe.\"",
       body: ["Swift has never named the subject — the Kardashian reading is fan and critic interpretation, labeled as such, built on the title's capitals and the 2016 phone-call feud.", "The plot thickened in August 2024 when a Taylor Nation email restyled the Wembley live version (mashed up with \"Mean\") as \"thank You aimEe\" — capitals now spelling YE, and fans re-litigated the whole thing overnight."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/oaBJlKXBvjk/hqdefault.jpg", credit: "YouTube / Taylor Swift", caption: "Still from the official \"thanK you aIMee\" lyric video, stray capitals intact.", kind: "archival" }],
+      images: [{ url: "https://i.ytimg.com/vi/oaBJlKXBvjk/maxresdefault.jpg", credit: "YouTube / Taylor Swift", caption: "Still from the official \"thanK you aIMee\" lyric video, stray capitals intact.", kind: "archival" }],
       sources: [{ name: "Are Taylor Swift's 'thanK you aIMee' and 'Cassandra' About Kim Kardashian?", url: "https://www.today.com/popculture/music/taylor-swift-kim-kardashian-thank-you-aimee-lyrics-rcna148523" }, { name: "Taylor Swift Shifts From Kim to Ye With New Live Release of 'thank You aimEe'", url: "https://www.billboard.com/music/pop/taylor-swift-thank-you-aimee-kanye-west-title-live-1235754448/" }],
     },
     {
@@ -7142,7 +7176,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "In white tie and a top hat, he carried her onto the stage during \"I Can Do It With a Broken Heart\" at Wembley — his idea, he later admitted, with choreography studied from Dumb and Dumber.",
       body: ["June 23, 2024, the third London night: Kelce slipped in among the tuxedoed dancers who carry Swift to the couch in the TTPD set's vaudeville intro, and the crowd took a beat to clock that the 6-foot-5 dancer was him.", "He called the experience \"jarring\" in the best way on New Heights and confirmed he'd pitched the cameo to her himself."],
       tags: ["Relationship"],
-      images: [{ url: "https://www.rollingstone.com/wp-content/uploads/2024/06/TaylorSwiftNightThreeLondon-1.jpg?w=1600", credit: "Getty Images (via Rolling Stone)", caption: "Swift onstage at Wembley on June 23, 2024 — the night Kelce joined the TTPD set's tuxedoed cast.", kind: "archival" }],
+      images: [{ url: "https://i.abcnewsfe.com/a/eb18fccb-d278-4181-b394-da9653623dc3/GettyImages-2158904096_1719178517424_hpMain.jpg", credit: "Getty Images / Gareth Cattermole (via ABC News)", caption: "Kelce in white tie, top hat and tails during the \"I Can Do It With a Broken Heart\" vaudeville intro, flanking Swift and the tuxedoed dancers — Wembley, June 23, 2024.", kind: "primary" }, { url: "https://www.rollingstone.com/wp-content/uploads/2024/06/TaylorSwiftNightThreeLondon-1.jpg?w=1600", credit: "Getty Images (via Rolling Stone)", caption: "Swift onstage at Wembley on June 23, 2024 — the night Kelce joined the TTPD set's tuxedoed cast.", kind: "archival" }],
       sources: [{ name: "Taylor Swift Brings Travis Kelce Onstage at London Eras Tour Show", url: "https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-eras-tour-debut-london-show-1235045292/" }, { name: "Travis Kelce Details 'Jarring' On-Stage Eras Tour Experience", url: "https://variety.com/2024/music/news/travis-kelce-eras-tour-on-stage-experience-1236059951/" }],
     },
     {

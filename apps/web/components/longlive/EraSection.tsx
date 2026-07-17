@@ -34,7 +34,7 @@ import { EraVideos } from './EraVideos';
 import { MomentVideo } from './MomentVideo';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS, itemMatchesFilter, tagsPresent } from '@/lib/longlive/tagBadges';
-import { hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
+import { focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
 import type { ContentItem, ContentTag, Era, LensId, VideoNote } from '@/lib/longlive/types';
 import { assignFeedTiers, type CardTier } from '@/lib/longlive/feed-tiers';
 import { cn } from '@/lib/utils';
@@ -542,6 +542,7 @@ function MomentCard({ item, tier, onOpen }: { item: ContentItem; tier: CardTier;
               fill
               unoptimized={/^https?:\/\//.test(hero.url)}
               className="object-cover transition duration-300 group-hover:scale-[1.03]"
+              style={{ objectPosition: focalPointOf(hero) }}
             />
             <div
               aria-hidden
@@ -585,6 +586,7 @@ function MomentCard({ item, tier, onOpen }: { item: ContentItem; tier: CardTier;
                 fill
                 unoptimized={/^https?:\/\//.test(hero.url)}
                 className="object-cover"
+                style={{ objectPosition: focalPointOf(hero) }}
               />
             </div>
           )}
@@ -639,6 +641,7 @@ function MomentCard({ item, tier, onOpen }: { item: ContentItem; tier: CardTier;
               fill
               unoptimized={/^https?:\/\//.test(hero.url)}
               className="object-cover transition duration-300 group-hover:scale-[1.03]"
+              style={{ objectPosition: focalPointOf(hero) }}
             />
             <div
               aria-hidden
