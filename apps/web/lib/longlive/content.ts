@@ -285,7 +285,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'red-snl',
       date: '2012-11-03',
-      dateLabel: 'November 3, 2012',
+      dateLabel: 'Fall 2012',
       title: 'A run of TV performances',
       summary: 'Late-night and award-show stages keep Red everywhere at once.',
       body: ['A dense promotional stretch put the album on every major stage as the release momentum peaked.'],
@@ -696,7 +696,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'ttpd-typewriter',
       date: '2024-04-20',
-      dateLabel: 'April 20, 2024',
+      dateLabel: 'Spring 2024',
       title: 'Ink, typewriters and monochrome',
       summary: 'The most restrained visual era: black, white, and typewritten confession.',
       body: ['Grayscale styling and typewriter motifs frame the era as a literary confessional.'],
@@ -777,7 +777,7 @@ const RAW: Record<EraId, RawItem[]> = {
     {
       id: 'tloas-sequins',
       date: '2025-10-04',
-      dateLabel: 'October 4, 2025',
+      dateLabel: 'Fall 2025',
       title: 'Orange sequins and feathers',
       summary: 'The visual language: burnt-orange rhinestones, marabou, and spotlight sparkle.',
       body: ['Showgirl glamour defines the styling — sequins, feathers, and a warm theatrical glow in every frame.'],
