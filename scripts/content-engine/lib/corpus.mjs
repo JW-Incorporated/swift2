@@ -26,7 +26,7 @@ const SEED = join(ROOT, 'supabase', 'seed');
  */
 
 async function loadDir(dir, listKey) {
-  let files = [];
+  let files;
   try {
     files = readdirSync(dir).filter((f) => f.endsWith('.mjs') && !f.startsWith('_')).sort();
   } catch {

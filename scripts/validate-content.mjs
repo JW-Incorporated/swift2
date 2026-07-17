@@ -169,7 +169,7 @@ const knownEra = (slug) => eraSpan.has(slug) || PENDING_ERAS.has(slug);
 
 async function loadTypeDir(dirName, listKey) {
   const rows = [];
-  let files = [];
+  let files;
   try {
     files = readdirSync(join(seed, dirName))
       .filter((f) => f.endsWith('.mjs') && !f.startsWith('_'))

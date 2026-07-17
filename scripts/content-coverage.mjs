@@ -162,7 +162,7 @@ const { eras, milestones } = await import(pathToFileURL(join(seed, 'eras-data.mj
 
 async function loadSeedDir(dir, listKey) {
   const out = [];
-  let files = [];
+  let files;
   try {
     files = readdirSync(dir).filter((f) => f.endsWith('.mjs') && !f.startsWith('_')).sort();
   } catch {
