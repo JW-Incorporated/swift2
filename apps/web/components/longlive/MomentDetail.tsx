@@ -281,6 +281,8 @@ export function MomentDetail() {
                 The citation line below still lists every source for the record. */}
             {item.sources.map((s, i) => {
               const youtubeId = extractYouTubeId(s.url);
+              // A source citing the moment's own video would render it twice.
+              if (youtubeId === item.video?.youtubeId) return null;
               return youtubeId ? (
                 <MomentVideo
                   key={`src-vid-${s.url}-${i}`}

@@ -257,7 +257,7 @@ Consequences for component code:
 |---|---|---|
 | Era scroll | `EraStream` → `EraSection` | hero + lyric + `EraMedia` + moment grid + pivot strip |
 | Era scrubber | `TimelineScrubber` | morph-on-grab; snaps to era boundaries |
-| Moment detail | `MomentDetail` | opened via `openItem`; shows `MomentVideo` + hidden clue |
+| Moment detail | `MomentDetail` | opened via `openItem`; shows `MomentVideo` + hidden clue; YouTube source links embed inline (via `MomentVideo` + `extractYouTubeId` from `@swift2/shared`), skipping any source that duplicates `item.video` |
 | Track guide | `TrackGuide` | opened via `openTrackGuide` from the era hero; per-song sourced notes |
 | Theories & eggs | `TheoryGuide` | opened via `openTheoryGuide` from the era hero; confidence + outcome badges on every record |
 | Era videos | `EraVideos` | inline rail in `EraSection`; official-upload embeds (via `MomentVideo`) + metadata cards |
