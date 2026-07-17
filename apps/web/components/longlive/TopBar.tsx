@@ -130,6 +130,10 @@ export function ModeToggle({
       <button
         role="tab"
         aria-selected={mode === 'era'}
+        // Below `sm` the visible label is hidden (icon-only), so name the tab
+        // explicitly — otherwise a screen reader announces an unlabeled button
+        // on mobile (#656, WCAG 4.1.2).
+        aria-label="Eras"
         onClick={() => onChange('era')}
         className={cn(
           'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition-colors md:text-sm',
@@ -142,6 +146,7 @@ export function ModeToggle({
       <button
         role="tab"
         aria-selected={mode === 'threads'}
+        aria-label="Threads"
         onClick={() => onChange('threads')}
         className={cn(
           'relative z-10 flex flex-1 basis-0 items-center justify-center gap-1.5 whitespace-nowrap rounded-full px-3 py-1.5 text-xs font-semibold transition-colors md:text-sm',
