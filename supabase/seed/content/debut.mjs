@@ -23,7 +23,7 @@ export default {
       title: 'The math-class idea behind "Tim McGraw"',
       snippet: 'The idea for her debut single came to her in freshman-year math class.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
           "She started singing \"When you think Tim McGraw\" to herself in freshman-year math class — the boyfriend was a senior about to leave for college, and the song became a list of things that would make him remember her. She finished it with co-writer Liz Rose at a piano after school in about fifteen minutes; her verdict, per Songfacts: \"It may be the best fifteen minutes I've ever experienced.\"\n\nRose has always handed her the credit, saying Swift arrived with the idea and the melody and knew exactly what she wanted — and Swift insisted it open the record: \"This song means so much to me, that's why we wanted it to be the first track on the album.\"",
@@ -33,7 +33,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
             credit: 'Big Machine Records (single cover art)',
           },
         ],
@@ -58,7 +58,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/330px-Taylor_Swift_%282007%29_retouched.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)',
             kind: 'archival',
           },
@@ -184,7 +184,7 @@ export default {
       snippet: 'Written years before the album came out, after watching a TV special about Faith Hill\'s move to Nashville.',
       sourceUrl: 'https://en.wikipedia.org/wiki/A_Place_in_This_World',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
       moment: {
         context:
           'She wrote it at 13 while still living in Pennsylvania and making regular trips to Nashville, working out whether a music career was even reachable:\n\n"It was tough trying to find out how I was going to get where I wanted to go... I\'m really happy this is on the album, because I feel like I finally figured it out."',
@@ -194,7 +194,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
             credit: 'Wikimedia Commons',
           },
         ],
@@ -249,7 +249,7 @@ export default {
       // Image-fix pass (2026-07-10): CIE #157 — thumbnail shared the same broken collage URL as
       // the moment photo below; updated together.
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/330px-Taylor_Swift_%282007%29_retouched.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
       moment: {
         context:
           'Retrospectives on her style evolution single out this pairing — frilly knee-length sundresses, cowboy boots, chokers, and a side-swept mane of curls — as the throughline of her 2006-2008 red carpets and album era, before "Fearless" brought in gold sequins and more polish.\n\nW Magazine\'s style-evolution piece files the whole period under one figure: "the curly-haired country girl of the Taylor Swift era." The look wasn\'t incidental — it was of a piece with the music, a teenager with an acoustic guitar singing confessional country, dressed like the girl-next-door those songs were narrated by. It read as authenticity first and fashion second, which is exactly why later eras could get so much mileage out of subverting it.',
@@ -265,7 +265,7 @@ export default {
             // sundress-and-curls performance photo already used elsewhere in this file (curl 200,
             // image/jpeg; opened and viewed — matches "sundresses, cowboy boots, and curls";
             // CC BY 2.0, Brian Cantoni via Wikimedia Commons).
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/330px-Taylor_Swift_%282007%29_retouched.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
             credit: 'Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, 2007 (era-correct sundress-and-curls look)',
           },
         ],
@@ -589,7 +589,7 @@ export default {
       snippet:
         "Written about a real classmate named Drew, later publicly identified as Drew Hardwick -- who didn't know the song was about him until he showed up in her driveway years later.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG',
       moment: {
         context:
           'Swift wrote the song about a classmate named Drew (widely reported, including by outlets covering his later arrest, as Drew Hardwick) who sat next to her in class -- she wanted to date him, but he kept confiding in her about another girl he liked instead. She turned the feeling into a song on the walk home from school.\n\nHe didn\'t realize the song was about him until, by her account: "About two years after the album came out in the States, he showed up in my driveway. Apparently he and his girlfriend had broken up so that was his first stop when he was back in town."',
@@ -603,7 +603,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG',
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG',
             credit: 'Big Machine Records (single cover art)',
           },
         ],
@@ -619,14 +619,14 @@ export default {
         "Born from an after-school outburst -- \"I hate his stupid truck that he doesn't let me drive. He's such a redneck!\" -- that became the chorus of her only anger-driven song on the debut album.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Picture_to_Burn',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
       moment: {
         context:
           'Written with Liz Rose about a Hendersonville High classmate she\'d almost dated, who preferred another girl. Mid-session, she blurted out in frustration: "I hate his stupid truck that he doesn\'t let me drive. He\'s such a redneck! Oh my God!" -- and the line became the chorus.\n\nShe later told The Washington Post: "It\'s about a guy who didn\'t like me back, and I got really mad, you know?" The original album lyric -- "That\'s fine; I\'ll tell mine you\'re gay" -- was softened to "That\'s fine; you won\'t mind if I say" for the Feb. 4, 2008 country-radio single.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Picture_to_Burn' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
             credit: 'Big Machine Records (single cover art)',
           },
         ],
@@ -651,7 +651,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG/330px-Swift%2C_Taylor_%282007%29_cropped_2.JPG',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the AGT finale)',
             kind: 'archival',
           },
@@ -688,7 +688,7 @@ export default {
             // sharper, already-verified 2007 Commons performance photo (curl 200, image/jpeg;
             // opened and viewed — clean shot of Taylor Swift performing live; CC BY-SA 2.0,
             // minds-eye/Sehome Bay via Wikimedia Commons).
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG/330px-Swift%2C_Taylor_%282007%29_cropped_2.JPG',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG',
             credit: 'minds-eye/Sehome Bay, Wikimedia Commons (CC BY-SA 2.0) — Taylor Swift performing, 2007 (archival, era context; not the Ellen appearance)',
             kind: 'archival',
           },
@@ -809,7 +809,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/330px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
             credit: 'Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)',
             kind: 'archival',
           },
@@ -865,7 +865,7 @@ export default {
             // replacement rather than removal. Replaced with an already-verified 2007 Commons
             // photo (curl 200, image/jpeg; opened and viewed — Taylor Swift on stage at a mic
             // stand holding a gold-record plaque, white dress, era-correct; CC BY 2.0, Brian Cantoni).
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
             credit: 'Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift, 2007 (archival, era context; not the Rascal Flatts tour)',
             kind: 'archival',
           },
@@ -908,7 +908,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Strait tour)',
             kind: 'archival',
           },
@@ -951,7 +951,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG/330px-Swift%2C_Taylor_%282007%29_cropped_2.JPG',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Soul2Soul dates)',
             kind: 'archival',
           },
@@ -985,7 +985,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/72/The_Taylor_Swift_Holiday_Collection.png/250px-The_Taylor_Swift_Holiday_Collection.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/72/The_Taylor_Swift_Holiday_Collection.png',
             credit: 'Big Machine Records (EP cover art)',
             kind: 'primary',
           },
@@ -1057,7 +1057,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Beautiful_Eyes.png/250px-Beautiful_Eyes.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/b/ba/Beautiful_Eyes.png',
             credit: 'Big Machine Records (EP cover art)',
             kind: 'primary',
           },
@@ -1080,7 +1080,7 @@ export default {
         '"Tim McGraw" goes to country radio on June 19, 2006 — a 16-year-old\'s first single, named for another artist\'s song, out four months before anyone could buy her album.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
+        'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
           'The bet was that the sentiment — a summer love you re-live every time a certain song comes on — would out-travel the novelty of the title; the name is there because her favorite song was a McGraw song, not because the song is about him.\n\nIt worked slowly, the way everything in this era did: the single debuted at No. 86 on the Hot 100 in September and didn\'t peak (No. 40) until January, while climbing to No. 6 on Hot Country Songs across 20 Hot 100 weeks. The Trey Fanjoy video, shot at a Hendersonville cabin once owned by Johnny Cash, premiered a month after the radio release — and Rolling Stone has since ranked the single No. 11 on its list of the greatest debut singles of all time.',
@@ -1106,7 +1106,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b7/Taylor_Swift_-_Tim_McGraw.png/250px-Taylor_Swift_-_Tim_McGraw.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
             credit: 'Big Machine Records (single cover art)',
           },
         ],
@@ -1168,7 +1168,7 @@ export default {
         'The second single, out February 2007, did what "Tim McGraw" couldn\'t: it crossed from country radio onto the pop chart.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Teardrops_on_My_Guitar',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG',
+        'https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG',
       moment: {
         context:
           'The crossover was the tell. Big Machine sent it to country radio on Feb. 20, 2007 and then — the real move — to contemporary hit radio that November; it peaked at No. 2 on Hot Country Songs and No. 13 on the Billboard Hot 100, and its 21 weeks on the Pop Songs chart (reaching the top 10) made it her first pop crossover hit.\n\nIt won BMI\'s country Song of the Year in 2008, hung around the year-end charts two years running, and flagged, two years early, exactly where this career was headed.',
@@ -1194,7 +1194,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e3/Teardrops_on_My_Guitar.PNG/250px-Teardrops_on_My_Guitar.PNG',
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e3/Teardrops_on_My_Guitar.PNG',
             credit: 'Big Machine Records (single cover art)',
           },
         ],
@@ -1211,7 +1211,7 @@ export default {
         'The fourth single from the debut goes to country radio in February 2008 — with the original\'s sharpest line rewritten for airplay.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Picture_to_Burn',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
       moment: {
         context:
           'Sent to country radio on Feb. 4, 2008, it peaked at No. 3 on Hot Country Songs and No. 28 on the Hot 100 — the fourth straight top-10 country single from an album that still hadn\'t stopped selling, with "Should\'ve Said No" still to come as the fifth that May.\n\nThe Trey Fanjoy video, premiered March 14, staged the revenge fantasy with real pyrotechnics at Nashville\'s Sommet Center and cast her actual high-school best friend, Abigail Anderson, in her backup band. Billboard\'s anniversary retrospective files it as the founding document of her "woman-scorned" mode; the RIAA eventually certified it double platinum.',
@@ -1237,7 +1237,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png/250px-Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
           },
@@ -1280,7 +1280,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/4e/Taylor_Swift_-_Our_Song.png/250px-Taylor_Swift_-_Our_Song.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/4e/Taylor_Swift_-_Our_Song.png',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
           },
@@ -1369,7 +1369,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg/250px-Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the NSAI ceremony)',
             kind: 'archival',
           },
@@ -1506,7 +1506,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/330px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
             credit: 'Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)',
             kind: 'archival',
           },
@@ -1540,7 +1540,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/330px-Taylor_Swift_%282007%29_retouched.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Paisley tour)',
             kind: 'archival',
           },

@@ -31,7 +31,7 @@ export default {
       snippet:
         "1.208 million copies in week one — the strongest opening week for any album since Eminem's The Eminem Show in 2002, and her second million-selling debut in a row.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
       moment: {
         context:
           "Nobody was supposed to sell like this anymore. Red's 1.208 million was the first opening week to clear 1.2 million since The Eminem Show moved 1.3 million in 2002 — and it landed in a market where, as Slate put it, even a very popular artist shipping 300,000 copies out of the gate counted as a huge success.\n\nRed roughly doubled the year's next-best debut, and unlike Lady Gaga's Born This Way, which cracked a million the year before with help from Amazon's 99-cent promotional pricing, it did so selling at $7.99. The week also made her the first female solo artist with two million-selling weeks (alongside Speak Now) and surpassed Garth Brooks's Double Live as the fastest-selling country album.",
@@ -47,7 +47,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -83,7 +83,7 @@ export default {
         // caption. Verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/55/Taylor_Swift_-_All_Too_Well_%2810_Minute_Version%29_%28Taylor%27s_Version%29_%28From_The_Vault%29.png/250px-Taylor_Swift_-_All_Too_Well_%2810_Minute_Version%29_%28Taylor%27s_Version%29_%28From_The_Vault%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/5/55/Taylor_Swift_-_All_Too_Well_%2810_Minute_Version%29_%28Taylor%27s_Version%29_%28From_The_Vault%29.png',
             credit: 'Republic Records',
             caption: 'Single art for "All Too Well (10 Minute Version) (Taylor\'s Version) (From the Vault)" — the 2021 release that finally took the song to No. 1.',
             kind: 'archival',
@@ -99,7 +99,7 @@ export default {
       title: '22, a birthday letter to her closest friends',
       snippet: 'Not a love song — a carefree ode to being "happy, free, confused, and lonely" all in the same year, with her girls beside her.',
       sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/22',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Taylor_Swift_-_22.png/250px-Taylor_Swift_-_22.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_22.png',
       moment: {
         context:
           'Written with Max Martin and Shellback, and — as she told Ryan Seacrest — written "about my friends." She called 22 "my favorite year of my life," and her own description of the age stuck: "You\'re still learning, but you know enough. You still know nothing, but you know that you know nothing."\n\nA hidden message in the liner notes — "Ashley Dianna Claire Selena" — named the friend group behind it, including Dianna Agron and Selena Gomez. Released as Red\'s fourth single the following March, it carried the thesis into the top 20 of the Hot 100.',
@@ -118,7 +118,7 @@ export default {
         // subject visually confirmed this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Taylor_Swift_-_22.png/250px-Taylor_Swift_-_22.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_22.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -132,14 +132,14 @@ export default {
       title: 'I Knew You Were Trouble brings dubstep to pop radio',
       snippet: 'A wobble-bass drop in the middle of a breakup song — critics called it the moment mainstream pop stopped being "sonically conservative."',
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
       moment: {
         context:
           'Produced with Max Martin and Shellback after Swift sketched the melody on piano, the drop was there — by her account — to convey the chaotic emotions of the lyrics, not to chase a trend.\n\nCritics treated it as a hinge point anyway: the New York Times\' Jon Caramanica called the wobble a "wrecking ball" that shifted "the dynamic of not only the song but also of Ms. Swift\'s career," and the Los Angeles Times noted that while DJs like Skrillex and Zedd had popularized dubstep, this was the song that introduced it to a mainstream pop audience that had been "sonically conservative for the past half-decade." It sold 416,000 downloads in its first week — making her the first artist ever with two 400,000-download opening weeks — and peaked at No. 2 on the Hot 100.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -183,14 +183,14 @@ export default {
       snippet: "Written together on a trampoline in her backyard, with an up-and-coming Ed Sheeran she'd discovered on tour.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Everything_Has_Changed',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/7/72/Taylor_Swift_-_Everything_Has_Changed.png/250px-Taylor_Swift_-_Everything_Has_Changed.png',
+        'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
       moment: {
         context:
           'Swift brought in Butch Walker to produce, saying she knew he would approach it "from an organic place, which is where [Sheeran] comes from." Released as a single in July 2013, it reached No. 32 on the Hot 100 — and did even better in Sheeran\'s home market, hitting the top 10 in the UK and Ireland — went double platinum in the US, and became a live duet throughout the Red Tour\'s North American run, which Sheeran opened.\n\nThe Philip Andelman video, out that June, cast two child actors as elementary-school classmates falling into an easy friendship — with Swift and Sheeran revealed at the end as their parents. The story got an epilogue nine years later: the same two actors, grown up, were brought back for Sheeran\'s 2022 "The Joker and the Queen" video (featuring Swift), which outlets read as a deliberate sequel.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Everything_Has_Changed' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/72/Taylor_Swift_-_Everything_Has_Changed.png/250px-Taylor_Swift_-_Everything_Has_Changed.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/72/Taylor_Swift_-_Everything_Has_Changed.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -286,7 +286,7 @@ export default {
       snippet:
         'A crimson lipstick makeup artist Gucci Westman first put on her in 2009 hardened into a full-blown signature during Red — inseparable from the album\'s visual identity.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-makeup-artist-red-lip-1235648989/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
       moment: {
         context:
           'The origin story is specific: prepping a 2009 Allure cover shoot, Westman recalled, "I remember I really wanted to do a red lip on her because I hadn\'t seen her in a red lip before." The resistance came from close to home — "her mom, if I\'m allowed to say this, was like, \'Well, Taylor doesn\'t wear red\'" — but Westman asked to try it anyway, and the shoot went ahead with the crimson lip.\n\nBy the Red era, the bold red lip — paired with winged eyeliner and blunt bangs — had become one of the most recognizable pieces of Swift\'s image, as prominent in press photos as the album\'s title color itself. Looking back years later, with the red lip still turning up everywhere from the Eras Tour to the 2024 Grammys, Westman put it simply: "Look at her now ... That was her first red."',
@@ -298,7 +298,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -821,7 +821,7 @@ export default {
         "Red's lead single leapt from No. 72 to No. 1 in a single week — her first career Hot 100 chart-topper on her 46th entry, after 'You Belong With Me' and 'Today Was a Fairytale' had both stalled at No. 2.",
       sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/4/40/We_Are_Never_Ever_Getting_Back_Together.png/250px-We_Are_Never_Ever_Getting_Back_Together.png',
+        'https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png',
       moment: {
         context:
           "The song sold 623,000 downloads in its first week — the highest one-week digital sales total ever by a female artist at the time, and second all-time behind only Flo Rida's \"Right Round.\" It entered the Hot 100 Airplay chart at No. 25 before jumping to No. 14 the next week on a 29% surge in radio audience. The single led the rollout for Red's October 22 release, arriving as Swift's first Hot 100 No. 1 after two previous singles had each peaked at No. 2.\n\nThe song itself was written almost by accident: a friend of an ex dropped by the studio while Swift was working with Max Martin and Shellback and mentioned rumors the couple were reconciling — after the friend left, Swift picked up an acoustic guitar, improvised the refrain on the spot, and the three finished the song in about 25 minutes. It went on to spend three non-consecutive weeks at No. 1 and pick up a Record of the Year nomination at the Grammys — even as country radio kept it out of the Country Airplay top ten, an early flashpoint in the was-she-still-country debate that shadowed the whole album.",
@@ -834,7 +834,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/40/We_Are_Never_Ever_Getting_Back_Together.png/250px-We_Are_Never_Ever_Getting_Back_Together.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -877,14 +877,14 @@ export default {
       snippet:
         'Album of the Year and Best Country Album nods at the January 26, 2014 ceremony — losing Album of the Year to Daft Punk\'s Random Access Memories and Best Country Album to Kacey Musgraves\' debut, Same Trailer Different Park.',
       sourceUrl: 'https://en.wikipedia.org/wiki/56th_Annual_Grammy_Awards',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
       moment: {
         context:
           'At the 56th Annual Grammy Awards, Red was one of five Album of the Year nominees alongside Sara Bareilles\' The Blessed Unrest, Kendrick Lamar\'s Good Kid, M.A.A.D City, and Macklemore & Ryan Lewis\' The Heist — the trophy went to Daft Punk\'s Random Access Memories.\n\nIn Best Country Album, Red competed against Jason Aldean\'s Night Train, Tim McGraw\'s Two Lanes of Freedom, and Blake Shelton\'s Based on a True Story..., with Kacey Musgraves\' debut Same Trailer Different Park taking the win. It was Swift\'s second Album of the Year nomination (after Fearless won in 2010) and a rare winless Grammy night.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/56th_Annual_Grammy_Awards' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -900,7 +900,7 @@ export default {
         'A "howling, U2-style epic with reverb-drenched guitars," per Rolling Stone — Taylor\'s own description was simpler: "This sounds like the feeling of falling in love in an epic way."',
       sourceUrl: 'https://www.songfacts.com/facts/taylor-swift/state-of-grace',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/8/8a/Taylor_Swift_-_State_of_Grace.png/250px-Taylor_Swift_-_State_of_Grace.png',
+        'https://upload.wikimedia.org/wikipedia/en/8/8a/Taylor_Swift_-_State_of_Grace.png',
       moment: {
         context:
           'Previewing the song on Good Morning America, Swift explained: "I wrote this song about when you first fall in love with someone. The possibilities. Kind of thinking about the different ways that it could go."\n\nOn the sound she added: "It\'s a really big sound. To me, this sounds like the feeling of falling in love in an epic way" — a deliberate departure into arena rock that opens the album before its country roots resurface. A stripped-down acoustic version included on the Target-exclusive edition was, in her words, "really acoustic and like emotional and sweet."',
@@ -909,7 +909,7 @@ export default {
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8a/Taylor_Swift_-_State_of_Grace.png/250px-Taylor_Swift_-_State_of_Grace.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8a/Taylor_Swift_-_State_of_Grace.png',
             credit: 'Big Machine Records',
             caption: 'Promotional single cover for "State of Grace," released ahead of the album in October 2012.',
             kind: 'primary',
@@ -929,7 +929,7 @@ export default {
         'A duet with Snow Patrol\'s Gary Lightbody, born from a relationship where "you never know when he\'s going to leave... but he always does come back" — Ed Sheeran made the introduction.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Last_Time_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png',
       moment: {
         context:
           'Swift told NPR the song was inspired by an unreliable partner: "You never know when he\'s going to leave, you never know when he\'s going to come back, but he always does come back."\n\nShe described picturing a boyfriend on his knees outside a door, promising "this is the last time," while his girlfriend waits inside, torn on whether to let him back in: "It\'s a really fragile emotion you\'re dealing with when you want to love someone, but you don\'t know if it\'s smart to." The collaboration came together after her friend Ed Sheeran introduced her to Lightbody in spring 2012; the track was produced by Jacknife Lee, known for his work with Snow Patrol and U2.',
@@ -941,7 +941,7 @@ export default {
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8d/Taylor_Swift_-_The_Last_Time_%28feat._Gary_Lightbody%29_%28Official_Single_Cover%29.png',
             credit: 'Big Machine Records',
             caption: 'Official single cover for "The Last Time" featuring Gary Lightbody of Snow Patrol.',
             kind: 'primary',
@@ -1114,7 +1114,7 @@ export default {
       snippet:
         'A worldwide webcast from Nashville on August 13, 2012: the album title, the October 22 date, and — dropped the same night — a brand-new single called "We Are Never Ever Getting Back Together."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
       moment: {
         context:
           'More than 70,000 fans were watching at the stream\'s peak as she laid out the whole plan: a 16-track album called Red, out October 22, with her first outside co-writers since she wrote all of Speak Now solo — Ed Sheeran and Max Martin among them.\n\nShe explained the title as an emotional color-code, saying the songs were "all pretty much about the kind of tumultuous, crazy, insane, intense, semi-toxic relationships that I\'ve experienced in the last two years." Then she premiered "We Are Never Ever Getting Back Together," which went on to become her first career Hot 100 No. 1 — a direct-to-fans rollout she\'s been elaborating on ever since.',
@@ -1149,7 +1149,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e8/Taylor_Swift_-_Red.png/250px-Taylor_Swift_-_Red.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1166,7 +1166,7 @@ export default {
         'Written from Maya Thompson\'s blog posts about her son Ronan, who died of neuroblastoma at three — Thompson gets a co-writing credit, and every dollar went to fighting cancer.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Ronan_(song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/250px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
       moment: {
         context:
           'Swift debuted the song live at the Stand Up to Cancer telethon on September 8, 2012, and released it as an iTunes-exclusive the same night, with all proceeds donated to cancer charities. She assembled the lyrics from direct quotes in Thompson\'s blog about her son, crediting her as co-writer — with Thompson\'s share of the proceeds going to her Ronan Thompson Foundation. The song reached No. 16 on the Hot 100 and was certified gold, and Thompson told MTV that Swift "got it in a way that most people don\'t."\n\nSwift has treated the song as close to unperformable since: she has sung it live only twice, at the 2012 telethon and again on August 17, 2015 in Glendale, Arizona, when Thompson attended the 1989 World Tour. She re-recorded it for Red (Taylor\'s Version) in 2021 — after writing to Thompson for permission, explaining that Red was "an album of heartbreak and healing ... and of the loss of an imagined future alongside someone."',
@@ -1197,7 +1197,7 @@ export default {
         // Verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/250px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
             credit: 'Big Machine Records (vector replica via Wikimedia Commons)',
             caption: 'The "Ronan" single cover — shown here as a faithful vector replica of the text-only artwork, hosted on Wikimedia Commons.',
             kind: 'reference',
@@ -1216,7 +1216,7 @@ export default {
         'Sent to country radio October 1 (after a Sept. 25 digital release), three weeks before the album — a soft, waltzing country ballad about a first date that heals, deliberately reassuring country radio before Red\'s dubstep drop landed.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Begin_Again_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Taylor_Swift_-_Begin_Again.png/250px-Taylor_Swift_-_Begin_Again.png',
+        'https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png',
       moment: {
         context:
           'The second track released from Red, sent to country radio as a counterweight to the pop-leaning lead single. Swift described it as a song about "when you\'ve gotten through a really bad relationship and you finally dust yourself off and go on that first date after a horrible breakup."\n\nIt debuted and peaked at No. 7 on the Hot 100 on release-week downloads and earned a Grammy nomination for Best Country Song. The Philip Andelman video — a solitary, contemplative walk through Paris that ends at a café — was, in her words, a "love letter" to the city, about "somebody moving on and finding yourself again."',
@@ -1235,7 +1235,7 @@ export default {
         // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1e/Taylor_Swift_-_Begin_Again.png/250px-Taylor_Swift_-_Begin_Again.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png',
             credit: 'Big Machine Records',
             caption: 'Single cover art for "Begin Again," released October 1, 2012.',
             kind: 'primary',
@@ -1254,7 +1254,7 @@ export default {
         'Loving him was like driving a new Maserati down a dead-end street — the title track\'s color-coded theory of a relationship whose emotions ran too hot to be anything but red.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/c/c0/Taylor_Swift_-_Red_%28Single%29.png/250px-Taylor_Swift_-_Red_%28Single%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png',
       moment: {
         context:
           'Swift has explained that the album took its name from this song\'s central idea: the semi-toxic relationships she was writing about were defined by intense, burning emotion — red — rather than the blues and grays of ordinary heartbreak. The lyric maps feelings to colors directly: losing him was blue, missing him was dark gray, loving him was red. She wrote it on September 7, 2011, on the flight home to Nashville after a Tacoma, Washington show, homesick and still mid-tour.\n\nOn release week the track debuted at No. 6 on the Hot 100 on album-preview downloads, then became the album\'s fifth single in June 2013, peaking at No. 2 on Hot Country Songs across a 42-week run — at the time the longest-charting single of her career. Its biggest television moment came at the November 2013 CMA Awards, reworked acoustically with Alison Krauss on fiddle and Vince Gill on harmony.',
@@ -1273,7 +1273,7 @@ export default {
         // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c0/Taylor_Swift_-_Red_%28Single%29.png/250px-Taylor_Swift_-_Red_%28Single%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png',
             credit: 'Big Machine Records',
             caption: 'Single cover art for "Red," the album\'s fifth single.',
             kind: 'primary',
@@ -1342,7 +1342,7 @@ export default {
         'December 13, 2012: a spoken-word intro, a pink-streaked dye job, and a festival-wasteland storyline — the most cinematic, least country video she\'d made to that point.',
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Knew_You_Were_Trouble',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png',
+        'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
       moment: {
         context:
           'Directed by Anthony Mandler, the video cast Swift opposite Reeve Carney as a bad-boy love interest through a desert festival bender of bar fights and infidelity, opening with a moody spoken monologue instead of the song — landing on the line "I think that the worst part of it all wasn\'t losing him. It was losing me."\n\nIts grittier styling — including temporary pink tips — marked a deliberate image departure timed to the single\'s pop-radio push, and it paid off in hardware: Best Female Video at the 2013 MTV VMAs and YouTube Phenomenon at the 2013 YouTube Music Awards.',
@@ -1359,7 +1359,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/70/I_Knew_You_Were_Trouble.png/250px-I_Knew_You_Were_Trouble.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/70/I_Knew_You_Were_Trouble.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1376,7 +1376,7 @@ export default {
         'Her haunting Hunger Games ballad with The Civil Wars took Best Song Written for Visual Media at the 55th Grammys — still the only Hunger Games song ever to win a Grammy.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
       moment: {
         context:
           'Written with Joy Williams and John Paul White of The Civil Wars and producer T Bone Burnett for The Hunger Games soundtrack, the song won Best Song Written for Visual Media at the February 10, 2013 ceremony, where it was also nominated for Best Country Duo/Group Performance. She performed "We Are Never Ever Getting Back Together" as the show\'s ringmaster-themed opener the same night.\n\nThe collaboration itself came together in a single two-hour writing session at Burnett\'s home in fall 2011, after Swift spent two days reading the novel to get inside Katniss Everdeen\'s head. Released as a surprise iTunes drop on December 26, 2011, it debuted at No. 30 on the Hot 100, eventually went double platinum, and picked up a Golden Globe nomination for Best Original Song along the way — with a Philip Andelman video of Swift walking barefoot through a Watertown, Tennessee forest in a white gown.',
@@ -1415,7 +1415,7 @@ export default {
         // winning song's artwork, not a photo of the ceremony moment.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
             credit: 'Big Machine Records',
             caption: 'Single cover for "Safe & Sound" (feat. The Civil Wars), which won Best Song Written for Visual Media at the 55th Grammys.',
             kind: 'archival',
@@ -1605,7 +1605,7 @@ export default {
         'A one-off single for the film One Chance, released October 21, 2013 — the first song Taylor ever made with Jack Antonoff, years before he became her most constant collaborator.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Sweeter_Than_Fiction',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/2/29/Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png',
       moment: {
         context:
           'Swift wrote it with Antonoff after watching the Paul Potts biopic One Chance, reading the film as a love story and writing from the perspective of Potts\'s unfailingly supportive wife.\n\nThe sound was the real tell: an \'80s-inspired synth-pop track one critic described as "You Belong With Me" run through Fun\'s synthesizers — in hindsight, a first sketch of the 1989 palette a year early. It peaked at No. 34 on the Hot 100, and its Golden Globe nomination for Best Original Song was her second in a row. The partnership it started went on to shape 1989, reputation, Lover, folklore, Midnights and beyond.',
@@ -1624,7 +1624,7 @@ export default {
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/29/Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/2/29/Taylor_Swift_-_Sweeter_Than_Fiction_%28Official_Single_Cover%29.png',
             credit: 'Big Machine Records',
             caption: 'Official single cover for "Sweeter Than Fiction," from the One Chance soundtrack.',
             kind: 'primary',
