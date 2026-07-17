@@ -234,9 +234,14 @@ before the scroll lands). **The contract:** a plain Eras↔Threads *toggle*
 restores; an *explicit jump* lands at the top. So **any new code path that
 jumps the user to a specific era must call `clearEraScroll()` first** (as
 `setEra`/`openEra`/`goHome` do) — otherwise it will wrongly restore the old
-position. Also keep the `EraStream` jump effect idempotent (it keys off the
-`eraJumpSeq` *value*, not a mount flag) so React StrictMode's double-invoke in
-dev can't clobber a restore.
+position. Also keep the `EraStream` jump effect idempotent: when a snapshot
+exists it keys off the `eraJumpSeq` *value* so React StrictMode's double-invoke
+in dev can't clobber a restore; when there's no snapshot the mount itself may
+*be* the jump (the landing page mounts the stream in the same `openEra` action
+that bumps `eraJumpSeq` — #747), so the effect runs on mount and the initial
+`anchorId`/`count` are seeded from `jumpWindow(eraId)` rather than
+`{ eraId, 1 }` — otherwise nothing newer than the picked era ever renders and
+the user can't scroll up.
 
 ---
 
