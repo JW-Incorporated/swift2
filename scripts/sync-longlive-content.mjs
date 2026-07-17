@@ -144,16 +144,20 @@ export function imagesFrom(thumbnailUrl, photos) {
     if (!p || typeof p.url !== 'string' || !p.url.trim()) continue;
     const credit = typeof p.credit === 'string' && p.credit.trim() ? p.credit : undefined;
     const caption = typeof p.caption === 'string' && p.caption.trim() ? p.caption : undefined;
+    const focalPoint =
+      typeof p.focalPoint === 'string' && p.focalPoint.trim() ? p.focalPoint.trim() : undefined;
     const existing = byUrl.get(p.url);
     if (existing) {
       existing.credit ??= credit;
       existing.caption ??= caption;
+      existing.focalPoint ??= focalPoint;
     } else {
       byUrl.set(p.url, {
         url: p.url,
         credit,
         caption,
         kind: IMAGE_KINDS.has(p.kind) ? p.kind : 'archival',
+        focalPoint,
       });
     }
   }
@@ -431,6 +435,7 @@ async function main() {
             if (im.credit) parts.push(`credit: ${esc(im.credit)}`);
             if (im.caption) parts.push(`caption: ${esc(im.caption)}`);
             parts.push(`kind: ${esc(im.kind)}`);
+            if (im.focalPoint) parts.push(`focalPoint: ${esc(im.focalPoint)}`);
             return `{ ${parts.join(', ')} }`;
           })
           .join(', ');
