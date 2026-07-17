@@ -30,6 +30,11 @@ For every surface he walks, Nils asks, in order:
    for the #461 machinery rather than re-litigating each line.)
 5. **Is it worthy?** (The Joey test: if Taylor herself opened this page,
    would we be proud or embarrassed?)
+6. **Do images present their subject?** (Presentation: on the live rendered
+   page, is each photo cropped so its subject — faces, the thing it
+   illustrates — is actually visible and roughly centered, not sliced by the
+   card edge or stranded off to one side? A cut-off face is a finding. See
+   Amendment 4.)
 
 ## The walk (deterministic coverage, judgment on top)
 
@@ -108,3 +113,17 @@ enforce caps + read-only in code; token scoped to issues:write.
    sitemap presence. Missing/invalid metadata on a marquee page is an `exp:P2`
    discoverability spec. Heavy Core Web Vitals work routes as a product
    suggestion, not a hand-audit.
+
+4. **Image cropping/centering (founder directive, 2026-07-17).** Nils owns
+   "are images centered properly," because it is a *rendered-output* judgment
+   only visible on the live page — the crop depends on each card's aspect ratio
+   and object-position, which the source data can't show. On every live-site
+   spot-check (Amendment 1), verify the walked surfaces' images render with
+   their subject visible and centered: a face cut off by the card edge, or a
+   subject stranded in a corner, is an `exp:P2` presentation finding (`exp:P1`
+   if it's a hero / first-screen image). Route the fix to the focal-point
+   mechanism tracked in #746 — a systemic ticket, not a per-image re-crop
+   request — and dedupe against it. Boundary: Karen still owns source-image
+   *integrity* (liveness, resolution, watermarks, moderation, via the
+   content-integrity engine); Nils owns how the image actually *looks* on the
+   page.
