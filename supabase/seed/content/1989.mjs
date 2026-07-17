@@ -809,6 +809,7 @@ export default {
         '"There are going to be people along the way who will try to undercut your success or take credit for your accomplishments or your fame" — her message to young women, accepting music\'s top prize for the second time.',
       sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-album-of-the-year-speech-credit-for-fame-6875390/',
       thumbnailUrl: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif',
+      relatedIds: ['moment:vault-1989-the-night-famous-premiered-and-she-said-no'],
       moment: {
         context:
           'At the Feb. 15, 2016 ceremony, 1989 won Album of the Year at the 58th Grammy Awards (also winning Best Pop Vocal Album), making Swift the first woman in Grammy history to win Album of the Year twice — her first was for Fearless in 2010. She thanked the fans for "the last 10 years" and producer Max Martin in the same speech.\n\nThe speech\'s pointed center — the warning to young women about people who "will try to undercut your success or take credit for your accomplishments or your fame" — was widely read as her answer to Kanye West\'s "Famous," released days earlier, in which he rapped about having made her famous. She never said his name; the room, and Billboard\'s coverage that night, understood exactly who she meant.',
@@ -1689,6 +1690,104 @@ export default {
             credit: 'Paolo V / Wikimedia Commons, CC BY 2.0',
             kind: 'primary',
             caption: 'Onstage at SoFi Stadium on Aug. 9, 2023 — the night of the 1989 (Taylor\'s Version) announcement — during the Midnights act.',
+          },
+        ],
+      },
+    },
+
+    // --- The July 2016 rupture arc (2026-07-16, #695): the era's actual
+    // ending — "Famous," the Snapchat receipts, and the 2020 full-call
+    // vindication — was untold anywhere on the site while three other items
+    // already referenced it. The 2020 payoff item follows this file's
+    // existing convention of post-era payoff items (see the 2020-03-13
+    // Diamond certification above). Every claim verified against its cited
+    // sources directly; quotes are verbatim from the cited coverage.
+    {
+      year: 2016,
+      month: 2,
+      day: 11,
+      category: 'music',
+      title: 'The night "Famous" premiered, and she said no',
+      snippet:
+        'Kanye West debuts "Famous" at Madison Square Garden — "I made that bitch famous" — and says she approved it. Her team answers the same day: she was never told that line, and she "cautioned him about releasing a song with such a strong misogynistic message."',
+      sourceUrl: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/',
+      thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+      ],
+      moment: {
+        context:
+          'At the Yeezy Season 3 event at Madison Square Garden on Feb. 11, 2016 — part fashion show, part listening party for The Life of Pablo — West premiered "Famous" and its line about Taylor: "I feel like me and Taylor might still have sex / Why? I made that bitch famous." He insisted she had approved it in a phone call.\n\nHer spokesperson\'s statement said otherwise: "Kanye did not call for approval, but to ask Taylor to release his single \'Famous\' on her Twitter account. She declined and cautioned him about releasing a song with such a strong misogynistic message. Taylor was never made aware of the actual lyric, \'I made that bitch famous.\'"\n\nFour days later she accepted Album of the Year at the Grammys with the "there are going to be people along the way who will try to undercut your success" speech — the whole room knew who she meant. The question of what was actually said on that call would hang over the next four years.',
+        sources: [
+          { outlet: 'Time', url: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/' },
+          { outlet: 'CBS News', url: 'https://www.cbsnews.com/media/kanye-west-vs-taylor-swift-timeline/' },
+          { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Kanye_West_feud' },
+        ],
+      },
+    },
+    {
+      year: 2016,
+      month: 7,
+      day: 17,
+      category: 'music',
+      title: 'Snakes, Snapchat, and "excluded from this narrative"',
+      snippet:
+        'Kim Kardashian posts an edited cut of the "Famous" call to Snapchat, snake emojis flood every comment section, and #TaylorSwiftIsOverParty trends worldwide. Her answer — "I would very much like to be excluded from this narrative" — is the era\'s last word before the lights go out.',
+      sourceUrl:
+        'https://www.washingtonpost.com/news/arts-and-entertainment/wp/2016/07/18/read-the-secret-kanye-westtaylor-swift-phone-call-that-kim-kardashian-posted-on-snapchat/',
+      thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-1989-the-night-famous-premiered-and-she-said-no',
+        'moment:vault-1989-the-full-call-leaks-and-she-was-telling-the-truth',
+        'moment:vault-reputation-the-snake-video-that-announced-reputation',
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+      ],
+      moment: {
+        context:
+          'A month after telling GQ that video of the "Famous" call existed, Kim Kardashian posted it — edited into Snapchat-length clips, on the night of July 17, 2016 — showing Taylor responding warmly as West read her parts of the song. The clips did not include the "I made that bitch famous" line, but the internet\'s verdict was instant: #TaylorSwiftIsOverParty trended worldwide and snake emojis flooded her every post.\n\nHer response drew the line she would hold for four years: "Where is the video of Kanye telling me he was going to call me \'that bitch\' in his song? It doesn\'t exist because it never happened... I would very much like to be excluded from this narrative, one that I have never asked to be a part of, since 2009."\n\nThen she went dark. No public appearances, no new music, the longest silence of her career — "Nobody physically saw me for a year," she said later in Miss Americana. "That\'s what I thought they wanted." What came back a year later, snake-first, was reputation.',
+        sources: [
+          {
+            outlet: 'The Washington Post',
+            url: 'https://www.washingtonpost.com/news/arts-and-entertainment/wp/2016/07/18/read-the-secret-kanye-westtaylor-swift-phone-call-that-kim-kardashian-posted-on-snapchat/',
+          },
+          { outlet: 'Time', url: 'https://time.com/4410370/taylor-swift-kim-kardashian-kanye-west/' },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+          },
+        ],
+      },
+    },
+    {
+      year: 2020,
+      month: 3,
+      day: 20,
+      category: 'music',
+      title: 'The full call leaks, and she was telling the truth',
+      snippet:
+        'Four years after the Snapchat clips, the full 25-minute "Famous" call leaks — and the "that bitch" line is nowhere in it. He never read it to her. Her response points everyone to Feeding America instead.',
+      sourceUrl: 'https://variety.com/2020/music/news/taylor-swift-kanye-west-phone-call-leaks-read-full-transcript-1203541363/',
+      thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+      ],
+      moment: {
+        context:
+          'Late on the night of March 20, 2020, the unedited call — all 25 minutes of it — surfaced online, and Variety transcribed every word. The full recording showed what the 2016 Snapchat edit had left out: West never read her the "I made that bitch famous" line she was accused of approving. The conversation she\'d described in her original statement was the conversation that had actually happened.\n\nHer response, on Instagram Stories, didn\'t relitigate: the footage proved "that I was telling the truth the whole time about *that call* (you know, the one that was illegally recorded, that somebody edited and manipulated in order to frame me)" — and then, with the world a week into pandemic lockdown, she pointed followers to Feeding America and the World Health Organization instead: "If you have the ability to, please join me in donating during this crisis."\n\nFour years of "liar" and snake emojis, answered by the tape itself — the vindication reputation had been written without.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2020/music/news/taylor-swift-kanye-west-phone-call-leaks-read-full-transcript-1203541363/',
+          },
+          {
+            outlet: 'Global News',
+            url: 'https://globalnews.ca/news/6717438/taylor-swift-kanye-west-full-leaked-phone-call/',
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-says-she-was-framed-as-2016-phone-call-with-kanye-west-leaks-online-2633977',
           },
         ],
       },
