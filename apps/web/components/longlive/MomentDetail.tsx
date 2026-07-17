@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import Image from 'next/image';
 import { X, Sparkles, Share2, ArrowRight, Route, Heart } from 'lucide-react';
 import {
@@ -63,6 +63,37 @@ function ImageKindBadge({ kind }: { kind: Exclude<ImageKind, 'primary'> }) {
   );
 }
 
+// One full-width photo woven into the article body, with its honest labeling
+// (kind badge / reference note), caption, and credit. Same figure the old
+// trailing gallery used, now placed inline between paragraphs (#XYZ v1).
+function MomentFigure({ img }: { img: ImageRef }) {
+  return (
+    <figure className="era-card overflow-hidden rounded-2xl border">
+      {/* Pinch/double-tap zoomable — the body-scroll lock breaks native
+          zoom-and-pan, so the viewer drives the gestures itself. */}
+      <ZoomableImage src={img.url} alt={img.caption ?? ''} unoptimized={isRemoteUrl(img.url)} />
+      <figcaption className="space-y-1.5 p-3">
+        {img.kind !== 'primary' && (
+          <div>
+            <ImageKindBadge kind={img.kind} />
+          </div>
+        )}
+        {img.kind === 'reference' && (
+          <p className="text-xs italic leading-relaxed text-[color:var(--era-ink-soft)]">
+            {IMAGE_KIND_NOTE.reference}
+          </p>
+        )}
+        {img.caption && (
+          <p className="text-sm leading-relaxed text-[color:var(--era-ink)]">{img.caption}</p>
+        )}
+        {img.credit && (
+          <p className="text-xs text-[color:var(--era-ink-soft)]">Credit: {img.credit}</p>
+        )}
+      </figcaption>
+    </figure>
+  );
+}
+
 export function MomentDetail() {
   const { openItemId, share } = useAppState();
   const { closeItem, openShare } = useAppActions();
@@ -120,6 +151,18 @@ export function MomentDetail() {
   const hero: ImageRef | undefined = primaryImageRef(item);
   const heroUrl = hero?.url ?? '/placeholder.svg';
   const gallery = item.images.filter((img) => img !== hero);
+
+  // Weave the non-hero photos through the body paragraphs (#XYZ v1) instead of
+  // a trailing "Gallery" block: each image lands after a paragraph, spread
+  // evenly. With more images than paragraphs, later slots carry more than one.
+  const inlineSlots: ImageRef[][] = item.body.map(() => []);
+  gallery.forEach((img, k) => {
+    const target = Math.min(
+      item.body.length,
+      Math.max(1, Math.round(((k + 1) * item.body.length) / (gallery.length + 1))),
+    );
+    inlineSlots[target - 1]?.push(img);
+  });
 
   return (
     <div
@@ -216,60 +259,19 @@ export function MomentDetail() {
           )}
         </div>
 
-        <div className="mt-7 space-y-4 text-lg leading-relaxed text-[color:var(--era-ink)]">
+        <div className="mt-7 space-y-6 text-lg leading-relaxed text-[color:var(--era-ink)]">
           {item.body.map((para, i) => (
-            <p key={i} className="text-pretty">
-              {para}
-            </p>
-          ))}
-        </div>
-
-        {gallery.length > 0 && (
-          <div className="mt-8">
-            <p className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
-              Gallery
-            </p>
-            <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2">
-              {gallery.map((img, i) => (
-                <figure
-                  key={`${img.url}-${i}`}
-                  className="era-card overflow-hidden rounded-2xl border"
-                >
-                  {/* Pinch/double-tap zoomable — the body-scroll lock above
-                      breaks native browser zoom-and-pan, so the viewer drives
-                      the gestures itself, scoped to this frame. */}
-                  <ZoomableImage
-                    src={img.url}
-                    alt={img.caption ?? ''}
-                    unoptimized={isRemoteUrl(img.url)}
-                  />
-                  <figcaption className="space-y-1.5 p-3">
-                    {img.kind !== 'primary' && (
-                      <div>
-                        <ImageKindBadge kind={img.kind} />
-                      </div>
-                    )}
-                    {img.kind === 'reference' && (
-                      <p className="text-xs italic leading-relaxed text-[color:var(--era-ink-soft)]">
-                        {IMAGE_KIND_NOTE.reference}
-                      </p>
-                    )}
-                    {img.caption && (
-                      <p className="text-sm leading-relaxed text-[color:var(--era-ink)]">
-                        {img.caption}
-                      </p>
-                    )}
-                    {img.credit && (
-                      <p className="text-xs text-[color:var(--era-ink-soft)]">
-                        Credit: {img.credit}
-                      </p>
-                    )}
-                  </figcaption>
-                </figure>
+            <Fragment key={i}>
+              <p className="text-pretty">{para}</p>
+              {inlineSlots[i].map((img, j) => (
+                <MomentFigure key={`${img.url}-${j}`} img={img} />
               ))}
-            </div>
-          </div>
-        )}
+            </Fragment>
+          ))}
+          {/* No paragraphs to weave into — show the photos on their own. */}
+          {item.body.length === 0 &&
+            gallery.map((img, j) => <MomentFigure key={`${img.url}-${j}`} img={img} />)}
+        </div>
 
         {item.video && <MomentVideo video={item.video} />}
 
