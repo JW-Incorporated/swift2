@@ -46,7 +46,10 @@ npm run build --workspace @swift2/web
 npm run validate:content # seed content vs DB constraints (category/month/length/era)
 npm run check:budget:seed # Tier 0 payload budget from seed files (≤2 MB gz / ≤10 MB parsed)
 ```
-**Database / seed — ⚠️ writes to PROD, needs `apps/worker/.env`:**
+**Database / seed — ⚠️ writes to PROD, needs `apps/worker/.env`.** (Note: the
+website builds from repo seed files directly since 2026-07-17 — DB seeding
+matters for the Tier-0 API path and mobile, not for what longlivets.com
+shows.)
 ```
 npm run db:migrate       # apply all supabase/migrations in order
 npm run db:seed          # eras + milestones
