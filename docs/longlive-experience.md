@@ -274,6 +274,12 @@ Consequences for component code:
 **Add a moment to an era:** add a `RawItem` to the correct `EraId` array in
 `content.ts` (`id`, `date`, `title`, `blurb`, `tags`). Optionally add
 `video: { youtubeId, title }` (verify per §5.5) and/or `hiddenClue`.
+`dateLabel` must show the day ('June 19, 2006') when the date is researched
+to the day; a moment whose exact day is unknown gets an editorial period
+label ('Spring 2007', 'Late 2012') over a representative placeholder date —
+never a bare month+year label, which is indistinguishable from a masked
+day-precision date (#682; a test in `content.test.ts` enforces this for
+curated items).
 
 **Add a music video to a moment:** add `video` to that `ContentItem`. Verify
 the ID. It renders automatically in `MomentDetail`.

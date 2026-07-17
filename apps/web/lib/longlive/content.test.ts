@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { CONTENT, build, type RawItem } from './content';
+import { formatMonthYear } from './format';
 import {
   hasRealPrimaryImage,
   isEraArtFallback,
@@ -95,6 +96,38 @@ describe('primary image helpers', () => {
 });
 
 describe('CONTENT dataset invariants', () => {
+  // The regression test WS1 (#369) never got, per #682's acceptance criteria:
+  // a hand-curated item may never mask a day-precision date behind the bare
+  // month form of that same date ('June 2006' on date '2006-06-19'). If your
+  // new item fails here: show the day (the formatFullDate() form) when the
+  // date is researched to the day, or use an editorial period label
+  // ('Spring 2007', 'Late 2012') when it isn't — see the dateLabel rule on
+  // RAW in content.ts. Vault-synced items are exempt: their generator
+  // encodes month-only precision as a placeholder day-01 date plus a month
+  // label on purpose (scripts/sync-longlive-content.mjs), which this rule
+  // would misread as masking.
+  it('no curated item masks a day-precision date behind a month-only label (#682)', () => {
+    const curated = CONTENT.filter((c) => !c.id.startsWith('vault-'));
+    expect(curated.length).toBeGreaterThan(0);
+    for (const item of curated) {
+      // Only day-shaped dates can mask day precision; partial forms
+      // (YYYY-MM, YYYY) are honestly month/year-precision and a month label
+      // on them is correct.
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(item.date)) continue;
+      expect(item.dateLabel, `${item.id} (${item.date})`).not.toBe(formatMonthYear(item.date));
+    }
+  });
+
+  it('known #682 offenders render their researched day-level dates', () => {
+    const byId = new Map(CONTENT.map((c) => [c.id, c]));
+    expect(byId.get('debut-tim-mcgraw')?.dateLabel).toBe('June 19, 2006');
+    expect(byId.get('red-begin-again')?.dateLabel).toBe('October 1, 2012');
+    // Period moments keep their editorial labels — their dates are
+    // representative placeholders, not researched days.
+    expect(byId.get('debut-cowboy-boots')?.dateLabel).toBe('Spring 2007');
+    expect(byId.get('folklore-cardigan')?.dateLabel).toBe('Summer 2020');
+  });
+
   it('every item (curated + synced) carries a non-empty images gallery', () => {
     expect(CONTENT.length).toBeGreaterThan(0);
     for (const item of CONTENT) {
