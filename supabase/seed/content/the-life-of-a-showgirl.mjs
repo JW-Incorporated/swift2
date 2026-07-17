@@ -73,6 +73,17 @@ export default {
               'The thumbnail of the record-breaking New Heights episode itself — Swift between Travis and Jason Kelce, holding The Life of a Showgirl artwork on the set where album No. 12 was announced.',
             kind: 'primary',
           },
+          // 2026-07-17: NBC News' still from the episode (their own
+          // media-cldnry.s-nbcnews.com render), verified HTTP 200 +
+          // image/jpeg (1240x698), downloaded and viewed — Swift and Kelce
+          // side by side at the New Heights desk mid-episode.
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2025-08/250814-travis-kelce-taylor-swift-16x9-mn-1200-675781.jpg',
+            credit: 'New Heights, via NBC News',
+            caption:
+              'Mid-episode at the New Heights desk, Aug. 13, 2025 — her first-ever podcast appearance, on the show where the album was announced.',
+            kind: 'archival',
+          },
         ],
       },
     },
@@ -1844,14 +1855,39 @@ export default {
             reliability_score: 3,
           },
         ],
-        // Photo from the same Oct. 2 Graham Norton taping where the tease
+        // Photos from the same Oct. 2 Graham Norton taping where the tease
         // happened (Alamy, via Marie Claire's coverage of the appearance).
+        // 2026-07-17: three more frames from the same Marie Claire piece,
+        // each verified HTTP 200 + image/jpeg, downloaded and viewed —
+        // solo couch shot, smiling shot with the engagement ring visible,
+        // and the full guest lineup with Norton.
         photos: [
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/oGZmWZYsJXLBXALnDQk7X4.jpg',
+            credit: 'Alamy, via Marie Claire',
+            caption:
+              'On the Graham Norton Show couch in the black David Koma dress, Oct. 2, 2025 — the appearance where she called the wedding "huge" and ruled out a small guest list.',
+            kind: 'primary',
+          },
           {
             url: 'https://cdn.mos.cms.futurecdn.net/PJsDTgPm4oKabghVVGKLNM-1920-80.jpg',
             credit: 'Alamy, via Marie Claire',
             caption:
               'On the Graham Norton Show couch, Oct. 2, 2025 — the appearance where she called the wedding "huge" and ruled out a small guest list.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/WaJNJAWscy5SEzxxRpSQQm.jpg',
+            credit: 'Alamy, via Marie Claire',
+            caption:
+              'Mid-interview at the taping — the Artifex engagement ring visible on her hand while the wedding talk happened.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/ZitCnEiHQVnUnBmHPedDZB.jpg',
+            credit: 'Alamy, via Marie Claire',
+            caption:
+              "The full couch: Swift with Graham Norton and fellow guests Cillian Murphy, Greta Lee, Jodie Turner-Smith, Domhnall Gleeson, and Lewis Capaldi.",
             kind: 'archival',
           },
         ],
@@ -2335,10 +2371,21 @@ export default {
             reliability_score: 3,
           },
         ],
-        // Archival: the August 2025 Taylor Swift episode of the same show
-        // (thumbnail; episode verified via oEmbed against @newheightshow) —
-        // the desk the era's story keeps returning to.
+        // Primary: the July 8, 2026 season-finale episode itself (EP 198,
+        // verified 2026-07-17 via YouTube oEmbed against @newheightshow:
+        // "Tom Brady on Favorite Super Bowl..." — the episode where Travis
+        // told the proposal story). Thumbnail verified HTTP 200 + image/jpeg,
+        // downloaded and viewed. Archival: the August 2025 Taylor Swift
+        // episode of the same show — the desk the era's story keeps
+        // returning to.
         photos: [
+          {
+            url: 'https://i.ytimg.com/vi/LnpmnyCIbNQ/maxresdefault.jpg',
+            credit: 'New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)',
+            caption:
+              'The season-finale episode itself — Jason, guest Tom Brady, and a newly married Travis, in the first New Heights released after the wedding, where the proposal story finally got told.',
+            kind: 'primary',
+          },
           {
             url: 'https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg',
             credit: 'New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)',
@@ -2374,9 +2421,21 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Primary: Lubeck herself beside her work — People's split image
+        // (her own Instagram, from the wedding night) via Yahoo's syndicated
+        // copy on media.zenfs.com; verified 2026-07-17 HTTP 200 + image/jpeg
+        // (1500x1000), downloaded and viewed — left: Lubeck in her
+        // wedding-guest jewelry, right: the Old Mine Cut ring close-up.
         // Archival: the ring itself, from the couple's own announcement
         // carousel (ABC News' stable copy, credited as ABC credits it).
         photos: [
+          {
+            url: 'https://media.zenfs.com/en/people_218/9c00317fa1b3074f60e013cdbc8628a6',
+            credit: 'Kindred Lubeck/Instagram; @taylorswift/Instagram (via People/Yahoo)',
+            caption:
+              'The designer and the design: Kindred Lubeck on the wedding night she was invited to, beside the Old Mine Cut ring that earned the invitation.',
+            kind: 'primary',
+          },
           {
             url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
             credit: 'via @taylorswift/Instagram (ABC News)',
@@ -2419,6 +2478,20 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 4,
+          },
+        ],
+        // What the $160K bought, made visible: AP photo (via ABC7 New York's
+        // street-closure coverage) of NYPD "No Parking" signs going up at the
+        // barriers around MSG on July 2, 2026. Verified 2026-07-17: HTTP 200,
+        // image/jpeg, 1920x1080, downloaded and viewed — police-department
+        // signage, barriers, and event trucks outside the Garden.
+        photos: [
+          {
+            url: 'https://cdn.abcotvs.com/dip/images/19437803_070226-wabc-msg-no-parking-ap-img.jpg',
+            credit: 'AP, via ABC7 New York',
+            caption:
+              'The city response the permit paid for: NYPD "No Parking" signs going up at the barriers around Madison Square Garden ahead of the wedding weekend.',
+            kind: 'primary',
           },
         ],
       },
