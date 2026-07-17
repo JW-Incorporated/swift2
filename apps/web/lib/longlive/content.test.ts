@@ -126,6 +126,12 @@ describe('CONTENT dataset invariants', () => {
     // representative placeholders, not researched days.
     expect(byId.get('debut-cowboy-boots')?.dateLabel).toBe('Spring 2007');
     expect(byId.get('folklore-cardigan')?.dateLabel).toBe('Summer 2020');
+    // #717: these three aesthetic moments carried release-adjacent placeholder
+    // dates, so day-level labels implied precision nobody researched — Joey
+    // moved them to editorial period labels.
+    expect(byId.get('red-snl')?.dateLabel).toBe('Fall 2012');
+    expect(byId.get('ttpd-typewriter')?.dateLabel).toBe('Spring 2024');
+    expect(byId.get('tloas-sequins')?.dateLabel).toBe('Fall 2025');
   });
 
   it('every item (curated + synced) carries a non-empty images gallery', () => {
