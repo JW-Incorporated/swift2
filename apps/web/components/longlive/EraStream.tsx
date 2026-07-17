@@ -3,7 +3,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react';
 import { ArrowUp, Sparkles } from 'lucide-react';
 import { useAppActions, useAppState } from '@/lib/longlive/store';
-import { ERAS, erasBackFrom, isFirstEra, getEra, eraIndex, CURRENT_ERA_ID } from '@/lib/longlive/eras';
+import { ERAS, erasBackFrom, isFirstEra, getEra, jumpWindow } from '@/lib/longlive/eras';
 import { eraStyle } from '@/lib/longlive/theme';
 import type { Era } from '@/lib/longlive/types';
 import { EraSection } from './EraSection';
@@ -30,8 +30,15 @@ export function EraStream() {
   const restoreRef = useRef(getEraScroll());
   const restore = restoreRef.current;
 
-  const [anchorId, setAnchorId] = useState(restore?.anchorId ?? eraId);
-  const [count, setCount] = useState(restore?.count ?? 1);
+  // With no snapshot, this mount may itself be an explicit jump: the landing
+  // page renders *instead of* the stream, so picking an era there (openEra)
+  // bumps eraJumpSeq in the same action that first mounts this component —
+  // the jump effect below can't see that bump as a change (#747). Seed the
+  // window the way the jump would have, so newer eras exist above the picked
+  // one from the first paint.
+  const initialWindow = restore ?? jumpWindow(eraId);
+  const [anchorId, setAnchorId] = useState(initialWindow.anchorId);
+  const [count, setCount] = useState(initialWindow.count);
 
   // Read the live active era without making it an effect dependency (scroll
   // updates it constantly; only an explicit *jump* should re-anchor the stream).
@@ -62,23 +69,28 @@ export function EraStream() {
   }, []);
 
   // Re-anchor + jump to the chosen era whenever the user explicitly jumps.
-  // Keyed off the *value* of eraJumpSeq (not "has mounted") so it's idempotent:
-  // the initial value is pre-seeded as handled, and StrictMode's double-invoke
-  // of this effect can't re-trigger a jump that would clobber a scroll restore.
+  // Keyed off the *value* of eraJumpSeq (not "has mounted") so StrictMode's
+  // double-invoke of this effect can't re-trigger a jump that would clobber a
+  // scroll restore. When there's no snapshot to protect, the mount itself may
+  // BE the jump (#747: openEra from the landing page bumps eraJumpSeq in the
+  // same action that mounts the stream, so the pre-seeded ref would swallow
+  // the bump) — re-anchoring to the same target is idempotent, so the
+  // mount-time run (and StrictMode's double-invoke of it, which cancels the
+  // first run's scroll correction) is safe to let through.
   //
   // The stream always anchors at the newest (current) era and extends back
-  // just far enough to include the chosen era, rather than re-anchoring AT the
-  // chosen era — anchoring there would strand the user with no way to scroll
-  // back up toward more recent eras (the stream only ever grows *older* going
-  // down), which was the reported "can't scroll forward after an era-menu
-  // jump" bug.
+  // just far enough to include the chosen era (see jumpWindow) — anchoring AT
+  // the chosen era would strand the user with no way to scroll back up toward
+  // more recent eras (the stream only ever grows *older* going down), which
+  // was the reported "can't scroll forward after an era-menu jump" bug.
+  const mountedWithoutRestore = useRef(!restore);
   const handledJumpSeq = useRef(eraJumpSeq);
   useEffect(() => {
-    if (handledJumpSeq.current === eraJumpSeq) return;
+    if (!mountedWithoutRestore.current && handledJumpSeq.current === eraJumpSeq) return;
     handledJumpSeq.current = eraJumpSeq;
     const targetId = eraIdRef.current;
-    const neededCount = Math.max(1, eraIndex(CURRENT_ERA_ID) - eraIndex(targetId) + 1);
-    setAnchorId(CURRENT_ERA_ID);
+    const { anchorId: nextAnchorId, count: neededCount } = jumpWindow(targetId);
+    setAnchorId(nextAnchorId);
     setCount(neededCount);
 
     // A jump can re-render every era between "now" and the target at once —

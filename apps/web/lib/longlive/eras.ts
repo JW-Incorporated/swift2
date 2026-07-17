@@ -364,6 +364,20 @@ export function erasBackFrom(fromId: string, count: number): Era[] {
   return out;
 }
 
+/**
+ * The stream window an explicit jump to `targetId` needs: anchored at the
+ * newest (current) era and extending back just far enough to include the
+ * target. The stream only ever grows *older* going down, so anchoring AT the
+ * target would leave nothing above it and strand the user with no way to
+ * scroll toward newer eras (#747).
+ */
+export function jumpWindow(targetId: string): { anchorId: Era['id']; count: number } {
+  return {
+    anchorId: CURRENT_ERA_ID,
+    count: Math.max(1, eraIndex(CURRENT_ERA_ID) - eraIndex(targetId) + 1),
+  };
+}
+
 /** True when this era is the very beginning of her career. */
 export function isFirstEra(id: string): boolean {
   return eraIndex(id) === 0;
