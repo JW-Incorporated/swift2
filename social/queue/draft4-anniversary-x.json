@@ -4,5 +4,8 @@
   "scheduledAt": "2026-07-17T22:00:00Z",
   "approvedBy": "joey",
   "approvedAt": "2026-07-17T21:00:00Z",
-  "campaign": "launch-day"
+  "campaign": "launch-day",
+  "attempts": 1,
+  "lastError": "X post failed (403): {\"detail\":\"You are not allowed to create a Tweet with duplicate content.\",\"status\":403,\"title\":\"Forbidden\",\"type\":\"about:blank\"}",
+  "lastAttemptAt": "2026-07-17T22:52:29.594Z"
 }
