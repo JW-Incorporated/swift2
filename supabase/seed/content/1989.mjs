@@ -49,7 +49,7 @@ export default {
       snippet:
         "Satire aimed at her own tabloid image — \"a girl who's crazy but seductive but glamorous but nuts but manipulative.\"",
       sourceUrl: 'https://en.wikipedia.org/wiki/Blank_Space',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
       moment: {
         context:
           "She's said only about half of listeners caught it was a joke; the rest took the persona at face value — which was almost the point, since the song was written as a satirical, self-referential nod to a tabloid caricature she'd decided was \"kind of hilarious\" once she stopped feeling attacked by it.\n\nThe joke worked commercially either way: after debuting at No. 18, \"Blank Space\" knocked \"Shake It Off\" out of No. 1 in its third week, making her the first woman in the Hot 100's 56-year history to succeed herself at the top — only nine acts, from the Beatles to the Black Eyed Peas, had ever done it. It held No. 1 for seven straight weeks and was eventually certified 8x Platinum.",
@@ -57,7 +57,7 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Blank_Space' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/pro/taylor-swift-blank-space-hot-100/' },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
       },
     },
     {
@@ -88,7 +88,7 @@ export default {
       snippet:
         "Not about an ex — by her own account, about a friend who tried to sabotage an entire arena tour.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png/250px-Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png',
       moment: {
         context:
           "She told Rolling Stone the person had \"tried to hire a bunch of people out from under\" her; a year later she told GQ she'd \"never said anything that would point a finger in the specific direction of one specific person.\"\n\nKaty Perry, the widely speculated subject — the falling-out reportedly traced to a 2013 disagreement over backup dancers — made peace in stages, and largely in private first. Perry sent a literal olive branch as the reputation Stadium Tour opened in May 2018, and by June 2019 the two were sharing a screen, dressed as a burger and fries, in the \"You Need to Calm Down\" video; both have said they made sure the friendship was solid between them before letting the public in on it. By 2024 Perry was in the crowd at an Eras Tour show in Australia.",
@@ -107,7 +107,7 @@ export default {
             url: 'https://www.eonline.com/news/1423684/katy-perry-supports-taylor-swifts-the-life-of-a-showgirl',
           },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png/250px-Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
       },
     },
     {
@@ -143,7 +143,7 @@ export default {
       title: 'New Romantics, the deluxe-track Rolling Stone later called one of the decade\'s best',
       snippet: '"Heartbreak is the national anthem" — a synth-pop rallying cry for coming back from it with your friends beside you.',
       sourceUrl: 'https://en.wikipedia.org/wiki/New_Romantics_(song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png',
       moment: {
         context:
           "Recorded with Max Martin and Shellback, it was relegated to the deluxe edition in 2014, then finally released as 1989's seventh and last single in February 2016 — with a Jonas Åkerlund video stitched from 1989 World Tour footage that premiered exclusively on Apple Music.\n\nRolling Stone's 2019 decade-end list ranked it No. 58 among the 100 best songs of the 2010s, calling it \"the type of relieving dance floor soul purge that the best pop can be\" and arguing the bonus track was the album's real thesis — a heartbroken hopeless romantic finding power in the pain. Critics keep ranking it among her best songs, usually with the same complaint attached: it never made the standard tracklist.",
@@ -151,7 +151,7 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-lists/the-100-best-songs-of-the-2010s-917532/taylor-swift-new-romantics-917602/' },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
       },
     },
     {
@@ -865,7 +865,7 @@ export default {
       snippet:
         'Certified 14x Platinum by the RIAA — crossing the 10-million-unit Diamond threshold and putting her among a small group of women, including Adele, Mariah Carey, and Whitney Houston, with a Diamond album.',
       sourceUrl: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
       moment: {
         context:
           'The RIAA certified 1989 14x Platinum on Sept. 30, 2025 — clearing the 10x-Platinum Diamond threshold (10 million combined sales-and-streaming units) almost eleven years after release, and making it Swift\'s second Diamond album after Fearless (certified in December 2017).\n\nThe company is thin: only 31 albums by women or female-fronted acts have ever gone Diamond, and the double puts her alongside Madonna, Whitney Houston, Mariah Carey, Celine Dion, Shania Twain, Britney Spears, Adele, and The Chicks among the women with more than one — with Twain and Houston leading at three apiece.',
@@ -873,7 +873,7 @@ export default {
           { outlet: 'AOL', url: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html' },
           { outlet: 'RIAA Gold & Platinum Database', url: 'https://www.riaa.com/gold-platinum/?tab_active=default-award&ar=Taylor+Swift&ti=1989' },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png', credit: 'Big Machine Records' }],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png', credit: 'Big Machine Records' }],
       },
     },
     {
@@ -937,7 +937,7 @@ export default {
       snippet:
         '"This has been the most incredible adventure" — eight months, 53 cities, 78 guest cameos, and the highest-grossing tour in the world for 2015.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/250px-Taylor_Swift_AAMI_Park_20151212_01.jpg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/1280px-Taylor_Swift_AAMI_Park_20151212_01.jpg',
       moment: {
         context:
           'The tour wrapped its third Melbourne show at AAMI Park on Dec. 12, 2015, having run 85 shows across 53 cities in 10 countries since opening in Tokyo that May.\n\nFinal tallies: $250.7 million grossed and 2,278,647 tickets sold (100% of capacity) — Pollstar\'s highest-grossing tour worldwide for 2015. Swift posted a farewell photo with her tour crew: "Farewell, 1989 World Tour."',
@@ -948,7 +948,7 @@ export default {
             url: 'https://www.billboard.com/music/pop/taylor-swift-1989-tour-ends-6805721/',
           },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/250px-Taylor_Swift_AAMI_Park_20151212_01.jpg', credit: 'Wikimedia Commons' }],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/1280px-Taylor_Swift_AAMI_Park_20151212_01.jpg', credit: 'Wikimedia Commons' }],
       },
     },
     {
@@ -960,12 +960,12 @@ export default {
       snippet:
         'She called it the song that "best represents" the album — built around a real snowmobile accident and twenty stitches she\'d kept out of the tabloids.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Taylor_Swift_-_Out_of_the_Woods.png/250px-Taylor_Swift_-_Out_of_the_Woods.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png',
       moment: {
         context:
           "Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Swift on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.\n\nThe bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)' }],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f1/Taylor_Swift_-_Out_of_the_Woods.png/250px-Taylor_Swift_-_Out_of_the_Woods.png', credit: 'Big Machine Records' }],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png', credit: 'Big Machine Records' }],
       },
     },
 
@@ -987,7 +987,7 @@ export default {
       snippet:
         'August 18, 2014: a worldwide livestream reveals the album title, the October 27 date, the Polaroid cover — and drops "Shake It Off" plus its video the same day.',
       sourceUrl: 'https://en.wikipedia.org/wiki/1989_(album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
       moment: {
         context:
           'On the livestream she declared the record her first documented, official pop album, formally closing the country chapter the Red era had already strained — a pivot her own label resisted. Big Machine\'s Scott Borchetta, hearing the finished album, asked her to add country tracks with fiddle; she refused, reasoning that "if you chase two rabbits, you lose them both," and the label settled for not promoting it to country radio at all.\n\nMax Martin came aboard as co-executive producer to keep the synth-pop palette cohesive, "Shake It Off" dropped the same day and entered the Hot 100 at No. 1, and naming the album for her birth year — fronted by a Polaroid crop that cut off her face — set the visual language for everything that followed.',
@@ -1013,7 +1013,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/Taylor_Swift_-_1989.png/250px-Taylor_Swift_-_1989.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1170,7 +1170,7 @@ export default {
         'November 10, 2014: Joseph Kahn\'s mansion-meltdown video drops alongside American Express Unstaged — an explorable 360° app version of the video that went on to win an Emmy.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Blank_Space',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
       moment: {
         context:
           'Joseph Kahn shot the mansion meltdown at Oheka Castle on Long Island, borrowing Stanley Kubrick\'s symmetrical framing while Swift played the tabloids\' "crazy ex" caricature to the hilt — golf clubs to the sports car included. The companion "AMEX Unstaged: Taylor Swift Experience" app let viewers roam the mansion in interactive 360° mid-video, discovering easter eggs and side characters outside the linear cut.\n\nIt won the 2015 Emmy for Outstanding Creative Achievement in Interactive Media — Original Interactive Program, with Swift credited as artist and executive producer: her first Emmy, earned for a music video\'s companion app.',
@@ -1196,7 +1196,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png/250px-Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1501,7 +1501,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6d/The_1989_World_Tour.png/250px-The_1989_World_Tour.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/6d/The_1989_World_Tour.png',
             credit: 'Big Machine Records',
             kind: 'archival',
             caption: 'The official 1989 World Tour poster art — the tour the Apple Music film documents, shot at the Nov. 28, 2015 Sydney show.',
@@ -1545,7 +1545,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxresdefault.jpg',
             credit: 'Big Machine Records / Taylor Swift via YouTube',
             kind: 'archival',
             caption: "Mud-caked and mid-pursuit — a still from the official 'Out of the Woods' video, premiered on New Year's Rockin' Eve, Dec. 31, 2015.",
@@ -1642,7 +1642,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/a8/This_Is_What_You_Came_For_cover.png/250px-This_Is_What_You_Came_For_cover.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/a/a8/This_Is_What_You_Came_For_cover.png',
             credit: 'Westbury Road / Sony Music',
             kind: 'primary',
             caption: 'The single art for "This Is What You Came For" — credited on release to Calvin Harris featuring Rihanna, with "Nils Sjöberg" in the songwriting credits.',

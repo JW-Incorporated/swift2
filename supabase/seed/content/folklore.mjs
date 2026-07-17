@@ -84,13 +84,13 @@ export default {
         // article HTML. Verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Taylor_Swift_-_Cardigan.png/250px-Taylor_Swift_-_Cardigan.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/07/Taylor_Swift_-_Cardigan.png',
             credit: 'Republic Records',
             caption: 'Official single cover for "cardigan" — adult Betty\'s chapter of the triangle.',
             kind: 'primary',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/38/Taylor_Swift_-_Betty.png/250px-Taylor_Swift_-_Betty.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/3/38/Taylor_Swift_-_Betty.png',
             credit: 'Republic Records',
             // Image-fix pass (2026-07-10): ticket #232 — viewed the file: its
             // on-image text reads "betty — Live from the 2020 Academy of Country
@@ -133,7 +133,7 @@ export default {
             kind: 'archival',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c2/Rebekah_Harkness_publicity_photo.jpg/250px-Rebekah_Harkness_publicity_photo.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c2/Rebekah_Harkness_publicity_photo.jpg',
             credit: 'Wikimedia Commons (public domain publicity photo)',
             caption: 'Rebekah Harkness, the "mad" widow of the song\'s first three verses.',
             kind: 'archival',
@@ -404,7 +404,7 @@ export default {
       snippet:
         'Shot by Beth Garrabrant with no styling team on hand, in black and white for the first time — Swift standing alone in a misty forest in a plaid coat over a white prairie dress.',
       sourceUrl: 'https://www.femestella.com/taylor-swift-folklore-photoshoot-by-photographer-beth-garrabrant/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
       moment: {
         context:
           'Swift styled her own hair, makeup, and wardrobe for the shoot — cardigans, oversized plaid blazers, and rugby shirts, worn in the summer heat of a friend\'s forest. She and photographer Beth Garrabrant referenced Surrealist work and early autochromes and ambrotypes, and shot the whole series in black and white, a first for Garrabrant, who usually works in color.\n\nIt was a deliberate departure from her earlier album cycles\' larger production teams — no glam squad, no set build, just the two of them in the woods. The resulting frame of Swift standing small among the trees became the cover, and the surrounding shots were posted as a grid of captionless black-and-white photos in the July 23 announcement.',
@@ -417,7 +417,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'The folklore album cover — Beth Garrabrant\'s black-and-white forest frame.',
             kind: 'primary',
@@ -641,7 +641,7 @@ export default {
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'folklore, which opened with 846,000 equivalent units in its first week.',
             kind: 'primary',
@@ -703,7 +703,7 @@ export default {
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'folklore — Rolling Stone\'s No. 1 album of 2020.',
             kind: 'primary',
@@ -748,7 +748,7 @@ export default {
         // verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Folklore.png/250px-Taylor_Swift_-_Folklore.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'The cover art revealed in the July 23, 2020 announcement post.',
             kind: 'primary',
@@ -924,7 +924,7 @@ export default {
             kind: 'primary',
           },
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/William_Wordsworth_by_Henry_William_Pickersgill.jpg/250px-William_Wordsworth_by_Henry_William_Pickersgill.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/William_Wordsworth_by_Henry_William_Pickersgill.jpg/1280px-William_Wordsworth_by_Henry_William_Pickersgill.jpg',
             credit: 'Henry William Pickersgill (public domain), via Wikimedia Commons',
             caption: 'William Wordsworth, the Lake Poet behind the lyric\'s "what are my words worth" pun.',
             kind: 'archival',
@@ -963,7 +963,7 @@ export default {
         // HTTP 200 this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/38/Taylor_Swift_-_Betty.png/250px-Taylor_Swift_-_Betty.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/3/38/Taylor_Swift_-_Betty.png',
             credit: 'Republic Records',
             caption: 'Official single cover for "betty," her first country-radio single since 2013.',
             kind: 'primary',
@@ -1166,7 +1166,7 @@ export default {
         // HTML. Verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Taylor_Swift_-_Cardigan.png/250px-Taylor_Swift_-_Cardigan.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/07/Taylor_Swift_-_Cardigan.png',
             credit: 'Republic Records',
             caption: '"cardigan," nominated for both Song of the Year and Best Pop Solo Performance.',
             kind: 'primary',
@@ -1213,7 +1213,7 @@ export default {
         // "Taylor Swift") this session. Both verified HTTP 200.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/07/Taylor_Swift_-_Cardigan.png/250px-Taylor_Swift_-_Cardigan.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/07/Taylor_Swift_-_Cardigan.png',
             credit: 'Republic Records',
             caption: 'Official single cover for "cardigan," folklore\'s lead single.',
             kind: 'primary',

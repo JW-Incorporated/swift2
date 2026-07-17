@@ -24,7 +24,7 @@ export default {
         "1,047,000 copies in week one — the first album since Lil Wayne's Tha Carter III to cross a million in its opening week.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+        'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
         context:
           "It debuted at No. 1 on both the Billboard 200 and the Country Albums chart, and The Boot clocked the 1,047,000-copy week as the best first week for any album since 50 Cent's The Massacre in 2005 — and the biggest sales week by any female country artist since 1991.\n\nIt also made her just the fourth woman ever to sell a million copies in a single week, after Britney Spears, Whitney Houston, and Norah Jones. Grammy.com later framed the number and the no-co-writers credit line as the same statement — an album written 'entirely alone as a mic drop against critics,' with an opening week that nearly doubled what Fearless did.",
@@ -37,7 +37,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -64,7 +64,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Taylor_Swift_2011crop.jpg/250px-Taylor_Swift_2011crop.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_2011crop.jpg',
             credit: 'Eva Rinaldi / Wikimedia Commons',
           },
         ],
@@ -91,7 +91,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Taylor_Swift_Sydney.jpg/250px-Taylor_Swift_Sydney.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Taylor_Swift_Sydney.jpg',
             credit: 'Eva Rinaldi / Wikimedia Commons',
           },
         ],
@@ -922,14 +922,14 @@ export default {
       snippet:
         '"Guys get what they deserve in my songs, and if they deserve an apology, they should get one" — her first-ever apology track, later confirmed by Taylor Lautner as being about him.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Back_to_December',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
       moment: {
         context:
           'In interviews before Speak Now\'s release, Swift explained she\'d broken her own pattern: "Guys get what they deserve in my songs, and if they deserve an apology, they should get one. There was someone who was absolutely wonderful to me and I dropped the ball, and I needed to say all that."\n\nIt was the first time she wrote an apology to an ex rather than a critique of one. Actor Taylor Lautner, whom she\'d dated in late 2009, confirmed in a 2016 interview that he was the song\'s subject.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Back_to_December' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -945,14 +945,14 @@ export default {
         'Written after an awkward run-in with an ex at an awards show — "I felt like I was standing alone in a crowded room," she told her mom that night, then wrote the song.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Story_of_Us_(song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_The_Story_of_Us.png/250px-Taylor_Swift_-_The_Story_of_Us.png',
+        'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_The_Story_of_Us.png',
       moment: {
         context:
           'Swift was inspired by an uncomfortable encounter with an ex-boyfriend at an awards show — she wanted to talk to him but couldn\'t get past the awkwardness. Back home, she told her mother, "I felt like I was standing alone in a crowded room," and wrote the lyrics from there.\n\nShe later told USA Today\'s Brian Mansfield that the subject behind "The Story of Us" was the same person behind "Dear John." It was the last song she wrote for Speak Now.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/The_Story_of_Us_(song)' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_The_Story_of_Us.png/250px-Taylor_Swift_-_The_Story_of_Us.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_The_Story_of_Us.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -968,14 +968,14 @@ export default {
         'All 14 standard-edition tracks credited to Swift alone — a direct answer to critics who doubted a 20-year-old could really write her own songs.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+        'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
         context:
           'Swift wrote every song on the standard 14-track edition by herself, gathering ideas during the Fearless Tour.\n\nShe\'s since described it as her answer to critics who doubted her songwriting was really her own. (The deluxe-edition bonus track "If This Was a Movie" is her only co-write on the record, with Martin Johnson.) It remains the only album in her catalog written without a single co-writer.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1003,7 +1003,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records (album cover art)',
             kind: 'primary',
           },
@@ -1126,14 +1126,14 @@ export default {
         "110 shows, 19 territories, 1.64 million tickets sold — Billboard's final tally for the tour that closed out the era on March 18, 2012.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/250px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/1280px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
       moment: {
         context:
           "Billboard estimated the Speak Now World Tour's total gross at $123.7 million, from 1,642,435 tickets sold across its 110-date run spanning 19 territories, from its February 2011 Singapore opener through its final show on March 18, 2012.\n\nInside those numbers: the North American leg alone accounted for roughly 1.5 million of the tickets, the run was her first tour with multiple US stadium shows — six football stadiums — and the closing night landed at Auckland's Vector Arena. Adjusted for inflation, the $123.7 million works out to roughly $173 million in 2025 dollars, earned by a 22-year-old on an album she wrote entirely alone.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/250px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg/1280px-Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
             credit: 'Eva Rinaldi / Wikimedia Commons',
           },
         ],
@@ -1156,7 +1156,7 @@ export default {
         'An unauthorized MP3 of "Mine" hit the internet in early August 2010 — Big Machine answered by rushing the lead single to radio and iTunes on Aug. 4, twelve days ahead of schedule.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swifts-mine-single-leaks-957034/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Taylor_Swift_-_Mine.png/250px-Taylor_Swift_-_Mine.png',
+        'https://upload.wikimedia.org/wikipedia/en/5/56/Taylor_Swift_-_Mine.png',
       moment: {
         context:
           'She admitted the leak made her cry — then watched the rush-release strategy work anyway, with the single racing up iTunes on day one. "Mine" introduced Speak Now two and a half months before the album arrived.\n\nThe numbers vindicated the scramble: originally slated for August 16, the single debuted at No. 3 on the Hot 100 with 297,000 downloads — at the time the eighth-biggest sales debut ever for a digital song. The music video, co-directed by Swift and Roman White and shot in Kennebunkport, Maine with British actor Toby Hemingway as the love interest (she cast him after seeing Feast of Love), premiered on CMT August 27 and went on to win Video of the Year at the 2011 CMT Music Awards.',
@@ -1191,7 +1191,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/56/Taylor_Swift_-_Mine.png/250px-Taylor_Swift_-_Mine.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/5/56/Taylor_Swift_-_Mine.png',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
           },
@@ -1215,7 +1215,7 @@ export default {
         'Oct. 25, 2010: the third album lands — fourteen tracks written alone between 18 and 20, released into a week that ended with a million copies sold.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+        'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
         context:
           'The solo writing wasn\'t incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective.\n\nShe\'d written the fourteen tracks on the road, co-producing with Nathan Chapman: "I\'d get my best ideas at 3:00 a.m. in Arkansas, and I didn\'t have a co-writer around so I would just finish it," she explained. The new title fit her definition of the whole record — the moment "where it\'s almost too late, and you\'ve got to either say what it is you are feeling or deal with the consequences forever." The market answered with 1,047,000 first-week copies and a No. 1 debut on the Billboard 200.',
@@ -1232,7 +1232,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1248,7 +1248,7 @@ export default {
       snippet:
         'The apology song becomes the second single in November 2010 — the first time she\'d ever sent an "I\'m sorry" to country radio.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Back_to_December',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
       moment: {
         context:
           'Chosen as the follow-up to "Mine" within weeks of the album\'s release; the apology\'s recipient stayed officially unnamed until Taylor Lautner confirmed, years later, that it was him.\n\nIt went to country radio on November 15, 2010 — five days after she premiered it at the CMA Awards at Nashville\'s Bridgestone Arena, a stripped-back performance the Los Angeles Times graded a B+. The single climbed to No. 6 on the Hot 100 and No. 3 on Hot Country Songs, and its Yoann Lemoine-directed video — all snow and distance, built, in the director\'s words, "to work on the coldness of feelings in a very visual way" — premiered that January.',
@@ -1265,7 +1265,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Back_to_December.png/250px-Back_to_December.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Back_to_December.png',
             credit: 'Big Machine Records (single cover art)',
           },
         ],
@@ -1282,7 +1282,7 @@ export default {
         'March 2011: the album\'s bluegrass-leaning critic clapback becomes single three — the one that would end up with two Grammys and a live banjo on the Grammy stage.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mean_(song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Taylor_Swift_-_Mean.png/250px-Taylor_Swift_-_Mean.png',
+        'https://upload.wikimedia.org/wikipedia/en/2/2d/Taylor_Swift_-_Mean.png',
       moment: {
         context:
           'Sending the most traditionally country track on Speak Now to radio mid-tour doubled as a statement about where she still lived musically; eleven months later it won Best Country Song and Best Country Solo Performance.\n\nIt had already debuted and peaked at No. 11 on the Hot 100 on album-week sales in 2010; released to country radio March 7, 2011, it passed a million digital copies by that August. The Declan Whitebloom video — shot over two days at Los Angeles\' Orpheum Theatre with young actors Joey King and Presley Cash — reframed the critic clapback as an anti-bullying story, and Grammy.com\'s retrospective still reads the song the way fans did in 2011: "a deliciously twangy clapback to critic Bob Lefsetz."',
@@ -1308,7 +1308,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/2d/Taylor_Swift_-_Mean.png/250px-Taylor_Swift_-_Mean.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/2/2d/Taylor_Swift_-_Mean.png',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
           },
@@ -1332,7 +1332,7 @@ export default {
         'July 18, 2011: a song written at 16 and bootlegged from 2007 bar shows becomes the album\'s fifth single — because fans simply would not stop asking for it.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Sparks_Fly_(song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Sparks_Fly_-_Single.png/250px-Sparks_Fly_-_Single.png',
+        'https://upload.wikimedia.org/wikipedia/en/9/91/Sparks_Fly_-_Single.png',
       moment: {
         context:
           'A fan-filmed 2007 performance circulated online for years, and backstage requests at the 2010 CMA Music Festival pushed her to rework the song for Speak Now. The single just made official what tour setlists already knew.\n\nThe studio version kept the original arrangement while retouching lyrics she\'d written at 16. As the album\'s fifth single it reached No. 17 on the Hot 100 and went all the way to No. 1 on Hot Country Songs that November, eventually certified platinum — and, fittingly for a song the live shows kept alive, its Christian Lamb-directed video was cut entirely from Speak Now World Tour concert footage.',
@@ -1349,7 +1349,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/Sparks_Fly_-_Single.png/250px-Sparks_Fly_-_Single.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Sparks_Fly_-_Single.png',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
           },
@@ -1374,7 +1374,7 @@ export default {
         'Nov. 21, 2011: a CD-plus-DVD of the North American leg arrives — the full show on film, plus tour covers of Train\'s "Drops of Jupiter," "Bette Davis Eyes," and the Jackson 5\'s "I Want You Back."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour_%E2%80%93_Live',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png/250px-Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
+        'https://upload.wikimedia.org/wikipedia/en/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
       moment: {
         context:
           'Her first live album, released through Big Machine while the era was still running; it debuted at No. 11 on the Billboard 200 with 77,000 first-week copies.\n\nThe package ran 79 minutes on CD and two hours on the DVD, directed by Ryan Polito from footage shot across the tour\'s North American leg. Beyond the Billboard 200 debut it climbed to No. 2 on Top Country Albums — and it preserved the tour\'s cover-song habit on record, from Train\'s "Drops of Jupiter" to the Jackson 5\'s "I Want You Back," years before surprise covers hardened into a formal nightly slot on her tours.',
@@ -1391,7 +1391,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png/250px-Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
             credit: 'Big Machine Records (album cover art)',
             kind: 'primary',
           },
@@ -1469,7 +1469,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Speak_Now_cover.png/250px-Taylor_Swift_-_Speak_Now_cover.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records (album cover art)',
             caption: 'The album the title track named — the song that gave Speak Now its thesis and its cover line.',
             kind: 'primary',

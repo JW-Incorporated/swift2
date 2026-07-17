@@ -51,7 +51,7 @@ export default {
       title: "willow, and the spell it's supposed to sound like",
       snippet: 'Taylor\'s own description: it "sounds like casting a spell to make someone fall in love with you."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Willow_(song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Taylor_Swift_-_Willow.png/250px-Taylor_Swift_-_Willow.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/9/9a/Taylor_Swift_-_Willow.png',
       moment: {
         context:
           'Full quote: "Willow is about intrigue, desire, and the complexity that goes into wanting someone." The music arrived almost by accident: Aaron Dessner had an instrumental sketch he called "Westerly," named for Swift\'s Rhode Island home, and sent it over without expecting anything back — she wrote the entire song to it within the hour.\n\nThe self-directed video (her third) picks up exactly where "cardigan" left off, following a golden thread through an enchanted forest, and the single later spawned a full coven of official remixes: "dancing witch," "lonely witch," and "moonlit witch" versions.',
@@ -64,7 +64,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Taylor_Swift_-_Willow.png/250px-Taylor_Swift_-_Willow.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/9/9a/Taylor_Swift_-_Willow.png',
             credit: 'Republic Records',
           },
         ],
@@ -80,7 +80,7 @@ export default {
         'A fictional murder mystery, complete with a cheating husband, a framed mistress, and a sister for an alibi.',
       sourceUrl: 'https://en.wikipedia.org/wiki/No_Body,_No_Crime',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png/250px-Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
+        'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
       moment: {
         context:
           'The victim is named Este, after Este Haim — Taylor sent her the track and asked if she and sister Danielle would sing on it. They said yes immediately.\n\nSwift had written the song entirely alone while deep in a true-crime documentary and podcast phase, then sent Aaron Dessner a voice memo of the finished thing; the production leans all the way into its country staging, harmonica courtesy of Josh Kaufman. It even went to country radio as a single in January 2021, and when HAIM opened Eras Tour shows in 2023, it bumped "\'tis the damn season" to become the evermore set\'s opener.',
@@ -93,7 +93,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png/250px-Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/42/Taylor_Swift_Feat._Haim_-_No_Body%2C_No_Crime.png',
             credit: 'Republic Records',
           },
         ],
@@ -172,7 +172,7 @@ export default {
       title: 'coney island, a duet built for The National',
       snippet: 'A breakup told from both sides, with The National\'s Matt Berninger trading verses with her over a slow, aching duet.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Coney_island_cover.jpeg/250px-Coney_island_cover.jpeg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/c/c7/Coney_island_cover.jpeg',
       moment: {
         context:
           'The Dessner brothers built the instrumental and heard Berninger\'s voice in it immediately; Berninger recorded his half at Knobworld in Los Angeles while Taylor recorded hers at Long Pond in the Hudson Valley, never in the same room.\n\nThe words are another William Bowery co-write — Joe Alwyn trading breakup perspectives with her — and Aaron Dessner happily conceded the result cuts both ways: "it does really feel like Taylor, obviously, since she and William Bowery wrote all the words, but it also feels like a National song in a good way." She performed it live only three times on the Eras Tour, including a Sydney mashup with "White Horse" alongside Sabrina Carpenter.',
@@ -185,7 +185,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Coney_island_cover.jpeg/250px-Coney_island_cover.jpeg',
+            url: 'https://upload.wikimedia.org/wikipedia/en/c/c7/Coney_island_cover.jpeg',
             credit: 'Republic Records',
           },
         ],
@@ -237,7 +237,7 @@ export default {
       // Swapped to the Red (Taylor's Version) cover art, already verified live
       // (HTTP 200 + image/png) and in use elsewhere in this file.
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
           'At 10:13 it dethroned Don McLean\'s 8:37 "American Pie," which had held the mark since January 1972 — and the record fell as part of a broader rout, with Red (Taylor\'s Version) landing 26 songs on the Hot 100 at once, the most simultaneous new entries since the chart began in 1958 — a mark that stood until 2023. The two versions of "All Too Well" combined for 54.4 million U.S. Spotify streams in the debut week alone.\n\nThe momentum was carefully built: an SNL performance, the self-directed short film starring Sadie Sink and Dylan O\'Brien, and a surprise acoustic appearance at a Manhattan theater screening all landed within days of the album.',
@@ -261,7 +261,7 @@ export default {
         // (single image, verified HTTP 200 + image/png this session).
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records (album cover art)',
             caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.",
             kind: 'primary',
@@ -278,7 +278,7 @@ export default {
       snippet:
         "Nominated for the Grammys' biggest award, with no other nods for the album — it lost to Jon Batiste's We Are at the 64th ceremony.",
       sourceUrl: 'https://www.forbes.com/sites/hughmcintyre/2021/12/05/taylor-swift-just-lost-one-of-her-album-of-the-year-grammy-nominations/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0a/Taylor_Swift_-_Evermore.png/250px-Taylor_Swift_-_Evermore.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png',
       moment: {
         context:
           'The nomination came with an asterisk-shaped subplot: Swift was briefly up for Album of the Year twice that cycle, credited on Olivia Rodrigo\'s Sour because two of its songs drew on previously released Swift material — until the Recording Academy ruled that only writers of new material count in the category and struck her (along with Jack Antonoff and St. Vincent) from the Sour nomination, leaving evermore as her lone shot.\n\nThe album then lost to the night\'s great upset: Jon Batiste\'s We Are, which had peaked at No. 86 on the Billboard 200 but rode in on 11 nominations, the most of any artist that year.',
@@ -297,7 +297,7 @@ export default {
         // URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0a/Taylor_Swift_-_Evermore.png/250px-Taylor_Swift_-_Evermore.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png',
             credit: 'Republic Records (album cover art)',
             caption: "evermore's album cover — the album's lone nomination at the 64th Grammys was for the night's biggest award.",
             kind: 'archival',
@@ -405,7 +405,7 @@ export default {
         'Revealed on Good Morning America, the cover recreates her original 2008 pose in sepia tone — in a cream Ulla Johnson blouse fans clocked as a nod to Romeo\'s shirt from the "Love Story" video.',
       sourceUrl: 'https://www.marieclaire.com/celebrity/a35498019/taylor-swift-outfit-new-fearless-cover-easter-egg/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png/250px-Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
+        'https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
       moment: {
         context:
           'The cover, revealed on Good Morning America on February 11, 2021 — the same morning she announced the re-recording project, with "Love Story (Taylor\'s Version)" arriving that night — recreates the original 2008 album\'s windswept pose in warm sepia tone. The blouse she wears in it is a cream satin "Fernanda" top from Ulla Johnson ($395).\n\nFans noted the top closely resembles the Shakespearean-style shirt worn by actor Justin Gaston as the Romeo character in the 2008 "Love Story" video, reading it as a symbolic callback: she no longer needs a knight in shining armor because she is her own.',
@@ -417,7 +417,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png/250px-Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
             credit: 'Republic Records',
           },
         ],
@@ -433,7 +433,7 @@ export default {
         'Beige peacoat, red lipstick, and a sold-out-within-hours burgundy velvet "Mattie" cap by independent designer Janessa Leoné, shot in a 1932 Chevrolet Cabriolet.',
       sourceUrl: 'https://www.billboard.com/articles/columns/pop/9589789/taylor-swift-red-taylors-version-hat-album-cover-janessa-leone/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
           'Leoné had no advance notice her "Mattie" cap would appear on the cover, telling Billboard: "It came as a total surprise to see her sport Mattie on the album cover — we were genuinely shocked, but thrilled."\n\nShe said the shoot was not a team collaboration — Swift\'s stylist chose the piece independently — and the cap sold out on Leoné\'s site immediately after the reveal on June 18, 2021.',
@@ -445,7 +445,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
           },
         ],
@@ -872,7 +872,7 @@ export default {
         'Swift recorded this late-album duet during the pandemic at Marcus Mumford\'s home studio in Devon, where he called her "the most phenomenal houseguest" before she asked him to sing on it: "I chose Cowboy Like Me. Man, I love that song."',
       sourceUrl: 'https://www.billboard.com/music/music-news/marcus-mumford-taylor-swift-phenomenal-houseguest-studio-1236112442/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/250px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/1280px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg',
       moment: {
         context:
           'Swift finished much of evermore\'s second half at Scarlet Pimpernel, the home studio of Mumford & Sons\' Marcus Mumford in Devon, England, working there with producer Aaron Dessner. On the Table Manners podcast, Mumford recalled Dessner asking to borrow his studio for an artist he was producing — Mumford joked, "Beyoncé or something?" — before learning it was Swift, who arrived "right at the end of COVID." He called her "the most phenomenal houseguest," joking that he "burned a lot of vegetables for her" and that "her candle game was excellent."\n\nIn a separate interview with The Sunday Times, Mumford said: "Taylor came to my studio, played me some music and asked if I wanted to sing on anything. I chose Cowboy Like Me. Man, I love that song." Asked whether she arrived with heavy security, he said: "Ha, no, none of that. She stayed over and was a great house guest. Straightforward, easy-going. She ate my cauliflower salad."\n\nJustin Vernon also played drums on the track, and Josh Kaufman added lap steel, harmonica and mandolin.',
@@ -889,7 +889,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/250px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/1280px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg',
             credit: 'Sachyn Mital via Wikimedia Commons',
           },
         ],
@@ -971,7 +971,7 @@ export default {
         "Every re-recorded and vault track hit the Hot 100 at once — Billboard: \"the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100's history.\"",
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
           'In the week ending Nov. 27, 2021, 26 tracks from Red (Taylor\'s Version) debuted on the Hot 100 simultaneously. Billboard: "Notably, with all the songs above new to the survey, the 26 arrivals set a new record for the most single-week debuts by an artist in the Hot 100\'s history."\n\nThe same week, Swift also extended her own record for the most simultaneously charted Hot 100 entries among women — a mark Summer Walker had tied just a week earlier. At the time, only Drake — with 27 total titles charted after Scorpion\'s 2018 release — had ever had more entries from one act on a single week\'s survey; Morgan Wallen has since surpassed both marks, with 36 songs in 2023 and 37 in 2025.',
@@ -988,7 +988,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
           },
         ],
@@ -1174,7 +1174,7 @@ export default {
       snippet:
         'The first From the Vault track ever released, out April 7, 2021 ahead of Fearless (Taylor\'s Version) — a 2008 castoff fans immediately read as a Joe Jonas song. Sophie Turner\'s Instagram verdict: "It\'s not NOT a bop."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Mr._Perfectly_Fine',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png/250px-Taylor_Swift_-_Mr._Perfectly_Fine.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
       moment: {
         context:
           'Written solo when she was 18 and left off the original Fearless, it introduced the vault-track format that became the re-recording project\'s signature: finished songs from each album\'s original sessions, released as new. Produced with Jack Antonoff for the 2021 release, it debuted at No. 90 on the Hot 100 and climbed to No. 30, reaching No. 2 on Hot Country Songs — remarkable mileage for a thirteen-year-old castoff.\n\nThen there was the subplot: fans immediately read the song as a Joe Jonas post-mortem, and Turner — married to Jonas at the time — posted it to her Instagram story with the now-famous verdict, "It\'s not NOT a bop." Swift reposted her with a Game of Thrones bow, writing that she was "forever bending the knee" for the queen of the north.',
@@ -1203,7 +1203,7 @@ export default {
         // URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png/250px-Taylor_Swift_-_Mr._Perfectly_Fine.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/fa/Taylor_Swift_-_Mr._Perfectly_Fine.png',
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "Mr. Perfectly Fine (Taylor\'s Version) (From the Vault)."',
             kind: 'primary',
@@ -1221,7 +1221,7 @@ export default {
       snippet:
         'Released Nov. 12, 2021 alongside Red (Taylor\'s Version): a 15-minute film starring Sadie Sink and Dylan O\'Brien, built on the 10-minute version of the song, premiered at a fan event in New York with Sink and O\'Brien on hand.',
       sourceUrl: 'https://en.wikipedia.org/wiki/All_Too_Well:_The_Short_Film',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/69/All_Too_Well_short_film_poster.jpg/250px-All_Too_Well_short_film_poster.jpg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/6/69/All_Too_Well_short_film_poster.jpg',
       moment: {
         context:
           'Her most ambitious directing work to date — shot on 35mm by cinematographer Rina Yang and chaptered like a short story, ending with Swift herself as the older writer reading from the book of it. Sadie Sink and Dylan O\'Brien carry the film as the couple; Swift has said she would not have gone ahead with making it had Sink turned the part down.\n\nIt went on to win the Grammy for Best Music Video — with Swift as the sole credited director — and gave the era its defining visual: the scarf, finally on screen. Its VMAs sweep the following summer — Video of the Year, plus an album announcement from the podium — is covered in this era\'s business items. (The premiere-night Etro pantsuit is covered separately in this era\'s fashion items.)',
@@ -1241,7 +1241,7 @@ export default {
         // URL verified HTTP 200 + image/jpeg this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/69/All_Too_Well_short_film_poster.jpg/250px-All_Too_Well_short_film_poster.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/69/All_Too_Well_short_film_poster.jpg',
             credit: 'Republic Records (film poster)',
             caption: 'Poster for All Too Well: The Short Film, starring Sadie Sink and Dylan O\'Brien.',
             kind: 'primary',
@@ -1259,7 +1259,7 @@ export default {
       snippet:
         'Written alone for Where the Crawdads Sing and produced with Aaron Dessner using only instruments available before 1953, "Carolina" arrived June 24, 2022 — evermore\'s swampy ghost, one last time.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Carolina_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/Taylor_Swift_-_Carolina.png/250px-Taylor_Swift_-_Carolina.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png',
       moment: {
         context:
           'Swift revealed she had written it "alone in the middle of the night" about a year and a half before its release, keeping its existence secret; she and Aaron Dessner then, in her words, "meticulously worked on a sound that we felt would be authentic to the moment when this story takes place." The period constraint was strict — recorded in a single take, using only instruments that existed before 1953, fiddle and mandolin and acoustic guitar among them — keeping it deliberately spare and eerie.\n\nIt earned a Golden Globe nomination for Best Original Song and a Grammy nomination for Best Song Written for Visual Media, and made the Oscars\' Best Original Song shortlist — the folklore/evermore sound\'s formal goodbye before Midnights rebooted everything that October.',
@@ -1288,7 +1288,7 @@ export default {
         // URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/2c/Taylor_Swift_-_Carolina.png/250px-Taylor_Swift_-_Carolina.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/2/2c/Taylor_Swift_-_Carolina.png',
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "Carolina," from the Where the Crawdads Sing soundtrack.',
             kind: 'primary',
@@ -1355,7 +1355,7 @@ export default {
       snippet:
         'Joe Alwyn finally addressed the constant engagement rumors in an April 2022 WSJ. Magazine interview: "…then I\'d have a lot of pound coins. The truth is, if the answer was yes, I wouldn\'t say, and if the answer was no, I wouldn\'t say."',
       sourceUrl: 'https://www.billboard.com/music/music-news/joe-alwyn-taylor-swift-engagement-rumors-response-1235061173/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg/250px-Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg',
       moment: {
         context:
           'The line landed in a WSJ. Magazine profile published April 20, 2022, while he promoted Conversations with Friends, and the non-answer was the most he ever said publicly about the relationship\'s status: "The truth is, if the answer was yes, I wouldn\'t say, and if the answer was no, I wouldn\'t say."\n\nHe explained the reflex in the same interview: "We live in a culture that people expect so much to be given. So that if you\'re not posting all the time about what you\'re doing... does that make you a recluse?" It was consistent with the privacy pact the couple described in Miss Americana — and a line fans quoted for years afterward whenever the rumors resurfaced.',
@@ -1375,7 +1375,7 @@ export default {
         // HTTP 200 + image/jpeg this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg/250px-Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Joe_Alwyn_at_the_2022_TIFF_Premiere_of_Catherine_Called_Birdy_%2852358881656%29_%28cropped%29.jpg',
             credit: 'GabboT (CC BY-SA 2.0) via Wikimedia Commons',
             caption:
               'Joe Alwyn at the Toronto International Film Festival, September 2022 — a few months after the WSJ. Magazine interview.',
@@ -1537,7 +1537,7 @@ export default {
       snippet:
         'Announced on Good Morning America on Feb. 11, 2021 and out that night — the first finished piece of the re-recording project, 13 years after the original, sounding almost eerily identical on purpose.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor%27s_Version)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
       moment: {
         context:
           'The announcement letter set the template the whole project would follow: a full album (Fearless) coming, vault tracks from the original sessions — and stray capital letters hiding the release date in plain sight for fans to decode.\n\nFans had technically heard the new recording already, via a snippet in a Match.com ad the previous December. The finished single debuted at No. 1 on Hot Country Songs, making her only the second artist ever — after Dolly Parton — to top a Billboard chart with both the original and re-recorded versions of the same song.',
@@ -1566,7 +1566,7 @@ export default {
         // URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/d/d4/Taylor_Swift_-_Love_Story_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "Love Story (Taylor\'s Version)," the first re-recording released.',
             kind: 'primary',
@@ -1584,7 +1584,7 @@ export default {
       snippet:
         'Out April 9, 2021: the original era re-cut top to bottom, plus six From the Vault songs — with Keith Urban and Maren Morris turning up on tracks that never made the 2008 album.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor%27s_Version)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png/250px-Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
       moment: {
         context:
           'She chased faithful-but-grown versions of songs she first sang at 18: the twenty re-recordings were produced with Christopher Rowe, and critics heard sharper instrumentation and a deeper, stronger voice — though some reviewers missed the teenage earnestness of the originals.\n\nThe six From the Vault cuts, produced with Jack Antonoff and Aaron Dessner, proved the project could generate new canon, not just replacements — "Mr. Perfectly Fine" chief among them (covered separately in this era), plus "You All Over Me" with Maren Morris and "That\'s When" with Keith Urban. The chart history it made is covered in this era\'s business items.',
@@ -1604,7 +1604,7 @@ export default {
         // Fearless TV cover-reveal fashion item. URL verified HTTP 200 + image/png.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png/250px-Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
             credit: 'Republic Records / Beth Garrabrant (album cover)',
             caption: "Album artwork for Fearless (Taylor's Version), released April 9, 2021.",
             kind: 'primary',
@@ -1622,7 +1622,7 @@ export default {
       snippet:
         'The June 18, 2021 announcement promised "all 30 songs that were meant to go on Red" — and slipped the fandom\'s white whale into a parenthetical: the 10-minute "All Too Well" was real, and it was coming.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Red_(Taylor%27s_Version)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
           'Her note described the original Red as the album of "a fractured mosaic of feelings" — happiness and freedom sitting next to devastation and torment — and set the date at Nov. 19, which later jumped forward a week to Nov. 12, a near-unheard-of move.\n\nThe timing was no accident either: it came just two months after Fearless (Taylor\'s Version) proved the whole re-recording model with a 291,000-unit No. 1 week. The Janessa Leoné-hat cover reveal from the same day is covered in this era\'s fashion items.',
@@ -1651,7 +1651,7 @@ export default {
         // Red TV cover fashion item. URL verified HTTP 200 + image/png.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records / Beth Garrabrant (album cover)',
             caption: "The Red (Taylor's Version) cover, revealed with the June 18, 2021 announcement.",
             kind: 'primary',
@@ -1669,7 +1669,7 @@ export default {
       snippet:
         'Out July 2, 2021 — Swift fronting Aaron Dessner and Justin Vernon\'s own band on "How Long Do You Think It\'s Gonna Last?", repaying the folklore/evermore collaboration in kind.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Renegade_(Big_Red_Machine_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png/250px-Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png',
       moment: {
         context:
           'A rare Swift feature where she\'s the guest in someone else\'s house: an anxious, galloping track about loving someone who won\'t get out of their own way, written with Aaron Dessner and recorded across the project\'s home bases — Long Pond in the Hudson Valley, Kitty Committee in Los Angeles, and April Base in Eau Claire, Wisconsin.\n\nDessner\'s own account: "Taylor\'s words hit me so hard when I heard her first voice memo and still do, every time. Justin lifted the song further into the heavens." The single gave Big Red Machine their first-ever Hot 100 entry, peaking at No. 73 — and she appears twice on the album, since "Birch" carries her vocals too.',
@@ -1689,7 +1689,7 @@ export default {
         // URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png/250px-Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/c/ca/Big_Red_Machine_-_Renegade_%28ft._Taylor_Swift%29.png',
             credit: '37d03d / Jagjaguwar (single cover art)',
             caption: 'Cover artwork for Big Red Machine\'s "Renegade," featuring Taylor Swift.',
             kind: 'primary',
@@ -1794,7 +1794,7 @@ export default {
       snippet:
         'Out Feb. 11, 2022 — her verse added to Sheeran\'s piano ballad, with a video that reunites the two kids from 2013\'s "Everything Has Changed" video, now teenagers, finding each other again at college.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Joker_and_the_Queen',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png/250px-Ed_Sheeran_-_The_Joker_and_the_Queen.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png',
       moment: {
         context:
           'Their fourth collaboration — after "Everything Has Changed," "End Game," and the vault duet "Run" — and the most sentimental: the video brings back Ava Ames and Jack Lewis, the child actors from the 2013 "Everything Has Changed" video, now teenagers finding each other again at college.\n\nThe Easter eggs run deeper than the casting: the text-message exchange shown in the video is a real one between Sheeran and Swift that she had shared publicly back in 2015, and a framed photo from the original video sits in frame. It landed in the era\'s quietest stretch, a reminder the two write to each other\'s timelines, not the industry\'s.',
@@ -1814,7 +1814,7 @@ export default {
         // URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png/250px-Ed_Sheeran_-_The_Joker_and_the_Queen.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/1/17/Ed_Sheeran_-_The_Joker_and_the_Queen.png',
             credit: 'Asylum / Atlantic Records (single cover art)',
             caption: 'Cover artwork for Ed Sheeran\'s "The Joker and the Queen," featuring Taylor Swift.',
             kind: 'primary',
@@ -1832,7 +1832,7 @@ export default {
       snippet:
         'The second 1989 re-recording (after "Wildest Dreams (Taylor\'s Version)"), released May 6, 2022 after soundtracking the trailer for Amazon\'s The Summer I Turned Pretty — whose author-showrunner Jenny Han made Swift songs the show\'s sonic signature.',
       sourceUrl: 'https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/be/This_Love_%28Taylor%27s_Version%29.png/250px-This_Love_%28Taylor%27s_Version%29.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png',
       moment: {
         context:
           'Like "Wildest Dreams (Taylor\'s Version)" before it, it leapfrogged its parent album — 1989 (Taylor\'s Version) was still 17 months away — after a snippet soundtracked the first trailer for Amazon\'s The Summer I Turned Pretty on May 5, 2022; she announced the full track on her socials the day the trailer dropped, and it arrived the next day.\n\nCritics heard a gentler remake: more subdued synths, vocals less processed and more resonant, with a lean toward indie rock. The re-recording reached No. 42 on the Hot 100 — a significantly stronger showing than the original 2014 album cut ever managed.',
@@ -1852,7 +1852,7 @@ export default {
         // URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/be/This_Love_%28Taylor%27s_Version%29.png/250px-This_Love_%28Taylor%27s_Version%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/b/be/This_Love_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "This Love (Taylor\'s Version)," the first 1989 re-recording released.',
             kind: 'primary',
@@ -1870,7 +1870,7 @@ export default {
       snippet:
         'A Utah fantasy park sued over the album\'s name on Feb. 2, 2021; her company countersued three weeks later over the park\'s costumed performers singing "Love Story" and "Bad Blood" without a license. By late March, both sides dropped everything — no money exchanged.',
       sourceUrl: 'https://variety.com/2021/music/news/taylor-swift-evermore-park-lawsuits-drop-utah-theme-park-trademark-1234937782/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0a/Taylor_Swift_-_Evermore.png/250px-Taylor_Swift_-_Evermore.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png',
       moment: {
         context:
           'Evermore Park alleged trademark infringement and "actual confusion" with its brand, seeking up to $2 million per counterfeit mark plus attorney fees; TAS Rights Management\'s countersuit answered that the park\'s costumed performers had been singing three Swift songs in shows while ignoring numerous licensing notices from BMI.\n\nOn March 24, 2021 — barely seven weeks after the first filing — both sides dropped and dismissed everything, with a Swift spokesperson confirming no money changed hands. One of the odder footnotes in the album\'s history.',
@@ -1900,7 +1900,7 @@ export default {
         // HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0a/Taylor_Swift_-_Evermore.png/250px-Taylor_Swift_-_Evermore.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/0a/Taylor_Swift_-_Evermore.png',
             credit: 'Republic Records (album cover art)',
             caption:
               "evermore's album art — the name at the center of the dueling suits. (No usable photo of the Utah park itself; the album artwork stands in.)",
@@ -2046,7 +2046,7 @@ export default {
       snippet:
         'In a May 2022 GQ Hype profile, Joe Alwyn finally talked about William Bowery\'s workload — "It was just messing around on a piano and singing badly and being overheard" — five credits across folklore and evermore, all by accident.',
       sourceUrl: 'https://www.justjared.com/2022/05/09/joe-alwyn-says-writing-songs-with-taylor-swift-was-the-most-accidental-thing-to-happen-in-lockdown/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Joe_Alwyn_during_an_interview%2C_August_2018.png/250px-Joe_Alwyn_during_an_interview%2C_August_2018.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Joe_Alwyn_during_an_interview%2C_August_2018.png',
       moment: {
         context:
           'He\'d spent two years deflecting questions about the pseudonym; this was the fullest account he ever gave: "It was really the most accidental thing to happen in lockdown. It wasn\'t like, \'It\'s three o\'clock, it\'s time to write a song!\'"\n\nThe rest of the origin story stayed just as casual — "messing around on a piano and singing badly," being overheard, "and then thinking, you know, what if we tried to get to the end of it together?" No schedule, no sessions. His credits: "exile," "betty," "champagne problems," "coney island," and "evermore."',
@@ -2075,7 +2075,7 @@ export default {
         // URL verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Joe_Alwyn_during_an_interview%2C_August_2018.png/250px-Joe_Alwyn_during_an_interview%2C_August_2018.png',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Joe_Alwyn_during_an_interview%2C_August_2018.png',
             credit: 'Collider Video (CC BY-SA 3.0) via Wikimedia Commons',
             caption: 'Joe Alwyn during a 2018 interview — years into the same press-shy stretch the GQ Hype profile finally opened up.',
             kind: 'archival',

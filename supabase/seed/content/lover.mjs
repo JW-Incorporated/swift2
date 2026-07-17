@@ -48,7 +48,7 @@ export default {
       snippet:
         'Her own words: "We [women] have to curate and cater everything, but we have to make it look like an accident."',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_The_Man.png/250px-Taylor_Swift_-_The_Man.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_The_Man.png',
       moment: {
         context:
           'The double standard, as she put it: if we make a mistake, that\'s our fault; if we strategize so we won\'t make a mistake, we\'re calculating — "a bit of a damned-if-we-do, damned-if-we-don\'t thing happening in music."\n\nIn outtakes from her Billboard Woman of the Decade cover story, she said the song was drawn from her own career and from hearing the same stories from women across the industry — and that the pop sheen was deliberate, so listeners would end up with "a song about gender inequality stuck in their heads." Written and produced with Joel Little, it became Lover\'s fourth single in January 2020 and peaked at No. 23 on the Hot 100; its self-directed video later won her Best Direction at the 2020 VMAs, the first solo female director to take the category.',
@@ -61,7 +61,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/7c/Taylor_Swift_-_The_Man.png/250px-Taylor_Swift_-_The_Man.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_The_Man.png',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -112,7 +112,7 @@ export default {
       title: "Soon You'll Get Better, written for her mother",
       snippet: "The hardest song she's ever had to write, by her own account — about her mother's cancer diagnosis.",
       sourceUrl: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better",
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/DixieChicksMSG062003.jpg/250px-DixieChicksMSG062003.jpg',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/DixieChicksMSG062003.jpg',
       moment: {
         context:
           'Her own words: "My dad got cancer when I was 13 and he got better... but things with my mom have been very different." The family actually discussed whether the song was too personal to release at all before agreeing it belonged on the album.\n\nShe brought in the Dixie Chicks — Natalie Maines, Emily Strayer, and Martie Maguire, the group she\'s said made her want to do this in the first place — with Strayer\'s banjo and Maguire\'s fiddle threaded through the fingerpicked arrangement, and all three harmonizing. She has performed it live exactly once — a stripped solo piano rendition for the One World: Together at Home pandemic broadcast on April 18, 2020, one day after cancelling all her 2020 shows — having previously said she found the song too emotionally difficult to perform.',
@@ -125,7 +125,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/DixieChicksMSG062003.jpg/250px-DixieChicksMSG062003.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/DixieChicksMSG062003.jpg',
             credit: 'Wasted Time R (CC BY-SA 2.5), via Wikimedia Commons',
             caption: 'The Dixie Chicks — who harmonize on "Soon You\'ll Get Better" — performing in 2003.',
             kind: 'reference',
@@ -142,14 +142,14 @@ export default {
       snippet: 'A song written after crying over a rom-com — whose director had made that movie while listening to Taylor\'s own 1989.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png/250px-Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
       moment: {
         context:
           'Director Jennifer Kaytin Robinson said her film "Someone Great" was mainly inspired by 1989, especially "Clean." Taylor, after the song came from watching that film: "I just wrote a song based on something she made, which she made while listening to something I made, which is the most meta thing that\'s ever happened to me."\n\nThe song also settled a question she had raised about herself in print: in a March 2019 essay she wondered whether finding happiness would dull a catalog built on breakup songs, and resolved to write from friends\' experiences, books, and fictional characters instead of only her own life. She later told NPR\'s Tiny Desk audience she had absorbed breakup books and movies while making Lover — this track is the proof of concept. Its live debut came acoustically at the one-night City of Lover show in Paris, the version whose artwork appears here.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Death_by_a_Thousand_Cuts_(song)' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png/250px-Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
             credit: 'Republic Records (single cover art, Live from Paris version)',
             kind: 'primary',
           },
@@ -212,7 +212,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Cruel_Summer.png/250px-Taylor_Swift_-_Cruel_Summer.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -391,7 +391,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cd/Taylor_Swift_-_Lover.png/250px-Taylor_Swift_-_Lover.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png',
             credit: 'Republic Records / Valheria Rocha (album cover art)',
             caption: 'The Lover album cover, shot by Valheria Rocha — the glitter heart eye in its original context.',
             kind: 'primary',
@@ -862,7 +862,7 @@ export default {
         'St. Vincent, on writing it: "Gosh, it was really casual... just some people in a room jammin\'." Taylor\'s own pitch: "a desperate summer love that might be doomed from the start."',
       sourceUrl: 'https://www.nme.com/big-reads/st-vincent-cover-interview-2021-daddys-home-2912166',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Cruel_Summer.png/250px-Taylor_Swift_-_Cruel_Summer.png',
+        'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
       moment: {
         context:
           'Swift wrote the song with Jack Antonoff and St. Vincent (Annie Clark), who later described their process to NME as "really casual... just some people in a room jammin\'."\n\nIn her own Spotify storyline note, Swift wrote: "I wanted this song to feel like a desperate summer love that might be doomed from the start. My favorite line from this song is \'I love you. Ain\'t that the worst thing you ever heard?\'" It wasn\'t released as a single in 2019 — it took the Eras Tour, four years later, to send it to No. 1.',
@@ -872,7 +872,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/f/f8/Taylor_Swift_-_Cruel_Summer.png/250px-Taylor_Swift_-_Cruel_Summer.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1188,7 +1188,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/c/cf/Cats_2019_poster.jpg/250px-Cats_2019_poster.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/en/c/cf/Cats_2019_poster.jpg',
             credit: 'Universal Pictures (theatrical release poster)',
             kind: 'primary',
           },
@@ -1222,7 +1222,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/250px-Taylor_Swift_-_Miss_Americana.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/en/a/ae/Taylor_Swift_-_Miss_Americana.jpg',
             credit: 'Netflix (official release poster)',
             kind: 'primary',
           },
@@ -1317,7 +1317,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/0f/Taylor_Swift_-_The_Archer.png/250px-Taylor_Swift_-_The_Archer.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/0f/Taylor_Swift_-_The_Archer.png',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1614,7 +1614,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/82/Taylor_Swift_-_Beautiful_Ghosts.png/250px-Taylor_Swift_-_Beautiful_Ghosts.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/82/Taylor_Swift_-_Beautiful_Ghosts.png',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1657,7 +1657,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e6/Taylor_Swift_-_Christmas_Tree_Farm.png/250px-Taylor_Swift_-_Christmas_Tree_Farm.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e6/Taylor_Swift_-_Christmas_Tree_Farm.png',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1706,7 +1706,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/69/Taylor_Swift_-_Only_the_Young.png/250px-Taylor_Swift_-_Only_the_Young.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/69/Taylor_Swift_-_Only_the_Young.png',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
           },
@@ -1749,7 +1749,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png/250px-City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/a/ae/City_of_Lover_%28ABC_Special%29_by_Taylor_Swift.png',
             credit: 'ABC / Republic Records (broadcast promotional art)',
             kind: 'primary',
           },

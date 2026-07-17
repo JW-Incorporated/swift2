@@ -17,7 +17,7 @@ export default {
       snippet:
         "Inspired by a boy she never actually dated — one her family and friends \"all said they didn't like.\"",
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
       moment: {
         context:
           "She's said the disapproval reminded her of Romeo and Juliet — \"the only people who wanted them to be together were them\" — so she gave her version the happy ending Shakespeare didn't, swapping the double suicide for a marriage proposal she felt the characters deserved.\n\nThe whole thing came fast: she wrote it on her bedroom floor in about 20 minutes, then cut a rough demo in roughly 15 minutes the next day. The boy stayed anonymous — she's only ever said he was someone she never actually dated, and that when she brought him around, \"[they] all said they didn't like him. All of them!\"",
@@ -27,7 +27,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -41,7 +41,7 @@ export default {
       title: "Fifteen, written for her best friend Abigail",
       snippet: "A freshman-year memory, built around one line about her best friend Abigail's heartbreak.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Fifteen_(song)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Fifteen.png/250px-Taylor_Swift_-_Fifteen.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
       moment: {
         context:
           'The whole song grew backwards from one line — "Abigail gave everything she had to a boy who changed his mind" — which Swift has said she wrote first, building everything else around it. Unsure how Abigail would take something so personal, Taylor played her the finished song and asked first. Abigail\'s answer: "If one girl can kind of learn from it or connect to a song like that, it\'s totally worth it."\n\nRecording it wrecked Swift anyway — she\'s admitted she cried in the studio, "the things that make me cry are when the people I love have gone through pain and I\'ve seen it" — and when Roman White shot the surreal green-screen garden video, Abigail appeared in it as herself.',
@@ -51,7 +51,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/8f/Taylor_Swift_-_Fifteen.png/250px-Taylor_Swift_-_Fifteen.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Fifteen.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -65,7 +65,7 @@ export default {
       title: 'Fearless makes her the youngest Album of the Year winner — for a decade',
       snippet: '592,000 copies in week one, debuting at No. 1 on the Billboard 200.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
           'Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
@@ -81,7 +81,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -156,7 +156,7 @@ export default {
       snippet: 'Recorded in secret while on tour, then given to her mother as a Christmas surprise with a home-movie video to match.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/250px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
+        'https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
       moment: {
         context:
           'Swift wrote it in summer 2008 on tour and recorded it with producer Nathan Chapman without her mother knowing, then unveiled it on Christmas Eve alongside a home video she\'d edited herself from family footage.\n\nHer mother, Andrea, on hearing it: "that\'s when I lost it... I\'ve lost it pretty much every time I\'ve heard that song since." That never stopped being true — the song had to come out of the Fearless Tour setlist because, as Andrea put it, "I kept breaking down" backstage every time it played.',
@@ -166,7 +166,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg/250px-TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
             credit: 'Adam Bielawski / Wikimedia Commons',
           },
         ],
@@ -895,14 +895,14 @@ export default {
       snippet: "He \"came across as Prince Charming\" — until Taylor found out how many secrets he'd been keeping from her.",
       sourceUrl: "https://en.wikipedia.org/wiki/You%27re_Not_Sorry",
       thumbnailUrl:
-        "https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png/250px-Taylor_Swift_-_You%27re_Not_Sorry.png",
+        "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png",
       moment: {
         context:
           'She\'s said the inspiration was an ex-boyfriend whose lies took a while to surface: "He came across as Prince Charming [...] who had a lot of secrets that he didn\'t tell me about." The situation became a "breaking point" where she felt she had to walk away before getting hurt further.\n\nShe wrote the song alone and produced it with Nathan Chapman at Blackbird Studio in Nashville, releasing it Oct. 28, 2008 as a promotional single ahead of the album.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/You%27re_Not_Sorry' }],
         photos: [
           {
-            url: "https://upload.wikimedia.org/wikipedia/en/thumb/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png/250px-Taylor_Swift_-_You%27re_Not_Sorry.png",
+            url: "https://upload.wikimedia.org/wikipedia/en/d/d9/Taylor_Swift_-_You%27re_Not_Sorry.png",
             credit: 'Big Machine Records',
           },
         ],
@@ -917,7 +917,7 @@ export default {
       snippet: 'She met a guy who seemed perfect on paper — then wrote a song, with country outlaw John Rich, about missing an ex who wasn\'t.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Way_I_Loved_You',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+        'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
           'Swift was inspired after meeting someone who seemed like the ideal partner but didn\'t feel as exciting as a more toxic ex. She brought the idea to a writing session with John Rich, saying he related "because he is that complicated, frustrating messy guy in his relationships."\n\nShe called the collaboration "just so cool" and Rich "an incredible writer"; he, in turn, was impressed by her songwriting and connection with her audience at her age.',
@@ -928,7 +928,7 @@ export default {
         // verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records (album cover art)',
             caption: 'Cover art for Fearless, the album that carries "The Way I Loved You."',
             kind: 'primary',
@@ -966,7 +966,7 @@ export default {
       title: "Untouchable, the one Fearless song she didn't write alone from scratch",
       snippet: 'A cover of a Luna Halo rock song her label president introduced her to — reworked into a stripped-down country-pop bonus track.',
       sourceUrl: 'https://theboot.com/taylor-swift-untouchable/',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
           'Swift discovered Luna Halo\'s "Untouchable" when her label president gave her the band\'s album, then debuted a stripped-down cover during a 2008 "Stripped" session before including a reworked version — new lyrics and arrangement, earning her a co-writing credit — on the Fearless: Platinum Edition.\n\nLuna Halo\'s Nathan Barlowe on her pick: "She could have chosen any cover in the world, but that\'s what she chose."',
@@ -976,7 +976,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -990,7 +990,7 @@ export default {
       title: 'Fearless spends 11 weeks at No. 1 — a record for the whole decade',
       snippet: 'Eleven non-consecutive weeks atop the Billboard 200: the longest run for a female country album, and for any album released in the 2000s.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
           'After debuting at No. 1 with 592,000 first-week copies, Fearless spent 11 non-consecutive weeks atop the Billboard 200 — the longest run for a female country album, and for any album in the 2000s decade. It logged 58 weeks in the top 10, a record for a country act, and was the only 2000s album to spend its entire first year there.\n\nThe number kept its stature inside her own catalog for a while, too: when The Tortured Poets Department reached an 11th week at No. 1 in July 2024, Billboard framed it as tying Fearless and 1989 as her longest-leading albums — before TTPD pushed on to 17 weeks, the 11-week mark her teenage self set was the one to catch for 15 years.',
@@ -1003,7 +1003,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1017,14 +1017,14 @@ export default {
       title: 'The best-selling album in America — for all of 2009',
       snippet: '3.217 million copies sold in the US in 2009 alone, making 20-year-old Swift the youngest artist — and only female country act — with a calendar-year best-seller.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
           'With 3.217 million copies sold in the United States throughout 2009, Fearless was the year\'s best-selling album in the country, making Swift, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year.\n\nIt also spent a total of 58 weeks in the Billboard 200\'s top 10 — a record for a country musician, and the only 2000s album to spend its first full year there.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' }],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1117,7 +1117,7 @@ export default {
         'Sept. 15, 2008: the lead single from Fearless goes out to country radio ahead of the album — and starts a climb that wouldn\'t stop until it had topped pop radio too.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
+        'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
       moment: {
         context:
           'It peaked at No. 4 on the Hot 100, spent two weeks atop Hot Country Songs — and five months later became the first country song ever to hit No. 1 on Billboard\'s pop-radio chart (see February 2009).\n\nThe long tail is the real story: roughly 18 million copies sold worldwide make it one of the best-selling singles ever released, and its 6.2 million US copies still stand as her biggest-selling song at home — a lead single that outsold everything the superstar decade that followed produced.',
@@ -1143,7 +1143,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
             credit: 'Big Machine Records (single cover art)',
           },
         ],
@@ -1160,7 +1160,7 @@ export default {
         'She\'d considered holding "White Horse" for her third album — until Grey\'s Anatomy used it in its season-five premiere, and it became the second Fearless single that December.',
       sourceUrl: 'https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Taylor_Swift_-_White_Horse.png/250px-Taylor_Swift_-_White_Horse.png',
+        'https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png',
       moment: {
         context:
           'A devoted Grey\'s fan, she didn\'t undersell the moment: "You should\'ve seen tears streaming down my face when I got the phone call that they were going to use that song." The September 2008 premiere placement settled the tracklist question — "if it wasn\'t going to be on the show, then we weren\'t going to put it on the album," she admitted — and the song itself runs the fairy-tale imagery of the rest of Fearless in reverse. As she put it to CMT: "this is not a fairy tale at all — this is real life."\n\nThe single followed in December, peaked at No. 13 on the Hot 100, and later took two Grammys: Best Country Song and Best Female Country Vocal Performance.',
@@ -1189,7 +1189,7 @@ export default {
         // image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/7/74/Taylor_Swift_-_White_Horse.png/250px-Taylor_Swift_-_White_Horse.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "White Horse."',
             kind: 'primary',
@@ -1208,7 +1208,7 @@ export default {
         'Oct. 26, 2009: the Platinum Edition reissue drops six new tracks — "Jump Then Fall," "Untouchable," a piano "Forever & Always," "Come In with the Rain," "SuperStar," and "The Other Side of the Door."',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+        'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
       moment: {
         context:
           'Announced Sept. 10, 2009 and released mid-tour, the reissue placed the six new songs ahead of the original tracklist and paired the CD with a DVD — keeping a year-old blockbuster in the conversation straight through awards season.\n\nThe DVD side was a fan-service time capsule: the music videos for "Change," "The Best Day," "Love Story," "White Horse" and "You Belong with Me," behind-the-scenes footage from the latter three shoots and from the Fearless Tour\'s opening night, plus "Thug Story" — the CMT Awards rap spoof with T-Pain. The reissue also queued up one more single: the title track, "Fearless," released that January.',
@@ -1225,7 +1225,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Taylor_Swift_-_Fearless.png/250px-Taylor_Swift_-_Fearless.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
           },
         ],
@@ -1242,7 +1242,7 @@ export default {
         'A one-off for the Valentine\'s Day soundtrack, released Jan. 19, 2010 on iTunes only — 325,000 downloads in week one, the biggest ever for a female artist at the time.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Today_Was_a_Fairytale',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png/250px-Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
       moment: {
         context:
           'The record it broke was Britney Spears\'s "Womanizer." It debuted at No. 2 on the Hot 100 and went to No. 1 in Canada — her first Canadian Hot 100 chart-topper — all from a soundtrack single for the rom-com she was starring in with Taylor Lautner.\n\nThe song itself was a leftover: she\'d written it back in summer 2008 and offered it to the film\'s producers because it didn\'t fit the album she was building. Twelve days after release she sang it at the 52nd Grammys in a medley with Stevie Nicks — the performance whose shaky vocals drew enough criticism that her label chief publicly defended her — and it finally joined the era\'s official canon on Fearless (Taylor\'s Version) in 2021.',
@@ -1271,7 +1271,7 @@ export default {
         // image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png/250px-Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_-_Today_Was_a_Fairytale_%28Altr.%29.png',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "Today Was a Fairytale."',
             kind: 'primary',
@@ -1376,7 +1376,7 @@ export default {
         // @TaylorSwift). Both URLs verified HTTP 200 + image content-type.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/b/b9/Taylor_Swift_-_You_Belong_with_Me.png/250px-Taylor_Swift_-_You_Belong_with_Me.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_You_Belong_with_Me.png',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "You Belong with Me."',
             kind: 'primary',
@@ -1579,7 +1579,7 @@ export default {
         'The week ending Feb. 28, 2009, "Love Story" hit No. 1 on Billboard\'s Pop Songs chart — the first country crossover ever to do it.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
+        'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
       moment: {
         context:
           'Country songs had crossed to pop radio for decades without finishing the climb — Shania Twain\'s "You\'re Still the One" had set the previous high-water mark at No. 3 in 1998.\n\n"Love Story" went all the way the week ending Feb. 28, 2009, on top of a No. 4 Hot 100 peak and two weeks atop Hot Country Songs — the data point that made the eventual pop pivot look less like a risk than a formality.',
@@ -1608,7 +1608,7 @@ export default {
         // Verified HTTP 200 + image/png this session.
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/0/01/Taylor_Swift_-_Love_Story.png/250px-Taylor_Swift_-_Love_Story.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "Love Story," the first country song to top Billboard\'s pop-radio chart.',
             kind: 'primary',
