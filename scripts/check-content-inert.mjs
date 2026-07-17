@@ -60,6 +60,11 @@ export const ALLOWLIST = {
   // dossiers so this can return to empty: tracked in #511.
   'supabase/seed/tracks/the-life-of-a-showgirl.mjs':
     'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
+  // Same shape as the-life-of-a-showgirl.mjs (dossier side file attached by
+  // slug with an import-time integrity throw, #726) — same caveats, same
+  // tracked refactor.
+  'supabase/seed/tracks/red.mjs':
+    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
 };
 
 // The only free identifiers a value may reference (safe constants that cannot
