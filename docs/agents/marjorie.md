@@ -151,6 +151,12 @@ curation means compressing the skeleton into this shape, not appending to it.
 
 ### Delivery (Joey, 2026-07-11: briefs go to Joey with Wyatt on CC, by email)
 
+> **2026-07-17 — Slack is live** (per the pre-approved flip in decision
+> 2026-07-16): the workspace exists with **#all-longlive-hq** (org traffic;
+> GitHub app subscribed to the repo) and **#social** (growth desk lane), the
+> Claude and GitHub apps installed. Slack is now the founders' *primary*
+> interface; the email mailer below continues unchanged as delivery backup.
+
 - **The real email channel is the brief-mailer Action**
   (`.github/workflows/brief-mailer.yml`) — a deterministic, zero-AI GitHub
   Action that emails **From Marjorie's own Gmail account** (Joey's call,
