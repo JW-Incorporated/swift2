@@ -1374,6 +1374,16 @@ export default {
             kind: 'archival',
             caption: "Catastrophe mid-transformation — a still from the official 'Bad Blood' video that premiered at the 2015 BBMAs and broke the Vevo 24-hour record.",
           },
+          {
+            // 2026-07-17: AP photo on ABC's own CDN (not a wire watermark);
+            // verified HTTP 200 + image/jpeg and vision-confirmed as the 2015
+            // BBMAs press room (the "billboard 2015 Music Awards" backdrop).
+            url: 'https://s.abcnews.com/images/Entertainment/AP_BILLBOARD1_150518_DG_16x9_992.jpg?w=992',
+            credit: 'AP Photo (via ABC News)',
+            kind: 'archival',
+            caption:
+              'Swift in the 2015 Billboard Music Awards press room with a share of her eight wins, May 17 — the same broadcast "Bad Blood" opened.',
+          },
         ],
       },
     },

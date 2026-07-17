@@ -67,11 +67,22 @@ export default {
         // author @newheightshow). Thumbnail verified HTTP 200 + image/jpeg.
         photos: [
           {
+            // 2026-07-17: still from the episode on ABC's own CDN; verified
+            // HTTP 200 + image/jpeg and vision-confirmed (the New Heights set,
+            // headphones, the "T.S." shelf styling). Clearer than the YT
+            // thumbnail, so it leads.
+            url: 'https://i.abcnewsfe.com/a/23727bec-61ff-4a19-9b95-79fe8434a2c9/taylor-travis-1-ht-gmh-250812_1755008272387_hpMain.jpg',
+            credit: 'New Heights with Jason & Travis Kelce (via ABC News)',
+            caption:
+              'Swift on the New Heights set with Travis Kelce, Aug. 2025 — her first-ever podcast appearance, where the mint-green briefcase revealed album No. 12.',
+            kind: 'primary',
+          },
+          {
             url: 'https://i.ytimg.com/vi/M2lX9XESvDE/hqdefault.jpg',
             credit: 'New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)',
             caption:
               'The thumbnail of the record-breaking New Heights episode itself — Swift between Travis and Jason Kelce, holding The Life of a Showgirl artwork on the set where album No. 12 was announced.',
-            kind: 'primary',
+            kind: 'archival',
           },
         ],
       },
