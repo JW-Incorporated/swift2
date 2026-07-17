@@ -51,4 +51,10 @@ describe('topbarShareTarget', () => {
   it('returns null in threads mode with no thread open (gallery or crossing)', () => {
     expect(topbarShareTarget('threads', 'tloas', null)).toBeNull();
   });
+
+  // #684: the landing page renders no TopBar; the helper stays total anyway.
+  it('returns null on the landing page', () => {
+    expect(topbarShareTarget('landing', 'tloas', null)).toBeNull();
+    expect(topbarShareTarget('landing', 'tloas', 'love-story')).toBeNull();
+  });
 });
