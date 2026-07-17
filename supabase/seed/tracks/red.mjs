@@ -2,6 +2,8 @@
 // From The Vault). Original prose only — never lyrics; unconfirmed readings
 // are labeled. Provenance per docs/content/content-audit-2026-07-08.md §5
 // (URLs verified 2026-07-08).
+import DOSSIERS from './red.dossiers.mjs';
+
 const ACCESSED = '2026-07-08';
 const wiki = (title, path, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${path}`,
@@ -23,9 +25,7 @@ const TV = wiki(
   're-recording article: vault-track credits and release facts',
 );
 
-export default {
-  eraSlug: 'red',
-  tracks: [
+const TRACKS = [
     {
       slug: 'state-of-grace',
       trackNumber: 1,
@@ -660,5 +660,19 @@ export default {
         TV,
       ],
     },
-  ],
+];
+
+// Per-song dossiers (issue #726 / #440 pattern) live in the .dossiers.mjs
+// side file to keep this file diffable; attach them by slug. A dossier keyed
+// to a slug that doesn't exist here is an authoring typo — fail loudly.
+{
+  const slugs = new Set(TRACKS.map((t) => t.slug));
+  for (const key of Object.keys(DOSSIERS)) {
+    if (!slugs.has(key)) throw new Error(`dossier for unknown track slug: ${key}`);
+  }
+}
+
+export default {
+  eraSlug: 'red',
+  tracks: TRACKS.map((t) => (DOSSIERS[t.slug] ? { ...t, dossier: DOSSIERS[t.slug] } : t)),
 };
