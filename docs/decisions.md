@@ -7,6 +7,33 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-17 — LongLive build sync reads repo seeds, not the Supabase DB
+
+**Decision:** The four LongLive `prebuild` sync generators
+(`scripts/sync-longlive-{content,tracks,theories,videos}.mjs`) read the
+**repo's `supabase/seed/**` files** as their source of truth. The live-DB
+read still exists but is opt-in only (`LONGLIVE_SYNC_SOURCE=db`, seeds as
+fallback). The DB seeding commands (`db:seed:*`) remain the way to populate
+Supabase for its own consumers (the Tier-0 API path, the future mobile app) —
+but the shipped website no longer depends on them.
+
+**Why:** The 2026-07-08 DB-first order failed in production: content PRs
+merge seed-file changes, but nothing re-seeded the DB, so every deploy baked
+in stale rows — the live site showed month-only dates for weeks after
+day-precision fixes landed in the repo (#723, found investigating #682).
+Seed files are what reviews approve and what `main` records; building from
+them makes "merged = live on next deploy" true by construction, needs no
+credentials in the build, and removes an entire class of silent drift.
+Alternatives considered: a CI job that re-seeds on merge (rejected: needs a
+production write secret in Actions plus deploy-ordering guarantees — the
+seed job racing Vercel's build); a build-time staleness warning (rejected:
+still relies on a human noticing and acting).
+
+**Approved by:** Joey directed the fix and delegated the mechanism choice
+(in-session, 2026-07-17: "make the call... pick the best thing and go").
+Flagged for Wyatt's ratification as it reverses a documented architecture
+choice; revert is one line per script if he disagrees.
+
 ## 2026-07-16 — Founders' main interface: a shared Slack channel
 
 **Decision (Joey, on #673; shape asked for by Wyatt 2026-07-15):** Option A —
@@ -580,7 +607,7 @@ but is no longer the only way images may appear on-site.
 
 **Approved by:** Joey (product), 2026-07-09.
 
-## 2026-07-08 — LongLive content synced from Supabase at build time, not runtime
+## 2026-07-08 — LongLive content synced from Supabase at build time, not runtime (SUPERSEDED 2026-07-17: build reads repo seeds; DB read is opt-in)
 
 **Decision:** `apps/web/lib/longlive/content-vault.generated.ts` (the
 generated half of the LongLive UI's content layer) is now produced by

@@ -3,14 +3,13 @@
 // static per-album track guide (see docs/longlive-experience.md §9). Mirrors
 // scripts/sync-longlive-content.mjs exactly:
 //
-// Source of truth, in priority order:
-//   1. Live Supabase `track_note` table, when NEXT_PUBLIC_SUPABASE_URL +
-//      NEXT_PUBLIC_SUPABASE_ANON_KEY are set. Runs at build time (wired as
-//      `prebuild` in apps/web/package.json), so the shipped UI stays fully
-//      static — no per-user DB calls, per the cost-discipline rule.
-//   2. Local supabase/seed/tracks/*.mjs files, when Supabase isn't configured
-//      or the live fetch fails (local dev without secrets, CI, or before the
-//      DB has been seeded). Same output shape either way.
+// Source of truth: the local supabase/seed/tracks/*.mjs files — what content
+// PRs review and merge (decision 2026-07-17; supersedes the 2026-07-08
+// DB-first order). Runs at build time (wired as `prebuild` in
+// apps/web/package.json), so the shipped UI stays fully static — no per-user
+// DB calls, per the cost-discipline rule. Set LONGLIVE_SYNC_SOURCE=db to read
+// the live Supabase `track_note` table first instead, with seeds as fallback.
+// Same output shape either way.
 //
 // Pure normalization lives in the exported functions below so it can be
 // unit-tested (scripts/sync-longlive-tracks.test.ts); `main` only runs when
@@ -25,6 +24,7 @@ import {
   SLUG_TO_ERA_ID,
   esc,
   loadWebEnvLocal,
+  preferDbSource,
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
@@ -431,13 +431,15 @@ async function fetchFromLocalFiles() {
     }
     for (const t of tracks) entries.push({ eraSlug, ...t });
   }
-  console.log(`sync-longlive-tracks: loaded ${entries.length} track notes from local seed files (fallback).`);
+  console.log(`sync-longlive-tracks: loaded ${entries.length} track notes from local seed files (source of truth).`);
   return buildTrackGuide(entries);
 }
 
 async function main() {
   await loadWebEnvLocal();
-  const byEra = (await fetchFromSupabase()) ?? (await fetchFromLocalFiles());
+  const byEra = preferDbSource()
+    ? ((await fetchFromSupabase()) ?? (await fetchFromLocalFiles()))
+    : await fetchFromLocalFiles();
   await writeFile(OUT_FILE, renderModule(byEra), 'utf-8');
   const total = Object.values(byEra).reduce((n, arr) => n + arr.length, 0);
   console.log(
