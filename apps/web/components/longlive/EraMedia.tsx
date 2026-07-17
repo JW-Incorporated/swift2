@@ -38,7 +38,10 @@ export function EraMedia({ media }: { media: EraMediaData }) {
         type="button"
         onClick={() => setPlaying(true)}
         className="era-card group flex w-full items-center gap-3 rounded-full border px-4 py-2.5 text-left transition hover:brightness-110"
-        aria-label={`Play ${media.albumTitle} on Spotify`}
+        // Accessible name must contain the visible label ("Play the era") to
+        // satisfy WCAG 2.5.3 Label in Name (#702); keep the album + Spotify
+        // context after it for screen-reader clarity.
+        aria-label={`Play the era: ${media.albumTitle} on Spotify`}
       >
         <span
           className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-transform group-hover:scale-105"
