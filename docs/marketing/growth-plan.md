@@ -58,6 +58,19 @@ order: `@longlivets_` → `@longlive.ts` (IG allows dots) → `@longlivetsapp`.
 Whatever happens, the **display name** is always exactly "Long Live" and the
 bio carries the domain, so the brand reads identically everywhere.
 
+> **Live handles (created by Joey, 2026-07-17 — launch day):**
+> `@longlivetscom` on Instagram, X, TikTok, and Threads (consistent
+> everywhere, which is what matters); Reddit is `u/NegativeRest9507`
+> (deliberately organic-looking — right call for the §7 participation-first
+> lane, and Reddit usernames can't be renamed anyway; it is never linked
+> from the site). Still to create: **Facebook Page** (unlocks Meta Business
+> Suite scheduling — needed before any autopost grant, not for day one) and
+> **Tumblr** (Tier 2, this week).
+>
+> Profile URLs (for the site footer and link cards):
+> instagram.com/longlivetscom · tiktok.com/@longlivetscom ·
+> x.com/longlivetscom · threads.com/@longlivetscom
+
 ---
 
 ## 2. TX checklist — Joey creates the accounts (today, ~60-90 min)
@@ -88,8 +101,11 @@ the moment it exists, and save every password in a password manager.
    handle carries over automatically.
 7. **Tumblr** (can be day 2-3): sign up → `longlivets`.
 
-**When done:** drop all handles + the shared email into the founders' Slack
-channel. That message is the desk's green light to queue day-one drafts.
+**When done:** drop all handles + the shared email into the **#social**
+Slack channel (Slack went live 2026-07-17: **#all-longlive-hq** carries org
+traffic — GitHub app subscribed there — and **#social** is the growth
+desk's lane). That message is the desk's green light to queue day-one
+drafts. *(Done 2026-07-17 — handles recorded in §1.)*
 
 ---
 
