@@ -1877,10 +1877,18 @@ export default {
             reliability_score: 4,
           },
         ],
-        // T16 photo pass (2026-07-09): Getty photo from Rolling Stone's own
-        // coverage of this night (filename: night three, London). Verified
-        // HTTP 200 + image/jpeg; visually confirmed (Fearless set, Wembley).
+        // Photo passes verified HTTP 200 + image/jpeg and vision-confirmed
+        // against this exact night. The lead shot (2026-07-17) IS the cameo —
+        // Kelce in white tie among the TTPD vaudeville cast — hosted on ABC's
+        // own CDN (i.abcnewsfe.com), not a watermarked wire comp.
         photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/eb18fccb-d278-4181-b394-da9653623dc3/GettyImages-2158904096_1719178517424_hpMain.jpg',
+            credit: 'Getty Images / Gareth Cattermole (via ABC News)',
+            caption:
+              'Kelce in white tie, top hat and tails during the "I Can Do It With a Broken Heart" vaudeville intro, flanking Swift and the tuxedoed dancers — Wembley, June 23, 2024.',
+            kind: 'primary',
+          },
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2024/06/TaylorSwiftNightThreeLondon-1.jpg?w=1600',
             credit: 'Getty Images (via Rolling Stone)',
