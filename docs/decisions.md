@@ -7,6 +7,31 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-16 — Founders' main interface: a shared Slack channel
+
+**Decision (Joey, on #673; shape asked for by Wyatt 2026-07-15):** Option A —
+**Slack.** One shared channel where both founders talk to the org's agents
+and all org traffic lands: Anthropic's first-party "Claude in Slack" app
+(@-mention Claude in the channel) plus GitHub's Slack app subscribed to
+`JW-Incorporated/swift2` (briefs, PRs, watchdog alerts). Wyatt creates the
+channel and installs both apps — agents never create accounts. The email
+mailer stays as delivery backup: once the channel is live this supersedes
+the 2026-07-11 "briefs by email" decision as the founders' *primary*
+interface. #479 (Twilio/SMS wait) is unchanged.
+
+**Why:** Wyatt's ask was a group chat with both founders and the bots.
+WhatsApp's official API can't put bots in group chats, so the shape only
+exists on platforms with native group-bot support; Slack delivers it with
+~30 minutes of founder setup, zero custom build, and $0 at 2-seat scale.
+
+**Alternatives considered:** Telegram group + custom bridge (needs a build
+slot that belongs to launch gates); WhatsApp via Twilio (1:1 threads only —
+fails the group shape); status quo email + GitHub (remains the fallback
+until Slack is live).
+
+**Approved by:** Joey (comment on #673, 2026-07-16 13:22 UTC: "We're going
+with slack. Prep everything"); Wyatt (original ask, 2026-07-15 session).
+
 ## 2026-07-16 — Founders talk to Marjorie by replying to her emails
 
 **Decision (Joey):** Replying to a brief/delta email is now a real channel
