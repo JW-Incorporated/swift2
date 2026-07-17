@@ -1696,9 +1696,20 @@ export default {
         ],
         photos: [
           {
+            // 2026-07-17: the announcement itself — blue dress beside the "1989
+            // (Taylor's Version) — Available October 27" screen. On Billboard's
+            // own CDN; verified HTTP 200 + image/jpeg and vision-confirmed. Far
+            // more on-point than the generic Midnights-set shot, so it leads.
+            url: 'https://www.billboard.com/wp-content/uploads/2023/08/taylor-swift-sofi-stadium-aug-9-2023-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Getty Images for TAS Rights Management (via Billboard)',
+            kind: 'primary',
+            caption:
+              'Swift in a blue fringe dress beside the "1989 (Taylor\'s Version) — Available October 27" screen at SoFi, Aug. 9, 2023 — the head-to-toe-blue reveal itself.',
+          },
+          {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg/960px-Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg',
             credit: 'Paolo V / Wikimedia Commons, CC BY 2.0',
-            kind: 'primary',
+            kind: 'archival',
             caption: 'Onstage at SoFi Stadium on Aug. 9, 2023 — the night of the 1989 (Taylor\'s Version) announcement — during the Midnights act.',
           },
         ],
