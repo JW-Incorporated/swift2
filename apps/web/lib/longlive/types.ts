@@ -116,6 +116,18 @@ export interface ImageRef {
   credit?: string;
   caption?: string;
   kind: ImageKind;
+  /**
+   * CSS object-position for the cover-crop, e.g. '50% 30%' — where the
+   * subject/face actually sits in THIS photo, so a wide card crop keeps it in
+   * frame instead of slicing it off. Set per-image by looking at the photo
+   * (never a blanket bias); undefined falls back to the CSS default (center).
+   */
+  focalPoint?: string;
+}
+
+/** The object-position for an image's cover-crop; center when unset. */
+export function focalPointOf(img: Pick<ImageRef, 'focalPoint'> | undefined): string {
+  return img?.focalPoint ?? '50% 50%';
 }
 
 export interface ContentItem {

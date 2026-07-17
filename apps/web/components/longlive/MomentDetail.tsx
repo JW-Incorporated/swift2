@@ -18,7 +18,7 @@ import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 import { extractYouTubeId } from '@swift2/shared';
 import { ZoomableImage } from './ZoomableImage';
-import { primaryImageRef, type Confidence, type ImageKind, type ImageRef, type LensId } from '@/lib/longlive/types';
+import { focalPointOf, primaryImageRef, type Confidence, type ImageKind, type ImageRef, type LensId } from '@/lib/longlive/types';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 // At/above this tier a moment is established fact — no pill. Below it, a
@@ -178,6 +178,7 @@ export function MomentDetail() {
           priority
           unoptimized={isRemoteUrl(heroUrl)}
           className="object-cover"
+          style={{ objectPosition: focalPointOf(hero) }}
         />
         <div
           className="absolute inset-0"
