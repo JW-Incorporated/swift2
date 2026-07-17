@@ -42,10 +42,13 @@ export function momentShareCopy(
  * shifts (#453).
  */
 export function topbarShareTarget(
-  mode: 'era' | 'threads',
+  mode: 'landing' | 'era' | 'threads',
   eraId: EraId,
   lensId: LensId | null,
 ): ShareTarget | null {
+  // The landing page renders no TopBar at all (#684); returning null keeps
+  // this total over AppMode anyway, so a stray call can't fabricate a target.
+  if (mode === 'landing') return null;
   if (mode === 'era') return { kind: 'era', eraId };
   if (lensId != null) return { kind: 'lens', lensId };
   return null;
