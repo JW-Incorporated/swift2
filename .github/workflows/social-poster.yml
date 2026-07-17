@@ -1,0 +1,60 @@
+# Social poster — ships founder-approved queue items (social/queue/*.json)
+# to X and Instagram on schedule. See docs/agents/growth.md for the
+# approve-then-post pipeline this is the tail end of, and the crisis-stop
+# rule (repo variable SOCIAL_FREEZE).
+#
+# Founder setup (issue #738), all repo SECRETS unless noted:
+#   X_API_KEY, X_API_KEY_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET
+#     — from a Read+Write X (Twitter) developer App on @longlivetscom.
+#   IG_ACCESS_TOKEN            — long-lived Meta Graph API token.
+#   IG_BUSINESS_ACCOUNT_ID     — the linked IG account's numeric Graph ID.
+#   repo VARIABLE SOCIAL_FREEZE — leave unset; set to "true" to halt all
+#     posting instantly (any founder, no PR needed).
+# Until the four X secrets or the two IG values are set, that platform's
+# posts simply fail with a clear error and stay queued for retry — nothing
+# posts silently wrong.
+name: social-poster
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: social-poster
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Post due queue items
+        env:
+          SOCIAL_FREEZE: ${{ vars.SOCIAL_FREEZE }}
+          X_API_KEY: ${{ secrets.X_API_KEY }}
+          X_API_KEY_SECRET: ${{ secrets.X_API_KEY_SECRET }}
+          X_ACCESS_TOKEN: ${{ secrets.X_ACCESS_TOKEN }}
+          X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
+          IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+        run: node scripts/social/post-queue.mjs
+
+      - name: Commit queue state changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add social/queue social/posted social/failed
+          if git diff --cached --quiet; then
+            echo "No queue changes to commit."
+          else
+            git commit -m "social-poster: queue run $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git push
+          fi
