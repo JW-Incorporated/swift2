@@ -101,7 +101,16 @@ Sections, in this order:
    - ✍️ **Content:** X new pieces live · Y in review
    - ⚙️ **Systems:** desks ran N/N ✅ · site up ✅ · anything broken named in 3 words
    - 🫵 **Needs you:** count + total minutes
-   - *(post-launch adds)* 👥 **Users:** feedback items received, worst one named
+   - 👥 **Growth** (added 2026-07-17, Joey's ask): the deterministic skeleton's
+     Health section carries a pre-formatted line from `social/metrics/`
+     (`scripts/marjorie/assemble-brief.mjs`'s `fetchGrowthSnapshot()` +
+     `formatGrowthLine()`, written daily by `growth-snapshot.yml`) —
+     follower count + delta per platform, posts published today, and a
+     `site: pending #799` placeholder until Vercel Web Analytics ships.
+     Copy that line into this bullet as-is; it's already within budget and
+     already the right shape — don't re-derive or re-word it. Also fold in
+     feedback-item counts here once that surface exists (was the reserved
+     "Users" slot this line replaces).
 2. **✅ Your checklist** — every founder ask as a `- [ ]` one-liner:
    verb-first, time estimate, one link. If it needs more than one line to
    explain, it isn't ready for the checklist — bank it instead. Decision
