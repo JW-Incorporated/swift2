@@ -88,6 +88,23 @@ export default {
           {
             url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/Screenshot_20221022-153332.png',
             credit: 'Spotify Newsroom',
+            focalPoint: '48% 55%',
+          },
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/TS-Midnights_LDN-2.jpg',
+            credit: 'Spotify Newsroom',
+            caption:
+              'One of the "Meet us at midnight" billboards Spotify ran with Swift in the lead-up to release — this one over a rainy London staircase, counting down to the drop that broke the platform\'s single-day records.',
+            kind: 'archival',
+            focalPoint: '48% 40%',
+          },
+          {
+            url: 'https://www.guinnessworldrecords.com/news/2022/10/images/split-image-of-taylor-swift-sitting-in-a-dark-room-and-the-album-cover-of-midnights-723266.jpg',
+            credit: 'Guinness World Records',
+            caption:
+              "Guinness World Records' own art for logging the day as three records at once: most-streamed album in 24 hours, most day-one album streams, and most-streamed act in a single day.",
+            kind: 'archival',
+            focalPoint: '75% 45%',
           },
         ],
       },
@@ -121,6 +138,23 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2022/10/02-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
             credit: 'Beth Garrabrant/Billboard',
+            focalPoint: '57% 30%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/10/01-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant/Billboard',
+            caption:
+              "Another frame from Beth Garrabrant's Midnights press shoot, run by Billboard with its chart story on the 1.578-million-unit debut.",
+            kind: 'archival',
+            focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/10/taylor-swift-tonight-show-cr-todd-owyoung-1548.jpg?w=1024',
+            credit: 'Todd Owyoung/NBC (via Billboard)',
+            caption:
+              'Walking out on The Tonight Show Starring Jimmy Fallon on Oct. 24, 2022 — the release-week victory lap while Midnights was racking up the numbers behind this chart debut.',
+            kind: 'archival',
+            focalPoint: '47% 20%',
           },
         ],
       },
@@ -204,6 +238,15 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-Speak-Now-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
             credit: 'Beth Garrabrant/Billboard',
+            focalPoint: '52% 30%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/lVkKLf4DCn8/maxresdefault.jpg',
+            credit: "Taylor Swift/YouTube ('I Can See You' official video)",
+            caption:
+              "A frame from the 'I Can See You (Taylor's Version) (From The Vault)' video, premiered at the Kansas City Eras show on July 7, 2023 — the vault-track centerpiece of the release week this chart record capped.",
+            kind: 'archival',
+            focalPoint: '55% 45%',
           },
         ],
       },
@@ -236,6 +279,23 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-aa-1548.jpg?w=1024',
             credit: 'Beth Garrabrant/Billboard',
+            focalPoint: '50% 32%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-bb-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant/Billboard',
+            caption:
+              "Another Beth Garrabrant frame from the 1989 (Taylor's Version) beach shoot, run with Billboard's chart coverage of the record-resetting vinyl week.",
+            kind: 'archival',
+            focalPoint: '50% 18%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/tNxUxm3-658/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              "The official lyric-video art for 'Is It Over Now? (Taylor's Version) (From The Vault)' — the vault track from this release that went on to hit No. 1 on the Hot 100.",
+            kind: 'archival',
+            focalPoint: '50% 50%',
           },
         ],
       },
@@ -297,6 +357,15 @@ export default {
             credit: 'AMC Theatres / Taylor Swift Productions (theatrical release poster)',
             caption: 'The official theatrical release poster for "Taylor Swift: The Eras Tour," which became the highest-grossing concert film ever.',
             kind: 'primary',
+            focalPoint: '50% 20%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/KudedLV0tP0/maxresdefault.jpg',
+            credit: 'Taylor Swift Productions/YouTube (official trailer)',
+            caption:
+              "The wide key art from the film's official trailer on Swift's own channel — the Lover-set bodysuit against the theatrical campaign's watercolor backdrop.",
+            kind: 'archival',
+            focalPoint: '25% 25%',
           },
         ],
       },
@@ -326,6 +395,15 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
             credit: 'Kevin Mazur/Getty Images for TAS Rights Management',
+            focalPoint: '43% 25%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-1-2023-billboard-1548.png?w=1024',
+            credit: 'Kevin Mazur/Getty Images for TAS Rights Management (via Billboard)',
+            caption:
+              'Opening the Lover set in the crystal bodysuit on night one in Glendale, March 17, 2023 — the first minutes of the tour that would define the next two years.',
+            kind: 'archival',
+            focalPoint: '49% 18%',
           },
         ],
       },
@@ -424,6 +502,15 @@ export default {
             credit: 'Republic Records',
             caption: 'The standard-edition Midnights cover — the "complete concept album" of 13 songs the surprise 3am tracks were framed as outtakes from.',
             kind: 'archival',
+            focalPoint: '40% 47%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/iFX6_9h7th0/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              'The white-flag art of the official lyric video for "The Great War" — the opening 3am track, surrendering the fight the song spends its runtime surviving.',
+            kind: 'archival',
+            focalPoint: '55% 55%',
           },
         ],
       },
@@ -707,6 +794,15 @@ export default {
           {
             url: 'https://i0.wp.com/www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1',
             credit: 'TheWrap',
+            focalPoint: '50% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%281%29.png',
+            credit: 'iHeartRadioCA / Wikimedia Commons, CC BY 3.0',
+            caption:
+              'On the pink carpet at the 2023 VMAs in black Versace — the night she took home a record-tying nine Moon Persons, including her fourth Video of the Year.',
+            kind: 'archival',
+            focalPoint: '47% 22%',
           },
         ],
       },
@@ -740,6 +836,15 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/08/taylor-swift-eras-tour-los-angeles-night-4-sofi-stadium-2023-billboard-1548.jpg?w=1024',
             credit: 'Billboard',
+            focalPoint: '58% 52%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/xB-RZqcoIgo/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              "The art for 'Cruel Summer (Live from Taylor Swift | The Eras Tour)' — the live single Swift released Oct. 18, 2023, in the final push that carried the four-year-old song to No. 1.",
+            kind: 'archival',
+            focalPoint: '45% 32%',
           },
         ],
       },
@@ -1026,6 +1131,15 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
             credit: 'Billboard',
+            focalPoint: '48% 25%',
+          },
+          {
+            url: 'https://variety.com/wp-content/uploads/2024/02/Taylor-Swift-Album-of-the-Year.jpg?w=1000',
+            credit: 'Variety',
+            caption:
+              'Accepting the record fourth Album of the Year Grammy for Midnights, with Jack Antonoff at her shoulder — the moment she passed Stevie Wonder, Frank Sinatra and Paul Simon.',
+            kind: 'archival',
+            focalPoint: '47% 35%',
           },
         ],
       },
