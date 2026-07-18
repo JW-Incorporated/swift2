@@ -82,6 +82,19 @@ stuck (hit this for real on the pipeline's first live content post, #783).
 A real user's token doesn't carry that restriction. Needs rotating before
 it expires or every future post silently reverts to that stuck state.
 
+**Duplicate-post incident (2026-07-17, pre-PAT-fix):** before the fix above,
+the Draft 4 anniversary post went live on Instagram three times (22:48,
+22:52, 23:52 UTC) — each stuck state-commit PR left the queue item on
+`main`, so the next scheduled run saw it as still-unposted and reposted it.
+X's own duplicate-content check blocked its 2nd/3rd attempts (403);
+Instagram has no such guard. Only the first post's PR (#766) is the
+merged/authoritative record; the two duplicate-post PRs (#767, #776) were
+closed unmerged. Cleanup attempted via `scripts/social/delete-media.mjs`
+found Instagram posts can't be deleted through the API at all (see that
+file's header) — the two duplicate Instagram posts need manual deletion in
+the app; this can't recur going forward since the PAT fix prevents a queue
+item from ever staying stuck on `main`.
+
 ## Founder-notification buckets (reuse the existing system — never invent a new channel)
 
 - **Draft post approvals** → the Founders' Brief (6 AM / 8 PM delta) under a
