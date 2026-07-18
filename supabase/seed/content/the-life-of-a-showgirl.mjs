@@ -1440,6 +1440,7 @@ export default {
       day: 3,
       category: 'relationship',
       significance: 'defining', // the era's life-defining event (docs/decisions.md, 2026-07-18)
+      relatedIds: ['moment:vault-midnights-the-game-the-world-decided-made-it-official'],
       title: 'Taylor and Travis marry at Madison Square Garden',
       snippet:
         'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man. Roughly 1,000 guests, and a jumbotron outside the arena reading "JUST&T MARRIED!"',
@@ -1980,6 +1981,13 @@ export default {
     },
     {
       slug: 'showgirl-engagement-announcement',
+      significance: 'defining', // the direct precursor to the wedding, one of the most-repeated cultural moments of 2025 (docs/decisions.md, 2026-07-19)
+      threadIds: ['the-proposal'],
+      relatedIds: [
+        'moment:vault-midnights-the-game-the-world-decided-made-it-official',
+        'moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in',
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
       year: 2025,
       month: 8,
       day: 26,
@@ -2084,6 +2092,32 @@ export default {
             kind: 'primary',
             // The diamond itself sits dead-center, slightly above middle.
             focalPoint: '50% 42%',
+          },
+          // Photo depth pass (round 2, 2026-07-19): the carousel ran five
+          // photos total (per context above); the gallery previously had
+          // frames 1/2/4/5 (hpMain, 02, 04, 05) but was missing frame 03 —
+          // found via ABC News' engagement-ring story, same CDN. Also added:
+          // the couple's first public sighting since the announcement,
+          // wearing the ring, two days later at a college football game.
+          // Both verified HTTP 200 + image/jpeg, downloaded and viewed this
+          // session.
+          {
+            url: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'The missing frame from the carousel: the embrace right after the proposal, the new ring visible on Swift\'s hand as she holds Kelce.',
+            kind: 'primary',
+            // Embracing couple fill the upper-center of a tall garden frame.
+            focalPoint: '48% 35%',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/7896331b-7a75-44df-9649-74b77732d132/swift-kelce-01-gty-jef-250829_1756467997339_hpMain.jpg',
+            credit: 'Jamie Squire/Getty Images, via ABC News',
+            caption:
+              'Their first public sighting since the engagement: Swift with Travis and Jason Kelce in a suite at Arrowhead Stadium for a Cincinnati Bearcats-Nebraska Cornhuskers game, Aug. 28, 2025 — two days after the announcement.',
+            kind: 'archival',
+            // The group sits mid-frame; Swift is right-of-center, face upper-middle.
+            focalPoint: '62% 55%',
           },
         ],
       },

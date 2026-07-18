@@ -85,15 +85,23 @@ explicit authoring call instead of an inferred one.
    only the vertical feed. The two lists are hand-curated separately for now
    (no automated sync) — check both when authoring a defining item.
 
-**Seeded examples** (`supabase/seed/content/the-life-of-a-showgirl.mjs`):
-`msg-wedding` (the wedding itself) and `showgirl-release-day` (the album
-release) are the first two items marked `'defining'` — read them for what
-"comprehensive depth, real sourcing, hero-worthy" looks like in practice.
-Retroactively reviewing the other 10 eras for their own defining events
-(there will be a small number each — a breakup, an album release, a major
-life turn) is real follow-up content work, not done in this pass; flag
-candidates as you encounter them rather than leaving significance unset by
-default forever.
+**Seeded examples:** as of 2026-07-19 (`docs/decisions.md`), 11 items across
+7 era files carry `significance: 'defining'` — a career-wide top 10 (plus
+`showgirl-release-day` from the 2026-07-18 pass), not a per-era quota,
+picked and cross-linked in one pass rather than the per-era review
+originally anticipated below. `msg-wedding` and `showgirl-release-day`
+(`the-life-of-a-showgirl.mjs`) remain the two richest examples to read for
+what "comprehensive depth, real sourcing, hero-worthy" looks like in
+practice; the other 9 (debut, both Fearless Grammy/VMA moments, both 1989
+business/culture moments, the Big Machine sale, folklore's surprise drop,
+the Eras Tour opening, and the Kelce relationship going public) are listed
+with rationale in the decision log.
+
+Eras/events outside that 10 may still surface their own `'defining'` or
+`'notable'` candidates over time — flag them as you encounter them rather
+than treating the list above as permanently closed, but keep the bar the
+2026-07-19 pass set: would a fan, years later, name this among the handful
+of moments that defined her whole career, not just its own era.
 
 ## Authoring order
 
