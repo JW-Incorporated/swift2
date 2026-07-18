@@ -6,13 +6,21 @@
 # Founder setup (issue #738), all repo SECRETS unless noted:
 #   X_API_KEY, X_API_KEY_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET
 #     — from a Read+Write X (Twitter) developer App on @longlivetscom.
-#   IG_ACCESS_TOKEN            — long-lived Meta Graph API token.
+#   IG_ACCESS_TOKEN            — long-lived Meta Graph API token. Also used
+#     for the Facebook Page cross-post below (same Page token, needs the
+#     pages_manage_posts scope added on top of the original Instagram set).
 #   IG_BUSINESS_ACCOUNT_ID     — the linked IG account's numeric Graph ID.
+#   FB_PAGE_ID                 — the linked Facebook Page's numeric ID
+#     (optional: an Instagram post cross-posts to this Page's own feed as a
+#     genuinely separate post — the Graph API has no "also share to
+#     Facebook" flag — only when this is set; omit to skip cross-posting).
 #   repo VARIABLE SOCIAL_FREEZE — leave unset; set to "true" to halt all
 #     posting instantly (any founder, no PR needed).
 # Until the four X secrets or the two IG values are set, that platform's
 # posts simply fail with a clear error and stay queued for retry — nothing
-# posts silently wrong.
+# posts silently wrong. A Facebook cross-post failure is logged but never
+# fails the Instagram post it rode in on — see crosspostToFacebook in
+# scripts/social/post-queue.mjs.
 #
 # main is branch-protected (PR + a passing "build" check required), so the
 # state commit below (which items posted/failed/retried) can't push to main
@@ -53,6 +61,7 @@ jobs:
           X_ACCESS_TOKEN_SECRET: ${{ secrets.X_ACCESS_TOKEN_SECRET }}
           IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          FB_PAGE_ID: ${{ secrets.FB_PAGE_ID }}
         run: node scripts/social/post-queue.mjs
 
       - name: Commit queue state changes (via PR — main is branch-protected)
