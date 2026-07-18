@@ -1778,7 +1778,20 @@ export default {
             caption:
               'From the Prime broadcast of the Christmas Day game: Swift in the red Frankie Shop bomber, Louis Vuitton bag on her arm and engagement ring visible.',
             kind: 'primary',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // tall broadcast frame; her face sits high and right of center, the
+            // bag low-left — keep the face under wide crops.
+            focalPoint: '65% 14%',
           },
+          // Photo pass #762 run 7 (2026-07-18): re-searched for a second photo of
+          // this event and again found none that verify. AOL/InStyle's "lead
+          // photo" of the game downloaded as a recycled Jan-2025 AFC-Championship
+          // celebration shot (AFC CHAMPIONS boards, Champions tee — wrong event,
+          // rejected on viewing); TMZ's article runs a Dec. 3 Getty file photo;
+          // Taylor Swift Style's gallery carries only the single broadcast frame
+          // already used above. Deliberately leaving this page at one photo —
+          // wire photographers had no access (broadcast-only event, see note
+          // above from the 2026-07-10 pass).
         ],
       },
     },
@@ -2804,6 +2817,10 @@ export default {
             caption:
               "Taylor in the pink Markarian gown and Travis in a black suit, arriving at JuJu Smith-Schuster's wedding.",
             kind: 'primary',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // TMZ two-panel frame — Travis's face upper-left panel, Taylor's face
+            // upper-right panel; both sit in the top quarter, so bias the crop high.
+            focalPoint: '50% 22%',
           },
         ],
       },
