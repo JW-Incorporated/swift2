@@ -83,6 +83,24 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
+            // Focal point set 2026-07-18 by viewing (300x300): profile facing
+            // left-of-center, wind-blown curls filling the right half.
+            focalPoint: '40% 32%',
+          },
+          // Photo pass #762 (2026-07-18): still from the Recording Academy's
+          // official GRAMMY Rewind upload of this exact win — Swift at the
+          // mic with the gramophone, "13" inked on her waving hand. oEmbed-
+          // verified the video (v5e0eAhpC00) belongs to the official @GRAMMYS
+          // channel; i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg
+          // 1280x720, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/v5e0eAhpC00/maxresdefault.jpg',
+            credit: 'Still from the Recording Academy\'s official GRAMMY Rewind video of the 2010 Album of the Year win, via YouTube',
+            caption: 'Accepting Album of the Year at 20 — the "13" still inked on her hand — the night she promised to tell this story "when we\'re 80."',
+            kind: 'archival',
+            // Focal point set by viewing: face upper-center with the raised
+            // hand right; GRAMMY REWIND overlay text sits bottom-left.
+            focalPoint: '52% 22%',
           },
         ],
       },
@@ -168,6 +186,25 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
             credit: 'Adam Bielawski / Wikimedia Commons',
+            // Focal point set 2026-07-18 by viewing (399x509 portrait): face
+            // top-center at the headset mic, koa guitar across the lower half.
+            focalPoint: '54% 18%',
+          },
+          // Photo pass #762 (2026-07-18): frame from the official "The Best
+          // Day" music video — the home-movie footage of toddler Taylor in
+          // pigtails that Swift cut together herself as the Christmas gift
+          // this page is about. oEmbed-verified the video (l4_6eQm7RTQ)
+          // belongs to the official @TaylorSwift channel; i.ytimg.com is
+          // YouTube's own CDN; curl 200 image/jpeg 1280x720, downloaded and
+          // vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/l4_6eQm7RTQ/maxresdefault.jpg',
+            credit: 'Still from the official "The Best Day" music video (home-movie footage), Big Machine Records, via YouTube',
+            caption: 'The gift itself: a frame from the home-movie video Swift edited in secret — toddler Taylor in pigtails — unveiled to her mom on Christmas Eve.',
+            kind: 'archival',
+            // Focal point set by viewing: the child stands just left of
+            // center, face in the upper third, armchair lower right.
+            focalPoint: '48% 28%',
           },
         ],
       },
@@ -955,6 +992,26 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg',
             credit: 'Wikimedia Commons',
+            // Focal point set 2026-07-18 by viewing (500x648): she stands on
+            // the red couch mid-frame in the sequined dress, face just above
+            // center-left; "They shouldn't do..." lyric screens above/below.
+            focalPoint: '46% 44%',
+          },
+          // Photo pass #762 (2026-07-18): Commons portrait of Joe Jonas —
+          // the 27-second phone call this song answers — EXIF-dated Sept. 10,
+          // 2008, one month before the breakup (era context). Commons license
+          // API-verified CC BY-SA 2.0; curl 200 image/jpeg 500x690,
+          // downloaded and vision-confirmed (clean close-up, no watermark;
+          // rejected a Concert-for-Hope alternative that carried a
+          // photographer watermark).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Joe_Jonas_cropped.jpg/500px-Joe_Jonas_cropped.jpg',
+            credit: 'Wikimedia Commons (CC BY-SA 2.0) — Joe Jonas, September 2008 (archival, era context)',
+            caption: 'Joe Jonas in September 2008 — weeks before the 27-second phone call that got a song added to Fearless a day before mastering.',
+            kind: 'archival',
+            // Focal point set by viewing: tight head shot, eyes just above
+            // the vertical midpoint.
+            focalPoint: '50% 40%',
           },
         ],
       },
@@ -1006,6 +1063,25 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
+            // Focal point set 2026-07-18 by viewing (300x300): profile facing
+            // left-of-center, wind-blown curls filling the right half.
+            focalPoint: '40% 32%',
+          },
+          // Photo pass #762 (2026-07-18): Commons shot from the Fearless
+          // Tour's Portland stop, EXIF-dated May 16, 2009 — taken inside the
+          // very spring the album was logging its record 11 weeks at No. 1
+          // (era context; a tour date, not a chart ceremony). Commons license
+          // API-verified CC BY 2.0 (calmdownlove); curl 200 image/jpeg
+          // 500x862, downloaded and vision-confirmed (gold sequined dress,
+          // fist raised, Ludwig kit behind).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg/500px-Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg',
+            credit: 'calmdownlove, Wikimedia Commons (CC BY 2.0) — Fearless Tour, Portland, May 16, 2009 (archival, era context)',
+            caption: 'On the Fearless Tour in Portland, May 2009 — mid-victory-lap for an album spending its eleventh week at No. 1 that spring.',
+            kind: 'archival',
+            // Focal point set by viewing: tall frame; she stands center-left,
+            // face upper-left quadrant beneath the raised fist.
+            focalPoint: '32% 24%',
           },
         ],
       },
