@@ -807,11 +807,27 @@ export default {
             url: 'https://www.yahoo.com/entertainment/taylor-swift-joe-jonas-ups-175948631.html',
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added a freely licensed
+        // Commons fan photo of Joe Jonas on the Burnin' Up tour, July 5, 2008
+        // — the summer the relationship began (the tour she guested on).
+        // License (CC BY 2.0) + date verified via the Commons API; URL
+        // verified HTTP 200 + image/jpeg, downloaded, and visually confirmed.
+        // The Concert for Hope Commons alternative was rejected for a
+        // baked-in uploader watermark.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
             credit: 'Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)',
             kind: 'archival',
+            focalPoint: '52% 18%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Joe_Jonas.jpg',
+            credit: 'Loreal Reid (CC BY 2.0) via Wikimedia Commons',
+            caption:
+              'Joe Jonas on the Burnin\' Up tour, July 5, 2008 — the summer the relationship began, on the tour she turned up to sing on (archival, era context).',
+            kind: 'archival',
+            focalPoint: '45% 14%',
           },
         ],
       },
@@ -1509,6 +1525,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
             credit: 'Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)',
             kind: 'archival',
+            focalPoint: '52% 18%',
           },
         ],
       },

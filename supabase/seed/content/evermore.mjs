@@ -1341,6 +1341,7 @@ export default {
             caption:
               "Swift with the Album of the Year Grammy for folklore, from the Recording Academy's GRAMMY Rewind clip of the March 14, 2021 speech.",
             kind: 'archival',
+            focalPoint: '57% 33%',
           },
         ],
       },
@@ -1380,6 +1381,7 @@ export default {
             caption:
               'Joe Alwyn at the Toronto International Film Festival, September 2022 — a few months after the WSJ. Magazine interview.',
             kind: 'archival',
+            focalPoint: '50% 32%',
           },
         ],
       },
