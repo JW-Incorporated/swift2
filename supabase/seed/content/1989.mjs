@@ -37,7 +37,9 @@ export default {
             url: 'https://www.billboard.com/lists/taylor-swift-life-of-a-showgirl-number-one-billboard-200/',
           },
         ],
-        photos: [{ url: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg', credit: 'Big Machine Records' }],
+        // Photo-enrichment run 11 (2026-07-18, #762): focal point set by
+        // viewing — 1989-era press photo, face upper-left on the carpet shot.
+        photos: [{ url: 'https://blogs-images.forbes.com/hughmcintyre/files/2014/11/Taylor-Swift.jpg', credit: 'Big Machine Records', focalPoint: '39% 24%' }],
       },
     },
     {
@@ -170,12 +172,28 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clean_(song)' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/music/music-news/imogen-heap-taylor-swift-write-music-1989-clean-6304250/' },
         ],
+        // Photo-enrichment run 11 (2026-07-18, #762): added a clearly-labeled
+        // reference photo of co-writer/producer Imogen Heap from 2014, the
+        // year Clean was recorded at her Hideaway Studio (Commons, CC BY 3.0,
+        // license and date verified via the Commons API; downloaded and
+        // vision-confirmed). A studio track has no event imagery of its own.
+        // Focal points set per image by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png',
             credit: 'tonyshek / Wikimedia Commons, CC BY-SA 2.0',
             kind: 'archival',
             caption: 'At the mic on the 1989 World Tour (Ford Field, Detroit, May 30, 2015) — the tour where Clean became the nightly spoken-word confessional. The song itself had no music video.',
+            // Portrait crop; smiling profile sits upper-left of center.
+            focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Imogen_Heap_keytar_2014.png',
+            credit: 'devastation jhayne / Wikimedia Commons, CC BY 3.0',
+            kind: 'reference',
+            caption: 'Reference image: Imogen Heap onstage in March 2014 — the co-writer and producer who recorded Clean with Swift in a single day at her Hideaway Studio.',
+            // Tall frame; Heap's face is high, keytar diagonal through the middle.
+            focalPoint: '50% 16%',
           },
         ],
       },
@@ -823,7 +841,10 @@ export default {
             url: 'https://www.grammy.com/news/taylor-swift-1989-album-of-the-year-win-2016-grammys-acceptance-speech-video-rewind/',
           },
         ],
-        photos: [{ url: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif', credit: 'The Recording Academy' }],
+        // Photo-enrichment run 11 (2026-07-18, #762): focal point set by
+        // viewing — press-room shot, three gramophones at chest height,
+        // face centered high.
+        photos: [{ url: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif', credit: 'The Recording Academy', focalPoint: '50% 22%' }],
       },
     },
     {
