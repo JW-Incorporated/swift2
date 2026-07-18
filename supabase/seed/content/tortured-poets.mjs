@@ -245,12 +245,28 @@ export default {
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Clara_Bow_(song)' }],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        // Photo pass #762 run 9 (2026-07-18): added the 1927 Paramount
+        // publicity portrait of Clara Bow herself — the woman the song is
+        // named for; public domain, license verified via the Commons API
+        // this session (1078x1500). Both images downloaded and viewed for
+        // focal points.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/fcVUbmdQfaE/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "Clara Bow" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
+            // Title text left, bare shoulder right edge; keep the middle band.
+            focalPoint: '50% 45%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a9/Clara_Bow_1927.jpg',
+            credit: 'Paramount Photos (1927), public domain, via Wikimedia Commons',
+            caption:
+              'Clara Bow in a 1927 Paramount publicity portrait — the silent-film "It girl" whose name opens the song\'s lineage of anointed and replaced women.',
+            kind: 'reference',
+            // Profile portrait facing right; face upper-center-right.
+            focalPoint: '58% 35%',
           },
         ],
       },

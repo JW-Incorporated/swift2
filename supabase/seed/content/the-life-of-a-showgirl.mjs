@@ -723,12 +723,17 @@ export default {
         // Lyric-video id 98SmlWOKuME verified via oEmbed against
         // @TaylorSwift; Commons photo license-checked (public domain,
         // University of Houston Digital Library, Faith World Tour 1988).
+        // Photo pass #762 run 9 (2026-07-18): 480x360 hqdefault raised to the
+        // same video's 1280x720 maxres render; both images downloaded and
+        // viewed for focal points.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/98SmlWOKuME/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/98SmlWOKuME/maxresdefault.jpg',
             credit: 'Taylor Swift / Republic Records (official "Father Figure" lyric video thumbnail, YouTube)',
             kind: 'primary',
             caption: 'The official lyric video for "Father Figure."',
+            // Taylor in showgirl headdress on the right edge, face upper right.
+            focalPoint: '78% 28%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/George_Michael_%28cropped%29.jpeg',
@@ -736,6 +741,8 @@ export default {
             caption:
               'George Michael on the Faith World Tour in Houston, 1988 — the era of the original "Father Figure" his estate cleared Swift to rebuild.',
             kind: 'archival',
+            // Tall B&W portrait: face in the upper quarter, slightly right.
+            focalPoint: '54% 26%',
           },
         ],
       },
@@ -1029,12 +1036,30 @@ export default {
           },
         ],
         // Lyric-video id FnEg1RgmqO4 verified via oEmbed against @TaylorSwift.
+        // Photo pass #762 run 9 (2026-07-18): hqdefault raised to the same
+        // video's 1280x720 maxres render. Added the Commons Charli XCX Brat
+        // arena tour photo (CC BY-SA 4.0, Junefreund, license + Nov 29 2024
+        // date verified via the Commons API this session) as a reference
+        // image — the page's whole subject is the critics' Charli reading,
+        // clearly labeled as interpretation in the caption. Both images
+        // downloaded and viewed for focal points.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/FnEg1RgmqO4/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/FnEg1RgmqO4/maxresdefault.jpg',
             credit: 'Taylor Swift / Republic Records (official "Actually Romantic" lyric video thumbnail, YouTube)',
             caption: 'The official lyric video for "Actually Romantic."',
             kind: 'primary',
+            // Taylor at the dressing-room mirror, face left-of-center.
+            focalPoint: '46% 40%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/e7/Charli_XCX_-_Birmingham%2C_UK_%28November_29%2C_2024%29.jpg',
+            credit: 'Junefreund, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Charli XCX on the Brat arena tour in Birmingham, November 2024 — the artist critics near-unanimously read the song as answering, a reading Swift has never confirmed.',
+            kind: 'reference',
+            // Square frame, Charli mid-frame under falling rain, face upper-center.
+            focalPoint: '48% 42%',
           },
         ],
       },
@@ -1149,6 +1174,12 @@ export default {
         // Commons photo of BC Place dressed for the Vancouver finale;
         // license (CC BY-SA 4.0, JazzHandsIncarnate) and December 2024 date
         // verified on the file page this session.
+        // Photo pass #762 run 9 (2026-07-18): added the Getty performance
+        // photo ABC News ran with its own Final Show/End of an Era story
+        // (i.abcnewsfe.com, ABC's own CDN; curl-verified 200 image/jpeg
+        // 1600x900, downloaded and viewed — the acoustic-set piano moment).
+        // Caption avoids claiming a specific city since Getty's frame isn't
+        // dated to Vancouver. Both images viewed for focal points.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Taylor_Swift_The_Eras_Tour_at_BC_Place%2C_Landscape.jpg',
@@ -1156,6 +1187,17 @@ export default {
             caption:
               'BC Place in Vancouver dressed for the Eras Tour\'s final dates, December 2024 — a giant friendship bracelet reading "TAYLOR SWIFT THE ERAS TOUR" wrapped along the stadium.',
             kind: 'archival',
+            // Giant friendship bracelet across the upper-middle of the facade.
+            focalPoint: '50% 38%',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/5ec4f225-0002-477a-b2d6-d71be02ff77e/TAYLOR-GTY-AB-251202_1764711098744_hpMain_16x9.jpg?w=1600',
+            credit: 'Getty Images, via ABC News',
+            caption:
+              'At the piano for the surprise-song acoustic set, in the orange gown of the tour\'s 2024 legs — the stripped-down chapter of the show the streaming cut preserves in full.',
+            kind: 'archival',
+            // Taylor seated at the piano, left third, face upper left.
+            focalPoint: '34% 24%',
           },
         ],
       },
@@ -1237,6 +1279,11 @@ export default {
         ],
         // Commons photo of the actual pub; license (CC BY-SA 2.0, Chris
         // Whippet / geograph.org.uk) verified on the file page this session.
+        // Photo pass #762 run 9 (2026-07-18): added the official "The Black
+        // Dog" lyric-video still — video id 56TZ3B8Qxsk verified via YouTube
+        // oEmbed against @TaylorSwift this session ("Taylor Swift - The
+        // Black Dog (Official Lyric Video)"); 1280x720 maxres curl-verified
+        // 200 image/jpeg. Both images downloaded and viewed for focal points.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/fa/The_Black_Dog%2C_Vauxhall_-_geograph.org.uk_-_4576579.jpg',
@@ -1244,6 +1291,16 @@ export default {
             caption:
               'The Black Dog in Vauxhall, London — the real gastropub fans decided the song is about, photographed in 2015, years before it became a pilgrimage site.',
             kind: 'archival',
+            // Corner pub facade with the black-dog sign; entrance mid-frame.
+            focalPoint: '46% 55%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/56TZ3B8Qxsk/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official "The Black Dog" lyric video thumbnail, YouTube)',
+            caption: 'The official lyric video for the song she insists nobody has decoded.',
+            kind: 'archival',
+            // Sepia portrait, Taylor in profile on the right side, face upper right.
+            focalPoint: '70% 30%',
           },
         ],
       },
@@ -1764,6 +1821,11 @@ export default {
         // Commons concert photo of the actual tour (license CC BY 2.0,
         // Paolo V, verified via the Commons API this session); dated in the
         // caption so it isn't mistaken for the Vancouver finale itself.
+        // Photo pass #762 run 9 (2026-07-18): added the Getty tour photo THR
+        // ran as the hero of its own Emmy-nominations story (THR's wp-content
+        // CDN; curl-verified 200 image/jpeg 1440x810, downloaded and viewed).
+        // Caption keeps it generic to the tour since Getty's frame isn't
+        // dated to the Vancouver finale. Both images viewed for focal points.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
@@ -1771,6 +1833,17 @@ export default {
             caption:
               'The Eras Tour\'s Lover set at SoFi Stadium, August 2023 — the show whose filmed Vancouver finale earned the five nominations.',
             kind: 'archival',
+            // Wide panorama, Taylor small in the left third against a dark bowl.
+            focalPoint: '34% 40%',
+          },
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2026/07/GettyImages-2166917001.jpg?w=1440&h=810&crop=1',
+            credit: 'Getty Images, via The Hollywood Reporter',
+            caption:
+              'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
+            kind: 'archival',
+            // Taylor centered, face just above the vertical midline.
+            focalPoint: '50% 36%',
           },
         ],
       },
@@ -2552,12 +2625,29 @@ export default {
         // @TaylorSwift ("Taylor Swift - Elizabeth Taylor (Official Music
         // Video)") this session; thumbnail HTTP 200 + image/jpeg.
         video: { youtubeId: 'WqbJT_vC0rs', title: 'Taylor Swift - Elizabeth Taylor (Official Music Video)' },
+        // Photo pass #762 run 9 (2026-07-18): hqdefault raised to the same
+        // video's 1280x720 maxres render (a close-up of the real Liz from the
+        // supercut). Added a public-domain still of Elizabeth Taylor from the
+        // 1958 Cat on a Hot Tin Roof trailer — one of the films the video
+        // cuts from; PD license verified via the Commons API this session
+        // (763x459). Both images downloaded and viewed for focal points.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxresdefault.jpg',
             credit: 'Taylor Swift / Republic Records (official "Elizabeth Taylor" music video thumbnail, YouTube)',
             caption: 'The official "Elizabeth Taylor" music video — a supercut of the real Elizabeth Taylor\'s films and newsreels.',
             kind: 'primary',
+            // B&W close-up of Liz reclining; eyes upper-right of center.
+            focalPoint: '52% 40%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b5/Cat_on_a_Hot_Tin_Roof4.jpg',
+            credit: 'MGM trailer screenshot (1958), public domain, via Wikimedia Commons',
+            caption:
+              'Elizabeth Taylor with Paul Newman in the Cat on a Hot Tin Roof trailer, 1958 — one of the nine-plus films the video\'s supercut draws on.',
+            kind: 'archival',
+            // Liz leaning on Newman's shoulder, her face right-of-center.
+            focalPoint: '55% 40%',
           },
         ],
       },
@@ -2607,10 +2697,23 @@ export default {
         ],
         // Video id 5B8-TJ8vsKY verified 2026-07-14 via web search title match
         // ("Taylor Swift: The Stories Behind Her Biggest Songs (Exclusive
-        // Interview)"). oEmbed + thumbnail checks unavailable this session
-        // (proxy blocks youtube.com/i.ytimg.com), so no hotlinked photo —
-        // add one once verifiable.
+        // Interview)"). Photo pass #762 run 9 (2026-07-18): oEmbed now
+        // verified — author_name "Popcast" (@Popcast, the NYT music
+        // podcast's channel), same title. 1280x720 maxres thumbnail
+        // curl-verified 200 image/jpeg, downloaded and viewed (NYT "T" logo
+        // and "Taylor Swift on Songwriting" title card visible in-frame).
         video: { youtubeId: '5B8-TJ8vsKY', title: 'Taylor Swift: The Stories Behind Her Biggest Songs (Exclusive Interview)' },
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/5B8-TJ8vsKY/maxresdefault.jpg',
+            credit: 'The New York Times / Popcast (official interview thumbnail, YouTube)',
+            caption:
+              'The Times\' half-hour sit-down on nothing but the songwriting, published with its 30-greatest-living-American-songwriters list.',
+            kind: 'primary',
+            // Taylor mid-gesture on the right, face upper-right; title text left.
+            focalPoint: '62% 38%',
+          },
+        ],
       },
     },
     {
@@ -2725,12 +2828,19 @@ export default {
         // logo'd image for another. Falling back to the Commons venue photo
         // below as the moment's sole (verified) photo; needs manual sourcing
         // of a clean case photo if one surfaces later.
+        // Photo pass #762 run 9 (2026-07-18): re-searched for a clean case
+        // photo; the syndicated radio-network posts (kiss951.com et al.) run
+        // a Getty Songwriters-HOF red-carpet portrait — off-moment, and a
+        // third party's Getty copy — rejected on viewing. Still no direct
+        // photo of the case on an approved source; deliberately one photo.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/67/Rock_and_Roll_Hall_of_Fame%2C_May_2016.jpg',
             credit: 'MusikAnimal, CC BY-SA 4.0, via Wikimedia Commons',
             caption: 'The Rock & Roll Hall of Fame in Cleveland, home of the Legends of Rock exhibit where the display sits.',
             kind: 'archival',
+            // Glass pyramid centered; entrance sign just below the midline.
+            focalPoint: '50% 55%',
           },
         ],
       },
@@ -2980,6 +3090,23 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 4,
+          },
+        ],
+        // Photo pass #762 run 9 (2026-07-18): page had zero photos. Official
+        // music video id hDU4GB1PTxc verified via YouTube oEmbed against
+        // @TaylorSwift this session ("Taylor Swift - I Knew It, I Knew You
+        // (from Toy Story 5)"); 1280x720 maxres curl-verified 200 image/jpeg,
+        // downloaded and viewed (a Jessie frame — the video is cut from Toy
+        // Story film clips, per the announcement coverage).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hDU4GB1PTxc/maxresdefault.jpg',
+            credit: 'Taylor Swift / Walt Disney Records (official "I Knew It, I Knew You" video thumbnail, YouTube)',
+            caption:
+              'The official video for "I Knew It, I Knew You," cut from Toy Story film clips with Jessie at its center.',
+            kind: 'primary',
+            // Jessie's face dead-center between the outstretched arms.
+            focalPoint: '48% 35%',
           },
         ],
       },
