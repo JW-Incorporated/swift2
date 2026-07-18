@@ -47,13 +47,27 @@ pass, independently confirming they were already treated as each era's
 landmark moment; 2 new entries were added (`m-89-4` for the Kimye leak,
 `m-mid-2b` for the Kelce relationship going public) to close that gap.
 
-Cross-linked the 10 to each other via `relatedIds` wherever a real
-narrative connection exists (e.g. the VMA interruption → the Kimye leak →
-reputation's snake/LWYMMD items; the Kelce-official moment → the engagement
-→ the wedding; the Big Machine sale → the `taylors-version` thread's own
-re-recording milestones) and added `threadIds` opt-ins (`taylors-version`
-on the Big Machine sale, `the-proposal` on the Kelce-official moment) so
-each is reachable from the relevant thread, not just its own era.
+Cross-linked the 10 to each other via `relatedIds` (`moment:vault-<eraId>-
+<slug>`) wherever a real narrative connection exists (e.g. the VMA
+interruption → the Kimye leak → reputation's snake/LWYMMD items; the
+Kelce-official moment → the engagement → the wedding; the Big Machine sale
+→ the `taylors-version` thread's own re-recording milestones), and added
+`threadIds` opt-ins (`taylors-version` on the Big Machine sale,
+`the-proposal` on the Kelce-official moment) so each is reachable from the
+relevant thread, not just its own era.
+
+**Correction (found in Codex review, 2026-07-19):** the `moment:` cross-
+links above are seeded data only, not yet a working UI feature — this was
+described as "cross-linking" without checking that `lib/longlive/
+related.ts`'s `motifTargetOf` only resolves `motif:`/`egg:` relatedIds; a
+`moment:` reference is silently inert (`RelatedId`'s own doc in `types.ts`
+already anticipates this: "the content lane can populate these
+incrementally without breaking anything"). The data itself is real,
+correct, and follows the documented convention, so it's left in place as
+seed data for when that UI exists — see issue #851 for the actual
+resolution/rendering work, not scoped into this content pass.
+`threadIds` opt-ins ARE fully functional today (`contentForThread`
+already reads them), unaffected by this.
 
 Photo depth: no ceiling for these 10 items (correction from an initial
 5–8-photo cap, Joey, 2026-07-19) — every real, distinct, verifiable photo

@@ -892,7 +892,7 @@ export const MILESTONES: Milestone[] = [
   // Added 2026-07-19 alongside the 10-defining-events pass (docs/decisions.md)
   // — same gap as m-89-4: significance: 'defining' in the seed data, no
   // scrubber marker until now.
-  { id: 'm-mid-2b', eraId: 'midnights', date: '2023-09-24', label: 'Official with Travis', kind: 'life' },
+  { id: 'm-mid-2b', eraId: 'midnights', date: '2023-09-24', label: 'Relationship goes public', kind: 'life' },
   { id: 'm-mid-3', eraId: 'midnights', date: '2023-10-13', label: 'Eras Tour film', kind: 'tour' },
   { id: 'm-ttpd-1', eraId: 'ttpd', date: '2024-04-19', label: 'TTPD released', kind: 'album' },
   { id: 'm-ttpd-2', eraId: 'ttpd', date: '2024-12-08', label: 'Eras Tour finale', kind: 'tour' },

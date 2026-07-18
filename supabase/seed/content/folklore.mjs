@@ -730,9 +730,15 @@ export default {
         '"Most of the things I had planned this summer didn\'t end up happening, but there is something I hadn\'t planned on that DID happen" — posted the morning of July 23, 2020. The album arrived at midnight.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
       thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+      ],
       moment: {
+        // Third paragraph added 2026-07-19 (found in review): the item
+        // claimed a reinvention without substantiating its impact, just
+        // announcement mechanics — this backs the claim with real reception.
         context:
-          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — with the "cardigan" video, shot under pandemic protocols, dropping alongside it at midnight. The announcement came dressed as its own reveal: a grid of captionless black-and-white forest photographs from the Beth Garrabrant cover shoot, posted with no advance warning of any kind.\n\nThe rollout compression extended to retail — deluxe CDs and vinyl in alternate covers went up only through her own website — and the no-lead-time surprise drop became a template she would reuse for evermore five months later.',
+          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — with the "cardigan" video, shot under pandemic protocols, dropping alongside it at midnight. The announcement came dressed as its own reveal: a grid of captionless black-and-white forest photographs from the Beth Garrabrant cover shoot, posted with no advance warning of any kind.\n\nThe rollout compression extended to retail — deluxe CDs and vinyl in alternate covers went up only through her own website — and the no-lead-time surprise drop became a template she would reuse for evermore five months later.\n\nThe reinvention landed as intended: Rolling Stone called it "her greatest album — so far," a "total goth-folk" turn away from radio hits and stadium-friendly material into her most emotionally ambitious songwriting yet, and later named it the best album of 2020 outright — the same year it broke the magazine\'s record for most consecutive weeks at Number One on the Rolling Stone 200.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -742,6 +748,24 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-folklore-surprise-album-1033102/',
+            source_title: 'Taylor Swift Finally Abandoned the Traditional Album Rollout',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/',
+            source_title: "Taylor Swift's 'Folklore': Rob Sheffield Reviews the Album",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
           },
         ],
         // Real-photo pass (2026-07-09): official album cover — the image the

@@ -1929,7 +1929,7 @@ export default {
       ],
       moment: {
         context:
-          'A month after telling GQ that video of the "Famous" call existed, Kim Kardashian posted it — edited into Snapchat-length clips, on the night of July 17, 2016 — showing Taylor responding warmly as West read her parts of the song. The clips did not include the "I made that bitch famous" line, but the internet\'s verdict was instant: #TaylorSwiftIsOverParty trended worldwide and snake emojis flooded her every post.\n\nHer response drew the line she would hold for four years: "Where is the video of Kanye telling me he was going to call me \'that bitch\' in his song? It doesn\'t exist because it never happened... I would very much like to be excluded from this narrative, one that I have never asked to be a part of, since 2009."\n\nThen she went dark. No public appearances, no new music, the longest silence of her career — "Nobody physically saw me for a year," she said later in Miss Americana. "That\'s what I thought they wanted." What came back a year later, snake-first, was reputation.',
+          'A month after telling GQ that video of the "Famous" call existed, Kim Kardashian posted it — edited into Snapchat-length clips, on the night of July 17, 2016 — showing Taylor responding warmly as West read her parts of the song. The clips did not include the "I made that bitch famous" line, but the internet\'s verdict was instant: #TaylorSwiftIsOverParty trended worldwide and snake emojis flooded her every post.\n\nHer response drew the line she would hold for four years: "Where is the video of Kanye telling me he was going to call me \'that bitch\' in his song? It doesn\'t exist because it never happened... I would very much like to be excluded from this narrative, one that I have never asked to be a part of, since 2009."\n\nThen she withdrew from the spotlight — no red carpets, no interviews, no album cycle — for the longest stretch of her career, broken only by a handful of exceptions: a rare public sighting later that month, a surprise one-off set at a Formula 1 after-party that October, and a Zayn duet, "I Don\'t Wanna Live Forever," released that December for the Fifty Shades Darker soundtrack. "Nobody physically saw me for a year," she said later in Miss Americana — a characterization of how absent she felt, not a literal account. What came back in full a year later, snake-first, was reputation.',
         sources: [
           {
             outlet: 'The Washington Post',
@@ -1939,6 +1939,17 @@ export default {
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+          },
+          // Backs the corrected withdrawal claim (found in review, 2026-07-19)
+          // — she wasn't in absolute silence: a surprise F1 after-party set
+          // and the Zayn duet both happened during this stretch.
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/amp/news/taylor-swift-performs-at-formula-one-her-only-concert-of-the-year/',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-and-zayn-release-surprise-duet-single-for-fifty-shades-darker/',
           },
         ],
         // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):

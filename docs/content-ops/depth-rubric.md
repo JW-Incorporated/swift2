@@ -85,16 +85,17 @@ explicit authoring call instead of an inferred one.
    only the vertical feed. The two lists are hand-curated separately for now
    (no automated sync) — check both when authoring a defining item.
 
-**Seeded examples:** as of 2026-07-19 (`docs/decisions.md`), 10 items across
-9 era files carry `significance: 'defining'` — a career-wide top 10, not a
-per-era quota, picked and cross-linked in one pass rather than the
-per-era review originally anticipated below. `msg-wedding` and
-`showgirl-release-day` (`the-life-of-a-showgirl.mjs`) remain the two
-richest examples to read for what "comprehensive depth, real sourcing,
-hero-worthy" looks like in practice; the other 8 (debut, both Fearless
-Grammy/VMA moments, both 1989 business/culture moments, the Big Machine
-sale, folklore's surprise drop, the Eras Tour opening, and the Kelce
-relationship going public) are listed with rationale in the decision log.
+**Seeded examples:** as of 2026-07-19 (`docs/decisions.md`), 11 items across
+7 era files carry `significance: 'defining'` — a career-wide top 10 (plus
+`showgirl-release-day` from the 2026-07-18 pass), not a per-era quota,
+picked and cross-linked in one pass rather than the per-era review
+originally anticipated below. `msg-wedding` and `showgirl-release-day`
+(`the-life-of-a-showgirl.mjs`) remain the two richest examples to read for
+what "comprehensive depth, real sourcing, hero-worthy" looks like in
+practice; the other 9 (debut, both Fearless Grammy/VMA moments, both 1989
+business/culture moments, the Big Machine sale, folklore's surprise drop,
+the Eras Tour opening, and the Kelce relationship going public) are listed
+with rationale in the decision log.
 
 Eras/events outside that 10 may still surface their own `'defining'` or
 `'notable'` candidates over time — flag them as you encounter them rather

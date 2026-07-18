@@ -1,6 +1,6 @@
 # Brief: source EVERY real photo you can find for 9 career-defining moments
 
-These 7 items were just marked `significance: 'defining'` (the rarest tier —
+These 9 items were just marked `significance: 'defining'` (the rarest tier —
 see `docs/content-ops/depth-rubric.md`) as part of a 10-event, career-wide
 pass (`docs/decisions.md`, 2026-07-19 entry). Their narrative content
 (`moment.context`, `moment.sources`) is already solid and sourced — **do not

@@ -64,13 +64,16 @@ export default {
       category: 'business',
       significance: 'defining', // youngest-ever AOTY win; the first of her (now-record) 4 (docs/decisions.md, 2026-07-19)
       title: 'Fearless makes her the youngest Album of the Year winner — for a decade',
-      snippet: '592,000 copies in week one, debuting at No. 1 on the Billboard 200.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      // Corrected 2026-07-19 (found in review): snippet/sourceUrl/thumbnail
+      // previously described the Nov. 2008 album debut, not the Jan. 2010
+      // Grammy win this item is actually about — mismatched hero card.
+      snippet: 'At the 52nd Grammys, 20-year-old Swift became the youngest Album of the Year winner ever — a record that stood for a decade, until Billie Eilish broke it.',
+      sourceUrl: 'https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/',
+      thumbnailUrl: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
       relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi'],
       moment: {
         context:
-          'Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
+          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -297,7 +300,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Taylor_Swift_at_2009_MTV_VMA%27s_3.jpg',
             credit: 'Philip Nelson, via Wikimedia Commons',
-            caption: 'Another distinct frame from Swift\'s 2009 VMA performance.',
+            caption: 'Standing atop a car on a closed-off Avenue of the Americas, mic raised, as a street crowd reaches up during the outdoor VMA broadcast performance.',
             kind: 'primary',
           },
           {

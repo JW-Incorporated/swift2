@@ -326,13 +326,13 @@ export default {
           {
             url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/764/432/GettyImages-1474279449-copy.jpg?tl=1&ve=1',
             credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
-            caption: 'Swift performs onstage in a distinct Getty frame from the first Eras Tour concert.',
+            caption: 'Arms outstretched with a pink sequined guitar, in the sparkling fringe bodysuit worn for the Lover set.',
             kind: 'primary',
           },
           {
             url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474271127-copy.jpg?tl=1&ve=1',
             credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
-            caption: 'A separate John Shearer frame captures Swift during the March 17 Glendale performance.',
+            caption: 'In a glittering silver blazer dress and knee-high boots, flanked by suited backup dancers in front of the reputation set\'s office-desk backdrop.',
             kind: 'primary',
           },
           {
@@ -344,7 +344,7 @@ export default {
           {
             url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474275193-copy.jpg?tl=1&ve=1',
             credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
-            caption: 'A fourth distinct Shearer frame shows Swift onstage during the 44-song Glendale opener.',
+            caption: 'Seated atop the moss-covered folklore cabin\'s peaked roof, its chimney smoking, for the acoustic folklore set.',
             kind: 'primary',
           },
           {

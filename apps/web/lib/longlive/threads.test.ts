@@ -101,6 +101,12 @@ describe('contentForThread', () => {
     for (const item of items) {
       expect(item.threadIds).toContain('the-proposal');
     }
+    // Pinned to the specific item (found in review, 2026-07-19) — the loop
+    // above alone would still pass if this exact item's tag were dropped and
+    // an unrelated item were tagged instead.
+    expect(items.some((item) => item.id === 'vault-midnights-the-game-the-world-decided-made-it-official')).toBe(
+      true,
+    );
   });
 });
 
