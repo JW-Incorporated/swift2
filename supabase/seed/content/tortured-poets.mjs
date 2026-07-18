@@ -937,6 +937,10 @@ export default {
           {
             url: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
             credit: 'ABC News',
+            // Focal point set 2026-07-18 (photo-enrichment run 2, #762) by
+            // viewing: Swift's face peeks over Kelce's shoulder, upper-left of
+            // center in the hug frame from the announcement carousel.
+            focalPoint: '42% 33%',
           },
         ],
       },
@@ -1975,12 +1979,18 @@ export default {
             caption:
               'Kelce in white tie, top hat and tails during the "I Can Do It With a Broken Heart" vaudeville intro, flanking Swift and the tuxedoed dancers — Wembley, June 23, 2024.',
             kind: 'primary',
+            // Focal points set 2026-07-18 (photo-enrichment run 2, #762) by
+            // viewing each frame. Swift and Kelce's faces span the upper third,
+            // centered as a group across the stage.
+            focalPoint: '52% 30%',
           },
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2024/06/TaylorSwiftNightThreeLondon-1.jpg?w=1600',
             credit: 'Getty Images (via Rolling Stone)',
             caption: 'Swift onstage at Wembley on June 23, 2024 — the night Kelce joined the TTPD set\'s tuxedoed cast.',
             kind: 'archival',
+            // Swift with guitar stands left of center; her face is high in frame.
+            focalPoint: '42% 18%',
           },
         ],
       },
