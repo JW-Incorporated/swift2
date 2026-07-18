@@ -27,3 +27,24 @@ export function musicVideosForEra(eraId: EraId): (VideoNote & { releasedOn: stri
     (v): v is VideoNote & { releasedOn: string } => v.kind === 'music_video' && v.releasedOn != null,
   );
 }
+
+const normalizeTitle = (s: string): string =>
+  s
+    .toLowerCase()
+    .replace(/\(.*?\)/g, ' ') // drop "(Taylor's Version)", "(Music Video)", etc.
+    .replace(/[^a-z0-9]+/g, ' ')
+    .trim();
+
+/**
+ * The official video for a specific song, matched by title within its era, so a
+ * track page can embed it (issue #439/#440). Prefers a true music video, then a
+ * lyric video; requires a verified `youtubeId`. Title match is exact after
+ * normalizing punctuation and parenthetical suffixes — strict on purpose, so a
+ * page never embeds the wrong song's video.
+ */
+export function videoForTrack(eraId: EraId, title: string): VideoNote | undefined {
+  const t = normalizeTitle(title);
+  if (!t) return undefined;
+  const vids = videosForEra(eraId).filter((v) => v.youtubeId && normalizeTitle(v.title) === t);
+  return vids.find((v) => v.kind === 'music_video') ?? vids.find((v) => v.kind === 'lyric_video');
+}
