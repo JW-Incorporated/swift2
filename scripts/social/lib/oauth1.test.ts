@@ -31,4 +31,20 @@ describe('oauth1Header', () => {
     const h2 = oauth1Header({ ...base, tokenSecret: 'different' });
     expect(h1).not.toBe(h2);
   });
+
+  it('signs query params when present, and never includes them in the header itself', () => {
+    const withoutParams = oauth1Header({ ...base, method: 'GET', url: 'https://api.twitter.com/2/users/me' });
+    const withParams = oauth1Header({
+      ...base,
+      method: 'GET',
+      url: 'https://api.twitter.com/2/users/me',
+      params: { 'user.fields': 'public_metrics' },
+    });
+    expect(withParams).not.toBe(withoutParams); // the query param changed the signature
+    expect(withParams).not.toContain('user.fields'); // but never leaks into the Authorization header
+  });
+
+  it('defaults params to {} — existing plain-POST callers are unaffected', () => {
+    expect(oauth1Header(base)).toBe(oauth1Header({ ...base, params: {} }));
+  });
 });

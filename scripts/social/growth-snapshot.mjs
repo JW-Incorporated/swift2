@@ -15,7 +15,7 @@
 
 import { readdir, readFile, mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { fileURLToPath, URLSearchParams } from 'node:url';
 import { oauth1Header } from './lib/oauth1.mjs';
 import { GRAPH_VERSION } from './lib/platforms.mjs';
 import { countPostsOn, buildSnapshot } from './lib/growth.mjs';
@@ -43,16 +43,21 @@ async function fetchXFollowers() {
   const { X_API_KEY, X_API_KEY_SECRET, X_ACCESS_TOKEN, X_ACCESS_TOKEN_SECRET } = process.env;
   if (!X_API_KEY || !X_API_KEY_SECRET || !X_ACCESS_TOKEN || !X_ACCESS_TOKEN_SECRET) return null;
   try {
-    const url = 'https://api.twitter.com/2/users/me?user.fields=public_metrics';
+    // Base URL for signing must exclude the query string — oauth1Header
+    // signs it separately via `params` (see that function's docstring for
+    // why this matters for GET requests specifically).
+    const baseUrl = 'https://api.twitter.com/2/users/me';
+    const params = { 'user.fields': 'public_metrics' };
     const header = oauth1Header({
       method: 'GET',
-      url,
+      url: baseUrl,
       consumerKey: X_API_KEY,
       consumerSecret: X_API_KEY_SECRET,
       token: X_ACCESS_TOKEN,
       tokenSecret: X_ACCESS_TOKEN_SECRET,
+      params,
     });
-    const res = await fetch(url, { headers: { Authorization: header } });
+    const res = await fetch(`${baseUrl}?${new URLSearchParams(params)}`, { headers: { Authorization: header } });
     const body = await res.json();
     if (!res.ok) throw new Error(JSON.stringify(body));
     return body.data.public_metrics.followers_count;
