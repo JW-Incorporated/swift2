@@ -10,12 +10,17 @@ function pct(s) {
 }
 
 /**
- * Builds the `Authorization` header for a single OAuth1 request. Only
- * supports JSON-body POSTs (X's v2 endpoints) — body params are never part
- * of the signature base string for non-form-encoded requests, so this
- * signs the OAuth params alone, which is what api.twitter.com expects here.
+ * Builds the `Authorization` header for a single OAuth1 request. `url` must
+ * be the base URL with no query string — pass any GET query parameters via
+ * `params` instead. Per the OAuth1 spec, query parameters (unlike a JSON
+ * POST body, which is never part of the signature) ARE part of the signed
+ * parameter set: omitting them here produces a signature X's API rejects
+ * with 401 for any GET request that has query params (caught 2026-07-17
+ * building the growth-snapshot follower-count fetch, which has none for
+ * plain POSTs like /2/tweets — so this defaults to `{}` and stays a no-op
+ * there).
  */
-export function oauth1Header({ method, url, consumerKey, consumerSecret, token, tokenSecret, nonce, timestamp }) {
+export function oauth1Header({ method, url, consumerKey, consumerSecret, token, tokenSecret, nonce, timestamp, params = {} }) {
   const oauthParams = {
     oauth_consumer_key: consumerKey,
     oauth_nonce: nonce ?? randomBytes(16).toString('hex'),
@@ -24,10 +29,11 @@ export function oauth1Header({ method, url, consumerKey, consumerSecret, token, 
     oauth_token: token,
     oauth_version: '1.0',
   };
+  const allParams = { ...oauthParams, ...params };
 
-  const paramString = Object.keys(oauthParams)
+  const paramString = Object.keys(allParams)
     .sort()
-    .map((k) => `${pct(k)}=${pct(oauthParams[k])}`)
+    .map((k) => `${pct(k)}=${pct(allParams[k])}`)
     .join('&');
   const baseString = `${method.toUpperCase()}&${pct(url)}&${pct(paramString)}`;
   const signingKey = `${pct(consumerSecret)}&${pct(tokenSecret)}`;
