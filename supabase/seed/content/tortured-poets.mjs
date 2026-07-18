@@ -1924,12 +1924,26 @@ export default {
         // T16 photo pass (2026-07-09): photo from ABC News' coverage of the
         // Liverpool stand (image dated June 15, 2024, on ABC's own CDN).
         // Verified HTTP 200 + image/jpeg; visually confirmed (onstage, Lover-set bodysuit).
+        // Photo-enrichment run 11 (2026-07-18, #762): added Billboard's photo
+        // from Liverpool night one — June 13, the 100th show itself. Verified
+        // HTTP 200 + image/jpeg, downloaded and vision-confirmed (Fearless-set
+        // fringe dress, crystal guitar). Focal points set per image by viewing.
         photos: [
           {
             url: 'https://i.abcnewsfe.com/a/93f66532-3cd0-4fd1-8a10-52594110c859/taylor-swift-nc-jt-240615_1718457109716_hpMain_16x9.jpg?w=1600',
             credit: 'ABC News',
             caption: 'Onstage during the June 2024 Anfield stand in Liverpool, where show 100 doubled as the end-date announcement.',
             kind: 'archival',
+            // Profile shot, singing into the mic; face sits upper-left of center.
+            focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/06/taylor-swift-liverpool-night-1-2024-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images (via Billboard)',
+            caption: 'The Fearless set on June 13, 2024 at Anfield — night one of the Liverpool stand, and the Eras Tour\'s 100th show.',
+            kind: 'primary',
+            // Face high in frame, just right of center, guitar mid-frame.
+            focalPoint: '52% 18%',
           },
         ],
       },
@@ -2007,7 +2021,8 @@ export default {
         'New town signs went up before the tour’s three sold-out Veltins-Arena nights, July 17–19: “Swiftkirchen.” The rename was one fan’s idea — Aleshanee Westhoff petitioned Mayor Karin Welge, and the city let her install the first sign herself.',
       sourceUrl:
         'https://www.billboard.com/music/music-news/taylor-swifts-eras-tour-german-city-changes-name-1235724323/',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://media.nbcbayarea.com/2024/07/Germany-City-renamed.png?resize=1200%2C675&quality=85&strip=all',
       moment: {
         context:
           'Aleshanee Westhoff wrote to Mayor Karin Welge with the idea and started a petition behind it; Welge answered that it was “a great idea to temporarily rename Gelsenkirchen to ‘Swiftkirchen’” and had Westhoff install the first sign on Ebertstraße, with more posted at high-traffic spots around town ahead of the shows.\n\nFor the three nights the city also staged “Taylor Town” fan festivities — karaoke and DJ sets, a Swift-themed tram, and a new stone on Gelsenkirchen’s Walk of Fame. The Washington Post ran a whole piece on how improbable the pairing was (“the most unlikely city on Taylor Swift’s Europe tour”) — which was exactly the charm: for one July week, a renamed industrial town was the center of the Swiftie map.',
@@ -2042,6 +2057,23 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment run 11 (2026-07-18, #762): page had zero photos.
+        // NBC's coverage frame of the sign unveiling, on an NBC-owned CDN
+        // (media.nbcbayarea.com). Verified HTTP 200 + image/png; downloaded and
+        // vision-confirmed — the yellow "Swiftkirchen" town sign with the 1989
+        // Taylor portrait, held up by a city official with young fans in Eras
+        // Tour shirts. Billboard's and TheWrap's own leads were off-moment
+        // Dublin/London file photos and were rejected.
+        photos: [
+          {
+            url: 'https://media.nbcbayarea.com/2024/07/Germany-City-renamed.png?resize=1200%2C675&quality=85&strip=all',
+            credit: 'NBC (via NBC Bay Area)',
+            caption: 'The yellow "Swiftkirchen" town sign — one of 30 posted around Gelsenkirchen — unveiled with young fans ahead of the July 2024 shows.',
+            kind: 'primary',
+            // The sign is the subject, right of center; fans' faces upper-middle.
+            focalPoint: '62% 48%',
+          },
+        ],
       },
     },
     {
@@ -2055,7 +2087,7 @@ export default {
         'Tens of thousands of ticketless fans climbed the Olympiaberg overlooking the Olympiastadion — and Taylor counted them from the stage: 74,000 inside, "and if the reports are correct, about 50,000 beautiful people outside the stadium."',
       sourceUrl:
         'https://variety.com/2024/music/global/taylor-swift-munich-fans-outside-stadium-hilltop-crowds-1236088585/',
-      thumbnailUrl: null,
+      thumbnailUrl: 'https://consequence.net/wp-content/uploads/2024/07/Munich-Hill-Eras-Concert.jpeg',
       moment: {
         context:
           'Munich\'s Olympiastadion sits in a park below a hill with a clear sightline into the bowl — a vantage point no other stop on the tour offered — and for the July 27–28, 2024 shows the Olympiaberg filled with an estimated 40,000 people on the Saturday night alone, watching the whole three-hour production for free. On the Sunday, the tour\'s last night in Germany, she thanked them mid-show: "whether you\'re in the stadium or outside of the stadium... we are so lucky to be here with you."',
@@ -2078,6 +2110,30 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 4,
+          },
+        ],
+        // Photo-enrichment run 11 (2026-07-18, #762): page had zero photos.
+        // Both images verified HTTP 200 + image/jpeg, downloaded and
+        // vision-confirmed. The Consequence lead IS the moment — the
+        // Olympiaberg hillside completely covered in people above the stadium
+        // rim. Variety's Getty photo is Swift onstage at the same Munich stand
+        // (folklore-set green dress, hand on heart).
+        photos: [
+          {
+            url: 'https://consequence.net/wp-content/uploads/2024/07/Munich-Hill-Eras-Concert.jpeg',
+            credit: 'via Consequence',
+            caption: 'The Olympiaberg, packed with tens of thousands of ticketless fans, rising over the Olympiastadion rim during the July 2024 Munich shows.',
+            kind: 'primary',
+            // The crowded hillside crest sits upper-center; keep it in frame.
+            focalPoint: '55% 28%',
+          },
+          {
+            url: 'https://variety.com/wp-content/uploads/2024/07/GettyImages-2163970051-e1731290295821.jpg?w=990&h=563&crop=1',
+            credit: 'Getty Images (via Variety)',
+            caption: 'Hand on heart in the folklore set at the Olympiastadion — the stand where she thanked the "50,000 beautiful people outside the stadium."',
+            kind: 'archival',
+            // Face high in frame, just left of center.
+            focalPoint: '47% 15%',
           },
         ],
       },
@@ -2119,12 +2175,28 @@ export default {
         // T16 photo pass (2026-07-09): the shows never happened, so no event
         // photo can exist — a clearly-labeled reference image of the venue
         // per the audit's §A2 stand-in rule. Public domain, Wikimedia Commons.
+        // Photo-enrichment run 11 (2026-07-18, #762): added the aftermath that
+        // WAS photographable — fans gathered in Vienna's streets on Aug. 8 to
+        // sing together anyway. From TODAY's coverage on NBC's own CDN;
+        // verified HTTP 200 + image/jpeg, downloaded and vision-confirmed
+        // (crowd, friendship bracelets, raised phones and a gerbera).
+        // Focal points set per image by viewing.
         photos: [
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_social_share_1200x630_center,f_auto,q_auto:best/rockcms/2024-08/taylor-swift-concert-vienna-zz-240808-03-8b9e7e.jpg',
+            credit: 'Getty Images (via TODAY / NBC News)',
+            caption: 'Aug. 8, 2024: on the night the first show should have opened, fans filled Vienna\'s streets — friendship bracelets on, phones up — to sing her songs together anyway.',
+            kind: 'primary',
+            // The raised flower-and-phone cluster is the subject, mid-frame.
+            focalPoint: '50% 40%',
+          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Ernst-Happel-Stadion_02.jpg/960px-Ernst-Happel-Stadion_02.jpg',
             credit: 'Peter Gugerell, public domain, via Wikimedia Commons',
             caption: 'Reference image: Ernst Happel Stadium in Vienna, where all three sold-out shows were cancelled — the concerts themselves never took place.',
             kind: 'reference',
+            // Wide architecture panorama; the stadium bowl sits below the sky line.
+            focalPoint: '50% 58%',
           },
         ],
       },
@@ -2167,12 +2239,20 @@ export default {
         // endorsement coverage (the endorsement itself was an Instagram post,
         // whose cat portrait is not freely rehostable). Verified HTTP 200 +
         // image/jpeg; visually confirmed (Swift onstage, 2024).
+        // Photo-enrichment run 11 (2026-07-18, #762): deliberately left at one
+        // photo. The moment is an Instagram post whose image can't be
+        // rehosted, and the only candidates on approved CDNs (e.g. NBC's
+        // endorsement-story lead, a July 2024 tour file photo) are more
+        // off-moment file art that would add nothing over the existing one.
+        // Focal point set by viewing.
         photos: [
           {
             url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2024/09/11/edfca45c-3300-45c7-9daf-30c51d86fe4e/thumbnail/1200x630g2/528b3593333d50ff51e0e52340b1ca69/gettyimages-2166943469.jpg',
             credit: 'Getty Images (via CBS News)',
             caption: 'Swift in 2024 — the file photo CBS News ran with its coverage of the endorsement, which itself was an Instagram post.',
             kind: 'archival',
+            // Over-the-shoulder look to camera; face centered, eyes upper-middle.
+            focalPoint: '49% 38%',
           },
         ],
       },
@@ -2261,12 +2341,27 @@ export default {
         // T16 photo pass (2026-07-09): Getty ceremony photo from Rolling
         // Stone's own records coverage (first source above). Verified HTTP
         // 200 + image/jpeg; visually confirmed (Moon Person in hand, onstage).
+        // Photo-enrichment run 11 (2026-07-18, #762): added Billboard's frame
+        // of the Best Collaboration acceptance from the same night — a
+        // distinct outfit-and-podium moment from the silver-dress VOTY frame.
+        // Verified HTTP 200 + image/jpeg, downloaded and vision-confirmed.
+        // Focal points set per image by viewing.
         photos: [
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2024/09/taylor-record-for-VOY-awards.jpg?resize=1600%2C900',
             credit: 'Getty Images (via Rolling Stone)',
             caption: 'Accepting one of seven Moon Persons at the 2024 VMAs on Sept. 11, 2024 — including a record third straight Video of the Year.',
             kind: 'primary',
+            // Mid-laugh at the mic; face upper-center-left, trophy mid-frame.
+            focalPoint: '48% 20%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/09/taylor-swift-best-collab-mtv-vmas-2024-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images (via Billboard)',
+            caption: 'Accepting Best Collaboration for "Fortnight" in the plaid corset look — one of the seven wins that tied Beyoncé\'s all-time VMAs record.',
+            kind: 'archival',
+            // Face high, slightly left of center; Moon Person at chest height.
+            focalPoint: '47% 18%',
           },
         ],
       },
@@ -2317,12 +2412,28 @@ export default {
         // T16 photo pass (2026-07-09): product image of the book from
         // Variety's sales coverage (first source above). Verified HTTP 200 +
         // image/png; visually confirmed (the book itself).
+        // Photo-enrichment run 11 (2026-07-18, #762): added the in-store shot
+        // from Rolling Stone's sales story (second source above) — shrink-
+        // wrapped copies on a Target shelf with the "only at" Target rail,
+        // which is the actual Black Friday retail moment. Verified HTTP 200 +
+        // image/jpeg, downloaded and vision-confirmed. Focal points set per
+        // image by viewing.
         photos: [
           {
             url: 'https://variety.com/wp-content/uploads/2024/12/targetbook.png?w=1000',
             credit: 'Target (via Variety)',
             caption: 'The Eras Tour Book — 256 pages, $39.99, Target-exclusive, and 2024\'s biggest new-release print debut.',
             kind: 'primary',
+            // Product render on white; the book sits just left of center.
+            focalPoint: '48% 42%',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/12/eras-tour-book-copies.jpg?crop=0px%2C0px%2C1798px%2C1014px&resize=1600%2C900',
+            credit: 'via Rolling Stone',
+            caption: 'Shrink-wrapped copies in the Target aisle over Thanksgiving weekend 2024, when 814,000 sold in two days.',
+            kind: 'archival',
+            // The held cover dominates the left half; its figure reads upper-left.
+            focalPoint: '36% 25%',
           },
         ],
       },
