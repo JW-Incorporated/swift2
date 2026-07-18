@@ -195,6 +195,8 @@ export default {
       month: 4,
       day: 19,
       category: 'release',
+      significance: 'defining', // the surprise-drop format taken to its biggest scale yet (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp'],
       title: 'A 2am surprise: TTPD was a secret double album all along',
       snippet:
         'Two hours after the album dropped, a second post: "The Tortured Poets Department is a secret DOUBLE album." The Anthology added 15 more songs, 31 total.',
@@ -862,6 +864,11 @@ export default {
       month: 12,
       day: 8,
       category: 'tour',
+      significance: 'defining', // the bookend to the biggest tour of her career, and of all time (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
+        'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
+      ],
       title: 'The Eras Tour takes its final bow in Vancouver',
       snippet: 'BC Place, 149 shows and 21 months after Glendale — more than 50,000 fans for the last night of the tour.',
       sourceUrl: 'https://www.nbcnews.com/pop-culture/pop-culture-news/end-era-taylor-swifts-eras-tour-coming-close-vancouver-rcna183279',
@@ -2789,6 +2796,12 @@ export default {
     },
     {
       slug: 'masters-buyback-shamrock',
+      significance: 'defining', // the actual resolution of the defining business war of her career (docs/decisions.md, 2026-07-19)
+      threadIds: ['taylors-version'],
+      relatedIds: [
+        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+      ],
       year: 2025,
       month: 5,
       day: 30,

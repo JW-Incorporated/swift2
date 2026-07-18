@@ -7,6 +7,58 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-19 — Round 2: the next 10 career-defining events
+
+**Decision:** Follow-up to the first 10-event pass (same-day, separate PR
+`content/ten-defining-events`, #849): Joey asked for the next 10 most
+important events after that batch. Picked (again career-wide, keeping
+`'defining'` rare):
+
+1. Fearless (Taylor's Version) — first re-recorded album ever to hit #1
+   (2021-04-18, `evermore.mjs`)
+2. All Too Well (10 Minute Version) — longest song ever to hit #1
+   (2021-11-22, `evermore.mjs`)
+3. Midnights sweeps the entire Hot 100 top 10 (2022-11-05, `midnights.mjs`)
+4. The Eras Tour presale breaks Ticketmaster, leads to a Senate hearing
+   (2022-11-15, `midnights.mjs`)
+5. A record 4th Album of the Year Grammy, for Midnights (2024-02-04,
+   `midnights.mjs`)
+6. Super Bowl LVIII appearance — the relationship's biggest mainstream
+   crossover moment (2024-02-11, `midnights.mjs`)
+7. TTPD's 2am reveal as a secret double album (2024-04-19,
+   `tortured-poets.mjs`)
+8. The Eras Tour's Vancouver finale — first tour ever to gross $2 billion
+   (2024-12-08, `tortured-poets.mjs`)
+9. The masters buyback — "All of the music I've ever made... now belongs...
+   to me" (2025-05-30, `tortured-poets.mjs`)
+10. The engagement announcement (2025-08-26, `the-life-of-a-showgirl.mjs`)
+
+**Why these and not others:** each is a historic chart/industry record
+(first re-recorded #1, longest #1 song, entire top 10, 4th AOTY, first
+$2B tour), a genuine cultural/political flashpoint (the Ticketmaster
+Senate hearing), a mainstream-crossover peak (Super Bowl LVIII), or a
+direct narrative resolution of a round-1 event (the masters buyback closes
+the Big Machine sale; the engagement is the direct precursor to the
+wedding). 4 of the 10 already had a `MILESTONES` entry before this pass
+(Hot 100 sweep, TTPD released, Eras Tour finale, engagement announced); 6
+new entries were added to close the rest of the gap
+(`m-ever-2`, `m-ever-3`, `m-mid-1c`, `m-mid-3b`, `m-mid-3c`, `m-ttpd-3`).
+
+Cross-linked to each other and to round 1's items via `relatedIds` (e.g.
+the masters buyback → the Big Machine sale and the first Taylor's Version
+#1, closing that loop three items deep; the Super Bowl appearance → the
+Kelce-official moment → the engagement → the wedding, the full relationship
+arc across both rounds) and `threadIds` opt-ins (`taylors-version`,
+`the-proposal`) matching round 1's pattern.
+
+**Parallelization note:** since round 1 established the methodology
+(mechanical fields done directly, photo-sourcing delegated to
+`ask-chatgpt.mjs`, every candidate fact-checked with both curl and a real
+browser `Image()` load before merging — see the 2026-07-18 entries below),
+and this round's 10 items span 4 disjoint seed files with no shared lines,
+the photo-sourcing step was split into 3 parallel background passes (one
+per file group) instead of run serially, at Joey's request.
+
 ## 2026-07-18 — Content weighted by real-world significance, not incidental signals
 
 **Decision:** Added `ContentItem.significance?: 'defining' | 'notable'`
