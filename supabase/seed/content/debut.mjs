@@ -262,10 +262,16 @@ export default {
           {
             url: 'https://www.wideopencountry.com/wp-content/uploads/sites/4/2021/04/Untitled-design-241.png?fit=798%2C526',
             credit: 'Associated Press',
+            // Focal point set 2026-07-18 by viewing (798x526): face upper-left
+            // of center, sparkly guitar fills the lower half.
+            focalPoint: '34% 20%',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-performance-2007-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Ethan Miller/ACMA/Getty Images for ACMA',
+            // Focal point set 2026-07-18 by viewing (942x628): face top-center-left
+            // at the mic, koa guitar across the frame below.
+            focalPoint: '42% 16%',
           },
         ],
       },
@@ -662,6 +668,23 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/a5/Taylor_Swift_-_Picture_to_Burn_%28cover%29.png',
             credit: 'Big Machine Records (single cover art)',
+            // Focal point set 2026-07-18 by viewing (300x300): she sits against
+            // the door with her face upper-center-right, match in hand.
+            focalPoint: '58% 22%',
+          },
+          // Photo pass #762 (2026-07-18): still from the official Picture to
+          // Burn video (Trey Fanjoy) — Taylor fronting the band against the
+          // amp wall. oEmbed-verified the video (yCMqcFAigRg) belongs to the
+          // official @TaylorSwift channel; i.ytimg.com is YouTube's own CDN;
+          // curl 200 image/jpeg 640x480, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/yCMqcFAigRg/sddefault.jpg',
+            credit: 'Still from the official "Picture to Burn" music video (dir. Trey Fanjoy), Big Machine Records, via YouTube',
+            caption: 'Fronting the band against a wall of amps in the "Picture to Burn" video — the revenge fantasy that turned an after-school outburst into a single.',
+            kind: 'archival',
+            // Focal point set by viewing: her face sits just left of center,
+            // upper third, mic stand below.
+            focalPoint: '47% 32%',
           },
         ],
       },
@@ -918,6 +941,25 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
             credit: 'Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift, 2007 (archival, era context; not the Rascal Flatts tour)',
             kind: 'archival',
+            // Focal point set 2026-07-18 by viewing (1409x1995 portrait): her
+            // face is top-right; the framed gold record she holds fills the left.
+            focalPoint: '70% 14%',
+          },
+          // Photo pass #762 (2026-07-18): public-domain shot of 16-year-old
+          // Taylor at Phoenix International Raceway, EXIF-dated Nov. 12, 2006 —
+          // squarely inside the Me and My Gang fall leg she'd just joined,
+          // three weeks after the album dropped (era context; a NASCAR
+          // appearance, not a Flatts date). Commons license API-verified
+          // Public domain; curl 200 image/jpeg 873x660, vision-confirmed
+          // (2006 Nextel Cup stage branding, red skull cowboy boots).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG',
+            credit: 'Wikimedia Commons (public domain) — Taylor Swift at Phoenix International Raceway, Nov. 12, 2006',
+            caption: 'Sixteen years old, three weeks after the album release, waiting on a NASCAR stage in Phoenix mid-tour — sundress and red skull cowboy boots.',
+            kind: 'archival',
+            // Focal point set by viewing: she sits center frame, face just
+            // above middle.
+            focalPoint: '46% 30%',
           },
         ],
       },
@@ -961,6 +1003,25 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Strait tour)',
             kind: 'archival',
+            // Focal point set 2026-07-18 by viewing (1409x1995 portrait): face
+            // top-right, gold-record plaque held out to the left. Same value as
+            // this file's other occurrence (same image, same crop).
+            focalPoint: '70% 14%',
+          },
+          // Photo pass #762 (2026-07-18): a different frame from the same
+          // May 16, 2007 Cantoni set — in profile at the mic, koa Taylor
+          // guitar, white sundress; the look she toured behind the debut with
+          // that year (era context; not the Strait tour). Commons license
+          // API-verified CC BY 2.0; curl 200 image/jpeg 1786x2011, EXIF-dated
+          // 2007-05-16, vision-confirmed distinct from the plaque shot.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Taylor_Swift_at_Yahoo_2007_%282%29.jpg',
+            credit: 'Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, May 2007',
+            caption: 'Mid-song in profile, spring 2007 — deep in the opening-act year that started with the Strait arenas in January.',
+            kind: 'archival',
+            // Focal point set by viewing: face upper-left of the portrait
+            // frame, guitar neck running down-right.
+            focalPoint: '38% 18%',
           },
         ],
       },
@@ -1076,6 +1137,25 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
             credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
             kind: 'primary',
+            // Focal point set 2026-07-18 by viewing (500x500): her face sits
+            // center-right of the square cover, hair filling the frame.
+            focalPoint: '60% 35%',
+          },
+          // Photo pass #762 (2026-07-18): still from the official Teardrops on
+          // My Guitar video — one of the three era videos ("Tim McGraw,"
+          // "Teardrops," "Our Song") bundled on the deluxe edition's DVD, which
+          // is the page's actual artifact. oEmbed-verified the video
+          // (xKCek6_dB0M) belongs to the official @TaylorSwift channel;
+          // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 640x480,
+          // downloaded and vision-confirmed (the bedroom close-up scene).
+          {
+            url: 'https://i.ytimg.com/vi/xKCek6_dB0M/sddefault.jpg',
+            credit: 'Still from the official "Teardrops on My Guitar" music video (dir. Trey Fanjoy), Big Machine Records, via YouTube',
+            caption: 'The "Teardrops on My Guitar" video — one of the three era videos bundled on the deluxe edition\'s DVD.',
+            kind: 'archival',
+            // Focal point set by viewing: face right of center, guitar neck
+            // up the left edge.
+            focalPoint: '62% 35%',
           },
         ],
       },
@@ -1110,6 +1190,23 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/ba/Beautiful_Eyes.png',
             credit: 'Big Machine Records (EP cover art)',
             kind: 'primary',
+            // Focal point set 2026-07-18 by viewing (300x300): face upper-left
+            // against the orange floral background, red gerbera lower right.
+            focalPoint: '35% 25%',
+          },
+          // Photo pass #762 (2026-07-18): live shot from Joliet, IL,
+          // Feb. 8, 2008 — the EP-year era, headset mic and koa Taylor
+          // guitar, months before the July 15 Walmart release. Commons
+          // license API-verified CC BY-SA 3.0 (Adam Bielawski); curl 200
+          // image/jpeg 800x536, downloaded and vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/dd/TaylorSwift_080208_photoby_Adam-Bielawski.jpg',
+            credit: 'Adam Bielawski, Wikimedia Commons (CC BY-SA 3.0) — Taylor Swift performing in Joliet, IL, February 2008',
+            caption: 'On stage in early 2008 — the stopgap-EP year, still touring the debut while Fearless waited in November.',
+            kind: 'archival',
+            // Focal point set by viewing: face top-center, guitar across the
+            // lower half of the frame.
+            focalPoint: '50% 22%',
           },
         ],
       },
@@ -1158,6 +1255,24 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
             credit: 'Big Machine Records (single cover art)',
+            // Focal point set 2026-07-18 by viewing (300x300): she leans
+            // against the vintage truck on the left; face upper-left third.
+            focalPoint: '28% 35%',
+          },
+          // Photo pass #762 (2026-07-18): still from the official Tim McGraw
+          // video (Trey Fanjoy, shot at a Hendersonville cabin once owned by
+          // Johnny Cash) — the close-up that opens the song's daydream.
+          // oEmbed-verified the video (GkD20ajVxnY) belongs to the official
+          // @TaylorSwift channel; i.ytimg.com is YouTube's own CDN; curl 200
+          // image/jpeg 640x480, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/GkD20ajVxnY/sddefault.jpg',
+            credit: 'Still from the official "Tim McGraw" music video (dir. Trey Fanjoy), Big Machine Records, via YouTube',
+            caption: 'The debut video\'s dreamlike close-up — a 16-year-old\'s first single, premiered a month after the song hit radio.',
+            kind: 'archival',
+            // Focal point set by viewing: her face fills the frame, eyes just
+            // above center-left.
+            focalPoint: '47% 42%',
           },
         ],
       },
@@ -1203,6 +1318,23 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
             credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
+            // Focal point set 2026-07-18 by viewing (500x500): her face sits
+            // center-right of the square cover, hair filling the frame.
+            focalPoint: '60% 35%',
+          },
+          // Photo pass #762 (2026-07-18): live shot dated Aug. 10, 2007 —
+          // the album's marathon chart run in progress, played one market at
+          // a time. Commons license API-verified CC BY-SA 2.0 (minds-eye);
+          // curl 200 image/jpeg 819x546, downloaded and vision-confirmed
+          // (black stage outfit, pink-cross guitar strap, koa Taylor).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg',
+            credit: 'minds-eye, Wikimedia Commons (CC BY-SA 2.0) — Taylor Swift performing live, August 2007',
+            caption: 'Ten months after release and still on the road — the album sold one market at a time across a 157-week chart run.',
+            kind: 'archival',
+            // Focal point set by viewing: face top-center, guitar body across
+            // the lower left.
+            focalPoint: '48% 18%',
           },
         ],
       },
@@ -1333,6 +1465,25 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/4e/Taylor_Swift_-_Our_Song.png',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
+            // Focal point set 2026-07-18 by viewing (300x300): she sits atop
+            // school desks in front of the chalkboard; face upper-center.
+            focalPoint: '45% 20%',
+          },
+          // Photo pass #762 (2026-07-18): still from the official Our Song
+          // video (Trey Fanjoy) — the flower-bed scene from the video that
+          // topped CMT's rotation for seven weeks and won Video of the Year
+          // at the 2008 CMT Music Awards. oEmbed-verified the video
+          // (Jb2stN7kH28) belongs to the official @TaylorSwift channel;
+          // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 640x480,
+          // downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/Jb2stN7kH28/sddefault.jpg',
+            credit: 'Still from the official "Our Song" music video (dir. Trey Fanjoy), Big Machine Records, via YouTube',
+            caption: 'The flower-bed scene from the "Our Song" video — CMT\'s No. 1 video for seven straight weeks, and its 2008 Video of the Year.',
+            kind: 'archival',
+            // Focal point set by viewing: face just right of center against
+            // the wall of roses.
+            focalPoint: '55% 48%',
           },
         ],
       },
@@ -1379,6 +1530,25 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
             credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
             kind: 'primary',
+            // Focal point set 2026-07-18 by viewing (500x500): her face sits
+            // center-right of the square cover, hair filling the frame.
+            focalPoint: '60% 35%',
+          },
+          // Photo pass #762 (2026-07-18): the song's story (written at 12,
+          // about being the outsider) predates any public photography, so the
+          // era-context add is the payoff shot instead — the girl from the
+          // lunch-table song performing to a crowd at 17. Third distinct
+          // frame from the May 16, 2007 Cantoni Yahoo-HQ set. Commons license
+          // API-verified CC BY 2.0; curl 200 image/jpeg 2816x2112, EXIF-dated
+          // 2007-05-16, vision-confirmed (sunglasses, white sundress).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/47/TaylorSwift4.jpg',
+            credit: 'Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, May 2007',
+            caption: 'Five years after writing "The Outside" alone at 12, the outsider is the one on stage — May 2007.',
+            kind: 'archival',
+            // Focal point set by viewing: face upper-center behind the mic,
+            // koa guitar across the middle.
+            focalPoint: '48% 22%',
           },
         ],
       },
