@@ -1832,7 +1832,7 @@ export default {
         "Nine years later, the re-recording debuted atop the Billboard 200 with 605,000 units — 2021's biggest sales week for any album to that point, her tenth No. 1, and the fastest run to four chart-toppers by a solo artist, breaking Elton John's 1975 record.",
       sourceUrl: 'https://www.billboard.com/music/chart-beat/taylor-swift-tenth-number-one-album-billboard-200-red-taylors-version-1235000860/',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
       moment: {
         context:
           'Of the 605,000 first-week units (week ending Nov. 18, 2021), 369,000 were pure album sales — 2021\'s biggest sales week for any album to that point, a mark Adele\'s 30 topped a week later — including 114,000 on vinyl, at the time the largest vinyl sales week of the modern chart era. The 30-track set, including nine from-the-vault songs and the 10-minute "All Too Well," gave Swift her tenth Billboard 200 No. 1 and made her the fastest solo artist ever to notch four chart-toppers, in under 16 months — breaking a 46-year-old Elton John record.\n\nThe streaming side told the same story: 303 million on-demand streams, the biggest streaming week ever recorded for a country album. The tenth No. 1 also put her in company only Barbra Streisand (with 11) had reached among women — a chart footnote that doubled as vindication for the re-recording project itself.',
@@ -1867,7 +1867,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png/250px-Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
           },
         ],
