@@ -256,18 +256,23 @@ export default {
             url: 'https://www.billboard.com/music/awards/taylor-swift-wins-album-of-the-year-2021-grammy-awards-folklore-9540496/',
           },
         ],
+        // Photo-enrichment run 16 (2026-07-18, #762): focal points only — the
+        // page already carries two distinct verified photos. Both downloaded
+        // and viewed this session; values set per image, by eye.
         photos: [
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg',
             credit: 'Kevin Mazur/Getty Images for The Recording Academy',
             caption: 'At the 63rd Grammy Awards, March 14, 2021, where folklore won Album of the Year.',
             kind: 'primary',
+            focalPoint: '53% 22%',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Winter/Getty Images for The Recording Academy',
             caption: 'Accepting the Album of the Year Grammy — her third, a first for any woman.',
             kind: 'primary',
+            focalPoint: '45% 25%',
           },
         ],
       },
@@ -560,6 +565,19 @@ export default {
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The flame imagery of the official "mad woman" lyric video.',
             kind: 'archival',
+            focalPoint: '50% 55%',
+          },
+          // Photo-enrichment run 16 (2026-07-18, #762): clearly-labeled
+          // CC BY 2.0 Commons reference photo of Aaron Dessner, the song's
+          // named co-writer/producer. License verified via the Commons API
+          // (photographer Bruce Baker), URL verified HTTP 200 + image/jpeg,
+          // downloaded and visually confirmed. Per-image focal points by eye.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/17/Aaron_Dessner_%28March_25%2C_2016%29.jpg',
+            credit: 'Bruce Baker (CC BY 2.0), via Wikimedia Commons',
+            caption: 'For reference — Aaron Dessner, who co-wrote and produced "mad woman," on stage in March 2016.',
+            kind: 'reference',
+            focalPoint: '44% 33%',
           },
         ],
       },
@@ -587,6 +605,19 @@ export default {
             credit: 'Thomas R Machnitzki (CC BY 3.0), via Wikimedia Commons',
             caption: 'Centennial Park in Nashville — the park named in the song\'s opening verse.',
             kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          // Photo-enrichment run 16 (2026-07-18, #762): CC BY 4.0 Commons
+          // panorama of the Parthenon replica on the park's lawn — the setting
+          // of the song's opening line. License verified via the Commons API
+          // (photographer Euthman), 1280px stable thumb verified HTTP 200 +
+          // image/jpeg, downloaded and visually confirmed. Focal points by eye.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/The_Parthenon_replica%2C_Centennial_Park%2C_Nashville%2C_Tennessee.jpg/1280px-The_Parthenon_replica%2C_Centennial_Park%2C_Nashville%2C_Tennessee.jpg',
+            credit: 'Euthman (CC BY 4.0), via Wikimedia Commons',
+            caption: 'The Parthenon on Centennial Park\'s lawn — "green was the color of the grass where I used to read at Centennial Park."',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
