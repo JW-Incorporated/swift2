@@ -4,5 +4,8 @@
   "scheduledAt": "2026-07-17T00:00:00Z",
   "approvedBy": "joey",
   "approvedAt": "2026-07-18T02:00:00Z",
-  "campaign": "pipeline-test"
+  "campaign": "pipeline-test",
+  "attempts": 1,
+  "lastError": "Unknown platform \"test-verify-only\"",
+  "lastAttemptAt": "2026-07-18T02:27:13.739Z"
 }
