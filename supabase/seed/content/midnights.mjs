@@ -37,7 +37,27 @@ export default {
             url: 'https://www.iheart.com/content/2022-10-20-celebrate-midnights-with-taylor-swift-on-iheartradio/',
           },
         ],
-        photos: [{ url: 'https://i.iheart.com/v3/re/new_assets/6351759fded3848f2718dc48', credit: 'iHeart' }],
+        // Photo-enrichment pass (2026-07-18, #762): added iHeartRadio's own
+        // promo graphic for this exact takeover from the same article
+        // (i.iheart.com CDN, 1200px) — the campaign creative with the
+        // nightly code-word contest the page describes. Both images verified
+        // HTTP 200 + image/jpeg, downloaded, and visually confirmed this
+        // session.
+        photos: [
+          {
+            url: 'https://i.iheart.com/v3/re/new_assets/6351759fded3848f2718dc48',
+            credit: 'iHeart',
+            focalPoint: '58% 43%',
+          },
+          {
+            url: 'https://i.iheart.com/v3/re/new_assets/6351b3beded3848f2718dc4c',
+            credit: 'iHeartRadio',
+            caption:
+              "iHeartRadio's promo for the six-night takeover — listen for a code word at midnight, enter to win signed merch.",
+            kind: 'archival',
+            focalPoint: '72% 40%',
+          },
+        ],
       },
     },
     {
