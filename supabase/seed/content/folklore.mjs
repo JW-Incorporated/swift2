@@ -808,6 +808,7 @@ export default {
     // New items carry the audit's additive provenance fields.
     {
       slug: 'folklore-sixteen-hour-announcement',
+      significance: 'defining', // the pandemic-era reinvention that reshaped how she releases music (docs/decisions.md, 2026-07-19)
       year: 2020,
       month: 7,
       day: 23,
@@ -817,9 +818,15 @@ export default {
         '"Most of the things I had planned this summer didn\'t end up happening, but there is something I hadn\'t planned on that DID happen" — posted the morning of July 23, 2020. The album arrived at midnight.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
       thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+      ],
       moment: {
+        // Third paragraph added 2026-07-19 (found in review): the item
+        // claimed a reinvention without substantiating its impact, just
+        // announcement mechanics — this backs the claim with real reception.
         context:
-          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — with the "cardigan" video, shot under pandemic protocols, dropping alongside it at midnight. The announcement came dressed as its own reveal: a grid of captionless black-and-white forest photographs from the Beth Garrabrant cover shoot, posted with no advance warning of any kind.\n\nThe rollout compression extended to retail — deluxe CDs and vinyl in alternate covers went up only through her own website — and the no-lead-time surprise drop became a template she would reuse for evermore five months later.',
+          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — with the "cardigan" video, shot under pandemic protocols, dropping alongside it at midnight. The announcement came dressed as its own reveal: a grid of captionless black-and-white forest photographs from the Beth Garrabrant cover shoot, posted with no advance warning of any kind.\n\nThe rollout compression extended to retail — deluxe CDs and vinyl in alternate covers went up only through her own website — and the no-lead-time surprise drop became a template she would reuse for evermore five months later.\n\nThe reinvention landed as intended: Rolling Stone called it "her greatest album — so far," a "total goth-folk" turn away from radio hits and stadium-friendly material into her most emotionally ambitious songwriting yet, and later named it the best album of 2020 outright — the same year it broke the magazine\'s record for most consecutive weeks at Number One on the Rolling Stone 200.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -829,6 +836,24 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-folklore-surprise-album-1033102/',
+            source_title: 'Taylor Swift Finally Abandoned the Traditional Album Rollout',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/',
+            source_title: "Taylor Swift's 'Folklore': Rob Sheffield Reviews the Album",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
           },
         ],
         // Real-photo pass (2026-07-09): official album cover — the image the
@@ -845,6 +870,39 @@ export default {
             caption: 'The cover art revealed in the July 23, 2020 announcement post.',
             kind: 'primary',
             focalPoint: '48% 70%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // real, verified photos from the actual announcement post and the
+          // Beth Garrabrant forest shoot that introduced the album.
+          {
+            url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Taylor Swift/Instagram, via The Guardian',
+            caption: 'The black-and-white forest montage Swift posted with the July 23 surprise announcement for folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/74cae4f3a285b8a8638cfbc76355b2f0c0db29c5/0_54_1737_1385/master/1737.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Beth Garrabrant/Stoke PR, via The Guardian',
+            caption: 'A Beth Garrabrant black-and-white portrait from the forest shoot used to introduce folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5f1b15f8562110dad1181c8f/master/w_2560%2Cc_limit/taylor-swift-new-album-lede.jpg',
+            credit: 'Beth Garrabrant, via Vanity Fair',
+            caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Swift in the album\'s woodland setting.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5f22f28283d239dce41f81b1/master/w_2560%2Cc_limit/Screenshot%25202020-07-30%2520at%252012.16.56%2520PM.png',
+            credit: 'Taylor Swift/YouTube, via Vanity Fair',
+            caption: 'A frame from the self-directed "cardigan" video, released at midnight alongside folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/6f8132a91d5eaf50614417ced6bee7903341fd46/0_0_1482_1958/master/1482.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'TAS Rights Management, via The Guardian',
+            caption: 'Swift wears the signature knit cardigan in a release-period promotional image for the video and album.',
+            kind: 'primary',
           },
         ],
       },

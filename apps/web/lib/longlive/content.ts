@@ -875,6 +875,10 @@ export const MILESTONES: Milestone[] = [
   { id: 'm-89-1', eraId: '1989', date: '2014-10-27', label: '1989 released', kind: 'album' },
   { id: 'm-89-2', eraId: '1989', date: '2015-05-05', label: '1989 World Tour', kind: 'tour' },
   { id: 'm-89-3', eraId: '1989', date: '2016-02-15', label: 'Album of the Year', kind: 'award' },
+  // Added 2026-07-19 alongside the 10-defining-events pass (docs/decisions.md)
+  // — the Kimye "Famous" call leak was already the era's defining flashpoint
+  // in the seed data (significance: 'defining') but had no scrubber marker.
+  { id: 'm-89-4', eraId: '1989', date: '2016-07-17', label: 'The call leaks', kind: 'life' },
   { id: 'm-rep-1', eraId: 'reputation', date: '2017-11-10', label: 'reputation released', kind: 'album' },
   { id: 'm-rep-2', eraId: 'reputation', date: '2018-05-08', label: 'Stadium Tour', kind: 'tour' },
   { id: 'm-lov-1', eraId: 'lover', date: '2019-06-30', label: 'Masters sold', kind: 'business' },
@@ -885,6 +889,10 @@ export const MILESTONES: Milestone[] = [
   { id: 'm-mid-1', eraId: 'midnights', date: '2022-10-21', label: 'Midnights released', kind: 'album' },
   { id: 'm-mid-1b', eraId: 'midnights', date: '2022-11-05', label: 'Entire top ten', kind: 'award' },
   { id: 'm-mid-2', eraId: 'midnights', date: '2023-03-17', label: 'Eras Tour begins', kind: 'tour' },
+  // Added 2026-07-19 alongside the 10-defining-events pass (docs/decisions.md)
+  // — same gap as m-89-4: significance: 'defining' in the seed data, no
+  // scrubber marker until now.
+  { id: 'm-mid-2b', eraId: 'midnights', date: '2023-09-24', label: 'Relationship goes public', kind: 'life' },
   { id: 'm-mid-3', eraId: 'midnights', date: '2023-10-13', label: 'Eras Tour film', kind: 'tour' },
   { id: 'm-ttpd-1', eraId: 'ttpd', date: '2024-04-19', label: 'TTPD released', kind: 'album' },
   { id: 'm-ttpd-2', eraId: 'ttpd', date: '2024-12-08', label: 'Eras Tour finale', kind: 'tour' },

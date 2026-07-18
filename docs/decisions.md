@@ -7,6 +7,91 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-19 — The 10 career-defining events, picked and deepened
+
+**Decision:** Joey asked for the 10 most important events in Taylor's whole
+career/life to be identified and given materially more depth than the rest
+of the site — the most photos, the most content, the most cross-linking —
+building on the `significance` system from the day before. Picked (career-
+wide, not per-era, keeping `'defining'` rare per `docs/content-ops/depth-
+rubric.md`):
+
+1. Debut album arrives (2006-10-24, `debut.mjs`)
+2. Kanye West interrupts her VMA speech (2009-09-13, `fearless.mjs`)
+3. Fearless wins Album of the Year, youngest ever (2010-01-31, `fearless.mjs`)
+4. 1989 wins AOTY — first woman to win it twice (2016-02-15, `1989.mjs`)
+5. The Kimye "Famous" call leak / cancellation saga (2016-07-17, `1989.mjs`)
+6. Scooter Braun buys Big Machine — the masters fight (2019-06-30, `lover.mjs`)
+7. folklore surprise-drops mid-pandemic (2020-07-23, `folklore.mjs`)
+8. The Eras Tour opens in Glendale (2023-03-17, `midnights.mjs`)
+9. Travis Kelce relationship goes public/official (2023-09-24, `midnights.mjs`)
+10. Wedding at Madison Square Garden (2026-07-03, `the-life-of-a-showgirl.mjs`)
+
+Items 1–9 were newly marked `significance: 'defining'` in this pass; item 10
+(`msg-wedding`) already carried it from the 2026-07-18 decision, alongside
+`showgirl-release-day` (album release day) which stays the era's second
+`'defining'` item and isn't re-litigated here.
+
+**Why these and not others:** each is either a historic institutional record
+(youngest/first/most Grammy AOTY wins), a genuine cultural rupture that
+reshaped how the public related to her (VMA interruption, the Kimye leak,
+the masters fight), a documented reinvention of her artistic path
+(folklore), or an economic/cultural phenomenon at a scale nothing else in
+the catalog matches (the Eras Tour). Deliberately left out to keep
+`'defining'` rare: the engagement (Aug 2025), the 4th Grammy AOTY record
+(Feb 2024), Red's and reputation's own releases — all genuinely big, but
+less likely than the 10 above to be the ones a fan names five years out.
+
+8 of the 10 already had a `MILESTONES` entry (`content.ts`) before this
+pass, independently confirming they were already treated as each era's
+landmark moment; 2 new entries were added (`m-89-4` for the Kimye leak,
+`m-mid-2b` for the Kelce relationship going public) to close that gap.
+
+Cross-linked the 10 to each other via `relatedIds` (`moment:vault-<eraId>-
+<slug>`) wherever a real narrative connection exists (e.g. the VMA
+interruption → the Kimye leak → reputation's snake/LWYMMD items; the
+Kelce-official moment → the engagement → the wedding; the Big Machine sale
+→ the `taylors-version` thread's own re-recording milestones), and added
+`threadIds` opt-ins (`taylors-version` on the Big Machine sale,
+`the-proposal` on the Kelce-official moment) so each is reachable from the
+relevant thread, not just its own era.
+
+**Correction (found in Codex review, 2026-07-19):** the `moment:` cross-
+links above are seeded data only, not yet a working UI feature — this was
+described as "cross-linking" without checking that `lib/longlive/
+related.ts`'s `motifTargetOf` only resolves `motif:`/`egg:` relatedIds; a
+`moment:` reference is silently inert (`RelatedId`'s own doc in `types.ts`
+already anticipates this: "the content lane can populate these
+incrementally without breaking anything"). The data itself is real,
+correct, and follows the documented convention, so it's left in place as
+seed data for when that UI exists — see issue #851 for the actual
+resolution/rendering work, not scoped into this content pass.
+`threadIds` opt-ins ARE fully functional today (`contentForThread`
+already reads them), unaffected by this.
+
+Photo depth: no ceiling for these 10 items (correction from an initial
+5–8-photo cap, Joey, 2026-07-19) — every real, distinct, verifiable photo
+available for each, not a capped sample; quality/authenticity still governs,
+just not quantity. Sourced via the standard bulk-content-delegation pipeline
+(`docs/briefs/defining-events-2026-07-19-brief.md`,
+`node scripts/ask-chatgpt.mjs`) — every URL fact-checked before merging,
+never taken on the draft's word.
+
+**Verification-method finding:** curl (`HTTP 200` + `image/*` content-type)
+is not sufficient to confirm a hotlinked photo will actually render.
+`ca-times.brightspotcdn.com` (LA Times' CDN) returned a real, full-size
+image to curl for every URL checked, but serves a 1×1 placeholder PNG to
+real browser requests — Referer-based hotlink protection that curl's
+default (no-Referer) request doesn't trigger. Caught by loading every URL
+as a real `Image()` in the browser and checking `naturalWidth` — 6 of 66
+photos in this pass (all `ca-times.brightspotcdn.com`, spanning 3 items)
+failed this way and were removed; every other domain used (WRAL, The
+Guardian, TIME, Glamour, Wikimedia Commons, Vanity Fair, Teen Vogue, FOX 11,
+Las Vegas Review-Journal, TMZ) tested clean. **Going forward: curl-verify
+first to filter obvious 404s, but always confirm final candidates with a
+real browser image load before shipping** — this generalizes to any future
+hotlinked-photo sourcing pass, not just this one.
+
 ## 2026-07-18 — Content weighted by real-world significance, not incidental signals
 
 **Decision:** Added `ContentItem.significance?: 'defining' | 'notable'`

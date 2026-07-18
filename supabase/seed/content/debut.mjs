@@ -1279,6 +1279,8 @@ export default {
     },
     {
       slug: 'taylor-swift-album-release',
+      significance: 'defining', // the origin of the whole 20-year catalog (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for'],
       year: 2006,
       month: 10,
       day: 24,
@@ -1335,6 +1337,40 @@ export default {
             // Focal point set by viewing: face top-center, guitar body across
             // the lower left.
             focalPoint: '48% 18%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // real, verified radio-tour photos from her fall 2006 Athens Drive
+          // High School visit while promoting the debut. Curl 200 image/jpeg,
+          // sourced via WRAL's 2023 retrospective.
+          {
+            url: 'https://images.wral.com/asset/entertainment/2023/10/03/21079762/3196033-TSwift3-DMID1-60h14ptlf-640x360.jpg',
+            credit: 'Submitted photo, via WRAL',
+            caption: 'Swift performs for students at Athens Drive High School in Raleigh during her fall 2006 debut-album radio tour.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://images.wral.com/asset/entertainment/2023/10/03/21079771/3195989-TSwift_at_ADHS2-DMID1-60gyrf86l-640x360.jpg',
+            credit: 'Submitted photo, via WRAL',
+            caption: 'Swift poses with Athens Drive students after playing songs from her first album at the school in fall 2006.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://images.wral.com/asset/entertainment/2023/10/03/21079653/3195973-TSwift_pic_cropped-DMID1-60gxv2dvw-640x360.jpg',
+            credit: 'Athens Drive High School, via WRAL',
+            caption: 'Swift poses with student Josh Boatwright after her stripped-down Athens Drive High School show in 2006.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://images.wral.com/asset/entertainment/2023/10/06/21084702/3196262-TSwift_pic2-DMID1-60i4g7bch-640x360.jpg',
+            credit: 'Contributed photo, via WRAL',
+            caption: 'Swift poses with fans at Athens Drive High School while promoting her self-titled debut in 2006.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://images.wral.com/asset/entertainment/2023/10/04/21081502/3196088-TSwift5-DMID1-60hd13tr0-640x360.jpg',
+            credit: 'Submitted photo, via WRAL',
+            caption: 'Swift meets another group of students after her fall 2006 Athens Drive High School performance.',
+            kind: 'archival',
           },
         ],
       },

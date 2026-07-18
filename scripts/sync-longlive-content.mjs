@@ -57,7 +57,11 @@ const MONTHS = [
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
 
-function slugify(title) {
+// Exported so validate-content.mjs can compute the same vault ids this
+// script generates, to check moment: relatedIds actually resolve (found in
+// review, 2026-07-19 — a wrong eraId prefix here previously shipped silently,
+// since relatedIds resolution is best-effort and never errors at runtime).
+export function slugify(title) {
   return title
     .toLowerCase()
     .replace(/['’"]/g, '')

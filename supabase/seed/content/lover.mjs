@@ -2087,6 +2087,13 @@ export default {
     },
     {
       slug: 'big-machine-sale-worst-case-scenario',
+      significance: 'defining', // reshaped the whole industry's masters conversation, launched Taylor's Version (docs/decisions.md, 2026-07-19)
+      threadIds: ['taylors-version'],
+      relatedIds: [
+        'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+        'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
+        'moment:vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d',
+      ],
       year: 2019,
       month: 6,
       day: 30,
@@ -2150,6 +2157,35 @@ export default {
               "The two sides of the fight, in Billboard's art for its feud timeline — later photos of Braun and Swift, not from the 2019 sale.",
             kind: 'reference',
             focalPoint: '50% 30%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // real, verified photos from the surrounding news cycle — no photo
+          // op exists for the sale itself, so this is the era's actual
+          // documented fallout, same convention as the reference photo above.
+          {
+            url: 'https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Richard Shotwell/Invision/AP, via The Guardian',
+            caption: 'A contemporaneous reference image shows Swift arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.',
+            kind: 'reference',
+          },
+          // Two ca-times.brightspotcdn.com (LA Times) candidates were dropped
+          // here 2026-07-19: curl returned 200 + real image bytes, but the
+          // CDN serves a 1x1 placeholder to actual browser requests
+          // (Referer-based hotlink protection) — caught only by testing in
+          // a real browser (naturalWidth === 1), not by curl. See
+          // docs/decisions.md for the full note; every other domain in this
+          // pass tested clean.
+          {
+            url: 'https://media.vanityfair.com/photos/5ddb4a90d223c300093e7f42/master/w_2560%2Cc_limit/taylor-swift-ama-perfomance.jpg',
+            credit: 'JC Olivera/Getty Images, via Vanity Fair',
+            caption: 'Swift accepts Artist of the Decade at the 2019 American Music Awards amid the public dispute over performing her Big Machine-era songs.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Kevin Mazur/Getty Images for ABA, via The Guardian',
+            caption: 'Swift performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',
+            kind: 'archival',
           },
         ],
       },

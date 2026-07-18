@@ -92,11 +92,21 @@ describe('contentForThread', () => {
     }
   });
 
-  it('returns an empty array for a thread with no tagged content yet', () => {
-    // 'the-proposal' content today lives only in PROPOSAL_BEATS (lenses.ts),
-    // not as tagged ContentItems — this documents the current gap rather
-    // than asserting it should stay empty forever.
-    expect(contentForThread('the-proposal')).toEqual([]);
+  it('returns items explicitly opted into the-proposal thread', () => {
+    // 'the-proposal' content used to live only in PROPOSAL_BEATS (lenses.ts).
+    // The 10-defining-events pass (docs/decisions.md, 2026-07-19) opted the
+    // Kelce-official moment in as a tagged ContentItem, closing that gap.
+    const items = contentForThread('the-proposal');
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.threadIds).toContain('the-proposal');
+    }
+    // Pinned to the specific item (found in review, 2026-07-19) — the loop
+    // above alone would still pass if this exact item's tag were dropped and
+    // an unrelated item were tagged instead.
+    expect(items.some((item) => item.id === 'vault-midnights-the-game-the-world-decided-made-it-official')).toBe(
+      true,
+    );
   });
 });
 
@@ -142,8 +152,9 @@ describe('contentForThreadInEra', () => {
     }
   });
 
-  it('returns an empty array for a thread with no tagged content in any era', () => {
-    // Same gap documented above for contentForThread('the-proposal').
+  it('returns an empty array for an era the thread has no tagged content in', () => {
+    // the-proposal's only tagged item (added 2026-07-19, docs/decisions.md)
+    // is in the midnights era — debut genuinely has none.
     expect(contentForThreadInEra('the-proposal', 'debut')).toEqual([]);
   });
 });
