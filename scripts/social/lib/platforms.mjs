@@ -99,3 +99,30 @@ async function publishContainer(base, accessToken, creationId) {
   if (!res.ok) throw new Error(`Instagram publish failed: ${JSON.stringify(body)}`);
   return { id: body.id, url: `https://www.instagram.com/longlivetscom/` };
 }
+
+/**
+ * Posts to the linked Facebook Page's own feed. This is a genuinely separate
+ * post, not a cross-post flag — Instagram's Graph API has no "also share to
+ * Facebook" parameter for automated posts (that toggle is native-app-only),
+ * so an Instagram publish and a Facebook Page publish are always two
+ * independent API calls. Requires the Page token to carry `pages_manage_posts`
+ * (the read-only pages_show_list/pages_read_engagement scopes set up for
+ * Instagram publishing do not cover writing to the Page's feed).
+ */
+export async function postToFacebookPage(item, creds, mediaBaseUrl) {
+  if (!item.media?.length) throw new Error('Facebook Page posts require at least one image in `media`.');
+
+  const base = `https://graph.facebook.com/${GRAPH_VERSION}/${creds.facebookPageId}`;
+  const res = await fetch(`${base}/photos`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      url: `${mediaBaseUrl}${item.media[0]}`,
+      caption: item.body,
+      access_token: creds.accessToken,
+    }),
+  });
+  const body = await res.json();
+  if (!res.ok) throw new Error(`Facebook Page post failed: ${JSON.stringify(body)}`);
+  return { id: body.post_id ?? body.id, url: `https://www.facebook.com/${body.post_id ?? body.id}` };
+}

@@ -57,6 +57,21 @@ repo secrets `IG_ACCESS_TOKEN`, `IG_BUSINESS_ACCOUNT_ID`. X image/video
 posting isn't implemented yet (text-only) — Instagram carries all media
 posts until that's built.
 
+**Facebook Page cross-posting (2026-07-17):** every Instagram post also
+posts to the linked Facebook Page's own feed as a genuinely separate post —
+the Graph API has no "also share to Facebook" flag for automated posts, so
+this is a second real API call (`postToFacebookPage` in
+`scripts/social/lib/platforms.mjs`), not a toggle. It's best-effort: a
+Facebook failure is logged loudly but never fails or retries the Instagram
+post it rode in on, since that one already succeeded and is the thing the
+founder actually approved. Requires `FB_PAGE_ID` (the Page's numeric ID —
+not sensitive, safe as a plain secret) and the *same* `IG_ACCESS_TOKEN`
+regenerated to include the `pages_manage_posts` scope (the original
+Instagram-only permission set — `instagram_basic`, `instagram_content_publish`,
+`pages_read_engagement`, `business_management`, `pages_show_list` — is all
+read-oriented for Pages and doesn't cover writing to the Page's feed).
+Omitting `FB_PAGE_ID` entirely skips cross-posting with no error.
+
 ## Founder-notification buckets (reuse the existing system — never invent a new channel)
 
 - **Draft post approvals** → the Founders' Brief (6 AM / 8 PM delta) under a
