@@ -46,10 +46,18 @@ export function ZoomableImage({
   src,
   alt,
   unoptimized,
+  fit = 'cover',
+  frameClassName = 'aspect-[4/3]',
 }: {
   src: string;
   alt: string;
   unoptimized?: boolean;
+  /** 'cover' fills the frame (inline cards); 'contain' shows the whole photo
+   *  (fullscreen lightbox). At >1× the pan clamp is tuned for cover, so at
+   *  contain a hard zoom can drift slightly into the letterbox — acceptable. */
+  fit?: 'cover' | 'contain';
+  /** Sizing for the viewer frame; defaults to the inline 4:3 card. */
+  frameClassName?: string;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -257,7 +265,7 @@ export function ZoomableImage({
   return (
     <div
       ref={containerRef}
-      className="relative aspect-[4/3] select-none overflow-hidden"
+      className={`relative ${frameClassName} select-none overflow-hidden`}
       style={{ touchAction: 'pan-y', cursor: 'zoom-in' }}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
@@ -275,7 +283,7 @@ export function ZoomableImage({
           fill
           unoptimized={unoptimized}
           draggable={false}
-          className="object-cover"
+          className={fit === 'contain' ? 'object-contain' : 'object-cover'}
         />
       </div>
     </div>
