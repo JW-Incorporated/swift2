@@ -629,7 +629,8 @@ export default {
         'The U.S. goodbye at Lucas Oil Stadium — the building\'s concert attendance record falls on night one, again on night two, and again on night three. 207,000 fans over one weekend.',
       sourceUrl:
         'https://www.wthr.com/article/entertainment/music/taylor-swift-eras-tour-indianapolis-night-3-third-concert-lucas-oil-stadium-us-stop/531-4bb86738-e858-4583-bc44-28d5554e7c8f',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://wish-media.s3.us-east-2.amazonaws.com/wp-content/2024/11/04/MAIN-PIC-ac-photo-taylor-swift-1.jpg',
       moment: {
         context:
           'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl — because economically, they were. Visit Indy projected an impact in the hundreds of millions, on par with hosting the 2012 Super Bowl, with roughly 81% of ticket holders coming from out of state and downtown rebranding itself "Swift City" for the weekend.\n\nInside the building, each crowd topped 69,000 and each night broke the concert attendance record the previous one had just set — Taylor announced the third consecutive record from the stage on Sunday, putting the weekend at 207,000 fans total. Caitlin Clark turned up on night two, and the last American surprise-song slots landed with the finality fans expected: after Indy, only Toronto and Vancouver remained.',
@@ -660,6 +661,34 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-14',
             reliability_score: 4,
+          },
+        ],
+        // Photo pass (2026-07-18, #762): page had zero photos. WISH-TV's own
+        // gallery shot from Night 3 (their S3 media origin, referenced by
+        // wishtv.com's gallery page) + two WFYI staff photos by Elizabeth
+        // Gabriel from the cited WFYI dispatch. All three HTTP-checked,
+        // downloaded, and vision-confirmed this session.
+        photos: [
+          {
+            url: 'https://wish-media.s3.us-east-2.amazonaws.com/wp-content/2024/11/04/MAIN-PIC-ac-photo-taylor-swift-1.jpg',
+            credit: 'WISH-TV',
+            caption: 'Lucas Oil Stadium before the Nov. 3, 2024 show — the last of three record-breaking Indianapolis nights, and the final U.S. date of the Eras Tour.',
+            kind: 'archival',
+            focalPoint: '50% 25%',
+          },
+          {
+            url: 'https://npr.brightspotcdn.com/legacy/files/wfyi/articles/original/taylor-swift-fans3-110224-gabriel.jpg',
+            credit: 'Elizabeth Gabriel / WFYI',
+            caption: 'Swifties outside Lucas Oil Stadium hunting last-minute tickets — roughly 81% of the weekend\'s ticket holders came from out of state.',
+            kind: 'archival',
+            focalPoint: '50% 30%',
+          },
+          {
+            url: 'https://npr.brightspotcdn.com/legacy/files/image/taylor-swift-fans2-110224-gabriel.png',
+            credit: 'Elizabeth Gabriel / WFYI',
+            caption: 'Fans in downtown Indianapolis, rebranded "Swift City" for the tour\'s final U.S. weekend.',
+            kind: 'archival',
+            focalPoint: '48% 25%',
           },
         ],
       },
@@ -806,6 +835,7 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Emma McIntyre/TAS24/Getty Images',
+            focalPoint: '45% 27%',
           },
         ],
       },
@@ -831,12 +861,23 @@ export default {
         ],
         // T16 photo pass (2026-07-09): the nominated album's cover from
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        // Photo pass (2026-07-18, #762): + Getty Toronto show photo from the
+        // cited Billboard nominations-reaction story (she reacted to the six
+        // nods from the Toronto stage that night). Downloaded + vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
             credit: 'Republic Records',
             caption: 'The Tortured Poets Department — her record seventh Album of the Year nominee.',
             kind: 'archival',
+            focalPoint: '50% 55%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/11/Taylor-Swift-04-The-Eras-Tour-Toronto-ON-345-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images (via Billboard)',
+            caption: 'On stage in Toronto the week of the announcement — she thanked fans there for the album\'s six nominations.',
+            kind: 'archival',
+            focalPoint: '48% 26%',
           },
         ],
       },
@@ -1553,12 +1594,25 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        // Photo pass (2026-07-18, #762): + Commons CC BY-SA 4.0 photo of the
+        // song's Eras Tour staging (Swift with dancer Jan Ravnik on the
+        // hydraulic platforms, per the file's own description; Gelsenkirchen,
+        // July 17, 2024). License API-verified; distinct file from the Paris
+        // TTPD-set photos used on the Fortnight / Female Rage / Down Bad pages.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/Atdzfj8LcuY/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "The Smallest Man Who Ever Lived" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fc/The_Eras_Tour_The_Tortured_Poets_Department_Performance.png/960px-The_Eras_Tour_The_Tortured_Poets_Department_Performance.png',
+            credit: 'Sally-Marie Böhm, CC BY-SA 4.0, via Wikimedia Commons',
+            caption: 'The song\'s Tortured Poets set staging on the Eras Tour — Swift and dancer Jan Ravnik on the hydraulic platforms (Gelsenkirchen, July 2024).',
+            kind: 'archival',
+            focalPoint: '60% 62%',
           },
         ],
       },
@@ -1588,15 +1642,21 @@ export default {
             url: 'https://www.capitalfm.com/news/music/taylor-swift-grammys-nominations-2025/',
           },
         ],
-        // T16 photo pass (2026-07-09): still from the Grammy-nominated
-        // official music video (Best Music Video nominee) — video ID verified
-        // via YouTube oEmbed (author @TaylorSwift) this session.
+        // Photo pass (2026-07-18, #762): the prior 480×360 hqdefault still
+        // duplicated (at lower res) the same MV frame already used full-size
+        // on the "Fortnight opens the album" page — replaced with the Getty
+        // Toronto show photo from the cited Billboard nominations-reaction
+        // story (distinct file from the Toronto photo on the AOTY-nomination
+        // page). Downloaded + vision-confirmed. Deliberately one photo: the
+        // only other candidate found (Capital FM's hero) is a stitched
+        // archive collage from earlier ceremonies, rejected as off-event.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/hqdefault.jpg',
-            credit: 'YouTube / Taylor Swift',
-            caption: 'Still from the "Fortnight" music video — itself a 2025 Grammy nominee for Best Music Video alongside the song\'s Record and Song of the Year nods.',
+            url: 'https://www.billboard.com/wp-content/uploads/2024/11/Taylor-Swift-_-The-Eras-Tour-Toronto-ON-345-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images (via Billboard)',
+            caption: 'In Toronto the night the 2025 Grammy nominations landed: "you guys got this album nominated for six Grammys."',
             kind: 'archival',
+            focalPoint: '53% 26%',
           },
         ],
       },
@@ -1646,12 +1706,23 @@ export default {
         ],
         // T16 photo pass (2026-07-09): the chart-topping album's cover from
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        // Photo pass (2026-07-18, #762): + Beth Garrabrant album-shoot
+        // portrait ("The Black Dog") from Billboard's own chart story for
+        // this debut (its hero image). Downloaded + vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
             credit: 'Republic Records',
             caption: 'The Tortured Poets Department cover, shot by Beth Garrabrant — the album behind the biggest sales week in nine years.',
             kind: 'primary',
+            focalPoint: '50% 55%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Black-Dog-billboard-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant (via Billboard)',
+            caption: 'From the TTPD album shoot — the era imagery that fronted Billboard\'s coverage of the 2.61 million-unit debut.',
+            kind: 'archival',
+            focalPoint: '45% 22%',
           },
         ],
       },
@@ -1692,12 +1763,24 @@ export default {
         ],
         // T16 photo pass (2026-07-09): the No. 1 single's cover art from
         // Wikipedia's stable upload.wikimedia.org copy. Verified HTTP 200.
+        // Photo pass (2026-07-18, #762): + the Swift/Post Malone MV frame
+        // Billboard ran with its own top-14 chart story — a different frame
+        // from the ytimg maxres still on the "Fortnight opens the album"
+        // page. Downloaded + vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Taylor_Swift_-_Fortnight.png',
             credit: 'Republic Records',
             caption: 'Single artwork for "Fortnight," which led the historic top-14 sweep from No. 1.',
             kind: 'primary',
+            focalPoint: '50% 55%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/04/taylor-swift-post-malone-fortnight-music-video-still-billboard-1548.jpg?w=1024',
+            credit: 'Taylor Swift / Republic Records (via Billboard)',
+            caption: 'Swift and Post Malone in the "Fortnight" video — the No. 1 that led a chart-history first.',
+            kind: 'archival',
+            focalPoint: '50% 38%',
           },
         ],
       },
@@ -1784,12 +1867,25 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        // Photo pass (2026-07-18, #762): render upgraded from 480×360
+        // hqdefault to the same video's 1280×720 maxresdefault (HTTP-checked
+        // + viewed). + the Swift/Welch polaroid that fronted Holler's Miami
+        // "Florida!!!" duet story — Holler's own metadata credits the photo
+        // to Taylor Swift. Downloaded + vision-confirmed.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/uEssK8o3jKg/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/uEssK8o3jKg/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "Florida!!! (feat. Florence + The Machine)" lyric video.',
             kind: 'archival',
+            focalPoint: '50% 60%',
+          },
+          {
+            url: 'https://cdn.sanity.io/images/o6uq28nb/production/e92e7a8463fee4535c9c538f067276de0a77c9c3-2048x2011.jpg?w=1200',
+            credit: 'Taylor Swift (via Holler)',
+            caption: 'Swift and Florence Welch — the collaborators behind the album\'s biggest-sounding song.',
+            kind: 'archival',
+            focalPoint: '47% 27%',
           },
         ],
       },
@@ -1830,12 +1926,25 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        // Photo pass (2026-07-18, #762): render upgraded from 480×360
+        // hqdefault to the same video's 1280×720 maxresdefault (HTTP-checked
+        // + viewed). + a Commons CC BY 2.0 portrait of Travis Kelce, the
+        // song's widely read subject, as a reference image (license
+        // API-verified; same pattern as the Hendersonville reference photo).
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/w-FkV0EM_CU/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/w-FkV0EM_CU/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "So High School" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
+            focalPoint: '43% 45%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/87/Travis_Kelce_2021.jpg',
+            credit: 'Erik Drost, CC BY 2.0, via Wikimedia Commons',
+            caption: 'Travis Kelce — the song\'s widely read subject, down to the resurfaced marry-kiss-kill clip.',
+            kind: 'reference',
+            focalPoint: '50% 38%',
           },
         ],
       },
@@ -1877,12 +1986,24 @@ export default {
         // T16 photo pass (2026-07-09): Getty tour photo hosted on Billboard's
         // CDN (from its Edinburgh coverage, the first source above). Verified
         // HTTP 200 + image/jpeg; visually confirmed (folklore-set moss piano).
+        // Photo pass (2026-07-18, #762): + the Getty Murrayfield crowd shot
+        // fronting the cited CNBC Edinburgh story (CNBC's own image CDN).
+        // Downloaded + vision-confirmed: packed stands under the stadium's
+        // distinctive roof. Note the CDN serves browser user-agents only.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/06/Taylor-Swift-_-The-Eras-Tour-Edinburgh-Scotland-02-2024-billboard-1548.jpg?w=1024',
             credit: 'Getty Images (via Billboard)',
             caption: 'The folklore set at Murrayfield Stadium, Edinburgh, during the record-breaking June 2024 stand.',
             kind: 'archival',
+            focalPoint: '52% 25%',
+          },
+          {
+            url: 'https://image.cnbcfm.com/api/v1/image/107428490-1718277585941-gettyimages-2156561216-_gc10806_lnvlarov.jpeg?v=1733316726&w=1480&h=833',
+            credit: 'Getty Images (via CNBC)',
+            caption: 'Playing to a record Murrayfield crowd — each of the three nights topped the Scottish stadium attendance record the last had just set.',
+            kind: 'archival',
+            focalPoint: '47% 45%',
           },
         ],
       },
