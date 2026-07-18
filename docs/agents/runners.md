@@ -27,6 +27,7 @@ whose inline prompt drifts from its file is a bug.
 | Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
 | Kevin — S3 comment radar | `23 0-5,13-23 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Hourly 6am–10pm PT (skips overnight); surfaces cross-session comments |
 | Karen — nightly scan | `0 9 * * *` | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
+| Abigail — CIE agent passes | `40 9 * * *` | Fable | [`runner-prompts/cie-agent-pass.md`](runner-prompts/cie-agent-pass.md) | **Wyatt** | Runs the CIE factual+image LLM review fleet Karen's nightly excludes; fires right after Karen's 09:00 scan so today's batches exist, before Kevin S1's 11:17 solver |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
 | watchdog / brief-mailer / CI / CodeQL / a11y | GitHub Actions | none | `.github/workflows/` | repo | Zero LLM (detection layer) |
@@ -66,6 +67,12 @@ are live** — no missed briefs, no dead cadences. Cutover:
 2. Wyatt comments "live" on the handoff ticket (#504) with his routine IDs.
 3. **Every** Joey-side routine gets **disabled** (kept as warm spares — the
    kill-switch doc covers both sets).
+
+**Abigail — CIE agent passes (2026-07-18):** repo half is done (registry row +
+[`runner-prompts/cie-agent-pass.md`](runner-prompts/cie-agent-pass.md)); the
+remaining step is external — her cloud routine still needs to be **created on
+Wyatt's account** via `/schedule` or the RemoteTrigger API (cron `40 9 * * *`,
+Fable, prompt = that file's exact contents), same as every other runner here.
 
 ## Kevin cloud move (2026-07-12)
 
