@@ -25,6 +25,8 @@
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
+import { slugify } from './sync-longlive-content.mjs';
+import { SLUG_TO_ERA_ID } from './lib/longlive-sync-shared.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
 const seed = join(here, '..', 'supabase', 'seed');
@@ -133,11 +135,33 @@ let errors = 0;
 let warnings = 0;
 let checked = 0;
 
-for (const file of readdirSync(contentDir)
+const contentFiles = readdirSync(contentDir)
   .filter((f) => f.endsWith('.mjs') && !f.startsWith('_'))
-  .sort()) {
+  .sort();
+const loaded = [];
+for (const file of contentFiles) {
   const mod = await import(pathToFileURL(join(contentDir, file)).href);
-  const data = mod.default;
+  loaded.push({ file, data: mod.default });
+}
+
+// Every real `moment:vault-<eraId>-<slug>` id the sync script would generate
+// — same id-derivation the sync script uses (title -> slugify, eraSlug ->
+// SLUG_TO_ERA_ID mapping) so `relatedIds` can be checked for real resolution,
+// not just shape. Found in review (2026-07-19): a wrong eraId prefix
+// (vault-tortured-poets-... instead of vault-ttpd-...) shipped silently,
+// since relatedIds resolution is best-effort at runtime and never errors.
+const validMomentIds = new Set();
+for (const { data } of loaded) {
+  const fileEra = data?.eraSlug;
+  for (const it of Array.isArray(data?.items) ? data.items : []) {
+    const eraSlug = it.eraSlug ?? fileEra;
+    if (!eraSlug || !it.title) continue;
+    const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
+    validMomentIds.add(`vault-${eraId}-${slugify(it.title)}`);
+  }
+}
+
+for (const { file, data } of loaded) {
   const fileEra = data?.eraSlug;
   const rows = data?.items;
   if (!Array.isArray(rows)) {
@@ -179,6 +203,17 @@ for (const file of readdirSync(contentDir)
         for (const t of it.threadIds) {
           if (!THREAD_IDS.has(t))
             err(`threadIds contains unknown thread "${t}" — not in ${[...THREAD_IDS].join('|')}`);
+        }
+    }
+
+    if (it.relatedIds != null) {
+      if (!Array.isArray(it.relatedIds)) err('relatedIds must be an array');
+      else
+        for (const rid of it.relatedIds) {
+          if (typeof rid !== 'string' || !rid.startsWith('moment:')) continue; // motif:/egg:/rel:/song: resolve elsewhere, not checked here
+          const id = rid.slice('moment:'.length);
+          if (!validMomentIds.has(id))
+            err(`relatedIds references "${rid}" which doesn't resolve to any real moment id — dead cross-link (resolution is best-effort at runtime and never errors, so this is the only thing that catches a wrong id)`);
         }
     }
 

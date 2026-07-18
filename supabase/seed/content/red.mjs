@@ -45,10 +45,14 @@ export default {
             url: 'https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/',
           },
         ],
+        // Photo-enrichment pass (2026-07-18): focal point set by viewing — the
+        // cover's lower face/red lip sits just above center-left under the hat
+        // brim. (Counts as one unique photo; thumbnailUrl reuses the same file.)
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
+            focalPoint: '45% 38%',
           },
         ],
       },
@@ -832,10 +836,20 @@ export default {
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together' },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): single cover viewed — face sits top-left,
+        // so the focal point pulls up-left. Added the 2013 Grammys ringmaster performance of
+        // this song (the ceremony where it was up for Record of the Year, per context above);
+        // PopCrush's own article image, curl-verified 200 + image/webp, vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png',
             credit: 'Big Machine Records',
+            focalPoint: '30% 20%',
+          },
+          {
+            url: 'https://townsquare.media/site/252/files/2013/02/TaylorSwift1.jpg?w=980&q=75',
+            credit: 'Getty Images / PopCrush',
+            focalPoint: '45% 28%',
           },
         ],
       },
@@ -860,10 +874,21 @@ export default {
             url: 'https://billboard.com/articles/news/6150193/taylor-swift-red-all-time-country-tour',
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added a shot from the closing Singapore
+        // stand itself (Singapore Indoor Stadium, June 2014 — the tour's final city, per
+        // context above). Commons CC BY-SA 4.0, curl-verified 200 + image/jpeg, vision-
+        // confirmed. The other Singapore file in this Commons set already illustrates the
+        // red-tour-asia-finale page, so this page takes the distinct "Mean" frame.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg',
             credit: 'Jana Zills / Wikimedia Commons',
+            focalPoint: '45% 28%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a6/Taylor_Swift_-_RED_Tour_-_Singapore_-_Mean_%28night_1%29.jpg',
+            credit: 'Weslam123 / Wikimedia Commons (CC BY-SA 4.0)',
+            focalPoint: '42% 12%',
           },
         ],
       },
@@ -882,10 +907,18 @@ export default {
         context:
           'At the 56th Annual Grammy Awards, Red was one of five Album of the Year nominees alongside Sara Bareilles\' The Blessed Unrest, Kendrick Lamar\'s Good Kid, M.A.A.D City, and Macklemore & Ryan Lewis\' The Heist — the trophy went to Daft Punk\'s Random Access Memories.\n\nIn Best Country Album, Red competed against Jason Aldean\'s Night Train, Tim McGraw\'s Two Lanes of Freedom, and Blake Shelton\'s Based on a True Story..., with Kacey Musgraves\' debut Same Trailer Different Park taking the win. It was Swift\'s second Album of the Year nomination (after Fearless won in 2010) and a rare winless Grammy night.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/56th_Annual_Grammy_Awards' }],
+        // Photo-enrichment audit (2026-07-18, #762): stays at one image. The only reachable
+        // outlet-CDN frames of her at the 56th Grammys are the same Getty head-thrown-back
+        // piano shot already on red-all-too-well-grammys-2014 (The Boot and PopCrush both ran
+        // that identical frame; townsquare's k945 red-carpet gallery image is a dead "no
+        // longer available" placeholder — verified by download this run), and Commons has no
+        // 2014-Grammys files of her. Cover art viewed: profile fills the upper half, so the
+        // focal point sits at 50% 32%.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
+            focalPoint: '50% 32%',
           },
         ],
       },
@@ -1147,10 +1180,21 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added the webcast still itself — Taylor
+        // in the living room with fans, Red cover on the screen behind her — from Taste of
+        // Country's own announcement-day article. Curl-verified 200 + image/webp, vision-
+        // confirmed as the Aug 13, 2012 Google+ Hangout. Cover art focal matches the copy
+        // on the Grammys-noms page.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
+            focalPoint: '50% 32%',
+          },
+          {
+            url: 'https://townsquare.media/site/204/files/2012/08/TaylorSwiftRed.jpg?w=980&q=75',
+            credit: 'YouTube webcast still / Taste of Country',
+            focalPoint: '46% 42%',
           },
         ],
       },
@@ -1195,12 +1239,19 @@ export default {
         // below the threshold of originality). Faithful to the real cover but not
         // the original raster file, so kind 'reference' with an honest caption.
         // Verified HTTP 200 + image/png this session.
+        // Photo-enrichment audit (2026-07-18, #762): stays at one image. No reachable
+        // outlet-CDN photo depicts the SU2C telecast performance itself — Taste of Country's
+        // own article images are a dead placeholder (Ronan.jpg) and an off-hook 2012 VMAs
+        // red-carpet close-up (TaylorSwiftCP.jpg), both downloaded and viewed this run; the
+        // telecast stills live only on watermarked wire services. Cover viewed: text block
+        // sits in the upper-middle of the square, so the focal point rides slightly high.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Taylor_Swift_%22Ronan%22_SVG_Cover.svg/1280px-Taylor_Swift_%22Ronan%22_SVG_Cover.svg.png',
             credit: 'Big Machine Records (vector replica via Wikimedia Commons)',
             caption: 'The "Ronan" single cover — shown here as a faithful vector replica of the text-only artwork, hosted on Wikimedia Commons.',
             kind: 'reference',
+            focalPoint: '50% 42%',
           },
         ],
       },
@@ -1233,12 +1284,24 @@ export default {
         ],
         // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
         // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): added a Commons shot of her performing
+        // this exact song on the Red Tour B-stage (Tacoma Dome; uploader's description names
+        // "Begin Again"). CC BY-SA 2.0, curl-verified 200 + image/jpeg, vision-confirmed —
+        // solo under a spotlight on the riser, which is how the song was staged.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/1/1e/Taylor_Swift_-_Begin_Again.png',
             credit: 'Big Machine Records',
             caption: 'Single cover art for "Begin Again," released October 1, 2012.',
             kind: 'primary',
+            focalPoint: '62% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
+            credit: 'Selbe Lynn / Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Performing "Begin Again" alone on the B-stage riser during the Red Tour at Tacoma Dome.',
+            kind: 'primary',
+            focalPoint: '50% 42%',
           },
         ],
       },
@@ -1271,12 +1334,25 @@ export default {
         ],
         // Real-photo pass (2026-07-09): single cover art from Wikipedia's stable
         // upload.wikimedia.org copy. URL verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): added a Red Tour live close-up (Jana
+        // Zills, St. Louis, March 2013 — CC BY 2.0, curl-verified 200 + image/jpeg, vision-
+        // confirmed): red gown at the red crystal mic, the album's signature color on stage.
+        // An era-performance shot, not a photo of the writing session — no photo of that
+        // exists; flagged here for honesty.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/c0/Taylor_Swift_-_Red_%28Single%29.png',
             credit: 'Big Machine Records',
             caption: 'Single cover art for "Red," the album\'s fifth single.',
             kind: 'primary',
+            focalPoint: '28% 15%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_Red_Tour_4%2C_2013.jpg',
+            credit: 'Jana Zills / Wikimedia Commons (CC BY 2.0)',
+            caption: 'On the Red Tour in St. Louis, March 2013 — red gown, red crystal mic.',
+            kind: 'archival',
+            focalPoint: '46% 24%',
           },
         ],
       },
@@ -1413,12 +1489,24 @@ export default {
         // upload.wikimedia.org copy. Verified HTTP 200 + image/png this session.
         // kind 'archival': the item is about the Grammy win; the cover is the
         // winning song's artwork, not a photo of the ceremony moment.
+        // Photo-enrichment pass (2026-07-18, #762): added the acceptance moment itself —
+        // Taylor with John Paul White, T Bone Burnett and Kaskade as the award is handed
+        // over — from Taste of Country's own article on the win. Curl-verified 200 +
+        // image/webp, vision-confirmed (gramophone trophy visible).
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
             credit: 'Big Machine Records',
             caption: 'Single cover for "Safe & Sound" (feat. The Civil Wars), which won Best Song Written for Visual Media at the 55th Grammys.',
             kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          {
+            url: 'https://townsquare.media/site/204/files/2013/02/Taylor-Winning.jpg?w=980&q=75',
+            credit: 'Getty Images / Taste of Country',
+            caption: 'Accepting the Grammy with The Civil Wars\' John Paul White and producer T Bone Burnett, February 10, 2013.',
+            kind: 'primary',
+            focalPoint: '60% 26%',
           },
         ],
       },
@@ -1722,12 +1810,25 @@ export default {
         // piano), hosted on PopCrush's Townsquare CDN and credited "Kevork
         // Djansezian, Getty Images" in that article's figcaption. Verified
         // HTTP 200 + image + subject visually confirmed this session.
+        // Photo-enrichment pass (2026-07-18, #762): added Billboard's own frame of the same
+        // performance — the quiet wide shot seated at the piano before the hair-whip, a
+        // distinct moment from the existing Getty frame (The Boot and Taste of Country both
+        // ran that identical head-thrown-back image; rejected as duplicates this run).
+        // Curl-verified 200 + image/jpeg, vision-confirmed.
         photos: [
           {
             url: 'https://townsquare.media/site/252/files/2014/01/TaylorSwift.jpg?w=980&q=75',
             credit: 'Kevork Djansezian, Getty Images / PopCrush',
             caption: 'Mid-hair-whip at the piano — "All Too Well" at the 56th Grammy Awards, January 26, 2014, with her lucky 13 stenciled on the piano.',
             kind: 'primary',
+            focalPoint: '34% 35%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-grammys-2014-show-650-430.jpg',
+            credit: 'Getty Images / Billboard',
+            caption: 'Alone in the spotlight at the black grand piano, band held back in the shadows — the 56th Grammys, January 26, 2014.',
+            kind: 'primary',
+            focalPoint: '25% 32%',
           },
         ],
       },
@@ -1865,10 +1966,24 @@ export default {
             reliability_score: 5,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added the official All Too Well: The
+        // Short Film frame (Sadie Sink and Dylan O'Brien) — the campaign centerpiece of this
+        // exact chart week, released Nov 12, 2021, and the vehicle for the 10-minute track
+        // this page's context credits for the record. Official Taylor Swift channel
+        // thumbnail via i.ytimg.com (same pattern as the vault's other official-video
+        // stills), curl-verified 200 + image/jpeg, vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
+            focalPoint: '45% 42%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/tollGa3S0o8/maxresdefault.jpg',
+            credit: 'Republic Records / Taylor Swift via YouTube',
+            caption: 'Sadie Sink and Dylan O\'Brien in All Too Well: The Short Film, released with Red (Taylor\'s Version) the same chart week.',
+            kind: 'archival',
+            focalPoint: '52% 40%',
           },
         ],
       },
