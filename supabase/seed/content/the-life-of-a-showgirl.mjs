@@ -2129,6 +2129,17 @@ export default {
             caption:
               'Luminate\'s most-consumed album of 2025 in the US — on 13 weeks of availability.',
             kind: 'archival',
+            focalPoint: '45% 25%',
+          },
+          // Photo pass #762 run 4 (2026-07-18): Billboard's 2025 Year-End
+          // Charts hero — the branded artwork for the ranking this moment is
+          // about. curl-verified 200 image/jpeg (942x628), vision-confirmed.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/12/YE-Charts-web-hero17-taylor-swift-billboard-1800.jpg?w=942&h=628&crop=1',
+            credit: 'Mert Alas & Marcus Piggott / Billboard Year-End Charts',
+            caption: 'Billboard\'s 2025 Year-End Charts artwork — Showgirl topped the year-end Billboard 200 on the same math.',
+            kind: 'archival',
+            focalPoint: '58% 20%',
           },
         ],
       },
@@ -2242,7 +2253,8 @@ export default {
       snippet:
         'At 36, Taylor becomes the youngest woman ever inducted into the Songwriters Hall of Fame — only Stevie Wonder got there younger. Steven Spielberg handles the surprise introduction, and Travis and both moms watch from her table, three weeks before the wedding.',
       sourceUrl: 'https://www.pbs.org/newshour/arts/taylor-swift-becomes-the-youngest-woman-inducted-into-the-songwriters-hall-of-fame-at-age-36',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
       moment: {
         context:
           'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, and KISS\'s Gene Simmons and Paul Stanley — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nHer speech ran past the twenty-minute mark, and the room got the songwriter version of her origin story — she held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her. Spielberg\'s introduction was her own doing, in a way: when the Hall asked which of her heroes she\'d want presenting, she named him. And the seating chart told the engagement-year story on its own — Travis, Andrea Swift, and Donna Kelce at her table, twenty-two days before the Madison Square Garden wedding.',
@@ -2275,9 +2287,25 @@ export default {
             reliability_score: 4,
           },
         ],
-        // No photo yet: direct image-URL verification is blocked in this
-        // environment (T16 pattern) — leave for the photo pass rather than
-        // hotlink unverified.
+        // Photo pass #762 run 4 (2026-07-18): both ceremony photos
+        // curl-verified 200 image/jpeg, downloaded, and vision-confirmed
+        // (Songwriters Hall of Fame step-and-repeat visible in both).
+        photos: [
+          {
+            url: 'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
+            credit: 'Kylie Cooper/Reuters, via PBS NewsHour',
+            caption: 'On the carpet at the 55th Songwriters Hall of Fame Induction and Awards Gala in New York, June 11, 2026.',
+            kind: 'primary',
+            focalPoint: '38% 18%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/06/P1071NXM-e1781277661981.jpg?w=942&h=628&crop=1',
+            credit: 'John Nacion/Variety, via Billboard',
+            caption: 'The floral-embroidered black gown, full length, on the gala red carpet.',
+            kind: 'primary',
+            focalPoint: '47% 20%',
+          },
+        ],
       },
     },
     {
