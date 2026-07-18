@@ -209,14 +209,24 @@ body {
   border-color: color-mix(in srgb, var(--era-accent) 40%, var(--era-line));
 }
 
+/* Close/icon buttons (#525): solid ink-on-bg inversion — the theme's
+   maximum-contrast pair — so the button reads as a solid dark (or light)
+   circle over any hero photo or era palette instead of blending in. The
+   44px floor lives here, not in per-component padding, so no usage can
+   sit below it. */
 .era-icon-btn {
-  background: color-mix(in srgb, var(--era-surface) 70%, transparent);
-  border: 1px solid var(--era-line);
-  color: var(--era-ink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  background: var(--era-ink);
+  border: 1px solid color-mix(in srgb, var(--era-bg) 35%, var(--era-ink));
+  color: var(--era-bg);
   transition: background-color 160ms ease;
 }
 .era-icon-btn:hover {
-  background: var(--era-surface-2);
+  background: color-mix(in srgb, var(--era-ink) 82%, var(--era-bg));
 }
 
 /* Thin, era-tinted scrollbars. */
