@@ -19,6 +19,7 @@ jobs:
       - run: npm run lint
       - run: npm run test
       - run: npm run validate:content
+      - run: npm run check:generated
       - run: npm run check:content-inert
       - run: npm run content:coverage
       - run: npm run build

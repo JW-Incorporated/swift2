@@ -3,3 +3,7 @@
 # test imports a sync script), which core.autocrlf=true would otherwise
 # produce. Blobs are already LF, so this changes checkouts only, not history.
 *.mjs text eol=lf
+
+# The generated vault (*.generated.ts) is written LF by the sync scripts;
+# pin LF so the check:generated guard never sees spurious CRLF diffs.
+*.generated.ts text eol=lf

@@ -29,6 +29,8 @@
     "db:seed:videos": "node --env-file=apps/worker/.env scripts/seed-videos.mjs",
     "check:budget": "tsx scripts/check-tier0-budget.mjs",
     "check:budget:seed": "tsx scripts/check-budget-from-seed.mjs",
+    "sync:content": "node scripts/sync-longlive-content.mjs && node scripts/sync-longlive-tracks.mjs && node scripts/sync-longlive-theories.mjs && node scripts/sync-longlive-videos.mjs",
+    "check:generated": "node scripts/check-generated-in-sync.mjs",
     "validate:content": "node scripts/validate-content.mjs",
     "check:content-inert": "node scripts/check-content-inert.mjs",
     "content:coverage": "node scripts/content-coverage.mjs",
