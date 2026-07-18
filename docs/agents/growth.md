@@ -72,6 +72,16 @@ Instagram-only permission set — `instagram_basic`, `instagram_content_publish`
 read-oriented for Pages and doesn't cover writing to the Page's feed).
 Omitting `FB_PAGE_ID` entirely skips cross-posting with no error.
 
+**State-commit identity (2026-07-17):** the workflow's own "record what
+posted" commit runs as Joey (repo secret `SOCIAL_POSTER_PAT`, a fine-grained
+PAT scoped to just this repo — Contents + Pull requests read/write, ~1yr
+expiry), not the default `GITHUB_TOKEN`. Not a style choice — GitHub's
+built-in token can't trigger other workflows on what it pushes, so a PR it
+opens can never get the required `build` check to run and sits permanently
+stuck (hit this for real on the pipeline's first live content post, #783).
+A real user's token doesn't carry that restriction. Needs rotating before
+it expires or every future post silently reverts to that stuck state.
+
 ## Founder-notification buckets (reuse the existing system — never invent a new channel)
 
 - **Draft post approvals** → the Founders' Brief (6 AM / 8 PM delta) under a
