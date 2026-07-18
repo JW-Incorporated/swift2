@@ -6,14 +6,35 @@ until the V2 engine ships, intake is manual — this defines it). Scope rule
 happened** — recency never disqualifies; what's deferred to V2 is the
 *automated* pipeline, not recent content.
 
+**Update (2026-07-18):** "later: the V2 engine" below is no longer
+hypothetical — the News/Current pipeline exists (`apps/worker`, issue #468)
+and is designed to feed this exact door once it's live (repo secrets +
+seeded sources still pending, `docs/decisions.md`). It does **not** and will
+**not** write directly to the Vault: a `news_story` row it produces is a
+*drop*, same as anything Joey files by hand — it still goes through triage,
+authoring, and check below. See "Where the V2 engine fits" at the bottom.
+
+## New content's address: the current, ongoing era
+
+**Anything new lands in whichever era is current/ongoing right now** — there
+is always a place for it, by construction, because the current era never
+"closes." As of 2026-07-18 that's `the-life-of-a-showgirl`
+(`supabase/seed/content/the-life-of-a-showgirl.mjs`); when a new era begins,
+this line updates to name the new one — new content follows the era
+forward, it doesn't need a new surface built for it. (This is why #464's
+three drafts turned out to already have a natural home: they're exactly
+this — new events, distilled into the current era, same as any other
+month item.)
+
 ## The flow
 
 ```
 drop → triage → route → author → check → ship
 ```
 
-1. **Drop.** Anyone (today: Joey; later: the V2 engine) files an `intake`
-   issue via the form. Rough is fine; a link-less drop is fine to file.
+1. **Drop.** Anyone or anything (today: Joey by hand; once live: the V2
+   engine's qualifying `news_story` rows too) files an `intake` issue via
+   the form. Rough is fine; a link-less drop is fine to file.
 2. **Triage** (content session, same day): is it real and already-happened?
    Find real sources — the sourcing bar is unchanged (≥1 source per item;
    `relationship`/`business` need two independent outlets; Deuxmoi only as
@@ -26,9 +47,10 @@ drop → triage → route → author → check → ship
    music/release/video → Theo, theories/eggs → Loren, fashion/sighting →
    Vera, relationship/business/tour → Deb).
 4. **Author.** The assigned persona drafts against its charter + house voice
-   (`editorial-voice-and-pipeline.md`) into the era seed file, as normal
-   month items / moments — short, sourced, hotlinked. Full articles are
-   never the output (that was #464's core finding).
+   (`editorial-voice-and-pipeline.md`) into **the current era's seed file**
+   (see above), as normal month items / moments — short, sourced,
+   hotlinked. Full articles are never the output (that was #464's core
+   finding).
 5. **Check.** `npm run validate:content` + Karen + Codex review, the normal
    pipeline. Nothing special because it's recent.
 6. **Ship.** Content PR merges; the intake issue closes via `Closes #`.
@@ -38,8 +60,28 @@ drop → triage → route → author → check → ship
 
 - **One door.** Events do not arrive via chat, DMs, or ad-hoc ticket shapes;
   if one does, whoever sees it files the intake issue and points back.
-- **The drop is not the copy.** Attached drafts (e.g. ChatGPT articles) are
-  treated as *leads*: facts get re-verified against real sources and
-  re-written in-voice by the assigned persona. Never paste-through.
+- **The drop is never the copy — regardless of who or what drafted it.**
+  Attached drafts (a ChatGPT article, a Claude draft, a `news_story` the V2
+  engine assembled, anything) are treated as *leads only*: every fact gets
+  re-verified against real sources and re-written in fan-editor voice by the
+  assigned persona before it ships. There is no fast path that skips
+  triage/author/check because the draft "already sounds finished" or came
+  with a high `verification_status` — a well-sourced-looking draft still
+  gets the same re-verification as a rough one. Never paste-through, ever,
+  from any source.
 - **Same-day triage** is the desk's target while drops are daily; the brief's
   Health section flags intake items older than 48h untriaged.
+
+## Where the V2 engine fits (added 2026-07-18)
+
+The News/Current worker (`apps/worker`, `docs/proposals/2026-07-07-news-
+pipeline-architecture.md`) ingests, dedupes, and rules-first-verifies
+candidate stories into its own `news_story` table — a separate data world
+from the Vault by hard rule (`docs/decisions.md`, 2026-07-02), never
+directly joined or exposed. It is a **triage assistant**, not a publisher:
+its `verification_status` (official/corroborated/single_source/rumor/
+disputed/debunked) helps a human or content session decide what's worth
+turning into an intake drop, exactly like Joey eyeballing the news does
+today — it doesn't change what happens once something *is* dropped. The
+same voice, sourcing bar, no-fabrication rule, and Codex review apply
+whether the lead came from Joey, ChatGPT, Claude, or the engine.

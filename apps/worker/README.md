@@ -42,3 +42,16 @@ npm run news --workspace @swift2/worker
 No `/current` UI surface, no notifications, no Reddit/X/YouTube/Bluesky
 adapters, no user-report/moderation loop. All deferred by design, not by
 oversight.
+
+## Where this output actually goes (there IS a place for it — 2026-07-18)
+
+No `/current` page exists, but that doesn't mean nothing can be published
+from this yet: `docs/content-ops/intake.md` is the real destination.
+`news_story` rows this worker produces are **candidate leads**, not
+publishable copy — a human/content session still triages, re-verifies
+sources, and re-writes each in fan-editor voice before it ships, landing as
+a normal dated moment in **whichever era is current/ongoing** (named in
+`intake.md`). Same rule regardless of origin: a lead from this worker gets
+exactly the same re-verification as one Joey drops by hand or one ChatGPT
+drafted — never a paste-through, no matter how confident its
+`verification_status` looks.
