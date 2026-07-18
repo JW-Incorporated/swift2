@@ -1315,6 +1315,17 @@ export default {
             credit: 'Republic Records',
             caption: '"cardigan," nominated for both Song of the Year and Best Pop Solo Performance.',
             kind: 'primary',
+            focalPoint: '40% 45%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): official "Beautiful
+          // Ghosts" lyric-video thumbnail — video id verified via YouTube
+          // oEmbed (title + author "Taylor Swift") this session.
+          {
+            url: 'https://i.ytimg.com/vi/trIjpVH8h88/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'The "Beautiful Ghosts" lyric video — the stray Cats credit that completed the six-nomination slate.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -1362,12 +1373,14 @@ export default {
             credit: 'Republic Records',
             caption: 'Official single cover for "cardigan," folklore\'s lead single.',
             kind: 'primary',
+            focalPoint: '40% 45%',
           },
           {
             url: 'https://i.ytimg.com/vi/K-a8s8OLBSE/hqdefault.jpg',
             credit: 'Taylor Swift via YouTube (official music video)',
             caption: 'The candlelit piano that opens the self-directed "cardigan" video.',
             kind: 'archival',
+            focalPoint: '47% 30%',
           },
         ],
       },
@@ -1406,6 +1419,17 @@ export default {
             credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
             caption: 'On the folklore act\'s moss-covered cabin roof at the Eras Tour, Arlington, March 2023.',
             kind: 'archival',
+            focalPoint: '47% 25%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): second Ronald Woan
+          // frame from the same Arlington folklore act (license verified
+          // CC BY-SA 2.0 via Commons extmetadata this session).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped_2%29.jpg',
+            credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
+            caption: 'Close-up during the folklore act of the Eras Tour, where "the 1" opened the set, Arlington, March 2023.',
+            kind: 'archival',
+            focalPoint: '50% 16%',
           },
         ],
       },
@@ -1538,6 +1562,18 @@ export default {
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The storm-swept plain of the official "peace" lyric video.',
             kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): license-verified
+          // Commons reference photo of Justin Vernon, credited in this
+          // page's text for the song's ticking pulse (CC BY 2.0,
+          // extmetadata checked this session; subject vision-confirmed).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/0/00/Justin_Vernon_at_Jazz_Fest_2012.jpg',
+            credit: 'Nikko Russano (CC BY 2.0), via Wikimedia Commons',
+            caption: 'Justin Vernon of Bon Iver, whose ticking pulse runs under "peace," at Jazz Fest 2012.',
+            kind: 'archival',
+            focalPoint: '45% 30%',
           },
         ],
       },
@@ -1594,6 +1630,19 @@ export default {
             credit: 'Scott Braun (CC BY-SA 4.0), via Wikimedia Commons',
             caption: 'Scooter Braun, whose Ithaca Holdings sold the masters of Swift\'s first six albums to Shamrock Capital.',
             kind: 'archival',
+            focalPoint: '50% 25%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): license-verified
+          // Commons photo of Swift in March 2019 (CC BY-SA 4.0, Glenn
+          // Francis / Toglenn; iHeartRadio Music Awards per the file's own
+          // EXIF description — months before Ithaca's Big Machine purchase
+          // started the masters saga).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            credit: 'Glenn Francis (CC BY-SA 4.0), via Wikimedia Commons',
+            caption: 'Swift in March 2019, months before the first sale of her masters set the whole saga in motion.',
+            kind: 'archival',
+            focalPoint: '50% 18%',
           },
         ],
       },
