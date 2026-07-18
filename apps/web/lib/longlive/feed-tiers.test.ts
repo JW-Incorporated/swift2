@@ -26,9 +26,7 @@ describe('assignFeedTiers', () => {
   });
 
   it('gives chip tier to routine, short, unremarkable items with a real photo', () => {
-    const items = [
-      item({ id: 'a', images: realImg, tags: ['Tour'], summary: 'Short.' }),
-    ];
+    const items = [item({ id: 'a', images: realImg, tags: ['Tour'], summary: 'Short.' })];
     expect(assignFeedTiers(items).get('a')).toBe('chip');
   });
 
@@ -89,6 +87,68 @@ describe('assignFeedTiers', () => {
     const tiers = assignFeedTiers([...run, clueItem]);
     expect(tiers.get('clue')).not.toBe('text');
     expect(tiers.get('clue')).not.toBe('chip');
+  });
+
+  it('gives a defining item hero tier even with no image or video — significance overrides content heuristics', () => {
+    const items = [item({ id: 'a', images: eraArtOnly, significance: 'defining' })];
+    expect(assignFeedTiers(items).get('a')).toBe('hero');
+  });
+
+  it('never spaces out defining items — two back to back both render hero', () => {
+    const items = [
+      item({ id: 'a', images: realImg, significance: 'defining' }),
+      item({ id: 'b', images: realImg, significance: 'defining' }),
+    ];
+    const tiers = assignFeedTiers(items);
+    expect(tiers.get('a')).toBe('hero');
+    expect(tiers.get('b')).toBe('hero');
+  });
+
+  it('gives a notable item at least media tier even when it reads as routine content', () => {
+    const items = [
+      item({
+        id: 'a',
+        images: realImg,
+        tags: ['Tour'],
+        summary: 'Short.',
+        significance: 'notable',
+      }),
+    ];
+    expect(assignFeedTiers(items).get('a')).toBe('media');
+  });
+
+  it('never demotes a notable item to a breather, unlike an unmarked item in the same run', () => {
+    const run = Array.from({ length: 6 }, (_, i) =>
+      item({ id: `m${i}`, images: realImg, tags: ['Music'] }),
+    );
+    const notableItem = item({
+      id: 'notable',
+      images: realImg,
+      tags: ['Music'],
+      significance: 'notable',
+    });
+    const tiers = assignFeedTiers([...run, notableItem]);
+    expect(tiers.get('notable')).not.toBe('text');
+    expect(tiers.get('notable')).not.toBe('chip');
+  });
+
+  it('does not let a no-image notable item inflate the image-run pacing counter (found in review, 2026-07-18)', () => {
+    // Three 'notable' items with no real photo (eraArtOnly, the default from
+    // item()) get forced to media tier without ever contributing a real
+    // image to the run — they must not count toward the breather threshold
+    // that follows, or an unrelated later real-image item gets wrongly
+    // demoted for a run of images that never actually existed.
+    const noImageNotable = Array.from({ length: 3 }, (_, i) =>
+      item({ id: `n${i}`, significance: 'notable' }),
+    );
+    const realImageItem = item({ id: 'a', images: realImg, tags: ['Music'] });
+    const tiers = assignFeedTiers([...noImageNotable, realImageItem]);
+    expect(tiers.get('a')).toBe('media');
+  });
+
+  it('leaves items with no significance set governed by the existing heuristic, unchanged', () => {
+    const items = [item({ id: 'a', images: realImg, tags: ['Tour'], summary: 'Short.' })];
+    expect(assignFeedTiers(items).get('a')).toBe('chip');
   });
 
   it('is a pure function of the sequence — same input always produces the same tiers', () => {

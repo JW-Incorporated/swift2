@@ -105,8 +105,12 @@ Enforced by DB CHECK constraints and restated as an authoring rule:
 - `moment.context` ≤2000 chars — link-first, not write-first. Omit by
   default for non-`music` categories; include only if a source reports a
   specific fact the snippet didn't already cover, and even then one short
-  line, not a paragraph. `music` items are the exception (comprehensive
-  coverage where sourced — see `song-annotation-standard.md`).
+  line, not a paragraph. Two exceptions get comprehensive coverage where
+  sourced, up to the cap: `music` items (see `song-annotation-standard.md`),
+  and any item marked `significance: 'defining'` regardless of category
+  (added 2026-07-18 — see `depth-rubric.md` "Item-level significance"). Both
+  exceptions still mean *more real sourced facts*, never speculation to fill
+  space — the no-fabrication rule doesn't loosen for either one.
 - Photos are always hotlinked with credit (credit = attribution, not legal
   clearance).
 
@@ -116,6 +120,16 @@ Mirrors the company's existing dual-AI operating model
 (`docs/decisions.md`, "Adopt dual-AI operating model") applied to content
 instead of code — Codex's job is to disagree, and cross-provider review
 catches what self-review can't.
+
+**Applies identically no matter who or what produced the first draft**
+(added 2026-07-18): a ChatGPT-drafted article, a lead surfaced by the
+News/Current worker (`apps/worker`, `docs/content-ops/intake.md`), or
+anything else brought in from outside this pipeline is a *source lead*, not
+a draft that gets to skip straight to step 2 or 3. It re-enters at step 1 —
+re-drafted against this voice guide from its underlying facts/sources, not
+lightly edited from its original wording. A draft sounding fluent or
+already citing outlets is not evidence it's ready; re-verify the citations
+independently regardless of how confident the original draft reads.
 
 1. **Claude drafts** each item against this voice guide.
 2. **Codex reviews** (cross-provider, not the same model checking its own

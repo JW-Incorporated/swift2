@@ -59,7 +59,8 @@ type FeedEntry = { kind: 'moment'; item: ContentItem } | { kind: 'video'; video:
  * optional per-era filter below reuses that same icon/color set.
  */
 export function EraSection({ era }: { era: Era }) {
-  const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide } = useAppActions();
+  const { openItem, setSelectorOpen, openThread, openTrackGuide, openTheoryGuide } =
+    useAppActions();
   const [activeTags, setActiveTags] = useState<Set<ContentTag>>(new Set());
   // Collapsed by default (content-framework doc's addendum: "off by default,
   // not a persistent filter row on every one of ~230 months") — a toggle
@@ -97,7 +98,8 @@ export function EraSection({ era }: { era: Era }) {
     [items],
   );
   const timelineVideos = useMemo(
-    () => musicVideosForEra(era.id).filter((v) => !v.youtubeId || !embeddedVideoIds.has(v.youtubeId)),
+    () =>
+      musicVideosForEra(era.id).filter((v) => !v.youtubeId || !embeddedVideoIds.has(v.youtubeId)),
     [era.id, embeddedVideoIds],
   );
   const visibleTimelineVideos = useMemo(
@@ -126,7 +128,9 @@ export function EraSection({ era }: { era: Era }) {
   const presentTags = useMemo(
     () =>
       tagsPresent(
-        timelineVideos.length > 0 ? [...items.map((it) => it.tags), ['Music']] : items.map((it) => it.tags),
+        timelineVideos.length > 0
+          ? [...items.map((it) => it.tags), ['Music']]
+          : items.map((it) => it.tags),
       ),
     [items, timelineVideos],
   );
@@ -153,7 +157,13 @@ export function EraSection({ era }: { era: Era }) {
       {/* Hero */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={era.image || '/placeholder.svg'} alt="" fill priority className="object-cover opacity-40" />
+          <Image
+            src={era.image || '/placeholder.svg'}
+            alt=""
+            fill
+            priority
+            className="object-cover opacity-40"
+          />
           {/* Fades in from era-bg at the very top (blending into the solid-
               color EraTransition band above this section, so the image
               doesn't start abruptly at full opacity right at the seam) and
@@ -263,7 +273,11 @@ export function EraSection({ era }: { era: Era }) {
                     {activeTags.size}
                   </span>
                 )}
-                {filterOpen ? <ChevronUp className="h-3 w-3" /> : <ChevronDown className="h-3 w-3" />}
+                {filterOpen ? (
+                  <ChevronUp className="h-3 w-3" />
+                ) : (
+                  <ChevronDown className="h-3 w-3" />
+                )}
               </button>
               {activeTags.size > 0 && (
                 <button
@@ -318,7 +332,11 @@ export function EraSection({ era }: { era: Era }) {
         <ol className="relative space-y-5">
           {feedEntries.map((entry) =>
             entry.kind === 'video' ? (
-              <VideoMomentCard key={`era-video-${entry.video.slug}`} video={entry.video} eraId={era.id} />
+              <VideoMomentCard
+                key={`era-video-${entry.video.slug}`}
+                video={entry.video}
+                eraId={era.id}
+              />
             ) : (
               <MomentCard
                 key={entry.item.id}
@@ -438,10 +456,16 @@ function VideoMomentCard({ video, eraId }: { video: TimelineVideo; eraId: Era['i
           {video.title}
         </h3>
         {video.summary && (
-          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{video.summary}</p>
+          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+            {video.summary}
+          </p>
         )}
         {video.youtubeId && (
-          <MomentVideo video={{ youtubeId: video.youtubeId, title: video.title }} caption={null} className="mt-4" />
+          <MomentVideo
+            video={{ youtubeId: video.youtubeId, title: video.title }}
+            caption={null}
+            className="mt-4"
+          />
         )}
       </div>
     </li>
@@ -517,7 +541,15 @@ function TagRow({ tags }: { tags: ContentTag[] }) {
   );
 }
 
-function MomentCard({ item, tier, onOpen }: { item: ContentItem; tier: CardTier; onOpen: () => void }) {
+function MomentCard({
+  item,
+  tier,
+  onOpen,
+}: {
+  item: ContentItem;
+  tier: CardTier;
+  onOpen: () => void;
+}) {
   const { progress } = useProgress();
   const seen = progress.moments.has(item.id);
   const hero = hasRealPrimaryImage(item) ? primaryImageRef(item) : undefined;
@@ -531,28 +563,43 @@ function MomentCard({ item, tier, onOpen }: { item: ContentItem; tier: CardTier;
 
   // CHAPTER BREAK — rare (paced out in feed-tiers.ts), full-bleed image,
   // big serif title. Registers as an event specifically because it's rare.
-  if (tier === 'hero' && hero) {
+  //
+  // The image block below is conditional on `hero` (a real photo) — but the
+  // tier itself is not: `significance: 'defining'` (docs/decisions.md,
+  // 2026-07-18) guarantees this tier regardless of imagery, so a defining
+  // item with no real photo yet must still get the bigger typography, not
+  // silently fall through to the plain media-tier card below. Found in
+  // review (2026-07-18) — the original version gated the whole branch on
+  // `tier === 'hero' && hero`, which is correct for "should this look like
+  // a photo hero" but wrong for "did significance actually change anything
+  // for this item," which is the guarantee the feature makes.
+  if (tier === 'hero') {
     return (
       <li {...listItemProps}>
-        <button onClick={onOpen} className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition">
-          <div className="relative aspect-[16/9] w-full overflow-hidden">
-            <Image
-              src={hero.url}
-              alt=""
-              fill
-              unoptimized={/^https?:\/\//.test(hero.url)}
-              className="object-cover transition duration-300 group-hover:scale-[1.03]"
-              style={{ objectPosition: focalPointOf(hero) }}
-            />
-            <div
-              aria-hidden
-              className="absolute inset-0"
-              style={{
-                background:
-                  'linear-gradient(to top, color-mix(in srgb, var(--era-surface) 88%, transparent), transparent 55%)',
-              }}
-            />
-          </div>
+        <button
+          onClick={onOpen}
+          className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
+        >
+          {hero && (
+            <div className="relative aspect-[16/9] w-full overflow-hidden">
+              <Image
+                src={hero.url}
+                alt=""
+                fill
+                unoptimized={/^https?:\/\//.test(hero.url)}
+                className="object-cover transition duration-300 group-hover:scale-[1.03]"
+                style={{ objectPosition: focalPointOf(hero) }}
+              />
+              <div
+                aria-hidden
+                className="absolute inset-0"
+                style={{
+                  background:
+                    'linear-gradient(to top, color-mix(in srgb, var(--era-surface) 88%, transparent), transparent 55%)',
+                }}
+              />
+            </div>
+          )}
           <div className="p-6">
             <MomentMeta item={item} seen={seen} />
             <h3 className="mt-2 font-[family-name:var(--era-font)] text-balance text-2xl font-semibold leading-snug sm:text-3xl">
