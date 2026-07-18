@@ -260,6 +260,15 @@ shares per post, saves per carousel, profile-visit → follow rate, site
 clicks (UTM). Kill formats that are flat for three weeks; double formats
 that share.
 
+**Daily pulse, separate from the above (added 2026-07-17, Joey's ask):** the
+Founders' Brief now also carries a one-line daily Growth snapshot — follower
+count + delta per platform, posts published today
+(`.github/workflows/growth-snapshot.yml` → `docs/agents/marjorie.md` › Brief
+format). It's a leading indicator only, deliberately lighter than the weekly
+rollup above (no reach/shares/saves — that analysis stays weekly). Site
+traffic joins it once Vercel Web Analytics ships (#799); app downloads/DAU
+once iOS/Android ship (#67, #530).
+
 ---
 
 ## 7. Reddit & Tumblr — the etiquette lane (read before ANY promo post)
