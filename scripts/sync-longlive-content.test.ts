@@ -1,7 +1,13 @@
 import { describe, expect, it } from 'vitest';
 // The generator only writes files when invoked directly; importing it here
 // just pulls in its pure normalization functions.
-import { addItem, imagesFrom, significanceFrom, threadIdsFrom } from './sync-longlive-content.mjs';
+import {
+  addItem,
+  buildOutputSource,
+  imagesFrom,
+  significanceFrom,
+  threadIdsFrom,
+} from './sync-longlive-content.mjs';
 
 describe('imagesFrom', () => {
   it('maps thumbnail_url to the primary image', () => {
@@ -17,7 +23,12 @@ describe('imagesFrom', () => {
       ]),
     ).toEqual([
       { url: 'https://example.com/a.jpg', kind: 'primary' },
-      { url: 'https://example.com/b.jpg', credit: 'Getty Images', caption: undefined, kind: 'archival' },
+      {
+        url: 'https://example.com/b.jpg',
+        credit: 'Getty Images',
+        caption: undefined,
+        kind: 'archival',
+      },
     ]);
   });
 
@@ -86,7 +97,13 @@ describe('addItem date precision', () => {
 
   it('carries a valid significance through end to end, and omits it when absent', () => {
     const byEra = {};
-    addItem(byEra, {}, 'debut', { ...base, year: 2026, month: 7, day: 3, significance: 'defining' });
+    addItem(byEra, {}, 'debut', {
+      ...base,
+      year: 2026,
+      month: 7,
+      day: 3,
+      significance: 'defining',
+    });
     addItem(byEra, {}, 'debut', { ...base, title: 'Routine item', year: 2026, month: 7, day: 4 });
     expect(byEra.debut[0].significance).toBe('defining');
     expect(byEra.debut[1].significance).toBeUndefined();
@@ -124,5 +141,70 @@ describe('significanceFrom', () => {
     expect(significanceFrom(null)).toBeUndefined();
     expect(significanceFrom(undefined)).toBeUndefined();
     expect(significanceFrom('')).toBeUndefined();
+  });
+});
+
+describe('buildOutputSource', () => {
+  // Regression coverage for a real bug (docs/decisions.md, 2026-07-18):
+  // addItem() computed `significance` correctly, but the writer had no
+  // `lines.push` line for it, so it never reached the generated file — only
+  // caught by checking the live site, not by any test, because every
+  // existing test stopped at the intermediate addItem() object instead of
+  // the actual emitted source text. This test asserts on the real string
+  // buildOutputSource returns, the same text that gets written to disk.
+  it('emits every optional field addItem() can produce — not just significance', () => {
+    // Found in review (2026-07-18): the original version of this test only
+    // covered significance + threadIds despite its name claiming "every
+    // optional field" — it would still have passed if the writer lost
+    // support for slug, images, sources, video, or relatedIds. One fully
+    // populated item, checked against every field addItem() accepts.
+    const byEra = {};
+    addItem(byEra, {}, 'debut', {
+      slug: 'a-defining-moment',
+      year: 2026,
+      month: 7,
+      day: 3,
+      category: 'relationship',
+      title: 'A defining moment',
+      snippet: 'A snippet.',
+      sourceUrl: 'https://example.com/source',
+      thumbnailUrl: 'https://example.com/thumb.jpg',
+      significance: 'defining',
+      threadIds: ['taylors-version'],
+      video: { youtubeId: 'abc123', title: 'A video' },
+      relatedIds: ['moment:some-other-item'],
+    });
+    const source = buildOutputSource(byEra);
+    expect(source).toContain('slug: "a-defining-moment"');
+    expect(source).toContain('significance: "defining"');
+    expect(source).toContain('threadIds: ["taylors-version"]');
+    expect(source).toContain('images: [{ url: "https://example.com/thumb.jpg"');
+    expect(source).toContain('sources: [{ name:');
+    expect(source).toContain('video: { youtubeId: "abc123", title: "A video" }');
+    expect(source).toContain('relatedIds: ["moment:some-other-item"]');
+  });
+
+  it('omits a significance value for a routine item rather than emitting a falsy one', () => {
+    const byEra = {};
+    addItem(byEra, {}, 'debut', {
+      year: 2026,
+      month: 7,
+      day: 4,
+      category: 'sighting',
+      title: 'A routine moment',
+      snippet: 'A snippet.',
+    });
+    const source = buildOutputSource(byEra);
+    // The VaultRawItem type declaration always mentions the field name
+    // (`significance?: 'defining' | 'notable';`) — that's expected on every
+    // output regardless of data. What must NOT appear is a per-item value
+    // assignment, which esc() always double-quotes, unlike the single-quoted
+    // type declaration — that distinction is what this checks.
+    expect(source).not.toContain('significance: "');
+  });
+
+  it('declares significance on the generated VaultRawItem type, not just the values', () => {
+    const source = buildOutputSource({});
+    expect(source).toContain("significance?: 'defining' | 'notable';");
   });
 });

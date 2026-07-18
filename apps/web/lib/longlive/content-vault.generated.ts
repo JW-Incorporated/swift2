@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef, LensId } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-18T14:35:32.167Z";
+export const CONTENT_GENERATED_AT = "2026-07-18T17:35:31.183Z";
 
 type VaultRawItem = {
   id: string;
@@ -27,6 +27,7 @@ type VaultRawItem = {
   video?: { youtubeId: string; title: string };
   relatedIds?: string[];
   threadIds?: LensId[];
+  significance?: 'defining' | 'notable';
 };
 
 export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
@@ -6071,6 +6072,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png", credit: "Album cover photographed by Mert Alas & Marcus Piggott / Republic Records, via Wikipedia", caption: "The official album cover: Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais's Ophelia beneath the orange-glitter title.", kind: "primary", focalPoint: "55% 22%" }],
       sources: [{ name: "The Life of a Showgirl", url: "https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl" }, { name: "Taylor Swift talks new album on 'New Heights' podcast", url: "https://www.npr.org/2025/08/14/nx-s1-5502415/taylor-swift-podcast-new-album-life-showgirl-kelce" }, { name: "Taylor Swift Unveils 'The Life of a Showgirl' Cover, Sabrina Carpenter Feature", url: "https://www.rollingstone.com/music/music-news/taylor-swift-life-of-showgirl-details-cover-new-heights-1235406130/" }],
+      significance: "defining",
     },
     {
       id: "vault-tloas-the-official-release-party-of-a-showgirl-turns-movie-theater",
@@ -6311,6 +6313,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg", credit: "Charly Triballeau/AFP via Getty Images", caption: "The jumbotron outside Madison Square Garden reading \"JUST&T MARRIED!\" as fans stop to photograph it, the Empire State Building behind.", kind: "primary", focalPoint: "70% 35%" }, { url: "https://assets3.cbsnewsstatic.com/hub/i/r/2026/07/02/e66f5b93-8b69-4557-847c-106908119407/thumbnail/620x413/06cdf599d84c9a589b8eb695f3867456/2026-07-02t205104z-316575572-rc2w5maws1vu-rtrmadp-3-people-taylor-swift-kelce.jpg", credit: "Christian Monterrosa/Reuters", caption: "In the run-up to the ceremony: crews on ladders hang curtains across the Garden's glass entrance while security stands watch outside.", kind: "archival", focalPoint: "50% 30%" }, { url: "https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/0bb2c01d-717b-42d9-a2b4-08fd18f021e3/thumbnail/620x414/162fb69de698cd4a021ab5e0e34a638a/gettyimages-2284537214.jpg", credit: "Roy Rochlin/Getty Images, via CBS News", caption: "Guest arrivals: Hugh Grant and Anna Elisabet Eberstein arrive at Madison Square Garden on July 2, 2026, as the multi-day celebration begins.", kind: "primary", focalPoint: "48% 30%" }, { url: "https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/46f18357-e274-4e86-a5ac-b173d9b01219/thumbnail/620x414/aff0da6d159019e0ce14046348347c7b/gettyimages-2284532594.jpg", credit: "Roy Rochlin/Getty Images, via CBS News", caption: "Abby Wambach and Glennon Doyle arrive at Madison Square Garden for the wedding on July 3, 2026.", kind: "primary", focalPoint: "62% 18%" }, { url: "https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/5ba6ed3b-0728-43a7-a105-2fdc2beb7097/thumbnail/620x414/ca2a0b800b41ca793cc0db76270c7ef5/gettyimages-2283912122.jpg", credit: "Angela Weiss/AFP via Getty Images, via CBS News", caption: "The scene outside: members of the media gather at Madison Square Garden on the wedding day, July 3, 2026.", kind: "archival", focalPoint: "42% 45%" }, { url: "https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/661a9e69-70e1-4a8c-88bc-e84d2bc985c0/thumbnail/620x414/82c6463f5b68d14f30b1660eb692a0d5/gettyimages-2283918271.jpg", credit: "Tom Weller/picture alliance via Getty Images, via CBS News", caption: "Onlookers wait behind barriers outside Madison Square Garden ahead of the ceremony on July 3, 2026.", kind: "archival", focalPoint: "45% 50%" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/" }, { name: "Billboard", url: "https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/" }],
+      significance: "defining",
     },
     {
       id: "vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep",
