@@ -140,6 +140,31 @@ export default {
             caption:
               'From the album shoot: Swift in vintage Bob Mackie feathers at a dressing-room mirror, surrounded by showgirls in matching plumes — Mert and Marcus\'s backstage-glamour thesis for the era.',
             kind: 'primary',
+            // Swift stands left of center amid the showgirls; her face sits just above the middle band.
+            focalPoint: '42% 38%',
+          },
+          // Photo pass (#762 run 6, 2026-07-18): two more frames from the same
+          // Mert & Marcus album shoot, hotlinked from Marie Claire's credited
+          // copies (credit strings on the article: "Mert Alas and Marcus
+          // Piggott"). Both verified HTTP 200 + image/jpeg, downloaded and
+          // visually confirmed this session.
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/6bCBZegSVzvrbtkJHDHqUe-1024-80.jpg',
+            credit: 'Mert Alas and Marcus Piggott, via Marie Claire',
+            caption:
+              'The custom Gucci look from the same shoot: a sequined copper gown, glancing back past a room-service cart of martinis — offstage glamour played as theater.',
+            kind: 'primary',
+            // She stands right of center, glancing back; her face sits in the upper quarter.
+            focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/M6vbXtrHkRuawfHjpn422Q-1024-80.jpg',
+            credit: 'Mert Alas and Marcus Piggott, via Marie Claire',
+            caption:
+              'Rhinestone bra, crystal headdress, gold-tassel curtain: the full Vegas register of the shoot, photographed like a between-shows breather.',
+            kind: 'primary',
+            // Seated pose with her face upper-left against the gold tassels.
+            focalPoint: '38% 22%',
           },
         ],
       },
@@ -1169,6 +1194,23 @@ export default {
             caption:
               'In the Arrowhead suite during the Oct. 12 Sunday Night Football win over Detroit: Swift hugs a companion in a Kelce jersey, engagement ring visible.',
             kind: 'primary',
+            // Her face is center-left in the suite window, slightly above the middle.
+            focalPoint: '43% 38%',
+          },
+          // Photo pass (#762 run 6, 2026-07-18): a second, distinct wire photo
+          // from the same game via Billboard's coverage of the Swift/Clark
+          // suite appearance. Verified HTTP 200 + image/jpeg, downloaded and
+          // visually confirmed (Swift mid-smile above the crowd; Clark is not
+          // in this frame — no verifiable Swift-and-Clark two-shot exists on
+          // an approved CDN).
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/10/taylor-swift-chiefs-lions-2025-billboard-1800.jpg?w=1024',
+            credit: 'Jamie Squire/Getty Images, via Billboard',
+            caption:
+              'Between plays: Swift spotted over the crowd in the Arrowhead suite during the Oct. 12 Sunday Night Football game — her first on-camera appearance there all season.',
+            kind: 'primary',
+            // Her face sits upper-right of center above the foreground crowd.
+            focalPoint: '64% 28%',
           },
         ],
       },
@@ -1213,8 +1255,8 @@ export default {
     // mandatory minicamp ran June 9-11 in Kansas City (Yahoo). Facts
     // triangulated across Billboard, Rolling Stone, E!, SI, NBA.com and
     // Yahoo search-indexed content; direct page fetches and image
-    // verification are blocked by this environment's network policy, so no
-    // thumbnail/photos — left for the photo pass (T16 pattern).
+    // verification were blocked in that session, so photos were left for the
+    // photo pass — added in the #762 run-6 pass (2026-07-18) below.
     {
       slug: 'stevie-knicks-nba-finals-game-4',
       year: 2026,
@@ -1225,7 +1267,9 @@ export default {
       snippet:
         'Courtside for NBA Finals Game 4 with Este and Alana Haim, in homemade Knicks-pun tees — hers reads "Stevie Knicks" — Taylor watches New York erase a 29-point deficit and steal it on a put-back with 1.2 seconds left. Three weeks later, same building: the wedding.',
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-nba-finals-game-4-haim-stevie-knicks-shirt-1236270180/',
-      thumbnailUrl: null,
+      // Photo pass (#762 run 6, 2026-07-18): thumbnail = the courtside group
+      // photo added below; page previously had no images.
+      thumbnailUrl: 'https://cdn.nba.com/manage/2026/06/GettyImages_TSwift.jpg',
       moment: {
         context:
           'The shirts were Alana Haim\'s craft project — $3 Gildan tees from Michaels, hand-lettered in orange: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.',
@@ -1245,6 +1289,37 @@ export default {
           {
             outlet: 'Yahoo Entertainment',
             url: 'https://www.yahoo.com/entertainment/celebrity/articles/travis-kelce-shows-love-taylor-202611050.html',
+          },
+          // Provenance for the photos added in the #762 run-6 photo pass:
+          {
+            outlet: 'NBA.com',
+            url: 'https://www.nba.com/news/taylor-swift-attends-2026-nba-finals-game-4-at-madison-square-garden',
+          },
+        ],
+        // Photo pass (#762 run 6, 2026-07-18): both photos hotlinked from the
+        // outlets' own CDNs, curl-verified HTTP 200 + image/jpeg, downloaded
+        // and visually confirmed this session (the hand-lettered pun tees are
+        // legible in both). Billboard's other frame and Rolling Stone's lead
+        // are tighter crops of the same Dustin Satloff photo used below —
+        // rejected as near-duplicates.
+        photos: [
+          {
+            url: 'https://cdn.nba.com/manage/2026/06/GettyImages_TSwift.jpg',
+            credit: 'Getty Images, via NBA.com',
+            caption:
+              'Courtside at Game 4: Swift, center, cheering the comeback with companions in the matching hand-made Knicks-pun tees.',
+            kind: 'primary',
+            // Swift stands just right of center; the three faces run along the upper quarter.
+            focalPoint: '54% 22%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/06/taylor-swift-knicks-2026-billboard-embed.jpg?w=1024',
+            credit: 'Dustin Satloff/Getty Images, via Billboard',
+            caption:
+              'The "Stevie Knicks" tee up close — $3 Gildan blank, Alana Haim\'s Cricut lettering in Knicks orange — engagement ring on the raised hand.',
+            kind: 'primary',
+            // Tall frame: her face sits high-left of the shirt lettering, upper third.
+            focalPoint: '46% 30%',
           },
         ],
       },
@@ -1286,12 +1361,16 @@ export default {
             caption:
               'A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation.',
             kind: 'primary',
+            // Tent peaks and the walking couple sit center-right, just above and below the midline.
+            focalPoint: '52% 45%',
           },
           {
             url: 'https://twt-thumbs.washtimes.com/media/image/2026/06/21/Swift_Wedding_Speculation_6953__c0-242-5784-3614_s885x516.jpg?18921fe33b20ba0427c28b6eeae09fd9ded1b3cc',
             credit: 'AP Photo/Robert F. Bukaty, via The Washington Times',
             caption: 'A security guard stands watch at Swift\'s Watch Hill "Holiday House" estate, June 20, 2026.',
             kind: 'primary',
+            // The guard stands far left against the fence line, mid-height.
+            focalPoint: '18% 40%',
           },
         ],
       },
@@ -1460,6 +1539,8 @@ export default {
             caption:
               "For reference — no official photo of Taylor Swift's gown has been released. This is Elizabeth Taylor in the Helen Rose bridal look from Father of the Bride (1950); Rose also designed the real gown Elizabeth Taylor wore to marry Conrad Hilton that May, the dress the Dior design reportedly references.",
             kind: 'reference',
+            // Her veiled face sits just left of center, in the upper-middle of the frame.
+            focalPoint: '47% 38%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Dress_by_Jonathan_Anderson_for_Loewe_%2851444%29.jpg',
@@ -1467,6 +1548,8 @@ export default {
             caption:
               "For reference — not the wedding gown. Jonathan Anderson working in white duchess silk satin at Loewe (autumn/winter 2023-24), before he took over Dior womenswear and haute couture — a feel for the designer's hand in bridal-adjacent white silk.",
             kind: 'reference',
+            // Tall portrait of a mannequin dress; the bodice detail lives in the upper third.
+            focalPoint: '50% 30%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Christian_Dior%2C_30_Avenue_Montaigne%2C_Paris_2016.jpg',
@@ -1474,6 +1557,8 @@ export default {
             caption:
               "For reference — Dior's historic house at 30 Avenue Montaigne, Paris, home of the haute couture ateliers where the custom gown was made.",
             kind: 'reference',
+            // The lit chandelier installation hangs dead-center on the corner facade, slightly above the storefront.
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -1526,6 +1611,21 @@ export default {
             caption:
               'On the Graham Norton Show set, Oct. 2, 2025: the crystal-embroidered neckline of the David Koma LBD that opened the Showgirl press run.',
             kind: 'primary',
+            // Tight head-and-shoulders frame; eyes sit just above the middle, face centered.
+            focalPoint: '50% 38%',
+          },
+          // Photo pass (#762 run 6, 2026-07-18): the seated full view of the
+          // same look from Marie Claire's dress close-read (credit on the
+          // article: Alamy). Verified HTTP 200 + image/jpeg, downloaded and
+          // visually confirmed (whole halter silhouette + jeweled neckline).
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/oGZmWZYsJXLBXALnDQk7X4-1024-80.jpg',
+            credit: 'Alamy, via Marie Claire',
+            caption:
+              'The whole silhouette on the couch: black velvet halter mini, crystal choker-neckline doing the showgirl signaling, glass of white within reach.',
+            kind: 'primary',
+            // Tall seated portrait; her face is centered in the upper quarter.
+            focalPoint: '50% 25%',
           },
         ],
       },
@@ -1565,7 +1665,15 @@ export default {
             caption:
               'From the Sept. 20 behind-the-scenes video: Swift in the pumpkin-orange Reformation knit, explaining the album\'s visual identity on camera.',
             kind: 'primary',
+            // Talking-head frame with her face centered high; eyes in the upper third.
+            focalPoint: '50% 32%',
           },
+          // Photo pass (#762 run 6, 2026-07-18): deliberately left at one
+          // photo. The Sept. 20 Taylor Nation video yielded a single credited
+          // still (above); the other orange-outfit images on approved CDNs are
+          // different sightings (the $70 merch cardigan in a later teaser
+          // trailer), and the album-cover render would duplicate the
+          // showgirl-release-day page's art.
         ],
       },
     },
