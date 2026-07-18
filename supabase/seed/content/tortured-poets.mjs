@@ -408,6 +408,9 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=942',
             credit: 'Kevin Mazur/TAS24/Getty Images',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // full-body stage shot in the crystal bodysuit; face upper-left of center.
+            focalPoint: '42% 18%',
           },
           {
             // Image-fix pass (2026-07-10): #343 — second usage of the same ?w=300 low-res URL
@@ -415,6 +418,9 @@ export default {
             // full-res variant (curl-verified 200/image/jpeg, vision-confirmed same photo).
             url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Mazur/TAS24/Getty Images',
+            // Focal point set 2026-07-18 (run 7) by viewing: Swift small atop the white
+            // TTPD set piece, upper-center-left, dancers below.
+            focalPoint: '46% 28%',
           },
         ],
       },
@@ -868,6 +874,10 @@ export default {
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2025/02/10/730950cd-100f-4bdf-9500-9ddfae69e3a2/thumbnail/620x413/17ecc99a76627497275a0395c0802f6e/gettyimages-2198604289.jpg',
             credit: 'Getty Images',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // wide suite shot; Swift (white tank, dark bob) stands left of center
+            // at the rail, face in the upper-middle band.
+            focalPoint: '37% 38%',
           },
         ],
       },
@@ -898,6 +908,9 @@ export default {
             // an allowlisted host. Added a caption so the photo doesn't misrepresent what's pictured.
             caption:
               'In the Superdome suite after removing the Saint Laurent blazer for the game — the blazer itself was worn on arrival.',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // Swift centered at the suite rail in the white tank, face high in frame.
+            focalPoint: '52% 24%',
           },
           {
             url: 'https://cdn.mos.cms.futurecdn.net/cpMbV3jceZ6rfU2apDrhta.jpg',
@@ -906,6 +919,9 @@ export default {
             // added rather than an unverified replacement URL; see note on the sibling photo above.
             caption:
               'Full-length view in the Superdome suite, blazer already off; the white tank top and crystal-denim shorts were worn underneath it.',
+            // Focal point set 2026-07-18 (run 7) by viewing: standing full-length
+            // left-of-center in the suite, face in the upper quarter of the frame.
+            focalPoint: '44% 22%',
           },
         ],
       },
@@ -1022,6 +1038,10 @@ export default {
           {
             url: 'https://cdn.mos.cms.futurecdn.net/iLujwgsEwXSAYA4yN98NKS.jpg',
             credit: 'Beth Garrabrant',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // three-panel collage of Garrabrant portraits; the center panel's
+            // full-length figure carries the crop, faces sit in the upper third.
+            focalPoint: '52% 25%',
           },
         ],
       },
@@ -1113,6 +1133,10 @@ export default {
           {
             url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg',
             credit: 'Getty Images',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // full-length red-carpet pose in the red Westwood mini; face high,
+            // just left of center.
+            focalPoint: '48% 14%',
           },
         ],
       },
@@ -1141,8 +1165,21 @@ export default {
           },
         ],
         photos: [
-          { url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg', credit: 'Taylor Swift' },
-          { url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg', credit: 'Taylor Swift' },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
+            credit: 'Taylor Swift',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // close embrace, her hand on his cheek; the two faces meet just
+            // above center frame.
+            focalPoint: '50% 30%',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg',
+            credit: 'Taylor Swift',
+            // Focal point set 2026-07-18 (run 7) by viewing: wide garden scene,
+            // the couple small at center under the floral arch, faces near mid-frame.
+            focalPoint: '52% 46%',
+          },
         ],
       },
     },
@@ -1179,6 +1216,10 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg',
             credit: 'Matt Winkelmeyer/Getty Images for The Recording Academy',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // full-length carpet shot, the white train sweeping right; face high
+            // in the upper-left quadrant.
+            focalPoint: '34% 15%',
           },
         ],
       },
@@ -1317,10 +1358,18 @@ export default {
           {
             url: 'https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg',
             credit: 'AP',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // the confetti kiss itself — the two faces meet right of center,
+            // upper third, her gloved hand on his cheek.
+            focalPoint: '55% 32%',
           },
           {
             url: 'https://i.abcnewsfe.com/a/746ae3a7-ce19-4c9c-a703-bc8dfc6d5f42/taylor-swift1-gty-ml-250127_1737980240663_hpEmbed_17x16.jpg',
             credit: 'Getty Images',
+            // Focal point set 2026-07-18 (run 7) by viewing: near-square two-shot,
+            // Travis's face upper-left, Taylor's face right of center in the LV
+            // beanie; midpoint keeps both under a wide crop.
+            focalPoint: '52% 40%',
           },
         ],
       },
