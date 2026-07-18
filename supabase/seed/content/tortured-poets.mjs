@@ -378,6 +378,16 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Mazur/TAS24/Getty Images',
+            focalPoint: '45% 25%',
+          },
+          // Photo pass #762 run 10 (2026-07-18): second frame from the same La Défense
+          // stand, from the cited Rolling Stone setlist story (its own CDN). RS caption
+          // dates it to night four (May 12); caption below says so honestly.
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/05/Taylor-Swift-Tortured-Poets-Eras-Tour-Post.jpg?crop=0px%2C11px%2C1798px%2C1014px&resize=1600%2C900',
+            credit: 'Kevin Mazur/TAS24/Getty Images',
+            caption: 'Night four of the same Paris stand at La Défense Arena (May 12, 2024), in the sparkling orange jacket of the new TTPD set.',
+            focalPoint: '52% 26%',
           },
         ],
       },
@@ -546,7 +556,12 @@ export default {
       snippet:
         'After a two-month break, the Eras Tour opens its final leg at Hard Rock Stadium — and Florence Welch walks out for a live "Florida!!!", not once but on all three nights.',
       sourceUrl: 'https://deadline.com/2024/10/taylor-swift-eras-tour-miami-night-one-review-florence-welch-1236120710/',
-      thumbnailUrl: null,
+      // Photo pass #762 run 10 (2026-07-18): page had zero photos. Both photos below
+      // HTTP-checked (200 image/jpeg), downloaded, and vision-confirmed. Deadline (the
+      // cited source) tollbit-gates its images, so the Florence duet frame comes from
+      // Rolling Stone's own Miami-show story CDN instead.
+      thumbnailUrl:
+        'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
       moment: {
         context:
           'The first show since Wembley on Aug. 20 — 61,000 fans at Hard Rock Stadium on Oct. 18, 2024, and the start of the tour\'s last lap. The break showed in the details: new looks throughout, including a silver Fearless dress and a black Midnights bodysuit scattered with stars and a moon, plus setlist changes for the final leg.\n\nThe headline moment was the TTPD set: Florence Welch appeared for "Florida!!!" live — the duet fans had been asking about since the album dropped — and rather than a one-night stunt, she came back for it on Oct. 19 and 20 too, making the duet a fixture of the whole Miami stand.',
@@ -570,6 +585,20 @@ export default {
             reliability_score: 3,
           },
         ],
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
+            credit: 'John Shearer/TAS24/Getty Images for TAS Rights Management',
+            caption: 'Florence Welch joins Taylor Swift for "Florida!!!" on opening night at Hard Rock Stadium, Oct. 18, 2024.',
+            focalPoint: '44% 18%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-2024-miami-eras-tour-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'TAS2024/Getty Images for TAS',
+            caption: 'At the flower-painted piano in the acoustic set, night two at Hard Rock Stadium, Oct. 19, 2024.',
+            focalPoint: '55% 18%',
+          },
+        ],
       },
     },
     {
@@ -583,7 +612,13 @@ export default {
         'Night two in New Orleans: Taylor announces she\'s about to sing a song that isn\'t hers, starts strumming "Espresso" — and Sabrina Carpenter appears for a three-song mashup with "Please Please Please" and "Is It Over Now?"',
       sourceUrl:
         'https://www.nola.com/entertainment_life/taylor_swift/sabrina-carpenter-taylor-swift-surprise-songs/article_166bb366-93e4-11ef-aa8f-77e530d02cf8.html',
-      thumbnailUrl: null,
+      // Photo pass #762 run 10 (2026-07-18): page had zero photos. Billboard's own
+      // Oct. 26 duet frame HTTP-checked, downloaded, vision-confirmed (Swift in the
+      // orange evermore dress with guitar, Carpenter in white, jumbotron behind).
+      // NOLA.com and Axios (cited) both block image hotlink verification; Rolling
+      // Stone's og:image was an off-event archive Getty file — rejected.
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-sabrina-carpenter-eras-tour-new-orleans-oct-26-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           'The Caesars Superdome residency ran Oct. 25–27, 2024, and the Saturday show got the leg\'s biggest surprise-song swing. Taylor almost never performs covers, so the setup — telling the sold-out dome she was about to sing something that wasn\'t hers — was its own tell. Sabrina Carpenter, fresh off opening the tour\'s 2023 Latin American leg, joined her at the piano end of the acoustic set for a mashup threading Carpenter\'s "Espresso" and "Please Please Please" through "Is It Over Now?"\n\nFan video of the duet racked up millions of views within a day, and the moment instantly joined the tour\'s all-timer surprise-guest list alongside Miami\'s Florence Welch cameo the weekend before.',
@@ -614,6 +649,14 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-14',
             reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-sabrina-carpenter-eras-tour-new-orleans-oct-26-2024-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'TAS2024/Getty Images for TAS',
+            caption: 'Taylor Swift and Sabrina Carpenter mid-mashup on night two at the Caesars Superdome, Oct. 26, 2024.',
+            focalPoint: '48% 42%',
           },
         ],
       },
@@ -674,7 +717,12 @@ export default {
       snippet:
         '"Toronto, we are sooo back!" Six sold-out nights at Rogers Centre — Nov. 14–16 and 21–23 — the tour\'s only Canadian residency before the finale, with the Prime Minister trading friendship bracelets in the crowd.',
       sourceUrl: 'https://www.cbc.ca/news/entertainment/taylor-swift-night-one-1.7383718',
-      thumbnailUrl: null,
+      // Photo pass #762 run 10 (2026-07-18): page had zero photos. Both photos below
+      // HTTP-checked (200 image/jpeg), downloaded, vision-confirmed. The CBC frame is
+      // a CBC staff photo (Evan Mitsui) from the cited opening-night story; the
+      // Billboard frame fronts the cited Trudeau story, captioned Nov. 14 Rogers Centre.
+      thumbnailUrl:
+        'https://www.billboard.com/wp-content/uploads/2024/11/taylor-swift-toronto-eras-tour-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
           'The Eras Tour\'s penultimate stop stretched across two weekends — Nov. 14–16 and 21–23, 2024 — the longest residency of the closing leg and Taylor\'s first Canadian shows since 2018. CBC\'s opening-night dispatch caught the mood of a city that had waited out the entire tour: "Toronto, we are sooo back!"\n\nBy the second weekend the crowd itself was the story: Prime Minister Justin Trudeau brought his family to the Nov. 22 show, where fan video caught him dancing to "You Don\'t Own Me" during the pre-show countdown and swapping friendship bracelets with Swifties on the concourse. Six nights, six sellouts — and then only Vancouver was left.',
@@ -705,6 +753,20 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-14',
             reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/11/taylor-swift-toronto-eras-tour-2024-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Emma McIntyre/TAS24/Getty Images',
+            caption: 'Opening night of the Toronto residency at Rogers Centre, Nov. 14, 2024.',
+            focalPoint: '45% 24%',
+          },
+          {
+            url: 'https://i.cbc.ca/ais/1.7384051,1731634346000/full/max/0/default.jpg?im=Crop%2Crect%3D%28607%2C0%2C3682%2C2071%29%3BResize%3D1180',
+            credit: 'Evan Mitsui/CBC',
+            caption: "The Lover set on night one — CBC's own photo from inside Rogers Centre.",
+            focalPoint: '48% 18%',
           },
         ],
       },
@@ -771,6 +833,16 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-vancouver-fearless-dec-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Winter/TAS24/Getty Images',
+            focalPoint: '47% 22%',
+          },
+          // Photo pass #762 run 10 (2026-07-18): second Vancouver frame from the cited
+          // NBC News story's own CDN; NBC's caption dates it Dec. 6, 2024, Vancouver.
+          // HTTP-checked, downloaded, vision-confirmed (Reputation-set bodysuit).
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/241208-taylor-swift-mn-1245-48703f.jpg',
+            credit: 'Kevin Winter/Getty Images for TAS Rights Management',
+            caption: 'The Reputation set on the first night of the farewell stand at BC Place, Dec. 6, 2024.',
+            focalPoint: '59% 22%',
           },
         ],
       },
@@ -1441,6 +1513,16 @@ export default {
             credit: 'Vixy13 via Wikimedia Commons, CC BY 4.0',
             caption: 'The "Down Bad" staging in the Eras Tour\'s TTPD set (Paris, May 2024): a flying saucer beams its light down on the abandoned narrator.',
             kind: 'archival',
+            focalPoint: '29% 50%',
+          },
+          // Photo pass #762 run 10 (2026-07-18): official lyric-video still, video id
+          // oEmbed-verified against @TaylorSwift this run; 1280x720 maxres render.
+          {
+            url: 'https://i.ytimg.com/vi/EVbtjaWXQVg/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Still from the official "Down Bad" lyric video on Taylor Swift\'s YouTube channel.',
+            kind: 'archival',
+            focalPoint: '49% 50%',
           },
         ],
       },
@@ -1464,12 +1546,16 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        // Photo pass #762 run 10 (2026-07-18): upgraded 480x360 hqdefault -> 1280x720
+        // maxres (same video). Deliberately one photo: studio track never performed
+        // solo live; no distinct on-topic image exists on an approved CDN.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/CCUr2pNJft4/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/CCUr2pNJft4/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "So Long, London" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
+            focalPoint: '48% 49%',
           },
         ],
       },
@@ -1490,12 +1576,16 @@ export default {
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Loml' }],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        // Photo pass #762 run 10 (2026-07-18): upgraded 480x360 hqdefault -> 1280x720
+        // maxres (same video). Deliberately one photo: studio piano ballad; its one
+        // live moment (the Paris debut) is covered by the Paris tour page.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/GZ4vaTRn0HU/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/GZ4vaTRn0HU/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "loml" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
+            focalPoint: '50% 50%',
           },
         ],
       },
@@ -1521,12 +1611,16 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        // Photo pass #762 run 10 (2026-07-18): upgraded 480x360 hqdefault -> 1280x720
+        // maxres (same video). Deliberately one photo: studio track never staged on
+        // the tour; no distinct on-topic image exists on an approved CDN.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/OKWfv-x2rdU/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/OKWfv-x2rdU/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "I Can Fix Him (No Really I Can)" lyric video on Taylor Swift\'s YouTube channel.',
             kind: 'archival',
+            focalPoint: '50% 38%',
           },
         ],
       },
@@ -1738,12 +1832,16 @@ export default {
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
         // verified via YouTube oEmbed (author @TaylorSwift) this session.
+        // Photo pass #762 run 10 (2026-07-18): focal point set. Deliberately one
+        // photo: the Wembley "thank You aimEe" live moment exists only in fan video
+        // and a Taylor Nation email — no creditable still on an approved CDN.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/oaBJlKXBvjk/maxresdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'Still from the official "thanK you aIMee" lyric video, stray capitals intact.',
             kind: 'archival',
+            focalPoint: '50% 46%',
           },
         ],
       },
