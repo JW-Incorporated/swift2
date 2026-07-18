@@ -1436,12 +1436,14 @@ export default {
             credit: 'Big Machine Records',
             caption: 'Official single cover for "End Game" featuring Ed Sheeran and Future.',
             kind: 'primary',
+            focalPoint: '42% 35%',
           },
           {
             url: 'https://i.ytimg.com/vi/dfnCAmr569k/hqdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: 'The Tokyo stretch of Joseph Kahn\'s "End Game" video, released January 12, 2018.',
             kind: 'archival',
+            focalPoint: '53% 40%',
           },
         ],
       },
@@ -1489,6 +1491,21 @@ export default {
             credit: 'Big Machine Records, via Wikimedia Commons',
             caption: 'Single art for Sugarland\'s "Babe," featuring Taylor Swift — released April 20, 2018.',
             kind: 'primary',
+            // Text-only wordmark art, genuinely centered — viewed this run.
+            focalPoint: '50% 50%',
+          },
+          // Photo pass #762 run 25 (2026-07-18): second image is the video the
+          // page's story hinges on — video id l25AL0BdD6w oEmbed-verified this
+          // session ("Sugarland - Babe ft. Taylor Swift", channel SugarlandVEVO).
+          // maxresdefault curl 200 image/jpeg 1280x720; Read-viewed (Jennifer
+          // Nettles poolside frame; caption says who's actually pictured).
+          {
+            url: 'https://i.ytimg.com/vi/l25AL0BdD6w/maxresdefault.jpg',
+            credit: 'Sugarland / YouTube (official music video still)',
+            caption:
+              'Jennifer Nettles in Anthony Mandler\'s Mad Men-styled "Babe" video, released June 9, 2018 — Swift wrote the treatment and played the other woman.',
+            kind: 'archival',
+            focalPoint: '63% 32%',
           },
         ],
       },
@@ -1684,11 +1701,16 @@ export default {
         // Ronald Woan (license verified on the file page). Archival era context
         // for a paper-deal story with no event photo of its own.
         photos: [
+          // Photo pass #762 run 25 (2026-07-18): stays at one image — a
+          // paper-deal story with no signing/announcement imagery on allowed
+          // hosts (Variety/Rolling Stone art is wire/Getty), and a second tour
+          // frame would only repeat the era context this one already carries.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/58/Taylor_Swift_-_Reputation_Tour_Seattle_-_I_Did_Something_Bad.jpg',
             credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'On the reputation Stadium Tour in May 2018 — the final album cycle recorded under the Big Machine contract she was leaving.',
             kind: 'archival',
+            focalPoint: '47% 15%',
           },
         ],
       },
