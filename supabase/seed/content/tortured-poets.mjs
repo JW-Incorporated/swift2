@@ -2369,6 +2369,20 @@ export default {
             credit: 'Spotify Newsroom',
             caption: 'Spotify\'s Wrapped 2024 Global Top Artist announcement graphic.',
             kind: 'primary',
+            // TTPD cover square sits dead-center of the banner; genuinely centered.
+            focalPoint: '50% 50%',
+          },
+          // Photo pass (#762 run 6, 2026-07-18): the official share card from
+          // the same newsroom post. Verified HTTP 200 + image/png, downloaded
+          // and visually confirmed (portrait + "Global Top Artist" lockup).
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/12/Taylor-Swift-Sharecard.png',
+            credit: 'Spotify Newsroom',
+            caption:
+              'The "Global Top Artist" share card Spotify issued with the Dec. 4 reveal — the badge-styled lockup fans passed around as Wrapped stories dropped.',
+            kind: 'primary',
+            // The portrait square sits in the upper-middle of the card; the text lockup is below.
+            focalPoint: '50% 35%',
           },
         ],
       },
@@ -2426,6 +2440,21 @@ export default {
             credit: 'Courtesy of Taylor Swift (via Billboard)',
             caption: 'The photo released with the May 30, 2025 announcement: Swift with the six albums she bought back from Shamrock Capital.',
             kind: 'primary',
+            // Seated with arms raised, face in the upper third, slightly left of center.
+            focalPoint: '48% 30%',
+          },
+          // Photo pass (#762 run 6, 2026-07-18): frame 01 of the same
+          // announcement set (distinct pose — reading the sleeves, reputation
+          // LP in hand). Verified HTTP 200 + image/jpeg, downloaded and
+          // visually confirmed.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/01-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            credit: 'Courtesy of Taylor Swift (via Billboard)',
+            caption:
+              'A second frame from the announcement set: reading the sleeves of the reclaimed records, reputation in hand.',
+            kind: 'primary',
+            // She sits center-left with the albums fanned across her lap; face in the upper quarter.
+            focalPoint: '46% 30%',
           },
         ],
       },
@@ -2448,7 +2477,9 @@ export default {
       snippet:
         'TTPD goes 0-for-6 at the 2025 Grammys. The image that survives the night isn\'t a loss — it\'s Taylor presenting Best Country Album to a stunned Beyoncé for Cowboy Carter, one Album of the Year titan handing the genre trophy to the other.',
       sourceUrl: 'https://www.foxnews.com/entertainment/taylor-swift-leaves-grammys-no-awards-following-record-breaking-year',
-      thumbnailUrl: null,
+      // Photo pass (#762 run 6, 2026-07-18): thumbnail = the Best Country Album
+      // presentation photo added below.
+      thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2025/02/beyonce-grammy-awards-win-country-2025-billboard-1548.jpg?w=1024',
       moment: {
         context:
           'The Feb. 2, 2025 ceremony resolved all six nominations against her: Album of the Year went to Beyoncé\'s Cowboy Carter, "Not Like Us" swept Record of the Year, Song of the Year, and Best Music Video past "Fortnight," "Die With a Smile" took Best Pop Duo/Group Performance over "us.," and Sabrina Carpenter\'s Short n\' Sweet beat TTPD for Best Pop Vocal Album. Cameras kept finding her having a good night anyway — raising a glass when Kendrick Lamar\'s record swept, cheering when her tour opener Sabrina won.\n\nThe beat everyone kept came mid-show: Taylor presenting Best Country Album to a visibly stunned Beyoncé — her first-ever country win, from the artist whose own country-to-pop arc made her the category\'s most famous graduate. When Cowboy Carter later took Album of the Year, Taylor and Jay-Z clinked champagne glasses in the audience — a graceful coda to a night the internet had framed all week as a face-off.',
@@ -2464,6 +2495,39 @@ export default {
           {
             outlet: 'E! News',
             url: 'https://www.eonline.com/news/1412913/grammys-2025-how-taylor-swift-and-jay-z-celebrated-beyonces-aoty-win-together',
+          },
+          // Provenance for the photos added in the #762 run-6 photo pass:
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/beyonce-cowboy-carter-grammy-best-country-album-2025-1235890352/',
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-red-dress-grammys-1236899833/',
+          },
+        ],
+        // Photo pass (#762 run 6, 2026-07-18): both photos hotlinked from the
+        // outlets' own CDNs, curl-verified HTTP 200 + image/jpeg, downloaded
+        // and visually confirmed this session (the presentation moment and the
+        // red Vivienne Westwood carpet look). No watermarks.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/02/beyonce-grammy-awards-win-country-2025-billboard-1548.jpg?w=1024',
+            credit: 'Sonja Flemming/CBS, via Billboard',
+            caption:
+              'The moment everyone kept: Swift, in red Vivienne Westwood, just after presenting Best Country Album to a stunned Beyoncé — the first Black woman to win the category.',
+            kind: 'primary',
+            // Beyoncé with the trophy is center-right, Swift upper-left; faces live in the top third.
+            focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://wwd.com/wp-content/uploads/2025/02/Taylor-Swift-Red-Vivienne-Westwood-Dress-Grammys-2025-1.jpg?w=1000',
+            credit: 'Frazer Harrison/Getty Images, via WWD',
+            caption:
+              'The Red-era callback on the carpet: sparkling one-shoulder Vivienne Westwood with ruby chandelier earrings — worn to a night that ended 0-for-6.',
+            kind: 'primary',
+            // Tall portrait crop; her eyes sit in the upper third, face centered.
+            focalPoint: '50% 30%',
           },
         ],
       },
