@@ -7,6 +7,141 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-18 — Content weighted by real-world significance, not incidental signals
+
+**Decision:** Added `ContentItem.significance?: 'defining' | 'notable'`
+(`apps/web/lib/longlive/types.ts`) as an explicit authoring judgment of how
+major a real-world event was in Taylor's life. It now drives two things that
+previously had no real-importance signal at all:
+
+1. **Depth** — a `'defining'` item gets the same comprehensive-coverage
+   exception `music` items already had (`docs/content-ops/editorial-voice-
+   and-pipeline.md` § Length discipline), instead of the routine one-line
+   cap.
+2. **Feed prominence** — `lib/longlive/feed-tiers.ts`'s card-tier system
+   (`hero`/`media`/`chip`/`text`) previously inferred "weight" only from
+   incidental signals (a real photo, a video, body length) via a pacing
+   algorithm designed to break visual monotony, not to reflect importance —
+   a routine sighting with several photos could out-rank a defining event
+   with fewer. `significance` is now authoritative where set: `'defining'`
+   always renders full-bleed hero, bypassing the pacing throttle that
+   otherwise spaces heroes out; `'notable'` gets a guaranteed floor tier.
+   Items with no significance set (the vast majority) are governed by the
+   existing heuristic, unchanged.
+
+Also added a `MILESTONES` entry (`content.ts`) for the wedding
+(2026-07-03), which was absent despite being exactly the kind of event that
+list exists for — the era's milestone list had stopped at 2025-10-18.
+
+**Schema:** `month_item.significance` column added
+(`supabase/migrations/20260718150000_month_item_significance.sql`) for
+parity, not yet wired into the sync script's Supabase read path — the live
+site reads seed files first (2026-07-17 decision), so nothing consumes that
+column today; a documented follow-up, not an oversight.
+
+**Applied to real content this pass:** `msg-wedding` and `showgirl-release-
+day` (`supabase/seed/content/the-life-of-a-showgirl.mjs`) are the first two
+items marked `'defining'`. Reviewing the other 10 eras for their own
+defining events (a breakup, an album release, a major life turn — every era
+has a small number) is real content work, explicitly **not** done in this
+pass — flagged as follow-up, not silently deferred.
+
+**Why:** Joey and Wyatt discussed this directly (Slack, 2026-07-18) and
+agreed importance should drive both depth and visual prominence — "Taylor's
+wedding... should not only have 10x more content than any other post, it
+should also be more visible when a user is scrolling." Investigated first
+rather than building fresh: the codebase already had two independent,
+partially-built mechanisms for exactly this (`CardTier`'s hero tier,
+`MILESTONES`) that inferred importance incidentally instead of taking it as
+input — extending both was more correct and far less code than a new system.
+
+**Alternatives considered:** A numeric 1-10 importance scale (matching the
+News/Current pipeline's `news_story.importance`, #468) — rejected for Vault
+content specifically: that pipeline's scale feeds an algorithmic ranking
+function, but Vault authoring is manual human judgment, and a coarse
+two-value scale (plus "unset = routine") is easier to apply consistently
+across ~350 items than calibrating a 1-10 judgment call per item, per
+`depth-rubric.md`'s existing philosophy of small, discrete tiers over
+continuous scores (see its own Wavetop/Active/Quiet rubric). Automating
+`MILESTONES` sync from `significance: 'defining'` — deferred; both lists
+are hand-curated today and keeping them in explicit sync is a small, real
+authoring discipline, not yet worth the code to automate for two data points.
+
+**Approved by:** Joey + Wyatt (Slack, 2026-07-18); implemented same-day per
+Joey's direct instruction to build the architecture and apply it to real
+content immediately, not just spec it.
+
+---
+
+## 2026-07-18 — News/Current pipeline (V2, #468): schema, cadence, cost cap — DRAFT, pending Wyatt
+
+**Status: draft, built under Joey's explicit "go now, flag him after" direction
+on #468** (ticket text: "V2... owner: Wyatt... never preempts V1"). Proceeding
+on Joey's word, not silently overriding the ticket's own ownership note —
+Wyatt's real review is still owed on the three items below, per the
+architecture proposal's own §9 list of what needs his sign-off. Anything here
+is one line to revert if he disagrees; nothing here touches the Vault's
+runtime path.
+
+**Decision (schema shape):** Adopt `docs/proposals/2026-07-07-news-pipeline-architecture.md`
+§4 verbatim — `news_source`, `news_raw_item`, `news_story`, `news_story_source`,
+`news_llm_usage`, all `news_`-prefixed, zero foreign keys in either direction
+to Vault tables (`era`, `milestone`, `month_item`, `moment`, `track_note`), no
+Vault query may join or read `news_*`. `news_story` / `news_story_source`
+public-read RLS; `news_raw_item` / `news_source` / `news_llm_usage` service-role
+only (pipeline internals, never exposed).
+
+**Decision (cadence):** Hourly GitHub Actions cron, one-shot process (run a
+full cycle, exit — no resident worker), `concurrency` group so cycles never
+overlap. Matches the proposal's own recommendation (§6) and this session's
+2026-07-18 cron-scheduling-contention fix (offset off `:00`/`:30`, the two
+minutes already contended by this repo's two `*/30` workflows).
+
+**Decision (cost cap + model vendor):** Model vendor is **OpenAI**, not the
+proposal's original "Haiku-class" suggestion — a deliberate deviation, per
+Joey's explicit 2026-07-18 instruction to leverage OpenAI tokens for this
+build. Cost-cheap model tier (e.g. the `gpt-*-mini`/`nano` class current at
+build time), hard daily cap of **100 LLM calls/day** across classify +
+semantic-dedupe-assist + verify-flagging combined (durable counter in
+`news_llm_usage`, in-process floor so the cap holds even if the DB is briefly
+unreachable — Orbit's `claude_usage` pattern, renamed), **≤400 output
+tokens/call**, one retry. Cap hit ⇒ deterministic `RuleBasedClassifier`
+fallback and the semantic dedupe pass skips — **the pipeline is fully
+functional with zero LLM calls**, degraded quality only. No LLM call ever in
+a user-request path; all calls are inside the scheduled worker cycle.
+**No `OPENAI_API_KEY` secret exists in this repo yet** (checked — neither an
+OpenAI nor an Anthropic production API key is configured today) — that's a
+founder TX item (new API key, likely new billing), not something built here.
+Until it's added, the worker ships and runs **fully on the rule-based
+fallback**; the LLM path is wired and ready, not gated behind a future code
+change. Worst-case cost, once the key exists, is small multiples of Orbit's
+own observed "order of $0.x/day" at a comparable call volume — Swift2's cap
+is set *lower* than Orbit's ~200/day since this product is single-subject (no
+multi-figure `channels` loop) and volume should track well under Orbit's.
+Wyatt's call whether 100/day is the right starting number; it's a config
+constant (`packages/shared/src/config.ts`), not a schema commitment — cheap
+to retune.
+
+**Why now, not "when scheduled" per the proposal's own §9:** Joey's direct
+instruction, 2026-07-18 chat, after being told the ticket names this V2/
+filler/Wyatt-owned and V1 is at 1/12 gates green — he chose "go now" over
+looping Wyatt in first or waiting. Recorded here so the reasoning isn't lost,
+not to relitigate his call.
+
+**Alternatives considered:** Waiting for Wyatt's explicit pre-approval before
+any schema/worker code (rejected by Joey's direct instruction — see above).
+A lower/higher starting cap than 100/day (100 chosen as a round number
+comfortably under Orbit's proven-safe ~200/day, adjustable by Wyatt).
+Sub-hourly cadence (rejected per the proposal: cron floor considerations and
+no evidence hourly is too slow for this content's news cycle; revisit with
+real usage data if it turns out to be).
+
+**Approved by:** Joey (product direction + explicit "go now" instruction,
+2026-07-18 chat). **Wyatt's technical sign-off on the three decisions above
+is still owed**, per the proposal's own §9 ("Wyatt: approve the `news_`
+table shape + no-cross-world-FK rule... cadence... cap numbers/model") — this
+entry is the artifact for that review, not a claim it already happened.
+
 ## 2026-07-17 — LongLive build sync reads repo seeds, not the Supabase DB
 
 **Decision:** The four LongLive `prebuild` sync generators

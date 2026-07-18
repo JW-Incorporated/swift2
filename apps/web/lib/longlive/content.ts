@@ -893,6 +893,13 @@ export const MILESTONES: Milestone[] = [
   { id: 'm-tloas-2', eraId: 'tloas', date: '2025-10-03', label: 'Showgirl released', kind: 'album' },
   { id: 'm-tloas-3', eraId: 'tloas', date: '2025-10-18', label: 'Record debut', kind: 'award' },
   { id: 'm-tloas-4', eraId: 'tloas', date: '2025-10-18', label: 'Hot 100 sweep', kind: 'award' },
+  // Added 2026-07-18 alongside the significance system (docs/decisions.md)
+  // — conspicuously absent before: the era's list stopped at 2025-10-18
+  // despite the wedding (msg-wedding, the era's clearest 'defining' item)
+  // having happened since. Milestones and ContentItem.significance are
+  // deliberately kept in sync manually for now — both are hand-curated,
+  // and a life-defining event should appear in both places.
+  { id: 'm-tloas-5', eraId: 'tloas', date: '2026-07-03', label: 'Married at MSG', kind: 'life' },
 ];
 
 export function milestonesForEra(eraId: EraId): Milestone[] {

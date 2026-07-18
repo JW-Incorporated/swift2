@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isDue, selectDuePosts, utcDateOnly, MAX_POSTS_PER_RUN, MAX_POSTS_PER_PLATFORM_PER_DAY } from './queue.mjs';
+import { isDue, selectDuePosts, summarizeQueueStatus, utcDateOnly, MAX_POSTS_PER_RUN, MAX_POSTS_PER_PLATFORM_PER_DAY } from './queue.mjs';
 
 const now = new Date('2026-07-17T20:00:00Z');
 
@@ -59,5 +59,16 @@ describe('selectDuePosts', () => {
 describe('utcDateOnly', () => {
   it('extracts the UTC calendar date', () => {
     expect(utcDateOnly('2026-07-17T23:59:00Z')).toBe('2026-07-17');
+  });
+});
+
+describe('summarizeQueueStatus', () => {
+  it('is all zeros for an empty queue', () => {
+    expect(summarizeQueueStatus([])).toEqual({ total: 0, awaitingApproval: 0, approved: 0 });
+  });
+
+  it('splits awaiting-approval from already-approved', () => {
+    const items = [item(), item({ approvedBy: undefined, approvedAt: undefined }), item()];
+    expect(summarizeQueueStatus(items)).toEqual({ total: 3, awaitingApproval: 1, approved: 2 });
   });
 });

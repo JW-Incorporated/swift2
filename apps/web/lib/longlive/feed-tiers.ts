@@ -11,7 +11,10 @@ import type { ContentItem } from './types';
  * a predictable beat.
  *
  *   - hero  — rare, spaced out, full-bleed image + big title. Reserved for
- *             items with real signal of weight (a video, or a fuller body).
+ *             items with real signal of weight (a video, or a fuller body) —
+ *             or an explicit `significance: 'defining'` (2026-07-18), which
+ *             is now the authoritative signal when an author has set it;
+ *             see assignFeedTiers.
  *   - media — the workhorse: contained image + text, current default look.
  *   - chip  — routine/day-to-day items, compact dense row, small thumbnail.
  *   - text  — no real photo, or a deliberate "breather" after a run of
@@ -52,6 +55,14 @@ function isHeroWorthy(item: ContentItem): boolean {
  * of image cards) so texture doesn't depend on any single item in isolation.
  * Pure function of the sequence + ids — same input always produces the same
  * tiers, so scrolling away and back never reshuffles what a user already saw.
+ *
+ * `item.significance` (added 2026-07-18, docs/decisions.md) overrides both
+ * passes for the items it's set on — it's an explicit authoring judgment
+ * about real-world importance, not a pacing signal, so pacing never
+ * overrules it: `'defining'` is unconditionally `hero`; `'notable'` has a
+ * `media` floor. Everything below is unchanged for items with no
+ * significance set (the vast majority), which is still the entire
+ * pacing/texture system this function exists for.
  */
 export function assignFeedTiers(items: ContentItem[]): Map<string, CardTier> {
   const tiers = new Map<string, CardTier>();
@@ -62,12 +73,24 @@ export function assignFeedTiers(items: ContentItem[]): Map<string, CardTier> {
     const hasImage = hasRealPrimaryImage(item);
     let tier: CardTier;
 
-    if (isHeroWorthy(item) && sinceHero >= 10) {
+    if (item.significance === 'defining') {
+      // A life-defining event always gets the full-bleed hero treatment —
+      // never subject to the pacing throttle below, which exists to space
+      // out INCIDENTALLY hero-worthy items, not to suppress genuinely
+      // significant ones. Two defining events landing close together (rare)
+      // both rendering as hero is accurate, not a pacing bug.
+      tier = 'hero';
+      sinceHero = 0;
+    } else if (isHeroWorthy(item) && sinceHero >= 10) {
       tier = 'hero';
       sinceHero = 0;
     } else {
       sinceHero += 1;
-      if (!hasImage) {
+      if (item.significance === 'notable') {
+        // Guaranteed at least the workhorse tier — never routine-shaped,
+        // regardless of whether it happens to carry a real photo.
+        tier = 'media';
+      } else if (!hasImage) {
         tier = 'text';
       } else if (isRoutine(item)) {
         tier = 'chip';
@@ -79,14 +102,27 @@ export function assignFeedTiers(items: ContentItem[]): Map<string, CardTier> {
     const isImageTier = tier === 'hero' || tier === 'media';
     // After a run of 3-5 (jittered by id, never a fixed period) image cards
     // in a row, force the next eligible one into a breather instead —
-    // never a hero, and never one with a hidden clue (those stay visible).
+    // never a hero, never one with a hidden clue, and never a defining/
+    // notable item (both already have a guaranteed floor, not a pacing
+    // target the breather logic is allowed to override).
     const breakAt = 3 + seededJitter(item.id, 3);
-    if (isImageTier && tier !== 'hero' && !item.hiddenClue && mediaRun >= breakAt) {
+    if (
+      isImageTier &&
+      tier !== 'hero' &&
+      !item.hiddenClue &&
+      !item.significance &&
+      mediaRun >= breakAt
+    ) {
       tier = isRoutine(item) ? 'chip' : 'text';
     }
 
     tiers.set(item.id, tier);
-    mediaRun = tier === 'hero' || tier === 'media' ? mediaRun + 1 : 0;
+    // Gated on hasImage too (found in review, 2026-07-18): a 'notable' item
+    // with no real photo still gets forced to 'media' tier above, but it
+    // isn't actually contributing an image to the run the breather logic is
+    // pacing against — counting it inflated mediaRun and could wrongly
+    // demote an unrelated later item that DOES have a real photo.
+    mediaRun = hasImage && (tier === 'hero' || tier === 'media') ? mediaRun + 1 : 0;
   }
 
   return tiers;
