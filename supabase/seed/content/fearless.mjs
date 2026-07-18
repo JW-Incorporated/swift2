@@ -62,10 +62,12 @@ export default {
       month: 1,
       day: 31,
       category: 'business',
+      significance: 'defining', // youngest-ever AOTY win; the first of her (now-record) 4 (docs/decisions.md, 2026-07-19)
       title: 'Fearless makes her the youngest Album of the Year winner — for a decade',
       snippet: '592,000 copies in week one, debuting at No. 1 on the Billboard 200.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi'],
       moment: {
         context:
           'Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
@@ -83,6 +85,44 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // real, verified photos from the actual Jan. 31, 2010 Grammy night.
+          {
+            url: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
+            credit: 'Dan MacMedan/WireImage, via Vanity Fair',
+            caption: 'Swift arrives at the 52nd Grammy Awards in a blue sequined KaufmanFranco gown.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1264988049224/Singer-Swift-speaks-onsta-001.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Danny Moloshok/Reuters, via The Guardian',
+            caption: 'Swift speaks onstage after winning Best Female Country Vocal Performance for "White Horse," one of her four Grammys that night.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1265015933818/Taylor-Swift-drops-one-of-003.jpg?crop=none&dpr=1&s=none&width=375',
+            credit: 'Valerie Macon/AFP/Getty Images, via The Guardian',
+            caption: 'Swift loses her grip on one of the four trophies she carried in the Grammy press room.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blte142e31b64ce6139/69877c56524fc062c0dec2d5/ap100131042457.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            credit: 'Matt Sayles/AP, via TIME',
+            caption: 'Swift and Stevie Nicks perform together during the 52nd Grammy Awards telecast.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltca5404e6952dca29/698762d6e20a87c7bda82aeb/taylor-swift-12.jpg?branch=production&width=3840&quality=75&auto=webp',
+            credit: 'Michael Caulfield/WireImage/Getty Images, via TIME',
+            caption: 'Swift performs onstage during the 52nd Grammy Awards at Staples Center.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56be4d24e9ea465e7cf59f44/16%3A9/w_2560%2Cc_limit/GettyImages-98115429.jpg',
+            credit: 'Michael Tran/FilmMagic, via Teen Vogue',
+            caption: 'Swift poses in the Grammy press room with all four awards she won that night, including Album of the Year.',
+            kind: 'primary',
           },
         ],
       },
@@ -177,11 +217,13 @@ export default {
       month: 9,
       day: 13,
       category: 'business',
+      significance: 'defining', // the first mass cultural flashpoint of her career (docs/decisions.md, 2026-07-19)
       title: 'Wins Best Female Video, then Kanye West takes the mic',
       snippet:
         '"I\'mma let you finish, but Beyoncé had one of the best videos of all time" — Kanye West interrupted her VMA speech for "You Belong With Me" in front of a live audience.',
       sourceUrl: 'https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/',
       thumbnailUrl: 'https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75',
+      relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
       moment: {
         context:
           'The Radio City crowd went from stunned silence to a standing ovation for Swift; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Swift back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.',
@@ -199,6 +241,82 @@ export default {
           {
             url: 'https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75',
             credit: 'Taste of Country',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // every real, verified photo found from the Sept. 13, 2009 VMAs —
+          // the interruption, the Beyoncé invite-back, and her own
+          // performance/red-carpet that night. Curl-verified live.
+          {
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=375',
+            credit: 'Jeff Kravitz/FilmMagic, via The Guardian',
+            caption: 'Kanye West steps onto the VMA stage while Swift is accepting Best Female Video at Radio City Music Hall.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=375',
+            credit: 'Kevin Mazur/WireImage, via The Guardian',
+            caption: 'Swift finally finishes her acceptance speech after Beyoncé invites her back onstage later that night.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltc121921405a5eef5/698762d75f570fee2bb12f23/taylor-swift-16.jpg?branch=production&width=3840&quality=75&auto=webp',
+            credit: 'Stephen Lovekin/FilmMagic/Getty Images, via TIME',
+            caption: 'Swift arrives on the 2009 VMA red carpet in the silver KaufmanFranco gown she would still be wearing when West interrupted her.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.glamour.com/photos/5b748cfd0271d30d24ff90ad/master/w_1024%2Cc_limit/GettyImages-90715371.jpg',
+            credit: 'Jason Kempin/Getty Images, via Glamour',
+            caption: 'Swift performs "You Belong with Me" inside a New York subway car during the 2009 VMA broadcast.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/T-Swift_VMA_performance.JPG',
+            credit: 'Coldbread, via Wikimedia Commons',
+            caption: 'Swift steps down from the yellow taxi after completing her outdoor VMA performance on Sept. 13, 2009.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Taylor_Swift_2009_MTV_VMA.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Swift appears during the 2009 MTV Video Music Awards at Radio City Music Hall.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Taylor_Swift_at_2009_MTV_Video_Music_Awards_%283917030572%29.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'A distinct audience-level view of Swift at the 2009 MTV Video Music Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Taylor_Swift_at_2009_MTV_VMA%27s_2.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Swift performs during the 2009 MTV Video Music Awards in New York.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Taylor_Swift_at_2009_MTV_VMA%27s_3.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Another distinct frame from Swift\'s 2009 VMA performance.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Taylor_Swift_at_2009_MTV_VMA%27s_4.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Swift performs "You Belong with Me" during the 2009 VMA telecast.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Taylor_Swift_at_2009_MTV_VMA%27s_5.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'A wide, horizontal view of Swift\'s performance during the 2009 MTV Video Music Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_at_2009_MTV_VMA%27s.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Swift onstage during her "You Belong with Me" performance at the 2009 VMAs.',
+            kind: 'primary',
           },
         ],
       },

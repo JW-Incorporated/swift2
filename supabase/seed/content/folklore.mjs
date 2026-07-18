@@ -720,6 +720,7 @@ export default {
     // New items carry the audit's additive provenance fields.
     {
       slug: 'folklore-sixteen-hour-announcement',
+      significance: 'defining', // the pandemic-era reinvention that reshaped how she releases music (docs/decisions.md, 2026-07-19)
       year: 2020,
       month: 7,
       day: 23,
@@ -751,6 +752,39 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'The cover art revealed in the July 23, 2020 announcement post.',
+            kind: 'primary',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // real, verified photos from the actual announcement post and the
+          // Beth Garrabrant forest shoot that introduced the album.
+          {
+            url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Taylor Swift/Instagram, via The Guardian',
+            caption: 'The black-and-white forest montage Swift posted with the July 23 surprise announcement for folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/74cae4f3a285b8a8638cfbc76355b2f0c0db29c5/0_54_1737_1385/master/1737.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Beth Garrabrant/Stoke PR, via The Guardian',
+            caption: 'A Beth Garrabrant black-and-white portrait from the forest shoot used to introduce folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5f1b15f8562110dad1181c8f/master/w_2560%2Cc_limit/taylor-swift-new-album-lede.jpg',
+            credit: 'Beth Garrabrant, via Vanity Fair',
+            caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Swift in the album\'s woodland setting.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5f22f28283d239dce41f81b1/master/w_2560%2Cc_limit/Screenshot%25202020-07-30%2520at%252012.16.56%2520PM.png',
+            credit: 'Taylor Swift/YouTube, via Vanity Fair',
+            caption: 'A frame from the self-directed "cardigan" video, released at midnight alongside folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/6f8132a91d5eaf50614417ced6bee7903341fd46/0_0_1482_1958/master/1482.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'TAS Rights Management, via The Guardian',
+            caption: 'Swift wears the signature knit cardigan in a release-period promotional image for the video and album.',
             kind: 'primary',
           },
         ],

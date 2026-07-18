@@ -286,6 +286,13 @@ export default {
       month: 3,
       day: 17,
       category: 'tour',
+      significance: 'defining', // the highest-grossing tour ever, an economic/cultural phenomenon (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
+        'moment:vault-midnights-the-eras-tour-film-opens-to-92-8-million-the-biggest-concert',
+        'moment:vault-tortured-poets-the-eras-tour-takes-its-final-bow-in-vancouver',
+        'moment:vault-tortured-poets-the-first-tour-ever-to-gross-2-billion',
+      ],
       title: 'The Eras Tour kicks off in Glendale',
       snippet:
         '44 songs, 3 hours and 15 minutes at State Farm Stadium — opening night moved era by era through songs from all 10 studio albums.',
@@ -306,6 +313,69 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
             credit: 'Kevin Mazur/Getty Images for TAS Rights Management',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // every real, distinct photo found from the March 17, 2023
+          // opening night — different costume/set chapters, multiple outlets.
+          // Three ca-times.brightspotcdn.com (LA Times) candidates were
+          // dropped here 2026-07-19: curl returned 200 + real image bytes,
+          // but the CDN serves a 1x1 placeholder to actual browser requests
+          // (Referer-based hotlink protection) — caught only by testing in
+          // a real browser (naturalWidth === 1), not by curl. See
+          // docs/decisions.md; every other domain in this pass tested clean.
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/764/432/GettyImages-1474279449-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'Swift performs onstage in a distinct Getty frame from the first Eras Tour concert.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474271127-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'A separate John Shearer frame captures Swift during the March 17 Glendale performance.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474459817-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'Swift performs during another costume-and-set chapter of the Eras Tour\'s opening night.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474275193-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'A fourth distinct Shearer frame shows Swift onstage during the 44-song Glendale opener.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474275197-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'Swift performs in a separate Getty image from the Eras Tour\'s first night at State Farm Stadium.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_.jpg',
+            credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
+            caption: 'Swift performs during the opening Eras Tour concert at State Farm Stadium on March 17, 2023.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-31.jpg',
+            credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
+            caption: 'A second AP frame captures Swift during the opening-night Glendale performance.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-28.jpg',
+            credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
+            caption: 'A third Ashley Landis frame shows Swift performing at the Eras Tour opener.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-23.jpg',
+            credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
+            caption: 'A fourth distinct AP image records Swift onstage during the March 17 Glendale show.',
+            kind: 'primary',
           },
         ],
       },
@@ -580,6 +650,12 @@ export default {
       month: 9,
       day: 24,
       category: 'relationship',
+      significance: 'defining', // the crossover into mainstream/NFL culture that reshaped her public life (docs/decisions.md, 2026-07-19)
+      threadIds: ['the-proposal'],
+      relatedIds: [
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
       title: 'The game the world decided made it official',
       snippet:
         "She'd been dating Travis for weeks by the time cameras found her at Arrowhead — but this was the night the relationship became public record.",
@@ -601,6 +677,51 @@ export default {
             url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
             credit: 'CNN',
             focalPoint: '36% 16%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // every real photo found specifically from the Sept. 24, 2023
+          // Arrowhead game and its immediate aftermath.
+          {
+            url: 'https://media.vanityfair.com/photos/655a2af58877a2e304c7d8ac/master/w_2560%2Cc_limit/1687516923',
+            credit: 'Cooper Neill/Getty Images, via Vanity Fair',
+            caption: 'Swift cheers beside Donna Kelce from a suite as the Chiefs play the Bears at Arrowhead on Sept. 24, 2023.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/6511b258c700cad4c4f82633/master/w_2560%2Cc_limit/Taylor-Swift.jpg',
+            credit: 'Jason Hanna/Getty Images, via Vanity Fair',
+            caption: 'Swift reacts from the Arrowhead suite during the first Chiefs game she attended.',
+            kind: 'primary',
+          },
+          // A ca-times.brightspotcdn.com (LA Times) candidate was dropped
+          // here 2026-07-19: curl returned 200 + real image bytes, but the
+          // CDN serves a 1x1 placeholder to actual browser requests
+          // (Referer-based hotlink protection) — caught only by testing in
+          // a real browser (naturalWidth === 1), not by curl. See
+          // docs/decisions.md; every other domain in this pass tested clean.
+          {
+            url: 'https://media.vanityfair.com/photos/65bac4142264a30c89f9949d/master/w_1600%2Cc_limit/1687739252',
+            credit: 'Icon Sportswire/Getty Images, via Vanity Fair',
+            caption: 'Swift watches the game with Travis Kelce\'s mother, Donna, in a separate suite photograph from Sept. 24.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/cc/4by3/2023/09/25/cc266e4c1e8646149db60f4c03b795ce_md.jpg',
+            credit: 'TMZ.com',
+            caption: 'Swift enters Arrowhead in a Chiefs windbreaker, escorted by a member of Kelce\'s public-relations team.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/02/16by9/2023/09/25/02f6bdca4be649f58c60466f10fc0115_md.jpg',
+            credit: 'X/@paytonsun, via TMZ',
+            caption: 'Swift and Kelce walk out of Arrowhead side by side after the Chiefs\' win.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/98/4by3/2023/09/25/984b4d79ebce419cbcef97777e65d904_md.jpg',
+            credit: 'TMZ.com',
+            caption: 'Swift and Kelce leave Arrowhead together in his metallic purple convertible after the game.',
+            kind: 'primary',
           },
         ],
       },

@@ -1440,6 +1440,7 @@ export default {
       day: 3,
       category: 'relationship',
       significance: 'defining', // the era's life-defining event (docs/decisions.md, 2026-07-18)
+      relatedIds: ['moment:vault-midnights-the-game-the-world-decided-made-it-official'],
       title: 'Taylor and Travis marry at Madison Square Garden',
       snippet:
         'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man. Roughly 1,000 guests, and a jumbotron outside the arena reading "JUST&T MARRIED!"',

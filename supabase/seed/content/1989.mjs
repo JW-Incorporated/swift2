@@ -822,12 +822,16 @@ export default {
       month: 2,
       day: 15,
       category: 'business',
+      significance: 'defining', // first woman to win AOTY twice — a historic record (docs/decisions.md, 2026-07-19)
       title: '1989 wins Album of the Year — making her the first woman to win it twice',
       snippet:
         '"There are going to be people along the way who will try to undercut your success or take credit for your accomplishments or your fame" — her message to young women, accepting music\'s top prize for the second time.',
       sourceUrl: 'https://www.billboard.com/music/awards/taylor-swift-album-of-the-year-speech-credit-for-fame-6875390/',
       thumbnailUrl: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif',
-      relatedIds: ['moment:vault-1989-the-night-famous-premiered-and-she-said-no'],
+      relatedIds: [
+        'moment:vault-1989-the-night-famous-premiered-and-she-said-no',
+        'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
+      ],
       moment: {
         context:
           'At the Feb. 15, 2016 ceremony, 1989 won Album of the Year at the 58th Grammy Awards (also winning Best Pop Vocal Album), making Swift the first woman in Grammy history to win Album of the Year twice — her first was for Fearless in 2010. She thanked the fans for "the last 10 years" and producer Max Martin in the same speech.\n\nThe speech\'s pointed center — the warning to young women about people who "will try to undercut your success or take credit for your accomplishments or your fame" — was widely read as her answer to Kanye West\'s "Famous," released days earlier, in which he rapped about having made her famous. She never said his name; the room, and Billboard\'s coverage that night, understood exactly who she meant.',
@@ -844,7 +848,75 @@ export default {
         // Photo-enrichment run 11 (2026-07-18, #762): focal point set by
         // viewing — press-room shot, three gramophones at chest height,
         // face centered high.
-        photos: [{ url: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif', credit: 'The Recording Academy', focalPoint: '50% 22%' }],
+        photos: [
+          {
+            url: 'https://ra-grammy-media.ncp.consulting/uploads/2026/05/Grammy-Rewind_Taylor-Swift_Hero_1920x1080.avif',
+            credit: 'The Recording Academy',
+            focalPoint: '50% 22%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // every real, verified photo found from the Feb. 15, 2016 ceremony.
+          {
+            url: 'https://i.guim.co.uk/img/media/338849e33c7e6b53df14a7f5a00183b2a31d1203/0_48_2640_1584/master/2640.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Stringer/Reuters, via The Guardian',
+            caption: 'Swift stands on the Grammy stage during the ceremony where 1989 won Album of the Year.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt4200ccf647ed3548/69888f30428a9ed09ecd23bd/taylor-swift-success-double-standard-women.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            credit: 'Mark Ralston/AFP/Getty Images, via TIME',
+            caption: 'Swift holds her three trophies in the press room after the 58th Grammy Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt5ccf62fadac5fa4d/69887dac8e0601bf454649de/grammys-red-carpet-lead.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            credit: 'Steve Granitz/Getty Images, via TIME',
+            caption: 'Selena Gomez and Swift pose together on the red carpet before the 58th Grammy Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blta95b1ab48ade842b/69887da62dce016f4f9e7d02/taylor-swift-grammys-performance.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            credit: 'Robyn Beck/AFP/Getty Images, via TIME',
+            caption: 'Swift opens the 58th Grammy Awards with "Out of the Woods."',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/56c278c5a76c406e241cfa0e/master/w_2560%2Cc_limit/a-taylor-swift-grammys-2016-performance.jpg',
+            credit: 'WireImage/Getty Images, via Vanity Fair',
+            caption: 'Swift accepts Album of the Year for 1989 on the Grammy stage with her collaborators behind her.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/6973c38b8d6b50621a0c2414/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2016.jpg',
+            credit: 'Jason Merritt/Getty Images, via Vanity Fair',
+            caption: 'Swift poses on the Grammy red carpet in her orange-and-pink Versace ensemble.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618a92a7d1d17a722124/master/w_1024%2Cc_limit/GettyImages-510439952.jpg',
+            credit: 'AFP/Getty Images, via Teen Vogue',
+            caption: 'A second full-length red-carpet angle shows Swift\'s Versace crop top and split ball skirt.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618992a7d1d17a722120/master/w_1024%2Cc_limit/GettyImages-510439902.jpg',
+            credit: 'AFP/Getty Images, via Teen Vogue',
+            caption: 'A separate red-carpet close-up shows Swift\'s bob haircut and jeweled choker at the 2016 Grammys.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618ae9ea465e7cf5b563/master/w_1024%2Cc_limit/GettyImages-510439964.jpg',
+            credit: 'Getty Images for NARAS, via Teen Vogue',
+            caption: 'A Grammy red-carpet detail frame shows Swift\'s metallic manicure and matching cocktail ring.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618ce9ea465e7cf5b567/master/w_1024%2Cc_limit/GettyImages-510439972.jpg',
+            credit: 'Getty Images for NARAS, via Teen Vogue',
+            caption: 'A separate detail frame shows the metallic platform sandals worn with Swift\'s 2016 Grammy look.',
+            kind: 'primary',
+          },
+        ],
       },
     },
     {
@@ -1839,17 +1911,21 @@ export default {
       month: 7,
       day: 17,
       category: 'music',
+      significance: 'defining', // the defining controversy of her career, direct catalyst for reputation (docs/decisions.md, 2026-07-19)
       title: 'Snakes, Snapchat, and "excluded from this narrative"',
       snippet:
         'Kim Kardashian posts an edited cut of the "Famous" call to Snapchat, snake emojis flood every comment section, and #TaylorSwiftIsOverParty trends worldwide. Her answer — "I would very much like to be excluded from this narrative" — is the era\'s last word before the lights go out.',
       sourceUrl:
         'https://www.washingtonpost.com/news/arts-and-entertainment/wp/2016/07/18/read-the-secret-kanye-westtaylor-swift-phone-call-that-kim-kardashian-posted-on-snapchat/',
-      thumbnailUrl: null,
+      // thumbnailUrl set 2026-07-19 (10-defining-events photo pass): her own
+      // posted statement screenshot — curl 200 image/png, verified live.
+      thumbnailUrl: 'https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG',
       relatedIds: [
         'moment:vault-1989-the-night-famous-premiered-and-she-said-no',
         'moment:vault-1989-the-full-call-leaks-and-she-was-telling-the-truth',
         'moment:vault-reputation-the-snake-video-that-announced-reputation',
         'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        'moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic',
       ],
       moment: {
         context:
@@ -1863,6 +1939,35 @@ export default {
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/',
+          },
+        ],
+        // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+        // this item had zero photos before this pass. Every URL below
+        // curl-verified live (HTTP 200 + real image content-type).
+        photos: [
+          {
+            url: 'https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG',
+            credit: 'Taylor Swift/Instagram, via Teen Vogue',
+            caption: 'Swift\'s full posted statement asks where West told her about the "that bitch" lyric and ends, "I would very much like to be excluded from this narrative."',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/83c4993d8e8ad4dde6c653daff10b74e537e6aea/0_0_620_372/master/620.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Rex Features, via The Guardian',
+            caption: 'A still from Kardashian\'s Snapchat release shows West on the phone during the recorded call with Swift.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5792599af9039e5f13c9db9f/master/w_2560%2Cc_limit/taylor-swift-tom-hiddleston.jpg',
+            credit: 'Cameron Richardson/Newspix/Rex/Shutterstock, via Vanity Fair',
+            caption: 'Swift walks with Tom Hiddleston in Los Angeles on July 21, her first public sighting after the Snapchat clips appeared.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/578c4ca16e85f8db434d478f/16%3A9/w_2560%2Cc_limit/GettyImages-463036782.jpg',
+            credit: 'Larry Busacca/Getty Images for NARAS, via Teen Vogue',
+            caption: 'For context, Swift, Kardashian, and West pose together at the 2015 Grammys, before the "Famous" dispute reopened the VMA feud.',
+            kind: 'reference',
           },
         ],
       },
