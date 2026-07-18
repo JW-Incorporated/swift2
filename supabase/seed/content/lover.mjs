@@ -35,6 +35,18 @@ export default {
           {
             url: 'https://images.complex.com/complex/image/upload/ar_1.91,c_fill,g_auto,q_auto/v1723858619/sanity-new%2Ftaylor-billboard-133759040',
             credit: 'Complex',
+            focalPoint: '46% 35%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): Valheria Rocha Lover-era
+          // press photo from Billboard's own chart story on this exact No. 1
+          // debut (billboard.com/wp-content CDN, downloaded and
+          // vision-confirmed this session).
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/01-taylor-swift-press-photo-2019-billboard-1548.jpg',
+            credit: 'Valheria Rocha (press photo via Billboard)',
+            caption: 'A Lover-era press portrait, from Billboard\'s story on the 867,000-unit No. 1 debut.',
+            kind: 'archival',
+            focalPoint: '57% 25%',
           },
         ],
       },
@@ -152,6 +164,19 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
             credit: 'Republic Records (single cover art, Live from Paris version)',
             kind: 'primary',
+            focalPoint: '35% 48%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): official Someone Great
+          // trailer thumbnail — the Netflix film this page's story is about —
+          // video id verified via YouTube oEmbed (author "Netflix") this
+          // session. (The song's own Live From Paris video thumbnail was
+          // rejected as a duplicate of the cover art above.)
+          {
+            url: 'https://i.ytimg.com/vi/BBd9gcrj2Wk/hqdefault.jpg',
+            credit: 'Netflix via YouTube (official trailer)',
+            caption: 'Gina Rodriguez in Someone Great — the Netflix film that inspired the song, itself written to Swift\'s discography.',
+            kind: 'archival',
+            focalPoint: '68% 50%',
           },
         ],
       },
@@ -215,6 +240,18 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
+            focalPoint: '42% 32%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): license-verified
+          // Commons photo of the Eras Tour Lover act — the set "Cruel
+          // Summer" opened nightly during the song's chart revival (CC BY
+          // 2.0, Michael Hicks; extmetadata checked this session).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Eras_Tour_-_Minneapolis%2C_MN_-_Lover_act_-_4.jpg',
+            credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+            caption: 'The Eras Tour Lover act in Minneapolis, June 2023 — the nightly "Cruel Summer" singalong that powered the song back up the chart.',
+            kind: 'archival',
+            focalPoint: '54% 45%',
           },
         ],
       },
@@ -258,6 +295,17 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg',
             credit: 'Netflix (documentary poster art)',
             kind: 'primary',
+            focalPoint: '72% 70%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): official Miss Americana
+          // trailer thumbnail — video id verified via YouTube oEmbed (author
+          // "Netflix") this session.
+          {
+            url: 'https://i.ytimg.com/vi/q07_k5VKuaQ/hqdefault.jpg',
+            credit: 'Netflix via YouTube (official trailer)',
+            caption: 'The mirror-ball dress frame from the official Miss Americana trailer.',
+            kind: 'archival',
+            focalPoint: '62% 28%',
           },
         ],
       },
@@ -289,6 +337,18 @@ export default {
           {
             url: 'https://s.abcnews.com/images/GMA/taylor-swift-ama-mo_hpEmbed_20191124-220255_3x2_992.jpg?w=992',
             credit: 'Good Morning America',
+            focalPoint: '49% 25%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): second frame from the
+          // same GMA story (s.abcnews.com CDN) — the "The Man" opener in the
+          // white button-down printed with her Big Machine album titles.
+          // Downloaded and vision-confirmed this session.
+          {
+            url: 'https://s.abcnews.com/images/GMA/taylor-swift-speak-mo_hpMain_20191124-220426_16x9_992.jpg?w=992',
+            credit: 'Good Morning America',
+            caption: 'Opening the medley with "The Man," in a button-down printed with the names of the albums she didn\'t own.',
+            kind: 'archival',
+            focalPoint: '48% 20%',
           },
         ],
       },
