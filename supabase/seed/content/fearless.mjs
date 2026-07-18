@@ -1099,10 +1099,23 @@ export default {
         context:
           'With 3.217 million copies sold in the United States throughout 2009, Fearless was the year\'s best-selling album in the country, making Swift, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year.\n\nIt also spent a total of 58 weeks in the Billboard 200\'s top 10 — a record for a country musician, and the only 2000s album to spend its first full year there.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' }],
+        // Photo-enrichment run 16 (2026-07-18, #762): added a CC BY 2.0 Commons
+        // shot from the Fearless Tour's 2010 leg (WEZL, Apr. 30, 2010) —
+        // license verified via the Commons API, URL verified HTTP 200 +
+        // image/jpeg, downloaded and visually confirmed (Swift mid-song in the
+        // sparkling violet dress). Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
+            focalPoint: '35% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Taylor_Swift_Fearless_Tour_02.jpg',
+            credit: 'WEZL (CC BY 2.0), via Wikimedia Commons',
+            caption: 'On the Fearless Tour in April 2010, just after Fearless closed 2009 as America\'s best-selling album.',
+            kind: 'archival',
+            focalPoint: '35% 30%',
           },
         ],
       },
@@ -1218,10 +1231,24 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo-enrichment run 16 (2026-07-18, #762): added a still from the
+        // official "Love Story" music video, which premiered Sept. 12, 2008,
+        // days before the single's radio release — video id verified via
+        // YouTube oEmbed (title "Taylor Swift - Love Story", channel
+        // @TaylorSwift); thumbnail verified HTTP 200 + image/jpeg, downloaded
+        // and visually confirmed. Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
             credit: 'Big Machine Records (single cover art)',
+            focalPoint: '70% 30%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption: 'The sepia close-up from the official "Love Story" video, which premiered days before the single went to country radio.',
+            kind: 'archival',
+            focalPoint: '48% 40%',
           },
         ],
       },
@@ -1264,12 +1291,26 @@ export default {
         // T16 photo pass (2026-07-09): cover art taken from the Wikipedia
         // article's stable upload.wikimedia.org copy; verified HTTP 200 +
         // image/png this session.
+        // Photo-enrichment run 16 (2026-07-18, #762): added a still from the
+        // official "White Horse" music video — id verified via YouTube oEmbed
+        // (title "Taylor Swift - White Horse", channel @TaylorSwift);
+        // thumbnail verified HTTP 200 + image/jpeg, downloaded and visually
+        // confirmed (the video's brick-walled apartment scene). Per-image
+        // focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "White Horse."',
             kind: 'primary',
+            focalPoint: '65% 35%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/D1Xr-JFLxik/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption: 'From the official "White Horse" video — the un-fairy-tale the song promises.',
+            kind: 'archival',
+            focalPoint: '58% 30%',
           },
         ],
       },
@@ -1300,10 +1341,24 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo-enrichment run 16 (2026-07-18, #762): added a CC BY 2.0
+        // Commons shot of the Fearless Tour's acoustic set (WEZL, Apr. 30,
+        // 2010) — the tour this reissue was released into. License verified
+        // via the Commons API, URL verified HTTP 200 + image/jpeg, downloaded
+        // and visually confirmed (yellow dress, cowboy boots, acoustic
+        // guitar on the stool). Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
+            focalPoint: '35% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Taylor_Swift_Fearless_Tour_05.jpg',
+            credit: 'WEZL (CC BY 2.0), via Wikimedia Commons',
+            caption: 'The Fearless Tour\'s acoustic set, April 2010 — the reissue kept a year-old album running deep into its tour.',
+            kind: 'archival',
+            focalPoint: '32% 35%',
           },
         ],
       },
@@ -1352,6 +1407,20 @@ export default {
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "Today Was a Fairytale."',
             kind: 'primary',
+            focalPoint: '67% 75%',
+          },
+          // Photo-enrichment run 16 (2026-07-18, #762): no official video was
+          // made for the 2010 original (the HD "music video" uploads are
+          // fan-made — rejected), so this is the title card of the official
+          // Today Was A Fairytale (Taylor's Version) lyric video — id verified
+          // via YouTube oEmbed (channel @TaylorSwift); thumbnail verified
+          // HTTP 200 + image/jpeg, downloaded and visually confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/xSWVPqnKcXQ/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'The title card of the Taylor\'s Version lyric video, built from the single\'s white-dress cover shoot.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -1408,6 +1477,19 @@ export default {
             caption:
               'For reference — Stephen Barker Liles of Love and Theft, the song\'s namesake, performing in May 2010.',
             kind: 'reference',
+            focalPoint: '48% 22%',
+          },
+          // Photo-enrichment run 16 (2026-07-18, #762): still from the
+          // official Hey Stephen (Taylor's Version) lyric video — id verified
+          // via YouTube oEmbed (channel @TaylorSwift); thumbnail verified
+          // HTTP 200 + image/jpeg, downloaded and visually confirmed (Swift
+          // in profile at the mic).
+          {
+            url: 'https://i.ytimg.com/vi/tMhiHrL7rPE/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'The title card of the Hey Stephen (Taylor\'s Version) lyric video.',
+            kind: 'archival',
+            focalPoint: '78% 28%',
           },
         ],
       },
@@ -1683,12 +1765,26 @@ export default {
         // T16 photo pass (2026-07-09): the song that crossed over — its cover
         // art, from the Wikipedia article's stable upload.wikimedia.org copy.
         // Verified HTTP 200 + image/png this session.
+        // Photo-enrichment run 16 (2026-07-18, #762): added a clearly-labeled
+        // CC BY 3.0 Commons reference photo of Shania Twain, whose "You're
+        // Still the One" held the previous country-crossover high (No. 3,
+        // 1998) named in the context above. License verified via the Commons
+        // API, URL verified HTTP 200 + image/jpeg, downloaded and visually
+        // confirmed. Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "Love Story," the first country song to top Billboard\'s pop-radio chart.',
             kind: 'primary',
+            focalPoint: '70% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/ShaniaTwain1.jpg',
+            credit: 'David Swales (CC BY 3.0), via Wikimedia Commons',
+            caption: 'For reference — Shania Twain, whose "You\'re Still the One" set the previous country-crossover high-water mark at No. 3 in 1998.',
+            kind: 'reference',
+            focalPoint: '49% 22%',
           },
         ],
       },
