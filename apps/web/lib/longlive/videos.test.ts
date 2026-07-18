@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { videosForEra, musicVideosForEra } from './videos';
+import { videosForEra, musicVideosForEra, videoForTrack } from './videos';
 import type { EraId } from './types';
 
 const ALL_ERA_IDS: EraId[] = [
@@ -16,6 +16,32 @@ const ALL_ERA_IDS: EraId[] = [
   'ttpd',
   'tloas',
 ];
+
+describe('videoForTrack', () => {
+  it('matches a song to its official video by title within the era', () => {
+    const v = videoForTrack('1989', 'Shake It Off');
+    expect(v?.youtubeId).toBe('nfWlot6h_JM');
+  });
+
+  it('normalizes parenthetical suffixes when matching', () => {
+    // A track titled with a "(Taylor's Version)" suffix still finds the video.
+    const v = videoForTrack('1989', "Shake It Off (Taylor's Version)");
+    expect(v?.youtubeId).toBe('nfWlot6h_JM');
+  });
+
+  it('returns undefined for a song with no matching video', () => {
+    expect(videoForTrack('1989', 'A Song That Has No Video Whatsoever')).toBeUndefined();
+  });
+
+  it('only ever returns entries that carry a youtubeId', () => {
+    for (const eraId of ALL_ERA_IDS) {
+      for (const v of videosForEra(eraId)) {
+        const match = videoForTrack(eraId, v.title);
+        if (match) expect(match.youtubeId).toBeTruthy();
+      }
+    }
+  });
+});
 
 describe('musicVideosForEra', () => {
   it('only ever returns music_video-kind entries with a real release date', () => {
