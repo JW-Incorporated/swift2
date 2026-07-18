@@ -13,7 +13,7 @@ import { readdir, readFile, writeFile, rm } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { selectDuePosts, utcDateOnly } from './lib/queue.mjs';
-import { postToX, postToInstagram } from './lib/platforms.mjs';
+import { postToX, postToInstagram, postToFacebookPage } from './lib/platforms.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
@@ -63,6 +63,27 @@ async function postOne(item) {
   throw new Error(`Unknown platform "${item.platform}"`);
 }
 
+/**
+ * Best-effort Facebook Page cross-post, run only after an Instagram post
+ * already succeeded. Deliberately never affects the item's own success/
+ * retry state — the Instagram post is the thing the founder approved and
+ * it already landed; a Facebook failure is logged loudly but doesn't undo
+ * that or trigger a retry of the whole item (which would re-post to
+ * Instagram too). Only runs when FB_PAGE_ID is configured.
+ */
+async function crosspostToFacebook(item) {
+  const facebookPageId = process.env.FB_PAGE_ID;
+  if (!facebookPageId || item.platform !== 'instagram') return null;
+  try {
+    const result = await postToFacebookPage(item, { accessToken: process.env.IG_ACCESS_TOKEN, facebookPageId }, MEDIA_BASE_URL);
+    console.log(`social-poster: cross-posted to Facebook Page -> ${result.url}`);
+    return result;
+  } catch (err) {
+    console.error(`social-poster: Facebook Page cross-post failed (Instagram post itself still succeeded): ${err.message ?? err}`);
+    return null;
+  }
+}
+
 async function main() {
   if (process.env.SOCIAL_FREEZE && process.env.SOCIAL_FREEZE !== 'false' && process.env.SOCIAL_FREEZE !== '0') {
     console.log(`social-poster: SOCIAL_FREEZE is set ("${process.env.SOCIAL_FREEZE}") — skipping this run entirely.`);
@@ -83,7 +104,14 @@ async function main() {
     const entry = queued.find((q) => q.data === item);
     try {
       const result = await postOne(item);
-      const posted = { ...item, postedAt: now.toISOString(), platformPostId: result.id, url: result.url };
+      const facebook = await crosspostToFacebook(item);
+      const posted = {
+        ...item,
+        postedAt: now.toISOString(),
+        platformPostId: result.id,
+        url: result.url,
+        ...(facebook ? { facebookPostId: facebook.id, facebookUrl: facebook.url } : {}),
+      };
       await writeFile(path.join(POSTED_DIR, entry.file), JSON.stringify(posted, null, 2) + '\n');
       await rm(entry.full);
       console.log(`social-poster: posted ${entry.file} -> ${result.url}`);
