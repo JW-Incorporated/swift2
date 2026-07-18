@@ -1,14 +1,47 @@
 // News-pipeline domain types. Portable, zero I/O.
 //
-// STATUS: dormant groundwork for the post-v1 News/Current world (see
+// STATUS: groundwork for the post-v1 News/Current world (see
 // docs/proposals/2026-07-07-news-pipeline-architecture.md). Nothing on the
 // Vault's runtime path imports this module — News and Vault are separate data
 // worlds (docs/decisions.md, 2026-07-02). Exposed only via the
 // `@swift2/shared/news` subpath, never the root barrel.
 //
-// Deliberately EXCLUDED here (product decisions, not yet made): news category
-// enums, importance rubrics, source types, credibility tiers. Only the
-// pipeline-mechanic shapes that any aggregator needs live here.
+// Category/tier/verification enums below were product-decided 2026-07-18
+// (Joey, on #468) — reuse the Vault's 7 categories, mirror the proposal's §5
+// tier/verification design. Keep these in sync with the CHECK constraints in
+// supabase/migrations/20260718120000_news_init.sql by hand; there's no
+// generated-types step for this yet.
+
+/** Same 7 categories as the Vault's month_item.category (Joey, 2026-07-18: one taxonomy site-wide). */
+export const NEWS_CATEGORIES = [
+  'sighting',
+  'fashion',
+  'relationship',
+  'tour',
+  'business',
+  'music',
+  'release',
+] as const;
+export type NewsCategory = (typeof NEWS_CATEGORIES)[number];
+
+/** Source credibility tier — the base signal for verification_status (proposal §5.1). */
+export const SOURCE_TIERS = ['official', 'established', 'fan', 'unverified'] as const;
+export type SourceTier = (typeof SOURCE_TIERS)[number];
+
+/** Pure function of a story's tier-weighted corroboration (proposal §5.2). */
+export const VERIFICATION_STATUSES = [
+  'official',
+  'corroborated',
+  'single_source',
+  'rumor',
+  'disputed',
+  'debunked',
+] as const;
+export type VerificationStatus = (typeof VERIFICATION_STATUSES)[number];
+
+/** Ingestion adapter types this worker can be configured with. */
+export const SOURCE_TYPES = ['rss', 'reddit', 'x', 'youtube', 'bluesky', 'google_news'] as const;
+export type SourceType = (typeof SOURCE_TYPES)[number];
 
 /**
  * A normalized item produced by a source adapter, before persistence.

@@ -1,0 +1,45 @@
+# News/Current pipeline (V2, #468) — one-shot worker, hourly. See
+# apps/worker/README.md and docs/decisions.md's 2026-07-18 entry for the
+# cadence/cost-cap reasoning. DRAFT status: this workflow will run and no-op
+# usefully (zero news_source rows seeded yet, per apps/worker/README.md) — it
+# doesn't do anything live until a founder inserts at least one source row
+# and the SUPABASE_SERVICE_ROLE_KEY secret below exists.
+#
+# Secrets needed (repo Settings -> Secrets, all founder TX items):
+#   SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY — see apps/worker/.env.example
+#     for exactly where in the Supabase dashboard each comes from.
+#   OPENAI_API_KEY — optional; unset means the worker runs entirely on the
+#     deterministic rule-based classifier (the designed degraded-but-
+#     functional path, not a broken state).
+#
+# Offset off :00/:35 (not :00/:30) — this repo already runs two separate
+# */30 workflows (social-poster.yml, marjorie-inbox.yml); see watchdog.yml's
+# 2026-07-18 header note on the scheduling-contention this avoids.
+name: news-worker
+on:
+  schedule:
+    - cron: "10 * * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: news-worker
+  cancel-in-progress: false
+
+jobs:
+  cycle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - run: npm ci
+
+      - name: Run one pipeline cycle
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: npm run news --workspace @swift2/worker
