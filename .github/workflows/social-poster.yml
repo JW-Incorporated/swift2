@@ -28,6 +28,17 @@
 # posted-vs-not correctly but then couldn't persist that fact, which would
 # have silently reposted them on the next scheduled run. It goes through a
 # throwaway branch + auto-merging PR instead, satisfying both rules.
+#
+# That PR is opened and merged as Joey (via repo secret SOCIAL_POSTER_PAT, a
+# fine-grained personal access token scoped to just this repo, Contents +
+# Pull requests: read/write, ~1yr expiry — created 2026-07-17), not the
+# built-in GITHUB_TOKEN. Necessary, not optional: GitHub deliberately does
+# not let the built-in token trigger other workflows on what it pushes, so
+# a PR it opens can never get the required "build" check to run and could
+# never merge — discovered when the very first real content post's PR
+# (#783) sat permanently un-mergeable. A real user's token doesn't have
+# that restriction. Rotate SOCIAL_POSTER_PAT before it expires or this
+# silently reverts to that same stuck state.
 name: social-poster
 on:
   schedule:
@@ -47,6 +58,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          # Real-user token, not the default — see the header note above.
+          token: ${{ secrets.SOCIAL_POSTER_PAT }}
 
       - uses: actions/setup-node@v4
         with:
@@ -66,7 +80,7 @@ jobs:
 
       - name: Commit queue state changes (via PR — main is branch-protected)
         env:
-          GH_TOKEN: ${{ github.token }}
+          GH_TOKEN: ${{ secrets.SOCIAL_POSTER_PAT }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
