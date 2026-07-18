@@ -117,7 +117,12 @@ export function assignFeedTiers(items: ContentItem[]): Map<string, CardTier> {
     }
 
     tiers.set(item.id, tier);
-    mediaRun = tier === 'hero' || tier === 'media' ? mediaRun + 1 : 0;
+    // Gated on hasImage too (found in review, 2026-07-18): a 'notable' item
+    // with no real photo still gets forced to 'media' tier above, but it
+    // isn't actually contributing an image to the run the breather logic is
+    // pacing against — counting it inflated mediaRun and could wrongly
+    // demote an unrelated later item that DOES have a real photo.
+    mediaRun = hasImage && (tier === 'hero' || tier === 'media') ? mediaRun + 1 : 0;
   }
 
   return tiers;

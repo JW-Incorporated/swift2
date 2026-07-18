@@ -398,12 +398,18 @@ async function fetchFromLocalFiles() {
   return byEra;
 }
 
-async function main() {
-  await loadWebEnvLocal();
-  const byEra = preferDbSource()
-    ? ((await fetchFromSupabase()) ?? (await fetchFromLocalFiles()))
-    : await fetchFromLocalFiles();
-
+/**
+ * Renders the full generated-file source from normalized byEra data. Pure
+ * (no I/O) so a test can assert on the actual emitted text, not just the
+ * intermediate objects addItem() builds — that gap (a field present on the
+ * object but never given a `lines.push` line here) is exactly how
+ * `significance` shipped silently broken on 2026-07-18: addItem() computed
+ * it correctly, nothing emitted it into the file, and nothing caught that
+ * until it was checked on the live site. Every optional field needs BOTH an
+ * addItem() line AND a line here — there is no generic fallthrough
+ * serialization.
+ */
+export function buildOutputSource(byEra) {
   const lines = [];
   lines.push('// GENERATED FILE — do not hand-edit.');
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
@@ -434,6 +440,7 @@ async function main() {
   lines.push('  video?: { youtubeId: string; title: string };');
   lines.push('  relatedIds?: string[];');
   lines.push('  threadIds?: LensId[];');
+  lines.push("  significance?: 'defining' | 'notable';");
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -475,6 +482,16 @@ async function main() {
       if (it.threadIds && it.threadIds.length) {
         lines.push(`      threadIds: [${it.threadIds.map(esc).join(', ')}],`);
       }
+      // Bug found live 2026-07-18 (docs/decisions.md): addItem() computed
+      // this field correctly but the writer never had a line to emit it,
+      // so every synced item's significance was silently dropped from the
+      // generated file — msg-wedding never actually rendered as hero on
+      // the live site despite being marked 'defining' in the seed. Every
+      // optional field needs BOTH an addItem() line AND a writer line here;
+      // there is no generic fallthrough serialization in this file.
+      if (it.significance) {
+        lines.push(`      significance: ${esc(it.significance)},`);
+      }
       lines.push('    },');
     }
     lines.push('  ],');
@@ -482,7 +499,17 @@ async function main() {
   lines.push('};');
   lines.push('');
 
-  await writeFile(OUT_FILE, lines.join('\n'), 'utf-8');
+  return lines.join('\n');
+}
+
+async function main() {
+  await loadWebEnvLocal();
+  const byEra = preferDbSource()
+    ? ((await fetchFromSupabase()) ?? (await fetchFromLocalFiles()))
+    : await fetchFromLocalFiles();
+
+  const source = buildOutputSource(byEra);
+  await writeFile(OUT_FILE, source, 'utf-8');
 
   const total = Object.values(byEra).reduce((n, arr) => n + arr.length, 0);
   console.log(`Synced ${total} items across ${Object.keys(byEra).length} eras -> ${path.relative(ROOT, OUT_FILE)}`);
