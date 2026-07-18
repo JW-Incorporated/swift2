@@ -18,7 +18,7 @@ const SEED = join(ROOT, 'supabase', 'seed');
  * @property {string} title
  * @property {Record<string,string>} texts  reviewable prose, by field name
  * @property {{url:string, outlet?:string}[]} sources
- * @property {{url:string, credit?:string, caption?:string, kind?:string}[]} images
+ * @property {{url:string, credit?:string, caption?:string, kind?:string, focalPoint?:string}[]} images
  * @property {string} [category]
  * @property {string} [confidence]
  * @property {string} [outcome]
@@ -63,7 +63,7 @@ export async function loadCorpus() {
     const era = it.eraSlug ?? fileEra;
     const images = [];
     if (str(it.thumbnailUrl)) images.push({ url: it.thumbnailUrl, kind: 'primary' });
-    for (const p of it.moment?.photos ?? []) if (str(p?.url)) images.push({ url: p.url, credit: p.credit, caption: p.caption, kind: p.kind ?? 'primary' });
+    for (const p of it.moment?.photos ?? []) if (str(p?.url)) images.push({ url: p.url, credit: p.credit, caption: p.caption, kind: p.kind ?? 'primary', focalPoint: p.focalPoint });
     items.push({
       type: 'moment',
       file, era,
