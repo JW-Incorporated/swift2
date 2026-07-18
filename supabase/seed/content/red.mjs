@@ -45,10 +45,14 @@ export default {
             url: 'https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/',
           },
         ],
+        // Photo-enrichment pass (2026-07-18): focal point set by viewing — the
+        // cover's lower face/red lip sits just above center-left under the hat
+        // brim. (Counts as one unique photo; thumbnailUrl reuses the same file.)
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
+            focalPoint: '45% 38%',
           },
         ],
       },

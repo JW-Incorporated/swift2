@@ -1464,6 +1464,30 @@ export default {
             reliability_score: 5,
           },
         ],
+        // Photo-enrichment pass (2026-07-18): two frames of the midnight-blue
+        // Cavalli from the 2023 Grammys carpet — the look the context describes —
+        // from the page's own cited Rolling Stone article plus Billboard's
+        // companion piece. Both curl-verified 200 + image/jpeg and vision-checked
+        // (Grammy gramophone backdrop visible). The short film's poster was
+        // rejected: Wikipedia's copy renders at 277px, under the 400px floor.
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2023/02/GettyImages-1463251082.jpg?w=1600&h=900&crop=1',
+            credit: 'Getty Images via Rolling Stone',
+            caption:
+              'The star-scattered midnight-blue Roberto Cavalli at the 2023 Grammys — the carpet look she kept on through the evening ceremony after the afternoon Best Music Video win.',
+            kind: 'primary',
+            focalPoint: '48% 18%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/02/04-taylor-swift-2023-grammys-red-carpet-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images via Billboard',
+            caption:
+              'Close-up on the same Grammys carpet: the diamond-and-amethyst drop earrings over the beaded Cavalli turtleneck.',
+            kind: 'primary',
+            focalPoint: '40% 32%',
+          },
+        ],
       },
     },
     {
@@ -1969,12 +1993,24 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the remix single artwork from Wikipedia's
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
+        // Photo-enrichment pass (2026-07-18): added the freely licensed Arlington
+        // frame of "Karma" closing the Eras Tour show (curl 200 + image/jpeg,
+        // vision-confirmed: the iridescent Karma jacket over the sequined
+        // bodysuit); focal points set per image by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/ba/Taylor_Swift_feat_Ice_Spice_-_Karma.png',
             credit: 'Republic Records',
             caption: 'Artwork for the "Karma" remix featuring Ice Spice — the May 2023 full-circle ending to the Sounwave beat\'s one-day story.',
             kind: 'archival',
+            focalPoint: '47% 70%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Taylor_Swift_Eras_Tour_-_Arlington_TX_20230331_-_Karma.jpg/960px-Taylor_Swift_Eras_Tour_-_Arlington_TX_20230331_-_Karma.jpg',
+            credit: 'Ronald Woan, CC BY-SA 2.0, via Wikimedia Commons',
+            caption: 'The one-day song became the whole show\'s closer: "Karma" ending an Eras Tour night in Arlington, March 2023.',
+            kind: 'archival',
+            focalPoint: '42% 36%',
           },
         ],
       },
@@ -2067,12 +2103,24 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the No. 1 single's artwork; Wikipedia's
         // stable copy (same file the Anti-Hero video item uses), verified 200.
+        // Photo-enrichment pass (2026-07-18): added the official Anti-Hero video
+        // frame from YouTube's own CDN (the same host prior runs used for
+        // official-video stills). Curl 200 + image/jpeg, 1280x720,
+        // vision-confirmed as the video's kitchen-hallway opening frame.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png',
             credit: 'Republic Records',
             caption: 'Single artwork for "Anti-Hero," which led the historic all-Swift top 10 from No. 1.',
             kind: 'archival',
+            focalPoint: '55% 48%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/b1kbLwvqugk/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records, via YouTube',
+            caption: 'A frame from the self-directed "Anti-Hero" video — the No. 1 that led an all-Swift top 10, with 59.7 million streams in the chart week.',
+            kind: 'archival',
+            focalPoint: '50% 25%',
           },
         ],
       },
@@ -2099,12 +2147,25 @@ export default {
         ],
         // Real-photo pass (2026-07-09): album artwork; Wikipedia's stable copy,
         // verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18): added a freely licensed frame of
+        // the Midnights set (Lavender Haze clouds) at U.S. Bank Stadium,
+        // June 24, 2023 — the same month the deluxe editions put the album back
+        // at No. 1. Curl 200 + image/jpeg, vision-confirmed (cloud props,
+        // stadium signage visible).
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
             credit: 'Republic Records',
             caption: 'Midnights — back at No. 1 in June 2023, eight months after release, on the strength of the Til Dawn and Late Night deluxe editions.',
             kind: 'archival',
+            focalPoint: '50% 52%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Eras_Tour_-_Minneapolis%2C_Minnesota_-_Midnights_act_1.jpg/960px-Eras_Tour_-_Minneapolis%2C_Minnesota_-_Midnights_act_1.jpg',
+            credit: 'Michael Hicks, CC BY 2.0, via Wikimedia Commons',
+            caption: 'The Midnights act at Minneapolis\' U.S. Bank Stadium in June 2023 — the album onstage the same month the deluxe drops sent it back to No. 1.',
+            kind: 'archival',
+            focalPoint: '53% 58%',
           },
         ],
       },
@@ -2244,12 +2305,24 @@ export default {
         // Real-photo pass (2026-07-09): Rolling Stone's lead photo of the night,
         // hotlinked per the 2026-07-09 relaxed media policy; credit per the
         // article's own photo credit. Verified HTTP 200 + image/jpeg.
+        // Photo-enrichment pass (2026-07-18): added Deadline's press-room frame —
+        // the gold Zuhair Murad halter with all six trophies in hand, distinct
+        // from the onstage acceptance shot. Curl 200 + image/jpeg,
+        // vision-confirmed (AMA/ABC press wall, six pyramids in her arms).
         photos: [
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2022/11/Taylor-Artist-1443142818.jpg?w=1600&h=900&crop=1',
             credit: 'Kevin Winter/Getty Images via Rolling Stone',
             caption: 'Swift accepting at the 2022 American Music Awards in Los Angeles, where she went six-for-six.',
             kind: 'primary',
+            focalPoint: '50% 15%',
+          },
+          {
+            url: 'https://deadline.com/wp-content/uploads/2022/11/taylor-swift-american-music-awards-2022.jpg?w=1000',
+            credit: 'Deadline',
+            caption: 'All six of the night\'s trophies at once in the AMAs press room — career total: a record 40.',
+            kind: 'primary',
+            focalPoint: '50% 17%',
           },
         ],
       },
@@ -2290,12 +2363,17 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the official tour poster fans were queuing
         // for; Wikipedia's stable copy, verified HTTP 200 + image/png.
+        // Photo-enrichment audit (2026-07-18): stays at one image deliberately —
+        // no outlet-CDN-verifiable photo depicts the presale itself (coverage
+        // used watermarked Getty comps or off-hook file photos; ABC's article
+        // image is a 2019 AMAs performance shot). Focal point set by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/75/The_Eras_Tour_Poster_%28updated%29.png',
             credit: 'TAS Rights Management',
             caption: 'The official Eras Tour poster — the tickets 2.4 million people managed to buy in one day, and millions more never got the chance to.',
             kind: 'archival',
+            focalPoint: '50% 40%',
           },
         ],
       },
@@ -2392,12 +2470,17 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the announced album's artwork; Wikipedia's
         // stable copy, verified HTTP 200 + image/png this session.
+        // Photo-enrichment audit (2026-07-18): stays at one image deliberately —
+        // no verifiable photo of the May 5 Nissan Stadium announcement moment
+        // exists on an outlet CDN or Commons (Variety's article image is a vinyl
+        // product render that duplicates this cover). Focal point set by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
             caption: "The Speak Now (Taylor's Version) cover revealed alongside the onstage Nashville announcement.",
             kind: 'archival',
+            focalPoint: '55% 30%',
           },
         ],
       },
@@ -2634,12 +2717,24 @@ export default {
         ],
         // Real-photo pass (2026-07-09): freely licensed Eras Tour performance
         // photo — the machine that did the compounding. Verified HTTP 200 + image/jpeg.
+        // Photo-enrichment pass (2026-07-18): added a second frame from the same
+        // SoFi stand — the Midnights set panorama (same photographer, different
+        // act, distinct from the three Midnights Era Set files already used
+        // elsewhere in the corpus). Curl 200 + image/jpeg, vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Eras_Tour_-_Inglewood%2C_California_-_Red_act_7.jpg/960px-Eras_Tour_-_Inglewood%2C_California_-_Red_act_7.jpg',
             credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
             caption: 'The Eras Tour at SoFi Stadium in August 2023 — the touring engine Bloomberg credited with pushing the net-worth math past $1 billion.',
             kind: 'archival',
+            focalPoint: '50% 32%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109009237%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109009237%29.jpg',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption: 'The Midnights set during the same SoFi stand — the August 2023 shows that closed out the US leg two months before Bloomberg ran the numbers.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -2958,6 +3053,29 @@ export default {
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-announces-new-album-1234583475/',
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18): the section note above predates
+        // this session — these hotlinks WERE liveness-checked this run
+        // (curl 200 + image/jpeg) and vision-confirmed against the VMAs 2022
+        // set (MTV moonman backdrop visible in both). Both are from the page's
+        // own cited articles.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/08/01-taylor-swift-2022-mtv-vmas-rc-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images via Billboard',
+            caption:
+              'The crystal-mesh Oscar de la Renta on the 2022 VMAs carpet — the night the Video of the Year speech turned into an album announcement.',
+            kind: 'primary',
+            focalPoint: '48% 15%',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2022/08/taylor-swift-new-album.jpg?w=1600&h=900&crop=1',
+            credit: 'Getty Images via Rolling Stone',
+            caption:
+              'In the VMAs press room minutes later — jeweled eye makeup, and a brand-new album on the calendar for October 21.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
           },
         ],
       },
