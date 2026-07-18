@@ -111,6 +111,17 @@ Sections, in this order:
      already the right shape — don't re-derive or re-word it. Also fold in
      feedback-item counts here once that surface exists (was the reserved
      "Users" slot this line replaces).
+   - **Rule, not just for Growth (added 2026-07-18 after a real incident):**
+     the line now also carries `queue: <n> awaiting your OK` / `approved &
+     scheduled` / `empty (nothing drafted)` — the actual count from
+     `social/queue/`, via `fetchQueueStatus()`. A brief once claimed drafts
+     were "waiting on your OK in Slack #social" while the queue was
+     genuinely empty — synthesized from what `growth.md` says SHOULD
+     happen, never checked against what was actually there. **Any claim
+     about pending social approvals — in this bullet, the checklist, or the
+     Plan table — must come from this number, not from reading growth.md's
+     description of the intended process.** If the number is 0, say "queue
+     is empty," never "drafts are waiting."
 2. **✅ Your checklist** — every founder ask as a `- [ ]` one-liner:
    verb-first, time estimate, one link. If it needs more than one line to
    explain, it isn't ready for the checklist — bank it instead. Decision
