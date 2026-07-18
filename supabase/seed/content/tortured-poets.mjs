@@ -1008,6 +1008,18 @@ export default {
             // at the rail, face in the upper-middle band.
             focalPoint: '37% 38%',
           },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): Billboard's own
+            // wp-content frame of Swift seated beside Ice Spice in the Superdome
+            // suite — the exact pairing the jumbotron caught during the boos.
+            // Downloaded and vision-confirmed; no watermark; 1024px render.
+            url: 'https://www.billboard.com/wp-content/uploads/2025/02/taylor-swift-super-bowl-lix-2025-billboard-1548.jpg?w=1024',
+            credit: 'Jamie Squire/Getty Images via Billboard',
+            caption: 'Ice Spice and Taylor Swift at Super Bowl LIX at Caesars Superdome, Feb. 9, 2025.',
+            // Focal point set by viewing: Swift seated just right of center,
+            // Ice Spice at her left; split keeps both faces under a wide crop.
+            focalPoint: '52% 40%',
+          },
         ],
       },
     },
@@ -1172,6 +1184,32 @@ export default {
             // full-length figure carries the crop, faces sit in the upper third.
             focalPoint: '52% 25%',
           },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): Marie Claire's
+            // own composite from this page's source article — Garrabrant bedroom
+            // portraits, the Manuscript CD package, and the era's street/red-
+            // carpet looks in one frame. Downloaded and vision-confirmed.
+            url: 'https://cdn.mos.cms.futurecdn.net/2oQqrmEL7ZpA7ZUzzMnqk8.png',
+            credit: 'Beth Garrabrant; Getty Images via Marie Claire',
+            caption: "Marie Claire's composite of the era: Garrabrant's album portraits, the TTPD CD package, and the Victorian-gothic looks that carried the aesthetic onto red carpets.",
+            // Focal point set by viewing: busy collage; the cut-out foreground
+            // figure (black sequined moon dress) reads as the subject, face in
+            // the upper-right third.
+            focalPoint: '66% 28%',
+          },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): the Fortnight
+            // video's Victorian-poet typewriter frame from the same Marie Claire
+            // article — the "corseted-mourning-gown throughline" the context
+            // paragraph describes. Downloaded and vision-confirmed; distinct
+            // from the face-tattoo ytimg frame used on the Fortnight page.
+            url: 'https://cdn.mos.cms.futurecdn.net/VTGUgGFbL2PbwFRdhdCUxk.png',
+            credit: 'YouTube via Marie Claire',
+            caption: "The Victorian-mourning styling carried into the era's visuals: Swift at the typewriter in the 'Fortnight' video.",
+            // Focal point set by viewing: centered figure at the typewriter,
+            // face in the upper quarter of the frame.
+            focalPoint: '50% 25%',
+          },
         ],
       },
     },
@@ -1266,6 +1304,31 @@ export default {
             // full-length red-carpet pose in the red Westwood mini; face high,
             // just left of center.
             focalPoint: '48% 14%',
+          },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): Marie Claire's
+            // own futurecdn render of the Getty close-up — ruby chandelier
+            // earrings, red lip, the draped one-shoulder bodice. Downloaded and
+            // vision-confirmed against the same MusiCares Fire Relief backdrop
+            // as the existing CBS full-length.
+            url: 'https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV.jpg',
+            credit: 'Getty Images via Marie Claire',
+            caption: 'The details up close: ruby chandelier earrings and the draped, corseted Westwood bodice.',
+            // Focal point set by viewing: landscape close-up, face left of
+            // center with eyes in the upper-middle band.
+            focalPoint: '44% 34%',
+          },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): Marie Claire's
+            // futurecdn render of the sharp Getty full-length — the Lorraine
+            // Schwartz "T" thigh chain and red Casadei heels the snippet calls
+            // out are clearly visible. Downloaded and vision-confirmed.
+            url: 'https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf.jpg',
+            credit: 'Getty Images via Marie Claire',
+            caption: 'The full look on the carpet: the one-shoulder mini with the diamond thigh chain dangling its single "T".',
+            // Focal point set by viewing: full-length portrait pose, face high
+            // and just left of center.
+            focalPoint: '48% 20%',
           },
         ],
       },

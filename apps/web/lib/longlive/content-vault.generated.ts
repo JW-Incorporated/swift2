@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef, LensId } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-18T17:35:31.183Z";
+export const CONTENT_GENERATED_AT = "2026-07-18T19:29:36.543Z";
 
 type VaultRawItem = {
   id: string;
@@ -6860,7 +6860,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Back at her second straight Super Bowl to support Travis — this time drawing boos from a pro-Eagles crowd as Kansas City lost, 40–22.",
       body: ["When the Superdome video boards found her suite during a first-quarter break — right after Adam Sandler and Paul Rudd drew cheers — the heavily pro-Eagles crowd booed, and cameras caught the side-eye and wrinkled nose she shot to Ice Spice beside her before the two laughed it off.", "Her section also held her brother Austin, the Haim sisters, longtime friend Ashley Avignone, and the Kelce family, watching the first Chiefs playoff loss she had ever attended. Donald Trump piled on from Truth Social (\"MAGA is very unforgiving!\"); Serena Williams answered on X: \"I love you @taylorswift13 dont listen to those booo!!\""],
       tags: ["Lore"],
-      images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2025/02/10/730950cd-100f-4bdf-9500-9ddfae69e3a2/thumbnail/620x413/17ecc99a76627497275a0395c0802f6e/gettyimages-2198604289.jpg", credit: "Getty Images", kind: "primary", focalPoint: "37% 38%" }],
+      images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2025/02/10/730950cd-100f-4bdf-9500-9ddfae69e3a2/thumbnail/620x413/17ecc99a76627497275a0395c0802f6e/gettyimages-2198604289.jpg", credit: "Getty Images", kind: "primary", focalPoint: "37% 38%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/02/taylor-swift-super-bowl-lix-2025-billboard-1548.jpg?w=1024", credit: "Jamie Squire/Getty Images via Billboard", caption: "Ice Spice and Taylor Swift at Super Bowl LIX at Caesars Superdome, Feb. 9, 2025.", kind: "archival", focalPoint: "52% 40%" }],
       sources: [{ name: "CBS News Philadelphia", url: "https://www.cbsnews.com/philadelphia/news/taylor-swift-philadelphia-eagles-fans-boo-super-bowl/" }, { name: "E! News", url: "https://www.eonline.com/news/1413228/super-bowl-taylor-swift-booed-on-jumbotron" }],
     },
     {
@@ -6904,7 +6904,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A sharp turn from Midnights' glitz — greige, \"color-leached\" tones, off-the-shoulder slip tops from The Row and Saint Laurent, in bedroom-set portraits shot by Beth Garrabrant.",
       body: ["Beth Garrabrant — the photographer behind the folklore and Midnights campaigns — shot the TTPD package as intimate bedroom scenes: tea-soaked sepia, stark black-and-white, and \"greige\" color-leached tones, with Swift in half-undone slip pieces from The Row, Saint Laurent, Khaite, and Meshki. The dishabille styling was the point — an album about coming apart, photographed mid-unraveling, and a hard swerve from Midnights' jewel-toned glitz.", "Stylists traced the era's Victorian-gothic, corseted-mourning-gown throughline across red carpets and the tour, mixing high couture (Schiaparelli, Alaïa, Gabriela Hearst) with accessible brands like Free People and Reformation."],
       tags: ["Fashion"],
-      images: [{ url: "https://cdn.mos.cms.futurecdn.net/iLujwgsEwXSAYA4yN98NKS.jpg", credit: "Beth Garrabrant", kind: "primary", focalPoint: "52% 25%" }],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/iLujwgsEwXSAYA4yN98NKS.jpg", credit: "Beth Garrabrant", kind: "primary", focalPoint: "52% 25%" }, { url: "https://cdn.mos.cms.futurecdn.net/2oQqrmEL7ZpA7ZUzzMnqk8.png", credit: "Beth Garrabrant; Getty Images via Marie Claire", caption: "Marie Claire's composite of the era: Garrabrant's album portraits, the TTPD CD package, and the Victorian-gothic looks that carried the aesthetic onto red carpets.", kind: "archival", focalPoint: "66% 28%" }, { url: "https://cdn.mos.cms.futurecdn.net/VTGUgGFbL2PbwFRdhdCUxk.png", credit: "YouTube via Marie Claire", caption: "The Victorian-mourning styling carried into the era's visuals: Swift at the typewriter in the 'Fortnight' video.", kind: "archival", focalPoint: "50% 25%" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-tortured-poets-department-fashion-explained/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
     },
     {
@@ -6937,7 +6937,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A one-shoulder sequined red minidress with a Lorraine Schwartz thigh chain spelling \"T\" — for Travis — plus Casadei heels.",
       body: ["The custom one-shoulder Vivienne Westwood mini read as a message: Chiefs red, worn Feb. 2 at Crypto.com Arena exactly one week before Kansas City's Super Bowl LIX matchup with the Eagles, with the Lorraine Schwartz diamond thigh chain dangling a single \"T\" fans immediately read as Travis, absent while he prepared for the game.", "Casadei heels finished the look as she carried six nominations into the night, including her record seventh Album of the Year nod for The Tortured Poets Department."],
       tags: ["Fashion"],
-      images: [{ url: "https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg", credit: "Getty Images", kind: "primary", focalPoint: "48% 14%" }],
+      images: [{ url: "https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg", credit: "Getty Images", kind: "primary", focalPoint: "48% 14%" }, { url: "https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV.jpg", credit: "Getty Images via Marie Claire", caption: "The details up close: ruby chandelier earrings and the draped, corseted Westwood bodice.", kind: "archival", focalPoint: "44% 34%" }, { url: "https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf.jpg", credit: "Getty Images via Marie Claire", caption: "The full look on the carpet: the one-shoulder mini with the diamond thigh chain dangling its single \"T\".", kind: "archival", focalPoint: "48% 20%" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1412664/grammys-2025-taylor-swift-red-carpet-fashion-moment" }, { name: "CBS News Los Angeles", url: "https://www.cbsnews.com/losangeles/news/grammys-red-carpet-2025-highlights/" }],
     },
     {
