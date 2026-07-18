@@ -468,13 +468,27 @@ export default {
             reliability_score: 5,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): portrait is from Billboard's
+        // own coverage of this chart week (billboard.com/wp-content, filename
+        // carries the Mert Alas & Marcus Piggott credit); downloaded and
+        // vision-confirmed 1800x1200, unwatermarked. Focal points set per image
+        // by inspection.
         photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/10/taylor-swift-2025-cr-Mert-Alas-Marcus-Piggot-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott / TAS Rights Management, via Billboard',
+            caption:
+              'A Showgirl-era portrait by the album\'s photographers, Mert Alas and Marcus Piggott — run with Billboard\'s coverage of the week the tracklist WAS the top 12.',
+            kind: 'primary',
+            focalPoint: '48% 15%',
+          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/09/Taylor_Swift_%E2%80%93_The_Fate_of_Ophelia_%28CD_single_cover%29.png',
             credit: 'Single artwork / Republic Records, via Wikipedia',
             caption:
               '"The Fate of Ophelia" single artwork — the song that led the album\'s wall-to-wall occupation of the Hot 100\'s top 12 from No. 1.',
             kind: 'archival',
+            focalPoint: '38% 22%',
           },
         ],
       },
@@ -535,6 +549,10 @@ export default {
             credit: 'CD single artwork / Republic Records, via Wikipedia',
             caption: 'The official single artwork for "The Fate of Ophelia."',
             kind: 'primary',
+            // Focal points (2026-07-18, #762): set per image by inspection.
+            // Cover: Swift sits on the dressing-room vanity left of center,
+            // face upper-left.
+            focalPoint: '38% 22%',
           },
           {
             url: 'https://i.ytimg.com/vi/ko70cExuzZM/hqdefault.jpg',
@@ -542,6 +560,8 @@ export default {
             caption:
               'From the self-written, self-directed music video that premiered in theaters before hitting YouTube.',
             kind: 'archival',
+            // MV frame: showgirl headdress center frame, face upper-middle.
+            focalPoint: '48% 35%',
           },
         ],
       },
@@ -644,12 +664,19 @@ export default {
           },
         ],
         // Lyric-video id HwQnW_ZRKhc verified via oEmbed against @TaylorSwift.
+        // Photo-enrichment pass (2026-07-18, #762): no verifiable second image
+        // exists for this page — a studio track with no photographable event;
+        // the maxres frame of the same video would be a near-duplicate.
+        // Left at one photo deliberately.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/HwQnW_ZRKhc/hqdefault.jpg',
             credit: 'Taylor Swift / Republic Records (official "Eldest Daughter" lyric video thumbnail, YouTube)',
             caption: 'The official lyric video for "Eldest Daughter," the album\'s track five.',
             kind: 'primary',
+            // Focal point by inspection: Swift at the piano on the frame's
+            // right edge, title text left — keep the right side in crops.
+            focalPoint: '85% 38%',
           },
         ],
       },
@@ -689,6 +716,10 @@ export default {
           },
         ],
         // Lyric-video id OU6362Nggg0 verified via oEmbed against @TaylorSwift.
+        // Photo-enrichment pass (2026-07-18, #762): Commons photo of Carpenter
+        // opening the Eras Tour (Singapore, 9 Mar 2024) — license CC BY-SA 4.0
+        // and date verified via the Commons API; downloaded and vision-
+        // confirmed (Carpenter on the runway and jumbotron mid-set).
         photos: [
           {
             url: 'https://i.ytimg.com/vi/OU6362Nggg0/hqdefault.jpg',
@@ -696,6 +727,17 @@ export default {
             caption:
               'The official lyric video for the title track — the album\'s only feature, closing the record with Sabrina Carpenter.',
             kind: 'primary',
+            // Focal point by inspection: mirrored dressing-room shot, the
+            // central figure's face just above center.
+            focalPoint: '50% 32%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/2d/Sabrina_Carpenter%2C_The_Eras_Tour%2C_Singapore_National_Stadium%2C_9_March_2024.jpeg',
+            credit: 'TenthAvenueFreezeOut, CC BY-SA 4.0, via Wikimedia Commons',
+            caption:
+              'Sabrina Carpenter opening the Eras Tour at Singapore National Stadium, March 2024 — the stadium-wings apprenticeship the title track turns into its closing duet.',
+            kind: 'archival',
+            focalPoint: '52% 25%',
           },
         ],
       },
@@ -745,12 +787,27 @@ export default {
         ],
         // Single artwork filename taken from the Wikipedia article's HTML;
         // stable upload.wikimedia.org copy, verified HTTP 200 + image/png.
+        // Photo-enrichment pass (2026-07-18, #762): video still is the lead
+        // image of the cited Billboard No. 1 story (billboard.com/wp-content,
+        // filename credits Republic Records); downloaded and vision-confirmed
+        // 1800x1200, unwatermarked.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/92/Taylor_Swift_-_Opalite.png',
             credit: 'Single artwork / Republic Records, via Wikipedia',
             caption: 'The official single artwork for "Opalite," the album\'s second Hot 100 No. 1.',
             kind: 'primary',
+            // Focal points by inspection: cover has Swift mid-dance, face
+            // upper-left of center under the title text.
+            focalPoint: '45% 28%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/02/taylor-swift-opalite-republic-records-screenshot-billboard-1800.jpg',
+            credit: 'Republic Records (video still), via Billboard',
+            caption:
+              'A still from the "Opalite" video footage, as run with Billboard\'s coverage of the song\'s February 2026 climb from No. 8 to No. 1.',
+            kind: 'archival',
+            focalPoint: '50% 38%',
           },
         ],
       },
@@ -791,12 +848,28 @@ export default {
           },
         ],
         // Lyric-video id WQCPl5rTMDQ verified via oEmbed against @TaylorSwift.
+        // Photo-enrichment pass (2026-07-18, #762): Commons photo of the
+        // actual Hendersonville High School building (license CC BY-SA 3.0
+        // verified via the Commons API; signage legible in frame). Reference
+        // kind, mirroring the Grammy-statuette precedent — the song's setting,
+        // clearly labeled.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/WQCPl5rTMDQ/hqdefault.jpg',
             credit: 'Taylor Swift / Republic Records (official "Ruin The Friendship" lyric video thumbnail, YouTube)',
             caption: 'The official lyric video for "Ruin the Friendship."',
             kind: 'primary',
+            // Focal point by inspection: Swift centered on the bed, face
+            // just above the frame's midline.
+            focalPoint: '50% 38%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7c/Hendersonville_HS_Hendersonville_TN_USA.JPG',
+            credit: 'Ed! (English Wikipedia), CC BY-SA 3.0, via Wikimedia Commons',
+            caption:
+              'Hendersonville High School in Hendersonville, Tennessee — the school Swift attended, and the setting of the song\'s never-risked kiss.',
+            kind: 'reference',
+            focalPoint: '62% 55%',
           },
         ],
       },
@@ -902,12 +975,28 @@ export default {
         ],
         // Official poster, exact filename from the Wikipedia article's HTML;
         // verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): docuseries still from
+        // Billboard's own coverage (billboard.com/wp-content, EXIF description
+        // "Taylor Swift and Travis Kelce"); downloaded and vision-confirmed —
+        // the under-stage cheek-kiss scene, Disney+ promo bug lower right,
+        // 1800x1200, no agency watermark.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/41/Taylor_Swift_-_The_End_of_an_Era_%28Official_poster%29.png',
             credit: 'Official poster / Disney+ & Taylor Swift Productions, via Wikipedia',
             caption: 'The official poster for the six-episode Disney+ docuseries.',
             kind: 'primary',
+            // Focal point by inspection: full-length figure walking into the
+            // lit doorway, head in the frame's upper-middle band.
+            focalPoint: '50% 40%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/10/taylor-swift-travis-kelce-eras-doc-screenshot-billboard-1800.jpg',
+            credit: 'Disney+ / Taylor Swift Productions (docuseries still), via Billboard',
+            caption:
+              'Taylor and Travis Kelce beneath the Eras Tour stage, in a scene from the docuseries\' back half — the backstage register the six episodes live in.',
+            kind: 'archival',
+            focalPoint: '47% 32%',
           },
         ],
       },
@@ -1515,6 +1604,10 @@ export default {
         // Generic Grammy-statuette photo, clearly labeled as reference —
         // there is no event photo for a nomination that didn't happen.
         // License (CC BY 2.0) verified via the Commons API this session.
+        // Photo-enrichment pass (2026-07-18, #762): searched for a second
+        // image (AOL/E! lead art is a generic logo; no CC Grammys-ceremony
+        // photo of Swift on Commons) — left at one photo rather than pad
+        // with a second generic statuette.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d2/Grammy_Award_trophies_-_Kenny_Rogers_%22The_Gambler%22_%28cropped%29.jpg',
@@ -1522,6 +1615,9 @@ export default {
             caption:
               'For reference — Grammy statuettes on display (these are Kenny Rogers\'s, at the Country Music Hall of Fame). The 2026 window Showgirl missed closed Aug. 30, 2025.',
             kind: 'reference',
+            // Focal point by inspection: tall frame, gramophone horn and
+            // turntable in the middle band above the engraved plaque.
+            focalPoint: '50% 42%',
           },
         ],
       },
@@ -1735,6 +1831,11 @@ export default {
         ],
         // Public-domain MGM publicity still of the song's namesake; license
         // and provenance verified via the Commons API this session.
+        // Photo-enrichment pass (2026-07-18, #762): official MV id WqbJT_vC0rs
+        // verified via YouTube oEmbed -> "Taylor Swift - Elizabeth Taylor
+        // (Official Music Video)", author @TaylorSwift. maxresdefault used
+        // (1280x720, no letterbox bars); downloaded and vision-confirmed —
+        // b/w archival close-up of the real Elizabeth Taylor.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/f4/Elizabeth_Taylor%2C_late_1950s.jpg',
@@ -1742,6 +1843,17 @@ export default {
             caption:
               'The real Elizabeth Taylor in an MGM publicity photo from the late 1950s — the violet-eyed star whose public life the song borrows as a mirror.',
             kind: 'archival',
+            // Focal point by inspection: portrait with the face in the upper
+            // third, slightly left of center.
+            focalPoint: '42% 25%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official "Elizabeth Taylor" music video thumbnail, YouTube)',
+            caption:
+              'From the archival-footage music video released in March 2026 — a supercut of Elizabeth Taylor\'s films and newsreels, cleared with her estate.',
+            kind: 'archival',
+            focalPoint: '60% 40%',
           },
         ],
       },
@@ -2077,13 +2189,27 @@ export default {
         ],
         // Official era wordmark; Commons hosts it as public domain (textual
         // logo, TAS Rights Management provenance), verified via the API.
+        // Photo-enrichment pass (2026-07-18, #762): press-shoot frame is from
+        // Billboard's own 12th-week story (billboard.com/wp-content, frame 01
+        // of the album press set — a different frame than the 03 used on the
+        // four-million-week page); downloaded and vision-confirmed 1800x1200.
         photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/01-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Album press photo / TAS Rights Management, via Billboard',
+            caption:
+              'From the album\'s press shoot — the bob-wigged showgirl with a coupe in a hall of mirrors, still on top of the Billboard 200 twelve weeks later.',
+            kind: 'primary',
+            focalPoint: '53% 32%',
+          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_-_The_Life_of_a_Showgirl_Logo.png',
             credit: 'TAS Rights Management / Republic Records, public domain (textual logo), via Wikimedia Commons',
             caption:
               'The era\'s orange-glitter wordmark — on top of the Billboard 200 for every week of it through the holidays.',
             kind: 'archival',
+            // Focal point: pure wordmark, genuinely reads best centered.
+            focalPoint: '50% 50%',
           },
         ],
       },
