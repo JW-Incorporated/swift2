@@ -1263,12 +1263,30 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): trailer still upgraded from
+        // the 480×360 hqdefault to the same video's 1280×720 maxres render
+        // (video id oEmbed-verified: "MISS AMERICANA | Official Trailer",
+        // Netflix channel). Added the Sundance world-premiere carpet photo
+        // from Variety's own CDN — the Jan. 23, 2020 Eccles Theatre premiere
+        // of the film the quote appears in. Rolling Stone's press-kit still
+        // was rejected as a near-duplicate (same mirror-dress elevator scene
+        // as the trailer frame). Both verified HTTP 200 + image/jpeg,
+        // downloaded, and visually confirmed this session.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/q07_k5VKuaQ/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/q07_k5VKuaQ/maxresdefault.jpg',
             credit: 'Netflix / YouTube (official trailer still)',
             caption: "Still from Netflix's official Miss Americana trailer — the film where the quote appears.",
             kind: 'archival',
+            focalPoint: '69% 22%',
+          },
+          {
+            url: 'https://variety.com/wp-content/uploads/2020/01/shutterstock_editorial_10537595c-e1579848059444.jpg',
+            credit: 'Shutterstock, via Variety',
+            caption:
+              'At the Miss Americana world premiere, opening night of the Sundance Film Festival in Park City, Jan. 23, 2020 — a week before the film put the relationship on the record.',
+            kind: 'archival',
+            focalPoint: '48% 30%',
           },
         ],
       },

@@ -693,6 +693,7 @@ export default {
             caption:
               'Together in Los Angeles on Dec. 3, 2009 — weeks before the quiet breakup.',
             kind: 'primary',
+            focalPoint: '50% 45%',
           },
         ],
       },
