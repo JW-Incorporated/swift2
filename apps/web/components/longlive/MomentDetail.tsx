@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { X, Sparkles, Share2, ArrowRight, Route, Heart } from 'lucide-react';
+import { X, Sparkles, Share2, ArrowRight, Route, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
 import {
   useAppState,
   useAppActions,
@@ -66,12 +66,26 @@ function ImageKindBadge({ kind }: { kind: Exclude<ImageKind, 'primary'> }) {
 // One full-width photo woven into the article body, with its honest labeling
 // (kind badge / reference note), caption, and credit. Same figure the old
 // trailing gallery used, now placed inline between paragraphs (#XYZ v1).
-function MomentFigure({ img }: { img: ImageRef }) {
+function MomentFigure({ img, onOpen }: { img: ImageRef; onOpen: () => void }) {
   return (
     <figure className="era-card overflow-hidden rounded-2xl border">
-      {/* Pinch/double-tap zoomable — the body-scroll lock breaks native
-          zoom-and-pan, so the viewer drives the gestures itself. */}
-      <ZoomableImage src={img.url} alt={img.caption ?? ''} unoptimized={isRemoteUrl(img.url)} />
+      {/* Tap to open the full-screen zoomable viewer (#525 follow-up); the
+          inline crop respects the image's focal point. */}
+      <button
+        type="button"
+        onClick={onOpen}
+        aria-label="View photo full screen"
+        className="relative block aspect-[4/3] w-full cursor-zoom-in overflow-hidden"
+      >
+        <Image
+          src={img.url}
+          alt={img.caption ?? ''}
+          fill
+          unoptimized={isRemoteUrl(img.url)}
+          className="object-cover"
+          style={{ objectPosition: focalPointOf(img) }}
+        />
+      </button>
       <figcaption className="space-y-1.5 p-3">
         {img.kind !== 'primary' && (
           <div>
@@ -94,14 +108,105 @@ function MomentFigure({ img }: { img: ImageRef }) {
   );
 }
 
+/**
+ * Full-screen photo viewer (#525 follow-up): the whole photo (object-contain),
+ * pinch / double-tap zoom via ZoomableImage, and keyboard/arrow paging through
+ * the moment's gallery. Owns Escape while open.
+ */
+function MomentLightbox({
+  images,
+  index,
+  onIndex,
+  onClose,
+}: {
+  images: ImageRef[];
+  index: number;
+  onIndex: (i: number) => void;
+  onClose: () => void;
+}) {
+  const img = images[index];
+  const count = images.length;
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+      else if (e.key === 'ArrowRight') onIndex((index + 1) % count);
+      else if (e.key === 'ArrowLeft') onIndex((index - 1 + count) % count);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [index, count, onIndex, onClose]);
+  if (!img) return null;
+  return (
+    <div
+      className="fixed inset-0 z-[80] flex flex-col bg-black/95 detail-enter"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Photo viewer"
+    >
+      <div className="flex shrink-0 items-center justify-between px-4 py-3 text-white">
+        <span className="text-xs text-white/60">{count > 1 ? `${index + 1} / ${count}` : ''}</span>
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close photo viewer"
+          className="grid size-11 place-items-center rounded-full hover:bg-white/10"
+        >
+          <X className="size-5" />
+        </button>
+      </div>
+      <div className="relative min-h-0 flex-1">
+        <ZoomableImage
+          key={img.url}
+          src={img.url}
+          alt={img.caption ?? ''}
+          unoptimized={isRemoteUrl(img.url)}
+          fit="contain"
+          frameClassName="h-full w-full"
+        />
+        {count > 1 && (
+          <>
+            <button
+              type="button"
+              onClick={() => onIndex((index - 1 + count) % count)}
+              aria-label="Previous photo"
+              className="absolute left-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-black/40 text-white hover:bg-black/60"
+            >
+              <ChevronLeft className="size-6" />
+            </button>
+            <button
+              type="button"
+              onClick={() => onIndex((index + 1) % count)}
+              aria-label="Next photo"
+              className="absolute right-2 top-1/2 grid size-11 -translate-y-1/2 place-items-center rounded-full bg-black/40 text-white hover:bg-black/60"
+            >
+              <ChevronRight className="size-6" />
+            </button>
+          </>
+        )}
+      </div>
+      {(img.caption || img.credit) && (
+        <div className="shrink-0 px-6 py-3 text-center">
+          {img.caption && <p className="text-sm leading-relaxed text-white/85">{img.caption}</p>}
+          {img.credit && <p className="mt-0.5 text-xs text-white/50">Credit: {img.credit}</p>}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export function MomentDetail() {
   const { openItemId, share } = useAppState();
   const { closeItem, openShare } = useAppActions();
   const { progress } = useProgress();
   const { markMomentVisited, toggleFavorite } = useProgressActions();
   const [revealed, setRevealed] = useState(false);
+  // Index into item.images for the full-screen photo viewer, or null when closed.
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   const item = openItemId ? getContentItem(openItemId) : undefined;
+
+  // Any time the moment changes, make sure the viewer is closed.
+  useEffect(() => setLightboxIndex(null), [openItemId]);
 
   // Opening a moment records it as visited (drives the era grid's seen dots
   // and the returning-user counts). Keyed on the resolved item so bad deep
@@ -130,11 +235,12 @@ export function MomentDetail() {
   useEffect(() => {
     if (!openItemId) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && !share) closeItem();
+      // While the full-screen viewer is open it owns Escape (closes itself).
+      if (e.key === 'Escape' && !share && lightboxIndex === null) closeItem();
     };
     window.addEventListener('keydown', onKey);
     return () => window.removeEventListener('keydown', onKey);
-  }, [openItemId, closeItem, share]);
+  }, [openItemId, closeItem, share, lightboxIndex]);
 
   // Let the mobile back-swipe gesture close this pill instead of leaving the app.
   useBackDismiss(Boolean(item), closeItem);
@@ -164,6 +270,9 @@ export function MomentDetail() {
     inlineSlots[target - 1]?.push(img);
   });
 
+  // Open the full-screen photo viewer at a given image (matched by identity).
+  const openLightbox = (img: ImageRef) => setLightboxIndex(Math.max(0, item.images.indexOf(img)));
+
   return (
     <div
       className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter"
@@ -187,6 +296,16 @@ export function MomentDetail() {
               'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 20%, transparent), var(--era-bg))',
           }}
         />
+        {/* Tap the hero to open the full-screen viewer; the overlaid controls
+            below sit later in the DOM, so they stay clickable on top. */}
+        {hero && (
+          <button
+            type="button"
+            onClick={() => openLightbox(hero)}
+            aria-label="View photo full screen"
+            className="absolute inset-0 cursor-zoom-in"
+          />
+        )}
         {/* A hero that isn't the real photo says so, right on the image.
             bottom-14 keeps it clear of the article, which overlaps the hero's
             bottom 2.5rem via -mt-10. */}
@@ -265,13 +384,15 @@ export function MomentDetail() {
             <Fragment key={i}>
               <p className="text-pretty">{para}</p>
               {inlineSlots[i].map((img, j) => (
-                <MomentFigure key={`${img.url}-${j}`} img={img} />
+                <MomentFigure key={`${img.url}-${j}`} img={img} onOpen={() => openLightbox(img)} />
               ))}
             </Fragment>
           ))}
           {/* No paragraphs to weave into — show the photos on their own. */}
           {item.body.length === 0 &&
-            gallery.map((img, j) => <MomentFigure key={`${img.url}-${j}`} img={img} />)}
+            gallery.map((img, j) => (
+              <MomentFigure key={`${img.url}-${j}`} img={img} onOpen={() => openLightbox(img)} />
+            ))}
         </div>
 
         {item.video && <MomentVideo video={item.video} />}
@@ -367,6 +488,15 @@ export function MomentDetail() {
             trail invitation above rather than a bare thread-home link. */}
         <FollowThreadsRow threadIds={item.threadIds} />
       </article>
+
+      {lightboxIndex !== null && (
+        <MomentLightbox
+          images={item.images}
+          index={lightboxIndex}
+          onIndex={setLightboxIndex}
+          onClose={() => setLightboxIndex(null)}
+        />
+      )}
     </div>
   );
 }
