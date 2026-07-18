@@ -92,11 +92,15 @@ describe('contentForThread', () => {
     }
   });
 
-  it('returns an empty array for a thread with no tagged content yet', () => {
-    // 'the-proposal' content today lives only in PROPOSAL_BEATS (lenses.ts),
-    // not as tagged ContentItems — this documents the current gap rather
-    // than asserting it should stay empty forever.
-    expect(contentForThread('the-proposal')).toEqual([]);
+  it('returns items explicitly opted into the-proposal thread', () => {
+    // 'the-proposal' content used to live only in PROPOSAL_BEATS (lenses.ts).
+    // The 10-defining-events passes (docs/decisions.md, 2026-07-19) opted
+    // several real ContentItems in, closing that gap.
+    const items = contentForThread('the-proposal');
+    expect(items.length).toBeGreaterThan(0);
+    for (const item of items) {
+      expect(item.threadIds).toContain('the-proposal');
+    }
   });
 });
 
@@ -142,8 +146,9 @@ describe('contentForThreadInEra', () => {
     }
   });
 
-  it('returns an empty array for a thread with no tagged content in any era', () => {
-    // Same gap documented above for contentForThread('the-proposal').
+  it('returns an empty array for an era the thread has no tagged content in', () => {
+    // the-proposal's tagged items (docs/decisions.md, 2026-07-19) are all in
+    // midnights/tloas — debut genuinely has none.
     expect(contentForThreadInEra('the-proposal', 'debut')).toEqual([]);
   });
 });

@@ -256,18 +256,23 @@ export default {
             url: 'https://www.billboard.com/music/awards/taylor-swift-wins-album-of-the-year-2021-grammy-awards-folklore-9540496/',
           },
         ],
+        // Photo-enrichment run 16 (2026-07-18, #762): focal points only — the
+        // page already carries two distinct verified photos. Both downloaded
+        // and viewed this session; values set per image, by eye.
         photos: [
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg',
             credit: 'Kevin Mazur/Getty Images for The Recording Academy',
             caption: 'At the 63rd Grammy Awards, March 14, 2021, where folklore won Album of the Year.',
             kind: 'primary',
+            focalPoint: '53% 22%',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Winter/Getty Images for The Recording Academy',
             caption: 'Accepting the Album of the Year Grammy — her third, a first for any woman.',
             kind: 'primary',
+            focalPoint: '45% 25%',
           },
         ],
       },
@@ -560,6 +565,19 @@ export default {
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The flame imagery of the official "mad woman" lyric video.',
             kind: 'archival',
+            focalPoint: '50% 55%',
+          },
+          // Photo-enrichment run 16 (2026-07-18, #762): clearly-labeled
+          // CC BY 2.0 Commons reference photo of Aaron Dessner, the song's
+          // named co-writer/producer. License verified via the Commons API
+          // (photographer Bruce Baker), URL verified HTTP 200 + image/jpeg,
+          // downloaded and visually confirmed. Per-image focal points by eye.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/17/Aaron_Dessner_%28March_25%2C_2016%29.jpg',
+            credit: 'Bruce Baker (CC BY 2.0), via Wikimedia Commons',
+            caption: 'For reference — Aaron Dessner, who co-wrote and produced "mad woman," on stage in March 2016.',
+            kind: 'reference',
+            focalPoint: '44% 33%',
           },
         ],
       },
@@ -587,6 +605,19 @@ export default {
             credit: 'Thomas R Machnitzki (CC BY 3.0), via Wikimedia Commons',
             caption: 'Centennial Park in Nashville — the park named in the song\'s opening verse.',
             kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          // Photo-enrichment run 16 (2026-07-18, #762): CC BY 4.0 Commons
+          // panorama of the Parthenon replica on the park's lawn — the setting
+          // of the song's opening line. License verified via the Commons API
+          // (photographer Euthman), 1280px stable thumb verified HTTP 200 +
+          // image/jpeg, downloaded and visually confirmed. Focal points by eye.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/The_Parthenon_replica%2C_Centennial_Park%2C_Nashville%2C_Tennessee.jpg/1280px-The_Parthenon_replica%2C_Centennial_Park%2C_Nashville%2C_Tennessee.jpg',
+            credit: 'Euthman (CC BY 4.0), via Wikimedia Commons',
+            caption: 'The Parthenon on Centennial Park\'s lawn — "green was the color of the grass where I used to read at Centennial Park."',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -608,12 +639,28 @@ export default {
         // Real-photo pass (2026-07-09): thumbnail from the official lyric
         // video on the Taylor Swift YouTube channel — id verified via YouTube
         // oEmbed (title + author "Taylor Swift") this session.
+        // Photo-enrichment run 17 (2026-07-18, #762): no official upload of
+        // the hoax Long Pond performance exists (only re-uploads and the
+        // auto-generated Topic channel — rejected), so the second image is a
+        // clearly-labeled CC BY-SA 4.0 Commons reference photo of Aaron
+        // Dessner, who produced and recorded the song at Long Pond. License
+        // verified via the Commons API (photographer Kim Metso), URL verified
+        // HTTP 200 + image/jpeg, downloaded and visually confirmed. Per-image
+        // focal points set by eye.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/ryLGxpjwAhM/hqdefault.jpg',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The stormy coastline of the official "hoax" lyric video.',
             kind: 'archival',
+            focalPoint: '48% 40%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
+            credit: 'Kim Metso (CC BY-SA 4.0), via Wikimedia Commons',
+            caption: 'For reference — Aaron Dessner, who Swift told not to overthink the production of the album\'s last-written song.',
+            kind: 'reference',
+            focalPoint: '57% 20%',
           },
         ],
       },
@@ -639,12 +686,25 @@ export default {
         ],
         // Real-photo pass (2026-07-09): official album cover from Wikipedia's
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the cream-sweater
+        // Beth Garrabrant press-kit portrait from Billboard's own folklore
+        // chart coverage (billboard.com/wp-content, no watermark) — verified
+        // HTTP 200 + image/jpeg, downloaded and visually confirmed. Per-image
+        // focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'folklore, which opened with 846,000 equivalent units in its first week.',
             kind: 'primary',
+            focalPoint: '48% 70%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2020/07/03-taylor-swift-cr-Beth-Garrabrant-press-photo-2020-billboard-1548-1595547189.jpg?w=1024',
+            credit: 'Beth Garrabrant',
+            caption: 'The folklore press-kit portrait that ran with the chart coverage of the surprise No. 1 debut.',
+            kind: 'archival',
+            focalPoint: '42% 40%',
           },
         ],
       },
@@ -671,12 +731,26 @@ export default {
         // Real-photo pass (2026-07-09): folklore-era publicity photo, same
         // stable Hollywood Reporter CDN copy used on this era's chart item.
         // Verified HTTP 200 + image/jpeg this session.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the gingham-dress
+        // Beth Garrabrant press frame from the body of Billboard's own
+        // million-selling-album story (billboard.com/wp-content, no
+        // watermark) — verified HTTP 200 + image/jpeg, downloaded and
+        // visually confirmed as a distinct frame from the THR copy above.
+        // Per-image focal points set by eye.
         photos: [
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1',
             credit: 'Beth Garrabrant',
             caption: 'folklore-era publicity photograph by Beth Garrabrant.',
             kind: 'archival',
+            focalPoint: '52% 22%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2020/07/01-taylor-swift-cr-Beth-Garrabrant-press-photo-2020-billboard-1548-1595547205.jpg?w=1024',
+            credit: 'Beth Garrabrant',
+            caption: 'From the folklore press shoot — the image Billboard ran with the million-copies milestone.',
+            kind: 'archival',
+            focalPoint: '34% 16%',
           },
         ],
       },
@@ -701,12 +775,26 @@ export default {
         ],
         // Real-photo pass (2026-07-09): official album cover from Wikipedia's
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the lead collage
+        // art of the Rolling Stone list itself (the article body's folklore
+        // image is just the album cover — rejected as a duplicate). Hosted on
+        // rollingstone.com/wp-content, no watermark; verified HTTP 200 +
+        // image/jpeg, downloaded and visually confirmed (Swift top right).
+        // Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'folklore — Rolling Stone\'s No. 1 album of 2020.',
             kind: 'primary',
+            focalPoint: '48% 70%',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2020/12/Albums.jpg?w=1200&h=800&crop=1',
+            credit: 'Rolling Stone',
+            caption: 'The lead art of Rolling Stone\'s 50 Best Albums of 2020 list — Swift, top right, above the field she topped.',
+            kind: 'archival',
+            focalPoint: '78% 28%',
           },
         ],
       },
@@ -720,6 +808,7 @@ export default {
     // New items carry the audit's additive provenance fields.
     {
       slug: 'folklore-sixteen-hour-announcement',
+      significance: 'defining', // the pandemic-era reinvention that reshaped how she releases music (docs/decisions.md, 2026-07-19)
       year: 2020,
       month: 7,
       day: 23,
@@ -729,9 +818,15 @@ export default {
         '"Most of the things I had planned this summer didn\'t end up happening, but there is something I hadn\'t planned on that DID happen" — posted the morning of July 23, 2020. The album arrived at midnight.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)',
       thumbnailUrl: null,
+      relatedIds: [
+        'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+      ],
       moment: {
+        // Third paragraph added 2026-07-19 (found in review): the item
+        // claimed a reinvention without substantiating its impact, just
+        // announcement mechanics — this backs the claim with real reception.
         context:
-          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — with the "cardigan" video, shot under pandemic protocols, dropping alongside it at midnight. The announcement came dressed as its own reveal: a grid of captionless black-and-white forest photographs from the Beth Garrabrant cover shoot, posted with no advance warning of any kind.\n\nThe rollout compression extended to retail — deluxe CDs and vinyl in alternate covers went up only through her own website — and the no-lead-time surprise drop became a template she would reuse for evermore five months later.',
+          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — with the "cardigan" video, shot under pandemic protocols, dropping alongside it at midnight. The announcement came dressed as its own reveal: a grid of captionless black-and-white forest photographs from the Beth Garrabrant cover shoot, posted with no advance warning of any kind.\n\nThe rollout compression extended to retail — deluxe CDs and vinyl in alternate covers went up only through her own website — and the no-lead-time surprise drop became a template she would reuse for evermore five months later.\n\nThe reinvention landed as intended: Rolling Stone called it "her greatest album — so far," a "total goth-folk" turn away from radio hits and stadium-friendly material into her most emotionally ambitious songwriting yet, and later named it the best album of 2020 outright — the same year it broke the magazine\'s record for most consecutive weeks at Number One on the Rolling Stone 200.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -742,15 +837,71 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 2,
           },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-folklore-surprise-album-1033102/',
+            source_title: 'Taylor Swift Finally Abandoned the Traditional Album Rollout',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-leaves-her-comfort-zones-behind-on-the-head-spinning-heart-breaking-folklore-1033533/',
+            source_title: "Taylor Swift's 'Folklore': Rob Sheffield Reviews the Album",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
         ],
         // Real-photo pass (2026-07-09): official album cover — the image the
         // announcement itself revealed. Stable upload.wikimedia.org copy,
         // verified HTTP 200 + image/png this session.
+        // Photo-enrichment run 17 (2026-07-18, #762): focal point only. No
+        // verifiable distinct second image — the nine-photo Instagram grid IS
+        // the cover image already shown here, and the outlet stills found for
+        // the announcement stories are logo-branded video frames (rejected).
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'The cover art revealed in the July 23, 2020 announcement post.',
+            kind: 'primary',
+            focalPoint: '48% 70%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // real, verified photos from the actual announcement post and the
+          // Beth Garrabrant forest shoot that introduced the album.
+          {
+            url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Taylor Swift/Instagram, via The Guardian',
+            caption: 'The black-and-white forest montage Swift posted with the July 23 surprise announcement for folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/74cae4f3a285b8a8638cfbc76355b2f0c0db29c5/0_54_1737_1385/master/1737.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Beth Garrabrant/Stoke PR, via The Guardian',
+            caption: 'A Beth Garrabrant black-and-white portrait from the forest shoot used to introduce folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5f1b15f8562110dad1181c8f/master/w_2560%2Cc_limit/taylor-swift-new-album-lede.jpg',
+            credit: 'Beth Garrabrant, via Vanity Fair',
+            caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Swift in the album\'s woodland setting.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/5f22f28283d239dce41f81b1/master/w_2560%2Cc_limit/Screenshot%25202020-07-30%2520at%252012.16.56%2520PM.png',
+            credit: 'Taylor Swift/YouTube, via Vanity Fair',
+            caption: 'A frame from the self-directed "cardigan" video, released at midnight alongside folklore.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/6f8132a91d5eaf50614417ced6bee7903341fd46/0_0_1482_1958/master/1482.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'TAS Rights Management, via The Guardian',
+            caption: 'Swift wears the signature knit cardigan in a release-period promotional image for the video and album.',
             kind: 'primary',
           },
         ],
@@ -793,12 +944,26 @@ export default {
         // Real-photo pass (2026-07-09): CC BY 2.0 photo of Justin Vernon from
         // Wikimedia Commons, used on the song's own Wikipedia article
         // (license verified this session). Verified HTTP 200 + image/jpeg.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the title card of
+        // the official "exile" lyric video — id verified via YouTube oEmbed
+        // (title "Taylor Swift – exile (feat. Bon Iver) (Official Lyric
+        // Video)", channel "Taylor Swift"); thumbnail verified HTTP 200 +
+        // image/jpeg, downloaded and visually confirmed (aerial forest path,
+        // lone figure). Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Justin_Vernon_at_Jazz_Fest_2012.jpg/500px-Justin_Vernon_at_Jazz_Fest_2012.jpg',
             credit: 'Nikko Russano (CC BY 2.0), via Wikimedia Commons',
             caption: 'Justin Vernon of Bon Iver, whose duet vocal made "exile" the band\'s highest-charting song.',
             kind: 'archival',
+            focalPoint: '47% 35%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/osdoLjUNFnA/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'The lone figure on a darkening path — the official "exile" lyric video.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -840,12 +1005,26 @@ export default {
         // Real-photo pass (2026-07-09): CC BY-SA 2.0 concert photo from
         // Wikimedia Commons, used on the song's own Wikipedia article
         // (license verified this session). Verified HTTP 200 + image/jpeg.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the title card of
+        // the official "my tears ricochet" lyric video — id verified via
+        // YouTube oEmbed (title "Taylor Swift – my tears ricochet (Official
+        // Lyric Video)", channel "Taylor Swift"); thumbnail verified HTTP 200
+        // + image/jpeg, downloaded and visually confirmed (moonlit dark
+        // water). Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_Eras_Tour_-_Arlington_TX_20230331_-_My_Tears_Ricochet_%28cropped%29.jpg/500px-Taylor_Swift_Eras_Tour_-_Arlington_TX_20230331_-_My_Tears_Ricochet_%28cropped%29.jpg',
             credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
             caption: 'Performing "my tears ricochet" in the folklore set at the Eras Tour, Arlington, March 2023.',
             kind: 'archival',
+            focalPoint: '50% 20%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/OWbDJFtHl3w/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'Moonlight on black water — the official "my tears ricochet" lyric video.',
+            kind: 'archival',
+            focalPoint: '50% 50%',
           },
         ],
       },
@@ -916,18 +1095,23 @@ export default {
         // Real-photo pass (2026-07-09): official cover art (exact filename
         // from the Wikipedia article HTML) plus the public-domain Wordsworth
         // portrait used on the same article. Both verified HTTP 200.
+        // Photo-enrichment run 17 (2026-07-18, #762): focal points only — the
+        // page already carries two distinct verified photos. Both downloaded
+        // and viewed this session; values set per image, by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/a2/The_Lakes_%28Original_Version%29_-_Taylor_Swift.png',
             credit: 'Republic Records',
             caption: 'Cover art for "the lakes (original version)," released on folklore\'s first anniversary.',
             kind: 'primary',
+            focalPoint: '50% 32%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/William_Wordsworth_by_Henry_William_Pickersgill.jpg/1280px-William_Wordsworth_by_Henry_William_Pickersgill.jpg',
             credit: 'Henry William Pickersgill (public domain), via Wikimedia Commons',
             caption: 'William Wordsworth, the Lake Poet behind the lyric\'s "what are my words worth" pun.',
             kind: 'archival',
+            focalPoint: '57% 28%',
           },
         ],
       },
@@ -962,11 +1146,15 @@ export default {
         // used on the same article for the song's cited influence. Verified
         // HTTP 200 this session.
         photos: [
+          // Photo-enrichment run 17 (2026-07-18, #762): focal points only —
+          // the page already carries two distinct verified photos. Both
+          // downloaded and viewed this session; values set per image, by eye.
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/3/38/Taylor_Swift_-_Betty.png',
             credit: 'Republic Records',
             caption: 'Official single cover for "betty," her first country-radio single since 2013.',
             kind: 'primary',
+            focalPoint: '48% 40%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Joan_Baez_Bob_Dylan_crop.jpg/500px-Joan_Baez_Bob_Dylan_crop.jpg',
@@ -978,6 +1166,7 @@ export default {
             // as-is (correct subject: Dylan, 1963).
             caption: 'Bob Dylan in 1963 — Swift modeled the song\'s sound on his early records.',
             kind: 'archival',
+            focalPoint: '42% 35%',
           },
         ],
       },
@@ -1117,12 +1306,26 @@ export default {
         // Real-photo pass (2026-07-09): thumbnail from the official American
         // Music Awards channel upload of the acceptance — id verified via
         // YouTube oEmbed (author "American Music Awards") this session.
+        // Photo-enrichment run 17 (2026-07-18, #762): added Variety's own
+        // broadcast still of the same acceptance (variety.com/wp-content,
+        // from the article this page cites) — a distinct, higher-resolution
+        // frame with the studio mic in view; small ABC bug only, no agency
+        // watermark. Verified HTTP 200 + image/png, downloaded and visually
+        // confirmed. Per-image focal points set by eye.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/65Oso8K4FzY/hqdefault.jpg',
             credit: 'American Music Awards via YouTube (official upload)',
             caption: 'Accepting Artist of the Year by video from the studio where she was re-recording her old music.',
             kind: 'primary',
+            focalPoint: '46% 30%',
+          },
+          {
+            url: 'https://variety.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-22-at-8.47.21-PM-e1606106986474.png?w=1000&h=543&crop=1',
+            credit: 'ABC (broadcast still, via Variety)',
+            caption: 'Mid-speech beside the studio microphone — the frame where the re-recording plan slipped out.',
+            kind: 'primary',
+            focalPoint: '49% 38%',
           },
         ],
       },
@@ -1170,6 +1373,17 @@ export default {
             credit: 'Republic Records',
             caption: '"cardigan," nominated for both Song of the Year and Best Pop Solo Performance.',
             kind: 'primary',
+            focalPoint: '40% 45%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): official "Beautiful
+          // Ghosts" lyric-video thumbnail — video id verified via YouTube
+          // oEmbed (title + author "Taylor Swift") this session.
+          {
+            url: 'https://i.ytimg.com/vi/trIjpVH8h88/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'The "Beautiful Ghosts" lyric video — the stray Cats credit that completed the six-nomination slate.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -1217,12 +1431,14 @@ export default {
             credit: 'Republic Records',
             caption: 'Official single cover for "cardigan," folklore\'s lead single.',
             kind: 'primary',
+            focalPoint: '40% 45%',
           },
           {
             url: 'https://i.ytimg.com/vi/K-a8s8OLBSE/hqdefault.jpg',
             credit: 'Taylor Swift via YouTube (official music video)',
             caption: 'The candlelit piano that opens the self-directed "cardigan" video.',
             kind: 'archival',
+            focalPoint: '47% 30%',
           },
         ],
       },
@@ -1261,6 +1477,17 @@ export default {
             credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
             caption: 'On the folklore act\'s moss-covered cabin roof at the Eras Tour, Arlington, March 2023.',
             kind: 'archival',
+            focalPoint: '47% 25%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): second Ronald Woan
+          // frame from the same Arlington folklore act (license verified
+          // CC BY-SA 2.0 via Commons extmetadata this session).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/56/Taylor_Swift_Eras_Tour_-_Arlington%2C_TX_-_Folklore_act_3_%28cropped_2%29.jpg',
+            credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
+            caption: 'Close-up during the folklore act of the Eras Tour, where "the 1" opened the set, Arlington, March 2023.',
+            kind: 'archival',
+            focalPoint: '50% 16%',
           },
         ],
       },
@@ -1393,6 +1620,18 @@ export default {
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The storm-swept plain of the official "peace" lyric video.',
             kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): license-verified
+          // Commons reference photo of Justin Vernon, credited in this
+          // page's text for the song's ticking pulse (CC BY 2.0,
+          // extmetadata checked this session; subject vision-confirmed).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/0/00/Justin_Vernon_at_Jazz_Fest_2012.jpg',
+            credit: 'Nikko Russano (CC BY 2.0), via Wikimedia Commons',
+            caption: 'Justin Vernon of Bon Iver, whose ticking pulse runs under "peace," at Jazz Fest 2012.',
+            kind: 'archival',
+            focalPoint: '45% 30%',
           },
         ],
       },
@@ -1449,6 +1688,19 @@ export default {
             credit: 'Scott Braun (CC BY-SA 4.0), via Wikimedia Commons',
             caption: 'Scooter Braun, whose Ithaca Holdings sold the masters of Swift\'s first six albums to Shamrock Capital.',
             kind: 'archival',
+            focalPoint: '50% 25%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): license-verified
+          // Commons photo of Swift in March 2019 (CC BY-SA 4.0, Glenn
+          // Francis / Toglenn; iHeartRadio Music Awards per the file's own
+          // EXIF description — months before Ithaca's Big Machine purchase
+          // started the masters saga).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            credit: 'Glenn Francis (CC BY-SA 4.0), via Wikimedia Commons',
+            caption: 'Swift in March 2019, months before the first sale of her masters set the whole saga in motion.',
+            kind: 'archival',
+            focalPoint: '50% 18%',
           },
         ],
       },

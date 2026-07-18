@@ -35,6 +35,18 @@ export default {
           {
             url: 'https://images.complex.com/complex/image/upload/ar_1.91,c_fill,g_auto,q_auto/v1723858619/sanity-new%2Ftaylor-billboard-133759040',
             credit: 'Complex',
+            focalPoint: '46% 35%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): Valheria Rocha Lover-era
+          // press photo from Billboard's own chart story on this exact No. 1
+          // debut (billboard.com/wp-content CDN, downloaded and
+          // vision-confirmed this session).
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/01-taylor-swift-press-photo-2019-billboard-1548.jpg',
+            credit: 'Valheria Rocha (press photo via Billboard)',
+            caption: 'A Lover-era press portrait, from Billboard\'s story on the 867,000-unit No. 1 debut.',
+            kind: 'archival',
+            focalPoint: '57% 25%',
           },
         ],
       },
@@ -152,6 +164,19 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/c5/Taylor_Swift_-_Death_by_a_Thousand_Cuts_%28Live_form_Paris%29.png',
             credit: 'Republic Records (single cover art, Live from Paris version)',
             kind: 'primary',
+            focalPoint: '35% 48%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): official Someone Great
+          // trailer thumbnail — the Netflix film this page's story is about —
+          // video id verified via YouTube oEmbed (author "Netflix") this
+          // session. (The song's own Live From Paris video thumbnail was
+          // rejected as a duplicate of the cover art above.)
+          {
+            url: 'https://i.ytimg.com/vi/BBd9gcrj2Wk/hqdefault.jpg',
+            credit: 'Netflix via YouTube (official trailer)',
+            caption: 'Gina Rodriguez in Someone Great — the Netflix film that inspired the song, itself written to Swift\'s discography.',
+            kind: 'archival',
+            focalPoint: '68% 50%',
           },
         ],
       },
@@ -215,6 +240,18 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Cruel_Summer.png',
             credit: 'Republic Records (single cover art)',
             kind: 'primary',
+            focalPoint: '42% 32%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): license-verified
+          // Commons photo of the Eras Tour Lover act — the set "Cruel
+          // Summer" opened nightly during the song's chart revival (CC BY
+          // 2.0, Michael Hicks; extmetadata checked this session).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f9/Eras_Tour_-_Minneapolis%2C_MN_-_Lover_act_-_4.jpg',
+            credit: 'Michael Hicks (CC BY 2.0), via Wikimedia Commons',
+            caption: 'The Eras Tour Lover act in Minneapolis, June 2023 — the nightly "Cruel Summer" singalong that powered the song back up the chart.',
+            kind: 'archival',
+            focalPoint: '54% 45%',
           },
         ],
       },
@@ -258,6 +295,17 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/a/ae/Taylor_Swift_-_Miss_Americana.jpg/500px-Taylor_Swift_-_Miss_Americana.jpg',
             credit: 'Netflix (documentary poster art)',
             kind: 'primary',
+            focalPoint: '72% 70%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): official Miss Americana
+          // trailer thumbnail — video id verified via YouTube oEmbed (author
+          // "Netflix") this session.
+          {
+            url: 'https://i.ytimg.com/vi/q07_k5VKuaQ/hqdefault.jpg',
+            credit: 'Netflix via YouTube (official trailer)',
+            caption: 'The mirror-ball dress frame from the official Miss Americana trailer.',
+            kind: 'archival',
+            focalPoint: '62% 28%',
           },
         ],
       },
@@ -289,6 +337,18 @@ export default {
           {
             url: 'https://s.abcnews.com/images/GMA/taylor-swift-ama-mo_hpEmbed_20191124-220255_3x2_992.jpg?w=992',
             credit: 'Good Morning America',
+            focalPoint: '49% 25%',
+          },
+          // Photo-enrichment pass (2026-07-18, #762): second frame from the
+          // same GMA story (s.abcnews.com CDN) — the "The Man" opener in the
+          // white button-down printed with her Big Machine album titles.
+          // Downloaded and vision-confirmed this session.
+          {
+            url: 'https://s.abcnews.com/images/GMA/taylor-swift-speak-mo_hpMain_20191124-220426_16x9_992.jpg?w=992',
+            credit: 'Good Morning America',
+            caption: 'Opening the medley with "The Man," in a button-down printed with the names of the albums she didn\'t own.',
+            kind: 'archival',
+            focalPoint: '48% 20%',
           },
         ],
       },
@@ -965,10 +1025,24 @@ export default {
             url: 'https://www.billboard.com/music/pop/taylor-swift-cover-story-interview-billboard-women-in-music-2019-8545822/',
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added the on-stage speech
+        // photo from Billboard's own story on the night (billboard.com CDN,
+        // 1548px, no watermark) — her at the Palladium mic holding the
+        // inaugural award. Both images verified HTTP 200 + image/jpeg,
+        // downloaded, and visually confirmed this session.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-bb29-2019-feat-billboard-ylajkse-1500.jpg',
             credit: 'Billboard',
+            focalPoint: '51% 16%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/01-taylor-swift-speach-2019-wim-billboard-1548.jpg',
+            credit: 'Billboard',
+            caption:
+              "Accepting the inaugural Woman of the Decade award at Billboard's Women in Music, Hollywood Palladium, Dec. 12, 2019.",
+            kind: 'archival',
+            focalPoint: '53% 18%',
           },
         ],
       },
@@ -1220,11 +1294,28 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added Deseret News' own
+        // staff photo (Laura Seitz) of Swift arriving at the Eccles Theatre
+        // for the premiere — the outlet covered opening night in Park City
+        // with its own photographers; 5184px, arcpublishing CDN, no
+        // watermark. Variety's only frame of the night is already used on the
+        // joe-on-the-record page, so it was skipped as a cross-page
+        // duplicate. Verified HTTP 200 + image/jpeg, downloaded, and
+        // visually confirmed this session.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/ae/Taylor_Swift_-_Miss_Americana.jpg',
             credit: 'Netflix (official release poster)',
             kind: 'primary',
+            focalPoint: '70% 64%',
+          },
+          {
+            url: 'https://cloudfront-us-east-1.images.arcpublishing.com/deseretnews/BPFSE5GJJY32ML4VOUTHMY7J2I.jpg',
+            credit: 'Laura Seitz / Deseret News',
+            caption:
+              'Arriving for the Sundance premiere of Miss Americana at the Eccles Theatre in Park City, Jan. 23, 2020.',
+            kind: 'archival',
+            focalPoint: '48% 31%',
           },
         ],
       },
@@ -1376,12 +1467,28 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): music-video still upgraded
+        // from the 480×360 hqdefault to the same video's 1280×720 maxres
+        // render (video id oEmbed-verified: "Taylor Swift - Lover (Official
+        // Music Video)", Taylor Swift channel). Added the official Lover
+        // (Remix) feat. Shawn Mendes lyric-video artwork — the November 2019
+        // duet the story mentions (also oEmbed-verified against her channel).
+        // Both downloaded and visually confirmed this session.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/-BjZmE2gtdo/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/-BjZmE2gtdo/maxresdefault.jpg',
             credit: 'Republic Records / YouTube (official music video still)',
             caption: "Still from the official 'Lover' music video, co-directed by Swift and Drew Kirsch.",
             kind: 'archival',
+            focalPoint: '49% 36%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/b5Zay_Hd_7Q/maxresdefault.jpg',
+            credit: 'Republic Records / YouTube (official lyric video still)',
+            caption:
+              "Artwork from the official 'Lover (Remix)' lyric video — the November 2019 duet with verses Shawn Mendes wrote himself.",
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -1411,12 +1518,28 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): audio-still upgraded from
+        // hqdefault to the same upload's 1280×720 maxres render (oEmbed-
+        // verified, Taylor Swift channel). Added a license-verified Commons
+        // portrait of Idris Elba (Harald Krichel, Berlinale 2018, CC BY-SA
+        // 4.0 per extmetadata) — his sampled voice opens the track, same
+        // referenced-person pattern as Justin Vernon on the "peace" page.
+        // Both downloaded and visually confirmed this session.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/VsKoOH6DVys/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/VsKoOH6DVys/maxresdefault.jpg',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'London Boy' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
+            focalPoint: '46% 59%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Idris_Elba-4688.jpg/1280px-Idris_Elba-4688.jpg',
+            credit: 'Harald Krichel (CC BY-SA 4.0), via Wikimedia Commons',
+            caption:
+              'Reference image: Idris Elba, whose sampled Late Late Show remark opens the track — at the 2018 Berlinale, not from the recording.',
+            kind: 'reference',
+            focalPoint: '48% 37%',
           },
         ],
       },
@@ -1455,12 +1578,27 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): audio-still upgraded from
+        // hqdefault to maxres (oEmbed-verified, Taylor Swift channel). Added
+        // the official 'Daylight (Live From Paris)' single art — the L'Olympia
+        // live version the page's own text singles out for acclaim (video id
+        // JSD4XCBWzvs oEmbed-verified against her channel). Both downloaded
+        // and visually confirmed this session.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/u9raS7-NisU/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/u9raS7-NisU/maxresdefault.jpg',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'Daylight' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
+            focalPoint: '46% 60%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/JSD4XCBWzvs/maxresdefault.jpg',
+            credit: 'Republic Records / YouTube (official single art)',
+            caption:
+              "Cover of 'Daylight (Live From Paris)' — the acclaimed live version from the one-night City of Lover show at L'Olympia.",
+            kind: 'archival',
+            focalPoint: '48% 35%',
           },
         ],
       },
@@ -1543,12 +1681,29 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): audio-still upgraded from
+        // hqdefault to maxres (oEmbed-verified, Taylor Swift channel). Added
+        // the thumbnail of her channel's official upload of this exact SNL
+        // performance — the show's bumper portrait with the SNL letters
+        // (video id kjD3LoXp-Pw oEmbed-verified: '"False God" (Live on
+        // Saturday Night Live / 2019)', Taylor Swift channel; a fan re-upload
+        // of the same performance was rejected). Both downloaded and visually
+        // confirmed this session.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/acQXa5ArHIk/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/acQXa5ArHIk/maxresdefault.jpg',
             credit: 'Republic Records / YouTube (official audio still)',
             caption: "Artwork from the official 'False God' audio upload on Taylor Swift's YouTube channel.",
             kind: 'archival',
+            focalPoint: '46% 60%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/kjD3LoXp-Pw/maxresdefault.jpg',
+            credit: 'Republic Records / YouTube (official SNL performance upload)',
+            caption:
+              "Thumbnail of the official upload of the 'False God' SNL debut — the night's SNL bumper portrait.",
+            kind: 'archival',
+            focalPoint: '63% 26%',
           },
         ],
       },
@@ -1596,11 +1751,26 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added GMA's own frame of
+        // the Central Park SummerStage show from the very story this page
+        // cites (s.abcnews.com CDN, 1620px, no watermark) — the day-before-
+        // release performance where she said Lover is "the first one that I
+        // will own." Verified HTTP 200 + image/jpeg, downloaded, and
+        // visually confirmed this session.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png',
             credit: 'Republic Records / Valheria Rocha (album cover art)',
             kind: 'primary',
+            focalPoint: '50% 53%',
+          },
+          {
+            url: 'https://s.abcnews.com/images/GMA/taylor-swift6-abc-ml-190822_hpMain.jpg',
+            credit: 'ABC News / Good Morning America',
+            caption:
+              "On GMA's Central Park SummerStage, Aug. 22, 2019 — the day before Lover became the first album she owned.",
+            kind: 'archival',
+            focalPoint: '51% 40%',
           },
         ],
       },
@@ -1917,6 +2087,13 @@ export default {
     },
     {
       slug: 'big-machine-sale-worst-case-scenario',
+      significance: 'defining', // reshaped the whole industry's masters conversation, launched Taylor's Version (docs/decisions.md, 2026-07-19)
+      threadIds: ['taylors-version'],
+      relatedIds: [
+        'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+        'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
+        'moment:vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d',
+      ],
       year: 2019,
       month: 6,
       day: 30,
@@ -1958,12 +2135,57 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added Billboard's own art
+        // for its feud-timeline story (the second source this page cites) —
+        // a clean side-by-side of the two parties on billboard.com's CDN,
+        // captioned honestly as later photos, since no press photo of the
+        // 2019 sale itself exists. No usable Commons photo of Scott
+        // Borchetta was found (only a signature graphic). Verified HTTP 200
+        // + image/jpeg, downloaded, and visually confirmed this session.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/6d/Scooter_Braun.jpg',
             credit: 'TechCrunch (CC BY 2.0), via Wikimedia Commons',
             caption: 'Reference image: Scooter Braun, whose Ithaca Holdings acquired Big Machine — an earlier conference photo, not from the 2019 deal.',
             kind: 'reference',
+            focalPoint: '49% 28%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/10/scooter-braun-taylor-swift-2024-billboard-1548.jpg',
+            credit: 'Billboard',
+            caption:
+              "The two sides of the fight, in Billboard's art for its feud timeline — later photos of Braun and Swift, not from the 2019 sale.",
+            kind: 'reference',
+            focalPoint: '50% 30%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // real, verified photos from the surrounding news cycle — no photo
+          // op exists for the sale itself, so this is the era's actual
+          // documented fallout, same convention as the reference photo above.
+          {
+            url: 'https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Richard Shotwell/Invision/AP, via The Guardian',
+            caption: 'A contemporaneous reference image shows Swift arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.',
+            kind: 'reference',
+          },
+          // Two ca-times.brightspotcdn.com (LA Times) candidates were dropped
+          // here 2026-07-19: curl returned 200 + real image bytes, but the
+          // CDN serves a 1x1 placeholder to actual browser requests
+          // (Referer-based hotlink protection) — caught only by testing in
+          // a real browser (naturalWidth === 1), not by curl. See
+          // docs/decisions.md for the full note; every other domain in this
+          // pass tested clean.
+          {
+            url: 'https://media.vanityfair.com/photos/5ddb4a90d223c300093e7f42/master/w_2560%2Cc_limit/taylor-swift-ama-perfomance.jpg',
+            credit: 'JC Olivera/Getty Images, via Vanity Fair',
+            caption: 'Swift accepts Artist of the Decade at the 2019 American Music Awards amid the public dispute over performing her Big Machine-era songs.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Kevin Mazur/Getty Images for ABA, via The Guardian',
+            caption: 'Swift performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',
+            kind: 'archival',
           },
         ],
       },
@@ -2002,12 +2224,29 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): segment still upgraded
+        // from hqdefault to maxres (video id oEmbed-verified: "Taylor Swift
+        // says she'll re-record her old albums | Live on GMA", Good Morning
+        // America channel). Added GMA's own wide frame of the Central Park
+        // SummerStage concert that ran alongside the interview, from the
+        // story this page cites (s.abcnews.com CDN — a different frame than
+        // the one added to the lover-first-owned-album page). Both
+        // downloaded and visually confirmed this session.
         photos: [
           {
-            url: 'https://i.ytimg.com/vi/ellK-CXh7B4/hqdefault.jpg',
+            url: 'https://i.ytimg.com/vi/ellK-CXh7B4/maxresdefault.jpg',
             credit: 'Good Morning America / YouTube (official segment still)',
             caption: "Still from GMA's official YouTube upload of the segment where she confirmed the re-recording plan.",
             kind: 'archival',
+            focalPoint: '42% 40%',
+          },
+          {
+            url: 'https://s.abcnews.com/images/GMA/taylor-swift5abc-ml-190822_hpMain_16x9_992.jpg',
+            credit: 'ABC News / Good Morning America',
+            caption:
+              'The Central Park SummerStage show that ran alongside the interview, Aug. 22, 2019 — fans had camped out overnight.',
+            kind: 'archival',
+            focalPoint: '49% 28%',
           },
         ],
       },
