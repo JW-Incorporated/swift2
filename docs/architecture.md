@@ -184,6 +184,61 @@ Carried over from Orbit's discipline:
     IP-counsel review**; UNOFFICIAL disclaimer stays prominent.
   - Unchanged: the no-fabrication rule and the Tier 0 payload budget.
 
+## Shipping one feature across web + mobile (first draft — Wyatt to ratify)
+
+The shared-package boundary above answers *where code lives*. This answers
+*how a feature actually ships without the three surfaces drifting apart* —
+Joey's 2026-07-17 question, prompted by the mobile app (`apps/mobile`,
+draft PR #67) approaching real use. The risk isn't writing a feature three
+times (the shared boundary already prevents that); it's that **web deploys
+instantly on every merge and mobile does not** — an EAS store build sits in
+App Store / Play review for days, and adoption of a new version is gradual,
+never instant. Any process here has to survive that asymmetry.
+
+**The checklist, in order, for a feature that touches data:**
+
+1. Schema/data change (if any) → `packages/core`, with a migration.
+2. Shape the feature's types once in `packages/shared` — this is the single
+   contract both apps read; a mismatch here is where drift actually starts.
+3. Implement the view in `apps/web` against that shared shape. Ships on the
+   next merge to `main` (Vercel auto-deploy) — no lag.
+4. Implement the view in `apps/mobile` against the *same* shared shape —
+   never re-derive the data logic per-platform (see `apps/mobile/lib/vault.ts`
+   for the existing pattern: it imports `@swift2/core` directly, it doesn't
+   reimplement it). Ships on the next EAS store build — **days of lag**, and
+   not every installed copy updates immediately after.
+5. The one standing exception: if the feature touches the timeline-scrubber's
+   gesture/animation layer, it's implemented twice on purpose (see that
+   decision above) — everything else follows steps 1-4 unchanged.
+6. Test once, mostly: unit tests for the shared logic in `packages/*` cover
+   both platforms simultaneously — that's the whole payoff of the boundary.
+   Add platform-specific tests only for the thin view layer itself.
+
+**Backend compatibility across the mobile release lag (the actual hard part
+ChatGPT's summary correctly flagged as "version drift"):** because an old
+mobile build can be in the wild for days-to-weeks after a backend/schema
+change ships, `packages/core`'s public shape is an **additive-only contract**
+until further notice — add fields/endpoints freely, but don't remove or
+repurpose one that a shipped mobile build still reads without a deprecation
+window. (Formal API versioning is overkill at this scale; this single rule is
+the cheap version of it. Revisit if/when usage data shows real staggered
+adoption across versions.)
+
+**Feature flags — not built yet, and deliberately not built until a feature
+needs it.** Web can revert a bad change in a minute; mobile cannot un-ship a
+build. The plan for when a mobile-facing feature is risky enough to want a
+kill switch without a new store submission: a small remote config read at
+app launch (a single row in Supabase, or even a static JSON the app already
+has a data client for — no new vendor, matches the cost rails) gating the
+feature client-side. Build this the first time a feature actually needs it,
+not speculatively.
+
+**Where this lives going forward:** this section, updated in the same PR as
+any change to the shared boundary or the mobile release process. Anything
+that turns out to be genuinely hard to reverse (e.g., committing to real API
+versioning, adopting a paid feature-flag vendor) gets its own
+`docs/decisions.md` entry when it happens, same as any other stack choice.
+
 ## Open questions (need Joey's vision or a later decision)
 
 - Product class: read-only content vs. social/UGC vs. utility — gates how much
