@@ -3,7 +3,6 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import {
-  X,
   ListMusic,
   Star,
   BookOpen,
@@ -18,6 +17,7 @@ import { getEra } from '@/lib/longlive/eras';
 import { tracksForEra, keepExploring, releasedFactValue } from '@/lib/longlive/tracks';
 import { videoForTrack } from '@/lib/longlive/videos';
 import { MomentVideo } from './MomentVideo';
+import { OverlayNav } from './OverlayNav';
 import { eraStyle } from '@/lib/longlive/theme';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
@@ -95,6 +95,8 @@ export function TrackDetail() {
       aria-modal="true"
       aria-label={`${track.title} — song detail`}
     >
+      <OverlayNav onClose={closeTrack} />
+
       {/* Compact era-art hero (same treatment as TrackGuide/TheoryGuide). */}
       <div className="relative h-[24vh] min-h-36 w-full">
         <Image src={era.image || '/placeholder.svg'} alt="" fill priority className="object-cover" />
@@ -105,13 +107,6 @@ export function TrackDetail() {
               'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 30%, transparent), var(--era-bg))',
           }}
         />
-        <button
-          onClick={closeTrack}
-          className="era-icon-btn absolute right-4 top-4 rounded-full p-2 backdrop-blur-md"
-          aria-label="Close"
-        >
-          <X className="h-5 w-5" />
-        </button>
       </div>
 
       <div className="relative z-10 mx-auto -mt-10 max-w-2xl px-5 pb-24">
