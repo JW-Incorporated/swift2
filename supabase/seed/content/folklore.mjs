@@ -608,12 +608,28 @@ export default {
         // Real-photo pass (2026-07-09): thumbnail from the official lyric
         // video on the Taylor Swift YouTube channel — id verified via YouTube
         // oEmbed (title + author "Taylor Swift") this session.
+        // Photo-enrichment run 17 (2026-07-18, #762): no official upload of
+        // the hoax Long Pond performance exists (only re-uploads and the
+        // auto-generated Topic channel — rejected), so the second image is a
+        // clearly-labeled CC BY-SA 4.0 Commons reference photo of Aaron
+        // Dessner, who produced and recorded the song at Long Pond. License
+        // verified via the Commons API (photographer Kim Metso), URL verified
+        // HTTP 200 + image/jpeg, downloaded and visually confirmed. Per-image
+        // focal points set by eye.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/ryLGxpjwAhM/hqdefault.jpg',
             credit: 'Taylor Swift via YouTube (official lyric video)',
             caption: 'The stormy coastline of the official "hoax" lyric video.',
             kind: 'archival',
+            focalPoint: '48% 40%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
+            credit: 'Kim Metso (CC BY-SA 4.0), via Wikimedia Commons',
+            caption: 'For reference — Aaron Dessner, who Swift told not to overthink the production of the album\'s last-written song.',
+            kind: 'reference',
+            focalPoint: '57% 20%',
           },
         ],
       },
@@ -639,12 +655,25 @@ export default {
         ],
         // Real-photo pass (2026-07-09): official album cover from Wikipedia's
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the cream-sweater
+        // Beth Garrabrant press-kit portrait from Billboard's own folklore
+        // chart coverage (billboard.com/wp-content, no watermark) — verified
+        // HTTP 200 + image/jpeg, downloaded and visually confirmed. Per-image
+        // focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'folklore, which opened with 846,000 equivalent units in its first week.',
             kind: 'primary',
+            focalPoint: '48% 70%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2020/07/03-taylor-swift-cr-Beth-Garrabrant-press-photo-2020-billboard-1548-1595547189.jpg?w=1024',
+            credit: 'Beth Garrabrant',
+            caption: 'The folklore press-kit portrait that ran with the chart coverage of the surprise No. 1 debut.',
+            kind: 'archival',
+            focalPoint: '42% 40%',
           },
         ],
       },
@@ -671,12 +700,26 @@ export default {
         // Real-photo pass (2026-07-09): folklore-era publicity photo, same
         // stable Hollywood Reporter CDN copy used on this era's chart item.
         // Verified HTTP 200 + image/jpeg this session.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the gingham-dress
+        // Beth Garrabrant press frame from the body of Billboard's own
+        // million-selling-album story (billboard.com/wp-content, no
+        // watermark) — verified HTTP 200 + image/jpeg, downloaded and
+        // visually confirmed as a distinct frame from the THR copy above.
+        // Per-image focal points set by eye.
         photos: [
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2020/08/taylor_swift-folklore-_publicity_-_h_2020.jpg?w=1296&h=730&crop=1',
             credit: 'Beth Garrabrant',
             caption: 'folklore-era publicity photograph by Beth Garrabrant.',
             kind: 'archival',
+            focalPoint: '52% 22%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2020/07/01-taylor-swift-cr-Beth-Garrabrant-press-photo-2020-billboard-1548-1595547205.jpg?w=1024',
+            credit: 'Beth Garrabrant',
+            caption: 'From the folklore press shoot — the image Billboard ran with the million-copies milestone.',
+            kind: 'archival',
+            focalPoint: '34% 16%',
           },
         ],
       },
@@ -701,12 +744,26 @@ export default {
         ],
         // Real-photo pass (2026-07-09): official album cover from Wikipedia's
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the lead collage
+        // art of the Rolling Stone list itself (the article body's folklore
+        // image is just the album cover — rejected as a duplicate). Hosted on
+        // rollingstone.com/wp-content, no watermark; verified HTTP 200 +
+        // image/jpeg, downloaded and visually confirmed (Swift top right).
+        // Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'folklore — Rolling Stone\'s No. 1 album of 2020.',
             kind: 'primary',
+            focalPoint: '48% 70%',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2020/12/Albums.jpg?w=1200&h=800&crop=1',
+            credit: 'Rolling Stone',
+            caption: 'The lead art of Rolling Stone\'s 50 Best Albums of 2020 list — Swift, top right, above the field she topped.',
+            kind: 'archival',
+            focalPoint: '78% 28%',
           },
         ],
       },
@@ -746,12 +803,17 @@ export default {
         // Real-photo pass (2026-07-09): official album cover — the image the
         // announcement itself revealed. Stable upload.wikimedia.org copy,
         // verified HTTP 200 + image/png this session.
+        // Photo-enrichment run 17 (2026-07-18, #762): focal point only. No
+        // verifiable distinct second image — the nine-photo Instagram grid IS
+        // the cover image already shown here, and the outlet stills found for
+        // the announcement stories are logo-branded video frames (rejected).
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'The cover art revealed in the July 23, 2020 announcement post.',
             kind: 'primary',
+            focalPoint: '48% 70%',
           },
         ],
       },
@@ -793,12 +855,26 @@ export default {
         // Real-photo pass (2026-07-09): CC BY 2.0 photo of Justin Vernon from
         // Wikimedia Commons, used on the song's own Wikipedia article
         // (license verified this session). Verified HTTP 200 + image/jpeg.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the title card of
+        // the official "exile" lyric video — id verified via YouTube oEmbed
+        // (title "Taylor Swift – exile (feat. Bon Iver) (Official Lyric
+        // Video)", channel "Taylor Swift"); thumbnail verified HTTP 200 +
+        // image/jpeg, downloaded and visually confirmed (aerial forest path,
+        // lone figure). Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Justin_Vernon_at_Jazz_Fest_2012.jpg/500px-Justin_Vernon_at_Jazz_Fest_2012.jpg',
             credit: 'Nikko Russano (CC BY 2.0), via Wikimedia Commons',
             caption: 'Justin Vernon of Bon Iver, whose duet vocal made "exile" the band\'s highest-charting song.',
             kind: 'archival',
+            focalPoint: '47% 35%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/osdoLjUNFnA/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'The lone figure on a darkening path — the official "exile" lyric video.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -840,12 +916,26 @@ export default {
         // Real-photo pass (2026-07-09): CC BY-SA 2.0 concert photo from
         // Wikimedia Commons, used on the song's own Wikipedia article
         // (license verified this session). Verified HTTP 200 + image/jpeg.
+        // Photo-enrichment run 17 (2026-07-18, #762): added the title card of
+        // the official "my tears ricochet" lyric video — id verified via
+        // YouTube oEmbed (title "Taylor Swift – my tears ricochet (Official
+        // Lyric Video)", channel "Taylor Swift"); thumbnail verified HTTP 200
+        // + image/jpeg, downloaded and visually confirmed (moonlit dark
+        // water). Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_Eras_Tour_-_Arlington_TX_20230331_-_My_Tears_Ricochet_%28cropped%29.jpg/500px-Taylor_Swift_Eras_Tour_-_Arlington_TX_20230331_-_My_Tears_Ricochet_%28cropped%29.jpg',
             credit: 'Ronald Woan (CC BY-SA 2.0), via Wikimedia Commons',
             caption: 'Performing "my tears ricochet" in the folklore set at the Eras Tour, Arlington, March 2023.',
             kind: 'archival',
+            focalPoint: '50% 20%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/OWbDJFtHl3w/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'Moonlight on black water — the official "my tears ricochet" lyric video.',
+            kind: 'archival',
+            focalPoint: '50% 50%',
           },
         ],
       },
@@ -916,18 +1006,23 @@ export default {
         // Real-photo pass (2026-07-09): official cover art (exact filename
         // from the Wikipedia article HTML) plus the public-domain Wordsworth
         // portrait used on the same article. Both verified HTTP 200.
+        // Photo-enrichment run 17 (2026-07-18, #762): focal points only — the
+        // page already carries two distinct verified photos. Both downloaded
+        // and viewed this session; values set per image, by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/a2/The_Lakes_%28Original_Version%29_-_Taylor_Swift.png',
             credit: 'Republic Records',
             caption: 'Cover art for "the lakes (original version)," released on folklore\'s first anniversary.',
             kind: 'primary',
+            focalPoint: '50% 32%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/William_Wordsworth_by_Henry_William_Pickersgill.jpg/1280px-William_Wordsworth_by_Henry_William_Pickersgill.jpg',
             credit: 'Henry William Pickersgill (public domain), via Wikimedia Commons',
             caption: 'William Wordsworth, the Lake Poet behind the lyric\'s "what are my words worth" pun.',
             kind: 'archival',
+            focalPoint: '57% 28%',
           },
         ],
       },
@@ -962,11 +1057,15 @@ export default {
         // used on the same article for the song's cited influence. Verified
         // HTTP 200 this session.
         photos: [
+          // Photo-enrichment run 17 (2026-07-18, #762): focal points only —
+          // the page already carries two distinct verified photos. Both
+          // downloaded and viewed this session; values set per image, by eye.
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/3/38/Taylor_Swift_-_Betty.png',
             credit: 'Republic Records',
             caption: 'Official single cover for "betty," her first country-radio single since 2013.',
             kind: 'primary',
+            focalPoint: '48% 40%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/28/Joan_Baez_Bob_Dylan_crop.jpg/500px-Joan_Baez_Bob_Dylan_crop.jpg',
@@ -978,6 +1077,7 @@ export default {
             // as-is (correct subject: Dylan, 1963).
             caption: 'Bob Dylan in 1963 — Swift modeled the song\'s sound on his early records.',
             kind: 'archival',
+            focalPoint: '42% 35%',
           },
         ],
       },
@@ -1117,12 +1217,26 @@ export default {
         // Real-photo pass (2026-07-09): thumbnail from the official American
         // Music Awards channel upload of the acceptance — id verified via
         // YouTube oEmbed (author "American Music Awards") this session.
+        // Photo-enrichment run 17 (2026-07-18, #762): added Variety's own
+        // broadcast still of the same acceptance (variety.com/wp-content,
+        // from the article this page cites) — a distinct, higher-resolution
+        // frame with the studio mic in view; small ABC bug only, no agency
+        // watermark. Verified HTTP 200 + image/png, downloaded and visually
+        // confirmed. Per-image focal points set by eye.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/65Oso8K4FzY/hqdefault.jpg',
             credit: 'American Music Awards via YouTube (official upload)',
             caption: 'Accepting Artist of the Year by video from the studio where she was re-recording her old music.',
             kind: 'primary',
+            focalPoint: '46% 30%',
+          },
+          {
+            url: 'https://variety.com/wp-content/uploads/2020/11/Screen-Shot-2020-11-22-at-8.47.21-PM-e1606106986474.png?w=1000&h=543&crop=1',
+            credit: 'ABC (broadcast still, via Variety)',
+            caption: 'Mid-speech beside the studio microphone — the frame where the re-recording plan slipped out.',
+            kind: 'primary',
+            focalPoint: '49% 38%',
           },
         ],
       },
