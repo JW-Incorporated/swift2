@@ -196,6 +196,12 @@ export default {
       month: 4,
       day: 18,
       category: 'business',
+      significance: 'defining', // the first proof the Taylor's Version project would actually work commercially (docs/decisions.md, 2026-07-19)
+      threadIds: ['taylors-version'],
+      relatedIds: [
+        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
+      ],
       title: 'Fearless (Taylor\'s Version) is the first re-recorded album ever to hit No. 1',
       snippet:
         '291,000 units in week one — her ninth No. 1 album, tying Madonna, and the first re-recorded album in Billboard 200 history to top the chart.',
@@ -228,6 +234,8 @@ export default {
       month: 11,
       day: 22,
       category: 'business',
+      significance: 'defining', // an unprecedented chart record for a song fans had wanted for a decade (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a'],
       title: 'All Too Well (10 Minute Version) becomes the longest song ever to hit No. 1',
       snippet:
         '10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean\'s "American Pie." Taylor\'s own reaction: "You guys sent a 10-minute song to Number One for the first time in history."',

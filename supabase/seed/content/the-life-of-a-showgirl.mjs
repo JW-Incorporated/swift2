@@ -1980,6 +1980,13 @@ export default {
     },
     {
       slug: 'showgirl-engagement-announcement',
+      significance: 'defining', // the direct precursor to the wedding, one of the most-repeated cultural moments of 2025 (docs/decisions.md, 2026-07-19)
+      threadIds: ['the-proposal'],
+      relatedIds: [
+        'moment:vault-midnights-the-game-the-world-decided-made-it-official',
+        'moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in',
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
       year: 2025,
       month: 8,
       day: 26,

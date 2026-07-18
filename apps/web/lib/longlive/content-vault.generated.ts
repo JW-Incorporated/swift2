@@ -11,7 +11,7 @@ import type { ContentTag, EraId, ImageRef, LensId } from './types';
  * direct named import — so an older committed fallback without this export
  * can never crash the UI.
  */
-export const CONTENT_GENERATED_AT = "2026-07-18T17:35:31.183Z";
+export const CONTENT_GENERATED_AT = "2026-07-18T20:02:21.669Z";
 
 type VaultRawItem = {
   id: string;
@@ -1290,6 +1290,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1", credit: "Beth Garrabrant", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/articles/news/9558306/taylor-swift-fearless-taylors-version-tops-billboard-200/" }, { name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2021/04/18/taylor-swift-charts-her-ninth-no-1-album-in-the-us-with-fearless-taylors-version/" }],
+      relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me"],
+      threadIds: ["taylors-version"],
+      significance: "defining",
     },
     {
       id: "vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever",
@@ -1301,6 +1304,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records (album cover art)", caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.", kind: "primary" }],
       sources: [{ name: "Guinness World Records", url: "https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-all-too-well-longest-number-one-billboard-1261579/" }, { name: "Billboard", url: "https://www.billboard.com/music/chart-beat/morgan-wallen-single-week-hot-100-record-36-songs-one-thing-at-a-time-1235285241/" }],
+      relatedIds: ["moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a"],
+      significance: "defining",
     },
     {
       id: "vault-evermore-evermore-gets-an-album-of-the-year-nod-its-only-nomination",
@@ -3734,6 +3739,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-2024-grammy-awards-fourth-album-of-the-year-win/" }],
+      relatedIds: ["moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for", "moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi", "moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-"],
+      significance: "defining",
     },
     {
       id: "vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in",
@@ -3745,6 +3752,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1", credit: "Patrick T. Fallon/AFP via Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/" }],
+      relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official", "moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie"],
+      threadIds: ["the-proposal"],
+      significance: "defining",
     },
     {
       id: "vault-midnights-tokyo-to-las-vegas-making-the-super-bowl-after-four-eras-sho",
@@ -4108,6 +4118,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png", credit: "Republic Records", caption: "Single artwork for \"Anti-Hero,\" which led the historic all-Swift top 10 from No. 1.", kind: "archival" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Anti-Hero_(song)" }],
+      relatedIds: ["moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12"],
+      significance: "defining",
     },
     {
       id: "vault-midnights-midnights-knocks-morgan-wallen-off-the-top-of-the-chart",
@@ -4167,6 +4179,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/75/The_Eras_Tour_Poster_%28updated%29.png", credit: "TAS Rights Management", caption: "The official Eras Tour poster — the tickets 2.4 million people managed to buy in one day, and millions more never got the chance to.", kind: "archival" }],
       sources: [{ name: "Taylor Swift–Ticketmaster controversy", url: "https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Ticketmaster_controversy" }, { name: "Taylor Swift fans sue Ticketmaster over tour presale meltdown", url: "https://abcnews.com/GMA/Culture/taylor-swift-fans-sue-ticketmaster-tour-presale-meltdown/story?id=94459600" }],
+      relatedIds: ["moment:vault-midnights-the-eras-tour-kicks-off-in-glendale", "moment:vault-midnights-the-senate-holds-a-ticketmaster-hearing-in-swiftie-puns"],
+      significance: "defining",
     },
     {
       id: "vault-midnights-the-senate-holds-a-ticketmaster-hearing-in-swiftie-puns",
@@ -6410,6 +6424,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The proposal, from the couple's official announcement post: Kelce and Swift beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.", kind: "primary", focalPoint: "52% 50%" }, { url: "https://i.abcnewsfe.com/a/826038ad-f638-4da8-9501-08748f22125b/swift-kelce-engagement-02-ht-jef-250826_1756229507971_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The scale of the staging: the couple beneath the floral arch and a flower-ringed chandelier deep in the garden — Swift in a striped summer dress, Kelce in navy.", kind: "primary", focalPoint: "50% 64%" }, { url: "https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "From the same carousel: the couple embrace among the garden flowers, the new ring visible on Swift's hand.", kind: "primary", focalPoint: "47% 30%" }, { url: "https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The ring close-up from the carousel: the Old Mine Cut brilliant diamond in yellow gold, designed by Travis Kelce with Kindred Lubeck of Artifex Fine Jewelry.", kind: "primary", focalPoint: "50% 42%" }],
       sources: [{ name: "Taylor Swift & Travis Kelce engagement announcement (joint post)", url: "https://www.instagram.com/p/DN02niAXMM-/" }, { name: "Taylor Swift, Travis Kelce are married: See their relationship timeline", url: "https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742" }, { name: "Taylor Swift's engagement ring from Travis Kelce is one of a kind, vintage-inspired and really expensive", url: "https://www.yahoo.com/lifestyle/article/a-look-back-at-taylor-swifts-one-of-a-kind-vintage-inspired-engagement-ring-from-travis-kelce-194728425.html" }, { name: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses", url: "https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776" }],
+      relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official", "moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in", "moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
+      threadIds: ["the-proposal"],
+      significance: "defining",
     },
     {
       id: "vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album",
@@ -6671,6 +6688,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/1/1b/The_Tortured_Poets_Department_The_Anthology.png", credit: "Republic Records", caption: "Cover of The Tortured Poets Department: The Anthology, the 31-track edition revealed at 2 a.m.", kind: "primary", focalPoint: "50% 38%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-2am-surprise-secret-double-album-the-tortured-poets-department-1235660643/" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-the-tortured-poets-department-the-anthology-announcement-1235007251/" }],
+      relatedIds: ["moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp"],
+      significance: "defining",
     },
     {
       id: "vault-ttpd-clara-bow-and-the-industry-habit-of-replacing-women-with-wom",
@@ -6829,6 +6848,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-vancouver-fearless-dec-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Kevin Winter/TAS24/Getty Images", kind: "primary", focalPoint: "47% 22%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/241208-taylor-swift-mn-1245-48703f.jpg", credit: "Kevin Winter/Getty Images for TAS Rights Management", caption: "The Reputation set on the first night of the farewell stand at BC Place, Dec. 6, 2024.", kind: "archival", focalPoint: "59% 22%" }],
       sources: [{ name: "NBC News", url: "https://www.nbcnews.com/pop-culture/pop-culture-news/end-era-taylor-swifts-eras-tour-coming-close-vancouver-rcna183279" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-eras-tour-ends-message-photos-1235853564/" }],
+      relatedIds: ["moment:vault-midnights-the-eras-tour-kicks-off-in-glendale", "moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion"],
+      significance: "defining",
     },
     {
       id: "vault-ttpd-the-first-tour-ever-to-gross-2-billion",
@@ -7297,6 +7318,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2025/05/02-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "The photo released with the May 30, 2025 announcement: Swift with the six albums she bought back from Shamrock Capital.", kind: "primary", focalPoint: "48% 30%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/05/01-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "A second frame from the announcement set: reading the sleeves of the reclaimed records, reputation in hand.", kind: "primary", focalPoint: "46% 30%" }],
       sources: [{ name: "Taylor Swift Buys Back Her Masters From Shamrock, Reclaiming Her First Six Albums", url: "https://www.billboard.com/pro/taylor-swift-regains-control-master-recordings-shamrock/" }, { name: "Taylor Swift Shocker: Singer Buys Back Rights to First Six Albums", url: "https://variety.com/2025/music/news/taylor-swift-buys-rights-first-six-albums-shamrock-1236413964/" }, { name: "Taylor Swift Buys Back Her Early Albums After Years-Long Crusade", url: "https://www.bloomberg.com/news/articles/2025-05-30/taylor-swift-buys-back-her-early-albums-after-years-long-crusade" }],
+      relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever"],
+      threadIds: ["taylors-version"],
+      significance: "defining",
     },
     {
       id: "vault-ttpd-grammys-night-six-nominations-zero-wins-and-the-moment-every",
