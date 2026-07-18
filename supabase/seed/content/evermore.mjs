@@ -39,6 +39,24 @@ export default {
           {
             url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2025/12/Taylor-Swift-Willow.jpg?w=2880',
             credit: 'Stereogum',
+            // Focal point set by viewing: she stands center-frame in the field,
+            // face just below the tree line at ~57% height.
+            focalPoint: '50% 57%',
+          },
+          // Photo pass #762 (2026-07-18): still from the official "willow"
+          // music video — the glass-box scene, the single whose No. 1 debut
+          // made this chart double. oEmbed-verified the video (RsEZmictANA)
+          // belongs to the official @TaylorSwift channel; i.ytimg.com is
+          // YouTube's own CDN; curl 200 image/jpeg 1280x720, downloaded and
+          // vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/RsEZmictANA/maxresdefault.jpg',
+            credit: 'Still from the official "willow" music video (dir. Taylor Swift), Republic Records, via YouTube',
+            caption: 'Inside the glass box in the self-directed "willow" video — the single that opened at No. 1 the same week evermore topped the Billboard 200.',
+            kind: 'archival',
+            // Focal point set by viewing: both faces sit in the top quarter of
+            // the frame — hers left, his right — so bias the crop high.
+            focalPoint: '48% 20%',
           },
         ],
       },
@@ -160,6 +178,23 @@ export default {
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption: 'Still from the official "champagne problems" lyric video, via the video\'s YouTube thumbnail.',
             kind: 'archival',
+            // Focal point set by viewing: the champagne flute stands just left
+            // of center, its bowl at mid-frame.
+            focalPoint: '46% 52%',
+          },
+          // Photo pass #762 (2026-07-18): the song's co-writer — Joe Alwyn
+          // wrote it with her under the William Bowery pseudonym (era context;
+          // a 2018 portrait, not from the sessions). Commons license
+          // API-verified CC BY-SA 2.0 (Greg2600); curl 200 image/jpeg
+          // 1249x1665, downloaded and vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/ff/Joe_Alwyn-2018.jpg',
+            credit: 'Greg2600, Wikimedia Commons (CC BY-SA 2.0) — Joe Alwyn, December 2018',
+            caption: 'Joe Alwyn — credited as "William Bowery," he wrote the fictional turned-down proposal with her during the September 2020 Long Pond sessions.',
+            kind: 'archival',
+            // Focal point set by viewing: tight head-and-shoulders portrait,
+            // face filling the frame, eyes just above center.
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -219,6 +254,25 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1',
             credit: 'Beth Garrabrant',
+            // Focal point set by viewing: Billboard's wide crop of the sepia
+            // cover art — her profile sits right of center, eyes at ~40% height,
+            // hair streaming left.
+            focalPoint: '63% 40%',
+          },
+          // Photo pass #762 (2026-07-18): still from the official "Mr.
+          // Perfectly Fine" lyric video — the tuxedo-in-fog title card of the
+          // biggest From the Vault track of this record-setting release week.
+          // oEmbed-verified the video (rFjJs6ZjPe8) belongs to the official
+          // @TaylorSwift channel; i.ytimg.com is YouTube's own CDN; curl 200
+          // image/jpeg 1280x720, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/rFjJs6ZjPe8/maxresdefault.jpg',
+            credit: 'Still from the official "Mr. Perfectly Fine (Taylor\'s Version) (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The faceless tuxedo of "Mr. Perfectly Fine" — the vault cut that led the album\'s 291,000-unit record week.',
+            kind: 'archival',
+            // Focal point set by viewing: the tuxedo stands dead center in the
+            // fog with the title above; crop reads best just above center.
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -265,6 +319,26 @@ export default {
             credit: 'Republic Records (album cover art)',
             caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.",
             kind: 'primary',
+            // Focal point set by viewing: her face sits left of center under
+            // the burgundy cap, ringed hand raised to the right.
+            focalPoint: '42% 46%',
+          },
+          // Photo pass #762 (2026-07-18): still from All Too Well: The Short
+          // Film — Sadie Sink and Dylan O'Brien forehead-to-forehead in the
+          // car; the self-directed film is named in this page's context as a
+          // driver of the record week (distinct image from the film's poster
+          // used on the premiere page). oEmbed-verified the video
+          // (tollGa3S0o8) belongs to the official @TaylorSwift channel;
+          // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 1280x720,
+          // downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/tollGa3S0o8/maxresdefault.jpg',
+            credit: 'Still from "All Too Well: The Short Film" (dir. Taylor Swift), Republic Records, via YouTube',
+            caption: "Sadie Sink and Dylan O'Brien in All Too Well: The Short Film — the self-directed film that helped push a 10-minute song to No. 1.",
+            kind: 'archival',
+            // Focal point set by viewing: the two faces meet at center frame,
+            // slightly above the midline.
+            focalPoint: '50% 40%',
           },
         ],
       },
@@ -301,6 +375,24 @@ export default {
             credit: 'Republic Records (album cover art)',
             caption: "evermore's album cover — the album's lone nomination at the 64th Grammys was for the night's biggest award.",
             kind: 'archival',
+            // Focal point set by viewing: the French braid runs down the upper
+            // half of the frame between her plaid-coated shoulders.
+            focalPoint: '50% 35%',
+          },
+          // Photo pass #762 (2026-07-18): Jon Batiste — whose We Are took the
+          // Album of the Year upset this page turns on (era context; a June
+          // 2022 portrait from the TIME 100 Gala, two months after the
+          // ceremony). Commons license API-verified CC BY 2.0 (lev radin);
+          // canonical 1280px render from the Commons API; curl 200 image/jpeg
+          // 1280x2139, downloaded full-res and vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8b/Batiste%2C_Jon.jpg/1280px-Batiste%2C_Jon.jpg',
+            credit: 'lev radin, Wikimedia Commons (CC BY 2.0) — Jon Batiste at the TIME 100 Gala, June 2022',
+            caption: "Jon Batiste, months after his We Are — a No. 86 peak on the Billboard 200 — beat evermore in the night's great Album of the Year upset.",
+            kind: 'archival',
+            // Focal point set by viewing: tall portrait; his smiling face sits
+            // high in the frame, slightly left of center.
+            focalPoint: '46% 20%',
           },
         ],
       },
@@ -891,6 +983,23 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg/1280px-Marcus_Mumford_at_Newport_Folk_Festival_2018_by_Sachyn_Mital.jpg',
             credit: 'Sachyn Mital via Wikimedia Commons',
+            // Focal point set by viewing: his sunglassed face sits upper-left
+            // of center, above the mic and guitar neck.
+            focalPoint: '43% 22%',
+          },
+          // Photo pass #762 (2026-07-18): still from the official "cowboy like
+          // me" lyric video — the song this page is about. oEmbed-verified the
+          // video (YPlNBb6I8qU) belongs to the official @TaylorSwift channel;
+          // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 1280x720,
+          // downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/YPlNBb6I8qU/maxresdefault.jpg',
+            credit: 'Still from the official "cowboy like me" lyric video, Republic Records, via YouTube',
+            caption: 'The dim gambling-parlor set of the official "cowboy like me" lyric video — leather chesterfields, old books and low lamplight.',
+            kind: 'archival',
+            // Focal point set by viewing: the title sits centered over the
+            // couch backs, the lit shelves just above the midline.
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -924,6 +1033,23 @@ export default {
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption: 'Still from the official "evermore" lyric video, featuring Bon Iver, via the video\'s YouTube thumbnail.',
             kind: 'archival',
+            // Focal point set by viewing: the frosted branch fills the center
+            // of the frame — this one genuinely reads best centered.
+            focalPoint: '50% 50%',
+          },
+          // Photo pass #762 (2026-07-18): Justin Vernon fronting Bon Iver — the
+          // voice and writer of the bridge this page is about (era context; a
+          // November 2011 live shot). Commons license API-verified CC BY 2.0
+          // (danieljordahl); curl 200 image/jpeg 1024x680, downloaded and
+          // vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/46/Bon_Iver_2011.jpg',
+            credit: 'danieljordahl, Wikimedia Commons (CC BY 2.0) — Justin Vernon performing with Bon Iver, November 2011',
+            caption: "Justin Vernon on stage with Bon Iver — the multitracked falsetto that answers her in the title track's bridge, written after the song was sent to him.",
+            kind: 'archival',
+            // Focal point set by viewing: Vernon stands at the mic left of
+            // center, face in the upper third of the frame.
+            focalPoint: '38% 33%',
           },
         ],
       },
@@ -990,6 +1116,24 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
+            // Focal point set by viewing: her face sits left of center under
+            // the burgundy cap, ringed hand raised to the right.
+            focalPoint: '42% 46%',
+          },
+          // Photo pass #762 (2026-07-18): still from the official "I Bet You
+          // Think About Me" video, released Nov. 15, 2021 — inside the very
+          // chart week this page covers; it's one of the 26 debuting tracks.
+          // oEmbed-verified the video (5UMCrq-bBCg) belongs to the official
+          // @TaylorSwift channel; i.ytimg.com is YouTube's own CDN; curl 200
+          // image/jpeg 1280x720, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/5UMCrq-bBCg/maxresdefault.jpg',
+            credit: 'Still from the official "I Bet You Think About Me (Taylor\'s Version)" music video (dir. Blake Lively), Republic Records, via YouTube',
+            caption: 'Wedding-crashing in red in the Blake Lively–directed "I Bet You Think About Me" video — one of the 26 tracks that hit the Hot 100 in a single week.',
+            kind: 'archival',
+            // Focal point set by viewing: she stands center-frame in the red
+            // gown with guitar, face just above the midline, chandelier above.
+            focalPoint: '50% 42%',
           },
         ],
       },
@@ -1525,6 +1669,24 @@ export default {
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption: 'Still from the official "happiness" lyric video, via the video\'s YouTube thumbnail.',
             kind: 'archival',
+            // Focal point set by viewing: rocky shoreline in the lower half,
+            // sea and horizon above — reads best slightly above center.
+            focalPoint: '50% 40%',
+          },
+          // Photo pass #762 (2026-07-18): Aaron Dessner — he composed the
+          // instrumental back in 2019, and the words landed days before the
+          // deadline (era context; a March 2016 live shot). Commons license
+          // API-verified CC BY 2.0 (Bruce Baker); canonical 1920px render from
+          // the Commons API; curl 200 image/jpeg 1920x1346, downloaded
+          // full-res and vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Aaron_Dessner_%28March_25%2C_2016%29.jpg/1920px-Aaron_Dessner_%28March_25%2C_2016%29.jpg',
+            credit: 'Bruce Baker, Wikimedia Commons (CC BY 2.0) — Aaron Dessner performing, March 2016',
+            caption: 'Aaron Dessner, who composed the "happiness" instrumental back in 2019 — Swift added the words just days before the album was finished.',
+            kind: 'archival',
+            // Focal point set by viewing: his face sits left of center in the
+            // upper third, mic angled in from the right.
+            focalPoint: '44% 28%',
           },
         ],
       },
@@ -1572,6 +1734,24 @@ export default {
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "Love Story (Taylor\'s Version)," the first re-recording released.',
             kind: 'primary',
+            // Focal point set by viewing: she stands on the left in the white
+            // gown, face in the upper-left quarter, arm extended right.
+            focalPoint: '30% 25%',
+          },
+          // Photo pass #762 (2026-07-18): still from the official "Love Story
+          // (Taylor's Version)" lyric video — built from vintage fan-club
+          // footage; this frame is a 2008-era clip of her making heart hands.
+          // oEmbed-verified the video (aXzVF3XeS8M) belongs to the official
+          // @TaylorSwift channel; i.ytimg.com is YouTube's own CDN; curl 200
+          // image/jpeg 1280x720, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/aXzVF3XeS8M/maxresdefault.jpg',
+            credit: 'Still from the official "Love Story (Taylor\'s Version)" lyric video, Republic Records, via YouTube',
+            caption: 'From the official lyric video, cut from vintage Fearless-era fan footage — "With love to all of my fans," heart hands and all, 13 years on.',
+            kind: 'archival',
+            // Focal point set by viewing: the framed archival clip sits left of
+            // center, her face at the upper-left third.
+            focalPoint: '29% 32%',
           },
         ],
       },
