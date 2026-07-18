@@ -195,6 +195,8 @@ export default {
       month: 4,
       day: 19,
       category: 'release',
+      significance: 'defining', // the surprise-drop format taken to its biggest scale yet (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp'],
       title: 'A 2am surprise: TTPD was a secret double album all along',
       snippet:
         'Two hours after the album dropped, a second post: "The Tortured Poets Department is a secret DOUBLE album." The Anthology added 15 more songs, 31 total.',
@@ -219,6 +221,12 @@ export default {
         // Photo pass #762 run 4 (2026-07-18): left at one photo — the 2 a.m.
         // reveal was an Instagram post; the only other candidate (standard
         // TTPD cover) is a ~300px fair-use render, below the ≥400px add bar.
+        // Photo depth pass (round 2, 2026-07-19): the 2am post itself has no
+        // more real imagery, but the same release week has plenty — added
+        // three frames from Spotify's official "TTPD" library installation
+        // at The Grove (opened April 16, three days ahead of the drop), from
+        // Spotify Newsroom's own storage.googleapis.com CDN. Each verified
+        // HTTP 200 + image/jpeg, downloaded and viewed this session.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/1/1b/The_Tortured_Poets_Department_The_Anthology.png',
@@ -226,6 +234,29 @@ export default {
             caption: 'Cover of The Tortured Poets Department: The Anthology, the 31-track edition revealed at 2 a.m.',
             kind: 'primary',
             focalPoint: '50% 38%',
+          },
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_5-1-1440x1440.jpg',
+            credit: 'Spotify Newsroom',
+            caption:
+              'The Spotify x Taylor Swift "Tortured Poets Department" library installation outside The Grove in Los Angeles, part of the release-week rollout leading into the album\'s April 19 arrival.',
+            kind: 'archival',
+            focalPoint: '50% 55%',
+          },
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_6-819x1024.jpg',
+            credit: 'Spotify Newsroom',
+            caption:
+              'Inside the installation: a "TTPD"-lettered reading nook staged with a manuscript-topped writing desk, one of several vignettes built for the pop-up.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_7-819x1024.jpg',
+            credit: 'Spotify Newsroom',
+            caption: 'Fans browse the installation\'s card-catalog wall, filled with poetry excerpts, in the days before the album dropped.',
+            kind: 'archival',
+            focalPoint: '45% 55%',
           },
         ],
       },
@@ -862,6 +893,11 @@ export default {
       month: 12,
       day: 8,
       category: 'tour',
+      significance: 'defining', // the bookend to the biggest tour of her career, and of all time (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
+        'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
+      ],
       title: 'The Eras Tour takes its final bow in Vancouver',
       snippet: 'BC Place, 149 shows and 21 months after Glendale — more than 50,000 fans for the last night of the tour.',
       sourceUrl: 'https://www.nbcnews.com/pop-culture/pop-culture-news/end-era-taylor-swifts-eras-tour-coming-close-vancouver-rcna183279',
@@ -894,6 +930,74 @@ export default {
             credit: 'Kevin Winter/Getty Images for TAS Rights Management',
             caption: 'The Reputation set on the first night of the farewell stand at BC Place, Dec. 6, 2024.',
             focalPoint: '59% 22%',
+          },
+          // Photo depth pass (round 2, 2026-07-19): nine more frames, all
+          // explicitly dated Dec. 8, 2024 (the actual final night) via TODAY's
+          // live-blog CDN (NBC's s-nbcnews.com, same house photographer as
+          // the two photos above). Each verified HTTP 200 + image/jpeg,
+          // downloaded and viewed this session.
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/surprise-songs-me-241208-6e1f8f.jpg',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
+            caption: 'The first surprise song of the finale, played acoustic — the set that closed with the "Long Live" mashup.',
+            kind: 'primary',
+            focalPoint: '50% 35%',
+          },
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-acousitic-set-ae-241208-d4cacc.jpg',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
+            caption: 'Mid-acoustic-set on the final night, under the tour\'s starfield backdrop.',
+            kind: 'primary',
+            focalPoint: '55% 35%',
+          },
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-eras-tour-ae-241208-e44bdc.jpg',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
+            caption: 'The folklore set, singing "Betty" in front of the cabin, during the Dec. 8, 2024 finale.',
+            kind: 'primary',
+            focalPoint: '75% 45%',
+          },
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-vancouver-ae-241208png-6500d5.jpg',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
+            caption: 'Speaking to the crowd before "All Too Well" on the final night at BC Place.',
+            kind: 'primary',
+            focalPoint: '50% 25%',
+          },
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/eras-tour-orbs-ae-241208-90dc8a.jpg',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
+            caption: 'Fans hold up glowing orbs during "Willow" — the arena-wide light show that became an Eras Tour signature.',
+            kind: 'archival',
+            focalPoint: '55% 65%',
+          },
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-reputation-ae-241208-4905ed.jpg',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
+            caption: 'The Reputation set on the finale night, Dec. 8, 2024.',
+            kind: 'primary',
+            focalPoint: '55% 30%',
+          },
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-speak-now-vancouver-ae-241208-cffd68.jpg',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
+            caption: 'The Speak Now set, ballgown and all, on the tour\'s last night.',
+            kind: 'primary',
+            focalPoint: '35% 55%',
+          },
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-ttpd-ae-241208-28a3c3.jpg',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
+            caption: 'On the moving platform during "The Tortured Poets Department" segment, finale night.',
+            kind: 'primary',
+            focalPoint: '55% 40%',
+          },
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-1989-2-ae-241208-a3754a.jpg',
+            credit: 'Kevin Winter/TAS24/Getty Images for TAS Rights Management',
+            caption: 'The 1989 set, gold bralette and red skirt, on the screen above the stage during the final show.',
+            kind: 'primary',
+            focalPoint: '55% 45%',
           },
         ],
       },
@@ -1007,6 +1111,18 @@ export default {
             // wide suite shot; Swift (white tank, dark bob) stands left of center
             // at the rail, face in the upper-middle band.
             focalPoint: '37% 38%',
+          },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): Billboard's own
+            // wp-content frame of Swift seated beside Ice Spice in the Superdome
+            // suite — the exact pairing the jumbotron caught during the boos.
+            // Downloaded and vision-confirmed; no watermark; 1024px render.
+            url: 'https://www.billboard.com/wp-content/uploads/2025/02/taylor-swift-super-bowl-lix-2025-billboard-1548.jpg?w=1024',
+            credit: 'Jamie Squire/Getty Images via Billboard',
+            caption: 'Ice Spice and Taylor Swift at Super Bowl LIX at Caesars Superdome, Feb. 9, 2025.',
+            // Focal point set by viewing: Swift seated just right of center,
+            // Ice Spice at her left; split keeps both faces under a wide crop.
+            focalPoint: '52% 40%',
           },
         ],
       },
@@ -1172,6 +1288,32 @@ export default {
             // full-length figure carries the crop, faces sit in the upper third.
             focalPoint: '52% 25%',
           },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): Marie Claire's
+            // own composite from this page's source article — Garrabrant bedroom
+            // portraits, the Manuscript CD package, and the era's street/red-
+            // carpet looks in one frame. Downloaded and vision-confirmed.
+            url: 'https://cdn.mos.cms.futurecdn.net/2oQqrmEL7ZpA7ZUzzMnqk8.png',
+            credit: 'Beth Garrabrant; Getty Images via Marie Claire',
+            caption: "Marie Claire's composite of the era: Garrabrant's album portraits, the TTPD CD package, and the Victorian-gothic looks that carried the aesthetic onto red carpets.",
+            // Focal point set by viewing: busy collage; the cut-out foreground
+            // figure (black sequined moon dress) reads as the subject, face in
+            // the upper-right third.
+            focalPoint: '66% 28%',
+          },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): the Fortnight
+            // video's Victorian-poet typewriter frame from the same Marie Claire
+            // article — the "corseted-mourning-gown throughline" the context
+            // paragraph describes. Downloaded and vision-confirmed; distinct
+            // from the face-tattoo ytimg frame used on the Fortnight page.
+            url: 'https://cdn.mos.cms.futurecdn.net/VTGUgGFbL2PbwFRdhdCUxk.png',
+            credit: 'YouTube via Marie Claire',
+            caption: "The Victorian-mourning styling carried into the era's visuals: Swift at the typewriter in the 'Fortnight' video.",
+            // Focal point set by viewing: centered figure at the typewriter,
+            // face in the upper quarter of the frame.
+            focalPoint: '50% 25%',
+          },
         ],
       },
     },
@@ -1266,6 +1408,31 @@ export default {
             // full-length red-carpet pose in the red Westwood mini; face high,
             // just left of center.
             focalPoint: '48% 14%',
+          },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): Marie Claire's
+            // own futurecdn render of the Getty close-up — ruby chandelier
+            // earrings, red lip, the draped one-shoulder bodice. Downloaded and
+            // vision-confirmed against the same MusiCares Fire Relief backdrop
+            // as the existing CBS full-length.
+            url: 'https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV.jpg',
+            credit: 'Getty Images via Marie Claire',
+            caption: 'The details up close: ruby chandelier earrings and the draped, corseted Westwood bodice.',
+            // Focal point set by viewing: landscape close-up, face left of
+            // center with eyes in the upper-middle band.
+            focalPoint: '44% 34%',
+          },
+          {
+            // Added 2026-07-18 (photo-enrichment run 21, #762): Marie Claire's
+            // futurecdn render of the sharp Getty full-length — the Lorraine
+            // Schwartz "T" thigh chain and red Casadei heels the snippet calls
+            // out are clearly visible. Downloaded and vision-confirmed.
+            url: 'https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf.jpg',
+            credit: 'Getty Images via Marie Claire',
+            caption: 'The full look on the carpet: the one-shoulder mini with the diamond thigh chain dangling its single "T".',
+            // Focal point set by viewing: full-length portrait pose, face high
+            // and just left of center.
+            focalPoint: '48% 20%',
           },
         ],
       },
@@ -2789,6 +2956,12 @@ export default {
     },
     {
       slug: 'masters-buyback-shamrock',
+      significance: 'defining', // the actual resolution of the defining business war of her career (docs/decisions.md, 2026-07-19)
+      threadIds: ['taylors-version'],
+      relatedIds: [
+        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+      ],
       year: 2025,
       month: 5,
       day: 30,
@@ -2855,6 +3028,25 @@ export default {
             kind: 'primary',
             // She sits center-left with the albums fanned across her lap; face in the upper quarter.
             focalPoint: '46% 30%',
+          },
+          // Photo depth pass (round 2, 2026-07-19): two more frames from the
+          // same Billboard-hosted announcement shoot (sequential 03/04 in the
+          // same URL series as the two above). Each verified HTTP 200 +
+          // image/jpeg, downloaded and viewed this session.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/03-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            credit: 'Courtesy of Taylor Swift (via Billboard)',
+            caption: 'A third frame from the announcement set: seated cross-legged with all six reclaimed albums fanned in a circle around her.',
+            kind: 'primary',
+            // Kneeling, face upper-center; albums ring the lower half of frame.
+            focalPoint: '48% 28%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/05/04-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024',
+            credit: 'Courtesy of Taylor Swift (via Billboard)',
+            caption: 'A closer frame from the same shoot, hands resting on the reclaimed sleeves.',
+            kind: 'primary',
+            focalPoint: '50% 25%',
           },
         ],
       },

@@ -62,13 +62,18 @@ export default {
       month: 1,
       day: 31,
       category: 'business',
+      significance: 'defining', // youngest-ever AOTY win; the first of her (now-record) 4 (docs/decisions.md, 2026-07-19)
       title: 'Fearless makes her the youngest Album of the Year winner — for a decade',
-      snippet: '592,000 copies in week one, debuting at No. 1 on the Billboard 200.',
-      sourceUrl: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)',
-      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
+      // Corrected 2026-07-19 (found in review): snippet/sourceUrl/thumbnail
+      // previously described the Nov. 2008 album debut, not the Jan. 2010
+      // Grammy win this item is actually about — mismatched hero card.
+      snippet: 'At the 52nd Grammys, 20-year-old Swift became the youngest Album of the Year winner ever — a record that stood for a decade, until Billie Eilish broke it.',
+      sourceUrl: 'https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/',
+      thumbnailUrl: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
+      relatedIds: ['moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi'],
       moment: {
         context:
-          'Months later at the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
+          'At the Grammys — Jan. 31, 2010, at Staples Center — 20-year-old Swift became the youngest Album of the Year winner ever, a record that stood until Billie Eilish broke it a decade later.\n\nShe won four of the eight categories she was nominated in that night, and her speech guessed exactly how long the moment would last: "When we\'re 80 years old and we are telling the same stories over and over again to our grandkids... this is the story we\'re gonna be telling over and over again — in 2010, that we got to win Album of the Year."',
         sources: [
           {
             outlet: 'American Songwriter',
@@ -83,6 +88,62 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
+            // Focal point set 2026-07-18 by viewing (300x300): profile facing
+            // left-of-center, wind-blown curls filling the right half.
+            focalPoint: '40% 32%',
+          },
+          // Photo pass #762 (2026-07-18): still from the Recording Academy's
+          // official GRAMMY Rewind upload of this exact win — Swift at the
+          // mic with the gramophone, "13" inked on her waving hand. oEmbed-
+          // verified the video (v5e0eAhpC00) belongs to the official @GRAMMYS
+          // channel; i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg
+          // 1280x720, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/v5e0eAhpC00/maxresdefault.jpg',
+            credit: 'Still from the Recording Academy\'s official GRAMMY Rewind video of the 2010 Album of the Year win, via YouTube',
+            caption: 'Accepting Album of the Year at 20 — the "13" still inked on her hand — the night she promised to tell this story "when we\'re 80."',
+            kind: 'archival',
+            // Focal point set by viewing: face upper-center with the raised
+            // hand right; GRAMMY REWIND overlay text sits bottom-left.
+            focalPoint: '52% 22%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // real, verified photos from the actual Jan. 31, 2010 Grammy night.
+          {
+            url: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
+            credit: 'Dan MacMedan/WireImage, via Vanity Fair',
+            caption: 'Swift arrives at the 52nd Grammy Awards in a blue sequined KaufmanFranco gown.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1264988049224/Singer-Swift-speaks-onsta-001.jpg?crop=none&dpr=1&s=none&width=465',
+            credit: 'Danny Moloshok/Reuters, via The Guardian',
+            caption: 'Swift speaks onstage after winning Best Female Country Vocal Performance for "White Horse," one of her four Grammys that night.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1265015933818/Taylor-Swift-drops-one-of-003.jpg?crop=none&dpr=1&s=none&width=375',
+            credit: 'Valerie Macon/AFP/Getty Images, via The Guardian',
+            caption: 'Swift loses her grip on one of the four trophies she carried in the Grammy press room.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blte142e31b64ce6139/69877c56524fc062c0dec2d5/ap100131042457.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            credit: 'Matt Sayles/AP, via TIME',
+            caption: 'Swift and Stevie Nicks perform together during the 52nd Grammy Awards telecast.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltca5404e6952dca29/698762d6e20a87c7bda82aeb/taylor-swift-12.jpg?branch=production&width=3840&quality=75&auto=webp',
+            credit: 'Michael Caulfield/WireImage/Getty Images, via TIME',
+            caption: 'Swift performs onstage during the 52nd Grammy Awards at Staples Center.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56be4d24e9ea465e7cf59f44/16%3A9/w_2560%2Cc_limit/GettyImages-98115429.jpg',
+            credit: 'Michael Tran/FilmMagic, via Teen Vogue',
+            caption: 'Swift poses in the Grammy press room with all four awards she won that night, including Album of the Year.',
+            kind: 'primary',
           },
         ],
       },
@@ -168,6 +229,25 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg',
             credit: 'Adam Bielawski / Wikimedia Commons',
+            // Focal point set 2026-07-18 by viewing (399x509 portrait): face
+            // top-center at the headset mic, koa guitar across the lower half.
+            focalPoint: '54% 18%',
+          },
+          // Photo pass #762 (2026-07-18): frame from the official "The Best
+          // Day" music video — the home-movie footage of toddler Taylor in
+          // pigtails that Swift cut together herself as the Christmas gift
+          // this page is about. oEmbed-verified the video (l4_6eQm7RTQ)
+          // belongs to the official @TaylorSwift channel; i.ytimg.com is
+          // YouTube's own CDN; curl 200 image/jpeg 1280x720, downloaded and
+          // vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/l4_6eQm7RTQ/maxresdefault.jpg',
+            credit: 'Still from the official "The Best Day" music video (home-movie footage), Big Machine Records, via YouTube',
+            caption: 'The gift itself: a frame from the home-movie video Swift edited in secret — toddler Taylor in pigtails — unveiled to her mom on Christmas Eve.',
+            kind: 'archival',
+            // Focal point set by viewing: the child stands just left of
+            // center, face in the upper third, armchair lower right.
+            focalPoint: '48% 28%',
           },
         ],
       },
@@ -177,11 +257,13 @@ export default {
       month: 9,
       day: 13,
       category: 'business',
+      significance: 'defining', // the first mass cultural flashpoint of her career (docs/decisions.md, 2026-07-19)
       title: 'Wins Best Female Video, then Kanye West takes the mic',
       snippet:
         '"I\'mma let you finish, but Beyoncé had one of the best videos of all time" — Kanye West interrupted her VMA speech for "You Belong With Me" in front of a live audience.',
       sourceUrl: 'https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/',
       thumbnailUrl: 'https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75',
+      relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
       moment: {
         context:
           'The Radio City crowd went from stunned silence to a standing ovation for Swift; West was escorted out of the venue and apologized on his blog that night — "i\'m in the wrong for going on stage and taking away from her moment!" When presenter Wale suggested you "can\'t fault a man for speaking his mind," the audience booed him too.\n\nBeyoncé, who went on to win Video of the Year, used her own acceptance to invite Swift back onstage to finish the speech she\'d been denied — a gesture remembered as vividly as the interruption itself.',
@@ -199,6 +281,82 @@ export default {
           {
             url: 'https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75',
             credit: 'Taste of Country',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // every real, verified photo found from the Sept. 13, 2009 VMAs —
+          // the interruption, the Beyoncé invite-back, and her own
+          // performance/red-carpet that night. Curl-verified live.
+          {
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=375',
+            credit: 'Jeff Kravitz/FilmMagic, via The Guardian',
+            caption: 'Kanye West steps onto the VMA stage while Swift is accepting Best Female Video at Radio City Music Hall.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=375',
+            credit: 'Kevin Mazur/WireImage, via The Guardian',
+            caption: 'Swift finally finishes her acceptance speech after Beyoncé invites her back onstage later that night.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltc121921405a5eef5/698762d75f570fee2bb12f23/taylor-swift-16.jpg?branch=production&width=3840&quality=75&auto=webp',
+            credit: 'Stephen Lovekin/FilmMagic/Getty Images, via TIME',
+            caption: 'Swift arrives on the 2009 VMA red carpet in the silver KaufmanFranco gown she would still be wearing when West interrupted her.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.glamour.com/photos/5b748cfd0271d30d24ff90ad/master/w_1024%2Cc_limit/GettyImages-90715371.jpg',
+            credit: 'Jason Kempin/Getty Images, via Glamour',
+            caption: 'Swift performs "You Belong with Me" inside a New York subway car during the 2009 VMA broadcast.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/T-Swift_VMA_performance.JPG',
+            credit: 'Coldbread, via Wikimedia Commons',
+            caption: 'Swift steps down from the yellow taxi after completing her outdoor VMA performance on Sept. 13, 2009.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Taylor_Swift_2009_MTV_VMA.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Swift appears during the 2009 MTV Video Music Awards at Radio City Music Hall.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Taylor_Swift_at_2009_MTV_Video_Music_Awards_%283917030572%29.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'A distinct audience-level view of Swift at the 2009 MTV Video Music Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Taylor_Swift_at_2009_MTV_VMA%27s_2.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Swift performs during the 2009 MTV Video Music Awards in New York.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Taylor_Swift_at_2009_MTV_VMA%27s_3.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Standing atop a car on a closed-off Avenue of the Americas, mic raised, as a street crowd reaches up during the outdoor VMA broadcast performance.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Taylor_Swift_at_2009_MTV_VMA%27s_4.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Swift performs "You Belong with Me" during the 2009 VMA telecast.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Taylor_Swift_at_2009_MTV_VMA%27s_5.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'A wide, horizontal view of Swift\'s performance during the 2009 MTV Video Music Awards.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_at_2009_MTV_VMA%27s.jpg',
+            credit: 'Philip Nelson, via Wikimedia Commons',
+            caption: 'Swift onstage during her "You Belong with Me" performance at the 2009 VMAs.',
+            kind: 'primary',
           },
         ],
       },
@@ -955,6 +1113,26 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles_04.jpg',
             credit: 'Wikimedia Commons',
+            // Focal point set 2026-07-18 by viewing (500x648): she stands on
+            // the red couch mid-frame in the sequined dress, face just above
+            // center-left; "They shouldn't do..." lyric screens above/below.
+            focalPoint: '46% 44%',
+          },
+          // Photo pass #762 (2026-07-18): Commons portrait of Joe Jonas —
+          // the 27-second phone call this song answers — EXIF-dated Sept. 10,
+          // 2008, one month before the breakup (era context). Commons license
+          // API-verified CC BY-SA 2.0; curl 200 image/jpeg 500x690,
+          // downloaded and vision-confirmed (clean close-up, no watermark;
+          // rejected a Concert-for-Hope alternative that carried a
+          // photographer watermark).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Joe_Jonas_cropped.jpg/500px-Joe_Jonas_cropped.jpg',
+            credit: 'Wikimedia Commons (CC BY-SA 2.0) — Joe Jonas, September 2008 (archival, era context)',
+            caption: 'Joe Jonas in September 2008 — weeks before the 27-second phone call that got a song added to Fearless a day before mastering.',
+            kind: 'archival',
+            // Focal point set by viewing: tight head shot, eyes just above
+            // the vertical midpoint.
+            focalPoint: '50% 40%',
           },
         ],
       },
@@ -1006,6 +1184,25 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
+            // Focal point set 2026-07-18 by viewing (300x300): profile facing
+            // left-of-center, wind-blown curls filling the right half.
+            focalPoint: '40% 32%',
+          },
+          // Photo pass #762 (2026-07-18): Commons shot from the Fearless
+          // Tour's Portland stop, EXIF-dated May 16, 2009 — taken inside the
+          // very spring the album was logging its record 11 weeks at No. 1
+          // (era context; a tour date, not a chart ceremony). Commons license
+          // API-verified CC BY 2.0 (calmdownlove); curl 200 image/jpeg
+          // 500x862, downloaded and vision-confirmed (gold sequined dress,
+          // fist raised, Ludwig kit behind).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg/500px-Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg',
+            credit: 'calmdownlove, Wikimedia Commons (CC BY 2.0) — Fearless Tour, Portland, May 16, 2009 (archival, era context)',
+            caption: 'On the Fearless Tour in Portland, May 2009 — mid-victory-lap for an album spending its eleventh week at No. 1 that spring.',
+            kind: 'archival',
+            // Focal point set by viewing: tall frame; she stands center-left,
+            // face upper-left quadrant beneath the raised fist.
+            focalPoint: '32% 24%',
           },
         ],
       },
@@ -1023,10 +1220,23 @@ export default {
         context:
           'With 3.217 million copies sold in the United States throughout 2009, Fearless was the year\'s best-selling album in the country, making Swift, then 20, the youngest artist and the only female country musician to have a best-selling album of a calendar year.\n\nIt also spent a total of 58 weeks in the Billboard 200\'s top 10 — a record for a country musician, and the only 2000s album to spend its first full year there.',
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)' }],
+        // Photo-enrichment run 16 (2026-07-18, #762): added a CC BY 2.0 Commons
+        // shot from the Fearless Tour's 2010 leg (WEZL, Apr. 30, 2010) —
+        // license verified via the Commons API, URL verified HTTP 200 +
+        // image/jpeg, downloaded and visually confirmed (Swift mid-song in the
+        // sparkling violet dress). Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
+            focalPoint: '35% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1c/Taylor_Swift_Fearless_Tour_02.jpg',
+            credit: 'WEZL (CC BY 2.0), via Wikimedia Commons',
+            caption: 'On the Fearless Tour in April 2010, just after Fearless closed 2009 as America\'s best-selling album.',
+            kind: 'archival',
+            focalPoint: '35% 30%',
           },
         ],
       },
@@ -1142,10 +1352,24 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo-enrichment run 16 (2026-07-18, #762): added a still from the
+        // official "Love Story" music video, which premiered Sept. 12, 2008,
+        // days before the single's radio release — video id verified via
+        // YouTube oEmbed (title "Taylor Swift - Love Story", channel
+        // @TaylorSwift); thumbnail verified HTTP 200 + image/jpeg, downloaded
+        // and visually confirmed. Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
             credit: 'Big Machine Records (single cover art)',
+            focalPoint: '70% 30%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/8xg3vE8Ie_E/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption: 'The sepia close-up from the official "Love Story" video, which premiered days before the single went to country radio.',
+            kind: 'archival',
+            focalPoint: '48% 40%',
           },
         ],
       },
@@ -1188,12 +1412,26 @@ export default {
         // T16 photo pass (2026-07-09): cover art taken from the Wikipedia
         // article's stable upload.wikimedia.org copy; verified HTTP 200 +
         // image/png this session.
+        // Photo-enrichment run 16 (2026-07-18, #762): added a still from the
+        // official "White Horse" music video — id verified via YouTube oEmbed
+        // (title "Taylor Swift - White Horse", channel @TaylorSwift);
+        // thumbnail verified HTTP 200 + image/jpeg, downloaded and visually
+        // confirmed (the video's brick-walled apartment scene). Per-image
+        // focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/74/Taylor_Swift_-_White_Horse.png',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "White Horse."',
             kind: 'primary',
+            focalPoint: '65% 35%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/D1Xr-JFLxik/hqdefault.jpg',
+            credit: 'Big Machine Records / YouTube (official music video still)',
+            caption: 'From the official "White Horse" video — the un-fairy-tale the song promises.',
+            kind: 'archival',
+            focalPoint: '58% 30%',
           },
         ],
       },
@@ -1224,10 +1462,24 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo-enrichment run 16 (2026-07-18, #762): added a CC BY 2.0
+        // Commons shot of the Fearless Tour's acoustic set (WEZL, Apr. 30,
+        // 2010) — the tour this reissue was released into. License verified
+        // via the Commons API, URL verified HTTP 200 + image/jpeg, downloaded
+        // and visually confirmed (yellow dress, cowboy boots, acoustic
+        // guitar on the stool). Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png',
             credit: 'Big Machine Records',
+            focalPoint: '35% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Taylor_Swift_Fearless_Tour_05.jpg',
+            credit: 'WEZL (CC BY 2.0), via Wikimedia Commons',
+            caption: 'The Fearless Tour\'s acoustic set, April 2010 — the reissue kept a year-old album running deep into its tour.',
+            kind: 'archival',
+            focalPoint: '32% 35%',
           },
         ],
       },
@@ -1276,6 +1528,20 @@ export default {
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "Today Was a Fairytale."',
             kind: 'primary',
+            focalPoint: '67% 75%',
+          },
+          // Photo-enrichment run 16 (2026-07-18, #762): no official video was
+          // made for the 2010 original (the HD "music video" uploads are
+          // fan-made — rejected), so this is the title card of the official
+          // Today Was A Fairytale (Taylor's Version) lyric video — id verified
+          // via YouTube oEmbed (channel @TaylorSwift); thumbnail verified
+          // HTTP 200 + image/jpeg, downloaded and visually confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/xSWVPqnKcXQ/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'The title card of the Taylor\'s Version lyric video, built from the single\'s white-dress cover shoot.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -1332,6 +1598,19 @@ export default {
             caption:
               'For reference — Stephen Barker Liles of Love and Theft, the song\'s namesake, performing in May 2010.',
             kind: 'reference',
+            focalPoint: '48% 22%',
+          },
+          // Photo-enrichment run 16 (2026-07-18, #762): still from the
+          // official Hey Stephen (Taylor's Version) lyric video — id verified
+          // via YouTube oEmbed (channel @TaylorSwift); thumbnail verified
+          // HTTP 200 + image/jpeg, downloaded and visually confirmed (Swift
+          // in profile at the mic).
+          {
+            url: 'https://i.ytimg.com/vi/tMhiHrL7rPE/hqdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official lyric video)',
+            caption: 'The title card of the Hey Stephen (Taylor\'s Version) lyric video.',
+            kind: 'archival',
+            focalPoint: '78% 28%',
           },
         ],
       },
@@ -1607,12 +1886,26 @@ export default {
         // T16 photo pass (2026-07-09): the song that crossed over — its cover
         // art, from the Wikipedia article's stable upload.wikimedia.org copy.
         // Verified HTTP 200 + image/png this session.
+        // Photo-enrichment run 16 (2026-07-18, #762): added a clearly-labeled
+        // CC BY 3.0 Commons reference photo of Shania Twain, whose "You're
+        // Still the One" held the previous country-crossover high (No. 3,
+        // 1998) named in the context above. License verified via the Commons
+        // API, URL verified HTTP 200 + image/jpeg, downloaded and visually
+        // confirmed. Per-image focal points set by eye.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/0/01/Taylor_Swift_-_Love_Story.png',
             credit: 'Big Machine Records (single cover art)',
             caption: 'Single cover art for "Love Story," the first country song to top Billboard\'s pop-radio chart.',
             kind: 'primary',
+            focalPoint: '70% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/7a/ShaniaTwain1.jpg',
+            credit: 'David Swales (CC BY 3.0), via Wikimedia Commons',
+            caption: 'For reference — Shania Twain, whose "You\'re Still the One" set the previous country-crossover high-water mark at No. 3 in 1998.',
+            kind: 'reference',
+            focalPoint: '49% 22%',
           },
         ],
       },
