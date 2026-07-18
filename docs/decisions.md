@@ -7,6 +7,75 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-18 — News/Current pipeline (V2, #468): schema, cadence, cost cap — DRAFT, pending Wyatt
+
+**Status: draft, built under Joey's explicit "go now, flag him after" direction
+on #468** (ticket text: "V2... owner: Wyatt... never preempts V1"). Proceeding
+on Joey's word, not silently overriding the ticket's own ownership note —
+Wyatt's real review is still owed on the three items below, per the
+architecture proposal's own §9 list of what needs his sign-off. Anything here
+is one line to revert if he disagrees; nothing here touches the Vault's
+runtime path.
+
+**Decision (schema shape):** Adopt `docs/proposals/2026-07-07-news-pipeline-architecture.md`
+§4 verbatim — `news_source`, `news_raw_item`, `news_story`, `news_story_source`,
+`news_llm_usage`, all `news_`-prefixed, zero foreign keys in either direction
+to Vault tables (`era`, `milestone`, `month_item`, `moment`, `track_note`), no
+Vault query may join or read `news_*`. `news_story` / `news_story_source`
+public-read RLS; `news_raw_item` / `news_source` / `news_llm_usage` service-role
+only (pipeline internals, never exposed).
+
+**Decision (cadence):** Hourly GitHub Actions cron, one-shot process (run a
+full cycle, exit — no resident worker), `concurrency` group so cycles never
+overlap. Matches the proposal's own recommendation (§6) and this session's
+2026-07-18 cron-scheduling-contention fix (offset off `:00`/`:30`, the two
+minutes already contended by this repo's two `*/30` workflows).
+
+**Decision (cost cap + model vendor):** Model vendor is **OpenAI**, not the
+proposal's original "Haiku-class" suggestion — a deliberate deviation, per
+Joey's explicit 2026-07-18 instruction to leverage OpenAI tokens for this
+build. Cost-cheap model tier (e.g. the `gpt-*-mini`/`nano` class current at
+build time), hard daily cap of **100 LLM calls/day** across classify +
+semantic-dedupe-assist + verify-flagging combined (durable counter in
+`news_llm_usage`, in-process floor so the cap holds even if the DB is briefly
+unreachable — Orbit's `claude_usage` pattern, renamed), **≤400 output
+tokens/call**, one retry. Cap hit ⇒ deterministic `RuleBasedClassifier`
+fallback and the semantic dedupe pass skips — **the pipeline is fully
+functional with zero LLM calls**, degraded quality only. No LLM call ever in
+a user-request path; all calls are inside the scheduled worker cycle.
+**No `OPENAI_API_KEY` secret exists in this repo yet** (checked — neither an
+OpenAI nor an Anthropic production API key is configured today) — that's a
+founder TX item (new API key, likely new billing), not something built here.
+Until it's added, the worker ships and runs **fully on the rule-based
+fallback**; the LLM path is wired and ready, not gated behind a future code
+change. Worst-case cost, once the key exists, is small multiples of Orbit's
+own observed "order of $0.x/day" at a comparable call volume — Swift2's cap
+is set *lower* than Orbit's ~200/day since this product is single-subject (no
+multi-figure `channels` loop) and volume should track well under Orbit's.
+Wyatt's call whether 100/day is the right starting number; it's a config
+constant (`packages/shared/src/config.ts`), not a schema commitment — cheap
+to retune.
+
+**Why now, not "when scheduled" per the proposal's own §9:** Joey's direct
+instruction, 2026-07-18 chat, after being told the ticket names this V2/
+filler/Wyatt-owned and V1 is at 1/12 gates green — he chose "go now" over
+looping Wyatt in first or waiting. Recorded here so the reasoning isn't lost,
+not to relitigate his call.
+
+**Alternatives considered:** Waiting for Wyatt's explicit pre-approval before
+any schema/worker code (rejected by Joey's direct instruction — see above).
+A lower/higher starting cap than 100/day (100 chosen as a round number
+comfortably under Orbit's proven-safe ~200/day, adjustable by Wyatt).
+Sub-hourly cadence (rejected per the proposal: cron floor considerations and
+no evidence hourly is too slow for this content's news cycle; revisit with
+real usage data if it turns out to be).
+
+**Approved by:** Joey (product direction + explicit "go now" instruction,
+2026-07-18 chat). **Wyatt's technical sign-off on the three decisions above
+is still owed**, per the proposal's own §9 ("Wyatt: approve the `news_`
+table shape + no-cross-world-FK rule... cadence... cap numbers/model") — this
+entry is the artifact for that review, not a claim it already happened.
+
 ## 2026-07-17 — LongLive build sync reads repo seeds, not the Supabase DB
 
 **Decision:** The four LongLive `prebuild` sync generators
