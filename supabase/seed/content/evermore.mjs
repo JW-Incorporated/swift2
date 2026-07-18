@@ -1790,6 +1790,24 @@ export default {
             credit: 'Republic Records / Beth Garrabrant (album cover)',
             caption: "Album artwork for Fearless (Taylor's Version), released April 9, 2021.",
             kind: 'primary',
+            // Focal point set 2026-07-18 by viewing (300x300): sepia profile,
+            // face upper-center-right with hair sweeping across the left.
+            focalPoint: '56% 30%',
+          },
+          // Photo pass #762 (2026-07-18): title card from the official
+          // "You All Over Me (From The Vault)" lyric video — one of the six
+          // vault tracks this page is about. oEmbed-verified the video
+          // (XKaMUm7YwZc) belongs to the official @TaylorSwift channel;
+          // i.ytimg.com is YouTube's own CDN; curl 200 image/jpeg 1280x720,
+          // downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/XKaMUm7YwZc/maxresdefault.jpg',
+            credit: 'Still from the official "You All Over Me (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The vault opens: the "You All Over Me" lyric video title card, featuring Maren Morris — proof the re-recordings could mint new canon, not just replacements.',
+            kind: 'archival',
+            // Focal point set by viewing: gravel-and-glitter title card with
+            // the text just left of center, mid-frame.
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -1913,6 +1931,23 @@ export default {
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption: 'Still from the official Wildest Dreams (Taylor\'s Version) lyric video, via the video\'s YouTube thumbnail.',
             kind: 'archival',
+            // Focal point set 2026-07-18 by viewing (480x360): starry blue
+            // dreamscape with the handwritten title dead center — genuinely
+            // reads best centered; no face or subject to protect.
+            focalPoint: '50% 50%',
+          },
+          // Photo pass #762 (2026-07-18): the single's own cover art — Swift
+          // in sunglasses and a striped shirt — from Wikipedia's stable
+          // upload.wikimedia.org copy (exact filename from the article HTML).
+          // curl 200 image/png 300x300, downloaded and vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/ff/Wildest_Dreams_%28Taylor%27s_Version%29_-_Taylor_Swift.png',
+            credit: 'Republic Records (single cover art)',
+            caption: 'The Wildest Dreams (Taylor\'s Version) cover — the artwork that appeared when the re-record surprise-dropped mid-TikTok trend.',
+            kind: 'primary',
+            // Focal point set by viewing: face in sunglasses upper-center-
+            // right, sunlit wall behind.
+            focalPoint: '55% 28%',
           },
         ],
       },
@@ -1962,6 +1997,24 @@ export default {
             caption:
               'Still from the Blake Lively-directed "I Bet You Think About Me" video — Swift as the red-dressed wedding crasher — via the video\'s YouTube thumbnail.',
             kind: 'archival',
+            // Focal point set 2026-07-18 by viewing (480x360 letterboxed):
+            // Swift center frame in the red gown with guitar, face just left
+            // of center in the upper-mid frame, chandelier above.
+            focalPoint: '48% 40%',
+          },
+          // Photo pass #762 (2026-07-18): Commons portrait of Blake Lively,
+          // the video's director (era context; a TIFF red carpet, not the
+          // video shoot). Commons license API-verified CC BY-SA 2.0 (Josh
+          // Jensen, Sept. 2010); curl 200 image/jpeg 500x751, downloaded and
+          // vision-confirmed (Lively in a red sequined dress, TIFF backdrop).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Blake_Lively_%284994696823%29.jpg/500px-Blake_Lively_%284994696823%29.jpg',
+            credit: 'Josh Jensen, Wikimedia Commons (CC BY-SA 2.0) — Blake Lively, 2010 (archival, era context; not the video shoot)',
+            caption: 'Blake Lively — the friend Swift finally got to work with, in Lively\'s directorial debut.',
+            kind: 'archival',
+            // Focal point set by viewing: tall portrait, her face high in the
+            // frame, dress filling the lower two-thirds.
+            focalPoint: '50% 16%',
           },
         ],
       },
@@ -2038,6 +2091,25 @@ export default {
             credit: 'Republic Records (single cover art)',
             caption: 'Cover artwork for "This Love (Taylor\'s Version)," the first 1989 re-recording released.',
             kind: 'primary',
+            // Focal point set 2026-07-18 by viewing (300x300): extreme
+            // close-up, eyes and lips in the upper-right quadrant, hair
+            // filling the lower half.
+            focalPoint: '58% 26%',
+          },
+          // Photo pass #762 (2026-07-18): Commons portrait of Jenny Han —
+          // author-showrunner of The Summer I Turned Pretty, whose trailer
+          // premiered the re-record (era context; BookCon 2019, not the show).
+          // Commons license API-verified CC BY-SA 4.0 (Rhododendrites);
+          // curl 200 image/jpeg 500x482, downloaded and vision-confirmed
+          // (Han at a BookCon signing table).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg/500px-Jenny_Han_at_BookCon_-_2019_%2826746%29_%28cropped%29.jpg',
+            credit: 'Rhododendrites, Wikimedia Commons (CC BY-SA 4.0) — Jenny Han, BookCon 2019 (archival, era context)',
+            caption: 'Jenny Han, whose Amazon adaptation of The Summer I Turned Pretty carried the re-recorded "This Love" out into the world a night early.',
+            kind: 'archival',
+            // Focal point set by viewing: face upper-center, BookCon banner
+            // behind, folded arms along the bottom edge.
+            focalPoint: '45% 24%',
           },
         ],
       },
@@ -2087,6 +2159,12 @@ export default {
             caption:
               "evermore's album art — the name at the center of the dueling suits. (No usable photo of the Utah park itself; the album artwork stands in.)",
             kind: 'archival',
+            // Focal point set 2026-07-18 by viewing (300x300): back of head
+            // with the french braid running down the center; keep the braid
+            // and coat collar in frame. Photo pass #762: no second photo
+            // added — Commons has no imagery of the Utah park or its founder,
+            // and no on-hook alternative could be verified.
+            focalPoint: '48% 30%',
           },
         ],
       },
@@ -2214,6 +2292,13 @@ export default {
             caption:
               'Swift accepting Video of the Year at the 2022 VMAs, moments before announcing Midnights — from Access Hollywood\'s coverage of the speech.',
             kind: 'archival',
+            // Focal point set 2026-07-18 by viewing (480x360): Swift at the
+            // podium mid-speech, face just left of center in the upper third,
+            // moon-person trophy lower right. Photo pass #762: no second
+            // photo added — Commons has no 2022-VMAs Swift imagery, and MTV's
+            // own speech-compilation thumbnail shows other artists, so no
+            // verifiable second still of this exact moment was found.
+            focalPoint: '47% 30%',
           },
         ],
       },
