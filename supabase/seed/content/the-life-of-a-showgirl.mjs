@@ -2055,6 +2055,17 @@ export default {
             focalPoint: '52% 50%',
           },
           {
+            // 2026-07-18: the wide garden-staging carousel shot on ABC's CDN;
+            // verified 200 + image/jpeg and vision-confirmed. The couple sit low
+            // in a tall frame, so the focal point anchors down to keep them.
+            url: 'https://i.abcnewsfe.com/a/826038ad-f638-4da8-9501-08748f22125b/swift-kelce-engagement-02-ht-jef-250826_1756229507971_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'The scale of the staging: the couple beneath the floral arch and a flower-ringed chandelier deep in the garden — Swift in a striped summer dress, Kelce in navy.',
+            kind: 'primary',
+            focalPoint: '50% 64%',
+          },
+          {
             url: 'https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg',
             credit: 'via @taylorswift/Instagram (ABC News)',
             caption:
