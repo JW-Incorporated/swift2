@@ -26,9 +26,7 @@ describe('assignFeedTiers', () => {
   });
 
   it('gives chip tier to routine, short, unremarkable items with a real photo', () => {
-    const items = [
-      item({ id: 'a', images: realImg, tags: ['Tour'], summary: 'Short.' }),
-    ];
+    const items = [item({ id: 'a', images: realImg, tags: ['Tour'], summary: 'Short.' })];
     expect(assignFeedTiers(items).get('a')).toBe('chip');
   });
 
@@ -108,7 +106,13 @@ describe('assignFeedTiers', () => {
 
   it('gives a notable item at least media tier even when it reads as routine content', () => {
     const items = [
-      item({ id: 'a', images: realImg, tags: ['Tour'], summary: 'Short.', significance: 'notable' }),
+      item({
+        id: 'a',
+        images: realImg,
+        tags: ['Tour'],
+        summary: 'Short.',
+        significance: 'notable',
+      }),
     ];
     expect(assignFeedTiers(items).get('a')).toBe('media');
   });
@@ -117,10 +121,29 @@ describe('assignFeedTiers', () => {
     const run = Array.from({ length: 6 }, (_, i) =>
       item({ id: `m${i}`, images: realImg, tags: ['Music'] }),
     );
-    const notableItem = item({ id: 'notable', images: realImg, tags: ['Music'], significance: 'notable' });
+    const notableItem = item({
+      id: 'notable',
+      images: realImg,
+      tags: ['Music'],
+      significance: 'notable',
+    });
     const tiers = assignFeedTiers([...run, notableItem]);
     expect(tiers.get('notable')).not.toBe('text');
     expect(tiers.get('notable')).not.toBe('chip');
+  });
+
+  it('does not let a no-image notable item inflate the image-run pacing counter (found in review, 2026-07-18)', () => {
+    // Three 'notable' items with no real photo (eraArtOnly, the default from
+    // item()) get forced to media tier without ever contributing a real
+    // image to the run — they must not count toward the breather threshold
+    // that follows, or an unrelated later real-image item gets wrongly
+    // demoted for a run of images that never actually existed.
+    const noImageNotable = Array.from({ length: 3 }, (_, i) =>
+      item({ id: `n${i}`, significance: 'notable' }),
+    );
+    const realImageItem = item({ id: 'a', images: realImg, tags: ['Music'] });
+    const tiers = assignFeedTiers([...noImageNotable, realImageItem]);
+    expect(tiers.get('a')).toBe('media');
   });
 
   it('leaves items with no significance set governed by the existing heuristic, unchanged', () => {

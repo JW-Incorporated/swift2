@@ -55,22 +55,47 @@ try {
       }
       const res = await client.query(
         `insert into public.month_item
-           (era_slug, year, month, day, category, title, snippet, source_url, thumbnail_url)
-         values ($1,$2,$3,$4,$5,$6,$7,$8,$9) returning id`,
-        [eraSlug, it.year, it.month, it.day ?? null, it.category, it.title, it.snippet ?? '', it.sourceUrl ?? null, it.thumbnailUrl ?? null],
+           (era_slug, year, month, day, category, title, snippet, source_url, thumbnail_url, significance)
+         values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10) returning id`,
+        [
+          eraSlug,
+          it.year,
+          it.month,
+          it.day ?? null,
+          it.category,
+          it.title,
+          it.snippet ?? '',
+          it.sourceUrl ?? null,
+          it.thumbnailUrl ?? null,
+          // Found in review (2026-07-18): this INSERT predated the
+          // significance column and was never updated when it was added —
+          // the migration exists but nothing wrote to it, so every DB-seeded
+          // row would have significance stuck at NULL regardless of what
+          // the seed file said. Still not read anywhere live (seed files
+          // are the source of truth, 2026-07-17 decision) — this closes the
+          // write-side gap for whenever that changes.
+          it.significance ?? null,
+        ],
       );
       items += 1;
       if (it.moment) {
         const m = it.moment;
         await client.query(
           `insert into public.moment (month_item_id, context, sources, photos) values ($1,$2,$3,$4)`,
-          [res.rows[0].id, m.context ?? '', JSON.stringify(m.sources ?? []), JSON.stringify(m.photos ?? [])],
+          [
+            res.rows[0].id,
+            m.context ?? '',
+            JSON.stringify(m.sources ?? []),
+            JSON.stringify(m.photos ?? []),
+          ],
         );
         moments += 1;
       }
     }
   }
-  console.log(`seeded content: ${items} month items, ${moments} moments from ${files.length} file(s)`);
+  console.log(
+    `seeded content: ${items} month items, ${moments} moments from ${files.length} file(s)`,
+  );
 } catch (err) {
   console.error('CONTENT SEED FAILED:', err.message);
   process.exitCode = 1;

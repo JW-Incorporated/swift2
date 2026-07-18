@@ -41,10 +41,26 @@ const CATEGORIES = new Set([
   'video',
 ]);
 
+// Keep in sync with ContentItem.significance (apps/web/lib/longlive/types.ts)
+// and the month_item.significance CHECK constraint (migrations). Found in
+// review (2026-07-18): the sync script silently drops an unrecognized
+// significance value to "routine" (defensive, correct for the generator),
+// but with no validator check here that meant a typo like 'defineing'
+// passed CI clean and silently lost the item's prominence — exactly the
+// failure mode this field exists to prevent. This makes it a hard error.
+const SIGNIFICANCE_VALUES = new Set(['defining', 'notable']);
+
 // Keep in sync with packages/shared/src/vault-types.ts + the new-type
 // migration CHECK constraints.
 const RELEASE_KINDS = new Set(['album', 'rerecording', 'ep', 'deluxe', 'single', 'live']);
-const VIDEO_KINDS = new Set(['music_video', 'lyric_video', 'short_film', 'tour_film', 'documentary', 'performance']);
+const VIDEO_KINDS = new Set([
+  'music_video',
+  'lyric_video',
+  'short_film',
+  'tour_film',
+  'documentary',
+  'performance',
+]);
 const THEORY_KINDS = new Set(['easter_egg', 'theory']);
 const THEORY_CONFIDENCE = new Set([
   'official',
@@ -56,7 +72,14 @@ const THEORY_CONFIDENCE = new Set([
   'disproven',
   'joke_meme',
 ]);
-const THEORY_OUTCOMES = new Set(['confirmed', 'partially_confirmed', 'pending', 'debunked', 'abandoned', 'unfalsifiable']);
+const THEORY_OUTCOMES = new Set([
+  'confirmed',
+  'partially_confirmed',
+  'pending',
+  'debunked',
+  'abandoned',
+  'unfalsifiable',
+]);
 const SOURCE_TYPES = new Set([
   'official',
   'interview',
@@ -98,7 +121,10 @@ const { eras } = await import(pathToFileURL(join(seed, 'eras-data.mjs')).href);
 const eraSpan = new Map(
   eras.map((e) => [
     e.slug,
-    { lo: monthIndex(+e.start_date.slice(0, 4), +e.start_date.slice(5, 7)), hi: monthIndex(+e.end_date.slice(0, 4), +e.end_date.slice(5, 7)) },
+    {
+      lo: monthIndex(+e.start_date.slice(0, 4), +e.start_date.slice(5, 7)),
+      hi: monthIndex(+e.end_date.slice(0, 4), +e.end_date.slice(5, 7)),
+    },
   ]),
 );
 
@@ -107,7 +133,9 @@ let errors = 0;
 let warnings = 0;
 let checked = 0;
 
-for (const file of readdirSync(contentDir).filter((f) => f.endsWith('.mjs') && !f.startsWith('_')).sort()) {
+for (const file of readdirSync(contentDir)
+  .filter((f) => f.endsWith('.mjs') && !f.startsWith('_'))
+  .sort()) {
   const mod = await import(pathToFileURL(join(contentDir, file)).href);
   const data = mod.default;
   const fileEra = data?.eraSlug;
@@ -133,26 +161,40 @@ for (const file of readdirSync(contentDir).filter((f) => f.endsWith('.mjs') && !
     if (!eraSlug) err('missing eraSlug (not on item or file)');
     else if (!eraSpan.has(eraSlug)) err(`unknown eraSlug "${eraSlug}"`);
     if (!Number.isInteger(it.year)) err(`year is not an integer (${it.year})`);
-    if (!(Number.isInteger(it.month) && it.month >= 1 && it.month <= 12)) err(`month out of 1..12 (${it.month})`);
-    if (!CATEGORIES.has(it.category)) err(`category "${it.category}" not in ${[...CATEGORIES].join('|')}`);
+    if (!(Number.isInteger(it.month) && it.month >= 1 && it.month <= 12))
+      err(`month out of 1..12 (${it.month})`);
+    if (!CATEGORIES.has(it.category))
+      err(`category "${it.category}" not in ${[...CATEGORIES].join('|')}`);
     if (!it.title) err('missing title');
     if ((it.snippet ?? '').length > 400) err(`snippet ${it.snippet.length} > 400 (DB CHECK)`);
-    if ((it.moment?.context ?? '').length > 2000) err(`moment.context ${it.moment.context.length} > 2000 (DB CHECK)`);
+    if ((it.moment?.context ?? '').length > 2000)
+      err(`moment.context ${it.moment.context.length} > 2000 (DB CHECK)`);
 
-    if (!(it.sourceUrl || it.moment?.sources?.length > 0)) warn('no sourceUrl and no moment.sources (link-first model)');
+    if (!(it.sourceUrl || it.moment?.sources?.length > 0))
+      warn('no sourceUrl and no moment.sources (link-first model)');
 
     if (it.threadIds != null) {
       if (!Array.isArray(it.threadIds)) err('threadIds must be an array');
       else
         for (const t of it.threadIds) {
-          if (!THREAD_IDS.has(t)) err(`threadIds contains unknown thread "${t}" — not in ${[...THREAD_IDS].join('|')}`);
+          if (!THREAD_IDS.has(t))
+            err(`threadIds contains unknown thread "${t}" — not in ${[...THREAD_IDS].join('|')}`);
         }
+    }
+
+    if (it.significance != null && !SIGNIFICANCE_VALUES.has(it.significance)) {
+      err(
+        `significance "${it.significance}" not in ${[...SIGNIFICANCE_VALUES].join('|')} — a typo here silently loses the item's prominence`,
+      );
     }
 
     const span = eraSpan.get(eraSlug);
     if (span && Number.isInteger(it.year) && Number.isInteger(it.month)) {
       const mi = monthIndex(it.year, it.month);
-      if (mi < span.lo || mi > span.hi) warn(`${it.year}-${String(it.month).padStart(2, '0')} is outside era "${eraSlug}" span — renders under its own section but check the date`);
+      if (mi < span.lo || mi > span.hi)
+        warn(
+          `${it.year}-${String(it.month).padStart(2, '0')} is outside era "${eraSlug}" span — renders under its own section but check the date`,
+        );
     }
   });
 }
@@ -185,7 +227,8 @@ async function loadTypeDir(dirName, listKey) {
       errors += 1;
       continue;
     }
-    for (const row of data[listKey]) rows.push({ file: `${dirName}/${file}`, fileEra: data.eraSlug, row });
+    for (const row of data[listKey])
+      rows.push({ file: `${dirName}/${file}`, fileEra: data.eraSlug, row });
   }
   return rows;
 }
@@ -209,27 +252,45 @@ function checkCommon({ row, fileEra, file, err }, slugSeen) {
   const eraSlug = row.eraSlug ?? fileEra;
   if (!row.slug) err('missing slug (stable identity is required)');
   else if (!SLUG_RE.test(row.slug)) err(`slug "${row.slug}" is not kebab-case`);
-  else if (slugSeen.has(row.slug)) err(`duplicate slug "${row.slug}" (first seen in ${slugSeen.get(row.slug)})`);
+  else if (slugSeen.has(row.slug))
+    err(`duplicate slug "${row.slug}" (first seen in ${slugSeen.get(row.slug)})`);
   if (row.slug && !slugSeen.has(row.slug)) slugSeen.set(row.slug, file);
   if (!eraSlug) err('missing eraSlug (not on record or file)');
   else if (!knownEra(eraSlug)) err(`unknown eraSlug "${eraSlug}"`);
   if (!row.title) err('missing title');
 
   const sources = row.sources ?? [];
-  if (!Array.isArray(sources) || sources.length === 0) err('no sources — every new-type record requires >= 1 source (hard rule)');
+  if (!Array.isArray(sources) || sources.length === 0)
+    err('no sources — every new-type record requires >= 1 source (hard rule)');
   for (const s of sources) {
     if (!s.source_url) err('source entry missing source_url');
-    if (s.source_type != null && !SOURCE_TYPES.has(s.source_type)) err(`source_type "${s.source_type}" not a known type`);
-    if (s.reliability_score != null && !(Number.isInteger(s.reliability_score) && s.reliability_score >= 1 && s.reliability_score <= 5)) err(`reliability_score ${s.reliability_score} out of 1..5`);
-    if (s.accessed_at != null && !ISO_DATE_RE.test(s.accessed_at)) err(`accessed_at "${s.accessed_at}" is not YYYY-MM-DD`);
-    if ((s.excerpt ?? '').length > EXCERPT_CAP) err(`source excerpt ${s.excerpt.length} > ${EXCERPT_CAP} (audit §5 hard cap)`);
+    if (s.source_type != null && !SOURCE_TYPES.has(s.source_type))
+      err(`source_type "${s.source_type}" not a known type`);
+    if (
+      s.reliability_score != null &&
+      !(
+        Number.isInteger(s.reliability_score) &&
+        s.reliability_score >= 1 &&
+        s.reliability_score <= 5
+      )
+    )
+      err(`reliability_score ${s.reliability_score} out of 1..5`);
+    if (s.accessed_at != null && !ISO_DATE_RE.test(s.accessed_at))
+      err(`accessed_at "${s.accessed_at}" is not YYYY-MM-DD`);
+    if ((s.excerpt ?? '').length > EXCERPT_CAP)
+      err(`source excerpt ${s.excerpt.length} > ${EXCERPT_CAP} (audit §5 hard cap)`);
   }
 
   for (const m of row.media ?? []) {
-    if (!MEDIA_KINDS.has(m.kind)) err(`media kind "${m.kind}" not in ${[...MEDIA_KINDS].join('|')}`);
-    if (!MEDIA_RIGHTS.has(m.rights)) err(`media rights "${m.rights}" not in ${[...MEDIA_RIGHTS].join('|')} — every media ref needs a rights status`);
+    if (!MEDIA_KINDS.has(m.kind))
+      err(`media kind "${m.kind}" not in ${[...MEDIA_KINDS].join('|')}`);
+    if (!MEDIA_RIGHTS.has(m.rights))
+      err(
+        `media rights "${m.rights}" not in ${[...MEDIA_RIGHTS].join('|')} — every media ref needs a rights status`,
+      );
     if (m.kind === 'oembed' && !m.post_url) err('oembed media entry missing post_url');
-    if (m.kind === 'owned' && !(m.asset_path && m.license_ref)) err('owned media entry missing asset_path/license_ref');
+    if (m.kind === 'owned' && !(m.asset_path && m.license_ref))
+      err('owned media entry missing asset_path/license_ref');
     if (m.kind === 'hotlink_legacy' && !m.url) err('hotlink_legacy media entry missing url');
   }
 }
@@ -245,16 +306,26 @@ for (const entry of releaseRows) {
   const { row, file } = entry;
   const { err } = makeReporters(`${file} "${String(row.title ?? row.slug ?? '').slice(0, 42)}"`);
   checkCommon({ ...entry, err }, releaseSlugs);
-  if (!RELEASE_KINDS.has(row.kind)) err(`kind "${row.kind}" not in ${[...RELEASE_KINDS].join('|')}`);
-  if (!ISO_DATE_RE.test(row.releaseDate ?? '')) err(`releaseDate "${row.releaseDate}" is not YYYY-MM-DD`);
+  if (!RELEASE_KINDS.has(row.kind))
+    err(`kind "${row.kind}" not in ${[...RELEASE_KINDS].join('|')}`);
+  if (!ISO_DATE_RE.test(row.releaseDate ?? ''))
+    err(`releaseDate "${row.releaseDate}" is not YYYY-MM-DD`);
   capped(err, 'note', row.note, 400);
-  if (row.tracklist != null && !Array.isArray(row.tracklist)) err('tracklist must be an array of track titles');
-  if (row.trackCount != null && Array.isArray(row.tracklist) && row.tracklist.length > 0 && row.tracklist.length !== row.trackCount)
+  if (row.tracklist != null && !Array.isArray(row.tracklist))
+    err('tracklist must be an array of track titles');
+  if (
+    row.trackCount != null &&
+    Array.isArray(row.tracklist) &&
+    row.tracklist.length > 0 &&
+    row.tracklist.length !== row.trackCount
+  )
     err(`trackCount ${row.trackCount} != tracklist length ${row.tracklist.length}`);
 }
 for (const { row, file } of releaseRows) {
   if (row.parentReleaseSlug != null && !releaseSlugs.has(row.parentReleaseSlug)) {
-    console.error(`ERROR ${file} "${row.slug}": parentReleaseSlug "${row.parentReleaseSlug}" is not a known release slug`);
+    console.error(
+      `ERROR ${file} "${row.slug}": parentReleaseSlug "${row.parentReleaseSlug}" is not a known release slug`,
+    );
     errors += 1;
   }
 }
@@ -266,12 +337,14 @@ for (const entry of await loadTypeDir('tours', 'tours')) {
   const { err } = makeReporters(`${file} "${String(row.title ?? row.slug ?? '').slice(0, 42)}"`);
   checkCommon({ ...entry, err }, tourSlugs);
   if (!ISO_DATE_RE.test(row.openedOn ?? '')) err(`openedOn "${row.openedOn}" is not YYYY-MM-DD`);
-  if (row.closedOn != null && !ISO_DATE_RE.test(row.closedOn)) err(`closedOn "${row.closedOn}" is not YYYY-MM-DD`);
+  if (row.closedOn != null && !ISO_DATE_RE.test(row.closedOn))
+    err(`closedOn "${row.closedOn}" is not YYYY-MM-DD`);
   capped(err, 'note', row.note, 400);
   capped(err, 'surpriseSongsNote', row.surpriseSongsNote, 400);
   for (const leg of row.legs ?? []) {
     if (!leg.name) err('leg missing name');
-    if (!ISO_DATE_RE.test(leg.from ?? '') || !ISO_DATE_RE.test(leg.to ?? '')) err(`leg "${leg.name}" from/to must be YYYY-MM-DD`);
+    if (!ISO_DATE_RE.test(leg.from ?? '') || !ISO_DATE_RE.test(leg.to ?? ''))
+      err(`leg "${leg.name}" from/to must be YYYY-MM-DD`);
   }
   for (const show of row.shows ?? []) {
     const sAt = `show ${show.date ?? '?'}`;
@@ -279,7 +352,8 @@ for (const entry of await loadTypeDir('tours', 'tours')) {
     if (!show.city || !show.venue) err(`${sAt}: needs city + venue (venue-level, past-tense only)`);
     capped(err, `${sAt} outfitNote`, show.outfitNote, 400);
     capped(err, `${sAt} setlistChange`, show.setlistChange, 400);
-    if (show.confidence != null && !THEORY_CONFIDENCE.has(show.confidence)) err(`${sAt}: confidence "${show.confidence}" not a known level`);
+    if (show.confidence != null && !THEORY_CONFIDENCE.has(show.confidence))
+      err(`${sAt}: confidence "${show.confidence}" not a known level`);
   }
 }
 
@@ -293,9 +367,14 @@ for (const entry of await loadTypeDir('theories', 'theories')) {
   if (!row.claim) err('missing claim');
   capped(err, 'claim', row.claim, 400);
   capped(err, 'evidence', row.evidence, 2000);
-  if (!THEORY_CONFIDENCE.has(row.confidence)) err(`confidence "${row.confidence}" missing or not a known level — REQUIRED so speculation never renders as fact`);
-  if (!THEORY_OUTCOMES.has(row.outcome)) err(`outcome "${row.outcome}" missing or not a known value — REQUIRED`);
-  if (row.relatedSlugs != null && !Array.isArray(row.relatedSlugs)) err('relatedSlugs must be an array');
+  if (!THEORY_CONFIDENCE.has(row.confidence))
+    err(
+      `confidence "${row.confidence}" missing or not a known level — REQUIRED so speculation never renders as fact`,
+    );
+  if (!THEORY_OUTCOMES.has(row.outcome))
+    err(`outcome "${row.outcome}" missing or not a known value — REQUIRED`);
+  if (row.relatedSlugs != null && !Array.isArray(row.relatedSlugs))
+    err('relatedSlugs must be an array');
 }
 
 // -- videos --
@@ -305,7 +384,8 @@ for (const entry of await loadTypeDir('videos', 'videos')) {
   const { err } = makeReporters(`${file} "${String(row.title ?? row.slug ?? '').slice(0, 42)}"`);
   checkCommon({ ...entry, err }, videoSlugs);
   if (!VIDEO_KINDS.has(row.kind)) err(`kind "${row.kind}" not in ${[...VIDEO_KINDS].join('|')}`);
-  if (row.releasedOn != null && !ISO_DATE_RE.test(row.releasedOn)) err(`releasedOn "${row.releasedOn}" is not YYYY-MM-DD`);
+  if (row.releasedOn != null && !ISO_DATE_RE.test(row.releasedOn))
+    err(`releasedOn "${row.releasedOn}" is not YYYY-MM-DD`);
   capped(err, 'summary', row.summary, 400);
   capped(err, 'symbolism', row.symbolism, 2000);
   for (const egg of row.easterEggs ?? []) capped(err, 'easterEggs entry', egg, 400);
