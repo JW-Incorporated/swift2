@@ -1394,12 +1394,17 @@ export default {
         // game (the point of the item) and the party photos are third-party
         // Instagram posts — so a clearly-labeled reference image of the venue
         // per the audit's §A2 stand-in rule. CC BY-SA 4.0, Wikimedia Commons.
+        // Re-checked 2026-07-18 (#762 enrichment): still nothing verifiable —
+        // the private 1587 Prime party was documented only via Kane Brown's
+        // Instagram (E!/SI/NBC all repost that same IG carousel), which fails
+        // the outlet-own-CDN rule. Deliberately left at one photo.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg/960px-Arrowhead_Stadium_%28October_27%2C_2019_-_2%29.jpg',
             credit: 'Kj1595 via Wikimedia Commons, CC BY-SA 4.0',
             caption: 'Reference image: Arrowhead Stadium (2019 file photo). No photos of Swift surfaced from this game — she attended unseen, confirmed by a source to E!.',
             kind: 'reference',
+            focalPoint: '50% 45%',
           },
         ],
       },

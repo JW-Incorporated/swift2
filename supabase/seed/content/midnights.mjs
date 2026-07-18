@@ -570,6 +570,7 @@ export default {
           {
             url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
             credit: 'CNN',
+            focalPoint: '36% 16%',
           },
         ],
       },
@@ -599,6 +600,7 @@ export default {
           {
             url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
             credit: 'CNN',
+            focalPoint: '36% 16%',
           },
         ],
       },
@@ -807,6 +809,7 @@ export default {
           {
             url: 'https://www.inquirer.com/resizer/v2/WZM56FNWJVQU4MGIKUF22L3Q2Q.jpg?auth=01fbce1493c6c84b5774b263114dc5841e2f76b4491df6f62ec647e96e55ef1a&width=760&height=507&smart=true',
             credit: 'The Philadelphia Inquirer',
+            focalPoint: '46% 30%',
           },
         ],
       },
@@ -945,6 +948,7 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/01/Taylor-swift-travis-kelce-jan-28-2024-baltimore-billboard-1548.jpg',
             credit: 'Billboard',
+            focalPoint: '55% 38%',
           },
         ],
       },

@@ -2241,6 +2241,12 @@ export default {
         // from its stable CDN copy; verified HTTP 200 + image/jpeg and
         // visually confirmed (the Wembley "I Can Do It With a Broken Heart"
         // cameo in white tie).
+        // Photo-enrichment pass (2026-07-18, #762): added a frame from GMA's
+        // own Dec. 18, 2025 first-look segment at the final episodes — actual
+        // docuseries footage (Disney+ bug visible), hotlinked from the same
+        // ABC News CDN as the source article's lead art. Verified HTTP 200 +
+        // image/jpeg, downloaded, and visually confirmed (rain-soaked
+        // reputation-set performance with dancers).
         photos: [
           {
             url: 'https://i.abcnewsfe.com/a/28b02501-c9ae-4c1b-bf3f-1e84c6916b90/eras-1-gty-er-251217_1766008410871_hpMain_16x9.jpg',
@@ -2248,6 +2254,15 @@ export default {
             caption:
               'The moment the docuseries revisits: Kelce, in white tie and top hat, on the Eras Tour stage at Wembley during "I Can Do It With a Broken Heart," June 2024.',
             kind: 'archival',
+            focalPoint: '55% 25%',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/698799cb-dc27-42ed-9766-e16fcee90faa/251218_gma_pop2_hpMain_16x9.jpg',
+            credit: 'Disney+ / ABC News (GMA first look)',
+            caption:
+              "Docuseries footage from GMA's exclusive first look at the final episodes: the rain-soaked reputation set, aired Dec. 18, 2025.",
+            kind: 'archival',
+            focalPoint: '54% 33%',
           },
         ],
       },
