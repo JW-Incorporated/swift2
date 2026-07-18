@@ -46,6 +46,17 @@ export default {
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg',
             credit: 'Kevin Winter/Getty Images for The Recording Academy',
+            focalPoint: '42% 22%',
+          },
+          // Photo pass #762 run 4 (2026-07-18): the other half of the night —
+          // accepting the record fourth Album of the Year. CBS's own CDN;
+          // curl-verified 200 image/jpeg (620x443), vision-confirmed.
+          {
+            url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2024/02/05/ab5beb9a-9706-4815-84aa-c61399cd2d4f/thumbnail/620x443g3/8ab5e40f2be348435c6a803e11b53a60/gettyimages-1986749514.jpg',
+            credit: 'John Shearer/Getty Images for The Recording Academy, via CBS News',
+            caption: 'Accepting Album of the Year for Midnights — the first artist to win the category four times.',
+            kind: 'primary',
+            focalPoint: '65% 22%',
           },
         ],
       },
@@ -82,6 +93,18 @@ export default {
           {
             url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_5-1-1440x1440.jpg',
             credit: 'Spotify Newsroom',
+            focalPoint: '60% 60%',
+          },
+          // Photo pass #762 run 4 (2026-07-18): second frame from Spotify's
+          // own newsroom gallery of the Grove pop-up — the arched display
+          // with the day's lyric reveal. curl-verified 200 image/jpeg
+          // (819x1024), vision-confirmed.
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_1-819x1024.jpg',
+            credit: 'Spotify Newsroom',
+            caption: 'The pop-up library\'s lyric case at The Grove — new album lines revealed each day before release.',
+            kind: 'archival',
+            focalPoint: '50% 60%',
           },
         ],
       },
@@ -114,10 +137,15 @@ export default {
             url: 'https://www.musicbusinessworldwide.com/taylor-swifts-the-fate-of-ophelia-becomes-most-streamed-song-in-a-single-day-on-spotify-as-new-album-shatters-records-across-platforms/',
           },
         ],
+        // Photo pass #762 run 4 (2026-07-18): left at one photo — the only
+        // on-topic imagery for this streaming milestone is Spotify's own
+        // campaign art (this portrait) or Grove pop-up photos already used
+        // on the single-day-record page; no distinct verifiable second image.
         photos: [
           {
             url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/TSwift-Square-header-1440x1440.jpg',
             credit: 'Spotify Newsroom',
+            focalPoint: '70% 40%',
           },
         ],
       },
@@ -146,6 +174,18 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg/1280px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight.jpg',
             credit: 'Wikimedia Commons',
+            focalPoint: '50% 25%',
+          },
+          // Photo pass #762 run 4 (2026-07-18): still from the official video
+          // — video ID verified via YouTube oEmbed (author @TaylorSwift,
+          // "Fortnight (feat. Post Malone) (Official Music Video)") this
+          // session; curl-verified 200 image/jpeg (1280x720), vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The self-directed black-and-white video, shot by Rodrigo Prieto — Video of the Year at the 2024 VMAs.',
+            kind: 'archival',
+            focalPoint: '48% 35%',
           },
         ],
       },
@@ -176,12 +216,16 @@ export default {
         ],
         // T16 photo pass (2026-07-09): The Anthology cover from Wikipedia's
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
+        // Photo pass #762 run 4 (2026-07-18): left at one photo — the 2 a.m.
+        // reveal was an Instagram post; the only other candidate (standard
+        // TTPD cover) is a ~300px fair-use render, below the ≥400px add bar.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/1/1b/The_Tortured_Poets_Department_The_Anthology.png',
             credit: 'Republic Records',
             caption: 'Cover of The Tortured Poets Department: The Anthology, the 31-track edition revealed at 2 a.m.',
             kind: 'primary',
+            focalPoint: '50% 38%',
           },
         ],
       },
@@ -219,8 +263,12 @@ export default {
       title: 'The Bolter, and the 1930s socialite fans think inspired it',
       snippet: 'A woman who leaves relationships the moment they turn — fans trace the title to a real 1900s aristocrat divorced five times over.',
       sourceUrl: 'https://www.bustle.com/entertainment/taylor-swift-the-bolter-theory-lady-idina-sackville',
+      // Photo pass #762 run 4 (2026-07-18): was the ?w=248&h=165 article
+      // thumbnail (496x330 rendered). Raised to ?w=1200&fit=max — same imgix
+      // asset, uncropped at 1200x800; curl-verified 200 image/jpeg and
+      // vision-confirmed (green folklore-style gown on wooden stage steps).
       thumbnailUrl:
-        'https://imgix.bustle.com/uploads/getty/2024/2/22/9b7b54e9-11ab-43f1-90fa-51af4b2737da-getty-2015053197.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
+        'https://imgix.bustle.com/uploads/getty/2024/2/22/9b7b54e9-11ab-43f1-90fa-51af4b2737da-getty-2015053197.jpg?w=1200&fit=max',
       moment: {
         context:
           'Lady Idina Sackville, part of the scandalous "Happy Valley set" in 1930s colonial Kenya, earned the "bolter" nickname after leaving her husband for another man; her own great-granddaughter, Frances Osborne, wrote a 2008 biography by the same title. Taylor has never confirmed the connection.\n\nThe Anthology track itself — written and produced with Aaron Dessner — sketches "an endearing and mischievous woman" who charms the "trophy hunters" pursuing her and escapes at every turn. Literary-minded listeners also point to Nancy Mitford\'s 1945 novel The Pursuit of Love, whose absentee mother figure is nicknamed "the Bolter" for serially abandoning her marriages; like the Sackville theory, it remains an interpretation fans and critics supplied, not one Swift has endorsed.',
@@ -236,8 +284,20 @@ export default {
         ],
         photos: [
           {
-            url: 'https://imgix.bustle.com/uploads/getty/2024/2/22/9b7b54e9-11ab-43f1-90fa-51af4b2737da-getty-2015053197.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
+            url: 'https://imgix.bustle.com/uploads/getty/2024/2/22/9b7b54e9-11ab-43f1-90fa-51af4b2737da-getty-2015053197.jpg?w=1200&fit=max',
             credit: 'Graham Denholm/TAS24/Getty Images Entertainment',
+            focalPoint: '48% 20%',
+          },
+          // Photo pass #762 run 4 (2026-07-18): William Orpen's 1915 portrait
+          // of Idina herself — the socialite the page is about. Public domain
+          // (Orpen d. 1931), Commons license verified via API; curl-verified
+          // 200 image/jpeg (1148x2000), vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Idina_Wallace%2C_by_William_Orpen.jpg',
+            credit: 'William Orpen (1915), public domain, via Wikimedia Commons',
+            caption: 'Lady Idina Sackville, painted by William Orpen in 1915 — the aristocrat fans trace the title to.',
+            kind: 'reference',
+            focalPoint: '48% 18%',
           },
         ],
       },
@@ -270,6 +330,21 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Kevin Mazur/TAS24/Getty Images',
+            focalPoint: '45% 25%',
+          },
+          // Photo pass #762 run 4 (2026-07-18): fan photo of the segment's
+          // Fortnight staging, Paris May 11, 2024 — CC BY 4.0, Commons
+          // license verified via API; curl-verified 200 image/jpeg (1280px
+          // render of 4000x2250 original), vision-confirmed (script-covered
+          // dress over the white bed frame). Distinct file from the shot on
+          // the Fortnight song page; the sibling Down Bad photo was skipped
+          // as already used on the Down Bad song page.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e4/Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight_2.jpg/1280px-Taylor_Swift_Eras_Tour_TTPD_Set_Fortnight_2.jpg',
+            credit: 'Vixy13 via Wikimedia Commons, CC BY 4.0',
+            caption: 'Draped over the bed frame in "Fortnight" — one of seven TTPD songs staged in the new segment, Paris, May 11, 2024.',
+            kind: 'primary',
+            focalPoint: '49% 30%',
           },
         ],
       },
@@ -376,6 +451,18 @@ export default {
             credit: 'BrigidLIS via Wikimedia Commons, CC BY 4.0',
             caption: 'Wembley Stadium during the 1989 set on Aug. 19, 2024 — night seven of the record eight-show stand.',
             kind: 'archival',
+            focalPoint: '35% 48%',
+          },
+          // Photo pass #762 run 4 (2026-07-18): THR's lead photo on its
+          // record-breaking-stand story, on THR's own CDN — the Lover-set
+          // crystal bodysuit against the pink screen at Wembley.
+          // curl-verified 200 image/jpeg (1296x730), vision-confirmed.
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/08/Taylor-Swift-Getty-H-2024-1.jpg?w=1296&h=730&crop=1',
+            credit: 'Getty Images, via The Hollywood Reporter',
+            caption: 'Onstage at Wembley during the record-setting London run, August 2024.',
+            kind: 'primary',
+            focalPoint: '47% 22%',
           },
         ],
       },
