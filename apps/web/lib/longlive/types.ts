@@ -190,6 +190,29 @@ export interface ContentItem {
    * lib/longlive/threads.ts, not by filtering CONTENT directly.
    */
   threadIds?: LensId[];
+  /**
+   * How major this event was in Taylor's life — an explicit authoring
+   * judgment call, not inferred from incidental signals (photo count, body
+   * length). Added 2026-07-18 (Joey + Wyatt) after the feed-tier system
+   * (`lib/longlive/feed-tiers.ts`) was found to size cards by proxy signals
+   * that don't reliably track actual importance — a routine sighting with
+   * several photos could out-rank a defining event with fewer.
+   *   - `'defining'` — rare, life-defining (a wedding, an album release, a
+   *     major breakup). Always renders as the full-bleed `hero` card tier,
+   *     regardless of the pacing throttle that otherwise spaces heroes out —
+   *     see `assignFeedTiers`. Also the trigger for the depth exception in
+   *     `docs/content-ops/depth-rubric.md` (defining items get materially
+   *     more sourced content than a routine item, mirroring the existing
+   *     `music`-category depth exception).
+   *   - `'notable'` — meaningfully important but not era-defining (a major
+   *     performance, a high-profile interview). Guaranteed at least `media`
+   *     tier — never demoted to a `chip`/`text` pacing breather.
+   *   - Absent (the default, most items) — routine; `assignFeedTiers`' existing
+   *     content-derived heuristic applies unchanged.
+   * See `docs/content-ops/depth-rubric.md` for how to judge this and
+   * `docs/decisions.md` 2026-07-18 for the full decision record.
+   */
+  significance?: 'defining' | 'notable';
 }
 
 /**

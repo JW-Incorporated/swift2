@@ -105,8 +105,12 @@ Enforced by DB CHECK constraints and restated as an authoring rule:
 - `moment.context` ≤2000 chars — link-first, not write-first. Omit by
   default for non-`music` categories; include only if a source reports a
   specific fact the snippet didn't already cover, and even then one short
-  line, not a paragraph. `music` items are the exception (comprehensive
-  coverage where sourced — see `song-annotation-standard.md`).
+  line, not a paragraph. Two exceptions get comprehensive coverage where
+  sourced, up to the cap: `music` items (see `song-annotation-standard.md`),
+  and any item marked `significance: 'defining'` regardless of category
+  (added 2026-07-18 — see `depth-rubric.md` "Item-level significance"). Both
+  exceptions still mean *more real sourced facts*, never speculation to fill
+  space — the no-fabrication rule doesn't loosen for either one.
 - Photos are always hotlinked with credit (credit = attribution, not legal
   clearance).
 

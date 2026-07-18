@@ -31,6 +31,70 @@ ships with 3. A single real-world event that spans categories (e.g. a dinner
 sighting) becomes multiple `month_item` rows, one per category — that's
 still each item earning its place on its own facts, not padding.
 
+## Item-level significance (added 2026-07-18) — a different axis from the tiers above
+
+The 3-tier rubric above governs **months** (how many items a month earns).
+`significance` (`apps/web/lib/longlive/types.ts`, `ContentItem.significance`)
+governs **individual items** within any month — how much depth *that one
+item* gets and how prominently it renders. The two are related (a Wavetop
+month's headline event will often be the month's `defining` item) but not
+the same thing: a Wavetop month can still have zero `defining` items if
+nothing in it was truly life-altering, and a `defining` item can occur in a
+month that wouldn't otherwise clear Wavetop on its own.
+
+**Decision (Joey + Wyatt, 2026-07-18, `docs/decisions.md`):** content should
+be weighted by the real-world importance of the event, not by incidental
+signals like photo count or write-up length — those used to be the only
+signal the feed's card-sizing logic had (`lib/longlive/feed-tiers.ts`), which
+meant a routine sighting with several photos could visually out-rank a
+defining event with fewer. `significance` fixes that by making importance an
+explicit authoring call instead of an inferred one.
+
+**The two values, and how to judge them:**
+
+- **`'defining'`** — reserve for genuinely life-altering events: a wedding, a
+  major breakup, an album release, an event on the scale of those. Test:
+  would a fan, years later, name this as one of the handful of moments that
+  defined this era of Taylor's life? If you're unsure, it's probably
+  `'notable'` instead — this tier should stay rare by design (see the two
+  seeded examples below).
+- **`'notable'`** — meaningfully important but not era-defining: a major
+  performance, a high-profile interview, a significant but non-defining
+  business/award moment.
+- **Omit entirely (the default, nearly all items)** — routine. Most Active-
+  and Wavetop-tier months are still made up of routine items; significance
+  is not a reward for a month clearing Wavetop, it's reserved for the
+  handful of items site-wide that are genuinely exceptional.
+
+**What `'defining'` actually changes:**
+
+1. **Depth** — a `'defining'` item gets the same kind of depth exception
+   `music` items already have (see Length discipline, `editorial-voice-and-
+   pipeline.md`): comprehensive `moment.context` where real sourced facts
+   support it, not the routine "one short line, omit by default" bar. Still
+   bound by the same no-fabrication rule — deeper means more real sourced
+   facts, never speculation to fill space.
+2. **Visibility** — the feed always renders it as the full-bleed `hero` card
+   tier (`lib/longlive/feed-tiers.ts`), never subject to the pacing throttle
+   that spaces out incidentally-hero-worthy items. `'notable'` gets a
+   guaranteed floor (never demoted to a routine-shaped card) without forcing
+   hero.
+3. **The timeline scrubber** — a `'defining'` item's date should also get a
+   `MILESTONES` entry (`lib/longlive/content.ts`) if it doesn't already have
+   one nearby, so it's reachable from the horizontal era-scrubber too, not
+   only the vertical feed. The two lists are hand-curated separately for now
+   (no automated sync) — check both when authoring a defining item.
+
+**Seeded examples** (`supabase/seed/content/the-life-of-a-showgirl.mjs`):
+`msg-wedding` (the wedding itself) and `showgirl-release-day` (the album
+release) are the first two items marked `'defining'` — read them for what
+"comprehensive depth, real sourcing, hero-worthy" looks like in practice.
+Retroactively reviewing the other 10 eras for their own defining events
+(there will be a small number each — a breakup, an album release, a major
+life turn) is real follow-up content work, not done in this pass; flag
+candidates as you encounter them rather than leaving significance unset by
+default forever.
+
 ## Authoring order
 
 Don't author chronologically from 2006. Start with the eras that are both

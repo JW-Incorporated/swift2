@@ -121,6 +121,19 @@ export function threadIdsFrom(threadIds) {
   return out.length ? out : undefined;
 }
 
+const VALID_SIGNIFICANCE = new Set(['defining', 'notable']);
+
+/**
+ * How major this event was (docs/decisions.md 2026-07-18) — an explicit
+ * authoring judgment, validated against the same two values ContentItem
+ * accepts (lib/longlive/types.ts). Returns undefined (field omitted, meaning
+ * "routine") for anything else rather than guessing, same convention as
+ * threadIdsFrom/relatedIdsFrom.
+ */
+export function significanceFrom(significance) {
+  return VALID_SIGNIFICANCE.has(significance) ? significance : undefined;
+}
+
 /** Allowed ImageRef.kind values (apps/web/lib/longlive/types.ts ImageKind). */
 const IMAGE_KINDS = new Set(['primary', 'reference', 'archival']);
 
@@ -202,6 +215,7 @@ export function addItem(
     threadIds,
     video,
     relatedIds,
+    significance,
   },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
@@ -245,6 +259,7 @@ export function addItem(
     video: hasVideo ? { youtubeId: video.youtubeId, title: video.title } : undefined,
     relatedIds: relatedIdsFrom(relatedIds),
     threadIds: threadIdsFrom(threadIds),
+    significance: significanceFrom(significance),
   });
 }
 
@@ -329,6 +344,11 @@ async function fetchFromSupabase() {
       // since those derive from `tags` in content.ts's build(), not from
       // this explicit threadIds field — only the *explicit* opt-in for the
       // other four threads is unavailable on live data until that migration.
+      // `significance` (2026-07-18) joins this same list: the column exists
+      // in the migration (supabase/migrations/20260718150000_month_item_
+      // significance.sql) but this SELECT isn't wired to read it yet — same
+      // follow-up, not done here since the live site reads seed files first
+      // anyway (docs/decisions.md, 2026-07-17).
     });
   }
 
@@ -368,6 +388,7 @@ async function fetchFromLocalFiles() {
         // Cross-links may live on the item or its Tier-1 moment detail —
         // accept either so the content lane can pick the natural home.
         relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
+        significance: item.significance ?? null,
       });
     }
   }
