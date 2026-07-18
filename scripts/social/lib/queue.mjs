@@ -37,3 +37,16 @@ export function selectDuePosts(items, now, postedToday) {
 export function utcDateOnly(isoOrDate) {
   return new Date(isoOrDate).toISOString().slice(0, 10);
 }
+
+/**
+ * Ground-truth counts of what's actually sitting in social/queue/, for the
+ * brief's Growth line — added 2026-07-18 after a brief asserted "drafts
+ * wait on your OK in Slack #social" while the queue was empty. No LLM
+ * curation pass should ever describe queue contents from what the charter
+ * says *should* happen; this is the deterministic fact to copy instead.
+ */
+export function summarizeQueueStatus(items) {
+  const awaitingApproval = items.filter((item) => !item.approvedBy || !item.approvedAt).length;
+  const approved = items.length - awaitingApproval;
+  return { total: items.length, awaitingApproval, approved };
+}
