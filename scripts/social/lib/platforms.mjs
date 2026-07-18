@@ -5,7 +5,7 @@
 
 import { oauth1Header } from './oauth1.mjs';
 
-const GRAPH_VERSION = 'v25.0';
+export const GRAPH_VERSION = 'v25.0';
 
 /**
  * Posts a text tweet via X's v2 API (OAuth1 user context). Image/video

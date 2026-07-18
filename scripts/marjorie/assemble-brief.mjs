@@ -11,11 +11,58 @@
 // Requires an authenticated `gh` CLI. Read-only: never writes to GitHub.
 
 import { execFileSync } from 'node:child_process';
+import { readdirSync, readFileSync } from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { computeDeltas } from '../social/lib/growth.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
+const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
+const METRICS_DIR = path.join(ROOT, 'social', 'metrics');
 
 function gh(args) {
   return JSON.parse(execFileSync('gh', args, { encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 }));
+}
+
+// Reads the two most recent social/metrics/YYYY-MM-DD.json files (written
+// by .github/workflows/growth-snapshot.yml) and computes follower deltas.
+// Returns null if growth-snapshot.yml hasn't produced a file yet — the
+// brief says so plainly rather than showing a fabricated zero.
+export function fetchGrowthSnapshot(metricsDir = METRICS_DIR) {
+  let files;
+  try {
+    files = readdirSync(metricsDir).filter((f) => f.endsWith('.json')).sort();
+  } catch {
+    return null;
+  }
+  if (files.length === 0) return null;
+  const latest = JSON.parse(readFileSync(path.join(metricsDir, files.at(-1)), 'utf-8'));
+  const previous = files.length >= 2
+    ? JSON.parse(readFileSync(path.join(metricsDir, files.at(-2)), 'utf-8'))
+    : null;
+  return { ...latest, deltas: computeDeltas(latest.followers, previous?.followers) };
+}
+
+function formatFollowerCount(n) {
+  if (typeof n !== 'number') return '?';
+  return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
+}
+
+function formatDelta(n) {
+  return typeof n === 'number' ? ` (${n >= 0 ? '+' : ''}${n})` : '';
+}
+
+// Pure formatter, kept separate from fetchGrowthSnapshot's filesystem read
+// so the display logic is unit-testable without fixture files.
+export function formatGrowthLine(growth) {
+  if (!growth) return "- Growth: no snapshot yet (growth-snapshot.yml hasn't run)";
+  const { followers, deltas, postsToday } = growth;
+  const parts = [
+    `IG ${formatFollowerCount(followers.instagram)}${formatDelta(deltas.instagram)}`,
+    `X ${formatFollowerCount(followers.x)}${formatDelta(deltas.x)}`,
+    `FB ${formatFollowerCount(followers.facebook)}${formatDelta(deltas.facebook)}`,
+  ];
+  return `- Growth: ${parts.join(' · ')} · ${postsToday} post${postsToday === 1 ? '' : 's'} today · site: pending #799`;
 }
 
 export function fetchState(repo = REPO) {
@@ -31,6 +78,7 @@ export function fetchState(repo = REPO) {
       '--json', 'number,title,author,isDraft,reviewDecision,createdAt']),
     mergedPRs: gh(['pr', 'list', '--repo', repo, '--state', 'merged', '--limit', '30',
       '--json', 'number,title,mergedAt']),
+    growth: fetchGrowthSnapshot(),
   };
 }
 
@@ -66,7 +114,7 @@ function hoursOld(iso, now) {
 }
 
 export function buildBrief(state, { date, now = Date.now() } = {}) {
-  const { decisions, intake, alerts, openPRs, mergedPRs } = state;
+  const { decisions, intake, alerts, openPRs, mergedPRs, growth } = state;
   const dayMs = 24 * 3_600_000;
   const mergedToday = mergedPRs.filter((p) => now - new Date(p.mergedAt).getTime() < dayMs);
   const staleIntake = intake.filter((i) => hoursOld(i.createdAt, now) >= 48);
@@ -114,6 +162,7 @@ export function buildBrief(state, { date, now = Date.now() } = {}) {
   out.push(`- Open watchdog alerts: ${alerts.length ? alerts.map((a) => `#${a.number}`).join(' ') : 'none 🟢'}`);
   out.push(`- Intake queue: ${intake.length} open${staleIntake.length ? ` — ⚠ ${staleIntake.length} older than 48h untriaged` : ''}`);
   out.push('- Spend vs monthly cap: _(collector lands in Phase 2 — report manually)_');
+  out.push(formatGrowthLine(growth));
 
   out.push('', '## 5 · Today\'s plan', '_(Marjorie: one line per active desk.)_', '');
   return out.join('\n');
