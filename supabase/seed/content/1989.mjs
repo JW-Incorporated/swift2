@@ -853,7 +853,23 @@ export default {
             url: 'https://www.forbes.com/sites/hughmcintyre/2023/10/10/taylor-swifts-1989-songs-ranked/',
           },
         ],
-        photos: [{ url: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960', credit: 'Forbes' }],
+        // Photo-enrichment pass (2026-07-18, #762): added the ballerina frame from the
+        // official Shake It Off video (id oEmbed-verified against @TaylorSwift; 480px frame,
+        // downloaded and visually confirmed). Per-image focal points set by viewing each image.
+        photos: [
+          {
+            url: 'https://imageio.forbes.com/specials-images/imageserve/1189862274/Taylor-Swift-Shake-It-Off-RIAA-Diamond/0x0.jpg?width=960',
+            credit: 'Forbes',
+            focalPoint: '45% 24%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/hq2.jpg',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            focalPoint: '52% 48%',
+            caption: "The swan-tutu ballerina scene from the official 'Shake It Off' video — the single that, six years on, became her first Diamond-certified song.",
+          },
+        ],
       },
     },
     {
@@ -873,7 +889,23 @@ export default {
           { outlet: 'AOL', url: 'https://www.aol.com/articles/only-30-albums-women-certified-202930018.html' },
           { outlet: 'RIAA Gold & Platinum Database', url: 'https://www.riaa.com/gold-platinum/?tab_active=default-award&ar=Taylor+Swift&ti=1989' },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png', credit: 'Big Machine Records' }],
+        // Photo-enrichment pass (2026-07-18, #762): added GabboT's Ford Field shot of the
+        // 1989 World Tour (Commons license API-verified CC BY-SA 2.0; downloaded and
+        // visually confirmed the 1989-era look). Focal points set per image by viewing.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
+            credit: 'Big Machine Records',
+            focalPoint: '50% 38%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_003_%28cropped%29.jpg',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            kind: 'archival',
+            focalPoint: '46% 10%',
+            caption: 'Performing "Welcome to New York" at Ford Field in Detroit, May 30, 2015 — the era whose album crossed the Diamond line a decade later.',
+          },
+        ],
       },
     },
     {
@@ -902,7 +934,10 @@ export default {
         // photo of her onstage on the 1989 World Tour, short bob included (CC BY-SA 2.0,
         // GabboT); curl-verified 200/image-jpeg, downloaded and visually confirmed the
         // correct 1989-era look.
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg', credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', caption: 'Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.' }],
+        // Photo-enrichment pass (2026-07-18, #762): deliberately kept at one photo — the
+        // moment is a label decision with no photographable event; era-correct archival
+        // tour shot already covers it, and the only Nov-2014 news art is agency/watermarked.
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg', credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', focalPoint: '42% 24%', caption: 'Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.' }],
       },
     },
     {
@@ -965,7 +1000,23 @@ export default {
         context:
           "Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Swift on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.\n\nThe bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time.",
         sources: [{ outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)' }],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png', credit: 'Big Machine Records' }],
+        // Photo-enrichment pass (2026-07-18, #762): added the blizzard frame from the
+        // official Out of the Woods video (id oEmbed-verified against @TaylorSwift;
+        // downloaded and visually confirmed). Focal points set per image by viewing.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png',
+            credit: 'Big Machine Records',
+            focalPoint: '47% 42%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/hq2.jpg',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            focalPoint: '48% 42%',
+            caption: "Frost-covered mid-blizzard — a still from Joseph Kahn's official 'Out of the Woods' video, premiered on New Year's Eve 2015.",
+          },
+        ],
       },
     },
 
@@ -1011,10 +1062,22 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added the signature frame from the
+        // Shake It Off video, which dropped the same day as this livestream (id
+        // oEmbed-verified against @TaylorSwift; downloaded and visually confirmed).
+        // Album-cover focalPoint matches the same image on the 2025 Diamond item.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f6/Taylor_Swift_-_1989.png',
             credit: 'Big Machine Records',
+            focalPoint: '50% 38%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/maxresdefault.jpg',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            focalPoint: '50% 48%',
+            caption: "The 'Shake It Off' video's most-talked-about scene — the single and video dropped the same day as the livestream reveal.",
           },
         ],
       },
@@ -1367,12 +1430,24 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added the Kendrick/Catastrophe
+        // split-screen frame from the same official video (id oEmbed-verified against
+        // @TaylorSwift; distinct scene from the existing close-up, downloaded and
+        // visually confirmed). Focal points set per image by viewing.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/hqdefault.jpg',
             credit: 'Big Machine Records / Taylor Swift via YouTube',
             kind: 'archival',
+            focalPoint: '48% 45%',
             caption: "Catastrophe mid-transformation — a still from the official 'Bad Blood' video that premiered at the 2015 BBMAs and broke the Vevo 24-hour record.",
+          },
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/hq1.jpg',
+            credit: 'Big Machine Records / Taylor Swift via YouTube',
+            kind: 'archival',
+            focalPoint: '50% 34%',
+            caption: 'Kendrick Lamar as Welvin da Great opposite Catastrophe — the featured verse that shared the record-breaking premiere.',
           },
         ],
       },
@@ -1684,12 +1759,24 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added the 1989 act from the same
+        // Aug. 9, 2023 SoFi show (Commons API-verified CC BY 2.0, Paolo Villanueva,
+        // EXIF-dated 2023-08-09; downloaded and visually confirmed the blue sparkle
+        // 1989 set). Focal points set per image by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg/960px-Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110098448%29.jpg',
             credit: 'Paolo V / Wikimedia Commons, CC BY 2.0',
             kind: 'primary',
+            focalPoint: '62% 45%',
             caption: 'Onstage at SoFi Stadium on Aug. 9, 2023 — the night of the 1989 (Taylor\'s Version) announcement — during the Midnights act.',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109741404%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109741404%29.jpg',
+            credit: 'Paolo Villanueva / Wikimedia Commons, CC BY 2.0',
+            kind: 'primary',
+            focalPoint: '72% 56%',
+            caption: 'The 1989 act at SoFi that same night — one of the not-so-subtle blue hints dropped across the show before the screens flipped.',
           },
         ],
       },

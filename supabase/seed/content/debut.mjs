@@ -143,10 +143,22 @@ export default {
           },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/marys-song-oh-my-my-my' },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added a period photo from three weeks
+        // after the album (and this song) released — Commons PD-self, photographer-uploaded
+        // Nov. 2006; downloaded and visually confirmed 2006-era Taylor. Focal points set
+        // per image by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
             credit: 'Big Machine Records (debut album cover art, 500px Wikipedia file)',
+            focalPoint: '60% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG',
+            credit: 'BHFeller / Wikimedia Commons, public domain',
+            kind: 'archival',
+            focalPoint: '47% 32%',
+            caption: 'Sixteen-year-old Taylor — skull-print cowboy boots and all — backstage before singing the national anthem at Phoenix International Raceway, Nov. 12, 2006, three weeks after the debut album arrived.',
           },
         ],
       },
@@ -167,10 +179,21 @@ export default {
           { outlet: 'Wikipedia', url: "https://en.wikipedia.org/wiki/Should've_Said_No" },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/shouldve-said-no' },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added Brian Cantoni's debut-era photo
+        // (Commons API-verified CC BY 2.0, EXIF-dated May 16, 2007; downloaded and visually
+        // confirmed). Focal points set per image by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6b/Taylor_Swift_-_Should%27ve_Said_No_artwork.png',
             credit: 'Big Machine Records (single cover art)',
+            focalPoint: '42% 48%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/960px-Taylor_Swift_%282007%29_retouched.jpg',
+            credit: 'Brian Cantoni / Wikimedia Commons, CC BY 2.0',
+            kind: 'archival',
+            focalPoint: '38% 22%',
+            caption: 'Debut-era Taylor and her koa-wood Taylor guitar at an outdoor Yahoo headquarters set, May 16, 2007 — the album cycle that carried this song to its 2008 single release.',
           },
         ],
       },
@@ -192,10 +215,21 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/A_Place_in_This_World' },
           { outlet: 'Songfacts', url: 'https://www.songfacts.com/facts/taylor-swift/a-place-in-this-world' },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added an Aug. 2007 live shot (Commons
+        // API-verified CC BY-SA 2.0, minds-eye; downloaded and visually confirmed debut-era
+        // Taylor onstage). Focal points set per image by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg',
             credit: 'Wikimedia Commons',
+            focalPoint: '70% 16%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg',
+            credit: 'minds-eye / Wikimedia Commons, CC BY-SA 2.0',
+            kind: 'archival',
+            focalPoint: '50% 20%',
+            caption: 'Performing live in August 2007, mid-debut era — the album cycle where the song she wrote at 13 finally found its audience.',
           },
         ],
       },
