@@ -117,6 +117,16 @@ Mirrors the company's existing dual-AI operating model
 instead of code — Codex's job is to disagree, and cross-provider review
 catches what self-review can't.
 
+**Applies identically no matter who or what produced the first draft**
+(added 2026-07-18): a ChatGPT-drafted article, a lead surfaced by the
+News/Current worker (`apps/worker`, `docs/content-ops/intake.md`), or
+anything else brought in from outside this pipeline is a *source lead*, not
+a draft that gets to skip straight to step 2 or 3. It re-enters at step 1 —
+re-drafted against this voice guide from its underlying facts/sources, not
+lightly edited from its original wording. A draft sounding fluent or
+already citing outlets is not evidence it's ready; re-verify the citations
+independently regardless of how confident the original draft reads.
+
 1. **Claude drafts** each item against this voice guide.
 2. **Codex reviews** (cross-provider, not the same model checking its own
    work) specifically for:
