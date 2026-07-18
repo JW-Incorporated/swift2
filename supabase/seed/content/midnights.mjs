@@ -290,8 +290,8 @@ export default {
       relatedIds: [
         'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
         'moment:vault-midnights-the-eras-tour-film-opens-to-92-8-million-the-biggest-concert',
-        'moment:vault-tortured-poets-the-eras-tour-takes-its-final-bow-in-vancouver',
-        'moment:vault-tortured-poets-the-first-tour-ever-to-gross-2-billion',
+        'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+        'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
       ],
       title: 'The Eras Tour kicks off in Glendale',
       snippet:
