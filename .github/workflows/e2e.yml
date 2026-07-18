@@ -25,8 +25,10 @@ on:
         required: false
         default: 'https://www.longlivets.com'
   schedule:
-    # 13:00 UTC daily (~morning US). Cron runs against production only.
-    - cron: '0 13 * * *'
+    # ~13:00 UTC daily (~morning US). Cron runs against production only.
+    # Offset off :00 (2026-07-18) — see watchdog.yml's header note on repo
+    # scheduling contention from the two */30 workflows.
+    - cron: '5 13 * * *'
 
 jobs:
   e2e:

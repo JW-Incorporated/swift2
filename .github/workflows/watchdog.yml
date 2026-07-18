@@ -1,24 +1,37 @@
 # The watchdog — dumb code that watches the watchers (incl. Marjorie).
 # Operating model §4.2/§6: a non-LLM heartbeat, independent of every session
-# cron it monitors. Two jobs, deliberately zero AI:
+# cron it monitors. Three jobs, deliberately zero AI:
 #   1. brief-heartbeat — if today's Founders' Brief hasn't appeared, open (or
 #      refresh) a loud watchdog-alert issue mentioning both founders.
 #   2. degraded-propagation — runs only when the brief is missing: founder
 #      comments on raw bank issues still reach the tickets they unblock
 #      (operating model §5.2: answers propagate with zero LLM in the loop).
+#   3. mailer retry (added 2026-07-18) — the brief can exist but never get
+#      emailed: GitHub Actions schedule triggers are documented to slip
+#      during high load *within a repo* (this one now runs two separate
+#      */30 workflows — social-poster.yml, marjorie-inbox.yml — plus several
+#      daily crons clustered at :00/:30, which is exactly that condition).
+#      Confirmed for real 2026-07-18: brief-mailer.yml's 12:45 UTC trigger
+#      didn't fire at all that day. If today's brief exists but no
+#      brief-mailer run today actually mailed it, this triggers
+#      brief-mailer.yml directly as a same-day catch-up.
 #
 # Cron is UTC; the brief deadline is 6:00 AM America/Los_Angeles.
 # 14:30 UTC = 7:30 AM PDT (90 min grace) / 6:30 AM PST (30 min grace) —
 # the uneven winter grace is intentional and preferred over DST-shifted
 # double schedules; 30 minutes is still comfortably past the deadline.
+# Minute offset to :35 (was :30, 2026-07-18): :30 is exactly when the repo's
+# two */30 workflows also fire — moving off it is the same fix as the mailer
+# retry's root cause, applied to this workflow's own trigger too.
 name: watchdog
 on:
   schedule:
-    - cron: "30 14 * * *"
+    - cron: "35 14 * * *"
   workflow_dispatch: {}
 
 permissions:
   issues: write
+  actions: write
 
 jobs:
   watchdog:
@@ -42,6 +55,30 @@ jobs:
           else
             echo "missing=true" >> "$GITHUB_OUTPUT"
             echo "MISSING: no brief titled '$TITLE'"
+          fi
+
+      - name: Ensure today's brief was actually emailed (same-day catch-up)
+        if: steps.brief.outputs.missing == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          TODAY_UTC=$(date -u +%F)
+          MAILED=false
+          for id in $(gh run list --repo "$REPO" --workflow brief-mailer.yml \
+              --created "${TODAY_UTC}" --limit 20 --json databaseId,conclusion \
+              --jq '.[] | select(.conclusion=="success") | .databaseId'); do
+            if gh run view "$id" --repo "$REPO" --log 2>/dev/null | grep -q "Mailed \[Founders' Brief"; then
+              MAILED=true
+              break
+            fi
+          done
+          if [ "$MAILED" = "true" ]; then
+            echo "Today's brief was already mailed."
+          else
+            echo "Brief exists but wasn't mailed today (scheduled trigger likely missed it) — retrying now."
+            gh workflow run brief-mailer.yml --repo "$REPO" -f mode=brief
           fi
 
       - name: Alert founders (brief missing)
