@@ -201,6 +201,9 @@ export default {
             caption:
               'The official album cover: Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia beneath the orange-glitter title.',
             kind: 'primary',
+            // Focal point set 2026-07-18 by viewing the image: her face sits
+            // upper-center-right of the square cover.
+            focalPoint: '55% 22%',
           },
           // Release-day pop-up/theater-event photos were looked for on 2026-07-09
           // but skipped: the only credited galleries found (Deadline) sit behind a
@@ -254,6 +257,22 @@ export default {
             caption:
               'The official poster for the one-weekend-only theatrical event that turned the album\'s release day into a group listening party.',
             kind: 'primary',
+            // Focal point set 2026-07-18 by viewing: her face is upper-middle,
+            // just left of center on the portrait poster.
+            focalPoint: '46% 32%',
+          },
+          // Added 2026-07-18 (photo-enrichment run 2, #762): fan photo from
+          // opening day, hosted on Rolling Stone's own CDN (wp-content, not a
+          // watermarked comp). Verified HTTP 200 + image/jpeg, downloaded and
+          // vision-confirmed: fans in orange outfits and Eras merch celebrate
+          // outside AMC Lincoln Square 13, Oct. 3, 2025 (per RS's caption).
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2025/10/taylor-swift-AMC-watch-party.jpg?w=1600&h=900&crop=1',
+            credit: 'Dia Dipasupil/Getty Images, via Rolling Stone',
+            caption:
+              'Fans in album-orange outfits celebrate outside the AMC Lincoln Square 13 theater in New York on release day, Oct. 3, 2025.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
           },
         ],
       },
@@ -299,6 +318,22 @@ export default {
             caption:
               'The poster for the event that topped the weekend box office — an album release party billed, sold, and reported like a feature film.',
             kind: 'archival',
+            // Focal point set 2026-07-18 by viewing: face upper-middle-left.
+            focalPoint: '46% 32%',
+          },
+          // Added 2026-07-18 (photo-enrichment run 2, #762): the album-era
+          // promo still The Hollywood Reporter ran with its box-office story,
+          // hosted on THR's own CDN. Verified HTTP 200 + image/jpeg, downloaded
+          // and vision-confirmed (Swift in the black-bob showgirl look with pink
+          // feathers in a dressing-room set — the era's press imagery, no
+          // watermark).
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2025/10/TLOASPromo-H-2025.jpg',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via The Hollywood Reporter',
+            caption:
+              'The album-era promo image that ran with the box-office coverage: the showgirl in her dressing room, feathers and all.',
+            kind: 'archival',
+            focalPoint: '53% 22%',
           },
         ],
       },
@@ -344,6 +379,22 @@ export default {
             caption:
               'The album behind the biggest sales week ever measured: 4.002 million equivalent units in seven days.',
             kind: 'archival',
+            // Focal point set 2026-07-18 by viewing: face upper-center-right.
+            focalPoint: '55% 22%',
+          },
+          // Added 2026-07-18 (photo-enrichment run 2, #762): official album
+          // press photo Billboard ran with its 4-million-week chart coverage,
+          // hosted on Billboard's own CDN (wp-content — an allowed outlet CDN,
+          // not a Getty comp). Verified HTTP 200 + image/jpeg, downloaded and
+          // vision-confirmed (Swift in the jeweled showgirl costume on the
+          // theater-stage set from the album shoot; clean, no watermark).
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg?w=942&h=628&crop=1',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption:
+              'The album-shoot press image Billboard ran with the record-shattering chart week: 4.002 million units, the biggest ever measured.',
+            kind: 'archival',
+            focalPoint: '54% 18%',
           },
         ],
       },
@@ -391,6 +442,23 @@ export default {
             caption:
               '"The Fate of Ophelia," whose Oct. 3 numbers made it the most-streamed song in a single day in Spotify history.',
             kind: 'archival',
+            // Focal point set 2026-07-18 by viewing: her face is centered,
+            // upper-middle of the frame amid the red feather fans.
+            focalPoint: '50% 35%',
+          },
+          // Added 2026-07-18 (photo-enrichment run 2, #762): the album-era
+          // portrait Spotify itself ran with its streaming-record newsroom post,
+          // hosted on Spotify's own newsroom CDN (storage.googleapis.com/
+          // pr-newsroom-wp — the newsroom's image host). Verified HTTP 200 +
+          // image/jpeg, downloaded and vision-confirmed (red-feather showgirl
+          // portrait from the album package; clean, no watermark).
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2025/10/5_RedFront-1440x1440.jpg',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Spotify Newsroom',
+            caption:
+              'The album-package portrait Spotify published alongside its announcement that the 2025 single-day streaming record had fallen in under 11 hours.',
+            kind: 'archival',
+            focalPoint: '47% 40%',
           },
         ],
       },
@@ -439,6 +507,24 @@ export default {
             caption:
               'A fan holds a Target-exclusive pressing of The Life of a Showgirl on release week — one of the collectible variants that drove the first million-vinyl week ever tracked.',
             kind: 'primary',
+            // Focal point set 2026-07-18 by viewing: the held-up LP jacket is
+            // the subject, center-right of frame.
+            focalPoint: '55% 45%',
+          },
+          // Added 2026-07-18 (photo-enrichment run 2, #762): official promo
+          // for the Target-exclusive "The Crowd Is Your King" vinyl variant —
+          // one of the collectible pressings that powered the million-vinyl
+          // week — hosted on Billboard's own CDN. Verified HTTP 200 +
+          // image/jpeg, downloaded and vision-confirmed (Swift in showgirl
+          // corset holding the vinyl in the era's pink dressing-room set;
+          // clean, no watermark).
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/09/taylor-swift-the-crowd-is-your-king-billboard-1800.jpg',
+            credit: 'Courtesy of Republic Records, via Billboard',
+            caption:
+              'The Target-exclusive "The Crowd Is Your King" edition, one of the stack of collectible pressings behind the 1.334 million-LP week.',
+            kind: 'archival',
+            focalPoint: '48% 16%',
           },
         ],
       },
@@ -1153,6 +1239,10 @@ export default {
             caption:
               'The jumbotron outside Madison Square Garden reading "JUST&T MARRIED!" as fans stop to photograph it, the Empire State Building behind.',
             kind: 'primary',
+            // Focal points below set 2026-07-18 (photo-enrichment run 2, #762)
+            // by downloading and viewing each frame. Here the jumbotron text is
+            // the subject, upper-right of frame.
+            focalPoint: '70% 35%',
           },
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2026/07/02/e66f5b93-8b69-4557-847c-106908119407/thumbnail/620x413/06cdf599d84c9a589b8eb695f3867456/2026-07-02t205104z-316575572-rc2w5maws1vu-rtrmadp-3-people-taylor-swift-kelce.jpg',
@@ -1160,6 +1250,8 @@ export default {
             caption:
               "In the run-up to the ceremony: crews on ladders hang curtains across the Garden's glass entrance while security stands watch outside.",
             kind: 'archival',
+            // Crews on ladders + curtains occupy the upper half of the frame.
+            focalPoint: '50% 30%',
           },
           // 2026-07-09, relaxed image policy: the wire photos below (same CBS News
           // gallery as the two above) are now hotlinked with credit. Each URL
@@ -1171,6 +1263,8 @@ export default {
             caption:
               'Guest arrivals: Hugh Grant and Anna Elisabet Eberstein arrive at Madison Square Garden on July 2, 2026, as the multi-day celebration begins.',
             kind: 'primary',
+            // Two faces flank center in the upper third.
+            focalPoint: '48% 30%',
           },
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/46f18357-e274-4e86-a5ac-b173d9b01219/thumbnail/620x414/aff0da6d159019e0ce14046348347c7b/gettyimages-2284532594.jpg',
@@ -1178,6 +1272,8 @@ export default {
             caption:
               'Abby Wambach and Glennon Doyle arrive at Madison Square Garden for the wedding on July 3, 2026.',
             kind: 'primary',
+            // The couple walks center-right; faces sit high in the frame.
+            focalPoint: '62% 18%',
           },
           {
             url: 'https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/5ba6ed3b-0728-43a7-a105-2fdc2beb7097/thumbnail/620x414/ca2a0b800b41ca793cc0db76270c7ef5/gettyimages-2283912122.jpg',
@@ -1185,6 +1281,8 @@ export default {
             caption:
               'The scene outside: members of the media gather at Madison Square Garden on the wedding day, July 3, 2026.',
             kind: 'archival',
+            // Officer mid-frame left-of-center anchors the shot; camera row right.
+            focalPoint: '42% 45%',
           },
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/661a9e69-70e1-4a8c-88bc-e84d2bc985c0/thumbnail/620x414/82c6463f5b68d14f30b1660eb692a0d5/gettyimages-2283918271.jpg',
@@ -1192,6 +1290,8 @@ export default {
             caption:
               'Onlookers wait behind barriers outside Madison Square Garden ahead of the ceremony on July 3, 2026.',
             kind: 'archival',
+            // Crowd faces run through the middle band, slightly left of center.
+            focalPoint: '45% 50%',
           },
           // Still none of the ceremony/reception interior: no official or wire
           // photos from inside the ceremony/reception could be found and verified
@@ -1659,6 +1759,10 @@ export default {
             caption:
               'The proposal, from the couple\'s official announcement post: Kelce and Swift beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.',
             kind: 'primary',
+            // Focal points below set 2026-07-18 (photo-enrichment run 2, #762)
+            // by downloading and viewing each frame. The couple stands mid-frame,
+            // slightly right of center in the wide garden scene.
+            focalPoint: '52% 50%',
           },
           {
             url: 'https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg',
@@ -1666,6 +1770,8 @@ export default {
             caption:
               'From the same carousel: the couple embrace among the garden flowers, the new ring visible on Swift\'s hand.',
             kind: 'primary',
+            // Foreheads-together close-up; both faces sit upper-center.
+            focalPoint: '47% 30%',
           },
           {
             url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
@@ -1673,6 +1779,8 @@ export default {
             caption:
               'The ring close-up from the carousel: the Old Mine Cut brilliant diamond in yellow gold, designed by Travis Kelce with Kindred Lubeck of Artifex Fine Jewelry.',
             kind: 'primary',
+            // The diamond itself sits dead-center, slightly above middle.
+            focalPoint: '50% 42%',
           },
         ],
       },
