@@ -24,7 +24,10 @@
 name: growth-snapshot
 on:
   schedule:
-    - cron: "0 11 * * *"
+    # ~11:00 UTC — still >1.5h ahead of the 12:45 UTC brief. Offset off :00
+    # (2026-07-18) — see watchdog.yml's header note on repo scheduling
+    # contention from the two */30 workflows.
+    - cron: "5 11 * * *"
   workflow_dispatch:
 
 permissions:

@@ -2,17 +2,30 @@
 # From Marjorie's own Gmail, To Joey, CC Wyatt (Joey's calls, 2026-07-11).
 # Deterministic, zero AI. Two sends per day:
 #   - 12:45 UTC (~5:45 AM PDT): the Founders' Brief (issue body). Joey's
-#     requirement (2026-07-16): the email is IN HIS INBOX BY 6:00 AM.
-#     Actions cron can slip 5-15 min, so the send is anchored at 5:45 PDT;
-#     Marjorie's brief trigger must fire at 12:00 UTC (registry: docs/agents/
-#     runners.md) so the brief exists ~12:25. If it doesn't exist yet the
-#     mailer skips quietly and the 14:30 watchdog window is the alarm.
+#     requirement (2026-07-16): the email is IN HIS INBOX BY 6:00 AM. The
+#     send is anchored at 5:45 PDT for margin; Marjorie's brief trigger must
+#     fire at 12:00 UTC (registry: docs/agents/runners.md) so the brief
+#     exists ~12:25. If it doesn't exist yet the mailer skips quietly — but
+#     see the correction below, that's no longer the whole safety net.
 #     UTC-anchored on purpose (org precedent): winter sends land an hour
 #     earlier in PST — still in the inbox by 6:00, never after.
-#   - 03:00 UTC (~8:00 PM PDT / 7:00 PM PST): the Evening Delta (latest
+#   - 03:02 UTC (~8:00 PM PDT / 7:00 PM PST): the Evening Delta (latest
 #     brief comment). UTC-anchored like the morning send above — no hard
 #     deadline on this one, so the hour of winter drift is just accepted
-#     rather than compensated for.
+#     rather than compensated for. (:02, not :00 — see the scheduling note
+#     below.)
+#
+# CORRECTION (2026-07-18): "cron can slip 5-15 min" above was optimistic —
+# confirmed for real that a scheduled trigger in this repo can miss its slot
+# by hours or not fire at all some days. Root cause: this repo now runs two
+# separate */30 workflows (social-poster.yml, marjorie-inbox.yml) plus
+# several daily crons, clustering scheduled-trigger requests right at the
+# :00/:30 minutes GitHub's own docs flag as highest-contention. Two
+# mitigations landed the same day: every cron in this repo got nudged off
+# :00/:30 (this file included), and watchdog.yml's 14:30 UTC run now checks
+# whether today's brief was actually mailed — not just whether the brief
+# issue exists — and retriggers this workflow same-day if not. Neither
+# guarantees exact timing; the retry is the real backstop.
 #
 # This Action is THE real email channel. The brief's `cc @mention` line is only a
 # GitHub notification aid, NOT email delivery: Marjorie posts as a founder account
@@ -30,7 +43,7 @@ name: brief-mailer
 on:
   schedule:
     - cron: "45 12 * * *"  # morning brief (inbox by 6:00 AM PT; see header note)
-    - cron: "0 3 * * *"    # evening delta (8:00 PM PDT / 7:00 PM PST)
+    - cron: "2 3 * * *"    # evening delta (8:00 PM PDT / 7:00 PM PST); :02 not :00, see header note
   workflow_dispatch:
     inputs:
       mode:
