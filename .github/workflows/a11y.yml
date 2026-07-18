@@ -6,7 +6,7 @@ name: a11y
 on:
   workflow_dispatch:
   schedule:
-    - cron: "0 16 * * *"  # daily; Laura reads the artifact + adds judgment
+    - cron: "10 16 * * *"  # daily; Laura reads the artifact + adds judgment. Offset off :00 — see watchdog.yml's 2026-07-18 header note on repo scheduling contention.
 permissions:
   contents: read
 jobs:
