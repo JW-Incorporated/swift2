@@ -7,90 +7,57 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
-## 2026-07-19 — The 10 career-defining events, picked and deepened
+## 2026-07-19 — Round 2: the next 10 career-defining events
 
-**Decision:** Joey asked for the 10 most important events in Taylor's whole
-career/life to be identified and given materially more depth than the rest
-of the site — the most photos, the most content, the most cross-linking —
-building on the `significance` system from the day before. Picked (career-
-wide, not per-era, keeping `'defining'` rare per `docs/content-ops/depth-
-rubric.md`):
+**Decision:** Follow-up to the first 10-event pass (same-day, separate PR
+`content/ten-defining-events`, #849): Joey asked for the next 10 most
+important events after that batch. Picked (again career-wide, keeping
+`'defining'` rare):
 
-1. Debut album arrives (2006-10-24, `debut.mjs`)
-2. Kanye West interrupts her VMA speech (2009-09-13, `fearless.mjs`)
-3. Fearless wins Album of the Year, youngest ever (2010-01-31, `fearless.mjs`)
-4. 1989 wins AOTY — first woman to win it twice (2016-02-15, `1989.mjs`)
-5. The Kimye "Famous" call leak / cancellation saga (2016-07-17, `1989.mjs`)
-6. Scooter Braun buys Big Machine — the masters fight (2019-06-30, `lover.mjs`)
-7. folklore surprise-drops mid-pandemic (2020-07-23, `folklore.mjs`)
-8. The Eras Tour opens in Glendale (2023-03-17, `midnights.mjs`)
-9. Travis Kelce relationship goes public/official (2023-09-24, `midnights.mjs`)
-10. Wedding at Madison Square Garden (2026-07-03, `the-life-of-a-showgirl.mjs`)
+1. Fearless (Taylor's Version) — first re-recorded album ever to hit #1
+   (2021-04-18, `evermore.mjs`)
+2. All Too Well (10 Minute Version) — longest song ever to hit #1
+   (2021-11-22, `evermore.mjs`)
+3. Midnights sweeps the entire Hot 100 top 10 (2022-11-05, `midnights.mjs`)
+4. The Eras Tour presale breaks Ticketmaster, leads to a Senate hearing
+   (2022-11-15, `midnights.mjs`)
+5. A record 4th Album of the Year Grammy, for Midnights (2024-02-04,
+   `midnights.mjs`)
+6. Super Bowl LVIII appearance — the relationship's biggest mainstream
+   crossover moment (2024-02-11, `midnights.mjs`)
+7. TTPD's 2am reveal as a secret double album (2024-04-19,
+   `tortured-poets.mjs`)
+8. The Eras Tour's Vancouver finale — first tour ever to gross $2 billion
+   (2024-12-08, `tortured-poets.mjs`)
+9. The masters buyback — "All of the music I've ever made... now belongs...
+   to me" (2025-05-30, `tortured-poets.mjs`)
+10. The engagement announcement (2025-08-26, `the-life-of-a-showgirl.mjs`)
 
-Items 1–9 were newly marked `significance: 'defining'` in this pass; item 10
-(`msg-wedding`) already carried it from the 2026-07-18 decision, alongside
-`showgirl-release-day` (album release day) which stays the era's second
-`'defining'` item and isn't re-litigated here.
+**Why these and not others:** each is a historic chart/industry record
+(first re-recorded #1, longest #1 song, entire top 10, 4th AOTY, first
+$2B tour), a genuine cultural/political flashpoint (the Ticketmaster
+Senate hearing), a mainstream-crossover peak (Super Bowl LVIII), or a
+direct narrative resolution of a round-1 event (the masters buyback closes
+the Big Machine sale; the engagement is the direct precursor to the
+wedding). 4 of the 10 already had a `MILESTONES` entry before this pass
+(Hot 100 sweep, TTPD released, Eras Tour finale, engagement announced); 6
+new entries were added to close the rest of the gap
+(`m-ever-2`, `m-ever-3`, `m-mid-1c`, `m-mid-3b`, `m-mid-3c`, `m-ttpd-3`).
 
-**Why these and not others:** each is either a historic institutional record
-(youngest/first/most Grammy AOTY wins), a genuine cultural rupture that
-reshaped how the public related to her (VMA interruption, the Kimye leak,
-the masters fight), a documented reinvention of her artistic path
-(folklore), or an economic/cultural phenomenon at a scale nothing else in
-the catalog matches (the Eras Tour). Deliberately left out to keep
-`'defining'` rare: the engagement (Aug 2025), the 4th Grammy AOTY record
-(Feb 2024), Red's and reputation's own releases — all genuinely big, but
-less likely than the 10 above to be the ones a fan names five years out.
+Cross-linked to each other and to round 1's items via `relatedIds` (e.g.
+the masters buyback → the Big Machine sale and the first Taylor's Version
+#1, closing that loop three items deep; the Super Bowl appearance → the
+Kelce-official moment → the engagement → the wedding, the full relationship
+arc across both rounds) and `threadIds` opt-ins (`taylors-version`,
+`the-proposal`) matching round 1's pattern.
 
-8 of the 10 already had a `MILESTONES` entry (`content.ts`) before this
-pass, independently confirming they were already treated as each era's
-landmark moment; 2 new entries were added (`m-89-4` for the Kimye leak,
-`m-mid-2b` for the Kelce relationship going public) to close that gap.
-
-Cross-linked the 10 to each other via `relatedIds` (`moment:vault-<eraId>-
-<slug>`) wherever a real narrative connection exists (e.g. the VMA
-interruption → the Kimye leak → reputation's snake/LWYMMD items; the
-Kelce-official moment → the engagement → the wedding; the Big Machine sale
-→ the `taylors-version` thread's own re-recording milestones), and added
-`threadIds` opt-ins (`taylors-version` on the Big Machine sale,
-`the-proposal` on the Kelce-official moment) so each is reachable from the
-relevant thread, not just its own era.
-
-**Correction (found in Codex review, 2026-07-19):** the `moment:` cross-
-links above are seeded data only, not yet a working UI feature — this was
-described as "cross-linking" without checking that `lib/longlive/
-related.ts`'s `motifTargetOf` only resolves `motif:`/`egg:` relatedIds; a
-`moment:` reference is silently inert (`RelatedId`'s own doc in `types.ts`
-already anticipates this: "the content lane can populate these
-incrementally without breaking anything"). The data itself is real,
-correct, and follows the documented convention, so it's left in place as
-seed data for when that UI exists — see issue #851 for the actual
-resolution/rendering work, not scoped into this content pass.
-`threadIds` opt-ins ARE fully functional today (`contentForThread`
-already reads them), unaffected by this.
-
-Photo depth: no ceiling for these 10 items (correction from an initial
-5–8-photo cap, Joey, 2026-07-19) — every real, distinct, verifiable photo
-available for each, not a capped sample; quality/authenticity still governs,
-just not quantity. Sourced via the standard bulk-content-delegation pipeline
-(`docs/briefs/defining-events-2026-07-19-brief.md`,
-`node scripts/ask-chatgpt.mjs`) — every URL fact-checked before merging,
-never taken on the draft's word.
-
-**Verification-method finding:** curl (`HTTP 200` + `image/*` content-type)
-is not sufficient to confirm a hotlinked photo will actually render.
-`ca-times.brightspotcdn.com` (LA Times' CDN) returned a real, full-size
-image to curl for every URL checked, but serves a 1×1 placeholder PNG to
-real browser requests — Referer-based hotlink protection that curl's
-default (no-Referer) request doesn't trigger. Caught by loading every URL
-as a real `Image()` in the browser and checking `naturalWidth` — 6 of 66
-photos in this pass (all `ca-times.brightspotcdn.com`, spanning 3 items)
-failed this way and were removed; every other domain used (WRAL, The
-Guardian, TIME, Glamour, Wikimedia Commons, Vanity Fair, Teen Vogue, FOX 11,
-Las Vegas Review-Journal, TMZ) tested clean. **Going forward: curl-verify
-first to filter obvious 404s, but always confirm final candidates with a
-real browser image load before shipping** — this generalizes to any future
-hotlinked-photo sourcing pass, not just this one.
+**Parallelization note:** since round 1 established the methodology
+(mechanical fields done directly, photo-sourcing delegated to
+`ask-chatgpt.mjs`, every candidate fact-checked with both curl and a real
+browser `Image()` load before merging — see the 2026-07-18 entries below),
+and this round's 10 items span 4 disjoint seed files with no shared lines,
+the photo-sourcing step was split into 3 parallel background passes (one
+per file group) instead of run serially, at Joey's request.
 
 ## 2026-07-18 — Content weighted by real-world significance, not incidental signals
 

@@ -1234,6 +1234,12 @@ export default {
       month: 2,
       day: 4,
       category: 'business',
+      significance: 'defining', // most Album of the Year wins ever, breaking her own tie with music history's biggest names (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
+        'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
+        'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+      ],
       title: 'A record fourth Album of the Year Grammy, for Midnights',
       snippet: 'Presented by Céline Dion in a rare public appearance — Swift\'s fourth AOTY win, more than any artist in Grammy history.',
       sourceUrl: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
@@ -1270,6 +1276,12 @@ export default {
       month: 2,
       day: 11,
       category: 'fashion',
+      significance: 'defining', // the single biggest mainstream-crossover moment of the relationship, watched by ~123M people (docs/decisions.md, 2026-07-19)
+      threadIds: ['the-proposal'],
+      relatedIds: [
+        'moment:vault-midnights-the-game-the-world-decided-made-it-official',
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+      ],
       title: 'Super Bowl LVIII: a sheer corset, Area jeans, and his number in rubies',
       snippet:
         'A Dion Lee corset top and bedazzled Area jeans, accessorized with jewelry stamped 87 — plus a red Erin Andrews bomber for team spirit.',
@@ -2305,6 +2317,8 @@ export default {
       month: 11,
       day: 5,
       category: 'business',
+      significance: 'defining', // a chart feat only she has ever pulled off, then repeated with TLOAS (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12'],
       title: 'Every spot in the Hot 100 top 10, all at once',
       snippet:
         'The week "Anti-Hero" debuted at No. 1, the other nine Midnights tracks filled out the rest of the top 10 — the first time in Hot 100 history one artist held the entire top 10 in a single week.',
@@ -2511,6 +2525,11 @@ export default {
     },
     {
       slug: 'eras-tour-presale-meltdown',
+      significance: 'defining', // reshaped the national conversation about ticketing and market power (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
+        'moment:vault-midnights-the-senate-holds-a-ticketmaster-hearing-in-swiftie-puns',
+      ],
       year: 2022,
       month: 11,
       day: 15,

@@ -886,16 +886,26 @@ export const MILESTONES: Milestone[] = [
   { id: 'm-folk-1', eraId: 'folklore', date: '2020-07-24', label: 'folklore surprise drop', kind: 'album' },
   { id: 'm-folk-2', eraId: 'folklore', date: '2021-03-14', label: 'folklore wins AOTY', kind: 'award' },
   { id: 'm-ever-1', eraId: 'evermore', date: '2020-12-11', label: 'evermore surprise drop', kind: 'album' },
+  // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
+  { id: 'm-ever-2', eraId: 'evermore', date: '2021-04-18', label: 'First re-record hits #1', kind: 'award' },
+  { id: 'm-ever-3', eraId: 'evermore', date: '2021-11-22', label: 'ATW (10 Min) hits #1', kind: 'award' },
   { id: 'm-mid-1', eraId: 'midnights', date: '2022-10-21', label: 'Midnights released', kind: 'album' },
   { id: 'm-mid-1b', eraId: 'midnights', date: '2022-11-05', label: 'Entire top ten', kind: 'award' },
+  // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
+  { id: 'm-mid-1c', eraId: 'midnights', date: '2022-11-15', label: 'Ticketmaster presale', kind: 'business' },
   { id: 'm-mid-2', eraId: 'midnights', date: '2023-03-17', label: 'Eras Tour begins', kind: 'tour' },
   // Added 2026-07-19 alongside the 10-defining-events pass (docs/decisions.md)
   // — same gap as m-89-4: significance: 'defining' in the seed data, no
   // scrubber marker until now.
   { id: 'm-mid-2b', eraId: 'midnights', date: '2023-09-24', label: 'Relationship goes public', kind: 'life' },
   { id: 'm-mid-3', eraId: 'midnights', date: '2023-10-13', label: 'Eras Tour film', kind: 'tour' },
+  // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
+  { id: 'm-mid-3b', eraId: 'midnights', date: '2024-02-04', label: 'Record 4th AOTY', kind: 'award' },
+  { id: 'm-mid-3c', eraId: 'midnights', date: '2024-02-11', label: 'Super Bowl LVIII', kind: 'life' },
   { id: 'm-ttpd-1', eraId: 'ttpd', date: '2024-04-19', label: 'TTPD released', kind: 'album' },
   { id: 'm-ttpd-2', eraId: 'ttpd', date: '2024-12-08', label: 'Eras Tour finale', kind: 'tour' },
+  // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
+  { id: 'm-ttpd-3', eraId: 'ttpd', date: '2025-05-30', label: 'Masters bought back', kind: 'business' },
   { id: 'm-tloas-1', eraId: 'tloas', date: '2025-08-13', label: 'Era announced', kind: 'life' },
   { id: 'm-tloas-1b', eraId: 'tloas', date: '2025-08-26', label: 'Engagement announced', kind: 'life' },
   { id: 'm-tloas-2', eraId: 'tloas', date: '2025-10-03', label: 'Showgirl released', kind: 'album' },
