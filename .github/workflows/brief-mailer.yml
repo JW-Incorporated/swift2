@@ -9,7 +9,10 @@
 #     mailer skips quietly and the 14:30 watchdog window is the alarm.
 #     UTC-anchored on purpose (org precedent): winter sends land an hour
 #     earlier in PST — still in the inbox by 6:00, never after.
-#   - 03:50 UTC (~7:50/8:50 PM PT): the 8 PM Evening Delta (latest brief comment).
+#   - 03:00 UTC (~8:00 PM PDT / 7:00 PM PST): the Evening Delta (latest
+#     brief comment). UTC-anchored like the morning send above — no hard
+#     deadline on this one, so the hour of winter drift is just accepted
+#     rather than compensated for.
 #
 # This Action is THE real email channel. The brief's `cc @mention` line is only a
 # GitHub notification aid, NOT email delivery: Marjorie posts as a founder account
@@ -27,7 +30,7 @@ name: brief-mailer
 on:
   schedule:
     - cron: "45 12 * * *"  # morning brief (inbox by 6:00 AM PT; see header note)
-    - cron: "50 3 * * *"   # evening delta
+    - cron: "0 3 * * *"    # evening delta (8:00 PM PDT / 7:00 PM PST)
   workflow_dispatch:
     inputs:
       mode:
