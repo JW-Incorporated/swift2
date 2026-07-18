@@ -1409,7 +1409,7 @@ export default {
         'Dec. 26, 2011: a haunted, stripped-down Hunger Games ballad with The Civil Wars lands on iTunes — a first glimpse of the indie-folk register she\'d fully move into a decade later.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Safe_%26_Sound_(Taylor_Swift_song)',
       thumbnailUrl:
-        'https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
+        'https://upload.wikimedia.org/wikipedia/en/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
       moment: {
         context:
           'Producer T Bone Burnett had the Civil Wars over to his house after a Los Angeles show; Swift, who\'d spent two days reading the novel, wrote "Safe & Sound" with them in about two hours, singing from Katniss Everdeen\'s perspective. It went on to win the Grammy for Best Song Written for Visual Media.\n\nAs a release it was an outlier on every axis: an out-of-cycle soundtrack single with no album of her own attached, debuting at No. 30 on the Hot 100 on 136,000 first-week downloads. The Philip Andelman-directed video — Swift barefoot in a white dress, walking woods and a cemetery in Watertown, Tennessee — premiered on MTV that February, and the song picked up a Golden Globe nomination for Best Original Song, losing to Adele\'s "Skyfall."',
@@ -1426,7 +1426,7 @@ export default {
         ],
         photos: [
           {
-            url: 'https://upload.wikimedia.org/wikipedia/en/thumb/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png/250px-Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
+            url: 'https://upload.wikimedia.org/wikipedia/en/3/3c/Taylor_Swift_-_Safe_%26_Sound_%28feat._The_Civil_Wars%29.png',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
           },
