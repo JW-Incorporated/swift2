@@ -221,10 +221,26 @@ export default {
             url: 'https://www.forbes.com/sites/hughmcintyre/2021/04/18/taylor-swift-charts-her-ninth-no-1-album-in-the-us-with-fearless-taylors-version/',
           },
         ],
+        // Photo-depth pass (2026-07-18, #ten-defining-events-round-2): this was a
+        // chart-only story with no accompanying live event, so the real, on-topic,
+        // non-duplicate photo pool is genuinely thin — one additional Beth
+        // Garrabrant press portrait from the same era, used by Billboard in its
+        // own Fearless (Taylor's Version) chart coverage. Verified HTTP 200 +
+        // image/jpeg this session; other outlets' "Fearless" chart-story photos
+        // (Forbes in particular) turned out to be unrelated stock shots from
+        // other eras when checked visually, so they were left out rather than
+        // used misleadingly.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1',
             credit: 'Beth Garrabrant',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2020/12/03-taylor-swift-press-cr-Beth-Garrabrant-2020-billboard-1548-1607617377.jpg?w=1024',
+            credit: 'Beth Garrabrant, via Billboard',
+            caption:
+              "A Beth Garrabrant press portrait of Swift from the same era, used by Billboard to illustrate its coverage of Fearless (Taylor's Version) holding its chart position months after release.",
+            kind: 'archival',
           },
         ],
       },
@@ -267,12 +283,62 @@ export default {
         // a two-panel news collage (visible seam between the Red TV cover and a
         // premiere photo). Replaced with the Red (Taylor's Version) cover art
         // (single image, verified HTTP 200 + image/png this session).
+        //
+        // Photo-depth pass (2026-07-18, #ten-defining-events-round-2): added real
+        // photos from the three promotional beats named in the context above (SNL
+        // performance, short film, premiere). Every URL below downloaded and
+        // viewed directly this session to confirm it shows what its caption
+        // claims and isn't a placeholder/collage — the Guinness World Records
+        // article's own photo was checked and rejected for exactly that reason
+        // (the same two-panel collage flagged in the 2026-07-10 note above).
+        // Each URL verified HTTP 200 + a real image/* content-type via curl.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records (album cover art)',
             caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.",
             kind: 'primary',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/11/taylor-swift-snl-all-too-well-11142021-billboard-1548-1636905415.jpg?w=942&h=628&crop=1',
+            credit: 'Will Heath/NBC',
+            caption:
+              'Swift performs "All Too Well (10 Minute Version)" for the first time on television, as musical guest on Saturday Night Live, Nov. 13, 2021 — part of the promotional run that carried the song to No. 1.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/11/taylor-swift-all-too-well-premiere-2021-billboard-1548-1636758898.png?w=942&h=628&crop=1',
+            credit: 'Dimitrios Kambouris/Getty Images',
+            caption:
+              'Swift at the "All Too Well" short film premiere, AMC Lincoln Square, New York City, Nov. 12, 2021 — the night she performed the 10-minute version live for the first time, before it played on SNL the next night.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-02.jpg',
+            credit: 'Evan Agostini/Invision/AP, via Just Jared Jr',
+            caption:
+              "Dylan O'Brien, Taylor Swift, and Sadie Sink together at the \"All Too Well\" short film premiere, Nov. 12, 2021.",
+            kind: 'archival',
+          },
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-01.jpg',
+            credit: 'Dimitrios Kambouris/Getty Images, via Just Jared Jr',
+            caption:
+              'Sadie Sink, who starred opposite Dylan O\'Brien in the short film built around the song, on the premiere carpet.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-03.jpg',
+            credit: 'Dimitrios Kambouris/Getty Images, via Just Jared Jr',
+            caption: 'Swift on the "All Too Well" short film premiere red carpet, Nov. 12, 2021.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2021/11/taylor-swift-all-too-well-car.jpg?w=1600&h=900&crop=1',
+            credit: 'Republic Records / Taylor Swift (All Too Well: The Short Film still)',
+            caption:
+              "A still from All Too Well: The Short Film, the Sadie Sink/Dylan O'Brien-led film Swift wrote and directed and released alongside the 10-minute version — central to the promotional push that took the song to No. 1.",
+            kind: 'archival',
           },
         ],
       },
