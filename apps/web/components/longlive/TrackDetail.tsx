@@ -16,6 +16,8 @@ import {
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { tracksForEra, keepExploring, releasedFactValue } from '@/lib/longlive/tracks';
+import { videoForTrack } from '@/lib/longlive/videos';
+import { MomentVideo } from './MomentVideo';
 import { eraStyle } from '@/lib/longlive/theme';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
@@ -68,6 +70,13 @@ export function TrackDetail() {
   if (!era || !track) return null;
 
   const dossier = track.dossier;
+  // The song's official video, matched from the era's videos rail by title
+  // (#439/#440) so track pages actually embed the music video instead of
+  // hiding it in the era-level rail only.
+  const matchedVideo = videoForTrack(era.id, track.title);
+  const video = matchedVideo?.youtubeId
+    ? { youtubeId: matchedVideo.youtubeId, title: matchedVideo.title }
+    : undefined;
   // The dossier backs whyItMatters/meaning/live/voices; the narrative
   // discussion keeps its own citation list. Merged (de-duped by url) into one
   // source line at the foot of the page.
@@ -115,6 +124,8 @@ export function TrackDetail() {
           {track.title}
         </h1>
         <p className="mt-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">{track.note}</p>
+
+        {video && <MomentVideo video={video} className="mt-6" />}
 
         {track.facts && <FactsCard facts={track.facts} />}
 
