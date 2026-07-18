@@ -177,6 +177,7 @@ export default {
       month: 10,
       day: 3,
       category: 'release',
+      significance: 'defining', // the era-defining album release (docs/decisions.md, 2026-07-18)
       title: 'The Life of a Showgirl arrives: 12 tracks, Max Martin and Shellback, one guest',
       snippet:
         'Written and recorded in Sweden between European Eras Tour dates — her first full album with Max Martin and Shellback since 1989 and reputation. Twelve tracks, no Anthology-style sprawl, and a single feature: Sabrina Carpenter on the closing title track.',
@@ -1438,6 +1439,7 @@ export default {
       month: 7,
       day: 3,
       category: 'relationship',
+      significance: 'defining', // the era's life-defining event (docs/decisions.md, 2026-07-18)
       title: 'Taylor and Travis marry at Madison Square Garden',
       snippet:
         'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man. Roughly 1,000 guests, and a jumbotron outside the arena reading "JUST&T MARRIED!"',

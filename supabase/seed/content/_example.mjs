@@ -20,6 +20,15 @@ export default {
       // items are still month-only — omit rather than guess a day.
       // day: 26,
       category: 'fashion',
+      // significance (OPTIONAL): 'defining' | 'notable' | omit (routine, the
+      // default). An explicit judgment call, not inferred from how many
+      // photos/sources you happen to have — see docs/content-ops/depth-
+      // rubric.md "Significance" and docs/decisions.md 2026-07-18. 'defining'
+      // always renders full-bleed hero and expects materially deeper content
+      // (see the rubric); reserve it for genuinely life-defining events (a
+      // wedding, an album release, a major breakup) — most items, including
+      // most Active-tier ones, have no significance set at all.
+      // significance: 'defining',
       title: 'Butterfly jumpsuit at the VMAs',
       snippet: 'One-line preview of the look — a hook, not the article.',
       sourceUrl: 'https://example.com/source-article',

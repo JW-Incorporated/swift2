@@ -7,6 +7,72 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-18 — Content weighted by real-world significance, not incidental signals
+
+**Decision:** Added `ContentItem.significance?: 'defining' | 'notable'`
+(`apps/web/lib/longlive/types.ts`) as an explicit authoring judgment of how
+major a real-world event was in Taylor's life. It now drives two things that
+previously had no real-importance signal at all:
+
+1. **Depth** — a `'defining'` item gets the same comprehensive-coverage
+   exception `music` items already had (`docs/content-ops/editorial-voice-
+   and-pipeline.md` § Length discipline), instead of the routine one-line
+   cap.
+2. **Feed prominence** — `lib/longlive/feed-tiers.ts`'s card-tier system
+   (`hero`/`media`/`chip`/`text`) previously inferred "weight" only from
+   incidental signals (a real photo, a video, body length) via a pacing
+   algorithm designed to break visual monotony, not to reflect importance —
+   a routine sighting with several photos could out-rank a defining event
+   with fewer. `significance` is now authoritative where set: `'defining'`
+   always renders full-bleed hero, bypassing the pacing throttle that
+   otherwise spaces heroes out; `'notable'` gets a guaranteed floor tier.
+   Items with no significance set (the vast majority) are governed by the
+   existing heuristic, unchanged.
+
+Also added a `MILESTONES` entry (`content.ts`) for the wedding
+(2026-07-03), which was absent despite being exactly the kind of event that
+list exists for — the era's milestone list had stopped at 2025-10-18.
+
+**Schema:** `month_item.significance` column added
+(`supabase/migrations/20260718150000_month_item_significance.sql`) for
+parity, not yet wired into the sync script's Supabase read path — the live
+site reads seed files first (2026-07-17 decision), so nothing consumes that
+column today; a documented follow-up, not an oversight.
+
+**Applied to real content this pass:** `msg-wedding` and `showgirl-release-
+day` (`supabase/seed/content/the-life-of-a-showgirl.mjs`) are the first two
+items marked `'defining'`. Reviewing the other 10 eras for their own
+defining events (a breakup, an album release, a major life turn — every era
+has a small number) is real content work, explicitly **not** done in this
+pass — flagged as follow-up, not silently deferred.
+
+**Why:** Joey and Wyatt discussed this directly (Slack, 2026-07-18) and
+agreed importance should drive both depth and visual prominence — "Taylor's
+wedding... should not only have 10x more content than any other post, it
+should also be more visible when a user is scrolling." Investigated first
+rather than building fresh: the codebase already had two independent,
+partially-built mechanisms for exactly this (`CardTier`'s hero tier,
+`MILESTONES`) that inferred importance incidentally instead of taking it as
+input — extending both was more correct and far less code than a new system.
+
+**Alternatives considered:** A numeric 1-10 importance scale (matching the
+News/Current pipeline's `news_story.importance`, #468) — rejected for Vault
+content specifically: that pipeline's scale feeds an algorithmic ranking
+function, but Vault authoring is manual human judgment, and a coarse
+two-value scale (plus "unset = routine") is easier to apply consistently
+across ~350 items than calibrating a 1-10 judgment call per item, per
+`depth-rubric.md`'s existing philosophy of small, discrete tiers over
+continuous scores (see its own Wavetop/Active/Quiet rubric). Automating
+`MILESTONES` sync from `significance: 'defining'` — deferred; both lists
+are hand-curated today and keeping them in explicit sync is a small, real
+authoring discipline, not yet worth the code to automate for two data points.
+
+**Approved by:** Joey + Wyatt (Slack, 2026-07-18); implemented same-day per
+Joey's direct instruction to build the architecture and apply it to real
+content immediately, not just spec it.
+
+---
+
 ## 2026-07-18 — News/Current pipeline (V2, #468): schema, cadence, cost cap — DRAFT, pending Wyatt
 
 **Status: draft, built under Joey's explicit "go now, flag him after" direction

@@ -91,6 +91,43 @@ describe('assignFeedTiers', () => {
     expect(tiers.get('clue')).not.toBe('chip');
   });
 
+  it('gives a defining item hero tier even with no image or video — significance overrides content heuristics', () => {
+    const items = [item({ id: 'a', images: eraArtOnly, significance: 'defining' })];
+    expect(assignFeedTiers(items).get('a')).toBe('hero');
+  });
+
+  it('never spaces out defining items — two back to back both render hero', () => {
+    const items = [
+      item({ id: 'a', images: realImg, significance: 'defining' }),
+      item({ id: 'b', images: realImg, significance: 'defining' }),
+    ];
+    const tiers = assignFeedTiers(items);
+    expect(tiers.get('a')).toBe('hero');
+    expect(tiers.get('b')).toBe('hero');
+  });
+
+  it('gives a notable item at least media tier even when it reads as routine content', () => {
+    const items = [
+      item({ id: 'a', images: realImg, tags: ['Tour'], summary: 'Short.', significance: 'notable' }),
+    ];
+    expect(assignFeedTiers(items).get('a')).toBe('media');
+  });
+
+  it('never demotes a notable item to a breather, unlike an unmarked item in the same run', () => {
+    const run = Array.from({ length: 6 }, (_, i) =>
+      item({ id: `m${i}`, images: realImg, tags: ['Music'] }),
+    );
+    const notableItem = item({ id: 'notable', images: realImg, tags: ['Music'], significance: 'notable' });
+    const tiers = assignFeedTiers([...run, notableItem]);
+    expect(tiers.get('notable')).not.toBe('text');
+    expect(tiers.get('notable')).not.toBe('chip');
+  });
+
+  it('leaves items with no significance set governed by the existing heuristic, unchanged', () => {
+    const items = [item({ id: 'a', images: realImg, tags: ['Tour'], summary: 'Short.' })];
+    expect(assignFeedTiers(items).get('a')).toBe('chip');
+  });
+
   it('is a pure function of the sequence — same input always produces the same tiers', () => {
     const items = Array.from({ length: 8 }, (_, i) =>
       item({ id: `x${i}`, images: i % 2 === 0 ? realImg : eraArtOnly, tags: ['Fashion'] }),

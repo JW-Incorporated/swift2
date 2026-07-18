@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 // The generator only writes files when invoked directly; importing it here
 // just pulls in its pure normalization functions.
-import { addItem, imagesFrom, threadIdsFrom } from './sync-longlive-content.mjs';
+import { addItem, imagesFrom, significanceFrom, threadIdsFrom } from './sync-longlive-content.mjs';
 
 describe('imagesFrom', () => {
   it('maps thumbnail_url to the primary image', () => {
@@ -83,6 +83,14 @@ describe('addItem date precision', () => {
     expect(byEra.debut[0].dateLabel).toBe('July 2026');
     expect(byEra.debut[1].dateLabel).toBe('July 2026');
   });
+
+  it('carries a valid significance through end to end, and omits it when absent', () => {
+    const byEra = {};
+    addItem(byEra, {}, 'debut', { ...base, year: 2026, month: 7, day: 3, significance: 'defining' });
+    addItem(byEra, {}, 'debut', { ...base, title: 'Routine item', year: 2026, month: 7, day: 4 });
+    expect(byEra.debut[0].significance).toBe('defining');
+    expect(byEra.debut[1].significance).toBeUndefined();
+  });
 });
 
 describe('threadIdsFrom', () => {
@@ -102,5 +110,19 @@ describe('threadIdsFrom', () => {
     expect(threadIdsFrom(undefined)).toBeUndefined();
     expect(threadIdsFrom([])).toBeUndefined();
     expect(threadIdsFrom(['nope'])).toBeUndefined();
+  });
+});
+
+describe('significanceFrom', () => {
+  it('passes through the two valid values', () => {
+    expect(significanceFrom('defining')).toBe('defining');
+    expect(significanceFrom('notable')).toBe('notable');
+  });
+
+  it('returns undefined (routine) for anything else rather than guessing', () => {
+    expect(significanceFrom('major')).toBeUndefined();
+    expect(significanceFrom(null)).toBeUndefined();
+    expect(significanceFrom(undefined)).toBeUndefined();
+    expect(significanceFrom('')).toBeUndefined();
   });
 });
