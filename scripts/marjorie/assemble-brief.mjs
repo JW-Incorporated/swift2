@@ -15,10 +15,12 @@ import { readdirSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { computeDeltas } from '../social/lib/growth.mjs';
+import { summarizeQueueStatus } from '../social/lib/queue.mjs';
 
 const REPO = 'JW-Incorporated/swift2';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const METRICS_DIR = path.join(ROOT, 'social', 'metrics');
+const QUEUE_DIR = path.join(ROOT, 'social', 'queue');
 
 function gh(args) {
   return JSON.parse(execFileSync('gh', args, { encoding: 'utf8', maxBuffer: 8 * 1024 * 1024 }));
@@ -43,6 +45,22 @@ export function fetchGrowthSnapshot(metricsDir = METRICS_DIR) {
   return { ...latest, deltas: computeDeltas(latest.followers, previous?.followers) };
 }
 
+// Ground truth for social/queue/ — added 2026-07-18 after a brief asserted
+// drafts were "waiting on your OK in Slack #social" while the queue was
+// actually empty. That line was never checked against real state; it was
+// synthesized from what the charter says SHOULD happen. This function is
+// the fact to copy instead — see summarizeQueueStatus's own comment.
+export function fetchQueueStatus(queueDir = QUEUE_DIR) {
+  let files;
+  try {
+    files = readdirSync(queueDir).filter((f) => f.endsWith('.json'));
+  } catch {
+    return summarizeQueueStatus([]);
+  }
+  const items = files.map((f) => JSON.parse(readFileSync(path.join(queueDir, f), 'utf-8')));
+  return summarizeQueueStatus(items);
+}
+
 function formatFollowerCount(n) {
   if (typeof n !== 'number') return '?';
   return n >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
@@ -52,17 +70,30 @@ function formatDelta(n) {
   return typeof n === 'number' ? ` (${n >= 0 ? '+' : ''}${n})` : '';
 }
 
-// Pure formatter, kept separate from fetchGrowthSnapshot's filesystem read
-// so the display logic is unit-testable without fixture files.
-export function formatGrowthLine(growth) {
-  if (!growth) return "- Growth: no snapshot yet (growth-snapshot.yml hasn't run)";
+function formatQueueStatus(queueStatus) {
+  const { total, awaitingApproval, approved } = queueStatus;
+  if (total === 0) return 'queue: empty (nothing drafted)';
+  const parts = [];
+  if (awaitingApproval > 0) parts.push(`${awaitingApproval} awaiting your OK`);
+  if (approved > 0) parts.push(`${approved} approved & scheduled`);
+  return `queue: ${parts.join(', ')}`;
+}
+
+// Pure formatter, kept separate from the filesystem reads so the display
+// logic is unit-testable without fixture files. queueStatus is the ground
+// truth for what's actually pending — Marjorie copies it, never re-derives
+// a claim about queue contents from the growth charter's description of
+// how approvals are SUPPOSED to work (see fetchQueueStatus's comment).
+export function formatGrowthLine(growth, queueStatus) {
+  const queuePart = formatQueueStatus(queueStatus);
+  if (!growth) return `- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · ${queuePart}`;
   const { followers, deltas, postsToday } = growth;
   const parts = [
     `IG ${formatFollowerCount(followers.instagram)}${formatDelta(deltas.instagram)}`,
     `X ${formatFollowerCount(followers.x)}${formatDelta(deltas.x)}`,
     `FB ${formatFollowerCount(followers.facebook)}${formatDelta(deltas.facebook)}`,
   ];
-  return `- Growth: ${parts.join(' · ')} · ${postsToday} post${postsToday === 1 ? '' : 's'} today · site: pending #799`;
+  return `- Growth: ${parts.join(' · ')} · ${postsToday} post${postsToday === 1 ? '' : 's'} today · ${queuePart} · site: pending #799`;
 }
 
 export function fetchState(repo = REPO) {
@@ -79,6 +110,7 @@ export function fetchState(repo = REPO) {
     mergedPRs: gh(['pr', 'list', '--repo', repo, '--state', 'merged', '--limit', '30',
       '--json', 'number,title,mergedAt']),
     growth: fetchGrowthSnapshot(),
+    queueStatus: fetchQueueStatus(),
   };
 }
 
@@ -114,7 +146,7 @@ function hoursOld(iso, now) {
 }
 
 export function buildBrief(state, { date, now = Date.now() } = {}) {
-  const { decisions, intake, alerts, openPRs, mergedPRs, growth } = state;
+  const { decisions, intake, alerts, openPRs, mergedPRs, growth, queueStatus } = state;
   const dayMs = 24 * 3_600_000;
   const mergedToday = mergedPRs.filter((p) => now - new Date(p.mergedAt).getTime() < dayMs);
   const staleIntake = intake.filter((i) => hoursOld(i.createdAt, now) >= 48);
@@ -162,7 +194,7 @@ export function buildBrief(state, { date, now = Date.now() } = {}) {
   out.push(`- Open watchdog alerts: ${alerts.length ? alerts.map((a) => `#${a.number}`).join(' ') : 'none 🟢'}`);
   out.push(`- Intake queue: ${intake.length} open${staleIntake.length ? ` — ⚠ ${staleIntake.length} older than 48h untriaged` : ''}`);
   out.push('- Spend vs monthly cap: _(collector lands in Phase 2 — report manually)_');
-  out.push(formatGrowthLine(growth));
+  out.push(formatGrowthLine(growth, queueStatus));
 
   out.push('', '## 5 · Today\'s plan', '_(Marjorie: one line per active desk.)_', '');
   return out.join('\n');

@@ -3,7 +3,7 @@ import { tmpdir } from 'node:os';
 import path from 'node:path';
 import { afterEach, describe, expect, it } from 'vitest';
 // @ts-expect-error — plain .mjs module, no type declarations
-import { buildBrief, extractField, extractOptions, fetchGrowthSnapshot, formatGrowthLine, todayLA } from './assemble-brief.mjs';
+import { buildBrief, extractField, extractOptions, fetchGrowthSnapshot, fetchQueueStatus, formatGrowthLine, todayLA } from './assemble-brief.mjs';
 
 const NOW = new Date('2026-07-12T13:00:00Z').getTime();
 
@@ -23,7 +23,8 @@ const formBody = [
   'T2 — banked for the daily brief (default)',
 ].join('\n');
 
-const emptyState = { decisions: [], intake: [], alerts: [], openPRs: [], mergedPRs: [], growth: null };
+const emptyQueueStatus = { total: 0, awaitingApproval: 0, approved: 0 };
+const emptyState = { decisions: [], intake: [], alerts: [], openPRs: [], mergedPRs: [], growth: null, queueStatus: emptyQueueStatus };
 
 describe('extractOptions', () => {
   it('pulls lettered options from a form body', () => {
@@ -63,25 +64,38 @@ describe('todayLA', () => {
 
 describe('formatGrowthLine', () => {
   it('says so plainly when no snapshot exists yet', () => {
-    expect(formatGrowthLine(null)).toBe("- Growth: no snapshot yet (growth-snapshot.yml hasn't run)");
+    expect(formatGrowthLine(null, emptyQueueStatus)).toBe(
+      "- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · queue: empty (nothing drafted)",
+    );
   });
 
   it('formats follower counts, signed deltas, and posts-today', () => {
-    const line = formatGrowthLine({
-      followers: { instagram: 1204, x: 340, facebook: 89 },
-      deltas: { instagram: 18, x: 5, facebook: 0 },
-      postsToday: 2,
-    });
-    expect(line).toBe('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today · site: pending #799');
+    const line = formatGrowthLine(
+      {
+        followers: { instagram: 1204, x: 340, facebook: 89 },
+        deltas: { instagram: 18, x: 5, facebook: 0 },
+        postsToday: 2,
+      },
+      emptyQueueStatus,
+    );
+    expect(line).toBe('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today · queue: empty (nothing drafted) · site: pending #799');
   });
 
   it('renders "?" for a platform that failed to fetch and omits its delta', () => {
-    const line = formatGrowthLine({
-      followers: { instagram: null, x: 340, facebook: 89 },
-      deltas: { instagram: null, x: 5, facebook: null },
-      postsToday: 1,
-    });
-    expect(line).toBe('- Growth: IG ? · X 340 (+5) · FB 89 · 1 post today · site: pending #799');
+    const line = formatGrowthLine(
+      {
+        followers: { instagram: null, x: 340, facebook: 89 },
+        deltas: { instagram: null, x: 5, facebook: null },
+        postsToday: 1,
+      },
+      emptyQueueStatus,
+    );
+    expect(line).toBe('- Growth: IG ? · X 340 (+5) · FB 89 · 1 post today · queue: empty (nothing drafted) · site: pending #799');
+  });
+
+  it('reports awaiting-approval and approved counts separately — the ground truth a curation pass must copy, not invent', () => {
+    const line = formatGrowthLine(null, { total: 3, awaitingApproval: 2, approved: 1 });
+    expect(line).toContain('queue: 2 awaiting your OK, 1 approved & scheduled');
   });
 });
 
@@ -114,6 +128,22 @@ describe('fetchGrowthSnapshot', () => {
       postsToday: 1,
       deltas: { x: null, instagram: null, facebook: null },
     });
+  });
+});
+
+describe('fetchQueueStatus', () => {
+  let dir: string;
+  afterEach(() => { if (dir) rmSync(dir, { recursive: true, force: true }); });
+
+  it('is all zeros when the queue directory does not exist', () => {
+    expect(fetchQueueStatus(path.join(tmpdir(), 'nonexistent-queue-dir'))).toEqual(emptyQueueStatus);
+  });
+
+  it('reads real queue files off disk and counts approval status', () => {
+    dir = mkdtempSync(path.join(tmpdir(), 'social-queue-'));
+    writeFileSync(path.join(dir, 'a.json'), JSON.stringify({ platform: 'x', approvedBy: 'joey', approvedAt: '2026-07-17T00:00:00Z' }));
+    writeFileSync(path.join(dir, 'b.json'), JSON.stringify({ platform: 'instagram' }));
+    expect(fetchQueueStatus(dir)).toEqual({ total: 2, awaitingApproval: 1, approved: 1 });
   });
 });
 
@@ -176,9 +206,17 @@ describe('buildBrief', () => {
       { ...emptyState, growth: { followers: { instagram: 1200, x: 340, facebook: 89 }, deltas: { instagram: 18, x: 5, facebook: 0 }, postsToday: 2 } },
       { date: '2026-07-12', now: NOW },
     );
-    expect(withSnapshot).toContain('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today · site: pending #799');
+    expect(withSnapshot).toContain('- Growth: IG 1.2k (+18) · X 340 (+5) · FB 89 (+0) · 2 posts today · queue: empty (nothing drafted) · site: pending #799');
 
     const noSnapshot = buildBrief(emptyState, { date: '2026-07-12', now: NOW });
-    expect(noSnapshot).toContain("- Growth: no snapshot yet (growth-snapshot.yml hasn't run)");
+    expect(noSnapshot).toContain("- Growth: no snapshot yet (growth-snapshot.yml hasn't run) · queue: empty (nothing drafted)");
+  });
+
+  it('reports real queue counts instead of leaving them to be invented', () => {
+    const brief = buildBrief(
+      { ...emptyState, queueStatus: { total: 2, awaitingApproval: 2, approved: 0 } },
+      { date: '2026-07-12', now: NOW },
+    );
+    expect(brief).toContain('queue: 2 awaiting your OK');
   });
 });
