@@ -2,11 +2,12 @@
 
 import { useEffect } from 'react';
 import Image from 'next/image';
-import { X, ListMusic, ArrowUpRight } from 'lucide-react';
+import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { getEra } from '@/lib/longlive/eras';
 import { tracksForEra } from '@/lib/longlive/tracks';
 import { eraStyle } from '@/lib/longlive/theme';
+import { OverlayNav } from './OverlayNav';
 import { trackKey } from './TrackDetail';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 import type { EraId, TrackNote } from '@/lib/longlive/types';
@@ -62,6 +63,8 @@ export function TrackGuide() {
       aria-modal="true"
       aria-label={`${era.album} track guide`}
     >
+      <OverlayNav onClose={closeTrackGuide} />
+
       {/* Compact era-art header */}
       <div className="relative h-[28vh] min-h-44 w-full">
         <Image src={era.image || '/placeholder.svg'} alt="" fill priority className="object-cover" />
@@ -72,13 +75,6 @@ export function TrackGuide() {
               'linear-gradient(to bottom, color-mix(in srgb, var(--era-bg) 30%, transparent), var(--era-bg))',
           }}
         />
-        <button
-          onClick={closeTrackGuide}
-          className="era-icon-btn absolute right-4 top-4 rounded-full p-2 backdrop-blur-md"
-          aria-label="Close track guide"
-        >
-          <X className="h-5 w-5" />
-        </button>
       </div>
 
       <div className="relative z-10 mx-auto -mt-12 max-w-2xl px-5 pb-24">
