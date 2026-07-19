@@ -23,11 +23,17 @@
 import { makeFinding } from '../lib/finding.mjs';
 import { tier } from '../lib/visibility.mjs';
 import { CONFIG } from '../config.mjs';
+// The generator's own normalizers, so "has rumor treatment" means "has
+// entries/labels the generator will actually SHIP" — a rumor entry the
+// generator drops (unattributed, undated, whitespace claim) or a typo'd
+// confidence must not suppress a finding.
+import { confidenceFrom, rumorsFrom } from '../../sync-longlive-content.mjs';
 
 export const id = 'content.rumor-gap';
 
-// Mirrors CONFIRMED_TIER in apps/web/lib/longlive/types.ts: at/above this a
-// claim is established fact; below it the UI renders the rumor banner.
+// Mirrors CONFIRMED_TIER in apps/web/lib/longlive/types.ts (a plain-node
+// checker can't import the TS constant): at/above this a claim is
+// established fact; below it the UI renders the rumor banner.
 const CONFIRMED_TIER = new Set(['official', 'confirmed_interview']);
 
 // Below this many cited sources a high-visibility page counts as thin.
@@ -42,11 +48,11 @@ export async function check(items) {
     if (tier(it) !== 'high') continue; // …and only the high-reach ones among them
     if (it.sources.length >= MIN_SOURCES) continue;
 
-    const rumors = it.raw?.moment?.rumors;
-    const hasRumorEntries = Array.isArray(rumors) && rumors.length > 0;
-    const labeledSubConfirmed =
-      typeof it.raw?.confidence === 'string' && !CONFIRMED_TIER.has(it.raw.confidence);
-    if (hasRumorEntries || labeledSubConfirmed) continue;
+    // Same both-placement reads as the sync script.
+    const shippedRumors = rumorsFrom(it.raw?.moment?.rumors ?? it.raw?.rumors);
+    const shippedConfidence = confidenceFrom(it.raw?.confidence ?? it.raw?.moment?.confidence);
+    const labeledSubConfirmed = Boolean(shippedConfidence) && !CONFIRMED_TIER.has(shippedConfidence);
+    if (shippedRumors !== undefined || labeledSubConfirmed) continue;
 
     findings.push(
       makeFinding({

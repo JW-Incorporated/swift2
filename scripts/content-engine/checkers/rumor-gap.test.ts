@@ -77,6 +77,28 @@ describe('rumor-gap check', () => {
     expect(await check([hotMoment({ raw: { confidence: 'reputable_reporting' } })])).toEqual([]);
   });
 
+  it('still flags when the only rumor entry is one the generator would drop', async () => {
+    // A whitespace-only claim is dropped fail-closed by rumorsFrom(), so the
+    // shipped page has no rumor section — raw array length must not count
+    // as treatment.
+    const droppable = hotMoment({
+      raw: {
+        moment: {
+          rumors: [
+            {
+              claim: '   ',
+              reportedBy: 'TMZ',
+              reportedOn: '2026-06-30',
+              status: 'unconfirmed',
+              url: 'https://example.com/report',
+            },
+          ],
+        },
+      },
+    });
+    expect(await check([droppable])).toHaveLength(1);
+  });
+
   it('still flags when confidence is a CONFIRMED-tier value (that is not rumor treatment)', async () => {
     expect(await check([hotMoment({ raw: { confidence: 'official' } })])).toHaveLength(1);
   });

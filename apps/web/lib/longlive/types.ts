@@ -43,10 +43,25 @@ export type Confidence =
  * The confirmed tier of `Confidence`: at/above this a claim is established
  * fact and renders with no qualifier. Anything below renders LOUDLY as
  * reported/rumored (MomentDetail's banner) so a claim can never quietly read
- * as fact. Single definition shared by the UI and mirrored by the content
- * engine's rumor-gap checker (scripts/content-engine/checkers/rumor-gap.mjs).
+ * as fact. The tuple below is the single definition — the runtime Set, the
+ * `SubConfirmed` type, and the `isSubConfirmed` guard all derive from it, so
+ * moving a value across the tier is one edit and the compiler flags every
+ * lookup table that hasn't caught up. Mirrored (with a pointer comment, not
+ * an import — plain-node script) by the content engine's rumor-gap checker
+ * (scripts/content-engine/checkers/rumor-gap.mjs).
  */
-export const CONFIRMED_TIER: ReadonlySet<Confidence> = new Set(['official', 'confirmed_interview']);
+const CONFIRMED_TIER_VALUES = ['official', 'confirmed_interview'] as const;
+type ConfirmedTier = (typeof CONFIRMED_TIER_VALUES)[number];
+export const CONFIRMED_TIER: ReadonlySet<Confidence> = new Set(CONFIRMED_TIER_VALUES);
+
+/** The sub-confirmed slice of Confidence — the values that render loudly. */
+export type SubConfirmed = Exclude<Confidence, ConfirmedTier>;
+
+/** Type-narrowing form of `!CONFIRMED_TIER.has(c)` — lets lookup tables be
+ * typed `Record<SubConfirmed, …>` with no cast at the use site. */
+export function isSubConfirmed(c: Confidence): c is SubConfirmed {
+  return !CONFIRMED_TIER.has(c);
+}
 
 /**
  * Where a reported rumor stands today. Unlike TheoryOutcome (fan-theory
@@ -88,7 +103,12 @@ export interface RumorNote {
  * TheoryNote so speculation never renders as fact.
  */
 export type TheoryOutcome =
-  'confirmed' | 'partially_confirmed' | 'pending' | 'debunked' | 'abandoned' | 'unfalsifiable';
+  | 'confirmed'
+  | 'partially_confirmed'
+  | 'pending'
+  | 'debunked'
+  | 'abandoned'
+  | 'unfalsifiable';
 
 export type MilestoneKind = 'album' | 'tour' | 'life' | 'business' | 'award';
 
@@ -198,10 +218,14 @@ export interface ContentItem {
   /**
    * How well-supported the claim is. Absent = a confirmed fact (no label).
    * Present + below CONFIRMED_TIER = an unmissable "Rumor — unconfirmed" /
-   * "Reported — not confirmed" banner in the detail view, naming the
-   * reporting outlet (the first `sources` entry) — a sub-confirmed moment
-   * must never look like established fact. Authored on the seed row and
-   * piped through scripts/sync-longlive-content.mjs.
+   * "Reported — not confirmed" banner in the detail view, plus an
+   * "Unconfirmed" chip on the era-feed card, plus a qualifier in share copy
+   * — a sub-confirmed moment must never look like established fact on any
+   * surface. The banner names the FIRST `sources` entry as the reporting
+   * outlet — on a sub-confirmed item, keep the outlet that actually reported
+   * the claim first (never an image-credit or license-provenance source).
+   * Authored on the seed row and piped through
+   * scripts/sync-longlive-content.mjs.
    */
   confidence?: Confidence;
   /**
@@ -527,7 +551,12 @@ export interface TheoryNote {
 /** What kind of visual-media work a VideoNote records. Mirrors VIDEO_KINDS in
  * packages/shared/src/vault-types.ts. */
 export type VideoNoteKind =
-  'music_video' | 'lyric_video' | 'short_film' | 'tour_film' | 'documentary' | 'performance';
+  | 'music_video'
+  | 'lyric_video'
+  | 'short_film'
+  | 'tour_film'
+  | 'documentary'
+  | 'performance';
 
 /**
  * One official video/visual-media work in an era's videos rail
@@ -694,7 +723,12 @@ export interface Motif {
 }
 
 export type LensId =
-  'love-story' | 'fashion' | 'taylors-version' | 'easter-eggs' | 'hidden-clues' | 'the-proposal';
+  | 'love-story'
+  | 'fashion'
+  | 'taylors-version'
+  | 'easter-eggs'
+  | 'hidden-clues'
+  | 'the-proposal';
 
 /** One end (plant or payoff) of a hidden-clue pair. */
 export interface CluePoint {
@@ -720,8 +754,7 @@ export interface CluePoint {
 /** A coarse category for what kind of clue a CluePair is — distinct from the
  * Clue Web's MotifId (a different feature, `easter-eggs` thread). Optional:
  * the UI hides the motif badge rather than guessing when absent. */
-export type DecodeMotifId =
-  'number' | 'object' | 'lyric' | 'name' | 'structural' | 'theme' | 'political';
+export type DecodeMotifId = 'number' | 'object' | 'lyric' | 'name' | 'structural' | 'theme' | 'political';
 
 export const DECODE_MOTIF_META: Record<DecodeMotifId, { label: string }> = {
   number: { label: 'Number' },

@@ -27,7 +27,7 @@
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { slugify } from './sync-longlive-content.mjs';
+import { RUMOR_STATUSES, slugify } from './sync-longlive-content.mjs';
 import { SLUG_TO_ERA_ID } from './lib/longlive-sync-shared.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -114,13 +114,6 @@ const THREAD_IDS = new Set([
   'hidden-clues',
   'the-proposal',
 ]);
-
-// Keep in sync with RumorStatus (apps/web/lib/longlive/types.ts) and
-// RUMOR_STATUSES (sync-longlive-content.mjs). Same failure mode as
-// significance: the sync script defensively DROPS a malformed rumor entry
-// (an unattributed/undated rumor must never render), so without hard errors
-// here a typo would silently vanish the rumor instead of failing CI.
-const RUMOR_STATUSES = new Set(['unconfirmed', 'partially_confirmed', 'confirmed', 'debunked']);
 
 const SLUG_RE = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const ISO_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
@@ -234,27 +227,44 @@ for (const { file, data } of loaded) {
 
     // Rumor tier (2026-07-19). The sync script drops anything malformed
     // (fail-closed: an unattributed rumor never renders), so every drop
-    // condition must be a hard error here or the rumor just vanishes.
-    if (it.confidence != null && !THEORY_CONFIDENCE.has(it.confidence)) {
+    // condition must be a hard error here or the rumor just vanishes. The
+    // checks mirror rumorsFrom() (RUMOR_STATUSES is imported from the same
+    // module, and string fields are TRIMMED before the presence check —
+    // review found a whitespace-only claim passed a bare truthiness check
+    // here while the generator dropped it). Both fields are read from both
+    // placements, same as the sync script.
+    const confidence = it.confidence ?? it.moment?.confidence;
+    if (confidence != null && !THEORY_CONFIDENCE.has(confidence)) {
       err(
-        `confidence "${it.confidence}" not a known level — a typo here silently drops the rumor banner and the claim renders as fact`,
+        `confidence "${confidence}" not a known level — a typo here silently drops the rumor banner and the claim renders as fact`,
       );
     }
-    const rumors = it.moment?.rumors;
+    const rumors = it.moment?.rumors ?? it.rumors;
     if (rumors != null) {
       if (!Array.isArray(rumors)) err('moment.rumors must be an array');
       else
         rumors.forEach((r, ri) => {
           const rAt = `rumors[${ri}]`;
           if (!r || typeof r !== 'object') return err(`${rAt} is not an object`);
-          if (!r.claim) err(`${rAt} missing claim`);
+          const trimmed = (v) => (typeof v === 'string' ? v.trim() : '');
+          if (!trimmed(r.claim)) err(`${rAt} missing claim`);
           if ((r.claim ?? '').length > 400) err(`${rAt} claim ${r.claim.length} > 400`);
-          if (!r.reportedBy) err(`${rAt} missing reportedBy — every rumor names who reported it`);
-          if (!ISO_DATE_RE.test(r.reportedOn ?? ''))
+          if (!trimmed(r.reportedBy))
+            err(`${rAt} missing reportedBy — every rumor names who reported it`);
+          if (!ISO_DATE_RE.test(trimmed(r.reportedOn)))
             err(`${rAt} reportedOn "${r.reportedOn}" is not YYYY-MM-DD — every rumor is dated`);
+          else {
+            // Shape isn't enough: '2026-13-05' matches \d{2} but renders a
+            // broken attribution line. Round-trip through UTC Date to reject
+            // out-of-range months/days and rolled-over dates alike.
+            const iso = trimmed(r.reportedOn);
+            const d = new Date(`${iso}T00:00:00Z`);
+            if (Number.isNaN(d.getTime()) || d.toISOString().slice(0, 10) !== iso)
+              err(`${rAt} reportedOn "${iso}" is not a real calendar date`);
+          }
           if (!RUMOR_STATUSES.has(r.status))
             err(`${rAt} status "${r.status}" not in ${[...RUMOR_STATUSES].join('|')}`);
-          if (!/^https?:\/\//.test(r.url ?? '')) err(`${rAt} url is not an http(s) link`);
+          if (!/^https?:\/\//.test(trimmed(r.url))) err(`${rAt} url is not an http(s) link`);
           if ((r.note ?? '').length > 400) err(`${rAt} note ${r.note.length} > 400`);
         });
     }

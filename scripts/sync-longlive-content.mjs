@@ -411,12 +411,21 @@ async function fetchFromSupabase() {
       // follow-up, not done here since the live site reads seed files first
       // anyway (docs/decisions.md, 2026-07-17).
       // `confidence` + `moment.rumors` (2026-07-19, the rumor tier) are also
-      // seed-only until that migration lands — same follow-up list.
+      // seed-only until that migration lands — same follow-up list, but with
+      // a sharper edge: losing them doesn't just degrade navigation, it
+      // strips the "not confirmed" labels, so reported claims would render
+      // as fact. Hence the loud warning below, not just this comment.
     });
   }
 
   const total = Object.values(byEra).reduce((n, arr) => n + arr.length, 0);
   console.log(`sync-longlive-content: loaded ${total} items from Supabase (live).`);
+  console.warn(
+    'sync-longlive-content: WARNING — the DB path carries no confidence/rumors columns yet, ' +
+      'so a DB-sourced build STRIPS every "Reported — not confirmed" banner and "What\'s rumored" ' +
+      'section; sub-confirmed claims would render as fact. Do not deploy a db-sourced vault ' +
+      'until the month_item/moment migration lands (docs/decisions.md 2026-07-19).',
+  );
   return byEra;
 }
 
@@ -452,9 +461,13 @@ async function fetchFromLocalFiles() {
         // accept either so the content lane can pick the natural home.
         relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
         significance: item.significance ?? null,
-        confidence: item.confidence ?? null,
-        // Rumors are Tier-1 detail, so they live on the seed row's `moment`.
-        rumors: item.moment?.rumors ?? null,
+        // Like relatedIds, confidence/rumors are accepted at EITHER level —
+        // confidence naturally reads as item metadata, rumors as Tier-1
+        // moment detail, but a mixed-up placement must not fail open (a
+        // silently-ignored honesty label is the worst outcome this feature
+        // has). validate-content.mjs checks both spots the same way.
+        confidence: item.confidence ?? item.moment?.confidence ?? null,
+        rumors: item.moment?.rumors ?? item.rumors ?? null,
       });
     }
   }

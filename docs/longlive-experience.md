@@ -333,8 +333,12 @@ Two structural tools, both authored on the seed row in
   the 8 shared levels (below `official`/`confirmed_interview`, the
   `CONFIRMED_TIER` in `types.ts`). `MomentDetail` renders an UNMISSABLE
   banner — "Reported — not confirmed" / "Rumor — unconfirmed" / "Debunked" —
-  naming the first source's outlet. Confirmed items (no `confidence`) are
-  unchanged.
+  naming the first source's outlet (keep the outlet that reported the claim
+  FIRST in `moment.sources` on sub-confirmed items). The qualifier follows
+  the item to its other surfaces too: an "Unconfirmed" chip on the era-feed
+  card (`MomentMeta`) and a `[reported — not confirmed]` marker in outbound
+  share copy (`momentShareCopy`). Confirmed items (no `confidence`) are
+  unchanged everywhere.
 - **Confirmed core + a rumor cloud around it** → keep the confirmed narrative
   in `moment.context` and add `moment.rumors` entries (`claim` ≤400 +
   `reportedBy` + `reportedOn` ISO date + `status` + `url`, optional `note`
@@ -344,6 +348,11 @@ Two structural tools, both authored on the seed row in
   (`unconfirmed` / `partially_confirmed` / `confirmed` / `debunked`) — update
   the status as facts land instead of deleting the entry. Every rumor names
   who reported it; estimates say so in `note`; nothing is ever fabricated.
+  The 2026-07-04 hard ban carries over verbatim: NO speculation about
+  sexuality, family, or identity — a rumor entry is an outlet-reported claim
+  about a public event, never the app's own private-life speculation. Rumor
+  `claim`/`note` prose flows into the content engine's text checks like any
+  other prose (corpus `texts`).
   The generator drops an unattributed/undated entry and
   `npm run validate:content` makes that a hard error. The content engine's
   `content.rumor-gap` checker flags high-visibility moments that are thin on

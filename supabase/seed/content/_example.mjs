@@ -40,6 +40,9 @@ export default {
       // renders an UNMISSABLE "Rumor — unconfirmed" / "Reported — not
       // confirmed" banner naming the first source's outlet — use it when a
       // whole item rests on reporting nobody official has confirmed.
+      // On a sub-confirmed item, the FIRST moment.sources entry must be the
+      // outlet that reported the claim (never an image-credit/license
+      // source) — the banner attributes to it by position.
       // confidence: 'reputable_reporting',
       // Optional Tier 1 detail shown when a user taps into this item:
       moment: {
@@ -54,6 +57,10 @@ export default {
         // status: unconfirmed | partially_confirmed | confirmed | debunked —
         // keep resolved rumors on record with an honest status instead of
         // deleting them. NEVER fabricate; label estimates as estimates.
+        // HARD BAN (2026-07-04 brief, same as theories): NO speculation
+        // about sexuality, family, or identity — ever. A rumor entry is an
+        // outlet-reported claim about a PUBLIC event/topic, in our words,
+        // never the app's own speculation about someone's private life.
         // rumors: [
         //   {
         //     claim: 'What was reported, in our words, framed as a report (<=400).',

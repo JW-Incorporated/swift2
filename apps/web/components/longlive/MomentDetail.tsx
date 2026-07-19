@@ -14,7 +14,12 @@ import {
   AlertTriangle,
   MessageCircleQuestion,
 } from 'lucide-react';
-import { useAppState, useAppActions, useProgress, useProgressActions } from '@/lib/longlive/store';
+import {
+  useAppState,
+  useAppActions,
+  useProgress,
+  useProgressActions,
+} from '@/lib/longlive/store';
 import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@/lib/longlive/eras';
 import { getThread } from '@/lib/longlive/lenses';
@@ -25,7 +30,7 @@ import { MomentVideo } from './MomentVideo';
 import { extractYouTubeId } from '@swift2/shared';
 import { ZoomableImage } from './ZoomableImage';
 import {
-  CONFIRMED_TIER,
+  isSubConfirmed,
   focalPointOf,
   primaryImageRef,
   type Confidence,
@@ -34,17 +39,19 @@ import {
   type LensId,
   type RumorNote,
   type RumorStatus,
+  type SubConfirmed,
 } from '@/lib/longlive/types';
+import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 // A moment at/above CONFIRMED_TIER (types.ts) is established fact — no
 // qualifier. Below it, the claim gets the UNMISSABLE banner below (not a
 // subtle pill — replaced 2026-07-19): a bold label plus the reporting outlet
 // and a one-line explainer, so a rumor can never visually pass as fact.
-const CONFIDENCE_BANNER: Record<
-  Exclude<Confidence, 'official' | 'confirmed_interview'>,
-  { label: string; blurb: string }
-> = {
+// Keyed by SubConfirmed (derived in types.ts from the same tuple as
+// CONFIRMED_TIER), so moving a value across the tier is a compile error
+// here, not a runtime undefined.
+const CONFIDENCE_BANNER: Record<SubConfirmed, { label: string; blurb: string }> = {
   reputable_reporting: {
     label: 'Reported — not confirmed',
     blurb: 'Press reporting. Not confirmed by Taylor, her team, or an official source.',
@@ -80,28 +87,6 @@ const RUMOR_STATUS_BADGE: Record<RumorStatus, string> = {
   debunked: 'Debunked',
 };
 
-const MONTH_NAMES = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
-
-/** 'YYYY-MM-DD' → 'July 2, 2026' (string math — no Date, no timezone drift). */
-function rumorDateLabel(iso: string): string {
-  const m = iso.match(/^(\d{4})-(\d{2})-(\d{2})$/);
-  if (!m) return iso;
-  return `${MONTH_NAMES[Number(m[2]) - 1]} ${Number(m[3])}, ${m[1]}`;
-}
-
 // Anything that isn't the real photo of THIS moment gets an explicit label —
 // a stand-in must never read as the real thing. 'primary' renders no badge.
 const IMAGE_KIND_BADGE: Record<Exclude<ImageKind, 'primary'>, string> = {
@@ -125,9 +110,8 @@ const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
  * era's own tokens (no hard-coded colors, per docs/longlive-experience.md §6).
  */
 function ConfidenceBanner({ confidence, outlet }: { confidence: Confidence; outlet?: string }) {
-  if (CONFIRMED_TIER.has(confidence)) return null;
-  const banner =
-    CONFIDENCE_BANNER[confidence as Exclude<Confidence, 'official' | 'confirmed_interview'>];
+  if (!isSubConfirmed(confidence)) return null;
+  const banner = CONFIDENCE_BANNER[confidence];
   return (
     <div
       role="note"
@@ -214,7 +198,7 @@ function RumorSection({ rumors }: { rumors: RumorNote[] }) {
                 rel="noopener noreferrer"
                 className="text-xs text-[color:var(--era-ink-soft)] underline underline-offset-2 hover:text-[color:var(--era-ink)]"
               >
-                Reported by {r.reportedBy} · {rumorDateLabel(r.reportedOn)}
+                Reported by {r.reportedBy} · {formatFullDate(r.reportedOn)}
               </a>
             </div>
             <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--era-ink)]">
@@ -435,6 +419,9 @@ export function MomentDetail() {
   // Hero = the primary image (else the first one); the rest form the gallery.
   // When even the hero is a stand-in (no primary exists) it gets the same
   // honest labeling the gallery uses.
+  // The "What's confirmed" header and the RumorSection must appear/disappear
+  // together — one flag guards both.
+  const hasRumors = (item.rumors?.length ?? 0) > 0;
   const hero: ImageRef | undefined = primaryImageRef(item);
   const heroUrl = hero?.url ?? '/placeholder.svg';
   const gallery = item.images.filter((img) => img !== hero);
@@ -561,7 +548,7 @@ export function MomentDetail() {
         {/* With a rumor section below, the narrative gets an explicit
             "What's confirmed" header so the split is unmistakable. Without
             rumors the layout is unchanged. */}
-        {item.rumors && item.rumors.length > 0 && (
+        {hasRumors && (
           <h2 className="mt-8 text-sm font-bold uppercase tracking-wider text-[color:var(--era-ink-soft)]">
             What&apos;s confirmed
           </h2>
@@ -585,7 +572,7 @@ export function MomentDetail() {
 
         {item.video && <MomentVideo video={item.video} />}
 
-        {item.rumors && item.rumors.length > 0 && <RumorSection rumors={item.rumors} />}
+        {hasRumors && item.rumors && <RumorSection rumors={item.rumors} />}
 
         {item.sources && item.sources.length > 0 && (
           <div className="mt-8 border-t pt-4" style={{ borderColor: 'var(--era-line)' }}>
@@ -708,8 +695,7 @@ function FollowThreadsRow({ threadIds }: { threadIds: LensId[] | undefined }) {
         Part of a bigger story
       </div>
       <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--era-ink-soft)]">
-        This moment is part of {ids.length > 1 ? 'these threads' : 'a thread'} that cuts across
-        eras.
+        This moment is part of {ids.length > 1 ? 'these threads' : 'a thread'} that cuts across eras.
       </p>
       <div className="mt-4 flex flex-wrap gap-2">
         {ids.map((id) => {

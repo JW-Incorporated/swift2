@@ -22,7 +22,11 @@ content seed rows (`supabase/seed/content/**`), both piped through
    rendered loudly; now anything below `CONFIRMED_TIER`
    (`official`/`confirmed_interview`) renders an unmissable banner in
    `MomentDetail` ("Reported — not confirmed" / "Rumor — unconfirmed" /
-   "Debunked") naming the reporting outlet. Confirmed content is unchanged.
+   "Debunked") naming the reporting outlet (the first `sources` entry —
+   keep the reporting outlet first on sub-confirmed items). The qualifier
+   travels to every surface: an "Unconfirmed" chip on the era-feed card and
+   a `[reported — not confirmed]` marker in outbound share copy — the one
+   surface no downstream banner can correct. Confirmed content is unchanged.
 2. **`moment.rumors`** — attributed, dated press claims (`claim` +
    `reportedBy` + `reportedOn` + `status` + `url`, optional `note`) rendered
    in a visually distinct "What's rumored" section after the confirmed
@@ -31,11 +35,17 @@ content seed rows (`supabase/seed/content/**`), both piped through
    resolved rumor stay on record honestly instead of being deleted.
 
 Fail-closed everywhere: the generator drops an unattributed/undated rumor and
-an unknown confidence; `validate:content` makes both hard errors so a typo
-can't silently vanish the label. A deterministic `content.rumor-gap` checker
-(content engine) flags high-visibility moments with <2 sources and no rumor
-treatment. Pilot: the wedding trio (`msg-wedding` rumors,
-`wedding-gown-dior-anderson` + `watch-hill-bachelorette-weekend` banners).
+an unknown confidence; `validate:content` makes both hard errors (trim-aware,
+real-calendar-date, both field placements) so a typo can't silently vanish
+the label. Rumor claim/note prose feeds the content engine's corpus `texts`,
+so redlines/claim-risk/agent review scan it like any other prose. A
+deterministic `content.rumor-gap` checker (content engine, latest-news eras
+only) flags high-visibility moments with <2 sources and no rumor treatment,
+counting only entries the generator would actually ship. Pilot: the wedding
+trio (`msg-wedding` rumors, `wedding-gown-dior-anderson` +
+`watch-hill-bachelorette-weekend` banners). The 2026-07-04 hard ban carries
+over verbatim into the rumors template: no sexuality/family/identity
+speculation, ever — rumors are outlet-reported claims about public events.
 
 **Why:** The theories system already keeps era-level speculation honest, but
 it is era-scoped, carries the 2026-07-04 hard ban on private-life
