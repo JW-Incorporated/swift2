@@ -122,6 +122,9 @@ export default {
       significance: 'defining', // the highest-grossing US tour of all time when it closed, the tour that proved the reputation comeback (docs/decisions.md, 2026-07-19)
       relatedIds: ['moment:vault-midnights-the-eras-tour-kicks-off-in-glendale'],
       title: 'reputation Stadium Tour opens to a record crowd',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-rep-2", label: "Stadium Tour", kind: "tour" },
       snippet:
         "59,157 fans at University of Phoenix Stadium — breaking the venue's attendance record, set by One Direction in 2014, by 2,633 seats.",
       sourceUrl: 'https://en.wikipedia.org/wiki/Reputation_Stadium_Tour',
@@ -211,6 +214,9 @@ export default {
         'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
       ],
       title: 'The snake video that announced reputation',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-rep-0", label: "Snake video drops", kind: "life" },
       snippet:
         'She wiped her social media clean, then reappeared three days later with a slithering snake video — a reclaimed symbol before the album title and Nov. 10 release date dropped.',
       sourceUrl: 'https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji',
@@ -1810,6 +1816,9 @@ export default {
       day: 19,
       category: 'business',
       title: 'She leaves Big Machine for Republic — and owns her masters going forward',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-rep-3", label: "Leaves Big Machine", kind: "business" },
       snippet:
         'November 19, 2018: after 13 years, a new deal with Universal\'s Republic Records guarantees she owns every master she records from here on — and forces a Spotify-equity payout clause for every UMG artist.',
       sourceUrl: 'https://variety.com/2018/music/news/taylor-swift-news-alert-1203032124/',
@@ -1944,6 +1953,40 @@ export default {
             kind: 'archival',
           },
         ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "rep-album",
+      year: 2017,
+      month: 11,
+      day: 10,
+      category: "music",
+      title: "reputation strikes back",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-rep-1", label: "reputation released", kind: "album" },
+      snippet: "Armored, monochrome, and defiant — the sound of rebuilding on her own terms.",
+      hiddenClue: { clue: "She reclaimed the snake her critics used against her.", payoff: "Turning the insult into iconography flipped the whole narrative in her favor." },
+      moment: {
+        context: "After a very public year, she disappeared and returned all in black, with snakes reclaimed as armor.\n\nBeneath the hard exterior, though, reputation hides a surprisingly tender love story.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "rep-tour",
+      year: 2018,
+      month: 5,
+      day: 8,
+      category: "tour",
+      title: "Giant snakes, record numbers",
+      snippet: "The Reputation Stadium Tour becomes the highest-grossing US tour at the time.",
+      moment: {
+        context: "Towering cobra stage design and a stadium-scale production reset expectations for her live shows.",
       },
     },
   ],

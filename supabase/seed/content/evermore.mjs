@@ -238,6 +238,9 @@ export default {
         'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
       ],
       title: 'Fearless (Taylor\'s Version) is the first re-recorded album ever to hit No. 1',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ever-2", label: "First re-record hits #1", kind: "award" },
       snippet:
         '291,000 units in week one — her ninth No. 1 album, tying Madonna, and the first re-recorded album in Billboard 200 history to top the chart.',
       sourceUrl: 'https://www.billboard.com/articles/news/9558306/taylor-swift-fearless-taylors-version-tops-billboard-200/',
@@ -307,6 +310,9 @@ export default {
       significance: 'defining', // an unprecedented chart record for a song fans had wanted for a decade (docs/decisions.md, 2026-07-19)
       relatedIds: ['moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a'],
       title: 'All Too Well (10 Minute Version) becomes the longest song ever to hit No. 1',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ever-3", label: "ATW (10 Min) hits #1", kind: "award" },
       snippet:
         '10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean\'s "American Pie." Taylor\'s own reaction: "You guys sent a 10-minute song to Number One for the first time in history."',
       sourceUrl: 'https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614',
@@ -2425,6 +2431,98 @@ export default {
             kind: 'archival',
           },
         ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-album",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      title: "folklore’s sister arrives",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ever-1", label: "evermore surprise drop", kind: "album" },
+      snippet: "A second surprise album in five months — warmer, rustier, and just as literary.",
+      moment: {
+        context: "evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.\n\nSwift announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\"",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-willow",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      title: "\"willow\" leads the era",
+      snippet: "The lead single doubles as the album's only official single release.",
+      video: { youtubeId: "RsEZmictANA", title: "Taylor Swift - willow" },
+      moment: {
+        context: "\"willow\" was released same-day as the album as its lead single and only Hot 100 top-10 hit from evermore — later performed live for the first time at the 2021 Grammys.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-no-body-no-crime",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      title: "\"no body no crime\" with HAIM",
+      snippet: "A murder-ballad duet featuring sisters Este, Danielle, and Alana Haim, named as characters in the song.",
+      moment: {
+        context: "The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Swift to perform it live during the Eras Tour years later.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-champagne-problems",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      tags: ["Lore"],
+      title: "\"champagne problems\"",
+      snippet: "A co-write with William Bowery (Joe Alwyn) about a declined proposal.",
+      moment: {
+        context: "One of two evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-right-where-you-left-me",
+      year: 2021,
+      month: 1,
+      day: 7,
+      category: "music",
+      title: "The deluxe edition adds two tracks",
+      snippet: "\"right where you left me\" and \"it's time to go\" arrive a month after the album.",
+      moment: {
+        context: "A deluxe edition released three weeks after the original, adding \"right where you left me\" and \"it's time to go\" — both later folded into the era's standard track list on streaming.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-marjorie",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      tags: ["Lore"],
+      title: "\"marjorie,\" for her grandmother",
+      snippet: "A tribute built partly from archival recordings of Swift's late grandmother, opera singer Marjorie Finlay.",
+      moment: {
+        context: "The song incorporates real vocal recordings of Marjorie Finlay, Swift's grandmother and a professional opera singer who died in 2003 — Swift has spoken about writing it as a way of \"bringing her back.\"",
       },
     },
   ],

@@ -1293,6 +1293,9 @@ export default {
       day: 24,
       category: 'release',
       title: 'Taylor Swift, the album, arrives',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-1", label: "Debut album", kind: "album" },
       snippet:
         'Oct. 24, 2006: the self-titled debut lands — eleven tracks, her name on every writing credit, released when she was 16.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
@@ -1953,6 +1956,56 @@ export default {
           },
         ],
         photos: [],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "debut-tim-mcgraw",
+      year: 2006,
+      month: 6,
+      day: 19,
+      category: "music",
+      title: "“Tim McGraw” arrives",
+      snippet: "A debut single named after a country legend announces a 16-year-old songwriter with an unusual gift for specifics.",
+      video: { youtubeId: "GkD20ajVxnY", title: "Taylor Swift - Tim McGraw" },
+      hiddenClue: { clue: "The liner notes hid secret messages in capital letters.", payoff: "That decrypting-the-capitals habit became a decade-long tradition fans still decode on every album." },
+      moment: {
+        context: "Before the stadiums, there was a teenager who named her first single after Tim McGraw — a bet that specificity would travel further than polish.\n\nIt cracked the country charts and set the template for everything after: real names, real places, and a diaristic eye for the small detail that makes a memory ache.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "debut-cowboy-boots",
+      year: 2007,
+      month: 4,
+      dateLabel: "Spring 2007",
+      category: "fashion",
+      title: "Curls, sundresses and cowboy boots",
+      snippet: "The visual signature of the debut era: sunlit country-girl Americana.",
+      moment: {
+        context: "Ringlet curls, floaty sundresses, and well-worn cowboy boots became the uniform of the debut era — a look as handmade and earnest as the songs.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "debut-our-song",
+      year: 2007,
+      month: 9,
+      day: 8,
+      category: "music",
+      title: "“Our Song” hits number one",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-2", label: "“Our Song” #1", kind: "award" },
+      snippet: "At 17, she becomes the youngest person to single-handedly write and perform a number-one country hit.",
+      video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
+      moment: {
+        context: "A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke.",
       },
     },
   ],

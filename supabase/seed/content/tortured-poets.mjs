@@ -944,6 +944,9 @@ export default {
         'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
       ],
       title: 'The Eras Tour takes its final bow in Vancouver',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-2", label: "Eras Tour finale", kind: "tour" },
       snippet: 'BC Place, 149 shows and 21 months after Glendale — more than 50,000 fans for the last night of the tour.',
       sourceUrl: 'https://www.nbcnews.com/pop-culture/pop-culture-news/end-era-taylor-swifts-eras-tour-coming-close-vancouver-rcna183279',
       thumbnailUrl:
@@ -2226,6 +2229,9 @@ export default {
       day: 19,
       category: 'music',
       title: 'So High School, annotated by the internet in minutes',
+      // the-proposal thread opt-in (stage 3, 2026-07-19): the song fans read
+      // as the relationship's track — a beat of the derived End Game thread.
+      threadIds: ['the-proposal'],
       snippet:
         'The "marry, kiss, or kill me" line traces to a viral 2016 Travis interview clip, and fans caught the nod to his impressions of his dad — the album\'s one openly giddy chapter.',
       sourceUrl: 'https://www.today.com/popculture/music/so-high-school-taylor-swift-lyrics-meaning-rcna148574',
@@ -2714,6 +2720,9 @@ export default {
       day: 8,
       category: 'sighting',
       title: "Box seats at Arthur Ashe for the US Open men's final",
+      // the-proposal thread opt-in (stage 3, 2026-07-19): the first big
+      // non-football public date — a beat of the derived End Game thread.
+      threadIds: ['the-proposal'],
       snippet:
         'A rare non-football sports date: she and Travis watched Sinner beat Fritz from a box with Patrick and Brittany Mahomes — a red-and-white checkered dress and a Gucci bucket hat between them.',
       sourceUrl: 'https://abcnews.go.com/GMA/Culture/taylor-swift-travis-kelce-attend-us-open-mens/story?id=113500642',
@@ -2976,6 +2985,9 @@ export default {
       day: 30,
       category: 'business',
       title: '"All of the music I\'ve ever made... now belongs... to me"',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-3", label: "Masters bought back", kind: "business" },
       snippet:
         'The ending the Taylor\'s Versions were building toward: she bought her first six albums back from Shamrock Capital — masters, videos, artwork, unreleased songs, everything.',
       sourceUrl: 'https://www.billboard.com/pro/taylor-swift-regains-control-master-recordings-shamrock/',
@@ -3131,6 +3143,40 @@ export default {
             focalPoint: '50% 30%',
           },
         ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "ttpd-album",
+      year: 2024,
+      month: 4,
+      day: 19,
+      category: "music",
+      title: "The Tortured Poets Department",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-1", label: "TTPD released", kind: "album" },
+      snippet: "A literary, ink-stained double album — the most word-heavy record of her career.",
+      hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
+      moment: {
+        context: "Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.\n\nTypewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "ttpd-typewriter",
+      year: 2024,
+      month: 4,
+      dateLabel: "Spring 2024",
+      category: "fashion",
+      title: "Ink, typewriters and monochrome",
+      snippet: "The most restrained visual era: black, white, and typewritten confession.",
+      moment: {
+        context: "Grayscale styling and typewriter motifs frame the era as a literary confessional.",
       },
     },
   ],
