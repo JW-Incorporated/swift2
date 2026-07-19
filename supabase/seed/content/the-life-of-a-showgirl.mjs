@@ -2122,6 +2122,123 @@ export default {
         ],
       },
     },
+    // --- The ring, deepened (2026-07-18, curiosity→answer pilot / Lex): moved
+    // out of tortured-poets.mjs (wrong era — this is an Aug 2025 Showgirl-era
+    // event) and consolidated with the announcement, then deepened per the
+    // founder's list: the goldsmith's story, the "shown Travis her work"
+    // provenance, celebrity-ring carat comparisons, and labeled cost/size
+    // rumors. Every claim verified against its cited source this session; the
+    // photos are the same rights-cleared ABC copies of the couple's official
+    // post used by the announcement item. Open item Lex logged and the
+    // Answerer could NOT close this pass: a rights-cleared portrait of Lubeck
+    // and a photo of the specific earlier Artifex piece Taylor showed Travis —
+    // no clean, unwatermarked source found, so none was added.
+    {
+      slug: 'showgirl-engagement-ring',
+      threadIds: ['the-proposal'],
+      relatedIds: [
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
+      year: 2025,
+      month: 8,
+      day: 26,
+      category: 'fashion',
+      title: 'The ring: an old mine diamond from a goldsmith Taylor already admired',
+      snippet:
+        'A custom old mine–cut diamond in hand-engraved yellow gold by New York goldsmith Kindred Lubeck of Artifex Fine Jewelry — whose vintage work Taylor had admired, and shown Travis, more than a year before he proposed.',
+      sourceUrl:
+        'https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand',
+      thumbnailUrl:
+        'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
+      moment: {
+        context:
+          'Travis did not walk into a jeweler and point at a case. He worked directly with Kindred Lubeck — the hand-engraver behind New York\'s Artifex Fine Jewelry — on a ring Taylor never had to spec, because he already knew the name: she had shown him Lubeck\'s vintage work admiringly more than a year before he proposed. Her verdict: "I didn\'t know what I would want, but he did somehow."\n\nLubeck, 30, is a newcomer with a craftsman\'s pedigree — the daughter of a working goldsmith, a Florida State psychology grad who took an engraving class in 2021 and got, in her words, "totally hooked." Artifex is built on hand-engraved gold and antique stones: "Hand engraving allows me to leave a piece of myself in every ring," she says, "transforming each gemstone into something that carries a story."\n\nThe stone is an old mine brilliant cut — an antique geometry from the 1700s–1800s, squarer than a modern round with a higher crown and a softer, candlelit sparkle — set in a yellow-gold band with her signature engraved arches. No carat weight was ever disclosed, so the sizes are estimates: appraisers ranged from about 7–8 carats (jewelers surveyed by Today) through a ~8–10 consensus up to 10–15, with Forbes calling 13 "very possible" — Taylor\'s signature number — at an estimated ~$650,000, and others guessing $1 million and up. That lands it below the carat monsters of celebrity lore — Kim Kardashian\'s 15- and 20-carat rings, Beyoncé\'s ~18-carat emerald cut, Elizabeth Taylor\'s 33-carat Burton diamond — and notable instead for its antique cut over its size.\n\nThe ring made Lubeck famous overnight; within months she staged a rare Sotheby\'s "Gem Drop" capsule of one-of-a-kind rings — "the chance," she said, "to bring that level of care and creativity to a larger audience."',
+        sources: [
+          {
+            outlet: 'Complex',
+            url: 'https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand',
+            source_title: "Taylor Swift's Engagement Ring Designer Launches Her Own Brand",
+            publisher: 'Complex',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-18',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-jeweler-kindred-lubeck-interview-rcna238142',
+            source_title: "EXCLUSIVE: Taylor Swift's Jeweler Kindred Lubeck Talks Engagement Ring",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-18',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'South China Morning Post',
+            url: 'https://www.scmp.com/magazines/style/people/celebrities/article/3323318/meet-kindred-lubeck-who-designed-taylor-swifts-engagement-ring',
+            source_title: "Meet Kindred Lubeck, who designed Taylor Swift's engagement ring",
+            publisher: 'SCMP',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-18',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/kindred-lubeck-artifex-sothebys-gem-drop-taylor-swift-engagement-ring/',
+            source_title: "Kindred Lubeck Is Holding a Rare Auction for Her One-of-a-Kind Pieces With Sotheby's",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-18',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/maryroeloffs/2025/08/27/taylor-swifts-engagement-ring-may-be-13-carats-expert-says-and-is-worth-an-estimated-650000/',
+            source_title: "Taylor Swift's Engagement Ring May Be 13 Carats, Expert Says",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-18',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776',
+            source_title: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-18',
+            reliability_score: 4,
+          },
+        ],
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'The ring in close-up from the announcement carousel: the old mine brilliant-cut diamond in hand-engraved yellow gold, designed by Kindred Lubeck of Artifex Fine Jewelry.',
+            kind: 'primary',
+            // The stone sits dead-center, slightly above the middle of the frame.
+            focalPoint: '50% 42%',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'The new ring on Swift\'s hand as the couple embrace among the garden flowers, from the same official post.',
+            kind: 'primary',
+            focalPoint: '47% 30%',
+          },
+          {
+            url: 'https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg',
+            credit: 'via @taylorswift/Instagram (ABC News)',
+            caption:
+              'The ring visible on Swift\'s hand as she holds Kelce right after the proposal — the embrace frame from the carousel.',
+            kind: 'primary',
+            focalPoint: '48% 35%',
+          },
+        ],
+      },
+    },
     // --- Deep timeline fill (2026-07-08, content/deep-d): song stories, the
     // album's chart marathon, the Kelce arc between engagement and wedding,
     // and the era's 2026 chapters. Every claim verified against its cited
