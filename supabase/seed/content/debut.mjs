@@ -61,6 +61,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)',
             kind: 'archival',
+            focalPoint: '39% 23%',
           },
         ],
       },
@@ -362,6 +363,7 @@ export default {
           {
             url: 'https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg',
             credit: 'Getty Images',
+            focalPoint: '53% 11%',
           },
         ],
       },
@@ -417,6 +419,7 @@ export default {
           {
             url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces',
             credit: 'Stephen Lovekin/WireImage/Getty Images',
+            focalPoint: '47% 13%',
           },
         ],
       },
@@ -443,6 +446,7 @@ export default {
           {
             url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces',
             credit: 'Denise Truscello/WireImage/Getty Images',
+            focalPoint: '48% 13%',
           },
         ],
       },
@@ -472,6 +476,7 @@ export default {
           {
             url: 'https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTM7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8c1753b0-693b-11ee-b69e-d5b17b60c7bb',
             credit: 'Yahoo via YouTube',
+            focalPoint: '34% 45%',
           },
         ],
       },
@@ -615,6 +620,7 @@ export default {
             url:
               'https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg',
             credit: 'Kevin Winter/Getty Images',
+            focalPoint: '55% 40%',
           },
         ],
       },
@@ -840,6 +846,7 @@ export default {
             url:
               'https://s.yimg.com/ny/api/res/1.2/.aCciUUvVRppty__Am_qwA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/the_tennessean_slideshows_726/e66c5e27810715572b9b8533bbc6a086',
             credit: 'Jae S. Lee/The Tennessean',
+            focalPoint: '55% 32%',
           },
         ],
       },

@@ -240,7 +240,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A dramatically shorter, blunt-cut bob with heavy fringe — a sharp departure from the long waves she'd worn through most of the 1989 era, debuted on one of the year's biggest red carpets.",
       body: ["E! Online's red-carpet coverage that night singled out the new haircut alongside the outfit as the story of her look — a straight, blunt-cut bob with heavy fringe, debuted against custom Versace on the biggest carpet of the year, and a hard break from the long waves that had defined the era's first eighteen months.", "It was also step one of a fast transformation: within three months the same blunt length had been bleached platinum and paired with dark burgundy lips for the \"Manus x Machina\" Met Gala, the sharper beauty pivot The Hollywood Reporter documented that May — a bob-with-bangs silhouette she'd keep returning to in the years after."],
       tags: ["Fashion"],
-      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "Jason Merritt/Getty Images for NARAS", kind: "primary" }],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "Jason Merritt/Getty Images for NARAS", kind: "primary", focalPoint: "48% 10%" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/" }],
     },
     {
@@ -680,7 +680,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A white sundress, natural curls, and \"Tim McGraw\" — before the album that made her famous had even come out.",
       body: ["Sept. 1, 2006: \"Tim McGraw\" had been at country radio for barely ten weeks, the album was still almost two months away, and the newest signing at a just-launched independent label walked onto country music's most sacred stage to sing her only single. Taste of Country's retrospective is blunt about the odds — at the time, \"the notion of a teenage girl succeeding in country music seemed pretty far-fetched.\"", "The bet paid off fast enough that she spent the next several years as a regular on the Opry stage."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)", kind: "archival", focalPoint: "39% 23%" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-grand-ole-opry-debut/" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-grand-ole-opry-debut/" }],
     },
     {
@@ -779,7 +779,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A strapless, corseted purple gown by Sandi Spika at the 50th Grammy Awards on Feb. 10, 2008 — her red carpet debut at music's biggest night, nominated for Best New Artist.",
       body: ["She attended the 2008 Grammys as a Best New Artist nominee (the award went to Amy Winehouse) in a strapless, corseted purple gown by Sandi Spika, paired with her signature curls — a look fashion retrospectives still cite as her Grammys debut.", "At 18 she wasn't yet a Grammy performer or winner, just a first-time nominee working the carpet at music's biggest night — the nomination itself the headline, arriving off a debut album that had refused to stop selling. Who What Wear and Femestella both treat this purple gown as the opening frame of a Grammys red-carpet history that would run for well over a decade; two years later, in a blue KaufmanFranco gown at the 2010 ceremony, she'd leave the same carpet a four-time winner."],
       tags: ["Fashion"],
-      images: [{ url: "https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg", credit: "Getty Images", kind: "primary" }],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg", credit: "Getty Images", kind: "primary", focalPoint: "53% 11%" }],
       sources: [{ name: "Who What Wear", url: "https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective" }, { name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/" }],
     },
     {
@@ -801,7 +801,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A black satin, mermaid-style gown by Elvira with matching long black gloves — her first CMA Awards red carpet, weeks after her debut album released.",
       body: ["Worn to the 40th Annual CMA Awards at Nashville's Gaylord Entertainment Center, just weeks after her self-titled debut album hit shelves — a more formal, Old-Hollywood-leaning look than the sundresses that otherwise defined her earliest red carpets.", "The timing is what makes it notable: this was her first CMA Awards carpet, walked as a 16-year-old newcomer whose only single, \"Tim McGraw,\" had barely cracked the country top 10. Nylon's retrospective singles the black satin gown out as an early, briefly-glimpsed grown-up register — matching long gloves and all — before she settled back into the boots-and-ruffles country-girl uniform that carried the rest of the era."],
       tags: ["Fashion"],
-      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces", credit: "Stephen Lovekin/WireImage/Getty Images", kind: "primary" }],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces", credit: "Stephen Lovekin/WireImage/Getty Images", kind: "primary", focalPoint: "47% 13%" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp" }],
     },
     {
@@ -812,7 +812,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom drop-waist gown by Sandi Spika at the 42nd Academy of Country Music Awards — one of two Sandi Spika red-carpet gowns she wore that year (the other, a lavender cascading-floral piece, came at the following year's Grammys).",
       body: ["Worn on the red carpet at the MGM Grand Hotel and Casino for the 42nd ACM Awards in May 2007 — the same ceremony where she performed \"Tim McGraw\" to Tim McGraw's face and then introduced herself with \"Hi, I'm Taylor.\" One of two Sandi Spika red-carpet gowns she wore across 2006-2008, the designer who dressed most of her earliest big nights.", "The retrospectives don't fully agree on the dress: Nylon logs it as a custom drop-waist Sandi Spika gown, while W Magazine's evolution piece files her 2007 ACM look as a pink corseted Sandi Spika gown. Either way it sits right at the hinge point in her early styling — the last stretch before the more structured, corseted silhouettes took over that year's CMAs and the 2008 Grammys."],
       tags: ["Fashion"],
-      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces", credit: "Denise Truscello/WireImage/Getty Images", kind: "primary" }],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces", credit: "Denise Truscello/WireImage/Getty Images", kind: "primary", focalPoint: "48% 13%" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
     },
     {
@@ -823,7 +823,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Months before her album dropped, a 16-year-old Taylor Swift performed at a Yahoo Music showcase — reworking one of her own lyrics mid-song into a shout-out to Yahoo.",
       body: ["Two months before \"Taylor Swift\" released on Oct. 24, 2006, she performed at Yahoo Entertainment as part of its \"Who's Next?\" artist program — a low-key industry showcase, not a concert or red carpet.", "Mid-performance she swapped in a lyric namechecking Yahoo Music, a detail Yahoo's own retrospective still points to as evidence of how new and unpolished the moment was."],
       tags: ["Lore"],
-      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTM7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8c1753b0-693b-11ee-b69e-d5b17b60c7bb", credit: "Yahoo via YouTube", kind: "primary" }],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTM7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8c1753b0-693b-11ee-b69e-d5b17b60c7bb", credit: "Yahoo via YouTube", kind: "primary", focalPoint: "34% 45%" }],
       sources: [{ name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-performed-at-yahoo-2006-201948506.html" }],
     },
     {
@@ -878,7 +878,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Invited on as a presenter, 17-year-old Swift heard Dave Grohl and Taylor Hawkins read her name for Best New Artist and couldn't contain it — stepping up to hug them both on the spot.",
       body: ["At the 50th Grammy Awards nominations announcement at the Henry Fonda Music Box Theater on Dec. 6, 2007, 17-year-old Swift was invited on as one of the presenters — and then heard her own name read out as a Best New Artist nominee, her first-ever Grammy nomination.", "She couldn't hold back her excitement, stepping up to hug Foo Fighters' Dave Grohl and Taylor Hawkins on the spot, drawing laughs from the room. (Amy Winehouse would go on to win the category at the ceremony two months later.)"],
       tags: ["Lore"],
-      images: [{ url: "https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg", credit: "Kevin Winter/Getty Images", kind: "primary" }],
+      images: [{ url: "https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg", credit: "Kevin Winter/Getty Images", kind: "primary", focalPoint: "55% 40%" }],
       sources: [{ name: "The List", url: "https://www.thelist.com/1610914/taylor-swift-dave-grohl-drama-timeline/" }],
     },
     {
@@ -955,7 +955,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Hours of posing for photos with fans, one after another, at the Big Machine Records booth in the Nashville Convention Center — an early instance of the marathon fan meet-and-greets she'd become known for.",
       body: ["On Day 3 of the CMA Music Festival, June 7, 2008, she held an all-day meet, greet, and autograph-signing session at the Big Machine Records booth inside the Fan Fair Exhibit Hall of the Nashville Convention Center, posing for photo after photo with fans in line.", "It was an early version of the marathon meet-and-greets (including a later 13-hour signing session) she became known for."],
       tags: ["Lore"],
-      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/.aCciUUvVRppty__Am_qwA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/the_tennessean_slideshows_726/e66c5e27810715572b9b8533bbc6a086", credit: "Jae S. Lee/The Tennessean", kind: "primary" }],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/.aCciUUvVRppty__Am_qwA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/the_tennessean_slideshows_726/e66c5e27810715572b9b8533bbc6a086", credit: "Jae S. Lee/The Tennessean", kind: "primary", focalPoint: "55% 32%" }],
       sources: [{ name: "The Tennessean (via Yahoo)", url: "https://www.yahoo.com/entertainment/music/articles/13-collaborations-helped-taylor-swift-100535520.html" }],
     },
     {
@@ -1366,7 +1366,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Overlined red-liner-and-matte-lipstick \"siren red\" mouth, a fine-tipped black liquid cat eye, and flat-ironed, straight-across bangs — the signature beauty look of the re-release run.",
       body: ["Bustle's breakdown of the look starts at the mouth: red lip liner as a base with matte red lipstick layered on top and slightly overlined at the cupid's bow — the \"siren red\" lip she wore to nearly every appearance of the re-release run.", "The rest of the formula: a \"minimal yet striking\" black liquid cat eye with a fine-tipped flick, straight-across bangs re-created with a flat iron and angled at 45 degrees for dimension, plus an inner-corner highlight to open the eyes."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", caption: "Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the \"siren red\" lip and blunt bangs of the Red (TV) beauty look, the night before the album's release.", kind: "primary" }],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", caption: "Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the \"siren red\" lip and blunt bangs of the Red (TV) beauty look, the night before the album's release.", kind: "primary", focalPoint: "42% 13%" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/style/taylor-swift-red-beauty-look" }],
     },
     {
@@ -1399,7 +1399,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A separate look from her Etro performance gown: a vividly floral Oscar de la Renta Spring '21 mini dress with mesh bell sleeves and individually tacked-on botanical appliqués, worn to arrive at the (pandemic-scaled) red carpet before her folklore/evermore medley.",
       body: ["For her red-carpet arrival at the March 14, 2021 Grammys — where folklore won Album of the Year — Swift wore a mini dress from Oscar de la Renta's Spring 2021 collection: long mesh bell sleeves, a mock neck, and bold 3D floral embroidery with botanical appliqués tacked on individually.", "She paired it with pink Christian Louboutin \"Rose Amelie\" peep-toe ankle-strap heels and Cathy Waterman jewelry — a separate outfit from the navy-and-gold Etro paisley gown she changed into to perform the folklore/evermore medley later that night."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg", credit: "Getty Images", kind: "primary" }],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg", credit: "Getty Images", kind: "primary", focalPoint: "45% 10%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/03/15/taylor-swift-wore-oscar-de-la-renta-etro-to-the-2021-grammy-awards/" }, { name: "E! News", url: "https://www.eonline.com/news/1248131/taylor-swift-brought-the-flower-power-to-the-2021-grammys-and-were-here-for-it" }],
     },
     {
@@ -1421,7 +1421,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An ivory mod-style mini dress from Zuhair Murad's Resort 2022 collection, gold beaded trim at the neckline and sleeves, worn to promote Red (Taylor's Version) on Jimmy Fallon's show days before the album's release.",
       body: ["Promoting Red (Taylor's Version) on The Tonight Show Starring Jimmy Fallon, Swift wore an ivory shift dress from Lebanese couturier Zuhair Murad's Resort 2022 collection, with gold beaded trim at the neckline and sleeves and oversized pockets. She paired it with gold Christian Louboutin \"So Kate\" pumps, Lark & Berry jewelry, and her signature red lip.", "It was one of two late-night looks from the same release-week press blitz — the crystal-covered David Koma she changed into for Late Night with Seth Meyers, covered separately in this era's fashion items, was the other."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", kind: "primary" }],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", kind: "primary", focalPoint: "42% 13%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }, { name: "Vogue Arabia", url: "https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/" }],
     },
     {
