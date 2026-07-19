@@ -32,11 +32,32 @@ Phase 1), shifts author *as* the routed persona; until then, house voice.)
    length caps. Seed files only (`supabase/seed/**`) — never UI code.
 4. Validate: `npm run validate:content` zero errors + `node --check` per
    edited file + full test suite.
-5. **Codex review, mandatory, no self-rebuttal** (same rule as Austin).
+5. **Codex review, no self-rebuttal** (same rule as Austin) — **but
+   DEGRADABLE, amended 2026-07-19.** If the Codex companion is not available
+   in this environment, label the PR `needs-human-review`, say so in the PR
+   body, and **continue to step 6**. Codex being unreachable must never stop
+   the work from shipping to review.
+
+   *Why this changed:* the previous wording ("mandatory") had no escape
+   hatch, and because the charter outranks the runtime prompt, it overrode
+   the prompt's degrade path. Codex is in fact unreachable from the cloud
+   environment — every photo-enrichment PR carries `needs-human-review` for
+   exactly this reason. So the shift could research and author an item, hit
+   this step, and abort with the work discarded. Combined with the ledger
+   comment sitting at step 7 (after the PR), an abort here left NO trace
+   anywhere: no branch, no PR, no comment. Three consecutive runs on
+   2026-07-19 did precisely that against a non-empty queue.
 6. PR labeled `content-shift`, `Closes #<n>`, TL;DR format. **Human merge**
    — founders or an in-session pass; the shift never merges.
 7. Ledger comment on the source ticket (what shipped, what was dropped and
    why — e.g. an unverifiable claim cut per the no-fabrication rule).
+8. **Never exit silently (amended 2026-07-19).** If a run ends WITHOUT
+   opening a PR — empty queue, an aborted item, a tool or environment
+   failure, anything — say so before exiting: comment on the ticket you were
+   working, or on the newest open `intake` issue, or on the Nils walk log
+   (#502) if there is no ticket. A run that fails quietly is
+   indistinguishable from a quiet news day, which is how the Vault sat at
+   2026-07-10 for nine days with a green fleet.
 
 ## Throttles
 
