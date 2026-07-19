@@ -436,7 +436,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She called it the song that \"best represents\" the album — built around a real snowmobile accident and twenty stitches she'd kept out of the tabloids.",
       body: ["Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Swift on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.", "The bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png", credit: "Big Machine Records", kind: "primary", focalPoint: "47% 42%" }, { url: "https://i.ytimg.com/vi/JLf9q36UsBk/hq2.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Frost-covered mid-blizzard — a still from Joseph Kahn's official 'Out of the Woods' video, premiered on New Year's Eve 2015.", kind: "archival", focalPoint: "48% 42%" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png", credit: "Big Machine Records", kind: "primary", focalPoint: "47% 42%" }, { url: "https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Frost-covered mid-blizzard — a still from Joseph Kahn's official 'Out of the Woods' video, premiered on New Year's Eve 2015.", kind: "archival", focalPoint: "48% 42%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)" }],
     },
     {
@@ -5023,7 +5023,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Photographed rehearsing in all-black practice clothes with her hair in a messy ponytail, mid-choreography, just two days before the Red Tour's March 13, 2013 opening night in Omaha.",
       body: ["Photos published March 11, 2013 showed Swift running through choreography in practice gear ahead of the tour's opening week, caught mid-movement with one hand raised as though playing to an imaginary crowd — a rare glimpse of the unglamorous rehearsal process behind the tour's eventual 128-costume, arena-scale production.", "The experimentation was the point. Talking about the show she was building, Swift emphasized \"the element of surprise, and incorporating the unexpected\" — the goal being a concert that let the audience escape for the evening rather than a note-for-note album recital. Two days later in Omaha, the surprises started delivering, from mid-show costume reveals to the B-stage duet with Ed Sheeran."],
       tags: ["Lore"],
-      images: [{ url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-1.jpg?w=980&q=75", credit: "TSA / Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=75", credit: "TSA / Getty Images", kind: "archival" }],
+      images: [{ url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-1.jpg?w=980&q=75", credit: "TSA / Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=100", credit: "TSA / Getty Images", kind: "archival" }],
       sources: [{ name: "PopCrush", url: "https://popcrush.com/taylor-swift-red-tour-rehearsal-pics/" }],
     },
     {
