@@ -2285,6 +2285,20 @@ export default {
       snippet: "A pastel love letter — and the first album she would fully own.",
       moment: {
         context: "After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere.",
+        // Photo pass #762 (2026-07-19): freely licensed Commons shot from the
+        // era's launch season — license (CC BY-SA 4.0, Glenn Francis/Toglenn)
+        // verified on the file page via the Commons API; curl 200 image/jpeg
+        // 2358x3537; Read-viewed: Swift in the iridescent blue-purple sequined
+        // dress at the 2019 iHeartRadio Music Awards (March 14, 2019), the
+        // pastel look that opened the Lover rollout.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            credit: 'Glenn Francis via Wikimedia Commons, CC BY-SA 4.0',
+            caption: 'Iridescent sequins at the 2019 iHeartRadio Music Awards — the pastel palette arriving weeks before "ME!".',
+            focalPoint: '48% 22%',
+          },
+        ],
       },
     },
     {
