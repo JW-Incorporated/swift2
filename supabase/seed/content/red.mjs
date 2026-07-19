@@ -306,6 +306,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
+            focalPoint: '48% 40%',
           },
         ],
       },
@@ -341,6 +342,7 @@ export default {
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2013/02/10/51455457-a645-11e2-a3f0-029118418759/thumbnail/620x1005/cf494e8cba2e12a4982a8d12d080d3f7/161394430.jpg',
             credit: 'CBS News',
+            focalPoint: '40% 14%',
           },
         ],
       },

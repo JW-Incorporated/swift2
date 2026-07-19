@@ -892,6 +892,7 @@ export default {
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
             credit: 'NBC News',
+            focalPoint: '47% 12%',
           },
         ],
       },
@@ -1002,6 +1003,7 @@ export default {
           {
             url: 'https://variety.com/wp-content/uploads/2023/10/GettyImages-1712353673.jpg?w=1000&h=563&crop=1',
             credit: 'Elsa/Getty Images',
+            focalPoint: '44% 32%',
           },
         ],
       },
@@ -1305,6 +1307,7 @@ export default {
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1',
             credit: 'Patrick T. Fallon/AFP via Getty Images',
+            focalPoint: '51% 17%',
           },
         ],
       },
@@ -1333,6 +1336,7 @@ export default {
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-2003760399-copy.jpg?w=1296&h=730&crop=1',
             credit: 'Getty Images',
+            focalPoint: '62% 38%',
           },
         ],
       },
@@ -1679,10 +1683,12 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg',
             credit: 'Getty Images',
+            focalPoint: '53% 12%',
           },
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg',
             credit: 'Getty Images',
+            focalPoint: '45% 25%',
           },
         ],
       },
