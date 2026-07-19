@@ -2102,6 +2102,18 @@ export default {
             caption: 'The white ringmaster look that opened the 2013 Grammys — "We Are Never Ever Getting Back Together" as circus.',
             focalPoint: '48% 20%',
           },
+          {
+            // Salvaged 2026-07-19 from photo-enrichment PR #886 (otherwise
+            // superseded by a racing run): a second, wider angle of the same
+            // performance from Taste of Country's CDN — credit line per that
+            // article. Re-verified 200 (image, 630x420, unwatermarked).
+            url: 'https://townsquare.media/site/204/files/2013/02/tay.jpg',
+            credit: 'Kevork Djansezian, Getty Images, via Taste of Country',
+            caption: 'In the white ringmaster suit and top hat, opening the 2013 Grammys with "We Are Never Ever Getting Back Together."',
+            kind: 'primary',
+            // Face upper-center-left.
+            focalPoint: '45% 28%',
+          },
         ],
       },
     },
