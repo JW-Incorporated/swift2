@@ -564,6 +564,9 @@ export default {
       day: 18,
       category: 'business',
       title: "All 12 tracks debut as the Hot 100's entire top 12",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-4", label: "Hot 100 sweep", kind: "award" },
       snippet:
         'Every song on the album landed inside the top 12 of the Hot 100 in its first week — the whole tracklist, in a block — making her the first artist ever to monopolize the chart\'s top 10 three separate times.',
       sourceUrl: 'https://www.billboard.com/lists/taylor-swift-hot-100-fate-of-ophelia-number-one/',
@@ -1448,6 +1451,12 @@ export default {
       significance: 'defining', // the era's life-defining event (docs/decisions.md, 2026-07-18)
       relatedIds: ['moment:vault-midnights-the-game-the-world-decided-made-it-official'],
       title: 'Taylor and Travis marry at Madison Square Garden',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-5", label: "Married at MSG", kind: "life" },
+      // the-proposal thread opt-in (stage 3, 2026-07-19): the End Game
+      // thread's final beat, now derived from this moment.
+      threadIds: ['the-proposal'],
       snippet:
         'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man. Roughly 1,000 guests, and a jumbotron outside the arena reading "JUST&T MARRIED!"',
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/',
@@ -2077,6 +2086,8 @@ export default {
     },
     {
       slug: 'showgirl-engagement-announcement',
+      // Pull-quote for the derived End Game thread card (stage 3, 2026-07-19).
+      pullQuote: '“Your English teacher and your gym teacher are getting married.”',
       significance: 'defining', // the direct precursor to the wedding, one of the most-repeated cultural moments of 2025 (docs/decisions.md, 2026-07-19)
       threadIds: ['the-proposal'],
       relatedIds: [
@@ -2089,6 +2100,9 @@ export default {
       day: 26,
       category: 'relationship',
       title: '"Your English teacher and your gym teacher are getting married": the engagement, announced on Instagram',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-1b", label: "Engagement announced", kind: "life" },
       snippet:
         'Two weeks after the New Heights album reveal, Taylor and Travis announced their engagement in a joint Instagram post — a garden proposal, an Old Mine Cut diamond in yellow gold, and a caption that became the year\'s most-repeated line.',
       sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
@@ -3483,6 +3497,134 @@ export default {
             focalPoint: '48% 35%',
           },
         ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "tloas-announce",
+      year: 2025,
+      month: 8,
+      day: 13,
+      category: "music",
+      title: "A new era is announced",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-1", label: "Era announced", kind: "life" },
+      snippet: "The Life of a Showgirl is revealed live on Travis Kelce’s \"New Heights\" podcast — a hard turn from ink into glitter.",
+      hiddenClue: { clue: "The announcement leaned hard on the color orange — a shade barely used before.", payoff: "Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow." },
+      moment: {
+        context: "After the monochrome hush of the last era, the reveal comes not from a stage or a cryptic post but from a guest chair on her fiancé’s football podcast — itself a sign of how public the era would be.\n\nThe announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle, reframing everything that came before as the build-up to a curtain call.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "tloas-album",
+      year: 2025,
+      month: 10,
+      day: 3,
+      category: "music",
+      title: "The Life of a Showgirl released",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-2", label: "Showgirl released", kind: "album" },
+      snippet: "The twelfth studio album arrives: opulent, theatrical, and unapologetically bright.",
+      moment: {
+        context: "The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.\n\nProduced with Max Martin and Shellback — their first new-album collaboration with her since reputation — it is a victory lap dressed as a cabaret: knowing, warm, and dazzling.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "tloas-fate-of-ophelia-video",
+      year: 2025,
+      month: 10,
+      day: 5,
+      category: "music",
+      title: "“The Fate of Ophelia” video premieres",
+      snippet: "The self-directed lead-single video debuts on YouTube after its theatrical-only premiere two days earlier.",
+      video: { youtubeId: "ko70cExuzZM", title: "Taylor Swift - The Fate of Ophelia (Official Music Video)" },
+      moment: {
+        context: "Written and directed by Taylor Swift, the video moves through a string of theatrical costume changes and sets, in keeping with the album’s showgirl framing.\n\nIt had already premiered on the big screen as part of the release-party film before arriving on YouTube for the wider audience.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "tloas-sequins",
+      year: 2025,
+      month: 10,
+      dateLabel: "Fall 2025",
+      category: "fashion",
+      title: "Orange sequins and feathers",
+      snippet: "The visual language: burnt-orange rhinestones, marabou, and spotlight sparkle.",
+      moment: {
+        context: "Showgirl glamour defines the styling — sequins, feathers, and a warm theatrical glow in every frame.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "tloas-debut-chart",
+      year: 2025,
+      month: 10,
+      day: 18,
+      category: "sighting",
+      title: "A record-setting debut",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-3", label: "Record debut", kind: "award" },
+      snippet: "The album opens at number one with the fastest-selling first week in history.",
+      moment: {
+        context: "The Life of a Showgirl moved north of 4 million album-equivalent units in its opening week, the biggest sales week any album has ever posted.\n\nIt became her 15th number-one album on the Billboard 200, breaking a tie with Drake and Jay-Z for the most chart-toppers among solo acts.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "tloas-hot100-sweep",
+      year: 2025,
+      month: 10,
+      day: 18,
+      category: "sighting",
+      title: "All twelve songs, all twelve top spots",
+      snippet: "Every track on the album lands positions 1 through 12 of the Billboard Hot 100 — a first in chart history.",
+      moment: {
+        context: "Led by \"The Fate of Ophelia\" at number one, the full tracklist swept the top of the Hot 100 with no other song breaking the streak.\n\nIt was the first time in the chart’s history, dating back to the 1950s, that an entire album occupied every one of its top positions uninterrupted.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "tloas-opalite-video",
+      year: 2026,
+      month: 1,
+      day: 12,
+      category: "music",
+      title: "“Opalite” arrives as the second single",
+      snippet: "A time-slip music video follows a lonesome character through the 1990s toward a gem-hued reinvention.",
+      video: { youtubeId: "1FVF-9KQiPo", title: "Taylor Swift - Opalite (Official Music Video)" },
+      moment: {
+        context: "The video for \"Opalite\" casts Taylor as a wistful, cat-loving figure decades removed from the stage, before the song’s glow pulls her back into color.\n\nReleased as the second single, it kept the era’s pastel-orange visual thread going into the new year.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "tloas-elizabeth-taylor-video",
+      year: 2026,
+      month: 3,
+      day: 9,
+      category: "music",
+      tags: ["Fashion"],
+      title: "“Elizabeth Taylor” goes to radio",
+      snippet: "The album’s third single, named for the screen icon, arrives at radio with its own official video.",
+      video: { youtubeId: "WqbJT_vC0rs", title: "Taylor Swift - Elizabeth Taylor (Official Music Video)" },
+      moment: {
+        context: "The song went to US hot adult contemporary radio first, followed a day later by a contemporary hit radio push, extending the album’s single cycle five months after release.\n\nA \"So Glamorous Cabaret Version\" and full digital package followed later that month, keeping the showgirl motif alive well into 2026.",
       },
     },
   ],

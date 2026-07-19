@@ -1,5 +1,6 @@
-import type { CluePair, EggLink, EggNode, LensId, Motif, MotifId, ReRecord, Relationship, RunwayLook, SinglePeriod, StoryBeat } from './types';
+import type { CluePair, EggLink, EggNode, LensId, Motif, MotifId, ReRecord, Relationship, RunwayLook, SinglePeriod } from './types';
 import { getEra } from './eras';
+import { contentForThread } from './threads';
 
 /**
  * Cross-era Lens datasets. Names and details are the widely-discussed fan
@@ -121,10 +122,12 @@ export function threadPoints(id: LensId): ThreadPoint[] {
         { date: c.payoff.date, eraId: c.payoff.eraId, label: `${c.title} (payoff)` },
       ]);
     case 'the-proposal':
-      return PROPOSAL_BEATS.map((b) => ({
-        date: b.date,
-        eraId: b.eraId,
-        label: b.title,
+      // Derived (stage 3, 2026-07-19): markers come from the tagged moments
+      // themselves — the same source the thread page renders from.
+      return contentForThread('the-proposal').map((item) => ({
+        date: item.date,
+        eraId: item.eraId,
+        label: item.title,
       }));
     default:
       return [];
@@ -1268,130 +1271,10 @@ if (process.env.NODE_ENV !== 'production') {
 // ── The Proposal (sourced narrative thread) ─────────────────────────────────
 // Publicly reported facts, attributed. Framed by an independent fan project.
 
-// Photo URLs verified curl-200 2026-07-10; every 'primary' is a real photo of
-// that specific beat, every 'reference' is honestly labeled as a stand-in
-// (see StoryBeat.image doc comment and the MomentDetail ImageKind rule this
-// mirrors). prop-bracelet has none — that specific backstage moment was
-// never photographed, and no stand-in was close enough to be honest.
-export const PROPOSAL_BEATS: StoryBeat[] = [
-  {
-    id: 'prop-bracelet',
-    date: '2023-07-26',
-    dateLabel: 'July 2023',
-    eraId: 'midnights',
-    title: 'The friendship bracelet',
-    body: 'After attending an Eras Tour night at Arrowhead Stadium, Travis Kelce said on his New Heights podcast that he was disappointed he could not give Taylor a friendship bracelet with his phone number on it. The public shot-his-shot moment kicked everything off.',
-    quote: '“I was a little butthurt I didn’t get to meet her.”',
-    source: 'New Heights podcast',
-  },
-  {
-    id: 'prop-first-game',
-    date: '2023-09-24',
-    dateLabel: 'September 24, 2023',
-    eraId: 'midnights',
-    title: 'The first game',
-    body: 'Taylor made her first public appearance in a suite at the Chiefs–Bears game at Arrowhead, sitting beside Travis’s mother. She later said they were already together by then; the appearance sent the internet into overdrive.',
-    source: 'AP News',
-    image: {
-      url: 'https://media.gettyimages.com/id/1687515467/photo/chicago-bears-v-kansas-city-chiefs.jpg?s=594x594&w=0&k=20&c=FGdNMqOCjAn5FMo56beiwN5SGbvr-tWdlmbeckNwmnU=',
-      credit: 'Cooper Neill/Getty Images',
-      kind: 'primary',
-    },
-  },
-  {
-    id: 'prop-wsj-confirm',
-    date: '2023-11-01',
-    dateLabel: 'November 2023',
-    eraId: 'midnights',
-    title: 'Travis confirms it, on the record',
-    body: 'After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs–Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
-    source: 'WSJ. Magazine',
-    image: {
-      url: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
-      credit: 'Gregory Harris/WSJ. Magazine',
-      kind: 'primary',
-    },
-  },
-  {
-    id: 'prop-super-bowl',
-    date: '2024-02-11',
-    dateLabel: 'February 11, 2024',
-    eraId: 'midnights',
-    title: 'Super Bowl LVIII',
-    body: 'After flying in from a Tokyo Eras Tour show, Taylor watched the Chiefs win Super Bowl LVIII in Las Vegas, meeting Travis on the field afterward — one of the most-photographed embraces of the year.',
-    source: 'AP News',
-    image: {
-      url: 'https://media.gettyimages.com/id/2004247309/photo/super-bowl-lviii-san-francisco-49ers-v-kansas-city-chiefs.jpg?s=594x594&w=0&k=20&c=F98AY-963y-PkSf1E7bis-zkuCD98jJ2UfJx66twCeE=',
-      credit: 'Ezra Shaw/Getty Images',
-      kind: 'primary',
-    },
-  },
-  {
-    id: 'prop-so-high-school',
-    date: '2024-04-19',
-    dateLabel: 'April 2024',
-    eraId: 'ttpd',
-    title: '"So High School"',
-    body: 'The Tortured Poets Department: The Anthology track "So High School" is widely read by fans — not officially confirmed by Swift — as being about the relationship, down to a lyric fans connect to a 2016 interview where Travis said he\'d "kiss" her in a game of Kiss, Marry, Kill. Swift has performed it on the Eras Tour with visuals fans read as Travis-coded.',
-    source: 'Entertainment Tonight / Capital FM (fan reading, not officially confirmed)',
-    image: {
-      // No photo of the song/lyric moment itself exists — this is Travis's
-      // real Wembley onstage cameo (June 23, 2024), the closest honest
-      // stand-in for a lyric-interpretation beat. Kept as 'reference', never
-      // implied to depict the song itself.
-      url: 'https://media.gettyimages.com/id/2158904096/photo/night-three-of-taylor-swift-the-eras-tour-london-uk.jpg?s=594x594&w=0&k=20&c=m45ybgwacP_HmQX7uL24FKHsLEnrDmW2UTr3yBkS0OQ=',
-      credit: 'Gareth Cattermole/TAS24/Getty Images',
-      kind: 'reference',
-      caption: 'Travis Kelce\'s Eras Tour cameo at Wembley — not the "So High School" moment itself.',
-    },
-  },
-  {
-    id: 'prop-us-open',
-    date: '2024-09-08',
-    dateLabel: 'September 2024',
-    eraId: 'ttpd',
-    title: 'A public date at the US Open',
-    body: 'One of the couple\'s most public, non-football dates: courtside at the US Open alongside Patrick and Brittany Mahomes, cheering on the men\'s final.',
-    source: 'AP News',
-    image: {
-      url: 'https://media.gettyimages.com/id/2170859161/photo/2024-us-open-final-day.jpg?s=594x594&w=0&k=20&c=mPpF-fOGuGycRwxt_XQBiprQP7dpruaFFcSvM-nEIdQ=',
-      credit: 'Jamie Squire/Getty Images',
-      kind: 'primary',
-    },
-  },
-  {
-    id: 'prop-engagement',
-    date: '2025-08-26',
-    dateLabel: 'August 26, 2025',
-    eraId: 'tloas',
-    title: 'The garden proposal',
-    body: 'The couple announced their engagement on Instagram. The proposal had happened roughly two weeks earlier in a flower-filled garden in Lee’s Summit, Missouri; the ring, an old mine brilliant-cut diamond, was designed with jeweler Kindred Lubeck.',
-    quote: '“Your English teacher and your gym teacher are getting married.”',
-    source: 'People',
-    image: {
-      url: 'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
-      credit: 'via @taylorswift/Instagram (ABC News)',
-      kind: 'primary',
-    },
-  },
-  {
-    id: 'prop-wedding',
-    date: '2026-07-03',
-    dateLabel: 'July 3, 2026',
-    eraId: 'tloas',
-    title: 'The wedding',
-    body: 'Taylor and Travis married at Madison Square Garden in New York City, in a star-studded ceremony officiated by Adam Sandler, timed over the July 4th weekend just before Kelce\'s NFL training camp — the resolution of the story this thread has followed since the friendship bracelet.',
-    source: 'CNN / Good Morning America',
-    image: {
-      // The public "JUST T&T MARRIED!" exterior jumbotron announcement, not
-      // ceremony photos — no ceremony photos are public.
-      url: 'https://media.gettyimages.com/id/2284267696/photo/swift-kelce-wedding-mania.jpg?s=594x594&w=0&k=20&c=0ir2eDFT9T5T1K1edSOTglmC-uaHjV8gUmKCjaJieu8=',
-      credit: 'Sara Konradi for The Washington Post via Getty Images',
-      kind: 'reference',
-      caption: 'The public announcement outside Madison Square Garden — no ceremony photos are public.',
-    },
-  },
-];
+// PROPOSAL_BEATS removed (consolidation stage 3, 2026-07-19): the End Game
+// thread derives from vault moments tagged the-proposal — see
+// components/longlive/proposal/ProposalThread.tsx and threads.ts.
+
 
 // ── The Decode (hidden clue → payoff pairs) ─────────────────────────────────
 // AI-researched, hand-audited: URLs flattened to direct links, plant precedes

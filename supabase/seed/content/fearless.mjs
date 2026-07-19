@@ -64,6 +64,9 @@ export default {
       category: 'business',
       significance: 'defining', // youngest-ever AOTY win; the first of her (now-record) 4 (docs/decisions.md, 2026-07-19)
       title: 'Fearless makes her the youngest Album of the Year winner — for a decade',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-fear-3", label: "Album of the Year", kind: "award" },
       // Corrected 2026-07-19 (found in review): snippet/sourceUrl/thumbnail
       // previously described the Nov. 2008 album debut, not the Jan. 2010
       // Grammy win this item is actually about — mismatched hero card.
@@ -259,6 +262,9 @@ export default {
       category: 'business',
       significance: 'defining', // the first mass cultural flashpoint of her career (docs/decisions.md, 2026-07-19)
       title: 'Wins Best Female Video, then Kanye West takes the mic',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-fear-2", label: "VMAs moment", kind: "life" },
       snippet:
         '"I\'mma let you finish, but Beyoncé had one of the best videos of all time" — Kanye West interrupted her VMA speech for "You Belong With Me" in front of a live audience.',
       sourceUrl: 'https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/',
@@ -2055,6 +2061,40 @@ export default {
             kind: 'archival',
           },
         ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "fearless-album",
+      year: 2008,
+      month: 11,
+      day: 11,
+      category: "music",
+      title: "Fearless changes everything",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-fear-1", label: "Fearless released", kind: "album" },
+      snippet: "The fairy-tale record that turns a promising country act into a global phenomenon.",
+      moment: {
+        context: "Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.\n\nIt would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "fearless-vmas",
+      year: 2009,
+      month: 9,
+      day: 13,
+      category: "sighting",
+      title: "The interrupted speech",
+      snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
+      hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
+      moment: {
+        context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
       },
     },
   ],
