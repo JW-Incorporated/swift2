@@ -1430,6 +1430,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/91/Sparks_Fly_-_Single.png',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
+            focalPoint: '32% 14%',
           },
           {
             url: 'https://i.ytimg.com/vi/oKar-tF__ac/hqdefault.jpg',
@@ -1437,6 +1438,7 @@ export default {
             caption:
               "Still from the official 'Sparks Fly' music video — cut from Speak Now World Tour performance footage — via the video's YouTube thumbnail.",
             kind: 'archival',
+            focalPoint: '47% 38%',
           },
         ],
       },
@@ -1467,11 +1469,24 @@ export default {
             reliability_score: 2,
           },
         ],
+        // Photo pass #762 (2026-07-19): added a CC-licensed live shot from the
+        // tour the album documents (Vancouver, Sept. 11, 2011 — the North
+        // American leg the DVD was cut from). curl-verified 200 image/jpeg,
+        // downloaded and vision-confirmed (full band mid-song on the tour stage).
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e9/Taylor_Swift_-_Speak_Now_World_Tour_-_Live.png',
             credit: 'Big Machine Records (album cover art)',
             kind: 'primary',
+            focalPoint: '47% 29%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Taylor_Swift_-_Long_Live_-_Speak_Now_Tour_in_Vancouver.jpg',
+            credit: 'Andy (agroove) / Wikimedia Commons, CC BY-SA 2.0',
+            caption:
+              'Swift and her band mid-set in Vancouver, Sept. 11, 2011 — the North American leg whose footage became Speak Now World Tour Live.',
+            kind: 'archival',
+            focalPoint: '49% 44%',
           },
         ],
       },
@@ -1545,12 +1560,26 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo pass #762 (2026-07-19): added a CC-licensed shot of the song's
+        // actual tour staging — the wedding-interruption scene, played out in
+        // costume in front of a stained-glass chapel screen. curl-verified 200
+        // image/jpeg, downloaded and vision-confirmed (purple dress, white
+        // gloves, bridesmaid dancers, stained-glass backdrop).
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records (album cover art)',
             caption: 'The album the title track named — the song that gave Speak Now its thesis and its cover line.',
             kind: 'primary',
+            focalPoint: '54% 15%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/Taylor_Swift_-_Speak_Now_-_Speak_Now_World_Tour_2011_in_Vancouver.jpg',
+            credit: 'Andy (agroove) / Wikimedia Commons, CC BY-SA 2.0',
+            caption:
+              "The song's wedding scene, staged live: Swift in purple with gloved dancers before a stained-glass chapel screen, performing 'Speak Now' in Vancouver on the 2011 tour.",
+            kind: 'archival',
+            focalPoint: '49% 46%',
           },
         ],
       },
@@ -1707,6 +1736,10 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Photo pass #762 (2026-07-19): no second verifiable image — the only
+        // other photo in the cited Taste of Country piece (swifty.jpg) is
+        // byte-identical to this one, and no hotlinkable image of the Dec. 2
+        // Capitale ceremony itself was found on an approved CDN.
         photos: [
           {
             url: 'https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75',
@@ -1714,6 +1747,7 @@ export default {
             caption:
               "On stage mid-Speak Now era with the crystal-fretted '13' guitar — the touring-and-sales year Billboard's citation leaned on.",
             kind: 'archival',
+            focalPoint: '52% 17%',
           },
         ],
       },

@@ -1776,6 +1776,10 @@ export default {
         // gallery uses an honest archival photo of the actual friendship,
         // clearly dated in the caption. Verified HTTP 200 + image/jpeg and
         // visually confirmed.
+        // Photo pass #762 (2026-07-19): re-checked for a Dec. 7 suite photo —
+        // Marie Claire's own hero image is another frame of the same Jan. 2024
+        // Golden Globes moment already shown below (duplicate subject), so no
+        // second photo was added.
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202502/rs_1200x1200-250102084057-Selena-Gomez-Taylor-Swift.jpg',
@@ -1783,6 +1787,7 @@ export default {
             caption:
               'Archival: Swift and Gomez at the January 2024 Golden Globes — the image E! ran with its coverage of Gomez\'s first Chiefs game in the Arrowhead suite. No agency photo of the Dec. 7 coats look was available to hotlink.',
             kind: 'archival',
+            focalPoint: '47% 32%',
           },
         ],
       },
@@ -2253,6 +2258,11 @@ export default {
         // On-set still from the video, hotlinked from Marie Claire's
         // credited copy (credit: TAS Rights Management). Verified HTTP 200 +
         // image/jpeg and visually confirmed (the swim-costume sequence).
+        // Photo pass #762 (2026-07-19): added two more wardrobe stills from the
+        // cited Femestella piece (its own wp-content CDN) — the red crystal
+        // Versace bodysuit and the black chainmail Cavalli fringe dress named
+        // in the snippet. Both curl-verified 200 image/jpeg (800x1200),
+        // downloaded and vision-confirmed against the outfit descriptions.
         photos: [
           {
             url: 'https://cdn.mos.cms.futurecdn.net/mRuaC9xbvVQHQFewM7GoGY.jpg',
@@ -2260,6 +2270,23 @@ export default {
             caption:
               'On the set of the self-directed video: Swift in the mint sequined swimming costume — one of the pieces later displayed at the Rock & Roll Hall of Fame — amid the synchronized-swim ensemble.',
             kind: 'primary',
+            focalPoint: '50% 22%',
+          },
+          {
+            url: 'https://www.femestella.com/wp-content/uploads/2025/10/taylor-1.jpg',
+            credit: 'TAS Rights Management, via Femestella',
+            caption:
+              'The red crystal Versace bodysuit with matching gloves, worn with platinum Marilyn curls in the dressing-room sequence.',
+            kind: 'archival',
+            focalPoint: '49% 12%',
+          },
+          {
+            url: 'https://www.femestella.com/wp-content/uploads/2025/10/taylor-2.jpg',
+            credit: 'TAS Rights Management, via Femestella',
+            caption:
+              'The black chainmail Roberto Cavalli fringe dress — the vaudeville-line number in the video\'s costume parade.',
+            kind: 'archival',
+            focalPoint: '48% 10%',
           },
         ],
       },
@@ -2400,6 +2427,8 @@ export default {
             caption:
               'Archival: Swift in the Arrowhead crowd — the Getty image Marie Claire used to illustrate her deliberately low-profile 2025 season at Chiefs games; the Nov. 23 overtime celebration itself was caught only on fan video.',
             kind: 'archival',
+            // Face sits high and right of center in this tall crowd frame.
+            focalPoint: '65% 21%',
           },
         ],
       },
@@ -2440,6 +2469,8 @@ export default {
             caption:
               'Archival: Swift at a Chiefs game during her low-profile 2025 stretch, from Marie Claire\'s coverage of the era\'s quieter game-day dressing — no agency photo of the Nov. 23 color-blocked look was available to hotlink.',
             kind: 'archival',
+            // Same tall crowd frame as the companion sighting item: face high-right.
+            focalPoint: '65% 21%',
           },
         ],
       },
