@@ -3163,6 +3163,33 @@ export default {
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       moment: {
         context: "Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.\n\nTypewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet.",
+        // Photo pass #762 run 31 (2026-07-19): page had zero photos. Two Beth
+        // Garrabrant album-package photos (The Albatross / The Black Dog
+        // variant art) hosted on Billboard's CDN with the photographer in the
+        // filename, run with Billboard's TTPD review + chart coverage; both
+        // curl-verified 200 image/jpeg at 1548x1023, downloaded and viewed
+        // (b/w seaside portrait; b/w studio portrait). The en-wiki album
+        // cover file was rejected: 300px render, under the 400px floor.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Albatross-billboard-1548.jpg',
+            credit: 'Beth Garrabrant / Republic Records, via Billboard',
+            caption:
+              'The album package’s gray seaside portrait — the era’s black-and-white, ink-stained mood in one frame.',
+            kind: 'primary',
+            // Face upper-center-left against the flat gray sky.
+            focalPoint: '45% 28%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Black-Dog-billboard-1548.jpg',
+            credit: 'Beth Garrabrant / Republic Records, via Billboard',
+            caption:
+              'A Garrabrant portrait from the album photography, shot for the anthology’s variant editions.',
+            kind: 'archival',
+            // Face upper-center-left beneath the raised arm.
+            focalPoint: '45% 25%',
+          },
+        ],
       },
     },
     {

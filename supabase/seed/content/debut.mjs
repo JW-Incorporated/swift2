@@ -2006,6 +2006,25 @@ export default {
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
       moment: {
         context: "A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke.",
+        // Photo pass #762 run 31 (2026-07-19): page had zero photos. Official
+        // "Our Song" video id Jb2stN7kH28 re-verified via YouTube oEmbed
+        // against the Taylor Swift channel this session; alternate frame
+        // capture sd1.jpg (640x480) curl-verified 200 image/jpeg, downloaded
+        // and viewed (the blue-tulle porch scene) — deliberately distinct
+        // from the flower-wall sddefault thumb already on the talent-show
+        // sibling page (frames sd2/sd3 were rejected as near-duplicates of
+        // that thumb's scene).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/Jb2stN7kH28/sd1.jpg',
+            credit: 'Taylor Swift / Big Machine Records (official "Our Song" video, YouTube)',
+            caption:
+              'Seventeen and mid-chorus in the video’s blue-tulle porch scene, the year "Our Song" made her the youngest solo writer-performer with a country number one.',
+            kind: 'primary',
+            // Face center-left, upper third of the frame.
+            focalPoint: '42% 34%',
+          },
+        ],
       },
     },
   ],
