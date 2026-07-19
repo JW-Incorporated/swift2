@@ -212,8 +212,26 @@ for (const { file, data } of loaded) {
             if (!(typeof p[field] === 'string' && p[field].trim())) err(`${pAt} missing required string "${field}"`);
           }
           if (typeof p.url === 'string' && p.url && !/^https:\/\//.test(p.url)) err(`${pAt} url must be a direct https product page (got "${p.url}")`);
-          if (typeof p.url === 'string' && /[?&/](search|s)[?=]|\/search\b/.test(p.url)) err(`${pAt} url looks like a SEARCH page, not a product detail page — shop links must point at the exact product`);
+          // Search-page heuristic: a /search path segment or a classic search
+          // query key. Deliberately NOT matching a bare `s=` param — boutiques
+          // legitimately use ?s= for size/SKU on product pages.
+          if (typeof p.url === 'string' && /\/search\b|[?&](q|query|search|keyword|searchterm)=/i.test(p.url)) err(`${pAt} url looks like a SEARCH page, not a product detail page — shop links must point at the exact product`);
           if (typeof p.retailer === 'string' && p.retailer && !/^[a-z0-9.-]+\.[a-z]{2,}$/.test(p.retailer)) err(`${pAt} retailer "${p.retailer}" must be a bare lowercase hostname (e.g. "ralphlauren.com") — it is the affiliate-routing key`);
+          // retailer is the affiliate-routing key buildShopUrl() will branch
+          // on — silent drift from the url's real host (copy a row, edit the
+          // url, forget retailer) would wrap the link for the WRONG partner
+          // program once affiliate goes live, with every gate green. So the
+          // two must agree at authoring time: retailer equals the url host
+          // (minus www.) or a parent domain of it (us.louisvuitton.com ↔
+          // louisvuitton.com).
+          if (typeof p.url === 'string' && typeof p.retailer === 'string' && /^https:\/\//.test(p.url) && p.retailer) {
+            try {
+              const host = new URL(p.url).hostname.toLowerCase().replace(/^www\./, '');
+              if (host !== p.retailer && !host.endsWith(`.${p.retailer}`)) err(`${pAt} retailer "${p.retailer}" does not match the url's host "${host}" — the affiliate-routing key must agree with the actual link destination`);
+            } catch {
+              err(`${pAt} url "${p.url}" is not a parseable URL`);
+            }
+          }
           if (p.price != null && !(typeof p.price === 'string' && p.price.trim())) err(`${pAt} price must be a non-empty display string (e.g. "$319.99") when present`);
           if (p.inStock != null && typeof p.inStock !== 'boolean') err(`${pAt} inStock must be a boolean when present`);
         });

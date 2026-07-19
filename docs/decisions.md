@@ -43,8 +43,13 @@ across components; (c) a redirect service (`/go/<id>`) — cleanest for
 click-tracking but needs a runtime route + link registry; can be added
 INSIDE `buildShopUrl()` later without content changes, so deferred.
 
-**Approved by:** built under the standing shoppable-links directive
-(Wyatt); flagged for founder review in the PR.
+**Approved by:** built to Wyatt's written directive (scheduled build task,
+2026-07-19, which specified the schema, the buildShopUrl seam, the retailer
+programs, and the pilot). Joey's product sign-off on the user-facing "Shop
+the look" surface is PENDING — requested on the PR, which does not merge
+without it. If Joey declines the surface, the data layer and seam keep
+(they're invisible without the UI block); the MomentDetail block is the
+only piece to revert.
 
 ---
 

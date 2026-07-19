@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { buildShopUrl, SHOP_DISCLOSURE } from './shop';
+import { buildShopUrl, isAffiliate, SHOP_DISCLOSURE } from './shop';
 import type { Product } from './types';
 
 const product = (over: Partial<Product> = {}): Product => ({
@@ -39,6 +39,14 @@ describe('buildShopUrl', () => {
 
   it('never returns an empty or non-http href for a well-formed product', () => {
     expect(buildShopUrl(product())).toMatch(/^https?:\/\//);
+  });
+});
+
+describe('isAffiliate', () => {
+  it('is false for every retailer while the seam is inert — so SHOP_DISCLOSURE renders nowhere', () => {
+    for (const retailer of ['revolve.com', 'amazon.com', 'louisvuitton.com']) {
+      expect(isAffiliate(product({ retailer }))).toBe(false);
+    }
   });
 });
 

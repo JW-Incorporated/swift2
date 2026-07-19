@@ -142,7 +142,9 @@ export function significanceFrom(significance) {
  * Shoppable products from the Tier-1 `moment.products` array (see Product in
  * apps/web/lib/longlive/types.ts): `[{ brand, item, retailer, url, price?,
  * inStock? }]`. Keeps only rows with all four required string fields and an
- * http(s) url — validate-content.mjs errors loudly on malformed rows, this
+ * https url (same rule validate-content.mjs enforces loudly — keep the two in
+ * sync so a validate-green row can never be silently dropped here, or vice
+ * versa) — validate-content.mjs errors loudly on malformed rows, this
  * just guards the generated file against shipping broken JS. `price` must be
  * a non-empty string to carry; `inStock` carries ONLY an explicit false
  * (omitted/true both mean "purchasable when authored" and stay omitted, so
@@ -157,7 +159,7 @@ export function productsFrom(products) {
     if (!p) continue;
     const required = [p.brand, p.item, p.retailer, p.url];
     if (!required.every((v) => typeof v === 'string' && v.trim())) continue;
-    if (!/^https?:\/\//.test(p.url)) continue;
+    if (!/^https:\/\//.test(p.url)) continue;
     out.push({
       brand: p.brand,
       item: p.item,

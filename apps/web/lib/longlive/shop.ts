@@ -23,24 +23,29 @@ import type { Product } from './types';
  *     see the `isAffiliate` helper the flip should add.
  */
 export function buildShopUrl(product: Product): string {
-  // Affiliate seam (intentionally inert today). Example of the future shape:
-  //
-  //   switch (product.retailer) {
-  //     case 'amazon.com':
-  //       return withQueryParam(product.url, 'tag', AMAZON_ASSOCIATES_TAG);
-  //     default:
-  //       return LTK_RETAILERS.has(product.retailer)
-  //         ? ltkWrap(product.url)
-  //         : skimlinksWrap(product.url);
-  //   }
+  // Affiliate seam — intentionally inert today. The flip branches on
+  // product.retailer here (and makes isAffiliate below return true for the
+  // wrapped retailers); see docs/decisions.md 2026-07-19.
   return product.url;
 }
 
 /**
- * FTC-required disclosure for when buildShopUrl starts returning affiliate
- * links. Not rendered today (links are plain direct URLs); the affiliate flip
- * must render this alongside any "Shop the look" block. Kept here, next to
- * the seam, so the flip is a one-file change.
+ * Whether buildShopUrl returns an affiliate (commission-earning) link for
+ * this product. Always false while the seam is inert. The UI already renders
+ * SHOP_DISCLOSURE next to any shop block containing an isAffiliate product
+ * (see ShopTheLook in MomentDetail), so the affiliate flip is genuinely a
+ * one-FILE change: update buildShopUrl + this predicate together and the
+ * FTC disclosure appears with no UI edits.
+ */
+export function isAffiliate(product: Product): boolean {
+  void product; // will branch on product.retailer when the flip lands
+  return false;
+}
+
+/**
+ * FTC-required disclosure, rendered automatically wherever a shop block
+ * contains an isAffiliate() product — nothing renders it while the seam is
+ * inert. Kept here, next to the seam, so the flip stays a one-file change.
  */
 export const SHOP_DISCLOSURE =
   'Some links may earn Long Live a commission at no extra cost to you.';

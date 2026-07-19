@@ -19,7 +19,7 @@ import { MomentVideo } from './MomentVideo';
 import { extractYouTubeId } from '@swift2/shared';
 import { ZoomableImage } from './ZoomableImage';
 import { focalPointOf, primaryImageRef, type Confidence, type ImageKind, type ImageRef, type LensId, type Product } from '@/lib/longlive/types';
-import { buildShopUrl } from '@/lib/longlive/shop';
+import { buildShopUrl, isAffiliate, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 // At/above this tier a moment is established fact — no pill. Below it, a
@@ -508,8 +508,11 @@ export function MomentDetail() {
  * each row a DIRECT link to the exact retailer product page. Every href goes
  * through buildShopUrl() (lib/longlive/shop.ts) — never product.url directly
  * — so the later direct→affiliate flip is a one-function change with zero
- * content edits; rel="nofollow sponsored noopener" is already the correct
- * annotation for both direct and paid links. A product verified sold-out
+ * content edits; rel="nofollow sponsored noopener noreferrer" is already the
+ * correct annotation for both direct and paid links (noreferrer matches the
+ * sources links' privacy posture — retailers don't get the referring moment
+ * URL; affiliate attribution lives in the wrapped URL, not the Referer). A
+ * product verified sold-out
  * (inStock: false) stays listed for the fashion record but renders dimmed
  * with an explicit "Sold out" label, never silently as purchasable.
  */
@@ -521,15 +524,22 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
         <ShoppingBag className="h-4 w-4" />
         Shop the look
       </div>
-      <ul className="mt-3 divide-y" style={{ borderColor: 'var(--era-line)' }}>
-        {products.map((p) => {
+      <ul className="mt-3">
+        {products.map((p, i) => {
           const soldOut = p.inStock === false;
           return (
-            <li key={p.url} className={soldOut ? 'opacity-50' : undefined}>
+            // border-t on the li itself (not divide-y on the ul): the era-line
+            // color must sit on the element that owns the border, since
+            // border-color doesn't inherit from the parent.
+            <li
+              key={`${p.url}-${i}`}
+              className={`border-t first:border-t-0${soldOut ? ' opacity-50' : ''}`}
+              style={{ borderColor: 'var(--era-line)' }}
+            >
               <a
                 href={buildShopUrl(p)}
                 target="_blank"
-                rel="nofollow sponsored noopener"
+                rel="nofollow sponsored noopener noreferrer"
                 className="group flex items-center justify-between gap-3 py-3"
                 aria-label={`Shop ${p.brand} ${p.item}${soldOut ? ' (sold out)' : ''} at ${p.retailer}`}
               >
@@ -558,6 +568,13 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
           );
         })}
       </ul>
+      {/* Renders only once buildShopUrl actually returns affiliate links —
+          wiring it now is what makes the affiliate flip a shop.ts-only change. */}
+      {products.some(isAffiliate) && (
+        <p className="mt-3 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
+          {SHOP_DISCLOSURE}
+        </p>
+      )}
     </div>
   );
 }

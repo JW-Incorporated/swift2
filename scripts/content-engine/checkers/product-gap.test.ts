@@ -56,6 +56,29 @@ describe('brandedGarmentMentions', () => {
     expect(brandedGarmentMentions('')).toEqual([]);
     expect(brandedGarmentMentions(undefined)).toEqual([]);
   });
+
+  // Regression (review 2026-07-19): the capitalized run must not absorb the
+  // PREVIOUS sentence's trailing proper noun across a sentence boundary —
+  // this exact bug made 'BRIT Awards. dress' / 'Tour. dress' read as brands
+  // and flagged ~2/3 of the fashion corpus.
+  it('does not glue a prior sentence-ending proper noun onto the next sentence garment', () => {
+    expect(brandedGarmentMentions('It was a big night for Swift. The dress sold out.')).toEqual([]);
+    expect(brandedGarmentMentions('She closed the Eras Tour. The dress came later.')).toEqual([]);
+    expect(
+      brandedGarmentMentions(
+        'She wore it to the Elle Style Awards and BRIT Awards.\n\nThe dress was only half the story.',
+      ),
+    ).toEqual([]);
+    expect(
+      brandedGarmentMentions('She arrived with Blake Lively. Her boots were vintage.'),
+    ).toEqual([]);
+  });
+
+  it('still finds a real brand inside a later sentence', () => {
+    expect(
+      brandedGarmentMentions('The night was hers. She wore a Schiaparelli gown with gloves.'),
+    ).toEqual(['Schiaparelli gown']);
+  });
 });
 
 describe('product-gap check', () => {
@@ -87,6 +110,30 @@ describe('product-gap check', () => {
   it('ignores non-fashion moments and non-moment items', async () => {
     expect(await check([moment({ category: 'music' })])).toEqual([]);
     expect(await check([{ ...moment(), type: 'track' }])).toEqual([]);
+  });
+
+  it('scans the title too — a branded garment named only in the title still flags', async () => {
+    const titleOnly = moment({
+      title: 'The Schiaparelli gown that announced TTPD',
+      texts: {
+        title: 'The Schiaparelli gown that announced TTPD',
+        snippet: 'She stunned on the red carpet.',
+        context: '',
+      },
+    });
+    const f = await check([titleOnly]);
+    expect(f).toHaveLength(1);
+  });
+
+  it('still flags a moment whose only product row is malformed (it would not ship)', async () => {
+    // "covered" means productsFrom() keeps the row — a malformed row is
+    // silently dropped from the build, so the page renders with NO shop
+    // block and must stay in the queue.
+    const broken = moment({
+      raw: { moment: { products: [{ brand: 'Polo Ralph Lauren', item: 'Dress' }] } },
+    });
+    const f = await check([broken]);
+    expect(f).toHaveLength(1);
   });
 
   it('ignores fashion moments whose prose names no specific branded garment', async () => {

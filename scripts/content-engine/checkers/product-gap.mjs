@@ -15,6 +15,11 @@
 // boots" never read as a brand. False negatives are acceptable (the queue
 // just grows later); a flood of false positives is not.
 import { makeFinding } from '../lib/finding.mjs';
+// The sync serializer's normalizer defines what actually SHIPS to the vault —
+// "covered" below means productsFrom() keeps ≥1 row, not merely that the seed
+// array is non-empty, so a moment whose only product row is malformed (and
+// thus silently dropped from the build) stays in this queue.
+import { productsFrom } from '../../sync-longlive-content.mjs';
 
 export const id = 'content.product-gap';
 
@@ -96,24 +101,36 @@ const STOPWORDS = new Set([
 // lowercase descriptor words ("caramel-brown", "silk-blend", "custom"), then
 // a garment noun. Case-sensitive on purpose — capitalization IS the signal.
 const BRAND_GARMENT_RE = new RegExp(
-  String.raw`\b((?:[A-Z][\w&.'’-]*\s+){0,3}[A-Z][\w&.'’-]*)(?:['’]s)?((?:\s+[a-z][\w'’-]*){0,3})\s+(${GARMENTS})\b`,
+  // The descriptor bridge is LAZY ({0,3}?) so the first garment noun after
+  // the brand ends the match — greedy would swallow "gown" as a descriptor
+  // in "Schiaparelli gown with gloves" and report "Schiaparelli gloves".
+  String.raw`\b((?:[A-Z][\w&.'’-]*\s+){0,3}[A-Z][\w&.'’-]*)(?:['’]s)?((?:\s+[a-z][\w'’-]*){0,3}?)\s+(${GARMENTS})\b`,
   'g',
 );
 
 /**
  * Branded-garment mentions in one text: each match's capitalized run must
- * contain at least one non-stopword token to count as a brand. Exported for
- * the unit test.
+ * contain at least one non-stopword token to count as a brand. Matching runs
+ * per sentence — the token class keeps '.' for brands like "A.P.C.", which
+ * without the split lets a run absorb the PREVIOUS sentence's trailing proper
+ * noun ("…for the BRIT Awards. The dress…" → bogus brand "BRIT Awards.",
+ * found in review 2026-07-19 against the real corpus). Trailing punctuation
+ * is also stripped before the stopword check for the same reason ("Tour." must
+ * hit the 'tour' stopword). Exported for the unit test.
  */
 export function brandedGarmentMentions(text) {
   const out = [];
-  for (const m of String(text ?? '').matchAll(BRAND_GARMENT_RE)) {
-    const tokens = m[1].split(/\s+/).map((t) => t.replace(/[^\w&'’.-]/g, ''));
-    const brandTokens = tokens.filter(
-      (t) => t && !STOPWORDS.has(t.toLowerCase().replace(/['’]s?$/, '')),
-    );
-    if (brandTokens.length === 0) continue;
-    out.push(`${brandTokens.join(' ')} ${m[3]}`);
+  for (const sentence of String(text ?? '').split(/(?<=[.!?])\s+/)) {
+    for (const m of sentence.matchAll(BRAND_GARMENT_RE)) {
+      const tokens = m[1]
+        .split(/\s+/)
+        .map((t) => t.replace(/[^\w&'’.-]/g, '').replace(/[.,;:]+$/, ''));
+      const brandTokens = tokens.filter(
+        (t) => t && !STOPWORDS.has(t.toLowerCase().replace(/['’]s?$/, '')),
+      );
+      if (brandTokens.length === 0) continue;
+      out.push(`${brandTokens.join(' ')} ${m[3]}`);
+    }
   }
   return out;
 }
@@ -123,9 +140,10 @@ export async function check(items) {
   for (const it of items) {
     if (it.type !== 'moment') continue;
     if (it.category !== 'fashion') continue;
-    if (Array.isArray(it.raw?.moment?.products) && it.raw.moment.products.length > 0) continue;
+    if (productsFrom(it.raw?.moment?.products)?.length) continue;
     const mentions = [
       ...new Set([
+        ...brandedGarmentMentions(it.texts.title),
         ...brandedGarmentMentions(it.texts.snippet),
         ...brandedGarmentMentions(it.texts.context),
       ]),

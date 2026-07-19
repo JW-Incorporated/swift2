@@ -169,13 +169,16 @@ describe('productsFrom', () => {
     expect(productsFrom([{ ...dress, inStock: true }])?.[0].inStock).toBeUndefined();
   });
 
-  it('drops rows missing any required field or with a non-http url', () => {
+  it('drops rows missing any required field or with a non-https url', () => {
     expect(
       productsFrom([
         { ...dress, brand: '' },
         { ...dress, item: undefined },
         { ...dress, retailer: '   ' },
         { ...dress, url: 'ralphlauren.com/no-protocol' },
+        // https-only, same rule validate-content.mjs enforces loudly — the
+        // two layers must never drift (review 2026-07-19).
+        { ...dress, url: 'http://www.ralphlauren.com/some-dress' },
         null,
         'nope',
       ]),
