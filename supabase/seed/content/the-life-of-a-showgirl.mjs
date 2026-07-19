@@ -1601,15 +1601,13 @@ export default {
             url: 'https://www.snopes.com/news/2026/07/09/swift-kelce-wedding-photos/',
             note: 'Snopes found the circulating images were AI-generated fakes; no official photos of the ceremony or reception have been released.',
           },
-          {
-            claim:
-              "Entertainment Tonight reported the newlyweds slipped away for a short first honeymoon at the ultra-private Yellowstone Club in Big Sky, Montana, before surfacing at JuJu Smith-Schuster's California wedding a week later.",
-            reportedBy: 'Entertainment Tonight (via Reality Tea)',
-            reportedOn: '2026-07-13',
-            status: 'unconfirmed',
-            url: 'https://www.realitytea.com/2026/07/13/taylor-swift-travis-kelce-honeymoon-wedding/',
-            note: 'Sourced to unnamed insiders. A longer European honeymoon has also been rumored, but reports conflict and nothing is confirmed.',
-          },
+          // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
+          // Never-OK #1): an ET honeymoon-location rumor was cut here in
+          // review. A honeymoon is a private trip, not a public appearance —
+          // naming its "ultra-private" location, with a note speculating about
+          // a further European trip (forward-looking whereabouts), is exactly
+          // what the redlines exist to keep out. Attribution does not launder
+          // a privacy violation.
         ],
       },
     },

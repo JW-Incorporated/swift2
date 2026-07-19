@@ -22,8 +22,19 @@
 // gap is owned by Lex Mode 2 (top-searched topics), not this checker.
 import { makeFinding } from '../lib/finding.mjs';
 import { tier } from '../lib/visibility.mjs';
+// The generator's own normalizers (adopted from the retired content.rumor-gap
+// checker, 2026-07-19): "has rumor treatment" must mean "has entries/labels
+// the generator will actually SHIP" — a rumor entry the generator drops
+// (unattributed, undated, whitespace claim) or a typo'd confidence value
+// must not suppress a finding.
+import { confidenceFrom, rumorsFrom } from '../../sync-longlive-content.mjs';
 
 export const id = 'content.hot-thin-topic';
+
+// Mirrors CONFIRMED_TIER in apps/web/lib/longlive/types.ts (a plain-node
+// checker can't import the TS constant): below this tier the UI renders the
+// rumor banner, which counts as treatment.
+const CONFIRMED_TIER = new Set(['official', 'confirmed_interview']);
 
 // A topic stays "live" (rumor-worthy) this long after its date. Beyond it,
 // reporting has almost always either confirmed or died.
@@ -76,10 +87,14 @@ export async function check(items, opts = {}) {
     const strong = (it.raw?.moment?.sources ?? []).filter((s) => (s?.reliability_score ?? 0) >= STRONG_AT).length;
     if (strong >= MIN_STRONG_SOURCES) continue;
 
-    // UNTREATED: no rumor treatment yet (rumored confidence, or a rumors
-    // array once the feat/rumor-tier schema lands — checked defensively).
-    if (RUMOR_CONFIDENCE.has(it.raw?.confidence)) continue;
-    if ((it.raw?.moment?.rumors ?? []).length > 0) continue;
+    // UNTREATED: no rumor treatment the generator would actually ship —
+    // either shippable moment.rumors entries, or a sub-confirmed confidence
+    // label (both placements, normalized exactly as the sync script does).
+    const shippedRumors = rumorsFrom(it.raw?.moment?.rumors ?? it.raw?.rumors);
+    const shippedConfidence = confidenceFrom(it.raw?.confidence ?? it.raw?.moment?.confidence);
+    if (shippedRumors !== undefined) continue;
+    if (shippedConfidence && !CONFIRMED_TIER.has(shippedConfidence)) continue;
+    if (RUMOR_CONFIDENCE.has(it.raw?.confidence)) continue; // pre-schema fallback
 
     findings.push(
       makeFinding({

@@ -69,11 +69,36 @@ describe('hot-thin-topic check', () => {
     expect(await check([wellSourced], { now: NOW })).toEqual([]);
   });
 
-  it('leaves the queue once rumor treatment exists (lifecycle handoff)', async () => {
+  it('leaves the queue once SHIPPABLE rumor treatment exists (lifecycle handoff)', async () => {
     const treatedByConfidence = weddingish({ raw: { ...weddingish().raw, confidence: 'rumored' } });
+    // A fully-valid rumor entry — exactly what the generator ships.
     const treatedByRumors = weddingish({
+      raw: {
+        year: 2026, month: 7, day: 3,
+        moment: {
+          sources: [],
+          rumors: [{ claim: 'A castle was built inside the Garden.', reportedBy: 'TMZ', reportedOn: '2026-06-30', status: 'unconfirmed', url: 'https://tmz.com/x' }],
+        },
+      },
+    });
+    // A sub-confirmed confidence label also counts as treatment.
+    const treatedBySubConfirmed = weddingish({ raw: { ...weddingish().raw, confidence: 'reputable_reporting' } });
+    expect(await check([treatedByConfidence, treatedByRumors, treatedBySubConfirmed], { now: NOW })).toEqual([]);
+  });
+
+  it('still flags when the only rumor entry is one the generator would DROP (ported from rumor-gap)', async () => {
+    // Unattributed/undated/unstatused → rumorsFrom drops it → no shipped
+    // treatment → the finding must survive; a malformed entry can't suppress.
+    const fakeTreated = weddingish({
       raw: { year: 2026, month: 7, day: 3, moment: { sources: [], rumors: [{ claim: 'x', outlet: 'Page Six' }] } },
     });
-    expect(await check([treatedByConfidence, treatedByRumors], { now: NOW })).toEqual([]);
+    const f = await check([fakeTreated], { now: NOW });
+    expect(f).toHaveLength(1);
+  });
+
+  it('does not treat a CONFIRMED-tier confidence as rumor treatment (ported from rumor-gap)', async () => {
+    const confirmedButThin = weddingish({ raw: { ...weddingish().raw, confidence: 'official' } });
+    const f = await check([confirmedButThin], { now: NOW });
+    expect(f).toHaveLength(1);
   });
 });
