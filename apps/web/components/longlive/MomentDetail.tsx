@@ -325,11 +325,10 @@ export function MomentDetail() {
             aria-pressed={isFavorite}
             aria-label={isFavorite ? 'Remove from favorites' : 'Save to favorites'}
           >
-            <Heart
-              className="h-5 w-5"
-              fill={isFavorite ? 'var(--era-accent)' : 'none'}
-              style={isFavorite ? { color: 'var(--era-accent)' } : undefined}
-            />
+            {/* currentColor, not accent: on the inverted .era-icon-btn (#525)
+                the accent can vanish against the ink background (TTPD:
+                #e8e8e8 on #ededed). Filled-vs-outline carries the state. */}
+            <Heart className="h-5 w-5" fill={isFavorite ? 'currentColor' : 'none'} />
           </button>
           <button
             onClick={() => openShare({ kind: 'item', itemId: item.id })}
