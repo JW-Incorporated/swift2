@@ -1125,6 +1125,8 @@ export default {
       },
     },
     {
+      significance: 'notable', // an outright nomination record, though the win itself (already 'defining' elsewhere) is the bigger night (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights'],
       year: 2024,
       month: 11,
       day: 8,
@@ -2914,6 +2916,7 @@ export default {
     },
     {
       slug: 'eras-tour-book-target',
+      significance: 'notable', // a real print-sales record for a photo book, extending the tour's commercial reach past music and tickets (docs/decisions.md, 2026-07-19)
       year: 2024,
       month: 11,
       day: 30,

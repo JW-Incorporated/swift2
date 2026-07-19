@@ -208,6 +208,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg", credit: "Robert Kamau/GC Images", caption: "Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun's scoop; no public photos of the couple exist from the May 2017 period this moment covers.", kind: "primary" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/music/taylor-swift-joe-alwyn-relationship-timeline-rcna51604" }, { name: "The Week", url: "https://theweek.com/feature/briefing/1022534/taylor-swift-and-joe-alwyn-a-timeline-of-their-relationship" }],
+      relatedIds: ["moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years"],
+      significance: "notable",
     },
     {
       id: "vault-1989-a-houndstooth-ashish-crop-top-pantsuit-leads-the-bad-blood-s",
@@ -408,6 +410,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/9/95/Taylor_Swift_045_%2817682880264%29_%28cropped%29.jpg", credit: "GabboT / Wikimedia Commons, CC BY-SA 2.0", caption: "Onstage on the 1989 World Tour, 2015 — the short-bob 1989 era, not the 2007 photo this story previously used.", kind: "primary", focalPoint: "42% 24%" }],
       sources: [{ name: "CNN Money", url: "https://money.cnn.com/2014/11/03/media/taylor-swift-spotify/index.html" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/music/music-news/big-machines-scott-borchetta-explains-747781/" }],
+      significance: "notable",
     },
     {
       id: "vault-1989-to-apple-love-taylor-an-open-letter-reverses-apple-musics-ro",
@@ -419,6 +422,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg", credit: "Stereogum", kind: "primary" }],
       sources: [{ name: "Stereogum", url: "https://stereogum.com/1810310/read-taylor-swifts-open-letter-to-apple-music/news" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/apple-exec-eddy-cue-why-taylor-swift-was-right-39608/" }],
+      significance: "notable",
     },
     {
       id: "vault-1989-the-1989-world-tour-closes-in-melbourne-85-shows-250-7-milli",
@@ -549,6 +553,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/QcIy9NiNbmo/hqdefault.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Catastrophe mid-transformation — a still from the official 'Bad Blood' video that premiered at the 2015 BBMAs and broke the Vevo 24-hour record.", kind: "archival", focalPoint: "48% 45%" }, { url: "https://i.ytimg.com/vi/QcIy9NiNbmo/hq1.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Kendrick Lamar as Welvin da Great opposite Catastrophe — the featured verse that shared the record-breaking premiere.", kind: "archival", focalPoint: "50% 34%" }],
       sources: [{ name: "Taylor Swift's 'Bad Blood' Music Video Breaks Vevo World Record", url: "https://time.com/3892980/bad-blood-music-video-record/" }, { name: "Taylor Swift's 'Bad Blood' Video Breaks A Record With 20 Million Views In Its First 24 Hours", url: "https://www.forbes.com/sites/hughmcintyre/2015/05/21/taylor-swifts-bad-blood-video-breaks-a-record-with-20-million-views-in-its-first-24-hours/" }],
+      relatedIds: ["moment:vault-1989-calvin-harris-and-taylor-go-public-at-the-billboard-music-aw"],
+      significance: "notable",
     },
     {
       id: "vault-1989-hyde-park-65-000-people-and-a-literal-squad-runway",
@@ -1064,6 +1070,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/TaylorSwift_080208_photoby_Adam-Bielawski_%28cropped%29.jpg", credit: "Adam Bielawski / Wikimedia Commons — Taylor Swift, Aug. 2, 2008 (archival, era context; not the relationship)", kind: "archival", focalPoint: "52% 18%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Joe_Jonas.jpg", credit: "Loreal Reid (CC BY 2.0) via Wikimedia Commons", caption: "Joe Jonas on the Burnin' Up tour, July 5, 2008 — the summer the relationship began, on the tour she turned up to sing on (archival, era context).", kind: "archival", focalPoint: "45% 14%" }],
       sources: [{ name: "Just Jared", url: "https://www.justjared.com/2008/11/06/joe-jonas-taylor-swift-phone-call-dump/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-joe-jonas-ups-175948631.html" }],
+      significance: "notable",
     },
     {
       id: "vault-debut-her-first-arena-tour-opening-for-rascal-flatts-on-a-days-not",
@@ -1678,6 +1685,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2022/09/taylor-swift-performs-nsai-nashville-songwriter-awards-2022-billboard-1548.png?w=1024", credit: "Terry Wyatt/Getty Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/country/taylor-swift-nashville-songwriter-awards-full-speech-1235142144/" }, { name: "WSMV", url: "https://www.wsmv.com/2022/09/20/taylor-swift-receives-songwriter-artist-decade/" }],
+      significance: "notable",
     },
     {
       id: "vault-evermore-an-honorary-nyu-doctorate-and-a-graduation-cap-first",
@@ -1736,6 +1744,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/69/All_Too_Well_short_film_poster.jpg", credit: "Republic Records (film poster)", caption: "Poster for All Too Well: The Short Film, starring Sadie Sink and Dylan O'Brien.", kind: "primary" }],
       sources: [{ name: "All Too Well: The Short Film", url: "https://en.wikipedia.org/wiki/All_Too_Well:_The_Short_Film" }],
+      relatedIds: ["moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever"],
+      significance: "notable",
     },
     {
       id: "vault-evermore-carolina-a-one-take-murder-ballad-for-the-marsh",
@@ -1930,6 +1940,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2021411/rs_1200x1200-210511142237-1200..2-taylor-swift-brit-awards-2021.jpg", credit: "Ian West/PA Images via Getty Images", caption: "Swift holds up the Global Icon trophy on stage at the 2021 BRIT Awards.", kind: "primary" }],
       sources: [{ name: "Taylor Swift Offers Inspiration in Brit Awards 2021 Speech", url: "https://www.billboard.com/music/awards/taylor-swift-inspires-with-brit-awards-2021-speech-video-9570789/" }, { name: "Taylor Swift becomes first woman to win BRITs Global Icon award", url: "https://www.cnn.com/2021/05/10/entertainment/taylor-swift-brits-global-icon-intl-scli-gbr/index.html" }, { name: "Taylor Swift to receive Global Icon Award!", url: "https://www.brits.co.uk/news/2021/taylor-swift-to-receive-global-icon-award/" }],
+      significance: "notable",
     },
     {
       id: "vault-evermore-video-of-the-year-for-all-too-well-then-she-announces-midnig",
@@ -2513,6 +2524,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://media.gettyimages.com/id/92999603/photo/the-43rd-annual-cma-awards-performances-and-awards.jpg?s=594x594&w=0&k=20&c=c0ywESeQ4T5SlLbIozC6BDQv2g71urPuzthsW__5Dn8=", credit: "Frank Micelotta/Getty Images", caption: "Accepting Entertainer of the Year in the gold gown, Nov. 11, 2009 — the biggest of her wins that night.", kind: "primary" }],
       sources: [{ name: "Taylor Swift Wins 2009 CMA Entertainer of the Year", url: "https://theboot.com/taylor-swift-wins-2009-cma-entertainer-of-the-year/" }, { name: "Taylor Swift Wins Entertainer of the Year and More at 2009 CMA Awards", url: "https://www.bmi.com/news/entry/taylor_swift_wins_entertainer_of_the_year_and_more_at_2009_cma_awards" }, { name: "2009 Country Music Association Awards", url: "https://en.wikipedia.org/wiki/2009_Country_Music_Association_Awards" }, { name: "Just Jared Jr. (photo gallery — 2009 CMA Awards)", url: "https://www.justjaredjr.com/photo-gallery/346791/taylor-swift-sweeps-cmas-00/" }],
+      relatedIds: ["moment:vault-fearless-hosting-snl-and-writing-her-own-monologue"],
+      significance: "notable",
     },
     {
       id: "vault-fearless-first-country-song-ever-to-top-pop-radio",
@@ -2549,6 +2562,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://i.ytimg.com/vi/W2twcSFYlt0/hqdefault.jpg", credit: "NBC / Saturday Night Live official YouTube channel", caption: "Performing the self-written \"Monologue Song\" on the SNL stage, Nov. 7, 2009.", kind: "primary" }],
       sources: [{ name: "Taylor Swift's 2009 SNL Monologue Shook Seth Meyers: 'Force of Nature'", url: "https://www.rollingstone.com/tv-movies/tv-movie-news/taylor-swift-snl-monologue-seth-meyers-1234866409/" }, { name: "Remember When Taylor Swift Wrote Her Own 'SNL' Monologue?", url: "https://americansongwriter.com/remember-when-taylor-swift-wrote-her-own-opening-monologue-on-saturday-night-live/" }],
+      relatedIds: ["moment:vault-fearless-cma-entertainer-of-the-year-at-19-the-youngest-ever"],
+      significance: "notable",
     },
     {
       id: "vault-fearless-a-brief-real-life-sequel-to-the-you-belong-with-me-video",
@@ -3161,6 +3176,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://s.abcnews.com/images/GMA/taylor-swift-ama-mo_hpEmbed_20191124-220255_3x2_992.jpg?w=992", credit: "Good Morning America", kind: "primary", focalPoint: "49% 25%" }, { url: "https://s.abcnews.com/images/GMA/taylor-swift-speak-mo_hpMain_20191124-220426_16x9_992.jpg?w=992", credit: "Good Morning America", caption: "Opening the medley with \"The Man,\" in a button-down printed with the names of the albums she didn't own.", kind: "archival", focalPoint: "48% 20%" }],
       sources: [{ name: "Good Morning America", url: "https://www.goodmorningamerica.com/culture/story/american-music-awards-2019-taylor-swift-breaks-records-67284943" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-ama-singer-beats-michael-jackson-for-most-american-music-awards-2019-performance-artist-of-the-decade/" }],
+      relatedIds: ["moment:vault-lover-miss-americana-is-announced-amid-a-fight-over-her-own-back-c"],
+      significance: "notable",
     },
     {
       id: "vault-lover-seven-pastel-outfit-changes-in-the-me-video",
@@ -3392,6 +3409,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-bb29-2019-feat-billboard-ylajkse-1500.jpg", credit: "Billboard", kind: "primary", focalPoint: "51% 16%" }, { url: "https://www.billboard.com/wp-content/uploads/media/01-taylor-swift-speach-2019-wim-billboard-1548.jpg", credit: "Billboard", caption: "Accepting the inaugural Woman of the Decade award at Billboard's Women in Music, Hollywood Palladium, Dec. 12, 2019.", kind: "archival", focalPoint: "53% 18%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/awards/taylor-swift-woman-of-the-decade-speech-billboard-women-in-music-8546156/" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-cover-story-interview-billboard-women-in-music-2019-8545822/" }],
+      significance: "notable",
     },
     {
       id: "vault-lover-a-custom-etro-floral-gown-a-lover-coded-look-for-the-2020-go",
@@ -4587,6 +4605,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Marriner_S._Eccles_Federal_Reserve_Board_Building.jpg/960px-Marriner_S._Eccles_Federal_Reserve_Board_Building.jpg", credit: "AgnosticPreachersKid, CC BY-SA 3.0, via Wikimedia Commons", caption: "The Federal Reserve's Marriner S. Eccles Building in Washington — publisher of the Beige Book that cited the Eras Tour's hotel impact.", kind: "archival" }],
       sources: [{ name: "Federal Reserve Says Taylor Swift's Eras Tour Had a Massive Impact on Philadelphia Hotel Bookings", url: "https://www.billboard.com/music/pop/taylor-swift-eras-tour-boosting-hotel-industry-economy-federal-reserve-1235371670/" }, { name: "Federal Reserve credits Taylor Swift with boosting hotel revenues through her blockbuster Eras Tour", url: "https://www.nbcnews.com/business/consumer/taylor-swift-federal-reserve-credits-eras-tour-boosting-hotels-tourism-rcna94046" }, { name: "Beige Book — July 12, 2023", url: "https://www.federalreserve.gov/monetarypolicy/beigebook202307.htm" }],
+      relatedIds: ["moment:vault-midnights-the-eras-tour-kicks-off-in-glendale"],
+      significance: "notable",
     },
     {
       id: "vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d",
@@ -5136,6 +5156,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/stylus/2673339-taylor-swift-nye-2013-617-409.jpg", credit: "Billboard", caption: "Swift performing in Times Square earlier on New Year's Eve 2012 — not the midnight kiss photo itself, which exists only as blurred/watermarked paparazzi frames.", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/news/128673_Taylor_Swift_Harry_Styles_New_Years_Eve_Kiss" }],
+      significance: "notable",
     },
     {
       id: "vault-red-a-british-virgin-islands-trip-ends-the-relationship",
@@ -5337,6 +5358,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://townsquare.media/site/252/files/2014/01/TaylorSwift.jpg?w=980&q=75", credit: "Kevork Djansezian, Getty Images / PopCrush", caption: "Mid-hair-whip at the piano — \"All Too Well\" at the 56th Grammy Awards, January 26, 2014, with her lucky 13 stenciled on the piano.", kind: "primary", focalPoint: "34% 35%" }, { url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-grammys-2014-show-650-430.jpg", credit: "Getty Images / Billboard", caption: "Alone in the spotlight at the black grand piano, band held back in the shadows — the 56th Grammys, January 26, 2014.", kind: "primary", focalPoint: "25% 32%" }],
       sources: [{ name: "All Too Well", url: "https://en.wikipedia.org/wiki/All_Too_Well" }, { name: "Taylor Swift Gives Emotional Grammys Perf of 'All Too Well'", url: "https://tasteofcountry.com/taylor-swift-all-too-well-2014-grammys/" }],
+      relatedIds: ["moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever"],
+      significance: "notable",
     },
     {
       id: "vault-red-she-flies-to-ohio-to-crash-a-fans-bridal-shower",
@@ -5899,6 +5922,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/katy-perry-taylor-swift-2010-billboard-1548.jpg?w=600", credit: "Billboard", caption: "Perry and Swift in 2010, before the falling-out — the file photo Billboard ran with news of the olive branch.", kind: "archival" }],
       sources: [{ name: "Katy Perry Literally Extended an Olive Branch to Taylor Swift For Reputation Tour Opening Night", url: "https://www.billboard.com/articles/columns/pop/8455152/katy-perry-sends-taylor-swift-olive-branch-instagram" }, { name: "Katy Perry Sends Taylor Swift an Olive Branch", url: "https://www.hollywoodreporter.com/news/music-news/katy-perry-sends-taylor-swift-an-olive-branch-tour-1110405/" }],
+      relatedIds: ["moment:vault-reputation-reputation-stadium-tour-opens-to-a-record-crowd"],
+      significance: "notable",
     },
     {
       id: "vault-reputation-two-wembley-nights-two-british-icons-niall-horan-then-robbie",
@@ -5923,6 +5948,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://specials-images.forbesimg.com/dam/imageserve/1048528712/960x0.jpg?fit=scale", credit: "Jeff Kravitz/FilmMagic", caption: "Two nights after the post, at the American Music Awards: \"You know what else is voted on by the people? The mid-term elections.\"", kind: "archival" }],
       sources: [{ name: "Taylor's First Political Endorsements Caused a Swift Spike in Voter Registrations", url: "https://time.com/5419276/taylor-swift-instagram-post-voter-registration-spike/" }, { name: "Taylor Swift's political Instagram post appears to spur voter registration", url: "https://www.cbsnews.com/news/taylor-swift-political-instagram-post-appears-to-spur-voter-registration-today-2018-10-09/" }, { name: "Taylor Swift's Instagram Post Causes Spike in Voter Registration", url: "https://www.rollingstone.com/politics/politics-news/taylor-swift-instagram-post-causes-voter-registration-spike-734975/" }],
+      significance: "notable",
     },
     {
       id: "vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi",
@@ -6242,6 +6268,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://fashiongonerogue.com/wp-content/uploads/igr/preview/01/taylor_swift1.jpg", credit: "Mario Testino / Vogue US", kind: "primary" }],
       sources: [{ name: "Fashion Gone Rogue", url: "https://www.fashiongonerogue.com/taylor-swift-mario-testino-vogue-february-2012/" }],
+      significance: "notable",
     },
     {
       id: "vault-speak-now-a-gold-zuhair-murad-couture-gown-on-the-2012-grammys-red-car",
@@ -7628,6 +7655,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png", credit: "Republic Records", caption: "The Tortured Poets Department — her record seventh Album of the Year nominee.", kind: "archival", focalPoint: "50% 55%" }, { url: "https://www.billboard.com/wp-content/uploads/2024/11/Taylor-Swift-04-The-Eras-Tour-Toronto-ON-345-billboard-1548.jpg?w=1024", credit: "Getty Images (via Billboard)", caption: "On stage in Toronto the week of the announcement — she thanked fans there for the album's six nominations.", kind: "archival", focalPoint: "48% 26%" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/1409681/taylor-swifts-historic-2025-grammy-nominations-prove-shes-anything-but-a-tortured-poet" }, { name: "NPR", url: "https://www.npr.org/2025/02/02/nx-s1-5279565/2025-grammys-beyonce-kendrick-lamar" }],
+      relatedIds: ["moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights"],
+      significance: "notable",
     },
     {
       id: "vault-ttpd-booed-at-the-superdome-cheering-for-a-three-peat-that-fell-s",
@@ -8022,6 +8051,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://variety.com/wp-content/uploads/2024/12/targetbook.png?w=1000", credit: "Target (via Variety)", caption: "The Eras Tour Book — 256 pages, $39.99, Target-exclusive, and 2024's biggest new-release print debut.", kind: "primary", focalPoint: "48% 42%" }, { url: "https://www.rollingstone.com/wp-content/uploads/2024/12/eras-tour-book-copies.jpg?crop=0px%2C0px%2C1798px%2C1014px&resize=1600%2C900", credit: "via Rolling Stone", caption: "Shrink-wrapped copies in the Target aisle over Thanksgiving weekend 2024, when 814,000 sold in two days.", kind: "archival", focalPoint: "36% 25%" }],
       sources: [{ name: "Taylor Swift Eras Tour Book Sells Reported 814,000 Copies in Two Days", url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-book-sales-blockbuster-debut-two-days-1236236012/" }, { name: "Taylor Swift's 'Eras Tour Book' Sells Record-Breaking 814,000 Copies in Just Two Days", url: "https://www.rollingstone.com/music/music-news/taylor-swift-eras-book-sales-target-1235193109/" }, { name: "The Official 'Taylor Swift | The Eras Tour Book' Sells Nearly 1 Million Copies in First Week", url: "https://corporate.target.com/press/release/2024/12/the-official-taylor-swift-the-eras-tour-book-available-exclusively-at-target-sells-nearly" }],
+      significance: "notable",
     },
     {
       id: "vault-ttpd-spotifys-top-global-artist-again-26-6-billion-streams",

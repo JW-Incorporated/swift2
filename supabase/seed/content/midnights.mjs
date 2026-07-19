@@ -3074,6 +3074,8 @@ export default {
     },
     {
       slug: 'eras-tour-beige-book',
+      significance: 'notable', // an economic-impact recognition genuinely unprecedented for a single tour — a real, citable macro data point (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-the-eras-tour-kicks-off-in-glendale'],
       year: 2023,
       month: 7,
       day: 12,
