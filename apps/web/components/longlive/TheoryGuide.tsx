@@ -19,7 +19,12 @@ import type { Confidence, TheoryNote, TheoryOutcome } from '@/lib/longlive/types
  * source exist in the data — never an empty placeholder.
  */
 
-// Same wording as MomentDetail's confidence pill, extended to all 8 tiers.
+// Quiet per-tier wording for the theory guide's badges. MomentDetail no
+// longer shares this wording: since 2026-07-19 (rumor tier) it renders
+// sub-confirmed moments with its own LOUD banner labels (CONFIDENCE_BANNER —
+// "Reported — not confirmed" / "Debunked"). The divergence is intentional:
+// a theory card is framed as speculation by its whole surface, a moment page
+// is framed as fact, so the moment needs the louder language.
 const CONFIDENCE_LABEL: Record<Confidence, string> = {
   official: 'Official',
   confirmed_interview: 'Confirmed in interview',

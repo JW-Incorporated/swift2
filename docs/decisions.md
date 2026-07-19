@@ -7,6 +7,74 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-19 — The rumor tier: structural home for hot-but-thinly-sourced topics
+
+**Decision:** Hot topics with little trustworthy sourcing (the MSG wedding is
+the canonical case: no interior photos, no official statement, loud press
+coverage) get a structural rumor treatment instead of either a thin page or
+reported claims quietly reading as fact. Two data-model additions on the
+content seed rows (`supabase/seed/content/**`), both piped through
+`sync-longlive-content.mjs` into the static vault:
+
+1. **Per-item `confidence`** — the existing 8 shared levels (mirrors
+   `THEORY_CONFIDENCE`; no new enum values, so no shared-types or DB CHECK
+   churn). The field existed on `ContentItem` but was never piped or
+   rendered loudly; now anything below `CONFIRMED_TIER`
+   (`official`/`confirmed_interview`) renders an unmissable banner in
+   `MomentDetail` ("Reported — not confirmed" / "Rumor — unconfirmed" /
+   "Debunked") naming the reporting outlet (the first `sources` entry —
+   keep the reporting outlet first on sub-confirmed items). The qualifier
+   travels to every surface: an "Unconfirmed" chip on the era-feed card and
+   a `[reported — not confirmed]` marker in outbound share copy — the one
+   surface no downstream banner can correct. Confirmed content is unchanged.
+2. **`moment.rumors`** — attributed, dated press claims (`claim` +
+   `reportedBy` + `reportedOn` + `status` + `url`, optional `note`) rendered
+   in a visually distinct "What's rumored" section after the confirmed
+   narrative (which gains a "What's confirmed" header). `status`
+   (`unconfirmed`/`partially_confirmed`/`confirmed`/`debunked`) lets a
+   resolved rumor stay on record honestly instead of being deleted.
+
+Fail-closed everywhere: the generator drops an unattributed/undated rumor and
+an unknown confidence; `validate:content` makes both hard errors (trim-aware,
+real-calendar-date, both field placements) so a typo can't silently vanish
+the label. Rumor claim/note prose feeds the content engine's corpus `texts`,
+so redlines/claim-risk/agent review scan it like any other prose. A
+deterministic `content.rumor-gap` checker (content engine, latest-news eras
+only) flags high-visibility moments with <2 sources and no rumor treatment,
+counting only entries the generator would actually ship. Pilot: the wedding
+trio (`msg-wedding` rumors, `wedding-gown-dior-anderson` +
+`watch-hill-bachelorette-weekend` banners). The 2026-07-04 hard ban carries
+over verbatim into the rumors template: no sexuality/family/identity
+speculation, ever — rumors are outlet-reported claims about public events.
+
+**Why:** The theories system already keeps era-level speculation honest, but
+it is era-scoped, carries the 2026-07-04 hard ban on private-life
+speculation, and can't sit inside a moment's page — while the wedding-page
+problem is exactly moment-scoped press claims. Reusing the shared confidence
+vocabulary keeps one grading language across theories, tour shows, and
+moments; a new "rumored" enum value was rejected because it would fork
+`THEORY_CONFIDENCE` and require a DB CHECK migration for no expressive gain
+(`reputable_reporting` + the banner IS "rumored" presentation). Rumor rules
+stay strict editorial: attributed, dated, our words, estimates labeled,
+nothing fabricated — rumors must never visually blend into confirmed facts.
+
+**Alternatives considered:** era-level theory entries for wedding rumors
+(wrong scope, banned subject matter); a standalone rumors dataset/surface
+(new nav surface for little gain; rumors belong on the moment they orbit);
+new enum values `rumored`/`speculation` (rejected above).
+
+**DB note:** `confidence`/`rumors` are seed-file-only until a `month_item`/
+`moment` migration — same standing follow-up as `slug`/`tags`/`threadIds`/
+`significance` (the live site reads seed files first, 2026-07-17).
+
+**Approved by:** pending — implemented on `feat/rumor-tier` for founder
+review; the structural direction follows the standing "speculation never
+renders as fact" rule (audit §5, 2026-07-04 brief).
+
+---
+
+## 2026-07-19 — Round 2: the next 10 career-defining events
+=======
 ## 2026-07-18 — Standing grant: Marjorie merges held content-shift PRs herself
 
 **Decision:** `needs-human-review` on a routine Content-desk PR (label

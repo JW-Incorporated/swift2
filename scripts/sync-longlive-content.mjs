@@ -32,6 +32,10 @@ import {
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
+// The 8 shared confidence values (mirrors THEORY_CONFIDENCE in
+// packages/shared/src/vault-types.ts). Importing the theories generator only
+// pulls its pure exports — its main() is guarded behind invokedDirectly.
+import { CONFIDENCE_VALUES } from './sync-longlive-theories.mjs';
 
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'content');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'content-vault.generated.ts');
@@ -138,6 +142,55 @@ export function significanceFrom(significance) {
   return VALID_SIGNIFICANCE.has(significance) ? significance : undefined;
 }
 
+/**
+ * How well-supported the item's central claim is (the 8 shared values —
+ * ContentItem.confidence in apps/web/lib/longlive/types.ts). Below the
+ * confirmed tier the UI renders the unmissable "Rumor — unconfirmed" /
+ * "Reported — not confirmed" banner. Unknown values return undefined (field
+ * omitted = confirmed fact, no banner) — the validator makes a typo a hard
+ * error, same split as significanceFrom.
+ */
+export function confidenceFrom(confidence) {
+  return CONFIDENCE_VALUES.has(confidence) ? confidence : undefined;
+}
+
+/** Mirrors RumorStatus in apps/web/lib/longlive/types.ts. */
+export const RUMOR_STATUSES = new Set([
+  'unconfirmed',
+  'partially_confirmed',
+  'confirmed',
+  'debunked',
+]);
+
+const RUMOR_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Normalizes seed `moment.rumors` entries into the UI's RumorNote shape
+ * (apps/web/lib/longlive/types.ts). Everything that keeps a rumor honest —
+ * claim, reporting outlet, report date, status, link — is REQUIRED; an entry
+ * missing any of them is dropped rather than guessed at (the theories
+ * generator's rule). The validator makes those drops hard errors so they
+ * can't pass CI silently. Returns undefined (field omitted) when nothing
+ * valid remains. Exported for unit tests.
+ */
+export function rumorsFrom(rumors) {
+  if (!Array.isArray(rumors)) return undefined;
+  const out = [];
+  for (const r of rumors) {
+    if (!r || typeof r !== 'object') continue;
+    const trim = (v) => (typeof v === 'string' && v.trim() ? v.trim() : undefined);
+    const claim = trim(r.claim);
+    const reportedBy = trim(r.reportedBy);
+    const reportedOn = trim(r.reportedOn);
+    const url = trim(r.url);
+    if (!claim || !reportedBy || !url) continue;
+    if (!reportedOn || !RUMOR_DATE_RE.test(reportedOn)) continue;
+    if (!RUMOR_STATUSES.has(r.status)) continue;
+    out.push({ claim, reportedBy, reportedOn, status: r.status, url, note: trim(r.note) });
+  }
+  return out.length ? out : undefined;
+}
+
 /** Allowed ImageRef.kind values (apps/web/lib/longlive/types.ts ImageKind). */
 const IMAGE_KINDS = new Set(['primary', 'reference', 'archival']);
 
@@ -220,6 +273,8 @@ export function addItem(
     video,
     relatedIds,
     significance,
+    confidence,
+    rumors,
   },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
@@ -264,6 +319,8 @@ export function addItem(
     relatedIds: relatedIdsFrom(relatedIds),
     threadIds: threadIdsFrom(threadIds),
     significance: significanceFrom(significance),
+    confidence: confidenceFrom(confidence),
+    rumors: rumorsFrom(rumors),
   });
 }
 
@@ -353,11 +410,22 @@ async function fetchFromSupabase() {
       // significance.sql) but this SELECT isn't wired to read it yet — same
       // follow-up, not done here since the live site reads seed files first
       // anyway (docs/decisions.md, 2026-07-17).
+      // `confidence` + `moment.rumors` (2026-07-19, the rumor tier) are also
+      // seed-only until that migration lands — same follow-up list, but with
+      // a sharper edge: losing them doesn't just degrade navigation, it
+      // strips the "not confirmed" labels, so reported claims would render
+      // as fact. Hence the loud warning below, not just this comment.
     });
   }
 
   const total = Object.values(byEra).reduce((n, arr) => n + arr.length, 0);
   console.log(`sync-longlive-content: loaded ${total} items from Supabase (live).`);
+  console.warn(
+    'sync-longlive-content: WARNING — the DB path carries no confidence/rumors columns yet, ' +
+      'so a DB-sourced build STRIPS every "Reported — not confirmed" banner and "What\'s rumored" ' +
+      'section; sub-confirmed claims would render as fact. Do not deploy a db-sourced vault ' +
+      'until the month_item/moment migration lands (docs/decisions.md 2026-07-19).',
+  );
   return byEra;
 }
 
@@ -393,6 +461,13 @@ async function fetchFromLocalFiles() {
         // accept either so the content lane can pick the natural home.
         relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
         significance: item.significance ?? null,
+        // Like relatedIds, confidence/rumors are accepted at EITHER level —
+        // confidence naturally reads as item metadata, rumors as Tier-1
+        // moment detail, but a mixed-up placement must not fail open (a
+        // silently-ignored honesty label is the worst outcome this feature
+        // has). validate-content.mjs checks both spots the same way.
+        confidence: item.confidence ?? item.moment?.confidence ?? null,
+        rumors: item.moment?.rumors ?? item.rumors ?? null,
       });
     }
   }
@@ -419,7 +494,7 @@ export function buildOutputSource(byEra) {
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
   lines.push("// Re-run that script after content-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { ContentTag, EraId, ImageRef, LensId } from './types';");
+  lines.push("import type { Confidence, ContentTag, EraId, ImageRef, LensId, RumorNote } from './types';");
   lines.push('');
   // Freshness stamp — emitted ONLY during `prebuild` (the deploy build, where
   // npm sets npm_lifecycle_event=prebuild), never into the committed file.
@@ -448,6 +523,8 @@ export function buildOutputSource(byEra) {
   lines.push('  relatedIds?: string[];');
   lines.push('  threadIds?: LensId[];');
   lines.push("  significance?: 'defining' | 'notable';");
+  lines.push('  confidence?: Confidence;');
+  lines.push('  rumors?: RumorNote[];');
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -498,6 +575,24 @@ export function buildOutputSource(byEra) {
       // there is no generic fallthrough serialization in this file.
       if (it.significance) {
         lines.push(`      significance: ${esc(it.significance)},`);
+      }
+      if (it.confidence) {
+        lines.push(`      confidence: ${esc(it.confidence)},`);
+      }
+      if (it.rumors && it.rumors.length) {
+        lines.push('      rumors: [');
+        for (const r of it.rumors) {
+          const parts = [
+            `claim: ${esc(r.claim)}`,
+            `reportedBy: ${esc(r.reportedBy)}`,
+            `reportedOn: ${esc(r.reportedOn)}`,
+            `status: ${esc(r.status)}`,
+            `url: ${esc(r.url)}`,
+          ];
+          if (r.note) parts.push(`note: ${esc(r.note)}`);
+          lines.push(`        { ${parts.join(', ')} },`);
+        }
+        lines.push('      ],');
       }
       lines.push('    },');
     }
