@@ -3182,6 +3182,22 @@ export default {
             // Stark close-up; her eyes sit in the upper third, face centered.
             focalPoint: '47% 35%',
           },
+          {
+            // Salvaged 2026-07-19 from photo-enrichment PR #887, which was
+            // otherwise superseded by a racing run: the album's OWN package
+            // photography (Beth Garrabrant), which suits the album page
+            // better than a music-video frame. Billboard's CDN, photographer
+            // in the filename; re-verified 200 image/jpeg (774KB) this
+            // session. The en-wiki cover render was rejected at 300px
+            // (under the 400px floor).
+            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Albatross-billboard-1548.jpg',
+            credit: 'Beth Garrabrant / Republic Records, via Billboard',
+            caption:
+              'The album package’s gray seaside portrait — the era’s black-and-white, ink-stained mood in one frame.',
+            kind: 'primary',
+            // Face upper-center-left against the flat gray sky.
+            focalPoint: '45% 28%',
+          },
         ],
       },
     },

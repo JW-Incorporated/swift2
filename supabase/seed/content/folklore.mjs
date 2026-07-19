@@ -1861,6 +1861,19 @@ export default {
             caption: 'Accepting Album of the Year for folklore with Laura Sisk, Jack Antonoff, and Aaron Dessner — her record third win.',
             focalPoint: '44% 18%',
           },
+          {
+            // Salvaged 2026-07-19 from photo-enrichment PR #886 (otherwise
+            // superseded by a racing run): the press-room shot from NME's own
+            // report on this win — a distinct frame from the onstage
+            // acceptance above. Re-verified 200 image/jpeg (548KB,
+            // 2000x1270, unwatermarked); credit per the article.
+            url: 'https://www.nme.com/wp-content/uploads/2021/03/taylor-swift-grammys-2021-1.jpg',
+            credit: 'Kevin Mazur/Getty Images for The Recording Academy, via NME',
+            caption: 'Holding the Album of the Year Grammy for folklore in the press room, March 14, 2021 — her third, a first for any woman.',
+            kind: 'primary',
+            // Face upper right of center.
+            focalPoint: '57% 25%',
+          },
         ],
       },
     },
