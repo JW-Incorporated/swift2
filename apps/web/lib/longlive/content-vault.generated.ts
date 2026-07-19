@@ -6978,6 +6978,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg", credit: "Taylor Swift", kind: "primary", focalPoint: "50% 30%" }, { url: "https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg", credit: "Taylor Swift", kind: "archival", focalPoint: "52% 46%" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/" }, { name: "L'Officiel", url: "https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details" }],
+      products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Dress (1932 Stripe White & Black)", retailer: "revolve.com", url: "https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/", price: "$398", inStock: false }],
     },
     {
       id: "vault-ttpd-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced",

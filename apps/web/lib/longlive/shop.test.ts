@@ -26,7 +26,12 @@ describe('buildShopUrl', () => {
     // When affiliate goes live these become wrapped per-retailer (LTK /
     // Amazon Associates / Skimlinks) and THIS test is the one that gets
     // updated — content never does.
-    for (const retailer of ['louisvuitton.com', 'amazon.com', 'cartier.com', 'tiny-boutique.example']) {
+    for (const retailer of [
+      'louisvuitton.com',
+      'amazon.com',
+      'cartier.com',
+      'tiny-boutique.example',
+    ]) {
       const url = `https://${retailer}/product/123`;
       expect(buildShopUrl(product({ retailer, url }))).toBe(url);
     }

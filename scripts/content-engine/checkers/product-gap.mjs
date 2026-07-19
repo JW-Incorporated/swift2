@@ -26,12 +26,70 @@ const GARMENTS =
 // Taylor/related proper nouns, months, and common sentence-openers seen in
 // the corpus. Lowercase for comparison.
 const STOPWORDS = new Set([
-  'a', 'an', 'the', 'her', 'his', 'their', 'its', 'this', 'that', 'these', 'those', 'one',
-  'taylor', 'swift', 'swifts', 'travis', 'kelce', 'she', 'he', 'they', 'it', 'in', 'on', 'at',
-  'with', 'and', 'but', 'for', 'from', 'after', 'before', 'while', 'when', 'wearing', 'wore',
-  'january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september',
-  'october', 'november', 'december', 'eras', 'tour', 'grammys', 'grammy', 'vmas', 'amas',
-  'met', 'gala', 'super', 'bowl', 'new', 'york', 'nyc', 'los', 'angeles', 'london', 'paris',
+  'a',
+  'an',
+  'the',
+  'her',
+  'his',
+  'their',
+  'its',
+  'this',
+  'that',
+  'these',
+  'those',
+  'one',
+  'taylor',
+  'swift',
+  'swifts',
+  'travis',
+  'kelce',
+  'she',
+  'he',
+  'they',
+  'it',
+  'in',
+  'on',
+  'at',
+  'with',
+  'and',
+  'but',
+  'for',
+  'from',
+  'after',
+  'before',
+  'while',
+  'when',
+  'wearing',
+  'wore',
+  'january',
+  'february',
+  'march',
+  'april',
+  'may',
+  'june',
+  'july',
+  'august',
+  'september',
+  'october',
+  'november',
+  'december',
+  'eras',
+  'tour',
+  'grammys',
+  'grammy',
+  'vmas',
+  'amas',
+  'met',
+  'gala',
+  'super',
+  'bowl',
+  'new',
+  'york',
+  'nyc',
+  'los',
+  'angeles',
+  'london',
+  'paris',
 ]);
 
 // A run of 1-4 Capitalized words (optionally possessive), then up to three
@@ -51,7 +109,9 @@ export function brandedGarmentMentions(text) {
   const out = [];
   for (const m of String(text ?? '').matchAll(BRAND_GARMENT_RE)) {
     const tokens = m[1].split(/\s+/).map((t) => t.replace(/[^\w&'’.-]/g, ''));
-    const brandTokens = tokens.filter((t) => t && !STOPWORDS.has(t.toLowerCase().replace(/['’]s?$/, '')));
+    const brandTokens = tokens.filter(
+      (t) => t && !STOPWORDS.has(t.toLowerCase().replace(/['’]s?$/, '')),
+    );
     if (brandTokens.length === 0) continue;
     out.push(`${brandTokens.join(' ')} ${m[3]}`);
   }

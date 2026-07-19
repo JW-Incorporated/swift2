@@ -39,12 +39,16 @@ describe('brandedGarmentMentions', () => {
 
   it('does not treat sentence-lead articles or Taylor as brands', () => {
     expect(brandedGarmentMentions('The dress was stunning. Her boots were red.')).toEqual([]);
-    expect(brandedGarmentMentions("Taylor's dress stole the show. Taylor Swift wore a hat.")).toEqual([]);
+    expect(
+      brandedGarmentMentions("Taylor's dress stole the show. Taylor Swift wore a hat."),
+    ).toEqual([]);
   });
 
   it('finds nothing in generic, brand-free fashion prose', () => {
     expect(
-      brandedGarmentMentions('A bold red lip, vintage silhouettes, and well-worn cowboy boots defined the era.'),
+      brandedGarmentMentions(
+        'A bold red lip, vintage silhouettes, and well-worn cowboy boots defined the era.',
+      ),
     ).toEqual([]);
   });
 
@@ -88,7 +92,10 @@ describe('product-gap check', () => {
   it('ignores fashion moments whose prose names no specific branded garment', async () => {
     const generic = moment({
       title: 'The classic red lip',
-      texts: { snippet: 'A signature look is born: red lip, vintage silhouettes, autumn tones.', context: '' },
+      texts: {
+        snippet: 'A signature look is born: red lip, vintage silhouettes, autumn tones.',
+        context: '',
+      },
     });
     expect(await check([generic])).toEqual([]);
   });

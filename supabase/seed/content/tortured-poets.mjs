@@ -1428,6 +1428,38 @@ export default {
             focalPoint: '52% 46%',
           },
         ],
+        // Shoppable-links pilot (2026-07-19, docs/decisions.md). Direct
+        // product pages only, verified live before adding.
+        products: [
+          {
+            brand: 'Polo Ralph Lauren',
+            item: 'Striped Silk-Blend Dress (1932 Stripe White & Black)',
+            retailer: 'revolve.com',
+            // Verified 2026-07-19: live single-product page (WebFetch render;
+            // this egress's curl is blocked by Revolve, not the page). Shows
+            // $398, "Sold Out" in all sizes — hence inStock: false. Named as
+            // the exact engagement dress by Rolling Stone / PureWow / Grazia.
+            // Ralph Lauren's own page (100055066.html) sits behind a
+            // PerimeterX wall and Google's snippet says "currently not
+            // available to shop", so the verified Revolve page is the link.
+            url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
+            price: '$398',
+            inStock: false,
+          },
+          // NOT added, per the never-fabricate/never-dead-link rule
+          // (2026-07-19 verification pass):
+          //   - Louis Vuitton "LV Isola Sandal" (Cognac, $930, SKU 1ACIOY):
+          //     exact model confirmed by WWD, but us.louisvuitton.com (and
+          //     every regional LV domain) answers HTTP 403 to all our
+          //     verification methods, and LV sells first-party only — no
+          //     verifiable page exists from here.
+          //   - Cartier diamond watch: identified by Esquire/WhoWhatWear as a
+          //     yellow-gold diamond Santos Demoiselle — discontinued ~2014,
+          //     no cartier.com product page; linking the current Panthère
+          //     would be a wrong-product substitution.
+          // The content.product-gap checker keeps this moment queued until
+          // verifiable pages surface.
+        ],
       },
     },
     // NOTE: the wedding itself, the wedding-gown fashion angle, and everything
