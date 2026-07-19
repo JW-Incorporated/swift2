@@ -39,6 +39,20 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records',
+            focalPoint: '62% 18%',
+          },
+          // Photo pass #762 run 25 (2026-07-18): no photographable "sales week"
+          // event exists, so the second image is honest era context — the tour
+          // production the million-copy week funded. Commons file page checked
+          // this session (CC BY 2.0, author dephisticate); curl 200 image/jpeg;
+          // Read-viewed: she performs from the tour's suspended balcony.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3e/Taylor_Swift_-_Speak_Now_tour_2011.jpg/960px-Taylor_Swift_-_Speak_Now_tour_2011.jpg',
+            credit: 'dephisticate / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              "Performing from the Speak Now World Tour's flying balcony in Newark, July 2011 — the arena spectacle that record-setting week set up.",
+            kind: 'archival',
+            focalPoint: '47% 42%',
           },
         ],
       },
@@ -264,6 +278,21 @@ export default {
           {
             url: 'https://townsquare.media/site/623/files/2012/02/taylor-swift-456-021212.jpg?w=980&q=75',
             credit: 'AP Photo/Matt Sayles',
+            focalPoint: '52% 35%',
+          },
+          // Photo pass #762 run 25 (2026-07-18): the Grammy stage itself has no
+          // usable photo on allowed hosts, so the second image is the banjo —
+          // the instrument the hook is about — from the same weeks: Sydney,
+          // March 9, 2012, 26 days after the ceremony. Commons file page checked
+          // (CC BY-SA 2.0, Eva Rinaldi); curl 200 image/jpeg; Read-viewed
+          // (banjo clearly in frame, honest caption names the song played).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a2/Taylor_Swift-Speak_Now_World_Tour_Sydney_-_Our_Song.jpg',
+            credit: 'Eva Rinaldi / Wikimedia Commons (CC BY-SA 2.0)',
+            caption:
+              'Banjo in hand on the Speak Now World Tour in Sydney, March 2012 — weeks after the Grammy night — performing "Our Song".',
+            kind: 'archival',
+            focalPoint: '35% 22%',
           },
         ],
       },
@@ -909,6 +938,20 @@ export default {
             caption:
               "Performing 'Enchanted' on the Speak Now World Tour in Paris, March 2011 — the ball-gown-and-staircase staging the song got every night.",
             kind: 'archival',
+            focalPoint: '50% 22%',
+          },
+          // Photo pass #762 run 25 (2026-07-18): second frame from the same
+          // March 17, 2011 Paris show, same photographer series as the frame
+          // above — same white sparkle-bodice gown, different angle. Commons
+          // file page checked (CC BY 2.0, oouinouin); curl 200 image/jpeg;
+          // Read-viewed and outfit-matched against the existing photo.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/99/Taylor_Swift_24_-_Live_in_Paris_-_2011.jpg/960px-Taylor_Swift_24_-_Live_in_Paris_-_2011.jpg',
+            credit: 'oouinouin / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'The same Paris night, closer in — the gown that gave "Enchanted" its fairy-tale staging on the Speak Now World Tour.',
+            kind: 'archival',
+            focalPoint: '45% 25%',
           },
         ],
       },
@@ -977,6 +1020,19 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records',
+            focalPoint: '62% 18%',
+          },
+          // Photo pass #762 run 25 (2026-07-18): second image is the album's
+          // songs on stage — an era-context tour frame, honestly captioned.
+          // Commons file page checked (CC BY 2.0, author dephisticate); curl
+          // 200 image/jpeg; Read-viewed (gold gown, Newark crowd in frame).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/22/Taylor_Swift_-_Speak_Now_tour_2011_01.jpg',
+            credit: 'dephisticate / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'On the Speak Now World Tour in Newark, July 2011 — touring the only album in her catalog with no co-writers.',
+            kind: 'archival',
+            focalPoint: '55% 12%',
           },
         ],
       },
@@ -1002,10 +1058,16 @@ export default {
           },
         ],
         photos: [
+          // Photo pass #762 run 25 (2026-07-18): stays at one image — a
+          // nominations-announcement story with no ceremony appearance of its
+          // own to depict (the 54th Grammys night itself, where "Mean" won,
+          // is the "Mean wins two Grammys" page's moment, photographed there).
+          // Nothing on allowed hosts depicts this paper announcement.
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records (album cover art)',
             kind: 'primary',
+            focalPoint: '62% 18%',
           },
         ],
       },
@@ -1234,6 +1296,20 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
             credit: 'Big Machine Records',
+            focalPoint: '62% 18%',
+          },
+          // Photo pass #762 run 25 (2026-07-18): second image is the title
+          // track performed live — the closest photographable thing to the
+          // album itself. Commons file page checked (CC BY-SA 2.0, Eva
+          // Rinaldi); curl 200 image/jpeg; Read-viewed (purple dress at the
+          // vintage mic, the tour's "Speak Now" staging).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Taylor_Swift_-_SPEAK_NOW_World_Tour_Live_in_Sydney_2012_-_Speak_Now.jpg',
+            credit: 'Eva Rinaldi / Wikimedia Commons (CC BY-SA 2.0)',
+            caption:
+              'Performing the title track on the Speak Now World Tour in Sydney, March 2012.',
+            kind: 'archival',
+            focalPoint: '45% 12%',
           },
         ],
       },
@@ -1311,12 +1387,14 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/2/2d/Taylor_Swift_-_Mean.png',
             credit: 'Big Machine Records (single cover art)',
             kind: 'primary',
+            focalPoint: '25% 60%',
           },
           {
             url: 'https://i.ytimg.com/vi/jYa1eI1hpDE/hqdefault.jpg',
             credit: 'Big Machine Records / YouTube (official music video still)',
             caption: "Still from the official 'Mean' music video, via the video's YouTube thumbnail.",
             kind: 'archival',
+            focalPoint: '45% 42%',
           },
         ],
       },
