@@ -37,7 +37,27 @@ export default {
             url: 'https://www.iheart.com/content/2022-10-20-celebrate-midnights-with-taylor-swift-on-iheartradio/',
           },
         ],
-        photos: [{ url: 'https://i.iheart.com/v3/re/new_assets/6351759fded3848f2718dc48', credit: 'iHeart' }],
+        // Photo-enrichment pass (2026-07-18, #762): added iHeartRadio's own
+        // promo graphic for this exact takeover from the same article
+        // (i.iheart.com CDN, 1200px) — the campaign creative with the
+        // nightly code-word contest the page describes. Both images verified
+        // HTTP 200 + image/jpeg, downloaded, and visually confirmed this
+        // session.
+        photos: [
+          {
+            url: 'https://i.iheart.com/v3/re/new_assets/6351759fded3848f2718dc48',
+            credit: 'iHeart',
+            focalPoint: '58% 43%',
+          },
+          {
+            url: 'https://i.iheart.com/v3/re/new_assets/6351b3beded3848f2718dc4c',
+            credit: 'iHeartRadio',
+            caption:
+              "iHeartRadio's promo for the six-night takeover — listen for a code word at midnight, enter to win signed merch.",
+            kind: 'archival',
+            focalPoint: '72% 40%',
+          },
+        ],
       },
     },
     {
@@ -68,6 +88,23 @@ export default {
           {
             url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/Screenshot_20221022-153332.png',
             credit: 'Spotify Newsroom',
+            focalPoint: '48% 55%',
+          },
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/TS-Midnights_LDN-2.jpg',
+            credit: 'Spotify Newsroom',
+            caption:
+              'One of the "Meet us at midnight" billboards Spotify ran with Swift in the lead-up to release — this one over a rainy London staircase, counting down to the drop that broke the platform\'s single-day records.',
+            kind: 'archival',
+            focalPoint: '48% 40%',
+          },
+          {
+            url: 'https://www.guinnessworldrecords.com/news/2022/10/images/split-image-of-taylor-swift-sitting-in-a-dark-room-and-the-album-cover-of-midnights-723266.jpg',
+            credit: 'Guinness World Records',
+            caption:
+              "Guinness World Records' own art for logging the day as three records at once: most-streamed album in 24 hours, most day-one album streams, and most-streamed act in a single day.",
+            kind: 'archival',
+            focalPoint: '75% 45%',
           },
         ],
       },
@@ -101,6 +138,23 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2022/10/02-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
             credit: 'Beth Garrabrant/Billboard',
+            focalPoint: '57% 30%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/10/01-taylor-swift-midnights-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant/Billboard',
+            caption:
+              "Another frame from Beth Garrabrant's Midnights press shoot, run by Billboard with its chart story on the 1.578-million-unit debut.",
+            kind: 'archival',
+            focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/10/taylor-swift-tonight-show-cr-todd-owyoung-1548.jpg?w=1024',
+            credit: 'Todd Owyoung/NBC (via Billboard)',
+            caption:
+              'Walking out on The Tonight Show Starring Jimmy Fallon on Oct. 24, 2022 — the release-week victory lap while Midnights was racking up the numbers behind this chart debut.',
+            kind: 'archival',
+            focalPoint: '47% 20%',
           },
         ],
       },
@@ -184,6 +238,15 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-Speak-Now-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024',
             credit: 'Beth Garrabrant/Billboard',
+            focalPoint: '52% 30%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/lVkKLf4DCn8/maxresdefault.jpg',
+            credit: "Taylor Swift/YouTube ('I Can See You' official video)",
+            caption:
+              "A frame from the 'I Can See You (Taylor's Version) (From The Vault)' video, premiered at the Kansas City Eras show on July 7, 2023 — the vault-track centerpiece of the release week this chart record capped.",
+            kind: 'archival',
+            focalPoint: '55% 45%',
           },
         ],
       },
@@ -216,6 +279,23 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-aa-1548.jpg?w=1024',
             credit: 'Beth Garrabrant/Billboard',
+            focalPoint: '50% 32%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/10/Taylor-Swift-1989-TSV-press-credit-Beth-Garrabrant-2023-billboard-bb-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant/Billboard',
+            caption:
+              "Another Beth Garrabrant frame from the 1989 (Taylor's Version) beach shoot, run with Billboard's chart coverage of the record-resetting vinyl week.",
+            kind: 'archival',
+            focalPoint: '50% 18%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/tNxUxm3-658/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              "The official lyric-video art for 'Is It Over Now? (Taylor's Version) (From The Vault)' — the vault track from this release that went on to hit No. 1 on the Hot 100.",
+            kind: 'archival',
+            focalPoint: '50% 50%',
           },
         ],
       },
@@ -277,6 +357,15 @@ export default {
             credit: 'AMC Theatres / Taylor Swift Productions (theatrical release poster)',
             caption: 'The official theatrical release poster for "Taylor Swift: The Eras Tour," which became the highest-grossing concert film ever.',
             kind: 'primary',
+            focalPoint: '50% 20%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/KudedLV0tP0/maxresdefault.jpg',
+            credit: 'Taylor Swift Productions/YouTube (official trailer)',
+            caption:
+              "The wide key art from the film's official trailer on Swift's own channel — the Lover-set bodysuit against the theatrical campaign's watercolor backdrop.",
+            kind: 'archival',
+            focalPoint: '25% 25%',
           },
         ],
       },
@@ -286,6 +375,13 @@ export default {
       month: 3,
       day: 17,
       category: 'tour',
+      significance: 'defining', // the highest-grossing tour ever, an economic/cultural phenomenon (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
+        'moment:vault-midnights-the-eras-tour-film-opens-to-92-8-million-the-biggest-concert',
+        'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+        'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
+      ],
       title: 'The Eras Tour kicks off in Glendale',
       snippet:
         '44 songs, 3 hours and 15 minutes at State Farm Stadium — opening night moved era by era through songs from all 10 studio albums.',
@@ -306,6 +402,78 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024',
             credit: 'Kevin Mazur/Getty Images for TAS Rights Management',
+            focalPoint: '43% 25%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-1-2023-billboard-1548.png?w=1024',
+            credit: 'Kevin Mazur/Getty Images for TAS Rights Management (via Billboard)',
+            caption:
+              'Opening the Lover set in the crystal bodysuit on night one in Glendale, March 17, 2023 — the first minutes of the tour that would define the next two years.',
+            kind: 'archival',
+            focalPoint: '49% 18%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // every real, distinct photo found from the March 17, 2023
+          // opening night — different costume/set chapters, multiple outlets.
+          // Three ca-times.brightspotcdn.com (LA Times) candidates were
+          // dropped here 2026-07-19: curl returned 200 + real image bytes,
+          // but the CDN serves a 1x1 placeholder to actual browser requests
+          // (Referer-based hotlink protection) — caught only by testing in
+          // a real browser (naturalWidth === 1), not by curl. See
+          // docs/decisions.md; every other domain in this pass tested clean.
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/764/432/GettyImages-1474279449-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'Arms outstretched with a pink sequined guitar, in the sparkling fringe bodysuit worn for the Lover set.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474271127-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'In a glittering silver blazer dress and knee-high boots, flanked by suited backup dancers in front of the reputation set\'s office-desk backdrop.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474459817-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'Swift performs during another costume-and-set chapter of the Eras Tour\'s opening night.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474275193-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'Seated atop the moss-covered folklore cabin\'s peaked roof, its chimney smoking, for the acoustic folklore set.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474275197-copy.jpg?tl=1&ve=1',
+            credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
+            caption: 'Swift performs in a separate Getty image from the Eras Tour\'s first night at State Farm Stadium.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_.jpg',
+            credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
+            caption: 'Swift performs during the opening Eras Tour concert at State Farm Stadium on March 17, 2023.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-31.jpg',
+            credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
+            caption: 'A second AP frame captures Swift during the opening-night Glendale performance.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-28.jpg',
+            credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
+            caption: 'A third Ashley Landis frame shows Swift performing at the Eras Tour opener.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-23.jpg',
+            credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
+            caption: 'A fourth distinct AP image records Swift onstage during the March 17 Glendale show.',
+            kind: 'primary',
           },
         ],
       },
@@ -404,6 +572,15 @@ export default {
             credit: 'Republic Records',
             caption: 'The standard-edition Midnights cover — the "complete concept album" of 13 songs the surprise 3am tracks were framed as outtakes from.',
             kind: 'archival',
+            focalPoint: '40% 47%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/iFX6_9h7th0/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              'The white-flag art of the official lyric video for "The Great War" — the opening 3am track, surrendering the fight the song spends its runtime surviving.',
+            kind: 'archival',
+            focalPoint: '55% 55%',
           },
         ],
       },
@@ -580,6 +757,12 @@ export default {
       month: 9,
       day: 24,
       category: 'relationship',
+      significance: 'defining', // the crossover into mainstream/NFL culture that reshaped her public life (docs/decisions.md, 2026-07-19)
+      threadIds: ['the-proposal'],
+      relatedIds: [
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
       title: 'The game the world decided made it official',
       snippet:
         "She'd been dating Travis for weeks by the time cameras found her at Arrowhead — but this was the night the relationship became public record.",
@@ -601,6 +784,51 @@ export default {
             url: 'https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill',
             credit: 'CNN',
             focalPoint: '36% 16%',
+          },
+          // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
+          // every real photo found specifically from the Sept. 24, 2023
+          // Arrowhead game and its immediate aftermath.
+          {
+            url: 'https://media.vanityfair.com/photos/655a2af58877a2e304c7d8ac/master/w_2560%2Cc_limit/1687516923',
+            credit: 'Cooper Neill/Getty Images, via Vanity Fair',
+            caption: 'Swift cheers beside Donna Kelce from a suite as the Chiefs play the Bears at Arrowhead on Sept. 24, 2023.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/6511b258c700cad4c4f82633/master/w_2560%2Cc_limit/Taylor-Swift.jpg',
+            credit: 'Jason Hanna/Getty Images, via Vanity Fair',
+            caption: 'Swift reacts from the Arrowhead suite during the first Chiefs game she attended.',
+            kind: 'primary',
+          },
+          // A ca-times.brightspotcdn.com (LA Times) candidate was dropped
+          // here 2026-07-19: curl returned 200 + real image bytes, but the
+          // CDN serves a 1x1 placeholder to actual browser requests
+          // (Referer-based hotlink protection) — caught only by testing in
+          // a real browser (naturalWidth === 1), not by curl. See
+          // docs/decisions.md; every other domain in this pass tested clean.
+          {
+            url: 'https://media.vanityfair.com/photos/65bac4142264a30c89f9949d/master/w_1600%2Cc_limit/1687739252',
+            credit: 'Icon Sportswire/Getty Images, via Vanity Fair',
+            caption: 'Swift watches the game with Travis Kelce\'s mother, Donna, in a separate suite photograph from Sept. 24.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/cc/4by3/2023/09/25/cc266e4c1e8646149db60f4c03b795ce_md.jpg',
+            credit: 'TMZ.com',
+            caption: 'Swift enters Arrowhead in a Chiefs windbreaker, escorted by a member of Kelce\'s public-relations team.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/02/16by9/2023/09/25/02f6bdca4be649f58c60466f10fc0115_md.jpg',
+            credit: 'X/@paytonsun, via TMZ',
+            caption: 'Swift and Kelce walk out of Arrowhead side by side after the Chiefs\' win.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://imagez.tmz.com/image/98/4by3/2023/09/25/984b4d79ebce419cbcef97777e65d904_md.jpg',
+            credit: 'TMZ.com',
+            caption: 'Swift and Kelce leave Arrowhead together in his metallic purple convertible after the game.',
+            kind: 'primary',
           },
         ],
       },
@@ -687,6 +915,15 @@ export default {
           {
             url: 'https://i0.wp.com/www.thewrap.com/wp-content/uploads/2023/09/taylor-swift-1.jpg?fit=1200%2C675&quality=89&ssl=1',
             credit: 'TheWrap',
+            focalPoint: '50% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_at_the_2023_MTV_Video_Music_Awards_%281%29.png',
+            credit: 'iHeartRadioCA / Wikimedia Commons, CC BY 3.0',
+            caption:
+              'On the pink carpet at the 2023 VMAs in black Versace — the night she took home a record-tying nine Moon Persons, including her fourth Video of the Year.',
+            kind: 'archival',
+            focalPoint: '47% 22%',
           },
         ],
       },
@@ -720,6 +957,15 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/08/taylor-swift-eras-tour-los-angeles-night-4-sofi-stadium-2023-billboard-1548.jpg?w=1024',
             credit: 'Billboard',
+            focalPoint: '58% 52%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/xB-RZqcoIgo/maxresdefault.jpg',
+            credit: 'Taylor Swift/YouTube',
+            caption:
+              "The art for 'Cruel Summer (Live from Taylor Swift | The Eras Tour)' — the live single Swift released Oct. 18, 2023, in the final push that carried the four-year-old song to No. 1.",
+            kind: 'archival',
+            focalPoint: '45% 32%',
           },
         ],
       },
@@ -988,6 +1234,12 @@ export default {
       month: 2,
       day: 4,
       category: 'business',
+      significance: 'defining', // most Album of the Year wins ever, breaking her own tie with music history's biggest names (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
+        'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
+        'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+      ],
       title: 'A record fourth Album of the Year Grammy, for Midnights',
       snippet: 'Presented by Céline Dion in a rare public appearance — Swift\'s fourth AOTY win, more than any artist in Grammy history.',
       sourceUrl: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
@@ -1006,6 +1258,15 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
             credit: 'Billboard',
+            focalPoint: '48% 25%',
+          },
+          {
+            url: 'https://variety.com/wp-content/uploads/2024/02/Taylor-Swift-Album-of-the-Year.jpg?w=1000',
+            credit: 'Variety',
+            caption:
+              'Accepting the record fourth Album of the Year Grammy for Midnights, with Jack Antonoff at her shoulder — the moment she passed Stevie Wonder, Frank Sinatra and Paul Simon.',
+            kind: 'archival',
+            focalPoint: '47% 35%',
           },
         ],
       },
@@ -1015,6 +1276,12 @@ export default {
       month: 2,
       day: 11,
       category: 'fashion',
+      significance: 'defining', // the single biggest mainstream-crossover moment of the relationship, watched by ~123M people (docs/decisions.md, 2026-07-19)
+      threadIds: ['the-proposal'],
+      relatedIds: [
+        'moment:vault-midnights-the-game-the-world-decided-made-it-official',
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+      ],
       title: 'Super Bowl LVIII: a sheer corset, Area jeans, and his number in rubies',
       snippet:
         'A Dion Lee corset top and bedazzled Area jeans, accessorized with jewelry stamped 87 — plus a red Erin Andrews bomber for team spirit.',
@@ -1462,6 +1729,30 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-15',
             reliability_score: 5,
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18): two frames of the midnight-blue
+        // Cavalli from the 2023 Grammys carpet — the look the context describes —
+        // from the page's own cited Rolling Stone article plus Billboard's
+        // companion piece. Both curl-verified 200 + image/jpeg and vision-checked
+        // (Grammy gramophone backdrop visible). The short film's poster was
+        // rejected: Wikipedia's copy renders at 277px, under the 400px floor.
+        photos: [
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2023/02/GettyImages-1463251082.jpg?w=1600&h=900&crop=1',
+            credit: 'Getty Images via Rolling Stone',
+            caption:
+              'The star-scattered midnight-blue Roberto Cavalli at the 2023 Grammys — the carpet look she kept on through the evening ceremony after the afternoon Best Music Video win.',
+            kind: 'primary',
+            focalPoint: '48% 18%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/02/04-taylor-swift-2023-grammys-red-carpet-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images via Billboard',
+            caption:
+              'Close-up on the same Grammys carpet: the diamond-and-amethyst drop earrings over the beaded Cavalli turtleneck.',
+            kind: 'primary',
+            focalPoint: '40% 32%',
           },
         ],
       },
@@ -1969,12 +2260,24 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the remix single artwork from Wikipedia's
         // stable upload.wikimedia.org copy. Verified HTTP 200 + image/png.
+        // Photo-enrichment pass (2026-07-18): added the freely licensed Arlington
+        // frame of "Karma" closing the Eras Tour show (curl 200 + image/jpeg,
+        // vision-confirmed: the iridescent Karma jacket over the sequined
+        // bodysuit); focal points set per image by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/ba/Taylor_Swift_feat_Ice_Spice_-_Karma.png',
             credit: 'Republic Records',
             caption: 'Artwork for the "Karma" remix featuring Ice Spice — the May 2023 full-circle ending to the Sounwave beat\'s one-day story.',
             kind: 'archival',
+            focalPoint: '47% 70%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/Taylor_Swift_Eras_Tour_-_Arlington_TX_20230331_-_Karma.jpg/960px-Taylor_Swift_Eras_Tour_-_Arlington_TX_20230331_-_Karma.jpg',
+            credit: 'Ronald Woan, CC BY-SA 2.0, via Wikimedia Commons',
+            caption: 'The one-day song became the whole show\'s closer: "Karma" ending an Eras Tour night in Arlington, March 2023.',
+            kind: 'archival',
+            focalPoint: '42% 36%',
           },
         ],
       },
@@ -2050,6 +2353,8 @@ export default {
       month: 11,
       day: 5,
       category: 'business',
+      significance: 'defining', // a chart feat only she has ever pulled off, then repeated with TLOAS (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12'],
       title: 'Every spot in the Hot 100 top 10, all at once',
       snippet:
         'The week "Anti-Hero" debuted at No. 1, the other nine Midnights tracks filled out the rest of the top 10 — the first time in Hot 100 history one artist held the entire top 10 in a single week.',
@@ -2067,12 +2372,24 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the No. 1 single's artwork; Wikipedia's
         // stable copy (same file the Anti-Hero video item uses), verified 200.
+        // Photo-enrichment pass (2026-07-18): added the official Anti-Hero video
+        // frame from YouTube's own CDN (the same host prior runs used for
+        // official-video stills). Curl 200 + image/jpeg, 1280x720,
+        // vision-confirmed as the video's kitchen-hallway opening frame.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b9/Taylor_Swift_-_Anti-Hero.png',
             credit: 'Republic Records',
             caption: 'Single artwork for "Anti-Hero," which led the historic all-Swift top 10 from No. 1.',
             kind: 'archival',
+            focalPoint: '55% 48%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/b1kbLwvqugk/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records, via YouTube',
+            caption: 'A frame from the self-directed "Anti-Hero" video — the No. 1 that led an all-Swift top 10, with 59.7 million streams in the chart week.',
+            kind: 'archival',
+            focalPoint: '50% 25%',
           },
         ],
       },
@@ -2099,12 +2416,25 @@ export default {
         ],
         // Real-photo pass (2026-07-09): album artwork; Wikipedia's stable copy,
         // verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18): added a freely licensed frame of
+        // the Midnights set (Lavender Haze clouds) at U.S. Bank Stadium,
+        // June 24, 2023 — the same month the deluxe editions put the album back
+        // at No. 1. Curl 200 + image/jpeg, vision-confirmed (cloud props,
+        // stadium signage visible).
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
             credit: 'Republic Records',
             caption: 'Midnights — back at No. 1 in June 2023, eight months after release, on the strength of the Til Dawn and Late Night deluxe editions.',
             kind: 'archival',
+            focalPoint: '50% 52%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Eras_Tour_-_Minneapolis%2C_Minnesota_-_Midnights_act_1.jpg/960px-Eras_Tour_-_Minneapolis%2C_Minnesota_-_Midnights_act_1.jpg',
+            credit: 'Michael Hicks, CC BY 2.0, via Wikimedia Commons',
+            caption: 'The Midnights act at Minneapolis\' U.S. Bank Stadium in June 2023 — the album onstage the same month the deluxe drops sent it back to No. 1.',
+            kind: 'archival',
+            focalPoint: '53% 58%',
           },
         ],
       },
@@ -2244,18 +2574,35 @@ export default {
         // Real-photo pass (2026-07-09): Rolling Stone's lead photo of the night,
         // hotlinked per the 2026-07-09 relaxed media policy; credit per the
         // article's own photo credit. Verified HTTP 200 + image/jpeg.
+        // Photo-enrichment pass (2026-07-18): added Deadline's press-room frame —
+        // the gold Zuhair Murad halter with all six trophies in hand, distinct
+        // from the onstage acceptance shot. Curl 200 + image/jpeg,
+        // vision-confirmed (AMA/ABC press wall, six pyramids in her arms).
         photos: [
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2022/11/Taylor-Artist-1443142818.jpg?w=1600&h=900&crop=1',
             credit: 'Kevin Winter/Getty Images via Rolling Stone',
             caption: 'Swift accepting at the 2022 American Music Awards in Los Angeles, where she went six-for-six.',
             kind: 'primary',
+            focalPoint: '50% 15%',
+          },
+          {
+            url: 'https://deadline.com/wp-content/uploads/2022/11/taylor-swift-american-music-awards-2022.jpg?w=1000',
+            credit: 'Deadline',
+            caption: 'All six of the night\'s trophies at once in the AMAs press room — career total: a record 40.',
+            kind: 'primary',
+            focalPoint: '50% 17%',
           },
         ],
       },
     },
     {
       slug: 'eras-tour-presale-meltdown',
+      significance: 'defining', // reshaped the national conversation about ticketing and market power (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
+        'moment:vault-midnights-the-senate-holds-a-ticketmaster-hearing-in-swiftie-puns',
+      ],
       year: 2022,
       month: 11,
       day: 15,
@@ -2290,12 +2637,17 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the official tour poster fans were queuing
         // for; Wikipedia's stable copy, verified HTTP 200 + image/png.
+        // Photo-enrichment audit (2026-07-18): stays at one image deliberately —
+        // no outlet-CDN-verifiable photo depicts the presale itself (coverage
+        // used watermarked Getty comps or off-hook file photos; ABC's article
+        // image is a 2019 AMAs performance shot). Focal point set by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/75/The_Eras_Tour_Poster_%28updated%29.png',
             credit: 'TAS Rights Management',
             caption: 'The official Eras Tour poster — the tickets 2.4 million people managed to buy in one day, and millions more never got the chance to.',
             kind: 'archival',
+            focalPoint: '50% 40%',
           },
         ],
       },
@@ -2392,12 +2744,17 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the announced album's artwork; Wikipedia's
         // stable copy, verified HTTP 200 + image/png this session.
+        // Photo-enrichment audit (2026-07-18): stays at one image deliberately —
+        // no verifiable photo of the May 5 Nissan Stadium announcement moment
+        // exists on an outlet CDN or Commons (Variety's article image is a vinyl
+        // product render that duplicates this cover). Focal point set by viewing.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
             caption: "The Speak Now (Taylor's Version) cover revealed alongside the onstage Nashville announcement.",
             kind: 'archival',
+            focalPoint: '55% 30%',
           },
         ],
       },
@@ -2634,12 +2991,24 @@ export default {
         ],
         // Real-photo pass (2026-07-09): freely licensed Eras Tour performance
         // photo — the machine that did the compounding. Verified HTTP 200 + image/jpeg.
+        // Photo-enrichment pass (2026-07-18): added a second frame from the same
+        // SoFi stand — the Midnights set panorama (same photographer, different
+        // act, distinct from the three Midnights Era Set files already used
+        // elsewhere in the corpus). Curl 200 + image/jpeg, vision-confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Eras_Tour_-_Inglewood%2C_California_-_Red_act_7.jpg/960px-Eras_Tour_-_Inglewood%2C_California_-_Red_act_7.jpg',
             credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
             caption: 'The Eras Tour at SoFi Stadium in August 2023 — the touring engine Bloomberg credited with pushing the net-worth math past $1 billion.',
             kind: 'archival',
+            focalPoint: '50% 32%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/3f/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109009237%29.jpg/1280px-Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109009237%29.jpg',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption: 'The Midnights set during the same SoFi stand — the August 2023 shows that closed out the US leg two months before Bloomberg ran the numbers.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
           },
         ],
       },
@@ -2958,6 +3327,29 @@ export default {
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-announces-new-album-1234583475/',
+          },
+        ],
+        // Photo-enrichment pass (2026-07-18): the section note above predates
+        // this session — these hotlinks WERE liveness-checked this run
+        // (curl 200 + image/jpeg) and vision-confirmed against the VMAs 2022
+        // set (MTV moonman backdrop visible in both). Both are from the page's
+        // own cited articles.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2022/08/01-taylor-swift-2022-mtv-vmas-rc-billboard-1548.jpg?w=1024',
+            credit: 'Getty Images via Billboard',
+            caption:
+              'The crystal-mesh Oscar de la Renta on the 2022 VMAs carpet — the night the Video of the Year speech turned into an album announcement.',
+            kind: 'primary',
+            focalPoint: '48% 15%',
+          },
+          {
+            url: 'https://www.rollingstone.com/wp-content/uploads/2022/08/taylor-swift-new-album.jpg?w=1600&h=900&crop=1',
+            credit: 'Getty Images via Rolling Stone',
+            caption:
+              'In the VMAs press room minutes later — jeweled eye makeup, and a brand-new album on the calendar for October 21.',
+            kind: 'primary',
+            focalPoint: '50% 40%',
           },
         ],
       },

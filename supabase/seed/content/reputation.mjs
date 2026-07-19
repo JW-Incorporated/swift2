@@ -68,10 +68,16 @@ export default {
             url: 'https://www.forbes.com/sites/brittanyhodak/2017/11/20/taylor-swifts-reputation-outsold-every-other-album-on-the-billboard-200-combined/',
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): stays at one image — the
+        // cited Billboard/Refinery29/Forbes pages lazy-load their images (no
+        // retrievable URLs), their chart-story art is wire/Getty-only, and no
+        // Commons photo depicts the sales week itself. The album cover is the
+        // artifact the 1.2M buyers bought; focal point set by eye this run.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
             credit: 'Big Machine Records',
+            focalPoint: '42% 35%',
           },
         ],
       },
@@ -129,10 +135,25 @@ export default {
             url: 'https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments',
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): no photo from opening
+        // night in Glendale exists on Commons, and the cited outlets' own
+        // CDNs lazy-load (no retrievable URLs) or run Getty wire art. Added a
+        // clearly-captioned era-performance shot from four nights later on
+        // the same leg (Levi's Stadium, May 12) — Commons CC BY-SA 4.0,
+        // downloaded and vision-confirmed this run.
         photos: [
           {
             url: "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png",
             credit: 'Big Machine Records',
+            focalPoint: '46% 28%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Taylor_Swift_Reputation_Tour31.jpg',
+            credit: 'UltimateWarrior13 / Wikimedia Commons (CC BY-SA 4.0)',
+            caption:
+              'Mid-song on the reputation Stadium Tour at Levi’s Stadium, May 12, 2018 — four nights after the record-crowd opener in Glendale.',
+            kind: 'archival',
+            focalPoint: '50% 18%',
           },
         ],
       },
@@ -205,12 +226,17 @@ export default {
         // unhostable-quality glitch fragments; the Mert & Marcus cover revealed on
         // August 23 is the artifact the teasers built to. Wikipedia's stable
         // upload.wikimedia.org copy, verified HTTP 200 + image/png this session.
+        // Photo-enrichment pass (2026-07-18, #762): re-checked — the snake
+        // clip still lives only in Instagram embeds (UPI 403s, CBS/Billboard
+        // embed rather than host a frame), so the T16 judgment stands and the
+        // page stays at one image. Focal point set by eye this run.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png',
             credit: 'Big Machine Records',
             caption: 'The Mert & Marcus album cover revealed on August 23, 2017 — the payoff of the three-day snake-video teaser rollout.',
             kind: 'archival',
+            focalPoint: '42% 35%',
           },
         ],
       },
@@ -237,12 +263,34 @@ export default {
         // T16 photo pass (2026-07-09): Wikimedia Commons, CC BY-SA 2.0, author
         // Ronald Woan — license verified on the file page this session; the song
         // lived on the tour as the piano mashup this photo captures.
+        // Photo-enrichment pass (2026-07-18, #762): added two ABC stills of the
+        // actual televised moment this item describes — the candlelit Rhode
+        // Island living-room performance aired during Scandal — from ABC News's
+        // own article on the premiere (s.abcnews.com, allowed CDN). Both
+        // curl-verified 200 + image/jpeg, downloaded and vision-confirmed
+        // (grand piano, candles, ABC bug, ring of fans) this run.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Long_Live-New_Years_Day_%28cropped%29.jpg',
             credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
             caption: "At the reputation piano in Seattle, May 22, 2018 — on tour the song was performed as a “Long Live / New Year's Day” piano mashup.",
             kind: 'archival',
+            focalPoint: '48% 20%',
+          },
+          {
+            url: 'https://s.abcnews.com/images/Entertainment/gma-tay-swift-piano-abc-hb-171109_16x9_992.jpg',
+            credit: 'ABC',
+            caption:
+              'The candlelit living-room performance taped at her Rhode Island home, aired during Scandal on November 9, 2017 — 100 hand-picked fans around the piano.',
+            kind: 'primary',
+            focalPoint: '72% 35%',
+          },
+          {
+            url: 'https://s.abcnews.com/images/Entertainment/gma-tay-swift-piano03-abc-hb-171109_16x9_992.jpg',
+            credit: 'ABC',
+            caption: 'At the piano mid-performance in the ABC broadcast, the night before reputation dropped.',
+            kind: 'primary',
+            focalPoint: '40% 42%',
           },
         ],
       },
@@ -971,12 +1019,26 @@ export default {
         // T16 photo pass (2026-07-09): official music-video still. Video id
         // tCXGJQYZ9JA verified via YouTube oEmbed this session — title "Taylor
         // Swift - Delicate", channel @TaylorSwift (official). HTTP 200 + image/jpeg.
+        // Photo-enrichment pass (2026-07-18, #762): added the song's tour
+        // staging — Swift singing Delicate from the flying basket rig over the
+        // crowd, Minneapolis, Aug 31, 2018. Commons CC BY 2.0 (Michael Hicks),
+        // license verified on the file page; downloaded and vision-confirmed
+        // this run. Era-performance, captioned as such.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/tCXGJQYZ9JA/hqdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: "From Joseph Kahn's \"Delicate\" video, which premiered at the iHeartRadio Music Awards on March 11, 2018.",
             kind: 'archival',
+            focalPoint: '50% 40%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Taylor_Swift_performs_Delicate_during_Reputation_Stadium_Tour_in_Minneapolis_-_2018-2.jpg/1280px-Taylor_Swift_performs_Delicate_during_Reputation_Stadium_Tour_in_Minneapolis_-_2018-2.jpg',
+            credit: 'Michael Hicks / Wikimedia Commons (CC BY 2.0)',
+            caption:
+              'Singing "Delicate" from the sphere-shaped basket rig floating over the crowd — the song\'s nightly staging on the reputation Stadium Tour (Minneapolis, August 31, 2018).',
+            kind: 'archival',
+            focalPoint: '52% 45%',
           },
         ],
       },
@@ -1076,10 +1138,16 @@ export default {
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-grammys-snub-764008/',
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): stays at one image — the
+        // moment is a nominations announcement (no ceremony appearance; she
+        // skipped the 2019 Grammys carpet), so the only honest depictions are
+        // the cited Rolling Stone story's own art, already used here. Focal
+        // point set by eye this run.
         photos: [
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2018/12/taylor-swift-biggest-loser.jpg?w=1600&h=900&crop=1',
             credit: 'Frank Micelotta/PictureGroup/REX Shutterstock',
+            focalPoint: '48% 25%',
           },
         ],
       },
@@ -1104,10 +1172,24 @@ export default {
             url: 'https://www.billboard.com/pro/taylor-swift-reputation-stadium-tour-breaks-record-highest-grossing-us-tour/',
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added a U.S.-leg stadium
+        // shot (Levi's Stadium, May 12, 2018) for the leg this record is
+        // about — Commons CC BY-SA 4.0, license verified on the file page,
+        // downloaded and vision-confirmed this run. Distinct file from the
+        // May 12 close-up used on the tour-opener page.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-reputation-tour-nov-21-2018-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Jun Sato/TAS18/Getty Images',
+            focalPoint: '48% 22%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_Reputation_Tour1.jpg/1280px-Taylor_Swift_Reputation_Tour1.jpg',
+            credit: 'UltimateWarrior13 / Wikimedia Commons (CC BY-SA 4.0)',
+            caption:
+              'On the record-breaking U.S. leg at Levi’s Stadium, May 12, 2018 — the run averaged $7 million and 54,432 tickets a night.',
+            kind: 'archival',
+            focalPoint: '50% 18%',
           },
         ],
       },
@@ -1230,10 +1312,26 @@ export default {
             reliability_score: 4,
           },
         ],
+        // Photo-enrichment pass (2026-07-18, #762): added a frame of the video
+        // this record is about — the bathtub-of-diamonds scene from Joseph
+        // Kahn's LWYMMD video. Video id 3tmd-ClpJxA verified via YouTube
+        // oEmbed this run: title "Taylor Swift - Look What You Made Me Do",
+        // channel @TaylorSwift (official); maxresdefault 404s so this uses
+        // hqdefault, same pattern as the vault's other official stills.
+        // Downloaded and vision-confirmed this run.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
             credit: 'Big Machine Records',
+            focalPoint: '65% 42%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption:
+              "The bathtub-of-diamonds scene from Joseph Kahn's video — the clip that pulled 43.2 million views in its first 24 hours.",
+            kind: 'archival',
+            focalPoint: '64% 40%',
           },
         ],
       },
@@ -1286,12 +1384,27 @@ export default {
         // Swift - ...Ready For It?", channel @TaylorSwift (official). The
         // Wikipedia single art for this track is the BloodPop Remix cover, so
         // the video still is the more honest image for the original song.
+        // Photo-enrichment pass (2026-07-18, #762): no still of the ABC
+        // broadcast promo itself exists outside the telecast, so the second
+        // image is the song's other life — opening every reputation Stadium
+        // Tour show. Commons CC BY-SA 2.0 (Ronald Woan, Seattle, May 22,
+        // 2018), license verified on the file page; downloaded and
+        // vision-confirmed this run.
         photos: [
           {
             url: 'https://i.ytimg.com/vi/wIft-t-MQuE/hqdefault.jpg',
             credit: 'YouTube / Taylor Swift',
             caption: "From Joseph Kahn's \"...Ready for It?\" video, released October 26, 2017 — human Swift eye to eye with her cyborg double.",
             kind: 'archival',
+            focalPoint: '54% 50%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Ready_for_It.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)',
+            caption:
+              'Performing "...Ready for It?" — the show opener on the reputation Stadium Tour — in Seattle, May 22, 2018.',
+            kind: 'archival',
+            focalPoint: '48% 14%',
           },
         ],
       },
@@ -1333,12 +1446,27 @@ export default {
         // T16 photo pass (2026-07-09): single cover art from Wikipedia's stable
         // upload.wikimedia.org copy (exact filename from the article HTML).
         // Verified HTTP 200 + image/png and visually checked this session.
+        // Photo-enrichment pass (2026-07-18, #762): added the official lyric
+        // video's frame — the reputation-era newsprint portrait with the
+        // handwritten "Gorgeous" scrawl. Video id EUoe7cf0HYw verified via
+        // YouTube oEmbed this run: title "Taylor Swift - Gorgeous (Lyric
+        // Video)", channel @TaylorSwift (official). Downloaded and
+        // vision-confirmed this run. Cover-art focal genuinely centered
+        // (text-only wordmark) — looked, not defaulted.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/71/Gorgeous_Taylor.png',
             credit: 'Big Machine Records',
             caption: 'Single cover art for "Gorgeous," released October 20, 2017.',
             kind: 'primary',
+            focalPoint: '50% 50%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/EUoe7cf0HYw/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'From the official "Gorgeous" lyric video — the album\'s newsprint visual language, released with the single on October 20, 2017.',
+            kind: 'archival',
+            focalPoint: '63% 38%',
           },
         ],
       },
