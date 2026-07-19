@@ -952,6 +952,7 @@ export default {
 
     // --- Active-tier batch 2 (2026-07-04), per docs/decisions.md.
     {
+      significance: 'notable', // became genuine pop-culture shorthand — referenced on Ellen and in her own later lyrics, not just a private breakup (docs/decisions.md, 2026-07-19)
       year: 2008,
       month: 10,
       category: 'relationship',

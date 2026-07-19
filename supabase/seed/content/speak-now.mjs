@@ -714,6 +714,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // a genuine fashion/media milestone — the first of what became a long run of major cover placements (docs/decisions.md, 2026-07-19)
       year: 2012,
       month: 1,
       day: 24,

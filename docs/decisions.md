@@ -7,6 +7,18 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-19 — Tier 2 continuation: positions 51–70, all `'notable'`
+
+**Decision:** Continues the top-100 career-events project (`docs/content-ops/top-100-career-events.md`) past PR #901's 41–50 batch into positions 51–70 — all 20 marked `significance: 'notable'`, none `'defining'`. Judged each against the doc's own caution ("some shouldn't be marked at all") rather than working the list mechanically; all 20 cleared a real "would a fan remember this" bar (chart/industry records, genuine cultural touchstones, or well-documented public firsts), so none were skipped, but none were force-fit to `'defining'` either — that tier stays reserved for Tier 0–1 (positions 1–40).
+
+The 20: the All Too Well Grammy piano performance and its Short Film (both cross-linked to the already-`'defining'` 10-minute-version item), breaking political silence on voter registration, Artist of the Decade at the 2019 AMAs, the Nashville Songwriter-Artist of the Decade and BRITs Global Icon honors, the Eras Tour's Federal Reserve Beige Book mention, the TTPD 7th-AOTY-nomination record, the Eras Tour Book's print-sales record, the Joe Jonas 27-second-call breakup, the Harry Styles Times Square kiss, the Bad Blood video's Vevo record, the Apple Music open letter, the Spotify catalog pull, the Katy Perry olive branch, the Sun's original Joe Alwyn report (cross-linked to the already-`'defining'` breakup item — the relationship's bookends, not new private-life content), her first Vogue cover, the SNL hosting debut, the youngest-ever CMA Entertainer of the Year win, and Billboard's Woman of the Decade.
+
+**Photo depth:** deliberately did NOT chase the 6+ photo floor here — that rule (set 2026-07-19, the entry above) was scoped to `'defining'` items specifically, where the feed's hero-card treatment demands real depth. `'notable'` items keep whatever real, verified photo count they already carry (mostly 1–2, same baseline as the rest of the unmarked corpus) rather than spending equivalent research effort on a lower-visibility tier.
+
+**A caught mistake, for the record:** three `relatedIds` were hand-guessed instead of computed and came back truncated wrong (`...-longest-song-ev` instead of `...-longest-song-ever`; `...-billboard-music-awa` instead of `...-billboard-music-aw`) — caught immediately by `validate:content`'s dead-link check, not by inspection. Fixed by actually running the `slugify()` function against the real title rather than eyeballing a 60-character cutoff by memory.
+
+**Delegation note:** ChatGPT/Codex remains exhausted (resets 2026-07-25); direct Claude research, same as every round since PR #865.
+
 ## 2026-07-19 — Resolving the theory-weaving conflict + bulking `'defining'` items to 6+ photos
 
 **Decision:** Two follow-ups to rounds 1-3, both directed by Joey.

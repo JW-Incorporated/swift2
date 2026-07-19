@@ -1870,6 +1870,8 @@ export default {
     },
     {
       slug: 'cma-entertainer-2009',
+      significance: 'notable', // a genuine industry age record, the country establishment's own top honor (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-fearless-hosting-snl-and-writing-her-own-monologue'],
       year: 2009,
       month: 11,
       day: 11,
@@ -2054,6 +2056,8 @@ export default {
     },
     {
       slug: 'snl-host-monologue-song',
+      significance: 'notable', // a genuine hosting-and-writing milestone at 19, four days before the CMA Entertainer of the Year win the same era carries (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-fearless-cma-entertainer-of-the-year-at-19-the-youngest-ever'],
       year: 2009,
       month: 11,
       day: 7,
