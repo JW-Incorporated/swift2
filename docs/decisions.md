@@ -7,6 +7,50 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-19 — Shoppable links: direct URLs in content, affiliate at one seam
+
+**Decision:** Fashion moments can carry `moment.products` in the seed —
+`[{ brand, item, retailer, url, price?, inStock? }]` — where `url` is always
+the plain, direct retailer product-detail page and `retailer` is a bare
+hostname. Monetization is structurally separated from content: the UI links
+every product through ONE function, `buildShopUrl()` in
+`apps/web/lib/longlive/shop.ts`, which today returns `url` unchanged. When
+affiliate goes live (LTK/RewardStyle, Amazon Associates, Skimlinks), the
+wrapping is injected inside that function, keyed by `retailer` — a
+one-function code change with ZERO content re-authoring, because content
+never stores affiliate URLs. `SHOP_DISCLOSURE` (the FTC line) lives next to
+the seam, and shop links already ship `rel="nofollow sponsored noopener"`,
+correct for both direct and paid links.
+
+**Why:** Affiliate programs churn (deep-link formats, partner tags,
+program membership), and hand-rewriting hundreds of seed URLs on every
+change would be exactly the rework the cost-discipline rule bans. Storing
+the neutral destination and wrapping at render keeps the vault static (no
+per-user calls), keeps content PRs mergeable by non-coders, and makes the
+affiliate flip reversible.
+
+**Authoring rules (hard):** direct product-detail pages only — never a
+search/category page, never a fabricated URL; verify each URL resolves
+(HTTP 200) before committing; verified sold-out items get `inStock: false`
+(rendered dimmed + labeled, kept for the fashion record).
+`validate:content` enforces shape; the `content.product-gap` checker queues
+fashion moments that name branded garments but carry no products.
+
+**Alternatives considered:** (a) store affiliate URLs in content — rejected,
+re-authoring on every program change + dead links if a program is dropped;
+(b) per-retailer link components in the UI — rejected, spreads the seam
+across components; (c) a redirect service (`/go/<id>`) — cleanest for
+click-tracking but needs a runtime route + link registry; can be added
+INSIDE `buildShopUrl()` later without content changes, so deferred.
+
+**Approved by:** built to Wyatt's written directive (scheduled build task,
+2026-07-19, which specified the schema, the buildShopUrl seam, the retailer
+programs, and the pilot). Joey's product sign-off on the user-facing "Shop
+the look" surface is PENDING — requested on the PR, which does not merge
+without it. If Joey declines the surface, the data layer and seam keep
+(they're invisible without the UI block); the MomentDetail block is the
+only piece to revert.
+=======
 ## 2026-07-19 — The rumor tier: structural home for hot-but-thinly-sourced topics
 
 **Decision:** Hot topics with little trustworthy sourcing (the MSG wedding is

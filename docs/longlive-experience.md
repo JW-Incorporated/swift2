@@ -298,6 +298,21 @@ curated items).
 **Add a music video to a moment:** add `video` to that `ContentItem`. Verify
 the ID. It renders automatically in `MomentDetail`.
 
+**Add shoppable products to a fashion moment:** add `moment.products` to the
+seed item (`supabase/seed/content/<era>.mjs`):
+`[{ brand, item, retailer, url, price?, inStock? }]` — `retailer` is a bare
+lowercase hostname (`'ralphlauren.com'`; it's the future affiliate-routing
+key), `url` is the exact retailer product-detail page (verify it resolves
+HTTP 200 before adding — never a search page, never guessed), `inStock: false`
+for a verified sold-out item (renders dimmed + "Sold out"). Re-run
+`npm run sync:content`; MomentDetail renders the "Shop the look" block
+automatically. The UI must always link via `buildShopUrl()`
+(`lib/longlive/shop.ts`) — never `product.url` directly — that function is
+the single seam where affiliate wrapping (keyed by `retailer`) gets injected
+later with zero content edits (`docs/decisions.md` 2026-07-19). The
+`content.product-gap` checker (content engine) queues fashion moments that
+name branded garments but carry no products.
+
 **Add music to an era:** add `media: { spotifyAlbumId, albumTitle }` to the
 `Era` in `eras.ts`. Verify the ID.
 

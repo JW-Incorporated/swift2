@@ -2,7 +2,7 @@
 // Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.
 // Re-run that script after content-seed changes; don't edit this file directly.
 
-import type { Confidence, ContentTag, EraId, ImageRef, LensId, RumorNote } from './types';
+import type { Confidence, ContentTag, EraId, ImageRef, LensId, Product, RumorNote } from './types';
 
 type VaultRawItem = {
   id: string;
@@ -19,6 +19,7 @@ type VaultRawItem = {
   relatedIds?: string[];
   threadIds?: LensId[];
   significance?: 'defining' | 'notable';
+  products?: Product[];
   confidence?: Confidence;
   rumors?: RumorNote[];
 };
@@ -6481,6 +6482,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/" }, { name: "L'Officiel", url: "https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details" }],
       relatedIds: ["moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie", "moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already"],
       threadIds: ["the-proposal"],
+      products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Dress (1932 Stripe White & Black)", retailer: "revolve.com", url: "https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/", price: "$398", inStock: false }],
     },
     {
       id: "vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album",

@@ -13,6 +13,8 @@ import {
   ChevronRight,
   AlertTriangle,
   MessageCircleQuestion,
+  ShoppingBag,
+  ExternalLink,
 } from 'lucide-react';
 import {
   useAppState,
@@ -37,10 +39,12 @@ import {
   type ImageKind,
   type ImageRef,
   type LensId,
+  type Product,
   type RumorNote,
   type RumorStatus,
   type SubConfirmed,
 } from '@/lib/longlive/types';
+import { buildShopUrl, isAffiliate, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
 import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
@@ -574,6 +578,8 @@ export function MomentDetail() {
 
         {hasRumors && item.rumors && <RumorSection rumors={item.rumors} />}
 
+        <ShopTheLook products={item.products} />
+
         {item.sources && item.sources.length > 0 && (
           <div className="mt-8 border-t pt-4" style={{ borderColor: 'var(--era-line)' }}>
             {/* A source that is a YouTube link embeds as a click-to-play facade
@@ -673,6 +679,82 @@ export function MomentDetail() {
           onIndex={setLightboxIndex}
           onClose={() => setLightboxIndex(null)}
         />
+      )}
+    </div>
+  );
+}
+
+/**
+ * "Shop the look" — the moment's shoppable products (ContentItem.products),
+ * each row a DIRECT link to the exact retailer product page. Every href goes
+ * through buildShopUrl() (lib/longlive/shop.ts) — never product.url directly
+ * — so the later direct→affiliate flip is a one-function change with zero
+ * content edits; rel="nofollow sponsored noopener noreferrer" is already the
+ * correct annotation for both direct and paid links (noreferrer matches the
+ * sources links' privacy posture — retailers don't get the referring moment
+ * URL; affiliate attribution lives in the wrapped URL, not the Referer). A
+ * product verified sold-out
+ * (inStock: false) stays listed for the fashion record but renders dimmed
+ * with an explicit "Sold out" label, never silently as purchasable.
+ */
+function ShopTheLook({ products }: { products: Product[] | undefined }) {
+  if (!products || products.length === 0) return null;
+  return (
+    <div className="era-card mt-8 rounded-2xl border p-5">
+      <div className="flex items-center gap-2 text-sm font-semibold text-[color:var(--era-accent)]">
+        <ShoppingBag className="h-4 w-4" />
+        Shop the look
+      </div>
+      <ul className="mt-3">
+        {products.map((p, i) => {
+          const soldOut = p.inStock === false;
+          return (
+            // border-t on the li itself (not divide-y on the ul): the era-line
+            // color must sit on the element that owns the border, since
+            // border-color doesn't inherit from the parent.
+            <li
+              key={`${p.url}-${i}`}
+              className={`border-t first:border-t-0${soldOut ? ' opacity-50' : ''}`}
+              style={{ borderColor: 'var(--era-line)' }}
+            >
+              <a
+                href={buildShopUrl(p)}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
+                className="group flex items-center justify-between gap-3 py-3"
+                aria-label={`Shop ${p.brand} ${p.item}${soldOut ? ' (sold out)' : ''} at ${p.retailer}`}
+              >
+                <span className="min-w-0">
+                  <span className="block text-xs uppercase tracking-[0.12em] text-[color:var(--era-ink-soft)]">
+                    {p.brand}
+                  </span>
+                  <span className="mt-0.5 block text-[15px] leading-snug text-[color:var(--era-ink)] underline-offset-2 group-hover:underline">
+                    {p.item}
+                  </span>
+                  {soldOut && (
+                    <span
+                      className="mt-1 inline-block rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[color:var(--era-ink-soft)]"
+                      style={{ borderColor: 'var(--era-line)' }}
+                    >
+                      Sold out
+                    </span>
+                  )}
+                </span>
+                <span className="flex shrink-0 items-center gap-1.5 text-sm text-[color:var(--era-ink-soft)]">
+                  {p.price}
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      {/* Renders only once buildShopUrl actually returns affiliate links —
+          wiring it now is what makes the affiliate flip a shop.ts-only change. */}
+      {products.some(isAffiliate) && (
+        <p className="mt-3 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
+          {SHOP_DISCLOSURE}
+        </p>
       )}
     </div>
   );
