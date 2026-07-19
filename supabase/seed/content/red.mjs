@@ -1086,6 +1086,7 @@ export default {
       month: 12,
       day: 31,
       category: 'relationship',
+      significance: 'notable', // one of the most-photographed paparazzi moments of the era, widely credited with inspiring several Red-adjacent and 1989 songs (docs/decisions.md, 2026-07-19)
       title: "A New Year's Eve kiss with Harry Styles in Times Square",
       snippet: 'Caught on camera by a reveler as the ball dropped — the clearest public confirmation of a relationship that had started weeks earlier.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-rocks-times-square-kisses-harry-styles-on-new-years-eve-watch-1481640/',
@@ -1872,6 +1873,8 @@ export default {
     },
     {
       slug: 'red-all-too-well-grammys-2014',
+      significance: 'notable', // the performance that turned a deep cut into the fan-favorite that eventually became a chart-topping 10-minute version (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever'],
       year: 2014,
       month: 1,
       day: 26,

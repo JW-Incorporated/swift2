@@ -339,6 +339,8 @@ export default {
       },
     },
     {
+      significance: 'notable', // a career-record win total plus the era's own decade-capping honor (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-lover-miss-americana-is-announced-amid-a-fight-over-her-own-back-c'],
       year: 2019,
       month: 11,
       day: 24,
@@ -1045,6 +1047,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // an industry trade publication's own decade-capping honor, closing out a real banner year (docs/decisions.md, 2026-07-19)
       year: 2019,
       month: 12,
       day: 12,

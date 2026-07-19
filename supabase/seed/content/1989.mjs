@@ -494,6 +494,8 @@ export default {
       },
     },
     {
+      significance: 'notable', // the origin point of a relationship that ran six years, already 'defining' at its end elsewhere in this corpus (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years'],
       year: 2017,
       month: 5,
       day: 16,
@@ -1101,6 +1103,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // a genuinely bold, industry-shaping stand on artist compensation, years ahead of the wider streaming-payout conversation (docs/decisions.md, 2026-07-19)
       year: 2014,
       month: 11,
       day: 3,
@@ -1133,6 +1136,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // one artist's open letter changed a trillion-dollar company's policy in under 24 hours — a real, outsized moment of industry leverage (docs/decisions.md, 2026-07-19)
       year: 2015,
       month: 6,
       day: 21,
@@ -1592,6 +1596,8 @@ export default {
     },
     {
       slug: '1989-bad-blood-video-vevo-record',
+      significance: 'notable', // a real streaming/premiere record, and the biggest visual statement of the era's star-studded "squad" phase (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-1989-calvin-harris-and-taylor-go-public-at-the-billboard-music-aw'],
       year: 2015,
       month: 5,
       day: 17,
