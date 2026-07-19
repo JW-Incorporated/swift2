@@ -208,6 +208,9 @@ export default {
       day: 13,
       category: 'tour',
       title: 'The Red Tour opens with Ed Sheeran in Omaha',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-red-2", label: "The Red Tour", kind: "tour" },
       snippet:
         "A sold-out opening-night crowd got 17 songs and a surprise duet on 'Everything Has Changed' with opening act Ed Sheeran.",
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Red_Tour',
@@ -2001,6 +2004,9 @@ export default {
       day: 22,
       category: "music",
       title: "Red: heartbreak in every genre",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-red-1", label: "Red released", kind: "album" },
       snippet: "The transitional masterpiece that pointed straight at pop stardom.",
       hiddenClue: { clue: "A scarf mentioned in one song became the most-discussed accessory in pop.", payoff: "Fans still debate who kept the scarf — a mystery she has coyly refused to fully resolve." },
       moment: {
@@ -2016,6 +2022,9 @@ export default {
       day: 13,
       category: "music",
       title: "“We Are Never Ever Getting Back Together”",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
       snippet: "The gleeful kiss-off lead single that announced a decisive pop pivot.",
       video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
       moment: {

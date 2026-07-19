@@ -312,6 +312,7 @@ export function addItem(
     rumors,
     dateLabel: dateLabelOverride,
     hiddenClue,
+    milestone,
   },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
@@ -366,6 +367,12 @@ export function addItem(
     hiddenClue:
       hiddenClue && typeof hiddenClue.clue === 'string' && hiddenClue.clue.trim() && typeof hiddenClue.payoff === 'string' && hiddenClue.payoff.trim()
         ? { clue: hiddenClue.clue, payoff: hiddenClue.payoff }
+        : undefined,
+    // Era-timeline milestone marker (stage 2b): content.ts derives MILESTONES
+    // from these. All three fields required (kind validated) or dropped.
+    milestone:
+      milestone && typeof milestone.id === 'string' && milestone.id && typeof milestone.label === 'string' && milestone.label && ['album', 'tour', 'life', 'business', 'award'].includes(milestone.kind)
+        ? { id: milestone.id, label: milestone.label, kind: milestone.kind }
         : undefined,
     relatedIds: relatedIdsFrom(relatedIds),
     threadIds: threadIdsFrom(threadIds),
@@ -528,6 +535,7 @@ async function fetchFromLocalFiles() {
         // 2026-07-19) — item-level seed fields, piped to addItem's handling.
         dateLabel: item.dateLabel ?? null,
         hiddenClue: item.hiddenClue ?? null,
+        milestone: item.milestone ?? null,
       });
     }
   }
@@ -554,7 +562,7 @@ export function buildOutputSource(byEra) {
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
   lines.push("// Re-run that script after content-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, Product, RumorNote } from './types';");
+  lines.push("import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote } from './types';");
   lines.push('');
   // Freshness stamp — emitted ONLY during `prebuild` (the deploy build, where
   // npm sets npm_lifecycle_event=prebuild), never into the committed file.
@@ -581,6 +589,7 @@ export function buildOutputSource(byEra) {
   lines.push('  sources?: { name: string; url: string }[];');
   lines.push('  video?: { youtubeId: string; title: string };');
   lines.push('  hiddenClue?: HiddenClue;');
+  lines.push('  milestone?: { id: string; label: string; kind: MilestoneKind };');
   lines.push('  relatedIds?: string[];');
   lines.push('  threadIds?: LensId[];');
   lines.push("  significance?: 'defining' | 'notable';");
@@ -624,6 +633,9 @@ export function buildOutputSource(byEra) {
       }
       if (it.hiddenClue) {
         lines.push(`      hiddenClue: { clue: ${esc(it.hiddenClue.clue)}, payoff: ${esc(it.hiddenClue.payoff)} },`);
+      }
+      if (it.milestone) {
+        lines.push(`      milestone: { id: ${esc(it.milestone.id)}, label: ${esc(it.milestone.label)}, kind: ${esc(it.milestone.kind)} },`);
       }
       if (it.relatedIds && it.relatedIds.length) {
         lines.push(`      relatedIds: [${it.relatedIds.map(esc).join(', ')}],`);

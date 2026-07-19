@@ -944,6 +944,9 @@ export default {
         'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
       ],
       title: 'The Eras Tour takes its final bow in Vancouver',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-2", label: "Eras Tour finale", kind: "tour" },
       snippet: 'BC Place, 149 shows and 21 months after Glendale — more than 50,000 fans for the last night of the tour.',
       sourceUrl: 'https://www.nbcnews.com/pop-culture/pop-culture-news/end-era-taylor-swifts-eras-tour-coming-close-vancouver-rcna183279',
       thumbnailUrl:
@@ -2976,6 +2979,9 @@ export default {
       day: 30,
       category: 'business',
       title: '"All of the music I\'ve ever made... now belongs... to me"',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-3", label: "Masters bought back", kind: "business" },
       snippet:
         'The ending the Taylor\'s Versions were building toward: she bought her first six albums back from Shamrock Capital — masters, videos, artwork, unreleased songs, everything.',
       sourceUrl: 'https://www.billboard.com/pro/taylor-swift-regains-control-master-recordings-shamrock/',
@@ -3144,6 +3150,9 @@ export default {
       day: 19,
       category: "music",
       title: "The Tortured Poets Department",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-1", label: "TTPD released", kind: "album" },
       snippet: "A literary, ink-stained double album — the most word-heavy record of her career.",
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       moment: {

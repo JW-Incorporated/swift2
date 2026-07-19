@@ -319,6 +319,14 @@ export interface ContentItem {
    */
   significance?: 'defining' | 'notable';
   /**
+   * Era-timeline milestone marker (consolidation stage 2b, 2026-07-19):
+   * items carrying this appear on the TimelineScrubber — MILESTONES in
+   * content.ts is DERIVED from these markers, so a milestone can never
+   * again drift out of sync with its moment. `id` keeps the legacy
+   * milestone id for stability.
+   */
+  milestone?: { id: string; label: string; kind: MilestoneKind };
+  /**
    * Shoppable products worn in this moment (fashion moments, mostly) — the
    * exact garments with direct retailer product pages. Rendered as the
    * "Shop the look" block in MomentDetail, always linked through

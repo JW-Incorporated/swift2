@@ -231,6 +231,9 @@ export default {
       day: 9,
       category: 'tour',
       title: 'The Speak Now World Tour opens in Singapore',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-sn-2", label: "World Tour begins", kind: "tour" },
       snippet:
         '8,964 fans at Singapore Indoor Stadium — the start of a 110-show tour across 19 territories, through March 18, 2012.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now_World_Tour',
@@ -1274,6 +1277,9 @@ export default {
       day: 25,
       category: 'release',
       title: 'Speak Now arrives, no co-writers allowed',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-sn-1", label: "Speak Now released", kind: "album" },
       snippet:
         'Oct. 25, 2010: the third album lands — fourteen tracks written alone between 18 and 20, released into a week that ended with a million copies sold.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Speak_Now',

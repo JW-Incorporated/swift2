@@ -1722,6 +1722,9 @@ export default {
       category: "music",
       tags: ["Lore"],
       title: "A surprise in the woods",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-folk-1", label: "folklore surprise drop", kind: "album" },
       snippet: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
       moment: {
         context: "No rollout, no singles, no warning: folklore arrived overnight and rewrote what a Taylor Swift album could be.\n\nMuted, literary, and fictional, it introduced interlocking character stories fans mapped for months.",
@@ -1781,6 +1784,9 @@ export default {
       day: 14,
       category: "music",
       title: "A third Album of the Year",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
       snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       moment: {
         context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Swift's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",

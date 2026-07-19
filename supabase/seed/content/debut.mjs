@@ -1293,6 +1293,9 @@ export default {
       day: 24,
       category: 'release',
       title: 'Taylor Swift, the album, arrives',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-1", label: "Debut album", kind: "album" },
       snippet:
         'Oct. 24, 2006: the self-titled debut lands — eleven tracks, her name on every writing credit, released when she was 16.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
@@ -1996,6 +1999,9 @@ export default {
       day: 8,
       category: "music",
       title: "“Our Song” hits number one",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-2", label: "“Our Song” #1", kind: "award" },
       snippet: "At 17, she becomes the youngest person to single-handedly write and perform a number-one country hit.",
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
       moment: {

@@ -2,7 +2,7 @@
 // Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.
 // Re-run that script after content-seed changes; don't edit this file directly.
 
-import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, Product, RumorNote } from './types';
+import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote } from './types';
 
 type VaultRawItem = {
   id: string;
@@ -17,6 +17,7 @@ type VaultRawItem = {
   sources?: { name: string; url: string }[];
   video?: { youtubeId: string; title: string };
   hiddenClue?: HiddenClue;
+  milestone?: { id: string; label: string; kind: MilestoneKind };
   relatedIds?: string[];
   threadIds?: LensId[];
   significance?: 'defining' | 'notable';
@@ -81,6 +82,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg", credit: "Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0", caption: "Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_1989_World_Tour" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-1989-tour-kickoff-tokyo-6553995/" }],
+      milestone: { id: "m-89-2", label: "1989 World Tour", kind: "tour" },
     },
     {
       id: "vault-1989-new-romantics-the-deluxe-track-rolling-stone-later-called-on",
@@ -649,6 +651,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG", credit: "Taylor Swift/Instagram, via Teen Vogue", caption: "Swift's full posted statement asks where West told her about the \"that bitch\" lyric and ends, \"I would very much like to be excluded from this narrative.\"", kind: "primary" }, { url: "https://i.guim.co.uk/img/media/83c4993d8e8ad4dde6c653daff10b74e537e6aea/0_0_620_372/master/620.jpg?crop=none&dpr=1&s=none&width=465", credit: "Rex Features, via The Guardian", caption: "A still from Kardashian's Snapchat release shows West on the phone during the recorded call with Swift.", kind: "primary" }, { url: "https://media.vanityfair.com/photos/5792599af9039e5f13c9db9f/master/w_2560%2Cc_limit/taylor-swift-tom-hiddleston.jpg", credit: "Cameron Richardson/Newspix/Rex/Shutterstock, via Vanity Fair", caption: "Swift walks with Tom Hiddleston in Los Angeles on July 21, her first public sighting after the Snapchat clips appeared.", kind: "archival" }, { url: "https://assets.teenvogue.com/photos/578c4ca16e85f8db434d478f/16%3A9/w_2560%2Cc_limit/GettyImages-463036782.jpg", credit: "Larry Busacca/Getty Images for NARAS, via Teen Vogue", caption: "For context, Swift, Kardashian, and West pose together at the 2015 Grammys, before the \"Famous\" dispute reopened the VMA feud.", kind: "reference" }],
       sources: [{ name: "The Washington Post", url: "https://www.washingtonpost.com/news/arts-and-entertainment/wp/2016/07/18/read-the-secret-kanye-westtaylor-swift-phone-call-that-kim-kardashian-posted-on-snapchat/" }, { name: "Time", url: "https://time.com/4410370/taylor-swift-kim-kardashian-kanye-west/" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-miss-americana-trailer-941161/" }, { name: "CBS News", url: "https://www.cbsnews.com/amp/news/taylor-swift-performs-at-formula-one-her-only-concert-of-the-year/" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-and-zayn-release-surprise-duet-single-for-fifty-shades-darker/" }],
+      milestone: { id: "m-89-4", label: "The call leaks", kind: "life" },
       relatedIds: ["moment:vault-1989-the-night-famous-premiered-and-she-said-no", "moment:vault-1989-the-full-call-leaks-and-she-was-telling-the-truth", "moment:vault-reputation-the-snake-video-that-announced-reputation", "moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with", "moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic"],
       significance: "defining",
     },
@@ -672,6 +675,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
       body: ["Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world."],
       tags: ["Music"],
+      milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
     },
     {
       id: "vault-1989-shake-it-off-launches-the-era",
@@ -683,6 +687,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts."],
       tags: ["Music"],
       video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
+      milestone: { id: "m-89-0", label: "“Shake It Off”", kind: "life" },
     },
     {
       id: "vault-1989-blank-space-flips-the-narrative",
@@ -735,6 +740,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She becomes the first woman to win the top Grammy twice.",
       body: ["Accepting the award, she used the moment to speak directly to young women about crediting their own work."],
       tags: ["Lore"],
+      milestone: { id: "m-89-3", label: "Album of the Year", kind: "award" },
     },
   ],
   "debut": [
@@ -1141,6 +1147,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png", credit: "Big Machine Records (debut album cover art, 500px Wikipedia file)", kind: "primary", focalPoint: "60% 35%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg", credit: "minds-eye, Wikimedia Commons (CC BY-SA 2.0) — Taylor Swift performing live, August 2007", caption: "Ten months after release and still on the road — the album sold one market at a time across a 157-week chart run.", kind: "archival", focalPoint: "48% 18%" }, { url: "https://images.wral.com/asset/entertainment/2023/10/03/21079762/3196033-TSwift3-DMID1-60h14ptlf-640x360.jpg", credit: "Submitted photo, via WRAL", caption: "Swift performs for students at Athens Drive High School in Raleigh during her fall 2006 debut-album radio tour.", kind: "archival" }, { url: "https://images.wral.com/asset/entertainment/2023/10/03/21079771/3195989-TSwift_at_ADHS2-DMID1-60gyrf86l-640x360.jpg", credit: "Submitted photo, via WRAL", caption: "Swift poses with Athens Drive students after playing songs from her first album at the school in fall 2006.", kind: "archival" }, { url: "https://images.wral.com/asset/entertainment/2023/10/03/21079653/3195973-TSwift_pic_cropped-DMID1-60gxv2dvw-640x360.jpg", credit: "Athens Drive High School, via WRAL", caption: "Swift poses with student Josh Boatwright after her stripped-down Athens Drive High School show in 2006.", kind: "archival" }, { url: "https://images.wral.com/asset/entertainment/2023/10/06/21084702/3196262-TSwift_pic2-DMID1-60i4g7bch-640x360.jpg", credit: "Contributed photo, via WRAL", caption: "Swift poses with fans at Athens Drive High School while promoting her self-titled debut in 2006.", kind: "archival" }, { url: "https://images.wral.com/asset/entertainment/2023/10/04/21081502/3196088-TSwift5-DMID1-60hd13tr0-640x360.jpg", credit: "Submitted photo, via WRAL", caption: "Swift meets another group of students after her fall 2006 Athens Drive High School performance.", kind: "archival" }],
       sources: [{ name: "Taylor Swift (album)", url: "https://en.wikipedia.org/wiki/Taylor_Swift_(album)" }, { name: "Taylor Swift's Debut Album Turns 10: A Track-by-Track Retrospective", url: "https://www.billboard.com/music/pop/taylor-swift-debut-album-anniversary-7550054/" }],
+      milestone: { id: "m-debut-1", label: "Debut album", kind: "album" },
       relatedIds: ["moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for"],
       significance: "defining",
     },
@@ -1317,6 +1324,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke."],
       tags: ["Music"],
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
+      milestone: { id: "m-debut-2", label: "“Our Song” #1", kind: "award" },
     },
   ],
   "evermore": [
@@ -1396,6 +1404,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1", credit: "Beth Garrabrant", kind: "primary", focalPoint: "63% 40%" }, { url: "https://i.ytimg.com/vi/rFjJs6ZjPe8/maxresdefault.jpg", credit: "Still from the official \"Mr. Perfectly Fine (Taylor's Version) (From The Vault)\" lyric video, Republic Records, via YouTube", caption: "The faceless tuxedo of \"Mr. Perfectly Fine\" — the vault cut that led the album's 291,000-unit record week.", kind: "archival", focalPoint: "50% 45%" }, { url: "https://www.billboard.com/wp-content/uploads/2020/12/03-taylor-swift-press-cr-Beth-Garrabrant-2020-billboard-1548-1607617377.jpg?w=1024", credit: "Beth Garrabrant, via Billboard", caption: "A Beth Garrabrant press portrait of Swift from the same era, used by Billboard to illustrate its coverage of Fearless (Taylor's Version) holding its chart position months after release.", kind: "archival" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/articles/news/9558306/taylor-swift-fearless-taylors-version-tops-billboard-200/" }, { name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2021/04/18/taylor-swift-charts-her-ninth-no-1-album-in-the-us-with-fearless-taylors-version/" }],
+      milestone: { id: "m-ever-2", label: "First re-record hits #1", kind: "award" },
       relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me"],
       threadIds: ["taylors-version"],
       significance: "defining",
@@ -1410,6 +1419,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records (album cover art)", caption: "The Red (Taylor's Version) cover — \"All Too Well (10 Minute Version)\" is the album's centerpiece track that set the longest-No.-1-song record.", kind: "primary", focalPoint: "42% 46%" }, { url: "https://i.ytimg.com/vi/tollGa3S0o8/maxresdefault.jpg", credit: "Still from \"All Too Well: The Short Film\" (dir. Taylor Swift), Republic Records, via YouTube", caption: "Sadie Sink and Dylan O'Brien in All Too Well: The Short Film — the self-directed film that helped push a 10-minute song to No. 1.", kind: "archival", focalPoint: "50% 40%" }, { url: "https://www.billboard.com/wp-content/uploads/2021/11/taylor-swift-snl-all-too-well-11142021-billboard-1548-1636905415.jpg?w=942&h=628&crop=1", credit: "Will Heath/NBC", caption: "Swift performs \"All Too Well (10 Minute Version)\" for the first time on television, as musical guest on Saturday Night Live, Nov. 13, 2021 — part of the promotional run that carried the song to No. 1.", kind: "primary" }, { url: "https://www.billboard.com/wp-content/uploads/2021/11/taylor-swift-all-too-well-premiere-2021-billboard-1548-1636758898.png?w=942&h=628&crop=1", credit: "Dimitrios Kambouris/Getty Images", caption: "Swift at the \"All Too Well\" short film premiere, AMC Lincoln Square, New York City, Nov. 12, 2021 — the night she performed the 10-minute version live for the first time, before it played on SNL the next night.", kind: "primary" }, { url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-02.jpg", credit: "Evan Agostini/Invision/AP, via Just Jared Jr", caption: "Dylan O'Brien, Taylor Swift, and Sadie Sink together at the \"All Too Well\" short film premiere, Nov. 12, 2021.", kind: "archival" }, { url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-01.jpg", credit: "Dimitrios Kambouris/Getty Images, via Just Jared Jr", caption: "Sadie Sink, who starred opposite Dylan O'Brien in the short film built around the song, on the premiere carpet.", kind: "archival" }, { url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-03.jpg", credit: "Dimitrios Kambouris/Getty Images, via Just Jared Jr", caption: "Swift on the \"All Too Well\" short film premiere red carpet, Nov. 12, 2021.", kind: "archival" }, { url: "https://www.rollingstone.com/wp-content/uploads/2021/11/taylor-swift-all-too-well-car.jpg?w=1600&h=900&crop=1", credit: "Republic Records / Taylor Swift (All Too Well: The Short Film still)", caption: "A still from All Too Well: The Short Film, the Sadie Sink/Dylan O'Brien-led film Swift wrote and directed and released alongside the 10-minute version — central to the promotional push that took the song to No. 1.", kind: "archival" }],
       sources: [{ name: "Guinness World Records", url: "https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-all-too-well-longest-number-one-billboard-1261579/" }, { name: "Billboard", url: "https://www.billboard.com/music/chart-beat/morgan-wallen-single-week-hot-100-record-36-songs-one-thing-at-a-time-1235285241/" }],
+      milestone: { id: "m-ever-3", label: "ATW (10 Min) hits #1", kind: "award" },
       relatedIds: ["moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a"],
       significance: "defining",
     },
@@ -1938,6 +1948,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A second surprise album in five months — warmer, rustier, and just as literary.",
       body: ["evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.", "Swift announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\""],
       tags: ["Music"],
+      milestone: { id: "m-ever-1", label: "evermore surprise drop", kind: "album" },
     },
     {
       id: "vault-evermore-willow-leads-the-era",
@@ -2024,6 +2035,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg", credit: "Dan MacMedan/WireImage, via Vanity Fair", caption: "Swift arrives at the 52nd Grammy Awards in a blue sequined KaufmanFranco gown.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "archival", focalPoint: "40% 32%" }, { url: "https://i.ytimg.com/vi/v5e0eAhpC00/maxresdefault.jpg", credit: "Still from the Recording Academy's official GRAMMY Rewind video of the 2010 Album of the Year win, via YouTube", caption: "Accepting Album of the Year at 20 — the \"13\" still inked on her hand — the night she promised to tell this story \"when we're 80.\"", kind: "archival", focalPoint: "52% 22%" }, { url: "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1264988049224/Singer-Swift-speaks-onsta-001.jpg?crop=none&dpr=1&s=none&width=465", credit: "Danny Moloshok/Reuters, via The Guardian", caption: "Swift speaks onstage after winning Best Female Country Vocal Performance for \"White Horse,\" one of her four Grammys that night.", kind: "primary" }, { url: "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1265015933818/Taylor-Swift-drops-one-of-003.jpg?crop=none&dpr=1&s=none&width=375", credit: "Valerie Macon/AFP/Getty Images, via The Guardian", caption: "Swift loses her grip on one of the four trophies she carried in the Grammy press room.", kind: "primary" }, { url: "https://static.time.com/v3/assets/bltea6093859af6183b/blte142e31b64ce6139/69877c56524fc062c0dec2d5/ap100131042457.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2", credit: "Matt Sayles/AP, via TIME", caption: "Swift and Stevie Nicks perform together during the 52nd Grammy Awards telecast.", kind: "primary" }, { url: "https://static.time.com/v3/assets/bltea6093859af6183b/bltca5404e6952dca29/698762d6e20a87c7bda82aeb/taylor-swift-12.jpg?branch=production&width=3840&quality=75&auto=webp", credit: "Michael Caulfield/WireImage/Getty Images, via TIME", caption: "Swift performs onstage during the 52nd Grammy Awards at Staples Center.", kind: "primary" }, { url: "https://assets.teenvogue.com/photos/56be4d24e9ea465e7cf59f44/16%3A9/w_2560%2Cc_limit/GettyImages-98115429.jpg", credit: "Michael Tran/FilmMagic, via Teen Vogue", caption: "Swift poses in the Grammy press room with all four awards she won that night, including Album of the Year.", kind: "primary" }],
       sources: [{ name: "American Songwriter", url: "https://americansongwriter.com/on-this-day-in-2010-this-country-star-turned-pop-phenomenon-became-the-youngest-album-of-the-year-winner-in-grammys-history/" }, { name: "Guinness World Records", url: "https://www.guinnessworldrecords.com/world-records/607151-youngest-solo-artist-to-win-album-of-the-year-at-the-grammy-awards" }],
+      milestone: { id: "m-fear-3", label: "Album of the Year", kind: "award" },
       relatedIds: ["moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi"],
       significance: "defining",
     },
@@ -2070,6 +2082,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75", credit: "Taste of Country", kind: "primary" }, { url: "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=375", credit: "Jeff Kravitz/FilmMagic, via The Guardian", caption: "Kanye West steps onto the VMA stage while Swift is accepting Best Female Video at Radio City Music Hall.", kind: "primary" }, { url: "https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=375", credit: "Kevin Mazur/WireImage, via The Guardian", caption: "Swift finally finishes her acceptance speech after Beyoncé invites her back onstage later that night.", kind: "primary" }, { url: "https://static.time.com/v3/assets/bltea6093859af6183b/bltc121921405a5eef5/698762d75f570fee2bb12f23/taylor-swift-16.jpg?branch=production&width=3840&quality=75&auto=webp", credit: "Stephen Lovekin/FilmMagic/Getty Images, via TIME", caption: "Swift arrives on the 2009 VMA red carpet in the silver KaufmanFranco gown she would still be wearing when West interrupted her.", kind: "primary" }, { url: "https://media.glamour.com/photos/5b748cfd0271d30d24ff90ad/master/w_1024%2Cc_limit/GettyImages-90715371.jpg", credit: "Jason Kempin/Getty Images, via Glamour", caption: "Swift performs \"You Belong with Me\" inside a New York subway car during the 2009 VMA broadcast.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f3/T-Swift_VMA_performance.JPG", credit: "Coldbread, via Wikimedia Commons", caption: "Swift steps down from the yellow taxi after completing her outdoor VMA performance on Sept. 13, 2009.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/1/12/Taylor_Swift_2009_MTV_VMA.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Swift appears during the 2009 MTV Video Music Awards at Radio City Music Hall.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/1/1d/Taylor_Swift_at_2009_MTV_Video_Music_Awards_%283917030572%29.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "A distinct audience-level view of Swift at the 2009 MTV Video Music Awards.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/b/b2/Taylor_Swift_at_2009_MTV_VMA%27s_2.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Swift performs during the 2009 MTV Video Music Awards in New York.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/d/d8/Taylor_Swift_at_2009_MTV_VMA%27s_3.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Standing atop a car on a closed-off Avenue of the Americas, mic raised, as a street crowd reaches up during the outdoor VMA broadcast performance.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/c/cc/Taylor_Swift_at_2009_MTV_VMA%27s_4.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Swift performs \"You Belong with Me\" during the 2009 VMA telecast.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/9/9f/Taylor_Swift_at_2009_MTV_VMA%27s_5.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "A wide, horizontal view of Swift's performance during the 2009 MTV Video Music Awards.", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_at_2009_MTV_VMA%27s.jpg", credit: "Philip Nelson, via Wikimedia Commons", caption: "Swift onstage during her \"You Belong with Me\" performance at the 2009 VMAs.", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-country/kanye-west-storms-the-vmas-stage-during-taylor-swifts-speech-83468/" }, { name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-kanye-west-interruption-2009-vmas/" }],
+      milestone: { id: "m-fear-2", label: "VMAs moment", kind: "life" },
       relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative"],
       significance: "defining",
     },
@@ -2535,6 +2548,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       body: ["Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.", "It would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time."],
       tags: ["Music"],
+      milestone: { id: "m-fear-1", label: "Fearless released", kind: "album" },
     },
     {
       id: "vault-fearless-the-interrupted-speech",
@@ -2974,6 +2988,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
       body: ["No rollout, no singles, no warning: folklore arrived overnight and rewrote what a Taylor Swift album could be.", "Muted, literary, and fictional, it introduced interlocking character stories fans mapped for months."],
       tags: ["Music", "Lore"],
+      milestone: { id: "m-folk-1", label: "folklore surprise drop", kind: "album" },
     },
     {
       id: "vault-folklore-the-cardigan-and-cottagecore",
@@ -3015,6 +3030,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       body: ["At the 63rd Annual Grammy Awards, folklore won Album of the Year — Swift's third win in the category, after Fearless and 1989, making her the first woman to win it three times.", "She performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony."],
       tags: ["Music"],
+      milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
     },
   ],
   "lover": [
@@ -3637,6 +3653,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A pastel love letter — and the first album she would fully own.",
       body: ["After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere."],
       tags: ["Music"],
+      milestone: { id: "m-lov-2", label: "Lover released", kind: "album" },
     },
     {
       id: "vault-lover-the-masters-are-sold",
@@ -3648,6 +3665,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything."],
       tags: ["Lore"],
       hiddenClue: { clue: "She announced she would re-record her old albums.", payoff: "The “Taylor’s Version” project was born — reclaiming her catalog one album at a time." },
+      milestone: { id: "m-lov-1", label: "Masters sold", kind: "business" },
     },
   ],
   "midnights": [
@@ -3759,6 +3777,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-2-2023-billboard-1548.png?w=1024", credit: "Kevin Mazur/Getty Images for TAS Rights Management", kind: "primary", focalPoint: "43% 25%" }, { url: "https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-glendale-1-2023-billboard-1548.png?w=1024", credit: "Kevin Mazur/Getty Images for TAS Rights Management (via Billboard)", caption: "Opening the Lover set in the crystal bodysuit on night one in Glendale, March 17, 2023 — the first minutes of the tour that would define the next two years.", kind: "archival", focalPoint: "49% 18%" }, { url: "https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/764/432/GettyImages-1474279449-copy.jpg?tl=1&ve=1", credit: "John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles", caption: "Arms outstretched with a pink sequined guitar, in the sparkling fringe bodysuit worn for the Lover set.", kind: "primary" }, { url: "https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474271127-copy.jpg?tl=1&ve=1", credit: "John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles", caption: "In a glittering silver blazer dress and knee-high boots, flanked by suited backup dancers in front of the reputation set's office-desk backdrop.", kind: "primary" }, { url: "https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474459817-copy.jpg?tl=1&ve=1", credit: "John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles", caption: "Swift performs during another costume-and-set chapter of the Eras Tour's opening night.", kind: "primary" }, { url: "https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474275193-copy.jpg?tl=1&ve=1", credit: "John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles", caption: "Seated atop the moss-covered folklore cabin's peaked roof, its chimney smoking, for the acoustic folklore set.", kind: "primary" }, { url: "https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474275197-copy.jpg?tl=1&ve=1", credit: "John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles", caption: "Swift performs in a separate Getty image from the Eras Tour's first night at State Farm Stadium.", kind: "primary" }, { url: "https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_.jpg", credit: "Ashley Landis/AP, via Las Vegas Review-Journal", caption: "Swift performs during the opening Eras Tour concert at State Farm Stadium on March 17, 2023.", kind: "primary" }, { url: "https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-31.jpg", credit: "Ashley Landis/AP, via Las Vegas Review-Journal", caption: "A second AP frame captures Swift during the opening-night Glendale performance.", kind: "primary" }, { url: "https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-28.jpg", credit: "Ashley Landis/AP, via Las Vegas Review-Journal", caption: "A third Ashley Landis frame shows Swift performing at the Eras Tour opener.", kind: "primary" }, { url: "https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-23.jpg", credit: "Ashley Landis/AP, via Las Vegas Review-Journal", caption: "A fourth distinct AP image records Swift onstage during the March 17 Glendale show.", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-live-reviews/taylor-swift-the-eras-tour-glendale-review-1234699496/" }],
+      milestone: { id: "m-mid-2", label: "Eras Tour begins", kind: "tour" },
       relatedIds: ["moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a", "moment:vault-midnights-the-eras-tour-film-opens-to-92-8-million-the-biggest-concert", "moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver", "moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion"],
       significance: "defining",
     },
@@ -3805,6 +3824,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg", credit: "CBS News", kind: "primary" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/" }, { name: "Forbes", url: "https://www.forbes.com/sites/conormurray/2023/12/06/every-major-event-in-taylor-swifts-record-breaking-2023-from-the-eras-tour-to-time-person-of-the-year/" }],
+      milestone: { id: "m-mid-3a", label: "Person of the Year", kind: "award" },
       significance: "defining",
     },
     {
@@ -3817,6 +3837,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109799784%29_%28cropped%29.jpg", credit: "Paolo V, CC BY 2.0, via Wikimedia Commons", caption: "Swift performing the Midnights set on the Eras Tour, the album era during which the breakup was confirmed.", kind: "primary" }],
       sources: [{ name: "CNN", url: "https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/joe-alwyn-breaks-silence-taylor-swift-breakup-1235710711/" }],
+      milestone: { id: "m-mid-2a", label: "Alwyn breakup confirmed", kind: "life" },
       relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official"],
       significance: "defining",
     },
@@ -3852,6 +3873,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill", credit: "CNN", kind: "primary", focalPoint: "36% 16%" }],
       sources: [{ name: "CNN", url: "https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/" }, { name: "ESPN", url: "https://www.espn.com/nfl/story/_/id/38481870/taylor-swift-accepts-travis-kelce-invite-chiefs-game" }],
+      milestone: { id: "m-mid-2b", label: "Relationship goes public", kind: "life" },
     },
     {
       id: "vault-midnights-the-game-the-world-decided-made-it-official",
@@ -4020,6 +4042,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024", credit: "Billboard", kind: "primary", focalPoint: "48% 25%" }, { url: "https://variety.com/wp-content/uploads/2024/02/Taylor-Swift-Album-of-the-Year.jpg?w=1000", credit: "Variety", caption: "Accepting the record fourth Album of the Year Grammy for Midnights, with Jack Antonoff at her shoulder — the moment she passed Stevie Wonder, Frank Sinatra and Paul Simon.", kind: "archival", focalPoint: "47% 35%" }],
       sources: [{ name: "Grammy.com", url: "https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech" }, { name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-2024-grammy-awards-fourth-album-of-the-year-win/" }],
+      milestone: { id: "m-mid-3b", label: "Record 4th AOTY", kind: "award" },
       relatedIds: ["moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for", "moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi", "moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-"],
       significance: "defining",
     },
@@ -4033,6 +4056,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1", credit: "Patrick T. Fallon/AFP via Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/" }],
+      milestone: { id: "m-mid-3c", label: "Super Bowl LVIII", kind: "life" },
       relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official", "moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie"],
       threadIds: ["the-proposal"],
       significance: "defining",
@@ -4461,6 +4485,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/7/75/The_Eras_Tour_Poster_%28updated%29.png", credit: "TAS Rights Management", caption: "The official Eras Tour poster — the tickets 2.4 million people managed to buy in one day, and millions more never got the chance to.", kind: "archival", focalPoint: "50% 40%" }],
       sources: [{ name: "Taylor Swift–Ticketmaster controversy", url: "https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Ticketmaster_controversy" }, { name: "Taylor Swift fans sue Ticketmaster over tour presale meltdown", url: "https://abcnews.com/GMA/Culture/taylor-swift-fans-sue-ticketmaster-tour-presale-meltdown/story?id=94459600" }],
+      milestone: { id: "m-mid-1c", label: "Ticketmaster presale", kind: "business" },
       relatedIds: ["moment:vault-midnights-the-eras-tour-kicks-off-in-glendale", "moment:vault-midnights-the-senate-holds-a-ticketmaster-hearing-in-swiftie-puns"],
       significance: "defining",
     },
@@ -4650,6 +4675,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A return to pop as a diary of midnights across her life.",
       body: ["Midnights framed itself as thirteen sleepless nights, blending retro-glam synths with confessional diary entries."],
       tags: ["Music"],
+      milestone: { id: "m-mid-1", label: "Midnights released", kind: "album" },
     },
     {
       id: "vault-midnights-the-3am-edition-surprise",
@@ -4681,6 +4707,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She becomes the first artist to monopolize the entire top ten of the Hot 100.",
       body: ["The album’s dominance rewrote the record books, occupying all ten of the chart’s highest positions in a single week."],
       tags: ["Lore"],
+      milestone: { id: "m-mid-1b", label: "Entire top ten", kind: "award" },
     },
     {
       id: "vault-midnights-the-ticket-frenzy",
@@ -4701,6 +4728,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A concert film breaks box-office records for the format.",
       body: ["Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide."],
       tags: ["Tour"],
+      milestone: { id: "m-mid-3", label: "Eras Tour film", kind: "tour" },
     },
   ],
   "red": [
@@ -4782,6 +4810,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg/500px-Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Red_Tour" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-opens-red-tour-in-omaha-1552195/" }],
+      milestone: { id: "m-red-2", label: "The Red Tour", kind: "tour" },
     },
     {
       id: "vault-red-a-wine-red-elie-saab-gown-for-a-historic-pinnacle-award",
@@ -5294,6 +5323,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["Red is maximalist and messy on purpose — dubstep drops next to acoustic confessionals, all of it about one crimson-colored heartbreak.", "The centerpiece, a ten-minute epic, would return years later as a cultural event of its own."],
       tags: ["Music"],
       hiddenClue: { clue: "A scarf mentioned in one song became the most-discussed accessory in pop.", payoff: "Fans still debate who kept the scarf — a mystery she has coyly refused to fully resolve." },
+      milestone: { id: "m-red-1", label: "Red released", kind: "album" },
     },
     {
       id: "vault-red-we-are-never-ever-getting-back-together",
@@ -5305,6 +5335,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["The lead single arrived with an eye-roll and a spoken-word bridge, and it shot straight to number one — her first Hot 100 chart-topper.", "It signaled, unmistakably, that the country prodigy was walking toward the center of pop."],
       tags: ["Music"],
       video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
+      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
     },
     {
       id: "vault-red-begin-again-as-the-soft-landing",
@@ -5393,6 +5424,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png", credit: "Big Machine Records", kind: "primary", focalPoint: "46% 28%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Taylor_Swift_Reputation_Tour31.jpg", credit: "UltimateWarrior13 / Wikimedia Commons (CC BY-SA 4.0)", caption: "Mid-song on the reputation Stadium Tour at Levi’s Stadium, May 12, 2018 — four nights after the record-crowd opener in Glendale.", kind: "archival", focalPoint: "50% 18%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Reputation_Stadium_Tour" }, { name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments" }],
+      milestone: { id: "m-rep-2", label: "Stadium Tour", kind: "tour" },
       relatedIds: ["moment:vault-midnights-the-eras-tour-kicks-off-in-glendale"],
       significance: "defining",
     },
@@ -5417,6 +5449,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png", credit: "Big Machine Records", caption: "The Mert & Marcus album cover revealed on August 23, 2017 — the payoff of the three-day snake-video teaser rollout.", kind: "archival", focalPoint: "42% 35%" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-reputation-new-album-7941019/" }],
+      milestone: { id: "m-rep-0", label: "Snake video drops", kind: "life" },
       relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative", "moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with"],
       significance: "defining",
     },
@@ -5836,6 +5869,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/5/58/Taylor_Swift_-_Reputation_Tour_Seattle_-_I_Did_Something_Bad.jpg", credit: "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)", caption: "On the reputation Stadium Tour in May 2018 — the final album cycle recorded under the Big Machine contract she was leaving.", kind: "archival", focalPoint: "47% 15%" }],
       sources: [{ name: "Taylor Swift Signs Landmark New Deal With Universal Music Group", url: "https://variety.com/2018/music/news/taylor-swift-news-alert-1203032124/" }, { name: "How Taylor Swift's Deal With Universal Affects Other Artists", url: "https://www.rollingstone.com/pro/news/taylor-swift-universal-republic-deal-spotify-758102/" }],
+      milestone: { id: "m-rep-3", label: "Leaves Big Machine", kind: "business" },
       relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me"],
       threadIds: ["taylors-version"],
       significance: "defining",
@@ -5874,6 +5908,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["After a very public year, she disappeared and returned all in black, with snakes reclaimed as armor.", "Beneath the hard exterior, though, reputation hides a surprisingly tender love story."],
       tags: ["Music"],
       hiddenClue: { clue: "She reclaimed the snake her critics used against her.", payoff: "Turning the insult into iconography flipped the whole narrative in her favor." },
+      milestone: { id: "m-rep-1", label: "reputation released", kind: "album" },
     },
     {
       id: "vault-reputation-giant-snakes-record-numbers",
@@ -5974,6 +6009,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg/500px-Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg", credit: "oouinouin / Wikimedia Commons (CC BY 2.0)", caption: "The tour's theatrical 'Enchanted' staging, photographed in Paris on March 17, 2011 — same production as the Singapore opener, a later night on the same first international leg.", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-announces-speak-now-world-tour-950374/" }],
+      milestone: { id: "m-sn-2", label: "World Tour begins", kind: "tour" },
     },
     {
       id: "vault-speak-now-mean-wins-two-grammys-the-same-night",
@@ -6339,6 +6375,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary", focalPoint: "62% 18%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Taylor_Swift_-_SPEAK_NOW_World_Tour_Live_in_Sydney_2012_-_Speak_Now.jpg", credit: "Eva Rinaldi / Wikimedia Commons (CC BY-SA 2.0)", caption: "Performing the title track on the Speak Now World Tour in Sydney, March 2012.", kind: "archival", focalPoint: "45% 12%" }],
       sources: [{ name: "Speak Now", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
+      milestone: { id: "m-sn-1", label: "Speak Now released", kind: "album" },
       significance: "defining",
     },
     {
@@ -6667,6 +6704,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2025/10/taylor-swift-2025-cr-Mert-Alas-Marcus-Piggot-billboard-1800.jpg", credit: "Mert Alas & Marcus Piggott / TAS Rights Management, via Billboard", caption: "A Showgirl-era portrait by the album's photographers, Mert Alas and Marcus Piggott — run with Billboard's coverage of the week the tracklist WAS the top 12.", kind: "primary", focalPoint: "48% 15%" }, { url: "https://upload.wikimedia.org/wikipedia/en/0/09/Taylor_Swift_%E2%80%93_The_Fate_of_Ophelia_%28CD_single_cover%29.png", credit: "Single artwork / Republic Records, via Wikipedia", caption: "\"The Fate of Ophelia\" single artwork — the song that led the album's wall-to-wall occupation of the Hot 100's top 12 from No. 1.", kind: "archival", focalPoint: "38% 22%" }],
       sources: [{ name: "Taylor Swift's 'Fate of Ophelia' No. 1 on Hot 100, Takes All Top 10", url: "https://www.billboard.com/lists/taylor-swift-hot-100-fate-of-ophelia-number-one/" }],
+      milestone: { id: "m-tloas-4", label: "Hot 100 sweep", kind: "award" },
       relatedIds: ["moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once"],
       significance: "defining",
     },
@@ -6838,6 +6876,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg", credit: "Charly Triballeau/AFP via Getty Images", caption: "The jumbotron outside Madison Square Garden reading \"JUST&T MARRIED!\" as fans stop to photograph it, the Empire State Building behind.", kind: "primary", focalPoint: "70% 35%" }, { url: "https://assets3.cbsnewsstatic.com/hub/i/r/2026/07/02/e66f5b93-8b69-4557-847c-106908119407/thumbnail/620x413/06cdf599d84c9a589b8eb695f3867456/2026-07-02t205104z-316575572-rc2w5maws1vu-rtrmadp-3-people-taylor-swift-kelce.jpg", credit: "Christian Monterrosa/Reuters", caption: "In the run-up to the ceremony: crews on ladders hang curtains across the Garden's glass entrance while security stands watch outside.", kind: "archival", focalPoint: "50% 30%" }, { url: "https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/0bb2c01d-717b-42d9-a2b4-08fd18f021e3/thumbnail/620x414/162fb69de698cd4a021ab5e0e34a638a/gettyimages-2284537214.jpg", credit: "Roy Rochlin/Getty Images, via CBS News", caption: "Guest arrivals: Hugh Grant and Anna Elisabet Eberstein arrive at Madison Square Garden on July 2, 2026, as the multi-day celebration begins.", kind: "primary", focalPoint: "48% 30%" }, { url: "https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/46f18357-e274-4e86-a5ac-b173d9b01219/thumbnail/620x414/aff0da6d159019e0ce14046348347c7b/gettyimages-2284532594.jpg", credit: "Roy Rochlin/Getty Images, via CBS News", caption: "Abby Wambach and Glennon Doyle arrive at Madison Square Garden for the wedding on July 3, 2026.", kind: "primary", focalPoint: "62% 18%" }, { url: "https://assets2.cbsnewsstatic.com/hub/i/r/2026/07/03/5ba6ed3b-0728-43a7-a105-2fdc2beb7097/thumbnail/620x414/ca2a0b800b41ca793cc0db76270c7ef5/gettyimages-2283912122.jpg", credit: "Angela Weiss/AFP via Getty Images, via CBS News", caption: "The scene outside: members of the media gather at Madison Square Garden on the wedding day, July 3, 2026.", kind: "archival", focalPoint: "42% 45%" }, { url: "https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/03/661a9e69-70e1-4a8c-88bc-e84d2bc985c0/thumbnail/620x414/82c6463f5b68d14f30b1660eb692a0d5/gettyimages-2283918271.jpg", credit: "Tom Weller/picture alliance via Getty Images, via CBS News", caption: "Onlookers wait behind barriers outside Madison Square Garden ahead of the ceremony on July 3, 2026.", kind: "archival", focalPoint: "45% 50%" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/" }, { name: "Billboard", url: "https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/" }],
+      milestone: { id: "m-tloas-5", label: "Married at MSG", kind: "life" },
       relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official"],
       significance: "defining",
       rumors: [
@@ -6946,6 +6985,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The proposal, from the couple's official announcement post: Kelce and Swift beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.", kind: "primary", focalPoint: "52% 50%" }, { url: "https://i.abcnewsfe.com/a/826038ad-f638-4da8-9501-08748f22125b/swift-kelce-engagement-02-ht-jef-250826_1756229507971_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The scale of the staging: the couple beneath the floral arch and a flower-ringed chandelier deep in the garden — Swift in a striped summer dress, Kelce in navy.", kind: "primary", focalPoint: "50% 64%" }, { url: "https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "From the same carousel: the couple embrace among the garden flowers, the new ring visible on Swift's hand.", kind: "primary", focalPoint: "47% 30%" }, { url: "https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The ring close-up from the carousel: the Old Mine Cut brilliant diamond in yellow gold, designed by Travis Kelce with Kindred Lubeck of Artifex Fine Jewelry.", kind: "primary", focalPoint: "50% 42%" }, { url: "https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The missing frame from the carousel: the embrace right after the proposal, the new ring visible on Swift's hand as she holds Kelce.", kind: "primary", focalPoint: "48% 35%" }, { url: "https://i.abcnewsfe.com/a/7896331b-7a75-44df-9649-74b77732d132/swift-kelce-01-gty-jef-250829_1756467997339_hpMain.jpg", credit: "Jamie Squire/Getty Images, via ABC News", caption: "Their first public sighting since the engagement: Swift with Travis and Jason Kelce in a suite at Arrowhead Stadium for a Cincinnati Bearcats-Nebraska Cornhuskers game, Aug. 28, 2025 — two days after the announcement.", kind: "archival", focalPoint: "62% 55%" }],
       sources: [{ name: "Taylor Swift & Travis Kelce engagement announcement (joint post)", url: "https://www.instagram.com/p/DN02niAXMM-/" }, { name: "Taylor Swift, Travis Kelce are married: See their relationship timeline", url: "https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742" }, { name: "Taylor Swift's engagement ring from Travis Kelce is one of a kind, vintage-inspired and really expensive", url: "https://www.yahoo.com/lifestyle/article/a-look-back-at-taylor-swifts-one-of-a-kind-vintage-inspired-engagement-ring-from-travis-kelce-194728425.html" }, { name: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses", url: "https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776" }],
+      milestone: { id: "m-tloas-1b", label: "Engagement announced", kind: "life" },
       relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official", "moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in", "moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
       threadIds: ["the-proposal"],
       significance: "defining",
@@ -7193,6 +7233,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["After the monochrome hush of the last era, the reveal comes not from a stage or a cryptic post but from a guest chair on her fiancé’s football podcast — itself a sign of how public the era would be.", "The announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle, reframing everything that came before as the build-up to a curtain call."],
       tags: ["Music"],
       hiddenClue: { clue: "The announcement leaned hard on the color orange — a shade barely used before.", payoff: "Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow." },
+      milestone: { id: "m-tloas-1", label: "Era announced", kind: "life" },
     },
     {
       id: "vault-tloas-the-life-of-a-showgirl-released",
@@ -7203,6 +7244,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The twelfth studio album arrives: opulent, theatrical, and unapologetically bright.",
       body: ["The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.", "Produced with Max Martin and Shellback — their first new-album collaboration with her since reputation — it is a victory lap dressed as a cabaret: knowing, warm, and dazzling."],
       tags: ["Music"],
+      milestone: { id: "m-tloas-2", label: "Showgirl released", kind: "album" },
     },
     {
       id: "vault-tloas-the-fate-of-ophelia-video-premieres",
@@ -7234,6 +7276,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The album opens at number one with the fastest-selling first week in history.",
       body: ["The Life of a Showgirl moved north of 4 million album-equivalent units in its opening week, the biggest sales week any album has ever posted.", "It became her 15th number-one album on the Billboard 200, breaking a tie with Drake and Jay-Z for the most chart-toppers among solo acts."],
       tags: ["Lore"],
+      milestone: { id: "m-tloas-3", label: "Record debut", kind: "award" },
     },
     {
       id: "vault-tloas-all-twelve-songs-all-twelve-top-spots",
@@ -7484,6 +7527,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-vancouver-fearless-dec-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Kevin Winter/TAS24/Getty Images", kind: "primary", focalPoint: "47% 22%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/241208-taylor-swift-mn-1245-48703f.jpg", credit: "Kevin Winter/Getty Images for TAS Rights Management", caption: "The Reputation set on the first night of the farewell stand at BC Place, Dec. 6, 2024.", kind: "archival", focalPoint: "59% 22%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/surprise-songs-me-241208-6e1f8f.jpg", credit: "Kevin Winter/TAS24/Getty Images for TAS Rights Management", caption: "The first surprise song of the finale, played acoustic — the set that closed with the \"Long Live\" mashup.", kind: "primary", focalPoint: "50% 35%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-acousitic-set-ae-241208-d4cacc.jpg", credit: "Kevin Winter/TAS24/Getty Images for TAS Rights Management", caption: "Mid-acoustic-set on the final night, under the tour's starfield backdrop.", kind: "primary", focalPoint: "55% 35%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-eras-tour-ae-241208-e44bdc.jpg", credit: "Kevin Winter/TAS24/Getty Images for TAS Rights Management", caption: "The folklore set, singing \"Betty\" in front of the cabin, during the Dec. 8, 2024 finale.", kind: "primary", focalPoint: "75% 45%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-vancouver-ae-241208png-6500d5.jpg", credit: "Kevin Winter/TAS24/Getty Images for TAS Rights Management", caption: "Speaking to the crowd before \"All Too Well\" on the final night at BC Place.", kind: "primary", focalPoint: "50% 25%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/eras-tour-orbs-ae-241208-90dc8a.jpg", credit: "Kevin Winter/TAS24/Getty Images for TAS Rights Management", caption: "Fans hold up glowing orbs during \"Willow\" — the arena-wide light show that became an Eras Tour signature.", kind: "archival", focalPoint: "55% 65%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-reputation-ae-241208-4905ed.jpg", credit: "Kevin Winter/TAS24/Getty Images for TAS Rights Management", caption: "The Reputation set on the finale night, Dec. 8, 2024.", kind: "primary", focalPoint: "55% 30%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-speak-now-vancouver-ae-241208-cffd68.jpg", credit: "Kevin Winter/TAS24/Getty Images for TAS Rights Management", caption: "The Speak Now set, ballgown and all, on the tour's last night.", kind: "primary", focalPoint: "35% 55%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-ttpd-ae-241208-28a3c3.jpg", credit: "Kevin Winter/TAS24/Getty Images for TAS Rights Management", caption: "On the moving platform during \"The Tortured Poets Department\" segment, finale night.", kind: "primary", focalPoint: "55% 40%" }, { url: "https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2024-12/taylor-swift-1989-2-ae-241208-a3754a.jpg", credit: "Kevin Winter/TAS24/Getty Images for TAS Rights Management", caption: "The 1989 set, gold bralette and red skirt, on the screen above the stage during the final show.", kind: "primary", focalPoint: "55% 45%" }],
       sources: [{ name: "NBC News", url: "https://www.nbcnews.com/pop-culture/pop-culture-news/end-era-taylor-swifts-eras-tour-coming-close-vancouver-rcna183279" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-eras-tour-ends-message-photos-1235853564/" }],
+      milestone: { id: "m-ttpd-2", label: "Eras Tour finale", kind: "tour" },
       relatedIds: ["moment:vault-midnights-the-eras-tour-kicks-off-in-glendale", "moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion"],
       significance: "defining",
     },
@@ -7921,6 +7965,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2025/05/02-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "The photo released with the May 30, 2025 announcement: Swift with the six albums she bought back from Shamrock Capital.", kind: "primary", focalPoint: "48% 30%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/05/01-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "A second frame from the announcement set: reading the sleeves of the reclaimed records, reputation in hand.", kind: "primary", focalPoint: "46% 30%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/05/03-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "A third frame from the announcement set: seated cross-legged with all six reclaimed albums fanned in a circle around her.", kind: "primary", focalPoint: "48% 28%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/05/04-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "A closer frame from the same shoot, hands resting on the reclaimed sleeves.", kind: "primary", focalPoint: "50% 25%" }],
       sources: [{ name: "Taylor Swift Buys Back Her Masters From Shamrock, Reclaiming Her First Six Albums", url: "https://www.billboard.com/pro/taylor-swift-regains-control-master-recordings-shamrock/" }, { name: "Taylor Swift Shocker: Singer Buys Back Rights to First Six Albums", url: "https://variety.com/2025/music/news/taylor-swift-buys-rights-first-six-albums-shamrock-1236413964/" }, { name: "Taylor Swift Buys Back Her Early Albums After Years-Long Crusade", url: "https://www.bloomberg.com/news/articles/2025-05-30/taylor-swift-buys-back-her-early-albums-after-years-long-crusade" }],
+      milestone: { id: "m-ttpd-3", label: "Masters bought back", kind: "business" },
       relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever", "moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi"],
       threadIds: ["taylors-version"],
       significance: "defining",
@@ -7946,6 +7991,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.", "Typewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet."],
       tags: ["Music"],
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
+      milestone: { id: "m-ttpd-1", label: "TTPD released", kind: "album" },
     },
     {
       id: "vault-ttpd-ink-typewriters-and-monochrome",

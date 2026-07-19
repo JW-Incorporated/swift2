@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { CONTENT, build, type RawItem } from './content';
+import { CONTENT, MILESTONES, build, milestonesForEra, type RawItem } from './content';
 import { formatMonthYear } from './format';
 import {
   hasRealPrimaryImage,
@@ -142,5 +142,29 @@ describe('CONTENT dataset invariants', () => {
         expect(['primary', 'reference', 'archival'], item.id).toContain(img.kind);
       }
     }
+  });
+});
+
+describe('MILESTONES derivation (consolidation stage 2b)', () => {
+  it('derives every milestone from a vault moment marker — never a parallel list', () => {
+    // 45 at migration (2026-07-19, verified exact-parity with the old hand
+    // list). New milestones come from marking moments, so the count only
+    // moves when a marked moment is added/removed.
+    expect(MILESTONES.length).toBeGreaterThanOrEqual(45);
+    const ids = MILESTONES.map((m) => m.id);
+    expect(new Set(ids).size).toBe(ids.length); // marker ids stay unique
+    // Every milestone's date/era comes from its source moment by construction;
+    // spot-check the anchors across eras.
+    const byId = new Map(MILESTONES.map((m) => [m.id, m]));
+    expect(byId.get('m-debut-1')).toMatchObject({ eraId: 'debut', date: '2006-10-24', kind: 'album' });
+    expect(byId.get('m-mid-2')).toMatchObject({ eraId: 'midnights', label: 'Eras Tour begins' });
+    expect(byId.get('m-tloas-5')).toMatchObject({ eraId: 'tloas', date: '2026-07-03', label: 'Married at MSG', kind: 'life' });
+  });
+
+  it('milestonesForEra returns date-sorted markers for a real era', () => {
+    const fearless = milestonesForEra('fearless');
+    expect(fearless.length).toBe(3);
+    const dates = fearless.map((m) => m.date);
+    expect([...dates].sort()).toEqual(dates);
   });
 });

@@ -115,73 +115,18 @@ export function getContentItem(id: string): ContentItem | undefined {
 
 // ── Milestones (timeline markers) ───────────────────────────────────────────
 
-export const MILESTONES: Milestone[] = [
-  { id: 'm-debut-1', eraId: 'debut', date: '2006-10-24', label: 'Debut album', kind: 'album' },
-  { id: 'm-debut-2', eraId: 'debut', date: '2007-09-08', label: '“Our Song” #1', kind: 'award' },
-  { id: 'm-fear-1', eraId: 'fearless', date: '2008-11-11', label: 'Fearless released', kind: 'album' },
-  { id: 'm-fear-2', eraId: 'fearless', date: '2009-09-13', label: 'VMAs moment', kind: 'life' },
-  { id: 'm-fear-3', eraId: 'fearless', date: '2010-01-31', label: 'Album of the Year', kind: 'award' },
-  { id: 'm-sn-1', eraId: 'speak-now', date: '2010-10-25', label: 'Speak Now released', kind: 'album' },
-  { id: 'm-sn-2', eraId: 'speak-now', date: '2011-02-09', label: 'World Tour begins', kind: 'tour' },
-  { id: 'm-red-0', eraId: 'red', date: '2012-08-13', label: 'First #1 single', kind: 'award' },
-  { id: 'm-red-1', eraId: 'red', date: '2012-10-22', label: 'Red released', kind: 'album' },
-  { id: 'm-red-2', eraId: 'red', date: '2013-03-13', label: 'The Red Tour', kind: 'tour' },
-  { id: 'm-89-0', eraId: '1989', date: '2014-08-18', label: '“Shake It Off”', kind: 'life' },
-  { id: 'm-89-1', eraId: '1989', date: '2014-10-27', label: '1989 released', kind: 'album' },
-  { id: 'm-89-2', eraId: '1989', date: '2015-05-05', label: '1989 World Tour', kind: 'tour' },
-  { id: 'm-89-3', eraId: '1989', date: '2016-02-15', label: 'Album of the Year', kind: 'award' },
-  // Added 2026-07-19 alongside the 10-defining-events pass (docs/decisions.md)
-  // — the Kimye "Famous" call leak was already the era's defining flashpoint
-  // in the seed data (significance: 'defining') but had no scrubber marker.
-  { id: 'm-89-4', eraId: '1989', date: '2016-07-17', label: 'The call leaks', kind: 'life' },
-  // Added 2026-07-19 (10-defining-events round 3, docs/decisions.md).
-  { id: 'm-rep-0', eraId: 'reputation', date: '2017-08-21', label: 'Snake video drops', kind: 'life' },
-  { id: 'm-rep-1', eraId: 'reputation', date: '2017-11-10', label: 'reputation released', kind: 'album' },
-  { id: 'm-rep-2', eraId: 'reputation', date: '2018-05-08', label: 'Stadium Tour', kind: 'tour' },
-  // Added 2026-07-19 (10-defining-events round 3, docs/decisions.md).
-  { id: 'm-rep-3', eraId: 'reputation', date: '2018-11-19', label: 'Leaves Big Machine', kind: 'business' },
-  { id: 'm-lov-1', eraId: 'lover', date: '2019-06-30', label: 'Masters sold', kind: 'business' },
-  { id: 'm-lov-2', eraId: 'lover', date: '2019-08-23', label: 'Lover released', kind: 'album' },
-  { id: 'm-folk-1', eraId: 'folklore', date: '2020-07-24', label: 'folklore surprise drop', kind: 'album' },
-  { id: 'm-folk-2', eraId: 'folklore', date: '2021-03-14', label: 'folklore wins AOTY', kind: 'award' },
-  { id: 'm-ever-1', eraId: 'evermore', date: '2020-12-11', label: 'evermore surprise drop', kind: 'album' },
-  // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
-  { id: 'm-ever-2', eraId: 'evermore', date: '2021-04-18', label: 'First re-record hits #1', kind: 'award' },
-  { id: 'm-ever-3', eraId: 'evermore', date: '2021-11-22', label: 'ATW (10 Min) hits #1', kind: 'award' },
-  { id: 'm-mid-1', eraId: 'midnights', date: '2022-10-21', label: 'Midnights released', kind: 'album' },
-  { id: 'm-mid-1b', eraId: 'midnights', date: '2022-11-05', label: 'Entire top ten', kind: 'award' },
-  // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
-  { id: 'm-mid-1c', eraId: 'midnights', date: '2022-11-15', label: 'Ticketmaster presale', kind: 'business' },
-  { id: 'm-mid-2', eraId: 'midnights', date: '2023-03-17', label: 'Eras Tour begins', kind: 'tour' },
-  // Added 2026-07-19 (10-defining-events round 3, docs/decisions.md).
-  { id: 'm-mid-2a', eraId: 'midnights', date: '2023-04-09', label: 'Alwyn breakup confirmed', kind: 'life' },
-  // Added 2026-07-19 alongside the 10-defining-events pass (docs/decisions.md)
-  // — same gap as m-89-4: significance: 'defining' in the seed data, no
-  // scrubber marker until now.
-  { id: 'm-mid-2b', eraId: 'midnights', date: '2023-09-24', label: 'Relationship goes public', kind: 'life' },
-  { id: 'm-mid-3', eraId: 'midnights', date: '2023-10-13', label: 'Eras Tour film', kind: 'tour' },
-  // Added 2026-07-19 (10-defining-events round 3, docs/decisions.md).
-  { id: 'm-mid-3a', eraId: 'midnights', date: '2023-12-06', label: 'Person of the Year', kind: 'award' },
-  // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
-  { id: 'm-mid-3b', eraId: 'midnights', date: '2024-02-04', label: 'Record 4th AOTY', kind: 'award' },
-  { id: 'm-mid-3c', eraId: 'midnights', date: '2024-02-11', label: 'Super Bowl LVIII', kind: 'life' },
-  { id: 'm-ttpd-1', eraId: 'ttpd', date: '2024-04-19', label: 'TTPD released', kind: 'album' },
-  { id: 'm-ttpd-2', eraId: 'ttpd', date: '2024-12-08', label: 'Eras Tour finale', kind: 'tour' },
-  // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
-  { id: 'm-ttpd-3', eraId: 'ttpd', date: '2025-05-30', label: 'Masters bought back', kind: 'business' },
-  { id: 'm-tloas-1', eraId: 'tloas', date: '2025-08-13', label: 'Era announced', kind: 'life' },
-  { id: 'm-tloas-1b', eraId: 'tloas', date: '2025-08-26', label: 'Engagement announced', kind: 'life' },
-  { id: 'm-tloas-2', eraId: 'tloas', date: '2025-10-03', label: 'Showgirl released', kind: 'album' },
-  { id: 'm-tloas-3', eraId: 'tloas', date: '2025-10-18', label: 'Record debut', kind: 'award' },
-  { id: 'm-tloas-4', eraId: 'tloas', date: '2025-10-18', label: 'Hot 100 sweep', kind: 'award' },
-  // Added 2026-07-18 alongside the significance system (docs/decisions.md)
-  // — conspicuously absent before: the era's list stopped at 2025-10-18
-  // despite the wedding (msg-wedding, the era's clearest 'defining' item)
-  // having happened since. Milestones and ContentItem.significance are
-  // deliberately kept in sync manually for now — both are hand-curated,
-  // and a life-defining event should appear in both places.
-  { id: 'm-tloas-5', eraId: 'tloas', date: '2026-07-03', label: 'Married at MSG', kind: 'life' },
-];
+// Derived from the seed vault (consolidation stage 2b, 2026-07-19): every
+// milestone is a marker on its own moment (ContentItem.milestone, authored in
+// supabase/seed/content/**), so the scrubber's timeline and the moment it
+// points at can never drift apart — adding a milestone means marking the
+// moment, not editing a parallel list. Legacy ids preserved in the markers.
+export const MILESTONES: Milestone[] = CONTENT.filter((c) => c.milestone).map((c) => ({
+  id: c.milestone!.id,
+  eraId: c.eraId,
+  date: c.date,
+  label: c.milestone!.label,
+  kind: c.milestone!.kind,
+}));
 
 export function milestonesForEra(eraId: EraId): Milestone[] {
   return MILESTONES.filter((m) => m.eraId === eraId).sort((a, b) => a.date.localeCompare(b.date));

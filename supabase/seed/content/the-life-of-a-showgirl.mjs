@@ -564,6 +564,9 @@ export default {
       day: 18,
       category: 'business',
       title: "All 12 tracks debut as the Hot 100's entire top 12",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-4", label: "Hot 100 sweep", kind: "award" },
       snippet:
         'Every song on the album landed inside the top 12 of the Hot 100 in its first week — the whole tracklist, in a block — making her the first artist ever to monopolize the chart\'s top 10 three separate times.',
       sourceUrl: 'https://www.billboard.com/lists/taylor-swift-hot-100-fate-of-ophelia-number-one/',
@@ -1448,6 +1451,9 @@ export default {
       significance: 'defining', // the era's life-defining event (docs/decisions.md, 2026-07-18)
       relatedIds: ['moment:vault-midnights-the-game-the-world-decided-made-it-official'],
       title: 'Taylor and Travis marry at Madison Square Garden',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-5", label: "Married at MSG", kind: "life" },
       snippet:
         'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man. Roughly 1,000 guests, and a jumbotron outside the arena reading "JUST&T MARRIED!"',
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/',
@@ -2089,6 +2095,9 @@ export default {
       day: 26,
       category: 'relationship',
       title: '"Your English teacher and your gym teacher are getting married": the engagement, announced on Instagram',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-1b", label: "Engagement announced", kind: "life" },
       snippet:
         'Two weeks after the New Heights album reveal, Taylor and Travis announced their engagement in a joint Instagram post — a garden proposal, an Old Mine Cut diamond in yellow gold, and a caption that became the year\'s most-repeated line.',
       sourceUrl: 'https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742',
@@ -3496,6 +3505,9 @@ export default {
       day: 13,
       category: "music",
       title: "A new era is announced",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-1", label: "Era announced", kind: "life" },
       snippet: "The Life of a Showgirl is revealed live on Travis Kelce’s \"New Heights\" podcast — a hard turn from ink into glitter.",
       hiddenClue: { clue: "The announcement leaned hard on the color orange — a shade barely used before.", payoff: "Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow." },
       moment: {
@@ -3511,6 +3523,9 @@ export default {
       day: 3,
       category: "music",
       title: "The Life of a Showgirl released",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-2", label: "Showgirl released", kind: "album" },
       snippet: "The twelfth studio album arrives: opulent, theatrical, and unapologetically bright.",
       moment: {
         context: "The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.\n\nProduced with Max Martin and Shellback — their first new-album collaboration with her since reputation — it is a victory lap dressed as a cabaret: knowing, warm, and dazzling.",
@@ -3554,6 +3569,9 @@ export default {
       day: 18,
       category: "sighting",
       title: "A record-setting debut",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-tloas-3", label: "Record debut", kind: "award" },
       snippet: "The album opens at number one with the fastest-selling first week in history.",
       moment: {
         context: "The Life of a Showgirl moved north of 4 million album-equivalent units in its opening week, the biggest sales week any album has ever posted.\n\nIt became her 15th number-one album on the Billboard 200, breaking a tie with Drake and Jay-Z for the most chart-toppers among solo acts.",

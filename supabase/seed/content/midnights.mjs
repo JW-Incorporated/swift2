@@ -383,6 +383,9 @@ export default {
         'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
       ],
       title: 'The Eras Tour kicks off in Glendale',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-2", label: "Eras Tour begins", kind: "tour" },
       snippet:
         '44 songs, 3 hours and 15 minutes at State Farm Stadium — opening night moved era by era through songs from all 10 studio albums.',
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/',
@@ -592,6 +595,9 @@ export default {
       category: 'business',
       significance: 'defining', // global-recognition peak of the Eras Tour year (docs/decisions.md, 2026-07-19)
       title: 'Time names her 2023 Person of the Year',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-3a", label: "Person of the Year", kind: "award" },
       snippet:
         "Her own reaction: \"This is the proudest and happiest I've ever felt, and the most creatively fulfilled and free I've ever been.\"",
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/',
@@ -632,6 +638,9 @@ export default {
       significance: 'defining', // the end of a 6-year relationship and the direct precursor to the Kelce era (docs/decisions.md, 2026-07-19)
       relatedIds: ['moment:vault-midnights-the-game-the-world-decided-made-it-official'],
       title: 'Taylor and Joe Alwyn confirm their breakup after six years',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-2a", label: "Alwyn breakup confirmed", kind: "life" },
       snippet:
         '"They simply grew apart and plan to remain friends" — the end of a relationship she\'d kept almost entirely out of public view since 2016.',
       sourceUrl: 'https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html',
@@ -731,6 +740,9 @@ export default {
       day: 24,
       category: 'sighting',
       title: 'First Chiefs game: cheering on from the family suite',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-2b", label: "Relationship goes public", kind: "life" },
       snippet:
         "Taylor watched Kansas City rout Chicago 41–10 from Travis's family suite at Arrowhead, sitting beside his mother Donna in a red-and-white Chiefs jacket.",
       sourceUrl: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/',
@@ -1245,6 +1257,9 @@ export default {
         'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
       ],
       title: 'A record fourth Album of the Year Grammy, for Midnights',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-3b", label: "Record 4th AOTY", kind: "award" },
       snippet: 'Presented by Céline Dion in a rare public appearance — Swift\'s fourth AOTY win, more than any artist in Grammy history.',
       sourceUrl: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
@@ -1287,6 +1302,9 @@ export default {
         'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
       ],
       title: 'Super Bowl LVIII: a sheer corset, Area jeans, and his number in rubies',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-3c", label: "Super Bowl LVIII", kind: "life" },
       snippet:
         'A Dion Lee corset top and bedazzled Area jeans, accessorized with jewelry stamped 87 — plus a red Erin Andrews bomber for team spirit.',
       sourceUrl: 'https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/',
@@ -2612,6 +2630,9 @@ export default {
       day: 15,
       category: 'business',
       title: 'The presale that broke Ticketmaster — and set a sales record anyway',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-1c", label: "Ticketmaster presale", kind: "business" },
       snippet:
         '2.4 million tickets in one day, the most ever sold for an artist — while millions more fans sat in crashed queues until Ticketmaster canceled the public on-sale entirely.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Ticketmaster_controversy',
@@ -3398,6 +3419,9 @@ export default {
       day: 21,
       category: "music",
       title: "Thirteen sleepless nights",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-1", label: "Midnights released", kind: "album" },
       snippet: "A return to pop as a diary of midnights across her life.",
       moment: {
         context: "Midnights framed itself as thirteen sleepless nights, blending retro-glam synths with confessional diary entries.",
@@ -3441,6 +3465,9 @@ export default {
       day: 5,
       category: "sighting",
       title: "Every top-ten slot at once",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-1b", label: "Entire top ten", kind: "award" },
       snippet: "She becomes the first artist to monopolize the entire top ten of the Hot 100.",
       moment: {
         context: "The album’s dominance rewrote the record books, occupying all ten of the chart’s highest positions in a single week.",
@@ -3469,6 +3496,9 @@ export default {
       day: 13,
       category: "tour",
       title: "The Eras Tour hits cinemas",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-3", label: "Eras Tour film", kind: "tour" },
       snippet: "A concert film breaks box-office records for the format.",
       moment: {
         context: "Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.",

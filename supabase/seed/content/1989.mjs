@@ -118,6 +118,9 @@ export default {
       day: 5,
       category: 'tour',
       title: 'The 1989 World Tour opens with two sold-out nights in Tokyo',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-2", label: "1989 World Tour", kind: "tour" },
       snippet:
         '100,320 fans across two shows at Tokyo Dome, $10.6 million combined — the start of what became 2015\'s highest-grossing tour.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
@@ -1931,6 +1934,9 @@ export default {
       category: 'music',
       significance: 'defining', // the defining controversy of her career, direct catalyst for reputation (docs/decisions.md, 2026-07-19)
       title: 'Snakes, Snapchat, and "excluded from this narrative"',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-4", label: "The call leaks", kind: "life" },
       snippet:
         'Kim Kardashian posts an edited cut of the "Famous" call to Snapchat, snake emojis flood every comment section, and #TaylorSwiftIsOverParty trends worldwide. Her answer — "I would very much like to be excluded from this narrative" — is the era\'s last word before the lights go out.',
       sourceUrl:
@@ -2045,6 +2051,9 @@ export default {
       day: 27,
       category: "music",
       title: "The pop reinvention",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
       snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
       moment: {
         context: "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world.",
@@ -2059,6 +2068,9 @@ export default {
       day: 18,
       category: "music",
       title: "“Shake It Off” launches the era",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-0", label: "“Shake It Off”", kind: "life" },
       snippet: "A brass-driven lead single announces the full pop pivot from a stadium stage.",
       video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
       moment: {
@@ -2133,6 +2145,9 @@ export default {
       day: 15,
       category: "sighting",
       title: "Second Album of the Year",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-3", label: "Album of the Year", kind: "award" },
       snippet: "She becomes the first woman to win the top Grammy twice.",
       moment: {
         context: "Accepting the award, she used the moment to speak directly to young women about crediting their own work.",
