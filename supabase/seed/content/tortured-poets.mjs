@@ -3163,6 +3163,26 @@ export default {
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       moment: {
         context: "Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.\n\nTypewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
+        // "Fortnight" MV id q3zqJs7JUCQ verified via YouTube oEmbed this
+        // session ("Taylor Swift - Fortnight (feat. Post Malone) (Official
+        // Music Video)", author @TaylorSwift); maxres1 frame (1280x720)
+        // curl-verified 200 image/jpeg, downloaded and viewed — the
+        // black-and-white asylum close-up, distinct from the maxresdefault
+        // already used on the Fortnight single page. The Wikipedia album
+        // cover render is only 300px (below the 400px floor), so the
+        // lead-single frame carries the album's monochrome aesthetic instead.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/maxres1.jpg',
+            credit: 'Taylor Swift / Republic Records (official "Fortnight" video frame, YouTube)',
+            caption:
+              'The album’s black-and-white world, distilled: Taylor in the "Fortnight" video that arrived with TTPD on release night.',
+            kind: 'primary',
+            // Stark close-up; her eyes sit in the upper third, face centered.
+            focalPoint: '47% 35%',
+          },
+        ],
       },
     },
     {

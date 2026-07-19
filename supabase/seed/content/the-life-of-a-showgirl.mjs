@@ -3517,6 +3517,25 @@ export default {
       hiddenClue: { clue: "The announcement leaned hard on the color orange — a shade barely used before.", payoff: "Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow." },
       moment: {
         context: "After the monochrome hush of the last era, the reveal comes not from a stage or a cryptic post but from a guest chair on her fiancé’s football podcast — itself a sign of how public the era would be.\n\nThe announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle, reframing everything that came before as the build-up to a curtain call.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Full New
+        // Heights episode id M2lX9XESvDE verified via YouTube oEmbed this
+        // session ("Taylor Swift on Reclaiming Her Masters, Wrapping The Eras
+        // Tour, and The Life of a Showgirl | NHTV", author @newheightshow);
+        // maxres1 frame (1280x720) curl-verified 200 image/jpeg, downloaded
+        // and viewed — distinct frame from the hqdefault already used on the
+        // showgirl-announced-on-new-heights page.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/M2lX9XESvDE/maxres1.jpg',
+            credit: 'New Heights (official episode frame, YouTube)',
+            caption:
+              'In the guest chair on New Heights: Taylor and Travis laughing mid-episode, with Jason on the split screen, the night the album was announced.',
+            kind: 'primary',
+            // Three faces sit in a band across the upper third — Jason left
+            // panel, Travis center, Taylor right; bias the crop high.
+            focalPoint: '51% 32%',
+          },
+        ],
       },
     },
     {
@@ -3534,6 +3553,23 @@ export default {
       snippet: "The twelfth studio album arrives: opulent, theatrical, and unapologetically bright.",
       moment: {
         context: "The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.\n\nProduced with Max Martin and Shellback — their first new-album collaboration with her since reputation — it is a victory lap dressed as a cabaret: knowing, warm, and dazzling.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Billboard
+        // wp-content PR image 02 from the album's Mert & Marcus press set
+        // (same set as the 01/03 images used on sibling pages) curl-verified
+        // 200 image/jpeg 1800x1200, downloaded and viewed — Taylor in the
+        // ruby-crystal bodysuit draped across bentwood chairs.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/02-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption:
+              'From the album press shoot: the ruby-crystal showgirl bodysuit, backstage-cabaret staging and all.',
+            kind: 'primary',
+            // Head tilted back in the top-right corner of the frame; keep the
+            // crop high and right so the face survives wide cards.
+            focalPoint: '84% 14%',
+          },
+        ],
       },
     },
     {
@@ -3549,6 +3585,23 @@ export default {
       video: { youtubeId: "ko70cExuzZM", title: "Taylor Swift - The Fate of Ophelia (Official Music Video)" },
       moment: {
         context: "Written and directed by Taylor Swift, the video moves through a string of theatrical costume changes and sets, in keeping with the album’s showgirl framing.\n\nIt had already premiered on the big screen as part of the release-party film before arriving on YouTube for the wider audience.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
+        // MV id ko70cExuzZM re-verified via YouTube oEmbed this session
+        // ("Taylor Swift - The Fate of Ophelia (Official Music Video)",
+        // author @TaylorSwift); maxres2 frame (1280x720) curl-verified 200
+        // image/jpeg, downloaded and viewed — distinct frame from the
+        // hqdefault already used on the lead-single pages.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/ko70cExuzZM/maxres2.jpg',
+            credit: 'Taylor Swift / Republic Records (official "The Fate of Ophelia" video frame, YouTube)',
+            caption:
+              'The Busby Berkeley swim tableau from the self-directed video: aqua swim caps, life-ring set pieces, and Taylor front and center.',
+            kind: 'primary',
+            // Her face sits just above center-frame amid the swim formation.
+            focalPoint: '49% 35%',
+          },
+        ],
       },
     },
     {
@@ -3580,6 +3633,22 @@ export default {
       snippet: "The album opens at number one with the fastest-selling first week in history.",
       moment: {
         context: "The Life of a Showgirl moved north of 4 million album-equivalent units in its opening week, the biggest sales week any album has ever posted.\n\nIt became her 15th number-one album on the Billboard 200, breaking a tie with Drake and Jay-Z for the most chart-toppers among solo acts.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Billboard
+        // wp-content PR image 04 from the album's Mert & Marcus press set
+        // curl-verified 200 image/jpeg 1800x1200, downloaded and viewed — the
+        // underwater bathtub shot from the cover session, distinct from the
+        // 03 image used on the showgirl-four-million-week sibling page.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/04-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption:
+              'The underwater shot from the album-cover session — the imagery that fronted the biggest sales week ever measured.',
+            kind: 'archival',
+            // Face slightly left of center, eyes just below the vertical midline.
+            focalPoint: '52% 42%',
+          },
+        ],
       },
     },
     {
@@ -3594,6 +3663,22 @@ export default {
       snippet: "Every track on the album lands positions 1 through 12 of the Billboard Hot 100 — a first in chart history.",
       moment: {
         context: "Led by \"The Fate of Ophelia\" at number one, the full tracklist swept the top of the Hot 100 with no other song breaking the streak.\n\nIt was the first time in the chart’s history, dating back to the 1950s, that an entire album occupied every one of its top positions uninterrupted.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Billboard
+        // wp-content PR image 05 from the album's Mert & Marcus press set
+        // curl-verified 200 image/jpeg 1800x1200, downloaded and viewed — the
+        // jeweled-headdress shot, unused elsewhere in the corpus.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/05-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption:
+              'Crowning the showgirl: the jeweled-headdress press image from the album shoot, as all twelve tracks locked up the top twelve spots.',
+            kind: 'archival',
+            // Arms raised overhead push the face to the lower-center of the
+            // frame; bias the crop down to keep it.
+            focalPoint: '48% 58%',
+          },
+        ],
       },
     },
     {
@@ -3609,6 +3694,24 @@ export default {
       video: { youtubeId: "1FVF-9KQiPo", title: "Taylor Swift - Opalite (Official Music Video)" },
       moment: {
         context: "The video for \"Opalite\" casts Taylor as a wistful, cat-loving figure decades removed from the stage, before the song’s glow pulls her back into color.\n\nReleased as the second single, it kept the era’s pastel-orange visual thread going into the new year.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
+        // MV id 1FVF-9KQiPo verified via YouTube oEmbed this session
+        // ("Taylor Swift - Opalite (Official Music Video)", author
+        // @TaylorSwift); maxres1 frame (1280x720) curl-verified 200
+        // image/jpeg, downloaded and viewed — Taylor pointing to the opalite
+        // necklace (maxres2/3 show supporting cast only, skipped).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/1FVF-9KQiPo/maxres1.jpg',
+            credit: 'Taylor Swift / Republic Records (official "Opalite" video frame, YouTube)',
+            caption:
+              'From the "Opalite" video: Taylor points to the opal at her collarbone as the song pulls her character back into color.',
+            kind: 'primary',
+            // Pillarboxed frame; her face is centered with eyes in the upper
+            // third of the image.
+            focalPoint: '51% 32%',
+          },
+        ],
       },
     },
     {
@@ -3625,6 +3728,24 @@ export default {
       video: { youtubeId: "WqbJT_vC0rs", title: "Taylor Swift - Elizabeth Taylor (Official Music Video)" },
       moment: {
         context: "The song went to US hot adult contemporary radio first, followed a day later by a contemporary hit radio push, extending the album’s single cycle five months after release.\n\nA \"So Glamorous Cabaret Version\" and full digital package followed later that month, keeping the showgirl motif alive well into 2026.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
+        // MV id WqbJT_vC0rs verified via YouTube oEmbed this session
+        // ("Taylor Swift - Elizabeth Taylor (Official Music Video)", author
+        // @TaylorSwift); maxres3 frame (1280x720) curl-verified 200
+        // image/jpeg, downloaded and viewed — archival Elizabeth Taylor
+        // footage, distinct from the maxresdefault already used on the
+        // elizabeth-taylor track pages.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxres3.jpg',
+            credit: 'Taylor Swift / Republic Records (official "Elizabeth Taylor" video frame, YouTube)',
+            caption:
+              'The video leans on archival footage of its namesake: Elizabeth Taylor in a violet headscarf, diamond flashing, seaside.',
+            kind: 'primary',
+            // Letterboxed archival frame; her eyes sit just above the center.
+            focalPoint: '52% 40%',
+          },
+        ],
       },
     },
   ],
