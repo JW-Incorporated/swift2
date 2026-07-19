@@ -2006,6 +2006,24 @@ export default {
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
       moment: {
         context: "A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
+        // MV id Jb2stN7kH28 verified via YouTube oEmbed this session
+        // ("Taylor Swift - Our Song", author @TaylorSwift); sd2 frame
+        // (640x480) curl-verified 200 image/jpeg, downloaded and viewed —
+        // the flower-bed scene, a distinct frame from the sddefault already
+        // used on the our-song-talent-show page (maxres variants 404 for
+        // this 2007-era upload).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/Jb2stN7kH28/sd2.jpg',
+            credit: 'Taylor Swift / Big Machine Records (official "Our Song" video frame, YouTube)',
+            caption:
+              'Seventeen-year-old Taylor in the flower-bed scene of the "Our Song" video — the homemade-feeling clip behind her first number one.',
+            kind: 'primary',
+            // Face fills the center of the frame, eyes just above the midline.
+            focalPoint: '53% 40%',
+          },
+        ],
       },
     },
   ],
