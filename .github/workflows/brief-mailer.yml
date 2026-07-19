@@ -32,6 +32,12 @@
 # (self-mentions don't email), and @sffan15-sys / @wjduvall-cmd are bot identities,
 # not the founders' monitored inboxes. See docs/agents/marjorie.md › Delivery.
 #
+# It ALSO posts the full brief/delta to Slack #all-longlive-hq via a first-party
+# incoming webhook (repo secret SLACK_WEBHOOK_URL), rendering the entire brief
+# inline as Block Kit — not just a link. Deterministic, zero AI
+# (scripts/marjorie/post-to-slack.mjs); skips quietly if the secret is unset.
+# This rides alongside the email send above; email stays the delivery backup.
+#
 # Founder setup (issue #484): a Gmail account for Marjorie with 2-Step Verification
 # ON, then:
 #   - repo VARIABLE  MARJORIE_EMAIL      = that address
@@ -60,6 +66,8 @@ jobs:
   mail:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Pick the brief or delta to send
         id: pick
         env:
@@ -188,3 +196,12 @@ jobs:
               )
           print(f"Mailed [{p['subject']}] To sffan15@gmail.com, Cc wjduvall@gmail.com")
           PY
+
+      - name: Post the brief to Slack (#all-longlive-hq)
+        # always() so an email failure above doesn't suppress the Slack post,
+        # and vice-versa (email runs first). Skips quietly if the webhook
+        # secret is unset — same posture as the email step.
+        if: ${{ always() && steps.pick.outputs.found == 'true' }}
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        run: node scripts/marjorie/post-to-slack.mjs payload.json

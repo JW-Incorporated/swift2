@@ -7,6 +7,29 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-19 — Founders' Brief posted to Slack in full via incoming webhook
+
+**Decision:** The brief-mailer Action now posts the whole Founders' Brief and
+Evening Delta to Slack **#all-longlive-hq** via a first-party **incoming
+webhook** (repo secret `SLACK_WEBHOOK_URL`), rendering the entire brief inline
+as Block Kit (GFM converted to Slack mrkdwn, chunked into sections) from a
+deterministic, zero-AI script (`scripts/marjorie/post-to-slack.mjs`). It rides
+alongside the existing email send and skips quietly until the secret is set.
+
+**Why:** Founders want the brief readable directly in the channel, not just a
+link or a GitHub "new issue" notification. Slack is the primary interface
+(decision 2026-07-16/17); email remains the delivery backup, and the watchdog's
+same-day retry re-posts to Slack as well as re-mails on a failed run.
+
+**Alternatives considered:** post only a link to the issue (rejected — that is
+what the GitHub app subscription already does and it is not readable in place);
+use a Slack app/bot token instead of an incoming webhook (rejected — a webhook
+bound to one channel is the smallest-surface, no-scopes option for a one-way
+post).
+
+**Approved by:** Joey (CEO) — Slack-as-primary direction (decisions
+2026-07-16/17); implementation is deterministic plumbing under that call.
+
 ## 2026-07-18 — Standing grant: Marjorie merges held content-shift PRs herself
 
 **Decision:** `needs-human-review` on a routine Content-desk PR (label

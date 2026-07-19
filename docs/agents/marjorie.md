@@ -176,6 +176,10 @@ curation means compressing the skeleton into this shape, not appending to it.
 > GitHub app subscribed to the repo) and **#social** (growth desk lane), the
 > Claude and GitHub apps installed. Slack is now the founders' *primary*
 > interface; the email mailer below continues unchanged as delivery backup.
+> **2026-07-19 update:** the brief itself is no longer only a GitHub "new
+> issue" notification in Slack — the brief-mailer Action now posts the FULL
+> brief and Evening Delta inline to #all-longlive-hq via a first-party
+> incoming webhook (see the Slack bullet below).
 
 - **The real email channel is the brief-mailer Action**
   (`.github/workflows/brief-mailer.yml`) — a deterministic, zero-AI GitHub
@@ -209,6 +213,20 @@ curation means compressing the skeleton into this shape, not appending to it.
   `@wjduvall-cmd` are bot/session identities, not the founders' monitored
   Gmail addresses. If the brief-mailer is down, delivery is DOWN — the
   watchdog Action, not the mention line, is the backstop that pages founders.
+- **The brief-mailer Action ALSO posts the full brief to Slack
+  #all-longlive-hq (2026-07-19).** Alongside the email send, it posts the
+  FULL morning brief and Evening Delta to **#all-longlive-hq** via a
+  first-party **incoming webhook** — repo-side, deterministic, zero-AI
+  (`scripts/marjorie/post-to-slack.mjs`), the entire brief rendered inline
+  as Block Kit (GFM converted to Slack mrkdwn, split into sections so long
+  briefs render in full), **not merely a GitHub "new issue" notification**.
+  It is gated on the repo **secret `SLACK_WEBHOOK_URL`** and skips quietly
+  until it is set. One-time human setup (a founder does this — agents never
+  create accounts): create an **Incoming Webhook** on the Slack app bound to
+  **#all-longlive-hq**, then set the `SLACK_WEBHOOK_URL` repo secret to that
+  URL. If the webhook is down the step fails the run; the watchdog's same-day
+  retry re-runs the mailer and re-posts to Slack, the same backstop that
+  covers a missed email.
 - **Founders can reply to the emails (2026-07-16, Joey).** The
   `marjorie-inbox.yml` Action reads Marjorie's Gmail inbox every 30
   minutes and relays founder replies (From-address + DKIM verified) onto

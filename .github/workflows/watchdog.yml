@@ -14,7 +14,11 @@
 #      Confirmed for real 2026-07-18: brief-mailer.yml's 12:45 UTC trigger
 #      didn't fire at all that day. If today's brief exists but no
 #      brief-mailer run today actually mailed it, this triggers
-#      brief-mailer.yml directly as a same-day catch-up.
+#      brief-mailer.yml directly as a same-day catch-up. Since 2026-07-19
+#      brief-mailer also posts the full brief to Slack #all-longlive-hq, so
+#      re-running the whole workflow re-posts to Slack as well as email — a
+#      failed Slack post (which fails the run) is retried the same way a
+#      missed email is.
 #
 # Cron is UTC; the brief deadline is 6:00 AM America/Los_Angeles.
 # 14:30 UTC = 7:30 AM PDT (90 min grace) / 6:30 AM PST (30 min grace) —
