@@ -814,7 +814,9 @@ export default {
             credit: 'TSA / Getty Images',
           },
           {
-            url: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=75',
+            // Karen #877 fix (2026-07-19): q=75 render was 7.9KB and flagged as a
+            // likely placeholder; same 980px render at q=100 verified + viewed.
+            url: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=100',
             credit: 'TSA / Getty Images',
           },
         ],
