@@ -9,6 +9,17 @@ import type { Era } from '@/lib/longlive/types';
 import { EraSection } from './EraSection';
 
 /**
+ * Jump-scroll timing. SETTLE is how long we keep re-correcting AFTER first
+ * landing on the target (absorbing layout shift as images load in above it).
+ * MAX is the hard ceiling on the whole attempt, so a jump whose target never
+ * renders can't leave timers running forever. MAX is generous because it is
+ * a *ceiling*, not a delay: on a fast device the whole thing is done in a
+ * frame, and any user gesture stops it immediately.
+ */
+const JUMP_SCROLL_SETTLE_MS = 1500;
+const JUMP_SCROLL_MAX_MS = 8000;
+
+/**
  * The infinite era stream. You enter at an anchor era (the current era, or one
  * picked from the selector) and scroll *back* in time: older eras append below,
  * colors morph across gradient transition bands, and the era occupying the
@@ -101,27 +112,66 @@ export function EraStream() {
     // images arrive above the target — landing "in the middle of the era" or
     // on the wrong one, non-reproducibly depending on load timing. Re-correct
     // for a short settle window instead of trusting one snapshot.
+    // MOBILE JUMP FIX (2026-07-19, founder report: "select a different era and
+    // my screen doesn't scroll at all"). Every correction path here is
+    // frame-tied (rAF / ResizeObserver), but the settle window used to be a
+    // wall-clock timer that cancelled them. A jump re-renders up to 11 era
+    // sections (~300k px, hundreds of images); on a phone that layout+paint
+    // can take longer than the window, so the timer fired FIRST, set
+    // cancelled, and the frame that finally arrived did nothing — zero scroll
+    // attempts, screen frozen. Desktop finishes layout in ~30ms and always
+    // beat the timer, which is why this only ever showed up on mobile.
+    //
+    // So: never cancel before we've actually landed once, run a
+    // frame-INDEPENDENT poll (setInterval fires even when frames don't), and
+    // start the settle window only after the first successful positioning —
+    // the window's real job is absorbing the layout shift as images load
+    // above the target, which only matters once we're there.
     let cancelled = false;
+    let landedAt = 0;
+    const deadline = Date.now() + JUMP_SCROLL_MAX_MS;
+    // Declared before stop() so it can never hit a temporal-dead-zone
+    // ReferenceError if a correction ever stops on its very first pass.
+    let poll: number | undefined;
+    let ro: ResizeObserver | undefined;
+
+    const stop = () => {
+      cancelled = true;
+      ro?.disconnect();
+      if (poll !== undefined) window.clearInterval(poll);
+      window.removeEventListener('wheel', onUserScroll);
+      window.removeEventListener('touchstart', onUserScroll);
+    };
+
     const correct = () => {
       if (cancelled) return;
       const el = document.querySelector<HTMLElement>(`[data-ll-section="${targetId}"]`);
-      const top = el ? el.getBoundingClientRect().top + window.scrollY : 0;
-      window.scrollTo({ top, behavior: 'auto' });
+      // Target not rendered yet — WAIT. (Previously this fell back to top: 0,
+      // which yanked the reader to the top of the page instead.)
+      if (!el) {
+        if (Date.now() > deadline) stop();
+        return;
+      }
+      window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: 'auto' });
+      if (!landedAt) landedAt = Date.now();
+      // Settle window starts at the FIRST landing, not at the jump.
+      if (Date.now() - landedAt > JUMP_SCROLL_SETTLE_MS || Date.now() > deadline) stop();
     };
+
+    // A user gesture always wins — never fight someone who has taken over.
+    const onUserScroll = () => stop();
+
+    correct(); // immediate attempt: needs no frame at all
     requestAnimationFrame(() => requestAnimationFrame(correct));
+    if (!cancelled) {
+      poll = window.setInterval(correct, 100);
+      ro = new ResizeObserver(correct);
+      ro.observe(document.body);
+      window.addEventListener('wheel', onUserScroll, { passive: true });
+      window.addEventListener('touchstart', onUserScroll, { passive: true });
+    }
 
-    const ro = new ResizeObserver(correct);
-    ro.observe(document.body);
-    const settleTimer = window.setTimeout(() => {
-      cancelled = true;
-      ro.disconnect();
-    }, 1500);
-
-    return () => {
-      cancelled = true;
-      ro.disconnect();
-      window.clearTimeout(settleTimer);
-    };
+    return stop;
   }, [eraJumpSeq]);
 
   const sequence = useMemo(() => erasBackFrom(anchorId, count), [anchorId, count]);

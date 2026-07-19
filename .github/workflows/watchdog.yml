@@ -164,3 +164,65 @@ jobs:
               --body "@sffan15-sys @wjduvall-cmd — ${URL} returned HTTP ${CODE} or missing expected content at $(date -u +'%H:%M UTC'). Check the Vercel dashboard; last deploys are listed on merged PRs. This is the daily zero-AI smoke check from watchdog.yml."
           fi
           exit 1
+
+      # Scheduled-workflow cadence check (2026-07-19, Wyatt). The news-worker
+      # red-looped hourly for a full day — every run crashing in ~1s on unset
+      # SUPABASE_* secrets — and nothing surfaced it, so the intake queue
+      # stayed empty and the site went stale (newest post Jul 10). A workflow
+      # that is scheduled but always failing is invisible without this: it
+      # produces no output to notice the absence of. Marjorie now sees it.
+      - name: Scheduled workflows healthy (cadence view)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          # workflow:max-age-hours — a workflow with NO successful run inside
+          # its window is considered down. Windows are ~2x the schedule so a
+          # single miss doesn't page anyone.
+          WATCHED="news-worker.yml:10 social-poster.yml:6 marjorie-inbox.yml:6"
+          BROKEN=""
+          for ENTRY in $WATCHED; do
+            WF="${ENTRY%%:*}"; MAXAGE="${ENTRY##*:}"
+            # Skip a workflow that isn't in this repo (keeps the list portable).
+            gh workflow view "$WF" --repo "$REPO" >/dev/null 2>&1 || continue
+            LAST_OK=$(gh run list --repo "$REPO" --workflow "$WF" --status success \
+              --limit 1 --json createdAt --jq '.[0].createdAt // empty')
+            if [ -z "$LAST_OK" ]; then
+              BROKEN="${BROKEN}- \`${WF}\`: **no successful run on record**\n"
+              continue
+            fi
+            AGE_H=$(( ( $(date -u +%s) - $(date -u -d "$LAST_OK" +%s) ) / 3600 ))
+            if [ "$AGE_H" -gt "$MAXAGE" ]; then
+              BROKEN="${BROKEN}- \`${WF}\`: last success ${AGE_H}h ago (expected within ${MAXAGE}h)\n"
+            fi
+          done
+
+          ALERT_TITLE="Watchdog: scheduled workflow(s) not succeeding"
+          EXISTING=$(gh issue list --repo "$REPO" --label watchdog-alert \
+            --search "\"$ALERT_TITLE\" in:title" --state open --json number --jq '.[0].number // empty')
+
+          if [ -z "$BROKEN" ]; then
+            # Self-healing: close a stale alert once everything recovers.
+            if [ -n "$EXISTING" ]; then
+              gh issue comment "$EXISTING" --repo "$REPO" \
+                --body "All watched workflows are succeeding again as of $(date -u +'%H:%M UTC'). Closing."
+              gh issue close "$EXISTING" --repo "$REPO"
+            fi
+            echo "cadence OK"
+            exit 0
+          fi
+
+          BODY="@sffan15-sys @wjduvall-cmd — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss).
+
+          $(printf "%b" "$BROKEN")
+          Check the run logs: https://github.com/${REPO}/actions
+
+          Most common cause: a required repo secret is unset or misnamed. Note that **Vercel environment variables are NOT GitHub Actions secrets** — the news-worker reads repo-level Actions secrets (Settings → Secrets and variables → Actions), not Vercel's env store, and not *Environment*-scoped secrets (its job declares no \`environment:\`)."
+
+          if [ -n "$EXISTING" ]; then
+            gh issue comment "$EXISTING" --repo "$REPO" --body "$BODY"
+          else
+            gh issue create --repo "$REPO" --label watchdog-alert \
+              --title "$ALERT_TITLE" --body "$BODY"
+          fi
