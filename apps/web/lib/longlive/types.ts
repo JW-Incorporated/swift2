@@ -40,18 +40,55 @@ export type Confidence =
   | 'joke_meme';
 
 /**
+ * The confirmed tier of `Confidence`: at/above this a claim is established
+ * fact and renders with no qualifier. Anything below renders LOUDLY as
+ * reported/rumored (MomentDetail's banner) so a claim can never quietly read
+ * as fact. Single definition shared by the UI and mirrored by the content
+ * engine's rumor-gap checker (scripts/content-engine/checkers/rumor-gap.mjs).
+ */
+export const CONFIRMED_TIER: ReadonlySet<Confidence> = new Set(['official', 'confirmed_interview']);
+
+/**
+ * Where a reported rumor stands today. Unlike TheoryOutcome (fan-theory
+ * lifecycle), this is the lifecycle of a PRESS claim: it starts
+ * 'unconfirmed' and can resolve either way as facts land — the entry stays
+ * in the record with an honest resolution badge instead of being deleted.
+ */
+export type RumorStatus = 'unconfirmed' | 'partially_confirmed' | 'confirmed' | 'debunked';
+
+/**
+ * One attributed, dated, reported-but-unconfirmed claim attached to a moment
+ * (`ContentItem.rumors`) — the structural home for hot topics where solid
+ * sourcing is thin (the MSG wedding is the canonical case). Renders in
+ * MomentDetail's visually distinct "What's rumored" section, never woven
+ * into the confirmed narrative. Every field that makes the rumor honest is
+ * REQUIRED — the generator (scripts/sync-longlive-content.mjs) drops any
+ * entry missing its claim, outlet, date, status, or link rather than
+ * guessing, the same rule the theories generator applies.
+ */
+export interface RumorNote {
+  /** The reported claim, in OUR words, framed as a report — never as fact. */
+  claim: string;
+  /** The outlet that reported it, e.g. "TMZ" — an unattributed rumor never ships. */
+  reportedBy: string;
+  /** ISO date (YYYY-MM-DD) the report was published. */
+  reportedOn: string;
+  /** Where the claim stands now — drives the badge. */
+  status: RumorStatus;
+  /** Link to the report. */
+  url: string;
+  /** Optional editorial context in our words (an estimate caveat, what debunked it). */
+  note?: string;
+}
+
+/**
  * Where a theory's claim landed. Mirrors THEORY_OUTCOMES in
  * packages/shared/src/vault-types.ts (the source of truth) — same 6 values,
  * kept in sync, not a new enum. Required alongside `confidence` on every
  * TheoryNote so speculation never renders as fact.
  */
 export type TheoryOutcome =
-  | 'confirmed'
-  | 'partially_confirmed'
-  | 'pending'
-  | 'debunked'
-  | 'abandoned'
-  | 'unfalsifiable';
+  'confirmed' | 'partially_confirmed' | 'pending' | 'debunked' | 'abandoned' | 'unfalsifiable';
 
 export type MilestoneKind = 'album' | 'tour' | 'life' | 'business' | 'award';
 
@@ -159,10 +196,22 @@ export interface ContentItem {
    */
   sources?: EggSource[];
   /**
-   * How well-supported the claim is. Absent = a confirmed fact (no pill).
-   * Present + below confirmed-tier = a confidence pill in the detail view.
+   * How well-supported the claim is. Absent = a confirmed fact (no label).
+   * Present + below CONFIRMED_TIER = an unmissable "Rumor — unconfirmed" /
+   * "Reported — not confirmed" banner in the detail view, naming the
+   * reporting outlet (the first `sources` entry) — a sub-confirmed moment
+   * must never look like established fact. Authored on the seed row and
+   * piped through scripts/sync-longlive-content.mjs.
    */
   confidence?: Confidence;
+  /**
+   * Attributed, dated rumors/reports about this moment (see RumorNote).
+   * Renders as MomentDetail's visually distinct "What's rumored" section
+   * after the confirmed narrative — the structural answer to hot topics
+   * with thin confirmed sourcing. Authored as `moment.rumors` on the seed
+   * row and piped through scripts/sync-longlive-content.mjs.
+   */
+  rumors?: RumorNote[];
   /** Optional hidden clue — renders the glint treatment when present. */
   hiddenClue?: HiddenClue;
   /** Optional official music video, embedded via YouTube in the detail view. */
@@ -478,12 +527,7 @@ export interface TheoryNote {
 /** What kind of visual-media work a VideoNote records. Mirrors VIDEO_KINDS in
  * packages/shared/src/vault-types.ts. */
 export type VideoNoteKind =
-  | 'music_video'
-  | 'lyric_video'
-  | 'short_film'
-  | 'tour_film'
-  | 'documentary'
-  | 'performance';
+  'music_video' | 'lyric_video' | 'short_film' | 'tour_film' | 'documentary' | 'performance';
 
 /**
  * One official video/visual-media work in an era's videos rail
@@ -650,12 +694,7 @@ export interface Motif {
 }
 
 export type LensId =
-  | 'love-story'
-  | 'fashion'
-  | 'taylors-version'
-  | 'easter-eggs'
-  | 'hidden-clues'
-  | 'the-proposal';
+  'love-story' | 'fashion' | 'taylors-version' | 'easter-eggs' | 'hidden-clues' | 'the-proposal';
 
 /** One end (plant or payoff) of a hidden-clue pair. */
 export interface CluePoint {
@@ -681,7 +720,8 @@ export interface CluePoint {
 /** A coarse category for what kind of clue a CluePair is — distinct from the
  * Clue Web's MotifId (a different feature, `easter-eggs` thread). Optional:
  * the UI hides the motif badge rather than guessing when absent. */
-export type DecodeMotifId = 'number' | 'object' | 'lyric' | 'name' | 'structural' | 'theme' | 'political';
+export type DecodeMotifId =
+  'number' | 'object' | 'lyric' | 'name' | 'structural' | 'theme' | 'political';
 
 export const DECODE_MOTIF_META: Record<DecodeMotifId, { label: string }> = {
   number: { label: 'Number' },
