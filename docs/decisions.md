@@ -71,6 +71,41 @@ OpenAI account, separate billing) hit its own usage limit reviewing round
 delegated; photo-sourcing for round 3 follows the same direct-research path
 once the mechanical baseline is verified and committed.
 
+## 2026-07-18 — Standing grant: Marjorie merges held content-shift PRs herself
+
+**Decision:** `needs-human-review` on a routine Content-desk PR (label
+`content-shift`, seed/content files only) is advisory, not blocking.
+Marjorie merges that class under her existing envelope — green required CI,
+no changes-requested review, no founder hold, reversible by plain revert —
+without a per-item founder ask. Post-merge audit (Karen's nightly scan +
+Nils's walks) replaces the pre-merge human look; rollback duty unchanged.
+
+**Why:** The label marks PRs whose authoring environment couldn't run Codex
+review; founders were merging them unchanged as a formality (#769/#779/#782/
+#790). Joey directed the change by email (2026-07-18 06:29 UTC) and, because
+merge-authority grants can't vest by email, confirmed it natively the same
+day: "Confirmed" on brief #822
+(https://github.com/JW-Incorporated/swift2/issues/822#issuecomment-5011423323).
+
+**Alternatives considered:** keep per-item founder merges (rejected —
+founder bottleneck on a rubber-stamp class); drop the label (rejected — it
+still records that pre-merge Codex review didn't run, which the audit desks
+use).
+
+**Approved by:** Joey (CEO) — founder-authored comment on brief #822.
+
+## 2026-07-18 — MOBILE launch gate closed (founder device check)
+
+**Decision:** The MOBILE gate (#634, founder-declared 2026-07-14) is 🟢:
+Joey verified the new landing-page front door on his phone — "Checked on
+mobile. Good to go." (#634, 2026-07-18 13:13 UTC). Second gate green after
+SONGS; any regression reopens via a new ticket.
+
+**Why recorded:** #634 was a founder-declared launch gate; its closure is
+the go/no-go trail.
+
+**Approved by:** Joey (CEO), on-device, on #634.
+
 ## 2026-07-19 — Round 2: the next 10 career-defining events
 
 **Decision:** Follow-up to the first 10-event pass (same-day, separate PR
