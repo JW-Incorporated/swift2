@@ -1454,6 +1454,9 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-tloas-5", label: "Married at MSG", kind: "life" },
+      // the-proposal thread opt-in (stage 3, 2026-07-19): the End Game
+      // thread's final beat, now derived from this moment.
+      threadIds: ['the-proposal'],
       snippet:
         'A wedding officiated by their friend Adam Sandler — no bridesmaids or groomsmen, just Austin Swift as her Man of Honor and Jason Kelce as his best man. Roughly 1,000 guests, and a jumbotron outside the arena reading "JUST&T MARRIED!"',
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/',
@@ -2083,6 +2086,8 @@ export default {
     },
     {
       slug: 'showgirl-engagement-announcement',
+      // Pull-quote for the derived End Game thread card (stage 3, 2026-07-19).
+      pullQuote: '“Your English teacher and your gym teacher are getting married.”',
       significance: 'defining', // the direct precursor to the wedding, one of the most-repeated cultural moments of 2025 (docs/decisions.md, 2026-07-19)
       threadIds: ['the-proposal'],
       relatedIds: [

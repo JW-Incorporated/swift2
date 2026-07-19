@@ -313,6 +313,7 @@ export function addItem(
     dateLabel: dateLabelOverride,
     hiddenClue,
     milestone,
+    pullQuote,
   },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
@@ -374,6 +375,8 @@ export function addItem(
       milestone && typeof milestone.id === 'string' && milestone.id && typeof milestone.label === 'string' && milestone.label && ['album', 'tour', 'life', 'business', 'award'].includes(milestone.kind)
         ? { id: milestone.id, label: milestone.label, kind: milestone.kind }
         : undefined,
+    // Thread-card pull-quote (stage 3): a caption/lyric/statement string.
+    pullQuote: typeof pullQuote === 'string' && pullQuote.trim() ? pullQuote.trim() : undefined,
     relatedIds: relatedIdsFrom(relatedIds),
     threadIds: threadIdsFrom(threadIds),
     significance: significanceFrom(significance),
@@ -536,6 +539,7 @@ async function fetchFromLocalFiles() {
         dateLabel: item.dateLabel ?? null,
         hiddenClue: item.hiddenClue ?? null,
         milestone: item.milestone ?? null,
+        pullQuote: item.pullQuote ?? null,
       });
     }
   }
@@ -590,6 +594,7 @@ export function buildOutputSource(byEra) {
   lines.push('  video?: { youtubeId: string; title: string };');
   lines.push('  hiddenClue?: HiddenClue;');
   lines.push('  milestone?: { id: string; label: string; kind: MilestoneKind };');
+  lines.push('  pullQuote?: string;');
   lines.push('  relatedIds?: string[];');
   lines.push('  threadIds?: LensId[];');
   lines.push("  significance?: 'defining' | 'notable';");
@@ -636,6 +641,9 @@ export function buildOutputSource(byEra) {
       }
       if (it.milestone) {
         lines.push(`      milestone: { id: ${esc(it.milestone.id)}, label: ${esc(it.milestone.label)}, kind: ${esc(it.milestone.kind)} },`);
+      }
+      if (it.pullQuote) {
+        lines.push(`      pullQuote: ${esc(it.pullQuote)},`);
       }
       if (it.relatedIds && it.relatedIds.length) {
         lines.push(`      relatedIds: [${it.relatedIds.map(esc).join(', ')}],`);

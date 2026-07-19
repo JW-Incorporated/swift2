@@ -2229,6 +2229,9 @@ export default {
       day: 19,
       category: 'music',
       title: 'So High School, annotated by the internet in minutes',
+      // the-proposal thread opt-in (stage 3, 2026-07-19): the song fans read
+      // as the relationship's track — a beat of the derived End Game thread.
+      threadIds: ['the-proposal'],
       snippet:
         'The "marry, kiss, or kill me" line traces to a viral 2016 Travis interview clip, and fans caught the nod to his impressions of his dad — the album\'s one openly giddy chapter.',
       sourceUrl: 'https://www.today.com/popculture/music/so-high-school-taylor-swift-lyrics-meaning-rcna148574',
@@ -2717,6 +2720,9 @@ export default {
       day: 8,
       category: 'sighting',
       title: "Box seats at Arthur Ashe for the US Open men's final",
+      // the-proposal thread opt-in (stage 3, 2026-07-19): the first big
+      // non-football public date — a beat of the derived End Game thread.
+      threadIds: ['the-proposal'],
       snippet:
         'A rare non-football sports date: she and Travis watched Sinner beat Fritz from a box with Patrick and Brittany Mahomes — a red-and-white checkered dress and a Gucci bucket hat between them.',
       sourceUrl: 'https://abcnews.go.com/GMA/Culture/taylor-swift-travis-kelce-attend-us-open-mens/story?id=113500642',

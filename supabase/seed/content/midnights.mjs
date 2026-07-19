@@ -703,6 +703,10 @@ export default {
       day: 26,
       category: 'relationship',
       title: "The friendship bracelet Travis couldn't deliver",
+      // the-proposal thread opt-in + pull-quote (stage 3, 2026-07-19 — the
+      // derived End Game thread starts here; quote from the New Heights episode).
+      threadIds: ['the-proposal'],
+      pullQuote: '“I was a little butthurt I didn’t get to meet her.”',
       snippet:
         "He made a bracelet with his number on it for her Arrowhead Eras Tour stop, worked up the nerve, and never got the chance to hand it over.",
       sourceUrl:
@@ -3502,6 +3506,41 @@ export default {
       snippet: "A concert film breaks box-office records for the format.",
       moment: {
         context: "Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.",
+      },
+    },
+
+    // ── Migrated from the End Game thread's hand-authored beat list (stage 3,
+    // 2026-07-19): the WSJ confirmation was a beat with no vault moment — the
+    // only one — so it becomes a real moment; the thread now derives fully
+    // from tagged moments. Beat text carried verbatim; wsjshop.com cover
+    // image verified HTTP 200 + image/jpeg this session (the beat's other
+    // option was a watermarked Getty comp, dropped per the image protocol).
+    {
+      slug: 'prop-wsj-confirm',
+      year: 2023,
+      month: 11,
+      day: 1,
+      category: 'relationship',
+      threadIds: ['the-proposal'],
+      title: 'Travis confirms it, on the record',
+      snippet: 'After weeks of stadium-suite appearances, Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
+      sourceUrl: 'https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac',
+      thumbnailUrl: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
+      moment: {
+        context: 'After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs-Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
+        sources: [
+          {
+            outlet: 'WSJ. Magazine',
+            url: 'https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
+            credit: 'Gregory Harris/WSJ. Magazine',
+            caption: 'The WSJ. Magazine cover interview where Travis spoke to the relationship on the record.',
+          },
+        ],
       },
     },
   ],

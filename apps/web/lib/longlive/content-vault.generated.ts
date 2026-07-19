@@ -18,6 +18,7 @@ type VaultRawItem = {
   video?: { youtubeId: string; title: string };
   hiddenClue?: HiddenClue;
   milestone?: { id: string; label: string; kind: MilestoneKind };
+  pullQuote?: string;
   relatedIds?: string[];
   threadIds?: LensId[];
   significance?: 'defining' | 'notable';
@@ -3862,6 +3863,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg/960px-Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg", credit: "Accedie, CC BY-SA 4.0, via Wikimedia Commons", caption: "Travis Kelce in the No. 87 jersey during the 2023 Chiefs season — the number he put on the friendship bracelet he never got to deliver.", kind: "archival" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/travis-kelce-taylor-swift-phone-number-friendship-bracelet-1235379640/" }, { name: "E! Online", url: "https://www.eonline.com/news/1421151/travis-kelces-taylor-swift-friendship-bracelet-fate-revealed" }],
+      pullQuote: "“I was a little butthurt I didn’t get to meet her.”",
+      threadIds: ["the-proposal"],
     },
     {
       id: "vault-midnights-first-chiefs-game-cheering-on-from-the-family-suite",
@@ -4729,6 +4732,19 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide."],
       tags: ["Tour"],
       milestone: { id: "m-mid-3", label: "Eras Tour film", kind: "tour" },
+    },
+    {
+      id: "vault-midnights-travis-confirms-it-on-the-record",
+      slug: "prop-wsj-confirm",
+      date: "2023-11-01",
+      dateLabel: "November 1, 2023",
+      title: "Travis confirms it, on the record",
+      summary: "After weeks of stadium-suite appearances, Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.",
+      body: ["After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs-Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves."],
+      tags: ["Relationship"],
+      images: [{ url: "https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778", credit: "Gregory Harris/WSJ. Magazine", caption: "The WSJ. Magazine cover interview where Travis spoke to the relationship on the record.", kind: "primary" }],
+      sources: [{ name: "WSJ. Magazine", url: "https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac" }],
+      threadIds: ["the-proposal"],
     },
   ],
   "red": [
@@ -6878,6 +6894,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/" }, { name: "Billboard", url: "https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/" }],
       milestone: { id: "m-tloas-5", label: "Married at MSG", kind: "life" },
       relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official"],
+      threadIds: ["the-proposal"],
       significance: "defining",
       rumors: [
         { claim: "Sources close to the wedding told TMZ a massive white castle was being assembled inside a garden built on the arena floor — crews were filmed craning in a giant white staircase, and scenic crates arrived labeled \"Garden Party.\"", reportedBy: "TMZ", reportedOn: "2026-06-30", status: "unconfirmed", url: "https://www.tmz.com/2026/06/30/taylor-swift-travis-kelce-building-castle-for-wedding-celebration/", note: "No photos from inside the Garden have ever been released, so what the build-out actually looked like remains unconfirmed." },
@@ -6986,6 +7003,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The proposal, from the couple's official announcement post: Kelce and Swift beneath a flower-covered arch in the garden, ringed by urns of pink-and-white blooms.", kind: "primary", focalPoint: "52% 50%" }, { url: "https://i.abcnewsfe.com/a/826038ad-f638-4da8-9501-08748f22125b/swift-kelce-engagement-02-ht-jef-250826_1756229507971_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The scale of the staging: the couple beneath the floral arch and a flower-ringed chandelier deep in the garden — Swift in a striped summer dress, Kelce in navy.", kind: "primary", focalPoint: "50% 64%" }, { url: "https://i.abcnewsfe.com/a/a0e8236a-f7e0-4462-8139-eedaae95e5f0/swift-kelce-engagement-04-ht-jef-250826_1756229507890_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "From the same carousel: the couple embrace among the garden flowers, the new ring visible on Swift's hand.", kind: "primary", focalPoint: "47% 30%" }, { url: "https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The ring close-up from the carousel: the Old Mine Cut brilliant diamond in yellow gold, designed by Travis Kelce with Kindred Lubeck of Artifex Fine Jewelry.", kind: "primary", focalPoint: "50% 42%" }, { url: "https://i.abcnewsfe.com/a/3a2fb75a-4d19-4924-a103-78328191421c/swift-kelce-engagement-03-ht-jef-250826_1756229507890_hpMain.jpg", credit: "via @taylorswift/Instagram (ABC News)", caption: "The missing frame from the carousel: the embrace right after the proposal, the new ring visible on Swift's hand as she holds Kelce.", kind: "primary", focalPoint: "48% 35%" }, { url: "https://i.abcnewsfe.com/a/7896331b-7a75-44df-9649-74b77732d132/swift-kelce-01-gty-jef-250829_1756467997339_hpMain.jpg", credit: "Jamie Squire/Getty Images, via ABC News", caption: "Their first public sighting since the engagement: Swift with Travis and Jason Kelce in a suite at Arrowhead Stadium for a Cincinnati Bearcats-Nebraska Cornhuskers game, Aug. 28, 2025 — two days after the announcement.", kind: "archival", focalPoint: "62% 55%" }],
       sources: [{ name: "Taylor Swift & Travis Kelce engagement announcement (joint post)", url: "https://www.instagram.com/p/DN02niAXMM-/" }, { name: "Taylor Swift, Travis Kelce are married: See their relationship timeline", url: "https://abcnews.com/GMA/Culture/taylor-swift-travis-kelce-relationship-timeline/story?id=118197742" }, { name: "Taylor Swift's engagement ring from Travis Kelce is one of a kind, vintage-inspired and really expensive", url: "https://www.yahoo.com/lifestyle/article/a-look-back-at-taylor-swifts-one-of-a-kind-vintage-inspired-engagement-ring-from-travis-kelce-194728425.html" }, { name: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses", url: "https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776" }],
       milestone: { id: "m-tloas-1b", label: "Engagement announced", kind: "life" },
+      pullQuote: "“Your English teacher and your gym teacher are getting married.”",
       relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official", "moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in", "moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
       threadIds: ["the-proposal"],
       significance: "defining",
@@ -7821,6 +7839,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/w-FkV0EM_CU/maxresdefault.jpg", credit: "YouTube / Taylor Swift", caption: "Still from the official \"So High School\" lyric video on Taylor Swift's YouTube channel.", kind: "archival", focalPoint: "43% 45%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/8/87/Travis_Kelce_2021.jpg", credit: "Erik Drost, CC BY 2.0, via Wikimedia Commons", caption: "Travis Kelce — the song's widely read subject, down to the resurfaced marry-kiss-kill clip.", kind: "reference", focalPoint: "50% 38%" }],
       sources: [{ name: "'So High School' Lyrics: What Does the Taylor Swift Song Mean?", url: "https://www.today.com/popculture/music/so-high-school-taylor-swift-lyrics-meaning-rcna148574" }, { name: "Taylor Swift Fans Thrilled Over Apparent Reference to Travis Kelce and His Dad, Ed Kelce, on 'So High School'", url: "https://www.etonline.com/taylor-swift-fans-thrilled-over-apparent-reference-to-travis-kelce-and-his-dad-ed-on-so-high-school" }],
+      threadIds: ["the-proposal"],
     },
     {
       id: "vault-ttpd-three-nights-three-scottish-attendance-records-at-murrayfiel",
@@ -7917,6 +7936,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://i.abcnewsfe.com/a/667ac5d8-cb5f-48cd-9230-89ea434a7644/Taylor-Travis-Patrick-Brittany-USOpen-1-ap-jm-240908_1725821927016_hpMain_16x9.jpg?w=1600", credit: "AP (via ABC News)", caption: "Swift, Brittany Mahomes, Travis Kelce, and Patrick Mahomes in the box at Arthur Ashe Stadium, Sept. 8, 2024.", kind: "primary", focalPoint: "55% 42%" }, { url: "https://i.abcnewsfe.com/a/1fc501ac-ba55-40eb-b3ce-02983fbfa66f/Taylor-Travis-Patrick-Brittany-USOpen-1-rt-jm-240908_1725822057337_hpEmbed_11x7.jpg?w=1500", credit: "Reuters (via ABC News)", caption: "Applauding the final from the box — Kelce, Swift, and the Mahomeses reacting to the match.", kind: "archival", focalPoint: "47% 42%" }],
       sources: [{ name: "Taylor Swift and Travis Kelce attend US Open men's final with Patrick and Brittany Mahomes", url: "https://abcnews.go.com/GMA/Culture/taylor-swift-travis-kelce-attend-us-open-mens/story?id=113500642" }, { name: "In her tennis era: Taylor Swift and Travis Kelce attend 2024 US Open", url: "https://www.usopen.org/en_US/news/articles/2024-09-08/in_her_tennis_era_taylor_swift_and_travis_kelce_attend_2024_us_open.html" }],
+      threadIds: ["the-proposal"],
     },
     {
       id: "vault-ttpd-seven-more-vmas-and-a-tie-with-beyonc-at-30",

@@ -47,8 +47,9 @@ export type Confidence =
  * `SubConfirmed` type, and the `isSubConfirmed` guard all derive from it, so
  * moving a value across the tier is one edit and the compiler flags every
  * lookup table that hasn't caught up. Mirrored (with a pointer comment, not
- * an import — plain-node script) by the content engine's rumor-gap checker
- * (scripts/content-engine/checkers/rumor-gap.mjs).
+ * an import — plain-node script) by the content engine's hot-thin-topic
+ * checker (scripts/content-engine/checkers/hot-thin-topic.mjs, which absorbed
+ * the retired rumor-gap checker's role).
  */
 const CONFIRMED_TIER_VALUES = ['official', 'confirmed_interview'] as const;
 type ConfirmedTier = (typeof CONFIRMED_TIER_VALUES)[number];
@@ -326,6 +327,12 @@ export interface ContentItem {
    * milestone id for stability.
    */
   milestone?: { id: string; label: string; kind: MilestoneKind };
+  /**
+   * Optional pull-quote (a caption, lyric, or public statement) rendered on
+   * thread beat cards (stage 3, 2026-07-19 — replaces StoryBeat.quote when
+   * threads derive from tagged moments instead of hand-authored beat lists).
+   */
+  pullQuote?: string;
   /**
    * Shoppable products worn in this moment (fashion moments, mostly) — the
    * exact garments with direct retailer product pages. Rendered as the
@@ -839,27 +846,7 @@ export interface CluePair {
   sources: EggSource[];
 }
 
-/**
- * A single dated, sourced moment on a narrative story thread (e.g. the
- * engagement timeline). Unlike the other lens datasets, story beats carry a
- * real-world citation so fans can trust the facts.
- */
-export interface StoryBeat {
-  id: string;
-  /** ISO date (YYYY-MM-DD). */
-  date: string;
-  /** Human display date, e.g. "August 26, 2025". */
-  dateLabel: string;
-  eraId: EraId;
-  title: string;
-  body: string;
-  /** Publication the fact is attributed to, e.g. "AP News". */
-  source?: string;
-  /** Optional pull-quote (a caption, lyric, or public statement). */
-  quote?: string;
-  /** A real photo of this specific beat, or a labeled 'reference' stand-in
-   * when the real moment hasn't been photographed/isn't available — reuses
-   * ImageRef so the same 'reference'-never-implies-'primary' rule from
-   * MomentDetail applies here too. */
-  image?: ImageRef;
-}
+// StoryBeat removed (consolidation stage 3, 2026-07-19): thread beats derive
+// from ContentItems tagged with the thread (threadIds + pullQuote) — no
+// parallel beat type.
+
