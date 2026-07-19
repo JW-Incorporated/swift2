@@ -40,9 +40,20 @@ Phase 1), shifts author *as* the routed persona; until then, house voice.)
 
 ## Throttles
 
-≤2 items authored per run (quality over volume); ≥3 open `content-shift`
-PRs blocks new runs (WIP limit, Austin's pattern); per-run token budget;
+≤2 items authored per run (quality over volume); per-run token budget;
 never touches an item a human is visibly working.
+
+**Removed 2026-07-19 (Wyatt): the "≥3 open `content-shift` PRs blocks new
+runs" WIP limit.** It borrowed Austin's pattern, but it does not transfer:
+Austin's PRs are all Austin's, whereas the `content-shift` LABEL is applied
+by other routines too — the hourly photo-enrichment worker labels every one
+of its PRs `content-shift`, and it is prolific enough to keep 3+ open around
+the clock. So an unrelated bot could silently starve the authoring bot
+indefinitely, and the failure is invisible: the run exits clean, writes no
+ledger comment, and nothing reports that authoring was skipped. Throughput
+is already bounded by ≤2 items/run and the twice-daily cadence; a WIP limit
+on top of that only adds a way to stall. Merge-queue pressure is a founder
+concern, not a reason for the writer to stop writing.
 
 ## Hard invariants
 
