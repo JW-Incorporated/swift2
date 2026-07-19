@@ -28,13 +28,14 @@ import * as imageOveruse from './checkers/image-overuse.mjs';
 import * as imageLiveness from './checkers/image-liveness.mjs';
 import * as imageModeration from './checkers/image-moderation.mjs';
 import * as depthDeficit from './checkers/depth-deficit.mjs';
+import * as productGap from './checkers/product-gap.mjs';
 
 // imageModeration no-ops without GOOGLE_VISION_API_KEY, so it is safe to always
 // include — it only does work (and costs) when a moderation key is provisioned.
 // imageUrlQuality is network-free, so it runs even under --no-images / egress
 // blocks — it is the fallback that keeps the image-quality gate alive when the
 // byte-level resolution check in imageLiveness can't reach hosts.
-const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit];
+const DET_CHECKERS = [numericDate, redlines, imageUrlQuality, photoSparsity, imageOveruse, imageLiveness, imageModeration, depthDeficit, productGap];
 const FINDINGS_DIR = join(ROOT, CONFIG.output.findingsDir);
 const log = (...a) => console.log(...a);
 const today = () => new Date().toISOString().slice(0, 10);

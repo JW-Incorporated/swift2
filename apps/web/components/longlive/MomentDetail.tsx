@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { X, Sparkles, Share2, ArrowRight, Route, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
+import { X, Sparkles, Share2, ArrowRight, Route, Heart, ChevronLeft, ChevronRight, ShoppingBag, ExternalLink } from 'lucide-react';
 import {
   useAppState,
   useAppActions,
@@ -18,7 +18,8 @@ import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 import { extractYouTubeId } from '@swift2/shared';
 import { ZoomableImage } from './ZoomableImage';
-import { focalPointOf, primaryImageRef, type Confidence, type ImageKind, type ImageRef, type LensId } from '@/lib/longlive/types';
+import { focalPointOf, primaryImageRef, type Confidence, type ImageKind, type ImageRef, type LensId, type Product } from '@/lib/longlive/types';
+import { buildShopUrl } from '@/lib/longlive/shop';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
 // At/above this tier a moment is established fact — no pill. Below it, a
@@ -396,6 +397,8 @@ export function MomentDetail() {
 
         {item.video && <MomentVideo video={item.video} />}
 
+        <ShopTheLook products={item.products} />
+
         {item.sources && item.sources.length > 0 && (
           <div className="mt-8 border-t pt-4" style={{ borderColor: 'var(--era-line)' }}>
             {/* A source that is a YouTube link embeds as a click-to-play facade
@@ -496,6 +499,65 @@ export function MomentDetail() {
           onClose={() => setLightboxIndex(null)}
         />
       )}
+    </div>
+  );
+}
+
+/**
+ * "Shop the look" — the moment's shoppable products (ContentItem.products),
+ * each row a DIRECT link to the exact retailer product page. Every href goes
+ * through buildShopUrl() (lib/longlive/shop.ts) — never product.url directly
+ * — so the later direct→affiliate flip is a one-function change with zero
+ * content edits; rel="nofollow sponsored noopener" is already the correct
+ * annotation for both direct and paid links. A product verified sold-out
+ * (inStock: false) stays listed for the fashion record but renders dimmed
+ * with an explicit "Sold out" label, never silently as purchasable.
+ */
+function ShopTheLook({ products }: { products: Product[] | undefined }) {
+  if (!products || products.length === 0) return null;
+  return (
+    <div className="era-card mt-8 rounded-2xl border p-5">
+      <div className="flex items-center gap-2 text-sm font-semibold text-[color:var(--era-accent)]">
+        <ShoppingBag className="h-4 w-4" />
+        Shop the look
+      </div>
+      <ul className="mt-3 divide-y" style={{ borderColor: 'var(--era-line)' }}>
+        {products.map((p) => {
+          const soldOut = p.inStock === false;
+          return (
+            <li key={p.url} className={soldOut ? 'opacity-50' : undefined}>
+              <a
+                href={buildShopUrl(p)}
+                target="_blank"
+                rel="nofollow sponsored noopener"
+                className="group flex items-center justify-between gap-3 py-3"
+                aria-label={`Shop ${p.brand} ${p.item}${soldOut ? ' (sold out)' : ''} at ${p.retailer}`}
+              >
+                <span className="min-w-0">
+                  <span className="block text-xs uppercase tracking-[0.12em] text-[color:var(--era-ink-soft)]">
+                    {p.brand}
+                  </span>
+                  <span className="mt-0.5 block text-[15px] leading-snug text-[color:var(--era-ink)] underline-offset-2 group-hover:underline">
+                    {p.item}
+                  </span>
+                  {soldOut && (
+                    <span
+                      className="mt-1 inline-block rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[color:var(--era-ink-soft)]"
+                      style={{ borderColor: 'var(--era-line)' }}
+                    >
+                      Sold out
+                    </span>
+                  )}
+                </span>
+                <span className="flex shrink-0 items-center gap-1.5 text-sm text-[color:var(--era-ink-soft)]">
+                  {p.price}
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
     </div>
   );
 }

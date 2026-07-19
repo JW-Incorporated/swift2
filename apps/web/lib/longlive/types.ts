@@ -130,6 +130,38 @@ export function focalPointOf(img: Pick<ImageRef, 'focalPoint'> | undefined): str
   return img?.focalPoint ?? '50% 50%';
 }
 
+/**
+ * One shoppable product worn in a (typically fashion-category) moment — the
+ * exact garment/accessory, pointing at the retailer's own product detail page
+ * (never a search page, never a fabricated URL; authoring rule: verify the
+ * page resolves before adding it). Rendered as the "Shop the look" block in
+ * MomentDetail. IMPORTANT: the UI must never link `url` directly — always via
+ * buildShopUrl() (lib/longlive/shop.ts), the single seam where affiliate
+ * wrapping will later be injected without touching any content.
+ */
+export interface Product {
+  /** Who makes it, e.g. "Polo Ralph Lauren". */
+  brand: string;
+  /** The specific garment, as the retailer names it, e.g. "Striped Silk-Blend Day Dress". */
+  item: string;
+  /**
+   * Retailer hostname, lowercase, no protocol — e.g. 'ralphlauren.com',
+   * 'louisvuitton.com'. This is the affiliate-routing key: buildShopUrl()
+   * will branch on it (LTK/RewardStyle vs Amazon Associates vs Skimlinks)
+   * when affiliate goes live, so keep it a stable hostname, not a display name.
+   */
+  retailer: string;
+  /** Direct product-detail-page URL (https). The raw destination — see buildShopUrl(). */
+  url: string;
+  /** Display price at time of authoring, e.g. "$319.99". Optional: omit when unknown. */
+  price?: string;
+  /**
+   * false = verified sold out / unavailable (renders dimmed with a label).
+   * Omitted or true = purchasable when authored.
+   */
+  inStock?: boolean;
+}
+
 export interface ContentItem {
   id: string;
   /** Stable content slug from the seed (deep-linking / cross-refs). Optional. */
@@ -213,6 +245,15 @@ export interface ContentItem {
    * `docs/decisions.md` 2026-07-18 for the full decision record.
    */
   significance?: 'defining' | 'notable';
+  /**
+   * Shoppable products worn in this moment (fashion moments, mostly) — the
+   * exact garments with direct retailer product pages. Rendered as the
+   * "Shop the look" block in MomentDetail, always linked through
+   * buildShopUrl() (lib/longlive/shop.ts) so affiliate wrapping can be
+   * turned on later without re-authoring any content. Optional: most
+   * moments have none.
+   */
+  products?: Product[];
 }
 
 /**

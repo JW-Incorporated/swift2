@@ -2,7 +2,7 @@
 // Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.
 // Re-run that script after content-seed changes; don't edit this file directly.
 
-import type { ContentTag, EraId, ImageRef, LensId } from './types';
+import type { ContentTag, EraId, ImageRef, LensId, Product } from './types';
 
 type VaultRawItem = {
   id: string;
@@ -19,6 +19,7 @@ type VaultRawItem = {
   relatedIds?: string[];
   threadIds?: LensId[];
   significance?: 'defining' | 'notable';
+  products?: Product[];
 };
 
 export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {

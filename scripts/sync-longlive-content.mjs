@@ -138,6 +138,38 @@ export function significanceFrom(significance) {
   return VALID_SIGNIFICANCE.has(significance) ? significance : undefined;
 }
 
+/**
+ * Shoppable products from the Tier-1 `moment.products` array (see Product in
+ * apps/web/lib/longlive/types.ts): `[{ brand, item, retailer, url, price?,
+ * inStock? }]`. Keeps only rows with all four required string fields and an
+ * http(s) url — validate-content.mjs errors loudly on malformed rows, this
+ * just guards the generated file against shipping broken JS. `price` must be
+ * a non-empty string to carry; `inStock` carries ONLY an explicit false
+ * (omitted/true both mean "purchasable when authored" and stay omitted, so
+ * the generated file only marks the exceptional sold-out case). Returns
+ * undefined (field omitted) when nothing valid remains, same convention as
+ * imagesFrom/threadIdsFrom. Exported for unit tests.
+ */
+export function productsFrom(products) {
+  if (!Array.isArray(products)) return undefined;
+  const out = [];
+  for (const p of products) {
+    if (!p) continue;
+    const required = [p.brand, p.item, p.retailer, p.url];
+    if (!required.every((v) => typeof v === 'string' && v.trim())) continue;
+    if (!/^https?:\/\//.test(p.url)) continue;
+    out.push({
+      brand: p.brand,
+      item: p.item,
+      retailer: p.retailer,
+      url: p.url,
+      price: typeof p.price === 'string' && p.price.trim() ? p.price : undefined,
+      inStock: p.inStock === false ? false : undefined,
+    });
+  }
+  return out.length ? out : undefined;
+}
+
 /** Allowed ImageRef.kind values (apps/web/lib/longlive/types.ts ImageKind). */
 const IMAGE_KINDS = new Set(['primary', 'reference', 'archival']);
 
@@ -220,6 +252,7 @@ export function addItem(
     video,
     relatedIds,
     significance,
+    products,
   },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
@@ -264,6 +297,7 @@ export function addItem(
     relatedIds: relatedIdsFrom(relatedIds),
     threadIds: threadIdsFrom(threadIds),
     significance: significanceFrom(significance),
+    products: productsFrom(products),
   });
 }
 
@@ -352,7 +386,9 @@ async function fetchFromSupabase() {
       // in the migration (supabase/migrations/20260718150000_month_item_
       // significance.sql) but this SELECT isn't wired to read it yet — same
       // follow-up, not done here since the live site reads seed files first
-      // anyway (docs/decisions.md, 2026-07-17).
+      // anyway (docs/decisions.md, 2026-07-17). `products` (2026-07-19,
+      // shoppable links) also has no moment-table column yet — seed-only for
+      // now, same follow-up bucket.
     });
   }
 
@@ -393,6 +429,8 @@ async function fetchFromLocalFiles() {
         // accept either so the content lane can pick the natural home.
         relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
         significance: item.significance ?? null,
+        // Tier-1 detail like photos/sources — products live on the moment.
+        products: item.moment?.products ?? null,
       });
     }
   }
@@ -419,7 +457,7 @@ export function buildOutputSource(byEra) {
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
   lines.push("// Re-run that script after content-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { ContentTag, EraId, ImageRef, LensId } from './types';");
+  lines.push("import type { ContentTag, EraId, ImageRef, LensId, Product } from './types';");
   lines.push('');
   // Freshness stamp — emitted ONLY during `prebuild` (the deploy build, where
   // npm sets npm_lifecycle_event=prebuild), never into the committed file.
@@ -448,6 +486,7 @@ export function buildOutputSource(byEra) {
   lines.push('  relatedIds?: string[];');
   lines.push('  threadIds?: LensId[];');
   lines.push("  significance?: 'defining' | 'notable';");
+  lines.push('  products?: Product[];');
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -498,6 +537,22 @@ export function buildOutputSource(byEra) {
       // there is no generic fallthrough serialization in this file.
       if (it.significance) {
         lines.push(`      significance: ${esc(it.significance)},`);
+      }
+      if (it.products && it.products.length) {
+        const prods = it.products
+          .map((p) => {
+            const parts = [
+              `brand: ${esc(p.brand)}`,
+              `item: ${esc(p.item)}`,
+              `retailer: ${esc(p.retailer)}`,
+              `url: ${esc(p.url)}`,
+            ];
+            if (p.price) parts.push(`price: ${esc(p.price)}`);
+            if (p.inStock === false) parts.push('inStock: false');
+            return `{ ${parts.join(', ')} }`;
+          })
+          .join(', ');
+        lines.push(`      products: [${prods}],`);
       }
       lines.push('    },');
     }

@@ -5,6 +5,7 @@ import {
   addItem,
   buildOutputSource,
   imagesFrom,
+  productsFrom,
   significanceFrom,
   threadIdsFrom,
 } from './sync-longlive-content.mjs';
@@ -144,6 +145,50 @@ describe('significanceFrom', () => {
   });
 });
 
+describe('productsFrom', () => {
+  const dress = {
+    brand: 'Polo Ralph Lauren',
+    item: 'Striped Silk-Blend Day Dress',
+    retailer: 'ralphlauren.com',
+    url: 'https://www.ralphlauren.com/some-dress',
+  };
+
+  it('passes a well-formed product through, omitting absent price/inStock', () => {
+    expect(productsFrom([dress])).toEqual([
+      { ...dress, price: undefined, inStock: undefined },
+    ]);
+  });
+
+  it('carries price and an explicit inStock: false', () => {
+    expect(productsFrom([{ ...dress, price: '$319.99', inStock: false }])).toEqual([
+      { ...dress, price: '$319.99', inStock: false },
+    ]);
+  });
+
+  it('normalizes inStock: true to omitted (only sold-out is exceptional)', () => {
+    expect(productsFrom([{ ...dress, inStock: true }])?.[0].inStock).toBeUndefined();
+  });
+
+  it('drops rows missing any required field or with a non-http url', () => {
+    expect(
+      productsFrom([
+        { ...dress, brand: '' },
+        { ...dress, item: undefined },
+        { ...dress, retailer: '   ' },
+        { ...dress, url: 'ralphlauren.com/no-protocol' },
+        null,
+        'nope',
+      ]),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined for a non-array or empty array (field omitted)', () => {
+    expect(productsFrom(null)).toBeUndefined();
+    expect(productsFrom(undefined)).toBeUndefined();
+    expect(productsFrom([])).toBeUndefined();
+  });
+});
+
 describe('buildOutputSource', () => {
   // Regression coverage for a real bug (docs/decisions.md, 2026-07-18):
   // addItem() computed `significance` correctly, but the writer had no
@@ -173,6 +218,16 @@ describe('buildOutputSource', () => {
       threadIds: ['taylors-version'],
       video: { youtubeId: 'abc123', title: 'A video' },
       relatedIds: ['moment:some-other-item'],
+      products: [
+        {
+          brand: 'Polo Ralph Lauren',
+          item: 'Striped Silk-Blend Day Dress',
+          retailer: 'ralphlauren.com',
+          url: 'https://www.ralphlauren.com/some-dress',
+          price: '$319.99',
+          inStock: false,
+        },
+      ],
     });
     const source = buildOutputSource(byEra);
     expect(source).toContain('slug: "a-defining-moment"');
@@ -182,6 +237,9 @@ describe('buildOutputSource', () => {
     expect(source).toContain('sources: [{ name:');
     expect(source).toContain('video: { youtubeId: "abc123", title: "A video" }');
     expect(source).toContain('relatedIds: ["moment:some-other-item"]');
+    expect(source).toContain(
+      'products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Day Dress", retailer: "ralphlauren.com", url: "https://www.ralphlauren.com/some-dress", price: "$319.99", inStock: false }]',
+    );
   });
 
   it('omits a significance value for a routine item rather than emitting a falsy one', () => {
@@ -206,5 +264,11 @@ describe('buildOutputSource', () => {
   it('declares significance on the generated VaultRawItem type, not just the values', () => {
     const source = buildOutputSource({});
     expect(source).toContain("significance?: 'defining' | 'notable';");
+  });
+
+  it('declares products on the generated VaultRawItem type and imports the Product type', () => {
+    const source = buildOutputSource({});
+    expect(source).toContain('products?: Product[];');
+    expect(source).toMatch(/import type \{.*Product.*\} from '\.\/types';/);
   });
 });

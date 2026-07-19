@@ -38,6 +38,24 @@ export default {
         context: 'A few sentences of editorial context — still metadata, not a copied article.',
         sources: [{ outlet: 'Example Mag', url: 'https://example.com/source-article' }],
         photos: [{ url: 'https://example.com/photo.jpg', credit: 'Getty Images' }],
+        // products (OPTIONAL, fashion moments): the exact garments worn, each
+        // pointing at the retailer's own product-detail page. HARD RULES
+        // (docs/decisions.md 2026-07-19): url is the DIRECT https product
+        // page — never a search/category page, never guessed; verify it
+        // resolves (HTTP 200) before committing. retailer is a bare lowercase
+        // hostname (the future affiliate-routing key). Verified sold-out
+        // items get inStock: false (rendered dimmed + labeled) — omit
+        // inStock when purchasable. price is the display string, optional.
+        // products: [
+        //   {
+        //     brand: 'Polo Ralph Lauren',
+        //     item: 'Striped Silk-Blend Day Dress',
+        //     retailer: 'ralphlauren.com',
+        //     url: 'https://www.ralphlauren.com/...exact-product-page',
+        //     price: '$319.99',
+        //     inStock: false,
+        //   },
+        // ],
       },
     },
   ],
