@@ -263,15 +263,7 @@ const RAW: Record<EraId, RawItem[]> = {
       body: ['Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.'],
       tags: ['Music'],
     },
-    {
-      id: 'red-lip',
-      date: '2012-11-01',
-      dateLabel: 'Late 2012',
-      title: 'The classic red lip',
-      summary: 'A signature look is born: red lip, vintage silhouettes, autumn tones.',
-      body: ['The bold red lip and retro tailoring defined the era and became a lasting personal signature.'],
-      tags: ['Fashion'],
-    },
+
     {
       id: 'red-i-knew-you',
       video: { youtubeId: 'vNoKguSdy4Y', title: 'Taylor Swift - I Knew You Were Trouble' },
@@ -300,18 +292,7 @@ const RAW: Record<EraId, RawItem[]> = {
       body: ['Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle.'],
       tags: ['Tour'],
     },
-    {
-      id: 'red-tour',
-      date: '2013-03-13',
-      dateLabel: 'March 13, 2013',
-      title: 'The Red Tour begins',
-      summary: 'Her most ambitious production yet crosses continents and shatters country touring records.',
-      body: [
-        'The Red Tour spanned the globe across 2013 and 2014, becoming the highest-grossing tour by a country artist at the time.',
-        'Each night folded in surprise guests and costume changes, a blueprint for the spectacle to come.',
-      ],
-      tags: ['Tour'],
-    },
+
     {
       id: 'red-everything-changed',
       date: '2013-07-06',
@@ -383,18 +364,7 @@ const RAW: Record<EraId, RawItem[]> = {
       body: ['The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.'],
       tags: ['Music'],
     },
-    {
-      id: '1989-world-tour',
-      date: '2015-05-05',
-      dateLabel: 'May 5, 2015',
-      title: 'The 1989 World Tour',
-      summary: 'A parade of surprise guests turns each show into an event.',
-      body: [
-        'The tour’s recurring gimmick — a different famous guest strolling the catwalk each night — made every stop feel unrepeatable.',
-        'It became the highest-grossing tour of the year and the peak of her imperial pop phase.',
-      ],
-      tags: ['Tour'],
-    },
+
     {
       id: '1989-aoty',
       date: '2016-02-15',
@@ -528,15 +498,7 @@ const RAW: Record<EraId, RawItem[]> = {
       ],
       tags: ['Music'],
     },
-    {
-      id: 'folklore-long-pond',
-      date: '2020-11-25',
-      dateLabel: 'November 25, 2020',
-      title: 'The Long Pond Studio Sessions',
-      summary: 'A Disney+ concert film performs the album live for the first time, in the studio it was written in.',
-      body: ['Filmed at Long Pond Studio in upstate New York with producers Aaron Dessner and Jack Antonoff, the special was the first live performance of any folklore song and doubled as the William Bowery reveal.'],
-      tags: ['Music', 'Tour'],
-    },
+
   ],
   evermore: [
     {
@@ -649,22 +611,7 @@ const RAW: Record<EraId, RawItem[]> = {
       body: ['The scramble for tickets became a national news story — and eventually a subject of political hearings.'],
       tags: ['Lore'],
     },
-    {
-      id: 'midnights-eras-tour',
-      date: '2023-03-17',
-      dateLabel: 'March 17, 2023',
-      title: 'The Eras Tour begins',
-      summary:
-        'A career-spanning show becomes a global cultural and economic event.',
-      body: [
-        'Three-plus hours spanning every era, the Eras Tour shattered records and turned entire cities into pilgrimage sites.',
-      ],
-      tags: ['Tour'],
-      hiddenClue: {
-        clue: 'A rotating “surprise song” slot changed every single night.',
-        payoff: 'Fans tracked mashups obsessively, treating each night’s pairing as a coded message.',
-      },
-    },
+
     {
       id: 'midnights-film',
       date: '2023-10-13',
@@ -721,18 +668,7 @@ const RAW: Record<EraId, RawItem[]> = {
         payoff: 'Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow.',
       },
     },
-    {
-      id: 'tloas-engagement',
-      date: '2025-08-26',
-      dateLabel: 'August 26, 2025',
-      title: 'The engagement, announced in cleats and pearls',
-      summary: 'Two weeks after the album reveal, she and Travis Kelce announce their engagement on Instagram.',
-      body: [
-        'A joint Instagram post — captioned "your English teacher and your gym teacher are getting married" — confirmed the engagement to the Kansas City Chiefs tight end.',
-        'The proposal itself had happened roughly two weeks earlier at a garden in Lee’s Summit, Missouri, keeping the love story running parallel to the new album’s rollout.',
-      ],
-      tags: ['Relationship'],
-    },
+
     {
       id: 'tloas-album',
       date: '2025-10-03',
@@ -745,19 +681,7 @@ const RAW: Record<EraId, RawItem[]> = {
       ],
       tags: ['Music'],
     },
-    {
-      id: 'tloas-release-party-film',
-      date: '2025-10-03',
-      dateLabel: 'October 3, 2025',
-      title: 'The Official Release Party of a Showgirl hits theaters',
-      summary:
-        'A companion film screens in cinemas worldwide alongside the album, with behind-the-scenes footage and track commentary.',
-      body: [
-        'Rolling into more than 50 territories across AMC, Cinemark, and Regal screens, the release-party film paired the album drop with lyric videos and Taylor’s own reflections on each song.',
-        'It also carried the promise of a world premiere still to come: the music video for the lead single, held back for its own big-screen debut two days later.',
-      ],
-      tags: ['Music', 'Tour'],
-    },
+
     {
       id: 'tloas-fate-of-ophelia-video',
       video: {
