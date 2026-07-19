@@ -2239,6 +2239,61 @@ export default {
         ],
       },
     },
+    // The engagement OUTFIT angle (2026-07-18, dedup/consolidation): moved out
+    // of tortured-poets.mjs (wrong era) and retitled from "Engagement photos"
+    // — which promised the photo set — to "The engagement look," so it reads as
+    // the distinct fashion facet it is, alongside the announcement (the news)
+    // and the ring (the jewelry). Its photos and sources are the fashion-desk
+    // coverage (Marie Claire / L'Officiel), different from the announcement's.
+    {
+      slug: 'showgirl-engagement-look',
+      threadIds: ['the-proposal'],
+      relatedIds: [
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+      ],
+      year: 2025,
+      month: 8,
+      day: 26,
+      category: 'fashion',
+      title: 'The engagement look: a Polo Ralph Lauren dress in the garden',
+      snippet:
+        'A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.',
+      sourceUrl:
+        'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
+      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
+      moment: {
+        context:
+          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
+          },
+          {
+            outlet: 'L\'Officiel',
+            url: 'https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
+            credit: 'Taylor Swift',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // close embrace, her hand on his cheek; the two faces meet just
+            // above center frame.
+            focalPoint: '50% 30%',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg',
+            credit: 'Taylor Swift',
+            // Focal point set 2026-07-18 (run 7) by viewing: wide garden scene,
+            // the couple small at center under the floral arch, faces near mid-frame.
+            focalPoint: '52% 46%',
+          },
+        ],
+      },
+    },
     // --- Deep timeline fill (2026-07-08, content/deep-d): song stories, the
     // album's chart marathon, the Kelce arc between engagement and wedding,
     // and the era's 2026 chapters. Every claim verified against its cited
