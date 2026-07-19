@@ -271,7 +271,7 @@ Consequences for component code:
 |---|---|---|
 | Era scroll | `EraStream` → `EraSection` | hero + lyric + `EraMedia` + moment grid + pivot strip |
 | Era scrubber | `TimelineScrubber` | morph-on-grab; snaps to era boundaries |
-| Moment detail | `MomentDetail` | opened via `openItem`; shows `MomentVideo` + hidden clue; YouTube source links embed inline (via `MomentVideo` + `extractYouTubeId` from `@swift2/shared`), skipping any source that duplicates `item.video` |
+| Moment detail | `MomentDetail` | opened via `openItem`; shows `MomentVideo` + hidden clue; YouTube source links embed inline (via `MomentVideo` + `extractYouTubeId` from `@swift2/shared`), skipping any source that duplicates `item.video`; sub-confirmed `confidence` renders the loud rumor banner and `rumors` renders the "What's rumored" split (see the rumor recipe in §8) |
 | Track guide | `TrackGuide` | opened via `openTrackGuide` from the era hero; per-song sourced notes |
 | Theories & eggs | `TheoryGuide` | opened via `openTheoryGuide` from the era hero; confidence + outcome badges on every record |
 | Era videos | `EraVideos` | inline rail in `EraSection`; official-upload embeds (via `MomentVideo`) + metadata cards |
@@ -337,6 +337,41 @@ Beyond the note, a seed track can carry (issue #440):
   track guide (slugs must stay globally unique — tested), `moment:<id>`
   against era content, and unresolvable ids are skipped silently (also
   tested against real data, so a typo fails CI rather than shipping dead).
+
+**Mark a moment as rumored / add rumor entries (the rumor tier, 2026-07-19):**
+for a hot topic where solid sourcing is thin (the MSG wedding was the pilot),
+never let reported claims read as fact and never leave the page quietly thin.
+Two structural tools, both authored on the seed row in
+`supabase/seed/content/<era-slug>.mjs` and piped through
+`scripts/sync-longlive-content.mjs`:
+- **Whole item rests on unconfirmed reporting** → set `confidence` to one of
+  the 8 shared levels (below `official`/`confirmed_interview`, the
+  `CONFIRMED_TIER` in `types.ts`). `MomentDetail` renders an UNMISSABLE
+  banner — "Reported — not confirmed" / "Rumor — unconfirmed" / "Debunked" —
+  naming the first source's outlet (keep the outlet that reported the claim
+  FIRST in `moment.sources` on sub-confirmed items). The qualifier follows
+  the item to its other surfaces too: an "Unconfirmed" chip on the era-feed
+  card (`MomentMeta`) and a `[reported — not confirmed]` marker in outbound
+  share copy (`momentShareCopy`). Confirmed items (no `confidence`) are
+  unchanged everywhere.
+- **Confirmed core + a rumor cloud around it** → keep the confirmed narrative
+  in `moment.context` and add `moment.rumors` entries (`claim` ≤400 +
+  `reportedBy` + `reportedOn` ISO date + `status` + `url`, optional `note`
+  ≤400 — shape: `RumorNote` in `types.ts`). They render in the visually
+  distinct dashed "What's rumored" section after the narrative (which gains a
+  "What's confirmed" header), each badged by `status`
+  (`unconfirmed` / `partially_confirmed` / `confirmed` / `debunked`) — update
+  the status as facts land instead of deleting the entry. Every rumor names
+  who reported it; estimates say so in `note`; nothing is ever fabricated.
+  The 2026-07-04 hard ban carries over verbatim: NO speculation about
+  sexuality, family, or identity — a rumor entry is an outlet-reported claim
+  about a public event, never the app's own private-life speculation. Rumor
+  `claim`/`note` prose flows into the content engine's text checks like any
+  other prose (corpus `texts`).
+  The generator drops an unattributed/undated entry and
+  `npm run validate:content` makes that a hard error. The content engine's
+  `content.rumor-gap` checker flags high-visibility moments that are thin on
+  sourcing and have neither treatment.
 
 **Add/edit a theory or easter egg (era guide):** author it in
 `supabase/seed/theories/<era-slug>.mjs` (content track owns those files; a

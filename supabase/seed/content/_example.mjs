@@ -33,6 +33,17 @@ export default {
       snippet: 'One-line preview of the look — a hook, not the article.',
       sourceUrl: 'https://example.com/source-article',
       thumbnailUrl: null, // hotlink only; null if none
+      // confidence (OPTIONAL): one of the 8 shared levels (official |
+      // confirmed_interview | reputable_reporting | strong_fan_consensus |
+      // plausible | clowning | disproven | joke_meme). Omit for a confirmed
+      // fact (the default — no label). Anything below the confirmed tier
+      // renders an UNMISSABLE "Rumor — unconfirmed" / "Reported — not
+      // confirmed" banner naming the first source's outlet — use it when a
+      // whole item rests on reporting nobody official has confirmed.
+      // On a sub-confirmed item, the FIRST moment.sources entry must be the
+      // outlet that reported the claim (never an image-credit/license
+      // source) — the banner attributes to it by position.
+      // confidence: 'reputable_reporting',
       // Optional Tier 1 detail shown when a user taps into this item:
       moment: {
         context: 'A few sentences of editorial context — still metadata, not a copied article.',
@@ -54,6 +65,26 @@ export default {
         //     url: 'https://www.ralphlauren.com/...exact-product-page',
         //     price: '$319.99',
         //     inStock: false,
+        // rumors (OPTIONAL): attributed, dated press claims about this moment
+        // that are NOT confirmed — they render in a visually distinct
+        // "What's rumored" section, never woven into the confirmed narrative.
+        // Every field except `note` is REQUIRED (the generator drops an
+        // unattributed/undated entry; the validator makes that a hard error).
+        // status: unconfirmed | partially_confirmed | confirmed | debunked —
+        // keep resolved rumors on record with an honest status instead of
+        // deleting them. NEVER fabricate; label estimates as estimates.
+        // HARD BAN (2026-07-04 brief, same as theories): NO speculation
+        // about sexuality, family, or identity — ever. A rumor entry is an
+        // outlet-reported claim about a PUBLIC event/topic, in our words,
+        // never the app's own speculation about someone's private life.
+        // rumors: [
+        //   {
+        //     claim: 'What was reported, in our words, framed as a report (<=400).',
+        //     reportedBy: 'Example Mag',
+        //     reportedOn: '2026-07-02',
+        //     status: 'unconfirmed',
+        //     url: 'https://example.com/the-report',
+        //     note: 'Optional context — an estimate caveat, what debunked it (<=400).',
         //   },
         // ],
       },

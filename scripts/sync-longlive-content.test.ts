@@ -4,8 +4,10 @@ import { describe, expect, it } from 'vitest';
 import {
   addItem,
   buildOutputSource,
+  confidenceFrom,
   imagesFrom,
   productsFrom,
+  rumorsFrom,
   significanceFrom,
   threadIdsFrom,
 } from './sync-longlive-content.mjs';
@@ -192,6 +194,49 @@ describe('productsFrom', () => {
   });
 });
 
+describe('confidenceFrom', () => {
+  it('passes through the shared confidence values', () => {
+    expect(confidenceFrom('reputable_reporting')).toBe('reputable_reporting');
+    expect(confidenceFrom('official')).toBe('official');
+  });
+
+  it('returns undefined (confirmed fact, no banner) for anything else', () => {
+    expect(confidenceFrom('rumored')).toBeUndefined();
+    expect(confidenceFrom(null)).toBeUndefined();
+    expect(confidenceFrom(undefined)).toBeUndefined();
+  });
+});
+
+describe('rumorsFrom', () => {
+  const valid = {
+    claim: 'A castle is reportedly being built inside the venue.',
+    reportedBy: 'TMZ',
+    reportedOn: '2026-06-30',
+    status: 'unconfirmed',
+    url: 'https://example.com/report',
+  };
+
+  it('passes a fully-attributed rumor through, keeping an optional note', () => {
+    expect(rumorsFrom([{ ...valid, note: 'An estimate.' }])).toEqual([
+      { ...valid, note: 'An estimate.' },
+    ]);
+  });
+
+  it('drops an entry missing any honesty-critical field (fail closed)', () => {
+    expect(rumorsFrom([{ ...valid, claim: '  ' }])).toBeUndefined();
+    expect(rumorsFrom([{ ...valid, reportedBy: undefined }])).toBeUndefined();
+    expect(rumorsFrom([{ ...valid, reportedOn: 'June 30' }])).toBeUndefined();
+    expect(rumorsFrom([{ ...valid, status: 'maybe' }])).toBeUndefined();
+    expect(rumorsFrom([{ ...valid, url: '' }])).toBeUndefined();
+  });
+
+  it('returns undefined for a non-array, an empty array, or non-object junk', () => {
+    expect(rumorsFrom(null)).toBeUndefined();
+    expect(rumorsFrom([])).toBeUndefined();
+    expect(rumorsFrom([null, 'nope'])).toBeUndefined();
+  });
+});
+
 describe('buildOutputSource', () => {
   // Regression coverage for a real bug (docs/decisions.md, 2026-07-18):
   // addItem() computed `significance` correctly, but the writer had no
@@ -231,6 +276,17 @@ describe('buildOutputSource', () => {
           inStock: false,
         },
       ],
+      confidence: 'reputable_reporting',
+      rumors: [
+        {
+          claim: 'A reported claim.',
+          reportedBy: 'TMZ',
+          reportedOn: '2026-06-30',
+          status: 'unconfirmed',
+          url: 'https://example.com/report',
+          note: 'An estimate.',
+        },
+      ],
     });
     const source = buildOutputSource(byEra);
     expect(source).toContain('slug: "a-defining-moment"');
@@ -242,6 +298,10 @@ describe('buildOutputSource', () => {
     expect(source).toContain('relatedIds: ["moment:some-other-item"]');
     expect(source).toContain(
       'products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Day Dress", retailer: "ralphlauren.com", url: "https://www.ralphlauren.com/some-dress", price: "$319.99", inStock: false }]',
+    );
+    expect(source).toContain('confidence: "reputable_reporting"');
+    expect(source).toContain(
+      '{ claim: "A reported claim.", reportedBy: "TMZ", reportedOn: "2026-06-30", status: "unconfirmed", url: "https://example.com/report", note: "An estimate." },',
     );
   });
 

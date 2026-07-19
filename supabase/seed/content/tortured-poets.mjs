@@ -914,6 +914,21 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/11/taylor-swift-2024-chiefs-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Jamie Squire/Getty Images',
+            // Photo pass #762 (2026-07-19): viewed — golf cart in the Arrowhead tunnel, the
+            // red-and-black checkered blazer from the Nov. 10 Broncos game, Andrea Swift at left.
+            focalPoint: '49% 25%',
+          },
+          // Photo pass #762 (2026-07-19): second image for the page's other game — the Nov. 29
+          // Black Friday arrival, from the cited TODAY article's own CDN (media-cldnry.s-nbcnews.com).
+          // curl 200 image/jpeg 1500x2192; Read-viewed: the red half-zip (LV monogram trim) and
+          // braid, matching the context's description of the Raiders-game look. TODAY's page
+          // exposes no photographer byline, so the credit stays at the outlet level.
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1500w,f_auto,q_auto:best/rockcms/2024-11/taylor-swift-2-te-241129-4366e8.jpg',
+            credit: 'Via TODAY',
+            caption:
+              'Arriving at Arrowhead in the red half-zip for the Black Friday Chiefs–Raiders game, Nov. 29, 2024.',
+            focalPoint: '45% 15%',
           },
         ],
       },
@@ -1294,6 +1309,23 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg',
             credit: 'Wikimedia Commons',
+            // Photo pass #762 (2026-07-19): viewed — close-in angle on the mannequin, ruffled
+            // bodice in the upper-left quadrant of the frame.
+            focalPoint: '46% 28%',
+          },
+          // Photo pass #762 (2026-07-19): second angle of the same V&A Songbook Trail display,
+          // Commons file "Taylor Swift Songbook Trail Fortnight display 01.jpg" (CC0, author
+          // 14GTR — license checked via the Commons API this session). curl 200 image/jpeg;
+          // Read-viewed: the full case with the typewriter, neon cabling, and book plinth —
+          // distinct from the display_05 crop above (display_05 is the only other Songbook file
+          // used in this seed, so no cross-page duplicate).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg/960px-Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg',
+            credit: '14GTR / Wikimedia Commons (CC0)',
+            caption:
+              "The full Fortnight stop on the V&A's Songbook Trail: the Elena Velez gown staged on a plinth of antique books, with the typewriter and neon wiring completing the scene.",
+            kind: 'archival',
+            focalPoint: '47% 33%',
           },
         ],
       },
@@ -1322,8 +1354,19 @@ export default {
           },
         ],
         photos: [
-          { url: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg', credit: 'Getty Images' },
-          { url: 'https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd.jpg', credit: 'Getty Images' },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg',
+            credit: 'Getty Images',
+            // Photo pass #762 (2026-07-19): viewed — landscape close-up against the neon "20"
+            // stage sign, face left-of-center in the upper third.
+            focalPoint: '46% 30%',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd.jpg',
+            credit: 'Getty Images',
+            // Photo pass #762 (2026-07-19): viewed — full-length carpet shot, face high in frame.
+            focalPoint: '52% 15%',
+          },
         ],
       },
     },
@@ -1385,80 +1428,6 @@ export default {
             // and just left of center.
             focalPoint: '48% 20%',
           },
-        ],
-      },
-    },
-    {
-      year: 2025,
-      month: 8,
-      day: 26,
-      category: 'fashion',
-      title: 'Engagement photos: a Polo Ralph Lauren dress in the garden',
-      snippet:
-        'A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.',
-      sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
-      moment: {
-        context:
-          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.',
-        sources: [
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
-          },
-          {
-            outlet: 'L\'Officiel',
-            url: 'https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
-            credit: 'Taylor Swift',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // close embrace, her hand on his cheek; the two faces meet just
-            // above center frame.
-            focalPoint: '50% 30%',
-          },
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg',
-            credit: 'Taylor Swift',
-            // Focal point set 2026-07-18 (run 7) by viewing: wide garden scene,
-            // the couple small at center under the floral arch, faces near mid-frame.
-            focalPoint: '52% 46%',
-          },
-        ],
-        // Shoppable-links pilot (2026-07-19, docs/decisions.md). Direct
-        // product pages only, verified live before adding.
-        products: [
-          {
-            brand: 'Polo Ralph Lauren',
-            item: 'Striped Silk-Blend Dress (1932 Stripe White & Black)',
-            retailer: 'revolve.com',
-            // Verified 2026-07-19: live single-product page (WebFetch render;
-            // this egress's curl is blocked by Revolve, not the page). Shows
-            // $398, "Sold Out" in all sizes — hence inStock: false. Named as
-            // the exact engagement dress by Rolling Stone / PureWow / Grazia.
-            // Ralph Lauren's own page (100055066.html) sits behind a
-            // PerimeterX wall and Google's snippet says "currently not
-            // available to shop", so the verified Revolve page is the link.
-            url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
-            price: '$398',
-            inStock: false,
-          },
-          // NOT added, per the never-fabricate/never-dead-link rule
-          // (2026-07-19 verification pass):
-          //   - Louis Vuitton "LV Isola Sandal" (Cognac, $930, SKU 1ACIOY):
-          //     exact model confirmed by WWD, but us.louisvuitton.com (and
-          //     every regional LV domain) answers HTTP 403 to all our
-          //     verification methods, and LV sells first-party only — no
-          //     verifiable page exists from here.
-          //   - Cartier diamond watch: identified by Esquire/WhoWhatWear as a
-          //     yellow-gold diamond Santos Demoiselle — discontinued ~2014,
-          //     no cartier.com product page; linking the current Panthère
-          //     would be a wrong-product substitution.
-          // The content.product-gap checker keeps this moment queued until
-          // verifiable pages surface.
         ],
       },
     },
@@ -1533,7 +1502,15 @@ export default {
             // as Swift; garment and designer are still correctly identified.
             caption:
               'Designer lookbook image of Toni Matičevski\'s "Candescence" gown, shown here on a runway/lookbook model — not Swift, who wears the same gown in the "Fortnight" video\'s opening scene.',
+            // Photo pass #762 (2026-07-19): viewed — the sculptural white gown fills the frame on
+            // the lookbook model; the gathered bodice is the visual anchor, upper-center.
+            focalPoint: '52% 22%',
           },
+          // Photo pass #762 (2026-07-19): re-checked for a second image — the official video's
+          // maxresdefault thumbnail (oEmbed-verified @TaylorSwift) is the face-tattoo close-up,
+          // not the white-gown opening scene, so it would misrepresent this moment (and near-
+          // duplicates the frame already on the TTPD-photography page). Page stays at one photo,
+          // consistent with the 2026-07-10 image-fix finding above.
         ],
       },
     },
@@ -1574,6 +1551,19 @@ export default {
             url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1',
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The plum Popflex Active skort from the video\'s backstage rehearsal footage.',
+            // Photo pass #762 (2026-07-19): viewed — mid-dance on the marked rehearsal floor,
+            // figure centered with the face in the upper third.
+            focalPoint: '49% 30%',
+          },
+          // Photo pass #762 (2026-07-19): second look from the same cited Blogilates post's own
+          // CDN (i0.wp.com/blogilates.com) — the lavender tulle skirt + matching corset bra the
+          // snippet names. curl 200 image/png 2302x1500; Read-viewed: single video frame, no
+          // watermark or collage, distinct from the plum-skort frame above.
+          {
+            url: 'https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png?ssl=1',
+            credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
+            caption: 'The lavender Popflex tulle skirt and matching corset bra, mid-rehearsal in the video.',
+            focalPoint: '41% 25%',
           },
         ],
       },
@@ -1609,7 +1599,13 @@ export default {
           {
             url: 'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
             credit: 'Jamie Squire/Getty Images',
+            // Photo pass #762 (2026-07-19): viewed — suite window above the crowd; Swift's face
+            // sits right-of-center behind the glass, Scott Swift mid-frame.
+            focalPoint: '73% 37%',
           },
+          // Photo pass #762 (2026-07-19): checked the cited SI story for a second image — it
+          // carries only this one frame in different crops, and SI is the page's only source.
+          // Page stays at one photo rather than pulling from an uncited host.
         ],
       },
     },
@@ -1694,6 +1690,21 @@ export default {
           {
             url: 'https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729',
             credit: 'The Image Direct',
+            // Photo pass #762 (2026-07-19): viewed — full-body walking shot, face high in the
+            // portrait frame.
+            focalPoint: '53% 12%',
+          },
+          // Photo pass #762 (2026-07-19): second frame of the same June 28, 2025 outing from the
+          // cited E! News article's own CDN (akns-images.eonline.com, the article's lead image,
+          // captioned "Taylor Swift and Travis Kelce in NYC"). curl 200 image/jpeg 1200x1200;
+          // Read-viewed: the couple hand in hand — same pink Balmain mini with gold buttons, same
+          // construction-fence backdrop — single frame, no watermark. E! exposes no photographer
+          // byline on this image, so the credit stays at the outlet level.
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20250630/a3a86034-2ab6-49c1-bc30-2f5ade7cf52b_1751297982.jpg',
+            credit: 'Via E! News',
+            caption: 'Hand in hand with Travis on the way into dinner, June 28, 2025.',
+            focalPoint: '70% 28%',
           },
         ],
       },
@@ -2739,6 +2750,20 @@ export default {
             credit: 'AP (via ABC News)',
             caption: 'Swift, Brittany Mahomes, Travis Kelce, and Patrick Mahomes in the box at Arthur Ashe Stadium, Sept. 8, 2024.',
             kind: 'primary',
+            // Photo pass #762 (2026-07-19): viewed — the two couples' faces cluster around the
+            // center of the frame; this keeps all four in a wide crop.
+            focalPoint: '55% 42%',
+          },
+          // Photo pass #762 (2026-07-19): second frame from the same cited ABC News story's own
+          // CDN — the Reuters photo embedded in the article body ("-rt-" in the filename, vs the
+          // AP "-ap-" lead above). curl 200 image/jpeg 1500x952; Read-viewed: Swift clapping in
+          // the red gingham dress between Kelce (Gucci bucket hat) and the Mahomeses — clearly a
+          // different moment from the AP hug frame, no watermark.
+          {
+            url: 'https://i.abcnewsfe.com/a/1fc501ac-ba55-40eb-b3ce-02983fbfa66f/Taylor-Travis-Patrick-Brittany-USOpen-1-rt-jm-240908_1725822057337_hpEmbed_11x7.jpg?w=1500',
+            credit: 'Reuters (via ABC News)',
+            caption: 'Applauding the final from the box — Kelce, Swift, and the Mahomeses reacting to the match.',
+            focalPoint: '47% 42%',
           },
         ],
       },

@@ -5,6 +5,7 @@
 
 import { truncate } from './format';
 import type { ShareTarget } from './store';
+import { isSubConfirmed } from './types';
 import type { ContentItem, Era, EraId, LensId } from './types';
 
 export interface ShareCopy {
@@ -21,14 +22,20 @@ const SHARE_SUMMARY_MAX = 180;
  * Rich share copy for one moment: its title, era, date, and (truncated)
  * summary. The text repeats the title because plenty of share targets
  * (and the clipboard fallback) only carry `text` + url.
+ *
+ * A sub-confirmed moment (rumor tier, 2026-07-19) carries its qualifier in
+ * the outbound text itself — share copy leaves the app, so it's the one
+ * surface where no downstream banner can ever correct the framing.
  */
 export function momentShareCopy(
-  item: Pick<ContentItem, 'title' | 'summary' | 'dateLabel'>,
+  item: Pick<ContentItem, 'title' | 'summary' | 'dateLabel' | 'confidence'>,
   era: Pick<Era, 'name'>,
 ): ShareCopy {
+  const qualifier =
+    item.confidence && isSubConfirmed(item.confidence) ? ' [reported — not confirmed]' : '';
   return {
     title: `${item.title} — ${era.name} · Long Live`,
-    text: `${item.title} (${era.name}, ${item.dateLabel}) — ${truncate(item.summary, SHARE_SUMMARY_MAX)}`,
+    text: `${item.title} (${era.name}, ${item.dateLabel})${qualifier} — ${truncate(item.summary, SHARE_SUMMARY_MAX)}`,
   };
 }
 

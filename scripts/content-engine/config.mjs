@@ -80,6 +80,21 @@ export const CONFIG = {
     // A separate, absolute screen. Any hit is a P0 escalation, never a silent
     // pass — routed to human review, NOT auto-classified by a general model.
     illegalTerms: ['child', 'minor', 'underage', 'teen ', 'preteen'],
+    // Privacy-speculation screens (docs/content-ops/privacy-redlines.md).
+    // Candidates, NOT findings: the corpus legitimately contains e.g. the
+    // cancer diagnosis Taylor disclosed herself — an agent classifies each hit
+    // against the redlines doc (Never-OK #3/#4: body/health and sexuality
+    // speculation; #1/#2: home-location and security references).
+    privacySpeculationTerms: [
+      'pregnant', 'pregnancy', 'baby bump', 'expecting', 'diagnosis',
+      'hospitalized', 'health scare', 'mental health', 'rehab',
+      'sexuality', 'gaylor', 'closeted',
+    ],
+    locationPrivacyTerms: [
+      'her house in', 'her home in', 'his house in', 'his home in',
+      'townhouse', 'penthouse', 'estate in', 'compound in',
+      'security detail', 'security team', 'bodyguard',
+    ],
   },
 
   // ── Output ────────────────────────────────────────────────────────────────

@@ -64,13 +64,23 @@ export async function loadCorpus() {
     const images = [];
     if (str(it.thumbnailUrl)) images.push({ url: it.thumbnailUrl, kind: 'primary' });
     for (const p of it.moment?.photos ?? []) if (str(p?.url)) images.push({ url: p.url, credit: p.credit, caption: p.caption, kind: p.kind ?? 'primary', focalPoint: p.focalPoint });
+    // Rumor prose (rumor tier, 2026-07-19) is reviewable text like any other
+    // — folding claim/note into `texts` puts it in front of every prose
+    // checker (redlines, claim-risk) and the agent factual pass, which all
+    // iterate texts. Reported-claim wording is exactly the highest-risk
+    // prose in the corpus; it must not bypass the safety net.
+    const rumorTexts = {};
+    (it.moment?.rumors ?? it.rumors ?? []).forEach((r, i) => {
+      if (str(r?.claim)) rumorTexts[`rumors[${i}].claim`] = r.claim;
+      if (str(r?.note)) rumorTexts[`rumors[${i}].note`] = r.note;
+    });
     items.push({
       type: 'moment',
       file, era,
       key: it.slug ?? `${era}|${it.year}|${it.month}|${it.title}`,
       title: it.title ?? '(untitled)',
       category: it.category,
-      texts: cleanText({ title: it.title, snippet: it.snippet, context: it.moment?.context }),
+      texts: cleanText({ title: it.title, snippet: it.snippet, context: it.moment?.context, ...rumorTexts }),
       sources: sourcesOf(it.moment?.sources, it.sourceUrl),
       images,
       raw: it,
