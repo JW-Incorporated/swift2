@@ -519,7 +519,25 @@ export default {
             url: 'https://www.billboard.com/music/music-news/donatella-versace-taylor-swift-grammy-custom-look-6882411/',
           },
         ],
-        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top', credit: 'Jason Merritt/Getty Images for NARAS' }],
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top',
+            credit: 'Jason Merritt/Getty Images for NARAS',
+            // Photo pass #762 (2026-07-19): viewed — full-length carpet shot, face high in the
+            // portrait frame.
+            focalPoint: '49% 12%',
+          },
+          // Photo pass #762 (2026-07-19): second frame from the cited Billboard (Donatella
+          // Versace) article's own CDN (billboard.com/wp-content). curl 200 image/jpeg 650x430;
+          // Read-viewed: three-quarter shot of the same look — red bandeau, pink skirt, choker,
+          // hand on hip against the Grammy step-and-repeat; EXIF copyright names Steve Granitz.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg',
+            credit: 'Steve Granitz/Getty Images (via Billboard)',
+            caption: 'The custom Atelier Versace two-piece in close-up on the 2016 Grammys carpet.',
+            focalPoint: '45% 18%',
+          },
+        ],
       },
     },
     {
