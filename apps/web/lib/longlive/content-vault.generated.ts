@@ -7320,6 +7320,17 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "'Moana': Lin-Manuel Miranda on Writing the Song 'Along The Way' in a Week and Being in the Oscar Race With Taylor Swift", url: "https://variety.com/2026/film/news/moana-lin-manuel-miranda-oscar-race-taylor-swift-1236802380/" }, { name: "Welcome to the Oscar Race, 'Toy Story 5' and Taylor Swift", url: "https://www.hollywoodreporter.com/movies/movie-news/welcome-to-the-oscar-race-toy-story-5-taylor-swift-1236618102/" }],
     },
     {
+      id: "vault-tloas-a-federal-judge-throws-out-the-tortured-poets-plagiarism-sui",
+      slug: "showgirl-marasco-suit-dismissed",
+      date: "2026-07-06",
+      dateLabel: "July 6, 2026",
+      title: "A federal judge throws out the Tortured Poets plagiarism suit — with prejudice",
+      summary: "Three days after the wedding, Judge Aileen Cannon dismissed Florida poet Kimberly Marasco's copyright case with prejudice, finding her poems held no protectable expression and that copying was never plausibly pleaded.",
+      body: ["Three days after the Madison Square Garden wedding, a case that had been running for fourteen months ended in a single order. United States District Judge Aileen Cannon dismissed Florida poet Kimberly Marasco's copyright suit against Taylor, Aaron Dessner, Republic Records and Universal Music Group — and dismissed it with prejudice, meaning the complaint cannot be amended and refiled.", "Marasco had claimed that more than a dozen songs borrowed from her poetry collections, among them \"Down Bad\" and \"I Can Do It With a Broken Heart\" from The Tortured Poets Department. Cannon's order did not weigh whether the songs resembled the poems so much as whether there was anything there to copy: she concluded \"that Plaintiff's poems do not contain protectable expression and that, regardless, Plaintiff has failed to plausibly plead copying.\" The ruling also noted Marasco's own concession that one of her books had sold roughly 3,000 copies worldwide and that none were being actively promoted — the practical problem of access underneath the legal one.", "Marasco said she disagrees with the decision and intends to appeal, so the docket is not necessarily closed. But as of the July 6 order the case is over at the district level, and it is the quietest possible bookend to the loudest week of her year."],
+      tags: ["Lore"],
+      sources: [{ name: "Judge sides with Taylor Swift in Florida poet's plagiarism lawsuit", url: "https://www.cbc.ca/news/entertainment/swift-poet-plagiarism-lawsuit-9.7261092" }, { name: "Taylor Swift Wins Plagiarism Lawsuit Against Florida Poet", url: "https://www.thewrap.com/industry-news/public-policy-legal/taylor-swift-plagiarism-lawsuit-florida-poet-win/" }, { name: "Taylor Swift Prevails in Poet's Plagiarism Lawsuit, as Florida Judge Dismisses Case With Prejudice", url: "https://variety.com/2026/music/news/taylor-swift-wins-plagiarism-poet-lawsuit-florida-judge-1236802619/" }],
+    },
+    {
       id: "vault-tloas-a-new-era-is-announced",
       slug: "tloas-announce",
       date: "2025-08-13",
