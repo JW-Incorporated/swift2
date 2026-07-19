@@ -245,7 +245,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2021/04/Taylor-Swift-fearless-album-art-cr-Beth-Garrabrant-billboard-1548-1617974680.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'Beyond the headline record, the numbers were era-defining: 179,000 of the 291,000 units were pure album sales — the biggest sales week for any album since folklore — and its 143 million on-demand streams gave a country album by a woman its largest streaming week ever.\n\nIt also made her the first woman in the Billboard 200\'s 65-year history to land three new No. 1 albums in under 12 months, following folklore and evermore. The Madonna tie put her at nine chart-toppers, second among women only to Barbra Streisand\'s eleven.',
+          'Beyond the headline record, the numbers were era-defining: 179,000 of the 291,000 units were pure album sales — the biggest sales week for any album since folklore — and its 143 million on-demand streams gave a country album by a woman its largest streaming week ever.\n\nIt also made her the first woman in the Billboard 200\'s 65-year history to land three new No. 1 albums in under 12 months, following folklore and evermore. The Madonna tie put her at nine chart-toppers, second among women only to Barbra Streisand\'s eleven.\n\nThe six From the Vault tracks weren\'t announced in a press release: days ahead of release, she posted a 30-second video of scrambled letters, and fans decoded the full track list — Keith Urban feature included — hours before she confirmed it herself.',
         sources: [
           {
             outlet: 'Billboard',
@@ -254,6 +254,15 @@ export default {
           {
             outlet: 'Forbes',
             url: 'https://www.forbes.com/sites/hughmcintyre/2021/04/18/taylor-swift-charts-her-ninth-no-1-album-in-the-us-with-fearless-taylors-version/',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-fearless-taylors-version-track-list-keith-urban-1150599/',
+            source_title: "Taylor Swift Reveals 'Fearless (Taylor's Version)' Track List, Including Keith Urban Duet",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
           },
         ],
         // Photo-depth pass (2026-07-18, #ten-defining-events-round-2): this was a
@@ -295,6 +304,35 @@ export default {
             caption:
               "A Beth Garrabrant press portrait of Swift from the same era, used by Billboard to illustrate its coverage of Fearless (Taylor's Version) holding its chart position months after release.",
             kind: 'archival',
+          },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): the prior
+          // pass called this pool "genuinely thin" — re-challenged per
+          // Joey's direction. 4 more real, verified, on-topic photos found:
+          // the two featured vault-track guests, the official cover, and
+          // the original 2010 era this record re-recorded. All curl 200.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
+            credit: 'Republic Records (official album cover)',
+            caption: 'The official Fearless (Taylor\'s Version) cover art, released April 9, 2021.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/FearlessPrudentialCentMay2010.jpg',
+            credit: 'itslex94, Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Swift on the original Fearless Tour in May 2010 — the era this record-breaking 2021 re-record revisited eleven years later.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Keith_Urban_2020.jpg',
+            credit: 'Shawn Miller / Library of Congress (CC0)',
+            caption: 'Keith Urban in 2020, months before joining Swift on "That\'s When," one of six From the Vault tracks that drove the record-setting week.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Maren_Morris_2019_by_Glenn_Francis.jpg',
+            credit: '© Glenn Francis, PacificProDigital.com (CC BY-SA 4.0)',
+            caption: 'Maren Morris in 2019, featured on the vault track "You All Over Me," released ahead of the full album.',
+            kind: 'reference',
           },
         ],
       },

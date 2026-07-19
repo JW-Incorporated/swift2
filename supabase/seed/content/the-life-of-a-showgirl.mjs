@@ -186,7 +186,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
       moment: {
         context:
-          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. It was a pointed reunion: Martin and Shellback built the pop machinery of 1989 and reputation, and this was her first full album with them since — made in stolen days between stadium shows, which she said is exactly what the songs are about. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name.\n\nThe cover — shot by Mert Alas and Marcus Piggott — shows Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage. The bathtub reading pays off on track one — the drowned Ophelia of the cover is the same woman the opening song pulls out of the water.',
+          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. It was a pointed reunion: Martin and Shellback built the pop machinery of 1989 and reputation, and this was her first full album with them since — made in stolen days between stadium shows, which she said is exactly what the songs are about. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name.\n\nThe cover — shot by Mert Alas and Marcus Piggott — shows Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage. The bathtub reading pays off on track one — the drowned Ophelia of the cover is the same woman the opening song pulls out of the water.\n\nThe orange branding itself had been called in advance: TS12 watchers had spent the tail end of the TTPD era reading glittery orange accents into late show looks and posts, and the New Heights reveal — orange and mint, head to toe — validated months of color-watching in one stroke.',
         // Cover art added 2026-07-09 under the relaxed image policy (hotlink any
         // real, publicly-available image with credit; no AI images). Hotlinked from
         // Wikipedia's stable copy of the official artwork — verified HTTP 200,
@@ -236,6 +236,33 @@ export default {
           // bot-wall, CNN's image pages return HTTP 451 to us, and Wikimedia
           // Commons has no release-party media — no stable, verifiable direct
           // image URL was available, so none is force-added.
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 4 more
+          // real, verified photos of the people and the exact painting this
+          // item's own context names directly. All curl 200.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/94/John_Everett_Millais_-_Ophelia_-_Google_Art_Project.jpg',
+            credit: 'John Everett Millais, 1852 (public domain, Google Art Project)',
+            caption: 'Millais\'s "Ophelia" (1852) — the painting the album cover directly restages.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Sabrina_Carpenter_-_O2_Arena_2025_-_086_%28cropped_2%29.jpg',
+            credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Sabrina Carpenter, the album\'s single feature, on the closing title track.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/31/Max_Martin.jpg',
+            credit: 'Martina Huber / Regeringskansliet (CC BY 2.0)',
+            caption: 'Max Martin, whose reunion with Swift on this record was her first with him since 1989 and reputation.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/New_Heights_logo.svg',
+            credit: 'New Heights (official logo)',
+            caption: 'The New Heights podcast, where she first described making the album in Sweden between Eras Tour dates.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -603,6 +630,23 @@ export default {
               '"The Fate of Ophelia" single artwork — the song that led the album\'s wall-to-wall occupation of the Hot 100\'s top 12 from No. 1.',
             kind: 'archival',
             focalPoint: '38% 22%',
+          },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 2 more,
+          // from official videos of the other 2 songs named in this item's
+          // own text. oEmbed-verified both belong to @TaylorSwift's channel
+          // (a same-titled "Opalite Official Music Video" upload from a
+          // different, non-official channel was found and rejected).
+          {
+            url: 'https://i.ytimg.com/vi/4Mg_Qtr6Osg/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records, via YouTube',
+            caption: 'A frame from the official "Elizabeth Taylor" visualizer — No. 3 on the same chart week.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/4FUIEcnvT04/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records, via YouTube',
+            caption: 'A frame from the official "Opalite" visualizer — No. 2 on the same chart week.',
+            kind: 'archival',
           },
         ],
       },

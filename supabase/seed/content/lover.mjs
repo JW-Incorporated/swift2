@@ -1774,6 +1774,40 @@ export default {
             kind: 'archival',
             focalPoint: '51% 40%',
           },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 5 more
+          // real, verified photos covering the era's rollout, credits, and
+          // legacy. All curl-verified live; the mural photo downloaded and
+          // vision-confirmed.
+          {
+            url: 'https://assets.newsweek.com/wp-content/uploads/2025/08/1406339-gettyimages-1145071309.jpg',
+            credit: 'Leah Puttkammer/Getty Images, via Newsweek',
+            caption: 'Swift greets fans at the Kelsey Montague butterfly mural in Nashville, April 25, 2019 — the surprise stop that announced the era before "ME!" dropped.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Lover_%28Live_from_Paris%29_%28digital_album_cover%29_by_Taylor_Swift.png',
+            credit: 'Republic Records (official cover art)',
+            caption: 'Cover art for "Lover (Live from Paris)," the concert film from her one-off City of Lover show at L\'Olympia that September.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fb/Panic_at_the_Disco_Im_Park_2016_%2811_von_11%29.jpg',
+            credit: 'pitpony.photography / Frederik Ranninger (CC BY-SA 3.0)',
+            caption: 'Brendon Urie of Panic! at the Disco, the featured artist on lead single "ME!"',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/ac/Eras_Tour_-_Arlington%2C_TX_-_Lover_Act_1_%28cropped%29.jpg',
+            credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'The Lover Act on the Eras Tour, years later — the album still opening the show she\'d go on to headline as its sole owner.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/75/Antonoff_at_Radio_Station.jpg',
+            credit: 'Katie Fricker (CC BY 2.0)',
+            caption: 'Jack Antonoff, who co-produced 11 of the album\'s 18 tracks.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -2188,6 +2222,24 @@ export default {
             url: 'https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=465',
             credit: 'Kevin Mazur/Getty Images for ABA, via The Guardian',
             caption: 'Swift performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.',
+            kind: 'archival',
+          },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 2 more,
+          // re-challenging the prior "no usable Borchetta photo" note — still
+          // true (only a signature graphic exists), but a period-accurate
+          // Scooter Braun photo and the literal album-titles-shirt statement
+          // both turned up on this harder second look. Both curl-verified;
+          // the shirt photo downloaded and vision-confirmed.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d5/Scooter_Braun_Interview_2020.png',
+            credit: 'Ashley Graham interview, via Wikimedia Commons (CC BY 3.0)',
+            caption: 'Braun in a 2020 interview, months after the Big Machine deal closed.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://townsquare.media/site/623/files/2019/11/taylor-siwft-2019-amas-40.jpg?w=980&q=75',
+            credit: 'Townsquare Media, via The Boot',
+            caption: 'At the 2019 AMAs that November, she opened her medley in a men\'s shirt printed with the titles of the six albums under dispute — "Speak Now," "Red," "reputation," "1989," "Fearless" — a wordless statement mid-feud.',
             kind: 'archival',
           },
         ],
