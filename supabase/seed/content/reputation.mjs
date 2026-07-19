@@ -119,6 +119,8 @@ export default {
       month: 5,
       day: 8,
       category: 'tour',
+      significance: 'defining', // the highest-grossing US tour of all time when it closed, the tour that proved the reputation comeback (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-the-eras-tour-kicks-off-in-glendale'],
       title: 'reputation Stadium Tour opens to a record crowd',
       snippet:
         "59,157 fans at University of Phoenix Stadium — breaking the venue's attendance record, set by One Direction in 2014, by 2,633 seats.",
@@ -203,12 +205,16 @@ export default {
       month: 8,
       day: 21,
       category: 'release',
+      significance: 'defining', // the visual rebirth after the Kimye-leak silence; reputation's whole aesthetic starts here (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+      ],
       title: 'The snake video that announced reputation',
       snippet:
         'She wiped her social media clean, then reappeared three days later with a slithering snake video — a reclaimed symbol before the album title and Nov. 10 release date dropped.',
       sourceUrl: 'https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji',
       thumbnailUrl: null,
-      relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
       moment: {
         context:
           "The blackout began August 18, 2017, when her Instagram, Twitter, Tumblr, and official website all went blank at once. At noon on August 21 came the first post-wipe post: a glitchy, fuzzy clip of what was eventually recognizable as a slithering snake tail, with more fragments following over the next two days — until August 23 brought the album title, the Mert & Marcus cover, and the November 10 release date.\n\nThe symbol was a pointed reclamation: after the July 2016 \"Famous\" fallout, when Kim Kardashian's \"National Snake Day\" tweet sent snake emojis flooding her accounts so heavily that Instagram tested a comment-filtering tool on her page, she made the snake the era's opening image.",
@@ -1793,6 +1799,12 @@ export default {
     },
     {
       slug: 'rep-signs-with-republic-umg',
+      significance: 'defining', // the deal that made every album since (Lover onward) hers outright, directly bracketing the Big Machine sale and the buyback (docs/decisions.md, 2026-07-19)
+      threadIds: ['taylors-version'],
+      relatedIds: [
+        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
+      ],
       year: 2018,
       month: 11,
       day: 19,

@@ -7,6 +7,71 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-19 — Round 3: the next 10 career-defining events, plus a top-100 reference list
+
+**Decision:** Before picking round 3, built `docs/content-ops/top-100-career-
+events.md` — a ranked list of 100 real events already present in the seed
+corpus, tiered (Tier 0: the 21 items already `'defining'` after rounds 1-2;
+Tier 1: positions 22-40, `'defining'`-caliber; Tier 2: 41-70, `'notable'`-
+caliber; Tier 3: 71-100, lower priority) so future rounds have a documented
+queue instead of ad hoc picks, and so nobody mechanically works down the
+whole list — the doc explicitly flags that doing so would dilute
+`'defining'` until it stops meaning anything. Round 3 draws from Tier 1
+positions 22-31:
+
+1. The snake video that announced reputation (2017-08-21, `reputation.mjs`)
+2. reputation Stadium Tour opens to a record crowd (2018-05-08,
+   `reputation.mjs`)
+3. She leaves Big Machine for Republic — and owns her masters going forward
+   (2018-11-19, `reputation.mjs`)
+4. folklore makes her the first woman to win Album of the Year three times
+   (2021-03-14, `folklore.mjs`)
+5. Red sells 1.2 million copies — the biggest week in a decade (2012-10-30,
+   `red.mjs`; stands in for the era's arrival — no dedicated release-day
+   item exists yet)
+6. Lover: the first album she's ever owned (2019-08-23, `lover.mjs`)
+7. Speak Now arrives, no co-writers allowed (2010-10-25, `speak-now.mjs`)
+8. Time names her 2023 Person of the Year (2023-12-06, `midnights.mjs`)
+9. Taylor and Joe Alwyn confirm their breakup after six years (2023-04-09,
+   `midnights.mjs`)
+10. All 12 tracks debut as the Hot 100's entire top 12 (2025-10-18,
+    `the-life-of-a-showgirl.mjs`)
+
+**Why these and not others:** each is either a historic chart/industry
+record (3x AOTY, the Hot 100 top-12 sweep beating her own top-10 record), a
+direct narrative hinge in the masters/label saga (leaving Big Machine for
+Republic is the deal that made every album Lover-onward hers outright,
+bracketed by the 2019 sale and the 2025 buyback already `'defining'`), the
+visual/cultural launch of an era (the snake video), an album's own arrival
+standing in where no dedicated release item exists (Red, Speak Now, Lover),
+or a life event with direct downstream narrative consequences (the Alwyn
+breakup precedes the Kelce era by five months). 5 of the 10 already had a
+`MILESTONES` entry (Stadium Tour, folklore AOTY, Lover released, Speak Now
+released, Hot 100 sweep); 4 new entries were added to close the rest
+(`m-rep-0`, `m-rep-3`, `m-mid-2a`, `m-mid-3a`) — Red's item deliberately did
+not get a new entry since `m-red-1` (Red released, 2012-10-22) already
+marks the era's arrival on the scrubber, 8 days before the sales milestone
+this item is keyed to.
+
+Cross-linked to each other and to rounds 1-2's items via `relatedIds`,
+including two reciprocal backlinks into pre-existing `'defining'` items from
+earlier rounds: the Republic move → the masters buyback
+(`tortured-poets.mjs`, round 2), and the folklore 3rd-AOTY win → the
+Midnights 4th-AOTY win (round 2) is already bidirectional from that side.
+`threadIds` opt-in used where it applies (`taylors-version` on the Republic
+move and the Lover item; `the-proposal` already covered by the existing
+Kelce-official/Alwyn-breakup link).
+
+**Delegation note:** both parallel-work channels established in rounds 1-2
+were exhausted going into round 3 — the Claude subagent pool hit its
+monthly spend cap during round 2, and `ask-chatgpt.mjs`/`codex exec` (same
+OpenAI account, separate billing) hit its own usage limit reviewing round
+2's diff, not resetting until 2026-07-25. Round 3's mechanical fields
+(`significance`, `relatedIds`, `threadIds`) were done directly rather than
+delegated; photo-sourcing for round 3 follows the same direct-research path
+once the mechanical baseline is verified and committed.
+
+=======
 ## 2026-07-19 — Shoppable links: direct URLs in content, affiliate at one seam
 
 **Decision:** Fashion moments can carry `moment.products` in the seed —
@@ -153,6 +218,8 @@ SONGS; any regression reopens via a new ticket.
 the go/no-go trail.
 
 **Approved by:** Joey (CEO), on-device, on #634.
+
+## 2026-07-19 — Round 2: the next 10 career-defining events
 
 **Decision:** Follow-up to the first 10-event pass (same-day, separate PR
 `content/ten-defining-events`, #849): Joey asked for the next 10 most

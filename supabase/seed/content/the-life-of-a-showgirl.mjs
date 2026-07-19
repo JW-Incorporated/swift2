@@ -557,6 +557,8 @@ export default {
     },
     {
       slug: 'showgirl-hot-100-top-12-sweep',
+      significance: 'defining', // a feat only she's pulled off, repeated and extended past her own Midnights record (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once'],
       year: 2025,
       month: 10,
       day: 18,

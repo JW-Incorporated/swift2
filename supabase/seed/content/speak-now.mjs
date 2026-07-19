@@ -1268,6 +1268,7 @@ export default {
     },
     {
       slug: 'speak-now-album-release',
+      significance: 'defining', // the only album she's ever written entirely alone — a direct answer to critics who doubted her (docs/decisions.md, 2026-07-19)
       year: 2010,
       month: 10,
       day: 25,
