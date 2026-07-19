@@ -550,10 +550,16 @@ export default {
             url: 'https://www.billboard.com/music/music-news/taylor-swift-monday-night-football-style-glitter-freckles-plaid-dress-boots-1235795383/',
           },
         ],
+        // Photo pass #762 (2026-07-19): no second verifiable image — the cited
+        // Billboard piece carries only this photo of the night (its other
+        // images are different events), and Today's article has no stills of
+        // the Oct. 7 look on its own CDN.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-glitter-freckles-chiefs-game-2024-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Jamie Squire/Getty Images',
+            // Tight backstage close-up; eyes sit just above the vertical middle.
+            focalPoint: '53% 40%',
           },
         ],
       },
@@ -569,7 +575,8 @@ export default {
         'A bye-week baseball date: she and Travis watched the Yankees take Game 1 of the ALCS from a right-field suite, four nights before the Eras Tour restarted in Miami.',
       sourceUrl:
         'https://www.espn.com/nfl/story/_/id/41796394/taylor-swift-travis-kelce-new-york-yankees-cleveland-guardians-alcs-game-one',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg',
       moment: {
         context:
           "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.",
@@ -591,6 +598,29 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 4,
+          },
+        ],
+        // Photo pass #762 (2026-07-19): page had zero photos. Both images below
+        // come from the cited MLB.com story's own CDN (img.mlbstatic.com),
+        // curl-verified 200 image/jpeg and vision-confirmed: the suite shot
+        // shows both in caps behind the right-field railing exactly as the
+        // context describes; the second is a broadcast frame from the same game.
+        photos: [
+          {
+            url: 'https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg',
+            credit: 'MLB.com',
+            caption:
+              'Swift and Kelce — both in caps, popcorn in reach — in the right-field suite during Game 1 of the 2024 ALCS at Yankee Stadium.',
+            kind: 'primary',
+            focalPoint: '47% 27%',
+          },
+          {
+            url: 'https://img.mlbstatic.com/mlb-images/image/upload/t_16x9/t_w1536/mlb/rghl1u3zla8wyqz8xfw1.jpg',
+            credit: 'MLB.com',
+            caption:
+              'A broadcast frame from the same suite: Swift mid-laugh in a black cap as the Yankees took Game 1, 5-2.',
+            kind: 'archival',
+            focalPoint: '51% 44%',
           },
         ],
       },
