@@ -1403,7 +1403,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
       moment: {
         context:
-          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record.\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. Billboard\'s tenth-anniversary retrospective put it simply: she arrived, at 16, "with a fully formed idea of herself as an artist."',
+          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record.\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. Billboard\'s tenth-anniversary retrospective put it simply: she arrived, at 16, "with a fully formed idea of herself as an artist."\n\nThe liner notes hid something too: read only the capitalized letters scattered through each printed lyric sheet and they spell out a short secret line per song — a code she\'d repeat on every album booklet through 1989 (2014), starting here.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1421,6 +1421,15 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Today.com',
+            url: 'https://www.today.com/popculture/music/taylor-swift-easter-eggs-hidden-messages-rcna51887',
+            source_title: "A Complete History of Taylor Swift's Best Easter Eggs",
+            publisher: 'Today.com',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
             reliability_score: 4,
           },
         ],

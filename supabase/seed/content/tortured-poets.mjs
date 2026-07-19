@@ -205,7 +205,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'She had teased a mysterious 2 a.m. countdown, and delivered on it two hours after the midnight release: "It\'s a 2am surprise: The Tortured Poets Department is a secret DOUBLE album. I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you."\n\nFour of the 15 Anthology tracks — "The Manuscript," "The Bolter," "The Albatross," and "The Black Dog" — had already been teased as bonus cuts scattered across physical variants; the rest were entirely new, pushing the full album past the two-hour mark. Her sign-off handed the record over: "And now the story isn\'t mine anymore... it\'s all yours."',
+          'She had teased a mysterious 2 a.m. countdown, and delivered on it two hours after the midnight release: "It\'s a 2am surprise: The Tortured Poets Department is a secret DOUBLE album. I\'d written so much tortured poetry in the past 2 years and wanted to share it all with you."\n\nFour of the 15 Anthology tracks — "The Manuscript," "The Bolter," "The Albatross," and "The Black Dog" — had already been teased as bonus cuts scattered across physical variants; the rest were entirely new, pushing the full album past the two-hour mark. Her sign-off handed the record over: "And now the story isn\'t mine anymore... it\'s all yours."\n\nThree days before release, a Spotify pop-up at LA\'s Grove had already planted real lines from the record in plain sight — open "book" props, card-catalog drawers, a Times Square billboard — that fans photographed without knowing they were reading the actual album.',
         sources: [
           {
             outlet: 'Billboard',
@@ -214,6 +214,15 @@ export default {
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-tortured-poets-department-the-anthology-announcement-1235007251/',
+          },
+          {
+            outlet: 'Deseret News',
+            url: 'https://www.deseret.com/entertainment/2024/04/16/taylor-swift-tortured-poets-department-los-angeles-art-installation/',
+            source_title: "Taylor Swift 'The Tortured Poets Department' LA Spotify library",
+            publisher: 'Deseret News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 3,
           },
         ],
         // T16 photo pass (2026-07-09): The Anthology cover from Wikipedia's
@@ -257,6 +266,35 @@ export default {
             caption: 'Fans browse the installation\'s card-catalog wall, filled with poetry excerpts, in the days before the album dropped.',
             kind: 'archival',
             focalPoint: '45% 55%',
+          },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 4 more
+          // frames from the same Spotify Newsroom carousel, found by probing
+          // adjacent numbers in the CDN's own filename pattern. Two show the
+          // exact planted lines ("Even statues crumble / if they're made to
+          // wait") that paid off as real album lyrics three days later.
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_1-819x1024.jpg',
+            credit: 'Spotify Newsroom',
+            caption: 'An open "book" prop inside the installation reading "EVEN STATUES CRUMBLE / IF THEY\'RE MADE TO WAIT" — a line that surfaced as an actual album lyric on release day.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_2-819x1024.jpg',
+            credit: 'Spotify Newsroom',
+            caption: 'A second planted page: "ONE LESS TEMPTRESS / ONE LESS DAGGER TO SHARPEN" — another line that matched the finished record.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_4-819x1024.jpg',
+            credit: 'Spotify Newsroom',
+            caption: 'A card-catalog wall inside the installation, drawers labeled "TTPD" and "Taylor Swift" — the shelves fans mined for days.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_9-819x1024.jpg',
+            credit: 'Spotify Newsroom',
+            caption: 'The same "Even statues crumble" line scaled up on a Times Square billboard, part of the same pre-save campaign.',
+            kind: 'archival',
           },
         ],
       },

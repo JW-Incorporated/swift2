@@ -2093,7 +2093,7 @@ export default {
       ],
       moment: {
         context:
-          'A month after telling GQ that video of the "Famous" call existed, Kim Kardashian posted it — edited into Snapchat-length clips, on the night of July 17, 2016 — showing Taylor responding warmly as West read her parts of the song. The clips did not include the "I made that bitch famous" line, but the internet\'s verdict was instant: #TaylorSwiftIsOverParty trended worldwide and snake emojis flooded her every post.\n\nHer response drew the line she would hold for four years: "Where is the video of Kanye telling me he was going to call me \'that bitch\' in his song? It doesn\'t exist because it never happened... I would very much like to be excluded from this narrative, one that I have never asked to be a part of, since 2009."\n\nThen she withdrew from the spotlight — no red carpets, no interviews, no album cycle — for the longest stretch of her career, broken only by a handful of exceptions: a rare public sighting later that month, a surprise one-off set at a Formula 1 after-party that October, and a Zayn duet, "I Don\'t Wanna Live Forever," released that December for the Fifty Shades Darker soundtrack. "Nobody physically saw me for a year," she said later in Miss Americana — a characterization of how absent she felt, not a literal account. What came back in full a year later, snake-first, was reputation.',
+          'A month after telling GQ that video of the "Famous" call existed, Kim Kardashian posted it — edited into Snapchat-length clips, on the night of July 17, 2016 — showing Taylor responding warmly as West read her parts of the song. The clips did not include the "I made that bitch famous" line, but the internet\'s verdict was instant: #TaylorSwiftIsOverParty trended worldwide and snake emojis flooded her every post.\n\nHer response drew the line she would hold for four years: "Where is the video of Kanye telling me he was going to call me \'that bitch\' in his song? It doesn\'t exist because it never happened... I would very much like to be excluded from this narrative, one that I have never asked to be a part of, since 2009."\n\nThen she withdrew from the spotlight — no red carpets, no interviews, no album cycle — for the longest stretch of her career, broken only by a handful of exceptions: a rare public sighting later that month, a previously announced headline concert at the Formula 1 U.S. Grand Prix in Austin that October — her only full show of 2016 — and a Zayn duet, "I Don\'t Wanna Live Forever," released that December for the Fifty Shades Darker soundtrack. "Nobody physically saw me for a year," she said later in Miss Americana — a characterization of how absent she felt, not a literal account. What came back in full a year later, snake-first, was reputation.',
         sources: [
           {
             outlet: 'The Washington Post',
@@ -2142,6 +2142,27 @@ export default {
             url: 'https://assets.teenvogue.com/photos/578c4ca16e85f8db434d478f/16%3A9/w_2560%2Cc_limit/GettyImages-463036782.jpg',
             credit: 'Larry Busacca/Getty Images for NARAS, via Teen Vogue',
             caption: 'For context, Swift, Kardashian, and West pose together at the 2015 Grammys, before the "Famous" dispute reopened the VMA feud.',
+            kind: 'reference',
+          },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 3 more
+          // real, verified photos anchoring the withdrawal-year exceptions
+          // named in the context text. Every URL curl-verified live.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-perform-austin-oct-2016-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Gary Miller/FilmMagic, via Billboard',
+            caption: 'Swift headlines the Formula 1 U.S. Grand Prix concert in Austin on Oct. 22, 2016 — her only full show of the year, announced months ahead of the Grand Prix weekend.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/82/Zayn_%26_Taylor_Swift_-_I_Don%27t_Wanna_Live_Forever_%28Official_Single_Cover%29.png',
+            credit: 'RCA Records / Republic Records (official single cover)',
+            caption: 'The cover for "I Don\'t Wanna Live Forever," her December 2016 duet with Zayn for the Fifty Shades Darker soundtrack — one of two music releases during the withdrawal year.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/a/ae/Taylor_Swift_-_Miss_Americana.jpg',
+            credit: 'Netflix (official poster)',
+            caption: 'The poster for "Miss Americana" (2020), the Netflix documentary where she later characterized this year as one where "nobody physically saw me."',
             kind: 'reference',
           },
         ],

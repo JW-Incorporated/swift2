@@ -622,6 +622,27 @@ export default {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg',
             credit: 'CBS News',
           },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 3 more
+          // real, verified photos anchoring the specific 2023 milestones
+          // this item's own context names. All curl 200.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/10/taylor-swift-eras-movie-premiere-2023-billboard-1240.jpg',
+            credit: 'Getty Images, via Billboard',
+            caption: 'At the Eras Tour concert film premiere, Oct. 11, 2023 — the film AMC was already calling the highest-grossing concert film ever.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Taylor_Swift_The_Eras_Tour_film_promotional_poster.png',
+            credit: 'AMC Theatres / TAS Rights Management (official poster)',
+            caption: 'The theatrical poster for "Taylor Swift: The Eras Tour."',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg',
+            credit: 'Spotify (public domain mark)',
+            caption: 'She closed 2023 as Spotify\'s most-streamed artist of the year, the citation\'s other capstone stat.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -657,11 +678,25 @@ export default {
             url: 'https://www.billboard.com/music/music-news/joe-alwyn-breaks-silence-taylor-swift-breakup-1235710711/',
           },
         ],
+        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): deliberately
+        // NOT pushed toward the 6+ floor applied elsewhere this pass. This
+        // item's own sourced text quotes Alwyn saying the relationship "was
+        // never something to commodify, and I see no reason to change that
+        // now" — padding a breakup story with more imagery of either party
+        // would work against the substance of what's being reported. Added
+        // one more of the same non-invasive category already here (her own
+        // solo tour performance, not the relationship itself), nothing more.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109799784%29_%28cropped%29.jpg',
             credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
             caption: 'Swift performing the Midnights set on the Eras Tour, the album era during which the breakup was confirmed.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110112943%29.jpg',
+            credit: 'Paolo V, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Another frame from the same Midnights-era set, August 2023.',
             kind: 'archival',
           },
         ],
@@ -1294,6 +1329,28 @@ export default {
             kind: 'archival',
             focalPoint: '47% 35%',
           },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 3 more
+          // real, verified photos. Skipped reusing the Schiaparelli red-
+          // carpet photo already on its own dedicated item in this file —
+          // used a different Getty frame of the same arrival instead.
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1978657268-H-2024.jpg?w=1296&h=730&crop=1',
+            credit: 'Robyn Beck/AFP via Getty Images, via The Hollywood Reporter',
+            caption: 'Arriving at the 66th Grammy Awards, Feb. 4, 2024 — hours before both the Best Pop Vocal Album win and the TTPD announcement.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg',
+            credit: 'Getty Images, via CBS News',
+            caption: 'Accepting Best Pop Vocal Album for Midnights earlier the same night — the speech where she announced The Tortured Poets Department.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/C%C3%A9line_Dion_2012.jpg',
+            credit: 'Georges Biard, Wikimedia Commons (CC BY-SA 3.0)',
+            caption: 'Céline Dion, who presented the Album of the Year award in a rare public appearance during her stiff-person syndrome recovery.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -1331,6 +1388,34 @@ export default {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1',
             credit: 'Patrick T. Fallon/AFP via Getty Images',
             focalPoint: '51% 17%',
+          },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 4 more
+          // real, verified photos — a nationally televised, extremely
+          // public game, not a private moment, so more real coverage
+          // exists than the original single-photo pass captured.
+          {
+            url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2024/02/1200/675/Super-Bowl-Las-Vegas-49ers-Chiefs-Taylor-Swift-Travis-Kelce_01.jpg',
+            credit: 'Getty Images, via Fox News',
+            caption: 'On the field after the Chiefs\' overtime win — the moment broadcast to roughly 123 million viewers.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Allegiant_Stadium%2C_view_from_Interstate_15_%282024-02-04%29.jpg',
+            credit: 'Amin Eshaiker, Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Allegiant Stadium in Las Vegas, host of Super Bowl LVIII, days before kickoff.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Patrick_Mahomes_%2851615475056%29.jpg',
+            credit: 'All-Pro Reels, Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Chiefs quarterback Patrick Mahomes, who led the overtime win.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Chiefs_361_%2851615694173%29.jpg',
+            credit: 'All-Pro Reels, Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Travis Kelce on the field for the Chiefs.',
+            kind: 'reference',
           },
         ],
       },
@@ -2424,6 +2509,21 @@ export default {
             kind: 'archival',
             focalPoint: '50% 25%',
           },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 2 more,
+          // from official videos of other songs named in this item's own
+          // list. oEmbed-verified both belong to @TaylorSwift's channel.
+          {
+            url: 'https://i.ytimg.com/vi/b7QlX3yR2xs/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records, via YouTube',
+            caption: 'A frame from the official "Bejeweled" video — one of the nine other tracks that filled out the historic all-Swift top 10.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/Uoey4W_3bos/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records, via YouTube',
+            caption: 'The title card for the official "Vigilante Shit" lyric video, another of the nine.',
+            kind: 'archival',
+          },
         ],
       },
     },
@@ -2684,6 +2784,29 @@ export default {
             caption: 'The official Eras Tour poster — the tickets 2.4 million people managed to buy in one day, and millions more never got the chance to.',
             kind: 'archival',
             focalPoint: '50% 40%',
+          },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): re-checked
+          // per Joey's direction — the presale itself still has no
+          // photographable moment (confirmed again), but the Washington
+          // fallout this item's own context names does. Kept light since a
+          // separate dedicated item covers the hearing itself in full.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Hearing_Room_in_the_Hart_Building.jpg',
+            credit: 'Architect of the Capitol (public domain)',
+            caption: 'A Hart Senate Office Building hearing room — where the Judiciary Committee questioned Ticketmaster\'s parent company two months later.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Alexandria_Ocasio-Cortez_Official_Portrait_%281%29.jpg',
+            credit: 'Official congressional portrait (public domain)',
+            caption: 'Rep. Alexandria Ocasio-Cortez, one of the lawmakers who publicly weighed in on the ticketing meltdown.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/dc/US_Department_of_Justice.jpg',
+            credit: 'Bjoertvedt, Wikimedia Commons (CC BY-SA 3.0)',
+            caption: 'The Department of Justice, which went on to sue Live Nation–Ticketmaster over market power the meltdown first put in the national spotlight.',
+            kind: 'reference',
           },
         ],
       },

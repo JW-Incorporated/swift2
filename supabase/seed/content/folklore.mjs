@@ -264,6 +264,13 @@ export default {
         // Photo-enrichment run 16 (2026-07-18, #762): focal points only — the
         // page already carries two distinct verified photos. Both downloaded
         // and viewed this session; values set per image, by eye.
+        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 4 more real,
+        // verified photos of the people and performance the context text
+        // names directly. Stopped at 6, not 7+ — the folklore cover art
+        // (the obvious 7th) is already used on 4 other items in this file,
+        // at the image-overuse checker's limit; several other candidate
+        // outlet CDNs 404'd or resolved through an unrecognized mirror
+        // domain this pass declined to trust rather than hotlink blind.
         photos: [
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg',
@@ -278,6 +285,36 @@ export default {
             caption: 'Accepting the Album of the Year Grammy — her third, a first for any woman.',
             kind: 'primary',
             focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg',
+            credit: 'Getty Images for The Recording Academy, via Billboard',
+            caption: 'Jack Antonoff, Swift, and Aaron Dessner perform the folklore/evermore medley earlier the same night.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Antonoff_at_Electric_Lady_Studios_2023_%28cropped%29.jpg',
+            credit: 'Alex Lockett, Wikimedia Commons (CC BY-SA 4.0)',
+            caption: "Jack Antonoff, whom Swift thanked first in her acceptance speech — folklore's co-producer.",
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
+            credit: 'Kim Metso (Slackernrrd), Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Aaron Dessner of The National, folklore\'s other co-producer, thanked in the same speech.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Primavera19_-6_%2848986116446%29_%28cropped%29.jpg',
+            credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Justin Vernon (Bon Iver), whom Swift told "I\'m so excited to meet you someday" — the two had never met in person despite co-writing "exile."',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Guests_at_the_2026_Met_Gala_435_%28Blake_Lively%29.jpg',
+            credit: 'SWinxy, Wikimedia Commons (CC BY 4.0)',
+            caption: 'Blake Lively, whom Swift thanked in the same speech alongside Ryan Reynolds and their children — James, Inez, and Betty each lend their names to folklore songs.',
+            kind: 'reference',
           },
         ],
       },
@@ -927,6 +964,14 @@ export default {
         // verifiable distinct second image — the nine-photo Instagram grid IS
         // the cover image already shown here, and the outlet stills found for
         // the announcement stories are logo-branded video frames (rejected).
+        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): re-challenged
+        // per Joey's direction — this pool grew to 6 across the earlier
+        // 10-defining-events pass. A 7th was searched for again this pass
+        // (Long Pond Studio Sessions stills, the evermore/folklore cover-art
+        // cross-link) but every option found was either a text-only PD logo
+        // with no real photographic content, or an image already at the
+        // overuse checker's 4-use cap in its own era file. Genuinely thin
+        // past 6 for this specific announcement-mechanics story.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png',
