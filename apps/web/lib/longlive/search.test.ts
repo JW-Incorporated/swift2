@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import { CONTENT } from './content';
 import {
   MAX_RESULTS_PER_TYPE,
   buildSearchIndex,
@@ -166,7 +167,11 @@ describe('buildSearchIndex (real data)', () => {
 
   it('finds a known moment by a straight-quote query', () => {
     const flat = flattenGroups(searchDocs(index, 'tim mcgraw'));
-    expect(flat.some((r) => r.doc.key === 'moment:debut-tim-mcgraw')).toBe(true);
+    // post-migration (stage 2a): the legacy id is now the item's SLUG; the doc
+    // key carries the generated vault id, so resolve it through CONTENT.
+    const timMcgraw = CONTENT.find((c) => c.slug === 'debut-tim-mcgraw');
+    expect(timMcgraw, 'migrated tim-mcgraw item missing').toBeDefined();
+    expect(flat.some((r) => r.doc.key === 'moment:' + timMcgraw!.id)).toBe(true);
   });
 
   it('finds the snake egg nodes and targets a Clue Web trail', () => {

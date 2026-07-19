@@ -3387,5 +3387,92 @@ export default {
         ],
       },
     },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-album",
+      year: 2022,
+      month: 10,
+      day: 21,
+      category: "music",
+      title: "Thirteen sleepless nights",
+      snippet: "A return to pop as a diary of midnights across her life.",
+      moment: {
+        context: "Midnights framed itself as thirteen sleepless nights, blending retro-glam synths with confessional diary entries.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-3am",
+      year: 2022,
+      month: 10,
+      day: 22,
+      category: "music",
+      title: "The 3am edition surprise",
+      snippet: "Seven extra tracks land three hours after release, a now-signature move.",
+      moment: {
+        context: "Hours after midnight, a “3am Edition” expanded the album — rewarding the fans who stayed up.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-antihero",
+      year: 2022,
+      month: 10,
+      day: 24,
+      category: "music",
+      title: "“Anti-Hero” dominates",
+      snippet: "A candid single about self-doubt becomes her biggest solo hit in years.",
+      video: { youtubeId: "b1kbLwvqugk", title: "Taylor Swift - Anti-Hero (Official Music Video)" },
+      moment: {
+        context: "Its confessional humor and inescapable chorus made “Anti-Hero” the defining pop single of the season.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-chart-record",
+      year: 2022,
+      month: 11,
+      day: 5,
+      category: "sighting",
+      title: "Every top-ten slot at once",
+      snippet: "She becomes the first artist to monopolize the entire top ten of the Hot 100.",
+      moment: {
+        context: "The album’s dominance rewrote the record books, occupying all ten of the chart’s highest positions in a single week.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-ticket-chaos",
+      year: 2022,
+      month: 11,
+      day: 15,
+      category: "sighting",
+      title: "The ticket frenzy",
+      snippet: "Unprecedented demand for the Eras Tour crashes the sales system and reaches Washington.",
+      moment: {
+        context: "The scramble for tickets became a national news story — and eventually a subject of political hearings.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-film",
+      year: 2023,
+      month: 10,
+      day: 13,
+      category: "tour",
+      title: "The Eras Tour hits cinemas",
+      snippet: "A concert film breaks box-office records for the format.",
+      moment: {
+        context: "Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.",
+      },
+    },
   ],
 };

@@ -3133,5 +3133,36 @@ export default {
         ],
       },
     },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "ttpd-album",
+      year: 2024,
+      month: 4,
+      day: 19,
+      category: "music",
+      title: "The Tortured Poets Department",
+      snippet: "A literary, ink-stained double album — the most word-heavy record of her career.",
+      hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
+      moment: {
+        context: "Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.\n\nTypewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "ttpd-typewriter",
+      year: 2024,
+      month: 4,
+      dateLabel: "Spring 2024",
+      category: "fashion",
+      title: "Ink, typewriters and monochrome",
+      snippet: "The most restrained visual era: black, white, and typewritten confession.",
+      moment: {
+        context: "Grayscale styling and typewriter motifs frame the era as a literary confessional.",
+      },
+    },
   ],
 };

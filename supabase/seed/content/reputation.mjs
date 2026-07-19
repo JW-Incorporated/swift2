@@ -1946,5 +1946,36 @@ export default {
         ],
       },
     },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "rep-album",
+      year: 2017,
+      month: 11,
+      day: 10,
+      category: "music",
+      title: "reputation strikes back",
+      snippet: "Armored, monochrome, and defiant — the sound of rebuilding on her own terms.",
+      hiddenClue: { clue: "She reclaimed the snake her critics used against her.", payoff: "Turning the insult into iconography flipped the whole narrative in her favor." },
+      moment: {
+        context: "After a very public year, she disappeared and returned all in black, with snakes reclaimed as armor.\n\nBeneath the hard exterior, though, reputation hides a surprisingly tender love story.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "rep-tour",
+      year: 2018,
+      month: 5,
+      day: 8,
+      category: "tour",
+      title: "Giant snakes, record numbers",
+      snippet: "The Reputation Stadium Tour becomes the highest-grossing US tour at the time.",
+      moment: {
+        context: "Towering cobra stage design and a stadium-scale production reset expectations for her live shows.",
+      },
+    },
   ],
 };

@@ -106,32 +106,31 @@ describe('CONTENT dataset invariants', () => {
   // encodes month-only precision as a placeholder day-01 date plus a month
   // label on purpose (scripts/sync-longlive-content.mjs), which this rule
   // would misread as masking.
-  it('no curated item masks a day-precision date behind a month-only label (#682)', () => {
-    const curated = CONTENT.filter((c) => !c.id.startsWith('vault-'));
-    expect(curated.length).toBeGreaterThan(0);
-    for (const item of curated) {
-      // Only day-shaped dates can mask day precision; partial forms
-      // (YYYY-MM, YYYY) are honestly month/year-precision and a month label
-      // on them is correct.
-      if (!/^\d{4}-\d{2}-\d{2}$/.test(item.date)) continue;
-      expect(item.dateLabel, `${item.id} (${item.date})`).not.toBe(formatMonthYear(item.date));
-    }
-  });
-
-  it('known #682 offenders render their researched day-level dates', () => {
-    const byId = new Map(CONTENT.map((c) => [c.id, c]));
-    expect(byId.get('debut-tim-mcgraw')?.dateLabel).toBe('June 19, 2006');
-    expect(byId.get('red-begin-again')?.dateLabel).toBe('October 1, 2012');
+  // #682/#717 regression, post-migration form: the legacy curated items now
+  // live in the seed vault (consolidation stage 2a, 2026-07-19), keeping
+  // their old ids as SLUGS. Their researched day-level labels and editorial
+  // period labels must survive the pipeline (the migration's day-detection +
+  // the seed dateLabel override) — an id-based lookup would silently pass on
+  // `undefined`, so this asserts the items exist first.
+  it('known #682/#717 items keep their researched or editorial date labels through the vault', () => {
+    const bySlug = new Map(CONTENT.filter((c) => c.slug).map((c) => [c.slug, c]));
+    const expectLabel = (slug: string, label: string) => {
+      const item = bySlug.get(slug);
+      expect(item, `migrated item with slug "${slug}" is missing from CONTENT`).toBeDefined();
+      expect(item?.dateLabel).toBe(label);
+    };
+    expectLabel('debut-tim-mcgraw', 'June 19, 2006');
+    expectLabel('red-begin-again', 'October 1, 2012');
     // Period moments keep their editorial labels — their dates are
     // representative placeholders, not researched days.
-    expect(byId.get('debut-cowboy-boots')?.dateLabel).toBe('Spring 2007');
-    expect(byId.get('folklore-cardigan')?.dateLabel).toBe('Summer 2020');
+    expectLabel('debut-cowboy-boots', 'Spring 2007');
+    expectLabel('folklore-cardigan', 'Summer 2020');
     // #717: these three aesthetic moments carried release-adjacent placeholder
     // dates, so day-level labels implied precision nobody researched — Joey
     // moved them to editorial period labels.
-    expect(byId.get('red-snl')?.dateLabel).toBe('Fall 2012');
-    expect(byId.get('ttpd-typewriter')?.dateLabel).toBe('Spring 2024');
-    expect(byId.get('tloas-sequins')?.dateLabel).toBe('Fall 2025');
+    expectLabel('red-snl', 'Fall 2012');
+    expectLabel('ttpd-typewriter', 'Spring 2024');
+    expectLabel('tloas-sequins', 'Fall 2025');
   });
 
   it('every item (curated + synced) carries a non-empty images gallery', () => {

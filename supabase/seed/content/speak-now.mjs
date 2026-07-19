@@ -1888,5 +1888,92 @@ export default {
         ],
       },
     },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "speak-now-album",
+      year: 2010,
+      month: 10,
+      day: 25,
+      category: "music",
+      title: "Written entirely alone",
+      snippet: "A response to critics who doubted her songwriting: every word, solo.",
+      moment: {
+        context: "Speak Now carries no co-writers — a deliberate statement of authorship after whispers that others wrote her hits.\n\nThe result is theatrical and intimate at once: apologies, fantasies, and confrontations staged under violet light.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "speak-now-mine",
+      year: 2010,
+      month: 8,
+      day: 4,
+      category: "music",
+      title: "\"Mine\" leaks early, ships anyway",
+      snippet: "The lead single was rushed to radio and iTunes after an unauthorized online leak.",
+      moment: {
+        context: "\"Mine\" was announced via livestream and scheduled for an August 16 release, but an early leak forced Big Machine Records to rush it to country radio and iTunes on August 4 instead — nearly two weeks ahead of plan.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "speak-now-ballgowns",
+      year: 2011,
+      month: 2,
+      dateLabel: "2011 Tour",
+      category: "tour",
+      tags: ["Fashion"],
+      title: "The ballgown tour",
+      snippet: "Sweeping purple gowns turn every show into a fairy tale.",
+      moment: {
+        context: "The Speak Now World Tour leaned fully theatrical — flowing gowns, castles, and enchantment.\n\nEach song got its own staged set piece, from the title track's wedding-crashing fantasy to \"Enchanted\"'s ballroom backdrop.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "speak-now-mean",
+      year: 2011,
+      month: 3,
+      day: 14,
+      category: "music",
+      title: "\"Mean\" answers a critic",
+      snippet: "A banjo-driven single written directly about online criticism she'd received.",
+      moment: {
+        context: "Swift has said \"Mean\" was written in direct response to a critical review — a rare moment of the album engaging a critic rather than an ex, and one of Speak Now's more overtly personal tracks.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "speak-now-enchanted",
+      year: 2011,
+      month: 5,
+      day: 3,
+      category: "music",
+      title: "\"Enchanted,\" a fan favorite",
+      snippet: "A sprawling, six-minute love-at-first-sight song that became one of the album's most enduring deep cuts.",
+      moment: {
+        context: "Never released as an official single, \"Enchanted\" nonetheless became one of Speak Now's most fan-beloved tracks — its extended, key-changing structure a favorite live moment on the Speak Now World Tour.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "speak-now-taylors-version",
+      year: 2023,
+      month: 7,
+      day: 7,
+      category: "music",
+      title: "Speak Now (Taylor's Version)",
+      snippet: "The third re-recording arrives with six previously unreleased \"From the Vault\" tracks.",
+      moment: {
+        context: "Speak Now (Taylor's Version) released July 7, 2023, with six vault tracks, including \"Castles Crumbling\" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she's said was written entirely without a co-writer.",
+      },
+    },
   ],
 };

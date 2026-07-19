@@ -310,6 +310,8 @@ export function addItem(
     products,
     confidence,
     rumors,
+    dateLabel: dateLabelOverride,
+    hiddenClue,
   },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
@@ -332,9 +334,17 @@ export function addItem(
   const mm = String(month).padStart(2, '0');
   const dd = String(validDay ?? 1).padStart(2, '0');
   const date = `${year}-${mm}-${dd}`;
-  const dateLabel = validDay
-    ? `${MONTHS[month - 1]} ${validDay}, ${year}`
-    : `${MONTHS[month - 1]} ${year}`;
+  // Editorial period labels ("Spring 2007", "Fall 2012") — an explicit
+  // dateLabel on the seed row overrides the computed one. Added 2026-07-19
+  // for the content.ts→seed migration: period moments carry representative
+  // placeholder dates for sort position, and their labels deliberately avoid
+  // implying day- or even month-precision nobody researched (#717).
+  const dateLabel =
+    typeof dateLabelOverride === 'string' && dateLabelOverride.trim()
+      ? dateLabelOverride.trim()
+      : validDay
+        ? `${MONTHS[month - 1]} ${validDay}, ${year}`
+        : `${MONTHS[month - 1]} ${year}`;
 
   const hasVideo =
     video && typeof video.youtubeId === 'string' && video.youtubeId && typeof video.title === 'string' && video.title;
@@ -351,6 +361,12 @@ export function addItem(
     images: imagesFrom(thumbnailUrl, photos),
     sources: sourcesFrom(sources, sourceUrl),
     video: hasVideo ? { youtubeId: video.youtubeId, title: video.title } : undefined,
+    // Hidden-clue payoffs (types.ts HiddenClue) — piped through for the
+    // content.ts→seed migration (2026-07-19); both fields required or dropped.
+    hiddenClue:
+      hiddenClue && typeof hiddenClue.clue === 'string' && hiddenClue.clue.trim() && typeof hiddenClue.payoff === 'string' && hiddenClue.payoff.trim()
+        ? { clue: hiddenClue.clue, payoff: hiddenClue.payoff }
+        : undefined,
     relatedIds: relatedIdsFrom(relatedIds),
     threadIds: threadIdsFrom(threadIds),
     significance: significanceFrom(significance),
@@ -508,6 +524,10 @@ async function fetchFromLocalFiles() {
         // has). validate-content.mjs checks both spots the same way.
         confidence: item.confidence ?? item.moment?.confidence ?? null,
         rumors: item.moment?.rumors ?? item.rumors ?? null,
+        // Editorial period labels + hidden-clue payoffs (stage-2a migration,
+        // 2026-07-19) — item-level seed fields, piped to addItem's handling.
+        dateLabel: item.dateLabel ?? null,
+        hiddenClue: item.hiddenClue ?? null,
       });
     }
   }
@@ -534,7 +554,7 @@ export function buildOutputSource(byEra) {
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
   lines.push("// Re-run that script after content-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { Confidence, ContentTag, EraId, ImageRef, LensId, Product, RumorNote } from './types';");
+  lines.push("import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, Product, RumorNote } from './types';");
   lines.push('');
   // Freshness stamp — emitted ONLY during `prebuild` (the deploy build, where
   // npm sets npm_lifecycle_event=prebuild), never into the committed file.
@@ -560,6 +580,7 @@ export function buildOutputSource(byEra) {
   lines.push('  images?: ImageRef[];');
   lines.push('  sources?: { name: string; url: string }[];');
   lines.push('  video?: { youtubeId: string; title: string };');
+  lines.push('  hiddenClue?: HiddenClue;');
   lines.push('  relatedIds?: string[];');
   lines.push('  threadIds?: LensId[];');
   lines.push("  significance?: 'defining' | 'notable';");
@@ -600,6 +621,9 @@ export function buildOutputSource(byEra) {
       }
       if (it.video) {
         lines.push(`      video: { youtubeId: ${esc(it.video.youtubeId)}, title: ${esc(it.video.title)} },`);
+      }
+      if (it.hiddenClue) {
+        lines.push(`      hiddenClue: { clue: ${esc(it.hiddenClue.clue)}, payoff: ${esc(it.hiddenClue.payoff)} },`);
       }
       if (it.relatedIds && it.relatedIds.length) {
         lines.push(`      relatedIds: [${it.relatedIds.map(esc).join(', ')}],`);

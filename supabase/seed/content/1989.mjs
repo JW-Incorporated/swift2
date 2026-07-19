@@ -2034,5 +2034,109 @@ export default {
         ],
       },
     },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-album",
+      year: 2014,
+      month: 10,
+      day: 27,
+      category: "music",
+      title: "The pop reinvention",
+      snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
+      moment: {
+        context: "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-shake-it-off",
+      year: 2014,
+      month: 8,
+      day: 18,
+      category: "music",
+      title: "“Shake It Off” launches the era",
+      snippet: "A brass-driven lead single announces the full pop pivot from a stadium stage.",
+      video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
+      moment: {
+        context: "Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-blank-space",
+      year: 2014,
+      month: 11,
+      day: 10,
+      category: "music",
+      tags: ["Lore"],
+      title: "“Blank Space” flips the narrative",
+      snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
+      video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
+      moment: {
+        context: "By playing the “boy-crazy” caricature for laughs, she seized control of the story and scored another number one.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-polaroids",
+      year: 2014,
+      month: 11,
+      dateLabel: "Late 2014",
+      category: "fashion",
+      title: "Polaroids and pastel",
+      snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
+      moment: {
+        context: "Polaroid-framed lyrics and a crisp pastel palette made 1989 instantly iconic.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-squad",
+      year: 2015,
+      month: 1,
+      dateLabel: "Early 2015",
+      category: "sighting",
+      title: "The “squad” era",
+      snippet: "A rotating cast of famous friends becomes its own cultural storyline.",
+      moment: {
+        context: "Group appearances and red-carpet friendships turned her social circle into a defining 1989-era talking point.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-bad-blood",
+      year: 2015,
+      month: 5,
+      day: 17,
+      category: "music",
+      title: "“Bad Blood” short film",
+      snippet: "A star-studded cinematic music video doubles as an event premiere.",
+      video: { youtubeId: "QcIy9NiNbmo", title: "Taylor Swift - Bad Blood ft. Kendrick Lamar" },
+      moment: {
+        context: "The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-aoty",
+      year: 2016,
+      month: 2,
+      day: 15,
+      category: "sighting",
+      title: "Second Album of the Year",
+      snippet: "She becomes the first woman to win the top Grammy twice.",
+      moment: {
+        context: "Accepting the award, she used the moment to speak directly to young women about crediting their own work.",
+      },
+    },
   ],
 };

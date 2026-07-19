@@ -1710,5 +1710,81 @@ export default {
         ],
       },
     },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-album",
+      year: 2020,
+      month: 7,
+      day: 24,
+      category: "music",
+      tags: ["Lore"],
+      title: "A surprise in the woods",
+      snippet: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
+      moment: {
+        context: "No rollout, no singles, no warning: folklore arrived overnight and rewrote what a Taylor Swift album could be.\n\nMuted, literary, and fictional, it introduced interlocking character stories fans mapped for months.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-cardigan",
+      year: 2020,
+      month: 8,
+      dateLabel: "Summer 2020",
+      category: "fashion",
+      title: "The cardigan and cottagecore",
+      snippet: "Grayscale knitwear and misty forests define the era’s look.",
+      video: { youtubeId: "K-a8s8OLBSE", title: "Taylor Swift - cardigan" },
+      moment: {
+        context: "Cozy cardigans, braided hair, and a foggy woodland palette made cottagecore the aesthetic of 2020.\n\nThe cream cable-knit cardigan from the video, embroidered with stars, was sold as official merch and is widely credited with driving cottagecore's mainstream revival.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-teenage-love-triangle",
+      year: 2020,
+      month: 7,
+      day: 25,
+      category: "music",
+      tags: ["Lore"],
+      title: "The teenage love triangle",
+      snippet: "Three songs — \"cardigan,\" \"august,\" and \"betty\" — tell one story from three points of view.",
+      moment: {
+        context: "Swift has said on record that \"cardigan,\" \"august,\" and \"betty\" form a fictional teenage love triangle, each song narrated by a different character in the story.\n\nIt set the template for folklore's fictional, novelistic approach — a sharp turn from the autobiographical framing of her earlier catalog.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-william-bowery",
+      year: 2020,
+      month: 11,
+      day: 25,
+      category: "music",
+      tags: ["Lore"],
+      title: "William Bowery revealed",
+      snippet: "The mystery co-writer credited on \"exile\" and \"betty\" is confirmed as Joe Alwyn.",
+      moment: {
+        context: "In the Disney+ special Folklore: The Long Pond Studio Sessions, Swift revealed that \"William Bowery\" — credited as a co-writer on \"exile\" and \"betty\" — was her then-partner Joe Alwyn.\n\nThe pseudonym combines his great-grandfather's name, William Alwyn (also a musician), with the Bowery Hotel, where the two were first spotted together.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-aoty",
+      year: 2021,
+      month: 3,
+      day: 14,
+      category: "music",
+      title: "A third Album of the Year",
+      snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
+      moment: {
+        context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Swift's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
+      },
+    },
   ],
 };

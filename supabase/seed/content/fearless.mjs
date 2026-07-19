@@ -2057,5 +2057,36 @@ export default {
         ],
       },
     },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "fearless-album",
+      year: 2008,
+      month: 11,
+      day: 11,
+      category: "music",
+      title: "Fearless changes everything",
+      snippet: "The fairy-tale record that turns a promising country act into a global phenomenon.",
+      moment: {
+        context: "Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.\n\nIt would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "fearless-vmas",
+      year: 2009,
+      month: 9,
+      day: 13,
+      category: "sighting",
+      title: "The interrupted speech",
+      snippet: "A VMAs moment becomes pop-culture lore and a defining public turning point.",
+      hiddenClue: { clue: "She later wrote a song thanking the moment for making her stronger.", payoff: "“Innocent” and, years later, the framing of the reputation era both trace back here." },
+      moment: {
+        context: "Mid-acceptance, the microphone was taken. The moment turned a rising star into a household name overnight and seeded a narrative she would revisit for years.",
+      },
+    },
   ],
 };
