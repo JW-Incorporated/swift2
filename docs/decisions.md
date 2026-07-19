@@ -57,7 +57,24 @@ arc across both rounds) and `threadIds` opt-ins (`taylors-version`,
 browser `Image()` load before merging — see the 2026-07-18 entries below),
 and this round's 10 items span 4 disjoint seed files with no shared lines,
 the photo-sourcing step was split into 3 parallel background passes (one
-per file group) instead of run serially, at Joey's request.
+per file group) instead of run serially, at Joey's request. One Claude
+subagent (midnights.mjs) hit the account's monthly Claude spend cap
+mid-task and was redone via `ask-chatgpt.mjs` instead, at Joey's follow-up
+direction to lean on the OpenAI-billed path (Codex/ChatGPT share one API
+key, separate from Claude's) since it doesn't compete with that cap.
+
+**Cross-review gap, flagged rather than silently skipped:** the mandated
+`codex exec` cross-review of this round's full diff (CLAUDE.md workflow
+rule 3) hit the *OpenAI* account's own usage limit partway through (after
+~744K tokens, before producing any findings) and returned no usable
+review — quota resets 2026-07-25. Rather than wait or declare the pass
+done without the review it's supposed to get, I did a manual self-review
+against the same checklist the round-1 Codex review used (fabrication/
+self-contradiction, thin sourcing, vague photo captions, id-prefix
+correctness) — caught and fixed one real gap this way (the Super Bowl
+LVIII item had only one source; added two more). This is not a substitute
+for an independent second-model review, which round 1 got and this round
+didn't — flagging that explicitly rather than letting it look equivalent.
 
 ## 2026-07-18 — Content weighted by real-world significance, not incidental signals
 

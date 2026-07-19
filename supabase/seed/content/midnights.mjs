@@ -1155,6 +1155,26 @@ export default {
             outlet: 'The Hollywood Reporter',
             url: 'https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/',
           },
+          // Added in review (2026-07-19): item had only one source before —
+          // thin relative to the depth bar other 'defining' items hit.
+          {
+            outlet: 'CNN',
+            url: 'https://www.cnn.com/2024/02/11/entertainment/taylor-swift-super-bowl-kelce/index.html',
+            source_title: 'Taylor Swift jumps for joy when Kansas City Chiefs win the Super Bowl after nail-biter game',
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1394816/taylor-swifts-super-bowl-squad-includes-blake-lively-and-ice-spice',
+            source_title: "Taylor Swift's Super Bowl Squad Includes Blake Lively and Ice Spice",
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 3,
+          },
         ],
         photos: [
           {
