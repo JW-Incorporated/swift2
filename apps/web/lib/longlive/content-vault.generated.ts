@@ -2433,6 +2433,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2021/03/15/e53c1cc2-5b66-4cc7-8ffe-4143fd3635cc/thumbnail/620x445g2/fc83de0ccaff91d78c6330439a42f406/gettyimages-1307122849.jpg", credit: "Kevin Mazur/Getty Images for The Recording Academy", caption: "At the 63rd Grammy Awards, March 14, 2021, where folklore won Album of the Year.", kind: "primary", focalPoint: "53% 22%" }, { url: "https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg?w=942&h=628&crop=1", credit: "Kevin Winter/Getty Images for The Recording Academy", caption: "Accepting the Album of the Year Grammy — her third, a first for any woman.", kind: "primary", focalPoint: "45% 25%" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-first-woman-win-album-of-the-year-grammy-awards-three-times/" }, { name: "Billboard", url: "https://www.billboard.com/music/awards/taylor-swift-wins-album-of-the-year-2021-grammy-awards-folklore-9540496/" }],
+      relatedIds: ["moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp", "moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights"],
+      significance: "defining",
     },
     {
       id: "vault-folklore-a-custom-etro-gown-for-the-folklore-evermore-medley",
@@ -3269,6 +3271,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png", credit: "Republic Records / Valheria Rocha (album cover art)", kind: "primary", focalPoint: "50% 53%" }, { url: "https://s.abcnews.com/images/GMA/taylor-swift6-abc-ml-190822_hpMain.jpg", credit: "ABC News / Good Morning America", caption: "On GMA's Central Park SummerStage, Aug. 22, 2019 — the day before Lover became the first album she owned.", kind: "archival", focalPoint: "51% 40%" }],
       sources: [{ name: "Lover (album)", url: "https://en.wikipedia.org/wiki/Lover_(album)" }, { name: "Taylor Swift Vs. Scooter Braun: Inside the Big Machine-Ithaca Deal", url: "https://variety.com/2019/music/news/taylor-swifts-masters-scooter-brauns-bullying-inside-the-big-machine-ithaca-holdings-deal-1203256640/" }, { name: "Taylor Swift performs live on 'GMA,' reveals she'll re-record her old albums", url: "https://www.goodmorningamerica.com/culture/story/taylor-swift-record-music-year-important-artists-work-65115745" }],
+      relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he"],
+      significance: "defining",
     },
     {
       id: "vault-lover-beautiful-ghosts-a-single-co-written-with-andrew-lloyd-webbe",
@@ -3365,7 +3369,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/6/6d/Scooter_Braun.jpg", credit: "TechCrunch (CC BY 2.0), via Wikimedia Commons", caption: "Reference image: Scooter Braun, whose Ithaca Holdings acquired Big Machine — an earlier conference photo, not from the 2019 deal.", kind: "reference", focalPoint: "49% 28%" }, { url: "https://www.billboard.com/wp-content/uploads/2024/10/scooter-braun-taylor-swift-2024-billboard-1548.jpg", credit: "Billboard", caption: "The two sides of the fight, in Billboard's art for its feud timeline — later photos of Braun and Swift, not from the 2019 sale.", kind: "reference", focalPoint: "50% 30%" }, { url: "https://i.guim.co.uk/img/media/952d2b76234c00dea74332a4b49e9ee26bb26884/0_31_3000_1800/master/3000.jpg?crop=none&dpr=1&s=none&width=465", credit: "Richard Shotwell/Invision/AP, via The Guardian", caption: "A contemporaneous reference image shows Swift arriving at the Billboard Music Awards on May 1, 2019, two months before the Big Machine sale.", kind: "reference" }, { url: "https://media.vanityfair.com/photos/5ddb4a90d223c300093e7f42/master/w_2560%2Cc_limit/taylor-swift-ama-perfomance.jpg", credit: "JC Olivera/Getty Images, via Vanity Fair", caption: "Swift accepts Artist of the Decade at the 2019 American Music Awards amid the public dispute over performing her Big Machine-era songs.", kind: "archival" }, { url: "https://i.guim.co.uk/img/media/62052f41de01072ab003d60e57853e969dd49106/0_363_3994_2397/master/3994.jpg?crop=none&dpr=1&s=none&width=465", credit: "Kevin Mazur/Getty Images for ABA, via The Guardian", caption: "Swift performs on Good Morning America on Aug. 22, 2019, the day she publicly confirmed that she planned to rerecord her catalog.", kind: "archival" }],
       sources: [{ name: "Taylor Swift Vs. Scooter Braun: Inside the Big Machine-Ithaca Deal", url: "https://variety.com/2019/music/news/taylor-swifts-masters-scooter-brauns-bullying-inside-the-big-machine-ithaca-holdings-deal-1203256640/" }, { name: "Taylor Swift and Scooter Braun's Feud: A Timeline", url: "https://www.billboard.com/lists/taylor-swift-scooter-braun-feud-timeline/" }, { name: "Taylor Swift masters dispute", url: "https://en.wikipedia.org/wiki/Taylor_Swift_masters_dispute" }],
-      relatedIds: ["moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever", "moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1", "moment:vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d"],
+      relatedIds: ["moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever", "moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1", "moment:vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d", "moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi"],
       threadIds: ["taylors-version"],
       significance: "defining",
     },
@@ -3537,6 +3541,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg", credit: "CBS News", kind: "primary" }],
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/" }, { name: "Forbes", url: "https://www.forbes.com/sites/conormurray/2023/12/06/every-major-event-in-taylor-swifts-record-breaking-2023-from-the-eras-tour-to-time-person-of-the-year/" }],
+      significance: "defining",
     },
     {
       id: "vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years",
@@ -3548,6 +3553,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853109799784%29_%28cropped%29.jpg", credit: "Paolo V, CC BY 2.0, via Wikimedia Commons", caption: "Swift performing the Midnights set on the Eras Tour, the album era during which the breakup was confirmed.", kind: "primary" }],
       sources: [{ name: "CNN", url: "https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/joe-alwyn-breaks-silence-taylor-swift-breakup-1235710711/" }],
+      relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official"],
+      significance: "defining",
     },
     {
       id: "vault-midnights-a-brief-rumored-month-with-matty-healy",
@@ -3592,7 +3599,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://media.cnn.com/api/v1/images/stellar/prod/230924170550-taylor-swift-chiefs-092423.jpg?c=16x9&q=w_800,c_fill", credit: "CNN", kind: "primary", focalPoint: "36% 16%" }, { url: "https://media.vanityfair.com/photos/655a2af58877a2e304c7d8ac/master/w_2560%2Cc_limit/1687516923", credit: "Cooper Neill/Getty Images, via Vanity Fair", caption: "Swift cheers beside Donna Kelce from a suite as the Chiefs play the Bears at Arrowhead on Sept. 24, 2023.", kind: "primary" }, { url: "https://media.vanityfair.com/photos/6511b258c700cad4c4f82633/master/w_2560%2Cc_limit/Taylor-Swift.jpg", credit: "Jason Hanna/Getty Images, via Vanity Fair", caption: "Swift reacts from the Arrowhead suite during the first Chiefs game she attended.", kind: "primary" }, { url: "https://media.vanityfair.com/photos/65bac4142264a30c89f9949d/master/w_1600%2Cc_limit/1687739252", credit: "Icon Sportswire/Getty Images, via Vanity Fair", caption: "Swift watches the game with Travis Kelce's mother, Donna, in a separate suite photograph from Sept. 24.", kind: "primary" }, { url: "https://imagez.tmz.com/image/cc/4by3/2023/09/25/cc266e4c1e8646149db60f4c03b795ce_md.jpg", credit: "TMZ.com", caption: "Swift enters Arrowhead in a Chiefs windbreaker, escorted by a member of Kelce's public-relations team.", kind: "primary" }, { url: "https://imagez.tmz.com/image/02/16by9/2023/09/25/02f6bdca4be649f58c60466f10fc0115_md.jpg", credit: "X/@paytonsun, via TMZ", caption: "Swift and Kelce walk out of Arrowhead side by side after the Chiefs' win.", kind: "primary" }, { url: "https://imagez.tmz.com/image/98/4by3/2023/09/25/984b4d79ebce419cbcef97777e65d904_md.jpg", credit: "TMZ.com", caption: "Swift and Kelce leave Arrowhead together in his metallic purple convertible after the game.", kind: "primary" }],
       sources: [{ name: "CNN", url: "https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/" }, { name: "Billboard", url: "https://www.billboard.com/lists/taylor-swift-travis-kelce-relationship-timeline/" }],
-      relatedIds: ["moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie", "moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
+      relatedIds: ["moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie", "moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years"],
       threadIds: ["the-proposal"],
       significance: "defining",
     },
@@ -4382,6 +4389,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary", focalPoint: "45% 38%" }],
       sources: [{ name: "Slate", url: "https://slate.com/culture/2012/10/taylor-swift-album-sales-record-1-2-million-copies-of-red-sold-in-first-week-according-to-soundscan.html" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-country/taylor-swifts-red-sells-1-2-million-copies-in-first-week-243204/" }, { name: "en.wikipedia.org", url: "https://en.wikipedia.org/wiki/Red_(Taylor_Swift_album)" }],
+      relatedIds: ["moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1"],
+      significance: "defining",
     },
     {
       id: "vault-red-all-too-well-and-the-scarf-that-became-a-metaphor",
@@ -4985,6 +4994,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/b/b3/Taylor_Swift%27s_Reputation_Stadium_tour.png", credit: "Big Machine Records", kind: "primary", focalPoint: "46% 28%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/1/1e/Taylor_Swift_Reputation_Tour31.jpg", credit: "UltimateWarrior13 / Wikimedia Commons (CC BY-SA 4.0)", caption: "Mid-song on the reputation Stadium Tour at Levi’s Stadium, May 12, 2018 — four nights after the record-crowd opener in Glendale.", kind: "archival", focalPoint: "50% 18%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Reputation_Stadium_Tour" }, { name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments" }],
+      relatedIds: ["moment:vault-midnights-the-eras-tour-kicks-off-in-glendale"],
+      significance: "defining",
     },
     {
       id: "vault-reputation-snakes-everywhere-on-purpose",
@@ -5007,7 +5018,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png", credit: "Big Machine Records", caption: "The Mert & Marcus album cover revealed on August 23, 2017 — the payoff of the three-day snake-video teaser rollout.", kind: "archival", focalPoint: "42% 35%" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2017/08/168987/taylor-swift-snake-instagram-video-symbolism-emoji" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-reputation-new-album-7941019/" }],
-      relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative"],
+      relatedIds: ["moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative", "moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with"],
+      significance: "defining",
     },
     {
       id: "vault-reputation-new-years-day-closes-reputation-on-a-quiet-acoustic-note",
@@ -5425,6 +5437,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/5/58/Taylor_Swift_-_Reputation_Tour_Seattle_-_I_Did_Something_Bad.jpg", credit: "Ronald Woan / Wikimedia Commons (CC BY-SA 2.0)", caption: "On the reputation Stadium Tour in May 2018 — the final album cycle recorded under the Big Machine contract she was leaving.", kind: "archival", focalPoint: "47% 15%" }],
       sources: [{ name: "Taylor Swift Signs Landmark New Deal With Universal Music Group", url: "https://variety.com/2018/music/news/taylor-swift-news-alert-1203032124/" }, { name: "How Taylor Swift's Deal With Universal Affects Other Artists", url: "https://www.rollingstone.com/pro/news/taylor-swift-universal-republic-deal-spotify-758102/" }],
+      relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me"],
+      threadIds: ["taylors-version"],
+      significance: "defining",
     },
     {
       id: "vault-reputation-the-reputation-stadium-tour-closes-at-the-tokyo-dome",
@@ -5904,6 +5919,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png", credit: "Big Machine Records", kind: "primary", focalPoint: "62% 18%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/c/cd/Taylor_Swift_-_SPEAK_NOW_World_Tour_Live_in_Sydney_2012_-_Speak_Now.jpg", credit: "Eva Rinaldi / Wikimedia Commons (CC BY-SA 2.0)", caption: "Performing the title track on the Speak Now World Tour in Sydney, March 2012.", kind: "archival", focalPoint: "45% 12%" }],
       sources: [{ name: "Speak Now", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
+      significance: "defining",
     },
     {
       id: "vault-speak-now-back-to-december-goes-to-radio-as-single-two",
@@ -6171,6 +6187,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2025/10/taylor-swift-2025-cr-Mert-Alas-Marcus-Piggot-billboard-1800.jpg", credit: "Mert Alas & Marcus Piggott / TAS Rights Management, via Billboard", caption: "A Showgirl-era portrait by the album's photographers, Mert Alas and Marcus Piggott — run with Billboard's coverage of the week the tracklist WAS the top 12.", kind: "primary", focalPoint: "48% 15%" }, { url: "https://upload.wikimedia.org/wikipedia/en/0/09/Taylor_Swift_%E2%80%93_The_Fate_of_Ophelia_%28CD_single_cover%29.png", credit: "Single artwork / Republic Records, via Wikipedia", caption: "\"The Fate of Ophelia\" single artwork — the song that led the album's wall-to-wall occupation of the Hot 100's top 12 from No. 1.", kind: "archival", focalPoint: "38% 22%" }],
       sources: [{ name: "Taylor Swift's 'Fate of Ophelia' No. 1 on Hot 100, Takes All Top 10", url: "https://www.billboard.com/lists/taylor-swift-hot-100-fate-of-ophelia-number-one/" }],
+      relatedIds: ["moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once"],
+      significance: "defining",
     },
     {
       id: "vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-",
@@ -7324,7 +7342,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2025/05/02-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "The photo released with the May 30, 2025 announcement: Swift with the six albums she bought back from Shamrock Capital.", kind: "primary", focalPoint: "48% 30%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/05/01-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "A second frame from the announcement set: reading the sleeves of the reclaimed records, reputation in hand.", kind: "primary", focalPoint: "46% 30%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/05/03-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "A third frame from the announcement set: seated cross-legged with all six reclaimed albums fanned in a circle around her.", kind: "primary", focalPoint: "48% 28%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/05/04-taylor-swift-with-albums-2025-billboard-1548.jpg?w=1024", credit: "Courtesy of Taylor Swift (via Billboard)", caption: "A closer frame from the same shoot, hands resting on the reclaimed sleeves.", kind: "primary", focalPoint: "50% 25%" }],
       sources: [{ name: "Taylor Swift Buys Back Her Masters From Shamrock, Reclaiming Her First Six Albums", url: "https://www.billboard.com/pro/taylor-swift-regains-control-master-recordings-shamrock/" }, { name: "Taylor Swift Shocker: Singer Buys Back Rights to First Six Albums", url: "https://variety.com/2025/music/news/taylor-swift-buys-rights-first-six-albums-shamrock-1236413964/" }, { name: "Taylor Swift Buys Back Her Early Albums After Years-Long Crusade", url: "https://www.bloomberg.com/news/articles/2025-05-30/taylor-swift-buys-back-her-early-albums-after-years-long-crusade" }],
-      relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever"],
+      relatedIds: ["moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he", "moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever", "moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi"],
       threadIds: ["taylors-version"],
       significance: "defining",
     },

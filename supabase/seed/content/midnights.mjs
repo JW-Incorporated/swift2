@@ -590,6 +590,7 @@ export default {
       month: 12,
       day: 6,
       category: 'business',
+      significance: 'defining', // global-recognition peak of the Eras Tour year (docs/decisions.md, 2026-07-19)
       title: 'Time names her 2023 Person of the Year',
       snippet:
         "Her own reaction: \"This is the proudest and happiest I've ever felt, and the most creatively fulfilled and free I've ever been.\"",
@@ -628,6 +629,8 @@ export default {
       month: 4,
       day: 9,
       category: 'relationship',
+      significance: 'defining', // the end of a 6-year relationship and the direct precursor to the Kelce era (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-the-game-the-world-decided-made-it-official'],
       title: 'Taylor and Joe Alwyn confirm their breakup after six years',
       snippet:
         '"They simply grew apart and plan to remain friends" — the end of a relationship she\'d kept almost entirely out of public view since 2016.',
@@ -762,6 +765,7 @@ export default {
       relatedIds: [
         'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years',
       ],
       title: 'The game the world decided made it official',
       snippet:

@@ -1710,6 +1710,8 @@ export default {
     },
     {
       slug: 'lover-first-owned-album',
+      significance: 'defining', // the actual arrival of the album that owns her whole catalog's turning point, the first she's owned outright (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
       year: 2019,
       month: 8,
       day: 23,
@@ -2093,6 +2095,7 @@ export default {
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
         'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
         'moment:vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d',
+        'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
       ],
       year: 2019,
       month: 6,

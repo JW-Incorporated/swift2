@@ -2912,6 +2912,7 @@ export default {
       relatedIds: [
         'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
+        'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
       ],
       year: 2025,
       month: 5,

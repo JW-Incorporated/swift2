@@ -237,6 +237,11 @@ export default {
       month: 3,
       day: 14,
       category: 'business',
+      significance: 'defining', // a historic Grammy record on its own, and the middle link in her eventual record 4 (docs/decisions.md, 2026-07-19)
+      relatedIds: [
+        'moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp',
+        'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
+      ],
       title: 'folklore makes her the first woman to win Album of the Year three times',
       snippet:
         'A third Grammy for Album of the Year — joining Frank Sinatra, Paul Simon, and Stevie Wonder as the only artists ever to do it three times.',

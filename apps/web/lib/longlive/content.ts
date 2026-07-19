@@ -879,8 +879,12 @@ export const MILESTONES: Milestone[] = [
   // — the Kimye "Famous" call leak was already the era's defining flashpoint
   // in the seed data (significance: 'defining') but had no scrubber marker.
   { id: 'm-89-4', eraId: '1989', date: '2016-07-17', label: 'The call leaks', kind: 'life' },
+  // Added 2026-07-19 (10-defining-events round 3, docs/decisions.md).
+  { id: 'm-rep-0', eraId: 'reputation', date: '2017-08-21', label: 'Snake video drops', kind: 'life' },
   { id: 'm-rep-1', eraId: 'reputation', date: '2017-11-10', label: 'reputation released', kind: 'album' },
   { id: 'm-rep-2', eraId: 'reputation', date: '2018-05-08', label: 'Stadium Tour', kind: 'tour' },
+  // Added 2026-07-19 (10-defining-events round 3, docs/decisions.md).
+  { id: 'm-rep-3', eraId: 'reputation', date: '2018-11-19', label: 'Leaves Big Machine', kind: 'business' },
   { id: 'm-lov-1', eraId: 'lover', date: '2019-06-30', label: 'Masters sold', kind: 'business' },
   { id: 'm-lov-2', eraId: 'lover', date: '2019-08-23', label: 'Lover released', kind: 'album' },
   { id: 'm-folk-1', eraId: 'folklore', date: '2020-07-24', label: 'folklore surprise drop', kind: 'album' },
@@ -894,11 +898,15 @@ export const MILESTONES: Milestone[] = [
   // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
   { id: 'm-mid-1c', eraId: 'midnights', date: '2022-11-15', label: 'Ticketmaster presale', kind: 'business' },
   { id: 'm-mid-2', eraId: 'midnights', date: '2023-03-17', label: 'Eras Tour begins', kind: 'tour' },
+  // Added 2026-07-19 (10-defining-events round 3, docs/decisions.md).
+  { id: 'm-mid-2a', eraId: 'midnights', date: '2023-04-09', label: 'Alwyn breakup confirmed', kind: 'life' },
   // Added 2026-07-19 alongside the 10-defining-events pass (docs/decisions.md)
   // — same gap as m-89-4: significance: 'defining' in the seed data, no
   // scrubber marker until now.
   { id: 'm-mid-2b', eraId: 'midnights', date: '2023-09-24', label: 'Relationship goes public', kind: 'life' },
   { id: 'm-mid-3', eraId: 'midnights', date: '2023-10-13', label: 'Eras Tour film', kind: 'tour' },
+  // Added 2026-07-19 (10-defining-events round 3, docs/decisions.md).
+  { id: 'm-mid-3a', eraId: 'midnights', date: '2023-12-06', label: 'Person of the Year', kind: 'award' },
   // Added 2026-07-19 (10-defining-events round 2, docs/decisions.md).
   { id: 'm-mid-3b', eraId: 'midnights', date: '2024-02-04', label: 'Record 4th AOTY', kind: 'award' },
   { id: 'm-mid-3c', eraId: 'midnights', date: '2024-02-11', label: 'Super Bowl LVIII', kind: 'life' },
