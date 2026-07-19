@@ -44,6 +44,10 @@ export default {
       month: 9,
       day: 1,
       category: 'sighting',
+      significance: 'notable', // a real, sourced first step onto country music's most sacred stage, weeks before the album that made her famous (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-0", label: "Grand Ole Opry debut", kind: "life" },
       title: 'Her Grand Ole Opry debut, in a sundress at 16',
       snippet:
         'A white sundress, natural curls, and "Tim McGraw" — before the album that made her famous had even come out.',
@@ -56,12 +60,60 @@ export default {
           { outlet: 'Taste of Country', url: 'https://tasteofcountry.com/taylor-swift-grand-ole-opry-debut/' },
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-grand-ole-opry-debut/' },
         ],
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added. No freely
+        // licensed photo of the actual Sept. 1, 2006 debut exists, so this
+        // stays honest era-context: the actual Opry House stage/building
+        // (before and around the debut) plus two other real 2006-07
+        // appearances, none claiming to be the debut night itself. All
+        // curl-verified 200 + image/jpeg, downloaded and visually confirmed.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)',
             kind: 'archival',
             focalPoint: '39% 23%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c8/Grand_Ole_Opry_%2897056906%29.jpg',
+            credit: 'Ken Lund / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The Grand Ole Opry House exterior, Feb. 2006 — seven months before her debut on this stage.',
+            kind: 'reference',
+            focalPoint: '50% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Dolly_parton_grand_ole_opry.jpg',
+            credit: 'Tech. Sgt. Cherie A. Thurlby, USAF (public domain)',
+            caption: 'Dolly Parton performing on the actual Grand Ole Opry stage, under the same "GRAND OLE OPRY" roundel — the same stage Swift debuted on, a different night.',
+            kind: 'reference',
+            focalPoint: '78% 55%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/52/101207-Nashville-GrandOleOpry-001.JPG',
+            credit: "Bobak Ha'Eri / Wikimedia Commons, CC BY 3.0",
+            caption: 'The Opry House grounds and garden entrance, October 2007.',
+            kind: 'reference',
+            focalPoint: '50% 40%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Grand_Ole_Opry_House_%28entrance_sign%29.jpg',
+            credit: 'Abbie Myers / Wikimedia Commons, CC BY-SA 4.0',
+            caption: 'The Opry House\'s lit entrance sign, 2008.',
+            kind: 'reference',
+            focalPoint: '50% 60%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Taylorswiftphoenixchecker500111206.JPG',
+            credit: 'Wikimedia Commons (public domain)',
+            caption: 'A real 2006 appearance — curly hair and printed dress, months into her first year as a signed artist.',
+            kind: 'archival',
+            focalPoint: '68% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fe/Taylor_Swift_at_Yahoo_2007.jpg',
+            credit: 'Brian Cantoni / Wikimedia Commons, CC BY 2.0',
+            caption: 'Holding a certified-sales plaque for the debut album at a Yahoo event, May 16, 2007.',
+            kind: 'archival',
+            focalPoint: '48% 30%',
           },
         ],
       },
@@ -100,6 +152,10 @@ export default {
       month: 11,
       day: 7,
       category: 'business',
+      significance: 'notable', // her first industry-body recognition, the trophy her later CMA wins are counted from (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-3", label: "First CMA Award", kind: "award" },
       title: 'Wins her first CMA Award — the Horizon Award',
       snippet:
         'Her first career CMA Award, the Horizon Award, at the 41st CMA Awards on Nov. 7, 2007 — the trophy now known as New Artist of the Year.',
@@ -114,10 +170,52 @@ export default {
           { outlet: 'Forbes', url: 'https://www.forbes.com/pictures/geeg45eilhf/2007-success-is-on-the/' },
           { outlet: 'The Boot', url: 'https://theboot.com/cma-awards-winners-list/' },
         ],
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added. No further
+        // freely licensed photo of the Nov. 7, 2007 ceremony itself was found
+        // on Commons, so these add the actual award venue (Gaylord
+        // Entertainment Center/Sommet Center, renamed Bridgestone Arena in
+        // 2010 — same building) plus other real, dated 2007 appearances. All
+        // curl-verified 200 + image/jpeg, downloaded and visually confirmed.
         photos: [
           {
             url: 'https://media.gettyimages.com/id/77795920/photo/41st-annual-cma-awards-press-room.jpg?s=594x594&w=0&k=20&c=Pps0NDhapuDnUOXIZdnjsgbreJehja48sZzwGrprAcg=',
             credit: 'Bryan Bedder/Getty Images',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/Gaylord_Entertainment_Center_2005-12-07.jpg',
+            credit: 'Wonderdawg777 / Wikimedia Commons, CC BY 2.0',
+            caption: 'An aerial view of the Gaylord Entertainment Center — renamed Sommet Center in 2007, the arena where the 41st CMA Awards were held — Dec. 2005.',
+            kind: 'reference',
+            focalPoint: '35% 45%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1f/Bridgestone_Arena_%2897058907%29.jpg',
+            credit: 'Ken Lund / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'A street-level view of the same downtown Nashville arena, Feb. 2006.',
+            kind: 'reference',
+            focalPoint: '45% 40%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg',
+            credit: 'minds-eye / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Performing three months before the CMA win, Aug. 10, 2007.',
+            kind: 'archival',
+            focalPoint: '50% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/47/TaylorSwift4.jpg',
+            credit: 'Brian Cantoni / Wikimedia Commons, CC BY 2.0',
+            caption: 'Performing at a separate May 16, 2007 Yahoo appearance the same year.',
+            kind: 'archival',
+            focalPoint: '48% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/16/Terry_%26_Filo_honor_country_music_star_Taylor_Swift_1.jpg',
+            credit: 'Yahoo! (CC BY 2.0), via Wikimedia Commons',
+            caption: 'Onstage with Yahoo co-founder David Filo and then-CEO Terry Semel at the same May 16, 2007 appearance.',
+            kind: 'archival',
+            focalPoint: '43% 32%',
           },
         ],
       },

@@ -594,6 +594,7 @@ export default {
       day: 6,
       category: 'business',
       significance: 'defining', // global-recognition peak of the Eras Tour year (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-ttpd-an-endorsement-signed-childless-cat-lady'],
       title: 'Time names her 2023 Person of the Year',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -2868,10 +2869,15 @@ export default {
     },
     {
       slug: 'speak-now-tv-announced-nashville',
+      threadIds: ['taylors-version'],
       year: 2023,
       month: 5,
       day: 5,
       category: 'release',
+      significance: 'notable', // a real re-record milestone, but one of four TV announcements this era rather than a career-wide top-40 event (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-5", label: "Speak Now (TV) announced", kind: "album" },
       title: "Speak Now (Taylor's Version) announced onstage in Nashville",
       snippet:
         'Wristbands turned purple across Nissan Stadium as she revealed the next re-record from the stage — the album she wrote entirely alone at 18–20, coming back July 7.',
@@ -2879,7 +2885,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The May 5, 2023 reveal opened her three-night hometown Nashville stand: entry banners ran purple-hued all day before the announcement landed mid-show.\n\nHer post that night flagged the July 7 date as "just in time for July 9th, iykyk" — the "Last Kiss" date fans have kept as an anniversary since 2010.',
+          'The May 5, 2023 reveal opened her three-night hometown Nashville stand: entry banners ran purple-hued all day before the announcement landed mid-show.\n\nHer post that night flagged the July 7 date as "just in time for July 9th, iykyk" — the "Last Kiss" date fans have kept as an anniversary since 2010.\n\nFans had already called it: the "Bejeweled" video, released five months earlier, was widely read as a coded Speak Now tease — the purple gown, a pointed third-floor elevator button, an Enchanted-coded ballroom — and the Nashville reveal confirmed the read (Bejeweled (song), Wikipedia).',
         sources: [
           {
             outlet: 'Variety',
@@ -2889,6 +2895,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Bejeweled_(song)',
+            source_title: 'Bejeweled (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
           },
           {
             outlet: 'Billboard',
@@ -2902,17 +2917,64 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the announced album's artwork; Wikipedia's
         // stable copy, verified HTTP 200 + image/png this session.
-        // Photo-enrichment audit (2026-07-18): stays at one image deliberately —
+        // Photo-enrichment audit (2026-07-18): stayed at one image deliberately —
         // no verifiable photo of the May 5 Nissan Stadium announcement moment
         // exists on an outlet CDN or Commons (Variety's article image is a vinyl
         // product render that duplicates this cover). Focal point set by viewing.
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added — title
+        // cards from the album's own re-recorded lyric video and five of its
+        // six official From the Vault lyric videos on the @TaylorSwift
+        // channel (oEmbed-verified each), the closest real visual record of
+        // the album this announcement introduced.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
             caption: "The Speak Now (Taylor's Version) cover revealed alongside the onstage Nashville announcement.",
-            kind: 'archival',
+            kind: 'primary',
             focalPoint: '55% 30%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/JlZnvyBqceY/maxresdefault.jpg',
+            credit: 'Still from the official "Speak Now (Taylor\'s Version)" lyric video, Republic Records, via YouTube',
+            caption: 'The title-track lyric video\'s paper-cut white rose title card.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/hMPK2vNXr-E/maxresdefault.jpg',
+            credit: 'Still from the official "Electric Touch (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Electric Touch" title card, crediting Fall Out Boy\'s feature.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/V80A8qN4fR8/maxresdefault.jpg',
+            credit: 'Still from the official "Castles Crumbling (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Castles Crumbling" title card, crediting Hayley Williams\'s feature.',
+            kind: 'archival',
+            focalPoint: '50% 60%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/6-x1AlDudZw/maxresdefault.jpg',
+            credit: 'Still from the official "Foolish One (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Foolish One" title card.',
+            kind: 'archival',
+            focalPoint: '65% 50%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/osmzwWw4RYM/maxresdefault.jpg',
+            credit: 'Still from the official "Timeless (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Timeless" title card, framed as a scalloped-edge vintage photograph.',
+            kind: 'archival',
+            focalPoint: '48% 45%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/IYqgVYjN3Go/maxresdefault.jpg',
+            credit: 'Still from the official "When Emma Falls in Love (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "When Emma Falls in Love" title card.',
+            kind: 'archival',
+            focalPoint: '50% 50%',
           },
         ],
       },
@@ -3068,10 +3130,16 @@ export default {
     },
     {
       slug: 'sofi-1989-tv-announcement',
+      threadIds: ['taylors-version'],
       year: 2023,
       month: 8,
       day: 9,
       category: 'release',
+      significance: 'notable', // a genuinely predictive fan-numerology win and a real re-record milestone, but one of four TV announcements this era rather than a career-wide top-40 event (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-6", label: "1989 (TV) announced", kind: "album" },
+      relatedIds: ['moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
       title: "1989 (Taylor's Version) announced at the final US show — on the date fans predicted",
       snippet:
         'Blue versions of her Speak Now, folklore, and 1989 outfits teased it all night at SoFi before the reveal: Oct. 27. Fans had already done the math — Aug. 9 was eight years, nine months, and 13 days since the original.',
@@ -3079,7 +3147,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Aug. 9, 2023 finale of the tour\'s first US run ended with SoFi\'s roof lit up for the announcement and Swift calling it "my most FAVORITE re-record I\'ve ever done."\n\nThe date numerology (8-9, and her lucky 13) had circulated among fans for weeks — one of the rare times the fandom called an announcement to the day.',
+          'The Aug. 9, 2023 finale of the tour\'s first US run ended with SoFi\'s roof lit up for the announcement and Swift calling it "my most FAVORITE re-record I\'ve ever done."\n\nThe date numerology (8-9, and her lucky 13) had circulated among fans for weeks — one of the rare times the fandom called an announcement to the day: date logic (8/9 reading as \'89), the era\'s color-code system (blue for 1989), and the tour calendar all pointed the same direction publicly before the show, and the reveal landed exactly where the numerology said it would (1989 (Taylor\'s Version), Wikipedia).',
         sources: [
           {
             outlet: 'Variety',
@@ -3098,6 +3166,15 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: "https://en.wikipedia.org/wiki/1989_(Taylor%27s_Version)",
+            source_title: "1989 (Taylor's Version)",
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-08',
+            reliability_score: 2,
           },
         ],
         // Real-photo pass (2026-07-09): freely licensed photo from the actual
@@ -3119,6 +3196,10 @@ export default {
       month: 10,
       day: 26,
       category: 'business',
+      significance: 'defining', // one of very few entertainers ever to reach ten figures on music alone, no side business required (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-4", label: "Billionaire status", kind: "business" },
       title: 'Billionaire status, from the music alone',
       snippet:
         'Bloomberg put her net worth at $1.1 billion in October 2023 — one of the only entertainers ever to get there purely on songs and shows, no sneaker line or liquor brand required.',
@@ -3168,6 +3249,28 @@ export default {
             kind: 'archival',
             focalPoint: '50% 45%',
           },
+          // Photo pass 2026-07-19 (defining-events-31-50): 3 more real,
+          // verified photos tied to the specific revenue drivers this
+          // item's own text breaks down (the tour, and 1989 (Taylor's
+          // Version), which posted its largest sales week the same month).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109542801%29_%28cropped%29.jpg',
+            credit: 'Paolo V, Wikimedia Commons (CC BY 2.0)',
+            caption: 'The 1989 set at the same SoFi stand — the era whose Taylor\'s Version posted the biggest sales week of her career that same October.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/d/d5/Taylor_Swift_-_1989_%28Taylor%27s_Version%29.png',
+            credit: 'Republic Records (official cover art)',
+            caption: '1989 (Taylor\'s Version), released Oct. 27, 2023 — the record-week sales that landed the same month as the billionaire estimate.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/The_Eras_Tour_Logo.png',
+            credit: 'TAS Rights Management (official logo)',
+            caption: 'The Eras Tour\'s own branding — the touring revenue Bloomberg\'s breakdown weighted most heavily.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -3177,6 +3280,9 @@ export default {
       month: 10,
       day: 13,
       category: 'release',
+      significance: 'defining', // bypassed the entire studio system and still set the concert-film opening record — a new distribution playbook, not just a box-office number (docs/decisions.md, 2026-07-19)
+      // No new MILESTONES entry: "m-mid-3" (this same era file) already marks
+      // Oct. 13, 2023 on the scrubber via the "midnights-film" stub item.
       title: 'The Eras Tour film opens to $92.8 million — the biggest concert-film debut ever',
       snippet:
         'Distributed straight through AMC, skipping the studios entirely: $92.8M domestic, $123.5M globally, and the second-biggest October opening of all time behind Joker.',
@@ -3213,6 +3319,20 @@ export default {
             credit: 'Taylor Swift Productions / AMC Theatres',
             caption: 'Promotional poster for Taylor Swift: The Eras Tour, the concert film that opened to a record $92.8 million domestic.',
             kind: 'primary',
+          },
+          // Photo pass 2026-07-19 (defining-events-31-50): 2 more real,
+          // verified photos of the opening weekend itself.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/10/taylor-swift-eras-movie-premiere-2023-billboard-1240.jpg',
+            credit: 'Getty Images, via Billboard',
+            caption: 'At the film\'s Los Angeles premiere, Oct. 11, 2023, two days before the record-setting opening weekend.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2023/10/Taylor-Swift-Eras-Tour-Movie-Opening-Night-Publicity-H-2023.jpg?w=1296&h=730&crop=1',
+            credit: 'Getty Images, via The Hollywood Reporter',
+            caption: 'Opening night at the TCL Chinese Theatre in Hollywood — the costumed, dancing audiences that drove the box office.',
+            kind: 'archival',
           },
         ],
       },

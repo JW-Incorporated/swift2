@@ -117,6 +117,7 @@ export default {
       month: 5,
       day: 5,
       category: 'tour',
+      significance: 'notable', // a real tour-opening record, but not on the career-defining tier next to the Eras Tour opening or the Stadium Tour (docs/decisions.md, 2026-07-19)
       title: 'The 1989 World Tour opens with two sold-out nights in Tokyo',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -137,7 +138,55 @@ export default {
         // photo actually dated/described as Tokyo Dome, 6 May 2015 (CC BY-SA 4.0, photographer
         // Johndavis2004); curl-verified 200/image-jpeg, downloaded and visually confirmed
         // Taylor onstage with a guitar and a visible exit-sign pictogram consistent with Japan.
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'archival', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.' }],
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added, all Wikimedia
+        // Commons "The 1989 World Tour" uploads — curl-verified 200 + image/jpeg,
+        // downloaded and visually confirmed this session. All from other stops
+        // on the same 2015 tour (kept 'archival'/'reference', not 'primary').
+        photos: [
+          { url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'primary', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.' },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/17/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The silver sequined bomber jacket and blue skater skirt worn for the "Style"/"New York" opening stretch, Ford Field, Detroit, May 30, 2015.',
+            kind: 'archival',
+            focalPoint: '55% 22%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_004_%2818117171700%29.jpg',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The same silver-jacket opening number, seen from behind with dancers, Ford Field, Detroit, May 30, 2015.',
+            kind: 'archival',
+            focalPoint: '50% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Taylor_Swift_-_1989_Tour_Singapore_-_Style_%2823409003734%29.jpg',
+            credit: 'Flower Black / Wikimedia Commons, CC BY 2.0',
+            caption: 'A jumbotron view of the purple sequined "Style" performance dress, Singapore Indoor Stadium, Dec. 28, 2015.',
+            kind: 'archival',
+            focalPoint: '38% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Taylor_Swift_-_ANZ_Stadium_Concert_1989_World_Tour_%2823928940022%29.jpg',
+            credit: 'Flower Black / Wikimedia Commons, CC BY 2.0',
+            caption: 'The stadium bathed in the tour\'s signature light-up wristbands as she crosses a catwalk, ANZ Stadium, Sydney, Dec. 28, 2015.',
+            kind: 'reference',
+            focalPoint: '35% 55%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Taylor_Swift_-_The_1989_World_Tour_-_LOS_ANGELES_-_Blank_Space.jpg',
+            credit: 'Denielle / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The black sequined romper worn for "Blank Space," walking the catwalk with a dancer, Los Angeles, Aug. 22, 2015.',
+            kind: 'archival',
+            focalPoint: '58% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Taylor_Swift_-_The_1989_World_Tour_-_Whole_view_of_the_stage_before_the_show.jpg',
+            credit: 'Daniel Park / Wikimedia Commons, CC BY 2.0',
+            caption: 'The "1989" stage and a full stadium bowl before showtime, Levi\'s Stadium, Santa Clara, Aug. 15, 2015.',
+            kind: 'reference',
+            focalPoint: '25% 55%',
+          },
+        ],
       },
     },
     {
@@ -259,6 +308,10 @@ export default {
       month: 5,
       day: 17,
       category: 'relationship',
+      significance: 'defining', // the first major public relationship of the pop era, a full public arc from BBMAs to breakup (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-5", label: "Calvin Harris, public", kind: "life" },
       title: 'Calvin Harris and Taylor go public at the Billboard Music Awards',
       snippet: 'Introduced by Ellie Goulding that February, the DJ-and-pop-star pairing went fully public a month after a first, subtler social-media hint.',
       sourceUrl: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
@@ -276,7 +329,32 @@ export default {
             url: 'https://www.billboard.com/music/music-news/calvin-harris-taylor-swift-breakup-twitter-rant-british-gq-interview-7850101/',
           },
         ],
-        photos: [{ url: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef', credit: 'Kevin Mazur/BMA2015/WireImage' }],
+        // Photo pass 2026-07-19 (defining-events-31-50): 3 more real,
+        // verified photos. Two are recent (2024) individual photos of each
+        // person, honestly captioned as such rather than implying they're
+        // from 2015; the third is Harris's own period-accurate 2015 press
+        // photo (Sony BMG, CC BY 3.0).
+        photos: [
+          { url: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef', credit: 'Kevin Mazur/BMA2015/WireImage' },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Calvin_Harris_-_Press_Image_1.tif/lossy-page1-250px-Calvin_Harris_-_Press_Image_1.tif.jpg',
+            credit: 'Sony BMG, Wikimedia Commons (CC BY 3.0)',
+            caption: 'Calvin Harris\'s own 2015 press photo, from the same year the relationship went public.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://media.zenfs.com/en/us_magazine_896/5cdacd465b06109bab8c9239f156469e',
+            credit: 'Getty Images, via Us Weekly',
+            caption: 'Swift at a 2024 event — a recent individual photo, not from the 2015 relationship.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://media.zenfs.com/en/us_magazine_896/e7d0e3df697d43aa93972af434ff348b',
+            credit: 'Getty Images, via Us Weekly',
+            caption: 'Harris at a 2024 event — a recent individual photo, not from the 2015 relationship.',
+            kind: 'reference',
+          },
+        ],
       },
     },
     {
@@ -1910,6 +1988,7 @@ export default {
       month: 2,
       day: 11,
       category: 'music',
+      significance: 'defining', // the inciting incident of the whole Kimye saga and reputation era (docs/decisions.md, 2026-07-19)
       title: 'The night "Famous" premiered, and she said no',
       snippet:
         'Kanye West debuts "Famous" at Madison Square Garden — "I made that bitch famous" — and says she approved it. Her team answers the same day: she was never told that line, and she "cautioned him about releasing a song with such a strong misogynistic message."',
@@ -1921,11 +2000,69 @@ export default {
       ],
       moment: {
         context:
-          'At the Yeezy Season 3 event at Madison Square Garden on Feb. 11, 2016 — part fashion show, part listening party for The Life of Pablo — West premiered "Famous" and its line about Taylor: "I feel like me and Taylor might still have sex / Why? I made that bitch famous." He insisted she had approved it in a phone call.\n\nHer spokesperson\'s statement said otherwise: "Kanye did not call for approval, but to ask Taylor to release his single \'Famous\' on her Twitter account. She declined and cautioned him about releasing a song with such a strong misogynistic message. Taylor was never made aware of the actual lyric, \'I made that bitch famous.\'"\n\nFour days later she accepted Album of the Year at the Grammys with the "there are going to be people along the way who will try to undercut your success" speech — the whole room knew who she meant. The question of what was actually said on that call would hang over the next four years.',
+'At the Yeezy Season 3 event at Madison Square Garden on Feb. 11, 2016 — part fashion show, part listening party for The Life of Pablo, staged with performance artist Vanessa Beecroft in front of roughly 20,000 people — West premiered "Famous" and its line about Taylor: "I feel like me and Taylor might still have sex / Why? I made that bitch famous." He insisted she had approved it in a phone call.\n\nHer spokesperson\'s statement said otherwise: "Kanye did not call for approval, but to ask Taylor to release his single \'Famous\' on her Twitter account. She declined and cautioned him about releasing a song with such a strong misogynistic message. Taylor was never made aware of the actual lyric, \'I made that bitch famous.\'"\n\nFour days later she accepted Album of the Year at the Grammys with the "there are going to be people along the way who will try to undercut your success" speech — the whole room knew who she meant. The question of what was actually said on that call would hang over the next four years.',
         sources: [
           { outlet: 'Time', url: 'https://time.com/4411055/kanye-west-taylor-swift-kim-kardashian-feud/' },
           { outlet: 'CBS News', url: 'https://www.cbsnews.com/media/kanye-west-vs-taylor-swift-timeline/' },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Kanye_West_feud' },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/rb-hip-hop/kanye-yeezy-season-3-show-madison-square-garden-6874812/',
+            source_title: "Kanye West's Yeezy Season 3 Event: A Fashion Show All Its Own",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+        ],
+        // Photo pass 2026-07-19 (defining-events-31-50): 6 real, verified
+        // photos — 4 from the actual Yeezy Season 3 / Life of Pablo event
+        // where "Famous" premiered, and 2 reused (already verified, ≤3-use
+        // safe) from the 1989-AOTY item for the "four days later" speech
+        // this item's own text references.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-09-billboard-650.jpg?w=650&h=430&crop=1',
+            credit: 'Getty Images, via Billboard',
+            caption: 'Kanye West at the Yeezy Season 3 / The Life of Pablo listening event, Madison Square Garden, Feb. 11, 2016 — where "Famous" premiered.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-01-billboard-650.jpg?w=650&h=430&crop=1',
+            credit: 'Getty Images, via Billboard',
+            caption: 'The event\'s staging inside Madison Square Garden, built for an audience of roughly 20,000.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-07-billboard-650.jpg?w=650&h=430&crop=1',
+            credit: 'Getty Images, via Billboard',
+            caption: 'Models on the Yeezy Season 3 runway during the same event.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-08-billboard-650.jpg?w=650&h=430&crop=1',
+            credit: 'Getty Images, via Billboard',
+            caption: 'More of the roughly 1,000 models styled for the Yeezy Season 3 runway.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://media.vanityfair.com/photos/6973c38b8d6b50621a0c2414/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2016.jpg',
+            credit: 'Getty Images, via Vanity Fair',
+            caption: 'Swift at the Grammys red carpet, Feb. 15, 2016 — four days after "Famous" premiered, hours before her Album of the Year speech.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://assets.teenvogue.com/photos/56c2618a92a7d1d17a722124/master/w_1024%2Cc_limit/GettyImages-510439952.jpg',
+            credit: 'Getty Images, via Teen Vogue',
+            caption: 'Accepting Album of the Year that night, with the "undercut your success" line the room understood as her answer.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/Vanessa-Beecroft-portrait-bw-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Pier Marco Tacca/Getty Images, via Billboard',
+            caption: 'Vanessa Beecroft, the performance artist who staged the Yeezy Season 3 presentation West premiered "Famous" inside.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -1952,6 +2089,7 @@ export default {
         'moment:vault-reputation-the-snake-video-that-announced-reputation',
         'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
         'moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic',
+        'moment:vault-lover-miss-americana-opens-sundance-then-hits-netflix',
       ],
       moment: {
         context:
@@ -2035,6 +2173,10 @@ export default {
       month: 3,
       day: 20,
       category: 'music',
+      significance: 'defining', // the four-year saga's actual resolution — vindication on tape (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-6", label: "Full call leaks", kind: "life" },
       title: 'The full call leaks, and she was telling the truth',
       snippet:
         'Four years after the Snapchat clips, the full 25-minute "Famous" call leaks — and the "that bitch" line is nowhere in it. He never read it to her. Her response points everyone to Feeding America instead.',
@@ -2059,6 +2201,32 @@ export default {
           {
             outlet: 'NME',
             url: 'https://www.nme.com/news/music/taylor-swift-says-she-was-framed-as-2016-phone-call-with-kanye-west-leaks-online-2633977',
+          },
+        ],
+        // Photo pass 2026-07-19 (defining-events-31-50): genuinely thin —
+        // this is a March 2020 pandemic-lockdown, Instagram-Stories-only
+        // event with no public appearance or press photo op of its own.
+        // 3 real, verified reference photos: the most recent public sighting
+        // of both parties before the leak, none claiming to depict the leak
+        // itself.
+        photos: [
+          {
+            url: 'https://www.deseret.com/resizer/v2/3SBWN62DPKVBNOM5OCEMSLB4CY.jpg?auth=f2f1556df77c838ffb25beba3cd481a6d23be38d2b195ee46ba46d063b9fcc19&focal=1216%2C845&width=800&height=556',
+            credit: 'Deseret News',
+            caption: 'Swift at the "Miss Americana" Sundance premiere, Jan. 23, 2020 — her last major public appearance before the leak and the pandemic lockdown that followed weeks later.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://hollywoodlife.com/wp-content/uploads/2020/03/taylor-swift-kimye-full-phone-call-leaked-rex-ftr-1-1.jpg',
+            credit: 'Rex, via HollywoodLife',
+            caption: 'A composite of both parties around this period: Swift at Sundance, West and Kardashian at a 2020 event.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Kim_Kardashian_and_Kanye_West_at_the_Met_Gala_in_2019.png',
+            credit: 'Cosmopolitan UK, Wikimedia Commons (CC BY 3.0)',
+            caption: 'Kardashian and West in 2019, the year before the full call surfaced.',
+            kind: 'reference',
           },
         ],
       },

@@ -307,6 +307,34 @@ export default {
             kind: 'archival',
             focalPoint: '62% 28%',
           },
+          // Photo pass 2026-07-19 (defining-events-31-50): 4 more real,
+          // verified photos anchoring the two events this item's own text
+          // names — the Sundance premiere and the AMA medley the masters
+          // standoff briefly threatened.
+          {
+            url: 'https://www.deseret.com/resizer/v2/3SBWN62DPKVBNOM5OCEMSLB4CY.jpg?auth=f2f1556df77c838ffb25beba3cd481a6d23be38d2b195ee46ba46d063b9fcc19&focal=1216%2C845&width=800&height=556',
+            credit: 'Deseret News',
+            caption: 'Swift at the "Miss Americana" world premiere, Sundance Film Festival, Jan. 23, 2020.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://townsquare.media/site/623/files/2019/11/taylor-siwft-2019-amas-40.jpg?w=980&q=75',
+            credit: 'Townsquare Media, via The Boot',
+            caption: 'The 2019 AMAs medley two weeks earlier, opening in a shirt printed with the titles of the six disputed albums — the same standoff this item is about.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/ce/MistyCopeland-byPhilipRomano.jpg',
+            credit: 'Philip Romano, Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Ballet dancer Misty Copeland, who performed with Swift in the same AMA medley.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/13/Carole_King_2002_%28cropped%29.jpg',
+            credit: 'John Mathew Smith, Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Carole King, who presented Swift with the Artist of the Decade award at that AMAs ceremony.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -1289,6 +1317,11 @@ export default {
       month: 1,
       day: 23,
       category: 'release',
+      significance: 'defining', // the most unguarded long-form record of her life to date — the political/personal turn, on the record for the first time (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-lov-3", label: "Miss Americana premieres", kind: "life" },
+      relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
       title: 'Miss Americana opens Sundance, then hits Netflix',
       snippet:
         'Lana Wilson\'s documentary premiered opening night at Sundance on Jan. 23, 2020 and landed on Netflix eight days later — the eating-disorder disclosure, the political-silence fight with her own team, and the sexual-assault trial, all on the record.',
@@ -2144,6 +2177,7 @@ export default {
         'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
         'moment:vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d',
         'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
+        'moment:vault-folklore-her-masters-get-sold-again-this-time-to-shamrock-capital-for',
       ],
       year: 2019,
       month: 6,

@@ -2701,6 +2701,11 @@ export default {
       month: 9,
       day: 10,
       category: 'business',
+      significance: 'defining', // her highest-profile political act ever, to 283M followers within minutes of the debate ending (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-4", label: "Harris endorsement", kind: "life" },
+      relatedIds: ['moment:vault-midnights-time-names-her-2023-person-of-the-year'],
       title: 'An endorsement signed "Childless Cat Lady"',
       snippet:
         'Minutes after the Harris–Trump debate ended, she endorsed Kamala Harris to 283 million followers — posed with Benjamin Button, sign-off borrowed from JD Vance\'s own insult.',
@@ -2747,6 +2752,36 @@ export default {
             kind: 'archival',
             // Over-the-shoulder look to camera; face centered, eyes upper-middle.
             focalPoint: '49% 38%',
+          },
+          // Photo pass 2026-07-19 (defining-events-31-50): re-challenged —
+          // the endorsement post itself still can't be rehosted, but 4 real,
+          // official-portrait photos of the people this item's own text
+          // directly names (the candidate she endorsed, the source of the
+          // "cat lady" line, and the debate's two moderators) weren't
+          // searched for before.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Kamala_Harris_Vice_Presidential_Portrait.jpg',
+            credit: 'Official White House portrait (public domain)',
+            caption: 'Kamala Harris, the candidate the endorsement named directly.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg',
+            credit: 'Official White House portrait (public domain)',
+            caption: 'JD Vance, whose "childless cat ladies" line Swift borrowed for her own sign-off.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/P20211222AS-1417_%2851898637810%29_%28cropped%29.jpg',
+            credit: 'Adam Schultz / The White House (public domain)',
+            caption: 'David Muir, who co-moderated the Sept. 10, 2024 debate the endorsement followed within minutes.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Linsey_Davis_at_BookExpo_%2805437%29_%28cropped%29.jpg',
+            credit: 'Rhododendrites, Wikimedia Commons (CC BY-SA 4.0)',
+            caption: 'Linsey Davis, the debate\'s other co-moderator.',
+            kind: 'reference',
           },
         ],
       },

@@ -1751,6 +1751,12 @@ export default {
       month: 11,
       day: 16,
       category: 'business',
+      significance: 'defining', // the link between the Big Machine sale and the buyback — the standoff that only resolved in 2025 (docs/decisions.md, 2026-07-19)
+      threadIds: ['taylors-version'],
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-folk-3", label: "Masters sold to Shamrock", kind: "business" },
+      relatedIds: ['moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
       title: 'Her masters get sold again — this time to Shamrock Capital, for about $300 million',
       snippet:
         'On Nov. 16, 2020 she revealed Braun\'s Ithaca had sold her first six albums to Shamrock Capital — "the second time my music had been sold without my knowledge" — and said she\'d declined to partner with the firm because Braun would keep profiting from the deal.',
@@ -1810,6 +1816,16 @@ export default {
             caption: 'Swift in March 2019, months before the first sale of her masters set the whole saga in motion.',
             kind: 'archival',
             focalPoint: '50% 18%',
+          },
+          // Photo pass 2026-07-19 (defining-events-31-50): re-challenged —
+          // a paper-deal story between two private-equity transactions, so
+          // real photographable content is genuinely limited to the people
+          // and firms involved.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Roy_E._Disney.jpg',
+            credit: 'Towpilot, Wikimedia Commons (CC BY-SA 3.0)',
+            caption: 'Roy E. Disney, who founded Shamrock in 1978 — not personally involved in the 2020 deal, but the firm\'s namesake founder.',
+            kind: 'reference',
           },
         ],
       },
