@@ -44,6 +44,10 @@ export default {
       month: 9,
       day: 1,
       category: 'sighting',
+      significance: 'notable', // a real, sourced first step onto country music's most sacred stage, weeks before the album that made her famous (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-0", label: "Grand Ole Opry debut", kind: "life" },
       title: 'Her Grand Ole Opry debut, in a sundress at 16',
       snippet:
         'A white sundress, natural curls, and "Tim McGraw" — before the album that made her famous had even come out.',
@@ -100,6 +104,10 @@ export default {
       month: 11,
       day: 7,
       category: 'business',
+      significance: 'notable', // her first industry-body recognition, the trophy her later CMA wins are counted from (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-3", label: "First CMA Award", kind: "award" },
       title: 'Wins her first CMA Award — the Horizon Award',
       snippet:
         'Her first career CMA Award, the Horizon Award, at the 41st CMA Awards on Nov. 7, 2007 — the trophy now known as New Artist of the Year.',

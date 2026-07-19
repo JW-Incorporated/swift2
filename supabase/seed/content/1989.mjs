@@ -117,6 +117,7 @@ export default {
       month: 5,
       day: 5,
       category: 'tour',
+      significance: 'notable', // a real tour-opening record, but not on the career-defining tier next to the Eras Tour opening or the Stadium Tour (docs/decisions.md, 2026-07-19)
       title: 'The 1989 World Tour opens with two sold-out nights in Tokyo',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -259,6 +260,10 @@ export default {
       month: 5,
       day: 17,
       category: 'relationship',
+      significance: 'defining', // the first major public relationship of the pop era, a full public arc from BBMAs to breakup (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-5", label: "Calvin Harris, public", kind: "life" },
       title: 'Calvin Harris and Taylor go public at the Billboard Music Awards',
       snippet: 'Introduced by Ellie Goulding that February, the DJ-and-pop-star pairing went fully public a month after a first, subtler social-media hint.',
       sourceUrl: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
@@ -1908,6 +1913,7 @@ export default {
       month: 2,
       day: 11,
       category: 'music',
+      significance: 'defining', // the inciting incident of the whole Kimye saga and reputation era (docs/decisions.md, 2026-07-19)
       title: 'The night "Famous" premiered, and she said no',
       snippet:
         'Kanye West debuts "Famous" at Madison Square Garden — "I made that bitch famous" — and says she approved it. Her team answers the same day: she was never told that line, and she "cautioned him about releasing a song with such a strong misogynistic message."',
@@ -1950,6 +1956,7 @@ export default {
         'moment:vault-reputation-the-snake-video-that-announced-reputation',
         'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
         'moment:vault-fearless-wins-best-female-video-then-kanye-west-takes-the-mic',
+        'moment:vault-lover-miss-americana-opens-sundance-then-hits-netflix',
       ],
       moment: {
         context:
@@ -2012,6 +2019,10 @@ export default {
       month: 3,
       day: 20,
       category: 'music',
+      significance: 'defining', // the four-year saga's actual resolution — vindication on tape (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-6", label: "Full call leaks", kind: "life" },
       title: 'The full call leaks, and she was telling the truth',
       snippet:
         'Four years after the Snapchat clips, the full 25-minute "Famous" call leaks — and the "that bitch" line is nowhere in it. He never read it to her. Her response points everyone to Feeding America instead.',

@@ -230,6 +230,7 @@ export default {
       month: 2,
       day: 9,
       category: 'tour',
+      significance: 'notable', // a real 110-show, 19-territory run at the height of her only solo-written album, but not on the site's defining tier (docs/decisions.md, 2026-07-19)
       title: 'The Speak Now World Tour opens in Singapore',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.

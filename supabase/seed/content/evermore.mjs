@@ -1841,10 +1841,15 @@ export default {
     },
     {
       slug: 'fearless-tv-release-day',
+      threadIds: ['taylors-version'],
       year: 2021,
       month: 4,
       day: 9,
       category: 'release',
+      significance: 'notable', // the re-record project's actual proof of concept, but the chart-record item nine days later (m-ever-2, same era) already anchors this stretch on the scrubber (docs/decisions.md, 2026-07-19)
+      // No new MILESTONES entry: "m-ever-2" (this same era file, Apr. 18,
+      // 2021 — Fearless (TV) hits #1) already marks this release week on the
+      // scrubber, 9 days out.
       title: "Fearless (Taylor's Version): 26 songs, six from the vault",
       snippet:
         'Out April 9, 2021: the original era re-cut top to bottom, plus six From the Vault songs — with Keith Urban and Maren Morris turning up on tracks that never made the 2008 album.',
@@ -1852,7 +1857,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
       moment: {
         context:
-          'She chased faithful-but-grown versions of songs she first sang at 18: the twenty re-recordings were produced with Christopher Rowe, and critics heard sharper instrumentation and a deeper, stronger voice — though some reviewers missed the teenage earnestness of the originals.\n\nThe six From the Vault cuts, produced with Jack Antonoff and Aaron Dessner, proved the project could generate new canon, not just replacements — "Mr. Perfectly Fine" chief among them (covered separately in this era), plus "You All Over Me" with Maren Morris and "That\'s When" with Keith Urban. The chart history it made is covered in this era\'s business items.',
+          'She chased faithful-but-grown versions of songs she first sang at 18: the twenty re-recordings were produced with Christopher Rowe, and critics heard sharper instrumentation and a deeper, stronger voice — though some reviewers missed the teenage earnestness of the originals.\n\nThe six From the Vault cuts, produced with Jack Antonoff and Aaron Dessner, proved the project could generate new canon, not just replacements — "Mr. Perfectly Fine" chief among them (covered separately in this era), plus "You All Over Me" with Maren Morris and "That\'s When" with Keith Urban. The chart history it made is covered in this era\'s business items.\n\nFans clocked the vault tracks before the label did: a scrambled-letter anagram video Swift posted days ahead of the formal reveal let fans decode the six titles (and the Keith Urban feature) hours early, and the release timing carried her own numerology — Feb. 11 and Apr. 9 each reduce to her lucky 13 (2+11, 4+9) (Fearless (Taylor\'s Version), Wikipedia).',
         sources: [
           {
             outlet: 'Wikipedia',

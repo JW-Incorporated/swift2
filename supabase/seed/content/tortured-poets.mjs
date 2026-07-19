@@ -2663,6 +2663,11 @@ export default {
       month: 9,
       day: 10,
       category: 'business',
+      significance: 'defining', // her highest-profile political act ever, to 283M followers within minutes of the debate ending (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-4", label: "Harris endorsement", kind: "life" },
+      relatedIds: ['moment:vault-midnights-time-names-her-2023-person-of-the-year'],
       title: 'An endorsement signed "Childless Cat Lady"',
       snippet:
         'Minutes after the Harris–Trump debate ended, she endorsed Kamala Harris to 283 million followers — posed with Benjamin Button, sign-off borrowed from JD Vance\'s own insult.',

@@ -190,6 +190,10 @@ export default {
       month: 4,
       day: 23,
       category: 'tour',
+      significance: 'notable', // her first-ever headlining tour, launching a 118-show run — real but not on the site's defining tier next to the Eras Tour opening (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-fear-0", label: "Fearless Tour opens", kind: "tour" },
       title: 'The Fearless Tour opens to a sold-out crowd in 30 seconds',
       snippet:
         "Evansville, Indiana gave her the key to the city and declared it \"Taylor Swift Day\" — the start of her first-ever headlining tour.",

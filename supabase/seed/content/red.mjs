@@ -207,6 +207,7 @@ export default {
       month: 3,
       day: 13,
       category: 'tour',
+      significance: 'notable', // her first arena-to-stadium-scale headlining run at the height of Red, but not a record-setting tour opening on the site's defining tier (docs/decisions.md, 2026-07-19)
       title: 'The Red Tour opens with Ed Sheeran in Omaha',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -1929,10 +1930,16 @@ export default {
     },
     {
       slug: 'red-taylors-version-number-one',
+      threadIds: ['taylors-version'],
       year: 2021,
       month: 11,
       day: 21,
       category: 'business',
+      significance: 'notable', // a real chart record (fastest to four #1s, breaking a 46-year-old Elton John mark), but one of four TV chart debuts rather than a career-wide top-40 event (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-red-3", label: "Red (TV) opens at #1", kind: "album" },
+      relatedIds: ['moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
       title: 'Red gets its do-over: Red (Taylor\'s Version) opens at No. 1',
       snippet:
         "Nine years later, the re-recording debuted atop the Billboard 200 with 605,000 units — 2021's biggest sales week for any album to that point, her tenth No. 1, and the fastest run to four chart-toppers by a solo artist, breaking Elton John's 1975 record.",

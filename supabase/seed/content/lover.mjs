@@ -1275,6 +1275,11 @@ export default {
       month: 1,
       day: 23,
       category: 'release',
+      significance: 'defining', // the most unguarded long-form record of her life to date — the political/personal turn, on the record for the first time (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-lov-3", label: "Miss Americana premieres", kind: "life" },
+      relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
       title: 'Miss Americana opens Sundance, then hits Netflix',
       snippet:
         'Lana Wilson\'s documentary premiered opening night at Sundance on Jan. 23, 2020 and landed on Netflix eight days later — the eating-disorder disclosure, the political-silence fight with her own team, and the sexual-assault trial, all on the record.',
@@ -2096,6 +2101,7 @@ export default {
         'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
         'moment:vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d',
         'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
+        'moment:vault-folklore-her-masters-get-sold-again-this-time-to-shamrock-capital-for',
       ],
       year: 2019,
       month: 6,
