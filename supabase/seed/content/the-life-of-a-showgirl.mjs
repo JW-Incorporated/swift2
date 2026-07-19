@@ -3543,6 +3543,58 @@ export default {
         ],
       },
     },
+    {
+      // Authored 2026-07-19 from intake #902. Filled a real gap: the ruling
+      // landed July 6 but was never covered. Court-record outcome, so it
+      // clears the privacy redlines (which ban legal ACCUSATIONS outside
+      // court records — a dismissal ruling is the opposite).
+      slug: 'showgirl-marasco-suit-dismissed',
+      year: 2026,
+      month: 7,
+      day: 6,
+      category: 'business',
+      title: 'A federal judge throws out the Tortured Poets plagiarism suit — with prejudice',
+      snippet:
+        'Three days after the wedding, Judge Aileen Cannon dismissed Florida poet Kimberly Marasco\'s copyright case with prejudice, finding her poems held no protectable expression and that copying was never plausibly pleaded.',
+      sourceUrl: 'https://www.cbc.ca/news/entertainment/swift-poet-plagiarism-lawsuit-9.7261092',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Three days after the Madison Square Garden wedding, a case that had been running for fourteen months ended in a single order. United States District Judge Aileen Cannon dismissed Florida poet Kimberly Marasco\'s copyright suit against Taylor, Aaron Dessner, Republic Records and Universal Music Group — and dismissed it with prejudice, meaning the complaint cannot be amended and refiled.\n\nMarasco had claimed that more than a dozen songs borrowed from her poetry collections, among them "Down Bad" and "I Can Do It With a Broken Heart" from The Tortured Poets Department. Cannon\'s order did not weigh whether the songs resembled the poems so much as whether there was anything there to copy: she concluded "that Plaintiff\'s poems do not contain protectable expression and that, regardless, Plaintiff has failed to plausibly plead copying." The ruling also noted Marasco\'s own concession that one of her books had sold roughly 3,000 copies worldwide and that none were being actively promoted — the practical problem of access underneath the legal one.\n\nMarasco said she disagrees with the decision and intends to appeal, so the docket is not necessarily closed. But as of the July 6 order the case is over at the district level, and it is the quietest possible bookend to the loudest week of her year.',
+        sources: [
+          {
+            outlet: 'CBC News',
+            url: 'https://www.cbc.ca/news/entertainment/swift-poet-plagiarism-lawsuit-9.7261092',
+            source_title: "Judge sides with Taylor Swift in Florida poet's plagiarism lawsuit",
+            publisher: 'CBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/industry-news/public-policy-legal/taylor-swift-plagiarism-lawsuit-florida-poet-win/',
+            source_title: 'Taylor Swift Wins Plagiarism Lawsuit Against Florida Poet',
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-wins-plagiarism-poet-lawsuit-florida-judge-1236802619/',
+            source_title: "Taylor Swift Prevails in Poet's Plagiarism Lawsuit, as Florida Judge Dismisses Case With Prejudice",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+        ],
+        // No photo: there is no photography of this order, and a stand-in
+        // portrait would add nothing a caption could honestly justify.
+        photos: [],
+      },
+    },
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
