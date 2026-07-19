@@ -421,15 +421,18 @@ export function buildOutputSource(byEra) {
   lines.push('');
   lines.push("import type { ContentTag, EraId, ImageRef, LensId } from './types';");
   lines.push('');
-  lines.push('/**');
-  lines.push(' * Build-time freshness stamp: when this module was last regenerated. The');
-  lines.push(' * sync runs on every `prebuild`, so this is effectively the deploy time.');
-  lines.push(' * Read it via contentGeneratedAt() (lib/longlive/freshness.ts) — never a');
-  lines.push(' * direct named import — so an older committed fallback without this export');
-  lines.push(' * can never crash the UI.');
-  lines.push(' */');
-  lines.push(`export const CONTENT_GENERATED_AT = ${esc(new Date().toISOString())};`);
-  lines.push('');
+  // Freshness stamp — emitted ONLY during `prebuild` (the deploy build, where
+  // npm sets npm_lifecycle_event=prebuild), never into the committed file.
+  // Regenerating for commits, CI, or the check:generated guard leaves it out,
+  // so the vault is byte-for-byte deterministic and parallel content PRs can't
+  // collide on a per-run timestamp. In production, prebuild stamps the real
+  // deploy time; contentGeneratedAt() (lib/longlive/freshness.ts) returns null
+  // when the export is absent (dev/committed) and the UI just omits the label.
+  if (process.env.npm_lifecycle_event === 'prebuild') {
+    lines.push('/** Build-time freshness stamp — emitted only by prebuild (deploy). */');
+    lines.push(`export const CONTENT_GENERATED_AT = ${esc(new Date().toISOString())};`);
+    lines.push('');
+  }
   lines.push('type VaultRawItem = {');
   lines.push('  id: string;');
   lines.push('  slug?: string;');
