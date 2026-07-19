@@ -2,7 +2,20 @@
 
 import { Fragment, useEffect, useState } from 'react';
 import Image from 'next/image';
-import { X, Sparkles, Share2, ArrowRight, Route, Heart, ChevronLeft, ChevronRight } from 'lucide-react';
+import {
+  X,
+  Sparkles,
+  Share2,
+  ArrowRight,
+  Route,
+  Heart,
+  ChevronLeft,
+  ChevronRight,
+  AlertTriangle,
+  MessageCircleQuestion,
+  ShoppingBag,
+  ExternalLink,
+} from 'lucide-react';
 import {
   useAppState,
   useAppActions,
@@ -18,21 +31,64 @@ import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 import { extractYouTubeId } from '@swift2/shared';
 import { ZoomableImage } from './ZoomableImage';
-import { focalPointOf, primaryImageRef, type Confidence, type ImageKind, type ImageRef, type LensId } from '@/lib/longlive/types';
+import {
+  isSubConfirmed,
+  focalPointOf,
+  primaryImageRef,
+  type Confidence,
+  type ImageKind,
+  type ImageRef,
+  type LensId,
+  type Product,
+  type RumorNote,
+  type RumorStatus,
+  type SubConfirmed,
+} from '@/lib/longlive/types';
+import { buildShopUrl, isAffiliate, SHOP_DISCLOSURE } from '@/lib/longlive/shop';
+import { formatFullDate } from '@/lib/longlive/format';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
 
-// At/above this tier a moment is established fact — no pill. Below it, a
-// confidence pill renders so a claim never reads as unqualified fact.
-const CONFIRMED_TIER: ReadonlySet<Confidence> = new Set(['official', 'confirmed_interview']);
-const CONFIDENCE_LABEL: Record<Confidence, string> = {
-  official: 'Official',
-  confirmed_interview: 'Confirmed',
-  reputable_reporting: 'Reported',
-  strong_fan_consensus: 'Fan consensus',
-  plausible: 'Plausible',
-  clowning: 'Clowning',
-  disproven: 'Disproven',
-  joke_meme: 'Joke / meme',
+// A moment at/above CONFIRMED_TIER (types.ts) is established fact — no
+// qualifier. Below it, the claim gets the UNMISSABLE banner below (not a
+// subtle pill — replaced 2026-07-19): a bold label plus the reporting outlet
+// and a one-line explainer, so a rumor can never visually pass as fact.
+// Keyed by SubConfirmed (derived in types.ts from the same tuple as
+// CONFIRMED_TIER), so moving a value across the tier is a compile error
+// here, not a runtime undefined.
+const CONFIDENCE_BANNER: Record<SubConfirmed, { label: string; blurb: string }> = {
+  reputable_reporting: {
+    label: 'Reported — not confirmed',
+    blurb: 'Press reporting. Not confirmed by Taylor, her team, or an official source.',
+  },
+  strong_fan_consensus: {
+    label: 'Rumor — unconfirmed',
+    blurb: 'Widely believed by fans, but never confirmed.',
+  },
+  plausible: {
+    label: 'Rumor — unconfirmed',
+    blurb: 'A plausible but unconfirmed claim.',
+  },
+  clowning: {
+    label: 'Rumor — unconfirmed',
+    blurb: 'Fans are joking-but-hoping. Nothing here is confirmed.',
+  },
+  disproven: {
+    label: 'Debunked',
+    blurb: 'This claim has been disproven.',
+  },
+  joke_meme: {
+    label: 'Joke / meme — not a real claim',
+    blurb: 'Circulating as a joke, not as fact.',
+  },
+};
+
+// Per-rumor status badges for the "What's rumored" section. 'unconfirmed' is
+// the loud default; a resolved rumor keeps its entry with an honest badge.
+const RUMOR_STATUS_BADGE: Record<RumorStatus, string> = {
+  unconfirmed: 'Rumor — unconfirmed',
+  partially_confirmed: 'Partially confirmed',
+  confirmed: 'Since confirmed',
+  debunked: 'Debunked',
 };
 
 // Anything that isn't the real photo of THIS moment gets an explicit label —
@@ -50,6 +106,119 @@ const IMAGE_KIND_NOTE: Record<Exclude<ImageKind, 'primary'>, string> = {
 // remotePatterns allowlist covers only YouTube posters); local era art and
 // curated assets keep the optimized path.
 const isRemoteUrl = (url: string) => /^https?:\/\//.test(url);
+
+/**
+ * The unmissable sub-confirmed banner: a full-width, bordered strip directly
+ * under the title. Deliberately NOT the quiet pill treatment confirmed
+ * moments get — a rumored moment must read as rumored at a glance, on the
+ * era's own tokens (no hard-coded colors, per docs/longlive-experience.md §6).
+ */
+function ConfidenceBanner({ confidence, outlet }: { confidence: Confidence; outlet?: string }) {
+  if (!isSubConfirmed(confidence)) return null;
+  const banner = CONFIDENCE_BANNER[confidence];
+  return (
+    <div
+      role="note"
+      aria-label={`${banner.label}${outlet ? `, per ${outlet}` : ''}`}
+      className="mt-5 rounded-xl border-2 border-dashed p-4"
+      style={{
+        borderColor: 'var(--era-accent)',
+        backgroundColor: 'color-mix(in srgb, var(--era-accent) 8%, var(--era-surface))',
+      }}
+    >
+      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[color:var(--era-accent)]">
+        <AlertTriangle className="h-4 w-4 shrink-0" />
+        {banner.label}
+        {outlet && (
+          <span className="normal-case tracking-normal text-[color:var(--era-ink-soft)]">
+            · per {outlet}
+          </span>
+        )}
+      </div>
+      <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+        {banner.blurb}
+      </p>
+    </div>
+  );
+}
+
+/**
+ * The "What's rumored" section — attributed, dated, reported-but-unconfirmed
+ * claims, structurally and visually separate from the confirmed narrative
+ * above it (dashed borders + its own labeled header + a standing disclaimer;
+ * the pill language mirrors the dossier meaning tiers, where dashed = not
+ * confirmed). Rumors must never blend into confirmed facts.
+ */
+function RumorSection({ rumors }: { rumors: RumorNote[] }) {
+  return (
+    <section
+      aria-label="What's rumored — unconfirmed reports"
+      className="mt-10 rounded-2xl border-2 border-dashed p-5"
+      style={{ borderColor: 'var(--era-accent)' }}
+    >
+      <div className="flex items-center gap-2 text-sm font-bold uppercase tracking-wider text-[color:var(--era-accent)]">
+        <MessageCircleQuestion className="h-4 w-4 shrink-0" />
+        What&apos;s rumored
+      </div>
+      <p className="mt-2 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+        Reported claims that have <strong>not</strong> been confirmed by Taylor, her team, or an
+        official source — each one attributed to who reported it, and dated. Treat everything below
+        as a rumor unless its badge says otherwise.
+      </p>
+      <ol className="mt-4 space-y-3">
+        {rumors.map((r, i) => (
+          <li
+            // Two rumors can legitimately share a url (one roundup piece
+            // reporting several claims), so the key needs the index.
+            key={`${r.url}-${i}`}
+            className="rounded-xl border border-dashed p-4"
+            style={{
+              borderColor: 'var(--era-line)',
+              backgroundColor: 'var(--era-surface)',
+              // A debunked rumor stays on record but visibly recedes.
+              opacity: r.status === 'debunked' ? 0.75 : undefined,
+            }}
+          >
+            <div className="flex flex-wrap items-center gap-2">
+              <span
+                className="rounded-full px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider"
+                style={
+                  r.status === 'unconfirmed'
+                    ? {
+                        border: '1px dashed var(--era-accent)',
+                        color: 'var(--era-accent)',
+                      }
+                    : {
+                        border: '1px solid var(--era-line)',
+                        color: 'var(--era-ink-soft)',
+                      }
+                }
+              >
+                {RUMOR_STATUS_BADGE[r.status]}
+              </span>
+              <a
+                href={r.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs text-[color:var(--era-ink-soft)] underline underline-offset-2 hover:text-[color:var(--era-ink)]"
+              >
+                Reported by {r.reportedBy} · {formatFullDate(r.reportedOn)}
+              </a>
+            </div>
+            <p className="mt-2 text-[15px] leading-relaxed text-[color:var(--era-ink)]">
+              {r.claim}
+            </p>
+            {r.note && (
+              <p className="mt-1.5 text-sm italic leading-relaxed text-[color:var(--era-ink-soft)]">
+                {r.note}
+              </p>
+            )}
+          </li>
+        ))}
+      </ol>
+    </section>
+  );
+}
 
 /** The little era-styled pill that marks a non-primary image. */
 function ImageKindBadge({ kind }: { kind: Exclude<ImageKind, 'primary'> }) {
@@ -254,6 +423,9 @@ export function MomentDetail() {
   // Hero = the primary image (else the first one); the rest form the gallery.
   // When even the hero is a stand-in (no primary exists) it gets the same
   // honest labeling the gallery uses.
+  // The "What's confirmed" header and the RumorSection must appear/disappear
+  // together — one flag guards both.
+  const hasRumors = (item.rumors?.length ?? 0) > 0;
   const hero: ImageRef | undefined = primaryImageRef(item);
   const heroUrl = hero?.url ?? '/placeholder.svg';
   const gallery = item.images.filter((img) => img !== hero);
@@ -368,15 +540,23 @@ export function MomentDetail() {
               {TAG_META[t].label}
             </span>
           ))}
-          {item.confidence && !CONFIRMED_TIER.has(item.confidence) && (
-            <span
-              className="rounded-full border px-2.5 py-0.5 text-xs font-medium text-[color:var(--era-ink-soft)]"
-              style={{ borderColor: 'var(--era-line)' }}
-            >
-              {CONFIDENCE_LABEL[item.confidence]}
-            </span>
-          )}
         </div>
+
+        {/* Sub-confirmed confidence is a full banner (2026-07-19), replacing
+            the old quiet pill — see CONFIDENCE_BANNER. Confirmed moments
+            (no confidence / confirmed tier) render exactly as before. */}
+        {item.confidence && (
+          <ConfidenceBanner confidence={item.confidence} outlet={item.sources?.[0]?.name} />
+        )}
+
+        {/* With a rumor section below, the narrative gets an explicit
+            "What's confirmed" header so the split is unmistakable. Without
+            rumors the layout is unchanged. */}
+        {hasRumors && (
+          <h2 className="mt-8 text-sm font-bold uppercase tracking-wider text-[color:var(--era-ink-soft)]">
+            What&apos;s confirmed
+          </h2>
+        )}
 
         <div className="mt-7 space-y-6 text-lg leading-relaxed text-[color:var(--era-ink)]">
           {item.body.map((para, i) => (
@@ -395,6 +575,10 @@ export function MomentDetail() {
         </div>
 
         {item.video && <MomentVideo video={item.video} />}
+
+        {hasRumors && item.rumors && <RumorSection rumors={item.rumors} />}
+
+        <ShopTheLook products={item.products} />
 
         {item.sources && item.sources.length > 0 && (
           <div className="mt-8 border-t pt-4" style={{ borderColor: 'var(--era-line)' }}>
@@ -501,6 +685,82 @@ export function MomentDetail() {
 }
 
 /**
+ * "Shop the look" — the moment's shoppable products (ContentItem.products),
+ * each row a DIRECT link to the exact retailer product page. Every href goes
+ * through buildShopUrl() (lib/longlive/shop.ts) — never product.url directly
+ * — so the later direct→affiliate flip is a one-function change with zero
+ * content edits; rel="nofollow sponsored noopener noreferrer" is already the
+ * correct annotation for both direct and paid links (noreferrer matches the
+ * sources links' privacy posture — retailers don't get the referring moment
+ * URL; affiliate attribution lives in the wrapped URL, not the Referer). A
+ * product verified sold-out
+ * (inStock: false) stays listed for the fashion record but renders dimmed
+ * with an explicit "Sold out" label, never silently as purchasable.
+ */
+function ShopTheLook({ products }: { products: Product[] | undefined }) {
+  if (!products || products.length === 0) return null;
+  return (
+    <div className="era-card mt-8 rounded-2xl border p-5">
+      <div className="flex items-center gap-2 text-sm font-semibold text-[color:var(--era-accent)]">
+        <ShoppingBag className="h-4 w-4" />
+        Shop the look
+      </div>
+      <ul className="mt-3">
+        {products.map((p, i) => {
+          const soldOut = p.inStock === false;
+          return (
+            // border-t on the li itself (not divide-y on the ul): the era-line
+            // color must sit on the element that owns the border, since
+            // border-color doesn't inherit from the parent.
+            <li
+              key={`${p.url}-${i}`}
+              className={`border-t first:border-t-0${soldOut ? ' opacity-50' : ''}`}
+              style={{ borderColor: 'var(--era-line)' }}
+            >
+              <a
+                href={buildShopUrl(p)}
+                target="_blank"
+                rel="nofollow sponsored noopener noreferrer"
+                className="group flex items-center justify-between gap-3 py-3"
+                aria-label={`Shop ${p.brand} ${p.item}${soldOut ? ' (sold out)' : ''} at ${p.retailer}`}
+              >
+                <span className="min-w-0">
+                  <span className="block text-xs uppercase tracking-[0.12em] text-[color:var(--era-ink-soft)]">
+                    {p.brand}
+                  </span>
+                  <span className="mt-0.5 block text-[15px] leading-snug text-[color:var(--era-ink)] underline-offset-2 group-hover:underline">
+                    {p.item}
+                  </span>
+                  {soldOut && (
+                    <span
+                      className="mt-1 inline-block rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[color:var(--era-ink-soft)]"
+                      style={{ borderColor: 'var(--era-line)' }}
+                    >
+                      Sold out
+                    </span>
+                  )}
+                </span>
+                <span className="flex shrink-0 items-center gap-1.5 text-sm text-[color:var(--era-ink-soft)]">
+                  {p.price}
+                  <ExternalLink className="h-3.5 w-3.5" />
+                </span>
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+      {/* Renders only once buildShopUrl actually returns affiliate links —
+          wiring it now is what makes the affiliate flip a shop.ts-only change. */}
+      {products.some(isAffiliate) && (
+        <p className="mt-3 text-[10px] leading-relaxed text-[color:var(--era-ink-soft)] opacity-80">
+          {SHOP_DISCLOSURE}
+        </p>
+      )}
+    </div>
+  );
+}
+
+/**
  * The moment → any thread it belongs to, generalized from the Clue-Web-only
  * motif trail above to `ContentItem.threadIds` generally (issue #436). Reuses
  * the same `openThread` pivot every era -> thread jump already uses.
@@ -562,9 +822,7 @@ function ClueWebCta({ trail }: { trail: MotifTarget | null }) {
       }}
       className="era-btn-ghost mt-4 inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-sm font-medium"
       aria-label={
-        trail
-          ? `Follow the ${trail.motif.label} trail in the Clue Web`
-          : 'Explore the Clue Web'
+        trail ? `Follow the ${trail.motif.label} trail in the Clue Web` : 'Explore the Clue Web'
       }
     >
       {trail ? 'Follow this thread in the Clue Web' : 'Explore the Clue Web'}

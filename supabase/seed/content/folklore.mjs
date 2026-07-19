@@ -359,7 +359,17 @@ export default {
             credit: 'TAS Rights Management 2021, via Getty Images / Billboard',
             caption: 'The custom Etro gown during the folklore medley staging at the 2021 Grammys.',
             kind: 'primary',
+            // Focal point set by viewing (photo pass #762, 2026-07-19): wide
+            // cabin-set stage shot, Swift standing in the lit doorway right
+            // of center, her face just above the vertical midline.
+            focalPoint: '59% 42%',
           },
+          // Photo pass #762 (2026-07-19): stays at 1 photo — the cited
+          // Billboard article's only other asset is a "Billboard News"
+          // branded video still, and it shows the Oscar de la Renta
+          // red-carpet mini, not this page's Etro performance gown
+          // (downloaded and viewed to check). The SheFinds image was already
+          // rejected as wrong-event by ticket #227.
         ],
       },
     },
@@ -438,6 +448,24 @@ export default {
             credit: 'Taylor Swift/VEVO',
             caption: 'Self-styled hair and makeup in the "cardigan" music video.',
             kind: 'archival',
+            // Focal point set by viewing (photo pass #762, 2026-07-19):
+            // candlelit close-up, face centered in the upper third.
+            focalPoint: '50% 32%',
+          },
+          // Photo pass #762 (2026-07-19): still from the official "cardigan"
+          // video — the self-styled braided-bun hair and bare-faced look this
+          // page is about, clearly visible at the glowing piano. oEmbed-
+          // verified the video (K-a8s8OLBSE) belongs to the official
+          // @TaylorSwift channel; i.ytimg.com is YouTube's own CDN; curl 200
+          // image/jpeg 1280x720, downloaded and vision-confirmed.
+          {
+            url: 'https://i.ytimg.com/vi/K-a8s8OLBSE/maxresdefault.jpg',
+            credit: 'Still from the official "cardigan" music video, Republic Records, via YouTube',
+            caption: 'The self-styled braids and natural makeup, at the glowing piano in the "cardigan" video she also directed herself.',
+            kind: 'archival',
+            // Focal point set by viewing: her lit face sits upper-left of
+            // center, above the piano's glow.
+            focalPoint: '47% 30%',
           },
         ],
       },
@@ -468,6 +496,28 @@ export default {
             credit: 'Republic Records (official album cover, photo by Beth Garrabrant)',
             caption: 'The folklore album cover — Beth Garrabrant\'s black-and-white forest frame.',
             kind: 'primary',
+            // Focal point set by viewing (photo pass #762, 2026-07-19): the
+            // cover's subject is the small figure standing low in the frame,
+            // slightly left of center among the trees. (Kept despite being a
+            // 300px render — it's the official cover art, fair-use low-res by
+            // Wikipedia policy; no larger legitimate copy exists.)
+            focalPoint: '48% 75%',
+          },
+          // Photo pass #762 (2026-07-19): a second frame from the same
+          // Garrabrant series, served from the photographer's own portfolio
+          // site (bethgarrabrant.com → format.creatorcdn.com, its host CDN) —
+          // the most authoritative source for this shoot. curl 200 image/jpeg
+          // 1200x1638, downloaded and vision-confirmed: black-and-white
+          // forest frame, Swift seated at a tree base in one of the rugby
+          // shirts the context describes. URL's signed token expires 2036.
+          {
+            url: 'https://format.creatorcdn.com/9fcd0df5-9285-4916-8837-8946bbc00b90/0/0/0/0,0,2546,3476,1200,3476/0-0-0/a5687a55-9b70-421a-af01-167dd3b41eae/1/1/000066060006.jpg?fjkss=exp=2099503694~hmac=bfd5136d317dfc1d27bdd629155633f97f7c8a1028f5a74557969466e92877fe',
+            credit: 'Beth Garrabrant',
+            caption: 'Another frame from the self-styled forest shoot — a rugby shirt and plaid trousers, shot on film in black and white.',
+            kind: 'primary',
+            // Focal point set by viewing: seated figure mid-frame, face just
+            // below the vertical midline, hint right of center.
+            focalPoint: '51% 48%',
           },
         ],
       },
@@ -536,12 +586,21 @@ export default {
           { outlet: 'Her Campus', url: 'https://www.hercampus.com/style/taylor-swift-folklore-cardigan-restock/' },
           { outlet: 'Capital FM', url: 'https://www.capitalfm.com/news/music/taylor-swift-cardigans-merch/' },
         ],
+        // Photo pass #762 (2026-07-19): stays at 1 photo — no verifiable
+        // frame of the cardigan being WORN exists on the cited outlets' CDNs
+        // (Her Campus carries only this product shot; Capital FM's images are
+        // other artists/eras, checked; the official video's only fixed
+        // thumbnail frame shows the nap dress, not the cardigan).
         photos: [
           {
             url: 'https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4',
             credit: 'Taylor Swift Store',
             caption: 'The official folklore cardigan as sold on Swift\'s store.',
             kind: 'primary',
+            // Focal point set by viewing (photo pass #762, 2026-07-19):
+            // product flat-lay, the cardigan fills the frame — genuinely
+            // reads best dead-centered (looked, not defaulted).
+            focalPoint: '50% 50%',
           },
         ],
       },
@@ -1751,6 +1810,101 @@ export default {
             caption: 'Swift in March 2019, months before the first sale of her masters set the whole saga in motion.',
             kind: 'archival',
             focalPoint: '50% 18%',
+          },
+        ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-album",
+      year: 2020,
+      month: 7,
+      day: 24,
+      category: "music",
+      tags: ["Lore"],
+      title: "A surprise in the woods",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-folk-1", label: "folklore surprise drop", kind: "album" },
+      snippet: "Dropped with less than a day’s notice during lockdown — an indie-folk reinvention.",
+      moment: {
+        context: "No rollout, no singles, no warning: folklore arrived overnight and rewrote what a Taylor Swift album could be.\n\nMuted, literary, and fictional, it introduced interlocking character stories fans mapped for months.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-cardigan",
+      year: 2020,
+      month: 8,
+      dateLabel: "Summer 2020",
+      category: "fashion",
+      title: "The cardigan and cottagecore",
+      snippet: "Grayscale knitwear and misty forests define the era’s look.",
+      video: { youtubeId: "K-a8s8OLBSE", title: "Taylor Swift - cardigan" },
+      moment: {
+        context: "Cozy cardigans, braided hair, and a foggy woodland palette made cottagecore the aesthetic of 2020.\n\nThe cream cable-knit cardigan from the video, embroidered with stars, was sold as official merch and is widely credited with driving cottagecore's mainstream revival.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-teenage-love-triangle",
+      year: 2020,
+      month: 7,
+      day: 25,
+      category: "music",
+      tags: ["Lore"],
+      title: "The teenage love triangle",
+      snippet: "Three songs — \"cardigan,\" \"august,\" and \"betty\" — tell one story from three points of view.",
+      moment: {
+        context: "Swift has said on record that \"cardigan,\" \"august,\" and \"betty\" form a fictional teenage love triangle, each song narrated by a different character in the story.\n\nIt set the template for folklore's fictional, novelistic approach — a sharp turn from the autobiographical framing of her earlier catalog.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-william-bowery",
+      year: 2020,
+      month: 11,
+      day: 25,
+      category: "music",
+      tags: ["Lore"],
+      title: "William Bowery revealed",
+      snippet: "The mystery co-writer credited on \"exile\" and \"betty\" is confirmed as Joe Alwyn.",
+      moment: {
+        context: "In the Disney+ special Folklore: The Long Pond Studio Sessions, Swift revealed that \"William Bowery\" — credited as a co-writer on \"exile\" and \"betty\" — was her then-partner Joe Alwyn.\n\nThe pseudonym combines his great-grandfather's name, William Alwyn (also a musician), with the Bowery Hotel, where the two were first spotted together.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "folklore-aoty",
+      year: 2021,
+      month: 3,
+      day: 14,
+      category: "music",
+      title: "A third Album of the Year",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
+      snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
+      moment: {
+        context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Swift's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
+        // Photo pass #762 (2026-07-19): lead image of Billboard's own AOTY-win
+        // story (billboard.com/wp-content, EXIF copyright "2021 Recording
+        // Academy"); curl 200 image/jpeg 1548x1024; Read-viewed: Swift in the
+        // floral Oscar de la Renta dress accepting the award onstage with
+        // Laura Sisk, Jack Antonoff, and Aaron Dessner holding the gramophone.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg',
+            credit: 'Recording Academy, via Billboard',
+            caption: 'Accepting Album of the Year for folklore with Laura Sisk, Jack Antonoff, and Aaron Dessner — her record third win.',
+            focalPoint: '44% 18%',
           },
         ],
       },

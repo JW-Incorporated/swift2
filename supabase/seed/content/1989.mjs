@@ -118,6 +118,9 @@ export default {
       day: 5,
       category: 'tour',
       title: 'The 1989 World Tour opens with two sold-out nights in Tokyo',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-2", label: "1989 World Tour", kind: "tour" },
       snippet:
         '100,320 fans across two shows at Tokyo Dome, $10.6 million combined — the start of what became 2015\'s highest-grossing tour.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_1989_World_Tour',
@@ -562,7 +565,7 @@ export default {
             url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/',
           },
         ],
-        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top', credit: 'Jason Merritt/Getty Images for NARAS' }],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top', credit: 'Jason Merritt/Getty Images for NARAS', focalPoint: '48% 10%' }],
       },
     },
     {
@@ -1114,6 +1117,8 @@ export default {
         // Photo-enrichment pass (2026-07-18, #762): added the blizzard frame from the
         // official Out of the Woods video (id oEmbed-verified against @TaylorSwift;
         // downloaded and visually confirmed). Focal points set per image by viewing.
+        // Karen #877 fix (2026-07-19): same frame upgraded hq2 (480x360, 6KB)
+        // -> maxres2 (1280x720); downloaded and vision-confirmed identical.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png',
@@ -1121,7 +1126,7 @@ export default {
             focalPoint: '47% 42%',
           },
           {
-            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/hq2.jpg',
+            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg',
             credit: 'Big Machine Records / Taylor Swift via YouTube',
             kind: 'archival',
             focalPoint: '48% 42%',
@@ -1931,6 +1936,9 @@ export default {
       category: 'music',
       significance: 'defining', // the defining controversy of her career, direct catalyst for reputation (docs/decisions.md, 2026-07-19)
       title: 'Snakes, Snapchat, and "excluded from this narrative"',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-4", label: "The call leaks", kind: "life" },
       snippet:
         'Kim Kardashian posts an edited cut of the "Famous" call to Snapchat, snake emojis flood every comment section, and #TaylorSwiftIsOverParty trends worldwide. Her answer — "I would very much like to be excluded from this narrative" — is the era\'s last word before the lights go out.',
       sourceUrl:
@@ -2053,6 +2061,119 @@ export default {
             url: 'https://www.nme.com/news/music/taylor-swift-says-she-was-framed-as-2016-phone-call-with-kanye-west-leaks-online-2633977',
           },
         ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-album",
+      year: 2014,
+      month: 10,
+      day: 27,
+      category: "music",
+      title: "The pop reinvention",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-1", label: "1989 released", kind: "album" },
+      snippet: "A clean break from country: synths, New York, and a Polaroid aesthetic.",
+      moment: {
+        context: "Billed as her first “official pop album,” 1989 traded twang for gleaming synth-pop and remade her as the biggest star in the world.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-shake-it-off",
+      year: 2014,
+      month: 8,
+      day: 18,
+      category: "music",
+      title: "“Shake It Off” launches the era",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-0", label: "“Shake It Off”", kind: "life" },
+      snippet: "A brass-driven lead single announces the full pop pivot from a stadium stage.",
+      video: { youtubeId: "nfWlot6h_JM", title: "Taylor Swift - Shake It Off" },
+      moment: {
+        context: "Debuted at a live-streamed event, the lead single made the reinvention official and immediately topped the charts.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-blank-space",
+      year: 2014,
+      month: 11,
+      day: 10,
+      category: "music",
+      tags: ["Lore"],
+      title: "“Blank Space” flips the narrative",
+      snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
+      video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
+      moment: {
+        context: "By playing the “boy-crazy” caricature for laughs, she seized control of the story and scored another number one.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-polaroids",
+      year: 2014,
+      month: 11,
+      dateLabel: "Late 2014",
+      category: "fashion",
+      title: "Polaroids and pastel",
+      snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
+      moment: {
+        context: "Polaroid-framed lyrics and a crisp pastel palette made 1989 instantly iconic.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-squad",
+      year: 2015,
+      month: 1,
+      dateLabel: "Early 2015",
+      category: "sighting",
+      title: "The “squad” era",
+      snippet: "A rotating cast of famous friends becomes its own cultural storyline.",
+      moment: {
+        context: "Group appearances and red-carpet friendships turned her social circle into a defining 1989-era talking point.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-bad-blood",
+      year: 2015,
+      month: 5,
+      day: 17,
+      category: "music",
+      title: "“Bad Blood” short film",
+      snippet: "A star-studded cinematic music video doubles as an event premiere.",
+      video: { youtubeId: "QcIy9NiNbmo", title: "Taylor Swift - Bad Blood ft. Kendrick Lamar" },
+      moment: {
+        context: "The action-movie video premiered at an awards show with a cast of celebrity cameos, blurring music and blockbuster.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "1989-aoty",
+      year: 2016,
+      month: 2,
+      day: 15,
+      category: "sighting",
+      title: "Second Album of the Year",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-89-3", label: "Album of the Year", kind: "award" },
+      snippet: "She becomes the first woman to win the top Grammy twice.",
+      moment: {
+        context: "Accepting the award, she used the moment to speak directly to young women about crediting their own work.",
       },
     },
   ],

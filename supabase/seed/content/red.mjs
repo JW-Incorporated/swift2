@@ -248,6 +248,9 @@ export default {
       day: 13,
       category: 'tour',
       title: 'The Red Tour opens with Ed Sheeran in Omaha',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-red-2", label: "The Red Tour", kind: "tour" },
       snippet:
         "A sold-out opening-night crowd got 17 songs and a surprise duet on 'Everything Has Changed' with opening act Ed Sheeran.",
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Red_Tour',
@@ -346,6 +349,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
+            focalPoint: '48% 40%',
           },
         ],
       },
@@ -381,6 +385,7 @@ export default {
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2013/02/10/51455457-a645-11e2-a3f0-029118418759/thumbnail/620x1005/cf494e8cba2e12a4982a8d12d080d3f7/161394430.jpg',
             credit: 'CBS News',
+            focalPoint: '40% 14%',
           },
         ],
       },
@@ -849,7 +854,9 @@ export default {
             credit: 'TSA / Getty Images',
           },
           {
-            url: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=75',
+            // Karen #877 fix (2026-07-19): q=75 render was 7.9KB and flagged as a
+            // likely placeholder; same 980px render at q=100 verified + viewed.
+            url: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=100',
             credit: 'TSA / Getty Images',
           },
         ],
@@ -2028,6 +2035,128 @@ export default {
             focalPoint: '52% 40%',
           },
         ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "red-album",
+      year: 2012,
+      month: 10,
+      day: 22,
+      category: "music",
+      title: "Red: heartbreak in every genre",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-red-1", label: "Red released", kind: "album" },
+      snippet: "The transitional masterpiece that pointed straight at pop stardom.",
+      hiddenClue: { clue: "A scarf mentioned in one song became the most-discussed accessory in pop.", payoff: "Fans still debate who kept the scarf — a mystery she has coyly refused to fully resolve." },
+      moment: {
+        context: "Red is maximalist and messy on purpose — dubstep drops next to acoustic confessionals, all of it about one crimson-colored heartbreak.\n\nThe centerpiece, a ten-minute epic, would return years later as a cultural event of its own.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "red-wanegbt",
+      year: 2012,
+      month: 8,
+      day: 13,
+      category: "music",
+      title: "“We Are Never Ever Getting Back Together”",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-red-0", label: "First #1 single", kind: "award" },
+      snippet: "The gleeful kiss-off lead single that announced a decisive pop pivot.",
+      video: { youtubeId: "WA4iX5D9Z64", title: "Taylor Swift - We Are Never Ever Getting Back Together" },
+      moment: {
+        context: "The lead single arrived with an eye-roll and a spoken-word bridge, and it shot straight to number one — her first Hot 100 chart-topper.\n\nIt signaled, unmistakably, that the country prodigy was walking toward the center of pop.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "red-begin-again",
+      year: 2012,
+      month: 10,
+      day: 1,
+      category: "music",
+      title: "“Begin Again” as the soft landing",
+      snippet: "A gentle promotional single about hope after heartbreak.",
+      video: { youtubeId: "cMPEd8m79Hw", title: "Taylor Swift - Begin Again" },
+      moment: {
+        context: "Released ahead of the album, “Begin Again” balanced the era’s louder singles with quiet, hopeful romance.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "red-i-knew-you",
+      year: 2012,
+      month: 11,
+      day: 12,
+      category: "music",
+      title: "“I Knew You Were Trouble” goes global",
+      snippet: "A dubstep-tinged drop that pushed her sound to its poppiest edge yet.",
+      video: { youtubeId: "vNoKguSdy4Y", title: "Taylor Swift - I Knew You Were Trouble" },
+      moment: {
+        context: "The bass-heavy breakdown scandalized country purists and delighted everyone else, cementing the genre crossover.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "red-snl",
+      year: 2012,
+      month: 11,
+      dateLabel: "Fall 2012",
+      category: "tour",
+      title: "A run of TV performances",
+      snippet: "Late-night and award-show stages keep Red everywhere at once.",
+      moment: {
+        context: "A dense promotional stretch put the album on every major stage as the release momentum peaked.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "red-grammys-2013",
+      year: 2013,
+      month: 2,
+      day: 10,
+      category: "tour",
+      title: "The circus-themed Grammy opener",
+      snippet: "A theatrical performance opens the ceremony and previews the tour’s scale.",
+      moment: {
+        context: "Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle.",
+        // Photo pass #762 (2026-07-19): E! News' own CDN (akns-images.eonline
+        // .com, from E!'s night-of performance story); curl 200 image/jpeg
+        // 634x1024; Read-viewed: Swift mid-performance in the white ringmaster
+        // tailcoat and crystal top hat at the 2013 Grammys opener.
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013110/634.2swift.show.ls.21013.jpg',
+            credit: 'Via E! News',
+            caption: 'The white ringmaster look that opened the 2013 Grammys — "We Are Never Ever Getting Back Together" as circus.',
+            focalPoint: '48% 20%',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "red-everything-changed",
+      year: 2013,
+      month: 7,
+      day: 6,
+      category: "music",
+      title: "“Everything Has Changed” duet",
+      snippet: "A folk-pop collaboration extends the album’s long single run.",
+      moment: {
+        context: "A tender duet kept Red on the charts deep into 2013, well over a year after release.",
       },
     },
   ],

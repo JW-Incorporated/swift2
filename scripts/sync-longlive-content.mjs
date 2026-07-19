@@ -32,6 +32,10 @@ import {
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
+// The 8 shared confidence values (mirrors THEORY_CONFIDENCE in
+// packages/shared/src/vault-types.ts). Importing the theories generator only
+// pulls its pure exports — its main() is guarded behind invokedDirectly.
+import { CONFIDENCE_VALUES } from './sync-longlive-theories.mjs';
 
 const SEED_DIR = path.join(ROOT, 'supabase', 'seed', 'content');
 const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'content-vault.generated.ts');
@@ -138,6 +142,89 @@ export function significanceFrom(significance) {
   return VALID_SIGNIFICANCE.has(significance) ? significance : undefined;
 }
 
+/**
+ * Shoppable products from the Tier-1 `moment.products` array (see Product in
+ * apps/web/lib/longlive/types.ts): `[{ brand, item, retailer, url, price?,
+ * inStock? }]`. Keeps only rows with all four required string fields and an
+ * https url (same rule validate-content.mjs enforces loudly — keep the two in
+ * sync so a validate-green row can never be silently dropped here, or vice
+ * versa) — validate-content.mjs errors loudly on malformed rows, this
+ * just guards the generated file against shipping broken JS. `price` must be
+ * a non-empty string to carry; `inStock` carries ONLY an explicit false
+ * (omitted/true both mean "purchasable when authored" and stay omitted, so
+ * the generated file only marks the exceptional sold-out case). Returns
+ * undefined (field omitted) when nothing valid remains, same convention as
+ * imagesFrom/threadIdsFrom. Exported for unit tests.
+ */
+export function productsFrom(products) {
+  if (!Array.isArray(products)) return undefined;
+  const out = [];
+  for (const p of products) {
+    if (!p) continue;
+    const required = [p.brand, p.item, p.retailer, p.url];
+    if (!required.every((v) => typeof v === 'string' && v.trim())) continue;
+    if (!/^https:\/\//.test(p.url)) continue;
+    out.push({
+      brand: p.brand,
+      item: p.item,
+      retailer: p.retailer,
+      url: p.url,
+      price: typeof p.price === 'string' && p.price.trim() ? p.price : undefined,
+      inStock: p.inStock === false ? false : undefined,
+    });
+  }
+  return out.length ? out : undefined;
+}
+
+/**
+ * How well-supported the item's central claim is (the 8 shared values —
+ * ContentItem.confidence in apps/web/lib/longlive/types.ts). Below the
+ * confirmed tier the UI renders the unmissable "Rumor — unconfirmed" /
+ * "Reported — not confirmed" banner. Unknown values return undefined (field
+ * omitted = confirmed fact, no banner) — the validator makes a typo a hard
+ * error, same split as significanceFrom.
+ */
+export function confidenceFrom(confidence) {
+  return CONFIDENCE_VALUES.has(confidence) ? confidence : undefined;
+}
+
+/** Mirrors RumorStatus in apps/web/lib/longlive/types.ts. */
+export const RUMOR_STATUSES = new Set([
+  'unconfirmed',
+  'partially_confirmed',
+  'confirmed',
+  'debunked',
+]);
+
+const RUMOR_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
+
+/**
+ * Normalizes seed `moment.rumors` entries into the UI's RumorNote shape
+ * (apps/web/lib/longlive/types.ts). Everything that keeps a rumor honest —
+ * claim, reporting outlet, report date, status, link — is REQUIRED; an entry
+ * missing any of them is dropped rather than guessed at (the theories
+ * generator's rule). The validator makes those drops hard errors so they
+ * can't pass CI silently. Returns undefined (field omitted) when nothing
+ * valid remains. Exported for unit tests.
+ */
+export function rumorsFrom(rumors) {
+  if (!Array.isArray(rumors)) return undefined;
+  const out = [];
+  for (const r of rumors) {
+    if (!r || typeof r !== 'object') continue;
+    const trim = (v) => (typeof v === 'string' && v.trim() ? v.trim() : undefined);
+    const claim = trim(r.claim);
+    const reportedBy = trim(r.reportedBy);
+    const reportedOn = trim(r.reportedOn);
+    const url = trim(r.url);
+    if (!claim || !reportedBy || !url) continue;
+    if (!reportedOn || !RUMOR_DATE_RE.test(reportedOn)) continue;
+    if (!RUMOR_STATUSES.has(r.status)) continue;
+    out.push({ claim, reportedBy, reportedOn, status: r.status, url, note: trim(r.note) });
+  }
+  return out.length ? out : undefined;
+}
+
 /** Allowed ImageRef.kind values (apps/web/lib/longlive/types.ts ImageKind). */
 const IMAGE_KINDS = new Set(['primary', 'reference', 'archival']);
 
@@ -220,6 +307,13 @@ export function addItem(
     video,
     relatedIds,
     significance,
+    products,
+    confidence,
+    rumors,
+    dateLabel: dateLabelOverride,
+    hiddenClue,
+    milestone,
+    pullQuote,
   },
 ) {
   const eraId = SLUG_TO_ERA_ID[eraSlug] ?? eraSlug;
@@ -242,9 +336,17 @@ export function addItem(
   const mm = String(month).padStart(2, '0');
   const dd = String(validDay ?? 1).padStart(2, '0');
   const date = `${year}-${mm}-${dd}`;
-  const dateLabel = validDay
-    ? `${MONTHS[month - 1]} ${validDay}, ${year}`
-    : `${MONTHS[month - 1]} ${year}`;
+  // Editorial period labels ("Spring 2007", "Fall 2012") — an explicit
+  // dateLabel on the seed row overrides the computed one. Added 2026-07-19
+  // for the content.ts→seed migration: period moments carry representative
+  // placeholder dates for sort position, and their labels deliberately avoid
+  // implying day- or even month-precision nobody researched (#717).
+  const dateLabel =
+    typeof dateLabelOverride === 'string' && dateLabelOverride.trim()
+      ? dateLabelOverride.trim()
+      : validDay
+        ? `${MONTHS[month - 1]} ${validDay}, ${year}`
+        : `${MONTHS[month - 1]} ${year}`;
 
   const hasVideo =
     video && typeof video.youtubeId === 'string' && video.youtubeId && typeof video.title === 'string' && video.title;
@@ -261,9 +363,26 @@ export function addItem(
     images: imagesFrom(thumbnailUrl, photos),
     sources: sourcesFrom(sources, sourceUrl),
     video: hasVideo ? { youtubeId: video.youtubeId, title: video.title } : undefined,
+    // Hidden-clue payoffs (types.ts HiddenClue) — piped through for the
+    // content.ts→seed migration (2026-07-19); both fields required or dropped.
+    hiddenClue:
+      hiddenClue && typeof hiddenClue.clue === 'string' && hiddenClue.clue.trim() && typeof hiddenClue.payoff === 'string' && hiddenClue.payoff.trim()
+        ? { clue: hiddenClue.clue, payoff: hiddenClue.payoff }
+        : undefined,
+    // Era-timeline milestone marker (stage 2b): content.ts derives MILESTONES
+    // from these. All three fields required (kind validated) or dropped.
+    milestone:
+      milestone && typeof milestone.id === 'string' && milestone.id && typeof milestone.label === 'string' && milestone.label && ['album', 'tour', 'life', 'business', 'award'].includes(milestone.kind)
+        ? { id: milestone.id, label: milestone.label, kind: milestone.kind }
+        : undefined,
+    // Thread-card pull-quote (stage 3): a caption/lyric/statement string.
+    pullQuote: typeof pullQuote === 'string' && pullQuote.trim() ? pullQuote.trim() : undefined,
     relatedIds: relatedIdsFrom(relatedIds),
     threadIds: threadIdsFrom(threadIds),
     significance: significanceFrom(significance),
+    products: productsFrom(products),
+    confidence: confidenceFrom(confidence),
+    rumors: rumorsFrom(rumors),
   });
 }
 
@@ -353,11 +472,24 @@ async function fetchFromSupabase() {
       // significance.sql) but this SELECT isn't wired to read it yet — same
       // follow-up, not done here since the live site reads seed files first
       // anyway (docs/decisions.md, 2026-07-17).
+      // `confidence` + `moment.rumors` (2026-07-19, the rumor tier) are also
+      // seed-only until that migration lands — same follow-up list, but with
+      // a sharper edge: losing them doesn't just degrade navigation, it
+      // strips the "not confirmed" labels, so reported claims would render
+      // as fact. Hence the loud warning below, not just this comment.
+      // `products` (2026-07-19, shoppable links) also has no moment-table
+      // column yet — seed-only, same follow-up bucket.
     });
   }
 
   const total = Object.values(byEra).reduce((n, arr) => n + arr.length, 0);
   console.log(`sync-longlive-content: loaded ${total} items from Supabase (live).`);
+  console.warn(
+    'sync-longlive-content: WARNING — the DB path carries no confidence/rumors columns yet, ' +
+      'so a DB-sourced build STRIPS every "Reported — not confirmed" banner and "What\'s rumored" ' +
+      'section; sub-confirmed claims would render as fact. Do not deploy a db-sourced vault ' +
+      'until the month_item/moment migration lands (docs/decisions.md 2026-07-19).',
+  );
   return byEra;
 }
 
@@ -393,6 +525,21 @@ async function fetchFromLocalFiles() {
         // accept either so the content lane can pick the natural home.
         relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
         significance: item.significance ?? null,
+        // Tier-1 detail like photos/sources — products live on the moment.
+        products: item.moment?.products ?? null,
+        // Like relatedIds, confidence/rumors are accepted at EITHER level —
+        // confidence naturally reads as item metadata, rumors as Tier-1
+        // moment detail, but a mixed-up placement must not fail open (a
+        // silently-ignored honesty label is the worst outcome this feature
+        // has). validate-content.mjs checks both spots the same way.
+        confidence: item.confidence ?? item.moment?.confidence ?? null,
+        rumors: item.moment?.rumors ?? item.rumors ?? null,
+        // Editorial period labels + hidden-clue payoffs (stage-2a migration,
+        // 2026-07-19) — item-level seed fields, piped to addItem's handling.
+        dateLabel: item.dateLabel ?? null,
+        hiddenClue: item.hiddenClue ?? null,
+        milestone: item.milestone ?? null,
+        pullQuote: item.pullQuote ?? null,
       });
     }
   }
@@ -419,7 +566,7 @@ export function buildOutputSource(byEra) {
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
   lines.push("// Re-run that script after content-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { ContentTag, EraId, ImageRef, LensId } from './types';");
+  lines.push("import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote } from './types';");
   lines.push('');
   // Freshness stamp — emitted ONLY during `prebuild` (the deploy build, where
   // npm sets npm_lifecycle_event=prebuild), never into the committed file.
@@ -445,9 +592,15 @@ export function buildOutputSource(byEra) {
   lines.push('  images?: ImageRef[];');
   lines.push('  sources?: { name: string; url: string }[];');
   lines.push('  video?: { youtubeId: string; title: string };');
+  lines.push('  hiddenClue?: HiddenClue;');
+  lines.push('  milestone?: { id: string; label: string; kind: MilestoneKind };');
+  lines.push('  pullQuote?: string;');
   lines.push('  relatedIds?: string[];');
   lines.push('  threadIds?: LensId[];');
   lines.push("  significance?: 'defining' | 'notable';");
+  lines.push('  products?: Product[];');
+  lines.push('  confidence?: Confidence;');
+  lines.push('  rumors?: RumorNote[];');
   lines.push('};');
   lines.push('');
   lines.push('export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {');
@@ -483,6 +636,15 @@ export function buildOutputSource(byEra) {
       if (it.video) {
         lines.push(`      video: { youtubeId: ${esc(it.video.youtubeId)}, title: ${esc(it.video.title)} },`);
       }
+      if (it.hiddenClue) {
+        lines.push(`      hiddenClue: { clue: ${esc(it.hiddenClue.clue)}, payoff: ${esc(it.hiddenClue.payoff)} },`);
+      }
+      if (it.milestone) {
+        lines.push(`      milestone: { id: ${esc(it.milestone.id)}, label: ${esc(it.milestone.label)}, kind: ${esc(it.milestone.kind)} },`);
+      }
+      if (it.pullQuote) {
+        lines.push(`      pullQuote: ${esc(it.pullQuote)},`);
+      }
       if (it.relatedIds && it.relatedIds.length) {
         lines.push(`      relatedIds: [${it.relatedIds.map(esc).join(', ')}],`);
       }
@@ -498,6 +660,40 @@ export function buildOutputSource(byEra) {
       // there is no generic fallthrough serialization in this file.
       if (it.significance) {
         lines.push(`      significance: ${esc(it.significance)},`);
+      }
+      if (it.products && it.products.length) {
+        const prods = it.products
+          .map((p) => {
+            const parts = [
+              `brand: ${esc(p.brand)}`,
+              `item: ${esc(p.item)}`,
+              `retailer: ${esc(p.retailer)}`,
+              `url: ${esc(p.url)}`,
+            ];
+            if (p.price) parts.push(`price: ${esc(p.price)}`);
+            if (p.inStock === false) parts.push('inStock: false');
+            return `{ ${parts.join(', ')} }`;
+          })
+          .join(', ');
+        lines.push(`      products: [${prods}],`);
+      }
+      if (it.confidence) {
+        lines.push(`      confidence: ${esc(it.confidence)},`);
+      }
+      if (it.rumors && it.rumors.length) {
+        lines.push('      rumors: [');
+        for (const r of it.rumors) {
+          const parts = [
+            `claim: ${esc(r.claim)}`,
+            `reportedBy: ${esc(r.reportedBy)}`,
+            `reportedOn: ${esc(r.reportedOn)}`,
+            `status: ${esc(r.status)}`,
+            `url: ${esc(r.url)}`,
+          ];
+          if (r.note) parts.push(`note: ${esc(r.note)}`);
+          lines.push(`        { ${parts.join(', ')} },`);
+        }
+        lines.push('      ],');
       }
       lines.push('    },');
     }

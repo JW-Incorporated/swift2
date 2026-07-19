@@ -383,6 +383,9 @@ export default {
         'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
       ],
       title: 'The Eras Tour kicks off in Glendale',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-2", label: "Eras Tour begins", kind: "tour" },
       snippet:
         '44 songs, 3 hours and 15 minutes at State Farm Stadium — opening night moved era by era through songs from all 10 studio albums.',
       sourceUrl: 'https://www.billboard.com/music/pop/taylor-swift-setlist-eras-tour-1235289197/',
@@ -592,6 +595,9 @@ export default {
       category: 'business',
       significance: 'defining', // global-recognition peak of the Eras Tour year (docs/decisions.md, 2026-07-19)
       title: 'Time names her 2023 Person of the Year',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-3a", label: "Person of the Year", kind: "award" },
       snippet:
         "Her own reaction: \"This is the proudest and happiest I've ever felt, and the most creatively fulfilled and free I've ever been.\"",
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/',
@@ -653,6 +659,9 @@ export default {
       significance: 'defining', // the end of a 6-year relationship and the direct precursor to the Kelce era (docs/decisions.md, 2026-07-19)
       relatedIds: ['moment:vault-midnights-the-game-the-world-decided-made-it-official'],
       title: 'Taylor and Joe Alwyn confirm their breakup after six years',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-2a", label: "Alwyn breakup confirmed", kind: "life" },
       snippet:
         '"They simply grew apart and plan to remain friends" — the end of a relationship she\'d kept almost entirely out of public view since 2016.',
       sourceUrl: 'https://www.cnn.com/2023/04/09/entertainment/taylor-swift-joe-alwyn-break-up/index.html',
@@ -729,6 +738,10 @@ export default {
       day: 26,
       category: 'relationship',
       title: "The friendship bracelet Travis couldn't deliver",
+      // the-proposal thread opt-in + pull-quote (stage 3, 2026-07-19 — the
+      // derived End Game thread starts here; quote from the New Heights episode).
+      threadIds: ['the-proposal'],
+      pullQuote: '“I was a little butthurt I didn’t get to meet her.”',
       snippet:
         "He made a bracelet with his number on it for her Arrowhead Eras Tour stop, worked up the nerve, and never got the chance to hand it over.",
       sourceUrl:
@@ -766,6 +779,9 @@ export default {
       day: 24,
       category: 'sighting',
       title: 'First Chiefs game: cheering on from the family suite',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-2b", label: "Relationship goes public", kind: "life" },
       snippet:
         "Taylor watched Kansas City rout Chicago 41–10 from Travis's family suite at Arrowhead, sitting beside his mother Donna in a red-and-white Chiefs jacket.",
       sourceUrl: 'https://www.cnn.com/2023/09/24/entertainment/taylor-swift-travis-kelce-chiefs-game/',
@@ -927,6 +943,7 @@ export default {
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
             credit: 'NBC News',
+            focalPoint: '47% 12%',
           },
         ],
       },
@@ -1037,6 +1054,7 @@ export default {
           {
             url: 'https://variety.com/wp-content/uploads/2023/10/GettyImages-1712353673.jpg?w=1000&h=563&crop=1',
             credit: 'Elsa/Getty Images',
+            focalPoint: '44% 32%',
           },
         ],
       },
@@ -1280,6 +1298,9 @@ export default {
         'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
       ],
       title: 'A record fourth Album of the Year Grammy, for Midnights',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-3b", label: "Record 4th AOTY", kind: "award" },
       snippet: 'Presented by Céline Dion in a rare public appearance — Swift\'s fourth AOTY win, more than any artist in Grammy history.',
       sourceUrl: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
       thumbnailUrl: 'https://www.billboard.com/wp-content/uploads/2024/02/taylor-swift-pop-album-grammys-cbs-2024-billboard-1548.jpg?w=1024',
@@ -1344,6 +1365,9 @@ export default {
         'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
       ],
       title: 'Super Bowl LVIII: a sheer corset, Area jeans, and his number in rubies',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-3c", label: "Super Bowl LVIII", kind: "life" },
       snippet:
         'A Dion Lee corset top and bedazzled Area jeans, accessorized with jewelry stamped 87 — plus a red Erin Andrews bomber for team spirit.',
       sourceUrl: 'https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/',
@@ -1362,6 +1386,7 @@ export default {
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1',
             credit: 'Patrick T. Fallon/AFP via Getty Images',
+            focalPoint: '51% 17%',
           },
           // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 4 more
           // real, verified photos — a nationally televised, extremely
@@ -1418,6 +1443,7 @@ export default {
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-2003760399-copy.jpg?w=1296&h=730&crop=1',
             credit: 'Getty Images',
+            focalPoint: '62% 38%',
           },
         ],
       },
@@ -1764,10 +1790,12 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg',
             credit: 'Getty Images',
+            focalPoint: '53% 12%',
           },
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg',
             credit: 'Getty Images',
+            focalPoint: '45% 25%',
           },
         ],
       },
@@ -2712,6 +2740,9 @@ export default {
       day: 15,
       category: 'business',
       title: 'The presale that broke Ticketmaster — and set a sales record anyway',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-1c", label: "Ticketmaster presale", kind: "business" },
       snippet:
         '2.4 million tickets in one day, the most ever sold for an artist — while millions more fans sat in crashed queues until Ticketmaster canceled the public on-sale entirely.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift%E2%80%93Ticketmaster_controversy',
@@ -3506,6 +3537,154 @@ export default {
           {
             outlet: 'Today',
             url: 'https://www.today.com/popculture/music/taylor-swift-midnights-tracklist-song-names-rcna50738',
+          },
+        ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-album",
+      year: 2022,
+      month: 10,
+      day: 21,
+      category: "music",
+      title: "Thirteen sleepless nights",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-1", label: "Midnights released", kind: "album" },
+      snippet: "A return to pop as a diary of midnights across her life.",
+      moment: {
+        context: "Midnights framed itself as thirteen sleepless nights, blending retro-glam synths with confessional diary entries.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-3am",
+      year: 2022,
+      month: 10,
+      day: 22,
+      category: "music",
+      title: "The 3am edition surprise",
+      snippet: "Seven extra tracks land three hours after release, a now-signature move.",
+      moment: {
+        context: "Hours after midnight, a “3am Edition” expanded the album — rewarding the fans who stayed up.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-antihero",
+      year: 2022,
+      month: 10,
+      day: 24,
+      category: "music",
+      title: "“Anti-Hero” dominates",
+      snippet: "A candid single about self-doubt becomes her biggest solo hit in years.",
+      video: { youtubeId: "b1kbLwvqugk", title: "Taylor Swift - Anti-Hero (Official Music Video)" },
+      moment: {
+        context: "Its confessional humor and inescapable chorus made “Anti-Hero” the defining pop single of the season.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-chart-record",
+      year: 2022,
+      month: 11,
+      day: 5,
+      category: "sighting",
+      title: "Every top-ten slot at once",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-1b", label: "Entire top ten", kind: "award" },
+      snippet: "She becomes the first artist to monopolize the entire top ten of the Hot 100.",
+      moment: {
+        context: "The album’s dominance rewrote the record books, occupying all ten of the chart’s highest positions in a single week.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-ticket-chaos",
+      year: 2022,
+      month: 11,
+      day: 15,
+      category: "sighting",
+      title: "The ticket frenzy",
+      snippet: "Unprecedented demand for the Eras Tour crashes the sales system and reaches Washington.",
+      moment: {
+        context: "The scramble for tickets became a national news story — and eventually a subject of political hearings.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "midnights-film",
+      year: 2023,
+      month: 10,
+      day: 13,
+      category: "tour",
+      title: "The Eras Tour hits cinemas",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-mid-3", label: "Eras Tour film", kind: "tour" },
+      snippet: "A concert film breaks box-office records for the format.",
+      moment: {
+        context: "Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.",
+        // Photo pass #762 (2026-07-19): ABC News' own CDN (i.abcnewsfe.com,
+        // from GMA's world-premiere story); curl 200 image/jpeg 3072x3071;
+        // Read-viewed: Swift in the tanzanite Oscar de la Renta gown on the
+        // premiere carpet, "Taylor Swift: The Eras Tour" step-and-repeat
+        // behind her (The Grove, Los Angeles, Oct. 11, 2023).
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/64e8b004-20de-4b7b-9296-b1f46aac00ee/taylor-swift-01-ss-jt-231011_1697075963440_hpEmbed_1x1.jpg',
+            credit: 'Via ABC News',
+            caption: 'The world premiere at The Grove, Oct. 11, 2023 — where she announced the film would open a day early.',
+            focalPoint: '52% 22%',
+          },
+        ],
+      },
+    },
+
+    // ── Migrated from the End Game thread's hand-authored beat list (stage 3,
+    // 2026-07-19): the WSJ confirmation was a beat with no vault moment — the
+    // only one — so it becomes a real moment; the thread now derives fully
+    // from tagged moments. Beat text carried verbatim; wsjshop.com cover
+    // image verified HTTP 200 + image/jpeg this session (the beat's other
+    // option was a watermarked Getty comp, dropped per the image protocol).
+    {
+      slug: 'prop-wsj-confirm',
+      year: 2023,
+      month: 11,
+      day: 1,
+      category: 'relationship',
+      threadIds: ['the-proposal'],
+      title: 'Travis confirms it, on the record',
+      snippet: 'After weeks of stadium-suite appearances, Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
+      sourceUrl: 'https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac',
+      thumbnailUrl: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
+      moment: {
+        context: 'After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs-Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
+        sources: [
+          {
+            outlet: 'WSJ. Magazine',
+            url: 'https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
+            credit: 'Gregory Harris/WSJ. Magazine',
+            caption: 'The WSJ. Magazine cover interview where Travis spoke to the relationship on the record.',
+            // Focal point set 2026-07-19 (photo-enrichment run 10, #762) by
+            // viewing: portrait magazine cover, Travis's hooded face fills the
+            // upper-middle with eyes about a quarter down the frame.
+            focalPoint: '55% 28%',
           },
         ],
       },

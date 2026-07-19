@@ -982,6 +982,9 @@ export default {
         'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
       ],
       title: 'The Eras Tour takes its final bow in Vancouver',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-2", label: "Eras Tour finale", kind: "tour" },
       snippet: 'BC Place, 149 shows and 21 months after Glendale — more than 50,000 fans for the last night of the tour.',
       sourceUrl: 'https://www.nbcnews.com/pop-culture/pop-culture-news/end-era-taylor-swifts-eras-tour-coming-close-vancouver-rcna183279',
       thumbnailUrl:
@@ -1465,48 +1468,6 @@ export default {
             // Focal point set by viewing: full-length portrait pose, face high
             // and just left of center.
             focalPoint: '48% 20%',
-          },
-        ],
-      },
-    },
-    {
-      year: 2025,
-      month: 8,
-      day: 26,
-      category: 'fashion',
-      title: 'Engagement photos: a Polo Ralph Lauren dress in the garden',
-      snippet:
-        'A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.',
-      sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
-      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
-      moment: {
-        context:
-          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.',
-        sources: [
-          {
-            outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
-          },
-          {
-            outlet: 'L\'Officiel',
-            url: 'https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details',
-          },
-        ],
-        photos: [
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
-            credit: 'Taylor Swift',
-            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
-            // close embrace, her hand on his cheek; the two faces meet just
-            // above center frame.
-            focalPoint: '50% 30%',
-          },
-          {
-            url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg',
-            credit: 'Taylor Swift',
-            // Focal point set 2026-07-18 (run 7) by viewing: wide garden scene,
-            // the couple small at center under the floral arch, faces near mid-frame.
-            focalPoint: '52% 46%',
           },
         ],
       },
@@ -2306,6 +2267,9 @@ export default {
       day: 19,
       category: 'music',
       title: 'So High School, annotated by the internet in minutes',
+      // the-proposal thread opt-in (stage 3, 2026-07-19): the song fans read
+      // as the relationship's track — a beat of the derived End Game thread.
+      threadIds: ['the-proposal'],
       snippet:
         'The "marry, kiss, or kill me" line traces to a viral 2016 Travis interview clip, and fans caught the nod to his impressions of his dad — the album\'s one openly giddy chapter.',
       sourceUrl: 'https://www.today.com/popculture/music/so-high-school-taylor-swift-lyrics-meaning-rcna148574',
@@ -2794,6 +2758,9 @@ export default {
       day: 8,
       category: 'sighting',
       title: "Box seats at Arthur Ashe for the US Open men's final",
+      // the-proposal thread opt-in (stage 3, 2026-07-19): the first big
+      // non-football public date — a beat of the derived End Game thread.
+      threadIds: ['the-proposal'],
       snippet:
         'A rare non-football sports date: she and Travis watched Sinner beat Fritz from a box with Patrick and Brittany Mahomes — a red-and-white checkered dress and a Gucci bucket hat between them.',
       sourceUrl: 'https://abcnews.go.com/GMA/Culture/taylor-swift-travis-kelce-attend-us-open-mens/story?id=113500642',
@@ -3056,6 +3023,9 @@ export default {
       day: 30,
       category: 'business',
       title: '"All of the music I\'ve ever made... now belongs... to me"',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-3", label: "Masters bought back", kind: "business" },
       snippet:
         'The ending the Taylor\'s Versions were building toward: she bought her first six albums back from Shamrock Capital — masters, videos, artwork, unreleased songs, everything.',
       sourceUrl: 'https://www.billboard.com/pro/taylor-swift-regains-control-master-recordings-shamrock/',
@@ -3211,6 +3181,60 @@ export default {
             focalPoint: '50% 30%',
           },
         ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "ttpd-album",
+      year: 2024,
+      month: 4,
+      day: 19,
+      category: "music",
+      title: "The Tortured Poets Department",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ttpd-1", label: "TTPD released", kind: "album" },
+      snippet: "A literary, ink-stained double album — the most word-heavy record of her career.",
+      hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
+      moment: {
+        context: "Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.\n\nTypewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
+        // "Fortnight" MV id q3zqJs7JUCQ verified via YouTube oEmbed this
+        // session ("Taylor Swift - Fortnight (feat. Post Malone) (Official
+        // Music Video)", author @TaylorSwift); maxres1 frame (1280x720)
+        // curl-verified 200 image/jpeg, downloaded and viewed — the
+        // black-and-white asylum close-up, distinct from the maxresdefault
+        // already used on the Fortnight single page. The Wikipedia album
+        // cover render is only 300px (below the 400px floor), so the
+        // lead-single frame carries the album's monochrome aesthetic instead.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/maxres1.jpg',
+            credit: 'Taylor Swift / Republic Records (official "Fortnight" video frame, YouTube)',
+            caption:
+              'The album’s black-and-white world, distilled: Taylor in the "Fortnight" video that arrived with TTPD on release night.',
+            kind: 'primary',
+            // Stark close-up; her eyes sit in the upper third, face centered.
+            focalPoint: '47% 35%',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "ttpd-typewriter",
+      year: 2024,
+      month: 4,
+      dateLabel: "Spring 2024",
+      category: "fashion",
+      title: "Ink, typewriters and monochrome",
+      snippet: "The most restrained visual era: black, white, and typewritten confession.",
+      moment: {
+        context: "Grayscale styling and typewriter motifs frame the era as a literary confessional.",
       },
     },
   ],

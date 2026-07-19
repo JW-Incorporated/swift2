@@ -17,6 +17,31 @@ describe('momentShareCopy', () => {
     );
   });
 
+  it('carries the sub-confirmed qualifier into outbound text (rumor tier)', () => {
+    // Share copy leaves the app — no downstream banner can correct the
+    // framing, so the qualifier must travel in the text itself.
+    const copy = momentShareCopy(
+      {
+        title: 'The wedding gown',
+        summary: 'A custom Dior commission, per reporting.',
+        dateLabel: 'July 3, 2026',
+        confidence: 'reputable_reporting',
+      },
+      { name: 'The Life of a Showgirl' },
+    );
+    expect(copy.text).toBe(
+      'The wedding gown (The Life of a Showgirl, July 3, 2026) [reported — not confirmed] — A custom Dior commission, per reporting.',
+    );
+  });
+
+  it('adds no qualifier for confirmed-tier or unlabeled moments', () => {
+    const confirmed = momentShareCopy(
+      { title: 'T', summary: 'S.', dateLabel: 'July 2026', confidence: 'official' },
+      { name: 'Era' },
+    );
+    expect(confirmed.text).toBe('T (Era, July 2026) — S.');
+  });
+
   it('truncates a long summary on a word boundary with an ellipsis', () => {
     const long =
       'She burned it all down and rebuilt as a pop star with clean synth-pop, a Polaroid aesthetic, and the squad era that ruled the mid-2010s, plus a whole lot more words to push this well past the share limit for body text.';

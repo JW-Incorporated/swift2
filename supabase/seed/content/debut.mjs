@@ -61,6 +61,7 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg',
             credit: 'Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)',
             kind: 'archival',
+            focalPoint: '39% 23%',
           },
         ],
       },
@@ -362,6 +363,7 @@ export default {
           {
             url: 'https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg',
             credit: 'Getty Images',
+            focalPoint: '53% 11%',
           },
         ],
       },
@@ -417,6 +419,7 @@ export default {
           {
             url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces',
             credit: 'Stephen Lovekin/WireImage/Getty Images',
+            focalPoint: '47% 13%',
           },
         ],
       },
@@ -443,6 +446,7 @@ export default {
           {
             url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces',
             credit: 'Denise Truscello/WireImage/Getty Images',
+            focalPoint: '48% 13%',
           },
         ],
       },
@@ -472,6 +476,7 @@ export default {
           {
             url: 'https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTM7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8c1753b0-693b-11ee-b69e-d5b17b60c7bb',
             credit: 'Yahoo via YouTube',
+            focalPoint: '34% 45%',
           },
         ],
       },
@@ -615,6 +620,7 @@ export default {
             url:
               'https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg',
             credit: 'Kevin Winter/Getty Images',
+            focalPoint: '55% 40%',
           },
         ],
       },
@@ -840,6 +846,7 @@ export default {
             url:
               'https://s.yimg.com/ny/api/res/1.2/.aCciUUvVRppty__Am_qwA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/the_tennessean_slideshows_726/e66c5e27810715572b9b8533bbc6a086',
             credit: 'Jae S. Lee/The Tennessean',
+            focalPoint: '55% 32%',
           },
         ],
       },
@@ -1286,6 +1293,9 @@ export default {
       day: 24,
       category: 'release',
       title: 'Taylor Swift, the album, arrives',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-1", label: "Debut album", kind: "album" },
       snippet:
         'Oct. 24, 2006: the self-titled debut lands — eleven tracks, her name on every writing credit, released when she was 16.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Taylor_Swift_(album)',
@@ -1955,6 +1965,74 @@ export default {
           },
         ],
         photos: [],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "debut-tim-mcgraw",
+      year: 2006,
+      month: 6,
+      day: 19,
+      category: "music",
+      title: "“Tim McGraw” arrives",
+      snippet: "A debut single named after a country legend announces a 16-year-old songwriter with an unusual gift for specifics.",
+      video: { youtubeId: "GkD20ajVxnY", title: "Taylor Swift - Tim McGraw" },
+      hiddenClue: { clue: "The liner notes hid secret messages in capital letters.", payoff: "That decrypting-the-capitals habit became a decade-long tradition fans still decode on every album." },
+      moment: {
+        context: "Before the stadiums, there was a teenager who named her first single after Tim McGraw — a bet that specificity would travel further than polish.\n\nIt cracked the country charts and set the template for everything after: real names, real places, and a diaristic eye for the small detail that makes a memory ache.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "debut-cowboy-boots",
+      year: 2007,
+      month: 4,
+      dateLabel: "Spring 2007",
+      category: "fashion",
+      title: "Curls, sundresses and cowboy boots",
+      snippet: "The visual signature of the debut era: sunlit country-girl Americana.",
+      moment: {
+        context: "Ringlet curls, floaty sundresses, and well-worn cowboy boots became the uniform of the debut era — a look as handmade and earnest as the songs.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "debut-our-song",
+      year: 2007,
+      month: 9,
+      day: 8,
+      category: "music",
+      title: "“Our Song” hits number one",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-debut-2", label: "“Our Song” #1", kind: "award" },
+      snippet: "At 17, she becomes the youngest person to single-handedly write and perform a number-one country hit.",
+      video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
+      moment: {
+        context: "A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
+        // MV id Jb2stN7kH28 verified via YouTube oEmbed this session
+        // ("Taylor Swift - Our Song", author @TaylorSwift); sd2 frame
+        // (640x480) curl-verified 200 image/jpeg, downloaded and viewed —
+        // the flower-bed scene, a distinct frame from the sddefault already
+        // used on the our-song-talent-show page (maxres variants 404 for
+        // this 2007-era upload).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/Jb2stN7kH28/sd2.jpg',
+            credit: 'Taylor Swift / Big Machine Records (official "Our Song" video frame, YouTube)',
+            caption:
+              'Seventeen-year-old Taylor in the flower-bed scene of the "Our Song" video — the homemade-feeling clip behind her first number one.',
+            kind: 'primary',
+            // Face fills the center of the frame, eyes just above the midline.
+            focalPoint: '53% 40%',
+          },
+        ],
       },
     },
   ],

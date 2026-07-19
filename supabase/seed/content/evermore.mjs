@@ -238,6 +238,9 @@ export default {
         'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
       ],
       title: 'Fearless (Taylor\'s Version) is the first re-recorded album ever to hit No. 1',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ever-2", label: "First re-record hits #1", kind: "award" },
       snippet:
         '291,000 units in week one — her ninth No. 1 album, tying Madonna, and the first re-recorded album in Billboard 200 history to top the chart.',
       sourceUrl: 'https://www.billboard.com/articles/news/9558306/taylor-swift-fearless-taylors-version-tops-billboard-200/',
@@ -345,6 +348,9 @@ export default {
       significance: 'defining', // an unprecedented chart record for a song fans had wanted for a decade (docs/decisions.md, 2026-07-19)
       relatedIds: ['moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a'],
       title: 'All Too Well (10 Minute Version) becomes the longest song ever to hit No. 1',
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ever-3", label: "ATW (10 Min) hits #1", kind: "award" },
       snippet:
         '10 minutes and 13 seconds — beating a nearly 50-year-old record held by Don McLean\'s "American Pie." Taylor\'s own reaction: "You guys sent a 10-minute song to Number One for the first time in history."',
       sourceUrl: 'https://www.guinnessworldrecords.com/news/2021/11/taylor-swifts-10-minute-all-too-well-is-longest-song-to-reach-no-1-683614',
@@ -684,6 +690,7 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg',
             credit: 'NBC',
+            focalPoint: '42% 13%',
             caption:
               'Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the "siren red" lip and blunt bangs of the Red (TV) beauty look, the night before the album\'s release.',
             kind: 'archival',
@@ -802,6 +809,7 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg',
             credit: 'Getty Images',
+            focalPoint: '45% 10%',
           },
         ],
       },
@@ -866,6 +874,7 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg',
             credit: 'NBC',
+            focalPoint: '42% 13%',
           },
         ],
       },
@@ -1060,6 +1069,23 @@ export default {
           {
             url: 'https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2',
             credit: 'Getty Images',
+            // Focal point set by viewing (photo pass #762, 2026-07-19):
+            // full-length street shot, her face in the top sixth of frame,
+            // just left of center.
+            focalPoint: '49% 16%',
+          },
+          // Photo pass #762 (2026-07-19): second Getty frame from the same
+          // cited Nylon article's own CDN (imgix.bustle.com) — a distinct
+          // head-on angle of the same Fleur Room arrival, the McQueen platform
+          // sandals fully in frame. curl 200 image/jpeg 980x1470, downloaded
+          // and vision-confirmed (same Moschino star romper + fur coat).
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2022/8/29/fdcc3cbd-5c3b-47f7-8469-a2a3836de5a0-getty-1418938602.jpg?w=980&fit=max',
+            credit: 'Getty Images',
+            caption: 'Arriving at the Fleur Room after-party in the star-embroidered Moschino romper, hours after announcing Midnights.',
+            kind: 'primary',
+            // Focal point set by viewing: face top-of-frame, dead center.
+            focalPoint: '50% 13%',
           },
         ],
       },
@@ -2458,6 +2484,167 @@ export default {
             credit: 'Collider Video (CC BY-SA 3.0) via Wikimedia Commons',
             caption: 'Joe Alwyn during a 2018 interview — years into the same press-shy stretch the GQ Hype profile finally opened up.',
             kind: 'archival',
+          },
+        ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-album",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      title: "folklore’s sister arrives",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-ever-1", label: "evermore surprise drop", kind: "album" },
+      snippet: "A second surprise album in five months — warmer, rustier, and just as literary.",
+      moment: {
+        context: "evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.\n\nSwift announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\"",
+        // Photo pass #762 (2026-07-19): alternate official frame of the
+        // "willow" video, which premiered alongside the album at midnight —
+        // video ID verified via YouTube oEmbed (author "Taylor Swift",
+        // @TaylorSwift) this session; curl 200 image/jpeg 1280x720;
+        // Read-viewed: hooded Swift in the snowy night bonfire scene.
+        // (The video's default thumbnail is used on the "willow" page —
+        // distinct URL per the no-duplicates rule.)
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/RsEZmictANA/maxres3.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The "willow" video — released with the album at midnight — carried evermore\'s wintry, firelit look.',
+            kind: 'archival',
+            focalPoint: '60% 25%',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-willow",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      title: "\"willow\" leads the era",
+      snippet: "The lead single doubles as the album's only official single release.",
+      video: { youtubeId: "RsEZmictANA", title: "Taylor Swift - willow" },
+      moment: {
+        context: "\"willow\" was released same-day as the album as its lead single and only Hot 100 top-10 hit from evermore — later performed live for the first time at the 2021 Grammys.",
+        // Photo pass #762 (2026-07-19): official video still — ID RsEZmictANA
+        // (already cited by this entry's video field) verified via YouTube
+        // oEmbed (author "Taylor Swift"); curl 200 image/jpeg 1280x720;
+        // Read-viewed: Swift in the glass-box carnival scene.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/RsEZmictANA/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The glass-box scene from the self-directed "willow" video.',
+            kind: 'archival',
+            focalPoint: '45% 20%',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-no-body-no-crime",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      title: "\"no body no crime\" with HAIM",
+      snippet: "A murder-ballad duet featuring sisters Este, Danielle, and Alana Haim, named as characters in the song.",
+      moment: {
+        context: "The song casts all three HAIM sisters as characters in its narrative (Este Haim is even the credited narrator), and the band joined Swift to perform it live during the Eras Tour years later.",
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-champagne-problems",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      tags: ["Lore"],
+      title: "\"champagne problems\"",
+      snippet: "A co-write with William Bowery (Joe Alwyn) about a declined proposal.",
+      moment: {
+        context: "One of two evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces.",
+        // Photo pass #762 (2026-07-19): official lyric-video still — ID
+        // wMpqCRF7TKg verified via YouTube oEmbed ("Taylor Swift - champagne
+        // problems (Official Lyric Video)", author "Taylor Swift"); curl 200
+        // image/jpeg 1280x720; Read-viewed: the title card's champagne flute.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/wMpqCRF7TKg/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The official lyric video\'s title card.',
+            kind: 'archival',
+            focalPoint: '50% 40%',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-right-where-you-left-me",
+      year: 2021,
+      month: 1,
+      day: 7,
+      category: "music",
+      title: "The deluxe edition adds two tracks",
+      snippet: "\"right where you left me\" and \"it's time to go\" arrive a month after the album.",
+      moment: {
+        context: "A deluxe edition released three weeks after the original, adding \"right where you left me\" and \"it's time to go\" — both later folded into the era's standard track list on streaming.",
+        // Photo pass #762 (2026-07-19): official lyric-video still — ID
+        // Ur_wAcYDnuA verified via YouTube oEmbed ("Taylor Swift - right
+        // where you left me (Official Lyric Video)", author "Taylor Swift");
+        // curl 200 image/jpeg 1280x720; Read-viewed: the empty-table scene.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/Ur_wAcYDnuA/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The empty restaurant table of the official lyric video — "right where you left me."',
+            kind: 'archival',
+            focalPoint: '52% 55%',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "evermore-marjorie",
+      year: 2020,
+      month: 12,
+      day: 11,
+      category: "music",
+      tags: ["Lore"],
+      title: "\"marjorie,\" for her grandmother",
+      snippet: "A tribute built partly from archival recordings of Swift's late grandmother, opera singer Marjorie Finlay.",
+      moment: {
+        context: "The song incorporates real vocal recordings of Marjorie Finlay, Swift's grandmother and a professional opera singer who died in 2003 — Swift has spoken about writing it as a way of \"bringing her back.\"",
+        // Photo pass #762 (2026-07-19): official lyric-video still — ID
+        // hP6QpMeSG6s verified via YouTube oEmbed ("Taylor Swift - marjorie
+        // (Official Lyric Video)", author "Taylor Swift"); curl 200 image/jpeg
+        // 1280x720; Read-viewed: an archival black-and-white portrait of
+        // Marjorie Finlay from the video itself.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hP6QpMeSG6s/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Marjorie Finlay, in an archival portrait from the official lyric video.',
+            kind: 'archival',
+            focalPoint: '40% 40%',
           },
         ],
       },

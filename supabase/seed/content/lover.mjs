@@ -455,6 +455,18 @@ export default {
             credit: 'Republic Records / Valheria Rocha (album cover art)',
             caption: 'The Lover album cover, shot by Valheria Rocha — the glitter heart eye in its original context.',
             kind: 'primary',
+            focalPoint: '49% 52%',
+          },
+          // Photo-enrichment pass (2026-07-19, #762): from the cited
+          // Refinery29 story's own CDN (s2.r29static.com), downloaded and
+          // vision-confirmed — the era's fuchsia lip and pink-tipped
+          // ponytail on stage at Wango Tango, weeks before the cover.
+          {
+            url: 'https://s2.r29static.com/bin/entry/6b6/x,80/2201581/image.jpg',
+            credit: 'Getty Images via Refinery29',
+            caption: 'The era\'s new beauty look in motion: fuchsia lip and pink-tipped ponytail at Wango Tango that June, from Refinery29\'s story on the cover makeup.',
+            kind: 'archival',
+            focalPoint: '50% 18%',
           },
         ],
       },
@@ -485,6 +497,7 @@ export default {
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20191024/rs_634x1024-191124163526-634-taylor-swift-2019-AMAs-red-carpet-fashion.jpg',
             credit: 'Steve Granitz/WireImage',
+            focalPoint: '50% 12%',
           },
         ],
       },
@@ -715,6 +728,7 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-gigi-hadid-bella-hadid-2019-billboard-vmas-1548.jpg?w=942&h=628&crop=1',
             credit: 'Billboard',
+            focalPoint: '45% 30%',
           },
         ],
       },
@@ -2304,6 +2318,57 @@ export default {
             focalPoint: '49% 28%',
           },
         ],
+      },
+    },
+
+    // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "lover-album",
+      year: 2019,
+      month: 8,
+      day: 23,
+      category: "music",
+      title: "Color returns with Lover",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-lov-2", label: "Lover released", kind: "album" },
+      snippet: "A pastel love letter — and the first album she would fully own.",
+      moment: {
+        context: "After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere.",
+        // Photo pass #762 (2026-07-19): freely licensed Commons shot from the
+        // era's launch season — license (CC BY-SA 4.0, Glenn Francis/Toglenn)
+        // verified on the file page via the Commons API; curl 200 image/jpeg
+        // 2358x3537; Read-viewed: Swift in the iridescent blue-purple sequined
+        // dress at the 2019 iHeartRadio Music Awards (March 14, 2019), the
+        // pastel look that opened the Lover rollout.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            credit: 'Glenn Francis via Wikimedia Commons, CC BY-SA 4.0',
+            caption: 'Iridescent sequins at the 2019 iHeartRadio Music Awards — the pastel palette arriving weeks before "ME!".',
+            focalPoint: '48% 22%',
+          },
+        ],
+      },
+    },
+    {
+      // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
+      // consolidation stage 2a): text unchanged; legacy id kept as slug.
+      slug: "lover-masters",
+      year: 2019,
+      month: 6,
+      day: 30,
+      category: "sighting",
+      title: "The masters are sold",
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-lov-1", label: "Masters sold", kind: "business" },
+      snippet: "Her back catalog changes hands without her — igniting a fight to reclaim her work.",
+      hiddenClue: { clue: "She announced she would re-record her old albums.", payoff: "The “Taylor’s Version” project was born — reclaiming her catalog one album at a time." },
+      moment: {
+        context: "News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything.",
       },
     },
   ],
