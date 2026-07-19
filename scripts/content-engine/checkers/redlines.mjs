@@ -30,6 +30,13 @@ const PRIVATE_PATTERNS = [
   { label: 'flight tracking', re: /\b(?:flight|jet) track(?:er|ing)\b/gi },
   { label: 'aircraft tail number', re: /\btail number\b/gi },
   { label: 'real-time location', re: /\b(?:is|was) (?:currently|right now) at\b/gi },
+  // Future/planned whereabouts — the most stalker-useful thing a RUMOR can
+  // carry ("reportedly staying at…"). Past-tense venue-level sightings are
+  // fine; forward-looking location is a hard redline
+  // (docs/content-ops/privacy-redlines.md, Never-OK #1). Zero hits on the
+  // legitimate corpus at introduction (2026-07-19) — precision-safe.
+  { label: 'future/planned whereabouts', re: /\b(?:will be|expected to (?:be|attend|arrive)|plans? to (?:be|stay)|reportedly staying|is staying) at\b/gi },
+  { label: 'travel-pattern reference', re: /\b(?:travel pattern|usual route|regular route)s?\b/gi },
 ];
 
 export const id = 'safety.redline';
@@ -88,13 +95,22 @@ export function candidates(items) {
   const out = [];
   const sx = CONFIG.safety.sexualizationTerms.map((t) => t.toLowerCase());
   const il = CONFIG.safety.illegalTerms.map((t) => t.toLowerCase());
+  // Privacy-speculation screens (docs/content-ops/privacy-redlines.md).
+  // Candidates by design: "diagnosis" also matches the disclosure Taylor made
+  // herself (Always-OK), so an agent classifies each hit against the doc.
+  const ps = (CONFIG.safety.privacySpeculationTerms ?? []).map((t) => t.toLowerCase());
+  const lp = (CONFIG.safety.locationPrivacyTerms ?? []).map((t) => t.toLowerCase());
   for (const it of items) {
     for (const [field, text] of Object.entries(it.texts)) {
       const low = text.toLowerCase();
       const sHit = sx.find((t) => low.includes(t));
       const iHit = il.find((t) => low.includes(t));
+      const pHit = ps.find((t) => low.includes(t));
+      const lHit = lp.find((t) => low.includes(t));
       if (sHit) out.push({ item: it, field, kind: 'sexualization', term: sHit, excerpt: text.slice(0, 300) });
       if (iHit) out.push({ item: it, field, kind: 'illegal-context', term: iHit.trim(), excerpt: text.slice(0, 300) });
+      if (pHit) out.push({ item: it, field, kind: 'privacy-speculation', term: pHit, excerpt: text.slice(0, 300) });
+      if (lHit) out.push({ item: it, field, kind: 'location-privacy', term: lHit, excerpt: text.slice(0, 300) });
     }
   }
   return out;
