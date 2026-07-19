@@ -3539,6 +3539,9 @@ export default {
             url: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
             credit: 'Gregory Harris/WSJ. Magazine',
             caption: 'The WSJ. Magazine cover interview where Travis spoke to the relationship on the record.',
+            // Photo pass #762 (2026-07-19): downloaded and viewed. Hooded
+            // portrait; face fills the cover's upper-middle, tilted left.
+            focalPoint: '48% 30%',
           },
         ],
       },

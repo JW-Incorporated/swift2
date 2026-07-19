@@ -2006,6 +2006,28 @@ export default {
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
       moment: {
         context: "A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke.",
+        // Photo pass #762 (2026-07-19): migrated page had zero photos. Video
+        // Jb2stN7kH28 oEmbed-verified against @TaylorSwift this session; both
+        // images curl-200 image/jpeg, downloaded and viewed for focal points.
+        // Billboard 2007 performance shot previously verified on the era's
+        // first-Grammys page (credit per that entry).
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/Jb2stN7kH28/sddefault.jpg',
+            credit: 'Still from the official "Our Song" music video (dir. Trey Fanjoy), Big Machine Records, via YouTube',
+            caption: 'The flower-wall close-up from the "Our Song" video — the clip that carried the single to No. 1.',
+            kind: 'primary',
+            // Tight close-up; eyes sit just below center, right of middle.
+            focalPoint: '55% 45%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-performance-2007-billboard-1548.jpg?w=942&h=628&crop=1',
+            credit: 'Ethan Miller/ACMA/Getty Images for ACMA',
+            caption: 'On stage in 2007 with the koa-wood Taylor guitar, the year "Our Song" topped the country chart.',
+            // Face top-left quadrant, above the guitar body.
+            focalPoint: '43% 16%',
+          },
+        ],
       },
     },
   ],

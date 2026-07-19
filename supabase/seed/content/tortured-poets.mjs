@@ -3163,6 +3163,26 @@ export default {
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       moment: {
         context: "Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.\n\nTypewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet.",
+        // Photo pass #762 (2026-07-19): migrated page had zero photos. Both
+        // URLs previously verified elsewhere in this era's seed; re-curled
+        // 200 image/*, downloaded and viewed this session for focal points.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Black-Dog-billboard-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant (via Billboard)',
+            caption: 'The album photography: sepia-washed, hand-to-forehead — the era’s diaristic pose.',
+            kind: 'primary',
+            // Tilted-back face upper-center-left, hand crossing the brow.
+            focalPoint: '45% 20%',
+          },
+          {
+            url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_5-1-1440x1440.jpg',
+            credit: 'Spotify Newsroom',
+            caption: 'Spotify’s TTPD library installation at The Grove in Los Angeles for release week.',
+            // Arched album-art panel right of center, figure in its lower half.
+            focalPoint: '62% 60%',
+          },
+        ],
       },
     },
     {
