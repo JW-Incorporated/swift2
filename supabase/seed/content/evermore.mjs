@@ -2450,6 +2450,22 @@ export default {
       snippet: "A second surprise album in five months — warmer, rustier, and just as literary.",
       moment: {
         context: "evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.\n\nSwift announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\"",
+        // Photo pass #762 (2026-07-19): alternate official frame of the
+        // "willow" video, which premiered alongside the album at midnight —
+        // video ID verified via YouTube oEmbed (author "Taylor Swift",
+        // @TaylorSwift) this session; curl 200 image/jpeg 1280x720;
+        // Read-viewed: hooded Swift in the snowy night bonfire scene.
+        // (The video's default thumbnail is used on the "willow" page —
+        // distinct URL per the no-duplicates rule.)
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/RsEZmictANA/maxres3.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The "willow" video — released with the album at midnight — carried evermore\'s wintry, firelit look.',
+            kind: 'archival',
+            focalPoint: '60% 25%',
+          },
+        ],
       },
     },
     {
@@ -2465,6 +2481,19 @@ export default {
       video: { youtubeId: "RsEZmictANA", title: "Taylor Swift - willow" },
       moment: {
         context: "\"willow\" was released same-day as the album as its lead single and only Hot 100 top-10 hit from evermore — later performed live for the first time at the 2021 Grammys.",
+        // Photo pass #762 (2026-07-19): official video still — ID RsEZmictANA
+        // (already cited by this entry's video field) verified via YouTube
+        // oEmbed (author "Taylor Swift"); curl 200 image/jpeg 1280x720;
+        // Read-viewed: Swift in the glass-box carnival scene.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/RsEZmictANA/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The glass-box scene from the self-directed "willow" video.',
+            kind: 'archival',
+            focalPoint: '45% 20%',
+          },
+        ],
       },
     },
     {
@@ -2494,6 +2523,19 @@ export default {
       snippet: "A co-write with William Bowery (Joe Alwyn) about a declined proposal.",
       moment: {
         context: "One of two evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces.",
+        // Photo pass #762 (2026-07-19): official lyric-video still — ID
+        // wMpqCRF7TKg verified via YouTube oEmbed ("Taylor Swift - champagne
+        // problems (Official Lyric Video)", author "Taylor Swift"); curl 200
+        // image/jpeg 1280x720; Read-viewed: the title card's champagne flute.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/wMpqCRF7TKg/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The official lyric video\'s title card.',
+            kind: 'archival',
+            focalPoint: '50% 40%',
+          },
+        ],
       },
     },
     {
@@ -2508,6 +2550,19 @@ export default {
       snippet: "\"right where you left me\" and \"it's time to go\" arrive a month after the album.",
       moment: {
         context: "A deluxe edition released three weeks after the original, adding \"right where you left me\" and \"it's time to go\" — both later folded into the era's standard track list on streaming.",
+        // Photo pass #762 (2026-07-19): official lyric-video still — ID
+        // Ur_wAcYDnuA verified via YouTube oEmbed ("Taylor Swift - right
+        // where you left me (Official Lyric Video)", author "Taylor Swift");
+        // curl 200 image/jpeg 1280x720; Read-viewed: the empty-table scene.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/Ur_wAcYDnuA/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'The empty restaurant table of the official lyric video — "right where you left me."',
+            kind: 'archival',
+            focalPoint: '52% 55%',
+          },
+        ],
       },
     },
     {
@@ -2523,6 +2578,20 @@ export default {
       snippet: "A tribute built partly from archival recordings of Swift's late grandmother, opera singer Marjorie Finlay.",
       moment: {
         context: "The song incorporates real vocal recordings of Marjorie Finlay, Swift's grandmother and a professional opera singer who died in 2003 — Swift has spoken about writing it as a way of \"bringing her back.\"",
+        // Photo pass #762 (2026-07-19): official lyric-video still — ID
+        // hP6QpMeSG6s verified via YouTube oEmbed ("Taylor Swift - marjorie
+        // (Official Lyric Video)", author "Taylor Swift"); curl 200 image/jpeg
+        // 1280x720; Read-viewed: an archival black-and-white portrait of
+        // Marjorie Finlay from the video itself.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/hP6QpMeSG6s/maxresdefault.jpg',
+            credit: 'YouTube / Taylor Swift',
+            caption: 'Marjorie Finlay, in an archival portrait from the official lyric video.',
+            kind: 'archival',
+            focalPoint: '40% 40%',
+          },
+        ],
       },
     },
   ],

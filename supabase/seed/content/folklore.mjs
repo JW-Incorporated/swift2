@@ -1790,6 +1790,19 @@ export default {
       snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       moment: {
         context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Swift's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
+        // Photo pass #762 (2026-07-19): lead image of Billboard's own AOTY-win
+        // story (billboard.com/wp-content, EXIF copyright "2021 Recording
+        // Academy"); curl 200 image/jpeg 1548x1024; Read-viewed: Swift in the
+        // floral Oscar de la Renta dress accepting the award onstage with
+        // Laura Sisk, Jack Antonoff, and Aaron Dessner holding the gramophone.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg',
+            credit: 'Recording Academy, via Billboard',
+            caption: 'Accepting Album of the Year for folklore with Laura Sisk, Jack Antonoff, and Aaron Dessner — her record third win.',
+            focalPoint: '44% 18%',
+          },
+        ],
       },
     },
   ],

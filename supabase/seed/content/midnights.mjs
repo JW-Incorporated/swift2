@@ -3506,6 +3506,19 @@ export default {
       snippet: "A concert film breaks box-office records for the format.",
       moment: {
         context: "Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.",
+        // Photo pass #762 (2026-07-19): ABC News' own CDN (i.abcnewsfe.com,
+        // from GMA's world-premiere story); curl 200 image/jpeg 3072x3071;
+        // Read-viewed: Swift in the tanzanite Oscar de la Renta gown on the
+        // premiere carpet, "Taylor Swift: The Eras Tour" step-and-repeat
+        // behind her (The Grove, Los Angeles, Oct. 11, 2023).
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/64e8b004-20de-4b7b-9296-b1f46aac00ee/taylor-swift-01-ss-jt-231011_1697075963440_hpEmbed_1x1.jpg',
+            credit: 'Via ABC News',
+            caption: 'The world premiere at The Grove, Oct. 11, 2023 — where she announced the film would open a day early.',
+            focalPoint: '52% 22%',
+          },
+        ],
       },
     },
 
