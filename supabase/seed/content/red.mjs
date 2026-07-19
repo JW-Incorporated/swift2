@@ -50,11 +50,51 @@ export default {
         // Photo-enrichment pass (2026-07-18): focal point set by viewing — the
         // cover's lower face/red lip sits just above center-left under the hat
         // brim. (Counts as one unique photo; thumbnailUrl reuses the same file.)
+        // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): this item
+        // stands in for the whole era's arrival (no dedicated release-day
+        // item exists), so 6 more real, verified Red Tour photos anchor the
+        // era the record-setting week opened. All curl 200, image/jpeg.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
             focalPoint: '45% 38%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg',
+            credit: 'Denielle (celestigirl25), Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'The Red Tour\'s main stage in Los Angeles, August 2012 — the tour built around the record-setting album.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg',
+            credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
+            caption: 'Swift and opener Ed Sheeran on the Red Tour\'s B-stage, Tacoma, August 2013.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Taylor_Swift_RED_tour_2013_%288591000109%29.jpg',
+            credit: 'Jana Zills, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Performing "Holy Ground" on the Red Tour, 2013.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Taylor_Swift_-_RED_Tour_-_LONDON_-_I_Knew_You_Were_Trouble_%28night_4%29.jpg',
+            credit: 'Clarence Ji, Wikimedia Commons (CC BY 2.0)',
+            caption: '"I Knew You Were Trouble" staged as a Victorian-gown set piece, O2 Arena, London, February 2014.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_-_Red_Tour_08.jpg',
+            credit: 'Jana Beamer (jazills), Wikimedia Commons (CC BY 2.0)',
+            caption: 'Playing the title track on a red Les Paul, Red Tour, 2013.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Taylor_Swift_RED_tour_2013_%288589120838%29.jpg',
+            credit: 'Jana Zills, Wikimedia Commons (CC BY 2.0)',
+            caption: 'The circus-ringmaster set piece for "22" and "Holy Ground," St. Louis, March 2013.',
+            kind: 'archival',
           },
         ],
       },

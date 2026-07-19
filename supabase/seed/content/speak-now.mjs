@@ -1287,7 +1287,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
         context:
-          'The solo writing wasn\'t incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective.\n\nShe\'d written the fourteen tracks on the road, co-producing with Nathan Chapman: "I\'d get my best ideas at 3:00 a.m. in Arkansas, and I didn\'t have a co-writer around so I would just finish it," she explained. The new title fit her definition of the whole record — the moment "where it\'s almost too late, and you\'ve got to either say what it is you are feeling or deal with the consequences forever." The market answered with 1,047,000 first-week copies and a No. 1 debut on the Billboard 200.',
+          'The solo writing wasn\'t incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective.\n\nShe\'d written the fourteen tracks on the road, co-producing with Nathan Chapman: "I\'d get my best ideas at 3:00 a.m. in Arkansas, and I didn\'t have a co-writer around so I would just finish it," she explained. The new title fit her definition of the whole record — the moment "where it\'s almost too late, and you\'ve got to either say what it is you are feeling or deal with the consequences forever." The market answered with 1,047,000 first-week copies and a No. 1 debut on the Billboard 200.\n\nThe CD booklet carried its own solo touch: a capitalization code hidden in the "Never Grow Up" lyric sheet decodes to "MOVED OUT IN JULY" — a real detail about leaving her family\'s home, continuing the liner-note tradition she\'d run since her debut.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1297,6 +1297,15 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/',
+            source_title: "Taylor Swift's 13 Best Liner Note Secret Messages",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-19',
+            reliability_score: 4,
           },
         ],
         photos: [
@@ -1317,6 +1326,19 @@ export default {
               'Performing the title track on the Speak Now World Tour in Sydney, March 2012.',
             kind: 'archival',
             focalPoint: '45% 12%',
+          },
+          // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): one more
+          // verified, not-otherwise-used-in-this-file photo. Wikimedia's API
+          // rate-limited most other candidates checked this pass (several
+          // already-used-elsewhere tour photos were also found and correctly
+          // excluded rather than duplicated); genuinely thin past this for a
+          // release-day story whose main visual asset is the cover already
+          // shown as thumbnailUrl.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/24/Taylor_Swift_2011_2.jpg',
+            credit: 'dephisticate, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Acoustic performance beneath an illuminated tree, Prudential Center, July 2011, on the tour supporting the album.',
+            kind: 'archival',
           },
         ],
       },
