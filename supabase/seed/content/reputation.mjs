@@ -1717,6 +1717,8 @@ export default {
     },
     {
       slug: 'rep-katy-perry-olive-branch',
+      significance: 'notable', // the widely-covered public resolution of one of pop music's longest-running, most-documented feuds (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-reputation-reputation-stadium-tour-opens-to-a-record-crowd'],
       year: 2018,
       month: 5,
       day: 8,
@@ -1812,6 +1814,7 @@ export default {
     },
     {
       slug: 'rep-political-post-voter-registration',
+      significance: 'notable', // a real, measurable civic-impact moment — a years-long public silence broken with concrete registration numbers to show for it (docs/decisions.md, 2026-07-19)
       year: 2018,
       month: 10,
       day: 7,

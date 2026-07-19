@@ -1277,6 +1277,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // a real industry-body first, though a narrower-audience honor than the BRITs/AMA recognitions this era also carries (docs/decisions.md, 2026-07-19)
       year: 2022,
       month: 9,
       day: 20,
@@ -1495,6 +1496,8 @@ export default {
     },
     {
       slug: 'all-too-well-short-film-premiere',
+      significance: 'notable', // her feature directorial debut, the artistic follow-through on the 10-minute version's record-setting run (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever'],
       year: 2021,
       month: 11,
       day: 12,
@@ -2346,6 +2349,7 @@ export default {
     },
     {
       slug: 'brits-global-icon',
+      significance: 'notable', // a genuine "first woman ever" record from a major international awards body (docs/decisions.md, 2026-07-19)
       year: 2021,
       month: 5,
       day: 11,
