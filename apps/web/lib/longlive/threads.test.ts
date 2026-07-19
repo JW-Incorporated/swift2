@@ -101,6 +101,15 @@ describe('contentForThread', () => {
     for (const item of items) {
       expect(item.threadIds).toContain('the-proposal');
     }
+    // Pinned to a specific item (matching the refinement from the round-1
+    // Codex review, 2026-07-19) — the loop above alone would still pass if
+    // this exact item's tag were dropped and an unrelated item were tagged
+    // instead.
+    expect(
+      items.some(
+        (item) => item.id === 'vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+      ),
+    ).toBe(true);
   });
 });
 
