@@ -1031,6 +1031,23 @@ export default {
           {
             url: 'https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2',
             credit: 'Getty Images',
+            // Focal point set by viewing (photo pass #762, 2026-07-19):
+            // full-length street shot, her face in the top sixth of frame,
+            // just left of center.
+            focalPoint: '49% 16%',
+          },
+          // Photo pass #762 (2026-07-19): second Getty frame from the same
+          // cited Nylon article's own CDN (imgix.bustle.com) — a distinct
+          // head-on angle of the same Fleur Room arrival, the McQueen platform
+          // sandals fully in frame. curl 200 image/jpeg 980x1470, downloaded
+          // and vision-confirmed (same Moschino star romper + fur coat).
+          {
+            url: 'https://imgix.bustle.com/uploads/getty/2022/8/29/fdcc3cbd-5c3b-47f7-8469-a2a3836de5a0-getty-1418938602.jpg?w=980&fit=max',
+            credit: 'Getty Images',
+            caption: 'Arriving at the Fleur Room after-party in the star-embroidered Moschino romper, hours after announcing Midnights.',
+            kind: 'primary',
+            // Focal point set by viewing: face top-of-frame, dead center.
+            focalPoint: '50% 13%',
           },
         ],
       },
