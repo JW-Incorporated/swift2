@@ -1897,6 +1897,38 @@ export default {
             // the text just left of center, mid-frame.
             focalPoint: '50% 45%',
           },
+          // Photo pass (2026-07-19, defining-events-31-50): 5 more added —
+          // title cards from four of the album's six official From the Vault
+          // lyric videos on the @TaylorSwift channel (oEmbed-verified each),
+          // rounding out the vault-track set this item's own text describes.
+          {
+            url: 'https://i.ytimg.com/vi/rFjJs6ZjPe8/maxresdefault.jpg',
+            credit: 'Still from the official "Mr. Perfectly Fine (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Mr. Perfectly Fine" title card — a headless tuxedo figure in fog, the vault track that became the era\'s biggest surprise hit.',
+            kind: 'archival',
+            focalPoint: '50% 40%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/aOa6D6ku3dM/maxresdefault.jpg',
+            credit: 'Still from the official "That\'s When (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "That\'s When" title card, crediting Keith Urban\'s feature.',
+            kind: 'archival',
+            focalPoint: '50% 55%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/dHdAN4FXzmc/maxresdefault.jpg',
+            credit: 'Still from the official "Don\'t You (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Don\'t You" title card.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/yuFuwXd-B9E/maxresdefault.jpg',
+            credit: 'Still from the official "Bye Bye Baby (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Bye Bye Baby" title card, closing out the six-song vault.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
+          },
         ],
       },
     },

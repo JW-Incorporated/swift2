@@ -2788,17 +2788,64 @@ export default {
         ],
         // Real-photo pass (2026-07-09): the announced album's artwork; Wikipedia's
         // stable copy, verified HTTP 200 + image/png this session.
-        // Photo-enrichment audit (2026-07-18): stays at one image deliberately —
+        // Photo-enrichment audit (2026-07-18): stayed at one image deliberately —
         // no verifiable photo of the May 5 Nissan Stadium announcement moment
         // exists on an outlet CDN or Commons (Variety's article image is a vinyl
         // product render that duplicates this cover). Focal point set by viewing.
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added — title
+        // cards from the album's own re-recorded lyric video and five of its
+        // six official From the Vault lyric videos on the @TaylorSwift
+        // channel (oEmbed-verified each), the closest real visual record of
+        // the album this announcement introduced.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
             caption: "The Speak Now (Taylor's Version) cover revealed alongside the onstage Nashville announcement.",
-            kind: 'archival',
+            kind: 'primary',
             focalPoint: '55% 30%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/JlZnvyBqceY/maxresdefault.jpg',
+            credit: 'Still from the official "Speak Now (Taylor\'s Version)" lyric video, Republic Records, via YouTube',
+            caption: 'The title-track lyric video\'s paper-cut white rose title card.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/hMPK2vNXr-E/maxresdefault.jpg',
+            credit: 'Still from the official "Electric Touch (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Electric Touch" title card, crediting Fall Out Boy\'s feature.',
+            kind: 'archival',
+            focalPoint: '50% 45%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/V80A8qN4fR8/maxresdefault.jpg',
+            credit: 'Still from the official "Castles Crumbling (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Castles Crumbling" title card, crediting Hayley Williams\'s feature.',
+            kind: 'archival',
+            focalPoint: '50% 60%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/6-x1AlDudZw/maxresdefault.jpg',
+            credit: 'Still from the official "Foolish One (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Foolish One" title card.',
+            kind: 'archival',
+            focalPoint: '65% 50%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/osmzwWw4RYM/maxresdefault.jpg',
+            credit: 'Still from the official "Timeless (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "Timeless" title card, framed as a scalloped-edge vintage photograph.',
+            kind: 'archival',
+            focalPoint: '48% 45%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/IYqgVYjN3Go/maxresdefault.jpg',
+            credit: 'Still from the official "When Emma Falls in Love (From The Vault)" lyric video, Republic Records, via YouTube',
+            caption: 'The "When Emma Falls in Love" title card.',
+            kind: 'archival',
+            focalPoint: '50% 50%',
           },
         ],
       },
