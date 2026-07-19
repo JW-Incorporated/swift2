@@ -40,6 +40,63 @@ export type Confidence =
   | 'joke_meme';
 
 /**
+ * The confirmed tier of `Confidence`: at/above this a claim is established
+ * fact and renders with no qualifier. Anything below renders LOUDLY as
+ * reported/rumored (MomentDetail's banner) so a claim can never quietly read
+ * as fact. The tuple below is the single definition — the runtime Set, the
+ * `SubConfirmed` type, and the `isSubConfirmed` guard all derive from it, so
+ * moving a value across the tier is one edit and the compiler flags every
+ * lookup table that hasn't caught up. Mirrored (with a pointer comment, not
+ * an import — plain-node script) by the content engine's rumor-gap checker
+ * (scripts/content-engine/checkers/rumor-gap.mjs).
+ */
+const CONFIRMED_TIER_VALUES = ['official', 'confirmed_interview'] as const;
+type ConfirmedTier = (typeof CONFIRMED_TIER_VALUES)[number];
+export const CONFIRMED_TIER: ReadonlySet<Confidence> = new Set(CONFIRMED_TIER_VALUES);
+
+/** The sub-confirmed slice of Confidence — the values that render loudly. */
+export type SubConfirmed = Exclude<Confidence, ConfirmedTier>;
+
+/** Type-narrowing form of `!CONFIRMED_TIER.has(c)` — lets lookup tables be
+ * typed `Record<SubConfirmed, …>` with no cast at the use site. */
+export function isSubConfirmed(c: Confidence): c is SubConfirmed {
+  return !CONFIRMED_TIER.has(c);
+}
+
+/**
+ * Where a reported rumor stands today. Unlike TheoryOutcome (fan-theory
+ * lifecycle), this is the lifecycle of a PRESS claim: it starts
+ * 'unconfirmed' and can resolve either way as facts land — the entry stays
+ * in the record with an honest resolution badge instead of being deleted.
+ */
+export type RumorStatus = 'unconfirmed' | 'partially_confirmed' | 'confirmed' | 'debunked';
+
+/**
+ * One attributed, dated, reported-but-unconfirmed claim attached to a moment
+ * (`ContentItem.rumors`) — the structural home for hot topics where solid
+ * sourcing is thin (the MSG wedding is the canonical case). Renders in
+ * MomentDetail's visually distinct "What's rumored" section, never woven
+ * into the confirmed narrative. Every field that makes the rumor honest is
+ * REQUIRED — the generator (scripts/sync-longlive-content.mjs) drops any
+ * entry missing its claim, outlet, date, status, or link rather than
+ * guessing, the same rule the theories generator applies.
+ */
+export interface RumorNote {
+  /** The reported claim, in OUR words, framed as a report — never as fact. */
+  claim: string;
+  /** The outlet that reported it, e.g. "TMZ" — an unattributed rumor never ships. */
+  reportedBy: string;
+  /** ISO date (YYYY-MM-DD) the report was published. */
+  reportedOn: string;
+  /** Where the claim stands now — drives the badge. */
+  status: RumorStatus;
+  /** Link to the report. */
+  url: string;
+  /** Optional editorial context in our words (an estimate caveat, what debunked it). */
+  note?: string;
+}
+
+/**
  * Where a theory's claim landed. Mirrors THEORY_OUTCOMES in
  * packages/shared/src/vault-types.ts (the source of truth) — same 6 values,
  * kept in sync, not a new enum. Required alongside `confidence` on every
@@ -130,6 +187,38 @@ export function focalPointOf(img: Pick<ImageRef, 'focalPoint'> | undefined): str
   return img?.focalPoint ?? '50% 50%';
 }
 
+/**
+ * One shoppable product worn in a (typically fashion-category) moment — the
+ * exact garment/accessory, pointing at the retailer's own product detail page
+ * (never a search page, never a fabricated URL; authoring rule: verify the
+ * page resolves before adding it). Rendered as the "Shop the look" block in
+ * MomentDetail. IMPORTANT: the UI must never link `url` directly — always via
+ * buildShopUrl() (lib/longlive/shop.ts), the single seam where affiliate
+ * wrapping will later be injected without touching any content.
+ */
+export interface Product {
+  /** Who makes it, e.g. "Polo Ralph Lauren". */
+  brand: string;
+  /** The specific garment, as the retailer names it, e.g. "Striped Silk-Blend Day Dress". */
+  item: string;
+  /**
+   * Retailer hostname, lowercase, no protocol — e.g. 'ralphlauren.com',
+   * 'louisvuitton.com'. This is the affiliate-routing key: buildShopUrl()
+   * will branch on it (LTK/RewardStyle vs Amazon Associates vs Skimlinks)
+   * when affiliate goes live, so keep it a stable hostname, not a display name.
+   */
+  retailer: string;
+  /** Direct product-detail-page URL (https). The raw destination — see buildShopUrl(). */
+  url: string;
+  /** Display price at time of authoring, e.g. "$319.99". Optional: omit when unknown. */
+  price?: string;
+  /**
+   * false = verified sold out / unavailable (renders dimmed with a label).
+   * Omitted or true = purchasable when authored.
+   */
+  inStock?: boolean;
+}
+
 export interface ContentItem {
   id: string;
   /** Stable content slug from the seed (deep-linking / cross-refs). Optional. */
@@ -159,10 +248,26 @@ export interface ContentItem {
    */
   sources?: EggSource[];
   /**
-   * How well-supported the claim is. Absent = a confirmed fact (no pill).
-   * Present + below confirmed-tier = a confidence pill in the detail view.
+   * How well-supported the claim is. Absent = a confirmed fact (no label).
+   * Present + below CONFIRMED_TIER = an unmissable "Rumor — unconfirmed" /
+   * "Reported — not confirmed" banner in the detail view, plus an
+   * "Unconfirmed" chip on the era-feed card, plus a qualifier in share copy
+   * — a sub-confirmed moment must never look like established fact on any
+   * surface. The banner names the FIRST `sources` entry as the reporting
+   * outlet — on a sub-confirmed item, keep the outlet that actually reported
+   * the claim first (never an image-credit or license-provenance source).
+   * Authored on the seed row and piped through
+   * scripts/sync-longlive-content.mjs.
    */
   confidence?: Confidence;
+  /**
+   * Attributed, dated rumors/reports about this moment (see RumorNote).
+   * Renders as MomentDetail's visually distinct "What's rumored" section
+   * after the confirmed narrative — the structural answer to hot topics
+   * with thin confirmed sourcing. Authored as `moment.rumors` on the seed
+   * row and piped through scripts/sync-longlive-content.mjs.
+   */
+  rumors?: RumorNote[];
   /** Optional hidden clue — renders the glint treatment when present. */
   hiddenClue?: HiddenClue;
   /** Optional official music video, embedded via YouTube in the detail view. */
@@ -213,6 +318,15 @@ export interface ContentItem {
    * `docs/decisions.md` 2026-07-18 for the full decision record.
    */
   significance?: 'defining' | 'notable';
+  /**
+   * Shoppable products worn in this moment (fashion moments, mostly) — the
+   * exact garments with direct retailer product pages. Rendered as the
+   * "Shop the look" block in MomentDetail, always linked through
+   * buildShopUrl() (lib/longlive/shop.ts) so affiliate wrapping can be
+   * turned on later without re-authoring any content. Optional: most
+   * moments have none.
+   */
+  products?: Product[];
 }
 
 /**

@@ -1390,6 +1390,10 @@ export default {
       month: 6,
       day: 19,
       category: 'sighting',
+      // Rumor-tier pilot (2026-07-19): single-outlet TMZ reporting that Swift's
+      // team never confirmed (the context already says so) — the loud
+      // "Reported — not confirmed" banner makes that status unmissable.
+      confidence: 'reputable_reporting',
       title: 'A tented lawn in Rhode Island, two weeks before the wedding',
       snippet:
         'Security tightened around her Watch Hill estate as a large tent went up on the Ocean House lawn next door and friends including Abigail Anderson were spotted arriving for what looked like a bachelorette weekend.',
@@ -1527,6 +1531,86 @@ export default {
           // photos from inside the ceremony/reception could be found and verified
           // as of 2026-07-09 — only exterior/arrival wire imagery exists to add.
         ],
+        // Rumor-tier pilot (2026-07-19): the wedding is the canonical hot topic
+        // where confirmed sourcing is thin (no interior photos, no official
+        // statement) but reporting is loud. Everything below is a REAL,
+        // attributed, dated press claim found and read this session — never a
+        // fabrication — and renders in MomentDetail's visually distinct
+        // "What's rumored" section, never woven into the confirmed narrative
+        // above. Statuses are as of 2026-07-19; update them as facts land
+        // (entries stay on record with an honest resolution badge).
+        rumors: [
+          {
+            claim:
+              'Sources close to the wedding told TMZ a massive white castle was being assembled inside a garden built on the arena floor — crews were filmed craning in a giant white staircase, and scenic crates arrived labeled "Garden Party."',
+            reportedBy: 'TMZ',
+            reportedOn: '2026-06-30',
+            status: 'unconfirmed',
+            url: 'https://www.tmz.com/2026/06/30/taylor-swift-travis-kelce-building-castle-for-wedding-celebration/',
+            note: 'No photos from inside the Garden have ever been released, so what the build-out actually looked like remains unconfirmed.',
+          },
+          {
+            claim:
+              'Reports put the cost of hiring Madison Square Garden at roughly $3 million for three days — one to set up, one to marry, one to break it all down.',
+            reportedBy: 'Hello!',
+            reportedOn: '2026-07-02',
+            status: 'unconfirmed',
+            url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
+            note: 'An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure.',
+          },
+          {
+            claim:
+              'Pre-wedding reporting named Gigi Hadid and Selena Gomez as the only two confirmed members of the bridal party.',
+            reportedBy: "Harper's Bazaar (via Fox News)",
+            reportedOn: '2026-06-29',
+            status: 'debunked',
+            url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
+            note: 'There was no bridal party at all: per CBS News, no bridesmaids or groomsmen — Austin Swift stood as Man of Honor and Jason Kelce as best man.',
+          },
+          {
+            claim:
+              'Page Six reported invitations had gone to Zoë Kravitz, Ed Sheeran, the Haim sisters and Suki Waterhouse, within a rumored A-list roster running from Selena Gomez to Bradley Cooper — while Blake Lively and Karlie Kloss were reportedly out.',
+            reportedBy: 'Page Six (via Fox News)',
+            reportedOn: '2026-06-29',
+            status: 'partially_confirmed',
+            url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
+            note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published.',
+          },
+          {
+            claim:
+              'The Daily Mail reported that save-the-date invitations came bundled with non-disclosure agreements guests had to sign.',
+            reportedBy: 'Daily Mail (via Hello!)',
+            reportedOn: '2026-07-02',
+            status: 'debunked',
+            url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
+            note: 'Graham Norton — whose on-air NDA remark fueled the story — later clarified he had been joking.',
+          },
+          {
+            claim:
+              'Ed Sheeran was widely rumored to perform at the reception, fueled by Taylor\'s own October 2025 radio quip that "it would be hard to keep him from it."',
+            reportedBy: 'Hello!',
+            reportedOn: '2026-07-02',
+            status: 'unconfirmed',
+            url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
+            note: 'The only reception performance confirmed by post-wedding reporting was Stevie Nicks, per CBS News.',
+          },
+          {
+            claim:
+              'Viral posts claimed to show real photos from inside the ceremony — including "first looks" at the gown.',
+            reportedBy: 'Snopes (fact check)',
+            reportedOn: '2026-07-09',
+            status: 'debunked',
+            url: 'https://www.snopes.com/news/2026/07/09/swift-kelce-wedding-photos/',
+            note: 'Snopes found the circulating images were AI-generated fakes; no official photos of the ceremony or reception have been released.',
+          },
+          // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
+          // Never-OK #1): an ET honeymoon-location rumor was cut here in
+          // review. A honeymoon is a private trip, not a public appearance —
+          // naming its "ultra-private" location, with a note speculating about
+          // a further European trip (forward-looking whereabouts), is exactly
+          // what the redlines exist to keep out. Attribution does not launder
+          // a privacy violation.
+        ],
       },
     },
     {
@@ -1535,6 +1619,11 @@ export default {
       month: 7,
       day: 3,
       category: 'fashion',
+      // Rumor-tier pilot (2026-07-19): the gown story is press reporting (THR,
+      // Marie Claire) that Dior/Swift never confirmed, and no photo of the gown
+      // exists — so the whole page carries the loud "Reported — not confirmed"
+      // banner instead of reading as established fact.
+      confidence: 'reputable_reporting',
       title: 'The wedding gown: a custom Dior Haute Couture, styled by Joseph Cassell',
       snippet:
         "Jonathan Anderson's first celebrity couture bridal commission at Dior — a custom gown reportedly drawing on Elizabeth Taylor's 1950 wedding dress, worn with custom Christian Louboutin shoes and Cartier jewelry.",
@@ -2243,6 +2332,94 @@ export default {
             kind: 'primary',
             focalPoint: '48% 35%',
           },
+        ],
+      },
+    },
+    // The engagement OUTFIT angle (2026-07-18, dedup/consolidation): moved out
+    // of tortured-poets.mjs (wrong era) and retitled from "Engagement photos"
+    // — which promised the photo set — to "The engagement look," so it reads as
+    // the distinct fashion facet it is, alongside the announcement (the news)
+    // and the ring (the jewelry). Its photos and sources are the fashion-desk
+    // coverage (Marie Claire / L'Officiel), different from the announcement's.
+    {
+      slug: 'showgirl-engagement-look',
+      threadIds: ['the-proposal'],
+      relatedIds: [
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+      ],
+      year: 2025,
+      month: 8,
+      day: 26,
+      category: 'fashion',
+      title: 'The engagement look: a Polo Ralph Lauren dress in the garden',
+      snippet:
+        'A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.',
+      sourceUrl:
+        'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
+      thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
+      moment: {
+        context:
+          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.',
+        sources: [
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/',
+          },
+          {
+            outlet: 'L\'Officiel',
+            url: 'https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details',
+          },
+        ],
+        photos: [
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
+            credit: 'Taylor Swift',
+            // Focal point set 2026-07-18 (photo-enrichment run 7, #762) by viewing:
+            // close embrace, her hand on his cheek; the two faces meet just
+            // above center frame.
+            focalPoint: '50% 30%',
+          },
+          {
+            url: 'https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg',
+            credit: 'Taylor Swift',
+            // Focal point set 2026-07-18 (run 7) by viewing: wide garden scene,
+            // the couple small at center under the floral arch, faces near mid-frame.
+            focalPoint: '52% 46%',
+          },
+        ],
+        // Shop-the-look pilot (2026-07-19, feat/shoppable-links — grafted here
+        // in merge review: the worker authored these on the old TTPD copy of
+        // this moment, which was relocated to this era before its PR landed).
+        products: [
+          {
+            brand: 'Polo Ralph Lauren',
+            item: 'Striped Silk-Blend Dress (1932 Stripe White & Black)',
+            retailer: 'revolve.com',
+            // Verified 2026-07-19: live single-product page (builder verified
+            // via rendered fetch; independently corroborated in review via
+            // search — same product listed at Neiman Marcus/Bloomingdale's).
+            // Shows $398, "Sold Out" in all sizes — hence inStock: false.
+            // Named as the exact engagement dress by Rolling Stone / PureWow.
+            // Ralph Lauren's own page sits behind a PerimeterX wall, so the
+            // verified Revolve page is the link.
+            url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
+            price: '$398',
+            inStock: false,
+          },
+          // NOT added, per the never-fabricate/never-dead-link rule
+          // (2026-07-19 verification pass):
+          //   - Louis Vuitton "LV Isola Sandal" (exact model per WWD): every
+          //     LV domain answers HTTP 403 to verification, and LV sells
+          //     first-party only — no verifiable page exists from CI.
+          //   - Cartier diamond watch (a Santos Demoiselle per Esquire):
+          //     discontinued ~2014, no cartier.com product page; linking the
+          //     current Panthère would be a wrong-product substitution.
+          // Having any products dequeues this moment from the
+          // fashion-products checker (by design — the two unlinkable items
+          // genuinely have no product pages, so re-queueing would waste
+          // Stylist runs). The Stylist's MAINTAIN pass re-checks existing
+          // product moments and can add these if pages ever surface.
         ],
       },
     },

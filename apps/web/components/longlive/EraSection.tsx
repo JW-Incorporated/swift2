@@ -18,6 +18,7 @@ import {
   SlidersHorizontal,
   ChevronDown,
   ChevronUp,
+  AlertTriangle,
   type LucideIcon,
   Clapperboard,
 } from 'lucide-react';
@@ -34,7 +35,12 @@ import { EraVideos } from './EraVideos';
 import { MomentVideo } from './MomentVideo';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS, itemMatchesFilter, tagsPresent } from '@/lib/longlive/tagBadges';
-import { focalPointOf, hasRealPrimaryImage, primaryImageRef } from '@/lib/longlive/types';
+import {
+  focalPointOf,
+  hasRealPrimaryImage,
+  isSubConfirmed,
+  primaryImageRef,
+} from '@/lib/longlive/types';
 import type { ContentItem, ContentTag, Era, LensId, VideoNote } from '@/lib/longlive/types';
 import { assignFeedTiers, type CardTier } from '@/lib/longlive/feed-tiers';
 import { cn } from '@/lib/utils';
@@ -483,6 +489,11 @@ function MomentMeta({
   size?: 'default' | 'compact';
 }) {
   const hasClue = Boolean(item.hiddenClue);
+  // Sub-confirmed moments carry their qualifier on the CARD, not just one
+  // click later in the detail view — a rumor must never scroll by as fact
+  // (rumor tier, 2026-07-19). 'disproven' gets its own word; every other
+  // sub-confirmed value reads "Unconfirmed" at feed altitude.
+  const unconfirmed = item.confidence && isSubConfirmed(item.confidence);
   return (
     <div className="flex items-baseline justify-between gap-3">
       <span
@@ -494,6 +505,15 @@ function MomentMeta({
         {item.dateLabel}
       </span>
       <span className="flex shrink-0 items-center gap-2">
+        {unconfirmed && (
+          <span
+            className="inline-flex items-center gap-1 rounded-full border border-dashed px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-[color:var(--era-accent)]"
+            style={{ borderColor: 'var(--era-accent)' }}
+          >
+            <AlertTriangle className="h-3 w-3" aria-hidden />
+            {size === 'default' && (item.confidence === 'disproven' ? 'Debunked' : 'Unconfirmed')}
+          </span>
+        )}
         {hasClue && (
           <span className="clue-glint inline-flex items-center gap-1 text-[11px] font-medium text-[color:var(--era-accent)]">
             <Sparkles className="h-3 w-3" />

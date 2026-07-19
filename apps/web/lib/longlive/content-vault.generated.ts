@@ -2,7 +2,7 @@
 // Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.
 // Re-run that script after content-seed changes; don't edit this file directly.
 
-import type { ContentTag, EraId, ImageRef, LensId } from './types';
+import type { Confidence, ContentTag, EraId, ImageRef, LensId, Product, RumorNote } from './types';
 
 type VaultRawItem = {
   id: string;
@@ -19,6 +19,9 @@ type VaultRawItem = {
   relatedIds?: string[];
   threadIds?: LensId[];
   significance?: 'defining' | 'notable';
+  products?: Product[];
+  confidence?: Confidence;
+  rumors?: RumorNote[];
 };
 
 export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
@@ -240,7 +243,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A dramatically shorter, blunt-cut bob with heavy fringe — a sharp departure from the long waves she'd worn through most of the 1989 era, debuted on one of the year's biggest red carpets.",
       body: ["E! Online's red-carpet coverage that night singled out the new haircut alongside the outfit as the story of her look — a straight, blunt-cut bob with heavy fringe, debuted against custom Versace on the biggest carpet of the year, and a hard break from the long waves that had defined the era's first eighteen months.", "It was also step one of a fast transformation: within three months the same blunt length had been bleached platinum and paired with dark burgundy lips for the \"Manus x Machina\" Met Gala, the sharper beauty pivot The Hollywood Reporter documented that May — a bob-with-bangs silhouette she'd keep returning to in the years after."],
       tags: ["Fashion"],
-      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "Jason Merritt/Getty Images for NARAS", kind: "primary" }],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "Jason Merritt/Getty Images for NARAS", kind: "primary", focalPoint: "48% 10%" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/" }],
     },
     {
@@ -680,7 +683,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A white sundress, natural curls, and \"Tim McGraw\" — before the album that made her famous had even come out.",
       body: ["Sept. 1, 2006: \"Tim McGraw\" had been at country radio for barely ten weeks, the album was still almost two months away, and the newest signing at a just-launched independent label walked onto country music's most sacred stage to sing her only single. Taste of Country's retrospective is blunt about the odds — at the time, \"the notion of a teenage girl succeeding in country music seemed pretty far-fetched.\"", "The bet paid off fast enough that she spent the next several years as a regular on the Opry stage."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Opry debut)", kind: "archival", focalPoint: "39% 23%" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-grand-ole-opry-debut/" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-grand-ole-opry-debut/" }],
     },
     {
@@ -779,7 +782,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A strapless, corseted purple gown by Sandi Spika at the 50th Grammy Awards on Feb. 10, 2008 — her red carpet debut at music's biggest night, nominated for Best New Artist.",
       body: ["She attended the 2008 Grammys as a Best New Artist nominee (the award went to Amy Winehouse) in a strapless, corseted purple gown by Sandi Spika, paired with her signature curls — a look fashion retrospectives still cite as her Grammys debut.", "At 18 she wasn't yet a Grammy performer or winner, just a first-time nominee working the carpet at music's biggest night — the nomination itself the headline, arriving off a debut album that had refused to stop selling. Who What Wear and Femestella both treat this purple gown as the opening frame of a Grammys red-carpet history that would run for well over a decade; two years later, in a blue KaufmanFranco gown at the 2010 ceremony, she'd leave the same carpet a four-time winner."],
       tags: ["Fashion"],
-      images: [{ url: "https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg", credit: "Getty Images", kind: "primary" }],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg", credit: "Getty Images", kind: "primary", focalPoint: "53% 11%" }],
       sources: [{ name: "Who What Wear", url: "https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective" }, { name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/" }],
     },
     {
@@ -801,7 +804,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A black satin, mermaid-style gown by Elvira with matching long black gloves — her first CMA Awards red carpet, weeks after her debut album released.",
       body: ["Worn to the 40th Annual CMA Awards at Nashville's Gaylord Entertainment Center, just weeks after her self-titled debut album hit shelves — a more formal, Old-Hollywood-leaning look than the sundresses that otherwise defined her earliest red carpets.", "The timing is what makes it notable: this was her first CMA Awards carpet, walked as a 16-year-old newcomer whose only single, \"Tim McGraw,\" had barely cracked the country top 10. Nylon's retrospective singles the black satin gown out as an early, briefly-glimpsed grown-up register — matching long gloves and all — before she settled back into the boots-and-ruffles country-girl uniform that carried the rest of the era."],
       tags: ["Fashion"],
-      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces", credit: "Stephen Lovekin/WireImage/Getty Images", kind: "primary" }],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces", credit: "Stephen Lovekin/WireImage/Getty Images", kind: "primary", focalPoint: "47% 13%" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp" }],
     },
     {
@@ -812,7 +815,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A custom drop-waist gown by Sandi Spika at the 42nd Academy of Country Music Awards — one of two Sandi Spika red-carpet gowns she wore that year (the other, a lavender cascading-floral piece, came at the following year's Grammys).",
       body: ["Worn on the red carpet at the MGM Grand Hotel and Casino for the 42nd ACM Awards in May 2007 — the same ceremony where she performed \"Tim McGraw\" to Tim McGraw's face and then introduced herself with \"Hi, I'm Taylor.\" One of two Sandi Spika red-carpet gowns she wore across 2006-2008, the designer who dressed most of her earliest big nights.", "The retrospectives don't fully agree on the dress: Nylon logs it as a custom drop-waist Sandi Spika gown, while W Magazine's evolution piece files her 2007 ACM look as a pink corseted Sandi Spika gown. Either way it sits right at the hinge point in her early styling — the last stretch before the more structured, corseted silhouettes took over that year's CMAs and the 2008 Grammys."],
       tags: ["Fashion"],
-      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces", credit: "Denise Truscello/WireImage/Getty Images", kind: "primary" }],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces", credit: "Denise Truscello/WireImage/Getty Images", kind: "primary", focalPoint: "48% 13%" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
     },
     {
@@ -823,7 +826,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Months before her album dropped, a 16-year-old Taylor Swift performed at a Yahoo Music showcase — reworking one of her own lyrics mid-song into a shout-out to Yahoo.",
       body: ["Two months before \"Taylor Swift\" released on Oct. 24, 2006, she performed at Yahoo Entertainment as part of its \"Who's Next?\" artist program — a low-key industry showcase, not a concert or red carpet.", "Mid-performance she swapped in a lyric namechecking Yahoo Music, a detail Yahoo's own retrospective still points to as evidence of how new and unpolished the moment was."],
       tags: ["Lore"],
-      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTM7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8c1753b0-693b-11ee-b69e-d5b17b60c7bb", credit: "Yahoo via YouTube", kind: "primary" }],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/8PYQ4NDvX3FrR_scm0lYQw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD02OTM7Y2Y9d2VicA--/https://s.yimg.com/os/creatr-uploaded-images/2023-10/8c1753b0-693b-11ee-b69e-d5b17b60c7bb", credit: "Yahoo via YouTube", kind: "primary", focalPoint: "34% 45%" }],
       sources: [{ name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-performed-at-yahoo-2006-201948506.html" }],
     },
     {
@@ -878,7 +881,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Invited on as a presenter, 17-year-old Swift heard Dave Grohl and Taylor Hawkins read her name for Best New Artist and couldn't contain it — stepping up to hug them both on the spot.",
       body: ["At the 50th Grammy Awards nominations announcement at the Henry Fonda Music Box Theater on Dec. 6, 2007, 17-year-old Swift was invited on as one of the presenters — and then heard her own name read out as a Best New Artist nominee, her first-ever Grammy nomination.", "She couldn't hold back her excitement, stepping up to hug Foo Fighters' Dave Grohl and Taylor Hawkins on the spot, drawing laughs from the room. (Amy Winehouse would go on to win the category at the ceremony two months later.)"],
       tags: ["Lore"],
-      images: [{ url: "https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg", credit: "Kevin Winter/Getty Images", kind: "primary" }],
+      images: [{ url: "https://www.thelist.com/img/gallery/a-timeline-of-the-drama-between-taylor-swift-and-dave-grohl/dave-grohl-announced-taylor-swifts-very-first-grammy-nomination-in-2008-1719439666.jpg", credit: "Kevin Winter/Getty Images", kind: "primary", focalPoint: "55% 40%" }],
       sources: [{ name: "The List", url: "https://www.thelist.com/1610914/taylor-swift-dave-grohl-drama-timeline/" }],
     },
     {
@@ -955,7 +958,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Hours of posing for photos with fans, one after another, at the Big Machine Records booth in the Nashville Convention Center — an early instance of the marathon fan meet-and-greets she'd become known for.",
       body: ["On Day 3 of the CMA Music Festival, June 7, 2008, she held an all-day meet, greet, and autograph-signing session at the Big Machine Records booth inside the Fan Fair Exhibit Hall of the Nashville Convention Center, posing for photo after photo with fans in line.", "It was an early version of the marathon meet-and-greets (including a later 13-hour signing session) she became known for."],
       tags: ["Lore"],
-      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/.aCciUUvVRppty__Am_qwA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/the_tennessean_slideshows_726/e66c5e27810715572b9b8533bbc6a086", credit: "Jae S. Lee/The Tennessean", kind: "primary" }],
+      images: [{ url: "https://s.yimg.com/ny/api/res/1.2/.aCciUUvVRppty__Am_qwA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTYzMTtjZj13ZWJw/https://media.zenfs.com/en/the_tennessean_slideshows_726/e66c5e27810715572b9b8533bbc6a086", credit: "Jae S. Lee/The Tennessean", kind: "primary", focalPoint: "55% 32%" }],
       sources: [{ name: "The Tennessean (via Yahoo)", url: "https://www.yahoo.com/entertainment/music/articles/13-collaborations-helped-taylor-swift-100535520.html" }],
     },
     {
@@ -1366,7 +1369,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Overlined red-liner-and-matte-lipstick \"siren red\" mouth, a fine-tipped black liquid cat eye, and flat-ironed, straight-across bangs — the signature beauty look of the re-release run.",
       body: ["Bustle's breakdown of the look starts at the mouth: red lip liner as a base with matte red lipstick layered on top and slightly overlined at the cupid's bow — the \"siren red\" lip she wore to nearly every appearance of the re-release run.", "The rest of the formula: a \"minimal yet striking\" black liquid cat eye with a fine-tipped flick, straight-across bangs re-created with a flat iron and angled at 45 degrees for dimension, plus an inner-corner highlight to open the eyes."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", caption: "Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the \"siren red\" lip and blunt bangs of the Red (TV) beauty look, the night before the album's release.", kind: "primary" }],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", caption: "Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the \"siren red\" lip and blunt bangs of the Red (TV) beauty look, the night before the album's release.", kind: "primary", focalPoint: "42% 13%" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/style/taylor-swift-red-beauty-look" }],
     },
     {
@@ -1399,7 +1402,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A separate look from her Etro performance gown: a vividly floral Oscar de la Renta Spring '21 mini dress with mesh bell sleeves and individually tacked-on botanical appliqués, worn to arrive at the (pandemic-scaled) red carpet before her folklore/evermore medley.",
       body: ["For her red-carpet arrival at the March 14, 2021 Grammys — where folklore won Album of the Year — Swift wore a mini dress from Oscar de la Renta's Spring 2021 collection: long mesh bell sleeves, a mock neck, and bold 3D floral embroidery with botanical appliqués tacked on individually.", "She paired it with pink Christian Louboutin \"Rose Amelie\" peep-toe ankle-strap heels and Cathy Waterman jewelry — a separate outfit from the navy-and-gold Etro paisley gown she changed into to perform the folklore/evermore medley later that night."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg", credit: "Getty Images", kind: "primary" }],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg", credit: "Getty Images", kind: "primary", focalPoint: "45% 10%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/03/15/taylor-swift-wore-oscar-de-la-renta-etro-to-the-2021-grammy-awards/" }, { name: "E! News", url: "https://www.eonline.com/news/1248131/taylor-swift-brought-the-flower-power-to-the-2021-grammys-and-were-here-for-it" }],
     },
     {
@@ -1421,7 +1424,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "An ivory mod-style mini dress from Zuhair Murad's Resort 2022 collection, gold beaded trim at the neckline and sleeves, worn to promote Red (Taylor's Version) on Jimmy Fallon's show days before the album's release.",
       body: ["Promoting Red (Taylor's Version) on The Tonight Show Starring Jimmy Fallon, Swift wore an ivory shift dress from Lebanese couturier Zuhair Murad's Resort 2022 collection, with gold beaded trim at the neckline and sleeves and oversized pockets. She paired it with gold Christian Louboutin \"So Kate\" pumps, Lark & Berry jewelry, and her signature red lip.", "It was one of two late-night looks from the same release-week press blitz — the crystal-covered David Koma she changed into for Late Night with Seth Meyers, covered separately in this era's fashion items, was the other."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", kind: "primary" }],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", kind: "primary", focalPoint: "42% 13%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }, { name: "Vogue Arabia", url: "https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/" }],
     },
     {
@@ -6345,6 +6348,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100", credit: "AP Photo/Robert F. Bukaty, via Fortune", caption: "A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation.", kind: "primary", focalPoint: "52% 45%" }, { url: "https://twt-thumbs.washtimes.com/media/image/2026/06/21/Swift_Wedding_Speculation_6953__c0-242-5784-3614_s885x516.jpg?18921fe33b20ba0427c28b6eeae09fd9ded1b3cc", credit: "AP Photo/Robert F. Bukaty, via The Washington Times", caption: "A security guard stands watch at Swift's Watch Hill \"Holiday House\" estate, June 20, 2026.", kind: "primary", focalPoint: "18% 40%" }],
       sources: [{ name: "TMZ", url: "https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/" }],
+      confidence: "reputable_reporting",
     },
     {
       id: "vault-tloas-taylor-and-travis-marry-at-madison-square-garden",
@@ -6359,6 +6363,15 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/" }, { name: "Billboard", url: "https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/" }],
       relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official"],
       significance: "defining",
+      rumors: [
+        { claim: "Sources close to the wedding told TMZ a massive white castle was being assembled inside a garden built on the arena floor — crews were filmed craning in a giant white staircase, and scenic crates arrived labeled \"Garden Party.\"", reportedBy: "TMZ", reportedOn: "2026-06-30", status: "unconfirmed", url: "https://www.tmz.com/2026/06/30/taylor-swift-travis-kelce-building-castle-for-wedding-celebration/", note: "No photos from inside the Garden have ever been released, so what the build-out actually looked like remains unconfirmed." },
+        { claim: "Reports put the cost of hiring Madison Square Garden at roughly $3 million for three days — one to set up, one to marry, one to break it all down.", reportedBy: "Hello!", reportedOn: "2026-07-02", status: "unconfirmed", url: "https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/", note: "An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure." },
+        { claim: "Pre-wedding reporting named Gigi Hadid and Selena Gomez as the only two confirmed members of the bridal party.", reportedBy: "Harper's Bazaar (via Fox News)", reportedOn: "2026-06-29", status: "debunked", url: "https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party", note: "There was no bridal party at all: per CBS News, no bridesmaids or groomsmen — Austin Swift stood as Man of Honor and Jason Kelce as best man." },
+        { claim: "Page Six reported invitations had gone to Zoë Kravitz, Ed Sheeran, the Haim sisters and Suki Waterhouse, within a rumored A-list roster running from Selena Gomez to Bradley Cooper — while Blake Lively and Karlie Kloss were reportedly out.", reportedBy: "Page Six (via Fox News)", reportedOn: "2026-06-29", status: "partially_confirmed", url: "https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party", note: "Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published." },
+        { claim: "The Daily Mail reported that save-the-date invitations came bundled with non-disclosure agreements guests had to sign.", reportedBy: "Daily Mail (via Hello!)", reportedOn: "2026-07-02", status: "debunked", url: "https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/", note: "Graham Norton — whose on-air NDA remark fueled the story — later clarified he had been joking." },
+        { claim: "Ed Sheeran was widely rumored to perform at the reception, fueled by Taylor's own October 2025 radio quip that \"it would be hard to keep him from it.\"", reportedBy: "Hello!", reportedOn: "2026-07-02", status: "unconfirmed", url: "https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/", note: "The only reception performance confirmed by post-wedding reporting was Stevie Nicks, per CBS News." },
+        { claim: "Viral posts claimed to show real photos from inside the ceremony — including \"first looks\" at the gown.", reportedBy: "Snopes (fact check)", reportedOn: "2026-07-09", status: "debunked", url: "https://www.snopes.com/news/2026/07/09/swift-kelce-wedding-photos/", note: "Snopes found the circulating images were AI-generated fakes; no official photos of the ceremony or reception have been released." },
+      ],
     },
     {
       id: "vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep",
@@ -6371,6 +6384,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG", credit: "MGM trailer still, public domain (published without copyright notice) via Wikimedia Commons", caption: "For reference — no official photo of Taylor Swift's gown has been released. This is Elizabeth Taylor in the Helen Rose bridal look from Father of the Bride (1950); Rose also designed the real gown Elizabeth Taylor wore to marry Conrad Hilton that May, the dress the Dior design reportedly references.", kind: "reference", focalPoint: "47% 38%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/9/95/Dress_by_Jonathan_Anderson_for_Loewe_%2851444%29.jpg", credit: "Rhododendrites / CC BY-SA 4.0 via Wikimedia Commons", caption: "For reference — not the wedding gown. Jonathan Anderson working in white duchess silk satin at Loewe (autumn/winter 2023-24), before he took over Dior womenswear and haute couture — a feel for the designer's hand in bridal-adjacent white silk.", kind: "reference", focalPoint: "50% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f7/Christian_Dior%2C_30_Avenue_Montaigne%2C_Paris_2016.jpg", credit: "Frédéric BISSON / CC BY 2.0 via Wikimedia Commons", caption: "For reference — Dior's historic house at 30 Avenue Montaigne, Paris, home of the haute couture ateliers where the custom gown was made.", kind: "reference", focalPoint: "50% 45%" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-wedding-dress-dior-jonathan-anderson-2-1236637523/" }, { name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-wedding-dress-details/" }, { name: "Jonathan Anderson will lead fashion at Dior", url: "https://www.fashiondive.com/news/jonathan-anderson-dior-creative-director-haute-couture-mens-womens/749569/" }, { name: "Marriage and Movies: The Real-Life Romance That Promoted 'Father of the Bride'", url: "https://elizabethtaylor.com/marriage-and-movies-the-real-life-romance-that-promoted-father-of-the-bride/" }, { name: "Wikimedia Commons (file page — Elizabeth Taylor, Father of the Bride trailer)", url: "https://commons.wikimedia.org/wiki/File:Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG" }, { name: "Wikimedia Commons (file page — Jonathan Anderson dress for Loewe)", url: "https://commons.wikimedia.org/wiki/File:Dress_by_Jonathan_Anderson_for_Loewe_(51444).jpg" }, { name: "Wikimedia Commons (file page — Dior, 30 Avenue Montaigne)", url: "https://commons.wikimedia.org/wiki/File:Christian_Dior,_30_Avenue_Montaigne,_Paris_2016.jpg" }],
+      confidence: "reputable_reporting",
     },
     {
       id: "vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto",
@@ -6472,6 +6486,21 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "Taylor Swift's Engagement Ring Designer Launches Her Own Brand", url: "https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand" }, { name: "EXCLUSIVE: Taylor Swift's Jeweler Kindred Lubeck Talks Engagement Ring", url: "https://www.today.com/popculture/taylor-swift-engagement-ring-jeweler-kindred-lubeck-interview-rcna238142" }, { name: "Meet Kindred Lubeck, who designed Taylor Swift's engagement ring", url: "https://www.scmp.com/magazines/style/people/celebrities/article/3323318/meet-kindred-lubeck-who-designed-taylor-swifts-engagement-ring" }, { name: "Kindred Lubeck Is Holding a Rare Auction for Her One-of-a-Kind Pieces With Sotheby's", url: "https://www.marieclaire.com/fashion/celebrity-style/kindred-lubeck-artifex-sothebys-gem-drop-taylor-swift-engagement-ring/" }, { name: "Taylor Swift's Engagement Ring May Be 13 Carats, Expert Says", url: "https://www.forbes.com/sites/maryroeloffs/2025/08/27/taylor-swifts-engagement-ring-may-be-13-carats-expert-says-and-is-worth-an-estimated-650000/" }, { name: "How Much Did Taylor Swift's Engagement Ring Cost? 6 Jewelers Share Their Guesses", url: "https://www.today.com/popculture/taylor-swift-engagement-ring-cost-rcna227776" }],
       relatedIds: ["moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie", "moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
       threadIds: ["the-proposal"],
+    },
+    {
+      id: "vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden",
+      slug: "showgirl-engagement-look",
+      date: "2025-08-26",
+      dateLabel: "August 26, 2025",
+      title: "The engagement look: a Polo Ralph Lauren dress in the garden",
+      summary: "A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.",
+      body: ["The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton's caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.", "Travis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle."],
+      tags: ["Fashion"],
+      images: [{ url: "https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg", credit: "Taylor Swift", kind: "primary", focalPoint: "50% 30%" }, { url: "https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg", credit: "Taylor Swift", kind: "archival", focalPoint: "52% 46%" }],
+      sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/" }, { name: "L'Officiel", url: "https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details" }],
+      relatedIds: ["moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie", "moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already"],
+      threadIds: ["the-proposal"],
+      products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Dress (1932 Stripe White & Black)", retailer: "revolve.com", url: "https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/", price: "$398", inStock: false }],
     },
     {
       id: "vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album",
@@ -6984,17 +7013,6 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg", credit: "Getty Images", kind: "primary", focalPoint: "48% 14%" }, { url: "https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV.jpg", credit: "Getty Images via Marie Claire", caption: "The details up close: ruby chandelier earrings and the draped, corseted Westwood bodice.", kind: "archival", focalPoint: "44% 34%" }, { url: "https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf.jpg", credit: "Getty Images via Marie Claire", caption: "The full look on the carpet: the one-shoulder mini with the diamond thigh chain dangling its single \"T\".", kind: "archival", focalPoint: "48% 20%" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1412664/grammys-2025-taylor-swift-red-carpet-fashion-moment" }, { name: "CBS News Los Angeles", url: "https://www.cbsnews.com/losangeles/news/grammys-red-carpet-2025-highlights/" }],
-    },
-    {
-      id: "vault-ttpd-engagement-photos-a-polo-ralph-lauren-dress-in-the-garden",
-      date: "2025-08-26",
-      dateLabel: "August 26, 2025",
-      title: "Engagement photos: a Polo Ralph Lauren dress in the garden",
-      summary: "A striped silk-blend Ralph Lauren dress with a creamy linen skirt, Louis Vuitton Isola sandals, and a diamond-lined Cartier watch — a deliberately soft, summer-neutral look for the announcement.",
-      body: ["The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton's caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.", "Travis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle."],
-      tags: ["Fashion"],
-      images: [{ url: "https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg", credit: "Taylor Swift", kind: "primary", focalPoint: "50% 30%" }, { url: "https://cdn.mos.cms.futurecdn.net/zv7w65v5wxxFPVLtRAScqX.jpg", credit: "Taylor Swift", kind: "archival", focalPoint: "52% 46%" }],
-      sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-travis-kelce-engagement-outfits/" }, { name: "L'Officiel", url: "https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details" }],
     },
     {
       id: "vault-ttpd-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced",
