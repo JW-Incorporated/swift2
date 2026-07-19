@@ -2080,6 +2080,19 @@ export default {
       snippet: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       moment: {
         context: "Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.\n\nIt would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time.",
+        // Photo pass (2026-07-19): freely licensed Commons photo from the
+        // Fearless Tour; license (CC BY 2.0, photographer WEZL) verified via
+        // the Commons API, URL HTTP 200 + image/jpeg, downloaded and viewed.
+        // She sits frame-left with guitar — focal point keeps her face.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Taylor_Swift_Fearless_Tour_05.jpg',
+            credit: 'WEZL (CC BY 2.0) via Wikimedia Commons',
+            caption: 'On a stool with an acoustic guitar and cowboy boots on the Fearless Tour — the album\'s era, live and unpolished.',
+            kind: 'archival',
+            focalPoint: '34% 34%',
+          },
+        ],
       },
     },
     {

@@ -1790,6 +1790,21 @@ export default {
       snippet: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       moment: {
         context: "At the 63rd Annual Grammy Awards, folklore won Album of the Year — Swift's third win in the category, after Fearless and 1989, making her the first woman to win it three times.\n\nShe performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony.",
+        // Photo pass (2026-07-19): NME's own CDN (wp-content), from its
+        // report on this exact win; credit line taken from the article
+        // ("Kevin Mazur/Getty Images for The Recording Academy"). URL
+        // verified HTTP 200 + image/jpeg (2000×1270, unwatermarked),
+        // downloaded and viewed — distinct from the two photos already on
+        // the era's other Grammy-night page. Face upper right of center.
+        photos: [
+          {
+            url: 'https://www.nme.com/wp-content/uploads/2021/03/taylor-swift-grammys-2021-1.jpg',
+            credit: 'Kevin Mazur/Getty Images for The Recording Academy, via NME',
+            caption: 'Holding the Album of the Year Grammy for folklore in the press room, March 14, 2021 — her third, a first for any woman.',
+            kind: 'primary',
+            focalPoint: '57% 25%',
+          },
+        ],
       },
     },
   ],

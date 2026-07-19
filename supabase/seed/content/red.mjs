@@ -2087,6 +2087,21 @@ export default {
       snippet: "A theatrical performance opens the ceremony and previews the tour’s scale.",
       moment: {
         context: "Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle.",
+        // Photo pass (2026-07-19): Taste of Country's own CDN
+        // (townsquare.media), from its report on this performance; credit
+        // line taken from the article ("Kevork Djansezian, Getty Images").
+        // URL verified HTTP 200 + image (630×420, unwatermarked),
+        // downloaded and viewed — white ringmaster outfit + top hat, mic in
+        // hand, confirming the exact moment. Face upper-center-left.
+        photos: [
+          {
+            url: 'https://townsquare.media/site/204/files/2013/02/tay.jpg',
+            credit: 'Kevork Djansezian, Getty Images, via Taste of Country',
+            caption: 'In the white ringmaster suit and top hat, opening the 2013 Grammys with "We Are Never Ever Getting Back Together."',
+            kind: 'primary',
+            focalPoint: '45% 28%',
+          },
+        ],
       },
     },
     {

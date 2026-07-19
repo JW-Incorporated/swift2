@@ -3506,6 +3506,20 @@ export default {
       snippet: "A concert film breaks box-office records for the format.",
       moment: {
         context: "Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.",
+        // Photo pass (2026-07-19): official concert-film trailer on the
+        // Taylor Swift YouTube channel — id verified via YouTube oEmbed
+        // (title + author "Taylor Swift"); thumbnail HTTP 200 + image/jpeg,
+        // downloaded and viewed. Poster art: she stands frame-left, face
+        // top-left quadrant.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/KudedLV0tP0/maxresdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official trailer)',
+            caption: 'The key art of the Eras Tour concert film trailer — "only in theaters" starting October 13, no studio middleman.',
+            kind: 'archival',
+            focalPoint: '25% 22%',
+          },
+        ],
       },
     },
 

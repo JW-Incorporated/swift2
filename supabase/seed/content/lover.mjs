@@ -2271,6 +2271,20 @@ export default {
       snippet: "A pastel love letter — and the first album she would fully own.",
       moment: {
         context: "After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere.",
+        // Photo pass (2026-07-19): official "Lover" music video (released
+        // the day before the album) on the Taylor Swift YouTube channel —
+        // id verified via YouTube oEmbed (title + author "Taylor Swift");
+        // thumbnail HTTP 200 + image/jpeg, downloaded and viewed. The
+        // couple stands centered, faces in the upper third.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/-BjZmE2gtdo/maxresdefault.jpg',
+            credit: 'Taylor Swift via YouTube (official music video)',
+            caption: 'Inside the snow globe of the "Lover" music video, released on the eve of the album — the era\'s warm-lit romance in one shot.',
+            kind: 'archival',
+            focalPoint: '50% 35%',
+          },
+        ],
       },
     },
     {

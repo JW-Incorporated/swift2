@@ -1949,6 +1949,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A second surprise album in five months — warmer, rustier, and just as literary.",
       body: ["evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.", "Swift announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\""],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/EXLgZZE072g/maxresdefault.jpg", credit: "Taylor Swift via YouTube (official lyric video)", caption: "The frosted-branch imagery of the official \"evermore (feat. Bon Iver)\" lyric video — the album's winter palette in one frame.", kind: "archival", focalPoint: "55% 45%" }],
       milestone: { id: "m-ever-1", label: "evermore surprise drop", kind: "album" },
     },
     {
@@ -1960,6 +1961,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The lead single doubles as the album's only official single release.",
       body: ["\"willow\" was released same-day as the album as its lead single and only Hot 100 top-10 hit from evermore — later performed live for the first time at the 2021 Grammys."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/RsEZmictANA/maxresdefault.jpg", credit: "Taylor Swift via YouTube (official music video)", caption: "Inside the \"willow\" music video, which picked up exactly where \"cardigan\" left off — at the golden piano.", kind: "archival", focalPoint: "32% 20%" }],
       video: { youtubeId: "RsEZmictANA", title: "Taylor Swift - willow" },
     },
     {
@@ -1981,6 +1983,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A co-write with William Bowery (Joe Alwyn) about a declined proposal.",
       body: ["One of two evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces."],
       tags: ["Music", "Lore"],
+      images: [{ url: "https://i.ytimg.com/vi/wMpqCRF7TKg/maxresdefault.jpg", credit: "Taylor Swift via YouTube (official lyric video)", caption: "The single champagne flute of the official lyric video — the song's declined toast, distilled.", kind: "archival", focalPoint: "50% 40%" }],
     },
     {
       id: "vault-evermore-the-deluxe-edition-adds-two-tracks",
@@ -1991,6 +1994,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"right where you left me\" and \"it's time to go\" arrive a month after the album.",
       body: ["A deluxe edition released three weeks after the original, adding \"right where you left me\" and \"it's time to go\" — both later folded into the era's standard track list on streaming."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/Ur_wAcYDnuA/maxresdefault.jpg", credit: "Taylor Swift via YouTube (official lyric video)", caption: "The abandoned restaurant table of the official \"right where you left me\" lyric video — frozen where the story stopped.", kind: "archival", focalPoint: "50% 55%" }],
     },
     {
       id: "vault-evermore-marjorie-for-her-grandmother",
@@ -2001,6 +2005,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A tribute built partly from archival recordings of Swift's late grandmother, opera singer Marjorie Finlay.",
       body: ["The song incorporates real vocal recordings of Marjorie Finlay, Swift's grandmother and a professional opera singer who died in 2003 — Swift has spoken about writing it as a way of \"bringing her back.\""],
       tags: ["Music", "Lore"],
+      images: [{ url: "https://i.ytimg.com/vi/hP6QpMeSG6s/maxresdefault.jpg", credit: "Taylor Swift via YouTube (official lyric video)", caption: "Marjorie Finlay in the official lyric video, which set the song to archival photos of Swift's grandmother.", kind: "archival", focalPoint: "38% 42%" }],
     },
   ],
   "fearless": [
@@ -2549,6 +2554,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       body: ["Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.", "It would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/c/c4/Taylor_Swift_Fearless_Tour_05.jpg", credit: "WEZL (CC BY 2.0) via Wikimedia Commons", caption: "On a stool with an acoustic guitar and cowboy boots on the Fearless Tour — the album's era, live and unpolished.", kind: "archival", focalPoint: "34% 34%" }],
       milestone: { id: "m-fear-1", label: "Fearless released", kind: "album" },
     },
     {
@@ -3031,6 +3037,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       body: ["At the 63rd Annual Grammy Awards, folklore won Album of the Year — Swift's third win in the category, after Fearless and 1989, making her the first woman to win it three times.", "She performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony."],
       tags: ["Music"],
+      images: [{ url: "https://www.nme.com/wp-content/uploads/2021/03/taylor-swift-grammys-2021-1.jpg", credit: "Kevin Mazur/Getty Images for The Recording Academy, via NME", caption: "Holding the Album of the Year Grammy for folklore in the press room, March 14, 2021 — her third, a first for any woman.", kind: "primary", focalPoint: "57% 25%" }],
       milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
     },
   ],
@@ -3654,6 +3661,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A pastel love letter — and the first album she would fully own.",
       body: ["After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/-BjZmE2gtdo/maxresdefault.jpg", credit: "Taylor Swift via YouTube (official music video)", caption: "Inside the snow globe of the \"Lover\" music video, released on the eve of the album — the era's warm-lit romance in one shot.", kind: "archival", focalPoint: "50% 35%" }],
       milestone: { id: "m-lov-2", label: "Lover released", kind: "album" },
     },
     {
@@ -4731,6 +4739,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A concert film breaks box-office records for the format.",
       body: ["Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide."],
       tags: ["Tour"],
+      images: [{ url: "https://i.ytimg.com/vi/KudedLV0tP0/maxresdefault.jpg", credit: "Taylor Swift via YouTube (official trailer)", caption: "The key art of the Eras Tour concert film trailer — \"only in theaters\" starting October 13, no studio middleman.", kind: "archival", focalPoint: "25% 22%" }],
       milestone: { id: "m-mid-3", label: "Eras Tour film", kind: "tour" },
     },
     {
@@ -5394,6 +5403,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A theatrical performance opens the ceremony and previews the tour’s scale.",
       body: ["Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle."],
       tags: ["Tour"],
+      images: [{ url: "https://townsquare.media/site/204/files/2013/02/tay.jpg", credit: "Kevork Djansezian, Getty Images, via Taste of Country", caption: "In the white ringmaster suit and top hat, opening the 2013 Grammys with \"We Are Never Ever Getting Back Together.\"", kind: "primary", focalPoint: "45% 28%" }],
     },
     {
       id: "vault-red-everything-has-changed-duet",
