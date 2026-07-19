@@ -141,6 +141,12 @@ const PRIVATE_DATA_PATTERNS = [
   { label: 'flight tracking', re: /\b(?:flight|jet) track(?:er|ing)\b/gi },
   { label: 'aircraft tail number', re: /\btail number\b/gi },
   { label: 'real-time location', re: /\b(?:is|was) (?:currently|right now) at\b/gi },
+  // Future/planned whereabouts + travel patterns — hard redlines from
+  // docs/content-ops/privacy-redlines.md (Never-OK #1), added 2026-07-19 with
+  // the rumor system: a rumor's most dangerous payload is forward-looking
+  // location. Zero hits on the legitimate corpus at introduction.
+  { label: 'future/planned whereabouts', re: /\b(?:will be|expected to (?:be|attend|arrive)|plans? to (?:be|stay)|reportedly staying|is staying) at\b/gi },
+  { label: 'travel-pattern reference', re: /\b(?:travel pattern|usual route|regular route)s?\b/gi },
 ];
 
 function privateDataHits(text) {
