@@ -3168,6 +3168,42 @@ export default {
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       moment: {
         context: "Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.\n\nTypewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet.",
+        // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
+        // "Fortnight" MV id q3zqJs7JUCQ verified via YouTube oEmbed this
+        // session ("Taylor Swift - Fortnight (feat. Post Malone) (Official
+        // Music Video)", author @TaylorSwift); maxres1 frame (1280x720)
+        // curl-verified 200 image/jpeg, downloaded and viewed — the
+        // black-and-white asylum close-up, distinct from the maxresdefault
+        // already used on the Fortnight single page. The Wikipedia album
+        // cover render is only 300px (below the 400px floor), so the
+        // lead-single frame carries the album's monochrome aesthetic instead.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/q3zqJs7JUCQ/maxres1.jpg',
+            credit: 'Taylor Swift / Republic Records (official "Fortnight" video frame, YouTube)',
+            caption:
+              'The album’s black-and-white world, distilled: Taylor in the "Fortnight" video that arrived with TTPD on release night.',
+            kind: 'primary',
+            // Stark close-up; her eyes sit in the upper third, face centered.
+            focalPoint: '47% 35%',
+          },
+          {
+            // Salvaged 2026-07-19 from photo-enrichment PR #887, which was
+            // otherwise superseded by a racing run: the album's OWN package
+            // photography (Beth Garrabrant), which suits the album page
+            // better than a music-video frame. Billboard's CDN, photographer
+            // in the filename; re-verified 200 image/jpeg (774KB) this
+            // session. The en-wiki cover render was rejected at 300px
+            // (under the 400px floor).
+            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Albatross-billboard-1548.jpg',
+            credit: 'Beth Garrabrant / Republic Records, via Billboard',
+            caption:
+              'The album package’s gray seaside portrait — the era’s black-and-white, ink-stained mood in one frame.',
+            kind: 'primary',
+            // Face upper-center-left against the flat gray sky.
+            focalPoint: '45% 28%',
+          },
+        ],
       },
     },
     {

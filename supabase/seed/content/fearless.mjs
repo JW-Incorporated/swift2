@@ -584,10 +584,19 @@ export default {
             url: 'https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards',
           },
         ],
+        // Photo pass #762 (2026-07-19): stays at 1 photo — the cited
+        // Femestella retrospective's other frames are different years' looks
+        // (2009 black J. Mendel, 2012 gold Zuhair Murad — both downloaded and
+        // viewed to check), and Wikimedia Commons has no 52nd-Grammys Swift
+        // photos. No verifiable second frame of this gown on an allowed CDN.
         photos: [
           {
             url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2023/02/Depositphotos_15014271_XL.jpg?resize=800%2C1204&ssl=1',
             credit: 'Depositphotos',
+            // Focal point set by viewing (photo pass #762, 2026-07-19):
+            // full-length red-carpet shot, face top-of-frame just right
+            // of center.
+            focalPoint: '51% 12%',
           },
         ],
       },
@@ -614,10 +623,19 @@ export default {
             url: 'https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards',
           },
         ],
+        // Photo pass #762 (2026-07-19): stays at 1 photo — the cited ET
+        // slideshow's other slides are other eras' hairstyles (wrong moment),
+        // and Wikimedia Commons has no 52nd-Grammys Swift photos. The sibling
+        // blue-gown and mauve-dress pages already cover this night's other
+        // angles, so no duplicate was borrowed from them.
         photos: [
           {
             url: 'https://www.etonline.com/sites/default/files/styles/640xh/public/slides/152871/set_taylor_swift_96311259.jpg?width=1024&quality=80',
             credit: 'Entertainment Tonight',
+            // Focal point set by viewing (photo pass #762, 2026-07-19):
+            // press-room shot with the four Grammys held at chest height,
+            // face upper-middle just right of center.
+            focalPoint: '52% 25%',
           },
         ],
       },
@@ -706,12 +724,21 @@ export default {
         // pre-telecast ceremony in the mauve dress. Verified HTTP 200 +
         // image/jpeg and visually confirmed (mauve/dusty-rose cocktail dress,
         // Staples Center pre-telecast stage) this session.
+        // Photo pass #762 (2026-07-19): stays at 1 photo — the cited Just
+        // Jared Jr. gallery is watermarked (JUST JARED logo, checked by
+        // downloading a full-size frame), and its lead frame is actually the
+        // Jan. 30 "Salute to Icons" gala (silver dress, with Katy Perry) —
+        // the same wrong-event image the 2026-07-10 image-fix pass removed.
         photos: [
           {
             url: 'https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=',
             credit: 'Kevin Winter/Getty Images',
             caption: 'Accepting Best Country Song for "White Horse" at the Jan. 31, 2010 Grammy pre-telecast ceremony.',
             kind: 'primary',
+            // Focal point set by viewing (photo pass #762, 2026-07-19):
+            // full-length stage shot, face in the top sixth, hint left
+            // of center. Re-confirmed unwatermarked at this render size.
+            focalPoint: '49% 14%',
           },
         ],
       },
@@ -2008,12 +2035,19 @@ export default {
         // as published by E! Online's retrospective of the episode. Verified
         // HTTP 200 + image/jpeg and visually confirmed (Swift as Haley Jones)
         // this session. No AI imagery.
+        // Photo pass #762 (2026-07-19): stays at 1 photo — the cited E!
+        // retrospective carries only this one CBS still (checked the page's
+        // full image set), and the episode's Wikipedia article has no image.
+        // No second verifiable frame of her as Haley Jones on an allowed CDN.
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2015825/rs_600x600-150925152931-600.taylor-swift-csi.jpg',
             credit: 'CBS, via E! Online',
             caption: 'As Haley Jones in the CSI episode "Turn, Turn, Turn," which aired March 5, 2009.',
             kind: 'archival',
+            // Focal point set by viewing (photo pass #762, 2026-07-19):
+            // profile close-up, face upper-right of the square frame.
+            focalPoint: '55% 28%',
           },
         ],
       },
@@ -2133,6 +2167,19 @@ export default {
       snippet: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       moment: {
         context: "Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.\n\nIt would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time.",
+        // Photo pass #762 (2026-07-19): freely licensed Commons live shot from
+        // the album's own tour — license (CC BY-SA 2.0, alexahalasan) verified
+        // on the file page via the Commons API; curl 200 image/jpeg 1769x2470;
+        // Read-viewed: Swift seated with the koi-fish Taylor guitar, Fearless
+        // Tour, Prudential Center, Newark (May 13, 2010).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Taylor_Swift_-_Fearless_Tour_Prudential_Center_Newark_%28May_13%2C_2010%29.jpg',
+            credit: 'alexahalasan via Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'On the Fearless Tour with the koi-fish Taylor guitar — the album that filled arenas, Newark, 2010.',
+            focalPoint: '48% 18%',
+          },
+        ],
       },
     },
     {

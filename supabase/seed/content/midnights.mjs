@@ -909,6 +909,7 @@ export default {
           {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
             credit: 'NBC News',
+            focalPoint: '47% 12%',
           },
         ],
       },
@@ -1019,6 +1020,7 @@ export default {
           {
             url: 'https://variety.com/wp-content/uploads/2023/10/GettyImages-1712353673.jpg?w=1000&h=563&crop=1',
             credit: 'Elsa/Getty Images',
+            focalPoint: '44% 32%',
           },
         ],
       },
@@ -1328,6 +1330,7 @@ export default {
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1',
             credit: 'Patrick T. Fallon/AFP via Getty Images',
+            focalPoint: '51% 17%',
           },
         ],
       },
@@ -1356,6 +1359,7 @@ export default {
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-2003760399-copy.jpg?w=1296&h=730&crop=1',
             credit: 'Getty Images',
+            focalPoint: '62% 38%',
           },
         ],
       },
@@ -1702,10 +1706,12 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg',
             credit: 'Getty Images',
+            focalPoint: '53% 12%',
           },
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg',
             credit: 'Getty Images',
+            focalPoint: '45% 25%',
           },
         ],
       },
@@ -3590,6 +3596,19 @@ export default {
       snippet: "A concert film breaks box-office records for the format.",
       moment: {
         context: "Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide.",
+        // Photo pass #762 (2026-07-19): ABC News' own CDN (i.abcnewsfe.com,
+        // from GMA's world-premiere story); curl 200 image/jpeg 3072x3071;
+        // Read-viewed: Swift in the tanzanite Oscar de la Renta gown on the
+        // premiere carpet, "Taylor Swift: The Eras Tour" step-and-repeat
+        // behind her (The Grove, Los Angeles, Oct. 11, 2023).
+        photos: [
+          {
+            url: 'https://i.abcnewsfe.com/a/64e8b004-20de-4b7b-9296-b1f46aac00ee/taylor-swift-01-ss-jt-231011_1697075963440_hpEmbed_1x1.jpg',
+            credit: 'Via ABC News',
+            caption: 'The world premiere at The Grove, Oct. 11, 2023 — where she announced the film would open a day early.',
+            focalPoint: '52% 22%',
+          },
+        ],
       },
     },
 
@@ -3623,6 +3642,10 @@ export default {
             url: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
             credit: 'Gregory Harris/WSJ. Magazine',
             caption: 'The WSJ. Magazine cover interview where Travis spoke to the relationship on the record.',
+            // Focal point set 2026-07-19 (photo-enrichment run 10, #762) by
+            // viewing: portrait magazine cover, Travis's hooded face fills the
+            // upper-middle with eyes about a quarter down the frame.
+            focalPoint: '55% 28%',
           },
         ],
       },

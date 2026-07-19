@@ -455,6 +455,18 @@ export default {
             credit: 'Republic Records / Valheria Rocha (album cover art)',
             caption: 'The Lover album cover, shot by Valheria Rocha — the glitter heart eye in its original context.',
             kind: 'primary',
+            focalPoint: '49% 52%',
+          },
+          // Photo-enrichment pass (2026-07-19, #762): from the cited
+          // Refinery29 story's own CDN (s2.r29static.com), downloaded and
+          // vision-confirmed — the era's fuchsia lip and pink-tipped
+          // ponytail on stage at Wango Tango, weeks before the cover.
+          {
+            url: 'https://s2.r29static.com/bin/entry/6b6/x,80/2201581/image.jpg',
+            credit: 'Getty Images via Refinery29',
+            caption: 'The era\'s new beauty look in motion: fuchsia lip and pink-tipped ponytail at Wango Tango that June, from Refinery29\'s story on the cover makeup.',
+            kind: 'archival',
+            focalPoint: '50% 18%',
           },
         ],
       },
@@ -485,6 +497,7 @@ export default {
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20191024/rs_634x1024-191124163526-634-taylor-swift-2019-AMAs-red-carpet-fashion.jpg',
             credit: 'Steve Granitz/WireImage',
+            focalPoint: '50% 12%',
           },
         ],
       },
@@ -715,6 +728,7 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-gigi-hadid-bella-hadid-2019-billboard-vmas-1548.jpg?w=942&h=628&crop=1',
             credit: 'Billboard',
+            focalPoint: '45% 30%',
           },
         ],
       },
@@ -2277,6 +2291,20 @@ export default {
       snippet: "A pastel love letter — and the first album she would fully own.",
       moment: {
         context: "After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere.",
+        // Photo pass #762 (2026-07-19): freely licensed Commons shot from the
+        // era's launch season — license (CC BY-SA 4.0, Glenn Francis/Toglenn)
+        // verified on the file page via the Commons API; curl 200 image/jpeg
+        // 2358x3537; Read-viewed: Swift in the iridescent blue-purple sequined
+        // dress at the 2019 iHeartRadio Music Awards (March 14, 2019), the
+        // pastel look that opened the Lover rollout.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg',
+            credit: 'Glenn Francis via Wikimedia Commons, CC BY-SA 4.0',
+            caption: 'Iridescent sequins at the 2019 iHeartRadio Music Awards — the pastel palette arriving weeks before "ME!".',
+            focalPoint: '48% 22%',
+          },
+        ],
       },
     },
     {

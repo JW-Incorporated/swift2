@@ -1170,6 +1170,8 @@ export default {
         // Photo-enrichment pass (2026-07-18, #762): added the blizzard frame from the
         // official Out of the Woods video (id oEmbed-verified against @TaylorSwift;
         // downloaded and visually confirmed). Focal points set per image by viewing.
+        // Karen #877 fix (2026-07-19): same frame upgraded hq2 (480x360, 6KB)
+        // -> maxres2 (1280x720); downloaded and vision-confirmed identical.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png',
@@ -1177,7 +1179,7 @@ export default {
             focalPoint: '47% 42%',
           },
           {
-            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/hq2.jpg',
+            url: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg',
             credit: 'Big Machine Records / Taylor Swift via YouTube',
             kind: 'archival',
             focalPoint: '48% 42%',

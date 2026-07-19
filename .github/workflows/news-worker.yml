@@ -15,10 +15,20 @@
 # Offset off :00/:35 (not :00/:30) — this repo already runs two separate
 # */30 workflows (social-poster.yml, marjorie-inbox.yml); see watchdog.yml's
 # 2026-07-18 header note on the scheduling-contention this avoids.
+#
+# CADENCE (2026-07-19, Wyatt): every 4h, not hourly. Polling feeds Content
+# Shift, which authors only twice a day (17:00 / 23:00 UTC, max 2 items per
+# run) — so authoring, not polling, is the real throughput ceiling and 24
+# polls/day was 18 wasted cycles. Deliberately NOT matched 1:1 to authoring
+# either: staying somewhat ahead means each Content Shift run finds a warm,
+# already-triaged queue instead of only whatever landed that minute. Of the
+# six, 13:10 and 21:10 land a few hours before each authoring run; the other
+# four spread across the day so breaking news is captured near when it
+# happens. Also cuts any OpenAI classifier spend by 75%.
 name: news-worker
 on:
   schedule:
-    - cron: "10 * * * *"
+    - cron: "10 1,5,9,13,17,21 * * *"
   workflow_dispatch:
 
 concurrency:

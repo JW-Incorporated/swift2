@@ -71,7 +71,6 @@ OpenAI account, separate billing) hit its own usage limit reviewing round
 delegated; photo-sourcing for round 3 follows the same direct-research path
 once the mechanical baseline is verified and committed.
 
-=======
 ## 2026-07-19 — Shoppable links: direct URLs in content, affiliate at one seam
 
 **Decision:** Fashion moments can carry `moment.products` in the seed —
@@ -115,7 +114,6 @@ the look" surface is PENDING — requested on the PR, which does not merge
 without it. If Joey declines the surface, the data layer and seam keep
 (they're invisible without the UI block); the MomentDetail block is the
 only piece to revert.
-=======
 ## 2026-07-19 — The rumor tier: structural home for hot-but-thinly-sourced topics
 
 **Decision:** Hot topics with little trustworthy sourcing (the MSG wedding is
@@ -183,7 +181,6 @@ renders as fact" rule (audit §5, 2026-07-04 brief).
 ---
 
 ## 2026-07-19 — Round 2: the next 10 career-defining events
-=======
 ## 2026-07-18 — Standing grant: Marjorie merges held content-shift PRs herself
 
 **Decision:** `needs-human-review` on a routine Content-desk PR (label

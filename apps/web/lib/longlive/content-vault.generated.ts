@@ -439,7 +439,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She called it the song that \"best represents\" the album — built around a real snowmobile accident and twenty stitches she'd kept out of the tabloids.",
       body: ["Jack Antonoff built the instrumental on a Yamaha DX7 and Minimoog Voyager and sent it to Swift on a plane; she returned a voice-memo of finished lyrics about 30 minutes later — the first time she'd written words to an already-finished track.", "The bridge's \"twenty stitches in a hospital room\" references a real snowmobile accident from a past relationship, which she'd persuaded tabloids not to publicize at the time."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png", credit: "Big Machine Records", kind: "primary", focalPoint: "47% 42%" }, { url: "https://i.ytimg.com/vi/JLf9q36UsBk/hq2.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Frost-covered mid-blizzard — a still from Joseph Kahn's official 'Out of the Woods' video, premiered on New Year's Eve 2015.", kind: "archival", focalPoint: "48% 42%" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f1/Taylor_Swift_-_Out_of_the_Woods.png", credit: "Big Machine Records", kind: "primary", focalPoint: "47% 42%" }, { url: "https://i.ytimg.com/vi/JLf9q36UsBk/maxres2.jpg", credit: "Big Machine Records / Taylor Swift via YouTube", caption: "Frost-covered mid-blizzard — a still from Joseph Kahn's official 'Out of the Woods' video, premiered on New Year's Eve 2015.", kind: "archival", focalPoint: "48% 42%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Out_of_the_Woods_(song)" }],
     },
     {
@@ -1334,6 +1334,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "At 17, she becomes the youngest person to single-handedly write and perform a number-one country hit.",
       body: ["A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/Jb2stN7kH28/sd2.jpg", credit: "Taylor Swift / Big Machine Records (official \"Our Song\" video frame, YouTube)", caption: "Seventeen-year-old Taylor in the flower-bed scene of the \"Our Song\" video — the homemade-feeling clip behind her first number one.", kind: "primary", focalPoint: "53% 40%" }],
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
       milestone: { id: "m-debut-2", label: "“Our Song” #1", kind: "award" },
     },
@@ -1618,7 +1619,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Straight from the ceremony where she announced her next album, she was photographed arriving at the after-party in a Moschino romper embroidered with silver stars — a color and motif nodding to Midnights.",
       body: ["Hours after revealing her tenth studio album, Midnights, during her Video of the Year acceptance speech at the 2022 MTV VMAs, Swift was photographed arriving at Republic Records' post-show party at the Fleur Room in New York City on August 28, 2022.", "She wore a royal blue silk mini romper by Moschino embroidered with glittery stars — which Nylon described as \"channeling 'midnight'\" — paired with a fuzzy jacket, platform sparkly sandals from Alexander McQueen, ANANYA jewelry, and her signature red lip."],
       tags: ["Lore"],
-      images: [{ url: "https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2", credit: "Getty Images", kind: "primary" }],
+      images: [{ url: "https://imgix.bustle.com/uploads/getty/2022/8/29/c270e9b7-cdb5-445c-ba9b-07504db79dc8-getty-1418938506.jpg?w=653&h=980&fit=crop&crop=faces&dpr=2", credit: "Getty Images", kind: "primary", focalPoint: "49% 16%" }, { url: "https://imgix.bustle.com/uploads/getty/2022/8/29/fdcc3cbd-5c3b-47f7-8469-a2a3836de5a0-getty-1418938602.jpg?w=980&fit=max", credit: "Getty Images", caption: "Arriving at the Fleur Room after-party in the star-embroidered Moschino romper, hours after announcing Midnights.", kind: "primary", focalPoint: "50% 13%" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-2022-mtv-vmas-after-party-outfit" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-2022-mtv-vmas-afterparty-outfit-midnights-1235132508/" }],
     },
     {
@@ -1961,6 +1962,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A second surprise album in five months — warmer, rustier, and just as literary.",
       body: ["evermore extended the folklore universe into late autumn: flannel, firelight, and some of her most intricate storytelling.", "Swift announced it with a note calling folklore's \"sister record\" not a spillover of extra songs but a natural continuation she \"couldn't stop writing.\""],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/RsEZmictANA/maxres3.jpg", credit: "YouTube / Taylor Swift", caption: "The \"willow\" video — released with the album at midnight — carried evermore's wintry, firelit look.", kind: "archival", focalPoint: "60% 25%" }],
       milestone: { id: "m-ever-1", label: "evermore surprise drop", kind: "album" },
     },
     {
@@ -1972,6 +1974,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The lead single doubles as the album's only official single release.",
       body: ["\"willow\" was released same-day as the album as its lead single and only Hot 100 top-10 hit from evermore — later performed live for the first time at the 2021 Grammys."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/RsEZmictANA/maxresdefault.jpg", credit: "YouTube / Taylor Swift", caption: "The glass-box scene from the self-directed \"willow\" video.", kind: "archival", focalPoint: "45% 20%" }],
       video: { youtubeId: "RsEZmictANA", title: "Taylor Swift - willow" },
     },
     {
@@ -1993,6 +1996,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A co-write with William Bowery (Joe Alwyn) about a declined proposal.",
       body: ["One of two evermore tracks co-written with \"William Bowery,\" \"champagne problems\" narrates a failed proposal — widely read by fans as one of the album's emotional centerpieces."],
       tags: ["Music", "Lore"],
+      images: [{ url: "https://i.ytimg.com/vi/wMpqCRF7TKg/maxresdefault.jpg", credit: "YouTube / Taylor Swift", caption: "The official lyric video's title card.", kind: "archival", focalPoint: "50% 40%" }],
     },
     {
       id: "vault-evermore-the-deluxe-edition-adds-two-tracks",
@@ -2003,6 +2007,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"right where you left me\" and \"it's time to go\" arrive a month after the album.",
       body: ["A deluxe edition released three weeks after the original, adding \"right where you left me\" and \"it's time to go\" — both later folded into the era's standard track list on streaming."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/Ur_wAcYDnuA/maxresdefault.jpg", credit: "YouTube / Taylor Swift", caption: "The empty restaurant table of the official lyric video — \"right where you left me.\"", kind: "archival", focalPoint: "52% 55%" }],
     },
     {
       id: "vault-evermore-marjorie-for-her-grandmother",
@@ -2013,6 +2018,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A tribute built partly from archival recordings of Swift's late grandmother, opera singer Marjorie Finlay.",
       body: ["The song incorporates real vocal recordings of Marjorie Finlay, Swift's grandmother and a professional opera singer who died in 2003 — Swift has spoken about writing it as a way of \"bringing her back.\""],
       tags: ["Music", "Lore"],
+      images: [{ url: "https://i.ytimg.com/vi/hP6QpMeSG6s/maxresdefault.jpg", credit: "YouTube / Taylor Swift", caption: "Marjorie Finlay, in an archival portrait from the official lyric video.", kind: "archival", focalPoint: "40% 40%" }],
     },
   ],
   "fearless": [
@@ -2153,7 +2159,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A navy, off-the-shoulder KaufmanFranco sequin gown, Louboutin pumps, and Lorraine Schwartz earrings — worn the night Fearless won Album of the Year.",
       body: ["At the Jan. 31, 2010 Grammys at Staples Center in Los Angeles, the KaufmanFranco Blue Sequin Off-the-Shoulder Gown — worn with Christian Louboutin pumps and Lorraine Schwartz earrings — was the glam counterpoint to the biggest night of her career to that point.", "By the end of it she had four trophies, including Album of the Year for Fearless, making the 20-year-old the youngest artist ever to win the top prize at the time. Femestella's retrospective files the navy gown among her most iconic Grammy looks — a full pivot into old-Hollywood sparkle from the sundresses of two years earlier."],
       tags: ["Fashion"],
-      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2023/02/Depositphotos_15014271_XL.jpg?resize=800%2C1204&ssl=1", credit: "Depositphotos", kind: "primary" }],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2023/02/Depositphotos_15014271_XL.jpg?resize=800%2C1204&ssl=1", credit: "Depositphotos", kind: "primary", focalPoint: "51% 12%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards" }],
     },
     {
@@ -2164,7 +2170,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her long, shoulder-length curls — the signature look of the Fearless era — swept to one side at the 2010 Grammys.",
       body: ["Entertainment Tonight's hair-timeline retrospective singles out this look: curls swept to the side \"to make room for all of her awards\" the night Fearless won Album of the Year and Best Country Album.", "The side-swept style did a lot of on-camera work that evening — she performed a medley with Fleetwood Mac's Stevie Nicks and made four trips to the podium at Staples Center. It was a signature outing for the ringlet curls she'd worn since her debut, still reading as the era's calling card from every camera angle."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.etonline.com/sites/default/files/styles/640xh/public/slides/152871/set_taylor_swift_96311259.jpg?width=1024&quality=80", credit: "Entertainment Tonight", kind: "primary" }],
+      images: [{ url: "https://www.etonline.com/sites/default/files/styles/640xh/public/slides/152871/set_taylor_swift_96311259.jpg?width=1024&quality=80", credit: "Entertainment Tonight", kind: "primary", focalPoint: "52% 25%" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/gallery/152871_taylor_swift_hair_timeline/68589" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards" }],
     },
     {
@@ -2197,7 +2203,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A mauve Dolce & Gabbana cocktail dress, worn when \"White Horse\" won Best Country Song at the 2010 Grammys pre-telecast ceremony.",
       body: ["Held earlier in the day before the televised main event (where she'd later wear the blue KaufmanFranco gown), the pre-telecast ceremony was where \"White Horse\" picked up Best Country Song and Best Female Country Vocal Performance — the first two Grammy wins of her career.", "The mauve Dolce & Gabbana cocktail dress ended up in the record books almost by accident: by night's end she had four trophies including Album of the Year, so the low-key afternoon look is what she's wearing in the photos of the wins that started the count. Just Jared Jr.'s gallery from the ceremony catches her accepting with the gramophone in hand."],
       tags: ["Fashion"],
-      images: [{ url: "https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=", credit: "Kevin Winter/Getty Images", caption: "Accepting Best Country Song for \"White Horse\" at the Jan. 31, 2010 Grammy pre-telecast ceremony.", kind: "primary" }],
+      images: [{ url: "https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=", credit: "Kevin Winter/Getty Images", caption: "Accepting Best Country Song for \"White Horse\" at the Jan. 31, 2010 Grammy pre-telecast ceremony.", kind: "primary", focalPoint: "49% 14%" }],
       sources: [{ name: "JustJared Jr.", url: "https://www.justjaredjr.com/2010/01/31/taylor-swift-white-horse-grammy-winner/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards" }],
     },
     {
@@ -2527,7 +2533,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "March 5, 2009: she guest-stars on CSI as Haley Jones, a motel owner's daughter whose death anchors the whole episode — a dream booking for a longtime fan of the show.",
       body: ["In \"Turn, Turn, Turn,\" CSI Nick Stokes pieces together a year of visits to a seedy motel run by her character's parents — Swift, then 19, playing 16-year-old Haley Jones across the episode's time-jumping structure, in long brownish hair that made her briefly unrecognizable. Reviews were kinder than anyone expected — Rolling Stone said she \"held her own.\"", "The episode aired March 5, 2009, right at the peak of Fearless's chart run, and the stunt casting aged into a tradition: E!'s retrospective notes she followed John Mayer (a season-seven murder victim) and paved the way for Justin Bieber to get the same treatment later."],
       tags: ["Lore"],
-      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2015825/rs_600x600-150925152931-600.taylor-swift-csi.jpg", credit: "CBS, via E! Online", caption: "As Haley Jones in the CSI episode \"Turn, Turn, Turn,\" which aired March 5, 2009.", kind: "primary" }],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2015825/rs_600x600-150925152931-600.taylor-swift-csi.jpg", credit: "CBS, via E! Online", caption: "As Haley Jones in the CSI episode \"Turn, Turn, Turn,\" which aired March 5, 2009.", kind: "primary", focalPoint: "55% 28%" }],
       sources: [{ name: "Remember When Taylor Swift Played a Murder Victim on CSI?", url: "https://www.eonline.com/news/700262/remember-when-taylor-swift-played-a-murder-victim-on-csi-reminisce-ahead-of-the-series-finale" }, { name: "Turn, Turn, Turn (CSI)", url: "https://en.wikipedia.org/wiki/Turn,_Turn,_Turn_(CSI)" }],
     },
     {
@@ -2563,6 +2569,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       body: ["Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.", "It would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/6/64/Taylor_Swift_-_Fearless_Tour_Prudential_Center_Newark_%28May_13%2C_2010%29.jpg", credit: "alexahalasan via Wikimedia Commons, CC BY-SA 2.0", caption: "On the Fearless Tour with the koi-fish Taylor guitar — the album that filled arenas, Newark, 2010.", kind: "archival", focalPoint: "48% 18%" }],
       milestone: { id: "m-fear-1", label: "Fearless released", kind: "album" },
     },
     {
@@ -2665,7 +2672,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A blue-and-gold Etro gown for a Grammy-night medley of \"cardigan,\" \"august,\" and \"willow\" with Aaron Dessner and Jack Antonoff.",
       body: ["The floor-length blue-and-gold Etro gown — high slit, seventies lines — was built for the night's most theatrical staging: a moss-covered cabin on a woodland hillside set, where she moved through \"cardigan,\" \"august,\" and \"willow\" with Aaron Dessner and Jack Antonoff. Etro posted a sketch of the design after the show.", "It was one half of a two-look night: on the red carpet she wore a custom floral Oscar de la Renta mini with botanical appliqués tacked on individually — plus a matching mask — a look Oscar de la Renta itself billed as \"Floral Folklore.\""],
       tags: ["Fashion"],
-      images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1", credit: "TAS Rights Management 2021, via Getty Images / Billboard", caption: "The custom Etro gown during the folklore medley staging at the 2021 Grammys.", kind: "primary" }],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1", credit: "TAS Rights Management 2021, via Getty Images / Billboard", caption: "The custom Etro gown during the folklore medley staging at the 2021 Grammys.", kind: "primary", focalPoint: "59% 42%" }],
       sources: [{ name: "SheFinds", url: "https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/" }],
     },
     {
@@ -2687,7 +2694,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "With pandemic protocols keeping hair and makeup artists off set, Swift did her own — natural, barely-there makeup and two low braided buns — for both the \"cardigan\" video and the album photoshoot.",
       body: ["Swift later recalled the DIY process for the album art: \"Just was like, 'Guess I'll braid it? I don't know.'\" Gone were the red lips and cat-eyes of prior eras; in their place, natural waves, a messy low bun or two braided knots, and makeup-free close-ups — a stripped-down beauty look that matched the album's whole visual turn.", "The same do-it-yourself rule covered the \"cardigan\" video, which she wrote, directed, and styled herself under pandemic protocols that kept hair and makeup artists off set. What started as a health necessity became the era's aesthetic signature: visuals made almost entirely by her own hands."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/intro-1595575441.jpg", credit: "Taylor Swift/VEVO", caption: "Self-styled hair and makeup in the \"cardigan\" music video.", kind: "primary" }],
+      images: [{ url: "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/intro-1595575441.jpg", credit: "Taylor Swift/VEVO", caption: "Self-styled hair and makeup in the \"cardigan\" music video.", kind: "primary", focalPoint: "50% 32%" }, { url: "https://i.ytimg.com/vi/K-a8s8OLBSE/maxresdefault.jpg", credit: "Still from the official \"cardigan\" music video, Republic Records, via YouTube", caption: "The self-styled braids and natural makeup, at the glowing piano in the \"cardigan\" video she also directed herself.", kind: "archival", focalPoint: "47% 30%" }],
       sources: [{ name: "ET Online", url: "https://www.etonline.com/taylor-swift-recalls-doing-her-own-hair-and-makeup-for-folklore-album-art-guess-ill-braid-it-229646" }, { name: "Nicki Swift", url: "https://www.nickiswift.com/229802/hidden-details-you-missed-in-taylor-swifts-new-cardigan-video/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Cardigan_(song)" }],
     },
     {
@@ -2698,7 +2705,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Shot by Beth Garrabrant with no styling team on hand, in black and white for the first time — Swift standing alone in a misty forest in a plaid coat over a white prairie dress.",
       body: ["Swift styled her own hair, makeup, and wardrobe for the shoot — cardigans, oversized plaid blazers, and rugby shirts, worn in the summer heat of a friend's forest. She and photographer Beth Garrabrant referenced Surrealist work and early autochromes and ambrotypes, and shot the whole series in black and white, a first for Garrabrant, who usually works in color.", "It was a deliberate departure from her earlier album cycles' larger production teams — no glam squad, no set build, just the two of them in the woods. The resulting frame of Swift standing small among the trees became the cover, and the surrounding shots were posted as a grid of captionless black-and-white photos in the July 23 announcement."],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "The folklore album cover — Beth Garrabrant's black-and-white forest frame.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "The folklore album cover — Beth Garrabrant's black-and-white forest frame.", kind: "primary", focalPoint: "48% 75%" }, { url: "https://format.creatorcdn.com/9fcd0df5-9285-4916-8837-8946bbc00b90/0/0/0/0,0,2546,3476,1200,3476/0-0-0/a5687a55-9b70-421a-af01-167dd3b41eae/1/1/000066060006.jpg?fjkss=exp=2099503694~hmac=bfd5136d317dfc1d27bdd629155633f97f7c8a1028f5a74557969466e92877fe", credit: "Beth Garrabrant", caption: "Another frame from the self-styled forest shoot — a rugby shirt and plaid trousers, shot on film in black and white.", kind: "primary", focalPoint: "51% 48%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-folklore-photoshoot-by-photographer-beth-garrabrant/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
     },
     {
@@ -2720,7 +2727,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A cream cable-knit cardigan with gray star embroidery and a \"folklore album\" patch, sold on her official store — it sold out almost instantly in July 2020 and stayed a coveted rarity for years.",
       body: ["The cardigan Swift wears at the end of the \"cardigan\" video — tan cable knit, navy stripes, gray elbow patches, star embroidery, and a \"folklore album\" patch on the chest — went up for sale on her official store alongside the album and sold out almost immediately. It became one of the most sought-after pieces of Swift merch of the whole decade.", "It wasn't restocked until July 24, 2024 — folklore's fourth anniversary — and even then only as a 72-hour window, priced at $70 with a four-per-order limit. The rerun wasn't quite the original, either: the 2024 version swapped the folklore chest patch for a Taylor Swift one and ran longer than the original, which kept the true 2020 cardigan a collector's item."],
       tags: ["Fashion"],
-      images: [{ url: "https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4", credit: "Taylor Swift Store", caption: "The official folklore cardigan as sold on Swift's store.", kind: "primary" }],
+      images: [{ url: "https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4", credit: "Taylor Swift Store", caption: "The official folklore cardigan as sold on Swift's store.", kind: "primary", focalPoint: "50% 50%" }],
       sources: [{ name: "Her Campus", url: "https://www.hercampus.com/style/taylor-swift-folklore-cardigan-restock/" }, { name: "Capital FM", url: "https://www.capitalfm.com/news/music/taylor-swift-cardigans-merch/" }],
     },
     {
@@ -3049,6 +3056,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "folklore wins the Grammy for Album of the Year, her third — the most by a woman.",
       body: ["At the 63rd Annual Grammy Awards, folklore won Album of the Year — Swift's third win in the category, after Fearless and 1989, making her the first woman to win it three times.", "She performed a acoustic-lawn medley of \"cardigan,\" \"august,\" and \"willow\" (evermore's lead single) at the ceremony."],
       tags: ["Music"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/03/Taylor-Swift-grammy-award-2021-billboard-1548-1615778248.jpg", credit: "Recording Academy, via Billboard", caption: "Accepting Album of the Year for folklore with Laura Sisk, Jack Antonoff, and Aaron Dessner — her record third win.", kind: "archival", focalPoint: "44% 18%" }, { url: "https://www.nme.com/wp-content/uploads/2021/03/taylor-swift-grammys-2021-1.jpg", credit: "Kevin Mazur/Getty Images for The Recording Academy, via NME", caption: "Holding the Album of the Year Grammy for folklore in the press room, March 14, 2021 — her third, a first for any woman.", kind: "primary", focalPoint: "57% 25%" }],
       milestone: { id: "m-folk-2", label: "folklore wins AOTY", kind: "award" },
     },
   ],
@@ -3182,7 +3190,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "On the Lover album cover, shot by Valheria Rocha, she swapped her signature red lip for bright fuchsia and outlined one eye in a giant glittery heart, with streaks of pink and blue through her hair.",
       body: ["Swift credited the cover to \"the artistic genius that is @valheria123\" (photographer Valheria Rocha) on Instagram. The heart-lined eye, glitter, and pastel pink-and-blue hair streaks became a recurring beauty motif across the era's videos and press cycle.", "Every element was a departure from an established signature: the giant glitter heart outlined her right eye, the trademark red lip went bright fuchsia, and the pink-and-blue streaks replaced the all-blonde hair fans had watched for a decade. Because Swift's beauty choices have a history of doubling as Easter eggs, Refinery29 noted fans immediately began hunting for a hidden meaning — and, more practically, planning recreations: \"All of us are going to show up with glittery heart to the tour,\" as one put it, back when the era was still supposed to get one."],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png", credit: "Republic Records / Valheria Rocha (album cover art)", caption: "The Lover album cover, shot by Valheria Rocha — the glitter heart eye in its original context.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png", credit: "Republic Records / Valheria Rocha (album cover art)", caption: "The Lover album cover, shot by Valheria Rocha — the glitter heart eye in its original context.", kind: "primary", focalPoint: "49% 52%" }, { url: "https://s2.r29static.com/bin/entry/6b6/x,80/2201581/image.jpg", credit: "Getty Images via Refinery29", caption: "The era's new beauty look in motion: fuchsia lip and pink-tipped ponytail at Wango Tango that June, from Refinery29's story on the cover makeup.", kind: "archival", focalPoint: "50% 18%" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2019/06/235426/taylor-swift-lover-album-heart-makeup" }, { name: "YouBeauty", url: "https://www.youbeauty.com/celebs/taylor-swift-provides-summer-makeup-inspo-on-her-lover-album-cover/" }],
     },
     {
@@ -3193,7 +3201,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She walked the American Music Awards red carpet in a green Julien Macdonald gown before changing into a shirt printed with the names of her old albums to perform \"The Man.\"",
       body: ["The shimmering green gown came the same night she was named Artist of the Decade and broke the all-time AMA wins record, before she changed into a white button-up printed with the names of the \"stolen\" albums she no longer owned masters to, to perform \"The Man.\"", "Entertainment Tonight logged the details of the custom Julien Macdonald design: a sparkly, draped dark-green dress with a leg-baring slit, worn with black over-the-knee boots, black geometric hoop earrings and rings, and her signature bangs with hair swept to the side. She arrived carrying five nominations and 23 career AMAs — one short of Michael Jackson's all-time record of 24, which made the red carpet the calm before a historically loaded night."],
       tags: ["Fashion"],
-      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/20191024/rs_634x1024-191124163526-634-taylor-swift-2019-AMAs-red-carpet-fashion.jpg", credit: "Steve Granitz/WireImage", kind: "primary" }],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/20191024/rs_634x1024-191124163526-634-taylor-swift-2019-AMAs-red-carpet-fashion.jpg", credit: "Steve Granitz/WireImage", kind: "primary", focalPoint: "50% 12%" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1095478/revisiting-taylor-swift-s-gorgeous-american-music-awards-looks" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swift-shines-in-sparkly-green-dress-ahead-of-2019-amas-artist-of-the-decade-honor-136894" }],
     },
     {
@@ -3270,7 +3278,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Fresh off three VMA wins, she changed into a black sequined jumpsuit and spent Republic Records' after-party at The Fleur Room posing with longtime friends Gigi and Bella Hadid.",
       body: ["At Republic Records' after-party at The Fleur Room inside Moxy Chelsea on August 26, 2019 — hours after winning Video of the Year for \"You Need to Calm Down\" — she changed into a black sequined jumpsuit with a bold red lip, gold eyeshadow, and sparkly purple nails.", "She was photographed posing repeatedly with the Hadid sisters, Gigi in a beige corset and matching pants and Bella in a nude two-piece, with \"You Need to Calm Down\" co-stars Jesse Tyler Ferguson and Justin Mikita also there."],
       tags: ["Lore"],
-      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-gigi-hadid-bella-hadid-2019-billboard-vmas-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", kind: "primary" }],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-gigi-hadid-bella-hadid-2019-billboard-vmas-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", kind: "primary", focalPoint: "45% 30%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-vmas-after-party-outfit-sparkly-black-jumpsuit-photos-8528483/" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swift-celebrates-vma-wins-at-after-party-with-gigi-and-bella-hadid-131320" }],
     },
     {
@@ -3675,6 +3683,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A pastel love letter — and the first album she would fully own.",
       body: ["After the armor, Lover flooded everything with pastel light: romance loud again, hearts and glitter everywhere."],
       tags: ["Music"],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/4/49/Taylor_Swift_2_-_2019_by_Glenn_Francis.jpg", credit: "Glenn Francis via Wikimedia Commons, CC BY-SA 4.0", caption: "Iridescent sequins at the 2019 iHeartRadio Music Awards — the pastel palette arriving weeks before \"ME!\".", kind: "archival", focalPoint: "48% 22%" }],
       milestone: { id: "m-lov-2", label: "Lover released", kind: "album" },
     },
     {
@@ -3933,7 +3942,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A reputation-coded black gown with gold accents and a thigh-high slit on the pink carpet.",
       body: ["The Sept. 12, 2023 pink carpet at the Prudential Center got a black Versace gown with a line of the house's signature gold hardware and a thigh-high slit — a look fans immediately read as reputation-coded, arriving in the thick of re-record-announcement mania. The dress did a full night's work: she was on camera constantly as the show's most-awarded and most-visible attendee.", "The night behind the gown was historic: nine Moon Person trophies from 11 nominations, including Video of the Year for \"Anti-Hero\" — her fourth win in the show's top category, more than anyone in VMAs history, in a field where no other artist (not Beyoncé, Rihanna, or Eminem) has more than two."],
       tags: ["Fashion"],
-      images: [{ url: "https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg", credit: "NBC News", kind: "primary" }],
+      images: [{ url: "https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg", credit: "NBC News", kind: "primary", focalPoint: "47% 12%" }],
       sources: [{ name: "NBC News", url: "https://www.nbcnews.com/pop-culture/live-blog/mtv-vmas-2023-live-updates-rcna103947" }, { name: "TheWrap", url: "https://www.thewrap.com/taylor-swift-most-video-of-the-year-wins-vmas-2023/" }],
     },
     {
@@ -3966,7 +3975,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Blake Lively, Ryan Reynolds, and Hugh Jackman joined her to watch Kansas City beat the Jets — the broadcast drew the biggest Sunday audience since the last Super Bowl.",
       body: ["Her second Chiefs game in eight days went prime-time: for the Oct. 1, 2023 Sunday Night Football matchup against the Jets at MetLife Stadium, she filled a box with Blake Lively, Ryan Reynolds, and Hugh Jackman while Kansas City held on to win 23-20. NBC had leaned in all week, cutting a game promo to \"Welcome to New York.\"", "The ratings validated the circus: nearly 27 million average viewers across platforms — 24.83 million on the TV broadcast alone, up 19% year-over-year and NBC's best of the season to that point — plus its largest-ever streaming audience for a regular-season Sunday game. The lifts skewed exactly where the cameras suggested: viewership among girls 12-17 jumped 53%, women 18-24 rose 24%, and women over 35 climbed 34%."],
       tags: ["Lore"],
-      images: [{ url: "https://variety.com/wp-content/uploads/2023/10/GettyImages-1712353673.jpg?w=1000&h=563&crop=1", credit: "Elsa/Getty Images", kind: "primary" }],
+      images: [{ url: "https://variety.com/wp-content/uploads/2023/10/GettyImages-1712353673.jpg?w=1000&h=563&crop=1", credit: "Elsa/Getty Images", kind: "primary", focalPoint: "44% 32%" }],
       sources: [{ name: "Variety", url: "https://variety.com/2023/music/news/taylor-swift-attends-travis-kelce-chiefs-jets-game-hugh-jackman-blake-lively-1235741837/" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/tv/tv-news/tv-ratings-sunday-oct-1-2023-1235606571/" }],
     },
     {
@@ -4079,7 +4088,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A Dion Lee corset top and bedazzled Area jeans, accessorized with jewelry stamped 87 — plus a red Erin Andrews bomber for team spirit.",
       body: ["Styled by Joseph Cassell Falconer for Feb. 11, 2024 at Allegiant Stadium, the outfit paired a Dion Lee corset-style crop top ($720) with Area's crystal-slit black jeans ($795) — which sold out almost immediately — under a $130 vintage-style red Chiefs windbreaker from Wear by Erin Andrews, the broadcaster's team-apparel line.", "The jewelry did the storytelling: over $16,000 worth, nearly all of it coded to Kelce. A custom Stephanie Gottlieb 14-karat necklace hung a diamond \"87\" pendant beside a $7,500 diamond tennis choker; ruby rings from Retrouvaí and Shala Karimi worked in the Chiefs red; and a custom Judith Leiber crystal clutch carried the 87 again. She watched from the suite with Blake Lively and Ice Spice as Kansas City won it in overtime."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1", credit: "Patrick T. Fallon/AFP via Getty Images", kind: "primary" }],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1996270243-copy.jpg?w=1296&h=730&crop=1", credit: "Patrick T. Fallon/AFP via Getty Images", kind: "primary", focalPoint: "51% 17%" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/what-taylor-swift-is-wearing-super-bowl-2024-1235822097/" }],
       milestone: { id: "m-mid-3c", label: "Super Bowl LVIII", kind: "life" },
       relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official", "moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie"],
@@ -4094,7 +4103,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She flew in from her Tokyo Eras Tour date to reach Super Bowl LVIII in time, arriving with Blake Lively and Ice Spice among her guests.",
       body: ["The logistics were global news for a week beforehand: four Eras Tour nights in Tokyo ended Saturday, Feb. 10, and Super Bowl LVIII kicked off in Las Vegas on Sunday, Feb. 11 — a 12-hour flight against a 17-hour time difference. Japan's embassy in Washington even issued a statement reassuring fans that \"if she departs Tokyo in the evening after her concert, she should comfortably arrive in Las Vegas before the Super Bowl begins.\" She did.", "At Allegiant Stadium — her 13th Chiefs game of the season, with her lucky number doing the math — she arrived with her mother Andrea, Blake Lively, and Ice Spice, and watched from a box that also held Jason and Donna Kelce and NFL commissioner Roger Goodell. Broadcast cameras caught her cheering and chugging her drink; after the overtime win she found Travis on the field for a long hug and several kisses."],
       tags: ["Lore"],
-      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-2003760399-copy.jpg?w=1296&h=730&crop=1", credit: "Getty Images", kind: "primary" }],
+      images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-2003760399-copy.jpg?w=1296&h=730&crop=1", credit: "Getty Images", kind: "primary", focalPoint: "62% 38%" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-attends-2024-super-bowl-travis-kelce-1235821940/" }],
     },
     {
@@ -4226,7 +4235,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A long-sleeve, mock-neck Roberto Cavalli crop top and matching skirt by designer Fausto Puglisi, covered edge to edge in silver and blue sequins and beads meant to read as a night sky — a direct nod to the Midnights album she was there representing.",
       body: ["Worn to the Feb. 5, 2023 ceremony at Crypto.com Arena, the custom Roberto Cavalli two-piece — designed by the house's Fausto Puglisi — was paired with statement earrings of diamonds, purple sapphires and turquoise-blue paraiba tourmalines from Lorraine Schwartz, coordinated blue eye makeup, and a matching blue manicure, with her regular team of stylist Joseph Cassell Falconer, hairstylist Jemma Muradian, and makeup artist Lorrie Turk behind the look.", "The design worked as a double reference: the midnight-blue base read as Midnights itself, while the scatter of silvery-white embellishment across the crop top and skirt was widely taken as a nod to \"Midnight Rain.\" Red Carpet Fashion Awards called the whole thing \"a fashion equivalent of a homerun\" — an album cover translated into eveningwear on the night Midnights' campaign hit the Grammys."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg", credit: "Getty Images", kind: "primary" }, { url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg", credit: "Getty Images", kind: "archival" }],
+      images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-Wore-Roberto-Cavalli-To-The-2023-Grammy-Awards.jpeg", credit: "Getty Images", kind: "primary", focalPoint: "53% 12%" }, { url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg", credit: "Getty Images", kind: "archival", focalPoint: "45% 25%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2023/02/06/taylor-swift-wore-roberto-cavalli-to-the-2023-grammy-awards/" }, { name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-roberto-cavalli-2023-grammy-awards-1235509202/" }],
     },
     {
@@ -4763,6 +4772,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A concert film breaks box-office records for the format.",
       body: ["Bypassing traditional studios, the concert film became the highest-grossing of its kind, extending the tour’s reach worldwide."],
       tags: ["Tour"],
+      images: [{ url: "https://i.abcnewsfe.com/a/64e8b004-20de-4b7b-9296-b1f46aac00ee/taylor-swift-01-ss-jt-231011_1697075963440_hpEmbed_1x1.jpg", credit: "Via ABC News", caption: "The world premiere at The Grove, Oct. 11, 2023 — where she announced the film would open a day early.", kind: "archival", focalPoint: "52% 22%" }],
       milestone: { id: "m-mid-3", label: "Eras Tour film", kind: "tour" },
     },
     {
@@ -4774,7 +4784,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "After weeks of stadium-suite appearances, Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.",
       body: ["After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs-Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves."],
       tags: ["Relationship"],
-      images: [{ url: "https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778", credit: "Gregory Harris/WSJ. Magazine", caption: "The WSJ. Magazine cover interview where Travis spoke to the relationship on the record.", kind: "primary" }],
+      images: [{ url: "https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778", credit: "Gregory Harris/WSJ. Magazine", caption: "The WSJ. Magazine cover interview where Travis spoke to the relationship on the record.", kind: "primary", focalPoint: "55% 28%" }],
       sources: [{ name: "WSJ. Magazine", url: "https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac" }],
       threadIds: ["the-proposal"],
     },
@@ -4891,7 +4901,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A crimson lipstick makeup artist Gucci Westman first put on her in 2009 hardened into a full-blown signature during Red — inseparable from the album's visual identity.",
       body: ["The origin story is specific: prepping a 2009 Allure cover shoot, Westman recalled, \"I remember I really wanted to do a red lip on her because I hadn't seen her in a red lip before.\" The resistance came from close to home — \"her mom, if I'm allowed to say this, was like, 'Well, Taylor doesn't wear red'\" — but Westman asked to try it anyway, and the shoot went ahead with the crimson lip.", "By the Red era, the bold red lip — paired with winged eyeliner and blunt bangs — had become one of the most recognizable pieces of Swift's image, as prominent in press photos as the album's title color itself. Looking back years later, with the red lip still turning up everywhere from the Eras Tour to the 2024 Grammys, Westman put it simply: \"Look at her now ... That was her first red.\""],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary", focalPoint: "48% 40%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-makeup-artist-red-lip-1235648989/" }],
     },
     {
@@ -4902,7 +4912,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A cream-and-white chiffon J. Mendel gown with silver beaded straps, paired with a loose, disheveled braid — soft and youthful instead of formal Old Hollywood.",
       body: ["The gown's silver straps did the job a statement necklace usually would. She paired it with Jimmy Choo heels and Lorraine Schwartz jewelry, and wore her hair in a loose \"Heidi braid\" instead of a formal updo — a look outlets at the time noted made the gown feel young and modern rather than pageant-y.", "The finishing touch was a sparkly manicure she applied herself moments before the event, and the night ended with hardware: Best Song Written for Visual Media, for \"Safe & Sound\" from The Hunger Games."],
       tags: ["Fashion"],
-      images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2013/02/10/51455457-a645-11e2-a3f0-029118418759/thumbnail/620x1005/cf494e8cba2e12a4982a8d12d080d3f7/161394430.jpg", credit: "CBS News", kind: "primary" }],
+      images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2013/02/10/51455457-a645-11e2-a3f0-029118418759/thumbnail/620x1005/cf494e8cba2e12a4982a8d12d080d3f7/161394430.jpg", credit: "CBS News", kind: "primary", focalPoint: "40% 14%" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/music/music-news/grammys-2013-taylor-swift-wears-j-mendel-gown-heidi-hair-poll-420170/" }],
     },
     {
@@ -5056,7 +5066,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Photographed rehearsing in all-black practice clothes with her hair in a messy ponytail, mid-choreography, just two days before the Red Tour's March 13, 2013 opening night in Omaha.",
       body: ["Photos published March 11, 2013 showed Swift running through choreography in practice gear ahead of the tour's opening week, caught mid-movement with one hand raised as though playing to an imaginary crowd — a rare glimpse of the unglamorous rehearsal process behind the tour's eventual 128-costume, arena-scale production.", "The experimentation was the point. Talking about the show she was building, Swift emphasized \"the element of surprise, and incorporating the unexpected\" — the goal being a concert that let the audience escape for the evening rather than a note-for-note album recital. Two days later in Omaha, the surprises started delivering, from mid-show costume reveals to the B-stage duet with Ed Sheeran."],
       tags: ["Lore"],
-      images: [{ url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-1.jpg?w=980&q=75", credit: "TSA / Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=75", credit: "TSA / Getty Images", kind: "archival" }],
+      images: [{ url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-1.jpg?w=980&q=75", credit: "TSA / Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=100", credit: "TSA / Getty Images", kind: "archival" }],
       sources: [{ name: "PopCrush", url: "https://popcrush.com/taylor-swift-red-tour-rehearsal-pics/" }],
     },
     {
@@ -5431,6 +5441,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A theatrical performance opens the ceremony and previews the tour’s scale.",
       body: ["Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle."],
       tags: ["Tour"],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2013110/634.2swift.show.ls.21013.jpg", credit: "Via E! News", caption: "The white ringmaster look that opened the 2013 Grammys — \"We Are Never Ever Getting Back Together\" as circus.", kind: "archival", focalPoint: "48% 20%" }, { url: "https://townsquare.media/site/204/files/2013/02/tay.jpg", credit: "Kevork Djansezian, Getty Images, via Taste of Country", caption: "In the white ringmaster suit and top hat, opening the 2013 Grammys with \"We Are Never Ever Getting Back Together.\"", kind: "primary", focalPoint: "45% 28%" }],
     },
     {
       id: "vault-red-everything-has-changed-duet",
@@ -7288,6 +7299,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The Life of a Showgirl is revealed live on Travis Kelce’s \"New Heights\" podcast — a hard turn from ink into glitter.",
       body: ["After the monochrome hush of the last era, the reveal comes not from a stage or a cryptic post but from a guest chair on her fiancé’s football podcast — itself a sign of how public the era would be.", "The announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle, reframing everything that came before as the build-up to a curtain call."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/M2lX9XESvDE/maxres1.jpg", credit: "New Heights (official episode frame, YouTube)", caption: "In the guest chair on New Heights: Taylor and Travis laughing mid-episode, with Jason on the split screen, the night the album was announced.", kind: "primary", focalPoint: "51% 32%" }],
       hiddenClue: { clue: "The announcement leaned hard on the color orange — a shade barely used before.", payoff: "Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow." },
       milestone: { id: "m-tloas-1", label: "Era announced", kind: "life" },
     },
@@ -7300,6 +7312,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The twelfth studio album arrives: opulent, theatrical, and unapologetically bright.",
       body: ["The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.", "Produced with Max Martin and Shellback — their first new-album collaboration with her since reputation — it is a victory lap dressed as a cabaret: knowing, warm, and dazzling."],
       tags: ["Music"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2025/08/02-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg", credit: "Mert Alas & Marcus Piggott / Republic Records, via Billboard", caption: "From the album press shoot: the ruby-crystal showgirl bodysuit, backstage-cabaret staging and all.", kind: "primary", focalPoint: "84% 14%" }],
       milestone: { id: "m-tloas-2", label: "Showgirl released", kind: "album" },
     },
     {
@@ -7311,6 +7324,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The self-directed lead-single video debuts on YouTube after its theatrical-only premiere two days earlier.",
       body: ["Written and directed by Taylor Swift, the video moves through a string of theatrical costume changes and sets, in keeping with the album’s showgirl framing.", "It had already premiered on the big screen as part of the release-party film before arriving on YouTube for the wider audience."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/ko70cExuzZM/maxres2.jpg", credit: "Taylor Swift / Republic Records (official \"The Fate of Ophelia\" video frame, YouTube)", caption: "The Busby Berkeley swim tableau from the self-directed video: aqua swim caps, life-ring set pieces, and Taylor front and center.", kind: "primary", focalPoint: "49% 35%" }],
       video: { youtubeId: "ko70cExuzZM", title: "Taylor Swift - The Fate of Ophelia (Official Music Video)" },
     },
     {
@@ -7332,6 +7346,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The album opens at number one with the fastest-selling first week in history.",
       body: ["The Life of a Showgirl moved north of 4 million album-equivalent units in its opening week, the biggest sales week any album has ever posted.", "It became her 15th number-one album on the Billboard 200, breaking a tie with Drake and Jay-Z for the most chart-toppers among solo acts."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2025/08/04-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg", credit: "Mert Alas & Marcus Piggott / Republic Records, via Billboard", caption: "The underwater shot from the album-cover session — the imagery that fronted the biggest sales week ever measured.", kind: "archival", focalPoint: "52% 42%" }],
       milestone: { id: "m-tloas-3", label: "Record debut", kind: "award" },
     },
     {
@@ -7343,6 +7358,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Every track on the album lands positions 1 through 12 of the Billboard Hot 100 — a first in chart history.",
       body: ["Led by \"The Fate of Ophelia\" at number one, the full tracklist swept the top of the Hot 100 with no other song breaking the streak.", "It was the first time in the chart’s history, dating back to the 1950s, that an entire album occupied every one of its top positions uninterrupted."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/2025/08/05-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg", credit: "Mert Alas & Marcus Piggott / Republic Records, via Billboard", caption: "Crowning the showgirl: the jeweled-headdress press image from the album shoot, as all twelve tracks locked up the top twelve spots.", kind: "archival", focalPoint: "48% 58%" }],
     },
     {
       id: "vault-tloas-opalite-arrives-as-the-second-single",
@@ -7353,6 +7369,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A time-slip music video follows a lonesome character through the 1990s toward a gem-hued reinvention.",
       body: ["The video for \"Opalite\" casts Taylor as a wistful, cat-loving figure decades removed from the stage, before the song’s glow pulls her back into color.", "Released as the second single, it kept the era’s pastel-orange visual thread going into the new year."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/1FVF-9KQiPo/maxres1.jpg", credit: "Taylor Swift / Republic Records (official \"Opalite\" video frame, YouTube)", caption: "From the \"Opalite\" video: Taylor points to the opal at her collarbone as the song pulls her character back into color.", kind: "primary", focalPoint: "51% 32%" }],
       video: { youtubeId: "1FVF-9KQiPo", title: "Taylor Swift - Opalite (Official Music Video)" },
     },
     {
@@ -7364,6 +7381,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The album’s third single, named for the screen icon, arrives at radio with its own official video.",
       body: ["The song went to US hot adult contemporary radio first, followed a day later by a contemporary hit radio push, extending the album’s single cycle five months after release.", "A \"So Glamorous Cabaret Version\" and full digital package followed later that month, keeping the showgirl motif alive well into 2026."],
       tags: ["Music", "Fashion"],
+      images: [{ url: "https://i.ytimg.com/vi/WqbJT_vC0rs/maxres3.jpg", credit: "Taylor Swift / Republic Records (official \"Elizabeth Taylor\" video frame, YouTube)", caption: "The video leans on archival footage of its namesake: Elizabeth Taylor in a violet headscarf, diamond flashing, seaside.", kind: "primary", focalPoint: "52% 40%" }],
       video: { youtubeId: "WqbJT_vC0rs", title: "Taylor Swift - Elizabeth Taylor (Official Music Video)" },
     },
   ],
@@ -8051,6 +8069,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A literary, ink-stained double album — the most word-heavy record of her career.",
       body: ["Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.", "Typewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet."],
       tags: ["Music"],
+      images: [{ url: "https://i.ytimg.com/vi/q3zqJs7JUCQ/maxres1.jpg", credit: "Taylor Swift / Republic Records (official \"Fortnight\" video frame, YouTube)", caption: "The album’s black-and-white world, distilled: Taylor in the \"Fortnight\" video that arrived with TTPD on release night.", kind: "primary", focalPoint: "47% 35%" }, { url: "https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Albatross-billboard-1548.jpg", credit: "Beth Garrabrant / Republic Records, via Billboard", caption: "The album package’s gray seaside portrait — the era’s black-and-white, ink-stained mood in one frame.", kind: "primary", focalPoint: "45% 28%" }],
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       milestone: { id: "m-ttpd-1", label: "TTPD released", kind: "album" },
     },

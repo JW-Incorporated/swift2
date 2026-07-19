@@ -359,6 +359,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
+            focalPoint: '48% 40%',
           },
         ],
       },
@@ -394,6 +395,7 @@ export default {
           {
             url: 'https://assets3.cbsnewsstatic.com/hub/i/r/2013/02/10/51455457-a645-11e2-a3f0-029118418759/thumbnail/620x1005/cf494e8cba2e12a4982a8d12d080d3f7/161394430.jpg',
             credit: 'CBS News',
+            focalPoint: '40% 14%',
           },
         ],
       },
@@ -862,7 +864,9 @@ export default {
             credit: 'TSA / Getty Images',
           },
           {
-            url: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=75',
+            // Karen #877 fix (2026-07-19): q=75 render was 7.9KB and flagged as a
+            // likely placeholder; same 980px render at q=100 verified + viewed.
+            url: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=100',
             credit: 'TSA / Getty Images',
           },
         ],
@@ -2143,6 +2147,30 @@ export default {
       snippet: "A theatrical performance opens the ceremony and previews the tour’s scale.",
       moment: {
         context: "Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle.",
+        // Photo pass #762 (2026-07-19): E! News' own CDN (akns-images.eonline
+        // .com, from E!'s night-of performance story); curl 200 image/jpeg
+        // 634x1024; Read-viewed: Swift mid-performance in the white ringmaster
+        // tailcoat and crystal top hat at the 2013 Grammys opener.
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013110/634.2swift.show.ls.21013.jpg',
+            credit: 'Via E! News',
+            caption: 'The white ringmaster look that opened the 2013 Grammys — "We Are Never Ever Getting Back Together" as circus.',
+            focalPoint: '48% 20%',
+          },
+          {
+            // Salvaged 2026-07-19 from photo-enrichment PR #886 (otherwise
+            // superseded by a racing run): a second, wider angle of the same
+            // performance from Taste of Country's CDN — credit line per that
+            // article. Re-verified 200 (image, 630x420, unwatermarked).
+            url: 'https://townsquare.media/site/204/files/2013/02/tay.jpg',
+            credit: 'Kevork Djansezian, Getty Images, via Taste of Country',
+            caption: 'In the white ringmaster suit and top hat, opening the 2013 Grammys with "We Are Never Ever Getting Back Together."',
+            kind: 'primary',
+            // Face upper-center-left.
+            focalPoint: '45% 28%',
+          },
+        ],
       },
     },
     {
