@@ -1772,6 +1772,16 @@ export default {
             kind: 'archival',
             focalPoint: '50% 18%',
           },
+          // Photo pass 2026-07-19 (defining-events-31-50): re-challenged —
+          // a paper-deal story between two private-equity transactions, so
+          // real photographable content is genuinely limited to the people
+          // and firms involved.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Roy_E._Disney.jpg',
+            credit: 'Towpilot, Wikimedia Commons (CC BY-SA 3.0)',
+            caption: 'Roy E. Disney, who founded Shamrock in 1978 — not personally involved in the 2020 deal, but the firm\'s namesake founder.',
+            kind: 'reference',
+          },
         ],
       },
     },

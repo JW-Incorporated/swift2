@@ -3126,6 +3126,28 @@ export default {
             kind: 'archival',
             focalPoint: '50% 45%',
           },
+          // Photo pass 2026-07-19 (defining-events-31-50): 3 more real,
+          // verified photos tied to the specific revenue drivers this
+          // item's own text breaks down (the tour, and 1989 (Taylor's
+          // Version), which posted its largest sales week the same month).
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109542801%29_%28cropped%29.jpg',
+            credit: 'Paolo V, Wikimedia Commons (CC BY 2.0)',
+            caption: 'The 1989 set at the same SoFi stand — the era whose Taylor\'s Version posted the biggest sales week of her career that same October.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/d/d5/Taylor_Swift_-_1989_%28Taylor%27s_Version%29.png',
+            credit: 'Republic Records (official cover art)',
+            caption: '1989 (Taylor\'s Version), released Oct. 27, 2023 — the record-week sales that landed the same month as the billionaire estimate.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/The_Eras_Tour_Logo.png',
+            credit: 'TAS Rights Management (official logo)',
+            caption: 'The Eras Tour\'s own branding — the touring revenue Bloomberg\'s breakdown weighted most heavily.',
+            kind: 'reference',
+          },
         ],
       },
     },
@@ -3174,6 +3196,20 @@ export default {
             credit: 'Taylor Swift Productions / AMC Theatres',
             caption: 'Promotional poster for Taylor Swift: The Eras Tour, the concert film that opened to a record $92.8 million domestic.',
             kind: 'primary',
+          },
+          // Photo pass 2026-07-19 (defining-events-31-50): 2 more real,
+          // verified photos of the opening weekend itself.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2023/10/taylor-swift-eras-movie-premiere-2023-billboard-1240.jpg',
+            credit: 'Getty Images, via Billboard',
+            caption: 'At the film\'s Los Angeles premiere, Oct. 11, 2023, two days before the record-setting opening weekend.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2023/10/Taylor-Swift-Eras-Tour-Movie-Opening-Night-Publicity-H-2023.jpg?w=1296&h=730&crop=1',
+            credit: 'Getty Images, via The Hollywood Reporter',
+            caption: 'Opening night at the TCL Chinese Theatre in Hollywood — the costumed, dancing audiences that drove the box office.',
+            kind: 'archival',
           },
         ],
       },
