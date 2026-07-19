@@ -2,7 +2,7 @@
 // Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.
 // Re-run that script after content-seed changes; don't edit this file directly.
 
-import type { ContentTag, EraId, ImageRef, LensId } from './types';
+import type { Confidence, ContentTag, EraId, ImageRef, LensId, RumorNote } from './types';
 
 type VaultRawItem = {
   id: string;
@@ -19,6 +19,8 @@ type VaultRawItem = {
   relatedIds?: string[];
   threadIds?: LensId[];
   significance?: 'defining' | 'notable';
+  confidence?: Confidence;
+  rumors?: RumorNote[];
 };
 
 export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
@@ -6327,6 +6329,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100", credit: "AP Photo/Robert F. Bukaty, via Fortune", caption: "A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation.", kind: "primary", focalPoint: "52% 45%" }, { url: "https://twt-thumbs.washtimes.com/media/image/2026/06/21/Swift_Wedding_Speculation_6953__c0-242-5784-3614_s885x516.jpg?18921fe33b20ba0427c28b6eeae09fd9ded1b3cc", credit: "AP Photo/Robert F. Bukaty, via The Washington Times", caption: "A security guard stands watch at Swift's Watch Hill \"Holiday House\" estate, June 20, 2026.", kind: "primary", focalPoint: "18% 40%" }],
       sources: [{ name: "TMZ", url: "https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/" }],
+      confidence: "reputable_reporting",
     },
     {
       id: "vault-tloas-taylor-and-travis-marry-at-madison-square-garden",
@@ -6341,6 +6344,15 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "CBS News", url: "https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-day-madison-square-garden-nyc/" }, { name: "Billboard", url: "https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/" }],
       relatedIds: ["moment:vault-midnights-the-game-the-world-decided-made-it-official"],
       significance: "defining",
+      rumors: [
+        { claim: "Sources close to the wedding told TMZ a massive white castle was being assembled inside a garden built on the arena floor — crews were filmed craning in a giant white staircase, and scenic crates arrived labeled \"Garden Party.\"", reportedBy: "TMZ", reportedOn: "2026-06-30", status: "unconfirmed", url: "https://www.tmz.com/2026/06/30/taylor-swift-travis-kelce-building-castle-for-wedding-celebration/", note: "No photos from inside the Garden have ever been released, so what the build-out actually looked like remains unconfirmed." },
+        { claim: "Reports put the cost of hiring Madison Square Garden at roughly $3 million for three days — one to set up, one to marry, one to break it all down.", reportedBy: "Hello!", reportedOn: "2026-07-02", status: "unconfirmed", url: "https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/", note: "An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure." },
+        { claim: "Pre-wedding reporting named Gigi Hadid and Selena Gomez as the only two confirmed members of the bridal party.", reportedBy: "Harper's Bazaar (via Fox News)", reportedOn: "2026-06-29", status: "debunked", url: "https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party", note: "There was no bridal party at all: per CBS News, no bridesmaids or groomsmen — Austin Swift stood as Man of Honor and Jason Kelce as best man." },
+        { claim: "Page Six reported invitations had gone to Zoë Kravitz, Ed Sheeran, the Haim sisters and Suki Waterhouse, within a rumored A-list roster running from Selena Gomez to Bradley Cooper — while Blake Lively and Karlie Kloss were reportedly out.", reportedBy: "Page Six (via Fox News)", reportedOn: "2026-06-29", status: "partially_confirmed", url: "https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party", note: "Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published." },
+        { claim: "The Daily Mail reported that save-the-date invitations came bundled with non-disclosure agreements guests had to sign.", reportedBy: "Daily Mail (via Hello!)", reportedOn: "2026-07-02", status: "debunked", url: "https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/", note: "Graham Norton — whose on-air NDA remark fueled the story — later clarified he had been joking." },
+        { claim: "Ed Sheeran was widely rumored to perform at the reception, fueled by Taylor's own October 2025 radio quip that \"it would be hard to keep him from it.\"", reportedBy: "Hello!", reportedOn: "2026-07-02", status: "unconfirmed", url: "https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/", note: "The only reception performance confirmed by post-wedding reporting was Stevie Nicks, per CBS News." },
+        { claim: "Viral posts claimed to show real photos from inside the ceremony — including \"first looks\" at the gown.", reportedBy: "Snopes (fact check)", reportedOn: "2026-07-09", status: "debunked", url: "https://www.snopes.com/news/2026/07/09/swift-kelce-wedding-photos/", note: "Snopes found the circulating images were AI-generated fakes; no official photos of the ceremony or reception have been released." },
+      ],
     },
     {
       id: "vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep",
@@ -6353,6 +6365,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG", credit: "MGM trailer still, public domain (published without copyright notice) via Wikimedia Commons", caption: "For reference — no official photo of Taylor Swift's gown has been released. This is Elizabeth Taylor in the Helen Rose bridal look from Father of the Bride (1950); Rose also designed the real gown Elizabeth Taylor wore to marry Conrad Hilton that May, the dress the Dior design reportedly references.", kind: "reference", focalPoint: "47% 38%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/9/95/Dress_by_Jonathan_Anderson_for_Loewe_%2851444%29.jpg", credit: "Rhododendrites / CC BY-SA 4.0 via Wikimedia Commons", caption: "For reference — not the wedding gown. Jonathan Anderson working in white duchess silk satin at Loewe (autumn/winter 2023-24), before he took over Dior womenswear and haute couture — a feel for the designer's hand in bridal-adjacent white silk.", kind: "reference", focalPoint: "50% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f7/Christian_Dior%2C_30_Avenue_Montaigne%2C_Paris_2016.jpg", credit: "Frédéric BISSON / CC BY 2.0 via Wikimedia Commons", caption: "For reference — Dior's historic house at 30 Avenue Montaigne, Paris, home of the haute couture ateliers where the custom gown was made.", kind: "reference", focalPoint: "50% 45%" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-wedding-dress-dior-jonathan-anderson-2-1236637523/" }, { name: "Marie Claire", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-wedding-dress-details/" }, { name: "Jonathan Anderson will lead fashion at Dior", url: "https://www.fashiondive.com/news/jonathan-anderson-dior-creative-director-haute-couture-mens-womens/749569/" }, { name: "Marriage and Movies: The Real-Life Romance That Promoted 'Father of the Bride'", url: "https://elizabethtaylor.com/marriage-and-movies-the-real-life-romance-that-promoted-father-of-the-bride/" }, { name: "Wikimedia Commons (file page — Elizabeth Taylor, Father of the Bride trailer)", url: "https://commons.wikimedia.org/wiki/File:Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG" }, { name: "Wikimedia Commons (file page — Jonathan Anderson dress for Loewe)", url: "https://commons.wikimedia.org/wiki/File:Dress_by_Jonathan_Anderson_for_Loewe_(51444).jpg" }, { name: "Wikimedia Commons (file page — Dior, 30 Avenue Montaigne)", url: "https://commons.wikimedia.org/wiki/File:Christian_Dior,_30_Avenue_Montaigne,_Paris_2016.jpg" }],
+      confidence: "reputable_reporting",
     },
     {
       id: "vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto",
