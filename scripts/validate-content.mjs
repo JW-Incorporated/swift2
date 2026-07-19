@@ -199,6 +199,46 @@ for (const { file, data } of loaded) {
     if (!(it.sourceUrl || it.moment?.sources?.length > 0))
       warn('no sourceUrl and no moment.sources (link-first model)');
 
+    // Shoppable products (moment.products — see Product in
+    // apps/web/lib/longlive/types.ts). Hard errors, not warnings: a malformed
+    // row is silently dropped by sync-longlive-content.mjs's productsFrom()
+    // (fails closed, nothing broken ships), so — same reasoning as threadIds
+    // — this check is the only loud signal an authoring mistake gets.
+    if (it.moment?.products != null) {
+      if (!Array.isArray(it.moment.products)) err('moment.products must be an array');
+      else
+        it.moment.products.forEach((p, pi) => {
+          const pAt = `products[${pi}]`;
+          if (!p || typeof p !== 'object') return err(`${pAt} is not an object`);
+          for (const field of ['brand', 'item', 'retailer', 'url']) {
+            if (!(typeof p[field] === 'string' && p[field].trim())) err(`${pAt} missing required string "${field}"`);
+          }
+          if (typeof p.url === 'string' && p.url && !/^https:\/\//.test(p.url)) err(`${pAt} url must be a direct https product page (got "${p.url}")`);
+          // Search-page heuristic: a /search path segment or a classic search
+          // query key. Deliberately NOT matching a bare `s=` param — boutiques
+          // legitimately use ?s= for size/SKU on product pages.
+          if (typeof p.url === 'string' && /\/search\b|[?&](q|query|search|keyword|searchterm)=/i.test(p.url)) err(`${pAt} url looks like a SEARCH page, not a product detail page — shop links must point at the exact product`);
+          if (typeof p.retailer === 'string' && p.retailer && !/^[a-z0-9.-]+\.[a-z]{2,}$/.test(p.retailer)) err(`${pAt} retailer "${p.retailer}" must be a bare lowercase hostname (e.g. "ralphlauren.com") — it is the affiliate-routing key`);
+          // retailer is the affiliate-routing key buildShopUrl() will branch
+          // on — silent drift from the url's real host (copy a row, edit the
+          // url, forget retailer) would wrap the link for the WRONG partner
+          // program once affiliate goes live, with every gate green. So the
+          // two must agree at authoring time: retailer equals the url host
+          // (minus www.) or a parent domain of it (us.louisvuitton.com ↔
+          // louisvuitton.com).
+          if (typeof p.url === 'string' && typeof p.retailer === 'string' && /^https:\/\//.test(p.url) && p.retailer) {
+            try {
+              const host = new URL(p.url).hostname.toLowerCase().replace(/^www\./, '');
+              if (host !== p.retailer && !host.endsWith(`.${p.retailer}`)) err(`${pAt} retailer "${p.retailer}" does not match the url's host "${host}" — the affiliate-routing key must agree with the actual link destination`);
+            } catch {
+              err(`${pAt} url "${p.url}" is not a parseable URL`);
+            }
+          }
+          if (p.price != null && !(typeof p.price === 'string' && p.price.trim())) err(`${pAt} price must be a non-empty display string (e.g. "$319.99") when present`);
+          if (p.inStock != null && typeof p.inStock !== 'boolean') err(`${pAt} inStock must be a boolean when present`);
+        });
+    }
+
     if (it.threadIds != null) {
       if (!Array.isArray(it.threadIds)) err('threadIds must be an array');
       else

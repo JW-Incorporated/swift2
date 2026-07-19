@@ -6,6 +6,7 @@ import {
   buildOutputSource,
   confidenceFrom,
   imagesFrom,
+  productsFrom,
   rumorsFrom,
   significanceFrom,
   threadIdsFrom,
@@ -146,6 +147,53 @@ describe('significanceFrom', () => {
   });
 });
 
+describe('productsFrom', () => {
+  const dress = {
+    brand: 'Polo Ralph Lauren',
+    item: 'Striped Silk-Blend Day Dress',
+    retailer: 'ralphlauren.com',
+    url: 'https://www.ralphlauren.com/some-dress',
+  };
+
+  it('passes a well-formed product through, omitting absent price/inStock', () => {
+    expect(productsFrom([dress])).toEqual([
+      { ...dress, price: undefined, inStock: undefined },
+    ]);
+  });
+
+  it('carries price and an explicit inStock: false', () => {
+    expect(productsFrom([{ ...dress, price: '$319.99', inStock: false }])).toEqual([
+      { ...dress, price: '$319.99', inStock: false },
+    ]);
+  });
+
+  it('normalizes inStock: true to omitted (only sold-out is exceptional)', () => {
+    expect(productsFrom([{ ...dress, inStock: true }])?.[0].inStock).toBeUndefined();
+  });
+
+  it('drops rows missing any required field or with a non-https url', () => {
+    expect(
+      productsFrom([
+        { ...dress, brand: '' },
+        { ...dress, item: undefined },
+        { ...dress, retailer: '   ' },
+        { ...dress, url: 'ralphlauren.com/no-protocol' },
+        // https-only, same rule validate-content.mjs enforces loudly — the
+        // two layers must never drift (review 2026-07-19).
+        { ...dress, url: 'http://www.ralphlauren.com/some-dress' },
+        null,
+        'nope',
+      ]),
+    ).toBeUndefined();
+  });
+
+  it('returns undefined for a non-array or empty array (field omitted)', () => {
+    expect(productsFrom(null)).toBeUndefined();
+    expect(productsFrom(undefined)).toBeUndefined();
+    expect(productsFrom([])).toBeUndefined();
+  });
+});
+
 describe('confidenceFrom', () => {
   it('passes through the shared confidence values', () => {
     expect(confidenceFrom('reputable_reporting')).toBe('reputable_reporting');
@@ -218,6 +266,16 @@ describe('buildOutputSource', () => {
       threadIds: ['taylors-version'],
       video: { youtubeId: 'abc123', title: 'A video' },
       relatedIds: ['moment:some-other-item'],
+      products: [
+        {
+          brand: 'Polo Ralph Lauren',
+          item: 'Striped Silk-Blend Day Dress',
+          retailer: 'ralphlauren.com',
+          url: 'https://www.ralphlauren.com/some-dress',
+          price: '$319.99',
+          inStock: false,
+        },
+      ],
       confidence: 'reputable_reporting',
       rumors: [
         {
@@ -238,6 +296,9 @@ describe('buildOutputSource', () => {
     expect(source).toContain('sources: [{ name:');
     expect(source).toContain('video: { youtubeId: "abc123", title: "A video" }');
     expect(source).toContain('relatedIds: ["moment:some-other-item"]');
+    expect(source).toContain(
+      'products: [{ brand: "Polo Ralph Lauren", item: "Striped Silk-Blend Day Dress", retailer: "ralphlauren.com", url: "https://www.ralphlauren.com/some-dress", price: "$319.99", inStock: false }]',
+    );
     expect(source).toContain('confidence: "reputable_reporting"');
     expect(source).toContain(
       '{ claim: "A reported claim.", reportedBy: "TMZ", reportedOn: "2026-06-30", status: "unconfirmed", url: "https://example.com/report", note: "An estimate." },',
@@ -266,5 +327,11 @@ describe('buildOutputSource', () => {
   it('declares significance on the generated VaultRawItem type, not just the values', () => {
     const source = buildOutputSource({});
     expect(source).toContain("significance?: 'defining' | 'notable';");
+  });
+
+  it('declares products on the generated VaultRawItem type and imports the Product type', () => {
+    const source = buildOutputSource({});
+    expect(source).toContain('products?: Product[];');
+    expect(source).toMatch(/import type \{.*Product.*\} from '\.\/types';/);
   });
 });

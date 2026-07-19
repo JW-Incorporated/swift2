@@ -2386,6 +2386,39 @@ export default {
             focalPoint: '52% 46%',
           },
         ],
+        // Shop-the-look pilot (2026-07-19, feat/shoppable-links — grafted here
+        // in merge review: the worker authored these on the old TTPD copy of
+        // this moment, which was relocated to this era before its PR landed).
+        products: [
+          {
+            brand: 'Polo Ralph Lauren',
+            item: 'Striped Silk-Blend Dress (1932 Stripe White & Black)',
+            retailer: 'revolve.com',
+            // Verified 2026-07-19: live single-product page (builder verified
+            // via rendered fetch; independently corroborated in review via
+            // search — same product listed at Neiman Marcus/Bloomingdale's).
+            // Shows $398, "Sold Out" in all sizes — hence inStock: false.
+            // Named as the exact engagement dress by Rolling Stone / PureWow.
+            // Ralph Lauren's own page sits behind a PerimeterX wall, so the
+            // verified Revolve page is the link.
+            url: 'https://www.revolve.com/polo-ralph-lauren-striped-silkblend-dress-in-1932-stripe-white-black/dp/PLOR-WD21/',
+            price: '$398',
+            inStock: false,
+          },
+          // NOT added, per the never-fabricate/never-dead-link rule
+          // (2026-07-19 verification pass):
+          //   - Louis Vuitton "LV Isola Sandal" (exact model per WWD): every
+          //     LV domain answers HTTP 403 to verification, and LV sells
+          //     first-party only — no verifiable page exists from CI.
+          //   - Cartier diamond watch (a Santos Demoiselle per Esquire):
+          //     discontinued ~2014, no cartier.com product page; linking the
+          //     current Panthère would be a wrong-product substitution.
+          // Having any products dequeues this moment from the
+          // fashion-products checker (by design — the two unlinkable items
+          // genuinely have no product pages, so re-queueing would waste
+          // Stylist runs). The Stylist's MAINTAIN pass re-checks existing
+          // product moments and can add these if pages ever surface.
+        ],
       },
     },
     // --- Deep timeline fill (2026-07-08, content/deep-d): song stories, the
