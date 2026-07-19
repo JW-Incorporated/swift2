@@ -190,6 +190,10 @@ export default {
       month: 4,
       day: 23,
       category: 'tour',
+      significance: 'notable', // her first-ever headlining tour, launching a 118-show run — real but not on the site's defining tier next to the Eras Tour opening (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-fear-0", label: "Fearless Tour opens", kind: "tour" },
       title: 'The Fearless Tour opens to a sold-out crowd in 30 seconds',
       snippet:
         "Evansville, Indiana gave her the key to the city and declared it \"Taylor Swift Day\" — the start of her first-ever headlining tour.",
@@ -203,10 +207,59 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Fearless_Tour' },
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/' },
         ],
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added, all Wikimedia
+        // Commons "Fearless Tour" uploads — curl-verified 200 + image/jpeg,
+        // downloaded and visually confirmed this session. No freely licensed
+        // photo of the actual April 23, 2009 Evansville opener exists on
+        // Commons, so these are the same 2009-10 tour's other stops (kept
+        // 'archival'/'reference', not 'primary').
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg',
             credit: 'Wikimedia Commons',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
+            credit: 'calmdownlove / Wikimedia Commons, CC BY 2.0',
+            caption: 'The full band on the tour\'s round center stage, with a live jumbotron feed behind them, Portland.',
+            kind: 'reference',
+            focalPoint: '40% 60%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg',
+            credit: 'calmdownlove / Wikimedia Commons, CC BY 2.0',
+            caption: 'A gold sequined dress and cowboy boots, fist raised mid-song, Portland.',
+            kind: 'archival',
+            focalPoint: '25% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/47/Taylor_Swift_-_B-stage_-_Newark_-_Fearless_Tour_2010.jpg',
+            credit: 'Alexanhalasan / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Seated on the B-stage in a teal dress and embroidered boots, her hand-painted "13" visible while playing acoustic guitar, Newark, May 13, 2010.',
+            kind: 'archival',
+            focalPoint: '35% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/a/a8/Taylor_Swift%2C_Fearless_tour%2C_Australia%2C_2010.jpg',
+            credit: 'Soth Loeu / Wikimedia Commons, CC BY-SA 3.0',
+            caption: 'A silver fringed dress during the tour\'s Australian leg, 2010.',
+            kind: 'archival',
+            focalPoint: '48% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Taylor_Swift_-_Fearless_Tour_-_Foxboro_01.jpg',
+            credit: 'Mealtedheadaches / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'A white-and-gold majorette-style costume with a plumed hat for the tour\'s marching-band segment, Foxboro.',
+            kind: 'archival',
+            focalPoint: '45% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_Fearless_Tour_01.jpg',
+            credit: 'WEZL / Wikimedia Commons, CC BY 2.0',
+            caption: 'A black rock-styled outfit with electric guitar, flanked by her full band.',
+            kind: 'reference',
+            focalPoint: '42% 55%',
           },
         ],
       },

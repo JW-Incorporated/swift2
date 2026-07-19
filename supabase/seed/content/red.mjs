@@ -247,6 +247,7 @@ export default {
       month: 3,
       day: 13,
       category: 'tour',
+      significance: 'notable', // her first arena-to-stadium-scale headlining run at the height of Red, but not a record-setting tour opening on the site's defining tier (docs/decisions.md, 2026-07-19)
       title: 'The Red Tour opens with Ed Sheeran in Omaha',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -266,10 +267,59 @@ export default {
             url: 'https://www.billboard.com/music/music-news/taylor-swift-opens-red-tour-in-omaha-1552195/',
           },
         ],
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added, all Wikimedia
+        // Commons "The Red Tour" uploads — curl-verified 200 + image/jpeg,
+        // downloaded and visually confirmed this session. No freely licensed
+        // photo of the actual March 13, 2013 Omaha opener exists on Commons, so
+        // these are the tour's other 2013 stops (same costumes/staging, kept as
+        // 'archival'/'reference' rather than 'primary' for that reason).
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg/500px-Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg',
             credit: 'Wikimedia Commons',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Taylor_Swift_-_Red_Tour_06.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'The opening-number look — a black bowler hat and cream lace top — from an April 2013 tour stop.',
+            kind: 'archival',
+            focalPoint: '46% 28%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Taylor_Swift_-_Red_Tour_13.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'In the black-and-cream ballgown worn for the tour\'s acoustic segment, April 2013.',
+            kind: 'archival',
+            focalPoint: '48% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Taylor_Swift_-_Red_Tour_15.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'The red-and-white "State of Grace" opening costume, with bassist Amos Heller, April 2013.',
+            kind: 'archival',
+            focalPoint: '42% 32%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Taylor_Swift_-_Red_Tour_19.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'The red sequined ringmaster jacket from the tour\'s circus-themed opening number, April 2013.',
+            kind: 'archival',
+            focalPoint: '48% 22%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Taylor_Swift_-_Red_Tour_09.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'The full circus-costumed ensemble behind her during the ringmaster-jacket opening number, April 2013.',
+            kind: 'archival',
+            focalPoint: '55% 45%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
+            credit: 'Selbe Lynn / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'A wide shot of the elevated B-stage catwalk during the acoustic "Begin Again" set, Tacoma Dome, Aug. 31, 2013.',
+            kind: 'reference',
+            focalPoint: '48% 40%',
           },
         ],
       },
@@ -1973,10 +2023,16 @@ export default {
     },
     {
       slug: 'red-taylors-version-number-one',
+      threadIds: ['taylors-version'],
       year: 2021,
       month: 11,
       day: 21,
       category: 'business',
+      significance: 'notable', // a real chart record (fastest to four #1s, breaking a 46-year-old Elton John mark), but one of four TV chart debuts rather than a career-wide top-40 event (docs/decisions.md, 2026-07-19)
+      // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
+      // now come from these markers — legacy id kept for stability.
+      milestone: { id: "m-red-3", label: "Red (TV) opens at #1", kind: "album" },
+      relatedIds: ['moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
       title: 'Red gets its do-over: Red (Taylor\'s Version) opens at No. 1',
       snippet:
         "Nine years later, the re-recording debuted atop the Billboard 200 with 605,000 units — 2021's biggest sales week for any album to that point, her tenth No. 1, and the fastest run to four chart-toppers by a solo artist, breaking Elton John's 1975 record.",
