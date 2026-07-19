@@ -3517,6 +3517,29 @@ export default {
       hiddenClue: { clue: "The announcement leaned hard on the color orange — a shade barely used before.", payoff: "Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow." },
       moment: {
         context: "After the monochrome hush of the last era, the reveal comes not from a stage or a cryptic post but from a guest chair on her fiancé’s football podcast — itself a sign of how public the era would be.\n\nThe announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle, reframing everything that came before as the build-up to a curtain call.",
+        // Photos added 2026-07-19 (photo-enrichment, #762): same event as the
+        // enriched 'showgirl-announced-on-new-heights' page — both frames
+        // re-downloaded and viewed this run; focal points set by eye.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/M2lX9XESvDE/maxresdefault.jpg',
+            credit: 'New Heights with Jason & Travis Kelce (official YouTube episode thumbnail)',
+            caption:
+              'The thumbnail of the New Heights episode where album No. 12 was revealed — Swift between Travis and Jason Kelce, holding The Life of a Showgirl artwork.',
+            kind: 'primary',
+            // Her face sits top-center between the two Kelces.
+            focalPoint: '50% 22%',
+          },
+          {
+            url: 'https://media-cldnry.s-nbcnews.com/image/upload/t_fit-1240w,f_auto,q_auto:best/rockcms/2025-08/250814-travis-kelce-taylor-swift-16x9-mn-1200-675781.jpg',
+            credit: 'New Heights, via NBC News',
+            caption:
+              'Mid-episode at the New Heights desk, Aug. 13, 2025 — her first-ever podcast appearance, on the show where the album was announced.',
+            kind: 'archival',
+            // She is on the right half of the two-shot, face upper-right.
+            focalPoint: '68% 30%',
+          },
+        ],
       },
     },
     {
@@ -3534,6 +3557,29 @@ export default {
       snippet: "The twelfth studio album arrives: opulent, theatrical, and unapologetically bright.",
       moment: {
         context: "The album trades diary pages for the stage — feathers, footlights, and the glittering armor of a performer who has seen it all.\n\nProduced with Max Martin and Shellback — their first new-album collaboration with her since reputation — it is a victory lap dressed as a cabaret: knowing, warm, and dazzling.",
+        // Photos added 2026-07-19 (photo-enrichment, #762): same event as the
+        // enriched 'showgirl-release-day' page; both re-downloaded and viewed
+        // this run; focal points set by eye.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
+            credit: 'Album cover photographed by Mert Alas & Marcus Piggott / Republic Records, via Wikipedia',
+            caption:
+              'The official album cover: Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia beneath the orange-glitter title.',
+            kind: 'primary',
+            // Face upper-center-right of the square cover.
+            focalPoint: '55% 22%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg?w=942&h=628&crop=1',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption:
+              'A press image from the album shoot: full showgirl regalia — headpiece, rhinestones, and feathered sleeves against the theater\'s red curtain.',
+            kind: 'archival',
+            // Face top-center of the landscape frame.
+            focalPoint: '53% 15%',
+          },
+        ],
       },
     },
     {
@@ -3549,6 +3595,29 @@ export default {
       video: { youtubeId: "ko70cExuzZM", title: "Taylor Swift - The Fate of Ophelia (Official Music Video)" },
       moment: {
         context: "Written and directed by Taylor Swift, the video moves through a string of theatrical costume changes and sets, in keeping with the album’s showgirl framing.\n\nIt had already premiered on the big screen as part of the release-party film before arriving on YouTube for the wider audience.",
+        // Photos added 2026-07-19 (photo-enrichment, #762): official video
+        // thumbnail (higher-res variant of the frame already verified on the
+        // 'fate-of-ophelia-lead-single' page) + the single artwork; both
+        // downloaded and viewed this run; focal points set by eye.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/ko70cExuzZM/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official music video thumbnail, YouTube)',
+            caption:
+              'The video\'s red-feathered cabaret number — one of the theatrical set pieces from the self-written, self-directed premiere.',
+            kind: 'primary',
+            // Face upper-center amid the red plumes.
+            focalPoint: '52% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/09/Taylor_Swift_%E2%80%93_The_Fate_of_Ophelia_%28CD_single_cover%29.png',
+            credit: 'CD single artwork / Republic Records, via Wikipedia',
+            caption: 'The official single artwork for "The Fate of Ophelia."',
+            kind: 'archival',
+            // She stands left of center at the dressing-room mirror.
+            focalPoint: '38% 22%',
+          },
+        ],
       },
     },
     {
@@ -3580,6 +3649,28 @@ export default {
       snippet: "The album opens at number one with the fastest-selling first week in history.",
       moment: {
         context: "The Life of a Showgirl moved north of 4 million album-equivalent units in its opening week, the biggest sales week any album has ever posted.\n\nIt became her 15th number-one album on the Billboard 200, breaking a tie with Drake and Jay-Z for the most chart-toppers among solo acts.",
+        // Photos added 2026-07-19 (photo-enrichment, #762): same event as the
+        // enriched 'showgirl-four-million-week' page; both re-downloaded and
+        // viewed this run; focal points set by eye.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg?w=942&h=628&crop=1',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption:
+              'The album-shoot press image Billboard ran with the record chart week: 4-million-plus units, the biggest sales week ever measured.',
+            kind: 'primary',
+            // Face top-center of the landscape frame.
+            focalPoint: '53% 15%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
+            credit: 'Album cover photographed by Mert Alas & Marcus Piggott / Republic Records, via Wikipedia',
+            caption: 'The album behind the fastest-selling first week in history.',
+            kind: 'archival',
+            // Face upper-center-right of the square cover.
+            focalPoint: '55% 22%',
+          },
+        ],
       },
     },
     {
@@ -3594,6 +3685,29 @@ export default {
       snippet: "Every track on the album lands positions 1 through 12 of the Billboard Hot 100 — a first in chart history.",
       moment: {
         context: "Led by \"The Fate of Ophelia\" at number one, the full tracklist swept the top of the Hot 100 with no other song breaking the streak.\n\nIt was the first time in the chart’s history, dating back to the 1950s, that an entire album occupied every one of its top positions uninterrupted.",
+        // Photos added 2026-07-19 (photo-enrichment, #762): same event as the
+        // enriched 'showgirl-hot-100-top-12-sweep' page; both re-downloaded
+        // and viewed this run; focal points set by eye.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/10/taylor-swift-2025-cr-Mert-Alas-Marcus-Piggot-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott / TAS Rights Management, via Billboard',
+            caption:
+              'A Showgirl-era portrait by the album\'s photographers — run with Billboard\'s coverage of the week the tracklist WAS the top 12.',
+            kind: 'primary',
+            // Low-angle shot; face top-center of the frame.
+            focalPoint: '48% 13%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/0/09/Taylor_Swift_%E2%80%93_The_Fate_of_Ophelia_%28CD_single_cover%29.png',
+            credit: 'Single artwork / Republic Records, via Wikipedia',
+            caption:
+              '"The Fate of Ophelia" single artwork — the song that led the wall-to-wall occupation of the Hot 100\'s top 12 from No. 1.',
+            kind: 'archival',
+            // She stands left of center at the dressing-room mirror.
+            focalPoint: '38% 22%',
+          },
+        ],
       },
     },
     {
@@ -3609,6 +3723,29 @@ export default {
       video: { youtubeId: "1FVF-9KQiPo", title: "Taylor Swift - Opalite (Official Music Video)" },
       moment: {
         context: "The video for \"Opalite\" casts Taylor as a wistful, cat-loving figure decades removed from the stage, before the song’s glow pulls her back into color.\n\nReleased as the second single, it kept the era’s pastel-orange visual thread going into the new year.",
+        // Photos added 2026-07-19 (photo-enrichment, #762): video still + single
+        // artwork, both already verified on the enriched
+        // 'opalite-second-number-one' page; re-downloaded and viewed this run;
+        // focal points set by eye.
+        photos: [
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2026/02/taylor-swift-opalite-republic-records-screenshot-billboard-1800.jpg',
+            credit: 'Republic Records (video still), via Billboard',
+            caption:
+              'The video\'s 1990s character — butterfly clips and a glitter-dusted collarbone — from the "Opalite" time-slip storyline.',
+            kind: 'primary',
+            // Close-up; face fills the upper-center of the frame.
+            focalPoint: '50% 32%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/9/92/Taylor_Swift_-_Opalite.png',
+            credit: 'Single artwork / Republic Records, via Wikipedia',
+            caption: 'The official single artwork for "Opalite."',
+            kind: 'archival',
+            // Mid-dance pose; face upper-center of the square cover.
+            focalPoint: '46% 24%',
+          },
+        ],
       },
     },
     {
@@ -3625,6 +3762,22 @@ export default {
       video: { youtubeId: "WqbJT_vC0rs", title: "Taylor Swift - Elizabeth Taylor (Official Music Video)" },
       moment: {
         context: "The song went to US hot adult contemporary radio first, followed a day later by a contemporary hit radio push, extending the album’s single cycle five months after release.\n\nA \"So Glamorous Cabaret Version\" and full digital package followed later that month, keeping the showgirl motif alive well into 2026.",
+        // Photo added 2026-07-19 (photo-enrichment, #762): official video
+        // thumbnail already verified on the 'elizabeth-taylor-video-archival'
+        // page; re-downloaded and viewed this run; focal point set by eye.
+        // Kept to one image: the other candidates on cited outlets are stills
+        // of Elizabeth Taylor's films already used on the archival page.
+        photos: [
+          {
+            url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxresdefault.jpg',
+            credit: 'Taylor Swift / Republic Records (official "Elizabeth Taylor" music video thumbnail, YouTube)',
+            caption:
+              'The official "Elizabeth Taylor" video that accompanied the single\'s radio push — a supercut built from the real Elizabeth Taylor\'s films and newsreels.',
+            kind: 'primary',
+            // The archival close-up's eyes sit just above center frame.
+            focalPoint: '55% 40%',
+          },
+        ],
       },
     },
   ],

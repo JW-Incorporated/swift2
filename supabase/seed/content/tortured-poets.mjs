@@ -3163,6 +3163,29 @@ export default {
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       moment: {
         context: "Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.\n\nTypewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet.",
+        // Photos added 2026-07-19 (photo-enrichment, #762): cover + album-shoot
+        // frame already verified on the enriched 'ttpd-billboard-200-debut'
+        // page; both re-downloaded and viewed this run; focal points set by eye.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            credit: 'Album cover photographed by Beth Garrabrant / Republic Records, via Wikipedia',
+            caption:
+              'The Tortured Poets Department cover, shot by Beth Garrabrant — monochrome, bed-bound, and bare of ornament.',
+            kind: 'primary',
+            // Reclining figure occupies the middle of the square cover.
+            focalPoint: '48% 50%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2024/04/Taylor-Swift-cr-Beth-Garrabrant-2024-The-Black-Dog-billboard-1548.jpg?w=1024',
+            credit: 'Beth Garrabrant (via Billboard)',
+            caption:
+              'From the TTPD album shoot — the black-and-white, ink-stained imagery that defined the era\'s visual language.',
+            kind: 'archival',
+            // Face upper-left-center against the dark backdrop.
+            focalPoint: '45% 22%',
+          },
+        ],
       },
     },
     {

@@ -2006,6 +2006,29 @@ export default {
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
       moment: {
         context: "A song she originally wrote for a high-school talent show became a record-setting number one, proving the debut was no fluke.",
+        // Photos added 2026-07-19 (photo-enrichment, #762): single artwork +
+        // video still already verified on the enriched 'our-song-talent-show'
+        // page; both re-downloaded and viewed this run; focal points set by eye.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/4/4e/Taylor_Swift_-_Our_Song.png',
+            credit: 'Single cover art / Big Machine Records, via Wikipedia',
+            caption:
+              'The "Our Song" single artwork: 17-year-old Swift on a schoolroom desk, the lyrics chalked on the board behind her.',
+            kind: 'primary',
+            // She sits upper-left-center of the square cover.
+            focalPoint: '42% 18%',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/Jb2stN7kH28/sddefault.jpg',
+            credit: 'Still from the official "Our Song" music video (dir. Trey Fanjoy), Big Machine Records, via YouTube',
+            caption:
+              'The flower-bed scene from the "Our Song" video — CMT\'s No. 1 video for seven straight weeks, and its 2008 Video of the Year.',
+            kind: 'archival',
+            // Close-up against the roses; face fills center frame.
+            focalPoint: '52% 45%',
+          },
+        ],
       },
     },
   ],
