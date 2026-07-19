@@ -2087,6 +2087,18 @@ export default {
       snippet: "A theatrical performance opens the ceremony and previews the tour’s scale.",
       moment: {
         context: "Opening the Grammys with a ringmaster’s flourish, she turned a single song into full-blown spectacle.",
+        // Photo pass #762 (2026-07-19): E! News' own CDN (akns-images.eonline
+        // .com, from E!'s night-of performance story); curl 200 image/jpeg
+        // 634x1024; Read-viewed: Swift mid-performance in the white ringmaster
+        // tailcoat and crystal top hat at the 2013 Grammys opener.
+        photos: [
+          {
+            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2013110/634.2swift.show.ls.21013.jpg',
+            credit: 'Via E! News',
+            caption: 'The white ringmaster look that opened the 2013 Grammys — "We Are Never Ever Getting Back Together" as circus.',
+            focalPoint: '48% 20%',
+          },
+        ],
       },
     },
     {

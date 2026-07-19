@@ -2080,6 +2080,19 @@ export default {
       snippet: "The fairy-tale record that turns a promising country act into a global phenomenon.",
       moment: {
         context: "Fearless is the sound of teenage romance written in gold ink — princess dresses, white horses, and choruses built for arenas.\n\nIt would become the most-awarded country album in history and make her the youngest Album of the Year winner at the time.",
+        // Photo pass #762 (2026-07-19): freely licensed Commons live shot from
+        // the album's own tour — license (CC BY-SA 2.0, alexahalasan) verified
+        // on the file page via the Commons API; curl 200 image/jpeg 1769x2470;
+        // Read-viewed: Swift seated with the koi-fish Taylor guitar, Fearless
+        // Tour, Prudential Center, Newark (May 13, 2010).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/64/Taylor_Swift_-_Fearless_Tour_Prudential_Center_Newark_%28May_13%2C_2010%29.jpg',
+            credit: 'alexahalasan via Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'On the Fearless Tour with the koi-fish Taylor guitar — the album that filled arenas, Newark, 2010.',
+            focalPoint: '48% 18%',
+          },
+        ],
       },
     },
     {
