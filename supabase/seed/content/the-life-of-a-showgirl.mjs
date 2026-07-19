@@ -2413,8 +2413,11 @@ export default {
           //   - Cartier diamond watch (a Santos Demoiselle per Esquire):
           //     discontinued ~2014, no cartier.com product page; linking the
           //     current Panthère would be a wrong-product substitution.
-          // The fashion-products checker keeps this moment queued until
-          // verifiable pages surface.
+          // Having any products dequeues this moment from the
+          // fashion-products checker (by design — the two unlinkable items
+          // genuinely have no product pages, so re-queueing would waste
+          // Stylist runs). The Stylist's MAINTAIN pass re-checks existing
+          // product moments and can add these if pages ever surface.
         ],
       },
     },
