@@ -138,7 +138,55 @@ export default {
         // photo actually dated/described as Tokyo Dome, 6 May 2015 (CC BY-SA 4.0, photographer
         // Johndavis2004); curl-verified 200/image-jpeg, downloaded and visually confirmed
         // Taylor onstage with a guitar and a visible exit-sign pictogram consistent with Japan.
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'archival', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.' }],
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added, all Wikimedia
+        // Commons "The 1989 World Tour" uploads — curl-verified 200 + image/jpeg,
+        // downloaded and visually confirmed this session. All from other stops
+        // on the same 2015 tour (kept 'archival'/'reference', not 'primary').
+        photos: [
+          { url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'primary', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.' },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/1/17/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The silver sequined bomber jacket and blue skater skirt worn for the "Style"/"New York" opening stretch, Ford Field, Detroit, May 30, 2015.',
+            kind: 'archival',
+            focalPoint: '55% 22%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_004_%2818117171700%29.jpg',
+            credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The same silver-jacket opening number, seen from behind with dancers, Ford Field, Detroit, May 30, 2015.',
+            kind: 'archival',
+            focalPoint: '50% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/Taylor_Swift_-_1989_Tour_Singapore_-_Style_%2823409003734%29.jpg',
+            credit: 'Flower Black / Wikimedia Commons, CC BY 2.0',
+            caption: 'A jumbotron view of the purple sequined "Style" performance dress, Singapore Indoor Stadium, Dec. 28, 2015.',
+            kind: 'archival',
+            focalPoint: '38% 35%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/78/Taylor_Swift_-_ANZ_Stadium_Concert_1989_World_Tour_%2823928940022%29.jpg',
+            credit: 'Flower Black / Wikimedia Commons, CC BY 2.0',
+            caption: 'The stadium bathed in the tour\'s signature light-up wristbands as she crosses a catwalk, ANZ Stadium, Sydney, Dec. 28, 2015.',
+            kind: 'reference',
+            focalPoint: '35% 55%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/c6/Taylor_Swift_-_The_1989_World_Tour_-_LOS_ANGELES_-_Blank_Space.jpg',
+            credit: 'Denielle / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The black sequined romper worn for "Blank Space," walking the catwalk with a dancer, Los Angeles, Aug. 22, 2015.',
+            kind: 'archival',
+            focalPoint: '58% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/eb/Taylor_Swift_-_The_1989_World_Tour_-_Whole_view_of_the_stage_before_the_show.jpg',
+            credit: 'Daniel Park / Wikimedia Commons, CC BY 2.0',
+            caption: 'The "1989" stage and a full stadium bowl before showtime, Levi\'s Stadium, Santa Clara, Aug. 15, 2015.',
+            kind: 'reference',
+            focalPoint: '25% 55%',
+          },
+        ],
       },
     },
     {

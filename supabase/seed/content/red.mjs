@@ -227,10 +227,59 @@ export default {
             url: 'https://www.billboard.com/music/music-news/taylor-swift-opens-red-tour-in-omaha-1552195/',
           },
         ],
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added, all Wikimedia
+        // Commons "The Red Tour" uploads — curl-verified 200 + image/jpeg,
+        // downloaded and visually confirmed this session. No freely licensed
+        // photo of the actual March 13, 2013 Omaha opener exists on Commons, so
+        // these are the tour's other 2013 stops (same costumes/staging, kept as
+        // 'archival'/'reference' rather than 'primary' for that reason).
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg/500px-Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg',
             credit: 'Wikimedia Commons',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Taylor_Swift_-_Red_Tour_06.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'The opening-number look — a black bowler hat and cream lace top — from an April 2013 tour stop.',
+            kind: 'archival',
+            focalPoint: '46% 28%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/5d/Taylor_Swift_-_Red_Tour_13.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'In the black-and-cream ballgown worn for the tour\'s acoustic segment, April 2013.',
+            kind: 'archival',
+            focalPoint: '48% 30%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/e/e2/Taylor_Swift_-_Red_Tour_15.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'The red-and-white "State of Grace" opening costume, with bassist Amos Heller, April 2013.',
+            kind: 'archival',
+            focalPoint: '42% 32%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Taylor_Swift_-_Red_Tour_19.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'The red sequined ringmaster jacket from the tour\'s circus-themed opening number, April 2013.',
+            kind: 'archival',
+            focalPoint: '48% 22%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/37/Taylor_Swift_-_Red_Tour_09.jpg',
+            credit: 'jazills / Wikimedia Commons, CC BY 2.0',
+            caption: 'The full circus-costumed ensemble behind her during the ringmaster-jacket opening number, April 2013.',
+            kind: 'archival',
+            focalPoint: '55% 45%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg',
+            credit: 'Selbe Lynn / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'A wide shot of the elevated B-stage catwalk during the acoustic "Begin Again" set, Tacoma Dome, Aug. 31, 2013.',
+            kind: 'reference',
+            focalPoint: '48% 40%',
           },
         ],
       },

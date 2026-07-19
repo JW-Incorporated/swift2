@@ -250,6 +250,12 @@ export default {
             url: 'https://www.billboard.com/music/music-news/taylor-swift-announces-speak-now-world-tour-950374/',
           },
         ],
+        // Photo pass (2026-07-19, defining-events-31-50): 6 added, all Wikimedia
+        // Commons "Speak Now World Tour" uploads — curl-verified 200 + image/jpeg,
+        // downloaded and visually confirmed this session. No freely licensed
+        // photo of the Feb. 9, 2011 Singapore opener itself exists on Commons,
+        // so these are the same production's other 2011 stops (kept 'archival'/
+        // 'reference', not 'primary').
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg/500px-Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg',
@@ -257,6 +263,48 @@ export default {
             caption:
               "The tour's theatrical 'Enchanted' staging, photographed in Paris on March 17, 2011 — same production as the Singapore opener, a later night on the same first international leg.",
             kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_holding_banjo_-_Speak_Now_World_Tour_2011_in_Vancouver.jpg',
+            credit: 'Andy L / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The cream lace dress and banjo from the "Mean" performance, Vancouver, Sept. 2011.',
+            kind: 'archival',
+            focalPoint: '50% 25%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/9/9e/Taylor_Swift_-_Our_Song_-_Speak_Now_World_Tour_2011_in_Vancouver.jpg',
+            credit: 'Andy L / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The full seven-piece band on the tour\'s wooden veranda-style B-stage during "Our Song," Vancouver, Sept. 2011.',
+            kind: 'reference',
+            focalPoint: '58% 55%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/5/57/Taylor_Swift_-_Sparks_Fly_-_Speak_Now_World_Tour_2011_in_Vancouver.jpg',
+            credit: 'Andy L / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'A gold fringed dress and knee-high boots on the extended catwalk during "Sparks Fly," Vancouver, Sept. 2011.',
+            kind: 'archival',
+            focalPoint: '48% 55%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Taylor_Swift_-_Long_Live_-_Speak_Now_World_Tour_2011_in_Vancouver.jpg',
+            credit: 'Andy L / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'A sparkling guitar and tall boots on the extended runway stage during "Long Live," Vancouver, Sept. 2011.',
+            kind: 'archival',
+            focalPoint: '47% 45%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/22/Taylor_Swift_-_Speak_Now_Tour_in_Pittsburgh_-_Whole_main_stage_with_the_flying_bacolny.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The suspended balcony finale descending over the crowd, with aerialists on trapezes either side, Pittsburgh, 2011.',
+            kind: 'reference',
+            focalPoint: '50% 55%',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/c/cd/Taylor_Swift_-_SPEAK_NOW_World_Tour_Live_in_Sydney_2012_-_Speak_Now.jpg',
+            credit: 'Eva Rinaldi / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'The purple gown and white gloves worn for the "Speak Now" title track, Sydney, March 2012.',
+            kind: 'archival',
+            focalPoint: '45% 25%',
           },
         ],
       },
