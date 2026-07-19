@@ -646,6 +646,7 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg',
             credit: 'NBC',
+            focalPoint: '42% 13%',
             caption:
               'Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the "siren red" lip and blunt bangs of the Red (TV) beauty look, the night before the album\'s release.',
             kind: 'archival',
@@ -764,6 +765,7 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg',
             credit: 'Getty Images',
+            focalPoint: '45% 10%',
           },
         ],
       },
@@ -828,6 +830,7 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg',
             credit: 'NBC',
+            focalPoint: '42% 13%',
           },
         ],
       },
