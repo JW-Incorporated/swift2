@@ -2048,42 +2048,49 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-09-billboard-650.jpg?w=650&h=430&crop=1',
             credit: 'Getty Images, via Billboard',
             caption: 'Kanye West at the Yeezy Season 3 / The Life of Pablo listening event, Madison Square Garden, Feb. 11, 2016 — where "Famous" premiered.',
+            focalPoint: '46% 45%',
             kind: 'primary',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-01-billboard-650.jpg?w=650&h=430&crop=1',
             credit: 'Getty Images, via Billboard',
             caption: 'The event\'s staging inside Madison Square Garden, built for an audience of roughly 20,000.',
+            focalPoint: '48% 52%',
             kind: 'archival',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-07-billboard-650.jpg?w=650&h=430&crop=1',
             credit: 'Getty Images, via Billboard',
             caption: 'Models on the Yeezy Season 3 runway during the same event.',
+            focalPoint: '50% 30%',
             kind: 'archival',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/kanye-west-yeezy-3-msg-2016-08-billboard-650.jpg?w=650&h=430&crop=1',
             credit: 'Getty Images, via Billboard',
             caption: 'More of the roughly 1,000 models styled for the Yeezy Season 3 runway.',
+            focalPoint: '50% 28%',
             kind: 'archival',
           },
           {
             url: 'https://media.vanityfair.com/photos/6973c38b8d6b50621a0c2414/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2016.jpg',
             credit: 'Getty Images, via Vanity Fair',
             caption: 'Swift at the Grammys red carpet, Feb. 15, 2016 — four days after "Famous" premiered, hours before her Album of the Year speech.',
+            focalPoint: '51% 14%',
             kind: 'archival',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618a92a7d1d17a722124/master/w_1024%2Cc_limit/GettyImages-510439952.jpg',
             credit: 'Getty Images, via Teen Vogue',
-            caption: 'Accepting Album of the Year that night, with the "undercut your success" line the room understood as her answer.',
+            caption: 'On the Grammys red carpet that night, Feb. 15, 2016 — hours before accepting Album of the Year with the "undercut your success" line the room understood as her answer.',
+            focalPoint: '52% 16%',
             kind: 'archival',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/Vanessa-Beecroft-portrait-bw-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Pier Marco Tacca/Getty Images, via Billboard',
             caption: 'Vanessa Beecroft, the performance artist who staged the Yeezy Season 3 presentation West premiered "Famous" inside.',
+            focalPoint: '38% 27%',
             kind: 'reference',
           },
         ],
@@ -2146,25 +2153,38 @@ export default {
           {
             url: 'https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG',
             credit: 'Taylor Swift/Instagram, via Teen Vogue',
-            caption: 'Swift\'s full posted statement asks where West told her about the "that bitch" lyric and ends, "I would very much like to be excluded from this narrative."',
+            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
+            // this asset is a BLANK Apple Notes screen, not the statement text
+            // the prior caption claimed. Caption corrected to match the image;
+            // recommend a verified replacement showing the actual statement.
+            caption: 'The Apple Notes format Swift used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
+            focalPoint: '50% 12%',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/media/83c4993d8e8ad4dde6c653daff10b74e537e6aea/0_0_620_372/master/620.jpg?crop=none&dpr=1&s=none&width=465',
             credit: 'Rex Features, via The Guardian',
-            caption: 'A still from Kardashian\'s Snapchat release shows West on the phone during the recorded call with Swift.',
+            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
+            // this asset is a Guardian side-by-side of Kim Kardashian and Taylor
+            // Swift, NOT a Snapchat still of West on the phone. Caption corrected
+            // to match the image; recommend a verified replacement if a Snapchat
+            // still is wanted here.
+            caption: 'A Guardian side-by-side of Kim Kardashian and Taylor Swift, published as Kardashian\'s Snapchat clips reignited the feud in July 2016.',
+            focalPoint: '50% 25%',
             kind: 'primary',
           },
           {
             url: 'https://media.vanityfair.com/photos/5792599af9039e5f13c9db9f/master/w_2560%2Cc_limit/taylor-swift-tom-hiddleston.jpg',
             credit: 'Cameron Richardson/Newspix/Rex/Shutterstock, via Vanity Fair',
             caption: 'Swift walks with Tom Hiddleston in Los Angeles on July 21, her first public sighting after the Snapchat clips appeared.',
+            focalPoint: '50% 30%',
             kind: 'archival',
           },
           {
             url: 'https://assets.teenvogue.com/photos/578c4ca16e85f8db434d478f/16%3A9/w_2560%2Cc_limit/GettyImages-463036782.jpg',
             credit: 'Larry Busacca/Getty Images for NARAS, via Teen Vogue',
             caption: 'For context, Swift, Kardashian, and West pose together at the 2015 Grammys, before the "Famous" dispute reopened the VMA feud.',
+            focalPoint: '50% 25%',
             kind: 'reference',
           },
           // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 3 more
@@ -2174,18 +2194,21 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-perform-austin-oct-2016-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Gary Miller/FilmMagic, via Billboard',
             caption: 'Swift headlines the Formula 1 U.S. Grand Prix concert in Austin on Oct. 22, 2016 — her only full show of the year, announced months ahead of the Grand Prix weekend.',
+            focalPoint: '48% 14%',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/8/82/Zayn_%26_Taylor_Swift_-_I_Don%27t_Wanna_Live_Forever_%28Official_Single_Cover%29.png',
             credit: 'RCA Records / Republic Records (official single cover)',
             caption: 'The cover for "I Don\'t Wanna Live Forever," her December 2016 duet with Zayn for the Fifty Shades Darker soundtrack — one of two music releases during the withdrawal year.',
+            focalPoint: '50% 45%',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/ae/Taylor_Swift_-_Miss_Americana.jpg',
             credit: 'Netflix (official poster)',
             caption: 'The poster for "Miss Americana" (2020), the Netflix documentary where she later characterized this year as one where "nobody physically saw me."',
+            focalPoint: '64% 66%',
             kind: 'reference',
           },
         ],
