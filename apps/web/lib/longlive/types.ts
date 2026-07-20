@@ -657,6 +657,67 @@ export interface TrackNote {
 }
 
 /**
+ * The eight mood axes the Mood Chat feature scores every song on (0..1 each).
+ * See docs/proposals/2026-07-19-mood-chat.md. The whole point of the feature
+ * is that the model NEVER searches the catalogue: a reader's words become a
+ * mood vector and matching is pure TypeScript over these precomputed numbers,
+ * so it is deterministic, unit-testable, free at runtime, and cannot invent a
+ * song that doesn't exist. This tuple is the single source of truth — the
+ * generator (scripts/sync-song-moods.mjs), the validator, and the Stage 3
+ * matcher all derive their axis list from MOOD_AXES, so adding an axis is one
+ * edit and the compiler flags every table that hasn't caught up.
+ */
+export const MOOD_AXES = [
+  'heartbreak',
+  'anger',
+  'nostalgia',
+  'joy',
+  'calm',
+  'defiance',
+  'longing',
+  'catharsis',
+] as const;
+
+/** One of the eight mood axes. */
+export type MoodAxis = (typeof MOOD_AXES)[number];
+
+/** A song's score on every mood axis, each 0..1. */
+export type MoodAxes = Record<MoodAxis, number>;
+
+/**
+ * One song in the Mood Chat catalogue (song-moods.generated.ts), produced by
+ * scripts/sync-song-moods.mjs from supabase/seed/tracks/** (the authoritative
+ * song list) merged with supabase/seed/song-moods/** (the mood scores). Every
+ * entry resolves to a real track — `slug`, `title`, `eraId`, and `youtubeId`
+ * all come from that track, never fabricated; `youtubeId` is the track's own
+ * oEmbed-verified id and is absent when the track has none (the UI omits the
+ * embed rather than guessing).
+ *
+ * `moods`/`energy`/`valence`/`useCase`/`oneLiner` are absent until Stage 2
+ * scores the song from its existing researched note. An UNSCORED entry is a
+ * placeholder the matcher skips; a SCORED entry is match-eligible. No lyrics,
+ * ever — `oneLiner` and `useCase` are ORIGINAL prose, never quoted verse.
+ */
+export interface SongMood {
+  /** The track's stable slug — its `song:<slug>` id and the catalogue key. */
+  slug: string;
+  title: string;
+  eraId: EraId;
+  /** The track's own oEmbed-verified YouTube id, when it has one. */
+  youtubeId?: string;
+  /** Per-axis scores (0..1). Absent until Stage 2 scores the song. */
+  moods?: MoodAxes;
+  /** Sonic energy, 0 (still, spare) .. 1 (loud, driving). */
+  energy?: number;
+  /** Emotional valence, 0 (sad) .. 1 (happy). */
+  valence?: number;
+  /** A few original "when you'd reach for this" phrases (never lyrics). */
+  useCase?: string[];
+  /** One original sentence about the song (never a quoted lyric). */
+  oneLiner?: string;
+}
+
+/**
  * One easter egg or fan theory in an era's theory guide
  * (theories.generated.ts, surfaced by the TheoryGuide overlay). Mirrors the DB
  * `theory` row / `Theory` in packages/shared/src/vault-types.ts, reduced to
