@@ -1612,6 +1612,10 @@ export default {
             status: 'unconfirmed',
             url: 'https://www.tmz.com/2026/06/30/taylor-swift-travis-kelce-building-castle-for-wedding-celebration/',
             note: 'No photos from inside the Garden have ever been released, so what the build-out actually looked like remains unconfirmed.',
+            sourceTier: 'tabloid',
+            // Lifecycle re-check 2026-07-20: still no interior photos or
+            // official statement; the build-out remains unconfirmed.
+            lastCheckedOn: '2026-07-20',
           },
           {
             claim:
@@ -1620,7 +1624,11 @@ export default {
             reportedOn: '2026-07-02',
             status: 'unconfirmed',
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
-            note: 'An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure.',
+            note: 'An estimate aggregated from unnamed reports — neither the couple nor the venue has confirmed any figure. (Distinct from the separately confirmed $160K+ NYC permit fee — a city-services figure, not the cost of hiring the arena.)',
+            sourceTier: 'tabloid',
+            // Lifecycle re-check 2026-07-20: no outlet has confirmed the
+            // venue-hire figure; still an unattributed estimate.
+            lastCheckedOn: '2026-07-20',
           },
           {
             claim:
@@ -1647,25 +1655,38 @@ export default {
             status: 'partially_confirmed',
             url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
             note: 'Several rumored names were later photographed arriving — including, against the reporting, Karlie Kloss (Rolling Stone, July 6). The full list was never published.',
+            sourceTier: 'tabloid',
+            // Lifecycle re-check 2026-07-20: no complete guest list has been
+            // published; stays partially confirmed — some names verified by
+            // arrival photos, the roster as a whole never confirmed.
+            lastCheckedOn: '2026-07-20',
           },
           {
             claim:
               'The Daily Mail reported that save-the-date invitations came bundled with non-disclosure agreements guests had to sign.',
             reportedBy: 'Daily Mail (via Hello!)',
             reportedOn: '2026-07-02',
-            // Downgraded from 'debunked' to 'unconfirmed' on 2026-07-20 when
-            // the new citation rule forced a look at what actually debunked
-            // it. Nothing did. Graham Norton clarified that HE had not signed
-            // an NDA and had been joking — which undercuts where the story
-            // came from, but says nothing about whether save-the-dates carried
-            // one. Two different claims. Marking it debunked on that basis was
-            // a reasoning error, and asserting a debunking we cannot support
-            // is the same failure as asserting a fact we cannot support.
-            status: 'unconfirmed',
+            // Lifecycle history: originally marked 'debunked' on the strength of
+            // Graham Norton's on-air joke; corrected to 'unconfirmed' on
+            // 2026-07-20 because that joke undercut the story's origin but never
+            // addressed whether the invitations carried an NDA (two different
+            // claims). Now promoted to 'confirmed' the same day: a named,
+            // on-record guest independently confirmed the core claim. The
+            // resolution citation is the confirmation, per the pipeline rule.
+            status: 'confirmed',
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
-            note: 'Graham Norton, whose on-air NDA remark fuelled the story, later clarified he had signed nothing and had been joking. That undercuts the story’s origin but does not itself disprove the claim about the invitations, which no outlet has confirmed or denied.',
+            note: 'Confirmed 2026-07-20: guest Jonathan Thomas, CEO of American Century Investments, told USA Today on the record that receiving an invitation required signing a non-disclosure agreement — "I won\'t get into the details of the NDA. But it had teeth." That settles the core claim (invitations carried NDAs), which the earlier Graham Norton remark had never actually disproven.',
             sourceTier: 'tabloid',
             lastCheckedOn: '2026-07-20',
+            resolution: {
+              on: '2026-07-19',
+              // USA Today is the originating publisher; usatoday.com is not
+              // reachable by our fetcher, so we cite its verbatim syndication
+              // on AOL, which we read this session.
+              url: 'https://www.aol.com/articles/taylor-swift-wedding-nda-had-181111000.html',
+              outlet: 'USA Today (via AOL)',
+              note: 'A named guest, on the record, confirmed the invitation process required signing an NDA — "it had teeth."',
+            },
           },
           {
             claim:
@@ -1674,7 +1695,11 @@ export default {
             reportedOn: '2026-07-02',
             status: 'unconfirmed',
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
-            note: 'The only reception performance confirmed by post-wedding reporting was Stevie Nicks, per CBS News.',
+            note: 'The only reception performance confirmed by post-wedding reporting was Stevie Nicks, per CBS News. No outlet has confirmed or denied that Sheeran — who was photographed arriving as a guest — actually performed.',
+            sourceTier: 'tabloid',
+            // Lifecycle re-check 2026-07-20: still no confirmation or denial of
+            // a Sheeran performance; Nicks remains the only confirmed act.
+            lastCheckedOn: '2026-07-20',
           },
           {
             claim:
@@ -1695,6 +1720,20 @@ export default {
               outlet: 'Snopes',
               note: 'The fact-check that debunked the images on publication.',
             },
+          },
+          {
+            // Added 2026-07-20 (Rumor Desk): a forward-looking, adjudicable
+            // claim about how/whether the real photos surface — carries no
+            // location, so the provenance matrix is not engaged.
+            claim:
+              'With no official ceremony photos released more than two weeks on, reports said Taylor was deliberately holding them back — planning to unveil them as a "cultural moment" (a documentary or coffee-table book) rather than sell them to a magazine.',
+            reportedBy: 'Rob Shuter’s Naughty But Nice (via Reality Tea)',
+            reportedOn: '2026-07-20',
+            status: 'unconfirmed',
+            url: 'https://www.realitytea.com/2026/07/20/taylor-swift-wedding-photos-out-release/',
+            note: 'A gossip-newsletter "source" claim about her release strategy — resolves once (and if) official photos surface and we can see the channel. As of this report, no official ceremony photos had been published.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-07-20',
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
@@ -3583,6 +3622,23 @@ export default {
             kind: 'primary',
             // Jessie's face dead-center between the outstretched arms.
             focalPoint: '48% 35%',
+          },
+        ],
+        // Rumor Desk 2026-07-20: the moment above holds the confirmed line
+        // ("not a nominee, not yet"); this separates the labeled, forward-
+        // looking awards *prediction* from it. Adjudicable — it resolves when
+        // the Academy's shortlist and nominations land. No location.
+        rumors: [
+          {
+            claim:
+              'Awards writers began handicapping "I Knew It, I Knew You" as a genuine 2027 Best Original Song Oscar (and Grammy) contender — Billboard: it "could also be in line for an Oscar nomination for best original song," the first for both Swift and Antonoff.',
+            reportedBy: 'Billboard (Paul Grein)',
+            reportedOn: '2026-06-10',
+            status: 'unconfirmed',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-jack-antonoff-toy-story-5-song-grammy-oscar-1236268865/',
+            note: 'A forward-looking prediction, not a nomination: as of this report the Academy had not ruled on eligibility and nothing was shortlisted. Resolves with the shortlist and the January 2027 nominations.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-20',
           },
         ],
       },
