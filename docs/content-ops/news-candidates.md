@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 83
+Stories: 86
+
+## Taylor Swift’s Wedding Photos Reportedly Are Part of a Much Bigger Plan — Source - Yahoo
+
+- first seen: 2026-07-20 08:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Wedding Photos Reportedly Are Part of a Much Bigger Plan — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxOMUFzdmdnaHF4OWFmLVBtRTJYVC1aSVRoWUpmZk9wc2lPMWs5d196emtKd3owcmF4QTNmUGxqeFNzcnRaMHhwM2hBRUN1aDA2S2dQclJucnl5YjMteHUzMUlPYTltcDVKTnR5cGZPVWJCcjdpSTJaSnhSU1BsdkNmLVVTZjZZRzBzNWNPLVZqSkVxcmczUWdTbDhzQ3ZzUHk4TnJHM2M2c2VYb0Qy?oc=5
+
+## The Truth About Taylor Swift's Wedding, From Brad Paisley - Taste of Country
+
+- first seen: 2026-07-20 08:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Truth About Taylor Swift's Wedding, From Brad Paisley  Taste of Country
+- sources:
+  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMijwFBVV95cUxOVklMSG90a3BtUy1XSDJSZXZKcXJxNEpNX2NtdHJPdnMtSVNYOERFb3RpeUxINHpQUEJKMExpdld3UlZEdmxEeTVNN0liYlptNUhzbm9palJzYjQyUU9KTTNZVlQ4NEVrMl9tN1JKdnNSenBtTzdpU1d0RFpvWi1Mbk1SQ1l5WmhadHY4blRDcw?oc=5
+
+## Taylor Swift Won’t Make One Marriage Mistake Other Stars Did — Source - Yahoo
+
+- first seen: 2026-07-20 08:16 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Won’t Make One Marriage Mistake Other Stars Did — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxQU2dHVFh1UHp6d1N2TW9PUG5Nck92OEJNaE16UUF2c2RDc1gySzJYQnNsQzh1Z0sxelVwSEpjbjdTOFZXZFFLQmprNGJaM09zM1VralhpTlg5X3N2MDNOdlpIY1FVVUFFMVU2QXZBOWlucTY1bzE5SkJZTWZlaGxndTFnR1JRb2pTNzA2c3B4SlQ1OHExNFV3?oc=5
 
 ## Taylor Swift and Travis Kelce's wedding invite: 'I won't get into the details of the NDA. But it had
 
