@@ -62,6 +62,8 @@ export default {
       },
     },
     {
+      significance: 'notable', // the second consecutive album to set this exact platform record (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-midnights-breaks-spotify-in-a-single-day'],
       year: 2024,
       month: 4,
       day: 19,
@@ -521,6 +523,8 @@ export default {
       },
     },
     {
+      significance: 'notable', // a real, outright venue record — more nights at Wembley than any solo artist in the stadium's history (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver'],
       year: 2024,
       month: 8,
       day: 20,
@@ -1089,6 +1093,8 @@ export default {
       },
     },
     {
+      significance: 'notable', // the single largest economic figure of her touring career, the companion number to the already-defining Vancouver finale (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver'],
       year: 2024,
       month: 12,
       day: 9,
@@ -1115,6 +1121,9 @@ export default {
             url: 'https://www.billboard.com/music/chart-beat/taylor-swift-eras-tour-earnings-2-billion-sales-1235847513/',
           },
         ],
+        // Photo re-check (2026-07-19, Tier 3): stays at one image — Wikimedia
+        // Commons has no Rogers Centre Toronto Eras Tour category or files
+        // from the November 2024 dates this $2B tally was announced against.
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1',
@@ -2097,6 +2106,8 @@ export default {
     },
     {
       slug: 'fortnight-top-14-sweep',
+      significance: 'notable', // an even bigger chart sweep than the Midnights top-10 record, on an even larger tracklist (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once'],
       year: 2024,
       month: 5,
       day: 4,
@@ -2854,6 +2865,7 @@ export default {
     },
     {
       slug: 'vmas-2024-seven-wins',
+      significance: 'notable', // a real, all-time career-wins tie with one of the genre's biggest names (docs/decisions.md, 2026-07-19)
       year: 2024,
       month: 9,
       day: 11,

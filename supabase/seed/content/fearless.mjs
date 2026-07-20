@@ -249,7 +249,7 @@ export default {
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/Taylor_Swift_-_Fearless_Tour_-_Foxboro_01.jpg',
-            credit: 'Mealtedheadaches / Wikimedia Commons, CC BY-SA 2.0',
+            credit: 'Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0',
             caption: 'A white-and-gold majorette-style costume with a plumed hat for the tour\'s marching-band segment, Foxboro.',
             kind: 'archival',
             focalPoint: '45% 25%',
@@ -1248,6 +1248,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // a decade-long chart record from her very first #1 album (docs/decisions.md, 2026-07-19)
       year: 2009,
       month: 3,
       day: 14,
@@ -1328,6 +1329,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // a genuine, historic first — the earliest stadium-scale record in a career full of them (docs/decisions.md, 2026-07-19)
       year: 2010,
       month: 6,
       day: 5,
@@ -1347,10 +1349,19 @@ export default {
             url: 'https://www.billboard.com/music/music-news/taylor-swift-june-5-2010-foxboro-mass-957869/',
           },
         ],
+        // Photo pass (2026-07-19, Tier 3): added a second Commons frame from
+        // the same June 5, 2010 Gillette show, curl-verified live.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg',
-            credit: 'Wikimedia Commons',
+            credit: 'Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Taylor_Swift_-_Fearless_Tour_-_Foxboro12.jpg',
+            credit: 'Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Performing at the same Gillette Stadium show, June 5, 2010.',
+            kind: 'archival',
           },
         ],
       },

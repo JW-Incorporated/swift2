@@ -915,6 +915,7 @@ export default {
 
     // --- Business/chart + music + sightings depth pass (2026-07-05) ---
     {
+      significance: 'notable', // her first-ever Hot 100 #1, the chart record that opened the era's whole commercial run (docs/decisions.md, 2026-07-19)
       year: 2012,
       month: 8,
       day: 22,
@@ -954,6 +955,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // a genuine, outright genre-tour gross record when it closed (docs/decisions.md, 2026-07-19)
       year: 2014,
       month: 7,
       day: 3,
@@ -993,6 +995,8 @@ export default {
       },
     },
     {
+      significance: 'notable', // a real, well-documented snub that became part of the album's own underdog narrative (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-red-all-too-well-gets-its-first-tv-performance-alone-at-a-piano-'],
       year: 2014,
       month: 1,
       day: 26,
@@ -1018,6 +1022,20 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
             focalPoint: '50% 32%',
+          },
+          // Photo pass 2026-07-19 (Tier 3): re-challenged — real photos of
+          // the two artists who beat Red in each category this item names.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Daft_Punk_in_2013_2-_centered.jpg',
+            credit: 'Sony Music Entertainment, Wikimedia Commons (CC BY 4.0)',
+            caption: 'Daft Punk, whose Random Access Memories won Album of the Year over Red that night.',
+            kind: 'reference',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/37/KaceyMRoundhouse140524_%289%29_%2853727111656%29_%28cropped%29.jpg',
+            credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
+            caption: 'Kacey Musgraves, whose debut Same Trailer Different Park won Best Country Album over Red.',
+            kind: 'reference',
           },
         ],
       },
@@ -1163,6 +1181,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // the friendship the era's whole "squad" phase and imagery grew out of (docs/decisions.md, 2026-07-19)
       year: 2014,
       month: 3,
       day: 6,
