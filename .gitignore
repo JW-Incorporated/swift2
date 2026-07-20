@@ -33,3 +33,7 @@ Thumbs.db
 /blob-report/
 /playwright/.cache/
 nul
+
+# News candidate digest — generated every cycle and published to the
+# news-digest branch, never tracked on main (see .github/workflows/news-worker.yml).
+docs/content-ops/news-candidates.md
