@@ -393,6 +393,8 @@ export default {
     },
     {
       slug: 'showgirl-four-million-week',
+      significance: 'notable', // an outright industry record, the biggest album debut ever measured (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12'],
       year: 2025,
       month: 10,
       day: 18,
@@ -454,6 +456,7 @@ export default {
     },
     {
       slug: 'showgirl-spotify-records',
+      significance: 'notable', // a genuinely fast record — the fastest platform milestone of its kind, in under half a day (docs/decisions.md, 2026-07-19)
       year: 2025,
       month: 10,
       day: 3,
@@ -1189,6 +1192,8 @@ export default {
     },
     {
       slug: 'eras-tour-final-show-film',
+      significance: 'notable', // the tour's actual closing chapter made permanently available, companion to the already-defining Vancouver finale (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver'],
       year: 2025,
       month: 12,
       day: 12,
@@ -2002,6 +2007,7 @@ export default {
     },
     {
       slug: 'showgirl-grammy-eligibility-window-miss',
+      significance: 'notable', // a real, documented trade-off in the release calendar with a full award-cycle consequence (docs/decisions.md, 2026-07-19)
       year: 2025,
       month: 10,
       day: 3,
@@ -2965,6 +2971,7 @@ export default {
     },
     {
       slug: 'showgirl-luminate-2025-top-album',
+      significance: 'notable', // the year-end industry-data confirmation of the album's record-setting week (docs/decisions.md, 2026-07-19)
       year: 2026,
       month: 1,
       day: 14,
@@ -3086,6 +3093,7 @@ export default {
     },
     {
       slug: 'nyt-greatest-songwriters-interview',
+      significance: 'notable', // a rare critical assessment of her actual craft, from one of the country's most respected culture desks (docs/decisions.md, 2026-07-19)
       year: 2026,
       month: 4,
       day: 28,
@@ -3150,6 +3158,7 @@ export default {
     },
     {
       slug: 'songwriters-hall-of-fame-induction',
+      significance: 'notable', // a genuine career-capping industry-body first, not just another award (docs/decisions.md, 2026-07-19)
       year: 2026,
       month: 6,
       day: 11,

@@ -1783,6 +1783,7 @@ export default {
     },
     {
       slug: 'billboard-woman-of-year-2011',
+      significance: 'notable', // a real age record from a major trade publication, the earliest of her many "youngest ever" honors (docs/decisions.md, 2026-07-19)
       year: 2011,
       month: 12,
       day: 2,
@@ -1819,6 +1820,11 @@ export default {
         // other photo in the cited Taste of Country piece (swifty.jpg) is
         // byte-identical to this one, and no hotlinkable image of the Dec. 2
         // Capitale ceremony itself was found on an approved CDN.
+        // Re-challenged 2026-07-19 (Tier 3 pass): a Hollywood Reporter
+        // candidate looked promising but turned out to be from the annual
+        // Billboard Music Awards in Las Vegas that May — a different event
+        // entirely — and was rejected rather than mislabeled. Genuinely
+        // thin for this specific December ceremony.
         photos: [
           {
             url: 'https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75',
