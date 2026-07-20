@@ -8,8 +8,9 @@
  * resolve is silently skipped, so the UI can never render a dead link.
  */
 
+import { getContentItem } from './content';
 import { MOTIF_BY_ID, motifOf } from './lenses';
-import type { Motif, MotifId, RelatedId } from './types';
+import type { ContentItem, EraId, Motif, MotifId, RelatedId } from './types';
 
 /** A resolved Clue Web trail target. */
 export interface MotifTarget {
@@ -54,4 +55,43 @@ export function resolveMotifTrail(relatedIds: readonly RelatedId[] | undefined):
     if (target) return target;
   }
   return null;
+}
+
+/** A resolved moment-to-moment cross-link. */
+export interface RelatedMoment {
+  item: ContentItem;
+  /** The target's era, for the chip on its card. */
+  eraId: EraId;
+}
+
+/**
+ * Resolve `moment:` related ids to the content items they point at.
+ *
+ * Why this exists alongside motifTargetOf: `resolveMotifTrail` deliberately
+ * handles only the `motif:`/`egg:` namespaces, and it was the ONLY resolver
+ * MomentDetail called. Every `moment:` id therefore resolved to null and
+ * rendered nowhere — all 82 authored moment-to-moment links across the seeds
+ * were inert, which is what "the cross linking between articles is very weak"
+ * looked like from the outside (2026-07-19).
+ *
+ * Best-effort, like the rest of this module: unknown namespaces, dangling ids,
+ * and a moment pointing at itself are skipped, so a dead link can never
+ * render. Order is preserved — authoring order is editorial intent.
+ */
+export function resolveRelatedMoments(
+  relatedIds: readonly RelatedId[] | undefined,
+  selfId?: string,
+): RelatedMoment[] {
+  const out: RelatedMoment[] = [];
+  const seen = new Set<string>();
+  for (const rid of relatedIds ?? []) {
+    if (!rid.startsWith('moment:')) continue;
+    const id = rid.slice('moment:'.length);
+    if (!id || id === selfId || seen.has(id)) continue;
+    const item = getContentItem(id);
+    if (!item) continue;
+    seen.add(id);
+    out.push({ item, eraId: item.eraId });
+  }
+  return out;
 }

@@ -25,7 +25,12 @@ import {
 import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@/lib/longlive/eras';
 import { getThread } from '@/lib/longlive/lenses';
-import { resolveMotifTrail, type MotifTarget } from '@/lib/longlive/related';
+import {
+  resolveMotifTrail,
+  resolveRelatedMoments,
+  type MotifTarget,
+  type RelatedMoment,
+} from '@/lib/longlive/related';
 import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
@@ -365,7 +370,7 @@ function MomentLightbox({
 
 export function MomentDetail() {
   const { openItemId, share } = useAppState();
-  const { closeItem, openShare } = useAppActions();
+  const { closeItem, openShare, openItem } = useAppActions();
   const { progress } = useProgress();
   const { markMomentVisited, toggleFavorite } = useProgressActions();
   const [revealed, setRevealed] = useState(false);
@@ -420,6 +425,9 @@ export function MomentDetail() {
   // Clue Web trail this moment cross-links to (via relatedIds), if any.
   // Resolution is best-effort: no resolvable target simply means no link.
   const trail = resolveMotifTrail(item.relatedIds);
+  // Moment -> moment cross-links, resolved separately: resolveMotifTrail
+  // handles only motif:/egg: and returns null for `moment:` ids.
+  const related = resolveRelatedMoments(item.relatedIds, item.id);
   // Hero = the primary image (else the first one); the rest form the gallery.
   // When even the hero is a stand-in (no primary exists) it gets the same
   // honest labeling the gallery uses.
@@ -670,6 +678,13 @@ export function MomentDetail() {
             because a Clue Web cross-link already gets the richer, specific
             trail invitation above rather than a bare thread-home link. */}
         <FollowThreadsRow threadIds={item.threadIds} />
+
+        {/* Moment -> moment cross-links. These were authored long before
+            anything rendered them: MomentDetail only ever called
+            resolveMotifTrail, which by design resolves `motif:`/`egg:` and
+            returns null for everything else, so all 82 `moment:` ids in the
+            seeds were inert. */}
+        <RelatedMomentsRail related={related} onOpen={openItem} />
       </article>
 
       {lightboxIndex !== null && (
@@ -765,6 +780,78 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
  * motif trail above to `ContentItem.threadIds` generally (issue #436). Reuses
  * the same `openThread` pivot every era -> thread jump already uses.
  */
+/**
+ * "Keep reading" — the moment-to-moment cross-links a writer authored on this
+ * item via `relatedIds`.
+ *
+ * These existed in the seeds long before anything rendered them: MomentDetail
+ * resolved `relatedIds` only through resolveMotifTrail, which handles the
+ * `motif:`/`egg:` namespaces and returns null for `moment:` ids. All 82
+ * authored moment links were therefore invisible.
+ *
+ * Renders nothing when nothing resolves, so an item whose links all dangle
+ * degrades to the previous behaviour rather than showing an empty shell.
+ */
+function RelatedMomentsRail({
+  related,
+  onOpen,
+}: {
+  related: RelatedMoment[];
+  onOpen: (id: string) => void;
+}) {
+  if (related.length === 0) return null;
+
+  return (
+    <div className="era-card mt-8 rounded-2xl border p-5">
+      <div className="flex items-center gap-2 text-sm font-semibold text-[color:var(--era-accent)]">
+        <ArrowRight className="h-4 w-4" />
+        Keep reading
+      </div>
+      <ul className="mt-4 space-y-2">
+        {related.map(({ item: target, eraId }) => {
+          const targetEra = getEra(eraId);
+          const thumb = primaryImageRef(target);
+          return (
+            <li key={target.id}>
+              <button
+                onClick={() => {
+                  onOpen(target.id);
+                  // Match the era → thread pivot: re-anchor a frame later, so
+                  // the jump lands after this overlay's scroll lock lifts.
+                  requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'auto' }));
+                }}
+                className="flex w-full items-center gap-3 rounded-xl border p-3 text-left transition-colors hover:bg-[color:var(--era-surface)]"
+                style={{ borderColor: 'var(--era-line)' }}
+              >
+                {thumb && (
+                  <Image
+                    src={thumb.url}
+                    alt=""
+                    width={56}
+                    height={56}
+                    unoptimized={isRemoteUrl(thumb.url)}
+                    className="h-14 w-14 shrink-0 rounded-lg object-cover"
+                    style={{ objectPosition: focalPointOf(thumb) }}
+                  />
+                )}
+                <span className="min-w-0 flex-1">
+                  <span className="block truncate text-[15px] font-medium text-[color:var(--era-ink)]">
+                    {target.title}
+                  </span>
+                  <span className="mt-0.5 block text-xs text-[color:var(--era-ink-soft)]">
+                    {targetEra?.shortName ?? eraId}
+                  </span>
+                </span>
+                <ArrowRight className="h-4 w-4 shrink-0 text-[color:var(--era-ink-soft)]" />
+              </button>
+            </li>
+          );
+        })}
+      </ul>
+    </div>
+  );
+}
+
 function FollowThreadsRow({ threadIds }: { threadIds: LensId[] | undefined }) {
   const { openThread } = useAppActions();
   const ids = (threadIds ?? []).filter((id) => id !== 'easter-eggs');
