@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { EGG_NODES, MOTIFS, motifOf } from './lenses';
-import { motifTargetOf, resolveMotifTrail } from './related';
+import { motifTargetOf, resolveMotifTrail, resolveRelatedMoments } from './related';
+import { CONTENT } from './content';
 
 describe('motifTargetOf', () => {
   it('resolves motif:<id> for every trail in the data', () => {
@@ -58,5 +59,51 @@ describe('resolveMotifTrail', () => {
 
   it('returns null when nothing resolves', () => {
     expect(resolveMotifTrail(['moment:rep-album', 'garbage', 'egg:nope'])).toBeNull();
+  });
+});
+
+describe('resolveRelatedMoments', () => {
+  // Guards the bug this function was written for: every `moment:` id in the
+  // seeds resolved to null under resolveMotifTrail (which handles only
+  // motif:/egg:), so all 82 authored cross-links rendered nowhere.
+  it('resolves every moment: id authored across the vault', () => {
+    const withLinks = CONTENT.filter((c) =>
+      (c.relatedIds ?? []).some((r) => r.startsWith('moment:')),
+    );
+    expect(withLinks.length, 'seeds should carry moment: cross-links').toBeGreaterThan(0);
+
+    let resolved = 0;
+    for (const item of withLinks) resolved += resolveRelatedMoments(item.relatedIds, item.id).length;
+    expect(resolved, 'authored moment: links should resolve to real items').toBeGreaterThan(0);
+  });
+
+  it('returns [] for absent, empty, or non-moment ids', () => {
+    expect(resolveRelatedMoments(undefined)).toEqual([]);
+    expect(resolveRelatedMoments([])).toEqual([]);
+    // motif:/egg: belong to resolveMotifTrail — this resolver must ignore them
+    // rather than render a broken card.
+    expect(resolveRelatedMoments(['motif:anything', 'egg:anything'])).toEqual([]);
+  });
+
+  it('skips dangling ids so a dead link can never render', () => {
+    expect(resolveRelatedMoments(['moment:this-id-does-not-exist'])).toEqual([]);
+  });
+
+  it('never links a moment to itself', () => {
+    const self = CONTENT.find((c) => c.id);
+    expect(self).toBeDefined();
+    expect(resolveRelatedMoments([`moment:${self!.id}`], self!.id)).toEqual([]);
+  });
+
+  it('de-dupes repeated ids', () => {
+    const target = CONTENT.find((c) => c.id)!;
+    const out = resolveRelatedMoments([`moment:${target.id}`, `moment:${target.id}`]);
+    expect(out).toHaveLength(1);
+  });
+
+  it('preserves authoring order, which is editorial intent', () => {
+    const [a, b] = CONTENT;
+    const out = resolveRelatedMoments([`moment:${b.id}`, `moment:${a.id}`]);
+    expect(out.map((r) => r.item.id)).toEqual([b.id, a.id]);
   });
 });
