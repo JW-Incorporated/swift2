@@ -2090,6 +2090,7 @@ export default {
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201907/rs_600x600-190107083644-600x600-taylorswift-joealwyn-ggs-gj-1-7-19.jpg?fit=around%7C600:600&output-quality=90&crop=600:600;center,top',
+            focalPoint: '50% 20%',
             credit: 'Composite via E! Online',
             caption: 'Separate arrivals, January 6, 2019: Swift presenting inside the Golden Globes, Alwyn on the carpet with his castmates.',
             kind: 'archival',

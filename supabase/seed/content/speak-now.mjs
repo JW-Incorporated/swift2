@@ -1166,6 +1166,7 @@ export default {
         photos: [
           {
             url: 'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
+            focalPoint: '50% 22%',
             credit: 'Getty Images (via Just Jared)',
             caption:
               "Just Jared's side-by-side report art for the Thanksgiving 2010 Brooklyn sighting — file photos of the two, shown for reference; the coffee run itself produced few clean photos.",
@@ -1198,6 +1199,7 @@ export default {
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
+            focalPoint: '48% 28%',
             credit: 'Paul Adao/INFphoto.com',
             caption:
               'Wading off Cape Cod in mid-August 2012 — the most photographed stretch of the summer romance.',
@@ -1888,6 +1890,7 @@ export default {
         photos: [
           {
             url: 'https://cdn01.justjared.com/wp-content/uploads/headlines/2010/11/taylor-swift-jake-gyllenhaal-thanksgiving.jpg',
+            focalPoint: '50% 22%',
             credit: 'Getty Images (via Just Jared)',
             caption:
               "Just Jared's side-by-side report art for the Thanksgiving coffee-run sighting that anchored the rumor timeline — file photos of the two, shown for reference.",
@@ -1933,6 +1936,7 @@ export default {
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
+            focalPoint: '48% 28%',
             credit: 'Paul Adao/INFphoto.com',
             caption:
               'Off Cape Cod in mid-August 2012, a few weeks after the two were first linked in July.',
