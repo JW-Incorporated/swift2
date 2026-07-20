@@ -352,4 +352,50 @@ describe('buildOutputSource', () => {
     expect(source).toContain('products?: Product[];');
     expect(source).toMatch(/import type \{.*Product.*\} from '\.\/types';/);
   });
+
+  // THIRD occurrence of the bug this describe block was created for. On
+  // 2026-07-18 the writer lost `significance`. On 2026-07-20 it lost the
+  // entire rumor lifecycle set — sourceTier, lastCheckedOn and resolution were
+  // added to the type, the normalizer, the validator AND the UI the same day,
+  // but not to the writer, so they were dropped on the way to the built vault
+  // and rendered nowhere for a full day. rumorsFrom() was correct throughout,
+  // which is exactly why a unit test on it cannot catch this.
+  it('emits the rumor lifecycle fields, not just the six original ones', () => {
+    const byEra = {};
+    addItem(byEra, {}, 'debut', {
+      slug: 'a-resolved-rumor',
+      year: 2026,
+      month: 7,
+      day: 3,
+      category: 'relationship',
+      title: 'A resolved rumor',
+      snippet: 'A snippet.',
+      rumors: [
+        {
+          claim: 'A claim that later resolved.',
+          reportedBy: 'Daily Mail',
+          reportedOn: '2026-06-30',
+          status: 'debunked',
+          url: 'https://example.com/report',
+          sourceTier: 'tabloid',
+          lastCheckedOn: '2026-07-20',
+          resolution: {
+            on: '2026-07-03',
+            url: 'https://example.com/debunk',
+            outlet: 'The Hollywood Reporter',
+            note: 'Reported the day of.',
+          },
+        },
+      ],
+    });
+    const source = buildOutputSource(byEra);
+    expect(source).toContain('sourceTier: "tabloid"');
+    expect(source).toContain('lastCheckedOn: "2026-07-20"');
+    expect(source).toContain('resolution: { on: "2026-07-03"');
+    expect(source).toContain('outlet: "The Hollywood Reporter"');
+    // A settled claim whose citation is dropped renders as "Debunked" backed
+    // by nothing — the precise failure the resolution field exists to prevent.
+    expect(source).toContain('https://example.com/debunk');
+  });
 });
+

@@ -737,6 +737,25 @@ export function buildOutputSource(byEra) {
             `url: ${esc(r.url)}`,
           ];
           if (r.note) parts.push(`note: ${esc(r.note)}`);
+          // Lifecycle fields (2026-07-20). These were added to the type, the
+          // normalizer, the validator and the UI on the same day — but NOT
+          // here, so every one of them was silently dropped on the way to the
+          // built vault and rendered nowhere. Same failure as the moment
+          // cross-links: authored data that cannot reach the page. If you add
+          // a RumorNote field, add it in BOTH rumorsFrom() and here.
+          if (r.sourceTier) parts.push(`sourceTier: ${esc(r.sourceTier)}`);
+          if (r.lastCheckedOn) parts.push(`lastCheckedOn: ${esc(r.lastCheckedOn)}`);
+          if (r.locationSpecificity)
+            parts.push(`locationSpecificity: ${esc(r.locationSpecificity)}`);
+          if (r.resolution) {
+            const res = [
+              `on: ${esc(r.resolution.on)}`,
+              `url: ${esc(r.resolution.url)}`,
+              `outlet: ${esc(r.resolution.outlet)}`,
+            ];
+            if (r.resolution.note) res.push(`note: ${esc(r.resolution.note)}`);
+            parts.push(`resolution: { ${res.join(', ')} }`);
+          }
           lines.push(`        { ${parts.join(', ')} },`);
         }
         lines.push('      ],');
