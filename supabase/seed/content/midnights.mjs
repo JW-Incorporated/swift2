@@ -694,18 +694,16 @@ export default {
             credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
             caption: 'Swift performing the Midnights set on the Eras Tour, the album era during which the breakup was confirmed.',
             kind: 'archival',
-            // Focal point 2026-07-20 (by eye): tighter cropped portrait, her
-            // face upper-left of the frame; bias left and hold high.
-            focalPoint: '40% 24%',
+            // Tight cropped frame, arm raised; her face is in the upper quarter, just left of center.
+            focalPoint: '43% 24%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_The_Eras_Tour_Midnights_Era_Set_%2853110112943%29.jpg',
             credit: 'Paolo V, Wikimedia Commons (CC BY 2.0)',
             caption: 'Another frame from the same Midnights-era set, August 2023.',
             kind: 'archival',
-            // Focal point 2026-07-20 (by eye): full-length stage shot in a tall
-            // frame; her face is centered around 40% down.
-            focalPoint: '49% 42%',
+            // Very tall wide-stage frame; the small figure's face sits around the upper-middle third.
+            focalPoint: '48% 37%',
           },
         ],
       },

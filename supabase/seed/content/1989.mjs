@@ -340,25 +340,22 @@ export default {
         // from 2015; the third is Harris's own period-accurate 2015 press
         // photo (Sony BMG, CC BY 3.0).
         photos: [
-          // Focal points 2026-07-20 (by eye): the BBMA lead shot has both
-          // faces in the upper third — Taylor left, Calvin right — so center
-          // horizontally and hold high to keep the pair framed.
-          { url: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef', credit: 'Kevin Mazur/BMA2015/WireImage', focalPoint: '50% 26%' },
+          // Focal point (#762): the pair sit side-by-side laughing, both faces in the upper third.
+          { url: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef', credit: 'Kevin Mazur/BMA2015/WireImage', focalPoint: '50% 30%' },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Calvin_Harris_-_Press_Image_1.tif/lossy-page1-250px-Calvin_Harris_-_Press_Image_1.tif.jpg',
             credit: 'Sony BMG, Wikimedia Commons (CC BY 3.0)',
             caption: 'Calvin Harris\'s own 2015 press photo, from the same year the relationship went public.',
             kind: 'reference',
-            // Centered studio portrait; face sits just above the midline.
-            focalPoint: '50% 30%',
+            // Studio portrait: his face sits just above center.
+            focalPoint: '52% 28%',
           },
           {
             url: 'https://media.zenfs.com/en/us_magazine_896/5cdacd465b06109bab8c9239f156469e',
             credit: 'Getty Images, via Us Weekly',
             caption: 'Swift at a 2024 event — a recent individual photo, not from the 2015 relationship.',
             kind: 'reference',
-            // Us Weekly side-by-side frame; both faces sit near the top edge,
-            // so keep the crop centered and high.
+            // CDN now serves a side-by-side split (Swift left, Harris right); both faces sit high, so center-top holds them.
             focalPoint: '50% 20%',
           },
           {
@@ -366,7 +363,7 @@ export default {
             credit: 'Getty Images, via Us Weekly',
             caption: 'Harris at a 2024 event — a recent individual photo, not from the 2015 relationship.',
             kind: 'reference',
-            // Same side-by-side treatment; faces near the top of the frame.
+            // CDN now serves a side-by-side split (Swift left, Harris right); both faces sit high.
             focalPoint: '50% 20%',
           },
         ],
@@ -536,10 +533,8 @@ export default {
         // is the point of the "quietly dating" scoop. Caption corrected to the real date
         // instead of replacing the URL, per protocol fallback for a real-but-mismatched-date
         // photo; no other 2017-dated couple photo passed the sourcing gates.
-        // Focal point 2026-07-20 (by eye): the couple walking in — Taylor and
-        // Joe's faces both sit in the upper band of a landscape frame, so
-        // center between them and hold high.
-        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', credit: 'Robert Kamau/GC Images', kind: 'archival', caption: 'Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun\'s scoop; no public photos of the couple exist from the May 2017 period this moment covers.', focalPoint: '50% 24%' }],
+        // Focal point (#762): the couple walks center-frame, both faces in the upper quarter; a wide crop keeps both.
+        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', credit: 'Robert Kamau/GC Images', kind: 'archival', caption: 'Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun\'s scoop; no public photos of the couple exist from the May 2017 period this moment covers.', focalPoint: '52% 24%' }],
       },
     },
 
@@ -1174,9 +1169,8 @@ export default {
             url: 'https://www.rollingstone.com/music/music-features/apple-exec-eddy-cue-why-taylor-swift-was-right-39608/',
           },
         ],
-        // Focal point 2026-07-20 (by eye): "Shake It Off" reference frame
-        // (the letter itself is text) — face centered, eyes just above middle.
-        photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum', focalPoint: '48% 28%' }],
+        // Focal point (#762): tight 'Shake It Off' frame, her face fills the upper-center of the shot.
+        photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum', focalPoint: '48% 30%' }],
       },
     },
     {
@@ -1567,6 +1561,8 @@ export default {
             credit: 'Big Machine Records',
             kind: 'reference',
             caption: "Reference image: the 'Shake It Off' video — the song 'This Sick Beat' comes from. The trademark filings themselves are paperwork; no event photography exists.",
+            // Tall full-body frame; her face is near the very top, slightly left of center.
+            focalPoint: '42% 16%',
           },
         ],
       },
@@ -2242,18 +2238,24 @@ export default {
             credit: 'Deseret News',
             caption: 'Swift at the "Miss Americana" Sundance premiere, Jan. 23, 2020 — her last major public appearance before the leak and the pandemic lockdown that followed weeks later.',
             kind: 'reference',
+            // Over-the-shoulder pose; her face sits upper-left of center.
+            focalPoint: '40% 25%',
           },
           {
             url: 'https://hollywoodlife.com/wp-content/uploads/2020/03/taylor-swift-kimye-full-phone-call-leaked-rex-ftr-1-1.jpg',
             credit: 'Rex, via HollywoodLife',
             caption: 'A composite of both parties around this period: Swift at Sundance, West and Kardashian at a 2020 event.',
             kind: 'reference',
+            // Left/right split composite; all faces read in the upper band.
+            focalPoint: '50% 22%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/ea/Kim_Kardashian_and_Kanye_West_at_the_Met_Gala_in_2019.png',
             credit: 'Cosmopolitan UK, Wikimedia Commons (CC BY 3.0)',
             caption: 'Kardashian and West in 2019, the year before the full call surfaced.',
             kind: 'reference',
+            // Two faces center-frame, West a touch higher than Kardashian.
+            focalPoint: '46% 40%',
           },
         ],
       },
