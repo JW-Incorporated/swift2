@@ -384,6 +384,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Devotion that bends like the tree it is named for: she casts the wanting as a spell, follows the golden thread from cardigan’s video, and made witch-titled remixes an official joke.", "Dessner has said Swift wrote it to his track almost immediately; the video picks up the literal thread where cardigan’s left off.", "The video begins exactly where cardigan’s ended — same piano, same thread — making the sister-album link literal."],
       discussionSources: [{ name: "Willow (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Willow_(song)" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"isSingle":true,"singleReleaseDate":"2020-12-11","themes":["longing as magic","pliancy and devotion","pursuit"]},
+      youtubeId: "RsEZmictANA",
     },
     {
       slug: "champagne-problems",
@@ -394,6 +395,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She turns down a ring in front of everyone and narrates her own condemnation: his mid-sentence stall, the gossiping town, her unnamed reasons. Written with Joe Alwyn, about invented people.", "Confirmed fiction: Swift described the couple’s backstory as invented; Alwyn co-wrote under the Bowery pseudonym."],
       discussionSources: [{ name: "Champagne Problems (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Champagne_Problems_(Taylor_Swift_song)" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","William Bowery"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["rejected proposals","mental health whispered about","self-blame"]},
+      youtubeId: "wMpqCRF7TKg",
     },
     {
       slug: "gold-rush",
@@ -404,6 +406,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Jealousy at the fantasy stage: the whole crush happens and dies inside her head because loving someone universally desired sounds exhausting. The production literally fades in and out of the reverie."],
       discussionSources: [{ name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["jealousy","daydream romance","self-protective retreat"]},
+      youtubeId: "Pz-f9mM3Ms8",
     },
     {
       slug: "tis-the-damn-season",
@@ -414,6 +417,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An actress back home for Christmas offers an old flame the weekend, no strings, honesty included: the road not taken looks warm every December. Pairs with dorothea, the same story from the boy who stayed.", "Dessner has recounted Swift writing it overnight at Long Pond after a dinner gathering; Swift confirmed the Dorothea character connects both songs."],
       discussionSources: [{ name: "'Tis the Damn Season — Wikipedia", url: "https://en.wikipedia.org/wiki/'Tis_the_Damn_Season" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["hometown nostalgia","temporary love","choices and Decembers"]},
+      youtubeId: "WuvhOD-mP8M",
     },
     {
       slug: "tolerate-it",
@@ -424,6 +428,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She sets the table, learns his favorite everything, and watches it register as furniture: love received as tolerance. The Rebecca influence is confirmed — an age-gap marriage where worship goes unreturned.", "Confirmed: Swift cited reading Rebecca and imagining a wife whose lavish attention is merely endured — the track-5 slot did the rest."],
       discussionSources: [{ name: "Tolerate It — Wikipedia", url: "https://en.wikipedia.org/wiki/Tolerate_It" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["unreciprocated devotion","age-gap imbalance","quiet rebellion brewing"]},
+      youtubeId: "ukxEKY_7MOc",
     },
     {
       slug: "no-body-no-crime",
@@ -434,6 +439,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A whodunit where everyone did it: a cheating husband, a vanished friend named Este, and a narrator with an alibi and a boating license. Swift invented the whole crime, casting her real friends as the fictional victims.", "Confirmed fiction with confirmed casting: written solo about an invented infidelity-murder plot, recorded with the HAIM sisters after Swift decided the story belonged to Este."],
       discussionSources: [{ name: "No Body, No Crime — Wikipedia", url: "https://en.wikipedia.org/wiki/No_Body%2C_No_Crime" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift"],"producers":["Taylor Swift","Aaron Dessner"],"isSingle":true,"themes":["murder ballad","infidelity and comeuppance","female solidarity, armed"]},
+      youtubeId: "IEPomqor2A8",
     },
     {
       slug: "happiness",
@@ -444,6 +450,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["There was happiness, and there will be happiness again — but right now she is standing between the two, refusing to rewrite seven years as villainy. The Gatsby green light drifts through it.", "Confirmed as the album’s last-written song (days before release); Swift framed it as the rare breakup song written before the dust settles."],
       discussionSources: [{ name: "Happiness (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Happiness_(Taylor_Swift_song)" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["divorce and dignity","both things being true","grief mid-stream"]},
+      youtubeId: "tP4TTgt4nb0",
     },
     {
       slug: "dorothea",
@@ -454,6 +461,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A townie watches his high-school love become famous and promises, without bitterness, that the door stays open if the tinsel wears thin. Swift confirmed the two Dorothea songs share one story.", "Confirmed character link to tis the damn season; Swift has said Dorothea exists in the same loose fictional town universe as the folklore kids."],
       discussionSources: [{ name: "Dorothea (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Dorothea_(song)" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["the one who stayed","fame from the outside","unconditional welcome"]},
+      youtubeId: "zI4DS5GmQWE",
     },
     {
       slug: "coney-island",
@@ -464,6 +472,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Mutual neglect as a slow leak: both parties inventory the birthdays forgotten and the doors not held, wondering when the main character became understudy. Matt Berninger’s baritone is the other half of the fault.", "A four-way write with Alwyn (as Bowery) and both Dessner brothers, sung with Berninger — evermore’s fullest merger with The National’s universe."],
       discussionSources: [{ name: "Coney Island (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","William Bowery","Aaron Dessner","Bryce Dessner"],"producers":["Aaron Dessner","Bryce Dessner"],"isSingle":true,"themes":["mutual neglect","apology in stereo","faded grandeur"]},
+      youtubeId: "c_p_TBaHvos",
     },
     {
       slug: "ivy",
@@ -474,6 +483,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Someone else’s vines have grown all over a house that legally belongs to another man: forbidden love in a period drama’s clothes, doom accepted cheerfully in the bridge.", "Fans connect its imagery to Emily Dickinson (evermore was announced on Dickinson’s birthday) — an unconfirmed but beloved reading; the affair plot itself is Swift-invented fiction."],
       discussionSources: [{ name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner","Jack Antonoff"],"producers":["Aaron Dessner"],"themes":["forbidden love","nature as desire","accepting ruin"]},
+      youtubeId: "9nIOx-ezlzA",
     },
     {
       slug: "cowboy-like-me",
@@ -484,6 +494,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Grifters who hustle rich marks recognize each other instantly and break the only rule: never feel anything. Love as the one long con neither of them planned.", "Mumford’s confirmed backing-vocal cameo came via lockdown-era file-sharing; the swindler romance is pure evermore fiction."],
       discussionSources: [{ name: "Cowboy like Me — Wikipedia", url: "https://en.wikipedia.org/wiki/Cowboy_like_Me" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["con-artist romance","kindred spirits","love as the real gamble"]},
+      youtubeId: "YPlNBb6I8qU",
     },
     {
       slug: "long-story-short",
@@ -494,6 +505,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The pile-on years summarized at fast-forward: wrong fights, bad ground, a fall from the pedestal — survived, married off to a better present, and dispatched with a shrug and advice to her past self.", "Swift confirmed it condenses her 2016 nadir and its aftermath — the rare evermore track she filed under her own name rather than a character’s."],
       discussionSources: [{ name: "Long Story Short (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Long_Story_Short_(Taylor_Swift_song)" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["surviving the pile-on","hindsight","peace as the punchline"]},
+      youtubeId: "rqQHa2HcGtM",
     },
     {
       slug: "marjorie",
@@ -504,6 +516,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Grief braided with inherited advice: be polite but keep a knife, be cleverer than clever. The regret of not saving more of someone, answered by literally sampling the recordings that survived.", "Confirmed: about Marjorie Finlay, Swift’s opera-singer grandmother; Finlay’s archival vocals are credited on the track, the era’s most tender production choice.", "The pairing with epiphany gives each grandparent a song — grandfather at 13 on folklore’s tracklist mirror, grandmother at 13 here."],
       discussionSources: [{ name: "Marjorie (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Marjorie_(song)" }, { name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["grief for a grandparent","inheritance of spirit","what survives us"]},
+      youtubeId: "hP6QpMeSG6s",
     },
     {
       slug: "closure",
@@ -514,6 +527,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An old adversary offers tidy closure and she declines the paperwork: her peace does not require his ceremony. The clattering time signature makes the discomfort audible."],
       discussionSources: [{ name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner","BJ Burton"],"themes":["refusing cheap absolution","boundaries","discordant peace"]},
+      youtubeId: "AIFnKqIeEdY",
     },
     {
       slug: "evermore",
@@ -524,6 +538,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A November spent rereading old letters and assuming the pain is permanent; Vernon’s frantic bridge is the storm, and the final verses are the quiet discovery that it was not permanent after all.", "Co-written with Alwyn (piano, as Bowery) and Vernon; Swift has described its arc — pain that finally is not forever — as the deliberate closing statement of the sister albums."],
       discussionSources: [{ name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore","releaseDate":"2020-12-11","writers":["Taylor Swift","William Bowery","Justin Vernon"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["depression and its lifting","winter to thaw","endurance"]},
+      youtubeId: "EXLgZZE072g",
     },
     {
       slug: "right-where-you-left-me",
@@ -534,6 +549,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A breakup so total she fossilizes at the scene: friends marry, seasons change, and she stays 23 at a corner table with dust in her hair. Small-town gossip as Greek chorus."],
       discussionSources: [{ name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore (deluxe edition)","releaseDate":"2021-01-07","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["arrested grief","frozen in time","the town watches"]},
+      youtubeId: "Ur_wAcYDnuA",
     },
     {
       slug: "its-time-to-go",
@@ -544,6 +560,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Three case studies in walking away — a dead friendship, a hollow marriage, and a job where something she made was handed to someone else. That last verse maps so cleanly onto the Big Machine exit that fans treat it as autobiography.", "The trusting-your-gut-to-leave thesis is the song’s own text; the record-label verse is the widely held fan reading of the 2018–2019 masters events (not officially footnoted)."],
       discussionSources: [{ name: "Evermore — Wikipedia", url: "https://en.wikipedia.org/wiki/Evermore" }],
       facts: {"release":"evermore (deluxe edition)","releaseDate":"2021-01-07","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["knowing when to leave","self-trust","starting over as winning"]},
+      youtubeId: "1iRbIYkccgw",
     },
   ],
   "fearless": [
@@ -808,6 +825,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Someone doing fine, honestly, catches herself doing the math on the one who got away: a shrug with a bruise under it."],
       discussionSources: [{ name: "The 1 — Wikipedia", url: "https://en.wikipedia.org/wiki/The_1" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["the one that got away","wistful acceptance","parallel lives"]},
+      youtubeId: "KsZ6tROaVOQ",
     },
     {
       slug: "cardigan",
@@ -818,6 +836,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Betty, years later, remembers being young and discarded and chosen again — the title image is being someone’s favorite old comfort object rescued from under the bed.", "Confirmed by Swift: one of three songs (with betty and august) telling an invented love triangle from three perspectives.", "Real cardigans were the merch drop; the James/Betty/Inez names came from friends’ children, confirmed on record."],
       discussionSources: [{ name: "Cardigan (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Cardigan_(song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"isSingle":true,"singleReleaseDate":"2020-07-24","themes":["teenage love triangle","being chosen late","memory"]},
+      youtubeId: "K-a8s8OLBSE",
     },
     {
       slug: "the-last-great-american-dynasty",
@@ -828,6 +847,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A gossiped-about widow scandalizes a New England town for fifty years; then the narrator buys the house and inherits the reputation. History as a hand-me-down.", "Confirmed: about Rebekah Harkness, previous owner of Swift’s Holiday House in Watch Hill — Swift learned the story when she bought the property."],
       discussionSources: [{ name: "The Last Great American Dynasty — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["women labeled mad","inherited notoriety","history rhyming"]},
+      youtubeId: "2s5xdY6MCeI",
     },
     {
       slug: "exile",
@@ -838,6 +858,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A breakup staged as two monologues: he saw no warning signs, she gave hundreds — the album’s masterclass in talking past someone you loved.", "Confirmed in the Long Pond sessions: Alwyn (as William Bowery) wrote the piano part and first melody; Vernon recorded his half remotely mid-pandemic."],
       discussionSources: [{ name: "Exile (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Exile_(song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","William Bowery","Justin Vernon"],"producers":["Aaron Dessner"],"isSingle":true,"themes":["miscommunication","exile from a shared world","two truths"]},
+      youtubeId: "osdoLjUNFnA",
     },
     {
       slug: "my-tears-ricochet",
@@ -848,6 +869,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Narrated from inside a casket: a tormentor mourns the very person he cast out. Swift described it as being about an embittered betrayer attending the funeral he caused — fans read the masters sale directly onto it.", "Confirmed as the album’s first-written song, described by Swift in the Long Pond film in stolen-legacy terms; the Big Machine/Scooter Braun mapping is the near-universal fan reading (not officially footnoted)."],
       discussionSources: [{ name: "My Tears Ricochet — Wikipedia", url: "https://en.wikipedia.org/wiki/My_Tears_Ricochet" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["betrayal by a former ally","stolen legacy","grief as haunting"]},
+      youtubeId: "OWbDJFtHl3w",
     },
     {
       slug: "mirrorball",
@@ -858,6 +880,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She is a mirrorball: assembled from reflective fragments, spinning hardest when the crowd might leave. Written, per the Long Pond film, right after the pandemic pulled her stages away.", "Confirmed in the Long Pond sessions: composed in the first weeks of lockdown, directly about performing identity with nowhere to perform."],
       discussionSources: [{ name: "Mirrorball (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Mirrorball_(song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["performing the self","people-pleasing","fragility"]},
+      youtubeId: "KaM1bCuG4xo",
     },
     {
       slug: "seven",
@@ -868,6 +891,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Two little girls, one of them living in a frightening house, plotting pirate escapes to India: childhood loyalty recalled before the narrator understood what she was seeing. Love as an heirloom you keep passing on.", "Swift placed it in her own Pennsylvania childhood geography; the friend and her troubled home are drawn with deliberate, unresolved ambiguity."],
       discussionSources: [{ name: "Seven (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Seven_(Taylor_Swift_song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["childhood memory","innocent witness to trouble","love passed down"]},
+      youtubeId: "pEY-GPsru_E",
     },
     {
       slug: "august",
@@ -878,6 +902,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The summer fling from the other woman’s side: she knew he was never hers, and wanted him anyway. Swift has defended Augustine on the record — not a villain, just a girl who hoped.", "Confirmed as the triangle’s third perspective; in the Long Pond film Swift named the character Augustine and argued for her sympathetically.", "August slipping away like a bottle of wine became an annual fan ritual every August 1st — a documented yearly meme-moment."],
       discussionSources: [{ name: "August (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/August_(song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["the other girl","summer as a whole lifetime","hope against fact"]},
+      youtubeId: "nn_0zPAfyo8",
     },
     {
       slug: "this-is-me-trying",
@@ -888,6 +913,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Effort as the whole achievement: pulling up to a driveway you almost drove past, one year sober with no one clapping. The bar is on the floor and clearing it is heroic.", "Swift described the multiple-narrator design in the Long Pond film — deliberately voicing people whose trying is invisible from outside."],
       discussionSources: [{ name: "This Is Me Trying — Wikipedia", url: "https://en.wikipedia.org/wiki/This_Is_Me_Trying" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["addiction and recovery","invisible effort","compassion"]},
+      youtubeId: "9bdLTPNrlEg",
     },
     {
       slug: "illicit-affairs",
@@ -898,6 +924,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Instructions for sneaking around, curdling into an indictment: an affair builds a secret world exactly one person wide, then bills you for it a million times over."],
       discussionSources: [{ name: "Illicit Affairs — Wikipedia", url: "https://en.wikipedia.org/wiki/Illicit_Affairs" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["infidelity","secret worlds","self-erasure"]},
+      youtubeId: "MLV2SJKWk4M",
     },
     {
       slug: "invisible-string",
@@ -908,6 +935,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A relationship audit that finds providence everywhere: teenage jobs, cruel exes, chance timing — all of it now reads as one string pulling two people together. Even old wounds get thanked.", "Built openly on the invisible-thread-of-fate folk motif; fans note the yogurt-shop and park details matching documented biography (the song invites the mapping)."],
       discussionSources: [{ name: "Invisible String — Wikipedia", url: "https://en.wikipedia.org/wiki/Invisible_String" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["fate","retrospective meaning","gratitude for the detours"]},
+      youtubeId: "OuFnpmGwg5k",
     },
     {
       slug: "mad-woman",
@@ -918,6 +946,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A woman gaslit into the role of witch decides to play it with teeth: anger begets anger, and her scorn was community property before she ever swung. Fans read the masters dispute here too.", "Swift discussed the song’s thesis — the no-win trap of female anger — in the Long Pond film; the industry-feud mapping is fan reading (unconfirmed in specifics)."],
       discussionSources: [{ name: "Mad Woman (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Mad_Woman" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["female rage","gaslighting","witch narratives"]},
+      youtubeId: "6DP4q_1EgQQ",
     },
     {
       slug: "epiphany",
@@ -928,6 +957,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Verse one lands at Guadalcanal with Dean Swift; verse two puts on a mask in a COVID ward. Both generations discover some things cannot be spoken, only slept off in dreams.", "Confirmed: inspired by her grandfather Dean’s WWII service in the Marines and written in tribute to pandemic frontline workers."],
       discussionSources: [{ name: "Epiphany (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Epiphany_(Taylor_Swift_song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["generational trauma","war and pandemic","the unspeakable"]},
+      youtubeId: "DUnDkI7l9LQ",
     },
     {
       slug: "betty",
@@ -938,6 +968,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A seventeen-year-old shows up at a party to grovel: he did the damage in august, heard about it through the grapevine, and bets everything on a doorstep apology. Whether Betty takes him back stays unwritten.", "Confirmed: the triangle from James’s perspective, with names borrowed from Blake Lively and Ryan Reynolds’ daughters — a fact confirmed when the couple’s third child’s name matched.", "Its country-radio single push and CMA-adjacent performance were the era’s single wink back at her first genre."],
       discussionSources: [{ name: "Betty (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Betty_(Taylor_Swift_song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","William Bowery"],"producers":["Taylor Swift","Aaron Dessner","Jack Antonoff"],"isSingle":true,"themes":["apology","teenage recklessness","asking forgiveness"]},
+      youtubeId: "6TAPqXkZW_I",
     },
     {
       slug: "peace",
@@ -948,6 +979,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A pre-nup of the soul: the fame, the scrutiny, the siege conditions are permanent, so the one thing she cannot promise a partner is peace. Swift confirmed this one is fully hers.", "Confirmed in interviews and the Long Pond film as directly autobiographical — the trade-offs of loving someone whose life is public property."],
       discussionSources: [{ name: "Peace (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Peace_(Taylor_Swift_song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["what fame costs a partner","devotion with caveats","honesty"]},
+      youtubeId: "HpxX4ZE4KWE",
     },
     {
       slug: "hoax",
@@ -958,6 +990,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Faithful to a faithless thing: betrayal, public wounds, and a barefoot walk back anyway. Swift has said it blends multiple griefs — romantic and otherwise — into one address.", "Swift noted in the Long Pond film that its betrayals braid together more than one real subject rather than a single person."],
       discussionSources: [{ name: "Hoax (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Hoax_(song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore","releaseDate":"2020-07-24","writers":["Taylor Swift","Aaron Dessner"],"producers":["Aaron Dessner"],"themes":["devotion to what wounds","composite grief","bleak fidelity"]},
+      youtubeId: "ryLGxpjwAhM",
     },
     {
       slug: "the-lakes",
@@ -968,6 +1001,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An escape fantasy with a Wordsworth pun in it: leave the hunters and clowns to their internet, take the muse, grow roses somewhere with no wifi. The album’s whole ethos in miniature.", "Confirmed: written about the Lake District and its Romantic-poet history — Swift called it the thematic summary of folklore, which is why it closes the deluxe edition."],
       discussionSources: [{ name: "The Lakes (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Lakes_(song)" }, { name: "Folklore (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
       facts: {"release":"folklore (deluxe editions)","releaseDate":"2020-08-18","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["escape from public life","romantic poets","chosen solitude"]},
+      youtubeId: "tOHcAc3r2kw",
     },
   ],
   "lover": [
