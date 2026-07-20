@@ -972,30 +972,35 @@ export default {
           // every real, verified photo found from the Feb. 15, 2016 ceremony.
           {
             url: 'https://i.guim.co.uk/img/media/338849e33c7e6b53df14a7f5a00183b2a31d1203/0_48_2640_1584/master/2640.jpg?crop=none&dpr=1&s=none&width=465',
+            focalPoint: '55% 42%',
             credit: 'Stringer/Reuters, via The Guardian',
             caption: 'Swift stands on the Grammy stage during the ceremony where 1989 won Album of the Year.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt4200ccf647ed3548/69888f30428a9ed09ecd23bd/taylor-swift-success-double-standard-women.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            focalPoint: '50% 30%',
             credit: 'Mark Ralston/AFP/Getty Images, via TIME',
             caption: 'Swift holds her three trophies in the press room after the 58th Grammy Awards.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blt5ccf62fadac5fa4d/69887dac8e0601bf454649de/grammys-red-carpet-lead.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            focalPoint: '42% 50%',
             credit: 'Steve Granitz/Getty Images, via TIME',
             caption: 'Selena Gomez and Swift pose together on the red carpet before the 58th Grammy Awards.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blta95b1ab48ade842b/69887da62dce016f4f9e7d02/taylor-swift-grammys-performance.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            focalPoint: '50% 30%',
             credit: 'Robyn Beck/AFP/Getty Images, via TIME',
             caption: 'Swift opens the 58th Grammy Awards with "Out of the Woods."',
             kind: 'primary',
           },
           {
             url: 'https://media.vanityfair.com/photos/56c278c5a76c406e241cfa0e/master/w_2560%2Cc_limit/a-taylor-swift-grammys-2016-performance.jpg',
+            focalPoint: '48% 30%',
             credit: 'WireImage/Getty Images, via Vanity Fair',
             caption: 'Swift accepts Album of the Year for 1989 on the Grammy stage with her collaborators behind her.',
             kind: 'primary',
@@ -1016,18 +1021,21 @@ export default {
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618992a7d1d17a722120/master/w_1024%2Cc_limit/GettyImages-510439902.jpg',
+            focalPoint: '56% 16%',
             credit: 'AFP/Getty Images, via Teen Vogue',
             caption: 'A separate red-carpet close-up shows Swift\'s bob haircut and jeweled choker at the 2016 Grammys.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618ae9ea465e7cf5b563/master/w_1024%2Cc_limit/GettyImages-510439964.jpg',
+            focalPoint: '38% 52%',
             credit: 'Getty Images for NARAS, via Teen Vogue',
             caption: 'A Grammy red-carpet detail frame shows Swift\'s metallic manicure and matching cocktail ring.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56c2618ce9ea465e7cf5b567/master/w_1024%2Cc_limit/GettyImages-510439972.jpg',
+            focalPoint: '54% 60%',
             credit: 'Getty Images for NARAS, via Teen Vogue',
             caption: 'A separate detail frame shows the metallic platform sandals worn with Swift\'s 2016 Grammy look.',
             kind: 'primary',

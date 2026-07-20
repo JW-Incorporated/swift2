@@ -114,36 +114,42 @@ export default {
           // real, verified photos from the actual Jan. 31, 2010 Grammy night.
           {
             url: 'https://media.vanityfair.com/photos/6973c403bc755155c2f9ebcc/master/w_1024%2Cc_limit/taylor-swift-grammys-red-carpet-2010.jpg',
+            focalPoint: '30% 20%',
             credit: 'Dan MacMedan/WireImage, via Vanity Fair',
             caption: 'Swift arrives at the 52nd Grammy Awards in a blue sequined KaufmanFranco gown.',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1264988049224/Singer-Swift-speaks-onsta-001.jpg?crop=none&dpr=1&s=none&width=465',
+            focalPoint: '52% 30%',
             credit: 'Danny Moloshok/Reuters, via The Guardian',
             caption: 'Swift speaks onstage after winning Best Female Country Vocal Performance for "White Horse," one of her four Grammys that night.',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2010/2/1/1265015933818/Taylor-Swift-drops-one-of-003.jpg?crop=none&dpr=1&s=none&width=375',
+            focalPoint: '52% 30%',
             credit: 'Valerie Macon/AFP/Getty Images, via The Guardian',
             caption: 'Swift loses her grip on one of the four trophies she carried in the Grammy press room.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/blte142e31b64ce6139/69877c56524fc062c0dec2d5/ap100131042457.jpg?branch=production&width=3840&quality=75&auto=webp&crop=3%3A2',
+            focalPoint: '50% 28%',
             credit: 'Matt Sayles/AP, via TIME',
             caption: 'Swift and Stevie Nicks perform together during the 52nd Grammy Awards telecast.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltca5404e6952dca29/698762d6e20a87c7bda82aeb/taylor-swift-12.jpg?branch=production&width=3840&quality=75&auto=webp',
+            focalPoint: '55% 30%',
             credit: 'Michael Caulfield/WireImage/Getty Images, via TIME',
             caption: 'Swift performs onstage during the 52nd Grammy Awards at Staples Center.',
             kind: 'primary',
           },
           {
             url: 'https://assets.teenvogue.com/photos/56be4d24e9ea465e7cf59f44/16%3A9/w_2560%2Cc_limit/GettyImages-98115429.jpg',
+            focalPoint: '52% 28%',
             credit: 'Michael Tran/FilmMagic, via Teen Vogue',
             caption: 'Swift poses in the Grammy press room with all four awards she won that night, including Album of the Year.',
             kind: 'primary',

@@ -276,24 +276,28 @@ export default {
           // wait") that paid off as real album lyrics three days later.
           {
             url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_1-819x1024.jpg',
+            focalPoint: '48% 40%',
             credit: 'Spotify Newsroom',
             caption: 'An open "book" prop inside the installation reading "EVEN STATUES CRUMBLE / IF THEY\'RE MADE TO WAIT" — a line that surfaced as an actual album lyric on release day.',
             kind: 'archival',
           },
           {
             url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_2-819x1024.jpg',
+            focalPoint: '50% 40%',
             credit: 'Spotify Newsroom',
             caption: 'A second planted page: "ONE LESS TEMPTRESS / ONE LESS DAGGER TO SHARPEN" — another line that matched the finished record.',
             kind: 'archival',
           },
           {
             url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_4-819x1024.jpg',
+            focalPoint: '42% 50%',
             credit: 'Spotify Newsroom',
             caption: 'A card-catalog wall inside the installation, drawers labeled "TTPD" and "Taylor Swift" — the shelves fans mined for days.',
             kind: 'archival',
           },
           {
             url: 'https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_9-819x1024.jpg',
+            focalPoint: '58% 32%',
             credit: 'Spotify Newsroom',
             caption: 'The same "Even statues crumble" line scaled up on a Times Square billboard, part of the same pre-save campaign.',
             kind: 'archival',
@@ -2774,24 +2778,28 @@ export default {
           // searched for before.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Kamala_Harris_Vice_Presidential_Portrait.jpg',
+            focalPoint: '50% 30%',
             credit: 'Official White House portrait (public domain)',
             caption: 'Kamala Harris, the candidate the endorsement named directly.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg',
+            focalPoint: '54% 30%',
             credit: 'Official White House portrait (public domain)',
             caption: 'JD Vance, whose "childless cat ladies" line Swift borrowed for her own sign-off.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/53/P20211222AS-1417_%2851898637810%29_%28cropped%29.jpg',
+            focalPoint: '60% 22%',
             credit: 'Adam Schultz / The White House (public domain)',
             caption: 'David Muir, who co-moderated the Sept. 10, 2024 debate the endorsement followed within minutes.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Linsey_Davis_at_BookExpo_%2805437%29_%28cropped%29.jpg',
+            focalPoint: '54% 22%',
             credit: 'Rhododendrites, Wikimedia Commons (CC BY-SA 4.0)',
             caption: 'Linsey Davis, the debate\'s other co-moderator.',
             kind: 'reference',

@@ -860,12 +860,14 @@ export default {
           // Arrowhead game and its immediate aftermath.
           {
             url: 'https://media.vanityfair.com/photos/655a2af58877a2e304c7d8ac/master/w_2560%2Cc_limit/1687516923',
+            focalPoint: '55% 28%',
             credit: 'Cooper Neill/Getty Images, via Vanity Fair',
             caption: 'Swift cheers beside Donna Kelce from a suite as the Chiefs play the Bears at Arrowhead on Sept. 24, 2023.',
             kind: 'primary',
           },
           {
             url: 'https://media.vanityfair.com/photos/6511b258c700cad4c4f82633/master/w_2560%2Cc_limit/Taylor-Swift.jpg',
+            focalPoint: '50% 26%',
             credit: 'Jason Hanna/Getty Images, via Vanity Fair',
             caption: 'Swift reacts from the Arrowhead suite during the first Chiefs game she attended.',
             kind: 'primary',
@@ -878,24 +880,28 @@ export default {
           // docs/decisions.md; every other domain in this pass tested clean.
           {
             url: 'https://media.vanityfair.com/photos/65bac4142264a30c89f9949d/master/w_1600%2Cc_limit/1687739252',
+            focalPoint: '45% 26%',
             credit: 'Icon Sportswire/Getty Images, via Vanity Fair',
             caption: 'Swift watches the game with Travis Kelce\'s mother, Donna, in a separate suite photograph from Sept. 24.',
             kind: 'primary',
           },
           {
             url: 'https://imagez.tmz.com/image/cc/4by3/2023/09/25/cc266e4c1e8646149db60f4c03b795ce_md.jpg',
+            focalPoint: '50% 22%',
             credit: 'TMZ.com',
             caption: 'Swift enters Arrowhead in a Chiefs windbreaker, escorted by a member of Kelce\'s public-relations team.',
             kind: 'primary',
           },
           {
             url: 'https://imagez.tmz.com/image/02/16by9/2023/09/25/02f6bdca4be649f58c60466f10fc0115_md.jpg',
+            focalPoint: '50% 40%',
             credit: 'X/@paytonsun, via TMZ',
             caption: 'Swift and Kelce walk out of Arrowhead side by side after the Chiefs\' win.',
             kind: 'primary',
           },
           {
             url: 'https://imagez.tmz.com/image/98/4by3/2023/09/25/984b4d79ebce419cbcef97777e65d904_md.jpg',
+            focalPoint: '48% 40%',
             credit: 'TMZ.com',
             caption: 'Swift and Kelce leave Arrowhead together in his metallic purple convertible after the game.',
             kind: 'primary',
