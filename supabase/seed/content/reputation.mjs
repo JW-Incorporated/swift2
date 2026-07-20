@@ -2127,6 +2127,27 @@ export default {
       snippet: "The Reputation Stadium Tour becomes the highest-grossing US tour at the time.",
       moment: {
         context: "Towering cobra stage design and a stadium-scale production reset expectations for her live shows.",
+        // Photo pass #762 (2026-07-20): page had zero photos. Two freely
+        // licensed Commons shots from the Reputation Stadium Tour itself —
+        // both file pages' licenses verified via the Commons API, curl 200
+        // image/jpeg, downloaded and Read-viewed this session. focalPoint is
+        // written immediately after url per the 2026-07-20 field-order rule.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/2/29/Taylor_Swift_-_Reputation_Tour_Seattle_-_End_Game.jpg',
+            focalPoint: '62% 44%',
+            credit: 'Ronald Woan via Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Performing "End Game" in black-and-gold sequins on the Reputation Stadium Tour, Seattle, May 2018.',
+            kind: 'primary',
+          },
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/7/70/Taylor_Swift_Reputation_Tour_stage_in_Minneapolis_2018.jpg',
+            focalPoint: '46% 40%',
+            credit: 'Michael Hicks via Wikimedia Commons, CC BY 2.0',
+            caption: 'The stadium-scale stage and a packed house in Minneapolis, August 2018 — the tour that reset her live records.',
+            kind: 'reference',
+          },
+        ],
       },
     },
   ],
