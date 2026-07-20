@@ -1996,7 +1996,10 @@ export default {
       snippet:
         'A Miu Miu checkered bomber for Taylor, all-black shearling-trimmed for Selena — the two friends layered up for Gomez\'s first-ever Chiefs game, a Dec. 7 loss to the Texans.',
       sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-selena-gomez-kansas-city-chiefs-houston-texans-game-winter-coats/',
-      thumbnailUrl: null,
+      // Photo pass (2026-07-20): was null (no agency photo found the first
+      // pass) — now points at the real Dec. 7 suite photo, see moment.photos.
+      thumbnailUrl:
+        'https://s.yimg.com/lo/mysterio/api/51607632d8b138ca2eb5ef4309f5f62efba2de679c41c5aa011b6eea7ffc78ff/lightyear_networkapi/resizefill_w976;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpeople_218%2F6f5cc6c4b72bc346bb5078ba6b322161',
       moment: {
         context:
           'Swift\'s oversize checkered Miu Miu bomber (originally $4,600) and Gomez\'s fitted shearling-trimmed coat drew as much coverage as the game itself, which the Chiefs lost 20-10 — the loss that helped seal the franchise\'s first missed playoffs of the Kelce-Swift era. E! Online and Marie Claire both noted it was Gomez\'s first time attending a Chiefs game with Swift, a milestone in its own right for a friendship fans have tracked since 2008.\n\nThe pairing carried extra 2025 subtext: it was a wedding-season friendship on both sides — Gomez had married Benny Blanco that September, and Swift\'s own wedding was seven months out — and the coordinated-winter-coats suite appearance became an instant fan-edit staple, the two most-followed women of their pop generation doing normal-best-friend things at a football game. Marie Claire\'s fashion desk treated the coats as a two-hander: Swift\'s loud checkerboard against Gomez\'s all-black, opulence in two registers.',
@@ -2020,23 +2023,33 @@ export default {
             reliability_score: 4,
           },
         ],
-        // No hotlinkable agency photo of the Dec. 7 suite look was found this
-        // session (the cited articles lead with older Getty imagery), so the
-        // gallery uses an honest archival photo of the actual friendship,
-        // clearly dated in the caption. Verified HTTP 200 + image/jpeg and
-        // visually confirmed.
-        // Photo pass #762 (2026-07-19): re-checked for a Dec. 7 suite photo —
-        // Marie Claire's own hero image is another frame of the same Jan. 2024
-        // Golden Globes moment already shown below (duplicate subject), so no
-        // second photo was added.
+        // Photo pass (2026-07-20): found a real Dec. 7 suite photo (Kelce
+        // Brothers' own Instagram, syndicated via Yahoo/PEOPLE) that a
+        // founder flagged was missing — replaces the archival Golden Globes
+        // stand-in from the 2026-07-19 pass. Verified HTTP 200 + image/jpeg,
+        // downloaded and visually confirmed: Swift's grey checked collar and
+        // Gomez's dark fur-trimmed coat are both visible in the suite.
         photos: [
           {
-            url: 'https://akns-images.eonline.com/eol_images/Entire_Site/202502/rs_1200x1200-250102084057-Selena-Gomez-Taylor-Swift.jpg',
-            credit: 'via E! Online',
-            caption:
-              'Archival: Swift and Gomez at the January 2024 Golden Globes — the image E! ran with its coverage of Gomez\'s first Chiefs game in the Arrowhead suite. No agency photo of the Dec. 7 coats look was available to hotlink.',
-            kind: 'archival',
-            focalPoint: '47% 32%',
+            url: 'https://s.yimg.com/lo/mysterio/api/51607632d8b138ca2eb5ef4309f5f62efba2de679c41c5aa011b6eea7ffc78ff/lightyear_networkapi/resizefill_w976;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpeople_218%2F6f5cc6c4b72bc346bb5078ba6b322161',
+            credit: 'Kelce Brothers/Instagram, via Yahoo/PEOPLE',
+            caption: 'Swift and Gomez in the Arrowhead suite during the Dec. 7, 2025 Chiefs-Texans game.',
+            kind: 'primary',
+          },
+        ],
+        // Shop pass (2026-07-20): the Miu Miu jacket is confirmed (same
+        // grey-check oversized bomber, Bergdorf Goodman) but sold out.
+        // Gomez's coat carries no brand in any source — a close Nordstrom
+        // match (Avec Les Filles) was two-tone, not the all-black described,
+        // so it was skipped rather than forced.
+        products: [
+          {
+            brand: 'Miu Miu',
+            item: 'Check Oversized Zip Up Wool Bomber Jacket',
+            retailer: 'bergdorfgoodman.com',
+            url: 'https://www.bergdorfgoodman.com/p/miu-miu-check-oversized-zip-up-wool-bomber-jacket-prod189900058',
+            price: '$4,600.00',
+            inStock: false,
           },
         ],
       },
