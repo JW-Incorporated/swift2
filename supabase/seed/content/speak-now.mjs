@@ -220,6 +220,8 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg',
+            // Singing at the mic; her face sits in the upper-left third.
+            focalPoint: '42% 20%',
             credit: 'Eva Rinaldi / Wikimedia Commons',
           },
         ],
@@ -610,6 +612,8 @@ export default {
         photos: [
           {
             url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg',
+            // Album cover: her face is in the upper-right quadrant.
+            focalPoint: '54% 16%',
             credit: 'Reem Acra / Big Machine Records',
           },
         ],
@@ -765,6 +769,8 @@ export default {
         photos: [
           {
             url: 'https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg',
+            // Full-length red-carpet portrait; face is high in frame.
+            focalPoint: '52% 13%',
             credit: 'Style Darling Daily',
           },
         ],

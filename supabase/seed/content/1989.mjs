@@ -410,7 +410,7 @@ export default {
             url: 'https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html',
           },
         ],
-        photos: [{ url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calvin-harris-sunglasses-2015-billboard-1548.jpg?w=942&h=628&crop=1', credit: 'James Devaney/GC Images' }],
+        photos: [{ url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calvin-harris-sunglasses-2015-billboard-1548.jpg?w=942&h=628&crop=1', focalPoint: '48% 27%', credit: 'James Devaney/GC Images' }],
       },
     },
     {
@@ -441,7 +441,7 @@ export default {
         // photo of the two dancing together at the 2016 Met Gala — "where it all began" per
         // that outlet's own captioning; curl-verified 200/image-jpeg, downloaded and visually
         // confirmed both of them together in one frame.
-        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201643/rs_600x600-160503143431-600.Taylor-Swift-Tom-Hiddleston-Dancing.ms.050316.jpg', credit: 'E! Online', kind: 'archival', caption: 'Dancing together at the 2016 Met Gala afterparty, where the two met — the start of the relationship this moment covers.' }],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201643/rs_600x600-160503143431-600.Taylor-Swift-Tom-Hiddleston-Dancing.ms.050316.jpg', focalPoint: '50% 40%', credit: 'E! Online', kind: 'archival', caption: 'Dancing together at the 2016 Met Gala afterparty, where the two met — the start of the relationship this moment covers.' }],
       },
     },
     {
@@ -502,7 +502,7 @@ export default {
         // Online's own photo of their July 27, 2016 dinner-date exit — captioned by that
         // outlet as their last sighting together before the September split; curl-verified
         // 200/image-jpeg, downloaded and visually confirmed the two together hand-in-hand.
-        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016628/rs_634x1024-160728100815-634.Taylor-Swift-Tom-Hiddleston-Exclusive-Dinner-Date-J4R-072816.jpg', credit: 'E! Online', kind: 'archival', caption: 'Leaving a dinner date hand-in-hand, July 27, 2016 — their last publicly photographed sighting together before the September split.' }],
+        photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016628/rs_634x1024-160728100815-634.Taylor-Swift-Tom-Hiddleston-Exclusive-Dinner-Date-J4R-072816.jpg', focalPoint: '48% 16%', credit: 'E! Online', kind: 'archival', caption: 'Leaving a dinner date hand-in-hand, July 27, 2016 — their last publicly photographed sighting together before the September split.' }],
       },
     },
     {
@@ -1937,6 +1937,8 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/a/a8/This_Is_What_You_Came_For_cover.png',
+            // Symmetric circular cover art (lightning over mountains); genuinely reads best centered.
+            focalPoint: '50% 50%',
             credit: 'Westbury Road / Sony Music',
             kind: 'primary',
             caption: 'The single art for "This Is What You Came For" — credited on release to Calvin Harris featuring Rihanna, with "Nils Sjöberg" in the songwriting credits.',
