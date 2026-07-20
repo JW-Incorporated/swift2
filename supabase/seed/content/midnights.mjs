@@ -596,7 +596,12 @@ export default {
       day: 6,
       category: 'business',
       significance: 'defining', // global-recognition peak of the Eras Tour year (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-ttpd-an-endorsement-signed-childless-cat-lady'],
+      relatedIds: [
+        'moment:vault-ttpd-an-endorsement-signed-childless-cat-lady',
+        // Same-day sibling: the cover-shoot fashion item (Inez & Vinoodh, the
+        // Benjamin Button cover). Curiosity ledger #888, Q4.
+        'moment:vault-midnights-times-person-of-the-year-cover-shoot-in-three-looks',
+      ],
       title: 'Time names her 2023 Person of the Year',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -607,19 +612,80 @@ export default {
       thumbnailUrl:
         'https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg',
       moment: {
+        // Depth pass 2026-07-20 (curiosity ledger #888): context expanded with
+        // the historic firsts (Q3), the full nine-finalist field + editor's
+        // rationale (Q2), and Swift's own on-record interview revelations (Q1).
         context:
-          'The pick capped the exact year the citation ran through: an Eras Tour so big the Federal Reserve noted its boost to tourism, a concert film AMC was already calling the highest-grossing ever after a $90 million-plus domestic opening weekend, billionaire status reached that fall — helped by 1989 (Taylor\'s Version) — and the title of Spotify\'s most-streamed artist of 2023.\n\nHer full line to Time ended with a wink at the spectacle of it all: "Ultimately, we can convolute it all we want, or try to overcomplicate it, but there\'s only one question... Are you not entertained?"',
+          'The pick capped the exact year the citation ran through: an Eras Tour so big the Federal Reserve noted its boost to tourism, a concert film AMC was already calling the highest-grossing ever after a $92 million-plus domestic opening weekend, billionaire status reached that fall — helped by 1989 (Taylor\'s Version) — and the title of Spotify\'s most-streamed artist of 2023.\n\nA run of firsts: in 96 years of the franchise she was the first individual picked for achievement in the arts, the first entertainer named solo, and — after the 2017 "Silence Breakers" cover marking her David Mueller trial testimony — the first woman to appear on a Person of the Year cover twice. Editor-in-chief Sam Jacobs\' letter: "No one else on the planet today can move so many people so well… Swift is the rare person who is both the writer and hero of her own story." She was chosen over eight other finalists — King Charles III, Xi Jinping, Vladimir Putin, Sam Altman, the striking Hollywood actors and writers, Fed chair Jerome Powell, the Trump prosecutors, and Barbie.\n\nIn Sam Lansky\'s cover story — her first sit-down interview in years — she dated the Kelce relationship earlier than fans knew ("we actually had a significant amount of time that no one knew"; it began after "Travis very adorably put me on blast on his podcast, which I thought was metal as hell"), called the 2016 Kanye/Kim phone-call fallout a stretch that "took me down psychologically to a place I\'ve never been before," and framed the re-recordings as her answer to the sale of her masters: "My response to anything that happens, good or bad, is to keep making things." Her closing wink at the spectacle: "Are you not entertained?"',
         sources: [
+          {
+            outlet: 'TIME',
+            url: 'https://time.com/6342806/person-of-the-year-2023-taylor-swift/',
+            source_title: 'Person of the Year 2023: Taylor Swift',
+            publisher: 'TIME',
+            source_type: 'primary', // the cover interview itself (Sam Lansky)
+            accessed_at: '2026-07-20',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/taylor-swift-time-person-of-the-year-revelations-rcna128268',
+            source_title: '8 revelations from Taylor Swift in Time\'s Person of the Year cover story',
+            publisher: 'TODAY',
+            source_type: 'news',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBC News',
+            url: 'https://www.cbc.ca/news/entertainment/taylor-swift-person-of-the-year-1.7050425',
+            source_title: 'Taylor Swift makes history as Time\'s Person of the Year for 2023',
+            publisher: 'CBC News',
+            source_type: 'news',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/biz/news/times-person-of-the-year-hollywood-strikers-taylor-swift-1235820420/',
+            source_title: 'Time\'s Person of the Year Finalists',
+            publisher: 'Variety',
+            source_type: 'news',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
           {
             outlet: 'CBS News',
             url: 'https://www.cbsnews.com/news/taylor-swift-time-2023-person-of-the-year/',
+            source_title: 'Taylor Swift is TIME\'s 2023 Person of the Year',
+            publisher: 'CBS News',
+            source_type: 'news',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
           },
           {
             outlet: 'Forbes',
             url: 'https://www.forbes.com/sites/conormurray/2023/12/06/every-major-event-in-taylor-swifts-record-breaking-2023-from-the-eras-tour-to-time-person-of-the-year/',
+            source_title: 'Every Major Event In Taylor Swift\'s Record-Breaking 2023',
+            publisher: 'Forbes',
+            source_type: 'news',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
           },
         ],
         photos: [
+          // Curiosity ledger #888, Q6: the actual Dec 25 2023 POTY cover (the
+          // Benjamin Button "cat on the shoulders" frame). Verified 2026-07-20
+          // per the image protocol — HTTP 200, image/jpeg, 600x800, downloaded
+          // and vision-confirmed as the TIME cover; same PetaPixel-hosted file
+          // the sibling cover-shoot item carries. Credited TIME.
+          {
+            url: 'https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER3_-600x800.jpg',
+            focalPoint: '50% 30%',
+            credit: 'TIME',
+            caption: 'The Dec. 25, 2023 Person of the Year cover, shot by Inez van Lamsweerde and Vinoodh Matadin — Swift with her cat Benjamin Button.',
+            kind: 'reference',
+          },
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg',
             focalPoint: '48% 22%',
@@ -1195,6 +1261,8 @@ export default {
       month: 12,
       day: 6,
       category: 'fashion',
+      // Reciprocal cross-link to the same-day POTY award item (ledger #888, Q4).
+      relatedIds: ['moment:vault-midnights-time-names-her-2023-person-of-the-year'],
       title: "TIME's Person of the Year cover shoot, in three looks",
       snippet: 'A black bodysuit with her cat Benjamin Button on one cover, a crystal-embellished Area mini dress in reputation-coded gray on another.',
       sourceUrl: 'https://petapixel.com/2023/12/06/photographers-reveal-story-behind-taylor-swifts-time-person-of-the-year-covers/',
