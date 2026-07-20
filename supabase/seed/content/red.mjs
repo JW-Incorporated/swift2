@@ -62,36 +62,42 @@ export default {
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg',
+            focalPoint: '54% 30%',
             credit: 'Denielle (celestigirl25), Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'The Red Tour\'s main stage in Los Angeles, August 2012 — the tour built around the record-setting album.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg',
+            focalPoint: '46% 26%',
             credit: 'Ronald Woan, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Swift and opener Ed Sheeran on the Red Tour\'s B-stage, Tacoma, August 2013.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1b/Taylor_Swift_RED_tour_2013_%288591000109%29.jpg',
+            focalPoint: '55% 33%',
             credit: 'Jana Zills, Wikimedia Commons (CC BY 2.0)',
             caption: 'Performing "Holy Ground" on the Red Tour, 2013.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/a4/Taylor_Swift_-_RED_Tour_-_LONDON_-_I_Knew_You_Were_Trouble_%28night_4%29.jpg',
+            focalPoint: '48% 20%',
             credit: 'Clarence Ji, Wikimedia Commons (CC BY 2.0)',
             caption: '"I Knew You Were Trouble" staged as a Victorian-gown set piece, O2 Arena, London, February 2014.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Taylor_Swift_-_Red_Tour_08.jpg',
+            focalPoint: '53% 22%',
             credit: 'Jana Beamer (jazills), Wikimedia Commons (CC BY 2.0)',
             caption: 'Playing the title track on a red Les Paul, Red Tour, 2013.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Taylor_Swift_RED_tour_2013_%288589120838%29.jpg',
+            focalPoint: '57% 42%',
             credit: 'Jana Zills, Wikimedia Commons (CC BY 2.0)',
             caption: 'The circus-ringmaster set piece for "22" and "Holy Ground," St. Louis, March 2013.',
             kind: 'archival',
@@ -1032,12 +1038,14 @@ export default {
           // the two artists who beat Red in each category this item names.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Daft_Punk_in_2013_2-_centered.jpg',
+            focalPoint: '50% 26%',
             credit: 'Sony Music Entertainment, Wikimedia Commons (CC BY 4.0)',
             caption: 'Daft Punk, whose Random Access Memories won Album of the Year over Red that night.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/37/KaceyMRoundhouse140524_%289%29_%2853727111656%29_%28cropped%29.jpg',
+            focalPoint: '43% 31%',
             credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
             caption: 'Kacey Musgraves, whose debut Same Trailer Different Park won Best Country Album over Red.',
             kind: 'reference',
