@@ -595,5 +595,24 @@ for (const file of trackFiles) {
   }
 }
 
+// -- song moods (Mood Chat catalogue scores) --
+// Score files under supabase/seed/song-moods/** reference real tracks by slug
+// and carry the 8 mood axes. The generator (sync-song-moods.mjs) is the hard
+// guard (it exits non-zero on any error, which reddens check:generated), but we
+// surface the same errors here so `npm run validate:content` gives authors the
+// list before they get that far. Reuses the generator's pure validators.
+{
+  const { loadTrackBase, loadRawScores, validateScores } = await import(
+    pathToFileURL(join(here, 'sync-song-moods.mjs')).href
+  );
+  const { slugsByEra } = await loadTrackBase();
+  const rawScores = await loadRawScores();
+  checked += rawScores.length;
+  for (const msg of validateScores(rawScores, slugsByEra)) {
+    console.error(`ERROR song-moods ${msg}`);
+    errors += 1;
+  }
+}
+
 console.log(`\nvalidated ${checked} content item(s) — ${errors} error(s), ${warnings} warning(s)`);
 if (errors > 0) process.exit(1);
