@@ -3657,6 +3657,53 @@ export default {
         photos: [],
       },
     },
+    {
+      // Authored 2026-07-20 from intake #903. Public philanthropy — clears the
+      // two-outlet bar for business items (Billboard + RTTNews, independent),
+      // and the privacy redlines cleanly (a public charitable act, city-level
+      // only, Kelce in his public foundation role). No dollar figure was
+      // disclosed by any outlet, so none is written here — the size of the
+      // gift is cut rather than guessed. Month-precision on purpose: the
+      // donation's exact date isn't public; Billboard reported it Dec 30, 2025.
+      slug: 'showgirl-operation-breakthrough-holiday-donation',
+      year: 2025,
+      month: 12,
+      category: 'business',
+      title: 'A quiet holiday gift to a Kansas City classroom',
+      snippet:
+        'Over the 2025 holidays Taylor donated to Operation Breakthrough, a Kansas City nonprofit that educates and cares for children in poverty. The charity thanked her publicly, crediting her for “championing creativity, education, and opportunity” for its 750-plus students. No amount was announced.',
+      sourceUrl:
+        'https://www.billboard.com/music/pop/taylor-swift-operation-breakthrough-kansas-city-donation-1236147218/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Operation Breakthrough runs an early-education and family-support center in Kansas City, describing its mission as giving children in poverty a “safe, loving and educational environment” while backing their families through advocacy and emergency aid. Over the 2025 holidays, Taylor made a donation to it — the kind of low-key giving she has folded into her time in Kansas City since her relationship with Travis Kelce became public in 2023.\n\nThe organization made the gift public itself, thanking her on Instagram: “Thank you @taylorswift for supporting Operation Breakthrough. We are so grateful for your kindness and for championing creativity, education, and opportunity for our over 750 students.” Neither Billboard nor the follow-up coverage put a dollar figure on it, and none was announced — what is on the record is the act and the charity’s thanks, not the size of the check.\n\nThe nonprofit is one Kelce already works with: his Eighty-Seven & Running foundation funds its Ignition Lab, a STEM program for teenagers. Taylor’s gift read as her own gesture toward the same cause — one thread in a season of Kansas City giving rather than a headline she went looking for.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-operation-breakthrough-kansas-city-donation-1236147218/',
+            source_title: 'Taylor Swift Donates to Kansas City Charity Operation Breakthrough',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'RTTNews',
+            url: 'https://www.rttnews.com/3607470/taylor-swift-makes-donation-to-kansas-city-charity-operation-breakthrough.aspx',
+            source_title: 'Taylor Swift Makes Donation To Kansas City Charity Operation Breakthrough',
+            publisher: 'RTTNews',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-20',
+            reliability_score: 3,
+          },
+        ],
+        // No photo: a private donation has no photography of its own, and the
+        // charity's own thank-you post isn't the event — a stand-in shot would
+        // illustrate nothing that happened. Same call as the chart items above.
+        photos: [],
+      },
+    },
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
