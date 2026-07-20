@@ -7361,6 +7361,17 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "Judge sides with Taylor Swift in Florida poet's plagiarism lawsuit", url: "https://www.cbc.ca/news/entertainment/swift-poet-plagiarism-lawsuit-9.7261092" }, { name: "Taylor Swift Wins Plagiarism Lawsuit Against Florida Poet", url: "https://www.thewrap.com/industry-news/public-policy-legal/taylor-swift-plagiarism-lawsuit-florida-poet-win/" }, { name: "Taylor Swift Prevails in Poet's Plagiarism Lawsuit, as Florida Judge Dismisses Case With Prejudice", url: "https://variety.com/2026/music/news/taylor-swift-wins-plagiarism-poet-lawsuit-florida-judge-1236802619/" }],
     },
     {
+      id: "vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c",
+      slug: "showgirl-adult-contemporary-four-top-tens",
+      date: "2026-07-18",
+      dateLabel: "July 18, 2026",
+      title: "Four songs in the Adult Contemporary top 10 — a first in the chart’s 65 years",
+      summary: "On the July 18 chart Taylor held Nos. 7, 8, 9 and 10 on Billboard’s Adult Contemporary ranking — the first artist ever to take four of the top 10 in a single week with music that isn’t seasonal.",
+      body: ["Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: \"The Fate of Ophelia\" at No. 7, \"Opalite\" at No. 8, \"I Knew It, I Knew You\" holding at its No. 9 peak, and \"Elizabeth Taylor\" at No. 10.", "No artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.", "The four are not all from one record, which is the quietly interesting part. \"The Fate of Ophelia,\" \"Opalite\" and \"Elizabeth Taylor\" come from The Life of a Showgirl; \"I Knew It, I Knew You\" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once.", "It brings her to 23 top 10s on the ranking, nine of them No. 1s."],
+      tags: ["Music"],
+      sources: [{ name: "Taylor Swift Scores an Adult Contemporary Chart First With 4 Songs in the Top 10", url: "https://www.billboard.com/music/chart-beat/taylor-swift-adult-contemporary-4-in-top-10-1236291740/" }, { name: "Taylor Swift Manages A Historic First On The Charts", url: "https://www.forbes.com/sites/hughmcintyre/2026/07/18/taylor-swift-manages-a-historic-first-on-the-charts/" }],
+    },
+    {
       id: "vault-tloas-a-new-era-is-announced",
       slug: "tloas-announce",
       date: "2025-08-13",
