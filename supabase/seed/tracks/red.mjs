@@ -30,6 +30,7 @@ const TRACKS = [
       slug: 'state-of-grace',
       trackNumber: 1,
       trackTitle: 'State of Grace',
+      youtubeId: '-mrC5tRkxrY', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -55,6 +56,7 @@ const TRACKS = [
       slug: 'red',
       trackNumber: 2,
       trackTitle: 'Red',
+      youtubeId: 'R_rUYuFtNO4', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -80,6 +82,7 @@ const TRACKS = [
       slug: 'treacherous',
       trackNumber: 3,
       trackTitle: 'Treacherous',
+      youtubeId: 'u1D1AgDfreg', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift', 'Dan Wilson'],
@@ -100,6 +103,7 @@ const TRACKS = [
       slug: 'i-knew-you-were-trouble',
       trackNumber: 4,
       trackTitle: 'I Knew You Were Trouble',
+      youtubeId: 'TqAollrUJdA', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -125,6 +129,7 @@ const TRACKS = [
       slug: 'all-too-well',
       trackNumber: 5,
       trackTitle: 'All Too Well',
+      youtubeId: '9OQBDdNHmXo', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -149,6 +154,7 @@ const TRACKS = [
       slug: '22',
       trackNumber: 6,
       trackTitle: '22',
+      youtubeId: '9boiT64sm0Q', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -172,6 +178,7 @@ const TRACKS = [
       slug: 'i-almost-do',
       trackNumber: 7,
       trackTitle: 'I Almost Do',
+      youtubeId: 'w1AV_35zVwU', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -189,6 +196,7 @@ const TRACKS = [
       slug: 'we-are-never-ever-getting-back-together',
       trackNumber: 8,
       trackTitle: 'We Are Never Ever Getting Back Together',
+      youtubeId: 'zJFcr1KyFqE', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -214,6 +222,7 @@ const TRACKS = [
       slug: 'stay-stay-stay',
       trackNumber: 9,
       trackTitle: 'Stay Stay Stay',
+      youtubeId: 'OhJ-S9Nrh7Q', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -231,6 +240,7 @@ const TRACKS = [
       slug: 'the-last-time',
       trackNumber: 10,
       trackTitle: 'The Last Time',
+      youtubeId: 'pCH4QrSx2Jg', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift', 'Gary Lightbody', 'Jacknife Lee'],
@@ -256,6 +266,7 @@ const TRACKS = [
       slug: 'holy-ground',
       trackNumber: 11,
       trackTitle: 'Holy Ground',
+      youtubeId: 'S4PuN-IWi2g', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -280,6 +291,7 @@ const TRACKS = [
       slug: 'sad-beautiful-tragic',
       trackNumber: 12,
       trackTitle: 'Sad Beautiful Tragic',
+      youtubeId: 'jQfB4Gahi3I', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -297,6 +309,7 @@ const TRACKS = [
       slug: 'the-lucky-one',
       trackNumber: 13,
       trackTitle: 'The Lucky One',
+      youtubeId: '4LtQxA_ooLk', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -316,6 +329,7 @@ const TRACKS = [
       slug: 'everything-has-changed',
       trackNumber: 14,
       trackTitle: 'Everything Has Changed',
+      youtubeId: 'eMcMbWl0fDk', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift', 'Ed Sheeran'],
@@ -341,6 +355,7 @@ const TRACKS = [
       slug: 'starlight',
       trackNumber: 15,
       trackTitle: 'Starlight',
+      youtubeId: 'lPvcwgEuKTg', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -365,6 +380,7 @@ const TRACKS = [
       slug: 'begin-again',
       trackNumber: 16,
       trackTitle: 'Begin Again',
+      youtubeId: 'dXNZaHuKWNA', // oEmbed-verified official Taylor Swift channel
       release: 'Red',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -390,6 +406,7 @@ const TRACKS = [
       slug: 'the-moment-i-knew',
       trackNumber: 17,
       trackTitle: 'The Moment I Knew',
+      youtubeId: 'LmXn6BU16e0', // oEmbed-verified official Taylor Swift channel
       release: 'Red (Deluxe Edition)',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -409,6 +426,7 @@ const TRACKS = [
       slug: 'come-back-be-here',
       trackNumber: 18,
       trackTitle: 'Come Back... Be Here',
+      youtubeId: 'hHWOAUjnmjQ', // oEmbed-verified official Taylor Swift channel
       release: 'Red (Deluxe Edition)',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift', 'Dan Wilson'],
@@ -425,6 +443,7 @@ const TRACKS = [
       slug: 'girl-at-home',
       trackNumber: 19,
       trackTitle: 'Girl at Home',
+      youtubeId: 'UNckfN9upqo', // oEmbed-verified official Taylor Swift channel
       release: 'Red (Deluxe Edition)',
       releaseDate: '2012-10-22',
       writers: ['Taylor Swift'],
@@ -443,6 +462,7 @@ const TRACKS = [
       slug: 'ronan',
       trackNumber: 21,
       trackTitle: 'Ronan',
+      youtubeId: 'kdiBc40gW7s', // oEmbed-verified official Taylor Swift channel
       release: "Charity single / Red (Taylor's Version)",
       releaseDate: '2012-09-08',
       writers: ['Taylor Swift', 'Maya Thompson'],
@@ -464,6 +484,7 @@ const TRACKS = [
       slug: 'better-man',
       trackNumber: 22,
       trackTitle: 'Better Man',
+      youtubeId: 'PReSQYTFvcs', // oEmbed-verified official Taylor Swift channel
       release: "Red (Taylor's Version) — From The Vault",
       releaseDate: '2021-11-12',
       writers: ['Taylor Swift'],
@@ -489,6 +510,7 @@ const TRACKS = [
       slug: 'nothing-new',
       trackNumber: 23,
       trackTitle: 'Nothing New',
+      youtubeId: 'm3fWCRvz5JA', // oEmbed-verified official Taylor Swift channel
       release: "Red (Taylor's Version) — From The Vault",
       releaseDate: '2021-11-12',
       writers: ['Taylor Swift'],
@@ -510,6 +532,7 @@ const TRACKS = [
       slug: 'babe',
       trackNumber: 24,
       trackTitle: 'Babe',
+      youtubeId: '3pj39qZZYoQ', // oEmbed-verified official Taylor Swift channel
       release: "Red (Taylor's Version) — From The Vault",
       releaseDate: '2021-11-12',
       writers: ['Taylor Swift', 'Patrick Monahan'],
@@ -535,6 +558,7 @@ const TRACKS = [
       slug: 'message-in-a-bottle',
       trackNumber: 25,
       trackTitle: 'Message in a Bottle',
+      youtubeId: 'cVaG6adE2mA', // oEmbed-verified official Taylor Swift channel
       release: "Red (Taylor's Version) — From The Vault",
       releaseDate: '2021-11-12',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -560,6 +584,7 @@ const TRACKS = [
       slug: 'i-bet-you-think-about-me',
       trackNumber: 26,
       trackTitle: 'I Bet You Think About Me',
+      youtubeId: 'AccGdO5XeZY', // oEmbed-verified official Taylor Swift channel
       release: "Red (Taylor's Version) — From The Vault",
       releaseDate: '2021-11-12',
       writers: ['Taylor Swift', 'Lori McKenna'],
@@ -586,6 +611,7 @@ const TRACKS = [
       slug: 'forever-winter',
       trackNumber: 27,
       trackTitle: 'Forever Winter',
+      youtubeId: 'TkAomsYFsJw', // oEmbed-verified official Taylor Swift channel
       release: "Red (Taylor's Version) — From The Vault",
       releaseDate: '2021-11-12',
       writers: ['Taylor Swift', 'Mark Foster'],
@@ -604,6 +630,7 @@ const TRACKS = [
       slug: 'run',
       trackNumber: 28,
       trackTitle: 'Run',
+      youtubeId: 'flv8AEWrRMI', // oEmbed-verified official Taylor Swift channel
       release: "Red (Taylor's Version) — From The Vault",
       releaseDate: '2021-11-12',
       writers: ['Taylor Swift', 'Ed Sheeran'],
@@ -622,6 +649,7 @@ const TRACKS = [
       slug: 'the-very-first-night',
       trackNumber: 29,
       trackTitle: 'The Very First Night',
+      youtubeId: 'rVuyi-dPMIc', // oEmbed-verified official Taylor Swift channel
       release: "Red (Taylor's Version) — From The Vault",
       releaseDate: '2021-11-12',
       writers: ['Taylor Swift', 'Amund Bjørklund', 'Espen Lind'],
@@ -640,6 +668,7 @@ const TRACKS = [
       slug: 'all-too-well-10-minute-version',
       trackNumber: 30,
       trackTitle: 'All Too Well (10 Minute Version)',
+      youtubeId: 'sRxrwjOtIag', // oEmbed-verified official Taylor Swift channel
       release: "Red (Taylor's Version) — From The Vault",
       releaseDate: '2021-11-12',
       writers: ['Taylor Swift', 'Liz Rose'],
