@@ -736,6 +736,8 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Matty_Healy%2C_The_1975%2C_at_Lollapalooza_2023.jpg/960px-Matty_Healy%2C_The_1975%2C_at_Lollapalooza_2023.jpg',
+            // He sings center-frame with his face near the top; bias upward.
+            focalPoint: '52% 20%',
             credit: 'Mats Rennstam (RennstamPhotography), CC0, via Wikimedia Commons',
             caption: 'Matty Healy fronting The 1975 at Lollapalooza in summer 2023, weeks after the rumored month with Swift fizzled.',
             kind: 'archival',
@@ -777,6 +779,8 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg/960px-Travis_Kelce_KC_Chiefs_2023_season_%28cropped%29.jpg',
+            // He faces away; head sits above the No. 87 jersey — bias upward.
+            focalPoint: '47% 44%',
             credit: 'Accedie, CC BY-SA 4.0, via Wikimedia Commons',
             caption: 'Travis Kelce in the No. 87 jersey during the 2023 Chiefs season — the number he put on the friendship bracelet he never got to deliver.',
             kind: 'archival',
@@ -3475,6 +3479,8 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Cierre_del_Eras_Tour_de_Taylor_Swift%2C_Buenos_Aires_noche_1.jpg/960px-Cierre_del_Eras_Tour_de_Taylor_Swift%2C_Buenos_Aires_noche_1.jpg',
+            // Wide stadium shot; the lit stage and performers sit low in frame.
+            focalPoint: '45% 72%',
             credit: 'Solargentino, CC BY-SA 4.0, via Wikimedia Commons',
             caption: 'Estadio River Plate during the Buenos Aires stand\'s first night, Nov. 9, 2023 — two nights before the "Karma" lyric change landed in the same stadium.',
             kind: 'archival',

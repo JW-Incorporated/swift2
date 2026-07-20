@@ -1160,6 +1160,8 @@ export default {
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2019110/rs_600x600-190210195541-600-taylor-swift-joe-alwyn-baftas.jpg?fit=around%7C600:600&output-quality=90&crop=600:600;center,top',
+            // Both faces in the upper third of the square; bias upward.
+            focalPoint: '48% 28%',
             credit: 'News Licensing / MEGA, via E! Online',
             caption: 'Leaving the BAFTAs after-party hand in hand, February 10, 2019 — Swift in the Stella McCartney gown.',
             kind: 'primary',
