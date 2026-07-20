@@ -2414,8 +2414,22 @@ export default {
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2021411/rs_1200x1200-210511142237-1200..2-taylor-swift-brit-awards-2021.jpg',
+            focalPoint: '53% 28%',
             credit: 'Ian West/PA Images via Getty Images',
             caption: 'Swift holds up the Global Icon trophy on stage at the 2021 BRIT Awards.',
+            kind: 'archival',
+          },
+          // Photo pass 2026-07-20 (#762): +1 verified. Maisie Williams
+          // presented the Global Icon award; this media-room frame shows the
+          // two together with their trophies. Billboard's own CDN; verified
+          // HTTP 200 + image/jpeg, downloaded and vision-confirmed (BRIT
+          // Awards 2021 step-and-repeat, Swift's silver crop-top look, holding
+          // the colorful Global Icon statue). Faces sit high — focal biased up.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2021/05/Taylor-Swift-and-Maisie-Williams-brit-awards-2021-billboard-1548-1620846105.jpg?w=942&h=628&crop=1',
+            focalPoint: '48% 26%',
+            credit: 'Getty Images, via Billboard',
+            caption: 'Swift with Maisie Williams, who presented the Global Icon Award, in the media room at the 2021 BRIT Awards.',
             kind: 'archival',
           },
         ],
