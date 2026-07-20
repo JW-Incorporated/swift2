@@ -794,6 +794,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/de4e0b4b6195-gettyimages-107486334.jpg", credit: "Michael Loccisano/Getty Images", kind: "primary" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Tim_McGraw_(song)" }],
+      products: [{ brand: "BCBGMAXAZRIA", item: "Oly Tiered Ruffle Tulle Evening Gown", retailer: "bcbg.com", url: "https://bcbg.com/products/oly-tiered-ruffle-tulle-evening-gown-in-black", price: "$398.00", isAlternative: true, altNote: "Her 2007 gown is discontinued — this is BCBG's current strapless tulle evening gown, in black rather than the original neutral tone." }],
     },
     {
       id: "vault-debut-wins-her-first-cma-award-the-horizon-award",
@@ -884,6 +885,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/pcCpw2aDF3RYNof57biCSP.jpg", credit: "Getty Images", kind: "primary", focalPoint: "53% 11%" }],
       sources: [{ name: "Who What Wear", url: "https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-grammys-red-carpet-fashion-retrospective" }, { name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/" }],
+      products: [{ brand: "House of CB", item: "Persephone Strapless Corset Satin & Stretch Crepe Mermaid Gown", retailer: "nordstrom.com", url: "https://www.nordstrom.com/s/persephone-strapless-corset-satin-stretch-crepe-mermaid-gown/8011345", price: "$329.00", isAlternative: true, altNote: "Sandi Spika designs custom pieces only, with no retail line — this is a similar strapless corseted gown, in rose rather than the original purple." }],
     },
     {
       id: "vault-debut-a-gold-sequined-badgley-mischka-gown-for-her-first-met-gala",
@@ -895,6 +897,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://static.gofugyourself.com/uploads/2016/04/80995253-taylor-swift-met-ball-2008-510x736.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1431066/taylor-swift-met-gala-looks-dress-photos" }, { name: "Go Fug Yourself", url: "https://www.gofugyourself.com/photos/fugtrospective-taylor-swifts-met-gala-gowns/80995253-taylor-swift-met-ball-2008-510x736" }],
+      products: [{ brand: "Badgley Mischka", item: "Golden Gown", retailer: "badgleymischka.com", url: "https://badgleymischka.com/products/golden-gown", price: "$299.99", inStock: false, isAlternative: true, altNote: "The exact 2008 gown is retired — this is Badgley Mischka's current gold sequin gown, same brand and spirit, currently sold out (final sale)." }],
     },
     {
       id: "vault-debut-a-black-satin-elvira-mermaid-gown-for-her-first-cma-awards",
@@ -906,6 +909,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces", credit: "Stephen Lovekin/WireImage/Getty Images", kind: "primary", focalPoint: "47% 13%" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp" }],
+      products: [{ brand: "Moda Glam Boutique", item: "Delphine Strapless Mermaid Gown", retailer: "modaglamboutique.com", url: "https://modaglamboutique.com/products/delphine-strapless-corset-gown-black", price: "$295.00", isAlternative: true, altNote: "Elvira doesn't sell current ready-to-wear — this is a comparable black satin corset mermaid gown in a similar silhouette." }],
     },
     {
       id: "vault-debut-a-sandi-spika-drop-waist-gown-for-the-2007-acm-awards",

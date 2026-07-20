@@ -236,6 +236,9 @@ for (const { file, data } of loaded) {
           }
           if (p.price != null && !(typeof p.price === 'string' && p.price.trim())) err(`${pAt} price must be a non-empty display string (e.g. "$319.99") when present`);
           if (p.inStock != null && typeof p.inStock !== 'boolean') err(`${pAt} inStock must be a boolean when present`);
+          if (p.isAlternative != null && typeof p.isAlternative !== 'boolean') err(`${pAt} isAlternative must be a boolean when present`);
+          if (p.isAlternative === true && !(typeof p.altNote === 'string' && p.altNote.trim())) err(`${pAt} isAlternative:true requires a non-empty altNote explaining why this isn't the exact piece`);
+          if (p.altNote != null && p.altNote.length > 200) err(`${pAt} altNote ${p.altNote.length} > 200`);
         });
     }
 

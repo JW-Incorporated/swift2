@@ -716,7 +716,10 @@ export function MomentDetail() {
  * URL; affiliate attribution lives in the wrapped URL, not the Referer). A
  * product verified sold-out
  * (inStock: false) stays listed for the fashion record but renders dimmed
- * with an explicit "Sold out" label, never silently as purchasable.
+ * with an explicit "Sold out" label, never silently as purchasable. A
+ * product that isn't the exact piece she wore (isAlternative: true — the
+ * real one is custom/couture/discontinued) gets an explicit "Similar style"
+ * label plus its altNote, never presented as the literal garment.
  */
 function ShopTheLook({ products }: { products: Product[] | undefined }) {
   if (!products || products.length === 0) return null;
@@ -743,7 +746,7 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
                 target="_blank"
                 rel="nofollow sponsored noopener noreferrer"
                 className="group flex items-center justify-between gap-3 py-3"
-                aria-label={`Shop ${p.brand} ${p.item}${soldOut ? ' (sold out)' : ''} at ${p.retailer}`}
+                aria-label={`Shop ${p.brand} ${p.item}${soldOut ? ' (sold out)' : ''}${p.isAlternative ? ' (similar style, not the exact piece)' : ''} at ${p.retailer}`}
               >
                 <span className="min-w-0">
                   <span className="block text-xs uppercase tracking-[0.12em] text-[color:var(--era-ink-soft)]">
@@ -758,6 +761,24 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
                       style={{ borderColor: 'var(--era-line)' }}
                     >
                       Sold out
+                    </span>
+                  )}
+                  {/* Never let a close match pass as the literal piece she
+                      wore (2026-07-20, docs/decisions.md) — same "Sold out"
+                      pill treatment, era-accent color so it doesn't read as
+                      a warning. */}
+                  {p.isAlternative && (
+                    <span
+                      className="mt-1 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[color:var(--era-accent)]"
+                      style={{ borderColor: 'var(--era-accent)' }}
+                      title={p.altNote}
+                    >
+                      Similar style
+                    </span>
+                  )}
+                  {p.isAlternative && p.altNote && (
+                    <span className="mt-1 block max-w-[26rem] text-xs leading-snug text-[color:var(--era-ink-soft)]">
+                      {p.altNote}
                     </span>
                   )}
                 </span>

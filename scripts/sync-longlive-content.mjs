@@ -164,6 +164,11 @@ export function productsFrom(products) {
     const required = [p.brand, p.item, p.retailer, p.url];
     if (!required.every((v) => typeof v === 'string' && v.trim())) continue;
     if (!/^https:\/\//.test(p.url)) continue;
+    // Fail closed, same shape as the validator's hard error: isAlternative
+    // only survives paired with a real altNote — an unexplained "Similar
+    // style" pill would be worse than none (2026-07-20, docs/decisions.md).
+    const hasAltNote = typeof p.altNote === 'string' && p.altNote.trim();
+    const isAlternative = p.isAlternative === true && hasAltNote;
     out.push({
       brand: p.brand,
       item: p.item,
@@ -171,6 +176,8 @@ export function productsFrom(products) {
       url: p.url,
       price: typeof p.price === 'string' && p.price.trim() ? p.price : undefined,
       inStock: p.inStock === false ? false : undefined,
+      isAlternative: isAlternative ? true : undefined,
+      altNote: isAlternative ? p.altNote : undefined,
     });
   }
   return out.length ? out : undefined;
@@ -672,6 +679,8 @@ export function buildOutputSource(byEra) {
             ];
             if (p.price) parts.push(`price: ${esc(p.price)}`);
             if (p.inStock === false) parts.push('inStock: false');
+            if (p.isAlternative) parts.push('isAlternative: true');
+            if (p.altNote) parts.push(`altNote: ${esc(p.altNote)}`);
             return `{ ${parts.join(', ')} }`;
           })
           .join(', ');
