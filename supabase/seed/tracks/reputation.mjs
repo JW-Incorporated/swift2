@@ -26,6 +26,7 @@ export default {
       slug: 'ready-for-it',
       trackNumber: 1,
       trackTitle: '...Ready for It?',
+      youtubeId: 'T62maKYX9tU', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback', 'Ali Payami'],
@@ -50,6 +51,7 @@ export default {
       slug: 'end-game',
       trackNumber: 2,
       trackTitle: 'End Game',
+      youtubeId: 'dfnCAmr569k', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback', 'Ed Sheeran', 'Future'],
@@ -70,6 +72,7 @@ export default {
       slug: 'i-did-something-bad',
       trackNumber: 3,
       trackTitle: 'I Did Something Bad',
+      youtubeId: 'xYLxUJ9v6KU', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -94,6 +97,7 @@ export default {
       slug: 'dont-blame-me',
       trackNumber: 4,
       trackTitle: "Don't Blame Me",
+      youtubeId: 'kRJKB291Z1g', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -117,6 +121,7 @@ export default {
       slug: 'delicate',
       trackNumber: 5,
       trackTitle: 'Delicate',
+      youtubeId: 'tCXGJQYZ9JA', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -142,6 +147,7 @@ export default {
       slug: 'look-what-you-made-me-do',
       trackNumber: 6,
       trackTitle: 'Look What You Made Me Do',
+      youtubeId: '3tmd-ClpJxA', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: [
@@ -175,6 +181,7 @@ export default {
       slug: 'so-it-goes',
       trackNumber: 7,
       trackTitle: 'So It Goes...',
+      youtubeId: 'iAv1Y1YIwm8', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback', 'Oscar Görres'],
@@ -191,6 +198,7 @@ export default {
       slug: 'gorgeous',
       trackNumber: 8,
       trackTitle: 'Gorgeous',
+      youtubeId: 'EUoe7cf0HYw', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -218,6 +226,7 @@ export default {
       slug: 'getaway-car',
       trackNumber: 9,
       trackTitle: 'Getaway Car',
+      youtubeId: 'FhPLQVlUiNQ', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -244,6 +253,7 @@ export default {
       slug: 'king-of-my-heart',
       trackNumber: 10,
       trackTitle: 'King of My Heart',
+      youtubeId: '5U7bF68xcRg', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -260,6 +270,7 @@ export default {
       slug: 'dancing-with-our-hands-tied',
       trackNumber: 11,
       trackTitle: 'Dancing with Our Hands Tied',
+      youtubeId: 'erGyUphZSt8', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback', 'Oscar Holter'],
@@ -283,6 +294,7 @@ export default {
       slug: 'dress',
       trackNumber: 12,
       trackTitle: 'Dress',
+      youtubeId: 'FNEoPctNIUE', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -304,6 +316,7 @@ export default {
       slug: 'this-is-why-we-cant-have-nice-things',
       trackNumber: 13,
       trackTitle: "This Is Why We Can't Have Nice Things",
+      youtubeId: '6Z3QJ4L1Bg0', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -323,6 +336,7 @@ export default {
       slug: 'call-it-what-you-want',
       trackNumber: 14,
       trackTitle: 'Call It What You Want',
+      youtubeId: 'V54CEElTF_U', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -347,6 +361,7 @@ export default {
       slug: 'new-years-day',
       trackNumber: 15,
       trackTitle: "New Year's Day",
+      youtubeId: 'MWSn0H4qfAs', // oEmbed-verified official Taylor Swift channel
       release: 'reputation',
       releaseDate: '2017-11-10',
       writers: ['Taylor Swift', 'Jack Antonoff'],
