@@ -29,9 +29,15 @@ import {
   esc,
   loadWebEnvLocal,
   preferDbSource,
+  slugify,
   sourcesFrom,
   supabaseEnv,
 } from './lib/longlive-sync-shared.mjs';
+
+// slugify now lives in the dependency-free shared module (so the content-engine
+// can import it without @supabase/supabase-js); re-exported here because
+// validate-content.mjs and other callers import it from this file.
+export { slugify };
 // The 8 shared confidence values (mirrors THEORY_CONFIDENCE in
 // packages/shared/src/vault-types.ts). Importing the theories generator only
 // pulls its pure exports — its main() is guarded behind invokedDirectly.
@@ -60,19 +66,6 @@ const MONTHS = [
   'January', 'February', 'March', 'April', 'May', 'June',
   'July', 'August', 'September', 'October', 'November', 'December',
 ];
-
-// Exported so validate-content.mjs can compute the same vault ids this
-// script generates, to check moment: relatedIds actually resolve (found in
-// review, 2026-07-19 — a wrong eraId prefix here previously shipped silently,
-// since relatedIds resolution is best-effort and never errors at runtime).
-export function slugify(title) {
-  return title
-    .toLowerCase()
-    .replace(/['’"]/g, '')
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 60);
-}
 
 const VALID_TAGS = new Set(['Music', 'Fashion', 'Tour', 'Relationship', 'Lore']);
 
