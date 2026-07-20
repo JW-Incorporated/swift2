@@ -3604,6 +3604,59 @@ export default {
         photos: [],
       },
     },
+    {
+      // Authored 2026-07-20 from intake #909. The newest post in the Vault had
+      // been 2026-07-10 for nine days; this is the item that moves it.
+      //
+      // Two framing traps, both recorded on the ticket. First, the record is
+      // "excluding seasonal music" — without that qualifier the claim is simply
+      // false, since Bublé did it first. Second, my own intake wrongly said all
+      // four songs were from this album; Billboard says "I Knew It, I Knew You"
+      // is from the Toy Story 5 soundtrack, so the tidy single-album angle does
+      // not exist and is not written here.
+      slug: 'showgirl-adult-contemporary-four-top-tens',
+      year: 2026,
+      month: 7,
+      day: 18,
+      category: 'music',
+      title: 'Four songs in the Adult Contemporary top 10 — a first in the chart’s 65 years',
+      snippet:
+        'On the July 18 chart Taylor held Nos. 7, 8, 9 and 10 on Billboard’s Adult Contemporary ranking — the first artist ever to take four of the top 10 in a single week with music that isn’t seasonal.',
+      sourceUrl:
+        'https://www.billboard.com/music/chart-beat/taylor-swift-adult-contemporary-4-in-top-10-1236291740/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: "The Fate of Ophelia" at No. 7, "Opalite" at No. 8, "I Knew It, I Knew You" holding at its No. 9 peak, and "Elizabeth Taylor" at No. 10.\n\nNo artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.\n\nThe four are not all from one record, which is the quietly interesting part. "The Fate of Ophelia," "Opalite" and "Elizabeth Taylor" come from The Life of a Showgirl; "I Knew It, I Knew You" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once.\n\nIt brings her to 23 top 10s on the ranking, nine of them No. 1s.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-adult-contemporary-4-in-top-10-1236291740/',
+            source_title:
+              'Taylor Swift Scores an Adult Contemporary Chart First With 4 Songs in the Top 10',
+            publisher: 'Billboard',
+            // Billboard publishes the chart itself, so on a chart fact it is
+            // the primary source and outranks secondary coverage of it.
+            source_type: 'official',
+            accessed_at: '2026-07-20',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/18/taylor-swift-manages-a-historic-first-on-the-charts/',
+            source_title: 'Taylor Swift Manages A Historic First On The Charts',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+        ],
+        // No photo: a chart week has no photography of its own, and dropping in
+        // an unrelated performance shot would illustrate nothing that happened
+        // here. Same call as the Marasco ruling above.
+        photos: [],
+      },
+    },
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
