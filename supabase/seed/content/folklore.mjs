@@ -371,6 +371,22 @@ export default {
           // (downloaded and viewed to check). The SheFinds image was already
           // rejected as wrong-event by ticket #227.
         ],
+        // Shop pass (2026-07-20): the gown was custom-built for this
+        // performance — no product page exists — offering Etro's current
+        // long silk gown, verified live in-browser (curl/WebFetch are
+        // blocked on etro.com).
+        products: [
+          {
+            brand: 'Etro',
+            item: 'Peau D\'Ange Silk Maxi Dress with Flower and Bee Motif',
+            retailer: 'etro.com',
+            url: 'https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html',
+            price: '$2,880.00',
+            isAlternative: true,
+            altNote:
+              'The gown was custom-built for this performance — this is Etro\'s current long silk gown, same house, different print and colors.',
+          },
+        ],
       },
     },
 
@@ -409,6 +425,21 @@ export default {
             credit: 'Taylor Swift/VEVO',
             caption: 'The white nap dress in the self-directed "cardigan" music video.',
             kind: 'archival',
+          },
+        ],
+        // Shop pass (2026-07-20): the video's exact dress isn't attributed
+        // to a brand in any source — offering a current Hill House Home
+        // nap dress, the label most associated with the trend itself.
+        products: [
+          {
+            brand: 'Hill House Home',
+            item: 'The Ashlyn Nap Dress',
+            retailer: 'hillhousehome.com',
+            url: 'https://www.hillhousehome.com/collections/nap-dress-shop/products/the-ashlyn-nap-dress-white',
+            price: '$228.00',
+            isAlternative: true,
+            altNote:
+              'Her exact video dress is undocumented — this is a white Nap Dress from Hill House Home, the brand that popularized the style.',
           },
         ],
       },
@@ -552,6 +583,35 @@ export default {
             credit: 'Disney+ (still from folklore: The Long Pond Studio Sessions)',
             caption: 'The Free People velvet shirt dress, in a still from the Disney+ special.',
             kind: 'archival',
+          },
+        ],
+        // Shop pass (2026-07-20): all three named pieces, curl/WebFetch
+        // blocked on all three sites — verified live in-browser instead.
+        products: [
+          {
+            brand: 'Free People',
+            item: 'Lux Velvet Shirt Dress',
+            retailer: 'revolve.com',
+            url: 'https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/',
+            price: '$139.00',
+            inStock: false,
+          },
+          {
+            brand: 'Tiffany & Co.',
+            item: 'Tiffany Infinity Bracelet',
+            retailer: 'tiffany.com',
+            url: 'https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html',
+            price: '$350.00',
+          },
+          {
+            brand: 'Melinda Maria',
+            item: 'Perfect Pearl Stacked Ring',
+            retailer: 'melindamaria.com',
+            url: 'https://www.melindamaria.com/products/perfect-pearl-stacked-ring-gold',
+            price: '$75.00',
+            isAlternative: true,
+            altNote:
+              'The exact Soleil stacking set is discontinued — this is a current Melinda Maria stacked ring, same brand and spirit.',
           },
         ],
       },

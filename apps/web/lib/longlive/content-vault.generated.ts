@@ -2699,6 +2699,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1", credit: "TAS Rights Management 2021, via Getty Images / Billboard", caption: "The custom Etro gown during the folklore medley staging at the 2021 Grammys.", kind: "primary", focalPoint: "59% 42%" }],
       sources: [{ name: "SheFinds", url: "https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/" }],
+      products: [{ brand: "Etro", item: "Peau D'Ange Silk Maxi Dress with Flower and Bee Motif", retailer: "etro.com", url: "https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html", price: "$2,880.00", isAlternative: true, altNote: "The gown was custom-built for this performance — this is Etro's current long silk gown, same house, different print and colors." }],
     },
     {
       id: "vault-folklore-the-cardigan-video-a-nap-dress-and-the-cottagecore-uniform",
@@ -2710,6 +2711,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/taylor-swifts-nap-dress-pays-homage-to-whimsy-1595575441.jpg", credit: "Taylor Swift/VEVO", caption: "The white nap dress in the self-directed \"cardigan\" music video.", kind: "primary" }],
       sources: [{ name: "Nicki Swift", url: "https://www.nickiswift.com/229802/hidden-details-you-missed-in-taylor-swifts-new-cardigan-video/" }, { name: "Elite Daily", url: "https://www.elitedaily.com/p/taylor-swifts-outfit-from-her-cardigan-music-video-is-the-easiest-to-copy-29940067" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Cardigan_(song)" }],
+      products: [{ brand: "Hill House Home", item: "The Ashlyn Nap Dress", retailer: "hillhousehome.com", url: "https://www.hillhousehome.com/collections/nap-dress-shop/products/the-ashlyn-nap-dress-white", price: "$228.00", isAlternative: true, altNote: "Her exact video dress is undocumented — this is a white Nap Dress from Hill House Home, the brand that popularized the style." }],
     },
     {
       id: "vault-folklore-no-glam-team-self-styled-hair-and-makeup-for-the-folklore-er",
@@ -2743,6 +2745,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://fashionsizzle.com/wp-content/uploads/2020/11/462213.jpg", credit: "Disney+ (still from folklore: The Long Pond Studio Sessions)", caption: "The Free People velvet shirt dress, in a still from the Disney+ special.", kind: "primary" }],
       sources: [{ name: "Fashion Sizzle", url: "https://fashionsizzle.com/2020/11/28/taylor-swift-wore-free-people-blouse-shirt-dress-for-folklore-the-long-pond-studio-sessions/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions" }],
+      products: [{ brand: "Free People", item: "Lux Velvet Shirt Dress", retailer: "revolve.com", url: "https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/", price: "$139.00", inStock: false }, { brand: "Tiffany & Co.", item: "Tiffany Infinity Bracelet", retailer: "tiffany.com", url: "https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html", price: "$350.00" }, { brand: "Melinda Maria", item: "Perfect Pearl Stacked Ring", retailer: "melindamaria.com", url: "https://www.melindamaria.com/products/perfect-pearl-stacked-ring-gold", price: "$75.00", isAlternative: true, altNote: "The exact Soleil stacking set is discontinued — this is a current Melinda Maria stacked ring, same brand and spirit." }],
     },
     {
       id: "vault-folklore-the-original-folklore-cardigan-sells-out-and-becomes-a-piece",
