@@ -594,6 +594,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A first date written as a leap of faith — dancing in a parking lot in the rain because the feeling is worth the risk.", "Swift said she wrote it on tour about the best first date she had not had yet — an idea of fearlessness in love rather than a specific person."],
       discussionSources: [{ name: "Fearless (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_song)" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift","Liz Rose","Hillary Lindsey"],"producers":["Nathan Chapman","Taylor Swift"],"isSingle":true,"themes":["fearlessness","first dates","optimism in love"]},
+      youtubeId: "7lLigiVgJsE",
     },
     {
       slug: "fifteen",
@@ -604,6 +605,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Advice from a slightly older self to a girl starting high school: the boy who says he loves you probably is not the whole story, and who you become matters more.", "Confirmed autobiography: Swift wrote it about meeting best friend Abigail Anderson in ninth grade and the heartbreaks that followed both of them."],
       discussionSources: [{ name: "Fifteen (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fifteen_(song)" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"isSingle":true,"themes":["growing up","friendship","hindsight"]},
+      youtubeId: "rLCol1C3ouc",
     },
     {
       slug: "love-story",
@@ -614,6 +616,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A forbidden-romance fantasy sparked by a boy her family disapproved of, recast through Romeo and Juliet — with the tragedy swapped for a proposal.", "Swift confirmed it began with a boy her parents did not approve of; she reached for the most famous forbidden-love story and rewrote its ending.", "Love Story (Taylor's Version) was the first re-recorded song she ever released (February 2021) — the opening move of the whole Taylor's Version project."],
       discussionSources: [{ name: "Love Story (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Love_Story_(Taylor_Swift_song)" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"isSingle":true,"singleReleaseDate":"2008-09-12","themes":["forbidden love","fairy-tale rewrites","defiance"]},
+      youtubeId: "aXzVF3XeS8M",
     },
     {
       slug: "hey-stephen",
@@ -624,6 +627,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A confession disguised as a serenade: she lists all the girls who might like the boy, then makes her own case with a wink.", "Confirmed to be about Stephen Barker Liles of the band Love and Theft, who once opened for Swift; the hidden message in the booklet spelled out the giveaway."],
       discussionSources: [{ name: "Hey Stephen — Wikipedia", url: "https://en.wikipedia.org/wiki/Hey_Stephen" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["crushes","flirtation","shooting your shot"]},
+      youtubeId: "tMhiHrL7rPE",
     },
     {
       slug: "white-horse",
@@ -634,6 +638,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The moment after the apology when you realize the story is not a fairy tale: she leaves the small town and the boy who was never going to change.", "Swift and Liz Rose wrote it as the disillusioned counterpart to Love Story; its early placement in a Grey’s Anatomy premiere was a milestone Swift celebrated publicly."],
       discussionSources: [{ name: "White Horse (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/White_Horse_(Taylor_Swift_song)" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift","Liz Rose"],"producers":["Nathan Chapman","Taylor Swift"],"isSingle":true,"themes":["disillusionment","self-rescue","leaving"]},
+      youtubeId: "9-rKvhsjwKU",
     },
     {
       slug: "you-belong-with-me",
@@ -644,6 +649,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The girl next door watches her crush waste his time on someone who does not get him; the whole song is her closing argument.", "Sparked when Swift overheard a male friend on a defensive phone call with his girlfriend — she started riffing on being the easier person to love.", "Its 2009 VMA Best Female Video win was the night of the Kanye West stage-crash — the fault line that later feeds Innocent, and eventually the reputation era."],
       discussionSources: [{ name: "You Belong with Me — Wikipedia", url: "https://en.wikipedia.org/wiki/You_Belong_with_Me" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift","Liz Rose"],"producers":["Nathan Chapman","Taylor Swift"],"isSingle":true,"themes":["unrequited love","girl-next-door underdog","longing"]},
+      youtubeId: "vwp8Ur6tO-8",
     },
     {
       slug: "breathe",
@@ -654,6 +660,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A goodbye where no one did anything wrong: two people who simply cannot stay in each other’s lives, and the guilt of being the one who leaves.", "Swift has described it as being about losing a close friendship rather than a romance — one of the album’s few non-boy heartbreaks."],
       discussionSources: [{ name: "Breathe (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Breathe_(Taylor_Swift_song)" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift","Colbie Caillat"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["lost friendship","guilt","gentle goodbyes"]},
+      youtubeId: "qsUK-BG5OQQ",
     },
     {
       slug: "tell-me-why",
@@ -664,6 +671,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Frustration set to a stomp: a boy who runs hot and cold, and a narrator done guessing which version of him shows up today.", "Swift recounted arriving at a session furious about a mixed-signals almost-relationship; the song is essentially that rant, structured."],
       discussionSources: [{ name: "Fearless — The Songs", url: "https://taylorswiftswitzerland.jimdoweb.com/album-eras/fearless/the-songs/" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift","Liz Rose"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["mixed signals","frustration","self-respect"]},
+      youtubeId: "cwFbq-70EwE",
     },
     {
       slug: "youre-not-sorry",
@@ -674,6 +682,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She stops accepting the same apology on repeat; the piano ballad is the sound of someone finally hanging up.", "Swift said it was written about a boy who turned out to have secrets stacked on secrets; a remix soundtracked her 2009 CSI guest appearance."],
       discussionSources: [{ name: "You're Not Sorry — Wikipedia", url: "https://en.wikipedia.org/wiki/You're_Not_Sorry" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["broken trust","boundaries","finality"]},
+      youtubeId: "DNaSlUYIXBg",
     },
     {
       slug: "the-way-i-loved-you",
@@ -684,6 +693,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A perfect-on-paper relationship that feels like nothing, held against a chaotic past love that felt like everything: the album’s case that intensity beats comfort.", "Swift said she wanted to capture wanting the frustrating, passionate love while dating its calm opposite; Rich helped frame the two-boys contrast."],
       discussionSources: [{ name: "The Way I Loved You — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Way_I_Loved_You" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift","John Rich"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["passion versus comfort","nostalgia","self-sabotage"]},
+      youtubeId: "DlexmDDSDZ0",
     },
     {
       slug: "forever-and-always",
@@ -694,6 +704,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A promise of forever revoked in real time: she replays the moment someone’s feelings changed and demands to know where the person she knew went.", "Confirmed to be about Joe Jonas — Swift said she added it late in production after the breakup, and famously described the 27-second phone call on Ellen."],
       discussionSources: [{ name: "Forever & Always — Wikipedia", url: "https://en.wikipedia.org/wiki/Forever_%26_Always" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["broken promises","whiplash heartbreak","anger"]},
+      youtubeId: "T-41vMWQTUA",
     },
     {
       slug: "the-best-day",
@@ -704,6 +715,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A thank-you letter to her mother (with a verse for her dad and brother): the parent who drove her away from the mean girls and never said anything but kind words.", "Confirmed: Swift wrote it for Andrea Swift and kept it secret until it was finished, premiering it with a home-video montage."],
       discussionSources: [{ name: "The Best Day (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Best_Day_(Taylor_Swift_song)" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["family","gratitude","childhood memory"]},
+      youtubeId: "KZeI9I875Ig",
     },
     {
       slug: "change",
@@ -714,6 +726,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A fight song about believing the scrappy operation you belong to will win someday — the closing promise that these walls will come down.", "Swift confirmed it was inspired by being on Big Machine, then a startup label competing against giants; its Olympics placement made it the album’s advance single."],
       discussionSources: [{ name: "Change (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Change_(Taylor_Swift_song)" }, { name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless","releaseDate":"2008-11-11","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"isSingle":true,"themes":["underdogs","perseverance","victory"]},
+      youtubeId: "jwWR1cQTKyw",
     },
     {
       slug: "jump-then-fall",
@@ -724,6 +737,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An invitation to skip the cautious phase entirely: she promises to catch someone who is willing to fall first."],
       discussionSources: [{ name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless (Platinum Edition)","releaseDate":"2009-10-26","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["infatuation","trust","joy"]},
+      youtubeId: "vUHDR6Rg3Y4",
     },
     {
       slug: "untouchable",
@@ -734,6 +748,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Longing for someone permanently out of reach, rendered as a starlit trance — distance as the whole romance.", "Originally by the band Luna Halo; Swift’s radical rearrangement is the documented story here — her version bears little resemblance to the original."],
       discussionSources: [{ name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }, { name: "Fearless (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor's_Version)" }],
       facts: {"release":"Fearless (Platinum Edition)","releaseDate":"2009-10-26","writers":["Cary Barlowe","Nathan Barlowe","Tommy Lee James","Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["unattainable love","yearning","dream logic"]},
+      youtubeId: "8bNlGwnEUAs",
     },
     {
       slug: "come-in-with-the-rain",
@@ -744,6 +759,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She is done fighting for someone’s attention but not done hoping — surrender that still leaves a door unlocked."],
       discussionSources: [{ name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless (Platinum Edition)","releaseDate":"2009-10-26","writers":["Taylor Swift","Liz Rose"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["resignation","quiet hope","letting go"]},
+      youtubeId: "ePjcjLRHPOo",
     },
     {
       slug: "superstar",
@@ -754,6 +770,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A crush on a rock star from the crowd: invisible to him by definition, devoted anyway — an inversion fans love given how her own fame turned out."],
       discussionSources: [{ name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless (Platinum Edition)","releaseDate":"2009-10-26","writers":["Taylor Swift","Liz Rose"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["celebrity crushes","distance","daydreams"]},
+      youtubeId: "IsCik8wznlU",
     },
     {
       slug: "the-other-side-of-the-door",
@@ -764,6 +781,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A post-fight standoff where pride says one thing and the heart means the opposite; she wants the grand gesture, not the silence."],
       discussionSources: [{ name: "Fearless (Taylor Swift album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }],
       facts: {"release":"Fearless (Platinum Edition)","releaseDate":"2009-10-26","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"themes":["stubbornness","push and pull","grand gestures"]},
+      youtubeId: "425n1NoRtgA",
     },
     {
       slug: "today-was-a-fairytale",
@@ -774,6 +792,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A perfect ordinary date replayed in storybook terms — the thesis that magic is a Tuesday afternoon with the right person.", "Recorded for the 2010 film Valentine’s Day, in which Swift had a cameo; its Hot 100 debut set a then-record for her."],
       discussionSources: [{ name: "Today Was a Fairytale — Wikipedia", url: "https://en.wikipedia.org/wiki/Today_Was_a_Fairytale" }, { name: "Fearless (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor's_Version)" }],
       facts: {"release":"Valentine's Day soundtrack / Fearless (Taylor's Version)","releaseDate":"2010-01-19","writers":["Taylor Swift"],"producers":["Nathan Chapman","Taylor Swift"],"isSingle":true,"singleReleaseDate":"2010-01-19","themes":["storybook romance","living in the moment","giddiness"]},
+      youtubeId: "xSWVPqnKcXQ",
     },
     {
       slug: "you-all-over-me",
@@ -784,6 +803,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Being clean but not new: a breakup leaves a residue no amount of moving on scrubs off. Wiser and wearier than anything that made the 2008 cut.", "Written for the original Fearless and left off; released March 2021 with Maren Morris as the debut vault track."],
       discussionSources: [{ name: "You All Over Me — Wikipedia", url: "https://en.wikipedia.org/wiki/You_All_Over_Me" }, { name: "Fearless (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor's_Version)" }],
       facts: {"release":"Fearless (Taylor's Version) — From The Vault","releaseDate":"2021-04-09","writers":["Taylor Swift","Scooter Carusoe"],"producers":["Taylor Swift","Aaron Dessner"],"isSingle":true,"themes":["lingering heartbreak","memory","experience as scar tissue"]},
+      youtubeId: "1uKi3ZD75RE",
     },
     {
       slug: "mr-perfectly-fine",
@@ -794,6 +814,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A catalog of a casually cruel ex’s personas, from charming to checked-out — teenage Swift already perfecting the receipts-song format.", "Written in the Fearless era and shelved until 2021; fans widely time-stamp it to the Joe Jonas breakup (unconfirmed), and Sophie Turner’s playful public endorsement of the song became part of its story."],
       discussionSources: [{ name: "Mr. Perfectly Fine — Wikipedia", url: "https://en.wikipedia.org/wiki/Mr._Perfectly_Fine" }, { name: "Fearless (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor's_Version)" }],
       facts: {"release":"Fearless (Taylor's Version) — From The Vault","releaseDate":"2021-04-09","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"themes":["double standards in moving on","wit as armor","receipts"]},
+      youtubeId: "rFjJs6ZjPe8",
     },
     {
       slug: "we-were-happy",
@@ -804,6 +825,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Instead of cataloging the ending, she catalogs the golden middle: farm fields, big plans, a love that worked right up until it did not."],
       discussionSources: [{ name: "Fearless (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor's_Version)" }],
       facts: {"release":"Fearless (Taylor's Version) — From The Vault","releaseDate":"2021-04-09","writers":["Taylor Swift","Liz Rose"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["grieving the good times","nostalgia","quiet loss"]},
+      youtubeId: "seU5y5EgIwk",
     },
     {
       slug: "thats-when",
@@ -814,6 +836,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Two people who asked for space negotiate the way back: he asks when he can return, she answers with every when she has.", "Recorded with Keith Urban for the vault; Urban had been an opener on the Speak Now tour, closing an old loop."],
       discussionSources: [{ name: "That's When — Wikipedia", url: "https://en.wikipedia.org/wiki/That's_When" }, { name: "Fearless (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor's_Version)" }],
       facts: {"release":"Fearless (Taylor's Version) — From The Vault","releaseDate":"2021-04-09","writers":["Taylor Swift","Brad Warren","Brett Warren"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["reconciliation","forgiveness","timing"]},
+      youtubeId: "aOa6D6ku3dM",
     },
     {
       slug: "dont-you",
@@ -824,6 +847,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A chance encounter with someone who broke her heart, and the unfair chemistry that survives the breakup; she asks him not to smile at her like that."],
       discussionSources: [{ name: "Fearless (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor's_Version)" }],
       facts: {"release":"Fearless (Taylor's Version) — From The Vault","releaseDate":"2021-04-09","writers":["Taylor Swift","Tommy Lee James"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["unresolved feelings","chance encounters","self-protection"]},
+      youtubeId: "dHdAN4FXzmc",
     },
     {
       slug: "bye-bye-baby",
@@ -834,6 +858,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The relationship is over and nobody is screaming; she watches the whole future they planned drive away and lets it."],
       discussionSources: [{ name: "Fearless (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor's_Version)" }],
       facts: {"release":"Fearless (Taylor's Version) — From The Vault","releaseDate":"2021-04-09","writers":["Taylor Swift","Liz Rose"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["acceptance","goodbyes","what might have been"]},
+      youtubeId: "yuFuwXd-B9E",
     },
   ],
   "folklore": [

@@ -30,6 +30,7 @@ export default {
       slug: 'fearless',
       trackNumber: 1,
       trackTitle: 'Fearless',
+      youtubeId: '7lLigiVgJsE', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift', 'Liz Rose', 'Hillary Lindsey'],
@@ -55,6 +56,7 @@ export default {
       slug: 'fifteen',
       trackNumber: 2,
       trackTitle: 'Fifteen',
+      youtubeId: 'rLCol1C3ouc', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
@@ -76,6 +78,7 @@ export default {
       slug: 'love-story',
       trackNumber: 3,
       trackTitle: 'Love Story',
+      youtubeId: 'aXzVF3XeS8M', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
@@ -103,6 +106,7 @@ export default {
       slug: 'hey-stephen',
       trackNumber: 4,
       trackTitle: 'Hey Stephen',
+      youtubeId: 'tMhiHrL7rPE', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
@@ -120,6 +124,7 @@ export default {
       slug: 'white-horse',
       trackNumber: 5,
       trackTitle: 'White Horse',
+      youtubeId: '9-rKvhsjwKU', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -145,6 +150,7 @@ export default {
       slug: 'you-belong-with-me',
       trackNumber: 6,
       trackTitle: 'You Belong with Me',
+      youtubeId: 'vwp8Ur6tO-8', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -168,6 +174,7 @@ export default {
       slug: 'breathe',
       trackNumber: 7,
       trackTitle: 'Breathe',
+      youtubeId: 'qsUK-BG5OQQ', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift', 'Colbie Caillat'],
@@ -192,6 +199,7 @@ export default {
       slug: 'tell-me-why',
       trackNumber: 8,
       trackTitle: 'Tell Me Why',
+      youtubeId: 'cwFbq-70EwE', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -220,6 +228,7 @@ export default {
       slug: 'youre-not-sorry',
       trackNumber: 9,
       trackTitle: "You're Not Sorry",
+      youtubeId: 'DNaSlUYIXBg', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
@@ -240,6 +249,7 @@ export default {
       slug: 'the-way-i-loved-you',
       trackNumber: 10,
       trackTitle: 'The Way I Loved You',
+      youtubeId: 'DlexmDDSDZ0', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift', 'John Rich'],
@@ -260,6 +270,7 @@ export default {
       slug: 'forever-and-always',
       trackNumber: 11,
       trackTitle: 'Forever & Always',
+      youtubeId: 'T-41vMWQTUA', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
@@ -280,6 +291,7 @@ export default {
       slug: 'the-best-day',
       trackNumber: 12,
       trackTitle: 'The Best Day',
+      youtubeId: 'KZeI9I875Ig', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
@@ -304,6 +316,7 @@ export default {
       slug: 'change',
       trackNumber: 13,
       trackTitle: 'Change',
+      youtubeId: 'jwWR1cQTKyw', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless',
       releaseDate: '2008-11-11',
       writers: ['Taylor Swift'],
@@ -329,6 +342,7 @@ export default {
       slug: 'jump-then-fall',
       trackNumber: 14,
       trackTitle: 'Jump Then Fall',
+      youtubeId: 'vUHDR6Rg3Y4', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless (Platinum Edition)',
       releaseDate: '2009-10-26',
       writers: ['Taylor Swift'],
@@ -345,6 +359,7 @@ export default {
       slug: 'untouchable',
       trackNumber: 15,
       trackTitle: 'Untouchable',
+      youtubeId: '8bNlGwnEUAs', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless (Platinum Edition)',
       releaseDate: '2009-10-26',
       writers: ['Cary Barlowe', 'Nathan Barlowe', 'Tommy Lee James', 'Taylor Swift'],
@@ -362,6 +377,7 @@ export default {
       slug: 'come-in-with-the-rain',
       trackNumber: 17,
       trackTitle: 'Come In with the Rain',
+      youtubeId: 'ePjcjLRHPOo', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless (Platinum Edition)',
       releaseDate: '2009-10-26',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -378,6 +394,7 @@ export default {
       slug: 'superstar',
       trackNumber: 18,
       trackTitle: 'Superstar',
+      youtubeId: 'IsCik8wznlU', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless (Platinum Edition)',
       releaseDate: '2009-10-26',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -394,6 +411,7 @@ export default {
       slug: 'the-other-side-of-the-door',
       trackNumber: 19,
       trackTitle: 'The Other Side of the Door',
+      youtubeId: '425n1NoRtgA', // oEmbed-verified official Taylor Swift channel
       release: 'Fearless (Platinum Edition)',
       releaseDate: '2009-10-26',
       writers: ['Taylor Swift'],
@@ -410,6 +428,7 @@ export default {
       slug: 'today-was-a-fairytale',
       trackNumber: 20,
       trackTitle: 'Today Was a Fairytale',
+      youtubeId: 'xSWVPqnKcXQ', // oEmbed-verified official Taylor Swift channel
       release: "Valentine's Day soundtrack / Fearless (Taylor's Version)",
       releaseDate: '2010-01-19',
       writers: ['Taylor Swift'],
@@ -435,6 +454,7 @@ export default {
       slug: 'you-all-over-me',
       trackNumber: 21,
       trackTitle: 'You All Over Me',
+      youtubeId: '1uKi3ZD75RE', // oEmbed-verified official Taylor Swift - Topic channel
       release: "Fearless (Taylor's Version) — From The Vault",
       releaseDate: '2021-04-09',
       writers: ['Taylor Swift', 'Scooter Carusoe'],
@@ -457,6 +477,7 @@ export default {
       slug: 'mr-perfectly-fine',
       trackNumber: 22,
       trackTitle: 'Mr. Perfectly Fine',
+      youtubeId: 'rFjJs6ZjPe8', // oEmbed-verified official Taylor Swift channel
       release: "Fearless (Taylor's Version) — From The Vault",
       releaseDate: '2021-04-09',
       writers: ['Taylor Swift'],
@@ -485,6 +506,7 @@ export default {
       slug: 'we-were-happy',
       trackNumber: 23,
       trackTitle: 'We Were Happy',
+      youtubeId: 'seU5y5EgIwk', // oEmbed-verified official Taylor Swift channel
       release: "Fearless (Taylor's Version) — From The Vault",
       releaseDate: '2021-04-09',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -502,6 +524,7 @@ export default {
       slug: 'thats-when',
       trackNumber: 24,
       trackTitle: "That's When",
+      youtubeId: 'aOa6D6ku3dM', // oEmbed-verified official Taylor Swift channel
       release: "Fearless (Taylor's Version) — From The Vault",
       releaseDate: '2021-04-09',
       writers: ['Taylor Swift', 'Brad Warren', 'Brett Warren'],
@@ -520,6 +543,7 @@ export default {
       slug: 'dont-you',
       trackNumber: 25,
       trackTitle: "Don't You",
+      youtubeId: 'dHdAN4FXzmc', // oEmbed-verified official Taylor Swift channel
       release: "Fearless (Taylor's Version) — From The Vault",
       releaseDate: '2021-04-09',
       writers: ['Taylor Swift', 'Tommy Lee James'],
@@ -537,6 +561,7 @@ export default {
       slug: 'bye-bye-baby',
       trackNumber: 26,
       trackTitle: 'Bye Bye Baby',
+      youtubeId: 'yuFuwXd-B9E', // oEmbed-verified official Taylor Swift channel
       release: "Fearless (Taylor's Version) — From The Vault",
       releaseDate: '2021-04-09',
       writers: ['Taylor Swift', 'Liz Rose'],
