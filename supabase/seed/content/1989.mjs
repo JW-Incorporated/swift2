@@ -2396,8 +2396,26 @@ export default {
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-89-3", label: "Album of the Year", kind: "award" },
       snippet: "She becomes the first woman to win the top Grammy twice.",
+      // Photo added 2026-07-20 (photo-enrichment #762): page had zero photos.
+      // Billboard/wp-content red-carpet frame from the same ceremony —
+      // verified HTTP 200, image/jpeg, 650x430 (above the 400px floor),
+      // downloaded + Read-viewed: Swift solo at the "GRAMMY AWARDS"
+      // step-and-repeat in the orange crop top and magenta skirt she wore
+      // the night 1989 won Album of the Year. Non-watermarked outlet CDN.
+      thumbnailUrl:
+        "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg",
       moment: {
         context: "Accepting the award, she used the moment to speak directly to young women about crediting their own work.",
+        photos: [
+          {
+            url: "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg",
+            focalPoint: "48% 20%",
+            credit: "Getty Images, via Billboard",
+            caption:
+              "On the 58th Grammy Awards red carpet, February 15, 2016 — the night 1989 won Album of the Year, making Taylor the first woman to win the top Grammy twice.",
+            kind: "primary",
+          },
+        ],
       },
     },
   ],
