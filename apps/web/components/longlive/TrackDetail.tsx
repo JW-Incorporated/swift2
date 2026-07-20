@@ -74,9 +74,21 @@ export function TrackDetail() {
   // (#439/#440) so track pages actually embed the music video instead of
   // hiding it in the era-level rail only.
   const matchedVideo = videoForTrack(era.id, track.title);
+  // Prefer the official music video when one exists — it is the richer artifact
+  // and carries its own title. Otherwise fall back to the track's OWN verified
+  // youtubeId (the official audio / lyric video sourced by the Audio Curator,
+  // every one oEmbed-checked against an official channel).
+  //
+  // Without that fallback the page could only ever play the ~44 songs with a
+  // music video, while 213 tracks carried a verified, playable id that reached
+  // the generated vault and then rendered nowhere — the exact complaint that
+  // started the audio work ("only being able to link to a handful of songs is
+  // lame"). Found 2026-07-20 while browser-verifying playback.
   const video = matchedVideo?.youtubeId
     ? { youtubeId: matchedVideo.youtubeId, title: matchedVideo.title }
-    : undefined;
+    : track.youtubeId
+      ? { youtubeId: track.youtubeId, title: track.title }
+      : undefined;
   // The dossier backs whyItMatters/meaning/live/voices; the narrative
   // discussion keeps its own citation list. Merged (de-duped by url) into one
   // source line at the foot of the page.
