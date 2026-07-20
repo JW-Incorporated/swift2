@@ -26,6 +26,7 @@ export default {
       slug: 'willow',
       trackNumber: 1,
       trackTitle: 'willow',
+      youtubeId: 'RsEZmictANA', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -49,6 +50,7 @@ export default {
       slug: 'champagne-problems',
       trackNumber: 2,
       trackTitle: 'champagne problems',
+      youtubeId: 'wMpqCRF7TKg', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'William Bowery'],
@@ -73,6 +75,7 @@ export default {
       slug: 'gold-rush',
       trackNumber: 3,
       trackTitle: 'gold rush',
+      youtubeId: 'Pz-f9mM3Ms8', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -89,6 +92,7 @@ export default {
       slug: 'tis-the-damn-season',
       trackNumber: 4,
       trackTitle: "'tis the damn season",
+      youtubeId: 'WuvhOD-mP8M', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -113,6 +117,7 @@ export default {
       slug: 'tolerate-it',
       trackNumber: 5,
       trackTitle: 'tolerate it',
+      youtubeId: 'ukxEKY_7MOc', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -130,6 +135,7 @@ export default {
       slug: 'no-body-no-crime',
       trackNumber: 6,
       trackTitle: 'no body, no crime',
+      youtubeId: 'IEPomqor2A8', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift'],
@@ -155,6 +161,7 @@ export default {
       slug: 'happiness',
       trackNumber: 7,
       trackTitle: 'happiness',
+      youtubeId: 'tP4TTgt4nb0', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -179,6 +186,7 @@ export default {
       slug: 'dorothea',
       trackNumber: 8,
       trackTitle: 'dorothea',
+      youtubeId: 'zI4DS5GmQWE', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -199,6 +207,7 @@ export default {
       slug: 'coney-island',
       trackNumber: 9,
       trackTitle: 'coney island',
+      youtubeId: 'c_p_TBaHvos', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'William Bowery', 'Aaron Dessner', 'Bryce Dessner'],
@@ -224,6 +233,7 @@ export default {
       slug: 'ivy',
       trackNumber: 10,
       trackTitle: 'ivy',
+      youtubeId: '9nIOx-ezlzA', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner', 'Jack Antonoff'],
@@ -243,6 +253,7 @@ export default {
       slug: 'cowboy-like-me',
       trackNumber: 11,
       trackTitle: 'cowboy like me',
+      youtubeId: 'YPlNBb6I8qU', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -260,6 +271,7 @@ export default {
       slug: 'long-story-short',
       trackNumber: 12,
       trackTitle: 'long story short',
+      youtubeId: 'rqQHa2HcGtM', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -284,6 +296,7 @@ export default {
       slug: 'marjorie',
       trackNumber: 13,
       trackTitle: 'marjorie',
+      youtubeId: 'hP6QpMeSG6s', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -306,6 +319,7 @@ export default {
       slug: 'closure',
       trackNumber: 14,
       trackTitle: 'closure',
+      youtubeId: 'AIFnKqIeEdY', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -322,6 +336,7 @@ export default {
       slug: 'evermore',
       trackNumber: 15,
       trackTitle: 'evermore',
+      youtubeId: 'EXLgZZE072g', // oEmbed-verified official Taylor Swift channel
       release: 'evermore',
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'William Bowery', 'Justin Vernon'],
@@ -339,6 +354,7 @@ export default {
       slug: 'right-where-you-left-me',
       trackNumber: 16,
       trackTitle: 'right where you left me',
+      youtubeId: 'Ur_wAcYDnuA', // oEmbed-verified official Taylor Swift channel
       release: 'evermore (deluxe edition)',
       releaseDate: '2021-01-07',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -355,6 +371,7 @@ export default {
       slug: 'its-time-to-go',
       trackNumber: 17,
       trackTitle: "it's time to go",
+      youtubeId: '1iRbIYkccgw', // oEmbed-verified official Taylor Swift channel
       release: 'evermore (deluxe edition)',
       releaseDate: '2021-01-07',
       writers: ['Taylor Swift', 'Aaron Dessner'],
