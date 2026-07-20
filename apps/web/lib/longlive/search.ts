@@ -51,6 +51,21 @@ export interface SearchDoc {
   titleNorm: string;
   /** Precomputed normalized full-text haystack (title included). */
   bodyNorm: string;
+  /**
+   * Editorial importance, folded into ranking as a tie-breaker.
+   *
+   * Without this, relevance was purely lexical and the results were wrong in
+   * a way users notice immediately: searching "wedding" put the actual MSG
+   * wedding page 20th of 26 matches (so, past the 5-per-type cap, invisible),
+   * because its title is "Taylor and Travis marry at Madison Square Garden"
+   * and does not contain the word. A chat-show anecdote titled "Wedding
+   * plans, teased from a British chat-show couch" outranked it purely on
+   * having the term in its title.
+   *
+   * 0 for everything that carries no explicit signal — the default, so this
+   * only ever promotes, never demotes.
+   */
+  weight: number;
 }
 
 export interface SearchResult {
@@ -100,6 +115,23 @@ const SCORE_TITLE_SUBSTRING = 12;
 const SCORE_BODY_WORD_PREFIX = 6;
 const SCORE_BODY_SUBSTRING = 3;
 
+/**
+ * Editorial-importance bonus, added ONCE per doc rather than per term.
+ *
+ * Sized against the real failing case rather than picked round: the canonical
+ * wedding page matches "wedding" only in its body (6), while the tangential
+ * "Wedding plans, teased from a British chat-show couch" gets a title-PREFIX
+ * hit (40). So the bonus has to clear 34 for importance to win at all —
+ * 45 puts the defining page at 51 and comfortably ahead.
+ *
+ * It still loses to an exact title match (100), which is the property that
+ * keeps this honest: searching a page by its actual name always finds that
+ * page first, and importance only reorders pages that are otherwise
+ * competing on weak lexical signal.
+ */
+export const WEIGHT_DEFINING = 45;
+export const WEIGHT_NOTABLE = 18;
+
 /** Does `text` contain `term` starting at a word boundary? */
 function hasWordPrefix(text: string, term: string): boolean {
   let i = text.indexOf(term);
@@ -130,7 +162,9 @@ export function scoreDoc(doc: SearchDoc, terms: string[]): number {
   if (terms.length > 1 && doc.titleNorm.includes(terms.join(' '))) {
     score += SCORE_TITLE_PREFIX;
   }
-  return score;
+  // Once per doc, not per term: a two-word query must not double the bonus
+  // and let importance swamp lexical relevance.
+  return score + doc.weight;
 }
 
 export const MAX_RESULTS_PER_TYPE = 5;
@@ -188,6 +222,7 @@ function makeDoc(
   eraId: EraId | null,
   target: SearchTarget,
   extraText: readonly string[],
+  weight = 0,
 ): SearchDoc {
   const titleNorm = normalize(title);
   return {
@@ -199,6 +234,7 @@ function makeDoc(
     target,
     titleNorm,
     bodyNorm: [titleNorm, ...extraText.map(normalize)].join(' '),
+    weight,
   };
 }
 
@@ -232,6 +268,11 @@ export function buildSearchIndex(): SearchDoc[] {
         item.eraId,
         { kind: 'moment', itemId: item.id },
         [item.summary, ...item.body, item.tags.join(' '), item.dateLabel],
+        item.significance === 'defining'
+          ? WEIGHT_DEFINING
+          : item.significance === 'notable'
+            ? WEIGHT_NOTABLE
+            : 0,
       ),
     );
   }

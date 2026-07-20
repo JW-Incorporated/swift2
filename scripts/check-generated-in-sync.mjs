@@ -29,13 +29,26 @@ const SYNCS = [
 ];
 
 // A build stamp legitimately changes every run — not content drift.
+//
+// It ships as a THREE-line block: doc comment, the export, and a blank
+// separator. Only `prebuild` emits it, so a vault committed straight from
+// `sync:content` has no block at all — and the two forms must normalize to the
+// same thing. Filtering just the `export` line does not achieve that: it leaves
+// the orphaned comment and blank behind, so a stamped committed vault always
+// differed from a freshly synced one and this check failed on EVERY branch,
+// regardless of what the branch changed (2026-07-20). Strip the block whole.
+const STAMP_BLOCK =
+  /\/\*\* Build-time freshness stamp[^\n]*\*\/\nexport const [A-Z_]*GENERATED_AT\b[^\n]*\n\n?/g;
+// Fallback for a bare stamp with no doc comment above it.
 const VOLATILE = /^export const [A-Z_]*GENERATED_AT\b.*$/;
 const normalize = (s) =>
   s
     .replace(/\r/g, '')
+    .replace(STAMP_BLOCK, '')
     .split('\n')
     .filter((l) => !VOLATILE.test(l))
-    .join('\n');
+    .join('\n')
+    .trimEnd();
 
 for (const s of SYNCS) execSync(`node ${s}`, { stdio: ['ignore', 'ignore', 'inherit'] });
 
