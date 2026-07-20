@@ -3246,6 +3246,18 @@ export default {
             focalPoint: '48% 30%',
             kind: 'primary',
           },
+          // Photo pass (#762, 2026-07-20): a second freely-licensed frame from
+          // the same Aug. 9, 2023 SoFi show — the blue-crystal 1989 set that,
+          // per this moment's own snippet, teased the announcement all night.
+          // Same Commons photographer (Paolo V) as the frame above. URL 200 +
+          // image/jpeg; downloaded and vision-confirmed this session.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/de/Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109523971%29_%28cropped%29.jpg',
+            focalPoint: '51% 15%',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption: 'Swift in the blue-crystal 1989 era set at SoFi Stadium that night — the color-coded tease that fans read as a signal before the 1989 (Taylor\'s Version) reveal.',
+            kind: 'primary',
+          },
         ],
       },
     },
