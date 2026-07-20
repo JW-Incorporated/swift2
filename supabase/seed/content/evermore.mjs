@@ -1305,6 +1305,8 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2022/09/taylor-swift-performs-nsai-nashville-songwriter-awards-2022-billboard-1548.png?w=1024',
             credit: 'Terry Wyatt/Getty Images',
+            // She stands with the white guitar on the right side of the frame; her face sits upper-right.
+            focalPoint: '60% 25%',
           },
         ],
       },
@@ -1530,6 +1532,8 @@ export default {
             credit: 'Republic Records (film poster)',
             caption: 'Poster for All Too Well: The Short Film, starring Sadie Sink and Dylan O\'Brien.',
             kind: 'primary',
+            // Two faces foreheads-together across the upper third, title text just below; keep the crop high.
+            focalPoint: '50% 32%',
           },
         ],
       },
