@@ -303,6 +303,7 @@ export default {
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2020/12/03-taylor-swift-press-cr-Beth-Garrabrant-2020-billboard-1548-1607617377.jpg?w=1024',
+            focalPoint: '60% 26%',
             credit: 'Beth Garrabrant, via Billboard',
             caption:
               "A Beth Garrabrant press portrait of Swift from the same era, used by Billboard to illustrate its coverage of Fearless (Taylor's Version) holding its chart position months after release.",
@@ -315,24 +316,28 @@ export default {
           // the original 2010 era this record re-recorded. All curl 200.
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png',
+            focalPoint: '55% 50%',
             credit: 'Republic Records (official album cover)',
             caption: 'The official Fearless (Taylor\'s Version) cover art, released April 9, 2021.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/FearlessPrudentialCentMay2010.jpg',
+            focalPoint: '58% 20%',
             credit: 'itslex94, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Swift on the original Fearless Tour in May 2010 — the era this record-breaking 2021 re-record revisited eleven years later.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d7/Keith_Urban_2020.jpg',
+            focalPoint: '52% 16%',
             credit: 'Shawn Miller / Library of Congress (CC0)',
             caption: 'Keith Urban in 2020, months before joining Swift on "That\'s When," one of six From the Vault tracks that drove the record-setting week.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Maren_Morris_2019_by_Glenn_Francis.jpg',
+            focalPoint: '54% 20%',
             credit: '© Glenn Francis, PacificProDigital.com (CC BY-SA 4.0)',
             caption: 'Maren Morris in 2019, featured on the vault track "You All Over Me," released ahead of the full album.',
             kind: 'reference',
@@ -419,6 +424,7 @@ export default {
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/11/taylor-swift-snl-all-too-well-11142021-billboard-1548-1636905415.jpg?w=942&h=628&crop=1',
+            focalPoint: '42% 42%',
             credit: 'Will Heath/NBC',
             caption:
               'Swift performs "All Too Well (10 Minute Version)" for the first time on television, as musical guest on Saturday Night Live, Nov. 13, 2021 — part of the promotional run that carried the song to No. 1.',
@@ -426,6 +432,7 @@ export default {
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/11/taylor-swift-all-too-well-premiere-2021-billboard-1548-1636758898.png?w=942&h=628&crop=1',
+            focalPoint: '58% 28%',
             credit: 'Dimitrios Kambouris/Getty Images',
             caption:
               'Swift at the "All Too Well" short film premiere, AMC Lincoln Square, New York City, Nov. 12, 2021 — the night she performed the 10-minute version live for the first time, before it played on SNL the next night.',
@@ -433,6 +440,7 @@ export default {
           },
           {
             url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-02.jpg',
+            focalPoint: '48% 22%',
             credit: 'Evan Agostini/Invision/AP, via Just Jared Jr',
             caption:
               "Dylan O'Brien, Taylor Swift, and Sadie Sink together at the \"All Too Well\" short film premiere, Nov. 12, 2021.",
@@ -440,6 +448,7 @@ export default {
           },
           {
             url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-01.jpg',
+            focalPoint: '50% 20%',
             credit: 'Dimitrios Kambouris/Getty Images, via Just Jared Jr',
             caption:
               'Sadie Sink, who starred opposite Dylan O\'Brien in the short film built around the song, on the premiere carpet.',
@@ -447,12 +456,14 @@ export default {
           },
           {
             url: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2021/11/dylan-sadie-taylor/dylan-obrien-sadie-sink-join-taylor-swift-at-all-too-well-premiere-03.jpg',
+            focalPoint: '32% 16%',
             credit: 'Dimitrios Kambouris/Getty Images, via Just Jared Jr',
             caption: 'Swift on the "All Too Well" short film premiere red carpet, Nov. 12, 2021.',
             kind: 'archival',
           },
           {
             url: 'https://www.rollingstone.com/wp-content/uploads/2021/11/taylor-swift-all-too-well-car.jpg?w=1600&h=900&crop=1',
+            focalPoint: '50% 38%',
             credit: 'Republic Records / Taylor Swift (All Too Well: The Short Film still)',
             caption:
               "A still from All Too Well: The Short Film, the Sadie Sink/Dylan O'Brien-led film Swift wrote and directed and released alongside the 10-minute version — central to the promotional push that took the song to No. 1.",
