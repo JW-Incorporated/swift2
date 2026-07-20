@@ -596,6 +596,8 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1',
+            // Face left-of-center at mid-height in this landscape frame.
+            focalPoint: '42% 40%',
             credit: 'Billboard',
             caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.",
             kind: 'archival',

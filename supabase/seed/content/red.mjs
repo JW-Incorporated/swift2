@@ -468,6 +468,8 @@ export default {
         photos: [
           {
             url: 'https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1',
+            // Face upper-center as she stands above the crowd; keep it framed under a wide crop.
+            focalPoint: '48% 30%',
             credit: 'Fox News',
           },
         ],
@@ -685,6 +687,8 @@ export default {
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2014026/rs_634x1024-140126164619-634-taylor-swift-grammy.ls.12614_copy_2.jpg',
+            // Full-length red-carpet shot; face sits high in this tall portrait.
+            focalPoint: '48% 13%',
             credit: 'E! News',
           },
         ],
