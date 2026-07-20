@@ -1471,6 +1471,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i.ytimg.com/vi/Uzii44SDYFA/hqdefault.jpg", credit: "Republic Records / YouTube (official performance still)", caption: "Swift on the moss-covered cabin set during the folklore/evermore medley at the 2021 Grammys.", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-performed-folklore-evermore-medley-2021-grammy-awards-1140876/" }, { name: "Elite Daily", url: "https://www.elitedaily.com/p/taylor-swifts-2021-grammys-dress-is-cottagecore-princesscore-come-to-life-65951509" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-country/taylor-swift-betty-2020-acm-awards-1058897/" }],
+      products: [{ brand: "Etro", item: "Peau D'Ange Silk Maxi Dress with Flower and Bee Motif", retailer: "etro.com", url: "https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html", price: "$2,880.00", isAlternative: true, altNote: "The gown was custom-built for this performance — this is Etro's current long silk gown, same house, different print and colors." }],
     },
     {
       id: "vault-evermore-the-ivory-zimmermann-gown-from-the-willow-video",
@@ -1482,6 +1483,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2020/12/Taylor-Swift-Wore-Zimmermann-For-Her-Willow-Music-Video-819x1024.jpg", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2020/12/10221082/shop-taylor-swift-evermore-willow-dress" }, { name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2020/12/11/taylor-swift-wore-zimmermann-for-her-willow-music-video/" }],
+      products: [{ brand: "Jennifer Behr", item: "Priscilla Tiara", retailer: "jenniferbehr.com", url: "https://www.jenniferbehr.com/products/priscilla-tiara-champagne", price: "$1,225.00" }],
     },
     {
       id: "vault-evermore-a-sepia-fearless-taylors-version-cover-with-a-love-story-eas",
@@ -1504,6 +1506,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/9589789/taylor-swift-red-taylors-version-hat-album-cover-janessa-leone/" }],
+      products: [{ brand: "Janessa Leoné", item: "Mattie Fisherman Cap", retailer: "revolve.com", url: "https://www.revolve.com/janessa-leone-mattie-fisherman-cap-in-rust/dp/JNES-WA15/", price: "$260.00", inStock: false, isAlternative: true, altNote: "The burgundy colorway from the cover sold out in 2021 and never restocked — this is the same Mattie cap in Rust." }],
     },
     {
       id: "vault-evermore-the-siren-red-lip-and-cat-eye-that-came-to-define-the-red-tv",
@@ -2699,6 +2702,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg?w=942&h=628&crop=1", credit: "TAS Rights Management 2021, via Getty Images / Billboard", caption: "The custom Etro gown during the folklore medley staging at the 2021 Grammys.", kind: "primary", focalPoint: "59% 42%" }],
       sources: [{ name: "SheFinds", url: "https://www.shefinds.com/collections/taylor-swift-etro-grammys-performance-dress/" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-floral-2021-grammy-awards-dress-video-9540868/" }],
+      products: [{ brand: "Etro", item: "Peau D'Ange Silk Maxi Dress with Flower and Bee Motif", retailer: "etro.com", url: "https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html", price: "$2,880.00", isAlternative: true, altNote: "The gown was custom-built for this performance — this is Etro's current long silk gown, same house, different print and colors." }],
     },
     {
       id: "vault-folklore-the-cardigan-video-a-nap-dress-and-the-cottagecore-uniform",
@@ -2710,6 +2714,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/taylor-swifts-nap-dress-pays-homage-to-whimsy-1595575441.jpg", credit: "Taylor Swift/VEVO", caption: "The white nap dress in the self-directed \"cardigan\" music video.", kind: "primary" }],
       sources: [{ name: "Nicki Swift", url: "https://www.nickiswift.com/229802/hidden-details-you-missed-in-taylor-swifts-new-cardigan-video/" }, { name: "Elite Daily", url: "https://www.elitedaily.com/p/taylor-swifts-outfit-from-her-cardigan-music-video-is-the-easiest-to-copy-29940067" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Cardigan_(song)" }],
+      products: [{ brand: "Hill House Home", item: "The Ashlyn Nap Dress", retailer: "hillhousehome.com", url: "https://www.hillhousehome.com/collections/nap-dress-shop/products/the-ashlyn-nap-dress-white", price: "$228.00", isAlternative: true, altNote: "Her exact video dress is undocumented — this is a white Nap Dress from Hill House Home, the brand that popularized the style." }],
     },
     {
       id: "vault-folklore-no-glam-team-self-styled-hair-and-makeup-for-the-folklore-er",
@@ -2743,6 +2748,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://fashionsizzle.com/wp-content/uploads/2020/11/462213.jpg", credit: "Disney+ (still from folklore: The Long Pond Studio Sessions)", caption: "The Free People velvet shirt dress, in a still from the Disney+ special.", kind: "primary" }],
       sources: [{ name: "Fashion Sizzle", url: "https://fashionsizzle.com/2020/11/28/taylor-swift-wore-free-people-blouse-shirt-dress-for-folklore-the-long-pond-studio-sessions/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore:_The_Long_Pond_Studio_Sessions" }],
+      products: [{ brand: "Free People", item: "Lux Velvet Shirt Dress", retailer: "revolve.com", url: "https://www.revolve.com/free-people-lux-velvet-shirt-dress-in-fairytale/dp/FREE-WD1888/", price: "$139.00", inStock: false }, { brand: "Tiffany & Co.", item: "Tiffany Infinity Bracelet", retailer: "tiffany.com", url: "https://www.tiffany.com/jewelry/bracelets/tiffany-infinity-sterling-silver-bracelets-60143730.html", price: "$350.00" }, { brand: "Melinda Maria", item: "Perfect Pearl Stacked Ring", retailer: "melindamaria.com", url: "https://www.melindamaria.com/products/perfect-pearl-stacked-ring-gold", price: "$75.00", isAlternative: true, altNote: "The exact Soleil stacking set is discontinued — this is a current Melinda Maria stacked ring, same brand and spirit." }],
     },
     {
       id: "vault-folklore-the-original-folklore-cardigan-sells-out-and-becomes-a-piece",

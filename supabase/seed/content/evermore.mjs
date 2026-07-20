@@ -580,6 +580,22 @@ export default {
             kind: 'archival',
           },
         ],
+        // Shop pass (2026-07-20): same custom Etro gown as the equivalent
+        // item in folklore.mjs (this is the folklore-medley performance,
+        // cross-listed here) — same alternative, curl/WebFetch blocked on
+        // etro.com, verified live in-browser.
+        products: [
+          {
+            brand: 'Etro',
+            item: 'Peau D\'Ange Silk Maxi Dress with Flower and Bee Motif',
+            retailer: 'etro.com',
+            url: 'https://www.etro.com/us-en/peau-d-ange-silk-long-dress-with-floral-motif-WRHA056599SP1L7X0808.html',
+            price: '$2,880.00',
+            isAlternative: true,
+            altNote:
+              'The gown was custom-built for this performance — this is Etro\'s current long silk gown, same house, different print and colors.',
+          },
+        ],
       },
     },
 
@@ -612,6 +628,20 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2020/12/Taylor-Swift-Wore-Zimmermann-For-Her-Willow-Music-Video-819x1024.jpg',
             credit: 'Republic Records',
+          },
+        ],
+        // Shop pass (2026-07-20): the Zimmermann Charm Star dress itself is
+        // sold out everywhere checked (Zimmermann, Moda Operandi, David
+        // Jones all return dead/404 listings for this 2020 style) — but the
+        // Priscilla Tiara is a live product, and Jennifer Behr's own site
+        // names this exact "willow" video appearance in its copy.
+        products: [
+          {
+            brand: 'Jennifer Behr',
+            item: 'Priscilla Tiara',
+            retailer: 'jenniferbehr.com',
+            url: 'https://www.jenniferbehr.com/products/priscilla-tiara-champagne',
+            price: '$1,225.00',
           },
         ],
       },
@@ -668,6 +698,23 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/4/47/Taylor_Swift_-_Red_%28Taylor%27s_Version%29.png',
             credit: 'Republic Records',
+          },
+        ],
+        // Shop pass (2026-07-20): the exact burgundy "Mattie" sold out
+        // immediately in 2021 and never restocked — this is the same
+        // Janessa Leoné "Mattie" style, in its Rust colorway, curl/WebFetch
+        // blocked on revolve.com, verified live in-browser.
+        products: [
+          {
+            brand: 'Janessa Leoné',
+            item: 'Mattie Fisherman Cap',
+            retailer: 'revolve.com',
+            url: 'https://www.revolve.com/janessa-leone-mattie-fisherman-cap-in-rust/dp/JNES-WA15/',
+            price: '$260.00',
+            inStock: false,
+            isAlternative: true,
+            altNote:
+              'The burgundy colorway from the cover sold out in 2021 and never restocked — this is the same Mattie cap in Rust.',
           },
         ],
       },
