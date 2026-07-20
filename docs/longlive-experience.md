@@ -300,18 +300,29 @@ the ID. It renders automatically in `MomentDetail`.
 
 **Add shoppable products to a fashion moment:** add `moment.products` to the
 seed item (`supabase/seed/content/<era>.mjs`):
-`[{ brand, item, retailer, url, price?, inStock? }]` — `retailer` is a bare
-lowercase hostname (`'ralphlauren.com'`; it's the future affiliate-routing
-key), `url` is the exact retailer product-detail page (verify it resolves
-HTTP 200 before adding — never a search page, never guessed), `inStock: false`
-for a verified sold-out item (renders dimmed + "Sold out"). Re-run
-`npm run sync:content`; MomentDetail renders the "Shop the look" block
-automatically. The UI must always link via `buildShopUrl()`
+`[{ brand, item, retailer, url, price?, inStock?, isAlternative?, altNote? }]`
+— `retailer` is a bare lowercase hostname (`'ralphlauren.com'`; it's the
+future affiliate-routing key), `url` is the exact retailer product-detail page
+(verify it resolves HTTP 200 before adding — never a search page, never
+guessed), `inStock: false` for a verified sold-out item (renders dimmed +
+"Sold out"). Re-run `npm run sync:content`; MomentDetail renders the "Shop the
+look" block automatically. The UI must always link via `buildShopUrl()`
 (`lib/longlive/shop.ts`) — never `product.url` directly — that function is
 the single seam where affiliate wrapping (keyed by `retailer`) gets injected
 later with zero content edits (`docs/decisions.md` 2026-07-19). The
-`content.product-gap` checker (content engine) queues fashion moments that
-name branded garments but carry no products.
+`content.fashion-products` checker (content engine) queues fashion moments
+that name branded garments but carry no products.
+
+**No exact product page exists (custom/couture/discontinued):** don't skip
+the moment silently — offer the closest verified buyable match instead
+(2026-07-20, docs/decisions.md): same `Product` shape, plus
+`isAlternative: true` and a required `altNote` (<=200 chars) naming what's
+different (e.g. `"The exact custom Etro gown was a one-off runway piece —
+this is Etro's closest current silhouette"`). Renders an explicit "Similar
+style" label + the note — never presented as the literal garment. Still
+subject to every other product rule: real retailer, verified HTTP 200,
+direct product page, no search pages. If nothing genuinely similar exists
+either, skip the garment rather than force a weak match.
 
 **Add music to an era:** add `media: { spotifyAlbumId, albumTitle }` to the
 `Era` in `eras.ts`. Verify the ID.

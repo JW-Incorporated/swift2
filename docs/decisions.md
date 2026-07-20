@@ -7,6 +7,18 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-20 — Fashion shopping links: offer a similar alternative instead of skipping unshoppable pieces
+
+**Decision:** Joey asked for shop links across all fashion-tagged content — clothing and makeup, images included, not just what the text names. Scope check: 148 items carry `category: 'fashion'`; only 1 currently has `moment.products`. A large share are custom/couture/runway one-offs (the existing `content.fashion-products` checker already excludes these from its queue on purpose — "no product page exists"), which is a real dead end for an exact link. Joey's instruction: don't skip those — offer a similar alternative instead.
+
+**Schema:** added `isAlternative?: boolean` + `altNote?: string` (<=200 chars, required when `isAlternative` is true) to `Product` (`apps/web/lib/longlive/types.ts`). No DB migration needed — `products` is seed-authored JSON with no Supabase table backing it. `validate-content.mjs` enforces the pairing (an alternative without a note explaining what's different is a hard error).
+
+**UI:** `MomentDetail`'s "Shop the look" block gets a new "Similar style" pill (era-accent outlined, same treatment family as the existing "Sold out" pill) plus the note, on any product marked as an alternative. This was a deliberate call, not a formatting afterthought: presenting a stand-in silently as the literal garment would be misleading fans into thinking they can buy the exact thing she wore, which the whole no-fabrication standard this project holds everywhere else (photos, sources, video IDs) exists to prevent.
+
+**Sourcing rule going forward:** try the exact piece first (verified retailer page, HTTP 200, real product). If it's genuinely unshoppable (custom/couture/discontinued and no resale listing), source a real, verified, currently-buyable alternative — same brand's closest current silhouette where possible, otherwise a comparable piece from an accessible brand — never a fabricated or unverified guess. If nothing genuinely similar exists either, skip the garment rather than force a weak match. Makeup gets the same treatment (brand + specific product, e.g., a lipstick shade), same verification bar.
+
+**Scale note:** 148 items is a multi-session project, not a single pass — many moments carry 2-4 separate garments (a red-carpet look plus shoes plus a bag). Working it era by era, starting with `debut.mjs` (smallest file, earliest/foundational era), committing in batches the same way the top-100 career-events project did.
+
 ## 2026-07-20 — Significance needed a visual signal, not just a layout floor
 
 **Decision:** Joey asked for a full audit of the top-100 career-events project: does the most-important content actually carry the most weight, and can a scrolling user *tell*? The honest answer was split.
