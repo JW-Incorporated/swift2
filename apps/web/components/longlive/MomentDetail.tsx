@@ -1,6 +1,6 @@
 'use client';
 
-import { Fragment, useEffect, useState } from 'react';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import {
   X,
@@ -415,6 +415,23 @@ export function MomentDetail() {
   // Any time the moment changes, make sure the viewer is closed.
   useEffect(() => setLightboxIndex(null), [openItemId]);
 
+  // Reset the overlay's scroll whenever a different moment opens.
+  //
+  // Found by browser-testing the "Keep reading" rail (2026-07-20): tapping a
+  // cross-link opened the right article but dropped the reader deep in its
+  // middle, because the previous article's scroll position carried over. The
+  // three call sites that try to handle this all call
+  // `window.scrollTo({ top: 0 })` — but this overlay is `fixed inset-0
+  // overflow-y-auto`, i.e. its OWN scroll container, so scrolling the window
+  // does nothing to it.
+  //
+  // Fixing it here rather than in each onClick means every path into a moment
+  // is covered — the rail, the thread pivots, and anything added later.
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (openItemId) scrollRef.current?.scrollTo({ top: 0, behavior: 'auto' });
+  }, [openItemId]);
+
   // Opening a moment records it as visited (drives the era grid's seen dots
   // and the returning-user counts). Keyed on the resolved item so bad deep
   // links never record ghosts; marking is idempotent, so StrictMode's double
@@ -488,6 +505,7 @@ export function MomentDetail() {
 
   return (
     <div
+      ref={scrollRef}
       className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter"
       style={eraStyle(era)}
     >
