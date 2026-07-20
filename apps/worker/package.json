@@ -8,7 +8,7 @@
     "news": "tsx src/index.ts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.110.5",
+    "@supabase/supabase-js": "^2.110.7",
     "@swift2/shared": "*",
     "rss-parser": "^3.13.0"
   },
