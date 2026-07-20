@@ -62,6 +62,20 @@ export interface NormalizedNewsItem {
   publishedAt?: string;
   /** Candidate hotlinked image for the eventual story's top image. */
   imageUrl?: string;
+  /**
+   * The outlet that actually published this, when the feed reports it
+   * separately from the feed itself — Google News RSS carries
+   * `<source url="…">Forbes</source>` on every item.
+   *
+   * Load-bearing for corroboration, not just attribution: story sources are
+   * deduped by outlet name, so attributing everything to the feed capped every
+   * story at one source row and made `corroborated` unreachable. Undefined for
+   * feeds published by the outlet itself, where the source name is already the
+   * publisher.
+   */
+  publisher?: string;
+  /** Publisher's own domain as reported by the feed, e.g. https://www.forbes.com. */
+  publisherUrl?: string;
 }
 
 /**
