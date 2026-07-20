@@ -512,5 +512,39 @@ for (const entry of await loadTypeDir('videos', 'videos')) {
   for (const egg of row.easterEggs ?? []) capped(err, 'easterEggs entry', egg, 400);
 }
 
+// -- tracks (song track guide) --
+// The track seed files export `{ eraSlug, tracks: [] }` and carry per-era
+// `.dossiers.mjs` side modules that export a slug->dossier map instead — skip
+// those. We only enforce the machine-checkable shape here: the optional
+// `youtubeId` (the song's playable audio) must be a bare 11-char YouTube id,
+// same strict shape the tracks generator accepts. The audio-curator flow does
+// the oEmbed author-channel verification that a static file check can't.
+const YOUTUBE_ID_RE = /^[A-Za-z0-9_-]{11}$/;
+let trackFiles;
+try {
+  trackFiles = readdirSync(join(seed, 'tracks'))
+    .filter((f) => f.endsWith('.mjs') && !f.startsWith('_') && !f.endsWith('.dossiers.mjs'))
+    .sort();
+} catch {
+  trackFiles = []; // dir may not exist in older checkouts
+}
+for (const file of trackFiles) {
+  const mod = await import(pathToFileURL(join(seed, 'tracks', file)).href);
+  const data = mod.default;
+  if (!Array.isArray(data?.tracks)) {
+    console.error(`ERROR tracks/${file}: default export has no tracks[] array`);
+    errors += 1;
+    continue;
+  }
+  for (const row of data.tracks) {
+    checked += 1;
+    const { err } = makeReporters(
+      `tracks/${file} "${String(row.trackTitle ?? row.slug ?? '').slice(0, 42)}"`,
+    );
+    if (row.youtubeId != null && !YOUTUBE_ID_RE.test(String(row.youtubeId)))
+      err(`youtubeId "${row.youtubeId}" is not a bare 11-char YouTube id`);
+  }
+}
+
 console.log(`\nvalidated ${checked} content item(s) — ${errors} error(s), ${warnings} warning(s)`);
 if (errors > 0) process.exit(1);

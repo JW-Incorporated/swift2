@@ -7,6 +7,7 @@ import {
   factsFrom,
   normalizeTrack,
   sortTracks,
+  youtubeIdFrom,
 } from './sync-longlive-tracks.mjs';
 
 describe('normalizeTrack', () => {
@@ -131,6 +132,38 @@ describe('normalizeTrack', () => {
     expect(t && 'slug' in t).toBe(false);
     expect(t && 'facts' in t).toBe(false);
     expect(t && 'dossier' in t).toBe(false);
+    expect(t && 'youtubeId' in t).toBe(false);
+  });
+
+  it('passes a valid 11-char youtubeId through, trimming surrounding whitespace', () => {
+    const t = normalizeTrack({
+      trackTitle: 'Song',
+      note: 'A note.',
+      sourceUrl: 'https://example.com/a',
+      youtubeId: '  b1kbLwvqugk  ',
+    });
+    expect(t?.youtubeId).toBe('b1kbLwvqugk');
+  });
+
+  it('drops a malformed youtubeId rather than shipping a bad embed', () => {
+    // A full URL, the wrong length, or junk are all rejected — the seed must
+    // carry the bare 11-char id the audio-curator flow oEmbed-verified.
+    for (const bad of [
+      'https://www.youtube.com/watch?v=b1kbLwvqugk',
+      'tooShort',
+      'waaaaaaaytoolong123',
+      'has space123',
+      '',
+      42 as unknown as string,
+    ]) {
+      const t = normalizeTrack({
+        trackTitle: 'Song',
+        note: 'A note.',
+        sourceUrl: 'https://example.com/a',
+        youtubeId: bad,
+      });
+      expect(t && 'youtubeId' in t).toBe(false);
+    }
   });
 
   it('prefers an explicit discussion + its own citation over the auto-derived fields', () => {
@@ -299,5 +332,17 @@ describe('buildTrackGuide', () => {
       { eraSlug: 'red', trackNumber: 1, trackTitle: 'State of Grace', note: 'unsourced' },
     ]);
     expect(byEra.red).toBeUndefined();
+  });
+});
+
+describe('youtubeIdFrom', () => {
+  it('accepts a bare 11-char id and rejects everything else', () => {
+    expect(youtubeIdFrom('b1kbLwvqugk')).toBe('b1kbLwvqugk');
+    expect(youtubeIdFrom('_-Aou3a-yAA')).toBe('_-Aou3a-yAA');
+    expect(youtubeIdFrom(' b1kbLwvqugk ')).toBe('b1kbLwvqugk');
+    expect(youtubeIdFrom('https://youtu.be/b1kbLwvqugk')).toBeUndefined();
+    expect(youtubeIdFrom('short')).toBeUndefined();
+    expect(youtubeIdFrom(undefined)).toBeUndefined();
+    expect(youtubeIdFrom(null)).toBeUndefined();
   });
 });
