@@ -162,7 +162,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"It just wasn't working anymore\" — a breakup Harris addressed directly on social media, citing love and respect that remained.",
       body: ["The June 2016 split arrived through an insider's shrug — \"it just wasn't working anymore\" — but Harris's real retrospective came later, in a British GQ interview after his tweets about the \"This Is What You Came For\" songwriting credit had blown up.", "\"It was completely the wrong instinct,\" he admitted, describing a stretch where \"it felt like things were piling on top of me and that was when I snapped,\" protecting \"what I see as my one talent in the world being belittled.\" His sharpest observation was about the coverage itself: the breakup, he noted, was \"way more heavily publicized than the relationship itself.\""],
       tags: ["Relationship"],
-      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-calvin-harris-sunglasses-2015-billboard-1548.jpg?w=942&h=628&crop=1", credit: "James Devaney/GC Images", kind: "primary" }],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-calvin-harris-sunglasses-2015-billboard-1548.jpg?w=942&h=628&crop=1", credit: "James Devaney/GC Images", kind: "primary", focalPoint: "48% 27%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/calvin-harris-taylor-swift-breakup-twitter-rant-british-gq-interview-7850101/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-calvin-harris-relationship-183259939.html" }],
     },
     {
@@ -173,7 +173,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Taylor Swift and I are together, and we're very happy... it's not a publicity stunt\" — his own words to The Hollywood Reporter.",
       body: ["The two met at the 2016 Met Gala, where they danced together — he later recalled sitting next to her at dinner that night and finding her \"very charming.\" What followed ran at whirlwind speed: beach photos in Rhode Island, sightseeing in Rome, a stretch in England, then Australia's Gold Coast, where he was filming Thor: Ragnarok.", "Even the era's most memed image had a mundane explanation — the \"I ❤ T.S.\" tank top from her July 4th party, he told GQ, was a joke among friends after he'd hurt his back and needed to keep the sun off. His Hollywood Reporter confirmation was the rare mid-relationship on-record statement, and he never walked it back: \"Of course it was real,\" he said after the split."],
       tags: ["Relationship"],
-      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201643/rs_600x600-160503143431-600.Taylor-Swift-Tom-Hiddleston-Dancing.ms.050316.jpg", credit: "E! Online", caption: "Dancing together at the 2016 Met Gala afterparty, where the two met — the start of the relationship this moment covers.", kind: "primary" }],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201643/rs_600x600-160503143431-600.Taylor-Swift-Tom-Hiddleston-Dancing.ms.050316.jpg", credit: "E! Online", caption: "Dancing together at the 2016 Met Gala afterparty, where the two met — the start of the relationship this moment covers.", kind: "primary", focalPoint: "50% 40%" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html" }],
     },
     {
@@ -195,7 +195,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A brief, intensely-covered romance that started at the Met Gala ended quietly by September.",
       body: ["The September 2016 ending was reported as amicable — and strikingly quiet for a romance that had been photographed on three continents in twelve weeks.", "Hiddleston said little afterward, but what he did say pushed back on the theory that it had all been staged: \"Of course it was real,\" he told GQ, while acknowledging that a relationship lived that publicly takes real work — a nod to the media glare that, by most accounts, helped end it. \"Hiddleswift\" had become shorthand for celebrity-romance overexposure in a single summer."],
       tags: ["Relationship"],
-      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016628/rs_634x1024-160728100815-634.Taylor-Swift-Tom-Hiddleston-Exclusive-Dinner-Date-J4R-072816.jpg", credit: "E! Online", caption: "Leaving a dinner date hand-in-hand, July 27, 2016 — their last publicly photographed sighting together before the September split.", kind: "primary" }],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016628/rs_634x1024-160728100815-634.Taylor-Swift-Tom-Hiddleston-Exclusive-Dinner-Date-J4R-072816.jpg", credit: "E! Online", caption: "Leaving a dinner date hand-in-hand, July 27, 2016 — their last publicly photographed sighting together before the September split.", kind: "primary", focalPoint: "48% 16%" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/877239/why-tom-hiddleston-really-split-from-taylor-swift-after-whirlwind-three-month-romance/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/timeline-events-leading-taylor-swift-022000915.html" }],
     },
     {
@@ -626,7 +626,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "July 13, 2016: her team confirmed the pseudonymous songwriter behind \"This Is What You Came For\" was Taylor herself — and her ex responded with a now-infamous string of tweets.",
       body: ["Swift had written the Rihanna-fronted hit — released April 29, 2016 — under the name Nils Sjöberg while she and Harris were still together, keeping it secret so the relationship wouldn't overshadow the song. She picked the pseudonym because those are two of the most common Swedish male names, and she even sings uncredited backing vocals on the track.", "After the credit surfaced post-breakup, Harris confirmed it on Twitter — she \"wrote the lyrics and contributed some background vocals\" while he wrote, produced, and arranged it — but added it was \"hurtful\" that her team let the story out, turning a songwriting footnote into the summer's defining pop feud."],
       tags: ["Relationship"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a8/This_Is_What_You_Came_For_cover.png", credit: "Westbury Road / Sony Music", caption: "The single art for \"This Is What You Came For\" — credited on release to Calvin Harris featuring Rihanna, with \"Nils Sjöberg\" in the songwriting credits.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/a/a8/This_Is_What_You_Came_For_cover.png", credit: "Westbury Road / Sony Music", caption: "The single art for \"This Is What You Came For\" — credited on release to Calvin Harris featuring Rihanna, with \"Nils Sjöberg\" in the songwriting credits.", kind: "primary", focalPoint: "50% 50%" }],
       sources: [{ name: "Taylor Swift Co-Wrote Calvin Harris' 'This is What You Came For' Under Pseudonym", url: "https://www.billboard.com/music/music-news/taylor-swift-calvin-harris-co-wrote-this-is-what-you-came-for-pseudonym-7438158/" }, { name: "Calvin Harris Blasts Taylor Swift Over Songwriting Credit", url: "https://variety.com/2016/music/news/calvin-harris-blasts-taylor-swift-songwriting-credit-this-is-what-you-came-for-1201813531/" }, { name: "This Is What You Came For", url: "https://en.wikipedia.org/wiki/This_Is_What_You_Came_For" }],
     },
     {
@@ -4958,7 +4958,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Sparkling oxfords, Keds, and high-waisted shorts on nearly every red carpet and stage appearance — a 1950s-inflected throughline across the whole era, from the VMAs to the Grammys.",
       body: ["Documented instances stack up across the whole album cycle: the 2012 MTV VMAs performance of \"We Are Never Ever Getting Back Together,\" the iHeartRadio Music Festival that September, the MTV European Music Awards in November, both coasts' Jingle Balls that December — KIIS FM in Los Angeles and Z100 at Madison Square Garden — and white high-waisted shorts at the February 2013 Grammys. The silhouette even followed her off duty, turning up in a retro black-and-white swimsuit while paddleboarding in Westerly, Rhode Island.", "Fashion director Melissa Liebling-Goldberg told Fox News the retro high-waist look was a deliberate throughline: \"Taylor Swift is really bringing back the retro look of a high waist.\" The appeal, she explained, was practical as much as nostalgic — \"the trick to making it flattering is finding the right proportion to your torso\" — and versatile enough to work \"with everything from retro bikinis to flared skirts to short shorts.\""],
       tags: ["Fashion"],
-      images: [{ url: "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1", credit: "Fox News", kind: "primary" }],
+      images: [{ url: "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1", credit: "Fox News", kind: "primary", focalPoint: "48% 30%" }],
       sources: [{ name: "Fox News", url: "https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts" }],
     },
     {
@@ -5035,7 +5035,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A gold lamé, short-sleeve Gucci Première gown with a crystal mesh overlay and crystal gemstone detail at the neckline, arms, and waist — a rare designer-runway red carpet moment mid-Red-era.",
       body: ["Worn to the Jan. 26, 2014 Grammy Awards at the Staples Center, the fitted Gucci Première gown was built from gold lamé under a crystal mesh overlay, with crystal gemstone detailing at the neckline, arms, and waist. On the red carpet Swift herself compared the armored, glittering effect to \"chainmail,\" and she styled it with a side-parted ponytail and a pink lip to soften all that sparkle.", "She paired it with Jimmy Choo heels and clutch and Lorraine Schwartz jewelry — one of the more directly high-fashion, runway-driven looks of the era, ahead of the pop pivot into 1989. Fashion critics filed it under glamorous-sparkle comfort zone — \"expected\" rather than experimental, but \"still lovely\" — on a night she attended as a four-time nominee."],
       tags: ["Fashion"],
-      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2014026/rs_634x1024-140126164619-634-taylor-swift-grammy.ls.12614_copy_2.jpg", credit: "E! News", kind: "primary" }],
+      images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2014026/rs_634x1024-140126164619-634-taylor-swift-grammy.ls.12614_copy_2.jpg", credit: "E! News", kind: "primary", focalPoint: "48% 13%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2014/01/27/taylor-swift-gucci-premiere-2014-grammy-awards/" }],
     },
     {
@@ -5647,7 +5647,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The grave-crawling zombie look that opens the video was created by Bill Corso — the makeup artist behind Deadpool's scarred face — confirmed on record by director Joseph Kahn.",
       body: ["Director Joseph Kahn confirmed via Twitter that special-makeup artist Bill Corso — who did Ryan Reynolds' scarred prosthetic look in \"Deadpool\" — created zombie Taylor for the opening graveyard scene, a look deliberately pitched as the antithesis of her earlier, more polished eras.", "The video was a seven-month build overall, conceived in January and shot over five days in Los Angeles that May, and the practical effects didn't stop at the makeup: the diamonds she bathes in were real, supplied by jeweler Neil Lane and valued at over $12 million."],
       tags: ["Fashion"],
-      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.", kind: "primary" }],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.", kind: "primary", focalPoint: "42% 40%" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing" }],
     },
     {
@@ -6112,7 +6112,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A gold ombré sequin fringe mini and black knee-high boots — her go-to Speak Now Tour look for three of the album's songs.",
       body: ["One dress, three songs: Femestella logs the Roberto Cavalli gold ombré sequin fringe mini as the tour's recurring look for 'Sparks Fly,' 'Mine,' and 'The Story of Us,' always paired with the same Everybody Fargo black knee-high boots.", "That made it the workhorse of a show built around nine costume changes — while Susan Hilferty's custom chiffon gowns carried the fairy-tale numbers, the fringe was the up-tempo uniform, cut to catch arena light and movement."],
       tags: ["Fashion"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary", focalPoint: "42% 20%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour" }],
     },
     {
@@ -6246,7 +6246,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The album cover itself is a fashion moment: a strapless purple ombre chiffon gown by Reem Acra, fading from deep violet to pale lilac.",
       body: ["The Reem Acra gown for the Speak Now cover shoot set the visual identity for the whole era: strapless purple ombre chiffon fading from deep violet to pale lilac, photographed mid-twirl with curled hair and red lipstick.", "The purple was less a dress choice than a thesis — it became the era's color outright. The Speak Now World Tour picked the thread straight up, with costume designer Susan Hilferty building a custom purple chiffon halter gown that became the show's signature look. The image she twirled in on the cover was, in effect, the version of the era every arena later got."],
       tags: ["Fashion"],
-      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg", credit: "Reem Acra / Big Machine Records", kind: "primary" }],
+      images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg", credit: "Reem Acra / Big Machine Records", kind: "primary", focalPoint: "54% 16%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
     },
     {
@@ -6302,7 +6302,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A gold Zuhair Murad Couture gown with a Mandarin collar, heart-shaped cutout, and mermaid skirt with a short train — worn on the red carpet before her banjo-driven \"Mean\" performance.",
       body: ["Pulled from Zuhair Murad's haute couture line — a gold gown with a Mandarin collar, heart-shaped cutout, and mermaid skirt trailing a short train — it was her second gold Murad inside a year, after the Vanity Fair Oscar-party minidress the previous February.", "The night made the dress a footnote: \"Mean\" won Best Country Song and Best Country Solo Performance, and she performed it live at the ceremony, banjo in hand, altering a lyric mid-song to reference winning at the Grammys — closing the loop on a track written straight back at her critics."],
       tags: ["Fashion"],
-      images: [{ url: "https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg", credit: "Style Darling Daily", kind: "primary" }],
+      images: [{ url: "https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg", credit: "Style Darling Daily", kind: "primary", focalPoint: "52% 13%" }],
       sources: [{ name: "Style Darling Daily", url: "https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Mean_(song)" }],
     },
     {
