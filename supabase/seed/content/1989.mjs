@@ -78,7 +78,10 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Shake_It_Off' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/' },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg', credit: 'Big Machine Records' }],
+        // Focal point 2026-07-20 (by eye): reference frame from the "Shake It
+        // Off" video (the song the trademarks come from) — a vertical crop with
+        // Taylor's face near the top, so hold high.
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg', credit: 'Big Machine Records', focalPoint: '48% 16%' }],
       },
     },
     {
@@ -143,7 +146,9 @@ export default {
         // downloaded and visually confirmed this session. All from other stops
         // on the same 2015 tour (kept 'archival'/'reference', not 'primary').
         photos: [
-          { url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'primary', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.' },
+          // Focal point 2026-07-20 (by eye): Tokyo Dome shot, her face upper-
+          // center-right holding the guitar; hold high to keep the face framed.
+          { url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'primary', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.', focalPoint: '52% 28%' },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/17/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg',
             credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
@@ -335,24 +340,34 @@ export default {
         // from 2015; the third is Harris's own period-accurate 2015 press
         // photo (Sony BMG, CC BY 3.0).
         photos: [
-          { url: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef', credit: 'Kevin Mazur/BMA2015/WireImage' },
+          // Focal points 2026-07-20 (by eye): the BBMA lead shot has both
+          // faces in the upper third — Taylor left, Calvin right — so center
+          // horizontally and hold high to keep the pair framed.
+          { url: 'https://media.zenfs.com/en/us_magazine_896/a4a28013bda26c2b26c9551a2fc8bcef', credit: 'Kevin Mazur/BMA2015/WireImage', focalPoint: '50% 26%' },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Calvin_Harris_-_Press_Image_1.tif/lossy-page1-250px-Calvin_Harris_-_Press_Image_1.tif.jpg',
             credit: 'Sony BMG, Wikimedia Commons (CC BY 3.0)',
             caption: 'Calvin Harris\'s own 2015 press photo, from the same year the relationship went public.',
             kind: 'reference',
+            // Centered studio portrait; face sits just above the midline.
+            focalPoint: '50% 30%',
           },
           {
             url: 'https://media.zenfs.com/en/us_magazine_896/5cdacd465b06109bab8c9239f156469e',
             credit: 'Getty Images, via Us Weekly',
             caption: 'Swift at a 2024 event — a recent individual photo, not from the 2015 relationship.',
             kind: 'reference',
+            // Us Weekly side-by-side frame; both faces sit near the top edge,
+            // so keep the crop centered and high.
+            focalPoint: '50% 20%',
           },
           {
             url: 'https://media.zenfs.com/en/us_magazine_896/e7d0e3df697d43aa93972af434ff348b',
             credit: 'Getty Images, via Us Weekly',
             caption: 'Harris at a 2024 event — a recent individual photo, not from the 2015 relationship.',
             kind: 'reference',
+            // Same side-by-side treatment; faces near the top of the frame.
+            focalPoint: '50% 20%',
           },
         ],
       },
@@ -521,7 +536,10 @@ export default {
         // is the point of the "quietly dating" scoop. Caption corrected to the real date
         // instead of replacing the URL, per protocol fallback for a real-but-mismatched-date
         // photo; no other 2017-dated couple photo passed the sourcing gates.
-        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', credit: 'Robert Kamau/GC Images', kind: 'archival', caption: 'Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun\'s scoop; no public photos of the couple exist from the May 2017 period this moment covers.' }],
+        // Focal point 2026-07-20 (by eye): the couple walking in — Taylor and
+        // Joe's faces both sit in the upper band of a landscape frame, so
+        // center between them and hold high.
+        photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/yXTo3vnDBfTQ7FuxY8EdMH.jpg', credit: 'Robert Kamau/GC Images', kind: 'archival', caption: 'Taylor and Joe Alwyn hand-in-hand at the SNL afterparty, October 2019 — over two years after The Sun\'s scoop; no public photos of the couple exist from the May 2017 period this moment covers.', focalPoint: '50% 24%' }],
       },
     },
 
@@ -1156,7 +1174,9 @@ export default {
             url: 'https://www.rollingstone.com/music/music-features/apple-exec-eddy-cue-why-taylor-swift-was-right-39608/',
           },
         ],
-        photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum' }],
+        // Focal point 2026-07-20 (by eye): "Shake It Off" reference frame
+        // (the letter itself is text) — face centered, eyes just above middle.
+        photos: [{ url: 'https://lede-admin.stereogum.com/wp-content/uploads/sites/64/2015/06/Taylor-Swift-Shake-It-Off-640x423.jpg', credit: 'Stereogum', focalPoint: '48% 28%' }],
       },
     },
     {

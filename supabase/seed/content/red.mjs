@@ -1135,6 +1135,9 @@ export default {
             caption:
               'Swift performing in Times Square earlier on New Year\'s Eve 2012 — not the midnight kiss photo itself, which exists only as blurred/watermarked paparazzi frames.',
             kind: 'reference',
+            // Focal point 2026-07-20 (by eye): singing to the crowd, her face
+            // is upper-center and slightly left of the midline; hold high.
+            focalPoint: '42% 30%',
           },
         ],
       },
