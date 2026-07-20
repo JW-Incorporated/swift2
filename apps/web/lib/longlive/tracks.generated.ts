@@ -1235,6 +1235,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Staying inside the glow and ignoring the questions: she confirmed the song is about deflecting constant engagement speculation and tabloid scrutiny to keep the real thing intact. Zoë Kravitz’s co-write is the era’s celebrity-friend credit.", "Confirmed: Swift explained the Mad Men origin of the phrase and the guarding-the-relationship meaning in her own announcement video."],
       discussionSources: [{ name: "Lavender Haze — Wikipedia", url: "https://en.wikipedia.org/wiki/Lavender_Haze" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff","Zoë Kravitz","Sounwave","Jahaan Sweet","Sam Dew"],"producers":["Taylor Swift","Jack Antonoff","Sounwave","Jahaan Sweet","Braxton Cook"],"isSingle":true,"singleReleaseDate":"2023-01-27","themes":["protecting love from scrutiny","refusing the marriage plot","the glow"]},
+      youtubeId: "h8DLofLM7No",
     },
     {
       slug: "maroon",
@@ -1245,6 +1246,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A New York almost-love remembered through its palette: spilled wine, rust, scarlet — deeper colors for a deeper cut. Fans canonized it instantly as Red’s older sibling.", "The red-to-maroon progression is the fandom’s favorite proof of the catalog aging in real time with her."],
       discussionSources: [{ name: "Maroon (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Maroon_(song)" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["color-coded memory","adult heartbreak","what lingers"]},
+      youtubeId: "lvHZjvIyqsk",
     },
     {
       slug: "anti-hero",
@@ -1255,6 +1257,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Insecurity given a monster-movie budget: sleepless self-loathing, a daydreamed daughter-in-law murder trial, and the it-is-me chorus that became a global catchphrase within days.", "Confirmed: Swift introduced it in an Instagram video as her most honest inventory of her own flaws and anxieties.", "The all-top-ten Hot 100 week (a chart first) is the era stat every future record gets measured against."],
       discussionSources: [{ name: "Anti-Hero (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Anti-Hero_(song)" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"singleReleaseDate":"2022-10-24","themes":["self-loathing","anxiety at 3 a.m.","being your own problem"]},
+      youtubeId: "b1kbLwvqugk",
     },
     {
       slug: "snow-on-the-beach",
@@ -1265,6 +1268,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Two people falling for each other simultaneously, framed as weather too improbable to trust: beautiful, eerie, and hard to believe even while it is happening.", "The famously buried Del Rey vocal became the documented storyline: fan outcry led to a re-cut version with her verses foregrounded in 2023."],
       discussionSources: [{ name: "Snow on the Beach — Wikipedia", url: "https://en.wikipedia.org/wiki/Snow_on_the_Beach" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Lana Del Rey","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["mutual falling","improbability","wonder"]},
+      youtubeId: "_p0jeMjTccw",
     },
     {
       slug: "youre-on-your-own-kid",
@@ -1275,6 +1279,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["From hometown crushes to industry disillusionment to hard-won self-reliance: the loneliness of self-madeness, resolved by the instruction to make the bracelets and face the fear. Fans took the bracelet line literally, by the millions.", "The friendship-bracelet exchange phenomenon at the Eras Tour is the documented cultural output — a lyric that manufactured a real-world tradition.", "Every trading-bead bracelet at every Eras Tour night traces back to this bridge — the era’s biggest lyric-to-life Easter egg."],
       discussionSources: [{ name: "You're on Your Own, Kid — Wikipedia", url: "https://en.wikipedia.org/wiki/You're_on_Your_Own%2C_Kid" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["self-reliance","growing up in the machine","seizing the moment"]},
+      youtubeId: "7Gbg6Z70J7E",
     },
     {
       slug: "midnight-rain",
@@ -1285,6 +1290,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["He wanted comfortable and settled; she wanted the whole loud world. A breakup with no villain, revisited from hotel rooms years later with mild, unresolved wondering."],
       discussionSources: [{ name: "Midnight Rain — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnight_Rain" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["ambition versus comfort","diverging paths","the one who wanted quiet"]},
+      youtubeId: "Odh9ddPUkEY",
     },
     {
       slug: "question",
@@ -1295,6 +1301,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A cross-examination disguised as a pop song: did it mean what she thinks it meant, does he regret the crowd, the timing, the girl he settled for. The self-sample makes the 1989 connection explicit.", "The Out of the Woods interpolation is credited — her catalog quoting itself is the era’s favorite trick."],
       discussionSources: [{ name: "Question...? — Wikipedia", url: "https://en.wikipedia.org/wiki/Question...%3F" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["unresolved moments","interrogating the past","what-ifs"]},
+      youtubeId: "xxrf_QBD5DE",
     },
     {
       slug: "vigilante-shit",
@@ -1305,6 +1312,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Noir minimalism about ruining a bad man lawfully: no keys scratched, just documents forwarded and a widow-to-be empowered. Fans hunt for real-world targets; Swift has named none."],
       discussionSources: [{ name: "Vigilante Shit — Wikipedia", url: "https://en.wikipedia.org/wiki/Vigilante_Shit" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["revenge by receipt","female alliance","cold precision"]},
+      youtubeId: "Uoey4W_3bos",
     },
     {
       slug: "bejeweled",
@@ -1315,6 +1323,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Taken for granted at home, she remembers she can still light up a room and goes to prove it. The self-directed video buried era clues Swift confirmed were deliberate — fans decoded the purple wardrobe correctly.", "Confirmed: Swift said the video was loaded with intentional Easter eggs; the Speak Now re-record announcement later validated the fan decoding.", "The video’s bell chimes, purple gown, and floor numbers were all confirmed clues pointing at Speak Now (Taylor’s Version)."],
       discussionSources: [{ name: "Bejeweled (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Bejeweled_(song)" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"themes":["self-worth reclaimed","shimmer as defiance","walking out the door"]},
+      youtubeId: "b7QlX3yR2xs",
     },
     {
       slug: "labyrinth",
@@ -1325,6 +1334,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Breath held in an emotional stairwell: she talks herself through panic as new feelings arrive faster than the old damage healed. The production floats to match."],
       discussionSources: [{ name: "Labyrinth (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Labyrinth_(Taylor_Swift_song)" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["falling again","fear after loss","gentleness with oneself"]},
+      youtubeId: "xTXsKMXUi7w",
     },
     {
       slug: "karma",
@@ -1335,6 +1345,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Cosmic justice as her personal pet: karma is a cat, a boyfriend, a breeze — and her enemies’ pending invoice. The Ice Spice remix and Eras Tour placement kept it everywhere through 2023.", "The title fed the documented fan theory that a Karma album was scrapped in 2016 when reputation happened — a theory Swift has toyed with but never confirmed."],
       discussionSources: [{ name: "Karma (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Karma_(Taylor_Swift_song)" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff","Sounwave","Jahaan Sweet","Keanu Torres"],"producers":["Taylor Swift","Jack Antonoff","Sounwave","Keanu Beats","Jahaan Sweet"],"isSingle":true,"singleReleaseDate":"2023-05-01","themes":["comeuppance","serenity as revenge","winning long-term"]},
+      youtubeId: "rg18Kf4en2o",
     },
     {
       slug: "sweet-nothing",
@@ -1345,6 +1356,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Industry wolves demand more all day; at home someone wants only her company and a poem from a trip. Its tenderness reads differently since 2023, and fans handle it accordingly.", "Co-written with Joe Alwyn under the confirmed Bowery pseudonym — the pair’s final released collaboration before their documented 2023 split."],
       discussionSources: [{ name: "Sweet Nothing (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Sweet_Nothing_(Taylor_Swift_song)" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","William Bowery"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["domestic refuge","wanting nothing","small love versus big world"]},
+      youtubeId: "rn0brgg2BpI",
     },
     {
       slug: "mastermind",
@@ -1355,6 +1367,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A love that looked like fate was actually chess: she scattered the dominoes on purpose and he knew, and stayed anyway. Doubling as a wink at her Easter-egg empire — being cryptic and Machiavellian was always the brand.", "Swift has repeatedly and publicly embraced strategic planning and clue-dropping as her creative signature; the song makes that persona the love story.", "Functionally a mission statement for the entire clue-hunting fandom economy — the mastermind admits the game is real."],
       discussionSources: [{ name: "Mastermind (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Mastermind_(song)" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["scheming as love language","being fully seen","the plan behind the magic"]},
+      youtubeId: "Tmz1lz0zcLQ",
     },
     {
       slug: "the-great-war",
@@ -1365,6 +1378,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Old wounds make her swing at someone innocent; the battle nearly ends them, and the vow that closes it is to never fight like that again. Trench warfare as couples therapy."],
       discussionSources: [{ name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights (3am Edition)","releaseDate":"2022-10-22","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["conflict and repair","fighting your own scars","armistice"]},
+      youtubeId: "iFX6_9h7th0",
     },
     {
       slug: "bigger-than-the-whole-sky",
@@ -1375,6 +1389,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A goodbye to something that never got to exist: unnamed, unbounded loss for what was only ever almost. She has never specified the subject, and the ambiguity is why it holds so many people’s grief.", "Deliberately unspecified; the pregnancy-loss resonance is a documented listener phenomenon rather than a confirmed subject — labeled here accordingly."],
       discussionSources: [{ name: "Bigger Than the Whole Sky — Wikipedia", url: "https://en.wikipedia.org/wiki/Bigger_Than_the_Whole_Sky" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights (3am Edition)","releaseDate":"2022-10-22","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["grief for the almost","loss without a name","goodbye unearned"]},
+      youtubeId: "l8Tps3PITx4",
     },
     {
       slug: "paris",
@@ -1385,6 +1400,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["No trip involved: two people draw the blinds, ignore the gossip cycle, and pretend the bedroom is Paris. Escapism as a couple’s inside joke."],
       discussionSources: [{ name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights (3am Edition)","releaseDate":"2022-10-22","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["love as elsewhere","shutting out the noise","giddy secrecy"]},
+      youtubeId: "ySZGZrcqvr4",
     },
     {
       slug: "high-infidelity",
@@ -1395,6 +1411,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A narrator inside a cold relationship keeps one foot out the door and eventually uses it — infidelity framed as symptom rather than sin. The specific date planted in the chorus is the most clue-shaped lyric she has ever written.", "The April 29 reference launched extensively documented fan timeline analysis against her public chronology; Swift has confirmed nothing."],
       discussionSources: [{ name: "High Infidelity (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/High_Infidelity_(song)" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights (3am Edition)","releaseDate":"2022-10-22","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["emotional cold war","exit strategies","guilt and self-defense"]},
+      youtubeId: "-qee6dFKlw4",
     },
     {
       slug: "glitch",
@@ -1405,6 +1422,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The setup was supposed to be temporary and platonic-ish; five years of uptime later, the anomaly looks a lot like the whole program. Nerdy metaphors, R&B undertow."],
       discussionSources: [{ name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights (3am Edition)","releaseDate":"2022-10-22","writers":["Taylor Swift","Jack Antonoff","Sounwave","Sam Dew"],"producers":["Taylor Swift","Jack Antonoff","Sounwave"],"themes":["accidental love","system malfunctions as fate","casual gone permanent"]},
+      youtubeId: "Y2a73EvnZ4s",
     },
     {
       slug: "wouldve-couldve-shouldve",
@@ -1415,6 +1433,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Regret with religious imagery: a too-young woman and an older man, and the ruins the memory still makes of her sleep at 32. The age in the lyric does the pointing; fans line it up with Dear John and the same reported chapter (unconfirmed by name).", "The nineteen reference and its echo of Dear John’s subject matter are the documented basis for the near-universal fan attribution — never named by Swift."],
       discussionSources: [{ name: "Would've, Could've, Should've — Wikipedia", url: "https://en.wikipedia.org/wiki/Would've%2C_Could've%2C_Should've" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights (3am Edition)","releaseDate":"2022-10-22","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["delayed reckoning","stolen innocence","ghosts that keep office hours"]},
+      youtubeId: "B-MfwP_RmHY",
     },
     {
       slug: "dear-reader",
@@ -1425,6 +1444,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Life-tips dispensed by a self-described bad example: burn the maps, dye the hair, move cities — followed by the confession that anyone taking direction from her is lost too."],
       discussionSources: [{ name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights (3am Edition)","releaseDate":"2022-10-22","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["unreliable narrator","advice as warning","isolation of the oracle"]},
+      youtubeId: "X0Jti9F-oQA",
     },
     {
       slug: "hits-different",
@@ -1435,6 +1455,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Every coping mechanism fails at once: crying at parties, arguing with strangers, seeing his face in traffic. The rare song with both Antonoff and Dessner fingerprints on one track."],
       discussionSources: [{ name: "Hits Different — Wikipedia", url: "https://en.wikipedia.org/wiki/Hits_Different" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights (Target exclusive / Til Dawn Edition)","releaseDate":"2022-10-21","writers":["Taylor Swift","Jack Antonoff","Aaron Dessner"],"producers":["Taylor Swift","Jack Antonoff","Aaron Dessner"],"themes":["spiraling","grief with jokes","coping badly in public"]},
+      youtubeId: "_f4yoKJL7IQ",
     },
     {
       slug: "youre-losing-me",
@@ -1445,6 +1466,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A slow flatline: she is fading in a relationship where the other person will not fight, choose, or even argue. Released as a Til Dawn vault cut in the exact news cycle of her documented 2023 split, which fans treated as the announcement’s B-side.", "Recorded in December 2021 per its credits; the timing of its release against the publicly reported breakup is the documented story — Swift let the sequencing speak."],
       discussionSources: [{ name: "You're Losing Me — Wikipedia", url: "https://en.wikipedia.org/wiki/You're_Losing_Me" }, { name: "Midnights — Wikipedia", url: "https://en.wikipedia.org/wiki/Midnights" }],
       facts: {"release":"Midnights (The Til Dawn Edition) — From The Vault","releaseDate":"2023-05-26","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["dying relationships","being unchosen","the quiet end"]},
+      youtubeId: "pQq9eP5OFhw",
     },
   ],
   "red": [
@@ -1928,6 +1950,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A girl who learned from her parents’ arguments to expect goodbye imagines, verse by verse, what staying could look like — a careless man’s careful daughter finding an exception.", "Swift said it is about her tendency to flee relationships to avoid being left, written about a crush who never knew."],
       discussionSources: [{ name: "Mine (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Mine_(Taylor_Swift_song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"isSingle":true,"singleReleaseDate":"2010-08-04","themes":["fear of abandonment","hope against pattern","building a life"]},
+      youtubeId: "oxNLRqMJMZk",
     },
     {
       slug: "sparks-fly",
@@ -1938,6 +1961,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Attraction as weather: a green-eyed someone she knows is a bad idea, and the rain-soaked kiss she wants anyway.", "An early composition Swift performed live in 2007; fan enthusiasm for the bootleg is the documented reason it was reworked for Speak Now."],
       discussionSources: [{ name: "Sparks Fly (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Sparks_Fly_(song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"isSingle":true,"themes":["electric attraction","bad ideas","fan-powered history"]},
+      youtubeId: "UlFrV5GJA_4",
     },
     {
       slug: "back-to-december",
@@ -1948,6 +1972,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An apology delivered out loud to someone who deserved better: she replays the December she gave back his love and owns the damage.", "Swift confirmed it is an apology to someone she hurt; it is widely reported to be about Taylor Lautner, who himself has good-naturedly acknowledged the association in later interviews."],
       discussionSources: [{ name: "Back to December — Wikipedia", url: "https://en.wikipedia.org/wiki/Back_to_December" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"isSingle":true,"themes":["remorse","accountability","roads not taken"]},
+      youtubeId: "qc2Z-OX9wnc",
     },
     {
       slug: "speak-now",
@@ -1958,6 +1983,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A comic fantasy of interrupting a wedding at the speak-now-or-forever-hold-your-peace moment; the album title came from the idea of saying what you feel before the door closes.", "Swift said the scenario was sparked by a friend whose childhood sweetheart was marrying someone else — she imagined the barge-in her friend never did."],
       discussionSources: [{ name: "Speak Now (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_(song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["speaking up","romantic comedy","seizing the moment"]},
+      youtubeId: "JlZnvyBqceY",
     },
     {
       slug: "dear-john",
@@ -1968,6 +1994,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A young woman looks back at a manipulative relationship with someone much older and reclaims the story: she should have known, but he definitely did.", "Never explicitly named by Swift; the title and guitar styling made John Mayer the universal press reading, and Mayer publicly objected to the song in a 2012 interview. Before the 2023 re-record, Swift pointedly asked fans for kindness toward the song’s subjects."],
       discussionSources: [{ name: "Dear John (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Dear_John_(Taylor_Swift_song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["age-gap power imbalance","manipulation","reclaiming the narrative"]},
+      youtubeId: "N-FYySSy0rM",
     },
     {
       slug: "mean",
@@ -1978,6 +2005,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Aimed at a bully with a platform: someday she will be big enough that the cheap shots cannot reach, and he will still be mean.", "Swift confirmed it was written about a critic who savaged her after a rough 2010 Grammys vocal; reporting widely identified blogger Bob Lefsetz. It won Best Country Song and Best Country Solo Performance at the 2012 Grammys."],
       discussionSources: [{ name: "Mean (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Mean_(song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"isSingle":true,"themes":["bullying","resilience","success as the answer"]},
+      youtubeId: "8AR1dKawCi8",
     },
     {
       slug: "the-story-of-us",
@@ -1988,6 +2016,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A love story that stalled mid-chapter: two people in the same room performing indifference, narrated by the one who hates the silence most.", "Swift confirmed it was sparked by running into an ex at an awards show and the absurd theater of mutual avoidance."],
       discussionSources: [{ name: "The Story of Us (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Story_of_Us_(song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"isSingle":true,"themes":["awkward encounters","pride","unfinished stories"]},
+      youtubeId: "pRhWAXg4xek",
     },
     {
       slug: "never-grow-up",
@@ -1998,6 +2027,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A plea to freeze childhood before the world edits it: protectiveness toward little kids, then the lonely first night in her own place.", "Swift tied it to moving out on her own for the first time and realizing growing up had actually happened."],
       discussionSources: [{ name: "Never Grow Up — Wikipedia", url: "https://en.wikipedia.org/wiki/Never_Grow_Up" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["growing up","innocence","homesickness"]},
+      youtubeId: "maEVfpxDB8k",
     },
     {
       slug: "enchanted",
@@ -2008,6 +2038,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The afterglow of meeting someone wonderstruck-level interesting, and the spiraling hope that he is not going home to somebody else.", "Swift confirmed it was written after meeting Owl City’s Adam Young; Young later responded publicly with his own answer version of the song, and Swift’s Wonderstruck fragrance took its name from the lyric.", "The name of her Wonderstruck perfume line is a direct lift from this song’s vocabulary — an early lyric-to-brand Easter egg."],
       discussionSources: [{ name: "Enchanted (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Enchanted_(Taylor_Swift_song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["first meetings","infatuation","what-ifs"]},
+      youtubeId: "igIfiqqVHtA",
     },
     {
       slug: "better-than-revenge",
@@ -2018,6 +2049,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A takedown of the girl who \"stole\" a boyfriend, written at 18 in full drama mode; adult Swift swapped the infamous mattress line for a matches metaphor in 2023, a change that dominated the SNTV discourse.", "Swift acknowledged over the years that she wrote it as a teenager assigning blame she would later rethink — the 2023 lyric revision is the documented postscript."],
       discussionSources: [{ name: "Better than Revenge — Wikipedia", url: "https://en.wikipedia.org/wiki/Better_than_Revenge" }, { name: "Speak Now (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor's_Version)" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["jealousy","teenage grudges","revisiting your younger self"]},
+      youtubeId: "EH70M5OeS4o",
     },
     {
       slug: "innocent",
@@ -2028,6 +2060,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A pointedly gracious song extending forgiveness to the man who humiliated her on live TV: everyone is still growing, everyone can still be redeemed.", "Confirmed response to Kanye West’s 2009 VMAs stage-crash; premiering it at the 2010 VMAs was the statement. The grace curdled after 2016, which is why fans read reputation as this song’s sequel-in-reverse."],
       discussionSources: [{ name: "Innocent (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Innocent_(Taylor_Swift_song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["forgiveness","public grace","growing up in public"]},
+      youtubeId: "vO6JqQpJboY",
     },
     {
       slug: "haunted",
@@ -2038,6 +2071,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The panic of feeling someone slip away mid-conversation: she begs the connection to come back before the ghost of it moves in.", "Swift described wanting the production to sound as chaotic as the moment of realizing someone is already gone."],
       discussionSources: [{ name: "Haunted (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Haunted_(Taylor_Swift_song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["losing someone slowly","desperation","dread"]},
+      youtubeId: "4cC6fw8EqWU",
     },
     {
       slug: "last-kiss",
@@ -2048,6 +2082,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Grief in the present tense: she keeps the details (a first kiss timestamp, his jokes, his jacket) because the details are all that is left.", "Fans widely link its specifics to the Jonas breakup timeline (unconfirmed by Swift); what is documented is Swift calling it one of the saddest songs she had written to that point."],
       discussionSources: [{ name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["mourning a relationship","memory hoarding","letting go slowly"]},
+      youtubeId: "idWma942CUI",
     },
     {
       slug: "long-live",
@@ -2058,6 +2093,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A toast to everyone who built the improbable early run with her: if it all ends tomorrow, remember how it felt to hold the crown together.", "Swift confirmed it was written for her band, crew, and fans as a snapshot of the Fearless-era triumphs."],
       discussionSources: [{ name: "Long Live (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Long_Live_(Taylor_Swift_song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["gratitude","shared victory","legacy"]},
+      youtubeId: "F5TMU6916U8",
     },
     {
       slug: "ours",
@@ -2068,6 +2104,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Defending an unglamorous, gossiped-about love: let people talk; what they think they see was never theirs to grade."],
       discussionSources: [{ name: "Ours (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Ours_(song)" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now (Deluxe Edition)","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"isSingle":true,"themes":["us against the world","privacy","contentment"]},
+      youtubeId: "PH8Uc0Z_KRY",
     },
     {
       slug: "if-this-was-a-movie",
@@ -2078,6 +2115,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She knows exactly how the movie version ends: he comes back in the rain. The song is the ache of living in the unscripted version.", "Its Taylor's Version was released in 2021 attached to the Fearless TV wave rather than with SNTV in 2023 — a catalog quirk fans still flag."],
       discussionSources: [{ name: "If This Was a Movie — Wikipedia", url: "https://en.wikipedia.org/wiki/If_This_Was_a_Movie" }, { name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now (Deluxe Edition)","releaseDate":"2010-10-25","writers":["Taylor Swift","Martin Johnson"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["cinema versus reality","waiting","heartbreak logic"]},
+      youtubeId: "9wZEx9A8p9k",
     },
     {
       slug: "superman",
@@ -2088,6 +2126,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Hero worship with a bruise in it: he is dazzling and busy saving the world, and she is doing the un-dazzling work of waiting.", "Fans widely file it in the same chapter as Dear John’s subject (unconfirmed by Swift); she has only said it began with the thought that a man leaving the room looked like a superhero departure."],
       discussionSources: [{ name: "Speak Now — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
       facts: {"release":"Speak Now (Deluxe Edition)","releaseDate":"2010-10-25","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"themes":["admiration","waiting","unequal orbits"]},
+      youtubeId: "Fn0er7H1Dm0",
     },
     {
       slug: "electric-touch",
@@ -2098,6 +2137,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Two people with bad track records meet anyway: every past ending says run, the spark says stay.", "Recorded with Fall Out Boy for the 2023 vault — a nod to the pop-punk influences all over the original Speak Now."],
       discussionSources: [{ name: "Electric Touch (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Electric_Touch_(song)" }, { name: "Speak Now (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor's_Version)" }],
       facts: {"release":"Speak Now (Taylor's Version) — From The Vault","releaseDate":"2023-07-07","writers":["Taylor Swift"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["second chances","first-date nerves","hope over history"]},
+      youtubeId: "hMPK2vNXr-E",
     },
     {
       slug: "when-emma-falls-in-love",
@@ -2108,6 +2148,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An admiring character study of a friend named Emma: how she falls, how she guards herself, and why the narrator wishes she were more like her.", "Swift has said only that it is about a friend; fans overwhelmingly speculate Emma Stone (the two have a documented long friendship) — unconfirmed."],
       discussionSources: [{ name: "When Emma Falls in Love — Wikipedia", url: "https://en.wikipedia.org/wiki/When_Emma_Falls_in_Love" }, { name: "Speak Now (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor's_Version)" }],
       facts: {"release":"Speak Now (Taylor's Version) — From The Vault","releaseDate":"2023-07-07","writers":["Taylor Swift"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["friendship","admiration","how people love differently"]},
+      youtubeId: "IYqgVYjN3Go",
     },
     {
       slug: "i-can-see-you",
@@ -2118,6 +2159,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A workplace-crush fantasy kept strictly behind the eyes — desire as a secret both people are pretending not to notice.", "The 2023 video — Lautner and Joey King breaking a vault-imprisoned Swift out — is the documented meta-joke: liberating the old album, with an old flame helping.", "The video is one long vault metaphor: fans catalog its props as references to reclaiming the Speak Now masters."],
       discussionSources: [{ name: "I Can See You (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/I_Can_See_You_(song)" }, { name: "Speak Now (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor's_Version)" }],
       facts: {"release":"Speak Now (Taylor's Version) — From The Vault","releaseDate":"2023-07-07","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"themes":["secret desire","restraint","tension"]},
+      youtubeId: "lVkKLf4DCn8",
     },
     {
       slug: "castles-crumbling",
@@ -2128,6 +2170,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A ruler watches the kingdom turn: cheers becoming jeers, and the terror of disappointing everyone who once chanted your name. Fans read it as Long Live’s shadow twin.", "Written in the Speak Now era about fame anxiety; recorded with Williams, a documented friend since their teens. Its eerie pre-echo of 2016 is the fan-noted (and widely press-noted) irony.", "Deliberate mirror of Long Live: same castle imagery, opposite outcome."],
       discussionSources: [{ name: "Castles Crumbling — Wikipedia", url: "https://en.wikipedia.org/wiki/Castles_Crumbling" }, { name: "Speak Now (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor's_Version)" }],
       facts: {"release":"Speak Now (Taylor's Version) — From The Vault","releaseDate":"2023-07-07","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["fame anxiety","fall from grace","public disappointment"]},
+      youtubeId: "HtDriYDIhRs",
     },
     {
       slug: "foolish-one",
@@ -2138,6 +2181,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She lectures herself mid-daydream: stop reading into the crumbs, stop planning the wedding — and then keeps doing both."],
       discussionSources: [{ name: "Speak Now (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor's_Version)" }],
       facts: {"release":"Speak Now (Taylor's Version) — From The Vault","releaseDate":"2023-07-07","writers":["Taylor Swift"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["self-delusion","waiting by the phone","hard truths"]},
+      youtubeId: "6-x1AlDudZw",
     },
     {
       slug: "timeless",
@@ -2148,6 +2192,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Flipping through old photos of couples who survived wars and disapproval, she decides she would have found the same person in any century.", "The antique-store photograph conceit is in the song’s own framing; the lyric-video treatment leaned on vintage imagery to match."],
       discussionSources: [{ name: "Speak Now (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_(Taylor's_Version)" }],
       facts: {"release":"Speak Now (Taylor's Version) — From The Vault","releaseDate":"2023-07-07","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["fated love","history","love across eras"]},
+      youtubeId: "osmzwWw4RYM",
     },
   ],
   "tloas": [

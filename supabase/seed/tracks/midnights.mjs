@@ -26,6 +26,7 @@ export default {
       slug: 'lavender-haze',
       trackNumber: 1,
       trackTitle: 'Lavender Haze',
+      youtubeId: 'h8DLofLM7No', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: [
@@ -54,6 +55,7 @@ export default {
       slug: 'maroon',
       trackNumber: 2,
       trackTitle: 'Maroon',
+      youtubeId: 'lvHZjvIyqsk', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -72,6 +74,7 @@ export default {
       slug: 'anti-hero',
       trackNumber: 3,
       trackTitle: 'Anti-Hero',
+      youtubeId: 'b1kbLwvqugk', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -99,6 +102,7 @@ export default {
       slug: 'snow-on-the-beach',
       trackNumber: 4,
       trackTitle: 'Snow on the Beach',
+      youtubeId: '_p0jeMjTccw', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Lana Del Rey', 'Jack Antonoff'],
@@ -119,6 +123,7 @@ export default {
       slug: 'youre-on-your-own-kid',
       trackNumber: 5,
       trackTitle: "You're on Your Own, Kid",
+      youtubeId: '7Gbg6Z70J7E', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -145,6 +150,7 @@ export default {
       slug: 'midnight-rain',
       trackNumber: 6,
       trackTitle: 'Midnight Rain',
+      youtubeId: 'Odh9ddPUkEY', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -164,6 +170,7 @@ export default {
       slug: 'question',
       trackNumber: 7,
       trackTitle: 'Question...?',
+      youtubeId: 'xxrf_QBD5DE', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -185,6 +192,7 @@ export default {
       slug: 'vigilante-shit',
       trackNumber: 8,
       trackTitle: 'Vigilante Shit',
+      youtubeId: 'Uoey4W_3bos', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift'],
@@ -203,6 +211,7 @@ export default {
       slug: 'bejeweled',
       trackNumber: 9,
       trackTitle: 'Bejeweled',
+      youtubeId: 'b7QlX3yR2xs', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -226,6 +235,7 @@ export default {
       slug: 'labyrinth',
       trackNumber: 10,
       trackTitle: 'Labyrinth',
+      youtubeId: 'xTXsKMXUi7w', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -249,6 +259,7 @@ export default {
       slug: 'karma',
       trackNumber: 11,
       trackTitle: 'Karma',
+      youtubeId: 'rg18Kf4en2o', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Sounwave', 'Jahaan Sweet', 'Keanu Torres'],
@@ -276,6 +287,7 @@ export default {
       slug: 'sweet-nothing',
       trackNumber: 12,
       trackTitle: 'Sweet Nothing',
+      youtubeId: 'rn0brgg2BpI', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'William Bowery'],
@@ -300,6 +312,7 @@ export default {
       slug: 'mastermind',
       trackNumber: 13,
       trackTitle: 'Mastermind',
+      youtubeId: 'Tmz1lz0zcLQ', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -322,6 +335,7 @@ export default {
       slug: 'the-great-war',
       trackNumber: 14,
       trackTitle: 'The Great War',
+      youtubeId: 'iFX6_9h7th0', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights (3am Edition)',
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -338,6 +352,7 @@ export default {
       slug: 'bigger-than-the-whole-sky',
       trackNumber: 15,
       trackTitle: 'Bigger Than the Whole Sky',
+      youtubeId: 'l8Tps3PITx4', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights (3am Edition)',
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -364,6 +379,7 @@ export default {
       slug: 'paris',
       trackNumber: 16,
       trackTitle: 'Paris',
+      youtubeId: 'ySZGZrcqvr4', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights (3am Edition)',
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -380,6 +396,7 @@ export default {
       slug: 'high-infidelity',
       trackNumber: 17,
       trackTitle: 'High Infidelity',
+      youtubeId: '-qee6dFKlw4', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights (3am Edition)',
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -406,6 +423,7 @@ export default {
       slug: 'glitch',
       trackNumber: 18,
       trackTitle: 'Glitch',
+      youtubeId: 'Y2a73EvnZ4s', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights (3am Edition)',
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Sounwave', 'Sam Dew'],
@@ -422,6 +440,7 @@ export default {
       slug: 'wouldve-couldve-shouldve',
       trackNumber: 19,
       trackTitle: "Would've, Could've, Should've",
+      youtubeId: 'B-MfwP_RmHY', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights (3am Edition)',
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -448,6 +467,7 @@ export default {
       slug: 'dear-reader',
       trackNumber: 20,
       trackTitle: 'Dear Reader',
+      youtubeId: 'X0Jti9F-oQA', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights (3am Edition)',
       releaseDate: '2022-10-22',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -464,6 +484,7 @@ export default {
       slug: 'hits-different',
       trackNumber: 21,
       trackTitle: 'Hits Different',
+      youtubeId: '_f4yoKJL7IQ', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights (Target exclusive / Til Dawn Edition)',
       releaseDate: '2022-10-21',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Aaron Dessner'],
@@ -480,6 +501,7 @@ export default {
       slug: 'youre-losing-me',
       trackNumber: 22,
       trackTitle: "You're Losing Me",
+      youtubeId: 'pQq9eP5OFhw', // oEmbed-verified official Taylor Swift channel
       release: 'Midnights (The Til Dawn Edition) — From The Vault',
       releaseDate: '2023-05-26',
       writers: ['Taylor Swift', 'Jack Antonoff'],
