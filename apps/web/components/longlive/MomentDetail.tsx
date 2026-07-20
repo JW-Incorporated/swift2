@@ -1,6 +1,7 @@
 'use client';
 
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
   X,
@@ -343,12 +344,29 @@ function MomentLightbox({
     return () => window.removeEventListener('keydown', onKey);
   }, [index, count, onIndex, onClose]);
   if (!img) return null;
-  return (
+
+  // PORTALED TO document.body ON PURPOSE. The viewer is `fixed inset-0`, which
+  // should pin it to the viewport — but it renders inside the moment overlay,
+  // and that overlay carries `.detail-enter`, whose animation ends on
+  // `transform: scale(1)` with fill-mode `both`. A non-none transform makes an
+  // ancestor the containing block for `position: fixed` descendants, so the
+  // viewer was anchoring to the SCROLLING OVERLAY instead of the screen: open a
+  // photo after scrolling down and it appeared far above the viewport (Wyatt,
+  // 2026-07-20). Portaling escapes the transformed ancestor entirely, which
+  // also makes this immune to any future ancestor gaining a transform/filter.
+  const viewer = (
     <div
       className="fixed inset-0 z-[80] flex flex-col bg-black/95 detail-enter"
       role="dialog"
       aria-modal="true"
       aria-label="Photo viewer"
+      // Clicking the backdrop closes, same as the X (Wyatt, 2026-07-20).
+      // Guarded on target === currentTarget so clicks that BUBBLE up from the
+      // photo, the arrows or the caption never dismiss it — only a click that
+      // actually lands on the backdrop itself.
+      onClick={(e) => {
+        if (e.target === e.currentTarget) onClose();
+      }}
     >
       <div className="flex shrink-0 items-center justify-between px-4 py-3 text-white">
         <span className="text-xs text-white/60">{count > 1 ? `${index + 1} / ${count}` : ''}</span>
@@ -361,7 +379,16 @@ function MomentLightbox({
           <X className="size-5" />
         </button>
       </div>
-      <div className="relative min-h-0 flex-1">
+      {/* The image is `contain`-fitted, so this row carries letterboxed black
+          space beside or above the photo. That space reads as "outside the
+          picture" to a reader, so it closes too — same target===currentTarget
+          guard, so a click on the photo or an arrow still does not dismiss. */}
+      <div
+        className="relative min-h-0 flex-1"
+        onClick={(e) => {
+          if (e.target === e.currentTarget) onClose();
+        }}
+      >
         <ZoomableImage
           key={img.url}
           src={img.url}
@@ -399,6 +426,10 @@ function MomentLightbox({
       )}
     </div>
   );
+
+  // Guard for SSR / the first client render, where document does not exist yet.
+  if (typeof document === 'undefined') return null;
+  return createPortal(viewer, document.body);
 }
 
 export function MomentDetail() {
