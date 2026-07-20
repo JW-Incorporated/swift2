@@ -218,6 +218,22 @@ export interface Product {
    * Omitted or true = purchasable when authored.
    */
   inStock?: boolean;
+  /**
+   * true = this is NOT the exact piece worn — it's the closest verified
+   * buyable match (same brand + silhouette where possible), offered because
+   * the real piece is custom/couture/discontinued/otherwise unshoppable.
+   * Renders a visible "Similar style" label — never presented as the literal
+   * garment (2026-07-20, docs/decisions.md). Omitted/false = confirmed exact
+   * item.
+   */
+  isAlternative?: boolean;
+  /**
+   * Required when isAlternative is true: a short (<=200 char) note on why
+   * (e.g. "The exact custom Etro gown was a one-off runway piece — this is
+   * Etro's closest current silhouette") and what's different. Never used to
+   * soften a plain unverified guess.
+   */
+  altNote?: string;
 }
 
 export interface ContentItem {
