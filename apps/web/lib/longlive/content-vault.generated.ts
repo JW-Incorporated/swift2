@@ -864,6 +864,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, 2007 (era-correct sundress-and-curls look)", kind: "primary" }],
       sources: [{ name: "Who What Wear", url: "https://www.whowhatwear.com/taylor-swift-style-eras" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
+      products: [{ brand: "Tecovas", item: "The Loretta Cowgirl Boot (Midnight)", retailer: "tecovas.com", url: "https://www.tecovas.com/products/the-loretta?color=midnight-goat", price: "$445.00", isAlternative: true, altNote: "No single documented outfit — this captures the cowboy-boots half of the era's signature pairing." }],
     },
     {
       id: "vault-debut-her-signature-ringlet-curls-from-the-start",
@@ -875,6 +876,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/MWvKEdsvu4S2unTkFGW5dZ.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/beauty/hair/g12774421/taylor-swift-hair/" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
+      products: [{ brand: "Asani", item: "Curling Iron Hair Wand (3/8\")", retailer: "amazon.com", url: "https://www.amazon.com/Curling-Creates-Clearly-Defined-Ringlets/dp/B0CMK36C4P", price: "$16.99", isAlternative: true, altNote: "Not her exact styling tool (undocumented) — a slim-barrel curling wand suited to tight, spiraled ringlets like hers." }],
     },
     {
       id: "vault-debut-a-purple-sandi-spika-gown-for-her-first-grammys",
@@ -922,6 +924,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://imgix.bustle.com/uploads/getty/2021/3/12/caa569e6-d0cb-488f-8b1c-4495d9107d64-getty-451441811.jpg?w=653&h=998&fit=crop&crop=faces", credit: "Denise Truscello/WireImage/Getty Images", kind: "primary", focalPoint: "48% 13%" }],
       sources: [{ name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-best-red-carpet-fashion-moments/amp" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
+      products: [{ brand: "Dazey Hill", item: "Light Pink Floral Satin Corset Bustier Drop Waist Mini Dress", retailer: "dazeyhill.com", url: "https://dazeyhill.com/products/light-pink-satin-silk-floral-patterned-bodycon-corset-bustier-strapless-sleeveless-drop-waist-ruffle-lace-trim-flowy-short-mini-dress-evening-gown-women-ladies-chic-spring-2024-summer-elegant-formal-classy-feminine-prom-party-date-night-cocktail-sundress", price: "$66.00", isAlternative: true, altNote: "Sandi Spika designs custom pieces only, with no retail line — this echoes the pink corseted, drop-waist silhouette W Magazine described." }],
     },
     {
       id: "vault-debut-an-unknown-16-year-old-performing-for-yahoos-whos-next-showc",
@@ -977,6 +980,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201899/rs_634x1024-181009161140-634-taylor-swift-amas-2007.jpg?fit=around%7C776:1254&output-quality=90&crop=776:1254;center,top", credit: "Steve Granitz/WireImage", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/25719/taylor-swift-s-american-music-awards-looks" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
+      products: [{ brand: "Aidan Mattox", item: "Sequin Beaded Leaf Halter Gown", retailer: "adriannapapell.com", url: "https://www.adriannapapell.com/products/sequin-beaded-leaf-halter-gown-in-rose-quartz-md1e209951", price: "$595.00", isAlternative: true, altNote: "Catherine Malandrino's current line has moved to casual daywear — this is a comparable jeweled/sequined halter gown." }, { brand: "Tecovas", item: "The Loretta Cowgirl Boot (Midnight)", retailer: "tecovas.com", url: "https://www.tecovas.com/products/the-loretta?color=midnight-goat", price: "$445.00" }],
     },
     {
       id: "vault-debut-a-hug-for-dave-grohl-the-second-she-heard-her-first-grammy-n",
@@ -1054,6 +1058,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://s.yimg.com/ny/api/res/1.2/9fZWYO_g_cw7hKHKR1dJFw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE1Mjc7Y2Y9d2VicA--/https://media.zenfs.com/en/business_insider_articles_888/949b8af84d79dc9c4a91fd85b56f9674", credit: "Jon Kopaloff/Getty Images", kind: "primary" }],
       sources: [{ name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/everything-taylor-swift-worn-cmt-112401779.html" }, { name: "Hello!", url: "https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/" }],
+      products: [{ brand: "PrettyLittleThing", item: "Plum Devore V-Neck Maxi Dress", retailer: "prettylittlething.us", url: "https://www.prettylittlething.us/product/devore-v-neck-maxi-dress_plt08526?colour=plum", price: "$32.85", isAlternative: true, altNote: "No designer is credited anywhere for this dress — this echoes the plum V-neck maxi silhouette she wore." }],
     },
     {
       id: "vault-debut-an-all-day-meet-and-greet-marathon-at-cma-fests-fan-fair",
@@ -1495,6 +1500,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/celebrity/a35498019/taylor-swift-outfit-new-fearless-cover-easter-egg/" }],
+      products: [{ brand: "Ulla Johnson", item: "Fernanda Blouse", retailer: "garmentory.com", url: "https://www.garmentory.com/sale/ulla-johnson/tops-blouses/976294-fernanda-blouse", price: "$237.00" }],
     },
     {
       id: "vault-evermore-a-vintage-chevrolet-a-burgundy-cap-and-the-red-taylors-versi",
@@ -1518,6 +1524,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", caption: "Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the \"siren red\" lip and blunt bangs of the Red (TV) beauty look, the night before the album's release.", kind: "primary", focalPoint: "42% 13%" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/style/taylor-swift-red-beauty-look" }],
+      products: [{ brand: "NARS", item: "Lipstick in Ravishing Red (Matte)", retailer: "amazon.com", url: "https://www.amazon.com/Lipstick-Ravishing-Matte-3-5g-0-12oz/dp/B082P4X6FV", isAlternative: true, altNote: "No exact shade is named for this look — a real matte red lipstick matching the overlined \"siren red\" mouth described." }],
     },
     {
       id: "vault-evermore-a-skin-tight-ala-a-jumpsuit-for-all-too-well-on-snl-then-a-h",
@@ -1551,6 +1558,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg", credit: "Getty Images", kind: "primary", focalPoint: "45% 10%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/03/15/taylor-swift-wore-oscar-de-la-renta-etro-to-the-2021-grammy-awards/" }, { name: "E! News", url: "https://www.eonline.com/news/1248131/taylor-swift-brought-the-flower-power-to-the-2021-grammys-and-were-here-for-it" }],
+      products: [{ brand: "Oscar de la Renta", item: "Floral-Embroidered Tulle Mini Dress", retailer: "modaoperandi.com", url: "https://www.modaoperandi.com/women/p/oscar-de-la-renta/floral-embroidered-tulle-mini-dress/493975", price: "$8,990.00", inStock: false, isAlternative: true, altNote: "Her exact Spring '21 mini is long sold out — this is a comparable current Oscar de la Renta floral-appliquéd mini dress." }],
     },
     {
       id: "vault-evermore-a-purple-velvet-etro-pantsuit-for-the-all-too-well-short-fil",
@@ -1562,6 +1570,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Etro-To-The-All-Too-Well-New-York-Premiere.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-etro-to-the-all-too-well-new-york-premiere/" }, { name: "Just Jared", url: "https://www.justjared.com/2021/11/12/taylor-swift-walks-red-carpet-at-all-too-well-short-film-premiere-with-dylan-obrien-sadie-sink/" }],
+      products: [{ brand: "Etro", item: "Single-Breasted Velvet Jacket", retailer: "etro.com", url: "https://www.etro.com/us-en/single-breasted-velvet-jacket-WRCA008199TUEI1B0904.html", price: "$1,350.00", isAlternative: true, altNote: "Her exact purple suit was custom — this is Etro's current velvet blazer (shown styled as a pantsuit), in blue rather than purple." }],
     },
     {
       id: "vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show",
@@ -1584,6 +1593,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/latenightseth-254951110_1087887028417877_8037280291044973019_n.jpg", credit: "NBC", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }],
+      products: [{ brand: "David Koma", item: "Crystal-Embellished Cady Mini Dress", retailer: "runwaycatalog.com", url: "https://www.runwaycatalog.com/products/crystal-embellished-cady-mini-dress", price: "$1,210.00", isAlternative: true, altNote: "Her exact 2021 dress isn't currently listed anywhere verifiable — this is a current David Koma crystal-embellished mini in the same signature style." }],
     },
     {
       id: "vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi",
@@ -1595,6 +1605,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i.ytimg.com/vi/21Ki96Lsxhc/hqdefault.jpg", credit: "NBC / Saturday Night Live (YouTube sketch still)", caption: "Swift with Pete Davidson in the \"Three Sad Virgins\" sketch, SNL, Nov. 13, 2021.", kind: "primary" }],
       sources: [{ name: "NBC Insider", url: "https://www.nbc.com/nbc-insider/three-sad-virgins-snl-taylor-swift-cast-lyrics" }, { name: "Steal Her Style", url: "https://stealherstyle.net/2021/11/14/taylor-swift-saturday-night-live-outfits/" }],
+      products: [{ brand: "David Koma", item: "Flounce One Sleeve Sequin Mini Dress", retailer: "fwrd.com", url: "https://www.fwrd.com/product-david-koma-flounce-one-sleeve-sequin-mini-dress-in-blue/DAVF-WD195/", price: "$998.00", inStock: false, isAlternative: true, altNote: "Her exact navy dress isn't currently listed anywhere verifiable — this is a comparable David Koma one-shoulder sequin mini, in blue." }],
     },
     {
       id: "vault-evermore-a-belfast-weekend-a-restaurant-selfie-then-a-three-hour-bar-",
@@ -2726,6 +2737,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.nickiswift.com/img/gallery/hidden-details-you-missed-in-taylor-swifts-new/intro-1595575441.jpg", credit: "Taylor Swift/VEVO", caption: "Self-styled hair and makeup in the \"cardigan\" music video.", kind: "primary", focalPoint: "50% 32%" }, { url: "https://i.ytimg.com/vi/K-a8s8OLBSE/maxresdefault.jpg", credit: "Still from the official \"cardigan\" music video, Republic Records, via YouTube", caption: "The self-styled braids and natural makeup, at the glowing piano in the \"cardigan\" video she also directed herself.", kind: "archival", focalPoint: "47% 30%" }],
       sources: [{ name: "ET Online", url: "https://www.etonline.com/taylor-swift-recalls-doing-her-own-hair-and-makeup-for-folklore-album-art-guess-ill-braid-it-229646" }, { name: "Nicki Swift", url: "https://www.nickiswift.com/229802/hidden-details-you-missed-in-taylor-swifts-new-cardigan-video/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Cardigan_(song)" }],
+      products: [{ brand: "Laura Mercier", item: "Tinted Moisturizer Light Revealer Natural Skin Illuminator SPF 25", retailer: "lauramercier.com", url: "https://www.lauramercier.com/products/tinted-moisturizer-light-revealer-natural-skin-illuminator", price: "$54.00", isAlternative: true, altNote: "Her exact routine is undocumented — this is a real \"no makeup, makeup\" product matching the bare-faced look described." }],
     },
     {
       id: "vault-folklore-the-folklore-album-cover-a-self-directed-black-and-white-pho",
@@ -2737,6 +2749,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f8/Taylor_Swift_-_Folklore.png", credit: "Republic Records (official album cover, photo by Beth Garrabrant)", caption: "The folklore album cover — Beth Garrabrant's black-and-white forest frame.", kind: "primary", focalPoint: "48% 75%" }, { url: "https://format.creatorcdn.com/9fcd0df5-9285-4916-8837-8946bbc00b90/0/0/0/0,0,2546,3476,1200,3476/0-0-0/a5687a55-9b70-421a-af01-167dd3b41eae/1/1/000066060006.jpg?fjkss=exp=2099503694~hmac=bfd5136d317dfc1d27bdd629155633f97f7c8a1028f5a74557969466e92877fe", credit: "Beth Garrabrant", caption: "Another frame from the self-styled forest shoot — a rugby shirt and plaid trousers, shot on film in black and white.", kind: "primary", focalPoint: "51% 48%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-folklore-photoshoot-by-photographer-beth-garrabrant/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)" }],
+      products: [{ brand: "OAK + FORT", item: "Oversized Plaid Blazer", retailer: "oakandfort.com", url: "https://oakandfort.com/products/oversized-plaid-blazer_5", price: "$42.00", inStock: false, isAlternative: true, altNote: "No brand is documented for the shoot wardrobe — this is a real oversized plaid blazer in the same spirit." }],
     },
     {
       id: "vault-folklore-a-free-people-velvet-shirt-dress-for-the-long-pond-studio-se",
@@ -2760,6 +2773,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.hercampus.com/SH6M70M3/as/c3hfjtcwgp4ffqj8pc59g3/taylor_swift_folklore_cardigan?width=1024&height=1024&fit=cover&auto=webp&dpr=4", credit: "Taylor Swift Store", caption: "The official folklore cardigan as sold on Swift's store.", kind: "primary", focalPoint: "50% 50%" }],
       sources: [{ name: "Her Campus", url: "https://www.hercampus.com/style/taylor-swift-folklore-cardigan-restock/" }, { name: "Capital FM", url: "https://www.capitalfm.com/news/music/taylor-swift-cardigans-merch/" }],
+      products: [{ brand: "ebossy", item: "Cable Knit Open Front Cardigan with Embroidery", retailer: "amazon.com", url: "https://www.amazon.com/Womens-Cardigan-Embroidery-Sweater-Outwear/dp/B0BGXK89F2/", price: "$34.58", isAlternative: true, altNote: "Both the original 2020 run and the 2024 restock are long gone from her own store — this is a comparable cream cable-knit cardigan with embroidery detail." }],
     },
     {
       id: "vault-folklore-mirrorball-written-right-after-the-lover-fest-tour-was-scrap",
