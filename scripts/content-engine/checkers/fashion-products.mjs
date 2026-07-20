@@ -51,8 +51,19 @@ export async function check(items) {
   const findings = [];
   for (const it of items) {
     if (it.type !== 'moment') continue;
-    if (it.category !== 'fashion') continue;
-    // Already shopped (schema lands with feat/shoppable-links; defensive read).
+    // NOT gated on category === 'fashion' any more (2026-07-20). It was, and
+    // that silently hid 31 of the 74 eligible moments — 42% — because what a
+    // moment is CATEGORISED as says nothing about whether it describes clothes
+    // anyone can buy. Wyatt found it from the reader's side: "A pink mini dress
+    // for a Saturday-night dinner date" is category 'sighting', names a Balmain
+    // minidress, Louboutin sandals, an Aspinal bag and a Cartier necklace with
+    // prices, and could never be queued no matter how often the Stylist ran.
+    // Award nights, tour openers and red-carpet appearances are the same story.
+    //
+    // Precision never came from the category anyway — it comes from the three
+    // tests below (named brand + buyable garment noun + not a one-off). That
+    // is what answered the 2026-07-19 over-flagging pushback, and it is
+    // untouched. Category now only ranks.
     if ((it.raw?.moment?.products ?? []).length > 0) continue;
 
     const text = [it.title, it.texts?.snippet, it.texts?.context].filter(Boolean).join('\n');
@@ -68,10 +79,14 @@ export async function check(items) {
         title: 'Fashion moment names a buyable garment but has no shop links',
         itemRef: { type: 'moment', file: it.file, era: it.era, key: it.key, field: null },
         excerpt: it.title,
-        evidence: `This fashion moment names ${brand} and a specific garment but carries no \`moment.products\` entries. Fans should get a direct link to the exact product page (never a search page), via the buildShopUrl seam so it can become an affiliate link later with no content edits.`,
+        evidence: `This ${it.category} moment names ${brand} and a specific garment but carries no \`moment.products\` entries. Fans should get a direct link to the exact product page (never a search page), via the buildShopUrl seam so it can become an affiliate link later with no content edits.`,
         suggestedFix:
           'Route to the Stylist: find the exact retailer product page for each named garment, verify it returns HTTP 200 and is a real product page, and add { brand, item, retailer, url, price, inStock } to moment.products. Sold out → inStock: false. No real product page → skip that garment.',
-        confidence: 0.6,
+        // Category no longer gates, it ranks. A moment filed as 'fashion' is
+        // still the most likely to be all-buyable, so it keeps the old score
+        // and stays at the head of the Stylist's queue; everything else is a
+        // genuine but slightly weaker candidate rather than an invisible one.
+        confidence: it.category === 'fashion' ? 0.6 : 0.45,
       }),
     );
   }
