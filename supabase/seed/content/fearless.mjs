@@ -1076,6 +1076,8 @@ export default {
         photos: [
           {
             url: 'https://media.gettyimages.com/id/94673660/photo/z100s-jingle-ball-2009-presented-by-h-m-show.jpg?s=594x594&w=0&k=20&c=E59rBFYnR4Ncd9xBGTWP2Z7eMj8WOUs75Hy4l1odmC8=',
+            // Both singers' faces sit in the top third; bias upward to keep them.
+            focalPoint: '48% 24%',
             credit: 'Kevin Mazur/WireImage',
             caption:
               'Onstage with John Mayer for the "Half of My Heart" duet at Z100\'s Jingle Ball, Madison Square Garden, Dec. 11, 2009.',
@@ -2188,6 +2190,8 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/VuNIsY6JdUw/hq1.jpg',
+            // Till's face is center-left of the frame, just below the midline.
+            focalPoint: '48% 40%',
             credit: 'Big Machine Records / official Taylor Swift YouTube channel',
             caption:
               'Lucas Till in the official "You Belong with Me" video — the "tired of drama" notepad scene — on the shoot where the two met.',

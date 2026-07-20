@@ -1180,6 +1180,8 @@ export default {
         photos: [
           {
             url: 'https://imgix.bustle.com/uploads/getty/2023/10/26/4391b9c6-1852-4f20-a292-5dd1acba75cf-getty-474684387.jpg?w=800',
+            // Both walking full-length; faces sit near the top of the tall frame.
+            focalPoint: '48% 17%',
             credit: 'GC Images / Getty Images, via Bustle',
             caption: 'Swift and Styles walking in New York in December 2012, weeks before the Virgin Islands trip ended the relationship. The famous "blue dress on a boat" departure photo itself remains agency-controlled.',
             kind: 'archival',
@@ -1536,6 +1538,8 @@ export default {
         photos: [
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2012719/634.taylor.cm.81912_copy.jpg',
+            // Two figures wading, faces in the upper third of the tall frame.
+            focalPoint: '45% 28%',
             credit: 'Paul Adao/INFphoto.com, via E! Online',
             caption: 'Swift and Conor Kennedy on the shore at Hyannis Port in August 2012 — the summer that quietly ended that October.',
             kind: 'archival',

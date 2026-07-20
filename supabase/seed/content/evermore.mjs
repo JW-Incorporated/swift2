@@ -2540,6 +2540,8 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Joe_Alwyn_during_an_interview%2C_August_2018.png',
+            // Face centered, eyes ~1/3 down; keep it framed under a wide crop.
+            focalPoint: '50% 32%',
             credit: 'Collider Video (CC BY-SA 3.0) via Wikimedia Commons',
             caption: 'Joe Alwyn during a 2018 interview — years into the same press-shy stretch the GQ Hype profile finally opened up.',
             kind: 'archival',
