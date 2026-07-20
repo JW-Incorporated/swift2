@@ -756,6 +756,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "She becomes the first woman to win the top Grammy twice.",
       body: ["Accepting the award, she used the moment to speak directly to young women about crediting their own work."],
       tags: ["Lore"],
+      images: [{ url: "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg", credit: "Getty Images, via Billboard", caption: "On the 58th Grammy Awards red carpet, February 15, 2016 — the night 1989 won Album of the Year, making Taylor the first woman to win the top Grammy twice.", kind: "primary", focalPoint: "48% 20%" }],
       milestone: { id: "m-89-3", label: "Album of the Year", kind: "award" },
     },
   ],

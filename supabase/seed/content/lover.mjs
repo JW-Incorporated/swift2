@@ -2403,6 +2403,11 @@ export default {
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-lov-1", label: "Masters sold", kind: "business" },
       snippet: "Her back catalog changes hands without her — igniting a fight to reclaim her work.",
+      // No photo (photo-enrichment #762, 2026-07-20): the June 30, 2019
+      // Big Machine/Ithaca masters sale is a business transaction with no
+      // photographable event. A generic same-period Swift portrait would be
+      // off-hook, and there is no verifiable image OF the sale — left
+      // photo-less rather than fabricate. Skip on future runs.
       hiddenClue: { clue: "She announced she would re-record her old albums.", payoff: "The “Taylor’s Version” project was born — reclaiming her catalog one album at a time." },
       moment: {
         context: "News that her master recordings were sold set off the defining business battle of her career and the plan to re-record everything.",
