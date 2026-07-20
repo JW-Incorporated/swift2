@@ -7379,6 +7379,18 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       sources: [{ name: "Taylor Swift Scores an Adult Contemporary Chart First With 4 Songs in the Top 10", url: "https://www.billboard.com/music/chart-beat/taylor-swift-adult-contemporary-4-in-top-10-1236291740/" }, { name: "Taylor Swift Manages A Historic First On The Charts", url: "https://www.forbes.com/sites/hughmcintyre/2026/07/18/taylor-swift-manages-a-historic-first-on-the-charts/" }],
     },
     {
+      id: "vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod",
+      slug: "showgirl-eras-tour-film-emmy-nominations",
+      date: "2026-07-08",
+      dateLabel: "July 8, 2026",
+      title: "The Eras Tour film pulls five Emmy nominations — her first nods in over a decade",
+      summary: "Taylor Swift: The Eras Tour: The Final Show drew five nominations at the 78th Emmys, announced July 8, 2026 — Taylor’s first Emmy nods in more than a decade. Credited as both performer and producer on the concert film, the nominations land on her personally.",
+      body: ["The concert film of the Eras Tour’s final night — Taylor Swift: The Eras Tour: The Final Show, which streamed on Disney+ — landed five nominations when the 78th Emmy nominations were announced on July 8, 2026: Outstanding Variety Special (Pre-Recorded), a directing nod for Glenn Weiss, Outstanding Picture Editing for Variety Programming, Outstanding Sound Mixing for a Variety Series or Special, and Outstanding Technical Direction and Camerawork for a Special.", "Taylor is credited on the special as both performer and producer — Taylor Swift Productions made it, in association with Silent House — so the nominations attach to her personally, and they are her first Emmy nominations in more than a decade. They are not her first Emmy outright: back in 2015 she won Outstanding Creative Achievement in Interactive Media for the AMEX Unstaged: Taylor Swift Experience, the 360-degree app built around the \"Blank Space\" video, as its artist and executive producer. What is new this time is the Television Academy recognizing her on-camera performing work — and it is the film of the record-breaking Eras Tour that got her there."],
+      tags: ["Music"],
+      sources: [{ name: "Taylor Swift Scores 2026 Emmy Nominations for 'Eras Tour: The Final Show'", url: "https://www.rollingstone.com/music/music-news/taylor-swift-2026-emmy-nominations-eras-tour-final-show-1235590955/" }, { name: "Taylor Swift — Emmy Awards and Nominations", url: "https://www.televisionacademy.com/bios/taylor-swift" }],
+      significance: "notable",
+    },
+    {
       id: "vault-tloas-a-quiet-holiday-gift-to-a-kansas-city-classroom",
       slug: "showgirl-operation-breakthrough-holiday-donation",
       date: "2025-12-01",
