@@ -33,6 +33,7 @@ import { formatMonthYear } from '@/lib/longlive/format';
 import { EraMedia } from './EraMedia';
 import { EraVideos } from './EraVideos';
 import { MomentVideo } from './MomentVideo';
+import { SignificanceBadge } from './SignificanceBadge';
 import { TAG_META } from '@/lib/longlive/tags';
 import { TAG_COLORS, itemMatchesFilter, tagsPresent } from '@/lib/longlive/tagBadges';
 import {
@@ -505,6 +506,9 @@ function MomentMeta({
         {item.dateLabel}
       </span>
       <span className="flex shrink-0 items-center gap-2">
+        {item.significance && size === 'default' && (
+          <SignificanceBadge significance={item.significance} />
+        )}
         {unconfirmed && (
           <span
             className="inline-flex items-center gap-1 rounded-full border border-dashed px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-[color:var(--era-accent)]"

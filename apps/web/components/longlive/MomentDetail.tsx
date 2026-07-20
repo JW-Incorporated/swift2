@@ -36,6 +36,7 @@ import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
 import { extractYouTubeId } from '@swift2/shared';
 import { ZoomableImage } from './ZoomableImage';
+import { SignificanceBadge } from './SignificanceBadge';
 import {
   isSubConfirmed,
   focalPointOf,
@@ -531,6 +532,11 @@ export function MomentDetail() {
         <span className="text-xs uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)]">
           {era.name} · {item.dateLabel}
         </span>
+        {item.significance && (
+          <div className="mt-2">
+            <SignificanceBadge significance={item.significance} size="detail" />
+          </div>
+        )}
         <h1 className="mt-2 font-[family-name:var(--era-font)] text-balance text-4xl font-semibold leading-tight sm:text-5xl">
           {item.title}
         </h1>
