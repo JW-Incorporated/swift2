@@ -1454,7 +1454,7 @@ export default {
       confidence: 'reputable_reporting',
       title: 'A tented lawn in Rhode Island, two weeks before the wedding',
       snippet:
-        'Security tightened around her Watch Hill estate as a large tent went up on the Ocean House lawn next door and friends including Abigail Anderson were spotted arriving for what looked like a bachelorette weekend.',
+        'A large tent went up on the Ocean House lawn in Watch Hill and longtime friends were seen arriving for what looked like a bachelorette weekend, two weeks before the wedding.',
       sourceUrl: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/',
       // Image-fix pass (2026-07-10): swapped the watermarked TMZ collage
       // thumbnail for the verified AP tent/Ocean House photo below (see
@@ -1462,7 +1462,7 @@ export default {
       thumbnailUrl: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
       moment: {
         context:
-          'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends" — separate from the Ocean House\'s own scheduled event that weekend, which the venue confirmed was for a different couple. The tells were logistical rather than official: extra security around the Watch Hill estate, a large tent rising on the lawn next door, and longtime friends — Abigail Anderson among the arrivals fans identified — converging on the small Rhode Island town at once.\n\nThe location was its own callback. Watch Hill is the "holiday house" of the 2020 song "the last great american dynasty" — the Rebekah Harkness mansion Swift bought in 2013, the site of the Fourth of July parties of the 1989 era — so a pre-wedding weekend there read to fans as the personal-lore equivalent of a hometown send-off, two weeks before the Madison Square Garden ceremony. Neither Swift nor her team ever confirmed the party; the venue-level reporting here is TMZ\'s, labeled as such.',
+          'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends" — separate from the Ocean House\'s own scheduled event that weekend, which the venue confirmed was for a different couple. The tells were logistical rather than official: a large tent rising on the Ocean House lawn, and longtime friends converging on the small Rhode Island town at once.\n\nThe location was its own callback. Watch Hill is the "holiday house" of the 2020 song "the last great american dynasty" — the Rebekah Harkness mansion Swift bought in 2013, the site of the Fourth of July parties of the 1989 era — so a pre-wedding weekend there read to fans as the personal-lore equivalent of a hometown send-off, two weeks before the Madison Square Garden ceremony. Neither Swift nor her team ever confirmed the party; the venue-level reporting here is TMZ\'s, labeled as such.',
         sources: [
           { outlet: 'TMZ', url: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/' },
         ],
