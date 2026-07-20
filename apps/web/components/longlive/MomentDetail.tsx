@@ -361,12 +361,40 @@ function MomentLightbox({
       role="dialog"
       aria-modal="true"
       aria-label="Photo viewer"
-      // Clicking the backdrop closes, same as the X (Wyatt, 2026-07-20).
-      // Guarded on target === currentTarget so clicks that BUBBLE up from the
-      // photo, the arrows or the caption never dismiss it — only a click that
-      // actually lands on the backdrop itself.
+      // Clicking anywhere that is not the picture closes, same as the X.
+      //
+      // Two earlier attempts at this both failed, for the same reason: they
+      // asked "did the click land on the root?" via target === currentTarget.
+      // It never does. The root is a flex COLUMN completely covered by its own
+      // three children — the header strip, the image row and the caption strip
+      // — so every click reports one of those as the target, and the viewer
+      // stayed open everywhere except the one spot each fix happened to test
+      // (Wyatt, 2026-07-20, twice: "clicking outside the picture doesn't close
+      // it", then again after the letterbox-only fix).
+      //
+      // So invert it. Close on everything EXCEPT the picture itself and the
+      // controls, rather than trying to enumerate the places that count as
+      // outside. `contain`-fitted images need the geometric test because the
+      // <img> also covers its own letterbox; see lib/longlive/contain-fit.ts.
       onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
+        const target = e.target as HTMLElement;
+        // Buttons and links own their behaviour: X, arrows, zoom, credits.
+        if (target.closest('button, a, [role="button"]')) return;
+        if (target instanceof HTMLImageElement) {
+          if (
+            isPointerOutsideContainedImage(
+              e.clientX,
+              e.clientY,
+              target.getBoundingClientRect(),
+              target.naturalWidth,
+              target.naturalHeight,
+            )
+          ) {
+            onClose();
+          }
+          return;
+        }
+        onClose();
       }}
     >
       <div className="flex shrink-0 items-center justify-between px-4 py-3 text-white">
@@ -380,38 +408,8 @@ function MomentLightbox({
           <X className="size-5" />
         </button>
       </div>
-      {/* The image is `contain`-fitted, so this row carries letterboxed black
-          space beside or above the photo, and that space reads as "outside the
-          picture" to a reader — clicking it should close.
-          `target === currentTarget` CANNOT express that, which is why the first
-          attempt at this shipped broken: a `contain`-fitted <img> still covers
-          the entire row, so the letterbox reports the IMG as the target and the
-          guard never fires (Wyatt, 2026-07-20 — verified in the browser: the
-          element under a click beside the photo is `IMG.object-contain`).
-          Telling picture from letterbox is geometric, so ask the geometry. */}
-      <div
-        className="relative min-h-0 flex-1"
-        onClick={(e) => {
-          if (e.target === e.currentTarget) {
-            onClose();
-            return;
-          }
-          // Buttons (the arrows) keep their own handlers and must never close.
-          const target = e.target as HTMLElement;
-          if (!(target instanceof HTMLImageElement)) return;
-          if (
-            isPointerOutsideContainedImage(
-              e.clientX,
-              e.clientY,
-              target.getBoundingClientRect(),
-              target.naturalWidth,
-              target.naturalHeight,
-            )
-          ) {
-            onClose();
-          }
-        }}
-      >
+      {/* Clicks here bubble to the root, which decides picture vs not. */}
+      <div className="relative min-h-0 flex-1">
         <ZoomableImage
           key={img.url}
           src={img.url}
@@ -419,6 +417,11 @@ function MomentLightbox({
           unoptimized={isRemoteUrl(img.url)}
           fit="contain"
           frameClassName="h-full w-full"
+          // Fullscreen has nothing behind it to scroll, so the plain wheel
+          // zooms here; on-screen +/− buttons because the gestures alone were
+          // undiscoverable with a mouse.
+          wheelZoom
+          controls
         />
         {count > 1 && (
           <>
