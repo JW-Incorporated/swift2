@@ -2051,7 +2051,6 @@ export default {
             focalPoint: '48% 38%',
             credit: 'Getty Images, via Billboard',
             caption: 'Kanye West at the Yeezy Season 3 / The Life of Pablo listening event, Madison Square Garden, Feb. 11, 2016 — where "Famous" premiered.',
-            focalPoint: '46% 45%',
             kind: 'primary',
           },
           {
@@ -2059,7 +2058,6 @@ export default {
             focalPoint: '50% 45%',
             credit: 'Getty Images, via Billboard',
             caption: 'The event\'s staging inside Madison Square Garden, built for an audience of roughly 20,000.',
-            focalPoint: '48% 52%',
             kind: 'archival',
           },
           {
@@ -2067,7 +2065,6 @@ export default {
             focalPoint: '50% 22%',
             credit: 'Getty Images, via Billboard',
             caption: 'Models on the Yeezy Season 3 runway during the same event.',
-            focalPoint: '50% 30%',
             kind: 'archival',
           },
           {
@@ -2075,7 +2072,6 @@ export default {
             focalPoint: '50% 20%',
             credit: 'Getty Images, via Billboard',
             caption: 'More of the roughly 1,000 models styled for the Yeezy Season 3 runway.',
-            focalPoint: '50% 28%',
             kind: 'archival',
           },
           {
@@ -2083,7 +2079,6 @@ export default {
             focalPoint: '50% 12%',
             credit: 'Getty Images, via Vanity Fair',
             caption: 'Swift at the Grammys red carpet, Feb. 15, 2016 — four days after "Famous" premiered, hours before her Album of the Year speech.',
-            focalPoint: '51% 14%',
             kind: 'archival',
           },
           {
@@ -2091,7 +2086,6 @@ export default {
             focalPoint: '51% 15%',
             credit: 'Getty Images, via Teen Vogue',
             caption: 'On the Grammys red carpet that night, Feb. 15, 2016 — hours before accepting Album of the Year with the "undercut your success" line the room understood as her answer.',
-            focalPoint: '52% 16%',
             kind: 'archival',
           },
           {
@@ -2099,7 +2093,6 @@ export default {
             focalPoint: '40% 28%',
             credit: 'Pier Marco Tacca/Getty Images, via Billboard',
             caption: 'Vanessa Beecroft, the performance artist who staged the Yeezy Season 3 presentation West premiered "Famous" inside.',
-            focalPoint: '38% 27%',
             kind: 'reference',
           },
         ],
@@ -2168,7 +2161,6 @@ export default {
             // the prior caption claimed. Caption corrected to match the image;
             // recommend a verified replacement showing the actual statement.
             caption: 'The Apple Notes format Swift used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
-            focalPoint: '50% 12%',
             kind: 'primary',
           },
           {
@@ -2181,7 +2173,6 @@ export default {
             // to match the image; recommend a verified replacement if a Snapchat
             // still is wanted here.
             caption: 'A Guardian side-by-side of Kim Kardashian and Taylor Swift, published as Kardashian\'s Snapchat clips reignited the feud in July 2016.',
-            focalPoint: '50% 25%',
             kind: 'primary',
           },
           {
@@ -2189,7 +2180,6 @@ export default {
             focalPoint: '50% 33%',
             credit: 'Cameron Richardson/Newspix/Rex/Shutterstock, via Vanity Fair',
             caption: 'Swift walks with Tom Hiddleston in Los Angeles on July 21, her first public sighting after the Snapchat clips appeared.',
-            focalPoint: '50% 30%',
             kind: 'archival',
           },
           {
@@ -2197,7 +2187,6 @@ export default {
             focalPoint: '50% 25%',
             credit: 'Larry Busacca/Getty Images for NARAS, via Teen Vogue',
             caption: 'For context, Swift, Kardashian, and West pose together at the 2015 Grammys, before the "Famous" dispute reopened the VMA feud.',
-            focalPoint: '50% 25%',
             kind: 'reference',
           },
           // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 3 more
@@ -2208,7 +2197,6 @@ export default {
             focalPoint: '50% 14%',
             credit: 'Gary Miller/FilmMagic, via Billboard',
             caption: 'Swift headlines the Formula 1 U.S. Grand Prix concert in Austin on Oct. 22, 2016 — her only full show of the year, announced months ahead of the Grand Prix weekend.',
-            focalPoint: '48% 14%',
             kind: 'archival',
           },
           {
@@ -2216,7 +2204,6 @@ export default {
             focalPoint: '50% 50%',
             credit: 'RCA Records / Republic Records (official single cover)',
             caption: 'The cover for "I Don\'t Wanna Live Forever," her December 2016 duet with Zayn for the Fifty Shades Darker soundtrack — one of two music releases during the withdrawal year.',
-            focalPoint: '50% 45%',
             kind: 'archival',
           },
           {
@@ -2224,7 +2211,6 @@ export default {
             focalPoint: '50% 50%',
             credit: 'Netflix (official poster)',
             caption: 'The poster for "Miss Americana" (2020), the Netflix documentary where she later characterized this year as one where "nobody physically saw me."',
-            focalPoint: '64% 66%',
             kind: 'reference',
           },
         ],
