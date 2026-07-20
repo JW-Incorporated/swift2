@@ -622,6 +622,7 @@ export default {
         photos: [
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2023/11/29/524678ff-481f-45ce-b589-ab084c5b2102/thumbnail/1200x630g2/0e9e2c82d8413afa5d970900f56f7835/taylor-swift.jpg',
+            focalPoint: '48% 22%',
             credit: 'CBS News',
           },
           // Photo pass 2026-07-19 (bulk-to-6+, docs/decisions.md): 3 more
@@ -629,18 +630,21 @@ export default {
           // this item's own context names. All curl 200.
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/10/taylor-swift-eras-movie-premiere-2023-billboard-1240.jpg',
+            focalPoint: '48% 20%',
             credit: 'Getty Images, via Billboard',
             caption: 'At the Eras Tour concert film premiere, Oct. 11, 2023 — the film AMC was already calling the highest-grossing concert film ever.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Taylor_Swift_The_Eras_Tour_film_promotional_poster.png',
+            focalPoint: '50% 20%',
             credit: 'AMC Theatres / TAS Rights Management (official poster)',
             caption: 'The theatrical poster for "Taylor Swift: The Eras Tour."',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/2/26/Spotify_logo_with_text.svg',
+            focalPoint: '50% 50%',
             credit: 'Spotify (public domain mark)',
             caption: 'She closed 2023 as Spotify\'s most-streamed artist of the year, the citation\'s other capstone stat.',
             kind: 'reference',
@@ -3098,12 +3102,14 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Lumen_Field_northwest_side_-_The_Eras_Tour_by_Taylor_Swift_%2820230802143847%29.jpg/960px-Lumen_Field_northwest_side_-_The_Eras_Tour_by_Taylor_Swift_%2820230802143847%29.jpg',
+            focalPoint: '50% 45%',
             credit: 'Anaroll, CC BY-SA 3.0, via Wikimedia Commons',
             caption: 'Lumen Field mid-show during the Eras Tour Seattle stand — the crowd whose synchronized dancing registered on a seismometer next door.',
             kind: 'primary',
           },
           {
             url: 'https://news.wwu.edu/sites/news.wwu.edu/files/bc8a75cd-f7bb-90e1-7abf-b4277cf3f5a5_1.jpg',
+            focalPoint: '45% 45%',
             credit: 'Kari Mar, via WWU News',
             caption: 'A packed Lumen Field lit red, shot by an attendee — the same synchronized 72,000-person crowd Western Washington University\'s own seismologist read off a seismometer.',
             kind: 'archival',
@@ -3357,6 +3363,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/d/d6/Taylor_Swift_The_Eras_Tour_film_promotional_poster.png',
+            focalPoint: '50% 20%',
             credit: 'Taylor Swift Productions / AMC Theatres',
             caption: 'Promotional poster for Taylor Swift: The Eras Tour, the concert film that opened to a record $92.8 million domestic.',
             kind: 'primary',
@@ -3365,12 +3372,14 @@ export default {
           // verified photos of the opening weekend itself.
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/10/taylor-swift-eras-movie-premiere-2023-billboard-1240.jpg',
+            focalPoint: '48% 20%',
             credit: 'Getty Images, via Billboard',
             caption: 'At the film\'s Los Angeles premiere, Oct. 11, 2023, two days before the record-setting opening weekend.',
             kind: 'archival',
           },
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2023/10/Taylor-Swift-Eras-Tour-Movie-Opening-Night-Publicity-H-2023.jpg?w=1296&h=730&crop=1',
+            focalPoint: '43% 22%',
             credit: 'Getty Images, via The Hollywood Reporter',
             caption: 'Opening night at the TCL Chinese Theatre in Hollywood — the costumed, dancing audiences that drove the box office.',
             kind: 'archival',

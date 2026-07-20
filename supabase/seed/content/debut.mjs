@@ -194,6 +194,7 @@ export default {
         photos: [
           {
             url: 'https://media.gettyimages.com/id/77795920/photo/41st-annual-cma-awards-press-room.jpg?s=594x594&w=0&k=20&c=Pps0NDhapuDnUOXIZdnjsgbreJehja48sZzwGrprAcg=',
+            focalPoint: '60% 40%',
             credit: 'Bryan Bedder/Getty Images',
             kind: 'primary',
           },
