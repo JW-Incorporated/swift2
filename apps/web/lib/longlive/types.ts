@@ -570,6 +570,16 @@ export interface TrackNote {
   facts?: TrackFacts;
   /** The Phase-1 dossier: why-it-matters, tiered meaning, connections, live history, voices. */
   dossier?: TrackDossier;
+  /**
+   * The song's playable audio: an 11-char YouTube id from an OFFICIAL Taylor
+   * Swift channel ('Taylor Swift', 'Taylor Swift - Topic', or 'TaylorSwiftVEVO'),
+   * oEmbed-verified at authoring time — see the audio-curator flow. Optional:
+   * a song with no official upload that verifies simply has no id and the UI
+   * omits the embed rather than guessing. Distinct from the VIDEOS system
+   * (music videos / tour films): this is the studio audio for the song itself,
+   * and a track may share an id the videos rail also carries.
+   */
+  youtubeId?: string;
 }
 
 /**

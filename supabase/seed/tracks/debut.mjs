@@ -26,6 +26,7 @@ export default {
       slug: 'tim-mcgraw',
       trackNumber: 1,
       trackTitle: 'Tim McGraw',
+      youtubeId: 'GkD20ajVxnY', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -53,6 +54,7 @@ export default {
       slug: 'picture-to-burn',
       trackNumber: 2,
       trackTitle: 'Picture to Burn',
+      youtubeId: 'yCMqcFAigRg', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -76,6 +78,7 @@ export default {
       slug: 'teardrops-on-my-guitar',
       trackNumber: 3,
       trackTitle: 'Teardrops on My Guitar',
+      youtubeId: 'xKCek6_dB0M', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -101,6 +104,7 @@ export default {
       slug: 'a-place-in-this-world',
       trackNumber: 4,
       trackTitle: 'A Place in This World',
+      youtubeId: '_FNQ5qLuLjA', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Robert Ellis Orrall', 'Angelo Petraglia'],
@@ -121,6 +125,7 @@ export default {
       slug: 'cold-as-you',
       trackNumber: 5,
       trackTitle: 'Cold as You',
+      youtubeId: 'aGvIwzgJ9hU', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -139,6 +144,7 @@ export default {
       slug: 'the-outside',
       trackNumber: 6,
       trackTitle: 'The Outside',
+      youtubeId: 'IAeicVet6SU', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift'],
@@ -156,6 +162,7 @@ export default {
       slug: 'tied-together-with-a-smile',
       trackNumber: 7,
       trackTitle: 'Tied Together with a Smile',
+      youtubeId: 'aCVHGH5sO0c', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -173,6 +180,7 @@ export default {
       slug: 'stay-beautiful',
       trackNumber: 8,
       trackTitle: 'Stay Beautiful',
+      youtubeId: 'TQ9haUkCV-M', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose'],
@@ -190,6 +198,7 @@ export default {
       slug: 'shouldve-said-no',
       trackNumber: 9,
       trackTitle: "Should've Said No",
+      youtubeId: 'v9bxXO9fj98', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift'],
@@ -217,6 +226,7 @@ export default {
       slug: 'marys-song-oh-my-my-my',
       trackNumber: 10,
       trackTitle: "Mary's Song (Oh My My My)",
+      youtubeId: '9TCRiGA1A2U', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Liz Rose', 'Brian Maher'],
@@ -234,6 +244,7 @@ export default {
       slug: 'our-song',
       trackNumber: 11,
       trackTitle: 'Our Song',
+      youtubeId: 'Jb2stN7kH28', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift'],
@@ -255,6 +266,7 @@ export default {
       slug: 'im-only-me-when-im-with-you',
       trackNumber: 12,
       trackTitle: "I'm Only Me When I'm with You",
+      youtubeId: 'AlTfYj7q5gQ', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift (Deluxe Edition)',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Robert Ellis Orrall', 'Angelo Petraglia'],
@@ -273,6 +285,7 @@ export default {
       slug: 'invisible',
       trackNumber: 13,
       trackTitle: 'Invisible',
+      youtubeId: 'IiWI7qG8Jpc', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift (Deluxe Edition)',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Robert Ellis Orrall'],
@@ -289,6 +302,7 @@ export default {
       slug: 'a-perfectly-good-heart',
       trackNumber: 14,
       trackTitle: 'A Perfectly Good Heart',
+      youtubeId: 'mbs84V9S5Lc', // oEmbed-verified official Taylor Swift channel
       release: 'Taylor Swift (Deluxe Edition)',
       releaseDate: '2006-10-24',
       writers: ['Taylor Swift', 'Brett James', 'Troy Verges'],
