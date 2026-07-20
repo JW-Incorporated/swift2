@@ -78,7 +78,10 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Shake_It_Off' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/' },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg', credit: 'Big Machine Records' }],
+        // Focal point 2026-07-20 (by eye): reference frame from the "Shake It
+        // Off" video (the song the trademarks come from) — a vertical crop with
+        // Taylor's face near the top, so hold high.
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg', credit: 'Big Machine Records', focalPoint: '48% 16%' }],
       },
     },
     {
@@ -143,7 +146,9 @@ export default {
         // downloaded and visually confirmed this session. All from other stops
         // on the same 2015 tour (kept 'archival'/'reference', not 'primary').
         photos: [
-          { url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'primary', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.' },
+          // Focal point 2026-07-20 (by eye): Tokyo Dome shot, her face upper-
+          // center-right holding the guitar; hold high to keep the face framed.
+          { url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_tokyo_20150506.jpg', credit: 'Johndavis2004 / Wikimedia Commons, CC BY-SA 4.0', kind: 'primary', caption: 'Onstage at the Tokyo Dome, May 6, 2015 — the second of the two sold-out opening nights.', focalPoint: '52% 28%' },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/17/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg',
             credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
