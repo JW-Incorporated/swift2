@@ -1371,6 +1371,8 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1e/Joe_Alwyn_during_an_interview%2C_August_2018.png',
+            // Face centered, eyes ~1/3 down; keep it framed under a wide crop.
+            focalPoint: '50% 32%',
             credit: 'ColliderVideo (CC BY-SA 3.0), via Wikimedia Commons',
             caption: 'Joe Alwyn in 2018 — revealed at Long Pond as folklore\'s mystery co-writer "William Bowery."',
             kind: 'archival',
