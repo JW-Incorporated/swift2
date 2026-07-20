@@ -25,7 +25,87 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 88
+Stories: 98
+
+## A Guest At Taylor Swift And Travis Kelce’s Wedding Recalled A Sincere Part That People Thought “Was 
+
+- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: A Guest At Taylor Swift And Travis Kelce’s Wedding Recalled A Sincere Part That People Thought “Was A Joke”  buzzfeed.com
+- sources:
+  - [unverified] buzzfeed.com — https://news.google.com/rss/articles/CBMingFBVV95cUxPS0VyN2lNekoyMk1HUFRBb2NLdWozM3lDamNiQXhPLXVQM0RZNVJIclhNbWZPckg3YllyUzFsY2NfYXEwaUowdEdybUE1b3Q3OGhhdHh5QzBrNDdzNnBuSUE2Mk10aGZVell6T1c0RVlwVWx5d3FDS1l4NlFsU2JWWVFZY0NlbWctTGJPaEJIeHR5MkxsdVZRTUJvTC1kZw?oc=5
+
+## The 1975 Frontman Matty Healy Marries Gabbriette Bechtel in Hollywood Hills - extratv.com
+
+- first seen: 2026-07-20 15:19 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: The 1975 Frontman Matty Healy Marries Gabbriette Bechtel in Hollywood Hills  extratv.com
+- sources:
+  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNWmgzbV9ILUZYUnhuOGZYdnV5YWJseG1ocHFaZXB2bEVWN3A3SllKckM5Vnl3SThULTR1a3FHTDUzQlJKclJhZ0t6eVREVlJoWXhVU1VNbFJZaUFDUGtxeE1LMG9IVVBSSnhlR2I4dUdFSkF2WXZuUDQ3VWVuZlNscWowSnZHaldSQklXdnNxbXQzeEpSR2JCeWpB?oc=5
+
+## Taylor Swift Has One Rule for Marriage to Travis Kelce — Source - Yahoo
+
+- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Has One Rule for Marriage to Travis Kelce — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPUGEwVVN6dDk1eWFVTUg2clpIVU5hLTl1ck1WZl95WEU5c2pCVjRmUlBRVGkzam80QlBET1BOOVB6SHdkSEotLWJON3R5SHlrYUEwdDRYTUZwdHBlX2JOZlBOaWFBU2dJSHJ2WWV6dkNsT0lSWGdPbkNjRnd1V1hvR3ZLZWp0NzZqR3YzaC0xeUVhbGdqUklmTElqd2dPaGNVUGc?oc=5
+
+## What Taylor Swift + Travis Kelce’s Wedding Was Really Like, According to Brad Paisley - AOL.com
+
+- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: What Taylor Swift + Travis Kelce’s Wedding Was Really Like, According to Brad Paisley  AOL.com
+- sources:
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxQVUE2UFVsNGJ6ZTFDRXc4UTlmQVBEYkhEeHdyVUhjTWhWWnFJNldXV2ZBbjZpUUpLN3M0Nll5R2NEbTRRNE9QM0FIeXM0U1V2LXg1SHFWbU1EUjdTRmVhUU5TWUM3M0oyWUtleEotUUREMkYwaHJKQm9hdEdOWEViZVZoOA?oc=5
+
+## Taylor Swift and Travis Kelce Are ‘Meant to Be,’ According to NFL Star’s Wife - Complex
+
+- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce Are ‘Meant to Be,’ According to NFL Star’s Wife  Complex
+- sources:
+  - [unverified] Complex — https://news.google.com/rss/articles/CBMiowFBVV95cUxPeGpQR25PdjhoTENOaURmYWJROUtaeTVVX2MteURxNXA4SVVBM19QSFRBcUNCMjJveDRLWHg2MlFvdlZDTWF6M09BV3FnN01ySlFsU3A1dlNXczFqOWx2eGdOV29VZDhyUnR4WjhzU1VLYklTdVVLdmNYemFMN3M4ZTU2MW9CWmpPMnNadkVlMlZJWW5HcTJCaTNWWlFjdkxxNkpN?oc=5
+
+## What We Know About Taylor Swift’s Wedding Photos and When She’s Posting Them - Yahoo
+
+- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: What We Know About Taylor Swift’s Wedding Photos and When She’s Posting Them  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOc1d3MWc2SXRoeVFrS3FaUGN5dUwtcS1ZWGxPbDRfWllMakRuSXIwQy15WXBGaTdjSHppWDdOQmVFMGdtaUxacmhGMTdxVEZtRHNyZFhkVmM5U243Y1FHV2VrNUNNZjVvYlc4akdMaHkwdm9OVjQtM0k4cU14SVE0MkZRbU9WS0h1bEZjcWhaYUJXdFlyZ1FVby1McDF4YXVVRHRTeg?oc=5
+
+## Taylor Swift Sneakily Tweaked 3 Songs on Spotify—and Sparked New Album Rumors - ELLE
+
+- first seen: 2026-07-20 15:19 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Sneakily Tweaked 3 Songs on Spotify—and Sparked New Album Rumors  ELLE
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMisAFBVV95cUxQRG4tVzV6dF9NUzVBQVJHRlZoM2dDN2hoSUd0d19VMHJsa3FvTkUyQnF2UkNYQjFhdGxITGhwV3psalU3VGIxLUFPcktxeHVHMVhxY0pYdXVYbEY3TTJxZnJGT3V4bVc5SUlMdUlMNVpIal9DQTVpeUoxN09tZVpNcXp4QjNxcVV6ZXJjUmRoU0xOckVwQzVzNnQ3N0RaZzNUVi1mUmVUV0lHMFNxVGlmdQ?oc=5
+
+## Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony - Yahoo
+
+- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdGNqLVBvNVItbmNXMW5heWVhbU4zQUxYelNxc1Z5Vi1fWUVybWVIajVnMTBYZU5FTl9uaDVDaGdMSHdSMzdXS0swT2FLMDBGcEtmNHZ5RDJ3eUZYZzFHUHNNM3ZhVWpwSWJfM2lwNHNId3dvTnFQSm9QVG9aN1dnUnJvQzJxbXhaUWlHWWZ6ZF9aV19scGFIcUFyd3NjZkZDZDEtVXpzdw?oc=5
+
+## Brad Paisley vehemently defends Taylor Swift and Travis Kelce’s MSG wedding - Page Six
+
+- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley vehemently defends Taylor Swift and Travis Kelce’s MSG wedding  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMivAFBVV95cUxPMC1WUTVreGFEc3oyRGktWWVTWklDdE9hU0ZmbDhyZHc4S1FKYXJyckh3dU00cF9QUjFjZTZ2dk9laGk4R04yTEp1UmtHVGdRLVI2Y19OYk5rZGd2aUFmeWhRUHB2dXEwNFpVUWlHQzFsSmRPT2FvdE96dTNqcTVDOEE1ZFNyU1JlelQyUlk3TFRuUE5EbW5Mb1J0QS1NaXE4TjlrQm9zV2doTVpRSlhEVFRaZmgyellwZVZWZQ?oc=5
+
+## In honor of Taylor Swift, kids at Children’s Mercy designed wedding dresses - Kansas City Star
+
+- first seen: 2026-07-20 15:19 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: In honor of Taylor Swift, kids at Children’s Mercy designed wedding dresses  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxQcU1Qd2NWLUlkbWNFeGc0WG05VmxvbFNGYWE2ZFZ6THVlbXlpdmU3U0pndlFKNFV2SlFVdllvRl9jeFZkUjgtT3FSNDVxd2g4YllvcGVqM01RQXFTVWUyMFpSLUZ3RU1BQWpsWjgtMi1KVk1SR1NrTTlrWGNxTUktSUExVUZ3SVFfYmFmOXRzeWFvUdIBkgFBVV95cUxPYzA4bWdheWFYNW54bk5WSURDRlVTQlFQaXdwNktLTVNSOGRMcHRVVVF2UTQ3b0dkcWtzUFZCOTUwWkZyTE15N0E3QzY0UUVKemJ2TGVpR1ZQdVY1dEJQRDV1TWF3OV9PUUo2cThJd1EyZ3FOMEpjTTRpMjBaaXRHYTNMb1pNVXBxME52dVRtY2FPQQ?oc=5
 
 ## Blake Lively pictured for first time since being culled from Taylor Swift's wedding guest list - Yah
 
