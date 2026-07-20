@@ -201,7 +201,22 @@ export const RUMOR_STATUSES = new Set([
   'partially_confirmed',
   'confirmed',
   'debunked',
+  // The honest end-state for a claim that was reported, never confirmed,
+  // never denied, and went quiet (2026-07-20, docs/content-ops/rumor-pipeline.md).
+  'faded',
 ]);
+
+/** Mirrors RumorSourceTier in apps/web/lib/longlive/types.ts. */
+export const RUMOR_SOURCE_TIERS = new Set(['official', 'established', 'tabloid', 'social']);
+
+/**
+ * Mirrors LocationSpecificity. No 'address' member on purpose — L3 is never
+ * publishable at any provenance (privacy-redlines.md Never-OK #1).
+ */
+export const LOCATION_SPECIFICITY = new Set(['region', 'city', 'venue']);
+
+/** Statuses whose claim is settled, and therefore need a citation to back it. */
+export const RESOLVED_RUMOR_STATUSES = new Set(['confirmed', 'debunked']);
 
 const RUMOR_DATE_RE = /^\d{4}-\d{2}-\d{2}$/;
 
@@ -227,7 +242,36 @@ export function rumorsFrom(rumors) {
     if (!claim || !reportedBy || !url) continue;
     if (!reportedOn || !RUMOR_DATE_RE.test(reportedOn)) continue;
     if (!RUMOR_STATUSES.has(r.status)) continue;
-    out.push({ claim, reportedBy, reportedOn, status: r.status, url, note: trim(r.note) });
+
+    // A settled claim without a citation is just an opinion, so drop the
+    // resolution rather than render "Since confirmed" backed by nothing. The
+    // validator makes this a hard error so it cannot pass CI silently.
+    let resolution;
+    const res = r.resolution;
+    if (res && typeof res === 'object') {
+      const on = trim(res.on);
+      const url2 = trim(res.url);
+      const outlet = trim(res.outlet);
+      if (on && RUMOR_DATE_RE.test(on) && url2 && outlet) {
+        resolution = { on, url: url2, outlet, note: trim(res.note) };
+      }
+    }
+
+    const lastCheckedOn = trim(r.lastCheckedOn);
+    out.push({
+      claim,
+      reportedBy,
+      reportedOn,
+      status: r.status,
+      url,
+      note: trim(r.note),
+      lastCheckedOn: lastCheckedOn && RUMOR_DATE_RE.test(lastCheckedOn) ? lastCheckedOn : undefined,
+      resolution,
+      sourceTier: RUMOR_SOURCE_TIERS.has(r.sourceTier) ? r.sourceTier : undefined,
+      locationSpecificity: LOCATION_SPECIFICITY.has(r.locationSpecificity)
+        ? r.locationSpecificity
+        : undefined,
+    });
   }
   return out.length ? out : undefined;
 }

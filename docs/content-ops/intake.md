@@ -35,11 +35,31 @@ drop → triage → route → author → check → ship
 1. **Drop.** Anyone or anything (today: Joey by hand; once live: the V2
    engine's qualifying `news_story` rows too) files an `intake` issue via
    the form. Rough is fine; a link-less drop is fine to file.
-2. **Triage** (content session, same day): is it real and already-happened?
-   Find real sources — the sourcing bar is unchanged (≥1 source per item;
-   `relationship`/`business` need two independent outlets; Deuxmoi only as
-   labeled low-confidence). No sources found → comment what was searched,
-   leave open with `needs-sources`; never author unsourced.
+2. **Triage** (content session, same day). **Amended 2026-07-20 (Wyatt) — the
+   bar is no longer "is it true enough to publish".** Most Taylor news arrives
+   as noise and only settles into fact weeks later, so the old bar meant the
+   Vault could not cover the present tense at all. The new bar:
+
+   > **Is this a claim we can later adjudicate, from someone we can name?**
+
+   - **Confirmed and already-happened** → author it as fact. Sourcing bar
+     unchanged: ≥1 source; `relationship`/`business` need two independent
+     outlets.
+   - **Reported but unsettled** → **admit it as a rumor** rather than reject
+     it. It goes in a `rumors` entry with its outlet, date, `sourceTier` and
+     `status: 'unconfirmed'`, inside the rumor container — never woven into
+     confirmed narrative. The lifecycle resolves it later.
+   - **Not adjudicable** → still refused. "X joked that he wasn't invited" has
+     no truth value, so nothing can ever retire it and it would sit in the
+     Vault forever. Reaction quotes and "fans are saying" pieces stay out.
+   - **Redline material** → refused regardless of how well sourced, per
+     `privacy-redlines.md`. Note the location rule was re-cut on 2026-07-20:
+     specificity is capped by provenance (speculation → region level), not by
+     tense.
+
+   No sources found → comment what was searched, leave open with
+   `needs-sources`; never author unsourced. Full design:
+   `docs/content-ops/rumor-pipeline.md`.
 3. **Route.** Split the event into one item per category (per
    `depth-rubric.md`), and stamp each with its author from the copy-desk
    routing table (`docs/specs/2026-07-11-persona-authors-copy-desk.md` §3;

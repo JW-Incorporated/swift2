@@ -32,10 +32,40 @@ diagnose, or expose her or the people around her.
 Even if a real outlet reported it, even clearly labeled as a rumor, we do not
 publish:
 
-1. **Location-that-enables-finding-her:** street addresses; neighborhood-level
-   home locations; *future or planned* whereabouts ("expected at…",
-   "reportedly staying at…"); travel patterns; flight tracking / tail numbers;
-   real-time location.
+1. **Location — see the specificity matrix below.** Rewritten 2026-07-20
+   (Wyatt). The old rule banned anything forward-looking outright, which was
+   the wrong axis: an announced tour date is future *and* venue-specific *and*
+   entirely fine, while "she was at <address> last night" is past tense and far
+   more dangerous. What matters is **how precisely you could find her, weighted
+   by how official the information is** — not what tense it is in.
+
+   **The ladder:** `L0` country/state/region/county/metro · `L1` a named city ·
+   `L2` a named venue, hotel, restaurant, business · `L3` street address, unit,
+   coordinates.
+
+   | Provenance | Max |
+   |---|---|
+   | Officially announced (Taylor, her team, the venue, the promoter) | **L2** |
+   | Documented past event, reported by a real outlet | **L2** |
+   | Speculation / rumor / forward-looking and unannounced | **L0** |
+   | Her home or residence, even when confirmed | **L1** |
+
+   **`L3` is never publishable at any provenance in any tense.**
+
+   ✅ "reportedly heading to the Caribbean" · "plays Wembley on 14 August" ·
+   "photographed leaving Zuma on Tuesday" · "has kept a place in Nashville"
+   ❌ "expected at the Bowery Hotel this weekend" (L2 speculation) ·
+   "her Cornelia Street place" (L2 residence) · any street address.
+
+   **Travel:** the *fact* of travel at L0 is fine ("reportedly heading to the
+   Caribbean"). Never, at any provenance: flight or tail numbers, airports,
+   terminals, gates, specific departure/arrival dates or times, tracking
+   services, "usual route", private-aviation logs. The line is between *she is
+   somewhere in the world* and *here is how to be standing where she lands*.
+
+   **Real-time location** ("is right now at…") remains banned outright.
+
+   Full reasoning and worked examples: `docs/content-ops/rumor-pipeline.md`.
 2. **Security arrangements:** anything about her security detail, routes,
    protocols, or vulnerabilities.
 3. **Body and health speculation:** pregnancy rumors, medical/diagnosis
@@ -61,6 +91,15 @@ publish:
    rumor sections) — never woven into confirmed narrative.
 4. When a rumor resolves, the Rumor Desk promotes (with the confirming
    citation) or retires (with the debunking one) — a stale rumor is a bug.
+5. **A claim with no truth value is not a rumor** (2026-07-20). "X joked that
+   he wasn't invited" can never resolve true or false, so the lifecycle can
+   never retire it and it would sit in the Vault forever. Reaction quotes and
+   "fans are saying" pieces stay out; adjudicable claims come in. See
+   `rumor-pipeline.md`.
+6. **Unresolved is a state, not a resting place** (2026-07-20). A claim that
+   was reported, never confirmed, never denied, and has gone quiet gets
+   `faded` — "reported in July, never confirmed or denied". Leaving it
+   `unconfirmed` forever implies it is still live, which is a lie of omission.
 
 ## Enforcement layers (defense in depth)
 

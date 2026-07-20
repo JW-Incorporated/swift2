@@ -19,14 +19,36 @@ const moment = (texts: Record<string, string>, over: Record<string, unknown> = {
 });
 
 describe('redlines — future-whereabouts hard patterns (auto-filed P0)', () => {
-  it('flags forward-looking location — the dangerous rumor payload', async () => {
-    const f = await check([moment({ context: 'She is reportedly staying at a hotel near the Garden this week.' })]);
-    expect(f.some((x: { title: string }) => /Private\/location data/.test(x.title))).toBe(true);
+  // 2026-07-20: forward-looking location is deliberately NO LONGER a
+  // deterministic finding. The rule now keys on specificity weighted by
+  // provenance, not tense (docs/content-ops/rumor-pipeline.md) — an announced
+  // tour date is future, venue-level and legitimate, so a tense regex here
+  // would hard-fail CI on real tour announcements. The judgment call routes to
+  // candidates() instead; see the location-privacy tests below.
+  it('does NOT hard-fail region-level forward-looking location (now legal at L0)', async () => {
+    const f = await check([
+      moment({ context: 'She is reportedly heading to the Caribbean once the tour wraps.' }),
+    ]);
+    expect(f).toEqual([]);
   });
 
-  it('flags planned-attendance phrasing', async () => {
-    const f = await check([moment({ context: 'Swift is expected to attend at the ceremony on Saturday.' })]);
-    expect(f.some((x: { excerpt: string }) => /expected to attend at/i.test(x.excerpt))).toBe(true);
+  it('does NOT hard-fail an officially announced future venue (L2, announced)', async () => {
+    const f = await check([
+      moment({ context: 'She plays Wembley Stadium on 14 August, the promoter confirmed.' }),
+    ]);
+    expect(f).toEqual([]);
+  });
+
+  // Interception-grade travel detail stays banned at every provenance — the
+  // line is between "somewhere in the world" and "how to be where she lands".
+  it('flags a flight number at any provenance', async () => {
+    const f = await check([moment({ context: 'She boarded flight no. AA271 out of the city.' })]);
+    expect(f.some((x: { excerpt: string }) => /flight no\. AA271/i.test(x.excerpt))).toBe(true);
+  });
+
+  it('flags private-aviation logs', async () => {
+    const f = await check([moment({ context: 'Fans compiled her jet logs for the month.' })]);
+    expect(f.some((x: { excerpt: string }) => /jet logs/i.test(x.excerpt))).toBe(true);
   });
 
   it('flags travel-pattern references', async () => {
@@ -46,6 +68,17 @@ describe('redlines — privacy-speculation candidates (agent-classified, never a
   it('routes pregnancy/medical speculation to the privacy-speculation review', () => {
     const c = candidates([moment({ context: 'Tabloids ran a pregnancy rumor after the game.' })]);
     expect(c.some((x: { kind: string }) => x.kind === 'privacy-speculation')).toBe(true);
+  });
+
+  // The case a regex genuinely cannot decide: identical phrasing, opposite
+  // verdicts, because the answer is in the place name that follows.
+  it('routes speculative forward-looking location to the location-privacy review', () => {
+    const bahamas = candidates([moment({ context: 'She is expected at the Bahamas resort area next month.' })]);
+    const hotel = candidates([moment({ context: 'She is expected at the Bowery Hotel this weekend.' })]);
+    // Both surface for the agent; neither is auto-accused. The agent applies
+    // the matrix — L0 passes, L2 speculation does not.
+    expect(bahamas.some((x: { kind: string }) => x.kind === 'location-privacy')).toBe(true);
+    expect(hotel.some((x: { kind: string }) => x.kind === 'location-privacy')).toBe(true);
   });
 
   it('routes home/security references to the location-privacy review', () => {
