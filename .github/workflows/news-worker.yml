@@ -35,6 +35,12 @@ concurrency:
   group: news-worker
   cancel-in-progress: false
 
+# Needed to publish the candidate digest to the news-digest branch. The repo
+# default is already write, but stating it here keeps this workflow working if
+# the org default is ever tightened — and scopes it to contents only.
+permissions:
+  contents: write
+
 jobs:
   cycle:
     runs-on: ubuntu-latest
@@ -53,3 +59,64 @@ jobs:
           SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: npm run news --workspace @swift2/worker
+
+      # Publish a credential-free digest of what was ingested, for the News
+      # Triage routine. `news_story` needs SUPABASE_SERVICE_ROLE_KEY, which
+      # only exists here in Actions — the triage agent runs elsewhere and
+      # could never read the table, so it filed nothing on every run while the
+      # Vault sat stale. Handing that key to a cloud agent is not the fix (it
+      # bypasses every RLS policy in the project), so we publish public facts
+      # — headlines, outlets, article URLs — and triage reads a plain file.
+      # The script never exits non-zero: the ingest above already succeeded
+      # and a digest problem must not redden the job.
+      - name: Emit news candidate digest
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: node scripts/news/emit-candidate-digest.mjs
+
+      # Published to the `news-digest` branch, NOT main. The `protect-main`
+      # ruleset (id 18819106) is active over refs/heads/main with pull_request
+      # + required_status_checks and ZERO bypass actors, so the Actions bot
+      # cannot push there — an earlier draft of this step would have had its
+      # push rejected on every run and, because the failure was swallowed,
+      # left a green job and no digest indefinitely. The ruleset covers only
+      # main, so a dedicated branch is writable. Keeping it off main also
+      # spares main's history a regenerated file every 4h.
+      #
+      # This step DOES fail the job if publishing fails. A digest nobody can
+      # read is the whole bug we are fixing; it must not fail quietly.
+      - name: Publish digest to news-digest branch
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          FILE=docs/content-ops/news-candidates.md
+          if [ ! -f "$FILE" ]; then
+            echo "no digest produced (missing credentials or empty window) — nothing to publish"
+            exit 0
+          fi
+
+          # Create the branch from the current commit if it does not exist yet.
+          if ! gh api "repos/$REPO/git/ref/heads/news-digest" >/dev/null 2>&1; then
+            gh api -X POST "repos/$REPO/git/refs" \
+              -f ref=refs/heads/news-digest \
+              -f sha="${{ github.sha }}"
+            echo "created news-digest branch"
+          fi
+
+          SHA=$(gh api "repos/$REPO/contents/$FILE?ref=news-digest" --jq .sha 2>/dev/null || true)
+          if [ -n "$SHA" ]; then
+            gh api -X PUT "repos/$REPO/contents/$FILE" \
+              -f message="chore(news): refresh candidate digest" \
+              -f branch=news-digest \
+              -f sha="$SHA" \
+              -f content="$(base64 -w0 "$FILE")" >/dev/null
+          else
+            gh api -X PUT "repos/$REPO/contents/$FILE" \
+              -f message="chore(news): seed candidate digest" \
+              -f branch=news-digest \
+              -f content="$(base64 -w0 "$FILE")" >/dev/null
+          fi
+          echo "published digest to news-digest ($(grep -c '^## ' "$FILE") stories)"
