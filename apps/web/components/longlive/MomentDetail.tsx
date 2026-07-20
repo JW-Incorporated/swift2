@@ -95,6 +95,10 @@ const RUMOR_STATUS_BADGE: Record<RumorStatus, string> = {
   partially_confirmed: 'Partially confirmed',
   confirmed: 'Since confirmed',
   debunked: 'Debunked',
+  // A claim that was reported, never confirmed, never denied, and went quiet.
+  // Saying that plainly is the honest end-state; leaving it "unconfirmed"
+  // forever implies it is still live (docs/content-ops/rumor-pipeline.md).
+  faded: 'Never confirmed or denied',
 };
 
 // Anything that isn't the real photo of THIS moment gets an explicit label —
@@ -217,6 +221,34 @@ function RumorSection({ rumors }: { rumors: RumorNote[] }) {
             {r.note && (
               <p className="mt-1.5 text-sm italic leading-relaxed text-[color:var(--era-ink-soft)]">
                 {r.note}
+              </p>
+            )}
+            {/* The citation that settled it. A claim marked "Since confirmed"
+                or "Debunked" with nothing to click is just our word for it —
+                the whole point of the resolution field is that the reader can
+                check. */}
+            {r.resolution && (
+              <p className="mt-1.5 text-xs text-[color:var(--era-ink-soft)]">
+                {r.status === 'debunked' ? 'Debunked by' : 'Confirmed by'}{' '}
+                <a
+                  href={r.resolution.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
+                >
+                  {r.resolution.outlet}
+                </a>
+                {' · '}
+                {formatFullDate(r.resolution.on)}
+                {r.resolution.note ? ` — ${r.resolution.note}` : ''}
+              </p>
+            )}
+            {/* Audit transparency: "still unconfirmed" and "nobody has looked
+                since June" render identically without this, and they are very
+                different claims about how much to trust the label. */}
+            {!r.resolution && r.lastCheckedOn && (
+              <p className="mt-1.5 text-xs text-[color:var(--era-ink-soft)]">
+                Last checked {formatFullDate(r.lastCheckedOn)}
               </p>
             )}
           </li>
@@ -716,7 +748,10 @@ export function MomentDetail() {
  * URL; affiliate attribution lives in the wrapped URL, not the Referer). A
  * product verified sold-out
  * (inStock: false) stays listed for the fashion record but renders dimmed
- * with an explicit "Sold out" label, never silently as purchasable.
+ * with an explicit "Sold out" label, never silently as purchasable. A
+ * product that isn't the exact piece she wore (isAlternative: true — the
+ * real one is custom/couture/discontinued) gets an explicit "Similar style"
+ * label plus its altNote, never presented as the literal garment.
  */
 function ShopTheLook({ products }: { products: Product[] | undefined }) {
   if (!products || products.length === 0) return null;
@@ -743,7 +778,7 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
                 target="_blank"
                 rel="nofollow sponsored noopener noreferrer"
                 className="group flex items-center justify-between gap-3 py-3"
-                aria-label={`Shop ${p.brand} ${p.item}${soldOut ? ' (sold out)' : ''} at ${p.retailer}`}
+                aria-label={`Shop ${p.brand} ${p.item}${soldOut ? ' (sold out)' : ''}${p.isAlternative ? ' (similar style, not the exact piece)' : ''} at ${p.retailer}`}
               >
                 <span className="min-w-0">
                   <span className="block text-xs uppercase tracking-[0.12em] text-[color:var(--era-ink-soft)]">
@@ -758,6 +793,24 @@ function ShopTheLook({ products }: { products: Product[] | undefined }) {
                       style={{ borderColor: 'var(--era-line)' }}
                     >
                       Sold out
+                    </span>
+                  )}
+                  {/* Never let a close match pass as the literal piece she
+                      wore (2026-07-20, docs/decisions.md) — same "Sold out"
+                      pill treatment, era-accent color so it doesn't read as
+                      a warning. */}
+                  {p.isAlternative && (
+                    <span
+                      className="mt-1 inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-[10px] font-medium uppercase tracking-wide text-[color:var(--era-accent)]"
+                      style={{ borderColor: 'var(--era-accent)' }}
+                      title={p.altNote}
+                    >
+                      Similar style
+                    </span>
+                  )}
+                  {p.isAlternative && p.altNote && (
+                    <span className="mt-1 block max-w-[26rem] text-xs leading-snug text-[color:var(--era-ink-soft)]">
+                      {p.altNote}
                     </span>
                   )}
                 </span>

@@ -36,7 +36,7 @@ const OUT_FILE = path.join(ROOT, 'apps', 'web', 'lib', 'longlive', 'tracks.gener
 // `.limit()` + cap check so a partial page can never silently ship a
 // truncated track guide (same guard as sync-longlive-content.mjs).
 const TRACK_NOTE_COLS =
-  'era_slug,track_title,track_number,note,source_url,sources,discussion,quoted_lines,discussion_source_url,discussion_sources,summary,inspiration,easter_eggs,slug,release,release_date,writers,producers,is_single,single_release_date,themes,dossier';
+  'era_slug,track_title,track_number,note,source_url,sources,discussion,quoted_lines,discussion_source_url,discussion_sources,summary,inspiration,easter_eggs,slug,release,release_date,writers,producers,is_single,single_release_date,themes,dossier,youtube_id';
 const MAX_ROWS = 2000;
 
 /**
@@ -101,6 +101,20 @@ function stringList(raw) {
 /** A single trimmed non-empty string, or undefined. */
 function str(raw) {
   return typeof raw === 'string' && raw.trim() ? raw.trim() : undefined;
+}
+
+/**
+ * A verified 11-char YouTube video id, or undefined. Same strict shape check
+ * the videos generator uses (scripts/sync-longlive-videos.mjs) so a malformed
+ * or non-id string can never smuggle itself into a song embed. The seed's
+ * `youtubeId` is a bare id the audio-curator flow already oEmbed-verified
+ * against an official Taylor Swift channel; this is the defensive mirror of
+ * that — a bad shape is dropped rather than shipped.
+ */
+export function youtubeIdFrom(raw) {
+  return typeof raw === 'string' && /^[A-Za-z0-9_-]{11}$/.test(raw.trim())
+    ? raw.trim()
+    : undefined;
 }
 
 /**
@@ -230,6 +244,7 @@ export function normalizeTrack({
   singleReleaseDate,
   themes,
   dossier,
+  youtubeId,
 }) {
   const title = typeof trackTitle === 'string' ? trackTitle.trim() : '';
   const trimmedNote = typeof note === 'string' ? note.trim() : '';
@@ -246,6 +261,7 @@ export function normalizeTrack({
   const trimmedSlug = str(slug);
   const facts = factsFrom({ release, releaseDate, writers, producers, isSingle, singleReleaseDate, themes });
   const dossierResult = dossierFrom(dossier);
+  const verifiedYoutubeId = youtubeIdFrom(youtubeId);
   return {
     ...(trimmedSlug ? { slug: trimmedSlug } : {}),
     trackNumber: Number.isInteger(n) && n > 0 ? n : null,
@@ -261,6 +277,7 @@ export function normalizeTrack({
       : {}),
     ...(facts ? { facts } : {}),
     ...(dossierResult ? { dossier: dossierResult } : {}),
+    ...(verifiedYoutubeId ? { youtubeId: verifiedYoutubeId } : {}),
   };
 }
 
@@ -341,6 +358,7 @@ export function renderModule(byEra) {
       // normalized above, and JSON is valid TS object-literal syntax.
       if (t.facts) lines.push(`      facts: ${JSON.stringify(t.facts)},`);
       if (t.dossier) lines.push(`      dossier: ${JSON.stringify(t.dossier)},`);
+      if (t.youtubeId) lines.push(`      youtubeId: ${esc(t.youtubeId)},`);
       lines.push('    },');
     }
     lines.push('  ],');
@@ -407,6 +425,7 @@ async function fetchFromSupabase() {
     singleReleaseDate: row.single_release_date,
     themes: row.themes,
     dossier: row.dossier,
+    youtubeId: row.youtube_id,
   }));
   console.log(`sync-longlive-tracks: loaded ${entries.length} track notes from Supabase (live).`);
   return buildTrackGuide(entries);

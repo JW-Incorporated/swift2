@@ -28,6 +28,7 @@ const TRACKS = [
       slug: 'the-fate-of-ophelia',
       trackNumber: 1,
       trackTitle: 'The Fate of Ophelia',
+      youtubeId: 'ko70cExuzZM', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -52,6 +53,7 @@ const TRACKS = [
       slug: 'elizabeth-taylor',
       trackNumber: 2,
       trackTitle: 'Elizabeth Taylor',
+      youtubeId: 'WqbJT_vC0rs', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -72,6 +74,7 @@ const TRACKS = [
       slug: 'opalite',
       trackNumber: 3,
       trackTitle: 'Opalite',
+      youtubeId: '1FVF-9KQiPo', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -90,6 +93,7 @@ const TRACKS = [
       slug: 'father-figure',
       trackNumber: 4,
       trackTitle: 'Father Figure',
+      youtubeId: '98SmlWOKuME', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: [...WRITERS, 'George Michael'],
@@ -118,6 +122,7 @@ const TRACKS = [
       slug: 'eldest-daughter',
       trackNumber: 5,
       trackTitle: 'Eldest Daughter',
+      youtubeId: 'HwQnW_ZRKhc', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -146,6 +151,7 @@ const TRACKS = [
       slug: 'ruin-the-friendship',
       trackNumber: 6,
       trackTitle: 'Ruin the Friendship',
+      youtubeId: 'WQCPl5rTMDQ', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -166,6 +172,7 @@ const TRACKS = [
       slug: 'actually-romantic',
       trackNumber: 7,
       trackTitle: 'Actually Romantic',
+      youtubeId: 'FnEg1RgmqO4', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -186,6 +193,7 @@ const TRACKS = [
       slug: 'wish-list',
       trackNumber: 8,
       trackTitle: 'Wish List',
+      youtubeId: 'wqgUzLHgNMI', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -203,6 +211,7 @@ const TRACKS = [
       slug: 'wood',
       trackNumber: 9,
       trackTitle: 'Wood',
+      youtubeId: '6m50keINEOI', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -220,6 +229,7 @@ const TRACKS = [
       slug: 'cancelled',
       trackNumber: 10,
       trackTitle: 'Cancelled!',
+      youtubeId: 'F-5XoUZ42Tc', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -237,6 +247,7 @@ const TRACKS = [
       slug: 'honey',
       trackNumber: 11,
       trackTitle: 'Honey',
+      youtubeId: '4-EzK5UB40U', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,
@@ -254,6 +265,7 @@ const TRACKS = [
       slug: 'the-life-of-a-showgirl-title-track',
       trackNumber: 12,
       trackTitle: 'The Life of a Showgirl',
+      youtubeId: 'OU6362Nggg0', // oEmbed-verified official Taylor Swift channel
       release: 'The Life of a Showgirl',
       releaseDate: '2025-10-03',
       writers: WRITERS,

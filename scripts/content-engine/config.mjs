@@ -94,6 +94,18 @@ export const CONFIG = {
       'her house in', 'her home in', 'his house in', 'his home in',
       'townhouse', 'penthouse', 'estate in', 'compound in',
       'security detail', 'security team', 'bodyguard',
+      // Forward-looking location (2026-07-20). These are CANDIDATES, not
+      // findings, because the answer depends on the place name that follows:
+      // "expected in the Bahamas" is L0 and fine, "expected at the Bowery
+      // Hotel" is L2 speculation and is not. A regex cannot tell those apart;
+      // the agent pass reads the matrix in privacy-redlines.md and decides.
+      // Announced tour dates will trip these too and are legitimate — that is
+      // exactly why this route never auto-accuses.
+      'will be at', 'expected at', 'expected to attend', 'expected to arrive',
+      'plans to stay', 'reportedly staying', 'is staying at', 'set to appear at',
+      'spotted heading to', 'due in',
+      // Travel specifics that are fine at region level and not below.
+      'terminal', 'boarding', 'lands at', 'touches down at',
     ],
   },
 

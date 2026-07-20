@@ -1623,7 +1623,15 @@ export default {
             reportedOn: '2026-06-29',
             status: 'debunked',
             url: 'https://www.foxnews.com/entertainment/taylor-swifts-wedding-rumors-spark-speculation-close-friends-infamous-fallouts-bridal-party',
-            note: 'There was no bridal party at all: per CBS News, no bridesmaids or groomsmen — Austin Swift stood as Man of Honor and Jason Kelce as best man.',
+            note: 'There was no bridal party at all: no bridesmaids or groomsmen — Austin Swift stood as Man of Honor and Jason Kelce as best man.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-07-20',
+            resolution: {
+              on: '2026-07-03',
+              url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/taylor-swift-travis-kelce-bridesmaids-groomsmen-1236637288/',
+              outlet: 'The Hollywood Reporter',
+              note: 'Reported the day of the wedding: no traditional wedding party, only the two siblings.',
+            },
           },
           {
             claim:
@@ -1639,9 +1647,19 @@ export default {
               'The Daily Mail reported that save-the-date invitations came bundled with non-disclosure agreements guests had to sign.',
             reportedBy: 'Daily Mail (via Hello!)',
             reportedOn: '2026-07-02',
-            status: 'debunked',
+            // Downgraded from 'debunked' to 'unconfirmed' on 2026-07-20 when
+            // the new citation rule forced a look at what actually debunked
+            // it. Nothing did. Graham Norton clarified that HE had not signed
+            // an NDA and had been joking — which undercuts where the story
+            // came from, but says nothing about whether save-the-dates carried
+            // one. Two different claims. Marking it debunked on that basis was
+            // a reasoning error, and asserting a debunking we cannot support
+            // is the same failure as asserting a fact we cannot support.
+            status: 'unconfirmed',
             url: 'https://www.hellomagazine.com/us/910182/inside-taylor-swift-travis-kelce-wild-wedding-rumors/',
-            note: 'Graham Norton — whose on-air NDA remark fueled the story — later clarified he had been joking.',
+            note: 'Graham Norton, whose on-air NDA remark fuelled the story, later clarified he had signed nothing and had been joking. That undercuts the story’s origin but does not itself disprove the claim about the invitations, which no outlet has confirmed or denied.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-07-20',
           },
           {
             claim:
@@ -1660,6 +1678,17 @@ export default {
             status: 'debunked',
             url: 'https://www.snopes.com/news/2026/07/09/swift-kelce-wedding-photos/',
             note: 'Snopes found the circulating images were AI-generated fakes; no official photos of the ceremony or reception have been released.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-20',
+            // Unusual shape, and correct: the report IS the debunking. Snopes
+            // published the fact-check itself, so the claim arrived already
+            // resolved and the citation is the same URL.
+            resolution: {
+              on: '2026-07-09',
+              url: 'https://www.snopes.com/news/2026/07/09/swift-kelce-wedding-photos/',
+              outlet: 'Snopes',
+              note: 'The fact-check that debunked the images on publication.',
+            },
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in

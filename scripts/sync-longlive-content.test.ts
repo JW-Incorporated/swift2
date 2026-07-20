@@ -192,6 +192,24 @@ describe('productsFrom', () => {
     expect(productsFrom(undefined)).toBeUndefined();
     expect(productsFrom([])).toBeUndefined();
   });
+
+  it('carries isAlternative: true and its altNote through', () => {
+    expect(
+      productsFrom([{ ...dress, isAlternative: true, altNote: 'Similar silhouette, not the exact piece.' }]),
+    ).toEqual([
+      { ...dress, isAlternative: true, altNote: 'Similar silhouette, not the exact piece.' },
+    ]);
+  });
+
+  it('drops altNote when isAlternative is not true (never a stray note on an exact item)', () => {
+    const row = productsFrom([{ ...dress, altNote: 'stray note' }])?.[0];
+    expect(row?.isAlternative).toBeUndefined();
+    expect(row?.altNote).toBeUndefined();
+  });
+
+  it('drops isAlternative when altNote is missing (fails closed, same as the validator hard-erroring on it)', () => {
+    expect(productsFrom([{ ...dress, isAlternative: true }])?.[0].isAlternative).toBeUndefined();
+  });
 });
 
 describe('confidenceFrom', () => {

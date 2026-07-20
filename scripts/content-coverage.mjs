@@ -141,12 +141,19 @@ const PRIVATE_DATA_PATTERNS = [
   { label: 'flight tracking', re: /\b(?:flight|jet) track(?:er|ing)\b/gi },
   { label: 'aircraft tail number', re: /\btail number\b/gi },
   { label: 'real-time location', re: /\b(?:is|was) (?:currently|right now) at\b/gi },
-  // Future/planned whereabouts + travel patterns — hard redlines from
-  // docs/content-ops/privacy-redlines.md (Never-OK #1), added 2026-07-19 with
-  // the rumor system: a rumor's most dangerous payload is forward-looking
-  // location. Zero hits on the legitimate corpus at introduction.
-  { label: 'future/planned whereabouts', re: /\b(?:will be|expected to (?:be|attend|arrive)|plans? to (?:be|stay)|reportedly staying|is staying) at\b/gi },
   { label: 'travel-pattern reference', re: /\b(?:travel pattern|usual route|regular route)s?\b/gi },
+  // Interception-grade travel detail — banned at every provenance and tense.
+  // The *fact* of travel at region level ("reportedly heading to the
+  // Caribbean") is allowed and deliberately not matched.
+  { label: 'flight number', re: /\bflight\s*(?:no\.?|number|#)\s*[A-Z]{0,3}\s*\d{1,4}\b/gi },
+  { label: 'private-aviation log', re: /\b(?:jet|aircraft|plane)\s+(?:log|movement)s?\b/gi },
+  // The tense-based 'future/planned whereabouts' pattern was REMOVED here on
+  // 2026-07-20 (Wyatt) — see docs/content-ops/rumor-pipeline.md. It keyed on
+  // the wrong axis: an announced tour date is future and venue-specific and
+  // fine, while a past-tense street address is not. Specificity-vs-provenance
+  // is the real rule, and it needs to read the place name, so it lives in the
+  // agent pass (safety.redline candidates → `location-privacy`) rather than
+  // in a CI regex that would block legitimate tour announcements.
 ];
 
 function privateDataHits(text) {

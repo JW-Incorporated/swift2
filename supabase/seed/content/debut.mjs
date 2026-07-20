@@ -145,6 +145,21 @@ export default {
             credit: 'Michael Loccisano/Getty Images',
           },
         ],
+        // Shop pass (2026-07-20): the 2007 BCBG Max Azria gown itself is
+        // long discontinued (verified no product page exists) — offering
+        // BCBG's current strapless tulle gown, curl-verified live.
+        products: [
+          {
+            brand: 'BCBGMAXAZRIA',
+            item: 'Oly Tiered Ruffle Tulle Evening Gown',
+            retailer: 'bcbg.com',
+            url: 'https://bcbg.com/products/oly-tiered-ruffle-tulle-evening-gown-in-black',
+            price: '$398.00',
+            isAlternative: true,
+            altNote:
+              "Her 2007 gown is discontinued — this is BCBG's current strapless tulle evening gown, in black rather than the original neutral tone.",
+          },
+        ],
       },
     },
     {
@@ -464,6 +479,21 @@ export default {
             focalPoint: '53% 11%',
           },
         ],
+        // Shop pass (2026-07-20): Sandi Spika designs custom pieces only —
+        // no retail line exists (her own site doesn't resolve) — offering a
+        // similar strapless corseted gown, curl-verified live.
+        products: [
+          {
+            brand: 'House of CB',
+            item: 'Persephone Strapless Corset Satin & Stretch Crepe Mermaid Gown',
+            retailer: 'nordstrom.com',
+            url: 'https://www.nordstrom.com/s/persephone-strapless-corset-satin-stretch-crepe-mermaid-gown/8011345',
+            price: '$329.00',
+            isAlternative: true,
+            altNote:
+              'Sandi Spika designs custom pieces only, with no retail line — this is a similar strapless corseted gown, in rose rather than the original purple.',
+          },
+        ],
       },
     },
     {
@@ -492,6 +522,22 @@ export default {
             credit: 'Getty Images',
           },
         ],
+        // Shop pass (2026-07-20): the exact 2008 gown is retired — offering
+        // Badgley Mischka's current gold sequin gown (same brand), curl-
+        // verified live; it's a final-sale item and currently sold out.
+        products: [
+          {
+            brand: 'Badgley Mischka',
+            item: 'Golden Gown',
+            retailer: 'badgleymischka.com',
+            url: 'https://badgleymischka.com/products/golden-gown',
+            price: '$299.99',
+            inStock: false,
+            isAlternative: true,
+            altNote:
+              'The exact 2008 gown is retired — this is Badgley Mischka\'s current gold sequin gown, same brand and spirit, currently sold out (final sale).',
+          },
+        ],
       },
     },
 
@@ -518,6 +564,22 @@ export default {
             url: 'https://imgix.bustle.com/uploads/getty/2021/3/12/ade21f91-a42e-495b-94bb-7aa27d3475f7-getty-106036150.jpg?w=653&h=1032&fit=crop&crop=faces',
             credit: 'Stephen Lovekin/WireImage/Getty Images',
             focalPoint: '47% 13%',
+          },
+        ],
+        // Shop pass (2026-07-20): the "Elvira" designer credit traces to a
+        // 2006 red-carpet gown with no traceable current retail line —
+        // offering a comparable black satin corset mermaid gown, curl-
+        // verified live.
+        products: [
+          {
+            brand: 'Moda Glam Boutique',
+            item: 'Delphine Strapless Mermaid Gown',
+            retailer: 'modaglamboutique.com',
+            url: 'https://modaglamboutique.com/products/delphine-strapless-corset-gown-black',
+            price: '$295.00',
+            isAlternative: true,
+            altNote:
+              "Elvira doesn't sell current ready-to-wear — this is a comparable black satin corset mermaid gown in a similar silhouette.",
           },
         ],
       },

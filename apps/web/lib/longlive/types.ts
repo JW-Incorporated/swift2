@@ -70,7 +70,48 @@ export function isSubConfirmed(c: Confidence): c is SubConfirmed {
  * 'unconfirmed' and can resolve either way as facts land — the entry stays
  * in the record with an honest resolution badge instead of being deleted.
  */
-export type RumorStatus = 'unconfirmed' | 'partially_confirmed' | 'confirmed' | 'debunked';
+/**
+ * Where a reported claim stands.
+ *
+ * `faded` (added 2026-07-20) is the honest terminal state for a claim that was
+ * reported, never confirmed, never denied, and has gone quiet. Without it every
+ * unresolved rumor sits at `unconfirmed` forever, which reads as "still live" —
+ * a lie of omission, and the way a rumor section rots into a conspiracy board.
+ * See docs/content-ops/rumor-pipeline.md.
+ */
+export type RumorStatus =
+  | 'unconfirmed'
+  | 'partially_confirmed'
+  | 'confirmed'
+  | 'debunked'
+  | 'faded';
+
+/**
+ * How much weight the reporting outlet carries. A Deuxmoi blind item and a
+ * Reuters report are both "reported", and presenting them identically would
+ * flatten the only distinction that matters to a reader deciding what to
+ * believe.
+ */
+export type RumorSourceTier = 'official' | 'established' | 'tabloid' | 'social';
+
+/**
+ * How precisely a claim pins down a location, declared so the
+ * provenance/specificity matrix in privacy-redlines.md is machine-checkable
+ * rather than a vibe. Omit when the claim carries no location at all.
+ * There is deliberately no `address` member — L3 is never publishable.
+ */
+export type LocationSpecificity = 'region' | 'city' | 'venue';
+
+/** Provenance for a resolved claim — a promotion without a citation is an opinion. */
+export interface RumorResolution {
+  /** ISO date (YYYY-MM-DD) the claim resolved. */
+  on: string;
+  /** The report that settled it. Required for confirmed/debunked. */
+  url: string;
+  outlet: string;
+  /** What settled it, in our words. */
+  note?: string;
+}
 
 /**
  * One attributed, dated, reported-but-unconfirmed claim attached to a moment
@@ -95,6 +136,23 @@ export interface RumorNote {
   url: string;
   /** Optional editorial context in our words (an estimate caveat, what debunked it). */
   note?: string;
+  /**
+   * ISO date a lifecycle pass last re-evaluated this claim. Without it we
+   * cannot distinguish "checked yesterday, still unconfirmed" from "filed
+   * three weeks ago and never looked at again" — and that distinction is the
+   * whole basis for trusting a rumor section.
+   */
+  lastCheckedOn?: string;
+  /** Required for `confirmed` / `debunked`; enforced by validate-content. */
+  resolution?: RumorResolution;
+  /** Weights how loudly we present the claim. */
+  sourceTier?: RumorSourceTier;
+  /**
+   * Declared when the claim carries a location, so the matrix in
+   * privacy-redlines.md can be enforced rather than assumed. Speculative
+   * forward-looking claims are capped at 'region'.
+   */
+  locationSpecificity?: LocationSpecificity;
 }
 
 /**
@@ -218,6 +276,22 @@ export interface Product {
    * Omitted or true = purchasable when authored.
    */
   inStock?: boolean;
+  /**
+   * true = this is NOT the exact piece worn — it's the closest verified
+   * buyable match (same brand + silhouette where possible), offered because
+   * the real piece is custom/couture/discontinued/otherwise unshoppable.
+   * Renders a visible "Similar style" label — never presented as the literal
+   * garment (2026-07-20, docs/decisions.md). Omitted/false = confirmed exact
+   * item.
+   */
+  isAlternative?: boolean;
+  /**
+   * Required when isAlternative is true: a short (<=200 char) note on why
+   * (e.g. "The exact custom Etro gown was a one-off runway piece — this is
+   * Etro's closest current silhouette") and what's different. Never used to
+   * soften a plain unverified guess.
+   */
+  altNote?: string;
 }
 
 export interface ContentItem {
@@ -570,6 +644,16 @@ export interface TrackNote {
   facts?: TrackFacts;
   /** The Phase-1 dossier: why-it-matters, tiered meaning, connections, live history, voices. */
   dossier?: TrackDossier;
+  /**
+   * The song's playable audio: an 11-char YouTube id from an OFFICIAL Taylor
+   * Swift channel ('Taylor Swift', 'Taylor Swift - Topic', or 'TaylorSwiftVEVO'),
+   * oEmbed-verified at authoring time — see the audio-curator flow. Optional:
+   * a song with no official upload that verifies simply has no id and the UI
+   * omits the embed rather than guessing. Distinct from the VIDEOS system
+   * (music videos / tour films): this is the studio audio for the song itself,
+   * and a track may share an id the videos rail also carries.
+   */
+  youtubeId?: string;
 }
 
 /**
