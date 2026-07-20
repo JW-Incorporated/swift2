@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 86
+Stories: 88
+
+## Blake Lively pictured for first time since being culled from Taylor Swift's wedding guest list - Yah
+
+- first seen: 2026-07-20 11:54 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively pictured for first time since being culled from Taylor Swift's wedding guest list  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxNT2gwLVR4QndjVTIwa3dBOW5KbVZORzB5UnQ0dWpSSU5HUm54Tk11bUhNMVBFWUhvZEV6Q0hPWVRRWGJPZmhvQjRNNmw1QW1ZOGk0aTFlNWh5VHg3OE1NbVJiWnh3Yk00V3g1ZHNickRjY3Q1ZHFwZlFtX2xLNExvZVhiTWhTS2RucnVTUk5rYV9tRWZZTlhaaVI5Y0c3ajVoUlhrbA?oc=5
+
+## WATCH: Hugh Grant arrives for Taylor Swift and Travis Kelce Wedding - Yahoo
+
+- first seen: 2026-07-20 11:54 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: WATCH: Hugh Grant arrives for Taylor Swift and Travis Kelce Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijgFBVV95cUxObXNEdlZPYjVHS3BaNkk1c1B4bmhVTXVQYnd3RTh2dzg4eGV1WGdjSWxRbnZIeW5kVUEtVVpHWGRfazVLVlNjZEMwd1dEei0yc1RHcXM3LW9nU01hbndWc2c2U05xc2Vjb1ZIY1ZPVG9aSFhVRGE0R0NsdmNIVUVWMHZZLWdUX0dqYTVBWW5n?oc=5
 
 ## Taylor Swift’s Wedding Photos Reportedly Are Part of a Much Bigger Plan — Source - Yahoo
 
@@ -324,6 +340,15 @@ Stories: 86
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMimgFBVV95cUxOcjNYYnNla0N2VTl4WFBBNUFuRmxVcXZxWjFPMWRiQ01waEdBSTZIZzdVRHdXU3VncUllc1EycmhvSXRxWWl4eXBtZU9sUmlsdWNwdmpMOGRRN0paWHhVdWlCa00wVEdzTU5BNWNYR094cHoydkxsdVJSTjBiU0JfMzU0ZjFTZEg2UEZuQUhSZ1AtZDZtYzBmOGJR?oc=5
 
+## Taylor Swift and Travis Kelce's wedding guests thought Adam Sandler officiating ceremony 'was a joke
+
+- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce's wedding guests thought Adam Sandler officiating ceremony 'was a joke'  Page Six
+- sources:
+  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOU1pjWk1ybTM1QjcwQUtfdlVYbFJ4TGFydGw3ZUZPbzNPQlNXWm1zdkppazRKck5lTXNSeUpyUDUtN2dNM1NUSzBYNUl2U0QwR2JnZWNWekxnVXJQUF8weE5QTV9KaVMwZ1hqbWh5NExKOWVFTDZFMFFpUUlPSmZIU0xWSzRrZkFrbnpKLUgzdlhjZHFCWUU4Z3J4QU5jMlIxX2I0TEg2ZHE5dzNmTGRNcmV4YnV6d3g2ZjhMbmJpUVR1aDY1d2NQTzlrN1l6YXRRZjlOSl9xUjNPZ3Fy?oc=5
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxPejVDc1F0ZVJRbGxoZjVZR2FZb1VRajV5UmZSUE5udTM5bDRTMjRLSXpLRFhjUjI4azlSN0s3OVpIeE5CbHNpNTNKQl9YdkpmaVZndF9ZTHlyb3JIT2ZsMnNpUW9qMFFsS1lQajJJWnhrOWpaTzBpNENkN2dwQkFpSHZvRQ?oc=5
+
 ## Taylor Swift's Ex Matty Healy Marries Gabbriette Bechtel at Madonna's Former Mansion - Complex
 
 - first seen: 2026-07-19 18:04 UTC | category: sighting | importance: 3
@@ -331,16 +356,6 @@ Stories: 86
 - summary: Taylor Swift's Ex Matty Healy Marries Gabbriette Bechtel at Madonna's Former Mansion  Complex
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMimwFBVV95cUxOZHp4U2paRkduMk9tNTJTN2dCZDNIVlhoc3p1djJjVlRORFY0OUQ4Q2RJNXBXdndBeFNYdzlHLTRidG00eHhoVWdLdVA1MmpWZURBS18zRVQxQ0hsNDB4ZjB1VTFLOVEyMEhZZ2tBUm1ha2dnSGYwYVZqMFFOZ2M1dkVOZ1NhSWRpZ2Eyd1R0cXNfeG95eVdDNklWQQ?oc=5
-
-## Taylor Swift and Travis Kelce Wedding Guests Thought This “Very Solemn” Ceremony Moment Was a “Joke”
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce Wedding Guests Thought This “Very Solemn” Ceremony Moment Was a “Joke”  Cosmopolitan
-Taylor Swift Has ‘No Intention’ of Doing This Hollywood Faux-Pas Amid Travis Kelce Marriage  Yahoo
-Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Exclusive)
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNam5nTnJFc2g5Wmxrd01DUU00NkczUWtONXVHa0NOUC1Xd21pT3RWWVNsN1h6S2VMc2NKQWxERXhXVVZxaVdXcC1BQVBqOHlYcy1femVMLUpKa1pYSmRfVFpROUxWTlFuVUgwZTdoNzVoN3d4djdFSG5OdjBnOWZ6c2ROYjlMOTJqdE41M3FwR01lTk5ZU3pUSXE2RkpVeE9tNkZkcjFXSUxIRTVrbThZNFFTN3hycWprVzdF?oc=5
 
 ## Who Didn't Attend Taylor Swift and Travis Kelce's Wedding? Biggest Celebrity No-Shows Revealed - Yah
 
@@ -446,14 +461,6 @@ Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Excl
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQeEg4WTFqQ21lZjNiWmZURzMyQnZJSWdOY0NTMjRaNk0yTVRqYzdRRUhNUjl6TFczeG12UXhxSW5fSWJwYzFmMHRfOUlEOGlkQW1xZjY5YmtUdFo2NnU0aHg1b0w1YUVlTkowYVF5dFZEamUzdjVvckV0Q2Y2b3ZoSmpKUndUaVVZ?oc=5
 
-## Taylor Swift and Travis Kelce's wedding guests thought Adam Sandler officiating ceremony 'was a joke
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce's wedding guests thought Adam Sandler officiating ceremony 'was a joke'  Page Six
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOU1pjWk1ybTM1QjcwQUtfdlVYbFJ4TGFydGw3ZUZPbzNPQlNXWm1zdkppazRKck5lTXNSeUpyUDUtN2dNM1NUSzBYNUl2U0QwR2JnZWNWekxnVXJQUF8weE5QTV9KaVMwZ1hqbWh5NExKOWVFTDZFMFFpUUlPSmZIU0xWSzRrZkFrbnpKLUgzdlhjZHFCWUU4Z3J4QU5jMlIxX2I0TEg2ZHE5dzNmTGRNcmV4YnV6d3g2ZjhMbmJpUVR1aDY1d2NQTzlrN1l6YXRRZjlOSl9xUjNPZ3Fy?oc=5
-
 ## Travis Kelce's Honeymoon Plans With Taylor Swift Revealed as Chiefs Training Camp Nears - heavy.com
 
 - first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
@@ -478,6 +485,17 @@ Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Excl
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiswFBVV95cUxNVXo2NElzWFNKaU1lTk9DV3R1a3dTSV9pUk1nNzhWTWpXQzM4YkpmQWRJZkhzZ0ZmM1p6cWtoMldILThmLWxURkhwdE1NcllDWm1LdEJuRFQ1anBVS0xrbjhYbXhHVHFfUDRSX2JCTlFoUmt5U0ZmbUhjUEdKcHBzUDdvQ09hWkZuRUVkNVZsSExxcXh4Y3A4ZTh3elJVZHhuOW9NQzdIbFNXck5aTWZBdzI0RQ?oc=5
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE56ZDdtUXlVVmhBeDlqRWlacFZWZXZmb1Q0TGdqTFNzZmZZVWwtdmZ0dW9nR0Q1RUp4Nm5NekNmN25kdFVXaWR5TDBZU1NpNnhrWTd1X2xVTW9JRzZpVU0zckRfZ0daOVdMMUVnWFZLT0Z1SFpjS2NWSGNUZm0?oc=5
+
+## Taylor Swift and Travis Kelce Wedding Guests Thought This “Very Solemn” Ceremony Moment Was a “Joke”
+
+- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift and Travis Kelce Wedding Guests Thought This “Very Solemn” Ceremony Moment Was a “Joke”  Cosmopolitan
+Taylor Swift Has ‘No Intention’ of Doing This Hollywood Faux-Pas Amid Travis Kelce Marriage  Yahoo
+Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Exclusive)
+- sources:
+  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNam5nTnJFc2g5Wmxrd01DUU00NkczUWtONXVHa0NOUC1Xd21pT3RWWVNsN1h6S2VMc2NKQWxERXhXVVZxaVdXcC1BQVBqOHlYcy1femVMLUpKa1pYSmRfVFpROUxWTlFuVUgwZTdoNzVoN3d4djdFSG5OdjBnOWZ6c2ROYjlMOTJqdE41M3FwR01lTk5ZU3pUSXE2RkpVeE9tNkZkcjFXSUxIRTVrbThZNFFTN3hycWprVzdF?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNVzZOelF5OUtPNnQ3a1RPN0JScjZCcHU0NlMybFllaGVjWTFzWWJxdlRkQTY3bzhwTl8wdWNTV09tNDhGOHJGLTRLZW44YU42ZTlNY2MyUVl1aGhidUdnQS1qSkdwMFJrbDd5XzZLZEVUWUp1UGMxbXFOLU9rcDNTQjhnTm5jMHRFdDVkMDJrdDJLZGpmUmZhWjJUdVhhSkE4TFM3OEJR?oc=5
 
 ## Inside Taylor Swift and Travis Kelce’s Wedding: Everything We Learned About the Star-Studded Ceremon
 
