@@ -672,6 +672,17 @@ export default {
             credit: 'Republic Records',
           },
         ],
+        // Shop pass (2026-07-20): the exact named piece, Ulla Johnson's
+        // Fernanda Blouse, curl-verified live.
+        products: [
+          {
+            brand: 'Ulla Johnson',
+            item: 'Fernanda Blouse',
+            retailer: 'garmentory.com',
+            url: 'https://www.garmentory.com/sale/ulla-johnson/tops-blouses/976294-fernanda-blouse',
+            price: '$237.00',
+          },
+        ],
       },
     },
     {
@@ -752,6 +763,18 @@ export default {
             caption:
               'Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the "siren red" lip and blunt bangs of the Red (TV) beauty look, the night before the album\'s release.',
             kind: 'archival',
+          },
+        ],
+        // Shop pass (2026-07-20): no exact product is named for the "siren
+        // red" lip — offering a real matte red lipstick matching the look.
+        products: [
+          {
+            brand: 'NARS',
+            item: 'Lipstick in Ravishing Red (Matte)',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Lipstick-Ravishing-Matte-3-5g-0-12oz/dp/B082P4X6FV',
+            isAlternative: true,
+            altNote: 'No exact shade is named for this look — a real matte red lipstick matching the overlined "siren red" mouth described.',
           },
         ],
       },
@@ -870,6 +893,21 @@ export default {
             focalPoint: '45% 10%',
           },
         ],
+        // Shop pass (2026-07-20): the exact Spring '21 mini is long sold out
+        // — offering a comparable current Oscar de la Renta floral mini,
+        // curl-verified live.
+        products: [
+          {
+            brand: 'Oscar de la Renta',
+            item: 'Floral-Embroidered Tulle Mini Dress',
+            retailer: 'modaoperandi.com',
+            url: 'https://www.modaoperandi.com/women/p/oscar-de-la-renta/floral-embroidered-tulle-mini-dress/493975',
+            price: '$8,990.00',
+            inStock: false,
+            isAlternative: true,
+            altNote: 'Her exact Spring \'21 mini is long sold out — this is a comparable current Oscar de la Renta floral-appliquéd mini dress.',
+          },
+        ],
       },
     },
     {
@@ -900,6 +938,20 @@ export default {
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Etro-To-The-All-Too-Well-New-York-Premiere.jpg',
             credit: 'Getty Images',
+          },
+        ],
+        // Shop pass (2026-07-20): the exact suit is one-off custom — offering
+        // Etro's current velvet blazer (curl/WebFetch blocked on etro.com,
+        // verified live in-browser; sold as part of a matching pantsuit look).
+        products: [
+          {
+            brand: 'Etro',
+            item: 'Single-Breasted Velvet Jacket',
+            retailer: 'etro.com',
+            url: 'https://www.etro.com/us-en/single-breasted-velvet-jacket-WRCA008199TUEI1B0904.html',
+            price: '$1,350.00',
+            isAlternative: true,
+            altNote: 'Her exact purple suit was custom — this is Etro\'s current velvet blazer (shown styled as a pantsuit), in blue rather than purple.',
           },
         ],
       },
@@ -963,6 +1015,20 @@ export default {
             credit: 'NBC',
           },
         ],
+        // Shop pass (2026-07-20): the exact 2021 piece is gone from resale
+        // and official channels — offering a real current David Koma
+        // crystal-embellished mini in the same spirit, curl-verified live.
+        products: [
+          {
+            brand: 'David Koma',
+            item: 'Crystal-Embellished Cady Mini Dress',
+            retailer: 'runwaycatalog.com',
+            url: 'https://www.runwaycatalog.com/products/crystal-embellished-cady-mini-dress',
+            price: '$1,210.00',
+            isAlternative: true,
+            altNote: 'Her exact 2021 dress isn\'t currently listed anywhere verifiable — this is a current David Koma crystal-embellished mini in the same signature style.',
+          },
+        ],
       },
     },
     {
@@ -1008,6 +1074,21 @@ export default {
             credit: 'NBC / Saturday Night Live (YouTube sketch still)',
             caption: 'Swift with Pete Davidson in the "Three Sad Virgins" sketch, SNL, Nov. 13, 2021.',
             kind: 'archival',
+          },
+        ],
+        // Shop pass (2026-07-20): the exact 2021 dress isn't currently
+        // listed anywhere verifiable — offering a comparable current David
+        // Koma one-shoulder sequin mini, curl-verified live.
+        products: [
+          {
+            brand: 'David Koma',
+            item: 'Flounce One Sleeve Sequin Mini Dress',
+            retailer: 'fwrd.com',
+            url: 'https://www.fwrd.com/product-david-koma-flounce-one-sleeve-sequin-mini-dress-in-blue/DAVF-WD195/',
+            price: '$998.00',
+            inStock: false,
+            isAlternative: true,
+            altNote: 'Her exact navy dress isn\'t currently listed anywhere verifiable — this is a comparable David Koma one-shoulder sequin mini, in blue.',
           },
         ],
       },
