@@ -1769,6 +1769,10 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/katy-perry-taylor-swift-2010-billboard-1548.jpg?w=600',
+            // Photo pass #762 (2026-07-20): viewed. Both faces sit high and near
+            // the center — Perry left, Swift right of the midline; keep the crop
+            // high so neither head is cut.
+            focalPoint: '48% 28%',
             credit: 'Billboard',
             caption: 'Perry and Swift in 2010, before the falling-out — the file photo Billboard ran with news of the olive branch.',
             kind: 'archival',
@@ -1875,6 +1879,10 @@ export default {
         photos: [
           {
             url: 'https://specials-images.forbesimg.com/dam/imageserve/1048528712/960x0.jpg?fit=scale',
+            // Photo pass #762 (2026-07-20): viewed. She holds the award right of
+            // center in the mirrored dress, face high on the right; bias the crop
+            // right and high to keep the face framed.
+            focalPoint: '58% 26%',
             credit: 'Jeff Kravitz/FilmMagic',
             caption: 'Two nights after the post, at the American Music Awards: "You know what else is voted on by the people? The mid-term elections."',
             kind: 'archival',

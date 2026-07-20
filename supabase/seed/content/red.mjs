@@ -1206,14 +1206,24 @@ export default {
         photos: [
           {
             url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/f710f8fef400-road-trip-z.jpg',
+            // Photo pass #762 (2026-07-20): viewed the image. Both women perch
+            // on the Pfeiffer Big Sur park sign, split to the far corners; keep
+            // the crop centered on the sign's upper text band so both survive.
+            focalPoint: '50% 45%',
             credit: 'Instagram / HELLO!',
           },
           {
             url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/73900276f68b-road-trip2-z.jpg',
+            // Viewed: a black-and-white cheek-to-cheek selfie, both faces in the
+            // upper-middle band, Taylor left of center; hold the crop high.
+            focalPoint: '48% 35%',
             credit: 'Instagram / HELLO!',
           },
           {
             url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/2269843edce4-road-trip3-z.jpg',
+            // Viewed: back-to-back in a field, both faces clustered left-of-center
+            // and high; bias the crop left so neither face is lost.
+            focalPoint: '40% 33%',
             credit: 'Instagram / HELLO!',
           },
         ],
