@@ -31,6 +31,7 @@ export default {
       slug: 'mine',
       trackNumber: 1,
       trackTitle: 'Mine',
+      youtubeId: 'oxNLRqMJMZk', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -56,6 +57,7 @@ export default {
       slug: 'sparks-fly',
       trackNumber: 2,
       trackTitle: 'Sparks Fly',
+      youtubeId: 'UlFrV5GJA_4', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -77,6 +79,7 @@ export default {
       slug: 'back-to-december',
       trackNumber: 3,
       trackTitle: 'Back to December',
+      youtubeId: 'qc2Z-OX9wnc', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -98,6 +101,7 @@ export default {
       slug: 'speak-now',
       trackNumber: 4,
       trackTitle: 'Speak Now',
+      youtubeId: 'JlZnvyBqceY', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -118,6 +122,7 @@ export default {
       slug: 'dear-john',
       trackNumber: 5,
       trackTitle: 'Dear John',
+      youtubeId: 'N-FYySSy0rM', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -144,6 +149,7 @@ export default {
       slug: 'mean',
       trackNumber: 6,
       trackTitle: 'Mean',
+      youtubeId: '8AR1dKawCi8', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -165,6 +171,7 @@ export default {
       slug: 'the-story-of-us',
       trackNumber: 7,
       trackTitle: 'The Story of Us',
+      youtubeId: 'pRhWAXg4xek', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -190,6 +197,7 @@ export default {
       slug: 'never-grow-up',
       trackNumber: 8,
       trackTitle: 'Never Grow Up',
+      youtubeId: 'maEVfpxDB8k', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -207,6 +215,7 @@ export default {
       slug: 'enchanted',
       trackNumber: 9,
       trackTitle: 'Enchanted',
+      youtubeId: 'igIfiqqVHtA', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -233,6 +242,7 @@ export default {
       slug: 'better-than-revenge',
       trackNumber: 10,
       trackTitle: 'Better Than Revenge',
+      youtubeId: 'EH70M5OeS4o', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -257,6 +267,7 @@ export default {
       slug: 'innocent',
       trackNumber: 11,
       trackTitle: 'Innocent',
+      youtubeId: 'vO6JqQpJboY', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -281,6 +292,7 @@ export default {
       slug: 'haunted',
       trackNumber: 12,
       trackTitle: 'Haunted',
+      youtubeId: '4cC6fw8EqWU', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -305,6 +317,7 @@ export default {
       slug: 'last-kiss',
       trackNumber: 13,
       trackTitle: 'Last Kiss',
+      youtubeId: 'idWma942CUI', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -324,6 +337,7 @@ export default {
       slug: 'long-live',
       trackNumber: 14,
       trackTitle: 'Long Live',
+      youtubeId: 'F5TMU6916U8', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -348,6 +362,7 @@ export default {
       slug: 'ours',
       trackNumber: 15,
       trackTitle: 'Ours',
+      youtubeId: 'PH8Uc0Z_KRY', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now (Deluxe Edition)',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -365,6 +380,7 @@ export default {
       slug: 'if-this-was-a-movie',
       trackNumber: 16,
       trackTitle: 'If This Was a Movie',
+      youtubeId: '9wZEx9A8p9k', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now (Deluxe Edition)',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift', 'Martin Johnson'],
@@ -390,6 +406,7 @@ export default {
       slug: 'superman',
       trackNumber: 17,
       trackTitle: 'Superman',
+      youtubeId: 'Fn0er7H1Dm0', // oEmbed-verified official Taylor Swift channel
       release: 'Speak Now (Deluxe Edition)',
       releaseDate: '2010-10-25',
       writers: ['Taylor Swift'],
@@ -408,6 +425,7 @@ export default {
       slug: 'electric-touch',
       trackNumber: 18,
       trackTitle: 'Electric Touch',
+      youtubeId: 'hMPK2vNXr-E', // oEmbed-verified official Taylor Swift channel
       release: "Speak Now (Taylor's Version) — From The Vault",
       releaseDate: '2023-07-07',
       writers: ['Taylor Swift'],
@@ -433,6 +451,7 @@ export default {
       slug: 'when-emma-falls-in-love',
       trackNumber: 19,
       trackTitle: 'When Emma Falls in Love',
+      youtubeId: 'IYqgVYjN3Go', // oEmbed-verified official Taylor Swift channel
       release: "Speak Now (Taylor's Version) — From The Vault",
       releaseDate: '2023-07-07',
       writers: ['Taylor Swift'],
@@ -460,6 +479,7 @@ export default {
       slug: 'i-can-see-you',
       trackNumber: 20,
       trackTitle: 'I Can See You',
+      youtubeId: 'lVkKLf4DCn8', // oEmbed-verified official Taylor Swift channel
       release: "Speak Now (Taylor's Version) — From The Vault",
       releaseDate: '2023-07-07',
       writers: ['Taylor Swift'],
@@ -488,6 +508,7 @@ export default {
       slug: 'castles-crumbling',
       trackNumber: 21,
       trackTitle: 'Castles Crumbling',
+      youtubeId: 'HtDriYDIhRs', // oEmbed-verified official Taylor Swift channel
       release: "Speak Now (Taylor's Version) — From The Vault",
       releaseDate: '2023-07-07',
       writers: ['Taylor Swift'],
@@ -510,6 +531,7 @@ export default {
       slug: 'foolish-one',
       trackNumber: 22,
       trackTitle: 'Foolish One',
+      youtubeId: '6-x1AlDudZw', // oEmbed-verified official Taylor Swift channel
       release: "Speak Now (Taylor's Version) — From The Vault",
       releaseDate: '2023-07-07',
       writers: ['Taylor Swift'],
@@ -527,6 +549,7 @@ export default {
       slug: 'timeless',
       trackNumber: 23,
       trackTitle: 'Timeless',
+      youtubeId: 'osmzwWw4RYM', // oEmbed-verified official Taylor Swift channel
       release: "Speak Now (Taylor's Version) — From The Vault",
       releaseDate: '2023-07-07',
       writers: ['Taylor Swift'],
