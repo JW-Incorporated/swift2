@@ -2086,6 +2086,16 @@ export default {
             caption: 'The Eras Tour Speak Now set — the lilac ballgown and koi-fish guitar — the live embodiment of the era she reclaimed with the July 2023 re-recording.',
             kind: 'archival',
           },
+          // Photo pass (2026-07-20, #762): 2nd photo — the official album cover
+          // for the re-recording itself. Full-res en.wikipedia file curl-verified
+          // 200 image/png, downloaded and viewed; focal point set by eye.
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/5/5b/Taylor_Swift_-_Speak_Now_%28Taylor%27s_Version%29.png',
+            focalPoint: '52% 30%',
+            credit: 'Republic Records',
+            caption: 'The Speak Now (Taylor\'s Version) album cover — the purple-tulle re-recording released July 7, 2023.',
+            kind: 'archival',
+          },
         ],
       },
     },

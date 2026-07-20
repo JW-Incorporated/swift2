@@ -59,7 +59,26 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Blank_Space' },
           { outlet: 'Billboard', url: 'https://www.billboard.com/pro/taylor-swift-blank-space-hot-100/' },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
+        // Photo pass (2026-07-20, #762): 2nd verified photo + focal points on
+        // both. Official "Blank Space" video id e-ORhEE9VVg confirmed via
+        // YouTube oEmbed (author "Taylor Swift"); maxresdefault curl-verified
+        // 200 image/jpeg, downloaded and viewed. Focal points set by eye.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+            focalPoint: '48% 35%',
+            credit: 'Big Machine Records',
+            caption: 'The "Blank Space" single cover — the satirical tabloid persona, rendered as a torn-up polaroid.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/e-ORhEE9VVg/maxresdefault.jpg',
+            focalPoint: '50% 40%',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'A close-up from the official "Blank Space" video — the mansion-and-mascara caricature played straight.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -79,9 +98,26 @@ export default {
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-news/the-reinvention-of-taylor-swift-116925/' },
         ],
         // Focal point 2026-07-20 (by eye): reference frame from the "Shake It
-        // Off" video (the song the trademarks come from) — a vertical crop with
-        // Taylor's face near the top, so hold high.
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg', credit: 'Big Machine Records', focalPoint: '48% 16%' }],
+        // Off" video — a vertical crop with Taylor's face near the top.
+        // Photo pass (2026-07-20, #762): 2nd verified frame from the same
+        // official video (id nfWlot6h_JM, oEmbed author "Taylor Swift";
+        // maxresdefault curl-verified 200 image/jpeg, downloaded and viewed).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg',
+            focalPoint: '48% 16%',
+            credit: 'Big Machine Records',
+            caption: 'A frame from the "Shake It Off" video — the all-black look on the bare white soundstage.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/nfWlot6h_JM/maxresdefault.jpg',
+            focalPoint: '50% 46%',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'The hip-hop dance-crew scene from the same official "Shake It Off" video — the self-deprecating punchline in motion.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -112,7 +148,26 @@ export default {
             url: 'https://www.eonline.com/news/1423684/katy-perry-supports-taylor-swifts-the-life-of-a-showgirl',
           },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
+        // Photo pass (2026-07-20, #762): 2nd verified photo + focal points on
+        // both. Official "Bad Blood ft. Kendrick Lamar" video id QcIy9NiNbmo
+        // confirmed via YouTube oEmbed (author "Taylor Swift"); maxresdefault
+        // curl-verified 200 image/jpeg, downloaded and viewed. Focal by eye.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/9/9b/Taylor_Swift_Feat._Kendrick_Lamar_-_Bad_Blood_%28Official_Single_Cover%29.png',
+            focalPoint: '50% 28%',
+            credit: 'Big Machine Records',
+            caption: 'The "Bad Blood" single cover for the Kendrick Lamar version — "band-aids don\'t fix bullet holes."',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/QcIy9NiNbmo/maxresdefault.jpg',
+            focalPoint: '54% 42%',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'A frame from the star-studded official "Bad Blood" video, the Kendrick Lamar remix.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -210,7 +265,26 @@ export default {
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/New_Romantics_(song)' },
           { outlet: 'Rolling Stone', url: 'https://www.rollingstone.com/music/music-lists/the-100-best-songs-of-the-2010s-917532/taylor-swift-new-romantics-917602/' },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/en/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png', credit: 'Big Machine Records' }],
+        // Photo pass (2026-07-20, #762): 2nd verified photo + focal points on
+        // both. Official "New Romantics" video (1989 World Tour footage) id
+        // wyK7YuwUWsU confirmed via YouTube oEmbed (author "Taylor Swift");
+        // maxresdefault curl-verified 200 image/jpeg, downloaded and viewed.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/8/87/Taylor_Swift_-_New_Romantics_%28Official_Single_Cover%29.png',
+            focalPoint: '50% 38%',
+            credit: 'Big Machine Records',
+            caption: 'The "New Romantics" single cover — "the best people in life are free," in polaroid.',
+            kind: 'archival',
+          },
+          {
+            url: 'https://i.ytimg.com/vi/wyK7YuwUWsU/maxresdefault.jpg',
+            focalPoint: '48% 28%',
+            credit: 'Taylor Swift / Big Machine Records, via YouTube',
+            caption: 'A frame from the official "New Romantics" video, cut from 1989 World Tour concert footage.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
