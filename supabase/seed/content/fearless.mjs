@@ -216,6 +216,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg',
+            focalPoint: '50% 55%',
             credit: 'Wikimedia Commons',
             kind: 'primary',
           },
@@ -339,6 +340,7 @@ export default {
         photos: [
           {
             url: 'https://townsquare.media/site/204/files/2023/09/attachment-taylor-swift-kanye-west-2009-mtv-vmas.jpg?w=980&q=75',
+            focalPoint: '50% 22%',
             credit: 'Taste of Country',
           },
           // Photo pass 2026-07-19 (10-defining-events, docs/decisions.md):
@@ -347,72 +349,84 @@ export default {
           // performance/red-carpet that night. Curl-verified live.
           {
             url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922286265/Kayne-West-jumps-onstage--007.jpg?crop=none&dpr=1&s=none&width=375',
+            focalPoint: '50% 22%',
             credit: 'Jeff Kravitz/FilmMagic, via The Guardian',
             caption: 'Kanye West steps onto the VMA stage while Swift is accepting Best Female Video at Radio City Music Hall.',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/static/sys-images/Guardian/Pix/pictures/2009/9/14/1252922290422/Singer-Taylor-Swift-speak-012.jpg?crop=none&dpr=1&s=none&width=375',
+            focalPoint: '50% 22%',
             credit: 'Kevin Mazur/WireImage, via The Guardian',
             caption: 'Swift finally finishes her acceptance speech after Beyoncé invites her back onstage later that night.',
             kind: 'primary',
           },
           {
             url: 'https://static.time.com/v3/assets/bltea6093859af6183b/bltc121921405a5eef5/698762d75f570fee2bb12f23/taylor-swift-16.jpg?branch=production&width=3840&quality=75&auto=webp',
+            focalPoint: '50% 40%',
             credit: 'Stephen Lovekin/FilmMagic/Getty Images, via TIME',
             caption: 'Swift arrives on the 2009 VMA red carpet in the silver KaufmanFranco gown she would still be wearing when West interrupted her.',
             kind: 'primary',
           },
           {
             url: 'https://media.glamour.com/photos/5b748cfd0271d30d24ff90ad/master/w_1024%2Cc_limit/GettyImages-90715371.jpg',
+            focalPoint: '50% 42%',
             credit: 'Jason Kempin/Getty Images, via Glamour',
             caption: 'Swift performs "You Belong with Me" inside a New York subway car during the 2009 VMA broadcast.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/T-Swift_VMA_performance.JPG',
+            focalPoint: '30% 25%',
             credit: 'Coldbread, via Wikimedia Commons',
             caption: 'Swift steps down from the yellow taxi after completing her outdoor VMA performance on Sept. 13, 2009.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/12/Taylor_Swift_2009_MTV_VMA.jpg',
+            focalPoint: '40% 28%',
             credit: 'Philip Nelson, via Wikimedia Commons',
             caption: 'Swift appears during the 2009 MTV Video Music Awards at Radio City Music Hall.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/1/1d/Taylor_Swift_at_2009_MTV_Video_Music_Awards_%283917030572%29.jpg',
+            focalPoint: '30% 40%',
             credit: 'Philip Nelson, via Wikimedia Commons',
             caption: 'A distinct audience-level view of Swift at the 2009 MTV Video Music Awards.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/b/b2/Taylor_Swift_at_2009_MTV_VMA%27s_2.jpg',
+            focalPoint: '40% 30%',
             credit: 'Philip Nelson, via Wikimedia Commons',
             caption: 'Swift performs during the 2009 MTV Video Music Awards in New York.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d8/Taylor_Swift_at_2009_MTV_VMA%27s_3.jpg',
+            focalPoint: '33% 33%',
             credit: 'Philip Nelson, via Wikimedia Commons',
             caption: 'Standing atop a car on a closed-off Avenue of the Americas, mic raised, as a street crowd reaches up during the outdoor VMA broadcast performance.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/cc/Taylor_Swift_at_2009_MTV_VMA%27s_4.jpg',
+            focalPoint: '38% 28%',
             credit: 'Philip Nelson, via Wikimedia Commons',
             caption: 'Swift performs "You Belong with Me" during the 2009 VMA telecast.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/9f/Taylor_Swift_at_2009_MTV_VMA%27s_5.jpg',
+            focalPoint: '42% 35%',
             credit: 'Philip Nelson, via Wikimedia Commons',
             caption: 'A wide, horizontal view of Swift\'s performance during the 2009 MTV Video Music Awards.',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/6e/Taylor_Swift_at_2009_MTV_VMA%27s.jpg',
+            focalPoint: '38% 37%',
             credit: 'Philip Nelson, via Wikimedia Commons',
             caption: 'Swift onstage during her "You Belong with Me" performance at the 2009 VMAs.',
             kind: 'primary',
@@ -1354,11 +1368,13 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg',
+            focalPoint: '48% 25%',
             credit: 'Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0',
             kind: 'primary',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/8/81/Taylor_Swift_-_Fearless_Tour_-_Foxboro12.jpg',
+            focalPoint: '50% 55%',
             credit: 'Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0',
             caption: 'Performing at the same Gillette Stadium show, June 5, 2010.',
             kind: 'archival',
