@@ -24,6 +24,7 @@ export default {
       slug: 'i-forgot-that-you-existed',
       trackNumber: 1,
       trackTitle: 'I Forgot That You Existed',
+      youtubeId: 'p1cEvNn88jM', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Louis Bell', 'Frank Dukes'],
@@ -43,6 +44,7 @@ export default {
       slug: 'cruel-summer',
       trackNumber: 2,
       trackTitle: 'Cruel Summer',
+      youtubeId: 'ic8j13piAhQ', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Annie Clark'],
@@ -70,6 +72,7 @@ export default {
       slug: 'lover',
       trackNumber: 3,
       trackTitle: 'Lover',
+      youtubeId: '-BjZmE2gtdo', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift'],
@@ -95,6 +98,7 @@ export default {
       slug: 'the-man',
       trackNumber: 4,
       trackTitle: 'The Man',
+      youtubeId: 'AqAJLh9wuZ0', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Joel Little'],
@@ -120,6 +124,7 @@ export default {
       slug: 'the-archer',
       trackNumber: 5,
       trackTitle: 'The Archer',
+      youtubeId: '8KpKc3C9V3w', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -143,6 +148,7 @@ export default {
       slug: 'i-think-he-knows',
       trackNumber: 6,
       trackTitle: 'I Think He Knows',
+      youtubeId: '2d1wKn-oJnA', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -159,6 +165,7 @@ export default {
       slug: 'miss-americana-and-the-heartbreak-prince',
       trackNumber: 7,
       trackTitle: 'Miss Americana & the Heartbreak Prince',
+      youtubeId: 'Kwf7P2GNAVw', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Joel Little'],
@@ -183,6 +190,7 @@ export default {
       slug: 'paper-rings',
       trackNumber: 8,
       trackTitle: 'Paper Rings',
+      youtubeId: '8zdg-pDF10g', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -199,6 +207,7 @@ export default {
       slug: 'cornelia-street',
       trackNumber: 9,
       trackTitle: 'Cornelia Street',
+      youtubeId: 'VikHHWrgb4Y', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift'],
@@ -219,6 +228,7 @@ export default {
       slug: 'death-by-a-thousand-cuts',
       trackNumber: 10,
       trackTitle: 'Death by a Thousand Cuts',
+      youtubeId: 'GTEFSuFfgnU', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -236,6 +246,7 @@ export default {
       slug: 'london-boy',
       trackNumber: 11,
       trackTitle: 'London Boy',
+      youtubeId: 'VsKoOH6DVys', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Cautious Clay', 'Sounwave'],
@@ -256,6 +267,7 @@ export default {
       slug: 'soon-youll-get-better',
       trackNumber: 12,
       trackTitle: "Soon You'll Get Better",
+      youtubeId: 'tMoW5G5LU08', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -276,6 +288,7 @@ export default {
       slug: 'false-god',
       trackNumber: 13,
       trackTitle: 'False God',
+      youtubeId: 'acQXa5ArHIk', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -292,6 +305,7 @@ export default {
       slug: 'you-need-to-calm-down',
       trackNumber: 14,
       trackTitle: 'You Need to Calm Down',
+      youtubeId: 'GWtfOHBF1_w', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Joel Little'],
@@ -315,6 +329,7 @@ export default {
       slug: 'afterglow',
       trackNumber: 15,
       trackTitle: 'Afterglow',
+      youtubeId: '8HxbqAsppwU', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Louis Bell', 'Frank Dukes'],
@@ -331,6 +346,7 @@ export default {
       slug: 'me',
       trackNumber: 16,
       trackTitle: 'Me!',
+      youtubeId: 'FuXNumBwDOM', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Joel Little', 'Brendon Urie'],
@@ -351,6 +367,7 @@ export default {
       slug: 'its-nice-to-have-a-friend',
       trackNumber: 17,
       trackTitle: "It's Nice to Have a Friend",
+      youtubeId: 'eaP1VswBF28', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift', 'Louis Bell', 'Frank Dukes'],
@@ -367,6 +384,7 @@ export default {
       slug: 'daylight',
       trackNumber: 18,
       trackTitle: 'Daylight',
+      youtubeId: 'u9raS7-NisU', // oEmbed-verified official Taylor Swift channel
       release: 'Lover',
       releaseDate: '2019-08-23',
       writers: ['Taylor Swift'],

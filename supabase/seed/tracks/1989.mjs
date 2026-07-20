@@ -30,6 +30,7 @@ export default {
       slug: 'welcome-to-new-york',
       trackNumber: 1,
       trackTitle: 'Welcome to New York',
+      youtubeId: 'FsGdznlfE2U', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Ryan Tedder'],
@@ -55,6 +56,7 @@ export default {
       slug: 'blank-space',
       trackNumber: 2,
       trackTitle: 'Blank Space',
+      youtubeId: 'e-ORhEE9VVg', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -78,6 +80,7 @@ export default {
       slug: 'style',
       trackNumber: 3,
       trackTitle: 'Style',
+      youtubeId: '2JgvVfOfoWI', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback', 'Ali Payami'],
@@ -105,6 +108,7 @@ export default {
       slug: 'out-of-the-woods',
       trackNumber: 4,
       trackTitle: 'Out of the Woods',
+      youtubeId: 'JLf9q36UsBk', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -130,6 +134,7 @@ export default {
       slug: 'all-you-had-to-do-was-stay',
       trackNumber: 5,
       trackTitle: 'All You Had to Do Was Stay',
+      youtubeId: '_Usd5X5XJXM', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin'],
@@ -154,6 +159,7 @@ export default {
       slug: 'shake-it-off',
       trackNumber: 6,
       trackTitle: 'Shake It Off',
+      youtubeId: 'nfWlot6h_JM', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -175,6 +181,7 @@ export default {
       slug: 'i-wish-you-would',
       trackNumber: 7,
       trackTitle: 'I Wish You Would',
+      youtubeId: '89aQIli8aVU', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -199,6 +206,7 @@ export default {
       slug: 'bad-blood',
       trackNumber: 8,
       trackTitle: 'Bad Blood',
+      youtubeId: 'QcIy9NiNbmo', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -226,6 +234,7 @@ export default {
       slug: 'wildest-dreams',
       trackNumber: 9,
       trackTitle: 'Wildest Dreams',
+      youtubeId: 'IdneKLhsWOQ', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -247,6 +256,7 @@ export default {
       slug: 'how-you-get-the-girl',
       trackNumber: 10,
       trackTitle: 'How You Get the Girl',
+      youtubeId: 'XQh8zhmTtBg', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -266,6 +276,7 @@ export default {
       slug: 'this-love',
       trackNumber: 11,
       trackTitle: 'This Love',
+      youtubeId: 'r9VzPf8a4kI', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift'],
@@ -291,6 +302,7 @@ export default {
       slug: 'i-know-places',
       trackNumber: 12,
       trackTitle: 'I Know Places',
+      youtubeId: '0jTGzm-6cYE', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Ryan Tedder'],
@@ -308,6 +320,7 @@ export default {
       slug: 'clean',
       trackNumber: 13,
       trackTitle: 'Clean',
+      youtubeId: 'AppsjTInqiw', // oEmbed-verified official Taylor Swift channel
       release: '1989',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Imogen Heap'],
@@ -325,6 +338,7 @@ export default {
       slug: 'wonderland',
       trackNumber: 14,
       trackTitle: 'Wonderland',
+      youtubeId: 'E048L9PaZsk', // oEmbed-verified official Taylor Swift channel
       release: '1989 (Deluxe Edition)',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -348,6 +362,7 @@ export default {
       slug: 'you-are-in-love',
       trackNumber: 15,
       trackTitle: 'You Are in Love',
+      youtubeId: 'a_zwscPcDGM', // oEmbed-verified official Taylor Swift channel
       release: '1989 (Deluxe Edition)',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -365,6 +380,7 @@ export default {
       slug: 'new-romantics',
       trackNumber: 16,
       trackTitle: 'New Romantics',
+      youtubeId: '3-BcH7KowGE', // oEmbed-verified official Taylor Swift channel
       release: '1989 (Deluxe Edition)',
       releaseDate: '2014-10-27',
       writers: ['Taylor Swift', 'Max Martin', 'Shellback'],
@@ -385,6 +401,7 @@ export default {
       slug: 'slut',
       trackNumber: 17,
       trackTitle: '"Slut!"',
+      youtubeId: 'qrxsceexTBw', // oEmbed-verified official Taylor Swift channel
       release: "1989 (Taylor's Version) — From The Vault",
       releaseDate: '2023-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Patrik Berger'],
@@ -406,6 +423,7 @@ export default {
       slug: 'say-dont-go',
       trackNumber: 18,
       trackTitle: "Say Don't Go",
+      youtubeId: 'C-z-IckrQK8', // oEmbed-verified official Taylor Swift channel
       release: "1989 (Taylor's Version) — From The Vault",
       releaseDate: '2023-10-27',
       writers: ['Taylor Swift', 'Diane Warren'],
@@ -424,6 +442,7 @@ export default {
       slug: 'now-that-we-dont-talk',
       trackNumber: 19,
       trackTitle: "Now That We Don't Talk",
+      youtubeId: 'yF4ulRTCn44', // oEmbed-verified official Taylor Swift channel
       release: "1989 (Taylor's Version) — From The Vault",
       releaseDate: '2023-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -451,6 +470,7 @@ export default {
       slug: 'suburban-legends',
       trackNumber: 20,
       trackTitle: 'Suburban Legends',
+      youtubeId: 'ZGBPKYbzSXs', // oEmbed-verified official Taylor Swift channel
       release: "1989 (Taylor's Version) — From The Vault",
       releaseDate: '2023-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -471,6 +491,7 @@ export default {
       slug: 'is-it-over-now',
       trackNumber: 21,
       trackTitle: 'Is It Over Now?',
+      youtubeId: 'tNxUxm3-658', // oEmbed-verified official Taylor Swift channel
       release: "1989 (Taylor's Version) — From The Vault",
       releaseDate: '2023-10-27',
       writers: ['Taylor Swift', 'Jack Antonoff'],
