@@ -59,6 +59,35 @@ Phase 1), shifts author *as* the routed persona; until then, house voice.)
    indistinguishable from a quiet news day, which is how the Vault sat at
    2026-07-10 for nine days with a green fleet.
 
+## Diagnosed failure history (2026-07-19/20) — read before debugging this again
+
+**The shift has never opened a pull request.** Not once, across its whole
+life. That was not obvious for days because the symptom looked like idleness.
+
+What actually happened: it researched, authored, committed and PUSHED real
+work — `content-shift/2026-07-15-pm` (Grammys AATW payoff, Swiftkirchen) and
+`content-shift/2026-07-17-pm` (debut origin beats, folklore/evermore secrets
+pools, 463 lines) — and then failed at PR creation and exited. Because the
+ledger comment was step 7, *after* the PR, a failure at step 6 left no trace
+anywhere: no PR, no comment, and branches nobody was looking at. Both branches
+sat for days and were eventually superseded by other routines re-authoring the
+same items, so the work was wasted twice over.
+
+The one configuration difference between this routine and every routine that
+does successfully open PRs (Photo Enrichment, The Answerer, Cross-Link, Mood
+Chat) was that **this trigger had no MCP connections** — specifically it was
+missing `Claude_Code_Remote`. Attached 2026-07-20.
+
+Two lessons that outlive this bug:
+
+1. **A pushed branch with no PR is a failed run, not a quiet one.** If you are
+   debugging silence here, list `content-shift/*` branches on the remote FIRST
+   and check whether each has a PR. Stranded branches are the tell.
+2. Three separate hypotheses looked right and were not (WIP limit, prompt
+   overload, the Codex gate). What settled it was noticing the routine had
+   *never* succeeded, which reframed it from a regression to a config gap.
+   Check "did this ever work?" before "what changed?"
+
 ## Throttles
 
 ≤2 items authored per run (quality over volume); per-run token budget;
