@@ -94,6 +94,15 @@ export const CONFIG = {
       'her house in', 'her home in', 'his house in', 'his home in',
       'townhouse', 'penthouse', 'estate in', 'compound in',
       'security detail', 'security team', 'bodyguard',
+      // Widened 2026-07-20 after a LIVE miss. A published moment carried
+      // "Security tightened around her Watch Hill estate" and "extra security
+      // around the Watch Hill estate" — a security-arrangements redline
+      // (Never-OK #2, absolute and untouched by the location relaxation) — and
+      // the checker said nothing, because the list only held the exact noun
+      // phrases 'security detail'/'security team'. The dangerous form is
+      // security as a VERB or a change of state, not as a job title.
+      'security tightened', 'extra security', 'security presence',
+      'security around', 'stepped up security', 'security was increased',
       // Forward-looking location (2026-07-20). These are CANDIDATES, not
       // findings, because the answer depends on the place name that follows:
       // "expected in the Bahamas" is L0 and fine, "expected at the Bowery
