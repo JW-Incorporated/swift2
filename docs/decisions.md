@@ -7,6 +7,50 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-20 — Photo-enrichment progress marker: comma-safe JSON, done-state recomputed live
+
+**Decision:** The photo-enrichment worker (issue #762) tracked progress in a
+`<!-- photo-done: k1,k2,... -->` HTML comment whose keys were joined by
+**commas**. But most moment keys *contain* commas (e.g. `midnights|2024|2|A
+record fourth Album of the Year Grammy, for Midnights`), so a split-on-comma
+reader shredded them. Switched (Wyatt approved) to a **comma-safe JSON array**
+marker, and moved the logic out of per-run prose into a tested module.
+
+**How it works now** (`scripts/content-engine/lib/photo-marker.mjs` +
+`scripts/content-engine/photo-queue.mjs`, unit-tested):
+- The marker is `<!-- photo-done: ["key", ...] -->` — JSON, so commas/quotes/
+  unicode inside keys are safe.
+- The persisted marker records **only the subjective decisions**: sparse pages
+  (<2 photos) a run reviewed and deliberately left at their editorial maximum.
+- Whether any *other* page is done is **recomputed live from the corpus** each
+  run (`isPhotoDone`: ≥2 photos, every photo has a `focalPoint`). Already-
+  enriched pages therefore can never churn back into the queue.
+
+**Why it mattered:** two failure modes were already happening. (1) **Churn** —
+308 of the 449 pages the old marker called "remaining" already had ≥2 photos, so
+recent hourly runs were mostly re-marking done pages. (2) **Silent corruption** —
+comma-keys recorded by past runs survived only as their first fragment (the
+`, for Midnights` tail split off and reordered away), so they re-queued forever.
+Same class of bug as the 2026-07-20 duplicate-`focalPoint`-key incident: legal
+to the parser, invisible until it isn't.
+
+**Migration:** ran `photo-queue.mjs migrate` over the full #762 comment history —
+recovered 369 recorded keys, kept 144 reviewed-sparse (dropped 225 that are
+objectively done or stale); 224/697 moments are objectively done and now tracked
+live. The rebuilt JSON marker is posted on #762.
+
+**Alternatives considered:** newline-delimited body (also comma-safe, but JSON is
+unambiguous and `JSON.parse` is a one-liner); keeping the format and having each
+run substring-match whole keys (papers over the corruption without fixing the
+churn). Rejected both.
+
+**Follow-up for the founders (not done here):** the pinned PROTOCOL comment on
+#762 should point runs at `photo-queue.mjs` and the JSON format; and since the
+high-visibility queue is now essentially exhausted (what remains is low-
+visibility 1-photo pages), consider winding the hourly cadence down to daily.
+
+**Approved by:** Wyatt (CTO)
+
 ## 2026-07-20 — Fashion shopping links: offer a similar alternative instead of skipping unshoppable pieces
 
 **Decision:** Joey asked for shop links across all fashion-tagged content — clothing and makeup, images included, not just what the text names. Scope check: 148 items carry `category: 'fashion'`; only 1 currently has `moment.products`. A large share are custom/couture/runway one-offs (the existing `content.fashion-products` checker already excludes these from its queue on purpose — "no product page exists"), which is a real dead end for an exact link. Joey's instruction: don't skip those — offer a similar alternative instead.
