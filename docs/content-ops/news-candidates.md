@@ -25,7 +25,104 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 113
+Stories: 120
+
+## Brad Paisley on Taylor Swift’s wedding - AP News
+
+- first seen: 2026-07-20 22:11 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley on Taylor Swift’s wedding  AP News
+- sources:
+  - [unverified] AP News — https://news.google.com/rss/articles/CBMimwFBVV95cUxOMnlnUG5OU0p5bWIyQkFPMUptSnRfUXhHQjNDUDVyOXRfazZNaHpQWmdsZ2NiaDNVSHpHd1hrM3ROdzhIb0VwbzlqZUZGdHhOUk1VN3h5QjNNM0FXSU13WE4zamt0RWJDeTctelkyLVktVlhzbzZkTVQ4dEZsR0RPWmU1emJSM3NZVDZyWlhqZXNjaGxGM2NiWWV0SQ?oc=5
+
+## Dior Shares New Details on Taylor Swift’s Wedding Dress Reveal - ELLE
+
+- first seen: 2026-07-20 22:11 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Dior Shares New Details on Taylor Swift’s Wedding Dress Reveal  ELLE
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMinAFBVV95cUxOaTR1TVVjMEdMNjVUWURzMGplNUZEM3ZSclZxRG13TjBjZGR2ZU5GQmE3T1BRTkhwU0Z3cDNRb1poVXp5UWpTRVFKS1FMbElzUldDUVg0SFJSTC1na1JMaHJyb1IzRE1KUklZdVh4S1JIeWRYbHp0U0NoZHNRVENEdnpOUW5QLXRxQUprMVE5YUlXeGRsWnd6TmVjUkM?oc=5
+
+## Taylor Swift Fans Spiral Over Tiny Spotify Change, Fueling New Album & 'Taylor's Version' Theories -
+
+- first seen: 2026-07-20 22:11 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Fans Spiral Over Tiny Spotify Change, Fueling New Album & 'Taylor's Version' Theories  Just Jared
+- sources:
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMiygFBVV95cUxNZmQ4eGt4cjczbW41TDRTU0JRRnBmMUplcVFacmlXc1B0R3ZkdXF1T1RweXdKM1ZzOFdoQ2E1QzFPc2dfQzBCa2h3VUZQVG94V0dIWG1Fa2Z1OEJpTGdnWk1FVTA0ODVJWks1OFFsLVFZUFdLVHNWRm13WExSaGJtN3ZodXNNeXhaOGxyVUFEYnhGTXRLa3lUdHhqdmZ5QVNLZjZyWS1ndDNQc0t4VUJBTWg2RFZHOHlpekRNek91c0lqa3M3TEEtVG5R?oc=5
+
+## Model Camille Kostek Reveals New Details About Taylor Swift’s Fairytale Custom Dior Wedding Dress - 
+
+- first seen: 2026-07-20 22:11 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Model Camille Kostek Reveals New Details About Taylor Swift’s Fairytale Custom Dior Wedding Dress  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMitAFBVV95cUxNS0xwdHJiaFR4Sk1vYTBmM05TMXh6dHlZN2FKQmpOSFZfQlViU1dqX0ljTXVock5Tcy1HaFgwNU95a0tMUm1JY2E4dWFnVU1vS09uUnJkY3N3Z21ocFNkalpIdUdVcGdRYm9mLWxMdmhyZlhBYlVmTGF5V290YmRGMlZYdngtVkdubDE1MVhfYi1pRmlFUlMzWVowNjhMX2ZmWkZCcUtnTUx1ZHlYTUk3dUdVeGI?oc=5
+
+## Is Taylor Swift's Version of Her Debut Album Coming? Untangling the Colorful Easter Eggs - E! News
+
+- first seen: 2026-07-20 22:11 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Is Taylor Swift's Version of Her Debut Album Coming? Untangling the Colorful Easter Eggs  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxPUVlmbzlmZGxpMlhBRFNLU3oyYTFXdjFfQzB2b3pqNjQyWHdFSGpZQ0QwelNQb1RzbVM4UFVYMFQyX3pYXzhtY1dRbklIQTFqYm4wVG9iMElCbmxnRXNzOEhSM19XZWlVTDNFS0JKTmRGUUd2LXZndnBwbExQdmVsX0FNbF9GX0hTalpncWJLdXM2aldxNUU1TjIzdEt3R1dJUWRBQnBnZkE4S1M0?oc=5
+
+## Why Taylor Swift & Travis Kelce Are Allegedly Struggling With 'Jealousy' After Their Wedding - SheKn
+
+- first seen: 2026-07-20 22:11 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Why Taylor Swift & Travis Kelce Are Allegedly Struggling With 'Jealousy' After Their Wedding  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMitAFBVV95cUxNaVFVVzJpM0JzMnZhaU9xOUpKdEhFNU1odHF0dXFaMTNZWjZ0SGZ4U3RGSXJiaVBFMHhWYlh1N3lRU2tKSWdRVmNCU2JXYlRQcFZiNV8yT2VlN2o4cWstMWliYmdJSkEwcDg3b2pSUVFWTE5fOXhqTHlGUUNqcklXMjF6UVVja3JybllYdnVUQ1Zrclh1Mk5aaTgxdFNmZnkydHhjdkZ0OHpBOE9XUXJnRkE0bkI?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxOcHhHa3d0Y1k4bnlQbEpwVW5RdDFtZVFvMHdRX0ZYNmFoMk1OSlZCUmViVWZqSkNHMDFuRkJmbWdyaGFMd19WeG5FODlmeHJBRVRfeU42aDg0ZHF6S01YSkVPNVRTaWVmR0g2bUppbnlWVThCa2ZmdlpnQVRoNEJucV9ub1JMUFpsMFRNQXItMGhUbElXNWJDTGpGUXRwUFhy?oc=5
+
+## Strand Center for the Arts presents Lover Taylor - Tribute to Taylor Swift on Friday - NewJerseyStag
+
+- first seen: 2026-07-20 22:11 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Strand Center for the Arts presents Lover Taylor - Tribute to Taylor Swift on Friday  NewJerseyStage.com
+- sources:
+  - [unverified] NewJerseyStage.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNRi00QVZxbkhPMG1ZR3BKTmg3VWxmcno3Zkt2QnZWX0pUNHZHNGlQZTMtZTdVbkducXZ2NFJxRWp0M2NGdmo2TFFlU3RYOWhGMTZxY2ZLXzZvY2ZwMnZLSjM2YzNWRmY0cVRyb0tJdHdwY3JJNjFWaDFyOEVkMXNfckt3WHFIN3dJRlBvamk2VnNGdWtvaS16MUxQS2tSLWhTdVZJQ1d5eHNHMjhMd3M4cm8xMjFFakdRMS1rLXpUY3lTVDBUVlZKZVB6ZkpHODdD?oc=5
+
+## Taylor Swift & Travis Kelce Reportedly ‘Exhausted’ by ‘Nasty’ Wedding Comments from His Alleged ‘Jea
+
+- first seen: 2026-07-20 22:11 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce Reportedly ‘Exhausted’ by ‘Nasty’ Wedding Comments from His Alleged ‘Jealous’ & ‘Trash-Talking’ Teammates  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOV3h1bk9rSVFuZTFWZjhWWGVpR3E4RmF0R0JyUVRjQWhzN0Q0RC1LS3NPdWpnN0ExN0hXLURVVXpYTk9NbmM2T2N3NklTRUFTMWtRM0o3Rm5JMGYwWk9GN0Rwbko4Y19ZYzU3RndsSko0OGQ3X2ZLdkpzWld2RFZUMU5KRkNPeWlNS0puWE5lQVZzUE5MWk45MjNzbkpiZ09yQXlYVm1Hck1QUQ?oc=5
+
+## St. Vincent dives into orchestral music after collaborations with Taylor Swift, David Byrne, Nirvana
+
+- first seen: 2026-07-20 22:11 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: St. Vincent dives into orchestral music after collaborations with Taylor Swift, David Byrne, Nirvana  San Diego Union-Tribune
+- sources:
+  - [unverified] San Diego Union-Tribune — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQSHkxdG5Tb2s2MWt6SHc1cFBvb3BwNHJ2bFpnaHdLQl9pRE1TVnpmV1dZb180SW9VMklFbGN5M01LZ1ZZMjNidEktWWFRUnJCVXV6WEVJdXR5ekpWT3JNaDd0eUJJRURYTGRBbWV3TXVzU1VjV1V4b3NHOXpYc09YTUdWX0NLX19XejQzUDM3eHhhSHlTMW5sTTVwdWpta2xxU2s2VzlnM2dHNzB2UXBBSVNEZUJQeVRjYXdNQzBOdzYzLTJGaWswZ3lzSDQ3WU9CRFpiOWc3eTZDY010MTdV?oc=5
+
+## Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding
+
+- first seen: 2026-07-20 22:11 UTC | category: sighting | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxQbUpOZFZNVzZuSlNtbFhSUDkzUk5zNlJXbzBEd3FiN3ZyZmxPbW1ESlpPLWNMVW54ckZyeTFVNldMc0FFUzQwUTFZeVpjUGJiYmRWcGduZmp2eXN0MVdJUy1ZV3lueUVSVTlsLXQtOGNBTnVBV09OdHNNMXV0RU1XdjlCVkZyYkpVb3R1UDJXS3ZHQQ?oc=5
+
+## ESPN’s Scott Van Pelt Raves Over Taylor Swift and Travis Kelce’s ‘Forest’ Wedding - People.com
+
+- first seen: 2026-07-20 22:11 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: ESPN’s Scott Van Pelt Raves Over Taylor Swift and Travis Kelce’s ‘Forest’ Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMipgFBVV95cUxQa1pkVGE1em1NaGxISkwzR2dSWDFjZ3VtSHg1VVpmb3hwaGdoZWZvZThsbmc3a1pQTC1pX2RPUThwMEhlSDNGQlk1bmdiSXNKNXFtdFI2NjBQNVF4R0NYSk9QQ284QTVJU3ZvZGk0UnpDRnUyMkxmczhUVjllMTB1TXNsaXR1dS1NR3ZWV0J5Q3BiSlM1MmxiT3BXSjRKTTh0Qk5DWjBB?oc=5
+
+## “There was real anxiety”: Taylor Swift was reportedly concerned about Blake Lively drama before tyin
+
+- first seen: 2026-07-20 22:11 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: “There was real anxiety”: Taylor Swift was reportedly concerned about Blake Lively drama before tying the  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiqwJBVV95cUxQSVFWbUJ2TTQyS2JIRVE3cXZJWkVlTVVVal9ydW9uR01SYVpscEhsUjlFeUJJLXNOSnhlb3RUWTZ4aVltd1RCc2Z5MDVIeVo2NVRaQVg3VGtseWFlNVFFU05SWDRQOEJJYW1rdHk2ZWRrSXUyRi1OalBndEMxdUxRU2hfblZzVWI2X3J4dHlZMGVHblVTNVZsN1F1a1V4SnJaVk1pbGdSbnVHb3ZKeGZmWHU1Um9GcmhIUFRmV1hwbXd6MjVIVzBLX0RMSl8zbkZNOWN1Y3E1bmhDS1dDVDJkQ0o3dVBGbDM5TnM2cHg5dktlR01WMldZaklSOE43azlwbmw0VGZFNnRrWlJFM0xiSTBfVW4xRkJ2c3N1SGFTVDVVRGQ4VEtVMFdKRdIBsAJBVV95cUxQLXNNdFI1N2wwN1dVcEpiYW1NekN3T0twQi1aV1gzLVVZVmJxdE9Ia3FaVEUwc2w2UnptbEctb2pKeFd0djc4VGV0YjFuRkZVTjRJQ3h6VUVIbmdRUC1nTndmbUVVRDBhMldyMnF3ZlNlNDFZcTl4SDFOOUxzOHNEc0U0Y255a2hpQkZSNmFHVXFFdlh6M0JmbGdONjVPSklrQ0RLTzdMaHNSSWhpS25PXzBHWkdPTXcyb2p1TDE2dmZGRE1VaGVZV0VfdXBxMzFLR1JDS3BvU2h0RXVYRTAxeFF4a0w4NDVfU3hFRDdEME1ZcGRYVjk1RGFHWTNYVjktZXR2MW5TMERKVUdJaUFjbDB3VUhkTDU1Q2FQT09SZzBLNDVFNDdoNnJNQ01QN2g1?oc=5
 
 ## Travis Kelce, Taylor Swift Saddened By Reaction To Their Wedding - The Spun
 
@@ -157,6 +254,15 @@ Stories: 113
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPUGEwVVN6dDk1eWFVTUg2clpIVU5hLTl1ck1WZl95WEU5c2pCVjRmUlBRVGkzam80QlBET1BOOVB6SHdkSEotLWJON3R5SHlrYUEwdDRYTUZwdHBlX2JOZlBOaWFBU2dJSHJ2WWV6dkNsT0lSWGdPbkNjRnd1V1hvR3ZLZWp0NzZqR3YzaC0xeUVhbGdqUklmTElqd2dPaGNVUGc?oc=5
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMif0FVX3lxTE5Sb255cTcyaWxJZFdvbkxhbUUyQ2ppd0dSZzhqTG9EVmY1UFV6YVpJVTEwUS10c2hTcHpGVTk2YTFkWlo3R1RQa2RrckVseVdGTHUyci1kYnNTaG85ODQzQjVsVE9kS0ZnN0xoa3ctMFI0Smd2MEw4S3ZOUjRjenc?oc=5
 
+## Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony - Yahoo
+
+- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdGNqLVBvNVItbmNXMW5heWVhbU4zQUxYelNxc1Z5Vi1fWUVybWVIajVnMTBYZU5FTl9uaDVDaGdMSHdSMzdXS0swT2FLMDBGcEtmNHZ5RDJ3eUZYZzFHUHNNM3ZhVWpwSWJfM2lwNHNId3dvTnFQSm9QVG9aN1dnUnJvQzJxbXhaUWlHWWZ6ZF9aV19scGFIcUFyd3NjZkZDZDEtVXpzdw?oc=5
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMingFBVV95cUxNYS1nTUZ6RlBZNmNQRkFja0pNVHQ3N3dfTlBsUUd0WFEyVlM1QzgyR3dUYTNwODZZX0lCLUQtXzFKZFFhOUNJTVppYVdJcTN1SVpjUVkxWXRrVHlIMmc3YURxbXJEc3M2bFdoRVFCZEo3TC1zdnhXa2h0QndhMi1ETmZON1lvTDU5MzR4YlVoeVd0S2d1WFE1SUZIdmU1UQ?oc=5
+
 ## A Guest At Taylor Swift And Travis Kelce’s Wedding Recalled A Sincere Part That People Thought “Was 
 
 - first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
@@ -204,14 +310,6 @@ Stories: 113
 - summary: Taylor Swift Sneakily Tweaked 3 Songs on Spotify—and Sparked New Album Rumors  ELLE
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMisAFBVV95cUxQRG4tVzV6dF9NUzVBQVJHRlZoM2dDN2hoSUd0d19VMHJsa3FvTkUyQnF2UkNYQjFhdGxITGhwV3psalU3VGIxLUFPcktxeHVHMVhxY0pYdXVYbEY3TTJxZnJGT3V4bVc5SUlMdUlMNVpIal9DQTVpeUoxN09tZVpNcXp4QjNxcVV6ZXJjUmRoU0xOckVwQzVzNnQ3N0RaZzNUVi1mUmVUV0lHMFNxVGlmdQ?oc=5
-
-## Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony - Yahoo
-
-- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdGNqLVBvNVItbmNXMW5heWVhbU4zQUxYelNxc1Z5Vi1fWUVybWVIajVnMTBYZU5FTl9uaDVDaGdMSHdSMzdXS0swT2FLMDBGcEtmNHZ5RDJ3eUZYZzFHUHNNM3ZhVWpwSWJfM2lwNHNId3dvTnFQSm9QVG9aN1dnUnJvQzJxbXhaUWlHWWZ6ZF9aV19scGFIcUFyd3NjZkZDZDEtVXpzdw?oc=5
 
 ## Brad Paisley vehemently defends Taylor Swift and Travis Kelce’s MSG wedding - Page Six
 
@@ -383,14 +481,6 @@ Stories: 113
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiWkFVX3lxTE8yZ2JPWHJ1TF9hYVJlQ2xCSmROMXU2cDFNelNOQTRRR040enJMbmpXdHVub2JQQk5zckJTMXdwT2drY3dqU3VWUWhjcC1PeDdmV1RPVUt1eGdkUQ?oc=5
 
-## Brad Paisley Calls Taylor Swift and Travis Kelce's Wedding 'Least Pretentious' Amid Criticism - Yaho
-
-- first seen: 2026-07-19 21:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley Calls Taylor Swift and Travis Kelce's Wedding 'Least Pretentious' Amid Criticism  Yahoo
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiowFBVV95cUxPUVFMak1pYkR1UXhZS05Jd0hFNXhuSlV1ZzF5Z3kwM3RxRy1yYVluRGxJU3FhdmtFVVBqOEM3UW55cU5BZ0VIYkFMLUNjeDdNTEh3Si1qNGJINzFHMkZabTRURWNtaDRiNURMLXJ5clNwN2c1TWtIM3dIYWk1UDJadWs4OXBBcGlTN3l5YmpPUEI1Tmp6ZDlvdGlySU5nZDN6Y3lz?oc=5
-
 ## Shaq Says He Didn't Get an Invite to Taylor Swift and Travis Kelce's Wedding - Complex
 
 - first seen: 2026-07-19 21:03 UTC | category: relationship | importance: 5
@@ -398,6 +488,15 @@ Stories: 113
 - summary: Shaq Says He Didn't Get an Invite to Taylor Swift and Travis Kelce's Wedding  Complex
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMinAFBVV95cUxPWHBQT2RhTWxyUkx2eEJZVl90bWxkLS0yOUw2MXZsNndKTDBFNDV2ekx5LXlHQnhTT3M0WGVqYmF6WVBsQ054Q0FHOUFvZUFpcXAwVGgyU21RQXFWN2xOcXI0d3VQcWxiX1VOLXdFWC1qSkxxUVJ5N0ljNUNIbnhCVEhwZkVjWG4zU2Rhdi1EOVcwMmIwYlRuUkw5eWc?oc=5
+
+## Brad Paisley Calls Taylor Swift and Travis Kelce's Wedding 'Least Pretentious' Amid Criticism - Yaho
+
+- first seen: 2026-07-19 21:03 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Brad Paisley Calls Taylor Swift and Travis Kelce's Wedding 'Least Pretentious' Amid Criticism  Yahoo
+- sources:
+  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiowFBVV95cUxPUVFMak1pYkR1UXhZS05Jd0hFNXhuSlV1ZzF5Z3kwM3RxRy1yYVluRGxJU3FhdmtFVVBqOEM3UW55cU5BZ0VIYkFMLUNjeDdNTEh3Si1qNGJINzFHMkZabTRURWNtaDRiNURMLXJ5clNwN2c1TWtIM3dIYWk1UDJadWs4OXBBcGlTN3l5YmpPUEI1Tmp6ZDlvdGlySU5nZDN6Y3lz?oc=5
+  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxOUUNqcGQ4TV9VYlNjWDdOMzNkVmU0azlqeTlRMGpTLXBxOEp3ZUZObXVxazJFdnl3bkxJeTBEaDM3X0p6eFNTbFE1Z1JfcTk3QndwcV9wTVdCOGJEUWhjbG1kQXJ5dXM5eDVLaGhSUEtRUlF0MGRFcDk0WFF2VEhYRFdZdmlNNEJlckF5ZDhXdDduOVFFZHVnOFl1cEVuOGtROGJ5Q3djcGNyWHBiNjg1cWRzTC1XRmxWdEE?oc=5
 
 ## Here's How Travis Kelce Is Preparing for the NFL Season After Taylor Swift Wedding - E! News
 
@@ -899,43 +998,3 @@ Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Excl
 - summary: Travis Kelce posted a surprise “New Heights” interview with Prince William on Friday, the day he’s set to get married to his popstar fiancé Taylor Swift at New York’s Madison Square Garden. “We thought were gonna be talking to, like, fat offensive linemen, not kings, queens, princes of other nations
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/prince-william-new-heights-taylor-swift-travis-kelce-1236801557/
-
-## Here Are All of Taylor Swift’s Title Tracks, Ranked (Critic’s Picks)
-
-- first seen: 2026-07-19 18:01 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Swift recorded namesake songs for seven of her 12 studio albums.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/lists/taylor-swift-title-tracks-ranked/
-
-## Watch Gracie Abrams Showcase Evocative Song ‘Minibar’ on ‘Fallon’
-
-- first seen: 2026-07-19 18:01 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The singer also discussed her new album, Daughter From Hell, on the late-night show
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/gracie-abrams-minibar-performance-fallon-1235595016/
-
-## Why Paul McCartney Gave Taylor Swift the Perfect Beatles Wedding Song
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: “I Want to Hold Your Hand” is the Beatles' most extravagantly passionate vision of romance. You can bet Taylor understands
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/paul-mccartney-taylor-swift-wedding-i-want-hold-your-hand-1235589938/
-
-## Eric Stonestreet Says Taylor Swift and Travis Kelce Created the ‘Normalcy They Deserve’ at Wedding
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: “It just happened to be at Madison Square Garden, with security making sure everybody was safe and good, and they could just have a night for themselves”
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/eric-stonestreet-taylor-swift-travis-kelce-wedding-1235594450/
-
-## Taylor Swift Paid NYC More Than $160,000 for Wedding Weekend Permit, Including Police Overtime
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift paid more than $160,000 to cover police overtime as part of a New York City permit required for her and Travis Kelce’s wedding at Madison Square Garden. Mayor Zohran Mamdani confirmed in a press conference on Friday that the billionaire pop star footed the bill for the increased law enf
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-paid-nyc-police-overtime-wedding-1236806715/
