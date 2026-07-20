@@ -259,6 +259,10 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg/500px-Taylor_Swift_-_Enchanted_-_Speak_Now_WORLD_Tour_-_PARIS.jpg',
+            // Photo pass #762 (2026-07-20): viewed. Portrait — she sings mid-song
+            // in the silver gown, face high and just right of center; keep the
+            // crop up top so the face isn't cropped out on wide cards.
+            focalPoint: '52% 24%',
             credit: 'oouinouin / Wikimedia Commons (CC BY 2.0)',
             caption:
               "The tour's theatrical 'Enchanted' staging, photographed in Paris on March 17, 2011 — same production as the Singapore opener, a later night on the same first international leg.",
@@ -736,6 +740,10 @@ export default {
         photos: [
           {
             url: 'https://fashiongonerogue.com/wp-content/uploads/igr/preview/01/taylor_swift1.jpg',
+            // Photo pass #762 (2026-07-20): viewed the Vogue cover — face
+            // centered under the floppy hat, eyes about a third down; keep the
+            // crop centered and slightly high.
+            focalPoint: '50% 30%',
             credit: 'Mario Testino / Vogue US',
           },
         ],
