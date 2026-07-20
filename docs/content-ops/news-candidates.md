@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 81
+Stories: 83
+
+## Taylor Swift and Travis Kelce's wedding invite: 'I won't get into the details of the NDA. But it had
+
+- first seen: 2026-07-20 04:48 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce's wedding invite: 'I won't get into the details of the NDA. But it had teet  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMitAJBVV95cUxNZEl1MUozd0FGYlJTSTdxLWtreUNqNHpKVUowVVFVbDhXRlQ4YnRfbW9ScjViLTNCc1hYQWtpVW8zd25MS1hUTklmYjFDR3FITUJTT09MNW9sb0xSRDBZVlNrZEZiTHJlNWpmcS1NUDlwWDc1TjRVU0YxN08zajJCaTRhTFUwNzd3STFvck5mSld6dTZwZlFHYklnT2pvVmc2UlUtaVQtc2pZdkpuOFNTeXpBM3lqSjJ3NnVsbzNTaEVZai1PVXlyd240ajJCajI3ZmlrdTZHYUdCdGVDRVNNc3ZhZ2o0dFYxbmktTUhNTHlLc2ZTRGE1ckFMbFFGR3NwRDBJOC1YLVpZOXhFcWkzRGZPak1NMEtEM2txV3FRWGRGTTk0RC15MVBubW55THJqazUyU9IBugJBVV95cUxQS09OT251T3lVNWctdU95ZnhNa2oySG1ha2Y0N1RKQUpiMzhNZXRCRGtfbm56NmVhS1JTOGpYZnVqaVVEbnhJTkFIeWFpUEhwaWlVWi1EanVtT0Z1dFNTb0gySmQtUjhUaUZHbUdXajNsSnNGelJmSmc0a2dLQmFfR3NndkExVlhqTzZzZlBnTTZvaHBNaEx0djBPRmFLWFVTUFpGRUFfSHpPY2p3ZGVUeGJvM3BsZDgySGl3OXN1ZU1GOTJqUDlnT05OYnBBS3V2YVpzUnhKblFrdktJMzhxQzItcHE3b2g1eGdkSkw2T1RUUEk4RVFlR2dQaHVyMTR4WFJCdjVJVUNiS3NhU3JzU3BkOTBRUFptcHpodVVrNUFUY2Z6UFNzSVFlZThiRHFUMFZpVW9jRzVuUQ?oc=5
+
+## Opinion: Taylor Swift and Travis Kelce had their dream wedding — can we stop picking it apart? - Yah
+
+- first seen: 2026-07-20 04:48 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Opinion: Taylor Swift and Travis Kelce had their dream wedding — can we stop picking it apart?  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxPYW1EWDFQRE85ZHpSMjZuZjFQalk1ZVhmY3NkV29OT1BWWTJzNkZfV3hfXzVOLWRkeWljTjY0eWZ2VWNkRWlyRVZmRUt6VVZnTFN3cXJjWFVidF9PWld5d2w2emNPaFNTZjlIVmljbFAwbzBISFhMSjd0TmVWOXU4d19mZDdWRHl6Z0wyYjM4cXpNOGJUOHRySWtQekNodkNDRG1fQ0cya3dXaGxKa1FsQzN2bTh6NFk2bW1vYUVfdUNncFRhTXhHZWtuVGp5WjE5VnhuU0diZlgtLUVVTVdONmFDRQ?oc=5
 
 ## Taylor Swift Has a Soft Spot for Floral Wedding Guest Dresses — Like These Under-$60 Inspired Styles
 
