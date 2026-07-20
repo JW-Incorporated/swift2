@@ -26,6 +26,7 @@ export default {
       slug: 'fortnight',
       trackNumber: 1,
       trackTitle: 'Fortnight',
+      youtubeId: 'q3zqJs7JUCQ', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Post Malone'],
@@ -47,6 +48,7 @@ export default {
       slug: 'the-tortured-poets-department',
       trackNumber: 2,
       trackTitle: 'The Tortured Poets Department',
+      youtubeId: 'RQMz4JDbtmI', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -65,6 +67,7 @@ export default {
       slug: 'my-boy-only-breaks-his-favorite-toys',
       trackNumber: 3,
       trackTitle: 'My Boy Only Breaks His Favorite Toys',
+      youtubeId: 'wRKXAAV6jh4', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift'],
@@ -88,6 +91,7 @@ export default {
       slug: 'down-bad',
       trackNumber: 4,
       trackTitle: 'Down Bad',
+      youtubeId: 'EVbtjaWXQVg', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -112,6 +116,7 @@ export default {
       slug: 'so-long-london',
       trackNumber: 5,
       trackTitle: 'So Long, London',
+      youtubeId: 'CCUr2pNJft4', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -138,6 +143,7 @@ export default {
       slug: 'but-daddy-i-love-him',
       trackNumber: 6,
       trackTitle: 'But Daddy I Love Him',
+      youtubeId: 'U2W173hRfyA', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -164,6 +170,7 @@ export default {
       slug: 'fresh-out-the-slammer',
       trackNumber: 7,
       trackTitle: 'Fresh Out the Slammer',
+      youtubeId: '0EKbEP2L32M', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -183,6 +190,7 @@ export default {
       slug: 'florida',
       trackNumber: 8,
       trackTitle: 'Florida!!!',
+      youtubeId: 'uEssK8o3jKg', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Florence Welch'],
@@ -203,6 +211,7 @@ export default {
       slug: 'guilty-as-sin',
       trackNumber: 9,
       trackTitle: 'Guilty as Sin?',
+      youtubeId: 'OOYlWF6V8t8', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -225,6 +234,7 @@ export default {
       slug: 'whos-afraid-of-little-old-me',
       trackNumber: 10,
       trackTitle: "Who's Afraid of Little Old Me?",
+      youtubeId: 'vOZFiX6hDXQ', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift'],
@@ -248,6 +258,7 @@ export default {
       slug: 'i-can-fix-him-no-really-i-can',
       trackNumber: 11,
       trackTitle: 'I Can Fix Him (No Really I Can)',
+      youtubeId: 'OKWfv-x2rdU', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -271,6 +282,7 @@ export default {
       slug: 'loml',
       trackNumber: 12,
       trackTitle: 'loml',
+      youtubeId: 'GZ4vaTRn0HU', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -287,6 +299,7 @@ export default {
       slug: 'i-can-do-it-with-a-broken-heart',
       trackNumber: 13,
       trackTitle: 'I Can Do It with a Broken Heart',
+      youtubeId: 'Sl6en1NPTYM', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -314,6 +327,7 @@ export default {
       slug: 'the-smallest-man-who-ever-lived',
       trackNumber: 14,
       trackTitle: 'The Smallest Man Who Ever Lived',
+      youtubeId: 'Atdzfj8LcuY', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -340,6 +354,7 @@ export default {
       slug: 'the-alchemy',
       trackNumber: 15,
       trackTitle: 'The Alchemy',
+      youtubeId: 'iMMUAd66vxo', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -358,6 +373,7 @@ export default {
       slug: 'clara-bow',
       trackNumber: 16,
       trackTitle: 'Clara Bow',
+      youtubeId: 'fcVUbmdQfaE', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -377,6 +393,7 @@ export default {
       slug: 'the-black-dog',
       trackNumber: 17,
       trackTitle: 'The Black Dog',
+      youtubeId: '56TZ3B8Qxsk', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift'],
@@ -399,6 +416,7 @@ export default {
       slug: 'imgonnagetyouback',
       trackNumber: 18,
       trackTitle: 'imgonnagetyouback',
+      youtubeId: 'SBGdvxi2JmU', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -415,6 +433,7 @@ export default {
       slug: 'the-albatross',
       trackNumber: 19,
       trackTitle: 'The Albatross',
+      youtubeId: '4wOsiM2T_xc', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -439,6 +458,7 @@ export default {
       slug: 'chloe-or-sam-or-sophia-or-marcus',
       trackNumber: 20,
       trackTitle: 'Chloe or Sam or Sophia or Marcus',
+      youtubeId: 'gOtOWeD9YJk', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -455,6 +475,7 @@ export default {
       slug: 'how-did-it-end',
       trackNumber: 21,
       trackTitle: 'How Did It End?',
+      youtubeId: 'O3wlMR0y4a4', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -471,6 +492,7 @@ export default {
       slug: 'so-high-school',
       trackNumber: 22,
       trackTitle: 'So High School',
+      youtubeId: 'w-FkV0EM_CU', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -502,6 +524,7 @@ export default {
       slug: 'i-hate-it-here',
       trackNumber: 23,
       trackTitle: 'I Hate It Here',
+      youtubeId: 'BpkmUfv1I4Q', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -518,6 +541,7 @@ export default {
       slug: 'thank-you-aimee',
       trackNumber: 24,
       trackTitle: 'thanK you aIMee',
+      youtubeId: 'oaBJlKXBvjk', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -542,6 +566,7 @@ export default {
       slug: 'i-look-in-peoples-windows',
       trackNumber: 25,
       trackTitle: "I Look in People's Windows",
+      youtubeId: '6HIA7ouBfGY', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff', 'Patrik Berger'],
@@ -558,6 +583,7 @@ export default {
       slug: 'the-prophecy',
       trackNumber: 26,
       trackTitle: 'The Prophecy',
+      youtubeId: '_PsBoqNwYo4', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -574,6 +600,7 @@ export default {
       slug: 'cassandra',
       trackNumber: 27,
       trackTitle: 'Cassandra',
+      youtubeId: '0hYY86DmqPY', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -599,6 +626,7 @@ export default {
       slug: 'peter',
       trackNumber: 28,
       trackTitle: 'Peter',
+      youtubeId: 'Mxxswu7V1Us', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift'],
@@ -618,6 +646,7 @@ export default {
       slug: 'the-bolter',
       trackNumber: 29,
       trackTitle: 'The Bolter',
+      youtubeId: 'bAi80EylyXQ', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -635,6 +664,7 @@ export default {
       slug: 'robin',
       trackNumber: 30,
       trackTitle: 'Robin',
+      youtubeId: 'FQyEZZPbOb0', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -652,6 +682,7 @@ export default {
       slug: 'the-manuscript',
       trackNumber: 31,
       trackTitle: 'The Manuscript',
+      youtubeId: 'iY6Qhlua8Zw', // oEmbed-verified official Taylor Swift channel
       release: 'The Tortured Poets Department: The Anthology',
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift'],

@@ -2405,6 +2405,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A medicated narrator next door to the one that got away: a fortnight of feeling everything, then lawns and small talk forever. The Ethan Hawke and Josh Charles video cameos made the tortured-poet joke text.", "Swift called it an ode to a brief, ruinous love and picked it as the album’s thesis single; it debuted at Hot 100 No. 1."],
       discussionSources: [{ name: "Fortnight (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Fortnight_(song)" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff","Post Malone"],"producers":["Taylor Swift","Jack Antonoff","Louis Bell"],"isSingle":true,"singleReleaseDate":"2024-04-19","themes":["brief love, long damage","suburban numbness","what-ifs"]},
+      youtubeId: "q3zqJs7JUCQ",
     },
     {
       slug: "the-tortured-poets-department",
@@ -2415,6 +2416,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A relationship between two people addicted to their own melodrama: she punctures the artist mythos even while cataloging it. The named first-name friends are in-text; press attached surnames (Dacus, Antonoff) without official confirmation.", "Dylan Thomas and Patti Smith are named in the lyric itself; Smith responded graciously and publicly to the mention — the era’s nicest documented literary footnote."],
       discussionSources: [{ name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["self-aware melodrama","artist personas","in-jokes as intimacy"]},
+      youtubeId: "RQMz4JDbtmI",
     },
     {
       slug: "my-boy-only-breaks-his-favorite-toys",
@@ -2425,6 +2427,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She rationalizes the damage as evidence of being loved: only the cherished toys get broken. The saddest kind of cope, self-diagnosed mid-song."],
       discussionSources: [{ name: "My Boy Only Breaks His Favorite Toys — Wikipedia", url: "https://en.wikipedia.org/wiki/My_Boy_Only_Breaks_His_Favorite_Toys" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["rationalizing mistreatment","being discarded","cope and its collapse"]},
+      youtubeId: "wRKXAAV6jh4",
     },
     {
       slug: "down-bad",
@@ -2435,6 +2438,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A cosmic fling ends and re-entry is the injury: ordinary life feels like the wrong planet. Gen-Z idiom in the title, UFO imagery in the verses, grief in everything else."],
       discussionSources: [{ name: "Down Bad (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Down_Bad_(Taylor_Swift_song)" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"themes":["post-love withdrawal","alienation","wanting to be taken back"]},
+      youtubeId: "EVbtjaWXQVg",
     },
     {
       slug: "so-long-london",
@@ -2445,6 +2449,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Choral voices open a eulogy for a long partnership that died of quiet: she stopped being willing to trade her aliveness for someone’s low simmer. The London of it all made the subject reading universal (unconfirmed, as ever).", "Fans and press read it as the Alwyn relationship’s post-mortem given the geography and timeline — Swift has said only that the album chronicles a two-year period she needed to close."],
       discussionSources: [{ name: "So Long, London — Wikipedia", url: "https://en.wikipedia.org/wiki/So_Long%2C_London" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["leaving a life, not just a person","exhausted grief","cities as exes"]},
+      youtubeId: "CCUr2pNJft4",
     },
     {
       slug: "but-daddy-i-love-him",
@@ -2455,6 +2460,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She dates someone the internet hates and torches the moralizers who staged interventions over it: her life is not a group project. The wild-boy subject is read as the 2023 Healy controversy (unconfirmed); the scolds in the song are documented — they posted.", "Widely read against the documented 2023 fan open-letter campaign about a brief relationship; Swift never names him, but the song’s target is clearly the pile-on, not the boy."],
       discussionSources: [{ name: "But Daddy I Love Him — Wikipedia", url: "https://en.wikipedia.org/wiki/But_Daddy_I_Love_Him" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner","Jack Antonoff"],"themes":["autonomy","fandom parasociality","choosing your own mistakes"]},
+      youtubeId: "U2W173hRfyA",
     },
     {
       slug: "fresh-out-the-slammer",
@@ -2465,6 +2471,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A long relationship recast as a sentence served: now sprung, she runs straight to someone from before the walls went up. The giddy escape reads knowingly temporary."],
       discussionSources: [{ name: "Fresh Out the Slammer — Wikipedia", url: "https://en.wikipedia.org/wiki/Fresh_Out_the_Slammer" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["relationships as confinement","rebounds","running to the past"]},
+      youtubeId: "0EKbEP2L32M",
     },
     {
       slug: "florida",
@@ -2475,6 +2482,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Two women flee their crime scenes (romantic and otherwise) to the one state where nobody asks questions. Swift said the idea came from true-crime logic — where fugitives go to vanish.", "Confirmed: Swift described the premise on record as inspired by true-crime stories of people disappearing to Florida to restart."],
       discussionSources: [{ name: "Florida!!! — Wikipedia", url: "https://en.wikipedia.org/wiki/Florida!!!" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Florence Welch"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["escape","reinvention","gothic humor"]},
+      youtubeId: "uEssK8o3jKg",
     },
     {
       slug: "guilty-as-sin",
@@ -2485,6 +2493,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Nothing happened except in her head — so why does it feel like evidence? Desire as thought-crime, argued before a jury of her own upbringing. The Blue Nile’s Downtown Lights is name-checked in the lyric.", "The Blue Nile reference is in-text (a band tied to the reported muse’s known tastes, per fan forensics — that layer unconfirmed)."],
       discussionSources: [{ name: "Guilty as Sin? — Wikipedia", url: "https://en.wikipedia.org/wiki/Guilty_as_Sin%3F" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["desire as guilt","emotional infidelity","religious framing of want"]},
+      youtubeId: "OOYlWF6V8t8",
     },
     {
       slug: "whos-afraid-of-little-old-me",
@@ -2495,6 +2504,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Fame as a haunted-house attraction she was locked into as a teenager: if they wanted feral, she can do feral. The album’s biggest vocal and its most explicit indictment of celebrity-making machinery."],
       discussionSources: [{ name: "Who's Afraid of Little Old Me? — Wikipedia", url: "https://en.wikipedia.org/wiki/Who's_Afraid_of_Little_Old_Me%3F" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["fame as cage","weaponized reputation","rage as performance"]},
+      youtubeId: "vOZFiX6hDXQ",
     },
     {
       slug: "i-can-fix-him-no-really-i-can",
@@ -2505,6 +2515,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She showcases a project of a man to a horrified audience and insists she alone sees the potential — until the closing line concedes the whole premise. Self-aware satire of the fix-him industrial complex."],
       discussionSources: [{ name: "I Can Fix Him (No Really I Can) — Wikipedia", url: "https://en.wikipedia.org/wiki/I_Can_Fix_Him_(No_Really_I_Can)" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["savior complex","bad-boy delusion","the punchline confession"]},
+      youtubeId: "OKWfv-x2rdU",
     },
     {
       slug: "loml",
@@ -2515,6 +2526,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A returned lover promises everything with confetti-cannon sincerity, then vanishes on schedule: she inventories the con and files him under the acronym’s crueler expansion."],
       discussionSources: [{ name: "loml — Wikipedia", url: "https://en.wikipedia.org/wiki/Loml" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["love as con job","the biggest loss","acronyms as knives"]},
+      youtubeId: "GZ4vaTRn0HU",
     },
     {
       slug: "i-can-do-it-with-a-broken-heart",
@@ -2525,6 +2537,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Explicitly about smiling through the 2023 tour dates while her life fell apart offstage: the depression-era show-must-go-on anthem, ending with the giddy, unhinged brag that she pulled it off.", "Confirmed autobiography: the song describes performing the Eras Tour mid-heartbreak, down to the in-ear count-offs sampled in the production.", "Eras Tour audiences screaming the more-tour-dates line back at her became the meta-joke of the 2024 legs."],
       discussionSources: [{ name: "I Can Do It with a Broken Heart — Wikipedia", url: "https://en.wikipedia.org/wiki/I_Can_Do_It_with_a_Broken_Heart" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"themes":["functioning depression","the show must go on","professionalism as armor"]},
+      youtubeId: "Sl6en1NPTYM",
     },
     {
       slug: "the-smallest-man-who-ever-lived",
@@ -2535,6 +2548,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Someone vanished without explanation and she drafts the charges: coward, operative, hometown embarrassment. The fury is that she still does not know which betrayal it was.", "Fan attribution splits between the era’s two reported exes (unconfirmed either way) — the ambiguity is itself the fandom’s longest-running TTPD debate."],
       discussionSources: [{ name: "The Smallest Man Who Ever Lived — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["contempt","unexplained abandonment","demanding an autopsy"]},
+      youtubeId: "Atdzfj8LcuY",
     },
     {
       slug: "the-alchemy",
@@ -2545,6 +2559,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["After the wreckage, something easy: winning streaks, locker-room metaphors, a love that feels like the championship. The football vocabulary pointed everyone the same direction (unconfirmed in the lyric, extremely confirmed by the tour cameras).", "The sports-imagery reading toward her documented 2023-onward relationship with Travis Kelce is universal; the relationship itself is public record even if the song’s address is not footnoted."],
       discussionSources: [{ name: "The Alchemy — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Alchemy" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["new love as chemistry","winning","rare joy on a grief album"]},
+      youtubeId: "iMMUAd66vxo",
     },
     {
       slug: "clara-bow",
@@ -2555,6 +2570,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Each generation’s dazzling girl is complimented as an upgrade on the last, then shelved: the industry conveyor examined by its current occupant, who writes her own replacement into the last verse by name.", "Clara Bow and Stevie Nicks are named in-text; Nicks — a documented friend of Swift — appears elsewhere in the album’s liner poetry, closing the loop.", "The self-naming final verse is the catalog’s starkest fourth-wall break — the machine described from inside, by name."],
       discussionSources: [{ name: "Clara Bow (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Clara_Bow_(song)" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["it-girl economics","replaceability","passing the crown"]},
+      youtubeId: "fcVUbmdQfaE",
     },
     {
       slug: "the-black-dog",
@@ -2565,6 +2581,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An ex forgets to turn off location sharing and she watches him walk into their old bar: grief via app notification, modern heartbreak’s most specific opening scene. The actual Vauxhall pub leaned in, documented worldwide.", "The real Black Dog pub in London confirmed the tourist wave publicly — the era’s best example of a lyric geotagging itself.", "The pub’s post-release fan influx (and commemorative merch) is documented hospitality-industry history now."],
       discussionSources: [{ name: "The Black Dog (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Black_Dog_(song)" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["digital-age grief","shared places lost","watching from afar"]},
+      youtubeId: "56TZ3B8Qxsk",
     },
     {
       slug: "imgonnagetyouback",
@@ -2575,6 +2592,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Revenge and reunion held in deliberate superposition: whichever hurts more, probably. The lowercase run-on title is doing reputation-era styling on an Anthology budget."],
       discussionSources: [{ name: "imgonnagetyouback — Wikipedia", url: "https://en.wikipedia.org/wiki/Imgonnagetyouback" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["ambivalence weaponized","revenge or romance","unfinished business"]},
+      youtubeId: "SBGdvxi2JmU",
     },
     {
       slug: "the-albatross",
@@ -2585,6 +2603,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A woman preceded by her own mythology: dangerous to love, per the pamphlet. She accepts the albatross label, then rewrites it — the curse shows up to rescue him.", "The Rime of the Ancient Mariner reference is in-text — one of the Anthology’s densest literary borrowings."],
       discussionSources: [{ name: "The Albatross (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Albatross_(Taylor_Swift_song)" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["reputation as curse","literary self-mythology","rescue by the feared thing"]},
+      youtubeId: "4wOsiM2T_xc",
     },
     {
       slug: "chloe-or-sam-or-sophia-or-marcus",
@@ -2595,6 +2614,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["He moves on to interchangeable someones while she replays the specific, unrepeatable thing they had: the title’s shrugged list is the cruelest device on the album."],
       discussionSources: [{ name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["interchangeability","specific versus generic love","lingering"]},
+      youtubeId: "gOtOWeD9YJk",
     },
     {
       slug: "how-did-it-end",
@@ -2605,6 +2625,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Everyone wants the story of the ending, including the two people it happened to, who genuinely do not know. Grief with a Greek chorus of rubberneckers."],
       discussionSources: [{ name: "How Did It End? — Wikipedia", url: "https://en.wikipedia.org/wiki/How_Did_It_End%3F" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["public appetite for private pain","unanswerable endings","gossip as ritual"]},
+      youtubeId: "O3wlMR0y4a4",
     },
     {
       slug: "so-high-school",
@@ -2615,6 +2636,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["New love that regresses her to gym-class butterflies: teasing, truth-or-dare, learning someone’s aunts’ names. The Anthology’s second unambiguous burst of happiness, read universally toward the same tight end as The Alchemy.", "Fan attribution to the Kelce relationship is near-universal (the relationship is documented; the dedication is not footnoted). He has publicly vibed to it at shows, which fans file as confirmation-adjacent."],
       discussionSources: [{ name: "So High School — Wikipedia", url: "https://en.wikipedia.org/wiki/So_High_School" }, { name: "Taylor Swift's 'So High School' Travis Kelce References Explained", url: "https://www.capitalfm.com/news/music/taylor-swift-so-high-school-eras-tour-travis-kelce/" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["regression to giddiness","new love","being known simply"]},
+      youtubeId: "w-FkV0EM_CU",
     },
     {
       slug: "i-hate-it-here",
@@ -2625,6 +2647,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["When the present is unbearable she emigrates inward: books, invented worlds, lunar vacations. The nostalgia-with-asterisks verse (the 1830s, minus everything wrong with the 1830s) generated its own documented discourse cycle."],
       discussionSources: [{ name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["escapism","interior worlds","nostalgia audited"]},
+      youtubeId: "BpkmUfv1I4Q",
     },
     {
       slug: "thank-you-aimee",
@@ -2635,6 +2658,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A lifelong tormentor gets an ironic acknowledgment: the cruelty built the empire. The K-I-M capitalization is on the official tracklist (fact); the Kardashian reading it triggers has never been stated aloud and never needed to be.", "The capitalization is documented in the official track listing; the 2016 feud it evokes is public record. Swift has confirmed only that the name is changed and the bully composite.", "The official stylization is the Easter egg — the rare clue embedded in the tracklist itself."],
       discussionSources: [{ name: "thanK you aIMee — Wikipedia", url: "https://en.wikipedia.org/wiki/Thank_You_Aimee" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner","Jack Antonoff"],"themes":["bullies as accidental architects","ironic gratitude","outliving a feud"]},
+      youtubeId: "oaBJlKXBvjk",
     },
     {
       slug: "i-look-in-peoples-windows",
@@ -2645,6 +2669,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The compulsion phase of grief: what if he is at one of these dinner parties, what if a lit window contains the conversation they never finished. Small, strange, and over before it resolves — on purpose."],
       discussionSources: [{ name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Jack Antonoff","Patrik Berger"],"producers":["Taylor Swift","Jack Antonoff","Patrik Berger"],"themes":["searching for the vanished","voyeurism of grief","miniatures"]},
+      youtubeId: "6HIA7ouBfGY",
     },
     {
       slug: "the-prophecy",
@@ -2655,6 +2680,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She petitions the universe like a medieval supplicant: the cards keep reading alone, and she wants a different spread. Fans rank its bridge among the era’s most devastating."],
       discussionSources: [{ name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["fate and bargaining","fear of unlovability","petitioning the universe"]},
+      youtubeId: "_PsBoqNwYo4",
     },
     {
       slug: "cassandra",
@@ -2665,6 +2691,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She told the truth, the town lit the pyre, and vindication arrived years late with no apology attached. The myth maps so precisely onto the snake-era receipts saga that fans treat it as that chapter’s formal epitaph (unconfirmed, unnecessary).", "The Cassandra myth is in-text; the 2016 phone-call scandal and its 2020 full-video vindication are public record — the song leaves the wiring exposed."],
       discussionSources: [{ name: "Cassandra (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Cassandra_(Taylor_Swift_song)" }, { name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["believed too late","mob dynamics","myth as memoir"]},
+      youtubeId: "0hYY86DmqPY",
     },
     {
       slug: "peter",
@@ -2675,6 +2702,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She kept the light on for a man perpetually twenty-five in his own head; the song is her formally releasing the promise. Fans flag the direct callback to cardigan, where the same Peter first lost his Wendy.", "The Peter Pan framework is in-text; the cardigan connection is a documented fan-canon link Swift seeded herself by reusing the names.", "A four-years-later answer to cardigan’s Peter-and-Wendy line — one of the catalog’s cleanest long-range callbacks."],
       discussionSources: [{ name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["waiting expired","boys who won’t grow up","closing the window"]},
+      youtubeId: "Mxxswu7V1Us",
     },
     {
       slug: "the-bolter",
@@ -2685,6 +2713,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A serial vanisher who feels most alive mid-getaway: every relationship ends with the door swinging. Press traced the title to the Idina Sackville-style Bolter archetype of English society lore (a reading, not a footnote); fans read the shoe as autobiographical and half-proud.", "The Bolter as an English-society archetype (popularized by Frances Osborne’s biography of Sackville) is the documented reference point critics reached for."],
       discussionSources: [{ name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["flight response","self-mythologized escape","freedom versus intimacy"]},
+      youtubeId: "bAi80EylyXQ",
     },
     {
       slug: "robin",
@@ -2695,6 +2724,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Addressed to a small boy in dinosaur-and-tree-fort years: the adults will hold the sadness so he does not have to know it exists yet. Widely reported to be named for Aaron Dessner’s son Robin, which Dessner has affirmed in interviews.", "Reported and affirmed in press around release: named for co-writer Dessner’s young son."],
       discussionSources: [{ name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift","Aaron Dessner"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["protected childhood","buying time for innocence","tenderness"]},
+      youtubeId: "FQyEZZPbOb0",
     },
     {
       slug: "the-manuscript",
@@ -2705,6 +2735,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She revisits the draft of a long-ago too-young romance, watches younger women live its echoes, and concludes the story stopped being hers the moment it became everyone’s. The closing thesis of the TTPD project: the pain was hers, the manuscript is ours.", "Functions as the album’s stated epilogue — its closing line about the manuscript’s ownership is the era’s mission statement, quoted in essentially every review.", "Fans map its verses onto the All Too Well mythology — the manuscript rereading as the scarf saga’s final form (fan reading, unconfirmed)."],
       discussionSources: [{ name: "The Tortured Poets Department — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
       facts: {"release":"The Tortured Poets Department: The Anthology","releaseDate":"2024-04-19","writers":["Taylor Swift"],"producers":["Taylor Swift","Aaron Dessner"],"themes":["art outliving pain","handing over the story","epilogue"]},
+      youtubeId: "iY6Qhlua8Zw",
     },
   ],
 };
