@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 78
+Stories: 81
+
+## Taylor Swift Has a Soft Spot for Floral Wedding Guest Dresses — Like These Under-$60 Inspired Styles
+
+- first seen: 2026-07-20 01:58 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Has a Soft Spot for Floral Wedding Guest Dresses — Like These Under-$60 Inspired Styles from Amazon  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxQeWlVYVpzYmVXaEt5M0l2YWtCYTN3Y0FrTFRsdE91VGU0SEVOT2g1dDlHRkVfYkNCQWhWUmdoaVc0QnZFRDAyUlBfOUk1Y0tyclBEME9MYWw1MTRYUkJiR3lDQldXQm1pSW5UcXVtbjFpWVprNnl4OGVGREZiNzVNR0lPWGVxY21VaHdWeDJXYUVEUmRh?oc=5
+
+## Blake Lively shows up at World Cup after Taylor Swift wedding snub - Page Six
+
+- first seen: 2026-07-20 01:58 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively shows up at World Cup after Taylor Swift wedding snub  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiswFBVV95cUxOc3pOTXlqUXF5Slg5RVJOS3kyX3RkeWdqaV9DLUVMT3A2Y0VxV25semtta2hnQVFQWnVIQTVUVk1SLUMxakRLZjNMNmpBQ1FlcEd6N0hPM2NFWmxrak9WSzZuaGZSOUpvclUxUTQxOU5UNkk0S19CVm5BeEdMb0Y1RWx6UXZPWGlvVFVRVEVPc2F6ZVdaUUJ4VklwdlZmNjVXVHpPaUJ5c0l3dkVuekNuSjZLTQ?oc=5
+
+## Taylor Swift and Travis Kelce’s Wedding Guests Hit Back at Ceremony and Reception Rumors - Us Weekly
+
+- first seen: 2026-07-20 01:13 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce’s Wedding Guests Hit Back at Ceremony and Reception Rumors  Us Weekly
+- sources:
+  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOcXZRbS1CR3hPNlJjSFU3X2J2b1BWVVdqT2JlbE9tY0REQlZwZmYtMC1JdjdSZm5lYnlzZzJlcXMyUXNqejB5XzJ0LVRHYkc1T0dVRHVfNHVHSWQzMFpBZGZLQnNySlRLSURjMlZEUUR4RUQzQVN6YVRib252bG9aOTl3Y2IzeTFhOTVMUEZBYlcyZ1M0TVNfWHFNQXY2NGpwZ1lBZVhxSWo?oc=5
 
 ## News & Notes from Around the NFL: Wedding season isn't just for Travis Kelce, Taylor Swift; former J
 
@@ -67,14 +91,6 @@ Stories: 78
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiggFBVV95cUxOVHdPYnR4VU9jUGNsU1FUWjZxeU9kZVd6MXJ5a1ZDb2FHNnhyN1g3dUVsSGNYUFdJbEg3OHlBUzVvNFh4djRfeXdWam1yeVA3MS0tZ0JzOVB3LVFqQTZuWFNkVHlXakVGYkE4Yzc1MlZDTmJtY3JEYVFXTEw4ZmtaZEpB?oc=5
 
-## Camille Kostek Says Taylor Swift Looked Like ‘a Real-Life Princess’ During Wedding to Travis Kelce (
-
-- first seen: 2026-07-19 23:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Camille Kostek Says Taylor Swift Looked Like ‘a Real-Life Princess’ During Wedding to Travis Kelce (Exclusive)  People.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNbEwwbXh6V25NX0FGaDdXR1lSXy14RWZIMmthSE9qcUF6WktSM25mMWJfWWxxQnk3M3JoX3pZSVI4OXBuSVkxbWZyN1F4aE05b0tFc0ktQzdQU1pPcnVocEEwMjR0c1QzaExkNTJSOUxEbVJhejJPTHVJTG4wTzlGbk9FTjRQQnBCSC11QkdmMm1PRmFCVXNLX2ZGVFh4bE5nZ0E2S0tqOXlfTTYxc0kwTWJTZjhFR3J4TjIyZ3YtQnNoS0dBblhYWm5WSEdfRXc0?oc=5
-
 ## 'Loyalty's no joke for this dude': Travis Kelce's awkward Ryan Reynolds moment goes viral as fans de
 
 - first seen: 2026-07-19 23:03 UTC | category: relationship | importance: 5
@@ -82,6 +98,15 @@ Stories: 78
 - summary: 'Loyalty's no joke for this dude': Travis Kelce's awkward Ryan Reynolds moment goes viral as fans debate  The Times of India
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMipAJBVV95cUxOTWVTU1hYczNlQ2ZYNmhKcmRZdHpETHFXOHBNcktjb1YzeTZJekhxMDNPby1YUk1nVy0wYkdVbjZQRkplcldwdG43LWJIVnBGRTJTWkVvdENmUkhvU0plcFpQZ3ExRFI4MTNoejNfTlQ2NldMNWltQzlrdXlYUGZYTElhelZKUWRJeFBvM3hWTmVMNHFLYURtQUx4Sk9KdEk3bE9PRjIzV3hESG50ZzVpcEpJWm9uelBVWFAzOExqTEVGMUx3RHRsLWJqSWowd0JSblZxMmlVbzVHU3B5eF9xUWFSZkllMWtycF9xa0FCWUZZUWNWcWd2Y3FWX19ZekdQU1UyZTNMUTNGU18ycjlxYXFtb1JTcjZTLWFUazREakZhYTYz0gGqAkFVX3lxTE9ROC11X3ZxaVBUZ1VJV3dnODVLR0FBY09wZmw0elZUeks4UmhGU0hCb2FycGRMbU9IT0ljaGdKUFlMZElodTZaeENOcXV2VkJTRnNOTExUTjRENkwzUy04aXFqNmhYOFoxaWFfN3lkM1B5QVhWTkV2SUE4VDZjU2FvVGlkdEpFdWpiNjBsdXVKUzJSZklVaW1FUzFDYWNlRV9kRjdYNHJSZEtwajRoVXlzZzZpNWJIRm9Ca2pZc0pjSDV1WkgySGYyREtvLTVHS1huNHd0YnRnS2N3b3VJOG9TZ2F2bTBWc25fUTA1WUxpdFQ1cWpibUNJemI3dFp4MjVrRm9RRWI5eWpXcy1PaFUyZXNBNEoxcGpQYVFCUVRJYjV1bjF1bHVueEE?oc=5
+
+## Camille Kostek Says Taylor Swift Looked Like ‘a Real-Life Princess’ During Wedding to Travis Kelce (
+
+- first seen: 2026-07-19 23:03 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Camille Kostek Says Taylor Swift Looked Like ‘a Real-Life Princess’ During Wedding to Travis Kelce (Exclusive)  People.com
+- sources:
+  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNbEwwbXh6V25NX0FGaDdXR1lSXy14RWZIMmthSE9qcUF6WktSM25mMWJfWWxxQnk3M3JoX3pZSVI4OXBuSVkxbWZyN1F4aE05b0tFc0ktQzdQU1pPcnVocEEwMjR0c1QzaExkNTJSOUxEbVJhejJPTHVJTG4wTzlGbk9FTjRQQnBCSC11QkdmMm1PRmFCVXNLX2ZGVFh4bE5nZ0E2S0tqOXlfTTYxc0kwTWJTZjhFR3J4TjIyZ3YtQnNoS0dBblhYWm5WSEdfRXc0?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNRzFKOWw1X3ZLVEQxcndiamRvdS1BX3pBbnp4RDRRS1BQX1Z1RW1sYmRlVmFyTEFEZ3BQVzhnbDF6MExUNzZGaFBXWUhtOWpYSXY0M2d0dE84aUdGbW84X2xwREdEVi1aZDY4bzhibUVRUm1WRmFSSURVWXRGbWJ5QXp5UUxldUxtMTNkQTg5N3gzNU9BWWQ2RTFIVUtWdGpL?oc=5
 
 ## Kelly Clarkson jokes that she isn’t as rich as Taylor Swift: ‘Ballin’ on a budget’ - Entertainment W
 
@@ -408,10 +433,11 @@ Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Excl
 ## Taylor Swift wedding NDA 'had teeth': Guest divulges invitation process - USA Today
 
 - first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Taylor Swift wedding NDA 'had teeth': Guest divulges invitation process  USA Today
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiswFBVV95cUxNVXo2NElzWFNKaU1lTk9DV3R1a3dTSV9pUk1nNzhWTWpXQzM4YkpmQWRJZkhzZ0ZmM1p6cWtoMldILThmLWxURkhwdE1NcllDWm1LdEJuRFQ1anBVS0xrbjhYbXhHVHFfUDRSX2JCTlFoUmt5U0ZmbUhjUEdKcHBzUDdvQ09hWkZuRUVkNVZsSExxcXh4Y3A4ZTh3elJVZHhuOW9NQzdIbFNXck5aTWZBdzI0RQ?oc=5
+  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE56ZDdtUXlVVmhBeDlqRWlacFZWZXZmb1Q0TGdqTFNzZmZZVWwtdmZ0dW9nR0Q1RUp4Nm5NekNmN25kdFVXaWR5TDBZU1NpNnhrWTd1X2xVTW9JRzZpVU0zckRfZ0daOVdMMUVnWFZLT0Z1SFpjS2NWSGNUZm0?oc=5
 
 ## Inside Taylor Swift and Travis Kelce’s Wedding: Everything We Learned About the Star-Studded Ceremon
 
