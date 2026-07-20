@@ -27,6 +27,7 @@ export default {
       slug: 'the-1',
       trackNumber: 1,
       trackTitle: 'the 1',
+      youtubeId: 'KsZ6tROaVOQ', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -43,6 +44,7 @@ export default {
       slug: 'cardigan',
       trackNumber: 2,
       trackTitle: 'cardigan',
+      youtubeId: 'K-a8s8OLBSE', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -70,6 +72,7 @@ export default {
       slug: 'the-last-great-american-dynasty',
       trackNumber: 3,
       trackTitle: 'the last great american dynasty',
+      youtubeId: '2s5xdY6MCeI', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -94,6 +97,7 @@ export default {
       slug: 'exile',
       trackNumber: 4,
       trackTitle: 'exile',
+      youtubeId: 'osdoLjUNFnA', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'William Bowery', 'Justin Vernon'],
@@ -115,6 +119,7 @@ export default {
       slug: 'my-tears-ricochet',
       trackNumber: 5,
       trackTitle: 'my tears ricochet',
+      youtubeId: 'OWbDJFtHl3w', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift'],
@@ -141,6 +146,7 @@ export default {
       slug: 'mirrorball',
       trackNumber: 6,
       trackTitle: 'mirrorball',
+      youtubeId: 'KaM1bCuG4xo', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -161,6 +167,7 @@ export default {
       slug: 'seven',
       trackNumber: 7,
       trackTitle: 'seven',
+      youtubeId: 'pEY-GPsru_E', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -185,6 +192,7 @@ export default {
       slug: 'august',
       trackNumber: 8,
       trackTitle: 'august',
+      youtubeId: 'nn_0zPAfyo8', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -204,6 +212,7 @@ export default {
       slug: 'this-is-me-trying',
       trackNumber: 9,
       trackTitle: 'this is me trying',
+      youtubeId: '9bdLTPNrlEg', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -224,6 +233,7 @@ export default {
       slug: 'illicit-affairs',
       trackNumber: 10,
       trackTitle: 'illicit affairs',
+      youtubeId: 'MLV2SJKWk4M', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Jack Antonoff'],
@@ -240,6 +250,7 @@ export default {
       slug: 'invisible-string',
       trackNumber: 11,
       trackTitle: 'invisible string',
+      youtubeId: 'OuFnpmGwg5k', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -260,6 +271,7 @@ export default {
       slug: 'mad-woman',
       trackNumber: 12,
       trackTitle: 'mad woman',
+      youtubeId: '6DP4q_1EgQQ', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -279,6 +291,7 @@ export default {
       slug: 'epiphany',
       trackNumber: 13,
       trackTitle: 'epiphany',
+      youtubeId: 'DUnDkI7l9LQ', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -303,6 +316,7 @@ export default {
       slug: 'betty',
       trackNumber: 14,
       trackTitle: 'betty',
+      youtubeId: '6TAPqXkZW_I', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'William Bowery'],
@@ -330,6 +344,7 @@ export default {
       slug: 'peace',
       trackNumber: 15,
       trackTitle: 'peace',
+      youtubeId: 'HpxX4ZE4KWE', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -354,6 +369,7 @@ export default {
       slug: 'hoax',
       trackNumber: 16,
       trackTitle: 'hoax',
+      youtubeId: 'ryLGxpjwAhM', // oEmbed-verified official Taylor Swift channel
       release: 'folklore',
       releaseDate: '2020-07-24',
       writers: ['Taylor Swift', 'Aaron Dessner'],
@@ -371,6 +387,7 @@ export default {
       slug: 'the-lakes',
       trackNumber: 17,
       trackTitle: 'the lakes',
+      youtubeId: 'tOHcAc3r2kw', // oEmbed-verified official Taylor Swift channel
       release: 'folklore (deluxe editions)',
       releaseDate: '2020-08-18',
       writers: ['Taylor Swift', 'Jack Antonoff'],
