@@ -52,35 +52,65 @@ distinction from Block 1 is real risk, not sad mood.
 
 ---
 
-## Block 3 — The standing disclaimer (always visible near the input)
+## Block 3 — The standing disclaimer + starter moods
 
-**APPROVED with a rewrite (Wyatt, 2026-07-20).** The original draft read:
+**APPROVED, rewritten twice (Wyatt, 2026-07-20).**
 
-> ~~A fan project, not a therapist — just someone with strong opinions about
-> which song fits. Tell me as much or as little as you like; what you type
-> isn't saved.~~
+### What was rejected, and why it matters
 
-**Rejected, and the reason is worth keeping.** Naming "therapist" before the
-reader has typed anything primes distress that isn't there. It makes an
-inviting box feel clinical, and it signals crisis-handling to someone who came
-for a song recommendation. Wyatt's rule: *no mention of therapy or crisis
-until the user takes it that direction.*
+The original draft opened with "a fan project, not a therapist". Rejected:
+naming therapy before the reader has typed anything primes distress that is
+not there, makes an inviting box feel clinical, and signals crisis-handling to
+someone who came for a song recommendation. Wyatt's rule: **no mention of
+therapy or crisis until the user takes it that direction.**
 
-**Approved wording:**
+The protective framing is relocated, not removed. Block 1 still opens with
+"I'm a music recommender — I'm not equipped for what you're carrying right
+now" and fires exactly when someone takes it that way. The reader meets that
+sentence when it is relevant instead of before they have spoken.
 
-> Tell me as much or as little as you like — I'll find the Taylor songs that
-> fit. **What you type isn't saved.**
+### Approved disclaimer
 
-*Notes:* "as much or as little as you like" quietly signals that a one-word
-answer is fine, which lowers the barrier to using it at all. The privacy
-promise is the only claim made, and it stays load-bearing — see Block 5, which
-is what makes it honest.
+> Tell me how you're feeling and I'll find the songs that fit. What you type
+> isn't saved.
 
-**The protective framing is not lost, only relocated.** Block 1 still opens
-with "I'm a music recommender — I'm not equipped for what you're carrying
-right now", and it fires precisely when someone takes the conversation that
-way. The reader meets that sentence at the moment it is relevant instead of
-before they have said anything.
+The privacy promise is the only claim made, and Block 5 is what keeps it
+honest.
+
+### Starter moods (Wyatt, 2026-07-20)
+
+A bare input box is its own barrier. Under the field, a rotating set of
+tappable starters — deliberately NOT a tidy taxonomy of emotions:
+
+> *Not sure where to start?*
+>
+> `crying in the car, cinematically` · `3am and the group chat's asleep` ·
+> `plotting something in a ball gown` · `feral about a bridge` ·
+> `cardigan weather` · `driving out of a small town for good` ·
+> `romanticizing a Tuesday` · `someone said "we need to talk"` ·
+> `winning, quietly` · `unhinged in the best way`
+
+**The reasoning, so future edits keep the voice:**
+
+- `feral about a bridge` is the deepest cut. Bridge obsession is core Swiftie
+  identity; it signals *we know you* rather than *we googled Taylor Swift
+  moods*. If only one chip survives a redesign, keep this one.
+- `cardigan weather`, `driving out of a small town for good` reference song
+  titles and era imagery — **never lyrics**, which keeps this clear of the
+  no-lyrics redline while still landing for a fan.
+- `crying in the car, cinematically` and `romanticizing a Tuesday` are
+  self-aware about the *pleasure* of a mood. That self-awareness is what makes
+  someone tap rather than feel diagnosed.
+- `winning, quietly` is load-bearing: without it the set reads as all
+  heartbreak, and the catalogue has joy in it.
+
+Rotate the visible subset so it never reads as a fixed menu.
+
+**Implementation note (Stage 3).** Each chip ships with a HAND-TUNED mood
+vector rather than being routed through the classifier as free text. They are
+the demo path — the first thing anyone taps — so they must return the right
+songs deterministically, at zero cost, with no model call. A chip that returns
+something mediocre is worse than no chip at all.
 
 ## Block 4 — Minors
 
