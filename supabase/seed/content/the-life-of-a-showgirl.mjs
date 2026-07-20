@@ -1958,6 +1958,32 @@ export default {
           // trailer), and the album-cover render would duplicate the
           // showgirl-release-day page's art.
         ],
+        // Shop pass (Stylist 2026-07-20): the exact Reformation piece she
+        // wore — the "Cashmere Short Sleeve Crew" in Showgirl orange — was
+        // sold out at the time and is no longer listed under that name.
+        // Reformation's current cashmere short-sleeve crew is the "Teo" (same
+        // brand, same silhouette); curl-verified live (HTTP 200) and marked
+        // inStock:false because its page reports schema.org/OutOfStock
+        // (waitlist only, final sale). Offered as an isAlternative, not
+        // presented as the literal garment.
+        //   NOT added: the Versace "Medusa" black leather mini skirt — Versace
+        //   sells first-party and versace.com bot-blocks verification, so no
+        //   curl-verifiable product page exists (same reason the LV/Cartier
+        //   items on the engagement moment were skipped). The MAINTAIN pass
+        //   can add it if a verifiable retailer page ever surfaces.
+        products: [
+          {
+            brand: 'Reformation',
+            item: 'Teo Cashmere Short Sleeve Sweater',
+            retailer: 'thereformation.com',
+            url: 'https://www.thereformation.com/products/teo-cashmere-short-sleeve-sweater/1313290.html',
+            price: '$64.00',
+            inStock: false,
+            isAlternative: true,
+            altNote:
+              'Her exact "Cashmere Short Sleeve Crew" in Showgirl orange is sold out and delisted — this is Reformation\'s current cashmere short-sleeve crew (the "Teo"), same brand and silhouette, also sold out.',
+          },
+        ],
       },
     },
     {
