@@ -73,6 +73,24 @@ export const SLUG_TO_ERA_ID = {
   'tortured-poets': 'ttpd',
 };
 
+/**
+ * Title → stable kebab slug. The single definition the whole pipeline shares:
+ * the content sync uses it to build each moment's `vault-<eraId>-<slug>` id,
+ * validate-content recomputes the same ids to check `moment:` relatedIds
+ * resolve, and the content-engine cross-link checker uses it to tell an
+ * already-linked pair from a new opportunity. Lives here (pure, dependency-free
+ * node) so those callers can import it without pulling the sync script's
+ * @supabase/supabase-js dependency.
+ */
+export function slugify(title) {
+  return title
+    .toLowerCase()
+    .replace(/['’"]/g, '')
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 60);
+}
+
 /** TypeScript string literal for generated code. */
 export function esc(s) {
   return JSON.stringify(s);
