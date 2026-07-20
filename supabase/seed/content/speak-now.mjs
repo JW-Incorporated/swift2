@@ -2071,6 +2071,22 @@ export default {
       snippet: "The third re-recording arrives with six previously unreleased \"From the Vault\" tracks.",
       moment: {
         context: "Speak Now (Taylor's Version) released July 7, 2023, with six vault tracks, including \"Castles Crumbling\" featuring Hayley Williams of Paramore — reclaiming the only album in her catalog she's said was written entirely without a co-writer.",
+        // Photo pass #762 (2026-07-20): page had zero photos, and the July 2023
+        // re-recording release has no red-carpet event of its own. Used a freely
+        // licensed Commons shot of the Eras Tour's Speak Now set — the lilac
+        // Speak Now ballgown and koi-fish guitar were the era's live face that
+        // same summer. License (CC BY 2.0, Paolo V) verified via the Commons
+        // API; curl 200 image/jpeg 1300x1987; downloaded and Read-viewed.
+        // focalPoint written immediately after url per the field-order rule.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/f/fd/Taylor_Swift_The_Eras_Tour_Speak_Now_Set_Era_%2853109468131%29.jpg',
+            focalPoint: '59% 51%',
+            credit: 'Paolo V via Wikimedia Commons, CC BY 2.0',
+            caption: 'The Eras Tour Speak Now set — the lilac ballgown and koi-fish guitar — the live embodiment of the era she reclaimed with the July 2023 re-recording.',
+            kind: 'archival',
+          },
+        ],
       },
     },
   ],
