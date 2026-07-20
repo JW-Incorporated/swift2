@@ -7,6 +7,22 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-20 — Significance needed a visual signal, not just a layout floor
+
+**Decision:** Joey asked for a full audit of the top-100 career-events project: does the most-important content actually carry the most weight, and can a scrolling user *tell*? The honest answer was split.
+
+**What was already working:** photo count scales for real — `significance: 'defining'` items average 6.2 photos, `'notable'` 2.3, unmarked items 1.3 (measured across the full 695-item corpus). `assignFeedTiers` (`lib/longlive/feed-tiers.ts`) already guarantees `'defining'` the full-bleed hero card and `'notable'` a floor at the `'media'` tier.
+
+**What was broken:** that layout floor was invisible. `'media'` tier is literally the site's plain default look — a `'notable'` item rendered pixel-identical to any ordinary photo-bearing post that happened to land on the same tier by chance. `grep` confirmed `item.significance` was read in exactly one place in the entire component tree (`EraSection.tsx`'s tier assignment) — nothing rendered it as text, a badge, an icon, anything a scrolling user could actually register. Scrolling users had no way to tell a top-100 moment from routine content unless it was rare enough to earn the hero treatment outright.
+
+**Fix:** a new `SignificanceBadge` component (`components/longlive/SignificanceBadge.tsx`) — a small icon+label pill, same visual grammar as the existing "Unconfirmed"/"Hidden clue" chips in `MomentMeta`. `'defining'` renders filled (reinforcing the hero card it already gets); `'notable'` renders outlined, one step down. Wired into both the feed card (`MomentMeta`, all tiers) and the moment-detail header (`MomentDetail.tsx`). Verified in-browser on desktop and mobile viewport, both card and detail contexts, no console errors — screenshots confirm it reads clearly while scrolling.
+
+**A second, deeper gap found in the same audit:** the content-engine's `content.depth-deficit` checker (Wyatt's Curiosity Engine, 2026-07-18) — the thing that's actually supposed to enforce narrative/photo/source/cross-link depth on `'defining'` items — currently flags **39 of 39 `'defining'` items (100%)** as under its own bar, overwhelmingly on narrative word count (many sit at 100–200 words against a 260-word floor). This predates this session's content rounds (none of Tier 2/3 touched `'defining'` items) and its designed remediation path (Lex + the Answerer, run by the RemoteTrigger fleet) has only cleared 1 of 39 since the checker shipped. That's Wyatt's system and cadence to speed up or not — flagged to the founders rather than hand-written over by this session, which would risk duplicating or conflicting with fleet-owned PRs.
+
+**Also fixed — the routing gap that let this happen twice:** `visibilityScore()` (`scripts/content-engine/lib/visibility.mjs`), which decides what counts as "high visibility" for `photo-sparsity` and other checkers, scored purely on era recency / category / title keywords — it had no idea `item.significance` existed. A `'defining'` or `'notable'` item could dodge every depth/photo checker in the engine just by not matching a keyword heuristic. Now `item.raw?.significance` being set unconditionally routes to `'high'` tier, so the checkers built to keep the most important pages the deepest actually see the pages the top-100 project marked as most important.
+
+**Why not also chase full narrative depth for all 39 `'defining'` items in this pass:** that's the exact job the Curiosity Engine pipeline exists for (sourced research per item, not a mechanical word-count pad) — hand-writing 39 items now would either duplicate that fleet's queue or ship un-researched filler, both worse than surfacing the real number and letting the fleet (or an explicit follow-up session) work the queue properly.
+
 ## 2026-07-19 — Tier 3: positions 71–100, all `'notable'`, extra photo investment
 
 **Decision:** Closes out the top-100 career-events project (`docs/content-ops/top-100-career-events.md`) with its final tier, positions 71–100 — 29 items marked `significance: 'notable'` (position 82 was skipped: confirmed a duplicate of the already-`'defining'` Miss Americana item). Same bar as Tier 2: each judged against the doc's own "would a fan remember this" test rather than applied mechanically; all 29 cleared it (real chart/venue/industry records, genuine cultural moments, or well-documented firsts) and none were force-fit to `'defining'`.
