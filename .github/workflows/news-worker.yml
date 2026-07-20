@@ -84,8 +84,12 @@ jobs:
       # main, so a dedicated branch is writable. Keeping it off main also
       # spares main's history a regenerated file every 4h.
       #
-      # This step DOES fail the job if publishing fails. A digest nobody can
-      # read is the whole bug we are fixing; it must not fail quietly.
+      # This step DOES fail the job if publishing genuinely fails — a digest
+      # nobody can read is the whole bug we are fixing, so it must not fail
+      # quietly. But it retries first: GitHub's API returned intermittent 503s
+      # throughout 2026-07-19/20 (this step hit one on run 29710604748, after
+      # the ingest above had already succeeded), and reddening a good run over
+      # a transient blip is its own kind of noise. Retry, then fail loudly.
       - name: Publish digest to news-digest branch
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -98,9 +102,28 @@ jobs:
             exit 0
           fi
 
+          # Retry transient GitHub failures (503/502/504, rate limits, network
+          # resets). Deliberately retries ANY non-zero exit rather than parsing
+          # error text: a real, persistent problem still fails after the last
+          # attempt, so the cost of retrying a genuine error is delay, while
+          # the cost of NOT retrying a blip is a red job and a stale digest.
+          retry() {
+            local n=1 max=4 delay=5
+            until "$@"; do
+              if [ $n -ge $max ]; then
+                echo "FAILED after $max attempts: $*" >&2
+                return 1
+              fi
+              echo "attempt $n/$max failed, retrying in ${delay}s..." >&2
+              sleep $delay
+              n=$((n + 1))
+              delay=$((delay * 3))
+            done
+          }
+
           # Create the branch from the current commit if it does not exist yet.
           if ! gh api "repos/$REPO/git/ref/heads/news-digest" >/dev/null 2>&1; then
-            gh api -X POST "repos/$REPO/git/refs" \
+            retry gh api -X POST "repos/$REPO/git/refs" \
               -f ref=refs/heads/news-digest \
               -f sha="${{ github.sha }}"
             echo "created news-digest branch"
@@ -108,13 +131,13 @@ jobs:
 
           SHA=$(gh api "repos/$REPO/contents/$FILE?ref=news-digest" --jq .sha 2>/dev/null || true)
           if [ -n "$SHA" ]; then
-            gh api -X PUT "repos/$REPO/contents/$FILE" \
+            retry gh api -X PUT "repos/$REPO/contents/$FILE" \
               -f message="chore(news): refresh candidate digest" \
               -f branch=news-digest \
               -f sha="$SHA" \
               -f content="$(base64 -w0 "$FILE")" >/dev/null
           else
-            gh api -X PUT "repos/$REPO/contents/$FILE" \
+            retry gh api -X PUT "repos/$REPO/contents/$FILE" \
               -f message="chore(news): seed candidate digest" \
               -f branch=news-digest \
               -f content="$(base64 -w0 "$FILE")" >/dev/null
