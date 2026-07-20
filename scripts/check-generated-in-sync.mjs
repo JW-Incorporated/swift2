@@ -18,12 +18,14 @@ const GENERATED = [
   'apps/web/lib/longlive/tracks.generated.ts',
   'apps/web/lib/longlive/theories.generated.ts',
   'apps/web/lib/longlive/videos.generated.ts',
+  'apps/web/lib/longlive/song-moods.generated.ts',
 ];
 const SYNCS = [
   'scripts/sync-longlive-content.mjs',
   'scripts/sync-longlive-tracks.mjs',
   'scripts/sync-longlive-theories.mjs',
   'scripts/sync-longlive-videos.mjs',
+  'scripts/sync-song-moods.mjs',
 ];
 
 // A build stamp legitimately changes every run — not content drift.
