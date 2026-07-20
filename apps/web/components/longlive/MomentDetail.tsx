@@ -23,6 +23,7 @@ import {
   useProgress,
   useProgressActions,
 } from '@/lib/longlive/store';
+import { isPointerOutsideContainedImage } from '@/lib/longlive/contain-fit';
 import { getContentItem } from '@/lib/longlive/content';
 import { getEra } from '@/lib/longlive/eras';
 import { getThread } from '@/lib/longlive/lenses';
@@ -380,13 +381,35 @@ function MomentLightbox({
         </button>
       </div>
       {/* The image is `contain`-fitted, so this row carries letterboxed black
-          space beside or above the photo. That space reads as "outside the
-          picture" to a reader, so it closes too — same target===currentTarget
-          guard, so a click on the photo or an arrow still does not dismiss. */}
+          space beside or above the photo, and that space reads as "outside the
+          picture" to a reader — clicking it should close.
+          `target === currentTarget` CANNOT express that, which is why the first
+          attempt at this shipped broken: a `contain`-fitted <img> still covers
+          the entire row, so the letterbox reports the IMG as the target and the
+          guard never fires (Wyatt, 2026-07-20 — verified in the browser: the
+          element under a click beside the photo is `IMG.object-contain`).
+          Telling picture from letterbox is geometric, so ask the geometry. */}
       <div
         className="relative min-h-0 flex-1"
         onClick={(e) => {
-          if (e.target === e.currentTarget) onClose();
+          if (e.target === e.currentTarget) {
+            onClose();
+            return;
+          }
+          // Buttons (the arrows) keep their own handlers and must never close.
+          const target = e.target as HTMLElement;
+          if (!(target instanceof HTMLImageElement)) return;
+          if (
+            isPointerOutsideContainedImage(
+              e.clientX,
+              e.clientY,
+              target.getBoundingClientRect(),
+              target.naturalWidth,
+              target.naturalHeight,
+            )
+          ) {
+            onClose();
+          }
         }}
       >
         <ZoomableImage
