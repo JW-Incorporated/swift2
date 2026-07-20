@@ -3950,13 +3950,13 @@ export default {
         photos: [
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/02-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Head tilted back in the top-right corner of the frame; keep the
+            // crop high and right so the face survives wide cards.
+            focalPoint: '84% 14%',
             credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
             caption:
               'From the album press shoot: the ruby-crystal showgirl bodysuit, backstage-cabaret staging and all.',
             kind: 'primary',
-            // Head tilted back in the top-right corner of the frame; keep the
-            // crop high and right so the face survives wide cards.
-            focalPoint: '84% 14%',
           },
           // Photo pass #762 (2026-07-20): the album-release page had a single
           // photo, so added two more frames from the same official Mert &
@@ -3966,21 +3966,21 @@ export default {
           // shots from each other and from 02, no duplicates.
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/01-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // She sits just right of center; her face is in the upper third.
+            focalPoint: '53% 32%',
             credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
             caption:
               'From the same press shoot: a jeweled cap, a peach ostrich-feather boa and a champagne coupe, in a mirrored powder room.',
             kind: 'primary',
-            // She sits just right of center; her face is in the upper third.
-            focalPoint: '53% 32%',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            // Arms-out pose centered in frame; her face sits high, near the top.
+            focalPoint: '53% 15%',
             credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
             caption:
               'From the same press shoot: the full crystal-and-gold showgirl costume, arms flung wide against a gilded stage.',
             kind: 'primary',
-            // Arms-out pose centered in frame; her face sits high, near the top.
-            focalPoint: '53% 15%',
           },
         ],
       },
@@ -4151,12 +4151,13 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/WqbJT_vC0rs/maxres3.jpg',
+            // Letterboxed archival frame; her face is centered, eyes just
+            // above the mid-line — keep the crop centred-high.
+            focalPoint: '52% 38%',
             credit: 'Taylor Swift / Republic Records (official "Elizabeth Taylor" video frame, YouTube)',
             caption:
               'The video leans on archival footage of its namesake: Elizabeth Taylor in a violet headscarf, diamond flashing, seaside.',
             kind: 'primary',
-            // Letterboxed archival frame; her eyes sit just above the center.
-            focalPoint: '52% 40%',
           },
         ],
       },
