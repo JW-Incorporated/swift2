@@ -1508,6 +1508,7 @@ export default {
     },
     {
       slug: '1989-this-sick-beat-trademarks',
+      significance: 'notable', // a genuinely notable, widely-covered business precedent — one of the first mainstream artist trademark filings of its kind (docs/decisions.md, 2026-07-19)
       year: 2015,
       month: 1,
       day: 29,

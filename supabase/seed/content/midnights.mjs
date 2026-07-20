@@ -61,6 +61,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // an outright platform streaming record on release day (docs/decisions.md, 2026-07-19)
       year: 2022,
       month: 10,
       day: 21,
@@ -210,6 +211,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // a real chart-week record at the time, one of four Taylor's Version release milestones this era carries (docs/decisions.md, 2026-07-19)
       year: 2023,
       month: 7,
       day: 16,
@@ -2672,6 +2674,7 @@ export default {
     },
     {
       slug: 'amas-2022-six-for-six',
+      significance: 'notable', // a perfect nomination-to-win record and a real 40+ career-wins milestone (docs/decisions.md, 2026-07-19)
       year: 2022,
       month: 11,
       day: 20,
@@ -3027,6 +3030,7 @@ export default {
     },
     {
       slug: 'swift-quake-seattle',
+      significance: 'notable', // a genuinely unusual, scientifically documented cultural phenomenon — a real seismologist's read on a real seismometer (docs/decisions.md, 2026-07-19)
       year: 2023,
       month: 7,
       day: 22,
@@ -3068,6 +3072,12 @@ export default {
             credit: 'Anaroll, CC BY-SA 3.0, via Wikimedia Commons',
             caption: 'Lumen Field mid-show during the Eras Tour Seattle stand — the crowd whose synchronized dancing registered on a seismometer next door.',
             kind: 'primary',
+          },
+          {
+            url: 'https://news.wwu.edu/sites/news.wwu.edu/files/bc8a75cd-f7bb-90e1-7abf-b4277cf3f5a5_1.jpg',
+            credit: 'Kari Mar, via WWU News',
+            caption: 'A packed Lumen Field lit red, shot by an attendee — the same synchronized 72,000-person crowd Western Washington University\'s own seismologist read off a seismometer.',
+            kind: 'archival',
           },
         ],
       },
@@ -3480,6 +3490,8 @@ export default {
     },
     {
       slug: 'melbourne-mcg-biggest-shows',
+      significance: 'notable', // the single largest crowds of her touring career, at Australia's most storied stadium (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-midnights-the-eras-tour-kicks-off-in-glendale'],
       year: 2024,
       month: 2,
       day: 16,

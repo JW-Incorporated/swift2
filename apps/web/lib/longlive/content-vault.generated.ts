@@ -529,6 +529,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/d/d1/Taylor_Swift_-_Shake_It_Off_music_video_screenshot.jpg", credit: "Big Machine Records", caption: "Reference image: the 'Shake It Off' video — the song 'This Sick Beat' comes from. The trademark filings themselves are paperwork; no event photography exists.", kind: "reference" }],
       sources: [{ name: "Taylor Swift Files to Trademark 'This Sick Beat' and Other 1989 Phrases", url: "https://abcnews.com/Entertainment/taylor-swift-files-trademark-sick-beat-1989-phrases/story?id=28575143" }, { name: "Taylor Swift Has Trademarked The Phrase 'This Sick Beat'", url: "https://www.forbes.com/sites/hughmcintyre/2015/02/04/taylor-swift-has-trademarked-the-phrase-this-sick-beat/" }],
+      significance: "notable",
     },
     {
       id: "vault-1989-the-style-video-trades-plot-for-pure-atmosphere",
@@ -2090,7 +2091,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Evansville, Indiana gave her the key to the city and declared it \"Taylor Swift Day\" — the start of her first-ever headlining tour.",
       body: ["The 7,463-seat Roberts Municipal Stadium show on April 23, 2009 was a headlining debut she'd deliberately delayed: \"I never wanted to go into an arena and have to downsize it so there were only 5,000 or 4,000 people there... we waited a long time to make sure the headlining tour was everything I wanted it to be.\"", "Her pitch for finally topping the bill was simpler — \"Headlining my own tour is a dream come true! This way I can play more music every night than I ever have before\" — and the tour it launched ran 118 shows across six countries over the next 15 months."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg", credit: "Wikimedia Commons", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg", credit: "calmdownlove / Wikimedia Commons, CC BY 2.0", caption: "The full band on the tour's round center stage, with a live jumbotron feed behind them, Portland.", kind: "reference", focalPoint: "40% 60%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg", credit: "calmdownlove / Wikimedia Commons, CC BY 2.0", caption: "A gold sequined dress and cowboy boots, fist raised mid-song, Portland.", kind: "archival", focalPoint: "25% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/4/47/Taylor_Swift_-_B-stage_-_Newark_-_Fearless_Tour_2010.jpg", credit: "Alexanhalasan / Wikimedia Commons, CC BY-SA 2.0", caption: "Seated on the B-stage in a teal dress and embroidered boots, her hand-painted \"13\" visible while playing acoustic guitar, Newark, May 13, 2010.", kind: "archival", focalPoint: "35% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Taylor_Swift%2C_Fearless_tour%2C_Australia%2C_2010.jpg", credit: "Soth Loeu / Wikimedia Commons, CC BY-SA 3.0", caption: "A silver fringed dress during the tour's Australian leg, 2010.", kind: "archival", focalPoint: "48% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f5/Taylor_Swift_-_Fearless_Tour_-_Foxboro_01.jpg", credit: "Mealtedheadaches / Wikimedia Commons, CC BY-SA 2.0", caption: "A white-and-gold majorette-style costume with a plumed hat for the tour's marching-band segment, Foxboro.", kind: "archival", focalPoint: "45% 25%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_Fearless_Tour_01.jpg", credit: "WEZL / Wikimedia Commons, CC BY 2.0", caption: "A black rock-styled outfit with electric guitar, flanked by her full band.", kind: "reference", focalPoint: "42% 55%" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Austin_07.jpg", credit: "Wikimedia Commons", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg", credit: "calmdownlove / Wikimedia Commons, CC BY 2.0", caption: "The full band on the tour's round center stage, with a live jumbotron feed behind them, Portland.", kind: "reference", focalPoint: "40% 60%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg", credit: "calmdownlove / Wikimedia Commons, CC BY 2.0", caption: "A gold sequined dress and cowboy boots, fist raised mid-song, Portland.", kind: "archival", focalPoint: "25% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/4/47/Taylor_Swift_-_B-stage_-_Newark_-_Fearless_Tour_2010.jpg", credit: "Alexanhalasan / Wikimedia Commons, CC BY-SA 2.0", caption: "Seated on the B-stage in a teal dress and embroidered boots, her hand-painted \"13\" visible while playing acoustic guitar, Newark, May 13, 2010.", kind: "archival", focalPoint: "35% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/a/a8/Taylor_Swift%2C_Fearless_tour%2C_Australia%2C_2010.jpg", credit: "Soth Loeu / Wikimedia Commons, CC BY-SA 3.0", caption: "A silver fringed dress during the tour's Australian leg, 2010.", kind: "archival", focalPoint: "48% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/f/f5/Taylor_Swift_-_Fearless_Tour_-_Foxboro_01.jpg", credit: "Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0", caption: "A white-and-gold majorette-style costume with a plumed hat for the tour's marching-band segment, Foxboro.", kind: "archival", focalPoint: "45% 25%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/4/4e/Taylor_Swift_Fearless_Tour_01.jpg", credit: "WEZL / Wikimedia Commons, CC BY 2.0", caption: "A black rock-styled outfit with electric guitar, flanked by her full band.", kind: "reference", focalPoint: "42% 55%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_Tour" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/" }],
       milestone: { id: "m-fear-0", label: "Fearless Tour opens", kind: "tour" },
       significance: "notable",
@@ -2383,6 +2384,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/8/86/Taylor_Swift_-_Fearless.png", credit: "Big Machine Records", kind: "primary", focalPoint: "40% 32%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg/500px-Taylor_Swift_during_Fearless_Tour_concert_in_Portland_02.jpg", credit: "calmdownlove, Wikimedia Commons (CC BY 2.0) — Fearless Tour, Portland, May 16, 2009 (archival, era context)", caption: "On the Fearless Tour in Portland, May 2009 — mid-victory-lap for an album spending its eleventh week at No. 1 that spring.", kind: "archival", focalPoint: "32% 24%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_(Taylor_Swift_album)" }, { name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-ties-career-best-11-weeks-number-one-billboard-200-tortured-poets-department-1235725955/" }],
+      significance: "notable",
     },
     {
       id: "vault-fearless-the-best-selling-album-in-america-for-all-of-2009",
@@ -2403,8 +2405,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "56,868 fans and $3.7 million in ticket sales — the Fearless Tour's single highest-grossing night.",
       body: ["On June 5, 2010, the Fearless Tour stop at Gillette Stadium in Foxborough, Massachusetts brought in $3.7 million in ticket sales from 56,868 concertgoers — the tour's highest-grossing show — and made Swift the first female musician to headline and sell out Gillette Stadium.", "It was also the tour's final US date, and Billboard's review caught her playing to the home crowd: she pulled on a No. 13 Patriots jersey mid-show, walked the stands hugging fans through an acoustic set, and closed under the waterfall effect that soaked her at the end of every night."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg", credit: "Wikimedia Commons", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg/500px-Taylor_Swift_-_You_Belong_With_Me_-_Fearless_Tour_2010_at_Gillette_Stadium.jpg", credit: "Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0", kind: "primary" }, { url: "https://upload.wikimedia.org/wikipedia/commons/8/81/Taylor_Swift_-_Fearless_Tour_-_Foxboro12.jpg", credit: "Meltedheadaches / Wikimedia Commons, CC BY-SA 2.0", caption: "Performing at the same Gillette Stadium show, June 5, 2010.", kind: "archival" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_Tour" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-june-5-2010-foxboro-mass-957869/" }],
+      significance: "notable",
     },
     {
       id: "vault-fearless-a-wisteria-marchesa-gown-for-the-2010-acm-awards",
@@ -3741,6 +3744,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/Screenshot_20221022-153332.png", credit: "Spotify Newsroom", kind: "primary", focalPoint: "48% 55%" }, { url: "https://storage.googleapis.com/pr-newsroom-wp/1/2022/10/TS-Midnights_LDN-2.jpg", credit: "Spotify Newsroom", caption: "One of the \"Meet us at midnight\" billboards Spotify ran with Swift in the lead-up to release — this one over a rainy London staircase, counting down to the drop that broke the platform's single-day records.", kind: "archival", focalPoint: "48% 40%" }, { url: "https://www.guinnessworldrecords.com/news/2022/10/images/split-image-of-taylor-swift-sitting-in-a-dark-room-and-the-album-cover-of-midnights-723266.jpg", credit: "Guinness World Records", caption: "Guinness World Records' own art for logging the day as three records at once: most-streamed album in 24 hours, most day-one album streams, and most-streamed act in a single day.", kind: "archival", focalPoint: "75% 45%" }],
       sources: [{ name: "Spotify Newsroom", url: "https://newsroom.spotify.com/2022-10-22/taylor-swift-breaks-two-records-with-midnights-becoming-the-most-streamed-artist-on-spotify/" }, { name: "Guinness World Records", url: "https://www.guinnessworldrecords.com/news/2022/10/taylor-swifts-album-midnights-smashes-three-spotify-records-723058" }],
+      significance: "notable",
     },
     {
       id: "vault-midnights-midnights-debuts-at-no-1-on-the-billboard-200",
@@ -3784,6 +3788,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2023/06/Taylor-Swift-Speak-Now-cr-Beth-Garrabrant-billboard-1548.jpg?w=1024", credit: "Beth Garrabrant/Billboard", kind: "primary", focalPoint: "52% 30%" }, { url: "https://i.ytimg.com/vi/lVkKLf4DCn8/maxresdefault.jpg", credit: "Taylor Swift/YouTube ('I Can See You' official video)", caption: "A frame from the 'I Can See You (Taylor's Version) (From The Vault)' video, premiered at the Kansas City Eras show on July 7, 2023 — the vault-track centerpiece of the release week this chart record capped.", kind: "archival", focalPoint: "55% 45%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-speak-now-taylors-version-number-one-debut-billboard-200-chart-1235372565/" }, { name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2023/07/16/taylor-swift-charts-her-twelfth-no-1-album-with-the-massive-speak-now-taylors-version/" }],
+      significance: "notable",
     },
     {
       id: "vault-midnights-1989-taylors-version-resets-the-vinyl-record",
@@ -4527,6 +4532,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.rollingstone.com/wp-content/uploads/2022/11/Taylor-Artist-1443142818.jpg?w=1600&h=900&crop=1", credit: "Kevin Winter/Getty Images via Rolling Stone", caption: "Swift accepting at the 2022 American Music Awards in Los Angeles, where she went six-for-six.", kind: "primary", focalPoint: "50% 15%" }, { url: "https://deadline.com/wp-content/uploads/2022/11/taylor-swift-american-music-awards-2022.jpg?w=1000", credit: "Deadline", caption: "All six of the night's trophies at once in the AMAs press room — career total: a record 40.", kind: "primary", focalPoint: "50% 17%" }],
       sources: [{ name: "Taylor Swift Sweeps 2022 AMAs With Six of Six Wins", url: "https://www.rollingstone.com/music/music-news/taylor-swift-sweeps-2022-amas-1234634191/" }, { name: "American Music Awards 2022 Winners List: Taylor Swift Reigns, Scores Artist Of The Year Prize", url: "https://deadline.com/2022/11/american-music-awards-winners-list-taylor-swift-scores-artist-of-the-year-1235178280/" }],
+      significance: "notable",
     },
     {
       id: "vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a",
@@ -4591,8 +4597,9 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Two nights at Lumen Field shook the ground like a 2.3-magnitude quake — beating the stadium's famous 2011 \"Beast Quake,\" with dancing Swifties out-rumbling a Marshawn Lynch touchdown.",
       body: ["Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off a seismometer beside the stadium: shaking roughly twice as strong as the Beast Quake, sustained for hours at a time because 144,000 fans across two nights were all moving to the same beat.", "The difference, she noted, was rhythm — music drives the ground in a way a single touchdown roar can't."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Lumen_Field_northwest_side_-_The_Eras_Tour_by_Taylor_Swift_%2820230802143847%29.jpg/960px-Lumen_Field_northwest_side_-_The_Eras_Tour_by_Taylor_Swift_%2820230802143847%29.jpg", credit: "Anaroll, CC BY-SA 3.0, via Wikimedia Commons", caption: "Lumen Field mid-show during the Eras Tour Seattle stand — the crowd whose synchronized dancing registered on a seismometer next door.", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/Lumen_Field_northwest_side_-_The_Eras_Tour_by_Taylor_Swift_%2820230802143847%29.jpg/960px-Lumen_Field_northwest_side_-_The_Eras_Tour_by_Taylor_Swift_%2820230802143847%29.jpg", credit: "Anaroll, CC BY-SA 3.0, via Wikimedia Commons", caption: "Lumen Field mid-show during the Eras Tour Seattle stand — the crowd whose synchronized dancing registered on a seismometer next door.", kind: "primary" }, { url: "https://news.wwu.edu/sites/news.wwu.edu/files/bc8a75cd-f7bb-90e1-7abf-b4277cf3f5a5_1.jpg", credit: "Kari Mar, via WWU News", caption: "A packed Lumen Field lit red, shot by an attendee — the same synchronized 72,000-person crowd Western Washington University's own seismologist read off a seismometer.", kind: "archival" }],
       sources: [{ name: "Beast Quake (Taylor's Version): Swift's Eras tour concerts cause seismic activity in Seattle", url: "https://www.cbsnews.com/news/beast-quake-taylor-swift-seattle-concerts-seismic-activity-lumen-field/" }, { name: "Taylor Swift fans cause record-breaking seismic activity during Seattle shows", url: "https://www.cnn.com/2023/07/27/entertainment/taylor-swift-seismic-activity/index.html" }],
+      significance: "notable",
     },
     {
       id: "vault-midnights-the-eras-tour-makes-the-federal-reserves-beige-book",
@@ -4698,6 +4705,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Welcome_to_Melbourne_Swifties_%2853555073949%29.jpg/960px-Welcome_to_Melbourne_Swifties_%2853555073949%29.jpg", credit: "Caroline Jones, CC BY 2.0, via Wikimedia Commons", caption: "\"Welcome to Melbourne Swifties\" projected across Flinders Street Station on Feb. 17, 2024, mid-way through the record MCG weekend.", kind: "primary" }],
       sources: [{ name: "Taylor Swift \"Starstruck\" By Record-Breaking Melbourne Crowd For Eras", url: "https://deadline.com/2024/02/taylor-swift-starstruck-by-record-breaking-melbourne-crowd-mcg-eras-tour-1235829157/" }, { name: "Taylor Swift honors Melbourne crowd after celebrating major 'Eras Tour' milestone", url: "https://www.today.com/popculture/taylor-swift-celebrates-eras-tour-milestone-rcna139379" }],
+      relatedIds: ["moment:vault-midnights-the-eras-tour-kicks-off-in-glendale"],
+      significance: "notable",
     },
     {
       id: "vault-midnights-coachella-in-a-new-heights-hat",
@@ -5101,6 +5110,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/40/We_Are_Never_Ever_Getting_Back_Together.png", credit: "Big Machine Records", kind: "primary", focalPoint: "30% 20%" }, { url: "https://townsquare.media/site/252/files/2013/02/TaylorSwift1.jpg?w=980&q=75", credit: "Getty Images / PopCrush", kind: "archival", focalPoint: "45% 28%" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swift-new-single-number-1-364803/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/We_Are_Never_Ever_Getting_Back_Together" }],
+      significance: "notable",
     },
     {
       id: "vault-red-the-red-tour-closes-as-the-highest-grossing-country-tour-of-",
@@ -5112,6 +5122,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg", credit: "Jana Zills / Wikimedia Commons", kind: "primary", focalPoint: "45% 28%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Taylor_Swift_-_RED_Tour_-_Singapore_-_Mean_%28night_1%29.jpg", credit: "Weslam123 / Wikimedia Commons (CC BY-SA 4.0)", kind: "archival", focalPoint: "42% 12%" }],
       sources: [{ name: "Billboard", url: "https://billboard.com/articles/news/6150193/taylor-swift-red-all-time-country-tour" }],
+      significance: "notable",
     },
     {
       id: "vault-red-red-goes-into-the-grammys-with-two-nominations-and-leaves-wi",
@@ -5121,8 +5132,10 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Album of the Year and Best Country Album nods at the January 26, 2014 ceremony — losing Album of the Year to Daft Punk's Random Access Memories and Best Country Album to Kacey Musgraves' debut, Same Trailer Different Park.",
       body: ["At the 56th Annual Grammy Awards, Red was one of five Album of the Year nominees alongside Sara Bareilles' The Blessed Unrest, Kendrick Lamar's Good Kid, M.A.A.D City, and Macklemore & Ryan Lewis' The Heist — the trophy went to Daft Punk's Random Access Memories.", "In Best Country Album, Red competed against Jason Aldean's Night Train, Tim McGraw's Two Lanes of Freedom, and Blake Shelton's Based on a True Story..., with Kacey Musgraves' debut Same Trailer Different Park taking the win. It was Swift's second Album of the Year nomination (after Fearless won in 2010) and a rare winless Grammy night."],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary", focalPoint: "50% 32%" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary", focalPoint: "50% 32%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/6/68/Daft_Punk_in_2013_2-_centered.jpg", credit: "Sony Music Entertainment, Wikimedia Commons (CC BY 4.0)", caption: "Daft Punk, whose Random Access Memories won Album of the Year over Red that night.", kind: "reference" }, { url: "https://upload.wikimedia.org/wikipedia/commons/3/37/KaceyMRoundhouse140524_%289%29_%2853727111656%29_%28cropped%29.jpg", credit: "Raph_PH, Wikimedia Commons (CC BY 2.0)", caption: "Kacey Musgraves, whose debut Same Trailer Different Park won Best Country Album over Red.", kind: "reference" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/56th_Annual_Grammy_Awards" }],
+      relatedIds: ["moment:vault-red-all-too-well-gets-its-first-tv-performance-alone-at-a-piano-"],
+      significance: "notable",
     },
     {
       id: "vault-red-state-of-grace-opens-red-with-her-first-arena-rock-swing",
@@ -5179,6 +5192,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/73900276f68b-road-trip2-z.jpg", credit: "Instagram / HELLO!", kind: "primary" }, { url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/f710f8fef400-road-trip-z.jpg", credit: "Instagram / HELLO!", kind: "archival" }, { url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/2269843edce4-road-trip3-z.jpg", credit: "Instagram / HELLO!", kind: "archival" }],
       sources: [{ name: "HELLO!", url: "https://www.hellomagazine.com/fashion/2014030617340/karlie-kloss-taylor-swift-instagram-pictures-road-trip/" }],
+      significance: "notable",
     },
     {
       id: "vault-red-carrying-kitten-olivia-benson-down-the-street-instead-of-usi",
@@ -5490,6 +5504,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f2/Taylor_Swift_-_Reputation.png", credit: "Big Machine Records", kind: "primary", focalPoint: "42% 35%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-reputation-debuts-no-1-billboard-200-albums/" }, { name: "Refinery29", url: "https://www.refinery29.com/en-us/2017/11/182106/taylor-swift-reputation-billboard-chart" }, { name: "Forbes", url: "https://www.forbes.com/sites/brittanyhodak/2017/11/20/taylor-swifts-reputation-outsold-every-other-album-on-the-billboard-200-combined/" }],
+      significance: "notable",
     },
     {
       id: "vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with",
@@ -5585,6 +5600,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://specials-images.forbesimg.com/dam/imageserve/1048528712/960x0.jpg?fit=scale", credit: "Jeff Kravitz/FilmMagic", kind: "primary" }],
       sources: [{ name: "Forbes", url: "https://www.forbes.com/sites/hughmcintyre/2018/10/10/taylor-swift-now-holds-the-record-for-the-most-american-music-award-wins-among-women/" }, { name: "Billboard", url: "https://www.billboard.com/music/awards/2018-amas-recap-taylor-swift-cardi-b-8479215/" }],
+      significance: "notable",
     },
     {
       id: "vault-reputation-the-reputation-stadium-tours-snake-bodysuit",
@@ -5816,6 +5832,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-reputation-tour-nov-21-2018-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Jun Sato/TAS18/Getty Images", kind: "primary", focalPoint: "48% 22%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Taylor_Swift_Reputation_Tour1.jpg/1280px-Taylor_Swift_Reputation_Tour1.jpg", credit: "UltimateWarrior13 / Wikimedia Commons (CC BY-SA 4.0)", caption: "On the record-breaking U.S. leg at Levi’s Stadium, May 12, 2018 — the run averaged $7 million and 54,432 tickets a night.", kind: "archival", focalPoint: "50% 18%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-reputation-stadium-tour-breaks-record-highest-grossing-us-tour/" }],
+      relatedIds: ["moment:vault-reputation-reputation-stadium-tour-opens-to-a-record-crowd"],
+      significance: "notable",
     },
     {
       id: "vault-reputation-a-malibu-hike-and-an-outfit-that-read-like-a-lyric",
@@ -5850,6 +5868,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png", credit: "Big Machine Records", kind: "primary", focalPoint: "65% 42%" }, { url: "https://i.ytimg.com/vi/3tmd-ClpJxA/hqdefault.jpg", credit: "YouTube / Taylor Swift", caption: "The bathtub-of-diamonds scene from Joseph Kahn's video — the clip that pulled 43.2 million views in its first 24 hours.", kind: "archival", focalPoint: "64% 40%" }],
       sources: [{ name: "Taylor Swift's 'Look What You Made Me Do' Smashes YouTube's 24-Hour Record", url: "https://variety.com/2017/digital/news/taylor-swifts-look-what-you-made-me-do-smashes-youtubes-24-hour-record-crushing-psy-1202541558/" }, { name: "Taylor Swift's 'Look What You Made Me Do' Sets YouTube 24-Hour Streams Record", url: "https://www.billboard.com/pro/taylor-swift-psy-youtube-24-hour-streams-record/" }],
+      relatedIds: ["moment:vault-reputation-the-snake-video-that-announced-reputation"],
+      significance: "notable",
     },
     {
       id: "vault-reputation-ready-for-it-debuts-inside-a-college-football-broadcast",
@@ -6591,6 +6611,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://townsquare.media/site/204/files/2011/10/swifty1.jpg?w=980&q=75", credit: "Dave Hogan/Getty Images (via Taste of Country)", caption: "On stage mid-Speak Now era with the crystal-fretted '13' guitar — the touring-and-sales year Billboard's citation leaned on.", kind: "archival", focalPoint: "52% 17%" }],
       sources: [{ name: "Taylor Swift Named Billboard Woman of the Year", url: "https://www.billboard.com/music/music-news/taylor-swift-named-billboard-woman-of-the-year-2-1164046/" }, { name: "Taylor Swift Crowned 2011 Billboard Woman of the Year", url: "https://tasteofcountry.com/taylor-swift-billboard-woman-of-the-year-2011/" }],
+      significance: "notable",
     },
     {
       id: "vault-speak-now-the-jake-gyllenhaal-rumors-go-public",
@@ -6762,6 +6783,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png", credit: "Album cover photographed by Mert Alas & Marcus Piggott / Republic Records, via Wikipedia", caption: "The album behind the biggest sales week ever measured: 4.002 million equivalent units in seven days.", kind: "archival", focalPoint: "55% 22%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg?w=942&h=628&crop=1", credit: "Mert Alas & Marcus Piggott / Republic Records, via Billboard", caption: "The album-shoot press image Billboard ran with the record-shattering chart week: 4.002 million units, the biggest ever measured.", kind: "archival", focalPoint: "54% 18%" }],
       sources: [{ name: "Taylor Swift Achieves Record-Shattering 4 Million Week With No. 1 Billboard 200 Debut of 'The Life of a Showgirl'", url: "https://www.billboard.com/lists/taylor-swift-life-of-a-showgirl-number-one-billboard-200/" }, { name: "Taylor Swift Bows With 4 Million Album Units as 'The Life of a Showgirl' Smashes Records", url: "https://variety.com/2025/music/news/taylor-swift-debut-week-record-billboard-200-life-showgirl-1236547501/" }],
+      relatedIds: ["moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12"],
+      significance: "notable",
     },
     {
       id: "vault-tloas-spotifys-2025-single-day-streaming-record-falls-in-under-11-",
@@ -6774,6 +6797,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://i.ytimg.com/vi/ko70cExuzZM/hqdefault.jpg", credit: "Taylor Swift / Republic Records (official \"The Fate of Ophelia\" music video thumbnail, YouTube)", caption: "\"The Fate of Ophelia,\" whose Oct. 3 numbers made it the most-streamed song in a single day in Spotify history.", kind: "archival", focalPoint: "50% 35%" }, { url: "https://storage.googleapis.com/pr-newsroom-wp/1/2025/10/5_RedFront-1440x1440.jpg", credit: "Mert Alas & Marcus Piggott / Republic Records, via Spotify Newsroom", caption: "The album-package portrait Spotify published alongside its announcement that the 2025 single-day streaming record had fallen in under 11 hours.", kind: "archival", focalPoint: "47% 40%" }],
       sources: [{ name: "Taylor Swift's 'The Life of a Showgirl' Breaks Spotify's 2025 Single-Day Streaming Record", url: "https://newsroom.spotify.com/2025-10-03/taylor-swift-life-showgirl-spotify-record/" }, { name: "Taylor Swift's 'Life of a Showgirl' Breaks Multiple Spotify Records In First Day", url: "https://deadline.com/2025/10/taylor-swift-life-of-a-showgirl-breaks-multiple-spotify-records-1236570076/" }],
+      significance: "notable",
     },
     {
       id: "vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny",
@@ -6909,6 +6933,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/6/65/Taylor_Swift_The_Eras_Tour_at_BC_Place%2C_Landscape.jpg", credit: "JazzHandsIncarnate, CC BY-SA 4.0, via Wikimedia Commons", caption: "BC Place in Vancouver dressed for the Eras Tour's final dates, December 2024 — a giant friendship bracelet reading \"TAYLOR SWIFT THE ERAS TOUR\" wrapped along the stadium.", kind: "archival", focalPoint: "50% 38%" }, { url: "https://i.abcnewsfe.com/a/5ec4f225-0002-477a-b2d6-d71be02ff77e/TAYLOR-GTY-AB-251202_1764711098744_hpMain_16x9.jpg?w=1600", credit: "Getty Images, via ABC News", caption: "At the piano for the surprise-song acoustic set, in the orange gown of the tour's 2024 legs — the stripped-down chapter of the show the streaming cut preserves in full.", kind: "archival", focalPoint: "34% 24%" }],
       sources: [{ name: "Taylor Swift: The End of an Era", url: "https://en.wikipedia.org/wiki/Taylor_Swift:_The_End_of_an_Era" }, { name: "Everything to know about Taylor Swift's 'The End of an Era' docuseries and 'Final Show'", url: "https://abcnews.com/GMA/Culture/taylor-swifts-end-era-docuseries-final-show/story?id=128047876" }],
+      relatedIds: ["moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver"],
+      significance: "notable",
     },
     {
       id: "vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb",
@@ -7056,6 +7082,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/d/d2/Grammy_Award_trophies_-_Kenny_Rogers_%22The_Gambler%22_%28cropped%29.jpg", credit: "Photo by \"Thank You (23 Millions+) views\", CC BY 2.0, via Wikimedia Commons", caption: "For reference — Grammy statuettes on display (these are Kenny Rogers's, at the Country Music Hall of Fame). The 2026 window Showgirl missed closed Aug. 30, 2025.", kind: "reference", focalPoint: "50% 42%" }],
       sources: [{ name: "Why Taylor Swift Doesn't Have Any 2026 Grammy Nominations for 'The Life of a Showgirl'", url: "https://www.aol.com/articles/why-taylor-swift-doesn-t-144826491.html" }, { name: "Why Doesn't Taylor Swift Qualify for the Grammys 2026", url: "https://www.eonline.com/news/1424797/grammys-2026-why-taylor-swift-wasnt-nominated" }],
+      significance: "notable",
     },
     {
       id: "vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents",
@@ -7210,6 +7237,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png", credit: "Album cover photographed by Mert Alas & Marcus Piggott / Republic Records, via Wikipedia", caption: "Luminate's most-consumed album of 2025 in the US — on 13 weeks of availability.", kind: "archival", focalPoint: "45% 25%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/12/YE-Charts-web-hero17-taylor-swift-billboard-1800.jpg?w=942&h=628&crop=1", credit: "Mert Alas & Marcus Piggott / Billboard Year-End Charts", caption: "Billboard's 2025 Year-End Charts artwork — Showgirl topped the year-end Billboard 200 on the same math.", kind: "archival", focalPoint: "58% 20%" }],
       sources: [{ name: "Taylor Swift's 'The Life of a Showgirl' Is Luminate's Top Album of 2025 in U.S.", url: "https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/" }, { name: "Taylor Swift's 'The Life of a Showgirl' Is the Top Billboard 200 Album of 2025", url: "https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-2025-year-end-billboard-200-album-1236130192/" }],
+      significance: "notable",
     },
     {
       id: "vault-tloas-the-elizabeth-taylor-video-a-supercut-of-the-real-liz",
@@ -7234,6 +7262,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://i.ytimg.com/vi/5B8-TJ8vsKY/maxresdefault.jpg", credit: "The New York Times / Popcast (official interview thumbnail, YouTube)", caption: "The Times' half-hour sit-down on nothing but the songwriting, published with its 30-greatest-living-American-songwriters list.", kind: "primary", focalPoint: "62% 38%" }],
       sources: [{ name: "7 Things We Learned From Taylor Swift's 'Greatest Living American Songwriters' Interview", url: "https://www.billboard.com/lists/taylor-swift-greatest-songwriters-interview-things-learned/" }, { name: "Taylor Swift Says It's 'Weird' When Fans Turn Songs Into 'Paternity Tests' to Figure Out Who She's Talking About", url: "https://variety.com/2026/music/news/taylor-swift-fans-trying-to-figure-out-who-songs-about-weird-1236732071/" }, { name: "Taylor Swift battles fans conducting 'paternity test' on her songwriting", url: "https://www.detroitnews.com/story/entertainment/music/2026/04/29/taylor-swift-songwriting-paternity-test/89852693007/" }, { name: "youtube.com", url: "https://www.youtube.com/watch?v=5B8-TJ8vsKY" }],
+      significance: "notable",
     },
     {
       id: "vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame",
@@ -7246,6 +7275,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg", credit: "Kylie Cooper/Reuters, via PBS NewsHour", caption: "On the carpet at the 55th Songwriters Hall of Fame Induction and Awards Gala in New York, June 11, 2026.", kind: "primary", focalPoint: "38% 18%" }, { url: "https://www.billboard.com/wp-content/uploads/2026/06/P1071NXM-e1781277661981.jpg?w=942&h=628&crop=1", credit: "John Nacion/Variety, via Billboard", caption: "The floral-embroidered black gown, full length, on the gala red carpet.", kind: "primary", focalPoint: "47% 20%" }],
       sources: [{ name: "Taylor Swift becomes the youngest woman inducted into the Songwriters Hall of Fame at age 36", url: "https://www.pbs.org/newshour/arts/taylor-swift-becomes-the-youngest-woman-inducted-into-the-songwriters-hall-of-fame-at-age-36" }, { name: "Taylor Swift Thanks Family, Tears Up at Songwriters Hall of Fame 2026", url: "https://variety.com/2026/music/news/taylor-swift-songwriters-hall-of-fame-acceptance-speech-1236779180/" }, { name: "Here's Taylor Swift's Full 20-Minute Induction Speech at the 2026 Songwriters Hall of Fame", url: "https://www.billboard.com/music/awards/taylor-swift-songwriters-hall-of-fame-induction-speech-1236271403/" }],
+      significance: "notable",
     },
     {
       id: "vault-tloas-the-rock-hall-puts-the-ophelia-gown-in-legends-of-rock",
@@ -7447,6 +7477,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_5-1-1440x1440.jpg", credit: "Spotify Newsroom", kind: "primary", focalPoint: "60% 60%" }, { url: "https://storage.googleapis.com/pr-newsroom-wp/1/2024/04/Day1_IGCarousel_1-819x1024.jpg", credit: "Spotify Newsroom", caption: "The pop-up library's lyric case at The Grove — new album lines revealed each day before release.", kind: "archival", focalPoint: "50% 60%" }],
       sources: [{ name: "Spotify Newsroom", url: "https://newsroom.spotify.com/2024-04-19/tortured-poets-department-taylor-swift-library-los-angeles/" }, { name: "Forbes", url: "https://www.forbes.com/sites/mollybohannon/2024/04/22/all-the-records-taylor-swifts-the-tortured-poets-department-has-broken-so-far/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-tortured-poets-passes-billion-spotify-streams-1235665087/" }],
+      relatedIds: ["moment:vault-midnights-midnights-breaks-spotify-in-a-single-day"],
+      significance: "notable",
     },
     {
       id: "vault-ttpd-a-billion-streams-in-one-week",
@@ -7548,6 +7580,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/57/Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg/960px-Taylor_Swift_Eras_Tour_London_20240819_1989era.jpg", credit: "BrigidLIS via Wikimedia Commons, CC BY 4.0", caption: "Wembley Stadium during the 1989 set on Aug. 19, 2024 — night seven of the record eight-show stand.", kind: "archival", focalPoint: "35% 48%" }, { url: "https://www.hollywoodreporter.com/wp-content/uploads/2024/08/Taylor-Swift-Getty-H-2024-1.jpg?w=1296&h=730&crop=1", credit: "Getty Images, via The Hollywood Reporter", caption: "Onstage at Wembley during the record-setting London run, August 2024.", kind: "primary", focalPoint: "47% 22%" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/music/music-news/taylor-swift-breaks-record-eras-tour-london-wembley-stadium-1235980429/" }, { name: "Wembley Stadium", url: "https://www.wembleystadium.com/news/2024/08/23/10/34/Wembley-Stadium-has-gifted-Taylor-Swift-a-bespoke-guitar-to-mark-her-record-breaking-achievement" }],
+      relatedIds: ["moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver"],
+      significance: "notable",
     },
     {
       id: "vault-ttpd-back-at-arrowhead-for-a-monday-night-win-over-new-orleans",
@@ -7655,6 +7689,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/12/taylor-swift-eras-tour-rogers-centre-toronto-012-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Emma McIntyre/TAS24/Getty Images", kind: "primary", focalPoint: "45% 27%" }],
       sources: [{ name: "Forbes", url: "https://www.forbes.com/sites/maryroeloffs/2024/12/09/taylor-swifts-eras-tour-grossed-2-billion-double-any-other-tour-in-history-report-says/" }, { name: "Variety", url: "https://variety.com/2024/music/news/taylor-swift-2-billion-eras-tour-gross-1236243254/" }, { name: "Billboard", url: "https://www.billboard.com/music/chart-beat/taylor-swift-eras-tour-earnings-2-billion-sales-1235847513/" }],
+      relatedIds: ["moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver"],
+      significance: "notable",
     },
     {
       id: "vault-ttpd-a-record-7th-album-of-the-year-nomination-for-ttpd",
@@ -7901,6 +7937,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/9/91/Taylor_Swift_-_Fortnight.png", credit: "Republic Records", caption: "Single artwork for \"Fortnight,\" which led the historic top-14 sweep from No. 1.", kind: "primary", focalPoint: "50% 55%" }, { url: "https://www.billboard.com/wp-content/uploads/2024/04/taylor-swift-post-malone-fortnight-music-video-still-billboard-1548.jpg?w=1024", credit: "Taylor Swift / Republic Records (via Billboard)", caption: "Swift and Post Malone in the \"Fortnight\" video — the No. 1 that led a chart-history first.", kind: "archival", focalPoint: "50% 38%" }],
       sources: [{ name: "Taylor Swift Sets Record With All Top 14 of Hot 100, 'Fortnight' No. 1", url: "https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/" }, { name: "Taylor Swift Becomes First Artist To Take Top 14 Spots On Billboard Hot 100 Chart", url: "https://www.forbes.com/sites/mollybohannon/2024/04/29/taylor-swift-becomes-first-artist-to-take-top-14-spots-on-billboard-hot-100-chart/" }],
+      relatedIds: ["moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once"],
+      significance: "notable",
     },
     {
       id: "vault-ttpd-thank-you-aimee-the-capitalization-does-the-talking",
@@ -8050,6 +8088,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.rollingstone.com/wp-content/uploads/2024/09/taylor-record-for-VOY-awards.jpg?resize=1600%2C900", credit: "Getty Images (via Rolling Stone)", caption: "Accepting one of seven Moon Persons at the 2024 VMAs on Sept. 11, 2024 — including a record third straight Video of the Year.", kind: "primary", focalPoint: "48% 20%" }, { url: "https://www.billboard.com/wp-content/uploads/2024/09/taylor-swift-best-collab-mtv-vmas-2024-billboard-1548.jpg?w=1024", credit: "Getty Images (via Billboard)", caption: "Accepting Best Collaboration for \"Fortnight\" in the plaid corset look — one of the seven wins that tied Beyoncé's all-time VMAs record.", kind: "archival", focalPoint: "47% 18%" }],
       sources: [{ name: "Taylor Swift Broke a Whole Bunch of Records at the 2024 VMAs", url: "https://www.rollingstone.com/music/music-news/taylor-swift-breaks-records-2024-mtv-vma-awards-1235097031/" }, { name: "Taylor Swift Ties Beyoncé as All-Time Top VMAs Winner", url: "https://www.billboard.com/music/awards/taylor-swift-vmas-2024-passes-beyonce-top-winner-1235773005/" }],
+      significance: "notable",
     },
     {
       id: "vault-ttpd-the-eras-tour-book-sells-814-000-copies-in-two-days",

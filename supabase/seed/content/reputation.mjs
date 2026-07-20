@@ -41,6 +41,7 @@ export default {
   eraSlug: 'reputation',
   items: [
     {
+      significance: 'notable', // a striking real chart statistic capturing the scale of the comeback (docs/decisions.md, 2026-07-19)
       year: 2017,
       month: 11,
       day: 20,
@@ -437,6 +438,7 @@ export default {
       },
     },
     {
+      significance: 'notable', // a genuine, all-time career-wins record for a woman at the AMAs (docs/decisions.md, 2026-07-19)
       year: 2018,
       month: 10,
       day: 9,
@@ -459,6 +461,10 @@ export default {
             url: 'https://www.billboard.com/music/awards/2018-amas-recap-taylor-swift-cardi-b-8479215/',
           },
         ],
+        // Photo re-check (2026-07-19, Tier 3): stays at one image — Wikimedia
+        // Commons' Taylor Swift 2018 category has no 2018 AMA files at all
+        // (only Reputation Stadium Tour Seattle shots), and the show wasn't
+        // televised-broadcast-archived to Commons like later ceremonies were.
         photos: [
           {
             url: 'https://specials-images.forbesimg.com/dam/imageserve/1048528712/960x0.jpg?fit=scale',
@@ -1230,6 +1236,8 @@ export default {
       },
     },
     {
+      significance: 'notable', // a real attendance record broken decades after it was set, at the tour's own closing stretch (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-reputation-reputation-stadium-tour-opens-to-a-record-crowd'],
       year: 2018,
       month: 11,
       day: 30,
@@ -1356,6 +1364,8 @@ export default {
     // omitted where no already-verified image URL exists.
     {
       slug: 'rep-lwymmd-video-youtube-record',
+      significance: 'notable', // a real streaming record and the era's single most-discussed visual statement (docs/decisions.md, 2026-07-19)
+      relatedIds: ['moment:vault-reputation-the-snake-video-that-announced-reputation'],
       year: 2017,
       month: 8,
       day: 27,
