@@ -2085,7 +2085,7 @@ export default {
             url: 'https://assets.teenvogue.com/photos/56c2618a92a7d1d17a722124/master/w_1024%2Cc_limit/GettyImages-510439952.jpg',
             focalPoint: '51% 15%',
             credit: 'Getty Images, via Teen Vogue',
-            caption: 'Accepting Album of the Year that night, with the "undercut your success" line the room understood as her answer.',
+            caption: 'On the Grammys red carpet that night, Feb. 15, 2016 — hours before accepting Album of the Year with the "undercut your success" line the room understood as her answer.',
             kind: 'archival',
           },
           {
@@ -2156,14 +2156,23 @@ export default {
             url: 'https://assets.teenvogue.com/photos/578d040a6e85f8db434d47c6/master/w_1600%2Cc_limit/IMG_1374.PNG',
             focalPoint: '50% 12%',
             credit: 'Taylor Swift/Instagram, via Teen Vogue',
-            caption: 'Swift\'s full posted statement asks where West told her about the "that bitch" lyric and ends, "I would very much like to be excluded from this narrative."',
+            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
+            // this asset is a BLANK Apple Notes screen, not the statement text
+            // the prior caption claimed. Caption corrected to match the image;
+            // recommend a verified replacement showing the actual statement.
+            caption: 'The Apple Notes format Swift used to post her July 18, 2016 reply — the statement that asked where West had told her about the "that bitch" lyric and ended, "I would very much like to be excluded from this narrative."',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/media/83c4993d8e8ad4dde6c653daff10b74e537e6aea/0_0_620_372/master/620.jpg?crop=none&dpr=1&s=none&width=465',
             focalPoint: '50% 22%',
             credit: 'Rex Features, via The Guardian',
-            caption: 'A still from Kardashian\'s Snapchat release shows West on the phone during the recorded call with Swift.',
+            // FLAG (photo-enrichment 2026-07-20): downloaded + vision-checked —
+            // this asset is a Guardian side-by-side of Kim Kardashian and Taylor
+            // Swift, NOT a Snapchat still of West on the phone. Caption corrected
+            // to match the image; recommend a verified replacement if a Snapchat
+            // still is wanted here.
+            caption: 'A Guardian side-by-side of Kim Kardashian and Taylor Swift, published as Kardashian\'s Snapchat clips reignited the feud in July 2016.',
             kind: 'primary',
           },
           {

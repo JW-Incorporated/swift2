@@ -469,6 +469,7 @@ export default {
           {
             url: 'https://specials-images.forbesimg.com/dam/imageserve/1048528712/960x0.jpg?fit=scale',
             credit: 'Jeff Kravitz/FilmMagic',
+            focalPoint: '56% 26%',
           },
         ],
       },

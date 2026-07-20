@@ -277,6 +277,7 @@ export default {
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg/500px-Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg',
             credit: 'Wikimedia Commons',
+            focalPoint: '45% 18%',
             kind: 'primary',
           },
           {
