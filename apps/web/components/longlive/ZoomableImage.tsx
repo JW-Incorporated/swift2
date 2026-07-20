@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef } from 'react';
 import Image from 'next/image';
+import { Minus, Plus } from 'lucide-react';
 
 /**
  * A self-contained pinch-zoom-and-pan viewer for the moment pill's gallery
@@ -48,6 +49,8 @@ export function ZoomableImage({
   unoptimized,
   fit = 'cover',
   frameClassName = 'aspect-[4/3]',
+  wheelZoom = false,
+  controls = false,
 }: {
   src: string;
   alt: string;
@@ -58,6 +61,15 @@ export function ZoomableImage({
   fit?: 'cover' | 'contain';
   /** Sizing for the viewer frame; defaults to the inline 4:3 card. */
   frameClassName?: string;
+  /** Let a PLAIN wheel zoom, not just ctrl/cmd+wheel. Off by default and on
+   *  only in the fullscreen viewer: an inline card sits in a scrolling
+   *  article, where stealing the wheel would trap the reader on the photo.
+   *  Fullscreen has nothing behind it to scroll, so the wheel is free. */
+  wheelZoom?: boolean;
+  /** Show on-screen zoom buttons. The gestures alone are undiscoverable with
+   *  a mouse — Wyatt, 2026-07-20: "if I wanted to zoom in on her ring ... I
+   *  cannot", on a viewer where double-click zoom already worked. */
+  controls?: boolean;
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -127,6 +139,27 @@ export function ZoomableImage({
         const y = clientY - rect.top;
         setTransform(DOUBLE_TAP_SCALE, x * (1 - DOUBLE_TAP_SCALE), y * (1 - DOUBLE_TAP_SCALE), true);
       }
+    },
+    [setTransform],
+  );
+
+  /**
+   * Step the zoom about the centre of the frame — what the +/− buttons use.
+   * Centre-anchored rather than cursor-anchored because a button press says
+   * nothing about where the reader is looking; centre is the one point they
+   * can predict.
+   */
+  const zoomByStep = useCallback(
+    (factor: number) => {
+      const rect = containerRef.current?.getBoundingClientRect();
+      if (!rect) return;
+      rectRef.current = rect;
+      const next = clamp(scaleRef.current * factor, MIN_SCALE, MAX_SCALE);
+      const x = rect.width / 2;
+      const y = rect.height / 2;
+      const originX = (x - translateRef.current.x) / scaleRef.current;
+      const originY = (y - translateRef.current.y) / scaleRef.current;
+      setTransform(next, x - originX * next, y - originY * next, true);
     },
     [setTransform],
   );
@@ -246,7 +279,7 @@ export function ZoomableImage({
     const container = containerRef.current;
     if (!container) return;
     const onWheel = (e: WheelEvent) => {
-      if (!e.ctrlKey && !e.metaKey) return;
+      if (!wheelZoom && !e.ctrlKey && !e.metaKey) return;
       e.preventDefault();
       const rect = container.getBoundingClientRect();
       rectRef.current = rect;
@@ -260,7 +293,7 @@ export function ZoomableImage({
     };
     container.addEventListener('wheel', onWheel, { passive: false });
     return () => container.removeEventListener('wheel', onWheel);
-  }, [setTransform]);
+  }, [setTransform, wheelZoom]);
 
   return (
     <div
@@ -286,6 +319,29 @@ export function ZoomableImage({
           className={fit === 'contain' ? 'object-contain' : 'object-cover'}
         />
       </div>
+      {controls && (
+        // Sits above the photo, bottom-left so it clears the next/prev arrows
+        // (centred) and the caption (below). Buttons, so the viewer's
+        // click-outside-to-close handler skips them without extra plumbing.
+        <div className="absolute bottom-3 left-3 flex items-center gap-1 rounded-full bg-black/50 p-1 backdrop-blur">
+          <button
+            type="button"
+            onClick={() => zoomByStep(1 / 1.6)}
+            aria-label="Zoom out"
+            className="grid size-9 place-items-center rounded-full text-white/90 hover:bg-white/15"
+          >
+            <Minus className="size-4" />
+          </button>
+          <button
+            type="button"
+            onClick={() => zoomByStep(1.6)}
+            aria-label="Zoom in"
+            className="grid size-9 place-items-center rounded-full text-white/90 hover:bg-white/15"
+          >
+            <Plus className="size-4" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
