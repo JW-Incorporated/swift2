@@ -78,6 +78,8 @@ export async function runCycle(db: SupabaseClient): Promise<CycleResult> {
           author: item.author ?? null,
           published_at: item.publishedAt ?? null,
           image_url: item.imageUrl ?? null,
+          publisher: item.publisher ?? null,
+          publisher_url: item.publisherUrl ?? null,
         }));
         const { error: upsertError } = await db
           .from('news_raw_item')
@@ -276,25 +278,35 @@ async function recordStorySource(
   try {
     const { data: fullItem, error: itemError } = await db
       .from('news_raw_item')
-      .select('source_id, url, news_source(name, tier)')
+      .select('source_id, url, publisher, news_source(name, tier)')
       .eq('id', rawItem.id)
       .maybeSingle();
     if (itemError || !fullItem) throw new Error(itemError?.message ?? 'raw item not found');
 
     const sourceMeta = (fullItem as unknown as { news_source: { name: string; tier: string } })
       .news_source;
+
+    // Attribute to the PUBLISHER the feed named, falling back to the feed
+    // itself only when it does not say. Aggregator feeds (Google News) carry
+    // many outlets, so using the feed name here both misattributed the story
+    // and — because the dedupe below is keyed on outlet_name — capped every
+    // story at a single source row, pinning source_count at 1 and making
+    // `corroborated` unreachable across the whole table.
+    const outletName = (fullItem as unknown as { publisher: string | null }).publisher?.trim()
+      || sourceMeta.name;
+
     const { data: existing } = await db
       .from('news_story_source')
       .select('id')
       .eq('story_id', storyId)
-      .eq('outlet_name', sourceMeta.name)
+      .eq('outlet_name', outletName)
       .maybeSingle();
     if (existing) return; // already recorded for this outlet — corroboration counts distinct outlets, not raw items
 
     const { error: insertError } = await db.from('news_story_source').insert({
       story_id: storyId,
       raw_item_id: rawItem.id,
-      outlet_name: sourceMeta.name,
+      outlet_name: outletName,
       url: fullItem.url,
       tier: sourceMeta.tier,
     });
