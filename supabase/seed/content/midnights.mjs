@@ -322,6 +322,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/d/d5/Taylor_Swift_-_1989_%28Taylor%27s_Version%29.png',
+            focalPoint: '50% 46%',
             credit: 'Republic Records',
             caption: "1989 (Taylor's Version), the October 2023 re-record where \"Now That We Don't Talk\" finally surfaced from the vault.",
             kind: 'archival',
@@ -428,54 +429,63 @@ export default {
           // docs/decisions.md; every other domain in this pass tested clean.
           {
             url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/764/432/GettyImages-1474279449-copy.jpg?tl=1&ve=1',
+            focalPoint: '52% 20%',
             credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
             caption: 'Arms outstretched with a pink sequined guitar, in the sparkling fringe bodysuit worn for the Lover set.',
             kind: 'primary',
           },
           {
             url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474271127-copy.jpg?tl=1&ve=1',
+            focalPoint: '50% 24%',
             credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
             caption: 'In a glittering silver blazer dress and knee-high boots, flanked by suited backup dancers in front of the reputation set\'s office-desk backdrop.',
             kind: 'primary',
           },
           {
             url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474459817-copy.jpg?tl=1&ve=1',
+            focalPoint: '40% 22%',
             credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
             caption: 'Swift performs during another costume-and-set chapter of the Eras Tour\'s opening night.',
             kind: 'primary',
           },
           {
             url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474275193-copy.jpg?tl=1&ve=1',
+            focalPoint: '42% 30%',
             credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
             caption: 'Seated atop the moss-covered folklore cabin\'s peaked roof, its chimney smoking, for the acoustic folklore set.',
             kind: 'primary',
           },
           {
             url: 'https://images.foxtv.com/static.foxla.com/www.foxla.com/content/uploads/2023/03/932/524/GettyImages-1474275197-copy.jpg?tl=1&ve=1',
+            focalPoint: '72% 52%',
             credit: 'John Shearer/Getty Images for TAS Rights Management, via FOX 11 Los Angeles',
             caption: 'Swift performs in a separate Getty image from the Eras Tour\'s first night at State Farm Stadium.',
             kind: 'primary',
           },
           {
             url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_.jpg',
+            focalPoint: '40% 22%',
             credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
             caption: 'Swift performs during the opening Eras Tour concert at State Farm Stadium on March 17, 2023.',
             kind: 'primary',
           },
           {
             url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-31.jpg',
+            focalPoint: '53% 15%',
             credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
             caption: 'A second AP frame captures Swift during the opening-night Glendale performance.',
             kind: 'primary',
           },
           {
             url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-28.jpg',
+            focalPoint: '50% 18%',
             credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
             caption: 'A third Ashley Landis frame shows Swift performing at the Eras Tour opener.',
             kind: 'primary',
           },
           {
             url: 'https://neon.reviewjournal.com/wp-content/uploads/2023/03/17580620_web1_Taylor-Swift-Eras-Tour-Opener-Glendale-Ariz_-23.jpg',
+            focalPoint: '30% 30%',
             credit: 'Ashley Landis/AP, via Las Vegas Review-Journal',
             caption: 'A fourth distinct AP image records Swift onstage during the March 17 Glendale show.',
             kind: 'primary',
@@ -2906,18 +2916,21 @@ export default {
           // separate dedicated item covers the hearing itself in full.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Hearing_Room_in_the_Hart_Building.jpg',
+            focalPoint: '50% 40%',
             credit: 'Architect of the Capitol (public domain)',
             caption: 'A Hart Senate Office Building hearing room — where the Judiciary Committee questioned Ticketmaster\'s parent company two months later.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/Alexandria_Ocasio-Cortez_Official_Portrait_%281%29.jpg',
+            focalPoint: '48% 24%',
             credit: 'Official congressional portrait (public domain)',
             caption: 'Rep. Alexandria Ocasio-Cortez, one of the lawmakers who publicly weighed in on the ticketing meltdown.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/dc/US_Department_of_Justice.jpg',
+            focalPoint: '38% 42%',
             credit: 'Bjoertvedt, Wikimedia Commons (CC BY-SA 3.0)',
             caption: 'The Department of Justice, which went on to sue Live Nation–Ticketmaster over market power the meltdown first put in the national spotlight.',
             kind: 'reference',
@@ -3394,18 +3407,21 @@ export default {
           // Version), which posted its largest sales week the same month).
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/7/71/Taylor_Swift_The_Eras_Tour_1989_Era_Set_%2853109542801%29_%28cropped%29.jpg',
+            focalPoint: '48% 24%',
             credit: 'Paolo V, Wikimedia Commons (CC BY 2.0)',
             caption: 'The 1989 set at the same SoFi stand — the era whose Taylor\'s Version posted the biggest sales week of her career that same October.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/d/d5/Taylor_Swift_-_1989_%28Taylor%27s_Version%29.png',
+            focalPoint: '50% 46%',
             credit: 'Republic Records (official cover art)',
             caption: '1989 (Taylor\'s Version), released Oct. 27, 2023 — the record-week sales that landed the same month as the billionaire estimate.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/The_Eras_Tour_Logo.png',
+            focalPoint: '50% 50%',
             credit: 'TAS Rights Management (official logo)',
             caption: 'The Eras Tour\'s own branding — the touring revenue Bloomberg\'s breakdown weighted most heavily.',
             kind: 'reference',

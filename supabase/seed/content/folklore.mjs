@@ -288,30 +288,35 @@ export default {
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2021/03/taylor-swift-2021-grammy-performance-billboard-1548-1615770993.jpg',
+            focalPoint: '57% 42%',
             credit: 'Getty Images for The Recording Academy, via Billboard',
             caption: 'Jack Antonoff, Swift, and Aaron Dessner perform the folklore/evermore medley earlier the same night.',
             kind: 'archival',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/ad/Jack_Antonoff_at_Electric_Lady_Studios_2023_%28cropped%29.jpg',
+            focalPoint: '48% 25%',
             credit: 'Alex Lockett, Wikimedia Commons (CC BY-SA 4.0)',
             caption: "Jack Antonoff, whom Swift thanked first in her acceptance speech — folklore's co-producer.",
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/a/a3/Aaron_Dessner_at_Way_Out_West_2014.jpg',
+            focalPoint: '55% 22%',
             credit: 'Kim Metso (Slackernrrd), Wikimedia Commons (CC BY-SA 4.0)',
             caption: 'Aaron Dessner of The National, folklore\'s other co-producer, thanked in the same speech.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/c4/Primavera19_-6_%2848986116446%29_%28cropped%29.jpg',
+            focalPoint: '48% 33%',
             credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
             caption: 'Justin Vernon (Bon Iver), whom Swift told "I\'m so excited to meet you someday" — the two had never met in person despite co-writing "exile."',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/e/e4/Guests_at_the_2026_Met_Gala_435_%28Blake_Lively%29.jpg',
+            focalPoint: '48% 20%',
             credit: 'SWinxy, Wikimedia Commons (CC BY 4.0)',
             caption: 'Blake Lively, whom Swift thanked in the same speech alongside Ryan Reynolds and their children — James, Inez, and Betty each lend their names to folklore songs.',
             kind: 'reference',
@@ -1088,30 +1093,35 @@ export default {
           // Beth Garrabrant forest shoot that introduced the album.
           {
             url: 'https://i.guim.co.uk/img/media/88fdcdf92193c19f588229a4aeb85a230406dfa3/0_204_583_350/master/583.jpg?crop=none&dpr=1&s=none&width=465',
+            focalPoint: '48% 22%',
             credit: 'Taylor Swift/Instagram, via The Guardian',
             caption: 'The black-and-white forest montage Swift posted with the July 23 surprise announcement for folklore.',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/media/74cae4f3a285b8a8638cfbc76355b2f0c0db29c5/0_54_1737_1385/master/1737.jpg?crop=none&dpr=1&s=none&width=465',
+            focalPoint: '40% 30%',
             credit: 'Beth Garrabrant/Stoke PR, via The Guardian',
             caption: 'A Beth Garrabrant black-and-white portrait from the forest shoot used to introduce folklore.',
             kind: 'primary',
           },
           {
             url: 'https://media.vanityfair.com/photos/5f1b15f8562110dad1181c8f/master/w_2560%2Cc_limit/taylor-swift-new-album-lede.jpg',
+            focalPoint: '35% 30%',
             credit: 'Beth Garrabrant, via Vanity Fair',
             caption: 'A separate Garrabrant image from the isolated folklore photo shoot shows Swift in the album\'s woodland setting.',
             kind: 'primary',
           },
           {
             url: 'https://media.vanityfair.com/photos/5f22f28283d239dce41f81b1/master/w_2560%2Cc_limit/Screenshot%25202020-07-30%2520at%252012.16.56%2520PM.png',
+            focalPoint: '53% 24%',
             credit: 'Taylor Swift/YouTube, via Vanity Fair',
             caption: 'A frame from the self-directed "cardigan" video, released at midnight alongside folklore.',
             kind: 'primary',
           },
           {
             url: 'https://i.guim.co.uk/img/media/6f8132a91d5eaf50614417ced6bee7903341fd46/0_0_1482_1958/master/1482.jpg?crop=none&dpr=1&s=none&width=465',
+            focalPoint: '52% 22%',
             credit: 'TAS Rights Management, via The Guardian',
             caption: 'Swift wears the signature knit cardigan in a release-period promotional image for the video and album.',
             kind: 'primary',
@@ -1928,6 +1938,7 @@ export default {
           // and firms involved.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Roy_E._Disney.jpg',
+            focalPoint: '50% 27%',
             credit: 'Towpilot, Wikimedia Commons (CC BY-SA 3.0)',
             caption: 'Roy E. Disney, who founded Shamrock in 1978 — not personally involved in the 2020 deal, but the firm\'s namesake founder.',
             kind: 'reference',
