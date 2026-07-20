@@ -103,6 +103,13 @@ export const CONFIG = {
       // security as a VERB or a change of state, not as a job title.
       'security tightened', 'extra security', 'security presence',
       'security around', 'stepped up security', 'security was increased',
+      // Widened again 2026-07-20, same root cause as the line above: the
+      // dangerous form is security described as an ACTIVITY, and there are
+      // more ways to phrase that than the first pass imagined. Found by
+      // reading a live caption ("while security stands watch outside") that
+      // the list above sailed past.
+      'security stands', 'security stood', 'security watching', 'guards posted',
+      'security posted', 'security guarding', 'patrolled', 'security swept',
       // Forward-looking location (2026-07-20). These are CANDIDATES, not
       // findings, because the answer depends on the place name that follows:
       // "expected in the Bahamas" is L0 and fine, "expected at the Bowery
