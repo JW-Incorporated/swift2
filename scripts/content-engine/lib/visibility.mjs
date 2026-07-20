@@ -11,6 +11,18 @@ const V = CONFIG.visibility;
 export function visibilityScore(item) {
   let score = 0;
 
+  // Explicit significance (item.significance, docs/decisions.md 2026-07-18) is
+  // an authorial judgment about real-world career importance, not a keyword
+  // guess — found in review (2026-07-20): the heuristics below could score a
+  // 'defining'/'notable' item as 'normal' tier just because it landed in an
+  // older era or missed the marquee-hook wordlist, which meant the very items
+  // the top-100 project marked as most important could dodge the
+  // photo-sparsity/depth scrutiny that's supposed to keep them the deepest
+  // pages on the site. Always routes to 'high' tier — see highTierThreshold.
+  if (item.raw?.significance === 'defining' || item.raw?.significance === 'notable') {
+    score += V.highTierThreshold;
+  }
+
   // Latest-news eras: casual wording here is the highest-risk failure mode.
   if (V.latestNewsEras.includes(item.era)) score += 4;
 
