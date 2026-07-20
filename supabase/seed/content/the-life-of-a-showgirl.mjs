@@ -3727,6 +3727,30 @@ export default {
             // crop high and right so the face survives wide cards.
             focalPoint: '84% 14%',
           },
+          // Photo pass #762 (2026-07-20): the album-release page had a single
+          // photo, so added two more frames from the same official Mert &
+          // Marcus press set on Billboard's CDN (images 01 and 03 of the set;
+          // 02 is the photo above). Both curl-verified 200 image/jpeg,
+          // 1800px, downloaded and visually confirmed this session — distinct
+          // shots from each other and from 02, no duplicates.
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/01-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption:
+              'From the same press shoot: a jeweled cap, a peach ostrich-feather boa and a champagne coupe, in a mirrored powder room.',
+            kind: 'primary',
+            // She sits just right of center; her face is in the upper third.
+            focalPoint: '53% 32%',
+          },
+          {
+            url: 'https://www.billboard.com/wp-content/uploads/2025/08/03-taylor-swift-life-of-a-showgirl-pr-billboard-1800.jpg',
+            credit: 'Mert Alas & Marcus Piggott / Republic Records, via Billboard',
+            caption:
+              'From the same press shoot: the full crystal-and-gold showgirl costume, arms flung wide against a gilded stage.',
+            kind: 'primary',
+            // Arms-out pose centered in frame; her face sits high, near the top.
+            focalPoint: '53% 15%',
+          },
         ],
       },
     },
