@@ -499,6 +499,20 @@ export default {
             focalPoint: '47% 30%',
           },
         ],
+        // Shop pass (2026-07-20): a hair/makeup story with no product named
+        // — offering the real "no-makeup makeup" tinted moisturizer this
+        // look is built around, curl-verified live.
+        products: [
+          {
+            brand: 'Laura Mercier',
+            item: 'Tinted Moisturizer Light Revealer Natural Skin Illuminator SPF 25',
+            retailer: 'lauramercier.com',
+            url: 'https://www.lauramercier.com/products/tinted-moisturizer-light-revealer-natural-skin-illuminator',
+            price: '$54.00',
+            isAlternative: true,
+            altNote: 'Her exact routine is undocumented — this is a real "no makeup, makeup" product matching the bare-faced look described.',
+          },
+        ],
       },
     },
     {
@@ -549,6 +563,21 @@ export default {
             // Focal point set by viewing: seated figure mid-frame, face just
             // below the vertical midline, hint right of center.
             focalPoint: '51% 48%',
+          },
+        ],
+        // Shop pass (2026-07-20): a general wardrobe description (cardigans,
+        // plaid blazers, rugby shirts), no brand named — offering the
+        // oversized plaid blazer specifically called out, curl-verified live.
+        products: [
+          {
+            brand: 'OAK + FORT',
+            item: 'Oversized Plaid Blazer',
+            retailer: 'oakandfort.com',
+            url: 'https://oakandfort.com/products/oversized-plaid-blazer_5',
+            price: '$42.00',
+            inStock: false,
+            isAlternative: true,
+            altNote: 'No brand is documented for the shoot wardrobe — this is a real oversized plaid blazer in the same spirit.',
           },
         ],
       },
@@ -661,6 +690,20 @@ export default {
             // product flat-lay, the cardigan fills the frame — genuinely
             // reads best dead-centered (looked, not defaulted).
             focalPoint: '50% 50%',
+          },
+        ],
+        // Shop pass (2026-07-20): the original 2020 run and the 2024 restock
+        // are both gone from Swift's own store — offering a comparable
+        // cream cable-knit cardigan, curl-verified live.
+        products: [
+          {
+            brand: 'ebossy',
+            item: 'Cable Knit Open Front Cardigan with Embroidery',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Womens-Cardigan-Embroidery-Sweater-Outwear/dp/B0BGXK89F2/',
+            price: '$34.58',
+            isAlternative: true,
+            altNote: 'Both the original 2020 run and the 2024 restock are long gone from her own store — this is a comparable cream cable-knit cardigan with embroidery detail.',
           },
         ],
       },

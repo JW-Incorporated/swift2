@@ -424,6 +424,19 @@ export default {
             credit: 'Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, 2007 (era-correct sundress-and-curls look)',
           },
         ],
+        // Shop pass (2026-07-20): a general style pairing, not one specific
+        // outfit — offering a real cowboy boot as the throughline piece.
+        products: [
+          {
+            brand: 'Tecovas',
+            item: 'The Loretta Cowgirl Boot (Midnight)',
+            retailer: 'tecovas.com',
+            url: 'https://www.tecovas.com/products/the-loretta?color=midnight-goat',
+            price: '$445.00',
+            isAlternative: true,
+            altNote: 'No single documented outfit — this captures the cowboy-boots half of the era\'s signature pairing.',
+          },
+        ],
       },
     },
     {
@@ -446,6 +459,19 @@ export default {
           {
             url: 'https://cdn.mos.cms.futurecdn.net/MWvKEdsvu4S2unTkFGW5dZ.jpg',
             credit: 'Getty Images',
+          },
+        ],
+        // Shop pass (2026-07-20): a hairstyle, not a garment — offering the
+        // styling tool rather than forcing a clothing link onto a hair item.
+        products: [
+          {
+            brand: 'Asani',
+            item: 'Curling Iron Hair Wand (3/8")',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Curling-Creates-Clearly-Defined-Ringlets/dp/B0CMK36C4P',
+            price: '$16.99',
+            isAlternative: true,
+            altNote: 'Not her exact styling tool (undocumented) — a slim-barrel curling wand suited to tight, spiraled ringlets like hers.',
           },
         ],
       },
@@ -610,6 +636,19 @@ export default {
             focalPoint: '48% 13%',
           },
         ],
+        // Shop pass (2026-07-20): Sandi Spika has no retail line — offering
+        // a pink corseted drop-waist mini, curl-verified live in-browser.
+        products: [
+          {
+            brand: 'Dazey Hill',
+            item: 'Light Pink Floral Satin Corset Bustier Drop Waist Mini Dress',
+            retailer: 'dazeyhill.com',
+            url: 'https://dazeyhill.com/products/light-pink-satin-silk-floral-patterned-bodycon-corset-bustier-strapless-sleeveless-drop-waist-ruffle-lace-trim-flowy-short-mini-dress-evening-gown-women-ladies-chic-spring-2024-summer-elegant-formal-classy-feminine-prom-party-date-night-cocktail-sundress',
+            price: '$66.00',
+            isAlternative: true,
+            altNote: 'Sandi Spika designs custom pieces only, with no retail line — this echoes the pink corseted, drop-waist silhouette W Magazine described.',
+          },
+        ],
       },
     },
 
@@ -755,6 +794,27 @@ export default {
             url:
               'https://akns-images.eonline.com/eol_images/Entire_Site/201899/rs_634x1024-181009161140-634-taylor-swift-amas-2007.jpg?fit=around%7C776:1254&output-quality=90&crop=776:1254;center,top',
             credit: 'Steve Granitz/WireImage',
+          },
+        ],
+        // Shop pass (2026-07-20): Catherine Malandrino's current line is
+        // casual daywear, no jeweled halter gowns — offering a comparable
+        // beaded halter gown, plus the real cowboy boots half of the look.
+        products: [
+          {
+            brand: 'Aidan Mattox',
+            item: 'Sequin Beaded Leaf Halter Gown',
+            retailer: 'adriannapapell.com',
+            url: 'https://www.adriannapapell.com/products/sequin-beaded-leaf-halter-gown-in-rose-quartz-md1e209951',
+            price: '$595.00',
+            isAlternative: true,
+            altNote: 'Catherine Malandrino\'s current line has moved to casual daywear — this is a comparable jeweled/sequined halter gown.',
+          },
+          {
+            brand: 'Tecovas',
+            item: 'The Loretta Cowgirl Boot (Midnight)',
+            retailer: 'tecovas.com',
+            url: 'https://www.tecovas.com/products/the-loretta?color=midnight-goat',
+            price: '$445.00',
           },
         ],
       },
@@ -976,6 +1036,19 @@ export default {
             url:
               'https://s.yimg.com/ny/api/res/1.2/9fZWYO_g_cw7hKHKR1dJFw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE1Mjc7Y2Y9d2VicA--/https://media.zenfs.com/en/business_insider_articles_888/949b8af84d79dc9c4a91fd85b56f9674',
             credit: 'Jon Kopaloff/Getty Images',
+          },
+        ],
+        // Shop pass (2026-07-20): no designer credit exists in any source
+        // for this dress — offering a plum V-neck maxi in the same silhouette.
+        products: [
+          {
+            brand: 'PrettyLittleThing',
+            item: 'Plum Devore V-Neck Maxi Dress',
+            retailer: 'prettylittlething.us',
+            url: 'https://www.prettylittlething.us/product/devore-v-neck-maxi-dress_plt08526?colour=plum',
+            price: '$32.85',
+            isAlternative: true,
+            altNote: 'No designer is credited anywhere for this dress — this echoes the plum V-neck maxi silhouette she wore.',
           },
         ],
       },
