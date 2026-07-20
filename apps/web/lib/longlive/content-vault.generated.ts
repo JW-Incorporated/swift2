@@ -7504,7 +7504,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The album’s third single, named for the screen icon, arrives at radio with its own official video.",
       body: ["The song went to US hot adult contemporary radio first, followed a day later by a contemporary hit radio push, extending the album’s single cycle five months after release.", "A \"So Glamorous Cabaret Version\" and full digital package followed later that month, keeping the showgirl motif alive well into 2026."],
       tags: ["Music", "Fashion"],
-      images: [{ url: "https://i.ytimg.com/vi/WqbJT_vC0rs/maxres3.jpg", credit: "Taylor Swift / Republic Records (official \"Elizabeth Taylor\" video frame, YouTube)", caption: "The video leans on archival footage of its namesake: Elizabeth Taylor in a violet headscarf, diamond flashing, seaside.", kind: "primary", focalPoint: "52% 40%" }],
+      images: [{ url: "https://i.ytimg.com/vi/WqbJT_vC0rs/maxres3.jpg", credit: "Taylor Swift / Republic Records (official \"Elizabeth Taylor\" video frame, YouTube)", caption: "The video leans on archival footage of its namesake: Elizabeth Taylor in a violet headscarf, diamond flashing, seaside.", kind: "primary", focalPoint: "52% 38%" }],
       video: { youtubeId: "WqbJT_vC0rs", title: "Taylor Swift - Elizabeth Taylor (Official Music Video)" },
     },
   ],

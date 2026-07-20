@@ -1166,17 +1166,17 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6e/Taylor_Swift_%E2%80%93_The_Tortured_Poets_Department_%28album_cover%29.png',
+            focalPoint: '50% 55%',
             credit: 'Republic Records',
             caption: 'The Tortured Poets Department — her record seventh Album of the Year nominee.',
             kind: 'archival',
-            focalPoint: '50% 55%',
           },
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/11/Taylor-Swift-04-The-Eras-Tour-Toronto-ON-345-billboard-1548.jpg?w=1024',
+            focalPoint: '48% 26%',
             credit: 'Getty Images (via Billboard)',
             caption: 'On stage in Toronto the week of the announcement — she thanked fans there for the album\'s six nominations.',
             kind: 'archival',
-            focalPoint: '48% 26%',
           },
         ],
       },

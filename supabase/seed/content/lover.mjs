@@ -366,8 +366,8 @@ export default {
         photos: [
           {
             url: 'https://s.abcnews.com/images/GMA/taylor-swift-ama-mo_hpEmbed_20191124-220255_3x2_992.jpg?w=992',
-            credit: 'Good Morning America',
             focalPoint: '49% 25%',
+            credit: 'Good Morning America',
           },
           // Photo-enrichment pass (2026-07-18, #762): second frame from the
           // same GMA story (s.abcnews.com CDN) — the "The Man" opener in the
@@ -375,10 +375,10 @@ export default {
           // Downloaded and vision-confirmed this session.
           {
             url: 'https://s.abcnews.com/images/GMA/taylor-swift-speak-mo_hpMain_20191124-220426_16x9_992.jpg?w=992',
+            focalPoint: '48% 20%',
             credit: 'Good Morning America',
             caption: 'Opening the medley with "The Man," in a button-down printed with the names of the albums she didn\'t own.',
             kind: 'archival',
-            focalPoint: '48% 20%',
           },
         ],
       },
