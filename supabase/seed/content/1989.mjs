@@ -349,7 +349,7 @@ export default {
           },
           { outlet: 'Wikipedia', url: 'https://en.wikipedia.org/wiki/Wildest_Dreams_(Taylor_Swift_song)' },
         ],
-        photos: [{ url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-wildest-dreams-video-3-billboard-650.jpg?w=650&h=430&crop=1', credit: 'Big Machine Records' }],
+        photos: [{ url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-wildest-dreams-video-3-billboard-650.jpg?w=650&h=430&crop=1', focalPoint: '52% 34%', credit: 'Big Machine Records' }],
       },
     },
     {
@@ -1277,7 +1277,7 @@ export default {
             url: 'https://www.billboard.com/music/pop/taylor-swift-1989-tour-ends-6805721/',
           },
         ],
-        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/1280px-Taylor_Swift_AAMI_Park_20151212_01.jpg', credit: 'Wikimedia Commons' }],
+        photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Taylor_Swift_AAMI_Park_20151212_01.jpg/1280px-Taylor_Swift_AAMI_Park_20151212_01.jpg', focalPoint: '50% 12%', credit: 'Wikimedia Commons' }],
       },
     },
     {
@@ -1414,6 +1414,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/EKnl7STzSMU/hqdefault.jpg',
+            focalPoint: '62% 34%',
             credit: 'Taylor Swift via YouTube',
             kind: 'archival',
             caption: "Hugging a fan at a session — a still from the official '1989 Secret Sessions, Behind The Scenes!' video on Swift's own channel (Oct. 2014).",
@@ -1467,6 +1468,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg/960px-Taylor_Swift_-_The_1989_World_Tour_-_Ford_Field_001_%2818116917298%29.jpg',
+            focalPoint: '52% 16%',
             credit: 'GabboT / Wikimedia Commons, CC BY-SA 2.0',
             kind: 'archival',
             caption: "On the 1989 World Tour at Ford Field in Detroit, May 30, 2015 — the show opened every night with 'Welcome to New York' against a mock Manhattan skyline.",
