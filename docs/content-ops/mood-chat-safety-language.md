@@ -54,15 +54,33 @@ distinction from Block 1 is real risk, not sad mood.
 
 ## Block 3 — The standing disclaimer (always visible near the input)
 
-> A fan project, not a therapist — just someone with strong opinions about
-> which song fits. Tell me as much or as little as you like; **what you type
-> isn't saved.**
+**APPROVED with a rewrite (Wyatt, 2026-07-20).** The original draft read:
 
-*Notes:* sets expectations, and the privacy promise is load-bearing — see
-Block 5. Only include the "isn't saved" clause if engineering actually
-honors it (it will; we log the derived mood vector, never the raw text).
+> ~~A fan project, not a therapist — just someone with strong opinions about
+> which song fits. Tell me as much or as little as you like; what you type
+> isn't saved.~~
 
----
+**Rejected, and the reason is worth keeping.** Naming "therapist" before the
+reader has typed anything primes distress that isn't there. It makes an
+inviting box feel clinical, and it signals crisis-handling to someone who came
+for a song recommendation. Wyatt's rule: *no mention of therapy or crisis
+until the user takes it that direction.*
+
+**Approved wording:**
+
+> Tell me as much or as little as you like — I'll find the Taylor songs that
+> fit. **What you type isn't saved.**
+
+*Notes:* "as much or as little as you like" quietly signals that a one-word
+answer is fine, which lowers the barrier to using it at all. The privacy
+promise is the only claim made, and it stays load-bearing — see Block 5, which
+is what makes it honest.
+
+**The protective framing is not lost, only relocated.** Block 1 still opens
+with "I'm a music recommender — I'm not equipped for what you're carrying
+right now", and it fires precisely when someone takes the conversation that
+way. The reader meets that sentence at the moment it is relevant instead of
+before they have said anything.
 
 ## Block 4 — Minors
 
@@ -107,8 +125,11 @@ the cheapest lane.
 
 ## Approval
 
-- [ ] **Wyatt** — approve / edit
-- [ ] **Joey** — approve / edit (Block 4 especially)
+- [x] **Wyatt** — approved 2026-07-20. Blocks 1, 2, 4, 5, 6 approved as
+      drafted. Block 3 rejected as written and rewritten above: no mention of
+      therapy or crisis until the user takes it that direction.
+- [ ] **Joey** — approve / edit (Block 4 especially — the COPPA-adjacent
+      question if accounts or persistence are ever added)
 
 Ship blocker: Block 1 must be approved and implemented before the feature is
 publicly reachable.
