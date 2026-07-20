@@ -1500,6 +1500,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/5/5b/Fearless_%28Taylor%27s_Version%29_%282021_album_cover%29_by_Taylor_Swift.png", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/celebrity/a35498019/taylor-swift-outfit-new-fearless-cover-easter-egg/" }],
+      products: [{ brand: "Ulla Johnson", item: "Fernanda Blouse", retailer: "garmentory.com", url: "https://www.garmentory.com/sale/ulla-johnson/tops-blouses/976294-fernanda-blouse", price: "$237.00" }],
     },
     {
       id: "vault-evermore-a-vintage-chevrolet-a-burgundy-cap-and-the-red-taylors-versi",
@@ -1523,6 +1524,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", caption: "Swift on The Tonight Show Starring Jimmy Fallon, Nov. 11, 2021 — the \"siren red\" lip and blunt bangs of the Red (TV) beauty look, the night before the album's release.", kind: "primary", focalPoint: "42% 13%" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/style/taylor-swift-red-beauty-look" }],
+      products: [{ brand: "NARS", item: "Lipstick in Ravishing Red (Matte)", retailer: "amazon.com", url: "https://www.amazon.com/Lipstick-Ravishing-Matte-3-5g-0-12oz/dp/B082P4X6FV", isAlternative: true, altNote: "No exact shade is named for this look — a real matte red lipstick matching the overlined \"siren red\" mouth described." }],
     },
     {
       id: "vault-evermore-a-skin-tight-ala-a-jumpsuit-for-all-too-well-on-snl-then-a-h",
@@ -1556,6 +1558,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/03/Taylor-Swift-Wore-Oscar-de-la-Renta-To-The-2021-Grammy-Awards-731x1024.jpg", credit: "Getty Images", kind: "primary", focalPoint: "45% 10%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/03/15/taylor-swift-wore-oscar-de-la-renta-etro-to-the-2021-grammy-awards/" }, { name: "E! News", url: "https://www.eonline.com/news/1248131/taylor-swift-brought-the-flower-power-to-the-2021-grammys-and-were-here-for-it" }],
+      products: [{ brand: "Oscar de la Renta", item: "Floral-Embroidered Tulle Mini Dress", retailer: "modaoperandi.com", url: "https://www.modaoperandi.com/women/p/oscar-de-la-renta/floral-embroidered-tulle-mini-dress/493975", price: "$8,990.00", inStock: false, isAlternative: true, altNote: "Her exact Spring '21 mini is long sold out — this is a comparable current Oscar de la Renta floral-appliquéd mini dress." }],
     },
     {
       id: "vault-evermore-a-purple-velvet-etro-pantsuit-for-the-all-too-well-short-fil",
@@ -1567,6 +1570,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Etro-To-The-All-Too-Well-New-York-Premiere.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-etro-to-the-all-too-well-new-york-premiere/" }, { name: "Just Jared", url: "https://www.justjared.com/2021/11/12/taylor-swift-walks-red-carpet-at-all-too-well-short-film-premiere-with-dylan-obrien-sadie-sink/" }],
+      products: [{ brand: "Etro", item: "Single-Breasted Velvet Jacket", retailer: "etro.com", url: "https://www.etro.com/us-en/single-breasted-velvet-jacket-WRCA008199TUEI1B0904.html", price: "$1,350.00", isAlternative: true, altNote: "Her exact purple suit was custom — this is Etro's current velvet blazer (shown styled as a pantsuit), in blue rather than purple." }],
     },
     {
       id: "vault-evermore-a-gold-beaded-zuhair-murad-shift-dress-for-the-tonight-show",
@@ -1589,6 +1593,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/latenightseth-254951110_1087887028417877_8037280291044973019_n.jpg", credit: "NBC", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }],
+      products: [{ brand: "David Koma", item: "Crystal-Embellished Cady Mini Dress", retailer: "runwaycatalog.com", url: "https://www.runwaycatalog.com/products/crystal-embellished-cady-mini-dress", price: "$1,210.00", isAlternative: true, altNote: "Her exact 2021 dress isn't currently listed anywhere verifiable — this is a current David Koma crystal-embellished mini in the same signature style." }],
     },
     {
       id: "vault-evermore-a-david-koma-sequin-mini-dress-for-her-surprise-three-sad-vi",
@@ -1600,6 +1605,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i.ytimg.com/vi/21Ki96Lsxhc/hqdefault.jpg", credit: "NBC / Saturday Night Live (YouTube sketch still)", caption: "Swift with Pete Davidson in the \"Three Sad Virgins\" sketch, SNL, Nov. 13, 2021.", kind: "primary" }],
       sources: [{ name: "NBC Insider", url: "https://www.nbc.com/nbc-insider/three-sad-virgins-snl-taylor-swift-cast-lyrics" }, { name: "Steal Her Style", url: "https://stealherstyle.net/2021/11/14/taylor-swift-saturday-night-live-outfits/" }],
+      products: [{ brand: "David Koma", item: "Flounce One Sleeve Sequin Mini Dress", retailer: "fwrd.com", url: "https://www.fwrd.com/product-david-koma-flounce-one-sleeve-sequin-mini-dress-in-blue/DAVF-WD195/", price: "$998.00", inStock: false, isAlternative: true, altNote: "Her exact navy dress isn't currently listed anywhere verifiable — this is a comparable David Koma one-shoulder sequin mini, in blue." }],
     },
     {
       id: "vault-evermore-a-belfast-weekend-a-restaurant-selfie-then-a-three-hour-bar-",
