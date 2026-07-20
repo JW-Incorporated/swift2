@@ -7060,6 +7060,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/izGR5GyrdGtkDeTMsNFvAN-1920-80.jpg", credit: "Instagram/@taylornation, via Marie Claire", caption: "From the Sept. 20 behind-the-scenes video: Swift in the pumpkin-orange Reformation knit, explaining the album's visual identity on camera.", kind: "primary", focalPoint: "50% 32%" }],
       sources: [{ name: "Taylor Swift Styles a Showgirl Orange Reformation Sweater With a Versace Leather Mini Skirt", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-showgirl-orange-reformation-cashmere-versace-leather-mini-skirt/" }],
+      products: [{ brand: "Reformation", item: "Teo Cashmere Short Sleeve Sweater", retailer: "thereformation.com", url: "https://www.thereformation.com/products/teo-cashmere-short-sleeve-sweater/1313290.html", price: "$64.00", inStock: false, isAlternative: true, altNote: "Her exact \"Cashmere Short Sleeve Crew\" in Showgirl orange is sold out and delisted — this is Reformation's current cashmere short-sleeve crew (the \"Teo\"), same brand and silhouette, also sold out." }],
     },
     {
       id: "vault-tloas-taylor-and-selena-gomez-coordinate-opulent-winter-coats-at-a",
