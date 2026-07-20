@@ -16,6 +16,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Arrival as rebirth: a new city where nobody knows the old narrative and everyone came to reinvent themselves — the sound of the country exit finalized.", "Confirmed autobiography: written about relocating to New York City, whose energy she credited as the album’s starting gun; she donated its sales to NYC public schools."],
       discussionSources: [{ name: "Welcome to New York (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Welcome_to_New_York_(song)" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Ryan Tedder"],"producers":["Taylor Swift","Ryan Tedder","Noel Zancanella"],"isSingle":true,"themes":["reinvention","city as fresh start","optimism"]},
+      youtubeId: "FsGdznlfE2U",
     },
     {
       slug: "blank-space",
@@ -26,6 +27,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A parody self-portrait of the serial-dating psycho the media described: if that is the character they want, she will write it better than they can. The mansion-wrecking video sealed the bit.", "Confirmed intent: Swift said she built the song from the media’s jet-setting man-collector caricature of her, treating it as a comic character study.", "The misheard Starbucks-lovers line became one of pop’s most famous mondegreens — acknowledged by Swift and even her mother."],
       discussionSources: [{ name: "Blank Space — Wikipedia", url: "https://en.wikipedia.org/wiki/Blank_Space" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Max Martin","Shellback"],"producers":["Max Martin","Shellback"],"isSingle":true,"singleReleaseDate":"2014-11-10","themes":["satire of celebrity narrative","media caricature","control of the joke"]},
+      youtubeId: "e-ORhEE9VVg",
     },
     {
       slug: "style",
@@ -36,6 +38,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Two people who keep crashing back together because the chemistry is timeless even when the relationship is not — desire as a classic silhouette that never goes out of fashion.", "The title’s wink at Harry Styles is the most widely reported reading (unconfirmed by Swift); she has described the song as being about relationships that circle back forever."],
       discussionSources: [{ name: "Style (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Max Martin","Shellback","Ali Payami"],"producers":["Max Martin","Shellback","Ali Payami"],"isSingle":true,"singleReleaseDate":"2015-02-09","themes":["cyclical attraction","timelessness","glamour with dread underneath"]},
+      youtubeId: "2JgvVfOfoWI",
     },
     {
       slug: "out-of-the-woods",
@@ -46,6 +49,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A fragile relationship where every month felt like a cliffhanger: are we safe yet, are we clear yet — panic as a chorus you cannot stop repeating.", "Swift confirmed the bridge’s snowmobile accident really happened and had been kept from the press — the song is about a relationship lived in constant fear of the next disaster."],
       discussionSources: [{ name: "Out of the Woods — Wikipedia", url: "https://en.wikipedia.org/wiki/Out_of_the_Woods" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff","Max Martin"],"isSingle":true,"themes":["anxiety in love","fragility","surviving the crash"]},
+      youtubeId: "JLf9q36UsBk",
     },
     {
       slug: "all-you-had-to-do-was-stay",
@@ -56,6 +60,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An ex comes crawling back and the answer is the title: he had one job. The track-5 slot goes, for once, to exasperation instead of devastation.", "Confirmed: the pitched-up vocal hook came from a dream in which Swift could only squeak the word at a returning ex; she recreated it in the studio."],
       discussionSources: [{ name: "All You Had to Do Was Stay — Wikipedia", url: "https://en.wikipedia.org/wiki/All_You_Had_to_Do_Was_Stay" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Max Martin"],"producers":["Max Martin","Shellback","Mattman & Robin"],"themes":["too little too late","self-worth","closing the door"]},
+      youtubeId: "_Usd5X5XJXM",
     },
     {
       slug: "shake-it-off",
@@ -66,6 +71,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Her policy statement on criticism: the players, haters, and heartbreakers keep doing their thing, and she keeps dancing. Deliberately the album’s most frictionless joy.", "Swift introduced it at the 1989 announcement livestream as her answer to years of public scrutiny — chosen as the lead single precisely because it laughed instead of argued."],
       discussionSources: [{ name: "Shake It Off — Wikipedia", url: "https://en.wikipedia.org/wiki/Shake_It_Off" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Max Martin","Shellback"],"producers":["Max Martin","Shellback"],"isSingle":true,"singleReleaseDate":"2014-08-18","themes":["resilience","ignoring the noise","joy as strategy"]},
+      youtubeId: "nfWlot6h_JM",
     },
     {
       slug: "i-wish-you-would",
@@ -76,6 +82,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Two stubborn exes driving past each other’s lives, each wishing the other would make the first move neither will make.", "Confirmed studio story: Antonoff sent the instrumental sketch and Swift wrote the drive-by scenario over it almost immediately."],
       discussionSources: [{ name: "I Wish You Would (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/I_Wish_You_Would_(Taylor_Swift_song)" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff","Max Martin"],"themes":["pride","missed signals","late-night regret"]},
+      youtubeId: "89aQIli8aVU",
     },
     {
       slug: "bad-blood",
@@ -86,6 +93,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A friendship betrayed at the professional level: not a breakup, a backstab — with a chorus built for stadium-sized grudge-holding.", "Swift’s 2014 Rolling Stone interview confirmed the subject was another female artist who attempted to poach her tour dancers; the press universally read Katy Perry (unconfirmed then; the two publicly reconciled in 2019)."],
       discussionSources: [{ name: "Bad Blood (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Max Martin","Shellback"],"producers":["Max Martin","Shellback"],"isSingle":true,"singleReleaseDate":"2015-05-17","themes":["betrayed friendship","professional sabotage","grudges"]},
+      youtubeId: "QcIy9NiNbmo",
     },
     {
       slug: "wildest-dreams",
@@ -96,6 +104,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She scripts the memory before the romance even ends: if it has to be doomed, let the recollection of her be cinematic.", "Swift described it as accepting a doomed attraction and pre-writing the nostalgia; its TV version was rush-released in 2021 when the song went viral on TikTok."],
       discussionSources: [{ name: "Wildest Dreams — Wikipedia", url: "https://en.wikipedia.org/wiki/Wildest_Dreams" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Max Martin","Shellback"],"producers":["Max Martin","Shellback"],"isSingle":true,"singleReleaseDate":"2015-08-31","themes":["doomed romance","curating memory","cinematic fantasy"]},
+      youtubeId: "IdneKLhsWOQ",
     },
     {
       slug: "how-you-get-the-girl",
@@ -106,6 +115,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A how-to for the boy who left: show up in the rain, say the exact right things, mean them for longer than a minute. Sunny on top, pointed underneath."],
       discussionSources: [{ name: "How You Get the Girl — Wikipedia", url: "https://en.wikipedia.org/wiki/How_You_Get_the_Girl" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Max Martin","Shellback"],"producers":["Max Martin","Shellback"],"themes":["winning someone back","romantic playbooks","pop craftsmanship"]},
+      youtubeId: "XQh8zhmTtBg",
     },
     {
       slug: "this-love",
@@ -116,6 +126,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Love as tide: something released that actually comes back — the quietest, most patient song on a maximalist record.", "Confirmed: Swift wrote it as a poem first, the only 1989 track she wrote alone; the 2022 early release of its re-record for a TV trailer was its second life."],
       discussionSources: [{ name: "This Love (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/This_Love_(Taylor_Swift_song)" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift"],"producers":["Taylor Swift","Nathan Chapman"],"isSingle":true,"themes":["patience","return","stillness"]},
+      youtubeId: "r9VzPf8a4kI",
     },
     {
       slug: "i-know-places",
@@ -126,6 +137,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Two people planning a romance like a heist: the watchers are the hunters, the lovers are the foxes, and privacy is the getaway route.", "Swift said it was written about knowing in advance that any new relationship would be hunted for sport — the hiding plan drafted before the love existed."],
       discussionSources: [{ name: "I Know Places — Wikipedia", url: "https://en.wikipedia.org/wiki/I_Know_Places" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Ryan Tedder"],"producers":["Taylor Swift","Ryan Tedder","Noel Zancanella"],"themes":["surveillance","protecting love","us versus the lens"]},
+      youtubeId: "0jTGzm-6cYE",
     },
     {
       slug: "clean",
@@ -136,6 +148,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Healing framed as detox: the drought, the flood, and finally the morning you notice the wound stopped needing checking. Her tour-speech centerpiece for years.", "Confirmed: sparked by the realization that an old love had quietly evaporated; recorded with Heap in London using Heap’s own instrumental setup."],
       discussionSources: [{ name: "Clean (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Clean_(song)" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989","releaseDate":"2014-10-27","writers":["Taylor Swift","Imogen Heap"],"producers":["Taylor Swift","Imogen Heap"],"themes":["recovery","time as medicine","coming out the other side"]},
+      youtubeId: "AppsjTInqiw",
     },
     {
       slug: "wonderland",
@@ -146,6 +159,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Falling fast into a dazzling, disorienting romance and losing the plot together: madness as the destination both of them chose."],
       discussionSources: [{ name: "Wonderland (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Wonderland_(Taylor_Swift_song)" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989 (Deluxe Edition)","releaseDate":"2014-10-27","writers":["Taylor Swift","Max Martin","Shellback"],"producers":["Max Martin","Shellback"],"themes":["intoxicating love","losing yourself","literary allegory"]},
+      youtubeId: "E048L9PaZsk",
     },
     {
       slug: "you-are-in-love",
@@ -156,6 +170,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A definition of real love assembled from small, unglamorous proofs — burnt toast on a Sunday, a word whispered mid-dance — narrated by someone standing just outside it.", "Swift confirmed she wrote it after observing Antonoff’s relationship with then-partner Lena Dunham — the ordinary intimacy she had not yet had."],
       discussionSources: [{ name: "You Are in Love — Wikipedia", url: "https://en.wikipedia.org/wiki/You_Are_in_Love" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989 (Deluxe Edition)","releaseDate":"2014-10-27","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["quiet love","witnessing intimacy","yearning for the ordinary"]},
+      youtubeId: "a_zwscPcDGM",
     },
     {
       slug: "new-romantics",
@@ -166,6 +181,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An anthem for treating heartbreak as raw material: bored, broke, and building castles from the bricks thrown at you. Fans consider its non-album status a historic injustice, affectionately."],
       discussionSources: [{ name: "New Romantics (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/New_Romantics_(song)" }, { name: "1989 (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(album)" }],
       facts: {"release":"1989 (Deluxe Edition)","releaseDate":"2014-10-27","writers":["Taylor Swift","Max Martin","Shellback"],"producers":["Max Martin","Shellback"],"isSingle":true,"singleReleaseDate":"2016-02-23","themes":["generational irony","heartbreak as material","collective joy"]},
+      youtubeId: "3-BcH7KowGE",
     },
     {
       slug: "slut",
@@ -176,6 +192,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Written from inside the 2014 slut-shaming coverage: instead of anger, it floats — choosing the romance and letting the name-calling be the tax. The quotation marks in the title do the heavy lifting.", "Swift’s 1989 TV prologue discussed the era’s dating-life pile-on directly; the song is the vault’s comment on that coverage."],
       discussionSources: [{ name: "\"Slut!\" (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/%22Slut!%22" }, { name: "1989 (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(Taylor's_Version)" }],
       facts: {"release":"1989 (Taylor's Version) — From The Vault","releaseDate":"2023-10-27","writers":["Taylor Swift","Jack Antonoff","Patrik Berger"],"producers":["Taylor Swift","Jack Antonoff","Patrik Berger"],"themes":["slut-shaming","choosing love anyway","defusing a slur"]},
+      youtubeId: "qrxsceexTBw",
     },
     {
       slug: "say-dont-go",
@@ -186,6 +203,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Loving someone who lets you twist: she keeps waiting for him to fight for it, and the silence is its own answer. A legendary songwriter pairing fans did not know existed until the vault opened.", "Confirmed: written with Warren during the 1989 sessions — Warren later said she had wondered for years if it would ever surface."],
       discussionSources: [{ name: "Say Don't Go — Wikipedia", url: "https://en.wikipedia.org/wiki/Say_Don't_Go" }, { name: "1989 (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(Taylor's_Version)" }],
       facts: {"release":"1989 (Taylor's Version) — From The Vault","releaseDate":"2023-10-27","writers":["Taylor Swift","Diane Warren"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["one-sided devotion","waiting to be chosen","lost collaborations"]},
+      youtubeId: "C-z-IckrQK8",
     },
     {
       slug: "now-that-we-dont-talk",
@@ -196,6 +214,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["After the silence sets in, the wins count themselves: no more faking a taste for his music, his friends, his idea of her. Petty, precise, and over in under two and a half minutes.", "Fans immediately mapped its details to the mid-2010s chapter the 1989 vault covers (unconfirmed); the documented fact is its record-setting brevity in her catalog."],
       discussionSources: [{ name: "Now That We Don't Talk — Wikipedia", url: "https://en.wikipedia.org/wiki/Now_That_We_Don't_Talk" }, { name: "1989 (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(Taylor's_Version)" }],
       facts: {"release":"1989 (Taylor's Version) — From The Vault","releaseDate":"2023-10-27","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["post-breakup clarity","identity reclaimed","brevity as flex"]},
+      youtubeId: "yF4ulRTCn44",
     },
     {
       slug: "suburban-legends",
@@ -206,6 +225,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She casts the two of them as destined local legend, then watches him wreck the legend on schedule — grandiose romance meeting ordinary disappointment."],
       discussionSources: [{ name: "Suburban Legends (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Suburban_Legends_(song)" }, { name: "1989 (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(Taylor's_Version)" }],
       facts: {"release":"1989 (Taylor's Version) — From The Vault","releaseDate":"2023-10-27","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["mythologizing love","destiny versus reality","forgiving too fast"]},
+      youtubeId: "ZGBPKYbzSXs",
     },
     {
       slug: "is-it-over-now",
@@ -216,6 +236,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The question you ask when a breakup never got a clean ending: who ended what, and when, and why is he already photographed with someone new. The sharpest-elbowed writing in the 1989 vault.", "Fans connect its blue-dress and boat imagery to heavily photographed 2013–14 tabloid moments (unconfirmed by Swift); its Hot 100 No. 1 debut in 2023 is the documented headline."],
       discussionSources: [{ name: "Is It Over Now? — Wikipedia", url: "https://en.wikipedia.org/wiki/Is_It_Over_Now%3F" }, { name: "1989 (Taylor's Version) — Wikipedia", url: "https://en.wikipedia.org/wiki/1989_(Taylor's_Version)" }],
       facts: {"release":"1989 (Taylor's Version) — From The Vault","releaseDate":"2023-10-27","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"themes":["ambiguous endings","receipts","delayed vindication"]},
+      youtubeId: "tNxUxm3-658",
     },
   ],
   "debut": [
@@ -1014,6 +1035,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She opens the pastel album by closing the black-and-white one: the grudges got heavy, so she put them down and forgot the people attached to them."],
       discussionSources: [{ name: "I Forgot That You Existed — Wikipedia", url: "https://en.wikipedia.org/wiki/I_Forgot_That_You_Existed" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Louis Bell","Frank Dukes"],"producers":["Taylor Swift","Louis Bell","Frank Dukes"],"themes":["indifference as freedom","closing a chapter","lightness"]},
+      youtubeId: "p1cEvNn88jM",
     },
     {
       slug: "cruel-summer",
@@ -1024,6 +1046,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A secret summer romance conducted through garden gates and bad decisions, with the catalog’s most famous bridge-yell about blurting out love. Its 2023 chart-topping resurrection is the great fan-willed correction.", "Widely tied by fans to the guarded start of her late-2016 relationship (unconfirmed); the documented story is the fan campaign that forced its single release in 2023.", "The bridge became the Eras Tour’s loudest nightly scream-along — a documented live phenomenon of the 2023 shows."],
       discussionSources: [{ name: "Cruel Summer (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Cruel_Summer_(Taylor_Swift_song)" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Jack Antonoff","Annie Clark"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"singleReleaseDate":"2023-06-20","themes":["secret love","desperation under cool","delayed victory"]},
+      youtubeId: "ic8j13piAhQ",
     },
     {
       slug: "lover",
@@ -1034,6 +1057,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Domesticity as romance: leaving the Christmas lights up, guest lists, borrowed heartbeats — a love song built to be slow-danced to at weddings indefinitely.", "Swift has described writing it alone at the piano and knowing immediately it was the album’s center; the bridge is structured as a mock wedding toast."],
       discussionSources: [{ name: "Lover (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"singleReleaseDate":"2019-08-16","themes":["commitment","domestic magic","vows"]},
+      youtubeId: "-BjZmE2gtdo",
     },
     {
       slug: "the-man",
@@ -1044,6 +1068,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["If she partied, dated, and hustled identically as a man, the same behavior would read as legend, not liability. The self-directed video (with a Dwayne Johnson voice cameo) made the argument literal.", "Swift confirmed the premise directly in interviews: an inventory of the gendered coverage she had absorbed for a decade, itemized."],
       discussionSources: [{ name: "The Man (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Man_(Taylor_Swift_song)" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Joel Little"],"producers":["Taylor Swift","Joel Little"],"isSingle":true,"singleReleaseDate":"2020-01-27","themes":["sexist double standards","ambition","perception"]},
+      youtubeId: "AqAJLh9wuZ0",
     },
     {
       slug: "the-archer",
@@ -1054,6 +1079,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She has been the hunter and the target, and now wonders who could stay through both. The absence of a drop is the point: nothing resolves, including her.", "Swift acknowledged the track-5 tradition around this release — the first time the fan observation became official canon.", "Its early promo release is the moment the track-5 vulnerability tradition went from fan theory to confirmed convention."],
       discussionSources: [{ name: "The Archer (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Archer_(song)" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"isSingle":true,"themes":["self-doubt","attachment anxiety","who could ever leave or stay"]},
+      youtubeId: "8KpKc3C9V3w",
     },
     {
       slug: "i-think-he-knows",
@@ -1064,6 +1090,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A crush on someone fully aware of his own charm: she narrates the electricity while admitting he already knows all of it."],
       discussionSources: [{ name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["mutual attraction","confidence","flirtation"]},
+      youtubeId: "2d1wKn-oJnA",
     },
     {
       slug: "miss-americana-and-the-heartbreak-prince",
@@ -1074,6 +1101,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["A dance at a school where the scoreboard is rigged: Swift confirmed the marching-band metaphor is about watching American politics curdle post-2016 and deciding to speak anyway.", "Confirmed: Swift said it channels her disillusionment with U.S. politics through a high-school lens — written around the period covered by the Miss Americana documentary."],
       discussionSources: [{ name: "Miss Americana & the Heartbreak Prince — Wikipedia", url: "https://en.wikipedia.org/wiki/Miss_Americana_%26_the_Heartbreak_Prince" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Joel Little"],"producers":["Taylor Swift","Joel Little"],"themes":["political awakening","disillusionment","american pageantry"]},
+      youtubeId: "Kwf7P2GNAVw",
     },
     {
       slug: "paper-rings",
@@ -1084,6 +1112,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["She would marry this one with rings cut from paper: giddy pop-punk about wanting the whole boring, glorious package after years of gilded drama."],
       discussionSources: [{ name: "Paper Rings — Wikipedia", url: "https://en.wikipedia.org/wiki/Paper_Rings" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["joyful commitment","substance over ceremony","giddiness"]},
+      youtubeId: "8zdg-pDF10g",
     },
     {
       slug: "cornelia-street",
@@ -1094,6 +1123,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Memory pinned to geography: if it ends, the whole street gets amputated from her map. Fans treat the actual Cornelia Street as a pilgrimage site because of it.", "Confirmed: named for the Manhattan street where Swift lived during the relationship’s early days — she has called the association literal, not poetic."],
       discussionSources: [{ name: "Cornelia Street (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Cornelia_Street" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["memory and place","fear of loss","superstition"]},
+      youtubeId: "VikHHWrgb4Y",
     },
     {
       slug: "death-by-a-thousand-cuts",
@@ -1104,6 +1134,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An imagined heartbreak felt in a hundred small places at once. Swift confirmed the film Someone Great sparked it — whose writer-director had partly drawn on Swift’s own catalog, making it a documented inspiration boomerang.", "Confirmed: Swift cited the film Someone Great; director Jennifer Kaytin Robinson has discussed the mutual-influence loop publicly."],
       discussionSources: [{ name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["imagined grief","art feeding art","a city full of reminders"]},
+      youtubeId: "GTEFSuFfgnU",
     },
     {
       slug: "london-boy",
@@ -1114,6 +1145,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["An American falls for the whole kit: pubs, rugby screenings, high tea with the lads. The affectionate geographic chaos (Camden to Brixton like it is one stroll) became its own beloved joke.", "The Elba voice clip and the Cautious Clay interpolation are both in the official credits; the subject’s nationality made the reading self-evident and fans ran the borough-hopping audit for sport."],
       discussionSources: [{ name: "London Boy (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/London_Boy_(song)" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Jack Antonoff","Cautious Clay","Sounwave"],"producers":["Taylor Swift","Jack Antonoff","Sounwave"],"themes":["loving someone’s world","anglophilia","playful devotion"]},
+      youtubeId: "VsKoOH6DVys",
     },
     {
       slug: "soon-youll-get-better",
@@ -1124,6 +1156,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Written amid Andrea Swift’s cancer treatment: hospital waiting rooms, bargaining with God, and the childlike refrain that has to be true because the alternative is unthinkable.", "Confirmed: about her mother’s illness; Swift said the decision to include it was a family conversation, and its rare performances are documented as exceptional events."],
       discussionSources: [{ name: "Soon You'll Get Better — Wikipedia", url: "https://en.wikipedia.org/wiki/Soon_You'll_Get_Better" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["a parent’s illness","bargaining","helpless love"]},
+      youtubeId: "tMoW5G5LU08",
     },
     {
       slug: "false-god",
@@ -1134,6 +1167,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["They fight across time zones and still treat the relationship as religion: even if the faith is misplaced, the devotion is the point."],
       discussionSources: [{ name: "False God (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/False_God_(song)" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Jack Antonoff"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["love as religion","conflict and repair","devotion"]},
+      youtubeId: "acQXa5ArHIk",
     },
     {
       slug: "you-need-to-calm-down",
@@ -1144,6 +1178,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Three verses of de-escalation: internet haters, anti-LGBTQ protesters, and women pitted against each other all get the same advice. The celebrity-packed video closed with a documented policy ask.", "Confirmed advocacy: released during Pride 2019 with an Equality Act petition; the video’s Katy Perry reconciliation cameo formally buried the Bad Blood-era feud.", "The burger-and-fries hug is the official end of the Bad Blood storyline — feud opened and closed inside two videos."],
       discussionSources: [{ name: "You Need to Calm Down — Wikipedia", url: "https://en.wikipedia.org/wiki/You_Need_to_Calm_Down" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Joel Little"],"producers":["Taylor Swift","Joel Little"],"isSingle":true,"singleReleaseDate":"2019-06-14","themes":["allyship","anti-harassment","solidarity"]},
+      youtubeId: "GWtfOHBF1_w",
     },
     {
       slug: "afterglow",
@@ -1154,6 +1189,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Anxiety torched something good and she claims the arson: an accountability ballad asking the other person to stay inside the glow while she fixes what she broke."],
       discussionSources: [{ name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Louis Bell","Frank Dukes"],"producers":["Taylor Swift","Louis Bell","Frank Dukes"],"themes":["accountability","anxiety in love","repair"]},
+      youtubeId: "8HxbqAsppwU",
     },
     {
       slug: "me",
@@ -1164,6 +1200,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Self-celebration as a duet: two dramatic people pitching their own irreplaceability. Its pastel-explosion video announced the era’s palette flip from reputation’s black.", "The removed spelling lyric is the documented curiosity: present on the single, absent from the album version after months of ribbing.", "The Kelsey Montague butterfly mural in Nashville was the era’s opening Easter egg — fans found the announcement inside the wings."],
       discussionSources: [{ name: "Me! — Wikipedia", url: "https://en.wikipedia.org/wiki/Me!" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Joel Little","Brendon Urie"],"producers":["Taylor Swift","Joel Little"],"isSingle":true,"singleReleaseDate":"2019-04-26","themes":["self-worth","individuality","spectacle"]},
+      youtubeId: "FuXNumBwDOM",
     },
     {
       slug: "its-nice-to-have-a-friend",
@@ -1174,6 +1211,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["Friendship ripening into marriage in three tiny verses: snow fights, school notes, a ring — the album’s thesis (love as friendship upgraded) in under three minutes. The choir sample benefits a Toronto school program, per the credits."],
       discussionSources: [{ name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift","Louis Bell","Frank Dukes"],"producers":["Taylor Swift","Louis Bell","Frank Dukes"],"themes":["friendship into love","lifetimes in miniature","gentleness"]},
+      youtubeId: "eaP1VswBF28",
     },
     {
       slug: "daylight",
@@ -1184,6 +1222,7 @@ export const TRACKS_RAW: Partial<Record<EraId, TrackNote[]>> = {
       discussion: ["The era-closing thesis: real love is not golden drama or red intensity but ordinary daylight. Ends with a spoken vow to be defined by what she loves, not what she hates — the line the whole album walks toward.", "Confirmed: Swift said Daylight was a candidate album title before Lover won; the closing monologue was written as the record’s mission statement.", "The burning-red correction is a direct, deliberate callback to the Red title track — her catalog editing itself in real time."],
       discussionSources: [{ name: "Daylight (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/Daylight_(Taylor_Swift_song)" }, { name: "Lover (album) — Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(album)" }],
       facts: {"release":"Lover","releaseDate":"2019-08-23","writers":["Taylor Swift"],"producers":["Taylor Swift","Jack Antonoff"],"themes":["revised definitions of love","peace","self-definition"]},
+      youtubeId: "u9raS7-NisU",
     },
   ],
   "midnights": [
