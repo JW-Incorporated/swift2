@@ -16,7 +16,10 @@ import type { NewsSourceRow, SourceAdapter } from './types';
  * surface it by default, so ask for it explicitly. We were discarding the only
  * publisher attribution the feed gives us — see the 20260720000500 migration.
  */
-const parser = new Parser<unknown, { source?: unknown }>({
+// `author` is declared alongside `source` because naming the Item generic
+// replaces rss-parser's permissive index signature — without it, fields the
+// library does not declare (author among them) stop type-checking.
+const parser = new Parser<unknown, { source?: unknown; author?: string }>({
   timeout: 10_000,
   customFields: { item: ['source'] },
 });
