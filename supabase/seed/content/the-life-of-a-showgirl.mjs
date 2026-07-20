@@ -241,24 +241,28 @@ export default {
           // item's own context names directly. All curl 200.
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/94/John_Everett_Millais_-_Ophelia_-_Google_Art_Project.jpg',
+            focalPoint: '38% 52%',
             credit: 'John Everett Millais, 1852 (public domain, Google Art Project)',
             caption: 'Millais\'s "Ophelia" (1852) — the painting the album cover directly restages.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/6/61/Sabrina_Carpenter_-_O2_Arena_2025_-_086_%28cropped_2%29.jpg',
+            focalPoint: '60% 20%',
             credit: 'Raph_PH, Wikimedia Commons (CC BY 2.0)',
             caption: 'Sabrina Carpenter, the album\'s single feature, on the closing title track.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/3/31/Max_Martin.jpg',
+            focalPoint: '32% 22%',
             credit: 'Martina Huber / Regeringskansliet (CC BY 2.0)',
             caption: 'Max Martin, whose reunion with Swift on this record was her first with him since 1989 and reputation.',
             kind: 'reference',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d0/New_Heights_logo.svg',
+            focalPoint: '50% 50%',
             credit: 'New Heights (official logo)',
             caption: 'The New Heights podcast, where she first described making the album in Sweden between Eras Tour dates.',
             kind: 'reference',
@@ -644,12 +648,14 @@ export default {
           // different, non-official channel was found and rejected).
           {
             url: 'https://i.ytimg.com/vi/4Mg_Qtr6Osg/maxresdefault.jpg',
+            focalPoint: '62% 42%',
             credit: 'Taylor Swift / Republic Records, via YouTube',
             caption: 'A frame from the official "Elizabeth Taylor" visualizer — No. 3 on the same chart week.',
             kind: 'archival',
           },
           {
             url: 'https://i.ytimg.com/vi/4FUIEcnvT04/maxresdefault.jpg',
+            focalPoint: '50% 30%',
             credit: 'Taylor Swift / Republic Records, via YouTube',
             caption: 'A frame from the official "Opalite" visualizer — No. 2 on the same chart week.',
             kind: 'archival',
