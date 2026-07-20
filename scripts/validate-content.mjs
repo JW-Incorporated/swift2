@@ -27,7 +27,13 @@
 import { readdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
-import { RUMOR_STATUSES, slugify } from './sync-longlive-content.mjs';
+import {
+  RUMOR_STATUSES,
+  RUMOR_SOURCE_TIERS,
+  LOCATION_SPECIFICITY,
+  RESOLVED_RUMOR_STATUSES,
+  slugify,
+} from './sync-longlive-content.mjs';
 import { SLUG_TO_ERA_ID } from './lib/longlive-sync-shared.mjs';
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -309,6 +315,46 @@ for (const { file, data } of loaded) {
             err(`${rAt} status "${r.status}" not in ${[...RUMOR_STATUSES].join('|')}`);
           if (!/^https?:\/\//.test(trimmed(r.url))) err(`${rAt} url is not an http(s) link`);
           if ((r.note ?? '').length > 400) err(`${rAt} note ${r.note.length} > 400`);
+
+          // --- lifecycle integrity (2026-07-20, rumor-pipeline.md) ---------
+          // A settled claim must carry the citation that settled it. Without
+          // this a bot could promote a rumor to "Since confirmed" on its own
+          // say-so, which is exactly the failure the rumor system exists to
+          // prevent.
+          if (RESOLVED_RUMOR_STATUSES.has(r.status)) {
+            const res = r.resolution;
+            if (!res || typeof res !== 'object') {
+              err(`${rAt} status "${r.status}" requires a resolution { on, url, outlet } — a promotion without a citation is an opinion`);
+            } else {
+              if (!ISO_DATE_RE.test(trimmed(res.on)))
+                err(`${rAt} resolution.on "${res.on}" is not YYYY-MM-DD`);
+              if (!/^https?:\/\//.test(trimmed(res.url)))
+                err(`${rAt} resolution.url is not an http(s) link — cite what settled it`);
+              if (!trimmed(res.outlet)) err(`${rAt} resolution.outlet is required`);
+              if ((res.note ?? '').length > 400) err(`${rAt} resolution.note ${res.note.length} > 400`);
+            }
+          } else if (r.resolution != null) {
+            err(`${rAt} has a resolution but status is "${r.status}" — only confirmed/debunked resolve`);
+          }
+
+          if (r.lastCheckedOn != null && !ISO_DATE_RE.test(trimmed(r.lastCheckedOn)))
+            err(`${rAt} lastCheckedOn "${r.lastCheckedOn}" is not YYYY-MM-DD`);
+          if (r.sourceTier != null && !RUMOR_SOURCE_TIERS.has(r.sourceTier))
+            err(`${rAt} sourceTier "${r.sourceTier}" not in ${[...RUMOR_SOURCE_TIERS].join('|')}`);
+
+          // The privacy matrix, made machine-checkable. An UNRESOLVED claim is
+          // speculation by definition, so it is capped at region level — the
+          // "expected at the Bowery Hotel" case. Once a claim is confirmed it
+          // is a documented event and venue level is fine.
+          if (r.locationSpecificity != null) {
+            if (!LOCATION_SPECIFICITY.has(r.locationSpecificity))
+              err(`${rAt} locationSpecificity "${r.locationSpecificity}" not in ${[...LOCATION_SPECIFICITY].join('|')} (there is no 'address' level — L3 is never publishable)`);
+            else if (
+              r.locationSpecificity !== 'region' &&
+              !RESOLVED_RUMOR_STATUSES.has(r.status)
+            )
+              err(`${rAt} locationSpecificity "${r.locationSpecificity}" on an unresolved rumor — speculative location is capped at 'region' (privacy-redlines.md Never-OK #1). Coarsen the claim or drop it.`);
+          }
         });
     }
 

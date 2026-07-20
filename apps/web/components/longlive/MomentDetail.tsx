@@ -95,6 +95,10 @@ const RUMOR_STATUS_BADGE: Record<RumorStatus, string> = {
   partially_confirmed: 'Partially confirmed',
   confirmed: 'Since confirmed',
   debunked: 'Debunked',
+  // A claim that was reported, never confirmed, never denied, and went quiet.
+  // Saying that plainly is the honest end-state; leaving it "unconfirmed"
+  // forever implies it is still live (docs/content-ops/rumor-pipeline.md).
+  faded: 'Never confirmed or denied',
 };
 
 // Anything that isn't the real photo of THIS moment gets an explicit label —
@@ -217,6 +221,34 @@ function RumorSection({ rumors }: { rumors: RumorNote[] }) {
             {r.note && (
               <p className="mt-1.5 text-sm italic leading-relaxed text-[color:var(--era-ink-soft)]">
                 {r.note}
+              </p>
+            )}
+            {/* The citation that settled it. A claim marked "Since confirmed"
+                or "Debunked" with nothing to click is just our word for it —
+                the whole point of the resolution field is that the reader can
+                check. */}
+            {r.resolution && (
+              <p className="mt-1.5 text-xs text-[color:var(--era-ink-soft)]">
+                {r.status === 'debunked' ? 'Debunked by' : 'Confirmed by'}{' '}
+                <a
+                  href={r.resolution.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="underline underline-offset-2 hover:text-[color:var(--era-ink)]"
+                >
+                  {r.resolution.outlet}
+                </a>
+                {' · '}
+                {formatFullDate(r.resolution.on)}
+                {r.resolution.note ? ` — ${r.resolution.note}` : ''}
+              </p>
+            )}
+            {/* Audit transparency: "still unconfirmed" and "nobody has looked
+                since June" render identically without this, and they are very
+                different claims about how much to trust the label. */}
+            {!r.resolution && r.lastCheckedOn && (
+              <p className="mt-1.5 text-xs text-[color:var(--era-ink-soft)]">
+                Last checked {formatFullDate(r.lastCheckedOn)}
               </p>
             )}
           </li>

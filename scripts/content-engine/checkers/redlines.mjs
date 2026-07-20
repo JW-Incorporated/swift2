@@ -30,13 +30,25 @@ const PRIVATE_PATTERNS = [
   { label: 'flight tracking', re: /\b(?:flight|jet) track(?:er|ing)\b/gi },
   { label: 'aircraft tail number', re: /\btail number\b/gi },
   { label: 'real-time location', re: /\b(?:is|was) (?:currently|right now) at\b/gi },
-  // Future/planned whereabouts — the most stalker-useful thing a RUMOR can
-  // carry ("reportedly staying at…"). Past-tense venue-level sightings are
-  // fine; forward-looking location is a hard redline
-  // (docs/content-ops/privacy-redlines.md, Never-OK #1). Zero hits on the
-  // legitimate corpus at introduction (2026-07-19) — precision-safe.
-  { label: 'future/planned whereabouts', re: /\b(?:will be|expected to (?:be|attend|arrive)|plans? to (?:be|stay)|reportedly staying|is staying) at\b/gi },
   { label: 'travel-pattern reference', re: /\b(?:travel pattern|usual route|regular route)s?\b/gi },
+  // Interception-grade travel detail. Banned at every provenance and tense:
+  // knowing the flight is how you stand where she lands. The *fact* of travel
+  // at region level ("reportedly heading to the Caribbean") is fine and is
+  // deliberately NOT matched here.
+  { label: 'flight number', re: /\bflight\s*(?:no\.?|number|#)\s*[A-Z]{0,3}\s*\d{1,4}\b/gi },
+  { label: 'private-aviation log', re: /\b(?:jet|aircraft|plane)\s+(?:log|movement)s?\b/gi },
+  // NOTE — deliberately NOT deterministic (2026-07-20 rewrite, see
+  // docs/content-ops/rumor-pipeline.md): forward-looking location used to be
+  // caught here by a tense regex (`will be at`, `expected to attend`). That
+  // was the wrong axis and it was both too strict and too loose. An announced
+  // tour date is future, venue-specific, and completely fine because she
+  // published it; "she was at <address> last night" is past tense and far
+  // worse. What matters is specificity weighted by provenance, and no regex
+  // can tell "will be in the Bahamas" (L0, fine) from "will be at the Bowery
+  // Hotel" (L2 speculation, not fine) — that needs to read the place name.
+  // So it routes to candidates() as `location-privacy` for the agent pass,
+  // which has the matrix as its rubric. Deterministic patterns hard-fail CI,
+  // so they stay narrow; judgment goes where judgment can be applied.
 ];
 
 export const id = 'safety.redline';
