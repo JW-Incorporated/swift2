@@ -1955,6 +1955,17 @@ export default {
         photos: [
           {
             url: 'https://media.gettyimages.com/id/92999603/photo/the-43rd-annual-cma-awards-performances-and-awards.jpg?s=594x594&w=0&k=20&c=c0ywESeQ4T5SlLbIozC6BDQv2g71urPuzthsW__5Dn8=',
+            // Focal-point pass #762 (2026-07-20): downloaded and viewed the
+            // frame — portrait 428x594, gold gown, hand to face at the mic,
+            // her face near the top-center. Wide card crops must hold the
+            // face, so anchor high. NOTE: this remains on media.gettyimages.com
+            // (a comp host the enrichment protocol discourages); no allowed-CDN
+            // equivalent of this exact 2009 acceptance frame could be found
+            // (The Boot article carries only a logo placeholder; Wikimedia has
+            // nothing from the 2009 CMAs; Billboard's is the 2011 win). Flagged
+            // for a human to re-source rather than dropped, since it is a
+            // genuine, unwatermarked image of the exact moment.
+            focalPoint: '48% 16%',
             credit: 'Frank Micelotta/Getty Images',
             caption:
               'Accepting Entertainer of the Year in the gold gown, Nov. 11, 2009 — the biggest of her wins that night.',
