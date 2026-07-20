@@ -2125,6 +2125,10 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/W2twcSFYlt0/hqdefault.jpg',
+            // Photo pass #762 (2026-07-20): viewed. Letterboxed YouTube frame —
+            // she stands center-left with the guitar, face in the upper third;
+            // keep the crop centered and high, above the black bars.
+            focalPoint: '46% 30%',
             credit: 'NBC / Saturday Night Live official YouTube channel',
             caption: 'Performing the self-written "Monologue Song" on the SNL stage, Nov. 7, 2009.',
             kind: 'archival',
