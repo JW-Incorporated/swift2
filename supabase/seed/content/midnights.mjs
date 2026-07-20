@@ -1340,18 +1340,26 @@ export default {
             credit: 'Robyn Beck/AFP via Getty Images, via The Hollywood Reporter',
             caption: 'Arriving at the 66th Grammy Awards, Feb. 4, 2024 — hours before both the Best Pop Vocal Album win and the TTPD announcement.',
             kind: 'archival',
+            // Full-length red-carpet shot: her face sits near the top-center,
+            // just left of the frame's midline; bias the crop high.
+            focalPoint: '43% 12%',
           },
           {
             url: 'https://assets1.cbsnewsstatic.com/hub/i/r/2024/02/05/8edd48b7-d5d3-4f41-9abc-73224e5a7012/thumbnail/620x413/c9004cfb98e90e6a93cd1764340a1057/gettyimages-1986514177.jpg',
             credit: 'Getty Images, via CBS News',
             caption: 'Accepting Best Pop Vocal Album for Midnights earlier the same night — the speech where she announced The Tortured Poets Department.',
             kind: 'archival',
+            // At the mic holding the trophy; her face is upper-center, a touch
+            // left of center.
+            focalPoint: '43% 22%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/f/f5/C%C3%A9line_Dion_2012.jpg',
             credit: 'Georges Biard, Wikimedia Commons (CC BY-SA 3.0)',
             caption: 'Céline Dion, who presented the Album of the Year award in a rare public appearance during her stiff-person syndrome recovery.',
             kind: 'reference',
+            // Head-and-shoulders portrait; her face sits upper-center.
+            focalPoint: '43% 28%',
           },
         ],
       },
@@ -1400,24 +1408,35 @@ export default {
             credit: 'Getty Images, via Fox News',
             caption: 'On the field after the Chiefs\' overtime win — the moment broadcast to roughly 123 million viewers.',
             kind: 'primary',
+            // The kiss is the subject: their two faces meet center-right of
+            // the frame, around the vertical midline.
+            focalPoint: '56% 38%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d4/Allegiant_Stadium%2C_view_from_Interstate_15_%282024-02-04%29.jpg',
             credit: 'Amin Eshaiker, Wikimedia Commons (CC BY-SA 4.0)',
             caption: 'Allegiant Stadium in Las Vegas, host of Super Bowl LVIII, days before kickoff.',
             kind: 'reference',
+            // The lit nameplate and the SF/KC matchup logos sit across the
+            // middle band of the building; keep the crop centered.
+            focalPoint: '46% 42%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/9/92/Patrick_Mahomes_%2851615475056%29.jpg',
             credit: 'All-Pro Reels, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Chiefs quarterback Patrick Mahomes, who led the overtime win.',
             kind: 'reference',
+            // Vertical portrait; his face is upper-center of the frame.
+            focalPoint: '52% 26%',
           },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/d/d3/Chiefs_361_%2851615694173%29.jpg',
             credit: 'All-Pro Reels, Wikimedia Commons (CC BY-SA 2.0)',
             caption: 'Travis Kelce on the field for the Chiefs.',
             kind: 'reference',
+            // Vertical portrait; his face is upper-center, just left of the
+            // midline.
+            focalPoint: '48% 23%',
           },
         ],
       },
@@ -2519,12 +2538,18 @@ export default {
             credit: 'Taylor Swift / Republic Records, via YouTube',
             caption: 'A frame from the official "Bejeweled" video — one of the nine other tracks that filled out the historic all-Swift top 10.',
             kind: 'archival',
+            // Centered close-up; her face is upper-center against the dark,
+            // glittering backdrop.
+            focalPoint: '50% 26%',
           },
           {
             url: 'https://i.ytimg.com/vi/Uoey4W_3bos/maxresdefault.jpg',
             credit: 'Taylor Swift / Republic Records, via YouTube',
             caption: 'The title card for the official "Vigilante Shit" lyric video, another of the nine.',
             kind: 'archival',
+            // Letterboxed title card: the "Vigilante Shit" text is the only
+            // subject and sits in the upper-left; bias the crop left and high.
+            focalPoint: '38% 26%',
           },
         ],
       },
