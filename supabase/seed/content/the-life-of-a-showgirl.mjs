@@ -3693,6 +3693,60 @@ export default {
       },
     },
     {
+      // Authored 2026-07-20 from intake #920. Awards milestone, clears the bar
+      // on its own (one outlet needed; two verified here — Rolling Stone and the
+      // Television Academy's own database). Two facts checked against the primary
+      // record before writing: (1) Rolling Stone's exact language is "first nods
+      // ... in more than a decade," so it is framed as first NOMINATIONS, not
+      // first Emmy — the Television Academy shows she already WON in 2015, in
+      // interactive media, so "first Emmy" would be false. (2) The Academy lists
+      // the 2026 entry under her personal bio as "Produced by/Performer,"
+      // confirming the nods attach to her personally. Unverified ticket details
+      // (a Dec 12 2025 Disney+ premiere date, a Sept 14 2026 ceremony date/
+      // network) were cut rather than guessed. Passes the privacy redlines
+      // cleanly: her own public professional honor, no third parties.
+      slug: 'showgirl-eras-tour-film-emmy-nominations',
+      year: 2026,
+      month: 7,
+      day: 8,
+      category: 'music',
+      title: 'The Eras Tour film pulls five Emmy nominations — her first nods in over a decade',
+      snippet:
+        'Taylor Swift: The Eras Tour: The Final Show drew five nominations at the 78th Emmys, announced July 8, 2026 — Taylor’s first Emmy nods in more than a decade. Credited as both performer and producer on the concert film, the nominations land on her personally.',
+      sourceUrl:
+        'https://www.rollingstone.com/music/music-news/taylor-swift-2026-emmy-nominations-eras-tour-final-show-1235590955/',
+      thumbnailUrl: null,
+      significance: 'notable', // a real award milestone — first Emmy nominations in 10+ years, on the record-breaking Eras Tour (docs/decisions.md, 2026-07-18)
+      moment: {
+        context:
+          'The concert film of the Eras Tour’s final night — Taylor Swift: The Eras Tour: The Final Show, which streamed on Disney+ — landed five nominations when the 78th Emmy nominations were announced on July 8, 2026: Outstanding Variety Special (Pre-Recorded), a directing nod for Glenn Weiss, Outstanding Picture Editing for Variety Programming, Outstanding Sound Mixing for a Variety Series or Special, and Outstanding Technical Direction and Camerawork for a Special.\n\nTaylor is credited on the special as both performer and producer — Taylor Swift Productions made it, in association with Silent House — so the nominations attach to her personally, and they are her first Emmy nominations in more than a decade. They are not her first Emmy outright: back in 2015 she won Outstanding Creative Achievement in Interactive Media for the AMEX Unstaged: Taylor Swift Experience, the 360-degree app built around the "Blank Space" video, as its artist and executive producer. What is new this time is the Television Academy recognizing her on-camera performing work — and it is the film of the record-breaking Eras Tour that got her there.',
+        sources: [
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-2026-emmy-nominations-eras-tour-final-show-1235590955/',
+            source_title: "Taylor Swift Scores 2026 Emmy Nominations for 'Eras Tour: The Final Show'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Television Academy',
+            url: 'https://www.televisionacademy.com/bios/taylor-swift',
+            source_title: 'Taylor Swift — Emmy Awards and Nominations',
+            publisher: 'Television Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-20',
+            reliability_score: 5,
+          },
+        ],
+        // No photo: the nominations announcement has no photography of its own,
+        // and a stand-in performance still would illustrate nothing that
+        // happened here. Same call as the Marasco and donation items below.
+        photos: [],
+      },
+    },
+    {
       // Authored 2026-07-20 from intake #903. Public philanthropy — clears the
       // two-outlet bar for business items (Billboard + RTTNews, independent),
       // and the privacy redlines cleanly (a public charitable act, city-level

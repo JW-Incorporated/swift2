@@ -43,5 +43,57 @@ export default {
       relatedSlugs: ['tortured-poets:peter-pan-throughline'],
       sources: [wiki('The_Fate_of_Ophelia', 'The Fate of Ophelia')],
     },
+    {
+      // Authored 2026-07-20 from intake #945. A fan easter-egg read of an
+      // unannounced platform change — belongs on the theory track (confidence +
+      // outcome badges), never in confirmed narrative. Verified before writing:
+      // the canvas swap itself and the "no one knows what it means yet" framing
+      // were confirmed against Just Jared (search-corroborated; UA-blocked to a
+      // raw fetch) AND geo.tv, which reads cleanly. Nothing is announced, so
+      // this is authored as fans reading a tease, never as "a re-recording is
+      // coming." The specific decodings are attributed to fans throughout; the
+      // release dates cited (debut Oct 24 2006, Speak Now Oct 25 2010, Red Oct
+      // 22 2012) are real, and Oct 23 2026 does fall on a Friday. Clean under
+      // the privacy redlines: no location, no third parties, no private lives —
+      // a pure symbolism/easter-egg item, which the redlines list as admissible.
+      slug: 'showgirl-spotify-canvas-color-swap',
+      kind: 'theory',
+      title: 'The Spotify canvas colors that set off a re-recording hunt',
+      claim:
+        'Over the weekend of July 18–19, 2026, fans clocked that Taylor had quietly swapped the Spotify canvases — the short looping visuals behind a track — on three songs: "I Knew It, I Knew You" went green, its Piano Version purple, and "Blank Space" red. Swifties read the color-coding as an easter-egg tease of a re-recording, most loudly a debut "Taylor\'s Version."',
+      evidence:
+        'The change itself is documented — Just Jared (Bradley Stern, July 20) and geo.tv both logged the three new canvases — but nothing was announced, and Just Jared\'s own line was that "no one seems to know what it means yet." Everything past the color swap is fan decoding, and the reads openly contradict each other. The loudest leans on green as debut\'s color, pointing to a debut "Taylor\'s Version." A date-code version lines up the three albums\' release days — debut on Oct 24, Speak Now on Oct 25, Red on Oct 22 — and fixates on the missing Oct 23, a Friday in 2026 and Taylor\'s usual release day. A numerology version adds the albums\' places in her catalog (Red 4th + Speak Now 3rd + reputation 6th = 13). None of them cleanly accounts for "Blank Space," a 1989 track that belongs to none of those records — which is exactly why it stays a theory. If a re-recording or new release follows, this promotes with the citation; if it goes quiet, it fades.',
+      confidence: 'plausible',
+      outcome: 'pending',
+      relatedSlugs: ['the-life-of-a-showgirl:orange-era-clues'],
+      sources: [
+        {
+          source_url:
+            'https://www.justjared.com/2026/07/20/taylor-swift-fans-spiral-over-tiny-spotify-change-fueling-new-album-taylors-version-theories/',
+          source_title:
+            "Taylor Swift Fans Spiral Over Tiny Spotify Change, Fueling New Album & 'Taylor's Version' Theories",
+          publisher: 'Just Jared',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-20',
+          reliability_score: 3,
+          excerpt: null,
+          notes:
+            'Bradley Stern, 2026-07-20. Names the three tracks/colors and the two fan theories; UA-blocked to a raw fetch, corroborated via search + geo.tv.',
+        },
+        {
+          source_url:
+            'https://www.geo.tv/latest/673940-taylor-swift-sparks-curiosity-with-new-easter-eggs-on-streaming-platforms',
+          source_title:
+            'Taylor Swift sparks curiosity with new "Easter Eggs" on streaming platforms',
+          publisher: 'Geo.tv',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-20',
+          reliability_score: 3,
+          excerpt: null,
+          notes:
+            'Independent readable confirmation of the red/green/purple canvas swap and that "Swifties continue to theorise and wait until an official announcement is made."',
+        },
+      ],
+    },
   ],
 };

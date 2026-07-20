@@ -354,6 +354,17 @@ export const THEORIES_RAW: Partial<Record<EraId, TheoryNote[]>> = {
       sources: [{ name: "The Fate of Ophelia", url: "https://en.wikipedia.org/wiki/The_Fate_of_Ophelia" }],
       relatedSlugs: ["ttpd:peter-pan-throughline"],
     },
+    {
+      slug: "showgirl-spotify-canvas-color-swap",
+      kind: "theory",
+      title: "The Spotify canvas colors that set off a re-recording hunt",
+      claim: "Over the weekend of July 18–19, 2026, fans clocked that Taylor had quietly swapped the Spotify canvases — the short looping visuals behind a track — on three songs: \"I Knew It, I Knew You\" went green, its Piano Version purple, and \"Blank Space\" red. Swifties read the color-coding as an easter-egg tease of a re-recording, most loudly a debut \"Taylor's Version.\"",
+      evidence: "The change itself is documented — Just Jared (Bradley Stern, July 20) and geo.tv both logged the three new canvases — but nothing was announced, and Just Jared's own line was that \"no one seems to know what it means yet.\" Everything past the color swap is fan decoding, and the reads openly contradict each other. The loudest leans on green as debut's color, pointing to a debut \"Taylor's Version.\" A date-code version lines up the three albums' release days — debut on Oct 24, Speak Now on Oct 25, Red on Oct 22 — and fixates on the missing Oct 23, a Friday in 2026 and Taylor's usual release day. A numerology version adds the albums' places in her catalog (Red 4th + Speak Now 3rd + reputation 6th = 13). None of them cleanly accounts for \"Blank Space,\" a 1989 track that belongs to none of those records — which is exactly why it stays a theory. If a re-recording or new release follows, this promotes with the citation; if it goes quiet, it fades.",
+      confidence: "plausible",
+      outcome: "pending",
+      sources: [{ name: "Taylor Swift Fans Spiral Over Tiny Spotify Change, Fueling New Album & 'Taylor's Version' Theories", url: "https://www.justjared.com/2026/07/20/taylor-swift-fans-spiral-over-tiny-spotify-change-fueling-new-album-taylors-version-theories/" }, { name: "Taylor Swift sparks curiosity with new \"Easter Eggs\" on streaming platforms", url: "https://www.geo.tv/latest/673940-taylor-swift-sparks-curiosity-with-new-easter-eggs-on-streaming-platforms" }],
+      relatedSlugs: ["tloas:orange-era-clues"],
+    },
   ],
   "ttpd": [
     {
