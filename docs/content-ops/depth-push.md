@@ -263,3 +263,53 @@ The effect is a system that self-scales without anyone changing a cron: an
 overnight Lex backlog is met by ten Answerers all batching aggressively, and a
 drained queue costs ten cheap exits. Capacity is sized for the PEAK while the
 steady state stays inexpensive.
+
+---
+
+## WHEN A LEDGER REPORTS A STALE STATUS, THE FIX IS A FIELD — NOT MORE PROSE
+
+Added 2026-07-21 after Lex filed #1022. That ledger did not ask a question; it
+reported that a page's FRAMING had gone out of date:
+
+> The page (as of its 2026-07-09 sources) frames the entire commission as
+> 'Reported — not confirmed' with the loud rumor banner. That framing is now
+> STALE: designer Jonathan Anderson spoke on the record.
+
+Nothing in the Answerer's charter covered this. Every instruction above is
+about ADDING depth — answering questions, writing prose, adding sources. An
+Answerer handed #1022 would very plausibly write three excellent new paragraphs
+about the Dior commission and leave `confidence: 'reputable_reporting'`
+untouched, so the page would still shout **"Reported — not confirmed"** about
+something the designer has confirmed on the record. More words, same lie.
+
+So: **a ledger that reports a status change is a CORRECTION ticket, and it
+outranks every depth ticket in your batch.** A page that is thin is incomplete.
+A page that is confidently wrong about what is confirmed is a credibility
+failure, and it is the exact thing docs/content-ops/privacy-redlines.md and the
+rumor pipeline exist to prevent. Rule 6 there already says it: unresolved is a
+state, not a resting place.
+
+Handling one:
+
+1. **Verify the claim yourself before changing anything.** Lex reads and
+   reasons; it does not adjudicate. Find the on-the-record statement, the
+   official confirmation, or the outlet retraction with your own WebFetch. If
+   you cannot verify it, say so in a comment on the ledger and change NOTHING.
+   Downgrading a rumor on an unverified claim is the same error in the other
+   direction.
+2. **Change the FIELD.** `confidence` on the moment, and/or `status` +
+   `resolution` on the specific `RumorNote`. That is what renders the banner —
+   editing prose around it changes nothing a reader sees at a glance.
+3. **Fix the hedging language too.** A page whose `confidence` now says
+   confirmed but whose prose still says "reportedly" in six places reads as
+   unconfirmed anyway. The field and the words have to agree.
+4. **Record the resolution**: `resolution` with `on`, `url`, `outlet`, `note`,
+   and update `lastCheckedOn`. A claim that quietly changes status with no
+   citation is indistinguishable from one we made up.
+5. **Say it plainly in the PR** — "corrects the confidence tier on X from
+   reputable_reporting to confirmed, per <outlet> <date>" — so a human can
+   check the one thing that most needs checking.
+
+Never flip a status in the other direction (confirmed -> rumor) without an
+explicit retraction from the original outlet or a direct denial. Silence is not
+a denial; that is what the `faded` status is for.
