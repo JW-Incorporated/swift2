@@ -3,6 +3,8 @@
 // labeled. Provenance per docs/content/content-audit-2026-07-08.md §5 (URLs
 // verified 2026-07-08). Concept per Swift's announcement: thirteen sleepless
 // nights scattered across her life. Grammy Album of the Year, 2024.
+import DOSSIERS from './midnights.dossiers.mjs';
+
 const ACCESSED = '2026-07-08';
 const wiki = (title, path, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${path}`,
@@ -19,7 +21,7 @@ const ALBUM = wiki(
   'album article: release facts, credits, and cited interviews',
 );
 
-export default {
+const ERA = {
   eraSlug: 'midnights',
   tracks: [
     {
@@ -522,4 +524,19 @@ export default {
       ],
     },
   ],
+};
+
+// Attach per-song dossiers by slug (issue #440 pattern; see red.mjs / ttpd).
+// `ERA` is named rather than exported inline only so the large tracks array
+// above keeps its original nesting instead of being reindented under a const;
+// the merge below matches the sibling files' compute-in-export shape.
+for (const key of Object.keys(DOSSIERS)) {
+  if (!ERA.tracks.some((t) => t.slug === key)) {
+    throw new Error(`dossier for unknown track slug: ${key}`);
+  }
+}
+
+export default {
+  ...ERA,
+  tracks: ERA.tracks.map((t) => (DOSSIERS[t.slug] ? { ...t, dossier: DOSSIERS[t.slug] } : t)),
 };
