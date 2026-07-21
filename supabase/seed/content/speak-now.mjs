@@ -1338,6 +1338,16 @@ export default {
     {
       slug: 'speak-now-album-release',
       significance: 'defining', // the only album she's ever written entirely alone — a direct answer to critics who doubted her (docs/decisions.md, 2026-07-19)
+      // Cross-links added 2026-07-21 (ledger #1079): the page had none. The
+      // million-copy week and the "Mean" Grammys are the record and the payoff
+      // of the solo-writing thesis; the debut is where the liner-note code
+      // began; Fearless is the album whose success drew the doubts this answered.
+      relatedIds: [
+        'moment:vault-speak-now-speak-now-sells-over-a-million-copies-in-a-single-week',
+        'moment:vault-speak-now-mean-wins-two-grammys-the-same-night',
+        'moment:vault-debut-taylor-swift-the-album-arrives',
+        'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
+      ],
       year: 2010,
       month: 10,
       day: 25,
@@ -1353,7 +1363,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/8/8f/Taylor_Swift_-_Speak_Now_cover.png',
       moment: {
         context:
-          'The solo writing wasn\'t incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective.\n\nShe\'d written the fourteen tracks on the road, co-producing with Nathan Chapman: "I\'d get my best ideas at 3:00 a.m. in Arkansas, and I didn\'t have a co-writer around so I would just finish it," she explained. The new title fit her definition of the whole record — the moment "where it\'s almost too late, and you\'ve got to either say what it is you are feeling or deal with the consequences forever." The market answered with 1,047,000 first-week copies and a No. 1 debut on the Billboard 200.\n\nThe CD booklet carried its own solo touch: a capitalization code hidden in the "Never Grow Up" lyric sheet decodes to "MOVED OUT IN JULY" — a real detail about leaving her family\'s home, continuing the liner-note tradition she\'d run since her debut.',
+          'The solo writing wasn\'t incidental — it was the thesis, her direct answer to anyone doubting the songs were hers. The title changed late, too: the album was nearly called Enchanted until Scott Borchetta pushed for a name that matched its more grown-up perspective.\n\nShe\'d written the fourteen tracks on the road, co-producing with Nathan Chapman: "I\'d get my best ideas at 3:00 a.m. in Arkansas, and I didn\'t have a co-writer around so I would just finish it," she explained. The new title fit her definition of the whole record — the moment "where it\'s almost too late, and you\'ve got to either say what it is you are feeling or deal with the consequences forever." The market answered with 1,047,000 first-week copies and a No. 1 debut on the Billboard 200.\n\nThe CD booklet carried its own solo touch: a capitalization code hidden in the "Never Grow Up" lyric sheet decodes to "MOVED OUT IN JULY" — a real detail about leaving her family\'s home, continuing the liner-note tradition she\'d run since her debut.\n\nFearless had made her a superstar but also a target: because she co-wrote its hits, skeptics implied the songs were really her collaborators\'. Speak Now was the rebuttal — every word hers — and doubled as her album of open letters, the subjects widely understood even where she never named them: "Dear John" read as John Mayer, "Back to December" as an apology to Taylor Lautner, "Innocent" as a hand extended to Kanye West after the 2009 VMAs, "Mean" as a shot at a critic. The million-copy week — six weeks at No. 1, the first million-selling week since 2008 — was the loudest answer; critics agreed (Metacritic 77), and "Mean" later won two Grammys in one night at the 2012 ceremony. Joseph Anthony Baker shot the twirling purple cover, and the liner notes hid a coded message in every song ("Enchanted" spelled ADAM, for Owl City\'s Adam Young).',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1372,6 +1382,42 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-19',
             reliability_score: 4,
+          },
+          {
+            outlet: 'The Week',
+            url: 'https://theweek.com/feature/briefing/1024743/who-is-taylor-swift-singing-about-on-speak-now-a-complete-guide-to-the',
+            source_title: "Who is Taylor Swift singing about on 'Speak Now'? A complete guide to the album",
+            publisher: 'The Week',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'The Boot',
+            url: 'https://theboot.com/taylor-swift-grammys-2012-best-country-song/',
+            source_title: "Taylor Swift Grammys 2012: Best Country Song Goes to 'Mean'",
+            publisher: 'The Boot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Metacritic',
+            url: 'https://www.metacritic.com/music/speak-now/taylor-swift',
+            source_title: 'Speak Now by Taylor Swift Reviews and Tracks',
+            publisher: 'Metacritic',
+            source_type: 'aggregator',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Fstoppers',
+            url: 'https://fstoppers.com/studio/joseph-anthony-baker-photographs-taylor-swift-7468',
+            source_title: 'Joseph Anthony Baker Photographs Taylor Swift',
+            publisher: 'Fstoppers',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
           },
         ],
         photos: [
