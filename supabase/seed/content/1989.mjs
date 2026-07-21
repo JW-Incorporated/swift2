@@ -375,6 +375,19 @@ export default {
           },
         ],
         photos: [{ url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/d02f741a61d4-taylor-a.jpg', credit: 'Getty Images' }],
+        // Shop pass (2026-07-21): KaufmanFranco has no e-commerce -- a
+        // current, verified in-stock black sequin mini in the same spirit.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Miss Me Sequin Mini Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/bombshell-sequin-mini-dress-black',
+            price: '$85.00',
+            isAlternative: true,
+            altNote: 'Her KaufmanFranco mini has no e-commerce path -- this is a current black sequin mini in the same beaded, cutout-adjacent spirit.',
+          },
+        ],
       },
     },
 
@@ -460,6 +473,20 @@ export default {
           { outlet: 'Bustle', url: 'https://www.bustle.com/articles/83746-taylor-swift-attends-2015-billboard-awards-red-carpet-in-a-white-jumpsuit-bad-blood-clutch' },
         ],
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg', credit: 'Jason Merritt/Getty Images' }],
+        // Shop pass (2026-07-21): the exact 2015 beaded jumpsuit is
+        // discontinued -- a current Balmain white jumpsuit, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Balmain',
+            item: 'Sleeveless Lambskin Jumpsuit',
+            retailer: 'us.balmain.com',
+            url: 'https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html',
+            price: '$3,495.00',
+            isAlternative: true,
+            altNote: 'Her exact 2015 beaded jumpsuit is long discontinued -- this is a current Balmain white jumpsuit, same house, a sleek lambskin cut rather than all-over beading.',
+          },
+        ],
       },
     },
     {
@@ -639,6 +666,20 @@ export default {
           },
         ],
         photos: [{ url: 'https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1', credit: 'Getty Images' }],
+        // Shop pass (2026-07-21): the exact 2015 Ashish set is discontinued
+        // -- a current Ashish piece, verified in stock, same house and
+        // sequined-check spirit.
+        products: [
+          {
+            brand: 'Ashish',
+            item: 'Sequin Tartan Overshirt',
+            retailer: 'ashish.co.uk',
+            url: 'https://ashish.co.uk/products/sequin-tartan-overshirt-1',
+            price: '£1,690.00',
+            isAlternative: true,
+            altNote: 'Her exact 2015 Ashish houndstooth set is discontinued -- this is a current Ashish piece, same house, a tartan check rather than houndstooth.',
+          },
+        ],
       },
     },
     {
@@ -665,6 +706,20 @@ export default {
         // tonyshek); captioned here as one look from the rotating wardrobe rather than
         // implying it's the only one.
         photos: [{ url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png', credit: 'tonyshek / Wikimedia Commons, CC BY-SA 2.0', kind: 'archival', caption: 'One of the tour\'s many sequined stage looks (Ford Field, Detroit, May 30, 2015) — the wardrobe rotated night to night.' }],
+        // Shop pass (2026-07-21): the exact tour costumes are custom,
+        // one-off pieces -- a current beaded fringe mini, verified in
+        // stock, in the same spirit as the pink fringe minidress described.
+        products: [
+          {
+            brand: 'Showpo',
+            item: 'Siofra Mini Dress (Zig Zag Fringe Dress)',
+            retailer: 'showpo.com',
+            url: 'https://www.showpo.com/siofra-beaded-fringe-mini-dress-in-hot-pink.html',
+            price: '$22.00',
+            isAlternative: true,
+            altNote: 'The tour\'s custom costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same pink-fringe spirit as one of the rotating looks.',
+          },
+        ],
       },
     },
     {
@@ -708,6 +763,21 @@ export default {
             focalPoint: '45% 18%',
           },
         ],
+        // Shop pass (2026-07-21): a one-of-a-kind custom Atelier Versace
+        // piece has no retail equivalent -- a current hot-pink satin skirt,
+        // verified in stock, in the same color and silhouette as the
+        // half of the look most remembered.
+        products: [
+          {
+            brand: 'Pink Attitude Boutique',
+            item: 'Happy To Know You Hot Pink Satin Maxi Skirt',
+            retailer: 'shoppinkattitude.com',
+            url: 'https://shoppinkattitude.com/products/happy-to-know-you-hot-pink-satin-maxi-skirt',
+            price: '$25.20',
+            isAlternative: true,
+            altNote: 'The custom Atelier Versace two-piece was one-of-a-kind couture, never sold -- this is a current hot-pink satin skirt in the same color and volume as the memorable half of the look.',
+          },
+        ],
       },
     },
     {
@@ -733,6 +803,20 @@ export default {
           },
         ],
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top', credit: 'Jason Merritt/Getty Images for NARAS', focalPoint: '48% 10%' }],
+        // Shop pass (2026-07-21): a haircut, not a garment -- offering the
+        // styling tool used to maintain a blunt, straight bob rather than
+        // forcing a clothing link onto a hair item.
+        products: [
+          {
+            brand: 'ghd',
+            item: 'Original Styler 1" Flat Iron Hair Straightener',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Ghd-Original-Styler-Straightener-Professional/dp/B09P4SVXK4',
+            price: '$191.00',
+            isAlternative: true,
+            altNote: 'Not her exact styling tool (undocumented) -- a professional flat iron suited to keeping a blunt, straight bob like this one sleek.',
+          },
+        ],
       },
     },
     {
@@ -750,6 +834,20 @@ export default {
           { outlet: 'E! Online', url: 'https://www.eonline.com/photos/25013/taylor-swift-s-new-york-city-style' },
         ],
         photos: [{ url: 'https://akns-images.eonline.com/eol_images/Entire_Site/201678/rs_634x1024-160808163309-634taylor-swift-nyc-demin-overalls.jpg', credit: 'Kristin Callahan/ACE/INFphoto.com' }],
+        // Shop pass (2026-07-21): the exact denim piece is undocumented
+        // past this street-style sighting -- a current denim overall
+        // dress, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Copper Union Apparel',
+            item: 'Denim Overall Dress',
+            retailer: 'copperunionapparel.com',
+            url: 'https://copperunionapparel.com/products/denim-overall-dress',
+            price: '$153.00',
+            isAlternative: true,
+            altNote: 'No designer was ever named for this street-style sighting -- this is a current denim overall dress in the same off-duty spirit.',
+          },
+        ],
       },
     },
 
@@ -783,6 +881,20 @@ export default {
             credit: 'Larry Busacca/Getty Images',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2016 Louis Vuitton mini is
+        // discontinued -- a current silver snake-print sequin mini,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'EDGEbyks',
+            item: 'Serene Snake Print Sequin Mini Dress',
+            retailer: 'edgebyks.com',
+            url: 'https://edgebyks.com/products/snake-print-sequin-mini-dress',
+            price: '$27.99',
+            isAlternative: true,
+            altNote: 'Her exact 2016 Louis Vuitton mini is discontinued -- this is a current silver snake-print sequin mini in the same reptile-texture spirit.',
+          },
+        ],
       },
     },
     {
@@ -809,6 +921,20 @@ export default {
           {
             url: 'https://images.prismic.io/birchbox/MDFhZjY0OWUtZTM3MS00MDkxLThmOGQtMzAxNTU0MGZhMDc2_may-taylor-swift-bad-blood-700x400.jpg',
             credit: 'Birchbox',
+          },
+        ],
+        // Shop pass (2026-07-21): a makeup look, not a garment -- offering
+        // the iconic red lipstick shade rather than forcing a clothing
+        // link onto a beauty item.
+        products: [
+          {
+            brand: 'MAC',
+            item: 'Retro Matte Lipstick in Ruby Woo',
+            retailer: 'maccosmetics.com',
+            url: 'https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick',
+            price: '$23.00',
+            isAlternative: true,
+            altNote: 'The exact shade Lorrie Turk used is undocumented -- Ruby Woo is MAC\'s iconic blue-red matte, the same bold-red finish described for the video\'s warrior look.',
           },
         ],
       },

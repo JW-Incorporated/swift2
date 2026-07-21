@@ -130,6 +130,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/d02f741a61d4-taylor-a.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2015/03/84671/taylor-swift-iheart-radio-awards" }, { name: "Hello!", url: "https://www.hellomagazine.com/fashion/news/2015033053845/taylor-swift-leads-best-dressed-at-i-heart-radio-music-awards/" }],
+      products: [{ brand: "Princess Polly", item: "Miss Me Sequin Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/bombshell-sequin-mini-dress-black", price: "$85.00", isAlternative: true, altNote: "Her KaufmanFranco mini has no e-commerce path -- this is a current black sequin mini in the same beaded, cutout-adjacent spirit." }],
     },
     {
       id: "vault-1989-calvin-harris-and-taylor-go-public-at-the-billboard-music-aw",
@@ -154,6 +155,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2015417/rs_634x1024-150517170511-634.Taylor-Swift-Billboard-Music-Awards.jl.051715.jpg", credit: "Jason Merritt/Getty Images", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/31611/taylor-swift-at-the-billboard-music-awards" }, { name: "Bustle", url: "https://www.bustle.com/articles/83746-taylor-swift-attends-2015-billboard-awards-red-carpet-in-a-white-jumpsuit-bad-blood-clutch" }],
+      products: [{ brand: "Balmain", item: "Sleeveless Lambskin Jumpsuit", retailer: "us.balmain.com", url: "https://us.balmain.com/en/p/sleeveless-lambskin-jumpsuit-FF0QO025LE040DA.html", price: "$3,495.00", isAlternative: true, altNote: "Her exact 2015 beaded jumpsuit is long discontinued -- this is a current Balmain white jumpsuit, same house, a sleek lambskin cut rather than all-over beading." }],
     },
     {
       id: "vault-1989-taylor-and-calvin-harris-split-after-15-months",
@@ -222,6 +224,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2015/08/Martha_Hunt_Hailee_Steinfeld_Cara_Delevingne_Selena_Gomez_Taylor_Swift_Serayah_Lily_Aldridge_Gigi_Hadid_Karlie_Kloss_VMAs.jpg?w=2000&h=1126&crop=1", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/news/170949_taylor_swift_dominated_the_2015_vmas_red_carpet_with_her_entire_bad_blood_squad" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/vmas-fashion-taylor-swift-bad-818775/" }],
+      products: [{ brand: "Ashish", item: "Sequin Tartan Overshirt", retailer: "ashish.co.uk", url: "https://ashish.co.uk/products/sequin-tartan-overshirt-1", price: "£1,690.00", isAlternative: true, altNote: "Her exact 2015 Ashish houndstooth set is discontinued -- this is a current Ashish piece, same house, a tartan check rather than houndstooth." }],
     },
     {
       id: "vault-1989-the-1989-world-tour-wardrobe-a-rotating-closet-of-sparkle",
@@ -233,6 +236,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png", credit: "tonyshek / Wikimedia Commons, CC BY-SA 2.0", caption: "One of the tour's many sequined stage looks (Ford Field, Detroit, May 30, 2015) — the wardrobe rotated night to night.", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/news/a14342/taylor-swift-1989-tour-costumes/" }],
+      products: [{ brand: "Showpo", item: "Siofra Mini Dress (Zig Zag Fringe Dress)", retailer: "showpo.com", url: "https://www.showpo.com/siofra-beaded-fringe-mini-dress-in-hot-pink.html", price: "$22.00", isAlternative: true, altNote: "The tour's custom costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same pink-fringe spirit as one of the rotating looks." }],
     },
     {
       id: "vault-1989-a-red-bandeau-top-and-a-thigh-slit-magenta-maxi-skirt-at-the",
@@ -244,6 +248,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "Jason Merritt/Getty Images for NARAS", kind: "primary", focalPoint: "49% 12%" }, { url: "https://www.billboard.com/wp-content/uploads/media/Taylor-Swift-grammys-2016-red-carpet-billboard-650.jpg", credit: "Steve Granitz/Getty Images (via Billboard)", caption: "The custom Atelier Versace two-piece in close-up on the 2016 Grammys carpet.", kind: "archival", focalPoint: "45% 18%" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/donatella-versace-taylor-swift-grammy-custom-look-6882411/" }],
+      products: [{ brand: "Pink Attitude Boutique", item: "Happy To Know You Hot Pink Satin Maxi Skirt", retailer: "shoppinkattitude.com", url: "https://shoppinkattitude.com/products/happy-to-know-you-hot-pink-satin-maxi-skirt", price: "$25.20", isAlternative: true, altNote: "The custom Atelier Versace two-piece was one-of-a-kind couture, never sold -- this is a current hot-pink satin skirt in the same color and volume as the memorable half of the look." }],
     },
     {
       id: "vault-1989-a-blunt-bob-with-bangs-replaces-the-signature-curls-at-the-2",
@@ -255,6 +260,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2016115/rs_634x1024-160215153706-634-2016-Grammy-Awards-taylor-swift.jpg?fit=around%7C634:1024&output-quality=90&crop=634:1024;center,top", credit: "Jason Merritt/Getty Images for NARAS", kind: "primary", focalPoint: "48% 10%" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/740307/taylor-swift-s-grammys-2016-red-carpet-outfit-looks-very-familiar-and-this-is-why" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/" }],
+      products: [{ brand: "ghd", item: "Original Styler 1\" Flat Iron Hair Straightener", retailer: "amazon.com", url: "https://www.amazon.com/Ghd-Original-Styler-Straightener-Professional/dp/B09P4SVXK4", price: "$191.00", isAlternative: true, altNote: "Not her exact styling tool (undocumented) -- a professional flat iron suited to keeping a blunt, straight bob like this one sleek." }],
     },
     {
       id: "vault-1989-denim-overall-dress-street-style-on-a-new-york-afternoon",
@@ -266,6 +272,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201678/rs_634x1024-160808163309-634taylor-swift-nyc-demin-overalls.jpg", credit: "Kristin Callahan/ACE/INFphoto.com", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/25013/taylor-swift-s-new-york-city-style" }],
+      products: [{ brand: "Copper Union Apparel", item: "Denim Overall Dress", retailer: "copperunionapparel.com", url: "https://copperunionapparel.com/products/denim-overall-dress", price: "$153.00", isAlternative: true, altNote: "No designer was ever named for this street-style sighting -- this is a current denim overall dress in the same off-duty spirit." }],
     },
     {
       id: "vault-1989-a-silver-snakeskin-louis-vuitton-mini-co-chairing-the-2016-m",
@@ -277,6 +284,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2016/05/gettyimages-527338016.jpg?w=2000&h=1126&crop=1", credit: "Larry Busacca/Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/taylor-swifts-met-gala-2016-888011/" }, { name: "Marie Claire", url: "https://www.marieclaire.com/fashion/news/a20287/taylor-swift-met-gala-dress-2016/" }],
+      products: [{ brand: "EDGEbyks", item: "Serene Snake Print Sequin Mini Dress", retailer: "edgebyks.com", url: "https://edgebyks.com/products/snake-print-sequin-mini-dress", price: "$27.99", isAlternative: true, altNote: "Her exact 2016 Louis Vuitton mini is discontinued -- this is a current silver snake-print sequin mini in the same reptile-texture spirit." }],
     },
     {
       id: "vault-1989-bad-blood-videos-warrior-makeup-winged-eyes-and-a-red-lip-by",
@@ -288,6 +296,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://images.prismic.io/birchbox/MDFhZjY0OWUtZTM3MS00MDkxLThmOGQtMzAxNTU0MGZhMDc2_may-taylor-swift-bad-blood-700x400.jpg", credit: "Birchbox", kind: "primary" }],
       sources: [{ name: "Birchbox", url: "https://www.birchbox.com/magazine/article/taylor-swift-bad-blood-music-video-makeup" }],
+      products: [{ brand: "MAC", item: "Retro Matte Lipstick in Ruby Woo", retailer: "maccosmetics.com", url: "https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick", price: "$23.00", isAlternative: true, altNote: "The exact shade Lorrie Turk used is undocumented -- Ruby Woo is MAC's iconic blue-red matte, the same bold-red finish described for the video's warrior look." }],
     },
     {
       id: "vault-1989-a-rain-soaked-fourth-of-july-family-portrait-in-rhode-island",
