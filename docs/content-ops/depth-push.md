@@ -313,3 +313,50 @@ Handling one:
 Never flip a status in the other direction (confirmed -> rumor) without an
 explicit retraction from the original outlet or a direct denial. Silence is not
 a denial; that is what the `faded` status is for.
+
+---
+
+## ANSWERER SHARD ASSIGNMENT — round-robin, NOT a hash
+
+Corrected 2026-07-21. The original rule was "sum the character codes of the
+seed file's basename, take sum % 10". Measured against the real corpus that was
+badly broken:
+
+    shard 0  ->  0 files   IDLE FOREVER
+    shard 6  ->  0 files   IDLE FOREVER
+    shard 7  ->  0 files   IDLE FOREVER
+    shard 4  ->  1 file
+    shard 5  ->  8 files
+
+**30% of the Answerer fleet could never do any work**, by construction, and the
+remaining load was skewed 8:1. Hashing is the right tool for spreading MANY keys
+over few buckets; there are only ~15 distinct seed basenames, and at that size a
+character-sum hash simply does not spread. This was my design error, not a
+tuning problem — no threshold would have fixed it.
+
+**The rule is now positional:**
+
+1. Build the list of seed files: `supabase/seed/content/*.mjs` and
+   `supabase/seed/tracks/*.mjs`.
+2. Reduce to unique BASENAMES and sort them lexicographically.
+3. A file belongs to shard `index % 10`, where `index` is its position in that
+   sorted list.
+
+That is even by construction: every shard gets one or two files, none gets zero.
+
+Two properties worth understanding rather than rediscovering:
+
+- **Basename, not full path, is deliberate.** `red.mjs` exists in both
+  `content/` and `tracks/`, so both land on the same shard. That is wanted: one
+  writer owns everything for an era, so a moment edit and a track edit for the
+  same era never split across two concurrent writers.
+- **The list is recomputed each run.** Adding a new era file shifts later
+  assignments by one. Every instance computes the same list from the same repo
+  state, so they agree within a run; the only exposure is a new seed file landing
+  in the ten-minute window between :50 and :59, which is rare and self-heals on
+  the next hour. That residual risk is far smaller than a third of the fleet
+  idling permanently.
+
+If you ever find your shard has no files, do NOT fall back to working another
+shard's files. Report it — an empty shard now means the list changed shape, and
+silently poaching is how two writers end up in one file.

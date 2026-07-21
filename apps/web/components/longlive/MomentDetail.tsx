@@ -37,6 +37,7 @@ import {
 import { TAG_META } from '@/lib/longlive/tags';
 import { eraStyle } from '@/lib/longlive/theme';
 import { MomentVideo } from './MomentVideo';
+import { MomentSocialPost } from './MomentSocialPost';
 import { extractYouTubeId } from '@swift2/shared';
 import { ZoomableImage } from './ZoomableImage';
 import { SignificanceBadge } from './SignificanceBadge';
@@ -692,6 +693,11 @@ export function MomentDetail() {
         </div>
 
         {item.video && <MomentVideo video={item.video} />}
+
+        {/* The post the moment is about. Sits directly under the body, above
+            rumors, because for a post-driven moment this IS the primary
+            source — the reader should meet it before the commentary. */}
+        {item.socialPost && <MomentSocialPost post={item.socialPost} />}
 
         {hasRumors && item.rumors && <RumorSection rumors={item.rumors} />}
 
