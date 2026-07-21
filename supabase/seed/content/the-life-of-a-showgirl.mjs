@@ -1060,6 +1060,13 @@ export default {
     },
     {
       slug: 'father-figure-george-michael',
+      // Cross-links (ledger #1030, 2026-07-21): the album it opens, and the
+      // masters/Big Machine story critics read the song as retelling from the
+      // patron's side.
+      relatedIds: [
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
+      ],
       year: 2025,
       month: 10,
       day: 3,
@@ -1071,7 +1078,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Michael\'s original gets a formal songwriting credit on the track — George Michael is listed as a writer alongside Swift, Max Martin, and Shellback, since the song lifts the melody and the "I\'ll be your father figure" line directly. The estate\'s public statement framed it as an "association between two great artists," one of the warmest legacy-artist endorsements any of her interpolations has drawn, and pointedly noted they were approached before release rather than after.\n\nSwift\'s version flips the phrase from seduction to power: she has described the song as a mentor-and-protégé story told from the mentor\'s side, saying she drew on Succession\'s Logan Roy for the voice — though she added that she has lived the protégé\'s side of it. Critics heard the autobiography immediately, reading lines about finding someone young and profiting from their success as her Big Machine signing and the masters dispute retold from behind the boss\'s desk. It debuted at No. 4 on the Hot 100, and Pitchfork singled it out as the album\'s most direct appraisal of her own power.',
+          'Michael\'s original gets a formal songwriting credit on the track — George Michael is listed as a writer alongside Swift, Max Martin, and Shellback, since the song lifts the melody and the "I\'ll be your father figure" line directly. The estate\'s public statement framed it as an "association between two great artists," one of the warmest legacy-artist endorsements any of her interpolations has drawn, and pointedly noted they were approached before release rather than after.\n\nSwift\'s version flips the phrase from seduction to power: she has described the song as a mentor-and-protégé story told from the mentor\'s side, saying she drew on Succession\'s Logan Roy for the voice — though she added that she has lived the protégé\'s side of it. Critics heard the autobiography immediately, reading lines about finding someone young and profiting from their success as her Big Machine signing and the masters dispute retold from behind the boss\'s desk. Pitchfork singled it out as the album\'s most direct appraisal of her own power. She placed the reference-point herself, telling Jimmy Fallon (Oct. 6, 2025) she\'d drawn the mentor\'s voice from Succession\'s Logan Roy.\n\nMechanically it is an interpolation, not a sample: the hook and melody were re-recorded rather than lifted from Michael\'s master, so only his songwriting rights — not the recording, which Sony controls — had to be cleared, and the estate collects as a credited co-writer rather than through the label. Swift, Max Martin and Shellback produced. Never worked to radio as its own single, it still debuted at No. 4 on both the Hot 100 and the Global 200 and reached the top five in Australia, Canada, Germany, Sweden and Greece, going Platinum in Australia and Canada.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1099,6 +1106,26 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-09',
             reliability_score: 2,
+          },
+          // Added 2026-07-21 (ledger #1030): the interpolation-vs-sample
+          // mechanics and the pre-release estate announcement.
+          {
+            outlet: 'The Conversation',
+            url: 'https://theconversation.com/taylor-swifts-father-figure-isnt-a-cover-but-an-interpolation-what-that-means-and-why-it-matters-265583',
+            source_title: "Taylor Swift's Father Figure isn't a cover, but an 'interpolation'. What that means – and why it matters",
+            publisher: 'The Conversation',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-father-figure-george-michael-1236392324/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' to Feature an 'Interpolation' of George Michael's 'Father Figure'",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
           },
         ],
         // Lyric-video id 98SmlWOKuME verified via oEmbed against
@@ -1722,6 +1749,11 @@ export default {
     },
     {
       slug: 'black-dog-still-nobody-knows',
+      // Cross-link (ledger #1072, 2026-07-21): the surprise 2 a.m. Anthology
+      // drop that this deep cut arrived on.
+      relatedIds: [
+        'moment:vault-ttpd-a-2am-surprise-ttpd-was-a-secret-double-album-all-along',
+      ],
       year: 2025,
       month: 10,
       day: 6,
@@ -1733,11 +1765,55 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The lyric describes tracking an ex whose location services were still on and watching him walk "into some bar called The Black Dog," which turned a real Vauxhall, London gastropub into a fan pilgrimage site, complete with lyric-quoting window signage and a "Taylor\'s Version" cocktail list. A year and a half on, the pub was still trading on the association — and fans were still treating the TTPD deep cut as an unsolved case.\n\nSpeaking to BBC Radio 2\'s Scott Mills during her Life of a Showgirl press run in October 2025, Swift finally addressed it — by un-solving it further. She said she never tipped off the pub, and went out of her way to note that the internet\'s confident consensus is wrong: "still nobody knows what I\'m even talking about on that song. They think they know, they have no idea." It was a rare on-record reminder, delivered mid-victory-lap for a new album, that some of the catalog\'s most-theorized songs remain deliberately unexplained.',
+          'The lyric describes tracking an ex whose location services were still on and watching him walk "into some bar called The Black Dog," which turned a real Vauxhall, London gastropub into a fan pilgrimage site, complete with lyric-quoting window signage and a "Taylor\'s Version" cocktail list. A year and a half on, the pub was still trading on the association — and fans were still treating the TTPD deep cut as an unsolved case.\n\nSpeaking to BBC Radio 2\'s Scott Mills during her Life of a Showgirl press run in October 2025, Swift finally addressed it — by un-solving it further. She said she never tipped off the pub, and went out of her way to note that the internet\'s confident consensus is wrong: "still nobody knows what I\'m even talking about on that song. They think they know, they have no idea." It was a rare on-record reminder, delivered mid-victory-lap for a new album, that some of the catalog\'s most-theorized songs remain deliberately unexplained.\n\nWhat she was un-solving: fans had split the song between two exes. The opening watches an ex whose phone still shared his location — "your location, you forgot to turn it off / and so I watch as you walk / into some bar called The Black Dog" — and one camp read it as Joe Alwyn (who later said flatly, "I\'ve never been to Vauxhall"), the other as Matty Healy, pointing to the track\'s nod to the band The Starting Line, whom Healy has covered live. A "2 a.m." Anthology cut from the surprise double-album, it charted on its own, peaking at No. 25 on the Hot 100. The real Vauxhall pub leaned all the way in — Swift-themed menu, fans turned away at capacity, staff combing CCTV for a sighting; "anything she touches goes viral," one worker told reporters — a scene BBC News, NME and Capital FM all covered.',
         sources: [
           {
             outlet: 'Elite Daily',
             url: 'https://www.elitedaily.com/lifestyle/taylor-swift-the-black-dog-london-pub-review',
+            source_title: "Taylor Swift's The Black Dog London Pub Is A Whole Vibe",
+            publisher: 'Elite Daily',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          // Added 2026-07-21 (ledger #1072): the Scott Mills BBC Radio 2 quote,
+          // the Alwyn/Healy fan split, and the multi-outlet pub coverage the
+          // page previously cited to a single source.
+          {
+            outlet: 'The Express Tribune',
+            url: 'https://tribune.com.pk/story/2570920/taylor-swift-clears-confusion-over-meaning-of-the-black-dog',
+            source_title: "Taylor Swift clears confusion over meaning of 'The Black Dog', denies connection to ex Joe Alwyn",
+            publisher: 'The Express Tribune',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'BBC News',
+            url: 'https://www.bbc.co.uk/news/uk-england-london-68876725',
+            source_title: "Taylor Swift fans 'overwhelming' London pub The Black Dog",
+            publisher: 'BBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/hundreds-of-taylor-swift-fans-swarm-london-pub-after-album-shout-out-as-the-black-dog-check-cctv-for-clues-of-ex-3719750',
+            source_title: 'Hundreds of Taylor Swift fans swarm London pub after album shout-out, as The Black Dog check CCTV for clues of ex',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/news/the-black-dog-pub-london-vauxhall-taylor-swift/',
+            source_title: 'The Black Dog Pub In Vauxhall Checking CCTV For Answers To Taylor Swift\'s Song',
+            publisher: 'Capital FM (Global)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
           },
         ],
         // Commons photo of the actual pub; license (CC BY-SA 2.0, Chris
@@ -4740,6 +4816,16 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "tloas-debut-chart",
+      // Cross-links (ledger #1091, 2026-07-21): this milestone page is the thin
+      // sibling of `showgirl-four-million-week`, which carries the exhaustive
+      // accounting — link to it, the release day, the concurrent Hot 100 sweep,
+      // and the vinyl week that powered the pure-sales side.
+      relatedIds: [
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
+      ],
       year: 2025,
       month: 10,
       day: 18,
@@ -4750,7 +4836,27 @@ export default {
       milestone: { id: "m-tloas-3", label: "Record debut", kind: "award" },
       snippet: "The album opens at number one with the fastest-selling first week in history.",
       moment: {
-        context: "The Life of a Showgirl moved north of 4 million album-equivalent units in its opening week, the biggest sales week any album has ever posted.\n\nIt became her 15th number-one album on the Billboard 200, breaking a tie with Drake and Jay-Z for the most chart-toppers among solo acts.",
+        context: "The Life of a Showgirl opened at 4.002 million album-equivalent units — about 3.48 million of them pure sales — the largest single week for any album since Billboard began tracking with Luminate's modern methodology, past Adele's decade-old 25 (3.482 million units, 2015). The full accounting — the streaming split, the 38-edition variant strategy behind the pure-sales side, and the second-week fall — lives on the companion page, \"4.002 million in a week.\"\n\nAgainst her own catalog the number stacked cleanly on a rising first-week line: Red 1.208M (2012), reputation 1.238M (2017), 1989 1.287M (2014), Midnights 1.578M (2022), The Tortured Poets Department 2.61M (2024), then Showgirl at 4.002M — roughly 2.5 times her prior personal best. It was also her 15th No. 1 album on the Billboard 200, breaking her tie with Drake and Jay-Z (14 each) for the most chart-toppers of any soloist, behind only The Beatles' all-time 19. Abroad it debuted at No. 1 in the UK on the biggest opening week of her career there (423,000 units) and topped the charts in Australia, Canada, New Zealand and Ireland.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-life-of-a-showgirl-number-one-billboard-200/',
+            source_title: "Taylor Swift Achieves Record-Shattering 4 Million Week With No. 1 Billboard 200 Debut of 'The Life of a Showgirl'",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/chart-news/taylor-swift-number-1-album-and-single/',
+            source_title: 'Taylor Swift scores biggest opening week of her career in the UK with The Life of a Showgirl',
+            publisher: 'Official Charts Company (UK)',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Billboard
         // wp-content PR image 04 from the album's Mert & Marcus press set
         // curl-verified 200 image/jpeg 1800x1200, downloaded and viewed — the
