@@ -15,7 +15,7 @@
 // automated requests with 403 regardless of headers — a 403 here means
 // "could not verify", NOT "dead". Only a 404, a 200 that redirects to a bare
 // homepage, or a hard connection failure is real evidence a link is dead.
-import { readdirSync, readFileSync } from 'node:fs';
+import { readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
 const DIR = join(process.cwd(), 'supabase/seed/content');
@@ -54,16 +54,24 @@ export async function extract() {
 }
 
 async function head(url) {
+  // AbortController rather than AbortSignal.timeout(): the shared eslint config
+  // for scripts/**.mjs whitelists AbortController and not AbortSignal, and
+  // adding the latter there trips no-redeclare when eslint lints its own
+  // config. Same behaviour, no config surgery.
+  const abort = new AbortController();
+  const timer = setTimeout(() => abort.abort(), 30_000);
   try {
     const res = await fetch(url, {
       method: 'GET',
       redirect: 'follow',
       headers: { 'User-Agent': UA, Accept: 'text/html' },
-      signal: AbortSignal.timeout(30_000),
+      signal: abort.signal,
     });
     return { status: res.status, finalUrl: res.url };
   } catch (e) {
-    return { status: 0, finalUrl: null, error: String(e && e.message || e) };
+    return { status: 0, finalUrl: null, error: String((e && e.message) || e) };
+  } finally {
+    clearTimeout(timer);
   }
 }
 
