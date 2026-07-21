@@ -7589,8 +7589,8 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
     {
       id: "vault-tloas-opalite-arrives-as-the-second-single",
       slug: "tloas-opalite-video",
-      date: "2026-01-12",
-      dateLabel: "January 12, 2026",
+      date: "2026-02-06",
+      dateLabel: "February 6, 2026",
       title: "“Opalite” arrives as the second single",
       summary: "A time-slip music video follows a lonesome character through the 1990s toward a gem-hued reinvention.",
       body: ["The video for \"Opalite\" casts Taylor as a wistful, cat-loving figure decades removed from the stage, before the song’s glow pulls her back into color.", "Released as the second single, it kept the era’s pastel-orange visual thread going into the new year."],

@@ -5184,8 +5184,16 @@ export default {
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "tloas-opalite-video",
       year: 2026,
-      month: 1,
-      day: 12,
+      // Date corrected 2026-07-21 (depth ledger #1096, "stale field" fix): the
+      // migrated legacy entry dated the video Jan 12, but the "Opalite" video
+      // premiered Fri Feb 6, 2026 (8 a.m. ET, Apple Music + Spotify exclusive;
+      // YouTube premiere Sun Feb 8) — verified via The Hollywood Reporter and
+      // AOL/People. Field fix only: this page is the corpus's canonical "thin
+      // page" test fixture (substance.test.ts, feed-tiers.test.ts pin it as
+      // <0.2 substance / 'chip' tier), so the ledger's DEPTH questions are left
+      // open — deepening it would break those engine-lane fixtures. See PR.
+      month: 2,
+      day: 6,
       category: "music",
       title: "“Opalite” arrives as the second single",
       snippet: "A time-slip music video follows a lonesome character through the 1990s toward a gem-hued reinvention.",
