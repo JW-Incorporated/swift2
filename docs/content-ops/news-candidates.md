@@ -27,6 +27,56 @@ so far".
 
 Stories: 120
 
+## Brad Paisley Didn’t Mind the Slow-Drip ‘Cat-and-Mouse Game’ Over Details of Taylor Swift & Travis Ke
+
+- first seen: 2026-07-21 15:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley Didn’t Mind the Slow-Drip ‘Cat-and-Mouse Game’ Over Details of Taylor Swift & Travis Kelce’s Wedding: ‘It Meant a Lot to Be There’  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxNN3EydVNuRi1Yci12Z2pnU2dxSm5ienpwb2x0RHZZMFlHTEctRUVFRm5GbjA3MFRqbk1YLWRLY0NobE9pQ0ZCRmRpYlJubHBxYWo0VlpKUHpmUEhUZi1US2Y3RVBKcmRIdmhSM0lfLXlOWmY4ZWFfMUJ0VXo5cGx1VzhEZ1UwekpLczMtcjJmbzJfb1NEbF9tcG52UENYeGUtcklnUFMxWU9YT19xMmhfbW5SbXE?oc=5
+
+## 'A Real-Life Princess': Wedding Guests Share New Details Of Taylor Swift’s Big Day - ELLE
+
+- first seen: 2026-07-21 15:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'A Real-Life Princess': Wedding Guests Share New Details Of Taylor Swift’s Big Day  ELLE
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMipgFBVV95cUxOS2tBT0JGQWhfamwtc29aRFJCNTk4TWJNWXUzZFFDSVNROEZBU2tEbXlPSkswRFR5MWd6ek1YeHVyVl9fcFRwM2hkMEtINm4zbDVBT0h0ZDFhOVpWWGtpdXFaVzZtbEpiSnVkOGpwTXJLemtDWkQtanFac2RobHcybUhGamQtdkhnQzZJTVB1UzVNUjZ4ZEFaWUxwMWZhODQ2WTZ6UWR3?oc=5
+
+## Taylor Swift, Olivia Rodrigo and Mariska Hargitay Are All Wearing This "Dated" Trend — and It's a Si
+
+- first seen: 2026-07-21 15:15 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, Olivia Rodrigo and Mariska Hargitay Are All Wearing This "Dated" Trend — and It's a Sign It's Back  graziamagazine.com
+- sources:
+  - [unverified] graziamagazine.com — https://news.google.com/rss/articles/CBMi5gFBVV95cUxOekR4U21pdjk1RjJFanBNazVhYXJfWG1XaVpJMm14bFM3dGZPam9SbE02MzY2UkZ4d2tMeXhuckV3U0MxYUVUMmUtdGdOSWN6azFWaDdrazlMUmlyQlBWbzluSXhLbUkwaGcza0dLYndIdHQ0ZU1lVk9vM1F1M2tOendDV2MtdGZsdWJHS1Ayc2EtRnFfTHJBeXBBdkZ6UGNkRkFIUkt0RzRzZkFVUHNVWGFkLTNJU3pPRVVoYTBPUnFEZEh6X2NoMGdUS2t3YlhlQXhNUExJTFIyc1FKdUV3NDBOYU4yZw?oc=5
+
+## Swifties, Take Note: This New Taylor Swift Calendar Is Already a No. 1 Amazon Bestseller
+
+- first seen: 2026-07-21 15:15 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: The 14-time Grammy winner’s latest merch drop is already a bestseller, with three official calendars available for Swifties to hang all year long.
+- sources:
+  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/culture/product-recommendations/taylor-swift-calendar-2027-merch-amazon-shop-online-1236298494/
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMivgFBVV95cUxNNlZqd2xqcnhvazRrOE1NUk42ZmtLUGRjM25kcVZGeldjeFJkSlNrdjNUQ2E5Y0hnS1locjU4TlRuTVBWZmVaQjdxNGREUTdzRUVkeU9iLV9heU51dDlJMVRYOUpucGhyS1dMSV9GUWpIVnJ1Ymt1VXNfRGZUWTYzVk8zNTZ1TEh5akhxdzlCVmxlSC1iTnJncDJSb3ZHOFliYnU3bFI5aWdRdVF0TXRjT1hIbk9jVEhfRU5kZ1B3?oc=5
+  - [unverified] K-Jewel 99.3 FM — https://news.google.com/rss/articles/CBMiugFBVV95cUxQVE9zQTZGMDhUdk54bVN0UktsMmw5UTNCNUg0alpVWVJxajFaZlp3STl2M2JVQWxHNnlGMWhOVVkwRmk3VVdWZTJjRkdER1ZrcmxRSjZXTUVUZGRuSHRaSXlZQlpMeEgwVkEzR0Zha1lCdVhreVl2bUY1bWlPa1c5TlM3dWVIOWFyRkZKNnlyWVNHOG9LV1lTQzl2Q1ZYdngtbzBQX0NlWm0wMjloQUxiUEdjbWNDNHlEMHc?oc=5
+
+## Taylor Swift wedding: 7 of the sweetest details from her Madison Square Garden ceremony with Travis 
+
+- first seen: 2026-07-21 15:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift wedding: 7 of the sweetest details from her Madison Square Garden ceremony with Travis Kelce  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi9AFBVV95cUxQWTRla1NMSFVNRkNwekJlS1F2eTJmX01JOE1Jd21tNjRGRjJjaktENzNDcDFrcnJtTHRjZ0dFY25qcG0wMmVlZFZwYkR5VUhSQjdtM0xPNXZnYldSM2tJOG0yX3o4Y2FISkU2V3ZyVWFIUm1rcy0wV0V0QUNUNFJ3WHJJVXVQVUVZLXVKeFFMU3ZiS1NuNlhmNDFEai1HSG12TXRLWThJVnhfMTFCZWVfNF9fMGtKMzcwUHduR1d1QkQ1TG9EaEZPd2QzZElsSEZLalQzbk4xdDk2a2RFcTI1VHZCRWhoWk9JQWhmVWJjM3M2R1hm?oc=5
+
+## 'His teammates being jealous and trash-talking': Taylor Swift and Travis Kelce left 'exhausted' as a
+
+- first seen: 2026-07-21 15:15 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'His teammates being jealous and trash-talking': Taylor Swift and Travis Kelce left 'exhausted' as allege  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiuwJBVV95cUxNRkVwSmh2MGZUSHktSHZuRTJBenJVbUFzMUV5WnluTDhXTmNXbWJmUF81X2c4a05KZTBndDVnZUZJbUJjcHJlMjJYblF5NjBFVzFiUW5YZXhXdWRETmdxTVdSc28yazRNM0JqOUM4dnBxWk5xYmhGblAwNlNxRUFodEg4ZDQ5dmhUa0VnSHJxWFhwS2IzeVRFSXFKd19mcjFTb1I5MGdqZ3BHMERDbk1ZVUFXRm93UXgwdkptWTI4ejFUWHprWHVleEFBcjBYcnZic21Yd2k3eWtqLUtpMTNEY0V3Mkp5VDdwcVZHeHA1a05Nc1gxUWtJaS1wZ0x3T0J1dV81NzUwc1RQa3YyYnhUOW9jbi1NNUZrZGhFbVAycC1aWlROeElwS0NWT1M2UFl3V3hZOVFoNTVCdmvSAcACQVVfeXFMTjI2bWs1elMtNlR4WjUzTlJaWnZ5dHpXTlgycVUtOW5ESzN4SEFEQzdDVGdYaVJuMXhHcy1OYnEyYlYwXzZmeF8zZ1hEZ1RQZFFER3g4MWVLYmN5XzZaN19oeVVZZGI4b0QyazdzM0xSZnRhWjU0VFlHaWtOVjl3cy1fYkNISlcxSXBFZ1g0SEQ1MzB6TDNaVEhFQ2M2eHg5WDgtOHNkSHlmbkoyb2lJT2FxYTh3eWlGVUJSUlQ3NTB4bmQyeHhNNVZHMEd6MmJvdFdoUG9RaTVBUGJyVWdmV2o4cUNRTXFRVThTb3pyTFJOUVdUOVl5XzhDOERmWTJ0T0F2R0FsZlRqZEw4aGFhbncwLTBITXpWcE5kWnp3bzlMNEd1eFZZTTBCRmpnd3VWNXR2UVM5ZGF2bGVhUTdlZzY?oc=5
+
 ## Taylor Swift Looked Like a ‘Real-Life Princess’ on Wedding Day — Report - Yahoo
 
 - first seen: 2026-07-21 11:17 UTC | category: fashion | importance: 5
@@ -209,6 +259,16 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOV3h1bk9rSVFuZTFWZjhWWGVpR3E4RmF0R0JyUVRjQWhzN0Q0RC1LS3NPdWpnN0ExN0hXLURVVXpYTk9NbmM2T2N3NklTRUFTMWtRM0o3Rm5JMGYwWk9GN0Rwbko4Y19ZYzU3RndsSko0OGQ3X2ZLdkpzWld2RFZUMU5KRkNPeWlNS0puWE5lQVZzUE5MWk45MjNzbkpiZ09yQXlYVm1Hck1QUQ?oc=5
   - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiswFBVV95cUxPRUJfQUN1b2dXY3UtYVlYbm5OVmp2dzMtYnFYSGFsRExQbno0UmhrV2kyWFByTWtaRVRPNnBqeGlIUTV2V3FmdGRfUjA3OFRLWUthZG14Q0sxVkNrN3RuYm4yOEtXTl9TdXN1bmMzZDNyUHpPbmZHLXhqQUU0ZkE0VUhBNUVQNFVDRnR5dDcwSW5HUDhyR25GdmlaY1dqRzZfRUlzZXBSQ3IyWTlwT2ZieUZESQ?oc=5
 
+## Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding
+
+- first seen: 2026-07-20 22:11 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxQbUpOZFZNVzZuSlNtbFhSUDkzUk5zNlJXbzBEd3FiN3ZyZmxPbW1ESlpPLWNMVW54ckZyeTFVNldMc0FFUzQwUTFZeVpjUGJiYmRWcGduZmp2eXN0MVdJUy1ZV3lueUVSVTlsLXQtOGNBTnVBV09OdHNNMXV0RU1XdjlCVkZyYkpVb3R1UDJXS3ZHQQ?oc=5
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNOWJOMTUtOWppZ3pwWTh6N3B6NWtSMW1MdjMtb1hSbjNXam5GcDVZeDRiS3pUZk9RNXQ3eFV2a3I0czlJT2ppOVlpcFdLYTZsdWxXZWY2TmVzcUxuN3VVcnpzMmhfam41V2xwQVVZcVA1M1JTX0xtektmQm5QSnFmNjF0QUZ2eWpCa1owMElNWlFFQTRSWUhQeDk0Q3VibmRQc3dUQ1JtczZIZGl1?oc=5
+  - [unverified] NBC Boston — https://news.google.com/rss/articles/CBMi3AFBVV95cUxNX1dKWnUxVjd1TzNXcl9iUVd3bm5KZ29TdEZ3cFF1QWN3aVlRR0Nvb0R5UjU2SFBCM0NUM00zT19UZXBwSFE4a05hSThjdzNGa1hIMDBfRDliTjRVdzhja2ZYUHJ2Qk1pTS13aEdUTENKTWVDa3ZvSFQ4bVZFdnZvNnJZVWIwdnpIREtNdmRQLWxsNmtJX0NDY1ZfdjBqR3NubGZUbHg3eHdSV0pkcGF5VXB4MGZ4czkxN3l2MmNzbTF1azJJNy1pd19aZWZCejlLV3pvQzJKR1RMVmxB0gHkAUFVX3lxTE5LNy1tNVVBOENhdG81dHg4a0FPNkdMT2VBZnZVMVlRXzhCVFI2NGZ3ZTlLaWZuel9yQlVTbkNleno0RF9iM1lsRGlOZDlkSlJXTTE3SHNTT0tjSFctbm9tcEtEcGFtdzBKemt1TW5EeV9faE0xT3RVR2dUQVJJVnRDOUhISzgwQjZ6dzlxUWkxQUFBakJwVC1lcEdKcEJSNXZQeTQya3ZlanpDQWR1VVY2bWRYY2c5NEwwd0RtV0todTNpY3lOYmd2UWJta0lxc2hyZjFCVE11NW9fWXljelFwYTZaNw?oc=5
+
 ## ESPN’s Scott Van Pelt Raves Over Taylor Swift and Travis Kelce’s ‘Forest’ Wedding - People.com
 
 - first seen: 2026-07-20 22:11 UTC | category: relationship | importance: 5
@@ -224,15 +284,6 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: “There was real anxiety”: Taylor Swift was reportedly concerned about Blake Lively drama before tying the  The Times of India
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiqwJBVV95cUxQSVFWbUJ2TTQyS2JIRVE3cXZJWkVlTVVVal9ydW9uR01SYVpscEhsUjlFeUJJLXNOSnhlb3RUWTZ4aVltd1RCc2Z5MDVIeVo2NVRaQVg3VGtseWFlNVFFU05SWDRQOEJJYW1rdHk2ZWRrSXUyRi1OalBndEMxdUxRU2hfblZzVWI2X3J4dHlZMGVHblVTNVZsN1F1a1V4SnJaVk1pbGdSbnVHb3ZKeGZmWHU1Um9GcmhIUFRmV1hwbXd6MjVIVzBLX0RMSl8zbkZNOWN1Y3E1bmhDS1dDVDJkQ0o3dVBGbDM5TnM2cHg5dktlR01WMldZaklSOE43azlwbmw0VGZFNnRrWlJFM0xiSTBfVW4xRkJ2c3N1SGFTVDVVRGQ4VEtVMFdKRdIBsAJBVV95cUxQLXNNdFI1N2wwN1dVcEpiYW1NekN3T0twQi1aV1gzLVVZVmJxdE9Ia3FaVEUwc2w2UnptbEctb2pKeFd0djc4VGV0YjFuRkZVTjRJQ3h6VUVIbmdRUC1nTndmbUVVRDBhMldyMnF3ZlNlNDFZcTl4SDFOOUxzOHNEc0U0Y255a2hpQkZSNmFHVXFFdlh6M0JmbGdONjVPSklrQ0RLTzdMaHNSSWhpS25PXzBHWkdPTXcyb2p1TDE2dmZGRE1VaGVZV0VfdXBxMzFLR1JDS3BvU2h0RXVYRTAxeFF4a0w4NDVfU3hFRDdEME1ZcGRYVjk1RGFHWTNYVjktZXR2MW5TMERKVUdJaUFjbDB3VUhkTDU1Q2FQT09SZzBLNDVFNDdoNnJNQ01QN2g1?oc=5
-
-## Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding
-
-- first seen: 2026-07-20 22:11 UTC | category: sighting | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxQbUpOZFZNVzZuSlNtbFhSUDkzUk5zNlJXbzBEd3FiN3ZyZmxPbW1ESlpPLWNMVW54ckZyeTFVNldMc0FFUzQwUTFZeVpjUGJiYmRWcGduZmp2eXN0MVdJUy1ZV3lueUVSVTlsLXQtOGNBTnVBV09OdHNNMXV0RU1XdjlCVkZyYkpVb3R1UDJXS3ZHQQ?oc=5
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNOWJOMTUtOWppZ3pwWTh6N3B6NWtSMW1MdjMtb1hSbjNXam5GcDVZeDRiS3pUZk9RNXQ3eFV2a3I0czlJT2ppOVlpcFdLYTZsdWxXZWY2TmVzcUxuN3VVcnpzMmhfam41V2xwQVVZcVA1M1JTX0xtektmQm5QSnFmNjF0QUZ2eWpCa1owMElNWlFFQTRSWUhQeDk0Q3VibmRQc3dUQ1JtczZIZGl1?oc=5
 
 ## Travis Kelce, Taylor Swift Saddened By Reaction To Their Wedding - The Spun
 
@@ -331,14 +382,6 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - sources:
   - [unverified] E! News — https://news.google.com/rss/articles/CBMijAFBVV95cUxNMG9kY1N3MFFORDVUY29ERjE1RmlfZGZ6VXB5YTdXR0pPN3JfS1kyS3dBbHBRdGNGRUxaMUdiUVdzRW9Sam1UM0h4SXNDdGhsWEtCODNaWloxY1NXbGVFV1MzTmNCaG80elY3NFUtaEZSdDNRc3RTQWFhVWc4UXQtQ0k3bTZKbVBLMkpfZw?oc=5
 
-## Blake Lively appears at World Cup after alleged Taylor Swift wedding drama - USA Today
-
-- first seen: 2026-07-20 19:05 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively appears at World Cup after alleged Taylor Swift wedding drama  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi3AFBVV95cUxQWWRIcWlIMjdoV191TWhGRGtKM0dKNVY4S0NZSDhFbmczRHJaTmdsTmhwVXFNOGE2TE9QUGNqSHhGZ2ozSzY1TkZuZWdVWS1YUHpMNFBvLTI2R0JNd2hKeFZxS042VDVYRmdRNkVWay1ZV2hvdFVtSi1PUWNVajRXdk04MXBZdjBySmc1TV9ZeWpsc3AyUktaeGV1SlNUMjNOOWU5NGgwc0ppV013ZkNZdnU2X053QTdTSk9sODdobUhtdUUzR21SX0poeG9oNUdaWm5iVFh0STI3MWVh?oc=5
-
 ## Exclusive | Blake Lively FaceTimes husband Ryan Reynolds during FIFA World Cup Final — and chats wit
 
 - first seen: 2026-07-20 19:05 UTC | category: relationship | importance: 5
@@ -354,6 +397,15 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: Brad Paisley Shares What Surprised Him Most About Taylor Swift and Travis Kelce’s N.Y.C. Wedding  People.com
 - sources:
   - [unverified] People.com — https://news.google.com/rss/articles/CBMitgFBVV95cUxOLVN4TXJud19qeVlRUmpCTkRGVG1qTFk2QUIzMlRZVVJRV0hLZlMzQ3RzN1ByTWthSmxxYTdYM3lHU0wzWFV1YVpPV0o1RjFSYzFTVXg0b1BBQUtHQzZVeXhqRGRyQ3R4OFhxVHdwWU9TX2syeHoyNExJNV92eDRROWoyYmpxYkFXeDFMZm1JWW1DUVEyWktwRmhQT084TF9KSmc2dDBJZzdPa2RwSW9OMzhfd25YUQ?oc=5
+
+## Blake Lively appears at World Cup after alleged Taylor Swift wedding drama - USA Today
+
+- first seen: 2026-07-20 19:05 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Blake Lively appears at World Cup after alleged Taylor Swift wedding drama  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMi3AFBVV95cUxQWWRIcWlIMjdoV191TWhGRGtKM0dKNVY4S0NZSDhFbmczRHJaTmdsTmhwVXFNOGE2TE9QUGNqSHhGZ2ozSzY1TkZuZWdVWS1YUHpMNFBvLTI2R0JNd2hKeFZxS042VDVYRmdRNkVWay1ZV2hvdFVtSi1PUWNVajRXdk04MXBZdjBySmc1TV9ZeWpsc3AyUktaeGV1SlNUMjNOOWU5NGgwc0ppV013ZkNZdnU2X053QTdTSk9sODdobUhtdUUzR21SX0poeG9oNUdaWm5iVFh0STI3MWVh?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxOcDI3VG13THZqckxsOW1uWFVTV3FEY1Q0UDRKWlZyaWRvOGUzS0N1ckVxYXBLcGplUHdXSHRhRVllV0ROODI2b2xYc1F4UEgwVUhacHV3dkphUHNzdVJKZ2IzdzBZSVIwZFhrWWdJbG1YSzRLb0d4RjkwV0pnU1VqdXhxWmxLNmU0VDJtQUtDYmY1azBCdzQ1SG5XRkRhV0RNOHc?oc=5
 
 ## Taylor Swift Has One Rule for Marriage to Travis Kelce — Source - Yahoo
 
@@ -956,51 +1008,3 @@ Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Excl
 - summary: By nature, each of Swift’s 12 studio albums has a track five – notoriously her most vulnerable on any given release.
 - sources:
   - [established] Billboard — Taylor Swift tag — https://www.billboard.com/lists/taylor-swift-track-fives-ranked/
-
-## Khalen Saunders Thanks Swifties for Donations by Learning Brother Kam’s ‘Bejeweled’ Dance: ‘It Was t
-
-- first seen: 2026-07-19 18:01 UTC | category: sighting | importance: 3
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift fans felt compelled to help out after learning the football player funded the dancer’s plane ticket to his Eras audition.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/music/pop/taylor-swift-kam-saunders-khalen-donations-bejeweled-dance-1236145391/
-
-## Here’s Every Song Taylor Swift Wrote on Her Own
-
-- first seen: 2026-07-19 18:01 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The pop superstar is the sole writer credited on more than 60 tracks.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/lists/taylor-swift-songs-solo-writing-credits/
-
-## Taylor Swift’s Dazzling Mejuri Heirloom Ring Is Finally Back in Stock – Here’s Where to Buy It
-
-- first seen: 2026-07-19 18:01 UTC | category: sighting | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The singer was spotted wearing the 14k gold garnet ring at her fiancé's many football games.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/culture/product-recommendations/taylor-swift-mejuri-heirloom-ring-buy-1235758494/
-
-## ICYMI: All the Details We Know From Inside Taylor Swift and Travis Kelce’s Wedding
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Totally makes sense if it passed you by, but we do know a bit about the intimate gathering at the 20,000-capacity arena where a noted singer-songwriter and professional football player tied the knot
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-wedding-everything-we-know-2-1235589722/
-
-## Taylor Swift Beats ‘Absurd’ Lawsuit Over Song Lyrics: ‘Quintessential Themes’
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The superstar scored the legal victory just days after her wedding to Travis Kelce
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-copyright-lawsuit-travis-kelce-1235589711/
-
-## AMC Theatres CEO Shares Detailed Account of Taylor Swift and Travis Kelce’s Wedding: ‘It Did Not Loo
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: AMC Theatres CEO Adam Aron took to X on Friday night to share a detailed account of what went down inside Taylor Swift and Travis Kelce’s Madison Square Garden wedding. “It did not look like Madison Square Garden,” Aron wrote in the since-deleted post. “Immediately upon entry, everything… floors, wa
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/amc-theatres-ceo-details-taylor-swift-travis-kelce-wedding-1236801708/
