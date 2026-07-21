@@ -399,3 +399,93 @@ describe('buildOutputSource', () => {
   });
 });
 
+
+describe('socialPost survives the whole chain (issue #1074)', () => {
+  // This field vanished on its first build, and the useful part is WHERE.
+  // types.ts, the addItem() normalizer, validate-content.mjs, the serializer
+  // and the UI were all correct — but the seed-side CALLER never passed
+  // `socialPost` into addItem(), so the vault got nothing. Fourth time this
+  // repo has lost a field in exactly one link of that chain (significance,
+  // moment cross-links, rumor lifecycle, now this).
+  //
+  // A test on addItem() alone cannot catch a caller bug, and a test on the
+  // caller alone cannot catch a serializer bug. So: assert the emitted SOURCE
+  // TEXT, from a seed-shaped input, through both accepted placements.
+
+  const seedItem = (placement: 'item' | 'moment') => {
+    const post = {
+      platform: 'instagram',
+      shortcode: 'C_wtAOKOW1z',
+      label: 'The endorsement post itself.',
+      postedOn: '2024-09-10',
+    };
+    return {
+      year: 2024,
+      month: 9,
+      day: 10,
+      category: 'business',
+      title: 'An endorsement',
+      snippet: 'A snippet.',
+      ...(placement === 'item' ? { socialPost: post } : { socialPost: undefined }),
+      ...(placement === 'moment' ? { socialPost: post } : {}),
+    };
+  };
+
+  it('emits the post into the generated source', () => {
+    const byEra = {};
+    addItem(byEra, {}, 'tortured-poets', seedItem('item'));
+    const out = buildOutputSource(byEra);
+    expect(out).toContain('socialPost:');
+    expect(out).toContain('C_wtAOKOW1z');
+    expect(out).toContain('platform: "instagram"');
+    expect(out).toContain('postedOn: "2024-09-10"');
+  });
+
+  it('omits postedOn when absent rather than emitting undefined', () => {
+    const byEra = {};
+    addItem(byEra, {}, 'tortured-poets', {
+      ...seedItem('item'),
+      socialPost: {
+        platform: 'instagram',
+        shortcode: 'AAA',
+        label: 'No date known.',
+      },
+    });
+    const out = buildOutputSource(byEra);
+    expect(out).toContain('shortcode: "AAA"');
+    expect(out).not.toContain('postedOn: undefined');
+  });
+
+  it('drops a malformed post rather than emitting a broken embed src', () => {
+    // A full permalink instead of the bare id is the easy authoring mistake,
+    // and it produces a working-looking seed whose iframe 404s.
+    const byEra = {};
+    addItem(byEra, {}, 'tortured-poets', {
+      ...seedItem('item'),
+      socialPost: {
+        platform: 'instagram',
+        shortcode: 'https://www.instagram.com/p/C_wtAOKOW1z/',
+        label: 'Full url, not a shortcode.',
+      },
+    });
+    expect(buildOutputSource(byEra)).not.toContain('socialPost:');
+  });
+
+  it('drops a post with no label — the label is all a reader sees', () => {
+    const byEra = {};
+    addItem(byEra, {}, 'tortured-poets', {
+      ...seedItem('item'),
+      socialPost: { platform: 'instagram', shortcode: 'AAA', label: '   ' },
+    });
+    expect(buildOutputSource(byEra)).not.toContain('socialPost:');
+  });
+
+  it('drops an unsupported platform', () => {
+    const byEra = {};
+    addItem(byEra, {}, 'tortured-poets', {
+      ...seedItem('item'),
+      socialPost: { platform: 'tiktok', shortcode: 'AAA', label: 'Not supported yet.' },
+    });
+    expect(buildOutputSource(byEra)).not.toContain('socialPost:');
+  });
+});

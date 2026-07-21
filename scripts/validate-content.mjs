@@ -288,6 +288,30 @@ for (const { file, data } of loaded) {
         `confidence "${confidence}" not a known level — a typo here silently drops the rumor banner and the claim renders as fact`,
       );
     }
+    // Embedded social post (moment.socialPost — SocialPost in types.ts,
+    // issue #1074). Validated here because the generator DROPS a malformed one
+    // silently, which is correct for the generator and invisible to everyone
+    // else: the page would simply render without the post it is about, exactly
+    // the gap this field exists to close.
+    const sp = it.moment?.socialPost ?? it.socialPost;
+    if (sp != null) {
+      if (typeof sp !== 'object' || Array.isArray(sp)) err('moment.socialPost must be an object');
+      else {
+        if (sp.platform !== 'instagram')
+          err(`socialPost.platform "${sp.platform}" unsupported (only 'instagram')`);
+        if (typeof sp.shortcode !== 'string' || !/^[A-Za-z0-9_-]+$/.test(sp.shortcode))
+          err(`socialPost.shortcode "${sp.shortcode}" is not a bare Instagram shortcode`);
+        // A full URL here is the easy mistake, and it produces a working-looking
+        // seed that generates a broken embed src.
+        if (typeof sp.shortcode === 'string' && sp.shortcode.includes('/'))
+          err('socialPost.shortcode must be the id only, not the full permalink');
+        if (typeof sp.label !== 'string' || !sp.label.trim())
+          err('socialPost.label is required — it is all a reader sees before opting into the embed');
+        if (sp.postedOn != null && !/^\d{4}-\d{2}-\d{2}$/.test(String(sp.postedOn)))
+          err(`socialPost.postedOn "${sp.postedOn}" must be YYYY-MM-DD`);
+      }
+    }
+
     const rumors = it.moment?.rumors ?? it.rumors;
     if (rumors != null) {
       if (!Array.isArray(rumors)) err('moment.rumors must be an array');
