@@ -1499,6 +1499,12 @@ export default {
     // --- The Eras Tour's send-off (tour + release, December 2025).
     {
       slug: 'end-of-an-era-docuseries',
+      relatedIds: [
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+        'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+      ],
       year: 2025,
       month: 12,
       day: 12,
@@ -1510,7 +1516,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The docuseries covers the tour\'s full 2023-24 arc — the staging, the surprise-song scramble, the Kelce of it all — and functions as the era-bridge between TTPD\'s stadium years and the Showgirl era they produced: she wrote the new album on this tour\'s European leg. It doesn\'t flinch from the tour\'s hardest chapter, either: the opening episode deals with the foiled Vienna terror plot and its aftermath, the first time Swift has discussed it at length on camera.\n\nThe six episodes run 42-49 minutes each and rolled out in pairs — Dec. 12, Dec. 19, and Dec. 23, 2025 — with Travis Kelce appearing in the back half, including footage around his tuxedoed "I Can Do It With a Broken Heart" onstage cameo. It was the No. 1 series on Disney+ globally within days of the premiere, and Nielsen logged 377 million minutes watched in the pre-Christmas week alone, putting a backstage tour documentary in the same weekly top ten as scripted juggernauts.',
+          'The docuseries covers the tour\'s full 2023-24 arc — the staging, the surprise-song scramble, the Kelce of it all — and functions as the era-bridge between TTPD\'s stadium years and the Showgirl era they produced: she wrote the new album on this tour\'s European leg. It doesn\'t flinch from the tour\'s hardest chapter, either: the opening episode deals with the foiled Vienna terror plot and its aftermath, the first time Swift has discussed it at length on camera.\n\nThe six episodes — "Welcome to the Eras Tour" and "Magic in the Eras" (Dec. 12), "Kismet" and "Thank You for the Lovely Bouquet" (Dec. 19), "Marjorie" and "Remember This Moment" (Dec. 23) — run 42-49 minutes each, created and narrated by Swift, directed by Don Argott and Sheena M. Joyce (Object & Animal). Guest artists slot in across the run: Ed Sheeran\'s London medley (ep. 1), Florence Welch on "Florida!!!" (ep. 2), Sabrina Carpenter (ep. 4), Gracie Abrams\'s mashup (ep. 5); Travis Kelce runs through the back half, including his tuxedoed "I Can Do It With a Broken Heart" cameo. Critics were warm — 88% on Rotten Tomatoes, 79 on Metacritic, The Hollywood Reporter calling it a "juicy tell-all." It was the No. 1 series on Disney+ globally within days, and Nielsen logged 377 million minutes watched in the pre-Christmas week — enough to sit a backstage documentary inside that week\'s overall streaming top ten. Where these episodes stay backstage, the same-day companion film The Final Show carries the complete Vancouver concert.',
         sources: [
           {
             outlet: 'ABC News',
@@ -1571,7 +1577,10 @@ export default {
     {
       slug: 'eras-tour-final-show-film',
       significance: 'notable', // the tour's actual closing chapter made permanently available, companion to the already-defining Vancouver finale (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver'],
+      relatedIds: [
+        'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+      ],
       year: 2025,
       month: 12,
       day: 12,
@@ -1583,7 +1592,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Paired with the End of an Era docuseries for the same-day premiere, the film preserves the tour\'s final setlist end-to-end — the version of the show that closed out the highest-grossing tour ever, a year after the last confetti fell in Vancouver. Where the 2023 theatrical film had to trim songs for runtime, the streaming cut runs the full Vancouver marathon, including the Tortured Poets segment added for the 2024 legs — the set Swift called the "Female Rage" chapter — that no prior filmed version contained.\n\nThe pairing was a deliberate double release: the docuseries tells you what the tour cost to make and end, and The Final Show is the artifact itself, shot at BC Place on Dec. 8, 2024 — show 149 of 149. Together they turned mid-December 2025 into a Disney+ event weekend, and the concert film went on to earn five Emmy nominations the following summer, including Outstanding Variety Special.',
+          'Paired with the End of an Era docuseries for the same-day premiere, the film preserves the tour\'s final setlist end-to-end — the version of the show that closed out the highest-grossing tour ever, a year after the last confetti fell in Vancouver. Where the 2023 theatrical film had to trim songs for runtime, the streaming cut runs the full Vancouver marathon, including the Tortured Poets segment added for the 2024 legs — the set Swift called the "Female Rage" chapter — that no prior filmed version contained. It captures that night\'s specific goodbyes, too: the guitar surprise was an "A Place in This World"/"New Romantics" mashup, and the piano send-off folded "Long Live" and "New Year\'s Day" into "The Manuscript" — a literal end-of-an-era note to close 149 shows.\n\nUnlike the 2023 film, this was a Disney+ exclusive with no theatrical window, and — director aside — a different hand: Glenn Weiss directed it (not Sam Wrench, who shot the 2023 cut), with Swift credited as a producer. No separate live album or soundtrack was released; the audio lives only inside the film. The pairing was a deliberate double release: the docuseries tells you what the tour cost to make and end, and The Final Show is the artifact itself, shot at BC Place on Dec. 8, 2024 — show 149 of 149. Together they turned mid-December 2025 into a Disney+ event weekend, and the concert film went on to earn five Emmy nominations the following summer — Outstanding Variety Special (Pre-Recorded), Directing and Picture Editing for a Variety Special, Sound Mixing, and Technical Direction and Camerawork.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1602,6 +1611,27 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            // The five Emmy categories and Glenn Weiss's directing credit.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-2026-emmy-nominations-eras-tour-final-show-1235590955/',
+            source_title: "Taylor Swift Scores First Emmy Nominations in Over 10 Years for 'The Eras Tour: The Final Show'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            // Fan-maintained setlist for the specific final-night surprise songs;
+            // corroborated by the tour's documented Dec. 8, 2024 close.
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/bc-place-stadium-vancouver-bc-canada-3baa40bc.html',
+            source_title: 'Taylor Swift Setlist at BC Place Stadium, Vancouver — Dec. 8, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'wiki',
+            accessed_at: '2026-07-21',
+            reliability_score: 2,
           },
         ],
         // Commons photo of BC Place dressed for the Vancouver finale;
@@ -4287,6 +4317,14 @@ export default {
       // clears the privacy redlines (which ban legal ACCUSATIONS outside
       // court records — a dismissal ruling is the opposite).
       slug: 'showgirl-marasco-suit-dismissed',
+      // moment: cross-links only (relatedIds resolve moment:/motif:/egg: —
+      // not track: — so the "Down Bad"/"I Can Do It With a Broken Heart" track
+      // pages the ledger named can't be linked here without rendering dead;
+      // the wedding it bookends and the Vault's other Swift lawsuit can.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-evermore-evermore-vs-evermore-the-theme-park-lawsuit-that-ended-in-a-',
+      ],
       year: 2026,
       month: 7,
       day: 6,
@@ -4298,7 +4336,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Three days after the Madison Square Garden wedding, a case that had been running for fourteen months ended in a single order. United States District Judge Aileen Cannon dismissed Florida poet Kimberly Marasco\'s copyright suit against Taylor, Aaron Dessner, Republic Records and Universal Music Group — and dismissed it with prejudice, meaning the complaint cannot be amended and refiled.\n\nMarasco had claimed that more than a dozen songs borrowed from her poetry collections, among them "Down Bad" and "I Can Do It With a Broken Heart" from The Tortured Poets Department. Cannon\'s order did not weigh whether the songs resembled the poems so much as whether there was anything there to copy: she concluded "that Plaintiff\'s poems do not contain protectable expression and that, regardless, Plaintiff has failed to plausibly plead copying." The ruling also noted Marasco\'s own concession that one of her books had sold roughly 3,000 copies worldwide and that none were being actively promoted — the practical problem of access underneath the legal one.\n\nMarasco said she disagrees with the decision and intends to appeal, so the docket is not necessarily closed. But as of the July 6 order the case is over at the district level, and it is the quietest possible bookend to the loudest week of her year.',
+          'Three days after the Madison Square Garden wedding, a case that had run since 2024 ended in a single order. Kimberly Marasco, a Florida poet acting pro se, first sued in April 2024 — a $100 small-claims filing in St. Lucie County (No. 2024SC001385) that was removed to federal court (S.D. Fla., No. 2:24-cv-14153, before Judge Aileen Cannon) and amended by that October to demand more than $7 million. It was not her first attempt: the operative complaint, Cannon noted, closely mirrored an earlier one Marasco had already lost. On July 6, 2026 the judge dismissed it — this time with prejudice, so it cannot be amended and refiled — against Taylor, producers Jack Antonoff and Aaron Dessner, Republic Records and Universal Music Group.\n\nMarasco claimed more than a dozen songs borrowed from her poetry — "Down Bad" and "I Can Do It With a Broken Heart" from The Tortured Poets Department, but also "The Man," "The Great War" and "Invisible String," reaching back across Midnights, folklore and evermore (the Dessner records, which is why he was named). Cannon\'s order weighed not whether the songs resembled the poems but whether there was anything there to copy: she concluded "that Plaintiff\'s poems do not contain protectable expression and that, regardless, Plaintiff has failed to plausibly plead copying," the alleged overlaps being "quintessential themes, concepts and isolated words" copyright does not protect. The order also noted Marasco\'s concession that one of her books had sold roughly 3,000 copies worldwide, none actively promoted — the access problem underneath the legal one.\n\nMarasco said she disagrees and intends to appeal to the Eleventh Circuit, so the docket may not be fully closed. But as of the July 6 order the case is over at the district level — the quietest possible bookend to the loudest week of her year.',
         sources: [
           {
             outlet: 'CBC News',
@@ -4326,6 +4364,26 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-19',
             reliability_score: 4,
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/judge-dismisses-poets-copyright-infringement-lawsuit-taylor-swift/story?id=134546988',
+            source_title: "Judge dismisses poet's copyright infringement lawsuit against Taylor Swift",
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            // Primary court record: confirms the S.D. Fla. docket (2:24-cv-14153),
+            // the pro-se removal, and the "no protectable expression" holding.
+            outlet: 'U.S. Courts (govinfo)',
+            url: 'https://www.govinfo.gov/content/pkg/USCOURTS-flsd-2_24-cv-14153/pdf/USCOURTS-flsd-2_24-cv-14153-0.pdf',
+            source_title: 'Marasco v. Taylor Swift Productions, Inc., No. 2:24-cv-14153 (S.D. Fla.)',
+            publisher: 'United States District Court, Southern District of Florida',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
           },
         ],
         // No photo: there is no photography of this order, and a stand-in
