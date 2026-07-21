@@ -1,5 +1,32 @@
 # Depth push — runbook for the sharded Lex / Answerer fleet
 
+> **SCALED DOWN 2026-07-21.** Wyatt: *"we've been going too hard and I'm going
+> to hit my session limit for the week. Cut Lex and the answerer down to
+> something like 1 an hour."*
+>
+> **Lex is now ONE instance (:20). The Answerer is ONE instance (:50).** The
+> other 19 Lex and 9 Answerer triggers are disabled, not deleted — re-enabling
+> them restores the fleet.
+>
+> **Every sharding rule below is therefore DEAD until that happens.** Both
+> surviving triggers are told to ignore them, and that instruction is load-
+> bearing rather than tidy-up: a lone instance still applying `% 20` would
+> silently confine itself to 5% of the corpus, and a lone Answerer still
+> applying the file lock would own one or two files out of fifteen. The
+> sharding existed only to stop CONCURRENT instances colliding. With one of
+> each there is nothing to collide with, and the only coordination still needed
+> is Lex's open-ledger skip.
+>
+> Two other fleet-scale rules are dead for the same reason. The Answerer's
+> "under 4 open ledgers, exit" threshold made ten instances affordable by
+> keeping most runs cheap no-ops; at one run an hour it just leaves work
+> undone, so the sole Answerer works whatever is open. And the sole Lex should
+> spend its one hourly run on the BEST available item rather than the first.
+>
+> Everything below still describes how the fleet behaves WHEN scaled back up.
+> Read it that way.
+
+
 Started 2026-07-20 (Wyatt). This file is the SINGLE SOURCE OF TRUTH for how the
 depth fleet behaves. Each cloud trigger is a thin shim that names only its own
 shard and points here.
