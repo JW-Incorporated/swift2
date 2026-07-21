@@ -3351,11 +3351,30 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-ttpd-1", label: "TTPD released", kind: "album" },
+      // Cross-link deficit closed (2026-07-21, depth ledger #1130 Q7): the
+      // flagship album page had zero related rail. Wired to its own milestones
+      // (the 2 a.m. double-album reveal, the billion-streams-in-a-week and Hot
+      // 100 top-14 records), its live chapter (the Female Rage act + the Paris
+      // debuts), its singles/tracks (Fortnight, So Long London, thanK you aIMee)
+      // and its awards outcomes (the 2024 VMAs, Fortnight's Grammy double). Every
+      // id verified against content-vault.generated.ts this session.
+      relatedIds: [
+        'moment:vault-ttpd-a-2am-surprise-ttpd-was-a-secret-double-album-all-along',
+        'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
+        'moment:vault-ttpd-a-billion-streams-in-one-week',
+        'moment:vault-ttpd-ttpd-joins-the-eras-tour-as-female-rage-the-musical',
+        'moment:vault-ttpd-the-european-leg-opens-in-paris-with-two-live-debuts',
+        'moment:vault-ttpd-fortnight-opens-the-album-with-post-malone-on-the-hook',
+        'moment:vault-ttpd-so-long-london-keeps-her-track-five-tradition-alive',
+        'moment:vault-ttpd-thank-you-aimee-the-capitalization-does-the-talking',
+        'moment:vault-ttpd-seven-more-vmas-and-a-tie-with-beyonc-at-30',
+        'moment:vault-ttpd-fortnights-grammy-double-nominated-for-both-record-and-song-',
+      ],
       snippet: "A literary, ink-stained double album — the most word-heavy record of her career.",
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       moment: {
         context:
-          'Announced from the Grammy stage on Feb. 4, 2024 — she revealed the April 19 release date while accepting Best Pop Vocal Album for Midnights and unveiled the cover on the podium — TTPD arrived as a surprise double album. Sixteen standard tracks dropped at midnight ET; two hours later, at 2 a.m. ET, fifteen more appeared as "The Tortured Poets Department: The Anthology," 31 songs in all.\n\nJack Antonoff and Aaron Dessner produced it alongside Swift — the two collaborators who defined the folklore-through-Midnights run — and it carries two features: Post Malone on the lead single "Fortnight" and Florence + the Machine on "Florida!!!." Four collectible deluxe editions each carried a different bonus track — "The Manuscript," "The Bolter," "The Albatross" and "The Black Dog" — before all four were folded into the Anthology.\n\nThe title is widely linked to a "Tortured Man Club" group chat Joe Alwyn shared with actors Paul Mescal and Andrew Scott (Alwyn confirmed the chat in a 2022 interview; Swift has never named it as the source). It opened to 2.61 million first-week units in the U.S. — her 14th No. 1 on the Billboard 200, tying Jay-Z for the most chart-toppers among soloists — and was Spotify\'s most-streamed album in a single day. Reviews were admiring but split (Metacritic 76): critics praised the cathartic writing while calling the 31-track sprawl overlong.',
+          'Announced from the Grammy stage on Feb. 4, 2024 — she revealed the April 19 release date while accepting Best Pop Vocal Album for Midnights and unveiled the cover on the podium — TTPD arrived as a surprise double album. Sixteen standard tracks dropped at midnight ET; two hours later, at 2 a.m. ET, fifteen more appeared as "The Tortured Poets Department: The Anthology," 31 songs in all.\n\nJack Antonoff and Aaron Dessner produced it alongside Swift — the two collaborators who defined the folklore-through-Midnights run — and it carries two features: Post Malone on the lead single "Fortnight" and Florence + the Machine on "Florida!!!." Four collectible deluxe editions each carried a different bonus track — "The Manuscript," "The Bolter," "The Albatross" and "The Black Dog" — before all four were folded into the Anthology.\n\nThe title is widely linked to a "Tortured Man Club" group chat Joe Alwyn shared with actors Paul Mescal and Andrew Scott (Alwyn confirmed the chat in a 2022 interview; Swift has never named it as the source). It opened to 2.61 million first-week units in the U.S. — her 14th No. 1 on the Billboard 200, tying Jay-Z for the most chart-toppers among soloists — and was Spotify\'s most-streamed album in a single day. Reviews were admiring but split (Metacritic 76): critics praised the cathartic writing while calling the 31-track sprawl overlong.\n\nOn the road, TTPD reshaped the Eras Tour: at the European opener on May 9, 2024 Swift added a new "Female Rage: The Musical" act, plus album cuts in the acoustic surprise-song slot. Records kept falling past week one — the first album to a billion Spotify streams in a single week, and a Hot 100 first with all top 14 slots held by TTPD songs. Awards ran cold: "Fortnight" led the 2024 VMAs with seven wins including Video of the Year, but at the 67th Grammys (Feb. 2, 2025) its six nominations — Album of the Year and "Fortnight" for Record and Song of the Year — all lost, AOTY to Beyoncé\'s Cowboy Carter.',
         sources: [
           {
             outlet: 'Variety',
@@ -3402,6 +3421,27 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 3,
+          },
+          // Depth ledger #1130 (2026-07-21): the billion-streams-in-a-week
+          // record and the 67th Grammy outcome (six nominations, zero wins).
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-tortured-poets-passes-billion-spotify-streams-1235665087/',
+            source_title: "Taylor Swift's 'Tortured Poets' Passes a Billion Spotify Streams",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Recording Academy',
+            url: 'https://www.grammy.com/news/2025-grammys-nominations-full-winners-nominees-list/',
+            source_title: '2025 GRAMMYs: See The Full Winners & Nominees List',
+            publisher: 'grammy.com',
+            source_type: 'awards_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+            note: "67th Grammys (Feb. 2, 2025): TTPD nominated for Album of the Year and 'Fortnight' for Record and Song of the Year; won none. Album of the Year went to Beyoncé's Cowboy Carter.",
           },
         ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official

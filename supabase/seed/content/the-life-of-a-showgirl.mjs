@@ -1704,13 +1704,17 @@ export default {
       month: 6,
       day: 19,
       category: 'sighting',
-      // Rumor-tier pilot (2026-07-19): single-outlet TMZ reporting that Swift's
-      // team never confirmed (the context already says so) — the loud
-      // "Reported — not confirmed" banner makes that status unmissable.
+      // Rumor-tier pilot (2026-07-19): Swift's team never confirmed the
+      // bachelorette, so the loud "Reported — not confirmed" banner stays.
+      // ACCURACY FIX 2026-07-21 (ledger #1125): the page had conflated two
+      // distinct Watch Hill places — the Ocean House RESORT tent (a different
+      // couple's wedding, per CNN) with Swift's own nearby estate, where the
+      // bachelorette signals actually were. Status re-checked and unchanged:
+      // the gathering was never officially confirmed, so it stays rumor-tier.
       confidence: 'reputable_reporting',
       title: 'A tented lawn in Rhode Island, two weeks before the wedding',
       snippet:
-        'A large tent went up on the Ocean House lawn in Watch Hill and longtime friends were seen arriving for what looked like a bachelorette weekend, two weeks before the wedding.',
+        "An event tent at Watch Hill's Ocean House resort set off a wedding-venue frenzy — quickly debunked — while the real bachelorette signals came from Swift's own nearby estate, her closest friends converging two weeks before the wedding. Never officially confirmed.",
       sourceUrl: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/',
       // Image-fix pass (2026-07-10): swapped the watermarked TMZ collage
       // thumbnail for the verified AP tent/Ocean House photo below (see
@@ -1718,9 +1722,36 @@ export default {
       thumbnailUrl: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
       moment: {
         context:
-          'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends" — separate from the Ocean House\'s own scheduled event that weekend, which the venue confirmed was for a different couple. The tells were logistical rather than official: a large tent rising on the Ocean House lawn, and longtime friends converging on the small Rhode Island town at once.\n\nThe location was its own callback. Watch Hill is the "holiday house" of the 2020 song "the last great american dynasty" — the Rebekah Harkness mansion Swift bought in 2013, the site of the Fourth of July parties of the 1989 era — so a pre-wedding weekend there read to fans as the personal-lore equivalent of a hometown send-off, two weeks before the Madison Square Garden ceremony. Neither Swift nor her team ever confirmed the party; the venue-level reporting here is TMZ\'s, labeled as such.',
+          'Two Watch Hill places got tangled together that weekend, and telling them apart is the story. The Ocean House — a Relais & Châteaux resort on the bluff, not Swift\'s property — had a large event tent on its lawn, which set off a wedding-venue frenzy. CNN knocked it down flatly ("No, Taylor Swift is not getting married at the Ocean House this weekend. It\'s booked"): the resort\'s reservation was a different couple\'s wedding, a New York pair whose family said they\'d heard nothing about Swift.\n\nThe bachelorette signals came from Swift\'s own estate, further along the same Bluff Avenue: High Watch, the 1929 clifftop mansion she bought in 2013 for $17.75 million and long nicknamed the "Holiday House." Across June 19–20, 2026, her closest friends converged on the small town and watchers logged activity at the house, with fireworks nearby — logistical tells, never an official word. TMZ framed it as "a bachelorette-style gathering centered around Taylor and her closest girlfriends"; neither Swift nor her team confirmed anything, and the core reporting stays single-outlet.\n\nThe setting carried its own lore. High Watch is the "holiday house" of "the last great american dynasty" (2020): Swift bought the very mansion once owned by Rebekah Harkness — the Standard Oil–fortune widow, composer and ballet patron whose wild mid-century parties the song narrates — and threw her 1989-era Fourth of July parties there. A pre-wedding weekend on that lawn read to fans as a personal-lore hometown send-off, two weeks before the July 3 Madison Square Garden wedding.',
         sources: [
-          { outlet: 'TMZ', url: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/' },
+          {
+            outlet: 'CNN',
+            url: 'https://www.cnn.com/2026/06/19/entertainment/taylor-swift-wedding-ocean-house',
+            source_title: "No, Taylor Swift is not getting married at the Ocean House this weekend. It's booked",
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/',
+            source_title: 'Taylor Swift Bachelorette Party Buzz Grows in Rhode Island as Girlfriends Arrive',
+            publisher: 'TMZ',
+            source_type: 'tabloid',
+            accessed_at: '2026-07-21',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Hello!',
+            url: 'https://www.hellomagazine.com/homes/514523/inside-taylor-swifts-epic-17million-rhode-island-holiday-house/',
+            source_title: "Inside Taylor Swift's $17million Rhode Island Holiday House",
+            publisher: 'Hello!',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            note: 'High Watch / "Holiday House": bought 2013 for $17.75M; the former Harkness mansion behind "the last great american dynasty."',
+          },
         ],
         // Image-fix pass (2026-07-10): both TMZ photos here (tickets #337,
         // #338) were junk news-graphics — a watermarked collage with a
@@ -1737,7 +1768,7 @@ export default {
             url: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
             credit: 'AP Photo/Robert F. Bukaty, via Fortune',
             caption:
-              'A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation.',
+              "A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the resort tent that set off (later-debunked) rumors Swift would marry there. Her own estate sits further along Bluff Avenue.",
             kind: 'primary',
             // Tent peaks and the walking couple sit center-right, just above and below the midline.
             focalPoint: '52% 45%',
@@ -1767,7 +1798,7 @@ export default {
         'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
         'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
-        'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
+        'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-by-jonathan-and',
         'moment:vault-tloas-wedding-plans-teased-from-a-british-chat-show-couch',
         'moment:vault-tloas-new-york-city-confirms-the-price-tag-on-taylors-wedding-over',
         'moment:vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
@@ -2049,20 +2080,44 @@ export default {
       month: 7,
       day: 3,
       category: 'fashion',
-      // Rumor-tier pilot (2026-07-19): the gown story is press reporting (THR,
-      // Marie Claire) that Dior/Swift never confirmed, and no photo of the gown
-      // exists — so the whole page carries the loud "Reported — not confirmed"
-      // banner instead of reading as established fact.
-      confidence: 'reputable_reporting',
-      title: 'The wedding gown: a custom Dior Haute Couture, styled by Joseph Cassell',
+      // CORRECTION 2026-07-21 (ledger #1022): the gown commission is no longer
+      // rumor-tier. It was confirmed the night of the wedding by a July 3, 2026
+      // press release from Swift's publicist Tree Paine, and designer Jonathan
+      // Anderson discussed it on the record at Dior's fall 2026 couture show
+      // (WWD, Julia Teti/Joelle Diderich, July 6, 2026). Confidence moved
+      // reputable_reporting -> official, retiring the "Reported — not confirmed"
+      // banner. What remains a press read (Anderson never addressed it) is the
+      // Elizabeth Taylor 1950-gown inspiration, and there is still no published
+      // photo of the actual gown — both kept honestly hedged below.
+      confidence: 'official',
+      title: 'The wedding gown: a custom Dior Haute Couture by Jonathan Anderson',
       snippet:
-        "Jonathan Anderson's first celebrity couture bridal commission at Dior — a custom gown reportedly drawing on Elizabeth Taylor's 1950 wedding dress, worn with custom Christian Louboutin shoes and Cartier jewelry.",
-      sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-wedding-dress-dior-jonathan-anderson-2-1236637523/',
+        "The first couture wedding gown by Dior's creative director for a celebrity — confirmed by Swift's own team and by Anderson on the record — styled by Joseph Cassell, with Cartier jewelry and custom Christian Louboutin shoes.",
+      sourceUrl: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-wedding-dress-jonathan-anderson-1239054304/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design rather than a runway adaptation. No official photo of the gown had been released as of the day after the wedding, and several AI-generated fakes were circulating online — none of those are used here; the gallery instead shows clearly-labeled reference images of the real things the design reportedly draws on.\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. The reported touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM costume designer Helen Rose and gifted to Elizabeth by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, in the lace-and-veil look shown in the reference image here.\n\nThe Elizabeth Taylor reference completes a circle the album drew first: track two of The Life of a Showgirl is literally named for her, and the wedding gown reportedly borrows from the most famous bridal moment of her early stardom. Per The Hollywood Reporter and Marie Claire, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry.',
+          'Confirmed the night of the wedding: Swift wore a custom Dior Haute Couture gown by creative director Jonathan Anderson, styled by longtime stylist Joseph Cassell. Her publicist Tree Paine\'s July 3, 2026 press release called it the designer\'s first couture wedding dress for a world-renowned celebrity, made in close collaboration with the bride and groom — making Swift the first celebrity to wear a couture wedding gown by Dior\'s creative director of women\'s, men\'s and haute couture. Three days later, unveiling Dior\'s fall 2026 couture collection in Paris, Anderson spoke about it on the record to WWD\'s Joelle Diderich: “It was a joy to work with her. We became very good friends… It\'s an emotional thing doing someone\'s wedding.”\n\nAnderson had been named to lead Dior womenswear and haute couture on June 2, 2025, on top of Dior Men — the first designer since Christian Dior himself to helm all three lines, succeeding Maria Grazia Chiuri after his celebrated Loewe run.\n\nPress linked the gown to Elizabeth Taylor\'s 1950 wedding dress (Helen Rose\'s design for her marriage to Conrad Hilton) — a fitting echo, since Showgirl\'s track two is named for Taylor — but Anderson never addressed the reference, so it stays a press read, not a confirmed touchstone. The finishing pieces were Cartier jewelry and custom Christian Louboutin shoes, neither named to a specific style; a second, more comfortable reception look was reported but not house-confirmed.\n\nNo official photo of the gown has been released — a Dior representative said Swift will unveil the images first — so the gallery shows clearly-labeled reference images only, never the gown; circulating AI fakes are refused.',
         sources: [
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-wedding-dress-jonathan-anderson-1239054304/',
+            source_title: "Jonathan Anderson on Taylor Swift's 'Emotional' Wedding Dress Process",
+            publisher: 'WWD (Julia Teti; interview by Joelle Diderich)',
+            source_type: 'confirmed_interview',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/everything-know-taylor-swift-history-152143201.html',
+            source_title: "Everything We Know About Taylor Swift's History-Making Dior Haute Couture Wedding Dress",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            note: "Carries the wording of publicist Tree Paine's July 3, 2026 press release confirming the Dior commission.",
+          },
           {
             outlet: 'The Hollywood Reporter',
             url: 'https://www.hollywoodreporter.com/news/general-news/taylor-swift-wedding-dress-dior-jonathan-anderson-2-1236637523/',
@@ -2108,11 +2163,12 @@ export default {
         // each `kind: 'reference'` so the UI labels them as stand-ins, never as
         // the gown itself. Licenses confirmed on the Commons file pages cited in
         // `sources` above on 2026-07-09.
-        // Re-checked 2026-07-09 under the relaxed image policy (T16 re-pass):
-        // still no published photo of the actual gown — WWD/Stylecaster confirm
-        // official wedding photos remain unreleased, and circulating "gown" images
-        // are AI fakes, which stay refused. The honest reference-only framing
-        // stands unchanged; add a real `primary` if/when one is published.
+        // Re-checked 2026-07-21 (ledger #1022 correction): the COMMISSION is now
+        // confirmed (Tree Paine release + Anderson's WWD interview), but there is
+        // STILL no published photo of the actual gown — WWD reports a Dior rep said
+        // Swift will unveil the images first, and circulating "gown" images are AI
+        // fakes, which stay refused. So the reference-only gallery stands unchanged;
+        // add a real `primary` if/when an official photo is published.
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/c/cf/Elizabeth_Taylor_in_Father_of_the_Bride_trailer.JPG',
