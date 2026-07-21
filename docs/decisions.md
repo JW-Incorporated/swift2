@@ -7,6 +7,14 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-21 — Growth desk had no scheduled runner; the queue was empty by default, not broken
+
+**Decision:** Joey asked why social media wasn't posting multiple times a day. Root cause: `social-poster.yml` (the shipping half) has run flawlessly every 30 minutes since 2026-07-17 — every run succeeds, because it correctly finds nothing to post. `social/queue/` has been empty since the Electric Lady post on 7/17. Marjorie already diagnosed this exact gap in issue #864 (2026-07-18): the Growth desk's charter (`docs/agents/growth.md`) describes a daily drafting cadence, but comparing against the runner registry (`docs/agents/runners.md`) — Marjorie, Austin, Nils, Content Shift, Kevin ×4, Karen, Paul Blart, and Laura all have scheduled cron routines; Growth had none. The charter existed; nobody was ever assigned the shift. The ticket sat open 3 days because the routine that would have picked it up didn't exist yet — a genuine chicken-and-egg gap, not a mislabeled founder blocker (which #864 itself already corrected once).
+
+**Immediate unblock:** drafted 7 real, sourced queue items (4 content ideas × X/Instagram, one X-only) covering the "on this day" (a genuine dated match — the 2022 HAIM O2 Arena cameo), "era deep-cut" (folklore's 16-hour surprise drop), "did-you-know" (All Too Well 10-Minute Version's chart record), and "product peek" (the site's era timeline scrubber) pillars from `docs/marketing/growth-plan.md` §4. Every claim traces to real Vault content already sourced elsewhere in the repo. Written with `approvedBy`/`approvedAt` deliberately omitted — the poster ignores anything without both (`social/README.md`), so these sit inert until Joey approves each in Slack #social, per the charter's hard rail 2 (drafting is the desk's job; posting is never automatic).
+
+**Structural fix:** added a "Growth — daily draft" row to `docs/agents/runners.md` + `runner-prompts/growth-draft.md`, on **Wyatt's account** (the standing "all scheduled agent spend runs on Wyatt's account" rule) at `0 11 * * *` UTC — one hour before Marjorie's morning brief assembles, so its Growth line reflects a same-morning queue instead of yesterday's. The runner drafts up to 4 new items/run (skipping when ≥8 are already awaiting approval, so it doesn't flood Slack #social faster than founders can triage), does the daily listening scan the charter calls for, and opens a PR for a human to merge — it never sets approval fields and never posts. This is a **spec**, not a live trigger: per `runners.md`'s own cutover process, Wyatt (or his session) still has to actually create the scheduled routine via `/schedule` or the RemoteTrigger API using this file's exact contents.
+
 ## 2026-07-20 — Photo-enrichment progress marker: comma-safe JSON, done-state recomputed live
 
 **Decision:** The photo-enrichment worker (issue #762) tracked progress in a
