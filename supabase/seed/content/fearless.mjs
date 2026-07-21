@@ -189,6 +189,21 @@ export default {
             credit: 'Marie Claire',
           },
         ],
+        // Shop pass (2026-07-21): the real KaufmanFranco gown has no
+        // e-commerce (brochure-only site, no Collections storefront) --
+        // a current, verified in-stock alternative in the same silver
+        // one-shoulder silhouette.
+        products: [
+          {
+            brand: 'WonderlandByLilian',
+            item: 'Elegant Silver Sequin One-Shoulder Evening Gown',
+            retailer: 'wonderlandbylilian.com',
+            url: 'https://wonderlandbylilian.com/products/elegant-silver-sequin-one-shoulder-evening-gown-and-silver-glitter-dress-pretty-sequin-dress-with-asymmetrical-design-plus-size',
+            price: '$695.00',
+            isAlternative: true,
+            altNote: 'KaufmanFranco has no e-commerce -- this is a current made-to-order silver one-shoulder gown in the same body-hugging silhouette.',
+          },
+        ],
       },
     },
     {
@@ -471,6 +486,20 @@ export default {
             kind: 'reference',
           },
         ],
+        // Shop pass (2026-07-21): the exact tour costume is undocumented
+        // past this description -- a current, verified in-stock silver
+        // sequin mini in the same sparkling-cocktail-dress spirit.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Miss Me Sequin Mini Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver',
+            price: '$85.00',
+            isAlternative: true,
+            altNote: 'The exact tour costume is undocumented beyond this description -- a current silver sequin mini dress in the same sparkling-cocktail-dress spirit as the reveal underneath the uniform.',
+          },
+        ],
       },
     },
 
@@ -511,6 +540,20 @@ export default {
             kind: 'primary',
           },
         ],
+        // Shop pass (2026-07-21): KaufmanFranco has no e-commerce -- a
+        // current, verified in-stock alternative in the same silver
+        // one-shoulder sequin silhouette.
+        products: [
+          {
+            brand: 'WonderlandByLilian',
+            item: 'Silver Sequin Evening Gown with Off-Shoulder Sleeves',
+            retailer: 'wonderlandbylilian.com',
+            url: 'https://wonderlandbylilian.com/products/silver-sequin-evening-gown-with-off-shoulder-sleeves-elegant-sequined-dress-with-draped-skirt-plus-size',
+            price: '$589.00',
+            isAlternative: true,
+            altNote: 'Her exact KaufmanFranco gown has no e-commerce path (brand has no current online store) -- this is a current made-to-order silver sequin off-shoulder gown in the same one-shoulder silhouette.',
+          },
+        ],
       },
     },
 
@@ -536,6 +579,19 @@ export default {
           {
             url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/1ad829fe-c8e1-4226-87a4-ce32e97a570b/BRIT+Awards+February+2009+Taylor+Swift+Style+Feature+Image.png',
             credit: 'Taylor Swift Style',
+          },
+        ],
+        // Shop pass (2026-07-21): Kaufmanfranco has no e-commerce -- a
+        // current, verified in-stock silver sequin mini in the same spirit.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Miss Me Sequin Mini Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver',
+            price: '$85.00',
+            isAlternative: true,
+            altNote: 'Her Kaufmanfranco mini has no e-commerce path -- a current silver sequin mini in the same sparkly-mini spirit (Louboutin, Judith Leiber and David Yurman pieces not separately sourced).',
           },
         ],
       },
@@ -580,6 +636,19 @@ export default {
             kind: 'primary',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2009 gown is discontinued -- a
+        // current Reem Acra gown, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Reem Acra',
+            item: 'Sleeveless Crystal and Pearl Embroidered Gown',
+            retailer: 'reemacra.com',
+            url: 'https://www.reemacra.com/products/cloque-brocade-long-dress-with-draped-sleeves-copy',
+            price: '$7,595.00',
+            isAlternative: true,
+            altNote: 'Her exact 2009 gold gown is discontinued -- this is a current Reem Acra gown in nude/silver rather than gold, same house and floor-skimming formality.',
+          },
+        ],
       },
     },
     {
@@ -617,6 +686,20 @@ export default {
             // full-length red-carpet shot, face top-of-frame just right
             // of center.
             focalPoint: '51% 12%',
+          },
+        ],
+        // Shop pass (2026-07-21): KaufmanFranco has no e-commerce -- a
+        // current, verified in-stock navy sequin off-shoulder gown in the
+        // same silhouette.
+        products: [
+          {
+            brand: 'La Femme',
+            item: 'Sequin Off-the-Shoulder Evening Gown',
+            retailer: 'promgirl.com',
+            url: 'https://www.promgirl.com/products/la-femme-lf-21-29653-dress',
+            price: '$149.00',
+            isAlternative: true,
+            altNote: 'Her KaufmanFranco gown has no e-commerce path -- a current La Femme navy sequin off-shoulder gown, same silhouette (Louboutin pumps, Lorraine Schwartz earrings not separately sourced).',
           },
         ],
       },
@@ -658,6 +741,20 @@ export default {
             focalPoint: '52% 25%',
           },
         ],
+        // Shop pass (2026-07-21): a hairstyle, not a garment -- offering the
+        // styling tool rather than forcing a clothing link onto a hair item
+        // (same product as the debut.mjs precedent for this same ringlet-curl look).
+        products: [
+          {
+            brand: 'Asani',
+            item: 'Curling Iron Hair Wand (3/8")',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Curling-Creates-Clearly-Defined-Ringlets/dp/B0CMK36C4P',
+            price: '$16.99',
+            isAlternative: true,
+            altNote: 'Not her exact styling tool (undocumented) — a slim-barrel curling wand suited to the side-swept ringlet curls she wore this night.',
+          },
+        ],
       },
     },
 
@@ -682,6 +779,20 @@ export default {
           {
             url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/7d638f75-6b9b-4ff6-b9d2-06e0871c2dba/David+Letterman+November+2008+Taylor+Swift+Style+Feature+Image.png',
             credit: 'Taylor Swift Style',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact 2008 "Tallulah" skirt is
+        // discontinued -- a current French Connection skirt, verified
+        // in stock, closest real match.
+        products: [
+          {
+            brand: 'French Connection',
+            item: 'Structured Taffeta Midi Skirt',
+            retailer: 'usa.frenchconnection.com',
+            url: 'https://usa.frenchconnection.com/products/739ab-tbu',
+            price: '$84.00',
+            isAlternative: true,
+            altNote: 'The "Tallulah" skirt is long discontinued -- a current French Connection structured midi skirt, same house (Louboutin boots, Nordstrom tights not separately sourced).',
           },
         ],
       },
@@ -710,6 +821,20 @@ export default {
           {
             url: 'https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/eca000d7-4a7b-4b27-b5b3-4d4fef296c74/The+Daily+Telegraph+March+2009+Taylor+Swift+Style+Feature+Image.png',
             credit: 'Taylor Swift Style',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact 2009 "Corozo" dress is
+        // discontinued -- a current BCBG dress, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'BCBGMAXAZRIA',
+            item: 'Bubble Mini Dress',
+            retailer: 'bcbg.com',
+            url: 'https://bcbg.com/collections/bcbgmaxazria-the-white-edit/products/bubble-mini-dress-in-jasmine',
+            price: '$298.00',
+            isAlternative: true,
+            altNote: 'The exact "Corozo" cocktail dress from 2009 is long discontinued -- this is a current BCBGMAXAZRIA white mini dress, same house, same classic-white cocktail silhouette.',
           },
         ],
       },
@@ -761,6 +886,19 @@ export default {
             focalPoint: '49% 14%',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2010 dress is discontinued -- a
+        // current Dolce & Gabbana dress, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Dolce & Gabbana',
+            item: 'Satin Calf-Length Corset Dress',
+            retailer: 'dolcegabbana.com',
+            url: 'https://www.dolcegabbana.com/en-us/fashion/women/clothing/dresses/satin-calf-length-corset-dress-pink-F6DIHTFURAGF0844.html',
+            price: '$3,495.00',
+            isAlternative: true,
+            altNote: 'Her exact mauve 2010 dress is long discontinued -- this is a current Dolce & Gabbana corset dress in pink rather than mauve, same house and cocktail-dress formality.',
+          },
+        ],
       },
     },
     {
@@ -798,6 +936,20 @@ export default {
             kind: 'primary',
           },
         ],
+        // Shop pass (2026-07-21): the exact Resort 2010 mini is
+        // discontinued -- a current Jenny Packham dress, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Jenny Packham',
+            item: 'Sirocco',
+            retailer: 'jennypackham.com',
+            url: 'https://www.jennypackham.com/products/sirocco',
+            price: '$4,930.00',
+            isAlternative: true,
+            altNote: 'Her Resort 2010 mini is discontinued -- a current Jenny Packham mini in bordeaux, not white, same house (Louboutin pumps, Neil Lane jewelry not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -826,6 +978,20 @@ export default {
           {
             url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/e2a6da3bf8ab-gettyimages-101937337.jpg',
             credit: 'Getty Images / Hello!',
+          },
+        ],
+        // Shop pass (2026-07-21): John Galliano's own brand has no current
+        // retail path (dormant until a Zara collab launching later in 2026,
+        // not yet live) -- a current, verified in-stock designer alternative.
+        products: [
+          {
+            brand: 'Rodarte',
+            item: 'Lavender Daisy Silk Twill Mini Dress With Broderie Anglais Ruffle And Belt',
+            retailer: 'shoprodarte.com',
+            url: 'https://shoprodarte.com/products/lavender-daisy-silk-twill-mini-dress-with-broderie-anglais-ruffle-and-belt',
+            price: '$1,695.00',
+            isAlternative: true,
+            altNote: 'John Galliano the brand has no current retail path -- a current Rodarte lavender belted mini, lighter than the deep purple original, same designer-tier belted-mini silhouette.',
           },
         ],
       },
@@ -1428,6 +1594,19 @@ export default {
             credit: 'Jon Kopaloff/FilmMagic, via Getty Images',
             caption: 'The wisteria Marchesa gown on the red carpet at the April 18, 2010 ACM Awards.',
             kind: 'primary',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact wisteria gown is discontinued --
+        // a current Marchesa gown, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Marchesa',
+            item: 'Chantilly Lace Tiered Gown',
+            retailer: 'marchesa.com',
+            url: 'https://www.marchesa.com/products/sleeveless-chantilly-lace-gown-with-v-neckline-and',
+            price: '$845.75',
+            isAlternative: true,
+            altNote: 'Her wisteria gown is discontinued -- a current Marchesa gown in black, not wisteria, same house and tiered silhouette (Louboutin heels, Neil Lane jewels not separately sourced).',
           },
         ],
       },

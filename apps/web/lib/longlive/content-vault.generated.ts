@@ -2105,6 +2105,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/E8AuEcoVjwZx6nd2RDfhQa.jpeg", credit: "Marie Claire", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years" }, { name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-gowns/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/2008_Country_Music_Association_Awards" }],
+      products: [{ brand: "WonderlandByLilian", item: "Elegant Silver Sequin One-Shoulder Evening Gown", retailer: "wonderlandbylilian.com", url: "https://wonderlandbylilian.com/products/elegant-silver-sequin-one-shoulder-evening-gown-and-silver-glitter-dress-pretty-sequin-dress-with-asymmetrical-design-plus-size", price: "$695.00", isAlternative: true, altNote: "KaufmanFranco has no e-commerce -- this is a current made-to-order silver one-shoulder gown in the same body-hugging silhouette." }],
     },
     {
       id: "vault-fearless-the-fearless-tour-opens-to-a-sold-out-crowd-in-30-seconds",
@@ -2154,6 +2155,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg/500px-Taylor_Swift_-_Fearless_Tour_-_Los_Angeles.jpg", credit: "Wikimedia Commons", caption: "For reference — Swift performing on the Fearless Tour stage in Los Angeles; not the specific band-uniform reveal described here.", kind: "primary" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fearless_Tour" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-fearless-tour-first-headlining-tour-2009/" }],
+      products: [{ brand: "Princess Polly", item: "Miss Me Sequin Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver", price: "$85.00", isAlternative: true, altNote: "The exact tour costume is undocumented beyond this description -- a current silver sequin mini dress in the same sparkling-cocktail-dress spirit as the reveal underneath the uniform." }],
     },
     {
       id: "vault-fearless-a-silver-sequined-gown-worn-into-an-interruption-no-one-saw-",
@@ -2165,6 +2167,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/90711948/photo/2009-mtv-video-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=fOcdRBdNZWp3iccajOnxlMcQfah9P6PsfGr3EsD_URk=", credit: "Michael Loccisano/Getty Images", caption: "The silver sequined KaufmanFranco gown on the VMA red carpet, Sept. 13, 2009.", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/1407066/revisiting-taylor-swift-and-kanye-wests-mtv-vmas-feud-15-years-later" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/see-taylor-swifts-mtv-video-music-awards-11-year-style-evolution-1234123/" }],
+      products: [{ brand: "WonderlandByLilian", item: "Silver Sequin Evening Gown with Off-Shoulder Sleeves", retailer: "wonderlandbylilian.com", url: "https://wonderlandbylilian.com/products/silver-sequin-evening-gown-with-off-shoulder-sleeves-elegant-sequined-dress-with-draped-skirt-plus-size", price: "$589.00", isAlternative: true, altNote: "Her exact KaufmanFranco gown has no e-commerce path (brand has no current online store) -- this is a current made-to-order silver sequin off-shoulder gown in the same one-shoulder silhouette." }],
     },
     {
       id: "vault-fearless-a-sparkly-kaufmanfranco-mini-and-a-curled-updo-at-the-2009-b",
@@ -2176,6 +2179,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/1ad829fe-c8e1-4226-87a4-ce32e97a570b/BRIT+Awards+February+2009+Taylor+Swift+Style+Feature+Image.png", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://www.taylorswiftstyle.com/post-grid/brit-021809" }, { name: "Taylor Swift Style", url: "https://www.taylorswiftstyle.com/fearless" }],
+      products: [{ brand: "Princess Polly", item: "Miss Me Sequin Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver", price: "$85.00", isAlternative: true, altNote: "Her Kaufmanfranco mini has no e-commerce path -- a current silver sequin mini in the same sparkly-mini spirit (Louboutin, Judith Leiber and David Yurman pieces not separately sourced)." }],
     },
     {
       id: "vault-fearless-a-gold-reem-acra-gown-for-a-four-award-sweep-at-the-2009-cma",
@@ -2187,6 +2191,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/93005940/photo/the-43rd-annual-cma-awards-arrivals.jpg?s=594x594&w=0&k=20&c=vSzO7akNN5nM5rgvS8oYRyyvApcm0uCienxGRp9sFYI=", credit: "Taylor Hill/WireImage, via Getty Images", caption: "The gold Reem Acra gown on the red carpet at the Nov. 11, 2009 CMA Awards.", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/2009_Country_Music_Association_Awards" }, { name: "Just Jared Jr. (photo gallery — 2009 CMA Awards)", url: "https://www.justjaredjr.com/photo-gallery/346791/taylor-swift-sweeps-cmas-00/" }],
+      products: [{ brand: "Reem Acra", item: "Sleeveless Crystal and Pearl Embroidered Gown", retailer: "reemacra.com", url: "https://www.reemacra.com/products/cloque-brocade-long-dress-with-draped-sleeves-copy", price: "$7,595.00", isAlternative: true, altNote: "Her exact 2009 gold gown is discontinued -- this is a current Reem Acra gown in nude/silver rather than gold, same house and floor-skimming formality." }],
     },
     {
       id: "vault-fearless-a-blue-sequined-kaufmanfranco-gown-for-a-four-grammy-night",
@@ -2198,6 +2203,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2023/02/Depositphotos_15014271_XL.jpg?resize=800%2C1204&ssl=1", credit: "Depositphotos", kind: "primary", focalPoint: "51% 12%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-grammys-red-carpet-dress-look-outfit/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards" }],
+      products: [{ brand: "La Femme", item: "Sequin Off-the-Shoulder Evening Gown", retailer: "promgirl.com", url: "https://www.promgirl.com/products/la-femme-lf-21-29653-dress", price: "$149.00", isAlternative: true, altNote: "Her KaufmanFranco gown has no e-commerce path -- a current La Femme navy sequin off-shoulder gown, same silhouette (Louboutin pumps, Lorraine Schwartz earrings not separately sourced)." }],
     },
     {
       id: "vault-fearless-curls-swept-to-the-side-to-make-room-for-four-grammys",
@@ -2209,6 +2215,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.etonline.com/sites/default/files/styles/640xh/public/slides/152871/set_taylor_swift_96311259.jpg?width=1024&quality=80", credit: "Entertainment Tonight", kind: "primary", focalPoint: "52% 25%" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/gallery/152871_taylor_swift_hair_timeline/68589" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards" }],
+      products: [{ brand: "Asani", item: "Curling Iron Hair Wand (3/8\")", retailer: "amazon.com", url: "https://www.amazon.com/Curling-Creates-Clearly-Defined-Ringlets/dp/B0CMK36C4P", price: "$16.99", isAlternative: true, altNote: "Not her exact styling tool (undocumented) — a slim-barrel curling wand suited to the side-swept ringlet curls she wore this night." }],
     },
     {
       id: "vault-fearless-a-french-connection-tallulah-skirt-for-a-letterman-appearanc",
@@ -2220,6 +2227,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/7d638f75-6b9b-4ff6-b9d2-06e0871c2dba/David+Letterman+November+2008+Taylor+Swift+Style+Feature+Image.png", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://www.taylorswiftstyle.com/post-grid/letterman-111008" }],
+      products: [{ brand: "French Connection", item: "Structured Taffeta Midi Skirt", retailer: "usa.frenchconnection.com", url: "https://usa.frenchconnection.com/products/739ab-tbu", price: "$84.00", isAlternative: true, altNote: "The \"Tallulah\" skirt is long discontinued -- a current French Connection structured midi skirt, same house (Louboutin boots, Nordstrom tights not separately sourced)." }],
     },
     {
       id: "vault-fearless-a-white-bcbg-max-azria-cocktail-dress-for-a-daily-telegraph-",
@@ -2231,6 +2239,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/eca000d7-4a7b-4b27-b5b3-4d4fef296c74/The+Daily+Telegraph+March+2009+Taylor+Swift+Style+Feature+Image.png", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://www.taylorswiftstyle.com/post-grid/dailytelegraph-030109" }, { name: "Hola!", url: "https://www.hola.com/us/celebrities/20250807849060/selena-gomez-jonas-brothers-taylor-swift-friendship/" }],
+      products: [{ brand: "BCBGMAXAZRIA", item: "Bubble Mini Dress", retailer: "bcbg.com", url: "https://bcbg.com/collections/bcbgmaxazria-the-white-edit/products/bubble-mini-dress-in-jasmine", price: "$298.00", isAlternative: true, altNote: "The exact \"Corozo\" cocktail dress from 2009 is long discontinued -- this is a current BCBGMAXAZRIA white mini dress, same house, same classic-white cocktail silhouette." }],
     },
     {
       id: "vault-fearless-a-mauve-dolce-gabbana-dress-for-her-first-grammy-win",
@@ -2242,6 +2251,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/96303852/photo/the-52nd-annual-grammy-awards-pre-telecast-show.jpg?s=594x594&w=0&k=20&c=m6WSv7vy-GdYcvplS6Q2QZh-kSvnl2vE1PtlTEmQjvw=", credit: "Kevin Winter/Getty Images", caption: "Accepting Best Country Song for \"White Horse\" at the Jan. 31, 2010 Grammy pre-telecast ceremony.", kind: "primary", focalPoint: "49% 14%" }],
       sources: [{ name: "JustJared Jr.", url: "https://www.justjaredjr.com/2010/01/31/taylor-swift-white-horse-grammy-winner/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/52nd_Annual_Grammy_Awards" }],
+      products: [{ brand: "Dolce & Gabbana", item: "Satin Calf-Length Corset Dress", retailer: "dolcegabbana.com", url: "https://www.dolcegabbana.com/en-us/fashion/women/clothing/dresses/satin-calf-length-corset-dress-pink-F6DIHTFURAGF0844.html", price: "$3,495.00", isAlternative: true, altNote: "Her exact mauve 2010 dress is long discontinued -- this is a current Dolce & Gabbana corset dress in pink rather than mauve, same house and cocktail-dress formality." }],
     },
     {
       id: "vault-fearless-a-jenny-packham-resort-mini-for-the-2010-peoples-choice-awar",
@@ -2253,6 +2263,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/95615213/photo/peoples-choice-awards-2010-inside.jpg?s=594x594&w=0&k=20&c=i2sE4_vzMgI0z9xq55bKp3xHMw8YS29LcycMA7v6bWU=", credit: "Michael Buckner/Getty Images", caption: "Backstage in the Jenny Packham mini with her Favorite Female Artist trophy, Jan. 6, 2010.", kind: "primary" }],
       sources: [{ name: "Taylor Swift Styled", url: "https://taylorswiftstyled.com/2013/11/11/2010-peoples-choice-awards-january-6-2010-3/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-wins-favorite-female-artist-at-2010-peoples-choice-awards-960796/" }],
+      products: [{ brand: "Jenny Packham", item: "Sirocco", retailer: "jennypackham.com", url: "https://www.jennypackham.com/products/sirocco", price: "$4,930.00", isAlternative: true, altNote: "Her Resort 2010 mini is discontinued -- a current Jenny Packham mini in bordeaux, not white, same house (Louboutin pumps, Neil Lane jewelry not separately sourced)." }],
     },
     {
       id: "vault-fearless-a-john-galliano-buckle-strap-dress-for-the-2010-cmt-music-aw",
@@ -2264,6 +2275,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/e2a6da3bf8ab-gettyimages-101937337.jpg", credit: "Getty Images / Hello!", kind: "primary" }],
       sources: [{ name: "Hello!", url: "https://www.hellomagazine.com/celebrities/516949/taylor-swifts-most-iconic-cmt-performances-head-turning-outfits-over-the-years/" }, { name: "The Boot", url: "https://theboot.com/cmt-awards-winners-2010/" }],
+      products: [{ brand: "Rodarte", item: "Lavender Daisy Silk Twill Mini Dress With Broderie Anglais Ruffle And Belt", retailer: "shoprodarte.com", url: "https://shoprodarte.com/products/lavender-daisy-silk-twill-mini-dress-with-broderie-anglais-ruffle-and-belt", price: "$1,695.00", isAlternative: true, altNote: "John Galliano the brand has no current retail path -- a current Rodarte lavender belted mini, lighter than the deep purple original, same designer-tier belted-mini silhouette." }],
     },
     {
       id: "vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner",
@@ -2442,6 +2454,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/98533973/photo/45th-annual-academy-of-country-music-awards-arrivals.jpg?s=594x594&w=0&k=20&c=67QbByMHXPBbPhVd880zAhmLEoz7-Hm5Ns4unn8vrnA=", credit: "Jon Kopaloff/FilmMagic, via Getty Images", caption: "The wisteria Marchesa gown on the red carpet at the April 18, 2010 ACM Awards.", kind: "primary" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/2010/04/18/taylor-swift-is-acm-amazing/" }, { name: "Just Jared", url: "https://www.justjared.com/2010/04/18/taylor-swift-acm-awards-2010-performance/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/45th_Academy_of_Country_Music_Awards" }],
+      products: [{ brand: "Marchesa", item: "Chantilly Lace Tiered Gown", retailer: "marchesa.com", url: "https://www.marchesa.com/products/sleeveless-chantilly-lace-gown-with-v-neckline-and", price: "$845.75", isAlternative: true, altNote: "Her wisteria gown is discontinued -- a current Marchesa gown in black, not wisteria, same house and tiered silhouette (Louboutin heels, Neil Lane jewels not separately sourced)." }],
     },
     {
       id: "vault-fearless-love-story-arrives-two-months-before-the-album",
