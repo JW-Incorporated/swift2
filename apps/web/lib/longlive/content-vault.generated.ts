@@ -4967,6 +4967,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://static3.refinery29.com/bin/entry/218/1155x/1120498/rexusa-1815036m.jpg", credit: "MediaPunch Inc/REX USA", kind: "primary" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2013/11/56892/taylor-swift-cma-awards" }],
+      products: [{ brand: "Mac Duggal", item: "Burgundy Satin Off-the-Shoulder Twist Evening Ball Gown", retailer: "macduggal.com", url: "https://macduggal.com/products/56188", price: "$598.00", isAlternative: true, altNote: "Her exact 2013 Elie Saab gown is long discontinued -- this is a current Mac Duggal gown in Wine, the same deep red-wine color family." }],
     },
     {
       id: "vault-red-an-ankle-length-red-dress-with-a-thigh-high-slit-for-red-at-",
@@ -4978,6 +4979,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://townsquare.media/site/623/files/2013/06/taylor-swift-1370483022.jpg?w=980&q=75", credit: "Jason Merritt/Getty Images", kind: "primary" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-red-cmt-awards/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Red_(Taylor_Swift_song)" }],
+      products: [{ brand: "Showpo", item: "Nitha Maxi Dress (Asymmetrical Frill Thigh Slit)", retailer: "showpo.com", url: "https://www.showpo.com/nitha-asymmetrical-frill-thigh-slit-maxi-dress-in-red.html", price: "$30.00", isAlternative: true, altNote: "The exact CMT stage dress is undocumented beyond this description -- this is a current red maxi dress with a thigh-high slit in the same monochrome-red spirit." }],
     },
     {
       id: "vault-red-the-red-lip-becomes-the-era-defining-signature",
@@ -4989,6 +4991,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png", credit: "Big Machine Records", kind: "primary", focalPoint: "48% 40%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-makeup-artist-red-lip-1235648989/" }],
+      products: [{ brand: "MAC", item: "Retro Matte Lipstick in Ruby Woo", retailer: "maccosmetics.com", url: "https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick", price: "$23.00", isAlternative: true, altNote: "Westman's exact shade for Swift is undocumented -- Ruby Woo is MAC's iconic blue-red matte, the same bold-red family this era's signature lip belongs to." }],
     },
     {
       id: "vault-red-a-j-mendel-gown-and-a-heidi-braid-at-the-2013-grammys",
@@ -5000,6 +5003,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2013/02/10/51455457-a645-11e2-a3f0-029118418759/thumbnail/620x1005/cf494e8cba2e12a4982a8d12d080d3f7/161394430.jpg", credit: "CBS News", kind: "primary", focalPoint: "40% 14%" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/music/music-news/grammys-2013-taylor-swift-wears-j-mendel-gown-heidi-hair-poll-420170/" }],
+      products: [{ brand: "Monique Lhuillier", item: "Pearl Strap Ivory A-Line Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/pearl-strap-ivory-a-line-gown", price: "$3,195.00", isAlternative: true, altNote: "Her exact 2013 J. Mendel gown is long discontinued -- this is a current ivory gown in the same cream-and-white register (Jimmy Choo heels, Lorraine Schwartz jewelry not separately sourced)." }],
     },
     {
       id: "vault-red-high-waisted-shorts-become-a-recurring-signature",
@@ -5011,6 +5015,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://a57.foxnews.com/static.foxnews.com/foxnews.com/content/uploads/2018/09/1200/1200/shorts08.jpg?ve=1&tl=1", credit: "Fox News", kind: "primary", focalPoint: "48% 30%" }],
       sources: [{ name: "Fox News", url: "https://www.foxnews.com/lifestyle/photos-taylor-swift-and-her-signature-high-waisted-shorts" }],
+      products: [{ brand: "GOLDSTITCH", item: "Vintage Denim High-Waisted Jean Shorts", retailer: "amazon.com", url: "https://www.amazon.com/Womens-Juniors-Vintage-Waisted-Shorts/dp/B00KSYPWWO", price: "$14.98", isAlternative: true, altNote: "No single named pair -- she wore many high-waisted shorts across the era -- this is a current pair in the same retro-inflected silhouette." }],
     },
     {
       id: "vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks",
@@ -5022,6 +5027,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg/500px-Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swifts-costume-designer-talks-612119/" }],
+      products: [{ brand: "Showpo", item: "Siofra Mini Dress (Zig Zag Fringe Dress)", retailer: "showpo.com", url: "https://www.showpo.com/siofra-beaded-fringe-mini-dress-in-hot-pink.html", price: "$22.00", isAlternative: true, altNote: "Toybina's 128 costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same rotating-sparkle spirit as the tour wardrobe." }],
     },
     {
       id: "vault-red-a-rhinestone-cat-ear-headband-defines-the-22-video-look",
@@ -5033,6 +5039,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://townsquare.media/site/182/files/2013/03/taylorswift22.jpg?w=980&q=75", credit: "YouTube/Big Machine Records", kind: "primary" }],
       sources: [{ name: "K94.5", url: "https://k945.com/taylor-swift-22-music-video/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/22_(Taylor_Swift_song)" }],
+      products: [{ brand: "Bnikion", item: "Rhinestone Cat Ears Headband (3-Pack)", retailer: "amazon.com", url: "https://www.amazon.com/Rhinestone-Headbands-Decoration-Headdress-Accessories/dp/B075STRZCY", price: "$9.99", isAlternative: true, altNote: "The exact Urban Outfitters headband from the video is discontinued -- this is a current rhinestone cat-ear headband, the same accessory fans still recreate." }],
     },
     {
       id: "vault-red-a-jenny-packham-lace-gown-blooms-with-red-at-the-2012-cmas",
@@ -5044,6 +5051,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2012/11/46th_CMA_Awards_12.jpg?w=1500", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/gallery/cma-2012-arrivals-taylor-swift-385607/" }],
+      products: [{ brand: "Jenny Packham", item: "Sirocco", retailer: "jennypackham.com", url: "https://www.jennypackham.com/products/sirocco", price: "$4,930.00", isAlternative: true, altNote: "Her exact 2012 rose-appliqued gown is long discontinued -- this is a current Jenny Packham gown in Bordeaux rather than nude lace, same house." }],
     },
     {
       id: "vault-red-a-zuhair-murad-mini-dress-and-a-bright-pink-lip-at-the-billb",
@@ -5055,6 +5063,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2013420/rs_634x1024-130520071003-634.gomez.swift.ls.52013_copy.jpg", credit: "E! News", caption: "Swift in the blue Zuhair Murad mini at the 2013 Billboard Music Awards, pictured with Selena Gomez.", kind: "primary" }],
       sources: [{ name: "Hollywood Life", url: "https://hollywoodlife.com/2013/05/19/taylor-swift-billboard-awards-dress-2013-pics/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/2013_Billboard_Music_Awards" }],
+      products: [{ brand: "Princess Polly", item: "Moonrising Long Sleeve Sheer Blouson Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/moonrising-sheer-blouson-dress-blue", price: "$79.00", isAlternative: true, altNote: "Zuhair Murad has no accessible direct retail -- this is a current blue long-sleeve mini with sheer paneling, same silhouette (Jimmy Choo pumps, Ofira jewelry not separately sourced)." }],
     },
     {
       id: "vault-red-retro-pin-curls-and-a-crimson-crystal-herv-l-ger-gown-at-the",
@@ -5066,6 +5075,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2013725/rs_634x1024-130825184000-634.tay.cm.82513.jpg", credit: "E! News", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2013/08/26/taylor-swift-in-herve-leger-by-max-azria-2013-mtv-video-music-awards-vmas/" }],
+      products: [{ brand: "Hervé Léger", item: "The Reina Gown", retailer: "herveleger.com", url: "https://herveleger.com/products/the-reina-gown-black-001", price: "$569.00", isAlternative: true, altNote: "Her exact 2013 gown is long discontinued -- this is a current Hervé Léger black gown, same house and crystal-embellished bandage construction." }],
     },
     {
       id: "vault-red-a-gold-julien-macdonald-gown-altered-with-a-hidden-message",
@@ -5077,6 +5087,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://townsquare.media/site/252/files/2013/11/taylor-swift5.jpg?w=980&q=75", credit: "Jason Kempin/Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/252/files/2013/11/taylor-swift-11.jpg?w=980&q=75", credit: "Jason Kempin/Getty Images", kind: "archival" }],
       sources: [{ name: "Mix 95.7", url: "https://mix957gr.com/taylor-swift-dress-2013-american-music-awards-red-carpet-photos/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/American_Music_Awards_of_2013" }],
+      products: [{ brand: "Windsor", item: "Nicki Beaded Fringe Mermaid Formal Dress", retailer: "windsorstore.com", url: "https://www.windsorstore.com/products/nicki-beaded-fringe-mermaid-formal-dress-05002001093625", price: "$99.90", isAlternative: true, altNote: "Her exact altered runway gown is one-of-a-kind and long gone -- this is a current gold beaded gown in the same spangled-gold spirit." }],
     },
     {
       id: "vault-red-a-crystal-mesh-gucci-premi-re-gown-for-the-2014-grammys",
@@ -5088,6 +5099,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2014026/rs_634x1024-140126164619-634-taylor-swift-grammy.ls.12614_copy_2.jpg", credit: "E! News", kind: "primary", focalPoint: "48% 13%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2014/01/27/taylor-swift-gucci-premiere-2014-grammy-awards/" }],
+      products: [{ brand: "Monique Lhuillier", item: "Gold Sequin Scoop Neck Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/gold-sequin-scoop-neck-gown", price: "$5,495.00", isAlternative: true, altNote: "Her exact Gucci Première gown is long discontinued -- this is a current gold sequin gown in the same \"chainmail\" glittering spirit (Jimmy Choo heels, Lorraine Schwartz jewelry not separately sourced)." }],
     },
     {
       id: "vault-red-a-mary-katrantzou-romper-signals-the-turn-toward-1989",
@@ -5099,6 +5111,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/2014724/rs_634x1024-140824172545-634-taylor-swift-mtv-vma.ls.82414.jpg", credit: "E! News", kind: "primary" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2014/08/25/taylor-swift-mary-katrantzou-2014-mtv-video-music-awards-vma/" }],
+      products: [{ brand: "Plush Fashion Hub", item: "Cutout Front Printed Long Sleeve Romper", retailer: "plushfashionhub.us", url: "https://plushfashionhub.us/products/cutout-front-printed-long-sleeve-romper", price: "$52.99", isAlternative: true, altNote: "Her Mary Katrantzou romper is discontinued -- a current printed long-sleeve romper, same silhouette (Elie Saab booties, Lorraine Schwartz jewelry not separately sourced)." }],
     },
     {
       id: "vault-red-a-central-park-stroll-confirms-shes-dating-harry-styles",
