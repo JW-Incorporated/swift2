@@ -646,6 +646,16 @@ export default {
       month: 10,
       day: 13,
       category: 'business',
+      // Cross-link deficit closed (2026-07-21, depth ledger #990 Q8): the vinyl
+      // haul is the engine of the pure-sales side of the 4M week, so it now
+      // threads to the release and the other Showgirl chart-record pages.
+      relatedIds: [
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-spotifys-2025-single-day-streaming-record-falls-in-under-11-',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-tloas-an-album-release-party-wins-the-box-office-34-1m-domestic-50',
+      ],
       title: '1.334 million vinyl LPs in seven days — the first million-vinyl week ever tracked',
       snippet:
         'No album had ever sold a million vinyl copies in a week since modern tracking began. Showgirl did 1.334 million, blowing past her own record of 859,000 set by The Tortured Poets Department.',
@@ -653,7 +663,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.',
+          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it, the Target-exclusive "The Crowd Is Your King" among them. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.',
         sources: [
           {
             outlet: 'Forbes',
@@ -672,6 +682,35 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth ledger #990 (2026-07-21): variant count + format leadership,
+          // the modern-era record lineage, and the UK vinyl record.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Is Luminate's Top Album of 2025 in U.S.",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/vinyl-tortured-poets-department-breaks-record-weekly-sales-1235978774/',
+            source_title: "'Tortured Poets Department' Breaks Record for Weekly Vinyl Sales in Just Three Days",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Official Charts',
+            url: 'https://www.officialcharts.com/chart-news/taylor-swift-number-1-album-and-single/',
+            source_title: 'Taylor Swift lands the biggest opening week of her career in the UK with The Life Of A Showgirl',
+            publisher: 'Official Charts Company',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
           },
         ],
         // Getty photo NPR ran with its vinyl analysis; hotlinked from NPR's
@@ -1621,7 +1660,20 @@ export default {
       day: 3,
       category: 'relationship',
       significance: 'defining', // the era's life-defining event (docs/decisions.md, 2026-07-18)
-      relatedIds: ['moment:vault-midnights-the-game-the-world-decided-made-it-official'],
+      // Cross-link deficit closed (2026-07-21, depth ledger #983 Q9): the era's
+      // defining anchor now threads to its full engagement/wedding cluster.
+      relatedIds: [
+        'moment:vault-midnights-the-game-the-world-decided-made-it-official',
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
+        'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
+        'moment:vault-tloas-wedding-plans-teased-from-a-british-chat-show-couch',
+        'moment:vault-tloas-new-york-city-confirms-the-price-tag-on-taylors-wedding-over',
+        'moment:vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
+        'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
+      ],
       title: 'Taylor and Travis marry at Madison Square Garden',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -1636,7 +1688,7 @@ export default {
         'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
       moment: {
         context:
-          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Swift\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, ran the full width of their two worlds: Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. What did not surface was the interior: no official photos of the ceremony or reception had been released as of the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the event\'s entire public visual record.',
+          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Swift\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, ran the full width of their two worlds: Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. What did not surface was the interior: no official photos of the ceremony or reception had been released as of the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the event\'s entire public visual record.\n\nAccounts filled in the interior no photo showed: the arena floor built into a garden, peach-and-white at the ceremony and green-and-white beyond, reading personal vows from gold books for about 20 minutes. Adam Sandler\'s officiant song went untitled in reporting but guests called it "humorous and touching"; Paul McCartney played "I Want to Hold Your Hand," while Stevie Nicks\'s reception set was never documented. Favors were embroidered handkerchiefs bearing the couple\'s "T&T" monogram, the July 3 date and a "Blank Space" lyric — the same T&T play behind the "JusT&T Married" marquee. It spanned days: a ~100-guest rehearsal dinner at the Garden on July 2, then the ~1,000-guest ceremony July 3 into the early hours. Confirmed guests ran wider than first reported — among them Bradley Cooper, Zoë Kravitz, Steven Spielberg and Tom Brady.',
         sources: [
           {
             outlet: 'CBS News',
@@ -1645,6 +1697,35 @@ export default {
           {
             outlet: 'Billboard',
             url: 'https://www.billboard.com/lists/what-we-know-about-taylor-swift-travis-kelce-wedding/',
+          },
+          // Depth ledger #983 (2026-07-21): interior/ceremony detail, the
+          // multi-day schedule, and the Nicks/McCartney performances.
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/taylor-swift-travis-kelce-wedding-blank-space-hankies-1236637926/',
+            source_title: 'Taylor Swift-Travis Kelce Wedding Details Emerge: An Original Adam Sandler Song, "Blank Space" Handkerchiefs',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CNN',
+            url: 'https://www.cnn.com/2026/07/02/entertainment/live-news/taylor-swift-travis-kelce-wedding',
+            source_title: 'July 2: Taylor Swift and Travis Kelce\'s multiday wedding celebration begins',
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/stevie-nicks-performance-taylor-swift-travis-kelce-wedding-1235586080/',
+            source_title: 'Stevie Nicks Performs at Taylor Swift and Travis Kelce\'s Wedding',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
           },
         ],
         photos: [
@@ -2374,6 +2455,13 @@ export default {
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
         'moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        // Engagement cluster completed (2026-07-21, depth ledger #987 Q8):
+        // its direct Showgirl siblings — the ring, the look, the New Heights
+        // proposal story, and the ring-designer wedding-invite sequel.
+        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
+        'moment:vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
       ],
       year: 2025,
       month: 8,
@@ -2390,7 +2478,7 @@ export default {
         'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
       moment: {
         context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.',
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at Kelce\'s Missouri home (over an Eagles practice weekend, his father Ed said; exact date unconfirmed). On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.',
         // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
         // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
         // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
@@ -2439,6 +2527,35 @@ export default {
             publisher: 'Today',
             source_type: 'reputable_press',
             accessed_at: '2026-07-13',
+            reliability_score: 4,
+          },
+          // Depth ledger #987 (2026-07-21): Instagram records, the proposal
+          // timing/setting, and named on-the-record reactions.
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/lifestyle/lifestyle-news/taylor-swift-travis-kelce-engagement-instagram-record-1236354963/',
+            source_title: "Taylor Swift and Travis Kelce's Engagement Post Breaks Instagram Record",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CNN',
+            url: 'https://www.cnn.com/2025/08/26/entertainment/taylor-swift-travis-kelce-engagement',
+            source_title: 'Taylor Swift and Travis Kelce are engaged',
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/live-blog/taylor-swift-travis-kelce-engagement-live-updates-rcna227298',
+            source_title: 'Taylor Swift, Travis Kelce Announce Engagement: See the Ring, Photos, Celeb Reactions',
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
             reliability_score: 4,
           },
         ],
@@ -2529,6 +2646,12 @@ export default {
       relatedIds: [
         'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        // Cluster completed (2026-07-21, depth ledger #989 Q7): the look worn
+        // in the same photos, the New Heights proposal story, and the sequel
+        // about this same designer being invited to the wedding.
+        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
+        'moment:vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
       ],
       year: 2025,
       month: 8,
@@ -2543,7 +2666,7 @@ export default {
         'https://i.abcnewsfe.com/a/55d1f976-92b1-44e8-a423-ea8344309260/swift-kelce-engagement-05-ht-jef-250826_1756229507889_hpMain.jpg',
       moment: {
         context:
-          'Travis did not walk into a jeweler and point at a case. He worked directly with Kindred Lubeck — the hand-engraver behind New York\'s Artifex Fine Jewelry — on a ring Taylor never had to spec, because he already knew the name: she had shown him Lubeck\'s vintage work admiringly more than a year before he proposed. Her verdict: "I didn\'t know what I would want, but he did somehow."\n\nLubeck, 30, is a newcomer with a craftsman\'s pedigree — the daughter of a working goldsmith, a Florida State psychology grad who took an engraving class in 2021 and got, in her words, "totally hooked." Artifex is built on hand-engraved gold and antique stones: "Hand engraving allows me to leave a piece of myself in every ring," she says, "transforming each gemstone into something that carries a story."\n\nThe stone is an old mine brilliant cut — an antique geometry from the 1700s–1800s, squarer than a modern round with a higher crown and a softer, candlelit sparkle — set in a yellow-gold band with her signature engraved arches. No carat weight was ever disclosed, so the sizes are estimates: appraisers ranged from about 7–8 carats (jewelers surveyed by Today) through a ~8–10 consensus up to 10–15, with Forbes calling 13 "very possible" — Taylor\'s signature number — at an estimated ~$650,000, and others guessing $1 million and up. That lands it below the carat monsters of celebrity lore — Kim Kardashian\'s 15- and 20-carat rings, Beyoncé\'s ~18-carat emerald cut, Elizabeth Taylor\'s 33-carat Burton diamond — and notable instead for its antique cut over its size.\n\nThe ring made Lubeck famous overnight; within months she staged a rare Sotheby\'s "Gem Drop" capsule of one-of-a-kind rings — "the chance," she said, "to bring that level of care and creativity to a larger audience."',
+          'Travis did not walk into a jeweler and point at a case. He worked directly with Kindred Lubeck — the hand-engraver behind New York\'s Artifex Fine Jewelry — on a ring Taylor never had to spec, because he already knew the name: she had shown him Lubeck\'s vintage work admiringly more than a year before he proposed. Her verdict: "I didn\'t know what I would want, but he did somehow."\n\nLubeck, 30, is a newcomer with a craftsman\'s pedigree — the daughter of a working goldsmith, a Florida State psychology grad who took an engraving class in 2021 and got, in her words, "totally hooked." Artifex is built on hand-engraved gold and antique stones: "Hand engraving allows me to leave a piece of myself in every ring," she says, "transforming each gemstone into something that carries a story."\n\nThe stone is an old mine brilliant cut — an antique geometry from the 1700s–1800s, squarer than a modern round with a higher crown and a softer, candlelit sparkle — set in a yellow-gold band with her signature engraved arches. No carat weight was ever disclosed, so the sizes are estimates: appraisers ranged from about 7–8 carats (jewelers surveyed by Today) through a ~8–10 consensus up to 10–15, with Forbes calling 13 "very possible" — Taylor\'s signature number — at an estimated ~$650,000, and others guessing $1 million and up. That lands it below the carat monsters of celebrity lore — Kim Kardashian\'s 15- and 20-carat rings, Beyoncé\'s ~18-carat emerald cut, Elizabeth Taylor\'s 33-carat Burton diamond — and notable instead for its antique cut over its size.\n\nThe ring made Lubeck famous overnight; within months she staged a rare Sotheby\'s "Gem Drop" capsule of one-of-a-kind rings — "the chance," she said, "to bring that level of care and creativity to a larger audience." That capsule — "The Gem Drop: Kindred & Jogani," bidding Nov. 10–13 — held three one-of-a-kind rings (a 4-carat old-mine diamond, an 8-carat cognac diamond and a 5-carat blue sapphire) estimated at up to $300,000.',
         sources: [
           {
             outlet: 'Complex',
@@ -2580,6 +2703,17 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-18',
             reliability_score: 4,
+          },
+          // Depth ledger #989 (2026-07-21): the Gem Drop capsule specifics —
+          // three rings, the stones, dates and estimate.
+          {
+            outlet: "L'Officiel USA",
+            url: 'https://www.lofficielusa.com/fashion/artifex-auction-sothebys-expensive-gems-diamonds-rings',
+            source_title: "Artifex Makes Its Auction Debut With Sotheby's",
+            publisher: "L'Officiel USA",
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
           },
           {
             outlet: 'Forbes',
