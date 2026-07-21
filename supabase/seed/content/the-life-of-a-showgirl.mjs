@@ -912,6 +912,17 @@ export default {
     // --- Song stories (music).
     {
       slug: 'fate-of-ophelia-lead-single',
+      // Cross-links added 2026-07-21 (ledger #1002, cross-links deficit): the
+      // lead single is the hub of the release cluster. Every id below was
+      // verified to resolve against the generated vault (no silent drops).
+      relatedIds: [
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-tloas-spotifys-2025-single-day-streaming-record-falls-in-under-11-',
+        'moment:vault-tloas-the-official-release-party-of-a-showgirl-turns-movie-theater',
+        'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
+        'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
+      ],
       year: 2025,
       month: 10,
       day: 13,
@@ -923,7 +934,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Swift imagined a version who instead "met someone who treated her well" and is pulled from the water. Written and produced with Max Martin and Shellback and recorded in Stockholm between Eras Tour dates, it debuted atop the Billboard Hot 100 — her 13th No. 1 — and went on to spend 10 non-consecutive weeks at the top, her longest-running No. 1 single, out-running "Anti-Hero."\n\nSwift wrote and directed the official music video herself; it premiered inside the theatrical Official Release Party of a Showgirl over release weekend, moving through vaudeville and showgirl tableaux built around the drowned-painting image — Marilyn-style stagecraft, 1960s go-go dancing, Busby Berkeley-scale synchronized-swim formations — before its own YouTube debut two days later. The chorus choreography became a bona fide social trend, recreated by fans and, memorably, by Australia\'s Prime Minister Anthony Albanese. The single became the commercial spine of the era: on top of the Hot 100 run it led the Billboard Global 200 for seven weeks and set Spotify\'s single-day song-streaming record on release day.',
+          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Swift imagined a version who instead "met someone who treated her well" and is pulled from the water. She has said she has a "fixation on Shakespeare characters that I fall in love with and I can\'t stand to see them meet a tragic demise," and named it the lead single when she announced the album on Kelce\'s New Heights podcast. The liner credits are Swift, Max Martin and Shellback alone — no other co-writer or sample — cut at Shellback Studios and MXM Studios in Stockholm between Eras Tour dates. It debuted atop the Billboard Hot 100 — her 13th No. 1 — and spent 10 non-consecutive weeks there, her longest-running No. 1, out-running "Anti-Hero."\n\nSwift wrote and directed the video herself, shot by cinematographer Rodrigo Prieto and choreographed by Eras Tour choreographer Mandy Moore, with Eras dancers (Jan Ravnik, Kam Saunders) returning; it premiered inside the theatrical Official Release Party of a Showgirl before its YouTube debut two days later, moving through vaudeville and showgirl tableaux — Marilyn-style stagecraft, 1960s go-go dancing, Busby Berkeley-scale synchronized-swim formations. The chorus choreography became a genuine trend, recreated by fans and by public figures from Australian PM Anthony Albanese (at a Melbourne radio station) to India\'s Shashi Tharoor.\n\nThe single was the era\'s commercial spine: it led the Billboard Global 200 for seven weeks and set Spotify\'s single-day song-streaming record on release day. Abroad it became her longest-running UK No. 1 (seven weeks, past "Anti-Hero"\'s six) and hit No. 1 in Australia, Canada (15 weeks) and Ireland (nine); BPI and ARIA each certified it double platinum. Critics engaged the opener directly: NPR\'s Ann Powers heard its "huge and buoyant" bass and a voice that "sounds smitten and a bit hungry."',
         // Official MV id verified 2026-07-09 via YouTube oEmbed:
         // https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ko70cExuzZM
         // -> title "Taylor Swift - The Fate of Ophelia (Official Music Video)",
@@ -953,6 +964,72 @@ export default {
             source_type: 'chart_database',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+          },
+          // Depth ledger #1002 (2026-07-21): primary reporting added to replace
+          // the Wikipedia lean — video production credits, the song's own
+          // critical reception, the UK reign, and the Albanese trend.
+          {
+            // Video premiere + production framing (self-directed, theatrical debut).
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-fate-of-ophelia-music-video-premiere-youtube-1236540694/',
+            source_title: "Taylor Swift Debuts 'Fate of Ophelia' Music Video on YouTube",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            // Choreographer Mandy Moore on record about the video shoot; also
+            // corroborates the returning Eras Tour performers.
+            outlet: 'Extra',
+            url: 'https://extratv.com/2025/10/08/taylor-swifts-choreographer-mandy-moore-talks-fate-of-ophelia-video-exclusive/',
+            source_title: "Taylor Swift's 'Fate of Ophelia' Choreographer Mandy Moore Spills on Video Shoot",
+            publisher: 'Extra',
+            source_type: 'interview',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            // Cinematographer Rodrigo Prieto and production designer Ethan Tobman credits.
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-the-fate-of-ophelia-music-video-watch-1236393494/',
+            source_title: "Taylor Swift Releases Music Video for 'The Fate of Ophelia': Watch",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            // Critical reception of the opener itself — Ann Powers's track-one
+            // read ("huge and buoyant" bass, voice "smitten and a bit hungry"),
+            // verified verbatim against the review this session.
+            outlet: 'NPR',
+            url: 'https://www.npr.org/2025/10/03/nx-s1-5558007/taylor-swift-the-life-of-a-showgirl-review',
+            source_title: "On 'The Life of a Showgirl,' Taylor Swift feels love's glow and the spotlight's glare",
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            // Longest-running UK No. 1 (seven weeks, past "Anti-Hero").
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-the-fate-of-ophelia-uk-number-one-single-seventh-week-1236129156/',
+            source_title: "'The Fate of Ophelia' Is Taylor Swift's Longest-Running U.K. No. 1",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            // The Albanese choreography attempt (occasion + venue).
+            outlet: 'The Nightly',
+            url: 'https://thenightly.com.au/politics/anthony-albanese-attempts-viral-tiktok-dance-to-taylor-swifts-the-fate-of-ophelia-c-20700569',
+            source_title: "Anthony Albanese attempts viral TikTok dance to Taylor Swift's The Fate of Ophelia",
+            publisher: 'The Nightly',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
           },
         ],
         // Single cover from the Wikipedia article's own HTML (stable
@@ -2049,11 +2126,15 @@ export default {
       month: 7,
       day: 3,
       category: 'fashion',
-      // Rumor-tier pilot (2026-07-19): the gown story is press reporting (THR,
-      // Marie Claire) that Dior/Swift never confirmed, and no photo of the gown
-      // exists — so the whole page carries the loud "Reported — not confirmed"
-      // banner instead of reading as established fact.
-      confidence: 'reputable_reporting',
+      // Rumor-tier pilot (2026-07-19), RESOLVED 2026-07-21 (ledger #1022): the
+      // commission is now confirmed on both sides — Swift publicist Tree Paine's
+      // wedding-night press release (July 3) named Christian Dior Haute Couture
+      // by Anderson, and Anderson spoke on the record at his Dior couture show
+      // (WWD/USA Today, July 6-7). Confidence lifted reputable_reporting ->
+      // official; the "Reported — not confirmed" banner retires. The Elizabeth
+      // Taylor touchstone stays flagged as designer-unconfirmed (press
+      // speculation only), and no official gown photo has been released yet.
+      confidence: 'official',
       title: 'The wedding gown: a custom Dior Haute Couture, styled by Joseph Cassell',
       snippet:
         "Jonathan Anderson's first celebrity couture bridal commission at Dior — a custom gown reportedly drawing on Elizabeth Taylor's 1950 wedding dress, worn with custom Christian Louboutin shoes and Cartier jewelry.",
@@ -2061,7 +2142,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design rather than a runway adaptation. No official photo of the gown had been released as of the day after the wedding, and several AI-generated fakes were circulating online — none of those are used here; the gallery instead shows clearly-labeled reference images of the real things the design reportedly draws on.\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. The reported touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM costume designer Helen Rose and gifted to Elizabeth by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, in the lace-and-veil look shown in the reference image here.\n\nThe Elizabeth Taylor reference completes a circle the album drew first: track two of The Life of a Showgirl is literally named for her, and the wedding gown reportedly borrows from the most famous bridal moment of her early stardom. Per The Hollywood Reporter and Marie Claire, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry.',
+          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Harper\'s Bazaar reports Swift changed into a second gown for the reception (the house was not named).\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -2070,6 +2151,40 @@ export default {
           {
             outlet: 'Marie Claire',
             url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-wedding-dress-details/',
+          },
+          {
+            // On-record confirmation from the designer, and the WWD exclusive
+            // that carries his quotes and the "first celebrity" framing.
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-dior-wedding-dress-jonathan-anderson-1239054304/',
+            source_title: "Jonathan Anderson Reveals New Details About Taylor Swift's Wedding Dress",
+            publisher: 'WWD',
+            source_type: 'interview',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            // USA Today reporting Anderson's on-record quotes (Edward Segarra,
+            // July 7, 2026) — corroborating second source for the confirmation.
+            outlet: 'USA Today',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swifts-wedding-dress-designer-135450158.html',
+            source_title: "Taylor Swift's wedding dress designer speaks out, reveals new details",
+            publisher: 'USA Today (via Yahoo)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            // Carries Tree Paine's official press-release wording ("created by
+            // Christian Dior Haute Couture," "first couture wedding dress for a
+            // world-renowned celebrity") and the reported reception-change.
+            outlet: "Harper's Bazaar",
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/everything-know-taylor-swift-history-152143201.html',
+            source_title: "Everything We Know About Taylor Swift's History-Making Dior Haute Couture Wedding Dress",
+            publisher: "Harper's Bazaar (via Yahoo)",
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
           },
           {
             outlet: 'Fashion Dive',
@@ -2888,7 +3003,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
       moment: {
         context:
-          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.',
+          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.\n\nThe pieces have since been catalogued: the caramel Louis Vuitton Isola sandals retail at $930, the diamond-lined watch is a discontinued yellow-gold Cartier Santos Demoiselle, and the heart jewelry is by Foundrae (outlets differ on the exact piece and its price). Swift posted the photos to Instagram herself; they carry only a "Taylor Swift" credit, with no outside photographer or stylist named. The $319.99 Polo Ralph Lauren dress then became a case study in the "Swift effect" — it sold out across Ralph Lauren\'s own site within about 20 minutes of the post, and resale listings soon climbed past $450.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -2897,6 +3012,39 @@ export default {
           {
             outlet: 'L\'Officiel',
             url: 'https://www.lofficielusa.com/fashion/taylor-swift-engagement-ring-dress-shoes-watch-outfit-details',
+          },
+          // Depth ledger #1005 (2026-07-21): piece-level ID (sandal price,
+          // Santos Demoiselle watch, Foundrae heart jewelry) and the sellout.
+          {
+            // Detailed outfit archive (Sarah Chapelle) identifying the watch as
+            // a Cartier Santos Demoiselle and the heart jewelry as Foundrae.
+            outlet: 'Taylor Swift Style',
+            url: 'https://www.taylorswiftstyle.com/post-grid/tntengagement-082625',
+            source_title: 'Announcing her engagement',
+            publisher: 'TaylorSwiftStyle.com (Sarah Chapelle)',
+            source_type: 'fashion_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            // The dress selling out on Ralph Lauren's own site (~20 minutes).
+            outlet: 'ABC7',
+            url: 'https://abc7.com/post/taylor-swifts-engagement-dress-sells-ralph-lauren-website/17664252/',
+            source_title: "Taylor Swift's engagement dress sells out on Ralph Lauren website",
+            publisher: 'ABC7 / KABC',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            // The "Swift effect" sellout and the resale climb past retail.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/product-recommendations/style/taylor-swift-engagement-dress-brand-buy-online-1235415820/',
+            source_title: "Taylor Swift's Engagement Dress Is Sold Out Almost Everywhere",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
           },
         ],
         photos: [
