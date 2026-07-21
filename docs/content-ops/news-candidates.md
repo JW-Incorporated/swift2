@@ -27,6 +27,42 @@ so far".
 
 Stories: 120
 
+## Brad Paisley says Taylor Swift and Travis Kelce threw 'one of the least pretentious weddings' ever -
+
+- first seen: 2026-07-21 07:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley says Taylor Swift and Travis Kelce threw 'one of the least pretentious weddings' ever  Fox News
+Camille Kostek Says Taylor Swift Looked Like ‘a Real-Life Princess’ During Wedding to Travis Kelce (Exclusive)  People.com
+Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
+- sources:
+  - [unverified] Fox News — https://news.google.com/rss/articles/CBMipgFBVV95cUxOOTRrWmFWNGNZcjg0b0lMVmxFZlRLNUxYOXRjZl82azFnNUthV0QtSkd3akZiOFQ1V01nUkxDZ25Xd3ZWOXhYMWJ5MFJhUEJSSWVNazZJYjFlem1LQ2pJUmlEMHdxN1REajBrazNiZEZ2dThLT2tWUXMwYjNFcW4yODhmWWtMTGEzaFVvX1RPY1J6Z013VzBVQnBpbXU0ekI4WHk3VUNR0gGrAUFVX3lxTFBtak9hcmpQZ1V0NFFTUFJlZlpRcjlIcHVsTjV5ZmJ2SHJfcXNZQU5fNUgyMU5hUWRfUmtvZl9lX3h0M1RudHVYQWJZems2dHRnTmhMWk11X1djUkpZRzFRdUVQSlFkRzVONllzUEg4NmVkY2s5Qk9wSWRWMVE1Y2t0MFRKRzZBRmswY2ZoMl8xdGdrWm1uc2psTThRMDJsZUthZFlXQ1ZpdzVvZw?oc=5
+
+## Country Singer Reveals Sweetest Detail After Attending Taylor Swift's Wedding - HuffPost
+
+- first seen: 2026-07-21 07:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Country Singer Reveals Sweetest Detail After Attending Taylor Swift's Wedding  HuffPost
+- sources:
+  - [unverified] HuffPost — https://news.google.com/rss/articles/CBMilgFBVV95cUxQVHhYS29LNU9iZEM2QU5hMVZRaVJUU0R3RVBEeUEzV3FHbHQyQVcydWl3elU2TzJ4Umhrc1Q5YzFLVEc2cmlhb25NWE1zQ1Q1NHJldld2UDlzRXU2U0F2dFdlTXNNemRoWk1TdWJxcmVHOXhhaWhQQldyXzFtS25YV0cxWFVJQ0VRbWtZVElDRXc2VDFldFHSAZsBQVVfeXFMT3VKY053TkNvVHlRcURvdnVKQlhGeXlzNlFmTm1Gd1ZFVEliTjRfdkxDOGVBelh6MlkxV3RzbW9aNktYa3EtZ2xGaGsyZlEyV3VCTVVldWk3YTBwUXNJc1daN0V3c09OeXA2TzNOSmFmeVIxT2IyZ3pYVWNCZlU3MmRGaHFaZ19CMFRZbFBPVXA0WWhQS2IxVTk3aVk?oc=5
+
+## Dolly Parton tells Taylor Swift and Travis Kelce 'I will always love you' after $2 million gift — an
+
+- first seen: 2026-07-21 07:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Dolly Parton tells Taylor Swift and Travis Kelce 'I will always love you' after $2 million gift — and jokingly asks for their firstborn  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMimAJBVV95cUxQdGthMXN1d2JSdWI5MnprSFlOZlpIN2pnNDlSNlZDc2RFNHotS0pJdGtFZTFYMlE3bl9qVGlzbzE1TTBGTldKYVNMR3ZaMHV1TzFXNUFjWUMwdFhDZGswbEE3M2FDb1AtbGFjZUlva3pvcnhSVXB2bUlzd2tkOHFxaUlxNXdIYjJ5T3gxODhWYS1QNEFNck9VaVhGNFFGNUdGTjZ6Q0tBU0laR21pNVE0SDQzS1lQdnRKT2d4RExFWnlrRjgtQUZJejBJdUJrLXEzbDdWQU1nVHRRd1BPMGJoa1J2eU1tdFhNdFEwdWxiZ3JEanpMT1UxaEd1SWZ2SjhBV2MyQk9DNWtoLWtLMUxURXMta2d4NU9H?oc=5
+
+## Brad Paisley recalls Taylor Swift's wedding 'cat-and-mouse' details - USA Today
+
+- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Brad Paisley recalls Taylor Swift's wedding 'cat-and-mouse' details  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwwFBVV95cUxObmsxenlDcFpaOE9mSkpkSlJIeEJ1cHFkaGZpclZ1Q1c5djhmSEhtc0U2SXJLa3p1bTY4QWhTaTBQaWk1TkdPblloblhMTTdkN0tTYlNicFczMjJMRERtNmZxdU8yaklvZHp0YnI5MENZTlpBdXpUcElLbzZtcDAzT25wZ3NrN3FfbnlLNE11MUdPNEk0WVoxa3djejFpT09TMlJfNVZZcUo3MnBiZi1BMG5LaVZCUGhYRFVSbFYydUdIRzg?oc=5
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/brad-paisley-taylor-swift-travis-kelce-wedding-1235596400/
+  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMipwFBVV95cUxNNXZDbnNuX0hfOXNpZ2xMc3ZCQUZwQ1VxUjcwY1hEYURfdE5fUEJ2M0xJM2dwN0VZTmJ6ak9Nb25WRWE5U3E0TVdxVVRBZWFfZ3R6WklLZ2JrWjhLVFd5M2RMSER5clZZUDFBeWNnVzA5cnRiUjRqRkw0MFByb1RsWHEySkhGMjdmVWZwbUFHQm9sREdfYm8xYTBRdFJMYld4NzAxdk45OA?oc=5
+
 ## Brad Paisley recalls exactly what Taylor Swift and Travis Kelce’s wedding invite said - Entertainmen
 
 - first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
@@ -58,15 +94,6 @@ Stories: 120
 - summary: Knicks Star Jalen Brunson Says It Was ‘Really Cool’ Having Taylor Swift at NBA Finals — But He Wasn’t at Her Wedding  Billboard
 - sources:
   - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxNa05NMnFMY3d2a2lKS3pLaUdjWEt3bVNkbmpwd0xUeWdBREQ3Vk1jYldYQzNXc2ItUjZEZTRuTHp3VjBSZEdIVU8xNEQ1RURxNHZsSHFUaGtGYWRZX1otNVFCRW1Sb0RNODFaVWRpcXdzaFpTWHlWUWM5cHZ5V1B3azhhMUVXckdpcHNmYWR4cFp4M2VqYjVMVk05SDZNRkt0Sk9WSmNramxILWZBMnZMd0VMeGw?oc=5
-
-## Brad Paisley recalls Taylor Swift's wedding 'cat-and-mouse' details - USA Today
-
-- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Brad Paisley recalls Taylor Swift's wedding 'cat-and-mouse' details  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwwFBVV95cUxObmsxenlDcFpaOE9mSkpkSlJIeEJ1cHFkaGZpclZ1Q1c5djhmSEhtc0U2SXJLa3p1bTY4QWhTaTBQaWk1TkdPblloblhMTTdkN0tTYlNicFczMjJMRERtNmZxdU8yaklvZHp0YnI5MENZTlpBdXpUcElLbzZtcDAzT25wZ3NrN3FfbnlLNE11MUdPNEk0WVoxa3djejFpT09TMlJfNVZZcUo3MnBiZi1BMG5LaVZCUGhYRFVSbFYydUdIRzg?oc=5
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/brad-paisley-taylor-swift-travis-kelce-wedding-1235596400/
 
 ## Travis Kelce Finally Returns to Social Media After Taylor Swift Wedding — But It Let Fans Down - Spo
 
@@ -977,27 +1004,3 @@ Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Excl
 - summary: Anybody who is anybody is making their way to New York’s Madison Square Garden dressed to the nines in an apparent march to get to Taylor Swift and Travis Kelce’s wedding. A-listers who have been photographed heading to MSG for the Swift-Kelce union (via People) include Ed Sheeran, Bradley Cooper, Z
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/ed-sheeran-dakota-johnson-guests-taylor-swift-wedding-1236801619/
-
-## How Taylor Swift’s Wedding Puts a Cap on Her 20 Years of Writing About Marriage, From ‘Love Story’ t
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: “I wouldn’t marry me, either,” Taylor Swift sang — bitterly, it’s fair to say — just a few years ago. Remember when the world’s biggest pop superstar was writing about how she had been deemed Not Marriage Material? You don’t? Most people probably wouldn’t. That particular line came in a heartbreakin
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/columns/taylor-swift-wedding-lyrical-attitudes-journey-matrimony-1236801727/
-
-## 13 Celebratory Taylor Swift Lyrics in Honor of Her Birthday
-
-- first seen: 2026-07-19 18:01 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Swift – whose 2025 is one for the ages – turns 36 today, Dec. 13.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/lists/taylor-swift-birthday-lyrics/
-
-## Taylor Swift Prevails in Poet’s Plagiarism Lawsuit, as Florida Judge Dismisses Case With Prejudice
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The wedding presents just keep on coming. Three days after Taylor Swift’s marriage to Travis Kelce, a federal judge dismissed with prejudice a lawsuit filed 14 months ago by a little-known Florida poet who claimed that the superstar copied phrases from her poems in more than a dozen songs. United St
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-wins-plagiarism-poet-lawsuit-florida-judge-1236802619/
