@@ -1109,6 +1109,15 @@ export default {
       month: 10,
       day: 3,
       category: 'music',
+      // Cross-links (ledger #1028, 2026-07-21): the closer carried zero links.
+      // Thread it to the album it ends, the Vancouver Eras closer whose crowd
+      // audio plays over its final seconds (the filed crosslink candidate), and
+      // the opener it bookends.
+      relatedIds: [
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+      ],
       title: 'The title track hands the last word to Sabrina Carpenter',
       snippet:
         'The album\'s only feature closes it: Sabrina Carpenter — who opened the Eras Tour\'s first leg before her own breakout — duets on "The Life of a Showgirl," a showgirl passing hard-won stage wisdom to the next one up.',
@@ -1116,7 +1125,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The song tells the story of a veteran performer named Kitty and the young singer studying her, and the casting does the subtext: Carpenter went from Eras Tour opener in 2023-24 to arena headliner in her own right by the time the album dropped. It was the pairing fans most wanted from the tracklist reveal on New Heights, and the reason the feature stayed the announcement\'s biggest talking point through release week.\n\nThe track doubles as the album\'s mission statement — the "life of a showgirl" the title promises turns out to be Kitty\'s hard-won stage wisdom, handed down the way the real Swift-Carpenter relationship played out in stadium wings for two years. The lyric sheet closes on a scripted curtain-call exchange between the two of them — Swift\'s "Give it up for the band / And the dancers / And of course, Sabrina," answered by Carpenter\'s "I love you, Taylor!" — laid over real crowd noise recorded at the final Eras Tour show in Vancouver, folding the tour\'s actual sound into the album\'s closing minutes. Ending the record on a duet with her own former opener made the succession theme explicit: the album about being a showgirl closes by introducing the next one.',
+          'The song tells the story of a veteran performer named Kitty and the young singer studying her, and the casting does the subtext: Carpenter went from Eras Tour opener in 2023-24 to arena headliner in her own right by the time the album dropped. It was the pairing fans most wanted from the tracklist reveal on New Heights, and the reason the feature stayed the announcement\'s biggest talking point through release week.\n\nThe track doubles as the album\'s mission statement — the "life of a showgirl" the title promises turns out to be Kitty\'s hard-won stage wisdom, handed down the way the real Swift-Carpenter relationship played out in stadium wings for two years. The lyric sheet closes on a scripted curtain-call exchange between the two of them — Swift\'s "Give it up for the band / And the dancers / And of course, Sabrina," answered by Carpenter\'s "I love you, Taylor!" — laid over real crowd noise recorded at the final Eras Tour show in Vancouver, folding the tour\'s actual sound into the album\'s closing minutes. Ending the record on a duet with her own former opener made the succession theme explicit: the album about being a showgirl closes by introducing the next one.\n\nOn the Hot 100 dated Oct. 18, 2025 the title track debuted and peaked at No. 8 inside the album\'s record top-12 sweep, credited to Swift with Max Martin and Shellback — Carpenter a featured vocalist, not a co-writer. Swift confirmed the closing crowd roar is real: her Amazon Music intro says it "transports me back" to standing onstage for the last time on the Eras Tour (the Vancouver/BC Place date is tour record, not something she names in the audio). Rolling Stone heard the succession theme plainly, calling it Swift "passing the torch to the next generation of showgirls as she takes a bow," and Carpenter — who voices the fictional veteran "Kitty" — called Swift "so gracious." Closing on a guest duet isn\'t new (evermore ended on its Bon Iver title track), but doing it with a former tour opener is.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1134,6 +1143,36 @@ export default {
             publisher: 'NPR',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Added 2026-07-21 (depth ledger #1028): chart position, the
+          // Swift-confirmed Vancouver crowd audio + fictional "Kitty", the
+          // review read, and Carpenter's own words.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-hot-100-fate-of-ophelia-number-one/',
+            source_title: "Taylor Swift Makes Hot 100 History as 'The Life of a Showgirl' Sweeps the Top 12",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'CBC',
+            url: 'https://www.cbc.ca/news/canada/british-columbia/vancouver-crowd-on-taylor-swift-s-new-album-1.7650822',
+            source_title: "The Vancouver crowd that closes Taylor Swift's new album",
+            publisher: 'CBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-life-of-a-showgirl-album-review-1235439733/',
+            source_title: "Taylor Swift: 'The Life of a Showgirl' album review",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
             reliability_score: 4,
           },
         ],
@@ -3838,6 +3877,15 @@ export default {
       month: 7,
       day: 7,
       category: 'relationship',
+      // Cross-links (ledger #1000, 2026-07-21): the coda carried zero links.
+      // Thread it to the ring it follows up (same designer, same stone), the
+      // announcement whose close-up made Lubeck famous, and the wedding she
+      // was invited to. A crosslink-candidate issue covers the ring pair.
+      relatedIds: [
+        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+        'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+      ],
       title: 'The ring designer gets a wedding invite of her own',
       snippet:
         'Kindred Lubeck of Artifex Fine Jewelry, who designed Taylor\'s engagement ring with Travis, was among the guests at the Madison Square Garden wedding — and publicly thanked the "incredible" couple for including her.',
@@ -3845,7 +3893,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Lubeck\'s attendance closed the loop on the engagement-ring story: the jeweler who worked with Kelce on the custom Old Mine Cut design nearly a year earlier was invited to see the marriage it led to, a detail she confirmed publicly after the wedding, thanking the "incredible" couple for including her.\n\nIt was a fitting coda for the person whose work had carried an outsized share of the era\'s symbolism. Lubeck — the goldsmith, hand engraver, and vintage-jewelry specialist behind New York\'s Artifex Fine Jewelry — was catapulted from independent-studio obscurity to global attention overnight when the ring close-up hit the couple\'s August 2025 announcement post, and the invitation suggested the collaboration had been personal rather than transactional. A guest list that ran from Hugh Grant to Stevie Nicks also had room for the woman who made the ring.',
+          'Lubeck\'s attendance closed the loop on the engagement-ring story: the jeweler who worked with Kelce on the custom Old Mine Cut design nearly a year earlier was invited to see the marriage it led to, a detail she confirmed publicly after the wedding, thanking the "incredible" couple for including her.\n\nIt was a fitting coda for the person whose work had carried an outsized share of the era\'s symbolism. Lubeck — the goldsmith, hand engraver, and vintage-jewelry specialist behind New York\'s Artifex Fine Jewelry — was catapulted from independent-studio obscurity to global attention overnight when the ring close-up hit the couple\'s August 2025 announcement post, and the invitation suggested the collaboration had been personal rather than transactional. A guest list that ran from Hugh Grant to Stevie Nicks also had room for the woman who made the ring.\n\nThe thank-you was her own: on an Instagram carousel of her wedding-night look, posted days after the July 3 wedding, Lubeck called it "an evening of celebrating the incredible couple who changed my life forever," signing off "Congratulations T&T" — the primary post E! and USA Today quoted. She came as a guest in a strapless dark-green gown and diamonds; no outlet credited that jewelry as her own Artifex work, and none has named who made the couple\'s wedding bands, so the engagement ring stays the full documented extent of her hand in the day.\n\nThe invitation capped a fast-widening year. After the August 2025 reveal, Lubeck — who learned hand-engraving from her goldsmith father in Jacksonville — took three one-of-a-kind pieces to a Sotheby\'s "Gem Drop" in late 2025, launched Artifex Bride, a first ready-to-order bridal line, in April 2026, and lent the label to a De Beers runway partnership. Order and waitlist numbers stayed private, but the arc from studio obscurity to global name ran straight through the wedding she was invited to attend.',
         sources: [
           {
             outlet: 'E! Online',
@@ -3855,6 +3903,35 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Added 2026-07-21 (depth ledger #1000): the verbatim caption, the
+          // Artifex Bride launch, and Lubeck's profile / the Gem Drop.
+          {
+            outlet: 'USA Today',
+            url: 'https://www.aol.com/articles/taylor-swifts-ring-designer-thanks-203659379.html',
+            source_title: "Taylor Swift's ring designer thanks the couple after the wedding",
+            publisher: 'USA Today (via AOL)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Complex',
+            url: 'https://www.complex.com/pop-culture/a/holly-riordan/taylor-swift-engagement-ring-designer-launches-brand',
+            source_title: "Taylor Swift's Engagement Ring Designer Launches Artifex Bride",
+            publisher: 'Complex',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Sotheby\'s',
+            url: 'https://www.sothebys.com/en/articles/taylor-swifts-engagement-ring-and-the-romantic-mystique-of-old-mine-diamonds',
+            source_title: "Taylor Swift's Engagement Ring and the Romantic Mystique of Old Mine Diamonds",
+            publisher: "Sotheby's",
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
           },
         ],
         // Primary: Lubeck herself beside her work — People's split image
