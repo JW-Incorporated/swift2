@@ -4970,6 +4970,118 @@ export default {
         photos: [],
       },
     },
+    {
+      // Authored 2026-07-21 from intake #1133. Chart/professional item, one
+      // established outlet sufficient (Forbes); the No. 9 / 29th-top-10 /
+      // "one shy of Rihanna's 30" facts were independently corroborated before
+      // writing. Two framing checks: (1) this is Pop Airplay TOP 10s, a
+      // different record from the Hot 100 NO. 1s where the Opalite item already
+      // has her "tying Rihanna" at 14 — kept distinct here, format named
+      // explicitly. (2) The song is the Toy Story 5 original, not a Showgirl
+      // track (the same correction recorded on #909). The Forbes "most No. 1s
+      // in the chart's history" line is written as-reported without pinning the
+      // exact count, which the intake transcribed but independent sources here
+      // did not confirm. Passes the privacy redlines cleanly: her own chart
+      // record, no third parties, no location or private-life detail.
+      slug: 'i-knew-it-i-knew-you-pop-airplay-top-ten',
+      year: 2026,
+      month: 7,
+      day: 20,
+      category: 'music',
+      title: 'One shy of Rihanna: “I Knew It, I Knew You” takes her 29th Pop Airplay top 10',
+      snippet:
+        'On the Pop Airplay chart dated July 20, Taylor’s Toy Story 5 song climbs to No. 9 — her 29th top 10 on the tally. That leaves her one behind Rihanna’s all-time record of 30, the most anyone has pushed into that region of pop radio.',
+      sourceUrl:
+        'https://www.forbes.com/sites/hughmcintyre/2026/07/20/taylor-swift-nearly-ties-one-of-rihannas-greatest-chart-records/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Billboard’s Pop Airplay chart tracks spins at pop radio, and it is a slow, crowded format — a song has to be worked for months to reach the top. On the chart dated July 20, 2026, “I Knew It, I Knew You” reached No. 9, becoming Taylor’s 29th career top 10 there, nearly two decades after she first appeared on the tally.\n\nThat number is the whole story. Only Rihanna has ever gathered more: her 30 Pop Airplay top 10s are the all-time record, and Taylor now sits exactly one behind it, with a song still climbing rather than fading. She already owns the format’s other headline mark — the most No. 1s in its history — so Rihanna’s top-10 count is one of the few Pop Airplay lines she hasn’t already claimed for herself.\n\nThe song keeps refusing the tidy version of the story. It isn’t a Showgirl track: “I Knew It, I Knew You” is her original for the Toy Story 5 soundtrack, co-written with Jack Antonoff, and it has now crossed every format that matters — a No. 1 Hot 100 debut, a top-10 Country Airplay entry, four simultaneous Adult Contemporary top 10s the week before, and now the edge of a Pop Airplay record. A movie song built for an animated character, out-charting most artists’ actual singles, one top 10 from the books.',
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/20/taylor-swift-nearly-ties-one-of-rihannas-greatest-chart-records/',
+            source_title: 'Taylor Swift Nearly Ties One Of Rihanna’s Greatest Chart Records',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            // Primary: the underlying Billboard Pop Airplay chart dated
+            // 2026-07-20. Cited to the dated chart rather than the live URL,
+            // which rolls over weekly and stops showing this ranking.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/charts/pop-songs/',
+            source_title: 'Pop Airplay — chart dated July 20, 2026',
+            publisher: 'Billboard',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+        ],
+        // No photo: a chart week has no photography of its own; a stand-in
+        // performance shot would illustrate nothing that happened here. Same
+        // call as the Adult Contemporary and Marasco items above.
+        photos: [],
+      },
+    },
+    {
+      // Authored 2026-07-21 from intake #1134. Softer catalog-movement item, not
+      // a milestone, but confirmed chart fact (Official Charts Company, reported
+      // by Forbes). One established outlet suffices for a chart item; the TTPD
+      // re-entry at No. 96 and the Fearless (TV) No. 19 -> No. 13 / 274-weeks
+      // facts were independently corroborated before writing. The causal read
+      // ("the wedding drove it") is Forbes's editorial framing and is attributed
+      // to Forbes rather than stated flatly. Distinct from the msg-wedding item:
+      // this is a downstream chart consequence, not a re-file of the wedding.
+      // Passes the privacy redlines cleanly: professional chart facts; the
+      // wedding is referenced only as the reported cause (a public, already-
+      // covered event at venue level), no new private-life or location detail.
+      slug: 'showgirl-wedding-uk-chart-bump',
+      year: 2026,
+      month: 7,
+      day: 16,
+      category: 'music',
+      title: 'The wedding week nudges the whole catalog back up the UK charts',
+      snippet:
+        'The week after the Madison Square Garden wedding, the attention spike showed up on Britain’s charts: per Forbes, The Life of a Showgirl and The Tortured Poets Department both re-entered the Official Albums tallies, “Opalite” returned to the singles rankings, and Fearless (Taylor’s Version) climbed to No. 13 on the country chart.',
+      sourceUrl:
+        'https://www.forbes.com/sites/hughmcintyre/2026/07/16/taylor-swifts-wedding-helps-her-soar-up-the-charts/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The Madison Square Garden wedding on July 3 was the most-covered week of Taylor’s year, and by the reckoning of Britain’s Official Charts Company the coverage moved records. In the week that followed, Forbes tallied a catalog-wide bump across several UK charts.\n\nTwo albums came back from off the tally entirely. The Life of a Showgirl and The Tortured Poets Department both re-entered the Official Albums and Official Albums Streaming charts, TTPD returning at No. 96 on both. “Opalite,” the Showgirl single, returned to the Official Singles Downloads and Official Singles Sales rankings. And Fearless (Taylor’s Version), her 2021 re-recording, stepped up from No. 19 to No. 13 on the Official Country Artists Albums chart — a tally it has now appeared on for 274 weeks, better than five straight years.\n\nThe causal read — that the wedding itself drove the climb — is Forbes’s, not a chart-company statement; what the Official Charts Company documents is the movement, not the reason for it. But the timing is hard to miss. It’s the ordinary mechanism of a very unordinary week: a private celebration pulls a decade-old re-recording and a pair of already-huge albums back up a national chart, on attention alone.',
+        sources: [
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/16/taylor-swifts-wedding-helps-her-soar-up-the-charts/',
+            source_title: 'Taylor Swift’s Wedding Helps Her Soar Up The Charts',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            // The underlying primary is the Official Charts Company's dated UK
+            // charts for that week. Linked to the artist hub, which the OCC
+            // publishes; the specific weekly charts roll over and won't keep
+            // showing this movement.
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/artist/5387/taylor-swift/',
+            source_title: 'Taylor Swift — Official Chart history (UK)',
+            publisher: 'Official Charts Company (UK)',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+        ],
+        // No photo: a chart week has no photography of its own, and the wedding
+        // it references already carries its own imagery on the msg-wedding
+        // item. A stand-in shot would illustrate nothing that happened here.
+        photos: [],
+      },
+    },
 
     // ── Migrated from content.ts RAW (consolidation stage 2a, 2026-07-19) ──
     {
