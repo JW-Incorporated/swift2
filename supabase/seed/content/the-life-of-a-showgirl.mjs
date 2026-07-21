@@ -1938,6 +1938,11 @@ export default {
       month: 6,
       day: 10,
       category: 'sighting',
+      // Cross-link deficit closed (depth ledger #1032 Q1, 2026-07-21): the pun
+      // tee's payoff is Stevie Nicks singing at the MSG wedding reception in this
+      // same building 23 days later — the page carried no relatedIds. Target id
+      // verified in-seed. (A crosslink-candidate for the pair is filed separately.)
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
       title: '"Stevie Knicks" courtside: the Garden, three weeks before the wedding',
       snippet:
         'Courtside for NBA Finals Game 4 with Este and Alana Haim, in homemade Knicks-pun tees — hers reads "Stevie Knicks" — Taylor watches New York erase a 29-point deficit and steal it on a put-back with 1.2 seconds left. Three weeks later, same building: the wedding.',
@@ -1947,7 +1952,7 @@ export default {
       thumbnailUrl: 'https://cdn.nba.com/manage/2026/06/GettyImages_TSwift.jpg',
       moment: {
         context:
-          'The shirts were Alana Haim\'s craft project — $3 Gildan tees from Michaels, hand-lettered in orange: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.',
+          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Swift\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.',
         sources: [
           {
             outlet: 'Billboard',
@@ -1956,6 +1961,26 @@ export default {
           {
             outlet: 'Rolling Stone',
             url: 'https://www.rollingstone.com/music/music-news/taylor-swift-knicks-nba-finals-haim-1235575812/',
+          },
+          // Depth ledger #1032 (2026-07-21): the Cricut craft-origin and the
+          // Nicks-mentorship read behind the "Stevie Knicks" pun.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-stevie-knicks-shirt-nba-finals-alana-haim-made-1236271679/',
+            source_title: "Taylor Swift's 'Stevie Knicks' Shirt at the NBA Finals: How Alana Haim Made It",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Washington Post',
+            url: 'https://www.washingtonpost.com/style/fashion/2026/06/11/where-did-taylor-swifts-stevie-knicks-t-shirt-come/',
+            source_title: "Where did Knicks fan Taylor Swift get her 'Stevie Knicks' T-shirt?",
+            publisher: 'The Washington Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
           },
           {
             outlet: 'NBA.com',
@@ -4008,6 +4033,14 @@ export default {
       month: 3,
       day: 31,
       category: 'music',
+      // Cross-link deficit closed (depth ledger #1036 Q7, 2026-07-21): the
+      // moment carried ZERO relatedIds despite being the video FOR the
+      // "Elizabeth Taylor" song and the page's own named "intentional pair"
+      // with the Fate of Ophelia video. Both target ids verified in-seed.
+      relatedIds: [
+        'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+      ],
       title: 'The Elizabeth Taylor video: a supercut of the real Liz',
       snippet:
         'Released to close Women\'s History Month — Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, and newsreel paparazzi footage, cut into a tribute instead of a performance video.',
@@ -4015,7 +4048,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The March 31, 2026 video is built almost entirely from archival material: scenes from nine-plus Taylor films — Cleopatra, Cat on a Hot Tin Roof, and A Place in the Sun among them — alongside newsreel footage of her navigating banks of photographers. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.',
+          'The March 31, 2026 video — which Swift directed herself, extending the self-direction of "The Fate of Ophelia" and "Opalite" — is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer and Who\'s Afraid of Virginia Woolf? among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead.',
         sources: [
           {
             outlet: 'Variety',
@@ -4033,6 +4066,17 @@ export default {
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth ledger #1036 (2026-07-21): the full film list and the
+          // estate/House-of-Taylor + Todd/Wilding-family licensing credits.
+          {
+            outlet: 'ABC News / Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-elizabeth-taylor-video-archival-footage-late-131576436',
+            source_title: "Taylor Swift 'Elizabeth Taylor' video uses archival footage of the late actress",
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
             reliability_score: 4,
           },
         ],
@@ -4743,7 +4787,7 @@ export default {
       significance: 'notable', // a real award milestone — first Emmy nominations in 10+ years, on the record-breaking Eras Tour (docs/decisions.md, 2026-07-18)
       moment: {
         context:
-          'The concert film of the Eras Tour’s final night — Taylor Swift: The Eras Tour: The Final Show, which streamed on Disney+ — landed five nominations when the 78th Emmy nominations were announced on July 8, 2026: Outstanding Variety Special (Pre-Recorded), a directing nod for Glenn Weiss, Outstanding Picture Editing for Variety Programming, Outstanding Sound Mixing for a Variety Series or Special, and Outstanding Technical Direction and Camerawork for a Special.\n\nTaylor is credited on the special as both performer and producer — Taylor Swift Productions made it, in association with Silent House — so the nominations attach to her personally, and they are her first Emmy nominations in more than a decade. They are not her first Emmy outright: back in 2015 she won Outstanding Creative Achievement in Interactive Media for the AMEX Unstaged: Taylor Swift Experience, the 360-degree app built around the "Blank Space" video, as its artist and executive producer. What is new this time is the Television Academy recognizing her on-camera performing work — and it is the film of the record-breaking Eras Tour that got her there.',
+          'The concert film of the Eras Tour’s final night — Taylor Swift: The Eras Tour: The Final Show, which streamed on Disney+ — landed five nominations when the 78th Emmy nominations were announced on July 8, 2026: Outstanding Variety Special (Pre-Recorded), a directing nod for Glenn Weiss, Outstanding Picture Editing for Variety Programming, Outstanding Sound Mixing for a Variety Series or Special, and Outstanding Technical Direction and Camerawork for a Special.\n\nTaylor is credited on the special as both performer and producer — Taylor Swift Productions made it, in association with Silent House — so the nominations attach to her personally, and they are her first Emmy nominations in more than a decade. They are not her first Emmy outright: back in 2015 she won Outstanding Creative Achievement in Interactive Media for the AMEX Unstaged: Taylor Swift Experience, the 360-degree app built around the "Blank Space" video, as its artist and executive producer. What is new this time is the Television Academy recognizing her on-camera performing work — and it is the film of the record-breaking Eras Tour that got her there.\n\nOnly the Variety Special nod rides the primetime telecast; the other four — directing, picture editing, sound mixing, and technical direction and camerawork — are Creative Arts Emmys, handed out at the separate Creative Arts ceremony on Sept. 5-6, 2026, ahead of the main show on Sept. 14 (NBC and Peacock, hosted by Mariska Hargitay). Director Glenn Weiss, a veteran of the Oscars and Tony telecasts, was double-nominated in that directing category — also cited for the 78th Tony Awards. The special captures the tour\'s final night at Vancouver\'s BC Place in December 2025, a roughly three-and-a-half-hour, 45-song set that runs the entire Tortured Poets Department; its eligibility turned on format, where the 2023 Eras Tour concert film was a theatrical release and this Disney+ streaming special qualified as television.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -4762,6 +4806,17 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-20',
             reliability_score: 5,
+          },
+          // Depth ledger #1034 (2026-07-21): the Creative-Arts/primetime split,
+          // ceremony dates, producer credits, and Weiss's double nomination.
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-2026-emmy-nominations-1236641549/',
+            source_title: "Taylor Swift's 'The Eras Tour: The Final Show' Lands 5 Emmy Noms",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
           },
         ],
         // No photo: the nominations announcement has no photography of its own,
