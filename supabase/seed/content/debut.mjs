@@ -1522,7 +1522,15 @@ export default {
     {
       slug: 'taylor-swift-album-release',
       significance: 'defining', // the origin of the whole 20-year catalog (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for'],
+      // Cross-links: kept the Fearless AOTY forward link and added the three
+      // pages that answer this ledger's own questions (2026-07-21, ledger #1101)
+      // — the lead single, the first No. 1, and the Bluebird Café signing night.
+      relatedIds: [
+        'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
+        'moment:vault-debut-tim-mcgraw-arrives',
+        'moment:vault-debut-our-song-hits-number-one',
+        'moment:vault-debut-the-bluebird-cafe-night-a-14-year-old-and-a-label-that-didnt',
+      ],
       year: 2006,
       month: 10,
       day: 24,
@@ -1540,7 +1548,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
       moment: {
         context:
-          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record.\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. Billboard\'s tenth-anniversary retrospective put it simply: she arrived, at 16, "with a fully formed idea of herself as an artist."\n\nThe liner notes hid something too: read only the capitalized letters scattered through each printed lyric sheet and they spell out a short secret line per song — a code she\'d repeat on every album booklet through 1989 (2014), starting here.',
+          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record.\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. Billboard\'s tenth-anniversary retrospective put it simply: she arrived, at 16, "with a fully formed idea of herself as an artist."\n\nThe liner notes hid something too: read only the capitalized letters scattered through each printed lyric sheet and they spell out a short secret line per song — a code she\'d repeat on every album booklet through 1989 (2014), starting here.\n\nIts lead single, "Tim McGraw" (June 19, 2006), was named after an established country star so an ex would think of her when he heard it; co-written with Liz Rose in a fifteen-minute after-school session, it reached No. 6 on Hot Country Songs and No. 40 on the Hot 100. Four more singles followed, and "Our Song" — which she wrote alone in the ninth grade — went to No. 1, making her the youngest person to single-handedly write and perform a Hot Country Songs chart-topper. The album existed at all because Scott Borchetta, having heard her at Nashville\'s Bluebird Café, made her the first artist signed to his new label, Big Machine, after she had walked away from an RCA development deal at 14. Reviews were warm if not rapturous (Metacritic 67; Rolling Stone called her "the Tammy Wynette of t.m.i."), and the record eventually certified 8x platinum — a debut that simply never stopped selling.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1567,6 +1575,33 @@ export default {
             publisher: 'Today.com',
             source_type: 'reputable_press',
             accessed_at: '2026-07-19',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-tim-mcgraw-chart-rewind-2006-1236284818/',
+            source_title: "Taylor Swift's 'Tim McGraw': Chart Rewind, 2006",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/on-this-day-2006-taylor-swift-released-debut-single-tim-mcgraw/',
+            source_title: 'On This Day in 2006, Taylor Swift Released Her Debut Single "Tim McGraw"',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Metacritic',
+            url: 'https://www.metacritic.com/music/taylor-swift/taylor-swift',
+            source_title: 'Taylor Swift by Taylor Swift Reviews and Tracks',
+            publisher: 'Metacritic',
+            source_type: 'aggregator',
+            accessed_at: '2026-07-21',
             reliability_score: 4,
           },
         ],

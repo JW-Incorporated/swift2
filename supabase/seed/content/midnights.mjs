@@ -2796,6 +2796,14 @@ export default {
     {
       slug: 'amas-2022-six-for-six',
       significance: 'notable', // a perfect nomination-to-win record and a real 40+ career-wins milestone (docs/decisions.md, 2026-07-19)
+      // Cross-links added 2026-07-21 (ledger #1063): the presale meltdown five
+      // days earlier (the page's own subtext) and the All Too Well short film —
+      // the video that won Favorite Music Video here, plus its later Grammy win.
+      relatedIds: [
+        'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
+        'moment:vault-evermore-all-too-well-the-short-film-premieres-she-wrote-it-she-direc',
+        'moment:vault-midnights-all-too-well-the-short-film-wins-the-grammy-that-makes-her-a',
+      ],
       year: 2022,
       month: 11,
       day: 20,
@@ -2807,7 +2815,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Nov. 20, 2022 sweep at the Microsoft Theater covered favorite female pop artist, favorite female country artist, favorite pop album, favorite country album, and favorite music video — a re-recorded 2012 album and its ten-minute short film winning a full month into the Midnights era, alongside a seventh Artist of the Year. Accepting, she pointed the credit outward: "I have the fans to thank, essentially, for my happiness," signing off with "thank you, underlined with 13 exclamation points."\n\nThe re-record project got its own acceptance-speech paragraph — "I cannot tell you how much my re-recorded albums mean to me" — and the six-for-six night pushed her career total to 40 American Music Awards, extending her lead as the most-awarded artist in the show\'s history. The timing added subtext: the sweep landed five days after the Eras Tour presale had melted Ticketmaster down.',
+          'The Nov. 20, 2022 sweep at the Microsoft Theater covered favorite female pop artist, favorite female country artist, favorite pop album, favorite country album, and favorite music video — a re-recorded 2012 album and its ten-minute short film winning a full month into the Midnights era, alongside a seventh Artist of the Year. Accepting, she pointed the credit outward: "I have the fans to thank, essentially, for my happiness," signing off with "thank you, underlined with 13 exclamation points."\n\nThe re-record project got its own acceptance-speech paragraph — "I cannot tell you how much my re-recorded albums mean to me" — and the six-for-six night pushed her career total to 40 American Music Awards, extending her lead as the most-awarded artist in the show\'s history. The timing added subtext: the sweep landed five days after the Eras Tour presale had melted Ticketmaster down.\n\nEach trophy had a work behind it: Red (Taylor\'s Version) took both album categories, favorite pop album and favorite country album, while All Too Well: The Short Film — which she wrote and directed — won favorite music video; the two favorite-female artist prizes and the seventh Artist of the Year completed a literal six-for-six, six nominations converted to six wins. She was not billed to appear and did not perform, arriving as a surprise guest to collect the awards in a gold beaded halter jumpsuit by The Blonds, styled by Joseph Cassell. She had first passed Michael Jackson\'s all-time record of 24 at the 2019 ceremony, where she was also named Artist of the Decade; this sweep carried the record to 40, and with no AMAs held in 2023 or 2024 it stood unchallenged until the show returned in 2025.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -2827,13 +2835,43 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 4,
           },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/2022-amas-winners-list-1235174393/',
+            source_title: 'Here Are All the 2022 AMAs Winners',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/fashion-news/fashion-scoops/taylor-swift-american-music-awards-2022-gold-jumpsuit-look-1235425904/',
+            source_title: 'Taylor Swift Shines in Gold Beaded Jumpsuit at American Music Awards 2022',
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-ama-singer-beats-michael-jackson-for-most-american-music-awards-2019-performance-artist-of-the-decade/',
+            source_title: 'Taylor Swift beats Michael Jackson for most American Music Awards, receives Artist of the Decade',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
         ],
         // Real-photo pass (2026-07-09): Rolling Stone's lead photo of the night,
         // hotlinked per the 2026-07-09 relaxed media policy; credit per the
         // article's own photo credit. Verified HTTP 200 + image/jpeg.
         // Photo-enrichment pass (2026-07-18): added Deadline's press-room frame —
-        // the gold Zuhair Murad halter with all six trophies in hand, distinct
+        // the gold beaded halter with all six trophies in hand, distinct
         // from the onstage acceptance shot. Curl 200 + image/jpeg,
+        // Attribution fix (2026-07-21, ledger #1063): the gown was miscaptioned
+        // "Zuhair Murad" in this note — it is The Blonds, styled by Joseph
+        // Cassell (WWD/PopSugar/Red Carpet Fashion Awards). Corrected here.
         // vision-confirmed (AMA/ABC press wall, six pyramids in her arms).
         photos: [
           {
