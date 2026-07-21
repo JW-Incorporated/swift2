@@ -2601,7 +2601,7 @@ export default {
       thumbnailUrl: 'https://consequence.net/wp-content/uploads/2024/07/Munich-Hill-Eras-Concert.jpeg',
       moment: {
         context:
-          'Munich\'s Olympiastadion sits in a park below a hill with a clear sightline into the bowl — a vantage point no other stop on the tour offered — and for the July 27–28, 2024 shows the Olympiaberg filled with an estimated 40,000 people on the Saturday night alone, watching the whole three-hour production for free. On the Sunday, the tour\'s last night in Germany, she thanked them mid-show: "whether you\'re in the stadium or outside of the stadium... we are so lucky to be here with you."',
+          'The Olympiaberg is a man-made hill — the "Großer Schuttberg," a mound of World War II rubble piled up through the late 1940s and 1950s, then landscaped for the 1972 Munich Olympics. Rising roughly 55 metres above the park, it looks straight down into the Olympiastadion bowl — a sightline no other Eras Tour stop offered — and for the July 27–28, 2024 shows fans climbed it to watch the full three-hour production for free.\n\nEstimates of the hillside crowd varied by who was counting: Munich police put the Saturday gathering near 25,000, while media tallies ran to about 40,000, and both nights drew crowds. From the stage on Sunday — the tour\'s last German night — Swift cited the higher figure, thanking "about 50,000 beautiful people outside the stadium" alongside the roughly 74,000 inside: "whether you\'re in the stadium or outside of the stadium... we are so lucky to be here with you." German and international press covered the gathering as an event in its own right, fans nicknamed the spot "Mount Swiftie," and police called the whole affair peaceful.\n\nComparable ticketless crowds formed on high ground at other stops, but Munich\'s hillside is the largest and best-documented of the tour — the basis for the "biggest free show" framing.',
         sources: [
           {
             outlet: 'Variety',
@@ -2621,6 +2621,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 4,
+          },
+          {
+            outlet: 'muenchen.de',
+            url: 'https://www.muenchen.de/en/events/news/taylor-swift-all-about-concerts-munich',
+            source_title: 'Taylor Swift: All about the concerts in Munich',
+            publisher: 'City of Munich (official portal)',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Police ~25,000 Saturday estimate vs ~40,000 media tally; peaceful conclusion; both nights',
+          },
+          {
+            outlet: 'The Washington Times (AP)',
+            url: 'https://www.washingtontimes.com/news/2024/jul/28/taylor-swift-fans-swarm-hill-in-munich-claiming-hi/',
+            source_title: 'Taylor Swift fans swarm hill in Munich, claiming high perch for watching her concert for free',
+            publisher: 'Associated Press',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Free hilltop viewing across both nights',
+          },
+          {
+            outlet: 'Rolling Stone (DE)',
+            url: 'https://www.rollingstone.de/olympiaberg-in-muenchen-lockt-swifties-entspannte-hoererparty-statt-stadionstress-2783213/',
+            source_title: 'Olympiaberg in München lockt Swifties: Entspannte Hörerparty statt Stadionstress',
+            publisher: 'Rolling Stone Germany',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: 'German-press coverage of the Olympiaberg gathering as its own phenomenon',
           },
         ],
         // Photo-enrichment run 11 (2026-07-18, #762): page had zero photos.
@@ -2823,7 +2853,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Sept. 8, 2024: two days before her Harris endorsement rearranged the news cycle, the two couples took in the Grand Slam final at Arthur Ashe Stadium.\n\nThe US Open\'s own coverage leaned into it — "in her tennis era" — and the outing became one of the relationship\'s most-photographed non-Arrowhead appearances of the year.',
+          'Sept. 8, 2024: two days before her Harris endorsement rearranged the news cycle, the two couples took in the men\'s final at Arthur Ashe Stadium. Fashion desks pinned Swift\'s look precisely — the cherry-red gingham was Reformation\'s "Sora" linen dress (about $248), styled with Gucci platform sandals and gold Louis Vuitton earrings; the Gucci bucket hat photographed between them was Travis\'s, part of his own head-to-toe Gucci fit.\n\nThe match itself was a real one: Jannik Sinner beat Taylor Fritz 6-3, 6-4, 7-5 for his first US Open title and second Grand Slam of 2024, while Fritz was the first American man in a US Open singles final since Andy Roddick in 2006. The couple shared a celebrity-heavy afternoon that also drew Anna Wintour, Matthew McConaughey and Alec Baldwin.\n\nThe US Open\'s own account leaned in — "in her tennis era" — and the outing, read in real time as a pure sports-and-fashion appearance, became one of the relationship\'s most-photographed non-Arrowhead moments of the year and set off a wave of gingham "dupe" shopping guides.',
         sources: [
           {
             outlet: 'ABC News',
@@ -2842,6 +2872,36 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-reformation-dress-us-open-travis-kelce-1236584025/',
+            source_title: 'Taylor Swift Serves Up Reformation Dress at US Open With Travis Kelce',
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Reformation "Sora" gingham dress (~$248); Travis in Gucci',
+          },
+          {
+            outlet: 'Footwear News',
+            url: 'https://footwearnews.com/shoes/womens-footwear/taylor-swift-travis-kelce-gucci-sandals-us-open-new-york-1203686442/',
+            source_title: 'Taylor Swift Wore Gucci Lady Sandals at 2024 US Open With Travis Kelce',
+            publisher: 'Footwear News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: 'Gucci sandals; Louis Vuitton earrings',
+          },
+          {
+            outlet: 'ATP Tour',
+            url: 'https://www.atptour.com/en/news/sinner-fritz-us-open-2024-final',
+            source_title: 'Jannik Sinner defeats Taylor Fritz for US Open title',
+            publisher: 'ATP Tour',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+            notes: 'Score 6-3, 6-4, 7-5; Sinner first US Open title; Fritz first American finalist since Roddick 2006',
           },
         ],
         // T16 photo pass (2026-07-09): AP photo from ABC News' coverage of
@@ -3090,7 +3150,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website; Billboard reported a price around $360 million to the firm that had bought the catalog out of the Scooter Braun dispute.\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was done and could "have its moment" someday.',
+          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed; Billboard reported a price around $360 million to Shamrock Capital, the firm that had bought the catalog from Scooter Braun\'s Ithaca Holdings in 2020 for a sum reported between roughly $300 million and $405 million once future considerations were counted — so Shamrock likely turned a modest profit even after the Taylor\'s Versions eroded the originals\' value. The purchase swept up everything: the master recordings of all six albums, plus the music videos, concert films, album art, photography and unreleased "From the Vault" songs.\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time she sent her mother Andrea and brother Austin to negotiate rather than lawyers or managers. Shamrock said it "fully respect[s] and support[s] her decision"; Braun told reporters he was "happy for her."\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was finished and could "have its moment" someday. At its reported price the deal sits alongside the Dylan and Springsteen catalog sales of the era, but with a distinction: those bundled publishing, while Swift already owned her publishing — making this a rare buyback of masters alone.',
         sources: [
           {
             outlet: 'Billboard',
@@ -3118,6 +3178,26 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-buys-back-her-catalog-explainer-1236233783/',
+            source_title: 'Taylor Swift Gets Her Masters Back: How We Got Here',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Shamrock and Braun statements; 2020 NDA reason; the ~$300M/$405M and ~$360M figures',
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift_masters_dispute',
+            source_title: 'Taylor Swift masters dispute — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-21',
+            reliability_score: 2,
+            notes: 'Asset list; Reputation TV vs debut TV status; Shamrock statement wording',
           },
         ],
         // T16 photo pass (2026-07-09): the celebration photo released with
@@ -3258,7 +3338,56 @@ export default {
       snippet: "A literary, ink-stained double album — the most word-heavy record of her career.",
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       moment: {
-        context: "Announced from the Grammy stage and released as a surprise double album, TTPD is dense, diaristic, and unflinching.\n\nTypewriter fonts, black-and-white imagery, and poetry-as-liner-notes make it the most literary era yet.",
+        context:
+          'Announced from the Grammy stage on Feb. 4, 2024 — she revealed the April 19 release date while accepting Best Pop Vocal Album for Midnights and unveiled the cover on the podium — TTPD arrived as a surprise double album. Sixteen standard tracks dropped at midnight ET; two hours later, at 2 a.m. ET, fifteen more appeared as "The Tortured Poets Department: The Anthology," 31 songs in all.\n\nJack Antonoff and Aaron Dessner produced it alongside Swift — the two collaborators who defined the folklore-through-Midnights run — and it carries two features: Post Malone on the lead single "Fortnight" and Florence + the Machine on "Florida!!!." Four collectible deluxe editions each carried a different bonus track — "The Manuscript," "The Bolter," "The Albatross" and "The Black Dog" — before all four were folded into the Anthology.\n\nThe title is widely linked to a "Tortured Man Club" group chat Joe Alwyn shared with actors Paul Mescal and Andrew Scott (Alwyn confirmed the chat in a 2022 interview; Swift has never named it as the source). It opened to 2.61 million first-week units in the U.S. — her 14th No. 1 on the Billboard 200, tying Jay-Z for the most chart-toppers among soloists — and was Spotify\'s most-streamed album in a single day. Reviews were admiring but split (Metacritic 76): critics praised the cathartic writing while calling the 31-track sprawl overlong.',
+        sources: [
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/taylor-swift-tracklist-the-tortured-poets-department-post-malone-florence-machine-1235898976/',
+            source_title:
+              "Taylor Swift Shares Tracklist for 'The Tortured Poets Department,' Featuring Post Malone and Florence + Machine",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-tortured-poets-department-debut-number-one-billboard-200-chart/',
+            source_title: "Taylor Swift's 'The Tortured Poets Department' Debuts at No. 1 on Billboard 200 With 2.61 Million Units",
+            publisher: 'Billboard',
+            source_type: 'awards_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+            source_title: "Taylor Swift Sets Record With All Top 14 of Hot 100, 'Fortnight' No. 1",
+            publisher: 'Billboard',
+            source_type: 'awards_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Metacritic',
+            url: 'https://www.metacritic.com/music/the-tortured-poets-department/taylor-swift',
+            source_title: 'The Tortured Poets Department by Taylor Swift Reviews',
+            publisher: 'Metacritic',
+            source_type: 'aggregator',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Newsweek',
+            url: 'https://www.newsweek.com/entertainment-celebrity-news-joe-alwyn-tortured-man-club-group-chat-explained-andrew-scott-1903714',
+            source_title: "Joe Alwyn's Tortured Man Club Group Chat Explained",
+            publisher: 'Newsweek',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
         // "Fortnight" MV id q3zqJs7JUCQ verified via YouTube oEmbed this
         // session ("Taylor Swift - Fortnight (feat. Post Malone) (Official
