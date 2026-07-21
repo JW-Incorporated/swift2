@@ -1540,6 +1540,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.shefinds.com/files/2021/11/taylor-swift-snl-performance.jpg", credit: "Will Heath/NBC", kind: "primary" }, { url: "https://imgix.bustle.com/uploads/getty/2021/11/15/5927994a-87f7-41ae-9f97-576f50f1747f-getty-1353171506.jpg?w=414&h=736&fit=crop&crop=faces&dpr=2", credit: "Getty Images", kind: "archival" }],
       sources: [{ name: "SheFinds", url: "https://www.shefinds.com/collections/taylor-swift-turned-heads-in-this-skintight-bodysuit-on-snl-you-can-see-everything/" }, { name: "Nylon", url: "https://www.nylon.com/fashion/taylor-swift-snl-after-party-outfit-houndstooth-blazer-platform-boots/amp" }],
+      products: [{ brand: "Alaïa", item: "Second Skin Knit Off-Shoulder Bodysuit", retailer: "ssense.com", url: "https://www.ssense.com/en-us/women/product/alaia/brown-second-skin-knit-off-shoulder-bodysuit/17916981", price: "$1,900.00", isAlternative: true, altNote: "Her exact jumpsuit hit dead links everywhere checked -- this is a current Alaïa off-the-shoulder stretch-knit bodysuit, same house and silhouette, though not a full jumpsuit." }],
     },
     {
       id: "vault-evermore-the-willow-videos-final-scene-a-gucci-liberty-print-floral-m",
@@ -1551,6 +1552,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://stealherstyle.net/wp-content/uploads/2020/12/taylorswift_w3-500x350.jpg", credit: "Republic Records", kind: "primary" }],
       sources: [{ name: "Steal Her Style", url: "https://stealherstyle.net/2020/12/11/taylor-swift-willow-music-video/" }, { name: "Social Media Style", url: "https://www.socialmediastyle.org/post/taylor-swift-s-beige-lace-panel-dress-from-the-willow-music-video-off-of-the-evermore-album" }],
+      products: [{ brand: "Gucci", item: "Crepe de Chine Floral Silk Dress", retailer: "runwaycatalog.com", url: "https://www.runwaycatalog.com/products/gucci-silk-floral-print-dress", price: "$2,640.00", isAlternative: true, altNote: "The exact 2020 Gucci x Liberty London collaboration piece is long gone from every channel checked — this is a current Gucci floral silk dress in the same spirit." }],
     },
     {
       id: "vault-evermore-a-3d-floral-oscar-de-la-renta-mini-dress-for-the-2021-grammy",
