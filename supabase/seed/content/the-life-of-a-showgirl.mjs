@@ -422,6 +422,16 @@ export default {
       month: 10,
       day: 5,
       category: 'business',
+      // Cross-link deficit closed (2026-07-21, depth ledger #1011): the box-office
+      // record now threads to the theatrical event it grosses, the album it
+      // promotes, the same-week 4M album record, and the Eras Tour film whose
+      // studio-bypassing distribution play it reran.
+      relatedIds: [
+        'moment:vault-tloas-the-official-release-party-of-a-showgirl-turns-movie-theater',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-midnights-the-eras-tour-film-opens-to-92-8-million-the-biggest-concert',
+      ],
       title: 'An album release party wins the box office: $34.1M domestic, $50M+ worldwide',
       snippet:
         'The Release Party topped the North American box office on $34.1 million and crossed $50 million globally in its single weekend — the biggest album-debut event in cinema history, beating actual movies without being one.',
@@ -429,7 +439,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes of content playing on a loop of showtimes — no plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release that weekend.\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. The weekend reads as a structural story as much as a Swift story: proof that a big enough artist can rent the entire theatrical apparatus for a weekend and turn an album release into a box-office event, without a studio in the deal.',
+          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes on a loop of showtimes — the in-theater premiere of the self-directed "The Fate of Ophelia" music video, behind-the-scenes footage from its shoot, lyric videos for the rest of the album, and Swift\'s own on-camera reflections on the songs. No plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release.\n\nIt was not an AMC-only affair. AMC Theatres Distribution ran it with Variance Films in the U.S. and Canada and Piece of Magic abroad, playing all 540 U.S. AMC locations plus Cinemark and Regal, Cineplex in Canada and Cinépolis and Cinemex in Mexico — part of a global footprint of more than 8,000 cinemas across 110-plus territories. Domestically it topped Warner Bros.\' "One Battle After Another" (No. 2, about $11 million in its second weekend) and out-opened Dwayne Johnson\'s "The Smashing Machine" ($5.9 million), making it — by AMC\'s account — the only "non-film" theatrical event this century to finish a weekend at No. 1 in North America.\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. That film opened far bigger ($92.8 million domestic); the release party\'s win was structural, not a bigger number — proof a big enough artist can rent the theatrical apparatus for a weekend and turn an album drop into a box-office event, no studio in the deal.',
         sources: [
           {
             outlet: 'Screen Daily',
@@ -448,6 +458,27 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+          },
+          // Depth ledger #1011 (2026-07-21): the exhibitor lineup + footprint
+          // (AMC's own release naming Cinemark/Regal/Cineplex/Cinépolis/Cinemex,
+          // 8,000+ cinemas / 110+ territories) and the weekend runner-up.
+          {
+            outlet: 'AMC Entertainment',
+            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/399/taylor-swift-the-official-release-party-of-a-showgirl-is-an-unprecedented-record-setting-worldwide-success-with-more-than-50-million-global-box-office',
+            source_title: 'THE OFFICIAL RELEASE PARTY OF A SHOWGIRL Is an Unprecedented, Record-Setting, Worldwide Success',
+            publisher: 'AMC Entertainment (investor press release)',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/film/box-office/taylor-swift-box-office-global-charts-one-battle-after-another-milestone-100-million-1236540555/',
+            source_title: "Taylor Swift Leads Box Office, 'One Battle After Another' Crosses $100 Million",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
           },
         ],
         photos: [
@@ -578,6 +609,17 @@ export default {
     {
       slug: 'showgirl-spotify-records',
       significance: 'notable', // a genuinely fast record — the fastest platform milestone of its kind, in under half a day (docs/decisions.md, 2026-07-19)
+      // Cross-link deficit closed (2026-07-21, depth ledger #992 Q7): this
+      // platform-record page now threads to the song whose day-one number it
+      // cites, the release anchor, and its sibling chart records.
+      relatedIds: [
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+      ],
       year: 2025,
       month: 10,
       day: 3,
@@ -589,7 +631,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The milestones stacked up hourly on Oct. 3: Spotify confirmed the album had become 2025\'s biggest single-day debut before the workday ended, having already smashed the platform\'s all-time pre-save record with more than 6 million saves banked before a note went public. By midnight the album sat at roughly 250 million global streams for the day.\n\nDay one also made "The Fate of Ophelia" the most-streamed song in a single day in Spotify history. The album\'s ~250 million single-day total is second all-time only to her own Tortured Poets Department (314 million) — that record\'s survival being the one release-week superlative Showgirl left standing. Deadline\'s tally framed it as a competition with exactly one participant: the only albums anywhere near her numbers are her own.',
+          'The milestones stacked up hourly on Oct. 3. Before a note went public the album had already broken Spotify\'s all-time pre-save record — more than 6 million saves banked, past the mark her own Tortured Poets Department set in 2024. By midday it was 2025\'s most-streamed album in a single day, the record falling in under 11 hours; by RouteNote\'s tally of Spotify\'s figures the day closed near 251.5 million global streams.\n\nDay one also made "The Fate of Ophelia" the most-streamed song in a single day in Spotify history — RouteNote put it at 30.99 million, past her own "Fortnight." Across everything she has out, Oct. 3 was the single biggest streaming day for any artist in 2025 — about 309 million listens — and the second-biggest single-artist day Spotify has ever logged, behind only her own Tortured Poets release. The album\'s ~250 million single-day total is likewise second all-time to TTPD\'s 314 million: that mark\'s survival is the one release-week superlative Showgirl left standing. Deadline framed it as a competition with exactly one participant — the only albums anywhere near her numbers are her own.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -608,6 +650,29 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth ledger #992 (2026-07-21): the "most-streamed song in a single
+          // day" record is confirmed by Spotify's newsroom (above) and MBW; the
+          // granular figures (251.5M album day, 30.99M for "Ophelia" past
+          // "Fortnight", 309M artist-day) are RouteNote's tally of Spotify data
+          // — reported, not officially itemised by Spotify, hence the lower score.
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/taylor-swifts-the-fate-of-ophelia-becomes-most-streamed-song-in-a-single-day-on-spotify-as-new-album-shatters-records-across-platforms/',
+            source_title: "Taylor Swift's 'The Fate of Ophelia' becomes most-streamed song in a single day on Spotify",
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'RouteNote',
+            url: 'https://routenote.com/blog/all-the-spotify-records-taylor-swift-broke-with-the-life-of-a-showgirl/',
+            source_title: "All the Spotify records Taylor Swift broke with 'The Life of a Showgirl'",
+            publisher: 'RouteNote',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
           },
         ],
         // Official MV thumbnail for the song that set the single-day song
@@ -748,7 +813,20 @@ export default {
     {
       slug: 'showgirl-hot-100-top-12-sweep',
       significance: 'defining', // a feat only she's pulled off, repeated and extended past her own Midnights record (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once'],
+      // Cross-link deficit closed (2026-07-21, depth ledger #996 Q8): the sweep
+      // now threads to the three songs it names (Ophelia/Opalite/Elizabeth
+      // Taylor), the same-week Billboard 200 debut, and its chart-record
+      // siblings — not only the Midnights precedent.
+      relatedIds: [
+        'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
+        'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-spotifys-2025-single-day-streaming-record-falls-in-under-11-',
+        'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
+      ],
       year: 2025,
       month: 10,
       day: 18,
@@ -763,7 +841,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the Hot 100 dated Oct. 18, 2025, the chart\'s top 12 positions and the album\'s 12-song tracklist were the same list: "The Fate of Ophelia" at No. 1, "Elizabeth Taylor" at No. 3, "Opalite" at No. 2, and every other track slotted in behind them, with nothing else — no other artist, no other song — inside the top 12.\n\nShe first claimed a full top 10 with Midnights in 2022, again with TTPD\'s top-14 sweep in 2024, and now a third time, making her the only artist ever to monopolize the chart\'s top 10 on three occasions. This one was unique in shape: a 12-track album occupying exactly the top 12, the complete tracklist with nothing left over — a chart picture only possible because she kept the album short.',
+          'On the Hot 100 dated Oct. 18, 2025, the chart\'s top 12 and the album\'s 12-song tracklist were the same list, in order: "The Fate of Ophelia" (No. 1), "Opalite" (2), "Elizabeth Taylor" (3), "Father Figure" (4), "Wood" (5), "Wi$h Li$t" (6), "Actually Romantic" (7), "The Life of a Showgirl" feat. Sabrina Carpenter (8), "Eldest Daughter" (9), "Cancelled!" (10), "Ruin the Friendship" (11) and "Honey" (12) — with nothing else, no other artist or song, inside the top 12. Billboard called it the first album ever to place all its songs uninterrupted from the top of the chart on down.\n\n"The Fate of Ophelia" arrived as the 1,184th No. 1 in Hot 100 history and Swift\'s 13th career chart-topper — tying for the fourth-most ever — on 92.5 million official U.S. streams, the most for any title in a single week since streams became the metric\'s sole contributor in September 2020, plus 38.5 million in radio-airplay impressions. The week lifted her to 69 career top 10s, the most of any woman.\n\nShe first filled the entire top 10 with Midnights in November 2022, then outdid herself with The Tortured Poets Department\'s top-14 sweep in May 2024 — the only act ever to monopolize the top 10, now three times over. But the shape was unique. Midnights spilled 10 more debuts down to No. 45 (20 songs that week) and TTPD another 17 down to No. 55 (31 total); Showgirl\'s twelve tracks filled exactly the top 12 and stopped — a clean tracklist-equals-top-12 match possible only because she kept the album short.',
         sources: [
           {
             outlet: 'Billboard',
@@ -773,6 +851,17 @@ export default {
             source_type: 'chart_database',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+          },
+          // Depth ledger #996 (2026-07-21): corroborating second source for the
+          // sweep, plus the full No. 1-12 grid and the per-week shape breakdown.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-hot-100-history-12-songs-showgirl-chart-1236551607/',
+            source_title: "Taylor Swift Makes Hot 100 History With All 12 Songs From 'Showgirl' Occupying the Top 12",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
           },
         ],
         // Photo-enrichment pass (2026-07-18, #762): portrait is from Billboard's
@@ -1081,6 +1170,17 @@ export default {
       month: 2,
       day: 28,
       category: 'music',
+      // Cross-link deficit closed (2026-07-21, depth ledger #997 Q9): the
+      // album's SECOND No. 1 now threads to its chart-partner "The Fate of
+      // Ophelia," the debut-week sweep where it opened at No. 2, and the
+      // release/album-week cluster.
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-twelve-weeks-at-no-1-through-the-entire-holiday-season',
+      ],
       title: 'Opalite follows Ophelia to No. 1',
       snippet:
         'The sunny track three — widely heard by fans and critics as her Travis song, its title a man-made stone standing in for a happiness you build yourself — became the album\'s second Hot 100 No. 1 on the chart dated Feb. 28, 2026, months after "The Fate of Ophelia" had wrapped its own 10-week run at the top.',
@@ -1088,7 +1188,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated. Kelce, for his part, called it his favorite song on the album on New Heights. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push, including a run of remixes (Chris Lake, BUNT., Skream, and Ely Oaks among them), landed in mid-February 2026, and on the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.',
+          'Swift has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated. Kelce, for his part, called it his favorite song on the album on New Heights. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push, including a run of remixes (Chris Lake, BUNT., Skream, and Ely Oaks among them), landed in mid-February 2026, and on the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Swift had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because Billboard counts physical singles when they ship, not when fans order them. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Swift\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).',
         sources: [
           {
             outlet: 'Slate',
@@ -3269,6 +3369,18 @@ export default {
       month: 1,
       day: 4,
       category: 'business',
+      // Cross-link deficit closed (2026-07-21, depth ledger #1006 Q8): the
+      // sustained reign now threads to its year-end sequel (the Luminate
+      // most-consumed crown named in its own text), the debut week that began
+      // the run, and its Showgirl chart-record siblings.
+      relatedIds: [
+        'moment:vault-tloas-luminates-2025-crown-5-6-million-units-no-contest',
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-tloas-spotifys-2025-single-day-streaming-record-falls-in-under-11-',
+        'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
+      ],
       title: 'Twelve weeks at No. 1 — through the entire holiday season',
       snippet:
         'Showgirl held the Billboard 200\'s top spot for 12 nonconsecutive weeks into January — her second-longest run ever behind TTPD — outlasting a record seven Christmas albums crowding the top 10.',
@@ -3276,7 +3388,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The album spent nearly every week at No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby posted his biggest streaming week ever at No. 2, through its own 10th and 11th week milestones Billboard tracked one by one — ceding the top spot only once, for a single week in early December, when Stray Kids\' EP "Just Do It" opened strong before Showgirl reclaimed No. 1. Holding the top spot across December is still the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard, and none of them budged it for more than that one week.\n\nTwelve nonconsecutive weeks made it her second-longest run at No. 1 ever, behind only The Tortured Poets Department\'s 2024 reign, and the album was still on top when Luminate crowned it 2025\'s most-consumed album in January — a holiday quarter that turned the release-week fireworks into a sustained occupation.',
+          'The album spent nearly every week at No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby posted his biggest streaming week ever at No. 2, through its own 10th and 11th week milestones Billboard tracked one by one — ceding the top spot only once, for a single week in early December, when Stray Kids\' EP "Just Do It" opened strong before Showgirl reclaimed No. 1. Holding the top spot across December is still the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard, and none of them budged it for more than that one week.\n\nTwelve nonconsecutive weeks made it her second-longest run at No. 1 ever, behind only The Tortured Poets Department\'s 17-week 2024 reign, and the album was still on top when Luminate crowned it 2025\'s most-consumed album in January — a holiday quarter that turned the release-week fireworks into a sustained occupation.',
         sources: [
           {
             outlet: 'Billboard',
@@ -3294,6 +3406,17 @@ export default {
             publisher: 'Billboard',
             source_type: 'chart_database',
             accessed_at: '2026-07-10',
+            reliability_score: 5,
+          },
+          // Depth ledger #1006 (2026-07-21): the TTPD benchmark the "second-longest"
+          // claim is measured against — its career-best 17-week Billboard 200 reign.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-tortured-poets-department-17th-week-number-one-billboard-200-chart-1235857250/',
+            source_title: "Taylor Swift's 'The Tortured Poets Department' Logs 17th Week at No. 1 on Billboard 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
             reliability_score: 5,
           },
           {
