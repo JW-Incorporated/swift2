@@ -6131,6 +6131,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://s.yimg.com/ny/api/res/1.2/ickryvH9sKcF7tDFtwxxbw--/YXBwaWQ9aGlnaGxhbmRlcjt3PTk2MDtoPTE0NDA7Y2Y9d2VicA--/https://media.zenfs.com/en/insider_articles_922/7a2cc8fb3dc0f6c58c259f9ddd4d244f", credit: "Jason Kempin/Getty Images", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/news/804943/taylor-swift-s-evolving-cma-awards-style-over-the-years" }, { name: "Yahoo Entertainment (Insider)", url: "https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html" }],
+      products: [{ brand: "WonderlandByLilian", item: "Silver Grey Elegance Sequin Evening Gown", retailer: "wonderlandbylilian.com", url: "https://wonderlandbylilian.com/products/silver-grey-elegance-sequin-evening-gown-convertible-grey-evening-dress-plus-size", price: "$695.00", isAlternative: true, altNote: "Her 2011 J. Mendel gown is long discontinued -- a current made-to-order dove-grey sequin gown in the same formal register." }],
     },
     {
       id: "vault-speak-now-a-gold-roberto-cavalli-fringe-dress-for-sparks-fly-mine-and-",
@@ -6142,6 +6143,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/7/76/Taylor_Swift_-_Speak_Now_World_Tour_Sydney_2012.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary", focalPoint: "42% 20%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour" }],
+      products: [{ brand: "12th Tribe", item: "Ophelia Gold Fringe Mini Dress", retailer: "12thtribe.com", url: "https://www.12thtribe.com/products/ophelia-gold-fringe-mini-dress", price: "$114.00", isAlternative: true, altNote: "The exact Roberto Cavalli tour costume is undocumented beyond this description -- a current gold fringe mini in the same silhouette (Everybody Fargo boots not separately sourced)." }],
     },
     {
       id: "vault-speak-now-the-speak-now-world-tour-opens-in-singapore",
@@ -6177,6 +6179,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.zenfs.com/en/insider_articles_922/a5afcd15ea4573043b3e2718c01fa859", credit: "Larry Busacca/Getty Images", kind: "primary" }],
       sources: [{ name: "Yahoo Entertainment (Insider)", url: "https://www.yahoo.com/entertainment/outfits-taylor-swift-worn-cma-174205706.html" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Back_to_December" }],
+      products: [{ brand: "Monique Lhuillier", item: "Poppy Jacquard Column Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/poppy-jacquard-column-gown", price: "$5,995.00", isAlternative: true, altNote: "Her exact 2010 gown is long discontinued -- this is a current Monique Lhuillier gown in the same red-orange \"Poppy\" family, a column silhouette rather than a sweetheart slit gown." }],
     },
     {
       id: "vault-speak-now-blunt-bangs-debut-at-the-2010-american-music-awards",
@@ -6188,6 +6191,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_79322072_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Bustle", url: "https://www.bustle.com/beauty/taylor-swift-bangs" }],
+      products: [{ brand: "Princess Polly", item: "Jesenia Beaded Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/jesenia-beaded-mini-dress-brown", price: "$89.00", isAlternative: true, altNote: "Her exact Collette Dinnigan mini is long discontinued -- this is a current beaded mini dress in the same general spirit (the item here is really about the bangs, not the dress)." }],
     },
     {
       id: "vault-speak-now-a-curly-updo-and-j-mendel-pink-chiffon-at-the-peoples-choice",
@@ -6199,6 +6203,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12961917_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/37th_People%27s_Choice_Awards" }],
+      products: [{ brand: "Monique Lhuillier", item: "Sweetheart Strapless Chiffon Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/pink-chiffon-sweetheart-strapless-gown", price: "$4,995.00", isAlternative: true, altNote: "Her exact J. Mendel dress is long discontinued -- this is a current pink chiffon gown in \"Pink Carnation,\" same soft pink-chiffon spirit (Prada heels, Neil Lane jewels not separately sourced)." }],
     },
     {
       id: "vault-speak-now-susan-hilfertys-purple-chiffon-halter-dress-becomes-the-tour",
@@ -6210,6 +6215,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://zpllkavmkkjnxpedhotv.supabase.co/storage/v1/render/image/public/images/shows/taylor-swift-speak-now-world-tour-57/Taylor-Swift-taylor-swift-newark-purple-04.webp", credit: "Susan Hilferty (costume designer)", kind: "primary" }],
       sources: [{ name: "Susan Hilferty (official)", url: "https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/" }, { name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }],
+      products: [{ brand: "Sherri Hill", item: "55304 One-Shoulder Ombre Sequin Gown", retailer: "formalapproach.com", url: "https://www.formalapproach.com/products/sherri-hill-55304-dress", price: "$698.00", isAlternative: true, altNote: "Hilferty's halter gown was a one-of-a-kind custom stage costume, never sold -- this is a current gown in Purple Ombre, same color family, though sequined rather than plain chiffon." }],
     },
     {
       id: "vault-speak-now-a-white-lace-alice-olivia-dress-for-mean-on-the-speak-now-to",
@@ -6221,6 +6227,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Mean_(song)" }],
+      products: [{ brand: "Princess Polly", item: "Hailees Lace Strapless Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/hendrie-lace-mini-dress-white", price: "$15.00", isAlternative: true, altNote: "The exact custom Alice + Olivia stage piece was never sold at retail -- this is a current white lace mini dress in the same general spirit." }],
     },
     {
       id: "vault-speak-now-a-red-sequin-theia-slip-dress-for-better-than-revenge",
@@ -6232,6 +6239,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/8/82/Taylor_Swift_Speak_Now_Tour_%286820796178%29.jpg", credit: "Eva Rinaldi / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now_World_Tour" }],
+      products: [{ brand: "Showpo", item: "Finn Mini Dress (Plunge Neck Sheer Sequin Dress)", retailer: "showpo.com", url: "https://www.showpo.com/nights-in-vegas-dress-in-wine-sequin.html", price: "$66.00", isAlternative: true, altNote: "The exact Theia tour piece is undocumented beyond this description -- a current red sequin slip dress in the same silhouette (Everybody Fargo boots not separately sourced)." }],
     },
     {
       id: "vault-speak-now-a-red-chiffon-susan-hilferty-dress-closes-out-haunted",
@@ -6243,6 +6251,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Susan Hilferty (official)", url: "https://susanhilferty.com/shows/taylor-swift-speak-now-world-tour-57/" }],
+      products: [{ brand: "Monique Lhuillier", item: "Poppy Jacquard Column Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/poppy-jacquard-column-gown", price: "$5,995.00", isAlternative: true, altNote: "Hilferty's red chiffon midi was a one-of-a-kind custom stage costume, never sold -- this is a current red-orange gown in the same color family, a floor-length column rather than a midi." }],
     },
     {
       id: "vault-speak-now-a-pink-elie-saab-sequin-gown-at-the-billboard-music-awards",
@@ -6254,6 +6263,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12995401_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-billboard-music-awards-2011-country-artist-of-the-year/" }],
+      products: [{ brand: "WonderlandByLilian", item: "Elegant Pink Sequin Evening Gown", retailer: "wonderlandbylilian.com", url: "https://wonderlandbylilian.com/products/elegant-pink-sequin-evening-gown-and-embellished-gown-designer-sequin-gown-and-pink-sequin-dress-plus-size", price: "$699.00", isAlternative: true, altNote: "Her exact 2011 Elie Saab gown is discontinued -- this is a current made-to-order pink sequin gown in the same strapless, top-to-bottom sequin spirit (Lorraine Schwartz jewelry not separately sourced)." }],
     },
     {
       id: "vault-speak-now-a-gold-reem-acra-gown-and-side-ponytail-at-the-american-musi",
@@ -6265,6 +6275,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg", credit: "Femestella", kind: "primary" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "CBS News", url: "https://www.cbsnews.com/news/american-music-awards-2011-taylor-swift-wins-artist-of-the-year/" }],
+      products: [{ brand: "Monique Lhuillier", item: "Gold Sequin Scoop Neck Gown", retailer: "moniquelhuillier.com", url: "https://moniquelhuillier.com/products/gold-sequin-scoop-neck-gown", price: "$5,495.00", isAlternative: true, altNote: "Her exact 2011 Reem Acra gown is long discontinued -- this is a current gold sequin column gown, same shimmering gold-beaded spirit." }],
     },
     {
       id: "vault-speak-now-a-purple-ombre-reem-acra-gown-on-the-speak-now-album-cover",
@@ -6276,6 +6287,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Speak_Now_cover.jpg", credit: "Reem Acra / Big Machine Records", kind: "primary", focalPoint: "54% 16%" }],
       sources: [{ name: "Femestella", url: "https://www.femestella.com/taylor-swift-iconic-outfits-speak-now-era/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Speak_Now" }],
+      products: [{ brand: "Sherri Hill", item: "55304 One-Shoulder Ombre Sequin Gown", retailer: "formalapproach.com", url: "https://www.formalapproach.com/products/sherri-hill-55304-dress", price: "$698.00", isAlternative: true, altNote: "Her exact Reem Acra cover gown is long discontinued -- this is a current gown in Purple Ombre, the same fading-purple color story, though sequined rather than plain chiffon." }],
     },
     {
       id: "vault-speak-now-glamour-puts-her-on-its-november-2010-cover",
@@ -6287,6 +6299,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG", credit: "Glamour", kind: "primary" }],
       sources: [{ name: "Catherine Angiel (archival)", url: "https://catherineangiel.com/blogs/editorial/glamour-magazine-cover-november-2010-taylor-swift" }, { name: "The Boot", url: "https://theboot.com/taylor-swift-glamour-magazine-interview/" }],
+      products: [{ brand: "WonderlandByLilian", item: "Light Blue Halter Neck Glitter Dress", retailer: "wonderlandbylilian.com", url: "https://wonderlandbylilian.com/products/light-blue-halter-neck-glitter-dress-elegant-sequin-a-line-evening-gown-plus-size", price: "$659.00", isAlternative: true, altNote: "No designer was ever named for this cover look -- this is a current made-to-order light-blue sequin dress in the same shimmery spirit." }],
     },
     {
       id: "vault-speak-now-a-gold-zuhair-murad-minidress-at-the-vanity-fair-oscar-party",
@@ -6298,6 +6311,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/109489184/photo/west-hollywood-ca-singer-taylor-swift-arrives-at-the-vanity-fair-oscar-party-at-sunset-tower.jpg?s=612x612&w=0&k=20&c=LYkicour3elj3xJhOZJvSJRNzd6pLXo7qpJM_9WWRM8=", credit: "Jon Kopaloff/Getty Images", caption: "Arriving at the Vanity Fair Oscar Party at Sunset Tower, February 27, 2011, in the gold Zuhair Murad minidress.", kind: "primary" }],
       sources: [{ name: "Taste of Country", url: "https://tasteofcountry.com/taylor-swift-vanity-fair-oscars-party-pictures/" }],
+      products: [{ brand: "Fashion Nova", item: "Staying Golden Sequin Mini Dress", retailer: "fashionnova.com", url: "https://www.fashionnova.com/products/staying-golden-sequin-mini-dress-gold", price: "$42.99", isAlternative: true, altNote: "Her exact Zuhair Murad minidress is long discontinued -- this is a current gold sequin mini in the same beaded-gold spirit (Jimmy Choo platforms not separately sourced)." }],
     },
     {
       id: "vault-speak-now-a-marilyn-monroe-inspired-white-halter-dress-at-the-teen-cho",
@@ -6309,6 +6323,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://media.gettyimages.com/id/139353810/photo/universal-city-ca-taylor-swift-arrives-at-teen-choice-2011-at-the-gibson-amphitheatre-on.jpg?s=612x612&w=0&k=20&c=ikjub89NrsPL5br_63iqmNw_mXtseHJbQAYLDJEjpo8=", credit: "Gregg DeGuire/FilmMagic", caption: "Arriving at the 2011 Teen Choice Awards in the Marilyn Monroe-inspired white halter dress.", kind: "primary" }],
       sources: [{ name: "AceShowbiz", url: "https://www.aceshowbiz.com/news/view/00042706.html" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/2011_Teen_Choice_Awards" }],
+      products: [{ brand: "Princess Polly", item: "Alyn Halter Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/alyn-halter-mini-dress-white", price: "$79.00", isAlternative: true, altNote: "Her Rafael Cennamo dress is undocumented beyond this styling credit -- a current white halter dress, same silhouette (Ranjana Khan belt, Neil Lane jewelry, Fendi shoes not separately sourced)." }],
     },
     {
       id: "vault-speak-now-her-first-vogue-cover-shot-by-mario-testino",
@@ -6321,6 +6336,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://fashiongonerogue.com/wp-content/uploads/igr/preview/01/taylor_swift1.jpg", credit: "Mario Testino / Vogue US", kind: "primary", focalPoint: "50% 30%" }],
       sources: [{ name: "Fashion Gone Rogue", url: "https://www.fashiongonerogue.com/taylor-swift-mario-testino-vogue-february-2012/" }],
       significance: "notable",
+      products: [{ brand: "Rodarte", item: "Lavender Daisy Silk Twill Mini Dress With Broderie Anglais Ruffle And Belt", retailer: "shoprodarte.com", url: "https://shoprodarte.com/products/lavender-daisy-silk-twill-mini-dress-with-broderie-anglais-ruffle-and-belt", price: "$1,695.00", isAlternative: true, altNote: "The exact editorial pieces from this shoot are undocumented -- this is a current piece from Rodarte, one of the three houses (with Jil Sander and Rag & Bone) the shoot pulled from." }],
     },
     {
       id: "vault-speak-now-a-gold-zuhair-murad-couture-gown-on-the-2012-grammys-red-car",
@@ -6332,6 +6348,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://styledarlingdaily.com/wp-content/uploads/2012/02/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown.jpg", credit: "Style Darling Daily", kind: "primary", focalPoint: "52% 13%" }],
       sources: [{ name: "Style Darling Daily", url: "https://styledarlingdaily.com/2012/02/15/red-carpet-review-the-best-wild-looks-from-the-2012-grammys-red-carpet/taylor-swift-in-a-gold-mermaid-zuhair-murad-gown/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Mean_(song)" }],
+      products: [{ brand: "COLORS Dress", item: "Sequin Mermaid Evening Gown", retailer: "shop.simon.com", url: "https://shop.simon.com/products/sequin-mermaid-evening-gown-in-gold-turquoise", price: "$170.00", isAlternative: true, altNote: "Her Zuhair Murad Couture gown was a one-of-a-kind piece, never sold at retail -- this is a current gold mermaid sequin gown in the same silhouette." }],
     },
     {
       id: "vault-speak-now-a-surprise-jetblue-concert-for-travelers-at-jfk",
