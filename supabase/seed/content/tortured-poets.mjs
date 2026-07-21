@@ -681,6 +681,10 @@ export default {
       month: 10,
       day: 18,
       category: 'tour',
+      // Cross-link pass (Answerer shard 5, 2026-07-21, ledger #1088): links to
+      // the "Florida!!!" studio-duet page — the Miami run is where that duet ran
+      // nightly on the final leg. ID verified against the generated vault.
+      relatedIds: ['moment:vault-ttpd-florida-a-dateline-inspired-duet-with-florence-welch'],
       title: 'The tour comes home: three nights in Miami, with Florence Welch in tow',
       snippet:
         'After a two-month break, the Eras Tour opens its final leg at Hard Rock Stadium — and Florence Welch walks out for a live "Florida!!!", not once but on all three nights.',
@@ -693,7 +697,7 @@ export default {
         'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
       moment: {
         context:
-          'The first show since Wembley on Aug. 20 — 61,000 fans at Hard Rock Stadium on Oct. 18, 2024, and the start of the tour\'s last lap. The break showed in the details: new looks throughout, including a silver Fearless dress and a black Midnights bodysuit scattered with stars and a moon, plus setlist changes for the final leg.\n\nThe headline moment was the TTPD set: Florence Welch appeared for "Florida!!!" live — the duet fans had been asking about since the album dropped — and rather than a one-night stunt, she came back for it on Oct. 19 and 20 too, making the duet a fixture of the whole Miami stand.',
+          'The first show since Wembley on Aug. 20 — Oct. 18, 2024 at Hard Rock Stadium, and the start of the tour\'s last lap; the three nights (Oct. 18–20) drew about 180,000. The layoff showed in the wardrobe: new Roberto Cavalli looks by Fausto Puglisi, headlined by the first new Reputation outfit of the entire tour — a gold-and-black one-leg bodysuit with a 3-D cobra, retiring the red-sequin-snake catsuit worn at every show since March 2023 — plus a new sapphire-fringe Fearless dress and reworked Midnights and acoustic looks.\n\nThe TTPD set had the marquee guest: Florence Welch walked out for a live "Florida!!!" on all three nights. It wasn\'t the song\'s debut — that had come at the Aug. 20 Wembley finale — but Miami made the duet a fixture. Otherwise the setlist held; only the nightly two-song surprise changed: "Tim McGraw" / "Timeless" and "this is me trying" / "Daylight" (18th); "Should\'ve Said No" / "I Did Something Bad" and "loml" / "White Horse" (19th); "Out of the Woods" / "All You Had to Do Was Stay" and "mirrorball" / "Guilty as Sin?" (20th). Rain soaked the open-canopy opener — "a little rain never stopped Swift," wrote Deadline. Travis Kelce, mid-NFL season, missed the run, though his mother Donna and brother Jason\'s family came opening night.',
         sources: [
           {
             outlet: 'Deadline',
@@ -712,6 +716,56 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-14',
             reliability_score: 3,
+          },
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/hard-rock-stadium-miami-gardens-fl-1355c19d.html',
+            source_title: 'Taylor Swift Setlist at Hard Rock Stadium, Miami — Oct. 18, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'reference',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: 'Per-night surprise-song mashups across Oct 18–20; Florence Welch on "Florida!!!"',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-florence-florida-duet-miami-show-1235137985/',
+            source_title: "Taylor Swift Brings Out Florence Welch for 'Florida!!!' in Miami",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Establishes the Aug. 20 Wembley live debut of "Florida!!!" vs the Miami return',
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/taylor-swift-new-reputation-outfit/',
+            source_title: "Taylor Swift Is Finally Ready to Change Her 'Reputation' (Outfit)",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'First new Reputation look of the tour (gold-and-black cobra bodysuit); Roberto Cavalli / Fausto Puglisi across the final leg',
+          },
+          {
+            outlet: 'Newsweek',
+            url: 'https://www.newsweek.com/taylor-swift-eras-tour-miami-billy-joel-record-hard-rock-stadium-1995165',
+            source_title: "Taylor Swift Breaks Billy Joel's Hard Rock Stadium Record",
+            publisher: 'Newsweek',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: '122,000+ over two nights broke the venue concert record (Billy Joel & Elton John, 1995)',
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2024/10/18/travis-kelce-family-taylor-swift-eras-tour-miami/',
+            source_title: "Travis Kelce's Family Supports Taylor Swift at Eras Tour in Miami",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: 'Travis absent (NFL season); Donna, Jason and Kylie Kelce attended opening night',
           },
         ],
         photos: [
@@ -2404,6 +2458,14 @@ export default {
       month: 6,
       day: 13,
       category: 'tour',
+      // Cross-link pass (Answerer shard 5, 2026-07-21, ledger #1082): page had
+      // zero links. The show where the end-date was surfaced now threads to the
+      // show where the tour actually ended (Vancouver) and the tour's $2B-gross
+      // milestone. IDs verified against the generated vault.
+      relatedIds: [
+        'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+        'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
+      ],
       title: 'Show 100 at Anfield — and the news the tour will end',
       snippet:
         'She marked the milestone by confirming what fans dreaded: the Eras Tour closes for good in December. "The most exhausting, all-encompassing, but most joyful... thing that has ever happened in my life."',
@@ -2411,7 +2473,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'June 13, 2024, Anfield Stadium, Liverpool: "You know, this is actually the 100th show of the tour. That blows my mind."\n\nA spokesperson confirmed to ABC News the run would end in Vancouver on Dec. 8 — 149 shows after Glendale, with no further extensions after a tour that had already been extended repeatedly.',
+          'June 13, 2024, Anfield — home of Liverpool FC — and night one of a three-night stand (June 13–15, Paramore opening). "You know, this is actually the 100th show of the tour. That blows my mind," she told the crowd, before making the admission fans dreaded: "this is the very first time I\'ve ever acknowledged to myself and admitted that this tour is going to end in December." She gave only "December" from the stage; a spokesperson supplied ABC News the specific finale — Vancouver, Dec. 8, the 149th and last show, 149 dates after Glendale, with no further extensions.\n\nThe milestone night carried two rarities: a "Cornelia Street" / "Maroon" mashup on piano and an "I Can See You" / "Mine" mashup on guitar — the first a nod to Liverpool, where the "I Can See You" video was filmed. The city met her halfway: Culture Liverpool and the social enterprise Make CIC turned the centre into a "Taylor Town" trail of eleven era-themed art installations (June 8–16) — a moss-covered "evermore" piano, a "Red" room, "Lover" hearts, a Fearless "13" mural. Night one drew about 62,000, which Swift said broke Anfield\'s attendance record — the 61,905 set at a 1952 FA Cup tie — though a concert pitch packs in more standing fans than a match ever did.',
         sources: [
           {
             outlet: 'ABC News',
@@ -2430,6 +2492,46 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/anfield-liverpool-england-33aa401d.html',
+            source_title: 'Taylor Swift Setlist at Anfield, Liverpool — June 13, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'reference',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: 'Surprise songs: "Cornelia Street"/"Maroon" (piano); "I Can See You"/"Mine" (guitar)',
+          },
+          {
+            outlet: 'Liverpool BID Company',
+            url: 'https://liverpoolbidcompany.com/taylor-town-trail/',
+            source_title: 'Welcome to Lover-pool: the Taylor Town Trail',
+            publisher: 'Liverpool BID Company',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Taylor Town Trail: 11 era-themed art installations, Culture Liverpool + Make CIC, June 8–16, 2024',
+          },
+          {
+            outlet: 'TicketNews',
+            url: 'https://www.ticketnews.com/2024/06/swift-breaks-anfield-record-with-62000-fans-confirms-final-tour-date/',
+            source_title: 'Swift Breaks Anfield Record with 62,000 Fans, Confirms Final Tour Date',
+            publisher: 'TicketNews',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: '~62,000 night one vs Anfield\'s 61,905 record (1952 FA Cup); schedule ends Vancouver Dec. 8',
+          },
+          {
+            outlet: 'Music Week',
+            url: 'https://www.musicweek.com/live/read/live-review-taylor-swift-stuns-in-liverpool-with-landmark-100th-show-of-eras-tour/089976',
+            source_title: 'Live review: Taylor Swift stuns in Liverpool with landmark 100th show of Eras tour',
+            publisher: 'Music Week',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Onstage 100th-show acknowledgment; three-night Anfield stand',
           },
         ],
         // T16 photo pass (2026-07-09): photo from ABC News' coverage of the
@@ -2465,6 +2567,12 @@ export default {
       month: 6,
       day: 23,
       category: 'relationship',
+      // Cross-link pass (Answerer shard 5, 2026-07-21, ledger #1068): page had
+      // zero links. Threaded into the relationship arc and paired with the
+      // reciprocal TTPD Taylor/Travis crossover — the "So High School" moment
+      // (she wrote the song about him; here he steps into her show).
+      threadIds: ['the-proposal'],
+      relatedIds: ['moment:vault-ttpd-so-high-school-annotated-by-the-internet-in-minutes'],
       title: 'Travis Kelce, Eras Tour cast member for a night',
       snippet:
         'In white tie and a top hat, he carried her onto the stage during "I Can Do It With a Broken Heart" at Wembley — his idea, he later admitted, with choreography studied from Dumb and Dumber.',
@@ -2472,7 +2580,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'June 23, 2024, the third London night: Kelce slipped in among the tuxedoed dancers who carry Swift to the couch in the TTPD set\'s vaudeville intro, and the crowd took a beat to clock that the 6-foot-5 dancer was him.\n\nHe called the experience "jarring" in the best way on New Heights and confirmed he\'d pitched the cameo to her himself.',
+          'June 23, 2024, the third London night at Wembley — and originally a very different bit. On New Heights, Kelce said he first floated rolling out on a bike during the "1989" set ("How funny would it be if I just rolled out on one of the bikes"); Swift redirected him somewhere safer — the "I Can Do It With a Broken Heart" vaudeville intro, where top-hatted dancers revive her "fainted" showgirl.\n\nIn white tie, tails and a top hat — a costume built by Eras designer Jessica Jones and styled by Joseph Cassell — the 6-foot-5 Kelce carried Swift to the couch, dusted her face with a makeup brush once she was "revived," and slipped in a comedic step he later said he lifted from Jim Carrey in "Dumb and Dumber." He had a single night of rehearsal and one rule for himself: "Do not drop Taylor." The crowd took a beat to clock who the extra dancer was; Swift called the experience "jarring" in the best way, posted that she was "cracking up and swooning," and in the End of an Era docuseries said it was "the loudest it ever got on the Eras Tour."\n\nHe teased that it "might not be the last time," but it stayed a one-off — his only onstage turn before the tour closed in Vancouver that December. The tuxedo got a second life, though: he wore it again to Swift\'s Eras Tour wrap party.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -2491,6 +2599,56 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-brings-travis-kelce-stage-london-first-time-eras-tour-sho-rcna158507',
+            source_title: 'Taylor Swift brings Travis Kelce onstage in London for the first time',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Onstage business (carried her, makeup-brush dab, dance); first onstage appearance; her "cracking up/swooning" Instagram note',
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/travis-kelce-taylor-swift-the-eras-tour-costume-1236464231/',
+            source_title: "Travis Kelce Joins Taylor Swift Onstage in Tuxedo at 'The Eras' Tour",
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Tuxedo created by Eras costume designer Jessica Jones; styling by Joseph Cassell',
+          },
+          {
+            outlet: 'Uproxx',
+            url: 'https://uproxx.com/pop/travis-kelce-the-eras-tour-debut-jim-carrey-easter-egg-video/',
+            source_title: "Travis Kelce Snuck A Jim Carrey Easter Egg Into His 'Eras Tour' Debut",
+            publisher: 'Uproxx',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: 'New Heights: the tap step lifted from Jim Carrey in Dumb and Dumber',
+          },
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/creative-content/music/taylor-swift-end-of-an-era-sabrina-carpenter-travis-kelce-eras-tour/',
+            source_title: "Taylor Swift's 'End of an Era' Docuseries",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Swift: the Wembley cameo was "the loudest it ever got on the Eras Tour"',
+          },
+          {
+            outlet: 'People (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/travis-kelce-wore-london-eras-125932535.html',
+            source_title: "Travis Kelce Wore His London Eras Tour Tuxedo to Taylor Swift's Wrap Party",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: 'Re-wore the same cameo tuxedo to the Eras Tour wrap party, Dec 2024',
           },
         ],
         // Photo passes verified HTTP 200 + image/jpeg and vision-confirmed
@@ -2527,6 +2685,11 @@ export default {
       month: 7,
       day: 17,
       category: 'tour',
+      // Cross-link pass (Answerer shard 5, 2026-07-21, ledger #1093): the two
+      // defining fan-scale spectacles of the July 2024 German leg — a city
+      // renaming itself, and the tour's largest ticketless crowd ten days later
+      // at Munich's Olympiaberg. ID verified against the generated vault.
+      relatedIds: ['moment:vault-ttpd-munichs-hill-the-biggest-free-show-of-the-eras-tour'],
       title: 'Welcome to Swiftkirchen: Gelsenkirchen renames itself for the Eras Tour',
       snippet:
         'New town signs went up before the tour’s three sold-out Veltins-Arena nights, July 17–19: “Swiftkirchen.” The rename was one fan’s idea — Aleshanee Westhoff petitioned Mayor Karin Welge, and the city let her install the first sign herself.',
@@ -2536,7 +2699,7 @@ export default {
         'https://media.nbcbayarea.com/2024/07/Germany-City-renamed.png?resize=1200%2C675&quality=85&strip=all',
       moment: {
         context:
-          'Aleshanee Westhoff wrote to Mayor Karin Welge with the idea and started a petition behind it; Welge answered that it was “a great idea to temporarily rename Gelsenkirchen to ‘Swiftkirchen’” and had Westhoff install the first sign on Ebertstraße, with more posted at high-traffic spots around town ahead of the shows.\n\nFor the three nights the city also staged “Taylor Town” fan festivities — karaoke and DJ sets, a Swift-themed tram, and a new stone on Gelsenkirchen’s Walk of Fame. The Washington Post ran a whole piece on how improbable the pairing was (“the most unlikely city on Taylor Swift’s Europe tour”) — which was exactly the charm: for one July week, a renamed industrial town was the center of the Swiftie map.',
+          'The rename was one fan’s idea: a teenage Swift fan, Aleshanee Westhoff, wrote to Mayor Karin Welge and started a petition behind it (it drew a few hundred signatures). Welge answered that it was “a great idea to temporarily rename Gelsenkirchen to ‘Swiftkirchen’” for the concert window, and had Westhoff unveil the first yellow sign on Ebertstraße in early July; around thirty went up at high-traffic spots. Gelsenkirchen wasn’t the first host city to try it — Glendale, Arizona had branded itself “Swift City” for the 2023 tour opener — but it went furthest.\n\nAll three Veltins-Arena nights sold out at roughly 60,000, about 180,000 across July 17–19, and the city threw a free “Taylor Town” festival — karaoke, DJ sets, a Swift-themed tram — organised with local partners. Mastercard’s “Swiftonomics” tally put Gelsenkirchen’s accommodation spending up 171% year-on-year on the concert days, the largest jump of Germany’s three host cities. Two traces outlasted the weekend unevenly: the Walk of Fame stone was only temporary — swapped back for a neutral plate afterward, since that honour is normally reserved for locals — while twenty of the original “Swiftkirchen” signs were auctioned for charity. For one July week, a renamed industrial town was the center of the Swiftie map.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2566,6 +2729,46 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-15',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Stadt Gelsenkirchen',
+            url: 'https://www.gelsenkirchen.de/de/_funktionsnavigation/presse/pressemeldungen/64305-taylor-swift-bekommt-einen-stein-auf-dem-gelsenkirchen-walk-of-fame',
+            source_title: 'Taylor Swift bekommt einen Stein auf dem Gelsenkirchen Walk of Fame',
+            publisher: 'City of Gelsenkirchen (official)',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+            notes: 'Walk of Fame stone is temporary — replaced with a neutral plate after the concerts (honour normally reserved for locals)',
+          },
+          {
+            outlet: 'Stadt Gelsenkirchen',
+            url: 'https://www.gelsenkirchen.de/de/_funktionsnavigation/presse/pressemeldungen/64442-versteigerung-von-20-original-swiftkirchen-schildern-ist-abgeschlossen',
+            source_title: "Versteigerung von 20 original 'Swiftkirchen'-Schildern ist abgeschlossen",
+            publisher: 'City of Gelsenkirchen (official)',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+            notes: '20 original signs auctioned for charity (~1,400 bids, top €3,000)',
+          },
+          {
+            outlet: 'Mastercard',
+            url: 'https://www.mastercard.com/news/europe/de-de/newsroom/pressemitteilungen/de-de/2024/swiftonomics-deutschlandkonzerte-taylor-swift-eras-tour/',
+            source_title: 'Swiftonomics: Taylor Swifts Deutschlandkonzerte',
+            publisher: 'Mastercard Newsroom',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Gelsenkirchen accommodation spend +171% YoY, gastronomy +95% on concert days',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/glendale-arizona-renamed-swift-city-taylor-swift-eras-tour-1234695783/',
+            source_title: 'Glendale, Arizona Renamed ‘Swift City’ for Taylor Swift’s Eras Tour',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Glendale renamed itself "Swift City" for the March 2023 tour opener — Gelsenkirchen was not the first',
           },
         ],
         // Photo-enrichment run 11 (2026-07-18, #762): page had zero photos.
@@ -2869,7 +3072,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Sept. 8, 2024: two days before her Harris endorsement rearranged the news cycle, the two couples took in the men\'s final at Arthur Ashe Stadium. Fashion desks pinned Swift\'s look precisely — the cherry-red gingham was Reformation\'s "Sora" linen dress (about $248), styled with Gucci platform sandals and gold Louis Vuitton earrings; the Gucci bucket hat photographed between them was Travis\'s, part of his own head-to-toe Gucci fit.\n\nThe match itself was a real one: Jannik Sinner beat Taylor Fritz 6-3, 6-4, 7-5 for his first US Open title and second Grand Slam of 2024, while Fritz was the first American man in a US Open singles final since Andy Roddick in 2006. The couple shared a celebrity-heavy afternoon that also drew Anna Wintour, Matthew McConaughey and Alec Baldwin.\n\nThe US Open\'s own account leaned in — "in her tennis era" — and the outing, read in real time as a pure sports-and-fashion appearance, became one of the relationship\'s most-photographed non-Arrowhead moments of the year and set off a wave of gingham "dupe" shopping guides.',
+          'Sept. 8, 2024: two days before her Harris endorsement rearranged the news cycle, the two couples took in the men\'s final at Arthur Ashe Stadium. Fashion desks pinned Swift\'s look precisely — the cherry-red gingham was Reformation\'s "Sora" linen dress (about $248), styled with Gucci platform sandals and gold Louis Vuitton earrings; the Gucci bucket hat photographed between them was Travis\'s, part of his own head-to-toe Gucci fit.\n\nThe match itself was a real one: Jannik Sinner beat Taylor Fritz 6-3, 6-4, 7-5 for his first US Open title and second Grand Slam of 2024, while Fritz was the first American man in a US Open singles final since Andy Roddick in 2006. The couple shared a celebrity-heavy afternoon that also drew Anna Wintour, Matthew McConaughey and Alec Baldwin.\n\nThe US Open\'s own account leaned in — "in her tennis era," a nod to the 12-year-old Swift who had sung at Arthur Ashe back in 2002 — and caught the couple on the stadium screen mid-singalong to The Darkness\'s "I Believe in a Thing Called Love," a clip the tournament posted that sent the song back up the charts. It was a one-day trip (the Chiefs had opened their NFL season three days earlier), read in real time as a pure sports-and-fashion appearance, and it became one of the relationship\'s most-photographed non-Arrowhead moments of the year — setting off a wave of gingham "dupe" shopping guides.',
         sources: [
           {
             outlet: 'ABC News',
@@ -2918,6 +3121,26 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 5,
             notes: 'Score 6-3, 6-4, 7-5; Sinner first US Open title; Fritz first American finalist since Roddick 2006',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-travis-kelce-darkness-i-believe-in-a-thing-called-love-us-open-bump-1235772356/',
+            source_title: "The Darkness's 'I Believe in a Thing Called Love' Gets a US Open Bump",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Swift & Kelce caught on the stadium screen singing along; USTA posted the clip; song surged on the charts',
+          },
+          {
+            outlet: 'Billboard (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-travis-kelce-attend-013108867.html',
+            source_title: 'Taylor Swift and Travis Kelce Attend the 2024 US Open',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+            notes: 'The "in her tennis era" post referenced Swift singing at Arthur Ashe as a child in 2002',
           },
         ],
         // T16 photo pass (2026-07-09): AP photo from ABC News' coverage of
@@ -3166,7 +3389,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed; Billboard reported a price around $360 million to Shamrock Capital, the firm that had bought the catalog from Scooter Braun\'s Ithaca Holdings in 2020 for a sum reported between roughly $300 million and $405 million once future considerations were counted — so Shamrock likely turned a modest profit even after the Taylor\'s Versions eroded the originals\' value. The purchase swept up everything: the master recordings of all six albums, plus the music videos, concert films, album art, photography and unreleased "From the Vault" songs.\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time she sent her mother Andrea and brother Austin to negotiate rather than lawyers or managers. Shamrock said it "fully respect[s] and support[s] her decision"; Braun told reporters he was "happy for her."\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was finished and could "have its moment" someday. At its reported price the deal sits alongside the Dylan and Springsteen catalog sales of the era, but with a distinction: those bundled publishing, while Swift already owned her publishing — making this a rare buyback of masters alone.',
+          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed; Billboard reported a price around $360 million to Shamrock Capital, the firm that had bought the catalog from Scooter Braun\'s Ithaca Holdings in 2020 for a sum reported between roughly $300 million and $405 million once future considerations were counted — so Shamrock likely turned a modest profit even after the Taylor\'s Versions eroded the originals\' value. The purchase swept up everything: the master recordings of all six albums, plus the music videos, concert films, album art, photography and unreleased "From the Vault" songs.\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time she sent her mother Andrea and brother Austin to negotiate rather than lawyers or managers. Shamrock said it "fully respect[s] and support[s] her decision"; Braun told reporters he was "happy for her."\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was finished and could "have its moment" someday. At its reported price the deal sits alongside the Dylan and Springsteen catalog sales of the era, but with a distinction: those bundled publishing, while Swift already owned her publishing — making this a rare buyback of masters alone.\n\nIn her announcement letter she credited the ending to the success of the Eras Tour and the fans\' support for her re-recordings, saying she could finally own her music "with no strings attached." Reporting stopped short of confirming the deal ended Braun\'s 2020 earnout, but Variety noted he "no longer participates in any profit from a sale" and that Swift\'s camp was adamant he had no part in Shamrock\'s decision to sell.',
         sources: [
           {
             outlet: 'Billboard',
@@ -3214,6 +3437,16 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 2,
             notes: 'Asset list; Reputation TV vs debut TV status; Shamrock statement wording',
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.go.com/GMA/Culture/taylor-swift-reclaims-masters-shares-powerful-letter-greatest/story?id=122348547',
+            source_title: 'Taylor Swift reclaims her masters and shares a powerful letter',
+            publisher: 'ABC News (Good Morning America)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+            notes: 'Reproduces the letter: bought back "with no strings attached" thanks to the Eras Tour and the re-recordings',
           },
         ],
         // T16 photo pass (2026-07-09): the celebration photo released with
