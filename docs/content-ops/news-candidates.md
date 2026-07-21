@@ -27,6 +27,22 @@ so far".
 
 Stories: 120
 
+## Taylor Swift Looked Like a ‘Real-Life Princess’ on Wedding Day — Report - Yahoo
+
+- first seen: 2026-07-21 11:17 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Looked Like a ‘Real-Life Princess’ on Wedding Day — Report  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNNlpyTHM0aFQ2NHhzWlVpTXlEYlUtc0hiNE1kVFd6VUVXVEx3X1R2d21DVnB5djhyRlMtNWdQSjFxekxIcHYwaF9lS0hUUDNjYWJiT1RlQUxDTURvQUpuaElwSlRvMlVOLUh6czd3c0JFWE0wVnlPYWdvNG9fZmtZRHVxVDJreEJwb2F0YjQ0cDVKSEV3akZNRGo2X2xEWUU5?oc=5
+
+## Taylor Swift ‘Hasn’t Won’ ‘Over’ Every Chiefs WAG, ‘Plenty of Cattiness’ ‘Behind the Scenes’ - Yahoo
+
+- first seen: 2026-07-21 11:17 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift ‘Hasn’t Won’ ‘Over’ Every Chiefs WAG, ‘Plenty of Cattiness’ ‘Behind the Scenes’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPRU1XRjlUUHVjeW90bjk0N090djg1ak5mclo0RHhrTmtpMG15emRCVXZCcTA4cmw5bHp5eVJqeXMxN0NfSkFPMFB1eGxBMHlMTDdaMDJEMFpjcmRMNEFNV25zem1UeVhQSTNKMTU0NTYtR0Y0c2JnLU5nZEN1RTZQWjV3QnZWaGIxVnJhSEtFX21GOW54M1MxOQ?oc=5
+
 ## Brad Paisley says Taylor Swift and Travis Kelce threw 'one of the least pretentious weddings' ever -
 
 - first seen: 2026-07-21 07:41 UTC | category: relationship | importance: 5
@@ -988,19 +1004,3 @@ Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Excl
 - summary: AMC Theatres CEO Adam Aron took to X on Friday night to share a detailed account of what went down inside Taylor Swift and Travis Kelce’s Madison Square Garden wedding. “It did not look like Madison Square Garden,” Aron wrote in the since-deleted post. “Immediately upon entry, everything… floors, wa
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/amc-theatres-ceo-details-taylor-swift-travis-kelce-wedding-1236801708/
-
-## This Swiftie’s Best-Selling Book Offers an Insider’s Look at Taylor Swift’s Fanbase
-
-- first seen: 2026-07-19 18:01 UTC | category: fashion | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The book is written by Olivia Levin, the creator behind the popular Instagram account @SwiftiesForEternity.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/culture/product-recommendations/taylor-swift-fan-book-story-of-us-olivia-levin-where-to-buy-1236230093/
-
-## Ed Sheeran, Bradley Cooper, Dakota Johnson and More Pictured Heading to Taylor Swift and Travis Kelc
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Anybody who is anybody is making their way to New York’s Madison Square Garden dressed to the nines in an apparent march to get to Taylor Swift and Travis Kelce’s wedding. A-listers who have been photographed heading to MSG for the Swift-Kelce union (via People) include Ed Sheeran, Bradley Cooper, Z
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/ed-sheeran-dakota-johnson-guests-taylor-swift-wedding-1236801619/
