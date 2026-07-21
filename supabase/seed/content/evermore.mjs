@@ -817,6 +817,23 @@ export default {
             credit: 'Getty Images',
           },
         ],
+        // Shop pass (2026-07-21): the exact jumpsuit + all 4 named
+        // accessories (Anine Bing, Aquazzura, Jennifer Zeuner, Loeffler
+        // Randall) hit dead links across every official/retailer site
+        // checked this pass -- offering a current real Alaïa piece in the
+        // same off-the-shoulder stretch-knit silhouette as an honest
+        // partial match, curl-blocked, verified live in-browser.
+        products: [
+          {
+            brand: 'Alaïa',
+            item: 'Second Skin Knit Off-Shoulder Bodysuit',
+            retailer: 'ssense.com',
+            url: 'https://www.ssense.com/en-us/women/product/alaia/brown-second-skin-knit-off-shoulder-bodysuit/17916981',
+            price: '$1,900.00',
+            isAlternative: true,
+            altNote: 'Her exact jumpsuit hit dead links everywhere checked -- this is a current Alaïa off-the-shoulder stretch-knit bodysuit, same house and silhouette, though not a full jumpsuit.',
+          },
+        ],
       },
     },
 
@@ -858,6 +875,20 @@ export default {
           {
             url: 'https://stealherstyle.net/wp-content/uploads/2020/12/taylorswift_w3-500x350.jpg',
             credit: 'Republic Records',
+          },
+        ],
+        // Shop pass (2026-07-20/21): the exact 2020 Liberty-print collab
+        // piece is long gone from resale and official channels — offering
+        // a current real Gucci floral silk dress, verified live in-browser.
+        products: [
+          {
+            brand: 'Gucci',
+            item: 'Crepe de Chine Floral Silk Dress',
+            retailer: 'runwaycatalog.com',
+            url: 'https://www.runwaycatalog.com/products/gucci-silk-floral-print-dress',
+            price: '$2,640.00',
+            isAlternative: true,
+            altNote: 'The exact 2020 Gucci x Liberty London collaboration piece is long gone from every channel checked — this is a current Gucci floral silk dress in the same spirit.',
           },
         ],
       },
