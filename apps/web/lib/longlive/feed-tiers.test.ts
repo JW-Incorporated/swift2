@@ -286,7 +286,10 @@ describe('assignFeedTiers over REAL vault content', () => {
 
   it('gives a bare one-line single announcement the compact chip tier', () => {
     expect(realTier('vault-tloas-opalite-arrives-as-the-second-single')).toBe('chip');
-    expect(realTier('vault-tloas-the-fate-of-ophelia-video-premieres')).toBe('chip');
+    // Note: `the-fate-of-ophelia-video-premieres` used to be a second bare
+    // example here, but depth ledgers #1069/#1106 (2026-07-21) filled it out
+    // with full crew, a sourced narrative and debut metrics — it now scores as
+    // a substantial item, so asserting it stays a chip is no longer valid.
   });
 
   it('gives a mid-weight sourced item the media tier', () => {

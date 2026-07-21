@@ -4185,9 +4185,24 @@ export default {
       sourceUrl:
         'https://www.billboard.com/music/chart-beat/taylor-swift-adult-contemporary-4-in-top-10-1236291740/',
       thumbnailUrl: null,
+      // Cross-links (depth ledger #1058, 2026-07-21): the AC-record hub had zero
+      // relatedIds despite being about four songs that each have their own page.
+      // Thread it to all four.
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-elizabeth-taylor-goes-to-radio',
+      ],
       moment: {
+        // Depth ledger #1058 (2026-07-21): added the AC-peak clarification (none
+        // of the four has crowned AC — their peaks stop at 7–10) and the career
+        // yardstick (Elton John's all-time record of 42 top 10s; Swift leads only
+        // since her 2008 debut). Left open (not fabricated): each song's exact
+        // weeks-on-chart, whether IKIKY is her first soundtrack single in the AC
+        // top 10, and the post-July-18 durability (that chart isn't published yet).
         context:
-          'Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: "The Fate of Ophelia" at No. 7, "Opalite" at No. 8, "I Knew It, I Knew You" holding at its No. 9 peak, and "Elizabeth Taylor" at No. 10.\n\nNo artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.\n\nThe four are not all from one record, which is the quietly interesting part. "The Fate of Ophelia," "Opalite" and "Elizabeth Taylor" come from The Life of a Showgirl; "I Knew It, I Knew You" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once.\n\nIt brings her to 23 top 10s on the ranking, nine of them No. 1s.',
+          'Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: "The Fate of Ophelia" at No. 7, "Opalite" at No. 8, "I Knew It, I Knew You" holding at its No. 9 peak, and "Elizabeth Taylor" at No. 10.\n\nNo artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.\n\nThe four are not all from one record, which is the quietly interesting part. "The Fate of Ophelia," "Opalite" and "Elizabeth Taylor" come from The Life of a Showgirl; "I Knew It, I Knew You" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once. None of the four has actually crowned Adult Contemporary: even "Ophelia" and "Opalite," both Hot 100 No. 1s, peak here at Nos. 7 and 8, the tradeoff of a chart that rewards long radio life over a fast start.\n\nIt brings her to 23 top 10s on the ranking, nine of them No. 1s — none of these four among those nine. No artist has landed more AC top 10s since Swift first reached the chart in March 2008: her 23 lead Michael Bublé’s 19 and Kelly Clarkson’s 15, though the all-time record still belongs to Elton John, with 42.',
         sources: [
           {
             outlet: 'Billboard',
@@ -4425,9 +4440,61 @@ export default {
       category: "music",
       title: "“The Fate of Ophelia” video premieres",
       snippet: "The self-directed lead-single video debuts on YouTube after its theatrical-only premiere two days earlier.",
+      // Cross-links (depth ledgers #1069 + #1106, 2026-07-21): the page carried
+      // zero relatedIds. Thread it to its direct siblings — the song/chart page,
+      // the wardrobe breakdown, and the theatrical premiere event it headlined.
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai',
+        'moment:vault-tloas-the-official-release-party-of-a-showgirl-turns-movie-theater',
+      ],
       video: { youtubeId: "ko70cExuzZM", title: "Taylor Swift - The Fate of Ophelia (Official Music Video)" },
       moment: {
-        context: "Written and directed by Taylor Swift, the video moves through a string of theatrical costume changes and sets, in keeping with the album’s showgirl framing.\n\nIt had already premiered on the big screen as part of the release-party film before arriving on YouTube for the wider audience.",
+        // Depth ledgers #1069 + #1106 (2026-07-21): page was 2 sentences with
+        // zero sources. Added the full crew, the tableau-by-tableau concept, the
+        // filming/premiere facts, the debut metrics and the viral dance trend —
+        // all sourced. Left open (not fabricated): a first-24h view *record*
+        // superlative and an exact self-directed-filmography count, neither
+        // documented in a reputable source this pass.
+        context: "Swift wrote and directed the video herself and cast it from her Eras Tour family — her touring band and dance crew, choreographed by Mandy Moore — rather than outside stars; there are no celebrity cameos. Behind the camera she reunited with cinematographer Rodrigo Prieto (the Oscar-nominated DP of Barbie and Killers of the Flower Moon, and her ‘Fortnight’ and ‘Cardigan’ collaborator), production designer Ethan Tobman, editor Chancler Haynes and producer Jil Hardin. Prieto’s work here won the American Society of Cinematographers’ Music Video Award in March 2026, his first.\n\nThe film is a century of showgirl history in one song. Swift moves through a chain of tableaux — a Pre-Raphaelite ‘drowned Ophelia’ portrait (the Hamlet reference the title invokes, widely read as John Everett Millais’s 1851 painting), a Marilyn-style burlesque, a 1960s go-go number, a Sarah Bernhardt-era stage actress, an Esther Williams synchronized-swim spectacle staged Busby Berkeley–style, an Elizabeth Taylor sequence, a Bob Mackie showgirl revue, and a closing bathtub shot that mirrors the album cover. It was shot at the Los Angeles Theatre, with rehearsals spanning more than three weeks.\n\nIt reached audiences on the big screen first: the video headlined ‘The Official Release Party of a Showgirl,’ the three-day theatrical event that opened October 3, 2025, before arriving on YouTube on October 5. There it drew roughly a million views in its first hour, about 25 million in three days, and trended at No. 1 on the platform. Its chorus choreography then became a social phenomenon recreated worldwide — Australian Prime Minister Anthony Albanese and Indian MP Shashi Tharoor among those filmed doing it — though Swift released no official tutorial.",
+        sources: [
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-the-fate-of-ophelia-music-video-watch-1236393494/',
+            source_title: 'Taylor Swift Releases Music Video for “The Fate of Ophelia”: Watch',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-fate-of-ophelia-music-video-premiere-youtube-1236540694/',
+            source_title: 'Taylor Swift Debuts ‘Fate of Ophelia’ Music Video on YouTube',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Fate_of_Ophelia',
+            source_title: 'The Fate of Ophelia — Music video, production and reception',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/rodrigo-prieto-asc-award-taylor-swift-fate-ophelia-1784138',
+            source_title: '‘The Fate of Ophelia’ brings ‘Barbie’ cinematographer Rodrigo Prieto his first ASC music video award',
+            publisher: 'International Business Times UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
         // MV id ko70cExuzZM re-verified via YouTube oEmbed this session
         // ("Taylor Swift - The Fate of Ophelia (Official Music Video)",
