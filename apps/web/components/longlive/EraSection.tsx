@@ -484,10 +484,15 @@ const TAG_ICON: Record<ContentTag, LucideIcon> = {
  * click-to-play facade (MomentVideo) used everywhere else a video embeds.
  */
 function VideoMomentCard({ video, eraId }: { video: TimelineVideo; eraId: Era['id'] }) {
+  // Full width regardless of tier: this card carries a 16/9 YouTube facade,
+  // which is unreadable squeezed into a half-width track.
+  //
+  // NB: this comment lives OUTSIDE the tag on purpose. A `//` comment in JSX
+  // attribute position parses under tsc but is a hard syntax error in Next's
+  // SWC parser, so it passes typecheck and tests and then fails only in the
+  // browser as a blank page (2026-07-21).
   return (
     <li
-      // Full width regardless of tier: this card carries a 16/9 YouTube
-      // facade, which is unreadable squeezed into a half-width track.
       className="relative min-w-0 scroll-mt-28 md:col-span-2"
       data-ll-item={`era-video-${video.slug}`}
       data-ll-era={eraId}
