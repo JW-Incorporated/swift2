@@ -3942,6 +3942,14 @@ export default {
     {
       slug: 'nyt-greatest-songwriters-interview',
       significance: 'notable', // a rare critical assessment of her actual craft, from one of the country's most respected culture desks (docs/decisions.md, 2026-07-19)
+      // Cross-links (ledger #1044, 2026-07-21): the page had none despite being
+      // an explicit craft-canonization beat — thread it to its direct payoff
+      // (the Songwriters Hall of Fame induction six weeks later) and the album
+      // whose rollout the interview sat inside.
+      relatedIds: [
+        'moment:vault-tloas-the-youngest-woman-in-the-songwriters-hall-of-fame',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+      ],
       year: 2026,
       month: 4,
       day: 28,
@@ -3953,7 +3961,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Times\' list, published April 28, 2026, was assembled from more than 250 music insiders and six of its own critics — unranked, and putting her alongside Bob Dylan, Dolly Parton, Jay-Z, Kendrick Lamar, Missy Elliott, and Bad Bunny. The accompanying video interview is the part fans kept: an uninterrupted half-hour where the only subject is the songwriting.\n\nThe takeaways travel well. Country storytelling pulled her in first, but the other early wire was emo — Dashboard Confessional and Fall Out Boy get named checks. Her collaboration rule: "May the best idea win... I don\'t care if it came from you, you or me. If it\'s better, that\'s what goes in the song" — adding "I do kind of like it when people challenge me on something." And on the fandom\'s favorite sport, she pushed back harder than she ever has: "When it gets a little bit weird for me is when people act like it\'s sort of like a paternity test... That dude didn\'t write the song. I did."\n\nThe timing made it land as the opening beat of a craft-canonization spring: six weeks later she\'d be the youngest woman ever inducted into the Songwriters Hall of Fame.',
+          'The Times\' list, published April 28, 2026, was assembled from more than 250 music insiders and six of its own critics — unranked, and putting her alongside Bob Dylan, Dolly Parton, Jay-Z, Kendrick Lamar, Missy Elliott, and Bad Bunny. The accompanying video interview — conducted by Times music reporter Joe Coscarelli and released through the paper\'s Popcast — is the part fans kept: an uninterrupted half-hour where the only subject is the songwriting.\n\nThe takeaways travel well. Country storytelling pulled her in first, but the other early wire was emo — Dashboard Confessional and Fall Out Boy get named checks. Her collaboration rule: "May the best idea win... I don\'t care if it came from you, you or me. If it\'s better, that\'s what goes in the song" — adding "I do kind of like it when people challenge me on something." And on the fandom\'s favorite sport, she pushed back harder than she ever has: "When it gets a little bit weird for me is when people act like it\'s sort of like a paternity test... That dude didn\'t write the song. I did."\n\nThe timing made it land as the opening beat of a craft-canonization spring: six weeks later she\'d be the youngest woman ever inducted into the Songwriters Hall of Fame.',
         sources: [
           {
             outlet: 'Billboard',
@@ -3980,6 +3988,18 @@ export default {
             publisher: 'The Detroit News',
             source_type: 'reputable_press',
             accessed_at: '2026-07-14',
+            reliability_score: 4,
+          },
+          // Ledger #1044 Q2 (2026-07-21): the interview's platform + interviewer
+          // — the NYT Popcast episode, conducted by Times reporter Joe
+          // Coscarelli (host Jon Caramanica framed it on the show).
+          {
+            outlet: 'The New York Times — Popcast',
+            url: 'https://podcasts.apple.com/us/podcast/the-taylor-swift-interview-behind-the-scenes/id120315823?i=1000765543287',
+            source_title: 'The Taylor Swift Interview: Behind the Scenes',
+            publisher: 'The New York Times',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
             reliability_score: 4,
           },
         ],
@@ -4072,6 +4092,15 @@ export default {
     },
     {
       slug: 'rock-hall-ophelia-display',
+      // Cross-links (ledger #1049, 2026-07-21): the page carried none, yet the
+      // artifacts on display ARE the wardrobe from "The Fate of Ophelia" video
+      // — link it to that video, to the lead single it served, and to the
+      // page that catalogs the same garments (the Ophelia video wardrobe).
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai',
+      ],
       year: 2026,
       month: 6,
       day: 26,
@@ -4700,6 +4729,22 @@ export default {
       day: 13,
       category: "music",
       title: "A new era is announced",
+      // Consolidation + sourcing (ledger #1067, 2026-07-21): this is the thin
+      // legacy-migrated duplicate of the canonical New Heights announcement
+      // (the "mint-green briefcase" item), same date and event (2025-08-13).
+      // It is deliberately NOT deleted here: it uniquely carries the
+      // era-timeline `milestone` marker (m-tloas-1) and the orange-signature
+      // `hiddenClue`, and the canonical sibling carries neither — so removing
+      // or redirecting this page is a structural change that would drop a
+      // timeline milestone, surfaced to the founders in the PR + on ledger
+      // #1067 rather than done unilaterally by a content run. Pending that
+      // call, this pass makes the page honest: it cross-links to its canonical
+      // sibling and the album it announced, and adds the minimum sourcing it
+      // previously lacked entirely.
+      relatedIds: [
+        'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+      ],
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-tloas-1", label: "Era announced", kind: "life" },
@@ -4707,6 +4752,32 @@ export default {
       hiddenClue: { clue: "The announcement leaned hard on the color orange — a shade barely used before.", payoff: "Orange became the era’s signature, blanketing every teaser and cover in warm footlight glow." },
       moment: {
         context: "After the monochrome hush of the last era, the reveal comes not from a stage or a cryptic post but from a guest chair on her fiancé’s football podcast — itself a sign of how public the era would be.\n\nThe announcement lands in warm orange and gold: a showgirl era, all sparkle and spectacle, reframing everything that came before as the build-up to a curtain call.",
+        // Minimum sourcing added per ledger #1067 Q4 (2026-07-21): the page
+        // asserted facts (the New Heights reveal, the orange-signature read)
+        // with zero sources. These are the same verified sources the canonical
+        // sibling carries for this exact event — the episode itself plus a
+        // reputable-press writeup of the announcement.
+        sources: [
+          {
+            outlet: 'New Heights with Jason & Travis Kelce',
+            url: 'https://www.youtube.com/watch?v=M2lX9XESvDE',
+            source_title:
+              'Taylor Swift on Reclaiming Her Masters, Wrapping The Eras Tour, and The Life of a Showgirl | NHTV',
+            publisher: 'New Heights (Wondery)',
+            source_type: 'social',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-sets-guinness-world-record-new-heights-podcast-appearance-rcna227245',
+            source_title: "Taylor Swift sets Guinness World Record with 'New Heights' podcast appearance",
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Full New
         // Heights episode id M2lX9XESvDE verified via YouTube oEmbed this
         // session ("Taylor Swift on Reclaiming Her Masters, Wrapping The Eras
