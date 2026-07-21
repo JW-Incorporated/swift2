@@ -2296,6 +2296,26 @@ export default {
             focalPoint: '50% 45%',
           },
         ],
+        // Rumor Desk 2026-07-21: the commission itself is confirmed (above), but
+        // HOW/WHEN the gown is unveiled is a separate, still-open claim. This is
+        // an official-tier statement (a Dior spokesperson, on the record to the
+        // NYT), distinct from the tabloid "holding the photos back" rumor on the
+        // MSG-wedding page. Adjudicable: it resolves the moment official photos
+        // appear — confirmed if they arrive via her own Instagram as described.
+        // No location (an Instagram reveal pins down nothing physical).
+        rumors: [
+          {
+            claim:
+              'A Dior spokesperson told The New York Times that Swift herself would be the one to unveil the custom gown — sharing the first official photos in her own Instagram post, on her own timeline, which the house said it was "not sure when" would come.',
+            reportedBy: 'The New York Times (via The Hollywood Reporter)',
+            reportedOn: '2026-07-07',
+            status: 'unconfirmed',
+            url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/',
+            note: 'An on-record Dior statement about the reveal mechanism, not the gown itself. As of mid-July no official photos of the gown or ceremony had been posted; the reporting (updated July 20) added that the white gown on Dior\'s fall 2026 couture runway was not the wedding dress. Resolves when the official photos surface and we can see whether they came via her own Instagram, as described.',
+            sourceTier: 'official',
+            lastCheckedOn: '2026-07-21',
+          },
+        ],
       },
     },
 
