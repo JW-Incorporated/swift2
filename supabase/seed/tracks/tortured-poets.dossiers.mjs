@@ -1,8 +1,9 @@
 // Per-song dossiers for The Tortured Poets Department era (issue #440 pattern),
 // keyed by track slug and attached in tortured-poets.mjs. Added by the depth
 // engine's Answerer (shard 5, 2026-07-21) to answer curiosity ledgers #1095
-// (So Long, London) and #1026 (How Did It End?) — specifically their
-// cross-link questions, which resolve through a dossier's `connections`.
+// (So Long, London), #1026 (How Did It End?) and #1099 (Fortnight) —
+// specifically their cross-link questions, which resolve through a dossier's
+// `connections`.
 // Fact-checked this pass: every source URL was fetched and supports its claim;
 // confirmed tier = Swift's own public statements or hard documented facts only;
 // all relationship readings are labeled fan/press theory, never fact, and no
@@ -122,6 +123,69 @@ export default {
       {
         name: "Rolling Stone: Taylor Swift Debuts 'How Did It End?' at Final Stockholm Eras Tour Date",
         url: "https://ca.rollingstone.com/music/taylor-swift-debuts-how-did-it-end-at-final-2024-eras-tour-date-in-sweden/"
+      }
+    ]
+  },
+
+  "fortnight": {
+    whyItMatters: [
+      "Fortnight is the album's thesis single and its front door: released April 19, 2024 as the lead single alongside the record, it debuted at No. 1 on the Billboard Hot 100 — Swift's 12th chart-topper and seventh No. 1 debut — and anchored her record top-14 opening week. Post Malone was Swift's stated first-choice feature for the album's opener, and the two trading the refrain 'I love you, it's ruining my life' set the record's tone of numbed, permanent damage: a fortnight of feeling everything, then lawns and small talk forever.",
+      "Its reach was historic on two fronts. Within a day of release the song set Spotify's all-time single-day streaming record for a track (about 25.2 million global streams), later logged with Guinness World Records; months on, the Swift-directed video swept the 2024 MTV VMAs — Video of the Year, Best Collaboration, Best Direction, Best Editing and Song of the Summer — five of the seven trophies Swift took that night, the most any artist has won at a single VMAs ceremony."
+    ],
+    meaning: {
+      confirmed: [
+        "The Tortured Poets Department's lead single (April 19, 2024), written by Swift, Post Malone and Jack Antonoff — a muted, 1980s-leaning synth-pop ballad built on a pulsing eighth-note synth bass with Swift singing much of it near-monotone.",
+        "Post Malone recorded his parts at his Los Angeles home studio after Swift brought him the track; the song debuted atop the Hot 100 and spent two consecutive weeks at No. 1, and set Spotify's single-day streaming record for a song on release day.",
+        "The Swift-directed video was shot in black-and-white by cinematographer Rodrigo Prieto and won Video of the Year and Best Direction at the 2024 MTV VMAs; the song was later nominated for Record of the Year and Song of the Year at the 2025 Grammys."
+      ],
+      supported: [
+        "The video casts Swift as a Victorian-gothic asylum patient alongside Post Malone, with Dead Poets Society co-stars Ethan Hawke and Josh Charles as the doctors experimenting on her — the cameo that made the album's 'tortured poets' framing literal, over typewriters and an on-a-highway embrace before a tornado.",
+        "Critics read the track as a deliberately understated opener — its stillness a foil to the album's louder grief — and it doubled as the album's chart battering ram, part of the top-14 Hot 100 debut."
+      ],
+      fanTheories: [
+        "The narrator's most-quoted lines ('my husband is cheating,' 'I love you, it's ruining my life') drew heavy autobiographical reading, but Swift has framed the album as character-driven and named no subject for this song; the confessional reading is fan/press interpretation, not confirmed autobiography."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:the-tortured-poets-department",
+        label: "The Tortured Poets Department",
+        why: "Lead single and title track are the album's two theses — Fortnight opens with numbed suburban damage, the title track winks at the poet-couple mythology the whole record is named for."
+      },
+      {
+        relatedId: "song:i-can-do-it-with-a-broken-heart",
+        label: "I Can Do It With a Broken Heart",
+        why: "The album's other single and its Eras Tour showpiece — where Fortnight is medicated stillness, Broken Heart performs the same devastation as relentless showgirl motion."
+      },
+      {
+        relatedId: "moment:vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z",
+        label: "TTPD's 2.61-million debut",
+        why: "Fortnight was the single that led the album into this record week — the biggest album week in nine years — and its own Spotify single-day record fed the streaming totals behind it."
+      }
+    ],
+    live: [
+      {
+        date: "May 9, 2024",
+        event: "The Eras Tour — Paris (Paris La Défense Arena)",
+        note: "Folded into the tour's new TTPD segment from the European leg's opening night; Swift performs it solo to Post Malone's recorded vocals, staged around a typewriter. No live performance with Post Malone has been documented."
+      }
+    ],
+    sources: [
+      {
+        name: "Fortnight (song) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Fortnight_(song)"
+      },
+      {
+        name: "Billboard: Taylor Swift & Post Malone's 'Fortnight' Spends a Second Week at No. 1 on Billboard Hot 100",
+        url: "https://www.billboard.com/lists/taylor-swift-post-malone-fortnight-number-one-hot-100-second-week/"
+      },
+      {
+        name: "The Hollywood Reporter: Taylor Swift Wins Video of the Year at 2024 MTV VMAs, Breaking Multiple Records",
+        url: "https://www.hollywoodreporter.com/music/music-news/taylor-swift-video-of-year-win-breaks-records-2024-mtv-vmas-1235997409/"
+      },
+      {
+        name: "Variety: Taylor Swift 'Fortnight' Music Video — Post Malone Breaks Out of the Psych Ward",
+        url: "https://variety.com/2024/music/news/taylor-swift-fortnight-music-video-1235975675/"
       }
     ]
   }
