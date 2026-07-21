@@ -285,8 +285,12 @@ describe('assignFeedTiers over REAL vault content', () => {
   });
 
   it('gives a bare one-line single announcement the compact chip tier', () => {
-    expect(realTier('vault-tloas-opalite-arrives-as-the-second-single')).toBe('chip');
-    expect(realTier('vault-tloas-the-fate-of-ophelia-video-premieres')).toBe('chip');
+    // Fixtures repointed 2026-07-21 (ledger #1096): the Answerer enriched
+    // tloas-opalite-video into a hero-tier page, so still-thin singles (the
+    // "Elizabeth Taylor" radio release and the showgirl-released marker) stand
+    // in for the bare-with-photo case.
+    expect(realTier('vault-tloas-elizabeth-taylor-goes-to-radio')).toBe('chip');
+    expect(realTier('vault-tloas-the-life-of-a-showgirl-released')).toBe('chip');
   });
 
   it('gives a mid-weight sourced item the media tier', () => {
