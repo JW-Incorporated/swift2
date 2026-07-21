@@ -27,6 +27,94 @@ so far".
 
 Stories: 120
 
+## Blake Lively Shows Off New 'Girl Squad' After Taylor Swift & Travis Kelce Wedding Snub - Yahoo
+
+- first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively Shows Off New 'Girl Squad' After Taylor Swift & Travis Kelce Wedding Snub  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxPZkh4OGZqYnRpOGFTT0djWVN0eEtKWTJNb1Y2TWpudWJnS3VtVjhyUUJTeDN4RndVLW5oR0FCckQ5UndqNG5aaUtKV09aUm9WVE5xVE1RemYzczhaSmpMSXd1YjhJZW1jS05OcTgzcG4zYlBzSTBBU3hCVUZLUXptVkdBQ0tueDZTWkU5NGNSWlFRTjV1Qi1kV2dWUkRFQQ?oc=5
+
+## Listen: Travis Moser Releases Cabaret Version of Taylor Swift's 'Elizabeth Taylor' - BroadwayWorld
+
+- first seen: 2026-07-21 18:38 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Listen: Travis Moser Releases Cabaret Version of Taylor Swift's 'Elizabeth Taylor'  BroadwayWorld
+- sources:
+  - [unverified] BroadwayWorld — https://news.google.com/rss/articles/CBMiwwFBVV95cUxQeGpLTUgtTGN2OTZiQXRjYUJJWTI5RUYyMklzTVNpbWRGemZyVmdndF8wRkY3NXdGeHpnNkxqQkE3TGw0QUxxZmtZckdEcTVvMlltbUdWeFJHVng5UVllSGdwWHZPSV9pekdzSnRxSkM3WjU5cmViVGxCWmc0LWRfbXVpSnc0RFpkTnZYTmlsODRtSTkzVVgzalBqYmhEU1ZBdERkS2J1M3BDR3p6eHdMQW1FNTdMNG00TUhIWUhZOUdQNTg?oc=5
+
+## Taylor Swift enters CMA Awards race with 'I Knew It, I Knew You' - Yahoo
+
+- first seen: 2026-07-21 18:38 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift enters CMA Awards race with 'I Knew It, I Knew You'  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPTmJYVHcyNmNYR21rNVVuTXlKNXNxV2lzbV9ZSXkwU3ZseDVHSE53NGVXZURzVm1ucHBfU19XcVE3ZUQ4cHo5QTVmb1hQYjVfQlRKY2lwSHdaMkNzYzd5cDNXbW9qZl9aWXZMOG1CaWJDNTJqREc5eklNUWprUVdaSjVjQm5kNDZNeFVIOUlFU2IxVUhnYzhDVjUtd3Y?oc=5
+
+## Travis Kelce apparently joined Taylor Swift in singing a duet at their wedding - Kansas City Star
+
+- first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce apparently joined Taylor Swift in singing a duet at their wedding  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxPcVRjUE1xWTY5TUVaVEdHbzh5bG9wYm9HdklTMnczNS1zWUxiVzVTZkI0R0NnYWY5Y2VOdUFvRGhLRXAyczRockN6R2pZak13X3c2dDRLQUt0TXBMdWxZc2JxbkZOWk5BbDB5V1Vpc3VjQXNJLTlzZm5tZ2xESVIyVnYwaUZrcHVwcklPb2Y4dnZHd9IBkgFBVV95cUxNd3BpdUV5dEN4R3hkVGExWEdOYkwtQWhyT2RUelBoZ0JKcnNhT3AtVElEdkU3dDIzNjFHMngwdHcwMkJVYV9IYTJ5Sm4tZlRGY0REYXpKUUNid0ZycElDaENQNlMwa2hDV0pEb2MyQ1RtMU94SmlsMTV1czBwZVYxNDlVNEh0NVhjVDlMYnRscjNndw?oc=5
+
+## Jason Kelce Rates Travis Kelce's Singing Ability After Taylor Swift Wedding Duet - E! News
+
+- first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce Rates Travis Kelce's Singing Ability After Taylor Swift Wedding Duet  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQR2t3dDNiRDc3RktKQWItUWxDcFZITzhocUJmQXJvREg1bzVwSDNLZmV1Ull3WUZ5dFN4bjFYT0lhcHgzWVdGNlpCN1RWc0JxeHBPclB3NVpWb3l1M2s2TjNCa29pRjllek5Nb25yNy1EeVBRendxZ3gyTlFielU5Ql80alRVZ3h0LXBhSnFRSDBuV1pNQU5MaXZjWG5jU1Nxcm04c19oX0s?oc=5
+
+## Blake + Gwen Celebrate Five Years Married But Fans Think They're Hiding One Detail - Taste of Countr
+
+- first seen: 2026-07-21 18:38 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Blake + Gwen Celebrate Five Years Married But Fans Think They're Hiding One Detail  Taste of Country
+- sources:
+  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMihwFBVV95cUxPNzFfU29SN3pJZDZxM3dXM1ptZW1CZjRHZzRiQW5VU3QyaUlzM01fQ3pOYkpvTlBPbXdDNGh3Q2ZJZkFVWjUtTFdXNEN6V3FvSU1paDN0azZuR0dGTlc4MXVyU19zZUJxZ3V3bFlRVWxDWlpIMTExRFRCNUxmbE9YNUxkRkdnSE0?oc=5
+
+## Jason Kelce Praises Brother Travis Kelce’s Singing at Taylor Swift Wedding - People.com
+
+- first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce Praises Brother Travis Kelce’s Singing at Taylor Swift Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxQQV91U1l1Wk82VXF1YVBxbXZidllXdm5iYTlZS2tXQVZfVHBaMkd1aU1XWTVNSUtaQnNTdVh5N0pRZmt5djVGSDJxZG9kSkoyY1pvR0VmWkxmRVVTRFVkREFYa2tvNjdJVUZYVFVDOWtzZjFfaGFMeWN6WDhCNHdkbGhJRGNvODBrUFdOZ1hJNXpCcWp2LVZKdVEweWtSdzlYM25RUmVxYndqMkQydUtPYTBzSzNTa21ScDNlY05n?oc=5
+
+## Did Gwen Stefani and Blake Shelton Celebrate This Major Milestone at Taylor Swift’s Wedding? - insty
+
+- first seen: 2026-07-21 18:38 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Did Gwen Stefani and Blake Shelton Celebrate This Major Milestone at Taylor Swift’s Wedding?  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMingFBVV95cUxQdExxWk1YMmlSeXNDazlQUDJMNVlqNVllYmVLSGRESEZDNDVhOFg4SjgyMGlfT3RjWURra2dsRTYwNXh2cHE3dE1GbTNNX2VqbHA5cV9UclRHV2dfblp3RC1xM1RNQzMwT2ZRWHQwczJFai10eUpDVTU5aXBwX3lQUXQwTHUwaER1eml4bWdxU3JDQ2hFWjhYejJERXc1Zw?oc=5
+
+## Taylor Swift and Travis Kelce’s Wedding Guest Details “Crazy Experience” at Secretive MSG Ceremony -
+
+- first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce’s Wedding Guest Details “Crazy Experience” at Secretive MSG Ceremony  instyle.com
+- sources:
+  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxOVFpYVVdZdUlJdjZheGNLVXVkN3hOZFpxSWt5RWQ2cm9JRlJneHNsakp0U2FNa0N5aTB3SDRxTC1KazdFSXlWajZxMmUxTERfek5RTVlBNlpMRFRWVDZYRUhReEV1MEw5U3JQS2RBOFNRQmFqM2VFSDJaYXVjY3VoTENxcnBZNmQ1NHB2WXNyeTBGZW5kdVgxQzI3WWJ2ckM2THl3NExqa3czRDVROTlteHAwbl9sN3JwbHd1UlVrQVMtNDdJRjR3X2JB?oc=5
+
+## Jason Kelce spills on Travis’ surprise wedding performance for Taylor Swift - Page Six
+
+- first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce spills on Travis’ surprise wedding performance for Taylor Swift  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiyAFBVV95cUxOSW45dHpXYktXNkZzeWZGUmhyTHMyUHp0WDR4NGxWa1B4bGZXejZyVmVWQ0JoT0ZmUVk3OG9kUHRObWZCZV9ud29hdU5SSGpVaXNaa1JEcGYzVVJKSHNVM2JYMXZfbllpMU5YbmlMZjdXQjYwekFHcjBSZmpaMnJvRWJ4eUdBei1aQzlwR3dJa1BHM082cjVuZGpqMU1sT2pjenJlUWhJVmw5dWEwYlpYWVIyeEFOaXBhTUMyMVM5RU1ZYmJvM3M4Ug?oc=5
+
+## Taylor Swift Insider Says Wedding Photo Reveal Will Be ‘Meaningful,’ Not Rushed REPORT - Yahoo
+
+- first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Insider Says Wedding Photo Reveal Will Be ‘Meaningful,’ Not Rushed REPORT  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxPX19QdnduSGEtakkyRnI2LUs4SUk2Yl9hazZBWmpHQ1pQWGRzNFZpdndUS28xS1hHTDFqVjF5ZnVJcm5WcE52cHhGOU1PcGl1WTZEbUVDbTVsc25tamVrSzBVanU2eUl2VlJxbHVwcUNuRUZwQzMtcFk1bWJCeHQ1blg1X1NzTU95UVgyNTdWUDZvRHFyNVdfc2U5dTU2aGRXWnZEQzlB?oc=5
+
 ## Brad Paisley Didn’t Mind the Slow-Drip ‘Cat-and-Mouse Game’ Over Details of Taylor Swift & Travis Ke
 
 - first seen: 2026-07-21 15:15 UTC | category: relationship | importance: 5
@@ -916,95 +1004,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: Clyde Edwards-Helaire’s wife won Chanel gift at Taylor Swift-Travis Kelce nuptials  Kansas City Star
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMikgFBVV95cUxNcDc4OVpZNVpwQ0dSM0UyYTl3X2M2TGR1Vk96SFFkZkZ6S0FNNE5uUWdBVXpHdEt5cm9XMjBUVXQzbEJXYVZNNU9QRHZLX0M5cDJWcUZJaVZGSGtHbGVuREY1c3Q5OTVISG1DSE41YU85Q0lKRzQ2aExyNkNBQU53aWpmSHdlS29HU04zcjctRk05QdIBkgFBVV95cUxPTm1tV2V6YVhXWF9LUHZwTDQyWjd3RDFyN2VFZWtvOW5BenpKSVpJU2d2S040YXhJazM3bHhfSHQtbkYydjlmT2JxQ0J0bkVHd2ZTeE1JV2ZjNXMyQVJlOE9oNTVRUE5ob3d1RlZfc3ZhMmhFNzlORUZsNVE3cHFYSFFETGtUZHFNSnUycU9QSlRlQQ?oc=5
-
-## 6 Times Taylor Swift's Famous Pals Sang Her Praises - thelist.com
-
-- first seen: 2026-07-19 18:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: 6 Times Taylor Swift's Famous Pals Sang Her Praises  thelist.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiiAFBVV95cUxQeEg4WTFqQ21lZjNiWmZURzMyQnZJSWdOY0NTMjRaNk0yTVRqYzdRRUhNUjl6TFczeG12UXhxSW5fSWJwYzFmMHRfOUlEOGlkQW1xZjY5YmtUdFo2NnU0aHg1b0w1YUVlTkowYVF5dFZEamUzdjVvckV0Q2Y2b3ZoSmpKUndUaVVZ?oc=5
-
-## Travis Kelce's Honeymoon Plans With Taylor Swift Revealed as Chiefs Training Camp Nears - heavy.com
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce's Honeymoon Plans With Taylor Swift Revealed as Chiefs Training Camp Nears  heavy.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMioAFBVV95cUxQcGNJSjNIQktjbHN3ZWdZMnA5S1lGc3RCS0lnOHU0dG5fcXc2VzBTeWJFQkVodmJ0TTAzUVJXRnNpcUZsQ01jVXBCT0xfWi1TbU5UX0lpa09LYkQwenktZHFYWjl0QTlhZTdvUzN3THVuWF8yR3VUbkw1WHNTSjhwd19ZcWV4OHVfSFAzTVdzNEF5M1hndUsxbE8wekxBQXdC?oc=5
-
-## Matty Healy Marries Gabbriette Bechtel Weeks After Taylor Swift Wedding - E! News
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Matty Healy Marries Gabbriette Bechtel Weeks After Taylor Swift Wedding  E! News
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMirAFBVV95cUxOVjFDcHJzRGRYS0NoaTFnN0wzTWZ0c0dqWFBldGYtcUNwNVRVa3RJQUtXd09CSi1aaDVzTkI1SE9yOXdieEo2bmcySFdXeC1EODFjUl9oNUhhUzRQdWR4MzdrSjdCdk5oN25VbTRnMnB1eGs4R1JOZEVqUTVicnBxUkkzc21qemowSmh1cEhLNC1rbjN4MzJMN21qOWxRQlg2SjhlMVpKaFJLcVla?oc=5
-
-## Taylor Swift wedding NDA 'had teeth': Guest divulges invitation process - USA Today
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift wedding NDA 'had teeth': Guest divulges invitation process  USA Today
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiswFBVV95cUxNVXo2NElzWFNKaU1lTk9DV3R1a3dTSV9pUk1nNzhWTWpXQzM4YkpmQWRJZkhzZ0ZmM1p6cWtoMldILThmLWxURkhwdE1NcllDWm1LdEJuRFQ1anBVS0xrbjhYbXhHVHFfUDRSX2JCTlFoUmt5U0ZmbUhjUEdKcHBzUDdvQ09hWkZuRUVkNVZsSExxcXh4Y3A4ZTh3elJVZHhuOW9NQzdIbFNXck5aTWZBdzI0RQ?oc=5
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMifEFVX3lxTE56ZDdtUXlVVmhBeDlqRWlacFZWZXZmb1Q0TGdqTFNzZmZZVWwtdmZ0dW9nR0Q1RUp4Nm5NekNmN25kdFVXaWR5TDBZU1NpNnhrWTd1X2xVTW9JRzZpVU0zckRfZ0daOVdMMUVnWFZLT0Z1SFpjS2NWSGNUZm0?oc=5
-
-## Taylor Swift and Travis Kelce Wedding Guests Thought This “Very Solemn” Ceremony Moment Was a “Joke”
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce Wedding Guests Thought This “Very Solemn” Ceremony Moment Was a “Joke”  Cosmopolitan
-Taylor Swift Has ‘No Intention’ of Doing This Hollywood Faux-Pas Amid Travis Kelce Marriage  Yahoo
-Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Exclusive)
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiuwFBVV95cUxNam5nTnJFc2g5Wmxrd01DUU00NkczUWtONXVHa0NOUC1Xd21pT3RWWVNsN1h6S2VMc2NKQWxERXhXVVZxaVdXcC1BQVBqOHlYcy1femVMLUpKa1pYSmRfVFpROUxWTlFuVUgwZTdoNzVoN3d4djdFSG5OdjBnOWZ6c2ROYjlMOTJqdE41M3FwR01lTk5ZU3pUSXE2RkpVeE9tNkZkcjFXSUxIRTVrbThZNFFTN3hycWprVzdF?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxNVzZOelF5OUtPNnQ3a1RPN0JScjZCcHU0NlMybFllaGVjWTFzWWJxdlRkQTY3bzhwTl8wdWNTV09tNDhGOHJGLTRLZW44YU42ZTlNY2MyUVl1aGhidUdnQS1qSkdwMFJrbDd5XzZLZEVUWUp1UGMxbXFOLU9rcDNTQjhnTm5jMHRFdDVkMDJrdDJLZGpmUmZhWjJUdVhhSkE4TFM3OEJR?oc=5
-
-## Inside Taylor Swift and Travis Kelce’s Wedding: Everything We Learned About the Star-Studded Ceremon
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: As you’ve probably heard, Taylor Swift and Travis Kelce got married on Friday and summoned a firestorm of non-stop media coverage. In case you’ve had a hard time keeping pace, let this be your guide to all the most important details of the star-studded ceremony at Madison Square Garden. First, the g
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-travis-kelce-wedding-guest-gifts-stevie-nicks-1236801759/
-
-## Adam Sandler Told Taylor Swift and Travis Kelce While Officiating Their Wedding: ‘Kiss Every Chance 
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Kansas City Chiefs coach Andy Reid revealed to CNN that Adam Sandler’s officiant speech to Taylor Swift and Travis Kelce during their July 3 wedding at Madison Square Garden included the touching advice: “Kiss every chance you have. Every day. Whether you’re going to bed or going to work. Whenever, 
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/adam-sandler-taylor-swift-kiss-travis-kelce-wedding-1236802521/
-
-## 10 Songs Taylor Swift Wrote for Movies, Ranked (Critic’s Picks)
-
-- first seen: 2026-07-19 18:01 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Swift’s soundtrack credits include Cats, The Hunger Games, Where the Crawdads Sing and more.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/lists/taylor-swift-movie-songs-ranked/
-
-## Taylor Swift Donates to Kansas City Charity Operation Breakthrough
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Swift’s fiancé, Travis Kelce, works closely with the organization through his own foundation Eighty-Seven and Running.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/music/pop/taylor-swift-operation-breakthrough-kansas-city-donation-1236147218/
-
-## Here Are All of Taylor Swift’s Self-Directed Music Videos, Ranked (Critic’s Picks)
-
-- first seen: 2026-07-19 18:01 UTC | category: sighting | importance: 3
-- verification_status: single_source | source_count: 1
-- summary: The pop icon has been behind the camera for 14 music videos.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/lists/taylor-swift-self-directed-music-videos-ranked/
-
-## Here Is Every Taylor Swift Track 5, Ranked (Critic’s Picks)
-
-- first seen: 2026-07-19 18:01 UTC | category: music | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: By nature, each of Swift’s 12 studio albums has a track five – notoriously her most vulnerable on any given release.
-- sources:
-  - [established] Billboard — Taylor Swift tag — https://www.billboard.com/lists/taylor-swift-track-fives-ranked/
