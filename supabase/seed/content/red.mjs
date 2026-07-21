@@ -355,6 +355,20 @@ export default {
             credit: 'MediaPunch Inc/REX USA',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2013 Elie Saab gown is
+        // discontinued -- a current Mac Duggal gown, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Burgundy Satin Off-the-Shoulder Twist Evening Ball Gown',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/56188',
+            price: '$598.00',
+            isAlternative: true,
+            altNote: 'Her exact 2013 Elie Saab gown is long discontinued -- this is a current Mac Duggal gown in Wine, the same deep red-wine color family.',
+          },
+        ],
       },
     },
     {
@@ -378,6 +392,20 @@ export default {
           {
             url: 'https://townsquare.media/site/623/files/2013/06/taylor-swift-1370483022.jpg?w=980&q=75',
             credit: 'Jason Merritt/Getty Images',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact 2013 stage dress is undocumented
+        // past this description -- a current red thigh-slit dress,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Showpo',
+            item: 'Nitha Maxi Dress (Asymmetrical Frill Thigh Slit)',
+            retailer: 'showpo.com',
+            url: 'https://www.showpo.com/nitha-asymmetrical-frill-thigh-slit-maxi-dress-in-red.html',
+            price: '$30.00',
+            isAlternative: true,
+            altNote: 'The exact CMT stage dress is undocumented beyond this description -- this is a current red maxi dress with a thigh-high slit in the same monochrome-red spirit.',
           },
         ],
       },
@@ -407,6 +435,20 @@ export default {
             url: 'https://upload.wikimedia.org/wikipedia/en/e/e8/Taylor_Swift_-_Red.png',
             credit: 'Big Machine Records',
             focalPoint: '48% 40%',
+          },
+        ],
+        // Shop pass (2026-07-21): a makeup look, not a garment -- offering
+        // an iconic red lipstick shade rather than forcing a clothing
+        // link onto a beauty item.
+        products: [
+          {
+            brand: 'MAC',
+            item: 'Retro Matte Lipstick in Ruby Woo',
+            retailer: 'maccosmetics.com',
+            url: 'https://www.maccosmetics.com/product/13854/52593/products/makeup/lips/lipstick/retro-matte-lipstick',
+            price: '$23.00',
+            isAlternative: true,
+            altNote: 'Westman\'s exact shade for Swift is undocumented -- Ruby Woo is MAC\'s iconic blue-red matte, the same bold-red family this era\'s signature lip belongs to.',
           },
         ],
       },
@@ -445,6 +487,20 @@ export default {
             focalPoint: '40% 14%',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2013 J. Mendel gown is
+        // discontinued -- a current Monique Lhuillier ivory gown, verified
+        // in stock, closest real match.
+        products: [
+          {
+            brand: 'Monique Lhuillier',
+            item: 'Pearl Strap Ivory A-Line Gown',
+            retailer: 'moniquelhuillier.com',
+            url: 'https://moniquelhuillier.com/products/pearl-strap-ivory-a-line-gown',
+            price: '$3,195.00',
+            isAlternative: true,
+            altNote: 'Her exact 2013 J. Mendel gown is long discontinued -- this is a current ivory gown in the same cream-and-white register (Jimmy Choo heels, Lorraine Schwartz jewelry not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -479,6 +535,20 @@ export default {
             credit: 'Fox News',
           },
         ],
+        // Shop pass (2026-07-21): no single pair was ever named -- a
+        // current retro high-waisted denim short, verified in stock, in
+        // the same recurring silhouette.
+        products: [
+          {
+            brand: 'GOLDSTITCH',
+            item: 'Vintage Denim High-Waisted Jean Shorts',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Womens-Juniors-Vintage-Waisted-Shorts/dp/B00KSYPWWO',
+            price: '$14.98',
+            isAlternative: true,
+            altNote: 'No single named pair -- she wore many high-waisted shorts across the era -- this is a current pair in the same retro-inflected silhouette.',
+          },
+        ],
       },
     },
     {
@@ -507,6 +577,20 @@ export default {
             credit: 'Wikimedia Commons',
           },
         ],
+        // Shop pass (2026-07-21): the 128 costumes were one-off Toybina
+        // originals, never sold -- a current beaded fringe mini, verified
+        // in stock, in the same rotating-sparkle spirit.
+        products: [
+          {
+            brand: 'Showpo',
+            item: 'Siofra Mini Dress (Zig Zag Fringe Dress)',
+            retailer: 'showpo.com',
+            url: 'https://www.showpo.com/siofra-beaded-fringe-mini-dress-in-hot-pink.html',
+            price: '$22.00',
+            isAlternative: true,
+            altNote: 'Toybina\'s 128 costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same rotating-sparkle spirit as the tour wardrobe.',
+          },
+        ],
       },
     },
     {
@@ -530,6 +614,20 @@ export default {
           {
             url: 'https://townsquare.media/site/182/files/2013/03/taylorswift22.jpg?w=980&q=75',
             credit: 'YouTube/Big Machine Records',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact Urban Outfitters headband from
+        // the video is discontinued -- a current rhinestone cat-ear
+        // headband, verified in stock, same accessory.
+        products: [
+          {
+            brand: 'Bnikion',
+            item: 'Rhinestone Cat Ears Headband (3-Pack)',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/Rhinestone-Headbands-Decoration-Headdress-Accessories/dp/B075STRZCY',
+            price: '$9.99',
+            isAlternative: true,
+            altNote: 'The exact Urban Outfitters headband from the video is discontinued -- this is a current rhinestone cat-ear headband, the same accessory fans still recreate.',
           },
         ],
       },
@@ -559,6 +657,19 @@ export default {
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2012/11/46th_CMA_Awards_12.jpg?w=1500',
             credit: 'Getty Images',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact 2012 gown is discontinued --
+        // a current Jenny Packham gown, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Jenny Packham',
+            item: 'Sirocco',
+            retailer: 'jennypackham.com',
+            url: 'https://www.jennypackham.com/products/sirocco',
+            price: '$4,930.00',
+            isAlternative: true,
+            altNote: 'Her exact 2012 rose-appliqued gown is long discontinued -- this is a current Jenny Packham gown in Bordeaux rather than nude lace, same house.',
           },
         ],
       },
@@ -597,6 +708,20 @@ export default {
               'Swift in the blue Zuhair Murad mini at the 2013 Billboard Music Awards, pictured with Selena Gomez.',
           },
         ],
+        // Shop pass (2026-07-21): Zuhair Murad has no accessible direct
+        // e-commerce -- a current blue long-sleeve sheer-panel mini,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Moonrising Long Sleeve Sheer Blouson Mini Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/moonrising-sheer-blouson-dress-blue',
+            price: '$79.00',
+            isAlternative: true,
+            altNote: 'Zuhair Murad has no accessible direct retail -- this is a current blue long-sleeve mini with sheer paneling, same silhouette (Jimmy Choo pumps, Ofira jewelry not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -630,6 +755,20 @@ export default {
             credit: 'E! News',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2013 gown is discontinued -- a
+        // current Hervé Léger gown, verified in stock, same house and
+        // crystal-embellished bandage construction.
+        products: [
+          {
+            brand: 'Hervé Léger',
+            item: 'The Reina Gown',
+            retailer: 'herveleger.com',
+            url: 'https://herveleger.com/products/the-reina-gown-black-001',
+            price: '$569.00',
+            isAlternative: true,
+            altNote: 'Her exact 2013 gown is long discontinued -- this is a current Hervé Léger black gown, same house and crystal-embellished bandage construction.',
+          },
+        ],
       },
     },
     {
@@ -660,6 +799,20 @@ export default {
           {
             url: 'https://townsquare.media/site/252/files/2013/11/taylor-swift-11.jpg?w=980&q=75',
             credit: 'Jason Kempin/Getty Images',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact 2013 runway-altered gown is
+        // discontinued -- a current gold beaded gown, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'Windsor',
+            item: 'Nicki Beaded Fringe Mermaid Formal Dress',
+            retailer: 'windsorstore.com',
+            url: 'https://www.windsorstore.com/products/nicki-beaded-fringe-mermaid-formal-dress-05002001093625',
+            price: '$99.90',
+            isAlternative: true,
+            altNote: 'Her exact altered runway gown is one-of-a-kind and long gone -- this is a current gold beaded gown in the same spangled-gold spirit.',
           },
         ],
       },
@@ -698,6 +851,20 @@ export default {
             credit: 'E! News',
           },
         ],
+        // Shop pass (2026-07-21): the exact Gucci Première gown is
+        // discontinued -- a current gold sequin gown, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'Monique Lhuillier',
+            item: 'Gold Sequin Scoop Neck Gown',
+            retailer: 'moniquelhuillier.com',
+            url: 'https://moniquelhuillier.com/products/gold-sequin-scoop-neck-gown',
+            price: '$5,495.00',
+            isAlternative: true,
+            altNote: 'Her exact Gucci Première gown is long discontinued -- this is a current gold sequin gown in the same "chainmail" glittering spirit (Jimmy Choo heels, Lorraine Schwartz jewelry not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -730,6 +897,20 @@ export default {
           {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/2014724/rs_634x1024-140824172545-634-taylor-swift-mtv-vma.ls.82414.jpg',
             credit: 'E! News',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact Mary Katrantzou Resort 2015
+        // romper is discontinued -- a current printed long-sleeve romper,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Plush Fashion Hub',
+            item: 'Cutout Front Printed Long Sleeve Romper',
+            retailer: 'plushfashionhub.us',
+            url: 'https://plushfashionhub.us/products/cutout-front-printed-long-sleeve-romper',
+            price: '$52.99',
+            isAlternative: true,
+            altNote: 'Her Mary Katrantzou romper is discontinued -- a current printed long-sleeve romper, same silhouette (Elie Saab booties, Lorraine Schwartz jewelry not separately sourced).',
           },
         ],
       },
