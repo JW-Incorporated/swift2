@@ -17,6 +17,28 @@ export const id = 'content.rumor-lifecycle';
 const RECHECK_DAYS = 21;
 /** Days after which an unresolved, quiet claim should be proposed as `faded`. */
 const FADE_DAYS = 45;
+/**
+ * Days after which a MOMENT-LEVEL sub-confirmed `confidence` is overdue for a
+ * re-check. Slightly longer than RECHECK_DAYS: this is the whole page's
+ * framing rather than one line item, so it moves less often and a false alarm
+ * is more expensive.
+ */
+const CONFIDENCE_RECHECK_DAYS = 30;
+
+/**
+ * Confidence tiers that render the loud "not confirmed" banner. Kept as a
+ * literal list rather than imported from the TS types on purpose — the engine
+ * is plain .mjs tooling with no build step, and a drift here shows up as a
+ * missing finding, so the test asserts the list against types.ts.
+ */
+const SUB_CONFIRMED = new Set([
+  'reputable_reporting',
+  'strong_fan_consensus',
+  'plausible',
+  'clowning',
+  'joke_meme',
+  'disproven',
+]);
 
 const DAY_MS = 86_400_000;
 
@@ -37,6 +59,8 @@ export async function check(items, opts = {}) {
   const findings = [];
 
   for (const it of items) {
+    checkMomentConfidence(it, now, findings);
+
     const rumors = it.raw?.moment?.rumors ?? it.raw?.rumors;
     if (!Array.isArray(rumors) || rumors.length === 0) continue;
 
@@ -114,4 +138,64 @@ export async function check(items, opts = {}) {
   }
 
   return findings;
+}
+
+
+/**
+ * The moment-level `confidence` field renders the big "Reported — not
+ * confirmed" banner at the top of a page. Nothing used to re-check it.
+ *
+ * Founder (Wyatt, 2026-07-21), after Lex incidentally noticed a stale banner:
+ * "I don't think Lex will be reading all articles every night, might make
+ * sense to add that to Karen or someone else's scope to explicitly check if
+ * the banner status is still accurate or needs updating."
+ *
+ * Correct, and it is the difference between a sweep and a coincidence. Lex is
+ * opportunistic: it works whatever falls in its shard, and it SKIPS anything
+ * that already has an open ledger — so a page whose banner went stale after
+ * Lex last visited may never be looked at again. A deterministic checker walks
+ * every item every run, which is the only way the latency is bounded.
+ *
+ * There is no `confidenceCheckedOn` field and this deliberately does not add
+ * one: a new field means touching the normalizer AND the serializer, and that
+ * pair has silently dropped data three times in this repo. Instead it uses the
+ * newest source `accessed_at` as the proxy for "when we last looked", which is
+ * both already present and the same evidence a human would use — exactly how
+ * Lex phrased it on #1022, "as of its 2026-07-09 sources".
+ */
+function checkMomentConfidence(it, now, findings) {
+  const confidence = it.raw?.moment?.confidence ?? it.raw?.confidence;
+  if (typeof confidence !== 'string' || !SUB_CONFIRMED.has(confidence)) return;
+
+  const sources = it.raw?.moment?.sources ?? it.raw?.sources ?? [];
+  const ages = (Array.isArray(sources) ? sources : [])
+    .map((src) => daysSince(src?.accessed_at, now))
+    .filter((d) => d != null);
+  // Newest source = the most recent time anyone demonstrably looked.
+  const freshest = ages.length ? Math.min(...ages) : null;
+
+  if (freshest != null && freshest < CONFIDENCE_RECHECK_DAYS) return;
+
+  findings.push(
+    makeFinding({
+      checker: id,
+      severity: 'P1',
+      title: `Page banner still says "not confirmed" and has not been re-checked: "${it.title}"`,
+      itemRef: { type: it.type, file: it.file, era: it.era, key: it.key, field: 'confidence' },
+      excerpt: String(it.title ?? '').slice(0, 160),
+      evidence:
+        `confidence: "${confidence}" renders the loud not-confirmed banner. ` +
+        (freshest == null
+          ? 'No source carries an accessed_at, so there is no evidence anyone has ever re-verified this framing.'
+          : `The newest source was accessed ${freshest}d ago (threshold ${CONFIDENCE_RECHECK_DAYS}d).`) +
+        ' A banner that outlives the truth is worse than no banner: it tells readers a confirmed fact is unconfirmed, ' +
+        'and it trains them to ignore the label on the claims where it genuinely matters.',
+      suggestedFix:
+        'Re-verify against current sources. If it is now confirmed on the record, raise `confidence`, ' +
+        'reconcile the hedging language in the prose so words and field agree, and cite the confirmation ' +
+        '(docs/content-ops/depth-push.md, "a stale status is a field fix"). If it is still unconfirmed, ' +
+        'refresh accessed_at on a source to record that someone actually looked.',
+      confidence: 0.9,
+    }),
+  );
 }

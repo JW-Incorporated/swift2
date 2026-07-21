@@ -79,3 +79,49 @@ describe('rumor-lifecycle', () => {
     expect(Array.isArray(f)).toBe(true);
   });
 });
+
+// ── Moment-level confidence (the page banner) ──────────────────────────────
+// Added 2026-07-21. Wyatt: "I don't think Lex will be reading all articles
+// every night, might make sense to add that to Karen or someone else's scope
+// to explicitly check if the banner status is still accurate."
+describe('moment-level confidence staleness', () => {
+  const NOW = Date.parse('2026-07-21T00:00:00Z');
+  const item = (confidence: string | undefined, accessed: string[]) => ({
+    type: 'moment',
+    file: 'supabase/seed/content/the-life-of-a-showgirl.mjs',
+    era: 'the-life-of-a-showgirl',
+    key: 'k',
+    title: 'The wedding gown: a custom Dior Haute Couture',
+    raw: { moment: { confidence, sources: accessed.map((a) => ({ accessed_at: a })) } },
+  });
+
+  const bannerFindings = async (it: unknown) =>
+    (await check([it as never], { now: NOW })).filter((f: { itemRef: { field: string } }) => f.itemRef.field === 'confidence');
+
+  it('flags the real case: a sub-confirmed banner whose newest source is old', async () => {
+    // #1022 — gown page framed "Reported — not confirmed", sources 2026-07-09.
+    const found = await bannerFindings(item('reputable_reporting', ['2026-06-01', '2026-05-02']));
+    expect(found).toHaveLength(1);
+    expect(found[0].severity).toBe('P1');
+    expect(found[0].evidence).toContain('not-confirmed banner');
+  });
+
+  it('stays quiet when someone has looked recently', async () => {
+    expect(await bannerFindings(item('reputable_reporting', ['2026-07-18']))).toEqual([]);
+  });
+
+  it('uses the NEWEST source, not the oldest — one fresh check is enough', async () => {
+    expect(await bannerFindings(item('reputable_reporting', ['2019-01-01', '2026-07-20']))).toEqual([]);
+  });
+
+  it('ignores confirmed pages — they render no banner to go stale', async () => {
+    expect(await bannerFindings(item('confirmed', ['2020-01-01']))).toEqual([]);
+    expect(await bannerFindings(item(undefined, ['2020-01-01']))).toEqual([]);
+  });
+
+  it('flags a sub-confirmed page with no accessed_at at all', async () => {
+    const found = await bannerFindings(item('plausible', []));
+    expect(found).toHaveLength(1);
+    expect(found[0].evidence).toContain('no evidence anyone has ever re-verified');
+  });
+});
