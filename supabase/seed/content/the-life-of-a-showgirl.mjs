@@ -529,6 +529,16 @@ export default {
       month: 10,
       day: 13,
       category: 'business',
+      // Cross-link deficit closed (2026-07-21, depth ledger #990 Q8): the vinyl
+      // haul is the engine of the pure-sales side of the 4M week, so it now
+      // threads to the release and the other Showgirl chart-record pages.
+      relatedIds: [
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-spotifys-2025-single-day-streaming-record-falls-in-under-11-',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-tloas-an-album-release-party-wins-the-box-office-34-1m-domestic-50',
+      ],
       title: '1.334 million vinyl LPs in seven days — the first million-vinyl week ever tracked',
       snippet:
         'No album had ever sold a million vinyl copies in a week since modern tracking began. Showgirl did 1.334 million, blowing past her own record of 859,000 set by The Tortured Poets Department.',
@@ -536,7 +546,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.',
+          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it, the Target-exclusive "The Crowd Is Your King" among them. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.',
         sources: [
           {
             outlet: 'Forbes',
@@ -555,6 +565,35 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth ledger #990 (2026-07-21): variant count + format leadership,
+          // the modern-era record lineage, and the UK vinyl record.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Is Luminate's Top Album of 2025 in U.S.",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/vinyl-tortured-poets-department-breaks-record-weekly-sales-1235978774/',
+            source_title: "'Tortured Poets Department' Breaks Record for Weekly Vinyl Sales in Just Three Days",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Official Charts',
+            url: 'https://www.officialcharts.com/chart-news/taylor-swift-number-1-album-and-single/',
+            source_title: 'Taylor Swift lands the biggest opening week of her career in the UK with The Life Of A Showgirl',
+            publisher: 'Official Charts Company',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
           },
         ],
         // Getty photo NPR ran with its vinyl analysis; hotlinked from NPR's
