@@ -1,6 +1,7 @@
 'use client';
 
 import { Fragment, useEffect, useRef, useState } from 'react';
+import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { createPortal } from 'react-dom';
 import Image from 'next/image';
 import {
@@ -500,15 +501,10 @@ export function MomentDetail() {
   // Reset the clue reveal whenever a new item opens; lock body scroll.
   // Only if the id actually resolves — a stale/bad ?item= deep link
   // shouldn't lock scrolling on a modal that never renders.
+  useScrollLock(item != null);
+
   useEffect(() => {
     setRevealed(false);
-    if (item) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      return () => {
-        document.body.style.overflow = prev;
-      };
-    }
   }, [item]);
 
   // Close on Escape — but not while the share sheet is open on top of us;

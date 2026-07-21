@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import Image from 'next/image';
 import { X, Check, Copy, Share2 } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
@@ -19,20 +20,16 @@ export function ShareSheet() {
   const { closeShare } = useAppActions();
   const [copied, setCopied] = useState(false);
 
+  useScrollLock(Boolean(share));
+
   useEffect(() => {
     setCopied(false);
-    if (share) {
-      const prev = document.body.style.overflow;
-      document.body.style.overflow = 'hidden';
-      const onKey = (e: KeyboardEvent) => {
-        if (e.key === 'Escape') closeShare();
-      };
-      window.addEventListener('keydown', onKey);
-      return () => {
-        document.body.style.overflow = prev;
-        window.removeEventListener('keydown', onKey);
-      };
-    }
+    if (!share) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') closeShare();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
   }, [share, closeShare]);
 
   // Let the mobile back-swipe gesture close this sheet instead of leaving the

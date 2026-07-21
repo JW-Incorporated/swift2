@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import Image from 'next/image';
 import {
   ListMusic,
@@ -47,14 +48,7 @@ export function TrackDetail() {
       ? tracksForEra(era.id).find((t) => trackKey(era.id, t) === openTrackKey)
       : undefined;
 
-  useEffect(() => {
-    if (!track) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [track]);
+  useScrollLock(track != null);
 
   useEffect(() => {
     if (!track) return;
