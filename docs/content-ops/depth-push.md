@@ -223,3 +223,43 @@ the only thing making this queue trustworthy.
 The Cross-Link builder is paused until 2026-07-23. That is fine and expected:
 candidate issues accumulate and wait. It is NOT a reason for Lex to stop filing
 them — the backlog IS the handoff.
+
+---
+
+## ANSWERER RUN SIZING — why hourly runs and not one giant batch
+
+> Wyatt, 2026-07-20: "Instead of spinning up the answerer each time, does it
+> make sense for him to just batch process hundreds later?"
+
+Not as one run, for two hard reasons:
+
+- **Context.** Hundreds of ledgers plus the sources needed to answer them does
+  not fit in one run's context. It would have to chunk internally anyway.
+- **Run duration.** Cloud runs have a ceiling. A run attempting two hundred
+  ledgers times out, and everything in flight dies with it. One hour of lost
+  work is recoverable; a day of it is not.
+
+So "batch later" decomposes into many runs regardless — just with a far bigger
+blast radius when one fails.
+
+The real waste Wyatt was pointing at is real though: ten Answerers per hour is
+30-60 ledgers of capacity against Lex's ~20, so most runs would wake to an
+empty queue and pay full startup cost to accomplish nothing.
+
+**So runs are queue-aware. Every Answerer run starts by measuring the queue:**
+
+    gh issue list --label curiosity-ledger --state open --limit 1000
+
+- **Fewer than 4 open in YOUR shard's files → exit immediately.** Do not open a
+  PR, do not comment. A cheap no-op is the correct outcome and costs almost
+  nothing. This is what makes ten instances affordable.
+- **4 or more → drain hard.** Take as many as you can finish PROPERLY in one
+  run, not a fixed 3-6. If the backlog is deep, that might be fifteen.
+- **Always leave the repo in a shippable state.** Ship what is complete rather
+  than abandoning a run that is going long; a PR with four solid answers beats
+  a timeout with none.
+
+The effect is a system that self-scales without anyone changing a cron: an
+overnight Lex backlog is met by ten Answerers all batching aggressively, and a
+drained queue costs ten cheap exits. Capacity is sized for the PEAK while the
+steady state stays inexpensive.
