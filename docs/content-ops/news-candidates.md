@@ -27,6 +27,71 @@ so far".
 
 Stories: 120
 
+## Brad Paisley recalls exactly what Taylor Swift and Travis Kelce’s wedding invite said - Entertainmen
+
+- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley recalls exactly what Taylor Swift and Travis Kelce’s wedding invite said  Entertainment Weekly
+- sources:
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMigwFBVV95cUxPX2NBeEtJcWdjNkN0ZUlOTDVaQW1Ga3BDMm83RXZ1NGtfWEhXQUY4R05ydE1hYVdIRGpsRFFDdEZIZWNOaVpyS2Fkd1NicnRCSDBqa18xU1VhMVh1ODBweC1LSHNUbFhfWnplOENxLVgwV05CQUlsWWN5aVJJUTA2UEdQWQ?oc=5
+
+## Gwen Stefani and Blake Shelton Go Glam for 5-Year Anniversary and Fans Think They Celebrated with Ta
+
+- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Gwen Stefani and Blake Shelton Go Glam for 5-Year Anniversary and Fans Think They Celebrated with Taylor Swift, Travis Kelce  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMi5gFBVV95cUxPbGFFcFF6OVBsNFVFWHg1M2N6NUJGN2I4RVFmSWE2U1RqUnhxUm9JOUhwYXV1Y2stVDlSckEzekk3SHl6N2J3QklwQk9xOTJtRzVJNDl1WWgyVmtSMGVrNDNnU1dJSlQ0Ymxucll1TDloNWZyY3RGRHo5SDFxamRXRTJQWjBhUlctRGVLZWRnX1NURnY3clZ1ejE5a05XdVpuM2ZQSkRFcmFjeVlvVmtzLXVDNWZoSjFVTm9sVXRKeDMzRWVybjlCaTFfc3BqclpDbTh0dW9xeW1UMzY2Y3RKVXdIeDdEdw?oc=5
+
+## How Taylor Swift and Zendaya are driving the trend for bespoke engagement rings - South China Mornin
+
+- first seen: 2026-07-21 04:27 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: How Taylor Swift and Zendaya are driving the trend for bespoke engagement rings  South China Morning Post
+- sources:
+  - [unverified] South China Morning Post — https://news.google.com/rss/articles/CBMi2AFBVV95cUxPWmRDQ3dnMW9zRlJtMFluTlhGZlFSdmVmR2lzRGxwMEJadXZxY1dkWl9WYnRaRXZNMDZRLWFYdXJhVlRzWEkybDVqeFM0M1VmN1hLV09ONnVmd1RFbjVONFhwVmY5WWVhb05LaktMQnVjeGctWVhHM2JwbDd0Zzk2d2hCMjJRY0hWOXNwWkpnNF9CdzRub2tLZDNHYlQ3c3FQeTBxZmpyZlVRVWZVaXc0TV90MHJCR1VLQi1CdThvaFk3TUNmVE9Rc09hYkFVY2pQUlpUWkFmN0HSAdgBQVVfeXFMUE9JRVdFbFhpbVhNenFGSzUwejZQQW5fNGNWM1VMb1k3UG5JMHRubjdHUTJEeUhWUjh1U00yd1UxZ0ZEU190Q1dvMDJSTUZQSVhlU01jLU5qVFk3UENmN1BOOGsxcWpneU00c0Fad2RZQW1WY2hOY3ZqR3VGY2dUVUF1R0J5RTNId0hnUk44djFicEVPY09Ndk5WVlVKNzF1bXBnZWQ1Y2hYZmY1NXNmWFVacm1YWHdEdHBkYVpUV0VjMzA4NTJhanVfVEs0NlZlbFRWN0ZjR09r?oc=5
+
+## Knicks Star Jalen Brunson Says It Was ‘Really Cool’ Having Taylor Swift at NBA Finals — But He Wasn’
+
+- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Knicks Star Jalen Brunson Says It Was ‘Really Cool’ Having Taylor Swift at NBA Finals — But He Wasn’t at Her Wedding  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxNa05NMnFMY3d2a2lKS3pLaUdjWEt3bVNkbmpwd0xUeWdBREQ3Vk1jYldYQzNXc2ItUjZEZTRuTHp3VjBSZEdIVU8xNEQ1RURxNHZsSHFUaGtGYWRZX1otNVFCRW1Sb0RNODFaVWRpcXdzaFpTWHlWUWM5cHZ5V1B3azhhMUVXckdpcHNmYWR4cFp4M2VqYjVMVk05SDZNRkt0Sk9WSmNramxILWZBMnZMd0VMeGw?oc=5
+
+## Brad Paisley recalls Taylor Swift's wedding 'cat-and-mouse' details - USA Today
+
+- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Brad Paisley recalls Taylor Swift's wedding 'cat-and-mouse' details  USA Today
+- sources:
+  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwwFBVV95cUxObmsxenlDcFpaOE9mSkpkSlJIeEJ1cHFkaGZpclZ1Q1c5djhmSEhtc0U2SXJLa3p1bTY4QWhTaTBQaWk1TkdPblloblhMTTdkN0tTYlNicFczMjJMRERtNmZxdU8yaklvZHp0YnI5MENZTlpBdXpUcElLbzZtcDAzT25wZ3NrN3FfbnlLNE11MUdPNEk0WVoxa3djejFpT09TMlJfNVZZcUo3MnBiZi1BMG5LaVZCUGhYRFVSbFYydUdIRzg?oc=5
+  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/brad-paisley-taylor-swift-travis-kelce-wedding-1235596400/
+
+## Travis Kelce Finally Returns to Social Media After Taylor Swift Wedding — But It Let Fans Down - Spo
+
+- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Finally Returns to Social Media After Taylor Swift Wedding — But It Let Fans Down  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMizwFBVV95cUxPSmxBWkZuOWdsLVNlYURFMDdtempWemw0YThxeFZTa3dLc19KTXZybDc5djJRRG16RUJXZFhTLTBiczlJMVVUVW5yVm9tSzh3MWphb1BoYmNVLXZPZFZCaTFaRFdvSTVNalJELTJpM1Eyak9qU3A2N1lsY1VNczcydk9ZejUyUUx1M0hQZVBMS19wNEhjNFZlckdJVDI3UE9qZktROFJzTFg5UUNtQl9yNkdSbDZGX3dBdTJyVDZ1VmxZa01maFJDdlN0Ujk2ZDQ?oc=5
+
+## Taylor Swift’s Diamond Wedding Band Signals An Emerging 2026 Bridal Trend - ELLE Australia
+
+- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Diamond Wedding Band Signals An Emerging 2026 Bridal Trend  ELLE Australia
+- sources:
+  - [unverified] ELLE Australia — https://news.google.com/rss/articles/CBMikwFBVV95cUxNNTREajBVUEE4dDFEU0Rjam1BOEN1aUhaSWxWbDVJT1I5cWwxSTZtbjBKcXRkb1piLWxmOTNkQWJoYktob2tXY1AxSDQtalM0Z1RUdmVwOEIzMmNuMVN1MWhkakpwbnV3VWFTdU15RFN1U3dqY3R3NDJUUG0zLW9iSG1NQ29JclJFSlY5NE1BSGNSaXc?oc=5
+
+## Did Gwen Stefani and Blake Shelton celebrate their 5-year anniversary at Taylor Swift and Travis Kel
+
+- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Did Gwen Stefani and Blake Shelton celebrate their 5-year anniversary at Taylor Swift and Travis Kelce's wedding?  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi7wFBVV95cUxOWEoxQVItRTFZSFVXMS1LTjZwSnprYzB5VXIyZWpZLThaazRxQmRDRzNjZE9lckNhMFRxZExNdGxuNXQ1al80TURvMG1FY0h2SHBrR1c4aTc0VUZLdEpadFBpaWtSYmpGN3IxM0Q1MUM1WGJnWjZBWnBjaDZERjlGdEowM3htRlpsRlhJXy1RdmMyeHk0OUUyUzdBTVFFbVpBLWNNTVVfeDYybm5SaERmTXNETXFEMTUwUTNxa19tTWktSmZmYmlVYUZERFhSRVI3N0Z5UkNiVzR5MjZvMFhYZkRueU5RZXRuOW9JOTZGYw?oc=5
+
 ## Brad Paisley on Taylor Swift’s wedding - AP News
 
 - first seen: 2026-07-20 22:11 UTC | category: relationship | importance: 5
@@ -84,14 +149,6 @@ Stories: 120
 - sources:
   - [unverified] NewJerseyStage.com — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNRi00QVZxbkhPMG1ZR3BKTmg3VWxmcno3Zkt2QnZWX0pUNHZHNGlQZTMtZTdVbkducXZ2NFJxRWp0M2NGdmo2TFFlU3RYOWhGMTZxY2ZLXzZvY2ZwMnZLSjM2YzNWRmY0cVRyb0tJdHdwY3JJNjFWaDFyOEVkMXNfckt3WHFIN3dJRlBvamk2VnNGdWtvaS16MUxQS2tSLWhTdVZJQ1d5eHNHMjhMd3M4cm8xMjFFakdRMS1rLXpUY3lTVDBUVlZKZVB6ZkpHODdD?oc=5
 
-## Taylor Swift & Travis Kelce Reportedly ‘Exhausted’ by ‘Nasty’ Wedding Comments from His Alleged ‘Jea
-
-- first seen: 2026-07-20 22:11 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Reportedly ‘Exhausted’ by ‘Nasty’ Wedding Comments from His Alleged ‘Jealous’ & ‘Trash-Talking’ Teammates  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOV3h1bk9rSVFuZTFWZjhWWGVpR3E4RmF0R0JyUVRjQWhzN0Q0RC1LS3NPdWpnN0ExN0hXLURVVXpYTk9NbmM2T2N3NklTRUFTMWtRM0o3Rm5JMGYwWk9GN0Rwbko4Y19ZYzU3RndsSko0OGQ3X2ZLdkpzWld2RFZUMU5KRkNPeWlNS0puWE5lQVZzUE5MWk45MjNzbkpiZ09yQXlYVm1Hck1QUQ?oc=5
-
 ## St. Vincent dives into orchestral music after collaborations with Taylor Swift, David Byrne, Nirvana
 
 - first seen: 2026-07-20 22:11 UTC | category: sighting | importance: 3
@@ -100,13 +157,14 @@ Stories: 120
 - sources:
   - [unverified] San Diego Union-Tribune — https://news.google.com/rss/articles/CBMi3wFBVV95cUxQSHkxdG5Tb2s2MWt6SHc1cFBvb3BwNHJ2bFpnaHdLQl9pRE1TVnpmV1dZb180SW9VMklFbGN5M01LZ1ZZMjNidEktWWFRUnJCVXV6WEVJdXR5ekpWT3JNaDd0eUJJRURYTGRBbWV3TXVzU1VjV1V4b3NHOXpYc09YTUdWX0NLX19XejQzUDM3eHhhSHlTMW5sTTVwdWpta2xxU2s2VzlnM2dHNzB2UXBBSVNEZUJQeVRjYXdNQzBOdzYzLTJGaWswZ3lzSDQ3WU9CRFpiOWc3eTZDY010MTdV?oc=5
 
-## Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding
+## Taylor Swift & Travis Kelce Reportedly ‘Exhausted’ by ‘Nasty’ Wedding Comments from His Alleged ‘Jea
 
-- first seen: 2026-07-20 22:11 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding  Yahoo
+- first seen: 2026-07-20 22:11 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift & Travis Kelce Reportedly ‘Exhausted’ by ‘Nasty’ Wedding Comments from His Alleged ‘Jealous’ & ‘Trash-Talking’ Teammates  Yahoo
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxQbUpOZFZNVzZuSlNtbFhSUDkzUk5zNlJXbzBEd3FiN3ZyZmxPbW1ESlpPLWNMVW54ckZyeTFVNldMc0FFUzQwUTFZeVpjUGJiYmRWcGduZmp2eXN0MVdJUy1ZV3lueUVSVTlsLXQtOGNBTnVBV09OdHNNMXV0RU1XdjlCVkZyYkpVb3R1UDJXS3ZHQQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqgFBVV95cUxOV3h1bk9rSVFuZTFWZjhWWGVpR3E4RmF0R0JyUVRjQWhzN0Q0RC1LS3NPdWpnN0ExN0hXLURVVXpYTk9NbmM2T2N3NklTRUFTMWtRM0o3Rm5JMGYwWk9GN0Rwbko4Y19ZYzU3RndsSko0OGQ3X2ZLdkpzWld2RFZUMU5KRkNPeWlNS0puWE5lQVZzUE5MWk45MjNzbkpiZ09yQXlYVm1Hck1QUQ?oc=5
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMiswFBVV95cUxPRUJfQUN1b2dXY3UtYVlYbm5OVmp2dzMtYnFYSGFsRExQbno0UmhrV2kyWFByTWtaRVRPNnBqeGlIUTV2V3FmdGRfUjA3OFRLWUthZG14Q0sxVkNrN3RuYm4yOEtXTl9TdXN1bmMzZDNyUHpPbmZHLXhqQUU0ZkE0VUhBNUVQNFVDRnR5dDcwSW5HUDhyR25GdmlaY1dqRzZfRUlzZXBSQ3IyWTlwT2ZieUZESQ?oc=5
 
 ## ESPN’s Scott Van Pelt Raves Over Taylor Swift and Travis Kelce’s ‘Forest’ Wedding - People.com
 
@@ -123,6 +181,15 @@ Stories: 120
 - summary: “There was real anxiety”: Taylor Swift was reportedly concerned about Blake Lively drama before tying the  The Times of India
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiqwJBVV95cUxQSVFWbUJ2TTQyS2JIRVE3cXZJWkVlTVVVal9ydW9uR01SYVpscEhsUjlFeUJJLXNOSnhlb3RUWTZ4aVltd1RCc2Z5MDVIeVo2NVRaQVg3VGtseWFlNVFFU05SWDRQOEJJYW1rdHk2ZWRrSXUyRi1OalBndEMxdUxRU2hfblZzVWI2X3J4dHlZMGVHblVTNVZsN1F1a1V4SnJaVk1pbGdSbnVHb3ZKeGZmWHU1Um9GcmhIUFRmV1hwbXd6MjVIVzBLX0RMSl8zbkZNOWN1Y3E1bmhDS1dDVDJkQ0o3dVBGbDM5TnM2cHg5dktlR01WMldZaklSOE43azlwbmw0VGZFNnRrWlJFM0xiSTBfVW4xRkJ2c3N1SGFTVDVVRGQ4VEtVMFdKRdIBsAJBVV95cUxQLXNNdFI1N2wwN1dVcEpiYW1NekN3T0twQi1aV1gzLVVZVmJxdE9Ia3FaVEUwc2w2UnptbEctb2pKeFd0djc4VGV0YjFuRkZVTjRJQ3h6VUVIbmdRUC1nTndmbUVVRDBhMldyMnF3ZlNlNDFZcTl4SDFOOUxzOHNEc0U0Y255a2hpQkZSNmFHVXFFdlh6M0JmbGdONjVPSklrQ0RLTzdMaHNSSWhpS25PXzBHWkdPTXcyb2p1TDE2dmZGRE1VaGVZV0VfdXBxMzFLR1JDS3BvU2h0RXVYRTAxeFF4a0w4NDVfU3hFRDdEME1ZcGRYVjk1RGFHWTNYVjktZXR2MW5TMERKVUdJaUFjbDB3VUhkTDU1Q2FQT09SZzBLNDVFNDdoNnJNQ01QN2g1?oc=5
+
+## Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding
+
+- first seen: 2026-07-20 22:11 UTC | category: sighting | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Blake Lively Attends World Cup Final In First Public Appearance Since Missing Taylor Swift’s Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMikgFBVV95cUxQbUpOZFZNVzZuSlNtbFhSUDkzUk5zNlJXbzBEd3FiN3ZyZmxPbW1ESlpPLWNMVW54ckZyeTFVNldMc0FFUzQwUTFZeVpjUGJiYmRWcGduZmp2eXN0MVdJUy1ZV3lueUVSVTlsLXQtOGNBTnVBV09OdHNNMXV0RU1XdjlCVkZyYkpVb3R1UDJXS3ZHQQ?oc=5
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirAFBVV95cUxNOWJOMTUtOWppZ3pwWTh6N3B6NWtSMW1MdjMtb1hSbjNXam5GcDVZeDRiS3pUZk9RNXQ3eFV2a3I0czlJT2ppOVlpcFdLYTZsdWxXZWY2TmVzcUxuN3VVcnpzMmhfam41V2xwQVVZcVA1M1JTX0xtektmQm5QSnFmNjF0QUZ2eWpCa1owMElNWlFFQTRSWUhQeDk0Q3VibmRQc3dUQ1JtczZIZGl1?oc=5
 
 ## Travis Kelce, Taylor Swift Saddened By Reaction To Their Wedding - The Spun
 
@@ -254,15 +321,6 @@ Stories: 120
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPUGEwVVN6dDk1eWFVTUg2clpIVU5hLTl1ck1WZl95WEU5c2pCVjRmUlBRVGkzam80QlBET1BOOVB6SHdkSEotLWJON3R5SHlrYUEwdDRYTUZwdHBlX2JOZlBOaWFBU2dJSHJ2WWV6dkNsT0lSWGdPbkNjRnd1V1hvR3ZLZWp0NzZqR3YzaC0xeUVhbGdqUklmTElqd2dPaGNVUGc?oc=5
   - [unverified] AOL.com — https://news.google.com/rss/articles/CBMif0FVX3lxTE5Sb255cTcyaWxJZFdvbkxhbUUyQ2ppd0dSZzhqTG9EVmY1UFV6YVpJVTEwUS10c2hTcHpGVTk2YTFkWlo3R1RQa2RrckVseVdGTHUyci1kYnNTaG85ODQzQjVsVE9kS0ZnN0xoa3ctMFI0Smd2MEw4S3ZOUjRjenc?oc=5
 
-## Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony - Yahoo
-
-- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdGNqLVBvNVItbmNXMW5heWVhbU4zQUxYelNxc1Z5Vi1fWUVybWVIajVnMTBYZU5FTl9uaDVDaGdMSHdSMzdXS0swT2FLMDBGcEtmNHZ5RDJ3eUZYZzFHUHNNM3ZhVWpwSWJfM2lwNHNId3dvTnFQSm9QVG9aN1dnUnJvQzJxbXhaUWlHWWZ6ZF9aV19scGFIcUFyd3NjZkZDZDEtVXpzdw?oc=5
-  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMingFBVV95cUxNYS1nTUZ6RlBZNmNQRkFja0pNVHQ3N3dfTlBsUUd0WFEyVlM1QzgyR3dUYTNwODZZX0lCLUQtXzFKZFFhOUNJTVppYVdJcTN1SVpjUVkxWXRrVHlIMmc3YURxbXJEc3M2bFdoRVFCZEo3TC1zdnhXa2h0QndhMi1ETmZON1lvTDU5MzR4YlVoeVd0S2d1WFE1SUZIdmU1UQ?oc=5
-
 ## A Guest At Taylor Swift And Travis Kelce’s Wedding Recalled A Sincere Part That People Thought “Was 
 
 - first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
@@ -326,6 +384,15 @@ Stories: 120
 - summary: In honor of Taylor Swift, kids at Children’s Mercy designed wedding dresses  Kansas City Star
 - sources:
   - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMikgFBVV95cUxQcU1Qd2NWLUlkbWNFeGc0WG05VmxvbFNGYWE2ZFZ6THVlbXlpdmU3U0pndlFKNFV2SlFVdllvRl9jeFZkUjgtT3FSNDVxd2g4YllvcGVqM01RQXFTVWUyMFpSLUZ3RU1BQWpsWjgtMi1KVk1SR1NrTTlrWGNxTUktSUExVUZ3SVFfYmFmOXRzeWFvUdIBkgFBVV95cUxPYzA4bWdheWFYNW54bk5WSURDRlVTQlFQaXdwNktLTVNSOGRMcHRVVVF2UTQ3b0dkcWtzUFZCOTUwWkZyTE15N0E3QzY0UUVKemJ2TGVpR1ZQdVY1dEJQRDV1TWF3OV9PUUo2cThJd1EyZ3FOMEpjTTRpMjBaaXRHYTNMb1pNVXBxME52dVRtY2FPQQ?oc=5
+
+## Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony - Yahoo
+
+- first seen: 2026-07-20 15:19 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Taylor Swift Wedding Photo Details Finally Released 2 Weeks After Her Ceremony  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQdGNqLVBvNVItbmNXMW5heWVhbU4zQUxYelNxc1Z5Vi1fWUVybWVIajVnMTBYZU5FTl9uaDVDaGdMSHdSMzdXS0swT2FLMDBGcEtmNHZ5RDJ3eUZYZzFHUHNNM3ZhVWpwSWJfM2lwNHNId3dvTnFQSm9QVG9aN1dnUnJvQzJxbXhaUWlHWWZ6ZF9aV19scGFIcUFyd3NjZkZDZDEtVXpzdw?oc=5
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMingFBVV95cUxNYS1nTUZ6RlBZNmNQRkFja0pNVHQ3N3dfTlBsUUd0WFEyVlM1QzgyR3dUYTNwODZZX0lCLUQtXzFKZFFhOUNJTVppYVdJcTN1SVpjUVkxWXRrVHlIMmc3YURxbXJEc3M2bFdoRVFCZEo3TC1zdnhXa2h0QndhMi1ETmZON1lvTDU5MzR4YlVoeVd0S2d1WFE1SUZIdmU1UQ?oc=5
 
 ## Blake Lively pictured for first time since being culled from Taylor Swift's wedding guest list - Yah
 
@@ -934,67 +1001,3 @@ Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Excl
 - summary: The wedding presents just keep on coming. Three days after Taylor Swift’s marriage to Travis Kelce, a federal judge dismissed with prejudice a lawsuit filed 14 months ago by a little-known Florida poet who claimed that the superstar copied phrases from her poems in more than a dozen songs. United St
 - sources:
   - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/taylor-swift-wins-plagiarism-poet-lawsuit-florida-judge-1236802619/
-
-## Adam Sandler Officiated Taylor Swift and Travis Kelce’s Wedding
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Adam Sandler officiated Taylor Swift and Travis Kelce’s star-studded Madison Square Garden wedding. The reveal came via a press release obtained by Variety in the minutes following Swift and Kelce’s official marriage announcement. It also included several other miscellaneous details about the ceremo
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/film/news/adam-sandler-officiated-taylor-swift-travis-kelces-wedding-1236801628/
-
-## Taylor Swift Scores First Emmy Nominations in Over 10 Years for ‘The Eras Tour: The Final Show’
-
-- first seen: 2026-07-19 18:01 UTC | category: tour | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Taylor Swift: The Eras Tour: The Final Show received five nods, including Outstanding Variety Special
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-2026-emmy-nominations-eras-tour-final-show-1235590955/
-
-## The Most WTF Guests at Taylor Swift and Travis Kelce’s Wedding
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: From old foes to controversial executives, here are the invites that still have us scratching our heads
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-wedding-guests-why-invited-1235589687/
-
-## How Much Did Taylor Swift’s Wedding to Travis Kelce Cost?
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: From security to flowers, here’s an estimate of what the pop star’s final tab could be
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-features/taylor-swift-travis-kelce-wedding-cost-estimate-1235590070/
-
-## Every Country Star at Taylor Swift’s Wedding, Explained
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Nashville was out in force at Madison Square Garden to celebrate the pop star’s union with Travis Kelce. For those who’ve forgotten how deep her country roots go, here’s a reminder
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-country/taylor-swift-wedding-country-star-guests-explained-1235590576/
-
-## Taylor Swift Paid ‘Over $160,000’ to Obtain NYC Permit for MSG Wedding, Says Zohran Mamdani
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: The update comes after the superstar and her husband, Travis Kelce, faced criticism for their Fourth of July wedding
-- sources:
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/taylor-swift-nyc-permit-cost-msg-wedding-zohran-mamdani-1235592197/
-
-## Bad Bunny’s Super Bowl Halftime Show and Taylor Swift’s ‘Eras Tour’ Concert Film Land Emmy Nominatio
-
-- first seen: 2026-07-19 18:01 UTC | category: tour | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Bad Bunny’s Super Bowl Halftime Show and Taylor Swift’s “Eras Tour: The Final Show” concert film have landed Emmy nominations. “The Apple Music Super Bowl LX Halftime Show Starring Bad Bunny” landed a total of nine nominations, making it the most-nominated Super Bowl halftime show in Emmys history. 
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/artisans/news/bad-bunny-taylor-swift-emmy-nominations-1236802891/
-
-## Prince William Joins ‘New Heights’ Podcast on Taylor Swift and Travis Kelce’s Wedding Day
-
-- first seen: 2026-07-19 18:01 UTC | category: relationship | importance: 5
-- verification_status: single_source | source_count: 1
-- summary: Travis Kelce posted a surprise “New Heights” interview with Prince William on Friday, the day he’s set to get married to his popstar fiancé Taylor Swift at New York’s Madison Square Garden. “We thought were gonna be talking to, like, fat offensive linemen, not kings, queens, princes of other nations
-- sources:
-  - [established] Variety — Taylor Swift tag — https://variety.com/2026/music/news/prince-william-new-heights-taylor-swift-travis-kelce-1236801557/
