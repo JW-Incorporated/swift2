@@ -24,6 +24,14 @@ export default {
       month: 8,
       day: 13,
       category: 'release',
+      // Cross-links (ledger #978, 2026-07-20): this is the era's origin point —
+      // thread it forward to the album it announced, the same-day portraits,
+      // and the record-shattering debut week that followed.
+      relatedIds: [
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+      ],
       title: 'A mint-green briefcase on New Heights: album No. 12, announced on her first-ever podcast',
       snippet:
         'Teased by a 12:12 a.m. countdown, revealed on Travis and Jason Kelce\'s New Heights: a briefcase with an orange "TS," a title, and an Oct. 3 date. The episode set a Guinness World Record with 1.3 million concurrent YouTube viewers — the most ever for a podcast.',
@@ -31,7 +39,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'A countdown on her website expired at 12:12 a.m. ET on Aug. 12, 2025, revealing the teaser; the full episode aired the next evening. On it she pulled the blurred mint-green briefcase from behind the desk — mint green with an orange "TS" — revealed the 12-track list ending in a Sabrina Carpenter feature, and talked through the era\'s orange-glitter look. It was her first-ever podcast appearance, staged on her boyfriend\'s own show, and it doubled as the most unguarded long-form interview she had given in years: two hours of album talk, football talk, and the couple\'s dynamic on camera.\n\nThe internet did not hold. The livestream crashed under the load about an hour and 44 minutes in, with the concurrent count peaking at 1.3 million viewers — a figure Guinness World Records certified as the most concurrent views ever for a podcast on YouTube. Within 24 hours the episode had roughly 13 million YouTube views, per Variety\'s tally. The announcement\'s mechanics became the era\'s template: every detail, from the 12:12 a.m. timestamp to the reveal\'s staging on the Kelce brothers\' set, was read by fans as deliberate.',
+          'A countdown on her website expired at 12:12 a.m. ET on Aug. 12, 2025, revealing the teaser; the full episode aired the next evening. On it she pulled the blurred mint-green briefcase from behind the desk — mint green with an orange "TS" — revealed the 12-track list ending in a Sabrina Carpenter feature, and talked through the era\'s orange-glitter look. It was her first-ever podcast appearance, staged on her boyfriend\'s own show, and it doubled as the most unguarded long-form interview she had given in years: two hours of album talk, football talk, and the couple\'s dynamic on camera.\n\nThe internet did not hold. The livestream crashed under the load about an hour and 44 minutes in, with the concurrent count peaking at 1.3 million viewers — a figure Guinness World Records certified as the most concurrent views ever for a podcast on YouTube. Within 24 hours the episode had roughly 13 million YouTube views, per Variety\'s tally. The announcement\'s mechanics became the era\'s template: every detail, from the 12:12 a.m. timestamp to the reveal\'s staging on the Kelce brothers\' set, was read by fans as deliberate.\n\nThe two hours ranged well past the reveal. Its most-quoted stretch was the masters buyback: she teared up recounting that she had finally bought back her catalog from Shamrock Capital, a deal she said she led "heart-first," sending her mother Andrea and brother Austin to make the case because "these are my handwritten diary entries from my whole life." She also walked through wrapping the Eras Tour, how she and Travis started dating, and homemaker life down to baking sourdough. On the number 12 she was firm the short tracklist was the whole album — "This is 12. There\'s not a 13th" — while the 12:12 timestamp fed a fan numerology her team never formally confirmed. The appearance moved the show itself: New Heights, on a $100M-plus Wondery deal, saw its female viewership jump more than 600% on Spotify and drew over 500 million cross-platform video views within days.',
         sources: [
           {
             outlet: 'NBC News',
@@ -58,6 +66,35 @@ export default {
             publisher: 'CNN',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Added 2026-07-20 (ledger #978): the Guinness record itself, the
+          // masters-buyback account, and the show's measured audience jump.
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/world-records/779144-most-concurrent-views-for-a-podcast-on-youtube',
+            source_title: 'Most concurrent views for a podcast on YouTube',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-20',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-mom-brother-master-recordings-1236488967/',
+            source_title: "Taylor Swift Sent Her Mom and Brother to Negotiate Her Master Recordings Buyback",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-new-heights-breaks-youtube-podcast-record-1236045668/',
+            source_title: "Taylor Swift's 'New Heights' Episode Breaks YouTube Podcast Record",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-20',
             reliability_score: 4,
           },
         ],
@@ -178,6 +215,23 @@ export default {
       day: 3,
       category: 'release',
       significance: 'defining', // the era-defining album release (docs/decisions.md, 2026-07-18)
+      // Cross-links (ledger #981, 2026-07-20): this release-day page is the
+      // era anchor — thread it to its origin (New Heights announcement), the
+      // same-day portraits, the five song pages, and the four chart-record
+      // pages. IDs are the generated vault ids (vault-tloas-<slugified title>).
+      relatedIds: [
+        'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-father-figure-rebuilds-george-michaels-1988-hit-with-his-est',
+        'moment:vault-tloas-eldest-daughter-the-first-track-five-that-ends-somewhere-saf',
+        'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
+        'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-spotifys-2025-single-day-streaming-record-falls-in-under-11-',
+        'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+      ],
       title: 'The Life of a Showgirl arrives: 12 tracks, Max Martin and Shellback, one guest',
       snippet:
         'Written and recorded in Sweden between European Eras Tour dates — her first full album with Max Martin and Shellback since 1989 and reputation. Twelve tracks, no Anthology-style sprawl, and a single feature: Sabrina Carpenter on the closing title track.',
@@ -186,7 +240,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
       moment: {
         context:
-          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. It was a pointed reunion: Martin and Shellback built the pop machinery of 1989 and reputation, and this was her first full album with them since — made in stolen days between stadium shows, which she said is exactly what the songs are about. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name.\n\nThe cover — shot by Mert Alas and Marcus Piggott — shows Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage. The bathtub reading pays off on track one — the drowned Ophelia of the cover is the same woman the opening song pulls out of the water.\n\nThe orange branding itself had been called in advance: TS12 watchers had spent the tail end of the TTPD era reading glittery orange accents into late show looks and posts, and the New Heights reveal — orange and mint, head to toe — validated months of color-watching in one stroke.',
+          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. It was a pointed reunion: Martin and Shellback built the pop machinery of 1989 and reputation, and this was her first full album with them since — made in stolen days between stadium shows, which she said is exactly what the songs are about. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name.\n\nThe cover — shot by Mert Alas and Marcus Piggott, styled by her longtime stylist Joseph Cassell — shows Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage. The bathtub reading pays off on track one — the drowned Ophelia of the cover is the same woman the opening song pulls out of the water.\n\nThe record itself is lean: 12 tracks, 41:40, cut at MXM and Shellback Studios in Stockholm and written throughout by Swift with Martin and Shellback — the only outside credit George Michael\'s, for the "Father Figure" interpolation. Sabrina Carpenter sings on the closing title track (a character study of a Las Vegas showgirl named Kitty) as a vocal feature, not a co-writer. Republic flooded release week with 27 physical variants — 16 CDs, eight vinyl pressings, two deluxe CDs bundled with clothing, and a cassette — the collector economy behind the sales records. Critics split hard: a 69 on Metacritic across 23 reviews, Rolling Stone\'s five stars against the Guardian\'s two, one of 2025\'s most-debated albums.',
         // Cover art added 2026-07-09 under the relaxed image policy (hotlink any
         // real, publicly-available image with credit; no AI images). Hotlinked from
         // Wikipedia's stable copy of the official artwork — verified HTTP 200,
@@ -217,6 +271,34 @@ export default {
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          // Added 2026-07-20 (ledger #981): reception + credits + styling.
+          {
+            outlet: 'Metacritic',
+            url: 'https://www.metacritic.com/music/the-life-of-a-showgirl/taylor-swift',
+            source_title: 'The Life of a Showgirl by Taylor Swift Reviews',
+            publisher: 'Metacritic',
+            source_type: 'aggregator',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Guardian',
+            url: 'https://www.theguardian.com/music/2025/oct/03/taylor-swift-the-life-of-a-showgirl-review',
+            source_title: "Taylor Swift: The Life of a Showgirl review",
+            publisher: 'The Guardian',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/taylor-swift-life-of-a-showgirl-album-outfits-new-heights/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Album Outfits, Explained",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-20',
             reliability_score: 4,
           },
         ],
@@ -398,7 +480,13 @@ export default {
     {
       slug: 'showgirl-four-million-week',
       significance: 'notable', // an outright industry record, the biggest album debut ever measured (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12'],
+      // Cross-links (ledger #976, 2026-07-20): the record the album (release-day)
+      // set, powered by the vinyl week, alongside the concurrent Hot 100 sweep.
+      relatedIds: [
+        'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
+      ],
       year: 2025,
       month: 10,
       day: 18,
@@ -410,7 +498,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album since Billboard began tracking by Luminate\'s modern methodology. She\'d already passed Adele\'s 3.482 million-unit 2015 benchmark for 25 within five days, retiring a record that had stood for a decade and that many chart-watchers assumed the streaming era had made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."',
+          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album, by both equivalent units and pure sales, since Billboard began tracking by Luminate\'s modern methodology in 1991. It ran roughly 2.5 times her own previous personal best, Midnights\' 1.578 million units in 2022, and passed the two records it beat: Adele\'s 3.482 million-unit 25 (2015) and *NSYNC\'s 2.416 million No Strings Attached (2000). She\'d cleared the decade-old Adele mark within five days — a record many chart-watchers had assumed the streaming era made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."\n\nThe composition explains the shape: only two things counted toward 4.002 million — the 3,479,500 pure copies and 522,600 streaming-equivalent units from those 680.9 million streams, with no tracks sold à la carte. The pure-sales side ran on collecting: 1.334 million of it was vinyl, driven by 38 editions (16 CDs, two deluxe CD-plus-clothing boxes, eight vinyl, a cassette, 11 digital), most release-week-only — a variant strategy that drew chart-inflation criticism. The 680.9 million streams set 2025\'s biggest album week but no all-time mark; her own Tortured Poets Department (891 million) still leads there. Abroad it opened at No. 1 in the UK (423,000 units, her biggest week there), Australia, Canada, New Zealand and Ireland. The theatrical Official Release Party that topped the weekend box office was a separate event, uncounted here. The front-loading showed a week later: it held No. 1 but fell to 338,000 units as pure sales collapsed 97% and streaming eased just 55%.',
         sources: [
           {
             outlet: 'Billboard',
@@ -428,6 +516,35 @@ export default {
             publisher: 'Variety',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Added 2026-07-20 (ledger #976): the global tally, the UK debut, and
+          // the second-week hold that exposed the front-loading.
+          {
+            outlet: 'Republic Records / Universal Music (PR Newswire)',
+            url: 'https://www.prnewswire.com/news-releases/taylor-swifts-the-life-of-a-showgirl-earns-biggest-first-week-in-music-history-with-over-4-million-us-and-over-5-5-million-global-album-equivalent-units-302582496.html',
+            source_title: "The Life of a Showgirl Earns Biggest First Week in Music History — Over 4M US, Over 5.5M Global",
+            publisher: 'Republic Records / Universal Music Group',
+            source_type: 'official',
+            accessed_at: '2026-07-20',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Official Charts Company',
+            url: 'https://www.officialcharts.com/chart-news/taylor-swift-number-1-album-and-single/',
+            source_title: "Taylor Swift scores biggest opening week of her career in the UK with The Life of a Showgirl",
+            publisher: 'Official Charts Company (UK)',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-20',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-stays-number-1-week-2-billboard-album-chart-1236556554/',
+            source_title: "Taylor Swift Stays at No. 1 in Week 2 as 'The Life of a Showgirl' Sales Drop",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-20',
             reliability_score: 4,
           },
         ],
