@@ -3,6 +3,8 @@
 // never lyrics; unconfirmed muse readings are labeled (this era is almost
 // entirely fan-attributed and Swift has named no one). Provenance per
 // docs/content/content-audit-2026-07-08.md §5 (URLs verified 2026-07-08).
+import DOSSIERS from './tortured-poets.dossiers.mjs';
+
 const ACCESSED = '2026-07-08';
 const wiki = (title, path, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${path}`,
@@ -19,9 +21,7 @@ const ALBUM = wiki(
   'album article: release facts, credits, and cited interviews',
 );
 
-export default {
-  eraSlug: 'tortured-poets',
-  tracks: [
+const TRACKS = [
     {
       slug: 'fortnight',
       trackNumber: 1,
@@ -123,9 +123,9 @@ export default {
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'Track 5, as always the wound: a farewell to a city and the six-year love that made it home — the grown-up, exhausted answer to London Boy.',
       summary:
-        'Choral voices open a eulogy for a long partnership that died of quiet: she stopped being willing to trade her aliveness for someone’s low simmer. The London of it all made the subject reading universal (unconfirmed, as ever).',
+        'A eulogy that opens on Swift’s own multitracked voices stacked into a choral hymn, then quickens — a bass-drum pulse running at roughly double the vocal’s tempo — as a long partnership dies not in a blaze but of quiet: she stopped being willing to trade her aliveness for someone’s low simmer. It debuted at No. 5 on the Hot 100 inside TTPD’s record top-14 opening week, and critics singled it out — Billboard called it so raw that by its close “Swift sounds like she’s been slightly healed from the act of catharsis.” The London of it all made the subject reading universal (unconfirmed, as ever).',
       inspiration:
-        'Fans and press read it as the Alwyn relationship’s post-mortem given the geography and timeline — Swift has said only that the album chronicles a two-year period she needed to close.',
+        'Track 5 is Swift’s standing “most vulnerable” slot (All Too Well, my tears ricochet, tolerate it), and the press treated this as a deliberate continuation of that canon. Fans and press read it as a six-year relationship’s post-mortem given the geography and timeline; Swift has said only that the album chronicles a period she needed to close, and has never spoken to this song specifically. She live-debuted it solo on piano at the Aug. 20, 2024 Wembley finale — the tour’s last European night — and reportedly flipped the closing line from “you’ll find someone” to “I’ll find someone.”',
       themes: ['leaving a life, not just a person', 'exhausted grief', 'cities as exes'],
       fanLore:
         'Fan reading (universal, unconfirmed): the six-year London chapter — the direct sequel fans queue against London Boy.',
@@ -134,8 +134,57 @@ export default {
         wiki(
           'So Long, London',
           'So_Long%2C_London',
-          'song article: track-5 placement and readings',
+          'song article: track-5 placement, No. 5 Hot 100 debut, tempo construction',
         ),
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: 'Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-21',
+          reliability_score: 4,
+          notes: '"So Long, London" debuted at No. 5, part of the record top-14',
+        },
+        {
+          source_url:
+            'https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/my-boy-only-breaks-his-favorite-toys/',
+          source_title: 'The Tortured Poets Department: All 31 Tracks Ranked (Billboard)',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-21',
+          reliability_score: 4,
+          notes: 'Jason Lipshutz on the song\'s "raw honesty" and catharsis',
+        },
+        {
+          source_url:
+            'https://variety.com/2024/music/news/taylor-swift-florence-jack-antonoff-live-debut-florida-so-long-london-1236112940/',
+          source_title: 'Taylor Swift Live-Debuts "So Long, London" at Wembley',
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-21',
+          reliability_score: 4,
+          notes: 'First live performance, Aug. 20, 2024, Wembley — solo piano',
+        },
+        {
+          source_url:
+            'https://www.washingtonpost.com/entertainment/music/2024/04/18/taylor-swift-track-5-so-long-london/',
+          source_title: "Why Taylor Swift's track five 'So Long, London' holds extra meaning",
+          publisher: 'The Washington Post',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-21',
+          reliability_score: 4,
+          notes: 'The track-5 "most vulnerable" tradition, applied to this song',
+        },
+        {
+          source_url: 'https://www.capitalfm.com/news/music/taylor-swift-so-long-london-lyrics-eras-tour/',
+          source_title: "Taylor Swift's 'So Long, London' lyric change at the Eras Tour",
+          publisher: 'Capital FM',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-21',
+          reliability_score: 3,
+          notes: 'The live-debut outro change, "you\'ll find someone" → "I\'ll find someone"',
+        },
         ALBUM,
       ],
     },
@@ -715,5 +764,15 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
       sources: [ALBUM],
     },
-  ],
+];
+
+// Attach per-song dossiers by slug (issue #440 pattern; see red.mjs / tloas).
+const dossierSlugs = new Set(TRACKS.map((t) => t.slug));
+for (const key of Object.keys(DOSSIERS)) {
+  if (!dossierSlugs.has(key)) throw new Error(`dossier for unknown track slug: ${key}`);
+}
+
+export default {
+  eraSlug: 'tortured-poets',
+  tracks: TRACKS.map((t) => (DOSSIERS[t.slug] ? { ...t, dossier: DOSSIERS[t.slug] } : t)),
 };
