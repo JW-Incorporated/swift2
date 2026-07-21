@@ -482,11 +482,28 @@ export default {
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'A breakup autopsy performed for an audience of gossips — the couple’s friends, the fans, and the press all lean in for the cause of death.',
       summary:
-        'Everyone wants the story of the ending, including the two people it happened to, who genuinely do not know. Grief with a Greek chorus of rubberneckers.',
-      inspiration: null,
+        'Everyone wants the story of the ending, including the two people it happened to, who genuinely do not know — grief with a Greek chorus of rubberneckers. As track 21 it opens “The Anthology,” the fifteen-song second half that surprise-dropped at 2 a.m. ET on release night, and it reached No. 35 on the Billboard Hot 100 during TTPD’s record-setting chart week. Swift debuted it live as a solo piano ballad at the final Stockholm Eras Tour show (May 19, 2024); Variety later ranked it among her best songs and The Independent named it one of 2024’s best.',
+      inspiration:
+        'Aaron Dessner co-wrote and co-produced it; the arrangement builds from near-whispered verses toward a full crescendo that fans single out. Swift has named no subject.',
       themes: ['public appetite for private pain', 'unanswerable endings', 'gossip as ritual'],
+      fanLore:
+        'Fan/press reading (near-universal, unconfirmed): the close of the six-year Joe Alwyn relationship — the “how did it end?” question outsiders ask when any couple splits — frequently paired with “You’re Losing Me” as the same story’s bookends.',
+      easterEggs:
+        'The lyric sustains a clinical autopsy conceit — a “fatal fever,” a “death rattle,” maladies “we could not cure” — turning the breakup into a coroner’s report.',
       sourceUrl: 'https://en.wikipedia.org/wiki/How_Did_It_End%3F',
-      sources: [wiki('How Did It End?', 'How_Did_It_End%3F', 'song article: composition'), ALBUM],
+      sources: [
+        wiki('How Did It End?', 'How_Did_It_End%3F', 'song article: composition, Hot 100 No. 35 peak, critical reception'),
+        {
+          source_url: 'https://ca.rollingstone.com/music/taylor-swift-debuts-how-did-it-end-at-final-2024-eras-tour-date-in-sweden/',
+          source_title: 'Taylor Swift Debuts “How Did It End?” at Final Stockholm Eras Tour Date',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-21',
+          reliability_score: 3,
+          notes: 'Live debut May 19, 2024, Stockholm — standalone piano performance',
+        },
+        ALBUM,
+      ],
     },
     {
       slug: 'so-high-school',
