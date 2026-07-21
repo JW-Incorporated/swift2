@@ -52,7 +52,6 @@ export function MomentSocialPost({
           src={`https://www.instagram.com/p/${post.shortcode}/embed/captioned`}
           loading="lazy"
           scrolling="no"
-          allowTransparency
           className="w-full"
           // Instagram's embed is a fixed-width card that letterboxes itself in
           // a wider frame; it does not reflow to an arbitrary aspect ratio, so
