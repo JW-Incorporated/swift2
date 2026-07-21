@@ -1667,6 +1667,24 @@ export default {
             kind: 'archival',
           },
         ],
+        // Rumor Desk 2026-07-21: the debut's own 20th anniversary makes it the
+        // structural home for the "debut Taylor's Version is coming" speculation
+        // — a public-facing music/re-recording rumor (explicitly allowed by the
+        // redlines), adjudicable because it resolves on an announcement or fades
+        // when the anniversary window passes empty. No location involved.
+        rumors: [
+          {
+            claim:
+              'A set of small July 19 Spotify "canvas" color changes — a green background on "I Knew It, I Knew You," red on "Blank Space" — was read across entertainment outlets as an Easter-egg tease that an announcement of Taylor\'s Version of the 2006 self-titled debut was imminent, pointed toward the album\'s 20th anniversary later in 2026.',
+            reportedBy: 'Bustle',
+            reportedOn: '2026-07-20',
+            status: 'unconfirmed',
+            url: 'https://www.bustle.com/entertainment/taylor-swift-spotify-canvas-new-album-theories',
+            note: 'Swift and her team said nothing, and the canvas colors reportedly reverted the next day. Adjudicable as a forward-looking claim about the debut re-recording: it resolves if a debut Taylor\'s Version is announced, and fades if the anniversary window passes with no announcement.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-07-21',
+          },
+        ],
       },
     },
     {
