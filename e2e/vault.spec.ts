@@ -5,7 +5,7 @@ import { test, expect, type Locator, type Page } from '@playwright/test';
  * target URL). These are deliberately RESILIENT to content growth: they assert
  * on roles / text and avoid brittle hard-coded counts. They add NO markup to
  * production components: everything is driven through accessible roles/labels
- * that already exist in the UI (dialogs, the "Era timeline" slider, the
+ * that already exist in the UI (dialogs, the era timeline scrubber, the
  * "Filter" toggle, "Track guide" buttons).
  *
  * The one exception is the tappable moment card, which has no role/label of its
@@ -17,15 +17,36 @@ import { test, expect, type Locator, type Page } from '@playwright/test';
 // A moment card: the full-width, left-aligned button in the timeline (vs. the
 // pill-shaped era controls). Scoped to a given era section or the whole page.
 function monthItems(scope: Page | Locator): Locator {
-  return scope.locator('button[style*="text-align:left"]');
+  // Was a heuristic on inline style ("the only full-width left-aligned
+  // button"). That matched ZERO elements after the feed moved to a tier-driven
+  // grid, and the heuristic was always going to be fragile. Every card now
+  // carries `data-ll-item`, which is exactly the stable hook the original
+  // comment here asked a future change to provide.
+  return scope.locator('[data-ll-item]');
 }
 
 // The reader is a client component that hydrates and then auto-scrolls to the
 // most recent era. Wait until it's interactive before poking at it.
 async function gotoVault(page: Page) {
   await page.goto('/');
-  // Era sections are server-rendered; the slider proves hydration happened.
-  await expect(page.getByRole('slider', { name: 'Era timeline' })).toBeVisible();
+  // The landing page is an era CHOOSER, not the timeline. The nav-mode tablist
+  // is client-rendered, so its presence proves hydration.
+  //
+  // This used to wait on the era-timeline slider, which is why the whole suite
+  // went red: the slider now only exists INSIDE an era view, and it was renamed
+  // ("Era timeline" -> "<era> timeline scrubber"). Every test funnels through
+  // this helper, so one stale locator failed all of them, on every run, for ten
+  // days — the site itself was fine the whole time.
+  await expect(page.getByRole('tab', { name: 'Eras' })).toBeVisible();
+}
+
+/**
+ * Step into an era, where the timeline and its scrubber live. Matches the
+ * scrubber by SUFFIX so the era name can change without breaking this again.
+ */
+async function enterEra(page: Page, name = 'Showgirl') {
+  await page.getByRole('button', { name: new RegExp(`^${name}`, 'i') }).first().click();
+  await expect(page.getByRole('slider', { name: /timeline scrubber$/i })).toBeVisible();
 }
 
 // The internal scroll container (everything scrolls inside it, not the window),
@@ -41,22 +62,24 @@ test.describe('Vault smoke', () => {
   test('homepage renders multiple eras with known titles', async ({ page }) => {
     await gotoVault(page);
 
-    // Several of the 11 eras are present (allow content to grow; never assert an
-    // exact count that a new era would break).
-    const eraSections = page.locator('section[data-era]');
-    expect(await eraSections.count()).toBeGreaterThanOrEqual(8);
+    // The landing page is an era CHOOSER — one button per era — not the stacked
+    // `section[data-era]` list this used to assert on. Count the chooser
+    // entries instead, still without pinning an exact number so a new era
+    // cannot break it.
+    const eraButtons = page.getByRole('button', { name: /\d{4}/ });
+    expect(await eraButtons.count()).toBeGreaterThanOrEqual(8);
 
-    // Known, stable era titles must appear (server-rendered into the DOM even
-    // when scrolled out of view).
+    // Known, stable era names must be offered.
     for (const title of ['Fearless', 'Midnights', '1989', 'Lover']) {
-      await expect(page.getByRole('heading', { name: new RegExp(`The ${title} era`) })).toHaveCount(
-        1,
-      );
+      await expect(
+        page.getByRole('button', { name: new RegExp(`^${title}`, 'i') }).first(),
+      ).toBeVisible();
     }
   });
 
   test('per-era category filter hides non-matching items without jumping', async ({ page }) => {
     await gotoVault(page);
+    await enterEra(page);
 
     // Find the first era that offers a filter with at least two categories, so
     // selecting one category is guaranteed to hide some items.
@@ -118,6 +141,7 @@ test.describe('Vault smoke', () => {
 
   test('clicking a month item opens the moment detail sheet and closes it', async ({ page }) => {
     await gotoVault(page);
+    await enterEra(page);
 
     const item = monthItems(page).first();
     await item.scrollIntoViewIfNeeded();
@@ -137,14 +161,18 @@ test.describe('Vault smoke', () => {
 
   test('track guide sheet opens for an album', async ({ page }) => {
     await gotoVault(page);
+    await enterEra(page);
 
     const trackButton = page.getByRole('button', { name: /Track guide/ }).first();
     await trackButton.scrollIntoViewIfNeeded();
     await trackButton.click();
 
     const dialog = page.getByRole('dialog', { name: /track guide/i });
+    // The dialog's accessible NAME is "<era> track guide"; its headings are the
+    // album and its song titles, so asserting a /track guide/ heading inside it
+    // was checking for something that never existed.
     await expect(dialog).toBeVisible();
-    await expect(dialog.getByRole('heading', { name: /track guide/i })).toBeVisible();
+    await expect(dialog.getByRole('heading').first()).toBeVisible();
 
     await dialog.getByRole('button', { name: 'Close' }).click();
     await expect(dialog).toBeHidden();
@@ -152,8 +180,9 @@ test.describe('Vault smoke', () => {
 
   test('era scrubber navigates between eras and is reachable while scrolling', async ({ page }) => {
     await gotoVault(page);
+    await enterEra(page);
 
-    const slider = page.getByRole('slider', { name: 'Era timeline' });
+    const slider = page.getByRole('slider', { name: /timeline scrubber$/i });
     await expect(slider).toBeVisible();
 
     // The reader opens on the most recent era.
