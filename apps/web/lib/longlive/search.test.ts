@@ -232,3 +232,44 @@ describe('editorial weighting in ranking', () => {
     expect(scoreDoc(plain, tokenize('plain'))).toBe(25);
   });
 });
+
+describe('result caps and totals', () => {
+  // Wyatt, 2026-07-20: "if I type something and hit enter without selecting a
+  // suggested result, it should take me to a search results page, not just the
+  // top suggested result." The results view needs every match, and the
+  // dropdown needs to admit what it is hiding.
+  const many = Array.from({ length: 12 }, (_, i) =>
+    doc({ title: `Wedding moment number ${i}`, key: `m${i}` }),
+  );
+
+  it('caps each group at five by default — the dropdown is a shortlist', () => {
+    const [group] = searchDocs(many, 'wedding');
+    expect(group.results).toHaveLength(MAX_RESULTS_PER_TYPE);
+  });
+
+  it('reports the true total even while capped, so the UI can say "5 of 12"', () => {
+    const [group] = searchDocs(many, 'wedding');
+    expect(group.totalMatches).toBe(12);
+    expect(group.totalMatches).toBeGreaterThan(group.results.length);
+  });
+
+  it('returns every match when the cap is lifted', () => {
+    const [group] = searchDocs(many, 'wedding', Number.POSITIVE_INFINITY);
+    expect(group.results).toHaveLength(12);
+    expect(group.totalMatches).toBe(12);
+  });
+
+  it('keeps ranking order when uncapped — more results must not mean worse order', () => {
+    const uncapped = searchDocs(many, 'wedding', Number.POSITIVE_INFINITY)[0].results;
+    const scores = uncapped.map((r) => r.score);
+    expect([...scores].sort((a, b) => b - a)).toEqual(scores);
+  });
+
+  it('the uncapped list starts with exactly the capped list', () => {
+    const capped = searchDocs(many, 'wedding')[0].results.map((r) => r.doc.key);
+    const uncapped = searchDocs(many, 'wedding', Number.POSITIVE_INFINITY)[0].results.map(
+      (r) => r.doc.key,
+    );
+    expect(uncapped.slice(0, capped.length)).toEqual(capped);
+  });
+});

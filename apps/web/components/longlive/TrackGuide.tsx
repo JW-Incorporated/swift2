@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import Image from 'next/image';
 import { ListMusic, ArrowUpRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
@@ -27,15 +28,7 @@ export function TrackGuide() {
   const tracks = trackGuideEraId ? tracksForEra(trackGuideEraId) : [];
   const open = Boolean(era && tracks.length > 0);
 
-  // Lock body scroll while open (mirrors MomentDetail).
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
+  useScrollLock(open);
 
   // Close on Escape — unless the share sheet or a song's TrackDetail is
   // layered on top; the top-most overlay owns Escape until it closes itself

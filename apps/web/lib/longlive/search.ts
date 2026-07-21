@@ -77,6 +77,8 @@ export interface SearchGroup {
   type: SearchDocType;
   label: string;
   results: SearchResult[];
+  /** Matches BEFORE any per-type cap, so the UI can say what it is hiding. */
+  totalMatches: number;
 }
 
 // ── Normalization ───────────────────────────────────────────────────────────
@@ -181,10 +183,20 @@ const GROUP_META: { type: SearchDocType; label: string }[] = [
 
 /**
  * Rank `docs` against `query`, grouped by type in a stable presentation
- * order, capped at MAX_RESULTS_PER_TYPE per group. Empty/blank queries and
- * no-hit queries both return [] — the UI renders its own empty states.
+ * order. Empty/blank queries and no-hit queries both return [] — the UI
+ * renders its own empty states.
+ *
+ * `limitPerType` defaults to MAX_RESULTS_PER_TYPE, which is right for the
+ * type-ahead dropdown: it is a shortlist, not an answer. Pass `Infinity` for
+ * the full results view, where truncating is the bug rather than the feature —
+ * "wedding" matches 26 moments and a reader who pressed Enter asked to see
+ * them, not the best five (Wyatt, 2026-07-20).
  */
-export function searchDocs(docs: readonly SearchDoc[], query: string): SearchGroup[] {
+export function searchDocs(
+  docs: readonly SearchDoc[],
+  query: string,
+  limitPerType: number = MAX_RESULTS_PER_TYPE,
+): SearchGroup[] {
   const terms = tokenize(query);
   if (terms.length === 0) return [];
 
@@ -202,7 +214,14 @@ export function searchDocs(docs: readonly SearchDoc[], query: string): SearchGro
     const results = byType.get(type);
     if (!results || results.length === 0) continue;
     results.sort((a, b) => b.score - a.score || a.doc.title.localeCompare(b.doc.title));
-    groups.push({ type, label, results: results.slice(0, MAX_RESULTS_PER_TYPE) });
+    groups.push({
+      type,
+      label,
+      results: Number.isFinite(limitPerType) ? results.slice(0, limitPerType) : results.slice(),
+      // The pre-cap total, so the dropdown can honestly say how much it is
+      // hiding ("Moments 5 of 26") instead of implying five is all there is.
+      totalMatches: results.length,
+    });
   }
   return groups;
 }

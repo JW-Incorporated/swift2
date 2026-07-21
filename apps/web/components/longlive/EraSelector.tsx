@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import { X } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
 import { useBackDismiss } from '@/lib/longlive/useBackDismiss';
@@ -10,18 +11,15 @@ export function EraSelector() {
   const { selectorOpen, eraId } = useAppState();
   const { setEra, setSelectorOpen } = useAppActions();
 
+  useScrollLock(selectorOpen);
+
   useEffect(() => {
     if (!selectorOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setSelectorOpen(false);
     };
     window.addEventListener('keydown', onKey);
-    return () => {
-      document.body.style.overflow = prev;
-      window.removeEventListener('keydown', onKey);
-    };
+    return () => window.removeEventListener('keydown', onKey);
   }, [selectorOpen, setSelectorOpen]);
 
   // Let the mobile back-swipe gesture close the selector instead of leaving the app.
