@@ -2577,6 +2577,15 @@ export default {
       month: 10,
       day: 3,
       category: 'business',
+      // Cross-link deficit closed (2026-07-21, depth ledger #1084 Q6/cross-links):
+      // the page now threads to the Oct. 3 release that IS the cause, the debut-week
+      // record that makes it "the biggest album of 2025," and the "I Knew It, I Knew
+      // You" soundtrack single, which sits on its own awards clock.
+      relatedIds: [
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
       title: 'A release date that costs a Grammy shot: Showgirl misses the 2026 eligibility window by 34 days',
       snippet:
         'The Recording Academy\'s 2026 eligibility period closed Aug. 30, 2025 — five weeks before Showgirl came out on Oct. 3. The record-shattering album ended up with zero 2026 Grammy nominations, eligible instead for the 2027 ceremony.',
@@ -2584,7 +2593,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Outlets including E! Online and AOL confirmed the snub was purely a calendar issue, not a reception one: the 2026 Grammy eligibility window ran Aug. 31, 2024 through Aug. 30, 2025, and Showgirl\'s Oct. 3 release fell just outside it — by 34 days. The commercially biggest album of 2025 was therefore invisible at the ceremony honoring 2025\'s music, an outcome baked in the moment the release date was chosen.\n\nThe trade-off cut the other way, too: the date that cost her the 2026 ceremony banked the album for the 2027 one, where it will compete as a year-old blockbuster with a full chart history behind it. Swift already holds 14 Grammys, including a record four Album of the Year wins, so the stakes are less about validation than record-keeping — a fifth AOTY would extend a record no one else has matched at four.',
+          'Outlets including E! Online and AOL confirmed the snub was purely a calendar issue, not a reception one: the 2026 Grammy eligibility window ran Aug. 31, 2024 through Aug. 30, 2025, and Showgirl\'s Oct. 3 release fell 34 days outside it. The commercially biggest album of 2025 was therefore invisible at the 68th Grammys on Feb. 1, 2026 — the ceremony honoring 2025\'s music, where Bad Bunny\'s "Debí Tirar Más Fotos" won Album of the Year, Kendrick Lamar and SZA\'s "Luther" took Record of the Year, and Billie Eilish\'s "Wildflower" won Song of the Year.\n\nBut an October release costing the "expected" year is Swift\'s norm, not an accident. 1989 (Oct. 27, 2014), Red (Oct. 22, 2012), reputation (Nov. 2017) and Midnights (Oct. 21, 2022) all landed just after a window closed and competed a cycle later — and 1989 and Midnights each won Album of the Year two calendar years after release. Only the summer-released folklore (July 2020) competed at the very next ceremony, so Showgirl\'s early-October date makes it the structural twin of 1989. The closest outside precedent is Adele\'s "25" (Nov. 2015), which skipped its release-year Grammys and swept Album of the Year in 2017.\n\nSo the date banks the album for the 69th Grammys in 2027, whose window runs roughly Sept. 1, 2025 through Aug. 31, 2026; it competes there as a year-old blockbuster with a full chart history behind it. No on-record statement from Swift or Republic frames Oct. 3 as a deliberate Grammy calculation. Her tally stands at 14 Grammys and a record four Album of the Year wins (Fearless, 1989, folklore, Midnights), and she won nothing at the 2026 ceremony, so the count is current — a fifth AOTY would extend a record no one else has reached at four.',
         sources: [
           {
             outlet: 'AOL',
@@ -2602,6 +2611,45 @@ export default {
             publisher: 'E! Online',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth ledger #1084 (2026-07-21): who filled the vacuum at the Feb. 1,
+          // 2026 ceremony (Q1), Swift's current Grammy tally (Q7), and the fall-
+          // release / Adele precedent context (Q3/Q4).
+          {
+            outlet: 'NPR',
+            url: 'https://www.npr.org/2026/02/01/nx-s1-5693046/2026-grammy-awards-full-list-winners-nominees',
+            source_title: 'The complete list of 2026 Grammy winners and nominees',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/artists/taylor-swift/15450/',
+            source_title: 'Taylor Swift | 14 Grammy Wins, 4 Album of the Year',
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/taylor-swift-album-year-grammys-1235897350/',
+            source_title: "Taylor Swift Breaks the Record for Most Album of the Year Grammy Wins, as 'Midnights' Makes It Four",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Grammy.com',
+            url: 'https://www.grammy.com/news/adele-25-beyonce-lemonade-grammys-2017-album-of-the-year-win-acceptance-speech-video-rewind/',
+            source_title: "GRAMMY Rewind: Adele's '25' and the 2017 Album of the Year Win",
+            publisher: 'The Recording Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
             reliability_score: 4,
           },
         ],
