@@ -49,6 +49,38 @@ import { cn } from '@/lib/utils';
 /** A dated music video (see musicVideosForEra) eligible for a timeline entry. */
 type TimelineVideo = VideoNote & { releasedOn: string };
 
+/**
+ * Tier -> grid footprint (#1017 part 3).
+ *
+ * The span vocabulary is deliberately just TWO values: full-width and
+ * half-width. A richer one (thirds, sixths, NYT-style) packs badly here
+ * because this feed is strictly chronological. The usual fix for the holes a
+ * mixed-span grid leaves is `grid-auto-flow: dense`, and that is NOT available
+ * to us: dense packing pulls later items up into earlier gaps, which would
+ * both break the newest-first reading order and scramble TimelineScrubber's
+ * position<->date anchors (it measures `[data-ll-item]` tops and interpolates,
+ * assuming they descend in date as they descend the page).
+ *
+ * With only 1-cell and 2-cell spans, every half-width card pairs cleanly with
+ * its neighbour and the only hole possible is a single trailing half-cell in
+ * front of a full-width card — which reads as deliberate editorial air rather
+ * than a broken layout.
+ *
+ * Below `md` this map is inert: the grid is a single column, so every card is
+ * full width and the tiers separate on height and internal density instead.
+ */
+const TIER_SPAN: Record<CardTier, string> = {
+  // The event. Twice the width of everything around it, and the tallest image
+  // in the feed — dominance you cannot miss while scrolling past.
+  hero: 'md:col-span-2',
+  // The workhorse. Half width, so a hero beside it is unmistakably bigger.
+  media: 'md:col-span-1',
+  // Compact dense row; two sit side by side in the space of one media card.
+  chip: 'md:col-span-1',
+  // Pure typography breather, no image.
+  text: 'md:col-span-1',
+};
+
 /** One entry in the merged, newest-first main feed: either a curated moment
  * or a music video duplicated in from the era's videos (issue #439). */
 type FeedEntry = { kind: 'moment'; item: ContentItem } | { kind: 'video'; video: TimelineVideo };
@@ -336,7 +368,17 @@ export function EraSection({ era }: { era: Era }) {
           merged in alongside curated moments, dated to their release date —
           the fuller card for each still lives in the EraVideos rail below. */}
       <div className="mx-auto max-w-4xl px-4 py-10 md:pr-8">
-        <ol className="relative space-y-5">
+        {/* Editorially-weighted grid (#1017 part 3). Card tier drives the
+            number of GRID CELLS a story occupies, which is what actually makes
+            the tiers read as different silhouettes — the previous layout was a
+            single column where hero vs media was only a font-size and
+            image-ratio difference, i.e. the founder's "pretty much all
+            articles present as the same."
+
+            `items-start` is load-bearing: without it a chip sharing a row with
+            a media card would stretch to that card's height, which destroys
+            the compactness that IS the chip tier. */}
+        <ol className="relative grid grid-cols-1 items-start gap-5 md:grid-cols-2 md:gap-6">
           {feedEntries.map((entry) =>
             entry.kind === 'video' ? (
               <VideoMomentCard
@@ -442,9 +484,16 @@ const TAG_ICON: Record<ContentTag, LucideIcon> = {
  * click-to-play facade (MomentVideo) used everywhere else a video embeds.
  */
 function VideoMomentCard({ video, eraId }: { video: TimelineVideo; eraId: Era['id'] }) {
+  // Full width regardless of tier: this card carries a 16/9 YouTube facade,
+  // which is unreadable squeezed into a half-width track.
+  //
+  // NB: this comment lives OUTSIDE the tag on purpose. A `//` comment in JSX
+  // attribute position parses under tsc but is a hard syntax error in Next's
+  // SWC parser, so it passes typecheck and tests and then fails only in the
+  // browser as a blank page (2026-07-21).
   return (
     <li
-      className="relative scroll-mt-28"
+      className="relative min-w-0 scroll-mt-28 md:col-span-2"
       data-ll-item={`era-video-${video.slug}`}
       data-ll-era={eraId}
       data-ll-date={new Date(video.releasedOn).getTime()}
@@ -578,8 +627,13 @@ function MomentCard({
   const seen = progress.moments.has(item.id);
   const hero = hasRealPrimaryImage(item) ? primaryImageRef(item) : undefined;
 
+  // `min-w-0` is required on every grid item: a grid child defaults to
+  // `min-width: auto`, which lets a long unbroken title push the track wider
+  // than its share of the container and scroll the whole page sideways.
+  // #1017 makes "the page body must never scroll horizontally" a hard
+  // requirement, and this is the line that holds it.
   const listItemProps = {
-    className: 'relative scroll-mt-28',
+    className: cn('relative min-w-0 scroll-mt-28', TIER_SPAN[tier]),
     'data-ll-item': item.id,
     'data-ll-era': item.eraId,
     'data-ll-date': new Date(item.date).getTime(),
@@ -604,6 +658,9 @@ function MomentCard({
           onClick={onOpen}
           className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
         >
+          {/* Tallest image in the feed, at twice the width of any other card:
+              16/9 across the full 2-column track is roughly 500px of picture,
+              against ~270px for the half-width media card. */}
           {hero && (
             <div className="relative aspect-[16/9] w-full overflow-hidden">
               <Image
@@ -624,12 +681,12 @@ function MomentCard({
               />
             </div>
           )}
-          <div className="p-6">
+          <div className="p-6 md:p-8">
             <MomentMeta item={item} seen={seen} />
-            <h3 className="mt-2 font-[family-name:var(--era-font)] text-balance text-2xl font-semibold leading-snug sm:text-3xl">
+            <h3 className="mt-2 font-[family-name:var(--era-font)] text-balance break-words text-3xl font-semibold leading-[1.1] sm:text-4xl">
               {item.title}
             </h3>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+            <p className="mt-3 max-w-2xl text-pretty text-base leading-relaxed text-[color:var(--era-ink-soft)]">
               {item.summary}
             </p>
             <TagRow tags={item.tags} />
@@ -647,10 +704,10 @@ function MomentCard({
       <li {...listItemProps}>
         <button
           onClick={onOpen}
-          className="era-card group flex w-full items-center gap-3 rounded-xl border px-3 py-2.5 text-left transition"
+          className="era-card group flex w-full items-center gap-3 rounded-xl border px-3 py-2 text-left transition"
         >
           {hero && (
-            <div className="relative size-11 shrink-0 overflow-hidden rounded-lg">
+            <div className="relative size-10 shrink-0 overflow-hidden rounded-md">
               <Image
                 src={hero.url}
                 alt=""
@@ -685,10 +742,10 @@ function MomentCard({
           style={{ borderLeftColor: 'var(--era-accent)' }}
         >
           <MomentMeta item={item} seen={seen} />
-          <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
+          <h3 className="mt-2 break-words font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
             {item.title}
           </h3>
-          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          <p className="mt-1.5 line-clamp-4 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
             {item.summary}
           </p>
           <TagRow tags={item.tags} />
@@ -697,7 +754,8 @@ function MomentCard({
     );
   }
 
-  // WORKHORSE (media) — the default: contained image + text.
+  // WORKHORSE (media) — the default: contained image + text, at half the
+  // hero's width so the hero reads as the event and this reads as the beat.
   return (
     <li {...listItemProps}>
       <button
@@ -705,7 +763,7 @@ function MomentCard({
         className="era-card group block w-full overflow-hidden rounded-2xl border text-left transition"
       >
         {hero && (
-          <div className="relative aspect-[21/9] w-full overflow-hidden">
+          <div className="relative aspect-[16/10] w-full overflow-hidden">
             <Image
               src={hero.url}
               alt=""
@@ -724,12 +782,12 @@ function MomentCard({
             />
           </div>
         )}
-        <div className="p-5">
+        <div className="p-4">
           <MomentMeta item={item} seen={seen} />
-          <h3 className="mt-2 font-[family-name:var(--era-font)] text-xl font-semibold leading-snug">
+          <h3 className="mt-2 break-words font-[family-name:var(--era-font)] text-lg font-semibold leading-snug">
             {item.title}
           </h3>
-          <p className="mt-1.5 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
+          <p className="mt-1.5 line-clamp-3 text-sm leading-relaxed text-[color:var(--era-ink-soft)]">
             {item.summary}
           </p>
           <TagRow tags={item.tags} />
