@@ -1817,6 +1817,37 @@ export default {
             focalPoint: '70% 28%',
           },
         ],
+        // Stylist source pass (2026-07-21): the headline pieces of this look, linked
+        // to live retailer product pages (curl HTTP 200 + read-verified).
+        products: [
+          {
+            // The exact dress. Nordstrom's PDP for the Balmain "Strappy Houndstooth
+            // Tweed A-Line Dress" read-verifies every detail in the context above:
+            // houndstooth tweed A-line, straps interlaced with gold metal chains, six
+            // gold buttons, raw (frayed) hems, pink. curl 200; page is live but the
+            // item read as "no longer available", so inStock:false.
+            brand: 'Balmain',
+            item: 'Strappy Houndstooth Tweed A-Line Dress',
+            retailer: 'nordstrom.com',
+            url: 'https://www.nordstrom.com/s/strappy-houndstooth-tweed-a-line-dress/8377396',
+            price: '$3,500.00',
+            inStock: false,
+          },
+          {
+            // The Louboutin "Miss Jane" sandal she wore was the taupe/"Leche"
+            // colorway, sold only via christianlouboutin.com (which hard-blocks all
+            // automated requests — unverifiable). Nordstrom carries the same sandal,
+            // curl 200 + read-verified in stock, but in Blush/Black rather than taupe —
+            // so it's flagged as the closest verified buyable match, not the exact shoe.
+            brand: 'Christian Louboutin',
+            item: 'Miss Jane Sandal',
+            retailer: 'nordstrom.com',
+            url: 'https://www.nordstrom.com/s/christian-louboutin-miss-jane-sandal-women/7544624',
+            price: '$945.00',
+            isAlternative: true,
+            altNote: 'Same Miss Jane sandal she wore; the exact taupe ("Leche") colorway sells only on Louboutin\'s own site — this Nordstrom listing is Blush/Black.',
+          },
+        ],
       },
     },
     {

@@ -874,7 +874,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Brian Cantoni, Wikimedia Commons (CC BY 2.0) — Taylor Swift performing, 2007 (era-correct sundress-and-curls look)", kind: "primary" }],
       sources: [{ name: "Who What Wear", url: "https://www.whowhatwear.com/taylor-swift-style-eras" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
-      products: [{ brand: "Tecovas", item: "The Loretta Cowgirl Boot (Midnight)", retailer: "tecovas.com", url: "https://www.tecovas.com/products/the-loretta?color=midnight-goat", price: "$445.00", isAlternative: true, altNote: "No single documented outfit — this captures the cowboy-boots half of the era's signature pairing." }],
+      products: [{ brand: "Tecovas", item: "The Loretta Cowgirl Boot (Midnight)", retailer: "tecovas.com", url: "https://www.tecovas.com/products/the-loretta?color=midnight-goat", price: "$445.00", inStock: false, isAlternative: true, altNote: "No single documented outfit — this captures the cowboy-boots half of the era's signature pairing." }],
     },
     {
       id: "vault-debut-her-signature-ringlet-curls-from-the-start",
@@ -990,7 +990,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/201899/rs_634x1024-181009161140-634-taylor-swift-amas-2007.jpg?fit=around%7C776:1254&output-quality=90&crop=776:1254;center,top", credit: "Steve Granitz/WireImage", kind: "primary" }],
       sources: [{ name: "E! Online", url: "https://www.eonline.com/photos/25719/taylor-swift-s-american-music-awards-looks" }, { name: "W Magazine", url: "https://www.wmagazine.com/fashion/taylor-swift-style-evolution" }],
-      products: [{ brand: "Aidan Mattox", item: "Sequin Beaded Leaf Halter Gown", retailer: "adriannapapell.com", url: "https://www.adriannapapell.com/products/sequin-beaded-leaf-halter-gown-in-rose-quartz-md1e209951", price: "$595.00", isAlternative: true, altNote: "Catherine Malandrino's current line has moved to casual daywear — this is a comparable jeweled/sequined halter gown." }, { brand: "Tecovas", item: "The Loretta Cowgirl Boot (Midnight)", retailer: "tecovas.com", url: "https://www.tecovas.com/products/the-loretta?color=midnight-goat", price: "$445.00" }],
+      products: [{ brand: "Aidan Mattox", item: "Sequin Beaded Leaf Halter Gown", retailer: "adriannapapell.com", url: "https://www.adriannapapell.com/products/sequin-beaded-leaf-halter-gown-in-rose-quartz-md1e209951", price: "$595.00", isAlternative: true, altNote: "Catherine Malandrino's current line has moved to casual daywear — this is a comparable jeweled/sequined halter gown." }, { brand: "Tecovas", item: "The Loretta Cowgirl Boot (Midnight)", retailer: "tecovas.com", url: "https://www.tecovas.com/products/the-loretta?color=midnight-goat", price: "$445.00", inStock: false }],
     },
     {
       id: "vault-debut-a-hug-for-dave-grohl-the-second-she-heard-her-first-grammy-n",
@@ -7993,6 +7993,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729", credit: "The Image Direct", kind: "primary", focalPoint: "53% 12%" }, { url: "https://akns-images.eonline.com/eol_images/Entire_Site/20250630/a3a86034-2ab6-49c1-bc30-2f5ade7cf52b_1751297982.jpg", credit: "Via E! News", caption: "Hand in hand with Travis on the way into dinner, June 28, 2025.", kind: "archival", focalPoint: "70% 28%" }],
       sources: [{ name: "TMZ", url: "https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/" }, { name: "E! News", url: "https://www.eonline.com/news/1419311/taylor-swift-wears-s22-500-necklace-on-travis-kelce-date-night" }],
+      products: [{ brand: "Balmain", item: "Strappy Houndstooth Tweed A-Line Dress", retailer: "nordstrom.com", url: "https://www.nordstrom.com/s/strappy-houndstooth-tweed-a-line-dress/8377396", price: "$3,500.00", inStock: false }, { brand: "Christian Louboutin", item: "Miss Jane Sandal", retailer: "nordstrom.com", url: "https://www.nordstrom.com/s/christian-louboutin-miss-jane-sandal-women/7544624", price: "$945.00", isAlternative: true, altNote: "Same Miss Jane sandal she wore; the exact taupe (\"Leche\") colorway sells only on Louboutin's own site — this Nordstrom listing is Blush/Black." }],
     },
     {
       id: "vault-ttpd-unseen-at-the-eagles-rematch-then-photographed-at-mahomes-bi",

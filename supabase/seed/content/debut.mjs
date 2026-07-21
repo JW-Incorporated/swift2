@@ -433,6 +433,7 @@ export default {
             retailer: 'tecovas.com',
             url: 'https://www.tecovas.com/products/the-loretta?color=midnight-goat',
             price: '$445.00',
+            inStock: false, // Stylist re-check 2026-07-21: page live (200), Midnight colorway sold out.
             isAlternative: true,
             altNote: 'No single documented outfit — this captures the cowboy-boots half of the era\'s signature pairing.',
           },
@@ -815,6 +816,7 @@ export default {
             retailer: 'tecovas.com',
             url: 'https://www.tecovas.com/products/the-loretta?color=midnight-goat',
             price: '$445.00',
+            inStock: false, // Stylist re-check 2026-07-21: page live (200), Midnight colorway sold out.
           },
         ],
       },
