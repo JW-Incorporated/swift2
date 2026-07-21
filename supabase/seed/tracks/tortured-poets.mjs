@@ -42,6 +42,25 @@ const TRACKS = [
       sources: [
         wiki('Fortnight (song)', 'Fortnight_(song)', 'song article: single release and video'),
         ALBUM,
+        {
+          source_url:
+            'https://www.billboard.com/lists/taylor-swift-post-malone-fortnight-number-one-hot-100-second-week/',
+          source_title:
+            "Taylor Swift & Post Malone's 'Fortnight' Spends a Second Week at No. 1 on Billboard Hot 100",
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-21',
+          reliability_score: 4,
+        },
+        {
+          source_url:
+            'https://www.hollywoodreporter.com/music/music-news/taylor-swift-video-of-year-win-breaks-records-2024-mtv-vmas-1235997409/',
+          source_title: 'Taylor Swift Wins Video of the Year at 2024 MTV VMAs, Breaking Multiple Records',
+          publisher: 'The Hollywood Reporter',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-21',
+          reliability_score: 4,
+        },
       ],
     },
     {

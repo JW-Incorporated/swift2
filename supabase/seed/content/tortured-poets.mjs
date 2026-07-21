@@ -3245,9 +3245,10 @@ export default {
         'Target-exclusive, $39.99, 256 pages of tour photos and her own notes: it moved 814K over Thanksgiving weekend and nearly a million in week one — 2024\'s biggest new-release print debut.',
       sourceUrl: 'https://variety.com/2024/music/news/taylor-swift-eras-tour-book-sales-blockbuster-debut-two-days-1236236012/',
       thumbnailUrl: null,
+      relatedIds: ['moment:vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z'],
       moment: {
         context:
-          'Released in stores on Black Friday, Nov. 29, 2024, alongside a Target-exclusive TTPD Anthology pressing.\n\nPer Circana BookScan data, the two-day number was among the biggest for any nonfiction title in the modern era — trailing only Barack Obama\'s A Promised Land for a first week — and Target itself called it the fastest-selling new release book it had carried in four years.',
+          'Released in stores on Black Friday, Nov. 29, 2024, alongside Target-exclusive Anthology pressings of The Tortured Poets Department — a $59.99 vinyl (four marbled, translucent discs plus a 12-inch poster) and a $17.99 CD, both carrying the 35-track Anthology. Per Circana BookScan data the book\'s two-day number trailed only Barack Obama\'s A Promised Land for a first week, and Target called it the fastest-selling new-release book it had carried in four years — 2024\'s biggest publishing launch.\n\nThe 256-page, $39.99 volume collects more than 500 photos — many never before seen, from every era, plus rehearsal shots and behind-the-scenes images of instruments, costumes, set pieces and designer sketches — with Swift\'s own written reflections on the tour. First sold only at Target, it later reached Amazon and Swift\'s official store.\n\nSelf-published rather than issued through a traditional house, it was quickly nicknamed "the Errors Tour": first printings were riddled with mistakes — the surprise song "This Is Me Trying" printed "This Is Me Rying," a Toronto date missing from the concert list, pixelated photos, text bleeding off pages, some copies with pages upside-down or missing, and images cropped so tightly into the spine that Swift disappeared into the gutter. Publishing veterans said a traditional editor and printer would have caught them; Swift\'s team, not being book publishers, simply "didn\'t consider" that layer of quality control (Sophie Vershbow, to Yahoo). No corrected reprint or statement from Swift\'s camp was reported.',
         sources: [
           {
             outlet: 'Variety',
@@ -3256,6 +3257,42 @@ export default {
             publisher: 'Variety',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/culture/culture-news/taylor-swift-eras-tour-book-publishing-mistake-1235192781/',
+            source_title: "The 'Errors Tour': Fans Point Out Mistakes in Taylor Swift's Official Tour Book",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-fans-lined-target-220553826.html',
+            source_title: 'Taylor Swift fans lined up at Target to buy her self-published book. It turned out to be riddled with errors.',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Good Morning America',
+            url: 'https://www.goodmorningamerica.com/culture/story/taylor-swift-announces-official-eras-tour-book-details-114807673',
+            source_title: "Taylor Swift's 'The Eras Tour Book' is out now",
+            publisher: 'Good Morning America',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-eras-tour-book-tortured-poets-department-anthology-vinyl-cd-black-friday-1235800890/',
+            source_title: "Taylor Swift Releasing Eras Tour Book and 'Tortured Poets Department' Anthology Vinyl/CD on Black Friday",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
             reliability_score: 4,
           },
           {
