@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import Image from 'next/image';
 import { X, Sparkles, Egg, HelpCircle, ArrowRight } from 'lucide-react';
 import { useAppState, useAppActions } from '@/lib/longlive/store';
@@ -56,15 +57,7 @@ export function TheoryGuide() {
   const theories = theoryGuideEraId ? theoriesForEra(theoryGuideEraId) : [];
   const open = Boolean(era && theories.length > 0);
 
-  // Lock body scroll while open (mirrors TrackGuide/MomentDetail).
-  useEffect(() => {
-    if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [open]);
+  useScrollLock(open);
 
   // Close on Escape — unless the share sheet is layered on top; that overlay
   // owns Escape until it closes itself.

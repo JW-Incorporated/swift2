@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
+import { useScrollLock } from '@/lib/longlive/useScrollLock';
 import {
   Clapperboard,
   Compass,
@@ -64,6 +65,15 @@ export function SearchOverlay() {
   const [query, setQuery] = useState('');
   const [debounced, setDebounced] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
+  // Enter means two different things depending on whether the reader has
+  // picked a suggestion. `activeIndex` alone cannot tell them apart because it
+  // defaults to 0, so Enter always fired the top hit — Wyatt, 2026-07-20: "if I
+  // type something and hit enter without selecting a suggested result, it
+  // should take me to a search results page, not just the top suggested
+  // result." This tracks the explicit pick.
+  const [pickedSuggestion, setPickedSuggestion] = useState(false);
+  // Full results view: every match, no per-type cap.
+  const [showAll, setShowAll] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
 
   // Global shortcuts, mounted for the app's lifetime: `/` (and Ctrl/Cmd+K)
@@ -101,15 +111,7 @@ export function SearchOverlay() {
     return () => window.removeEventListener('keydown', onKey, true);
   }, [searchOpen, setSearchOpen]);
 
-  // Lock body scroll while open (mirrors the other overlays).
-  useEffect(() => {
-    if (!searchOpen) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
-    return () => {
-      document.body.style.overflow = prev;
-    };
-  }, [searchOpen]);
+  useScrollLock(searchOpen);
 
   // Let the mobile back-swipe gesture close search instead of leaving the app.
   useBackDismiss(searchOpen, () => setSearchOpen(false));
@@ -120,6 +122,8 @@ export function SearchOverlay() {
     setQuery('');
     setDebounced('');
     setActiveIndex(0);
+    setPickedSuggestion(false);
+    setShowAll(false);
   }, [searchOpen]);
 
   // Debounce keystrokes → query. Cheap anyway (in-memory index), but this
@@ -129,9 +133,25 @@ export function SearchOverlay() {
     return () => window.clearTimeout(t);
   }, [query]);
 
+  // Editing the query is a new question: drop back to the shortlist and forget
+  // any previous pick, so Enter means "search this" again rather than firing a
+  // suggestion the reader chose for different text.
+  useEffect(() => {
+    setPickedSuggestion(false);
+    setShowAll(false);
+    setActiveIndex(0);
+  }, [query]);
+
   const groups = useMemo(
-    () => (debounced.trim() ? searchDocs(getSearchIndex(), debounced) : []),
-    [debounced],
+    () =>
+      debounced.trim()
+        ? searchDocs(getSearchIndex(), debounced, showAll ? Number.POSITIVE_INFINITY : undefined)
+        : [],
+    [debounced, showAll],
+  );
+  const totalMatches = useMemo(
+    () => groups.reduce((n, g) => n + g.totalMatches, 0),
+    [groups],
   );
   const flat = useMemo(() => flattenGroups(groups), [groups]);
 
@@ -173,13 +193,22 @@ export function SearchOverlay() {
   function onInputKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key === 'ArrowDown') {
       e.preventDefault();
-      if (flat.length > 0) setActiveIndex((i) => (i + 1) % flat.length);
+      if (flat.length > 0) {
+        setActiveIndex((i) => (i + 1) % flat.length);
+        setPickedSuggestion(true);
+      }
     } else if (e.key === 'ArrowUp') {
       e.preventDefault();
-      if (flat.length > 0) setActiveIndex((i) => (i - 1 + flat.length) % flat.length);
+      if (flat.length > 0) {
+        setActiveIndex((i) => (i - 1 + flat.length) % flat.length);
+        setPickedSuggestion(true);
+      }
     } else if (e.key === 'Enter') {
       e.preventDefault();
-      if (active) select(active.doc.target);
+      // Only a DELIBERATE pick opens that result. Bare Enter means "search",
+      // and jumping to the top hit silently discarded the other 25 matches.
+      if (pickedSuggestion && active) select(active.doc.target);
+      else if (flat.length > 0) setShowAll(true);
     }
   }
 
@@ -196,7 +225,9 @@ export function SearchOverlay() {
       onClick={() => setSearchOpen(false)}
     >
       <div
-        className="flex max-h-full w-full max-w-xl flex-col overflow-hidden rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-bg)] text-[color:var(--era-ink)] shadow-2xl"
+        className={`flex max-h-full w-full flex-col overflow-hidden rounded-2xl border border-[color:var(--era-line)] bg-[color:var(--era-bg)] text-[color:var(--era-ink)] shadow-2xl ${
+          showAll ? 'max-w-3xl' : 'max-w-xl'
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Input row */}
@@ -258,6 +289,21 @@ export function SearchOverlay() {
             </p>
           )}
 
+          {showAll && (
+            <div className="flex items-center justify-between gap-3 border-b border-[color:var(--era-line)] px-4 py-3">
+              <p className="text-sm font-semibold">
+                {totalMatches} {totalMatches === 1 ? 'result' : 'results'} for “{debounced.trim()}”
+              </p>
+              <button
+                type="button"
+                onClick={() => setShowAll(false)}
+                className="era-chip shrink-0 rounded-full px-3 py-1 text-xs font-medium"
+              >
+                Back to top matches
+              </button>
+            </div>
+          )}
+
           {groups.map((group) => (
             <div key={group.type} role="group" aria-label={group.label}>
               <p
@@ -265,6 +311,11 @@ export function SearchOverlay() {
                 className="sticky top-0 bg-[color:var(--era-bg)]/95 px-4 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.2em] text-[color:var(--era-ink-soft)] backdrop-blur-sm"
               >
                 {group.label}
+                {!showAll && group.totalMatches > group.results.length && (
+                  <span className="ml-2 font-normal tracking-normal text-[color:var(--era-ink-soft)] normal-case">
+                    {group.results.length} of {group.totalMatches}
+                  </span>
+                )}
               </p>
               {group.results.map((result) => {
                 flatIndex += 1;
