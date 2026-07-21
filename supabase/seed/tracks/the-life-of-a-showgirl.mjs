@@ -216,11 +216,11 @@ const TRACKS = [
       releaseDate: '2025-10-03',
       writers: WRITERS,
       producers: PRODUCERS,
-      note: 'A horn-driven disco track exploring the playful, superstitious side of a happy relationship.',
+      note: 'A horn-driven disco track exploring the playful, superstitious side of a happy relationship — and the album\'s most-talked-about song for its winking double entendres.',
       summary:
         'A giddy, knock-on-wood ode to a good thing the narrator is almost afraid to jinx by naming it directly.',
       inspiration:
-        'Critics described the track as a disco-leaning genre experiment with prominent horn arrangements, part of a pairing with "Honey" that Swift said pushed her into new sonic territory for the album.',
+        'Swift told Jimmy Fallon the song started somewhere innocent — an idea about knock-on-wood superstition — and only turned cheeky once she and her collaborators got in the studio; critics filed its live-horn, disco-leaning sound alongside "Honey" as the album\'s genre-experiment pocket. It debuted at No. 5 on the Billboard Hot 100 in the week all twelve album tracks charted at once.',
       themes: ['superstition', 'playful love', 'disco influence'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
       sources: [ALBUM],

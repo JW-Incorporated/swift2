@@ -437,14 +437,26 @@ export default {
   "wood": {
     whyItMatters: [
       "Wood is where Showgirl lets pleasure be silly, bodily, and superstitious. The seed file identifies it as a horn-driven disco track, and that matters because the song's sound does some of the interpretation: joy arrives with a wink, not a dissertation.",
-      "Its place beside Honey also gives the album a small genre-experiment pocket. After years of Swift love songs that treat happiness as fragile, Wood lets fragility become play: the narrator is aware a good thing can be jinxed, but the awareness makes the celebration livelier instead of smaller."
+      "Its place beside Honey also gives the album a small genre-experiment pocket. After years of Swift love songs that treat happiness as fragile, Wood lets fragility become play: the narrator is aware a good thing can be jinxed, but the awareness makes the celebration livelier instead of smaller.",
+      "It became the album's most-talked-about track, and not for the superstition: critics fixated on its unmistakable double entendres, splitting hard between delight and eye-rolling — the Guardian filed its 'laid-back take on disco' as a highlight while Pitchfork and others read the winking lyric as the album's cringe risk. The divisiveness never dented its reach: Wood debuted at No. 5 on the Billboard Hot 100 the week all twelve Showgirl songs charted at once, the fifth-highest of the bunch."
     ],
     meaning: {
+      confirmed: [
+        "Swift has said the song began somewhere innocent — an idea built around knock-on-wood superstition — and only drifted into cheekier territory once she and her collaborators were in the studio, telling Jimmy Fallon she wasn't sure how they 'got here' but loved the result."
+      ],
       supported: [
         "The knock-on-wood superstition frames happiness as something the narrator wants to protect without draining the fun out of it.",
-        "The disco and horn language support a reading of romance as physical confidence rather than only confession."
+        "The disco and horn language support a reading of romance as physical confidence rather than only confession — and the arrangement earns the disco label with live-played Stockholm brass rather than a sample, part of the Max Martin and Shellback studio craft.",
+        "The innuendo is why the track became the era's lightning rod: the same brightness that makes it fun makes the double meaning impossible to miss, so the song reads as either the album's most joyful swing or its most self-indulgent, depending on the listener."
       ]
     },
+    voices: [
+      {
+        who: "Taylor Swift",
+        context: "The Tonight Show Starring Jimmy Fallon, October 2025",
+        note: "Explained that Wood started as a throwback, timeless-sounding idea about knock-on-wood superstition and only got risqué once she and her collaborators started 'vibing' in the studio — hanging her head at the audience's laughter but insisting she loved the song anyway."
+      }
+    ],
     connections: [
       {
         relatedId: "song:honey",
@@ -475,6 +487,22 @@ export default {
       {
         name: "Taylor Swift talks new album on New Heights podcast",
         url: "https://www.npr.org/2025/08/14/nx-s1-5502415/taylor-swift-podcast-new-album-life-showgirl-kelce"
+      },
+      {
+        name: "Taylor Swift explains the meaning of 'Wood' on Fallon",
+        url: "https://www.thewrap.com/taylor-swift-wood-meaning-fallon/"
+      },
+      {
+        name: "Wood (song) — chart history and reception",
+        url: "https://en.wikipedia.org/wiki/Wood_(song)"
+      },
+      {
+        name: "Taylor Swift makes Hot 100 history with Showgirl's top-12 sweep",
+        url: "https://www.hollywoodreporter.com/music/music-news/taylor-swift-the-life-of-a-showgirl-billboard-debut-1236399004/"
+      },
+      {
+        name: "Taylor Swift: The Life of a Showgirl review (The Guardian)",
+        url: "https://www.theguardian.com/music/2025/oct/03/taylor-swift-the-life-of-a-showgirl-review"
       }
     ]
   },
