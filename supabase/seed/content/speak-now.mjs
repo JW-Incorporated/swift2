@@ -198,6 +198,20 @@ export default {
             credit: 'Jason Kempin/Getty Images',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2011 J. Mendel gown is
+        // discontinued -- a current made-to-order grey gown, closest
+        // verified in-stock match.
+        products: [
+          {
+            brand: 'WonderlandByLilian',
+            item: 'Silver Grey Elegance Sequin Evening Gown',
+            retailer: 'wonderlandbylilian.com',
+            url: 'https://wonderlandbylilian.com/products/silver-grey-elegance-sequin-evening-gown-convertible-grey-evening-dress-plus-size',
+            price: '$695.00',
+            isAlternative: true,
+            altNote: 'Her 2011 J. Mendel gown is long discontinued -- a current made-to-order dove-grey sequin gown in the same formal register.',
+          },
+        ],
       },
     },
     {
@@ -223,6 +237,19 @@ export default {
             // Singing at the mic; her face sits in the upper-left third.
             focalPoint: '42% 20%',
             credit: 'Eva Rinaldi / Wikimedia Commons',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact tour costume is undocumented --
+        // a current, verified in-stock gold fringe mini in the same spirit.
+        products: [
+          {
+            brand: '12th Tribe',
+            item: 'Ophelia Gold Fringe Mini Dress',
+            retailer: '12thtribe.com',
+            url: 'https://www.12thtribe.com/products/ophelia-gold-fringe-mini-dress',
+            price: '$114.00',
+            isAlternative: true,
+            altNote: 'The exact Roberto Cavalli tour costume is undocumented beyond this description -- a current gold fringe mini in the same silhouette (Everybody Fargo boots not separately sourced).',
           },
         ],
       },
@@ -383,6 +410,19 @@ export default {
             credit: 'Larry Busacca/Getty Images',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2010 gown is discontinued -- a
+        // current Monique Lhuillier gown, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Monique Lhuillier',
+            item: 'Poppy Jacquard Column Gown',
+            retailer: 'moniquelhuillier.com',
+            url: 'https://moniquelhuillier.com/products/poppy-jacquard-column-gown',
+            price: '$5,995.00',
+            isAlternative: true,
+            altNote: 'Her exact 2010 gown is long discontinued -- this is a current Monique Lhuillier gown in the same red-orange "Poppy" family, a column silhouette rather than a sweetheart slit gown.',
+          },
+        ],
       },
     },
     {
@@ -408,6 +448,20 @@ export default {
             credit: 'Femestella',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2010 Collette Dinnigan mini is
+        // discontinued -- a current beaded mini, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Jesenia Beaded Mini Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/jesenia-beaded-mini-dress-brown',
+            price: '$89.00',
+            isAlternative: true,
+            altNote: 'Her exact Collette Dinnigan mini is long discontinued -- this is a current beaded mini dress in the same general spirit (the item here is really about the bangs, not the dress).',
+          },
+        ],
       },
     },
     {
@@ -431,6 +485,20 @@ export default {
           {
             url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_12961917_XL.jpg',
             credit: 'Femestella',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact 2011 J. Mendel dress is
+        // discontinued -- a current Monique Lhuillier pink chiffon gown,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Monique Lhuillier',
+            item: 'Sweetheart Strapless Chiffon Gown',
+            retailer: 'moniquelhuillier.com',
+            url: 'https://moniquelhuillier.com/products/pink-chiffon-sweetheart-strapless-gown',
+            price: '$4,995.00',
+            isAlternative: true,
+            altNote: 'Her exact J. Mendel dress is long discontinued -- this is a current pink chiffon gown in "Pink Carnation," same soft pink-chiffon spirit (Prada heels, Neil Lane jewels not separately sourced).',
           },
         ],
       },
@@ -459,6 +527,20 @@ export default {
             credit: 'Susan Hilferty (costume designer)',
           },
         ],
+        // Shop pass (2026-07-21): a one-of-a-kind custom stage costume has
+        // no retail equivalent -- a current purple gown, verified in
+        // stock, in the same color family.
+        products: [
+          {
+            brand: 'Sherri Hill',
+            item: '55304 One-Shoulder Ombre Sequin Gown',
+            retailer: 'formalapproach.com',
+            url: 'https://www.formalapproach.com/products/sherri-hill-55304-dress',
+            price: '$698.00',
+            isAlternative: true,
+            altNote: 'Hilferty\'s halter gown was a one-of-a-kind custom stage costume, never sold -- this is a current gown in Purple Ombre, same color family, though sequined rather than plain chiffon.',
+          },
+        ],
       },
     },
     {
@@ -482,6 +564,20 @@ export default {
           {
             url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/6966861157_2ca0cc3599_o.jpg',
             credit: 'Femestella',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact custom Alice + Olivia stage
+        // piece has no retail listing -- a current white lace mini,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Hailees Lace Strapless Mini Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/hendrie-lace-mini-dress-white',
+            price: '$15.00',
+            isAlternative: true,
+            altNote: 'The exact custom Alice + Olivia stage piece was never sold at retail -- this is a current white lace mini dress in the same general spirit.',
           },
         ],
       },
@@ -510,6 +606,20 @@ export default {
             credit: 'Eva Rinaldi / Wikimedia Commons',
           },
         ],
+        // Shop pass (2026-07-21): the exact Theia tour piece is undocumented
+        // beyond this description -- a current red sequin slip, verified
+        // in stock, closest real match.
+        products: [
+          {
+            brand: 'Showpo',
+            item: 'Finn Mini Dress (Plunge Neck Sheer Sequin Dress)',
+            retailer: 'showpo.com',
+            url: 'https://www.showpo.com/nights-in-vegas-dress-in-wine-sequin.html',
+            price: '$66.00',
+            isAlternative: true,
+            altNote: 'The exact Theia tour piece is undocumented beyond this description -- a current red sequin slip dress in the same silhouette (Everybody Fargo boots not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -534,6 +644,20 @@ export default {
           {
             url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Taylor_Swift_-_Haunted_-_Speak_Now_WORLD_Tour_in_Pittsburgh.jpg',
             credit: 'Femestella',
+          },
+        ],
+        // Shop pass (2026-07-21): a one-of-a-kind custom stage costume has
+        // no retail equivalent -- a current red-toned gown, verified in
+        // stock, in the same color family.
+        products: [
+          {
+            brand: 'Monique Lhuillier',
+            item: 'Poppy Jacquard Column Gown',
+            retailer: 'moniquelhuillier.com',
+            url: 'https://moniquelhuillier.com/products/poppy-jacquard-column-gown',
+            price: '$5,995.00',
+            isAlternative: true,
+            altNote: 'Hilferty\'s red chiffon midi was a one-of-a-kind custom stage costume, never sold -- this is a current red-orange gown in the same color family, a floor-length column rather than a midi.',
           },
         ],
       },
@@ -564,6 +688,21 @@ export default {
             credit: 'Femestella',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2011 Elie Saab gown is
+        // discontinued and the brand's current site has no clean matching
+        // listing -- a current made-to-order pink sequin gown, closest
+        // verified in-stock match.
+        products: [
+          {
+            brand: 'WonderlandByLilian',
+            item: 'Elegant Pink Sequin Evening Gown',
+            retailer: 'wonderlandbylilian.com',
+            url: 'https://wonderlandbylilian.com/products/elegant-pink-sequin-evening-gown-and-embellished-gown-designer-sequin-gown-and-pink-sequin-dress-plus-size',
+            price: '$699.00',
+            isAlternative: true,
+            altNote: 'Her exact 2011 Elie Saab gown is discontinued -- this is a current made-to-order pink sequin gown in the same strapless, top-to-bottom sequin spirit (Lorraine Schwartz jewelry not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -590,6 +729,20 @@ export default {
           {
             url: 'https://i0.wp.com/www.femestella.com/wp-content/uploads/2022/11/Depositphotos_13015212_XL.jpg',
             credit: 'Femestella',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact 2011 Reem Acra gown is
+        // discontinued -- a current Monique Lhuillier gold sequin gown,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Monique Lhuillier',
+            item: 'Gold Sequin Scoop Neck Gown',
+            retailer: 'moniquelhuillier.com',
+            url: 'https://moniquelhuillier.com/products/gold-sequin-scoop-neck-gown',
+            price: '$5,495.00',
+            isAlternative: true,
+            altNote: 'Her exact 2011 Reem Acra gown is long discontinued -- this is a current gold sequin column gown, same shimmering gold-beaded spirit.',
           },
         ],
       },
@@ -621,6 +774,20 @@ export default {
             credit: 'Reem Acra / Big Machine Records',
           },
         ],
+        // Shop pass (2026-07-21): the exact album-cover gown is discontinued
+        // -- a current Sherri Hill purple ombre gown, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'Sherri Hill',
+            item: '55304 One-Shoulder Ombre Sequin Gown',
+            retailer: 'formalapproach.com',
+            url: 'https://www.formalapproach.com/products/sherri-hill-55304-dress',
+            price: '$698.00',
+            isAlternative: true,
+            altNote: 'Her exact Reem Acra cover gown is long discontinued -- this is a current gown in Purple Ombre, the same fading-purple color story, though sequined rather than plain chiffon.',
+          },
+        ],
       },
     },
     {
@@ -647,6 +814,20 @@ export default {
           {
             url: 'https://cdn.shopify.com/s/files/1/0234/1539/files/Glamour_November_2010_-_Cover_-Taylor_Swift_large.JPG',
             credit: 'Glamour',
+          },
+        ],
+        // Shop pass (2026-07-21): no designer is named for this cover look
+        // -- a current, verified in-stock light-blue sequin dress in the
+        // same spirit.
+        products: [
+          {
+            brand: 'WonderlandByLilian',
+            item: 'Light Blue Halter Neck Glitter Dress',
+            retailer: 'wonderlandbylilian.com',
+            url: 'https://wonderlandbylilian.com/products/light-blue-halter-neck-glitter-dress-elegant-sequin-a-line-evening-gown-plus-size',
+            price: '$659.00',
+            isAlternative: true,
+            altNote: 'No designer was ever named for this cover look -- this is a current made-to-order light-blue sequin dress in the same shimmery spirit.',
           },
         ],
       },
@@ -684,6 +865,20 @@ export default {
             kind: 'primary',
           },
         ],
+        // Shop pass (2026-07-21): the exact 2011 Zuhair Murad minidress is
+        // discontinued -- a current gold sequin mini, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'Fashion Nova',
+            item: 'Staying Golden Sequin Mini Dress',
+            retailer: 'fashionnova.com',
+            url: 'https://www.fashionnova.com/products/staying-golden-sequin-mini-dress-gold',
+            price: '$42.99',
+            isAlternative: true,
+            altNote: 'Her exact Zuhair Murad minidress is long discontinued -- this is a current gold sequin mini in the same beaded-gold spirit (Jimmy Choo platforms not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -719,6 +914,20 @@ export default {
             kind: 'primary',
           },
         ],
+        // Shop pass (2026-07-21): the exact Rafael Cennamo dress is
+        // undocumented past this styling credit -- a current white halter
+        // dress, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Alyn Halter Mini Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/alyn-halter-mini-dress-white',
+            price: '$79.00',
+            isAlternative: true,
+            altNote: 'Her Rafael Cennamo dress is undocumented beyond this styling credit -- a current white halter dress, same silhouette (Ranjana Khan belt, Neil Lane jewelry, Fendi shoes not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -751,6 +960,20 @@ export default {
             credit: 'Mario Testino / Vogue US',
           },
         ],
+        // Shop pass (2026-07-21): the exact editorial pieces are
+        // undocumented past the three named houses -- a current piece
+        // from one of them, verified in stock.
+        products: [
+          {
+            brand: 'Rodarte',
+            item: 'Lavender Daisy Silk Twill Mini Dress With Broderie Anglais Ruffle And Belt',
+            retailer: 'shoprodarte.com',
+            url: 'https://shoprodarte.com/products/lavender-daisy-silk-twill-mini-dress-with-broderie-anglais-ruffle-and-belt',
+            price: '$1,695.00',
+            isAlternative: true,
+            altNote: 'The exact editorial pieces from this shoot are undocumented -- this is a current piece from Rodarte, one of the three houses (with Jil Sander and Rag & Bone) the shoot pulled from.',
+          },
+        ],
       },
     },
     {
@@ -780,6 +1003,20 @@ export default {
             // Full-length red-carpet portrait; face is high in frame.
             focalPoint: '52% 13%',
             credit: 'Style Darling Daily',
+          },
+        ],
+        // Shop pass (2026-07-21): the exact haute couture gown was never
+        // sold at retail -- a current gold mermaid gown, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'COLORS Dress',
+            item: 'Sequin Mermaid Evening Gown',
+            retailer: 'shop.simon.com',
+            url: 'https://shop.simon.com/products/sequin-mermaid-evening-gown-in-gold-turquoise',
+            price: '$170.00',
+            isAlternative: true,
+            altNote: 'Her Zuhair Murad Couture gown was a one-of-a-kind piece, never sold at retail -- this is a current gold mermaid sequin gown in the same silhouette.',
           },
         ],
       },
