@@ -188,5 +188,131 @@ export default {
         url: "https://variety.com/2024/music/news/taylor-swift-fortnight-music-video-1235975675/"
       }
     ]
+  },
+
+  "the-smallest-man-who-ever-lived": {
+    whyItMatters: [
+      "Track 14 is the album's scorched-earth peak and the closest The Tortured Poets Department comes to pure fury. Written and produced with Aaron Dessner, it opens as an understated piano ballad and detonates in a near-one-chord bridge — rock-inflected, with Swift's vocal pushed into distortion — that reviewers treated as the record's emotional climax. Critics reached for their strongest language: Rolling Stone's Rob Sheffield read the bridge as an interrogation so heated it could have been retitled 'the angriest song I'll ever write,' the Financial Times called the track a 'quietly venomous piano assassination,' and The Nation's Stephanie Burt named it the harshest, most condemnatory song Swift has ever written.",
+      "It was also a chart and critical high point. It debuted at No. 14 on the Billboard Hot 100 (chart dated April 29, 2024) as part of the week Swift became the first artist ever to hold the entire top 14 simultaneously, all 31 Tortured Poets tracks charting at once; it reached No. 18 on the Billboard Global 200 and No. 17 on the UK streaming chart. Billboard's Jason Lipshutz named it the album's best song and centerpiece, and Vulture and The New York Times both ranked it her finest break-up track since 'All Too Well.'"
+    ],
+    meaning: {
+      confirmed: [
+        "Track 14 on The Tortured Poets Department (April 19, 2024), written and produced by Swift with Aaron Dessner; recorded at Dessner's Long Pond Studio in the Hudson Valley and at Tiny Telephone in Oakland, with mixing by Serban Ghenea at MixStar (Virginia Beach) and mastering at Sterling Sound.",
+        "It debuted at No. 14 on the Billboard Hot 100 during the album's record top-14 opening week, and entered the Eras Tour setlist on the European leg from May 2024 — staged with a military jacket and marching choreography that breaks down as the bridge does."
+      ],
+      supported: [
+        "The song's architecture — a restrained piano verse building to an abrasive, near-spoken bridge — is the production choice critics point to for its force; Rolling Stone, the Financial Times and The Nation all singled the bridge out as the moment the track turns from sorrow to contempt.",
+        "Critics widely rated it an album highlight: Billboard called it the record's best track, The Hollywood Reporter its 'cruelest and most direct,' and multiple year-end and best-of-TTPD rankings placed it near the top."
+      ],
+      fanTheories: [
+        "The song is read as a kiss-off to a specific ex, and fandom split for months over which of the era's two reported relationships it addresses — but Swift has named no subject and the album is framed as character-driven, so the attribution stays fan/press theory, not fact. No documented origin exists for the 'smallest man who ever lived' phrasing itself; it reads as original Swift construction rather than a traced idiom or quotation."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:loml",
+        label: "loml",
+        why: "Two readings of the same abandonment — loml grieves the vanished love outright, The Smallest Man Who Ever Lived turns that same wound into prosecution and contempt."
+      },
+      {
+        relatedId: "song:fresh-out-the-slammer",
+        label: "Fresh Out the Slammer",
+        why: "Bookends of the collapse: Fresh Out the Slammer bolts toward freedom the moment a relationship ends, this track stands in the rubble demanding to know what the relationship even was."
+      },
+      {
+        relatedId: "song:i-can-fix-him-no-really-i-can",
+        label: "I Can Fix Him (No Really I Can)",
+        why: "The delusion and its hangover — I Can Fix Him is the doomed conviction going in, The Smallest Man Who Ever Lived the scorched verdict once the fixing failed."
+      },
+      {
+        relatedId: "song:the-alchemy",
+        label: "The Alchemy",
+        why: "The album's two poles of the same heart: the pure contempt here against The Alchemy's rare, uncomplicated joy — the record's lowest and highest emotional readings, back to back on the tracklist."
+      }
+    ],
+    live: [
+      {
+        date: "May 9, 2024",
+        event: "The Eras Tour — Paris (Paris La Défense Arena)",
+        note: "Added to the tour's new TTPD segment from the European leg's opening night; performed in a military jacket with a marching, drill-like staging whose choreography collapses as the bridge peaks."
+      }
+    ],
+    sources: [
+      {
+        name: "The Smallest Man Who Ever Lived — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/The_Smallest_Man_Who_Ever_Lived"
+      },
+      {
+        name: "Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week",
+        url: "https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/"
+      },
+      {
+        name: "Billboard: The Tortured Poets Department — All Tracks Ranked",
+        url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/my-boy-only-breaks-his-favorite-toys/"
+      }
+    ]
+  },
+
+  "clara-bow": {
+    whyItMatters: [
+      "The standard edition's closer is the catalog's starkest fourth-wall break: a chain of it-girls — the 1920s silent-film star Clara Bow, then Stevie Nicks, then a hungrier newcomer told she looks like Taylor Swift — each praised as an upgrade on the last and then quietly shelved. Swift examines the industry conveyor from inside it and writes her own eventual replacement into the final verse by name, closing the album on the machine's own logic rather than a personal grievance.",
+      "The name is the argument. Clara Bow was Hollywood's original 'It Girl' — the phrase coined for her 1927 film 'It,' from Elinor Glyn's story — the silent era's biggest sex symbol, whose stardom the studio system used up and discarded, exactly the arc the song traces forward. Critics treated the closer as a highlight: Consequence's Mary Siroky called it the album's 'clear highlight,' its spare production leaving the thesis exposed, and NPR included it among its best songs of 2024. It debuted and peaked at No. 21 on the Billboard Hot 100 the week the album arrived, and No. 22 on the Billboard Global 200."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 16, the closer of The Tortured Poets Department's standard edition (April 19, 2024), written and produced by Swift with Aaron Dessner; recorded at Dessner's Long Pond Studio (engineered by Bella Blasko and Jonathan Low) and mixed by Serban Ghenea at MixStar.",
+        "Clara Bow (1905-1965) was the silent era's 'It Girl,' named for the 1927 film 'It'; Stevie Nicks, named in the second verse, is a documented friend of Swift's who wrote a poem printed in the album's liner notes."
+      ],
+      supported: [
+        "Reviewers read the song as a self-aware map of celebrity's replaceability cycle, its minimal arrangement deliberately clearing space for the lyric; several named it the album's best closer and an overall highlight.",
+        "The Bow reference is widely read as deliberate: the song places her at the head of an it-girl lineage that runs through Nicks and lands on Swift herself, using the original discarded starlet to frame the fear of being the next one used up."
+      ],
+      fanTheories: [
+        "The final verse's turn — an unnamed new girl told she resembles Swift — is read as Swift writing her own future obsolescence into the record; that is critical/fan interpretation of a deliberately meta lyric. No public response from Stevie Nicks to being named in the song is documented, though Nicks attended the Dublin show where Swift dedicated it to her."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:the-lucky-one",
+        label: "The Lucky One",
+        why: "The same thesis a decade earlier — The Lucky One watches fame chew up and discard a star; Clara Bow names the machine outright, and Swift mashed the two together live in Dublin for exactly that reason."
+      },
+      {
+        relatedId: "song:nothing-new",
+        label: "nothing new (feat. Phoebe Bridgers)",
+        why: "The fear stated plainly one era before: nothing new dreads the day she is no longer the shiny new thing, the anxiety Clara Bow turns into a whole assembly-line argument."
+      },
+      {
+        relatedId: "song:cassandra",
+        label: "Cassandra",
+        why: "Companion TTPD studies of women and the fame machine — Cassandra the disbelieved truth-teller, Clara Bow the used-up starlet, two ways the industry disposes of the women it elevated."
+      },
+      {
+        relatedId: "song:the-bolter",
+        label: "The Bolter",
+        why: "Two portraits of a woman the spotlight can't hold — The Bolter runs before she can be discarded, Clara Bow is discarded on schedule; both sit in the album's gallery of it-girls outrunning their shelf life."
+      }
+    ],
+    live: [
+      {
+        date: "June 30, 2024",
+        event: "The Eras Tour — Dublin (Aviva Stadium)",
+        note: "Live debut, performed acoustic as a surprise-song mashup with 'The Lucky One' and dedicated to Stevie Nicks, who was in the audience. Reprised August 1, 2024 in Warsaw as a mashup with 'Mirrorball.'"
+      }
+    ],
+    sources: [
+      {
+        name: "Clara Bow (song) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Clara_Bow_(song)"
+      },
+      {
+        name: "Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week",
+        url: "https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/"
+      },
+      {
+        name: "Billboard: The Tortured Poets Department — All Tracks Ranked",
+        url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/my-boy-only-breaks-his-favorite-toys/"
+      }
+    ]
   }
 };

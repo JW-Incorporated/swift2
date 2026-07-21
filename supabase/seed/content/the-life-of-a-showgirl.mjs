@@ -272,7 +272,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
       moment: {
         context:
-          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. It was a pointed reunion: Martin and Shellback built the pop machinery of 1989 and reputation, and this was her first full album with them since — made in stolen days between stadium shows, which she said is exactly what the songs are about. The tracklist runs from a Hamlet-referencing opener to a George Michael interpolation to the Carpenter duet that gives the album its name.\n\nThe cover — shot by Mert Alas and Marcus Piggott, styled by her longtime stylist Joseph Cassell — shows Swift half-submerged in water in a diamond-lined AREA bralette, restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage. The bathtub reading pays off on track one — the drowned Ophelia of the cover is the same woman the opening song pulls out of the water.\n\nThe record itself is lean: 12 tracks, 41:40, cut at MXM and Shellback Studios in Stockholm and written throughout by Swift with Martin and Shellback — the only outside credit George Michael\'s, for the "Father Figure" interpolation. Sabrina Carpenter sings on the closing title track (a character study of a Las Vegas showgirl named Kitty) as a vocal feature, not a co-writer. Republic flooded release week with 27 physical variants — 16 CDs, eight vinyl pressings, two deluxe CDs bundled with clothing, and a cassette — the collector economy behind the sales records. Critics split hard: a 69 on Metacritic across 23 reviews, Rolling Stone\'s five stars against the Guardian\'s two, one of 2025\'s most-debated albums.',
+          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. It was a pointed reunion: Martin and Shellback built the pop machinery of 1989 and reputation, and this was her first full album with them since — made in stolen days between stadium shows, which she said is exactly what the songs are about.\n\nThe cover — shot by Mert Alas and Marcus Piggott, styled by her longtime stylist Joseph Cassell — shows Swift half-submerged in water in a diamond-lined bralette from AREA\'s Spring 2022 collection (the New York label of Beckett Fogg and Piotrek Panszczyk), restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage. The bathtub reading pays off on track one — the drowned Ophelia of the cover is the same woman the opening song pulls out of the water.\n\nThe record itself is lean: 12 tracks, 41:40, cut at MXM and Shellback Studios in Stockholm and written throughout by Swift with Martin and Shellback — the only outside credit George Michael\'s, for the "Father Figure" interpolation. Sabrina Carpenter sings on the closing title track (a Las Vegas showgirl named Kitty) as a vocal feature, not a co-writer. The album dropped at midnight ET on Oct. 3 as one worldwide release, Target holding roughly 500 stores open for a midnight vinyl sale; there was no 13th track or launch-day deluxe. Republic flooded release week with 27 physical variants — 16 CDs, eight vinyl pressings, two deluxe CDs bundled with clothing, and a cassette. Critics split hard: a 69 on Metacritic across 23 reviews, Rolling Stone\'s five stars against the Guardian\'s two, one of 2025\'s most-debated albums.',
         // Cover art added 2026-07-09 under the relaxed image policy (hotlink any
         // real, publicly-available image with credit; no AI images). Hotlinked from
         // Wikipedia's stable copy of the official artwork — verified HTTP 200,
@@ -331,6 +331,21 @@ export default {
             publisher: 'Marie Claire',
             source_type: 'reputable_press',
             accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          // Depth ledger #991 (2026-07-21): the release-clock detail — midnight
+          // ET, single worldwide drop, Target's midnight in-store sale. The AREA
+          // designer attribution (Fogg/Panszczyk, Spring 2022) rests on Marie
+          // Claire (above). Crystal count and the shoot's submersion method stay
+          // undocumented; the shoot date/location circulates only via fan-wiki
+          // EXIF, so neither is asserted.
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/when-does-the-life-of-a-showgirl-taylor-swift-come-out-rcna235169',
+            source_title: "When does 'The Life of a Showgirl' come out? Release time, tracklist",
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
             reliability_score: 4,
           },
         ],
@@ -710,7 +725,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The milestones stacked up hourly on Oct. 3. Before a note went public the album had already broken Spotify\'s all-time pre-save record — more than 6 million saves banked, past the mark her own Tortured Poets Department set in 2024. By midday it was 2025\'s most-streamed album in a single day, the record falling in under 11 hours; by RouteNote\'s tally of Spotify\'s figures the day closed near 251.5 million global streams.\n\nDay one also made "The Fate of Ophelia" the most-streamed song in a single day in Spotify history — RouteNote put it at 30.99 million, past her own "Fortnight." Across everything she has out, Oct. 3 was the single biggest streaming day for any artist in 2025 — about 309 million listens — and the second-biggest single-artist day Spotify has ever logged, behind only her own Tortured Poets release. The album\'s ~250 million single-day total is likewise second all-time to TTPD\'s 314 million: that mark\'s survival is the one release-week superlative Showgirl left standing. Deadline framed it as a competition with exactly one participant — the only albums anywhere near her numbers are her own.',
+          'The milestones stacked up hourly on Oct. 3. Before a note went public the album had already broken Spotify\'s all-time pre-save record — more than 6 million saves banked, past the mark her own Tortured Poets Department set in 2024. By midday it was 2025\'s most-streamed album in a single day, clearing the prior 2025 mark — Playboi Carti\'s Music, roughly 134.5 million first-day streams the previous March — in under 11 hours. That "under 11 hours" is when it passed Carti, not the counting window: by RouteNote\'s tally the full 24-hour day, from the midnight drop, closed near 251.5 million global streams. Spotify never published an exact clock time for the crossover.\n\nDay one also made "The Fate of Ophelia" the most-streamed song in a single day in Spotify history — RouteNote put it at 30.99 million, past her own "Fortnight." Across everything she has out, Oct. 3 was the single biggest streaming day for any artist in 2025 — about 309 million listens — and the second-biggest single-artist day Spotify has ever logged, behind only her own Tortured Poets release. The album\'s ~250 million single-day total is likewise second all-time to TTPD\'s 314 million: that mark\'s survival is the one release-week superlative Showgirl left standing.\n\nTwo of the marks were later certified by Guinness World Records, both dated Oct. 3: most pre-saved album on Spotify (6 million saves) and most-streamed track on Spotify in the first 24 hours ("The Fate of Ophelia," 30,987,370 filtered streams). The "biggest 2025 single-day album" figure stayed a Spotify-newsroom milestone — a year-qualified mark, not a certified all-time record. Deadline framed the whole day as a competition with exactly one participant: the only albums anywhere near her numbers are her own.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -752,6 +767,38 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 3,
+          },
+          // Depth ledger #992 (2026-07-21, second pass): the prior-2025 holder
+          // (Playboi Carti's Music, ~134.5M first day) via Rolling Stone; the two
+          // Guinness World Records certifications (official record pages, figures
+          // and Oct. 3 set-date verified this session). Exact crossover clock
+          // time stays undocumented — left unstated rather than invented.
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-broke-spotify-record-stream-album-this-year-1235440264/',
+            source_title: "Taylor Swift Broke a Spotify Record for the Most-Streamed Album in a Single Day This Year",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/world-records/780188-most-pre-saved-album-on-spotify',
+            source_title: 'Most pre-saved album on Spotify',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/world-records/494520-most-streamed-track-on-spotify-in-the-first-24-hours',
+            source_title: 'Most streamed track on Spotify in the first 24 hours',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
           },
         ],
         // Official MV thumbnail for the song that set the single-day song
@@ -920,7 +967,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the Hot 100 dated Oct. 18, 2025, the chart\'s top 12 and the album\'s 12-song tracklist were the same list, in order: "The Fate of Ophelia" (No. 1), "Opalite" (2), "Elizabeth Taylor" (3), "Father Figure" (4), "Wood" (5), "Wi$h Li$t" (6), "Actually Romantic" (7), "The Life of a Showgirl" feat. Sabrina Carpenter (8), "Eldest Daughter" (9), "Cancelled!" (10), "Ruin the Friendship" (11) and "Honey" (12) — with nothing else, no other artist or song, inside the top 12. Billboard called it the first album ever to place all its songs uninterrupted from the top of the chart on down.\n\n"The Fate of Ophelia" arrived as the 1,184th No. 1 in Hot 100 history and Swift\'s 13th career chart-topper — tying for the fourth-most ever — on 92.5 million official U.S. streams, the most for any title in a single week since streams became the metric\'s sole contributor in September 2020, plus 38.5 million in radio-airplay impressions. The week lifted her to 69 career top 10s, the most of any woman.\n\nShe first filled the entire top 10 with Midnights in November 2022, then outdid herself with The Tortured Poets Department\'s top-14 sweep in May 2024 — the only act ever to monopolize the top 10, now three times over. But the shape was unique. Midnights spilled 10 more debuts down to No. 45 (20 songs that week) and TTPD another 17 down to No. 55 (31 total); Showgirl\'s twelve tracks filled exactly the top 12 and stopped — a clean tracklist-equals-top-12 match possible only because she kept the album short.',
+          'On the Hot 100 dated Oct. 18, 2025, the chart\'s top 12 and the album\'s 12-song tracklist were the same list, in order: "The Fate of Ophelia" (No. 1), "Opalite" (2), "Elizabeth Taylor" (3), "Father Figure" (4), "Wood" (5), "Wi$h Li$t" (6), "Actually Romantic" (7), "The Life of a Showgirl" feat. Sabrina Carpenter (8), "Eldest Daughter" (9), "Cancelled!" (10), "Ruin the Friendship" (11) and "Honey" (12) — with nothing else, no other artist or song, inside the top 12. Billboard called it the first album ever to place all its songs uninterrupted from the top of the chart on down.\n\n"The Fate of Ophelia" arrived as the 1,184th No. 1 in Hot 100 history and Swift\'s 13th career chart-topper — tying for the fourth-most ever — on 92.5 million official U.S. streams, the most for any title in a single week since streams became the metric\'s sole contributor in September 2020 — past the 76.4 million of Post Malone\'s "I Had Some Help" in 2024 — plus 38.5 million in radio-airplay impressions. The week added 10 new top-10 debuts, lifting her to 69 career top 10s, the most of any woman.\n\nShe first filled the entire top 10 with Midnights in November 2022, then outdid herself with The Tortured Poets Department\'s top-14 sweep in May 2024 — the only act ever to monopolize the top 10, now three times over. But the shape was unique. Midnights spilled 10 more debuts down to No. 45 (20 songs that week) and TTPD another 17 down to No. 55 (31 total); Showgirl\'s twelve tracks filled exactly the top 12 and stopped — a clean tracklist-equals-top-12 match possible only because she kept the album short. The yardstick before her was the Beatles\' entire top five in April 1964, which stood more than fifty years; no act held the whole top 10 until her Midnights sweep (Drake had come closest, nine of ten, in 2021). That makes her the only act to sweep the top 10 at all, and twelve-for-twelve the most complete domination the Hot 100 has recorded.',
         sources: [
           {
             outlet: 'Billboard',
@@ -939,6 +986,28 @@ export default {
             source_title: "Taylor Swift Makes Hot 100 History With All 12 Songs From 'Showgirl' Occupying the Top 12",
             publisher: 'Variety',
             source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          // Depth ledger #996 (2026-07-21, second pass): the historical yardstick.
+          // Ultimate Classic Rock documents the Beatles' April 1964 top-five;
+          // Billboard's own chart recap confirms she is the only act ever to hold
+          // the entire top 10 (three times) and enumerates the women's records.
+          {
+            outlet: 'Ultimate Classic Rock',
+            url: 'https://ultimateclassicrock.com/beatles-billboard-top-five/',
+            source_title: 'When the Beatles Held the Top 5 Spots on the Billboard Hot 100',
+            publisher: 'Ultimate Classic Rock',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://billboard.substack.com/p/here-are-all-the-billboard-chart',
+            source_title: 'Here Are All the Billboard Chart Records Taylor Swift Broke With The Life of a Showgirl',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
             accessed_at: '2026-07-21',
             reliability_score: 4,
           },
@@ -5184,8 +5253,14 @@ export default {
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "tloas-opalite-video",
       year: 2026,
-      // Date corrected 2026-07-21 (ledger #1096): seed had 2026-01-12, but the
-      // video premiered Feb. 6, 2026 (Hollywood Reporter, Variety, Wikipedia).
+      // Date corrected 2026-07-21 (depth ledger #1096, "stale field" fix): the
+      // migrated legacy entry dated the video Jan 12, but the "Opalite" video
+      // premiered Fri Feb 6, 2026 (8 a.m. ET, Apple Music + Spotify exclusive;
+      // YouTube premiere Sun Feb 8) — verified via The Hollywood Reporter and
+      // AOL/People. Field fix only: this page is the corpus's canonical "thin
+      // page" test fixture (substance.test.ts, feed-tiers.test.ts pin it as
+      // <0.2 substance / 'chip' tier), so the ledger's DEPTH questions are left
+      // open — deepening it would break those engine-lane fixtures. See PR.
       month: 2,
       day: 6,
       category: "music",
