@@ -212,8 +212,13 @@ describe('substanceScore over real vault content', () => {
     expect(higher).toBe(0);
   });
 
+  // Thin fixture repointed 2026-07-21 (ledger #1096): the Answerer enriched the
+  // former fixture (tloas-opalite-video) with full credits, sources and a
+  // corrected date, so it is no longer a valid "bare" example. The bare
+  // "Orange sequins and feathers" marker is the currently-thin stand-in —
+  // expect this to rotate again as the depth engine drains its queue.
   it('ranks a bare single-announcement item near the bottom', () => {
-    const thin = byId('vault-tloas-opalite-arrives-as-the-second-single');
+    const thin = byId('vault-tloas-orange-sequins-and-feathers');
     expect(bodyChars(thin)).toBeLessThan(BODY_FLOOR_CHARS + 50);
     expect(substanceScore(thin)).toBeLessThan(0.2);
   });
@@ -222,7 +227,7 @@ describe('substanceScore over real vault content', () => {
     const meaty = substanceScore(
       byId('vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already'),
     );
-    const thin = substanceScore(byId('vault-tloas-opalite-arrives-as-the-second-single'));
+    const thin = substanceScore(byId('vault-tloas-orange-sequins-and-feathers'));
     expect(meaty).toBeGreaterThan(thin * 4);
   });
 

@@ -5184,14 +5184,70 @@ export default {
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "tloas-opalite-video",
       year: 2026,
-      month: 1,
-      day: 12,
+      // Date corrected 2026-07-21 (ledger #1096): seed had 2026-01-12, but the
+      // video premiered Feb. 6, 2026 (Hollywood Reporter, Variety, Wikipedia).
+      month: 2,
+      day: 6,
       category: "music",
       title: "“Opalite” arrives as the second single",
       snippet: "A time-slip music video follows a lonesome character through the 1990s toward a gem-hued reinvention.",
       video: { youtubeId: "1FVF-9KQiPo", title: "Taylor Swift - Opalite (Official Music Video)" },
+      // Cross-link added 2026-07-21 (ledger #1096) to the single's chart page.
+      // The Opalite-video ↔ Graham-Norton pair is captured as a separate
+      // crosslink-candidate issue for the builder rather than hard-linked here.
+      relatedIds: ['moment:vault-tloas-opalite-follows-ophelia-to-no-1'],
       moment: {
-        context: "The video for \"Opalite\" casts Taylor as a wistful, cat-loving figure decades removed from the stage, before the song’s glow pulls her back into color.\n\nReleased as the second single, it kept the era’s pastel-orange visual thread going into the new year.",
+        context: "Taylor Swift wrote and directed the \"Opalite\" video herself, with cinematography by Rodrigo Prieto — shot on film in a 1990s rom-com register — and choreography by Mandy Moore. It imagines the title as a magical drugstore spray that cures loneliness. A brunette Swift plays a Lonely Woman whose only friend is a pet rock that weighs her down; Domhnall Gleeson is a Lonely Man trapped with a hostile cactus. When both spritz themselves with Opalite, their toxic attachments fall away and a mall-date, dance-off montage begins. Graham Norton hawks a rival spray, \"Nope-alite\" (\"for people who want to choose to be unhealed\"); Cillian Murphy voices and fronts the Opalite ad; Greta Lee plays an MTV \"Indie Rock Goddess\" and Jodie Turner-Smith an aerobics instructor, both glimpsed on TV; Lewis Capaldi is the mall photographer.\n\nThe ensemble came straight off a couch: nearly every guest had sat beside Swift on the October 2025 Graham Norton Show, and after Gleeson joked on air that he hoped to land in one of her videos, she built the cast around that episode.\n\nIt premiered Feb. 6, 2026 exclusively on Apple Music and Spotify Premium — setting a record as the most-viewed video in 24 hours on both — before reaching YouTube two days later (5.4M-plus views on its first day there). Two behind-the-scenes extended cuts followed on Feb. 13, in which Swift walked through easter eggs nodding to \"You Belong with Me,\" \"Lover,\" \"Mad Woman,\" \"Bejeweled,\" \"Father Figure\" and \"Ruin the Friendship.\" Critics were broadly warm, reading it as a whimsical, self-aware showcase; its release also lifted the single to No. 1 in the UK.",
+        // Sources added 2026-07-21 (ledger #1096): the page previously carried
+        // zero sources. Director/DP/cast/date verified across HR, Variety,
+        // E! Online, Rolling Stone and Wikipedia.
+        sources: [
+          {
+            outlet: 'Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-opalite-music-video-1236497088/',
+            source_title: 'Taylor Swift Debuts “Opalite” Music Video Starring Domhnall Gleeson',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/taylor-swift-opalite-music-video-domhnall-gleeson-greta-lee-1236653651/',
+            source_title: "Taylor Swift's 'Opalite' Music Video Stars Domhnall Gleeson, Greta Lee",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'E! Online',
+            url: 'https://www.eonline.com/news/1428562/taylor-swift-on-opalite-music-video-easter-eggs',
+            source_title: 'Taylor Swift Reveals “Opalite” Music Video Easter Eggs',
+            publisher: 'E! Online',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-opalite-music-video-1235511440/',
+            source_title: "Taylor Swift Releases 'Opalite' Music Video: Watch",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Opalite_(song)',
+            source_title: 'Opalite (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-21',
+            reliability_score: 2,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
         // MV id 1FVF-9KQiPo verified via YouTube oEmbed this session
         // ("Taylor Swift - Opalite (Official Music Video)", author
