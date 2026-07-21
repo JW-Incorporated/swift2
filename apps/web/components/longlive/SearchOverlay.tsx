@@ -160,6 +160,17 @@ export function SearchOverlay() {
     setActiveIndex((i) => Math.min(i, Math.max(0, flat.length - 1)));
   }, [flat.length]);
 
+  // Toggling the results view moves focus to whichever button was clicked, and
+  // every keyboard affordance here lives on the INPUT's onKeyDown — so once
+  // focus leaves it, arrows scroll the list instead of navigating it and Enter
+  // does nothing at all. Caught in the browser: after clicking "Back to top
+  // matches", document.activeElement was BODY and the combobox was inert
+  // (2026-07-21). Hand focus back so the keyboard path survives a mouse click.
+  useEffect(() => {
+    if (!searchOpen) return;
+    inputRef.current?.focus();
+  }, [showAll, searchOpen]);
+
   // Keep the active row visible under keyboard navigation.
   const active = flat[activeIndex];
   useEffect(() => {
