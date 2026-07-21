@@ -2759,6 +2759,22 @@ export default {
       sourceUrl: 'https://www.nbcnews.com/politics/2024-election/taylor-swift-endorses-kamala-harris-rcna170547',
       thumbnailUrl: null,
       moment: {
+        // The post this page is ABOUT (issue #1074, Wyatt: "shouldn't we have
+        // the actual picture that this article is about?"). Shortcode taken
+        // from the permalink both NPR and CBS News embed, and verified by
+        // rendering instagram.com/p/C_wtAOKOW1z/embed: the taylorswift verified
+        // account, Swift holding Benjamin Button. Embedded rather than
+        // hotlinked because Instagram CDN urls are signed and expiring and the
+        // host is not on the image allowlist — and because every outlet that
+        // covered this embeds it for the same reason.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'C_wtAOKOW1z',
+          label:
+            'The endorsement post itself: a photo with her cat Benjamin Button, signed "Childless Cat Lady."',
+          postedOn: '2024-09-10',
+        },
+
         context:
           'The Sept. 10, 2024 Instagram post called Harris "a steady-handed, gifted leader" and said AI-generated images falsely showing Swift endorsing Donald Trump had pushed her to be transparent about her actual vote.\n\nThe photo — Swift holding Benjamin Button, the cat from her Time cover — and the "Childless Cat Lady" signature did the rest of the messaging.',
         sources: [

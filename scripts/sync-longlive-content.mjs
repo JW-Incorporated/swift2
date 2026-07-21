@@ -349,6 +349,7 @@ export function addItem(
     tags,
     threadIds,
     video,
+    socialPost,
     relatedIds,
     significance,
     products,
@@ -395,6 +396,17 @@ export function addItem(
   const hasVideo =
     video && typeof video.youtubeId === 'string' && video.youtubeId && typeof video.title === 'string' && video.title;
 
+  // A social post the moment is ABOUT (issue #1074). Shortcode + label are both
+  // required or the whole field is dropped: a facade with no label is a blank
+  // grey box, and a facade with no shortcode has nothing to open.
+  const hasSocialPost =
+    socialPost &&
+    socialPost.platform === 'instagram' &&
+    typeof socialPost.shortcode === 'string' &&
+    /^[A-Za-z0-9_-]+$/.test(socialPost.shortcode) &&
+    typeof socialPost.label === 'string' &&
+    socialPost.label.trim();
+
   (byEra[eraId] ??= []).push({
     id,
     slug: typeof slug === 'string' && slug ? slug : undefined,
@@ -407,6 +419,16 @@ export function addItem(
     images: imagesFrom(thumbnailUrl, photos),
     sources: sourcesFrom(sources, sourceUrl),
     video: hasVideo ? { youtubeId: video.youtubeId, title: video.title } : undefined,
+    socialPost: hasSocialPost
+      ? {
+          platform: socialPost.platform,
+          shortcode: socialPost.shortcode,
+          label: socialPost.label,
+          ...(typeof socialPost.postedOn === 'string' && socialPost.postedOn
+            ? { postedOn: socialPost.postedOn }
+            : {}),
+        }
+      : undefined,
     // Hidden-clue payoffs (types.ts HiddenClue) — piped through for the
     // content.ts→seed migration (2026-07-19); both fields required or dropped.
     hiddenClue:
@@ -565,6 +587,14 @@ async function fetchFromLocalFiles() {
         tags: item.tags ?? null,
         threadIds: item.threadIds ?? null,
         video: item.video ?? null,
+        // Accepted at EITHER level, like relatedIds below: the post reads as
+        // item metadata to one author and as Tier-1 moment detail to another.
+        // Missing this line is what made the field vanish on first build —
+        // the type, normalizer, validator, serializer and UI were all correct
+        // and the vault still received nothing, because the CALLER never
+        // passed it. Fourth time this repo has lost a field in exactly one
+        // link of that chain.
+        socialPost: item.socialPost ?? item.moment?.socialPost ?? null,
         // Cross-links may live on the item or its Tier-1 moment detail —
         // accept either so the content lane can pick the natural home.
         relatedIds: item.relatedIds ?? item.moment?.relatedIds ?? null,
@@ -610,7 +640,7 @@ export function buildOutputSource(byEra) {
   lines.push('// Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.');
   lines.push("// Re-run that script after content-seed changes; don't edit this file directly.");
   lines.push('');
-  lines.push("import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote } from './types';");
+  lines.push("import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from './types';");
   lines.push('');
   // Freshness stamp — emitted ONLY during `prebuild` (the deploy build, where
   // npm sets npm_lifecycle_event=prebuild), never into the committed file.
@@ -636,6 +666,7 @@ export function buildOutputSource(byEra) {
   lines.push('  images?: ImageRef[];');
   lines.push('  sources?: { name: string; url: string }[];');
   lines.push('  video?: { youtubeId: string; title: string };');
+  lines.push('  socialPost?: SocialPost;');
   lines.push('  hiddenClue?: HiddenClue;');
   lines.push('  milestone?: { id: string; label: string; kind: MilestoneKind };');
   lines.push('  pullQuote?: string;');
@@ -679,6 +710,21 @@ export function buildOutputSource(byEra) {
       }
       if (it.video) {
         lines.push(`      video: { youtubeId: ${esc(it.video.youtubeId)}, title: ${esc(it.video.title)} },`);
+      }
+      // If you add a socialPost field, add it in BOTH the normalizer above and
+      // here. Dropping the emit is the bug that has shipped three times in this
+      // repo (significance, moment cross-links, rumor lifecycle) — every time
+      // the type, normalizer, validator and UI were all correct and the page
+      // still received nothing.
+      if (it.socialPost) {
+        const sp = it.socialPost;
+        const parts = [
+          `platform: ${esc(sp.platform)}`,
+          `shortcode: ${esc(sp.shortcode)}`,
+          `label: ${esc(sp.label)}`,
+        ];
+        if (sp.postedOn) parts.push(`postedOn: ${esc(sp.postedOn)}`);
+        lines.push(`      socialPost: { ${parts.join(', ')} },`);
       }
       if (it.hiddenClue) {
         lines.push(`      hiddenClue: { clue: ${esc(it.hiddenClue.clue)}, payoff: ${esc(it.hiddenClue.payoff)} },`);

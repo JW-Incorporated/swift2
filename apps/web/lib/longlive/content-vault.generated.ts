@@ -2,7 +2,10 @@
 // Produced by scripts/sync-longlive-content.mjs from supabase/seed/content/**.
 // Re-run that script after content-seed changes; don't edit this file directly.
 
-import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote } from './types';
+import type { Confidence, ContentTag, EraId, HiddenClue, ImageRef, LensId, MilestoneKind, Product, RumorNote, SocialPost } from './types';
+
+/** Build-time freshness stamp — emitted only by prebuild (deploy). */
+export const CONTENT_GENERATED_AT = "2026-07-21T02:57:10.972Z";
 
 type VaultRawItem = {
   id: string;
@@ -16,6 +19,7 @@ type VaultRawItem = {
   images?: ImageRef[];
   sources?: { name: string; url: string }[];
   video?: { youtubeId: string; title: string };
+  socialPost?: SocialPost;
   hiddenClue?: HiddenClue;
   milestone?: { id: string; label: string; kind: MilestoneKind };
   pullQuote?: string;
@@ -8135,6 +8139,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://assets2.cbsnewsstatic.com/hub/i/r/2024/09/11/edfca45c-3300-45c7-9daf-30c51d86fe4e/thumbnail/1200x630g2/528b3593333d50ff51e0e52340b1ca69/gettyimages-2166943469.jpg", credit: "Getty Images (via CBS News)", caption: "Swift in 2024 — the file photo CBS News ran with its coverage of the endorsement, which itself was an Instagram post.", kind: "archival", focalPoint: "49% 38%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/4/41/Kamala_Harris_Vice_Presidential_Portrait.jpg", credit: "Official White House portrait (public domain)", caption: "Kamala Harris, the candidate the endorsement named directly.", kind: "reference", focalPoint: "50% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/6/60/March_2026_Official_Vice_Presidential_Portrait_of_JD_Vance_%28head-and-shoulders_cropped%29.jpg", credit: "Official White House portrait (public domain)", caption: "JD Vance, whose \"childless cat ladies\" line Swift borrowed for her own sign-off.", kind: "reference", focalPoint: "54% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/5/53/P20211222AS-1417_%2851898637810%29_%28cropped%29.jpg", credit: "Adam Schultz / The White House (public domain)", caption: "David Muir, who co-moderated the Sept. 10, 2024 debate the endorsement followed within minutes.", kind: "reference", focalPoint: "60% 22%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/8/8f/Linsey_Davis_at_BookExpo_%2805437%29_%28cropped%29.jpg", credit: "Rhododendrites, Wikimedia Commons (CC BY-SA 4.0)", caption: "Linsey Davis, the debate's other co-moderator.", kind: "reference", focalPoint: "54% 22%" }],
       sources: [{ name: "Taylor Swift endorses Kamala Harris following presidential debate", url: "https://www.nbcnews.com/politics/2024-election/taylor-swift-endorses-kamala-harris-rcna170547" }, { name: "Taylor Swift endorses Kamala Harris in post signed \"Childless Cat Lady\"", url: "https://www.cbsnews.com/news/taylor-swift-kamala-harris-endorsement/" }],
+      socialPost: { platform: "instagram", shortcode: "C_wtAOKOW1z", label: "The endorsement post itself: a photo with her cat Benjamin Button, signed \"Childless Cat Lady.\"", postedOn: "2024-09-10" },
       milestone: { id: "m-ttpd-4", label: "Harris endorsement", kind: "life" },
       relatedIds: ["moment:vault-midnights-time-names-her-2023-person-of-the-year"],
       significance: "defining",
