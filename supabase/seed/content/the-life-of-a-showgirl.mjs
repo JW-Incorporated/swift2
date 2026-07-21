@@ -132,12 +132,12 @@ export default {
       category: 'fashion',
       title: 'The showgirl portraits: Mert and Marcus, rhinestones, and an Ophelia bathtub cover',
       snippet:
-        'Her most theatrical album imagery yet — feathered, crystal-covered showgirl looks shot by Mert and Marcus (their first Swift shoot since reputation), and a cover of her half-submerged in water in a diamond-lined AREA bralette, nodding to Millais\'s painting of Ophelia.',
+        'Her most theatrical album imagery yet — feathered, crystal-covered showgirl looks shot by Mert and Marcus (their first Swift shoot since reputation), and a cover of her half-submerged in water in a diamond-lined AREA bralette, widely read as an echo of Millais\'s painting of Ophelia.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift said the submerged cover glamorizes the offstage side of the Eras Tour — her day "ends in a bathtub, not usually in a bedazzled dress" — choosing a behind-the-scenes image over full showgirl mode because the songs are about what she was going through offstage. The title is lettered in orange glitter, and the wider shoot\'s bejeweled bodysuits and feather headdresses were described by critics as the most provocative, glamorous visual identity of her career. It reunited her with Mert Alas and Marcus Piggott, the duo behind reputation\'s black-and-white newsprint portraits — their first Swift shoot since 2017, now flipped from monochrome menace to full Vegas color.\n\nMarie Claire\'s wardrobe breakdown of the album packaging reads like a showgirl-history syllabus: vintage Bob Mackie — the designer synonymous with Cher and the Las Vegas stage — appears on several alternate covers, alongside custom Gucci, The Blonds, a Kelsey Randall chainmail dress, Fleur du Mal lingerie, and an Annie\'s Ibiza mini with Lorraine Schwartz jewels. The feathered backstage portrait shown here, styled dressing-room-mirror-and-all, is the shoot\'s thesis in one frame: the glamour machine photographed from inside the dressing room rather than from the audience.',
+          'Swift said the submerged cover glamorizes the offstage side of the Eras Tour — her day "ends in a bathtub, not usually in a bedazzled dress" — choosing a behind-the-scenes image over full showgirl mode because the songs are about what she was going through offstage. The title is lettered in orange glitter, and the wider shoot\'s bejeweled bodysuits and feather headdresses were described by critics as the most provocative, glamorous visual identity of her career. It reunited her with Mert Alas and Marcus Piggott, the duo behind reputation\'s black-and-white newsprint portraits — their first Swift shoot since 2017, now flipped from monochrome menace to full Vegas color.\n\nMarie Claire\'s wardrobe breakdown of the album packaging reads like a showgirl-history syllabus: vintage Bob Mackie — the designer synonymous with Cher and the Las Vegas stage — appears on several alternate covers, alongside custom Gucci, The Blonds, a Kelsey Randall chainmail dress, Fleur du Mal lingerie, and an Annie\'s Ibiza mini with Lorraine Schwartz jewels. The feathered backstage portrait shown here, styled dressing-room-mirror-and-all, is the shoot\'s thesis in one frame: the glamour machine photographed from inside the dressing room rather than from the audience.\n\nTwo of the imagery\'s most-repeated readings are interpretation, not statement. The Millais Ophelia parallel is a critics\' reading — neither Swift nor the photographers ever confirmed it; she framed the submerged shot only as an offstage image. And while the crystal looks are Bob Mackie, Mackie said he was never consulted, "kind of shocked" to see Swift in pieces borrowed from his Las Vegas Jubilee! revue, not made for her. Documented in the credits: styling by longtime stylist Joseph Cassell Falconer; a standard-cover bralette from AREA\'s Spring 2022 collection, customized for the shoot; and an orange-glitter wordmark that sets an existing 2021 typeface — Edwin Moreira\'s Gazzetta — her team selected rather than commissioned.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -164,6 +164,38 @@ export default {
             publisher: 'Marie Claire',
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          // Depth ledger #1025 (2026-07-21): the Millais link is a critic
+          // reading (not Swift/photographer-confirmed); Bob Mackie says he was
+          // never consulted and the looks were borrowed from his Vegas
+          // "Jubilee!" revue; the wordmark uses Edwin Moreira's pre-existing
+          // "Gazzetta" typeface.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/bob-mackie-blown-away-taylor-swift-outfit-showgirl-cover-1236101495/',
+            source_title: "Bob Mackie 'Blown Away' by Taylor Swift Wearing His Design on 'Showgirl' Cover",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Hyperallergic',
+            url: 'https://hyperallergic.com/did-19th-century-ophelia-painting-inspire-taylor-swift-new-showgirl-album-art/',
+            source_title: "Did a 19th-Century Ophelia Painting Inspire Taylor Swift's New Album Art?",
+            publisher: 'Hyperallergic',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Fast Company',
+            url: 'https://www.fastcompany.com/91392024/taylor-swifts-life-of-a-showgirl-album-typeface',
+            source_title: "The typeface behind Taylor Swift's 'The Life of a Showgirl'",
+            publisher: 'Fast Company',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
             reliability_score: 4,
           },
         ],
@@ -358,6 +390,14 @@ export default {
       month: 10,
       day: 3,
       category: 'release',
+      // Cross-links (ledger #1042, 2026-07-21): this page had ZERO relatedIds
+      // despite being the same event as the box-office record it grossed, the
+      // album it dropped for, and the "Fate of Ophelia" video it premiered.
+      relatedIds: [
+        'moment:vault-tloas-an-album-release-party-wins-the-box-office-34-1m-domestic-50',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
+      ],
       title: 'The Official Release Party of a Showgirl turns movie theaters into listening parties',
       snippet:
         'A one-weekend-only AMC event, Oct. 3–5: the premiere of "The Fate of Ophelia" video, behind-the-scenes footage, and lyric videos for the whole album — with audiences singing and dancing in the aisles. It earned an A+ CinemaScore.',
@@ -365,7 +405,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced barely two weeks out and distributed by AMC Theatres Distribution with Variance Films domestically and Piece of Magic internationally, the 89-minute event was built as a communal album drop rather than a concert film — release-day showtimes started at 3 p.m. ET so fans could hear the record together. The program packed in the premiere of the self-directed "The Fate of Ophelia" video, behind-the-scenes footage from its set, lyric videos for the full album, and Swift on camera talking through the songs.\n\nTheaters leaned into the party: costumes, friendship bracelets, and full-crowd singalongs to songs nobody had heard that morning. CNN\'s dispatch from opening weekend described aisles turned into dance floors, and audiences graded the experience an A+ CinemaScore — a mark usually reserved for crowd-pleasing blockbusters. AMC\'s own press release called it "an unprecedented, record-setting worldwide success," and the numbers backed the hyperbole: more than $50 million in global box office for a weekend-only album listening party.',
+          'Announced barely two weeks out and distributed by AMC Theatres Distribution with Variance Films domestically and Piece of Magic internationally, the roughly 89-minute event was built as a communal album drop rather than a concert film — release-day showtimes started at 3 p.m. ET, and a ticket ran the standard $12, which fans read as a nod to her 12th album (AMC never confirmed the price as a deliberate Easter egg the way the Eras film\'s $19.89 was, and $12 is also its ordinary base price). The program opened with the world premiere of the self-directed "The Fate of Ophelia" video, then behind-the-scenes footage from its shoot, then Swift on camera talking through the record over lyric videos for its tracks.\n\nThat video was shot by Rodrigo Prieto — the Oscar-nominated cinematographer of Barbie and Killers of the Flower Moon, and of her own "Fortnight" — at the 1931 Los Angeles Theatre and a soundstage, with Eras Tour collaborators Ethan Tobman (production design) and Mandy Moore (choreography); Prieto later won an ASC Music Video Award for it. The theatrical window was only about 48 hours: the video hit YouTube on Sunday, Oct. 5 at 7 p.m. ET.\n\nTheaters leaned into the party — costumes, friendship bracelets, full-crowd singalongs to songs nobody had heard that morning; CNN\'s dispatch described aisles turned into dance floors — and audiences graded it an A+ CinemaScore, the same mark the 2023 Eras Tour film earned and one only a handful of releases a year ever get. It played the single weekend of Oct. 3–5 with no held-over showings and cleared more than $50 million worldwide — enough for AMC to call it the biggest-grossing album-debut theatrical event ever and the only album-debut cinema experience to finish a weekend at No. 1 domestically.',
         sources: [
           {
             outlet: 'CNN Business',
@@ -384,6 +424,45 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+          },
+          // Depth ledger #1042 (2026-07-21): ticket price, single-weekend run,
+          // the "Fate of Ophelia" video credits/location, the YouTube window,
+          // and the A+ CinemaScore benchmark against the Eras film.
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/zacharyfolk/2025/10/05/taylor-swifts-official-release-party-of-a-showgirl-hits-no-1-and-dominates-box-office-during-single-weekend-run/',
+            source_title: "Taylor Swift's 'Official Release Party Of A Showgirl' Hits No. 1 During Single Weekend Run",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-the-fate-of-ophelia-music-video-watch-1236393494/',
+            source_title: "Taylor Swift Drops Self-Directed 'The Fate of Ophelia' Music Video",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-fate-of-ophelia-music-video-premiere-youtube-1236540694/',
+            source_title: "Taylor Swift's 'The Fate of Ophelia' Video Arrives on YouTube",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-the-eras-tour-movie-number-one-box-office-1235442994/',
+            source_title: "'Taylor Swift: The Eras Tour' Opens at No. 1 With an A+ CinemaScore",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
           },
         ],
         // Official theatrical poster, hotlinked from Wikipedia's stable copy
@@ -3824,6 +3903,15 @@ export default {
       month: 1,
       day: 14,
       category: 'business',
+      // Cross-links (ledger #1077, 2026-07-21): the year-end crown is the
+      // full-year settle-up on the record October week — thread it to the
+      // debut-week record that supplied the bulk of the total, the album
+      // itself, and the vinyl week it also topped for the year.
+      relatedIds: [
+        'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
+      ],
       title: "Luminate's 2025 crown: 5.6 million units, no contest",
       snippet:
         'The year-end report made it official — Showgirl was 2025\'s most-consumed album in the US at 5.607M units, roughly half a million clear of Morgan Wallen. Her fourth year-end No. 1, and second in a row.',
@@ -3831,7 +3919,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Remarkable mostly for the calendar: the album had only 13 weeks of 2025 to work with (Luminate\'s tracking year closed Jan. 1, 2026) and still beat everything released in the previous nine months, finishing at 5.607 million US units — roughly half a million clear of Morgan Wallen\'s runner-up total. It topped Billboard\'s year-end Billboard 200 albums ranking on the same math.\n\nIt was her fourth year-end No. 1 album and her second in a row, following The Tortured Poets Department\'s 2024 crown. The report formalized what the weekly charts had been saying since October: a quarter of Showgirl outweighed a full year of everyone else, the kind of margin that turns an album cycle into an industry-wide accounting event.',
+          'Remarkable mostly for the calendar: the album had only 13 weeks of 2025 to work with (Luminate\'s tracking year closed Jan. 1, 2026) and still finished at 5.607 million US units — enough to beat everything released in the previous nine months and top Billboard\'s year-end Billboard 200. Morgan Wallen\'s "I\'m the Problem" ran second at 5.125 million; it was the first year since Luminate began the metric in 2014 that two albums each cleared five million.\n\nThe shape of the number tilted hard toward ownership. Of the 5.607 million, 3.985 million (71%) were pure album sales — itself the year\'s No. 1 sales total by a wide margin — against 1.603 million streaming-equivalent units and just 19,000 track-equivalent. Showgirl was also 2025\'s No. 1 vinyl album (1.601 million LPs) and the top seller on CD, cassette, and download, the collector economy behind the record October week doing the year-round work.\n\nIt was her fourth year-end No. 1 album and her second in a row, after The Tortured Poets Department\'s 2024 crown — though TTPD\'s larger 6.955-million 2024 total is the reminder that a single quarter of eligibility, not a bigger fanbase, set the 2025 ceiling. One nuance the headline hides: the year\'s top overall artist was Wallen (a record 41 Hot 100 entries), with Swift taking top album and top female artist. Globally, the IFPI named Showgirl its biggest-selling album of 2025 — No. 1 on its worldwide album, album-sales, and vinyl charts.',
         sources: [
           {
             outlet: 'Billboard',
@@ -3849,6 +3937,46 @@ export default {
             publisher: 'Billboard',
             source_type: 'chart_database',
             accessed_at: '2026-07-08',
+            reliability_score: 5,
+          },
+          // Depth ledger #1077 (2026-07-21): the format split (3.985M pure /
+          // 1.603M SEA / 19K TEA), the pure-sales & vinyl No. 1s, Wallen's
+          // 5.125M runner-up, the top-artist-vs-top-female-artist nuance,
+          // the TTPD 2024 comparison, and the IFPI global crown.
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/01/14/taylor-swift-dominates-2025s-bestselling-albums-list-by-a-huge-margin/',
+            source_title: "Taylor Swift Dominates 2025's Bestselling Albums List By A Huge Margin",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/morgan-wallen-billboard-top-artist-2025-1236129874/',
+            source_title: "Morgan Wallen Is Billboard's Top Artist of 2025",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/luminate-2024-year-end-music-report-taylor-swift-shaboozey-teddy-swims/',
+            source_title: "Luminate's 2024 Year-End Music Report",
+            publisher: 'Billboard (Luminate 2024 year-end report)',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'IFPI',
+            url: 'https://www.ifpi.org/taylor-swifts-the-life-of-a-showgirl-named-ifpis-official-biggest-selling-global-album-of-the-year-2025/',
+            source_title: "The Life of a Showgirl Named IFPI's Official Biggest-Selling Global Album of 2025",
+            publisher: 'IFPI (press release)',
+            source_type: 'official',
+            accessed_at: '2026-07-21',
             reliability_score: 5,
           },
         ],
