@@ -347,6 +347,8 @@ export interface ContentItem {
   hiddenClue?: HiddenClue;
   /** Optional official music video, embedded via YouTube in the detail view. */
   video?: MomentVideo;
+  /** A post this moment is about, embedded via facade (issue #1074). */
+  socialPost?: SocialPost;
   /**
    * Cross-type links (see RelatedId for the id convention). A moment whose
    * relatedIds resolve to a Clue Web trail gets a "follow this thread"
@@ -451,6 +453,34 @@ export function hasRealPrimaryImage(item: ContentItem): boolean {
 }
 
 /** An official music video embedded (never re-hosted) from YouTube. */
+/**
+ * A social post a moment is ABOUT, embedded rather than re-hosted (issue #1074).
+ *
+ * Some moments ARE a post: the Kamala Harris endorsement is a photo and a
+ * caption signed "Childless Cat Lady". Before this, that page carried only
+ * substitutes — a Getty file photo of Swift plus portraits of the other people
+ * named — because Instagram is not on the image-host allowlist and its CDN URLs
+ * are signed and expiring, so there is nothing stable to hotlink.
+ *
+ * Checking how the press handles it settled the design: CBS, NPR and TODAY all
+ * EMBED the post rather than re-hosting a screenshot. So no allowlisted host
+ * has a copy, and no amount of Photo Enrichment searching would ever find one —
+ * embedding is not a workaround here, it is the only correct answer.
+ *
+ * `shortcode` is the post id from its permalink (instagram.com/p/<shortcode>/).
+ * `label` describes the post for the pre-consent facade, which is all a reader
+ * sees until they choose to load it.
+ */
+export interface SocialPost {
+  /** Only Instagram today; the field exists so adding a platform is not a rename. */
+  platform: 'instagram';
+  shortcode: string;
+  /** Shown on the facade before the reader opts into loading the embed. */
+  label: string;
+  /** ISO date the post went up, if known. */
+  postedOn?: string;
+}
+
 export interface MomentVideo {
   /** YouTube video ID — verified against YouTube's oEmbed endpoint. */
   youtubeId: string;
