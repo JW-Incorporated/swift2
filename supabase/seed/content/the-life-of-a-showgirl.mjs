@@ -2158,14 +2158,6 @@ export default {
             // Tent peaks and the walking couple sit center-right, just above and below the midline.
             focalPoint: '52% 45%',
           },
-          {
-            url: 'https://twt-thumbs.washtimes.com/media/image/2026/06/21/Swift_Wedding_Speculation_6953__c0-242-5784-3614_s885x516.jpg?18921fe33b20ba0427c28b6eeae09fd9ded1b3cc',
-            credit: 'AP Photo/Robert F. Bukaty, via The Washington Times',
-            caption: 'A security guard stands watch at Swift\'s Watch Hill "Holiday House" estate, June 20, 2026.',
-            kind: 'primary',
-            // The guard stands far left against the fence line, mid-height.
-            focalPoint: '18% 40%',
-          },
         ],
       },
     },
