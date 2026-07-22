@@ -122,7 +122,7 @@ function quotedSpans(text) {
 }
 
 // Any single text field above the DB's largest cap is a body dump regardless
-// of quoting (moment.context CHECK is 2000; validate-content errors that too —
+// of quoting (moment.context CHECK is 4000 since 2026-07-22; validate-content errors that too —
 // this is CI defense-in-depth at the same line).
 const FIELD_FAIL_CHARS = 2000;
 
