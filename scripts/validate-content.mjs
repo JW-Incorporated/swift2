@@ -9,7 +9,7 @@
 //   - eraSlug is a real era (from eras-data.mjs)
 //   - year is an int; month is 1..12
 //   - category is one of the month_item CHECK values
-//   - title present; snippet <= 400 (DB CHECK); moment.context <= 2000 (DB CHECK)
+//   - title present; snippet <= 400 (DB CHECK); moment.context <= 4000 (DB CHECK)
 //   - confidence (optional) is a known level; moment.rumors entries carry
 //     claim (<=400) + reportedBy + reportedOn (ISO) + status + url .... ERROR
 //   - has at least one source (link-first model) ...................... WARN
@@ -199,8 +199,13 @@ for (const { file, data } of loaded) {
       err(`category "${it.category}" not in ${[...CATEGORIES].join('|')}`);
     if (!it.title) err('missing title');
     if ((it.snippet ?? '').length > 400) err(`snippet ${it.snippet.length} > 400 (DB CHECK)`);
-    if ((it.moment?.context ?? '').length > 2000)
-      err(`moment.context ${it.moment.context.length} > 2000 (DB CHECK)`);
+    // Raised 2000 -> 4000 on 2026-07-22 (founder decision) together with
+    // supabase/migrations/20260722120000_moment_context_4000.sql. These two
+    // numbers MUST move together: if this one is looser, a seed passes CI and
+    // then fails at the database on insert; if it is tighter, authors are
+    // blocked by a limit that no longer exists.
+    if ((it.moment?.context ?? '').length > 4000)
+      err(`moment.context ${it.moment.context.length} > 4000 (DB CHECK)`);
 
     if (!(it.sourceUrl || it.moment?.sources?.length > 0))
       warn('no sourceUrl and no moment.sources (link-first model)');
