@@ -74,13 +74,30 @@ export async function loadCorpus() {
       if (str(r?.claim)) rumorTexts[`rumors[${i}].claim`] = r.claim;
       if (str(r?.note)) rumorTexts[`rumors[${i}].note`] = r.note;
     });
+    const captionTexts = {};
+    (it.moment?.photos ?? []).forEach((ph, i) => {
+      if (str(ph?.caption)) captionTexts[`photos[${i}].caption`] = ph.caption;
+      if (str(ph?.credit)) captionTexts[`photos[${i}].credit`] = ph.credit;
+    });
     items.push({
       type: 'moment',
       file, era,
       key: it.slug ?? `${era}|${it.year}|${it.month}|${it.title}`,
       title: it.title ?? '(untitled)',
       category: it.category,
-      texts: cleanText({ title: it.title, snippet: it.snippet, context: it.moment?.context, ...rumorTexts }),
+      // Photo captions and credits are READER-FACING PROSE and must be screened
+      // like any other text. They were omitted here, and the cost was real: a
+      // caption reading "A security guard stands watch at Swift's Watch Hill
+      // 'Holiday House' estate" — a Never-OK #2 security-arrangements violation
+      // — sat live on the site and passed every nightly Karen scan, because no
+      // checker could see it. A redline does not care which field it is in.
+      texts: cleanText({
+        title: it.title,
+        snippet: it.snippet,
+        context: it.moment?.context,
+        ...captionTexts,
+        ...rumorTexts,
+      }),
       sources: sourcesOf(it.moment?.sources, it.sourceUrl),
       images,
       raw: it,
