@@ -27,6 +27,70 @@ so far".
 
 Stories: 120
 
+## Taylor Swift tribute band Reputation set for Garland show - CW33.com
+
+- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift tribute band Reputation set for Garland show  CW33.com
+- sources:
+  - [unverified] CW33.com — https://news.google.com/rss/articles/CBMimgFBVV95cUxNLUxaU3FJdUQ0VVdkSmtaNExBczRVZFpscExPeVJPeEtfZmwzVlNBUDlNOEtMQTQ3Wm9QZENJV2NXM2dJdEROX0dkczVNRTZZaTBJRnhXMDVFVnllRWtaWWlScjRTc2FjWWFxSjVPYUQyMEVLR1ZBRk1kSm5mR3RyYTI4d3ByV2t3YmIyclgwZWRmUTR0YkViRFhn0gGfAUFVX3lxTFBVSzdrYlB5QjdORm5ONnVPNlB2ZzFNZENJM0hwM1JpZm5hSWRETjlteTBod2RLNjBvVUNrdExGS19uRm02Z1ZWUkRYWlM3ODg1TWl5SnI0Y0U5NHhidzd2akxMSUZEZEI4MmhEODBvczZiclQ5bGtRdTRXdGJ2VVUtVUU2S2tLbFVSbHpNRk9ENjg3UmhjN1Y4VWRPVXJzOA?oc=5
+
+## Taylor Swift’s biggest Oscar competition might be… Christopher Nolan? - Gold Derby
+
+- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s biggest Oscar competition might be… Christopher Nolan?  Gold Derby
+- sources:
+  - [unverified] Gold Derby — https://news.google.com/rss/articles/CBMiowFBVV95cUxOWWlnelJMbWR4Z0RqSGk2dlFYWkh1bTBnYlY3MVRpeWJOX25vbXVaNXRsZHdwSTFLNzl5RzA4a0ZDS04wNkV4dWo5SXlrX0gwRHZsaUJXU3dTU1ltQWk2QVdPZXlfRDVjSmRSOURJOUpDUXQ0VGtQNXQ4UUNKa2NISDlHckFuUjdXS0Y0b0Zkd3Y0YkpoS0xfRG1WSlBPcmd0SHJn?oc=5
+
+## This Is What Taylor Swift Sounds Like to Non-Swifties - Hits 96 | WDOD-FM
+
+- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: This Is What Taylor Swift Sounds Like to Non-Swifties  Hits 96 | WDOD-FM
+- sources:
+  - [unverified] Hits 96 | WDOD-FM — https://news.google.com/rss/articles/CBMigwFBVV95cUxORkVHOE5FdnV5dDR2UWo5ME1SVTBUdFozdmh4bFBUelJQazZwYU0xRmpnQUItLXBXWmc3NFBVbkhrNVpjX01IbUxjY2FoeUcxYWlGdVlPbmJxeU4tYjZjWU5wM2c3b01MRUVQbWJLMTQ5TWJLczZtbFdXc2diNEdCNndFYw?oc=5
+
+## The “Popcast” hosts on interviewing Taylor Swift, killing the written review, and whether literacy i
+
+- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: The “Popcast” hosts on interviewing Taylor Swift, killing the written review, and whether literacy is over  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNWnpiNW0tem9vQnBPNzY4YUtVX1ZDLVJ1TmpBYy0yeml1UzlRbEp5cXM4cGFXWUYxRzc3QUFVQ3hPbWtteFBVbElobkJId2dIUTAtYk9vR2l5SlNCcUVIQXlfMUt6Wkthbmx3WC1ZOTRSc2hybXNWdTdRc0dlUWFqQzVfS3NHbVI3RWk1NWFsLTFJR3hpdk51NHJBbVlGVE10MGgzekw2eEc?oc=5
+
+## Jason Kelce Reveals How His Life Has Changed Since Travis Kelce Started Dating Taylor Swift - People
+
+- first seen: 2026-07-22 22:14 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce Reveals How His Life Has Changed Since Travis Kelce Started Dating Taylor Swift  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxOYlF3VHVhN3djTHBCdHI5aHNscGhpMnJCN3FhZVQ5eXQyem5qTWg4ajdwLU1XVDFVeTRFOUdoSHNvd05ycFpZTWtSWXpFMllnM1kwRVhmcVpaNk1lSzRZTU5xVlNueWZXdzZMRjViY2JaR0Y1YU0ydkltSk9pci1MMHFXMG5nMWhpY2pYdVljWmNnWEZhdEdxXzVTV3lNcVh3SFREbkhuOWZrYkE3c3N2OG5VMjM4VzlzWmVr?oc=5
+
+## Travis Kelce Had a Surprise for Taylor Swift on Their Wedding Day - Sports Illustrated
+
+- first seen: 2026-07-22 22:14 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Had a Surprise for Taylor Swift on Their Wedding Day  Sports Illustrated
+- sources:
+  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQWGhmdHk4TVRENEUyQkJ5Zy1fMG9YNjEteUgtSDRGb2tFaEFqM2Z2SU15RWZIaHVuQjRIcDlCNndKMnNPTjg3UUY0ZWlYRTFKN3lVRG80WGVwRDFIT0tfM0MzTHdjUlE0NnN4YURTNlRVQkZYX3RSN0xTSUc2U21PeTZqZlp6bDJUVzJGSC15SEVDZzUtQzFnNzVMNUx3Y2wxWnV5REc5cmVlMWc?oc=5
+
+## Aaron Dessner Sets the Record Straight on Gracie Abrams’ ‘Death Wish’: It’s ‘Definitely Not’ About T
+
+- first seen: 2026-07-22 22:14 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Aaron Dessner Sets the Record Straight on Gracie Abrams’ ‘Death Wish’: It’s ‘Definitely Not’ About Taylor Swift  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxPdUM0VFVES1E0VnI2RGFWcHd4ak1HVllVUUxBYXdRelNMT1FLbmQ5NUJJX3RBUjd2X3ZDMDl1Y29wR3h3VXBRMVZvV3diZzZ2X1ZEeXNIZWhoMU9ZaERjRWlJeDAwaWYzOGUxTUttS0ZDNlhFYlN5Ym5FUTk4T1R5WS1lcW9RMXRRRm95S0t3Nl9GWjNZVGxENGN5eWlXMVZ2ZGxGeERvWkF5eWlTb3FLUlRKUHA?oc=5
+
+## How Travis Kelce’s Wedding Band Nods to Taylor Swift’s Engagement Ring - ELLE
+
+- first seen: 2026-07-22 22:14 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: How Travis Kelce’s Wedding Band Nods to Taylor Swift’s Engagement Ring  ELLE
+- sources:
+  - [unverified] ELLE — https://news.google.com/rss/articles/CBMimwFBVV95cUxNUGhsQWFSdFdUb0NKbHBqcHU5bUJtQ2lTQjU4Tkk4MEc3OEtyRUdSRUNENmkyN1RPb1h1QVJlSWFEN0tnT1lfOVlBRE9lazlnNDFUdWZuVWd6U3hVSFdLNVVxeHJyLVhYQ2dYVHQ4SVduaGs1aHhYVGdxQWRZRTBZeEY5Wi1hN1pVMzg2SnIyTm5faXEzaEFpenNpTQ?oc=5
+
 ## Blake Lively No Longer Getting ‘VIP Treatment’ in Hollywood Amid Demise of Taylor Swift Friendship -
 
 - first seen: 2026-07-22 18:20 UTC | category: sighting | importance: 3
@@ -945,68 +1009,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNbEwwbXh6V25NX0FGaDdXR1lSXy14RWZIMmthSE9qcUF6WktSM25mMWJfWWxxQnk3M3JoX3pZSVI4OXBuSVkxbWZyN1F4aE05b0tFc0ktQzdQU1pPcnVocEEwMjR0c1QzaExkNTJSOUxEbVJhejJPTHVJTG4wTzlGbk9FTjRQQnBCSC11QkdmMm1PRmFCVXNLX2ZGVFh4bE5nZ0E2S0tqOXlfTTYxc0kwTWJTZjhFR3J4TjIyZ3YtQnNoS0dBblhYWm5WSEdfRXc0?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNRzFKOWw1X3ZLVEQxcndiamRvdS1BX3pBbnp4RDRRS1BQX1Z1RW1sYmRlVmFyTEFEZ3BQVzhnbDF6MExUNzZGaFBXWUhtOWpYSXY0M2d0dE84aUdGbW84X2xwREdEVi1aZDY4bzhibUVRUm1WRmFSSURVWXRGbWJ5QXp5UUxldUxtMTNkQTg5N3gzNU9BWWQ2RTFIVUtWdGpL?oc=5
-
-## Kelly Clarkson jokes that she isn’t as rich as Taylor Swift: ‘Ballin’ on a budget’ - Entertainment W
-
-- first seen: 2026-07-19 22:03 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Kelly Clarkson jokes that she isn’t as rich as Taylor Swift: ‘Ballin’ on a budget’  Entertainment Weekly
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMilgFBVV95cUxQRXJkUFRmYVdsLUdfRXlVMXNoaXRVcXVCRXFPZTRPMjZnVThzTmppTXREZVk2OGF3Y2JNWEo2NS1CNGdpU3RSYjlNa3E0T1E4U2U5b3ZQWHZqYVYyNVhUQUVrcDlHdi15cG1VYlIzaUtqQy03aFBqclNBeW4zUHZoQjl0allFSUFQR0RMWFFNRV8wOUJMSkE?oc=5
-
-## 'Snailor Swift' becomes world snail racing champion - BBC
-
-- first seen: 2026-07-19 21:03 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: 'Snailor Swift' becomes world snail racing champion  BBC
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiWkFVX3lxTE8yZ2JPWHJ1TF9hYVJlQ2xCSmROMXU2cDFNelNOQTRRR040enJMbmpXdHVub2JQQk5zckJTMXdwT2drY3dqU3VWUWhjcC1PeDdmV1RPVUt1eGdkUQ?oc=5
-
-## Shaq Says He Didn't Get an Invite to Taylor Swift and Travis Kelce's Wedding - Complex
-
-- first seen: 2026-07-19 21:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Shaq Says He Didn't Get an Invite to Taylor Swift and Travis Kelce's Wedding  Complex
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMinAFBVV95cUxPWHBQT2RhTWxyUkx2eEJZVl90bWxkLS0yOUw2MXZsNndKTDBFNDV2ekx5LXlHQnhTT3M0WGVqYmF6WVBsQ054Q0FHOUFvZUFpcXAwVGgyU21RQXFWN2xOcXI0d3VQcWxiX1VOLXdFWC1qSkxxUVJ5N0ljNUNIbnhCVEhwZkVjWG4zU2Rhdi1EOVcwMmIwYlRuUkw5eWc?oc=5
-
-## Brad Paisley Calls Taylor Swift and Travis Kelce's Wedding 'Least Pretentious' Amid Criticism - Yaho
-
-- first seen: 2026-07-19 21:03 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Brad Paisley Calls Taylor Swift and Travis Kelce's Wedding 'Least Pretentious' Amid Criticism  Yahoo
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiowFBVV95cUxPUVFMak1pYkR1UXhZS05Jd0hFNXhuSlV1ZzF5Z3kwM3RxRy1yYVluRGxJU3FhdmtFVVBqOEM3UW55cU5BZ0VIYkFMLUNjeDdNTEh3Si1qNGJINzFHMkZabTRURWNtaDRiNURMLXJ5clNwN2c1TWtIM3dIYWk1UDJadWs4OXBBcGlTN3l5YmpPUEI1Tmp6ZDlvdGlySU5nZDN6Y3lz?oc=5
-  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMiugFBVV95cUxOUUNqcGQ4TV9VYlNjWDdOMzNkVmU0azlqeTlRMGpTLXBxOEp3ZUZObXVxazJFdnl3bkxJeTBEaDM3X0p6eFNTbFE1Z1JfcTk3QndwcV9wTVdCOGJEUWhjbG1kQXJ5dXM5eDVLaGhSUEtRUlF0MGRFcDk0WFF2VEhYRFdZdmlNNEJlckF5ZDhXdDduOVFFZHVnOFl1cEVuOGtROGJ5Q3djcGNyWHBiNjg1cWRzTC1XRmxWdEE?oc=5
-
-## Here's How Travis Kelce Is Preparing for the NFL Season After Taylor Swift Wedding - E! News
-
-- first seen: 2026-07-19 19:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Here's How Travis Kelce Is Preparing for the NFL Season After Taylor Swift Wedding  E! News
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMipgFBVV95cUxOWUtxR1hUUzFtdjFsSW1oUDM2V2FNNy1yRU1QM0tScUVlWGlzMVNlOTVsdkFQbE9aM0tWcE1pOE5JQjlCMnBYVlNQSFhpRDlucEYtYWF3aTFuS200eTRKOUxmbDVCY283dVFJWlhzMmZfelcxWUk4S1ltSTFTTDZsdDY3TnBYNWxBZ3RsM2VqWjVNRl9GS3p1NXllYVR6N0NneVcxRkV3?oc=5
-
-## Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Exclusive) - People.com
-
-- first seen: 2026-07-19 19:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Shaq Shared This 4-Word Message to Newlyweds Taylor Swift and Travis Kelce (Exclusive)  People.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMipgFBVV95cUxQZlI0RVFZOTdjWkNUcXo5SHlHNEJCc0tISjFKSXNaQ2wyYTlCeVhOVUtBdkluLTNuM3dORjFQSVRjbGRNTnlfS3pIWmkyU2NwWWJiRHhPeGt1dGw2QVM2QTc3YXBqbGpRUWJnYjFjTlgzTkJjUVh1ZlFMS3liclIxSTNlZ2pFRmo5dzIteThjaDBkWEdUVWJZZEQ4aWprRWhEVDMyN0lR?oc=5
-
-## The 1975’s Matty Healy marries Gabbriette Bechtel weeks after ex Taylor Swift weds Travis Kelce - Ya
-
-- first seen: 2026-07-19 19:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The 1975’s Matty Healy marries Gabbriette Bechtel weeks after ex Taylor Swift weds Travis Kelce  Yahoo News New Zealand
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiggFBVV95cUxQajJtTFNHTnZ4RjFSbldSYVlxeUlvcTRveVJPdEJuc2tzb0cwSVh0cE16bGRJNVFGeFE4WFFlMzBXRUZ6alBXcy1TN2VMY2JuTmRIVTU3Um1nREk5NkhROTJDcjB0NllQekxBMVlVR1NaeTB4MjY2WGJyNHAwZmlpQWxn?oc=5
-
-## Shaquille O'Neal Jokingly Thanks Taylor Swift, Travis Kelce for Not Inviting Him to MSG Wedding - Bl
-
-- first seen: 2026-07-19 19:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Shaquille O'Neal Jokingly Thanks Taylor Swift, Travis Kelce for Not Inviting Him to MSG Wedding  Bleacher Report
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiywFBVV95cUxQNXNHb3VmZVVUZjhNN2hURTJoR3FMb1puYkt0YkhEX3hvLXFpaXdyVzZzZU82cWVzVGNqcGxGWUNlUUtmUjBGS3d5WW9GTlpQLXluSFc4aGIydVViTXNhM0Y3UW40NG5FS3U5SjAtX3U0andueGpabTVJOERGbFJwMFdRMGVBanJnS0k4cG1JVDh1UkdtdEdyWnAzcjRUa3hWeEVTZzJsTGpjdGU1VHEwWnBDdHY5LVgxdzUtS0QxRC1hVjRHWG1wdEFsaw?oc=5
