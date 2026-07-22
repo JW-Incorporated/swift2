@@ -585,7 +585,10 @@ export default {
             brand: 'Showpo',
             item: 'Siofra Mini Dress (Zig Zag Fringe Dress)',
             retailer: 'showpo.com',
-            url: 'https://www.showpo.com/siofra-beaded-fringe-mini-dress-in-hot-pink.html',
+            // Liveness re-check 2026-07-22: old `/siofra-...html` path now 301s
+            // to Showpo's canonical `/us/products/` URL (still the live PDP);
+            // stored the canonical target directly so we don't lean on the redirect.
+            url: 'https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink',
             price: '$22.00',
             isAlternative: true,
             altNote: 'Toybina\'s 128 costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same rotating-sparkle spirit as the tour wardrobe.',

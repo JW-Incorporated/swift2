@@ -3077,6 +3077,25 @@ export default {
           // wire photographers had no access (broadcast-only event, see note
           // above from the 2026-07-10 pass).
         ],
+        products: [
+          {
+            // The exact jacket. Marie Claire / Yahoo / AOL coverage of the
+            // Dec. 25 2025 look all ID it as The Frankie Shop "Zion Bomber
+            // Jacket" in red, $388. Its Shopify PDP curl-200s and the product
+            // JSON read-verifies title "Zion Bomber Jacket - Red", price
+            // $388.00, ONE SIZE, inventory_quantity 29 / policy deny — i.e.
+            // genuinely in stock (checked 2026-07-22). The black mini skirt,
+            // tights and knee-high boots are unbranded, the Louis Vuitton bag
+            // is not identified to a specific model, and the Artifex Fine ring
+            // is the bespoke engagement ring — none linkable, so skipped.
+            brand: 'The Frankie Shop',
+            item: 'Zion Bomber Jacket - Red',
+            retailer: 'thefrankieshop.com',
+            url: 'https://thefrankieshop.com/products/zion-bomber-jacket-red',
+            price: '$388.00',
+            inStock: true,
+          },
+        ],
       },
     },
     {

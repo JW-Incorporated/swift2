@@ -236,7 +236,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/c/cf/Taylor_Swift_onstage_Ford_Field_in_Detroit_-_The_1989_World_Tour.png", credit: "tonyshek / Wikimedia Commons, CC BY-SA 2.0", caption: "One of the tour's many sequined stage looks (Ford Field, Detroit, May 30, 2015) — the wardrobe rotated night to night.", kind: "primary" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/news/a14342/taylor-swift-1989-tour-costumes/" }],
-      products: [{ brand: "Showpo", item: "Siofra Mini Dress (Zig Zag Fringe Dress)", retailer: "showpo.com", url: "https://www.showpo.com/siofra-beaded-fringe-mini-dress-in-hot-pink.html", price: "$22.00", isAlternative: true, altNote: "The tour's custom costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same pink-fringe spirit as one of the rotating looks." }],
+      products: [{ brand: "Showpo", item: "Siofra Mini Dress (Zig Zag Fringe Dress)", retailer: "showpo.com", url: "https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink", price: "$22.00", isAlternative: true, altNote: "The tour's custom costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same pink-fringe spirit as one of the rotating looks." }],
     },
     {
       id: "vault-1989-a-red-bandeau-top-and-a-thigh-slit-magenta-maxi-skirt-at-the",
@@ -5027,7 +5027,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg/500px-Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swifts-costume-designer-talks-612119/" }],
-      products: [{ brand: "Showpo", item: "Siofra Mini Dress (Zig Zag Fringe Dress)", retailer: "showpo.com", url: "https://www.showpo.com/siofra-beaded-fringe-mini-dress-in-hot-pink.html", price: "$22.00", isAlternative: true, altNote: "Toybina's 128 costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same rotating-sparkle spirit as the tour wardrobe." }],
+      products: [{ brand: "Showpo", item: "Siofra Mini Dress (Zig Zag Fringe Dress)", retailer: "showpo.com", url: "https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink", price: "$22.00", isAlternative: true, altNote: "Toybina's 128 costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same rotating-sparkle spirit as the tour wardrobe." }],
     },
     {
       id: "vault-red-a-rhinestone-cat-ear-headband-defines-the-22-video-look",
@@ -7203,6 +7203,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://images.squarespace-cdn.com/content/v1/6616cae0172b170a8dd0818d/30ea9668-3908-4972-a828-f97ff5fdbcf4/1225+Taylor+Swift+Chiefs+vs+Broncos+Feature.png", credit: "NFL via Amazon Prime broadcast, via Taylor Swift Style", caption: "From the Prime broadcast of the Christmas Day game: Swift in the red Frankie Shop bomber, Louis Vuitton bag on her arm and engagement ring visible.", kind: "primary", focalPoint: "65% 14%" }],
       sources: [{ name: "Is Taylor Swift Styling a Kansas City Chiefs vs. Denver Broncos Christmas Game Outfit?", url: "https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-kansas-city-chiefs-denver-broncos-christmas-game-outfit/" }],
+      products: [{ brand: "The Frankie Shop", item: "Zion Bomber Jacket - Red", retailer: "thefrankieshop.com", url: "https://thefrankieshop.com/products/zion-bomber-jacket-red", price: "$388.00" }],
     },
     {
       id: "vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie",
