@@ -644,7 +644,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album, by both equivalent units and pure sales, since Billboard began tracking by Luminate\'s modern methodology in 1991. It ran roughly 2.5 times her own previous personal best, Midnights\' 1.578 million units in 2022, and passed the two records it beat: Adele\'s 3.482 million-unit 25 (2015) and *NSYNC\'s 2.416 million No Strings Attached (2000). She\'d cleared the decade-old Adele mark within five days — a record many chart-watchers had assumed the streaming era made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."\n\nThe composition explains the shape: only two things counted toward 4.002 million — the 3,479,500 pure copies and 522,600 streaming-equivalent units from those 680.9 million streams, with no tracks sold à la carte. The pure-sales side ran on collecting: 1.334 million of it was vinyl, driven by 38 editions (16 CDs, two deluxe CD-plus-clothing boxes, eight vinyl, a cassette, 11 digital), most release-week-only — a variant strategy that drew chart-inflation criticism. The 680.9 million streams set 2025\'s biggest album week but no all-time mark; her own Tortured Poets Department (891 million) still leads there. Abroad it opened at No. 1 in the UK (423,000 units, her biggest week there), Australia, Canada, New Zealand and Ireland. The theatrical Official Release Party that topped the weekend box office was a separate event, uncounted here. The front-loading showed a week later: it held No. 1 but fell to 338,000 units as pure sales collapsed 97% and streaming eased just 55%.',
+          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album, by both equivalent units and pure sales, since Billboard began tracking by Luminate\'s modern methodology in 1991. It ran roughly 2.5 times her own previous personal best, Midnights\' 1.578 million units in 2022, and passed the two records it beat: Adele\'s 3.482 million-unit 25 (2015) and *NSYNC\'s 2.416 million No Strings Attached (2000). She\'d cleared the decade-old Adele mark within five days — a record many chart-watchers had assumed the streaming era made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."\n\nThe composition explains the shape: only two things counted toward 4.002 million — the 3,479,500 pure copies and 522,600 streaming-equivalent units from those 680.9 million streams, with no tracks sold à la carte. The pure-sales side ran on collecting: 1.334 million of it was vinyl, driven by 38 editions (16 CDs, two deluxe CD-plus-clothing boxes, eight vinyl, a cassette, 11 digital), most release-week-only — a variant strategy that drew chart-inflation criticism. The 680.9 million streams set 2025\'s biggest album week but no all-time mark; her own Tortured Poets Department (891 million) still leads there. Abroad it opened at No. 1 in the UK (423,000 units, her biggest week there), Australia, Canada, New Zealand and Ireland. The theatrical Official Release Party that topped the weekend box office was a separate event, uncounted here. The front-loading showed a week later: it held No. 1 but fell to 338,000 units as pure sales collapsed 97% and streaming eased just 55%.\n\nAdele\'s 25 had actually held the biggest week on two separate counts — 3.482 million equivalent units and, in traditional album sales, about 3.387 million pure copies, set in 2015 when 25 was withheld from streaming. Showgirl passed both: its 4.002 million equivalent units and 3,479,500 pure copies mean it took the pure-sales crown too, not the streaming-inclusive one alone. Within that pure total, the 1.334 million on vinyl is the single most-quantified slice — dwarfing 25\'s roughly 22,000 vinyl copies — but Billboard did not itemize how the rest split across CD, cassette and paid downloads.\n\nThe variant strategy is the album\'s standing asterisk. Forbes and academic writers framed the 38 versions as chart-gaming; chart analyst Chris Molanphy agreed the week carries "an aftertaste" of repeat-buyer inflation — "this is chart gaming, but it\'s not payola," he wrote — while concluding the record still stands, because the album "would have debuted at No. 1 in any case, by a huge margin."',
         sources: [
           {
             outlet: 'Billboard',
@@ -691,6 +691,40 @@ export default {
             publisher: 'Variety',
             source_type: 'reputable_press',
             accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          // Added 2026-07-22 (ledger #1020): the pure- vs equivalent-units split
+          // against Adele's 25, and the attributed variant/"chart-gaming" debate.
+          {
+            // Adele's 25 held the pure/traditional album-sales record (~3.387M),
+            // distinct from its 3.482M equivalent-units figure; 25 was withheld
+            // from streaming in 2015, so its week was almost entirely pure sales.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-life-of-a-showgirl-first-week-sales-record-1235442979/',
+            source_title: "Taylor Swift Breaks Adele's First-Week Sales Record for '25' With 'The Life of a Showgirl'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 4,
+          },
+          {
+            // Attributes the "gaming the system" / 38-variants criticism.
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/conormurray/2025/10/13/taylor-swifts-life-of-a-showgirl-debuts-with-record-breaking-4-million-album-units-on-billboard-chart/',
+            source_title: "Taylor Swift's 'Life Of A Showgirl' Debuts With Record-Breaking 4 Million Album Units",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 4,
+          },
+          {
+            // Chart analyst Chris Molanphy's "asterisk" verdict quoted in the text.
+            outlet: 'Chris Molanphy',
+            url: 'https://chris.molanphy.com/did-taylor-swift-really-have-the-biggest-album-debut-of-all-time-yes-with-an-asterisk-or-two/',
+            source_title: 'Did Taylor Swift Really Have the Biggest Album Debut of All Time? Yes, With an Asterisk, or Two',
+            publisher: 'Chris Molanphy (Hit Parade / Slate columnist)',
+            source_type: 'expert_analysis',
+            accessed_at: '2026-07-22',
             reliability_score: 4,
           },
         ],
@@ -1500,7 +1534,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated. Kelce, for his part, called it his favorite song on the album on New Heights. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push, including a run of remixes (Chris Lake, BUNT., Skream, and Ely Oaks among them), landed in mid-February 2026, and on the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Swift had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because Billboard counts physical singles when they ship, not when fans order them. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Swift\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).',
+          'Swift has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated. Kelce, for his part, called it his favorite song on the album on New Heights. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push, including a run of remixes (Chris Lake, BUNT., Skream, and Ely Oaks among them), landed in mid-February 2026, and on the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Swift had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because Billboard counts physical singles when they ship, not when fans order them. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Swift\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Swift plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
         sources: [
           {
             outlet: 'Slate',
@@ -1528,6 +1562,30 @@ export default {
             source_type: 'chart_database',
             accessed_at: '2026-07-10',
             reliability_score: 5,
+          },
+          // Added 2026-07-22 (ledger #997): the two-No.1s-from-one-album rarity
+          // (Q4) and confirmation an official video exists (Q8).
+          {
+            // "The only other time Swift has secured two chart-topping songs on
+            // the same album was for 2014's 1989."
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-opalite-number-one-billboard-hot-100-1235521139/',
+            source_title: "Taylor Swift Nabs 14th Number One on the Billboard Hot 100 With 'Opalite'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 4,
+          },
+          {
+            // The official "Opalite" music video: Feb. 6 2026 Apple Music
+            // premiere, the 1990s cat-lady concept and the cameo cast.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-opalite-music-video-1235511440/',
+            source_title: "Taylor Swift Releases 'Opalite' Music Video: Watch",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 4,
           },
         ],
         // Single artwork filename taken from the Wikipedia article's HTML;
@@ -2493,7 +2551,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Harper\'s Bazaar reports Swift changed into a second gown for the reception (the house was not named).\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.',
+          'Swift, Travis and longtime stylist Joseph Cassell worked directly with Jonathan Anderson and the Dior ateliers on Avenue Montaigne on an entirely custom design. The commission is now confirmed on both sides: publicist Tree Paine\'s wedding-night press release said both ceremony looks were "created by Christian Dior Haute Couture" by Anderson "in close collaboration with the bride and groom," calling it "the designer\'s first couture wedding dress for a world-renowned celebrity"; days later, at his Dior couture show, Anderson spoke on the record — "It was a joy to work with her. We became very good friends. It\'s an emotional thing doing someone\'s wedding." Official photos of the gown remain unreleased and the viral "first look" images were AI fakes (Snopes), so the gallery uses only clearly-labeled reference images. Harper\'s Bazaar reports Swift changed into a second gown for the reception (the house was not named).\n\nThe commission caps a whirlwind first year for Anderson at Dior: named creative director of womenswear and haute couture on June 2, 2025 — on top of Dior Men — he became the first designer since Christian Dior himself to lead all three lines, succeeding Maria Grazia Chiuri after his acclaimed run at Loewe. A widely reported but designer-unconfirmed touchstone is Elizabeth Taylor\'s gown for her May 6, 1950 wedding to Conrad "Nicky" Hilton: designed by MGM\'s Helen Rose and gifted by the studio, which turned the wedding into a publicity event for Father of the Bride — the film in which Rose also dressed the 18-year-old Elizabeth as a bride, the lace-and-veil look in the reference image here.\n\nThat Elizabeth Taylor echo completes a circle the album drew first: track two of The Life of a Showgirl is named for her. Anderson did not confirm the reference. Per Tree Paine\'s release and WWD, the finishing pieces were custom Christian Louboutin shoes and Cartier jewelry; the specific styles were not disclosed.\n\nNo official image has been published, so everything about the garment itself is still eyewitness account. A source told People the ceremony look had a "long veil and train" and was "perfectly Taylor," not straying from her signature style; guests told the Daily Mail it was a big white, off-the-shoulder gown with a very long train — one estimated it at roughly 25 feet — worn under a long lace veil, the waist fitted and "old-fashioned" in feel. The same guest reporting says she changed into a more comfortable second dress for the reception, whose house — as Harper\'s Bazaar first noted — has still not been named. The circulating specifics that go further (bespoke lace counts, embroidery-hour figures) trace to unreliable sites and contradict the guest accounts, so they are left out here until a reputable source or the official reveal confirms them.\n\nThe Elizabeth Taylor thread runs deeper than the dress: a source said Swift "spent so much time looking at old photos of Elizabeth Taylor when she was making her music video for that song that she became enamored with the movie queen\'s style" — the same fascination that named track two. Her stylist Joseph Cassell Falconer has dressed her for the better part of two decades, since she was a teenager, across red carpets, music videos and the Eras Tour costumes (built with Nicole + Felicia Couture\'s Nicole Chang); his other clients include Reba McEntire, Kerry Washington and Maitreyi Ramakrishnan.',
         sources: [
           {
             outlet: 'The Hollywood Reporter',
@@ -2545,6 +2603,51 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
             reliability_score: 4,
+          },
+          // Added 2026-07-22 (ledger #1168): the only descriptions of the gown
+          // itself so far, all pre-official-reveal eyewitness accounts.
+          {
+            // People's source: "long veil and train," "perfectly Taylor."
+            outlet: 'People (via AOL)',
+            url: 'https://www.aol.com/articles/taylor-swift-custom-dior-wedding-213332000.html',
+            source_title: "Taylor Swift's Custom Dior Wedding Look Featured a 'Long Veil and Train,' Says Source",
+            publisher: 'People (via AOL)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 3,
+          },
+          {
+            // Guest accounts (off-the-shoulder, ~25-ft train, lace veil, a more
+            // comfortable reception dress) and the Elizabeth Taylor-video quote —
+            // tabloid-sourced and secondhand, hence the low score.
+            outlet: 'Daily Mail (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-dress-had-113412656.html',
+            source_title: "Taylor Swift's Wedding Dress Had a 25-Foot Train, Per Guests",
+            publisher: 'Daily Mail (via Yahoo Entertainment)',
+            source_type: 'tabloid',
+            accessed_at: '2026-07-22',
+            reliability_score: 2,
+          },
+          {
+            // Joseph Cassell Falconer's tenure and other clients.
+            outlet: 'South China Morning Post',
+            url: 'https://www.scmp.com/magazines/style/entertainment/article/3289693/who-taylor-swifts-stylist-joseph-cassell-falconer-whos-also-styled-celebs-country-star-reba-mcentire',
+            source_title: "Who is Taylor Swift's stylist Joseph Cassell Falconer?",
+            publisher: 'South China Morning Post',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 4,
+          },
+          {
+            // Status-check corroboration: the "surfaced" photos were the JuJu
+            // Smith-Schuster wedding (July 10), not the MSG ceremony.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-photos-finally-155916382.html',
+            source_title: "New Taylor Swift Wedding Photos Finally Surface as Pics Give 1st Look at Her 2nd Dress & Ring",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 3,
           },
           {
             outlet: 'ElizabethTaylor.com',
@@ -2623,9 +2726,9 @@ export default {
             reportedOn: '2026-07-07',
             status: 'unconfirmed',
             url: 'https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-wedding-dress-reveal-dior-couture-1236640479/',
-            note: 'An on-record Dior statement about the reveal mechanism, not the gown itself. As of mid-July no official photos of the gown or ceremony had been posted; the reporting (updated July 20) added that the white gown on Dior\'s fall 2026 couture runway was not the wedding dress. Resolves when the official photos surface and we can see whether they came via her own Instagram, as described.',
+            note: 'An on-record Dior statement about the reveal mechanism, not the gown itself. Rechecked 2026-07-22: still no official photos posted. Images that circulated in mid-July were of the couple as guests at JuJu Smith-Schuster\'s July 10 wedding, not the MSG ceremony; Dior\'s fall 2026 couture-runway gown was also confirmed not to be it. Resolves when official photos surface via her Instagram, as described.',
             sourceTier: 'official',
-            lastCheckedOn: '2026-07-21',
+            lastCheckedOn: '2026-07-22',
           },
         ],
       },
