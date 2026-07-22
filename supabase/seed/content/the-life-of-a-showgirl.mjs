@@ -533,7 +533,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes on a loop of showtimes — the in-theater premiere of the self-directed "The Fate of Ophelia" music video, behind-the-scenes footage from its shoot, lyric videos for the rest of the album, and Swift\'s own on-camera reflections on the songs. No plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release.\n\nIt was not an AMC-only affair. AMC Theatres Distribution ran it with Variance Films in the U.S. and Canada and Piece of Magic abroad, playing all 540 U.S. AMC locations plus Cinemark and Regal, Cineplex in Canada and Cinépolis and Cinemex in Mexico — part of a global footprint of more than 8,000 cinemas across 110-plus territories. Domestically it topped Warner Bros.\' "One Battle After Another" (No. 2, about $11 million in its second weekend) and out-opened Dwayne Johnson\'s "The Smashing Machine" ($5.9 million), making it — by AMC\'s account — the only "non-film" theatrical event this century to finish a weekend at No. 1 in North America.\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. That film opened far bigger ($92.8 million domestic); the release party\'s win was structural, not a bigger number — proof a big enough artist can rent the theatrical apparatus for a weekend and turn an album drop into a box-office event, no studio in the deal.',
+          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes on a loop of showtimes — the in-theater premiere of the self-directed "The Fate of Ophelia" music video, behind-the-scenes footage from its shoot, lyric videos for the rest of the album, and Swift\'s own on-camera reflections on the songs. No plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release.\n\nIt was not an AMC-only affair. AMC Theatres Distribution ran it with Variance Films in the U.S. and Canada and Piece of Magic abroad, playing all 540 U.S. AMC locations plus Cinemark and Regal, Cineplex in Canada and Cinépolis and Cinemex in Mexico — part of a global footprint of more than 8,000 cinemas across 110-plus territories. Domestically it topped Warner Bros.\' "One Battle After Another" (No. 2, about $11 million in its second weekend) and out-opened Dwayne Johnson\'s "The Smashing Machine" ($5.9 million), making it — by AMC\'s account — the only "non-film" theatrical event this century to finish a weekend at No. 1 in North America. Tickets were a flat $12, pegged to her 12th album, and AMC released no admissions count; the event played a single weekend by design (Oct. 3–5 only), so its opening gross was effectively its final total. CBS News, independent of AMC, called it "the largest grossing album debut theatrical event of all time."\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. That film opened far bigger ($92.8 million domestic); the release party\'s win was structural, not a bigger number — proof a big enough artist can rent the theatrical apparatus for a weekend and turn an album drop into a box-office event, no studio in the deal.',
         sources: [
           {
             outlet: 'Screen Daily',
@@ -572,6 +572,27 @@ export default {
             publisher: 'Variety',
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
+            reliability_score: 4,
+          },
+          // Depth ledger #1011 (2026-07-22): the $12 flat ticket price, the
+          // single-weekend limited-engagement design, and CBS's independent
+          // confirmation of the all-time record claim.
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/news/taylor-swift-showgirl-release-party-movie-tickets-theatres/',
+            source_title: "Taylor Swift's Showgirl release party: ticket prices and details",
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-life-of-a-showgirl-movie-33-million-box-office',
+            source_title: "Taylor Swift's 'Life of a Showgirl' release party tops box office",
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
             reliability_score: 4,
           },
         ],
@@ -3389,7 +3410,7 @@ export default {
       thumbnailUrl: 'https://cdn.mos.cms.futurecdn.net/UsvU6jYWQoHAFBkAhaQtgS.jpg',
       moment: {
         context:
-          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.\n\nThe pieces have since been catalogued: the caramel Louis Vuitton Isola sandals retail at $930, the diamond-lined watch is a discontinued yellow-gold Cartier Santos Demoiselle, and the heart jewelry is by Foundrae (outlets differ on the exact piece and its price). Swift posted the photos to Instagram herself; they carry only a "Taylor Swift" credit, with no outside photographer or stylist named. The $319.99 Polo Ralph Lauren dress then became a case study in the "Swift effect" — it sold out across Ralph Lauren\'s own site within about 20 minutes of the post, and resale listings soon climbed past $450.',
+          'The Aug. 26, 2025 announcement photos were a fashion story in miniature: a $319.99 Polo Ralph Lauren silk-blend dress — vertical black stripes over a creamy linen skirt — with Louis Vuitton\'s caramel-brown Isola sandals, a diamond-lined Cartier watch, heart-shaped earrings, and a deliberately minimalist manicure that kept every eye on the old mine-cut Artifex ring.\n\nTravis coordinated in a Ralph Lauren black polo, khaki shorts, and leather loafers for the same garden shoot, staged under an archway of roses and hydrangeas — one frame catching him mid-kneel. The soft, summer-neutral palette read as intentional: engagement photos styled like the quiet opposite of a stadium spectacle.\n\nThe pieces have since been catalogued: the caramel Louis Vuitton Isola sandals retail at $930, the diamond-lined watch is a discontinued yellow-gold Cartier Santos Demoiselle, and the heart jewelry is by Foundrae (outlets differ on the exact piece and its price). Swift posted the photos to Instagram herself; they carry only a "Taylor Swift" credit, with no outside photographer or stylist named. The $319.99 Polo Ralph Lauren dress then became a case study in the "Swift effect" — it sold out across Ralph Lauren\'s own site within about 20 minutes of the post, and resale listings soon climbed past $450.\n\nFashion press received the look warmly and read it the same way — understated luxury, not stadium spectacle. Marie Claire called the coordinated outfits "subdued and sweet for a late-summer proposal" and "something timeless"; Sports Illustrated praised a dress "simple, yet elegant" and "shockingly reasonable"; Who What Wear framed it as "the romantic dress trend every fashion person owns." The only mild ribbing went to Travis\'s shorts-and-loafers, not her dress.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -3431,6 +3452,29 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Depth ledger #1005 (2026-07-22): fashion-press reception of the look
+          // itself (the Q7 gap). Marie Claire (already cited above) carries the
+          // "subdued and sweet"/"timeless" read; these two add the corroborating
+          // verdicts. No reputable engagement-look-vs-other-looks comparison was
+          // findable, so that narrower sub-angle stays unanswered.
+          {
+            outlet: 'Sports Illustrated',
+            url: 'https://www.si.com/onsi/athlete-lifestyle/fashion/taylor-swift-elegant-travis-kelce-engagement-fit-is-shockingly-affordable',
+            source_title: "Taylor Swift's Elegant, Travis Kelce Engagement Fit Is Shockingly Affordable",
+            publisher: 'Sports Illustrated (On SI)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Who What Wear',
+            url: 'https://www.whowhatwear.com/fashion/celebrity-style/taylor-swift-engagement-striped-dress',
+            source_title: 'Taylor Swift Just Got Engaged in the Romantic Dress Trend Every Fashion Person Owns',
+            publisher: 'Who What Wear',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 3,
           },
         ],
         photos: [
@@ -3922,7 +3966,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The album spent nearly every week at No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby posted his biggest streaming week ever at No. 2, through its own 10th and 11th week milestones Billboard tracked one by one — ceding the top spot only once, for a single week in early December, when Stray Kids\' EP "Just Do It" opened strong before Showgirl reclaimed No. 1. Holding the top spot across December is still the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard, and none of them budged it for more than that one week.\n\nTwelve nonconsecutive weeks made it her second-longest run at No. 1 ever, behind only The Tortured Poets Department\'s 17-week 2024 reign, and the album was still on top when Luminate crowned it 2025\'s most-consumed album in January — a holiday quarter that turned the release-week fireworks into a sustained occupation.',
+          'The album spent nearly every week at No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby posted his biggest streaming week ever at No. 2, through 10th- and 11th-week milestones Billboard tracked one by one (104,000 units the week of Dec. 27, then a reign-peak 141,000 the week of Jan. 3, its biggest post-debut week). It ceded the top only once: on the chart dated Dec. 6, 2025, Stray Kids\' "Do It" opened at No. 1 with 295,000 units and knocked Showgirl to No. 3, before it reclaimed the summit a week later. Holding on across December is the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard, and none of them dislodged it again.\n\nTwelve nonconsecutive weeks made it her second-longest No. 1 run ever, past the 11-week reigns of 1989 and Fearless and behind only The Tortured Poets Department\'s 17 weeks in 2024; at the 10-week mark she became the first woman — and third act overall — with four albums logging 10-plus weeks at No. 1. The run ended on the chart dated Jan. 17, 2026, when Morgan Wallen\'s "I\'m the Problem" returned to No. 1 (85,000 units) and Showgirl slipped to No. 2 with 72,000 — but it was still on top when Luminate crowned it 2025\'s most-consumed album, turning release-week fireworks into a season-long occupation.',
         sources: [
           {
             outlet: 'Billboard',
@@ -3961,6 +4005,46 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          // Depth ledger #1006 (2026-07-22): the weekly-unit milestones, the
+          // one-week Stray Kids interruption (corrected: "Do It," not "Just Do
+          // It" — it fell to No. 3), the end of the reign (Wallen reclaims No. 1,
+          // Jan. 17, 2026), and a non-Billboard wire to break the Billboard-only lean.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-showgirl-10-weeks-number-one-billboard-200-1236143930/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Spends 10th Week at No. 1 on Billboard 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/stray-kids-do-it-billboard-200-number-one-debut-1236124898/',
+            source_title: "Stray Kids' 'Do It' Debuts at No. 1 on Billboard 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/morgan-wallen-problem-13th-week-number-one-billboard-200-1236152774/',
+            source_title: "Morgan Wallen's 'I'm the Problem' Returns to No. 1 on Billboard 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'RTTNews',
+            url: 'https://www.rttnews.com/3600760/stray-kids-dethrone-taylor-swift-atop-billboard-200-with-do-it.aspx',
+            source_title: "Stray Kids Dethrone Taylor Swift Atop Billboard 200 With 'Do It'",
+            publisher: 'RTTNews (wire)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 3,
           },
         ],
         // Official era wordmark; Commons hosts it as public domain (textual
