@@ -3958,7 +3958,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The album spent nearly every week at No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby posted his biggest streaming week ever at No. 2, through 10th- and 11th-week milestones Billboard tracked one by one (104,000 units the week of Dec. 27, then a reign-peak 141,000 the week of Jan. 3, its biggest post-debut week). It ceded the top only once: on the chart dated Dec. 6, 2025, Stray Kids\' "Do It" opened at No. 1 with 295,000 units and knocked Showgirl to No. 3, before it reclaimed the summit a week later. Holding on across December is the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard, and none of them dislodged it again.\n\nTwelve nonconsecutive weeks made it her second-longest No. 1 run ever, past the 11-week reigns of 1989 and Fearless and behind only The Tortured Poets Department\'s 17 weeks in 2024; at the 10-week mark she became the first woman — and third act overall — with four albums logging 10-plus weeks at No. 1. The run ended on the chart dated Jan. 17, 2026, when Morgan Wallen\'s "I\'m the Problem" returned to No. 1 (85,000 units) and Showgirl slipped to No. 2 with 72,000 — but it was still on top when Luminate crowned it 2025\'s most-consumed album, turning release-week fireworks into a season-long occupation.',
+          'The album spent nearly every week at No. 1 from its October debut through the new year — through Wrapped season, through a holiday chart where Bing Crosby\'s Ultimate Christmas posted the biggest streaming week ever for a holiday album — 140.71 million on-demand streams on the chart dated Jan. 3, 2026 — and still stalled at No. 2 behind it, through 10th- and 11th-week milestones Billboard tracked one by one (104,000 units the week of Dec. 27, then a reign-peak 141,000 the week of Jan. 3, its biggest post-debut week). It ceded the top only once: on the chart dated Dec. 6, 2025, Stray Kids\' "Do It" opened at No. 1 with 295,000 units and knocked Showgirl to No. 3, before it reclaimed the summit a week later. Holding on across December is the chart\'s hardest endurance test — a record seven Christmas albums crowded the top 10 that season, per Billboard, and none of them dislodged it again.\n\nTwelve nonconsecutive weeks made it her second-longest No. 1 run ever, past the 11-week reigns of 1989 and Fearless and behind only The Tortured Poets Department\'s 17 weeks in 2024; at the 10-week mark she became the first woman — and third act overall — with four albums logging 10-plus weeks at No. 1. The run ended on the chart dated Jan. 17, 2026, when Morgan Wallen\'s "I\'m the Problem" returned to No. 1 (85,000 units) and Showgirl slipped to No. 2 with 72,000 — but it was still on top when Luminate crowned it 2025\'s most-consumed album, turning release-week fireworks into a season-long occupation.',
         sources: [
           {
             outlet: 'Billboard',
@@ -4037,6 +4037,19 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-22',
             reliability_score: 3,
+          },
+          // Depth ledger #1006 (2026-07-22): the Bing Crosby holiday-week detail —
+          // Ultimate Christmas' 140.71M-stream week (his biggest ever, and the
+          // biggest streaming week for any holiday album) topped out at No. 2 on
+          // the Jan. 3, 2026 chart, behind Showgirl at No. 1 that same week.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/bing-crosby-ultimate-christmas-top-streaming-albums-chart-1236146943/',
+            source_title: "Bing Crosby's 'Ultimate Christmas' Hits No. 1 on Billboard's Top Streaming Albums Chart",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-22',
+            reliability_score: 5,
           },
         ],
         // Official era wordmark; Commons hosts it as public domain (textual
@@ -4896,6 +4909,15 @@ export default {
       month: 7,
       day: 18,
       category: 'music',
+      // Cross-link deficit closed (2026-07-22, depth ledger #1058): this hub page
+      // is about four specific songs but carried ZERO relatedIds — thread it to
+      // each of the four that made the record (Nos. 7/8/9/10 that week).
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+        'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
+      ],
       title: 'Four songs in the Adult Contemporary top 10 — a first in the chart’s 65 years',
       snippet:
         'On the July 18 chart Taylor held Nos. 7, 8, 9 and 10 on Billboard’s Adult Contemporary ranking — the first artist ever to take four of the top 10 in a single week with music that isn’t seasonal.',
@@ -4904,7 +4926,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: "The Fate of Ophelia" at No. 7, "Opalite" at No. 8, "I Knew It, I Knew You" holding at its No. 9 peak, and "Elizabeth Taylor" at No. 10.\n\nNo artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.\n\nThe four are not all from one record, which is the quietly interesting part. "The Fate of Ophelia," "Opalite" and "Elizabeth Taylor" come from The Life of a Showgirl; "I Knew It, I Knew You" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once.\n\nIt brings her to 23 top 10s on the ranking, nine of them No. 1s.',
+          'Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: "The Fate of Ophelia" at No. 7, "Opalite" at No. 8, "I Knew It, I Knew You" holding at its No. 9 peak, and "Elizabeth Taylor" at No. 10.\n\nNo artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.\n\nThe four are not all from one record, which is the quietly interesting part. "The Fate of Ophelia," "Opalite" and "Elizabeth Taylor" come from The Life of a Showgirl; "I Knew It, I Knew You" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once.\n\nIt brings her to 23 top 10s on the ranking, nine of them No. 1s — a formidable tally that is still nowhere near the format\'s all-time leaders, where Elton John holds the record with 42 top 10s (18 of them No. 1s), ahead of Neil Diamond\'s 38 and Barbra Streisand\'s 35. And for all four landing in the top 10 at once, none of them has topped Adult Contemporary itself: on a chart this slow-moving even her two Hot 100 No. 1s, "The Fate of Ophelia" and "Opalite," sit at Nos. 7 and 8.',
         sources: [
           {
             outlet: 'Billboard',
@@ -4925,6 +4947,27 @@ export default {
             publisher: 'Forbes',
             source_type: 'reputable_press',
             accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          // Depth ledger #1058 Q2 (2026-07-22): the all-time AC yardstick her
+          // 23 top 10s are measured against — Elton John's record 42 (18 No. 1s),
+          // Neil Diamond 38, Barbra Streisand 35.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/elton-john-cold-heart-40th-adult-contemporary-chart-top-10/',
+            source_title: "Elton John Notches Record-Extending 40th Adult Contemporary Top 10 With Dua Lipa Collab 'Cold Heart'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/world-records/602412-most-top-10-entries-on-us-adult-contemporary-chart',
+            source_title: 'Most Top 10 entries on US Adult Contemporary chart',
+            publisher: 'Guinness World Records',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
             reliability_score: 4,
           },
         ],
@@ -5367,7 +5410,7 @@ export default {
       milestone: { id: "m-tloas-3", label: "Record debut", kind: "award" },
       snippet: "The album opens at number one with the fastest-selling first week in history.",
       moment: {
-        context: "The Life of a Showgirl opened at 4.002 million album-equivalent units — about 3.48 million of them pure sales — the largest single week for any album since Billboard began tracking with Luminate's modern methodology, past Adele's decade-old 25 (3.482 million units, 2015). The full accounting — the streaming split, the 38-edition variant strategy behind the pure-sales side, and the second-week fall — lives on the companion page, \"4.002 million in a week.\"\n\nAgainst her own catalog the number stacked cleanly on a rising first-week line: Red 1.208M (2012), reputation 1.238M (2017), 1989 1.287M (2014), Midnights 1.578M (2022), The Tortured Poets Department 2.61M (2024), then Showgirl at 4.002M — roughly 2.5 times her prior personal best. It was also her 15th No. 1 album on the Billboard 200, breaking her tie with Drake and Jay-Z (14 each) for the most chart-toppers of any soloist, behind only The Beatles' all-time 19. Abroad it debuted at No. 1 in the UK on the biggest opening week of her career there (423,000 units) and topped the charts in Australia, Canada, New Zealand and Ireland.",
+        context: "The Life of a Showgirl opened at 4.002 million album-equivalent units — about 3.48 million of them pure sales — the largest single week for any album since Billboard began tracking with Luminate's modern methodology, past Adele's decade-old 25 (3.482 million units, 2015). The full accounting — the streaming split, the 38-edition variant strategy behind the pure-sales side, and the second-week fall — lives on the companion page, \"4.002 million in a week.\"\n\nAgainst her own catalog the number stacked cleanly on a rising first-week line: Red 1.208M (2012), reputation 1.238M (2017), 1989 1.287M (2014), Midnights 1.578M (2022), The Tortured Poets Department 2.61M (2024), then Showgirl at 4.002M — more than half again as large as her prior personal best. It was also her 15th No. 1 album on the Billboard 200, breaking her tie with Drake and Jay-Z (14 each) for the most chart-toppers of any soloist, behind only The Beatles' all-time 19. Abroad it debuted at No. 1 in the UK on the biggest opening week of her career there (423,000 units) and topped the charts in Australia, Canada, New Zealand and Ireland.\n\nThe final number overshot the forecasts. The album sold 2.7 million copies on release day alone — by itself the second-biggest sales week for any album in Luminate history, logged in a single day with six left to run — which put Adele's decade-old record within immediate reach; the completed 4.002M-unit week didn't just pass Adele's 3.482M, it cleared it by more than half a million.",
         sources: [
           {
             outlet: 'Billboard',
@@ -5386,6 +5429,19 @@ export default {
             source_type: 'chart_database',
             accessed_at: '2026-07-21',
             reliability_score: 5,
+          },
+          // Depth ledger #1091 Q6 (2026-07-22): the forecast-vs-actual line — the
+          // 2.7M first-DAY figure (Luminate, via Variety) that already ranked as
+          // the second-biggest sales WEEK ever after one day and set up the run at
+          // Adele's record the final 4.002M week went on to clear.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-album-sales-first-day-billboard-million-showgirl-1236540366/',
+            source_title: "Taylor Swift Sells 2.7 Million Copies of 'The Life of a Showgirl' on Day 1 — Already the Second-Best Tally for an Album's First Week in History",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 4,
           },
         ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Billboard
