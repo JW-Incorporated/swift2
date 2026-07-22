@@ -27,6 +27,22 @@ so far".
 
 Stories: 120
 
+## Taylor Swift's Wedding Guest Reveals She Performed At Her Own Wedding: 'Crazy Experience' - SheKnows
+
+- first seen: 2026-07-22 07:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's Wedding Guest Reveals She Performed At Her Own Wedding: 'Crazy Experience'  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMioAFBVV95cUxOZGlJYnFaVGpLdXlfVklPUE1hRnFwQy1JeHo4cFR6UEtHTEtydlFNdmF1V1BwZDhvd3Y0WVVuOExHUlVsV3VjdkJnSmNlNGdsMjlCQUl3blNKYUowMzlfVU1tV0RGcFU2dFBiSW56Rk1rclZxZy1ZREtZWGE3SmthTUJzWmZyQ2c0U3l0LXFzLTJGMVRzdGpBRlhnY2lwMkwz?oc=5
+
+## Taylor Swift & Travis Kelce’s Dog Lives Exactly Like They Do — Source - Yahoo
+
+- first seen: 2026-07-22 07:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift & Travis Kelce’s Dog Lives Exactly Like They Do — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNbGJGNzh5ajJ3Wl9NemVGTFBJenluX0hNbWNmTGJnMkQtWlNVVEdqOWJMSjROcjlBYkVVR0dlZFdPWUdkWDZ2VTVqQnVJcDRaNjJxeEQ2cUJtQ3F0NlFVV3Bma3ExWXcwOXZVeks3eGI3SGhOeHZWZ2F1azltSTh3WFlRcDdPOUZUUjNwX3Y2Smx5SGNRVTNObWEta0JNdDRS?oc=5
+
 ## 'They don’t want to live in....': Taylor Swift's reported marriage rule with Travis Kelce reveals he
 
 - first seen: 2026-07-22 04:29 UTC | category: relationship | importance: 5
@@ -992,19 +1008,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: NFL's Kyle Juszczyk Reveals Why Taylor Swift, Travis Kelce's Marriage Makes "So Much Sense"  E! News
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQeVZqRWd0c3hMZW5IZzVkbzdtb0VHQWZjRklFRGI2RWhRVGw0UDdJdHdkeVBDQ21kSUkyNHVUMDN2aklzVHhnQmFVX0hqdzdiUEh2aGJIRE1sVXNESk1Id0xFUEJZdm1uQXhTb2tQOFdsUmhkc3pGX3VrNHpRc3IyLWZzV01kSjExVWc0dlFMR0tpdWtYWG9VUUlodFNoRnRralh1RG9PU2E4Q00?oc=5
-
-## Taylor Swift and Travis Kelce Get Cozy on the Dance Floor in New Footage From Friend’s Wedding - AOL
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce Get Cozy on the Dance Floor in New Footage From Friend’s Wedding  AOL.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMif0FVX3lxTE9kWWxhcjZ4N2J5WXF0WXJHaDBuY3JmVGFwYTI5WGxCZXpWXzJaNl94ZFJWSzlfWEhWUFVWWGdMdHNmRFc0aWF4dmRuTHFyZ1NkRkgzNUlwYTdCNUZIRERpbU9CMUhSR2ZUMW1xWTY0LXRhYW1mbklkbXVfckNjdUU?oc=5
-
-## Travis Kelce Gears Up for Chiefs Season in New Photos After Taylor Swift Wedding - People.com
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Gears Up for Chiefs Season in New Photos After Taylor Swift Wedding  People.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMimgFBVV95cUxOcjNYYnNla0N2VTl4WFBBNUFuRmxVcXZxWjFPMWRiQ01waEdBSTZIZzdVRHdXU3VncUllc1EycmhvSXRxWWl4eXBtZU9sUmlsdWNwdmpMOGRRN0paWHhVdWlCa00wVEdzTU5BNWNYR094cHoydkxsdVJSTjBiU0JfMzU0ZjFTZEg2UEZuQUhSZ1AtZDZtYzBmOGJR?oc=5
