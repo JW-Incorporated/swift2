@@ -27,6 +27,46 @@ so far".
 
 Stories: 120
 
+## Taylor Swift fans show their love for World Cup winner after finding out he’s a ‘Swiftie’ - Yahoo
+
+- first seen: 2026-07-22 15:12 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift fans show their love for World Cup winner after finding out he’s a ‘Swiftie’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOakZNZllFTy11aFBjeDVWT3BRTkRvVGUyMjc4OWNBNlpCUkZ6NkF2U2lvRTZmMDJTT09pandQSDRJNV9DVWdvNHhLbWtqU2NuVWwyd0VrcUdGWldRZlRPaVRJdXpoUjB3VVg3cHBJYjFTOWV0VE03OXpGZlktTlVTRGZPWmR4d3Nmb3FscW9BLXA1azM5MHg5TW00b1JOdw?oc=5
+
+## Apparently, Travis Kelce Also Performed at His and Taylor Swift’s Wedding - Harper's BAZAAR
+
+- first seen: 2026-07-22 15:12 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Apparently, Travis Kelce Also Performed at His and Taylor Swift’s Wedding  Harper's BAZAAR
+- sources:
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZzhadjFkeC1IcHpSb3JTd1R2UVNaeE1oQnRGbTZWdUVQTzRIRC1BdG4yMEQ2YmtpZDhTcXNGOUpjei1qRTRTcllBM3BtdmR6bU5KM1RwOHdhWW5zQkdsQTd3dHNJeU5zanV4eDgyeU1IeXZqZXpnZEhfR1ZiYV9ib0ZWTXZZRmVIVzlkVVFsX2tWRzQyakNDR0dqcWc1QVR3ZkYyTjZWTE1mT0VqNWlaZ09nODl1NU5n?oc=5
+
+## Taylor Swift’s Path To Becoming The Most-Nominated Act At The 2027 Grammys - Forbes
+
+- first seen: 2026-07-22 15:12 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s Path To Becoming The Most-Nominated Act At The 2027 Grammys  Forbes
+- sources:
+  - [unverified] Forbes — https://news.google.com/rss/articles/CBMixgFBVV95cUxPc2lTNTVxU3o1TUJIOGtUSVFtaFhWbDlIMGpsMXVwcUEyRHhUbGtpc25GR3lrSzBPQ1BVM3JsYnc2a0NPWi1icUptN3VMem01OFlIUFByN0JnaDNHS1VHZG95bFJxVkFCaWtvMC1mNm1mOF9EaVVXRmJDdWh1LW9zNkVyc002eEZ6ZHd4S25UdkZfTVVqd2ptWlpkclpvSDF0alpVa0JDOVJCUG95MFZVNzZhQS02XzRBRjEzeWJJaHRmX0V6OUE?oc=5
+
+## Taylor Swift and Travis Kelce's reported wedding planner hit with $658K legal battle trouble over un
+
+- first seen: 2026-07-22 15:12 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce's reported wedding planner hit with $658K legal battle trouble over unpaid  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMikwJBVV95cUxNajZfYl9jWXZzNDRuV0hXMVlvSjloRVRmaVZMa1BJZ0RlUHBza1pmYVRqRDlxNGdVV21wbU1qemdGMGVnWnpuV094elBBVHZRT0ljRGZtdHpLNk9OWjFvNmhfTmpoUTB4NEpGSEQ1YVlOWXd4Vkc2V3VoaGZBNkxxNWxQZXB4bUVmV2Nnb0NmVTNmUmlXQmdkVFNzSkUtUlZPYmFyajZCVV9WZDhBN3lKN19kVW4zcnlLYW5GOU9ZNU0xX1JmUUVUdWJpTDdGMm1YeXlNTVVVOE5MSU9JNTVrYktreEZZZk9mbUdxREpINVFzSXBsS2NYYzY1T3RZLW5tZ24xYktveV9NRnFoLXB5RHM4d9IBmAJBVV95cUxOVkdlcGhpNEdfY2dHMWp6VnFsVHNxNEd0VFFtemprUGpWZmttU3N5cjIyYVc0WVZnd2k2SW1qUmFicFBHam9BYUx0dlBpTXI2VnNwYS11YXJWY2xyS2JKR0VTM0NKWm9JUEZnWkh6S2tMb09JY1Y3a0hZYngyWWtqNWtBRGh1bVJISkhhTEdrVUdfdGV2dE91dkt0NG1CNVFxWlpBV3QyZV91QjhjOGYwWm0tUHJ5d1RNOFJuSFAwYWVFRlhIMTVCc0NzZXg3TGxndUpTNGdrNnpoODkzTzJRaWJmbXpfSUpaNzVjMHYyM2pDWWRmMERPSnQwVFBfNW1sRjBxLVV6MXJpamNqdnotbDBjSHBhV2FF?oc=5
+
+## The Detail That Has Fans Linking Taylor Swift And Travis Kelce To Gwen Stefani And Blake Shelton’s A
+
+- first seen: 2026-07-22 15:12 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Detail That Has Fans Linking Taylor Swift And Travis Kelce To Gwen Stefani And Blake Shelton’s Anniversary  Backstage Country
+- sources:
+  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMi5AFBVV95cUxObUM1NVpMVHY1amJJVmFKQU5LcWFFNVl2ei1TMVlsQ29NaHkzeGNWUXdSSVMyMmZ1eGN3WlRRVVdmM1k4cjBUNDJPREE1Tm9FNmlNVmJFcVZpX3F4UEJyaTZjc1hJQTh1N1daX2dkcERnc0c1NzE0YmJSazZoUzlONnIxdjQzbFg0d0RwQmJIWml1bmUzZXpaOFMyS0RRa2MzVi1veGRDbndUeEFRTHlERmhWa0FTS0V6YVV1dWNUemNJa1lsb0V2bkhXZGx4aVhOZ1laY1h0WWxtM0FmMjB6N3g1Z0Q?oc=5
+
 ## Rhode Island’s “Taylor Swift Tax” Creates New Compliance Obligations for Sellers and Closing Agents 
 
 - first seen: 2026-07-22 11:17 UTC | category: sighting | importance: 3
@@ -968,43 +1008,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: Brad Paisley Calls Taylor Swift’s MSG Wedding ‘1 of the Least Pretentious’ Ceremonies He’s Attended  Us Weekly
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMingFBVV95cUxPV2F4UGUyd1h1d25tOW5NVjJYVXFUU29HUjN3U3FlTEktby1BMFVBTlMwZnBYX0JtRFlWOXM4Y2V5X19tVWpraEJ1VUx3dk1hZlNDV25YWGhDeFM4VjhjdzM4dm4yQWczanVvb3VMNnhSend5cVJOZHRzVXYwUnNrTUxaaEZqZG5ocGVtV2t0N0JTaWZ3dF9ZZHJoaGRkQQ?oc=5
-
-## Kayla Nicole Shares 'Grown' Thoughts on Love After Travis Kelce–Taylor Swift Wedding - Complex
-
-- first seen: 2026-07-19 19:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Kayla Nicole Shares 'Grown' Thoughts on Love After Travis Kelce–Taylor Swift Wedding  Complex
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMinAFBVV95cUxQaVQ2SEJGV1RDeEVLa0dfOUw4XzZTRXB4RThrS0hESlZXMTZxakI0RWZ5TGRoZ2NuRWEwZFg3Q3N3QllDZDNGbVl6aFZDY0Q4U1loYWdTejhXR2RtNC00OG1tM1ZRZUlSZFU3Mmh4a1k0aU9Vb2o3eG9oa28zNnl3UHVUN1Y5a1ZGTmZCSFBFNThSQU9XbldjdE55VFg?oc=5
-
-## Taylor Swift’s Wedding Helps Her Soar Up The Charts - Forbes
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Wedding Helps Her Soar Up The Charts  Forbes
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMipwFBVV95cUxQUUNnS0ljSTZ1QmQwQ2VCMDVaU2I1cDdpbUYtYzktdnRsQlZmMlhRWl81dWQ5TWF1a0lmT01ka1d4VzlzaFJhcFIwdkczeTFtOHVNclJqb3U1VFNHb3RyT2hWcl9HcWUwZlFwUlB6RUZ1blhqTmNMSEt2dFQ5WGRfc1M4dGxjT3p4bGxfcm9ONkdOYU4zTTR6eGZJc3pWR0dSWDIwb2tUNA?oc=5
-
-## Taylor Swift and Travis Kelce’s wedding: A public, private one? - New University
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce’s wedding: A public, private one?  New University
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMingFBVV95cUxOSHZ2Z2lVamFvN0hEOXVrZDhES3dScmlIQmFPck8yalE3WkR6SXpfb0czWXBRMENTeW1hTzdXeGNRSVRWMEtIcjkxeWZYb1JLc3pLMmtiZWd0MUhBMVBIQ0NMSWdTeDFDanFNMWFhbko1Q0pHYW1tQTVSV09tWi13WGZqMUNzc3JpN2JNTmVibHBaaXk0VnRUbTljWVBRUQ?oc=5
-
-## Taylor Swift Leans Into WAG Life in Never-Before-Seen Photos From JuJu Smith-Schuster’s Wedding - in
-
-- first seen: 2026-07-19 18:04 UTC | category: sighting | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Leans Into WAG Life in Never-Before-Seen Photos From JuJu Smith-Schuster’s Wedding  instyle.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMingFBVV95cUxPUHdLcHRnczgzdkkyWmFmeHkzMzcwOU11dmgyb3BXNHVBYW41MmhsaHA5ejZHdGxld25zSTlaWU83MVZEb3U3WkJ0ZG93V2F1WGhNU1NKZFd0RFBKbFQ1Rm96Q1dDc1BDVWlBQ3U0dy1qT3VOaWdsSFItM3U5d3h6Y3lybk9JWkxOZF96UlVYYW4zdl9ubjhfNDNIV0JNdw?oc=5
-
-## Why Taylor Swift and Travis Kelce Aren’t Taking a Big Honeymoon Yet Amid His Solo Florida Sighting -
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Why Taylor Swift and Travis Kelce Aren’t Taking a Big Honeymoon Yet Amid His Solo Florida Sighting  ELLE
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQVW1OdEJvVUVyQlR0R3N2MFpxOWJiV21td2p4M3I3cVI5OUZkUV9nTmxsVDZ4VEdabzVjTzkzT092NmJ3OHVsc0dNd0E0eDl6LXZlX2x0ZlhhY0tyQld3S0ZoNFZjd0RNTF9oeE02S2pRRDBWd2F1WjN1ME9Ra19IUTBCaVBLU2M3Z3lqQU9kQVcyUHk0UUlGcVN4WERXaldhRXhtREZZdmlYV1RoU24xTXdaSGp5b1UwMUtXQmlLRHM?oc=5
