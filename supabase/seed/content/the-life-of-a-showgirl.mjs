@@ -2135,19 +2135,39 @@ export default {
       moment: {
         context:
           'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends" — separate from the Ocean House\'s own scheduled event that weekend, which the venue confirmed was for a different couple. The tells were logistical rather than official: a large tent rising on the Ocean House lawn, and longtime friends converging on the small Rhode Island town at once.\n\nThe location was its own callback. Watch Hill is the "holiday house" of the 2020 song "the last great american dynasty" — the Rebekah Harkness mansion Swift bought in 2013, the site of the Fourth of July parties of the 1989 era — so a pre-wedding weekend there read to fans as the personal-lore equivalent of a hometown send-off, two weeks before the Madison Square Garden ceremony. Neither Swift nor her team ever confirmed the party; the venue-level reporting here is TMZ\'s, labeled as such.',
+        // Rumor Desk lifecycle re-check 2026-07-22 (CIE content.rumor-lifecycle):
+        // the "Reported — not confirmed" banner still holds. Re-verified against
+        // current sources this session — neither Swift nor her team ever
+        // confirmed the bachelorette weekend, and nothing surfaced post-wedding
+        // to settle it; it stays single-camp TMZ/tabloid reporting. accessed_at
+        // added below to record that someone actually looked (the distinction the
+        // banner rests on), per the finding's suggested fix.
         sources: [
-          { outlet: 'TMZ', url: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/' },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/06/19/taylor-swift-bachelorette-party-rumors/',
+            source_title: 'Taylor Swift Bachelorette Party Buzz Grows in Rhode Island as Girlfriends Arrive',
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-22',
+            reliability_score: 3,
+          },
         ],
         // Image-fix pass (2026-07-10): both TMZ photos here (tickets #337,
         // #338) were junk news-graphics — a watermarked collage with a
         // celebrity inset, and a watermarked long-lens shot with a blurred
         // face. Replaced with two AP Photo/Robert F. Bukaty images (June 20,
         // 2026, Westerly RI) sourced via Fortune and The Washington Times'
-        // wire copy: the Ocean House lawn tent, and a security guard at
-        // Swift's Watch Hill estate. Both curl-verified HTTP 200 +
-        // image/jpeg and visually confirmed this session — clean, unwatermarked,
-        // single photos matching the moment's context (the tent, and the
-        // tightened estate security).
+        // wire copy. Curl-verified HTTP 200 + image/jpeg and visually
+        // confirmed — clean, unwatermarked, single photos.
+        //
+        // ONLY THE OCEAN HOUSE TENT REMAINS. The second image — a security
+        // guard at her Watch Hill estate — was REMOVED on 2026-07-22 (#1194)
+        // as a Never-OK #2 violation: security arrangements at her private
+        // residence, on a named date. It had been live on the site and passed
+        // every nightly scan, because image captions were not screened until
+        // that same fix. Do not restore it, and do not source a replacement
+        // like it. The tent photo carries this moment on its own.
         photos: [
           {
             url: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
@@ -4811,6 +4831,21 @@ export default {
             sourceTier: 'established',
             lastCheckedOn: '2026-07-20',
           },
+          {
+            // Rumor Desk 2026-07-22 (news digest, The Tennessean via Yahoo): the
+            // same song's country-awards trajectory — a parallel to the Oscar
+            // prediction above, but a different awards body. Adjudicable: resolves
+            // when the CMA nominees are announced. No location.
+            claim:
+              'With "I Knew It, I Knew You" up to No. 7 on Country Airplay, The Tennessean\'s Bryan West reported Swift\'s team was campaigning the Toy Story 5 ballad for CMA Single of the Year in the first round of CMA Awards voting — her most direct country-awards push in years, two decades after "Tim McGraw."',
+            reportedBy: 'The Tennessean (Bryan West, via Yahoo)',
+            reportedOn: '2026-07-21',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-enters-cma-awards-170210895.html',
+            note: 'A ballot campaign, not a nomination: the song sits on the preliminary CMA ballot, where members may nominate any eligible work. Resolves when the CMA nominees are announced — a Single of the Year nod confirms it, being passed over debunks it. Distinct from the Oscar-race prediction above (film awards vs. country awards).',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-22',
+          },
         ],
       },
     },
@@ -5143,6 +5178,25 @@ export default {
         // performance shot would illustrate nothing that happened here. Same
         // call as the Adult Contemporary and Marasco items above.
         photos: [],
+        // Rumor Desk 2026-07-22 (news digest): the song's cross-format success —
+        // including the top-10 Country Airplay entry noted above — has revived
+        // reporting that a full country album may follow. A forward-looking,
+        // unannounced-music claim (explicitly allowed by the redlines), adjudicable
+        // because it resolves on an announcement or fades if the window passes
+        // empty. No location.
+        rumors: [
+          {
+            claim:
+              'Off the back of "I Knew It, I Knew You" landing on country radio, Rolling Stone laid out "all the signs" that Swift could make a full return to country — a new country album — citing her pre-release meetings with country radio programmers, the Toy Story 5 single, and her self-titled debut turning 20 in October 2026, while stressing nothing was confirmed.',
+            reportedBy: 'Rolling Stone (Jon Blistein)',
+            reportedOn: '2026-06-29',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-features/taylor-swift-make-country-music-again-signs-1235586149/',
+            note: 'Speculation, not an announcement: Rolling Stone frames a country album as a possibility ("Fingers crossed"), not a plan — Swift\'s team has confirmed no such project. Resolves if a country album is announced, and fades if the country moment passes without one. Distinct from the debut "Taylor\'s Version" re-record rumor on the debut page (a new album vs. a re-recording of the 2006 debut).',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-22',
+          },
+        ],
       },
     },
     {
