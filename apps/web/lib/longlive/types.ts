@@ -832,9 +832,28 @@ export interface EraMedia {
 
 // ── Lens Mode datasets ──────────────────────────────────────────────────────
 
+/**
+ * A portrait of the other person on the Love Story thread.
+ *
+ * Wikimedia rather than press CDNs on purpose: `upload.wikimedia.org` is on the
+ * image-host allowlist, the URLs are stable (press CDNs sign and expire theirs,
+ * which is why the Instagram embed exists at all), and every subject here has a
+ * freely-licensed portrait. `credit` is not decoration — most of these are
+ * CC BY-SA, where attribution is a licence condition.
+ */
+export interface RelationshipImage {
+  url: string;
+  /** Photographer + licence, e.g. "Gage Skidmore · CC BY-SA 3.0". */
+  credit: string;
+  alt: string;
+}
+
 export interface Relationship {
   id: string;
   name: string;
+  /** Portrait shown when the entry is opened. Optional: absent when the
+   *  subject is not a public figure in his own right (privacy-redlines #5). */
+  image?: RelationshipImage;
   start: string;
   /** null = ongoing / open-ended. */
   end: string | null;
