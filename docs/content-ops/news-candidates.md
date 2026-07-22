@@ -27,6 +27,38 @@ so far".
 
 Stories: 120
 
+## Rhode Island’s “Taylor Swift Tax” Creates New Compliance Obligations for Sellers and Closing Agents 
+
+- first seen: 2026-07-22 11:17 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Rhode Island’s “Taylor Swift Tax” Creates New Compliance Obligations for Sellers and Closing Agents in Residential Property Transfers in the State  JD Supra
+- sources:
+  - [unverified] JD Supra — https://news.google.com/rss/articles/CBMiigFBVV95cUxQdXotQmFXU2kzb0lHb2ZMb0NYUUxaZjFiSUtzRml6TUpOd05jX3JkMDRRdEZHakJuUVAxV0kxaktEd0h0ZU8xTUpQOFJRTmE5M2NoZzhBMGF1RG5KOTd4Tkg0NEc0aVFocno2NUpocWdjaVpoSXROR1ZUUURSWFl2TjV6NzJpeDNKUlE?oc=5
+
+## Taylor Swift Blindsided by What Chiefs WAGs Think of Her — Source - Yahoo
+
+- first seen: 2026-07-22 11:17 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Blindsided by What Chiefs WAGs Think of Her — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQYW5NRlZPWTVjRjlwZGN6MC1Qc2laODZvNnpKYUpUbDdlSWlFMmtxVEx0ZXhGRkgzOVowUnFwTmpiejhocWpwbm44elpubm53clNHY0hNdmFhdGZEZTRwRXc3VzZFUTI3cEpDaC1mT28xWkNoNzFGNnBzOFVPQk1JWUo5NnBqTGNjemdpRDhnTE16RWk4SXhUN21YOXpiOXRFc0dSanI5YnA?oc=5
+
+## New AI Photos of Taylor Swift & Travis Kelce in Florida Trigger One Fan Complaint - Yahoo
+
+- first seen: 2026-07-22 11:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: New AI Photos of Taylor Swift & Travis Kelce in Florida Trigger One Fan Complaint  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxORnFmb2tQWjhhRHgySWlUeE9lVjFxd1BZckZkbWJablNSWnQyRlBPbUJoUDhHLTlNVW50dF9Hd2JMX1RKOXpwZHZaT3FuNVZHNHQ5NkUwN2c0OWNPZUtpcEdrZVdraTNyenFFMGRlV3ZQUDQzdklqaEtYRjdCTzNORDNpOW1jRXRsZF9rczBSdlZ4eGl6V1Y0eXNrQVJ4SkMz?oc=5
+
+## Travis Kelce’s Best Man Shares New Details About Taylor Swift Wedding Duet - Yahoo
+
+- first seen: 2026-07-22 11:17 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce’s Best Man Shares New Details About Taylor Swift Wedding Duet  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOcWZLMUtDX1doLVh6dm5YWGVXalh2WEt4NVY5UkVFNndyTXZjV1EwbnRhMHY0TkFOWFp2QjRpM3dGc3NUemhDbVlUa05MbWtKak5KOGhjemp2Tl9sTU50eGZiVGRKek5uRjVwVjZueS1hN09nUVJTc2poaWVHVnNPU1FGd0haZnl0VzV2YmdOSVZWVWNaczBtN2tvM1ZyOVU?oc=5
+
 ## Taylor Swift's Wedding Guest Reveals She Performed At Her Own Wedding: 'Crazy Experience' - SheKnows
 
 - first seen: 2026-07-22 07:41 UTC | category: relationship | importance: 5
@@ -976,35 +1008,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: Why Taylor Swift and Travis Kelce Aren’t Taking a Big Honeymoon Yet Amid His Solo Florida Sighting  ELLE
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQVW1OdEJvVUVyQlR0R3N2MFpxOWJiV21td2p4M3I3cVI5OUZkUV9nTmxsVDZ4VEdabzVjTzkzT092NmJ3OHVsc0dNd0E0eDl6LXZlX2x0ZlhhY0tyQld3S0ZoNFZjd0RNTF9oeE02S2pRRDBWd2F1WjN1ME9Ra19IUTBCaVBLU2M3Z3lqQU9kQVcyUHk0UUlGcVN4WERXaldhRXhtREZZdmlYV1RoU24xTXdaSGp5b1UwMUtXQmlLRHM?oc=5
-
-## All About Taylor Swift and Travis Kelce’s “Off-Grid” Honeymoon and Other Post-Wedding Plans - instyl
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: All About Taylor Swift and Travis Kelce’s “Off-Grid” Honeymoon and Other Post-Wedding Plans  instyle.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMihAFBVV95cUxPTXZDVk1LazBxR3hDU2pqVnJPd2UwSWhkN0t2X3NCclA1NjVPaFNCbWhRbmJ2MmY1U1dMeW1pN2xON2VpekpQY2Z5TWUxSHVtRmFRSTRwSTdLbUJHaTRXbk52OTA0T3V6ZmdYaF9iX2trM2d4X3VsRFBiTTExazlMQWdyTFg?oc=5
-
-## Taylor Swift Questions Follow Matty Healy as He Prepares to Marry Gabbriette - Yahoo
-
-- first seen: 2026-07-19 18:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Questions Follow Matty Healy as He Prepares to Marry Gabbriette  Yahoo
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMipwFBVV95cUxNMXNReEVIaHI1WlF0QS1NbWtIY1ZMbGJ3RXlUOFMycEpWTDlfOEljM0ZTMDVVUkctRVUwMUNKQjJrdVQ3M2Z4VVJHYzZyNXZfR2JMTk5memlzZ2FwdHBqbTdLT2xNdzRKQU45a2gxZjJoN3ZKaUs0cG1VeGtMX0dVZWg3VG0yeDY5d3ZlcFNfM0dxczF1eS1HM0JtbGxDbUN1RG5Bc0dYbw?oc=5
-
-## Taylor Swift Manages A Historic First On The Charts - Forbes
-
-- first seen: 2026-07-19 18:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Manages A Historic First On The Charts  Forbes
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOeVQ3Zm5nQnRBcHg3Xy1KbXcxRXc0MXA3RkdKRk4zWTBubEVBVktXNTBGaTRPSjZhV3NIREhQN3VhdmpYZHNVZG5aMjNUdVVqRDM2WDlxeVBGOFpCdlBObktnY2FNZEU4YU1WQlFJdHFJRF9NaFhXWkxRNmVyQjJlWEFvSi1QSlVLeUtkLUd3YnRvLUM1N0hfVnFndHhPamV5TmNlS0x4UnM?oc=5
-
-## NFL's Kyle Juszczyk Reveals Why Taylor Swift, Travis Kelce's Marriage Makes "So Much Sense" - E! New
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: NFL's Kyle Juszczyk Reveals Why Taylor Swift, Travis Kelce's Marriage Makes "So Much Sense"  E! News
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiqwFBVV95cUxQeVZqRWd0c3hMZW5IZzVkbzdtb0VHQWZjRklFRGI2RWhRVGw0UDdJdHdkeVBDQ21kSUkyNHVUMDN2aklzVHhnQmFVX0hqdzdiUEh2aGJIRE1sVXNESk1Id0xFUEJZdm1uQXhTb2tQOFdsUmhkc3pGX3VrNHpRc3IyLWZzV01kSjExVWc0dlFMR0tpdWtYWG9VUUlodFNoRnRralh1RG9PU2E4Q00?oc=5
