@@ -27,6 +27,39 @@ so far".
 
 Stories: 120
 
+## 'They don’t want to live in....': Taylor Swift's reported marriage rule with Travis Kelce reveals he
+
+- first seen: 2026-07-22 04:29 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'They don’t want to live in....': Taylor Swift's reported marriage rule with Travis Kelce reveals her big  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMilgJBVV95cUxNdExRNUVyT3JvUFRZeV8zblg2NTYyeGtFYk9zOU5KM3c5azdsVW9YOTI5b21JUU1BTWJVNzE0WFFadmw4MkNSR085WlN5eVB3SHMzbERLTEZHR29pYjdRUW9sTEVuNk56amdFZWtGQjFCM3JHOHVZaHhMYy14NEZfb0VfSFMwdlNabnBNT0E2eTd5clYxV0h4MTFqSFhBak5KbEhHNXIwTEQzdE9oRVBuQnVLWnNpVVJNMXc1Y2IzY1l3Wk45cnExUXBla2tTWEszaG9tZy01SENEQlZFUzQwWXdSZTZxUUhnd3VwMXZkZ2FCLXM2elE2V3ZYWlNSQjhiZ3JRNHQwT1JfZkVkQW10V2tDV2xNd9IBmwJBVV95cUxPbFA0b2d1S05kUFdLWmVGUkFJY0o4U0VNdUhKWExERnd1TDc3aWswaGxGNl95N0VFQkYtd21VOElPTlBWTWhKY2t3MkRQbUhyWFFjTXRMRDdCV0puZ0NqQWxRNXRDWVlxOXlSb1hHcjIxMEw3V3lQMEZLYlhVQ0ZYOGpvWlNwX0V1QW4wNVFTWFFjOE5PZkNoYVZ3cXlKUkFPc2R6c1dWeWJSSy1kWVFWeUl3djJoWTRGVWpLdlRXc1NuNlNGWmFnbXVRQUZkTnJxaHBVOHFDNFktVmNuUGZQdm9vMnE2bTlSZ2hDc1NNNkNxZTNQOXpPTmdza3BWMk5UaFdKY2xtbHJTX0dCY0ViWDN6SE1RNHVDbUw0?oc=5
+
+## Gwen Stefani, Blake Shelton Spark Taylor Swift Wedding Guests Rumors - Yahoo
+
+- first seen: 2026-07-22 04:29 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Gwen Stefani, Blake Shelton Spark Taylor Swift Wedding Guests Rumors  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOQjZrazRWaDJ0OTU2VVYtTXlMRWhfaUFSWHFaNDFWR2RfMTZxcGluU2VQb0VyVk9PTF8wc04wdGF4TDhrdFBVYjEwczdBZEpRdnV3M2tPcm9XQ1BRMFRtdkJBZUdqMnN2bi1fWGxuZS1Ea0YwOW1ienBxSnJJS09ZSy1jY1NTUjlvU0o4MjBDeUI2TTJlMEo4RmZLdmxXOWFVek1NYw?oc=5
+
+## Taylor Swift revealed the awkward moment the Kelces met the royal family at her concert - Yahoo Crea
+
+- first seen: 2026-07-22 04:29 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift revealed the awkward moment the Kelces met the royal family at her concert  Yahoo Creators
+- sources:
+  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcGNURVB5U2VuQVNOdHFKOWNQMk40bjZfTjZNTGJMaWFrSkhaUElTU0RvUlRra0NPOTdubF8wZHgzdnVpbWktY0RpOC14cXhxUDJFZG9peFJnLXpqWXF5ZDAzbTg2d25mQ3Q1RlBpYXhNQ0R1RVNDWGtCUGxxSG1lZUI4eTB4SHcyZWVUMnpXbVVJX2NCSmcyQTltS2QzX1JxRkhsd0diT3JzRzR1WG9HREQ0bFJUN1UwZTFISzhSZFBLV0V5WlZWWkFBUXo4UktGRzI2LUcxenlkQjA3QVE?oc=5
+
+## 2016 Pop Anthem, Secretly Written by Taylor Swift Under a Male Pseudonym, Became a Global Hit - Yaho
+
+- first seen: 2026-07-22 04:29 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: 2016 Pop Anthem, Secretly Written by Taylor Swift Under a Male Pseudonym, Became a Global Hit  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOYldUbFFCZFY2RHpwSUNVb1pLd3hKWEhOR1QzUFhjVXVuQy1EeldkVUR5TUR5alc2TGsybldOSVlDbXhlZVRGWDdwMTRaOVlDZkFTN3JnZXRDN3JRUkZGeFFsMmdZWUpySndFVF9oQ29zQ2tWWWVYOEhycDRtZU1URXI1OEVmeG5GN2t4SXJJVDVkTlNwdnlJYmt1UDE1RWs?oc=5
+  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPYWRMNmxJeDVTS1BxeGhhQUY5UWNxajNVM1JiWFItU2hpQ1p4ZmUxN2lRd2w0ckh3bDk4Y3gwTFA5bTlBNkpXbjVmUmk1RzNjTDZkazVUZnZ4a0I2Z0YtZWpKN05kWTRTaDlwZmVWczhsQWt0V1NTMHNISFYwZHd2czcyMldodmZM?oc=5
+
 ## Seth Meyers & His Wife Went to Taylor Swift's "Wonderful" Wedding with Two Famous Pals - NBC TV Netw
 
 - first seen: 2026-07-21 22:10 UTC | category: relationship | importance: 5
@@ -299,6 +332,16 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
   - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/brad-paisley-taylor-swift-travis-kelce-wedding-1235596400/
   - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMipwFBVV95cUxNNXZDbnNuX0hfOXNpZ2xMc3ZCQUZwQ1VxUjcwY1hEYURfdE5fUEJ2M0xJM2dwN0VZTmJ6ak9Nb25WRWE5U3E0TVdxVVRBZWFfZ3R6WklLZ2JrWjhLVFd5M2RMSER5clZZUDFBeWNnVzA5cnRiUjRqRkw0MFByb1RsWHEySkhGMjdmVWZwbUFHQm9sREdfYm8xYTBRdFJMYld4NzAxdk45OA?oc=5
 
+## Gwen Stefani and Blake Shelton Go Glam for 5-Year Anniversary and Fans Think They Celebrated with Ta
+
+- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Gwen Stefani and Blake Shelton Go Glam for 5-Year Anniversary and Fans Think They Celebrated with Taylor Swift, Travis Kelce  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMi5gFBVV95cUxPbGFFcFF6OVBsNFVFWHg1M2N6NUJGN2I4RVFmSWE2U1RqUnhxUm9JOUhwYXV1Y2stVDlSckEzekk3SHl6N2J3QklwQk9xOTJtRzVJNDl1WWgyVmtSMGVrNDNnU1dJSlQ0Ymxucll1TDloNWZyY3RGRHo5SDFxamRXRTJQWjBhUlctRGVLZWRnX1NURnY3clZ1ejE5a05XdVpuM2ZQSkRFcmFjeVlvVmtzLXVDNWZoSjFVTm9sVXRKeDMzRWVybjlCaTFfc3BqclpDbTh0dW9xeW1UMzY2Y3RKVXdIeDdEdw?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPZ0dneTdWSjlzM3k4Q0ZBdmlLNEl2UlhTa1RCQ0xJUnJKQzU3bmdubW9KVjY3OVN6WkdLYlJjdlJNanpQOEVieVlxS0w2dkhBaEt0M2NHNWszNE5PN3FQc1BXdGNaZmlTWkZhWVNDcDJjTG9STnFnUW50b0JFNGJOTjNRYTFTQ2VYdmVaa2YwVWlCdVN3NXB0ZWVqRklHU2RHNEZV?oc=5
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMirwFBVV95cUxOQi1IeVZyU3lsVGV1QTJFZS1KQjRCYXlFMjBPckNHYk1rTU1NQjVxTWFlN0d6QnpZaDYyOXNmdUdtSnlTZ3pyeU9YMmNiZG9aaFZhY0J0c1JBUEhVaTYzYjZhMm9zV2VoU0JlSE9lUThtZ3FaWUVQdk16d0N1MW93VzBzYjRoVjhuTjBZZ3NWbjFhT3RUNW0wSDY0cENkZnkzQUpEYTVGMHR1TEZLQ2RV?oc=5
+
 ## Brad Paisley recalls exactly what Taylor Swift and Travis Kelce’s wedding invite said - Entertainmen
 
 - first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
@@ -306,14 +349,6 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: Brad Paisley recalls exactly what Taylor Swift and Travis Kelce’s wedding invite said  Entertainment Weekly
 - sources:
   - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMigwFBVV95cUxPX2NBeEtJcWdjNkN0ZUlOTDVaQW1Ga3BDMm83RXZ1NGtfWEhXQUY4R05ydE1hYVdIRGpsRFFDdEZIZWNOaVpyS2Fkd1NicnRCSDBqa18xU1VhMVh1ODBweC1LSHNUbFhfWnplOENxLVgwV05CQUlsWWN5aVJJUTA2UEdQWQ?oc=5
-
-## Gwen Stefani and Blake Shelton Go Glam for 5-Year Anniversary and Fans Think They Celebrated with Ta
-
-- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Gwen Stefani and Blake Shelton Go Glam for 5-Year Anniversary and Fans Think They Celebrated with Taylor Swift, Travis Kelce  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMi5gFBVV95cUxPbGFFcFF6OVBsNFVFWHg1M2N6NUJGN2I4RVFmSWE2U1RqUnhxUm9JOUhwYXV1Y2stVDlSckEzekk3SHl6N2J3QklwQk9xOTJtRzVJNDl1WWgyVmtSMGVrNDNnU1dJSlQ0Ymxucll1TDloNWZyY3RGRHo5SDFxamRXRTJQWjBhUlctRGVLZWRnX1NURnY3clZ1ejE5a05XdVpuM2ZQSkRFcmFjeVlvVmtzLXVDNWZoSjFVTm9sVXRKeDMzRWVybjlCaTFfc3BqclpDbTh0dW9xeW1UMzY2Y3RKVXdIeDdEdw?oc=5
 
 ## How Taylor Swift and Zendaya are driving the trend for bespoke engagement rings - South China Mornin
 
@@ -973,36 +1008,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: Travis Kelce Gears Up for Chiefs Season in New Photos After Taylor Swift Wedding  People.com
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMimgFBVV95cUxOcjNYYnNla0N2VTl4WFBBNUFuRmxVcXZxWjFPMWRiQ01waEdBSTZIZzdVRHdXU3VncUllc1EycmhvSXRxWWl4eXBtZU9sUmlsdWNwdmpMOGRRN0paWHhVdWlCa00wVEdzTU5BNWNYR094cHoydkxsdVJSTjBiU0JfMzU0ZjFTZEg2UEZuQUhSZ1AtZDZtYzBmOGJR?oc=5
-
-## Taylor Swift and Travis Kelce's wedding guests thought Adam Sandler officiating ceremony 'was a joke
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift and Travis Kelce's wedding guests thought Adam Sandler officiating ceremony 'was a joke'  Page Six
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMi3AFBVV95cUxOU1pjWk1ybTM1QjcwQUtfdlVYbFJ4TGFydGw3ZUZPbzNPQlNXWm1zdkppazRKck5lTXNSeUpyUDUtN2dNM1NUSzBYNUl2U0QwR2JnZWNWekxnVXJQUF8weE5QTV9KaVMwZ1hqbWh5NExKOWVFTDZFMFFpUUlPSmZIU0xWSzRrZkFrbnpKLUgzdlhjZHFCWUU4Z3J4QU5jMlIxX2I0TEg2ZHE5dzNmTGRNcmV4YnV6d3g2ZjhMbmJpUVR1aDY1d2NQTzlrN1l6YXRRZjlOSl9xUjNPZ3Fy?oc=5
-  - [unverified] AOL.com — https://news.google.com/rss/articles/CBMigwFBVV95cUxPejVDc1F0ZVJRbGxoZjVZR2FZb1VRajV5UmZSUE5udTM5bDRTMjRLSXpLRFhjUjI4azlSN0s3OVpIeE5CbHNpNTNKQl9YdkpmaVZndF9ZTHlyb3JIT2ZsMnNpUW9qMFFsS1lQajJJWnhrOWpaTzBpNENkN2dwQkFpSHZvRQ?oc=5
-
-## Taylor Swift's Ex Matty Healy Marries Gabbriette Bechtel at Madonna's Former Mansion - Complex
-
-- first seen: 2026-07-19 18:04 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Ex Matty Healy Marries Gabbriette Bechtel at Madonna's Former Mansion  Complex
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMimwFBVV95cUxOZHp4U2paRkduMk9tNTJTN2dCZDNIVlhoc3p1djJjVlRORFY0OUQ4Q2RJNXBXdndBeFNYdzlHLTRidG00eHhoVWdLdVA1MmpWZURBS18zRVQxQ0hsNDB4ZjB1VTFLOVEyMEhZZ2tBUm1ha2dnSGYwYVZqMFFOZ2M1dkVOZ1NhSWRpZ2Eyd1R0cXNfeG95eVdDNklWQQ?oc=5
-
-## Who Didn't Attend Taylor Swift and Travis Kelce's Wedding? Biggest Celebrity No-Shows Revealed - Yah
-
-- first seen: 2026-07-19 18:04 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Who Didn't Attend Taylor Swift and Travis Kelce's Wedding? Biggest Celebrity No-Shows Revealed  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMif0FVX3lxTE5uOTNOMlBpTlpqN3hvVV9id1ZYeGdYT1ZKS2p1T0FseTY4QVZpd2VfeUxudFhuVmFKNF95Z1JQeXZpMERWQkJ0cGQ3aWRRTmw5azcydXBmM1gwdVFqLV9xN2xpRDZmMkVNN0hMR29BMFZYazJKS3A3T1ItVWE0N2M?oc=5
-
-## Selena Gomez Shares Personal Photos of Her Summer With Benny Blanco—and Look from Taylor Swift’s Wed
-
-- first seen: 2026-07-19 18:04 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Selena Gomez Shares Personal Photos of Her Summer With Benny Blanco—and Look from Taylor Swift’s Wedding  ELLE
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQVlowMDllbERyMUhpalY1NFBnaXE5aVhIQVdjbGFPc3JYOFc3U0ItZVdvWnV4Tjc0aWlCTW43ZnhMMERCb0FsNl94bVlGT2U0TzRnWm54MUpWUEFxNkxiYzVGdWZDb0Y2VzQ3TUNBcTVicWtSMS14WVByNTlfc1pjMFBaS2o0MVN1QU9jQVFRRVFuTnNLbnJxLW5ITFFoTmoyNlNWaUgxVzc?oc=5
