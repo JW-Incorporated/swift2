@@ -27,6 +27,30 @@ so far".
 
 Stories: 120
 
+## Blake Lively No Longer Getting ‘VIP Treatment’ in Hollywood Amid Demise of Taylor Swift Friendship -
+
+- first seen: 2026-07-22 18:20 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively No Longer Getting ‘VIP Treatment’ in Hollywood Amid Demise of Taylor Swift Friendship  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQzViUE5HNS12dkdudUNUVXl2LU5TRktRaTBNOUdZNW9jSW9sU1k4enBabkxFdTNXVzhfY3F0Njc0STJxMkVHUXdvajVfX0JNNkJuTDdKMWhuSjl4QmtlN0ItV2hheVRIM3ViVVFZS2tYVDZyUjd6Y0ctemFfOEFiQWlaUnpvZHlVWEcyeWFKdm5TOEtWanR0T05teTFMSnJLSXc?oc=5
+
+## Taylor Swift and Travis Kelce Kept MSG Wedding Venue Secret Until 4 A.M. the Day of Their Nuptials, 
+
+- first seen: 2026-07-22 18:20 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce Kept MSG Wedding Venue Secret Until 4 A.M. the Day of Their Nuptials, Guest Reveals  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE0xMVAwNmNOcXc2QlFaVDZXZDlpemhjNl9CUkdKbFEtLUtKZW84YWwtMzlhZE1FbnpEdFBMVHR5Tk5aVmJjZEdQbzIxQzR1YjI4SW1wQjVJVE11a2tVckd0WENkeDdienY2dDRGV1VYVnZDT3Zwd25KT0FUTkU?oc=5
+
+## The Nuptials Heard 'Round The World: Taylor Swift-Travis Kelce MSG Wedding Puts Spotlight On ‘Privat
+
+- first seen: 2026-07-22 18:20 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: The Nuptials Heard 'Round The World: Taylor Swift-Travis Kelce MSG Wedding Puts Spotlight On ‘Privates’  Pollstar News
+- sources:
+  - [unverified] Pollstar News — https://news.google.com/rss/articles/CBMi0wFBVV95cUxNLWJFNFZ5TnhYc3Fwamd6cmQyenV0Z3owdTRmNmx3NkJndUk0X3c0cENIVkdyenZ3WC1leUNWSWlvaTBXU1k4ZnBIRVI5SFpMNTUtSmRrQ09WLWxGX290dXM1NUIwUnIwZHFrajZUN2M4YXBHNTZGanBPWWpjMnhncHg2VGFuUHRnNXoxR05Yck1qWnJqV3pPZG9KVzVzd3hIY3pQS2hzdF9nNTJRMldxWnV0REwwTXRiLVVTbVdjb28xbE5qYUVwbXl2MThpLXdybERB?oc=5
+
 ## Taylor Swift fans show their love for World Cup winner after finding out he’s a ‘Swiftie’ - Yahoo
 
 - first seen: 2026-07-22 15:12 UTC | category: sighting | importance: 3
@@ -34,14 +58,6 @@ Stories: 120
 - summary: Taylor Swift fans show their love for World Cup winner after finding out he’s a ‘Swiftie’  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOakZNZllFTy11aFBjeDVWT3BRTkRvVGUyMjc4OWNBNlpCUkZ6NkF2U2lvRTZmMDJTT09pandQSDRJNV9DVWdvNHhLbWtqU2NuVWwyd0VrcUdGWldRZlRPaVRJdXpoUjB3VVg3cHBJYjFTOWV0VE03OXpGZlktTlVTRGZPWmR4d3Nmb3FscW9BLXA1azM5MHg5TW00b1JOdw?oc=5
-
-## Apparently, Travis Kelce Also Performed at His and Taylor Swift’s Wedding - Harper's BAZAAR
-
-- first seen: 2026-07-22 15:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Apparently, Travis Kelce Also Performed at His and Taylor Swift’s Wedding  Harper's BAZAAR
-- sources:
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZzhadjFkeC1IcHpSb3JTd1R2UVNaeE1oQnRGbTZWdUVQTzRIRC1BdG4yMEQ2YmtpZDhTcXNGOUpjei1qRTRTcllBM3BtdmR6bU5KM1RwOHdhWW5zQkdsQTd3dHNJeU5zanV4eDgyeU1IeXZqZXpnZEhfR1ZiYV9ib0ZWTXZZRmVIVzlkVVFsX2tWRzQyakNDR0dqcWc1QVR3ZkYyTjZWTE1mT0VqNWlaZ09nODl1NU5n?oc=5
 
 ## Taylor Swift’s Path To Becoming The Most-Nominated Act At The 2027 Grammys - Forbes
 
@@ -66,6 +82,16 @@ Stories: 120
 - summary: The Detail That Has Fans Linking Taylor Swift And Travis Kelce To Gwen Stefani And Blake Shelton’s Anniversary  Backstage Country
 - sources:
   - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMi5AFBVV95cUxObUM1NVpMVHY1amJJVmFKQU5LcWFFNVl2ei1TMVlsQ29NaHkzeGNWUXdSSVMyMmZ1eGN3WlRRVVdmM1k4cjBUNDJPREE1Tm9FNmlNVmJFcVZpX3F4UEJyaTZjc1hJQTh1N1daX2dkcERnc0c1NzE0YmJSazZoUzlONnIxdjQzbFg0d0RwQmJIWml1bmUzZXpaOFMyS0RRa2MzVi1veGRDbndUeEFRTHlERmhWa0FTS0V6YVV1dWNUemNJa1lsb0V2bkhXZGx4aVhOZ1laY1h0WWxtM0FmMjB6N3g1Z0Q?oc=5
+
+## Apparently, Travis Kelce Also Performed at His and Taylor Swift’s Wedding - Harper's BAZAAR
+
+- first seen: 2026-07-22 15:12 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Apparently, Travis Kelce Also Performed at His and Taylor Swift’s Wedding  Harper's BAZAAR
+- sources:
+  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZzhadjFkeC1IcHpSb3JTd1R2UVNaeE1oQnRGbTZWdUVQTzRIRC1BdG4yMEQ2YmtpZDhTcXNGOUpjei1qRTRTcllBM3BtdmR6bU5KM1RwOHdhWW5zQkdsQTd3dHNJeU5zanV4eDgyeU1IeXZqZXpnZEhfR1ZiYV9ib0ZWTXZZRmVIVzlkVVFsX2tWRzQyakNDR0dqcWc1QVR3ZkYyTjZWTE1mT0VqNWlaZ09nODl1NU5n?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirwFBVV95cUxNV19yS3E0Nlgzd0oyazNSV0dMZDVGMjRhMDl5TjN4ZUE3UjlyTWEwZkZqTTZxQ0F1bnpOYUNfZURiYk5hcW1TNXJuQTl5bF8xeUtPYzZzWW9jc29ZU1hBbzFqZDV0bG0zVDNTbUNic09fRkJqZnphM0FFeGY2TTR0bGtEcHZqMTh6NGd5b2NKWHBRM2kyM3EzVndJMEJnR3ZISDhzc21uNTZ6VDlCckZN?oc=5
+  - [unverified] Bustle — https://news.google.com/rss/articles/CBMihAFBVV95cUxPN091dmFuNUp1ZGVZd1dPSl9lVUtXRHp2b2xHNkpUc3lPSHgxTkpWRER4aHV0UnVBelcwMVkxZHJob1JBbk56NGFrQ0s3cnRxeUNodkdjM0ZVQnJncTJPVFZJOWxhR2c4Y0FYc3lYMERxUlZSeVhVVmtFMFM0U1ZOYzYyblY?oc=5
 
 ## Rhode Island’s “Taylor Swift Tax” Creates New Compliance Obligations for Sellers and Closing Agents 
 
@@ -228,6 +254,16 @@ Stories: 120
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiuAJBVV95cUxOUk9hN1RIRmNKWFc2VDI4UG1fMmJqQXVCM1hYWEp1NlR3VVA5cHdGcDMxdnRPS2I2MUVLQnh3Vk9QM0ZWbjd3RFBoUzFWd2xQOTlBZDhPTHM1YzZPUGJVSlo3S1A2ZGpYbVE0U1hKZnBZeEN5U05RNjV5eFpCNlJBVDZMTkt1STNtak14RnVNUWFyaV9LZFlfTEgtV0xLOXRNNGNRZTRMVXRPWDVsRnIxeWFDa0xzM2VMQTRkWXBraENYakxXLVBEaEZ6OFNqV2NIbmd6bXloaFcxOENyMjNoQ21FZVdDV2hVY2FBNDlEUmt1SFVNOHdGNUJuajFua3dQUVRydkt1NEIzc3R1TlRReVRweXNnME5wUmF5WW93R1pMM0JvRmVOZnA4OUdoX1VMcEpDbUV1aljSAb4CQVVfeXFMT3pNMDd3WGtPQlZPeV9Sd2ZoblFpNUVhUXNuV1ZXZFo0YzlDVnVFTHlQQnAxRFFqWkNqUDhJRGFQeXZHMG5VdXdSQmRzQndxR2VzNElVNTlCM0tsTWhIRGZHX3lSNEJVNFIxaHE1M1FRanFySFhnM1U2VGNTUTRCNmFWVm40T3NUSGdiMUp1bnotQU5uSmxZb0JpdVAxT3pqbENUNzJoN1Jnc2tscWE5djhGeVYwNWFfdy1DWlI2QURNaTZHdDV3dVJ5cEVCeVRoY0VkdF8yRHVhck1vMU15eC1aTTRWWE9ET1hhY2ZlblBCNmU4UDV6dkRRX2xWalpsbktYN21FOVdxR3Mwa3ZUUnY2V1hhQkM0LXhabXRCeEZDbW5VR3pPR2RZR3doUEZYeFBoRFROSHliRG5KQmd3?oc=5
 
+## Jason Kelce Rates Travis Kelce's Singing Ability After Taylor Swift Wedding Duet - E! News
+
+- first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 3
+- summary: Jason Kelce Rates Travis Kelce's Singing Ability After Taylor Swift Wedding Duet  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQR2t3dDNiRDc3RktKQWItUWxDcFZITzhocUJmQXJvREg1bzVwSDNLZmV1Ull3WUZ5dFN4bjFYT0lhcHgzWVdGNlpCN1RWc0JxeHBPclB3NVpWb3l1M2s2TjNCa29pRjllek5Nb25yNy1EeVBRendxZ3gyTlFielU5Ql80alRVZ3h0LXBhSnFRSDBuV1pNQU5MaXZjWG5jU1Nxcm04c19oX0s?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOWmlYYm9sZE1ZOGp1eTNoRmNZRTkzSzBLNXR5WS1BNTVWTGN1X3dVNk5mM3pWUG50S1NOMmZaSkM5WXFmT05rMzZuLV84ZERPd0ZCcmFXR1lVQXU0Z3pybHVmNF8teVN6M01WdjcxbV9fRFY0UGVqRGhzOXVSWlM5RC05bTlwOTZVYXExRkF6VFE5b29BckswTi1ROTV5QQ?oc=5
+  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiowFBVV95cUxQUlBoUU5fb3FmbXFJSjVKa3R0azhaUkcyaXJHTjl3UjNSZk1PamY0OENLazJGUXZSWEdERHE5dTNiZGZrcXJ3emNjbHZHYnN0NXlja01PRTFNQ1hfVkxIelhZckN1SFhpMUR0WU9VMGxsNVU2VlZBZWxCSmQxTDZfZzZBbDV0bUtQVFRpbWFqTGhnbFZpWTBvRWZkMFRZcTZKVU9z?oc=5
+
 ## Blake Lively Shows Off New 'Girl Squad' After Taylor Swift & Travis Kelce Wedding Snub - Yahoo
 
 - first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
@@ -291,16 +327,6 @@ Stories: 120
 - summary: Taylor Swift and Travis Kelce’s Wedding Guest Details “Crazy Experience” at Secretive MSG Ceremony  instyle.com
 - sources:
   - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxOVFpYVVdZdUlJdjZheGNLVXVkN3hOZFpxSWt5RWQ2cm9JRlJneHNsakp0U2FNa0N5aTB3SDRxTC1KazdFSXlWajZxMmUxTERfek5RTVlBNlpMRFRWVDZYRUhReEV1MEw5U3JQS2RBOFNRQmFqM2VFSDJaYXVjY3VoTENxcnBZNmQ1NHB2WXNyeTBGZW5kdVgxQzI3WWJ2ckM2THl3NExqa3czRDVROTlteHAwbl9sN3JwbHd1UlVrQVMtNDdJRjR3X2JB?oc=5
-
-## Jason Kelce Rates Travis Kelce's Singing Ability After Taylor Swift Wedding Duet - E! News
-
-- first seen: 2026-07-21 18:38 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Jason Kelce Rates Travis Kelce's Singing Ability After Taylor Swift Wedding Duet  E! News
-- sources:
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQR2t3dDNiRDc3RktKQWItUWxDcFZITzhocUJmQXJvREg1bzVwSDNLZmV1Ull3WUZ5dFN4bjFYT0lhcHgzWVdGNlpCN1RWc0JxeHBPclB3NVpWb3l1M2s2TjNCa29pRjllek5Nb25yNy1EeVBRendxZ3gyTlFielU5Ql80alRVZ3h0LXBhSnFRSDBuV1pNQU5MaXZjWG5jU1Nxcm04c19oX0s?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOWmlYYm9sZE1ZOGp1eTNoRmNZRTkzSzBLNXR5WS1BNTVWTGN1X3dVNk5mM3pWUG50S1NOMmZaSkM5WXFmT05rMzZuLV84ZERPd0ZCcmFXR1lVQXU0Z3pybHVmNF8teVN6M01WdjcxbV9fRFY0UGVqRGhzOXVSWlM5RC05bTlwOTZVYXExRkF6VFE5b29BckswTi1ROTV5QQ?oc=5
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMiowFBVV95cUxQUlBoUU5fb3FmbXFJSjVKa3R0azhaUkcyaXJHTjl3UjNSZk1PamY0OENLazJGUXZSWEdERHE5dTNiZGZrcXJ3emNjbHZHYnN0NXlja01PRTFNQ1hfVkxIelhZckN1SFhpMUR0WU9VMGxsNVU2VlZBZWxCSmQxTDZfZzZBbDV0bUtQVFRpbWFqTGhnbFZpWTBvRWZkMFRZcTZKVU9z?oc=5
 
 ## Jason Kelce spills on Travis’ surprise wedding performance for Taylor Swift - Page Six
 
@@ -984,27 +1010,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: Shaquille O'Neal Jokingly Thanks Taylor Swift, Travis Kelce for Not Inviting Him to MSG Wedding  Bleacher Report
 - sources:
   - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiywFBVV95cUxQNXNHb3VmZVVUZjhNN2hURTJoR3FMb1puYkt0YkhEX3hvLXFpaXdyVzZzZU82cWVzVGNqcGxGWUNlUUtmUjBGS3d5WW9GTlpQLXluSFc4aGIydVViTXNhM0Y3UW40NG5FS3U5SjAtX3U0andueGpabTVJOERGbFJwMFdRMGVBanJnS0k4cG1JVDh1UkdtdEdyWnAzcjRUa3hWeEVTZzJsTGpjdGU1VHEwWnBDdHY5LVgxdzUtS0QxRC1hVjRHWG1wdEFsaw?oc=5
-
-## Robert Irwin Extends Incredible Offer to Taylor Swift and Travis Kelce - InspireMore
-
-- first seen: 2026-07-19 19:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Robert Irwin Extends Incredible Offer to Taylor Swift and Travis Kelce  InspireMore
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMioAFBVV95cUxPOU1nX2JWT0IyLXFMamdUUDE1N3dBNjJYaGU0RU1ZN25sSlZnVHM3d0hyX0VWNjBIRU5HM0doQXJ5eHRRNUtxZjYyMVhXX1l2cTVodFpIODFVOVl5ekRib0Y0amJ6LU5rdFFKUEpOX1BRUlZxSEg5YlZTOEpLRzQ0aUxyMDJHWkx1RXM4cl9FY0RiNGdpREhHa2VJZTdyT01y?oc=5
-
-## The 1975’s Matty Healy marries Gabbriette Bechtel after 3 years together - Entertainment Weekly
-
-- first seen: 2026-07-19 19:20 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: The 1975’s Matty Healy marries Gabbriette Bechtel after 3 years together  Entertainment Weekly
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMie0FVX3lxTE9Sc3QtTDFUalN0cl9WWFJGb29VdUpLQWZvUDFrcWRqYjBhYVZOQktZa01qQ0MwOF9jaENsMHNaamkyQ1dhcHowQUMyeXlQQVJkM3ZrMXg4YlJqQm9HczdWSzl1S3htT2c2LWFvODVyT1dVUV9QNjk4M2JWMA?oc=5
-
-## Brad Paisley Calls Taylor Swift’s MSG Wedding ‘1 of the Least Pretentious’ Ceremonies He’s Attended 
-
-- first seen: 2026-07-19 19:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley Calls Taylor Swift’s MSG Wedding ‘1 of the Least Pretentious’ Ceremonies He’s Attended  Us Weekly
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMingFBVV95cUxPV2F4UGUyd1h1d25tOW5NVjJYVXFUU29HUjN3U3FlTEktby1BMFVBTlMwZnBYX0JtRFlWOXM4Y2V5X19tVWpraEJ1VUx3dk1hZlNDV25YWGhDeFM4VjhjdzM4dm4yQWczanVvb3VMNnhSend5cVJOZHRzVXYwUnNrTUxaaEZqZG5ocGVtV2t0N0JTaWZ3dF9ZZHJoaGRkQQ?oc=5
