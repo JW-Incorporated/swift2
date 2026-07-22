@@ -554,12 +554,30 @@ export function MomentDetail() {
     inlineSlots[target - 1]?.push(img);
   });
 
+  // Names the sheet for assistive tech; see the dialog root below.
+  const detailTitleId = `moment-detail-title-${item.id}`;
+
   // Open the full-screen photo viewer at a given image (matched by identity).
   const openLightbox = (img: ImageRef) => setLightboxIndex(Math.max(0, item.images.indexOf(img)));
 
   return (
+    // A MODAL, and now labelled as one. This sheet covers the viewport, locks
+    // background scroll, traps Escape and offers a Close button — but it
+    // carried no role at all, so assistive tech announced an anonymous div and
+    // never told the reader a dialog had opened or what it was about. Only the
+    // photo viewer nested inside it was ever a real dialog.
+    //
+    // Found via the E2E synthetic monitor, which had been looking for
+    // `getByRole('dialog')` since it was written. That expectation was correct
+    // and the app never satisfied it; the run was red for a real reason.
+    //
+    // Labelled BY the h1 rather than with a duplicate aria-label string, so the
+    // accessible name can never drift from the visible title.
     <div
       ref={scrollRef}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby={detailTitleId}
       className="fixed inset-0 z-50 overflow-y-auto overscroll-contain bg-[color:var(--era-bg)] detail-enter"
       style={eraStyle(era)}
     >
@@ -641,7 +659,10 @@ export function MomentDetail() {
             <SignificanceBadge significance={item.significance} size="detail" />
           </div>
         )}
-        <h1 className="mt-2 font-[family-name:var(--era-font)] text-balance text-4xl font-semibold leading-tight sm:text-5xl">
+        <h1
+          id={detailTitleId}
+          className="mt-2 font-[family-name:var(--era-font)] text-balance text-4xl font-semibold leading-tight sm:text-5xl"
+        >
           {item.title}
         </h1>
 

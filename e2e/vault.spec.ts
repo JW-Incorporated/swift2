@@ -81,33 +81,29 @@ test.describe('Vault smoke', () => {
     await gotoVault(page);
     await enterEra(page);
 
-    // Find the first era that offers a filter with at least two categories, so
-    // selecting one category is guaranteed to hide some items.
-    const eras = page.locator('section[data-era]');
-    const count = await eras.count();
+    // This used to loop over `section[data-era]` hunting for an era with a 2+
+    // category filter. That selector matches ZERO elements — the attribute is
+    // `data-ll-section` (the same rename that already caught `data-ll-item`) —
+    // so the loop body never ran and the assertion below failed on a null
+    // target in about a second. Not a timeout, and not the site: the filter
+    // works, with five chips.
+    //
+    // The search is also obsolete now that `enterEra` steps INTO one era: there
+    // is exactly one section on screen, so scope to it instead of hunting.
+    const era = page.locator('section[data-ll-section]').first();
+    await expect(era).toBeVisible();
 
-    let target: Locator | null = null;
-    let chips: Locator | null = null;
-    for (let i = 0; i < count; i += 1) {
-      const era = eras.nth(i);
-      const filterToggle = era.getByRole('button', { name: /^Filter/ });
-      if ((await filterToggle.count()) === 0) continue;
-      await filterToggle.first().scrollIntoViewIfNeeded();
-      await filterToggle.first().click();
-      const group = era.getByRole('group', { name: /Filter .* by category/ });
-      const chipButtons = group.getByRole('button');
-      if ((await chipButtons.count()) >= 2) {
-        target = era;
-        chips = chipButtons;
-        break;
-      }
-      // Not enough categories here — collapse and keep looking.
-      await filterToggle.first().click();
-    }
+    const filterToggle = era.getByRole('button', { name: /^Filter/ }).first();
+    await filterToggle.scrollIntoViewIfNeeded();
+    await filterToggle.click();
 
-    expect(target, 'expected at least one era with a 2+ category filter').not.toBeNull();
-    const era = target as Locator;
-    const chipButtons = chips as Locator;
+    const chipButtons = era
+      .getByRole('group', { name: /Filter .* by category/ })
+      .getByRole('button');
+    expect(
+      await chipButtons.count(),
+      'expected this era to offer 2+ category chips',
+    ).toBeGreaterThanOrEqual(2);
 
     const before = await monthItems(era).count();
     expect(before).toBeGreaterThan(0);
@@ -115,11 +111,13 @@ test.describe('Vault smoke', () => {
     // Record scroll position right before applying the filter.
     const beforeScroll = await scrollTop(page);
 
-    // Select the first category chip and read its label word (the chip is
-    // "<emoji> <Label>"; the last span is the plain label) so we can verify what
-    // survives the filter.
+    // Select the first category chip and read its label so we can verify what
+    // survives the filter. The chip is an icon + a bare text node — it has no
+    // span at all. The old locator described an earlier "<emoji> <Label>" chip
+    // whose label lived in a span; against the current lucide-icon chip it
+    // matched nothing and hung until the 45s test timeout.
     const chip = chipButtons.first();
-    const label = (await chip.locator('span').last().innerText()).trim();
+    const label = (await chip.innerText()).trim();
     await chip.click();
     await expect(chip).toHaveAttribute('aria-pressed', 'true');
 
@@ -129,10 +127,25 @@ test.describe('Vault smoke', () => {
     const after = await monthItems(era).count();
     expect(after).toBeGreaterThan(0);
 
-    // Every surviving card carries the selected category's badge.
-    for (let i = 0; i < after; i += 1) {
-      await expect(monthItems(era).nth(i)).toContainText(label);
-    }
+    // At least one surviving card shows the selected category's badge, so we
+    // know the RIGHT category survived rather than an arbitrary subset.
+    //
+    // This deliberately no longer asserts on EVERY surviving card. The tiered
+    // grid (#1017 / the founder's "smaller size for fluff, more screen for big
+    // events") renders no TagRow on the compact tier, so a small card that
+    // matches the filter correctly still shows no badge to match against. The
+    // old every-card loop encoded a single-tier layout and would now fail on
+    // correct behaviour.
+    await expect(monthItems(era).filter({ hasText: label }).first()).toBeVisible();
+
+    // Toggling the chip back off restores the full set — the items were hidden
+    // in place, not dropped. This is the part the every-card loop was really
+    // protecting, and it holds regardless of which tier renders a badge.
+    await chip.click();
+    await expect(chip).toHaveAttribute('aria-pressed', 'false');
+    await expect.poll(async () => monthItems(era).count()).toBe(before);
+    await chip.click();
+    await expect(chip).toHaveAttribute('aria-pressed', 'true');
 
     // The scrubber / page did not jump while filtering in place.
     const afterScroll = await scrollTop(page);
@@ -145,7 +158,13 @@ test.describe('Vault smoke', () => {
 
     const item = monthItems(page).first();
     await item.scrollIntoViewIfNeeded();
-    const itemTitle = (await item.locator('span').first().innerText()).trim();
+    // The card's TITLE, via its heading. This used to read `span` #1, which is
+    // the DATE ("December 25") — MomentMeta renders the date label first. So
+    // the test then waited 15s for a dialog named after a date and timed out on
+    // every run, while the sheet itself opened correctly. Every card tier
+    // (event / compact / default) puts the title in an h3, so this holds across
+    // the tier-driven grid rather than depending on span order within it.
+    const itemTitle = (await item.getByRole('heading').first().innerText()).trim();
 
     await item.click();
 
@@ -187,18 +206,39 @@ test.describe('Vault smoke', () => {
 
     // The reader opens on the most recent era.
     const startValue = await slider.getAttribute('aria-valuenow');
-    const startAlbum = await slider.getAttribute('aria-valuetext');
+    // aria-valuetext is a MONTH ("Jul 2026"), not an album/era name — the
+    // `startAlbum` naming this replaces dated from when it was the latter.
+    const startMonth = await slider.getAttribute('aria-valuetext');
     expect(startValue).not.toBeNull();
 
-    // Keyboard nav is the deterministic path (pointer-drag is flaky headless):
-    // ArrowUp moves to an earlier era. The scroll-spy then updates the active
-    // era indicator.
+    // Keyboard nav is the deterministic path (pointer-drag is flaky headless).
+    //
+    // ArrowDOWN, not Up. The rail is oriented newest-at-top, so ArrowUp steps
+    // toward `end` (newer) via Math.min(end, ...) — and the reader opens ALREADY
+    // at the newest date, which makes ArrowUp a no-op there. The test pressed
+    // ArrowUp and then waited for a value change that could never come. The old
+    // comment here asserted the opposite of what the component does.
     await slider.focus();
-    await page.keyboard.press('ArrowUp');
+    await page.keyboard.press('ArrowDown');
 
     await expect.poll(async () => slider.getAttribute('aria-valuenow')).not.toBe(startValue);
-    const movedAlbum = await slider.getAttribute('aria-valuetext');
-    expect(movedAlbum).not.toBe(startAlbum);
+
+    // The month label needs MORE than one press. A step is span/24, so inside a
+    // dense era a single step often lands in the same month — asserting a
+    // changed month after one ArrowDown failed on correct behaviour. Keep
+    // stepping until the label moves, which is the real claim: scrubbing
+    // actually travels through time.
+    await expect
+      .poll(
+        async () => {
+          const now = await slider.getAttribute('aria-valuetext');
+          if (now !== startMonth) return now;
+          await page.keyboard.press('ArrowDown');
+          return startMonth;
+        },
+        { timeout: 15_000 },
+      )
+      .not.toBe(startMonth);
 
     // The navigator remains present and reachable at other scroll positions.
     await page.evaluate(() => {
