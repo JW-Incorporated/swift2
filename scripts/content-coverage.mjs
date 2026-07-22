@@ -122,9 +122,14 @@ function quotedSpans(text) {
 }
 
 // Any single text field above the DB's largest cap is a body dump regardless
-// of quoting (moment.context CHECK is 4000 since 2026-07-22; validate-content errors that too —
-// this is CI defense-in-depth at the same line).
+// of quoting. This gate is CI defense-in-depth mirroring validate-content.mjs,
+// which caps only moment.context higher: that field's DB CHECK was raised
+// 2000 -> 4000 on 2026-07-22 (founder decision, PR #1199 +
+// supabase/migrations/20260722120000_moment_context_4000.sql). Every other
+// text field (title, snippet, track note, typed-row fields) stays at 2000.
 const FIELD_FAIL_CHARS = 2000;
+const CONTEXT_FAIL_CHARS = 4000;
+const capFor = (field) => (field === 'moment.context' ? CONTEXT_FAIL_CHARS : FIELD_FAIL_CHARS);
 
 // Private-address / real-time-location / stalking data. Precise patterns
 // only — editorial prose legitimately names streets ("Cornelia Street") and
@@ -276,7 +281,8 @@ for (const { file, fileEra, row: it } of content.rows) {
   ]) {
     if (!text) continue;
     if (looksLikeLyricsBlock(text)) hardFails.push(`${at} [${field}]: verse-like multi-line block — looks like stored lyrics`);
-    if (text.length > FIELD_FAIL_CHARS) hardFails.push(`${at} [${field}]: ${text.length} chars — article/body dump (> ${FIELD_FAIL_CHARS})`);
+    const cap = capFor(field);
+    if (text.length > cap) hardFails.push(`${at} [${field}]: ${text.length} chars — article/body dump (> ${cap})`);
     for (const span of quotedSpans(text)) {
       if (span.length >= QUOTE_FAIL_CHARS) hardFails.push(`${at} [${field}]: verbatim quoted span of ${span.length} chars (>= ${QUOTE_FAIL_CHARS}) — statement/article dump`);
       else if (span.length >= QUOTE_WARN_CHARS) longExcerpts += 1;
