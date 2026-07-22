@@ -210,6 +210,11 @@ export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-jonas',
     name: 'Joe Jonas',
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/Joe_Jonas_Raleigh_928_%28cropped%29.jpg/330px-Joe_Jonas_Raleigh_928_%28cropped%29.jpg',
+      credit: 'NotAnotherAKA · CC BY-SA 4.0',
+      alt: 'Portrait of Joe Jonas.',
+    },
     start: '2008-07-01',
     end: '2008-10-15',
     eraIds: ['debut', 'fearless'],
@@ -223,6 +228,11 @@ export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-lautner',
     name: 'Taylor Lautner',
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Taylor_Lautner_by_Gage_Skidmore.jpg/330px-Taylor_Lautner_by_Gage_Skidmore.jpg',
+      credit: 'Gage Skidmore · CC BY-SA 3.0',
+      alt: 'Portrait of Taylor Lautner.',
+    },
     start: '2009-09-01',
     end: '2009-12-01',
     eraIds: ['fearless'],
@@ -236,6 +246,11 @@ export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-mayer',
     name: 'John Mayer',
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/JohnMayerin2019.jpg/330px-JohnMayerin2019.jpg',
+      credit: 'Thatcommonkid · CC BY-SA 4.0',
+      alt: 'Portrait of John Mayer.',
+    },
     start: '2009-12-01',
     end: '2010-02-01',
     eraIds: ['fearless'],
@@ -250,6 +265,11 @@ export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-gyllenhaal',
     name: 'Jake Gyllenhaal',
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Jake_Gyllenhaal_2019_by_Glenn_Francis.jpg/330px-Jake_Gyllenhaal_2019_by_Glenn_Francis.jpg',
+      credit: 'Toglenn · CC BY-SA 4.0',
+      alt: 'Portrait of Jake Gyllenhaal.',
+    },
     start: '2010-10-01',
     end: '2011-01-01',
     eraIds: ['fearless', 'speak-now'],
@@ -275,6 +295,11 @@ export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-styles',
     name: 'Harry Styles',
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b2/HarryStylesWembley170623_%2865_of_93%29_%2852982678051%29_%28cropped_2%29.jpg/330px-HarryStylesWembley170623_%2865_of_93%29_%2852982678051%29_%28cropped_2%29.jpg',
+      credit: 'Raph_PH · CC BY 2.0',
+      alt: 'Portrait of Harry Styles.',
+    },
     start: '2012-12-01',
     end: '2013-01-07',
     eraIds: ['red'],
@@ -288,6 +313,11 @@ export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-harris',
     name: 'Calvin Harris',
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/Calvin_Harris_-_Press_Image_1.tif/lossy-page1-330px-Calvin_Harris_-_Press_Image_1.tif.jpg',
+      credit: 'Sony BMG · CC BY 3.0',
+      alt: 'Portrait of Calvin Harris.',
+    },
     start: '2015-03-01',
     end: '2016-06-01',
     eraIds: ['1989'],
@@ -302,6 +332,11 @@ export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-hiddleston',
     name: 'Tom Hiddleston',
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Tom_Hiddleston_at_the_2024_Toronto_International_Film_Festival_%28cropped%29.jpg/330px-Tom_Hiddleston_at_the_2024_Toronto_International_Film_Festival_%28cropped%29.jpg',
+      credit: 'Kevin Payravi · CC BY-SA 4.0',
+      alt: 'Portrait of Tom Hiddleston.',
+    },
     start: '2016-06-15',
     end: '2016-09-06',
     eraIds: ['1989', 'reputation'],
@@ -314,6 +349,11 @@ export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-alwyn',
     name: 'Joe Alwyn',
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Joseph_Alwyn.jpg/330px-Joseph_Alwyn.jpg',
+      credit: 'H7ndrx · CC0',
+      alt: 'Portrait of Joe Alwyn.',
+    },
     start: '2016-11-12',
     end: '2023-04-08',
     eraIds: ['reputation', 'lover', 'folklore', 'evermore', 'midnights'],
@@ -335,6 +375,11 @@ export const RELATIONSHIPS: Relationship[] = [
   {
     id: 'rel-kelce',
     name: 'Travis Kelce',
+    image: {
+      url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Travis_Kelce_in_the_Oval_Office_of_the_White_House_on_June_5%2C_2023_-_P20230605AS-0902_%28cropped%29.jpg/330px-Travis_Kelce_in_the_Oval_Office_of_the_White_House_on_June_5%2C_2023_-_P20230605AS-0902_%28cropped%29.jpg',
+      credit: 'Adam Schultz · Public domain',
+      alt: 'Portrait of Travis Kelce.',
+    },
     start: '2023-09-24',
     end: null,
     eraIds: ['midnights', 'ttpd', 'tloas'],

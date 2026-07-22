@@ -24,6 +24,10 @@ function entryColor(entry: LoveStoryEntry): string {
 export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntry; timeline: LoveStoryEntry[]; onClose: () => void }) {
   const isRel = entry.kind === 'relationship';
   const color = entryColor(entry);
+  // Only relationships carry a portrait, and only when the subject is a public
+  // figure. Most are CC BY-SA, so the credit line below is a licence condition,
+  // not a nicety.
+  const portrait = entry.kind === 'relationship' ? entry.image : undefined;
   // Auto-derived Era cross-links (issue #436): everything tagged into the
   // Love Story thread whose date falls inside this entry's own window — not
   // hand-authored per relationship/solo period.
@@ -37,9 +41,24 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
         </button>
 
         <div className="flex items-start gap-3 pr-6">
-          <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full" style={{ background: `${color}22` }}>
-            {isRel ? <Heart size={14} style={{ color }} /> : <Star size={14} style={{ color: 'var(--era-ink-soft)' }} />}
-          </div>
+          {/* A portrait when we have one, the heart glyph otherwise. Wyatt,
+              2026-07-22: "when I click on a relationship, it should have a
+              picture of the guy." Not every entry gets one — a solo period has
+              no subject, and one relationship is deliberately left without a
+              photo because he is not a public figure in his own right. */}
+          {portrait ? (
+            <img
+              src={portrait.url}
+              alt={portrait.alt}
+              loading="lazy"
+              className="mt-0.5 size-11 shrink-0 rounded-full object-cover"
+              style={{ boxShadow: `0 0 0 2px ${color}55` }}
+            />
+          ) : (
+            <div className="mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full" style={{ background: `${color}22` }}>
+              {isRel ? <Heart size={14} style={{ color }} /> : <Star size={14} style={{ color: 'var(--era-ink-soft)' }} />}
+            </div>
+          )}
           <div>
             <p className="text-base font-semibold leading-tight" style={{ color: 'var(--era-ink)' }}>
               {isRel ? entry.name : 'Solo'}
@@ -48,6 +67,13 @@ export function EntryDetail({ entry, timeline, onClose }: { entry: LoveStoryEntr
               {fmtYear(entry.start)} – {entry.end ? fmtYear(entry.end) : 'present'} · {durationLabel(entry.start, entry.end)}
               {!isRel && ` · ${monthsBetween(entry.start, entry.end)} months solo`}
             </p>
+            {/* Attribution is a LICENCE CONDITION on the CC BY-SA portraits,
+                not a nicety — it has to render, not sit in the data. */}
+            {portrait && (
+              <p className="mt-0.5 text-[10px]" style={{ color: 'var(--era-ink-soft)' }}>
+                {portrait.credit}
+              </p>
+            )}
           </div>
         </div>
 
