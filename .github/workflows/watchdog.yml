@@ -32,11 +32,17 @@ on:
 permissions:
   issues: write
   actions: write
+  contents: read
 
 jobs:
   watchdog:
     runs-on: ubuntu-latest
     steps:
+      # Added 2026-07-23: alert steps now call scripts/watchdog/upsert-alert.sh
+      # and send-mail.py, which need the repo checked out -- this workflow
+      # previously ran entirely on gh/curl and never needed it.
+      - uses: actions/checkout@v7
+
       - name: Check today's Founders' Brief exists
         id: brief
         env:
@@ -87,12 +93,17 @@ jobs:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
           TODAY: ${{ steps.brief.outputs.today }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
-          ALERT_TITLE="Watchdog: no Founders' Brief for ${TODAY}"
-          EXISTING=$(gh issue list --repo "$REPO" --label watchdog-alert \
-            --search "\"$ALERT_TITLE\" in:title" --state open --json number --jq '.[0].number // empty')
-          BODY="@sffan15-sys @wjduvall-cmd — Marjorie's 6:00 AM brief for ${TODAY} has not been posted.
+          # Persistent title (no date) so a multi-day gap is one evolving
+          # issue, not a new disconnected one every day -- see
+          # scripts/watchdog/upsert-alert.sh header for why this changed.
+          ALERT_TITLE="Watchdog: no Founders' Brief"
+          cat > /tmp/alert-body.md <<EOF
+          @sffan15-sys @wjduvall-cmd — Marjorie's 6:00 AM brief for ${TODAY} has not been posted (as of $(date -u +'%H:%M UTC')).
 
           Degraded mode (charter: docs/agents/marjorie.md): the decision bank still works —
           read the open [founder-decision issues](https://github.com/${REPO}/issues?q=is%3Aissue+is%3Aopen+label%3Afounder-decision)
@@ -100,13 +111,22 @@ jobs:
           workflow's propagation job relays them to the tickets they unblock.
 
           Likely cause: the Marjorie session/cron didn't run. Restart it, or run
-          \`node scripts/marjorie/assemble-brief.mjs\` for the skeleton."
-          if [ -n "$EXISTING" ]; then
-            gh issue comment "$EXISTING" --repo "$REPO" --body "Still missing as of $(date -u +'%H:%M UTC')."
-          else
-            gh issue create --repo "$REPO" --label watchdog-alert \
-              --title "$ALERT_TITLE" --body "$BODY"
-          fi
+          \`node scripts/marjorie/assemble-brief.mjs\` for the skeleton.
+          EOF
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
+
+      - name: Founders' Brief recovered (self-close)
+        if: steps.brief.outputs.missing == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          echo "Today's brief exists — closing any open alert." > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh close "Watchdog: no Founders' Brief" /tmp/alert-body.md
 
       - name: Degraded-mode propagation (founder answers → Affects tickets)
         if: steps.brief.outputs.missing == 'true'
@@ -144,6 +164,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
           URL="https://www.longlivets.com/"
@@ -151,18 +174,17 @@ jobs:
           OK=true
           [ "$CODE" = "200" ] || OK=false
           grep -qi "taylor\|era\|swift" /tmp/smoke.html || OK=false
-          if [ "$OK" = "true" ]; then echo "smoke OK ($CODE)"; exit 0; fi
-          TODAY=$(TZ=America/Los_Angeles date +%F)
-          ALERT_TITLE="Watchdog: prod smoke check FAILED ${TODAY} (HTTP ${CODE})"
-          EXISTING=$(gh issue list --repo "$REPO" --label watchdog-alert \
-            --search "\"$ALERT_TITLE\" in:title" --state open --json number --jq '.[0].number // empty')
-          if [ -n "$EXISTING" ]; then
-            gh issue comment "$EXISTING" --repo "$REPO" --body "Still failing at $(date -u +'%H:%M UTC') (HTTP ${CODE})."
-          else
-            gh issue create --repo "$REPO" --label watchdog-alert \
-              --title "$ALERT_TITLE" \
-              --body "@sffan15-sys @wjduvall-cmd — ${URL} returned HTTP ${CODE} or missing expected content at $(date -u +'%H:%M UTC'). Check the Vercel dashboard; last deploys are listed on merged PRs. This is the daily zero-AI smoke check from watchdog.yml."
+          # Persistent title (no date/code) so a multi-day outage is one
+          # evolving issue, and so it self-heals cleanly once fixed.
+          ALERT_TITLE="Watchdog: prod smoke check failing"
+          if [ "$OK" = "true" ]; then
+            echo "smoke OK ($CODE)"
+            echo "$URL is back to HTTP 200 with expected content as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            exit 0
           fi
+          echo "@sffan15-sys @wjduvall-cmd — ${URL} returned HTTP ${CODE} or missing expected content at $(date -u +'%H:%M UTC'). Check the Vercel dashboard; last deploys are listed on merged PRs. This is the daily zero-AI smoke check from watchdog.yml." > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
           exit 1
 
       # Scheduled-workflow cadence check (2026-07-19, Wyatt). The news-worker
@@ -175,6 +197,9 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
         run: |
           set -euo pipefail
           # workflow:max-age-hours — a workflow with NO successful run inside
@@ -199,30 +224,87 @@ jobs:
           done
 
           ALERT_TITLE="Watchdog: scheduled workflow(s) not succeeding"
-          EXISTING=$(gh issue list --repo "$REPO" --label watchdog-alert \
-            --search "\"$ALERT_TITLE\" in:title" --state open --json number --jq '.[0].number // empty')
 
           if [ -z "$BROKEN" ]; then
-            # Self-healing: close a stale alert once everything recovers.
-            if [ -n "$EXISTING" ]; then
-              gh issue comment "$EXISTING" --repo "$REPO" \
-                --body "All watched workflows are succeeding again as of $(date -u +'%H:%M UTC'). Closing."
-              gh issue close "$EXISTING" --repo "$REPO"
-            fi
+            echo "All watched workflows are succeeding as of $(date -u +'%H:%M UTC')." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             echo "cadence OK"
             exit 0
           fi
 
-          BODY="@sffan15-sys @wjduvall-cmd — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss).
+          {
+            echo "@sffan15-sys @wjduvall-cmd — a scheduled workflow is running but never succeeding, which is silent by nature (a failing job produces no output to miss)."
+            echo ""
+            printf "%b" "$BROKEN"
+            echo "Check the run logs: https://github.com/${REPO}/actions"
+            echo ""
+            echo "Most common cause: a required repo secret is unset or misnamed. Note that **Vercel environment variables are NOT GitHub Actions secrets** — the news-worker reads repo-level Actions secrets (Settings → Secrets and variables → Actions), not Vercel's env store, and not *Environment*-scoped secrets (its job declares no \`environment:\`)."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md
 
-          $(printf "%b" "$BROKEN")
-          Check the run logs: https://github.com/${REPO}/actions
+      # Content Shift liveness check (2026-07-23). Content Shift is a
+      # Wyatt-account cloud routine (docs/agents/runners.md), not a GitHub
+      # Actions workflow, so it's invisible to the cadence check above.
+      # Confirmed this session: it went silent after 2026-07-22 with zero
+      # trace anywhere (no PR, no stranded branch, no ticket comment) despite
+      # its own charter's rule 8 ("never exit silently") — that rule is
+      # LLM-prompt-compliance-dependent and had already regressed once
+      # before. This check is independent of the agent's own behavior: it
+      # only trusts objective git/gh history.
+      #
+      # Match on the PR TITLE PREFIX "content(shift): ", not the shared
+      # `content-shift` LABEL — the charter itself documents that the hourly
+      # photo-enrichment worker also labels its own PRs `content-shift`, so
+      # a label-only check would false-positive on that unrelated bot's
+      # activity and mask real Content Shift silence.
+      #
+      # Window is 30h: Content Shift runs at 17:00/23:00 UTC, so the
+      # worst-case gap between two scheduled attempts is 18h — 30h tolerates
+      # one missed slot without false-alarming, while still catching real
+      # multi-day silence within a day and a half.
+      #
+      # Known, accepted limitation: a genuinely idle run (queue empty) also
+      # leaves no PR, so this can fire on a real quiet stretch, not just a
+      # dead routine. The charter treats an idle exit as itself worth
+      # surfacing ("if all three priorities are empty... that is itself a
+      # finding"), so a nudge to confirm "quiet week or actually dead?" is a
+      # reasonable, low-cost outcome either way — not a bug to engineer
+      # around. Scoped to Content Shift only for now (the one agent with
+      # directly confirmed silent failure); extending to other cloud-routine
+      # agents (Nils, Kevin, Laura, Paul Blart, Austin, Growth) is a cheap
+      # follow-up if/when they're actually observed to go dark too.
+      - name: Content Shift liveness check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          MARJORIE_EMAIL: ${{ vars.MARJORIE_EMAIL }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: |
+          set -euo pipefail
+          WINDOW_HOURS=30
+          CUTOFF=$(date -u -d "-${WINDOW_HOURS} hours" +%Y-%m-%dT%H:%M:%SZ)
+          # gh pr list sorts newest-first by default (confirmed empirically) —
+          # 100 comfortably covers this repo's real PR volume (~8/day from
+          # this session's own observation) within a 30h window.
+          RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
+            --json title,createdAt \
+            --jq "[.[] | select(.title | startswith(\"content(shift): \")) | select(.createdAt >= \"$CUTOFF\")] | length")
 
-          Most common cause: a required repo secret is unset or misnamed. Note that **Vercel environment variables are NOT GitHub Actions secrets** — the news-worker reads repo-level Actions secrets (Settings → Secrets and variables → Actions), not Vercel's env store, and not *Environment*-scoped secrets (its job declares no \`environment:\`)."
+          ALERT_TITLE="Watchdog: Content Shift hasn't produced a PR in ${WINDOW_HOURS}h"
 
-          if [ -n "$EXISTING" ]; then
-            gh issue comment "$EXISTING" --repo "$REPO" --body "$BODY"
-          else
-            gh issue create --repo "$REPO" --label watchdog-alert \
-              --title "$ALERT_TITLE" --body "$BODY"
+          if [ "$RECENT" -gt 0 ]; then
+            echo "Content Shift is active — $RECENT PR(s) titled 'content(shift): ' in the last ${WINDOW_HOURS}h." > /tmp/alert-body.md
+            scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
+            echo "content shift OK ($RECENT recent PRs)"
+            exit 0
           fi
+
+          {
+            echo "@sffan15-sys @wjduvall-cmd — no PR titled \`content(shift): \` in the last ${WINDOW_HOURS}h. Content Shift runs twice daily (17:00/23:00 UTC, docs/agents/runners.md) — this either means a genuinely quiet news cycle (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
+            echo ""
+            echo "Check first: \`gh pr list --state all --search \"content(shift): in:title\"\` for the most recent one, and whether a \`content-shift/*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash, per docs/agents/content-shift.md's own diagnosed-failure history)."
+            echo ""
+            echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
+          } > /tmp/alert-body.md
+          scripts/watchdog/upsert-alert.sh open "$ALERT_TITLE" /tmp/alert-body.md

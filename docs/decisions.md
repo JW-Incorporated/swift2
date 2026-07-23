@@ -7,6 +7,46 @@ Format: date, decision, why, alternatives considered, who approved.
 
 ---
 
+## 2026-07-23 — Watchdog alerts weren't reaching anyone; Content Shift had no liveness check at all
+
+**Decision:** Joey asked how to close the gap between "agents are instructed
+to leave a memory trace when something goes wrong" and "that trace reliably
+exists." Investigation, prompted by Content Shift and Marjorie's brief both
+going silent for multiple days: `watchdog.yml` was already correctly firing
+a "no Founders' Brief" alert every single day since 07-20 (#947, #1177,
+#1203, #1224) — all four sat open, uncommented, because they only relied on
+GitHub `@sffan15-sys` / `@wjduvall-cmd` mentions, which `brief-mailer.yml`'s
+own header already documents don't reach the founders' real inboxes (bot
+identities, not monitored accounts). Separately, Content Shift — a
+Wyatt-account cloud routine with no GitHub Actions workflow file — was
+entirely invisible to the existing cadence check, which only watches
+Actions-native workflows; its own charter's "never exit silently" rule was
+the only safety net, and it's LLM-prompt-compliance-dependent (the charter
+itself documents this exact rule already regressing once before).
+
+**Fix:** (1) every `watchdog-alert` issue now gets a real email via
+`scripts/watchdog/send-mail.py` (extracted from `brief-mailer.yml`'s proven
+SMTP path — no new credentials needed). (2) Alert issues are now persistent
+— one evolving issue per condition (`scripts/watchdog/upsert-alert.sh`),
+not a new disconnected one every day. (3) Added a Content Shift liveness
+check to `watchdog.yml`: alerts if no PR titled `content(shift): ` has
+landed in 30h (its cadence is 17:00/23:00 UTC, so this tolerates one missed
+slot). Deliberately scoped to Content Shift only, not all cloud-routine
+agents — extending the same check to Nils/Kevin/Karen/Laura/Paul
+Blart/Austin/Growth is cheap if/when one of them is actually observed going
+dark, not pre-built speculatively.
+
+**Alternatives considered:** a formal per-agent `memory/` directory
+(heavier, bigger surface area, not needed to close the acute gap); moving
+memory-writes to the front of each agent's own run sequence instead of
+detecting externally (still LLM-compliance-dependent, doesn't fix the
+"alerts aren't seen" half of the problem on its own).
+
+**Approved by:** Joey (requested directly; flagged for Wyatt's visibility
+since it changes agent-fleet monitoring architecture he owns — not gated on
+his sign-off, since this only touches this repo's own `.github/workflows/`
+and doesn't touch his cloud-routine accounts).
+
 ## 2026-07-21 — Growth desk had no scheduled runner; the queue was empty by default, not broken
 
 **Decision:** Joey asked why social media wasn't posting multiple times a day. Root cause: `social-poster.yml` (the shipping half) has run flawlessly every 30 minutes since 2026-07-17 — every run succeeds, because it correctly finds nothing to post. `social/queue/` has been empty since the Electric Lady post on 7/17. Marjorie already diagnosed this exact gap in issue #864 (2026-07-18): the Growth desk's charter (`docs/agents/growth.md`) describes a daily drafting cadence, but comparing against the runner registry (`docs/agents/runners.md`) — Marjorie, Austin, Nils, Content Shift, Kevin ×4, Karen, Paul Blart, and Laura all have scheduled cron routines; Growth had none. The charter existed; nobody was ever assigned the shift. The ticket sat open 3 days because the routine that would have picked it up didn't exist yet — a genuine chicken-and-egg gap, not a mislabeled founder blocker (which #864 itself already corrected once).

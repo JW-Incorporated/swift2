@@ -55,6 +55,34 @@ Four site-maintenance additions, designed in
   the internal `swift2-ten` alias to the public domain **www.longlivets.com**
   (see [`../deploy.md`](../deploy.md)).
 
+## Watchdog liveness checks (2026-07-23)
+
+`watchdog.yml`'s cadence check (above) only sees GitHub-Actions-native
+workflows — it's blind to the Wyatt-account cloud routines in the table
+above, which have no workflow file in this repo. Confirmed this session:
+Content Shift went silent for a full day+ with zero trace anywhere (no PR,
+no stranded branch, no ticket comment), invisible to any existing check.
+
+Added a per-agent liveness check for any cloud routine that reliably
+titles its own PRs with a fixed prefix — currently just **Content Shift**
+(`content(shift): ` prefix, checked against a 30h window — its cadence is
+17:00/23:00 UTC, so 30h tolerates one missed slot before alerting). Extending
+to another cloud-routine agent (Nils, Kevin, Karen, Laura, Paul Blart,
+Austin, Growth) is a few-line addition to the same job in `watchdog.yml`,
+once/if one of them is actually observed going dark the same way — not
+pre-built speculatively for all of them now.
+
+Also fixed: every `watchdog-alert` issue is now real-emailed via
+`scripts/watchdog/send-mail.py` (the same delivery path `brief-mailer.yml`
+uses), not just GitHub-mentioned. `@sffan15-sys` / `@wjduvall-cmd` mentions
+don't reach the founders' actual inboxes (see `marjorie.md` › Delivery) —
+that gap is exactly why four consecutive daily "no Founders' Brief" alerts
+(#947, #1177, #1203, #1224) sat open and uncommented-on for days. Alert
+issues are now persistent (one evolving issue per condition, non-date-
+titled) rather than minting a new disconnected one every day — see
+`scripts/watchdog/upsert-alert.sh`'s header for the mechanism both new and
+existing checks now share.
+
 ## Migration state (2026-07-12)
 
 All five cloud routines currently exist under **Joey's** account (created
