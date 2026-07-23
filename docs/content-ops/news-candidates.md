@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 113
+Stories: 114
+
+## Blake Lively Isn’t Getting the Same VIP Treatment Without Taylor Swift — Source - Yahoo
+
+- first seen: 2026-07-23 11:19 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively Isn’t Getting the Same VIP Treatment Without Taylor Swift — Source  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinAFBVV95cUxPTDQ1VHpsVE9WWGxCYnlXRGVhQWRXWDVQWjJMQVdaZ2tZaUtXUF8tS3NVaUlTTHdSNFpPZHp5LVhRRlp0SzlRZkljOUNCaXR5Rk5IUzUwTVg4N1NuS05DNElUYzFDVl9YWWpDYUd4aHlXbURFb1VVaHNRU3RWUXhuZ0U3bXNuUXp2T0xfcGdpNVVCT0NCRnhoVm4xYUM?oc=5
+
+## New AI Photo of Taylor Swift & Travis Kelce’s Honeymoon Has Everyone Saying the Same Thing - Yahoo
+
+- first seen: 2026-07-23 11:19 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: New AI Photo of Taylor Swift & Travis Kelce’s Honeymoon Has Everyone Saying the Same Thing  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOSFB3MHczb2I0YmZQVTBpRHpIRkdORjBhOXExVGdWM1pCV3EwZDhoT2pIN3FBUWM1dmxOSE5HU0F4OFExVW5ENVQ2ancwQjljdFhrVE1EWjZXcy1UQVVtaU1QWlJVX3BfQ2NHVHNJd3o4VjBROVRnU0hvWEgyT1V2ejl5eVc4YXVYZ0pibUZ6RS1GMTBxVHpWOEI2RHg0QVk?oc=5
+
+## ‘I Love Everything About Her’: Shania Twain Has Only Good Things to Say About Taylor Swift - Billboa
+
+- first seen: 2026-07-23 11:19 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: ‘I Love Everything About Her’: Shania Twain Has Only Good Things to Say About Taylor Swift  Billboard
+- sources:
+  - [unverified] Billboard — https://news.google.com/rss/articles/CBMiogFBVV95cUxPZ2NiOTBOZlVEQ09FY2pneU1SVkVsRnRteXZTNlZnQzlpWmhxYktabEpuS0FVSnNMU21xQmJXUkgtclo1U0hYWWtJZG1CQ2VzQ1VaNHpiWHBoaWVRb19lUXZEUDNDTlE4MjBrS1Q4WHoySF85LVgzcGVFcjNVallEc1J3a1RQWmVPRjl5Q1RyMThCdU1VQ2ZQa0xGSFdHeUc5TXc?oc=5
+
+## Shania Twain Visits THE TONIGHT SHOW to Discuss Harry Styles, Taylor Swift & New Album - BroadwayWor
+
+- first seen: 2026-07-23 11:19 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Shania Twain Visits THE TONIGHT SHOW to Discuss Harry Styles, Taylor Swift & New Album  BroadwayWorld
+- sources:
+  - [unverified] BroadwayWorld — https://news.google.com/rss/articles/CBMi0gFBVV95cUxQeXJMVENLQk5udHR2YVBfc0JMSVdUZFE0a3hPbW5sendtVHh1NDVYLVNCU3RBd0V0Qm56UV9wRzQ2aWJMeGhxenF4UWMxX1BzUjV4UUVuZ3lkbkFlQTBybGdKSG01TUJWVWgtcmFkQzM3YURxTXg0U1IyZlZfUGVzM09LRmtlUF83NS1JNVhJWU9QbXEwbF9pVmFLSHkxaVg0UTZNdEVhVmczNFF3dDhFdDA4cTlxTG12Z1BwUVJPS3U4RnI5SVdPV08ybWI4SGpFbVE?oc=5
 
 ## Taylor Swift's husband leaves fans saying the same thing over leaked retirement plans - Yahoo Sports
 
@@ -43,14 +75,6 @@ Stories: 113
 - sources:
   - [unverified] InspireMore — https://news.google.com/rss/articles/CBMirgFBVV95cUxOSmVWZEZOVlpXY3k4NXQxSEtxaHJJU1JSdlZ1VmF4cUppVnR0YVJKR0tyRU1hRC1Iam9KbDBSZldhSzhHRC1ibTRPWjliRlVtMmJKczVEa2djNTUwRTdRalU0NE9SMVBFR281WThTUVNiQjRnaW44anJzMjV4U0o0U3NIWU44aXZ0RG5QTjJhVGh5azNvc0luc2lYSVQxWlc2czMxcE9WNWx2SWVjakE?oc=5
 
-## Gracie Abrams’ Producer Responds to Speculation ‘Death Wish’ Song is About Taylor Swift - IMDb
-
-- first seen: 2026-07-23 04:28 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Gracie Abrams’ Producer Responds to Speculation ‘Death Wish’ Song is About Taylor Swift  IMDb
-- sources:
-  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE5qYVU0TXNfNTJBdGlKajFYaU9KRGZyMnE1TFk2WGY0U0hwWFFnc1c2YUt6LVo4STc1bWpIb1VfSjdZQzdLdVJpeV9nMmpEZTVWVWxaTWJBckF1Q253cmNLRXJ2ZGI5dw?oc=5
-
 ## 'Taylor is really hurt': Blake Lively's new inner circle turns heads after missing Taylor Swift and 
 
 - first seen: 2026-07-23 04:28 UTC | category: sighting | importance: 3
@@ -66,6 +90,15 @@ Stories: 113
 - summary: Is Gracie Abrams' Song "Death Wish" About Taylor Swift? The Truth  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxQM1JKTVptQktSUFJ0MXduNkhHbW1FTlE0Q3gza1ZqSGljU1hKOHlwcUtCVmRsallvRFVKR2lSTzZGU3V6VG9BbGlMVzA2eVlNbEszV3N0Q1dNUElvdVFaR3lZMVowNlJtR3p1U0pEVTR3cnBrUE5xcGoyREttZTNzZjcybG9ZMnpMRGpBS2h0UkNqRzdseHRIRmhLTQ?oc=5
+
+## Gracie Abrams’ Producer Responds to Speculation ‘Death Wish’ Song is About Taylor Swift - IMDb
+
+- first seen: 2026-07-23 04:28 UTC | category: music | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Gracie Abrams’ Producer Responds to Speculation ‘Death Wish’ Song is About Taylor Swift  IMDb
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE5qYVU0TXNfNTJBdGlKajFYaU9KRGZyMnE1TFk2WGY0U0hwWFFnc1c2YUt6LVo4STc1bWpIb1VfSjdZQzdLdVJpeV9nMmpEZTVWVWxaTWJBckF1Q253cmNLRXJ2ZGI5dw?oc=5
+  - [unverified] Just Jared — https://news.google.com/rss/articles/CBMivwFBVV95cUxNeEQ5ZHJsbXN3TGpELTBjcVI0ZjZVd2lOc21pOHZib1dlT0JTOG1HaDVOZ2tJWUdiSGNFb3k2ejhhbi1OUE1wWU1BYXNPdFI5LUpTcldUMWQwMy1XUXN3NFdCazdzT0hkVW5QRHU0a202VVRORW4zdWhVNWNzWDBrR1NjTDJ1YnY1QXRaWGRrUHdvam9YaGNkYklLWXBCeDNiSFZRVlE1M3ZZRmQ0dG8wZzVUMXUtOEhBdHp5NlZHNA?oc=5
 
 ## Taylor Swift tribute band Reputation set for Garland show - CW33.com
 
@@ -927,28 +960,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: WATCH: Hugh Grant arrives for Taylor Swift and Travis Kelce Wedding  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMijgFBVV95cUxObXNEdlZPYjVHS3BaNkk1c1B4bmhVTXVQYnd3RTh2dzg4eGV1WGdjSWxRbnZIeW5kVUEtVVpHWGRfazVLVlNjZEMwd1dEei0yc1RHcXM3LW9nU01hbndWc2c2U05xc2Vjb1ZIY1ZPVG9aSFhVRGE0R0NsdmNIVUVWMHZZLWdUX0dqYTVBWW5n?oc=5
-
-## The Truth About Taylor Swift's Wedding, From Brad Paisley - Taste of Country
-
-- first seen: 2026-07-20 08:16 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Truth About Taylor Swift's Wedding, From Brad Paisley  Taste of Country
-- sources:
-  - [unverified] Taste of Country — https://news.google.com/rss/articles/CBMijwFBVV95cUxOVklMSG90a3BtUy1XSDJSZXZKcXJxNEpNX2NtdHJPdnMtSVNYOERFb3RpeUxINHpQUEJKMExpdld3UlZEdmxEeTVNN0liYlptNUhzbm9palJzYjQyUU9KTTNZVlQ4NEVrMl9tN1JKdnNSenBtTzdpU1d0RFpvWi1Mbk1SQ1l5WmhadHY4blRDcw?oc=5
-
-## Taylor Swift Won’t Make One Marriage Mistake Other Stars Did — Source - Yahoo
-
-- first seen: 2026-07-20 08:16 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Won’t Make One Marriage Mistake Other Stars Did — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMilwFBVV95cUxQU2dHVFh1UHp6d1N2TW9PUG5Nck92OEJNaE16UUF2c2RDc1gySzJYQnNsQzh1Z0sxelVwSEpjbjdTOFZXZFFLQmprNGJaM09zM1VralhpTlg5X3N2MDNOdlpIY1FVVUFFMVU2QXZBOWlucTY1bzE5SkJZTWZlaGxndTFnR1JRb2pTNzA2c3B4SlQ1OHExNFV3?oc=5
-
-## Taylor Swift’s Wedding Photos Reportedly Are Part of a Much Bigger Plan — Source - Yahoo
-
-- first seen: 2026-07-20 08:16 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Taylor Swift’s Wedding Photos Reportedly Are Part of a Much Bigger Plan — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxOMUFzdmdnaHF4OWFmLVBtRTJYVC1aSVRoWUpmZk9wc2lPMWs5d196emtKd3owcmF4QTNmUGxqeFNzcnRaMHhwM2hBRUN1aDA2S2dQclJucnl5YjMteHUzMUlPYTltcDVKTnR5cGZPVWJCcjdpSTJaSnhSU1BsdkNmLVVTZjZZRzBzNWNPLVZqSkVxcmczUWdTbDhzQ3ZzUHk4TnJHM2M2c2VYb0Qy?oc=5
-  - [unverified] Reality Tea — https://news.google.com/rss/articles/CBMihAFBVV95cUxQSGxnM09DT2FSYXNwZl9LWmdQMHp1djk1VEI3Mnc4a00tajJIS2lra3hVdnlsbjM3bnB6UWF1UWxsd2hzMUhxbG9jYXl0RHJRYTFlSEIxZUZadnRBUF9MaExnbFppU2tocVRIWVduaFZsbG5EWVlsWm1xWVhCUzY1bnFaMVLSAYoBQVVfeXFMTmxXVlJVTjNMejRCQ2ZDWlZBOGc1OUo2TUd2a0JVZnE4OWdVTWY3UjdoUnR3LWJCbTdIeThVREJlMWg4MWRXRk9id0VfbFNnZmpRYWRwQmdhRDUzbkxBajJoVVA1SHdFVTJLOFFDQzhYR2hjeUViaFFIN1ZNOThSZzNVZFR1aDZEdkln?oc=5
