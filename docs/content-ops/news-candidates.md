@@ -25,7 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 120
+Stories: 114
+
+## Is Gracie Abrams' Song "Death Wish" About Taylor Swift? The Truth - Yahoo
+
+- first seen: 2026-07-23 04:28 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Is Gracie Abrams' Song "Death Wish" About Taylor Swift? The Truth  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxQM1JKTVptQktSUFJ0MXduNkhHbW1FTlE0Q3gza1ZqSGljU1hKOHlwcUtCVmRsallvRFVKR2lSTzZGU3V6VG9BbGlMVzA2eVlNbEszV3N0Q1dNUElvdVFaR3lZMVowNlJtR3p1U0pEVTR3cnBrUE5xcGoyREttZTNzZjcybG9ZMnpMRGpBS2h0UkNqRzdseHRIRmhLTQ?oc=5
+
+## Jason Kelce Opens Up About Life Since His Brother Got Together with Taylor Swift - InspireMore
+
+- first seen: 2026-07-23 04:28 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jason Kelce Opens Up About Life Since His Brother Got Together with Taylor Swift  InspireMore
+- sources:
+  - [unverified] InspireMore — https://news.google.com/rss/articles/CBMirgFBVV95cUxOSmVWZEZOVlpXY3k4NXQxSEtxaHJJU1JSdlZ1VmF4cUppVnR0YVJKR0tyRU1hRC1Iam9KbDBSZldhSzhHRC1ibTRPWjliRlVtMmJKczVEa2djNTUwRTdRalU0NE9SMVBFR281WThTUVNiQjRnaW44anJzMjV4U0o0U3NIWU44aXZ0RG5QTjJhVGh5azNvc0luc2lYSVQxWlc2czMxcE9WNWx2SWVjakE?oc=5
+
+## Gracie Abrams’ Producer Responds to Speculation ‘Death Wish’ Song is About Taylor Swift - IMDb
+
+- first seen: 2026-07-23 04:28 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Gracie Abrams’ Producer Responds to Speculation ‘Death Wish’ Song is About Taylor Swift  IMDb
+- sources:
+  - [unverified] IMDb — https://news.google.com/rss/articles/CBMiZkFVX3lxTE5qYVU0TXNfNTJBdGlKajFYaU9KRGZyMnE1TFk2WGY0U0hwWFFnc1c2YUt6LVo4STc1bWpIb1VfSjdZQzdLdVJpeV9nMmpEZTVWVWxaTWJBckF1Q253cmNLRXJ2ZGI5dw?oc=5
+
+## 'Taylor is really hurt': Blake Lively's new inner circle turns heads after missing Taylor Swift and 
+
+- first seen: 2026-07-23 04:28 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: 'Taylor is really hurt': Blake Lively's new inner circle turns heads after missing Taylor Swift and Travi  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMioAJBVV95cUxQYU9VeW51aWNLM2Y2b3BJcVg5a1FXOFEybUhvWTM0di0zNEhyTm5zbEh6cFFiTDc4UDZsMHBUTWJrZWhFcWsxZkY5Q1QxZEhIeG5NZVlzNTJNeXVITWppaXBtbWpMTDhoMDB0WUd6RDU2Y2E4WWhPblBXMXpFdVY3Z3l4YjZtcFp0MGRHOTBoMEx6NTh1SHk5TjZJVnV1anB6bGpZVEZwZERmQU9KOGwzOGhiOUwxc29xSklvZnphTHdwVkc5UDhGRGtXZGlxUm1BeDZVOFMxblhiUFl3N2l3clNpdEVuNWZRd05nbjVsWktmMkpFenk3UERiNGlMVkNfeWs5S2lMWG15RXF3Y3M2Yk5MeVlRc29RaHJkM1lrbErSAaYCQVVfeXFMTlB3NGlJcTB4dFVneEVTNTJGdmpyRFVKQVRLMUgwZ1ZYNmNBUHdYVUNqYmoyTmtFcTNoS2NBd1RxNGJtYlByc01tQmhtall3NjBHbnJqQkNndlowUWxpQ3QteU5DbTlzV3FaZnk4SHd5Nm53WWY3aGlGbnJyUFoxY0QzeE82d085VGJPTFdWOU9VN3JfX0JZLThXTDQ1QmF5S1dmNE90aHRXZHFKUGhQR3htTXh3ZTNNSkJhTWtXQW9tS0NNRHhhSER1dC1KOEZiVk1PZjJfblNBRHdoVHlpdjcwbEsyRTBPZ3gxbU96djRnS1JydDFNM0QxVzV5QWpzcTI4NGpnblVjNE5ZZm0zdXJfY045NHNhdklmb292bzExOFFWSi1n?oc=5
 
 ## Taylor Swift tribute band Reputation set for Garland show - CW33.com
 
@@ -928,84 +960,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: Opinion: Taylor Swift and Travis Kelce had their dream wedding — can we stop picking it apart?  Yahoo Creators
 - sources:
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxPYW1EWDFQRE85ZHpSMjZuZjFQalk1ZVhmY3NkV29OT1BWWTJzNkZfV3hfXzVOLWRkeWljTjY0eWZ2VWNkRWlyRVZmRUt6VVZnTFN3cXJjWFVidF9PWld5d2w2emNPaFNTZjlIVmljbFAwbzBISFhMSjd0TmVWOXU4d19mZDdWRHl6Z0wyYjM4cXpNOGJUOHRySWtQekNodkNDRG1fQ0cya3dXaGxKa1FsQzN2bTh6NFk2bW1vYUVfdUNncFRhTXhHZWtuVGp5WjE5VnhuU0diZlgtLUVVTVdONmFDRQ?oc=5
-
-## Taylor Swift Has a Soft Spot for Floral Wedding Guest Dresses — Like These Under-$60 Inspired Styles
-
-- first seen: 2026-07-20 01:58 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Has a Soft Spot for Floral Wedding Guest Dresses — Like These Under-$60 Inspired Styles from Amazon  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMilAFBVV95cUxQeWlVYVpzYmVXaEt5M0l2YWtCYTN3Y0FrTFRsdE91VGU0SEVOT2g1dDlHRkVfYkNCQWhWUmdoaVc0QnZFRDAyUlBfOUk1Y0tyclBEME9MYWw1MTRYUkJiR3lDQldXQm1pSW5UcXVtbjFpWVprNnl4OGVGREZiNzVNR0lPWGVxY21VaHdWeDJXYUVEUmRh?oc=5
-
-## Blake Lively shows up at World Cup after Taylor Swift wedding snub - Page Six
-
-- first seen: 2026-07-20 01:58 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively shows up at World Cup after Taylor Swift wedding snub  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiswFBVV95cUxOc3pOTXlqUXF5Slg5RVJOS3kyX3RkeWdqaV9DLUVMT3A2Y0VxV25semtta2hnQVFQWnVIQTVUVk1SLUMxakRLZjNMNmpBQ1FlcEd6N0hPM2NFWmxrak9WSzZuaGZSOUpvclUxUTQxOU5UNkk0S19CVm5BeEdMb0Y1RWx6UXZPWGlvVFVRVEVPc2F6ZVdaUUJ4VklwdlZmNjVXVHpPaUJ5c0l3dkVuekNuSjZLTQ?oc=5
-
-## Taylor Swift and Travis Kelce’s Wedding Guests Hit Back at Ceremony and Reception Rumors - Us Weekly
-
-- first seen: 2026-07-20 01:13 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce’s Wedding Guests Hit Back at Ceremony and Reception Rumors  Us Weekly
-- sources:
-  - [unverified] Us Weekly — https://news.google.com/rss/articles/CBMiqAFBVV95cUxOcXZRbS1CR3hPNlJjSFU3X2J2b1BWVVdqT2JlbE9tY0REQlZwZmYtMC1JdjdSZm5lYnlzZzJlcXMyUXNqejB5XzJ0LVRHYkc1T0dVRHVfNHVHSWQzMFpBZGZLQnNySlRLSURjMlZEUUR4RUQzQVN6YVRib252bG9aOTl3Y2IzeTFhOTVMUEZBYlcyZ1M0TVNfWHFNQXY2NGpwZ1lBZVhxSWo?oc=5
-
-## News & Notes from Around the NFL: Wedding season isn't just for Travis Kelce, Taylor Swift; former J
-
-- first seen: 2026-07-20 00:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: News & Notes from Around the NFL: Wedding season isn't just for Travis Kelce, Taylor Swift; former Jets LB Anthony Wint off to 6-0 MMA start  NFL.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMi8gFBVV95cUxQOWt6ZUJQQ0t4ZnR5RlU0eHZvcDlVeFlWUkI0R1JEUlZ2R282TzVnVnZxamdQR1dINEluSWQ5b240bEE0X0ZPenRGbFN4aHJYYllnNXlPTmJQbGJuZjZrSEVwc2huNVVXTGd2bG1mbGdNRHBTWGlDOGhmLTZBb0hVTDNVZ2pHWlZObUQydkFyRGpNcTkzU2lmM0Z4a3FqU1g1OEI0QVpacWN2OUNmOVhESEpkQkpSWllNSEdjeEs4d3BwOFpnVDMwMTVkYi05YUpTd0VQbnZmdE4ycmwxaHdBczVveTJhNlJmRUlDX3JtdDhFdw?oc=5
-
-## Brad Paisley Defends Taylor Swift and Travis Kelce's Madison Square Garden Wedding: 'Least Pretentio
-
-- first seen: 2026-07-19 23:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley Defends Taylor Swift and Travis Kelce's Madison Square Garden Wedding: 'Least Pretentious'  parade.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiogFBVV95cUxQdkFXLTNHUmRfNnVmRmdhei1ieXU0WmlVMExLYk9BQnRURG43SFl4QWNUM1FOYkFfS3dTNml1M1FnazUxRGlZN3NpaXdFVHdYVmpIMmdMTEN5SUJjRGZPalJNcUVITktaTjA0M2ZleEJjd2wyVjZFNHFRRU1SN1N6N21LTENCaXVoOHZqX0w5VUdIU1lOdHhfZ0NPaVllQXROb2c?oc=5
-
-## Camille Kostek Spills the Beans on the Celebrity She Was Most Surprised to See at Taylor Swift, Trav
-
-- first seen: 2026-07-19 23:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Camille Kostek Spills the Beans on the Celebrity She Was Most Surprised to See at Taylor Swift, Travis Kelce’s Wedding  Yahoo
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNNkE5QktSX3FyaEJDTS1rZlVaUjBwTEVjUTNDWlZXZXdUMzlYa241TkZuU0xxc2xHaGN3cUxLZDdzcUtIbFVid3A2UG1fbVJhSk9XLTI2bmw5TWNILVJqNjBmLWgwY2hPRG9IaV9jS2czS2FLTHZEZU0wV1I5RWNIX1dUdWU0OHZ2MnFPNDlaVXpOeDJwOWJBUFRoekY0WXJJTDR2d2tYdlNlb3c?oc=5
-
-## Matty Healy marries model girlfriend in LA - 2 weeks after ex Taylor Swift's multimillion-dollar nup
-
-- first seen: 2026-07-19 23:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Matty Healy marries model girlfriend in LA - 2 weeks after ex Taylor Swift's multimillion-dollar nuptials to Travis Kelce  Yahoo
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiqgFBVV95cUxQUGZ0UmY0Z1NVTWlQQVp3M0lYTDdndVQ1UlJaMWt0VUJvUG5rdHR0QXFDWkV5STlDUkxfNVM3SzA0cUxxbjU5ZkVvTXRtRzhCZnhLUEgyMllnMGVzNFJqejhWNEh2ZFItajVSNUFpcUQ1R3M4dk5YbUV6dzlfMGdMbWJTaG82dXpoaFJRSGlkZjdVNGhBaTlDVG5qUzRkOHA4RThKS3VURmJwZw?oc=5
-
-## Camille Kostek raves about Taylor Swift's look at her and Travis Kelce's wedding - Yahoo Lifestyle C
-
-- first seen: 2026-07-19 23:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Camille Kostek raves about Taylor Swift's look at her and Travis Kelce's wedding  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMiggFBVV95cUxOVHdPYnR4VU9jUGNsU1FUWjZxeU9kZVd6MXJ5a1ZDb2FHNnhyN1g3dUVsSGNYUFdJbEg3OHlBUzVvNFh4djRfeXdWam1yeVA3MS0tZ0JzOVB3LVFqQTZuWFNkVHlXakVGYkE4Yzc1MlZDTmJtY3JEYVFXTEw4ZmtaZEpB?oc=5
-
-## 'Loyalty's no joke for this dude': Travis Kelce's awkward Ryan Reynolds moment goes viral as fans de
-
-- first seen: 2026-07-19 23:03 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 'Loyalty's no joke for this dude': Travis Kelce's awkward Ryan Reynolds moment goes viral as fans debate  The Times of India
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMipAJBVV95cUxOTWVTU1hYczNlQ2ZYNmhKcmRZdHpETHFXOHBNcktjb1YzeTZJekhxMDNPby1YUk1nVy0wYkdVbjZQRkplcldwdG43LWJIVnBGRTJTWkVvdENmUkhvU0plcFpQZ3ExRFI4MTNoejNfTlQ2NldMNWltQzlrdXlYUGZYTElhelZKUWRJeFBvM3hWTmVMNHFLYURtQUx4Sk9KdEk3bE9PRjIzV3hESG50ZzVpcEpJWm9uelBVWFAzOExqTEVGMUx3RHRsLWJqSWowd0JSblZxMmlVbzVHU3B5eF9xUWFSZkllMWtycF9xa0FCWUZZUWNWcWd2Y3FWX19ZekdQU1UyZTNMUTNGU18ycjlxYXFtb1JTcjZTLWFUazREakZhYTYz0gGqAkFVX3lxTE9ROC11X3ZxaVBUZ1VJV3dnODVLR0FBY09wZmw0elZUeks4UmhGU0hCb2FycGRMbU9IT0ljaGdKUFlMZElodTZaeENOcXV2VkJTRnNOTExUTjRENkwzUy04aXFqNmhYOFoxaWFfN3lkM1B5QVhWTkV2SUE4VDZjU2FvVGlkdEpFdWpiNjBsdXVKUzJSZklVaW1FUzFDYWNlRV9kRjdYNHJSZEtwajRoVXlzZzZpNWJIRm9Ca2pZc0pjSDV1WkgySGYyREtvLTVHS1huNHd0YnRnS2N3b3VJOG9TZ2F2bTBWc25fUTA1WUxpdFQ1cWpibUNJemI3dFp4MjVrRm9RRWI5eWpXcy1PaFUyZXNBNEoxcGpQYVFCUVRJYjV1bjF1bHVueEE?oc=5
-
-## Camille Kostek Says Taylor Swift Looked Like ‘a Real-Life Princess’ During Wedding to Travis Kelce (
-
-- first seen: 2026-07-19 23:03 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
-- summary: Camille Kostek Says Taylor Swift Looked Like ‘a Real-Life Princess’ During Wedding to Travis Kelce (Exclusive)  People.com
-- sources:
-  - [unverified] Google News — "Taylor Swift" search — https://news.google.com/rss/articles/CBMi0AFBVV95cUxNbEwwbXh6V25NX0FGaDdXR1lSXy14RWZIMmthSE9qcUF6WktSM25mMWJfWWxxQnk3M3JoX3pZSVI4OXBuSVkxbWZyN1F4aE05b0tFc0ktQzdQU1pPcnVocEEwMjR0c1QzaExkNTJSOUxEbVJhejJPTHVJTG4wTzlGbk9FTjRQQnBCSC11QkdmMm1PRmFCVXNLX2ZGVFh4bE5nZ0E2S0tqOXlfTTYxc0kwTWJTZjhFR3J4TjIyZ3YtQnNoS0dBblhYWm5WSEdfRXc0?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNRzFKOWw1X3ZLVEQxcndiamRvdS1BX3pBbnp4RDRRS1BQX1Z1RW1sYmRlVmFyTEFEZ3BQVzhnbDF6MExUNzZGaFBXWUhtOWpYSXY0M2d0dE84aUdGbW84X2xwREdEVi1aZDY4bzhibUVRUm1WRmFSSURVWXRGbWJ5QXp5UUxldUxtMTNkQTg5N3gzNU9BWWQ2RTFIVUtWdGpL?oc=5
