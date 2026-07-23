@@ -33,6 +33,7 @@ permissions:
   issues: write
   actions: write
   contents: read
+  pull-requests: read
 
 jobs:
   watchdog:
