@@ -1642,6 +1642,7 @@ export default {
         photos: [
           {
             url: 'https://skift.com/wp-content/uploads/2014/10/taylor.jpg',
+            focalPoint: '50% 45%',
             credit: 'NYC & Company / nycgo.com, via Skift',
             kind: 'primary',
             caption: "nycgo.com's homepage on launch day: Swift fronting the 'Welcome to New York' campaign as the city's Global Welcome Ambassador, Oct. 27, 2014.",
@@ -1687,6 +1688,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/7/7c/Taylor_Swift_-_Blank_Space_%28Official_Single_Cover%29.png',
+            focalPoint: '42% 28%',
             credit: 'Big Machine Records',
           },
         ],
@@ -1819,6 +1821,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/-CmadmM5cOk/hqdefault.jpg',
+            focalPoint: '38% 40%',
             credit: 'Big Machine Records / Taylor Swift via YouTube',
             kind: 'archival',
             caption: "The double-exposure profile shot from the official 'Style' video — Kyle Newman's atmosphere-over-plot treatment in a single frame.",
@@ -1921,6 +1924,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/Taylor_Swift_-_The_1989_World_Tour_-_Crowd_at_HYDE_Park_during_Wildest_Dream_%26_Enchanted_performance.jpg/960px-Taylor_Swift_-_The_1989_World_Tour_-_Crowd_at_HYDE_Park_during_Wildest_Dream_%26_Enchanted_performance.jpg',
+            focalPoint: '50% 55%',
             credit: 'James Honeyball / Wikimedia Commons, CC BY-SA 2.0',
             kind: 'primary',
             caption: 'The Hyde Park crowd — light-up wristbands glowing at dusk — during the British Summer Time show, June 27, 2015.',
@@ -1965,6 +1969,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Taylor_Swift_-_The_1989_World_Tour_-_Los_Angeles_-_record_at_STAPLES_Center_%28crop%29.jpg/960px-Taylor_Swift_-_The_1989_World_Tour_-_Los_Angeles_-_record_at_STAPLES_Center_%28crop%29.jpg',
+            focalPoint: '48% 40%',
             credit: 'Denielle / Wikimedia Commons, CC BY-SA 2.0',
             kind: 'primary',
             caption: "The 'Taylor Swift, Most Sold Out Performances' banner in the Staples Center rafters, photographed at the Aug. 22, 2015 show — the night after Kobe Bryant unveiled it.",
@@ -2009,6 +2014,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/6/6d/The_1989_World_Tour.png',
+            focalPoint: '50% 48%',
             credit: 'Big Machine Records',
             kind: 'archival',
             caption: 'The official 1989 World Tour poster art — the tour the Apple Music film documents, shot at the Nov. 28, 2015 Sydney show.',
@@ -2053,6 +2059,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/JLf9q36UsBk/maxresdefault.jpg',
+            focalPoint: '50% 42%',
             credit: 'Big Machine Records / Taylor Swift via YouTube',
             kind: 'archival',
             caption: "Mud-caked and mid-pursuit — a still from the official 'Out of the Woods' video, premiered on New Year's Rockin' Eve, Dec. 31, 2015.",
@@ -2097,6 +2104,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/9R2Fux_af6k/hqdefault.jpg',
+            focalPoint: '40% 38%',
             credit: 'Apple Music, via ABC News on YouTube',
             kind: 'archival',
             caption: 'The face-plant itself: Swift comes off the treadmill mid-"Jumpman" in the April 1, 2016 Apple Music spot.',
