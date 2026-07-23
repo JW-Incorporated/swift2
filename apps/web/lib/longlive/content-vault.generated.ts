@@ -3203,6 +3203,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://imgix.bustle.com/uploads/getty/2019/8/26/1a50b4b9-6a40-4a82-a40a-66e602f41cf5-getty-1170384770.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2", credit: "Dimitrios Kambouris/Getty Images", kind: "primary" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/p/taylor-swifts-2019-mtv-vmas-outfit-had-her-wearing-versace-a-second-time-in-a-row-18687070" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/taylor-swift-wears-versace-2019-mtv-vmas-1234441" }],
+      products: [{ brand: "SemSem", item: "Multicolor Sequin & Crystal Blazer Dress", retailer: "semsem.com", url: "https://www.semsem.com/products/multicolor-sequined-satin-blazer-dress", price: "$1,595.00", isAlternative: true, altNote: "Her exact custom Versace blazer dress is discontinued -- this is a current multicolor sequin blazer dress in the same mini-length, shoulder-padded spirit." }],
     },
     {
       id: "vault-lover-cruel-summer-takes-four-years-to-become-a-no-1",
@@ -3249,6 +3250,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.etonline.com/sites/default/files/styles/1280x720/public/images/2019-04/taylor-swift-me-music-video-1280.jpg", credit: "Entertainment Tonight", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/see-every-dreamy-outfit-taylor-swift-wears-in-me-music-video-124147" }, { name: "Refinery29", url: "https://www.refinery29.com/en-us/2019/04/230942/taylor-swift-me-music-video-outfit-looks-shop" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Me!" }],
+      products: [{ brand: "Lulus", item: "Tea Party Chic Pink Floral Print Tie-Strap Tiered Midi Dress", retailer: "lulus.com", url: "https://www.lulus.com/products/tea-party-chic-pink-floral-print-tie-strap-tiered-midi-dress/1712196.html", price: "$30.00", isAlternative: true, altNote: "Her exact Monique Lhuillier tea-length dress is long discontinued -- this is a current pink floral tiered midi in the same tea-party, pastel-floral spirit." }],
     },
     {
       id: "vault-lover-rainbow-wig-western-shirt-and-a-french-fries-costume-in-you-",
@@ -3260,6 +3262,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1", credit: "Billboard", caption: "Taylor in the closing French fries costume, next to Katy Perry's burger costume.", kind: "primary" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/all-of-taylor-swifts-fabulous-outfits-from-you-need-to-calm-down-music-video-shop-the-looks-127156" }, { name: "Bustle", url: "https://www.bustle.com/p/all-the-looks-from-taylor-swifts-you-need-to-calm-down-music-video-are-a-rainbow-dream-18010763" }],
+      products: [{ brand: "Wrangler", item: "Women's Multicolor Rainbow Bandana Western Snap Shirt", retailer: "jacksonswestern.com", url: "https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/", price: "$55.00", isAlternative: true, altNote: "Her exact Marina Hoermanseder shirt is discontinued -- this sources the western shirt only, matching its rainbow palette (not the wig, shorts, boots, or fries costume)." }],
     },
     {
       id: "vault-lover-the-glitter-heart-eye-that-became-the-lover-eras-signature",
@@ -3271,6 +3274,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/cd/Taylor_Swift_-_Lover.png", credit: "Republic Records / Valheria Rocha (album cover art)", caption: "The Lover album cover, shot by Valheria Rocha — the glitter heart eye in its original context.", kind: "primary", focalPoint: "49% 52%" }, { url: "https://s2.r29static.com/bin/entry/6b6/x,80/2201581/image.jpg", credit: "Getty Images via Refinery29", caption: "The era's new beauty look in motion: fuchsia lip and pink-tipped ponytail at Wango Tango that June, from Refinery29's story on the cover makeup.", kind: "archival", focalPoint: "50% 18%" }],
       sources: [{ name: "Refinery29", url: "https://www.refinery29.com/en-us/2019/06/235426/taylor-swift-lover-album-heart-makeup" }, { name: "YouBeauty", url: "https://www.youbeauty.com/celebs/taylor-swift-provides-summer-makeup-inspo-on-her-lover-album-cover/" }],
+      products: [{ brand: "Too Faced", item: "Disco Crush High Shine Glitter Eye + Face Sparkle in Heart Eyes", retailer: "ulta.com", url: "https://www.ulta.com/p/disco-crush-high-shine-glitter-eye-face-sparkle-pimprod2046472?sku=2627323", price: "$18.00", isAlternative: true, altNote: "The exact cover makeup was custom -- this rose-gold glitter is a real eye-and-face cosmetic for recreating the sparkle, not the exact product used." }],
     },
     {
       id: "vault-lover-a-shimmering-green-julien-macdonald-gown-at-the-2019-amas",
@@ -3282,6 +3286,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://akns-images.eonline.com/eol_images/Entire_Site/20191024/rs_634x1024-191124163526-634-taylor-swift-2019-AMAs-red-carpet-fashion.jpg", credit: "Steve Granitz/WireImage", kind: "primary", focalPoint: "50% 12%" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1095478/revisiting-taylor-swift-s-gorgeous-american-music-awards-looks" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swift-shines-in-sparkly-green-dress-ahead-of-2019-amas-artist-of-the-decade-honor-136894" }],
+      products: [{ brand: "Alamour The Label", item: "Isabel Open Plunge With Thigh Slit Sequins Gown", retailer: "alamourthelabel.com", url: "https://www.alamourthelabel.com/products/isabel-gown?country=US", price: "$357.21", isAlternative: true, altNote: "Her custom Julien Macdonald gown was never sold at retail -- this is a current made-to-order emerald sequin gown, a one-shoulder plunge rather than a draped silhouette." }],
     },
     {
       id: "vault-lover-jessica-jones-sequin-shorts-and-ren-caovilla-boots-for-the-p",
@@ -3293,6 +3298,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-gma-aug-2019-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-outfit-gma-performance-photos-8528049/" }, { name: "Yahoo / Footwear News", url: "https://www.yahoo.com/lifestyle/taylor-swift-ren-caovilla-boots-155958921.html" }, { name: "Good Morning America", url: "https://www.goodmorningamerica.com/culture/story/taylor-swift-record-music-year-important-artists-work-65115745" }],
+      products: [{ brand: "Mardi Gras Apparel", item: "Mardi Gras Sequin High-Waist Shorts", retailer: "mardigrasapparel.us", url: "https://mardigrasapparel.us/products/mardi-gras-sequin-high-waist-shorts-purple-gold-green", price: "$24.95", isAlternative: true, altNote: "Jessica Jones's shorts are discontinued -- this sources the shorts only, matching high waist and multicolor sequins (not the blouse, bodysuit, or boots)." }],
     },
     {
       id: "vault-lover-a-johanna-ortiz-tiered-dress-for-the-lover-music-video",
@@ -3304,6 +3310,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://medias.spotern.com/spots/w640/226/226542-1566837979.jpg", credit: "Spotern", kind: "primary" }],
       sources: [{ name: "Spotern", url: "https://www.spotern.com/en/spot/video/taylor-swift-lover-official-music-video/226542/yellow-tiered-dress-of-taylor-swift-in-the-music-video-lover" }, { name: "Social Media Style", url: "https://www.socialmediastyle.org/post/taylor-swift-s-yellow-ball-earrings-and-tiered-dress-from-the-lover-music-video" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Lover_(Taylor_Swift_song)" }],
+      products: [{ brand: "Princess Polly", item: "Nellie Midi Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/nellie-midi-dress-yellow-floral", price: "$19.00", isAlternative: true, altNote: "Her exact Johanna Ortiz \"Ladies Who Lunch\" dress is discontinued -- this is a current yellow floral midi in the same sunshine-yellow spirit, not literally tiered." }],
     },
     {
       id: "vault-lover-a-sequined-romper-and-kat-maconie-heels-at-the-amazon-prime-",
@@ -3315,6 +3322,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5", credit: "Footwear News", kind: "primary" }],
       sources: [{ name: "Yahoo / Footwear News", url: "https://www.yahoo.com/entertainment/taylor-swift-steals-spotlight-block-152845330.html" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/amazon-prime-day-concert-recap-taylor-swift-8519537/" }],
+      products: [{ brand: "Julian Chang", item: "Eres Long-Sleeve V Neck Sequin Romper", retailer: "julianchang.com", url: "https://julianchang.com/products/eres-romper", price: "$315.00", isAlternative: true, altNote: "The custom striped romper is discontinued -- this is a current black sequin romper in the same short one-piece silhouette, without purple striping (heels not separately sourced)." }],
     },
     {
       id: "vault-lover-a-floral-oscar-de-la-renta-gown-by-laura-kim-and-fernando-ga",
@@ -3326,6 +3334,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://graziamagazine.com/wp-content/uploads/2019/12/taylor-swift-attends-the-world-premiere-of-cats-at-alice-news-photo-1576544616.jpg", credit: "Getty Images", kind: "primary" }],
       sources: [{ name: "Grazia", url: "https://graziamagazine.com/articles/taylor-swift-cats-premiere-oscar-de-la-renta/" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-cats-premiere-dress-red-carpet-8546528/" }],
+      products: [{ brand: "Adrianna Papell", item: "Strapless Floral Beaded Embroidery Gown", retailer: "adriannapapell.com", url: "https://www.adriannapapell.com/products/strapless-floral-beaded-embroidery-gown-in-taupe-pink-ap1e212673", price: "$278.99", isAlternative: true, altNote: "Her exact Oscar de la Renta gown is long discontinued -- this is a current strapless floral beaded gown in taupe-pink, lacking the original's 3D appliqués and train." }],
     },
     {
       id: "vault-lover-bill-corsos-six-person-prosthetic-transformation-for-the-man",
@@ -3337,6 +3346,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.nme.com/wp-content/uploads/2020/02/tay-696x442.png", credit: "NME", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-the-man-music-video-makeup-959829/" }, { name: "NME", url: "https://www.nme.com/news/music/taylor-behind-the-scenes-the-man-video-transformation-2616077" }],
+      products: [{ brand: "Mehron", item: "SynWax", retailer: "mehron.com", url: "https://www.mehron.com/synwax/", price: "$7.95", isAlternative: true, altNote: "Bill Corso used bespoke film prosthetics, not retail wax -- this is a real SFX molding wax for a similar effect, not the exact six-person process." }],
     },
     {
       id: "vault-lover-head-to-toe-plaid-at-the-miss-americana-sundance-premiere",
@@ -3348,6 +3358,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-sundance-2020-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Neilson Barnard/Getty Images", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-plaid-outfit-sundance-photo-8548953/" }, { name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2020/01/24/taylor-swift-wore-carmen-march-to-the-taylor-swift-miss-americana-sundance-film-festival-premiere/" }],
+      products: [{ brand: "Cider", item: "Tweed Plaid Button Up Wide Leg Jumpsuit", retailer: "shopcider.com", url: "https://www.shopcider.com/goods/tweed-plaid-button-up-wide-leg-jumpsuit", price: "$44.90", isAlternative: true, altNote: "Carmen March's Fall 2019 ensemble is discontinued -- this is a current grey plaid wide-leg jumpsuit in the same spirit (trenchcoat and checked heels not separately sourced)." }],
     },
     {
       id: "vault-lover-a-sequined-jumpsuit-and-a-hadid-sister-hang-at-the-vmas-afte",
@@ -3481,6 +3492,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://imgix.bustle.com/uploads/getty/2020/1/6/36da59a0-670b-451b-bd63-4ef9b0134e59-getty-1197739056.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2", credit: "Getty Images via Bustle", kind: "primary" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/p/taylor-swifts-2020-golden-globes-dress-was-a-not-so-subtle-nod-to-her-lover-album-19766894" }, { name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swift-and-joe-alwyn-look-sensational-at-2020-golden-globes-137952" }],
+      products: [{ brand: "Ladivine", item: "CM323 Floral Glitter Prom Gown", retailer: "couturecandy.com", url: "https://www.couturecandy.com/products/ladivine-cm323-floral-glitter-prom-gown", price: "$100.00", isAlternative: true, altNote: "Her custom Etro gown was never sold at retail -- this is a current navy-gold floral glitter gown echoing the palette, without the keyhole, open back, or train." }],
     },
     {
       id: "vault-lover-city-of-lover-the-only-full-lover-concert-there-would-ever-b",
