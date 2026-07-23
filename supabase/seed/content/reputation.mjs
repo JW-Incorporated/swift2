@@ -505,6 +505,20 @@ export default {
             credit: 'Ronald Woan / Wikimedia Commons',
           },
         ],
+        // Shop pass (2026-07-22): the original tour costume was custom,
+        // never sold at retail -- a current snake-print sequined bodysuit,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Rhapso Designs',
+            item: 'Snake Print Silver Sequined Bodysuit',
+            retailer: 'rhapso-designs.com',
+            url: 'https://www.rhapso-designs.com/product-page/snake-print-silver-sequined-bodysuit-leo32',
+            price: 'AU$90.00',
+            isAlternative: true,
+            altNote: 'The original tour bodysuit was custom, never sold at retail -- this is a current snake-print sequined bodysuit in the same silhouette (price in Australian dollars).',
+          },
+        ],
       },
     },
     {
@@ -531,6 +545,20 @@ export default {
           {
             url: 'https://imgix.bustle.com/uploads/image/2018/3/12/c5dd79b9-3dd6-48fb-be2c-6b565fc5fe09-screen-shot-2018-03-12-at-61855-am.png?w=248&h=218&fit=crop&crop=faces&dpr=2',
             credit: 'Bustle',
+          },
+        ],
+        // Shop pass (2026-07-22): the exact custom Naeem Khan piece is
+        // discontinued -- a current teal tiered-fringe dress, verified
+        // in stock, closest real match.
+        products: [
+          {
+            brand: 'Alyce Paris',
+            item: 'Alyce 40022 Short Homecoming Dress',
+            retailer: 'promgirl.com',
+            url: 'https://www.promgirl.com/products/alyce-al-40022-dress',
+            price: '$373.00',
+            isAlternative: true,
+            altNote: 'Her exact custom Naeem Khan piece is discontinued -- this is a current Tiffany-blue tiered-fringe dress in the same spirit, a fitted mini rather than the floor-to-mini reveal.',
           },
         ],
       },
@@ -568,6 +596,20 @@ export default {
             credit: 'Getty Images',
           },
         ],
+        // Shop pass (2026-07-22): the exact Balmain mirrored mini is
+        // discontinued -- a current silver sequin mini, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Miss Me Sequin Mini Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver',
+            price: '$85.00',
+            isAlternative: true,
+            altNote: 'Her exact Balmain mirrored mini is long discontinued -- this is a current silver sequin mini in the same disco-ball spirit (thigh-high boots not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -601,6 +643,20 @@ export default {
             credit: 'Billboard',
             caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.",
             kind: 'archival',
+          },
+        ],
+        // Shop pass (2026-07-22): a makeup/SFX look, not a garment --
+        // offering a real zombie SFX kit rather than forcing a clothing
+        // link onto a beauty item.
+        products: [
+          {
+            brand: 'Mehron',
+            item: 'Zombie Professional Makeup Kit',
+            retailer: 'jestpaint.com',
+            url: 'https://jestpaint.com/products/mehron-premium-makeup-kit-new-zombie-professional-makeup-kit-kmp-ez',
+            price: '$20.19',
+            isAlternative: true,
+            altNote: 'Bill Corso\'s bespoke film prosthetics were never sold at retail -- this is a current zombie SFX kit (creme colors, blood gel, latex, wax) for a similar undead effect.',
           },
         ],
       },
@@ -641,6 +697,20 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Billboard',
+          },
+        ],
+        // Shop pass (2026-07-22): the 800-hour Atelier Versace gown was
+        // custom couture, never sold at retail -- a current blush-pink
+        // feather-trim gown, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Club L London',
+            item: 'Armina Blush Pink One-Shoulder Feather-Trim Maxi Dress',
+            retailer: 'clubllondon.us',
+            url: 'https://clubllondon.us/products/armina-blush-pink-one-shoulder-feather-trim-maxi-dress-cl135995081',
+            price: '$320.00',
+            isAlternative: true,
+            altNote: 'The 800-hour Atelier Versace gown was custom couture, never sold at retail -- this is a current blush-pink one-shoulder feather-trim gown in the same color and spirit.',
           },
         ],
       },
@@ -686,6 +756,20 @@ export default {
             kind: 'archival',
           },
         ],
+        // Shop pass (2026-07-22): the custom Jessica Jones set was never
+        // sold at retail -- a current black cutout sequin bodysuit,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Casa de Fashion',
+            item: 'Party Vibes Black One-Shoulder Cutout Sequin Bodysuit',
+            retailer: 'casadefashion.com',
+            url: 'https://casadefashion.com/products/glam-me-up-black-cutout-sequin-bodysuit',
+            price: '$46.00',
+            isAlternative: true,
+            altNote: 'Jessica Jones\'s custom bodysuit-and-jacket set was never sold at retail -- this sources the bodysuit only, matching black sequins and asymmetry (no matching jacket).',
+          },
+        ],
       },
     },
     {
@@ -723,6 +807,20 @@ export default {
           {
             url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100',
             credit: 'Taylor Swift Style',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Jessica Jones bodysuit was
+        // never sold at retail -- a current sparkling green bodysuit,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'AKIRA',
+            item: 'Shining Down On You Rhinestone Bodysuit',
+            retailer: 'shopakira.com',
+            url: 'https://shopakira.com/products/shining-down-on-your-sequin-bodysuit',
+            price: '$15.57',
+            isAlternative: true,
+            altNote: 'Jessica Jones\'s custom sparkling green bodysuit was never sold at retail -- this is a current rhinestone-embellished green bodysuit in the same sparkling spirit.',
           },
         ],
       },
@@ -766,6 +864,20 @@ export default {
             kind: 'archival',
           },
         ],
+        // Shop pass (2026-07-22): the custom Jessica Jones "cotton candy"
+        // mini was never sold at retail -- a current rainbow crystal
+        // fringe mini, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Mew Mews',
+            item: 'Indy V Neck Rainbow Crystal Fringe Mini Dress',
+            retailer: 'mewmews.com',
+            url: 'https://mewmews.com/products/indy-v-neck-rainbow-crystal-fringe-mini-dress',
+            price: '$319.90',
+            isAlternative: true,
+            altNote: 'Jessica Jones\'s custom "cotton candy" mini was never sold at retail -- this is a current rainbow crystal fringe mini in the same multicolor, movement-driven spirit.',
+          },
+        ],
       },
     },
     {
@@ -802,6 +914,20 @@ export default {
             credit: 'Christopher Polk/TAS18/Getty Images',
             caption: 'Shawn Mendes and Taylor Swift performing "There\'s Nothing Holdin\' Me Back" at the Rose Bowl, May 18, 2018.',
             kind: 'archival',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Jessica Jones snake bodysuit
+        // was never sold at retail -- a current snake-print bodysuit,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'SKIMS',
+            item: 'Fits Everybody Zip Front Bodysuit in Shadow Snake Print',
+            retailer: 'skims.com',
+            url: 'https://skims.com/products/fits-everybody-zip-front-bodysuit-shadow-snake-print',
+            price: '$46.00',
+            isAlternative: true,
+            altNote: 'Jessica Jones\'s custom snake-print set was never sold at retail -- this sources the bodysuit only, matching the serpent motif (no sequins, red camo jacket, or boots).',
           },
         ],
       },
@@ -841,6 +967,20 @@ export default {
           {
             url: 'https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100',
             credit: 'Taylor Swift Style',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Jessica Jones closer gown was
+        // never sold at retail -- a current black sequin long-sleeve
+        // slit gown, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Elizabeth K',
+            item: 'GL3159 Sequin Long Sleeve Slit Gown',
+            retailer: 'formaldressshops.com',
+            url: 'https://formaldressshops.com/products/sequin-fitted-long-sleeve-slit-gown-by-elizabeth-k-gl3159',
+            price: '$151.00',
+            isAlternative: true,
+            altNote: 'Jessica Jones\'s custom closer gown was never sold at retail -- this is a current black sequin long-sleeve slit gown in the same fitted, floor-length spirit (no boots).',
           },
         ],
       },
