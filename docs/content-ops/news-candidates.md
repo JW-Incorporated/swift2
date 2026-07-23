@@ -25,15 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 114
+Stories: 113
 
-## Is Gracie Abrams' Song "Death Wish" About Taylor Swift? The Truth - Yahoo
+## Taylor Swift's husband leaves fans saying the same thing over leaked retirement plans - Yahoo Sports
 
-- first seen: 2026-07-23 04:28 UTC | category: music | importance: 5
+- first seen: 2026-07-23 07:43 UTC | category: sighting | importance: 3
 - verification_status: rumor | source_count: 1
-- summary: Is Gracie Abrams' Song "Death Wish" About Taylor Swift? The Truth  Yahoo
+- summary: Taylor Swift's husband leaves fans saying the same thing over leaked retirement plans  Yahoo Sports
 - sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxQM1JKTVptQktSUFJ0MXduNkhHbW1FTlE0Q3gza1ZqSGljU1hKOHlwcUtCVmRsallvRFVKR2lSTzZGU3V6VG9BbGlMVzA2eVlNbEszV3N0Q1dNUElvdVFaR3lZMVowNlJtR3p1U0pEVTR3cnBrUE5xcGoyREttZTNzZjcybG9ZMnpMRGpBS2h0UkNqRzdseHRIRmhLTQ?oc=5
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxPaUxjTDRwalFvSS1CTXNudVZ5M3hxaVhFck1vRUVZYmdrMTd3eUFfQUJ6NllUT01IWk5OYTVjODB0VllGdVBfLUdPcFpXNVU2MlpOQWZna1JZYkxSYVFlRU9XTGprQWxLZHZrNDh6Y1JWdEhIMFRfUDhtbjlXaDh5NmhuQ3FlclNYeUE?oc=5
 
 ## Jason Kelce Opens Up About Life Since His Brother Got Together with Taylor Swift - InspireMore
 
@@ -58,6 +58,14 @@ Stories: 114
 - summary: 'Taylor is really hurt': Blake Lively's new inner circle turns heads after missing Taylor Swift and Travi  The Times of India
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMioAJBVV95cUxQYU9VeW51aWNLM2Y2b3BJcVg5a1FXOFEybUhvWTM0di0zNEhyTm5zbEh6cFFiTDc4UDZsMHBUTWJrZWhFcWsxZkY5Q1QxZEhIeG5NZVlzNTJNeXVITWppaXBtbWpMTDhoMDB0WUd6RDU2Y2E4WWhPblBXMXpFdVY3Z3l4YjZtcFp0MGRHOTBoMEx6NTh1SHk5TjZJVnV1anB6bGpZVEZwZERmQU9KOGwzOGhiOUwxc29xSklvZnphTHdwVkc5UDhGRGtXZGlxUm1BeDZVOFMxblhiUFl3N2l3clNpdEVuNWZRd05nbjVsWktmMkpFenk3UERiNGlMVkNfeWs5S2lMWG15RXF3Y3M2Yk5MeVlRc29RaHJkM1lrbErSAaYCQVVfeXFMTlB3NGlJcTB4dFVneEVTNTJGdmpyRFVKQVRLMUgwZ1ZYNmNBUHdYVUNqYmoyTmtFcTNoS2NBd1RxNGJtYlByc01tQmhtall3NjBHbnJqQkNndlowUWxpQ3QteU5DbTlzV3FaZnk4SHd5Nm53WWY3aGlGbnJyUFoxY0QzeE82d085VGJPTFdWOU9VN3JfX0JZLThXTDQ1QmF5S1dmNE90aHRXZHFKUGhQR3htTXh3ZTNNSkJhTWtXQW9tS0NNRHhhSER1dC1KOEZiVk1PZjJfblNBRHdoVHlpdjcwbEsyRTBPZ3gxbU96djRnS1JydDFNM0QxVzV5QWpzcTI4NGpnblVjNE5ZZm0zdXJfY045NHNhdklmb292bzExOFFWSi1n?oc=5
+
+## Is Gracie Abrams' Song "Death Wish" About Taylor Swift? The Truth - Yahoo
+
+- first seen: 2026-07-23 04:28 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Is Gracie Abrams' Song "Death Wish" About Taylor Swift? The Truth  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimwFBVV95cUxQM1JKTVptQktSUFJ0MXduNkhHbW1FTlE0Q3gza1ZqSGljU1hKOHlwcUtCVmRsallvRFVKR2lSTzZGU3V6VG9BbGlMVzA2eVlNbEszV3N0Q1dNUElvdVFaR3lZMVowNlJtR3p1U0pEVTR3cnBrUE5xcGoyREttZTNzZjcybG9ZMnpMRGpBS2h0UkNqRzdseHRIRmhLTQ?oc=5
 
 ## Taylor Swift tribute band Reputation set for Garland show - CW33.com
 
@@ -944,19 +952,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxOMUFzdmdnaHF4OWFmLVBtRTJYVC1aSVRoWUpmZk9wc2lPMWs5d196emtKd3owcmF4QTNmUGxqeFNzcnRaMHhwM2hBRUN1aDA2S2dQclJucnl5YjMteHUzMUlPYTltcDVKTnR5cGZPVWJCcjdpSTJaSnhSU1BsdkNmLVVTZjZZRzBzNWNPLVZqSkVxcmczUWdTbDhzQ3ZzUHk4TnJHM2M2c2VYb0Qy?oc=5
   - [unverified] Reality Tea — https://news.google.com/rss/articles/CBMihAFBVV95cUxQSGxnM09DT2FSYXNwZl9LWmdQMHp1djk1VEI3Mnc4a00tajJIS2lra3hVdnlsbjM3bnB6UWF1UWxsd2hzMUhxbG9jYXl0RHJRYTFlSEIxZUZadnRBUF9MaExnbFppU2tocVRIWVduaFZsbG5EWVlsWm1xWVhCUzY1bnFaMVLSAYoBQVVfeXFMTmxXVlJVTjNMejRCQ2ZDWlZBOGc1OUo2TUd2a0JVZnE4OWdVTWY3UjdoUnR3LWJCbTdIeThVREJlMWg4MWRXRk9id0VfbFNnZmpRYWRwQmdhRDUzbkxBajJoVVA1SHdFVTJLOFFDQzhYR2hjeUViaFFIN1ZNOThSZzNVZFR1aDZEdkln?oc=5
-
-## Taylor Swift and Travis Kelce's wedding invite: 'I won't get into the details of the NDA. But it had
-
-- first seen: 2026-07-20 04:48 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce's wedding invite: 'I won't get into the details of the NDA. But it had teet  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMitAJBVV95cUxNZEl1MUozd0FGYlJTSTdxLWtreUNqNHpKVUowVVFVbDhXRlQ4YnRfbW9ScjViLTNCc1hYQWtpVW8zd25MS1hUTklmYjFDR3FITUJTT09MNW9sb0xSRDBZVlNrZEZiTHJlNWpmcS1NUDlwWDc1TjRVU0YxN08zajJCaTRhTFUwNzd3STFvck5mSld6dTZwZlFHYklnT2pvVmc2UlUtaVQtc2pZdkpuOFNTeXpBM3lqSjJ3NnVsbzNTaEVZai1PVXlyd240ajJCajI3ZmlrdTZHYUdCdGVDRVNNc3ZhZ2o0dFYxbmktTUhNTHlLc2ZTRGE1ckFMbFFGR3NwRDBJOC1YLVpZOXhFcWkzRGZPak1NMEtEM2txV3FRWGRGTTk0RC15MVBubW55THJqazUyU9IBugJBVV95cUxQS09OT251T3lVNWctdU95ZnhNa2oySG1ha2Y0N1RKQUpiMzhNZXRCRGtfbm56NmVhS1JTOGpYZnVqaVVEbnhJTkFIeWFpUEhwaWlVWi1EanVtT0Z1dFNTb0gySmQtUjhUaUZHbUdXajNsSnNGelJmSmc0a2dLQmFfR3NndkExVlhqTzZzZlBnTTZvaHBNaEx0djBPRmFLWFVTUFpGRUFfSHpPY2p3ZGVUeGJvM3BsZDgySGl3OXN1ZU1GOTJqUDlnT05OYnBBS3V2YVpzUnhKblFrdktJMzhxQzItcHE3b2g1eGdkSkw2T1RUUEk4RVFlR2dQaHVyMTR4WFJCdjVJVUNiS3NhU3JzU3BkOTBRUFptcHpodVVrNUFUY2Z6UFNzSVFlZThiRHFUMFZpVW9jRzVuUQ?oc=5
-
-## Opinion: Taylor Swift and Travis Kelce had their dream wedding — can we stop picking it apart? - Yah
-
-- first seen: 2026-07-20 04:48 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Opinion: Taylor Swift and Travis Kelce had their dream wedding — can we stop picking it apart?  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi4wFBVV95cUxPYW1EWDFQRE85ZHpSMjZuZjFQalk1ZVhmY3NkV29OT1BWWTJzNkZfV3hfXzVOLWRkeWljTjY0eWZ2VWNkRWlyRVZmRUt6VVZnTFN3cXJjWFVidF9PWld5d2w2emNPaFNTZjlIVmljbFAwbzBISFhMSjd0TmVWOXU4d19mZDdWRHl6Z0wyYjM4cXpNOGJUOHRySWtQekNodkNDRG1fQ0cya3dXaGxKa1FsQzN2bTh6NFk2bW1vYUVfdUNncFRhTXhHZWtuVGp5WjE5VnhuU0diZlgtLUVVTVdONmFDRQ?oc=5
