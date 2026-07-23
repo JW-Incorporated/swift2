@@ -627,6 +627,7 @@ export default {
         photos: [
           {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2020/12/Taylor-Swift-Wore-Zimmermann-For-Her-Willow-Music-Video-819x1024.jpg',
+            focalPoint: '50% 36%',
             credit: 'Republic Records',
           },
         ],

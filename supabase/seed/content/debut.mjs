@@ -34,6 +34,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
+            focalPoint: '28% 38%',
             credit: 'Big Machine Records (single cover art)',
           },
         ],

@@ -3303,6 +3303,20 @@ export default {
       thumbnailUrl:
         'https://i.abcnewsfe.com/a/ecc533d0-9f9d-4f6f-b167-e4d2e20ce469/swift-kelce-engagement-ht-jef-250826_1756229211049_hpMain.jpg',
       moment: {
+        // The post this page is ABOUT (issue #762 Part B). Shortcode taken
+        // from the permalink Variety, Rolling Stone, THR, CNN and Today all
+        // embed, and verified by rendering instagram.com/p/DN02niAXMM-/embed/
+        // captioned: the taylorswift verified account, caption "Your English
+        // teacher and your gym teacher are getting married 🧨", the garden-
+        // proposal carousel. Embedded rather than hotlinked because Instagram
+        // CDN urls are signed/expiring and the host is not on the allowlist.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'DN02niAXMM-',
+          label:
+            'The engagement announcement itself: a garden-proposal carousel, captioned "Your English teacher and your gym teacher are getting married 🧨."',
+          postedOn: '2025-08-26',
+        },
         context:
           'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at Kelce\'s Missouri home (over an Eagles practice weekend, his father Ed said; exact date unconfirmed). On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.',
         // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
