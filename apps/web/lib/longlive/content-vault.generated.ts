@@ -735,6 +735,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
       body: ["Polaroid-framed lyrics and a crisp pastel palette made 1989 instantly iconic."],
       tags: ["Fashion"],
+      products: [{ brand: "Fashion Nova", item: "Simona Satin Mini Dress", retailer: "fashionnova.com", url: "https://www.fashionnova.com/products/simona-satin-mini-dress-light-blue", price: "$23.98", isAlternative: true, altNote: "No single named dress -- this is the era's visual palette, not one outfit -- a current light-blue mini in the same sky-blue minimalist spirit." }],
     },
     {
       id: "vault-1989-the-squad-era",
@@ -1357,6 +1358,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The visual signature of the debut era: sunlit country-girl Americana.",
       body: ["Ringlet curls, floaty sundresses, and well-worn cowboy boots became the uniform of the debut era — a look as handmade and earnest as the songs."],
       tags: ["Fashion"],
+      products: [{ brand: "IUV", item: "Cowboy Boots for Women, Mid-Calf Cowgirl Boots", retailer: "amazon.com", url: "https://www.amazon.com/IUV-Cowboy-Western-Cowgirl-Pointy/dp/B0BFQRZPRH", price: "$54.99", isAlternative: true, altNote: "No single named pair -- this era-defining look was built from many worn-in boots and sundresses -- a current cowboy boot in the same recurring spirit." }],
     },
     {
       id: "vault-debut-our-song-hits-number-one",
@@ -1597,6 +1599,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2021/11/Taylor-Swift-Wore-Zuhair-Murad-On-Jimmy-Fallon-.jpg", credit: "NBC", kind: "primary", focalPoint: "42% 13%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2021/11/12/taylor-swift-wore-zuhair-murad-david-koma-on-jimmy-fallon-seth-meyers/" }, { name: "Vogue Arabia", url: "https://en.vogue.me/fashion/taylor-swift-zuhair-murad-white-dress-red-the-tonight-show-starring-jimmy-fallon/" }],
+      products: [{ brand: "WonderlandByLilian", item: "Ivory Short Beaded Lace Dress with Cowl Neckline", retailer: "wonderlandbylilian.com", url: "https://wonderlandbylilian.com/products/ivory-short-wedding-party-dresses-with-beaded-lace-wedding-gown-long-sleeve-with-cowl-neckline-plus-size", price: "$2,999.00", isAlternative: true, altNote: "Zuhair Murad has no accessible direct retail -- this is a current made-to-order ivory beaded mini, framed as bridal rather than press-event wear, closest real match." }],
     },
     {
       id: "vault-evermore-a-crystal-strewn-david-koma-mini-dress-for-late-night-with-s",
@@ -3099,6 +3102,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       body: ["Cozy cardigans, braided hair, and a foggy woodland palette made cottagecore the aesthetic of 2020.", "The cream cable-knit cardigan from the video, embroidered with stars, was sold as official merch and is widely credited with driving cottagecore's mainstream revival."],
       tags: ["Fashion"],
       video: { youtubeId: "K-a8s8OLBSE", title: "Taylor Swift - cardigan" },
+      products: [{ brand: "Princess Polly", item: "Abner Cable Cardigan", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/abner-cable-cardigan-cream", price: "$75.00", isAlternative: true, altNote: "The official star-embroidered merch cardigan is discontinued from Taylor's own store -- this is a current cream cable-knit cardigan in the same cozy silhouette." }],
     },
     {
       id: "vault-folklore-the-teenage-love-triangle",
