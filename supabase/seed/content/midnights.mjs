@@ -557,6 +557,20 @@ export default {
             credit: 'John Shearer/GI for TAS Rights Management',
           },
         ],
+        // Shop pass (2026-07-22): the custom Cavalli tour set was never
+        // sold at retail -- a current light-blue sequin two-piece,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Showpo',
+            item: 'Kai Two Piece Top and Skirt Set',
+            retailer: 'showpo.com',
+            url: 'https://www.showpo.com/us/products/kai-two-piece-top-and-skirt-set-sequin-strappy-crop-top-and-wrap-tie-side-mini-skirt-in-sc2605000502',
+            price: '$105.00',
+            isAlternative: true,
+            altNote: 'The custom Cavalli look was never sold at retail -- this light-blue sequin two-piece matches its color, sparkle, and silhouette (boots not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -1017,6 +1031,20 @@ export default {
             kind: 'fashion',
           },
         ],
+        // Shop pass (2026-07-22): the exact seasonal Dôen tank is
+        // discontinued -- a current same-brand tank, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'DÔEN',
+            item: 'Lois Tank',
+            retailer: 'shopdoen.com',
+            url: 'https://www.shopdoen.com/products/lois-tank-salt-quelle-jolie-pointelle',
+            price: '$138.00',
+            isAlternative: true,
+            altNote: 'The exact game-day tank is discontinued -- this is a current Dôen white pointelle tank, same brand (shorts, windbreaker, and shoes not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -1041,6 +1069,20 @@ export default {
             url: 'https://media-cldnry.s-nbcnews.com/image/upload/c_fill,g_auto,w_1667,h_2500/rockcms/2023-09/230912-vma-taylor-swift-ew-802p-78ccc7.jpg',
             credit: 'NBC News',
             focalPoint: '47% 12%',
+          },
+        ],
+        // Shop pass (2026-07-22): the exact Versace gown is discontinued
+        // -- a current black-and-gold embellished gown, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Black and Gold Embellished Column Gown with Chiffon Cape Sleeves',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/13206',
+            price: '$798.00',
+            isAlternative: true,
+            altNote: 'Her exact Versace gown is discontinued -- this is a current black-and-gold gown in the same formal palette, with chiffon cape sleeves rather than gold hardware.',
           },
         ],
       },
@@ -1182,6 +1224,20 @@ export default {
             kind: 'fashion',
           },
         ],
+        // Shop pass (2026-07-22): the exact Oscar de la Renta gown is
+        // discontinued -- a current blue floral brocade gown, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Blue Floral Brocade Strapless Ball Gown',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/11921-blue-multi',
+            price: '$798.00',
+            isAlternative: true,
+            altNote: 'Her exact Oscar de la Renta gown is discontinued -- this is a current blue floral brocade ball gown in the same full-skirted silhouette, without the original\'s cutouts.',
+          },
+        ],
       },
     },
     {
@@ -1230,6 +1286,20 @@ export default {
           { outlet: 'Marie Claire', url: 'https://www.marieclaire.com/fashion/taylor-swift-chiefs-game-outfits-ranked/' },
         ],
         photos: [{ url: 'https://cdn.mos.cms.futurecdn.net/RdZNsvNDCZtsUCwJmMbUv7.jpg', credit: 'Marie Claire' }],
+        // Shop pass (2026-07-22): the exact Khaite mini worn to the game
+        // is undocumented beyond the brand name -- a current same-brand
+        // leather skirt, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'KHAITE',
+            item: 'Jett Skirt in Black Leather',
+            retailer: 'khaite.com',
+            url: 'https://khaite.com/products/jett-skirt-in-black-leather',
+            price: '$1,680.00',
+            isAlternative: true,
+            altNote: 'The exact Khaite mini worn to the game is undocumented -- this is a current same-brand black leather skirt (vintage top, jewelry, and boots not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -1293,6 +1363,20 @@ export default {
         photos: [
           { url: 'https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER3_-600x800.jpg', credit: 'TIME' },
           { url: 'https://petapixel.com/assets/uploads/2023/12/SWIFT.FINAL_.COVER1_-600x800.jpg', credit: 'TIME' },
+        ],
+        // Shop pass (2026-07-22): the cover's exact grey AREA crystal
+        // dress isn't currently sold -- a current same-brand black
+        // crystal mini, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'AREA',
+            item: 'Crystal Hotfix Mini Dress',
+            retailer: 'area.nyc',
+            url: 'https://area.nyc/products/crystal-hotfix-mini-dress',
+            price: '$398.00',
+            isAlternative: true,
+            altNote: 'The cover\'s grey AREA crystal dress isn\'t currently sold -- this is a current same-brand black crystal mini, one of the shoot\'s three looks.',
+          },
         ],
       },
     },
@@ -1381,6 +1465,20 @@ export default {
           {
             url: 'https://www.hollywoodreporter.com/wp-content/uploads/2024/02/GettyImages-1986392520-EMBED-2024.jpg?w=408',
             credit: 'Getty Images',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Schiaparelli ensemble was
+        // never sold at retail -- a current strapless slit gown, verified
+        // in stock, closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'White Polka Dot Strapless Viscose Gown With Slit',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/56248-black-ivory',
+            price: '$398.00',
+            isAlternative: true,
+            altNote: 'The custom Schiaparelli ensemble was never sold at retail -- this is a current strapless slit gown in a similar high-contrast shape, polka dots instead of crystals (choker not included).',
           },
         ],
       },
@@ -1535,6 +1633,19 @@ export default {
             focalPoint: '48% 23%',
           },
         ],
+        // Shop pass (2026-07-22): the exact AREA jeans she wore, verified
+        // in stock.
+        products: [
+          {
+            brand: 'AREA',
+            item: 'Crystal Slit Jean',
+            retailer: 'area.nyc',
+            url: 'https://area.nyc/products/crystal-slit-jean-3',
+            price: '$298.00',
+            isAlternative: false,
+            altNote: 'The exact AREA Crystal Slit Jean named in the look, currently marked down -- sourcing the jeans only (corset, jacket, boots, and jewelry not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -1629,6 +1740,20 @@ export default {
             credit: 'Kevin Winter/GI for TAS Rights Management',
           },
         ],
+        // Shop pass (2026-07-22): the custom Versace stage bodysuit was
+        // never sold at retail -- a current pink rhinestone mini,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Fashion Nova',
+            item: 'Natalie Rhinestone Fishnet Mini Dress',
+            retailer: 'fashionnova.com',
+            url: 'https://www.fashionnova.com/products/natalie-rhinestone-fishnet-mini-dress-fncolorname-pink',
+            price: '$27.98',
+            isAlternative: true,
+            altNote: 'The custom Versace stage bodysuit was never sold at retail -- this pink rhinestone fishnet mini offers a similar color and sparkle, as a dress rather than a bodysuit.',
+          },
+        ],
       },
     },
     {
@@ -1654,6 +1779,20 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/03/02-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
             credit: 'Kevin Winter/GI for TAS Rights Management',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Cavalli stage dress was
+        // never sold at retail -- a current gold sequin fringe dress,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Multicolor Metallic Sequin One Shoulder Fringe Dress',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/6212',
+            price: '$698.00',
+            isAlternative: true,
+            altNote: 'The custom Cavalli stage dress was never sold at retail -- this gold-silver ombre sequin fringe dress recreates its shimmer and movement (boots not separately sourced).',
           },
         ],
       },
@@ -1683,6 +1822,20 @@ export default {
             credit: 'Kevin Mazur/GI for TAS Rights Management',
           },
         ],
+        // Shop pass (2026-07-22): the custom Etro stage gown is not
+        // retail merchandise -- a current chiffon gown, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Yellow Ruffle Shoulder V-Neck Chiffon Gown',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/48856-marigold',
+            price: '$458.00',
+            isAlternative: true,
+            altNote: 'The custom Etro stage gown is not retail merchandise -- this marigold chiffon gown matches its warm, flowing character with ruffled shoulders rather than the original\'s cape.',
+          },
+        ],
       },
     },
     {
@@ -1708,6 +1861,20 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/03/04-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
             credit: 'Kevin Winter/GI for TAS Rights Management',
+          },
+        ],
+        // Shop pass (2026-07-22): the asymmetrical Cavalli catsuit was
+        // custom-made -- a current black cutout jumpsuit, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Fashion Nova',
+            item: 'Lara Cut Out Jumpsuit',
+            retailer: 'fashionnova.com',
+            url: 'https://www.fashionnova.com/products/lara-cut-out-jumpsuit-fncolorname-black',
+            price: '$39.99',
+            isAlternative: true,
+            altNote: 'The asymmetrical Cavalli catsuit was custom-made -- this black one-shoulder cutout jumpsuit echoes its one-piece shape with flared pants (boots not separately sourced).',
           },
         ],
       },
@@ -1737,6 +1904,20 @@ export default {
             credit: 'Kevin Mazur/GI for TAS Rights Management',
           },
         ],
+        // Shop pass (2026-07-22): the Ashish stage recreation was custom
+        // and never sold -- a real made-to-order fan shirt with the
+        // video's phrase, verified available.
+        products: [
+          {
+            brand: 'Upper 90 Studio',
+            item: '"Not a Lot Going on at the Moment" Unisex T-Shirt',
+            retailer: 'upper90studio.com',
+            url: 'https://www.upper90studio.com/store/p/not-a-lot-going-on-at-the-moment-unisex-t-shirt',
+            price: '$19.95+',
+            isAlternative: true,
+            altNote: 'The Ashish stage recreation was custom and never sold at retail -- this made-to-order shirt reproduces the "22" video\'s phrase, not the designer construction.',
+          },
+        ],
       },
     },
     {
@@ -1761,6 +1942,20 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/03/06-Taylor-Swift-outfit-gallery-night-1-billboard-1548.jpg',
             credit: 'John Shearer/GI for TAS Rights Management',
+          },
+        ],
+        // Shop pass (2026-07-22): the Nicole + Felicia tour gown was
+        // custom-made -- a current purple strapless ball gown, verified
+        // in stock, closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Purple Strapless Satin Ball Gown With Draped Detail',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/56425-periwinkle',
+            price: '$398.00',
+            isAlternative: true,
+            altNote: 'The Nicole + Felicia tour gown was custom-made -- this periwinkle strapless ball gown recreates the purple princess volume in satin, with draping rather than the original embellishment.',
           },
         ],
       },
@@ -1790,6 +1985,20 @@ export default {
             credit: 'Kevin Mazur/GI for TAS Rights Management',
           },
         ],
+        // Shop pass (2026-07-22): the Alberta Ferretti tour dress was
+        // custom-made -- a current purple chiffon gown, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Purple Ruched Chiffon Sleeveless Gown With 3D Flower',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/49938',
+            price: '$498.00',
+            isAlternative: true,
+            altNote: 'The Alberta Ferretti tour dress was custom-made -- this vintage-lilac layered chiffon gown offers comparable soft movement, with a different neckline and floral detail.',
+          },
+        ],
       },
     },
     {
@@ -1815,6 +2024,20 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/03/taylor-swift-eras-tour-acoustic-guitar-march-17-2023-billboard-1548.jpg',
             credit: 'Kevin Mazur/Getty Images for TAS Rights Management',
+          },
+        ],
+        // Shop pass (2026-07-22): the Jessica Jones stage gown was
+        // custom-made -- a current magenta kaftan gown, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Hot Pink Cut Out Fringe Kaftan Gown',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/49898-magenta',
+            price: '$498.00',
+            isAlternative: true,
+            altNote: 'The Jessica Jones stage gown was custom-made -- this magenta kaftan gown preserves the saturated color and flowing movement, with cutouts and fringe instead of the original silhouette.',
           },
         ],
       },
@@ -1849,6 +2072,20 @@ export default {
             credit: 'Kevin Mazur/GI for TAS Rights Management',
           },
         ],
+        // Shop pass (2026-07-22): the Oscar de la Renta bodysuit, shirt,
+        // and coat were custom -- a current navy sequin mini, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Beginning Boutique',
+            item: 'Penny Lane Navy Sequin Mini Dress',
+            retailer: 'beginningboutique.com',
+            url: 'https://www.beginningboutique.com/products/penny-lane-navy-sequin-mini-dress',
+            price: '$89.99',
+            isAlternative: true,
+            altNote: 'The Oscar de la Renta bodysuit, shirt, and coat were custom -- this navy sequin mini captures the closing look\'s color and shine in one dress, the primary piece only.',
+          },
+        ],
       },
     },
     {
@@ -1874,6 +2111,20 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2024/01/taylor-swift-02-golden-globes-2024-billboard-1548.jpg?w=1024',
             credit: 'Billboard',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Gucci gown was not released
+        // for retail -- a current emerald sequin gown, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Green Cowl Back Boat Neck Sequined Evening Gown',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/26331_emerald',
+            price: '$398.00',
+            isAlternative: true,
+            altNote: 'The custom Gucci gown was not released for retail -- this emerald sequin gown shares its saturated sparkle, with a boat neck and cowl back instead of the original column shape.',
           },
         ],
       },
@@ -1914,6 +2165,20 @@ export default {
             url: 'https://www.redcarpet-fashionawards.com/wp-content/uploads/2023/02/Taylor-Swift-2023-Grammys-683x1024.jpeg',
             credit: 'Getty Images',
             focalPoint: '45% 25%',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Cavalli Grammys set was
+        // never sold at retail -- a current sequin two-piece set,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Showpo',
+            item: 'Aurora Two Piece Top and Skirt Set',
+            retailer: 'showpo.com',
+            url: 'https://www.showpo.com/us/products/aurora-two-piece-top-and-skirt-set-floral-sequin-cowl-neck-top-and-maxi-skirt-in-baby-blue',
+            price: '$45.00',
+            isAlternative: true,
+            altNote: 'The custom Cavalli Grammys set was never sold at retail -- this blue sequin two-piece keeps the cropped-top-and-skirt formula, in pale blue with floral sequins and a cowl neck.',
           },
         ],
       },
@@ -2021,6 +2286,19 @@ export default {
             credit: 'Just Jared',
           },
         ],
+        // Shop pass (2026-07-22): the exact lipstick shade used for the
+        // red ombre lip, verified in stock.
+        products: [
+          {
+            brand: 'Pat McGrath Labs',
+            item: 'LiquiLUST: Legendary Wear Lipstick in Elson 4',
+            retailer: 'patmcgrath.com',
+            url: 'https://www.patmcgrath.com/products/liquilust-legendary-wear-matte-lipstick',
+            price: '$34.00',
+            isAlternative: false,
+            altNote: 'The exact Elson 4 shade used for the red ombre lip -- the primary makeup item only, not the full 30-look kit or the jeweled cat-eye.',
+          },
+        ],
       },
     },
     {
@@ -2051,6 +2329,20 @@ export default {
             kind: 'fashion',
           },
         ],
+        // Shop pass (2026-07-22): the original Versace gown is no longer
+        // sold -- a current black-and-gold sequin gown, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Mac Duggal',
+            item: 'Black and Gold Sequined Wrap Over Butterfly Sleeve Draped Gown',
+            retailer: 'macduggal.com',
+            url: 'https://macduggal.com/products/5540',
+            price: '$199.00',
+            isAlternative: true,
+            altNote: 'The original Versace gown is no longer sold -- this black-and-gold sequin gown matches the palette and shine, with a wrap front and butterfly sleeves instead of gold buttons.',
+          },
+        ],
       },
     },
     {
@@ -2078,6 +2370,19 @@ export default {
             credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
             caption: "Swift performing the Red set on the Eras Tour, wearing the MAC Locked Kiss 24HR lipstick in \"Ruby True\" that became her signature stage lip.",
             kind: 'fashion',
+          },
+        ],
+        // Shop pass (2026-07-22): the exact MAC lipstick and shade
+        // identified in the backstage footage, verified in stock.
+        products: [
+          {
+            brand: 'MAC',
+            item: 'Locked Kiss 24HR Lipstick in Ruby True',
+            retailer: 'maccosmetics.com',
+            url: 'https://www.maccosmetics.com/product/13854/119065/products/makeup/lips/lipstick/mac-locked-kiss-24hr-lipstick?shade=RUBY+TRUE',
+            price: '$34.00',
+            isAlternative: false,
+            altNote: 'The exact MAC lipstick and shade identified in the backstage footage -- the primary lip color only, without the liner, setting powder, or full application routine.',
           },
         ],
       },
@@ -2113,6 +2418,20 @@ export default {
             kind: 'primary',
           },
         ],
+        // Shop pass (2026-07-22): the original Free People slip and coat
+        // are discontinued -- a current white lace mini, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Beginning Boutique',
+            item: 'All Mine White Lace Mini Dress',
+            retailer: 'beginningboutique.com',
+            url: 'https://www.beginningboutique.com/products/all-mine-white-lace-mini-dress',
+            price: '$99.99',
+            isAlternative: true,
+            altNote: 'The original Free People slip and coat are discontinued -- this white lace mini is a current stand-in for the dress only, with a different lace construction (the fur coat not included).',
+          },
+        ],
       },
     },
     {
@@ -2142,6 +2461,20 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/2023/05/coach-gingham-dress-edited.jpeg?w=1000',
             credit: 'Coach',
+          },
+        ],
+        // Shop pass (2026-07-22): the exact Coach black-and-white minidress
+        // is discontinued -- a current red gingham cherry-print dress,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Unique Vintage',
+            item: 'Red Gingham & Cherries Sweetheart Swing Dress',
+            retailer: 'unique-vintage.com',
+            url: 'https://www.unique-vintage.com/products/unique-vintage-red-gingham-cherries-sweetheart-swing-dress',
+            price: '$98.00',
+            isAlternative: true,
+            altNote: 'The exact Coach black-and-white Peter Pan-collar mini is discontinued -- this current dress carries the gingham-and-cherry motif in red, with a sweetheart neckline and swing skirt.',
           },
         ],
       },
