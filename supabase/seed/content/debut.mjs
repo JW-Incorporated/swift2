@@ -175,8 +175,7 @@ export default {
       snippet:
         'Her first career CMA Award, the Horizon Award, at the 41st CMA Awards on Nov. 7, 2007 — the trophy now known as New Artist of the Year.',
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-reacts-to-cmas-win/',
-      thumbnailUrl:
-        'https://media.gettyimages.com/id/77795920/photo/41st-annual-cma-awards-press-room.jpg?s=594x594&w=0&k=20&c=Pps0NDhapuDnUOXIZdnjsgbreJehja48sZzwGrprAcg=',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg',
       moment: {
         context:
           'At the 41st CMA Awards in Nashville, she took the Horizon Award over a nominee class of Jason Aldean, Rodney Atkins, Little Big Town, and Kellie Pickler — and delivered the acceptance line that dates the whole era: "This is definitely the highlight of my senior year."\n\nThe Horizon trophy, since renamed New Artist of the Year, was the first of the dozen career CMA Awards CBS would eventually count — handed to a 17-year-old who was, as the speech says, still technically in her senior year.',
@@ -191,13 +190,10 @@ export default {
         // Entertainment Center/Sommet Center, renamed Bridgestone Arena in
         // 2010 — same building) plus other real, dated 2007 appearances. All
         // curl-verified 200 + image/jpeg, downloaded and visually confirmed.
+        // Kevin Stream 1 (#751, 2026-07-23): dropped the media.gettyimages.com
+        // watermarked press-room comp (banned host) — the moment keeps its 5
+        // freely licensed photos; thumbnail repointed to the Aug. 2007 shot.
         photos: [
-          {
-            url: 'https://media.gettyimages.com/id/77795920/photo/41st-annual-cma-awards-press-room.jpg?s=594x594&w=0&k=20&c=Pps0NDhapuDnUOXIZdnjsgbreJehja48sZzwGrprAcg=',
-            focalPoint: '60% 40%',
-            credit: 'Bryan Bedder/Getty Images',
-            kind: 'primary',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/Gaylord_Entertainment_Center_2005-12-07.jpg',
             credit: 'Wonderdawg777 / Wikimedia Commons, CC BY 2.0',
