@@ -7,3 +7,11 @@
 # The generated vault (*.generated.ts) is written LF by the sync scripts;
 # pin LF so the check:generated guard never sees spurious CRLF diffs.
 *.generated.ts text eol=lf
+
+# Shell scripts run directly via their shebang on GitHub Actions' Linux
+# runners (scripts/watchdog/upsert-alert.sh) — a CRLF checkout breaks the
+# shebang line ("bad interpreter") even though core.autocrlf only converts
+# working-tree checkouts, not the committed blob. Same risk class as the
+# .mjs fix above; pin explicitly rather than rely on autocrlf leaving it
+# alone by chance.
+*.sh text eol=lf
