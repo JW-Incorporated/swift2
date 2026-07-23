@@ -7782,6 +7782,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/05/taylor-swift-eras-tour-paris-05-2024-billboard-1240.jpg?w=942", credit: "Kevin Mazur/TAS24/Getty Images", kind: "primary", focalPoint: "42% 18%" }, { url: "https://www.billboard.com/wp-content/uploads/2024/05/Taylor-Swift-_-The-Eras-Tour-Paris-France-04-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Kevin Mazur/TAS24/Getty Images", kind: "archival", focalPoint: "46% 28%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/photos/taylor-swift-eras-tour-paris-show-1235680098/" }, { name: "Vivienne Westwood", url: "https://www.viviennewestwood.com/westwood-world/news-and-projects/taylor-swift-the-eras-tour/" }],
+      products: [{ brand: "MESHKI", item: "Seraphine Corset Satin Maxi Dress", retailer: "meshki.us", url: "https://www.meshki.us/products/seraphine-corset-satin-maxi-dress-ivory", price: "$229.00", isAlternative: true, altNote: "The custom Vivienne Westwood lyric gown was never sold at retail -- this sources the gown only, matching its corseted, draped feel (no printed text; the bodysuit not separately sourced)." }],
     },
     {
       id: "vault-ttpd-eight-nights-at-wembley-more-than-any-solo-artist-ever",
@@ -7940,6 +7941,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/P5J7PGVYFxPyyTdzTVpya3.jpg", credit: "Getty Images", caption: "In the Superdome suite after removing the Saint Laurent blazer for the game — the blazer itself was worn on arrival.", kind: "primary", focalPoint: "52% 24%" }, { url: "https://cdn.mos.cms.futurecdn.net/cpMbV3jceZ6rfU2apDrhta.jpg", credit: "Getty Images", caption: "Full-length view in the Superdome suite, blazer already off; the white tank top and crystal-denim shorts were worn underneath it.", kind: "archival", focalPoint: "44% 22%" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-2025-super-bowl-outfit/" }],
+      products: [{ brand: "St. John", item: "Double-Breasted Knit Blazer", retailer: "shop.simon.com", url: "https://shop.simon.com/products/st-john-double-breasted-knit-blazer", price: "$599.98", isAlternative: true, altNote: "Her exact Saint Laurent blazer is discontinued -- this is a current white double-breasted blazer with padded shoulders in a similar longline cut, in knit rather than tailored fabric." }],
     },
     {
       id: "vault-ttpd-ttpds-grunge-tea-stained-aesthetic-the-album-photography",
@@ -7951,6 +7953,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/iLujwgsEwXSAYA4yN98NKS.jpg", credit: "Beth Garrabrant", kind: "primary", focalPoint: "52% 25%" }, { url: "https://cdn.mos.cms.futurecdn.net/2oQqrmEL7ZpA7ZUzzMnqk8.png", credit: "Beth Garrabrant; Getty Images via Marie Claire", caption: "Marie Claire's composite of the era: Garrabrant's album portraits, the TTPD CD package, and the Victorian-gothic looks that carried the aesthetic onto red carpets.", kind: "archival", focalPoint: "66% 28%" }, { url: "https://cdn.mos.cms.futurecdn.net/VTGUgGFbL2PbwFRdhdCUxk.png", credit: "YouTube via Marie Claire", caption: "The Victorian-mourning styling carried into the era's visuals: Swift at the typewriter in the 'Fortnight' video.", kind: "archival", focalPoint: "50% 25%" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-tortured-poets-department-fashion-explained/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" }],
+      products: [{ brand: "Princess Polly", item: "Ashlinn Off Shoulder Drapey Top", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/ashlinn-off-shoulder-drapey-top-grey", price: "$45.00", isAlternative: true, altNote: "No single piece from the shoot is identified -- this is a current grey off-shoulder top in the same greige, undone-styling spirit as the album photography." }],
     },
     {
       id: "vault-ttpd-fortnight-video-costuming-an-elena-velez-gothic-gown",
@@ -7962,6 +7965,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c3/Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg/500px-Taylor_Swift_Songbook_Trail_Fortnight_display_05.jpg", credit: "Wikimedia Commons", kind: "primary", focalPoint: "46% 28%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg/960px-Taylor_Swift_Songbook_Trail_Fortnight_display_01.jpg", credit: "14GTR / Wikimedia Commons (CC0)", caption: "The full Fortnight stop on the V&A's Songbook Trail: the Elena Velez gown staged on a plinth of antique books, with the typewriter and neon wiring completing the scene.", kind: "archival", focalPoint: "47% 33%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Fortnight_(song)" }, { name: "V&A", url: "https://www.vam.ac.uk/articles/va-trail-taylor-swift-songbook" }, { name: "Milwaukee Journal Sentinel", url: "https://www.yahoo.com/entertainment/taylor-swifts-outfit-fortnight-video-011351237.html" }],
+      products: [{ brand: "Dare Fashion Globe", item: "Renaissance Dress in Black (Dark Raven)", retailer: "darefashionglobe.com", url: "https://darefashionglobe.com/products/renaissance-corset-dress-black", price: "$69.99", isAlternative: true, altNote: "The Elena Velez runway gown is not sold at mainstream retail -- this is a current black Victorian-gothic corset gown in the same silhouette family (top by UNTTLD not separately sourced)." }],
     },
     {
       id: "vault-ttpd-2024-vmas-red-carpet-a-tartan-dior-corset-and-cape",
@@ -7973,6 +7977,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://cdn.mos.cms.futurecdn.net/oKWbowx4E2Tgw6ZLAHrb4a.jpg", credit: "Getty Images", kind: "primary", focalPoint: "46% 30%" }, { url: "https://cdn.mos.cms.futurecdn.net/KVrtqLFYbAQRxkZBWvfzjd.jpg", credit: "Getty Images", kind: "archival", focalPoint: "52% 15%" }],
       sources: [{ name: "Marie Claire", url: "https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/" }, { name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-christian-dior-outfit-mtv-vmas-1236609528/" }],
+      products: [{ brand: "AKIRA", item: "Look At Me Baby Tweed Corset", retailer: "shopakira.com", url: "https://shopakira.com/products/look-at-me-baby-tweed-corset", price: "$45.90", isAlternative: true, altNote: "The custom Dior runway look was never sold at retail -- this sources the corset only, a pink-and-black plaid rather than the exact tartan, without the cape." }],
     },
     {
       id: "vault-ttpd-2025-grammys-red-carpet-sequined-vivienne-westwood-in-chiefs",
@@ -7984,6 +7989,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://assets2.cbsnewsstatic.com/hub/i/r/2025/02/03/d575db15-2694-4564-97b4-2a9bd88ac338/thumbnail/620x930/ea5b6dbdcd77be1409149df490bff1c8/gettyimages-2197310399.jpg", credit: "Getty Images", kind: "primary", focalPoint: "48% 14%" }, { url: "https://cdn.mos.cms.futurecdn.net/8jriSdzqvBHFQGNi9PLQzV.jpg", credit: "Getty Images via Marie Claire", caption: "The details up close: ruby chandelier earrings and the draped, corseted Westwood bodice.", kind: "archival", focalPoint: "44% 34%" }, { url: "https://cdn.mos.cms.futurecdn.net/GPDhDuw6VEnmseepjCckUf.jpg", credit: "Getty Images via Marie Claire", caption: "The full look on the carpet: the one-shoulder mini with the diamond thigh chain dangling its single \"T\".", kind: "archival", focalPoint: "48% 20%" }],
       sources: [{ name: "E! News", url: "https://www.eonline.com/news/1412664/grammys-2025-taylor-swift-red-carpet-fashion-moment" }, { name: "CBS News Los Angeles", url: "https://www.cbsnews.com/losangeles/news/grammys-red-carpet-2025-highlights/" }],
+      products: [{ brand: "Armani Exchange", item: "Sequin One Shoulder Mini Dress", retailer: "shop.simon.com", url: "https://shop.simon.com/products/sequin-one-shoulder-mini-dress-in-red", price: "$111.00", isAlternative: true, altNote: "The custom Vivienne Westwood mini was never sold at retail -- this is a current red sequined one-shoulder mini in the same color and asymmetric silhouette (thigh chain not separately sourced)." }],
     },
     {
       id: "vault-ttpd-a-draped-schiaparelli-gown-the-same-night-ttpd-was-announced",
@@ -7995,6 +8001,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.redcarpet-fashionawards.com/wp-content/uploads/2024/02/Taylor-Swift-Wore-Schiaparelli-Haute-Couture-To-The-2024-Grammy-Awards.jpg", credit: "Matt Winkelmeyer/Getty Images for The Recording Academy", kind: "primary", focalPoint: "34% 15%" }],
       sources: [{ name: "Red Carpet Fashion Awards", url: "https://www.redcarpet-fashionawards.com/2024/02/05/taylor-swift-wore-schiaparelli-haute-couture-to-the-2024-grammy-awards/" }, { name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/taylor-swift-2024-grammys-dress-schiaparelli-1235815411/" }],
+      products: [{ brand: "MESHKI", item: "Bex Strapless Slinky Maxi Dress With Split", retailer: "meshki.us", url: "https://www.meshki.us/products/bex-strapless-slinky-maxi-dress-with-split-ivory", price: "$95.00", isAlternative: true, altNote: "The custom Schiaparelli gown was never sold at retail -- this is a current ivory strapless gown with a leg slit in a similar draped spirit, without the corset-style back lacing." }],
     },
     {
       id: "vault-ttpd-a-sculptural-white-toni-mati-evski-gown-opens-the-fortnight-",
@@ -8006,6 +8013,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://wwd.com/wp-content/uploads/2024/04/taylor-swift-fornight-dress-maticevski.jpg?w=1000", credit: "Republic Records", caption: "Designer lookbook image of Toni Matičevski's \"Candescence\" gown, shown here on a runway/lookbook model — not Swift, who wears the same gown in the \"Fortnight\" video's opening scene.", kind: "primary", focalPoint: "52% 22%" }],
       sources: [{ name: "WWD", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-toni-maticevski-gown-fortnight-music-video-1236321522/" }],
+      products: [{ brand: "MESHKI", item: "Aphrodite Off Shoulder Crepe Gown", retailer: "meshki.us", url: "https://www.meshki.us/products/aphrodite-off-shoulder-crepe-gown-ivory", price: "$339.00", isAlternative: true, altNote: "The \"Candescence\" gown is no longer sold -- this ivory crepe gown keeps the sculptural gathering and dramatic white silhouette, off-shoulder with a fishtail hem rather than high-low cotton." }],
     },
     {
       id: "vault-ttpd-popflex-and-wiskii-athleisure-for-i-can-do-it-with-a-broken-",
@@ -8017,6 +8025,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.14.34-AM.png?resize=789%2C491&ssl=1", credit: "Screenshot via Blogilates, from Taylor Swift's official \"I Can Do It With a Broken Heart\" music video (Republic Records)", caption: "The plum Popflex Active skort from the video's backstage rehearsal footage.", kind: "primary", focalPoint: "49% 30%" }, { url: "https://i0.wp.com/www.blogilates.com/wp-content/uploads/2024/08/Screenshot-2024-08-21-at-10.16.26-AM.png?ssl=1", credit: "Screenshot via Blogilates, from Taylor Swift's official \"I Can Do It With a Broken Heart\" music video (Republic Records)", caption: "The lavender Popflex tulle skirt and matching corset bra, mid-rehearsal in the video.", kind: "archival", focalPoint: "41% 25%" }],
       sources: [{ name: "The Zoe Report", url: "https://www.thezoereport.com/culture/taylor-swift-i-can-do-it-with-a-broken-heart-music-video-outfits" }, { name: "Blogilates", url: "https://www.blogilates.com/blog/popflex-taylor-swift-music-video-outfits/" }],
+      products: [{ brand: "POPFLEX", item: "Twirl Skort - Plum", retailer: "popflexactive.com", url: "https://www.popflexactive.com/products/twirl-skort-plum", price: "$54.00" }],
     },
     {
       id: "vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play",
@@ -8386,6 +8395,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "The most restrained visual era: black, white, and typewritten confession.",
       body: ["Grayscale styling and typewriter motifs frame the era as a literary confessional."],
       tags: ["Fashion"],
+      products: [{ brand: "AKIRA", item: "Extra Extra Printed Mesh Tee", retailer: "shopakira.com", url: "https://shopakira.com/products/extra-extra-printed-mesh-tee", price: "$25.90", isAlternative: true, altNote: "No single retail original is named -- this newspaper-print tee turns the typewritten motif into clothing, though its beige-multicolor print isn't the restrained monochrome styling." }],
     },
   ],
 };

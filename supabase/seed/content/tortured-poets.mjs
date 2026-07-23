@@ -524,6 +524,20 @@ export default {
             focalPoint: '46% 28%',
           },
         ],
+        // Shop pass (2026-07-22): the custom Vivienne Westwood lyric gown
+        // was never sold at retail -- a current ivory corseted gown,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'MESHKI',
+            item: 'Seraphine Corset Satin Maxi Dress',
+            retailer: 'meshki.us',
+            url: 'https://www.meshki.us/products/seraphine-corset-satin-maxi-dress-ivory',
+            price: '$229.00',
+            isAlternative: true,
+            altNote: 'The custom Vivienne Westwood lyric gown was never sold at retail -- this sources the gown only, matching its corseted, draped feel (no printed text; the bodysuit not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -1324,6 +1338,20 @@ export default {
             focalPoint: '44% 22%',
           },
         ],
+        // Shop pass (2026-07-22): the exact Saint Laurent blazer is
+        // discontinued -- a current white double-breasted blazer,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'St. John',
+            item: 'Double-Breasted Knit Blazer',
+            retailer: 'shop.simon.com',
+            url: 'https://shop.simon.com/products/st-john-double-breasted-knit-blazer',
+            price: '$599.98',
+            isAlternative: true,
+            altNote: 'Her exact Saint Laurent blazer is discontinued -- this is a current white double-breasted blazer with padded shoulders in a similar longline cut, in knit rather than tailored fabric.',
+          },
+        ],
       },
     },
 
@@ -1391,6 +1419,20 @@ export default {
             focalPoint: '50% 25%',
           },
         ],
+        // Shop pass (2026-07-22): no single named piece from the shoot is
+        // identified -- a current off-shoulder grey top, verified in
+        // stock, in the same greige, undone spirit.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Ashlinn Off Shoulder Drapey Top',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/ashlinn-off-shoulder-drapey-top-grey',
+            price: '$45.00',
+            isAlternative: true,
+            altNote: 'No single piece from the shoot is identified -- this is a current grey off-shoulder top in the same greige, undone-styling spirit as the album photography.',
+          },
+        ],
       },
     },
     {
@@ -1438,6 +1480,20 @@ export default {
             focalPoint: '47% 33%',
           },
         ],
+        // Shop pass (2026-07-22): the Elena Velez runway gown is not sold
+        // at mainstream retail -- a current black Victorian-gothic
+        // corset gown, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Dare Fashion Globe',
+            item: 'Renaissance Dress in Black (Dark Raven)',
+            retailer: 'darefashionglobe.com',
+            url: 'https://darefashionglobe.com/products/renaissance-corset-dress-black',
+            price: '$69.99',
+            isAlternative: true,
+            altNote: 'The Elena Velez runway gown is not sold at mainstream retail -- this is a current black Victorian-gothic corset gown in the same silhouette family (top by UNTTLD not separately sourced).',
+          },
+        ],
       },
     },
     {
@@ -1476,6 +1532,20 @@ export default {
             credit: 'Getty Images',
             // Photo pass #762 (2026-07-19): viewed — full-length carpet shot, face high in frame.
             focalPoint: '52% 15%',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Dior runway look was never
+        // sold at retail -- a current plaid tweed corset, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'AKIRA',
+            item: 'Look At Me Baby Tweed Corset',
+            retailer: 'shopakira.com',
+            url: 'https://shopakira.com/products/look-at-me-baby-tweed-corset',
+            price: '$45.90',
+            isAlternative: true,
+            altNote: 'The custom Dior runway look was never sold at retail -- this sources the corset only, a pink-and-black plaid rather than the exact tartan, without the cape.',
           },
         ],
       },
@@ -1539,6 +1609,20 @@ export default {
             focalPoint: '48% 20%',
           },
         ],
+        // Shop pass (2026-07-22): the custom Vivienne Westwood mini was
+        // never sold at retail -- a current red sequined one-shoulder
+        // mini, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Armani Exchange',
+            item: 'Sequin One Shoulder Mini Dress',
+            retailer: 'shop.simon.com',
+            url: 'https://shop.simon.com/products/sequin-one-shoulder-mini-dress-in-red',
+            price: '$111.00',
+            isAlternative: true,
+            altNote: 'The custom Vivienne Westwood mini was never sold at retail -- this is a current red sequined one-shoulder mini in the same color and asymmetric silhouette (thigh chain not separately sourced).',
+          },
+        ],
       },
     },
     // NOTE: the wedding itself, the wedding-gown fashion angle, and everything
@@ -1578,6 +1662,20 @@ export default {
             // full-length carpet shot, the white train sweeping right; face high
             // in the upper-left quadrant.
             focalPoint: '34% 15%',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Schiaparelli Haute Couture
+        // gown was never sold at retail -- a current ivory strapless
+        // slinky gown, verified in stock, closest real match.
+        products: [
+          {
+            brand: 'MESHKI',
+            item: 'Bex Strapless Slinky Maxi Dress With Split',
+            retailer: 'meshki.us',
+            url: 'https://www.meshki.us/products/bex-strapless-slinky-maxi-dress-with-split-ivory',
+            price: '$95.00',
+            isAlternative: true,
+            altNote: 'The custom Schiaparelli gown was never sold at retail -- this is a current ivory strapless gown with a leg slit in a similar draped spirit, without the corset-style back lacing.',
           },
         ],
       },
@@ -1621,6 +1719,20 @@ export default {
           // not the white-gown opening scene, so it would misrepresent this moment (and near-
           // duplicates the frame already on the TTPD-photography page). Page stays at one photo,
           // consistent with the 2026-07-10 image-fix finding above.
+        ],
+        // Shop pass (2026-07-22): the Toni Matičevski "Candescence" gown
+        // is no longer sold -- a current ivory off-shoulder crepe gown,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'MESHKI',
+            item: 'Aphrodite Off Shoulder Crepe Gown',
+            retailer: 'meshki.us',
+            url: 'https://www.meshki.us/products/aphrodite-off-shoulder-crepe-gown-ivory',
+            price: '$339.00',
+            isAlternative: true,
+            altNote: 'The "Candescence" gown is no longer sold -- this ivory crepe gown keeps the sculptural gathering and dramatic white silhouette, off-shoulder with a fishtail hem rather than high-low cotton.',
+          },
         ],
       },
     },
@@ -1674,6 +1786,19 @@ export default {
             credit: 'Screenshot via Blogilates, from Taylor Swift\'s official "I Can Do It With a Broken Heart" music video (Republic Records)',
             caption: 'The lavender Popflex tulle skirt and matching corset bra, mid-rehearsal in the video.',
             focalPoint: '41% 25%',
+          },
+        ],
+        // Shop pass (2026-07-22): the exact real Popflex piece from the
+        // video, verified in stock.
+        products: [
+          {
+            brand: 'POPFLEX',
+            item: 'Twirl Skort - Plum',
+            retailer: 'popflexactive.com',
+            url: 'https://www.popflexactive.com/products/twirl-skort-plum',
+            price: '$54.00',
+            isAlternative: false,
+            altNote: 'The exact Popflex Twirl Skort in Plum shown in the video -- sourcing the skort only, not the lavender set, WISKII skirt, or boots.',
           },
         ],
       },
@@ -3755,6 +3880,20 @@ export default {
       snippet: "The most restrained visual era: black, white, and typewritten confession.",
       moment: {
         context: "Grayscale styling and typewriter motifs frame the era as a literary confessional.",
+        // Shop pass (2026-07-22): no single named piece -- a current
+        // newspaper-print mesh tee, verified in stock, turning the era's
+        // typewritten motif into a real garment.
+        products: [
+          {
+            brand: 'AKIRA',
+            item: 'Extra Extra Printed Mesh Tee',
+            retailer: 'shopakira.com',
+            url: 'https://shopakira.com/products/extra-extra-printed-mesh-tee',
+            price: '$25.90',
+            isAlternative: true,
+            altNote: 'No single retail original is named -- this newspaper-print tee turns the typewritten motif into clothing, though its beige-multicolor print isn\'t the restrained monochrome styling.',
+          },
+        ],
       },
     },
   ],
