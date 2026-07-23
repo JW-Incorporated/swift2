@@ -5684,6 +5684,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg/1280px-Taylor_Swift_-_Reputation_Tour_Seattle_-_Look_What_You_Made_Me_Do.jpg", credit: "Ronald Woan / Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-news/taylor-swift-reputation-gold-reputation-bodysuit-doc-series-1235487475/" }],
+      products: [{ brand: "Rhapso Designs", item: "Snake Print Silver Sequined Bodysuit", retailer: "rhapso-designs.com", url: "https://www.rhapso-designs.com/product-page/snake-print-silver-sequined-bodysuit-leo32", price: "AU$90.00", isAlternative: true, altNote: "The original tour bodysuit was custom, never sold at retail -- this is a current snake-print sequined bodysuit in the same silhouette (price in Australian dollars)." }],
     },
     {
       id: "vault-reputation-the-teal-fringe-dress-in-the-second-delicate-video",
@@ -5695,6 +5696,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://imgix.bustle.com/uploads/image/2018/3/12/c5dd79b9-3dd6-48fb-be2c-6b565fc5fe09-screen-shot-2018-03-12-at-61855-am.png?w=248&h=218&fit=crop&crop=faces&dpr=2", credit: "Bustle", kind: "primary" }],
       sources: [{ name: "Bustle", url: "https://www.bustle.com/p/where-to-buy-taylor-swifts-delicate-blue-tassel-dress-thats-causing-a-fashion-frenzy-8469568" }],
+      products: [{ brand: "Alyce Paris", item: "Alyce 40022 Short Homecoming Dress", retailer: "promgirl.com", url: "https://www.promgirl.com/products/alyce-al-40022-dress", price: "$373.00", isAlternative: true, altNote: "Her exact custom Naeem Khan piece is discontinued -- this is a current Tiffany-blue tiered-fringe dress in the same spirit, a fitted mini rather than the floor-to-mini reveal." }],
     },
     {
       id: "vault-reputation-a-disco-ball-balmain-look-for-the-2018-amas",
@@ -5706,6 +5708,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.hollywoodreporter.com/wp-content/uploads/2018/10/gettyimages-1048368054_copy.jpg?w=1296&h=730&crop=1", credit: "Getty Images", kind: "primary" }, { url: "https://imgix.bustle.com/wmag/2018/10/09/5bbd2d31a36ed72d939f3ec2_GettyImages-1048354800.jpg?w=414&h=276&fit=crop&crop=faces&dpr=2", credit: "Getty Images", kind: "archival" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/lifestyle/style/american-music-awards-taylor-swift-wears-badass-balmain-outfit-1150928/" }, { name: "W Magazine", url: "https://www.wmagazine.com/story/taylor-swift-balmain-disco-ball-2018-american-music-awards" }],
+      products: [{ brand: "Princess Polly", item: "Miss Me Sequin Mini Dress", retailer: "us.princesspolly.com", url: "https://us.princesspolly.com/products/bombshell-sequin-mini-dress-silver", price: "$85.00", isAlternative: true, altNote: "Her exact Balmain mirrored mini is long discontinued -- this is a current silver sequin mini in the same disco-ball spirit (thigh-high boots not separately sourced)." }],
     },
     {
       id: "vault-reputation-zombie-makeup-for-look-what-you-made-me-do",
@@ -5717,6 +5720,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-zombie-transformation-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", caption: "Behind the scenes on the zombie makeup for \"Look What You Made Me Do\"'s graveyard opening.", kind: "primary", focalPoint: "42% 40%" }],
       sources: [{ name: "Entertainment Tonight", url: "https://www.etonline.com/taylor-swifts-look-what-you-made-me-do-video-everything-we-know-about-the-snakes-diamonds-dancing" }],
+      products: [{ brand: "Mehron", item: "Zombie Professional Makeup Kit", retailer: "jestpaint.com", url: "https://jestpaint.com/products/mehron-premium-makeup-kit-new-zombie-professional-makeup-kit-kmp-ez", price: "$20.19", isAlternative: true, altNote: "Bill Corso's bespoke film prosthetics were never sold at retail -- this is a current zombie SFX kit (creme colors, blood gel, latex, wax) for a similar undead effect." }],
     },
     {
       id: "vault-reputation-an-800-hour-atelier-versace-gown-for-her-first-red-carpet-in",
@@ -5728,6 +5732,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/02-taylor-swift-bbmas-arrivals-2018-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Billboard", kind: "primary" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/8457333/taylor-swift-bbma-dress-800-hours-to-make" }, { name: "The Fashion Court", url: "https://thefashion-court.com/2018/05/taylor-swift-2018-billboard-music-awards/" }],
+      products: [{ brand: "Club L London", item: "Armina Blush Pink One-Shoulder Feather-Trim Maxi Dress", retailer: "clubllondon.us", url: "https://clubllondon.us/products/armina-blush-pink-one-shoulder-feather-trim-maxi-dress-cl135995081", price: "$320.00", isAlternative: true, altNote: "The 800-hour Atelier Versace gown was custom couture, never sold at retail -- this is a current blush-pink one-shoulder feather-trim gown in the same color and spirit." }],
     },
     {
       id: "vault-reputation-the-reputation-tour-opening-number-gets-a-glitter-cutout-upg",
@@ -5739,6 +5744,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/06/tumblr_p9wqzvce8h1r4fk4fo1_r1_1280.jpg?w=1100", kind: "primary" }, { url: "https://media.gettyimages.com/id/966470964/photo/taylor-swift-reputation-stadium-tour.jpg?s=594x594&w=0&k=20&c=qpjD-YCFO4IFRdoS07AsJHnqRTn-mz8qWtqFFraFFZ0=", credit: "John Shearer/TAS18/Getty Images", caption: "Taylor Swift performing the \"...Ready For It?\" opening number in the reworked bodysuit-and-jacket set at Soldier Field, June 2, 2018.", kind: "archival" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/06/06/reputation-tour-110-version-2-ready-for-it/" }, { name: "iHeartRadio", url: "https://www.iheart.com/content/2018-05-08-taylor-swift-kicks-off-reputation-tour-with-big-setlist-fireworks-snakes/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Reputation_Stadium_Tour" }],
+      products: [{ brand: "Casa de Fashion", item: "Party Vibes Black One-Shoulder Cutout Sequin Bodysuit", retailer: "casadefashion.com", url: "https://casadefashion.com/products/glam-me-up-black-cutout-sequin-bodysuit", price: "$46.00", isAlternative: true, altNote: "Jessica Jones's custom bodysuit-and-jacket set was never sold at retail -- this sources the bodysuit only, matching black sequins and asymmetry (no matching jacket)." }],
     },
     {
       id: "vault-reputation-a-sparkling-green-bodysuit-for-the-dress-segment",
@@ -5750,6 +5756,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pc9uwg06kq1r4fk4fo1_1280.jpg?w=1100", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/07/22/reputation-tour-blank-space-bad/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Reputation_Stadium_Tour" }],
+      products: [{ brand: "AKIRA", item: "Shining Down On You Rhinestone Bodysuit", retailer: "shopakira.com", url: "https://shopakira.com/products/shining-down-on-your-sequin-bodysuit", price: "$15.57", isAlternative: true, altNote: "Jessica Jones's custom sparkling green bodysuit was never sold at retail -- this is a current rhinestone-embellished green bodysuit in the same sparkling spirit." }],
     },
     {
       id: "vault-reputation-the-cotton-candy-dress-for-delicate-shake-it-off",
@@ -5761,6 +5768,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/07/tumblr_pcati7kyz11r4fk4fo1_r1_1280.jpg?w=1100", kind: "primary" }, { url: "https://media.gettyimages.com/id/1004129336/photo/east-rutherford-nj-taylor-swift-swift-performs-onstage-during-the-taylor-swift-reputation.jpg?s=612x612&w=0&k=20&c=ZFwV3GLrIALEaen0WKvTgnFcKmQr4QrmRSvGUUlUle4=", credit: "Kevin Mazur/TAS18/Getty Images", caption: "Taylor Swift performing in the \"cotton candy\" tinsel-fringe dress at MetLife Stadium, July 22, 2018.", kind: "archival" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/07/23/reputation-tour-delicateshake-it-off/" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-stuck-mid-air-sparkly-basket-at-philadelphia-concert-reputation-tour-8465462/" }],
+      products: [{ brand: "Mew Mews", item: "Indy V Neck Rainbow Crystal Fringe Mini Dress", retailer: "mewmews.com", url: "https://mewmews.com/products/indy-v-neck-rainbow-crystal-fringe-mini-dress", price: "$319.90", isAlternative: true, altNote: "Jessica Jones's custom \"cotton candy\" mini was never sold at retail -- this is a current rainbow crystal fringe mini in the same multicolor, movement-driven spirit." }],
     },
     {
       id: "vault-reputation-a-snake-bodysuit-and-red-camo-jacket-for-the-shawn-mendes-du",
@@ -5772,6 +5780,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-shawn-mendes-live-2018-u-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Christopher Polk/TAS18/Getty Images", caption: "Shawn Mendes and Taylor Swift performing \"There's Nothing Holdin' Me Back\" at the Rose Bowl, May 18, 2018.", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/05/20/reputation-tour-theres-nothing-holding-me-2/" }, { name: "Billboard", url: "https://www.billboard.com/music/pop/taylor-swift-shawn-mendes-theres-nothing-holdin-me-back-reputation-statium-tour-8456817/" }],
+      products: [{ brand: "SKIMS", item: "Fits Everybody Zip Front Bodysuit in Shadow Snake Print", retailer: "skims.com", url: "https://skims.com/products/fits-everybody-zip-front-bodysuit-shadow-snake-print", price: "$46.00", isAlternative: true, altNote: "Jessica Jones's custom snake-print set was never sold at retail -- this sources the bodysuit only, matching the serpent motif (no sequins, red camo jacket, or boots)." }],
     },
     {
       id: "vault-reputation-the-call-it-what-you-want-nice-things-closer-dress",
@@ -5783,6 +5792,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://tayswiftstyle.wordpress.com/wp-content/uploads/2018/05/tumblr_p8jr4cwjzw1r4fk4fo1_1280.jpg?w=1100", credit: "Taylor Swift Style", kind: "primary" }],
       sources: [{ name: "Taylor Swift Style", url: "https://tayswiftstyle.wordpress.com/2018/05/11/reputation-tour-call-it-what-you-want-this/" }, { name: "Billboard", url: "https://www.billboard.com/articles/columns/pop/8455193/taylor-swift-reputation-tour-best-moments" }],
+      products: [{ brand: "Elizabeth K", item: "GL3159 Sequin Long Sleeve Slit Gown", retailer: "formaldressshops.com", url: "https://formaldressshops.com/products/sequin-fitted-long-sleeve-slit-gown-by-elizabeth-k-gl3159", price: "$151.00", isAlternative: true, altNote: "Jessica Jones's custom closer gown was never sold at retail -- this is a current black sequin long-sleeve slit gown in the same fitted, floor-length spirit (no boots)." }],
     },
     {
       id: "vault-reputation-a-fish-and-chips-pub-date-at-the-flask-no-red-carpet-in-sigh",
