@@ -210,6 +210,20 @@ export default {
             credit: 'Dimitrios Kambouris/Getty Images',
           },
         ],
+        // Shop pass (2026-07-22): the exact custom Versace blazer dress is
+        // discontinued -- a current multicolor sequin blazer dress,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'SemSem',
+            item: 'Multicolor Sequin & Crystal Blazer Dress',
+            retailer: 'semsem.com',
+            url: 'https://www.semsem.com/products/multicolor-sequined-satin-blazer-dress',
+            price: '$1,595.00',
+            isAlternative: true,
+            altNote: 'Her exact custom Versace blazer dress is discontinued -- this is a current multicolor sequin blazer dress in the same mini-length, shoulder-padded spirit.',
+          },
+        ],
       },
     },
     {
@@ -418,6 +432,20 @@ export default {
             credit: 'Entertainment Tonight',
           },
         ],
+        // Shop pass (2026-07-22): the exact Monique Lhuillier tea-length
+        // dress is discontinued -- a current pink floral tiered midi,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Lulus',
+            item: 'Tea Party Chic Pink Floral Print Tie-Strap Tiered Midi Dress',
+            retailer: 'lulus.com',
+            url: 'https://www.lulus.com/products/tea-party-chic-pink-floral-print-tie-strap-tiered-midi-dress/1712196.html',
+            price: '$30.00',
+            isAlternative: true,
+            altNote: 'Her exact Monique Lhuillier tea-length dress is long discontinued -- this is a current pink floral tiered midi in the same tea-party, pastel-floral spirit.',
+          },
+        ],
       },
     },
     {
@@ -453,6 +481,20 @@ export default {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-calm-down-vid-2019-billboard-1548.jpg?w=875&h=583&crop=1',
             credit: 'Billboard',
             caption: "Taylor in the closing French fries costume, next to Katy Perry's burger costume.",
+          },
+        ],
+        // Shop pass (2026-07-22): the exact Marina Hoermanseder shirt is
+        // discontinued -- a current rainbow western snap shirt, verified
+        // in stock, closest real match.
+        products: [
+          {
+            brand: 'Wrangler',
+            item: "Women's Multicolor Rainbow Bandana Western Snap Shirt",
+            retailer: 'jacksonswestern.com',
+            url: 'https://jacksonswestern.com/wrangler-women-s-multicolor-rainbow-bandana-western-snap-shirt/',
+            price: '$55.00',
+            isAlternative: true,
+            altNote: 'Her exact Marina Hoermanseder shirt is discontinued -- this sources the western shirt only, matching its rainbow palette (not the wig, shorts, boots, or fries costume).',
           },
         ],
       },
@@ -500,6 +542,20 @@ export default {
             focalPoint: '50% 18%',
           },
         ],
+        // Shop pass (2026-07-22): a makeup look, not a garment -- offering
+        // a real glitter cosmetic rather than forcing a clothing link
+        // onto a beauty item.
+        products: [
+          {
+            brand: 'Too Faced',
+            item: 'Disco Crush High Shine Glitter Eye + Face Sparkle in Heart Eyes',
+            retailer: 'ulta.com',
+            url: 'https://www.ulta.com/p/disco-crush-high-shine-glitter-eye-face-sparkle-pimprod2046472?sku=2627323',
+            price: '$18.00',
+            isAlternative: true,
+            altNote: 'The exact cover makeup was custom -- this rose-gold glitter is a real eye-and-face cosmetic for recreating the sparkle, not the exact product used.',
+          },
+        ],
       },
     },
     {
@@ -529,6 +585,20 @@ export default {
             url: 'https://akns-images.eonline.com/eol_images/Entire_Site/20191024/rs_634x1024-191124163526-634-taylor-swift-2019-AMAs-red-carpet-fashion.jpg',
             credit: 'Steve Granitz/WireImage',
             focalPoint: '50% 12%',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Julien Macdonald gown was
+        // never sold at retail -- a current made-to-order emerald sequin
+        // gown, verified always orderable, closest real match.
+        products: [
+          {
+            brand: 'Alamour The Label',
+            item: 'Isabel Open Plunge With Thigh Slit Sequins Gown',
+            retailer: 'alamourthelabel.com',
+            url: 'https://www.alamourthelabel.com/products/isabel-gown?country=US',
+            price: '$357.21',
+            isAlternative: true,
+            altNote: 'Her custom Julien Macdonald gown was never sold at retail -- this is a current made-to-order emerald sequin gown, a one-shoulder plunge rather than a draped silhouette.',
           },
         ],
       },
@@ -567,6 +637,20 @@ export default {
             credit: 'Billboard',
           },
         ],
+        // Shop pass (2026-07-22): the exact Jessica Jones shorts are
+        // discontinued -- a current multicolor sequin high-waist short,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Mardi Gras Apparel',
+            item: 'Mardi Gras Sequin High-Waist Shorts',
+            retailer: 'mardigrasapparel.us',
+            url: 'https://mardigrasapparel.us/products/mardi-gras-sequin-high-waist-shorts-purple-gold-green',
+            price: '$24.95',
+            isAlternative: true,
+            altNote: 'Jessica Jones\'s shorts are discontinued -- this sources the shorts only, matching high waist and multicolor sequins (not the blouse, bodysuit, or boots).',
+          },
+        ],
       },
     },
     {
@@ -602,6 +686,20 @@ export default {
             credit: 'Spotern',
           },
         ],
+        // Shop pass (2026-07-22): the exact Johanna Ortiz dress is
+        // discontinued -- a current yellow floral midi, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Nellie Midi Dress',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/nellie-midi-dress-yellow-floral',
+            price: '$19.00',
+            isAlternative: true,
+            altNote: 'Her exact Johanna Ortiz "Ladies Who Lunch" dress is discontinued -- this is a current yellow floral midi in the same sunshine-yellow spirit, not literally tiered.',
+          },
+        ],
       },
     },
     {
@@ -632,6 +730,20 @@ export default {
           {
             url: 'https://s.yimg.com/ny/api/res/1.2/nGumpB8peACYAs7Asf2FzQ--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD05NTg7Y2Y9d2VicA--/https://media.zenfs.com/en/footwear_news_642/b9f0d931ac0118fb627ab814516c62d5',
             credit: 'Footwear News',
+          },
+        ],
+        // Shop pass (2026-07-22): the exact custom striped romper is
+        // discontinued -- a current black sequin romper, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Julian Chang',
+            item: 'Eres Long-Sleeve V Neck Sequin Romper',
+            retailer: 'julianchang.com',
+            url: 'https://julianchang.com/products/eres-romper',
+            price: '$315.00',
+            isAlternative: true,
+            altNote: 'The custom striped romper is discontinued -- this is a current black sequin romper in the same short one-piece silhouette, without purple striping (heels not separately sourced).',
           },
         ],
       },
@@ -666,6 +778,20 @@ export default {
             credit: 'Getty Images',
           },
         ],
+        // Shop pass (2026-07-22): the exact Oscar de la Renta gown is
+        // discontinued -- a current strapless floral beaded gown,
+        // verified in stock, closest real match.
+        products: [
+          {
+            brand: 'Adrianna Papell',
+            item: 'Strapless Floral Beaded Embroidery Gown',
+            retailer: 'adriannapapell.com',
+            url: 'https://www.adriannapapell.com/products/strapless-floral-beaded-embroidery-gown-in-taupe-pink-ap1e212673',
+            price: '$278.99',
+            isAlternative: true,
+            altNote: 'Her exact Oscar de la Renta gown is long discontinued -- this is a current strapless floral beaded gown in taupe-pink, lacking the original\'s 3D appliqués and train.',
+          },
+        ],
       },
     },
     {
@@ -697,6 +823,20 @@ export default {
             credit: 'NME',
           },
         ],
+        // Shop pass (2026-07-22): bespoke film prosthetics, not a garment
+        // -- offering a real SFX product rather than forcing a clothing
+        // link onto a makeup item.
+        products: [
+          {
+            brand: 'Mehron',
+            item: 'SynWax',
+            retailer: 'mehron.com',
+            url: 'https://www.mehron.com/synwax/',
+            price: '$7.95',
+            isAlternative: true,
+            altNote: 'Bill Corso used bespoke film prosthetics, not retail wax -- this is a real SFX molding wax for a similar effect, not the exact six-person process.',
+          },
+        ],
       },
     },
     {
@@ -725,6 +865,20 @@ export default {
           {
             url: 'https://www.billboard.com/wp-content/uploads/media/taylor-swift-sundance-2020-billboard-1548.jpg?w=942&h=628&crop=1',
             credit: 'Neilson Barnard/Getty Images',
+          },
+        ],
+        // Shop pass (2026-07-22): the exact Carmen March ensemble is
+        // discontinued -- a current plaid jumpsuit, verified in stock,
+        // closest real match.
+        products: [
+          {
+            brand: 'Cider',
+            item: 'Tweed Plaid Button Up Wide Leg Jumpsuit',
+            retailer: 'shopcider.com',
+            url: 'https://www.shopcider.com/goods/tweed-plaid-button-up-wide-leg-jumpsuit',
+            price: '$44.90',
+            isAlternative: true,
+            altNote: 'Carmen March\'s Fall 2019 ensemble is discontinued -- this is a current grey plaid wide-leg jumpsuit in the same spirit (trenchcoat and checked heels not separately sourced).',
           },
         ],
       },
@@ -1121,6 +1275,20 @@ export default {
           {
             url: 'https://imgix.bustle.com/uploads/getty/2020/1/6/36da59a0-670b-451b-bd63-4ef9b0134e59-getty-1197739056.jpg?w=248&h=165&fit=crop&crop=faces&dpr=2',
             credit: 'Getty Images via Bustle',
+          },
+        ],
+        // Shop pass (2026-07-22): the custom Etro gown was never sold at
+        // retail -- a current navy-gold floral glitter gown, verified in
+        // stock, closest real match.
+        products: [
+          {
+            brand: 'Ladivine',
+            item: 'CM323 Floral Glitter Prom Gown',
+            retailer: 'couturecandy.com',
+            url: 'https://www.couturecandy.com/products/ladivine-cm323-floral-glitter-prom-gown',
+            price: '$100.00',
+            isAlternative: true,
+            altNote: 'Her custom Etro gown was never sold at retail -- this is a current navy-gold floral glitter gown echoing the palette, without the keyhole, open back, or train.',
           },
         ],
       },
