@@ -20,6 +20,26 @@ both identities are on one team, this should no longer occur — if it does
 resurface, that's a real regression worth investigating, not the old known-
 harmless case.
 
+**2026-07-23 incident — a stray `Vercel – longlive` check:** Joey created a
+new project named `longlive` under his personal account
+(`sffan15-4353s-projects`) via the Vercel dashboard. Because that flow
+auto-connects to GitHub, it immediately started appearing as a required-
+looking check on every open PR — including one that had nothing to do with
+deployment — and failed every build, because the project was left on the
+dashboard's defaults (Framework Preset `Other`, Root Directory `.`) instead
+of `Next.js` + `apps/web` as this doc requires. It was **not** connected to
+`longlivets.com` and never affected production. Resolved same day by running
+`vercel git disconnect` against that project (see Path A above for the CLI
+link step; disconnect from a scratch directory, not this repo, so no stray
+`.vercel/project.json` gets left in the working tree).
+**The lesson for next time:** if a new `Vercel – <name>` check appears on a
+PR that nobody expected, check here first — the only Vercel check that
+should ever gate a merge is the one deploying to the URL in "The one URL
+that matters" above. Anything else is very likely someone's new personal
+project that just got auto-wired to the repo, not a real blocker; confirm
+with the project owner what it's for before treating its failure as
+either "ignore it" or "fix the deploy" — do not guess.
+
 `apps/web` is a Next.js app in an npm-workspaces monorepo. Two ways to deploy —
 use the **CLI path** if you're not a GitHub org owner yet.
 
