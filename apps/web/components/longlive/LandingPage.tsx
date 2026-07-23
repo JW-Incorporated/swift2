@@ -18,9 +18,17 @@ export function LandingPage() {
     <div className="min-h-screen">
       <div className="mx-auto max-w-5xl px-5 pb-16 pt-12 sm:pt-20">
         <header className="mb-10 flex flex-col items-center gap-6 text-center">
-          <h1 className="font-era text-5xl font-semibold tracking-tight sm:text-7xl">
-            Long&nbsp;Live
-          </h1>
+          <div className="flex flex-col items-center gap-2">
+            <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--era-accent-2)]">
+              A Taylor Swift news + time-machine app
+            </p>
+            <h1 className="font-era text-5xl font-semibold tracking-tight sm:text-7xl">
+              Long&nbsp;Live
+            </h1>
+            <p className="max-w-xs text-sm text-[color:var(--era-ink-soft)] sm:max-w-sm sm:text-base">
+              Real-time updates on her whole life, or step back into any era.
+            </p>
+          </div>
           <ModeToggle
             mode="era"
             alwaysShowLabels
