@@ -1981,8 +1981,7 @@ export default {
       snippet:
         'Her Fearless Tour stop at the Garden on Aug. 27, 2009 — tickets had sold out in roughly 60 seconds when they went on sale that winter.',
       sourceUrl: 'https://www.countrystandardtime.com/news/newsitem.asp?xid=3395',
-      thumbnailUrl:
-        'https://media.gettyimages.com/id/90123054/photo/taylor-swift-fearless-tour-2009-in-new-york-city.jpg?s=594x594&w=0&k=20&c=EC4gdnl3KTm305fgyn1obvUpdu10yO8fz8KVrigs_II=',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
       moment: {
         context:
           'Country Standard Time reported the near-instant sellout when tickets moved in early 2009; by the time the tour reached New York that August, Rolling Stone\'s review of the show read like a coronation — a two-hour, three-act "elaborate spectacle" that opened with "You Belong with Me" in marching-band gear and ended with a waterfall drenching her onstage.\n\nIn between she carried a guitar into the stands for an acoustic set, and told the crowd after "Tim McGraw": "As long as I live, I will never forget what you just did for me." Her own pre-show summary, per Rolling Stone: "I\'m freaking out."',
@@ -2011,19 +2010,22 @@ export default {
           },
         ],
         // Image-fix pass (2026-07-10): the Just Jared Jr. hotlink carried two
-        // baked-in watermarks; replaced with an unwatermarked Getty photo from
-        // the same Aug. 27, 2009 MSG show (this frame shows the fringed
-        // mini-dress guitar segment rather than the marching-band opener, so
-        // the caption below was reworded to match what the photo actually
-        // shows). Verified HTTP 200 + image/jpeg and visually confirmed this
-        // session.
+        // baked-in watermarks; an interim Getty frame was used next.
+        // Kevin Stream 1 (#751, 2026-07-23): that interim frame was a
+        // media.gettyimages.com watermarked comp (banned host). No freely
+        // licensed photo of the Aug. 27, 2009 MSG show itself exists on
+        // Commons, so replaced with a freely licensed Fearless Tour 2009
+        // concert photo as an era illustration and the caption reworded to
+        // match (no longer claims MSG specifically). Curl-verified 200 +
+        // image/jpeg and vision-confirmed (Fearless Tour in-the-round stage,
+        // 2009) this run.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/90123054/photo/taylor-swift-fearless-tour-2009-in-new-york-city.jpg?s=594x594&w=0&k=20&c=EC4gdnl3KTm305fgyn1obvUpdu10yO8fz8KVrigs_II=',
-            credit: 'Jason Kempin/Getty Images',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/d/db/Taylor_Swift_during_Fearless_Tour_concert_in_Portland.jpg',
+            credit: 'calmdownlove / Wikimedia Commons, CC BY 2.0',
             caption:
-              'Onstage at the sold-out Madison Square Garden show, Aug. 27, 2009.',
-            kind: 'primary',
+              'Performing on the Fearless Tour, 2009 — the tour whose Madison Square Garden stop sold out in about a minute.',
+            kind: 'archival',
           },
         ],
       },

@@ -743,16 +743,19 @@ export default {
           },
         ],
         // Image-fix pass (2026-07-10 retry): swapped the watermarked
-        // tayswiftstyle collage for a single clean Getty Images editorial
-        // shot from Soldier Field, Chicago, June 2, 2018 — the exact debut
-        // date this record cites — showing Taylor in the bodysuit-and-jacket
-        // opening-number set, drenched in rain; verified HTTP 200 +
-        // image/jpeg and eyeballed this session.
+        // tayswiftstyle collage for a single clean editorial shot of the
+        // bodysuit-and-jacket opening-number set.
+        // Kevin Stream 1 (#751, 2026-07-23): the interim shot was a
+        // media.gettyimages.com watermarked comp (banned host); replaced with
+        // a freely licensed Commons photo of the same "...Ready For It?"
+        // opening set (Seattle, Reputation Stadium Tour). Curl-verified 200 +
+        // image/jpeg and vision-confirmed (black sequined bodysuit, black
+        // jacket sleeves, lace-up boots) this run.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/966470964/photo/taylor-swift-reputation-stadium-tour.jpg?s=594x594&w=0&k=20&c=qpjD-YCFO4IFRdoS07AsJHnqRTn-mz8qWtqFFraFFZ0=',
-            credit: 'John Shearer/TAS18/Getty Images',
-            caption: 'Taylor Swift performing the "...Ready For It?" opening number in the reworked bodysuit-and-jacket set at Soldier Field, June 2, 2018.',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Ready_for_It.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Taylor Swift performing the "...Ready For It?" opening number in the reworked bodysuit-and-jacket set, Reputation Stadium Tour, 2018.',
             kind: 'archival',
           },
         ],
