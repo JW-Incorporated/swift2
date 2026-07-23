@@ -2565,6 +2565,19 @@ export default {
       snippet: "The visual language of 1989: instant photos, seagulls, sky-blue minimalism.",
       moment: {
         context: "Polaroid-framed lyrics and a crisp pastel palette made 1989 instantly iconic.",
+        // Shop pass (2026-07-22): no single named dress -- a current
+        // sky-blue mini in the era's pastel-minimalist palette.
+        products: [
+          {
+            brand: 'Fashion Nova',
+            item: 'Simona Satin Mini Dress',
+            retailer: 'fashionnova.com',
+            url: 'https://www.fashionnova.com/products/simona-satin-mini-dress-light-blue',
+            price: '$23.98',
+            isAlternative: true,
+            altNote: 'No single named dress -- this is the era\'s visual palette, not one outfit -- a current light-blue mini in the same sky-blue minimalist spirit.',
+          },
+        ],
       },
     },
     {
