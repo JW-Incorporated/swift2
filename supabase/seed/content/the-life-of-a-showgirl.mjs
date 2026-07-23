@@ -2332,7 +2332,7 @@ export default {
         'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
       moment: {
         context:
-          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Swift\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, ran the full width of their two worlds: Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. What did not surface was the interior: no official photos of the ceremony or reception had been released as of the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the event\'s entire public visual record.\n\nAccounts filled in the interior no photo showed: the arena floor built into a garden, peach-and-white at the ceremony and green-and-white beyond, reading personal vows from gold books for about 20 minutes. Adam Sandler\'s officiant song went untitled in reporting but guests called it "humorous and touching"; Paul McCartney played "I Want to Hold Your Hand," while Stevie Nicks\'s reception set was never documented. The couple sang too: per best man Jason Kelce — speaking on Ross Tucker\'s Football Podcast on July 21 — the newlyweds themselves performed a duet at the reception, though no song was reported. Jason said Travis "can sing" and "has always been able to carry a tune," if it "paled in comparison to some of the other people singing that night." Favors were embroidered handkerchiefs bearing the couple\'s "T&T" monogram, the July 3 date and a "Blank Space" lyric — the same T&T play behind the "JusT&T Married" marquee. It spanned days: a ~100-guest rehearsal dinner at the Garden on July 2, then the ~1,000-guest ceremony July 3 into the early hours. Confirmed guests ran wider than first reported — among them Bradley Cooper, Zoë Kravitz, Steven Spielberg and Tom Brady.',
+          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nGuest Jonathan Thomas, CEO of American Century Investments, gave the fullest outsider account of the ceremony itself on "The Compound & Friends" podcast (July 23): vows that ran close to 30 minutes each, Travis going first ("he made himself unbelievably vulnerable," Thomas said, "I looked around and there were all these 300-pound men from the football business crying as well") and Taylor following with her own, "poetic," equally lengthy vows. Sandler\'s officiating, Thomas said, ran another 20 to 30 minutes and "vacillated between funny, very sincere, sang a few things" — landing on two themes: a riff on "for richer or for poorer" ("you\'re not going to have to worry about that") and a repeated instruction to keep kissing each other, "in the morning, at night, after dinner."\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Swift\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, ran the full width of their two worlds: Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. Seth Meyers attended with his wife Alexi Ashe, posing beforehand with longtime friends Brad Paisley and Kimberly Williams-Paisley; Meyers later called the celebration "wonderful," joking on his brother\'s podcast about the NDA that kept him from sharing more. What did not surface was the interior: no official photos of the ceremony or reception had been released as of the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the event\'s entire public visual record.\n\nAccounts filled in the interior no photo showed: the arena floor built into a garden, peach-and-white at the ceremony and green-and-white beyond, each reading their vows from gold books. Once the ceremony ended, Thomas said, the space itself transformed — "they opened up the venue, you kind of walked through this massive castle that they built. And by the way, you would never guess you\'re in Madison Square Garden the way they did. It was incredible" — resolving months of unconfirmed pre-wedding reporting about a castle set under construction inside the arena. Paul McCartney played "I Want to Hold Your Hand," while Stevie Nicks\'s reception set was never documented. The couple sang too: per best man Jason Kelce — speaking on Ross Tucker\'s Football Podcast on July 21 — the newlyweds themselves performed a duet at the reception, though no song was reported. Jason said Travis "can sing" and "has always been able to carry a tune," if it "paled in comparison to some of the other people singing that night." Favors were embroidered handkerchiefs bearing the couple\'s "T&T" monogram, the July 3 date and a "Blank Space" lyric — the same T&T play behind the "JusT&T Married" marquee. It spanned days: a ~100-guest rehearsal dinner at the Garden on July 2, then the ~1,000-guest ceremony July 3 into the early hours. Confirmed guests ran wider than first reported — among them Bradley Cooper, Zoë Kravitz, Steven Spielberg and Tom Brady.',
         sources: [
           {
             outlet: 'CBS News',
@@ -2393,6 +2393,30 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-22',
             reliability_score: 3,
+          },
+          // News catch-up pass (2026-07-23): resolves the pre-wedding TMZ
+          // castle rumor below via an on-record guest account, and adds the
+          // Sandler officiating detail and vow-length estimate (attributed
+          // to that same guest, not stated as flat fact).
+          {
+            outlet: 'NBC New York',
+            url: 'https://www.nbcnewyork.com/entertainment/entertainment-news/inside-taylor-swift-and-travis-kelce-30-minute-vows-massive-castle-reception/6529543/',
+            source_title: "Inside Taylor Swift and Travis Kelce's '30 minute vows' and 'massive castle' reception",
+            publisher: 'NBC New York',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 4,
+          },
+          // News catch-up pass (2026-07-23): Seth Meyers + the Paisleys as
+          // guests, previously not in the guest-list roster above.
+          {
+            outlet: 'NBC Insider',
+            url: 'https://www.nbc.com/nbc-insider/seth-meyers-at-taylor-swift-wedding-comments',
+            source_title: 'Seth Meyers & His Wife Went to Taylor Swift\'s "Wonderful" Wedding with Two Famous Pals',
+            publisher: 'NBC Insider',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 4,
           },
         ],
         photos: [
@@ -2474,13 +2498,21 @@ export default {
               'Sources close to the wedding told TMZ a massive white castle was being assembled inside a garden built on the arena floor — crews were filmed craning in a giant white staircase, and scenic crates arrived labeled "Garden Party."',
             reportedBy: 'TMZ',
             reportedOn: '2026-06-30',
-            status: 'unconfirmed',
+            // Resolved 2026-07-23 (news catch-up pass): a named on-record
+            // guest independently described walking through the same castle
+            // build after the ceremony. Still no photos, but the physical
+            // build-out itself is no longer just a pre-wedding tip.
+            status: 'confirmed',
             url: 'https://www.tmz.com/2026/06/30/taylor-swift-travis-kelce-building-castle-for-wedding-celebration/',
-            note: 'No photos from inside the Garden have ever been released, so what the build-out actually looked like remains unconfirmed.',
+            note: 'Confirmed 2026-07-23: guest Jonathan Thomas, CEO of American Century Investments, told "The Compound & Friends" podcast the reception space "opened up" into "this massive castle that they built," undetectable as Madison Square Garden. Still no interior photos exist to confirm the specific staircase/"Garden Party" crate details TMZ described.',
             sourceTier: 'tabloid',
-            // Lifecycle re-check 2026-07-20: still no interior photos or
-            // official statement; the build-out remains unconfirmed.
-            lastCheckedOn: '2026-07-20',
+            lastCheckedOn: '2026-07-23',
+            resolution: {
+              on: '2026-07-23',
+              url: 'https://www.nbcnewyork.com/entertainment/entertainment-news/inside-taylor-swift-and-travis-kelce-30-minute-vows-massive-castle-reception/6529543/',
+              outlet: 'NBC New York',
+              note: 'A named, on-record guest confirmed the reception space was built out as a castle, independent of TMZ\'s original pre-wedding tip.',
+            },
           },
           {
             claim:
@@ -2607,6 +2639,171 @@ export default {
           // a further European trip (forward-looking whereabouts), is exactly
           // what the redlines exist to keep out. Attribution does not launder
           // a privacy violation.
+        ],
+      },
+    },
+    // --- News catch-up pass (2026-07-23): the authoring cadence stalled for
+    // several days while ingestion kept running; these four items clear the
+    // real backlog of verified, non-gossip wedding-adjacent stories. Every
+    // URL and quote below was independently re-fetched and read this
+    // session, not taken on trust from research-assistant output.
+    {
+      slug: 'showgirl-answer-the-call-donation',
+      year: 2026,
+      month: 7,
+      day: 2,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'A $2 million gift to the families of New York\'s fallen first responders',
+      snippet:
+        'Ahead of their wedding, Taylor and Travis directed $2 million of their reported $26 million in charitable giving to Answer the Call, the fund supporting families of NYC police, fire, Port Authority and EMS personnel killed in the line of duty.',
+      sourceUrl: 'https://www.tmz.com/2026/07/02/how-taylor-swift-travis-kelce-charity-donations-are-being-used/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The gift went to Answer the Call — formally the New York Police and Fire Widows\' & Children\'s Benefit Fund — which currently supports roughly 500 families with annual $15,000 stipends. It was one piece of a reported $26 million the couple gave to more than 20 organizations around their wedding.',
+        sources: [
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/07/02/how-taylor-swift-travis-kelce-charity-donations-are-being-used/',
+            source_title: "How Taylor Swift and Travis Kelce's $26 Million Charity Donation is Being Used",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'The Kansas City Star (via FireRescue1)',
+            url: 'https://www.firerescue1.com/fundraising/taylor-swift-travis-kelce-give-2m-to-families-of-fallen-nyc-first-responders',
+            source_title: 'Taylor Swift, Travis Kelce give $2M to families of fallen NYC first responders',
+            publisher: 'The Kansas City Star',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-wedding-bands-first-look',
+      year: 2026,
+      month: 7,
+      day: 20,
+      category: 'relationship',
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
+      ],
+      title: 'Clearer looks at both wedding bands finally surface',
+      snippet:
+        'New photos give the clearest public look yet at Taylor\'s diamond wedding band and Travis\'s plain gold one — after the pair\'s first blurry, distant appearance together on July 10.',
+      sourceUrl: 'https://stylecaster.com/entertainment/celebrity-news/1234935260/travis-kelce-wedding-ring-photos-taylor-swift/',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'The first public look at the couple\'s wedding bands came July 10, blurry and distant, at former teammate JuJu Smith-Schuster\'s wedding — the bands\' own designer and specifics undisclosed. Sharper looks followed: Harper\'s Bazaar identified a plain gold band on Travis\'s left hand in July 16 training photos, and a July 20 photo posted by Cris Carter gave StyleCaster another clear angle. Separately, a Vogue Weddings carousel from the Smith-Schuster wedding let ELLE Australia\'s jewelry expert examine Taylor\'s stack more closely, describing what appears to be a chunky diamond band alongside her engagement ring — though ELLE Australia is explicit that the photo isn\'t sharp enough to confirm exact specifications, and no designer, carat count or price has been confirmed by the couple.',
+        sources: [
+          {
+            outlet: 'StyleCaster',
+            url: 'https://stylecaster.com/entertainment/celebrity-news/1234935260/travis-kelce-wedding-ring-photos-taylor-swift/',
+            source_title: "Travis Kelce's Wedding Band Photos Finally Released as Fans Get 1st Look at His Matching Band with Taylor Swift",
+            publisher: 'StyleCaster',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+          {
+            outlet: "Harper's Bazaar",
+            url: 'https://www.harpersbazaar.com/celebrity/latest/a73169277/travis-kelce-wedding-ring-band-taylor-swift-photos/',
+            source_title: 'Travis Kelce Steps Out Wearing His Wedding Ring for the First Time!',
+            publisher: "Harper's Bazaar",
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'ELLE Australia',
+            url: 'https://www.elle.com.au/fashion/wedding/taylor-swift-diamond-wedding-ring-expert-details/',
+            source_title: 'Taylor Swift\'s Diamond Wedding Band Signals An Emerging 2026 Bridal Trend',
+            publisher: 'ELLE Australia',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-shania-twain-wedding-conflict',
+      year: 2026,
+      month: 7,
+      day: 23,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Shania Twain explains the scheduling conflict that kept her from the wedding',
+      snippet:
+        'Twain says she was honored by the invitation but had already committed to opening for Harry Styles at Wembley Stadium the same weekend as the July 3 ceremony.',
+      sourceUrl: 'https://www.the-independent.com/arts-entertainment/music/news/taylor-swift-wedding-shania-twain-b3020210.html',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'Twain opened for Styles\'s 12-night London residency, which ran through July 4 — directly overlapping the wedding weekend. She gave the same explanation in two on-record appearances: to eTalk, that she\'d already committed to the Wembley booking and chose to honor it; on the July 22 Tonight Show, that she was honored to have been invited and planned to congratulate Taylor in person next time they met.',
+        sources: [
+          {
+            outlet: 'The Independent',
+            url: 'https://www.the-independent.com/arts-entertainment/music/news/taylor-swift-wedding-shania-twain-b3020210.html',
+            source_title: 'Shania Twain explains why she had to decline Taylor Swift\'s wedding invite',
+            publisher: 'The Independent',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2026/07/14/shania-twain-explains-missing-taylor-swifts-wedding-for-harry-styles-concert/',
+            source_title: "Shania Twain Says She Couldn't Ditch Harry Styles Concert For Taylor Swift's Wedding",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+        ],
+      },
+    },
+    {
+      slug: 'showgirl-jason-kelce-fanbase-shift',
+      year: 2026,
+      month: 7,
+      day: 21,
+      category: 'relationship',
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      title: 'Jason Kelce on the new audience Taylor brought to the whole family',
+      snippet:
+        'Jason Kelce says his brother\'s relationship with Taylor Swift changed who stops him on the street — from Eagles fans thanking him for his career to, increasingly, young girls who know the family through her.',
+      sourceUrl: 'https://people.com/jason-kelce-reveals-how-his-life-has-changed-since-travis-kelce-taylor-swift-started-dating-12024707',
+      thumbnailUrl: null,
+      moment: {
+        context:
+          'On the July 21 Ross Tucker Football Podcast, Jason said the shift in his own public life was gradual through his 13 NFL seasons, then "a very big flip" once Travis and Taylor started dating. In his own words: "I went from very much being dominated by large fat men coming up to me and shaking my hand and thanking me for being an Eagle to little girls. It was quite a shift of people that became fans."',
+        sources: [
+          {
+            outlet: 'People',
+            url: 'https://people.com/jason-kelce-reveals-how-his-life-has-changed-since-travis-kelce-taylor-swift-started-dating-12024707',
+            source_title: 'Jason Kelce Reveals How His Life Has Changed Since Travis Kelce Started Dating Taylor Swift',
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 4,
+          },
+          {
+            outlet: "Harper's Bazaar",
+            url: 'https://www.harpersbazaar.com/celebrity/latest/a73247382/jason-kelce-talks-impact-of-travis-taylor-swift-relationship-fame/',
+            source_title: 'Jason Kelce Gets Candid About How Life Has Changed Since Taylor Swift Joined the Family',
+            publisher: "Harper's Bazaar",
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
         ],
       },
     },
