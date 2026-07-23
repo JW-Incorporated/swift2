@@ -1979,6 +1979,21 @@ export default {
       video: { youtubeId: "K-a8s8OLBSE", title: "Taylor Swift - cardigan" },
       moment: {
         context: "Cozy cardigans, braided hair, and a foggy woodland palette made cottagecore the aesthetic of 2020.\n\nThe cream cable-knit cardigan from the video, embroidered with stars, was sold as official merch and is widely credited with driving cottagecore's mainstream revival.",
+        // Shop pass (2026-07-22): the official star-embroidered merch
+        // cardigan is long discontinued from Taylor's own store (only
+        // found via resale now) -- a current cream cable-knit cardigan,
+        // verified in stock, same cozy silhouette.
+        products: [
+          {
+            brand: 'Princess Polly',
+            item: 'Abner Cable Cardigan',
+            retailer: 'us.princesspolly.com',
+            url: 'https://us.princesspolly.com/products/abner-cable-cardigan-cream',
+            price: '$75.00',
+            isAlternative: true,
+            altNote: 'The official star-embroidered merch cardigan is discontinued from Taylor\'s own store -- this is a current cream cable-knit cardigan in the same cozy silhouette.',
+          },
+        ],
       },
     },
     {

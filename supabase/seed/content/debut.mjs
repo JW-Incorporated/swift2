@@ -2292,6 +2292,19 @@ export default {
       snippet: "The visual signature of the debut era: sunlit country-girl Americana.",
       moment: {
         context: "Ringlet curls, floaty sundresses, and well-worn cowboy boots became the uniform of the debut era — a look as handmade and earnest as the songs.",
+        // Shop pass (2026-07-22): no single named pair or dress -- a
+        // current cowboy boot, verified in stock, the era's recurring prop.
+        products: [
+          {
+            brand: 'IUV',
+            item: 'Cowboy Boots for Women, Mid-Calf Cowgirl Boots',
+            retailer: 'amazon.com',
+            url: 'https://www.amazon.com/IUV-Cowboy-Western-Cowgirl-Pointy/dp/B0BFQRZPRH',
+            price: '$54.99',
+            isAlternative: true,
+            altNote: 'No single named pair -- this era-defining look was built from many worn-in boots and sundresses -- a current cowboy boot in the same recurring spirit.',
+          },
+        ],
       },
     },
     {

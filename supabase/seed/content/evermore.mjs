@@ -1018,6 +1018,20 @@ export default {
             focalPoint: '42% 13%',
           },
         ],
+        // Shop pass (2026-07-22): Zuhair Murad has no accessible direct
+        // e-commerce -- a current made-to-order ivory beaded dress,
+        // closest verified match.
+        products: [
+          {
+            brand: 'WonderlandByLilian',
+            item: 'Ivory Short Beaded Lace Dress with Cowl Neckline',
+            retailer: 'wonderlandbylilian.com',
+            url: 'https://wonderlandbylilian.com/products/ivory-short-wedding-party-dresses-with-beaded-lace-wedding-gown-long-sleeve-with-cowl-neckline-plus-size',
+            price: '$2,999.00',
+            isAlternative: true,
+            altNote: 'Zuhair Murad has no accessible direct retail -- this is a current made-to-order ivory beaded mini, framed as bridal rather than press-event wear, closest real match.',
+          },
+        ],
       },
     },
     {
