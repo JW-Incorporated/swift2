@@ -20,7 +20,7 @@ export function LandingPage() {
         <header className="mb-10 flex flex-col items-center gap-6 text-center">
           <div className="flex flex-col items-center gap-2">
             <p className="text-xs font-semibold uppercase tracking-[0.14em] text-[color:var(--era-accent-2)]">
-              A Taylor Swift time machine app
+              The Taylor Swift time machine
             </p>
             <h1 className="font-era text-5xl font-semibold tracking-tight sm:text-7xl">
               Long&nbsp;Live
