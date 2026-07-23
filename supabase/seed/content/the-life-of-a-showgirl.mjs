@@ -1534,7 +1534,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated. Kelce, for his part, called it his favorite song on the album on New Heights. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push, including a run of remixes (Chris Lake, BUNT., Skream, and Ely Oaks among them), landed in mid-February 2026, and on the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Swift had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because Billboard counts physical singles when they ship, not when fans order them. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Swift\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Swift plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
+          'Swift has not confirmed the song\'s subject — the Travis Kelce reading (opal as his October birthstone, the synthetic stone as self-made joy) is fan and critic interpretation, labeled as such — but she has described what it\'s about: forgiving yourself when life "didn\'t pan out the way you wanted it to," and giving yourself permission not to marry the first person you ever dated — a framing she gave in release-week interviews in October 2025. Kelce had already named it his favorite on the album on the couple\'s New Heights podcast back on Aug. 27, 2025 ("I think \'Opalite\' might be my favorite ... every time it comes on, I always catch myself [vibing]"), two weeks after Swift announced the album on that same show. Musically it\'s the record\'s sunniest stretch — a disco-inflected Max Martin/Shellback production critics kept comparing to ABBA and Fleetwood Mac; Swift wrote and produced it with the pair, with recording and engineering by Lasse Mårtén, the mix by Serban Ghenea and the master by Randy Merrill.\n\nIt had debuted at No. 2 behind "The Fate of Ophelia" in October; the formal single push — a four-track dance-remix package (Chris Lake\'s house rework plus BUNT., Skream and Ely Oaks) issued as digital and limited CD singles across Feb. 17–23, 2026, alongside an acoustic "Opalite (Life Is a Song)" CD single on Feb. 16 — landed in mid-February 2026; Chris Lake said Swift and Kelce, who had been "listening to my music loads together," personally asked him to remix it, a rework he built over two weeks in Ableton. On the chart dated Feb. 28, 2026 — its 20th chart week — it leapt from No. 8 to No. 1, replacing Bad Bunny\'s "DTMF." Slate\'s chart analysis of the February 2026 ascent noted the unusual shape of it: a second Hot 100 No. 1 from the same 12-track album, arriving months after release and months after its album-mate "The Fate of Ophelia" had wrapped its own 10-week run at the top.\n\nThe topping week was engineered, not streamed. Slate\'s Chris Molanphy showed the leap was almost all sales: across its versions "Opalite" sold 168,000 copies that week — 144,000 physical, 24,000 digital — while ranking only 17th in streaming and third on Radio Songs. Swift had planned the retail push all along (7-inch vinyl, dance remixes on CD, a 69-cent acoustic B-side) but held the shipment until the week after Bad Bunny\'s Super Bowl halftime show had boxed her out — because Billboard counts physical singles when they ship, not when fans order them. Molanphy\'s answer to his own "is it a real hit?" was yes — but a chart-scientist\'s hit, built from collectibles more than streams. It was Swift\'s 14th career No. 1, tying Rihanna behind only the Beatles (20) and Mariah Carey (19).\n\nThe feat is rare even within her own catalog: sending two different songs to No. 1 off a single album is something she had done only once before, with 1989 in 2014-15, making The Life of a Showgirl just the second Taylor Swift album to place multiple tracks atop the Hot 100. And "Opalite" did get its own official music video — it premiered Feb. 6, 2026 on Apple Music before reaching YouTube two days later, a 1990s-infomercial comedy in which Swift plays a lonesome cat lady "dating a rock" until Opalite arrives as "the revolutionary fix for your problems," with cameos from Domhnall Gleeson, Lewis Capaldi, Cillian Murphy, Greta Lee, Jodie Turner-Smith and Graham Norton (as a rival "Nope-alite" salesman). Its release sat inside the mid-February single push that carried the song to the top.',
         sources: [
           {
             outlet: 'Slate',
@@ -1585,6 +1585,53 @@ export default {
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-22',
+            reliability_score: 4,
+          },
+          // Added 2026-07-23 (ledger #997): the remix package (Q2), the
+          // songwriting/production credits (Q5), the source/date of Swift's
+          // "permission not to marry the first person" framing (Q6), and the
+          // Aug. 27, 2025 New Heights episode where Kelce named it his favorite (Q7).
+          {
+            // The four-track remix package — Chris Lake, BUNT., Skream, Ely Oaks —
+            // and its mid-February 2026 digital/CD-single rollout.
+            outlet: 'DJ Mag',
+            url: 'https://djmag.com/news/chris-lake-skream-more-remix-taylor-swifts-opalite',
+            source_title: "Chris Lake, Skream, more remix Taylor Swift's 'Opalite'",
+            publisher: 'DJ Mag',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+          {
+            // Chris Lake on being asked by Swift and Kelce to remix "Opalite"
+            // and building it over two weeks in Ableton.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-chris-lake-travis-kelce-opalite-remix-interview-1236198801/',
+            source_title: 'Chris Lake Talks About Remixing Taylor Swift\'s "Opalite"',
+            publisher: 'Billboard',
+            source_type: 'interview',
+            accessed_at: '2026-07-23',
+            reliability_score: 5,
+          },
+          {
+            // Kelce's "my favorite" remark on the Aug. 27, 2025 New Heights episode.
+            outlet: 'E! News',
+            url: 'https://www.eonline.com/news/1421690/travis-kelces-favorite-song-from-taylor-swifts-life-of-a-showgirl',
+            source_title: "Travis Kelce Reveals His Favorite Song From Fiancée Taylor Swift's The Life of a Showgirl Album",
+            publisher: 'E! News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 4,
+          },
+          {
+            // Swift's release-week description of the song's meaning; also carries
+            // full "Opalite" liner credits (writers/producers/engineers).
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/opalite-lyrics-meaning-taylor-swift-travis-kelce-rcna233775',
+            source_title: "Are Taylor Swift's 'Opalite' Lyrics a Nod to Her and Travis Kelce? Read Them in Full",
+            publisher: 'Today (NBC)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
             reliability_score: 4,
           },
         ],
@@ -4861,6 +4908,15 @@ export default {
       month: 7,
       day: 10,
       category: 'sighting',
+      // Cross-links (ledger #1148): this newlywed sighting sits directly
+      // downstream of the MSG wedding — the reverse links its siblings already
+      // point at were missing. Threads back to the wedding itself, the gown, and
+      // the engagement ring whose band it gave the first clear public look at.
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
+        'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
+      ],
       title: "First sighting since the wedding: pink Markarian, at a friend's big day",
       snippet:
         'Eight days after their own Madison Square Garden wedding, Taylor and Travis showed up as guests at Kansas City teammate JuJu Smith-Schuster\'s wedding — Taylor in a pink Markarian gown, both of them visibly wearing their new rings.',
@@ -4868,7 +4924,7 @@ export default {
       thumbnailUrl: 'https://imagez.tmz.com/image/43/16by9/2026/07/11/435b7e695e334893923e269c987b46f6_xl.jpg',
       moment: {
         context:
-          'Eight days after their July 3 wedding at Madison Square Garden, Taylor and Travis made their first public appearance as a married couple — not at a press event or a project of their own, but as guests at former Kansas City teammate JuJu Smith-Schuster\'s wedding to Laura Kruk, held July 10 at the Ritz-Carlton in Laguna Niguel, California.\n\nTaylor wore a strapless pink and red floral-brocade gown from Markarian, paired with her usual red lipstick; Travis wore a black suit. The pair were photographed holding hands on the way in — the first clear look at both of them wearing their wedding bands. Smith-Schuster was Travis\'s teammate through the Chiefs\' Super Bowl LVII run and stayed close with the couple afterward; he and Kruk were among the 1,000 guests at Taylor and Travis\'s own wedding, making this something of a return trip.',
+          'Eight days after their July 3 wedding at Madison Square Garden, Taylor and Travis made their first public appearance as a married couple — not at a press event or a project of their own, but as guests at former Kansas City teammate JuJu Smith-Schuster\'s wedding to Laura Kruk, held July 10 at the Ritz-Carlton in Laguna Niguel, California.\n\nTaylor wore Markarian\'s strapless "Laila" gown — a $4,115 pink floral-brocade ball gown from the New York label (founded by designer Alexandra O\'Neill), its corset bodice flaring into a voluminous skirt — with her usual red lipstick, a Cartier Love bracelet, a pair of (already sold-out) Larkspur & Hawk "Posy" drop earrings and tortoiseshell Crap Eyewear sunglasses; Travis wore a double-breasted black suit. The couple were photographed holding hands on the way in — the first clear public look at both of their wedding bands, Taylor\'s set alongside her 10-carat old-mine-cut Kindred Lubeck engagement ring; the bands\' own designer and specifics went undisclosed. Smith-Schuster was Travis\'s teammate — alongside Patrick Mahomes — through the Chiefs\' Super Bowl LVII run and stayed close with the couple afterward; he and Kruk were among the roughly 1,000 guests at Taylor and Travis\'s own Madison Square Garden wedding a week earlier, making this something of a return trip.',
         sources: [
           {
             outlet: 'Billboard',
@@ -4887,6 +4943,18 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 3,
+          },
+          // Added 2026-07-23 (ledger #1148): the gown provenance (Markarian's
+          // $4,115 "Laila" brocade ball gown) and the full accessory list
+          // (Cartier Love bracelet, sold-out Larkspur & Hawk earrings, shades).
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-markarian-floral-gown-wedding-dress-travis-kelce/',
+            source_title: "Taylor Swift's Post-Wedding Style Era Starts With a Strapless Markarian Ball Gown Constructed From Floral Brocade",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-23',
+            reliability_score: 4,
           },
         ],
         // Verified 2026-07-12: HTTP 200, real JPEG (2048x1152), downloaded
