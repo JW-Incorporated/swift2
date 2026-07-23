@@ -236,6 +236,17 @@ export default {
             focalPoint: '38% 22%',
           },
         ],
+        products: [
+          {
+            brand: 'AKIRA',
+            item: 'Drippy Rhinestone Chain Top',
+            retailer: 'shopakira.com',
+            url: 'https://www.shopakira.com/products/drippy-rhinestone-chain-top',
+            price: '$62.93',
+            isAlternative: true,
+            altNote: 'The shoot used vintage Bob Mackie originals from his Vegas "Jubilee!" revue, not made for Swift and not sold at retail -- this is a current rhinestone-chain top in the same showgirl register.',
+          },
+        ],
       },
     },
 
@@ -2801,6 +2812,17 @@ export default {
             lastCheckedOn: '2026-07-22',
           },
         ],
+        products: [
+          {
+            brand: 'Monique Lhuillier',
+            item: 'Viola Dress',
+            retailer: 'moniquelhuillier.com',
+            url: 'https://www.moniquelhuillier.com/products/viola-dress',
+            price: '$4,990.00',
+            isAlternative: true,
+            altNote: 'The real gown is a one-of-one Dior Haute Couture commission with no retail equivalent -- this is a real silk-white bridal gown in a comparable register, not the actual dress.',
+          },
+        ],
       },
     },
 
@@ -2866,6 +2888,16 @@ export default {
             kind: 'primary',
             // Tall seated portrait; her face is centered in the upper quarter.
             focalPoint: '50% 25%',
+          },
+        ],
+        products: [
+          {
+            brand: 'David Koma',
+            item: 'Crystal Embroidered Neckline and Strap Mini Dress',
+            retailer: 'davidkoma.com',
+            url: 'https://davidkoma.com/collections/dresses/products/crystal-embroidered-neckline-and-strap-mini-dress-black-silver',
+            price: '$1,200.00',
+            inStock: true,
           },
         ],
       },
@@ -3587,6 +3619,17 @@ export default {
             focalPoint: '48% 35%',
           },
         ],
+        products: [
+          {
+            brand: 'M. Pope and Co',
+            item: '14K Yellow Gold Vintage Old Mine Cut Diamond Ring',
+            retailer: 'mpopeandco.com',
+            url: 'https://mpopeandco.com/products/14k-yellow-gold-vintage-old-mine-cut-diamond-ring',
+            price: '$3,250.00',
+            isAlternative: true,
+            altNote: 'The real ring is a one-of-one Artifex Fine Jewelry commission by Kindred Lubeck -- this is a real vintage old mine-cut diamond in a yellow-gold setting, not the actual ring.',
+          },
+        ],
       },
     },
     // The engagement OUTFIT angle (2026-07-18, dedup/consolidation): moved out
@@ -3895,6 +3938,17 @@ export default {
             focalPoint: '48% 10%',
           },
         ],
+        products: [
+          {
+            brand: 'Manifestie',
+            item: 'Xena Crystal Fringe Bodysuit',
+            retailer: 'manifestie.com',
+            url: 'https://www.manifestie.com/products/xena-crystal-fringe-bodysuit',
+            price: '$190.00',
+            isAlternative: true,
+            altNote: 'The video wardrobe was custom Versace, Cavalli and Ferretti built for the shoot -- this is a real red crystal-fringe bodysuit in the same showgirl register, not the actual costume piece.',
+          },
+        ],
       },
     },
     {
@@ -4077,6 +4131,17 @@ export default {
             kind: 'archival',
             // Same tall crowd frame as the companion sighting item: face high-right.
             focalPoint: '65% 21%',
+          },
+        ],
+        products: [
+          {
+            brand: 'Terez',
+            item: '49ers Bomber Jacket in Sugar Swizzle and Red',
+            retailer: 'terez.com',
+            url: 'https://www.terez.com/products/49ers-bomber-jacket-in-sugar-swizzle-and-red',
+            price: '$285.00',
+            isAlternative: true,
+            altNote: 'This is a 49ers-branded piece, not the team-neutral jacket she actually wore to the Chiefs-Colts game -- included for the matching cream/red/white color-blocking, not the team logo.',
           },
         ],
       },
@@ -5651,6 +5716,16 @@ export default {
       snippet: "The visual language: burnt-orange rhinestones, marabou, and spotlight sparkle.",
       moment: {
         context: "Showgirl glamour defines the styling — sequins, feathers, and a warm theatrical glow in every frame.",
+        products: [
+          {
+            brand: 'Branna Couture',
+            item: 'Feather-Trim Sequin-Embellished Mini Dress',
+            retailer: 'brannacouture.com',
+            url: 'https://brannacouture.com/products/feather-trim-sequin-embellished-mini-dress-orange',
+            price: '$262.00',
+            inStock: true,
+          },
+        ],
       },
     },
     {
