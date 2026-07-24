@@ -1031,6 +1031,21 @@ export default {
         'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
       ],
       moment: {
+        // The post this page is ABOUT (issue #762, Part B). Shortcode from the
+        // permalink TODAY embeds; verified by rendering
+        // instagram.com/p/CC-9usjDzUw/embed/captioned: the taylorswift verified
+        // account and the exact "Most of the things I had planned this summer…"
+        // announcement caption (the sibling CC--BUtDjav post is the separate
+        // deluxe-editions post and was deliberately not used). Embedded rather
+        // than hotlinked — Instagram CDN urls are signed/expiring and the host
+        // is not on the image allowlist.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'CC-9usjDzUw',
+          label:
+            'The surprise announcement post: black-and-white forest photos captioned "Most of the things I had planned this summer didn\'t end up happening, but there is something I hadn\'t planned on that DID" — folklore, out at midnight.',
+          postedOn: '2020-07-23',
+        },
         // Third paragraph added 2026-07-19 (found in review): the item
         // claimed a reinvention without substantiating its impact, just
         // announcement mechanics — this backs the claim with real reception.
