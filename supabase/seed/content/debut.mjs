@@ -1679,9 +1679,23 @@ export default {
             reportedOn: '2026-07-20',
             status: 'unconfirmed',
             url: 'https://www.bustle.com/entertainment/taylor-swift-spotify-canvas-new-album-theories',
-            note: 'Swift and her team said nothing, and the canvas colors reportedly reverted the next day. Adjudicable as a forward-looking claim about the debut re-recording: it resolves if a debut Taylor\'s Version is announced, and fades if the anniversary window passes with no announcement.',
+            note: 'Swift and her team said nothing, and the canvas colors reportedly reverted the next day. Adjudicable as a forward-looking claim about the debut re-recording: it resolves if a debut Taylor\'s Version is announced, and fades if the anniversary window passes with no announcement. Lifecycle re-check 2026-07-24: still no announcement, still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-07-21',
+            lastCheckedOn: '2026-07-24',
+          },
+          {
+            // Rumor Desk 2026-07-24: a separate, earlier easter-egg wave than
+            // the Spotify-canvas reading above, from a different outlet —
+            // added as breadth of sourcing on the same forward-looking claim.
+            claim:
+              'A mid-June wave of easter-egg reading pointed the same way: Elite Daily noted Swift\'s recent looks echoing her 2006 debut-promo photoshoot and a dress from Erdem\'s archive-inspired Fall 2026 collection — marking that label\'s 20th anniversary the same autumn the debut album turns 20 — as hints a debut Taylor\'s Version announcement is near.',
+            reportedBy: 'Elite Daily (Hannah Kerns)',
+            reportedOn: '2026-06-16',
+            status: 'unconfirmed',
+            url: 'https://www.elitedaily.com/entertainment/taylor-swift-album-13-clues-easter-eggs',
+            note: 'Distinct from the Spotify-canvas reading above — an earlier, independently reported easter-egg wave. The re-recording itself is on record (Swift said in June 2025 she had "already completely re-recorded" the debut); only the announcement timing is unconfirmed. Resolves if a debut Taylor\'s Version is announced, and fades if the October 2026 anniversary window passes empty.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-07-24',
           },
         ],
       },
