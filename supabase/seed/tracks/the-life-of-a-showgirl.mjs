@@ -115,6 +115,43 @@ const TRACKS = [
         wiki('Elizabeth Taylor (song)', 'Elizabeth_Taylor_(song)', 'song article: writing background and critical reception'),
         ALBUM,
       ],
+      // Depth ledger #1272 (2026-07-24): the real-Liz allusions, craft/personnel,
+      // song-specific chart run, named reception, estate response, and live status.
+      discussion: [
+        '"Elizabeth Taylor" was the first song Swift wrote for the album: she has said the refrain arrived in a sudden burst, and she cut a phone demo of herself singing it over piano and sent it to Max Martin and Shellback before any other track existed. The finished version is an orchestral-pop and synth-pop ballad (3:28) that swaps the record\'s Max Martin machinery for heavy snare, bass and piano under programmed strings and orchestration, with electronic beats critics tied to Reputation and a beat-drop on the refrain; the harmonies drew comparisons to "Don\'t Blame Me." The live string section was played by violinists Erik Arvinder, Matthias Johansson and Hanna Helgegren, cellist David Bukovinsky and harpist Helena Stjernström, with Mattias Bylund on string synthesizer and Serban Ghenea mixing.',
+        'Swift has said she wrote the song after seeing a clip of Taylor\'s son comparing his mother\'s fame and "chaos" to hers, and described the track as "my emotions and my issues with fame through the lens of cosplaying the life of Elizabeth Taylor." The lyric is threaded with documented references to the actress: Portofino, where Richard Burton proposed; the Plaza Athénée; her famously violet eyes; the White Diamonds fragrance; a Cartier nod to her jewelry collection; her many marriages; and the Musso & Frank Grill — decoded references to Taylor\'s life rather than fan guesses. Taylor\'s son Christopher Wilding publicly called the song "beautiful and classy" and "especially magical," and the estate later cleared archival film footage for the March 2026 music video, whose streaming royalties Swift directed to the estate and the Elizabeth Taylor AIDS Foundation.',
+        'Serviced to radio as the album\'s third single (Hot AC March 9, 2026; pop radio March 10), the song had already debuted and peaked at No. 3 on the Billboard Hot 100 in the album\'s opening-week sweep, matching that No. 3 on the Global 200 and the UK, Canadian and Australian charts and reaching No. 7 Pop Airplay, No. 8 Adult Pop Airplay and No. 9 Adult Contemporary; it was certified Platinum in Australia and Canada and Gold in the UK and New Zealand. Critics made it a marquee cut: Rolling Stone\'s Rob Sheffield called it the album\'s "emotional centerpiece," The New Yorker\'s Amanda Petrusich rated it among the record\'s "best and heaviest" tracks, and The Guardian\'s Alexis Petridis judged it the one song on the album with "a killer chorus"; dissenters read it as Reputation-lite, with Variety\'s Chris Willman and Stereogum\'s Tom Breihan hearing "a lost track from the Reputation sessions." With no tour behind the album, Swift has not performed "Elizabeth Taylor" live as of mid-2026.',
+      ],
+      discussionSources: [
+        wiki('Elizabeth Taylor (song)', 'Elizabeth_Taylor_(song)', 'personnel, the actress-allusion catalog, chart peaks, certifications, and reception roundup'),
+        {
+          source_url: 'https://www.theguardian.com/music/2025/oct/03/taylor-swift-the-life-of-a-showgirl-review',
+          source_title: 'Taylor Swift: The Life of a Showgirl review',
+          publisher: 'The Guardian',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Alexis Petridis: the album\'s one "killer chorus"',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-life-of-a-showgirl-album-review-1235439733/',
+          source_title: 'Taylor Swift, The Life of a Showgirl: Album Review',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Rob Sheffield naming it the "emotional centerpiece"',
+        },
+        {
+          source_url: 'https://variety.com/2025/music/news/taylor-swift-hot-100-history-12-songs-showgirl-chart-1236551607/',
+          source_title: 'Taylor Swift Makes Hot 100 History Taking All of Chart\'s Top 12 Spots',
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Elizabeth Taylor debuting at No. 3 inside the top-12 sweep',
+        },
+      ],
     },
     {
       slug: 'opalite',
@@ -132,8 +169,49 @@ const TRACKS = [
       inspiration:
         'Swift has not named the song\'s subject; the widely repeated fan and critic reading ties opal to October (Travis Kelce\'s birth month) and frames the "opalite" of the title as synthetic, self-made contentment. That reading is fan/critic interpretation, not a confirmed statement from Swift.',
       themes: ['self-made happiness', 'contentment', 'track-three optimism'],
-      sourceUrl: 'https://en.wikipedia.org/wiki/The_Life_of_a_Showgirl',
-      sources: [ALBUM],
+      sourceUrl: 'https://en.wikipedia.org/wiki/Opalite_(song)',
+      sources: [
+        wiki('Opalite (song)', 'Opalite_(song)', 'song article: writing, personnel, chart run, certifications, video, and reception'),
+        ALBUM,
+      ],
+      // Depth ledger #1279 (2026-07-24): the No. 1 run, single/video rollout,
+      // writing/recording story, named reception, live status, the confirmed
+      // self-made-happiness reading, and the no-sample easter-egg question.
+      discussion: [
+        'Swift wrote and produced "Opalite" with Max Martin and Shellback and announced it on Aug. 13, 2025 during an episode of the New Heights podcast hosted by Travis Kelce, whom she has since married. It was cut at Martin\'s MXM and Shellback\'s own Stockholm studios during the album\'s Sweden sessions — Shellback playing bass, drums, guitar, keyboards, Omnichord and percussion — then mixed by Serban Ghenea and mastered by Randy Merrill. Swift has tied the title to a childhood love of opals; an "opalite" is a man-made opalescent glass, and she framed the song around "the idea that happiness can be voluntarily created," telling People it is about "forgiving yourself for having gone through something that didn\'t pan out" — making the self-made-happiness reading her own words, not only a fan gloss. Opal is also the October birthstone of Kelce, born that month.',
+        'Musically it is the album\'s brightest pop moment — a looping acoustic-guitar jangle opening into a disco-leaning refrain over bouncy bass and layered harmonies (3:55), with critics hearing ABBA, the Ronettes and Fleetwood Mac. It debuted at No. 2 on the Billboard Hot 100 in the album\'s opening-week top-12 sweep, then climbed to No. 1 on the chart dated in late February 2026 — Swift\'s 14th career No. 1 and the album\'s second chart-topper after "The Fate of Ophelia" — powered by a single push, new remixes and a physical-sales surge (168,000 sold, up about 2,290% that week). It spent fourteen weeks in the Hot 100\'s top 10, reached No. 1 on Pop Airplay (a record-extending 15th) and topped the charts in the UK, Germany and the Philippines, and was certified multi-Platinum in Canada and Platinum in the UK, Australia, France, New Zealand and Portugal.',
+        'Issued to radio as a single from January 2026, "Opalite" got a lavish video Swift wrote and directed, released Feb. 6, 2026 — shot on film by Rodrigo Prieto with choreography by Mandy Moore in a 1990s-mall setting (England\'s Whitgift Centre), starring Domhnall Gleeson alongside Greta Lee, Jodie Turner-Smith, Lewis Capaldi, Graham Norton, a Cillian Murphy voiceover and Swift\'s brother Austin, and built around a magical "Opalite" potion that frees two lonely people from their attachments to a pet rock and a cactus. Reviews ran warm: USA Today\'s Bryan West called its melody "as addictive as a narcotic," Variety\'s Chris Willman "a sheer pheromone rush," the AP\'s Maria Sherman "almost iridescent," and Slate\'s Carl Wilson a "classic Max Martin banger," while Pitchfork\'s Anna Gaca heard a "stage adaptation" of Post Malone\'s "Circles" and Maroon 5\'s "Sugar." The track carries no interpolation or sample — unlike track four\'s "Father Figure" — its clearest internal motif being the turn from an "onyx night" to an "opalite sky." With no tour behind the album, Swift has not performed it live as of mid-2026.',
+      ],
+      discussionSources: [
+        wiki('Opalite (song)', 'Opalite_(song)', 'writing/recording credits, chart run, certifications, video, and reception'),
+        {
+          source_url: 'https://www.billboard.com/lists/taylor-swift-opalite-hot-100-number-one/',
+          source_title: "Taylor Swift's 'Opalite' Shines as Her 14th Billboard Hot 100 No. 1",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the late-Feb-2026 No. 1, 14th career leader, sales-surge mechanics',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/taylor-swift-opalite-number-one-billboard-hot-100-1235521139/',
+          source_title: "Taylor Swift Nabs 14th Number One on the Billboard Hot 100 With 'Opalite'",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 1 confirmation and chart context',
+        },
+        {
+          source_url: 'https://variety.com/2025/music/news/taylor-swift-hot-100-history-12-songs-showgirl-chart-1236551607/',
+          source_title: 'Taylor Swift Makes Hot 100 History Taking All of Chart\'s Top 12 Spots',
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Opalite debuting at No. 2 in the top-12 sweep',
+        },
+      ],
     },
     {
       slug: 'father-figure',
