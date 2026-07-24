@@ -45,13 +45,26 @@ const ERA = {
       singleReleaseDate: '2023-01-27',
       note: 'Named for 1950s slang for being in love that she heard on Mad Men — an opener about protecting a relationship from the marriage-plot press cycle.',
       summary:
-        'Staying inside the glow and ignoring the questions: she confirmed the song is about deflecting constant engagement speculation and tabloid scrutiny to keep the real thing intact. Zoë Kravitz’s co-write is the era’s celebrity-friend credit.',
+        'Staying inside the glow and ignoring the questions: she confirmed the song is about deflecting constant engagement speculation and tabloid scrutiny to keep the real thing intact. Zoë Kravitz’s co-write is the era’s celebrity-friend credit — she added sonic embellishments to a groove Sounwave and Jack Antonoff built from Braxton Cook’s wordless vocal coos, with Sam Dew shaping the melodies. As the album opener it went to pop radio on Nov. 29, 2022 and peaked at No. 2 on the Hot 100 — kept off the top only by her own “Anti-Hero” during the week she swept the chart’s entire top 10 — and reached No. 5 on Pop Airplay. Swift wrote and directed the music video herself, a “sultry sleepless ’70s fever dream” that premiered Jan. 27, 2023 and cast trans model and activist Laith Ashley as her love interest, drawing praise for its inclusive casting. It opened the Midnights act of the Eras Tour across the tour’s run. Critics were warm: Rolling Stone’s Brittany Spanos called the production “restrained and muted,” and NPR’s Ann Powers likened its layered vocals and synth drums to Whitney Houston.',
       inspiration:
         'Confirmed: Swift explained the Mad Men origin of the phrase and the guarding-the-relationship meaning in her own announcement video.',
       themes: ['protecting love from scrutiny', 'refusing the marriage plot', 'the glow'],
+      easterEggs:
+        'Fan reading (not confirmed by Swift): the song’s lavender imagery echoes the era’s purple color-coding and the video’s lavender-drenched palette, tying the opener’s “protect the glow” theme to the Midnights visual identity.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Lavender_Haze',
       sources: [
-        wiki('Lavender Haze', 'Lavender_Haze', 'song article: confirmed origin story'),
+        wiki('Lavender Haze', 'Lavender_Haze', 'song article: confirmed origin story, video, charts, reception'),
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
+          source_title:
+            'Taylor Swift Makes History as First Artist to Claim Entire Top 10 of the Hot 100',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: '“Lavender Haze” peaked at No. 2, held off No. 1 by “Anti-Hero”',
+        },
         ALBUM,
       ],
     },
