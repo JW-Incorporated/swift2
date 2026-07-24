@@ -3121,7 +3121,11 @@ export default {
       // reciprocal TTPD Taylor/Travis crossover — the "So High School" moment
       // (she wrote the song about him; here he steps into her show).
       threadIds: ['the-proposal'],
-      relatedIds: ['moment:vault-ttpd-so-high-school-annotated-by-the-internet-in-minutes'],
+      relatedIds: [
+        'moment:vault-ttpd-so-high-school-annotated-by-the-internet-in-minutes',
+        'moment:vault-ttpd-eight-nights-at-wembley-more-than-any-solo-artist-ever',
+        'moment:vault-tloas-travis-joins-the-docuseries-for-its-final-episodes',
+      ],
       title: 'Travis Kelce, Eras Tour cast member for a night',
       snippet:
         'In white tie and a top hat, he carried her onto the stage during "I Can Do It With a Broken Heart" at Wembley — his idea, he later admitted, with choreography studied from Dumb and Dumber.',
@@ -3129,7 +3133,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'June 23, 2024, the third London night at Wembley — and originally a very different bit. On New Heights, Kelce said he first floated rolling out on a bike during the "1989" set ("How funny would it be if I just rolled out on one of the bikes"); Swift redirected him somewhere safer — the "I Can Do It With a Broken Heart" vaudeville intro, where top-hatted dancers revive her "fainted" showgirl.\n\nIn white tie, tails and a top hat — a costume built by Eras designer Jessica Jones and styled by Joseph Cassell — the 6-foot-5 Kelce carried Swift to the couch, dusted her face with a makeup brush once she was "revived," and slipped in a comedic step he later said he lifted from Jim Carrey in "Dumb and Dumber." He had a single night of rehearsal and one rule for himself: "Do not drop Taylor." The crowd took a beat to clock who the extra dancer was; Swift called the experience "jarring" in the best way, posted that she was "cracking up and swooning," and in the End of an Era docuseries said it was "the loudest it ever got on the Eras Tour."\n\nHe teased that it "might not be the last time," but it stayed a one-off — his only onstage turn before the tour closed in Vancouver that December. The tuxedo got a second life, though: he wore it again to Swift\'s Eras Tour wrap party.',
+          'June 23, 2024, the third London night at Wembley — and originally a very different bit. On New Heights, Kelce said he first floated rolling out on a bike during the "1989" set ("How funny would it be if I just rolled out on one of the bikes"); Swift redirected him somewhere safer — the "I Can Do It With a Broken Heart" vaudeville intro, where top-hatted dancers revive her "fainted" showgirl.\n\nIn white tie, tails and a top hat — a costume built by Eras designer Jessica Jones and styled by Joseph Cassell — the 6-foot-5 Kelce carried Swift to the couch, dusted her face with a makeup brush once she was "revived," and slipped in a comedic step he later said he lifted from Jim Carrey in "Dumb and Dumber." He had a single night of rehearsal and one rule for himself: "Do not drop Taylor." The crowd took a beat to clock who the extra dancer was; Swift called the experience "jarring" in the best way, posted that she was "cracking up and swooning," and in the End of an Era docuseries said it was "the loudest it ever got on the Eras Tour."\n\nHe teased that it "might not be the last time," but it stayed a one-off — his only onstage turn before the tour closed in Vancouver that December. The tuxedo got a second life, though: he wore it again to Swift\'s Eras Tour wrap party.\n\nThe bit came from the tour\'s own vocabulary: lead choreographer Mandy Moore built the "I Can Do It" intro, and Kelce filled the slot dancers Kam Saunders and Jan Ravnik usually work. It was a new kind of guest — the tour\'s other walk-ons sang; none had played a costumed skit — and it was widely treated as a first. No hard view figures were published, but the cameo won Favorite Surprise Guest at the 2025 iHeartRadio Music Awards, and Patrick Mahomes needled Kelce by wearing a matching top hat to Swift\'s December 2024 birthday.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -3198,6 +3202,46 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 3,
             notes: 'Re-wore the same cameo tuxedo to the Eras Tour wrap party, Dec 2024',
+          },
+          {
+            outlet: 'Parade',
+            url: 'https://parade.com/entertainment/taylor-swift-eras-tour-choreographer-mandy-moore-disney-plus',
+            source_title: "Meet Mandy Moore, the Choreographer Behind Taylor Swift's Eras Tour",
+            publisher: 'Parade',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Mandy Moore was the Eras Tour\'s lead choreographer; the "I Can Do It" revival skit is normally worked by dancers Kam Saunders and Jan Ravnik (per NBC News). No named person is credited with coaching Kelce\'s specific blocking.',
+          },
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/wembley-stadium-london-england-23aa4007.html',
+            source_title: 'Taylor Swift Setlist at Wembley Stadium, London — June 23, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'reference',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'The night\'s surprise songs: Gracie Abrams\'s "us." got its live debut with Abrams on guitar; the piano set was an "Out of the Woods" / "Is It Over Now?" / "Clean" mashup.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-reacts-taylor-swift-eras-cameo-award-nomination-1235886550/',
+            source_title: "Travis Kelce Reacts to His Eras Tour Cameo Earning an iHeartRadio Music Awards Nod",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'The cameo won Favorite Surprise Guest at the March 17, 2025 iHeartRadio Music Awards. No aggregate view/engagement total was published; no official NFL/Chiefs reaction is documented.',
+          },
+          {
+            outlet: 'The Mirror US',
+            url: 'https://www.themirror.com/sport/american-football/mahomes-trolls-chiefs-teammates-swift-867641',
+            source_title: 'Patrick Mahomes trolls Travis Kelce over Eras Tour cameo at Taylor Swift birthday party',
+            publisher: 'The Mirror US',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Mahomes wore a matching top hat and tails to Swift\'s December 2024 birthday party to needle Kelce over the cameo.',
           },
         ],
         // Photo passes verified HTTP 200 + image/jpeg and vision-confirmed
@@ -3834,6 +3878,29 @@ export default {
             notes: 'The "in her tennis era" post referenced Swift singing at Arthur Ashe as a child in 2002',
           },
         ],
+        // Stylist SOURCE pass (2026-07-24): the look names three pieces, but
+        // only the Reformation dress is a nameable, verifiable retail garment.
+        // - Reformation "Sora" linen dress: exact PDP on the brand's own store
+        //   (thereformation.com), curl HTTP 200, title "Sora Linen Dress",
+        //   price $248.00 — a real product page for the exact style. The
+        //   red-and-white gingham colorway is now sold out ("Sorry, this isn't
+        //   available"), so linked with inStock:false rather than dropped, per
+        //   the Stylist rule (sold out still links, dimmed).
+        // Skipped, no exact product page to verify:
+        // - "Gucci platform sandals" and "gold Louis Vuitton earrings" name no
+        //   specific style; gucci.com / louisvuitton.com hard-block automated
+        //   requests, so no PDP can be identified or curl-verified without
+        //   guessing — better no link than a fabricated one.
+        products: [
+          {
+            brand: 'Reformation',
+            item: 'Sora Linen Dress',
+            retailer: 'thereformation.com',
+            url: 'https://www.thereformation.com/products/sora-linen-dress/1314992.html',
+            price: '$248.00',
+            inStock: false,
+          },
+        ],
         // T16 photo pass (2026-07-09): AP photo from ABC News' coverage of
         // this outing, on ABC's own CDN. Verified HTTP 200 + image/jpeg;
         // visually confirmed (both couples in the Arthur Ashe box).
@@ -4092,7 +4159,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Dec. 4, 2024 reveal put her ahead of The Weeknd, Bad Bunny, Drake, and Billie Eilish on more than 26.6 billion global streams for the year — the Eras Tour and the Anthology feeding each other. Women held most of the global top-10 albums chart, with TTPD on top.\n\nSpotify built her a victory lap to match: the platform\'s first-ever "Global Top Artist Badge" stamped on her profile, era-themed Easter-egg animations hidden in the play button across her discography, augmented-reality friendship bracelets on Snapchat, celebration billboards in 11 cities, and personalized thank-you videos from Swift dropped into loyal listeners\' own Wrapped stories.\n\nContext the headline number needs: her 2023 Wrapped total was roughly 26.1 billion, so 26.6 billion was a modest new personal high, not a decline. The back-to-back crown was a personal first but not an all-time one — she had ended Bad Bunny\'s three-year reign (2020–2022) when she took 2023. Spotify did not publish the runners-up\' individual totals or a country-by-country count, and the "Global Top Artist Badge" was the inaugural edition of what the platform framed as a recurring annual honor rather than a one-off for her. Her single most-streamed song of the year was not a TTPD cut but "Cruel Summer," the 2019 Lover single the Eras Tour kept aloft — her only track in Spotify\'s 2024 global top 10, at No. 9.',
+          'The Dec. 4, 2024 reveal put her ahead of The Weeknd, Bad Bunny, Drake, and Billie Eilish on more than 26.6 billion global streams for the year — the Eras Tour and the Anthology feeding each other. Women held most of the global top-10 albums chart, with TTPD on top.\n\nSpotify built her a victory lap to match: the platform\'s first-ever "Global Top Artist Badge" stamped on her profile, era-themed Easter-egg animations hidden in the play button across her discography, augmented-reality friendship bracelets on Snapchat, celebration billboards in 11 cities, and personalized thank-you videos from Swift dropped into loyal listeners\' own Wrapped stories.\n\nContext the headline number needs: her 2023 Wrapped total was roughly 26.1 billion, so 26.6 billion was a modest new personal high, not a decline, and the largest year-end artist total Spotify has published to date. The back-to-back crown was a personal first but not an all-time one — she had ended Bad Bunny\'s three-year reign (2020–2022) when she took 2023. Spotify did not publish the runners-up\' individual totals or a country-by-country count, and the "Global Top Artist Badge" was the inaugural edition of what the platform framed as a recurring annual honor rather than a one-off for her. Her single most-streamed song of the year was not a TTPD cut but "Cruel Summer," the 2019 Lover single the Eras Tour kept aloft — her only track in Spotify\'s 2024 global top 10, at No. 9.\n\nApple Music\'s Replay 2024 mirrored the crown, naming TTPD its most-streamed album of the year and Swift its most-streamed artist. Her monthly listeners had peaked earlier, at a Guinness-certified 113,539,589 on May 7, 2024 — the female record — in TTPD\'s wake. The streak then stopped at two: Wrapped 2025 (Dec. 3, 2025) handed the global crown back to Bad Bunny on 19.8 billion streams, Swift a close second, so the "recurring annual honor" did not recur for her — though she stayed Spotify\'s No. 1 US artist both years.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -4102,6 +4169,47 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+            notes: 'The 11 celebration-billboard cities: New York, Toronto, Jakarta, São Paulo, Manila, Mexico City, London, Berlin, Los Angeles, Nashville and Miami.',
+          },
+          {
+            outlet: 'Spotify Newsroom',
+            url: 'https://newsroom.spotify.com/2025-12-03/wrapped-bad-bunny-top-artist-album/',
+            source_title: "Bad Bunny Is Spotify's Global Top Artist of 2025",
+            publisher: 'Spotify Newsroom',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Wrapped 2025 (revealed Dec. 3, 2025): Bad Bunny reclaims the global crown on 19.8bn streams; Swift places No. 2 — the streak ends at two.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/2024-spotify-wrapped-taylor-swift-sabrina-carpenter-espresso-1235843719/',
+            source_title: "2024 Spotify Wrapped: Taylor Swift Is Top Artist, Sabrina Carpenter's 'Espresso' Is Top Song",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: "Swift was also Spotify's No. 1 US artist for 2024; the top US (and global) song was Sabrina Carpenter's \"Espresso.\" No US-only per-artist stream total was published.",
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/news/icons/taylor-swift-most-monthly-listeners-on-spotify',
+            source_title: 'Taylor Swift: most monthly listeners on Spotify (female)',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Certified female record of 113,539,589 monthly listeners as of May 7, 2024 (not the all-gender record).',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-reacts-the-tortured-poets-department-apple-music-top-streamed-album-2024-1235843467',
+            source_title: "Taylor Swift Reacts to 'The Tortured Poets Department' Topping Apple Music's 2024 Most-Streamed Albums",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: "Apple Music Replay 2024 corroborated the crown — TTPD its most-streamed album, Swift its most-streamed artist. No Amazon Music 2024 album crown was located.",
           },
           {
             outlet: 'Music Business Worldwide',
