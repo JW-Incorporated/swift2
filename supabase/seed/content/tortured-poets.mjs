@@ -864,6 +864,14 @@ export default {
       month: 11,
       day: 1,
       category: 'tour',
+      // Cross-links (Answerer shard 6, 2026-07-24, ledger #1296): the final-leg
+      // tour-sequence rail — leg opener (Miami), next stop (Toronto), finale
+      // (Vancouver). Ids verified against content-vault.generated.ts.
+      relatedIds: [
+        'moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc',
+        'moment:vault-ttpd-the-long-canadian-goodbye-six-nights-in-toronto',
+        'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+      ],
       title: 'The last American shows: Indianapolis breaks its own record three nights running',
       snippet:
         'The U.S. goodbye at Lucas Oil Stadium — the building\'s concert attendance record falls on night one, again on night two, and again on night three. 207,000 fans over one weekend.',
@@ -873,7 +881,7 @@ export default {
         'https://wish-media.s3.us-east-2.amazonaws.com/wp-content/2024/11/04/MAIN-PIC-ac-photo-taylor-swift-1.jpg',
       moment: {
         context:
-          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl — because economically, they were. Visit Indy projected an impact in the hundreds of millions, on par with hosting the 2012 Super Bowl, with roughly 81% of ticket holders coming from out of state and downtown rebranding itself "Swift City" for the weekend.\n\nInside the building, each crowd topped 69,000 and each night broke the concert attendance record the previous one had just set — Taylor announced the third consecutive record from the stage on Sunday, putting the weekend at 207,000 fans total. Caitlin Clark turned up on night two, and the last American surprise-song slots landed with the finality fans expected: after Indy, only Toronto and Vancouver remained.',
+          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl. Mayor Joe Hogsett proclaimed "Taylor Swift Weekend," and downtown leaned into a "Swift City" nickname — press-and-fan shorthand, not an official renaming — while roughly 81% of ticket holders came from out of state. Visit Indy anticipated a "healthy nine-figure" impact and economists floated $100M-plus, though an IU economist cautioned the true figure is essentially unknowable; read it as an estimate.\n\nEach acoustic surprise slot landed with the finality fans expected. Night 1 paired "The Albatross"/"Holy Ground" and "Cold As You"/"exile"; night 2, "The Prophecy"/"This Love" and "Maroon"/"Cowboy Like Me"; and the final U.S. night (Nov. 3), "Cornelia Street"/"The Bolter" and "Death by a Thousand Cuts"/"The Great War." From the stage that night she named it plainly — the very last U.S. show the Eras Tour would ever play.\n\nInside the building each crowd topped 69,000 and each night broke the attendance record the one before had just set, for 207,000 across the weekend — opening night alone drew 69,000, itself a Lucas Oil Stadium concert record. Indianapolis is also where the Swift–Caitlin Clark friendship began: Clark attended, met Andrea Swift and Travis Kelce in a suite, and Swift later sent her four bags of Eras merch with a note calling her "inspiring to watch from afar" and an invitation to a Chiefs game. After Indy, only Toronto and Vancouver remained.',
         sources: [
           {
             outlet: 'WTHR',
@@ -901,6 +909,46 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-14',
             reliability_score: 4,
+          },
+          {
+            outlet: 'IndyStar (via AOL)',
+            url: 'https://www.yahoo.com/entertainment/were-indy-eras-tour-night-041337539.html',
+            source_title: 'What were the Indy Eras Tour Night 3 surprise songs?',
+            publisher: 'IndyStar',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Per-night surprise-song mashups; Nov. 3 "Cornelia Street"/"The Bolter" + "Death by a Thousand Cuts"/"The Great War"',
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/caitlin-clark-time-athlete-year-taylor-swift-rcna183630',
+            source_title: 'Taylor Swift gave Caitlin Clark an inspirational note — and a special invitation',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Clark met Andrea Swift and Kelce in the suite; four bags of Eras merch, note "inspiring to watch from afar," a Chiefs-game invite',
+          },
+          {
+            outlet: 'WISH-TV',
+            url: 'https://www.wishtv.com/news/entertainment-news/taylor-swift-economic-impact-indianapolis/',
+            source_title: "Taylor Swift's Eras Tour to boost Indianapolis economy",
+            publisher: 'WISH-TV',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Visit Indy "healthy nine-figure" estimate; IU economist Kyle Anderson caution that the true figure is unknowable',
+          },
+          {
+            outlet: 'WTHR',
+            url: 'https://www.wthr.com/article/entertainment/music/mayor-joe-hogsett-proclaims-taylor-swift-weekend-indianapolis-eras-tour-lucas-oil-stadium-tickets/531-481800b5-32f7-46d4-bbf7-e24812ae8e49',
+            source_title: "Mayor Hogsett officially proclaims 'Taylor Swift Weekend' in Indianapolis",
+            publisher: 'WTHR (NBC Indianapolis)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Official mayoral proclamation; "Swift City" as press/fan coloring, not a legal renaming',
           },
         ],
         // Photo pass (2026-07-18, #762): page had zero photos. WISH-TV's own
@@ -939,6 +987,10 @@ export default {
       month: 11,
       day: 14,
       category: 'tour',
+      // Cross-link (Answerer shard 6, 2026-07-24, ledger #1254): the penultimate
+      // stop hands off to the Vancouver finale it explicitly sets up. Id verified
+      // against content-vault.generated.ts.
+      relatedIds: ['moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver'],
       title: 'The long Canadian goodbye: six nights in Toronto',
       snippet:
         '"Toronto, we are sooo back!" Six sold-out nights at Rogers Centre — Nov. 14–16 and 21–23 — the tour\'s only Canadian residency before the finale, with the Prime Minister trading friendship bracelets in the crowd.',
@@ -951,7 +1003,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/11/taylor-swift-toronto-eras-tour-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'The Eras Tour\'s penultimate stop stretched across two weekends — Nov. 14–16 and 21–23, 2024 — the longest residency of the closing leg and Taylor\'s first Canadian shows since 2018. CBC\'s opening-night dispatch caught the mood of a city that had waited out the entire tour: "Toronto, we are sooo back!"\n\nBy the second weekend the crowd itself was the story: Prime Minister Justin Trudeau brought his family to the Nov. 22 show, where fan video caught him dancing to "You Don\'t Own Me" during the pre-show countdown and swapping friendship bracelets with Swifties on the concourse. Six nights, six sellouts — and then only Vancouver was left.',
+          'Rogers presented the Eras Tour\'s only Canadian dates — a six-night Rogers Centre residency across two weekends, Nov. 14–16 and 21–23, 2024 — making Swift the first artist ever to play six shows at the venue and marking her first Canadian dates since 2018. CBC\'s opening-night dispatch caught a city that had waited out the whole tour: "Toronto, we are sooo back!"\n\nThe acoustic surprise sets ran the catalog: opening night paired "My Boy Only Breaks His Favorite Toys" with "This Is Why We Can\'t Have Nice Things," and the final night (Nov. 23) closed on a "Sparks Fly"/"Message in a Bottle" guitar mashup and a "You\'re Losing Me"/"How Did It End?" piano pairing. Gracie Abrams — the tour\'s opener — joined on Nov. 16 for a mashup of their duet "Us" with "Out of the Woods."\n\nPrime Minister Justin Trudeau brought his family on Nov. 22, filmed dancing to "You Don\'t Own Me" during the pre-show countdown and trading friendship bracelets on the concourse. On the last night Swift broke down after a standing ovation for "Champagne Problems": "I\'m just having a bit of a moment. Sorry... It\'s not even the last show!" Destination Toronto later pegged the six-show "Swift lift" at about $282M in economic impact ($152M in direct spending) across roughly 240,000 attendees, with short-term-rental demand up 163% citywide. And then only Vancouver was left.',
         sources: [
           {
             outlet: 'CBC News',
@@ -979,6 +1031,56 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-14',
             reliability_score: 4,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/eras-tour-surprise-songs-rcna141380',
+            source_title: "Taylor Swift's 'Eras Tour' Surprise Songs: Everything She's Played",
+            publisher: 'TODAY',
+            source_type: 'reference',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Per-night Toronto surprise-song mashups incl. Nov. 23 final-night pairings',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-final-toronto-eras-tour-tears-speech-1235179061/',
+            source_title: "'Bit of a Moment': Taylor Swift Bids Teary Eras Tour Farewell to Toronto",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Nov. 23 teary closing speech after "Champagne Problems"',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-gracie-abrams-perform-us-toronto-1235169516/',
+            source_title: "See Taylor Swift and Gracie Abrams Perform 'Us' Together in Toronto",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Gracie Abrams guest, Nov. 16, "Us" x "Out of the Woods"',
+          },
+          {
+            outlet: 'CBC News',
+            url: 'https://www.cbc.ca/news/canada/toronto/city-report-taylor-swift-economic-impact-9.7034179',
+            source_title: "Toronto got a $282M economic 'Swift lift' after hosting Eras Tour in 2024",
+            publisher: 'CBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Destination Toronto: ~$282M impact, ~$152M direct spending, ~240,000 attendees, STR demand +163%',
+          },
+          {
+            outlet: 'Rogers Communications',
+            url: 'https://about.rogers.com/news-ideas/rogers-proudly-presents-taylor-swift-the-eras-tour-in-canada/',
+            source_title: 'Rogers Proudly Presents Taylor Swift | The Eras Tour in Canada',
+            publisher: 'Rogers Communications (official)',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Aug. 3, 2023 announcement; first artist ever to play six nights at Rogers Centre',
           },
         ],
         photos: [
@@ -2384,6 +2486,13 @@ export default {
       month: 4,
       day: 19,
       category: 'music',
+      // Cross-links (Answerer shard 6, 2026-07-24, ledger #1287): the "Mean"
+      // moment mashed live with this song, and the reputation feud origin the arc
+      // traces back to. Ids verified against content-vault.generated.ts.
+      relatedIds: [
+        'moment:vault-speak-now-mean-written-straight-at-her-critics',
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+      ],
       title: 'thanK you aIMee: the capitalization does the talking',
       snippet:
         'The stray capitals spell KIM, and fans connected the rest — a song about outlasting a schoolyard bully, filed under grudges from 2016. By August, a live version was restyled "thank You aimEe."',
@@ -2391,7 +2500,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has never named the subject — the Kardashian reading is fan and critic interpretation, labeled as such, built on the title\'s capitals and the 2016 phone-call feud.\n\nThe plot thickened in August 2024 when a Taylor Nation email restyled the Wembley live version (mashed up with "Mean") as "thank You aimEe" — capitals now spelling YE, and fans re-litigated the whole thing overnight.',
+          'The stray capitals in the official title spell KIM, and fans read the song — about outlasting a schoolyard bully — against the 2016 phone-call feud. Swift has never named the subject; the Kardashian reading is fan and critic interpretation, labeled as such.\n\nTwo separate events are often blurred together. The song\'s live debut came at Wembley on June 22, 2024, an acoustic surprise-song mashup with 2010\'s "Mean" — two bullying anthems fourteen years apart — the same night Swift brought out Hayley Williams for "Castles Crumbling." Then, on Aug. 15, 2024, her webstore released that Wembley recording as a limited download retitled "thank You aimEe," the capitals now spelling YE (a nod to Kanye "Ye" West) and timed to his own release; a Taylor Nation email carried the new spelling, and it was pulled the same night, available only until 11:59 p.m. EDT. As reception, the KIM decode cost Kim Kardashian more than 120,000 Instagram followers that release week; she made no public statement, with sources telling People she was "over it."',
         sources: [
           {
             outlet: 'Today',
@@ -2410,6 +2519,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-thank-you-aimee-castles-crumbling-hayley-williams-london-eras-tour-1235715917/',
+            source_title: "Taylor Swift Debuts 'thanK you aIMee,' Sings 'Castles Crumbling' With Hayley Williams in London",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'June 22, 2024 Wembley live debut, an acoustic mashup with "Mean"',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-diss-kanye-west-thank-you-aimee-live-version-1235081574/',
+            source_title: "Taylor Swift Disses Kanye West With 'thank You aimEe' Live Version",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Aug. 15, 2024 YE-restyled live release pulled the same night before midnight',
+          },
+          {
+            outlet: 'BuzzFeed News',
+            url: 'https://www.buzzfeednews.com/article/ellendurney/kim-kardashian-instagram-followers-after-taylor-swift-song',
+            source_title: 'Kim Kardashian Has Lost More Than 120,000 Followers Since Taylor Swift Released "thanK You aIMee"',
+            publisher: 'BuzzFeed News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Release-week Instagram follower drop of 120,000+ as reception',
           },
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
@@ -2434,6 +2573,10 @@ export default {
       month: 4,
       day: 19,
       category: 'music',
+      // Cross-link (Answerer shard 6, 2026-07-24, ledger #1253): bidirectional
+      // with the Miami run, where this studio-only duet became a live fixture
+      // (Miami already links inbound here). Id verified against the generated vault.
+      relatedIds: ['moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc'],
       title: 'Florida!!! — a Dateline-inspired duet with Florence Welch',
       snippet:
         'Her own logic: people flee to Florida after crimes and breakups alike. Florence + the Machine turn the reinvention fantasy into the album\'s biggest-sounding song.',
@@ -2441,7 +2584,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift said the idea came from watching Dateline: fugitives run to Florida to "reinvent themselves, have a new identity, blend in" — and heartbreak, she figured, wants the same exit.\n\nWelch co-wrote the track and trades verses on it; critics singled out the power-ballad build as the Anthology-era song most built for stadiums, and it later reached Florence\'s highest-ever Hot 100 peak.',
+          'Swift traced the idea to Dateline in her Amazon Music track commentary: fugitives flee to Florida to "reinvent themselves, have a new identity, blend in," and heartbreak, she figured, wants the same exit — "I want a new name. I want a new life." Florence Welch co-wrote it and trades verses; per Welch, Swift arrived with a fully formed "concept and a story," which Welch called "my favorite way to start songwriting."\n\nProduced by Swift and Jack Antonoff, it sits as track 8 of the standard sixteen-track album — not an Anthology bonus cut. Critics flagged it as the record\'s biggest-sounding song: Variety\'s Chris Willman singled out its "BAM-BAM-BAM power-chord dynamics in an album that often otherwise trends soft." It debuted at No. 8 on the Billboard Hot 100 in the album\'s top-14 sweep — Florence + the Machine\'s first top-ten and highest-ever entry, past their No. 21 peak with "Dog Days Are Over." Live, it debuted at the Aug. 20, 2024 Wembley finale with Welch, then ran all three Miami nights (Oct. 18–20, 2024).',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2460,6 +2603,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Stereogum',
+            url: 'https://www.stereogum.com/2261492/florence-the-machine-reach-new-chart-peak-as-taylor-swift-occupies-top-14-spots-on-billboard-hot-100/news/',
+            source_title: 'Florence + The Machine Reach New Chart Peak As Taylor Swift Occupies Top 14 Spots On Billboard Hot 100',
+            publisher: 'Stereogum',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'No. 8 Hot 100 debut — Florence + the Machine\'s first top-ten, past their No. 21 peak with "Dog Days Are Over"',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/album-reviews/the-tortured-poets-department-review-taylor-swift-album-1235975690/',
+            source_title: "Taylor Swift's 'The Tortured Poets Department': Album Review",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Chris Willman: "BAM-BAM-BAM power-chord dynamics in an album that often otherwise trends soft"; track 8 of the standard album',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/florence-welch-florida-taylor-swift-tortured-poets-department-1235882827/',
+            source_title: "Florence Welch Talks Recording 'Florida!!!' With Taylor Swift for TTPD",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Producer Jack Antonoff; Welch on Swift bringing a fully-formed "concept and a story"',
           },
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
@@ -2497,13 +2670,21 @@ export default {
       // the-proposal thread opt-in (stage 3, 2026-07-19): the song fans read
       // as the relationship's track — a beat of the derived End Game thread.
       threadIds: ['the-proposal'],
+      // Cross-links (Answerer shard 6, 2026-07-24, ledger #1182): completes the
+      // relationship cluster — the Wembley night Travis appeared on stage during
+      // this song's tour run, and the engagement it foreshadows (shared
+      // the-proposal thread). Ids verified against content-vault.generated.ts.
+      relatedIds: [
+        'moment:vault-ttpd-travis-kelce-eras-tour-cast-member-for-a-night',
+        'moment:vault-tloas-the-engagement-look-a-polo-ralph-lauren-dress-in-the-garden',
+      ],
       snippet:
         'The "marry, kiss, or kill me" line traces to a viral 2016 Travis interview clip, and fans caught the nod to his impressions of his dad — the album\'s one openly giddy chapter.',
       sourceUrl: 'https://www.today.com/popculture/music/so-high-school-taylor-swift-lyrics-meaning-rcna148574',
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift hasn\'t confirmed the subject on the record — but the reading is barely a theory: in the resurfaced clip Kelce picks "kiss" for Swift in a game of marry-kiss-kill years before they met, and "I feel like laughing in the middle of practice" nods at his impressions of Ed Kelce.\n\nWhen the song joined the Eras Tour setlist, the staging added on-stage bleachers and football-field visuals, and fans took the hint as confirmation enough.',
+          'Swift hasn\'t confirmed the subject on the record, but the reading is barely a theory: outlets and Genius annotated line after line as Travis Kelce — the resurfaced marry-kiss-kill clip where he picked "kiss" for her years before they met, the "laughing in the middle of practice" nod to his New Heights impressions of dad Ed Kelce, the "you know how to ball, I know Aristotle" split of athlete and writer, and the "bittersweet sixteen" teenage register. Written and produced solely with Aaron Dessner at his Long Pond studio, it debuted at No. 24 on the Hot 100 in the album\'s record-setting week — just outside the top-14 sweep — and critics tagged it the album\'s bright pop-rock outlier, Rolling Stone hearing a "light-hearted power-pop guitar jangle."\n\nLive, it entered the Eras Tour as a mashup on the outro of "But Daddy I Love Him," debuting in Paris on May 9, 2024 and staying in the revamped TTPD set. Swift later cast the romance itself in teen-movie terms on the New Heights podcast — it "felt more like I was in an \'80s John Hughes movie." The nearest thing to a Kelce reply came from the New Heights account, which reposted the brothers\' dad-impression clip the day after release, captioned "Those Papa Kelce impressions are just too good."',
         sources: [
           {
             outlet: 'Today',
@@ -2522,6 +2703,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 3,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/So_High_School',
+            source_title: 'So High School — Wikipedia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+            notes: 'Solely written/produced by Swift & Aaron Dessner (Long Pond); No. 24 Hot 100 peak; live via "But Daddy I Love Him" outro from Paris, May 9, 2024; John Hughes remark',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/',
+            source_title: "Taylor Swift's 'The Tortured Poets Department: The Anthology' Review",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: '"light-hearted power-pop guitar jangle" — the album\'s bright pop-rock outlier',
+          },
+          {
+            outlet: 'Fox News',
+            url: 'https://www.foxnews.com/entertainment/taylor-swifts-boyfriend-travis-kelce-seemingly-confirms-new-track-so-high-school-about-him.amp',
+            source_title: "Travis Kelce seemingly confirms new track 'So High School' is about him",
+            publisher: 'Fox News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'New Heights account reposted the dad-impression clip the day after release',
           },
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
@@ -2952,6 +3163,10 @@ export default {
       month: 7,
       day: 28,
       category: 'tour',
+      // Cross-link (Answerer shard 6, 2026-07-24, ledger #1048): the mirror image
+      // two weeks later — the Vienna nights whose crowds never got inside the
+      // stadium at all. Id verified against content-vault.generated.ts.
+      relatedIds: ['moment:vault-ttpd-vienna-cancelled-a-foiled-plot-three-sold-out-shows'],
       title: "Munich's hill: the biggest free show of the Eras Tour",
       snippet:
         'Tens of thousands of ticketless fans climbed the Olympiaberg overlooking the Olympiastadion — and Taylor counted them from the stage: 74,000 inside, "and if the reports are correct, about 50,000 beautiful people outside the stadium."',
@@ -3044,6 +3259,10 @@ export default {
       month: 8,
       day: 7,
       category: 'tour',
+      // Cross-link (Answerer shard 6, 2026-07-24, ledger #1264): the mirror image
+      // two weeks earlier — the 40,000+ fans who gathered OUTSIDE the Munich
+      // stadium. Id verified against content-vault.generated.ts.
+      relatedIds: ['moment:vault-ttpd-munichs-hill-the-biggest-free-show-of-the-eras-tour'],
       title: 'Vienna, cancelled: a foiled plot, three sold-out shows',
       snippet:
         'Austrian police arrested suspects planning an attack on the Ernst Happel shows, and all three nights were scrapped. She later wrote the cancellations left her with "a new sense of fear" and "tremendous guilt."',
@@ -3051,7 +3270,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Aug. 8–10, 2024 shows were called off after authorities said a 19-year-old who had pledged allegiance to ISIS planned to attack the crowds, with bomb-making materials found at his home.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done, then explained that her silence "was actually showing restraint" — the Wembley run resumed days later under heightened security, and the tour finished without further incident.',
+          'The Aug. 8–10, 2024 shows were called off after Austrian authorities said a plot targeted the concerts. All three sold-out nights were scrapped — roughly 195,000 tickets across the ~65,000-capacity Ernst Happel Stadion — a loss Austrian news agency APA estimated at around €100 million to Vienna. Promoter Barracuda Music refunded every ticket automatically, within ten working days through the oeticket system.\n\nThe counter-story filled the streets. On Aug. 8, the night the first show should have opened, hundreds of fans gathered on Corneliusgasse — chosen because its name echoes "Cornelia Street" — to sing together, trade friendship bracelets and hang them from the trees; a mass "Cruel Summer" singalong became the image of the week, and Vienna museums waived admission for stranded Swifties. Swift stayed publicly silent until her London dates were done, then wrote on Instagram on Aug. 21 that the cancellations left her with "a new sense of fear" and "a tremendous amount of guilt" for the fans who had planned to come. The tour resumed in London days later and finished without further incident.',
         sources: [
           {
             outlet: 'NBC News',
@@ -3070,6 +3289,46 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/swifties-unite-in-vienna-taylor-swift-eras-tour-cancelled-1235750037/',
+            source_title: "Swifties Unite in Vienna: How Fans Celebrated After 'Eras Tour' Concerts Were Cancelled",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Fans gathered on Corneliusgasse to sing and trade friendship bracelets',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/business/touring/taylor-swift-vienna-concerts-ticket-refund-info-announced-1235749988/',
+            source_title: "Ticket Refund Policies Announced for Taylor Swift's Canceled Vienna Shows",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Barracuda Music: all tickets automatically refunded within 10 working days via oeticket',
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/news/world/taylor-swift-fear-tremendous-guilt-foiled-terror-plot-targ-rcna165751',
+            source_title: "Taylor Swift says foiled plot that canceled Vienna shows filled her with fear and 'tremendous guilt'",
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Her Aug. 21, 2024 Instagram reflection — the primary source for "a new sense of fear" and "tremendous guilt"',
+          },
+          {
+            outlet: 'Fortune (AFP)',
+            url: 'https://fortune.com/europe/2024/08/08/taylor-swift-cancels-concerts-vienna-after-terror-attack-threat-affecting-over-170000-attendees-terror-eras-tour/',
+            source_title: 'Taylor Swift cancels Vienna concerts, affecting over 170,000 attendees',
+            publisher: 'Fortune / AFP',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'APA estimate: 170,000+ expected, ~€100 million; ~65,000 per sold-out night',
           },
         ],
         // T16 photo pass (2026-07-09): the shows never happened, so no event
@@ -3111,7 +3370,13 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-ttpd-4", label: "Harris endorsement", kind: "life" },
-      relatedIds: ['moment:vault-midnights-time-names-her-2023-person-of-the-year'],
+      // Cross-links (Answerer shard 6, 2026-07-24, ledger #1111): the 2023 Time
+      // cover the photo/cat come from, plus the 2018 first-political-post bookend.
+      // Ids verified against content-vault.generated.ts.
+      relatedIds: [
+        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+        'moment:vault-reputation-she-breaks-her-political-silence-and-voter-registrations-spi',
+      ],
       title: 'An endorsement signed "Childless Cat Lady"',
       snippet:
         'Minutes after the Harris–Trump debate ended, she endorsed Kamala Harris to 283 million followers — posed with Benjamin Button, sign-off borrowed from JD Vance\'s own insult.',
@@ -3135,7 +3400,7 @@ export default {
         },
 
         context:
-          'The Sept. 10, 2024 Instagram post called Harris "a steady-handed, gifted leader" and said AI-generated images falsely showing Swift endorsing Donald Trump had pushed her to be transparent about her actual vote.\n\nThe photo — Swift holding Benjamin Button, the cat from her Time cover — and the "Childless Cat Lady" signature did the rest of the messaging.',
+          'The Sept. 10, 2024 post — published within minutes of the Harris–Trump debate ending — endorsed "Kamala Harris and Tim Walz," calling Harris "a steady-handed, gifted leader" and praising Walz on LGBTQ+ rights, IVF and abortion. Swift said fabricated AI images that Trump had reposted on Truth Social in August, falsely showing her endorsing him, "conjured up my fears around AI" and pushed her to state her actual vote plainly.\n\nThe messaging did the rest: she posed with Benjamin Button — the cat from her 2023 Time Person of the Year shoot — and signed off "Childless Cat Lady," reclaiming JD Vance\'s own insult. The post linked to vote.gov, and the GSA reported 405,999 visitors through it in 24 hours; it drew roughly a million likes in thirteen minutes and ranked among her most-liked Instagram posts ever. Five days later Trump posted "I HATE TAYLOR SWIFT!" on Truth Social. On effect, researchers stayed measured — CIRCLE and others noted celebrity endorsements more plausibly inform and engage young voters than flip them, and no study isolated a vote-share swing; the documented, measurable result was the vote.gov traffic.',
         sources: [
           {
             outlet: 'NBC News',
@@ -3154,6 +3419,46 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-kamala-harris-endorsement-vote-gov/',
+            source_title: 'Taylor Swift drove 405,999 visitors to vote.gov in 24 hours after endorsing Kamala Harris',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'GSA: 405,999 vote.gov visitors via her link in 24h (the link was vote.gov, not vote.org)',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/siladityaray/2024/08/19/trump-reposts-ai-generated-images-claiming-he-has-support-from-taylor-swift-fans/',
+            source_title: 'Trump Reposts AI-Generated Images Claiming Taylor Swift Fans Support Him',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'The fabricated "Swifties for Trump" images Swift cited as her trigger; Trump captioned "I accept"',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/donald-trump-i-hate-taylor-swift-truth-social-1236144531/',
+            source_title: 'Donald Trump Rages at Taylor Swift: "I HATE TAYLOR SWIFT!"',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Trump\'s Sept. 15, 2024 Truth Social response',
+          },
+          {
+            outlet: 'Fast Company',
+            url: 'https://www.fastcompany.com/91190384/will-taylor-swifts-harris-endorsement-actually-move-needle-election-day',
+            source_title: "Will Taylor Swift's Harris endorsement actually move the needle on Election Day?",
+            publisher: 'Fast Company',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'CIRCLE/analysts: endorsements inform and engage young voters more than they flip votes; no isolated vote-share effect',
           },
         ],
         // T16 photo pass (2026-07-09): Getty file photo CBS News ran with its

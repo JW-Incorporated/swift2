@@ -373,11 +373,11 @@ const TRACKS = [
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       isSingle: true,
-      note: 'The confirmed Eras Tour confession — performing the biggest show on earth nightly while privately wrecked, with the stage clicker ticking in the mix.',
+      note: 'The confirmed Eras Tour confession — performing the biggest show on earth nightly while privately wrecked, its counted "1, 2, 3, 4" intro widely heard as a stage count-off.',
       summary:
         'Explicitly about smiling through the 2023 tour dates while her life fell apart offstage: the depression-era show-must-go-on anthem, ending with the giddy, unhinged brag that she pulled it off.',
       inspiration:
-        'Confirmed autobiography: the song describes performing the Eras Tour mid-heartbreak, down to the in-ear count-offs sampled in the production.',
+        'Confirmed autobiography: the song describes performing the Eras Tour mid-heartbreak. Fans read the counted intro as a sampled in-ear stage count-off, though no production source documents that.',
       themes: ['functioning depression', 'the show must go on', 'professionalism as armor'],
       easterEggs:
         'Eras Tour audiences screaming the more-tour-dates line back at her became the meta-joke of the 2024 legs.',
