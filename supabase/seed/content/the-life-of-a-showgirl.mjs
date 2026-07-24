@@ -3105,14 +3105,24 @@ export default {
       month: 9,
       day: 20,
       category: 'fashion',
-      title: 'The first "Showgirl orange" look: Reformation cashmere and a Versace leather mini',
+      // Cross-links + sources added 2026-07-24 (ledger #1066). Title corrected
+      // the same pass: it is NOT verifiably her "first" Showgirl-orange look —
+      // a $70 pumpkin merch cardigan (worn Sept. 17) and the Aug. 12 New Heights
+      // announcement's orange both preceded it — so the superlative was dropped
+      // for the sourced "made it a fashion story" framing Marie Claire used.
+      relatedIds: [
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+        'moment:vault-tloas-orange-sequins-and-feathers',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+      ],
+      title: 'The look that made "Showgirl orange" a fashion story: Reformation cashmere and a Versace leather mini',
       snippet:
-        'Explaining the album\'s packaging and orange-and-mint color scheme on Sept. 20, she wore a pumpkin-hued Reformation cashmere sweater over a Versace leather mini skirt — the outfit that made "Showgirl orange" a fashion story before the record even dropped.',
+        'Explaining the album\'s packaging and orange-and-mint color scheme on Sept. 20, she wore a pumpkin-hued Reformation cashmere sweater over a Versace leather mini skirt — the outfit that turned "Showgirl orange" into a fashion story before the record even dropped.',
       sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-showgirl-orange-reformation-cashmere-versace-leather-mini-skirt/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The look accompanied a behind-the-scenes video about the record\'s visual identity — posted by Taylor Nation on Sept. 20, with Swift talking through the album\'s orange-and-mint packaging on camera in front of set art from the era\'s shoots. Fans clocked the outfit as the messaging: the album wasn\'t out for two more weeks, and she was already dressed in its color.\n\nThe styling formula was classic Swift promo-craft, pairing a sold-out Reformation cashmere crew in Showgirl orange with a high-end Versace leather mini, while a roughly $70 sparkly pumpkin cardigan on her merch store offered fans a budget-friendly version of the color — deliberately mixing accessible and designer pieces the way she had for past eras\' drops, so the look could be copied at two price points. Marie Claire\'s coverage marked it as the moment "Showgirl orange" became a fashion story in its own right, ahead of the record itself.',
+          'The look accompanied a behind-the-scenes video about the record\'s visual identity — posted by Taylor Nation in the week of Sept. 20 — with Swift talking through the packaging on camera in front of set art from the era\'s shoots. She called the design "really luxurious as a nod to the luxury that a showgirl puts on when she\'s on the stage," walking fans through the photo-card CDs, a unique poem tucked into each vinyl, and a first-ever high-gloss finish. Fans clocked the outfit as the messaging: the album wasn\'t out for two more weeks, and she was already dressed in its color.\n\nIt wasn\'t her first orange of the era — she\'d worn a roughly $70 pumpkin merch cardigan a few days earlier, and orange had been the Showgirl signal since the Aug. 12 New Heights announcement — but it was the look Marie Claire marked as turning "Showgirl orange" into a fashion story. The formula was classic Swift promo-craft: a sold-out Reformation cashmere crew in Showgirl orange over Versace\'s Black Medusa leather mini (about $430), the merch cardigan offering fans a budget echo of the same color. No stylist is credited for this off-duty look itself; her longtime stylist Joseph Cassell Falconer is credited on the era\'s editorial shoots.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -3122,6 +3132,40 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            // Swift's on-camera packaging words ("really luxurious… nod to the
+            // luxury a showgirl puts on when she's on the stage"; high-gloss
+            // finish; per-vinyl poems; photo-card CDs) from the Taylor Nation video.
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-talks-luxurious-album-artwork-for-the-life-of-a-showgirl-says-fans-will-see-more-images-than-we-ever-planned-3894073',
+            source_title: 'Taylor Swift talks "luxurious" album artwork for \'The Life of a Showgirl\'',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // The ~$70 pumpkin merch cardigan worn earlier (Sept. 17) — the basis
+            // for the "not her first orange look" correction.
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-life-of-a-showgirl-orange-cardigan-merch/',
+            source_title: "Taylor Swift's $70 Orange Cardigan Is the Showgirl Era's First Merch Flex",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // Itemized breakdown IDing the Versace "Black Medusa Leather Mini
+            // Skirt" ($430) and the Reformation cashmere crew (documentation blog).
+            outlet: 'Taylor Swift Style',
+            url: 'https://www.taylorswiftstyle.com/post-grid/tloas-092025',
+            source_title: '13 Days Until The Life of a Showgirl',
+            publisher: 'Taylor Swift Style',
+            source_type: 'blog',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         // Still from the Taylor Nation video, hotlinked from Marie Claire's
@@ -5891,11 +5935,89 @@ export default {
       month: 10,
       day: 5,
       category: "music",
+      // Cross-links + sourced depth added 2026-07-24 (ledgers #1069, #1106,
+      // "big-ticket"/deficit): scoped to the VIDEO AS A DIRECTED WORK — crew,
+      // premiere-as-event, filming, YouTube metrics, the dance trend, easter
+      // eggs, the ASC win. The song's chart run lives on the lead-single page
+      // and the piece-by-piece costumes on the wardrobe page (both linked).
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai',
+        'moment:vault-tloas-the-official-release-party-of-a-showgirl-turns-movie-theater',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+      ],
       title: "“The Fate of Ophelia” video premieres",
       snippet: "The self-directed lead-single video debuts on YouTube after its theatrical-only premiere two days earlier.",
       video: { youtubeId: "ko70cExuzZM", title: "Taylor Swift - The Fate of Ophelia (Official Music Video)" },
       moment: {
-        context: "Written and directed by Taylor Swift, the video moves through a string of theatrical costume changes and sets, in keeping with the album’s showgirl framing.\n\nIt had already premiered on the big screen as part of the release-party film before arriving on YouTube for the wider audience.",
+        context: "Swift wrote and directed the video herself and, per its credits, built it with Eras Tour collaborators: cinematographer Rodrigo Prieto (Barbie, Killers of the Flower Moon), production designer Ethan Tobman, and choreographer Mandy Moore, casting her Eras band and dancers as the ensemble. Filming centered on the 1931 Los Angeles Theatre in downtown LA, after rehearsals that ran more than three weeks; the piece moves through a run of eras — an Old Hollywood opening, 1960s go-go lines, and a Busby Berkeley-scale synchronized-swim number that stages the drowned-Ophelia cover.\n\nIt premiered on the big screen first, playing inside “The Official Release Party of a Showgirl” — the Oct. 3, 2025 theatrical event that wrapped the video with behind-the-scenes footage, lyric videos, and Swift’s spoken “what inspired this music” intros — before its YouTube debut two days later, on Oct. 5, where it drew about 25 million views in three days and trended at No. 1. Fans turned the chorus choreography into a TikTok trend that even Australian PM Anthony Albanese attempted; Swift amplified it by posting an official clip of her and her dancers running the routine.\n\nWatchers logged a dense easter-egg layer — a door marked “No. 87” and a dressing-room photo nodding to Travis Kelce, an orange bird recalling “Look What You Made Me Do,” a clapperboard reading “Sequins are forever,” and a “Featuring Kitty Finlay” card (Finlay is Swift’s maternal grandmother’s surname). Prieto’s camerawork went on to win Outstanding Achievement in Cinematography in a Music Video at the ASC Awards (March 2026), his first ASC win.",
+        sources: [
+          {
+            // Theatrical premiere inside the Release Party + the full package shown.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-fate-of-ophelia-video-1236082294/',
+            source_title: "Taylor Swift Drops 'The Fate of Ophelia' Music Video: Watch",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            // Self-directed; cinematographer Rodrigo Prieto named.
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-the-fate-of-ophelia-music-video-watch-1236393494/',
+            source_title: "Taylor Swift Releases Music Video for 'The Fate of Ophelia': Watch",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // Crew (Tobman, Mandy Moore), Eras cast, Los Angeles Theatre filming,
+            // 3+ weeks of rehearsal, 25M views/No.1-trending in three days, and the
+            // ASC 2026 cinematography win (accolades table). Reliability-2, used
+            // only for facts corroborated by the reputable sources above/below.
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Fate_of_Ophelia',
+            source_title: 'The Fate of Ophelia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+          {
+            // Swift released an official dance clip; the chorus routine became a
+            // documented TikTok trend, choreographed by Mandy Moore.
+            outlet: 'The Mary Sue',
+            url: 'https://www.themarysue.com/taylor-swift-fate-of-ophelia-dance-tutorial-music-video-tiktok/',
+            source_title: "Taylor Swift Shares Official 'Fate of Ophelia' Dance Tutorial",
+            publisher: 'The Mary Sue',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            // The video's easter-egg roundup (No. 87 door, Kelce photo, orange
+            // bird, "Sequins are forever" clapperboard, "Featuring Kitty Finlay").
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swifts-fate-ophelia-music-180352287.html',
+            source_title: "Every Easter Egg in Taylor Swift's 'The Fate of Ophelia' Music Video",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            // Rodrigo Prieto's first ASC Award (Music Video), ceremony March 8 2026.
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/rodrigo-prieto-asc-award-taylor-swift-fate-ophelia-1784138',
+            source_title: "Rodrigo Prieto Wins First ASC Music Video Award for Taylor Swift's 'The Fate of Ophelia'",
+            publisher: 'IBTimes UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
         // MV id ko70cExuzZM re-verified via YouTube oEmbed this session
         // ("Taylor Swift - The Fate of Ophelia (Official Music Video)",
@@ -5923,10 +6045,56 @@ export default {
       month: 10,
       dateLabel: "Fall 2025",
       category: "fashion",
+      // Provenance, sources + cross-links added 2026-07-24 (ledger #1274). This
+      // generic "visual identity" card previously asserted the aesthetic with
+      // zero sourcing and a single shoppable dress with no evidence Swift wore
+      // it — now traced to the real Gucci/Bob Mackie looks, with the retail
+      // dress kept but honestly framed as a get-the-look dupe (see below).
+      relatedIds: [
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+        'moment:vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai',
+        'moment:vault-tloas-the-look-that-made-showgirl-orange-a-fashion-story-reformati',
+        'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
+      ],
       title: "Orange sequins and feathers",
       snippet: "The visual language: burnt-orange rhinestones, marabou, and spotlight sparkle.",
       moment: {
-        context: "Showgirl glamour defines the styling — sequins, feathers, and a warm theatrical glow in every frame.",
+        context: "“Showgirl orange” was the era’s signal before a note dropped: Swift told Jason Kelce on New Heights that she chose orange because it captured how her Eras Tour life felt — “effervescent” — and had teased it for months, exiting each Eras stage through an orange door. The rhinestones-and-feathers language was set by the album’s imagery, shot by Mert Alas and Marcus Piggott and styled by Swift’s longtime stylist Joseph Cassell Falconer: a custom burnt-orange, ombré-sequined Gucci gown with opera gloves anchors the portrait suite, while one alternate cover revived a feather-trimmed, rhinestone-encrusted Bob Mackie costume from the Las Vegas revue Jubilee! — Mackie being the designer synonymous with Cher and the Vegas stage. The self-directed “Fate of Ophelia” video carried the same palette across its showgirl tableaux.\n\nThe shoppable dress below — Branna Couture’s feather-trim sequin mini — is a get-the-look dupe in the era’s colors, a fan-accessible echo of those documented Gucci and Mackie looks, not a garment Swift is documented wearing.",
+        sources: [
+          {
+            // Era stylist (Joseph Cassell Falconer) + the custom burnt-orange
+            // sequined Gucci gown from the Mert & Marcus shoot. Verified reachable.
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-the-life-of-a-showgirl-style/',
+            source_title: "Every Fashion Detail of Taylor Swift's 'The Life of a Showgirl'",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // Swift on why orange — "effervescent," how her Eras Tour life felt —
+            // and the orange-door Eras Easter egg (New Heights, Aug. 2025).
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/taylor-swift-life-of-a-showgirl-album-outfits-new-heights/',
+            source_title: "Taylor Swift's 'Life of a Showgirl' Album Cover Outfit, Explained",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // Bob Mackie's feather-and-rhinestone Jubilee! costume on an album
+            // cover variant, in the designer's own words.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/bob-mackie-blown-away-taylor-swift-outfit-showgirl-cover-1236101495/',
+            source_title: "Bob Mackie 'Blown Away' by Taylor Swift Wearing His Design on 'Showgirl' Cover",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+        ],
         products: [
           {
             brand: 'Branna Couture',
