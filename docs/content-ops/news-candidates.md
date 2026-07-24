@@ -25,7 +25,71 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 100
+Stories: 106
+
+## Swifties dubbed them the Taydaughters. Now they’re wrestling with Taylor Swift’s double-edged influe
+
+- first seen: 2026-07-24 15:04 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Swifties dubbed them the Taydaughters. Now they’re wrestling with Taylor Swift’s double-edged influence  The Globe and Mail
+- sources:
+  - [unverified] The Globe and Mail — https://news.google.com/rss/articles/CBMiwwFBVV95cUxOTFVYYUFPanFqZ21NUmhyS1ZOS1A3Skl3UDlwclU0VWdRN2kwUVRVT2JyUjJ2LTUyVTlaSzA3emZwekhPc284YXdmNmc4LXVLR0JuT0lWanE3S0RxRy1vakZCVWlUTDdSRW9pNGFIMUEwcTFJY2k4dDRVOWFlZjhGdDN6R0R6dFBadnljaHA4TTZ1SVhmbTdSX0VhYzZQaWdfRzk3UzR3N2ZLZ1lmRUpWbzdsdmtiMUhRaHEwVE5NOHFHN0U?oc=5
+
+## Which Gracie Abrams Song Are You? Pick Taylor Swift Songs To Find Out - BuzzFeed
+
+- first seen: 2026-07-24 15:04 UTC | category: music | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Which Gracie Abrams Song Are You? Pick Taylor Swift Songs To Find Out  BuzzFeed
+- sources:
+  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMiowFBVV95cUxQZnRwc3Q2THVSbGJRekMxemwxR0k3eGNZRGx3b2hUVVVESS1tVUlyUDdFOGxBSER3VnozNkdCWkZid3dtbVZ2b2lzSjlsZjRJamxJX2NPdDVLOWZ1MFFHTEh6TTcxS2tPdGVHa2dqeloweDVxVG5Kbnh4aGc4UVlMRUQwXzRxblB5NmFUcTk2ZHN3ZnA2Y2E0cXlfVnpoRUlweFA4?oc=5
+
+## My Husband Deleted Our Invitation To Taylor Swift’s Wedding. When He Told Me Why, I Lost My Mind. - 
+
+- first seen: 2026-07-24 15:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: My Husband Deleted Our Invitation To Taylor Swift’s Wedding. When He Told Me Why, I Lost My Mind.  BuzzFeed
+- sources:
+  - [unverified] BuzzFeed — https://news.google.com/rss/articles/CBMiigFBVV95cUxPWkgya3B5THRSdnZoR0JkMFdKelFVbkl1Qi01RDBOazVxWU9IVkdnVjE0S1ZzMjBLQUhWcXFKR0haTnJxRXNWbHNHX2R2Y2RHWFRKV2ZiSkRrVEJVU1pnV19sWEgyMi1NYnd5VHdVTTVqTmZJQl9oOENXNm9UVFlKLWZTOHJhNWxfU3c?oc=5
+
+## Korn’s Jonathan Davis Got Married (The Same Day As Taylor Swift) - Loudwire
+
+- first seen: 2026-07-24 15:04 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Korn’s Jonathan Davis Got Married (The Same Day As Taylor Swift)  Loudwire
+- sources:
+  - [unverified] Loudwire — https://news.google.com/rss/articles/CBMic0FVX3lxTE5VSktjNEx3cFhDRkg4cnBHN1BjYXlWbUxHTmZwbXg0QlcyVEk0NmR5dnhIanlZLTc5ekd3SlBIel9LMUxweUtNSnlhYWdlS01Ha3drWFV1Njhodm1KU2RNYXQ4bFB3ajI1UXM0T0loTXlFX1k?oc=5
+
+## Taylor Swift’s wedding story marked by privacy - The Arkansas Democrat-Gazette
+
+- first seen: 2026-07-24 15:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s wedding story marked by privacy  The Arkansas Democrat-Gazette
+- sources:
+  - [unverified] The Arkansas Democrat-Gazette — https://news.google.com/rss/articles/CBMimgFBVV95cUxNLVlFMzI0UGhLOWNnVW1lNm1QWXZGVkExSTBOR2V2ME5qY1YyMnRkdEJwUmZGazI5SEpJUnpmR1hOMElwUnJ5Um9MMGhKWVd2YW5Zb0JSS0tvdlhlYjdXazgyRHBoWGNHZkxYeU82eHpYNnVyTGZyWDdZd3JKMHFPaEpGcDEwUE5SRFZRQzZJZnUxRlBiUWxnOUVR?oc=5
+
+## Bolton Landing museum celebrates opera queen Marcella Sembrich: 'The Taylor Swift of her time' - WNY
+
+- first seen: 2026-07-24 15:04 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Bolton Landing museum celebrates opera queen Marcella Sembrich: 'The Taylor Swift of her time'  WNYT.com
+- sources:
+  - [unverified] WNYT.com — https://news.google.com/rss/articles/CBMivgFBVV95cUxNQUxzWFBPMXJzRzZnZkg5ZXdZZ1pkUmVOaXMwejlQT2NlSFE1d0xNZWYxYXlLSXhTQzBSZUpTSVYydzdqY00zLVFQbkw2QjM1X0VRdUtBRi1LQWFPQzhIVjRfLWRXWWlHRmtqY3pUV0NEQkJtdlZwTXlfVDJPakdjc2NQRjA4VnVvZTBSNy1CWkdwSWc5U0RVb0xKemFzcEZMa2dMQ1I2RVQwMm1aZjdCa210WklKeGRRRVdrcEFB?oc=5
+
+## Movie theater exec who leaked Taylor Swift’s wedding deets made $15M last year - Page Six
+
+- first seen: 2026-07-24 15:04 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Movie theater exec who leaked Taylor Swift’s wedding deets made $15M last year  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMiugFBVV95cUxPVU9SbnI0YkZSMThLM2xiYUcydXBvZGJ4elFNOWJvUjJUcXF0OFhOUXo2MkxzVElJaEtBUDAwRGhNengxX0IwODVUQVZub280cTdLM0hYQ2VxbUtDaUN5aTh2THM4dTdaMTg3alFlSVFCb3d0Z21tNkREMDhyRGZqYk91SnJEVjV5dEZMalRGVVhfZEZoY3RnbDRES1BqV0tPUEpMcEt0d3VzS0lkcXlXRWZUcm1FZnppSWc?oc=5
+
+## DAILY Q&A: Who said it? Shakespeare or Taylor Swift - WJHG
+
+- first seen: 2026-07-24 15:04 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: DAILY Q&A: Who said it? Shakespeare or Taylor Swift  WJHG
+- sources:
+  - [unverified] WJHG — https://news.google.com/rss/articles/CBMikAFBVV95cUxQZXQ1eFdpN2JuMUNYTVAtTm9qZXVGV1FxYkVhRjU0aVpUclg1RTJjSzJVaHQ0cjhWZnl0d3VoNnhlQkp6YWQ5VjVrbDNEcGxiR0gtSUhDZjkwNmE3ejhCTlpmTEFINEVXR2htTEtoY2ZQbUJXNkNteC1yMWFZQ3BiTGJoRHpNOC1NOW5IZXZybGs?oc=5
 
 ## Taylor Swift's new sister-in-law talks 'magical' wedding - Yahoo Lifestyle Canada
 
@@ -827,19 +891,3 @@ Stories: 100
 - summary: 'His teammates being jealous and trash-talking': Taylor Swift and Travis Kelce left 'exhausted' as allege  The Times of India
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiuwJBVV95cUxNRkVwSmh2MGZUSHktSHZuRTJBenJVbUFzMUV5WnluTDhXTmNXbWJmUF81X2c4a05KZTBndDVnZUZJbUJjcHJlMjJYblF5NjBFVzFiUW5YZXhXdWRETmdxTVdSc28yazRNM0JqOUM4dnBxWk5xYmhGblAwNlNxRUFodEg4ZDQ5dmhUa0VnSHJxWFhwS2IzeVRFSXFKd19mcjFTb1I5MGdqZ3BHMERDbk1ZVUFXRm93UXgwdkptWTI4ejFUWHprWHVleEFBcjBYcnZic21Yd2k3eWtqLUtpMTNEY0V3Mkp5VDdwcVZHeHA1a05Nc1gxUWtJaS1wZ0x3T0J1dV81NzUwc1RQa3YyYnhUOW9jbi1NNUZrZGhFbVAycC1aWlROeElwS0NWT1M2UFl3V3hZOVFoNTVCdmvSAcACQVVfeXFMTjI2bWs1elMtNlR4WjUzTlJaWnZ5dHpXTlgycVUtOW5ESzN4SEFEQzdDVGdYaVJuMXhHcy1OYnEyYlYwXzZmeF8zZ1hEZ1RQZFFER3g4MWVLYmN5XzZaN19oeVVZZGI4b0QyazdzM0xSZnRhWjU0VFlHaWtOVjl3cy1fYkNISlcxSXBFZ1g0SEQ1MzB6TDNaVEhFQ2M2eHg5WDgtOHNkSHlmbkoyb2lJT2FxYTh3eWlGVUJSUlQ3NTB4bmQyeHhNNVZHMEd6MmJvdFdoUG9RaTVBUGJyVWdmV2o4cUNRTXFRVThTb3pyTFJOUVdUOVl5XzhDOERmWTJ0T0F2R0FsZlRqZEw4aGFhbncwLTBITXpWcE5kWnp3bzlMNEd1eFZZTTBCRmpnd3VWNXR2UVM5ZGF2bGVhUTdlZzY?oc=5
-
-## Taylor Swift Looked Like a ‘Real-Life Princess’ on Wedding Day — Report - Yahoo
-
-- first seen: 2026-07-21 11:17 UTC | category: fashion | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Looked Like a ‘Real-Life Princess’ on Wedding Day — Report  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNNlpyTHM0aFQ2NHhzWlVpTXlEYlUtc0hiNE1kVFd6VUVXVEx3X1R2d21DVnB5djhyRlMtNWdQSjFxekxIcHYwaF9lS0hUUDNjYWJiT1RlQUxDTURvQUpuaElwSlRvMlVOLUh6czd3c0JFWE0wVnlPYWdvNG9fZmtZRHVxVDJreEJwb2F0YjQ0cDVKSEV3akZNRGo2X2xEWUU5?oc=5
-
-## Taylor Swift ‘Hasn’t Won’ ‘Over’ Every Chiefs WAG, ‘Plenty of Cattiness’ ‘Behind the Scenes’ - Yahoo
-
-- first seen: 2026-07-21 11:17 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift ‘Hasn’t Won’ ‘Over’ Every Chiefs WAG, ‘Plenty of Cattiness’ ‘Behind the Scenes’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPRU1XRjlUUHVjeW90bjk0N090djg1ak5mclo0RHhrTmtpMG15emRCVXZCcTA4cmw5bHp5eVJqeXMxN0NfSkFPMFB1eGxBMHlMTDdaMDJEMFpjcmRMNEFNV25zem1UeVhQSTNKMTU0NTYtR0Y0c2JnLU5nZEN1RTZQWjV3QnZWaGIxVnJhSEtFX21GOW54M1MxOQ?oc=5
