@@ -1011,6 +1011,14 @@ export default {
       month: 11,
       day: 1,
       category: 'tour',
+      // Cross-links (Answerer shard 6, 2026-07-24, ledger #1296): the final-leg
+      // tour-sequence rail — leg opener (Miami), next stop (Toronto), finale
+      // (Vancouver). Ids verified against content-vault.generated.ts.
+      relatedIds: [
+        'moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc',
+        'moment:vault-ttpd-the-long-canadian-goodbye-six-nights-in-toronto',
+        'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+      ],
       title: 'The last American shows: Indianapolis breaks its own record three nights running',
       snippet:
         'The U.S. goodbye at Lucas Oil Stadium — the building\'s concert attendance record falls on night one, again on night two, and again on night three. 207,000 fans over one weekend.',
@@ -1020,7 +1028,7 @@ export default {
         'https://wish-media.s3.us-east-2.amazonaws.com/wp-content/2024/11/04/MAIN-PIC-ac-photo-taylor-swift-1.jpg',
       moment: {
         context:
-          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl — because economically, they were. Visit Indy projected an impact in the hundreds of millions, on par with hosting the 2012 Super Bowl, with roughly 81% of ticket holders coming from out of state and downtown rebranding itself "Swift City" for the weekend.\n\nInside the building, each crowd topped 69,000 and each night broke the concert attendance record the previous one had just set — Taylor announced the third consecutive record from the stage on Sunday, putting the weekend at 207,000 fans total. Caitlin Clark turned up on night two, and the last American surprise-song slots landed with the finality fans expected: after Indy, only Toronto and Vancouver remained.',
+          'Nov. 1–3, 2024: the final U.S. shows of the biggest tour ever staged, and Indianapolis treated them like a Super Bowl. Mayor Joe Hogsett proclaimed "Taylor Swift Weekend," and downtown leaned into a "Swift City" nickname — press-and-fan shorthand, not an official renaming — while roughly 81% of ticket holders came from out of state. Visit Indy anticipated a "healthy nine-figure" impact and economists floated $100M-plus, though an IU economist cautioned the true figure is essentially unknowable; read it as an estimate.\n\nEach acoustic surprise slot landed with the finality fans expected. Night 1 paired "The Albatross"/"Holy Ground" and "Cold As You"/"exile"; night 2, "The Prophecy"/"This Love" and "Maroon"/"Cowboy Like Me"; and the final U.S. night (Nov. 3), "Cornelia Street"/"The Bolter" and "Death by a Thousand Cuts"/"The Great War." From the stage that night she named it plainly — the very last U.S. show the Eras Tour would ever play.\n\nInside the building each crowd topped 69,000 and each night broke the attendance record the one before had just set, for 207,000 across the weekend — opening night alone drew 69,000, itself a Lucas Oil Stadium concert record. Indianapolis is also where the Swift–Caitlin Clark friendship began: Clark attended, met Andrea Swift and Travis Kelce in a suite, and Swift later sent her four bags of Eras merch with a note calling her "inspiring to watch from afar" and an invitation to a Chiefs game. After Indy, only Toronto and Vancouver remained.',
         sources: [
           {
             outlet: 'WTHR',
@@ -1048,6 +1056,46 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-14',
             reliability_score: 4,
+          },
+          {
+            outlet: 'IndyStar (via AOL)',
+            url: 'https://www.yahoo.com/entertainment/were-indy-eras-tour-night-041337539.html',
+            source_title: 'What were the Indy Eras Tour Night 3 surprise songs?',
+            publisher: 'IndyStar',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Per-night surprise-song mashups; Nov. 3 "Cornelia Street"/"The Bolter" + "Death by a Thousand Cuts"/"The Great War"',
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/caitlin-clark-time-athlete-year-taylor-swift-rcna183630',
+            source_title: 'Taylor Swift gave Caitlin Clark an inspirational note — and a special invitation',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Clark met Andrea Swift and Kelce in the suite; four bags of Eras merch, note "inspiring to watch from afar," a Chiefs-game invite',
+          },
+          {
+            outlet: 'WISH-TV',
+            url: 'https://www.wishtv.com/news/entertainment-news/taylor-swift-economic-impact-indianapolis/',
+            source_title: "Taylor Swift's Eras Tour to boost Indianapolis economy",
+            publisher: 'WISH-TV',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Visit Indy "healthy nine-figure" estimate; IU economist Kyle Anderson caution that the true figure is unknowable',
+          },
+          {
+            outlet: 'WTHR',
+            url: 'https://www.wthr.com/article/entertainment/music/mayor-joe-hogsett-proclaims-taylor-swift-weekend-indianapolis-eras-tour-lucas-oil-stadium-tickets/531-481800b5-32f7-46d4-bbf7-e24812ae8e49',
+            source_title: "Mayor Hogsett officially proclaims 'Taylor Swift Weekend' in Indianapolis",
+            publisher: 'WTHR (NBC Indianapolis)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Official mayoral proclamation; "Swift City" as press/fan coloring, not a legal renaming',
           },
         ],
         // Photo pass (2026-07-18, #762): page had zero photos. WISH-TV's own
@@ -2699,9 +2747,14 @@ export default {
       day: 19,
       category: 'music',
       title: 'thanK you aIMee: the capitalization does the talking',
+      // relatedIds: main's TTPD rail plus the feud-arc links (the "Mean" live
+      // mashup + the reputation feud origin) folded in by shard 6 for ledger
+      // #1287; merge-dedup 2026-07-24. All ids verified against the generated vault.
       relatedIds: [
         'moment:vault-ttpd-the-tortured-poets-department',
         'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
+        'moment:vault-speak-now-mean-written-straight-at-her-critics',
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
       ],
       snippet:
         'The stray capitals spell KIM, and fans connected the rest — a song about outlasting a schoolyard bully, filed under grudges from 2016. By August, a live version was restyled "thank You aimEe."',
@@ -2748,6 +2801,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-thank-you-aimee-castles-crumbling-hayley-williams-london-eras-tour-1235715917/',
+            source_title: "Taylor Swift Debuts 'thanK you aIMee,' Sings 'Castles Crumbling' With Hayley Williams in London",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'June 22, 2024 Wembley live debut, an acoustic mashup with "Mean"',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-diss-kanye-west-thank-you-aimee-live-version-1235081574/',
+            source_title: "Taylor Swift Disses Kanye West With 'thank You aimEe' Live Version",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Aug. 15, 2024 YE-restyled live release pulled the same night before midnight',
+          },
+          {
+            outlet: 'BuzzFeed News',
+            url: 'https://www.buzzfeednews.com/article/ellendurney/kim-kardashian-instagram-followers-after-taylor-swift-song',
+            source_title: 'Kim Kardashian Has Lost More Than 120,000 Followers Since Taylor Swift Released "thanK You aIMee"',
+            publisher: 'BuzzFeed News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Release-week Instagram follower drop of 120,000+ as reception',
           },
         ],
         // T16 photo pass (2026-07-09): official lyric-video still — video ID
