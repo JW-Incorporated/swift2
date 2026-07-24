@@ -3047,7 +3047,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The series started Sept. 21, 2022, with episodes dropping at midnight ET — cat Meredith cameoed in episode 2, and the remaining titles were released an hour apart through the night of Oct. 7.\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, chance decided which track title she revealed next.',
+          'The mechanic was pure chance theater: a spinning bingo cage held 13 ping-pong balls numbered 1-13, one per track. Swift drew a ball, then read that track\'s title into a red rotary phone — held upside-down in episodes 2 and 6, a wink fans caught. The opener on Sept. 21, 2022 drew number 13: "Mastermind," the album\'s closer, revealed first.\n\nEpisodes dropped Monday, Wednesday and Friday — Meredith the cat cameoed in episode 2 — until the finale. On the night of Oct. 7, 2022 she blitzed the rest, releasing the last episodes an hour apart from midnight, and the full order landed: "Lavender Haze," "Maroon," "Anti-Hero," "Snow on the Beach" (with Lana Del Rey), "You\'re on Your Own, Kid," "Midnight Rain," "Question...?," "Vigilante Shit," "Bejeweled," "Labyrinth," "Karma," "Sweet Nothing," and "Mastermind."\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, a bingo cage decided which title she revealed next — chance, not cryptography, running the rollout.',
         sources: [
           {
             outlet: 'Elite Daily',
@@ -3067,6 +3067,28 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 3,
           },
+          // Depth pass (ledger #1293, 2026-07-24): the draw mechanic (numbered
+          // balls + red phone, upside-down in eps 2/6), the Sept. 21 first reveal
+          // (track 13 "Mastermind"), the Mon/Wed/Fri cadence and Oct. 7 finale,
+          // and the full revealed track order.
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-midnights-tracklist-song-names-rcna50738',
+            source_title: "'Midnights' tracklist: Song names of Taylor Swift's new album",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Midnights',
+            source_title: 'Midnights',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
         ],
         // Real-photo pass (2026-07-09): album artwork (the tracklist being
         // announced); Wikipedia's stable copy, verified HTTP 200 + image/png.
@@ -3082,6 +3104,12 @@ export default {
     },
     {
       slug: 'bejeweled-video-easter-eggs',
+      // Cross-link (ledger #1316 Q8 / crosslink-candidate): the video's whole
+      // thesis is the Speak Now prediction; thread it to the payoff — the May
+      // 2023 onstage announcement of Speak Now (Taylor's Version) in Nashville.
+      relatedIds: [
+        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
+      ],
       year: 2022,
       month: 10,
       day: 25,
@@ -3093,7 +3121,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Released Oct. 25, 2022, four days after the album, the Cinderella-story video stacked its cast like a wink: Laura Dern as the wicked stepmother, the three HAIM sisters as the stepsisters, and Dita Von Teese in the martini glass.\n\nThe clues were the point — and they all faced one direction. Dern\'s "Speak not, you tacky, tired wench" line, the three stepsisters (album three), and an orchestral "Long Live" over the closing shot all pointed at Speak Now as the next re-record — a call fans banked, and one the Nashville announcement confirmed the following May.',
+          'Swift wrote and directed the video — a comic Cinderella riff — and stacked the cast like a wink: Laura Dern as the wicked stepmother, the three HAIM sisters as stepsisters, burlesque legend Dita Von Teese as the "fairy goddess" in the martini glass, producer Jack Antonoff as a blink-and-miss Prince Charming, and makeup artist Pat McGrath in the transformation scene.\n\nIts self-described "psychotic amount" of easter eggs faced a single direction — Speak Now. Dern\'s "Speak not, you tacky, tired wench," an "Enchanted" instrumental at the open, a floor-three elevator button glowing the purple of the Speak Now cover (her third album), an "SN" hair clip, and an orchestral "Long Live" over the closing castle. The video even dropped Oct. 25, 2022 — the calendar date Speak Now first arrived in 2010.\n\nSwift had told Jimmy Fallon to expect that egg pile, so the density was deliberate; whether Speak Now specifically was the target stayed fan inference — a call the fandom banked and the May 2023 Nashville announcement of Speak Now (Taylor\'s Version) confirmed.',
         sources: [
           {
             outlet: 'Good Morning America',
@@ -3111,6 +3139,28 @@ export default {
             publisher: 'Newsweek',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1316, 2026-07-24): the director credit and the
+          // fuller cast (Von Teese as fairy godmother, Antonoff as Prince
+          // Charming, Pat McGrath); the additional Speak Now easter eggs; and
+          // the deliberate-eggs-vs-fan-inference distinction.
+          {
+            outlet: 'IndieWire',
+            url: 'https://www.indiewire.com/features/general/taylor-swift-bejeweled-video-laura-dern-alana-haim-watch-1234775782/',
+            source_title: "Taylor Swift's 'Bejeweled' Video Stars Laura Dern, Alana Haim",
+            publisher: 'IndieWire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-bejeweled-music-video-1235160502/',
+            source_title: "Taylor Swift's 'Bejeweled' Video: Watch",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
@@ -3245,7 +3295,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Verified Fan presale opened Nov. 15, 2022 and buckled within the hour as fans, bots, and scalpers flooded the site; Ticketmaster later blamed a massive bot attack and scrapped the general sale outright.\n\nFans sued, and Swift said watching the mistakes unfold with no recourse had been "excruciating." The fallout carried into Washington within two months.',
+          'The TaylorSwiftTix presale, powered by Verified Fan, drew more than 3.5 million registrations — the largest in Ticketmaster\'s history. About 1.5 million fans were sent codes for the 52 shows; the other 2 million were waitlisted. When it opened Nov. 15, 2022, the site buckled within the hour under what Ticketmaster called a "staggering number of bot attacks" and 3.5 billion system requests — four times its prior peak. It still moved more than 2 million tickets that day (2.4 million across all presales), the most ever sold for one artist in a single day.\n\nOn Nov. 17 the company scrapped the Nov. 18 general public sale outright, citing "extraordinarily high demands" and too little remaining inventory; shut-out fans turned to resale, where seats were listed as high as $22,500–$28,350 on StubHub.\n\nSwift answered Nov. 18: it was "excruciating for me to just watch mistakes happen with no recourse," and "we asked them, multiple times, if they could handle this kind of demand and we were assured they could." The reckoning outlived the tour. Fans sued in Los Angeles in December 2022 for fraud, misrepresentation, price-fixing and antitrust; a judge later dismissed the fraud claims but let the antitrust case proceed. In May 2024 the U.S. Justice Department and more than 30 states sued to break up Live Nation-Ticketmaster, a case that grew out of the two-year probe the Eras presale set off. And the outcry drove reform: the bipartisan Fans First Act, the TICKET Act (passed the House 338-24 in 2024), and the FTC\'s "junk fees" rule banning hidden drip pricing, in effect from May 2025.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -3264,6 +3314,73 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth pass (ledger #1302, 2026-07-24): registration/supply and
+          // system-request figures from Ticketmaster's own onsale explainer;
+          // Swift's statement, the cancellation and resale prices, the
+          // litigation, the DOJ breakup suit, and the reform legislation.
+          {
+            outlet: 'Ticketmaster',
+            url: 'https://business.ticketmaster.com/press-release/taylor-swift-the-eras-tour-onsale-explained/',
+            source_title: 'Taylor Swift | The Eras Tour Onsale Explained',
+            publisher: 'Ticketmaster (Live Nation)',
+            source_type: 'primary',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/music/news/taylor-swift-addresses-eras-tour-ticketmaster-fiasco-1235436036/',
+            source_title: "Taylor Swift on Ticketmaster Fiasco: 'Excruciating for Me to Watch'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-eras-tour-tickets-resale-for-more-than-10-times-previous-tours/',
+            source_title: 'Taylor Swift Eras Tour tickets are fetching more than $20,000',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/caileygleeson/2024/05/23/doj-sues-ticketmaster-owner-live-nation/',
+            source_title: 'DOJ Sues Ticketmaster And Live Nation In Latest Antitrust Suit',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-fans-win-eras-tour-ticketmaster-lawsuit/',
+            source_title: 'Taylor Swift Fans Score Win in Eras Tour Ticketmaster Lawsuit',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/ticket-act-passes-house-of-representatives-1236005647/',
+            source_title: 'TICKET Act Passes House of Representatives to Create Transparency in Pricing',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Federal Trade Commission',
+            url: 'https://www.ftc.gov/news-events/news/press-releases/2024/12/federal-trade-commission-announces-bipartisan-rule-banning-junk-ticket-hotel-fees',
+            source_title: 'Federal Trade Commission Announces Bipartisan Rule Banning Junk Ticket and Hotel Fees',
+            publisher: 'Federal Trade Commission',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Real-photo pass (2026-07-09): the official tour poster fans were queuing
@@ -3582,7 +3699,12 @@ export default {
     {
       slug: 'eras-tour-beige-book',
       significance: 'notable', // an economic-impact recognition genuinely unprecedented for a single tour — a real, citable macro data point (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-the-eras-tour-kicks-off-in-glendale'],
+      relatedIds: [
+        'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
+        // Cross-link (ledger #1320 Q7 / crosslink-candidate): the page's own prose
+        // says the Fed mention resurfaced in Time's Person of the Year citation.
+        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+      ],
       year: 2023,
       month: 7,
       day: 12,
@@ -3594,7 +3716,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The July 12, 2023 Beige Book flagged that May was Philadelphia\'s strongest hotel-revenue month since the pandemic\'s onset, in large part from the influx of fans for her Lincoln Financial Field dates — while Chicago broke hotel occupancy records during her Soldier Field weekend.\n\n"Swiftonomics" stopped being a joke headline and became a line item — a pop tour showing up in the same central-bank briefing document as inflation expectations and freight volumes. The Fed mention followed her the rest of the year, resurfacing in Time\'s Person of the Year citation that December.',
+          'The July 12, 2023 Beige Book named her outright — no euphemism. In the Third District (Philadelphia) summary, Fed staff wrote that "one contact highlighted that May was the strongest month for hotel revenue in Philadelphia since the onset of the pandemic, in large part due to an influx of guests for the Taylor Swift concerts in the city." A pop tour had become a line in the same central-bank briefing that tracks inflation and freight.\n\nThe Fed entry itself carried no dollar figure, but the numbers behind it were real. Her three Soldier Field shows (June 2-4, 2023) helped push Chicago to its highest hotel occupancy on record — more than 44,000 rooms filled at a 96.8% weekend average, about $39 million in hotel revenue, per Choose Chicago — while Illinois logged record hotel revenue for the year.\n\nIt was not quite unprecedented: weeks earlier a Danske Bank economist had pinned roughly 0.2 points of Sweden\'s surprise May inflation on Beyonce\'s Renaissance opener in Stockholm — the "Beyonce blip." But that was an economist reading Riksbank data, not a central bank writing an artist into its own report, which is what made the Fed line singular. The mention followed her all year, resurfacing that December when Time named her Person of the Year for a tour "so big the Federal Reserve noted its boost to tourism."',
         sources: [
           {
             outlet: 'Billboard',
@@ -3603,6 +3725,27 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1320, 2026-07-24): verbatim Fed wording; the
+          // Chicago/Illinois hard hotel numbers behind the entry; and the
+          // Beyonce/Riksbank "Beyonce blip" parallel the ledger asked to weigh.
+          {
+            outlet: 'NBC Chicago',
+            url: 'https://www.nbcchicago.com/news/local/taylor-swifts-chicago-soldier-field-concerts-break-chicago-hotel-record/3157392/',
+            source_title: "Chicago sets new 'all-time record' for hotel room occupancy during Taylor Swift Soldier Field shows",
+            publisher: 'NBC Chicago',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/tylerroush/2023/06/14/beyonc-caused-inflation-renaissance-tour-may-have-boosted-swedens-costs-economist-says/',
+            source_title: "Beyoncé Caused Inflation? 'Renaissance' Tour May Have Boosted Sweden's Costs, Economist Says",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
           {
@@ -3765,6 +3908,14 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-4", label: "Billionaire status", kind: "business" },
+      // Cross-links (ledger #1331): the same-October record sales week the page's
+      // own text cites; the Eras Tour engine Bloomberg weighted most heavily; and
+      // the masters sale that explains why only post-2019 catalog was counted.
+      relatedIds: [
+        'moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record',
+        'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
+        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+      ],
       title: 'Billionaire status, from the music alone',
       snippet:
         'Bloomberg put her net worth at $1.1 billion in October 2023 — one of the only entertainers ever to get there purely on songs and shows, no sneaker line or liquor brand required.',
@@ -3772,7 +3923,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Bloomberg\'s breakdown: roughly $400 million in catalog value from music released since 2019, $370 million from ticket sales and merchandise, $120 million from streaming, $110 million in real estate, and $80 million in royalties — the Eras Tour and the Taylor\'s Version project doing the compounding.\n\nThe distinction was the story: the $1.1 billion estimate made her one of the only entertainers ever to reach ten figures on music alone — no sneaker line, liquor brand, or startup portfolio required — and it landed in the same October that 1989 (Taylor\'s Version) posted the largest traditional-sales week of her entire career.',
+          'Bloomberg pegged her net worth at $1.1 billion in October 2023, splitting it into roughly $400M in catalog value (music released since 2019), $370M from tickets and merch, $120M from streaming, $110M in real estate, and $80M in royalties. Forbes reached the same call the same month — both noting she was the first musician to get to ten figures on songs and shows alone, not on an outside empire.\n\nThat distinction was the story. Rihanna crossed a billion on Fenty Beauty, Jay-Z on spirits and art, Oprah on media — Swift did it with no sneaker line, liquor brand, or startup portfolio. Bloomberg counted only her post-2019 masters, because she did not own the Big Machine catalog Scooter Braun had bought in 2019; the Taylor\'s Version re-recordings were her rebuilding an owned catalog from scratch, and that new-catalog value is what the estimate tallied.\n\nThe compounding engine was the Eras Tour — the first tour ever to gross $1 billion, which closed in December 2024 at $2.08 billion, double any tour in history — landing in the same October as 1989 (Taylor\'s Version) and the largest sales week of her career. Her real-estate line spanned homes in Nashville, Beverly Hills, New York and Rhode Island. The number kept climbing: Forbes had her at $1.6 billion by late 2024, passing Rihanna as the richest female musician, and near $2 billion by 2026.',
         sources: [
           {
             outlet: 'Bloomberg',
@@ -3791,6 +3942,45 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth pass (ledger #1331, 2026-07-24): Forbes concurrence and the
+          // "music alone" contrast; the Eras Tour gross milestones; the
+          // post-2019-catalog/masters methodology; and the net-worth trajectory.
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/mollybohannon/2024/04/02/taylor-swift-officially-joins-forbes-billionaire-list-as-one-of-14-celebrity-billionaires/',
+            source_title: 'Taylor Swift Officially Joins Forbes\' Billionaire List As One Of 14 Celebrity Billionaires',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-eras-tour-earnings-2-billion-sales-1235847513/',
+            source_title: "Taylor Swift's The Eras Tour Wraps as First Tour to Pass $2 Billion in Sales",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swifts-eras-tour-first-concert-tour-gross-1-billion-rcna128743',
+            source_title: "Taylor Swift's Eras Tour is the first concert tour to gross more than $1 billion",
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'AOL / People',
+            url: 'https://www.aol.com/taylor-swift-surpasses-rihanna-richest-025541499.html',
+            source_title: 'Taylor Swift Surpasses Rihanna as Richest Female Musician with $1.6 Billion Net Worth',
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         // Real-photo pass (2026-07-09): freely licensed Eras Tour performance
