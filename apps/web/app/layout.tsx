@@ -44,6 +44,15 @@ export const metadata: Metadata = {
     title: 'Long Live',
     description: 'Step into any era of Taylor Swift’s career and discover the lore.',
   },
+  // Google Search Console property verification (HTML-tag method, added
+  // 2026-07-24 setting up the property for the first time — no property
+  // existed before this). Chosen over the DNS-record method since it ships
+  // through the normal deploy path rather than needing registrar access.
+  // Do not remove: Search Console re-checks this tag periodically and
+  // un-verifies the property if it disappears.
+  verification: {
+    google: 'h3r6ptt1df72mDjumVEE1aCth8SI3NFDFBddJSctudk',
+  },
   icons: {
     icon: [
       { url: '/favicons/heart-hands-16x16.png', sizes: '16x16', type: 'image/png' },

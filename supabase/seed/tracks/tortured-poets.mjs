@@ -145,16 +145,29 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'Solo-written heartbreak in toy-box metaphor — being the doll he smashed precisely because she was the favorite.',
       summary:
-        'She rationalizes the damage as evidence of being loved: only the cherished toys get broken. The saddest kind of cope, self-diagnosed mid-song.',
-      inspiration: null,
+        'She rationalizes the damage as evidence of being loved: only the cherished toys get broken — the saddest kind of cope, self-diagnosed mid-song. Solo-written by Swift and produced with Jack Antonoff, it is a synth-pop track with new-wave marching drums (Swift on piano; Antonoff programming drums, bass, guitar and Moog/Korg/Juno synths). It debuted and peaked at No. 6 on both the Hot 100 and the Billboard Global 200 the week The Tortured Poets Department held the entire top 14, and reached the top 10 in Canada (6), Australia (6), New Zealand (7) and Singapore (7) — later certified Platinum in Australia and Gold in New Zealand.',
+      inspiration:
+        'Swift named no subject; reviewers split on it — Beats Per Minute (John Wohlmacher) praised how she stretches her vocal range and Billboard (Jason Lipshutz) called it a "big, booming" song that "deserves the stadium treatment," while Slant\'s Jonathan Keefe and the Telegraph\'s Neil McCormick pegged it as a radio-ready hook and Pitchfork and Exclaim! found the toy-box metaphor a fast-dulling formula.',
       themes: ['rationalizing mistreatment', 'being discarded', 'cope and its collapse'],
+      easterEggs:
+        'Played live only twice on the 2024 Eras Tour, both as piano surprise songs — solo in Paris (May 10, 2024, later released as a "Live From Paris" recording) and mashed with "Coney Island" in London (Aug. 17, 2024).',
       sourceUrl: 'https://en.wikipedia.org/wiki/My_Boy_Only_Breaks_His_Favorite_Toys',
       sources: [
         wiki(
           'My Boy Only Breaks His Favorite Toys',
           'My_Boy_Only_Breaks_His_Favorite_Toys',
-          'song article: composition',
+          'song article: composition, charts, production, reception, live history',
         ),
+        {
+          source_url:
+            'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+          source_title: 'Taylor Swift Sets Record With All Top 14 of Hot 100, "Fortnight" No. 1',
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 6 debut/peak on the Hot 100 as part of the record top-14 week',
+        },
         ALBUM,
       ],
     },
@@ -328,13 +341,45 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The Florence + the Machine team-up: Florida as national witness-protection program, three exclamation points mandatory.',
       summary:
-        'Two women flee their crime scenes (romantic and otherwise) to the one state where nobody asks questions. Swift said the idea came from true-crime logic — where fugitives go to vanish.',
+        'Two women flee their crime scenes (romantic and otherwise) to the one state where nobody asks questions — a gothic-country power ballad Swift produced with Jack Antonoff (Antonoff on guitars, bass, cello, piano and synths; Welch adding drums, piano and percussion) that pushes insistent verses into thunderclap-drum refrains around Welch’s choir-like voice. It debuted and peaked at No. 8 on the Billboard Hot 100 and the Global 200 — Florence + the Machine’s first-ever top 10 on either chart — and the two performed it together only four times, live-debuting it at the Aug. 20, 2024 Wembley finale (Welch rising from beneath the stage) and reprising it on all three Miami nights (Oct. 18–20, 2024), the only shows Florence joined the tour.',
       inspiration:
-        'Confirmed: Swift described the premise on record as inspired by true-crime stories of people disappearing to Florida to restart.',
+        'Confirmed premise: Swift told iHeartRadio the song runs on true-crime logic — people who commit a crime and vanish to Florida to reinvent themselves and blend in — mapped onto fleeing heartbreak. Welch told British Vogue that Swift approached her with “a concept and a story,” which Welch called her favorite way to start a song.',
       themes: ['escape', 'reinvention', 'gothic humor'],
+      easterEggs:
+        'The lyric plants real Florida geography (Destin) and Southern-gothic imagery — palm trees, a girl who mysteriously vanished — into its escape-artist fantasy.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Florida!!!',
       sources: [
-        wiki('Florida!!!', 'Florida!!!', 'song article: Welch collaboration and premise'),
+        wiki('Florida!!!', 'Florida!!!', 'song article: Welch collaboration, premise, production, No. 8 peak, live history'),
+        {
+          source_url:
+            'https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/my-boy-only-breaks-his-favorite-toys/',
+          source_title: 'The Tortured Poets Department: All 31 Tracks Ranked (Billboard)',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Jason Lipshutz ranked “Florida!!!” 3rd of the 31 tracks',
+        },
+        {
+          source_url:
+            'https://variety.com/2024/music/news/taylor-swift-florence-jack-antonoff-live-debut-florida-so-long-london-1236112940/',
+          source_title: 'Taylor Swift Gives “So Long, London” and “Florida!!!” Eras Tour Debuts at Final Wembley Show',
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Florence Welch live-debuts “Florida!!!” with Swift at Wembley, Aug. 20, 2024',
+        },
+        {
+          source_url:
+            'https://www.rollingstone.com/music/music-news/taylor-swift-florence-florida-duet-miami-show-1235137985/',
+          source_title: 'Taylor Swift Brings Out Florence Welch for “Florida!!!” in Miami',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Florence joins the three Miami nights (Oct. 18–20, 2024)',
+        },
         ALBUM,
       ],
     },
@@ -349,16 +394,56 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'Fantasizing inside a fading relationship and putting the fantasy itself on trial — with a confirmed nod to The Blue Nile in the first verse.',
       summary:
-        'Nothing happened except in her head — so why does it feel like evidence? Desire as thought-crime, argued before a jury of her own upbringing. The Blue Nile’s Downtown Lights is name-checked in the lyric.',
+        'Nothing happened except in her head — so why does it feel like evidence? Desire as thought-crime, argued before a jury of her own upbringing. Its 1990s-tinged, guitar-and-live-drums soft rock (Antonoff on drums, bass, guitars and Juno) stands apart from the album’s synth palette, and the Blue Nile’s “The Downtown Lights,” name-checked in the first verse, drew a roughly 1,400% streaming spike within four days. It debuted and peaked at No. 10 on the Hot 100 during TTPD’s record top-14 week (No. 11 Global 200; Gold in the UK, Platinum in Australia and New Zealand), and critics singled it out — Vanity Fair called it the album’s “emotional apex.”',
       inspiration:
-        'The Blue Nile reference is in-text (a band tied to the reported muse’s known tastes, per fan forensics — that layer unconfirmed).',
+        'Recorded at Conway (LA), Electric Lady (NY) and Prime Recording (Nashville). The Blue Nile reference is in-text (a band tied to the reported muse’s known tastes, per fan forensics — that layer unconfirmed).',
       themes: ['desire as guilt', 'emotional infidelity', 'religious framing of want'],
       fanLore:
         'Fan reading (unconfirmed): the music-taste breadcrumb trail linking the verse’s band reference to a specific muse.',
+      easterEggs:
+        'Played live three times, all as 2024 Eras Tour surprise songs: the solo acoustic-guitar debut in Stockholm (May 18), an acoustic mashup with "Untouchable" in Amsterdam (July 4), and a piano mashup with "mirrorball" in Miami (Oct 20).',
       sourceUrl: 'https://en.wikipedia.org/wiki/Guilty_as_Sin%3F',
       sources: [
-        wiki('Guilty as Sin?', 'Guilty_as_Sin%3F', 'song article: lyric references'),
+        wiki('Guilty as Sin?', 'Guilty_as_Sin%3F', 'song article: lyric references, production, reception'),
         ALBUM,
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: "Taylor Swift Charts 32 Songs on Hot 100, Including Every 'Tortured Poets' Track",
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 10 Hot 100 peak within the record top-14 week',
+        },
+        {
+          source_url: 'https://www.officialcharts.com/songs/taylor-swift-guilty-as-sin/',
+          source_title: 'Guilty as Sin? — Official Charts',
+          publisher: 'Official Charts Company',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 5,
+          notes: 'UK charting record',
+        },
+        {
+          source_url:
+            'https://ca.rollingstone.com/en/music/taylor-swift-debuts-guilty-as-sin-and-triple-1989-mashup-for-89th-eras-tour-show/',
+          source_title: "Taylor Swift Debuts 'Guilty as Sin?' at 89th Eras Tour Show",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Live debut May 18, 2024, Stockholm — solo on acoustic guitar',
+        },
+        {
+          source_url: 'https://www.setlist.fm/setlist/taylor-swift/2024/johan-cruijff-arena-amsterdam-netherlands-33aa40fd.html',
+          source_title: 'Taylor Swift Setlist at Johan Cruijff ArenA, Amsterdam — July 4, 2024',
+          publisher: 'setlist.fm',
+          source_type: 'reference',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Amsterdam surprise-song mashup with "Untouchable"',
+        },
       ],
     },
     {
@@ -441,11 +526,35 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The piano dirge that redefines its own acronym by the final line — love of my life curdling into loss of my life.',
       summary:
-        'A returned lover promises everything with confetti-cannon sincerity, then vanishes on schedule: she inventories the con and files him under the acronym’s crueler expansion.',
-      inspiration: null,
+        'A returned lover promises everything with confetti-cannon sincerity, then vanishes on schedule: she inventories the con and files him under the acronym’s crueler expansion. A spare, Evermore-adjacent Aaron Dessner piano ballad that builds quietly to the final-line turn, it peaked at No. 12 on the Hot 100 inside TTPD’s record top-14 sweep (No. 16 Global 200; UK No. 20). Critics made it a standout — The Hollywood Reporter called it the album’s "most emotional track," with Pitchfork the notable dissent.',
+      inspiration:
+        'Dessner production (piano, keys, synth bass), recorded at his Long Pond studio; critics group it with "So Long, London" and "How Did It End?" as the album’s Dessner heartbreak spine.',
       themes: ['love as con job', 'the biggest loss', 'acronyms as knives'],
+      easterEggs:
+        'Live-debuted as the tour’s first-ever TTPD surprise song — solo on piano at Paris Night 1 (May 9, 2024), later issued as a "Live From Paris" recording — and returned only twice, as piano mashups with "Don\'t You (Forget About Me)" in Munich (July 28, 2024) and "White Horse" in Miami (Oct. 19, 2024).',
       sourceUrl: 'https://en.wikipedia.org/wiki/Loml',
-      sources: [wiki('loml', 'Loml', 'song article: acronym twist'), ALBUM],
+      sources: [
+        wiki('loml', 'Loml', 'song article: acronym twist, credits, charts, live, reception'),
+        ALBUM,
+        {
+          source_url: 'https://www.officialcharts.com/songs/taylor-swift-loml/',
+          source_title: 'loml — Official Charts',
+          publisher: 'Official Charts Company',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 5,
+          notes: 'UK peak No. 20',
+        },
+        {
+          source_url: 'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+          source_title: 'Taylor Swift Sets Record With All Top 14 of Hot 100',
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 12 Hot 100 debut within the record top-14 week',
+        },
+      ],
     },
     {
       slug: 'i-can-do-it-with-a-broken-heart',
@@ -681,11 +790,43 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The Anthology’s cult favorite — replacing her is so easy the replacements do not even need distinct names.',
       summary:
-        'He moves on to interchangeable someones while she replays the specific, unrepeatable thing they had: the title’s shrugged list is the cruelest device on the album.',
-      inspiration: null,
+        'He moves on to interchangeable someones while she replays the specific, unrepeatable thing they had: the title’s shrugged list is the cruelest device on the album. A spare, folklore-adjacent Aaron Dessner piano ballad, it debuted and peaked at No. 36 on the Hot 100 in TTPD’s record week, and Rolling Stone’s Rob Sheffield called it "a delicately etched ballad." Its "cult favorite" standing rests more on fan streaming and discussion than on critic lists.',
+      inspiration:
+        'Outlets (Today, AOL/Yahoo) read the four title names as generic, interchangeable placeholders — "somebody" who "could be anybody with any name" — not references to identifiable people; Swift has named no subject.',
       themes: ['interchangeability', 'specific versus generic love', 'lingering'],
+      easterEggs:
+        'Its only live performance was a solo-piano Eras Tour surprise-song debut in Lyon, France (June 3, 2024); setlist.fm logs it as played exactly once, never repeated.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
-      sources: [ALBUM],
+      sources: [
+        ALBUM,
+        {
+          source_url: 'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: "Taylor Swift Charts 32 Songs on Hot 100, Including Every 'Tortured Poets' Track",
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 36 Hot 100 debut/peak in the release week',
+        },
+        {
+          source_url: 'https://www.setlist.fm/setlist/taylor-swift/2024/groupama-stadium-decines-charpieu-france-33aa4021.html',
+          source_title: 'Taylor Swift Setlist at Groupama Stadium, Lyon — June 3, 2024',
+          publisher: 'setlist.fm',
+          source_type: 'reference',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Solo-piano surprise-song live debut; played once across the tour',
+        },
+        {
+          source_url: 'https://www.today.com/popculture/music/chloe-sam-sophia-marcus-taylor-swift-lyrics-meaning-rcna148527',
+          source_title: "'Chloe or Sam or Sophia or Marcus': who are they? Lyrics explained",
+          publisher: 'TODAY',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Names read as generic placeholders, not real individuals',
+        },
+      ],
     },
     {
       slug: 'how-did-it-end',
@@ -700,7 +841,7 @@ const TRACKS = [
       summary:
         'Everyone wants the story of the ending, including the two people it happened to, who genuinely do not know — grief with a Greek chorus of rubberneckers. It is track 21 — the fifth of the fifteen songs in “The Anthology,” the second half that surprise-dropped at 2 a.m. ET on release night (that bonus run opens with “The Black Dog,” track 17) — and it reached No. 35 on the Billboard Hot 100 during TTPD’s record-setting chart week. Swift debuted it live as a solo piano ballad at the final Stockholm Eras Tour show (May 19, 2024); Variety later ranked it among her best songs and The Independent named it one of 2024’s best.',
       inspiration:
-        'Aaron Dessner co-wrote and co-produced it; the arrangement builds from near-whispered verses toward a full crescendo that fans single out. Swift has named no subject.',
+        'Aaron Dessner co-wrote and co-produced it, recording at his Long Pond studio (Hudson Valley), Kitty Committee (Los Angeles) and Thomas Bartlett’s home studio in Paris; the waltz-time arrangement builds from near-whispered verses on insistent piano arpeggios to a surging London Contemporary Orchestra string crescendo (conducted by Robert Ames) that fans single out. Swift has named no subject.',
       themes: ['public appetite for private pain', 'unanswerable endings', 'gossip as ritual'],
       fanLore:
         'Fan/press reading (near-universal, unconfirmed): the close of the six-year Joe Alwyn relationship — the “how did it end?” question outsiders ask when any couple splits — frequently paired with “You’re Losing Me” as the same story’s bookends.',
@@ -708,7 +849,7 @@ const TRACKS = [
         'The lyric sustains a clinical autopsy conceit — a “fatal fever,” a “death rattle,” maladies “we could not cure” — turning the breakup into a coroner’s report.',
       sourceUrl: 'https://en.wikipedia.org/wiki/How_Did_It_End%3F',
       sources: [
-        wiki('How Did It End?', 'How_Did_It_End%3F', 'song article: composition, Hot 100 No. 35 peak, critical reception'),
+        wiki('How Did It End?', 'How_Did_It_End%3F', 'song article: composition, recording, Hot 100 No. 35 peak, live history, critical reception'),
         {
           source_url: 'https://ca.rollingstone.com/music/taylor-swift-debuts-how-did-it-end-at-final-2024-eras-tour-date-in-sweden/',
           source_title: 'Taylor Swift Debuts “How Did It End?” at Final Stockholm Eras Tour Date',
@@ -717,6 +858,16 @@ const TRACKS = [
           accessed_at: '2026-07-21',
           reliability_score: 3,
           notes: 'Live debut May 19, 2024, Stockholm — standalone piano performance',
+        },
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: 'Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week',
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 35 Hot 100 peak, outside the album\'s top-14 sweep',
         },
         ALBUM,
       ],
@@ -764,11 +915,33 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The escapist’s manifesto — secret gardens, imaginary decades, and a much-debated line about which decade she would actually survive.',
       summary:
-        'When the present is unbearable she emigrates inward: books, invented worlds, lunar vacations. The nostalgia-with-asterisks verse (the 1830s, minus everything wrong with the 1830s) generated its own documented discourse cycle.',
+        'When the present is unbearable she emigrates inward: books, invented worlds, lunar vacations. The nostalgia-with-asterisks verse (the 1830s, minus everything wrong with the 1830s) generated its own documented discourse cycle. It debuted at No. 34 on the Hot 100 in the release week and was a documented Eras Tour one-off — played only once, at its Cardiff live debut.',
       inspiration: null,
       themes: ['escapism', 'interior worlds', 'nostalgia audited'],
+      easterEggs:
+        'Played live exactly once: the June 18, 2024 Cardiff Eras Tour debut, on piano, mashed with folklore’s "The Lakes" ("a song I’ve never played live before"). It was never repeated. Recording credits include Aaron Dessner on acoustic guitar and Glenn Kotche on percussion.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
-      sources: [ALBUM],
+      sources: [
+        ALBUM,
+        {
+          source_url: 'https://www.capitalfm.com/artists/taylor-swift/eras-tour-surprise-songs-setlist/',
+          source_title: 'Every Eras Tour Surprise Song',
+          publisher: 'Capital FM',
+          source_type: 'reference',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: '"I Hate It Here" played once (Cardiff, June 18, 2024) and never repeated',
+        },
+        {
+          source_url: 'https://www.officialcharts.com/songs/taylor-swift-i-hate-it-here/',
+          source_title: 'I Hate It Here — Official Charts',
+          publisher: 'Official Charts Company',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 5,
+          notes: 'UK component-chart peaks; one-week run',
+        },
+      ],
     },
     {
       slug: 'thank-you-aimee',
@@ -916,12 +1089,52 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'A character study of the woman who always runs — named for the aristocratic nickname history gave serial escapees, and grinning about it.',
       summary:
-        'A serial vanisher who feels most alive mid-getaway: every relationship ends with the door swinging. Press traced the title to the Idina Sackville-style Bolter archetype of English society lore (a reading, not a footnote); fans read the shoe as autobiographical and half-proud.',
+        'A serial vanisher who feels most alive mid-getaway: every relationship ends with the door swinging. Press traced the title to the Idina Sackville-style Bolter archetype of English society lore (a reading, not a footnote); fans read the shoe as autobiographical and half-proud, though the near-drowning-at-six is the character’s origin myth — the lyric flags it "by all accounts" — not Swift’s documented biography. It debuted and peaked at No. 47 on the Billboard Hot 100 during the album’s all-31-tracks chart week; Rolling Stone’s Rob Sheffield grouped it with the Anthology’s "stark piano narratives" about women seeking revenge.',
       inspiration:
-        'The Bolter as an English-society archetype (popularized by Frances Osborne’s biography of Sackville) is the documented reference point critics reached for.',
+        'The Bolter as an English-society archetype (popularized by Frances Osborne’s biography of Idina Sackville) is the documented reference point critics reached for; the nickname reached the culture through Nancy Mitford’s novels before Osborne’s 2008 book.',
       themes: ['flight response', 'self-mythologized escape', 'freedom versus intimacy'],
+      easterEggs:
+        'Played live twice on the 2024 Eras Tour, both as acoustic-guitar surprise mashups — with "Getaway Car" at its Edinburgh live debut (June 7) and "Cornelia Street" in Indianapolis (Nov 3).',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
-      sources: [ALBUM],
+      sources: [
+        {
+          source_url: 'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: 'Taylor Swift Charts 32 Songs on the Hot 100 in One Week — a Record',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: '"The Bolter" debuted and peaked at No. 47 on the Hot 100 (chart dated May 4, 2024).',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-bolter-crazier-live-debut-eras-tour-1235036115/',
+          source_title: "See Taylor Swift Debut 'The Bolter,' 'Crazier' Live at Edinburgh, Scotland Show",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Live debut Edinburgh June 7, 2024 mashed with "Getaway Car" (shared need-to-run-away theme); returned Indianapolis Nov 3 with "Cornelia Street".',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/',
+          source_title: 'Taylor Swift Delivers an Epic Double Album with TTPD: The Anthology',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Rob Sheffield groups "The Bolter" with the Anthology\'s "stark piano narratives" about women seeking revenge.',
+        },
+        {
+          source_url: 'https://www.aol.com/news/taylor-swift-song-bolter-based-212636465.html',
+          source_title: "Is Taylor Swift's song 'The Bolter' based on a true story?",
+          publisher: 'AOL / Yahoo Entertainment',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Reads the song as a third-person character sketch; no verified account of Swift nearly drowning at six.',
+        },
+        ALBUM,
+      ],
     },
     {
       slug: 'robin',

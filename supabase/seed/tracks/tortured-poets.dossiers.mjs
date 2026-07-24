@@ -11,6 +11,128 @@
 // No lyric quotations. Internal song:/moment: connection ids all resolve and
 // are asserted by apps/web/lib/longlive/tracks.test.ts.
 export default {
+  "my-boy-only-breaks-his-favorite-toys": {
+    whyItMatters: [
+      "Track 3 is one of the album's cleanest character studies of self-deluding cope: the narrator reframes being discarded as proof she was the favorite — only the cherished toys get broken. Solo-written by Swift and produced with Jack Antonoff, it dresses that sad logic in bright synth-pop and new-wave marching drums (Swift on piano; Antonoff programming drums, bass, guitar and Moog, Korg M1 and Roland Juno-60 synths), the polish deliberately at odds with the wound underneath.",
+      "It was also a genuine hit. It debuted and peaked at No. 6 on both the Billboard Hot 100 and the Global 200 the week The Tortured Poets Department became the first album ever to hold the entire top 14, and it reached the top 10 in Canada (6), Australia (6), New Zealand (7) and Singapore (7), later certified Platinum in Australia and Gold in New Zealand. Critics split on it — Beats Per Minute's John Wohlmacher praised how Swift stretches her vocal range and Billboard's Jason Lipshutz called it a 'big, booming' song that 'deserves the stadium treatment,' while Pitchfork and Exclaim! heard the toy-box metaphor as a fast-dulling formula."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 3 on The Tortured Poets Department (April 19, 2024), written solely by Taylor Swift and produced by Swift with Jack Antonoff; recorded at Conway Recording Studios (Los Angeles) and Electric Lady Studios (New York), mixed by Serban Ghenea and mastered by Randy Merrill.",
+        "It debuted and peaked at No. 6 on the Billboard Hot 100 and the Global 200 during the album's record top-14 week, reached the top 10 in Canada, Australia, New Zealand and Singapore, and was certified Platinum in Australia and Gold in New Zealand."
+      ],
+      supported: [
+        "The production — bright synth-pop with new-wave marching drums set against a resigned lyric — is the contrast reviewers point to; several named Swift's vocal performance a highlight while others found the central metaphor overworked.",
+        "It reads as the album's sharpest study of rationalizing mistreatment: the narrator diagnosing her own cope in real time, then watching it collapse."
+      ],
+      fanTheories: [
+        "Swift has named no subject and the album is framed as character-driven; any real-life reading of the 'favorite toy' is fan/press interpretation, not confirmed fact."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:down-bad",
+        label: "Down Bad",
+        why: "The next track and its mirror: both sit in the immediate wreckage of being dropped by an idealized love — My Boy rationalizes the breakage, Down Bad grieves the re-entry."
+      },
+      {
+        relatedId: "song:i-can-fix-him-no-really-i-can",
+        label: "I Can Fix Him (No Really I Can)",
+        why: "Two sides of one delusion about a damaging partner — I Can Fix Him insists the project is salvageable, My Boy insists the damage was proof of love."
+      },
+      {
+        relatedId: "song:loml",
+        label: "loml",
+        why: "Both reckon with being discarded by someone once idealized; loml names the loss outright while My Boy files it under a self-flattering excuse."
+      }
+    ],
+    live: [
+      {
+        date: "May 10, 2024",
+        event: "The Eras Tour — Paris (Paris La Défense Arena)",
+        note: "Surprise-song live debut, performed solo at the piano; later issued as a 'Live From Paris' recording."
+      },
+      {
+        date: "August 17, 2024",
+        event: "The Eras Tour — London (Wembley Stadium)",
+        note: "Its only other performance — a piano surprise-song mashup with evermore's 'Coney Island.'"
+      }
+    ],
+    sources: [
+      {
+        name: "My Boy Only Breaks His Favorite Toys — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/My_Boy_Only_Breaks_His_Favorite_Toys"
+      },
+      {
+        name: "Billboard: Taylor Swift Sets Record With All Top 14 of Hot 100, 'Fortnight' No. 1",
+        url: "https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/"
+      }
+    ]
+  },
+
+  "florida": {
+    whyItMatters: [
+      "Florida!!! is the album's one true duet and its gothic set piece: Swift and Florence Welch — who co-wrote it — turn the state into a national witness-protection program, the place fugitives and the heartbroken alike go to disappear and start over. Produced by Swift with Jack Antonoff (Antonoff on guitars, bass, cello, piano and synths; Welch adding drums, piano and percussion), it pushes insistent, programmed verses into thunderclap-drum refrains of power chords around Welch's choir-like voice — the boldest, most physical sound on The Tortured Poets Department.",
+      "It gave Florence + the Machine their biggest US chart moment. It debuted and peaked at No. 8 on both the Billboard Hot 100 and the Global 200 — the band's first-ever top 10 on either — and Billboard's Jason Lipshutz ranked it third of the album's 31 tracks while Pitchfork's Shaad D'Souza called it the record's boldest and most energetic song. Its live life was rare and event-sized: Swift and Welch performed it together only four times, the only shows Florence joined the tour."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 8 on The Tortured Poets Department (April 19, 2024), written by Taylor Swift and Florence Welch and produced by Swift with Jack Antonoff.",
+        "It debuted and peaked at No. 8 on the Billboard Hot 100 and the Global 200 — Florence + the Machine's first top-10 entry on either chart.",
+        "Swift told iHeartRadio the premise came from true-crime logic — people who commit a crime and flee to Florida to reinvent themselves and blend in — applied to escaping heartbreak."
+      ],
+      supported: [
+        "Welch told British Vogue that Swift brought her 'a concept and a story,' which Welch called her favorite way to begin a song; critics read the track as the album's most cinematic, Southern-gothic swing.",
+        "The arrangement — insistent programming under crashing, 'thunderclap' drums and a choir-like vocal build — is the production choice reviewers single out, though a minority (Stereogum, Paste) found the Bible-belt imagery half-baked."
+      ],
+      fanTheories: [
+        "The escape-artist narrator is a character, not stated autobiography; Swift has tied the idea to true-crime storytelling rather than any real person, and the only concrete geography is the named Florida town (Destin)."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "moment:vault-ttpd-florida-a-dateline-inspired-duet-with-florence-welch",
+        label: "Florida!!! — the Dateline-inspired duet with Florence Welch",
+        why: "The song's own event page: how the true-crime premise, the credits and the Swift–Welch collaboration came together off the record."
+      },
+      {
+        relatedId: "moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc",
+        label: "The tour comes home: three nights in Miami with Florence Welch",
+        why: "Where the studio-only duet became a live fixture — Welch walked out for Florida!!! on all three Miami nights that opened the tour's final leg."
+      }
+    ],
+    live: [
+      {
+        date: "August 20, 2024",
+        event: "The Eras Tour — London (Wembley Stadium), European-leg finale",
+        note: "Live debut with Florence Welch, who rose from beneath the stage; the tour's final European night."
+      },
+      {
+        date: "October 18–20, 2024",
+        event: "The Eras Tour — Miami Gardens (Hard Rock Stadium)",
+        note: "Welch reprised the duet on all three nights that opened the tour's final leg — the only other shows she joined."
+      }
+    ],
+    sources: [
+      {
+        name: "Florida!!! — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Florida!!!"
+      },
+      {
+        name: "Billboard: The Tortured Poets Department — All 31 Tracks Ranked",
+        url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/my-boy-only-breaks-his-favorite-toys/"
+      },
+      {
+        name: "Variety: Taylor Swift Gives 'So Long, London' and 'Florida!!!' Eras Tour Debuts at Final Wembley Show",
+        url: "https://variety.com/2024/music/news/taylor-swift-florence-jack-antonoff-live-debut-florida-so-long-london-1236112940/"
+      },
+      {
+        name: "Rolling Stone: Taylor Swift Brings Out Florence Welch for 'Florida!!!' in Miami",
+        url: "https://www.rollingstone.com/music/music-news/taylor-swift-florence-florida-duet-miami-show-1235137985/"
+      }
+    ]
+  },
+
   "so-long-london": {
     whyItMatters: [
       "Track five is Swift's standing 'most vulnerable' slot — All Too Well, my tears ricochet, tolerate it — and So Long, London extends that canon by eulogizing not a person but a whole life built in one city. The construction is the tell: the a-cappella opening is Swift's own voice multitracked into a choral hymn, and the arrangement sets a fast bass-drum pulse against a slow vocal, so the grief quietly accelerates under a calm surface rather than exploding.",
@@ -77,13 +199,13 @@ export default {
 
   "how-did-it-end": {
     whyItMatters: [
-      "As track 21 it opens 'The Anthology,' the fifteen-song second half that surprise-dropped at 2 a.m. ET on release night. The song turns a breakup into a coroner's report performed for an audience of gossips — the couple, their friends, the fans and the press all leaning in for the cause of death — and its sustained clinical metaphor (a 'fatal fever,' a 'death rattle') is the detail reviewers single out.",
-      "It punched above its bonus-track billing. It reached No. 35 on the Billboard Hot 100 during the album's record-setting chart week, Variety later ranked it among Swift's best songs and The Independent named it one of 2024's best, and Swift chose it as an early Anthology cut to bring to the stage — live-debuting it as a solo piano ballad at the final Stockholm Eras Tour show on May 19, 2024."
+      "Track 21 sits deep inside 'The Anthology,' the fifteen-song second half (tracks 17–31) that surprise-dropped at 2 a.m. ET on release night — that half opens with 'The Black Dog' (track 17), not this song. It turns a breakup into a coroner's report performed for an audience of gossips — the couple, their friends, the fans and the press all leaning in for the cause of death — and its sustained clinical metaphor (a 'fatal fever,' a 'death rattle') is the detail reviewers single out.",
+      "It punched above its bonus-track billing. Recorded with Aaron Dessner at his Long Pond studio (Hudson Valley), Kitty Committee (Los Angeles) and Thomas Bartlett's Paris studio, its waltz-time build runs from near-whispered verses on insistent piano arpeggios to a surging London Contemporary Orchestra string crescendo (conducted by Robert Ames). It reached No. 35 on the Billboard Hot 100 during the album's record week — just outside the top 14 it monopolized — Variety later ranked it 11th among Swift's best songs and The Independent named it one of 2024's best, and Swift brought it to the stage twice: a solo-piano debut at the final Stockholm show (May 19, 2024) and a lone reprise mashed with 'You're Losing Me' in Toronto (Nov. 23, 2024)."
     ],
     meaning: {
       confirmed: [
-        "Track 21, the opener of 'The Anthology' — the fifteen-song second half of The Tortured Poets Department that surprise-released at 2 a.m. ET on April 19, 2024 — written and produced by Swift with Aaron Dessner.",
-        "It reached No. 35 on the Billboard Hot 100 during the album's record week, and was first performed live on May 19, 2024 at the final Stockholm Eras Tour show as a solo piano ballad."
+        "Track 21 of 'The Anthology' — the fifteen-song second half of The Tortured Poets Department (tracks 17–31) that surprise-released at 2 a.m. ET on April 19, 2024, whose bonus half opens with 'The Black Dog' (track 17), not this song — written and produced by Swift with Aaron Dessner and recorded at Long Pond, Kitty Committee and Thomas Bartlett's Paris studio.",
+        "It reached No. 35 on the Billboard Hot 100 during the album's record week (outside the top 14 the album swept), and was performed live twice on the Eras Tour: a solo-piano debut on May 19, 2024 at the final Stockholm show, and a 'You're Losing Me' mashup in Toronto on Nov. 23, 2024."
       ],
       supported: [
         "The arrangement builds from near-whispered verses toward a full crescendo that fans single out, and the lyric sustains an autopsy conceit that reviewers repeatedly quote.",
@@ -113,6 +235,23 @@ export default {
         relatedId: "song:the-black-dog",
         label: "The Black Dog",
         why: "Companion Anthology break-up tracks — The Black Dog's obsessive real-time watching against How Did It End?'s retrospective, spectated grief."
+      },
+      {
+        relatedId: "song:the-manuscript",
+        label: "The Manuscript",
+        why: "The Anthology's two clinical grief-closers — How Did It End? autopsies the split as it is spectated, The Manuscript files it away years later as finished narrative."
+      }
+    ],
+    live: [
+      {
+        date: "May 19, 2024",
+        event: "The Eras Tour — Stockholm (Friends Arena), final Stockholm night",
+        note: "Live debut, performed alone at the piano as a surprise song."
+      },
+      {
+        date: "November 23, 2024",
+        event: "The Eras Tour — Toronto (Rogers Centre)",
+        note: "Its only other performance — a surprise-song mashup with Midnights' 'You're Losing Me,' the pairing fans read as the same relationship's bookends."
       }
     ],
     sources: [
@@ -123,6 +262,10 @@ export default {
       {
         name: "Rolling Stone: Taylor Swift Debuts 'How Did It End?' at Final Stockholm Eras Tour Date",
         url: "https://ca.rollingstone.com/music/taylor-swift-debuts-how-did-it-end-at-final-2024-eras-tour-date-in-sweden/"
+      },
+      {
+        name: "Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week",
+        url: "https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/"
       }
     ]
   },
@@ -326,16 +469,17 @@ export default {
     ],
     meaning: {
       confirmed: [
-        "Track 10 on The Tortured Poets Department (April 19, 2024), solely written by Swift and produced with Jack Antonoff; a roughly 5:34 Southern-Gothic build recorded across studios in Los Angeles, New York and New Orleans.",
-        "Debuted and peaked at No. 9 on the Billboard Hot 100 and the Global 200 — one of the fourteen songs in Swift's record top-14 monopoly that week.",
+        "Track 10 on The Tortured Poets Department (April 19, 2024), solely written by Swift and produced with Jack Antonoff; a roughly 5:34 Southern-Gothic build recorded across Conway Recording (Los Angeles), Electric Lady (New York) and Esplanade Studios (New Orleans).",
+        "Debuted and peaked at No. 9 on the Billboard Hot 100 and the Global 200 — one of the fourteen songs in Swift's record top-14 monopoly that week. Certified 2x Platinum in Brazil, Platinum in Australia and Gold in the UK and New Zealand; no US RIAA certification is documented.",
         "One of the seven TTPD songs added to the Eras Tour's 'Female Rage: The Musical' act at the Paris opener on May 9, 2024; performed on a moving glass platform in the main set rather than the acoustic surprise slot, and featured in the 2024 'Final Show' Disney+ special (it postdated the 2023 concert film)."
       ],
       supported: [
-        "In her own commentary Swift framed the song around society's sense of ownership over public figures, making the circus/asylum/cage imagery an author-endorsed metaphor for celebrity-making machinery and public judgment.",
-        "Widely called the album's biggest vocal; live she routinely capped the final high note with a shriek, repeated in the same spot across tour dates. No sourced note-name analysis exists, so the force of the belt is what's documented, not a specific pitch."
+        "In her own commentary Swift framed the song around society's sense of ownership over public figures, making the circus/asylum/cage imagery an author-endorsed metaphor for celebrity-making machinery and public judgment. Its clearest tie to the 2016 reputation-era backlash is textual — the 'filled my cell with snakes' line reprises the 'Snakegate' iconography she reclaimed on reputation.",
+        "Widely called the album's biggest or loudest vocal — though studio reception was in fact divided, with some critics (the BBC's Mark Savage, the NYT's Jon Pareles) finding the sound heavy or 'suffocated' rather than a triumph — and live she routinely capped the final high note with a shriek, repeated in the same spot across tour dates. No sourced note-name analysis exists, so the force of the belt is what's documented, not a specific pitch."
       ],
       fanTheories: [
-        "Critics — not Swift — hear an 'evil twin' of 'Mirrorball' and read the title as a nod to Edward Albee's Who's Afraid of Virginia Woolf?; exactly whom the 'you' indicts (critics, industry or public) is left to the listener."
+        "Critics — not Swift — hear an 'evil twin' of 'Mirrorball' and read the title as a nod to Edward Albee's Who's Afraid of Virginia Woolf?; exactly whom the 'you' indicts (critics, industry or public) is left to the listener.",
+        "Thematically it sits in Swift's weaponized-reputation / 'madwoman' lineage; critics group that rage cluster around 'Cassandra' (live-mashed with 'mad woman' and 'I Did Something Bad'), so the tie is a thematic one rather than a critic-asserted grouping of this specific track."
       ]
     },
     connections: [
@@ -348,12 +492,18 @@ export default {
         relatedId: "song:clara-bow",
         label: "Clara Bow",
         why: "Both anatomize celebrity as a machine that builds and then devours its women — Clara Bow traces the lineage of used-up stars that 'Who's Afraid' snarls back against."
+      },
+      {
+        relatedId: "song:cassandra",
+        label: "Cassandra",
+        why: "The Anthology's other portrait of a woman branded dangerous and disbelieved — the rage cluster critics anchor on 'Cassandra' is the same weaponized-reputation vein 'Who's Afraid' snarls in."
       }
     ],
     sources: [
       { name: "Who's Afraid of Little Old Me? — Wikipedia", url: "https://en.wikipedia.org/wiki/Who%27s_Afraid_of_Little_Old_Me%3F" },
       { name: "Songfacts: Who's Afraid Of Little Old Me?", url: "https://www.songfacts.com/facts/taylor-swift/whos-afraid-of-little-old-me" },
-      { name: "Capital FM: Seven Tortured Poets songs added to the Eras Tour setlist", url: "https://www.capitalfm.com/news/music/taylor-swift-new-eras-tour-setlist-tortured-poets-songs/" }
+      { name: "Capital FM: Seven Tortured Poets songs added to the Eras Tour setlist", url: "https://www.capitalfm.com/news/music/taylor-swift-new-eras-tour-setlist-tortured-poets-songs/" },
+      { name: "Billboard: Cassandra, mad woman and I Did Something Bad — the rage lineage", url: "https://ca.billboard.com/music/music-news/taylor-swift-cassandra-mad-woman-i-did-something-bad-eras-tour-1235837621/" }
     ]
   },
   "but-daddy-i-love-him": {
@@ -408,11 +558,12 @@ export default {
         "An official lyric video (not a music video) accompanied the track on Swift's YouTube channel."
       ],
       supported: [
-        "No on-record Swift gloss defines who 'the albatross' is; the dominant critic-and-fan reading takes the Coleridge frame as reputation-as-curse — a woman preceded by her own myth who turns out to be the rescuer, not the omen.",
-        "Ranking lists placed it mid-pack (Billboard 25th of 31), but close-readings single it out as the Anthology's key literary set-piece."
+        "No on-record Swift gloss defines who 'the albatross' is; the dominant critic-and-fan reading takes the Coleridge frame as reputation-as-curse — a woman preceded by her own myth who turns out to be the rescuer, not the omen. Annotators read the third-person 'wise men' opening as critics warning her lover about the danger of loving her, then the first-person final turn as her claiming the omen label and recasting it as salvation.",
+        "Ranking lists placed it mid-pack (Billboard 25th of 31, The Hollywood Reporter 19th, Rob Sheffield's Rolling Stone discography ranking 215th), but close-readings single it out as the Anthology's key literary set-piece, with outlets including Vogue Australia and Today foregrounding the Coleridge 'Rime of the Ancient Mariner' albatross frame."
       ],
       fanTheories: [
-        "Critics and fans cluster it with 'Cassandra' (the disbelieved prophetess) and 'Clara Bow' (the mythologized woman) as the Anthology's self-mythology thread, reinforced by its live mashups with reputation-era songs — an interpretive consensus, not a stated one."
+        "Critics and fans cluster it with 'Cassandra' (the disbelieved prophetess) and 'Clara Bow' (the mythologized woman) as the Anthology's self-mythology thread, reinforced by its live mashups with reputation-era songs — an interpretive consensus, not a stated one.",
+        "A widely circulated fan reading maps the song's 'wise men' warnings onto the public warnings Travis Kelce was reported to have gotten about dating her — a public-relationship interpretation, not anything Swift has stated."
       ]
     },
     connections: [
@@ -430,7 +581,8 @@ export default {
     sources: [
       { name: "The Albatross (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Albatross_(Taylor_Swift_song)" },
       { name: "Billboard: Taylor Swift Announces 'The Albatross' Edition of 'Tortured Poets'", url: "https://www.billboard.com/music/pop/taylor-swift-tortured-poets-the-albatross-edition-eras-tour-announcement-1235613344/" },
-      { name: "Billboard: All the Surprise Songs Taylor Swift Performed on The Eras Tour", url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/" }
+      { name: "Billboard: All the Surprise Songs Taylor Swift Performed on The Eras Tour", url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/" },
+      { name: "In The Know (AOL): 'The Albatross' Lyrics Seemingly Reveal the Warnings Travis Kelce Got About Her", url: "https://www.aol.com/taylor-swift-albatross-lyrics-seemingly-154500643.html" }
     ]
   },
   "i-hate-it-here": {
@@ -440,13 +592,13 @@ export default {
     ],
     meaning: {
       confirmed: [
-        "Track 23 on The Tortured Poets Department: The Anthology (April 19, 2024), written and produced by Swift with Aaron Dessner — an acoustic, power-pop-jangling cut from the Dessner-led second half, much of that material worked at his Long Pond studio.",
-        "It debuted at No. 34 on the Billboard Hot 100 in the release week (chart dated May 4, 2024), one of all 31 Anthology tracks charting at once.",
-        "An Eras Tour surprise song: live-debuted June 18, 2024 in Cardiff on piano, mashed with folklore's 'The Lakes,' Swift noting she'd never played it live before."
+        "Track 23 on The Tortured Poets Department: The Anthology (April 19, 2024), written and produced by Swift with Aaron Dessner — an acoustic, power-pop-jangling cut from the Dessner-led second half, much of that material worked at his Long Pond studio; recording credits include Dessner on acoustic guitar and Glenn Kotche on percussion.",
+        "It debuted at No. 34 on the Billboard Hot 100 in the release week (chart dated May 4, 2024), one of all 31 Anthology tracks charting at once; on the UK charts it managed only a one-week run in early May, peaking No. 48 on the Official Streaming Chart, and no RIAA/BPI/ARIA certification for the track is documented.",
+        "An Eras Tour one-off: its only performance was the June 18, 2024 Cardiff live debut, on piano, mashed with folklore's 'The Lakes' (Swift noting she'd never played it live before) — it was never repeated."
       ],
       supported: [
-        "Coverage of the '1830s' line uniformly reported the criticism that reducing the era's realities to 'racists' elides slavery; those same outlets noted the song's stated thesis that 'nostalgia is a mind's trick,' without treating it as settling the debate. No public response from Swift or her team is documented.",
-        "Rolling Stone's Anthology review singled out the opening line — 'a poet trapped in the body of a finance guy' — with a 'what a line' aside, reading the track as a lighter power-pop change of pace."
+        "Coverage of the '1830s' line uniformly reported the criticism that reducing the era's realities to 'racists' elides slavery; those same outlets — including Salon and AOL/USA Today-network explainers — noted the song's stated thesis that 'nostalgia is a mind's trick,' without treating it as settling the debate. No named critic was found defending the couplet as a deliberate self-audit, and no public response from Swift or her team is documented.",
+        "Salon's Nardos Haile gave the song its fullest standalone critique, calling it 'regressive, not reflective'; most other outlets folded it into the 1830s discourse rather than reviewing it as a musical standout. Rolling Stone's Anthology review singled out the opening line — 'a poet trapped in the body of a finance guy' — with a 'what a line' aside, reading the track as a lighter power-pop change of pace."
       ],
       fanTheories: [
         "Lyric-analysis writers read the 'secret gardens in my mind… the only [key] is mine' image as an allusion to Frances Hodgson Burnett's The Secret Garden, and the whole song as an audit of nostalgia rather than an endorsement — inferences, not anything Swift has confirmed."
@@ -462,7 +614,10 @@ export default {
     sources: [
       { name: "Today: Taylor Swift's 'I Hate It Here' Lyrics — Why 1 Line Is Sparking Backlash", url: "https://www.today.com/popculture/music/i-hate-it-here-lyrics-meaning-taylor-swift-rcna148592" },
       { name: "Billboard: Taylor Swift Debuts 'I Hate It Here' Live With 'The Lakes' on Eras Tour", url: "https://www.billboard.com/music/music-news/taylor-swift-i-hate-it-here-the-lakes-live-cardiff-1235713439/" },
-      { name: "Rolling Stone: The Tortured Poets Department — The Anthology Review", url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/" }
+      { name: "Rolling Stone: The Tortured Poets Department — The Anthology Review", url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/" },
+      { name: "Salon: Taylor Swift's 'I Hate It Here' is regressive, not reflective (Nardos Haile)", url: "https://www.salon.com/2024/04/22/taylor-swift-i-hate-it-here-lyrics/" },
+      { name: "Official Charts: I Hate It Here", url: "https://www.officialcharts.com/songs/taylor-swift-i-hate-it-here/" },
+      { name: "Capital FM: Every Eras Tour Surprise Song (Cardiff one-off)", url: "https://www.capitalfm.com/artists/taylor-swift/eras-tour-surprise-songs-setlist/" }
     ]
   },
   "fresh-out-the-slammer": {
@@ -739,6 +894,177 @@ export default {
       { name: "The Tortured Poets Department — Wikipedia (Anthology credits, 'Robin')", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" },
       { name: "American Songwriter: Every Song on 'The Tortured Poets Department' Has Charted on the Hot 100", url: "https://americansongwriter.com/every-song-on-taylor-swifts-the-tortured-poets-department-has-charted-on-the-billboard-hot-100/" },
       { name: "The Hollywood Reporter: Every Song on 'The Tortured Poets Department,' Ranked", url: "https://www.hollywoodreporter.com/lists/taylor-swift-the-tortured-poets-department-songs-ranked/" }
+    ]
+  },
+  // Added 2026-07-24 by the Answerer (shard 1) for ledgers #1458, #1464, #1478.
+  // Web-sourced; confirmed = Swift's public statements or hard facts, readings
+  // labeled; no lyric quotations beyond documented lines; no private-life
+  // speculation. Cross-link ids verified to resolve (tracks.test.ts).
+  "guilty-as-sin": {
+    whyItMatters: [
+      "A guitar-forward, 1990s-tinged soft-rock cut that puts a fantasy on trial: desire treated as a thought-crime, argued through courtroom and Catholic-guilt imagery. Written and produced by Swift with Jack Antonoff (who programmed it and played drums, bass, guitars and Juno), it stands apart from the album's synth palette and was widely singled out — Vanity Fair called it the album's 'emotional apex.'",
+      "It debuted and peaked at No. 10 on the Hot 100 in TTPD's record top-14 week and was performed live three times on the 2024 Eras Tour. Its first verse name-checks Scottish band The Blue Nile, whose 'The Downtown Lights' saw a roughly 1,400% streaming spike within four days of the album's release."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 9 on The Tortured Poets Department (April 19, 2024), written and produced by Swift with Jack Antonoff; recorded at Conway Recording Studios (Los Angeles), Electric Lady Studios (New York) and Prime Recording (Nashville).",
+        "It debuted and peaked at No. 10 on the Billboard Hot 100 and No. 11 on the Global 200 during the record top-14 week, also reaching the top 10-15 in Australia, Canada and New Zealand; certified Gold in the UK and Platinum in Australia and New Zealand.",
+        "An Eras Tour surprise song performed three times, all in 2024: the solo acoustic-guitar debut in Stockholm (May 18), an acoustic mashup with 'Untouchable' in Amsterdam (July 4), and a piano mashup with 'mirrorball' in Miami (Oct. 20)."
+      ],
+      supported: [
+        "Critics named it a standout — Vanity Fair ('emotional apex'), The Times ('straight from the Fleetwood Mac school'), the Irish Independent ('one of the loveliest vocals Swift has ever committed to tape') — with the Associated Press a notable dissenter.",
+        "They read it as desire-as-thought-crime: a fantasy about someone other than her partner put 'on trial' through religious and courtroom imagery ('roll the stone away,' 'crucify me anyway'), arguing that nothing physical happened yet the guilt still feels like evidence."
+      ],
+      fanTheories: [
+        "The 'muse's known tastes' reading of the Blue Nile reference — tying the shout-out to a specific person — is unconfirmed fan forensics; the checkable facts are the in-lyric reference and the streaming spike. No explanation for the title's question mark is documented."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:fresh-out-the-slammer",
+        label: "Fresh Out the Slammer",
+        why: "The tightest sibling — two halves of one forbidden-desire arc: 'Guilty as Sin?' is the interior, guilt-ridden fantasy, 'Fresh Out the Slammer' the escape to the old flame."
+      },
+      {
+        relatedId: "song:but-daddy-i-love-him",
+        label: "But Daddy I Love Him",
+        why: "The same wanting-what-you-shouldn't cluster, aimed outward at the scolds policing her choices rather than inward at the fantasy."
+      },
+      {
+        relatedId: "song:i-can-fix-him-no-really-i-can",
+        label: "I Can Fix Him (No Really I Can)",
+        why: "The other side of the desire-you-can't-justify thread — a savior-complex delusion beside 'Guilty as Sin?'s' thought-crime."
+      }
+    ],
+    live: [
+      {
+        date: "May 18, 2024",
+        event: "The Eras Tour — Stockholm (Friends Arena)",
+        note: "Solo acoustic-guitar surprise-song live debut."
+      },
+      {
+        date: "July 4, 2024",
+        event: "The Eras Tour — Amsterdam (Johan Cruijff ArenA)",
+        note: "Acoustic surprise-song mashup with 'Untouchable.'"
+      },
+      {
+        date: "October 20, 2024",
+        event: "The Eras Tour — Miami Gardens (Hard Rock Stadium)",
+        note: "Piano surprise-song mashup with 'mirrorball.'"
+      }
+    ],
+    sources: [
+      { name: "Guilty as Sin? — Wikipedia", url: "https://en.wikipedia.org/wiki/Guilty_as_Sin%3F" },
+      { name: "Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week", url: "https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/" },
+      { name: "Official Charts: Guilty as Sin?", url: "https://www.officialcharts.com/songs/taylor-swift-guilty-as-sin/" },
+      { name: "Rolling Stone: Taylor Swift Debuts 'Guilty as Sin?' at 89th Eras Tour Show", url: "https://ca.rollingstone.com/en/music/taylor-swift-debuts-guilty-as-sin-and-triple-1989-mashup-for-89th-eras-tour-show/" },
+      { name: "setlist.fm: Amsterdam, July 4, 2024", url: "https://www.setlist.fm/setlist/taylor-swift/2024/johan-cruijff-arena-amsterdam-netherlands-33aa40fd.html" }
+    ]
+  },
+  "chloe-or-sam-or-sophia-or-marcus": {
+    whyItMatters: [
+      "A spare, folklore-adjacent Aaron Dessner piano ballad and one of the Anthology's cult favorites: he moves on to interchangeable someones while she replays the specific thing they had, the title's shrugged list of first names its cruelest device. It debuted and peaked at No. 36 on the Hot 100 in TTPD's record week.",
+      "Rolling Stone's Rob Sheffield called it 'a delicately etched ballad'; its standing rests more on fan streaming and discussion than on critic lists, and its only live outing was a single Eras Tour surprise song."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 20 on The Tortured Poets Department: The Anthology (April 19, 2024), written and produced by Swift with Aaron Dessner.",
+        "It debuted and peaked at No. 36 on the Billboard Hot 100 (chart dated May 4, 2024), one of all 31 tracks charting at once.",
+        "Its sole live performance was a solo-piano surprise-song debut at the Eras Tour in Lyon, France (June 3, 2024); setlist.fm records it as played exactly once, never repeated."
+      ],
+      supported: [
+        "Outlets (Today, AOL/Yahoo) read the four title names — Chloe, Sam, Sophia, Marcus — as generic, interchangeable placeholders ('somebody' who 'could be anybody with any name'), not references to identifiable people."
+      ],
+      fanTheories: [
+        "Critics hedge-map the song to the album's documented breakup arc via a lyric read as an addiction reference, while stressing it could equally fit other exes or none; Swift has named no subject, and no real individual should be inferred behind the placeholder names."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:how-did-it-end",
+        label: "How Did It End?",
+        why: "Its closest Anthology sibling: another Swift/Dessner ballad about a relationship's unresolved aftermath and the appetite to narrate it."
+      },
+      {
+        relatedId: "song:clara-bow",
+        label: "Clara Bow",
+        why: "Shares the interchangeability motif — the it-girl replaced and renamed in the final verse, the same 'you are swappable' cruelty."
+      },
+      {
+        relatedId: "song:the-prophecy",
+        label: "The Prophecy",
+        why: "A Dessner-led Anthology plea against a fated lonely end, part of the same closing-arc lament cluster."
+      }
+    ],
+    live: [
+      {
+        date: "June 3, 2024",
+        event: "The Eras Tour — Lyon (Groupama Stadium)",
+        note: "Solo-piano surprise-song live debut; its only performance across the tour."
+      }
+    ],
+    sources: [
+      { name: "The Tortured Poets Department — Wikipedia (Anthology credits)", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" },
+      { name: "Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week", url: "https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/" },
+      { name: "setlist.fm: Lyon, June 3, 2024", url: "https://www.setlist.fm/setlist/taylor-swift/2024/groupama-stadium-decines-charpieu-france-33aa4021.html" },
+      { name: "TODAY: 'Chloe or Sam or Sophia or Marcus' lyrics explained", url: "https://www.today.com/popculture/music/chloe-sam-sophia-marcus-taylor-swift-lyrics-meaning-rcna148527" },
+      { name: "Rolling Stone AU: Taylor Swift's Best Songs (Rob Sheffield)", url: "https://au.rollingstone.com/music/music-lists/-58660/chloe-or-sam-or-sophia-or-marcus-2024-2-58799/" }
+    ]
+  },
+  "loml": {
+    whyItMatters: [
+      "The piano dirge that redefines its own acronym in the final line — 'love of my life' curdling into 'loss of my life.' A spare, Evermore-adjacent Aaron Dessner ballad, it peaked at No. 12 on the Hot 100 inside TTPD's record top-14 sweep and was a critical standout: The Hollywood Reporter called it the album's 'most emotional track.'",
+      "It live-debuted as the tour's first-ever TTPD surprise song and returned only twice; critics group it with 'So Long, London' and 'How Did It End?' as the album's Dessner heartbreak spine."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 12 on The Tortured Poets Department (April 19, 2024), written and produced by Swift with Aaron Dessner (piano, keys, synth bass), recorded at his Long Pond studio and mixed by Serban Ghenea.",
+        "It peaked at No. 12 on the Billboard Hot 100 (inside the record top-14 sweep) and No. 16 on the Global 200, reached No. 20 on the UK Official chart, and is certified Platinum in Australia, Gold in New Zealand and Silver in the UK.",
+        "Live-debuted solo on piano at Paris Night 1 (May 9, 2024) — the Eras Tour's first TTPD surprise song, later issued as a 'Live From Paris' recording — and returned only twice, as piano mashups with Simple Minds' 'Don't You (Forget About Me)' in Munich (July 28, 2024) and 'White Horse' in Miami (Oct. 19, 2024)."
+      ],
+      supported: [
+        "Named reviewers singled it out for its vocal ache and the acronym inversion — The Hollywood Reporter ('most emotional track'), Business Insider (the only TTPD song that made her cry), USA Today (an ache 'raked over with nails') — with Pitchfork the notable dissent that it fell emotionally flat. Variety's Chris Willman ranked it No. 21 of Swift's 75 best songs.",
+        "The love-of-my-life-to-loss-of-my-life inversion of the internet shorthand 'loml' is the device critics point to as the song's engine."
+      ],
+      fanTheories: [
+        "The song is widely read autobiographically, but Swift has named no subject and offered no gloss beyond the lyric's own device; any specific real-person reading is unconfirmed fan/press inference."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:so-long-london",
+        label: "So Long, London",
+        why: "Part of the album's Dessner heartbreak spine — the abandonment autopsy to loml's inventory of a vanished love."
+      },
+      {
+        relatedId: "song:how-did-it-end",
+        label: "How Did It End?",
+        why: "The third of the trio critics group together: the breakup post-mortem beside loml's cataloguing of the con."
+      }
+    ],
+    live: [
+      {
+        date: "May 9, 2024",
+        event: "The Eras Tour — Paris (Paris La Défense Arena)",
+        note: "Solo-piano surprise-song live debut; the tour's first TTPD surprise song, later issued as 'Live From Paris.'"
+      },
+      {
+        date: "July 28, 2024",
+        event: "The Eras Tour — Munich (Olympiastadion)",
+        note: "Piano surprise-song mashup with Simple Minds' 'Don't You (Forget About Me).'"
+      },
+      {
+        date: "October 19, 2024",
+        event: "The Eras Tour — Miami Gardens (Hard Rock Stadium)",
+        note: "Piano surprise-song mashup with 'White Horse.'"
+      }
+    ],
+    sources: [
+      { name: "loml — Wikipedia", url: "https://en.wikipedia.org/wiki/Loml" },
+      { name: "Official Charts: loml", url: "https://www.officialcharts.com/songs/taylor-swift-loml/" },
+      { name: "Billboard: Taylor Swift Sets Record With All Top 14 of Hot 100", url: "https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/" },
+      { name: "Variety: Taylor Swift's Best Songs, Ranked (Chris Willman)", url: "https://variety.com/lists/best-taylor-swift-songs-ranked/" },
+      { name: "Billboard: The Tortured Poets Department, All 31 Tracks Ranked", url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/" }
     ]
   }
 };

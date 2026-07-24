@@ -1,39 +1,35 @@
-# Depth push — runbook for the sharded Lex / Answerer fleet
+# Depth push — runbook for Lex and the Answerer
 
-Started 2026-07-20 (Wyatt). This file is the SINGLE SOURCE OF TRUTH for how the
-depth fleet behaves. Each cloud trigger is a thin shim that names only its own
-shard and points here.
 
-That split is deliberate. Trigger updates through the API are FULL REPLACES, not
-merges — a partial update silently wipes the prompt, the repo source and the
-tool list (this happened to Photo Enrichment on 2026-07-20). Keeping the shared
-rules in git means changing them is one reviewed commit instead of thirty
-replace-the-world API calls, and the fleet picks the change up on its next run.
+Scaled to one instance each on 2026-07-21 (Wyatt: *"we've been going too
+hard... cut Lex and the answerer down to something like 1 an hour"*).
 
 ## Fleet shape
 
-| Role     | Instances | Fires        | Shard key            | Writes? |
-|----------|-----------|--------------|----------------------|---------|
-| Lex      | 20        | :01–:20      | item slug % 20       | no      |
-| Answerer | 10        | :50–:59      | seed file, round-robin (see below) | yes  |
+| Role     | Instances | Fires | Scope |
+|----------|-----------|-------|-------|
+| Lex      | 1         | :20   | the WHOLE corpus |
+| Answerer | 1         | :50   | ALL seed files |
 
-Lex shards on the ITEM because it only reads. The Answerer shards on the FILE
-because it writes: two writers on different items in the same file would still
-collide, and that is exactly how the duplicate-`focalPoint` bug shipped on
-2026-07-20 — legal JavaScript, invisible to `node --check` and
-`validate-content`, caught only by lint.
+**There is no sharding.** One Lex, one Answerer, each with full scope.
 
-Lex shard N fires at minute N (:01–:19), EXCEPT shard 0, which fires at :20 —
-the scheduler silently rewrites a `0 * * * *` cron to a random minute, so
-shard 0 is parked at :20 to keep a deterministic, collision-free slot. Its
-shard key is unaffected: shard 0 still owns items whose `slug % 20 == 0`, of
-which there are plenty (~940 items across 20 buckets), so no Lex shard is idle.
+Sharding existed only to stop 20 concurrent Lex and 10 concurrent Answerers
+colliding. With one of each there is nothing to collide with, and a shard rule
+applied by a lone instance is actively harmful: `% 20` would confine Lex to 5%
+of the corpus, and the Answerer's file lock would leave the only writer owning
+one or two of fifteen seed files. Both would look perfectly healthy while doing
+almost nothing.
 
-> Restored 2026-07-22 for a founder-requested full-cadence blitz beginning
-> Fri 2026-07-24 01:00 PT. Between the 2026-07-20 scale-down and that restart
-> the fleet ran as a single Lex + single Answerer; if it is scaled back to one
-> of each again, this file must revert to the sole-instance runbook (a lone
-> instance applying a shard rule confines itself to a sliver of the corpus).
+The rules are DELETED from this doc rather than marked dead, deliberately. The
+triggers are told this doc outranks their own prompt, so leaving a contradicted
+rule here and instructing around it is exactly what made an Answerer stall and
+ask a human for a ruling on 2026-07-21. `git log docs/content-ops/depth-push.md`
+has them if the fleet is ever scaled back up; the 28 disabled triggers still
+carry their shard numbers.
+
+The only coordination still needed is Lex's open-ledger skip: do not open a
+`curiosity-ledger` for an item that already has one open.
+
 
 ## Why the ratio is 2:1 and not 5:1
 
@@ -49,7 +45,7 @@ more Answerer instances, NOT more Lex.
 
 TWENTY Lex instances run every hour, one per minute from :00 to :19 (Wyatt, 2026-07-20: "up the ante, let's do +10x lex per hour, have him really get after it"). The single most important rule: DO NOT WORK THE SAME ITEM AS ANOTHER INSTANCE.
 
-Only work items whose key hashes into YOUR shard. Compute it deterministically: sum the character codes of the item's stable key (moment slug or song slug), take sum % 20, and work the item only if that equals YOUR SHARD NUMBER. This guarantees the twenty instances never collide, with no locking. Do not skip an item just because it looks popular - the shard IS the coordination mechanism.
+Work ANY item. There is one instance, so there is nothing to divide the corpus with and no reason to. Coordination is a single rule: skip anything that already has an open `curiosity-ledger` issue.
 
 SECOND GUARD, ALWAYS: skip anything that already has an open issue labeled `curiosity-ledger` (gh issue list --label curiosity-ledger --state open --limit 1000).
 
@@ -67,13 +63,13 @@ You previously worked only `significance: 'defining'` moments - just 40 exist, f
 Read docs/content-ops/privacy-redlines.md. Never ASK a question whose answer would be redlined: security arrangements (including any change in protection around a place), health/pregnancy, sexuality, private individuals' private lives, minors, leaked material, or location finer than the provenance matrix allows (speculation caps at region level). Curiosity stops where the redlines start.
 
 === EACH RUN: FILE EXACTLY ONE LEDGER ===
-Pick the highest-priority item in YOUR shard with no open ledger. Read its actual seed entry. Write a ranked list of specific, checkable questions the page leaves unanswered - questions with findable answers, not rhetorical ones. Aim for 5-10 real questions on a big-ticket page.
+Pick the highest-priority item anywhere in the corpus with no open ledger. Read its actual seed entry. Write a ranked list of specific, checkable questions the page leaves unanswered - questions with findable answers, not rhetorical ones. Aim for 5-10 real questions on a big-ticket page.
 
 Post an issue titled "Curiosity ledger: <item title>" labeled `curiosity-ledger` (create the label if missing: gh label create curiosity-ledger || true). Body = JSON:
-  {"kind":"moment"|"song"|"release"|"era-secrets", "key":"<stable slug>", "shard":0, "source":"big-ticket"|"deficit"|"song-depth", "deficit":[<thin axes>], "questions":[{"q":"...","status":"open"}]}
+  {"kind":"moment"|"song"|"release"|"era-secrets", "key":"<stable slug>", "source":"big-ticket"|"deficit"|"song-depth", "deficit":[<thin axes>], "questions":[{"q":"...","status":"open"}]}
 `kind` and `key` are REQUIRED - the Answerer uses them to locate the seed file without guessing.
 
-If every item in your shard already has an open ledger, say so in a one-line comment on the Nils walk log #502 and exit. Do not file a duplicate to look busy.
+If every eligible item already has an open ledger, say so in a one-line comment on the Nils walk log #502 and exit. Do not file a duplicate to look busy.
 
 Never edit content. Never merge. If a usage or rate limit stops you, say so on #502 before exiting.
 
@@ -85,10 +81,10 @@ item, it is asking questions worth answering. Two consequences:
 1. QUALITY OVER VOLUME. Wyatt's actual words about the existing ledgers were
    "these lex questions are fucking fire". That bar is the point of the scale-up.
    A ledger of eight genuinely specific, answerable questions beats twenty
-   generic ones. If your shard's best remaining item only merits three real
+   generic ones. If the best remaining item only merits three real
    questions, file three and stop.
-2. IF YOUR SHARD IS EXHAUSTED, EXIT QUIETLY. Do not manufacture questions to
-   look busy, and do not poach another shard's items - that breaks the only
+2. IF NOTHING IS LEFT WORTH ASKING ABOUT, EXIT QUIETLY. Do not manufacture questions to
+   look busy. A clean no-op is a correct run - that is the only
    coordination mechanism there is. A clean no-op run is a correct run.
 
 
@@ -104,31 +100,21 @@ Why this matters more than it sounds: depth comes from ANSWERS, not questions. A
 
 BATCH DISCIPLINE:
 - Oldest ledgers first, EXCEPT any whose body says source "big-ticket" - those are the wedding / engagement / Showgirl-release pages Wyatt wants exhaustive, and they jump the queue.
-- Everything you touch goes in ONE PR, on a branch named for your shard (depth/answerer-YOUR SHARD NUMBER-<date>) so ten concurrent runs never contend for a branch name.
+- Everything you touch goes in ONE PR, on branch depth/answerer-<date>.
 - Quality does not bend to volume. Six shallow answers are worth less than three real ones, and a fabricated answer is worse than an open question. If a run is going long, finish and ship what is complete rather than abandoning it - a PR with two solid items beats a timeout with none.
 
-YOU ARE SHARD YOUR SHARD NUMBER OF TEN WRITERS - AND YOUR SHARD IS A FILE LOCK.
+YOU ARE THE ONLY WRITER. You may edit ANY seed file. There is no file lock because there is nothing to lock against - just never run two of yourself, and always rebase onto main before starting so you are not working from stale content.
 
-You EDIT SEED FILES, so unlike Lex you cannot shard on the item key: two
-Answerers working different items in the SAME file would still collide. So the
-shard boundary is the FILE, not the item.
+The lock existed because concurrent writers corrupt a shared file: on 2026-07-20 two runs each wrote a `focalPoint` into the same object and produced duplicate keys - legal JavaScript, invisible to node --check and validate-content, caught only by lint. That risk returns the moment a second writer does.
+
 
 For each candidate ledger, resolve the seed file its target item lives in
 (supabase/seed/content/<era>.mjs for a moment, supabase/seed/tracks/<era>.mjs
-for a song), then map that file to a shard using the POSITIONAL round-robin
-defined in "ANSWERER SHARD ASSIGNMENT" at the bottom of this file. Work the
-ledger only if the file belongs to YOUR SHARD NUMBER. Never edit a file that
-does not belong to your shard, even for a one-line fix, even if it looks
-trivial. That rule is the only thing preventing the failure below.
-
-DO NOT use a character-code hash of the basename. That older rule is dead: with
-only ~15 seed files it left shards 0, 6 and 7 owning zero files — idle forever —
-while others owned three. The assignment section at the bottom is authoritative;
-compute it from there and nowhere else.
+rule is the only thing preventing the failure below.
 
 On 2026-07-20 two concurrent photo runs each wrote a `focalPoint` into the same
 object and produced duplicate keys - legal JavaScript, invisible to
-node --check and validate-content, caught only by lint. File-sharding makes
+node --check and validate-content, caught only by lint. A single writer makes
 that impossible by construction rather than by hoping the runs miss each other.
 
 If you see an open depth PR touching YOUR files from an earlier run of your own
@@ -268,11 +254,8 @@ empty queue and pay full startup cost to accomplish nothing.
 
     gh issue list --label curiosity-ledger --state open --limit 1000
 
-- **Fewer than 4 open in YOUR shard's files → exit immediately.** Do not open a
-  PR, do not comment. A cheap no-op is the correct outcome and costs almost
-  nothing. This is what makes ten instances affordable.
-- **4 or more → drain hard.** Take as many as you can finish PROPERLY in one
-  run, not a fixed 3-6. If the backlog is deep, that might be fifteen.
+- **Work whatever is open, even a single ledger.** An earlier rule said to exit below 4 open ledgers; that existed to make TEN instances affordable by keeping most runs cheap no-ops. At one run an hour the arithmetic reverses - skipping just leaves ledgers unanswered another hour.
+
 - **Always leave the repo in a shippable state.** Ship what is complete rather
   than abandoning a run that is going long; a PR with four solid answers beats
   a timeout with none.
@@ -332,78 +315,4 @@ Never flip a status in the other direction (confirmed -> rumor) without an
 explicit retraction from the original outlet or a direct denial. Silence is not
 a denial; that is what the `faded` status is for.
 
----
-
-## ANSWERER SHARD ASSIGNMENT — round-robin, NOT a hash
-
-Corrected 2026-07-21. The original rule was "sum the character codes of the
-seed file's basename, take sum % 10". Measured against the real corpus that was
-badly broken:
-
-    shard 0  ->  0 files   IDLE FOREVER
-    shard 6  ->  0 files   IDLE FOREVER
-    shard 7  ->  0 files   IDLE FOREVER
-    shard 4  ->  1 file
-    shard 5  ->  8 files
-
-**30% of the Answerer fleet could never do any work**, by construction, and the
-remaining load was skewed 8:1. Hashing is the right tool for spreading MANY keys
-over few buckets; there are only ~15 distinct seed basenames, and at that size a
-character-sum hash simply does not spread. This was my design error, not a
-tuning problem — no threshold would have fixed it.
-
-**The rule is now positional, and it shards on the ERA, not the raw filename:**
-
-1. Build the list of seed files: `supabase/seed/content/*.mjs` and
-   `supabase/seed/tracks/*.mjs`.
-2. Reduce each to its ERA KEY — the basename with the `.mjs` extension AND any
-   `.dossiers` infix removed (so `content/midnights.mjs`, `tracks/midnights.mjs`
-   and `tracks/midnights.dossiers.mjs` all reduce to `midnights`). Take the
-   unique set and sort it lexicographically.
-3. An era — and EVERY file that reduces to it — belongs to shard `index % 10`,
-   where `index` is the era key's position in that sorted list.
-
-That is even by construction: every shard gets one or two eras, none gets zero,
-and a `<era>.dossiers.mjs` file always lands on the SAME shard as its
-`<era>.mjs` parent.
-
-Two properties worth understanding rather than rediscovering:
-
-- **Era key, not full path or raw basename, is deliberate.** `red.mjs` exists in
-  both `content/` and `tracks/`, and `red.dossiers.mjs` sits beside the tracks
-  copy; all three reduce to `red` and land on the same shard. That is wanted: one
-  writer owns everything for an era, so a moment edit, a track edit and a
-  per-song dossier edit for the same era never split across two concurrent
-  writers.
-- **The list is recomputed each run.** Adding a new era file shifts later
-  assignments by one. Every instance computes the same list from the same repo
-  state, so they agree within a run; the only exposure is a new seed file landing
-  in the ten-minute window between :50 and :59, which is rare and self-heals on
-  the next hour. That residual risk is far smaller than a third of the fleet
-  idling permanently.
-
-If you ever find your shard has no files, do NOT fall back to working another
-shard's files. Report it — an empty shard now means the list changed shape, and
-silently poaching is how two writers end up in one file.
-
-### Correction 2026-07-24 — dossiers files were re-introducing idle shards
-
-The 2026-07-21 positional rule fixed the 8:1 skew but sharded on the raw
-basename, which counts `<era>.dossiers.mjs` as its own key. Measured against the
-current corpus that handed shards **7** (`midnights.dossiers.mjs`) and **9**
-(`red.dossiers.mjs`) a dossiers file as their ONLY file — and a dossiers file is
-never a ledger target (no ledger `kind` in READING A LEDGER resolves to one; it
-is a supplementary per-song file, always co-edited with its `<era>.mjs` parent).
-So shards 7 and 9 owned a file but no work, and were idle every run — the same
-"a shard can never do anything" failure the positional rule was written to kill,
-one level down. It also split all four dossiers eras across two shards
-(Midnights 7/8, Red 9/0, Showgirl 3/4, TTPD 5/6), breaking the "one writer owns
-an era" invariant above: whenever the era's writer answers a song ledger and
-touches the dossier, it writes a file the round-robin nominally assigned to a
-different shard.
-
-Reducing to the ERA KEY (strip the `.dossiers` infix) fixes both: dossiers fold
-into their era's shard, and the unique-key count drops to the real number of
-eras so no shard is left holding only a non-target file. NOTE FOR THE MERGER:
-this reshuffles every shard's assignment, so merge it OUTSIDE the :50–:59
-Answerer window to avoid two instances in the same run computing different maps.
+> Cadence note (2026-07-24): scaled to ONE Lex + ONE Answerer, each running **every 2 hours** (`20 */2 * * *` / `50 */2 * * *`) to cut token burn (Wyatt). The 28 shard triggers are disabled. If ever scaled back up, restore the sharded runbook from git and re-enable the shards.
