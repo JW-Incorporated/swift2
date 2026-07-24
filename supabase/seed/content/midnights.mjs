@@ -3047,7 +3047,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The series started Sept. 21, 2022, with episodes dropping at midnight ET — cat Meredith cameoed in episode 2, and the remaining titles were released an hour apart through the night of Oct. 7.\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, chance decided which track title she revealed next.',
+          'The mechanic was pure chance theater: a spinning bingo cage held 13 ping-pong balls numbered 1-13, one per track. Swift drew a ball, then read that track\'s title into a red rotary phone — held upside-down in episodes 2 and 6, a wink fans caught. The opener on Sept. 21, 2022 drew number 13: "Mastermind," the album\'s closer, revealed first.\n\nEpisodes dropped Monday, Wednesday and Friday — Meredith the cat cameoed in episode 2 — until the finale. On the night of Oct. 7, 2022 she blitzed the rest, releasing the last episodes an hour apart from midnight, and the full order landed: "Lavender Haze," "Maroon," "Anti-Hero," "Snow on the Beach" (with Lana Del Rey), "You\'re on Your Own, Kid," "Midnight Rain," "Question...?," "Vigilante Shit," "Bejeweled," "Labyrinth," "Karma," "Sweet Nothing," and "Mastermind."\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, a bingo cage decided which title she revealed next — chance, not cryptography, running the rollout. Fans still suspected a mastermind behind the "random" draw — "Mastermind" itself surfacing first fueled the joke — though Swift never confirmed it was staged; the golden cage later got an afterlife as an official-store "Bingo Roller" ornament.',
         sources: [
           {
             outlet: 'Elite Daily',
@@ -3058,6 +3058,27 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 3,
           },
+          // Depth pass (ledger #1293, 2026-07-24): the first-ball "Mastermind"
+          // reveal and the ping-pong-ball/rotary-phone mechanic; per-episode
+          // reveal order.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
+            source_title: "Taylor Swift Reveals First 'Midnights' Song Title: 'Mastermind'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2022-09-26-every-midnights-track-taylor-swift-has-revealed-so-far/',
+            source_title: "Every 'Midnights' Track Taylor Swift Has Revealed So Far",
+            publisher: 'iHeartRadio',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
           {
             outlet: 'Taylor Swift on TikTok',
             url: 'https://www.tiktok.com/@taylorswift/video/7151677137337208110',
@@ -3066,6 +3087,37 @@ export default {
             source_type: 'social',
             accessed_at: '2026-07-08',
             reliability_score: 3,
+          },
+          // Depth pass (ledger #1293, 2026-07-24): the draw mechanic (numbered
+          // balls + red phone, upside-down in eps 2/6), the Sept. 21 first reveal
+          // (track 13 "Mastermind"), the Mon/Wed/Fri cadence and Oct. 7 finale,
+          // and the full revealed track order.
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-midnights-tracklist-song-names-rcna50738',
+            source_title: "'Midnights' tracklist: Song names of Taylor Swift's new album",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Midnights',
+            source_title: 'Midnights',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Taylor Swift Official Store',
+            url: 'https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
+            source_title: 'Midnights Mayhem With Me Bingo Roller Ornament',
+            publisher: 'Taylor Swift Official Store',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Real-photo pass (2026-07-09): album artwork (the tracklist being
@@ -3082,6 +3134,12 @@ export default {
     },
     {
       slug: 'bejeweled-video-easter-eggs',
+      // Cross-link (ledger #1316 Q8 / crosslink-candidate): the video's whole
+      // thesis is the Speak Now prediction; thread it to the payoff — the May
+      // 2023 onstage announcement of Speak Now (Taylor's Version) in Nashville.
+      relatedIds: [
+        'moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville',
+      ],
       year: 2022,
       month: 10,
       day: 25,
@@ -3093,7 +3151,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Released Oct. 25, 2022, four days after the album, the Cinderella-story video stacked its cast like a wink: Laura Dern as the wicked stepmother, the three HAIM sisters as the stepsisters, and Dita Von Teese in the martini glass.\n\nThe clues were the point — and they all faced one direction. Dern\'s "Speak not, you tacky, tired wench" line, the three stepsisters (album three), and an orchestral "Long Live" over the closing shot all pointed at Speak Now as the next re-record — a call fans banked, and one the Nashville announcement confirmed the following May.',
+          'Swift wrote and directed the video — a comic Cinderella riff shot by cinematographer Rina Yang — and stacked the cast like a wink: Laura Dern as the wicked stepmother, the three HAIM sisters as stepsisters, burlesque legend Dita Von Teese as the "fairy goddess" in the martini glass, producer Jack Antonoff as a blink-and-miss Prince Charming, and makeup artist Pat McGrath in the transformation scene. Von Teese\'s martini-glass turn was a deliberate homage to her signature act — she used glasses from her own show and taught Swift the routine herself, later thanking Swift for "acknowledging burlesque, an American art form."\n\nIts self-described "psychotic amount" of easter eggs faced a single direction — Speak Now. Dern\'s "Speak not, you tacky, tired wench," an "Enchanted" instrumental at the open, a floor-three elevator button glowing the purple of the Speak Now cover (her third album), an "SN" hair clip, and an orchestral "Long Live" over the closing castle. The video even dropped Oct. 25, 2022 — the calendar date Speak Now first arrived in 2010.\n\nSwift had told Jimmy Fallon to expect that egg pile, so the density was deliberate; whether Speak Now specifically was the target stayed fan inference — a call the fandom banked and the May 2023 Nashville announcement of Speak Now (Taylor\'s Version) confirmed.',
         sources: [
           {
             outlet: 'Good Morning America',
@@ -3111,6 +3169,46 @@ export default {
             publisher: 'Newsweek',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1316, 2026-07-24): the director credit and the
+          // fuller cast (Von Teese as fairy godmother, Antonoff as Prince
+          // Charming, Pat McGrath); the additional Speak Now easter eggs; and
+          // the deliberate-eggs-vs-fan-inference distinction.
+          {
+            outlet: 'IndieWire',
+            url: 'https://www.indiewire.com/features/general/taylor-swift-bejeweled-video-laura-dern-alana-haim-watch-1234775782/',
+            source_title: "Taylor Swift's 'Bejeweled' Video Stars Laura Dern, Alana Haim",
+            publisher: 'IndieWire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-bejeweled-music-video-1235160502/',
+            source_title: "Taylor Swift's 'Bejeweled' Video: Watch",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/dita-von-teese-says-teaching-taylor-swift-the-bejeweled-martini-glass-routine-was-the-best-experience-3567738',
+            source_title: "Dita Von Teese on teaching Taylor Swift the 'Bejeweled' martini-glass routine",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Revolution Pictures',
+            url: 'https://revolutionpictures.com/featured/taylorswift-antihero-bejeweled/',
+            source_title: 'Taylor Swift — Anti-Hero / Bejeweled (production credits)',
+            publisher: 'Revolution Pictures',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
@@ -3245,7 +3343,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Verified Fan presale opened Nov. 15, 2022 and buckled within the hour as fans, bots, and scalpers flooded the site; Ticketmaster later blamed a massive bot attack and scrapped the general sale outright.\n\nFans sued, and Swift said watching the mistakes unfold with no recourse had been "excruciating." The fallout carried into Washington within two months.',
+          'The TaylorSwiftTix presale, powered by Verified Fan, drew more than 3.5 million registrations — the largest in Ticketmaster\'s history. About 1.5 million fans were sent codes for the 52 shows; the other 2 million were waitlisted. When it opened Nov. 15, 2022, the site buckled within the hour under what Ticketmaster called a "staggering number of bot attacks" and 3.5 billion system requests — four times its prior peak. It still moved more than 2 million tickets that day (2.4 million across all presales), the most ever sold for one artist in a single day.\n\nOn Nov. 17 the company scrapped the Nov. 18 general public sale outright, citing "extraordinarily high demands" and too little remaining inventory; shut-out fans turned to resale, where seats were listed as high as $22,500–$28,350 on StubHub.\n\nSwift answered Nov. 18: it was "excruciating for me to just watch mistakes happen with no recourse," and "we asked them, multiple times, if they could handle this kind of demand and we were assured they could." The reckoning outlived the tour. Fans sued in Los Angeles in December 2022 for fraud, misrepresentation, price-fixing and antitrust; a judge later dismissed the fraud claims but let the antitrust case proceed. In May 2024 the U.S. Justice Department and more than 30 states sued to break up Live Nation-Ticketmaster, a case that grew out of the two-year probe the Eras presale set off. And the outcry drove reform: the bipartisan Fans First Act, the TICKET Act (passed the House 338-24 in 2024), and the FTC\'s "junk fees" rule banning hidden drip pricing, in effect from May 2025.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -3264,6 +3362,73 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth pass (ledger #1302, 2026-07-24): registration/supply and
+          // system-request figures from Ticketmaster's own onsale explainer;
+          // Swift's statement, the cancellation and resale prices, the
+          // litigation, the DOJ breakup suit, and the reform legislation.
+          {
+            outlet: 'Ticketmaster',
+            url: 'https://business.ticketmaster.com/press-release/taylor-swift-the-eras-tour-onsale-explained/',
+            source_title: 'Taylor Swift | The Eras Tour Onsale Explained',
+            publisher: 'Ticketmaster (Live Nation)',
+            source_type: 'primary',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/music/news/taylor-swift-addresses-eras-tour-ticketmaster-fiasco-1235436036/',
+            source_title: "Taylor Swift on Ticketmaster Fiasco: 'Excruciating for Me to Watch'",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-eras-tour-tickets-resale-for-more-than-10-times-previous-tours/',
+            source_title: 'Taylor Swift Eras Tour tickets are fetching more than $20,000',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/caileygleeson/2024/05/23/doj-sues-ticketmaster-owner-live-nation/',
+            source_title: 'DOJ Sues Ticketmaster And Live Nation In Latest Antitrust Suit',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-fans-win-eras-tour-ticketmaster-lawsuit/',
+            source_title: 'Taylor Swift Fans Score Win in Eras Tour Ticketmaster Lawsuit',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/ticket-act-passes-house-of-representatives-1236005647/',
+            source_title: 'TICKET Act Passes House of Representatives to Create Transparency in Pricing',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Federal Trade Commission',
+            url: 'https://www.ftc.gov/news-events/news/press-releases/2024/12/federal-trade-commission-announces-bipartisan-rule-banning-junk-ticket-hotel-fees',
+            source_title: 'Federal Trade Commission Announces Bipartisan Rule Banning Junk Ticket and Hotel Fees',
+            publisher: 'Federal Trade Commission',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Real-photo pass (2026-07-09): the official tour poster fans were queuing
@@ -3537,7 +3702,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off a seismometer beside the stadium: shaking roughly twice as strong as the Beast Quake, sustained for hours at a time because 144,000 fans across two nights were all moving to the same beat.\n\nThe difference, she noted, was rhythm — music drives the ground in a way a single touchdown roar can\'t.',
+          'Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off a seismometer beside the stadium — shaking that peaked at a 2.3-magnitude *equivalent*, roughly twice the amplitude of the stadium\'s 2011 "Beast Quake," and sustained across the whole ~3.5-hour set rather than one touchdown\'s burst. Her read became peer-reviewed science: "Beast Quake (Taylor\'s Version)" in GSA Today (May 2024), with a separate Caltech study of the L.A./SoFi shows in Seismological Research Letters the same year.\n\nThe key finding corrects the obvious guess: the ground was moved by the crowd, not the sound system. Caltech\'s controlled test showed the PA — and even a bass guitar — produced no such signal, while fans jumping in sync did; the music only works as a metronome (Eos: "stomping feet, not booming beat"). The strongest signals tracked "Shake It Off" (the single biggest jolt, ~magnitude 0.85), "You Belong With Me" and "Love Story," each low-frequency peak matching the song\'s tempo. It is surface loading from tens of thousands of synchronized bodies, not a fault rupturing — so the "magnitude" is only an energy-equivalent, and the Beast Quake it beat never had a firm number of its own (roughly M1–2, "at best very approximate").\n\nGuinness certified it "Greatest seismic activity caused by a music concert," and the effect proved tour-wide — measured again at SoFi, at Lisbon (0.82, May 2024) and at Edinburgh, where the British Geological Survey picked it up 6 km from the stadium.',
         sources: [
           {
             outlet: 'CBS News',
@@ -3556,6 +3721,51 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Western Washington University News',
+            url: 'https://news.wwu.edu/wwu-seismologist-captures-swift-quake-story-goes-global',
+            source_title: 'WWU seismologist captures “Swift Quake,” story goes global',
+            publisher: 'Western Washington University',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Caltech',
+            url: 'https://www.caltech.edu/about/news/swifities-shake-it-off-and-help-seismologists-solve-mystery-of-how-concertgoers-shake-things-up',
+            source_title: 'Swifties Shake It Off — and Help Seismologists Solve a Mystery',
+            publisher: 'California Institute of Technology',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Eos',
+            url: 'https://eos.org/articles/swift-quakes-caused-by-stomping-feet-not-booming-beat',
+            source_title: 'Swift Quakes Caused by Stomping Feet, Not Booming Beat',
+            publisher: 'Eos (American Geophysical Union)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/world-records/759394-greatest-seismic-activity-caused-by-a-music-concert',
+            source_title: 'Greatest seismic activity caused by a music concert',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'British Geological Survey',
+            url: 'https://www.bgs.ac.uk/news/quake-it-off-taylor-swift-concerts-shake-edinburgh/',
+            source_title: 'Quake it off: Taylor Swift concerts shake Edinburgh',
+            publisher: 'British Geological Survey',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Real-photo pass (2026-07-09): freely licensed photo taken inside Lumen
@@ -3582,7 +3792,12 @@ export default {
     {
       slug: 'eras-tour-beige-book',
       significance: 'notable', // an economic-impact recognition genuinely unprecedented for a single tour — a real, citable macro data point (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-the-eras-tour-kicks-off-in-glendale'],
+      relatedIds: [
+        'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
+        // Cross-link (ledger #1320 Q7 / crosslink-candidate): the page's own prose
+        // says the Fed mention resurfaced in Time's Person of the Year citation.
+        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+      ],
       year: 2023,
       month: 7,
       day: 12,
@@ -3594,7 +3809,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The July 12, 2023 Beige Book flagged that May was Philadelphia\'s strongest hotel-revenue month since the pandemic\'s onset, in large part from the influx of fans for her Lincoln Financial Field dates — while Chicago broke hotel occupancy records during her Soldier Field weekend.\n\n"Swiftonomics" stopped being a joke headline and became a line item — a pop tour showing up in the same central-bank briefing document as inflation expectations and freight volumes. The Fed mention followed her the rest of the year, resurfacing in Time\'s Person of the Year citation that December.',
+          'The July 12, 2023 Beige Book named her outright — no euphemism. In the Third District (Philadelphia) summary, Fed staff wrote that "one contact highlighted that May was the strongest month for hotel revenue in Philadelphia since the onset of the pandemic, in large part due to an influx of guests for the Taylor Swift concerts in the city." A pop tour had become a line in the same central-bank briefing that tracks inflation and freight.\n\nThe Fed entry itself carried no dollar figure, but the numbers behind it were real. Her three Soldier Field shows (June 2-4, 2023) helped push Chicago to its highest hotel occupancy on record — more than 44,000 rooms filled at a 96.8% weekend average, about $39 million in hotel revenue, per Choose Chicago — while Illinois logged record hotel revenue for the year.\n\nIt was not quite unprecedented: weeks earlier a Danske Bank economist had pinned roughly 0.2 points of Sweden\'s surprise May inflation on Beyonce\'s Renaissance opener in Stockholm — the "Beyonce blip." But that was a Danske Bank economist reading Sweden\'s official inflation figures (from the national statistics office, not the Riksbank), not a central bank writing an artist into its own report, which is what made the Fed line singular. The mention followed her all year, resurfacing that December when Time named her Person of the Year for a tour "so big the Federal Reserve noted its boost to tourism."',
         sources: [
           {
             outlet: 'Billboard',
@@ -3603,6 +3818,27 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1320, 2026-07-24): verbatim Fed wording; the
+          // Chicago/Illinois hard hotel numbers behind the entry; and the
+          // Beyonce/Riksbank "Beyonce blip" parallel the ledger asked to weigh.
+          {
+            outlet: 'NBC Chicago',
+            url: 'https://www.nbcchicago.com/news/local/taylor-swifts-chicago-soldier-field-concerts-break-chicago-hotel-record/3157392/',
+            source_title: "Chicago sets new 'all-time record' for hotel room occupancy during Taylor Swift Soldier Field shows",
+            publisher: 'NBC Chicago',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/tylerroush/2023/06/14/beyonc-caused-inflation-renaissance-tour-may-have-boosted-swedens-costs-economist-says/',
+            source_title: "Beyoncé Caused Inflation? 'Renaissance' Tour May Have Boosted Sweden's Costs, Economist Says",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
           {
@@ -3653,6 +3889,9 @@ export default {
         'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         // Announcement → payoff (ledger #1115, Q3): the Oct. 27, 2023 release outcome.
         'moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record',
+        // Consolidation thread (ledger #1115, Q1): the 1989-era canonical copy of
+        // this same Aug. 9 2023 SoFi announcement — threaded, not left duplicated.
+        'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
       ],
       title: "1989 (Taylor's Version) announced at the final US show — on the date fans predicted",
       snippet:
@@ -3765,6 +4004,14 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-4", label: "Billionaire status", kind: "business" },
+      // Cross-links (ledger #1331): the same-October record sales week the page's
+      // own text cites; the Eras Tour engine Bloomberg weighted most heavily; and
+      // the masters sale that explains why only post-2019 catalog was counted.
+      relatedIds: [
+        'moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record',
+        'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
+        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+      ],
       title: 'Billionaire status, from the music alone',
       snippet:
         'Bloomberg put her net worth at $1.1 billion in October 2023 — one of the only entertainers ever to get there purely on songs and shows, no sneaker line or liquor brand required.',
@@ -3772,7 +4019,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Bloomberg\'s breakdown: roughly $400 million in catalog value from music released since 2019, $370 million from ticket sales and merchandise, $120 million from streaming, $110 million in real estate, and $80 million in royalties — the Eras Tour and the Taylor\'s Version project doing the compounding.\n\nThe distinction was the story: the $1.1 billion estimate made her one of the only entertainers ever to reach ten figures on music alone — no sneaker line, liquor brand, or startup portfolio required — and it landed in the same October that 1989 (Taylor\'s Version) posted the largest traditional-sales week of her entire career.',
+          'Bloomberg pegged her net worth at $1.1 billion in October 2023, splitting it into roughly $400M in catalog value (music released since 2019), $370M from tickets and merch, $120M from streaming, $110M in real estate, and $80M in royalties. Forbes reached the same call the same month — both noting she was the first musician to get to ten figures on songs and shows alone, not on an outside empire.\n\nThat distinction was the story. Rihanna crossed a billion on Fenty Beauty, Jay-Z on spirits and art, Oprah on media — Swift did it with no sneaker line, liquor brand, or startup portfolio. Bloomberg counted only her post-2019 masters, because she did not own the Big Machine catalog Scooter Braun had bought in 2019; the Taylor\'s Version re-recordings were her rebuilding an owned catalog from scratch, and that new-catalog value is what the estimate tallied.\n\nThe compounding engine was the Eras Tour — the first tour ever to gross $1 billion, which closed in December 2024 at $2.08 billion, double any tour in history — landing in the same October as 1989 (Taylor\'s Version) and the largest sales week of her career. Her real-estate line spanned homes in Nashville, Beverly Hills, New York and Rhode Island. The number kept climbing: Forbes had her at $1.6 billion by late 2024, passing Rihanna as the richest female musician, and near $2 billion by 2026.',
         sources: [
           {
             outlet: 'Bloomberg',
@@ -3791,6 +4038,45 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth pass (ledger #1331, 2026-07-24): Forbes concurrence and the
+          // "music alone" contrast; the Eras Tour gross milestones; the
+          // post-2019-catalog/masters methodology; and the net-worth trajectory.
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/mollybohannon/2024/04/02/taylor-swift-officially-joins-forbes-billionaire-list-as-one-of-14-celebrity-billionaires/',
+            source_title: 'Taylor Swift Officially Joins Forbes\' Billionaire List As One Of 14 Celebrity Billionaires',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-eras-tour-earnings-2-billion-sales-1235847513/',
+            source_title: "Taylor Swift's The Eras Tour Wraps as First Tour to Pass $2 Billion in Sales",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swifts-eras-tour-first-concert-tour-gross-1-billion-rcna128743',
+            source_title: "Taylor Swift's Eras Tour is the first concert tour to gross more than $1 billion",
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'AOL / People',
+            url: 'https://www.aol.com/taylor-swift-surpasses-rihanna-richest-025541499.html',
+            source_title: 'Taylor Swift Surpasses Rihanna as Richest Female Musician with $1.6 Billion Net Worth',
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         // Real-photo pass (2026-07-09): freely licensed Eras Tour performance
@@ -3957,6 +4243,13 @@ export default {
     },
     {
       slug: 'slut-vault-love-song',
+      // Cross-links (ledger #1341 Q7, 2026-07-24): the song she chose over
+      // "Slut!" for the original 1989, and the SoFi announcement of the
+      // re-record that finally freed it from the vault.
+      relatedIds: [
+        'moment:vault-1989-blank-space-flips-the-narrative',
+        'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
+      ],
       year: 2023,
       month: 10,
       day: 27,
@@ -3968,7 +4261,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift said the two songs both "cheekily play on the discussions at that time of my life around my dating life" — Blank Space made the 2014 cut, and "Slut!" waited nine years.\n\nIt debuted at No. 3 on the Hot 100, and critics read the soft, tender arrangement as the point: reckoning with the slut-shaming era by refusing to write an angry song about it.',
+          'Written and produced by Taylor Swift with Jack Antonoff and Swedish writer-producer Patrik Berger, "Slut!" was cut from the original 1989 in 2014 and held nine years. Swift explained the choice in a short audio clip during the 2023 vault reveal: both "Slut!" and "Blank Space" grew from the same tabloid narrative about her dating life, but she picked the sharper "Blank Space" because "Slut!" had a warmer, "California" feel that clashed with 1989\'s New York sound.\n\nThe title everyone braced for arrived as a dreamy synth-pop love song that reclaims the slut-shaming era with tenderness rather than anger — "if they call me a slut, you know it might be worth it for once." It debuted and peaked at No. 3 on the Hot 100 the week the three 1989 (Taylor\'s Version) vault cuts swept the chart\'s top three ("Is It Over Now?" No. 1, "Now That We Don\'t Talk" No. 2, "Slut!" No. 3), part of seven Swift songs in that week\'s top 10.\n\nReviews split on the gentle turn: Rolling Stone\'s Angie Martoccio called it "a stunner" and The Line of Best Fit found the softness empowering, while Pitchfork ("aimless") and The New York Times ("half-baked") felt the tender execution undersold a strong concept. She first performed it Nov. 12, 2023 in Buenos Aires — solo at the piano in the Eras Tour acoustic set — and later folded it into "False God" mashups in Singapore and Germany.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -3986,6 +4279,27 @@ export default {
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1341, 2026-07-24): writing/production credits
+          // (Berger), the Tumblr audio-clip explanation of the Blank Space
+          // choice, the top-three vault-cluster chart week, and the live debut.
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-1989-slut-song-meaning-rcna122450',
+            source_title: "Taylor Swift's '1989' Vault Song 'Slut!': What Do the Lyrics Mean?",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-slut-live-buenos-aires-1235470006/',
+            source_title: "Taylor Swift Debuts 'Slut!' Live at Buenos Aires Show",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
@@ -4356,9 +4670,85 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-1", label: "Midnights released", kind: "album" },
+      // Cross-links (ledger #1269, 2026-07-24): the rollout reveal, the 3am
+      // surprise, the top-ten sweep, and the Grammy payoff this album won.
+      relatedIds: [
+        'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
+        'moment:vault-midnights-the-3am-edition-surprise',
+        'moment:vault-midnights-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
+        'moment:vault-midnights-every-top-ten-slot-at-once',
+      ],
       snippet: "A return to pop as a diary of midnights across her life.",
       moment: {
-        context: "Midnights framed itself as thirteen sleepless nights, blending retro-glam synths with confessional diary entries.",
+        context:
+          'Announced at the Aug. 28, 2022 MTV VMAs — minutes after she won Video of the Year for the "All Too Well" short film — under a "Meet Me At Midnight" tagline, Swift called the album "the stories of 13 sleepless nights scattered throughout my life." She built it almost entirely with Jack Antonoff, who co-wrote 11 of the 13 tracks, with additional production from Sounwave, Jahaan Sweet and Keanu Beats; the surprise "3am Edition" added seven more songs, several co-produced by Aaron Dessner. Its retro-glam synth-pop swapped the folklore/evermore woods for a 1970s bedroom-diary mood, and Beth Garrabrant — her cover photographer since folklore — shot the lighter-flame cover on film. The album\'s lone standard-edition guest is Lana Del Rey on "Snow on the Beach," later reissued as a "feat. More Lana Del Rey" mix after fans wanted her louder. Four collectible vinyl variants — Moonstone Blue, Jade Green, Mahogany and Blood Moon — were designed so their back covers assemble into a clock face. Critics received it warmly (Metacritic 85; Pitchfork 7.0), and it rewrote records: the first album to hold all ten of the Hot 100\'s top spots at once, and, at the 2024 Grammys, Album of the Year — Swift\'s record fourth, more than any artist in history. It opened at No. 1 with 1.578 million first-week units — the biggest week for any album since Adele\'s 25 in 2015 — and spun off four hits: "Anti-Hero" (a No. 1 that ruled the Hot 100 for eight weeks, her longest solo reign to that point), "Lavender Haze" and "Karma" (both No. 2), and "Snow on the Beach" (No. 4).',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Midnights',
+            source_title: 'Midnights',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
+            source_title: 'Taylor Swift Makes History as First Artist to Claim Entire Top 10 of the Hot 100',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-reveals-collectable-editions-of-midnights-on-cd-and-vinyl-3303014',
+            source_title: "Taylor Swift reveals collectable editions of 'Midnights' on CD and vinyl",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'GRAMMY.com',
+            url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
+            source_title: 'Taylor Swift Wins Album Of The Year For Midnights At The 2024 GRAMMYs',
+            publisher: 'The Recording Academy',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-midnights-debut-number-one-billboard-200-albums-chart-1235163377/',
+            source_title: 'Taylor Swift’s ‘Midnights’ Debuts at No. 1 With Biggest Week for an Album Since 2015',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-anti-hero-eighth-week-number-one-zach-bryan-top-10-1235199856/',
+            source_title: 'Taylor Swift’s ‘Anti-Hero’ Spends an Eighth Week at No. 1 on the Hot 100',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+        ],
+        // Depth pass (ledger #1269, 2026-07-24): the album cover is the exact
+        // subject of the release page; Wikipedia's stable copy, verified this
+        // session HTTP 200 + image/png (the same file already vetted in-repo).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
+            credit: 'Republic Records',
+            caption: 'The lighter-flame cover, shot on film by Beth Garrabrant — the album released Oct. 21, 2022.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -4386,8 +4776,72 @@ export default {
       title: "“Anti-Hero” dominates",
       snippet: "A candid single about self-doubt becomes her biggest solo hit in years.",
       video: { youtubeId: "b1kbLwvqugk", title: "Taylor Swift - Anti-Hero (Official Music Video)" },
+      // Cross-links (ledger #1355, 2026-07-24): the album it led, the single-day
+      // Spotify record it helped set, and the top-ten sweep it anchored.
+      relatedIds: [
+        'moment:vault-midnights-thirteen-sleepless-nights',
+        'moment:vault-midnights-midnights-breaks-spotify-in-a-single-day',
+        'moment:vault-midnights-every-top-ten-slot-at-once',
+      ],
       moment: {
-        context: "Its confessional humor and inescapable chorus made “Anti-Hero” the defining pop single of the season.",
+        context:
+          '“Anti-Hero” — written and produced by Taylor Swift and Jack Antonoff — was the lead single and the emotional center of Midnights; Swift called it "a guided tour of all the things I tend to hate about myself," her most detailed reckoning with her own insecurities. It debuted at No. 1 on the Hot 100 (dated Nov. 5, 2022), the anchor of her history-making sweep of the chart\'s entire top 10, then held the summit for eight weeks — passing "Blank Space" to become her longest-running solo No. 1 to that point — and topped the UK, Australian and Canadian charts too. Its first day drew 17.4 million Spotify streams, the third-biggest single-day song total then on record.\n\nCritics made it the album\'s standout — Pitchfork heard "the lacquered synth-pop of 1989, the neurotic image analysis of reputation, the dense lyricism of folklore and evermore" folded into one song — and it placed high on year-end lists (No. 2 at USA Today and Slant, No. 5 at Billboard). It won Song of the Year at the 2023 VMAs and the iHeartRadio Awards; at the 2024 Grammys it was up for Record and Song of the Year — Swift\'s record seventh Song of the Year nod — but won neither. It is certified 4× Platinum in the UK and 8× in Australia.\n\nLive, it first surfaced as a surprise guest turn at The 1975\'s London O2 show (Jan. 12, 2023) before settling into a fixed slot in the Eras Tour\'s Midnights act. Its self-lacerating hook — "It\'s me, hi, I\'m the problem, it\'s me" — became one of TikTok\'s defining sounds, drawing 120,000+ videos within days of release.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-anti-hero-eighth-week-number-one-zach-bryan-top-10-1235199856/',
+            source_title: "Taylor Swift's 'Anti-Hero' Spends an Eighth Week at No. 1 on the Hot 100",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-anti-hero-song-meaning-midnights-rcna50503',
+            source_title: 'Taylor Swift explains the meaning behind “Anti-Hero”',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/news/2022/10/taylor-swifts-album-midnights-smashes-three-spotify-records-723058',
+            source_title: "Taylor Swift's album Midnights smashes three Spotify records",
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/grammys-2024-running-list-winners-rcna136890',
+            source_title: 'Grammys 2024: The full list of winners',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/music/album-reviews/taylor-swift-midnights-album-review-1235410102/',
+            source_title: 'Album Review: Taylor Swift’s ‘Midnights’',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)',
+            source_title: 'Anti-Hero (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+        ],
       },
     },
     {
@@ -4462,19 +4916,54 @@ export default {
       slug: 'prop-wsj-confirm',
       year: 2023,
       month: 11,
-      day: 1,
+      // Date corrected 2026-07-24 (ledger #1280, Q2): the WSJ. Magazine
+      // interview published Nov. 20, 2023 (CNN/TODAY/NBC all dated Nov. 20;
+      // print was the Dec/Jan cover). Was 2023-11-01, which mis-sorted it
+      // BEFORE the Nov. 11 Buenos Aires on-stage acknowledgment; verified
+      // against TODAY and The Philadelphia Inquirer before changing the field.
+      day: 20,
       category: 'relationship',
       threadIds: ['the-proposal'],
+      // Cross-links (ledger #1280, Q6): the friendship-bracelet origin beat it
+      // retells, and her Nov. 11 on-stage acknowledgment it followed.
+      relatedIds: [
+        'moment:vault-midnights-the-friendship-bracelet-travis-couldnt-deliver',
+        'moment:vault-midnights-karma-is-the-guy-on-the-chiefs-sung-with-travis-watching',
+      ],
       title: 'Travis confirms it, on the record',
-      snippet: 'After weeks of stadium-suite appearances, Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
+      snippet: 'In a Nov. 20, 2023 WSJ. Magazine cover story, Travis gave his first extended sit-down about the relationship — retelling the failed friendship-bracelet meet-cute and speaking candidly about the scrutiny that came with dating her.',
       sourceUrl: 'https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac',
       thumbnailUrl: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
       moment: {
-        context: 'After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs-Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
+        context:
+          'Published Nov. 20, 2023 as WSJ. Magazine\'s December cover story — written by Pulitzer winner J.R. Moehringer, fresh off ghost-writing Prince Harry\'s memoir — this was Travis\'s first extended sit-down about the relationship, not his first word on it: he had already told the bracelet story on his New Heights podcast that July. He recapped how it began, saying he had "somebody playing Cupid" after failing to hand her a friendship bracelet at her Kansas City Eras show, and that she "told me exactly what was going on and how I got lucky enough to get her to reach out." Of their first New York dinner: "We had already kind of been talking, so I knew we could have a nice dinner and, like, a conversation." He put it plainly — "I\'ve never dated anyone with that kind of aura about them" — and spoke to the scrutiny it brought: "The scrutiny she gets, how much she has a magnifying glass on her, every single day, paparazzi outside her house... she\'s just living, enjoying life. When she acts like that I better not be the one acting all strange." Photographed by Gregory Harris for the cover, the interview was picked up within hours by CNN, TODAY and NBC News. It landed nine days after her own on-stage acknowledgment — the Nov. 11 "Karma is the guy on the Chiefs" line in Buenos Aires — so the print confirmation followed her public one, not the other way around.',
         sources: [
           {
             outlet: 'WSJ. Magazine',
             url: 'https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac',
+            source_title: 'How Travis Kelce Manifested the Best Year of His Life',
+            publisher: 'WSJ. Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/travis-kelce-dating-taylor-swift-wsj-magazine-rcna125990',
+            source_title: 'Travis Kelce dishes on dating Taylor Swift to WSJ. Magazine',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Philadelphia Inquirer',
+            url: 'https://www.inquirer.com/entertainment/travis-kelce-wall-street-journal-interview-taylor-swift-20231120.html',
+            source_title: 'Travis Kelce talks relationship with Taylor Swift in new Wall Street Journal interview',
+            publisher: 'The Philadelphia Inquirer',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
           },
         ],
         photos: [
