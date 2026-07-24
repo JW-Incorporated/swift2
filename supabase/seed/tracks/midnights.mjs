@@ -6,6 +6,8 @@
 import DOSSIERS from './midnights.dossiers.mjs';
 
 const ACCESSED = '2026-07-08';
+// Depth pass (ledger #1256, 2026-07-24): accessed date for newly added sources.
+const ACCESSED_DEPTH = '2026-07-24';
 const wiki = (title, path, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${path}`,
   source_title: `${title} — Wikipedia`,
@@ -43,13 +45,26 @@ const ERA = {
       singleReleaseDate: '2023-01-27',
       note: 'Named for 1950s slang for being in love that she heard on Mad Men — an opener about protecting a relationship from the marriage-plot press cycle.',
       summary:
-        'Staying inside the glow and ignoring the questions: she confirmed the song is about deflecting constant engagement speculation and tabloid scrutiny to keep the real thing intact. Zoë Kravitz’s co-write is the era’s celebrity-friend credit.',
+        'Staying inside the glow and ignoring the questions: she confirmed the song is about deflecting constant engagement speculation and tabloid scrutiny to keep the real thing intact. Zoë Kravitz’s co-write is the era’s celebrity-friend credit — she added sonic embellishments to a groove Sounwave and Jack Antonoff built from Braxton Cook’s wordless vocal coos, with Sam Dew shaping the melodies. As the album opener it went to pop radio on Nov. 29, 2022 and peaked at No. 2 on the Hot 100 — kept off the top only by her own “Anti-Hero” during the week she swept the chart’s entire top 10 — and reached No. 5 on Pop Airplay. Swift wrote and directed the music video herself, a “sultry sleepless ’70s fever dream” that premiered Jan. 27, 2023 and cast trans model and activist Laith Ashley as her love interest, drawing praise for its inclusive casting. It opened the Midnights act of the Eras Tour across the tour’s run. Critics were warm: Rolling Stone’s Brittany Spanos called the production “restrained and muted,” and NPR’s Ann Powers likened its layered vocals and synth drums to Whitney Houston.',
       inspiration:
         'Confirmed: Swift explained the Mad Men origin of the phrase and the guarding-the-relationship meaning in her own announcement video.',
       themes: ['protecting love from scrutiny', 'refusing the marriage plot', 'the glow'],
+      easterEggs:
+        'Fan reading (not confirmed by Swift): the song’s lavender imagery echoes the era’s purple color-coding and the video’s lavender-drenched palette, tying the opener’s “protect the glow” theme to the Midnights visual identity.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Lavender_Haze',
       sources: [
-        wiki('Lavender Haze', 'Lavender_Haze', 'song article: confirmed origin story'),
+        wiki('Lavender Haze', 'Lavender_Haze', 'song article: confirmed origin story, video, charts, reception'),
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
+          source_title:
+            'Taylor Swift Makes History as First Artist to Claim Entire Top 10 of the Hot 100',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: '“Lavender Haze” peaked at No. 2, held off No. 1 by “Anti-Hero”',
+        },
         ALBUM,
       ],
     },
@@ -111,13 +126,47 @@ const ERA = {
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The Lana Del Rey collaboration fans demanded more Lana from — so loudly that a More Lana Del Rey version was actually released later.',
       summary:
-        'Two people falling for each other simultaneously, framed as weather too improbable to trust: beautiful, eerie, and hard to believe even while it is happening.',
+        'Two people falling for each other at the same instant, framed as weather too improbable to trust — Swift’s own release note describes it as the feeling of realizing “someone feels exactly the same way that you feel, at the same time. It’s like if you were to see snow falling on a beach,” landing on the hook “weird but fucking beautiful.” A shimmering “snow-globe” dream-pop ballad of twinkling synths and plucked violin (Bobby Hawk), with actor Dylan O’Brien on drums from the session. It debuted and peaked at No. 4 on the Hot 100 (dated Nov. 5, 2022) as one of the ten Midnights tracks that seized the entire top 10 at once — Lana Del Rey’s highest-ever placement as a featured artist — and reached No. 3 on the Global 200. First played live as an Eras Tour surprise song at the Las Vegas opener (Mar. 24, 2023) and reprised since, always solo; Del Rey has never joined her for it onstage.',
       inspiration:
-        'The famously buried Del Rey vocal became the documented storyline: fan outcry led to a re-cut version with her verses foregrounded in 2023.',
+        'The collaboration was routed through Jack Antonoff, who works with both artists; Del Rey came in mainly as co-writer and later said she “had no idea I was the only feature” and would have sung the whole second verse had she known. That famously buried Del Rey vocal became the storyline: Rolling Stone’s Brittany Spanos called it the album’s lone disappointment (the Guardian’s Alexis Petridis praised the restrained blend anyway), and the outcry drove a re-cut — “Snow on the Beach (feat. More Lana Del Rey)” on Midnights (The Til Dawn Edition) (May 26, 2023) gives Del Rey the full second verse.',
       themes: ['mutual falling', 'improbability', 'wonder'],
+      easterEggs:
+        'The bridge line “now I’m all for you, like Janet” name-checks Janet Jackson’s 2001 hit “All for You” — a lyrical nod, not a musical sample.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Snow_on_the_Beach',
       sources: [
-        wiki('Snow on the Beach', 'Snow_on_the_Beach', 'song article: Del Rey versions'),
+        wiki('Snow on the Beach', 'Snow_on_the_Beach', 'song article: credits, versions, charts, reception'),
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
+          source_title:
+            'Taylor Swift Makes Chart History as All Top 10 Hot 100 Songs Are Hers',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'chart: “Snow on the Beach” debut/peak No. 4 within the all-top-10 sweep',
+        },
+        {
+          source_url:
+            'https://www.rollingstone.com/music/music-news/taylor-swift-snow-on-the-beach-lana-del-rey-midnights-deluxe-1234742442/',
+          source_title:
+            'Taylor Swift and Lana Del Rey Share ‘Snow on the Beach (feat. More Lana Del Rey)’',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'the “More Lana Del Rey” re-cut on the Til Dawn Edition; reception context',
+        },
+        {
+          source_url:
+            'https://americansongwriter.com/meaning-behind-taylor-swift-snow-on-the-beach/',
+          source_title: 'The Meaning Behind Taylor Swift’s “Snow on the Beach”',
+          publisher: 'American Songwriter',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 3,
+          notes: 'self-source: Swift’s release note framing the oxymoron',
+        },
         ALBUM,
       ],
     },
@@ -244,16 +293,60 @@ const ERA = {
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The weightless one — falling in love again mid-heartbreak and being terrified of the elevator drop.',
       summary:
-        'Breath held in an emotional stairwell: she talks herself through panic as new feelings arrive faster than the old damage healed. The production floats to match.',
-      inspiration: null,
+        'Breath held in an emotional stairwell: she talks herself through panic as new feelings arrive faster than the old damage healed. Antonoff’s production floats for two-thirds on dense synths and almost no percussion before a beat suddenly drops in, her vocal pitched down near the end. It debuted at No. 14 on the Hot 100 the week Swift became the first artist to hold the chart’s entire top 10 (dated Nov. 5, 2022) and reached No. 12 on the Global 200; critics filed it as a quiet grower — Rolling Stone’s Rob Sheffield called it a “stealth classic,” while a handful — Spin, The Times, and NPR’s Ann Powers — found its pitched, processed vocals dated. Long a fan favorite left off the setlist, it finally arrived as a standalone Eras Tour surprise song in Buenos Aires (Nov. 9, 2023), then returned on piano as mashups — with “this is me trying” in Gelsenkirchen (July 18, 2024) and “State of Grace” in Toronto (Nov. 21, 2024).',
+      inspiration:
+        'Swift revealed only the title on “Midnights Mayhem With Me” and never explained the song; the closest self-sourced thread is the “breathe in, breathe through, breathe deep, breathe out” line, a near-verbatim lift from her 2022 NYU commencement address (“we will breathe in, breathe through, breathe deep, breathe out”). The widely repeated falling-in-love-again-after-heartbreak reading is critics’ interpretation, not a confirmed statement.',
       themes: ['falling again', 'fear after loss', 'gentleness with oneself'],
+      easterEggs:
+        'Fan and critic reading (unconfirmed by Swift): the “elevator”/about-to-fall imagery as the vertigo of new love, and the “it only hurts this much right now” turn as the pivot from dread toward acceptance.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Labyrinth_(Taylor_Swift_song)',
       sources: [
         wiki(
           'Labyrinth (Taylor Swift song)',
           'Labyrinth_(Taylor_Swift_song)',
-          'song article: composition',
+          'song article: composition, chart peaks, reception, live performances',
         ),
+        {
+          source_url:
+            'https://www.rollingstone.com/music/music-features/taylor-swift-midnights-sheffield-1234615239/',
+          source_title: 'Taylor Swift’s ‘Midnights’: Rob Sheffield’s Track-by-Track Review',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'review: calls Labyrinth a “stealth classic”',
+        },
+        {
+          source_url:
+            'https://www.today.com/popculture/music/taylor-swift-labyrinth-surprise-song-argentina-rcna124660',
+          source_title: 'Taylor Swift plays ‘Labyrinth’ live for the first time in Argentina',
+          publisher: 'Today',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'live history: Eras Tour surprise-song debut, Buenos Aires',
+        },
+        {
+          source_url:
+            'https://www.billboard.com/music/music-news/taylor-swift-nyu-commencement-speech-full-transcript-1235072824/',
+          source_title: 'Taylor Swift’s NYU Commencement Speech: Full Transcript',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'self-source: “breathe in, breathe through, breathe deep, breathe out” verbatim in the 2022 NYU address',
+        },
+        {
+          source_url:
+            'https://www.rollingstone.com/music/music-news/taylor-swift-the-very-first-night-labyrinth-live-debuts-1234874614/',
+          source_title:
+            '‘The Very First Night’ and ‘Labyrinth’ Get Live Debuts as Taylor Swift Resumes Eras Tour',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'live history: standalone Buenos Aires debut; later piano mashups in 2024',
+        },
         ALBUM,
       ],
     },

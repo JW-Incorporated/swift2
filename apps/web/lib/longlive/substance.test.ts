@@ -212,13 +212,15 @@ describe('substanceScore over real vault content', () => {
     expect(higher).toBe(0);
   });
 
-  // Thin fixture repointed 2026-07-21 (ledger #1096): the Answerer enriched the
-  // former fixture (tloas-opalite-video) with full credits, sources and a
-  // corrected date, so it is no longer a valid "bare" example. The bare
-  // "Orange sequins and feathers" marker is the currently-thin stand-in —
-  // expect this to rotate again as the depth engine drains its queue.
+  // Thin fixture repointed 2026-07-24 (ledger #1274): the Answerer enriched the
+  // former fixture ("Orange sequins and feathers") with sourced provenance,
+  // cross-links and the real Gucci/Bob Mackie looks, so it is no longer a valid
+  // "bare" example (as its own repoint comment predicted). Repointed to the
+  // 1989 "pop reinvention" era-vibe card — a genuinely bare aesthetic marker,
+  // and one outside the depth engine's defining-moment/current-era queue, so it
+  // should stay a stable thin stand-in rather than rotate every few weeks.
   it('ranks a bare single-announcement item near the bottom', () => {
-    const thin = byId('vault-tloas-orange-sequins-and-feathers');
+    const thin = byId('vault-1989-the-pop-reinvention');
     expect(bodyChars(thin)).toBeLessThan(BODY_FLOOR_CHARS + 50);
     expect(substanceScore(thin)).toBeLessThan(0.2);
   });
@@ -227,7 +229,7 @@ describe('substanceScore over real vault content', () => {
     const meaty = substanceScore(
       byId('vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already'),
     );
-    const thin = substanceScore(byId('vault-tloas-orange-sequins-and-feathers'));
+    const thin = substanceScore(byId('vault-1989-the-pop-reinvention'));
     expect(meaty).toBeGreaterThan(thin * 4);
   });
 
