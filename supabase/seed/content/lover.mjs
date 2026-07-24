@@ -1930,7 +1930,11 @@ export default {
     {
       slug: 'lover-first-owned-album',
       significance: 'defining', // the actual arrival of the album that owns her whole catalog's turning point, the first she's owned outright (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
+      relatedIds: [
+        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-lover-the-re-recording-plan-confirmed-on-live-tv-the-day-before-lo',
+        'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
+      ],
       year: 2019,
       month: 8,
       day: 23,
@@ -1942,7 +1946,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her November 2018 deal with Republic and Universal — signed just after the reputation Stadium Tour ended — guaranteed ownership of everything she recorded going forward, and she said it plainly on GMA the day before release: Lover is "the first one that I will own."\n\nRecorded between November 2018 and February 2019, it was also her first album on streaming services from its first week, and it carried three Grammy nominations, including her first solo-written Song of the Year nod for the title track. That made the release more than an era launch: it was the pivot the entire masters fight would be argued around — old catalog owned by someone else, everything new owned by her.',
+          'Her November 2018 deal with Republic and Universal — signed just after the reputation Stadium Tour ended — guaranteed ownership of everything she recorded going forward, and she said it plainly on GMA the day before release: Lover is "the first one that I will own."\n\nRecorded between November 2018 and February 2019, it was also her first album on streaming services from its first week, and it carried three Grammy nominations, including her first solo-written Song of the Year nod for the title track. That made the release more than an era launch: it was the pivot the entire masters fight would be argued around — old catalog owned by someone else, everything new owned by her.\n\nCommercially it was a peak: Lover opened at No. 1 on the Billboard 200 with 867,000 units (679,000 pure sales), 2019\'s biggest U.S. sales week, and ended the year as the country\'s best-selling album (1.085 million pure copies) and the world\'s second-best-selling behind Arashi\'s — Swift was named IFPI\'s global recording artist of 2019. All 18 tracks charted on the Hot 100 at once; the singles ran "ME!" and "You Need to Calm Down" (both No. 2), "Lover" (No. 10) and "The Man" (No. 23), while deep cut "Cruel Summer" belatedly topped the Hot 100 in 2023. Reviews ran warm but split on the 18-track length (Metacritic 79), and the three Grammy nods all went home empty at the 2020 ceremony. She never toured it: Lover Fest, the first tour she designed herself, was erased by the pandemic and formally cancelled in 2021. Her UMG deal also forced any sale of the label\'s Spotify equity to be paid to artists non-recoupably. And the same GMA hit where she claimed the album is where she unveiled the plan to re-record her old catalog.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1969,6 +1973,33 @@ export default {
             publisher: 'ABC News / Good Morning America',
             source_type: 'reputable_press',
             accessed_at: '2026-07-09',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-lover-album-debuts-at-no-1-on-billboard-200-chart/',
+            source_title: "Taylor Swift's 'Lover' Debuts at No. 1 on Billboard 200 With 867,000 Units",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/articles/news/international/9338380/ifpi-best-selling-albums-list-2019',
+            source_title: "Arashi Best-Of Tops Taylor Swift for IFPI's Best-Selling Album of 2019",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-lover-fest-canceled-1134301/',
+            source_title: "Taylor Swift Cancels Tour Amid 'Unprecedented Pandemic'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
