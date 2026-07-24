@@ -1,6 +1,8 @@
 // Vault track guide — Lover era (Lover, 2019). Original prose only — never
 // lyrics; unconfirmed readings are labeled. Provenance per
 // docs/content/content-audit-2026-07-08.md §5 (URLs verified 2026-07-08).
+import DOSSIERS from './lover.dossiers.mjs';
+
 const ACCESSED = '2026-07-08';
 const wiki = (title, path, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${path}`,
@@ -17,7 +19,7 @@ const ALBUM = wiki(
   'album article: release facts, credits, and cited interviews',
 );
 
-export default {
+const ERA = {
   eraSlug: 'lover',
   tracks: [
     {
@@ -216,7 +218,7 @@ export default {
       summary:
         'Memory pinned to geography: if it ends, the whole street gets amputated from her map. Fans treat the actual Cornelia Street as a pilgrimage site because of it.',
       inspiration:
-        'Confirmed: named for the Manhattan street where Swift lived during the relationship’s early days — she has called the association literal, not poetic.',
+        'Literal, not metaphorical: Swift rented a townhouse on the real Cornelia Street in the West Village in 2016 (while her own TriBeCa home was renovated), documented by NYC property reporting. The romantic subject is read as her relationship’s early days but is not tied to a named person on the record.',
       themes: ['memory and place', 'fear of loss', 'superstition'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Cornelia_Street',
       sources: [
@@ -337,7 +339,8 @@ export default {
       note: 'The apology song — she started the fight, she knows it, and the chorus is her owning the shrapnel.',
       summary:
         'Anxiety torched something good and she claims the arson: an accountability ballad asking the other person to stay inside the glow while she fixes what she broke.',
-      inspiration: null,
+      inspiration:
+        'Subject unconfirmed — popularly read as an apology to her partner at the time, but Swift has never named it on the record. The song’s documented distinction is its production: the only Lover track built by the Louis Bell / Frank Dukes team rather than the album’s Antonoff / Joel Little core.',
       themes: ['accountability', 'anxiety in love', 'repair'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Lover_(album)',
       sources: [ALBUM],
@@ -408,4 +411,16 @@ export default {
       ],
     },
   ],
+};
+
+// Attach per-song dossiers by slug (issue #440 pattern; see midnights.mjs).
+for (const key of Object.keys(DOSSIERS)) {
+  if (!ERA.tracks.some((t) => t.slug === key)) {
+    throw new Error(`dossier for unknown track slug: ${key}`);
+  }
+}
+
+export default {
+  ...ERA,
+  tracks: ERA.tracks.map((t) => (DOSSIERS[t.slug] ? { ...t, dossier: DOSSIERS[t.slug] } : t)),
 };
