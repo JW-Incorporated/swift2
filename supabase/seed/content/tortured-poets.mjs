@@ -2343,13 +2343,20 @@ export default {
       day: 4,
       category: 'business',
       title: '2.61 million in week one — her 14th No. 1, tying Jay-Z',
+      // Cross-links added 2026-07-24 (ledger #1322): the two halves of the same
+      // May 4, 2024 chart frame — album record + singles record — plus the album
+      // itself. Ids verified against content-vault.generated.
+      relatedIds: [
+        'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
+        'moment:vault-ttpd-the-tortured-poets-department',
+      ],
       snippet:
         'The biggest album week in nine years: 2.61M units, 1.914M of them real sales, plus the largest streaming week ever logged for an album at 891 million on-demand plays.',
       sourceUrl: 'https://www.billboard.com/lists/taylor-swift-tortured-poets-department-debut-number-one-billboard-200-chart/',
       thumbnailUrl: null,
       moment: {
         context:
-          'On the chart dated May 4, 2024, TTPD\'s 2.61 million-unit start trailed only Adele\'s 25 (3.482M in 2015) among all weeks since late 2014 and tied her with Jay-Z for the most No. 1 albums by a soloist in the chart\'s history — a record she\'d break outright the following year with Showgirl.\n\nThe 31-track Anthology\'s 891.37 million streams set a new single-week album streaming record.',
+          'On the chart dated May 4, 2024, TTPD opened to 2.61 million units — the biggest week for any album in nine years, trailing only Adele\'s 25 (3.482M in 2015) — and gave Swift her 14th Billboard 200 No. 1, tying Jay-Z (and Drake) for the most chart-toppers by a soloist; only the Beatles, at 19, stood ahead. She broke the tie the next year, when The Life of a Showgirl opened at 4.002 million on the chart dated Oct. 18, 2025 for a 15th No. 1.\n\nThe week was built on physical variety. 1.914 million of the units were pure sales — the third-largest sales week of the SoundScan era (since 1991), behind only 25 and *NSYNC\'s No Strings Attached, and the biggest since 25 in 2015. Of those, 859,000 were vinyl, the largest modern-era vinyl week, breaking Swift\'s own record of 693,000 set by 1989 (Taylor\'s Version) in 2023. Four numbered collector\'s-edition vinyl variants and matching deluxe CDs each carried a different bonus track — "The Manuscript," "The Bolter," "The Albatross" and "The Black Dog" — the same variant strategy that would later power Showgirl.\n\nStreaming set its own records. The 31-track Anthology, surprise-dropped at 2 a.m. ET on release night and counted inside the same tracking week, drew 891.37 million U.S. on-demand streams — a single-week album record that broke Drake\'s Scorpion (745.92M, 2018), not any Swift title; her Midnights had set the global mark, which TTPD also took, lifting it from 1.16 to 1.76 billion worldwide. Spotify logged its first-ever 300-million-stream day and first billion-stream week for an album; Amazon Music and Apple Music reported their own most-streamed-album records. Abroad, TTPD posted the UK\'s biggest opening week in seven years, a 12th UK No. 1.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2368,6 +2375,65 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2024/music/news/vinyl-tortured-poets-department-breaks-record-weekly-sales-1235978774/',
+            source_title: "Taylor Swift's 'Tortured Poets' Breaks Record for Biggest Vinyl Sales Week",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: '859,000 vinyl, beating her own 1989 (TV) record of 693,000',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2024/04/26/taylor-swift-breaks-drakes-all-time-streaming-record-in-america/',
+            source_title: "Taylor Swift Breaks Drake's All-Time Streaming Record In America",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: '891.37M US single-week album streams broke Drake\'s Scorpion (745.92M, 2018)',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-tortured-poets-department-breaks-global-streaming-record-1235671798/',
+            source_title: "Taylor Swift's 'Tortured Poets Department' Breaks Global Streaming Record",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: '1.76B global streams, breaking her own Midnights record of 1.16B',
+          },
+          {
+            outlet: 'Spotify Newsroom',
+            url: 'https://newsroom.spotify.com/2024-04-24/tortured-poets-department-taylor-swift-one-billion-record-streams/',
+            source_title: 'THE TORTURED POETS DEPARTMENT Becomes the First Album to Surpass One Billion Streams in a Single Week on Spotify',
+            publisher: 'Spotify',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Official Charts',
+            url: 'https://www.officialcharts.com/chart-news/taylor-swift-tortured-poets-department-fortnight-uk-number-1-chart-double/',
+            source_title: "Taylor Swift's Tortured Poets Department scores biggest UK opening week in seven years",
+            publisher: 'Official Charts Company',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Biggest UK opening week in seven years; 12th UK No. 1',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-life-of-a-showgirl-number-one-billboard-200/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Debuts at No. 1 With 4.002 Million Units",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: '15th No. 1 (Oct. 18, 2025), breaking the Jay-Z tie outright',
           },
         ],
         // T16 photo pass (2026-07-09): the chart-topping album's cover from
@@ -2396,7 +2462,13 @@ export default {
     {
       slug: 'fortnight-top-14-sweep',
       significance: 'notable', // an even bigger chart sweep than the Midnights top-10 record, on an even larger tracklist (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once'],
+      // Cross-links: the Midnights top-10 sweep it surpassed, plus the album
+      // half of the same May 4, 2024 chart week (added 2026-07-24, ledger #1305).
+      relatedIds: [
+        'moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once',
+        'moment:vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z',
+        'moment:vault-ttpd-the-tortured-poets-department',
+      ],
       year: 2024,
       month: 5,
       day: 4,
@@ -2408,7 +2480,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The May 4, 2024 chart put 32 of her songs on the Hot 100 at once. "Fortnight" — 76.2 million streams in its first week — was her 12th No. 1 and seventh to debut there, tying Ariana Grande for the most No. 1 debuts among women.\n\nShe was already the only artist to have held a full top 10; TTPD stretched the block four slots deeper.',
+          'The May 4, 2024 chart put 32 of Swift\'s songs on the Hot 100 at once — a record for a woman, breaking her own 26 (Red (Taylor\'s Version), 2021); only Morgan Wallen, with 36, has ever charted more simultaneously. At the very top she did something no act had: held all fourteen of the highest positions. Ranked by streaming rather than the album\'s running order, the block ran "Fortnight" (No. 1), "Down Bad," "I Can Do It With a Broken Heart," "The Tortured Poets Department," "So Long, London," "My Boy Only Breaks His Favorite Toys," "But Daddy I Love Him," "Florida!!!," "Who\'s Afraid of Little Old Me?," "Guilty as Sin?," "Fresh Out the Slammer," "loml," "The Alchemy" and "The Smallest Man Who Ever Lived."\n\nThe feat was the flip side of the release strategy: a surprise 31-track double album with multiple vinyl and digital variants and no advance singles, so the entire tracklist\'s streams landed in one week. It stretched a ceiling she had already raised — the Beatles held the top five in April 1964, and no one passed it until Swift swept the full top 10 with Midnights in 2022; TTPD pushed the block four slots deeper.\n\n"Fortnight," at 76.2 million first-week streams, was her 12th Hot 100 No. 1 — and, for guest Post Malone, a fifth career chart-topper but his first as a featured act. It held No. 1 for two weeks before the block collapsed: by the next chart only three TTPD songs were left in the top 10, and on May 18 Kendrick Lamar\'s "Not Like Us" took over. The full fourteen-deep lock was a Hot 100 record; on the global chart she came close but not level, holding the top nine of the Billboard Global 200 that same week.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2427,6 +2499,46 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+            source_title: "Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: '32 simultaneous entries — record for a woman, breaking her own 26; Wallen holds the all-act mark at 36',
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/music/news/taylor-swift-10-top-spots-hot-100-one-week-1235418542/',
+            source_title: 'Taylor Swift Becomes First Artist to Claim Entire Top 10 of the Hot 100',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Midnights top-10 sweep (2022) surpassed the Beatles\' April 1964 top-5 ceiling',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-post-malone-fortnight-number-one-hot-100-second-week/',
+            source_title: "Taylor Swift's 'Fortnight' Spends a Second Week at No. 1 on the Hot 100",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Two weeks at No. 1; top-14 block collapses the following week',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-post-malone-fortnight-number-one-debut-global-charts-1235669042/',
+            source_title: "Taylor Swift's 'Fortnight' Debuts at No. 1 on Billboard Global 200",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Held the top nine of the Global 200 — near-monopoly, not a full top-14',
           },
         ],
         // T16 photo pass (2026-07-09): the No. 1 single's cover art from
@@ -3109,7 +3221,7 @@ export default {
       thumbnailUrl: 'https://consequence.net/wp-content/uploads/2024/07/Munich-Hill-Eras-Concert.jpeg',
       moment: {
         context:
-          'The Olympiaberg is a man-made hill — the "Großer Schuttberg," a mound of World War II rubble piled up through the late 1940s and 1950s, then landscaped for the 1972 Munich Olympics. Rising roughly 55 metres above the park, it looks straight down into the Olympiastadion bowl — a sightline no other Eras Tour stop offered — and for the July 27–28, 2024 shows fans climbed it to watch the full three-hour production for free.\n\nEstimates of the hillside crowd varied by who was counting: Munich police put the Saturday gathering near 25,000, while media tallies ran to about 40,000, and both nights drew crowds. From the stage on Sunday — the tour\'s last German night — Swift cited the higher figure, thanking "about 50,000 beautiful people outside the stadium" alongside the roughly 74,000 inside: "whether you\'re in the stadium or outside of the stadium... we are so lucky to be here with you." German and international press covered the gathering as an event in its own right, fans nicknamed the spot "Mount Swiftie," and police called the whole affair peaceful.\n\nComparable ticketless crowds formed on high ground at other stops, but Munich\'s hillside is the largest and best-documented of the tour — the basis for the "biggest free show" framing.',
+          'The Olympiaberg is a man-made hill — the "Großer Schuttberg," a mound of World War II rubble piled up through the late 1940s and 1950s, then landscaped for the 1972 Munich Olympics. Rising roughly 55 metres above the park, it looks straight down into the Olympiastadion bowl — a sightline no other Eras Tour stop offered — and for the July 27–28, 2024 shows fans climbed it to watch the full three-hour production for free.\n\nEstimates of the hillside crowd varied by who was counting: Munich police put the Saturday gathering near 25,000, while media tallies ran to about 40,000, and both nights drew crowds. From the stage on Sunday — the tour\'s last German night — Swift cited the higher figure, thanking "about 50,000 beautiful people outside the stadium" alongside the roughly 74,000 inside: "whether you\'re in the stadium or outside of the stadium... we are so lucky to be here with you." German and international press covered the gathering as an event in its own right, fans nicknamed the spot "Mount Swiftie," and police — who had monitored it — called the whole affair peaceful. German outlets framed it as a "Hörerparty," a listening party: the view down into the bowl was nothing like a stadium seat, so people came for the sound and the atmosphere, spreading picnic blankets while the concert organizer handed out water and emergency blankets against the sun.\n\nComparable ticketless crowds formed on high ground at other stops, but Munich\'s hillside is the largest and best-documented of the tour — the basis for the "biggest free show" framing.',
         sources: [
           {
             outlet: 'Variety',
@@ -4077,7 +4189,7 @@ export default {
       ],
       moment: {
         context:
-          'Announced from the Grammy stage on Feb. 4, 2024 — she revealed the April 19 release date while accepting Best Pop Vocal Album for Midnights and unveiled the cover on the podium — TTPD arrived as a surprise double album. Sixteen standard tracks dropped at midnight ET; two hours later, at 2 a.m. ET, fifteen more appeared as "The Tortured Poets Department: The Anthology," 31 songs in all.\n\nJack Antonoff and Aaron Dessner produced it alongside Swift — the two collaborators who defined the folklore-through-Midnights run — and it carries two features: Post Malone on the lead single "Fortnight" and Florence + the Machine on "Florida!!!." Four collectible deluxe editions each carried a different bonus track — "The Manuscript," "The Bolter," "The Albatross" and "The Black Dog" — before all four were folded into the Anthology.\n\nThe title is widely linked to a "Tortured Man Club" group chat Joe Alwyn shared with actors Paul Mescal and Andrew Scott (Alwyn confirmed the chat in a 2022 interview; Swift has never named it as the source). It opened to 2.61 million first-week units in the U.S. — her 14th No. 1 on the Billboard 200, tying Jay-Z for the most chart-toppers among soloists — and was Spotify\'s most-streamed album in a single day. Reviews were admiring but split (Metacritic 76): critics praised the cathartic writing while calling the 31-track sprawl overlong.\n\nIt set records well past the first week: the first album in Spotify history to pass one billion streams in a single week, after also taking the single-day album and single-day song ("Fortnight") records on April 19 — and it monopolized all top 14 of the Billboard Hot 100, a first for any artist. Live, the album reshaped the Eras Tour: the May 9, 2024 European opener at Paris La Défense Arena debuted a new act Swift nicknamed "Female Rage: The Musical," folding in seven TTPD songs — among them "Fortnight," "But Daddy I Love Him," "Down Bad," "So High School" and "I Can Do It With a Broken Heart" — and trimming older cuts to fit. Awards ran hot then cold: "Fortnight" won Video of the Year and Best Collaboration in a seven-VMA night in 2024, but at the 67th Grammys (Feb. 2, 2025) TTPD drew Swift a record seventh Album of the Year nomination and a Best Pop Vocal Album nod and won neither — AOTY went to Beyoncé\'s Cowboy Carter, Best Pop Vocal Album to Sabrina Carpenter.',
+          'Announced from the Grammy stage on Feb. 4, 2024 — she revealed the April 19 release date while accepting Best Pop Vocal Album for Midnights and unveiled the cover on the podium — TTPD arrived as a surprise double album. Sixteen standard tracks dropped at midnight ET; two hours later, at 2 a.m. ET, fifteen more appeared as "The Tortured Poets Department: The Anthology," 31 songs in all.\n\nJack Antonoff and Aaron Dessner produced it alongside Swift — the two collaborators who defined the folklore-through-Midnights run — splitting the work almost by half: Antonoff led the standard sixteen tracks, Dessner the fifteen-song Anthology, whose hushed folk cuts ("How Did It End?," "The Albatross," "The Black Dog") are largely his. It carries two features: Post Malone on the lead single "Fortnight" and Florence + the Machine on "Florida!!!." Four collectible deluxe editions each carried a different bonus track — "The Manuscript," "The Bolter," "The Albatross" and "The Black Dog" — before all four were folded into the Anthology.\n\nThe title is widely linked to a "Tortured Man Club" group chat Joe Alwyn shared with actors Paul Mescal and Andrew Scott (Alwyn confirmed the chat in a 2022 interview; Swift has never named it as the source). It opened to 2.61 million first-week units in the U.S. — her 14th No. 1 on the Billboard 200, tying Jay-Z for the most chart-toppers among soloists — and was Spotify\'s most-streamed album in a single day. Reviews were admiring but split (Metacritic 76): critics praised the cathartic writing while calling the 31-track sprawl overlong.\n\nIt set records well past the first week: the first album in Spotify history to pass one billion streams in a single week, after also taking the single-day album and single-day song ("Fortnight") records on April 19 — and it monopolized all top 14 of the Billboard Hot 100, a first for any artist. Live, the album reshaped the Eras Tour: the May 9, 2024 European opener at Paris La Défense Arena debuted a new act Swift nicknamed "Female Rage: The Musical," folding in seven TTPD songs — among them "Fortnight," "But Daddy I Love Him," "Down Bad," "So High School" and "I Can Do It With a Broken Heart" — and trimming older cuts to fit. Awards ran hot then cold: "Fortnight" won Video of the Year and Best Collaboration in a seven-VMA night in 2024, but at the 67th Grammys (Feb. 2, 2025) TTPD drew Swift a record seventh Album of the Year nomination and a Best Pop Vocal Album nod and won neither — AOTY went to Beyoncé\'s Cowboy Carter, Best Pop Vocal Album to Sabrina Carpenter.',
         sources: [
           {
             outlet: 'Variety',
@@ -4164,6 +4276,16 @@ export default {
             accessed_at: '2026-07-24',
             reliability_score: 4,
             notes: '67th Grammys: TTPD 0 wins; AOTY to Cowboy Carter, Best Pop Vocal Album to Sabrina Carpenter',
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swifts-the-tortured-poets-department-here-are-the-full-album-credits-3619931',
+            source_title: "Taylor Swift's 'The Tortured Poets Department': here are the full album credits",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Producer split: Antonoff-led standard 16, Dessner-led Anthology 15',
           },
         ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
