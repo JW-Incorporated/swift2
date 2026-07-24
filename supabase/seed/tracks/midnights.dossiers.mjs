@@ -61,5 +61,121 @@ export default {
         url: "https://en.wikipedia.org/wiki/Anti-Hero_(song)#Commercial_performance"
       }
     ]
+  },
+  // Depth pass (2026-07-24, Answerer shard 6): cross-link connections answering
+  // the "cross-links" deficit on ledgers #1358 (labyrinth), #1372 (midnight-rain),
+  // #1411 (the-great-war), #1422 (lavender-haze), #1444 (maroon), #1401 (paris).
+  // The prose depth for each lives in the track's `summary`/`sources` in
+  // midnights.mjs; these dossiers carry the resolvable song:/moment: rails.
+  // Every id is asserted to resolve by apps/web/lib/longlive/tracks.test.ts.
+  'labyrinth': {
+    connections: [
+      {
+        relatedId: "song:this-is-me-trying",
+        label: "this is me trying",
+        why: "The folklore track Swift fused with Labyrinth into a single piano mashup in Gelsenkirchen (July 18, 2024) — one hook flowing into 'I just wanted you to know I'm falling in love again.'"
+      },
+      {
+        relatedId: "song:state-of-grace",
+        label: "State of Grace",
+        why: "The Red song she mashed with Labyrinth on piano in Toronto (Nov. 21, 2024) — the other of its two surprise-song pairings."
+      },
+      {
+        relatedId: "song:youre-on-your-own-kid",
+        label: "You're on Your Own, Kid",
+        why: "Its Midnights sibling in fragile hope after damage — talking yourself through the fear toward the next step."
+      }
+    ]
+  },
+  'midnight-rain': {
+    connections: [
+      {
+        relatedId: "song:labyrinth",
+        label: "Labyrinth",
+        why: "The album's two pitched-down-vocal experiments — Labyrinth drops Swift's voice near the end; Midnight Rain runs the whole hook an octave low."
+      },
+      {
+        relatedId: "moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once",
+        label: "Every spot in the Hot 100 top 10, all at once",
+        why: "Midnight Rain debuted at No. 5 in the week Swift became the first artist to hold the chart's entire top 10."
+      }
+    ]
+  },
+  'the-great-war': {
+    connections: [
+      {
+        relatedId: "song:high-infidelity",
+        label: "High Infidelity",
+        why: "The album's only other core Aaron Dessner co-write — the pair of folk-rock imports on an otherwise Antonoff-built synth-pop record."
+      },
+      {
+        relatedId: "song:wouldve-couldve-shouldve",
+        label: "Would've, Could've, Should've",
+        why: "The third Dessner collaboration on the 3am Edition, sharing the same acoustic, folklore/evermore lineage."
+      }
+    ]
+  },
+  'lavender-haze': {
+    connections: [
+      {
+        relatedId: "song:anti-hero",
+        label: "Anti-Hero",
+        why: "The song that kept Lavender Haze at No. 2 — Anti-Hero held the No. 1 the same record-setting chart week."
+      },
+      {
+        relatedId: "moment:vault-midnights-every-spot-in-the-hot-100-top-10-all-at-once",
+        label: "Every spot in the Hot 100 top 10, all at once",
+        why: "Lavender Haze was the No. 2 record in the week Swift filled the entire Hot 100 top 10."
+      }
+    ]
+  },
+  'maroon': {
+    connections: [
+      {
+        relatedId: "song:red",
+        label: "Red",
+        why: "The song fans read Maroon as the grown-up echo of — the same color pushed darker and drier a decade on."
+      },
+      {
+        relatedId: "song:cornelia-street",
+        label: "Cornelia Street",
+        why: "Its most-repeated Eras Tour surprise pairing — the two New York almost-loves mashed together on piano at Anfield's 100th show (June 13, 2024)."
+      },
+      {
+        relatedId: "song:cowboy-like-me",
+        label: "Cowboy Like Me",
+        why: "The Indianapolis surprise-song mashup partner (Nov. 2, 2024)."
+      }
+    ]
+  },
+  'paris': {
+    connections: [
+      {
+        relatedId: "song:sweet-nothing",
+        label: "Sweet Nothing",
+        why: "The album's other portrait of love as a private refuge that shuts out the industry noise."
+      }
+    ]
+  },
+  // Depth pass (ledger #1447): High Infidelity's cross-link rail — its Dessner
+  // siblings and the infidelity/exit-song lineage a named critic drew.
+  'high-infidelity': {
+    connections: [
+      {
+        relatedId: "song:wouldve-couldve-shouldve",
+        label: "Would've, Could've, Should've",
+        why: "The album's only other core Aaron Dessner co-write — the two folk-lineage tracks he brought to a synth-pop record."
+      },
+      {
+        relatedId: "song:the-great-war",
+        label: "The Great War",
+        why: "The 3am Edition's other Swift–Dessner collaboration, sharing its acoustic-turned-electronic Dessner fingerprints."
+      },
+      {
+        relatedId: "song:illicit-affairs",
+        label: "illicit affairs",
+        why: "Business Insider's Courteney Larocca paired the two — both detail the inevitable end of an ill-fated affair."
+      }
+    ]
   }
 };

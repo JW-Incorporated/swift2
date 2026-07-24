@@ -45,7 +45,7 @@ const ERA = {
       singleReleaseDate: '2023-01-27',
       note: 'Named for 1950s slang for being in love that she heard on Mad Men — an opener about protecting a relationship from the marriage-plot press cycle.',
       summary:
-        'Staying inside the glow and ignoring the questions: she confirmed the song is about deflecting constant engagement speculation and tabloid scrutiny to keep the real thing intact. Zoë Kravitz’s co-write is the era’s celebrity-friend credit — she added sonic embellishments to a groove Sounwave and Jack Antonoff built from Braxton Cook’s wordless vocal coos, with Sam Dew shaping the melodies. As the album opener it went to pop radio on Nov. 29, 2022 and peaked at No. 2 on the Hot 100 — kept off the top only by her own “Anti-Hero” during the week she swept the chart’s entire top 10 — and reached No. 5 on Pop Airplay. Swift wrote and directed the music video herself, a “sultry sleepless ’70s fever dream” that premiered Jan. 27, 2023 and cast trans model and activist Laith Ashley as her love interest, drawing praise for its inclusive casting. It opened the Midnights act of the Eras Tour across the tour’s run. Critics were warm: Rolling Stone’s Brittany Spanos called the production “restrained and muted,” and NPR’s Ann Powers likened its layered vocals and synth drums to Whitney Houston.',
+        'Staying inside the glow and ignoring the questions: she confirmed the song is about deflecting constant engagement speculation and tabloid scrutiny to keep the real thing intact. Zoë Kravitz’s co-write is the era’s celebrity-friend credit — she added sonic embellishments to a groove Sounwave and Jack Antonoff built from Braxton Cook’s wordless vocal coos, with Sam Dew shaping the melodies. As the album opener it went to pop radio on Nov. 29, 2022 and peaked at No. 2 on the Hot 100 — kept off the top only by her own “Anti-Hero” during the week she swept the chart’s entire top 10 — and reached No. 5 on Pop Airplay. Swift wrote and directed the music video herself, a “sultry sleepless ’70s fever dream” that premiered Jan. 27, 2023 and cast trans model and activist Laith Ashley as her love interest, drawing praise for its inclusive casting — GLAAD called it “so incredible” to see an out trans man co-star, and Ashley publicly thanked Swift (“Thank you for being an ally. Representation matters”). It opened the Midnights act of the Eras Tour across the tour’s run, surviving the May 2024 Paris setlist overhaul that folded in TTPD material. Critics were warm: Rolling Stone’s Brittany Spanos called the production “restrained and muted,” and NPR’s Ann Powers likened its layered vocals and synth drums to Whitney Houston. It spawned an official “Lavender Haze (Remixes)” EP (Felix Jaehn, Tensnake, Snakehips and Jungle, March 3, 2023) plus an acoustic version, peaked at No. 2 on the Billboard Global 200 — the first time an artist held that chart’s entire top five in a single week — and is certified Platinum by the BPI, 4× Platinum in Australia, and Platinum in Canada, Brazil, Mexico and New Zealand.',
       inspiration:
         'Confirmed: Swift explained the Mad Men origin of the phrase and the guarding-the-relationship meaning in her own announcement video.',
       themes: ['protecting love from scrutiny', 'refusing the marriage plot', 'the glow'],
@@ -79,13 +79,36 @@ const ERA = {
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The grown-up sequel to Red in the fans’ color theory — the same shade, darker, drier, and stained into everything.',
       summary:
-        'A New York almost-love remembered through its palette: spilled wine, rust, scarlet — deeper colors for a deeper cut. Fans canonized it instantly as Red’s older sibling.',
+        'A New York almost-love remembered through its palette — spilled wine, rust, scarlet, deeper colors for a deeper cut. Critics read the lyric as a relationship told through deepening reds (the pink of cheap rosé, the burgundy of a wine stain, the maroon of what remains), several hearing the “rust that grew between telephones” as a long-distance love that dissolved from silence. Written and produced by Swift and Jack Antonoff, it was cut at Rough Customer (Brooklyn) and Electric Lady (New York), mixed by Serban Ghenea with Bryce Bordone and mastered by Randy Merrill; a single sustained note from an EBow-played guitar oscillates under a reverb-thick, layered-vocal ballad critics filed as dream/synth-pop. It debuted and peaked at No. 3 on the Hot 100 (dated Nov. 5, 2022) — behind “Anti-Hero” and “Lavender Haze” in the week Swift became the first artist to hold the chart’s entire top 10 — reached No. 4 on the Global 200, and is certified Platinum in Australia, Brazil, Canada and New Zealand and Gold in the UK. It was never in the Eras Tour’s regular set: it surfaced only as a surprise song, performed ten times — four solo piano renditions and six mashups, among them a “Cornelia Street” × “Maroon” piano blend at Liverpool’s Anfield on the tour’s 100th show (June 13, 2024) and a “Cowboy Like Me” pairing in Indianapolis (Nov. 2, 2024). It was among the album’s best-reviewed tracks — Rolling Stone called it a “gorgeous ballad” (Rob Sheffield ranked it No. 25 among all her songs) and The Guardian “superb.” No official music video exists, only a lyric video.',
       inspiration: null,
       themes: ['color-coded memory', 'adult heartbreak', 'what lingers'],
       easterEggs:
-        'The red-to-maroon progression is the fandom’s favorite proof of the catalog aging in real time with her.',
+        'The red-to-maroon progression is the fandom’s favorite proof of the catalog aging in real time with her — a fan/press color-theory reading Swift has never confirmed as an intentional sequel to “Red.”',
       sourceUrl: 'https://en.wikipedia.org/wiki/Maroon_(song)',
-      sources: [wiki('Maroon (song)', 'Maroon_(song)', 'song article: reception'), ALBUM],
+      sources: [
+        wiki('Maroon (song)', 'Maroon_(song)', 'song article: credits, charts, reception, live history'),
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
+          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'chart: “Maroon” debut/peak No. 3 within the all-top-10 sweep',
+        },
+        {
+          source_url:
+            'https://au.rollingstone.com/music/music-lists/taylor-swift-all-247-songs-ranked-58660/maroon-2022-3-58985',
+          source_title: "Rob Sheffield ranks Taylor Swift's songs: 'Maroon'",
+          publisher: 'Rolling Stone Australia',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'reception: “gorgeous ballad,” ranked No. 25',
+        },
+        ALBUM,
+      ],
     },
     {
       slug: 'anti-hero',
@@ -208,12 +231,33 @@ const ERA = {
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The pitched-down voice that startled everyone on first listen — a sunshine boy, a storm girl, and the ambition that chose for her.',
       summary:
-        'He wanted comfortable and settled; she wanted the whole loud world. A breakup with no villain, revisited from hotel rooms years later with mild, unresolved wondering.',
+        'He wanted comfortable and settled; she wanted the whole loud world — a breakup with no villain, revisited from hotel rooms years later with mild, unresolved wondering. Swift only ever revealed the title (on “Midnights Mayhem With Me”) and never explained the song, so that ambition-versus-comfort read is the popular one, not a confirmed statement. Its signature is the startling low, pitched-down hook: Jack Antonoff modulated Swift’s own vocal down roughly an octave using the Soundtoys and iZotope VocalSynth plug-ins — by his account the first time he had reached for such devices — cut with engineer Laura Sisk at Rough Customer (Brooklyn) and Electric Lady (New York). Never released as a single, it still debuted and peaked at No. 5 on the Hot 100 (dated Nov. 5, 2022) as one of the ten Midnights tracks that seized the chart’s entire top 10 at once, and reached No. 5 on the Global 200 and No. 7 on the UK Audio Streaming chart. On the Eras Tour it ran in the main Midnights act — the silver-shirt-to-rhinestone-bodysuit number — rather than as an acoustic surprise song. Reception split on the vocal effect: Billboard’s Jason Lipshutz ranked it fifth-best on the album and called the shifted hook “rock-solid,” while critics at Spin, Slant and Consequence heard the pitched processing as dated.',
       inspiration: null,
       themes: ['ambition versus comfort', 'diverging paths', 'the one who wanted quiet'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Midnight_Rain',
       sources: [
-        wiki('Midnight Rain', 'Midnight_Rain', 'song article: production and reception'),
+        wiki('Midnight Rain', 'Midnight_Rain', 'song article: production credits, chart peaks, reception'),
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
+          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'chart: “Midnight Rain” debut/peak No. 5 within the all-top-10 sweep',
+        },
+        {
+          source_url:
+            'https://www.musicradar.com/news/jack-antonoff-interview-taylor-swift-midnights-oberheim',
+          source_title:
+            "Jack Antonoff on vintage gear, analogue synths and making Taylor Swift's 'Midnights'",
+          publisher: 'MusicRadar',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'production: Antonoff on the Soundtoys / iZotope VocalSynth vocal processing',
+        },
         ALBUM,
       ],
     },
@@ -293,7 +337,7 @@ const ERA = {
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The weightless one — falling in love again mid-heartbreak and being terrified of the elevator drop.',
       summary:
-        'Breath held in an emotional stairwell: she talks herself through panic as new feelings arrive faster than the old damage healed. Antonoff’s production floats for two-thirds on dense synths and almost no percussion before a beat suddenly drops in, her vocal pitched down near the end. It debuted at No. 14 on the Hot 100 the week Swift became the first artist to hold the chart’s entire top 10 (dated Nov. 5, 2022) and reached No. 12 on the Global 200; critics filed it as a quiet grower — Rolling Stone’s Rob Sheffield called it a “stealth classic,” while a handful — Spin, The Times, and NPR’s Ann Powers — found its pitched, processed vocals dated. Long a fan favorite left off the setlist, it finally arrived as a standalone Eras Tour surprise song in Buenos Aires (Nov. 9, 2023), then returned on piano as mashups — with “this is me trying” in Gelsenkirchen (July 18, 2024) and “State of Grace” in Toronto (Nov. 21, 2024).',
+        'Breath held in an emotional stairwell: she talks herself through panic as new feelings arrive faster than the old damage healed. Antonoff’s production floats for two-thirds on dense synths and almost no percussion before a beat suddenly drops in, her vocal pitched down near the end. It debuted at No. 14 on the Hot 100 the week Swift became the first artist to hold the chart’s entire top 10 (dated Nov. 5, 2022) and reached No. 12 on the Global 200; critics filed it as a quiet grower — Rolling Stone’s Rob Sheffield called it a “stealth classic,” while a handful — Spin, The Times, and NPR’s Ann Powers — found its pitched, processed vocals dated. Long a fan favorite left off the setlist, it finally arrived as a standalone piano surprise song in Buenos Aires (Nov. 9, 2023), then returned — always on piano — as second-surprise-song mashups: with “this is me trying” in Gelsenkirchen (July 18, 2024), where she fused both hooks into “I just wanted you to know I’m falling in love again,” and with “State of Grace” in Toronto (Nov. 21, 2024). All three of its live outings were on piano.',
       inspiration:
         'Swift revealed only the title on “Midnights Mayhem With Me” and never explained the song; the closest self-sourced thread is the “breathe in, breathe through, breathe deep, breathe out” line, a near-verbatim lift from her 2022 NYU commencement address (“we will breathe in, breathe through, breathe deep, breathe out”). The widely repeated falling-in-love-again-after-heartbreak reading is critics’ interpretation, not a confirmed statement.',
       themes: ['falling again', 'fear after loss', 'gentleness with oneself'],
@@ -437,11 +481,52 @@ const ERA = {
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The 3am Edition’s WWI-imagery centerpiece — a relationship’s worst fight survived, with poppies planted over the trench afterward.',
       summary:
-        'Old wounds make her swing at someone innocent; the battle nearly ends them, and the vow that closes it is to never fight like that again. Trench warfare as couples therapy.',
+        'Old wounds make her swing at someone innocent; the battle nearly ends them, and the vow that closes it is to never fight like that again — trench warfare as couples therapy. Swift has never named a real-life subject, so that read is lyric interpretation, not a confirmed statement; the closing image is grounded in genuine remembrance symbolism, the red poppy that grew across the Western Front and is worn each Remembrance Day. It is one of three Aaron Dessner co-writes tucked onto the 3am Edition (with “High Infidelity” and “Would’ve, Could’ve, Should’ve”), and its folk-rock build — Dessner on keys, synth bass and electric guitar, James McAlister and Thomas Bartlett (Doveman) on percussion and piano, Kyle Resnick’s trumpet and Yuki Numata Resnick’s violin behind a martial drum climb — imports his folklore/evermore texture onto an otherwise Antonoff-built synth-pop record. It debuted and peaked at No. 26 on the Hot 100 (dated Nov. 5, 2022) as one of the ten Midnights tracks to fill the chart’s entire top 10 at once. Its live debut was an Eras Tour surprise song at Tampa’s Raymond James Stadium (April 14, 2023), where Swift brought Dessner out to play it with her — “the collaborator version of a soulmate.” Rolling Stone’s Rob Sheffield singled it out as “one of the stellar Aaron Dessner collaborations tucked away on the Midnights 3 A.M. Edition… a tribute to the type of lover who can help rescue you from your own destructive instincts.”',
       inspiration: null,
       themes: ['conflict and repair', 'fighting your own scars', 'armistice'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Midnights',
-      sources: [ALBUM],
+      sources: [
+        {
+          source_url: 'https://www.songfacts.com/facts/taylor-swift/the-great-war',
+          source_title: 'The Great War by Taylor Swift',
+          publisher: 'Songfacts',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 3,
+          notes: 'production/instrumentation credits; WWI poppy symbolism; Tampa live debut',
+        },
+        {
+          source_url:
+            'https://www.rollingstone.com/music/music-news/taylor-swift-aaron-dessner-live-debut-the-great-war-tampa-bay-1234715619/',
+          source_title: "Taylor Swift, Aaron Dessner Perform 'The Great War' at Tampa Bay Shows",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'live history: April 14, 2023 Eras Tour surprise debut with Dessner onstage',
+        },
+        {
+          source_url:
+            'https://au.rollingstone.com/music/music-lists/-84697/the-great-war-2022-4-84964/',
+          source_title: "Rob Sheffield ranks Taylor Swift's songs: 'The Great War'",
+          publisher: 'Rolling Stone Australia',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'reception: Sheffield on the Dessner collaboration',
+        },
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
+          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'chart: “The Great War” No. 26 within the all-top-10 sweep',
+        },
+        ALBUM,
+      ],
     },
     {
       slug: 'bigger-than-the-whole-sky',
@@ -481,11 +566,42 @@ const ERA = {
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The 3am bonus about being so in love the room becomes another city — privacy as the actual romance.',
       summary:
-        'No trip involved: two people draw the blinds, ignore the gossip cycle, and pretend the bedroom is Paris. Escapism as a couple’s inside joke.',
+        'No trip involved: two people draw the blinds, ignore the gossip cycle, and pretend the bedroom is Paris — escapism as a couple’s inside joke. Swift never explained the song on the record, so that bedroom-as-Paris reading is critic-and-fan interpretation, not a confirmed statement. Musically it is one of the brighter, more retro cuts among the moodier 3am material, written and produced with Jack Antonoff in the album’s minimalist synth-pop palette. It debuted and peaked at No. 32 on the Hot 100 (dated Nov. 5, 2022), one of the lower-charting 3am bonus tracks in the week the standard album swept the top 10. PopMatters called it “a solid pop output more in line with earlier Swift albums” that “would seem like a step back had it been included in the more mature, darker Midnights.” Fittingly, its live debut came in Paris: an acoustic guitar surprise song at Paris La Défense Arena on May 9, 2024 — the tour’s first show after The Tortured Poets Department — and three nights later, on May 12, she laced elements of “Paris” into a piano rendition of “Begin Again” at the same venue. Its only official visual is a lyric video; no music video was made.',
       inspiration: null,
       themes: ['love as elsewhere', 'shutting out the noise', 'giddy secrecy'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Midnights',
-      sources: [ALBUM],
+      sources: [
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
+          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'chart: “Paris” debut/peak No. 32 among the 3am Edition tracks',
+        },
+        {
+          source_url: 'https://www.popmatters.com/taylor-swift-midnights-review',
+          source_title: "Taylor Swift Mines Intrusive Thoughts For Pop Artistry on 'Midnights'",
+          publisher: 'PopMatters',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'reception: the “step back”/earlier-Swift framing',
+        },
+        {
+          source_url:
+            'https://www.setlist.fm/setlist/taylor-swift/2024/paris-la-defense-arena-nanterre-france-6baa46ba.html',
+          source_title: 'Taylor Swift Setlist, Paris La Défense Arena, May 9, 2024',
+          publisher: 'setlist.fm',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 3,
+          notes: 'live history: “Paris” surprise-song debut on guitar, in Paris',
+        },
+        ALBUM,
+      ],
     },
     {
       slug: 'high-infidelity',
@@ -498,19 +614,49 @@ const ERA = {
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The 3am track with the date stamp that sent the fandom to the archives — April 29 is in the lyric, and the timeline detectives never recovered.',
       summary:
-        'A narrator inside a cold relationship keeps one foot out the door and eventually uses it — infidelity framed as symptom rather than sin. The specific date planted in the chorus is the most clue-shaped lyric she has ever written.',
+        'A narrator inside a cold relationship keeps one foot out the door and eventually uses it — infidelity framed as symptom rather than sin, with the most clue-shaped lyric she has ever written planted in the chorus. It is one of only two core Aaron Dessner co-writes on Midnights (with “Would’ve, Could’ve, Should’ve”), but where his folklore/evermore work leaned acoustic, here he goes electronic and programmed — USA Today caught the “blipping keyboards” over the synths. As a 3am bonus cut it debuted and peaked at No. 33 on the Hot 100 (dated Nov. 5, 2022) in the all-top-10 week, reaching No. 31 on the Global 200 and No. 28 in Canada. It has been played live only twice: a solo acoustic surprise-song debut in Atlanta on April 29, 2023 — where she ad-libbed “Do you really wanna know where I was April 29th? Atlanta, Georgia” — and a piano mashup with “Fresh Out the Slammer” in Lisbon (May 24, 2024). Business Insider’s Callie Ahlgrim praised its “wit and sensitivity”; the title’s play on “high fidelity” (audio faithfulness versus romantic faithlessness) is a critics’/fan reading — Rolling Stone’s Rob Sheffield tied it to Elvis Costello’s 1980 “High Fidelity” — not a confirmed pun.',
       inspiration:
         'The April 29 reference launched extensively documented fan timeline analysis against her public chronology; Swift has confirmed nothing.',
       themes: ['emotional cold war', 'exit strategies', 'guilt and self-defense'],
       fanLore:
-        'Fan reading (unconfirmed): the April 29 cross-referencing project — a signature piece of Swiftie forensics.',
+        'Fan reading (unconfirmed): the April 29 cross-referencing project — a signature piece of Swiftie forensics, kept here as labeled speculation, never a stated fact.',
       sourceUrl: 'https://en.wikipedia.org/wiki/High_Infidelity_(song)',
       sources: [
         wiki(
           'High Infidelity (song)',
           'High_Infidelity_(song)',
-          'song article: lyric speculation coverage',
+          'song article: Dessner production credits, charts, live history, reception',
         ),
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-charts-20-midnights-tracks-billboard-hot-100-1235163740/',
+          source_title: "Taylor Swift Charts All 20 Songs From 'Midnights' on Billboard Hot 100",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'chart: “High Infidelity” debut/peak No. 33 among the 3am Edition tracks',
+        },
+        {
+          source_url:
+            'https://www.businessinsider.com/taylor-swift-midnights-bonus-tracks-3am-version-album-review-breakdown-2022-10',
+          source_title: "Taylor Swift's 8 bonus tracks contain some of her best songwriting ever",
+          publisher: 'Business Insider',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'reception: Callie Ahlgrim on the song’s “wit and sensitivity”',
+        },
+        {
+          source_url:
+            'https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/',
+          source_title: "Taylor Swift's Eras Tour: Every Surprise Song She's Played",
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'live history: the Atlanta (Apr 29 2023) debut and Lisbon (May 24 2024) mashup',
+        },
         ALBUM,
       ],
     },
