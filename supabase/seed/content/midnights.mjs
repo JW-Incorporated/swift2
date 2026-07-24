@@ -3047,7 +3047,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The series started Sept. 21, 2022, with episodes dropping at midnight ET — cat Meredith cameoed in episode 2, and the remaining titles were released an hour apart through the night of Oct. 7.\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, chance decided which track title she revealed next.',
+          'The series started Sept. 21, 2022, with episodes dropping at midnight ET. The mechanic was pure chance: thirteen numbered ping-pong balls (1–13) tumbled in a golden bingo cage, and each episode Swift drew one, read the number, then announced that track\'s title into a red retro rotary phone. The very first ball drawn was No. 13 — "Track 13 because of course," she smiled — revealing the album\'s closer, "Mastermind." Episode 2, on Sept. 23, drew track 8, "Vigilante Shit" — the first Taylor Swift song title to carry profanity — with her cat Meredith Grey cameoing on camera. Reveals continued roughly one per episode (track 7 "Question...?," track 2 "Maroon," track 6 "Midnight Rain," track 3 "Anti-Hero," which she called one of her favorite songs she has ever written, and track 4 "Snow on the Beach," where she confirmed the Lana Del Rey feature) before a middle-of-the-night finale blitz on Oct. 7 released the remaining titles an hour apart through the night to complete the 13-track list.\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, chance decided which title she revealed next — a deliberately un-cryptic rollout for an album whose whole conceit was the unguarded 3 a.m. confession.',
         sources: [
           {
             outlet: 'Elite Daily',
@@ -3056,6 +3056,27 @@ export default {
             publisher: 'Elite Daily',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 3,
+          },
+          // Depth pass (ledger #1293, 2026-07-24): the first-ball "Mastermind"
+          // reveal and the ping-pong-ball/rotary-phone mechanic; per-episode
+          // reveal order.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-midnights-song-title-track-13-mastermind-1235142141/',
+            source_title: "Taylor Swift Reveals First 'Midnights' Song Title: 'Mastermind'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'iHeartRadio',
+            url: 'https://www.iheart.com/content/2022-09-26-every-midnights-track-taylor-swift-has-revealed-so-far/',
+            source_title: "Every 'Midnights' Track Taylor Swift Has Revealed So Far",
+            publisher: 'iHeartRadio',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 3,
           },
           {
@@ -4356,9 +4377,67 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-1", label: "Midnights released", kind: "album" },
+      // Cross-links (ledger #1269, 2026-07-24): the rollout reveal, the 3am
+      // surprise, the top-ten sweep, and the Grammy payoff this album won.
+      relatedIds: [
+        'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
+        'moment:vault-midnights-the-3am-edition-surprise',
+        'moment:vault-midnights-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
+        'moment:vault-midnights-every-top-ten-slot-at-once',
+      ],
       snippet: "A return to pop as a diary of midnights across her life.",
       moment: {
-        context: "Midnights framed itself as thirteen sleepless nights, blending retro-glam synths with confessional diary entries.",
+        context:
+          'Announced at the Aug. 28, 2022 MTV VMAs — minutes after she won Video of the Year for the "All Too Well" short film — under a "Meet Me At Midnight" tagline, Swift called the album "the stories of 13 sleepless nights scattered throughout my life." She built it almost entirely with Jack Antonoff, who co-wrote 11 of the 13 tracks, with additional production from Sounwave, Jahaan Sweet and Keanu Beats; the surprise "3am Edition" added seven more songs, several co-produced by Aaron Dessner. Its retro-glam synth-pop swapped the folklore/evermore woods for a 1970s bedroom-diary mood, and Beth Garrabrant — her cover photographer since folklore — shot the lighter-flame cover on film. The album\'s lone standard-edition guest is Lana Del Rey on "Snow on the Beach," later reissued as a "feat. More Lana Del Rey" mix after fans wanted her louder. Four collectible vinyl variants — Moonstone Blue, Jade Green, Mahogany and Blood Moon — were designed so their back covers assemble into a clock face. Critics received it warmly (Metacritic 85; Pitchfork 7.0), and it rewrote records: the first album to hold all ten of the Hot 100\'s top spots at once, and, at the 2024 Grammys, Album of the Year — Swift\'s record fourth, more than any artist in history.',
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Midnights',
+            source_title: 'Midnights',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
+            source_title: 'Taylor Swift Makes History as First Artist to Claim Entire Top 10 of the Hot 100',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-reveals-collectable-editions-of-midnights-on-cd-and-vinyl-3303014',
+            source_title: "Taylor Swift reveals collectable editions of 'Midnights' on CD and vinyl",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'GRAMMY.com',
+            url: 'https://www.grammy.com/news/taylor-swift-album-of-the-year-2024-grammys-speech',
+            source_title: 'Taylor Swift Wins Album Of The Year For Midnights At The 2024 GRAMMYs',
+            publisher: 'The Recording Academy',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+        ],
+        // Depth pass (ledger #1269, 2026-07-24): the album cover is the exact
+        // subject of the release page; Wikipedia's stable copy, verified this
+        // session HTTP 200 + image/png (the same file already vetted in-repo).
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/en/9/9f/Midnights_-_Taylor_Swift.png',
+            credit: 'Republic Records',
+            caption: 'The lighter-flame cover, shot on film by Beth Garrabrant — the album released Oct. 21, 2022.',
+            kind: 'archival',
+          },
+        ],
       },
     },
     {
@@ -4462,19 +4541,54 @@ export default {
       slug: 'prop-wsj-confirm',
       year: 2023,
       month: 11,
-      day: 1,
+      // Date corrected 2026-07-24 (ledger #1280, Q2): the WSJ. Magazine
+      // interview published Nov. 20, 2023 (CNN/TODAY/NBC all dated Nov. 20;
+      // print was the Dec/Jan cover). Was 2023-11-01, which mis-sorted it
+      // BEFORE the Nov. 11 Buenos Aires on-stage acknowledgment; verified
+      // against TODAY and The Philadelphia Inquirer before changing the field.
+      day: 20,
       category: 'relationship',
       threadIds: ['the-proposal'],
+      // Cross-links (ledger #1280, Q6): the friendship-bracelet origin beat it
+      // retells, and her Nov. 11 on-stage acknowledgment it followed.
+      relatedIds: [
+        'moment:vault-midnights-the-friendship-bracelet-travis-couldnt-deliver',
+        'moment:vault-midnights-karma-is-the-guy-on-the-chiefs-sung-with-travis-watching',
+      ],
       title: 'Travis confirms it, on the record',
-      snippet: 'After weeks of stadium-suite appearances, Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
+      snippet: 'In a Nov. 20, 2023 WSJ. Magazine cover story, Travis gave his first extended sit-down about the relationship — retelling the failed friendship-bracelet meet-cute and speaking candidly about the scrutiny that came with dating her.',
       sourceUrl: 'https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac',
       thumbnailUrl: 'https://wsjshop.com/cdn/shop/files/WSJmag120923_1024x1024@2x.jpg?v=1702301778',
       moment: {
-        context: 'After weeks of stadium-suite appearances (including an October trip to MetLife Stadium for a Chiefs-Jets game), Travis confirmed the relationship on the record in a WSJ. Magazine interview — the first time either side spoke to it directly rather than letting the sightings speak for themselves.',
+        context:
+          'Published Nov. 20, 2023 as WSJ. Magazine\'s December cover story — written by Pulitzer winner J.R. Moehringer, fresh off ghost-writing Prince Harry\'s memoir — this was Travis\'s first extended sit-down about the relationship, not his first word on it: he had already told the bracelet story on his New Heights podcast that July. He recapped how it began, saying he had "somebody playing Cupid" after failing to hand her a friendship bracelet at her Kansas City Eras show, and that she "told me exactly what was going on and how I got lucky enough to get her to reach out." Of their first New York dinner: "We had already kind of been talking, so I knew we could have a nice dinner and, like, a conversation." He put it plainly — "I\'ve never dated anyone with that kind of aura about them" — and spoke to the scrutiny it brought: "The scrutiny she gets, how much she has a magnifying glass on her, every single day, paparazzi outside her house... she\'s just living, enjoying life. When she acts like that I better not be the one acting all strange." Photographed by Gregory Harris for the cover, the interview was picked up within hours by CNN, TODAY and NBC News. It landed nine days after her own on-stage acknowledgment — the Nov. 11 "Karma is the guy on the Chiefs" line in Buenos Aires — so the print confirmation followed her public one, not the other way around.',
         sources: [
           {
             outlet: 'WSJ. Magazine',
             url: 'https://www.wsj.com/style/travis-kelce-interview-taylor-swift-chiefs-9d7943ac',
+            source_title: 'How Travis Kelce Manifested the Best Year of His Life',
+            publisher: 'WSJ. Magazine',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/travis-kelce-dating-taylor-swift-wsj-magazine-rcna125990',
+            source_title: 'Travis Kelce dishes on dating Taylor Swift to WSJ. Magazine',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Philadelphia Inquirer',
+            url: 'https://www.inquirer.com/entertainment/travis-kelce-wall-street-journal-interview-taylor-swift-20231120.html',
+            source_title: 'Travis Kelce talks relationship with Taylor Swift in new Wall Street Journal interview',
+            publisher: 'The Philadelphia Inquirer',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
           },
         ],
         photos: [
