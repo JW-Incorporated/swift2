@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 106
+Stories: 101
+
+## Taylor Swift Rumor Put to Bed After Travis Kelce Wedding - heavy.com
+
+- first seen: 2026-07-24 07:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift Rumor Put to Bed After Travis Kelce Wedding  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMiqAFBVV95cUxNNUc4QXFVaEgwZWZZNTBiY1UteUdYMGY5X01OSHhSSndLVHJNOUIycW12N21kb21ERVFmeE9LcW5KM3JKT3VzUG05bWRuWVF4a191Y0pSWnV2NlI4dkNkZ3A1aHFJbDN2R3hDY1M3VmxRM3V6Mkd5bkcxVk5DTDNxVmhqcGQzVDYya0RCYmF5Nm5keVN6WjUwa0RORjJsSWw2OWhyalBTQ2w?oc=5
+
+## Taylor Swift and Travis Kelce's $2m donation triggers emotional testimonies from NYC first responder
+
+- first seen: 2026-07-24 07:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce's $2m donation triggers emotional testimonies from NYC first responders' families  hitc.com
+- sources:
+  - [unverified] hitc.com — https://news.google.com/rss/articles/CBMiygFBVV95cUxOdkxlSXBKd3VUTTdwWHlyNUpTRDlZVXBnbXE5V0phQmp4Wno4Ukg1d2taNmtIanduak5jTHliRUMwY29TODZnWE1ET1V2dFBsczM0WGM1ZHd4OU13cXBScXI0VzBqdUFXVHlaNlVsX1U2Y3Z4NUE4VWlGSGlSQVV0U2FxRkFRV09hUjNLTVZMUTkwajhaSFluSFVEYnRTV1hSeG9fT2RJNDBHWm00cnlnNGxTbVhJZnp6UEdDWVhRbGl0dkNVaUdscXh3?oc=5
+
+## Taylor Swift’s New Friend Group After Marrying Travis Kelce Allegedly Has ‘Plenty of Cattiness’ - Sh
+
+- first seen: 2026-07-24 07:41 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift’s New Friend Group After Marrying Travis Kelce Allegedly Has ‘Plenty of Cattiness’  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipwFBVV95cUxNV0xWaXpVbURwdXBkU0JFd25LLTZCV2QxWjBjeUNfTVRVaUp1UVlvRHJpQmlVYUV5di0wNUZ1dmxtYVNVdXA4aTYxeks3cXN4N2N2cnpCUlZOaTNUSTZwYVg3THktdU9kNkRKdE5Ec01rZ2VYNThkdGIyVHlnT1BwdVZOX3JtdURsV0tyMW13RVNEdlc3NHdCN3hlZXFqSkM4S0swOWhsTQ?oc=5
 
 ## Taylor Swift, rodeos: County fairs in South Dakota - KELOLAND.com
 
@@ -828,71 +852,3 @@ Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
 - summary: Dolly Parton tells Taylor Swift and Travis Kelce 'I will always love you' after $2 million gift — and jokingly asks for their firstborn  Yahoo Creators
 - sources:
   - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMimAJBVV95cUxQdGthMXN1d2JSdWI5MnprSFlOZlpIN2pnNDlSNlZDc2RFNHotS0pJdGtFZTFYMlE3bl9qVGlzbzE1TTBGTldKYVNMR3ZaMHV1TzFXNUFjWUMwdFhDZGswbEE3M2FDb1AtbGFjZUlva3pvcnhSVXB2bUlzd2tkOHFxaUlxNXdIYjJ5T3gxODhWYS1QNEFNck9VaVhGNFFGNUdGTjZ6Q0tBU0laR21pNVE0SDQzS1lQdnRKT2d4RExFWnlrRjgtQUZJejBJdUJrLXEzbDdWQU1nVHRRd1BPMGJoa1J2eU1tdFhNdFEwdWxiZ3JEanpMT1UxaEd1SWZ2SjhBV2MyQk9DNWtoLWtLMUxURXMta2d4NU9H?oc=5
-
-## Brad Paisley recalls Taylor Swift's wedding 'cat-and-mouse' details - USA Today
-
-- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Brad Paisley recalls Taylor Swift's wedding 'cat-and-mouse' details  USA Today
-- sources:
-  - [unverified] USA Today — https://news.google.com/rss/articles/CBMiwwFBVV95cUxObmsxenlDcFpaOE9mSkpkSlJIeEJ1cHFkaGZpclZ1Q1c5djhmSEhtc0U2SXJLa3p1bTY4QWhTaTBQaWk1TkdPblloblhMTTdkN0tTYlNicFczMjJMRERtNmZxdU8yaklvZHp0YnI5MENZTlpBdXpUcElLbzZtcDAzT25wZ3NrN3FfbnlLNE11MUdPNEk0WVoxa3djejFpT09TMlJfNVZZcUo3MnBiZi1BMG5LaVZCUGhYRFVSbFYydUdIRzg?oc=5
-  - [established] Rolling Stone — Taylor Swift tag — https://www.rollingstone.com/music/music-news/brad-paisley-taylor-swift-travis-kelce-wedding-1235596400/
-  - [unverified] Rolling Stone — https://news.google.com/rss/articles/CBMipwFBVV95cUxNNXZDbnNuX0hfOXNpZ2xMc3ZCQUZwQ1VxUjcwY1hEYURfdE5fUEJ2M0xJM2dwN0VZTmJ6ak9Nb25WRWE5U3E0TVdxVVRBZWFfZ3R6WklLZ2JrWjhLVFd5M2RMSER5clZZUDFBeWNnVzA5cnRiUjRqRkw0MFByb1RsWHEySkhGMjdmVWZwbUFHQm9sREdfYm8xYTBRdFJMYld4NzAxdk45OA?oc=5
-
-## Gwen Stefani and Blake Shelton Go Glam for 5-Year Anniversary and Fans Think They Celebrated with Ta
-
-- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Gwen Stefani and Blake Shelton Go Glam for 5-Year Anniversary and Fans Think They Celebrated with Taylor Swift, Travis Kelce  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMi5gFBVV95cUxPbGFFcFF6OVBsNFVFWHg1M2N6NUJGN2I4RVFmSWE2U1RqUnhxUm9JOUhwYXV1Y2stVDlSckEzekk3SHl6N2J3QklwQk9xOTJtRzVJNDl1WWgyVmtSMGVrNDNnU1dJSlQ0Ymxucll1TDloNWZyY3RGRHo5SDFxamRXRTJQWjBhUlctRGVLZWRnX1NURnY3clZ1ejE5a05XdVpuM2ZQSkRFcmFjeVlvVmtzLXVDNWZoSjFVTm9sVXRKeDMzRWVybjlCaTFfc3BqclpDbTh0dW9xeW1UMzY2Y3RKVXdIeDdEdw?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiowFBVV95cUxPZ0dneTdWSjlzM3k4Q0ZBdmlLNEl2UlhTa1RCQ0xJUnJKQzU3bmdubW9KVjY3OVN6WkdLYlJjdlJNanpQOEVieVlxS0w2dkhBaEt0M2NHNWszNE5PN3FQc1BXdGNaZmlTWkZhWVNDcDJjTG9STnFnUW50b0JFNGJOTjNRYTFTQ2VYdmVaa2YwVWlCdVN3NXB0ZWVqRklHU2RHNEZV?oc=5
-  - [unverified] E! News — https://news.google.com/rss/articles/CBMirwFBVV95cUxOQi1IeVZyU3lsVGV1QTJFZS1KQjRCYXlFMjBPckNHYk1rTU1NQjVxTWFlN0d6QnpZaDYyOXNmdUdtSnlTZ3pyeU9YMmNiZG9aaFZhY0J0c1JBUEhVaTYzYjZhMm9zV2VoU0JlSE9lUThtZ3FaWUVQdk16d0N1MW93VzBzYjRoVjhuTjBZZ3NWbjFhT3RUNW0wSDY0cENkZnkzQUpEYTVGMHR1TEZLQ2RV?oc=5
-
-## Brad Paisley recalls exactly what Taylor Swift and Travis Kelce’s wedding invite said - Entertainmen
-
-- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley recalls exactly what Taylor Swift and Travis Kelce’s wedding invite said  Entertainment Weekly
-- sources:
-  - [unverified] Entertainment Weekly — https://news.google.com/rss/articles/CBMigwFBVV95cUxPX2NBeEtJcWdjNkN0ZUlOTDVaQW1Ga3BDMm83RXZ1NGtfWEhXQUY4R05ydE1hYVdIRGpsRFFDdEZIZWNOaVpyS2Fkd1NicnRCSDBqa18xU1VhMVh1ODBweC1LSHNUbFhfWnplOENxLVgwV05CQUlsWWN5aVJJUTA2UEdQWQ?oc=5
-
-## How Taylor Swift and Zendaya are driving the trend for bespoke engagement rings - South China Mornin
-
-- first seen: 2026-07-21 04:27 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: How Taylor Swift and Zendaya are driving the trend for bespoke engagement rings  South China Morning Post
-- sources:
-  - [unverified] South China Morning Post — https://news.google.com/rss/articles/CBMi2AFBVV95cUxPWmRDQ3dnMW9zRlJtMFluTlhGZlFSdmVmR2lzRGxwMEJadXZxY1dkWl9WYnRaRXZNMDZRLWFYdXJhVlRzWEkybDVqeFM0M1VmN1hLV09ONnVmd1RFbjVONFhwVmY5WWVhb05LaktMQnVjeGctWVhHM2JwbDd0Zzk2d2hCMjJRY0hWOXNwWkpnNF9CdzRub2tLZDNHYlQ3c3FQeTBxZmpyZlVRVWZVaXc0TV90MHJCR1VLQi1CdThvaFk3TUNmVE9Rc09hYkFVY2pQUlpUWkFmN0HSAdgBQVVfeXFMUE9JRVdFbFhpbVhNenFGSzUwejZQQW5fNGNWM1VMb1k3UG5JMHRubjdHUTJEeUhWUjh1U00yd1UxZ0ZEU190Q1dvMDJSTUZQSVhlU01jLU5qVFk3UENmN1BOOGsxcWpneU00c0Fad2RZQW1WY2hOY3ZqR3VGY2dUVUF1R0J5RTNId0hnUk44djFicEVPY09Ndk5WVlVKNzF1bXBnZWQ1Y2hYZmY1NXNmWFVacm1YWHdEdHBkYVpUV0VjMzA4NTJhanVfVEs0NlZlbFRWN0ZjR09r?oc=5
-
-## Knicks Star Jalen Brunson Says It Was ‘Really Cool’ Having Taylor Swift at NBA Finals — But He Wasn’
-
-- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Knicks Star Jalen Brunson Says It Was ‘Really Cool’ Having Taylor Swift at NBA Finals — But He Wasn’t at Her Wedding  Billboard
-- sources:
-  - [unverified] Billboard — https://news.google.com/rss/articles/CBMitAFBVV95cUxNa05NMnFMY3d2a2lKS3pLaUdjWEt3bVNkbmpwd0xUeWdBREQ3Vk1jYldYQzNXc2ItUjZEZTRuTHp3VjBSZEdIVU8xNEQ1RURxNHZsSHFUaGtGYWRZX1otNVFCRW1Sb0RNODFaVWRpcXdzaFpTWHlWUWM5cHZ5V1B3azhhMUVXckdpcHNmYWR4cFp4M2VqYjVMVk05SDZNRkt0Sk9WSmNramxILWZBMnZMd0VMeGw?oc=5
-
-## Travis Kelce Finally Returns to Social Media After Taylor Swift Wedding — But It Let Fans Down - Spo
-
-- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce Finally Returns to Social Media After Taylor Swift Wedding — But It Let Fans Down  Sports Illustrated
-- sources:
-  - [unverified] Sports Illustrated — https://news.google.com/rss/articles/CBMizwFBVV95cUxPSmxBWkZuOWdsLVNlYURFMDdtempWemw0YThxeFZTa3dLc19KTXZybDc5djJRRG16RUJXZFhTLTBiczlJMVVUVW5yVm9tSzh3MWphb1BoYmNVLXZPZFZCaTFaRFdvSTVNalJELTJpM1Eyak9qU3A2N1lsY1VNczcydk9ZejUyUUx1M0hQZVBMS19wNEhjNFZlckdJVDI3UE9qZktROFJzTFg5UUNtQl9yNkdSbDZGX3dBdTJyVDZ1VmxZa01maFJDdlN0Ujk2ZDQ?oc=5
-
-## Taylor Swift’s Diamond Wedding Band Signals An Emerging 2026 Bridal Trend - ELLE Australia
-
-- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Diamond Wedding Band Signals An Emerging 2026 Bridal Trend  ELLE Australia
-- sources:
-  - [unverified] ELLE Australia — https://news.google.com/rss/articles/CBMikwFBVV95cUxNNTREajBVUEE4dDFEU0Rjam1BOEN1aUhaSWxWbDVJT1I5cWwxSTZtbjBKcXRkb1piLWxmOTNkQWJoYktob2tXY1AxSDQtalM0Z1RUdmVwOEIzMmNuMVN1MWhkakpwbnV3VWFTdU15RFN1U3dqY3R3NDJUUG0zLW9iSG1NQ29JclJFSlY5NE1BSGNSaXc?oc=5
-
-## Did Gwen Stefani and Blake Shelton celebrate their 5-year anniversary at Taylor Swift and Travis Kel
-
-- first seen: 2026-07-21 04:27 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Did Gwen Stefani and Blake Shelton celebrate their 5-year anniversary at Taylor Swift and Travis Kelce's wedding?  Page Six
-- sources:
-  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi7wFBVV95cUxOWEoxQVItRTFZSFVXMS1LTjZwSnprYzB5VXIyZWpZLThaazRxQmRDRzNjZE9lckNhMFRxZExNdGxuNXQ1al80TURvMG1FY0h2SHBrR1c4aTc0VUZLdEpadFBpaWtSYmpGN3IxM0Q1MUM1WGJnWjZBWnBjaDZERjlGdEowM3htRlpsRlhJXy1RdmMyeHk0OUUyUzdBTVFFbVpBLWNNTVVfeDYybm5SaERmTXNETXFEMTUwUTNxa19tTWktSmZmYmlVYUZERFhSRVI3N0Z5UkNiVzR5MjZvMFhYZkRueU5RZXRuOW9JOTZGYw?oc=5
