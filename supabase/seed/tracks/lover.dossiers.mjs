@@ -1,8 +1,9 @@
 // Per-song dossiers for the Lover era (issue #440 pattern), keyed by track
 // slug and attached in lover.mjs. Added by the depth engine's Answerer
 // (2026-07-24, shard 5) to drain curiosity ledgers #1351 (Cruel Summer),
-// #1410 (Cornelia Street), #1415 (Afterglow), #1429 (The Man) and #1437
-// (I Think He Knows) — their sources, writing/production, live-history,
+// #1410 (Cornelia Street), #1415 (Afterglow), #1429 (The Man), #1437
+// (I Think He Knows) and #1460 (You Need to Calm Down) — their sources,
+// writing/production, live-history,
 // reception and cross-link axes. Fact-checked this pass against the Wikipedia
 // song/album articles (fetched) plus Billboard, Rolling Stone, Variety, MTV,
 // The FADER, Songfacts and NYC property reporting: confirmed[] = a documented
@@ -270,6 +271,86 @@ export default {
       {
         name: "Every Taylor Swift Eras Tour Surprise Song — TODAY",
         url: "https://www.today.com/popculture/music/eras-tour-surprise-songs-rcna141380",
+      },
+    ],
+  },
+
+  'you-need-to-calm-down': {
+    whyItMatters: [
+      "Lover's second single (released June 14, 2019) and the era's Pride-month statement record. It debuted and peaked at No. 2 on the Billboard Hot 100, held off the top only by Lil Nas X's record-shattering 'Old Town Road' — the same smash that had just blocked 'ME!' — and reached No. 3 in Australia, No. 4 in Canada, and No. 5 in both the UK and Ireland. It is certified 3x Platinum by the RIAA, 7x Platinum by ARIA in Australia, and 2x Platinum by the BPI in the UK.",
+      "Its celebrity-packed, LGBTQ+-celebrating video turned the song into a cultural event: nine nominations at the 2019 MTV VMAs, where it won both Video of the Year and Video for Good — and from the stage Swift pointed to the on-screen Equality Act petition it had launched, which by then had gathered hundreds of thousands of signatures.",
+    ],
+    meaning: {
+      confirmed: [
+        "Co-written and co-produced by Swift and Joel Little — one of four Lover tracks he worked on, alongside 'ME!', 'The Man' and 'Miss Americana & the Heartbreak Prince' — recorded at Golden Age in Los Angeles and Golden Age West in Auckland and mixed by Serban Ghenea. It was not Little's first Swift credit: 'ME!' (April 2019) was the first released Swift/Little collaboration. The song's three verses aim the same 'calm down' at internet trolls, anti-LGBTQ picketers, and women pitted against one another; Swift has said she was moved to write more openly about LGBTQ+ rights after realizing she was not well enough educated on the issue.",
+        "The video was directed by Swift and Drew Kirsch, executive produced by Swift and Todrick Hall, and premiered June 17, 2019 on Good Morning America. Its cameo roster spans the LGBTQ+ community and its allies: the Queer Eye Fab Five (Tan France, Bobby Berk, Karamo Brown, Antoni Porowski, Jonathan Van Ness), Ellen DeGeneres, Laverne Cox, Billy Porter, Adam Lambert, Hayley Kiyoko, Jesse Tyler Ferguson, Ryan Reynolds, Ciara, RuPaul, Adam Rippon, and Katy Perry — whose burger-costumed hug with Swift's french-fry is the on-screen end of the 'Bad Blood' feud. RuPaul's Drag Race queens appear impersonating pop divas: Tatianna (Ariana Grande), Trinity the Tuck (Lady Gaga), Delta Work (Adele), Trinity K. Bonet (Cardi B), Jade Jolie (Swift herself), Riley Knoxx (Beyonce), Adore Delano (Katy Perry) and A'keria Chanel Davenport (Nicki Minaj).",
+        "The video closed on a real Change.org petition urging support for the federal Equality Act. It grew well past 500,000 signatures — by April 2020 it exceeded 704,000, more than five times the threshold that warrants a White House response. The White House did respond, on August 27, 2019, but to OPPOSE the bill. The Equality Act itself passed the U.S. House (in 2019 and again in 2021) but stalled in the Senate and has never become law — so the video's policy ask remains unfulfilled.",
+        "Reception was genuinely split, and the song is remembered for that debate. It was praised as a bright pro-LGBTQ anthem (NME called it 'infectious'; The A.V. Club welcomed its plain anti-homophobia stance), but named critics also faulted it for performative allyship and 'rainbow capitalism': Pitchfork's Michelle Kim found it underwhelming, Esquire's Justin Kirkland argued it 'misses the point of being an LGBTQ ally' by equating online haters with LGBTQ+ struggles, and The Atlantic's Spencer Kornhaber criticized its equation of celebrity criticism with queer persecution.",
+      ],
+      fanTheories: [
+        "Fans read the trailer-park setting and the picketers' deliberately misspelled signs as a pointed caricature of real anti-LGBTQ protest groups. Swift has not named specific targets, so the who-is-being-satirized reading stays fan interpretation rather than a documented statement.",
+      ],
+    },
+    live: [
+      {
+        date: "July 10, 2019",
+        event: "Amazon Prime Day Concert — Los Angeles (live debut)",
+        note: "The song's first live performance, in the Prime Day headline set weeks after the single dropped — before the album was even out.",
+      },
+      {
+        date: "August 26, 2019",
+        event: "2019 MTV Video Music Awards (opening performance)",
+        note: "Swift opened the VMAs with 'You Need to Calm Down' segueing into 'Lover'; later the same night the video won Video of the Year and Video for Good, and she used the acceptance speech to push the Equality Act petition.",
+      },
+      {
+        date: "September 9, 2019",
+        event: "City of Lover — Paris (L'Olympia, one-off)",
+        note: "Part of the single Lover-era headline concert, later released as the City of Lover special.",
+      },
+      {
+        date: "2023-2024",
+        event: "The Eras Tour — Lover act",
+        note: "Featured in the show's opening Lover section (performed with its first verse trimmed).",
+      },
+    ],
+    connections: [
+      {
+        relatedId: "song:bad-blood",
+        label: "Bad Blood",
+        why: "The Katy-Perry-in-a-burger-suit hug at the end of this video is the on-screen close of the feud the 2015 'Bad Blood' clip opened — the two videos bookend the storyline, feud declared and feud buried.",
+      },
+      {
+        relatedId: "song:me",
+        label: "ME!",
+        why: "Lover's lead single, released weeks earlier and its other splashy, statement-adjacent pop single — also a Swift/Joel Little co-write, and also kept off No. 1 by 'Old Town Road.'",
+      },
+      {
+        relatedId: "song:the-man",
+        label: "The Man",
+        why: "The album's other overt public-statement single and fellow Joel Little co-write; both pair a self-aware, celebrity-packed video with an argued social point.",
+      },
+      {
+        relatedId: "moment:vault-lover-lover-the-first-album-shes-ever-owned",
+        label: "Lover: the first album she's ever owned",
+        why: "The Pride campaign around this single — petition, VMA sweep, allyship debate — is a defining part of the Lover rollout this album page anchors.",
+      },
+    ],
+    sources: [
+      {
+        name: "You Need to Calm Down — Wikipedia (charts, credits, petition, reception)",
+        url: "https://en.wikipedia.org/wiki/You_Need_to_Calm_Down",
+      },
+      {
+        name: "Five Burning Questions: Taylor Swift's No. 2 Hot 100 Debut for 'You Need to Calm Down' — Billboard",
+        url: "https://www.billboard.com/pro/taylor-swift-you-need-to-calm-down-five-burning-questions/",
+      },
+      {
+        name: "'You Need to Calm Down' Co-Director Drew Kirsch on His Unlikely Path to Filmmaking — Billboard",
+        url: "https://www.billboard.com/music/music-news/taylor-swift-you-need-to-calm-down-drew-kirsch-8518581/",
+      },
+      {
+        name: "Here's Your Guide to the References in Taylor Swift's 'You Need to Calm Down' Video — TIME",
+        url: "https://time.com/5608341/taylor-swift-you-need-to-calm-down-references-explained/",
       },
     ],
   },
