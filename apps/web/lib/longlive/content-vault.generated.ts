@@ -864,6 +864,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.wideopencountry.com/wp-content/uploads/sites/4/2021/04/Untitled-design-241.png?fit=798%2C526", credit: "Associated Press", kind: "primary", focalPoint: "34% 20%" }, { url: "https://www.billboard.com/wp-content/uploads/media/taylor-swift-performance-2007-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Ethan Miller/ACMA/Getty Images for ACMA", kind: "archival", focalPoint: "42% 16%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/pro/taylor-swift-our-song-this-week-in-billboard-chart-history-2007/" }, { name: "Wide Open Country", url: "https://www.wideopencountry.com/our-song-taylor-swift/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Our_Song_(Taylor_Swift_song)" }],
+      relatedIds: ["moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show", "moment:vault-debut-our-song-hits-number-one", "moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards"],
     },
     {
       id: "vault-debut-the-debut-era-uniform-sundresses-cowboy-boots-and-curls",
@@ -1058,6 +1059,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/74cc6c1d93db-gettyimages-80677442.jpg", credit: "Jeff Kravitz/Getty Images (performing \"Picture to Burn\" at the same ceremony)", kind: "primary" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/" }],
+      relatedIds: ["moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show", "moment:vault-debut-our-song-hits-number-one", "moment:vault-debut-our-song-becomes-her-first-no-1"],
     },
     {
       id: "vault-debut-a-plum-draped-handkerchief-hem-dress-for-the-2008-cmt-purple",
@@ -1231,6 +1233,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Music"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/en/4/4e/Taylor_Swift_-_Our_Song.png", credit: "Big Machine Records (single cover art)", kind: "primary", focalPoint: "45% 20%" }, { url: "https://i.ytimg.com/vi/Jb2stN7kH28/sddefault.jpg", credit: "Still from the official \"Our Song\" music video (dir. Trey Fanjoy), Big Machine Records, via YouTube", caption: "The flower-bed scene from the \"Our Song\" video — CMT's No. 1 video for seven straight weeks, and its 2008 Video of the Year.", kind: "archival", focalPoint: "55% 48%" }],
       sources: [{ name: "Our Song (Taylor Swift song)", url: "https://en.wikipedia.org/wiki/Our_Song_(Taylor_Swift_song)" }, { name: "Our Song by Taylor Swift", url: "https://www.songfacts.com/facts/taylor-swift/our-song" }],
+      relatedIds: ["moment:vault-debut-our-song-hits-number-one", "moment:vault-debut-our-song-becomes-her-first-no-1", "moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards"],
     },
     {
       id: "vault-debut-the-outside-written-by-a-12-year-old-about-the-lunch-table",
@@ -1372,6 +1375,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://i.ytimg.com/vi/Jb2stN7kH28/sd2.jpg", credit: "Taylor Swift / Big Machine Records (official \"Our Song\" video frame, YouTube)", caption: "Seventeen-year-old Taylor in the flower-bed scene of the \"Our Song\" video — the homemade-feeling clip behind her first number one.", kind: "primary", focalPoint: "53% 40%" }],
       video: { youtubeId: "Jb2stN7kH28", title: "Taylor Swift - Our Song" },
       milestone: { id: "m-debut-2", label: "“Our Song” #1", kind: "award" },
+      relatedIds: ["moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show", "moment:vault-debut-our-song-becomes-her-first-no-1", "moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards"],
     },
   ],
   "evermore": [
