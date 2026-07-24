@@ -403,7 +403,9 @@ export default {
         "Track 19 of The Tortured Poets Department: The Anthology (April 19, 2024), written and produced by Swift with Aaron Dessner and recorded across Long Pond (Hudson Valley), Chicago, London and other studios. On the standard album it appears only as the physical bonus on the 'Smoke Grey' / 'The Albatross' collector's edition, one of four numbered variants each named for its exclusive bonus track.",
         "That variant was revealed on Feb. 23, 2024 at the Sydney Eras Tour show; all four bonus tracks released together with the album on April 19, with no earlier standalone release.",
         "During TTPD's record debut week it peaked at No. 30 on the Billboard Hot 100 and No. 32 on the Global 200, among the 31 tracks Swift charted at once.",
-        "An Eras Tour surprise song: it debuted June 29, 2024 in Dublin mashed with reputation's 'Dancing with Our Hands Tied,' and returned on Indianapolis Night 1 (Nov. 1, 2024) in a guitar-slot mashup with Red's 'Holy Ground.'"
+        "An Eras Tour surprise song: it debuted June 29, 2024 in Dublin mashed with reputation's 'Dancing with Our Hands Tied,' and returned on Indianapolis Night 1 (Nov. 1, 2024) in a guitar-slot mashup with Red's 'Holy Ground.'",
+        "A folk-rock ballad whose liner credits reach beyond Dessner's usual kit to the London Contemporary Orchestra (conducted by Robert Ames) plus his folklore–evermore collaborators (Glenn Kotche, James McAlister, Benjamin Lanz, Bryce Dessner on orchestration) — the Long Pond family of players.",
+        "An official lyric video (not a music video) accompanied the track on Swift's YouTube channel."
       ],
       supported: [
         "No on-record Swift gloss defines who 'the albatross' is; the dominant critic-and-fan reading takes the Coleridge frame as reputation-as-curse — a woman preceded by her own myth who turns out to be the rescuer, not the omen.",
@@ -461,6 +463,282 @@ export default {
       { name: "Today: Taylor Swift's 'I Hate It Here' Lyrics — Why 1 Line Is Sparking Backlash", url: "https://www.today.com/popculture/music/i-hate-it-here-lyrics-meaning-taylor-swift-rcna148592" },
       { name: "Billboard: Taylor Swift Debuts 'I Hate It Here' Live With 'The Lakes' on Eras Tour", url: "https://www.billboard.com/music/music-news/taylor-swift-i-hate-it-here-the-lakes-live-cardiff-1235713439/" },
       { name: "Rolling Stone: The Tortured Poets Department — The Anthology Review", url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/" }
+    ]
+  },
+  "fresh-out-the-slammer": {
+    whyItMatters: [
+      "The album's rebound song, built as an extended prison metaphor: a long relationship recast as a sentence served, and the first phone call after release goes not forward but back, to someone from before the walls went up. Critics near-unanimously read it as a rebound — the giddy freedom is knowingly temporary.",
+      "Sonically it is one of the standard album's most distinctive Antonoff productions: a twangy, tremolo-guitar and spring-reverb opening that several writers heard as a widescreen Americana, then a structural break near the 2:25 mark where the outro drops tempo and shifts its rhythmic programming for the repeated 'I did my time' refrain."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 7 on The Tortured Poets Department (April 19, 2024), written and produced by Taylor Swift with Jack Antonoff; tracked across Conway (LA), Electric Lady (NY) and Esplanade (New Orleans), with Antonoff playing guitars, synths and drums.",
+        "It debuted and peaked at No. 11 on the Billboard Hot 100 (chart dated May 4, 2024), part of Swift's record-setting top-14 monopoly, and reached No. 15 on the Billboard Global 200; certified Silver in the UK.",
+        "An Eras Tour surprise song twice: live-debuted on piano in Lisbon (May 24, 2024) mashed with Midnights' 'High Infidelity,' and played on guitar in Munich (July 27, 2024) mashed with 1989's 'You Are in Love.'"
+      ],
+      supported: [
+        "The 'rebound' framing is the critical consensus (Wikipedia summarizes several reviewers reaching it independently). Rob Sheffield (Rolling Stone) called it a 'sneakily durable gauze-rocker' with heist-flick guitar twang; Annie Zaleski likened its dusty, twangy texture to evermore's 'Cowboy Like Me.' Billboard's Jason Lipshutz ranked it 23rd of the 31 tracks, 'connective tissue.' Dissenters included Lindsay Zoladz (New York Times), who found the prison imagery overworked.",
+        "The tremolo-guitar intro and the programmed string section in the second verse are the arrangement details critics single out; the late tempo drop is described as the song loosening its own giddy momentum."
+      ],
+      fanTheories: [
+        "The line about swirling someone into all of her poems is read by critics (e.g. John Wohlmacher, Beats Per Minute) as a hint that the same person appears across earlier songs — an interpretation, not a stated fact; the lyric names no one, and the 'who waited / first call' reading is fan-and-critic inference only. Swift has said nothing on record about the song."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:cowboy-like-me",
+        label: "Cowboy Like Me",
+        why: "The evermore twang critics reached for by name: both ride a dusty, tremolo-lit Western texture, a duel-at-dawn romance under wide skies."
+      },
+      {
+        relatedId: "song:high-infidelity",
+        label: "High Infidelity",
+        why: "Swift's own live pairing — she fused the two on piano for the Lisbon debut, two songs about the exact moment a relationship's loyalty quietly gives way."
+      }
+    ],
+    sources: [
+      { name: "Fresh Out the Slammer — Wikipedia", url: "https://en.wikipedia.org/wiki/Fresh_Out_the_Slammer" },
+      { name: "Billboard: Taylor Swift Charts All Top 14 Hot 100 Spots", url: "https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/" },
+      { name: "Variety: Every Surprise Song Taylor Swift Has Played on the Eras Tour", url: "https://variety.com/2024/music/news/taylor-swift-eras-tour-surprise-songs-list-1235578714/" }
+    ]
+  },
+  "the-alchemy": {
+    whyItMatters: [
+      "The one unclouded love song on a grief album — widely called the standard edition's only track with a happy ending — and the one whose imagery made the muse reading a national headline: end-zone, trophy, winning-streak and 'the team' vocabulary that every outlet pointed the same direction.",
+      "A Swift/Antonoff production of echoing drums and layered vocals that critics filed as electropop with pop-rock and R&B tints; its central football pun split reviewers sharply, from five-star defenses to 'terrible.'"
+    ],
+    meaning: {
+      confirmed: [
+        "Track 15 on The Tortured Poets Department (April 19, 2024), written and produced by Taylor Swift with Jack Antonoff; tracked at Conway (LA), Electric Lady (NY) and Prime Recording (Nashville).",
+        "It debuted and peaked at No. 13 on the Billboard Hot 100 (chart dated May 4, 2024) during the album's top-14 takeover, and reached No. 19 on the Global 200; it hit No. 23 on the UK Official Streaming Chart.",
+        "An Eras Tour surprise song twice: Paris (May 12, 2024) as an acoustic-guitar mashup with Red's 'Treacherous,' and London/Wembley (Aug. 15, 2024) as a piano mashup with reputation's 'King of My Heart.'"
+      ],
+      supported: [
+        "Reception was polarized on the sports-metaphor conceit. Detractors included Spencer Kornhaber ('weak'), Slate's Carl Wilson ('terrible') and Neil McCormick ('cheesy sports puns'); defenders included Will Hodgkinson (five stars — 'epic but intimate, like the final scene in a blockbuster'), and Billboard's Jason Lipshutz ranked it 21st of 31, 'a glittering love song.'",
+        "It is broadly described as the album's rare uncomplicated-joy song — the chemistry-as-love-that-finally-works counterweight to the surrounding wreckage."
+      ],
+      fanTheories: [
+        "The football vocabulary is read near-universally by the press (TIME, Today, Slate and others) as pointing to Swift's documented relationship with Travis Kelce, tying the trophy/winning-streak imagery to the Chiefs' Super Bowl LVIII win (Feb. 11, 2024), roughly two months before release. The relationship is public record; the song's address is not. Swift has never confirmed the Kelce reading of 'The Alchemy' in any interview, liner note or dedication — it remains a fan-and-press reading."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:so-high-school",
+        label: "So High School",
+        why: "The album's other track the press reads as Kelce-adjacent; outlets pair the two as TTPD's new-love duo (a fan-and-press reading, not a Swift-stated one)."
+      },
+      {
+        relatedId: "song:treacherous",
+        label: "Treacherous",
+        why: "Swift's own live pairing — she mashed 'The Alchemy' with it in Paris; the Red slow-burn of a risky attraction against the Showgirl-adjacent certainty of a love that finally works."
+      }
+    ],
+    sources: [
+      { name: "The Alchemy — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Alchemy" },
+      { name: "TIME: Breaking Down Taylor Swift's 'The Alchemy' and Its Travis Kelce References", url: "https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/" },
+      { name: "Official Charts: Taylor Swift — The Alchemy", url: "https://www.officialcharts.com/songs/taylor-swift-the-alchemy/" }
+    ]
+  },
+  "i-can-do-it-with-a-broken-heart": {
+    whyItMatters: [
+      "The album's confirmed autobiography and its second single: a synth-pop anthem about smiling through the Eras Tour night after night while her private life fell apart, with a counted stage cue ticking under the production and a closing spoken run — crying a lot but 'so productive, it's an art' — that became the record's most-quoted, most-memed lyric.",
+      "It doubled as an Eras Tour set piece: added to the tour's TTPD act with a silent-film-style pantomime of a performer dragged back onstage, and given a Swift-directed behind-the-scenes video premiered at the tour's final London night."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 13 on The Tortured Poets Department (April 19, 2024), written and produced by Taylor Swift with Jack Antonoff (mixed by Serban Ghenea with Bryce Bordone; recorded by Laura Sisk — Antonoff's regular team); released as the album's second and final single on July 2, 2024.",
+        "It debuted and peaked at No. 3 on the Billboard Hot 100 (chart dated May 4, 2024) inside Swift's record top-14 week, and became TTPD's longest-charting track at 31 weeks; No. 5 on the Global 200, No. 8 in the UK, and certified Platinum by the BPI.",
+        "The counted 'one, two, three, four' intro is a studio recreation of a live in-ear count-off, not a raw stage capture (in the video, dancer Kameron Saunders performs the count). Critics filed the track as electropop / dance-pop with 1980s synth textures, around 130 BPM.",
+        "Its Swift-directed music video — a compilation of Eras Tour rehearsal and behind-the-scenes footage — premiered Aug. 20, 2024 at her final Wembley show and then on YouTube. Live, it anchored the tour's added TTPD segment, staged as a Golden-Age-Hollywood pantomime of exhaustion."
+      ],
+      supported: [
+        "The show-must-go-on framing was read as the song's emotional core. Variety called it among the album's most talked-about and replayed tracks; Billboard ranked it 8th of 31, 'rollicking, snarky and strikingly funny'; Stereogum's Tom Breihan praised its energy. Pitchfork's Olivia Horn was cooler on the production. USA Today named it the best song of 2024.",
+        "CNBC reported the 'I cry a lot but I am so productive, it's an art' line resonated widely with working women, spawning tens of thousands of TikToks within a week of release."
+      ],
+      fanTheories: [
+        "The autobiography is on record — it is explicitly about performing the tour mid-heartbreak — but any attribution of the offstage heartbreak to a specific person is fan-and-press inference, which Swift has not confirmed."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver",
+        label: "The Eras Tour's final bow",
+        why: "The song's literal subject is the tour it was performed on; the Vancouver finale is where that two-year 'do it with a broken heart' marathon actually ended."
+      },
+      {
+        relatedId: "song:so-long-london",
+        label: "So Long, London",
+        why: "The breakup this song performs through: 'So Long, London' is the eulogy for the relationship whose collapse 'I Can Do It with a Broken Heart' says she smiled over onstage (a thematic pairing)."
+      }
+    ],
+    sources: [
+      { name: "I Can Do It with a Broken Heart — Wikipedia", url: "https://en.wikipedia.org/wiki/I_Can_Do_It_with_a_Broken_Heart" },
+      { name: "Variety: Taylor Swift's Behind-the-Scenes 'I Can Do It With a Broken Heart' Video", url: "https://variety.com/2024/music/news/taylor-swift-i-can-do-it-with-a-broken-heart-music-video-behind-the-scenes-1236113079/" },
+      { name: "CNBC: A Taylor Swift lyric is resonating with working women", url: "https://www.cnbc.com/2024/04/25/taylor-swift-tortured-poets-department-lyric-hits-with-working-women.html" }
+    ]
+  },
+  "imgonnagetyouback": {
+    whyItMatters: [
+      "A double-meaning threat held in deliberate superposition — win him back or get him back — that the song refuses to resolve. Critics read the ambivalence as the whole point, riding a restrained, synth-forward Antonoff groove.",
+      "The Anthology's second bonus track and one of its more divisive cuts: reviewers reached not for reputation but for Midnights-era electropop and Olivia Rodrigo comparisons to place its bratty spoken asides and muted keyboards."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 18 overall on The Tortured Poets Department: The Anthology (April 19, 2024) — the second of the fifteen bonus tracks in the double album's second half, exclusive to the Anthology edition — written and produced by Taylor Swift with Jack Antonoff at Electric Lady (NY), mixed by Serban Ghenea.",
+        "It debuted and peaked at No. 26 on the Billboard Hot 100 (chart dated May 4, 2024) within Swift's record top-14 week, and reached No. 28 on the Global 200; certified Silver in the UK.",
+        "It was performed live twice as Eras Tour surprise songs: Amsterdam (July 5, 2024) mashed with reputation's 'Dress,' and Munich (July 28, 2024)."
+      ],
+      supported: [
+        "Critics placed the production in Midnights' dusky electropop lineage (Annie Zaleski) and repeatedly compared it to Olivia Rodrigo's 'Get Him Back!' (Vulture's Nate Jones called it parallel thinking, not plagiarism); Billboard's Jason Lipshutz described the production as 'dainty' and 'shuddering.' Reviews ranged from Rob Sheffield's 'catchy oddity' to John Wohlmacher's 'an immediate skip.'",
+        "The intentional double meaning of 'get you back' — reconciliation versus revenge — is the reading nearly every writer highlighted, alongside the lowercase run-on title."
+      ],
+      fanTheories: [
+        "Swift has made no on-record statement about the song's ambivalence or its subject; the reconciliation-or-revenge reading is strictly critics' and fans' interpretation, and press muse-guesses are unconfirmed speculation."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:dress",
+        label: "Dress",
+        why: "Swift's own live pairing — she mashed the two in Amsterdam; both circle the same unfinished wanting, one giddy and secret, one weaponized into a threat."
+      },
+      {
+        relatedId: "song:now-that-we-dont-talk",
+        label: "Now That We Don't Talk",
+        why: "A kiss-off companion a reader of one would want (a fan-and-thematic grouping, not a critic-drawn one): the clipped, done-with-you posture 'imgonnagetyouback' can't quite commit to."
+      }
+    ],
+    sources: [
+      { name: "imgonnagetyouback — Wikipedia", url: "https://en.wikipedia.org/wiki/Imgonnagetyouback" },
+      { name: "Rolling Stone: Taylor Swift Debuts 'imgonnagetyouback' in Amsterdam", url: "https://www.rollingstone.com/music/music-news/taylor-swift-imgonnagetyouback-amsterdam-1235054443/" },
+      { name: "Billboard: Taylor Swift Charts All Top 14 Hot 100 Spots", url: "https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/" }
+    ]
+  },
+  "peter": {
+    whyItMatters: [
+      "A solo-written piano ballad addressed from Wendy's side of the window to a man perpetually twenty-five in his own head — Swift formally releasing a promise she kept far too long. It is one of the catalog's cleanest long-range callbacks, answering folklore's 'cardigan' and its Peter-losing-Wendy line four years later.",
+      "Rob Sheffield (Rolling Stone) called it the Anthology's 'show-stopper'; other rankings put it near the bottom — a track that divided critics as sharply as it moved fans."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 28 on The Tortured Poets Department: The Anthology (April 19, 2024), written solely by Taylor Swift and produced with Aaron Dessner; a piano ballad with orchestral strings by the London Contemporary Orchestra conducted by Robert Ames, from the Dessner-led Long Pond sessions.",
+        "It debuted at No. 46 on the Billboard Hot 100 (chart dated May 4, 2024), one of all 31 Anthology tracks to chart at once in the record week.",
+        "An Eras Tour surprise song twice on piano: Stockholm (May 17, 2024) and Toronto (Nov. 15, 2024), the latter as a mashup with 'evermore.'"
+      ],
+      supported: [
+        "The song builds the J. M. Barrie Peter Pan frame — Wendy waiting for a boy who won't grow up — and its callback to 'cardigan' is a critic-documented link (Sheffield ties the two directly). Reception split: Rolling Stone named it a standout, while a Hollywood Reporter ranking placed it second-to-last.",
+        "The 'lost boys' / never-growing-up motif recurs across Swift's childhood songs; whether the Peter/Wendy naming was deliberately seeded across both 'Peter' and 'cardigan' is a fan-and-critic inference — no Swift or Dessner statement on the song is on record."
+      ],
+      fanTheories: [
+        "Some outlets read 'Peter' (with 'cardigan') as pointed at a specific past relationship, citing a publicly performed 'cardigan' mouthed-lyric moment; this is unconfirmed fan-and-press interpretation and Swift has named no one. Separately, actor Peter Krause (9-1-1) jokingly 'responded' to sharing the title in a social clip — a gag, not a real connection to the song."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:cardigan",
+        label: "cardigan",
+        why: "The song 'Peter' answers: folklore's 'cardigan' introduced the Peter-losing-Wendy image, and 'Peter' closes that window four years later (a critic-drawn link)."
+      },
+      {
+        relatedId: "song:evermore",
+        label: "evermore",
+        why: "Swift's own live pairing — she mashed 'Peter' with 'evermore' in Toronto, two piano dirges about a grief that finally, barely lifts."
+      },
+      {
+        relatedId: "song:seven",
+        label: "seven",
+        why: "The other Dessner childhood song and the never-grow-up motif's origin point; a thematic companion to 'Peter's' arrested boyhood (a fan-and-thematic grouping)."
+      }
+    ],
+    sources: [
+      { name: "The Tortured Poets Department — Wikipedia (Anthology credits, 'Peter')", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" },
+      { name: "Rolling Stone: The Tortured Poets Department — The Anthology Review", url: "https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/" },
+      { name: "The Hollywood Reporter: Every Song on 'The Tortured Poets Department,' Ranked", url: "https://www.hollywoodreporter.com/lists/taylor-swift-the-tortured-poets-department-songs-ranked/" }
+    ]
+  },
+  "the-black-dog": {
+    whyItMatters: [
+      "The song that opens the Anthology's fifteen-track second half, and the era's clearest example of a lyric geotagging itself: an ex forgets to turn off location sharing and the narrator watches him walk into their old bar — grief delivered as an app notification. A real Vauxhall pub of that name became a Swiftie pilgrimage overnight.",
+      "A sole-written Swift lyric on a bare-piano Antonoff production that ruptures into a screamed 'old habits die screaming' climax — critics called it an emo peak and one of the Anthology's best."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 17 on The Tortured Poets Department: The Anthology (April 19, 2024), written solely by Taylor Swift and produced with Jack Antonoff; recorded at Conway (LA) and Electric Lady (NY). Its sparse arrangement opens on bare piano and builds to a dynamic crescendo of synths and multitracked harmonies.",
+        "It peaked at No. 25 on the Billboard Hot 100 and No. 26 on the Global 200; certified Silver in the UK (Gold in Australia and New Zealand).",
+        "'The Starting Line' names the emo band in the lyric; frontman Kenny Vasoli called it 'a very sweet name-drop,' and the band's streams rose sharply that weekend.",
+        "An Eras Tour surprise song performed as piano mashups: London/Wembley (June 21, 2024, its live debut) with 'Come Back... Be Here' and 'Maroon'; Warsaw (Aug. 3, 2024) with 'exile'; and New Orleans (Oct. 25, 2024) with 'Haunted.'"
+      ],
+      supported: [
+        "The real Black Dog pub in Vauxhall, London leaned into its accidental fame: window signage quoting the lyric, a cocktail board annotated 'Taylor's Version,' branded merch, and Swiftie singalongs. Staff told outlets they turned customers away daily after release (marketing manager Amy Crowley to CBS News) and watched their social following multiply within days (Lily Bottomley to CNN). Swift, they noted, has never actually been seen there.",
+        "Critics rated it a highlight; Rob Sheffield (Rolling Stone) praised its 'classic Nashville-worthy premise' as a wry take on post-breakup phone-watching, and Variety's Chris Willman described its build to an 'emo climax.'"
+      ],
+      fanTheories: [
+        "The location-sharing / 'Find My' conceit is widely reported as the song's premise but is a reading of the lyric, not an autobiographical fact, and no real person is named. In October 2025 Swift herself told BBC Radio 2's Scott Mills that fans 'think they know. They have no idea' what the song is about — an on-record deflation of the assumed reading."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "moment:vault-tloas-the-black-dog-still-nobody-knows-what-the-songs-about-she-sa",
+        label: "The Black Dog: still nobody knows",
+        why: "Swift's own October 2025 remark that fans 'have no idea' what the song is about — the artist-sourced counterweight to every confident reading of this track."
+      },
+      {
+        relatedId: "song:so-long-london",
+        label: "So Long, London",
+        why: "The album's London break-up cluster: 'So Long, London' delivers the formal eulogy, 'The Black Dog' tracks the same ex in real time through a shared-location app (a critic-drawn grouping)."
+      },
+      {
+        relatedId: "song:exile",
+        label: "exile",
+        why: "Swift's own Warsaw live pairing — two duets with distance, one sung across a break-up, the other across a map app that won't stop sharing."
+      }
+    ],
+    sources: [
+      { name: "The Black Dog (song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Black_Dog_(song)" },
+      { name: "CBS News: London pub becomes Taylor Swift fan destination after 'The Black Dog'", url: "https://www.cbsnews.com/news/taylor-swift-the-black-dog-pub-london-tortured-poets-department/" },
+      { name: "Just Jared: Taylor Swift Says Fans 'Have No Idea' What 'The Black Dog' Is About", url: "https://www.justjared.com/2025/10/06/taylor-swift-reveals-fans-have-no-idea-what-the-black-dog-is-really-about/" }
+    ]
+  },
+  "robin": {
+    whyItMatters: [
+      "The gentlest thing on the Anthology — a lullaby that promises to guard a small boy's unbothered world (swing sets, dragonflies, 'covered in mud, you look ridiculous') for as long as the adults can hold the sadness at bay. It closes the deluxe run on a note of pure tenderness.",
+      "Critics grouped it with Swift's own childhood songs; the Hollywood Reporter ranked it 7th of the album and likened it to 'The Best Day' and 'seven.'"
+    ],
+    meaning: {
+      confirmed: [
+        "Track 30 on The Tortured Poets Department: The Anthology (April 19, 2024), written and produced by Taylor Swift with Aaron Dessner — a piano ballad opening on a bright, near-music-box figure, from the Dessner-led second half.",
+        "It charted: 'Robin' debuted at No. 55 on the Billboard Hot 100 (chart dated May 4, 2024), one of the 31 Anthology tracks to enter the chart at once.",
+        "It was performed live once — an Eras Tour surprise-song mashup with 'Never Grow Up' in Zurich (July 10, 2024)."
+      ],
+      supported: [
+        "It reads as a portrait of any protected childhood, which is the dominant critical framing; the Hollywood Reporter placed it among the album's best and tied it to Swift's earlier childhood songs.",
+        "Co-writer Aaron Dessner has a young son named Robin — a fact he volunteered himself (he posted in 2016 about producing a track two days after his son Robin was born) — and the song is widely reported to be named for the boy."
+      ],
+      fanTheories: [
+        "The 'named for Dessner's son' account, though near-universal in coverage, rests on the family-published name plus reporting; a direct Dessner statement that this song was written for his son is not on the public record, so the naming is best treated as strongly-reported rather than author-confirmed. Any tie of the lyric to that specific child (beyond the shared name) is inference."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:never-grow-up",
+        label: "Never Grow Up",
+        why: "Swift's own live pairing — she mashed the two in Zurich; both are a grown woman begging time to slow down and leave a child's innocence intact."
+      },
+      {
+        relatedId: "song:seven",
+        label: "seven",
+        why: "Dessner's other childhood song, and the one critics named alongside 'Robin' — the same fierce tenderness toward a kid's unguarded world (a critic-drawn link)."
+      },
+      {
+        relatedId: "song:the-best-day",
+        label: "The Best Day",
+        why: "The Hollywood Reporter grouped 'Robin' with it as childhood-evoking; where 'Robin' guards a boy's innocence, 'The Best Day' is the grown child's thank-you for that guarding."
+      }
+    ],
+    sources: [
+      { name: "The Tortured Poets Department — Wikipedia (Anthology credits, 'Robin')", url: "https://en.wikipedia.org/wiki/The_Tortured_Poets_Department" },
+      { name: "American Songwriter: Every Song on 'The Tortured Poets Department' Has Charted on the Hot 100", url: "https://americansongwriter.com/every-song-on-taylor-swifts-the-tortured-poets-department-has-charted-on-the-billboard-hot-100/" },
+      { name: "The Hollywood Reporter: Every Song on 'The Tortured Poets Department,' Ranked", url: "https://www.hollywoodreporter.com/lists/taylor-swift-the-tortured-poets-department-songs-ranked/" }
     ]
   }
 };

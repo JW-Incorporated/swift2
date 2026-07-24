@@ -297,13 +297,24 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The rebound with a prison metaphor — first call after release goes to the old flame who waited.',
       summary:
-        'A long relationship recast as a sentence served: now sprung, she runs straight to someone from before the walls went up. The giddy escape reads knowingly temporary.',
+        'A long relationship recast as a sentence served: now sprung, she runs straight to someone from before the walls went up. The giddy escape reads knowingly temporary. A tremolo-guitar, spring-reverb opening gives way near 2:25 to a tempo-dropping outro and its “I did my time” refrain; it debuted and peaked at No. 11 on the Hot 100 in the album’s top-14 week.',
       inspiration: null,
       themes: ['relationships as confinement', 'rebounds', 'running to the past'],
+      easterEggs:
+        'An Eras Tour surprise song twice — Lisbon (May 24, 2024) on piano with Midnights’ “High Infidelity,” and Munich (July 27, 2024) on guitar with 1989’s “You Are in Love.”',
       sourceUrl: 'https://en.wikipedia.org/wiki/Fresh_Out_the_Slammer',
       sources: [
-        wiki('Fresh Out the Slammer', 'Fresh_Out_the_Slammer', 'song article: composition'),
+        wiki('Fresh Out the Slammer', 'Fresh_Out_the_Slammer', 'song article: composition, chart, live history, reception'),
         ALBUM,
+        {
+          source_url: 'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+          source_title: 'Taylor Swift Makes Chart History With Top 14 of the Hot 100',
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 11 Hot 100 debut/peak, week of May 4, 2024',
+        },
       ],
     },
     {
@@ -453,15 +464,24 @@ const TRACKS = [
         'Confirmed autobiography: the song describes performing the Eras Tour mid-heartbreak, down to the in-ear count-offs sampled in the production.',
       themes: ['functioning depression', 'the show must go on', 'professionalism as armor'],
       easterEggs:
-        'Eras Tour audiences screaming the more-tour-dates line back at her became the meta-joke of the 2024 legs.',
+        'Eras Tour audiences screaming the more-tour-dates line back at her became the meta-joke of the 2024 legs. Released as the album’s second single (July 2, 2024), it peaked at No. 3 on the Hot 100 and became TTPD’s longest-charting track (31 weeks); its Swift-directed behind-the-scenes video premiered at the final Wembley show (Aug. 20, 2024). USA Today named it the best song of 2024.',
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Can_Do_It_with_a_Broken_Heart',
       sources: [
         wiki(
           'I Can Do It with a Broken Heart',
           'I_Can_Do_It_with_a_Broken_Heart',
-          'song article: tour context',
+          'song article: single, chart, video, reception',
         ),
         ALBUM,
+        {
+          source_url: 'https://variety.com/2024/music/news/taylor-swift-i-can-do-it-with-a-broken-heart-music-video-behind-the-scenes-1236113079/',
+          source_title: "Taylor Swift Drops Behind-the-Scenes 'I Can Do It With a Broken Heart' Video",
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Self-directed video premiered Aug. 20, 2024 at the final Wembley Eras Tour show',
+        },
       ],
     },
     {
@@ -506,9 +526,23 @@ const TRACKS = [
       inspiration:
         'The sports-imagery reading toward her documented 2023-onward relationship with Travis Kelce is universal; the relationship itself is public record even if the song’s address is not footnoted.',
       themes: ['new love as chemistry', 'winning', 'rare joy on a grief album'],
-      fanLore: 'Fan reading (near-universal): the Kelce attribution via the end-zone metaphors.',
+      easterEggs:
+        'An Eras Tour surprise song twice — Paris (May 12, 2024) on guitar with “Treacherous,” and Wembley (Aug. 15, 2024) on piano with “King of My Heart.” It debuted and peaked at No. 13 on the Hot 100.',
+      fanLore: 'Fan reading (near-universal): the Kelce attribution via the end-zone metaphors — never confirmed by Swift in any interview, liner note or dedication.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Alchemy',
-      sources: [wiki('The Alchemy', 'The_Alchemy', 'song article: readings'), ALBUM],
+      sources: [
+        wiki('The Alchemy', 'The_Alchemy', 'song article: composition, chart, live history, reception'),
+        ALBUM,
+        {
+          source_url: 'https://time.com/6969049/taylor-swift-song-travis-kelce-the-alchemy/',
+          source_title: "Breaking Down Taylor Swift's 'The Alchemy' and Its Travis Kelce References",
+          publisher: 'TIME',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Press football-metaphor reading; labels the subject as fan/press inference, not Swift-confirmed',
+        },
+      ],
     },
     {
       slug: 'clara-bow',
@@ -546,11 +580,29 @@ const TRACKS = [
         'The real Black Dog pub in London confirmed the tourist wave publicly — the era’s best example of a lyric geotagging itself.',
       themes: ['digital-age grief', 'shared places lost', 'watching from afar'],
       easterEggs:
-        'The pub’s post-release fan influx (and commemorative merch) is documented hospitality-industry history now.',
+        'The Vauxhall pub leaned in — window signage quoting the lyric, a cocktail board annotated “Taylor’s Version,” branded merch — and staff said they turned customers away daily after release. It opens the Anthology’s fifteen-song second half, peaked at No. 25 on the Hot 100, and was an Eras Tour piano surprise song three times: Wembley (June 21, 2024, live debut, with “Come Back… Be Here”/“Maroon”), Warsaw (Aug. 3, 2024, with “exile”) and New Orleans (Oct. 25, 2024, with “Haunted”). In Oct. 2025 Swift told BBC Radio 2 fans “have no idea” what it is about.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Black_Dog_(song)',
       sources: [
-        wiki('The Black Dog (song)', 'The_Black_Dog_(song)', 'song article: pub phenomenon'),
+        wiki('The Black Dog (song)', 'The_Black_Dog_(song)', 'song article: composition, chart, live history, reception'),
         ALBUM,
+        {
+          source_url: 'https://www.cbsnews.com/news/taylor-swift-the-black-dog-pub-london-tortured-poets-department/',
+          source_title: "London pub becomes Taylor Swift fan destination after 'The Black Dog'",
+          publisher: 'CBS News',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'The Vauxhall pub phenomenon; marketing manager on turning customers away daily',
+        },
+        {
+          source_url: 'https://www.justjared.com/2025/10/06/taylor-swift-reveals-fans-have-no-idea-what-the-black-dog-is-really-about/',
+          source_title: "Taylor Swift Says Fans 'Have No Idea' What 'The Black Dog' Is About",
+          publisher: 'Just Jared',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Oct. 2025 BBC Radio 2 (Scott Mills) remark deflating the assumed reading',
+        },
       ],
     },
     {
@@ -564,11 +616,34 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The double-meaning threat: win him back or get him back — she has not decided, and the song refuses to either.',
       summary:
-        'Revenge and reunion held in deliberate superposition: whichever hurts more, probably. The lowercase run-on title is doing reputation-era styling on an Anthology budget.',
+        'Revenge and reunion held in deliberate superposition: whichever hurts more, probably. Critics filed the restrained, synth-forward production in Midnights’ dusky-electropop lineage (and reached for Olivia Rodrigo comparisons), not reputation. It debuted and peaked at No. 26 on the Hot 100 during the album’s top-14 week, and Swift twice worked it into Eras Tour surprise sets — Amsterdam (July 5, 2024) mashed with “Dress,” then Munich (July 28, 2024).',
       inspiration: null,
       themes: ['ambivalence weaponized', 'revenge or romance', 'unfinished business'],
+      easterEggs:
+        'The lowercase run-on title — no spaces, all lowercase — is the reputation-era kiss-off attitude compressed into a URL, but the sound is Midnights-adjacent synth-pop.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Imgonnagetyouback',
-      sources: [wiki('imgonnagetyouback', 'Imgonnagetyouback', 'song article: composition'), ALBUM],
+      sources: [
+        wiki('imgonnagetyouback', 'Imgonnagetyouback', 'song article: composition, chart, live history'),
+        ALBUM,
+        {
+          source_url: 'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+          source_title: 'Taylor Swift Makes Chart History With Top 14 of the Hot 100',
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 26 Hot 100 debut/peak within the record top-14 week',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/taylor-swift-imgonnagetyouback-amsterdam-1235054443/',
+          source_title: "Taylor Swift Debuts 'imgonnagetyouback' in Amsterdam",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Live debut July 5, 2024, mashed with reputation’s "Dress"',
+        },
+      ],
     },
     {
       slug: 'the-albatross',
@@ -623,7 +698,7 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'A breakup autopsy performed for an audience of gossips — the couple’s friends, the fans, and the press all lean in for the cause of death.',
       summary:
-        'Everyone wants the story of the ending, including the two people it happened to, who genuinely do not know — grief with a Greek chorus of rubberneckers. As track 21 it opens “The Anthology,” the fifteen-song second half that surprise-dropped at 2 a.m. ET on release night, and it reached No. 35 on the Billboard Hot 100 during TTPD’s record-setting chart week. Swift debuted it live as a solo piano ballad at the final Stockholm Eras Tour show (May 19, 2024); Variety later ranked it among her best songs and The Independent named it one of 2024’s best.',
+        'Everyone wants the story of the ending, including the two people it happened to, who genuinely do not know — grief with a Greek chorus of rubberneckers. It is track 21 — the fifth of the fifteen songs in “The Anthology,” the second half that surprise-dropped at 2 a.m. ET on release night (that bonus run opens with “The Black Dog,” track 17) — and it reached No. 35 on the Billboard Hot 100 during TTPD’s record-setting chart week. Swift debuted it live as a solo piano ballad at the final Stockholm Eras Tour show (May 19, 2024); Variety later ranked it among her best songs and The Independent named it one of 2024’s best.',
       inspiration:
         'Aaron Dessner co-wrote and co-produced it; the arrangement builds from near-whispered verses toward a full crescendo that fans single out. Swift has named no subject.',
       themes: ['public appetite for private pain', 'unanswerable endings', 'gossip as ritual'],
@@ -815,9 +890,20 @@ const TRACKS = [
         'The Peter Pan framework is in-text; the cardigan connection is a documented fan-canon link Swift seeded herself by reusing the names.',
       themes: ['waiting expired', 'boys who won’t grow up', 'closing the window'],
       easterEggs:
-        'A four-years-later answer to cardigan’s Peter-and-Wendy line — one of the catalog’s cleanest long-range callbacks.',
+        'A four-years-later answer to cardigan’s Peter-and-Wendy line — one of the catalog’s cleanest long-range callbacks. A solo-written piano ballad with London Contemporary Orchestra strings; played live on piano in Stockholm (May 17, 2024) and Toronto (Nov. 15, 2024, mashed with “evermore”), and it debuted at No. 46 on the Hot 100.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
-      sources: [ALBUM],
+      sources: [
+        ALBUM,
+        {
+          source_url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/',
+          source_title: 'Taylor Swift: The Tortured Poets Department — The Anthology Review',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Rob Sheffield calls "Peter" the Anthology\'s show-stopper; ties it to folklore\'s "cardigan"',
+        },
+      ],
     },
     {
       slug: 'the-bolter',
@@ -848,12 +934,32 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The gentlest thing on the Anthology — a lullaby promising to guard a child’s unbothered world for as long as possible.',
       summary:
-        'Addressed to a small boy in dinosaur-and-tree-fort years: the adults will hold the sadness so he does not have to know it exists yet. Widely reported to be named for Aaron Dessner’s son Robin, which Dessner has affirmed in interviews.',
+        'Addressed to a small boy in swing-set-and-dragonfly years: the adults will hold the sadness so he does not have to know it exists yet. Widely reported to be named for co-writer Aaron Dessner’s young son Robin — Dessner has a son of that name (he said so himself in 2016), though a direct statement that this song is for him is not on the public record. It debuted at No. 55 on the Hot 100 in the album’s record week, and Swift played it live once, as a Zurich surprise-song mashup with “Never Grow Up” (July 10, 2024).',
       inspiration:
-        'Reported and affirmed in press around release: named for co-writer Dessner’s young son.',
+        'Strongly reported as named for co-writer Dessner’s young son Robin; the son’s name is family-published, the song-dedication itself uncomfirmed by Dessner on record.',
       themes: ['protected childhood', 'buying time for innocence', 'tenderness'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
-      sources: [ALBUM],
+      sources: [
+        ALBUM,
+        {
+          source_url: 'https://americansongwriter.com/every-song-on-taylor-swifts-the-tortured-poets-department-has-charted-on-the-billboard-hot-100/',
+          source_title: "Every Song on Taylor Swift's 'The Tortured Poets Department' Has Charted on the Billboard Hot 100",
+          publisher: 'American Songwriter',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: '"Robin" debuted at No. 55 on the Hot 100',
+        },
+        {
+          source_url: 'https://www.hollywoodreporter.com/lists/taylor-swift-the-tortured-poets-department-songs-ranked/',
+          source_title: "Every Song on Taylor Swift's 'The Tortured Poets Department,' Ranked",
+          publisher: 'The Hollywood Reporter',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Ranked 7th; likened to "The Best Day" and "seven"',
+        },
+      ],
     },
     {
       slug: 'the-manuscript',
