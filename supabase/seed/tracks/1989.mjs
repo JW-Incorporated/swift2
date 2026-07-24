@@ -885,11 +885,11 @@ export default {
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       isFromTheVault: true,
-      note: 'The shortest song in her catalog at release — a disco-strut post-mortem on all the things she no longer has to pretend to enjoy.',
+      note: 'The shortest track on 1989 (Taylor\'s Version) at 2:26 — a disco-strut post-mortem on all the things she no longer has to pretend to enjoy.',
       summary:
         'After the silence sets in, the wins count themselves: no more faking a taste for his music, his friends, his idea of her. Petty, precise, and over in under two and a half minutes.',
       inspiration:
-        'Fans immediately mapped its details to the mid-2010s chapter the 1989 vault covers (unconfirmed); the documented fact is its record-setting brevity in her catalog.',
+        'Fans immediately mapped its details to the mid-2010s chapter the 1989 vault covers (unconfirmed); the documented fact is its brevity — at 2:26 the shortest track on 1989 (Taylor\'s Version).',
       themes: ['post-breakup clarity', 'identity reclaimed', 'brevity as flex'],
       fanLore:
         'Fan reading (unconfirmed): the yacht-and-long-hair details fans link to a specific 2015–16 relationship.',
@@ -901,6 +901,40 @@ export default {
           'song article: length record and reception',
         ),
         TV,
+      ],
+      // Depth ledger #1479 (2026-07-24): verify the length record, the production
+      // story, the No. 2 chart run vs the other four vault tracks, named
+      // reception, live history, and the reveal/rollout.
+      discussion: [
+        'At 2 minutes 26 seconds "Now That We Don\'t Talk" is the shortest track on 1989 (Taylor\'s Version), and at release it was widely noted as among the briefest studio recordings in her catalog. Swift and Jack Antonoff wrote and produced it during the original 1989 era but left it off the 2014 album because, as Swift put it, they "couldn\'t get it right at the time"; the finished vault version is a synth-pop and disco hybrid — disco grooves, thrumming synths and a falsetto chorus — tracked across Conway, Electric Lady, Sharp Sonics and Rough Customer studios, with Antonoff programming and playing synths, guitar and background vocals, Serban Ghenea mixing and Randy Merrill mastering.',
+        'It was the best-charting of the five From The Vault tracks after "Is It Over Now?": it debuted and peaked at No. 2 on the Billboard Hot 100 (chart dated Nov. 11, 2023) — one of Swift\'s record run of No. 2 hits — with matching No. 2 peaks in Australia, Canada, New Zealand, the UK and on the Global 200, ahead of "Slut!," "Say Don\'t Go" and "Suburban Legends." No RIAA certification for the track has been reported; internationally it went Platinum in Australia, Gold in Brazil and New Zealand, and Silver in the UK. Critics singled it out as a vault standout: Rolling Stone\'s Rob Sheffield praised its "acerbic wit," Paste\'s Elizabeth Braaten called it "an inevitable instant classic in Swiftian lore," The Line of Best Fit\'s Kelsey Barnes found the falsetto "deliciously infectious," and NME\'s Hollie Geraghty named it the best of the five vault songs — though Clash\'s reviewer counted it among the album\'s slighter cuts.',
+        'The 1989 (Taylor\'s Version) vault titles were revealed in September 2023 through a Google search-puzzle promotion Swift ran with the company, and the song received an official lyric video on her YouTube channel alongside the re-recording. Unusually for a vault cut, it entered the Eras Tour setlist: Swift performed it as an acoustic surprise song in São Paulo on Nov. 24, 2023, and again in Lisbon on May 25, 2024 as part of a guitar mash-up with "The Tortured Poets Department." No standalone streaming record has been documented for the track beyond its chart run, so any such milestone stays unclaimed here.',
+      ],
+      discussionSources: [
+        wiki(
+          "Now That We Don't Talk",
+          "Now_That_We_Don't_Talk",
+          'runtime record, production credits, chart peaks, certifications, reception, and Eras Tour performances',
+        ),
+        TV,
+        {
+          source_url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-1989-taylors-version-review-2-1234804286/',
+          source_title: "Taylor Swift's '1989 (Taylor's Version)' Review: Best Vault Tracks Yet",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Sheffield naming it and "Is It Over Now?" the vault highlights, on its "acerbic wit"',
+        },
+        {
+          source_url: 'https://www.nme.com/reviews/album/taylor-swift-1989-taylors-version-review-3527096',
+          source_title: "Taylor Swift – '1989 (Taylor's Version)' review",
+          publisher: 'NME',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Hollie Geraghty naming it the best vault track',
+        },
       ],
     },
     {
