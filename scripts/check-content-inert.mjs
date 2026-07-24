@@ -77,6 +77,12 @@ export const ALLOWLIST = {
   // Same caveats, same tracked refactor.
   'supabase/seed/tracks/midnights.mjs':
     'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
+  // Same shape as the-life-of-a-showgirl.mjs / red.mjs / tortured-poets.mjs /
+  // midnights.mjs (dossier side file attached by slug with an import-time
+  // integrity throw) — added 2026-07-24 when ledger #1306 gave Our Song a debut
+  // dossier. Same caveats, same tracked refactor.
+  'supabase/seed/tracks/debut.mjs':
+    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
 };
 
 // The only free identifiers a value may reference (safe constants that cannot
