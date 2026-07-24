@@ -3649,7 +3649,11 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-mid-6", label: "1989 (TV) announced", kind: "album" },
-      relatedIds: ['moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
+      relatedIds: [
+        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        // Announcement → payoff (ledger #1115, Q3): the Oct. 27, 2023 release outcome.
+        'moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record',
+      ],
       title: "1989 (Taylor's Version) announced at the final US show — on the date fans predicted",
       snippet:
         'Blue versions of her Speak Now, folklore, and 1989 outfits teased it all night at SoFi before the reveal: Oct. 27. Fans had already done the math — Aug. 9 was eight years, nine months, and 13 days since the original.',
@@ -3657,7 +3661,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Aug. 9, 2023 finale of the tour\'s first US run ended with SoFi\'s roof lit up for the announcement and Swift calling it "my most FAVORITE re-record I\'ve ever done."\n\nThe date numerology (8-9, and her lucky 13) had circulated among fans for weeks — one of the rare times the fandom called an announcement to the day: date logic (8/9 reading as \'89), the era\'s color-code system (blue for 1989), and the tour calendar all pointed the same direction publicly before the show, and the reveal landed exactly where the numerology said it would (1989 (Taylor\'s Version), Wikipedia).',
+          'The Aug. 9, 2023 finale of the tour\'s first US run landed the reveal in the acoustic surprise-song slot: the new album cover — Swift smiling against a blue sky, echoing the 2014 original — flashed onto the stadium screens to a roughly eight-minute roar, and she paired the night with "New Romantics" on guitar and "New Year\'s Day" on piano. She called it "my most FAVORITE re-record I\'ve ever done because the 5 From The Vault tracks are so insane."\n\nThe date numerology (8/9 reading as \'89, and her lucky 13) had circulated among fans for weeks — one of the rare times the fandom called an announcement to the day, with the era\'s blue color-code and the tour calendar all pointing the same way before the show.\n\nThe five vault-track titles came via a September Google puzzle hunt — fans were set 33 million word-scrambles to solve (a nod to her age) and blew past it in a day, crashing the counter. All five landed in the Hot 100\'s top 10 at release: "Is It Over Now?" debuted at No. 1 (her second Taylor\'s Version vault cut to top the chart, after "All Too Well"), trailed by "Now That We Don\'t Talk," "Slut!," "Say Don\'t Go" and "Suburban Legends" — and 1989 (Taylor\'s Version) opened to the biggest week of her career.',
         sources: [
           {
             outlet: 'Variety',
@@ -3685,6 +3689,44 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          // Depth pass (ledger #1115, 2026-07-24): surprise-song reveal, vault
+          // puzzle mechanic, vault-track chart outcomes, and week-one payoff.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-eras-tour-la-recap-night-6-best-moments-sofi-stadium/',
+            source_title: 'Taylor Swift Eras Tour LA Night 6 Recap: Best Moments at SoFi Stadium',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-fans-crash-google-1989-vault-puzzles-1235416529/',
+            source_title: "Taylor Swift Fans Crash Google Solving 1989 Vault Puzzles",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-is-it-over-now-number-1-hot-100-debut-1235464462/',
+            source_title: "Taylor Swift's 'Is It Over Now?' Debuts at No. 1 on the Hot 100",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/music/news/taylor-swift-number-one-1989-taylors-version-her-best-first-week-ever-1235780769/',
+            source_title: "1989 (Taylor's Version) Gives Taylor Swift Her Best First Week Ever",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
           },
         ],
         // Real-photo pass (2026-07-09): freely licensed photo from the actual
@@ -3816,7 +3858,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Oct. 13, 2023 opening weekend played like a tour stop: theaters full of costumed fans dancing in the aisles, with minimal traditional marketing behind it. The $123.5 million global start beat the concert-film opening record Justin Bieber: Never Say Never had held since 2011, and the $92.8 million domestic number ranked as the second-biggest October opening ever, behind only Joker.\n\nThe business model drew as much coverage as the numbers: Swift bypassed the studio system entirely and dealt directly with AMC as distributor — a first at this scale — and the direct-to-exhibitor template became the one she reran two years later for the Showgirl Release Party.',
+          'The Oct. 13, 2023 opening weekend played like a tour stop: theaters full of costumed fans dancing in the aisles, with minimal traditional marketing behind it. The $123.5 million global start beat the concert-film opening record Justin Bieber: Never Say Never had held since 2011, and the $92.8 million domestic number ranked as the second-biggest October opening ever, behind only Joker.\n\nDirected by Sam Wrench and filmed over the first three of Swift\'s six SoFi Stadium nights (Aug. 3–5, 2023), it carried her numerology into the box office: AMC priced adult tickets at $19.89 (for 1989) and children\'s and seniors\' at $13.13 (for her lucky number). Demand broke AMC\'s own records — a $26 million single-day presale, past $100 million in global advance sales before opening — with the chain saying it had braced its site for "more than five times" its largest-ever ticket rush.\n\nThe business model drew as much coverage as the numbers: Swift bypassed the studio system and dealt directly with AMC — theaters kept 43% of the gross, the rest split between Swift and AMC — a direct-to-exhibitor first at this scale that she reran for the 2025 Showgirl Release Party. The theatrical cut kept the two acoustic surprise songs filmed at SoFi ("Our Song" and "You\'re On Your Own, Kid") but dropped five setlist numbers ("The Archer," "cardigan," "Wildest Dreams," "Long Live," "no body, no crime"); a later Extended Version restored three, and the March 2024 Disney+ edit added "cardigan" plus four more acoustic cuts. By January 2024 the film had grossed roughly $261.6 million worldwide, passing Michael Jackson\'s This Is It as the highest-grossing concert film ever on its way to about $267 million.',
         sources: [
           {
             outlet: 'Variety',
@@ -3834,6 +3876,53 @@ export default {
             publisher: 'CNBC',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1124, 2026-07-24): director/filming, symbolic
+          // pricing, record presales, cut/restored songs, AMC terms, final gross.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/music/news/taylor-swift-eras-tour-movie-song-list-surprise-songs-1235753833/',
+            source_title: 'Taylor Swift Eras Tour Movie: Full Song List and Surprise Songs',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/taylor-swift-eras-tour-movie-amc-tickets-rcna102712',
+            source_title: 'Taylor Swift Eras Tour movie tickets: $19.89 and $13.13 pricing',
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/film/box-office/taylor-swift-eras-tour-film-record-breaking-presales-1235710568/',
+            source_title: 'Taylor Swift Eras Tour Film Sets Record-Breaking AMC Presales',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-eras-tour-concert-film-deal-amc/',
+            source_title: "Inside Taylor Swift's Eras Tour Concert Film Deal With AMC",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'AMC Theatres',
+            url: 'https://investor.amctheatres.com/news-events/press-releases/detail/348/',
+            source_title: "Taylor Swift | The Eras Tour Becomes Highest-Grossing Concert Film of All Time",
+            publisher: 'AMC Entertainment',
+            source_type: 'primary',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
@@ -3918,6 +4007,12 @@ export default {
       month: 11,
       day: 11,
       category: 'relationship',
+      // Cross-links (ledger #1248, Q-cross-links): the relationship going public
+      // and the Dec. 2023 TIME Person of the Year cover from the same window.
+      relatedIds: [
+        'moment:vault-midnights-the-game-the-world-decided-made-it-official',
+        'moment:vault-midnights-time-names-her-2023-person-of-the-year',
+      ],
       title: '"Karma is the guy on the Chiefs" — sung with Travis watching',
       snippet:
         'She swapped the lyric mid-show in Buenos Aires while Kelce watched from a tent with her dad — then ran into his arms after the show for their first kiss caught on camera.',
@@ -3925,7 +4020,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Nov. 11, 2023: fan video caught Kelce covering his face and grinning as Scott Swift patted his arm.\n\nHe recapped it on New Heights with "I\'m enjoying life, and I sure as hell enjoyed this weekend." The line stuck — the Chiefs version of the lyric kept resurfacing at shows through the rest of the tour.',
+          'Nov. 11, 2023, the third and final night of her Buenos Aires stand at Estadio River Plate: midway through "Karma" she swapped the bridge line "Karma is the guy on the screen coming straight home to me" to "…the guy on the Chiefs coming straight home to me," and fan video caught Kelce covering his face and grinning from a VIP tent as Scott Swift patted his arm.\n\nIt was Kelce\'s first Eras Tour show outside the US and the first since the two went public — he\'d quietly turned up in Kansas City back in July — and when the set ended she ran off the stage into his arms for the couple\'s first kiss caught on camera, the moment outlets treated as their relationship\'s "hard launch."\n\nHe recapped it on New Heights ("I might have had a little bit of a clue, but … it still shocked me"), and Swift spoke about the romance on the record in TIME\'s December 2023 Person of the Year cover. The "Chiefs" version turned into a recurring tribute, resurfacing at later shows from Sydney in February 2024 through the Vancouver finale, and "Karma" streams jumped about 22% the Monday after Buenos Aires.',
         sources: [
           {
             outlet: 'Billboard',
@@ -3944,6 +4039,35 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth pass (ledger #1248, 2026-07-24): first-kiss framing, the
+          // lyric's later recurrence, and the streaming spike for "Karma."
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/taylor-swift-travis-kelce-kiss-eras-tour-argentina-rcna124801',
+            source_title: 'Taylor Swift and Travis Kelce kiss after Buenos Aires Eras Tour show',
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-changes-karma-lyrics-travis-kelce-sydney-show-1235613396/',
+            source_title: "Taylor Swift Changes 'Karma' Lyrics for Travis Kelce at Sydney Show",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swifts-karma-streaming-boost-after-changing-lyric-to-shout-out-travis-kelce-3539649',
+            source_title: "Taylor Swift's 'Karma' gets streaming boost after Travis Kelce lyric change",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         // Real-photo pass (2026-07-09): freely licensed photo from the same Buenos
@@ -3967,6 +4091,9 @@ export default {
       month: 11,
       day: 29,
       category: 'music',
+      // Cross-link (ledger #1251, Q-cross-links): it dropped in the same week as
+      // the Spotify-2023 crown / TIME Person of the Year recognition.
+      relatedIds: ['moment:vault-midnights-time-names-her-2023-person-of-the-year'],
       title: '"You\'re Losing Me" finally hits streaming',
       snippet:
         'The Midnights bonus track fans treated as the Alwyn-breakup rosetta stone went wide on Nov. 29 — her thank-you for being named Spotify\'s top global artist of 2023.',
@@ -3974,7 +4101,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Previously locked to a CD-only Late Night Edition sold at Eras Tour merch stands from May 2023, the downtempo ballad — twinkling synthesizers over sparse, steady beats — literally samples Swift\'s own heartbeat in its production. On streaming it climbed to No. 27 on the Hot 100, remarkable for a bonus track six months old, with one reviewer calling it potentially the most devastating breakup song she\'s written.\n\nJack Antonoff later revealed they wrote and recorded it on Dec. 5, 2021 — well over a year before the Alwyn breakup became public, which only deepened the fan forensics around it: the song read in hindsight as a relationship\'s decline documented in real time, released into the exact week Spotify crowned her its most-streamed artist of 2023.',
+          'Previously locked to a CD-only Late Night Edition sold at Eras Tour merch stands from late May 2023, the downtempo Swift/Antonoff ballad — twinkling synthesizers over a sparse, steady pulse widely heard as a sampled heartbeat, a trick fans trace back to "Wildest Dreams," though Swift has never confirmed whose it is — runs 4:38 and never appeared on a standard Midnights edition, only the digital Til Dawn Edition. Going wide on Nov. 29 as her thank-you for Spotify\'s 2023 global-artist crown, it entered the Hot 100 at No. 46 on two days of tracking and rose to No. 27 — remarkable for a six-month-old bonus track — while debuting atop Digital Song Sales, her record-extending 28th No. 1 there, and hitting No. 20 in the UK.\n\nAntonoff pinned the origin himself, posting that it was "written and recorded at home on 12/5/21" — well over a year before the Alwyn breakup became public, which only deepened the fan forensics: the song reads in hindsight as a relationship\'s decline documented in real time. Swift has never narrated its meaning on the record, so the Alwyn attribution, however universally held, stays a fan reading.\n\nFor all its devotion it stayed off the setlist until Melbourne on Feb. 16, 2024, when Swift finally played it as a piano surprise song — "I\'ve never played this one before" — returning to it in a Liverpool mashup and again at the Toronto tour finale in late 2024. Rolling Stone placed it at No. 86 on its best-songs-of-2023 list; it drew no Grammy nomination.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -3992,6 +4119,26 @@ export default {
             publisher: 'Deadline',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1251, 2026-07-24): chart run and Digital Song
+          // Sales milestone; live-history and best-of-2023 placement per Wikipedia.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-youre-losing-me-from-the-vault-debuts-hot-100-1235533932/',
+            source_title: "Taylor Swift's 'You're Losing Me' Debuts on the Hot 100",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/music/news/taylor-swift-youre-losing-me-release-from-the-vault-1235812502/',
+            source_title: "Taylor Swift Releases 'You're Losing Me' From the Vault to Streaming",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
