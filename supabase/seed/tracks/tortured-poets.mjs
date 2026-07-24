@@ -623,7 +623,7 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'A breakup autopsy performed for an audience of gossips — the couple’s friends, the fans, and the press all lean in for the cause of death.',
       summary:
-        'Everyone wants the story of the ending, including the two people it happened to, who genuinely do not know — grief with a Greek chorus of rubberneckers. As track 21 it opens “The Anthology,” the fifteen-song second half that surprise-dropped at 2 a.m. ET on release night, and it reached No. 35 on the Billboard Hot 100 during TTPD’s record-setting chart week. Swift debuted it live as a solo piano ballad at the final Stockholm Eras Tour show (May 19, 2024); Variety later ranked it among her best songs and The Independent named it one of 2024’s best.',
+        'Everyone wants the story of the ending, including the two people it happened to, who genuinely do not know — grief with a Greek chorus of rubberneckers. Track 21 of The Anthology — the double album whose fifteen-song second half surprise-dropped at 2 a.m. ET on release night (its own second half opens with “The Black Dog,” track 17) — it reached No. 35 on the Billboard Hot 100 during TTPD’s record-setting chart week, and charted top-40 in Australia, Canada and New Zealand and on the Billboard Global 200. Swift played it live only twice: the solo-piano debut at the final Stockholm Eras Tour show (May 19, 2024) and a “You’re Losing Me” mashup in Toronto (Nov 23, 2024). Variety later ranked it No. 11 on its list of her 75 best songs and The Independent named it one of 2024’s best.',
       inspiration:
         'Aaron Dessner co-wrote and co-produced it; the arrangement builds from near-whispered verses toward a full crescendo that fans single out. Swift has named no subject.',
       themes: ['public appetite for private pain', 'unanswerable endings', 'gossip as ritual'],
@@ -633,7 +633,7 @@ const TRACKS = [
         'The lyric sustains a clinical autopsy conceit — a “fatal fever,” a “death rattle,” maladies “we could not cure” — turning the breakup into a coroner’s report.',
       sourceUrl: 'https://en.wikipedia.org/wiki/How_Did_It_End%3F',
       sources: [
-        wiki('How Did It End?', 'How_Did_It_End%3F', 'song article: composition, Hot 100 No. 35 peak, critical reception'),
+        wiki('How Did It End?', 'How_Did_It_End%3F', 'song article: Anthology track 21 (second half opens with “The Black Dog,” track 17), Hot 100 No. 35 + AUS/CAN/NZ/Global 200 peaks, Stockholm + Toronto live performances, Variety No. 11 of 75 ranking, critical reception'),
         {
           source_url: 'https://ca.rollingstone.com/music/taylor-swift-debuts-how-did-it-end-at-final-2024-eras-tour-date-in-sweden/',
           source_title: 'Taylor Swift Debuts “How Did It End?” at Final Stockholm Eras Tour Date',
@@ -830,12 +830,52 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'A character study of the woman who always runs — named for the aristocratic nickname history gave serial escapees, and grinning about it.',
       summary:
-        'A serial vanisher who feels most alive mid-getaway: every relationship ends with the door swinging. Press traced the title to the Idina Sackville-style Bolter archetype of English society lore (a reading, not a footnote); fans read the shoe as autobiographical and half-proud.',
+        'A serial vanisher who feels most alive mid-getaway: every relationship ends with the door swinging. Press traced the title to the Idina Sackville-style Bolter archetype of English society lore (a reading, not a footnote); fans read the shoe as autobiographical and half-proud, though the near-drowning-at-six is the character’s origin myth — the lyric flags it "by all accounts" — not Swift’s documented biography. It debuted and peaked at No. 47 on the Billboard Hot 100 during the album’s all-31-tracks chart week; Rolling Stone’s Rob Sheffield grouped it with the Anthology’s "stark piano narratives" about women seeking revenge.',
       inspiration:
-        'The Bolter as an English-society archetype (popularized by Frances Osborne’s biography of Sackville) is the documented reference point critics reached for.',
+        'The Bolter as an English-society archetype (popularized by Frances Osborne’s biography of Idina Sackville) is the documented reference point critics reached for; the nickname reached the culture through Nancy Mitford’s novels before Osborne’s 2008 book.',
       themes: ['flight response', 'self-mythologized escape', 'freedom versus intimacy'],
+      easterEggs:
+        'Played live twice on the 2024 Eras Tour, both as acoustic-guitar surprise mashups — with "Getaway Car" at its Edinburgh live debut (June 7) and "Cornelia Street" in Indianapolis (Nov 3).',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
-      sources: [ALBUM],
+      sources: [
+        {
+          source_url: 'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: 'Taylor Swift Charts 32 Songs on the Hot 100 in One Week — a Record',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: '"The Bolter" debuted and peaked at No. 47 on the Hot 100 (chart dated May 4, 2024).',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-bolter-crazier-live-debut-eras-tour-1235036115/',
+          source_title: "See Taylor Swift Debut 'The Bolter,' 'Crazier' Live at Edinburgh, Scotland Show",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Live debut Edinburgh June 7, 2024 mashed with "Getaway Car" (shared need-to-run-away theme); returned Indianapolis Nov 3 with "Cornelia Street".',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/',
+          source_title: 'Taylor Swift Delivers an Epic Double Album with TTPD: The Anthology',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Rob Sheffield groups "The Bolter" with the Anthology\'s "stark piano narratives" about women seeking revenge.',
+        },
+        {
+          source_url: 'https://www.aol.com/news/taylor-swift-song-bolter-based-212636465.html',
+          source_title: "Is Taylor Swift's song 'The Bolter' based on a true story?",
+          publisher: 'AOL / Yahoo Entertainment',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Reads the song as a third-person character sketch; no verified account of Swift nearly drowning at six.',
+        },
+        ALBUM,
+      ],
     },
     {
       slug: 'robin',

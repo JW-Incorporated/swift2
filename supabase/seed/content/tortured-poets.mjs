@@ -711,7 +711,7 @@ export default {
         'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
       moment: {
         context:
-          'The first show since Wembley on Aug. 20 — Oct. 18, 2024 at Hard Rock Stadium, and the start of the tour\'s last lap. Over its first two nights (Oct. 18–19) the run drew more than 122,000, breaking Billy Joel and Elton John\'s 1995 two-night Hard Rock Stadium record of 103,694 — with Billy Joel himself in the crowd the night it fell; a third sold-out show followed Oct. 20 with no separately published count. The layoff showed in the wardrobe: new Roberto Cavalli looks by Fausto Puglisi, headlined by the first new Reputation outfit of the entire tour — a gold-and-black one-leg bodysuit with a 3-D cobra, retiring the red-sequin-snake catsuit worn at every show since March 2023 — plus a new sapphire-fringe Fearless dress and a four-color crystal ombré wrap dress for the acoustic set (fashion desks documented three new Miami looks in all).\n\nThe TTPD set had the marquee guest: Florence Welch walked out for a live "Florida!!!" on all three nights. It wasn\'t the song\'s debut — that had come at the Aug. 20 Wembley finale — but Miami made the duet a fixture. Otherwise the setlist held; only the nightly two-song surprise changed: "Tim McGraw" / "Timeless" and "this is me trying" / "Daylight" (18th); "Should\'ve Said No" / "I Did Something Bad" and "loml" / "White Horse" (19th); "Out of the Woods" / "All You Had to Do Was Stay" and "mirrorball" / "Guilty as Sin?" (20th). Rain soaked the open-canopy opener — "a little rain never stopped Swift," wrote Deadline. Travis Kelce, mid-NFL season, missed the run, though his mother Donna and brother Jason\'s family came opening night.',
+          'The first show since Wembley on Aug. 20 — Oct. 18, 2024 at Hard Rock Stadium, and the start of the tour\'s last lap. Over its first two nights (Oct. 18–19) the run drew more than 122,000, breaking Billy Joel and Elton John\'s 1995 two-night Hard Rock Stadium record of 103,694 — with Billy Joel himself in the crowd the night it fell; a third sold-out show followed Oct. 20 with no separately published count. The layoff showed in the wardrobe: new Roberto Cavalli looks by Fausto Puglisi, headlined by the first new Reputation outfit of the entire tour — a gold-and-black one-leg bodysuit with a 3-D cobra, retiring the red-sequin-snake catsuit worn at every show since March 2023 — plus a new sapphire-fringe Fearless dress and a four-color crystal ombré wrap dress for the acoustic set (fashion desks documented three new Miami looks in all).\n\nThe TTPD set had the marquee guest: Florence Welch walked out for a live "Florida!!!" on all three nights. It wasn\'t the song\'s debut — that had come at the Aug. 20 Wembley finale — but Miami made the duet a fixture. Otherwise the setlist held; only the nightly two-song surprise changed: "Tim McGraw" / "Timeless" and "this is me trying" / "Daylight" (18th); "Should\'ve Said No" / "I Did Something Bad" and "loml" / "White Horse" (19th); "Out of the Woods" / "All You Had to Do Was Stay" and "mirrorball" / "Guilty as Sin?" (20th). Rain soaked the open-canopy opener — "a little rain never stopped Swift," wrote Deadline. Travis Kelce, mid-NFL season, missed the run, though his mother Donna and brother Jason\'s family came opening night.\n\nThe new cobra bodysuit set off Easter-egg talk that a Reputation (Taylor\'s Version) announcement was near; Swift waved it off ("it\'s always nice when the crowd notices") and her stylist later blamed a fabric shortage — no Rep TV came. Billy Joel, whose record had just fallen, cheered it on Instagram: "Onward and upward." The weekend lifted Miami hotels\' revenue per available room more than 80% year over year.',
         sources: [
           {
             outlet: 'Deadline',
@@ -800,6 +800,46 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 3,
             notes: 'Travis absent (NFL season); Donna, Jason and Kylie Kelce attended opening night',
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-new-eras-tour-outfits-miami-1236692034/',
+            source_title: "Taylor Swift's New Eras Tour Outfits: Reputation, Fearless & More",
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'The cobra-bodysuit swap fueled Reputation (Taylor\'s Version) speculation; Swift\'s Oct 22 deflection ("nice when the crowd notices").',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-gold-reputation-bodysuit-doc-series-1235487475/',
+            source_title: "Taylor Swift Shares the Secrets Behind That 'Reputation' Bodysuit",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Stylist attributed the bodysuit change to a fabric shortage, not a hidden Rep-TV message.',
+          },
+          {
+            outlet: 'Audacy',
+            url: 'https://www.audacy.com/wcbsfm/news/billy-joel-watched-taylor-swift-break-his-own-record',
+            source_title: "Billy Joel watched in Miami as Taylor Swift broke his own record: 'Onward and upward'",
+            publisher: 'Audacy',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Joel\'s Instagram: "Celebrating someone\'s success does not negate your own… Onward and upward"; family met Swift backstage.',
+          },
+          {
+            outlet: 'STR / CoStar',
+            url: 'https://www.hospitalitynet.org/news/4125179/the-end-of-an-eras-tour-taylor-swifts-final-impact-on-hotel-performance',
+            source_title: "The end of an Era(s Tour): Taylor Swift's final impact on hotel performance",
+            publisher: 'Hospitality Net (STR/CoStar data)',
+            source_type: 'industry_data',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Miami RevPAR up 80%+ over the Oct 18–20 weekend on ~60% ADR growth; Saturday ADR ~$332.',
           },
         ],
         photos: [
@@ -2988,7 +3028,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'June 13, 2024, Anfield — home of Liverpool FC — and night one of a three-night stand (June 13–15, Paramore opening). "You know, this is actually the 100th show of the tour. That blows my mind," she told the crowd, before making the admission fans dreaded: "this is the very first time I\'ve ever acknowledged to myself and admitted that this tour is going to end in December." She gave only "December" from the stage; a spokesperson supplied ABC News the specific finale — Vancouver, Dec. 8, the 149th and last show, 149 dates after Glendale, with no further extensions.\n\nThe milestone night carried two rarities: a "Cornelia Street" / "Maroon" mashup on piano and an "I Can See You" / "Mine" mashup on guitar — the first a nod to Liverpool, where the "I Can See You" video was filmed. The city met her halfway: Culture Liverpool and the social enterprise Make CIC turned the centre into a "Taylor Town" trail of eleven era-themed art installations (June 8–16) — a moss-covered "evermore" piano, a "Red" room, "Lover" hearts, a Fearless "13" mural. Night one drew about 62,000, which Swift said broke Anfield\'s attendance record — the 61,905 set at a 1952 FA Cup tie — though a concert pitch packs in more standing fans than a match ever did.',
+          'June 13, 2024, Anfield — home of Liverpool FC — and night one of a three-night stand (June 13–15, Paramore opening). "You know, this is actually the 100th show of the tour. That blows my mind," she told the crowd, before making the admission fans dreaded: "this is the very first time I\'ve ever acknowledged to myself and admitted that this tour is going to end in December." She gave only "December" from the stage; a spokesperson supplied ABC News the specific finale — Vancouver, Dec. 8, the 149th and last show, 149 dates after Glendale, with no further extensions.\n\nThe milestone night carried two rarities: a "Cornelia Street" / "Maroon" mashup on piano and an "I Can See You" / "Mine" mashup on guitar — the first a nod to Liverpool, where the "I Can See You" video was filmed. The city met her halfway: Culture Liverpool and the social enterprise Make CIC turned the centre into a "Taylor Town" trail of eleven era-themed art installations (June 8–16) — a moss-covered "evermore" piano, a "Red" room, "Lover" hearts, a Fearless "13" mural. Night one drew about 62,000, which Swift said broke Anfield\'s attendance record — the 61,905 set at a 1952 FA Cup tie — though a concert pitch packs in more standing fans than a match ever did.\n\nNights two and three (June 14–15) added four more mashups — among them a first-person twist on "The Great War" that fans seized on, and the live debuts of "Carolina" and "The Manuscript" — with Paramore opening all three nights and no surprise guest. VoucherCodes valued the stand at about £26.3m for the city (~£523 a fan across ~144,000 attendees), with local hotel and Airbnb prices forecast to surge 115%, the steepest of any UK stop; Music Week called the night "extraordinary… an artist at the peak of her powers."',
         sources: [
           {
             outlet: 'ABC News',
@@ -3047,6 +3087,76 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 4,
             notes: 'Onstage 100th-show acknowledgment; three-night Anfield stand',
+          },
+          {
+            outlet: 'Music Week',
+            url: 'https://www.musicweek.com/live/read/live-review-taylor-swift-stuns-in-liverpool-with-landmark-100th-show-of-eras-tour/089976',
+            source_title: 'Live review: Taylor Swift stuns in Liverpool with landmark 100th show of Eras tour',
+            publisher: 'Music Week',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Pull-quotes: "extraordinary… an artist at the peak of her powers"; "locating intimacy within colossal spectacle."',
+          },
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/anfield-liverpool-england-33aa4011.html',
+            source_title: 'Taylor Swift Setlist at Anfield, Liverpool — June 14, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'reference',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Night two surprise songs: "This Is What You Came For"/"gold rush" (guitar); "The Great War"/"You\'re Losing Me" (piano, first-person lyric change).',
+          },
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/anfield-liverpool-england-23aa4017.html',
+            source_title: 'Taylor Swift Setlist at Anfield, Liverpool — June 15, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'reference',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Night three surprise songs: "no body, no crime"/"Carolina" (guitar, live debut); "The Manuscript" with "Red" (piano, live debut).',
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/taylor-swift-fans-lose-over-203559077.html',
+            source_title: 'Taylor Swift Fans Lose It Over Eras Tour Lyric Change During Emotional Surprise Song',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'June 14 "The Great War" — Swift sang the reconciliation line in the first person ("if I survived the Great War").',
+          },
+          {
+            outlet: 'Liverpool Film Office',
+            url: 'https://liverpoolfilmoffice.tv/home/taylor-swifts-i-can-see-you-taylors-version-music-video-supports-local-liverpool-talent/',
+            source_title: "Taylor Swift's \"I Can See You (Taylor's Version)\" Music Video Supports Local Liverpool Talent",
+            publisher: 'Liverpool Film Office',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Video shot in Liverpool (April 2023): Cunard Building; vault-heist interior in the former NatWest bank on Castle Street.',
+          },
+          {
+            outlet: 'Liverpool Business News',
+            url: 'https://lbndaily.co.uk/taylor-swift-shows-worth-26-3m-to-liverpool/',
+            source_title: "Taylor Swift shows 'worth £26.3m to Liverpool'",
+            publisher: 'Liverpool Business News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'VoucherCodes: ~£26.3m local impact, £523.12 average spend per fan across ~144,000 attendees; hotel/Airbnb prices forecast +115%.',
+          },
+          {
+            outlet: 'Culture Liverpool',
+            url: 'https://www.cultureliverpool.co.uk/news/welcome-to-lover-pool-taylor-town-transformation-revealed/',
+            source_title: 'Welcome to Lover-pool! Taylor Town transformation revealed',
+            publisher: 'Liverpool City Council (Culture Liverpool)',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Council-led "Taylor Town" trail curated by Culture Liverpool with Make CIC and regional makers; St George\'s Hall "Liverpool Loves Taylor" banner.',
           },
         ],
         // T16 photo pass (2026-07-09): photo from ABC News' coverage of the
@@ -3419,7 +3529,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Aug. 8–10, 2024 shows were called off after authorities said a foiled plot targeted the crowds at Ernst Happel Stadium; promoter Barracuda Music scrapped all three sold-out nights.\n\nThe cancellation had a counter-story the venue photos captured: on Aug. 8, the night the first show should have opened, thousands of fans gathered anyway — many on Vienna\'s Corneliusgasse, chosen because its name echoes "Cornelia Street" — trading friendship bracelets and singing together, including a pointed "Cruel Summer." One couple got engaged in the street as the crowd sang "Love Story," and nearby churches and shops opened their doors, one posting: "Dear Swifties, we sympathize with you. You\'re welcome to come and sing your sadness away."\n\nAll three nights were automatically refunded within 10 working days through the original point of purchase, per Barracuda Music and Austrian ticketer oeticket (StubHub buyers were offered a 120% voucher or a full cash refund). The Austrian Press Agency estimated the shows would have drawn more than 170,000 fans and roughly €100 million to the city, lost to the cancellation.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done. On Aug. 21, 2024 — the day after her final Wembley show — she addressed it on Instagram, calling the cancellation "devastating" and writing that it "filled me with a new sense of fear, and a tremendous amount of guilt because so many people had planned on coming to those shows," adding that her "priority was finishing our European tour safely." Her silence, she said, had been "showing restraint." The Wembley run had resumed days earlier, and the tour finished without further incident.',
+          'The Aug. 8–10, 2024 shows were called off after authorities said a foiled plot targeted the crowds at Ernst Happel Stadium; promoter Barracuda Music scrapped all three sold-out nights.\n\nThe cancellation had a counter-story the venue photos captured: on Aug. 8, the night the first show should have opened, thousands of fans gathered anyway — many on Vienna\'s Corneliusgasse, chosen because its name echoes "Cornelia Street" — trading friendship bracelets and singing together, including a pointed "Cruel Summer." One couple got engaged in the street as the crowd sang "Love Story," and nearby churches and shops opened their doors, one posting: "Dear Swifties, we sympathize with you. You\'re welcome to come and sing your sadness away."\n\nAll three nights were automatically refunded within 10 working days through the original point of purchase, per Barracuda Music and Austrian ticketer oeticket (StubHub buyers were offered a 120% voucher or a full cash refund). The Austrian Press Agency estimated the shows would have drawn more than 170,000 fans and roughly €100 million to the city, lost to the cancellation.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done. On Aug. 21, 2024 — the day after her final Wembley show — she addressed it on Instagram, calling the cancellation "devastating" and writing that it "filled me with a new sense of fear, and a tremendous amount of guilt because so many people had planned on coming to those shows," adding that her "priority was finishing our European tour safely." Her silence, she said, had been "showing restraint." The Wembley run had resumed days earlier, and the tour finished without further incident.\n\nThe case later resolved at trial: authorities tied the plot to the Islamic State, and in May 2026 the ringleader — arrested at 19, one of several suspects detained — was sentenced to 15 years for planning to kill crowds outside the stadium with knives and explosives. The three Vienna shows were never rescheduled.',
         sources: [
           {
             outlet: 'NBC News',
@@ -3488,6 +3598,36 @@ export default {
             accessed_at: '2026-07-24',
             reliability_score: 4,
             notes: 'APA estimate: 170,000+ spectators and ~€100M lost to the cancellation',
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/world/europe/suspect-taylor-swift-vienna-concert-attack-plot-convicted-sentenced-15-rcna347416',
+            source_title: 'Suspect in Taylor Swift Vienna concert attack plot convicted and sentenced to 15 years',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'May 28, 2026 verdict: the ringleader convicted of the IS-linked concert plot, sentenced to 15 years.',
+          },
+          {
+            outlet: 'CBC News',
+            url: 'https://www.cbc.ca/lite/story/1.7289726',
+            source_title: '3rd person arrested over foiled plot to attack Taylor Swift show in Vienna',
+            publisher: 'CBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Several suspects detained (19-year-old ringleader, a 17-year-old, later an 18-year-old); plan to kill crowds outside the stadium with knives and/or explosives.',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/austrian-plead-guilty-isis-terror-attack-taylor-swift-concert/',
+            source_title: 'Austrian pleads guilty to plotting ISIS-linked terror attack on Taylor Swift concert',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Islamic State attribution: the lead suspect had sworn allegiance to IS; IS propaganda and bomb-making chemicals recovered.',
           },
         ],
         // T16 photo pass (2026-07-09): the shows never happened, so no event
@@ -3800,6 +3940,12 @@ export default {
     {
       slug: 'vmas-2024-seven-wins',
       significance: 'notable', // a real, all-time career-wins tie with one of the genre's biggest names (docs/decisions.md, 2026-07-19)
+      // Cross-link (Answerer shard 1, 2026-07-24, ledger #1408): the page had no
+      // rail; the VOTY three-peat's prior rung is the 2023 record-tying VMA night.
+      // Id verified against content-vault.generated.ts.
+      relatedIds: [
+        'moment:vault-midnights-a-record-tying-9-vma-wins-in-one-night',
+      ],
       year: 2024,
       month: 9,
       day: 11,
@@ -3811,7 +3957,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Sept. 11, 2024 haul: Video of the Year, Artist of the Year, Best Pop, Best Collaboration, Best Direction, Best Editing, and Song of the Summer — seven of twelve nominations.\n\nThe three-peat (All Too Well in 2022, Anti-Hero in 2023, Fortnight in 2024) and fifth career VOTY are both records nobody else holds, and the night made her the most-awarded solo artist in VMAs history.',
+          'Held Sept. 11, 2024 at UBS Arena in Elmont, New York — moved back a day to avoid the presidential debate — the show gave her seven of twelve nominations: Video of the Year, Artist of the Year, Best Pop, Best Collaboration, Best Direction, Best Editing, and Song of the Summer. She attended but did not perform, taking the trophies from the audience.\n\nFive were for "Fortnight": she won Best Direction as the video\'s credited director, Chancler Haynes took Best Editing, and Post Malone shared Best Collaboration, Best Pop, Video of the Year and the fan-voted Song of the Summer. Accepting Video of the Year she dedicated it to "my boyfriend Travis" and urged every eligible viewer to register to vote — a day after endorsing Kamala Harris and Tim Walz on Instagram, signed "Childless Cat Lady." On the carpet she wore a tartan Dior corset and cape, changing into a custom UFO-emblazoned Monse minidress for the Video of the Year win.\n\nThe three-peat (All Too Well in 2022, Anti-Hero in 2023, Fortnight in 2024) and fifth career VOTY are records nobody else holds, and the haul tied her with Beyoncé at 30 career Moon Persons — the most of any artist, a tie that still stood after the 2025 ceremony, which she skipped.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -3830,6 +3976,63 @@ export default {
             source_type: 'awards_database',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/2024_MTV_Video_Music_Awards',
+            source_title: '2024 MTV Video Music Awards',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+            notes: 'UBS Arena venue, date moved to avoid the debate, full winners roster incl. Best Direction (Swift) and Best Editing (Chancler Haynes), fan-voted Song of the Summer.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/2024-vmas-winners-list-1235772883',
+            source_title: '2024 VMAs Winners List',
+            publisher: 'Billboard',
+            source_type: 'awards_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Deadline',
+            url: 'https://deadline.com/2024/09/taylor-swift-dedicates-mtv-vma-video-of-the-year-win-travis-kelce-reminds-viewers-vote-1236085734/',
+            source_title: 'Taylor Swift Dedicates VMA VOTY Win to Travis Kelce & Reminds Viewers to Vote',
+            publisher: 'Deadline',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hill',
+            url: 'https://thehill.com/blogs/in-the-know/4876180-taylor-swift-rallies-voters-video-music-awards-2024-election/',
+            source_title: 'Taylor Swift urges people register to vote at VMAs after Kamala Harris endorsement',
+            publisher: 'The Hill',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/',
+            source_title: 'Taylor Swift Shuts Down the 2024 VMAs Red Carpet in a Tartan Dior Corset and Cape',
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Carpet look: tartan Dior corset-and-cape; the silver VOTY-acceptance look was a custom UFO-print Monse minidress.',
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/tonifitzgerald/2025/09/07/taylor-swift-skips--2025-vmas-stays-tied-for-record-wins/',
+            source_title: 'Taylor Swift Skips 2025 VMAs, Stays Tied For Record Wins',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Confirms the 30-30 tie with Beyoncé still stood after the 2025 ceremony, which Swift skipped.',
           },
         ],
         // T16 photo pass (2026-07-09): Getty ceremony photo from Rolling

@@ -77,12 +77,12 @@ export default {
 
   "how-did-it-end": {
     whyItMatters: [
-      "As track 21 it opens 'The Anthology,' the fifteen-song second half that surprise-dropped at 2 a.m. ET on release night. The song turns a breakup into a coroner's report performed for an audience of gossips — the couple, their friends, the fans and the press all leaning in for the cause of death — and its sustained clinical metaphor (a 'fatal fever,' a 'death rattle') is the detail reviewers single out.",
+      "Track 21 of 'The Anthology' — the double album whose fifteen-song second half surprise-dropped at 2 a.m. ET on release night (that second half opens with 'The Black Dog,' track 17, not this song). The song turns a breakup into a coroner's report performed for an audience of gossips — the couple, their friends, the fans and the press all leaning in for the cause of death — and its sustained clinical metaphor (a 'fatal fever,' a 'death rattle') is the detail reviewers single out.",
       "It punched above its bonus-track billing. It reached No. 35 on the Billboard Hot 100 during the album's record-setting chart week, Variety later ranked it among Swift's best songs and The Independent named it one of 2024's best, and Swift chose it as an early Anthology cut to bring to the stage — live-debuting it as a solo piano ballad at the final Stockholm Eras Tour show on May 19, 2024."
     ],
     meaning: {
       confirmed: [
-        "Track 21, the opener of 'The Anthology' — the fifteen-song second half of The Tortured Poets Department that surprise-released at 2 a.m. ET on April 19, 2024 — written and produced by Swift with Aaron Dessner.",
+        "Track 21 of 'The Anthology' — the 31-track edition of The Tortured Poets Department whose fifteen-song second half surprise-released at 2 a.m. ET on April 19, 2024 (that second half opens with 'The Black Dog,' track 17) — written and produced by Swift with Aaron Dessner.",
         "It reached No. 35 on the Billboard Hot 100 during the album's record week, and was first performed live on May 19, 2024 at the final Stockholm Eras Tour show as a solo piano ballad."
       ],
       supported: [
@@ -113,6 +113,11 @@ export default {
         relatedId: "song:the-black-dog",
         label: "The Black Dog",
         why: "Companion Anthology break-up tracks — The Black Dog's obsessive real-time watching against How Did It End?'s retrospective, spectated grief."
+      },
+      {
+        relatedId: "song:the-manuscript",
+        label: "The Manuscript",
+        why: "The Anthology's two clinical grief-closers — How Did It End? autopsies the split as it is spectated, The Manuscript files it away years later as finished narrative."
       }
     ],
     sources: [
@@ -326,16 +331,17 @@ export default {
     ],
     meaning: {
       confirmed: [
-        "Track 10 on The Tortured Poets Department (April 19, 2024), solely written by Swift and produced with Jack Antonoff; a roughly 5:34 Southern-Gothic build recorded across studios in Los Angeles, New York and New Orleans.",
-        "Debuted and peaked at No. 9 on the Billboard Hot 100 and the Global 200 — one of the fourteen songs in Swift's record top-14 monopoly that week.",
+        "Track 10 on The Tortured Poets Department (April 19, 2024), solely written by Swift and produced with Jack Antonoff; a roughly 5:34 Southern-Gothic build recorded across Conway Recording (Los Angeles), Electric Lady (New York) and Esplanade Studios (New Orleans).",
+        "Debuted and peaked at No. 9 on the Billboard Hot 100 and the Global 200 — one of the fourteen songs in Swift's record top-14 monopoly that week. Certified 2x Platinum in Brazil, Platinum in Australia and Gold in the UK and New Zealand; no US RIAA certification is documented.",
         "One of the seven TTPD songs added to the Eras Tour's 'Female Rage: The Musical' act at the Paris opener on May 9, 2024; performed on a moving glass platform in the main set rather than the acoustic surprise slot, and featured in the 2024 'Final Show' Disney+ special (it postdated the 2023 concert film)."
       ],
       supported: [
-        "In her own commentary Swift framed the song around society's sense of ownership over public figures, making the circus/asylum/cage imagery an author-endorsed metaphor for celebrity-making machinery and public judgment.",
-        "Widely called the album's biggest vocal; live she routinely capped the final high note with a shriek, repeated in the same spot across tour dates. No sourced note-name analysis exists, so the force of the belt is what's documented, not a specific pitch."
+        "In her own commentary Swift framed the song around society's sense of ownership over public figures, making the circus/asylum/cage imagery an author-endorsed metaphor for celebrity-making machinery and public judgment. Its clearest tie to the 2016 reputation-era backlash is textual — the 'filled my cell with snakes' line reprises the 'Snakegate' iconography she reclaimed on reputation.",
+        "Widely called the album's biggest or loudest vocal — though studio reception was in fact divided, with some critics (the BBC's Mark Savage, the NYT's Jon Pareles) finding the sound heavy or 'suffocated' rather than a triumph — and live she routinely capped the final high note with a shriek, repeated in the same spot across tour dates. No sourced note-name analysis exists, so the force of the belt is what's documented, not a specific pitch."
       ],
       fanTheories: [
-        "Critics — not Swift — hear an 'evil twin' of 'Mirrorball' and read the title as a nod to Edward Albee's Who's Afraid of Virginia Woolf?; exactly whom the 'you' indicts (critics, industry or public) is left to the listener."
+        "Critics — not Swift — hear an 'evil twin' of 'Mirrorball' and read the title as a nod to Edward Albee's Who's Afraid of Virginia Woolf?; exactly whom the 'you' indicts (critics, industry or public) is left to the listener.",
+        "Thematically it sits in Swift's weaponized-reputation / 'madwoman' lineage; critics group that rage cluster around 'Cassandra' (live-mashed with 'mad woman' and 'I Did Something Bad'), so the tie is a thematic one rather than a critic-asserted grouping of this specific track."
       ]
     },
     connections: [
@@ -348,12 +354,18 @@ export default {
         relatedId: "song:clara-bow",
         label: "Clara Bow",
         why: "Both anatomize celebrity as a machine that builds and then devours its women — Clara Bow traces the lineage of used-up stars that 'Who's Afraid' snarls back against."
+      },
+      {
+        relatedId: "song:cassandra",
+        label: "Cassandra",
+        why: "The Anthology's other portrait of a woman branded dangerous and disbelieved — the rage cluster critics anchor on 'Cassandra' is the same weaponized-reputation vein 'Who's Afraid' snarls in."
       }
     ],
     sources: [
       { name: "Who's Afraid of Little Old Me? — Wikipedia", url: "https://en.wikipedia.org/wiki/Who%27s_Afraid_of_Little_Old_Me%3F" },
       { name: "Songfacts: Who's Afraid Of Little Old Me?", url: "https://www.songfacts.com/facts/taylor-swift/whos-afraid-of-little-old-me" },
-      { name: "Capital FM: Seven Tortured Poets songs added to the Eras Tour setlist", url: "https://www.capitalfm.com/news/music/taylor-swift-new-eras-tour-setlist-tortured-poets-songs/" }
+      { name: "Capital FM: Seven Tortured Poets songs added to the Eras Tour setlist", url: "https://www.capitalfm.com/news/music/taylor-swift-new-eras-tour-setlist-tortured-poets-songs/" },
+      { name: "Billboard: Cassandra, mad woman and I Did Something Bad — the rage lineage", url: "https://ca.billboard.com/music/music-news/taylor-swift-cassandra-mad-woman-i-did-something-bad-eras-tour-1235837621/" }
     ]
   },
   "but-daddy-i-love-him": {
@@ -403,14 +415,16 @@ export default {
         "Track 19 of The Tortured Poets Department: The Anthology (April 19, 2024), written and produced by Swift with Aaron Dessner and recorded across Long Pond (Hudson Valley), Chicago, London and other studios. On the standard album it appears only as the physical bonus on the 'Smoke Grey' / 'The Albatross' collector's edition, one of four numbered variants each named for its exclusive bonus track.",
         "That variant was revealed on Feb. 23, 2024 at the Sydney Eras Tour show; all four bonus tracks released together with the album on April 19, with no earlier standalone release.",
         "During TTPD's record debut week it peaked at No. 30 on the Billboard Hot 100 and No. 32 on the Global 200, among the 31 tracks Swift charted at once.",
-        "An Eras Tour surprise song: it debuted June 29, 2024 in Dublin mashed with reputation's 'Dancing with Our Hands Tied,' and returned on Indianapolis Night 1 (Nov. 1, 2024) in a guitar-slot mashup with Red's 'Holy Ground.'"
+        "An Eras Tour surprise song: it debuted June 29, 2024 in Dublin mashed with reputation's 'Dancing with Our Hands Tied,' and returned on Indianapolis Night 1 (Nov. 1, 2024) in a guitar-slot mashup with Red's 'Holy Ground.'",
+        "Its release-day visual is an official lyric video on Swift's YouTube channel, not a filmed music video."
       ],
       supported: [
-        "No on-record Swift gloss defines who 'the albatross' is; the dominant critic-and-fan reading takes the Coleridge frame as reputation-as-curse — a woman preceded by her own myth who turns out to be the rescuer, not the omen.",
-        "Ranking lists placed it mid-pack (Billboard 25th of 31), but close-readings single it out as the Anthology's key literary set-piece."
+        "No on-record Swift gloss defines who 'the albatross' is; the dominant critic-and-fan reading takes the Coleridge frame as reputation-as-curse — a woman preceded by her own myth who turns out to be the rescuer, not the omen. Annotators read the third-person 'wise men' opening as critics warning her lover about the danger of loving her, then the first-person final turn as her claiming the omen label and recasting it as salvation.",
+        "Ranking lists placed it mid-pack (Billboard 25th of 31, The Hollywood Reporter 19th, Rob Sheffield's Rolling Stone discography ranking 215th), but close-readings single it out as the Anthology's key literary set-piece, with outlets including Vogue Australia and Today foregrounding the Coleridge 'Rime of the Ancient Mariner' albatross frame."
       ],
       fanTheories: [
-        "Critics and fans cluster it with 'Cassandra' (the disbelieved prophetess) and 'Clara Bow' (the mythologized woman) as the Anthology's self-mythology thread, reinforced by its live mashups with reputation-era songs — an interpretive consensus, not a stated one."
+        "Critics and fans cluster it with 'Cassandra' (the disbelieved prophetess) and 'Clara Bow' (the mythologized woman) as the Anthology's self-mythology thread, reinforced by its live mashups with reputation-era songs — an interpretive consensus, not a stated one.",
+        "A widely circulated fan reading maps the song's 'wise men' warnings onto the public warnings Travis Kelce was reported to have gotten about dating her — a public-relationship interpretation, not anything Swift has stated."
       ]
     },
     connections: [
@@ -428,7 +442,8 @@ export default {
     sources: [
       { name: "The Albatross (Taylor Swift song) — Wikipedia", url: "https://en.wikipedia.org/wiki/The_Albatross_(Taylor_Swift_song)" },
       { name: "Billboard: Taylor Swift Announces 'The Albatross' Edition of 'Tortured Poets'", url: "https://www.billboard.com/music/pop/taylor-swift-tortured-poets-the-albatross-edition-eras-tour-announcement-1235613344/" },
-      { name: "Billboard: All the Surprise Songs Taylor Swift Performed on The Eras Tour", url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/" }
+      { name: "Billboard: All the Surprise Songs Taylor Swift Performed on The Eras Tour", url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/" },
+      { name: "In The Know (AOL): 'The Albatross' Lyrics Seemingly Reveal the Warnings Travis Kelce Got About Her", url: "https://www.aol.com/taylor-swift-albatross-lyrics-seemingly-154500643.html" }
     ]
   },
   "i-hate-it-here": {
