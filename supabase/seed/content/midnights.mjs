@@ -3151,7 +3151,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift wrote and directed the video — a comic Cinderella riff shot by cinematographer Rina Yang — and stacked the cast like a wink: Laura Dern as the wicked stepmother, the three HAIM sisters as stepsisters, burlesque legend Dita Von Teese as the "fairy goddess" in the martini glass, producer Jack Antonoff as a blink-and-miss Prince Charming, and makeup artist Pat McGrath in the transformation scene. Von Teese\'s martini-glass turn was a deliberate homage to her signature act — she used glasses from her own show and taught Swift the routine herself, later thanking Swift for "acknowledging burlesque, an American art form."\n\nIts self-described "psychotic amount" of easter eggs faced a single direction — Speak Now. Dern\'s "Speak not, you tacky, tired wench," an "Enchanted" instrumental at the open, a floor-three elevator button glowing the purple of the Speak Now cover (her third album), an "SN" hair clip, and an orchestral "Long Live" over the closing castle. The video even dropped Oct. 25, 2022 — the calendar date Speak Now first arrived in 2010.\n\nSwift had told Jimmy Fallon to expect that egg pile, so the density was deliberate; whether Speak Now specifically was the target stayed fan inference — a call the fandom banked and the May 2023 Nashville announcement of Speak Now (Taylor\'s Version) confirmed.',
+          'Swift wrote and directed the video — a comic Cinderella riff shot by cinematographer Rina Yang — and stacked the cast like a wink: Laura Dern as the wicked stepmother, the three HAIM sisters as stepsisters, burlesque legend Dita Von Teese as the "fairy goddess" in the martini glass, producer Jack Antonoff as a blink-and-miss Prince Charming, and makeup artist Pat McGrath in the transformation scene. Von Teese\'s martini-glass turn was a deliberate homage to her signature act — she used glasses from her own show and taught Swift the routine herself, later thanking Swift for "acknowledging burlesque, an American art form."\n\nIts self-described "psychotic amount" of easter eggs faced a single direction — Speak Now. Dern\'s "Speak not, you tacky, tired wench," an "Enchanted" instrumental at the open, a floor-three elevator button glowing the purple of the Speak Now cover (her third album), an "SN" hair clip, and an orchestral "Long Live" over the closing castle. The video even dropped Oct. 25, 2022 — the calendar date Speak Now first arrived in 2010. Swift framed the whole clip as a Midnights-driven fairy tale ("where do we hear about midnights a lot? … the Cinderella fairy tale … what if we did a little twist"), and fans catalogued still more clues — the recurring number three (her third album), heart-shaped "S" and "N" hair clips, and a closing balcony echoing the Speak Now tour set.\n\nSwift had told Jimmy Fallon to expect that egg pile, so the density was deliberate; whether Speak Now specifically was the target stayed fan inference — a call the fandom banked and the May 2023 Nashville announcement of Speak Now (Taylor\'s Version) confirmed.',
         sources: [
           {
             outlet: 'Good Morning America',
@@ -3343,7 +3343,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The TaylorSwiftTix presale, powered by Verified Fan, drew more than 3.5 million registrations — the largest in Ticketmaster\'s history. About 1.5 million fans were sent codes for the 52 shows; the other 2 million were waitlisted. When it opened Nov. 15, 2022, the site buckled within the hour under what Ticketmaster called a "staggering number of bot attacks" and 3.5 billion system requests — four times its prior peak. It still moved more than 2 million tickets that day (2.4 million across all presales), the most ever sold for one artist in a single day.\n\nOn Nov. 17 the company scrapped the Nov. 18 general public sale outright, citing "extraordinarily high demands" and too little remaining inventory; shut-out fans turned to resale, where seats were listed as high as $22,500–$28,350 on StubHub.\n\nSwift answered Nov. 18: it was "excruciating for me to just watch mistakes happen with no recourse," and "we asked them, multiple times, if they could handle this kind of demand and we were assured they could." The reckoning outlived the tour. Fans sued in Los Angeles in December 2022 for fraud, misrepresentation, price-fixing and antitrust; a judge later dismissed the fraud claims but let the antitrust case proceed. In May 2024 the U.S. Justice Department and more than 30 states sued to break up Live Nation-Ticketmaster, a case that grew out of the two-year probe the Eras presale set off. And the outcry drove reform: the bipartisan Fans First Act, the TICKET Act (passed the House 338-24 in 2024), and the FTC\'s "junk fees" rule banning hidden drip pricing, in effect from May 2025.',
+          'The TaylorSwiftTix presale, powered by Verified Fan, drew more than 3.5 million registrations — the largest in Ticketmaster\'s history. About 1.5 million fans were sent codes for the 52 shows; the other 2 million were waitlisted. When it opened Nov. 15, 2022, the site buckled within the hour under what Ticketmaster called a "staggering number of bot attacks" and 3.5 billion system requests — four times its prior peak. It still moved more than 2 million tickets that day (2.4 million across all presales), the most ever sold for one artist in a single day.\n\nOn Nov. 17 the company scrapped the Nov. 18 general public sale outright, citing "extraordinarily high demands" and too little remaining inventory; shut-out fans turned to resale, where seats were listed as high as $22,500–$28,350 on StubHub.\n\nSwift answered Nov. 18: it was "excruciating for me to just watch mistakes happen with no recourse," and "we asked them, multiple times, if they could handle this kind of demand and we were assured they could." The reckoning outlived the tour. Fans sued in Los Angeles in December 2022 for fraud and antitrust; a judge dismissed the fraud claims but let the antitrust case proceed, and in 2024 the Ninth Circuit refused to push those claims into arbitration, keeping them in court. The bigger case grew from the two-year probe the presale set off: in May 2024 the Justice Department and more than 30 states sued to break up Live Nation-Ticketmaster. It reached trial in 2026 — the DOJ settled in March (a 15% fee cap, rival ticketing at Live Nation\'s amphitheaters, a $280M fund), while a coalition of 34 states pressed on and won an April 2026 jury verdict finding the companies liable on every antitrust count. The outcry drove reform too: the FTC\'s "junk fees" rule banning hidden drip pricing took effect in May 2025, and the TICKET Act cleared the House 409-15 that April, still awaiting the Senate.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -3430,6 +3430,27 @@ export default {
             accessed_at: '2026-07-24',
             reliability_score: 5,
           },
+          // Depth pass (ledger #1371, 2026-07-24): the 2026 antitrust outcome — the
+          // DOJ settlement and the states' jury verdict — and the mass-arbitration
+          // ruling that kept the fan suit in court.
+          {
+            outlet: 'NPR',
+            url: 'https://www.npr.org/2026/03/09/nx-s1-5742433/live-nation-ticketmaster-doj-antitrust-case',
+            source_title: 'Live Nation and Justice Department reach settlement in antitrust case',
+            publisher: 'NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'New York State Attorney General',
+            url: 'https://ag.ny.gov/press-release/2026/attorney-general-james-and-coalition-states-win-trial-against-live-nation-and',
+            source_title: 'Attorney General James and Coalition of States Win Trial Against Live Nation and Ticketmaster',
+            publisher: 'Office of the New York State Attorney General',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
         ],
         // Real-photo pass (2026-07-09): the official tour poster fans were queuing
         // for; Wikipedia's stable copy, verified HTTP 200 + image/png.
@@ -3476,6 +3497,11 @@ export default {
     },
     {
       slug: 'ticketmaster-senate-hearing',
+      // Cross-link (ledger #1394): the Nov. 2022 on-sale collapse this hearing
+      // was convened to examine — the presale page links here, so close the loop.
+      relatedIds: [
+        'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
+      ],
       year: 2023,
       month: 1,
       day: 24,
@@ -3487,7 +3513,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'At the Jan. 24, 2023 Senate Judiciary hearing, Sen. Amy Klobuchar opened on consolidation people know "all too well"; Live Nation\'s CFO blamed bots, and when witnesses were asked whether Ticketmaster is a monopoly, SeatGeek\'s CEO answered "unequivocally."\n\nKlobuchar\'s case: the company controls over 70% of ticketing for major venues plus much of the promotion pipeline.',
+          'The Jan. 24, 2023 Senate Judiciary hearing — "That\'s the Ticket" — put six witnesses before the committee: Live Nation president and CFO Joe Berchtold, the company under scrutiny; SeatGeek CEO Jack Groetzinger; independent promoter Jerry Mickelson of Jam Productions; the American Antitrust Institute\'s Kathleen Bradish; the James Madison Institute\'s Sal Nuzzo, the lone free-market voice; and singer-songwriter Clyde Lawrence, testifying as an artist squeezed by the fees. Berchtold apologized under oath — "We apologize to the fans. We apologize to Ms. Swift. We need to do better, and we will do better" — but pinned the meltdown on a bot "cyberattack" and argued that venues, not Ticketmaster, set the fees.\n\nThe senators weren\'t buying it, across party lines. Amy Klobuchar opened on consolidation people know "all too well" (the firm controls ~70% of major-venue ticketing plus much of the promotion pipeline); Richard Blumenthal told Live Nation to look in the mirror and say "I\'m the problem. It\'s me," calling the whole system "a monopolistic mess"; Mike Lee slipped in three lyrics ("a nightmare dressed like a daydream," "cheer captain… bleachers," "Karma\'s a relaxing thought"); John Kennedy skipped the puns for "I\'m not against big, but I am against dumb." Groetzinger\'s proposed fix was blunt — break up the Live Nation-Ticketmaster merger.\n\nOutside, roughly 40–50 fans organized by attorney Jennifer Kinder rallied (about 700 more on a TikTok livestream) with signs reading "Ticketswindle" and "your reputation has never been worse." The hearing had teeth: Klobuchar forwarded its evidence to the Justice Department and, with colleagues, introduced the Unlock Ticketing Markets Act and the bipartisan Fans First Act — groundwork for the DOJ\'s May 2024 antitrust suit to break up Live Nation.',
         sources: [
           {
             outlet: 'NPR',
@@ -3515,6 +3541,35 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth pass (ledger #1394, 2026-07-24): the six-witness panel, Berchtold's
+          // sworn apology, the fuller pun roster, and the legislative/DOJ outcome.
+          {
+            outlet: 'U.S. Senate Judiciary Committee',
+            url: 'https://www.rev.com/transcripts/senators-question-ticketmaster-over-monopoly-concerns-transcript',
+            source_title: 'Senators Question Ticketmaster Over Monopoly Concerns — hearing transcript',
+            publisher: 'Rev (hearing transcript)',
+            source_type: 'primary',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/music/news/witnesses-ticketmaster-congressional-hearing-taylor-swift-1235499604/',
+            source_title: 'Witnesses Announced for Ticketmaster Senate Hearing as Opposing Sides Square Off',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Office of Sen. Amy Klobuchar',
+            url: 'https://www.klobuchar.senate.gov/public/index.cfm/news-releases?id=FDC64466-6E6D-4E91-B9A8-7FD18CC7C70A',
+            source_title: "Klobuchar Statement on Justice Department's Antitrust Lawsuit Against Live Nation",
+            publisher: 'U.S. Senator Amy Klobuchar (official)',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Real-photo pass (2026-07-09): NPR's lead photo of the Swiftie protest
@@ -3644,6 +3699,11 @@ export default {
     },
     {
       slug: 'i-can-see-you-video-lautner',
+      // Cross-link (ledger #1450): the video premiered the night Speak Now (TV)
+      // dropped — thread it to that release's record album-week moment.
+      relatedIds: [
+        'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
+      ],
       year: 2023,
       month: 7,
       day: 7,
@@ -3655,7 +3715,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Premiered July 7, 2023 at the first Kansas City show, hours after Speak Now (Taylor\'s Version) dropped.\n\nSwift wrote and directed the vault-heist clip herself, cast the "Mean" video kids all grown up, and told the crowd Lautner had been "a very positive force in my life" during the original Speak Now — and did every stunt himself.',
+          'Premiered July 7, 2023 at the first Kansas City show, hours after Speak Now (Taylor\'s Version) dropped. Swift wrote and directed the vault-heist clip — shot in Liverpool in April 2023 at the Cunard Building, the Stanley Dock Tobacco Warehouse and the former NatWest bank, with cinematographer Jonathan Sela, producer Jane Lloyd, editor Chancler Haynes, production designer Ethan Tobman and fight choreographer Charlie Mayhew. She said she wanted it to depict "how her fans helped her reclaim her music" — the vault stuffed with Speak Now-era memorabilia, a barely-veiled masters-reclamation metaphor critics read the same way.\n\nThe cast was a reunion. Taylor Lautner — the acknowledged inspiration for "Back to December" and, Swift told the crowd, now among her "closest friends" along with his wife, Tay Lautner — did every stunt himself; Joey King and Presley Cash, the kids from the 2010 "Mean" video, returned grown up as the heist crew. Overwhelmed, Lautner backflipped onstage at the premiere ("when I freak out … I just go straight to backflip") and reprised the flips at an Eras Tour film screening months later.\n\nThe song rewarded the moment: "I Can See You" debuted and peaked at No. 5 on the Hot 100 (dated July 22, 2023) — the highest-charting of Speak Now (Taylor\'s Version)\'s six From the Vault tracks, on 24.7 million first-week streams — in the week all 22 of the album\'s songs charted at once. Rolling Stone called it "the most surprising of the new tracks," and Slant wrote that Swift "takes control" in the action-packed clip.',
         sources: [
           {
             outlet: 'Variety',
@@ -3673,6 +3733,45 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1450, 2026-07-24): the No. 5 chart debut + first-week
+          // units, the Liverpool shoot and crew credits, the "Mean" reunion, Lautner's
+          // own on-record account, and the fan-reclamation intent Swift stated.
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/I_Can_See_You_(song)',
+            source_title: 'I Can See You (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Jonathan Sela (DP)',
+            url: 'https://www.jonathansela.net/portfolio/taylor-swift-i-can-see-you-taylors-version-from-the-vault-official-video',
+            source_title: "Taylor Swift — I Can See You (production credits)",
+            publisher: 'Jonathan Sela (official site)',
+            source_type: 'primary',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard via Yahoo',
+            url: 'https://www.yahoo.com/entertainment/taylor-lautner-says-blacked-during-172118460.html',
+            source_title: 'Taylor Lautner Says He Blacked Out During His Surprise Eras Tour Appearance',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/speak-now-taylors-version-review-1234783042/',
+            source_title: "Speak Now (Taylor's Version) Review",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
@@ -3702,7 +3801,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off a seismometer beside the stadium — shaking that peaked at a 2.3-magnitude *equivalent*, roughly twice the amplitude of the stadium\'s 2011 "Beast Quake," and sustained across the whole ~3.5-hour set rather than one touchdown\'s burst. Her read became peer-reviewed science: "Beast Quake (Taylor\'s Version)" in GSA Today (May 2024), with a separate Caltech study of the L.A./SoFi shows in Seismological Research Letters the same year.\n\nThe key finding corrects the obvious guess: the ground was moved by the crowd, not the sound system. Caltech\'s controlled test showed the PA — and even a bass guitar — produced no such signal, while fans jumping in sync did; the music only works as a metronome (Eos: "stomping feet, not booming beat"). The strongest signals tracked "Shake It Off" (the single biggest jolt, ~magnitude 0.85), "You Belong With Me" and "Love Story," each low-frequency peak matching the song\'s tempo. It is surface loading from tens of thousands of synchronized bodies, not a fault rupturing — so the "magnitude" is only an energy-equivalent, and the Beast Quake it beat never had a firm number of its own (roughly M1–2, "at best very approximate").\n\nGuinness certified it "Greatest seismic activity caused by a music concert," and the effect proved tour-wide — measured again at SoFi, at Lisbon (0.82, May 2024) and at Edinburgh, where the British Geological Survey picked it up 6 km from the stadium.',
+          'Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off PNSN station KDK, directly across the street from Lumen Field on Occidental Avenue — shaking that peaked at a 2.3-magnitude *equivalent*, roughly twice the amplitude of the stadium\'s 2011 "Beast Quake," and sustained across the whole ~3.5-hour set rather than one touchdown\'s burst. Her read became peer-reviewed science: "Beast Quake (Taylor\'s Version)" in GSA Today (May 2024), with a separate Caltech study of the L.A./SoFi shows in Seismological Research Letters the same year.\n\nThe key finding corrects the obvious guess: the ground was moved by the crowd, not the sound system. Caltech\'s controlled test showed the PA — and even a bass guitar — produced no such signal, while fans jumping in sync did; the music only works as a metronome (Eos: "stomping feet, not booming beat"). The strongest signals tracked "Shake It Off" (the single biggest jolt, ~magnitude 0.85), "You Belong With Me" and "Love Story," each low-frequency peak matching the song\'s tempo. It is surface loading from tens of thousands of synchronized bodies, not a fault rupturing — so the "magnitude" is only an energy-equivalent, and the Beast Quake it beat never had a firm number of its own (roughly M1–2, "at best very approximate").\n\nEach sold-out night drew more than 70,000 — 72,171 on July 22, a Lumen Field concert record and the first time an artist sold out the stadium on consecutive nights. Guinness certified it "Greatest seismic activity caused by a music concert," and the effect proved tour-wide — measured again at SoFi, at Lisbon (0.82, May 2024) and at Edinburgh, where the British Geological Survey picked it up 6 km from the stadium.',
         sources: [
           {
             outlet: 'CBS News',
@@ -3721,6 +3820,26 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          // Depth pass (ledger #1419, 2026-07-24): the seismometer identity (PNSN
+          // station KDK) and the Lumen Field attendance record.
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-seattle-eras-tour-shows-break-seismic-activity-record-in-two-nights-1234796787/',
+            source_title: 'Taylor Swift Seattle Eras Tour Shows Break Seismic Activity Record in Two Nights',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Pacific Northwest Seismic Network',
+            url: 'https://pnsn.org/blog/2023/08/15/beast-quake-taylor-s-version-from-the-vault',
+            source_title: "Beast Quake (Taylor's Version) (From The Vault)",
+            publisher: 'Pacific Northwest Seismic Network',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
           {
             outlet: 'Western Washington University News',
@@ -4137,6 +4256,18 @@ export default {
       significance: 'defining', // bypassed the entire studio system and still set the concert-film opening record — a new distribution playbook, not just a box-office number (docs/decisions.md, 2026-07-19)
       // No new MILESTONES entry: "m-mid-3" (this same era file) already marks
       // Oct. 13, 2023 on the scrubber via the "midnights-film" stub item.
+      // Cross-links (ledger #1476 Q5, 2026-07-24): the tour this film documents,
+      // the docuseries about its making, and the 2025 concert film it set the
+      // template for. All three moment ids verified against the generated vault.
+      // (Song links to "Our Song"/"You're On Your Own, Kid" can't render here —
+      // moment relatedIds resolve only to moments, not tracks.)
+      relatedIds: [
+        'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+      ],
+      // Reception pull-quote (ledger #1476 Q1): The Hollywood Reporter's verdict.
+      pullQuote: '“Sometimes exhausting, often exhilarating, always impressively immersive.”',
       title: 'The Eras Tour film opens to $92.8 million — the biggest concert-film debut ever',
       snippet:
         'Distributed straight through AMC, skipping the studios entirely: $92.8M domestic, $123.5M globally, and the second-biggest October opening of all time behind Joker.',
@@ -4144,7 +4275,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Oct. 13, 2023 opening weekend played like a tour stop: theaters full of costumed fans dancing in the aisles, with minimal traditional marketing behind it. The $123.5 million global start beat the concert-film opening record Justin Bieber: Never Say Never had held since 2011, and the $92.8 million domestic number ranked as the second-biggest October opening ever, behind only Joker.\n\nDirected by Sam Wrench and filmed over the first three of Swift\'s six SoFi Stadium nights (Aug. 3–5, 2023), it carried her numerology into the box office: AMC priced adult tickets at $19.89 (for 1989) and children\'s and seniors\' at $13.13 (for her lucky number). Demand broke AMC\'s own records — a $26 million single-day presale, past $100 million in global advance sales before opening — with the chain saying it had braced its site for "more than five times" its largest-ever ticket rush.\n\nThe business model drew as much coverage as the numbers: Swift bypassed the studio system and dealt directly with AMC — theaters kept 43% of the gross, the rest split between Swift and AMC — a direct-to-exhibitor first at this scale that she reran for the 2025 Showgirl Release Party. The theatrical cut kept the two acoustic surprise songs filmed at SoFi ("Our Song" and "You\'re On Your Own, Kid") but dropped five setlist numbers ("The Archer," "cardigan," "Wildest Dreams," "Long Live," "no body, no crime"); a later Extended Version restored three, and the March 2024 Disney+ edit added "cardigan" plus four more acoustic cuts. By January 2024 the film had grossed roughly $261.6 million worldwide, passing Michael Jackson\'s This Is It as the highest-grossing concert film ever on its way to about $267 million.',
+          'The Oct. 13, 2023 opening weekend played like a tour stop: theaters full of costumed fans dancing in the aisles, with minimal traditional marketing. The $123.5 million global start beat the concert-film opening record Justin Bieber: Never Say Never had held since 2011, and the $92.8 million domestic number ranked as the second-biggest October opening ever, behind only Joker.\n\nDirected by Sam Wrench and filmed over the first three of Swift\'s six SoFi Stadium nights (Aug. 3–5, 2023), it carried her numerology into the box office: AMC priced adult tickets at $19.89 and children\'s and seniors\' at $13.13. Demand broke AMC\'s records — a $26 million single-day presale, past $100 million in advance sales before opening — and AMC shares jumped about 11.5% on the news.\n\nThe business model drew as much coverage as the numbers: Swift bypassed the studios and dealt directly with AMC — theaters kept 43% of the gross — a direct-to-exhibitor first at this scale she reran for the 2025 Showgirl Release Party. It opened in more than 100 countries, booked overseas through Trafalgar Releasing rather than a studio, and trades credited it with reviving a strike-thinned fall box office.\n\nThe theatrical cut kept the two SoFi surprise songs ("Our Song" and "You\'re On Your Own, Kid") but dropped five numbers; a later Extended Version and the March 2024 Disney+ edit restored them and added more acoustic cuts. Reviews matched the box office — a 98% Rotten Tomatoes score and an 82 Metascore — and while a concert film was ineligible for the documentary Oscar, it earned a Golden Globe nomination for Cinematic and Box Office Achievement, losing to Barbie. By January 2024 it passed Michael Jackson\'s This Is It as the highest-grossing concert film ever, on its way to about $267 million.',
         sources: [
           {
             outlet: 'Variety',
@@ -4208,6 +4339,73 @@ export default {
             source_title: "Taylor Swift | The Eras Tour Becomes Highest-Grossing Concert Film of All Time",
             publisher: 'AMC Entertainment',
             source_type: 'primary',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1476, 2026-07-24): critical reception, the AMC /
+          // exhibition-industry story, international width, and the awards axis.
+          {
+            outlet: 'Rotten Tomatoes',
+            url: 'https://www.rottentomatoes.com/m/taylor_swift_the_eras_tour',
+            source_title: 'Taylor Swift: The Eras Tour — 98% Tomatometer (96 reviews)',
+            publisher: 'Rotten Tomatoes',
+            source_type: 'aggregator',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Metacritic',
+            url: 'https://www.metacritic.com/movie/taylor-swift-the-eras-tour/',
+            source_title: 'Taylor Swift: The Eras Tour — Metascore 82 (universal acclaim)',
+            publisher: 'Metacritic',
+            source_type: 'aggregator',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/movies/movie-reviews/taylor-swift-the-eras-tour-review-1235616407/',
+            source_title: "'Taylor Swift: The Eras Tour' Review (Angie Han)",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Source of the pull-quote: "always impressively immersive"',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/tv-movies/tv-movie-reviews/taylor-swift-the-eras-tour-movie-review-sing-along-amc-evermore-1234853358/',
+            source_title: "'Taylor Swift: The Eras Tour' Movie Review (Rob Sheffield)",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/film/news/how-taylor-swift-eras-tour-concert-movie-landed-amc-theaters-1235749215/',
+            source_title: "How Taylor Swift's Eras Tour Concert Film Scrambled (and Saved) the Fall Movie Season",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'AMC stock jump, direct-to-exhibitor model, reviving the post-strike fall box office',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/movies/movie-news/taylor-swift-golden-globes-box-office-history-1235781525/',
+            source_title: "Taylor Swift's Eras Tour Film Makes Golden Globes History (Cinematic and Box Office Achievement nom)",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://au.variety.com/?p=11433',
+            source_title: "Why Taylor Swift's Eras Tour Film Is Ineligible for the Documentary Feature Oscar",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
           },
@@ -4483,7 +4681,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Feb. 16–18, 2024 Melbourne stand opened the Australian leg at a scale no Eras Tour stadium before it had touched — she told the final crowd she was "starstruck" by the sight, spelling the math out from the stage: "those are all the biggest shows I\'ve ever played on a tour, and you did it three times."\n\nThe 96,000-per-night mark stood as the tour\'s attendance ceiling through its Vancouver finale — a cricket ground out-drawing every NFL and soccer stadium on the routing, with the city itself leaning in via "Welcome to Melbourne, Swifties" projections downtown.',
+          'The Feb. 16–18, 2024 Melbourne stand opened the Australian leg at a scale no Eras Tour stadium before it had touched — she told the final crowd she was "starstruck," spelling the math from the stage: "those are all the biggest shows I\'ve ever played on a tour, and you did it three times," and, visibly overwhelmed, "if I seem a bit like I\'m losing my mind it\'s about the fact that there are 96,000 people here tonight." It was the biggest crowd of her career, though not the MCG\'s own concert record — Ed Sheeran drew 109,500 to the same ground in 2023 with an in-the-round stage that opens up the whole oval.\n\nEach night carried its own acoustic surprises: Feb. 16 paired "Red" with the live debut of "You\'re Losing Me"; Feb. 17 a "Getaway Car" mashup (weaving in "august" and "The Other Side of the Door") and "this is me trying"; Feb. 18 "Come Back… Be Here" laced with "Daylight," plus "Teardrops on My Guitar." Opening night doubled as an era-tease — mid-set she announced "The Bolter," a bonus-track edition of the still-unreleased Tortured Poets Department. Sabrina Carpenter opened all three nights.\n\nThe 96,000-per-night mark — about 288,000 across the run — stood as the tour\'s single-night attendance ceiling through its Vancouver finale, with the city leaning in via "Welcome to Melbourne, Swifties" projections downtown.',
         sources: [
           {
             outlet: 'Deadline',
@@ -4503,6 +4701,46 @@ export default {
             accessed_at: '2026-07-08',
             reliability_score: 4,
           },
+          // Depth pass (ledger #1421, 2026-07-24): the per-night surprise songs and
+          // "You're Losing Me" live debut (setlist.fm), the MCG attendance record and
+          // Sheeran comparison (Visit Victoria), the "losing my mind" quote (RNZ), and
+          // the opening-night "The Bolter" announcement (The Music AU).
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/melbourne-cricket-ground-melbourne-australia-33ad9425.html',
+            source_title: 'Taylor Swift Setlist, Melbourne Cricket Ground, Feb. 16, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Visit Victoria',
+            url: 'https://corporate.visitvictoria.com/news/melbourne-stages-taylor-swifts-biggest-audience',
+            source_title: "Melbourne stages Taylor Swift's biggest audience",
+            publisher: 'Visit Victoria (Victorian Government)',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'RNZ',
+            url: 'https://www.rnz.co.nz/news/media-technology/509428/mcg-comes-alive-as-taylor-swift-draws-the-biggest-concert-crowd-of-her-career',
+            source_title: 'MCG comes alive as Taylor Swift draws the biggest concert crowd of her career',
+            publisher: 'RNZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Music (AU)',
+            url: 'https://themusic.com.au/news/taylor-swift-s-first-eras-tour-aus-setlist-live-debuts-big-announcements-more/mqYgjI-OsbA/17-02-24',
+            source_title: "Taylor Swift's First 'Eras Tour' Aus Setlist: Live Debuts, Big Announcements & More",
+            publisher: 'The Music (AU)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
         ],
         // Real-photo pass (2026-07-09): freely licensed photo of Melbourne's
         // Flinders Street Station lit up for the MCG weekend (Feb. 17, 2024).
@@ -4520,6 +4758,13 @@ export default {
     },
     {
       slug: 'coachella-2024-with-travis',
+      // Cross-links (ledger #1435): the album six days out, and the Nov-2023
+      // Buenos Aires "Karma is the guy on the Chiefs" moment the Ice-Spice-set
+      // "Karma" dance rhymes with. Both ids verified in the generated vault.
+      relatedIds: [
+        'moment:vault-ttpd-the-tortured-poets-department',
+        'moment:vault-midnights-karma-is-the-guy-on-the-chiefs-sung-with-travis-watching',
+      ],
       year: 2024,
       month: 4,
       day: 13,
@@ -4531,7 +4776,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'April 13, 2024: she wore a green New Heights cap for his podcast, he wore his usual white Happy Gilmore hat, and during Dom Dolla\'s DJ set he briefly lifted her off the ground in the crowd. A festival date night six days out from a double album nobody knew was a double album yet.\n\nThe itinerary read like a loyalty tour: dancing in the Sahara tent crowd through Ice Spice\'s set as the "Karma" remix played, then watching from backstage at the Mojave tent as Jack Antonoff played with Bleachers. The night ran late — photographers caught the two at the Neon Carnival afterparty in Thermal, still in the matching-baseball-cap disguise that fooled no one.',
+          'Coachella 2024, Weekend 1 Saturday (April 13): she wore a green New Heights cap for his podcast, he wore his usual white Happy Gilmore hat, and during Dom Dolla\'s DJ set he briefly lifted her off the ground so she could see over the crowd. A festival date night — reported as the couple\'s Coachella debut — six days out from a double album nobody knew was a double album yet.\n\nThe itinerary read like a loyalty tour: dancing in the Sahara-tent crowd through Ice Spice\'s set (just behind Sabrina Carpenter and Barry Keoghan) as the "Karma" remix played and Ice Spice shouted her out from the stage — "Shoutout to Taylor… I love you, and I love karma, too" — then watching from the Mojave stage\'s artist guest area as Jack Antonoff played with Bleachers, whom Kelce later raved about on New Heights ("my guy Jack Antonoff — he absolutely ripped it"). The night ran late — photographers caught the two at the Neon Carnival afterparty in Thermal, still in the matching-baseball-cap disguise that fooled no one. They were not reported returning for Weekend 2, which opened on TTPD\'s April 19 release day.',
         sources: [
           {
             outlet: 'Billboard',
@@ -4549,6 +4794,18 @@ export default {
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1435, 2026-07-24): Weekend 1 framing, the Ice Spice
+          // on-mic shoutout and Carpenter/Keoghan detail, and Kelce's New Heights
+          // account of the Bleachers set.
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/travis-kelce-coachella-taylor-swift-podcast-1235005946/',
+            source_title: "Travis Kelce Had 'So Much Fun' Witnessing Coachella 'Madness' From the Pit With Taylor Swift",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],

@@ -26,7 +26,7 @@ whose inline prompt drifts from its file is a bug.
 | Kevin — S1 Karen solver | `17 11 * * *` | Fable | [`runner-prompts/kevin-stream1-karen.md`](runner-prompts/kevin-stream1-karen.md) | **Wyatt** | Fixes cie tickets; runs after Karen, before the brief |
 | Kevin — S2 user digest | `13 15 * * *` | Fable | [`runner-prompts/kevin-stream2-digest.md`](runner-prompts/kevin-stream2-digest.md) | **Wyatt** | Daily feedback digest for human accept/reject |
 | Kevin — S3 eng triage | `43 15 * * *` | Fable | [`runner-prompts/kevin-stream3-triage.md`](runner-prompts/kevin-stream3-triage.md) | **Wyatt** | Buckets Joey's eng tickets → Austin intake |
-| Kevin — S3 comment radar | `23 0-5,13-23 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Hourly 6am–10pm PT (skips overnight); surfaces cross-session comments |
+| Kevin — S3 comment radar | `23 1,13 * * *` | Fable | [`runner-prompts/kevin-stream3-radar.md`](runner-prompts/kevin-stream3-radar.md) — lazy: cheap poll, loads charter only on a hit | **Wyatt** | Twice daily (~6am + 6pm PT); surfaces cross-session comments — cut from hourly 2026-07-24 to reduce token burn (Wyatt) |
 | Karen — nightly scan | `0 9 * * *` | Fable | [`runner-prompts/karen-nightly.md`](runner-prompts/karen-nightly.md) | **Wyatt** | Solves work (integrity + link-rot sweep); 2 AM PT |
 | Paul Blart — security patrol | `7 12 * * 1` | Fable | [`runner-prompts/paul-blart-run.md`](runner-prompts/paul-blart-run.md) | **Wyatt** | Dependency/supply-chain security; weekly, judgment on Dependabot/CodeQL |
 | Laura — a11y walk | `0 15 * * *` | Fable | [`runner-prompts/laura-walk.md`](runner-prompts/laura-walk.md) — needs Web tools + npx axe/pa11y | **Wyatt** | Accessibility (WCAG 2.2 AA); public-site legal + reach |
@@ -101,7 +101,7 @@ are live** — no missed briefs, no dead cadences. Cutover:
 Kevin's four streams moved off the session-scoped cron onto cloud routines (rows
 above), for durability. Design notes: S1 runs daily right after Karen (not
 hourly — new cie tickets only appear once Karen's nightly scan files them); the
-S3 comment radar runs hourly and is capped to 06:00–22:00 PT because cross-session
+S3 comment radar runs TWICE DAILY (~6am + 6pm PT, `23 1,13 * * *`) as of 2026-07-24 — was hourly 06:00–22:00 PT, cut to reduce token burn (Wyatt) — because cross-session
 comments are rare overnight, and its prompt is **lazy** (one cheap `gh` poll first;
 loads `docs/kevin.md` and reasons only on a real new comment — the ~16 empty runs/
 day stay cheap). Tradeoff vs. the old ~10-min session poll: up to ~1h surfacing
