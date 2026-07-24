@@ -1459,6 +1459,15 @@ export default {
     // session; business items carry two independent sources per the framework.
     {
       slug: 'tim-mcgraw-debut-single',
+      // Cross-links added 2026-07-24 (ledger #1318, Answerer shard 2): the
+      // Tim McGraw arc — where the idea came from, the album it led, the other
+      // record-setting single, and the payoff of opening for McGraw himself.
+      relatedIds: [
+        'moment:vault-debut-the-math-class-idea-behind-tim-mcgraw',
+        'moment:vault-debut-taylor-swift-the-album-arrives',
+        'moment:vault-debut-our-song-hits-number-one',
+        'moment:vault-debut-opening-for-the-actual-tim-mcgraw-and-faith-hill',
+      ],
       year: 2006,
       month: 6,
       day: 19,
@@ -1471,7 +1480,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
-          'The bet was that the sentiment — a summer love you re-live every time a certain song comes on — would out-travel the novelty of the title; the name is there because her favorite song was a McGraw song, not because the song is about him.\n\nIt worked slowly, the way everything in this era did: the single debuted at No. 86 on the Hot 100 in September and didn\'t peak (No. 40) until January, while climbing to No. 6 on Hot Country Songs across 20 Hot 100 weeks. The Trey Fanjoy video, shot at a Hendersonville cabin once owned by Johnny Cash, premiered a month after the radio release — and Rolling Stone has since ranked the single No. 11 on its list of the greatest debut singles of all time.',
+          'She got the idea in a high-school math class and finished it in about fifteen minutes with co-writer Liz Rose. The title points at McGraw\'s music, not at the boy the song is about: her favorite McGraw song — his 2004 "Can\'t Tell Me Nothin\'" — was the one she imagined an ex hearing years later, and fans who decode the capital letters hidden through the debut\'s liner notes find that same title spelled back. The subject was a senior boyfriend leaving for college, which is all Swift herself has ever said about him; the "Brandon Borello" name attached to the song comes from the press, not from her.\n\nIt was the first single Scott Borchetta\'s brand-new Big Machine Records ever released — chosen after Swift played it for him on ukulele — and pushed the slow, grassroots way everything moved in this era, with a country-radio and MySpace campaign urging fans to request it. The single debuted at No. 86 on the Hot 100 in September and didn\'t peak (No. 40) until January, while climbing to No. 6 on Hot Country Songs across 20 Hot 100 weeks; the RIAA has since certified it double platinum. The Trey Fanjoy video, shot at a Hendersonville cabin once owned by Johnny Cash, premiered in July 2006 — and Rolling Stone has since ranked the single No. 11 on its list of the greatest debut singles of all time.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1490,6 +1499,24 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-09',
             reliability_score: 2,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/on-this-day-2006-taylor-swift-released-debut-single-tim-mcgraw/',
+            source_title: 'On This Day in 2006, Taylor Swift Released Her Debut Single "Tim McGraw"',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'The Boot',
+            url: 'https://theboot.com/taylor-swift-tim-mcgraw-song/',
+            source_title: 'The Story Behind Taylor Swift\'s "Tim McGraw"',
+            publisher: 'The Boot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         photos: [
