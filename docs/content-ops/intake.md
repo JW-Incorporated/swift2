@@ -69,8 +69,14 @@ drop → triage → route → author → check → ship
 4. **Author.** The assigned persona drafts against its charter + house voice
    (`editorial-voice-and-pipeline.md`) into **the current era's seed file**
    (see above), as normal month items / moments — short, sourced,
-   hotlinked. Full articles are never the output (that was #464's core
-   finding).
+   hotlinked, **and with a picture** (amended 2026-07-24: photos belong in
+   ingestion, not a later backfill). Each authored moment ships with a
+   verified `photos` entry OR an `moment.socialPost` Instagram embed when the
+   item is about a post — Instagram is a first-class content source here. The
+   sourcing/verification bar and the two routes are in the Content Shift
+   charter step 3b (`docs/agents/content-shift.md`); the `photo-sparsity` and
+   `social-post-missing` checkers are the fallback, not the primary path.
+   Full articles are never the output (that was #464's core finding).
 5. **Check.** `npm run validate:content` + Karen + Codex review, the normal
    pipeline. Nothing special because it's recent.
 6. **Ship.** Content PR merges; the intake issue closes via `Closes #`.

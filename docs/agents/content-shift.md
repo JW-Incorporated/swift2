@@ -17,7 +17,10 @@ Phase 1), shifts author *as* the routed persona; until then, house voice.)
 3. **Launch-gate content work** — J3.5 rubric gaps (DEPTH), era depth batches
    (J3.5b), dossier waves (#440 phases, WORTHY).
 4. Karen's `cie:fact` tickets when Kevin's stream is backed up (never his
-   image protocol — that stays Kevin's).
+   image protocol — that stays Kevin's). *Boundary clarified 2026-07-24:*
+   Kevin's image protocol is for FIXING images Karen flagged on existing
+   content; sourcing a picture for a moment YOU are authoring (step 3b) is
+   yours and does not touch Kevin's lane.
 
 ## The run
 
@@ -30,6 +33,24 @@ Phase 1), shifts author *as* the routed persona; until then, house voice.)
    (fan-editor voice, Taylor-not-Swift, no AI-tells), `depth-rubric.md`
    (right-sized months), `song-annotation-standard.md` (tracks/dossiers),
    length caps. Seed files only (`supabase/seed/**`) — never UI code.
+3b. **Ship it with a picture (amended 2026-07-24, Wyatt: photos belong in
+   ingestion, not a later backfill).** Every moment you author lands with a
+   visual, sourced now — not deferred to Photo Enrichment. Two routes:
+   - **Instagram is a first-class content source.** If the item is ABOUT an
+     Instagram post (announcement, endorsement, the photo it centers on),
+     attach `moment.socialPost = { platform:'instagram', shortcode, label,
+     postedOn }`, verified by loading `instagram.com/p/<shortcode>/embed` and
+     confirming the account is `taylorswift` and the image matches the story.
+     It renders inline via `MomentSocialPost` — the reader stays in the app.
+   - **Otherwise a real photo:** >=1 verified `photos` entry on an allowlisted
+     reusable host (e.g. `upload.wikimedia.org`) — `curl` HTTP 200 +
+     `Content-Type: image/*`, downloaded and vision-confirmed as the exact
+     subject, >=400px, credited. Never a watermarked `media.gettyimages.com`
+     comp; never a signed/expiring CDN url (Instagram's included — embed
+     those, don't hotlink).
+   - Only if nothing verifiable exists: ship the text, note it in the ledger,
+     and let the `photo-sparsity` / `social-post-missing` checkers route it to
+     Photo Enrichment. A picture is the default, the gap the exception.
 4. Validate: `npm run validate:content` zero errors + `node --check` per
    edited file + full test suite.
 5. **Codex review, no self-rebuttal** (same rule as Austin) — **but
