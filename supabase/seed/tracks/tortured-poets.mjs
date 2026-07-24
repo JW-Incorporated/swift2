@@ -72,15 +72,67 @@ const TRACKS = [
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The title track that gently mocks its own premise — two self-styled poets with a typewriter neither needs, name-checking Dylan Thomas, Patti Smith, and friends called Lucy and Jack.',
+      note: 'The title track — a spare Antonoff production that name-checks Dylan Thomas, Patti Smith, Lucy Dacus and, most memed of all, Charlie Puth — gently deflates its own poet mythology.',
       summary:
-        'A relationship between two people addicted to their own melodrama: she punctures the artist mythos even while cataloging it. The named first-name friends are in-text; press attached surnames (Dacus, Antonoff) without official confirmation.',
+        'A relationship between two people addicted to their own melodrama: she punctures the artist mythos even while cataloging it. Never released as a single, it still peaked at No. 4 on the Billboard Hot 100 during the album’s top-14 takeover, and its "Charlie Puth should be a bigger artist" couplet became the record’s most-quoted line.',
       inspiration:
-        'Dylan Thomas and Patti Smith are named in the lyric itself; Smith responded graciously and publicly to the mention — the era’s nicest documented literary footnote.',
-      themes: ['self-aware melodrama', 'artist personas', 'in-jokes as intimacy'],
-      fanLore: 'Fan/press reading (unconfirmed): Lucy and Jack as Lucy Dacus and Jack Antonoff.',
+        'Dylan Thomas and Patti Smith are named in the lyric to set the couple against the Chelsea Hotel’s romantic-artist legends. Two days after release, Smith posted photos of herself reading Thomas and wrote she "was moved to be mentioned in the company of the great Welsh poet Dylan Thomas. Thank you Taylor."',
+      themes: ['self-aware melodrama', 'artist personas vs. reality', 'in-jokes as intimacy', 'literary/rock mythology deflated'],
+      fanLore:
+        'The "Lucy" name-check was confirmed by Lucy Dacus in March 2025 ("she actually texted me and asked for my approval"); "Jack" is widely read as Jack Antonoff, though he has not confirmed it.',
+      easterEggs:
+        'The Charlie Puth name-drop nudged Puth to finally release his shelved single "Hero" in May 2024. The song was first played live as a surprise song in Lisbon on May 25, 2024 — Swift told the crowd it was "the first time I’m ever playing this one live."',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
-      sources: [ALBUM],
+      sources: [
+        ALBUM,
+        {
+          source_url:
+            'https://variety.com/2024/music/news/charlie-puth-taylor-swift-the-tortured-poets-department-hero-1235974552/',
+          source_title: "Charlie Puth Responds to Taylor Swift's 'Tortured Poets' Mention With New Song 'Hero'",
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+        },
+        {
+          source_url:
+            'https://www.today.com/popculture/music/patti-smith-dylan-thomas-tortured-poets-department-taylor-swift-rcna148511',
+          source_title: "Patti Smith thanks Taylor Swift for the 'Tortured Poets' album mention",
+          publisher: 'TODAY / NBCUniversal',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+        },
+        {
+          source_url:
+            'https://www.rollingstone.com/music/music-news/taylor-swift-tortured-poets-department-hot-100-debut-1235011913/',
+          source_title: "Taylor Swift's 'The Tortured Poets Department' Dominates the Hot 100",
+          publisher: 'Rolling Stone',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Title track peaked No. 4 on the Hot 100; part of the top-14 sweep',
+        },
+        {
+          source_url:
+            'https://www.rollingstone.com/music/music-news/taylor-swift-debut-the-tortured-poets-department-title-track-lisbon-1235028103/',
+          source_title: "Taylor Swift Debuts 'The Tortured Poets Department' Title Track in Lisbon",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'First live performance, Lisbon, May 25, 2024 (surprise song)',
+        },
+        {
+          source_url:
+            'https://variety.com/2025/music/news/lucy-dacus-tortured-poets-department-taylor-swift-lyric-1236351456/',
+          source_title: "Lucy Dacus Confirms Taylor Swift's 'Tortured Poets Department' Lyric Is About Her",
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+        },
+      ],
     },
     {
       slug: 'my-boy-only-breaks-his-favorite-toys',
@@ -331,19 +383,40 @@ const TRACKS = [
       releaseDate: '2024-04-19',
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
-      note: 'The fixer-upper delusion with a saloon-door twang — and a last-line rug-pull admitting maybe she cannot.',
+      note: 'The fixer-upper delusion with a saloon-door twang — a 2:36 country-Western pastiche whose last line, "Woah, maybe I can’t," pulls the rug out from under the whole premise.',
       summary:
-        'She showcases a project of a man to a horrified audience and insists she alone sees the potential — until the closing line concedes the whole premise. Self-aware satire of the fix-him industrial complex.',
+        'She parades a "project" of a man before a horrified audience and insists she alone sees the potential — until the closing concession undoes it. A sparse Western/Americana pastiche of tremolo guitars and drum machine (Antonoff on Moog and Mellotron); critics read it as self-aware satire and one of the album’s sonic highlights, and Billboard ranked it 18th of the 31 tracks. It debuted and peaked at No. 20 on the Hot 100 as every TTPD track charted at once.',
       inspiration: null,
-      themes: ['savior complex', 'bad-boy delusion', 'the punchline confession'],
+      themes: ['savior complex', 'bad-boy delusion', 'the punchline confession', 'country-Western pastiche'],
+      easterEggs:
+        'Played live only twice on the 2024 Eras Tour, both as acoustic-guitar surprise mashups — with "Sparks Fly" in Madrid (May 29) and "I Can See You" in Warsaw (Aug 2).',
       sourceUrl: 'https://en.wikipedia.org/wiki/I_Can_Fix_Him_(No_Really_I_Can)',
       sources: [
         wiki(
           'I Can Fix Him (No Really I Can)',
           'I_Can_Fix_Him_(No_Really_I_Can)',
-          'song article: composition',
+          'song article: composition, credits, reception, live history',
         ),
         ALBUM,
+        {
+          source_url: 'https://www.officialcharts.com/songs/taylor-swift-i-can-fix-him-no-really-i-can/',
+          source_title: 'I Can Fix Him (No Really I Can) — Official Charts',
+          publisher: 'Official Charts Company',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 5,
+          notes: 'UK charting; corroborates the simultaneous TTPD chart entry',
+        },
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: "Taylor Swift Charts 32 Songs on Hot 100, Including Every 'Tortured Poets' Track",
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 20 Hot 100 peak, week of release',
+        },
       ],
     },
     {
