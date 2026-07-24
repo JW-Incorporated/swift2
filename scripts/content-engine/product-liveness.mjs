@@ -95,7 +95,15 @@ async function main() {
   }
   if (cmd === 'check') {
     const n = Number(nArg) || 15;
-    const batch = rows.slice(0, n);
+    // Optional 3rd arg: a comma-separated list of era prefixes to restrict the
+    // batch to (e.g. `check 15 fearless,folklore`). Lets the Stylist's MAINTAIN
+    // pass target the least-recently-checked eras instead of always re-checking
+    // the same alphabetical head of the corpus. Omit it and behaviour is
+    // unchanged: the first N URLs in file order.
+    const eraArg = process.argv[4];
+    const eras = eraArg ? eraArg.split(',').map((e) => e.trim()).filter(Boolean) : null;
+    const pool = eras ? rows.filter((r) => eras.some((e) => r.era === e)) : rows;
+    const batch = pool.slice(0, n);
     let first = true;
     for (const r of batch) {
       // Space requests ~1.5s apart: most product retailers are Shopify stores

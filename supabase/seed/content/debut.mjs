@@ -34,6 +34,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
+            focalPoint: '28% 38%',
             credit: 'Big Machine Records (single cover art)',
           },
         ],
@@ -175,8 +176,7 @@ export default {
       snippet:
         'Her first career CMA Award, the Horizon Award, at the 41st CMA Awards on Nov. 7, 2007 — the trophy now known as New Artist of the Year.',
       sourceUrl: 'https://www.cbsnews.com/news/taylor-swift-reacts-to-cmas-win/',
-      thumbnailUrl:
-        'https://media.gettyimages.com/id/77795920/photo/41st-annual-cma-awards-press-room.jpg?s=594x594&w=0&k=20&c=Pps0NDhapuDnUOXIZdnjsgbreJehja48sZzwGrprAcg=',
+      thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/4c/Swift%2C_Taylor_%282007%29.jpg',
       moment: {
         context:
           'At the 41st CMA Awards in Nashville, she took the Horizon Award over a nominee class of Jason Aldean, Rodney Atkins, Little Big Town, and Kellie Pickler — and delivered the acceptance line that dates the whole era: "This is definitely the highlight of my senior year."\n\nThe Horizon trophy, since renamed New Artist of the Year, was the first of the dozen career CMA Awards CBS would eventually count — handed to a 17-year-old who was, as the speech says, still technically in her senior year.',
@@ -191,13 +191,10 @@ export default {
         // Entertainment Center/Sommet Center, renamed Bridgestone Arena in
         // 2010 — same building) plus other real, dated 2007 appearances. All
         // curl-verified 200 + image/jpeg, downloaded and visually confirmed.
+        // Kevin Stream 1 (#751, 2026-07-23): dropped the media.gettyimages.com
+        // watermarked press-room comp (banned host) — the moment keeps its 5
+        // freely licensed photos; thumbnail repointed to the Aug. 2007 shot.
         photos: [
-          {
-            url: 'https://media.gettyimages.com/id/77795920/photo/41st-annual-cma-awards-press-room.jpg?s=594x594&w=0&k=20&c=Pps0NDhapuDnUOXIZdnjsgbreJehja48sZzwGrprAcg=',
-            focalPoint: '60% 40%',
-            credit: 'Bryan Bedder/Getty Images',
-            kind: 'primary',
-          },
           {
             url: 'https://upload.wikimedia.org/wikipedia/commons/b/bf/Gaylord_Entertainment_Center_2005-12-07.jpg',
             credit: 'Wonderdawg777 / Wikimedia Commons, CC BY 2.0',
@@ -350,6 +347,14 @@ export default {
       },
     },
     {
+      // Cross-links (Stage 3, 2026-07-24): the four "Our Song" moments — its
+      // origin, both No. 1 markers, and the CMT wins — now interlink so the
+      // "Keep reading" rail traces the song's whole arc.
+      relatedIds: [
+        'moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show',
+        'moment:vault-debut-our-song-hits-number-one',
+        'moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards',
+      ],
       year: 2007,
       month: 12,
       day: 22,
@@ -982,6 +987,13 @@ export default {
       },
     },
     {
+      // Cross-links (Stage 3, 2026-07-24): interlinks the four "Our Song"
+      // moments so the "Keep reading" rail traces the song's whole arc.
+      relatedIds: [
+        'moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show',
+        'moment:vault-debut-our-song-hits-number-one',
+        'moment:vault-debut-our-song-becomes-her-first-no-1',
+      ],
       year: 2008,
       month: 4,
       day: 14,
@@ -1462,6 +1474,15 @@ export default {
     // session; business items carry two independent sources per the framework.
     {
       slug: 'tim-mcgraw-debut-single',
+      // Cross-links added 2026-07-24 (ledger #1318, Answerer shard 2): the
+      // Tim McGraw arc — where the idea came from, the album it led, the other
+      // record-setting single, and the payoff of opening for McGraw himself.
+      relatedIds: [
+        'moment:vault-debut-the-math-class-idea-behind-tim-mcgraw',
+        'moment:vault-debut-taylor-swift-the-album-arrives',
+        'moment:vault-debut-our-song-hits-number-one',
+        'moment:vault-debut-opening-for-the-actual-tim-mcgraw-and-faith-hill',
+      ],
       year: 2006,
       month: 6,
       day: 19,
@@ -1474,7 +1495,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/b/b7/Taylor_Swift_-_Tim_McGraw.png',
       moment: {
         context:
-          'The bet was that the sentiment — a summer love you re-live every time a certain song comes on — would out-travel the novelty of the title; the name is there because her favorite song was a McGraw song, not because the song is about him.\n\nIt worked slowly, the way everything in this era did: the single debuted at No. 86 on the Hot 100 in September and didn\'t peak (No. 40) until January, while climbing to No. 6 on Hot Country Songs across 20 Hot 100 weeks. The Trey Fanjoy video, shot at a Hendersonville cabin once owned by Johnny Cash, premiered a month after the radio release — and Rolling Stone has since ranked the single No. 11 on its list of the greatest debut singles of all time.',
+          'She got the idea in a high-school math class and finished it in about fifteen minutes with co-writer Liz Rose. The title points at McGraw\'s music, not at the boy the song is about: her favorite McGraw song — his 2004 "Can\'t Tell Me Nothin\'" — was the one she imagined an ex hearing years later, and fans who decode the capital letters hidden through the debut\'s liner notes find that same title spelled back. The subject was a senior boyfriend leaving for college, which is all Swift herself has ever said about him; the "Brandon Borello" name attached to the song comes from the press, not from her.\n\nIt was the first single Scott Borchetta\'s brand-new Big Machine Records ever released — chosen after Swift played it for him on ukulele — and pushed the slow, grassroots way everything moved in this era, with a country-radio and MySpace campaign urging fans to request it. The single debuted at No. 86 on the Hot 100 in September and didn\'t peak (No. 40) until January, while climbing to No. 6 on Hot Country Songs across 20 Hot 100 weeks; the RIAA has since certified it double platinum. The Trey Fanjoy video, shot at a Hendersonville cabin once owned by Johnny Cash, premiered in July 2006 — and Rolling Stone has since ranked the single No. 11 on its list of the greatest debut singles of all time.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1493,6 +1514,24 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-09',
             reliability_score: 2,
+          },
+          {
+            outlet: 'American Songwriter',
+            url: 'https://americansongwriter.com/on-this-day-2006-taylor-swift-released-debut-single-tim-mcgraw/',
+            source_title: 'On This Day in 2006, Taylor Swift Released Her Debut Single "Tim McGraw"',
+            publisher: 'American Songwriter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'The Boot',
+            url: 'https://theboot.com/taylor-swift-tim-mcgraw-song/',
+            source_title: 'The Story Behind Taylor Swift\'s "Tim McGraw"',
+            publisher: 'The Boot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         photos: [
@@ -1550,7 +1589,7 @@ export default {
       thumbnailUrl: 'https://upload.wikimedia.org/wikipedia/en/thumb/1/1f/Taylor_Swift_-_Taylor_Swift.png/500px-Taylor_Swift_-_Taylor_Swift.png',
       moment: {
         context:
-          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record.\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. Billboard\'s tenth-anniversary retrospective put it simply: she arrived, at 16, "with a fully formed idea of herself as an artist."\n\nThe liner notes hid something too: read only the capitalized letters scattered through each printed lyric sheet and they spell out a short secret line per song — a code she\'d repeat on every album booklet through 1989 (2014), starting here.\n\nIts lead single, "Tim McGraw" (June 19, 2006), was named after an established country star so an ex would think of her when he heard it; co-written with Liz Rose in a fifteen-minute after-school session, it reached No. 6 on Hot Country Songs and No. 40 on the Hot 100. Four more singles followed, and "Our Song" — which she wrote alone in the ninth grade — went to No. 1, making her the youngest person to single-handedly write and perform a Hot Country Songs chart-topper. The album existed at all because Scott Borchetta, having heard her at Nashville\'s Bluebird Café, made her the first artist signed to his new label, Big Machine, after she had walked away from an RCA development deal at 14. Reviews were warm if not rapturous (Metacritic 67; Rolling Stone called her "the Tammy Wynette of t.m.i."), and the record eventually certified 8x platinum — a debut that simply never stopped selling.',
+          'She wrote over 40 songs for it; 11 made the standard edition, three of them ("The Outside," "Should\'ve Said No," "Our Song") written entirely alone, with her demo producer Nathan Chapman kept on for nearly the whole record (cut across Nashville studios; Robert Ellis Orrall co-produced).\n\nIt sold 40,000 copies its first week and entered the Billboard 200 at No. 19 — then simply refused to leave, peaking at No. 5 fifteen months later and logging 157 weeks on the chart, the longest run of any album of the 2000s. Billboard\'s tenth-anniversary retrospective put it simply: she arrived, at 16, "with a fully formed idea of herself as an artist."\n\nThe liner notes hid something too: read only the capitalized letters scattered through each printed lyric sheet and they spell out a short secret line per song ("Tim McGraw" hides "can\'t tell me nothin\'," "Our Song" "live in love") — a code she\'d repeat on every album booklet through 1989 (2014), starting here.\n\nIts lead single, "Tim McGraw" (June 19, 2006), was named after an established country star so an ex would think of her when he heard it; co-written with Liz Rose in a fifteen-minute after-school session, it reached No. 6 on Hot Country Songs and No. 40 on the Hot 100. Four more singles followed, and "Our Song" — which she wrote alone in the ninth grade — went to No. 1, making her the youngest person to single-handedly write and perform a Hot Country Songs chart-topper. The album existed at all because Scott Borchetta, having heard her at Nashville\'s Bluebird Café, made her the first artist signed to his new label, Big Machine, after she had walked away from an RCA development deal at 14. Reviews were warm if not rapturous (Metacritic 67; Rolling Stone called her "the Tammy Wynette of t.m.i."), and the record eventually certified 8x platinum — a debut that simply never stopped selling. Its green cover was shot by Andrew Orth, a family friend who had photographed her since before fame.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1605,6 +1644,16 @@ export default {
             source_type: 'aggregator',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Taylor Swift Style',
+            url: 'https://taylorswiftstyle.substack.com/p/taylor-swift-debut-era-photographer',
+            source_title: 'Before the Eras: The Images That Introduced Taylor Swift',
+            publisher: 'Taylor Swift Style (Substack)',
+            source_type: 'specialist',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Debut cover + era photographer Andrew Orth, a family friend who shot her pre-fame; corroborated by his recalled "this thing is going to go places" quote and Taylor Swift Wiki.',
           },
         ],
         photos: [
@@ -1682,9 +1731,23 @@ export default {
             reportedOn: '2026-07-20',
             status: 'unconfirmed',
             url: 'https://www.bustle.com/entertainment/taylor-swift-spotify-canvas-new-album-theories',
-            note: 'Swift and her team said nothing, and the canvas colors reportedly reverted the next day. Adjudicable as a forward-looking claim about the debut re-recording: it resolves if a debut Taylor\'s Version is announced, and fades if the anniversary window passes with no announcement.',
+            note: 'Swift and her team said nothing, and the canvas colors reportedly reverted the next day. Adjudicable as a forward-looking claim about the debut re-recording: it resolves if a debut Taylor\'s Version is announced, and fades if the anniversary window passes with no announcement. Lifecycle re-check 2026-07-24: still no announcement, still live.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-07-21',
+            lastCheckedOn: '2026-07-24',
+          },
+          {
+            // Rumor Desk 2026-07-24: a separate, earlier easter-egg wave than
+            // the Spotify-canvas reading above, from a different outlet —
+            // added as breadth of sourcing on the same forward-looking claim.
+            claim:
+              'A mid-June wave of easter-egg reading pointed the same way: Elite Daily noted Swift\'s recent looks echoing her 2006 debut-promo photoshoot and a dress from Erdem\'s archive-inspired Fall 2026 collection — marking that label\'s 20th anniversary the same autumn the debut album turns 20 — as hints a debut Taylor\'s Version announcement is near.',
+            reportedBy: 'Elite Daily (Hannah Kerns)',
+            reportedOn: '2026-06-16',
+            status: 'unconfirmed',
+            url: 'https://www.elitedaily.com/entertainment/taylor-swift-album-13-clues-easter-eggs',
+            note: 'Distinct from the Spotify-canvas reading above — an earlier, independently reported easter-egg wave. The re-recording itself is on record (Swift said in June 2025 she had "already completely re-recorded" the debut); only the announcement timing is unconfirmed. Resolves if a debut Taylor\'s Version is announced, and fades if the October 2026 anniversary window passes empty.',
+            sourceTier: 'tabloid',
+            lastCheckedOn: '2026-07-24',
           },
         ],
       },
@@ -1778,6 +1841,14 @@ export default {
     },
     {
       slug: 'our-song-talent-show',
+      // Cross-links (Stage 3, 2026-07-24): the origin of the arc — links the
+      // other three "Our Song" moments so the "Keep reading" rail follows the
+      // song from talent show to No. 1 to its CMT wins.
+      relatedIds: [
+        'moment:vault-debut-our-song-hits-number-one',
+        'moment:vault-debut-our-song-becomes-her-first-no-1',
+        'moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards',
+      ],
       year: 2006,
       month: 10,
       day: 24,
@@ -2275,9 +2346,69 @@ export default {
       title: "“Tim McGraw” arrives",
       snippet: "A debut single named after a country legend announces a 16-year-old songwriter with an unusual gift for specifics.",
       video: { youtubeId: "GkD20ajVxnY", title: "Taylor Swift - Tim McGraw" },
-      hiddenClue: { clue: "The liner notes hid secret messages in capital letters.", payoff: "That decrypting-the-capitals habit became a decade-long tradition fans still decode on every album." },
+      hiddenClue: { clue: "The liner notes hid secret messages in capital letters.", payoff: "Decode the capitals in the “Tim McGraw” lyric sheet and they read CAN’T TELL ME NOTHIN’ — the McGraw song the lyric calls their own. That decrypting-the-capitals habit became a decade-long tradition fans still decode on every album booklet through 1989." },
+      // Cross-links added 2026-07-24 (ledger #1318): the writing origin, the
+      // album this single launched, the McGraw meeting, and the signing that
+      // made Big Machine possible. Ids verified against content-vault.generated.
+      relatedIds: [
+        'moment:vault-debut-the-math-class-idea-behind-tim-mcgraw',
+        'moment:vault-debut-taylor-swift-the-album-arrives',
+        'moment:vault-debut-opening-for-the-actual-tim-mcgraw-and-faith-hill',
+        'moment:vault-debut-the-bluebird-cafe-night-a-14-year-old-and-a-label-that-didnt',
+      ],
       moment: {
-        context: "Before the stadiums, there was a teenager who named her first single after Tim McGraw — a bet that specificity would travel further than polish.\n\nIt cracked the country charts and set the template for everything after: real names, real places, and a diaristic eye for the small detail that makes a memory ache.",
+        context: "Before the stadiums, there was a teenager who named her first single after Tim McGraw — a bet that specificity would travel further than polish.\n\nThe melody came to her in freshman-year math class at Hendersonville High; she finished it that afternoon with co-writer Liz Rose in about fifteen minutes, cataloguing the details that would make an older boyfriend think of her once he left for college. (Press and fans tie the muse to a graduating senior; Swift has described the leaving-for-college story but never named him.) She first titled it “When You Think Tim McGraw” — Scott Borchetta trimmed it to the country legend’s name to catch his fanbase — and the lyric points to McGraw’s “Can’t Tell Me Nothin’” as the couple’s song.\n\nReleased June 19, 2006 as the very first single on Borchetta’s brand-new Big Machine, with Swift as the label’s first signed artist, it climbed on a grassroots push — MySpace, hourly GAC vignettes, radio worked by hand — to No. 6 on Hot Country Songs and No. 40 on the Hot 100, later certified multi-platinum. Trey Fanjoy’s video, shot around Hendersonville, staged the song’s whole idea: a tune heard years later that drags an old love back to the surface. McGraw, at first wary of a newcomer borrowing his name, came around; Swift sang it at the 2007 ACM Awards with him in the front row, then crossed over afterward to introduce herself — “Hi, I’m Taylor.”",
+        sources: [
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Tim_McGraw_(song)',
+            source_title: 'Tim McGraw (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-tim-mcgraw-chart-rewind-2006-1236284818/',
+            source_title: "Taylor Swift's 'Tim McGraw': Chart Rewind, 2006",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'No. 6 Hot Country Songs, No. 40 Hot 100 peaks',
+          },
+          {
+            outlet: 'Parade',
+            url: 'https://parade.com/entertainment/2006-debut-hit-written-in-15-minutes-after-high-school-math-class-launched-the-defining-artist-of-a-generation',
+            source_title: 'Debut Hit Written in 15 Minutes After High School Math Class',
+            publisher: 'Parade',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Liz Rose co-write; math-class melody; ~15 minutes',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-liner-note-secret-messages-6296379/',
+            source_title: "Taylor Swift's 13 Best Liner Note Secret Messages",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: "Hidden capitals decode to CAN'T TELL ME NOTHIN'",
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/big-machine-label-group-scott-borchetta-20-years-interview/',
+            source_title: "Big Machine's Scott Borchetta on 20 Years, Taylor Swift, Reba & More",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'First signed artist; grassroots MySpace/GAC/radio rollout; title shortened',
+          },
+        ],
       },
     },
     {
@@ -2311,6 +2442,13 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "debut-our-song",
+      // Cross-links (Stage 3, 2026-07-24): interlinks the four "Our Song"
+      // moments so the "Keep reading" rail traces the song's whole arc.
+      relatedIds: [
+        'moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show',
+        'moment:vault-debut-our-song-becomes-her-first-no-1',
+        'moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards',
+      ],
       year: 2007,
       month: 9,
       day: 8,

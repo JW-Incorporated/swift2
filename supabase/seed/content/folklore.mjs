@@ -1050,7 +1050,7 @@ export default {
         // claimed a reinvention without substantiating its impact, just
         // announcement mechanics — this backs the claim with real reception.
         context:
-          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — with the "cardigan" video, shot under pandemic protocols, dropping alongside it at midnight. The announcement came dressed as its own reveal: a grid of captionless black-and-white forest photographs from the Beth Garrabrant cover shoot, posted with no advance warning of any kind.\n\nThe rollout compression extended to retail — deluxe CDs and vinyl in alternate covers went up only through her own website — and the no-lead-time surprise drop became a template she would reuse for evermore five months later.\n\nThe reinvention landed as intended: Rolling Stone called it "her greatest album — so far," a "total goth-folk" turn away from radio hits and stadium-friendly material into her most emotionally ambitious songwriting yet, and later named it the best album of 2020 outright — the same year it broke the magazine\'s record for most consecutive weeks at Number One on the Rolling Stone 200.',
+          'After years of elaborate months-long rollouts, folklore got a same-day Instagram post announcing an album written and recorded entirely "in isolation" — a grid of captionless black-and-white Beth Garrabrant forest photos, no warning of any kind — with the "cardigan" video dropping alongside it at midnight. The post went up the morning of July 23 and the album arrived at midnight into July 24: under a day\'s notice, nearer fourteen hours than the "sixteen" of the fan shorthand.\n\nThe "isolation" framing hid a crowd. Aaron Dessner of The National wrote and produced most of it — about 11 of the 16 tracks — Jack Antonoff the rest, Justin Vernon (Bon Iver) sang the "exile" duet, and a mystery co-writer, "William Bowery," took credit on "exile" and "betty," revealed months later in the Long Pond Studio Sessions film as Swift\'s partner Joe Alwyn. The record was built entirely remotely, Dessner mailing instrumental sketches from his upstate Long Pond studio; even he didn\'t know who Bowery was.\n\nThe no-notice gamble paid off historically: "cardigan" debuted at No. 1 on the Hot 100 the same week folklore entered the Billboard 200 at No. 1 — the first time any artist opened atop both charts at once. folklore drew 80.6 million day-one Spotify streams (a record for a female artist) and 846,000 first-week U.S. units, aided by eight distinct deluxe editions sold only through her site. The surprise drop became the template she reused for evermore five months later.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1078,6 +1078,33 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-19',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-cardigan-folklore-debut-number-one/',
+            source_title: "Taylor Swift Is 1st Artist to Open Atop Hot 100 & Billboard 200 in Same Week",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/news/2020/7/taylor-swift-breaks-24-hour-streaming-record-on-spotify-for-8th-album-folklore-625253',
+            source_title: 'Taylor Swift breaks 24-hour streaming record on Spotify for folklore',
+            publisher: 'Guinness World Records',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/artists/taylor-swift/william-bowery-joe-alwyn-folklore-exile/',
+            source_title: 'Taylor Swift confirms Joe Alwyn is mystery folklore writer William Bowery',
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         // Real-photo pass (2026-07-09): official album cover — the image the
@@ -1886,7 +1913,10 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-folk-3", label: "Masters sold to Shamrock", kind: "business" },
-      relatedIds: ['moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he'],
+      relatedIds: [
+        'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
+        'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
+      ],
       title: 'Her masters get sold again — this time to Shamrock Capital, for about $300 million',
       snippet:
         'On Nov. 16, 2020 she revealed Braun\'s Ithaca had sold her first six albums to Shamrock Capital — "the second time my music had been sold without my knowledge" — and said she\'d declined to partner with the firm because Braun would keep profiting from the deal.',
@@ -1894,7 +1924,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Her open letter laid out why the second sale stung like the first: Braun\'s team had required an "ironclad" NDA that would have allowed her to say only positive things about him before any buy-back talks, never quoted her a price, and — she said — required that Shamrock not notify her until the deal was already done. Shamrock offered her an equity partnership; she declined because under the terms Braun and Ithaca Holdings would keep profiting from her old catalog, though she told the firm she wished them well.\n\nInstead she doubled down: the re-recording sessions began that same November, days before the Long Pond film premiered — and the standoff only fully resolved in May 2025, when she bought the masters back from Shamrock outright.',
+          'Her open letter laid out why the second sale stung like the first: Braun\'s team, she said, had required an "ironclad" NDA letting her speak only positively about him before any buy-back talks, never quoted her a price, and barred Shamrock from telling her until the deal was done. Braun\'s camp disputed that account — an ex-Ithaca staffer said there had been "multiple offers for her to purchase her masters" and that the NDA never ordered her silent, and reporting later surfaced a May 2020 email in which Braun said he wanted Swift to own them; he had reportedly offered her the catalog for about $305 million weeks earlier.\n\nThe buyer, Shamrock Capital, is an LA media-and-entertainment investment firm founded in 1978 as Roy E. Disney\'s family office and now managing billions. Variety pegged the sale "north of $300 million" — about what Ithaca paid for all of Big Machine in 2019 — with later reporting putting Shamrock\'s price near $405 million. Shamrock offered Swift an equity partnership and said it hoped to work with her; she declined, because Braun and Ithaca would keep profiting under the structure, and the firm publicly said it "fully respected and supported her decision."\n\nInstead she doubled down. Her Big Machine deal first allowed re-recording in November 2020, and she began within days — the campaign that produced Fearless (Taylor\'s Version) in April 2021. The re-records did their work: in its first year Fearless (Taylor\'s Version) moved roughly 1 million units to the original\'s ~242,000, eroding the value of the masters Shamrock held until she bought them back outright in May 2025.',
         sources: [
           {
             outlet: 'Variety',
@@ -1922,6 +1952,24 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/scooter-braun-wanted-sell-taylor-swift-masters/',
+            source_title: 'Exclusive: Scooter Braun wanted to sell Taylor Swift her masters. What happened?',
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/pro/features/why-taylor-swift-scooter-braun-shamrock-1091742/',
+            source_title: 'Why Did Shamrock Capital Spend $300 Million on Old Taylor Swift Albums?',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
           },
         ],
         // Real-photo pass (2026-07-09): CC BY-SA 4.0 photo of Scooter Braun

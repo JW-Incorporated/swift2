@@ -743,16 +743,19 @@ export default {
           },
         ],
         // Image-fix pass (2026-07-10 retry): swapped the watermarked
-        // tayswiftstyle collage for a single clean Getty Images editorial
-        // shot from Soldier Field, Chicago, June 2, 2018 — the exact debut
-        // date this record cites — showing Taylor in the bodysuit-and-jacket
-        // opening-number set, drenched in rain; verified HTTP 200 +
-        // image/jpeg and eyeballed this session.
+        // tayswiftstyle collage for a single clean editorial shot of the
+        // bodysuit-and-jacket opening-number set.
+        // Kevin Stream 1 (#751, 2026-07-23): the interim shot was a
+        // media.gettyimages.com watermarked comp (banned host); replaced with
+        // a freely licensed Commons photo of the same "...Ready For It?"
+        // opening set (Seattle, Reputation Stadium Tour). Curl-verified 200 +
+        // image/jpeg and vision-confirmed (black sequined bodysuit, black
+        // jacket sleeves, lace-up boots) this run.
         photos: [
           {
-            url: 'https://media.gettyimages.com/id/966470964/photo/taylor-swift-reputation-stadium-tour.jpg?s=594x594&w=0&k=20&c=qpjD-YCFO4IFRdoS07AsJHnqRTn-mz8qWtqFFraFFZ0=',
-            credit: 'John Shearer/TAS18/Getty Images',
-            caption: 'Taylor Swift performing the "...Ready For It?" opening number in the reworked bodysuit-and-jacket set at Soldier Field, June 2, 2018.',
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/3f/Taylor_Swift_-_Reputation_Tour_Seattle_-_Ready_for_It.jpg',
+            credit: 'Ronald Woan / Wikimedia Commons, CC BY-SA 2.0',
+            caption: 'Taylor Swift performing the "...Ready For It?" opening number in the reworked bodysuit-and-jacket set, Reputation Stadium Tour, 2018.',
             kind: 'archival',
           },
         ],
@@ -1984,18 +1987,19 @@ export default {
       sourceUrl: 'https://time.com/5419276/taylor-swift-instagram-post-voter-registration-spike/',
       thumbnailUrl: null,
       moment: {
-        // The post this page is ABOUT (issue #762, Part B). Shortcode from the
-        // permalink CNBC and Rolling Stone both embed (two independent outlets);
-        // verified by rendering instagram.com/p/BopoXpYnCes/embed/captioned: the
-        // taylorswift verified account and the exact "In the past I've been
-        // reluctant to publicly voice my political opinions…" endorsement
-        // caption. Embedded rather than hotlinked — Instagram CDN urls are
-        // signed/expiring and the host is not on the image allowlist.
+        // The post this page is ABOUT (issue #762 Part B). Shortcode taken
+        // from the permalink CNN, Billboard and Deseret all embed, and
+        // verified by rendering instagram.com/p/BopoXpYnCes/embed/captioned:
+        // the taylorswift verified account, caption opening "I'm writing this
+        // post about the upcoming midterm elections on November 6th, in which
+        // I'll be voting in the state of Tennessee." Embedded rather than
+        // hotlinked because Instagram CDN urls are signed/expiring and the
+        // host is not on the image allowlist.
         socialPost: {
           platform: 'instagram',
           shortcode: 'BopoXpYnCes',
           label:
-            'Her first political endorsement: a text post backing Phil Bredesen and Jim Cooper in Tennessee, breaking years of public silence.',
+            'The endorsement post itself: her text statement backing Phil Bredesen and Jim Cooper, breaking a career of political silence.',
           postedOn: '2018-10-07',
         },
         context:
@@ -2070,7 +2074,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The contract\'s headline term — ownership of her future master recordings — became the fault line of the next year\'s Big Machine catalog fight and the entire Taylor\'s Version project. She also negotiated that if UMG sold its Spotify shares, proceeds would be distributed to all its artists on a non-recoupable basis, a condition she called non-negotiable and framed as leverage on behalf of other musicians.\n\nHer own words put the weight on that second clause: the payout condition "meant more to me than any other deal point," she wrote, casting the signing not as a label change but as "positive change for creators" — the first of the era-ending business moves that would define the next several years of her career.\n\nShe made the announcement herself, on Instagram, captioned "My new home": a photo with UMG chairman Sir Lucian Grainge and Republic Records co-founder Monte Lipman, calling them "incredible partners."',
+          'The contract\'s headline term — ownership of her future master recordings — became the fault line of the next year\'s Big Machine catalog fight and the entire Taylor\'s Version project. She also negotiated that if UMG sold its Spotify shares, proceeds would be distributed to all its artists on a non-recoupable basis, a condition she called non-negotiable and framed as leverage on behalf of other musicians.\n\nHer own words put the weight on that second clause: the payout condition "meant more to me than any other deal point," she wrote, casting the signing not as a label change but as "positive change for creators" — the first of the era-ending business moves that would define the next several years of her career.\n\nShe made the announcement herself, on Instagram, captioned "My new home": a photo with UMG chairman Sir Lucian Grainge and Republic Records co-founder Monte Lipman, calling them "incredible partners."\n\nThe fine print stayed private. UMG announced only a multi-year, multi-album global agreement; the master-ownership headline came from Swift\'s own post — she wrote that she owns "all of my master recordings that I make from now on" — and it covered future work only. Her first six albums\' masters stayed with Big Machine, sold to Scooter Braun\'s Ithaca Holdings in 2019. No dollar figure was confirmed: Forbes estimated $100–200 million in guarantees, which UMG called "entirely inaccurate." Lover (2019) became the first album released under the deal, and the first master she owned outright.\n\nThe Spotify-equity clause took years to pay out. UMG\'s 2021 stock-market debut did not trigger it — that was UMG listing itself, not selling its Spotify shares. The clause fired for the first time in April 2026, when UMG moved to sell half its roughly 3% Spotify stake — about $1.4 billion — and confirmed the proceeds would reach its entire roster on the non-recoupable basis Swift had demanded, not just its biggest names.',
         sources: [
           {
             outlet: 'Variety',
@@ -2097,6 +2101,33 @@ export default {
             publisher: 'The FADER',
             source_type: 'reputable_press',
             accessed_at: '2026-07-19',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/zackomalleygreenburg/2018/11/19/taylor-swifts-new-record-deal-could-pay-as-much-as-200m/',
+            source_title: "Taylor Swift's New Record Deal Could Pay As Much As $200M",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-industry-news/taylor-swift-umg-spotify-stock-sale-clause-1236580300/',
+            source_title: 'Universal Music Artists Can Reap Millions From Spotify Stock Sale, Thanks to Taylor Swift',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/universal-is-selling-50-of-its-spotify-stake-generating-around-1-4-billion/',
+            source_title: 'Universal is selling 50% of its Spotify stake, generating around $1.4 billion',
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 3,
           },
         ],
