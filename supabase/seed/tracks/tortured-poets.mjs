@@ -394,16 +394,56 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'Fantasizing inside a fading relationship and putting the fantasy itself on trial — with a confirmed nod to The Blue Nile in the first verse.',
       summary:
-        'Nothing happened except in her head — so why does it feel like evidence? Desire as thought-crime, argued before a jury of her own upbringing. The Blue Nile’s Downtown Lights is name-checked in the lyric.',
+        'Nothing happened except in her head — so why does it feel like evidence? Desire as thought-crime, argued before a jury of her own upbringing. Its 1990s-tinged, guitar-and-live-drums soft rock (Antonoff on drums, bass, guitars and Juno) stands apart from the album’s synth palette, and the Blue Nile’s “The Downtown Lights,” name-checked in the first verse, drew a roughly 1,400% streaming spike within four days. It debuted and peaked at No. 10 on the Hot 100 during TTPD’s record top-14 week (No. 11 Global 200; Gold in the UK, Platinum in Australia and New Zealand), and critics singled it out — Vanity Fair called it the album’s “emotional apex.”',
       inspiration:
-        'The Blue Nile reference is in-text (a band tied to the reported muse’s known tastes, per fan forensics — that layer unconfirmed).',
+        'Recorded at Conway (LA), Electric Lady (NY) and Prime Recording (Nashville). The Blue Nile reference is in-text (a band tied to the reported muse’s known tastes, per fan forensics — that layer unconfirmed).',
       themes: ['desire as guilt', 'emotional infidelity', 'religious framing of want'],
       fanLore:
         'Fan reading (unconfirmed): the music-taste breadcrumb trail linking the verse’s band reference to a specific muse.',
+      easterEggs:
+        'Played live three times, all as 2024 Eras Tour surprise songs: the solo acoustic-guitar debut in Stockholm (May 18), an acoustic mashup with "Untouchable" in Amsterdam (July 4), and a piano mashup with "mirrorball" in Miami (Oct 20).',
       sourceUrl: 'https://en.wikipedia.org/wiki/Guilty_as_Sin%3F',
       sources: [
-        wiki('Guilty as Sin?', 'Guilty_as_Sin%3F', 'song article: lyric references'),
+        wiki('Guilty as Sin?', 'Guilty_as_Sin%3F', 'song article: lyric references, production, reception'),
         ALBUM,
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: "Taylor Swift Charts 32 Songs on Hot 100, Including Every 'Tortured Poets' Track",
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 10 Hot 100 peak within the record top-14 week',
+        },
+        {
+          source_url: 'https://www.officialcharts.com/songs/taylor-swift-guilty-as-sin/',
+          source_title: 'Guilty as Sin? — Official Charts',
+          publisher: 'Official Charts Company',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 5,
+          notes: 'UK charting record',
+        },
+        {
+          source_url:
+            'https://ca.rollingstone.com/en/music/taylor-swift-debuts-guilty-as-sin-and-triple-1989-mashup-for-89th-eras-tour-show/',
+          source_title: "Taylor Swift Debuts 'Guilty as Sin?' at 89th Eras Tour Show",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Live debut May 18, 2024, Stockholm — solo on acoustic guitar',
+        },
+        {
+          source_url: 'https://www.setlist.fm/setlist/taylor-swift/2024/johan-cruijff-arena-amsterdam-netherlands-33aa40fd.html',
+          source_title: 'Taylor Swift Setlist at Johan Cruijff ArenA, Amsterdam — July 4, 2024',
+          publisher: 'setlist.fm',
+          source_type: 'reference',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Amsterdam surprise-song mashup with "Untouchable"',
+        },
       ],
     },
     {
@@ -486,11 +526,35 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The piano dirge that redefines its own acronym by the final line — love of my life curdling into loss of my life.',
       summary:
-        'A returned lover promises everything with confetti-cannon sincerity, then vanishes on schedule: she inventories the con and files him under the acronym’s crueler expansion.',
-      inspiration: null,
+        'A returned lover promises everything with confetti-cannon sincerity, then vanishes on schedule: she inventories the con and files him under the acronym’s crueler expansion. A spare, Evermore-adjacent Aaron Dessner piano ballad that builds quietly to the final-line turn, it peaked at No. 12 on the Hot 100 inside TTPD’s record top-14 sweep (No. 16 Global 200; UK No. 20). Critics made it a standout — The Hollywood Reporter called it the album’s "most emotional track," with Pitchfork the notable dissent.',
+      inspiration:
+        'Dessner production (piano, keys, synth bass), recorded at his Long Pond studio; critics group it with "So Long, London" and "How Did It End?" as the album’s Dessner heartbreak spine.',
       themes: ['love as con job', 'the biggest loss', 'acronyms as knives'],
+      easterEggs:
+        'Live-debuted as the tour’s first-ever TTPD surprise song — solo on piano at Paris Night 1 (May 9, 2024), later issued as a "Live From Paris" recording — and returned only twice, as piano mashups with "Don\'t You (Forget About Me)" in Munich (July 28, 2024) and "White Horse" in Miami (Oct. 19, 2024).',
       sourceUrl: 'https://en.wikipedia.org/wiki/Loml',
-      sources: [wiki('loml', 'Loml', 'song article: acronym twist'), ALBUM],
+      sources: [
+        wiki('loml', 'Loml', 'song article: acronym twist, credits, charts, live, reception'),
+        ALBUM,
+        {
+          source_url: 'https://www.officialcharts.com/songs/taylor-swift-loml/',
+          source_title: 'loml — Official Charts',
+          publisher: 'Official Charts Company',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 5,
+          notes: 'UK peak No. 20',
+        },
+        {
+          source_url: 'https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/',
+          source_title: 'Taylor Swift Sets Record With All Top 14 of Hot 100',
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 12 Hot 100 debut within the record top-14 week',
+        },
+      ],
     },
     {
       slug: 'i-can-do-it-with-a-broken-heart',
@@ -726,11 +790,43 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The Anthology’s cult favorite — replacing her is so easy the replacements do not even need distinct names.',
       summary:
-        'He moves on to interchangeable someones while she replays the specific, unrepeatable thing they had: the title’s shrugged list is the cruelest device on the album.',
-      inspiration: null,
+        'He moves on to interchangeable someones while she replays the specific, unrepeatable thing they had: the title’s shrugged list is the cruelest device on the album. A spare, folklore-adjacent Aaron Dessner piano ballad, it debuted and peaked at No. 36 on the Hot 100 in TTPD’s record week, and Rolling Stone’s Rob Sheffield called it "a delicately etched ballad." Its "cult favorite" standing rests more on fan streaming and discussion than on critic lists.',
+      inspiration:
+        'Outlets (Today, AOL/Yahoo) read the four title names as generic, interchangeable placeholders — "somebody" who "could be anybody with any name" — not references to identifiable people; Swift has named no subject.',
       themes: ['interchangeability', 'specific versus generic love', 'lingering'],
+      easterEggs:
+        'Its only live performance was a solo-piano Eras Tour surprise-song debut in Lyon, France (June 3, 2024); setlist.fm logs it as played exactly once, never repeated.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
-      sources: [ALBUM],
+      sources: [
+        ALBUM,
+        {
+          source_url: 'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/',
+          source_title: "Taylor Swift Charts 32 Songs on Hot 100, Including Every 'Tortured Poets' Track",
+          publisher: 'Billboard',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'No. 36 Hot 100 debut/peak in the release week',
+        },
+        {
+          source_url: 'https://www.setlist.fm/setlist/taylor-swift/2024/groupama-stadium-decines-charpieu-france-33aa4021.html',
+          source_title: 'Taylor Swift Setlist at Groupama Stadium, Lyon — June 3, 2024',
+          publisher: 'setlist.fm',
+          source_type: 'reference',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Solo-piano surprise-song live debut; played once across the tour',
+        },
+        {
+          source_url: 'https://www.today.com/popculture/music/chloe-sam-sophia-marcus-taylor-swift-lyrics-meaning-rcna148527',
+          source_title: "'Chloe or Sam or Sophia or Marcus': who are they? Lyrics explained",
+          publisher: 'TODAY',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Names read as generic placeholders, not real individuals',
+        },
+      ],
     },
     {
       slug: 'how-did-it-end',
@@ -819,11 +915,33 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner'],
       note: 'The escapist’s manifesto — secret gardens, imaginary decades, and a much-debated line about which decade she would actually survive.',
       summary:
-        'When the present is unbearable she emigrates inward: books, invented worlds, lunar vacations. The nostalgia-with-asterisks verse (the 1830s, minus everything wrong with the 1830s) generated its own documented discourse cycle.',
+        'When the present is unbearable she emigrates inward: books, invented worlds, lunar vacations. The nostalgia-with-asterisks verse (the 1830s, minus everything wrong with the 1830s) generated its own documented discourse cycle. It debuted at No. 34 on the Hot 100 in the release week and was a documented Eras Tour one-off — played only once, at its Cardiff live debut.',
       inspiration: null,
       themes: ['escapism', 'interior worlds', 'nostalgia audited'],
+      easterEggs:
+        'Played live exactly once: the June 18, 2024 Cardiff Eras Tour debut, on piano, mashed with folklore’s "The Lakes" ("a song I’ve never played live before"). It was never repeated. Recording credits include Aaron Dessner on acoustic guitar and Glenn Kotche on percussion.',
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Tortured_Poets_Department',
-      sources: [ALBUM],
+      sources: [
+        ALBUM,
+        {
+          source_url: 'https://www.capitalfm.com/artists/taylor-swift/eras-tour-surprise-songs-setlist/',
+          source_title: 'Every Eras Tour Surprise Song',
+          publisher: 'Capital FM',
+          source_type: 'reference',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: '"I Hate It Here" played once (Cardiff, June 18, 2024) and never repeated',
+        },
+        {
+          source_url: 'https://www.officialcharts.com/songs/taylor-swift-i-hate-it-here/',
+          source_title: 'I Hate It Here — Official Charts',
+          publisher: 'Official Charts Company',
+          source_type: 'chart_database',
+          accessed_at: '2026-07-24',
+          reliability_score: 5,
+          notes: 'UK component-chart peaks; one-week run',
+        },
+      ],
     },
     {
       slug: 'thank-you-aimee',

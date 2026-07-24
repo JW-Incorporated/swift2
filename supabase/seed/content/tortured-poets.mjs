@@ -639,7 +639,7 @@ export default {
         'https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg',
       moment: {
         context:
-          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.",
+          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.\n\nThey watched from a right-field luxury suite with what Kelce later called an \"unbelievable crew\" of friends; no outlet pinned down whose suite it was, and no other celebrities were photographed inside with them. The neutral dress code was its own tell — both wore black-and-navy caps by Midnight Rodeo, a Kansas City band whose merch Kelce favors (his from its \"You're Not Dreaming\" line), with Swift finishing the look in her signature red lip rather than any team gear.\n\nThe night's viral image was Swift's startled reaction to Juan Soto's leadoff home run in the bottom of the third, a broadcast cutaway that MLB and the Yankees reposted on their own channels; TBS announcer Brian Anderson had already flagged Kelce as a \"big Cleveland fan.\" Kelce, a Cleveland Heights native, quietly pulled for the visiting Guardians \"in hostile territory,\" as he put it on New Heights, and days later defended his hometown loyalty on X after being trolled for wearing no Guardians gear. It was the couple's first MLB game together and their only postseason-baseball outing that October — one beat in a run of New York sporting dates that had included the Sept. 8 US Open final — with no reported early exit and no player weighing in on their presence.",
         sources: [
           {
             outlet: 'ESPN',
@@ -658,6 +658,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 4,
+          },
+          {
+            outlet: 'MLB.com',
+            url: 'https://www.mlb.com/yankees/video/taylor-swift-reacts-to-juan-soto-s-home-run',
+            source_title: "Taylor Swift reacts to Juan Soto's home run",
+            publisher: 'MLB.com (Yankees)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Official league video of the broadcast cutaway to Swift reacting to the leadoff HR',
+          },
+          {
+            outlet: 'Bleacher Report',
+            url: 'https://bleacherreport.com/articles/10139652-travis-kelce-talks-mixed-feelings-attending-yankees-vs-guardians-with-taylor-swift',
+            source_title: "Travis Kelce Talks 'Mixed Feelings' Attending Yankees vs. Guardians With Taylor Swift",
+            publisher: 'Bleacher Report',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'New Heights: "unbelievable crew" of friends; Cleveland-kid divided loyalty in "hostile territory"',
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-travis-kelce-midnight-rodeo-hat-yankees-game-1236684448/',
+            source_title: 'Taylor Swift and Travis Kelce Wear Midnight Rodeo Hats to Yankees Game',
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Both in neutral Midnight Rodeo (Kansas City band) caps; Kelce\'s "You\'re Not Dreaming" cap; Swift\'s red lip',
           },
         ],
         // Photo pass #762 (2026-07-19): page had zero photos. Both images below
@@ -3121,7 +3151,11 @@ export default {
       // reciprocal TTPD Taylor/Travis crossover — the "So High School" moment
       // (she wrote the song about him; here he steps into her show).
       threadIds: ['the-proposal'],
-      relatedIds: ['moment:vault-ttpd-so-high-school-annotated-by-the-internet-in-minutes'],
+      relatedIds: [
+        'moment:vault-ttpd-so-high-school-annotated-by-the-internet-in-minutes',
+        'moment:vault-ttpd-eight-nights-at-wembley-more-than-any-solo-artist-ever',
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+      ],
       title: 'Travis Kelce, Eras Tour cast member for a night',
       snippet:
         'In white tie and a top hat, he carried her onto the stage during "I Can Do It With a Broken Heart" at Wembley — his idea, he later admitted, with choreography studied from Dumb and Dumber.',
@@ -3129,7 +3163,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'June 23, 2024, the third London night at Wembley — and originally a very different bit. On New Heights, Kelce said he first floated rolling out on a bike during the "1989" set ("How funny would it be if I just rolled out on one of the bikes"); Swift redirected him somewhere safer — the "I Can Do It With a Broken Heart" vaudeville intro, where top-hatted dancers revive her "fainted" showgirl.\n\nIn white tie, tails and a top hat — a costume built by Eras designer Jessica Jones and styled by Joseph Cassell — the 6-foot-5 Kelce carried Swift to the couch, dusted her face with a makeup brush once she was "revived," and slipped in a comedic step he later said he lifted from Jim Carrey in "Dumb and Dumber." He had a single night of rehearsal and one rule for himself: "Do not drop Taylor." The crowd took a beat to clock who the extra dancer was; Swift called the experience "jarring" in the best way, posted that she was "cracking up and swooning," and in the End of an Era docuseries said it was "the loudest it ever got on the Eras Tour."\n\nHe teased that it "might not be the last time," but it stayed a one-off — his only onstage turn before the tour closed in Vancouver that December. The tuxedo got a second life, though: he wore it again to Swift\'s Eras Tour wrap party.',
+          'June 23, 2024, the third London night at Wembley — and originally a very different bit. On New Heights, Kelce said he first floated rolling out on a bike during the "1989" set ("How funny would it be if I just rolled out on one of the bikes"); Swift redirected him somewhere safer — the "I Can Do It With a Broken Heart" vaudeville intro, where top-hatted dancers revive her "fainted" showgirl.\n\nIn white tie, tails and a top hat — a costume built by Eras designer Jessica Jones and styled by Joseph Cassell — the 6-foot-5 Kelce carried Swift to the couch, dusted her face with a makeup brush once she was "revived," and slipped in a comedic step he later said he lifted from Jim Carrey in "Dumb and Dumber." He had a single night of rehearsal and one rule for himself: "Do not drop Taylor." The crowd took a beat to clock who the extra dancer was; Swift called the experience "jarring" in the best way, posted that she was "cracking up and swooning," and in the End of an Era docuseries said it was "the loudest it ever got on the Eras Tour."\n\nHe teased that it "might not be the last time," but it stayed a one-off — his only onstage turn before the tour closed in Vancouver that December. The tuxedo got a second life, though: he wore it again to Swift\'s Eras Tour wrap party.\n\nThe number he stepped into was choreographed by Mandy Moore, the Eras Tour\'s lead choreographer, though no account names who walked Kelce through his single rehearsal. He told the full origin story on the July 3, 2024 New Heights season finale — the episode Prince William, who had watched the June 21 opener, closes by urging Kelce to "do it again." That Wembley night (London Night 3) had its own firsts: the guitar surprise song was the live debut of "us." with Gracie Abrams walking out to join her, and the piano slot was an "Out of the Woods" / "Is It Over Now?" / "Clean" mashup. The cameo\'s reach is hard to quantify — no view count was published — but it echoed forward, with Patrick Mahomes turning up to Swift\'s December 2024 birthday party in a matching tux and top hat, gently trolling the look.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -3198,6 +3232,36 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 3,
             notes: 'Re-wore the same cameo tuxedo to the Eras Tour wrap party, Dec 2024',
+          },
+          {
+            outlet: 'ABC News',
+            url: 'https://abcnews.com/GMA/Culture/travis-kelce-reflects-taylor-swift-onstage-london-eras-tour/story?id=111354122',
+            source_title: 'Travis Kelce reflects on joining Taylor Swift onstage at London Eras Tour show',
+            publisher: 'ABC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Primary New Heights account (Season 2 finale, released July 3, 2024): bike idea, "Do not drop Taylor," Prince William\'s "do it again"',
+          },
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/wembley-stadium-london-england-23aa4007.html',
+            source_title: 'Taylor Swift Setlist at Wembley Stadium, London — June 23, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'reference',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Night-3 surprise songs: "us." live debut with Gracie Abrams (guitar); "Out of the Woods"/"Is It Over Now?"/"Clean" mashup (piano)',
+          },
+          {
+            outlet: 'The Mirror US',
+            url: 'https://www.themirror.com/sport/american-football/mahomes-trolls-chiefs-teammates-swift-867641',
+            source_title: 'Patrick Mahomes mimics Travis Kelce Eras Tour cameo look at Taylor Swift birthday party',
+            publisher: 'The Mirror',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Mahomes wore a matching tux-and-top-hat look to Swift\'s Dec 2024 birthday party',
           },
         ],
         // Photo passes verified HTTP 200 + image/jpeg and vision-confirmed
@@ -4174,7 +4238,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed; Billboard reported a price around $360 million to Shamrock Capital, the firm that had bought the catalog from Scooter Braun\'s Ithaca Holdings in November 2020 — a price Rolling Stone put around $300 million, though Music Business Worldwide later reported Shamrock\'s outlay at $405 million. Billboard\'s analysis found Shamrock made little if any profit on the resale itself, but earned roughly $100 million over the three-plus years it owned the records. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs. The memories. The magic. The madness. Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville-based management team; a source close to the talks credited only "the partners at Shamrock Capital and Taylor\'s Nashville-based management team," adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was finished and could "have its moment" someday. At its reported price the deal sits alongside the Dylan and Springsteen catalog sales of the era, but with a distinction: those bundled publishing, while Swift already owned her publishing — making this a rare buyback of masters alone.\n\nIn her announcement letter she credited the ending to the success of the Eras Tour and the fans\' support for her re-recordings, saying she could finally own her music "with no strings attached." Reporting stopped short of confirming the deal ended Braun\'s 2020 earnout, but Variety noted he "no longer participates in any profit from a sale" and that Swift\'s camp was adamant he had no part in Shamrock\'s decision to sell.',
+          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed; Billboard reported a price around $360 million to Shamrock Capital, the firm that had bought the catalog from Scooter Braun\'s Ithaca Holdings in November 2020 — a price Rolling Stone put around $300 million, though Music Business Worldwide later reported Shamrock\'s outlay at $405 million. Billboard\'s analysis found Shamrock made little if any profit on the resale itself, but earned roughly $100 million over the three-plus years it owned the records. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs. The memories. The magic. The madness. Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville-based management team; a source close to the talks credited only "the partners at Shamrock Capital and Taylor\'s Nashville-based management team," adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was finished and could "have its moment" someday. At its reported price the deal sits alongside the Dylan and Springsteen catalog sales of the era, but with a distinction: those bundled publishing, while Swift already owned her publishing — making this a rare buyback of masters alone.\n\nIn her announcement letter she credited the ending to the success of the Eras Tour and the fans\' support for her re-recordings, saying she could finally own her music "with no strings attached." Reporting stopped short of confirming the deal ended Braun\'s 2020 earnout, but Variety noted he "no longer participates in any profit from a sale" and that Swift\'s camp was adamant he had no part in Shamrock\'s decision to sell.\n\nTwo things the announcement made concrete. First, the buyback gave Swift ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned on Republic — and for the four albums she had re-recorded (Fearless, Red, Speak Now, 1989) she now controls both the originals and the Taylor\'s Versions, quietly ending her long campaign urging fans to stream only the re-records. Shamrock issued its own statement, calling itself "thrilled with this outcome" and "so happy for Taylor." The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled — the original Speak Now spiking roughly 430% — while the Taylor\'s Versions held steady rather than dipping, and catalog album sales rose 235% that week. Fellow artists cheered publicly, among them Selena Gomez, Phoebe Bridgers and Travis Kelce. As of mid-2026 nothing had advanced on the two unfinished re-records: the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved — its only new fragment a re-recorded "Look What You Made Me Do (Taylor\'s Version)" that surfaced in a 2025 Handmaid\'s Tale sync.',
         sources: [
           {
             outlet: 'Billboard',
@@ -4262,6 +4326,36 @@ export default {
             accessed_at: '2026-07-24',
             reliability_score: 4,
             notes: 'Letter quotes on Reputation TV (barely a quarter re-recorded) and the finished debut re-record',
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-buys-back-rights-master-recordings-first-6-albums-rcna209986',
+            source_title: 'Taylor Swift buys back the rights to the master recordings of her first 6 albums',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'First time she owns her entire catalog; Shamrock\'s own statement ("thrilled with this outcome and [we] are so happy for Taylor")',
+          },
+          {
+            outlet: 'Luminate',
+            url: 'https://luminatedata.com/blog/original-recordings-or-taylors-versions-which-albums-are-swifties-streaming/',
+            source_title: 'Original Recordings or Taylor\'s Versions: Which Albums Are Swifties Streaming?',
+            publisher: 'Luminate',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Post-buyback streaming: originals each at least doubled (Speak Now ~+430%), Taylor\'s Versions held steady, no dip',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-albums-boost-masters-1235993446/',
+            source_title: 'Taylor Swift\'s Catalog Gets a Boost After She Buys Back Her Masters',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Catalog streaming +55.1% on announcement day; catalog album sales +235% that week',
           },
         ],
         // T16 photo pass (2026-07-09): the celebration photo released with
