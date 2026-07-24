@@ -825,6 +825,13 @@ export default {
       day: 26,
       category: 'tour',
       title: 'Sabrina Carpenter crashes the Superdome',
+      // Cross-links added 2026-07-24 (ledger #1310): the later Showgirl
+      // title-track feature this duet prefigured, and the Miami Florence cameo
+      // the page name-checks. Ids verified against content-vault.generated.
+      relatedIds: [
+        'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
+        'moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc',
+      ],
       snippet:
         'Night two in New Orleans: Taylor announces she\'s about to sing a song that isn\'t hers, starts strumming "Espresso" — and Sabrina Carpenter appears for a three-song mashup with "Please Please Please" and "Is It Over Now?"',
       sourceUrl:
@@ -838,7 +845,7 @@ export default {
         'https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-sabrina-carpenter-eras-tour-new-orleans-oct-26-2024-billboard-1548.jpg?w=942&h=628&crop=1',
       moment: {
         context:
-          'The Caesars Superdome residency ran Oct. 25–27, 2024, and the Saturday show got the leg\'s biggest surprise-song swing. Taylor almost never performs covers, so the setup — telling the sold-out dome she was about to sing something that wasn\'t hers — was its own tell. Sabrina Carpenter, fresh off opening the tour\'s 2023 Latin American leg, joined her at the piano end of the acoustic set for a mashup threading Carpenter\'s "Espresso" and "Please Please Please" through "Is It Over Now?"\n\nFan video of the duet racked up millions of views within a day, and the moment instantly joined the tour\'s all-timer surprise-guest list alongside Miami\'s Florence Welch cameo the weekend before.',
+          'The Caesars Superdome residency ran Oct. 25–27, 2024, and the Saturday show got the leg\'s biggest surprise-song swing. Taylor almost never performs covers, so the setup was its own tell: "I\'m gonna sing a song that\'s not mine but it\'s someone that I really love," she told the dome, then took a fan\'s phone to call Sabrina Carpenter down. It landed in the guitar half of the acoustic set — the piano song that night was a separate "Hits Different"/"Welcome to New York" mashup. Carpenter, who had only ever opened for Swift (on the 2023 Latin American leg), had never shared her stage before; this was their first performance together.\n\nSwift started "Espresso" alone, then brought Carpenter out to sing lead while she harmonized on guitar — threading her own "1989 (Taylor\'s Version)" vault track "Is It Over Now?" between Carpenter\'s two hits and closing on a duet of "Please Please Please." Swift marveled that Carpenter had "literally one day off" on her own tour and came anyway; Carpenter posted afterward: "thank you for working late, thank you for being a singer, and thank you for having me… i love you."\n\nThe duet lived in fan video at the time — it postdated the 2023 concert film — but it turned out to be a prelude. A year later Carpenter guested on the title track of The Life of a Showgirl (Oct. 2025), and that song\'s official visual, screened at the Showgirl release-party event, folded in Eras Tour footage of the two on stage together. It joined the tour\'s all-timer surprise-guest list alongside Miami\'s Florence Welch cameo the weekend before.',
         sources: [
           {
             outlet: 'NOLA.com',
@@ -848,6 +855,46 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-14',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-sabrina-carpenter-espresso-mash-up-new-orleans-1235144110/',
+            source_title: "See Taylor Swift Bring Out Sabrina Carpenter for 'Espresso' Mash-Up at New Orleans Show",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Exact on-stage intro; called a fan to bring Carpenter down',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://ca.billboard.com/music/music-news/taylor-swift-sabrina-carpenter-espresso-surprise-new-orleans-1235812233/',
+            source_title: "Taylor Swift, Sabrina Carpenter Sing 'Espresso' & More in New Orleans",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Mashup order Espresso -> Is It Over Now? -> Please Please Please; vocal split',
+          },
+          {
+            outlet: 'NOLA.com',
+            url: 'https://www.nola.com/entertainment_life/new-orleans-life-of-a-showgirl-connection/article_466cd932-9548-4b2d-8bcd-6d0c5688b91f.html',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' has a New Orleans connection you may have missed",
+            publisher: 'NOLA.com | The Times-Picayune',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'First on-stage duet was New Orleans; Showgirl title-track visual folds in the footage',
+          },
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/caesars-superdome-new-orleans-la-1357c595.html',
+            source_title: 'Taylor Swift Setlist, Caesars Superdome, Oct. 26, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'fan_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Guitar-slot Espresso mashup; piano slot was Hits Different/Welcome to New York',
           },
           {
             outlet: 'Fox 8 New Orleans',
@@ -2813,13 +2860,18 @@ export default {
       day: 7,
       category: 'tour',
       title: 'Three nights, three Scottish attendance records at Murrayfield',
+      // Cross-link: the Seattle "Swift quake," the tour's other stand the crowd
+      // shook into the seismic record (added 2026-07-24, ledger #1308).
+      relatedIds: [
+        'moment:vault-midnights-the-swift-quake-seattle-shows-register-as-seismic-activity',
+      ],
       snippet:
         'Night one beat Harry Styles\' all-time Scottish stadium record at nearly 73,000 — then nights two and three each broke it again. 220,000 fans across the weekend.',
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-swift-thanks-edinburgh-eras-tour-fans-breaking-crowd-record-1235705719/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The June 7–9, 2024 Edinburgh stand opened the UK run by re-breaking its own record nightly: night one\'s crowd of nearly 73,000 took the all-time Scottish stadium-concert attendance record, and nights two and three each topped it again, putting roughly 220,000 fans through Murrayfield in a single weekend. Swift thanked the city for crowds that "truly blew me away."\n\nThe stand registered beyond the stadium, literally — seismic monitors picked up the shows — and CNBC pegged the UK leg\'s Edinburgh windfall at an estimated £77M+ (roughly $98M) for the local economy.',
+          'The June 7–9, 2024 Edinburgh stand opened the UK run by breaking its own record nightly. Night one\'s crowd of almost 73,000 overtook Harry Styles\' 2023 Murrayfield show (about 65,000) to become the highest-attended stadium concert in Scottish history; the venue operator confirmed nights two and three each topped the night before, putting roughly 220,000 fans through the ground across one weekend (exact figures for the later nights went unpublished). Paramore opened all three nights, and each acoustic set carried its own Edinburgh debut — "The Bolter" and "Crazier" on June 8, "It\'s Nice to Have a Friend" on June 9.\n\nThe stand registered beyond the stadium, literally. The British Geological Survey recorded the crowd as seismic activity, the strongest reading coming during "…Ready For It?" — about 23.4 nanometres of ground movement, the dancing crowd transmitting some 80 kilowatts, detected 6 km away at the BGS\'s Lyell Centre. CNBC pegged the Edinburgh windfall at an estimated £77M+ (roughly $98M) for the local economy.\n\nTold from the stage she\'d just played the most-attended stadium show in Scottish history, Swift answered, "What a way to welcome a lass to Scotland," and thanked the city for crowds that "truly blew me away." Edinburgh met her in kind: the council presented a bespoke Edinburgh-900 tartan guitar strap, hand-made by Kinloch Anderson and inscribed "Fàilte chridheil gu Dùn Èideann" ("a heartfelt welcome to Edinburgh"). Across the tour the weekend ranked among her larger three-night runs, though below the eight-night Wembley stand and Melbourne\'s bigger single-night totals.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2831,6 +2883,26 @@ export default {
             reliability_score: 4,
           },
           {
+            outlet: 'Scottish Rugby',
+            url: 'https://scottishrugby.org/swift-smashes-records-at-scottish-gas-murrayfield/',
+            source_title: 'Swift smashes records at Scottish Gas Murrayfield',
+            publisher: 'Scottish Rugby (venue operator)',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Night one ~73,000 overtook Harry Styles\' 65,000; each subsequent night re-broke the record; on-stage line',
+          },
+          {
+            outlet: 'British Geological Survey',
+            url: 'https://www.bgs.ac.uk/news/quake-it-off-taylor-swift-concerts-shake-edinburgh/',
+            source_title: 'Quake it off: Taylor Swift concerts shake Edinburgh',
+            publisher: 'British Geological Survey',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Strongest seismic reading during "…Ready For It?"; 23.4 nm, ~80 kW, detected 6 km away',
+          },
+          {
             outlet: 'CNBC',
             url: 'https://www.cnbc.com/2024/06/13/taylor-swift-eras-tour-shows-trigger-earthquake-readings-in-scotland.html',
             source_title: "Taylor Swift's Eras Tour shows trigger earthquake readings in Scotland; estimated $98 million economic boost",
@@ -2838,6 +2910,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'STV News',
+            url: 'https://news.stv.tv/entertainment/third-scottish-taylor-swift-eras-tour-show-in-edinburgh-announced-as-support-act-paramore-revealed',
+            source_title: 'Third Scottish Taylor Swift Eras tour show in Edinburgh announced as support act Paramore revealed',
+            publisher: 'STV News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Paramore opened all three Edinburgh nights',
+          },
+          {
+            outlet: 'City of Edinburgh Council',
+            url: 'https://www.edinburgh.gov.uk/news/article/13996/-sparks-fly-as-edinburgh-welcomes-taylor-swift-with-civic-gift',
+            source_title: "'Sparks Fly' as Edinburgh welcomes Taylor Swift with civic gift",
+            publisher: 'City of Edinburgh Council',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Bespoke Edinburgh-900 tartan guitar strap by Kinloch Anderson',
+          },
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/scottish-gas-murrayfield-stadium-edinburgh-scotland-3baa4018.html',
+            source_title: 'Taylor Swift Setlist, Murrayfield, June 8, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'fan_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Surprise-song debuts of "The Bolter" and "Crazier" (June 8); "It\'s Nice to Have a Friend" (June 9)',
           },
         ],
         // T16 photo pass (2026-07-09): Getty tour photo hosted on Billboard's
