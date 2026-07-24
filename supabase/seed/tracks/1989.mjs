@@ -318,9 +318,113 @@ export default {
       themes: ['resilience', 'ignoring the noise', 'joy as strategy'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Shake_It_Off',
       sources: [
-        wiki('Shake It Off', 'Shake_It_Off', 'song article: release moment and legacy'),
+        wiki('Shake It Off', 'Shake_It_Off', 'song article: chart debut, production, video, lawsuit, awards, certifications, live history'),
         ALBUM,
+        {
+          source_url: 'https://variety.com/2022/music/news/taylor-swift-shake-it-off-lawsuit-dropped-1235458220/',
+          source_title: "Taylor Swift's 'Shake It Off' Copyright Lawsuit Dropped",
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the December 2022 dismissal with prejudice; writing credits unchanged',
+        },
+        {
+          source_url: 'https://globalnews.ca/news/4025747/taylor-swift-shake-it-off-copyright-lawsuit-dismissed/',
+          source_title: "Taylor Swift's 'Shake It Off' copyright lawsuit dismissed",
+          publisher: 'Global News',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Judge Fitzgerald’s 2018 "banal" ruling (later revived by the Ninth Circuit in 2019)',
+        },
+        {
+          source_url: 'https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/',
+          source_title: "Taylor Swift's 'Shake It Off' Debuts At #1",
+          publisher: 'Forbes',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'the No. 1 Hot 100 debut and ~544,000 first-week US downloads',
+        },
+        {
+          source_url: 'https://www.billboard.com/music/music-news/taylor-swift-shake-it-off-single-review-6221814/',
+          source_title: "Taylor Swift, 'Shake It Off': The Country Superstar Goes Full Pop",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'reception as the lead single announcing the full pop pivot',
+        },
       ],
+      // Depth ledger #1416 (2026-07-24): the No. 1 debut, production, the
+      // Romanek video, the "Playas Gon' Play" suit, awards, certs, live history.
+      dossier: {
+        whyItMatters: [
+          "The lead single that announced the pop pivot debuted at No. 1 on the Billboard Hot 100 dated September 6, 2014 — only the 22nd song ever to launch at the top, and her first to debut there (her second Hot 100 No. 1 overall, after ‘We Are Never Ever Getting Back Together’) — going on to spend four non-consecutive weeks at No. 1. It reached No. 1 in Australia and Canada and No. 2 in the UK, sold roughly 544,000 US downloads in its first week (the year’s biggest sales week at the time), and is RIAA-certified Diamond.",
+          "Mark Romanek’s video — released August 18, 2014, the song’s release day, with a live television debut at the August 24 MTV VMAs — shows Swift failing at a parade of dance styles before joining everyday dancers; a twerking segment drew criticism (loudest from Earl Sweatshirt) that Romanek answered by calling the piece ‘massively inclusive.’ The song was nominated for three 2015 Grammys and won none, and its ‘haters gonna hate’ refrain passed into everyday speech.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written and produced by Swift with Max Martin and Shellback — an uptempo dance-pop track built on a looping drumline-style beat, a saxophone hook, handclaps and a spoken ‘this sick beat’ bridge; recorded by Sam Holland at Conway Recording Studios (Los Angeles) and Michael Ilbert at MXM Studios (Stockholm), mixed by Serban Ghenea and mastered by Tom Coyne.",
+            "The ‘Playas Gon’ Play’ copyright suit: 3LW co-writers Sean Hall and Nathan Butler alleged the ‘players gonna play / haters gonna hate’ hook copied their 2001 song. Judge Michael Fitzgerald dismissed it in February 2018 as too ‘banal’ to protect, the Ninth Circuit revived it in October 2019, and it was dismissed with prejudice by joint stipulation on December 12, 2022 — terms undisclosed and Swift’s writing credits unchanged.",
+            "At the 57th Grammy Awards (2015) it was nominated for Record of the Year, Song of the Year and Best Pop Solo Performance, and won none of the three.",
+            "It has been a recurring set-closer — the final number of the 1989 World Tour, part of the Reputation Stadium Tour finale, and the close of the 1989 act on the Eras Tour.",
+          ],
+          supported: [
+            "Critics split between reading it as a savvy ‘perfect pivot’ to synth-pop — Rolling Stone’s Rob Sheffield heard it as a ‘trailer’ for her Eighties-synth makeover — and finding it lyrically slight; it placed on numerous 2014 year-end and decade-end best-songs lists.",
+          ],
+          fanTheories: [
+            "Two commonly repeated claims are inaccurate: the video did not set a Vevo 24-hour viewing record (that August 2014 record belonged to another release), and Swift did not open the 2014 American Music Awards with this song — she opened that show with ‘Blank Space.’",
+          ],
+        },
+        live: [
+          {
+            date: 'August 24, 2014',
+            event: '2014 MTV VMAs',
+            note: 'Its live television debut.',
+          },
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: 'The tour’s closing number.',
+          },
+          {
+            date: '2018',
+            event: 'Reputation Stadium Tour',
+            note: 'Part of the show’s finale.',
+          },
+          {
+            date: '2023-2024',
+            event: 'The Eras Tour — 1989 set',
+            note: 'Closes the 1989 act.',
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'moment:vault-1989-shake-it-off-launches-the-era',
+            label: 'Shake It Off launches the era',
+            why: 'The moment page for the single that opened the 1989 pop reinvention.',
+          },
+          {
+            relatedId: 'moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single',
+            label: 'Shake It Off becomes her first Diamond-certified single',
+            why: 'The moment page for its RIAA Diamond milestone.',
+          },
+          {
+            relatedId: 'song:bad-blood',
+            label: 'Bad Blood',
+            why: 'Its 1989 single sibling — the two most bombastic statements of the pop reinvention.',
+          },
+        ],
+        sources: [
+          { name: 'Shake It Off — Wikipedia', url: 'https://en.wikipedia.org/wiki/Shake_It_Off' },
+          { name: 'Variety — copyright lawsuit dropped', url: 'https://variety.com/2022/music/news/taylor-swift-shake-it-off-lawsuit-dropped-1235458220/' },
+          { name: 'Global News — 2018 "banal" dismissal', url: 'https://globalnews.ca/news/4025747/taylor-swift-shake-it-off-copyright-lawsuit-dismissed/' },
+          { name: 'Forbes — No. 1 debut and first-week sales', url: 'https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/' },
+          { name: 'Billboard — the pop-pivot single review', url: 'https://www.billboard.com/music/music-news/taylor-swift-shake-it-off-single-review-6221814/' },
+        ],
+      },
     },
     {
       slug: 'i-wish-you-would',
@@ -370,10 +474,111 @@ export default {
         wiki(
           'Bad Blood (Taylor Swift song)',
           'Bad_Blood_(Taylor_Swift_song)',
-          'song article: interview origin and remix video',
+          'song article: writing/production, remix, chart, certifications, awards, live history',
         ),
         ALBUM,
+        {
+          source_url: 'https://www.officialcharts.com/chart-news/taylor-swift-scores-fourth-us-number-1-with-bad-blood__9464/',
+          source_title: 'Taylor Swift scores fourth US Number 1 with Bad Blood',
+          publisher: 'Official Charts Company',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the remix as Swift’s fourth US No. 1; Kendrick Lamar’s first',
+        },
+        {
+          source_url: 'https://variety.com/2015/music/awards/bad-blood-taylor-swift-watch-music-video-1201498985/',
+          source_title: "Taylor Swift Debuts 'Bad Blood' Music Video With Selena Gomez & More Stars",
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the Joseph Kahn video’s Billboard Music Awards premiere (May 17, 2015) and star cast',
+        },
+        {
+          source_url: 'https://time.com/4914066/taylor-swift-katy-perry-feud-timeline/',
+          source_title: 'A Timeline of the Taylor Swift–Katy Perry Feud',
+          publisher: 'Time',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the Perry press reading, "Swish Swish," and the 2019 reconciliation — all labeled inference/resolution, not Swift confirmation',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swift-katy-perry-you-need-to-calm-down-video-848857/',
+          source_title: "Watch Taylor Swift Reunite With Katy Perry in 'You Need to Calm Down' Video",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the June 17, 2019 burger-and-fries reconciliation that publicly closed the feud',
+        },
       ],
+      // Depth ledger #1376 (2026-07-24): the Kendrick remix, production, the
+      // all-star video, charts/certs, awards, the feud’s public arc, and live history.
+      dossier: {
+        whyItMatters: [
+          "The version released as a single on May 17, 2015 is the Kendrick Lamar remix, not the 1989 album cut. It jumped from No. 53 to No. 1 on the Billboard Hot 100 dated June 6, 2015 — Swift’s fourth Hot 100 No. 1 and Lamar’s first — spending one week on top and five more at No. 2, and reached No. 1 in Australia, Canada, New Zealand and Scotland (No. 4 in the UK). It is RIAA-certified 6× Platinum.",
+          "Joseph Kahn’s spy-heist video — filmed April 12 and premiered May 17, 2015 at the Billboard Music Awards — assembled roughly seventeen code-named cameos and broke the Vevo 24-hour viewing record (20.1 million views). It won Video of the Year (Swift’s first) and Best Collaboration at the 2015 MTV VMAs and Best Music Video at the 2016 Grammy Awards, cementing a track whose initial album-cut reviews had been lukewarm as a signature moment of the 1989 rollout.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written by Swift with Max Martin and Shellback, who produced it (both programmed the track and played keyboards); recorded at Conway Recording Studios (Los Angeles) and MXM Studios (Stockholm), mixed by Serban Ghenea and mastered by Tom Coyne.",
+            "The single is Kendrick Lamar’s remix: after the two publicly praised each other’s work, Swift approached Lamar, who added two original rap verses; producer Ilya layered heavier trap/hip-hop percussion and the remix trims some of Swift’s original verses to foreground the chorus and Lamar’s parts.",
+            "In a September 2014 Rolling Stone interview Swift said the song was about a fellow female artist — once a friend — who ‘tried to sabotage an entire arena tour’ by hiring people out from under her, stressing it was about losing a friend, not a lover, and pointedly declining to name her.",
+            "The video cast carries code names — Swift as Catastrophe, Selena Gomez as Arsyn, Kendrick Lamar as Welvin da Great, Lena Dunham as Lucky Fiori, plus Cara Delevingne, Zendaya, Gigi Hadid, Hailee Steinfeld, Ellie Goulding, Hayley Williams, Karlie Kloss, Cindy Crawford and more.",
+          ],
+          supported: [
+            "The press near-universally read the unnamed subject as Katy Perry, whose team had reportedly poached backing dancers from Swift’s tour; Perry never confirmed being the target and answered in 2017 with ‘Swish Swish’ (featuring Nicki Minaj). That identification is media inference, not a Swift confirmation.",
+            "The feud resolved publicly in the June 17, 2019 ‘You Need to Calm Down’ video, which ends with Swift and Perry embracing dressed as fries and a hamburger (Perry reprising her 2019 Met Gala burger look).",
+            "Critics were split: the 1989 album cut drew mixed-to-negative reviews as one of the record’s weaker tracks, while the Kendrick remix was received more warmly — the Guardian’s Alexis Petridis called it ‘a masterstroke.’",
+          ],
+          fanTheories: [
+            "A recurring claim that a softer early demo predated the stadium-chant chorus is undocumented in reputable sources — treat it as fan lore. There is likewise no verified record of Kendrick Lamar joining Swift onstage to perform it.",
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: 'A main-set staple, performed with acrobatic staging.',
+          },
+          {
+            date: '2018',
+            event: 'Reputation Stadium Tour',
+            note: "Reworked as a mashup with ‘Should’ve Said No’ over a country-tinged guitar riff.",
+          },
+          {
+            date: '2023-2024',
+            event: 'The Eras Tour — 1989 set',
+            note: 'Part of the main 1989 act (staged with on-screen flames), not a surprise song.',
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'moment:vault-1989-bad-blood-premieres-at-the-bbmas-and-breaks-the-vevo-record',
+            label: 'Bad Blood premieres at the BBMAs and breaks the Vevo record',
+            why: 'The moment page for this song’s video premiere and its 24-hour Vevo record.',
+          },
+          {
+            relatedId: 'moment:vault-1989-bad-blood-and-the-friendship-it-ended',
+            label: 'Bad Blood and the friendship it ended',
+            why: 'The moment page on the professional friendship the song is written about.',
+          },
+          {
+            relatedId: 'song:shake-it-off',
+            label: 'Shake It Off',
+            why: 'Its lead-single sibling — the two most bombastic statements of the 1989 pop reinvention.',
+          },
+        ],
+        sources: [
+          { name: 'Bad Blood (Taylor Swift song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)' },
+          { name: 'Official Charts — fourth US No. 1', url: 'https://www.officialcharts.com/chart-news/taylor-swift-scores-fourth-us-number-1-with-bad-blood__9464/' },
+          { name: 'Variety — video premiere', url: 'https://variety.com/2015/music/awards/bad-blood-taylor-swift-watch-music-video-1201498985/' },
+          { name: 'Time — feud timeline', url: 'https://time.com/4914066/taylor-swift-katy-perry-feud-timeline/' },
+          { name: 'Rolling Stone — You Need to Calm Down reconciliation', url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swift-katy-perry-you-need-to-calm-down-video-848857/' },
+        ],
+      },
     },
     {
       slug: 'wildest-dreams',
