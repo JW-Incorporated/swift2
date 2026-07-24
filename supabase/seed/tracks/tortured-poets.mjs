@@ -706,18 +706,37 @@ const TRACKS = [
       producers: ['Taylor Swift', 'Aaron Dessner', 'Jack Antonoff'],
       note: 'The stylized capitals in the official title spell out a three-letter name — the pettiest typography in the catalog, attached to a song about thanking your bully.',
       summary:
-        'A lifelong tormentor gets an ironic acknowledgment: the cruelty built the empire. The K-I-M capitalization is on the official tracklist (fact); the Kardashian reading it triggers has never been stated aloud and never needed to be.',
+        'A lifelong tormentor gets an ironic acknowledgment: the cruelty built the empire. The K-I-M capitalization is on the official streaming tracklist (fact); the Kardashian reading it triggers has never been stated aloud and never needed to be. It debuted live as an Eras Tour surprise song — June 22, 2024, Wembley Stadium, London — mashed up with "Mean," and charted at No. 23 on the Hot 100 in the album\'s release week.',
       inspiration:
         'The capitalization is documented in the official track listing; the 2016 feud it evokes is public record. Swift has confirmed only that the name is changed and the bully composite.',
-      themes: ['bullies as accidental architects', 'ironic gratitude', 'outliving a feud'],
+      themes: ['bullies as accidental architects', 'ironic gratitude', 'outliving a feud', 'triumph over naysayers'],
       fanLore:
         'Fan/press reading (unconfirmed but typographically assisted): the Kim Kardashian address.',
       easterEggs:
-        'The official stylization is the Easter egg — the rare clue embedded in the tracklist itself.',
+        'The official stylization is the Easter egg — the clue embedded in the tracklist itself, its capitals spelling KIM. The Aug. 15, 2024 limited download edition restyled the title "thank You aimEe," whose capitals spell YE — read by press as a glance at Kanye West. Both name-readings are interpretation, not confirmed.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Thank_You_Aimee',
       sources: [
-        wiki('thanK you aIMee', 'Thank_You_Aimee', 'song article: stylization and readings'),
+        wiki('thanK you aIMee', 'Thank_You_Aimee', 'song article: stylization, charts, live history, readings'),
         ALBUM,
+        {
+          source_url:
+            'https://www.billboard.com/music/music-news/taylor-swift-thank-you-aimee-castles-crumbling-hayley-williams-london-eras-tour-1235715917/',
+          source_title: "Taylor Swift Debuts 'thanK you aIMee' Live in London",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'First live performance, Wembley, June 22 2024, mashup with "Mean"',
+        },
+        {
+          source_url: 'https://open.spotify.com/track/7ogK4lJDVDMU6A6vYR5rvD',
+          source_title: 'thanK you aIMee — official Spotify track metadata',
+          publisher: 'Spotify',
+          source_type: 'official',
+          accessed_at: '2026-07-24',
+          reliability_score: 5,
+          notes: 'Primary DSP metadata fixing the exact "thanK you aIMee" stylization',
+        },
       ],
     },
     {
