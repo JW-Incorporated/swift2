@@ -17,9 +17,16 @@ diagnose, or expose her or the people around her.
 - What Taylor or her team have published themselves (posts, statements,
   releases, documentaries).
 - What named, reputable outlets have reported — attributed and dated.
-- Past-tense, venue-level public appearances ("was at Arrowhead on Oct 12").
-  City/state-level references to widely-reported properties in *historical*
-  framing ("the Rhode Island house", "her Nashville years") are fine.
+- Past-tense, venue-level public appearances and **stays** ("was at Arrowhead
+  on Oct 12"; "stayed at the Ocean House resort in June, since departed"). A
+  **public accommodation she has already left** — hotel, resort, inn,
+  restaurant, venue — is fine at venue level: it's transient, she's gone, and
+  naming it lets Swifties visit a public place without exposing where she lives
+  or where she'll be next (2026-07-24, Wyatt). This is distinct from her
+  residence (see the matrix — a home never gets this treatment).
+- City/state-level references to widely-reported *residences* in *historical*
+  framing ("the Rhode Island house", "her Nashville years") are fine — but a
+  residence is capped there and never gets venue- or street-level detail.
 - Professional and business facts: releases, charts, deals, tours as reported.
 - Rumors and theories **about public-facing matters**: unannounced music,
   re-recordings, tour speculation, award chances, symbolism/easter eggs, and
@@ -52,10 +59,22 @@ publish:
 
    **`L3` is never publishable at any provenance in any tense.**
 
+   **Residence vs. a place she stayed (2026-07-24, Wyatt).** The residence cap
+   (`L1`) is about her *home* — a permanent place she returns to, where naming
+   the venue or street creates a standing doxxing and security risk. A **public
+   accommodation she has already left** — a hotel or resort from a past,
+   concluded trip — is *not* a residence: it's transient, the risk departed with
+   her, and it takes the ordinary documented-past-event treatment (`L2`). Name
+   the resort she stayed at last month; never name the street her house is on.
+   *The Watch Hill test:* the Ocean House resort (public, past, she's gone) is
+   fine to name; her own estate there is `L1` — "Watch Hill", never the street,
+   never its security detail.
+
    ✅ "reportedly heading to the Caribbean" · "plays Wembley on 14 August" ·
-   "photographed leaving Zuma on Tuesday" · "has kept a place in Nashville"
+   "photographed leaving Zuma on Tuesday" · "stayed at the Ocean House resort in
+   June, since departed" · "has kept a place in Nashville"
    ❌ "expected at the Bowery Hotel this weekend" (L2 speculation) ·
-   "her Cornelia Street place" (L2 residence) · any street address.
+   "her Cornelia Street place" (residence, L1 cap) · any street address.
 
    **Travel:** the *fact* of travel at L0 is fine ("reportedly heading to the
    Caribbean"). Never, at any provenance: flight or tail numbers, airports,
