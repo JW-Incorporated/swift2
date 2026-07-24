@@ -2932,7 +2932,8 @@ export default {
       snippet:
         'Twain says she was honored by the invitation but had already committed to opening for Harry Styles at Wembley Stadium the same weekend as the July 3 ceremony.',
       sourceUrl: 'https://www.the-independent.com/arts-entertainment/music/news/taylor-swift-wedding-shania-twain-b3020210.html',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/3/30/Shania_Twain_Glaston2024_2806_300624_%2822_of_173%29_%2853838020769%29_%28cropped%29.jpg',
       moment: {
         context:
           'Twain opened for Styles\'s 12-night London residency, which ran through July 4 — directly overlapping the wedding weekend. She gave the same explanation in two on-record appearances: to eTalk, that she\'d already committed to the Wembley booking and chose to honor it; on the July 22 Tonight Show, that she was honored to have been invited and planned to congratulate Taylor in person next time they met.\n\nHer own words filled it in. To eTalk (first reported July 14): "Taylor Swift invited me to her wedding. And I couldn\'t go because I was already committed to Harry\'s shows," adding she "would have done anything" to be there "but I was with Harry," and laughing off that the conflict was Swift\'s own ex — "It\'s just kind of funny that that happened that way." On Fallon she praised the craft over the absence: "She\'s a fabulous performer… she does write her own songs. She sits down at home, plays the piano, plays the guitar. So I admire her musicianship and her commitment to telling her stories. I love everything about her." The history runs the other way too — Swift has long named Twain among her formative country influences — though Twain did not invoke that in these appearances. No public gift or message was sent in lieu of attending; she framed the make-good as an in-person congratulations. She was one of several invited names who publicly explained missing the July 3 ceremony, alongside Ryan Seacrest (a work commitment), Robert Pattinson (a film shoot) and Charles Barkley (who declined outright).',
@@ -2993,6 +2994,20 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 3,
+          },
+        ],
+        // Photo added at backfill 2026-07-24 (Wyatt: recent posts should have
+        // pictures). Archival portrait — the wedding-decline was explained in
+        // interviews, not a photographed event, so this is the closest true
+        // visual: Twain onstage. upload.wikimedia.org (allowlisted); curl 200 +
+        // image/jpeg, 1595x2394, vision-confirmed as Shania.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Shania_Twain_Glaston2024_2806_300624_%2822_of_173%29_%2853838020769%29_%28cropped%29.jpg',
+            credit: 'Raph_PH / Wikimedia Commons, CC BY 2.0',
+            caption: 'Shania Twain performing at Glastonbury Festival, June 30, 2024.',
+            kind: 'archival',
+            focalPoint: '50% 22%',
           },
         ],
       },
