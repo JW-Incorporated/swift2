@@ -352,22 +352,29 @@ over few buckets; there are only ~15 distinct seed basenames, and at that size a
 character-sum hash simply does not spread. This was my design error, not a
 tuning problem — no threshold would have fixed it.
 
-**The rule is now positional:**
+**The rule is now positional, and it shards on the ERA, not the raw filename:**
 
 1. Build the list of seed files: `supabase/seed/content/*.mjs` and
    `supabase/seed/tracks/*.mjs`.
-2. Reduce to unique BASENAMES and sort them lexicographically.
-3. A file belongs to shard `index % 10`, where `index` is its position in that
-   sorted list.
+2. Reduce each to its ERA KEY — the basename with the `.mjs` extension AND any
+   `.dossiers` infix removed (so `content/midnights.mjs`, `tracks/midnights.mjs`
+   and `tracks/midnights.dossiers.mjs` all reduce to `midnights`). Take the
+   unique set and sort it lexicographically.
+3. An era — and EVERY file that reduces to it — belongs to shard `index % 10`,
+   where `index` is the era key's position in that sorted list.
 
-That is even by construction: every shard gets one or two files, none gets zero.
+That is even by construction: every shard gets one or two eras, none gets zero,
+and a `<era>.dossiers.mjs` file always lands on the SAME shard as its
+`<era>.mjs` parent.
 
 Two properties worth understanding rather than rediscovering:
 
-- **Basename, not full path, is deliberate.** `red.mjs` exists in both
-  `content/` and `tracks/`, so both land on the same shard. That is wanted: one
-  writer owns everything for an era, so a moment edit and a track edit for the
-  same era never split across two concurrent writers.
+- **Era key, not full path or raw basename, is deliberate.** `red.mjs` exists in
+  both `content/` and `tracks/`, and `red.dossiers.mjs` sits beside the tracks
+  copy; all three reduce to `red` and land on the same shard. That is wanted: one
+  writer owns everything for an era, so a moment edit, a track edit and a
+  per-song dossier edit for the same era never split across two concurrent
+  writers.
 - **The list is recomputed each run.** Adding a new era file shifts later
   assignments by one. Every instance computes the same list from the same repo
   state, so they agree within a run; the only exposure is a new seed file landing
@@ -378,3 +385,25 @@ Two properties worth understanding rather than rediscovering:
 If you ever find your shard has no files, do NOT fall back to working another
 shard's files. Report it — an empty shard now means the list changed shape, and
 silently poaching is how two writers end up in one file.
+
+### Correction 2026-07-24 — dossiers files were re-introducing idle shards
+
+The 2026-07-21 positional rule fixed the 8:1 skew but sharded on the raw
+basename, which counts `<era>.dossiers.mjs` as its own key. Measured against the
+current corpus that handed shards **7** (`midnights.dossiers.mjs`) and **9**
+(`red.dossiers.mjs`) a dossiers file as their ONLY file — and a dossiers file is
+never a ledger target (no ledger `kind` in READING A LEDGER resolves to one; it
+is a supplementary per-song file, always co-edited with its `<era>.mjs` parent).
+So shards 7 and 9 owned a file but no work, and were idle every run — the same
+"a shard can never do anything" failure the positional rule was written to kill,
+one level down. It also split all four dossiers eras across two shards
+(Midnights 7/8, Red 9/0, Showgirl 3/4, TTPD 5/6), breaking the "one writer owns
+an era" invariant above: whenever the era's writer answers a song ledger and
+touches the dossier, it writes a file the round-robin nominally assigned to a
+different shard.
+
+Reducing to the ERA KEY (strip the `.dossiers` infix) fixes both: dossiers fold
+into their era's shard, and the unique-key count drops to the real number of
+eras so no shard is left holding only a non-target file. NOTE FOR THE MERGER:
+this reshuffles every shard's assignment, so merge it OUTSIDE the :50–:59
+Answerer window to avoid two instances in the same run computing different maps.
