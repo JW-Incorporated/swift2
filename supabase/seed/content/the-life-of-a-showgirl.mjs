@@ -655,7 +655,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album, by both equivalent units and pure sales, since Billboard began tracking by Luminate\'s modern methodology in 1991. It ran roughly 2.5 times her own previous personal best, Midnights\' 1.578 million units in 2022, and passed the two records it beat: Adele\'s 3.482 million-unit 25 (2015) and *NSYNC\'s 2.416 million No Strings Attached (2000). She\'d cleared the decade-old Adele mark within five days — a record many chart-watchers had assumed the streaming era made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."\n\nThe composition explains the shape: only two things counted toward 4.002 million — the 3,479,500 pure copies and 522,600 streaming-equivalent units from those 680.9 million streams, with no tracks sold à la carte. The pure-sales side ran on collecting: 1.334 million of it was vinyl, driven by 38 editions (16 CDs, two deluxe CD-plus-clothing boxes, eight vinyl, a cassette, 11 digital), most release-week-only — a variant strategy that drew chart-inflation criticism. The 680.9 million streams set 2025\'s biggest album week but no all-time mark; her own Tortured Poets Department (891 million) still leads there. Abroad it opened at No. 1 in the UK (423,000 units, her biggest week there), Australia, Canada, New Zealand and Ireland. The theatrical Official Release Party that topped the weekend box office was a separate event, uncounted here. The front-loading showed a week later: it held No. 1 but fell to 338,000 units as pure sales collapsed 97% and streaming eased just 55%.\n\nAdele\'s 25 had actually held the biggest week on two separate counts — 3.482 million equivalent units and, in traditional album sales, about 3.387 million pure copies, set in 2015 when 25 was withheld from streaming. Showgirl passed both: its 4.002 million equivalent units and 3,479,500 pure copies mean it took the pure-sales crown too, not the streaming-inclusive one alone. Within that pure total, the 1.334 million on vinyl is the single most-quantified slice — dwarfing 25\'s roughly 22,000 vinyl copies — but Billboard did not itemize how the rest split across CD, cassette and paid downloads.\n\nThe variant strategy is the album\'s standing asterisk. Forbes and academic writers framed the 38 versions as chart-gaming; chart analyst Chris Molanphy agreed the week carries "an aftertaste" of repeat-buyer inflation — "this is chart gaming, but it\'s not payola," he wrote — while concluding the record still stands, because the album "would have debuted at No. 1 in any case, by a huge margin."',
+          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album, by both equivalent units and pure sales, since Billboard began tracking by Luminate\'s modern methodology in 1991. It ran roughly 2.5 times her own previous personal best, Midnights\' 1.578 million units in 2022, and passed the two records it beat: Adele\'s 3.482 million-unit 25 (2015) and *NSYNC\'s 2.416 million No Strings Attached (2000). She\'d cleared the decade-old Adele mark within five days — a record many chart-watchers had assumed the streaming era made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."\n\nThe composition explains the shape: only two things counted toward 4.002 million — the 3,479,500 pure copies and 522,600 streaming-equivalent units from those 680.9 million streams, with no tracks sold à la carte. The pure-sales side ran on collecting: 1.334 million of it was vinyl, driven by 38 editions (16 CDs, two deluxe CD-plus-clothing boxes, eight vinyl, a cassette, 11 digital), most release-week-only — a variant strategy that drew chart-inflation criticism. The 680.9 million streams set 2025\'s biggest album week but no all-time mark — it ranks fourth all-time, behind her own Tortured Poets Department (891 million) and two Drake albums, so the platform records it set (Apple Music\'s and Amazon\'s biggest debuts) were day-one, not weekly. Abroad it opened at No. 1 in the UK (423,000 units, her biggest week there), Australia, Canada, New Zealand and Ireland. The theatrical Official Release Party that topped the weekend box office was a separate event, uncounted here. The front-loading showed a week later: it held No. 1 but fell to 338,000 units as pure sales collapsed 97% and streaming eased just 55%.\n\nAdele\'s 25 had actually held the biggest week on two separate counts — 3.482 million equivalent units and, in traditional album sales, about 3.387 million pure copies, set in 2015 when 25 was withheld from streaming. Showgirl passed both: its 4.002 million equivalent units and 3,479,500 pure copies mean it took the pure-sales crown too, not the streaming-inclusive one alone. Within that pure total, the 1.334 million on vinyl is the single most-quantified slice — dwarfing 25\'s roughly 22,000 vinyl copies — but Billboard did not itemize how the rest split across CD, cassette and paid downloads.\n\nThe variant strategy is the album\'s standing asterisk. Forbes and academic writers framed the 38 versions as chart-gaming; chart analyst Chris Molanphy agreed the week carries "an aftertaste" of repeat-buyer inflation — "this is chart gaming, but it\'s not payola," he wrote — while concluding the record still stands, because the album "would have debuted at No. 1 in any case, by a huge margin."\n\nThe numbers underneath fill in the shape. Day one alone — Friday, Oct. 3 — moved 2.7 million copies, which by itself outsold every album\'s full opening week in history except Adele\'s 25. The rout down-chart was total: the week\'s No. 2 title, the KPop Demon Hunters soundtrack, managed 96,000 units. Billboard published no debut-week "outsold the rest of the chart combined" figure — that line belongs to the UK, where it beat the entire Top 100, and to the 2025 year-end tally, where it topped the rest of the top 10 by 150,000. The four overseas No. 1s came without itemized counts but with records attached: the biggest Australian week since 2015 and another ARIA "chart double," Canada\'s biggest debut of the streaming era, and record-extending 15th No. 1s in Canada and New Zealand.',
         sources: [
           {
             outlet: 'Billboard',
@@ -736,6 +736,45 @@ export default {
             publisher: 'Chris Molanphy (Hit Parade / Slate columnist)',
             source_type: 'expert_analysis',
             accessed_at: '2026-07-22',
+            reliability_score: 4,
+          },
+          // Added 2026-07-24 (ledger #1020): the day-one 2.7M figure (Q3), the
+          // down-chart / year-end "rest of the chart" comparisons (Q4), the
+          // overseas benchmarks (Q7), and the streaming-week ranking (Q6).
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-album-sales-first-day-billboard-million-showgirl-1236540366/',
+            source_title: "Taylor Swift Sells 2.7 Million Copies of 'The Life of a Showgirl' on Day 1 — Already the Second-Best Tally for an Album's First Week in History",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/01/14/taylor-swift-dominates-2025s-bestselling-albums-list-by-a-huge-margin/',
+            source_title: "Taylor Swift Dominates 2025's Bestselling Albums List By A Huge Margin",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-aria-chart-double-the-life-of-a-showgirl-1236107439/',
+            source_title: "Taylor Swift Completes Another ARIA Chart Double With 'The Life of a Showgirl'",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/taylor-swift-the-life-of-a-showgirl-streaming-records/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Breaks Day 1 Streaming Records on Spotify, Apple and Amazon Music",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
@@ -4940,7 +4979,7 @@ export default {
         'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
       moment: {
         context:
-          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, and KISS\'s Gene Simmons and Paul Stanley — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nHer speech ran past the twenty-minute mark, and the room got the songwriter version of her origin story — she held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her. Spielberg\'s introduction was her own doing, in a way: when the Hall asked which of her heroes she\'d want presenting, she named him. And the seating chart told the engagement-year story on its own — Travis, Andrea Swift, and Donna Kelce at her table, twenty-two days before the Madison Square Garden wedding.',
+          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no peer when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
         sources: [
           {
             outlet: 'PBS NewsHour',
@@ -4968,6 +5007,45 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-13',
             reliability_score: 4,
+          },
+          // Added 2026-07-24 (ledger #1119): the sombr tribute (Q1), Spielberg's
+          // actual remarks (Q3), the gown designer (Q6), and the Hall's own
+          // record of the gala (Q2/Q7).
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/sombr-covers-taylor-swift-songwriters-hall-of-fame-1236779478/',
+            source_title: 'Sombr Covers Two Taylor Swift Songs as Steven Spielberg Compares Her to Lennon-McCartney at Songwriters Hall of Fame Ceremony',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/steven-spielberg-taylor-swift-songwriters-hall-of-fame-1235576584/',
+            source_title: "See Steven Spielberg Praise 'Singular' Taylor Swift in Songwriters Hall of Fame Introduction",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-givenchy-dress-songwriters-hall-of-fame-gala-1239008334/',
+            source_title: "Taylor Swift Endorses Sarah Burton's Givenchy at Songwriters Hall of Fame Gala",
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Songwriters Hall of Fame',
+            url: 'https://www.songhall.org/news/shof-celebrates-best-of-songwriting-legends-at-2026-gala',
+            source_title: 'Songwriters Hall of Fame Celebrates the Best of Songwriting Legends at its 2026 Induction & Awards Dinner',
+            publisher: 'Songwriters Hall of Fame',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Photo pass #762 run 4 (2026-07-18): both ceremony photos
@@ -5533,7 +5611,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: "The Fate of Ophelia" at No. 7, "Opalite" at No. 8, "I Knew It, I Knew You" holding at its No. 9 peak, and "Elizabeth Taylor" at No. 10.\n\nNo artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.\n\nThe four are not all from one record, which is the quietly interesting part. "The Fate of Ophelia," "Opalite" and "Elizabeth Taylor" come from The Life of a Showgirl; "I Knew It, I Knew You" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once.\n\nIt brings her to 23 top 10s on the ranking, nine of them No. 1s — a formidable tally that is still nowhere near the format\'s all-time leaders, where Elton John holds the record with 42 top 10s (18 of them No. 1s), ahead of Neil Diamond\'s 38 and Barbra Streisand\'s 35. And for all four landing in the top 10 at once, none of them has topped Adult Contemporary itself: on a chart this slow-moving even her two Hot 100 No. 1s, "The Fate of Ophelia" and "Opalite," sit at Nos. 7 and 8.',
+          'Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: "The Fate of Ophelia" at No. 7, "Opalite" at No. 8, "I Knew It, I Knew You" holding at its No. 9 peak, and "Elizabeth Taylor" at No. 10.\n\nNo artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.\n\nThe four are not all from one record, which is the quietly interesting part. "The Fate of Ophelia," "Opalite" and "Elizabeth Taylor" come from The Life of a Showgirl; "I Knew It, I Knew You" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once.\n\nIt brings her to 23 top 10s on the ranking, nine of them No. 1s. That is the most of any act active on Adult Contemporary since her own first appearance in March 2008 — ahead of Bublé’s 19 and Kelly Clarkson’s 15 over that span — but well short of the all-time leaders, where Elton John holds the record with 42 top 10s (18 of them No. 1s), ahead of Neil Diamond’s 38 and Barbra Streisand’s 35; John also owns the most AC No. 1s at 18, with Celine Dion’s 11 the female mark. And for all four landing at once, none has topped Adult Contemporary itself: "The Fate of Ophelia" peaked at No. 2 in March and "Opalite" at No. 4 in May, while "I Knew It, I Knew You" and "Elizabeth Taylor" held this week’s Nos. 9 and 10.\n\nThe four reached Adult Contemporary at very different times, which is what made the convergence possible. "The Fate of Ophelia" debuted in October 2025 and "Opalite" in November — long-haul climbers 40 and 36 weeks deep by this chart — while "Elizabeth Taylor" entered in March 2026 and "I Knew It, I Knew You" debuted straight into the top 10 at No. 9 in June, a level no earlier Taylor soundtrack single had reached (her prior best, "I Don’t Wanna Live Forever," stalled at No. 16), though Billboard didn’t frame it as a first. The week turned on "Elizabeth Taylor," the biggest gainer, rising from No. 14 to complete the set at No. 10 as "The Fate of Ophelia" slipped off its peak. And it held: on the next chart, dated July 25, all four moved up a spot together to Nos. 6–9 — new peaks for "I Knew It, I Knew You" (No. 8) and "Elizabeth Taylor" (No. 9) — without growing to five or breaking apart, and with none yet threatening Alex Warren’s long-running No. 1, "Ordinary."',
         sources: [
           {
             outlet: 'Billboard',
@@ -5576,6 +5654,27 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-22',
             reliability_score: 4,
+          },
+          // Added 2026-07-24 (ledger #1058): each song's AC peak and debut/weeks
+          // detail (Q1/Q4) and the July 25 follow-through (Q6) from the chart's
+          // own per-entry data; the AC No. 1 leaderboard (Q2) from the AC list.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/charts/adult-contemporary/',
+            source_title: 'Adult Contemporary — chart dated July 25, 2026 (per-entry debut/peak/weeks/last-week detail)',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/List_of_artists_who_reached_number_one_on_the_U.S._Adult_Contemporary_chart',
+            source_title: 'List of artists who reached number one on the U.S. Adult Contemporary chart',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         // No photo: a chart week has no photography of its own, and dropping in
@@ -5722,7 +5821,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Billboard’s Pop Airplay chart tracks spins at pop radio, and it is a slow, crowded format — a song has to be worked for months to reach the top. On the chart dated July 20, 2026, “I Knew It, I Knew You” reached No. 9, becoming Taylor’s 29th career top 10 there, nearly two decades after she first appeared on the tally.\n\nThat number is the whole story. Only Rihanna has ever gathered more: her 30 Pop Airplay top 10s are the all-time record, and Taylor now sits exactly one behind it, with a song still climbing rather than fading. She already owns the format’s other headline mark — the most No. 1s in its history — so Rihanna’s top-10 count is one of the few Pop Airplay lines she hasn’t already claimed for herself.\n\nThe song keeps refusing the tidy version of the story. It isn’t a Showgirl track: “I Knew It, I Knew You” is her original for the Toy Story 5 soundtrack, co-written with Jack Antonoff, and it has now crossed every format that matters — a No. 1 Hot 100 debut, a top-10 Country Airplay entry, four simultaneous Adult Contemporary top 10s the week before, and now the edge of a Pop Airplay record. A movie song built for an animated character, out-charting most artists’ actual singles, one top 10 from the books.',
+          'Billboard’s Pop Airplay chart tracks spins at pop radio, and it is a slow, crowded format — a song has to be worked for months to reach the top. It debuted around No. 20 on the chart dated June 20, 2026, and roughly five weeks later, on the chart dated July 20, “I Knew It, I Knew You” climbed 12–9 into the top 10 — Taylor’s 29th career top 10 there, nearly two decades after she first appeared on the tally. It edged one place higher, to No. 8, the following week.\n\nThat number is the whole story. Only Rihanna has ever gathered more: her 30 Pop Airplay top 10s are the all-time record, and Taylor sits exactly one behind it — as of these charts she had not yet added a 30th to tie it. She already owns the format’s other headline mark, the most No. 1s in its history: she first broke that record in July 2023 and extended it to fifteen with “Opalite” on the chart dated Feb. 28, 2026. So Rihanna’s top-10 count is one of the few Pop Airplay lines she hasn’t already claimed for herself.\n\nThe song keeps refusing the tidy version of the story. It isn’t a Showgirl track: “I Knew It, I Knew You” is her original for the Toy Story 5 soundtrack, co-written and produced with Jack Antonoff, and it has crossed every format that matters — a No. 1 Hot 100 debut, a top-10 Country Airplay entry, four simultaneous Adult Contemporary top 10s the week before, and now the edge of a Pop Airplay record. A movie song built for an animated character, out-charting most artists’ actual singles.\n\nThe origin explains the oddity. Pixar approached her in 2025 for a Toy Story 5 original; she was initially uninterested, until a letter from producer Jessica Choi about the film’s female-centered story won her over. She asked to watch the film in February 2026, and — hit with what she called the “songwriter zoomies” — wrote, produced and recorded it with Antonoff inside about eight hours of the screening. It’s Jessie the cowgirl’s song, playing over the closing credits; director Andrew Stanton said it fit “like a long-lost family member,” and Pixar cut a decoy version of the film without it to keep the surprise. Walt Disney Records issued it as a single on June 5, 2026; Antonoff played nine of its fourteen instruments, and it was cut at Electric Lady Studios in New York. Critics treated it as more than a soundtrack obligation — The Guardian called it her best song in years — and by midsummer it had entered the Academy Award for Best Original Song conversation.',
         sources: [
           {
             outlet: 'Forbes',
@@ -5744,6 +5843,54 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-21',
             reliability_score: 5,
+          },
+          // Added 2026-07-24 (ledger #1289): the song's Toy Story 5 origin and
+          // credits (Q2/Q3), the pinned 15-No.1 Pop Airplay record (Q4), and
+          // the critical reception (Q6).
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/tv-film/taylor-swift-toy-story-5-original-song-knew-it-knew-you-1236261432/',
+            source_title: "Taylor Swift Pens 'Toy Story 5' Original Song 'I Knew It, I Knew You'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-finished-toy-story-5-song-hectic-8-hour-1236276419/',
+            source_title: "Taylor Swift Says She Got the 'Songwriter Zoomies' & Finished Toy Story 5 Song in 8 Hours",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-opalite-number-1-pop-airplay-chart-1236183278/',
+            source_title: "Taylor Swift Dances to Her Record-Extending 15th Pop Airplay Chart No. 1 With 'Opalite'",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Guardian',
+            url: 'https://www.theguardian.com/music/2026/jun/05/taylor-swift-i-knew-it-i-knew-you-review-toy-story-5',
+            source_title: "Taylor Swift: 'I Knew It, I Knew You' review — song for Toy Story cowgirl Jessie is Swift's best in years",
+            publisher: 'Guardian News & Media',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-toy-story-5-i-knew-it-i-knew-you-song-1235571671/',
+            source_title: 'Taylor Swift Gives Jessie Her Flowers on Heartfelt Toy Story 5 Song',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
           },
         ],
         // No photo: a chart week has no photography of its own; a stand-in
