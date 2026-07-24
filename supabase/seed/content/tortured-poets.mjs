@@ -2619,13 +2619,17 @@ export default {
       day: 19,
       category: 'music',
       title: 'thanK you aIMee: the capitalization does the talking',
+      relatedIds: [
+        'moment:vault-ttpd-the-tortured-poets-department',
+        'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
+      ],
       snippet:
         'The stray capitals spell KIM, and fans connected the rest — a song about outlasting a schoolyard bully, filed under grudges from 2016. By August, a live version was restyled "thank You aimEe."',
       sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-kim-kardashian-thank-you-aimee-lyrics-rcna148523',
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has never named the subject — the Kardashian reading is fan and critic interpretation, labeled as such, built on the title\'s capitals and the 2016 phone-call feud.\n\nThe plot thickened in August 2024 when a Taylor Nation email restyled the Wembley live version (mashed up with "Mean") as "thank You aimEe" — capitals now spelling YE, and fans re-litigated the whole thing overnight.',
+          'Swift has never named the subject — the Kim Kardashian reading is fan and critic interpretation, labeled as such, built on the title\'s capitals (which spell KIM) and the 2016 phone-call feud; the name "Aimee" is even flagged as a pseudonym inside the song.\n\nIt is track 24 of The Tortured Poets Department: The Anthology — a bonus cut on the 31-song edition, not on the standard sixteen — written by Swift with Aaron Dessner and produced by the two of them with Jack Antonoff. In the album\'s record-setting week it debuted and peaked at No. 23 on the Billboard Hot 100. Critics read it as the album\'s clearest diss track and routinely paired it with "Cassandra," the other Anthology song tied to the same 2016 feud.\n\nShe played it live once: June 22, 2024 at Wembley, on guitar, as a surprise-song mashup with "Mean" (2010) — the throughline being two songs fourteen years apart about outlasting a bully. On Aug. 15, 2024 a Taylor Nation email released a recording of that performance restyled "thank You aimEe," the capitals now spelling YE (Kanye), and fans re-litigated the whole thing overnight. Neither Kim Kardashian nor Kanye West responded publicly to the song or the restyle; Kardashian, reported to be "over" the feud, later offered only a generic compliment about Swift as an artist.',
         sources: [
           {
             outlet: 'Today',
@@ -2635,6 +2639,26 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Thank_You_Aimee',
+            source_title: 'Thank You Aimee',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+            notes: 'Track 24 Anthology; Swift/Dessner writers, produced with Antonoff; No. 23 Hot 100; June 22 2024 Wembley "Mean" mashup',
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2024/04/taylor-swift-kim-kardashian-diss-track-thank-you-aimee/',
+            source_title: "Taylor Swift Releases Kim Kardashian Diss Track 'thanK you aIMee'",
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Reads it as a diss track; situates it alongside "Look What You Made Me Do" and the 2016 feud',
           },
           {
             outlet: 'Billboard',
@@ -3419,7 +3443,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Aug. 8–10, 2024 shows were called off after authorities said a foiled plot targeted the crowds at Ernst Happel Stadium; promoter Barracuda Music scrapped all three sold-out nights.\n\nThe cancellation had a counter-story the venue photos captured: on Aug. 8, the night the first show should have opened, thousands of fans gathered anyway — many on Vienna\'s Corneliusgasse, chosen because its name echoes "Cornelia Street" — trading friendship bracelets and singing together, including a pointed "Cruel Summer." One couple got engaged in the street as the crowd sang "Love Story," and nearby churches and shops opened their doors, one posting: "Dear Swifties, we sympathize with you. You\'re welcome to come and sing your sadness away."\n\nAll three nights were automatically refunded within 10 working days through the original point of purchase, per Barracuda Music and Austrian ticketer oeticket (StubHub buyers were offered a 120% voucher or a full cash refund). The Austrian Press Agency estimated the shows would have drawn more than 170,000 fans and roughly €100 million to the city, lost to the cancellation.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done. On Aug. 21, 2024 — the day after her final Wembley show — she addressed it on Instagram, calling the cancellation "devastating" and writing that it "filled me with a new sense of fear, and a tremendous amount of guilt because so many people had planned on coming to those shows," adding that her "priority was finishing our European tour safely." Her silence, she said, had been "showing restraint." The Wembley run had resumed days earlier, and the tour finished without further incident.',
+          'The Aug. 8–10, 2024 shows were called off after authorities said a foiled plot targeted the crowds at Ernst Happel Stadium; promoter Barracuda Music scrapped all three sold-out nights. Authorities attributed the plan to ISIS; the main suspect, a 19-year-old who had pledged allegiance to the group, was one of three people arrested in Austria at the time, and in May 2026 a Vienna court convicted him and imposed a 15-year sentence (a co-defendant received 12). The three dates were never rescheduled.\n\nThe cancellation had a counter-story the venue photos captured: on Aug. 8, the night the first show should have opened, thousands of fans gathered anyway — many on Vienna\'s Corneliusgasse, chosen because its name echoes "Cornelia Street" — trading friendship bracelets and singing together, including a pointed "Cruel Summer." One couple got engaged in the street as the crowd sang "Love Story," and nearby churches and shops opened their doors, one posting: "Dear Swifties, we sympathize with you. You\'re welcome to come and sing your sadness away."\n\nAll three nights were automatically refunded within 10 working days through the original point of purchase, per Barracuda Music and Austrian ticketer oeticket (StubHub buyers were offered a 120% voucher or a full cash refund). The Austrian Press Agency estimated the shows would have drawn more than 170,000 fans and roughly €100 million to the city, lost to the cancellation.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done. On Aug. 21, 2024 — the day after her final Wembley show — she addressed it on Instagram, calling the cancellation "devastating" and writing that it "filled me with a new sense of fear, and a tremendous amount of guilt because so many people had planned on coming to those shows," adding that her "priority was finishing our European tour safely." Her silence, she said, had been "showing restraint." The Wembley run had resumed days earlier, and the tour finished without further incident.',
         sources: [
           {
             outlet: 'NBC News',
@@ -3488,6 +3512,26 @@ export default {
             accessed_at: '2026-07-24',
             reliability_score: 4,
             notes: 'APA estimate: 170,000+ spectators and ~€100M lost to the cancellation',
+          },
+          {
+            outlet: 'PBS NewsHour',
+            url: 'https://www.pbs.org/newshour/world/suspect-in-attack-plot-on-taylor-swifts-vienna-concert-convicted-and-sentenced-to-15-years',
+            source_title: "Suspect in attack plot on Taylor Swift's Vienna concert convicted and sentenced to 15 years",
+            publisher: 'PBS NewsHour (AP)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'May 28, 2026: main suspect convicted, 15-year sentence; co-defendant 12 years',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/austrian-plead-guilty-isis-terror-attack-taylor-swift-concert/',
+            source_title: 'Austrian pleads guilty to plotting ISIS-linked terror attack on Taylor Swift concert',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'ISIS attribution; main suspect pledged allegiance and pleaded guilty at trial',
           },
         ],
         // T16 photo pass (2026-07-09): the shows never happened, so no event
@@ -3875,7 +3919,7 @@ export default {
       relatedIds: ['moment:vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z'],
       moment: {
         context:
-          'Released in stores on Black Friday, Nov. 29, 2024, alongside Target-exclusive Anthology pressings of The Tortured Poets Department — a $59.99 vinyl (four marbled, translucent discs plus a 12-inch poster) and a $17.99 CD, both carrying the 35-track Anthology. Per Circana BookScan data the book\'s two-day number trailed only Barack Obama\'s A Promised Land for a first week, and Target called it the fastest-selling new-release book it had carried in four years — 2024\'s biggest publishing launch.\n\nThe 256-page, $39.99 volume collects more than 500 photos — many never before seen, from every era, plus rehearsal shots and behind-the-scenes images of instruments, costumes, set pieces and designer sketches — with Swift\'s own written reflections on the tour. First sold only at Target, it later reached Amazon and Swift\'s official store.\n\nSelf-published rather than issued through a traditional house, it was quickly nicknamed "the Errors Tour": first printings were riddled with mistakes — the surprise song "This Is Me Trying" printed "This Is Me Rying," a Toronto date missing from the concert list, pixelated photos, text bleeding off pages, some copies with pages upside-down or missing, and images cropped so tightly into the spine that Swift disappeared into the gutter. Publishing veterans said a traditional editor and printer would have caught them; Swift\'s team, not being book publishers, simply "didn\'t consider" that layer of quality control (Sophie Vershbow, to Yahoo). No corrected reprint or statement from Swift\'s camp was reported.',
+          'Released in stores on Black Friday, Nov. 29, 2024, alongside Target-exclusive Anthology pressings of The Tortured Poets Department — a $59.99 vinyl (four marbled, translucent discs plus a 12-inch poster) and a $17.99 CD, both carrying the 35-track Anthology. Per Circana BookScan data the book\'s two-day number trailed only Barack Obama\'s A Promised Land for a first week, and Target called it the fastest-selling new-release book it had carried in four years — 2024\'s biggest publishing launch.\n\nThe 256-page, $39.99 volume collects more than 500 photos — many never before seen, from every era, plus rehearsal shots and behind-the-scenes images of instruments, costumes, set pieces and designer sketches — with Swift\'s own written reflections on the tour. First sold only at Target, it later reached Amazon and Swift\'s official store.\n\nSelf-published rather than issued through a traditional house, it was quickly nicknamed "the Errors Tour": first printings were riddled with mistakes — the surprise song "This Is Me Trying" printed "This Is Me Rying," a Toronto date missing from the concert list, pixelated photos, text bleeding off pages, some copies with pages upside-down or missing, and images cropped so tightly into the spine that Swift disappeared into the gutter. Publishing veterans said a traditional editor and printer would have caught them; Swift\'s team, not being book publishers, simply "didn\'t consider" that layer of quality control (Sophie Vershbow, to Yahoo). Target ordered a two-million-copy print run; the individual tour photographers, the printer, and any editor or designer went uncredited. As of mid-2026 no corrected reprint, errata edition, or refund program had materialized, and no consumer-protection or class-action action was documented — the only remedy on record was ad-hoc copy exchanges at Target, with no formal acknowledgement of the defects from Swift\'s team or Target.',
         sources: [
           {
             outlet: 'Variety',
@@ -3977,13 +4021,18 @@ export default {
       day: 4,
       category: 'business',
       title: "Spotify's top global artist, again — 26.6 billion streams",
+      relatedIds: [
+        'moment:vault-ttpd-the-tortured-poets-department',
+        'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
+        'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+      ],
       snippet:
         'Wrapped 2024 crowned her the most-streamed artist on earth for the second straight year, with TTPD as the year\'s most-streamed album — and the first-ever Wrapped badge stamped on her profile.',
       sourceUrl: 'https://newsroom.spotify.com/2024-12-04/taylor-swift-takes-the-crown-as-spotifys-global-top-artist-of-2024/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The Dec. 4, 2024 reveal put her ahead of The Weeknd, Bad Bunny, Drake, and Billie Eilish on more than 26.6 billion global streams for the year — the Eras Tour and the Anthology feeding each other. Women held most of the global top-10 albums chart, with TTPD on top.\n\nSpotify built her a victory lap to match: the platform\'s first-ever "Global Top Artist Badge" stamped on her profile, era-themed Easter-egg animations hidden in the play button across her discography, augmented-reality friendship bracelets on Snapchat, celebration billboards in 11 cities, and personalized thank-you videos from Swift dropped into loyal listeners\' own Wrapped stories.',
+          'The Dec. 4, 2024 reveal put her ahead of The Weeknd, Bad Bunny, Drake, and Billie Eilish on more than 26.6 billion global streams for the year — the Eras Tour and the Anthology feeding each other. Women held most of the global top-10 albums chart, with TTPD on top.\n\nSpotify built her a victory lap to match: the platform\'s first-ever "Global Top Artist Badge" stamped on her profile, era-themed Easter-egg animations hidden in the play button across her discography, augmented-reality friendship bracelets on Snapchat, celebration billboards in 11 cities, and personalized thank-you videos from Swift dropped into loyal listeners\' own Wrapped stories.\n\nContext the headline number needs: her 2023 Wrapped total was roughly 26.1 billion, so 26.6 billion was a modest new personal high, not a decline. The back-to-back crown was a personal first but not an all-time one — she had ended Bad Bunny\'s three-year reign (2020–2022) when she took 2023. Spotify did not publish the runners-up\' individual totals or a country-by-country count, and the "Global Top Artist Badge" was the inaugural edition of what the platform framed as a recurring annual honor rather than a one-off for her. Her single most-streamed song of the year was not a TTPD cut but "Cruel Summer," the 2019 Lover single the Eras Tour kept aloft — her only track in Spotify\'s 2024 global top 10, at No. 9.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -3993,6 +4042,16 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/taylor-swift-claims-title-of-spotifys-most-streamed-artist-for-second-straight-year-with-26-6bn-streams-in-20241/',
+            source_title: "Taylor Swift claims title of Spotify's most-streamed artist for second straight year, with 26.6bn streams in 2024",
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: '26.6bn (up from ~26.1bn in 2023); ended Bad Bunny’s 2020–2022 reign in 2023',
           },
           {
             outlet: 'Variety',
