@@ -50,7 +50,80 @@ export default {
           'song article: NYC context and donation',
         ),
         ALBUM,
+        {
+          source_url: 'https://abcnews.go.com/Entertainment/taylor-swift-donate-york-proceeds-nyc-public-schools/story?id=26545696',
+          source_title: "Taylor Swift to Donate 'Welcome to New York' Proceeds to NYC Public Schools",
+          publisher: 'ABC News',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: "'Global Welcome Ambassador' title; the October 29, 2014 proceeds pledge on The View",
+        },
+        {
+          source_url: 'https://www.forbes.com/sites/ellenkilloran/2015/02/24/taylor-swift-donates-50000-of-welcome-to-new-york-proceeds-to-nyc-schools/',
+          source_title: "Taylor Swift Donates $50,000 Of 'Welcome To New York' Proceeds To NYC Schools",
+          publisher: 'Forbes',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the $50,000 gift to the NYC Department of Education, confirmed via a public-records request',
+        },
       ],
+      dossier: {
+        whyItMatters: [
+          "The synth-doors-flung-open opener of 1989 and one of its most-debated tracks. Issued for download via iTunes on October 20, 2014 — a week ahead of the album — it reached No. 48 on the Billboard Hot 100 as a promotional single and is RIAA-certified platinum. Swift donated its proceeds to the New York City Department of Education, after NYC & Company named her the city's 'Global Welcome Ambassador' in October 2014.",
+          "That ambassador title is the source of the song's lasting controversy — and the 'boys and boys and girls and girls' line made it, for many listeners, an early marker of LGBTQ+ visibility in her catalog. 'Welcome to New York (Taylor's Version)' arrived on 1989 (Taylor's Version) on October 27, 2023.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written by Swift with Ryan Tedder and produced by Swift, Tedder and Noel Zancanella. Swift recruited Tedder for 1989 and first reached him with a Voice Memo; wanting a 'very 1980s' sound he built the track on a Juno-106 synthesizer, finishing a first draft in about three hours and cutting several more versions while touring in Switzerland.",
+            "Swift pledged the single's proceeds to New York City public schools on The View (October 29, 2014); the gift was later confirmed at $50,000 to the NYC Department of Education via a public-records request.",
+          ],
+          supported: [
+            "The line 'you can want who you want / boys and boys and girls and girls' was read by several outlets as a gesture of support for diversity and LGBTQ+ people — notable, one music scholar argued, precisely because Swift was then seen as politically silent. Swift and her team did not frame it that way at release, and no contemporaneous GLAAD statement about the song is on record; her documented LGBTQ+ advocacy (the 'You Need to Calm Down' era, a 2020 GLAAD Vanguard Award) came later.",
+            "Critical reception was mixed for an album opener: reviewers often knocked the lyric as an unsophisticated, touristy portrait of the city — PopMatters called it both 'undeniably catchy' and 'completely unlistenable' while allowing it worked because 'it's a manifesto, not an overture' — and some publications dismissed the song as a 'gentrification anthem.' The ambassador role sharpened it: as a recent transplant she was branded a 'carpetbagger' with more in common with the tourists she was selling the city to.",
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: 'The show opener throughout the tour.',
+          },
+          {
+            date: 'July 20, 2018',
+            event: 'Reputation Stadium Tour — surprise song',
+            note: 'Performed as a surprise song at East Rutherford, New Jersey.',
+          },
+          {
+            date: 'May 28, 2023 & May 18, 2024',
+            event: 'The Eras Tour — surprise song',
+            note: 'A surprise-song pick at East Rutherford (May 28, 2023) and reprised as a piano 1989 mashup in Stockholm (May 18, 2024); it otherwise left her main sets after the 1989 cycle.',
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'moment:vault-1989-new-york-names-her-its-global-welcome-ambassador',
+            label: 'New York names her its Global Welcome Ambassador',
+            why: "The tourism-ambassador appointment this song is inseparable from — the honor, and the 'carpetbagger' backlash it drew.",
+          },
+          {
+            relatedId: 'moment:vault-1989-welcome-to-new-york-with-the-proceeds-going-to-the-citys-sch',
+            label: "The proceeds go to NYC's schools",
+            why: "Where the money went: Swift's $50,000 gift of the single's proceeds to the New York City Department of Education.",
+          },
+          {
+            relatedId: 'song:clean',
+            label: 'Clean',
+            why: "The album's closing bookend to this opener — 'Welcome to New York' is arrival as a fresh start, 'Clean' is finally washing the old life out at the record's end.",
+          },
+        ],
+        sources: [
+          { name: 'Welcome to New York (song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(song)' },
+          { name: "Taylor Swift to Donate 'Welcome to New York' Proceeds to NYC Public Schools — ABC News", url: 'https://abcnews.go.com/Entertainment/taylor-swift-donate-york-proceeds-nyc-public-schools/story?id=26545696' },
+          { name: "Taylor Swift Donates $50,000 of 'Welcome to New York' Proceeds to NYC Schools — Forbes", url: 'https://www.forbes.com/sites/ellenkilloran/2015/02/24/taylor-swift-donates-50000-of-welcome-to-new-york-proceeds-to-nyc-schools/' },
+        ],
+      },
     },
     {
       slug: 'blank-space',
@@ -102,7 +175,79 @@ export default {
           'song article: reception and reporting',
         ),
         ALBUM,
+        {
+          source_url: 'https://www.grammy.com/news/taylor-swift-1989-oral-history/',
+          source_title: "The Making of Taylor Swift's '1989': An Oral History",
+          publisher: 'Recording Academy (Grammy.com)',
+          source_type: 'interview',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'producers Ali Payami and Niklas Ljungfelt on the instrumental Swift overheard and claimed',
+        },
+        {
+          source_url: 'https://americansongwriter.com/taylor-swift-style-song-meaning/',
+          source_title: "The Meaning Behind Taylor Swift's 'Style'",
+          publisher: 'American Songwriter',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Swift never confirmed the Harry Styles reading; her own coy framing',
+        },
       ],
+      dossier: {
+        whyItMatters: [
+          "One of 1989's most enduring singles and a lasting critical favorite. Released to radio on February 9, 2015 as the album's third single, it peaked at No. 6 on the Billboard Hot 100 (chart dated March 21, 2015) — her third straight top-ten hit from the record — and is RIAA-certified triple platinum. Its clean-guitar riff over pulsing synths distilled the funk-inflected, retro-'80s palette that defined the whole 1989 sound.",
+          "It is also the 1989 song most bound up with the album's central romance and with Swift's reinvention as a pop craftsman: critics from Rolling Stone's Rob Sheffield to the New York Times' Jon Caramanica singled it out, Billboard placed it among her 20 best songs, and it still lands near the top of best-of-Swift lists a decade on. 'Style (Taylor's Version)' arrived on 1989 (Taylor's Version) on October 27, 2023, produced by Swift with Christopher Rowe.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written by Swift with Max Martin, Shellback and Ali Payami. Per the Recording Academy's 1989 oral history, the instrumental began as a track Payami built with guitarist Niklas Ljungfelt for themselves — inspired by Daft Punk and 'funky electronic music' — which Swift overheard Payami playing for Max Martin and claimed; she and Martin then wrote new lyrics over it. It was cut at MXM Studios in Stockholm and Conway in Los Angeles.",
+            "Swift's own framing of the song has stayed pointedly coy: she described it around release as a timeless, cyclical attraction — a feeling that 'never goes out of style' in a relationship that is 'always a bit off' — without ever naming its subject.",
+          ],
+          supported: [
+            "The Kyle Newman-directed video (premiered February 13, 2015, co-starring Dominic Sherwood, shot in Los Angeles over four days) drops any clear narrative for fragmented flashbacks glimpsed through broken glass and a rear-view mirror — widely read as a fractured, can't-quite-connect romance, though Newman never stated that intent on the record.",
+          ],
+          fanTheories: [
+            "The title is near-universally read as a pun on Harry Styles's surname, tying the song to their brief 2012-13 romance — but Swift has never confirmed it, and the frequently quoted line that it is about 'relationships that circle back forever' is a fan paraphrase of her 'never goes out of style' framing, not a verbatim quote.",
+            "A recurring fan claim that the chorus melody echoes another song (for instance 'Careless Whisper') is undocumented; the producers cite only Daft Punk and funky-electronic influences.",
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: "A fixed main-set number, performed standalone on the runway stage. (The tour's documented piano mashup paired 'Wildest Dreams' with 'Enchanted' — not 'Style'.)",
+          },
+          {
+            date: '2023-2024',
+            event: 'The Eras Tour — 1989 set',
+            note: "A fixture of the 1989 act (Style / Blank Space / Shake It Off / Wildest Dreams / Bad Blood), performed as a standalone song rather than a surprise pick.",
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'song:out-of-the-woods',
+            label: 'Out of the Woods',
+            why: "The other 1989 song most tied to the same short, fraught romance the record keeps circling — where 'Style' makes it timeless and glamorous, 'Out of the Woods' makes it anxious and fragile.",
+          },
+          {
+            relatedId: 'song:wildest-dreams',
+            label: 'Wildest Dreams',
+            why: "Its back-to-back partner in 1989's cinematic mode and in the Eras Tour 1989 set — both trade Swift's diaristic detail for mood, silhouette and dread underneath the gloss.",
+          },
+          {
+            relatedId: 'moment:vault-1989-the-style-video-trades-plot-for-pure-atmosphere',
+            label: "The 'Style' video",
+            why: 'The Kyle Newman video that turned the song into pure atmosphere — the broken-glass, can\'t-connect staging described here.',
+          },
+        ],
+        sources: [
+          { name: "The Making of Taylor Swift's '1989': An Oral History (Recording Academy)", url: 'https://www.grammy.com/news/taylor-swift-1989-oral-history/' },
+          { name: 'Style (Taylor Swift song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)' },
+          { name: "The Meaning Behind Taylor Swift's 'Style' — American Songwriter", url: 'https://americansongwriter.com/taylor-swift-style-song-meaning/' },
+          { name: 'The 1989 World Tour (setlist) — Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' },
+        ],
+      },
     },
     {
       slug: 'out-of-the-woods',
@@ -250,7 +395,94 @@ export default {
       sources: [
         wiki('Wildest Dreams', 'Wildest_Dreams', 'song article: single run and 2021 TV release'),
         ALBUM,
+        {
+          source_url: 'https://americansongwriter.com/under-a-microscope-the-story-behind-wildest-dreams-by-taylor-swift/',
+          source_title: "The Story Behind 'Wildest Dreams'",
+          publisher: 'American Songwriter',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'writing/production with Max Martin & Shellback; the heartbeat recorded into the percussion',
+        },
+        {
+          source_url: 'https://www.npr.org/sections/goatsandsoda/2015/09/02/436967742/the-director-of-the-taylor-swift-video-defends-his-work',
+          source_title: 'The Director Of The Taylor Swift Video Defends His Work',
+          publisher: 'NPR (Goats and Soda)',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'video criticism (no Black African leads) and the African Parks Foundation donation',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/taylor-swift-wildest-dreams-taylors-version-1228197/',
+          source_title: "Taylor Swift Drops 'Wildest Dreams (Taylor's Version)' After TikTok Trend",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the September 17, 2021 surprise TV release, out of sequence, credited to the TikTok surge',
+        },
       ],
+      dossier: {
+        whyItMatters: [
+          "The fifth single from 1989 (released August 31, 2015), it peaked at No. 5 on the Billboard Hot 100 in November 2015 — the fifth top-ten hit from the album that year — and is RIAA-certified multi-platinum. Written and produced with Max Martin and Shellback, its breathy, widescreen delivery is 1989 at its most cinematic; during recording Swift captured her own heartbeat and folded it into the percussion.",
+          "Six years later it became one of her biggest streaming resurrections: a 2021 TikTok 'slow zoom' trend (an automatic zoom-in filter, not the wrinkle/aging filter it is sometimes confused with) sent the song viral, and Swift answered by surprise-releasing 'Wildest Dreams (Taylor's Version)' on September 17, 2021 — out of album sequence, before Red (Taylor's Version) and two years before the full 1989 (Taylor's Version) — telling fans she saw them get it trending and 'thought you should have my version.'",
+        ],
+        meaning: {
+          confirmed: [
+            "Written and produced by Swift with Max Martin and Shellback. The 2021 Taylor's Version was produced by Swift with Shellback and Christopher Rowe (Max Martin was not involved), released early specifically because of the TikTok surge.",
+            "Its 2015 music video — directed by Joseph Kahn, a 1950s-Hollywood-style romance opposite Scott Eastwood shot against an African-safari backdrop — drew criticism from NPR and other outlets for romanticizing a colonial-era Africa with no Black African leads. Kahn publicly defended the video and said Swift donated all of her proceeds from it to the African Parks Foundation.",
+            "Ryan Adams recast the song on his full 2015 track-by-track cover of 1989 as a jangly, Neil Young-tinged rock ballad — part of a covers project Swift publicly praised.",
+          ],
+          supported: [
+            "Critics widely likened the song's breathy, lower-register, cinematic delivery to Lana Del Rey (contemporary reviews called it 'a Lana Del Rey version of a Taylor Swift love song'); there is no record of Swift or her producers responding to the comparison.",
+            "Reviewers heard the 2021 Taylor's Version as a brighter, crisper mix with a deeper, slightly slower vocal — trading the original's youthful energy for a more matured read.",
+          ],
+          fanTheories: [
+            "A frequently repeated fan claim that the Taylor's Version more clearly enunciates the 'he's so tall...' line is not documented by critics — treat it as fan lore.",
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: "Performed as a piano mashup with 'Enchanted' in the main set.",
+          },
+          {
+            date: 'May 11 & November 21, 2018',
+            event: 'Reputation Stadium Tour — B-stage surprise song',
+            note: 'Played twice as a standalone acoustic B-stage surprise song (Santa Clara, May 11; Tokyo, November 21), not as the 1989-tour Enchanted mashup.',
+          },
+          {
+            date: '2023-2024',
+            event: 'The Eras Tour — 1989 set',
+            note: "A shortened 'Wildest Dreams' runs inside the main 1989 act rather than as a surprise song.",
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'song:style',
+            label: 'Style',
+            why: "Its back-to-back partner in 1989's cinematic mode and in the Eras Tour 1989 set — both trade Swift's diaristic detail for mood, silhouette and dread underneath the gloss.",
+          },
+          {
+            relatedId: 'song:out-of-the-woods',
+            label: 'Out of the Woods',
+            why: "Another 1989 cut about a romance lived as fragile and doomed — 'Wildest Dreams' pre-mourns it while 'Out of the Woods' panics through it.",
+          },
+          {
+            relatedId: 'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
+            label: "1989 (Taylor's Version) announced",
+            why: "Part of the same re-recordings arc: 'Wildest Dreams (Taylor's Version)' jumped the queue in 2021, two years before this head-to-toe-blue announcement of the full 1989 (Taylor's Version).",
+          },
+        ],
+        sources: [
+          { name: "The Story Behind 'Wildest Dreams' — American Songwriter", url: 'https://americansongwriter.com/under-a-microscope-the-story-behind-wildest-dreams-by-taylor-swift/' },
+          { name: 'The Director Of The Taylor Swift Video Defends His Work — NPR', url: 'https://www.npr.org/sections/goatsandsoda/2015/09/02/436967742/the-director-of-the-taylor-swift-video-defends-his-work' },
+          { name: "'Wildest Dreams (Taylor's Version)' after the TikTok trend — Rolling Stone", url: 'https://www.rollingstone.com/music/music-news/taylor-swift-wildest-dreams-taylors-version-1228197/' },
+          { name: 'Taylor Swift reputation tour B-stage surprise songs — Billboard', url: 'https://www.billboard.com/articles/columns/pop/8458025/taylor-swift-reputation-tour-b-stage-songs-list' },
+        ],
+      },
     },
     {
       slug: 'how-you-get-the-girl',
