@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 101
+Stories: 100
+
+## Taylor Swift's new sister-in-law talks 'magical' wedding - Yahoo Lifestyle Canada
+
+- first seen: 2026-07-24 11:09 UTC | category: fashion | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift's new sister-in-law talks 'magical' wedding  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE5Deng4UTRzN0lxM1hITnFHWVZjVU1yNGV0M2dQdW1ZNHJHT2V2eG8yYmtGcENpRDduc0lJM0VtaHVzS0JnSGd0NXN5aFFfSDlmYkxjYTZqRDVkZWJwbHM2R1ZjUUpCRkgwVjRqWU5ib1B1OVRsZXRJLXgtamM?oc=5
+
+## New Taylor Swift display opens at the Rock & Roll Hall of Fame - 95.3 X95
+
+- first seen: 2026-07-24 11:09 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: New Taylor Swift display opens at the Rock & Roll Hall of Fame  95.3 X95
+- sources:
+  - [unverified] 95.3 X95 — https://news.google.com/rss/articles/CBMingFBVV95cUxQQXFleHFUcDFXaWVsNzJzZmh2cnl6elNqTDRZNUM1UkZveHZ6MzJyUVYtWmJwbG1HTWQ2SzF1M2YwN2lpaFkybENONU1YVVZndjJLVmQzX1dKdzlISktiQlBna3Qtcnk1Mkc3SmR0UDNRejYwZVVFNEJpSmtxX2FWRGVPeVBfS0pqdnc0TFFRTnoxZ2tYMWl6aTdMSTUyQQ?oc=5
 
 ## Taylor Swift Rumor Put to Bed After Travis Kelce Wedding - heavy.com
 
@@ -67,14 +83,6 @@ Stories: 101
 - sources:
   - [unverified] The Times of India — https://news.google.com/rss/articles/CBMisAJBVV95cUxQVDhOemx3enROTHdGWnF3MllkMkVfZVQ2ZGhMcEt0RGVtMmZNMHZzbW9HTzl6eUhWSFctamVobm5mUks5VlVBamtjYTRVQ1ZCRnE3UGFrVVFBX19DM0FHcTA0SkUyNjZCMkk3bWZuNVpQOFZ2UnZsdi1XbVVWN0tTcmpvdmUwdzdNSW8tT2t0YkFGSXktY3F4SHVmZW4zUTVTdzQ5RUxNYzczOU1MLWk2b3lfc1IwSU4ybnhBMUtRcVNjR1U5bjZlWnlvRk9RTnNLS0NkS3VvLU9ydG9uMGN0WEJuZm5MT0xEVzNBaFBXamxYb0hIMDQ2Mm12T2tQOVRYNC0tVm5jQk4xNU1yd0JYejFSZWVJMUdyanlocU9LcVZyZUo2M08xNkpSc2hscmdE0gG2AkFVX3lxTFAtQnFQMk5FWU5xYWh3OXoyZ3FyNXluQ2NTYUlKZlpzZzBZbGJ2XzhaYk5WVGlFRTVvM2h1UkRLMkxGbnZxelhwblhEX21tdndmdFV6TFhKc0hVZXEwajFTbDlhWjNTVnAzUlJ1WldWdmhRQWlhbWxuRC1WaWFVUG05c1VxUUhYRmhpUGoxMUREb3ZzNWZpVGxqRXczRVRhMUhwenhqamZBR0pnQkVISGM1dDlpNjVXYlB3MnY5clItOFl1NTViXzl3d2l6MlAzWVZNa1lBYTkxLTZ3RFc4THJVVWNNU1BHUnUzc2FOcnJvS29ZYU5uOUQ5eExESmFObVVzNGtIT29nR2NLRjNJeFQyQ080ODZQdC11YmJrUjlxaDA2UXRvTUU4S2ZSaVM0VE9saHRiU0E?oc=5
 
-## Blake Lively’s Reported Rift With Taylor Swift Is Allegedly Changing Her Hollywood Standing - Yahoo
-
-- first seen: 2026-07-24 04:27 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively’s Reported Rift With Taylor Swift Is Allegedly Changing Her Hollywood Standing  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxONGhwNV9ubUllT21tVjJSb1FybkpoZkxJdEpUR3lSeVZqcWF2NzhDM21CSTJ3Nk1rRlNrUE1DUWdDSEtDWml2cE1WdTRxWk1Lc0FrZUpRRElKQzJUakdaWHAwQTJGSE9QSGp3UkJQNVNSdFZHSlpOM0k4dmhQUk5JWGNST092bXRxRmFDOFZfNGR1NFVJdFozUUNzeEwyeVd5WnI4N3h3?oc=5
-
 ## Taylor Swift may already know when Travis Kelce will retire - MARCA
 
 - first seen: 2026-07-24 04:27 UTC | category: relationship | importance: 5
@@ -90,6 +98,15 @@ Stories: 101
 - summary: Jersey Shore weekend field hockey clinic to feature coach linked to Travis Kelce, Taylor Swift  NJ.com
 - sources:
   - [unverified] NJ.com — https://news.google.com/rss/articles/CBMi2AFBVV95cUxOdUlCZTNnc3RVMWhwSF9LYlgwNVhMNGE4anMxa0tkQzMzQzdPdzNDQ1U5T0VuZlg2ZVl4LVZBQ2duV0hlZEJiVXZTNFNFbmJNRFVqNE5LbXFNMWlEUzAwT1FrRTE0QWVCemcxZ2tVdGt1eHBOMXZiTGdtbVNwdW9ONVQ2T1hCZzA3WG0ybTZ6RWtSTXRpZ3BCOERoQk56QTZiZENScVpCMVhtWVdFbGo3aTMyczJUVGxGbG5zRmtXblVPdG9rNGh6T01JYVNBZ3J5dnl0RUxiMlrSAewBQVVfeXFMTU02N0s2cGRUVzhSdE1ya2hzbEFzaGZ0TURpTDBRWEhjMk9jcFNsUkJWUHlNbmI1TDdsYWFWWVU1dHIwRl9mdm1LVjg0WldCcjMyVUpjT09UUXRwWldQODBEOVhoUlEyLU1Vek1EX2FBbU9fMjdsWGZTZW5mNHh4ZENHTzJuVk9uQk5BdzNHNFdHRHJ1b0hIUG95R1RUU2xjZ1ZWNl9neEF5eWR1Y2VYYlhhRC1YN2hpS0Ftc2J6SVo1cGFOSDI3LVRqM1hfeGI2VEdEZ2VsLWR6TWVJQ00ybnFEcHcwb1JZMjlOa2U?oc=5
+
+## Blake Lively’s Reported Rift With Taylor Swift Is Allegedly Changing Her Hollywood Standing - Yahoo
+
+- first seen: 2026-07-24 04:27 UTC | category: sighting | importance: 3
+- verification_status: corroborated | source_count: 2
+- summary: Blake Lively’s Reported Rift With Taylor Swift Is Allegedly Changing Her Hollywood Standing  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxONGhwNV9ubUllT21tVjJSb1FybkpoZkxJdEpUR3lSeVZqcWF2NzhDM21CSTJ3Nk1rRlNrUE1DUWdDSEtDWml2cE1WdTRxWk1Lc0FrZUpRRElKQzJUakdaWHAwQTJGSE9QSGp3UkJQNVNSdFZHSlpOM0k4dmhQUk5JWGNST092bXRxRmFDOFZfNGR1NFVJdFozUUNzeEwyeVd5WnI4N3h3?oc=5
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMipwFBVV95cUxNNjMzUnphVXB5TlJHSlpPeXVYN21ORFhWSW9xZ2owbEdfZjhpbFRuSTFBNDQ4Y2hSUVdCSHlHN0F2S0tOSEtoY0RMUkxpaW04U1BDNVpVYTNiT1N2Ny14SWNVRUpnNS1LOWd6Y3h5RkJxVXFxT280QUZoVXJVaEQwSzNvM1ZVdWYzcnVTbmdGYzN3cVFmZ3lIeDRYMXBjMHpzRElLRW1HWQ?oc=5
 
 ## Travis Kelce’s Wedding Ring Has 1 Timeless Detail That Quietly Honors Taylor Swift - Yahoo
 
@@ -826,29 +843,3 @@ Stories: 101
 - summary: Taylor Swift ‘Hasn’t Won’ ‘Over’ Every Chiefs WAG, ‘Plenty of Cattiness’ ‘Behind the Scenes’  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMimAFBVV95cUxPRU1XRjlUUHVjeW90bjk0N090djg1ak5mclo0RHhrTmtpMG15emRCVXZCcTA4cmw5bHp5eVJqeXMxN0NfSkFPMFB1eGxBMHlMTDdaMDJEMFpjcmRMNEFNV25zem1UeVhQSTNKMTU0NTYtR0Y0c2JnLU5nZEN1RTZQWjV3QnZWaGIxVnJhSEtFX21GOW54M1MxOQ?oc=5
-
-## Brad Paisley says Taylor Swift and Travis Kelce threw 'one of the least pretentious weddings' ever -
-
-- first seen: 2026-07-21 07:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Brad Paisley says Taylor Swift and Travis Kelce threw 'one of the least pretentious weddings' ever  Fox News
-Camille Kostek Says Taylor Swift Looked Like ‘a Real-Life Princess’ During Wedding to Travis Kelce (Exclusive)  People.com
-Travis Kelce Shows Off Taylor Swift Wedding Ring While Preparing for
-- sources:
-  - [unverified] Fox News — https://news.google.com/rss/articles/CBMipgFBVV95cUxOOTRrWmFWNGNZcjg0b0lMVmxFZlRLNUxYOXRjZl82azFnNUthV0QtSkd3akZiOFQ1V01nUkxDZ25Xd3ZWOXhYMWJ5MFJhUEJSSWVNazZJYjFlem1LQ2pJUmlEMHdxN1REajBrazNiZEZ2dThLT2tWUXMwYjNFcW4yODhmWWtMTGEzaFVvX1RPY1J6Z013VzBVQnBpbXU0ekI4WHk3VUNR0gGrAUFVX3lxTFBtak9hcmpQZ1V0NFFTUFJlZlpRcjlIcHVsTjV5ZmJ2SHJfcXNZQU5fNUgyMU5hUWRfUmtvZl9lX3h0M1RudHVYQWJZems2dHRnTmhMWk11X1djUkpZRzFRdUVQSlFkRzVONllzUEg4NmVkY2s5Qk9wSWRWMVE1Y2t0MFRKRzZBRmswY2ZoMl8xdGdrWm1uc2psTThRMDJsZUthZFlXQ1ZpdzVvZw?oc=5
-
-## Country Singer Reveals Sweetest Detail After Attending Taylor Swift's Wedding - HuffPost
-
-- first seen: 2026-07-21 07:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Country Singer Reveals Sweetest Detail After Attending Taylor Swift's Wedding  HuffPost
-- sources:
-  - [unverified] HuffPost — https://news.google.com/rss/articles/CBMilgFBVV95cUxQVHhYS29LNU9iZEM2QU5hMVZRaVJUU0R3RVBEeUEzV3FHbHQyQVcydWl3elU2TzJ4Umhrc1Q5YzFLVEc2cmlhb25NWE1zQ1Q1NHJldld2UDlzRXU2U0F2dFdlTXNNemRoWk1TdWJxcmVHOXhhaWhQQldyXzFtS25YV0cxWFVJQ0VRbWtZVElDRXc2VDFldFHSAZsBQVVfeXFMT3VKY053TkNvVHlRcURvdnVKQlhGeXlzNlFmTm1Gd1ZFVEliTjRfdkxDOGVBelh6MlkxV3RzbW9aNktYa3EtZ2xGaGsyZlEyV3VCTVVldWk3YTBwUXNJc1daN0V3c09OeXA2TzNOSmFmeVIxT2IyZ3pYVWNCZlU3MmRGaHFaZ19CMFRZbFBPVXA0WWhQS2IxVTk3aVk?oc=5
-
-## Dolly Parton tells Taylor Swift and Travis Kelce 'I will always love you' after $2 million gift — an
-
-- first seen: 2026-07-21 07:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Dolly Parton tells Taylor Swift and Travis Kelce 'I will always love you' after $2 million gift — and jokingly asks for their firstborn  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMimAJBVV95cUxQdGthMXN1d2JSdWI5MnprSFlOZlpIN2pnNDlSNlZDc2RFNHotS0pJdGtFZTFYMlE3bl9qVGlzbzE1TTBGTldKYVNMR3ZaMHV1TzFXNUFjWUMwdFhDZGswbEE3M2FDb1AtbGFjZUlva3pvcnhSVXB2bUlzd2tkOHFxaUlxNXdIYjJ5T3gxODhWYS1QNEFNck9VaVhGNFFGNUdGTjZ6Q0tBU0laR21pNVE0SDQzS1lQdnRKT2d4RExFWnlrRjgtQUZJejBJdUJrLXEzbDdWQU1nVHRRd1BPMGJoa1J2eU1tdFhNdFEwdWxiZ3JEanpMT1UxaEd1SWZ2SjhBV2MyQk9DNWtoLWtLMUxURXMta2d4NU9H?oc=5
