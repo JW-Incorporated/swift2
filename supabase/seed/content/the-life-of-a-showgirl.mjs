@@ -1256,7 +1256,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Swift imagined a version who instead "met someone who treated her well" and is pulled from the water. She has said she has a "fixation on Shakespeare characters that I fall in love with and I can\'t stand to see them meet a tragic demise," and named it the lead single when she announced the album on Kelce\'s New Heights podcast. The liner credits are Swift, Max Martin and Shellback alone — no other co-writer or sample — cut at Shellback Studios and MXM Studios in Stockholm between Eras Tour dates. It debuted atop the Billboard Hot 100 — her 13th No. 1 — and spent 10 non-consecutive weeks there, her longest-running No. 1, out-running "Anti-Hero."\n\nSwift wrote and directed the video herself, shot by cinematographer Rodrigo Prieto and choreographed by Eras Tour choreographer Mandy Moore, with Eras dancers (Jan Ravnik, Kam Saunders) returning; it premiered inside the theatrical Official Release Party of a Showgirl before its YouTube debut two days later, moving through vaudeville and showgirl tableaux — Marilyn-style stagecraft, 1960s go-go dancing, Busby Berkeley-scale synchronized-swim formations. The chorus choreography became a genuine trend, recreated by fans and by public figures from Australian PM Anthony Albanese (at a Melbourne radio station) to India\'s Shashi Tharoor.\n\nThe single was the era\'s commercial spine: it led the Billboard Global 200 for seven weeks and set Spotify\'s single-day song-streaming record on release day. Abroad it became her longest-running UK No. 1 (seven weeks, past "Anti-Hero"\'s six) and hit No. 1 in Australia, Canada (15 weeks) and Ireland (nine); BPI and ARIA each certified it double platinum. Critics engaged the opener directly: NPR\'s Ann Powers heard its "huge and buoyant" bass and a voice that "sounds smitten and a bit hungry."',
+          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Swift imagined a version who instead "met someone who treated her well" and is pulled from the water. She has said she has a "fixation on Shakespeare characters that I fall in love with and I can\'t stand to see them meet a tragic demise," and named it the lead single when she announced the album on Kelce\'s New Heights podcast. The liner credits are Swift, Max Martin and Shellback alone — no other co-writer or sample — cut at Shellback Studios and MXM Studios in Stockholm between Eras Tour dates. It debuted atop the Billboard Hot 100 — her 13th No. 1 — opening its reign on the Oct. 18, 2025 chart; it briefly slipped to No. 28 in the holiday streaming rush, then climbed back to log a 10th week on the Jan. 17, 2026 chart — 10 non-consecutive weeks in all, her longest-running No. 1, out-running "Anti-Hero"\'s eight.\n\nSwift wrote and directed the video herself, shot by cinematographer Rodrigo Prieto and choreographed by Eras Tour choreographer Mandy Moore, with Eras dancers (Jan Ravnik, Kam Saunders) returning; it premiered inside the theatrical Official Release Party of a Showgirl before its YouTube debut two days later, moving through vaudeville and showgirl tableaux — Marilyn-style stagecraft, 1960s go-go dancing, Busby Berkeley-scale synchronized-swim formations. The chorus choreography became a genuine trend, recreated by fans and by public figures from Australian PM Anthony Albanese — gamely, on Melbourne\'s Nova 100 — to India\'s Shashi Tharoor.\n\nThe single was the era\'s commercial spine: it led the Billboard Global 200 for seven weeks and set Spotify\'s single-day song-streaming record on release day. Abroad it became her longest-running UK No. 1 (seven weeks, past "Anti-Hero"\'s six) and hit No. 1 in Australia, Canada (15 weeks) and Ireland (nine); BPI and ARIA each certified it double platinum. Critics engaged the opener directly, and split on it. NPR\'s Ann Powers heard its "huge and buoyant" bass and a voice that "sounds smitten and a bit hungry," and Rolling Stone\'s Maya Georgi praised its "tantalizing" melody and "wondrous" mix — the magazine later ranked it the eighth-best song of 2025. The Shakespeare conceit drew the sharpest dissent: The New York Times\' Lindsay Zoladz felt Swift reduced Ophelia to "just another princess waiting for her Prince Charming," The Times\' Will Hodgkinson judged the analogy "doesn\'t really work," and Stereogum\'s Tom Breihan said the song "misses the entire point" of the tragedy while still landing as engaging "writerly excess."',
         // Official MV id verified 2026-07-09 via YouTube oEmbed:
         // https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ko70cExuzZM
         // -> title "Taylor Swift - The Fate of Ophelia (Official Music Video)",
@@ -1290,6 +1290,21 @@ export default {
           // Depth ledger #1002 (2026-07-21): primary reporting added to replace
           // the Wikipedia lean — video production credits, the song's own
           // critical reception, the UK reign, and the Albanese trend.
+          {
+            // Reign narrative (2026-07-24, ledger #1002 Q1): dethrones
+            // "Anti-Hero" as her longest-running No. 1 and traces the
+            // Oct.-2025 -> Jan.-2026 run, incl. the holiday No. 28 dip and
+            // return. Reception quotes (Georgi/Zoladz/Hodgkinson/Breihan)
+            // verified this session against the song's Wikipedia reception
+            // section and its cited reviews.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-fate-of-ophelia-passes-anti-hero-number-1-1235494237/',
+            source_title: "'The Fate of Ophelia' Dethrones 'Anti-Hero' as Taylor Swift's Longest-Running Number One",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
           {
             // Video premiere + production framing (self-directed, theatrical debut).
             outlet: 'Variety',
@@ -2871,7 +2886,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The first public look at the couple\'s wedding bands came July 10, blurry and distant, at former teammate JuJu Smith-Schuster\'s wedding — the bands\' own designer and specifics undisclosed. Sharper looks followed: Harper\'s Bazaar identified a plain gold band on Travis\'s left hand in July 16 training photos, and a July 20 photo posted by Cris Carter gave StyleCaster another clear angle. Separately, a Vogue Weddings carousel from the Smith-Schuster wedding let ELLE Australia\'s jewelry expert examine Taylor\'s stack more closely, describing what appears to be a chunky diamond band alongside her engagement ring — though ELLE Australia is explicit that the photo isn\'t sharp enough to confirm exact specifications, and no designer, carat count or price has been confirmed by the couple. ELLE Australia\'s expert Cushla Whiting placed the band within a specific 2026 shift she calls a moment for "chunkier diamond wedding bands" — substantial diamond bands rather than thin plain-metal ones, driven by bolder engagement rings and chosen so a band "feels balanced alongside them rather than disappearing beneath the centre stone." No imagery from the wedding day itself (July 3 at Madison Square Garden) surfaced either band; the genuine first public look did not come until July 10, and every detail on record remains outside observation of photos, with no comment from the couple or Tree Paine.',
+          'The first public look at the couple\'s wedding bands came July 10, blurry and distant, at former teammate JuJu Smith-Schuster\'s wedding — the bands\' own designer and specifics undisclosed. Sharper looks followed: Harper\'s Bazaar identified a plain gold band on Travis\'s left hand in July 16 training photos, and a July 20 photo posted by Cris Carter gave StyleCaster another clear angle. Separately, a Vogue Weddings carousel from the Smith-Schuster wedding let ELLE Australia\'s jewelry expert examine Taylor\'s stack more closely, describing what appears to be a chunky diamond band alongside her engagement ring — though ELLE Australia is explicit that the photo isn\'t sharp enough to confirm exact specifications, and no designer, carat count or price has been confirmed by the couple. ELLE Australia\'s expert Cushla Whiting placed the band within a specific 2026 shift she calls a moment for "chunkier diamond wedding bands" — substantial diamond bands rather than thin plain-metal ones, driven by bolder engagement rings and chosen so a band "feels balanced alongside them rather than disappearing beneath the centre stone." No imagery from the wedding day itself (July 3 at Madison Square Garden) surfaced either band; the genuine first public look did not come until July 10, and every detail on record remains outside observation of photos, with no comment from the couple or Tree Paine. That July 10 debut — Taylor in a pink-and-gold Markarian brocade gown, the band visible on her hand — was itself the ring\'s first public sighting, so the clearer angles here trace to the July 16 and July 20 photos, not a later solo outing. One caution on the specs floating around online: retailers now sell "inspired-by" lookalike bands (some marketed at around 2.5 carats), but those are stand-ins, not Swift\'s actual ring — which, unlike the engagement ring experts openly pegged at 8–10 carats and $550,000–$1 million, the couple has left entirely unspecified.',
         sources: [
           {
             outlet: 'StyleCaster',
@@ -2898,6 +2913,21 @@ export default {
             publisher: 'ELLE Australia',
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+          // Ledger #1243 (2026-07-24): the July 10 pink-Markarian appearance was
+          // itself the band's first public sighting (band visible on her hand).
+          // The circulating "2.5-carat" figures trace to retailer "inspired-by"
+          // lookalike pages (tedwedding.com, caratdiamonds.com) seen this
+          // session — marketing stand-ins, not reporting on her actual band;
+          // flagged in the prose, not cited as fact about her ring.
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-makes-her-first-141339478.html',
+            source_title: 'Taylor Swift Makes Her First Post-Wedding Appearance at… Another Wedding!',
+            publisher: 'Yahoo Entertainment (via People)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 3,
           },
         ],
