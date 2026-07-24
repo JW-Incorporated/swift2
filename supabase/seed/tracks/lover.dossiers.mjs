@@ -64,6 +64,7 @@ export default {
     meaning: {
       confirmed: [
         "Swift is the sole writer and co-produced the track with Jack Antonoff. The title is literal: in 2016 Swift rented a townhouse at 23 Cornelia Street in Manhattan's West Village while her own TriBeCa home was being renovated, living there into 2017 (widely documented in NYC property reporting, including when the townhouse was later listed for sale). Keeping to the street/city level she herself made public via the title.",
+        "Though never issued as a single, 'Cornelia Street' charted on Lover's release week on streaming strength — No. 57 on the Billboard Hot 100, No. 51 in Canada and No. 40 on Australia's ARIA chart — and is certified Platinum in Australia, Brazil and New Zealand and Silver in the UK. Critics singled it out as a Lover high point: Rolling Stone's Rob Sheffield read it as evidence of her songwriting maturity, Slate's Carl Wilson called it the album's best, and Pitchfork's Anna Gaca praised it as 'a lovely, understated tribute to memory and nostalgia.' The page previously asserted a Swift quote calling the reference 'literal, not poetic'; no such on-record quote is documented, so that framing was replaced with the documented rental fact (she has spoken about writing the song, describing composing it in a bathtub at the City of Lover show).",
       ],
       fanTheories: [
         "The widely repeated fan lore that Swift 'lost the lease' and could never return to the townhouse mirrors the song's premise almost too neatly — but it is not documented. Reporting shows only that the rental was always temporary and she moved back to her renovated TriBeCa home; treat the 'can't go back' story as fan legend, not established fact.",
@@ -112,6 +113,7 @@ export default {
     meaning: {
       confirmed: [
         "Written by Swift, Louis Bell and Frank Dukes (Adam King Feeney) and produced by the three; recorded at Electric Feel Studios in Los Angeles. Bell is best known for his Post Malone hits and Dukes for sample-based production. It is a power ballad of slow-building bass and Swift's falsetto in which she takes the blame for a fight she started and asks the other person to stay while she repairs the damage.",
+        "A pure album cut, 'Afterglow' was never released as a single and did not chart on the Hot 100 or internationally; it carries no standalone certification. How Swift came to cut this one track with the Bell/Dukes team, and what each contributed in the session, is not documented in any interview or liner note found this pass — it remains the one genuinely undocumented question about the song, left open rather than guessed at.",
       ],
       fanTheories: [
         "The song is popularly read as an apology aimed at her partner at the time, but Swift has never named a subject on the record, so that reading is interpretation rather than confirmed fact. No documented sample or interpolation underlies the track — it is credited as an original composition, notwithstanding Dukes's usual sample-based style.",
