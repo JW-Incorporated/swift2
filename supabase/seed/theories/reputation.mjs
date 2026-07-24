@@ -1,5 +1,7 @@
 // Vault theories/easter eggs — reputation era. All URLs verified 2026-07-08.
 // lwymmd-* records added 2026-07-17 (Content Shift, #685/#686); URLs verified then.
+// old-taylors-ending / lwymmd-et-tu-brute / reputation-tabloid-cover added
+// 2026-07-24 (Content Shift, #686 density pass); URLs verified that session.
 
 const wiki = (article, title, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${article}`,
@@ -96,6 +98,108 @@ export default {
           reliability_score: 4,
           excerpt: null,
           notes: 'anchors the underlying facts: the $1 verdict and the fans-holding-dollar-bills anniversary',
+        },
+      ],
+    },
+    {
+      slug: 'old-taylors-ending',
+      kind: 'easter_egg',
+      title: 'A courtroom of old Taylors',
+      claim:
+        "The final 40 seconds of 'Look What You Made Me Do' line up a squabbling crowd of past Taylors — the personas from every earlier scene and era — who bicker in the words her own critics used, ending with the 2009 VMAs version snapping 'I would very much like to be excluded from this narrative,' met by a collective 'SHUT UP!'",
+      evidence:
+        "Each figure is a resurrected version of herself — the 'You Belong With Me' Junior Jewels tee, the 2014 Met Gala look, the snake-throne queen, zombie-Taylor from the video's own graveyard — and their lines quote real jabs ('There she goes playing the victim again,' 'Stop making that surprised face, it's so annoying'). The closing quote lifts verbatim from the statement she posted during the 2016 phone-call controversy, so the gag turns her most-mocked moments into a chorus she talks back to. Documented in the frame-by-frame decoder guides the week the video premiered at the 2017 VMAs.",
+      confidence: 'reputable_reporting',
+      outcome: 'confirmed',
+      relatedSlugs: ['reputation:snake-reclamation', 'reputation:lwymmd-nils-sjoberg-gravestone'],
+      sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/',
+          source_title: "Taylor Swift's 'Look What You Made Me Do' Video Decoded: 13 Things You Missed",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          excerpt: null,
+          notes: 'describes the tarmac line-up of Swift personas reciting familiar lines, incl. "excluded from this narrative"',
+        },
+        {
+          source_url: 'https://time.com/4918411/taylor-swift-look-what-you-made-me-do-music-video-references/',
+          source_title: "All the References You Might Have Missed in Taylor Swift's 'Look What You Made Me Do' Video",
+          publisher: 'Time',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          excerpt: null,
+          notes: 'the canonical references list cataloguing the past-selves that appear in the video',
+        },
+      ],
+    },
+    {
+      slug: 'lwymmd-et-tu-brute',
+      kind: 'easter_egg',
+      title: '"Et Tu, Brute?" on the snake throne',
+      claim:
+        "In 'Look What You Made Me Do,' the arm of Taylor's throne and the columns flanking it are carved with 'Et Tu, Brute?' — Caesar's dying words to the friend who helped stab him — while a snake slithers up to pour her a cup of tea.",
+      evidence:
+        "The Latin tag frames the era's betrayal theme in one prop: Julius Caesar realizing his ally Brutus was among his assassins. Paired with the tea-pouring snake — a literal 'serving tea' pun that also reclaims the snake-emoji pile-on — the throne scene reads as the album's thesis staged as set design. Named in the frame-by-frame decoder guides that ran the week the video premiered.",
+      confidence: 'reputable_reporting',
+      outcome: 'confirmed',
+      relatedSlugs: ['reputation:snake-reclamation'],
+      sources: [
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/',
+          source_title: "Taylor Swift's 'Look What You Made Me Do' Video Decoded: 13 Things You Missed",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          excerpt: null,
+          notes: 'quotes the "Et tu Brute" throne inscription and the snake pouring tea',
+        },
+        {
+          source_url: 'https://time.com/4918411/taylor-swift-look-what-you-made-me-do-music-video-references/',
+          source_title: "All the References You Might Have Missed in Taylor Swift's 'Look What You Made Me Do' Video",
+          publisher: 'Time',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          excerpt: null,
+          notes: 'references list covering the throne-scene symbolism in the same video',
+        },
+      ],
+    },
+    {
+      slug: 'reputation-tabloid-cover',
+      kind: 'easter_egg',
+      title: 'A cover printed like the tabloids',
+      claim:
+        "The reputation cover is built to look like newspaper: her face half-buried under black-and-white headline print. Zoom in and the 'headlines' aren't stories at all — the text just repeats 'Taylor Swift' over and over, turning years of tabloid coverage into a wall of her own name.",
+      evidence:
+        "The design (shot by Mert & Marcus) mimics tabloid front-page typography as a comment on the media narrative that had defined her since 2016 — and the rollout extended the joke, with Target-exclusive physical copies packaged as two magazine-style booklets styled like gossip rags. Outlets read the repeated-name newsprint as her taking the pen back: the press wrote her story, so she reprinted it as nothing but her signature.",
+      confidence: 'reputable_reporting',
+      outcome: 'confirmed',
+      relatedSlugs: ['reputation:snake-reclamation'],
+      sources: [
+        {
+          source_url: 'https://www.bustle.com/p/what-does-taylor-swifts-reputation-album-cover-art-mean-the-singer-may-be-reclaiming-her-image-78525',
+          source_title: "What Does Taylor Swift's 'Reputation' Album Cover Art Mean?",
+          publisher: 'Bustle',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          excerpt: null,
+          notes: 'notes that on close inspection the newsprint "simply says Taylor Swift repeatedly," read as reclaiming her narrative',
+        },
+        {
+          source_url: 'https://www.papermag.com/taylor-swifts-new-album-cover-for-reputation-is-headline-making',
+          source_title: "Taylor Swift's New Album Cover for 'Reputation' Is...Headline-Making",
+          publisher: 'PAPER',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          excerpt: null,
+          notes: 'confirms the cover is modeled after a newspaper in response to the headlines about her',
         },
       ],
     },

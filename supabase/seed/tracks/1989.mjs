@@ -50,7 +50,80 @@ export default {
           'song article: NYC context and donation',
         ),
         ALBUM,
+        {
+          source_url: 'https://abcnews.go.com/Entertainment/taylor-swift-donate-york-proceeds-nyc-public-schools/story?id=26545696',
+          source_title: "Taylor Swift to Donate 'Welcome to New York' Proceeds to NYC Public Schools",
+          publisher: 'ABC News',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: "'Global Welcome Ambassador' title; the October 29, 2014 proceeds pledge on The View",
+        },
+        {
+          source_url: 'https://www.forbes.com/sites/ellenkilloran/2015/02/24/taylor-swift-donates-50000-of-welcome-to-new-york-proceeds-to-nyc-schools/',
+          source_title: "Taylor Swift Donates $50,000 Of 'Welcome To New York' Proceeds To NYC Schools",
+          publisher: 'Forbes',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the $50,000 gift to the NYC Department of Education, confirmed via a public-records request',
+        },
       ],
+      dossier: {
+        whyItMatters: [
+          "The synth-doors-flung-open opener of 1989 and one of its most-debated tracks. Issued for download via iTunes on October 20, 2014 — a week ahead of the album — it reached No. 48 on the Billboard Hot 100 as a promotional single and is RIAA-certified platinum. Swift donated its proceeds to the New York City Department of Education, after NYC & Company named her the city's 'Global Welcome Ambassador' in October 2014.",
+          "That ambassador title is the source of the song's lasting controversy — and the 'boys and boys and girls and girls' line made it, for many listeners, an early marker of LGBTQ+ visibility in her catalog. 'Welcome to New York (Taylor's Version)' arrived on 1989 (Taylor's Version) on October 27, 2023.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written by Swift with Ryan Tedder and produced by Swift, Tedder and Noel Zancanella. Swift recruited Tedder for 1989 and first reached him with a Voice Memo; wanting a 'very 1980s' sound he built the track on a Juno-106 synthesizer, finishing a first draft in about three hours and cutting several more versions while touring in Switzerland.",
+            "Swift pledged the single's proceeds to New York City public schools on The View (October 29, 2014); the gift was later confirmed at $50,000 to the NYC Department of Education via a public-records request.",
+          ],
+          supported: [
+            "The line 'you can want who you want / boys and boys and girls and girls' was read by several outlets as a gesture of support for diversity and LGBTQ+ people — notable, one music scholar argued, precisely because Swift was then seen as politically silent. Swift and her team did not frame it that way at release, and no contemporaneous GLAAD statement about the song is on record; her documented LGBTQ+ advocacy (the 'You Need to Calm Down' era, a 2020 GLAAD Vanguard Award) came later.",
+            "Critical reception was mixed for an album opener: reviewers often knocked the lyric as an unsophisticated, touristy portrait of the city — PopMatters called it both 'undeniably catchy' and 'completely unlistenable' while allowing it worked because 'it's a manifesto, not an overture' — and some publications dismissed the song as a 'gentrification anthem.' The ambassador role sharpened it: as a recent transplant she was branded a 'carpetbagger' with more in common with the tourists she was selling the city to.",
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: 'The show opener throughout the tour.',
+          },
+          {
+            date: 'July 20, 2018',
+            event: 'Reputation Stadium Tour — surprise song',
+            note: 'Performed as a surprise song at East Rutherford, New Jersey.',
+          },
+          {
+            date: 'May 28, 2023 & May 18, 2024',
+            event: 'The Eras Tour — surprise song',
+            note: 'A surprise-song pick at East Rutherford (May 28, 2023) and reprised as a piano 1989 mashup in Stockholm (May 18, 2024); it otherwise left her main sets after the 1989 cycle.',
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'moment:vault-1989-new-york-names-her-its-global-welcome-ambassador',
+            label: 'New York names her its Global Welcome Ambassador',
+            why: "The tourism-ambassador appointment this song is inseparable from — the honor, and the 'carpetbagger' backlash it drew.",
+          },
+          {
+            relatedId: 'moment:vault-1989-welcome-to-new-york-with-the-proceeds-going-to-the-citys-sch',
+            label: "The proceeds go to NYC's schools",
+            why: "Where the money went: Swift's $50,000 gift of the single's proceeds to the New York City Department of Education.",
+          },
+          {
+            relatedId: 'song:clean',
+            label: 'Clean',
+            why: "The album's closing bookend to this opener — 'Welcome to New York' is arrival as a fresh start, 'Clean' is finally washing the old life out at the record's end.",
+          },
+        ],
+        sources: [
+          { name: 'Welcome to New York (song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Welcome_to_New_York_(song)' },
+          { name: "Taylor Swift to Donate 'Welcome to New York' Proceeds to NYC Public Schools — ABC News", url: 'https://abcnews.go.com/Entertainment/taylor-swift-donate-york-proceeds-nyc-public-schools/story?id=26545696' },
+          { name: "Taylor Swift Donates $50,000 of 'Welcome to New York' Proceeds to NYC Schools — Forbes", url: 'https://www.forbes.com/sites/ellenkilloran/2015/02/24/taylor-swift-donates-50000-of-welcome-to-new-york-proceeds-to-nyc-schools/' },
+        ],
+      },
     },
     {
       slug: 'blank-space',
@@ -102,7 +175,79 @@ export default {
           'song article: reception and reporting',
         ),
         ALBUM,
+        {
+          source_url: 'https://www.grammy.com/news/taylor-swift-1989-oral-history/',
+          source_title: "The Making of Taylor Swift's '1989': An Oral History",
+          publisher: 'Recording Academy (Grammy.com)',
+          source_type: 'interview',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'producers Ali Payami and Niklas Ljungfelt on the instrumental Swift overheard and claimed',
+        },
+        {
+          source_url: 'https://americansongwriter.com/taylor-swift-style-song-meaning/',
+          source_title: "The Meaning Behind Taylor Swift's 'Style'",
+          publisher: 'American Songwriter',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Swift never confirmed the Harry Styles reading; her own coy framing',
+        },
       ],
+      dossier: {
+        whyItMatters: [
+          "One of 1989's most enduring singles and a lasting critical favorite. Released to radio on February 9, 2015 as the album's third single, it peaked at No. 6 on the Billboard Hot 100 (chart dated March 21, 2015) — her third straight top-ten hit from the record — and is RIAA-certified triple platinum. Its clean-guitar riff over pulsing synths distilled the funk-inflected, retro-'80s palette that defined the whole 1989 sound.",
+          "It is also the 1989 song most bound up with the album's central romance and with Swift's reinvention as a pop craftsman: critics from Rolling Stone's Rob Sheffield to the New York Times' Jon Caramanica singled it out, Billboard placed it among her 20 best songs, and it still lands near the top of best-of-Swift lists a decade on. 'Style (Taylor's Version)' arrived on 1989 (Taylor's Version) on October 27, 2023, produced by Swift with Christopher Rowe.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written by Swift with Max Martin, Shellback and Ali Payami. Per the Recording Academy's 1989 oral history, the instrumental began as a track Payami built with guitarist Niklas Ljungfelt for themselves — inspired by Daft Punk and 'funky electronic music' — which Swift overheard Payami playing for Max Martin and claimed; she and Martin then wrote new lyrics over it. It was cut at MXM Studios in Stockholm and Conway in Los Angeles.",
+            "Swift's own framing of the song has stayed pointedly coy: she described it around release as a timeless, cyclical attraction — a feeling that 'never goes out of style' in a relationship that is 'always a bit off' — without ever naming its subject.",
+          ],
+          supported: [
+            "The Kyle Newman-directed video (premiered February 13, 2015, co-starring Dominic Sherwood, shot in Los Angeles over four days) drops any clear narrative for fragmented flashbacks glimpsed through broken glass and a rear-view mirror — widely read as a fractured, can't-quite-connect romance, though Newman never stated that intent on the record.",
+          ],
+          fanTheories: [
+            "The title is near-universally read as a pun on Harry Styles's surname, tying the song to their brief 2012-13 romance — but Swift has never confirmed it, and the frequently quoted line that it is about 'relationships that circle back forever' is a fan paraphrase of her 'never goes out of style' framing, not a verbatim quote.",
+            "A recurring fan claim that the chorus melody echoes another song (for instance 'Careless Whisper') is undocumented; the producers cite only Daft Punk and funky-electronic influences.",
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: "A fixed main-set number, performed standalone on the runway stage. (The tour's documented piano mashup paired 'Wildest Dreams' with 'Enchanted' — not 'Style'.)",
+          },
+          {
+            date: '2023-2024',
+            event: 'The Eras Tour — 1989 set',
+            note: "A fixture of the 1989 act (Style / Blank Space / Shake It Off / Wildest Dreams / Bad Blood), performed as a standalone song rather than a surprise pick.",
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'song:out-of-the-woods',
+            label: 'Out of the Woods',
+            why: "The other 1989 song most tied to the same short, fraught romance the record keeps circling — where 'Style' makes it timeless and glamorous, 'Out of the Woods' makes it anxious and fragile.",
+          },
+          {
+            relatedId: 'song:wildest-dreams',
+            label: 'Wildest Dreams',
+            why: "Its back-to-back partner in 1989's cinematic mode and in the Eras Tour 1989 set — both trade Swift's diaristic detail for mood, silhouette and dread underneath the gloss.",
+          },
+          {
+            relatedId: 'moment:vault-1989-the-style-video-trades-plot-for-pure-atmosphere',
+            label: "The 'Style' video",
+            why: 'The Kyle Newman video that turned the song into pure atmosphere — the broken-glass, can\'t-connect staging described here.',
+          },
+        ],
+        sources: [
+          { name: "The Making of Taylor Swift's '1989': An Oral History (Recording Academy)", url: 'https://www.grammy.com/news/taylor-swift-1989-oral-history/' },
+          { name: 'Style (Taylor Swift song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Style_(Taylor_Swift_song)' },
+          { name: "The Meaning Behind Taylor Swift's 'Style' — American Songwriter", url: 'https://americansongwriter.com/taylor-swift-style-song-meaning/' },
+          { name: 'The 1989 World Tour (setlist) — Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1989_World_Tour' },
+        ],
+      },
     },
     {
       slug: 'out-of-the-woods',
@@ -173,9 +318,113 @@ export default {
       themes: ['resilience', 'ignoring the noise', 'joy as strategy'],
       sourceUrl: 'https://en.wikipedia.org/wiki/Shake_It_Off',
       sources: [
-        wiki('Shake It Off', 'Shake_It_Off', 'song article: release moment and legacy'),
+        wiki('Shake It Off', 'Shake_It_Off', 'song article: chart debut, production, video, lawsuit, awards, certifications, live history'),
         ALBUM,
+        {
+          source_url: 'https://variety.com/2022/music/news/taylor-swift-shake-it-off-lawsuit-dropped-1235458220/',
+          source_title: "Taylor Swift's 'Shake It Off' Copyright Lawsuit Dropped",
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the December 2022 dismissal with prejudice; writing credits unchanged',
+        },
+        {
+          source_url: 'https://globalnews.ca/news/4025747/taylor-swift-shake-it-off-copyright-lawsuit-dismissed/',
+          source_title: "Taylor Swift's 'Shake It Off' copyright lawsuit dismissed",
+          publisher: 'Global News',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'Judge Fitzgerald’s 2018 "banal" ruling (later revived by the Ninth Circuit in 2019)',
+        },
+        {
+          source_url: 'https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/',
+          source_title: "Taylor Swift's 'Shake It Off' Debuts At #1",
+          publisher: 'Forbes',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'the No. 1 Hot 100 debut and ~544,000 first-week US downloads',
+        },
+        {
+          source_url: 'https://www.billboard.com/music/music-news/taylor-swift-shake-it-off-single-review-6221814/',
+          source_title: "Taylor Swift, 'Shake It Off': The Country Superstar Goes Full Pop",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'reception as the lead single announcing the full pop pivot',
+        },
       ],
+      // Depth ledger #1416 (2026-07-24): the No. 1 debut, production, the
+      // Romanek video, the "Playas Gon' Play" suit, awards, certs, live history.
+      dossier: {
+        whyItMatters: [
+          "The lead single that announced the pop pivot debuted at No. 1 on the Billboard Hot 100 dated September 6, 2014 — only the 22nd song ever to launch at the top, and her first to debut there (her second Hot 100 No. 1 overall, after ‘We Are Never Ever Getting Back Together’) — going on to spend four non-consecutive weeks at No. 1. It reached No. 1 in Australia and Canada and No. 2 in the UK, sold roughly 544,000 US downloads in its first week (the year’s biggest sales week at the time), and is RIAA-certified Diamond.",
+          "Mark Romanek’s video — released August 18, 2014, the song’s release day, with a live television debut at the August 24 MTV VMAs — shows Swift failing at a parade of dance styles before joining everyday dancers; a twerking segment drew criticism (loudest from Earl Sweatshirt) that Romanek answered by calling the piece ‘massively inclusive.’ The song was nominated for three 2015 Grammys and won none, and its ‘haters gonna hate’ refrain passed into everyday speech.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written and produced by Swift with Max Martin and Shellback — an uptempo dance-pop track built on a looping drumline-style beat, a saxophone hook, handclaps and a spoken ‘this sick beat’ bridge; recorded by Sam Holland at Conway Recording Studios (Los Angeles) and Michael Ilbert at MXM Studios (Stockholm), mixed by Serban Ghenea and mastered by Tom Coyne.",
+            "The ‘Playas Gon’ Play’ copyright suit: 3LW co-writers Sean Hall and Nathan Butler alleged the ‘players gonna play / haters gonna hate’ hook copied their 2001 song. Judge Michael Fitzgerald dismissed it in February 2018 as too ‘banal’ to protect, the Ninth Circuit revived it in October 2019, and it was dismissed with prejudice by joint stipulation on December 12, 2022 — terms undisclosed and Swift’s writing credits unchanged.",
+            "At the 57th Grammy Awards (2015) it was nominated for Record of the Year, Song of the Year and Best Pop Solo Performance, and won none of the three.",
+            "It has been a recurring set-closer — the final number of the 1989 World Tour, part of the Reputation Stadium Tour finale, and the close of the 1989 act on the Eras Tour.",
+          ],
+          supported: [
+            "Critics split between reading it as a savvy ‘perfect pivot’ to synth-pop — Rolling Stone’s Rob Sheffield heard it as a ‘trailer’ for her Eighties-synth makeover — and finding it lyrically slight; it placed on numerous 2014 year-end and decade-end best-songs lists.",
+          ],
+          fanTheories: [
+            "Two commonly repeated claims are inaccurate: the video did not set a Vevo 24-hour viewing record (that August 2014 record belonged to another release), and Swift did not open the 2014 American Music Awards with this song — she opened that show with ‘Blank Space.’",
+          ],
+        },
+        live: [
+          {
+            date: 'August 24, 2014',
+            event: '2014 MTV VMAs',
+            note: 'Its live television debut.',
+          },
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: 'The tour’s closing number.',
+          },
+          {
+            date: '2018',
+            event: 'Reputation Stadium Tour',
+            note: 'Part of the show’s finale.',
+          },
+          {
+            date: '2023-2024',
+            event: 'The Eras Tour — 1989 set',
+            note: 'Closes the 1989 act.',
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'moment:vault-1989-shake-it-off-launches-the-era',
+            label: 'Shake It Off launches the era',
+            why: 'The moment page for the single that opened the 1989 pop reinvention.',
+          },
+          {
+            relatedId: 'moment:vault-1989-shake-it-off-becomes-her-first-diamond-certified-single',
+            label: 'Shake It Off becomes her first Diamond-certified single',
+            why: 'The moment page for its RIAA Diamond milestone.',
+          },
+          {
+            relatedId: 'song:bad-blood',
+            label: 'Bad Blood',
+            why: 'Its 1989 single sibling — the two most bombastic statements of the pop reinvention.',
+          },
+        ],
+        sources: [
+          { name: 'Shake It Off — Wikipedia', url: 'https://en.wikipedia.org/wiki/Shake_It_Off' },
+          { name: 'Variety — copyright lawsuit dropped', url: 'https://variety.com/2022/music/news/taylor-swift-shake-it-off-lawsuit-dropped-1235458220/' },
+          { name: 'Global News — 2018 "banal" dismissal', url: 'https://globalnews.ca/news/4025747/taylor-swift-shake-it-off-copyright-lawsuit-dismissed/' },
+          { name: 'Forbes — No. 1 debut and first-week sales', url: 'https://www.forbes.com/sites/hughmcintyre/2014/08/27/taylor-swifts-shake-it-off-debuts-at-1/' },
+          { name: 'Billboard — the pop-pivot single review', url: 'https://www.billboard.com/music/music-news/taylor-swift-shake-it-off-single-review-6221814/' },
+        ],
+      },
     },
     {
       slug: 'i-wish-you-would',
@@ -225,10 +474,111 @@ export default {
         wiki(
           'Bad Blood (Taylor Swift song)',
           'Bad_Blood_(Taylor_Swift_song)',
-          'song article: interview origin and remix video',
+          'song article: writing/production, remix, chart, certifications, awards, live history',
         ),
         ALBUM,
+        {
+          source_url: 'https://www.officialcharts.com/chart-news/taylor-swift-scores-fourth-us-number-1-with-bad-blood__9464/',
+          source_title: 'Taylor Swift scores fourth US Number 1 with Bad Blood',
+          publisher: 'Official Charts Company',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the remix as Swift’s fourth US No. 1; Kendrick Lamar’s first',
+        },
+        {
+          source_url: 'https://variety.com/2015/music/awards/bad-blood-taylor-swift-watch-music-video-1201498985/',
+          source_title: "Taylor Swift Debuts 'Bad Blood' Music Video With Selena Gomez & More Stars",
+          publisher: 'Variety',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the Joseph Kahn video’s Billboard Music Awards premiere (May 17, 2015) and star cast',
+        },
+        {
+          source_url: 'https://time.com/4914066/taylor-swift-katy-perry-feud-timeline/',
+          source_title: 'A Timeline of the Taylor Swift–Katy Perry Feud',
+          publisher: 'Time',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the Perry press reading, "Swish Swish," and the 2019 reconciliation — all labeled inference/resolution, not Swift confirmation',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swift-katy-perry-you-need-to-calm-down-video-848857/',
+          source_title: "Watch Taylor Swift Reunite With Katy Perry in 'You Need to Calm Down' Video",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the June 17, 2019 burger-and-fries reconciliation that publicly closed the feud',
+        },
       ],
+      // Depth ledger #1376 (2026-07-24): the Kendrick remix, production, the
+      // all-star video, charts/certs, awards, the feud’s public arc, and live history.
+      dossier: {
+        whyItMatters: [
+          "The version released as a single on May 17, 2015 is the Kendrick Lamar remix, not the 1989 album cut. It jumped from No. 53 to No. 1 on the Billboard Hot 100 dated June 6, 2015 — Swift’s fourth Hot 100 No. 1 and Lamar’s first — spending one week on top and five more at No. 2, and reached No. 1 in Australia, Canada, New Zealand and Scotland (No. 4 in the UK). It is RIAA-certified 6× Platinum.",
+          "Joseph Kahn’s spy-heist video — filmed April 12 and premiered May 17, 2015 at the Billboard Music Awards — assembled roughly seventeen code-named cameos and broke the Vevo 24-hour viewing record (20.1 million views). It won Video of the Year (Swift’s first) and Best Collaboration at the 2015 MTV VMAs and Best Music Video at the 2016 Grammy Awards, cementing a track whose initial album-cut reviews had been lukewarm as a signature moment of the 1989 rollout.",
+        ],
+        meaning: {
+          confirmed: [
+            "Written by Swift with Max Martin and Shellback, who produced it (both programmed the track and played keyboards); recorded at Conway Recording Studios (Los Angeles) and MXM Studios (Stockholm), mixed by Serban Ghenea and mastered by Tom Coyne.",
+            "The single is Kendrick Lamar’s remix: after the two publicly praised each other’s work, Swift approached Lamar, who added two original rap verses; producer Ilya layered heavier trap/hip-hop percussion and the remix trims some of Swift’s original verses to foreground the chorus and Lamar’s parts.",
+            "In a September 2014 Rolling Stone interview Swift said the song was about a fellow female artist — once a friend — who ‘tried to sabotage an entire arena tour’ by hiring people out from under her, stressing it was about losing a friend, not a lover, and pointedly declining to name her.",
+            "The video cast carries code names — Swift as Catastrophe, Selena Gomez as Arsyn, Kendrick Lamar as Welvin da Great, Lena Dunham as Lucky Fiori, plus Cara Delevingne, Zendaya, Gigi Hadid, Hailee Steinfeld, Ellie Goulding, Hayley Williams, Karlie Kloss, Cindy Crawford and more.",
+          ],
+          supported: [
+            "The press near-universally read the unnamed subject as Katy Perry, whose team had reportedly poached backing dancers from Swift’s tour; Perry never confirmed being the target and answered in 2017 with ‘Swish Swish’ (featuring Nicki Minaj). That identification is media inference, not a Swift confirmation.",
+            "The feud resolved publicly in the June 17, 2019 ‘You Need to Calm Down’ video, which ends with Swift and Perry embracing dressed as fries and a hamburger (Perry reprising her 2019 Met Gala burger look).",
+            "Critics were split: the 1989 album cut drew mixed-to-negative reviews as one of the record’s weaker tracks, while the Kendrick remix was received more warmly — the Guardian’s Alexis Petridis called it ‘a masterstroke.’",
+          ],
+          fanTheories: [
+            "A recurring claim that a softer early demo predated the stadium-chant chorus is undocumented in reputable sources — treat it as fan lore. There is likewise no verified record of Kendrick Lamar joining Swift onstage to perform it.",
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: 'A main-set staple, performed with acrobatic staging.',
+          },
+          {
+            date: '2018',
+            event: 'Reputation Stadium Tour',
+            note: "Reworked as a mashup with ‘Should’ve Said No’ over a country-tinged guitar riff.",
+          },
+          {
+            date: '2023-2024',
+            event: 'The Eras Tour — 1989 set',
+            note: 'Part of the main 1989 act (staged with on-screen flames), not a surprise song.',
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'moment:vault-1989-bad-blood-premieres-at-the-bbmas-and-breaks-the-vevo-record',
+            label: 'Bad Blood premieres at the BBMAs and breaks the Vevo record',
+            why: 'The moment page for this song’s video premiere and its 24-hour Vevo record.',
+          },
+          {
+            relatedId: 'moment:vault-1989-bad-blood-and-the-friendship-it-ended',
+            label: 'Bad Blood and the friendship it ended',
+            why: 'The moment page on the professional friendship the song is written about.',
+          },
+          {
+            relatedId: 'song:shake-it-off',
+            label: 'Shake It Off',
+            why: 'Its lead-single sibling — the two most bombastic statements of the 1989 pop reinvention.',
+          },
+        ],
+        sources: [
+          { name: 'Bad Blood (Taylor Swift song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Bad_Blood_(Taylor_Swift_song)' },
+          { name: 'Official Charts — fourth US No. 1', url: 'https://www.officialcharts.com/chart-news/taylor-swift-scores-fourth-us-number-1-with-bad-blood__9464/' },
+          { name: 'Variety — video premiere', url: 'https://variety.com/2015/music/awards/bad-blood-taylor-swift-watch-music-video-1201498985/' },
+          { name: 'Time — feud timeline', url: 'https://time.com/4914066/taylor-swift-katy-perry-feud-timeline/' },
+          { name: 'Rolling Stone — You Need to Calm Down reconciliation', url: 'https://www.rollingstone.com/music/music-news/watch-taylor-swift-katy-perry-you-need-to-calm-down-video-848857/' },
+        ],
+      },
     },
     {
       slug: 'wildest-dreams',
@@ -250,7 +600,94 @@ export default {
       sources: [
         wiki('Wildest Dreams', 'Wildest_Dreams', 'song article: single run and 2021 TV release'),
         ALBUM,
+        {
+          source_url: 'https://americansongwriter.com/under-a-microscope-the-story-behind-wildest-dreams-by-taylor-swift/',
+          source_title: "The Story Behind 'Wildest Dreams'",
+          publisher: 'American Songwriter',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 3,
+          notes: 'writing/production with Max Martin & Shellback; the heartbeat recorded into the percussion',
+        },
+        {
+          source_url: 'https://www.npr.org/sections/goatsandsoda/2015/09/02/436967742/the-director-of-the-taylor-swift-video-defends-his-work',
+          source_title: 'The Director Of The Taylor Swift Video Defends His Work',
+          publisher: 'NPR (Goats and Soda)',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'video criticism (no Black African leads) and the African Parks Foundation donation',
+        },
+        {
+          source_url: 'https://www.rollingstone.com/music/music-news/taylor-swift-wildest-dreams-taylors-version-1228197/',
+          source_title: "Taylor Swift Drops 'Wildest Dreams (Taylor's Version)' After TikTok Trend",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'the September 17, 2021 surprise TV release, out of sequence, credited to the TikTok surge',
+        },
       ],
+      dossier: {
+        whyItMatters: [
+          "The fifth single from 1989 (released August 31, 2015), it peaked at No. 5 on the Billboard Hot 100 in November 2015 — the fifth top-ten hit from the album that year — and is RIAA-certified multi-platinum. Written and produced with Max Martin and Shellback, its breathy, widescreen delivery is 1989 at its most cinematic; during recording Swift captured her own heartbeat and folded it into the percussion.",
+          "Six years later it became one of her biggest streaming resurrections: a 2021 TikTok 'slow zoom' trend (an automatic zoom-in filter, not the wrinkle/aging filter it is sometimes confused with) sent the song viral, and Swift answered by surprise-releasing 'Wildest Dreams (Taylor's Version)' on September 17, 2021 — out of album sequence, before Red (Taylor's Version) and two years before the full 1989 (Taylor's Version) — telling fans she saw them get it trending and 'thought you should have my version.'",
+        ],
+        meaning: {
+          confirmed: [
+            "Written and produced by Swift with Max Martin and Shellback. The 2021 Taylor's Version was produced by Swift with Shellback and Christopher Rowe (Max Martin was not involved), released early specifically because of the TikTok surge.",
+            "Its 2015 music video — directed by Joseph Kahn, a 1950s-Hollywood-style romance opposite Scott Eastwood shot against an African-safari backdrop — drew criticism from NPR and other outlets for romanticizing a colonial-era Africa with no Black African leads. Kahn publicly defended the video and said Swift donated all of her proceeds from it to the African Parks Foundation.",
+            "Ryan Adams recast the song on his full 2015 track-by-track cover of 1989 as a jangly, Neil Young-tinged rock ballad — part of a covers project Swift publicly praised.",
+          ],
+          supported: [
+            "Critics widely likened the song's breathy, lower-register, cinematic delivery to Lana Del Rey (contemporary reviews called it 'a Lana Del Rey version of a Taylor Swift love song'); there is no record of Swift or her producers responding to the comparison.",
+            "Reviewers heard the 2021 Taylor's Version as a brighter, crisper mix with a deeper, slightly slower vocal — trading the original's youthful energy for a more matured read.",
+          ],
+          fanTheories: [
+            "A frequently repeated fan claim that the Taylor's Version more clearly enunciates the 'he's so tall...' line is not documented by critics — treat it as fan lore.",
+          ],
+        },
+        live: [
+          {
+            date: '2015',
+            event: 'The 1989 World Tour',
+            note: "Performed as a piano mashup with 'Enchanted' in the main set.",
+          },
+          {
+            date: 'May 11 & November 21, 2018',
+            event: 'Reputation Stadium Tour — B-stage surprise song',
+            note: 'Played twice as a standalone acoustic B-stage surprise song (Santa Clara, May 11; Tokyo, November 21), not as the 1989-tour Enchanted mashup.',
+          },
+          {
+            date: '2023-2024',
+            event: 'The Eras Tour — 1989 set',
+            note: "A shortened 'Wildest Dreams' runs inside the main 1989 act rather than as a surprise song.",
+          },
+        ],
+        connections: [
+          {
+            relatedId: 'song:style',
+            label: 'Style',
+            why: "Its back-to-back partner in 1989's cinematic mode and in the Eras Tour 1989 set — both trade Swift's diaristic detail for mood, silhouette and dread underneath the gloss.",
+          },
+          {
+            relatedId: 'song:out-of-the-woods',
+            label: 'Out of the Woods',
+            why: "Another 1989 cut about a romance lived as fragile and doomed — 'Wildest Dreams' pre-mourns it while 'Out of the Woods' panics through it.",
+          },
+          {
+            relatedId: 'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
+            label: "1989 (Taylor's Version) announced",
+            why: "Part of the same re-recordings arc: 'Wildest Dreams (Taylor's Version)' jumped the queue in 2021, two years before this head-to-toe-blue announcement of the full 1989 (Taylor's Version).",
+          },
+        ],
+        sources: [
+          { name: "The Story Behind 'Wildest Dreams' — American Songwriter", url: 'https://americansongwriter.com/under-a-microscope-the-story-behind-wildest-dreams-by-taylor-swift/' },
+          { name: 'The Director Of The Taylor Swift Video Defends His Work — NPR', url: 'https://www.npr.org/sections/goatsandsoda/2015/09/02/436967742/the-director-of-the-taylor-swift-video-defends-his-work' },
+          { name: "'Wildest Dreams (Taylor's Version)' after the TikTok trend — Rolling Stone", url: 'https://www.rollingstone.com/music/music-news/taylor-swift-wildest-dreams-taylors-version-1228197/' },
+          { name: 'Taylor Swift reputation tour B-stage surprise songs — Billboard', url: 'https://www.billboard.com/articles/columns/pop/8458025/taylor-swift-reputation-tour-b-stage-songs-list' },
+        ],
+      },
     },
     {
       slug: 'how-you-get-the-girl',
@@ -448,11 +885,11 @@ export default {
       writers: ['Taylor Swift', 'Jack Antonoff'],
       producers: ['Taylor Swift', 'Jack Antonoff'],
       isFromTheVault: true,
-      note: 'The shortest song in her catalog at release — a disco-strut post-mortem on all the things she no longer has to pretend to enjoy.',
+      note: 'The shortest track on 1989 (Taylor\'s Version) at 2:26 — a disco-strut post-mortem on all the things she no longer has to pretend to enjoy.',
       summary:
         'After the silence sets in, the wins count themselves: no more faking a taste for his music, his friends, his idea of her. Petty, precise, and over in under two and a half minutes.',
       inspiration:
-        'Fans immediately mapped its details to the mid-2010s chapter the 1989 vault covers (unconfirmed); the documented fact is its record-setting brevity in her catalog.',
+        'Fans immediately mapped its details to the mid-2010s chapter the 1989 vault covers (unconfirmed); the documented fact is its brevity — at 2:26 the shortest track on 1989 (Taylor\'s Version).',
       themes: ['post-breakup clarity', 'identity reclaimed', 'brevity as flex'],
       fanLore:
         'Fan reading (unconfirmed): the yacht-and-long-hair details fans link to a specific 2015–16 relationship.',
@@ -464,6 +901,40 @@ export default {
           'song article: length record and reception',
         ),
         TV,
+      ],
+      // Depth ledger #1479 (2026-07-24): verify the length record, the production
+      // story, the No. 2 chart run vs the other four vault tracks, named
+      // reception, live history, and the reveal/rollout.
+      discussion: [
+        'At 2 minutes 26 seconds "Now That We Don\'t Talk" is the shortest track on 1989 (Taylor\'s Version), and at release it was widely noted as among the briefest studio recordings in her catalog. Swift and Jack Antonoff wrote and produced it during the original 1989 era but left it off the 2014 album because, as Swift put it, they "couldn\'t get it right at the time"; the finished vault version is a synth-pop and disco hybrid — disco grooves, thrumming synths and a falsetto chorus — tracked across Conway, Electric Lady, Sharp Sonics and Rough Customer studios, with Antonoff programming and playing synths, guitar and background vocals, Serban Ghenea mixing and Randy Merrill mastering.',
+        'It was the best-charting of the five From The Vault tracks after "Is It Over Now?": it debuted and peaked at No. 2 on the Billboard Hot 100 (chart dated Nov. 11, 2023) — one of Swift\'s record run of No. 2 hits — with matching No. 2 peaks in Australia, Canada, New Zealand, the UK and on the Global 200, ahead of "Slut!," "Say Don\'t Go" and "Suburban Legends." No RIAA certification for the track has been reported; internationally it went Platinum in Australia, Gold in Brazil and New Zealand, and Silver in the UK. Critics singled it out as a vault standout: Rolling Stone\'s Rob Sheffield praised its "acerbic wit," Paste\'s Elizabeth Braaten called it "an inevitable instant classic in Swiftian lore," The Line of Best Fit\'s Kelsey Barnes found the falsetto "deliciously infectious," and NME\'s Hollie Geraghty named it the best of the five vault songs — though Clash\'s reviewer counted it among the album\'s slighter cuts.',
+        'The 1989 (Taylor\'s Version) vault titles were revealed in September 2023 through a Google search-puzzle promotion Swift ran with the company, and the song received an official lyric video on her YouTube channel alongside the re-recording. Unusually for a vault cut, it entered the Eras Tour setlist: Swift performed it as an acoustic surprise song in São Paulo on Nov. 24, 2023, and again in Lisbon on May 25, 2024 as part of a guitar mash-up with "The Tortured Poets Department." No standalone streaming record has been documented for the track beyond its chart run, so any such milestone stays unclaimed here.',
+      ],
+      discussionSources: [
+        wiki(
+          "Now That We Don't Talk",
+          "Now_That_We_Don't_Talk",
+          'runtime record, production credits, chart peaks, certifications, reception, and Eras Tour performances',
+        ),
+        TV,
+        {
+          source_url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-1989-taylors-version-review-2-1234804286/',
+          source_title: "Taylor Swift's '1989 (Taylor's Version)' Review: Best Vault Tracks Yet",
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Sheffield naming it and "Is It Over Now?" the vault highlights, on its "acerbic wit"',
+        },
+        {
+          source_url: 'https://www.nme.com/reviews/album/taylor-swift-1989-taylors-version-review-3527096',
+          source_title: "Taylor Swift – '1989 (Taylor's Version)' review",
+          publisher: 'NME',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-24',
+          reliability_score: 4,
+          notes: 'Hollie Geraghty naming it the best vault track',
+        },
       ],
     },
     {

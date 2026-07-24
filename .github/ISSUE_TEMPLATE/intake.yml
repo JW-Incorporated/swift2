@@ -32,6 +32,15 @@ body:
         No links is OK to file, but nothing ships until real sources are found
         (sourcing bar: relationship/business items need two independent outlets).
   - type: textarea
+    id: media
+    attributes:
+      label: Image / Instagram post (encouraged)
+      description: |
+        A visual the moment is about — so it ships WITH a picture instead of waiting on later enrichment.
+        Paste the Instagram post link (instagram.com/p/<shortcode>) if the event centers on one; it embeds inline.
+        Otherwise a direct image URL on a reusable host (e.g. upload.wikimedia.org), or describe the photo to find.
+        Instagram is a valid content source here — the desk verifies and attaches it at authoring time.
+  - type: textarea
     id: notes
     attributes:
       label: Notes (optional)

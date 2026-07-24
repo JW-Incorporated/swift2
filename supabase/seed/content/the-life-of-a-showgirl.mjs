@@ -544,7 +544,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes on a loop of showtimes — the in-theater premiere of the self-directed "The Fate of Ophelia" music video, behind-the-scenes footage from its shoot, lyric videos for the rest of the album, and Swift\'s own on-camera reflections on the songs. No plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release.\n\nIt was not an AMC-only affair. AMC Theatres Distribution ran it with Variance Films in the U.S. and Canada and Piece of Magic abroad, playing all 540 U.S. AMC locations plus Cinemark and Regal, Cineplex in Canada and Cinépolis and Cinemex in Mexico — part of a global footprint of more than 8,000 cinemas across 110-plus territories. Domestically it topped Warner Bros.\' "One Battle After Another" (No. 2, about $11 million in its second weekend) and out-opened Dwayne Johnson\'s "The Smashing Machine" ($5.9 million), making it — by AMC\'s account — the only "non-film" theatrical event this century to finish a weekend at No. 1 in North America. Tickets were a flat $12, pegged to her 12th album, and AMC released no admissions count; the event played a single weekend by design (Oct. 3–5 only), so its opening gross was effectively its final total. CBS News, independent of AMC, called it "the largest grossing album debut theatrical event of all time."\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. That film opened far bigger ($92.8 million domestic); the release party\'s win was structural, not a bigger number — proof a big enough artist can rent the theatrical apparatus for a weekend and turn an album drop into a box-office event, no studio in the deal.',
+          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes on a loop of showtimes — the in-theater premiere of the self-directed "The Fate of Ophelia" music video, behind-the-scenes footage from its shoot, lyric videos for the rest of the album, and Swift\'s own on-camera reflections on the songs. No plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release.\n\nIt was not an AMC-only affair. AMC Theatres Distribution ran it with Variance Films in the U.S. and Canada and Piece of Magic abroad, playing all 540 U.S. AMC locations plus Cinemark and Regal, Cineplex in Canada and Cinépolis and Cinemex in Mexico — part of a global footprint of more than 8,000 cinemas across 110-plus territories. Domestically it topped Warner Bros.\' "One Battle After Another" (No. 2, about $11 million in its second weekend) and out-opened Dwayne Johnson\'s "The Smashing Machine" ($5.9 million), making it — by AMC\'s account — the only "non-film" theatrical event this century to finish a weekend at No. 1 in North America. Tickets were a flat $12, pegged to her 12th album, and AMC released no admissions count; the event played a single weekend by design (Oct. 3–5 only), so its opening gross was effectively its final total. CBS News, independent of AMC, called it "the largest grossing album debut theatrical event of all time."\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. That film opened far bigger ($92.8 million domestic); the release party\'s win was structural, not a bigger number — proof a big enough artist can rent the theatrical apparatus for a weekend and turn an album drop into a box-office event, no studio in the deal.\n\nSeveral of the business specifics stayed deliberately private. The receipts were spread across more than 3,700 domestic screens, and the single overseas market AMC and Comscore ever quantified was the UK and Ireland, where it opened at No. 1 with £3.5 million ($4.7 million); the rest of the roughly $16 million international haul was never broken out country by country. AMC published no attendance figure — the ~2.8 million tickets implied by $34.1M at $12 apiece is arithmetic, not a reported count — and the revenue split among AMC Distribution, Variance Films, Piece of Magic, the participating chains and Swift\'s Republic side was never disclosed. Even the accounting was ambiguous: Comscore ranked it live within the weekend domestic chart, but no tracker said whether the gross was folded into 2025\'s official North American year-end total or held apart from it as a "non-film" event.\n\nThat single weekend was the whole of its life on the big screen. No home-video, digital or streaming release was ever announced; unlike The Eras Tour concert film, which reached Disney+ 155 days after its theatrical run, the release party stayed theatrical-exclusive — only the premiered "The Fate of Ophelia" music video and the album\'s lyric videos turned up on YouTube in the days after. Trade press floated a possible Disney+ window around March 2026, but no such deal materialized.',
         sources: [
           {
             outlet: 'Screen Daily',
@@ -584,6 +584,45 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Depth ledger #1262 (2026-07-24): the one quantified overseas market
+          // (UK/Ireland), the undisclosed attendance / revenue-split / year-end
+          // accounting, and the confirmed lack of any post-theatrical release.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/film/box-office/taylor-swift-release-party-of-a-showgirl-uk-ireland-box-office-1236541930/',
+            source_title: "Taylor Swift's 'Release Party of a Showgirl' Tops U.K., Ireland Box Office",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-official-release-party-show-girl-tops-box-office-1236082371/',
+            source_title: "Taylor Swift's 'Official Release Party of a Showgirl' Tops Weekend Box Office",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Dexerto',
+            url: 'https://www.dexerto.com/tv-movies/how-to-watch-taylor-swift-release-party-of-a-showgirl-streaming-3261637/',
+            source_title: "Taylor Swift's 'Showgirl release party' movie may not be streaming until 2026",
+            publisher: 'Dexerto',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift:_The_Official_Release_Party_of_a_Showgirl',
+            source_title: 'Taylor Swift: The Official Release Party of a Showgirl',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
           },
           // Depth ledger #1011 (2026-07-22): the $12 flat ticket price, the
           // single-weekend limited-engagement design, and CBS's independent
@@ -655,7 +694,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album, by both equivalent units and pure sales, since Billboard began tracking by Luminate\'s modern methodology in 1991. It ran roughly 2.5 times her own previous personal best, Midnights\' 1.578 million units in 2022, and passed the two records it beat: Adele\'s 3.482 million-unit 25 (2015) and *NSYNC\'s 2.416 million No Strings Attached (2000). She\'d cleared the decade-old Adele mark within five days — a record many chart-watchers had assumed the streaming era made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."\n\nThe composition explains the shape: only two things counted toward 4.002 million — the 3,479,500 pure copies and 522,600 streaming-equivalent units from those 680.9 million streams, with no tracks sold à la carte. The pure-sales side ran on collecting: 1.334 million of it was vinyl, driven by 38 editions (16 CDs, two deluxe CD-plus-clothing boxes, eight vinyl, a cassette, 11 digital), most release-week-only — a variant strategy that drew chart-inflation criticism. The 680.9 million streams set 2025\'s biggest album week but no all-time mark; her own Tortured Poets Department (891 million) still leads there. Abroad it opened at No. 1 in the UK (423,000 units, her biggest week there), Australia, Canada, New Zealand and Ireland. The theatrical Official Release Party that topped the weekend box office was a separate event, uncounted here. The front-loading showed a week later: it held No. 1 but fell to 338,000 units as pure sales collapsed 97% and streaming eased just 55%.\n\nAdele\'s 25 had actually held the biggest week on two separate counts — 3.482 million equivalent units and, in traditional album sales, about 3.387 million pure copies, set in 2015 when 25 was withheld from streaming. Showgirl passed both: its 4.002 million equivalent units and 3,479,500 pure copies mean it took the pure-sales crown too, not the streaming-inclusive one alone. Within that pure total, the 1.334 million on vinyl is the single most-quantified slice — dwarfing 25\'s roughly 22,000 vinyl copies — but Billboard did not itemize how the rest split across CD, cassette and paid downloads.\n\nThe variant strategy is the album\'s standing asterisk. Forbes and academic writers framed the 38 versions as chart-gaming; chart analyst Chris Molanphy agreed the week carries "an aftertaste" of repeat-buyer inflation — "this is chart gaming, but it\'s not payola," he wrote — while concluding the record still stands, because the album "would have debuted at No. 1 in any case, by a huge margin."',
+          'The week (charts dated Oct. 18, 2025) counted 3,479,500 in pure album sales plus 680.9 million on-demand streams — 4.002 million equivalent units in total, the largest single week for any album, by both equivalent units and pure sales, since Billboard began tracking by Luminate\'s modern methodology in 1991. It ran roughly 2.5 times her own previous personal best, Midnights\' 1.578 million units in 2022, and passed the two records it beat: Adele\'s 3.482 million-unit 25 (2015) and *NSYNC\'s 2.416 million No Strings Attached (2000). She\'d cleared the decade-old Adele mark within five days — a record many chart-watchers had assumed the streaming era made permanently unreachable.\n\nIt was also her 15th No. 1 album, breaking the three-way tie with Drake and Jay-Z for the most Billboard 200 chart-toppers among soloists — only The Beatles, at 19, remain ahead. Universal reported more than 5.5 million equivalent units globally in week one. Her reaction, via Billboard: "I\'ll cherish this feeling forever."\n\nThe composition explains the shape: only two things counted toward 4.002 million — the 3,479,500 pure copies and 522,600 streaming-equivalent units from those 680.9 million streams, with no tracks sold à la carte. The pure-sales side ran on collecting: 1.334 million of it was vinyl, driven by 38 editions (16 CDs, two deluxe CD-plus-clothing boxes, eight vinyl, a cassette, 11 digital), most release-week-only — a variant strategy that drew chart-inflation criticism. The 680.9 million streams set 2025\'s biggest album week but no all-time mark — it ranks fourth all-time, behind her own Tortured Poets Department (891 million) and two Drake albums, so the platform records it set (Apple Music\'s and Amazon\'s biggest debuts) were day-one, not weekly. Abroad it opened at No. 1 in the UK (423,000 units, her biggest week there), Australia, Canada, New Zealand and Ireland. The theatrical Official Release Party that topped the weekend box office was a separate event, uncounted here. The front-loading showed a week later: it held No. 1 but fell to 338,000 units as pure sales collapsed 97% and streaming eased just 55%.\n\nAdele\'s 25 had actually held the biggest week on two separate counts — 3.482 million equivalent units and, in traditional album sales, about 3.387 million pure copies, set in 2015 when 25 was withheld from streaming. Showgirl passed both: its 4.002 million equivalent units and 3,479,500 pure copies mean it took the pure-sales crown too, not the streaming-inclusive one alone. Within that pure total, the 1.334 million on vinyl is the single most-quantified slice — dwarfing 25\'s roughly 22,000 vinyl copies — but Billboard did not itemize how the rest split across CD, cassette and paid downloads.\n\nThe variant strategy is the album\'s standing asterisk. Forbes and academic writers framed the 38 versions as chart-gaming; chart analyst Chris Molanphy agreed the week carries "an aftertaste" of repeat-buyer inflation — "this is chart gaming, but it\'s not payola," he wrote — while concluding the record still stands, because the album "would have debuted at No. 1 in any case, by a huge margin."\n\nThe numbers underneath fill in the shape. Day one alone — Friday, Oct. 3 — moved 2.7 million copies, which by itself outsold every album\'s full opening week in history except Adele\'s 25. The rout down-chart was total: the week\'s No. 2 title, the KPop Demon Hunters soundtrack, managed 96,000 units. Billboard published no debut-week "outsold the rest of the chart combined" figure — that line belongs to the UK, where it beat the entire Top 100, and to the 2025 year-end tally, where it topped the rest of the top 10 by 150,000. The four overseas No. 1s came without itemized counts but with records attached: the biggest Australian week since 2015 and another ARIA "chart double," Canada\'s biggest debut of the streaming era, and record-extending 15th No. 1s in Canada and New Zealand.',
         sources: [
           {
             outlet: 'Billboard',
@@ -736,6 +775,45 @@ export default {
             publisher: 'Chris Molanphy (Hit Parade / Slate columnist)',
             source_type: 'expert_analysis',
             accessed_at: '2026-07-22',
+            reliability_score: 4,
+          },
+          // Added 2026-07-24 (ledger #1020): the day-one 2.7M figure (Q3), the
+          // down-chart / year-end "rest of the chart" comparisons (Q4), the
+          // overseas benchmarks (Q7), and the streaming-week ranking (Q6).
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/news/taylor-swift-album-sales-first-day-billboard-million-showgirl-1236540366/',
+            source_title: "Taylor Swift Sells 2.7 Million Copies of 'The Life of a Showgirl' on Day 1 — Already the Second-Best Tally for an Album's First Week in History",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/01/14/taylor-swift-dominates-2025s-bestselling-albums-list-by-a-huge-margin/',
+            source_title: "Taylor Swift Dominates 2025's Bestselling Albums List By A Huge Margin",
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-aria-chart-double-the-life-of-a-showgirl-1236107439/',
+            source_title: "Taylor Swift Completes Another ARIA Chart Double With 'The Life of a Showgirl'",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'TheWrap',
+            url: 'https://www.thewrap.com/taylor-swift-the-life-of-a-showgirl-streaming-records/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Breaks Day 1 Streaming Records on Spotify, Apple and Amazon Music",
+            publisher: 'TheWrap',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
@@ -920,7 +998,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it, the Target-exclusive "The Crowd Is Your King" among them. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.',
+          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it, the Target-exclusive "The Crowd Is Your King" among them. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.\n\nThe pure-sales week broke down as 1.76 million CDs, the 1.334 million LPs, 358,000 digital downloads and 26,000 cassettes, with zero à-la-carte track sales; Billboard estimated the album grossed roughly $135 million in seven days, vinyl priced from $34.99 and CD-plus-apparel bundles at $65–$70. Forbes was explicit that the million-vinyl week was a first "for any artist in history," and that the old 859,000 mark fell on release day itself — about 1.2 million LPs moved on day one alone.\n\nThe variant strategy that built the number drew its own documented criticism. In The Conversation, University of Bath marketing scholar Annayah Prosser argued the two-dozen-plus editions inflate the charts by design — since "every album purchased (regardless of the format or cover image) is valued" — and called vinyl\'s materials "unsustainable," noting Swift "hasn\'t experimented with eco-friendly alternatives." A University of Glasgow study led by Prof. Matt Brennan found about a quarter of surveyed Swift fans (26%) would consider a plastic-free release. Neither Swift nor Republic publicly answered the sustainability or chart-inflation critiques, and per-variant pressing figures were never disclosed.',
         sources: [
           {
             outlet: 'Forbes',
@@ -938,6 +1016,36 @@ export default {
             publisher: 'NPR',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth ledger #1303 (2026-07-24): the reception axis (attributed
+          // chart-inflation + sustainability criticism) and the non-vinyl format
+          // split / week-one gross that the number sat inside.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-life-of-a-showgirl-how-much-money-make-week-1/',
+            source_title: "How Much Money Did Taylor Swift Earn in the First Week of 'Life of a Showgirl'?",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Conversation',
+            url: 'https://theconversation.com/taylor-swifts-aggressive-marketing-guarantees-success-no-matter-what-the-music-sounds-like-266812',
+            source_title: "Taylor Swift's aggressive marketing guarantees success – no matter what the music sounds like",
+            publisher: 'The Conversation',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'University of Glasgow',
+            url: 'https://www.gla.ac.uk/news/archiveofnews/2025/february/headline_1148110_en.html',
+            source_title: "Taylor Swift fans may be ready to 'Shake Off' plastic vinyl records, new University of Glasgow study shows",
+            publisher: 'University of Glasgow',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
           // Depth ledger #990 (2026-07-21): variant count + format leadership,
@@ -1148,7 +1256,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Swift imagined a version who instead "met someone who treated her well" and is pulled from the water. She has said she has a "fixation on Shakespeare characters that I fall in love with and I can\'t stand to see them meet a tragic demise," and named it the lead single when she announced the album on Kelce\'s New Heights podcast. The liner credits are Swift, Max Martin and Shellback alone — no other co-writer or sample — cut at Shellback Studios and MXM Studios in Stockholm between Eras Tour dates. It debuted atop the Billboard Hot 100 — her 13th No. 1 — and spent 10 non-consecutive weeks there, her longest-running No. 1, out-running "Anti-Hero."\n\nSwift wrote and directed the video herself, shot by cinematographer Rodrigo Prieto and choreographed by Eras Tour choreographer Mandy Moore, with Eras dancers (Jan Ravnik, Kam Saunders) returning; it premiered inside the theatrical Official Release Party of a Showgirl before its YouTube debut two days later, moving through vaudeville and showgirl tableaux — Marilyn-style stagecraft, 1960s go-go dancing, Busby Berkeley-scale synchronized-swim formations. The chorus choreography became a genuine trend, recreated by fans and by public figures from Australian PM Anthony Albanese (at a Melbourne radio station) to India\'s Shashi Tharoor.\n\nThe single was the era\'s commercial spine: it led the Billboard Global 200 for seven weeks and set Spotify\'s single-day song-streaming record on release day. Abroad it became her longest-running UK No. 1 (seven weeks, past "Anti-Hero"\'s six) and hit No. 1 in Australia, Canada (15 weeks) and Ireland (nine); BPI and ARIA each certified it double platinum. Critics engaged the opener directly: NPR\'s Ann Powers heard its "huge and buoyant" bass and a voice that "sounds smitten and a bit hungry."',
+          'Released Oct. 3, 2025 as the lead single and opening track, the song reworks Hamlet: where Millais\'s Ophelia (the muse was Pre-Raphaelite model Elizabeth Siddal) drowns, Swift imagined a version who instead "met someone who treated her well" and is pulled from the water. She has said she has a "fixation on Shakespeare characters that I fall in love with and I can\'t stand to see them meet a tragic demise," and named it the lead single when she announced the album on Kelce\'s New Heights podcast. The liner credits are Swift, Max Martin and Shellback alone — no other co-writer or sample — cut at Shellback Studios and MXM Studios in Stockholm between Eras Tour dates. It debuted atop the Billboard Hot 100 — her 13th No. 1 — opening its reign on the Oct. 18, 2025 chart; it briefly slipped to No. 28 in the holiday streaming rush, then climbed back to log a 10th week on the Jan. 17, 2026 chart — 10 non-consecutive weeks in all, her longest-running No. 1, out-running "Anti-Hero"\'s eight.\n\nSwift wrote and directed the video herself, shot by cinematographer Rodrigo Prieto and choreographed by Eras Tour choreographer Mandy Moore, with Eras dancers (Jan Ravnik, Kam Saunders) returning; it premiered inside the theatrical Official Release Party of a Showgirl before its YouTube debut two days later, moving through vaudeville and showgirl tableaux — Marilyn-style stagecraft, 1960s go-go dancing, Busby Berkeley-scale synchronized-swim formations. The chorus choreography became a genuine trend, recreated by fans and by public figures from Australian PM Anthony Albanese — gamely, on Melbourne\'s Nova 100 — to India\'s Shashi Tharoor.\n\nThe single was the era\'s commercial spine: it led the Billboard Global 200 for seven weeks and set Spotify\'s single-day song-streaming record on release day. Abroad it became her longest-running UK No. 1 (seven weeks, past "Anti-Hero"\'s six) and hit No. 1 in Australia, Canada (15 weeks) and Ireland (nine); BPI and ARIA each certified it double platinum. Critics engaged the opener directly, and split on it. NPR\'s Ann Powers heard its "huge and buoyant" bass and a voice that "sounds smitten and a bit hungry," and Rolling Stone\'s Maya Georgi praised its "tantalizing" melody and "wondrous" mix — the magazine later ranked it the eighth-best song of 2025. The Shakespeare conceit drew the sharpest dissent: The New York Times\' Lindsay Zoladz felt Swift reduced Ophelia to "just another princess waiting for her Prince Charming," The Times\' Will Hodgkinson judged the analogy "doesn\'t really work," and Stereogum\'s Tom Breihan said the song "misses the entire point" of the tragedy while still landing as engaging "writerly excess."',
         // Official MV id verified 2026-07-09 via YouTube oEmbed:
         // https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=ko70cExuzZM
         // -> title "Taylor Swift - The Fate of Ophelia (Official Music Video)",
@@ -1182,6 +1290,21 @@ export default {
           // Depth ledger #1002 (2026-07-21): primary reporting added to replace
           // the Wikipedia lean — video production credits, the song's own
           // critical reception, the UK reign, and the Albanese trend.
+          {
+            // Reign narrative (2026-07-24, ledger #1002 Q1): dethrones
+            // "Anti-Hero" as her longest-running No. 1 and traces the
+            // Oct.-2025 -> Jan.-2026 run, incl. the holiday No. 28 dip and
+            // return. Reception quotes (Georgi/Zoladz/Hodgkinson/Breihan)
+            // verified this session against the song's Wikipedia reception
+            // section and its cited reviews.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-fate-of-ophelia-passes-anti-hero-number-1-1235494237/',
+            source_title: "'The Fate of Ophelia' Dethrones 'Anti-Hero' as Taylor Swift's Longest-Running Number One",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
           {
             // Video premiere + production framing (self-directed, theatrical debut).
             outlet: 'Variety',
@@ -1816,6 +1939,7 @@ export default {
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+        'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
       ],
       year: 2025,
       month: 12,
@@ -1892,6 +2016,7 @@ export default {
       relatedIds: [
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
         'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+        'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
       ],
       year: 2025,
       month: 12,
@@ -2332,7 +2457,7 @@ export default {
         'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
       moment: {
         context:
-          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nGuest Jonathan Thomas, CEO of American Century Investments, gave the fullest outsider account of the ceremony itself on "The Compound & Friends" podcast (July 23): vows that ran close to 30 minutes each, Travis going first ("he made himself unbelievably vulnerable," Thomas said, "I looked around and there were all these 300-pound men from the football business crying as well") and Taylor following with her own, "poetic," equally lengthy vows. Sandler\'s officiating, Thomas said, ran another 20 to 30 minutes and "vacillated between funny, very sincere, sang a few things" — landing on two themes: a riff on "for richer or for poorer" ("you\'re not going to have to worry about that") and a repeated instruction to keep kissing each other, "in the morning, at night, after dinner."\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Swift\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, ran the full width of their two worlds: Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. Seth Meyers attended with his wife Alexi Ashe, posing beforehand with longtime friends Brad Paisley and Kimberly Williams-Paisley; Meyers later called the celebration "wonderful," joking on his brother\'s podcast about the NDA that kept him from sharing more. What did not surface was the interior: no official photos of the ceremony or reception had been released as of the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the event\'s entire public visual record.\n\nAccounts filled in the interior no photo showed: the arena floor built into a garden, peach-and-white at the ceremony and green-and-white beyond, each reading their vows from gold books. Once the ceremony ended, Thomas said, the space itself transformed — "they opened up the venue, you kind of walked through this massive castle that they built. And by the way, you would never guess you\'re in Madison Square Garden the way they did. It was incredible" — resolving months of unconfirmed pre-wedding reporting about a castle set under construction inside the arena. Paul McCartney played "I Want to Hold Your Hand," while Stevie Nicks\'s reception set was never documented. The couple sang too: per best man Jason Kelce — speaking on Ross Tucker\'s Football Podcast on July 21 — the newlyweds themselves performed a duet at the reception, though no song was reported. Jason said Travis "can sing" and "has always been able to carry a tune," if it "paled in comparison to some of the other people singing that night." Favors were embroidered handkerchiefs bearing the couple\'s "T&T" monogram, the July 3 date and a "Blank Space" lyric — the same T&T play behind the "JusT&T Married" marquee. It spanned days: a ~100-guest rehearsal dinner at the Garden on July 2, then the ~1,000-guest ceremony July 3 into the early hours. Confirmed guests ran wider than first reported — among them Bradley Cooper, Zoë Kravitz, Steven Spielberg and Tom Brady.',
+          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nGuest Jonathan Thomas, CEO of American Century Investments, gave the fullest outsider account of the ceremony itself on "The Compound & Friends" podcast (July 23): vows that ran close to 30 minutes each, Travis going first ("he made himself unbelievably vulnerable," Thomas said, "I looked around and there were all these 300-pound men from the football business crying as well") and Taylor following with her own, "poetic," equally lengthy vows. Sandler\'s officiating, Thomas said, ran another 20 to 30 minutes and "vacillated between funny, very sincere, sang a few things" — landing on two themes: a riff on "for richer or for poorer" ("you\'re not going to have to worry about that") and a repeated instruction to keep kissing each other, "in the morning, at night, after dinner."\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Swift\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, ran the full width of their two worlds: Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. Seth Meyers attended with his wife Alexi Ashe, posing beforehand with longtime friends Brad Paisley and Kimberly Williams-Paisley; Meyers later called the celebration "wonderful," joking on his brother\'s podcast about the NDA that kept him from sharing more. What did not surface was the interior: no official photos of the ceremony or reception had been released as of the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the event\'s entire public visual record.\n\nAccounts filled in the interior no photo showed: the arena floor built into a garden, peach-and-white at the ceremony and green-and-white beyond, each reading their vows from gold books. Once the ceremony ended, Thomas said, the space itself transformed — "they opened up the venue, you kind of walked through this massive castle that they built. And by the way, you would never guess you\'re in Madison Square Garden the way they did. It was incredible" — resolving months of unconfirmed pre-wedding reporting about a castle set under construction inside the arena. Paul McCartney played "I Want to Hold Your Hand"; guest Pat McAfee said on his show that Avril Lavigne performed "Sk8er Boi" and that Taylor joined Stevie Nicks\'s set. Catering ran through Scott Sartiano\'s orbit — his Sartiano\'s handled the July 2 rehearsal dinner and his club Zero Bond the reception, per Page Six. The couple sang too: per best man Jason Kelce — speaking on Ross Tucker\'s Football Podcast on July 21 — the newlyweds themselves performed a duet at the reception, though no song was reported. Jason said Travis "can sing" and "has always been able to carry a tune," if it "paled in comparison to some of the other people singing that night." Favors were embroidered handkerchiefs bearing the couple\'s "T&T" monogram, the July 3 date and a "Blank Space" lyric — the same T&T play behind the "JusT&T Married" marquee. It spanned days: a ~100-guest rehearsal dinner at the Garden on July 2, then the ~1,000-guest ceremony July 3 into the early hours. Confirmed guests ran wider than first reported — among them Bradley Cooper, Zoë Kravitz, Steven Spielberg and Tom Brady.',
         sources: [
           {
             outlet: 'CBS News',
@@ -2417,6 +2542,27 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
             reliability_score: 4,
+          },
+          // Ledger #1246 (2026-07-24): reception-music + vendor specifics — a
+          // guest's on-record account of Avril Lavigne's set and Taylor joining
+          // Stevie Nicks, and the confirmed caterers (Sartiano's / Zero Bond).
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/avril-lavigne-rocked-taylor-swifts-165232336.html',
+            source_title: "Avril Lavigne rocked Taylor Swift's wedding, famous guest says",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Page Six (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-enlists-help-one-114336219.html',
+            source_title: 'Taylor Swift enlists help of one of her favorite NYC restaurants for Travis Kelce wedding',
+            publisher: 'Page Six / Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         photos: [
@@ -2661,7 +2807,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The gift went to Answer the Call — formally the New York Police and Fire Widows\' & Children\'s Benefit Fund — which currently supports roughly 500 families with annual $15,000 stipends. It was one piece of a reported $26 million the couple gave to more than 20 organizations around their wedding.',
+          'The gift went to Answer the Call — formally the New York Police and Fire Widows\' & Children\'s Benefit Fund — which currently supports roughly 500 families with annual $15,000 stipends. It was one piece of a reported $26 million the couple gave to more than 20 organizations around their wedding.\n\nThe confidence tiers matter here: the couple\'s representative confirmed the $26 million aggregate to Rolling Stone but did not itemize it, so the individual gift amounts surfaced only through the recipients themselves. On that basis the roughly 20 organizations sort into about nine food banks (City Harvest, which said it received $1 million; Feeding America, which thanked the couple for $2 million; Food Bank for NYC; the Los Angeles Regional Food Bank; Harvesters in Kansas City; and others), three children\'s hospitals (MSK Kids at Memorial Sloan Kettering, Hassenfeld Children\'s Hospital at NYU Langone, and Children\'s Mercy in Kansas City), seven education and youth programs (Education Through Music, Musical Mentors, After-School All-Stars, Grammy In The Schools, Dolly Parton\'s Imagination Library among them), an animal-welfare gift to the ASPCA, and the $2 million to Answer the Call. That $2 million figure was not stated by the couple\'s reps either; it comes from the fund\'s own public thank-you, which called the gift generous and said it would "make a tangible difference" for families but did not spell out how the money would be spent. No personal FDNY or NYPD connection has been reported — the link appears to be the New York wedding itself. Against the fund\'s scale — it has distributed more than $140 million to line-of-duty families since 1985, paying $50,000 immediately after a death and lifelong stipends thereafter — $2 million covers well over a hundred family-years of support. The giving was announced ahead of the Madison Square Garden ceremony and framed throughout as marking the wedding; whether any of it was structured as a multi-year pledge, and whether this was a first-time gift to these groups, has not been reported.',
         sources: [
           {
             outlet: 'TMZ',
@@ -2680,6 +2826,45 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
             reliability_score: 3,
+          },
+          // Ledger #1242 (2026-07-24): the full recipient list, the confidence
+          // tiering (rep-confirmed $26M aggregate vs recipient-reported per-gift
+          // amounts), and the fund's own acknowledgement.
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-donate-26-million-charity-1235588245/',
+            source_title: 'Taylor Swift, Travis Kelce Kick Off Wedding Week With $26 Million Charity Donation',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC7 New York',
+            url: 'https://abc7ny.com/post/taylor-swift-travis-kelce-donate-26-million-20-charities-country/19438669/',
+            source_title: 'Taylor Swift and Travis Kelce donate $26 million to 20 charities across the country',
+            publisher: 'WABC-TV (ABC7 New York)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Officer.com',
+            url: 'https://www.officer.com/features/honoring-the-fallen/news/55393246/taylor-swift-and-travis-kelce-donate-2-million-to-nyc-first-responder-families-through-answer-the-call',
+            source_title: 'Taylor Swift and Travis Kelce Donate $2 Million to NYC First Responder Families Through Answer The Call',
+            publisher: 'Officer.com (Endeavor Business Media)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Answer the Call',
+            url: 'https://www.answerthecall.org/who-we-are/',
+            source_title: "Who We Are — New York Police & Fire Widows' & Children's Benefit Fund",
+            publisher: "New York Police & Fire Widows' & Children's Benefit Fund",
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
       },
@@ -2701,7 +2886,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The first public look at the couple\'s wedding bands came July 10, blurry and distant, at former teammate JuJu Smith-Schuster\'s wedding — the bands\' own designer and specifics undisclosed. Sharper looks followed: Harper\'s Bazaar identified a plain gold band on Travis\'s left hand in July 16 training photos, and a July 20 photo posted by Cris Carter gave StyleCaster another clear angle. Separately, a Vogue Weddings carousel from the Smith-Schuster wedding let ELLE Australia\'s jewelry expert examine Taylor\'s stack more closely, describing what appears to be a chunky diamond band alongside her engagement ring — though ELLE Australia is explicit that the photo isn\'t sharp enough to confirm exact specifications, and no designer, carat count or price has been confirmed by the couple.',
+          'The first public look at the couple\'s wedding bands came July 10, blurry and distant, at former teammate JuJu Smith-Schuster\'s wedding — the bands\' own designer and specifics undisclosed. Sharper looks followed: Harper\'s Bazaar identified a plain gold band on Travis\'s left hand in July 16 training photos, and a July 20 photo posted by Cris Carter gave StyleCaster another clear angle. Separately, a Vogue Weddings carousel from the Smith-Schuster wedding let ELLE Australia\'s jewelry expert examine Taylor\'s stack more closely, describing what appears to be a chunky diamond band alongside her engagement ring — though ELLE Australia is explicit that the photo isn\'t sharp enough to confirm exact specifications, and no designer, carat count or price has been confirmed by the couple. ELLE Australia\'s expert Cushla Whiting placed the band within a specific 2026 shift she calls a moment for "chunkier diamond wedding bands" — substantial diamond bands rather than thin plain-metal ones, driven by bolder engagement rings and chosen so a band "feels balanced alongside them rather than disappearing beneath the centre stone." No imagery from the wedding day itself (July 3 at Madison Square Garden) surfaced either band; the genuine first public look did not come until July 10, and every detail on record remains outside observation of photos, with no comment from the couple or Tree Paine. That July 10 debut — Taylor in a pink-and-gold Markarian brocade gown, the band visible on her hand — was itself the ring\'s first public sighting, so the clearer angles here trace to the July 16 and July 20 photos, not a later solo outing. One caution on the specs floating around online: retailers now sell "inspired-by" lookalike bands (some marketed at around 2.5 carats), but those are stand-ins, not Swift\'s actual ring — which, unlike the engagement ring experts openly pegged at 8–10 carats and $550,000–$1 million, the couple has left entirely unspecified.',
         sources: [
           {
             outlet: 'StyleCaster',
@@ -2730,6 +2915,39 @@ export default {
             accessed_at: '2026-07-23',
             reliability_score: 3,
           },
+          // Ledger #1243 (2026-07-24): the July 10 pink-Markarian appearance was
+          // itself the band's first public sighting (band visible on her hand).
+          // The circulating "2.5-carat" figures trace to retailer "inspired-by"
+          // lookalike pages (tedwedding.com, caratdiamonds.com) seen this
+          // session — marketing stand-ins, not reporting on her actual band;
+          // flagged in the prose, not cited as fact about her ring.
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-makes-her-first-141339478.html',
+            source_title: 'Taylor Swift Makes Her First Post-Wedding Appearance at… Another Wedding!',
+            publisher: 'Yahoo Entertainment (via People)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+        ],
+        // Rumor Desk 2026-07-24 (news digest): the narrative above notes the
+        // couple has confirmed no designer, spec or price for either band.
+        // This labels the one attributed READING of the design intent that has
+        // surfaced — an expert interpretation, not a confirmed detail. Public-
+        // facing (jewelry), redline-clean, no location.
+        rumors: [
+          {
+            claim:
+              'ELLE asked three fine-jewelry founders to read Travis Kelce\'s newly photographed wedding band; they described a simple, timeless yellow-gold comfort-fit band roughly 5–6mm wide, valued around $2,000–$6,000, and read the yellow-gold choice as a deliberate complement to the tone of Taylor\'s yellow-gold engagement ring — "a nice way to match," in Steph Mazuera\'s words.',
+            reportedBy: 'ELLE (Alyssa Bailey)',
+            reportedOn: '2026-07-22',
+            status: 'unconfirmed',
+            url: 'https://www.aol.com/articles/travis-kelce-wedding-band-nods-195810000.html',
+            note: 'An expert reading of design intent, not a confirmed fact — neither the couple nor any jeweler has named the band\'s designer, metal spec, or the reason for the gold; the width and price are estimates from photos. Resolves if the couple or the band\'s maker confirms or denies the intended nod, and a candidate to fade otherwise. ELLE\'s piece read this session via its verbatim AOL syndication.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-24',
+          },
         ],
       },
     },
@@ -2744,10 +2962,11 @@ export default {
       snippet:
         'Twain says she was honored by the invitation but had already committed to opening for Harry Styles at Wembley Stadium the same weekend as the July 3 ceremony.',
       sourceUrl: 'https://www.the-independent.com/arts-entertainment/music/news/taylor-swift-wedding-shania-twain-b3020210.html',
-      thumbnailUrl: null,
+      thumbnailUrl:
+        'https://upload.wikimedia.org/wikipedia/commons/3/30/Shania_Twain_Glaston2024_2806_300624_%2822_of_173%29_%2853838020769%29_%28cropped%29.jpg',
       moment: {
         context:
-          'Twain opened for Styles\'s 12-night London residency, which ran through July 4 — directly overlapping the wedding weekend. She gave the same explanation in two on-record appearances: to eTalk, that she\'d already committed to the Wembley booking and chose to honor it; on the July 22 Tonight Show, that she was honored to have been invited and planned to congratulate Taylor in person next time they met.',
+          'Twain opened for Styles\'s 12-night London residency, which ran through July 4 — directly overlapping the wedding weekend. She gave the same explanation in two on-record appearances: to eTalk, that she\'d already committed to the Wembley booking and chose to honor it; on the July 22 Tonight Show, that she was honored to have been invited and planned to congratulate Taylor in person next time they met.\n\nHer own words filled it in. To eTalk (first reported July 14): "Taylor Swift invited me to her wedding. And I couldn\'t go because I was already committed to Harry\'s shows," adding she "would have done anything" to be there "but I was with Harry," and laughing off that the conflict was Swift\'s own ex — "It\'s just kind of funny that that happened that way." On Fallon she praised the craft over the absence: "She\'s a fabulous performer… she does write her own songs. She sits down at home, plays the piano, plays the guitar. So I admire her musicianship and her commitment to telling her stories. I love everything about her." The history runs the other way too — Swift has long named Twain among her formative country influences — though Twain did not invoke that in these appearances. No public gift or message was sent in lieu of attending; she framed the make-good as an in-person congratulations. She was one of several invited names who publicly explained missing the July 3 ceremony, alongside Ryan Seacrest (a work commitment), Robert Pattinson (a film shoot) and Charles Barkley (who declined outright).',
         sources: [
           {
             outlet: 'The Independent',
@@ -2767,6 +2986,59 @@ export default {
             accessed_at: '2026-07-23',
             reliability_score: 3,
           },
+          // Ledger #1267 (2026-07-24): verbatim eTalk + Fallon quotes, the
+          // Twain-as-influence backstory, and the other invited guests who
+          // explained their absence.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/country/shania-twain-talks-taylor-swift-new-album-fallon-1236301256/',
+            source_title: "'I Love Everything About Her': Shania Twain Has Only Good Things to Say About Taylor Swift",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'RTÉ',
+            url: 'https://www.rte.ie/entertainment/2026/0723/1584789-twain-missed-swifts-wedding-to-perform-with-harry-styles/',
+            source_title: "Twain missed Swift's wedding to perform with Harry Styles",
+            publisher: 'RTÉ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/why-shania-twain-is-opening-for-harry-styles-1235579099/',
+            source_title: 'Why Shania Twain Is Opening for Harry Styles',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Boot',
+            url: 'https://theboot.com/taylor-swift-country-music-roots-2000s-albums/',
+            source_title: "How Taylor Swift's Career Beginnings Foreshadowed Her Move to Pop, Continuing Country Influence",
+            publisher: 'The Boot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+        ],
+        // Photo added at backfill 2026-07-24 (Wyatt: recent posts should have
+        // pictures). Archival portrait — the wedding-decline was explained in
+        // interviews, not a photographed event, so this is the closest true
+        // visual: Twain onstage. upload.wikimedia.org (allowlisted); curl 200 +
+        // image/jpeg, 1595x2394, vision-confirmed as Shania.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Shania_Twain_Glaston2024_2806_300624_%2822_of_173%29_%2853838020769%29_%28cropped%29.jpg',
+            credit: 'Raph_PH / Wikimedia Commons, CC BY 2.0',
+            caption: 'Shania Twain performing at Glastonbury Festival, June 30, 2024.',
+            kind: 'archival',
+            focalPoint: '50% 22%',
+          },
         ],
       },
     },
@@ -2784,7 +3056,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the July 21 Ross Tucker Football Podcast, Jason said the shift in his own public life was gradual through his 13 NFL seasons, then "a very big flip" once Travis and Taylor started dating. In his own words: "I went from very much being dominated by large fat men coming up to me and shaking my hand and thanking me for being an Eagle to little girls. It was quite a shift of people that became fans."',
+          'On the July 21 Ross Tucker Football Podcast, Jason said the shift in his own public life was gradual through his 13 NFL seasons, then "a very big flip" once Travis and Taylor started dating. In his own words: "I went from very much being dominated by large fat men coming up to me and shaking my hand and thanking me for being an Eagle to little girls. It was quite a shift of people that became fans."\n\nAsked whether it happened gradually, Jason said it "was definitely gradual, and then it just like was a big flip obviously when Taylor and Travis started dating" — one that "led to a whole other demographic and fan base being interested, not just me, my entire family." The numbers bear the shift out. When Swift first attended a Chiefs game (vs. the Bears, Sept. 24, 2023), Travis\'s jersey sales spiked nearly 400% across the Fanatics network, vaulting him from the 19th-best-selling NFL player into the top five in a single Sunday. The brothers\' New Heights podcast, building since 2022, then signed a reported $100 million-plus deal with Amazon\'s Wondery in August 2024; and when Swift herself sat down on the show in August 2025, the episode pulled more than 15 million YouTube views in under two days and a record 1.3 million concurrent livestream viewers, topping Spotify\'s episode, trending and sports charts at once. The reach extends past the Kelces: a LendingTree survey found 13% of U.S. consumers — and 24% of Gen Z — said Swift raised their interest in watching football, the "large fat men to little girls" flip measured at national scale.',
         sources: [
           {
             outlet: 'People',
@@ -2802,6 +3074,54 @@ export default {
             publisher: "Harper's Bazaar",
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+          // Ledger #1292 (2026-07-24): more of Jason's July 21 remarks + the
+          // quantified "Taylor effect" (jersey spike, the New Heights/Wondery
+          // deal, the record Swift episode, the LendingTree football-interest survey).
+          {
+            outlet: 'Pro Football Network',
+            url: 'https://www.profootballnetwork.com/jason-kelce-taylor-swift-family-fame-stratosphere/',
+            source_title: "'A Whole Other Demographic' — Jason Kelce Details How Taylor Swift Elevated His Family's Fame",
+            publisher: 'Pro Football Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'KCUR (NPR)',
+            url: 'https://www.kcur.org/sports/2023-09-28/taylor-swifts-travis-kelce-kansas-city-chiefs-jersey',
+            source_title: "Taylor Swift's star power sends Travis Kelce's jersey sales soaring",
+            publisher: 'KCUR / NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-travis-kelce-podcast-ratings-1236344673/',
+            source_title: 'Taylor Swift-Travis Kelce Podcast Delivers a Massive 15 Million Views, Stream Crashes',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Awful Announcing',
+            url: 'https://awfulannouncing.com/podcasts/kelce-brothers-new-heights-amazon-deal.html',
+            source_title: "Kelce brothers reach $100 million-plus deal with Amazon for 'New Heights'",
+            publisher: 'Awful Announcing',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'LiveNOW from FOX',
+            url: 'https://www.livenowfox.com/news/taylor-swift-nfl-impact-travis-kelce',
+            source_title: 'How Taylor Swift changed the NFL — and how the NFL changed Taylor Swift',
+            publisher: 'FOX Television Stations',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 3,
           },
         ],
@@ -3105,14 +3425,24 @@ export default {
       month: 9,
       day: 20,
       category: 'fashion',
-      title: 'The first "Showgirl orange" look: Reformation cashmere and a Versace leather mini',
+      // Cross-links + sources added 2026-07-24 (ledger #1066). Title corrected
+      // the same pass: it is NOT verifiably her "first" Showgirl-orange look —
+      // a $70 pumpkin merch cardigan (worn Sept. 17) and the Aug. 12 New Heights
+      // announcement's orange both preceded it — so the superlative was dropped
+      // for the sourced "made it a fashion story" framing Marie Claire used.
+      relatedIds: [
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+        'moment:vault-tloas-orange-sequins-and-feathers',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+      ],
+      title: 'The look that made "Showgirl orange" a fashion story: Reformation cashmere and a Versace leather mini',
       snippet:
-        'Explaining the album\'s packaging and orange-and-mint color scheme on Sept. 20, she wore a pumpkin-hued Reformation cashmere sweater over a Versace leather mini skirt — the outfit that made "Showgirl orange" a fashion story before the record even dropped.',
+        'Explaining the album\'s packaging and orange-and-mint color scheme on Sept. 20, she wore a pumpkin-hued Reformation cashmere sweater over a Versace leather mini skirt — the outfit that turned "Showgirl orange" into a fashion story before the record even dropped.',
       sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-showgirl-orange-reformation-cashmere-versace-leather-mini-skirt/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The look accompanied a behind-the-scenes video about the record\'s visual identity — posted by Taylor Nation on Sept. 20, with Swift talking through the album\'s orange-and-mint packaging on camera in front of set art from the era\'s shoots. Fans clocked the outfit as the messaging: the album wasn\'t out for two more weeks, and she was already dressed in its color.\n\nThe styling formula was classic Swift promo-craft, pairing a sold-out Reformation cashmere crew in Showgirl orange with a high-end Versace leather mini, while a roughly $70 sparkly pumpkin cardigan on her merch store offered fans a budget-friendly version of the color — deliberately mixing accessible and designer pieces the way she had for past eras\' drops, so the look could be copied at two price points. Marie Claire\'s coverage marked it as the moment "Showgirl orange" became a fashion story in its own right, ahead of the record itself.',
+          'The look accompanied a behind-the-scenes video about the record\'s visual identity — posted by Taylor Nation in the week of Sept. 20 — with Swift talking through the packaging on camera in front of set art from the era\'s shoots. She called the design "really luxurious as a nod to the luxury that a showgirl puts on when she\'s on the stage," walking fans through the photo-card CDs, a unique poem tucked into each vinyl, and a first-ever high-gloss finish. Fans clocked the outfit as the messaging: the album wasn\'t out for two more weeks, and she was already dressed in its color.\n\nIt wasn\'t her first orange of the era — she\'d worn a roughly $70 pumpkin merch cardigan a few days earlier, and orange had been the Showgirl signal since the Aug. 12 New Heights announcement — but it was the look Marie Claire marked as turning "Showgirl orange" into a fashion story. The formula was classic Swift promo-craft: a sold-out Reformation cashmere crew in Showgirl orange over Versace\'s Black Medusa leather mini (about $430), the merch cardigan offering fans a budget echo of the same color. No stylist is credited for this off-duty look itself; her longtime stylist Joseph Cassell Falconer is credited on the era\'s editorial shoots.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -3122,6 +3452,40 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            // Swift's on-camera packaging words ("really luxurious… nod to the
+            // luxury a showgirl puts on when she's on the stage"; high-gloss
+            // finish; per-vinyl poems; photo-card CDs) from the Taylor Nation video.
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/taylor-swift-talks-luxurious-album-artwork-for-the-life-of-a-showgirl-says-fans-will-see-more-images-than-we-ever-planned-3894073',
+            source_title: 'Taylor Swift talks "luxurious" album artwork for \'The Life of a Showgirl\'',
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // The ~$70 pumpkin merch cardigan worn earlier (Sept. 17) — the basis
+            // for the "not her first orange look" correction.
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-life-of-a-showgirl-orange-cardigan-merch/',
+            source_title: "Taylor Swift's $70 Orange Cardigan Is the Showgirl Era's First Merch Flex",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // Itemized breakdown IDing the Versace "Black Medusa Leather Mini
+            // Skirt" ($430) and the Reformation cashmere crew (documentation blog).
+            outlet: 'Taylor Swift Style',
+            url: 'https://www.taylorswiftstyle.com/post-grid/tloas-092025',
+            source_title: '13 Days Until The Life of a Showgirl',
+            publisher: 'Taylor Swift Style',
+            source_type: 'blog',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         // Still from the Taylor Nation video, hotlinked from Marie Claire's
@@ -3241,70 +3605,6 @@ export default {
       },
     },
     {
-      slug: 'showgirl-emmy-nomination-eras-final-show',
-      year: 2026,
-      month: 7,
-      day: 9,
-      category: 'business',
-      title: 'The Eras Tour: The Final Show earns five Emmy nominations',
-      snippet:
-        'Her first Primetime Emmy nod in over a decade: five nominations for the Disney+ concert film, including Outstanding Variety Special, for a nearly 3.5-hour cut of the tour\'s Vancouver finale with the full Tortured Poets set added.',
-      sourceUrl: 'https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-2026-emmy-nominations-1236641549/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'The 2026 nominations covered Outstanding Variety Special (Prerecorded), directing for Glenn Weiss, picture editing, sound mixing, and technical direction/camerawork. Produced by Taylor Swift Productions with Silent House Productions, the film captured the 45-song Vancouver finale in full, including the TTPD segment Swift has called the "Female Rage" set — material no prior filmed version of the show contained. As a named producer on the Variety Special nomination, Swift herself is a nominee.\n\nIt was her first Primetime Emmy recognition in over a decade, and it recast the tour\'s afterlife: a stadium show that had already broken box-office and grossing records was now competing in television\'s categories too, against purpose-built comedy and variety specials. The 78th Emmy Awards air Sept. 14, 2026 on NBC and Peacock.',
-        sources: [
-          {
-            outlet: 'The Hollywood Reporter',
-            url: 'https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-2026-emmy-nominations-1236641549/',
-            source_title: "Taylor Swift's 'The Eras Tour: The Final Show' Lands 5 Emmy Noms, Including One for Namesake",
-            publisher: 'The Hollywood Reporter',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/lists/taylor-swift-emmy-nomination-eras-tour-final-show/',
-            source_title: "Taylor Swift Gets Emmy Nomination for 'The Eras Tour: The Final Show'",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-        ],
-        // Commons concert photo of the actual tour (license CC BY 2.0,
-        // Paolo V, verified via the Commons API this session); dated in the
-        // caption so it isn't mistaken for the Vancouver finale itself.
-        // Photo pass #762 run 9 (2026-07-18): added the Getty tour photo THR
-        // ran as the hero of its own Emmy-nominations story (THR's wp-content
-        // CDN; curl-verified 200 image/jpeg 1440x810, downloaded and viewed).
-        // Caption keeps it generic to the tour since Getty's frame isn't
-        // dated to the Vancouver finale. Both images viewed for focal points.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
-            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
-            caption:
-              'The Eras Tour\'s Lover set at SoFi Stadium, August 2023 — the show whose filmed Vancouver finale earned the five nominations.',
-            kind: 'archival',
-            // Wide panorama, Taylor small in the left third against a dark bowl.
-            focalPoint: '34% 40%',
-          },
-          {
-            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2026/07/GettyImages-2166917001.jpg?w=1440&h=810&crop=1',
-            credit: 'Getty Images, via The Hollywood Reporter',
-            caption:
-              'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
-            kind: 'archival',
-            // Taylor centered, face just above the vertical midline.
-            focalPoint: '50% 36%',
-          },
-        ],
-      },
-    },
-    {
       slug: 'showgirl-grammy-eligibility-window-miss',
       significance: 'notable', // a real, documented trade-off in the release calendar with a full award-cycle consequence (docs/decisions.md, 2026-07-19)
       year: 2025,
@@ -3406,6 +3706,27 @@ export default {
             focalPoint: '50% 42%',
           },
         ],
+        // Rumor Desk 2026-07-24 (news digest): the moment above holds the
+        // confirmed line (the album is banked for the 2027 Grammys); this
+        // separates the forward-looking prediction of HOW it does there.
+        // Award chances are explicitly public-facing/allowed by the redlines,
+        // and this is adjudicable — it resolves when the 69th Grammy
+        // nominations land (~Nov 2026). No location. Distinct from the
+        // song-level Oscar/Grammy prediction on the "I Knew It, I Knew You"
+        // moment: this is about the album's overall nomination haul.
+        rumors: [
+          {
+            claim:
+              'Forbes laid out a path for Swift to be the most-nominated act at the 2027 Grammys — potentially double-digit nominations spanning Album of the Year and Best Pop Vocal Album for The Life of a Showgirl, Record/Song of the Year for its singles, Best Pop Duo/Group for the Sabrina Carpenter title track, and country and visual-media nods for "I Knew It, I Knew You."',
+            reportedBy: 'Forbes (Hugh McIntyre)',
+            reportedOn: '2026-07-22',
+            status: 'unconfirmed',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
+            note: 'A best-case projection, not a nomination — predictions diverge: Gold Derby\'s tracker (July 8) had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record and Song of the Year. Resolves when the 69th Grammy nominations are announced (~November 2026). Forbes 403s our fetcher; read via its verbatim Yahoo News Canada syndication.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-24',
+          },
+        ],
       },
     },
     {
@@ -3421,7 +3742,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Styled by Joseph Cassell Falconer in a red Frankie Shop bomber jacket, black mini skirt, tights, knee-high boots, and a Louis Vuitton bag, Swift arrived with her parents after the 8:15 p.m. kickoff — nearly an hour into a Christmas Day game the NFL had handed to Amazon Prime, whose cameras caught her in the concourse on the way up to the suite. The red-on-red palette read as both Chiefs colors and Christmas at once.\n\nMarie Claire noted the game\'s added weight: with the Chiefs missing the playoffs for the first time since 2014, the Broncos game was expected to be Kelce\'s final appearance at Arrowhead that season, which made her family-in-tow attendance read as more than a holiday outing — a send-off to the season that had bracketed their engagement year. The Artifex Fine engagement ring, by then a fixture of every game-day sighting, rounded out the look.',
+          'Styled by Joseph Cassell Falconer in a red Frankie Shop bomber jacket, black mini skirt, tights, knee-high boots, and a Louis Vuitton bag, Swift arrived with her parents after the 8:15 p.m. kickoff — nearly an hour into a Christmas Day game the NFL had handed to Amazon Prime, whose cameras caught her in the concourse on the way up to the suite. The red-on-red palette read as both Chiefs colors and Christmas at once.\n\nMarie Claire noted the game\'s added weight: with the Chiefs missing the playoffs for the first time since 2014, the Broncos game was expected to be Kelce\'s final appearance at Arrowhead that season, which made her family-in-tow attendance read as more than a holiday outing — a send-off to the season that had bracketed their engagement year. The Artifex Fine engagement ring, by then a fixture of every game-day sighting, rounded out the look.\n\nThe game itself was already a formality, and the timing sharpens the "missed the playoffs" note: Kansas City had been eliminated from contention the previous Sunday, in a 16–13 loss to the Chargers — the game in which Patrick Mahomes tore his left ACL — sealing the Chiefs\' first missed postseason since 2014. So the Broncos matchup was played without Mahomes or backup Gardner Minshew, with third-string quarterback Chris Oladokun starting, and Denver won 20–13. The appearance traveled well past a single fashion write-up: AP, People, ESPN, Fox Sports and Yahoo all ran game-day items built around the Amazon Prime cameras catching Swift entering the concourse with parents Andrea and Scott Swift. The red hero piece was later identified as The Frankie Shop\'s "Zion Bomber Jacket" ($388).',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -3430,6 +3751,45 @@ export default {
             publisher: 'Marie Claire',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Ledger #1122 (2026-07-24): the game outcome + the corrected
+          // elimination timing (KC was out the prior week, Chargers/Mahomes ACL),
+          // the exact bomber ID, and the broader game-day coverage.
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/game/_/gameId/401772622/broncos-chiefs',
+            source_title: 'Broncos 20-13 Chiefs (Dec 25, 2025) Final Score',
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Front Office Sports',
+            url: 'https://frontofficesports.com/chiefs-dynasty-ends-as-amazons-christmas-game-loses-shine/',
+            source_title: 'Mahomes Tears ACL and Chiefs Eliminated From Playoffs',
+            publisher: 'Front Office Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'theFashionSpot',
+            url: 'https://www.thefashionspot.com/fashion-news/921485-taylor-swift-bomber-jacket-bag-louis-vuitton/',
+            source_title: 'Taylor Swift Elevates $300 Jacket With $4K Louis Vuitton Bag',
+            publisher: 'theFashionSpot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'People (via AOL)',
+            url: 'https://www.aol.com/articles/taylor-swift-matches-her-signature-125318714.html',
+            source_title: "Taylor Swift Matches Her Signature Red Lipstick to Trendy Bomber Jacket for Fiance Travis Kelce's Christmas Day Game",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
@@ -4585,12 +4945,12 @@ export default {
       ],
       title: "Luminate's 2025 crown: 5.6 million units, no contest",
       snippet:
-        'The year-end report made it official — Showgirl was 2025\'s most-consumed album in the US at 5.607M units, roughly half a million clear of Morgan Wallen. Her fourth year-end No. 1, and second in a row.',
+        'The year-end report made it official — Showgirl was 2025\'s most-consumed album in the US at 5.607M units, roughly half a million clear of Morgan Wallen. Her fifth year-end No. 1 — more than any act in history — and second in a row.',
       sourceUrl: 'https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Remarkable mostly for the calendar: the album had only 13 weeks of 2025 to work with (Luminate\'s tracking year closed Jan. 1, 2026) and still finished at 5.607 million US units — enough to beat everything released in the previous nine months and top Billboard\'s year-end Billboard 200. Morgan Wallen\'s "I\'m the Problem" ran second at 5.125 million; it was the first year since Luminate began the metric in 2014 that two albums each cleared five million.\n\nThe shape of the number tilted hard toward ownership. Of the 5.607 million, 3.985 million (71%) were pure album sales — itself the year\'s No. 1 sales total by a wide margin — against 1.603 million streaming-equivalent units and just 19,000 track-equivalent. Showgirl was also 2025\'s No. 1 vinyl album (1.601 million LPs) and the top seller on CD, cassette, and download, the collector economy behind the record October week doing the year-round work.\n\nIt was her fourth year-end No. 1 album and her second in a row, after The Tortured Poets Department\'s 2024 crown — though TTPD\'s larger 6.955-million 2024 total is the reminder that a single quarter of eligibility, not a bigger fanbase, set the 2025 ceiling. One nuance the headline hides: the year\'s top overall artist was Wallen (a record 41 Hot 100 entries), with Swift taking top album and top female artist. Globally, the IFPI named Showgirl its biggest-selling album of 2025 — No. 1 on its worldwide album, album-sales, and vinyl charts.',
+          'Remarkable mostly for the calendar: the album had only 13 weeks of 2025 to work with (Luminate\'s tracking year closed Jan. 1, 2026) and still finished at 5.607 million US units — enough to beat everything released in the previous nine months and top Billboard\'s year-end Billboard 200. Morgan Wallen\'s "I\'m the Problem" ran second at 5.125 million; it was the first year since Luminate began the metric in 2014 that two albums each cleared five million.\n\nThe shape of the number tilted hard toward ownership. Of the 5.607 million, 3.985 million (71%) were pure album sales — itself the year\'s No. 1 sales total by a wide margin — against 1.603 million streaming-equivalent units and just 19,000 track-equivalent. Showgirl was also 2025\'s No. 1 vinyl album (1.601 million LPs) and the top seller on CD, cassette, and download, the collector economy behind the record October week doing the year-round work.\n\nIt was her fifth year-end No. 1 on the Billboard 200 — after Fearless (2009), 1989 (2015), reputation (2018), and The Tortured Poets Department (2024) — making her the first act ever to lead the year-end album chart five separate times. Taking 2024 and 2025 back to back also made her the first to top the year-end Billboard 200 in consecutive years with two different titles since Elton John in 1974. TTPD\'s larger 6.955-million 2024 total is the reminder that a single quarter of eligibility, not a bigger fanbase, set the 2025 ceiling. One nuance the headline hides: the year\'s top overall artist was Wallen (a record 41 Hot 100 entries), with Swift taking top album and top female artist. Globally, the IFPI named Showgirl its biggest-selling album of 2025 — No. 1 on its worldwide album, album-sales, and vinyl charts — back to back after The Tortured Poets Department took the 2024 global album crown.',
         sources: [
           {
             outlet: 'Billboard',
@@ -4609,6 +4969,20 @@ export default {
             source_type: 'chart_database',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+          },
+          // Correction + depth 2026-07-24 (#1438 Q1): Showgirl is her FIFTH
+          // year-end Billboard 200 No. 1 (was mislabeled "fourth") — Fearless
+          // 2009, 1989 2015, reputation 2018, TTPD 2024, Showgirl 2025 — and
+          // the Elton-John-1974 consecutive-titles line. Verified against
+          // Billboard's own year-end story (already cited above) and this.
+          {
+            outlet: 'In Music',
+            url: 'https://inmusicblog.com/news/taylor-swift-billboard-200-year-end-history-record/',
+            source_title: 'Taylor Swift Makes History With Five Billboard 200 Year-End No. 1 Albums',
+            publisher: 'In Music',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
           // Depth ledger #1077 (2026-07-21): the format split (3.985M pure /
           // 1.603M SEA / 19K TEA), the pure-sales & vinyl No. 1s, Wallen's
@@ -4857,7 +5231,7 @@ export default {
         'https://d3i6fh83elv35t.cloudfront.net/static/2026/06/2026-06-11T222809Z_1091184995_RC2YRLAQU168_RTRMADP_3_AWARDS-SONGWRITERS-HALL-OF-FAME-1024x683.jpg',
       moment: {
         context:
-          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, and KISS\'s Gene Simmons and Paul Stanley — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nHer speech ran past the twenty-minute mark, and the room got the songwriter version of her origin story — she held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her. Spielberg\'s introduction was her own doing, in a way: when the Hall asked which of her heroes she\'d want presenting, she named him. And the seating chart told the engagement-year story on its own — Travis, Andrea Swift, and Donna Kelce at her table, twenty-two days before the Madison Square Garden wedding.',
+          'The June 11 ceremony at New York\'s Marriott Marquis put her in a class of 2026 that included Alanis Morissette, Kenny Loggins, KISS\'s Gene Simmons and Paul Stanley, Walter Afanasieff, Terry Britten and Graham Lyle, and Christopher "Tricky" Stewart — and put her in the record books twice: youngest woman ever inducted, and second-youngest inductee in the Hall\'s history behind Stevie Wonder, who got in at 32 in 1983. She had a prior tie to the Hall — its 2010 Hal David Starlight Award, given to her at 20 — which made her its first Starlight honoree to return as a full inducted member. Of all the institutions to canonize her mid-era, this one honored the craft underneath everything else: the writing.\n\nThe introduction was her own doing: asked which of her heroes she\'d want presenting, she named Steven Spielberg, who appeared as a surprise. He set her in a lineage of "the composers of the Great American Songbook, Lennon and McCartney of the Sixties, and the singer-songwriters of the Seventies like Carole King and Stevie Nicks and your namesake James Taylor," called her "a woman who has no peer when it comes to shattering records as a writer, singer, and storyteller," and argued her achievements "defy A.I." — "no algorithm can replace the soul of a true original." "Somehow," he closed, "Taylor knows us all too well."\n\nTaylor didn\'t perform. Instead, at her request, the 20-year-old singer-songwriter sombr opened her segment with covers of "Cardigan" and "Dear John," and she returned the praise — "his writing is so exceptional that it makes me actually envious... Sombr is the future, and he doesn\'t need AI." The rest of her past-twenty-minute speech was about where her own writing began: she named the Nashville co-writers who taught her the room — Liz Rose (a fellow inductee, watching from the audience), Hillary Lindsey, the late Brett James, Robert Ellis Orrall, the Warren Brothers and Craig Wiseman — recalling how a session with Wiseman sent her home to finish "Love Story" alone that night. She held back tears thanking her family for "uprooting their entire lives" to Nashville to bet on her.\n\nShe kept the room on songwriting — no mention of the Madison Square Garden wedding twenty-two days off, though the seating told that story anyway, with Travis Kelce, Andrea Swift and Donna Kelce at her table. She walked the carpet in a custom Givenchy by Sarah Burton, a black gown embroidered top to bottom with blooms. The gala is an invite-only black-tie dinner with no broadcast or livestream; the full remarks reached fans mainly through Billboard\'s published transcript, picked up across Variety, Rolling Stone, PBS NewsHour and CBS News.',
         sources: [
           {
             outlet: 'PBS NewsHour',
@@ -4885,6 +5259,45 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-13',
             reliability_score: 4,
+          },
+          // Added 2026-07-24 (ledger #1119): the sombr tribute (Q1), Spielberg's
+          // actual remarks (Q3), the gown designer (Q6), and the Hall's own
+          // record of the gala (Q2/Q7).
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2026/music/news/sombr-covers-taylor-swift-songwriters-hall-of-fame-1236779478/',
+            source_title: 'Sombr Covers Two Taylor Swift Songs as Steven Spielberg Compares Her to Lennon-McCartney at Songwriters Hall of Fame Ceremony',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/steven-spielberg-taylor-swift-songwriters-hall-of-fame-1235576584/',
+            source_title: "See Steven Spielberg Praise 'Singular' Taylor Swift in Songwriters Hall of Fame Introduction",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-givenchy-dress-songwriters-hall-of-fame-gala-1239008334/',
+            source_title: "Taylor Swift Endorses Sarah Burton's Givenchy at Songwriters Hall of Fame Gala",
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Songwriters Hall of Fame',
+            url: 'https://www.songhall.org/news/shof-celebrates-best-of-songwriting-legends-at-2026-gala',
+            source_title: 'Songwriters Hall of Fame Celebrates the Best of Songwriting Legends at its 2026 Induction & Awards Dinner',
+            publisher: 'Songwriters Hall of Fame',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Photo pass #762 run 4 (2026-07-18): both ceremony photos
@@ -5450,7 +5863,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: "The Fate of Ophelia" at No. 7, "Opalite" at No. 8, "I Knew It, I Knew You" holding at its No. 9 peak, and "Elizabeth Taylor" at No. 10.\n\nNo artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.\n\nThe four are not all from one record, which is the quietly interesting part. "The Fate of Ophelia," "Opalite" and "Elizabeth Taylor" come from The Life of a Showgirl; "I Knew It, I Knew You" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once.\n\nIt brings her to 23 top 10s on the ranking, nine of them No. 1s — a formidable tally that is still nowhere near the format\'s all-time leaders, where Elton John holds the record with 42 top 10s (18 of them No. 1s), ahead of Neil Diamond\'s 38 and Barbra Streisand\'s 35. And for all four landing in the top 10 at once, none of them has topped Adult Contemporary itself: on a chart this slow-moving even her two Hot 100 No. 1s, "The Fate of Ophelia" and "Opalite," sit at Nos. 7 and 8.',
+          'Billboard’s Adult Contemporary chart has been published continuously since the issue dated July 17, 1961. On the chart dated July 18, 2026 — sixty-five years and a day later — Taylor took four of its top 10 at once: "The Fate of Ophelia" at No. 7, "Opalite" at No. 8, "I Knew It, I Knew You" holding at its No. 9 peak, and "Elizabeth Taylor" at No. 10.\n\nNo artist had done that before with music that isn’t seasonal, and the qualifier is the whole record rather than a technicality. Michael Bublé got there first, across three weeks of the 2011 holidays — two weeks with four songs in the top 10 and one with five, No. 1 included — but every one of them came off his Christmas album, which is a format that behaves like nothing else on the chart. Strip the tinsel out and the top of Adult Contemporary had never belonged to one artist four times over until this week.\n\nThe four are not all from one record, which is the quietly interesting part. "The Fate of Ophelia," "Opalite" and "Elizabeth Taylor" come from The Life of a Showgirl; "I Knew It, I Knew You" is from the Toy Story 5 soundtrack. Adult Contemporary is a slow chart by design — songs climb it over months and stay — so a week like this is less a launch than an accumulation, the sound of four separate releases all still working at once.\n\nIt brings her to 23 top 10s on the ranking, nine of them No. 1s. That is the most of any act active on Adult Contemporary since her own first appearance in March 2008 — ahead of Bublé’s 19 and Kelly Clarkson’s 15 over that span — but well short of the all-time leaders, where Elton John holds the record with 42 top 10s (18 of them No. 1s), ahead of Neil Diamond’s 38 and Barbra Streisand’s 35; John also owns the most AC No. 1s at 18, with Celine Dion’s 11 the female mark. And for all four landing at once, none has topped Adult Contemporary itself: "The Fate of Ophelia" peaked at No. 2 in March and "Opalite" at No. 4 in May, while "I Knew It, I Knew You" and "Elizabeth Taylor" held this week’s Nos. 9 and 10.\n\nThe four reached Adult Contemporary at very different times, which is what made the convergence possible. "The Fate of Ophelia" debuted in October 2025 and "Opalite" in November — long-haul climbers 40 and 36 weeks deep by this chart — while "Elizabeth Taylor" entered in March 2026 and "I Knew It, I Knew You" debuted straight into the top 10 at No. 9 in June, a level no earlier Taylor soundtrack single had reached (her prior best, "I Don’t Wanna Live Forever," stalled at No. 16), though Billboard didn’t frame it as a first. The week turned on "Elizabeth Taylor," the biggest gainer, rising from No. 14 to complete the set at No. 10 as "The Fate of Ophelia" slipped off its peak. And it held: on the next chart, dated July 25, all four moved up a spot together to Nos. 6–9 — new peaks for "I Knew It, I Knew You" (No. 8) and "Elizabeth Taylor" (No. 9) — without growing to five or breaking apart, and with none yet threatening Alex Warren’s long-running No. 1, "Ordinary."',
         sources: [
           {
             outlet: 'Billboard',
@@ -5494,6 +5907,27 @@ export default {
             accessed_at: '2026-07-22',
             reliability_score: 4,
           },
+          // Added 2026-07-24 (ledger #1058): each song's AC peak and debut/weeks
+          // detail (Q1/Q4) and the July 25 follow-through (Q6) from the chart's
+          // own per-entry data; the AC No. 1 leaderboard (Q2) from the AC list.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/charts/adult-contemporary/',
+            source_title: 'Adult Contemporary — chart dated July 25, 2026 (per-entry debut/peak/weeks/last-week detail)',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/List_of_artists_who_reached_number_one_on_the_U.S._Adult_Contemporary_chart',
+            source_title: 'List of artists who reached number one on the U.S. Adult Contemporary chart',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
         ],
         // No photo: a chart week has no photography of its own, and dropping in
         // an unrelated performance shot would illustrate nothing that happened
@@ -5526,9 +5960,16 @@ export default {
         'https://www.rollingstone.com/music/music-news/taylor-swift-2026-emmy-nominations-eras-tour-final-show-1235590955/',
       thumbnailUrl: null,
       significance: 'notable', // a real award milestone — first Emmy nominations in 10+ years, on the record-breaking Eras Tour (docs/decisions.md, 2026-07-18)
+      // Cross-links added 2026-07-24 (correction ledger #1275, Q6): the awards
+      // page now threads back to the film it honors and the docuseries it
+      // premiered beside, so a reader can follow the arc release -> awards.
+      relatedIds: [
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+      ],
       moment: {
         context:
-          'The concert film of the Eras Tour’s final night — Taylor Swift: The Eras Tour: The Final Show, which streamed on Disney+ — landed five nominations when the 78th Emmy nominations were announced on July 8, 2026: Outstanding Variety Special (Pre-Recorded), a directing nod for Glenn Weiss, Outstanding Picture Editing for Variety Programming, Outstanding Sound Mixing for a Variety Series or Special, and Outstanding Technical Direction and Camerawork for a Special.\n\nTaylor is credited on the special as both performer and producer — Taylor Swift Productions made it, in association with Silent House — so the nominations attach to her personally, and they are her first Emmy nominations in more than a decade. They are not her first Emmy outright: back in 2015 she won Outstanding Creative Achievement in Interactive Media for the AMEX Unstaged: Taylor Swift Experience, the 360-degree app built around the "Blank Space" video, as its artist and executive producer. What is new this time is the Television Academy recognizing her on-camera performing work — and it is the film of the record-breaking Eras Tour that got her there.\n\nOnly the Variety Special nod rides the primetime telecast; the other four — directing, picture editing, sound mixing, and technical direction and camerawork — are Creative Arts Emmys, handed out at the separate Creative Arts ceremony on Sept. 5-6, 2026, ahead of the main show on Sept. 14 (NBC and Peacock, hosted by Mariska Hargitay). Director Glenn Weiss, a veteran of the Oscars and Tony telecasts, was double-nominated in that directing category — also cited for the 78th Tony Awards. The special captures the tour\'s final night at Vancouver\'s BC Place in December 2025, a roughly three-and-a-half-hour, 45-song set that runs the entire Tortured Poets Department; its eligibility turned on format, where the 2023 Eras Tour concert film was a theatrical release and this Disney+ streaming special qualified as television.',
+          'The concert film of the Eras Tour’s final night — Taylor Swift: The Eras Tour: The Final Show, which streamed on Disney+ — landed five nominations when the 78th Emmy nominations were announced on July 8, 2026: Outstanding Variety Special (Pre-Recorded), a directing nod for Glenn Weiss, Outstanding Picture Editing for Variety Programming, Outstanding Sound Mixing for a Variety Series or Special, and Outstanding Technical Direction and Camerawork for a Special.\n\nTaylor is credited on the special as both performer and producer — Taylor Swift Productions made it, in association with Silent House — so the nominations attach to her personally, and they are her first Emmy nominations in more than a decade. They are not her first Emmy outright: back in 2015 she won Outstanding Creative Achievement in Interactive Media for the AMEX Unstaged: Taylor Swift Experience, the 360-degree app built around the "Blank Space" video, as its artist and executive producer. What is new this time is the Television Academy recognizing her on-camera performing work — and it is the film of the record-breaking Eras Tour that got her there.\n\nOnly the Variety Special nod rides the primetime telecast; the other four — directing, picture editing, sound mixing, and technical direction and camerawork — are Creative Arts Emmys, handed out at the separate Creative Arts ceremony on Sept. 5-6, 2026, ahead of the main show on Sept. 14 (NBC and Peacock, hosted by Mariska Hargitay). Director Glenn Weiss, a veteran of the Oscars and Tony telecasts, was double-nominated in that directing category — also cited for the 78th Tony Awards. The special captures the tour\'s final night at Vancouver\'s BC Place in December 2025, a roughly three-and-a-half-hour, 45-song set that runs the entire Tortured Poets Department; its eligibility turned on format, where the 2023 Eras Tour concert film was a theatrical release and this Disney+ streaming special qualified as television.\n\nFive nominations is a heavy haul for a concert special — just shy of the six that Beyoncé\'s "Homecoming" drew in 2019, the modern benchmark for the form. That Netflix film competed in the same Variety Special (Pre-Recorded) race and was shut out at the Creative Arts ceremony, winning none of its six, a reminder that the nod is the achievement and the trophy is a separate question the Sept. 2026 ceremonies will settle. In the Variety Special (Pre-Recorded) category The Final Show is up against "Wicked: One Wonderful Night" (NBC), "Dave Chappelle: The Unstoppable…," Hulu\'s "Nikki Glaser: Good Girl," and a Muppet Show special — a field of purpose-built comedy and event television. Silent House, the firm sharing the production credit with Taylor Swift Productions, is the live-design company founded by Baz Halpin in 2010 that staged the Eras Tour itself, so the people who built the show also made its film.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -5559,11 +6000,75 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 4,
           },
+          // Depth 2026-07-24 (#1034 Q7 / #1275 Q3): the concert-special
+          // benchmark — Homecoming's six 2019 noms and its Creative-Arts shutout.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2019/music/news/beyonce-emmy-nominations-homecoming-1203268823/',
+            source_title: "Emmy Queen Bey? Beyonce's 'Homecoming' Lands Six Nominations",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          // Depth 2026-07-24 (#1034 Q5): the full Variety Special (Pre-Recorded)
+          // field the Final Show competes in at the 78th Emmys — authoritative.
+          {
+            outlet: 'Television Academy',
+            url: 'https://www.televisionacademy.com/awards/nominees-winners/2026/outstanding-variety-special-pre-recorded',
+            source_title: 'Outstanding Variety Special (Pre-Recorded) — 2026 Nominees',
+            publisher: 'Television Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          // Depth 2026-07-24 (#1034 Q6): Silent House, Baz Halpin's live-design
+          // firm (founded 2010) that shares the special's production credit.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2019/music/news/silent-house-tour-producers-1203349554/',
+            source_title: 'Silent House, Pink and Taylor Swift Tour Producer, Turns 10 in Style',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          // Merged 2026-07-24 (correction ledger #1275): corroboration carried
+          // over from the deleted duplicate `showgirl-emmy-nomination-eras-final-show`.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-emmy-nomination-eras-tour-final-show/',
+            source_title: "Taylor Swift Gets Emmy Nomination for 'The Eras Tour: The Final Show'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
         ],
-        // No photo: the nominations announcement has no photography of its own,
-        // and a stand-in performance still would illustrate nothing that
-        // happened here. Same call as the Marasco and donation items below.
-        photos: [],
+        // Photos merged 2026-07-24 from the deleted duplicate moment
+        // `showgirl-emmy-nomination-eras-final-show` (correction ledger #1275):
+        // both are verified tour photos, not the nominations event itself, so
+        // captions keep them generic to the Eras Tour that earned the nods.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'The Eras Tour\'s Lover set at SoFi Stadium, August 2023 — the show whose filmed Vancouver finale earned the five nominations.',
+            kind: 'archival',
+            // Wide panorama, Taylor small in the left third against a dark bowl.
+            focalPoint: '34% 40%',
+          },
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2026/07/GettyImages-2166917001.jpg?w=1440&h=810&crop=1',
+            credit: 'Getty Images, via The Hollywood Reporter',
+            caption:
+              'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
+            kind: 'archival',
+            // Taylor centered, face just above the vertical midline.
+            focalPoint: '50% 36%',
+          },
+        ],
       },
     },
     {
@@ -5639,7 +6144,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Billboard’s Pop Airplay chart tracks spins at pop radio, and it is a slow, crowded format — a song has to be worked for months to reach the top. On the chart dated July 20, 2026, “I Knew It, I Knew You” reached No. 9, becoming Taylor’s 29th career top 10 there, nearly two decades after she first appeared on the tally.\n\nThat number is the whole story. Only Rihanna has ever gathered more: her 30 Pop Airplay top 10s are the all-time record, and Taylor now sits exactly one behind it, with a song still climbing rather than fading. She already owns the format’s other headline mark — the most No. 1s in its history — so Rihanna’s top-10 count is one of the few Pop Airplay lines she hasn’t already claimed for herself.\n\nThe song keeps refusing the tidy version of the story. It isn’t a Showgirl track: “I Knew It, I Knew You” is her original for the Toy Story 5 soundtrack, co-written with Jack Antonoff, and it has now crossed every format that matters — a No. 1 Hot 100 debut, a top-10 Country Airplay entry, four simultaneous Adult Contemporary top 10s the week before, and now the edge of a Pop Airplay record. A movie song built for an animated character, out-charting most artists’ actual singles, one top 10 from the books.',
+          'Billboard’s Pop Airplay chart tracks spins at pop radio, and it is a slow, crowded format — a song has to be worked for months to reach the top. It debuted around No. 20 on the chart dated June 20, 2026, and roughly five weeks later, on the chart dated July 20, “I Knew It, I Knew You” climbed 12–9 into the top 10 — Taylor’s 29th career top 10 there, nearly two decades after she first appeared on the tally. It edged one place higher, to No. 8, the following week.\n\nThat number is the whole story. Only Rihanna has ever gathered more: her 30 Pop Airplay top 10s are the all-time record, and Taylor sits exactly one behind it — as of these charts she had not yet added a 30th to tie it. She already owns the format’s other headline mark, the most No. 1s in its history: she first broke that record in July 2023 and extended it to fifteen with “Opalite” on the chart dated Feb. 28, 2026. So Rihanna’s top-10 count is one of the few Pop Airplay lines she hasn’t already claimed for herself.\n\nThe song keeps refusing the tidy version of the story. It isn’t a Showgirl track: “I Knew It, I Knew You” is her original for the Toy Story 5 soundtrack, co-written and produced with Jack Antonoff, and it has crossed every format that matters — a No. 1 Hot 100 debut, a top-10 Country Airplay entry, four simultaneous Adult Contemporary top 10s the week before, and now the edge of a Pop Airplay record. A movie song built for an animated character, out-charting most artists’ actual singles.\n\nThe origin explains the oddity. Pixar approached her in 2025 for a Toy Story 5 original; she was initially uninterested, until a letter from producer Jessica Choi about the film’s female-centered story won her over. She asked to watch the film in February 2026, and — hit with what she called the “songwriter zoomies” — wrote, produced and recorded it with Antonoff inside about eight hours of the screening. It’s Jessie the cowgirl’s song, playing over the closing credits; director Andrew Stanton said it fit “like a long-lost family member,” and Pixar cut a decoy version of the film without it to keep the surprise. Walt Disney Records issued it as a single on June 5, 2026; Antonoff played nine of its fourteen instruments, and it was cut at Electric Lady Studios in New York. Critics treated it as more than a soundtrack obligation — The Guardian called it her best song in years — and by midsummer it had entered the Academy Award for Best Original Song conversation.',
         sources: [
           {
             outlet: 'Forbes',
@@ -5661,6 +6166,54 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-21',
             reliability_score: 5,
+          },
+          // Added 2026-07-24 (ledger #1289): the song's Toy Story 5 origin and
+          // credits (Q2/Q3), the pinned 15-No.1 Pop Airplay record (Q4), and
+          // the critical reception (Q6).
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/culture/tv-film/taylor-swift-toy-story-5-original-song-knew-it-knew-you-1236261432/',
+            source_title: "Taylor Swift Pens 'Toy Story 5' Original Song 'I Knew It, I Knew You'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-finished-toy-story-5-song-hectic-8-hour-1236276419/',
+            source_title: "Taylor Swift Says She Got the 'Songwriter Zoomies' & Finished Toy Story 5 Song in 8 Hours",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-opalite-number-1-pop-airplay-chart-1236183278/',
+            source_title: "Taylor Swift Dances to Her Record-Extending 15th Pop Airplay Chart No. 1 With 'Opalite'",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Guardian',
+            url: 'https://www.theguardian.com/music/2026/jun/05/taylor-swift-i-knew-it-i-knew-you-review-toy-story-5',
+            source_title: "Taylor Swift: 'I Knew It, I Knew You' review — song for Toy Story cowgirl Jessie is Swift's best in years",
+            publisher: 'Guardian News & Media',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-toy-story-5-i-knew-it-i-knew-you-song-1235571671/',
+            source_title: 'Taylor Swift Gives Jessie Her Flowers on Heartfelt Toy Story 5 Song',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
           },
         ],
         // No photo: a chart week has no photography of its own; a stand-in
@@ -5891,11 +6444,89 @@ export default {
       month: 10,
       day: 5,
       category: "music",
+      // Cross-links + sourced depth added 2026-07-24 (ledgers #1069, #1106,
+      // "big-ticket"/deficit): scoped to the VIDEO AS A DIRECTED WORK — crew,
+      // premiere-as-event, filming, YouTube metrics, the dance trend, easter
+      // eggs, the ASC win. The song's chart run lives on the lead-single page
+      // and the piece-by-piece costumes on the wardrobe page (both linked).
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai',
+        'moment:vault-tloas-the-official-release-party-of-a-showgirl-turns-movie-theater',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+      ],
       title: "“The Fate of Ophelia” video premieres",
       snippet: "The self-directed lead-single video debuts on YouTube after its theatrical-only premiere two days earlier.",
       video: { youtubeId: "ko70cExuzZM", title: "Taylor Swift - The Fate of Ophelia (Official Music Video)" },
       moment: {
-        context: "Written and directed by Taylor Swift, the video moves through a string of theatrical costume changes and sets, in keeping with the album’s showgirl framing.\n\nIt had already premiered on the big screen as part of the release-party film before arriving on YouTube for the wider audience.",
+        context: "Swift wrote and directed the video herself and, per its credits, built it with Eras Tour collaborators: cinematographer Rodrigo Prieto (Barbie, Killers of the Flower Moon), production designer Ethan Tobman, and choreographer Mandy Moore, casting her Eras band and dancers as the ensemble. Filming centered on the 1931 Los Angeles Theatre in downtown LA, after rehearsals that ran more than three weeks; the piece moves through a run of eras — an Old Hollywood opening, 1960s go-go lines, and a Busby Berkeley-scale synchronized-swim number that stages the drowned-Ophelia cover.\n\nIt premiered on the big screen first, playing inside “The Official Release Party of a Showgirl” — the Oct. 3, 2025 theatrical event that wrapped the video with behind-the-scenes footage, lyric videos, and Swift’s spoken “what inspired this music” intros — before its YouTube debut two days later, on Oct. 5, where it drew about 25 million views in three days and trended at No. 1. Fans turned the chorus choreography into a TikTok trend that even Australian PM Anthony Albanese attempted; Swift amplified it by posting an official clip of her and her dancers running the routine.\n\nWatchers logged a dense easter-egg layer — a door marked “No. 87” and a dressing-room photo nodding to Travis Kelce, an orange bird recalling “Look What You Made Me Do,” a clapperboard reading “Sequins are forever,” and a “Featuring Kitty Finlay” card (Finlay is Swift’s maternal grandmother’s surname). Prieto’s camerawork went on to win Outstanding Achievement in Cinematography in a Music Video at the ASC Awards (March 2026), his first ASC win.",
+        sources: [
+          {
+            // Theatrical premiere inside the Release Party + the full package shown.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-fate-of-ophelia-video-1236082294/',
+            source_title: "Taylor Swift Drops 'The Fate of Ophelia' Music Video: Watch",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            // Self-directed; cinematographer Rodrigo Prieto named.
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-the-fate-of-ophelia-music-video-watch-1236393494/',
+            source_title: "Taylor Swift Releases Music Video for 'The Fate of Ophelia': Watch",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // Crew (Tobman, Mandy Moore), Eras cast, Los Angeles Theatre filming,
+            // 3+ weeks of rehearsal, 25M views/No.1-trending in three days, and the
+            // ASC 2026 cinematography win (accolades table). Reliability-2, used
+            // only for facts corroborated by the reputable sources above/below.
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/The_Fate_of_Ophelia',
+            source_title: 'The Fate of Ophelia',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+          {
+            // Swift released an official dance clip; the chorus routine became a
+            // documented TikTok trend, choreographed by Mandy Moore.
+            outlet: 'The Mary Sue',
+            url: 'https://www.themarysue.com/taylor-swift-fate-of-ophelia-dance-tutorial-music-video-tiktok/',
+            source_title: "Taylor Swift Shares Official 'Fate of Ophelia' Dance Tutorial",
+            publisher: 'The Mary Sue',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            // The video's easter-egg roundup (No. 87 door, Kelce photo, orange
+            // bird, "Sequins are forever" clapperboard, "Featuring Kitty Finlay").
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swifts-fate-ophelia-music-180352287.html',
+            source_title: "Every Easter Egg in Taylor Swift's 'The Fate of Ophelia' Music Video",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            // Rodrigo Prieto's first ASC Award (Music Video), ceremony March 8 2026.
+            outlet: 'IBTimes UK',
+            url: 'https://www.ibtimes.co.uk/rodrigo-prieto-asc-award-taylor-swift-fate-ophelia-1784138',
+            source_title: "Rodrigo Prieto Wins First ASC Music Video Award for Taylor Swift's 'The Fate of Ophelia'",
+            publisher: 'IBTimes UK',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
         // MV id ko70cExuzZM re-verified via YouTube oEmbed this session
         // ("Taylor Swift - The Fate of Ophelia (Official Music Video)",
@@ -5923,10 +6554,56 @@ export default {
       month: 10,
       dateLabel: "Fall 2025",
       category: "fashion",
+      // Provenance, sources + cross-links added 2026-07-24 (ledger #1274). This
+      // generic "visual identity" card previously asserted the aesthetic with
+      // zero sourcing and a single shoppable dress with no evidence Swift wore
+      // it — now traced to the real Gucci/Bob Mackie looks, with the retail
+      // dress kept but honestly framed as a get-the-look dupe (see below).
+      relatedIds: [
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
+        'moment:vault-tloas-the-ophelia-video-wardrobe-versace-crystals-cavalli-chainmai',
+        'moment:vault-tloas-the-look-that-made-showgirl-orange-a-fashion-story-reformati',
+        'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
+      ],
       title: "Orange sequins and feathers",
       snippet: "The visual language: burnt-orange rhinestones, marabou, and spotlight sparkle.",
       moment: {
-        context: "Showgirl glamour defines the styling — sequins, feathers, and a warm theatrical glow in every frame.",
+        context: "“Showgirl orange” was the era’s signal before a note dropped: Swift told Jason Kelce on New Heights that she chose orange because it captured how her Eras Tour life felt — “effervescent” — and had teased it for months, exiting each Eras stage through an orange door. The rhinestones-and-feathers language was set by the album’s imagery, shot by Mert Alas and Marcus Piggott and styled by Swift’s longtime stylist Joseph Cassell Falconer: a custom burnt-orange, ombré-sequined Gucci gown with opera gloves anchors the portrait suite, while one alternate cover revived a feather-trimmed, rhinestone-encrusted Bob Mackie costume from the Las Vegas revue Jubilee! — Mackie being the designer synonymous with Cher and the Vegas stage. The self-directed “Fate of Ophelia” video carried the same palette across its showgirl tableaux.\n\nThe shoppable dress below — Branna Couture’s feather-trim sequin mini — is a get-the-look dupe in the era’s colors, a fan-accessible echo of those documented Gucci and Mackie looks, not a garment Swift is documented wearing.",
+        sources: [
+          {
+            // Era stylist (Joseph Cassell Falconer) + the custom burnt-orange
+            // sequined Gucci gown from the Mert & Marcus shoot. Verified reachable.
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-the-life-of-a-showgirl-style/',
+            source_title: "Every Fashion Detail of Taylor Swift's 'The Life of a Showgirl'",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // Swift on why orange — "effervescent," how her Eras Tour life felt —
+            // and the orange-door Eras Easter egg (New Heights, Aug. 2025).
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/fashion/taylor-swift-life-of-a-showgirl-album-outfits-new-heights/',
+            source_title: "Taylor Swift's 'Life of a Showgirl' Album Cover Outfit, Explained",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            // Bob Mackie's feather-and-rhinestone Jubilee! costume on an album
+            // cover variant, in the designer's own words.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/bob-mackie-blown-away-taylor-swift-outfit-showgirl-cover-1236101495/',
+            source_title: "Bob Mackie 'Blown Away' by Taylor Swift Wearing His Design on 'Showgirl' Cover",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+        ],
         products: [
           {
             brand: 'Branna Couture',

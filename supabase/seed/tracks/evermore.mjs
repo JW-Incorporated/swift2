@@ -19,9 +19,12 @@ const ALBUM = wiki(
   'album article: release facts, credits, and cited interviews',
 );
 
-export default {
-  eraSlug: 'evermore',
-  tracks: [
+// Per-song dossiers (issue #440 / #726 pattern) live in the .dossiers.mjs side
+// file to keep this file diffable; attach them by slug below. A dossier keyed
+// to a slug that doesn't exist here is an authoring typo — fail loudly.
+import DOSSIERS from './evermore.dossiers.mjs';
+
+const TRACKS = [
     {
       slug: 'willow',
       trackNumber: 1,
@@ -341,7 +344,7 @@ export default {
       releaseDate: '2020-12-11',
       writers: ['Taylor Swift', 'William Bowery', 'Justin Vernon'],
       producers: ['Taylor Swift', 'Aaron Dessner'],
-      note: 'The title-track closer with Bon Iver — depression’s floor found, then a change of key and the first sighting of the way out.',
+      note: 'The title-track closer with Bon Iver — depression’s floor found, then a change of tempo and the first sighting of the way out.',
       summary:
         'A November spent rereading old letters and assuming the pain is permanent; Vernon’s frantic bridge is the storm, and the final verses are the quiet discovery that it was not permanent after all.',
       inspiration:
@@ -387,5 +390,16 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/Evermore',
       sources: [ALBUM],
     },
-  ],
+];
+
+{
+  const slugs = new Set(TRACKS.map((t) => t.slug));
+  for (const key of Object.keys(DOSSIERS)) {
+    if (!slugs.has(key)) throw new Error(`dossier for unknown track slug: ${key}`);
+  }
+}
+
+export default {
+  eraSlug: 'evermore',
+  tracks: TRACKS.map((t) => (DOSSIERS[t.slug] ? { ...t, dossier: DOSSIERS[t.slug] } : t)),
 };
