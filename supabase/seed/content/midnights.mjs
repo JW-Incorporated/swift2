@@ -3675,7 +3675,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off a seismometer beside the stadium: shaking roughly twice as strong as the Beast Quake, sustained for hours at a time because 144,000 fans across two nights were all moving to the same beat.\n\nThe difference, she noted, was rhythm — music drives the ground in a way a single touchdown roar can\'t.',
+          'Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off a seismometer beside the stadium — shaking that peaked at a 2.3-magnitude *equivalent*, roughly twice the amplitude of the stadium\'s 2011 "Beast Quake," and sustained across the whole ~3.5-hour set rather than one touchdown\'s burst. Her read became peer-reviewed science: "Beast Quake (Taylor\'s Version)" in GSA Today (May 2024), with a separate Caltech study of the L.A./SoFi shows in Seismological Research Letters the same year.\n\nThe key finding corrects the obvious guess: the ground was moved by the crowd, not the sound system. Caltech\'s controlled test showed the PA — and even a bass guitar — produced no such signal, while fans jumping in sync did; the music only works as a metronome (Eos: "stomping feet, not booming beat"). The strongest signals tracked "Shake It Off" (the single biggest jolt, ~magnitude 0.85), "You Belong With Me" and "Love Story," each low-frequency peak matching the song\'s tempo. It is surface loading from tens of thousands of synchronized bodies, not a fault rupturing — so the "magnitude" is only an energy-equivalent, and the Beast Quake it beat never had a firm number of its own (roughly M1–2, "at best very approximate").\n\nGuinness certified it "Greatest seismic activity caused by a music concert," and the effect proved tour-wide — measured again at SoFi, at Lisbon (0.82, May 2024) and at Edinburgh, where the British Geological Survey picked it up 6 km from the stadium.',
         sources: [
           {
             outlet: 'CBS News',
@@ -3694,6 +3694,51 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Western Washington University News',
+            url: 'https://news.wwu.edu/wwu-seismologist-captures-swift-quake-story-goes-global',
+            source_title: 'WWU seismologist captures “Swift Quake,” story goes global',
+            publisher: 'Western Washington University',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Caltech',
+            url: 'https://www.caltech.edu/about/news/swifities-shake-it-off-and-help-seismologists-solve-mystery-of-how-concertgoers-shake-things-up',
+            source_title: 'Swifties Shake It Off — and Help Seismologists Solve a Mystery',
+            publisher: 'California Institute of Technology',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Eos',
+            url: 'https://eos.org/articles/swift-quakes-caused-by-stomping-feet-not-booming-beat',
+            source_title: 'Swift Quakes Caused by Stomping Feet, Not Booming Beat',
+            publisher: 'Eos (American Geophysical Union)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/world-records/759394-greatest-seismic-activity-caused-by-a-music-concert',
+            source_title: 'Greatest seismic activity caused by a music concert',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'British Geological Survey',
+            url: 'https://www.bgs.ac.uk/news/quake-it-off-taylor-swift-concerts-shake-edinburgh/',
+            source_title: 'Quake it off: Taylor Swift concerts shake Edinburgh',
+            publisher: 'British Geological Survey',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Real-photo pass (2026-07-09): freely licensed photo taken inside Lumen
