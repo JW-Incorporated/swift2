@@ -4256,6 +4256,18 @@ export default {
       significance: 'defining', // bypassed the entire studio system and still set the concert-film opening record — a new distribution playbook, not just a box-office number (docs/decisions.md, 2026-07-19)
       // No new MILESTONES entry: "m-mid-3" (this same era file) already marks
       // Oct. 13, 2023 on the scrubber via the "midnights-film" stub item.
+      // Cross-links (ledger #1476 Q5, 2026-07-24): the tour this film documents,
+      // the docuseries about its making, and the 2025 concert film it set the
+      // template for. All three moment ids verified against the generated vault.
+      // (Song links to "Our Song"/"You're On Your Own, Kid" can't render here —
+      // moment relatedIds resolve only to moments, not tracks.)
+      relatedIds: [
+        'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+      ],
+      // Reception pull-quote (ledger #1476 Q1): The Hollywood Reporter's verdict.
+      pullQuote: '“Sometimes exhausting, often exhilarating, always impressively immersive.”',
       title: 'The Eras Tour film opens to $92.8 million — the biggest concert-film debut ever',
       snippet:
         'Distributed straight through AMC, skipping the studios entirely: $92.8M domestic, $123.5M globally, and the second-biggest October opening of all time behind Joker.',
@@ -4263,7 +4275,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Oct. 13, 2023 opening weekend played like a tour stop: theaters full of costumed fans dancing in the aisles, with minimal traditional marketing behind it. The $123.5 million global start beat the concert-film opening record Justin Bieber: Never Say Never had held since 2011, and the $92.8 million domestic number ranked as the second-biggest October opening ever, behind only Joker.\n\nDirected by Sam Wrench and filmed over the first three of Swift\'s six SoFi Stadium nights (Aug. 3–5, 2023), it carried her numerology into the box office: AMC priced adult tickets at $19.89 (for 1989) and children\'s and seniors\' at $13.13 (for her lucky number). Demand broke AMC\'s own records — a $26 million single-day presale, past $100 million in global advance sales before opening — with the chain saying it had braced its site for "more than five times" its largest-ever ticket rush.\n\nThe business model drew as much coverage as the numbers: Swift bypassed the studio system and dealt directly with AMC — theaters kept 43% of the gross, the rest split between Swift and AMC — a direct-to-exhibitor first at this scale that she reran for the 2025 Showgirl Release Party. The theatrical cut kept the two acoustic surprise songs filmed at SoFi ("Our Song" and "You\'re On Your Own, Kid") but dropped five setlist numbers ("The Archer," "cardigan," "Wildest Dreams," "Long Live," "no body, no crime"); a later Extended Version restored three, and the March 2024 Disney+ edit added "cardigan" plus four more acoustic cuts. By January 2024 the film had grossed roughly $261.6 million worldwide, passing Michael Jackson\'s This Is It as the highest-grossing concert film ever on its way to about $267 million.',
+          'The Oct. 13, 2023 opening weekend played like a tour stop: theaters full of costumed fans dancing in the aisles, with minimal traditional marketing. The $123.5 million global start beat the concert-film opening record Justin Bieber: Never Say Never had held since 2011, and the $92.8 million domestic number ranked as the second-biggest October opening ever, behind only Joker.\n\nDirected by Sam Wrench and filmed over the first three of Swift\'s six SoFi Stadium nights (Aug. 3–5, 2023), it carried her numerology into the box office: AMC priced adult tickets at $19.89 and children\'s and seniors\' at $13.13. Demand broke AMC\'s records — a $26 million single-day presale, past $100 million in advance sales before opening — and AMC shares jumped about 11.5% on the news.\n\nThe business model drew as much coverage as the numbers: Swift bypassed the studios and dealt directly with AMC — theaters kept 43% of the gross — a direct-to-exhibitor first at this scale she reran for the 2025 Showgirl Release Party. It opened in more than 100 countries, booked overseas through Trafalgar Releasing rather than a studio, and trades credited it with reviving a strike-thinned fall box office.\n\nThe theatrical cut kept the two SoFi surprise songs ("Our Song" and "You\'re On Your Own, Kid") but dropped five numbers; a later Extended Version and the March 2024 Disney+ edit restored them and added more acoustic cuts. Reviews matched the box office — a 98% Rotten Tomatoes score and an 82 Metascore — and while a concert film was ineligible for the documentary Oscar, it earned a Golden Globe nomination for Cinematic and Box Office Achievement, losing to Barbie. By January 2024 it passed Michael Jackson\'s This Is It as the highest-grossing concert film ever, on its way to about $267 million.',
         sources: [
           {
             outlet: 'Variety',
@@ -4327,6 +4339,73 @@ export default {
             source_title: "Taylor Swift | The Eras Tour Becomes Highest-Grossing Concert Film of All Time",
             publisher: 'AMC Entertainment',
             source_type: 'primary',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1476, 2026-07-24): critical reception, the AMC /
+          // exhibition-industry story, international width, and the awards axis.
+          {
+            outlet: 'Rotten Tomatoes',
+            url: 'https://www.rottentomatoes.com/m/taylor_swift_the_eras_tour',
+            source_title: 'Taylor Swift: The Eras Tour — 98% Tomatometer (96 reviews)',
+            publisher: 'Rotten Tomatoes',
+            source_type: 'aggregator',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Metacritic',
+            url: 'https://www.metacritic.com/movie/taylor-swift-the-eras-tour/',
+            source_title: 'Taylor Swift: The Eras Tour — Metascore 82 (universal acclaim)',
+            publisher: 'Metacritic',
+            source_type: 'aggregator',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/movies/movie-reviews/taylor-swift-the-eras-tour-review-1235616407/',
+            source_title: "'Taylor Swift: The Eras Tour' Review (Angie Han)",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Source of the pull-quote: "always impressively immersive"',
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/tv-movies/tv-movie-reviews/taylor-swift-the-eras-tour-movie-review-sing-along-amc-evermore-1234853358/',
+            source_title: "'Taylor Swift: The Eras Tour' Movie Review (Rob Sheffield)",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2023/film/news/how-taylor-swift-eras-tour-concert-movie-landed-amc-theaters-1235749215/',
+            source_title: "How Taylor Swift's Eras Tour Concert Film Scrambled (and Saved) the Fall Movie Season",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'AMC stock jump, direct-to-exhibitor model, reviving the post-strike fall box office',
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/movies/movie-news/taylor-swift-golden-globes-box-office-history-1235781525/',
+            source_title: "Taylor Swift's Eras Tour Film Makes Golden Globes History (Cinematic and Box Office Achievement nom)",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://au.variety.com/?p=11433',
+            source_title: "Why Taylor Swift's Eras Tour Film Is Ineligible for the Documentary Feature Oscar",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
           },

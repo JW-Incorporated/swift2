@@ -300,7 +300,33 @@ const ERA = {
       fanLore:
         'Fan reading (unconfirmed): popular mappings onto her documented business adversaries — none acknowledged.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Vigilante_Shit',
-      sources: [wiki('Vigilante Shit', 'Vigilante_Shit', 'song article: solo credit'), ALBUM],
+      sources: [
+        wiki('Vigilante Shit', 'Vigilante_Shit', 'song article: solo credit, BPM/key, chart peaks, reception'),
+        // Depth pass (ledger #1461, 2026-07-24): production technique, the No. 10
+        // sweep spot, the split critical read.
+        {
+          source_url:
+            'https://www.musicradar.com/news/jack-antonoff-interview-taylor-swift-midnights-oberheim',
+          source_title: 'Jack Antonoff on making Midnights: the tape-transient beat-building technique',
+          publisher: 'MusicRadar',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'Antonoff on building the buzzy, minimalist Vigilante Shit beat from tape transients',
+        },
+        {
+          source_url:
+            'https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/',
+          source_title:
+            'Taylor Swift Makes History as First Artist to Claim Entire Top 10 of the Hot 100',
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: '"Vigilante Shit" debuted at No. 10, the lowest rung of the all-top-10 sweep',
+        },
+        ALBUM,
+      ],
     },
     {
       slug: 'bejeweled',
@@ -322,7 +348,38 @@ const ERA = {
         'The video’s bell chimes, purple gown, and floor numbers were all confirmed clues pointing at Speak Now (Taylor’s Version).',
       sourceUrl: 'https://en.wikipedia.org/wiki/Bejeweled_(song)',
       sources: [
-        wiki('Bejeweled (song)', 'Bejeweled_(song)', 'song article: video Easter eggs'),
+        wiki('Bejeweled (song)', 'Bejeweled_(song)', 'song article: charts, certifications, production, rollout'),
+        // Depth pass (ledger #1477, 2026-07-24): No. 6 debut/peak, production and
+        // gear, the promotional-single rollout, and named critical reception.
+        {
+          source_url:
+            'https://www.rollingstone.com/music/music-features/taylor-swift-midnights-sheffield-1234615239/',
+          source_title: 'Taylor Swift Goes Deep Into the Night on Midnights (Rob Sheffield)',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'Sheffield reads Bejeweled as folklore’s "Mirrorball" grown into disco self-assurance',
+        },
+        {
+          source_url: 'https://www.nme.com/reviews/album/taylor-swift-midnights-review-3332805',
+          source_title: 'Taylor Swift – Midnights review (four stars)',
+          publisher: 'NME',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'Holds up Bejeweled as emblematic of a self-assured pop return',
+        },
+        {
+          source_url:
+            'https://www.setlist.fm/setlist/taylor-swift/2023/state-farm-stadium-glendale-az-bbb91ce.html',
+          source_title: 'Taylor Swift setlist, Eras Tour opening night, Glendale (Mar 17, 2023)',
+          publisher: 'setlist.fm',
+          source_type: 'primary',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 3,
+          notes: 'Bejeweled fifth in the Midnights act from opening night; a main-set number',
+        },
         ALBUM,
       ],
     },

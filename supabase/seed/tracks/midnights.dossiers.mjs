@@ -177,5 +177,134 @@ export default {
         why: "Business Insider's Courteney Larocca paired the two — both detail the inevitable end of an ill-fated affair."
       }
     ]
+  },
+  // Added 2026-07-24 by the Answerer (depth shard 6, a later same-shard run) for
+  // curiosity ledgers #1461 and #1477 — the two Midnights song stubs the earlier
+  // shard-6 midnights run (PR #1471) did not reach. Same fact-checked
+  // confirmed/supported/fanTheories discipline; no lyrics; unverified axes (US
+  // RIAA certs) left out.
+  'vigilante-shit': {
+    whyItMatters: [
+      "The only song on Midnights that Swift wrote entirely by herself — the record's cold-revenge set piece, 'revenge served through paperwork' rather than a keyed car. Produced with Jack Antonoff in A minor at about 80 BPM, its 2:44 of noir minimalism became one of the album's most-discussed tracks on release.",
+      "On the Eras Tour it turned into a signature moment: a burlesque chair number in the Midnights act that fans and critics repeatedly compared to Chicago, staged from opening night in Glendale. On the chart dated Nov. 5, 2022 it debuted at No. 10 — the lowest rung of the historic week Swift became the first artist to hold the entire Hot 100 top 10 at once."
+    ],
+    meaning: {
+      confirmed: [
+        "Written solely by Taylor Swift (the album's lone solo credit) and produced with Jack Antonoff. Antonoff described building its buzzy, minimalist beat from tape transients in a MusicRadar interview — 'smashing everything into a Copicat,' then panning 808s and carving out low end 'to get that buzz.' It runs about 80 BPM in A minor and is 2 minutes 44 seconds long.",
+        "Only an official lyric video was released (October 2022); Swift made no standalone music video or visualizer for the track, so its visual footprint is the Eras Tour staging rather than a film."
+      ],
+      supported: [
+        "Reception split on the same axis critics still argue: Variety's Chris Willman predicted it would be the album's 'most talked-about song,' Vulture's Justin Curto called it Swift at her 'venomous best,' and The New York Times' Jon Caramanica read the narrator as 'funny, wry, slightly perturbing.' Pitchfork's Quinn Moreland dissented — the revenge-fantasy 'edginess' plays like a 'costume' next to the album's deeper cuts."
+      ],
+      fanTheories: [
+        "Fans and press widely map the song onto Swift's documented business adversaries (the Scooter Braun / masters dispute) and, less often, Kanye West. Swift has named no subject; the lyric's literal story is a fictional wife-and-mistress revenge plot, and every real-world target is fan/critic reading, not confirmed fact."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:mastermind",
+        label: "Mastermind",
+        why: "Two Midnights self-portraits of control — Mastermind is the wink that she engineered everything on purpose, Vigilante Shit the cold execution of a plan against someone who wronged a friend."
+      },
+      {
+        relatedId: "song:karma",
+        label: "Karma",
+        why: "The album's other reckoning track — Karma savors comeuppance arriving on its own, Vigilante Shit hurries it along with forwarded paperwork; a matched pair on the record's justice theme."
+      },
+      {
+        relatedId: "song:look-what-you-made-me-do",
+        label: "Look What You Made Me Do",
+        why: "reputation's public, theatrical revenge is the precedent critics reached for; Vigilante Shit reruns the vengeance instinct in a colder, quieter, procedural register — the 'Reputation-adjacent' read made concrete."
+      },
+      {
+        relatedId: "song:mad-woman",
+        label: "mad woman",
+        why: "folklore's study of a woman weaponizing the anger she's been provoked into is the clearest thematic ancestor — female rage turned deliberate rather than unhinged."
+      }
+    ],
+    live: [
+      {
+        date: "March 17, 2023",
+        event: "Eras Tour opening night — State Farm Stadium, Glendale, AZ",
+        note: "Staged in the Midnights act as a chair-dance number (widely likened to Chicago); a fixture of the main set from the tour's first night, not a surprise song."
+      }
+    ],
+    sources: [
+      {
+        name: "Vigilante Shit (song) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Vigilante_Shit"
+      },
+      {
+        name: "MusicRadar: Jack Antonoff on building the Midnights tracks (tape-transient technique)",
+        url: "https://www.musicradar.com/news/jack-antonoff-interview-taylor-swift-midnights-oberheim"
+      },
+      {
+        name: "Billboard: Taylor Swift Makes History as First Artist to Claim Entire Hot 100 Top 10",
+        url: "https://www.billboard.com/music/chart-beat/taylor-swift-all-hot-100-top-10-anti-hero-1235163664/"
+      }
+    ]
+  },
+  'bejeweled': {
+    whyItMatters: [
+      "A sparkle-pop highlight of Midnights and, in the record's all-top-10 week, the No. 6 song in the sweep — debuting and peaking at No. 6 on the Hot 100 and No. 8 on the Billboard Global 200. It reached the top 10 in Canada (No. 7) and Australia (No. 7, later 3× Platinum there) on streaming and sales alone.",
+      "It anchored its own staged segment in the Midnights act of the Eras Tour from opening night, and its self-directed video — cameos by Laura Dern, HAIM and Dita Von Teese — hid the Speak Now (Taylor's Version) announcement in plain sight, making the song a rare case where the track and its video each carry a distinct piece of era lore."
+    ],
+    meaning: {
+      confirmed: [
+        "Written and produced by Taylor Swift and Jack Antonoff: synth- and bubblegum-pop with disco and electronica in the mix, about 82 BPM, built on deep Moog bass, Juno-6 arpeggios, kalimba and DX7/OB-1 synths, and tracked at Rough Customer Studio in Brooklyn and Electric Lady Studios in New York.",
+        "Released as a promotional single on October 25, 2022 (a limited-time download via Swift's site), with an instrumental version two days later. It was never serviced to radio as an official single — the album's radio single was 'Anti-Hero' — so 'Bejeweled' charted purely on streaming and sales off the album.",
+        "Swift has described the song as self-reassurance about returning to pop after the folklore/evermore years — the 'you're still bejeweled' idea of pumping herself back up to prove she could still light up a room. The broader sparkle-as-defiance reading builds on that stated intent."
+      ],
+      supported: [
+        "Critics singled out its disco lift and self-worth swagger. Rolling Stone's Rob Sheffield heard it as 'the anxious dance-floor poseur of Mirrorball grown up'; Rolling Stone UK called it Swift's 'swaggiest showstopper' since 'The Man'; NME (rating Midnights four stars) held up its chorus as emblematic of a self-assured pop return. Dissenters — the NYT's Jon Caramanica ('metallic and tense,' the lyrics 'underwhelming') and the AP's Elise Ryan ('a bit too candy sweet') — found it slight."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:mirrorball",
+        label: "mirrorball",
+        why: "The comparison a critic actually drew: Rolling Stone's Rob Sheffield heard Bejeweled as folklore's anxious 'Mirrorball' grown into disco self-assurance — the same performer's fragility, now defiant."
+      },
+      {
+        relatedId: "song:the-man",
+        label: "The Man",
+        why: "Rolling Stone UK ranked Bejeweled Swift's 'swaggiest showstopper' since 'The Man' — the two are her clearest struts of self-worth-as-power, a decade of the era's confidence songs bracketed."
+      },
+      {
+        relatedId: "moment:vault-midnights-bejeweled-arrives-with-a-psychotic-amount-of-easter-eggs",
+        label: "The 'Bejeweled' video and its Easter eggs",
+        why: "The song's self-directed video is its own documented item — the Laura Dern / HAIM / Dita Von Teese Cinderella fantasy whose clues pointed at Speak Now (Taylor's Version)."
+      },
+      {
+        relatedId: "moment:vault-midnights-speak-now-taylors-version-announced-onstage-in-nashville",
+        label: "Speak Now (Taylor's Version) announced in Nashville",
+        why: "The re-record the Bejeweled video predicted: fans decoded its purple wardrobe and floor numbers correctly, and this is the announcement that proved them right."
+      }
+    ],
+    live: [
+      {
+        date: "March 17, 2023",
+        event: "Eras Tour opening night — State Farm Stadium, Glendale, AZ",
+        note: "A standing number in the Midnights act (fifth in that section on opening night), with choreography drawn from the song's viral TikTok dance; a main-set fixture, not a surprise song."
+      }
+    ],
+    sources: [
+      {
+        name: "Bejeweled (song) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Bejeweled_(song)"
+      },
+      {
+        name: "Rolling Stone: Rob Sheffield on Midnights (Bejeweled / Mirrorball read)",
+        url: "https://www.rollingstone.com/music/music-features/taylor-swift-midnights-sheffield-1234615239/"
+      },
+      {
+        name: "NME: Taylor Swift — Midnights review (four stars)",
+        url: "https://www.nme.com/reviews/album/taylor-swift-midnights-review-3332805"
+      },
+      {
+        name: "setlist.fm: Eras Tour opening night, Glendale (Midnights-act order)",
+        url: "https://www.setlist.fm/setlist/taylor-swift/2023/state-farm-stadium-glendale-az-bbb91ce.html"
+      }
+    ]
   }
 };
