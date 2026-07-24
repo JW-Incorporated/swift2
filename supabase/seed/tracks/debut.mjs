@@ -3,6 +3,7 @@
 // prose in our own words — never lyrics. Anything not publicly confirmed is
 // labeled a fan reading. Sources follow the provenance format in
 // docs/content/content-audit-2026-07-08.md §5 (all URLs verified 2026-07-08).
+import DOSSIERS from './debut.dossiers.mjs';
 const ACCESSED = '2026-07-08';
 const wiki = (title, path, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${path}`,
@@ -19,7 +20,7 @@ const ALBUM = wiki(
   'album article: release facts, credits, and cited interviews',
 );
 
-export default {
+const _debut = {
   eraSlug: 'debut',
   tracks: [
     {
@@ -316,4 +317,18 @@ export default {
       sources: [ALBUM],
     },
   ],
+};
+
+// Per-song dossiers (issue #440 pattern) live in the .dossiers.mjs side file;
+// attach them by slug. A dossier keyed to a missing slug is an authoring typo.
+{
+  const slugs = new Set(_debut.tracks.map((t) => t.slug));
+  for (const key of Object.keys(DOSSIERS)) {
+    if (!slugs.has(key)) throw new Error(`dossier for unknown track slug: ${key}`);
+  }
+}
+
+export default {
+  ..._debut,
+  tracks: _debut.tracks.map((t) => (DOSSIERS[t.slug] ? { ...t, dossier: DOSSIERS[t.slug] } : t)),
 };
