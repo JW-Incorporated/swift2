@@ -268,7 +268,12 @@ describe('assignFeedTiers over REAL vault content', () => {
   });
 
   it('renders unsigned but substantial real items as hero where spacing allows', () => {
-    const id = 'vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney';
+    // Example item, repointed 2026-07-24: this is a spacing-dependent assertion,
+    // so the specific id rotates as the TLOAS feed's substance/pacing shifts (a
+    // depth pass enriching neighbours can demote any single example — see the
+    // "ONE demotion pacing is still allowed" note above). Uses a currently-hero
+    // unsigned item; the population-level guarantee is covered by the next test.
+    const id = 'vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends';
     const it = ALL_VAULT_ITEMS.find((c) => c.id === id)!;
     expect(it.significance).toBeUndefined();
     expect(realTier(id)).toBe('hero');

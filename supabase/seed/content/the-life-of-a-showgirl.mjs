@@ -544,7 +544,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes on a loop of showtimes — the in-theater premiere of the self-directed "The Fate of Ophelia" music video, behind-the-scenes footage from its shoot, lyric videos for the rest of the album, and Swift\'s own on-camera reflections on the songs. No plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release.\n\nIt was not an AMC-only affair. AMC Theatres Distribution ran it with Variance Films in the U.S. and Canada and Piece of Magic abroad, playing all 540 U.S. AMC locations plus Cinemark and Regal, Cineplex in Canada and Cinépolis and Cinemex in Mexico — part of a global footprint of more than 8,000 cinemas across 110-plus territories. Domestically it topped Warner Bros.\' "One Battle After Another" (No. 2, about $11 million in its second weekend) and out-opened Dwayne Johnson\'s "The Smashing Machine" ($5.9 million), making it — by AMC\'s account — the only "non-film" theatrical event this century to finish a weekend at No. 1 in North America. Tickets were a flat $12, pegged to her 12th album, and AMC released no admissions count; the event played a single weekend by design (Oct. 3–5 only), so its opening gross was effectively its final total. CBS News, independent of AMC, called it "the largest grossing album debut theatrical event of all time."\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. That film opened far bigger ($92.8 million domestic); the release party\'s win was structural, not a bigger number — proof a big enough artist can rent the theatrical apparatus for a weekend and turn an album drop into a box-office event, no studio in the deal.',
+          'The three-day domestic gross split $15.8M Friday, $9.9M Saturday, and $8.3M Sunday, with roughly $16 million more internationally. Every "ticket" was for the same 89 minutes on a loop of showtimes — the in-theater premiere of the self-directed "The Fate of Ophelia" music video, behind-the-scenes footage from its shoot, lyric videos for the rest of the album, and Swift\'s own on-camera reflections on the songs. No plot, no premiere, no stars in attendance — and it still beat every actual movie in wide release.\n\nIt was not an AMC-only affair. AMC Theatres Distribution ran it with Variance Films in the U.S. and Canada and Piece of Magic abroad, playing all 540 U.S. AMC locations plus Cinemark and Regal, Cineplex in Canada and Cinépolis and Cinemex in Mexico — part of a global footprint of more than 8,000 cinemas across 110-plus territories. Domestically it topped Warner Bros.\' "One Battle After Another" (No. 2, about $11 million in its second weekend) and out-opened Dwayne Johnson\'s "The Smashing Machine" ($5.9 million), making it — by AMC\'s account — the only "non-film" theatrical event this century to finish a weekend at No. 1 in North America. Tickets were a flat $12, pegged to her 12th album, and AMC released no admissions count; the event played a single weekend by design (Oct. 3–5 only), so its opening gross was effectively its final total. CBS News, independent of AMC, called it "the largest grossing album debut theatrical event of all time."\n\nAMC called it the biggest album-debut cinema event ever, domestic and global — a rerun of the distribution play she pioneered with The Eras Tour concert film in 2023, when she bypassed the studio system and took the tour film to AMC directly. That film opened far bigger ($92.8 million domestic); the release party\'s win was structural, not a bigger number — proof a big enough artist can rent the theatrical apparatus for a weekend and turn an album drop into a box-office event, no studio in the deal.\n\nSeveral of the business specifics stayed deliberately private. The receipts were spread across more than 3,700 domestic screens, and the single overseas market AMC and Comscore ever quantified was the UK and Ireland, where it opened at No. 1 with £3.5 million ($4.7 million); the rest of the roughly $16 million international haul was never broken out country by country. AMC published no attendance figure — the ~2.8 million tickets implied by $34.1M at $12 apiece is arithmetic, not a reported count — and the revenue split among AMC Distribution, Variance Films, Piece of Magic, the participating chains and Swift\'s Republic side was never disclosed. Even the accounting was ambiguous: Comscore ranked it live within the weekend domestic chart, but no tracker said whether the gross was folded into 2025\'s official North American year-end total or held apart from it as a "non-film" event.\n\nThat single weekend was the whole of its life on the big screen. No home-video, digital or streaming release was ever announced; unlike The Eras Tour concert film, which reached Disney+ 155 days after its theatrical run, the release party stayed theatrical-exclusive — only the premiered "The Fate of Ophelia" music video and the album\'s lyric videos turned up on YouTube in the days after. Trade press floated a possible Disney+ window around March 2026, but no such deal materialized.',
         sources: [
           {
             outlet: 'Screen Daily',
@@ -584,6 +584,45 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Depth ledger #1262 (2026-07-24): the one quantified overseas market
+          // (UK/Ireland), the undisclosed attendance / revenue-split / year-end
+          // accounting, and the confirmed lack of any post-theatrical release.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/film/box-office/taylor-swift-release-party-of-a-showgirl-uk-ireland-box-office-1236541930/',
+            source_title: "Taylor Swift's 'Release Party of a Showgirl' Tops U.K., Ireland Box Office",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/pop/taylor-swift-official-release-party-show-girl-tops-box-office-1236082371/',
+            source_title: "Taylor Swift's 'Official Release Party of a Showgirl' Tops Weekend Box Office",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Dexerto',
+            url: 'https://www.dexerto.com/tv-movies/how-to-watch-taylor-swift-release-party-of-a-showgirl-streaming-3261637/',
+            source_title: "Taylor Swift's 'Showgirl release party' movie may not be streaming until 2026",
+            publisher: 'Dexerto',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Taylor_Swift:_The_Official_Release_Party_of_a_Showgirl',
+            source_title: 'Taylor Swift: The Official Release Party of a Showgirl',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
           },
           // Depth ledger #1011 (2026-07-22): the $12 flat ticket price, the
           // single-weekend limited-engagement design, and CBS's independent
@@ -959,7 +998,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it, the Target-exclusive "The Crowd Is Your King" among them. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.',
+          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it, the Target-exclusive "The Crowd Is Your King" among them. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.\n\nThe pure-sales week broke down as 1.76 million CDs, the 1.334 million LPs, 358,000 digital downloads and 26,000 cassettes, with zero à-la-carte track sales; Billboard estimated the album grossed roughly $135 million in seven days, vinyl priced from $34.99 and CD-plus-apparel bundles at $65–$70. Forbes was explicit that the million-vinyl week was a first "for any artist in history," and that the old 859,000 mark fell on release day itself — about 1.2 million LPs moved on day one alone.\n\nThe variant strategy that built the number drew its own documented criticism. In The Conversation, University of Bath marketing scholar Annayah Prosser argued the two-dozen-plus editions inflate the charts by design — since "every album purchased (regardless of the format or cover image) is valued" — and called vinyl\'s materials "unsustainable," noting Swift "hasn\'t experimented with eco-friendly alternatives." A University of Glasgow study led by Prof. Matt Brennan found about a quarter of surveyed Swift fans (26%) would consider a plastic-free release. Neither Swift nor Republic publicly answered the sustainability or chart-inflation critiques, and per-variant pressing figures were never disclosed.',
         sources: [
           {
             outlet: 'Forbes',
@@ -977,6 +1016,36 @@ export default {
             publisher: 'NPR',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth ledger #1303 (2026-07-24): the reception axis (attributed
+          // chart-inflation + sustainability criticism) and the non-vinyl format
+          // split / week-one gross that the number sat inside.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/pro/taylor-swift-life-of-a-showgirl-how-much-money-make-week-1/',
+            source_title: "How Much Money Did Taylor Swift Earn in the First Week of 'Life of a Showgirl'?",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Conversation',
+            url: 'https://theconversation.com/taylor-swifts-aggressive-marketing-guarantees-success-no-matter-what-the-music-sounds-like-266812',
+            source_title: "Taylor Swift's aggressive marketing guarantees success – no matter what the music sounds like",
+            publisher: 'The Conversation',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'University of Glasgow',
+            url: 'https://www.gla.ac.uk/news/archiveofnews/2025/february/headline_1148110_en.html',
+            source_title: "Taylor Swift fans may be ready to 'Shake Off' plastic vinyl records, new University of Glasgow study shows",
+            publisher: 'University of Glasgow',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
           // Depth ledger #990 (2026-07-21): variant count + format leadership,
@@ -2371,7 +2440,7 @@ export default {
         'https://assets1.cbsnewsstatic.com/hub/i/r/2026/07/04/dcbf1e43-644d-45c1-9fd7-712be991cd59/thumbnail/620x403/8012c5092c88e86e560c7d3b3cb2ca54/gettyimages-2283939355.jpg',
       moment: {
         context:
-          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nGuest Jonathan Thomas, CEO of American Century Investments, gave the fullest outsider account of the ceremony itself on "The Compound & Friends" podcast (July 23): vows that ran close to 30 minutes each, Travis going first ("he made himself unbelievably vulnerable," Thomas said, "I looked around and there were all these 300-pound men from the football business crying as well") and Taylor following with her own, "poetic," equally lengthy vows. Sandler\'s officiating, Thomas said, ran another 20 to 30 minutes and "vacillated between funny, very sincere, sang a few things" — landing on two themes: a riff on "for richer or for poorer" ("you\'re not going to have to worry about that") and a repeated instruction to keep kissing each other, "in the morning, at night, after dinner."\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Swift\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, ran the full width of their two worlds: Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. Seth Meyers attended with his wife Alexi Ashe, posing beforehand with longtime friends Brad Paisley and Kimberly Williams-Paisley; Meyers later called the celebration "wonderful," joking on his brother\'s podcast about the NDA that kept him from sharing more. What did not surface was the interior: no official photos of the ceremony or reception had been released as of the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the event\'s entire public visual record.\n\nAccounts filled in the interior no photo showed: the arena floor built into a garden, peach-and-white at the ceremony and green-and-white beyond, each reading their vows from gold books. Once the ceremony ended, Thomas said, the space itself transformed — "they opened up the venue, you kind of walked through this massive castle that they built. And by the way, you would never guess you\'re in Madison Square Garden the way they did. It was incredible" — resolving months of unconfirmed pre-wedding reporting about a castle set under construction inside the arena. Paul McCartney played "I Want to Hold Your Hand," while Stevie Nicks\'s reception set was never documented. The couple sang too: per best man Jason Kelce — speaking on Ross Tucker\'s Football Podcast on July 21 — the newlyweds themselves performed a duet at the reception, though no song was reported. Jason said Travis "can sing" and "has always been able to carry a tune," if it "paled in comparison to some of the other people singing that night." Favors were embroidered handkerchiefs bearing the couple\'s "T&T" monogram, the July 3 date and a "Blank Space" lyric — the same T&T play behind the "JusT&T Married" marquee. It spanned days: a ~100-guest rehearsal dinner at the Garden on July 2, then the ~1,000-guest ceremony July 3 into the early hours. Confirmed guests ran wider than first reported — among them Bradley Cooper, Zoë Kravitz, Steven Spielberg and Tom Brady.',
+          'The venue was the punchline and the point: after months of "destination wedding" speculation, the destination turned out to be Madison Square Garden — a 20,000-seat arena dressed for a wedding, with curtains hung across the glass entrance in the days before and a jumbotron outside reading "JUST&T MARRIED!" once it was done. Adam Sandler officiated and sang an original song for the couple at the ceremony. There were no bridesmaids or groomsmen: Austin Swift stood as his sister\'s Man of Honor, Jason Kelce as best man.\n\nGuest Jonathan Thomas, CEO of American Century Investments, gave the fullest outsider account of the ceremony itself on "The Compound & Friends" podcast (July 23): vows that ran close to 30 minutes each, Travis going first ("he made himself unbelievably vulnerable," Thomas said, "I looked around and there were all these 300-pound men from the football business crying as well") and Taylor following with her own, "poetic," equally lengthy vows. Sandler\'s officiating, Thomas said, ran another 20 to 30 minutes and "vacillated between funny, very sincere, sang a few things" — landing on two themes: a riff on "for richer or for poorer" ("you\'re not going to have to worry about that") and a repeated instruction to keep kissing each other, "in the morning, at night, after dinner."\n\nBoth bride and groom wore custom Christian Dior Haute Couture, and Stevie Nicks — the elder-showgirl touchstone of Swift\'s own catalog — performed at the reception. The guest list, roughly 1,000 people, ran the full width of their two worlds: Hugh Grant, Jason Sudeikis, Ethan Hawke, Abby Wambach, Joe Buck, Benson Boone, Cooper Kupp, and Paulina Gretzky among them, per CBS News\'s reporting. Seth Meyers attended with his wife Alexi Ashe, posing beforehand with longtime friends Brad Paisley and Kimberly Williams-Paisley; Meyers later called the celebration "wonderful," joking on his brother\'s podcast about the NDA that kept him from sharing more. What did not surface was the interior: no official photos of the ceremony or reception had been released as of the days after, leaving the arrivals, the curtained Garden, and the jumbotron as the event\'s entire public visual record.\n\nAccounts filled in the interior no photo showed: the arena floor built into a garden, peach-and-white at the ceremony and green-and-white beyond, each reading their vows from gold books. Once the ceremony ended, Thomas said, the space itself transformed — "they opened up the venue, you kind of walked through this massive castle that they built. And by the way, you would never guess you\'re in Madison Square Garden the way they did. It was incredible" — resolving months of unconfirmed pre-wedding reporting about a castle set under construction inside the arena. Paul McCartney played "I Want to Hold Your Hand"; guest Pat McAfee said on his show that Avril Lavigne performed "Sk8er Boi" and that Taylor joined Stevie Nicks\'s set. Catering ran through Scott Sartiano\'s orbit — his Sartiano\'s handled the July 2 rehearsal dinner and his club Zero Bond the reception, per Page Six. The couple sang too: per best man Jason Kelce — speaking on Ross Tucker\'s Football Podcast on July 21 — the newlyweds themselves performed a duet at the reception, though no song was reported. Jason said Travis "can sing" and "has always been able to carry a tune," if it "paled in comparison to some of the other people singing that night." Favors were embroidered handkerchiefs bearing the couple\'s "T&T" monogram, the July 3 date and a "Blank Space" lyric — the same T&T play behind the "JusT&T Married" marquee. It spanned days: a ~100-guest rehearsal dinner at the Garden on July 2, then the ~1,000-guest ceremony July 3 into the early hours. Confirmed guests ran wider than first reported — among them Bradley Cooper, Zoë Kravitz, Steven Spielberg and Tom Brady.',
         sources: [
           {
             outlet: 'CBS News',
@@ -2456,6 +2525,27 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
             reliability_score: 4,
+          },
+          // Ledger #1246 (2026-07-24): reception-music + vendor specifics — a
+          // guest's on-record account of Avril Lavigne's set and Taylor joining
+          // Stevie Nicks, and the confirmed caterers (Sartiano's / Zero Bond).
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/avril-lavigne-rocked-taylor-swifts-165232336.html',
+            source_title: "Avril Lavigne rocked Taylor Swift's wedding, famous guest says",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Page Six (via Yahoo)',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-enlists-help-one-114336219.html',
+            source_title: 'Taylor Swift enlists help of one of her favorite NYC restaurants for Travis Kelce wedding',
+            publisher: 'Page Six / Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
         ],
         photos: [
@@ -2700,7 +2790,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The gift went to Answer the Call — formally the New York Police and Fire Widows\' & Children\'s Benefit Fund — which currently supports roughly 500 families with annual $15,000 stipends. It was one piece of a reported $26 million the couple gave to more than 20 organizations around their wedding.',
+          'The gift went to Answer the Call — formally the New York Police and Fire Widows\' & Children\'s Benefit Fund — which currently supports roughly 500 families with annual $15,000 stipends. It was one piece of a reported $26 million the couple gave to more than 20 organizations around their wedding.\n\nThe confidence tiers matter here: the couple\'s representative confirmed the $26 million aggregate to Rolling Stone but did not itemize it, so the individual gift amounts surfaced only through the recipients themselves. On that basis the roughly 20 organizations sort into about nine food banks (City Harvest, which said it received $1 million; Feeding America, which thanked the couple for $2 million; Food Bank for NYC; the Los Angeles Regional Food Bank; Harvesters in Kansas City; and others), three children\'s hospitals (MSK Kids at Memorial Sloan Kettering, Hassenfeld Children\'s Hospital at NYU Langone, and Children\'s Mercy in Kansas City), seven education and youth programs (Education Through Music, Musical Mentors, After-School All-Stars, Grammy In The Schools, Dolly Parton\'s Imagination Library among them), an animal-welfare gift to the ASPCA, and the $2 million to Answer the Call. That $2 million figure was not stated by the couple\'s reps either; it comes from the fund\'s own public thank-you, which called the gift generous and said it would "make a tangible difference" for families but did not spell out how the money would be spent. No personal FDNY or NYPD connection has been reported — the link appears to be the New York wedding itself. Against the fund\'s scale — it has distributed more than $140 million to line-of-duty families since 1985, paying $50,000 immediately after a death and lifelong stipends thereafter — $2 million covers well over a hundred family-years of support. The giving was announced ahead of the Madison Square Garden ceremony and framed throughout as marking the wedding; whether any of it was structured as a multi-year pledge, and whether this was a first-time gift to these groups, has not been reported.',
         sources: [
           {
             outlet: 'TMZ',
@@ -2719,6 +2809,45 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
             reliability_score: 3,
+          },
+          // Ledger #1242 (2026-07-24): the full recipient list, the confidence
+          // tiering (rep-confirmed $26M aggregate vs recipient-reported per-gift
+          // amounts), and the fund's own acknowledgement.
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-travis-kelce-donate-26-million-charity-1235588245/',
+            source_title: 'Taylor Swift, Travis Kelce Kick Off Wedding Week With $26 Million Charity Donation',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'ABC7 New York',
+            url: 'https://abc7ny.com/post/taylor-swift-travis-kelce-donate-26-million-20-charities-country/19438669/',
+            source_title: 'Taylor Swift and Travis Kelce donate $26 million to 20 charities across the country',
+            publisher: 'WABC-TV (ABC7 New York)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Officer.com',
+            url: 'https://www.officer.com/features/honoring-the-fallen/news/55393246/taylor-swift-and-travis-kelce-donate-2-million-to-nyc-first-responder-families-through-answer-the-call',
+            source_title: 'Taylor Swift and Travis Kelce Donate $2 Million to NYC First Responder Families Through Answer The Call',
+            publisher: 'Officer.com (Endeavor Business Media)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Answer the Call',
+            url: 'https://www.answerthecall.org/who-we-are/',
+            source_title: "Who We Are — New York Police & Fire Widows' & Children's Benefit Fund",
+            publisher: "New York Police & Fire Widows' & Children's Benefit Fund",
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
       },
@@ -2740,7 +2869,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The first public look at the couple\'s wedding bands came July 10, blurry and distant, at former teammate JuJu Smith-Schuster\'s wedding — the bands\' own designer and specifics undisclosed. Sharper looks followed: Harper\'s Bazaar identified a plain gold band on Travis\'s left hand in July 16 training photos, and a July 20 photo posted by Cris Carter gave StyleCaster another clear angle. Separately, a Vogue Weddings carousel from the Smith-Schuster wedding let ELLE Australia\'s jewelry expert examine Taylor\'s stack more closely, describing what appears to be a chunky diamond band alongside her engagement ring — though ELLE Australia is explicit that the photo isn\'t sharp enough to confirm exact specifications, and no designer, carat count or price has been confirmed by the couple.',
+          'The first public look at the couple\'s wedding bands came July 10, blurry and distant, at former teammate JuJu Smith-Schuster\'s wedding — the bands\' own designer and specifics undisclosed. Sharper looks followed: Harper\'s Bazaar identified a plain gold band on Travis\'s left hand in July 16 training photos, and a July 20 photo posted by Cris Carter gave StyleCaster another clear angle. Separately, a Vogue Weddings carousel from the Smith-Schuster wedding let ELLE Australia\'s jewelry expert examine Taylor\'s stack more closely, describing what appears to be a chunky diamond band alongside her engagement ring — though ELLE Australia is explicit that the photo isn\'t sharp enough to confirm exact specifications, and no designer, carat count or price has been confirmed by the couple. ELLE Australia\'s expert Cushla Whiting placed the band within a specific 2026 shift she calls a moment for "chunkier diamond wedding bands" — substantial diamond bands rather than thin plain-metal ones, driven by bolder engagement rings and chosen so a band "feels balanced alongside them rather than disappearing beneath the centre stone." No imagery from the wedding day itself (July 3 at Madison Square Garden) surfaced either band; the genuine first public look did not come until July 10, and every detail on record remains outside observation of photos, with no comment from the couple or Tree Paine.',
         sources: [
           {
             outlet: 'StyleCaster',
@@ -2804,7 +2933,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Twain opened for Styles\'s 12-night London residency, which ran through July 4 — directly overlapping the wedding weekend. She gave the same explanation in two on-record appearances: to eTalk, that she\'d already committed to the Wembley booking and chose to honor it; on the July 22 Tonight Show, that she was honored to have been invited and planned to congratulate Taylor in person next time they met.',
+          'Twain opened for Styles\'s 12-night London residency, which ran through July 4 — directly overlapping the wedding weekend. She gave the same explanation in two on-record appearances: to eTalk, that she\'d already committed to the Wembley booking and chose to honor it; on the July 22 Tonight Show, that she was honored to have been invited and planned to congratulate Taylor in person next time they met.\n\nHer own words filled it in. To eTalk (first reported July 14): "Taylor Swift invited me to her wedding. And I couldn\'t go because I was already committed to Harry\'s shows," adding she "would have done anything" to be there "but I was with Harry," and laughing off that the conflict was Swift\'s own ex — "It\'s just kind of funny that that happened that way." On Fallon she praised the craft over the absence: "She\'s a fabulous performer… she does write her own songs. She sits down at home, plays the piano, plays the guitar. So I admire her musicianship and her commitment to telling her stories. I love everything about her." The history runs the other way too — Swift has long named Twain among her formative country influences — though Twain did not invoke that in these appearances. No public gift or message was sent in lieu of attending; she framed the make-good as an in-person congratulations. She was one of several invited names who publicly explained missing the July 3 ceremony, alongside Ryan Seacrest (a work commitment), Robert Pattinson (a film shoot) and Charles Barkley (who declined outright).',
         sources: [
           {
             outlet: 'The Independent',
@@ -2824,6 +2953,45 @@ export default {
             accessed_at: '2026-07-23',
             reliability_score: 3,
           },
+          // Ledger #1267 (2026-07-24): verbatim eTalk + Fallon quotes, the
+          // Twain-as-influence backstory, and the other invited guests who
+          // explained their absence.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/country/shania-twain-talks-taylor-swift-new-album-fallon-1236301256/',
+            source_title: "'I Love Everything About Her': Shania Twain Has Only Good Things to Say About Taylor Swift",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'RTÉ',
+            url: 'https://www.rte.ie/entertainment/2026/0723/1584789-twain-missed-swifts-wedding-to-perform-with-harry-styles/',
+            source_title: "Twain missed Swift's wedding to perform with Harry Styles",
+            publisher: 'RTÉ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-features/why-shania-twain-is-opening-for-harry-styles-1235579099/',
+            source_title: 'Why Shania Twain Is Opening for Harry Styles',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Boot',
+            url: 'https://theboot.com/taylor-swift-country-music-roots-2000s-albums/',
+            source_title: "How Taylor Swift's Career Beginnings Foreshadowed Her Move to Pop, Continuing Country Influence",
+            publisher: 'The Boot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
         ],
       },
     },
@@ -2841,7 +3009,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'On the July 21 Ross Tucker Football Podcast, Jason said the shift in his own public life was gradual through his 13 NFL seasons, then "a very big flip" once Travis and Taylor started dating. In his own words: "I went from very much being dominated by large fat men coming up to me and shaking my hand and thanking me for being an Eagle to little girls. It was quite a shift of people that became fans."',
+          'On the July 21 Ross Tucker Football Podcast, Jason said the shift in his own public life was gradual through his 13 NFL seasons, then "a very big flip" once Travis and Taylor started dating. In his own words: "I went from very much being dominated by large fat men coming up to me and shaking my hand and thanking me for being an Eagle to little girls. It was quite a shift of people that became fans."\n\nAsked whether it happened gradually, Jason said it "was definitely gradual, and then it just like was a big flip obviously when Taylor and Travis started dating" — one that "led to a whole other demographic and fan base being interested, not just me, my entire family." The numbers bear the shift out. When Swift first attended a Chiefs game (vs. the Bears, Sept. 24, 2023), Travis\'s jersey sales spiked nearly 400% across the Fanatics network, vaulting him from the 19th-best-selling NFL player into the top five in a single Sunday. The brothers\' New Heights podcast, building since 2022, then signed a reported $100 million-plus deal with Amazon\'s Wondery in August 2024; and when Swift herself sat down on the show in August 2025, the episode pulled more than 15 million YouTube views in under two days and a record 1.3 million concurrent livestream viewers, topping Spotify\'s episode, trending and sports charts at once. The reach extends past the Kelces: a LendingTree survey found 13% of U.S. consumers — and 24% of Gen Z — said Swift raised their interest in watching football, the "large fat men to little girls" flip measured at national scale.',
         sources: [
           {
             outlet: 'People',
@@ -2859,6 +3027,54 @@ export default {
             publisher: "Harper's Bazaar",
             source_type: 'reputable_press',
             accessed_at: '2026-07-23',
+            reliability_score: 3,
+          },
+          // Ledger #1292 (2026-07-24): more of Jason's July 21 remarks + the
+          // quantified "Taylor effect" (jersey spike, the New Heights/Wondery
+          // deal, the record Swift episode, the LendingTree football-interest survey).
+          {
+            outlet: 'Pro Football Network',
+            url: 'https://www.profootballnetwork.com/jason-kelce-taylor-swift-family-fame-stratosphere/',
+            source_title: "'A Whole Other Demographic' — Jason Kelce Details How Taylor Swift Elevated His Family's Fame",
+            publisher: 'Pro Football Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'KCUR (NPR)',
+            url: 'https://www.kcur.org/sports/2023-09-28/taylor-swifts-travis-kelce-kansas-city-chiefs-jersey',
+            source_title: "Taylor Swift's star power sends Travis Kelce's jersey sales soaring",
+            publisher: 'KCUR / NPR',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-travis-kelce-podcast-ratings-1236344673/',
+            source_title: 'Taylor Swift-Travis Kelce Podcast Delivers a Massive 15 Million Views, Stream Crashes',
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Awful Announcing',
+            url: 'https://awfulannouncing.com/podcasts/kelce-brothers-new-heights-amazon-deal.html',
+            source_title: "Kelce brothers reach $100 million-plus deal with Amazon for 'New Heights'",
+            publisher: 'Awful Announcing',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'LiveNOW from FOX',
+            url: 'https://www.livenowfox.com/news/taylor-swift-nfl-impact-travis-kelce',
+            source_title: 'How Taylor Swift changed the NFL — and how the NFL changed Taylor Swift',
+            publisher: 'FOX Television Stations',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 3,
           },
         ],
@@ -3543,7 +3759,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Styled by Joseph Cassell Falconer in a red Frankie Shop bomber jacket, black mini skirt, tights, knee-high boots, and a Louis Vuitton bag, Swift arrived with her parents after the 8:15 p.m. kickoff — nearly an hour into a Christmas Day game the NFL had handed to Amazon Prime, whose cameras caught her in the concourse on the way up to the suite. The red-on-red palette read as both Chiefs colors and Christmas at once.\n\nMarie Claire noted the game\'s added weight: with the Chiefs missing the playoffs for the first time since 2014, the Broncos game was expected to be Kelce\'s final appearance at Arrowhead that season, which made her family-in-tow attendance read as more than a holiday outing — a send-off to the season that had bracketed their engagement year. The Artifex Fine engagement ring, by then a fixture of every game-day sighting, rounded out the look.',
+          'Styled by Joseph Cassell Falconer in a red Frankie Shop bomber jacket, black mini skirt, tights, knee-high boots, and a Louis Vuitton bag, Swift arrived with her parents after the 8:15 p.m. kickoff — nearly an hour into a Christmas Day game the NFL had handed to Amazon Prime, whose cameras caught her in the concourse on the way up to the suite. The red-on-red palette read as both Chiefs colors and Christmas at once.\n\nMarie Claire noted the game\'s added weight: with the Chiefs missing the playoffs for the first time since 2014, the Broncos game was expected to be Kelce\'s final appearance at Arrowhead that season, which made her family-in-tow attendance read as more than a holiday outing — a send-off to the season that had bracketed their engagement year. The Artifex Fine engagement ring, by then a fixture of every game-day sighting, rounded out the look.\n\nThe game itself was already a formality, and the timing sharpens the "missed the playoffs" note: Kansas City had been eliminated from contention the previous Sunday, in a 16–13 loss to the Chargers — the game in which Patrick Mahomes tore his left ACL — sealing the Chiefs\' first missed postseason since 2014. So the Broncos matchup was played without Mahomes or backup Gardner Minshew, with third-string quarterback Chris Oladokun starting, and Denver won 20–13. The appearance traveled well past a single fashion write-up: AP, People, ESPN, Fox Sports and Yahoo all ran game-day items built around the Amazon Prime cameras catching Swift entering the concourse with parents Andrea and Scott Swift. The red hero piece was later identified as The Frankie Shop\'s "Zion Bomber Jacket" ($388).',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -3552,6 +3768,45 @@ export default {
             publisher: 'Marie Claire',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Ledger #1122 (2026-07-24): the game outcome + the corrected
+          // elimination timing (KC was out the prior week, Chargers/Mahomes ACL),
+          // the exact bomber ID, and the broader game-day coverage.
+          {
+            outlet: 'ESPN',
+            url: 'https://www.espn.com/nfl/game/_/gameId/401772622/broncos-chiefs',
+            source_title: 'Broncos 20-13 Chiefs (Dec 25, 2025) Final Score',
+            publisher: 'ESPN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Front Office Sports',
+            url: 'https://frontofficesports.com/chiefs-dynasty-ends-as-amazons-christmas-game-loses-shine/',
+            source_title: 'Mahomes Tears ACL and Chiefs Eliminated From Playoffs',
+            publisher: 'Front Office Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'theFashionSpot',
+            url: 'https://www.thefashionspot.com/fashion-news/921485-taylor-swift-bomber-jacket-bag-louis-vuitton/',
+            source_title: 'Taylor Swift Elevates $300 Jacket With $4K Louis Vuitton Bag',
+            publisher: 'theFashionSpot',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'People (via AOL)',
+            url: 'https://www.aol.com/articles/taylor-swift-matches-her-signature-125318714.html',
+            source_title: "Taylor Swift Matches Her Signature Red Lipstick to Trendy Bomber Jacket for Fiance Travis Kelce's Christmas Day Game",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
