@@ -1134,10 +1134,6 @@ export default {
       month: 11,
       day: 14,
       category: 'tour',
-      // Cross-link (Answerer shard 6, 2026-07-24, ledger #1254): the penultimate
-      // stop hands off to the Vancouver finale it explicitly sets up. Id verified
-      // against content-vault.generated.ts.
-      relatedIds: ['moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver'],
       title: 'The long Canadian goodbye: six nights in Toronto',
       relatedIds: [
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
@@ -2750,17 +2746,15 @@ export default {
       month: 4,
       day: 19,
       category: 'music',
-      // Cross-links (Answerer shard 6, 2026-07-24, ledger #1287): the "Mean"
-      // moment mashed live with this song, and the reputation feud origin the arc
-      // traces back to. Ids verified against content-vault.generated.ts.
-      relatedIds: [
-        'moment:vault-speak-now-mean-written-straight-at-her-critics',
-        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
-      ],
       title: 'thanK you aIMee: the capitalization does the talking',
+      // relatedIds: main's TTPD rail plus the feud-arc links (the "Mean" live
+      // mashup + the reputation feud origin) folded in by shard 6 for ledger
+      // #1287; merge-dedup 2026-07-24. All ids verified against the generated vault.
       relatedIds: [
         'moment:vault-ttpd-the-tortured-poets-department',
         'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
+        'moment:vault-speak-now-mean-written-straight-at-her-critics',
+        'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
       ],
       snippet:
         'The stray capitals spell KIM, and fans connected the rest — a song about outlasting a schoolyard bully, filed under grudges from 2016. By August, a live version was restyled "thank You aimEe."',
@@ -2861,10 +2855,6 @@ export default {
       month: 4,
       day: 19,
       category: 'music',
-      // Cross-link (Answerer shard 6, 2026-07-24, ledger #1253): bidirectional
-      // with the Miami run, where this studio-only duet became a live fixture
-      // (Miami already links inbound here). Id verified against the generated vault.
-      relatedIds: ['moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc'],
       title: 'Florida!!! — a Dateline-inspired duet with Florence Welch',
       relatedIds: [
         'moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc',
@@ -3622,10 +3612,6 @@ export default {
       month: 7,
       day: 28,
       category: 'tour',
-      // Cross-link (Answerer shard 6, 2026-07-24, ledger #1048): the mirror image
-      // two weeks later — the Vienna nights whose crowds never got inside the
-      // stadium at all. Id verified against content-vault.generated.ts.
-      relatedIds: ['moment:vault-ttpd-vienna-cancelled-a-foiled-plot-three-sold-out-shows'],
       title: "Munich's hill: the biggest free show of the Eras Tour",
       relatedIds: [
         'moment:vault-ttpd-vienna-cancelled-a-foiled-plot-three-sold-out-shows',
@@ -3722,10 +3708,6 @@ export default {
       month: 8,
       day: 7,
       category: 'tour',
-      // Cross-link (Answerer shard 6, 2026-07-24, ledger #1264): the mirror image
-      // two weeks earlier — the 40,000+ fans who gathered OUTSIDE the Munich
-      // stadium. Id verified against content-vault.generated.ts.
-      relatedIds: ['moment:vault-ttpd-munichs-hill-the-biggest-free-show-of-the-eras-tour'],
       title: 'Vienna, cancelled: a foiled plot, three sold-out shows',
       relatedIds: [
         'moment:vault-ttpd-munichs-hill-the-biggest-free-show-of-the-eras-tour',
