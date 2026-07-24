@@ -2731,6 +2731,24 @@ export default {
             reliability_score: 3,
           },
         ],
+        // Rumor Desk 2026-07-24 (news digest): the narrative above notes the
+        // couple has confirmed no designer, spec or price for either band.
+        // This labels the one attributed READING of the design intent that has
+        // surfaced — an expert interpretation, not a confirmed detail. Public-
+        // facing (jewelry), redline-clean, no location.
+        rumors: [
+          {
+            claim:
+              'ELLE asked three fine-jewelry founders to read Travis Kelce\'s newly photographed wedding band; they described a simple, timeless yellow-gold comfort-fit band roughly 5–6mm wide, valued around $2,000–$6,000, and read the yellow-gold choice as a deliberate complement to the tone of Taylor\'s yellow-gold engagement ring — "a nice way to match," in Steph Mazuera\'s words.',
+            reportedBy: 'ELLE (Alyssa Bailey)',
+            reportedOn: '2026-07-22',
+            status: 'unconfirmed',
+            url: 'https://www.aol.com/articles/travis-kelce-wedding-band-nods-195810000.html',
+            note: 'An expert reading of design intent, not a confirmed fact — neither the couple nor any jeweler has named the band\'s designer, metal spec, or the reason for the gold; the width and price are estimates from photos. Resolves if the couple or the band\'s maker confirms or denies the intended nod, and a candidate to fade otherwise. ELLE\'s piece read this session via its verbatim AOL syndication.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-24',
+          },
+        ],
       },
     },
     {
@@ -3404,6 +3422,27 @@ export default {
             // Focal point by inspection: tall frame, gramophone horn and
             // turntable in the middle band above the engraved plaque.
             focalPoint: '50% 42%',
+          },
+        ],
+        // Rumor Desk 2026-07-24 (news digest): the moment above holds the
+        // confirmed line (the album is banked for the 2027 Grammys); this
+        // separates the forward-looking prediction of HOW it does there.
+        // Award chances are explicitly public-facing/allowed by the redlines,
+        // and this is adjudicable — it resolves when the 69th Grammy
+        // nominations land (~Nov 2026). No location. Distinct from the
+        // song-level Oscar/Grammy prediction on the "I Knew It, I Knew You"
+        // moment: this is about the album's overall nomination haul.
+        rumors: [
+          {
+            claim:
+              'Forbes laid out a path for Swift to be the most-nominated act at the 2027 Grammys — potentially double-digit nominations spanning Album of the Year and Best Pop Vocal Album for The Life of a Showgirl, Record/Song of the Year for its singles, Best Pop Duo/Group for the Sabrina Carpenter title track, and country and visual-media nods for "I Knew It, I Knew You."',
+            reportedBy: 'Forbes (Hugh McIntyre)',
+            reportedOn: '2026-07-22',
+            status: 'unconfirmed',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/07/22/taylor-swifts-path-to-becoming-the-most-nominated-act-at-the-2027-grammys/',
+            note: 'A best-case projection, not a nomination — predictions diverge: Gold Derby\'s tracker (July 8) had Showgirl only sixth for Album of the Year, with "The Fate of Ophelia" faring better in Record and Song of the Year. Resolves when the 69th Grammy nominations are announced (~November 2026). Forbes 403s our fetcher; read via its verbatim Yahoo News Canada syndication.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-24',
           },
         ],
       },
