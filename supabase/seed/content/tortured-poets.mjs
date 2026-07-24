@@ -3834,6 +3834,29 @@ export default {
             notes: 'The "in her tennis era" post referenced Swift singing at Arthur Ashe as a child in 2002',
           },
         ],
+        // Stylist SOURCE pass (2026-07-24): the look names three pieces, but
+        // only the Reformation dress is a nameable, verifiable retail garment.
+        // - Reformation "Sora" linen dress: exact PDP on the brand's own store
+        //   (thereformation.com), curl HTTP 200, title "Sora Linen Dress",
+        //   price $248.00 — a real product page for the exact style. The
+        //   red-and-white gingham colorway is now sold out ("Sorry, this isn't
+        //   available"), so linked with inStock:false rather than dropped, per
+        //   the Stylist rule (sold out still links, dimmed).
+        // Skipped, no exact product page to verify:
+        // - "Gucci platform sandals" and "gold Louis Vuitton earrings" name no
+        //   specific style; gucci.com / louisvuitton.com hard-block automated
+        //   requests, so no PDP can be identified or curl-verified without
+        //   guessing — better no link than a fabricated one.
+        products: [
+          {
+            brand: 'Reformation',
+            item: 'Sora Linen Dress',
+            retailer: 'thereformation.com',
+            url: 'https://www.thereformation.com/products/sora-linen-dress/1314992.html',
+            price: '$248.00',
+            inStock: false,
+          },
+        ],
         // T16 photo pass (2026-07-09): AP photo from ABC News' coverage of
         // this outing, on ABC's own CDN. Verified HTTP 200 + image/jpeg;
         // visually confirmed (both couples in the Arthur Ashe box).
