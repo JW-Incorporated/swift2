@@ -11,6 +11,128 @@
 // No lyric quotations. Internal song:/moment: connection ids all resolve and
 // are asserted by apps/web/lib/longlive/tracks.test.ts.
 export default {
+  "my-boy-only-breaks-his-favorite-toys": {
+    whyItMatters: [
+      "Track 3 is one of the album's cleanest character studies of self-deluding cope: the narrator reframes being discarded as proof she was the favorite — only the cherished toys get broken. Solo-written by Swift and produced with Jack Antonoff, it dresses that sad logic in bright synth-pop and new-wave marching drums (Swift on piano; Antonoff programming drums, bass, guitar and Moog, Korg M1 and Roland Juno-60 synths), the polish deliberately at odds with the wound underneath.",
+      "It was also a genuine hit. It debuted and peaked at No. 6 on both the Billboard Hot 100 and the Global 200 the week The Tortured Poets Department became the first album ever to hold the entire top 14, and it reached the top 10 in Canada (6), Australia (6), New Zealand (7) and Singapore (7), later certified Platinum in Australia and Gold in New Zealand. Critics split on it — Beats Per Minute's John Wohlmacher praised how Swift stretches her vocal range and Billboard's Jason Lipshutz called it a 'big, booming' song that 'deserves the stadium treatment,' while Pitchfork and Exclaim! heard the toy-box metaphor as a fast-dulling formula."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 3 on The Tortured Poets Department (April 19, 2024), written solely by Taylor Swift and produced by Swift with Jack Antonoff; recorded at Conway Recording Studios (Los Angeles) and Electric Lady Studios (New York), mixed by Serban Ghenea and mastered by Randy Merrill.",
+        "It debuted and peaked at No. 6 on the Billboard Hot 100 and the Global 200 during the album's record top-14 week, reached the top 10 in Canada, Australia, New Zealand and Singapore, and was certified Platinum in Australia and Gold in New Zealand."
+      ],
+      supported: [
+        "The production — bright synth-pop with new-wave marching drums set against a resigned lyric — is the contrast reviewers point to; several named Swift's vocal performance a highlight while others found the central metaphor overworked.",
+        "It reads as the album's sharpest study of rationalizing mistreatment: the narrator diagnosing her own cope in real time, then watching it collapse."
+      ],
+      fanTheories: [
+        "Swift has named no subject and the album is framed as character-driven; any real-life reading of the 'favorite toy' is fan/press interpretation, not confirmed fact."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:down-bad",
+        label: "Down Bad",
+        why: "The next track and its mirror: both sit in the immediate wreckage of being dropped by an idealized love — My Boy rationalizes the breakage, Down Bad grieves the re-entry."
+      },
+      {
+        relatedId: "song:i-can-fix-him-no-really-i-can",
+        label: "I Can Fix Him (No Really I Can)",
+        why: "Two sides of one delusion about a damaging partner — I Can Fix Him insists the project is salvageable, My Boy insists the damage was proof of love."
+      },
+      {
+        relatedId: "song:loml",
+        label: "loml",
+        why: "Both reckon with being discarded by someone once idealized; loml names the loss outright while My Boy files it under a self-flattering excuse."
+      }
+    ],
+    live: [
+      {
+        date: "May 10, 2024",
+        event: "The Eras Tour — Paris (Paris La Défense Arena)",
+        note: "Surprise-song live debut, performed solo at the piano; later issued as a 'Live From Paris' recording."
+      },
+      {
+        date: "August 17, 2024",
+        event: "The Eras Tour — London (Wembley Stadium)",
+        note: "Its only other performance — a piano surprise-song mashup with evermore's 'Coney Island.'"
+      }
+    ],
+    sources: [
+      {
+        name: "My Boy Only Breaks His Favorite Toys — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/My_Boy_Only_Breaks_His_Favorite_Toys"
+      },
+      {
+        name: "Billboard: Taylor Swift Sets Record With All Top 14 of Hot 100, 'Fortnight' No. 1",
+        url: "https://www.billboard.com/lists/taylor-swift-hot-100-top-14-fortnight-post-malone-record/"
+      }
+    ]
+  },
+
+  "florida": {
+    whyItMatters: [
+      "Florida!!! is the album's one true duet and its gothic set piece: Swift and Florence Welch — who co-wrote it — turn the state into a national witness-protection program, the place fugitives and the heartbroken alike go to disappear and start over. Produced by Swift with Jack Antonoff (Antonoff on guitars, bass, cello, piano and synths; Welch adding drums, piano and percussion), it pushes insistent, programmed verses into thunderclap-drum refrains of power chords around Welch's choir-like voice — the boldest, most physical sound on The Tortured Poets Department.",
+      "It gave Florence + the Machine their biggest US chart moment. It debuted and peaked at No. 8 on both the Billboard Hot 100 and the Global 200 — the band's first-ever top 10 on either — and Billboard's Jason Lipshutz ranked it third of the album's 31 tracks while Pitchfork's Shaad D'Souza called it the record's boldest and most energetic song. Its live life was rare and event-sized: Swift and Welch performed it together only four times, the only shows Florence joined the tour."
+    ],
+    meaning: {
+      confirmed: [
+        "Track 8 on The Tortured Poets Department (April 19, 2024), written by Taylor Swift and Florence Welch and produced by Swift with Jack Antonoff.",
+        "It debuted and peaked at No. 8 on the Billboard Hot 100 and the Global 200 — Florence + the Machine's first top-10 entry on either chart.",
+        "Swift told iHeartRadio the premise came from true-crime logic — people who commit a crime and flee to Florida to reinvent themselves and blend in — applied to escaping heartbreak."
+      ],
+      supported: [
+        "Welch told British Vogue that Swift brought her 'a concept and a story,' which Welch called her favorite way to begin a song; critics read the track as the album's most cinematic, Southern-gothic swing.",
+        "The arrangement — insistent programming under crashing, 'thunderclap' drums and a choir-like vocal build — is the production choice reviewers single out, though a minority (Stereogum, Paste) found the Bible-belt imagery half-baked."
+      ],
+      fanTheories: [
+        "The escape-artist narrator is a character, not stated autobiography; Swift has tied the idea to true-crime storytelling rather than any real person, and the only concrete geography is the named Florida town (Destin)."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "moment:vault-ttpd-florida-a-dateline-inspired-duet-with-florence-welch",
+        label: "Florida!!! — the Dateline-inspired duet with Florence Welch",
+        why: "The song's own event page: how the true-crime premise, the credits and the Swift–Welch collaboration came together off the record."
+      },
+      {
+        relatedId: "moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc",
+        label: "The tour comes home: three nights in Miami with Florence Welch",
+        why: "Where the studio-only duet became a live fixture — Welch walked out for Florida!!! on all three Miami nights that opened the tour's final leg."
+      }
+    ],
+    live: [
+      {
+        date: "August 20, 2024",
+        event: "The Eras Tour — London (Wembley Stadium), European-leg finale",
+        note: "Live debut with Florence Welch, who rose from beneath the stage; the tour's final European night."
+      },
+      {
+        date: "October 18–20, 2024",
+        event: "The Eras Tour — Miami Gardens (Hard Rock Stadium)",
+        note: "Welch reprised the duet on all three nights that opened the tour's final leg — the only other shows she joined."
+      }
+    ],
+    sources: [
+      {
+        name: "Florida!!! — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Florida!!!"
+      },
+      {
+        name: "Billboard: The Tortured Poets Department — All 31 Tracks Ranked",
+        url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/my-boy-only-breaks-his-favorite-toys/"
+      },
+      {
+        name: "Variety: Taylor Swift Gives 'So Long, London' and 'Florida!!!' Eras Tour Debuts at Final Wembley Show",
+        url: "https://variety.com/2024/music/news/taylor-swift-florence-jack-antonoff-live-debut-florida-so-long-london-1236112940/"
+      },
+      {
+        name: "Rolling Stone: Taylor Swift Brings Out Florence Welch for 'Florida!!!' in Miami",
+        url: "https://www.rollingstone.com/music/music-news/taylor-swift-florence-florida-duet-miami-show-1235137985/"
+      }
+    ]
+  },
+
   "so-long-london": {
     whyItMatters: [
       "Track five is Swift's standing 'most vulnerable' slot — All Too Well, my tears ricochet, tolerate it — and So Long, London extends that canon by eulogizing not a person but a whole life built in one city. The construction is the tell: the a-cappella opening is Swift's own voice multitracked into a choral hymn, and the arrangement sets a fast bass-drum pulse against a slow vocal, so the grief quietly accelerates under a calm surface rather than exploding.",
@@ -77,13 +199,13 @@ export default {
 
   "how-did-it-end": {
     whyItMatters: [
-      "As track 21 it opens 'The Anthology,' the fifteen-song second half that surprise-dropped at 2 a.m. ET on release night. The song turns a breakup into a coroner's report performed for an audience of gossips — the couple, their friends, the fans and the press all leaning in for the cause of death — and its sustained clinical metaphor (a 'fatal fever,' a 'death rattle') is the detail reviewers single out.",
-      "It punched above its bonus-track billing. It reached No. 35 on the Billboard Hot 100 during the album's record-setting chart week, Variety later ranked it among Swift's best songs and The Independent named it one of 2024's best, and Swift chose it as an early Anthology cut to bring to the stage — live-debuting it as a solo piano ballad at the final Stockholm Eras Tour show on May 19, 2024."
+      "Track 21 sits deep inside 'The Anthology,' the fifteen-song second half (tracks 17–31) that surprise-dropped at 2 a.m. ET on release night — that half opens with 'The Black Dog' (track 17), not this song. It turns a breakup into a coroner's report performed for an audience of gossips — the couple, their friends, the fans and the press all leaning in for the cause of death — and its sustained clinical metaphor (a 'fatal fever,' a 'death rattle') is the detail reviewers single out.",
+      "It punched above its bonus-track billing. Recorded with Aaron Dessner at his Long Pond studio (Hudson Valley), Kitty Committee (Los Angeles) and Thomas Bartlett's Paris studio, its waltz-time build runs from near-whispered verses on insistent piano arpeggios to a surging London Contemporary Orchestra string crescendo (conducted by Robert Ames). It reached No. 35 on the Billboard Hot 100 during the album's record week — just outside the top 14 it monopolized — Variety later ranked it 11th among Swift's best songs and The Independent named it one of 2024's best, and Swift brought it to the stage twice: a solo-piano debut at the final Stockholm show (May 19, 2024) and a lone reprise mashed with 'You're Losing Me' in Toronto (Nov. 23, 2024)."
     ],
     meaning: {
       confirmed: [
-        "Track 21, the opener of 'The Anthology' — the fifteen-song second half of The Tortured Poets Department that surprise-released at 2 a.m. ET on April 19, 2024 — written and produced by Swift with Aaron Dessner.",
-        "It reached No. 35 on the Billboard Hot 100 during the album's record week, and was first performed live on May 19, 2024 at the final Stockholm Eras Tour show as a solo piano ballad."
+        "Track 21 of 'The Anthology' — the fifteen-song second half of The Tortured Poets Department (tracks 17–31) that surprise-released at 2 a.m. ET on April 19, 2024, whose bonus half opens with 'The Black Dog' (track 17), not this song — written and produced by Swift with Aaron Dessner and recorded at Long Pond, Kitty Committee and Thomas Bartlett's Paris studio.",
+        "It reached No. 35 on the Billboard Hot 100 during the album's record week (outside the top 14 the album swept), and was performed live twice on the Eras Tour: a solo-piano debut on May 19, 2024 at the final Stockholm show, and a 'You're Losing Me' mashup in Toronto on Nov. 23, 2024."
       ],
       supported: [
         "The arrangement builds from near-whispered verses toward a full crescendo that fans single out, and the lyric sustains an autopsy conceit that reviewers repeatedly quote.",
@@ -115,6 +237,18 @@ export default {
         why: "Companion Anthology break-up tracks — The Black Dog's obsessive real-time watching against How Did It End?'s retrospective, spectated grief."
       }
     ],
+    live: [
+      {
+        date: "May 19, 2024",
+        event: "The Eras Tour — Stockholm (Friends Arena), final Stockholm night",
+        note: "Live debut, performed alone at the piano as a surprise song."
+      },
+      {
+        date: "November 23, 2024",
+        event: "The Eras Tour — Toronto (Rogers Centre)",
+        note: "Its only other performance — a surprise-song mashup with Midnights' 'You're Losing Me,' the pairing fans read as the same relationship's bookends."
+      }
+    ],
     sources: [
       {
         name: "How Did It End? — Wikipedia",
@@ -123,6 +257,10 @@ export default {
       {
         name: "Rolling Stone: Taylor Swift Debuts 'How Did It End?' at Final Stockholm Eras Tour Date",
         url: "https://ca.rollingstone.com/music/taylor-swift-debuts-how-did-it-end-at-final-2024-eras-tour-date-in-sweden/"
+      },
+      {
+        name: "Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in a Single Week",
+        url: "https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/"
       }
     ]
   },
