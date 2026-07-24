@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 99
+Stories: 94
+
+## Travis Kelce Exits Florida on Taylor Swift’s Private Jet 3 Weeks After Wedding - heavy.com
+
+- first seen: 2026-07-24 22:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce Exits Florida on Taylor Swift’s Private Jet 3 Weeks After Wedding  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPRWQtOWI0WDdTQXc4NWFrTzd3V3J3VFY1MWw3bXZES3NNM0VJWDFvUm8tV1dhbHVGY3FUS3dVWUxwUkljUjNrdUtkNE9SOWlIUTV0NURFd2gzQVByWEM2clJQVXJpZnFZakxVeGFMUmVNYUc4R2RaSm9tNUlPM3pSdlRHd29yZm8wV05kdHY5NA?oc=5
+
+## Shaq Responds to Missing Taylor Swift and Travis Kelce's Wedding - Yahoo
+
+- first seen: 2026-07-24 22:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Shaq Responds to Missing Taylor Swift and Travis Kelce's Wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxPU3RfSHJIZUkwRlpfQmRRTzdteTZ2TjZDWEE0OHhQbFhDTUQ5blFyYm1Bai1lNFRkSXdsMVlJMkE3Z3loM3UxV3N0UzVXXzl6aUQzbHYyMzRVek5kaVQ1UTFycGxTWHU1SUJhdjNtN3RMRkJMVUFXTkdKRDVZSjVFUTJ3eVVDQ21udmdSX09iazRMSTZmaExZM1Q2V0RoV0s1b2diZU0yRQ?oc=5
+
+## How Taylor Swift Secured Her Bond With Sister-in-Law Kylie Kelce Before Marrying Travis Kelce - E! N
+
+- first seen: 2026-07-24 22:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: How Taylor Swift Secured Her Bond With Sister-in-Law Kylie Kelce Before Marrying Travis Kelce  E! News
+- sources:
+  - [unverified] E! News — https://news.google.com/rss/articles/CBMiqwFBVV95cUxNRXpTQWFJQVNvQl9kZncteWNDNm1RN08zcUdaZWl6a1JGcEFIYkVCdUFiOWZCZXZ1TVhTQVhOV0tKZ2hfWDJxWVduNnF0SlVlTDhaVVBmaGJtQmlkMTJXQkZsUHpKaGp3QTZPY19rYXVFMjlkbTg3cDk5cWRlcjN2cEFPdTNKbXU5RTVqMGNWSmtqNmp6OVRDRnIyQmFmWnlodzBTQnVFWTNtdjQ?oc=5
+
+## Travis Kelce spotted flying out on Taylor Swift's private jet as he heads back to day job with Kansa
+
+- first seen: 2026-07-24 22:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce spotted flying out on Taylor Swift's private jet as he heads back to day job with Kansas City Chiefs  the-sun.com
+- sources:
+  - [unverified] the-sun.com — https://news.google.com/rss/articles/CBMikAFBVV95cUxOQUticDFFbnpvbUlvTWMtdDdHMkRfNXI1WVUtY1F1M0xJTDhyNXZHZnpDTU9kWDRJR0lYSlIwN2thQTZfcV9vWTRyZ0xGaUV3TGFVRGl2UUcxeGc1SXhjQ29tdHhEWlh2a24wSGNYcmxVMVFoSVlfTFZBSDhsby1wMnZvZjVBLXhjNXo1NHctR1Y?oc=5
+
+## Taylor Swift and Travis Kelce got to buy MSG’s privacy. Her fans aren’t so lucky. - MS NOW
+
+- first seen: 2026-07-24 22:16 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce got to buy MSG’s privacy. Her fans aren’t so lucky.  MS NOW
+- sources:
+  - [unverified] MS NOW — https://news.google.com/rss/articles/CBMipwFBVV95cUxPMTFId2o1ci0wZ05OUTZCUnZRSWlPRFE3RERJX2c1Ry1XY1BOc3Y1ZjZtRTg4dWtTMWE3NUFxbGdxSkI2Z200RE9PQ2hDV2sxRkQ4Sll4YWFkZExpY184MGxlYlNvRk8wZFhZWDh0MVVUSlQ4d09LdzBpbW1KQmRPVV9QeU9nVkhLVmo1ZndGVUdXUzJSZktEVGFxcHF3UUNGZkp6VTVVQQ?oc=5
 
 ## Who knows more Taylor Swift trivia? - CBS News
 
@@ -42,14 +82,6 @@ Stories: 99
 - summary: Kylie Kelce opens up about Taylor Swift, Travis Kelce wedding  USA Today
 - sources:
   - [unverified] USA Today — https://news.google.com/rss/articles/CBMixAFBVV95cUxQc1NTRS1RYUgyN2JyMmVjakF5UlUta3A1S0RkX0h0Slo2SmNKWXF0SEVZcWFKWG94WnlIalNlZm1za0tLTG5kUjZsVmxPZW5FX1o1V1phSDUzbXNUQ2dIS3pOaTdPTW5TbklpeG0wTXR6UmJ0ZkpWSlFWbnd4S2ZBQzBnQURVd09IcmhQdFhCdGhRaG93RDVfNll2ckQyNDVETXRzTTRBakR6ZmlzNWFiOFVqdnp0dE14RU1sZUNtdUFwREUx?oc=5
-
-## Niecy Nash Reveals Taylor Swift and Travis Kelce's Wedding Was 'Top Secret': 'You Had to Zip the Lip
-
-- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Niecy Nash Reveals Taylor Swift and Travis Kelce's Wedding Was 'Top Secret': 'You Had to Zip the Lip'  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTE9HcXNuekE4NEEzTlk0akFDY2F3aFo3d29pUXpqR0Jrd0JkSk1hZUlRQnlNTGlPel9PMERWWGViMkRmVC03djFtenlwOU5NbW1LQVpvNU5uQWJFUmhwdU9COExQUGtXWmNHUTVHUkRyRlc1Um95TmxZbHJTQUliZw?oc=5
 
 ## Taylor Swift Ex Matty Healy Marries Gabbriette Bechtel In LA Ceremony - Yahoo
 
@@ -75,14 +107,6 @@ Stories: 99
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMi3AFBVV95cUxPb0ppMmxYNWtmNVBTYklDVEpWcXpULTJoSDZBZ1BkNDVRWXhuQm5TYy1HQ1pYcGFtTVcwUHFMMU1HdDU4R3FtbDFLZ1BZTFU4NGV0V1RqMTdNU053ZmdYMjBTc3lkMzdtRWFKcGVtLU5oVGhsMkUxTThlcVVnaU1zWlk5MmkyVFhoSlAyY1JCZmh5VndhRXNhSnFUVHlZM29jTWpWeDFydEt0WS1FdERaRS1Bdl9VMVEyLW1IVFJsZHFjd0htTXUwRlJJQnlZZ2dyMXo2WGR5R3NQS2pJ?oc=5
 
-## George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Go
-
-- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Got Invited  People.com
-- sources:
-  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbjQwVnowVFpvTGVoRVZFUjlHcDJmeGl3eTZiMGRkaUNhQUhleDJCY2M4Z3B6b3lxdE8xdDJETUZ5dTQwZVZoc0xfZUJxX0R4RDlJZ3kyRHBoSVpTRXhVTHVwVU5iMVJZMGpyVWFHQnZvc0NSQzFwTEg4OWlPQlp0b2tHU1dvR1hodGFBcnN4YUhneE5ZZVJPWUp4Szk?oc=5
-
 ## Niecy Nash Said Adam Sandler Looked “Decent” At Taylor & Travis' Wedding - bustle.com
 
 - first seen: 2026-07-24 18:43 UTC | category: fashion | importance: 5
@@ -106,6 +130,24 @@ Stories: 99
 - summary: Travis Kelce and Taylor Swift Announcement Shines Light on Heartwarming Act  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirAFBVV95cUxQM3FMZkl0RDBrdDV1WTU1dExseFE4eGJRVXlCMlZ3VVRfVF85c0lDOTh4LVZvODNBRVd4a1JwRWlhRmRhOWpGc0NSazZZNmxhN3hIazNWVFl2Y0JhWF9nY2FKTFdnVTF5eEtHNl84ejBjc3FNUHQ1bTF4VlV3SzdfVmp0c0VQYmlldFFvQ0xrY09FcUVpdG5xeEtNY1NIY1ZsQnhGQkJwUEl4eENH?oc=5
+
+## George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Go
+
+- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: George Kittle Calls Taylor Swift and Travis Kelce’s Wedding ‘Fantastic,’ Explains How His Parents Got Invited  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxQbjQwVnowVFpvTGVoRVZFUjlHcDJmeGl3eTZiMGRkaUNhQUhleDJCY2M4Z3B6b3lxdE8xdDJETUZ5dTQwZVZoc0xfZUJxX0R4RDlJZ3kyRHBoSVpTRXhVTHVwVU5iMVJZMGpyVWFHQnZvc0NSQzFwTEg4OWlPQlp0b2tHU1dvR1hodGFBcnN4YUhneE5ZZVJPWUp4Szk?oc=5
+  - [unverified] Yahoo News New Zealand — https://news.google.com/rss/articles/CBMifkFVX3lxTE9zQ0Zuc0JNN2FlRTBTY21uTmVvWHN4WkV6OTFoWEFLamJqRHY2Y1R1T0RBaGFoVENTa2pVcjFuaDlTOVVSdVB6TFFnLUZHM3BzMXlXTWw5aW5XMDNHeHd0M19rTFpZUlhBZk0yT2VTSFVvc2VNT2Z0QXpVaXRVZw?oc=5
+
+## Niecy Nash Reveals Taylor Swift and Travis Kelce's Wedding Was 'Top Secret': 'You Had to Zip the Lip
+
+- first seen: 2026-07-24 18:43 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Niecy Nash Reveals Taylor Swift and Travis Kelce's Wedding Was 'Top Secret': 'You Had to Zip the Lip'  Yahoo Lifestyle Canada
+- sources:
+  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifkFVX3lxTE9HcXNuekE4NEEzTlk0akFDY2F3aFo3d29pUXpqR0Jrd0JkSk1hZUlRQnlNTGlPel9PMERWWGViMkRmVC03djFtenlwOU5NbW1LQVpvNU5uQWJFUmhwdU9COExQUGtXWmNHUTVHUkRyRlc1Um95TmxZbHJTQUliZw?oc=5
+  - [unverified] Yahoo News Canada — https://news.google.com/rss/articles/CBMiekFVX3lxTFBwQ191dGFMNmE1OV9LMUdXRlR5UlpJX1JJU1ZNV2MzWEhxSERQaXhZV2NnS1Q1RnNmdGx3RGR2LXZoQUZSdU8xdnhfbzZlelNNanphbE9WM3R6R2dXeXlPcU1hd0dxTFRfem1RRXNCUGxsem15NEJ0cG1R?oc=5
 
 ## Swifties dubbed them the Taydaughters. Now they’re wrestling with Taylor Swift’s double-edged influe
 
@@ -752,83 +794,3 @@ Stories: 99
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOYldUbFFCZFY2RHpwSUNVb1pLd3hKWEhOR1QzUFhjVXVuQy1EeldkVUR5TUR5alc2TGsybldOSVlDbXhlZVRGWDdwMTRaOVlDZkFTN3JnZXRDN3JRUkZGeFFsMmdZWUpySndFVF9oQ29zQ2tWWWVYOEhycDRtZU1URXI1OEVmeG5GN2t4SXJJVDVkTlNwdnlJYmt1UDE1RWs?oc=5
   - [unverified] parade.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPYWRMNmxJeDVTS1BxeGhhQUY5UWNxajNVM1JiWFItU2hpQ1p4ZmUxN2lRd2w0ckh3bDk4Y3gwTFA5bTlBNkpXbjVmUmk1RzNjTDZkazVUZnZ4a0I2Z0YtZWpKN05kWTRTaDlwZmVWczhsQWt0V1NTMHNISFYwZHd2czcyMldodmZM?oc=5
-
-## Seth Meyers & His Wife Went to Taylor Swift's "Wonderful" Wedding with Two Famous Pals - NBC TV Netw
-
-- first seen: 2026-07-21 22:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Seth Meyers & His Wife Went to Taylor Swift's "Wonderful" Wedding with Two Famous Pals  NBC TV Network
-- sources:
-  - [unverified] NBC TV Network — https://news.google.com/rss/articles/CBMiggFBVV95cUxOSThDMlBoM29ieDZ4a3Z3Zjh6UHRaWFM2R0VBN0JYa3FFNnQ2bEwtS3dLNmJXa1ptVWFGUFZPa0Z2UGNiZXhRc1oyWHdNSkJGeEJFR0FSVTItYmktcmRIY1BkdlpVS2pDV0lobFYwRVh5Z0g3LXU3VHZsNXR6U3BGbnpn?oc=5
-
-## Taylor Swift & Travis Kelce Sang Together at Their Wedding, His Brother Jason Confirms - extratv.com
-
-- first seen: 2026-07-21 22:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce Sang Together at Their Wedding, His Brother Jason Confirms  extratv.com
-- sources:
-  - [unverified] extratv.com — https://news.google.com/rss/articles/CBMiuwFBVV95cUxQU29GNmVMdUFQaU1Ea25lTENGWWROQTByTVJZVHhZZ2hPTE15RUJTbngzS1RYX1V4RDJKc3dsSFRLQ1gtd2Ftd2pxT0JXOVNjNFB5NnBUd0c1cktjZEVqNm44eUNJUzlrMDNabEZWNDhmQ0R0QmRJVUFmNFc5WUY2YW1mMDBDaF9JQUNNUEdOVXA1UDJWZkRfc1hJR1gxSk1VUm1tMHFMMGh3aGFFcFg3MUlFUXNzc3B2MjJ3?oc=5
-
-## I Went To Travis Kelce's Restaurant & Obvs Had To Try The Taylor Swift Cocktail - Elite Daily
-
-- first seen: 2026-07-21 22:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: I Went To Travis Kelce's Restaurant & Obvs Had To Try The Taylor Swift Cocktail  Elite Daily
-- sources:
-  - [unverified] Elite Daily — https://news.google.com/rss/articles/CBMinAFBVV95cUxPRzlfSkU2VXFuSlVyY0FaMHllZDY2b1NqazkxVEZMWTliSEI5TF9XWFR3Z0FVN01rLVlKUng5amFQdk05elhTNkJxUTZNTXpwN0kzRGg0RlgwNGNOeHRaNzBSMUJ2T1F1UVBqNUpla09jMDVBeVliYVQxc2pzQ0JzQ2czcGFjR09oQktma3NhSTFkYjRRWG1EODhaVDI?oc=5
-
-## Taylor Swift's country comeback lands her back in CMA Awards race - The Tennessean
-
-- first seen: 2026-07-21 22:10 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's country comeback lands her back in CMA Awards race  The Tennessean
-- sources:
-  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMizgFBVV95cUxOTFJ2aEV5Nlh2dE91eC11YXM0NC1OUURyeDZ4aFB2UEg5VDQyRGRSM3RZM1lQSEx3LVlSc2lvZzgtQVdXVE9qdTRJLUEyM283VUhRSmRMRGNzOUxBaG43dEk1bVhWOXhZOGYtbEU2WDJrblRCWWxxWk50ZGVSUGJQTXhRVnJRamJOUGhUc1ZNcmVRcTJxZ0NKZWhoRERFZlpzTWVQb3ZNWVVXR0NVeERZNXN4Y09hN19idW9teG1yTEc0Z3hzRms1Z2pNRk5VQQ?oc=5
-
-## Dior and the Taylor Swift Wedding Effect - The New York Times
-
-- first seen: 2026-07-21 22:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Dior and the Taylor Swift Wedding Effect  The New York Times
-- sources:
-  - [unverified] The New York Times — https://news.google.com/rss/articles/CBMihgFBVV95cUxOcWQ2dUZKeWJHeHZlS1RtSGtsb2xQdTYtR0lQUXZMZjFTeGFCcUxVN1Etc0paZU9SLXNCWGFRelZYTmRaUHRUbUVkc2JwMWxRdFJzU3kzYXJUbmVSMDlNTk1yRkFjRG9Gd01OUG43aUlMTWJ5dTNpZWFhc095M3F2eFVZY1llUQ?oc=5
-
-## The Taylor Swift and Travis Kelce wedding is a ‘cloak and dagger’ operation - CNN
-
-- first seen: 2026-07-21 22:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Taylor Swift and Travis Kelce wedding is a ‘cloak and dagger’ operation  CNN
-- sources:
-  - [unverified] CNN — https://news.google.com/rss/articles/CBMihAFBVV95cUxOaVlqMmFmMTY3eFY3bUl2YVhJVnBvWk5fU3dLSjU0MVowZFNPR0syYW5EM0VIODJwNEVtRWs0dTBWd1VXRjh4Q2hJS0VHNFI2cXF1Q2hXSVpmbUhqUDhiVXJCV3dXUVJVWkF3M2xsTUljRXJsTkx3a3NOaDFxNHo5ZEdCd1Q?oc=5
-
-## There’s New Evidence That Taylor Swift’s Next Album, aka TS13, Is Incoming - Cosmopolitan
-
-- first seen: 2026-07-21 22:10 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: There’s New Evidence That Taylor Swift’s Next Album, aka TS13, Is Incoming  Cosmopolitan
-- sources:
-  - [unverified] Cosmopolitan — https://news.google.com/rss/articles/CBMikwFBVV95cUxQV1Z2T1Roa19KNkMwQmk0aE5vd0RRb3NwTGlibmdER1VkMzRSX09wUUhxeWt1WmZSa2NmVGZ6TDREbnZGM2ZKWTg2LTJxcUo3cWJjSVptTkx0cTA0QktmRVU1UHVMdDF5RHZGdkRydUlLX3QwYWFDbDV6bURQMVdIM3NtenZTeWZNVFBwbzNlNGp5ajQ?oc=5
-
-## Jason Kelce Shares Surprising New Details About Travis Kelce and Taylor Swift's Wedding Weekend - in
-
-- first seen: 2026-07-21 22:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Jason Kelce Shares Surprising New Details About Travis Kelce and Taylor Swift's Wedding Weekend  instyle.com
-- sources:
-  - [unverified] instyle.com — https://news.google.com/rss/articles/CBMiqgFBVV95cUxNSm4tWjZxVl9oUGNfOFhBNEdVdGJuVUl3WGZtNVJnN1hJdGI4c3ZNZVRadnItSmF3WUstaDJ3WmxlclRiT3FMTTZMVmVQXzJ6QVRDbGZfZlFKRFZxSk8xd1pyT2hlVzktdXVDM1hRdFl6eWplV1c5eUg2SlhjRzVveGtILTNhc3luMGl6RzVSbmZyU18zQjRuSEtVVEtEMkpKcnZJbE5lb1YtQQ?oc=5
-
-## Inside Taylor Swift and Travis Kelce's high security wedding invite and 4 a.m. venue reveal - NBC Ne
-
-- first seen: 2026-07-21 22:10 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Inside Taylor Swift and Travis Kelce's high security wedding invite and 4 a.m. venue reveal  NBC New York
-- sources:
-  - [unverified] NBC New York — https://news.google.com/rss/articles/CBMiywFBVV95cUxPTjlJdmZzcTRUdXYydlN4a05OYmZ4aXRYdzVicUdnc29zbGppWi1oaW5zMTl2dzY0U3Bqb2tZV24wcndFWDk4bTBkTHUzbmtFNWFEa25aQk5tWUd0bXk5S0pKWmZtWnctNGo3TFFTLVE0SGd0YjhxZUJqRnd5a3NoYkx1RVRUMHJYZVhYZkI0Vi1COFIxOEwtU3VSRWk4ZXYxRF90WkNvOWpERGllN1ljV2dSZ1I2VVV5NHgxNFY0VGVnUVFkMTN3eFJHONIB0wFBVV95cUxQLUZFb3VlVGhnVUlvV3pmQW9CQ1Z2TjZNTlY2b3J6Q2lvQV9kQ2M1V0FKWTE0RlhjdE5UUDJjdGE4TDBZRmN3ZlJnZ0JVUktaV1g4MW1LajRnVXFrVEl6ckFjNGZlT1JzbmpOTlNQODRvQXhZTnRHbzQwSHdJN1pwYUpTUFRtQzh3YlR2V01jc3pCM3poUm5zTEZYcHRpdk1ZMU5qZW1sR1E0c0dFZTZHS3R5VHZaUWljS1g5UTByRGZ1NzZEVkNKUm9aUG9wLV9vNkMw?oc=5
-
-## 'She felt violated': Taylor Swift's alleged feelings over a private fallout may explain why Blake Li
-
-- first seen: 2026-07-21 22:10 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: 'She felt violated': Taylor Swift's alleged feelings over a private fallout may explain why Blake Lively  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMiuAJBVV95cUxOUk9hN1RIRmNKWFc2VDI4UG1fMmJqQXVCM1hYWEp1NlR3VVA5cHdGcDMxdnRPS2I2MUVLQnh3Vk9QM0ZWbjd3RFBoUzFWd2xQOTlBZDhPTHM1YzZPUGJVSlo3S1A2ZGpYbVE0U1hKZnBZeEN5U05RNjV5eFpCNlJBVDZMTkt1STNtak14RnVNUWFyaV9LZFlfTEgtV0xLOXRNNGNRZTRMVXRPWDVsRnIxeWFDa0xzM2VMQTRkWXBraENYakxXLVBEaEZ6OFNqV2NIbmd6bXloaFcxOENyMjNoQ21FZVdDV2hVY2FBNDlEUmt1SFVNOHdGNUJuajFua3dQUVRydkt1NEIzc3R1TlRReVRweXNnME5wUmF5WW93R1pMM0JvRmVOZnA4OUdoX1VMcEpDbUV1aljSAb4CQVVfeXFMT3pNMDd3WGtPQlZPeV9Sd2ZoblFpNUVhUXNuV1ZXZFo0YzlDVnVFTHlQQnAxRFFqWkNqUDhJRGFQeXZHMG5VdXdSQmRzQndxR2VzNElVNTlCM0tsTWhIRGZHX3lSNEJVNFIxaHE1M1FRanFySFhnM1U2VGNTUTRCNmFWVm40T3NUSGdiMUp1bnotQU5uSmxZb0JpdVAxT3pqbENUNzJoN1Jnc2tscWE5djhGeVYwNWFfdy1DWlI2QURNaTZHdDV3dVJ5cEVCeVRoY0VkdF8yRHVhck1vMU15eC1aTTRWWE9ET1hhY2ZlblBCNmU4UDV6dkRRX2xWalpsbktYN21FOVdxR3Mwa3ZUUnY2V1hhQkM0LXhabXRCeEZDbW5VR3pPR2RZR3doUEZYeFBoRFROSHliRG5KQmd3?oc=5
