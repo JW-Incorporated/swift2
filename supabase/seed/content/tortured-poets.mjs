@@ -639,7 +639,7 @@ export default {
         'https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg',
       moment: {
         context:
-          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.",
+          "The Oct. 14, 2024 series opener against the Guardians — a 5-2 Yankees win — landed in a lull for both of them: a bye week for Travis's 5-0 Chiefs, and the last days of the Eras Tour's two-month break before Miami on Oct. 18. Cameras found them in the second row of a suite down the right-field line, just above the postseason bunting and a flag marking the Yankees' 1932 World Series title, both in caps on a 50-degree Bronx night. Even the matchup was on theme: Travis grew up in Cleveland Heights, and New York has been her adopted hometown for a decade.\n\nThey watched from a right-field luxury suite with what Kelce later called an \"unbelievable crew\" of friends; no outlet pinned down whose suite it was, and no other celebrities were photographed inside with them. The neutral dress code was its own tell — both wore black-and-navy caps by Midnight Rodeo, a Kansas City band whose merch Kelce favors (his from its \"You're Not Dreaming\" line), with Swift finishing the look in her signature red lip rather than any team gear.\n\nThe night's viral image was Swift's startled reaction to Juan Soto's leadoff home run in the bottom of the third, a broadcast cutaway that MLB and the Yankees reposted on their own channels; TBS announcer Brian Anderson had already flagged Kelce as a \"big Cleveland fan.\" Kelce, a Cleveland Heights native, quietly pulled for the visiting Guardians \"in hostile territory,\" as he put it on New Heights, and days later defended his hometown loyalty on X after being trolled for wearing no Guardians gear. It was the couple's first MLB game together and their only postseason-baseball outing that October — one beat in a run of New York sporting dates that had included the Sept. 8 US Open final — with no reported early exit and no player weighing in on their presence.",
         sources: [
           {
             outlet: 'ESPN',
@@ -658,6 +658,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 4,
+          },
+          {
+            outlet: 'MLB.com',
+            url: 'https://www.mlb.com/yankees/video/taylor-swift-reacts-to-juan-soto-s-home-run',
+            source_title: "Taylor Swift reacts to Juan Soto's home run",
+            publisher: 'MLB.com (Yankees)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Official league video of the broadcast cutaway to Swift reacting to the leadoff HR',
+          },
+          {
+            outlet: 'Bleacher Report',
+            url: 'https://bleacherreport.com/articles/10139652-travis-kelce-talks-mixed-feelings-attending-yankees-vs-guardians-with-taylor-swift',
+            source_title: "Travis Kelce Talks 'Mixed Feelings' Attending Yankees vs. Guardians With Taylor Swift",
+            publisher: 'Bleacher Report',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'New Heights: "unbelievable crew" of friends; Cleveland-kid divided loyalty in "hostile territory"',
+          },
+          {
+            outlet: 'WWD',
+            url: 'https://wwd.com/pop-culture/celebrity-news/taylor-swift-travis-kelce-midnight-rodeo-hat-yankees-game-1236684448/',
+            source_title: 'Taylor Swift and Travis Kelce Wear Midnight Rodeo Hats to Yankees Game',
+            publisher: 'WWD',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Both in neutral Midnight Rodeo (Kansas City band) caps; Kelce\'s "You\'re Not Dreaming" cap; Swift\'s red lip',
           },
         ],
         // Photo pass #762 (2026-07-19): page had zero photos. Both images below
@@ -711,7 +741,7 @@ export default {
         'https://www.rollingstone.com/wp-content/uploads/2024/10/taylor-swift-florence-welch-florida-miami-show.jpg?w=1600&h=900&crop=1',
       moment: {
         context:
-          'The first show since Wembley on Aug. 20 — Oct. 18, 2024 at Hard Rock Stadium, and the start of the tour\'s last lap. Over its first two nights (Oct. 18–19) the run drew more than 122,000, breaking Billy Joel and Elton John\'s 1995 two-night Hard Rock Stadium record of 103,694 — with Billy Joel himself in the crowd the night it fell; a third sold-out show followed Oct. 20 with no separately published count. The layoff showed in the wardrobe: new Roberto Cavalli looks by Fausto Puglisi, headlined by the first new Reputation outfit of the entire tour — a gold-and-black one-leg bodysuit with a 3-D cobra, retiring the red-sequin-snake catsuit worn at every show since March 2023 — plus a new sapphire-fringe Fearless dress and a four-color crystal ombré wrap dress for the acoustic set (fashion desks documented three new Miami looks in all).\n\nThe TTPD set had the marquee guest: Florence Welch walked out for a live "Florida!!!" on all three nights. It wasn\'t the song\'s debut — that had come at the Aug. 20 Wembley finale — but Miami made the duet a fixture. Otherwise the setlist held; only the nightly two-song surprise changed: "Tim McGraw" / "Timeless" and "this is me trying" / "Daylight" (18th); "Should\'ve Said No" / "I Did Something Bad" and "loml" / "White Horse" (19th); "Out of the Woods" / "All You Had to Do Was Stay" and "mirrorball" / "Guilty as Sin?" (20th). Rain soaked the open-canopy opener — "a little rain never stopped Swift," wrote Deadline. Travis Kelce, mid-NFL season, missed the run, though his mother Donna and brother Jason\'s family came opening night.\n\nThe new cobra bodysuit set off Easter-egg talk that a Reputation (Taylor\'s Version) announcement was near; Swift waved it off ("it\'s always nice when the crowd notices") and her stylist later blamed a fabric shortage — no Rep TV came. Billy Joel, whose record had just fallen, cheered it on Instagram: "Onward and upward." The weekend lifted Miami hotels\' revenue per available room more than 80% year over year.',
+          'The first show since Wembley on Aug. 20 — Oct. 18, 2024 at Hard Rock Stadium, and the start of the tour\'s last lap. Over its first two nights (Oct. 18–19) the run drew more than 122,000, breaking Billy Joel and Elton John\'s 1995 two-night Hard Rock Stadium record of 103,694 — with Billy Joel himself in the crowd the night it fell; a third sold-out show followed Oct. 20 with no separately published count. The layoff showed in the wardrobe: new Roberto Cavalli looks by Fausto Puglisi, headlined by the first new Reputation outfit of the entire tour — a gold-and-black one-leg bodysuit with a 3-D cobra, retiring the red-sequin-snake catsuit worn at every show since March 2023 — plus a new sapphire-fringe Fearless dress and a four-color crystal ombré wrap dress for the acoustic set (fashion desks documented three new Miami looks in all).\n\nThe TTPD set had the marquee guest: Florence Welch walked out for a live "Florida!!!" on all three nights. It wasn\'t the song\'s debut — that had come at the Aug. 20 Wembley finale — but Miami made the duet a fixture. Otherwise the setlist held; only the nightly two-song surprise changed: "Tim McGraw" / "Timeless" and "this is me trying" / "Daylight" (18th); "Should\'ve Said No" / "I Did Something Bad" and "loml" / "White Horse" (19th); "Out of the Woods" / "All You Had to Do Was Stay" and "mirrorball" / "Guilty as Sin?" (20th). Rain soaked the open-canopy opener — "a little rain never stopped Swift," wrote Deadline. Travis Kelce, mid-NFL season, missed the run, though his mother Donna and brother Jason\'s family came opening night.\n\nThe three nights sat inside a documented South Florida tourism surge: FIU analysts projected the run would push Miami\'s average hotel rate above $200 for the first October in more than a decade, against an Eras Tour per-attendee spend they estimated near $1,327 a head — likely higher in a costlier market like Miami.',
         sources: [
           {
             outlet: 'Deadline',
@@ -770,6 +800,16 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 3,
             notes: '122,000+ over two nights broke the venue concert record (Billy Joel & Elton John, 1995)',
+          },
+          {
+            outlet: 'FIU News',
+            url: 'https://news.fiu.edu/2024/how-taylor-swifts-eras-tour-is-shaking-up-south-floridas-hospitality-scene',
+            source_title: "How Taylor Swift's Eras Tour is shaking up South Florida's hospitality scene",
+            publisher: 'Florida International University',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Projected Miami ADR above $200 (first October $200+ in over a decade); ~$1,327 per-attendee Eras Tour spend — economic-impact projections, not an audited post-hoc total',
           },
           {
             outlet: 'American Songwriter',
@@ -2659,13 +2699,17 @@ export default {
       day: 19,
       category: 'music',
       title: 'thanK you aIMee: the capitalization does the talking',
+      relatedIds: [
+        'moment:vault-ttpd-the-tortured-poets-department',
+        'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
+      ],
       snippet:
         'The stray capitals spell KIM, and fans connected the rest — a song about outlasting a schoolyard bully, filed under grudges from 2016. By August, a live version was restyled "thank You aimEe."',
       sourceUrl: 'https://www.today.com/popculture/music/taylor-swift-kim-kardashian-thank-you-aimee-lyrics-rcna148523',
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has never named the subject — the Kardashian reading is fan and critic interpretation, labeled as such, built on the title\'s capitals and the 2016 phone-call feud.\n\nThe plot thickened in August 2024 when a Taylor Nation email restyled the Wembley live version (mashed up with "Mean") as "thank You aimEe" — capitals now spelling YE, and fans re-litigated the whole thing overnight.',
+          'Swift has never named the subject — the Kim Kardashian reading is fan and critic interpretation, labeled as such, built on the title\'s capitals (which spell KIM) and the 2016 phone-call feud; the name "Aimee" is even flagged as a pseudonym inside the song.\n\nIt is track 24 of The Tortured Poets Department: The Anthology — a bonus cut on the 31-song edition, not on the standard sixteen — written by Swift with Aaron Dessner and produced by the two of them with Jack Antonoff. In the album\'s record-setting week it debuted and peaked at No. 23 on the Billboard Hot 100. Critics read it as the album\'s clearest diss track and routinely paired it with "Cassandra," the other Anthology song tied to the same 2016 feud.\n\nShe played it live once: June 22, 2024 at Wembley, on guitar, as a surprise-song mashup with "Mean" (2010) — the throughline being two songs fourteen years apart about outlasting a bully. On Aug. 15, 2024 a Taylor Nation email released a recording of that performance restyled "thank You aimEe," the capitals now spelling YE (Kanye), and fans re-litigated the whole thing overnight. Neither Kim Kardashian nor Kanye West responded publicly to the song or the restyle; Kardashian, reported to be "over" the feud, later offered only a generic compliment about Swift as an artist.',
         sources: [
           {
             outlet: 'Today',
@@ -2675,6 +2719,26 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Thank_You_Aimee',
+            source_title: 'Thank You Aimee',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+            notes: 'Track 24 Anthology; Swift/Dessner writers, produced with Antonoff; No. 23 Hot 100; June 22 2024 Wembley "Mean" mashup',
+          },
+          {
+            outlet: 'Consequence',
+            url: 'https://consequence.net/2024/04/taylor-swift-kim-kardashian-diss-track-thank-you-aimee/',
+            source_title: "Taylor Swift Releases Kim Kardashian Diss Track 'thanK you aIMee'",
+            publisher: 'Consequence',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Reads it as a diss track; situates it alongside "Look What You Made Me Do" and the 2016 feud',
           },
           {
             outlet: 'Billboard',
@@ -3197,7 +3261,11 @@ export default {
       // reciprocal TTPD Taylor/Travis crossover — the "So High School" moment
       // (she wrote the song about him; here he steps into her show).
       threadIds: ['the-proposal'],
-      relatedIds: ['moment:vault-ttpd-so-high-school-annotated-by-the-internet-in-minutes'],
+      relatedIds: [
+        'moment:vault-ttpd-so-high-school-annotated-by-the-internet-in-minutes',
+        'moment:vault-ttpd-eight-nights-at-wembley-more-than-any-solo-artist-ever',
+        'moment:vault-tloas-travis-joins-the-docuseries-for-its-final-episodes',
+      ],
       title: 'Travis Kelce, Eras Tour cast member for a night',
       snippet:
         'In white tie and a top hat, he carried her onto the stage during "I Can Do It With a Broken Heart" at Wembley — his idea, he later admitted, with choreography studied from Dumb and Dumber.',
@@ -3205,7 +3273,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'June 23, 2024, the third London night at Wembley — and originally a very different bit. On New Heights, Kelce said he first floated rolling out on a bike during the "1989" set ("How funny would it be if I just rolled out on one of the bikes"); Swift redirected him somewhere safer — the "I Can Do It With a Broken Heart" vaudeville intro, where top-hatted dancers revive her "fainted" showgirl.\n\nIn white tie, tails and a top hat — a costume built by Eras designer Jessica Jones and styled by Joseph Cassell — the 6-foot-5 Kelce carried Swift to the couch, dusted her face with a makeup brush once she was "revived," and slipped in a comedic step he later said he lifted from Jim Carrey in "Dumb and Dumber." He had a single night of rehearsal and one rule for himself: "Do not drop Taylor." The crowd took a beat to clock who the extra dancer was; Swift called the experience "jarring" in the best way, posted that she was "cracking up and swooning," and in the End of an Era docuseries said it was "the loudest it ever got on the Eras Tour."\n\nHe teased that it "might not be the last time," but it stayed a one-off — his only onstage turn before the tour closed in Vancouver that December. The tuxedo got a second life, though: he wore it again to Swift\'s Eras Tour wrap party.',
+          'June 23, 2024, the third London night at Wembley — and originally a very different bit. On New Heights, Kelce said he first floated rolling out on a bike during the "1989" set ("How funny would it be if I just rolled out on one of the bikes"); Swift redirected him somewhere safer — the "I Can Do It With a Broken Heart" vaudeville intro, where top-hatted dancers revive her "fainted" showgirl.\n\nIn white tie, tails and a top hat — a costume built by Eras designer Jessica Jones and styled by Joseph Cassell — the 6-foot-5 Kelce carried Swift to the couch, dusted her face with a makeup brush once she was "revived," and slipped in a comedic step he later said he lifted from Jim Carrey in "Dumb and Dumber." He had a single night of rehearsal and one rule for himself: "Do not drop Taylor." The crowd took a beat to clock who the extra dancer was; Swift called the experience "jarring" in the best way, posted that she was "cracking up and swooning," and in the End of an Era docuseries said it was "the loudest it ever got on the Eras Tour."\n\nHe teased that it "might not be the last time," but it stayed a one-off — his only onstage turn before the tour closed in Vancouver that December. The tuxedo got a second life, though: he wore it again to Swift\'s Eras Tour wrap party.\n\nThe bit came from the tour\'s own vocabulary: lead choreographer Mandy Moore built the "I Can Do It" intro, and Kelce filled the slot dancers Kam Saunders and Jan Ravnik usually work. It was a new kind of guest — the tour\'s other walk-ons sang; none had played a costumed skit — and it was widely treated as a first. No hard view figures were published, but the cameo won Favorite Surprise Guest at the 2025 iHeartRadio Music Awards, and Patrick Mahomes needled Kelce by wearing a matching top hat to Swift\'s December 2024 birthday.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -3274,6 +3342,46 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 3,
             notes: 'Re-wore the same cameo tuxedo to the Eras Tour wrap party, Dec 2024',
+          },
+          {
+            outlet: 'Parade',
+            url: 'https://parade.com/entertainment/taylor-swift-eras-tour-choreographer-mandy-moore-disney-plus',
+            source_title: "Meet Mandy Moore, the Choreographer Behind Taylor Swift's Eras Tour",
+            publisher: 'Parade',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Mandy Moore was the Eras Tour\'s lead choreographer; the "I Can Do It" revival skit is normally worked by dancers Kam Saunders and Jan Ravnik (per NBC News). No named person is credited with coaching Kelce\'s specific blocking.',
+          },
+          {
+            outlet: 'setlist.fm',
+            url: 'https://www.setlist.fm/setlist/taylor-swift/2024/wembley-stadium-london-england-23aa4007.html',
+            source_title: 'Taylor Swift Setlist at Wembley Stadium, London — June 23, 2024',
+            publisher: 'setlist.fm',
+            source_type: 'reference',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'The night\'s surprise songs: Gracie Abrams\'s "us." got its live debut with Abrams on guitar; the piano set was an "Out of the Woods" / "Is It Over Now?" / "Clean" mashup.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/travis-kelce-reacts-taylor-swift-eras-cameo-award-nomination-1235886550/',
+            source_title: "Travis Kelce Reacts to His Eras Tour Cameo Earning an iHeartRadio Music Awards Nod",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'The cameo won Favorite Surprise Guest at the March 17, 2025 iHeartRadio Music Awards. No aggregate view/engagement total was published; no official NFL/Chiefs reaction is documented.',
+          },
+          {
+            outlet: 'The Mirror US',
+            url: 'https://www.themirror.com/sport/american-football/mahomes-trolls-chiefs-teammates-swift-867641',
+            source_title: 'Patrick Mahomes trolls Travis Kelce over Eras Tour cameo at Taylor Swift birthday party',
+            publisher: 'The Mirror US',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
+            notes: 'Mahomes wore a matching top hat and tails to Swift\'s December 2024 birthday party to needle Kelce over the cameo.',
           },
         ],
         // Photo passes verified HTTP 200 + image/jpeg and vision-confirmed
@@ -3529,7 +3637,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Aug. 8–10, 2024 shows were called off after authorities said a foiled plot targeted the crowds at Ernst Happel Stadium; promoter Barracuda Music scrapped all three sold-out nights.\n\nThe cancellation had a counter-story the venue photos captured: on Aug. 8, the night the first show should have opened, thousands of fans gathered anyway — many on Vienna\'s Corneliusgasse, chosen because its name echoes "Cornelia Street" — trading friendship bracelets and singing together, including a pointed "Cruel Summer." One couple got engaged in the street as the crowd sang "Love Story," and nearby churches and shops opened their doors, one posting: "Dear Swifties, we sympathize with you. You\'re welcome to come and sing your sadness away."\n\nAll three nights were automatically refunded within 10 working days through the original point of purchase, per Barracuda Music and Austrian ticketer oeticket (StubHub buyers were offered a 120% voucher or a full cash refund). The Austrian Press Agency estimated the shows would have drawn more than 170,000 fans and roughly €100 million to the city, lost to the cancellation.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done. On Aug. 21, 2024 — the day after her final Wembley show — she addressed it on Instagram, calling the cancellation "devastating" and writing that it "filled me with a new sense of fear, and a tremendous amount of guilt because so many people had planned on coming to those shows," adding that her "priority was finishing our European tour safely." Her silence, she said, had been "showing restraint." The Wembley run had resumed days earlier, and the tour finished without further incident.\n\nThe case later resolved at trial: authorities tied the plot to the Islamic State, and in May 2026 the ringleader — arrested at 19, one of several suspects detained — was sentenced to 15 years for planning to kill crowds outside the stadium with knives and explosives. The three Vienna shows were never rescheduled.',
+          'The Aug. 8–10, 2024 shows were called off after authorities said a foiled plot targeted the crowds at Ernst Happel Stadium; promoter Barracuda Music scrapped all three sold-out nights. Authorities attributed the plan to ISIS; the main suspect, a 19-year-old who had pledged allegiance to the group, was one of three people arrested in Austria at the time, and in May 2026 a Vienna court convicted him and imposed a 15-year sentence (a co-defendant received 12). The three dates were never rescheduled.\n\nThe cancellation had a counter-story the venue photos captured: on Aug. 8, the night the first show should have opened, thousands of fans gathered anyway — many on Vienna\'s Corneliusgasse, chosen because its name echoes "Cornelia Street" — trading friendship bracelets and singing together, including a pointed "Cruel Summer." One couple got engaged in the street as the crowd sang "Love Story," and nearby churches and shops opened their doors, one posting: "Dear Swifties, we sympathize with you. You\'re welcome to come and sing your sadness away."\n\nAll three nights were automatically refunded within 10 working days through the original point of purchase, per Barracuda Music and Austrian ticketer oeticket (StubHub buyers were offered a 120% voucher or a full cash refund). The Austrian Press Agency estimated the shows would have drawn more than 170,000 fans and roughly €100 million to the city, lost to the cancellation.\n\nSwift stayed publicly silent until the tour\'s London dates were safely done. On Aug. 21, 2024 — the day after her final Wembley show — she addressed it on Instagram, calling the cancellation "devastating" and writing that it "filled me with a new sense of fear, and a tremendous amount of guilt because so many people had planned on coming to those shows," adding that her "priority was finishing our European tour safely." Her silence, she said, had been "showing restraint." The Wembley run had resumed days earlier, and the tour finished without further incident.',
         sources: [
           {
             outlet: 'NBC News',
@@ -3597,7 +3705,37 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
-            notes: 'APA estimate: 170,000+ spectators and ~€100M lost to the cancellation',
+            notes: 'APA estimate: 170,000+ spectators and ~€100M lost to the cancellation; ISIS-inspired plot',
+          },
+          {
+            outlet: 'PBS NewsHour (AP)',
+            url: 'https://www.pbs.org/newshour/world/suspect-in-attack-plot-on-taylor-swifts-vienna-concert-convicted-and-sentenced-to-15-years',
+            source_title: "Suspect in plot to attack Taylor Swift's Vienna concert convicted and sentenced to 15 years",
+            publisher: 'PBS NewsHour / Associated Press',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'May 28, 2026 verdict: main suspect (Beran A.) 15 years, co-defendant 12 years; knives/homemade explosives targeting people outside Ernst Happel Stadium; ISIS allegiance',
+          },
+          {
+            outlet: 'PBS NewsHour',
+            url: 'https://www.pbs.org/newshour/world/suspect-in-attack-plot-on-taylor-swifts-vienna-concert-convicted-and-sentenced-to-15-years',
+            source_title: "Suspect in attack plot on Taylor Swift's Vienna concert convicted and sentenced to 15 years",
+            publisher: 'PBS NewsHour (AP)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'May 28, 2026: main suspect convicted, 15-year sentence; co-defendant 12 years',
+          },
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/austrian-plead-guilty-isis-terror-attack-taylor-swift-concert/',
+            source_title: 'Austrian pleads guilty to plotting ISIS-linked terror attack on Taylor Swift concert',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'ISIS attribution; main suspect pledged allegiance and pleaded guilty at trial',
           },
           {
             outlet: 'NBC News',
@@ -3910,6 +4048,29 @@ export default {
             notes: 'The "in her tennis era" post referenced Swift singing at Arthur Ashe as a child in 2002',
           },
         ],
+        // Stylist SOURCE pass (2026-07-24): the look names three pieces, but
+        // only the Reformation dress is a nameable, verifiable retail garment.
+        // - Reformation "Sora" linen dress: exact PDP on the brand's own store
+        //   (thereformation.com), curl HTTP 200, title "Sora Linen Dress",
+        //   price $248.00 — a real product page for the exact style. The
+        //   red-and-white gingham colorway is now sold out ("Sorry, this isn't
+        //   available"), so linked with inStock:false rather than dropped, per
+        //   the Stylist rule (sold out still links, dimmed).
+        // Skipped, no exact product page to verify:
+        // - "Gucci platform sandals" and "gold Louis Vuitton earrings" name no
+        //   specific style; gucci.com / louisvuitton.com hard-block automated
+        //   requests, so no PDP can be identified or curl-verified without
+        //   guessing — better no link than a fabricated one.
+        products: [
+          {
+            brand: 'Reformation',
+            item: 'Sora Linen Dress',
+            retailer: 'thereformation.com',
+            url: 'https://www.thereformation.com/products/sora-linen-dress/1314992.html',
+            price: '$248.00',
+            inStock: false,
+          },
+        ],
         // T16 photo pass (2026-07-09): AP photo from ABC News' coverage of
         // this outing, on ABC's own CDN. Verified HTTP 200 + image/jpeg;
         // visually confirmed (both couples in the Arthur Ashe box).
@@ -3957,7 +4118,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Held Sept. 11, 2024 at UBS Arena in Elmont, New York — moved back a day to avoid the presidential debate — the show gave her seven of twelve nominations: Video of the Year, Artist of the Year, Best Pop, Best Collaboration, Best Direction, Best Editing, and Song of the Summer. She attended but did not perform, taking the trophies from the audience.\n\nFive were for "Fortnight": she won Best Direction as the video\'s credited director, Chancler Haynes took Best Editing, and Post Malone shared Best Collaboration, Best Pop, Video of the Year and the fan-voted Song of the Summer. Accepting Video of the Year she dedicated it to "my boyfriend Travis" and urged every eligible viewer to register to vote — a day after endorsing Kamala Harris and Tim Walz on Instagram, signed "Childless Cat Lady." On the carpet she wore a tartan Dior corset and cape, changing into a custom UFO-emblazoned Monse minidress for the Video of the Year win.\n\nThe three-peat (All Too Well in 2022, Anti-Hero in 2023, Fortnight in 2024) and fifth career VOTY are records nobody else holds, and the haul tied her with Beyoncé at 30 career Moon Persons — the most of any artist, a tie that still stood after the 2025 ceremony, which she skipped.',
+          'The Sept. 11, 2024 haul was seven of twelve nominations: Video of the Year, Artist of the Year, Best Pop, Best Collaboration, Best Direction, Best Editing, and Song of the Summer. Five went to "Fortnight" alongside Post Malone — the two accepted Best Collaboration together, her first televised win of the night, in which she noted the ceremony fell on the anniversary of 9/11 — leaving Artist of the Year and Best Pop as her solo trophies. The Video of the Year three-peat (All Too Well in 2022, Anti-Hero in 2023, Fortnight in 2024) and a fifth career VOTY are records nobody else holds, and the total — her 30th Moon Person — tied Beyoncé for the most VMAs ever won; a year later, with Swift sitting out the 2025 ceremony (she lost her lone nomination, Artist of the Year, to Lady Gaga), the 30–30 tie still stood.\n\nThe five she lost were all technical or special categories, most of them other "Fortnight" nods: Song of the Year (to Sabrina Carpenter\'s "Espresso"), Best Cinematography (to Ariana Grande\'s "we can\'t be friends"), Best Visual Effects (to Eminem\'s "Houdini"), Best Art Direction (to Megan Thee Stallion\'s "BOA"), and the fan-voted Most Iconic Performance nod for her 2009 "You Belong With Me."\n\nOnstage she kept it personal, not political. A night after endorsing Kamala Harris — the debate had aired the evening before — she made no mention of it in her speeches, urging fans only to register to vote, and in the Video of the Year speech she thanked Travis Kelce ("everything this man touches turns to happiness and fun and magic"), who was absent mid-NFL season. She walked the carpet in a tartan Christian Dior corset with a cape and velvet shorts, then changed mid-show into a Monse minidress embroidered with UFOs — a wink at the alien imagery of "Down Bad" — styled, as ever, by Joseph Cassell Falconer.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -3978,51 +4139,34 @@ export default {
             reliability_score: 4,
           },
           {
-            outlet: 'Wikipedia',
-            url: 'https://en.wikipedia.org/wiki/2024_MTV_Video_Music_Awards',
-            source_title: '2024 MTV Video Music Awards',
-            publisher: 'Wikipedia',
-            source_type: 'wiki',
-            accessed_at: '2026-07-24',
-            reliability_score: 2,
-            notes: 'UBS Arena venue, date moved to avoid the debate, full winners roster incl. Best Direction (Swift) and Best Editing (Chancler Haynes), fan-voted Song of the Summer.',
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/music/awards/2024-vmas-winners-list-1235772883',
-            source_title: '2024 VMAs Winners List',
-            publisher: 'Billboard',
+            outlet: 'Good Morning America (ABC News)',
+            url: 'https://www.goodmorningamerica.com/culture/story/mtv-vmas-winners-2024-taylor-swift-chappell-roan-113618153',
+            source_title: '2024 MTV VMAs recap: Taylor Swift dominates the night, full winners list',
+            publisher: 'ABC News',
             source_type: 'awards_database',
             accessed_at: '2026-07-24',
             reliability_score: 4,
+            notes: 'Full winners list — confirms the seven wins (incl. Song of the Summer for "Fortnight") and the winners of the five lost categories',
           },
           {
-            outlet: 'Deadline',
-            url: 'https://deadline.com/2024/09/taylor-swift-dedicates-mtv-vma-video-of-the-year-win-travis-kelce-reminds-viewers-vote-1236085734/',
-            source_title: 'Taylor Swift Dedicates VMA VOTY Win to Travis Kelce & Reminds Viewers to Vote',
-            publisher: 'Deadline',
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-video-of-the-year-2024-vmas-fortnight-1235096115/',
+            source_title: 'Taylor Swift Wins 2024 VMA for Video of the Year, Thanks Travis Kelce',
+            publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
-          },
-          {
-            outlet: 'The Hill',
-            url: 'https://thehill.com/blogs/in-the-know/4876180-taylor-swift-rallies-voters-video-music-awards-2024-election/',
-            source_title: 'Taylor Swift urges people register to vote at VMAs after Kamala Harris endorsement',
-            publisher: 'The Hill',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-24',
-            reliability_score: 4,
+            notes: 'VOTY speech — the Kelce "happiness and fun and magic" line; the register-to-vote message with no on-stage Harris mention',
           },
           {
             outlet: 'Marie Claire',
-            url: 'https://www.marieclaire.com/fashion/taylor-swift-2024-vmas-red-carpet-tartan-corset/',
-            source_title: 'Taylor Swift Shuts Down the 2024 VMAs Red Carpet in a Tartan Dior Corset and Cape',
+            url: 'https://www.marieclaire.com/fashion/taylor-swift-ufo-sequin-mini-dress-2024-vmas/',
+            source_title: 'Taylor Swift Changes Into a UFO-Embellished Sequin Mini Dress Mid-2024 VMAs',
             publisher: 'Marie Claire',
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 3,
-            notes: 'Carpet look: tartan Dior corset-and-cape; the silver VOTY-acceptance look was a custom UFO-print Monse minidress.',
+            notes: 'Tartan Christian Dior carpet look and the Monse UFO minidress change (stylist Joseph Cassell Falconer)',
           },
           {
             outlet: 'Forbes',
@@ -4031,8 +4175,8 @@ export default {
             publisher: 'Forbes',
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
-            reliability_score: 4,
-            notes: 'Confirms the 30-30 tie with Beyoncé still stood after the 2025 ceremony, which Swift skipped.',
+            reliability_score: 3,
+            notes: 'The 30–30 Beyoncé tie survived the 2025 ceremony; Swift lost her lone 2025 nod (Artist of the Year) to Lady Gaga',
           },
         ],
         // T16 photo pass (2026-07-09): Getty ceremony photo from Rolling
@@ -4078,7 +4222,7 @@ export default {
       relatedIds: ['moment:vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z'],
       moment: {
         context:
-          'Released in stores on Black Friday, Nov. 29, 2024, alongside Target-exclusive Anthology pressings of The Tortured Poets Department — a $59.99 vinyl (four marbled, translucent discs plus a 12-inch poster) and a $17.99 CD, both carrying the 35-track Anthology. Per Circana BookScan data the book\'s two-day number trailed only Barack Obama\'s A Promised Land for a first week, and Target called it the fastest-selling new-release book it had carried in four years — 2024\'s biggest publishing launch.\n\nThe 256-page, $39.99 volume collects more than 500 photos — many never before seen, from every era, plus rehearsal shots and behind-the-scenes images of instruments, costumes, set pieces and designer sketches — with Swift\'s own written reflections on the tour. First sold only at Target, it later reached Amazon and Swift\'s official store.\n\nSelf-published rather than issued through a traditional house, it was quickly nicknamed "the Errors Tour": first printings were riddled with mistakes — the surprise song "This Is Me Trying" printed "This Is Me Rying," a Toronto date missing from the concert list, pixelated photos, text bleeding off pages, some copies with pages upside-down or missing, and images cropped so tightly into the spine that Swift disappeared into the gutter. Publishing veterans said a traditional editor and printer would have caught them; Swift\'s team, not being book publishers, simply "didn\'t consider" that layer of quality control (Sophie Vershbow, to Yahoo). No corrected reprint or statement from Swift\'s camp was reported.',
+          'Released in stores on Black Friday, Nov. 29, 2024, alongside Target-exclusive Anthology pressings of The Tortured Poets Department — a $59.99 vinyl (four marbled, translucent discs plus a 12-inch poster) and a $17.99 CD, both carrying the 35-track Anthology. Per Circana BookScan data the book\'s two-day number trailed only Barack Obama\'s A Promised Land for a first week, and Target called it the fastest-selling new-release book it had carried in four years — 2024\'s biggest publishing launch.\n\nThe 256-page, $39.99 volume collects more than 500 photos — many never before seen, from every era, plus rehearsal shots and behind-the-scenes images of instruments, costumes, set pieces and designer sketches — with Swift\'s own written reflections on the tour. First sold only at Target, it later reached Amazon and Swift\'s official store.\n\nSelf-published rather than issued through a traditional house, it was quickly nicknamed "the Errors Tour": first printings were riddled with mistakes — the surprise song "This Is Me Trying" printed "This Is Me Rying," a Toronto date missing from the concert list, pixelated photos, text bleeding off pages, some copies with pages upside-down or missing, and images cropped so tightly into the spine that Swift disappeared into the gutter. Publishing veterans said a traditional editor and printer would have caught them; Swift\'s team, not being book publishers, simply "didn\'t consider" that layer of quality control (Sophie Vershbow, to Yahoo). Target ordered a two-million-copy print run; the individual tour photographers, the printer, and any editor or designer went uncredited. As of mid-2026 no corrected reprint, errata edition, or refund program had materialized, and no consumer-protection or class-action action was documented — the only remedy on record was ad-hoc copy exchanges at Target, with no formal acknowledgement of the defects from Swift\'s team or Target.',
         sources: [
           {
             outlet: 'Variety',
@@ -4180,13 +4324,18 @@ export default {
       day: 4,
       category: 'business',
       title: "Spotify's top global artist, again — 26.6 billion streams",
+      relatedIds: [
+        'moment:vault-ttpd-the-tortured-poets-department',
+        'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
+        'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+      ],
       snippet:
         'Wrapped 2024 crowned her the most-streamed artist on earth for the second straight year, with TTPD as the year\'s most-streamed album — and the first-ever Wrapped badge stamped on her profile.',
       sourceUrl: 'https://newsroom.spotify.com/2024-12-04/taylor-swift-takes-the-crown-as-spotifys-global-top-artist-of-2024/',
       thumbnailUrl: null,
       moment: {
         context:
-          'The Dec. 4, 2024 reveal put her ahead of The Weeknd, Bad Bunny, Drake, and Billie Eilish on more than 26.6 billion global streams for the year — the Eras Tour and the Anthology feeding each other. Women held most of the global top-10 albums chart, with TTPD on top.\n\nSpotify built her a victory lap to match: the platform\'s first-ever "Global Top Artist Badge" stamped on her profile, era-themed Easter-egg animations hidden in the play button across her discography, augmented-reality friendship bracelets on Snapchat, celebration billboards in 11 cities, and personalized thank-you videos from Swift dropped into loyal listeners\' own Wrapped stories.',
+          'The Dec. 4, 2024 reveal put her ahead of The Weeknd, Bad Bunny, Drake, and Billie Eilish on more than 26.6 billion global streams for the year — the Eras Tour and the Anthology feeding each other. Women held most of the global top-10 albums chart, with TTPD on top.\n\nSpotify built her a victory lap to match: the platform\'s first-ever "Global Top Artist Badge" stamped on her profile, era-themed Easter-egg animations hidden in the play button across her discography, augmented-reality friendship bracelets on Snapchat, celebration billboards in 11 cities, and personalized thank-you videos from Swift dropped into loyal listeners\' own Wrapped stories.\n\nContext the headline number needs: her 2023 Wrapped total was roughly 26.1 billion, so 26.6 billion was a modest new personal high, not a decline, and the largest year-end artist total Spotify has published to date. The back-to-back crown was a personal first but not an all-time one — she had ended Bad Bunny\'s three-year reign (2020–2022) when she took 2023. Spotify did not publish the runners-up\' individual totals or a country-by-country count, and the "Global Top Artist Badge" was the inaugural edition of what the platform framed as a recurring annual honor rather than a one-off for her. Her single most-streamed song of the year was not a TTPD cut but "Cruel Summer," the 2019 Lover single the Eras Tour kept aloft — her only track in Spotify\'s 2024 global top 10, at No. 9.\n\nApple Music\'s Replay 2024 mirrored the crown, naming TTPD its most-streamed album of the year and Swift its most-streamed artist. Her monthly listeners had peaked earlier, at a Guinness-certified 113,539,589 on May 7, 2024 — the female record — in TTPD\'s wake. The streak then stopped at two: Wrapped 2025 (Dec. 3, 2025) handed the global crown back to Bad Bunny on 19.8 billion streams, Swift a close second, so the "recurring annual honor" did not recur for her — though she stayed Spotify\'s No. 1 US artist both years.',
         sources: [
           {
             outlet: 'Spotify Newsroom',
@@ -4196,6 +4345,57 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+            notes: 'The 11 celebration-billboard cities: New York, Toronto, Jakarta, São Paulo, Manila, Mexico City, London, Berlin, Los Angeles, Nashville and Miami.',
+          },
+          {
+            outlet: 'Spotify Newsroom',
+            url: 'https://newsroom.spotify.com/2025-12-03/wrapped-bad-bunny-top-artist-album/',
+            source_title: "Bad Bunny Is Spotify's Global Top Artist of 2025",
+            publisher: 'Spotify Newsroom',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Wrapped 2025 (revealed Dec. 3, 2025): Bad Bunny reclaims the global crown on 19.8bn streams; Swift places No. 2 — the streak ends at two.',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/2024-spotify-wrapped-taylor-swift-sabrina-carpenter-espresso-1235843719/',
+            source_title: "2024 Spotify Wrapped: Taylor Swift Is Top Artist, Sabrina Carpenter's 'Espresso' Is Top Song",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: "Swift was also Spotify's No. 1 US artist for 2024; the top US (and global) song was Sabrina Carpenter's \"Espresso.\" No US-only per-artist stream total was published.",
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/news/icons/taylor-swift-most-monthly-listeners-on-spotify',
+            source_title: 'Taylor Swift: most monthly listeners on Spotify (female)',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Certified female record of 113,539,589 monthly listeners as of May 7, 2024 (not the all-gender record).',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-reacts-the-tortured-poets-department-apple-music-top-streamed-album-2024-1235843467',
+            source_title: "Taylor Swift Reacts to 'The Tortured Poets Department' Topping Apple Music's 2024 Most-Streamed Albums",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: "Apple Music Replay 2024 corroborated the crown — TTPD its most-streamed album, Swift its most-streamed artist. No Amazon Music 2024 album crown was located.",
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/taylor-swift-claims-title-of-spotifys-most-streamed-artist-for-second-straight-year-with-26-6bn-streams-in-20241/',
+            source_title: "Taylor Swift claims title of Spotify's most-streamed artist for second straight year, with 26.6bn streams in 2024",
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: '26.6bn (up from ~26.1bn in 2023); ended Bad Bunny’s 2020–2022 reign in 2023',
           },
           {
             outlet: 'Variety',
@@ -4258,7 +4458,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed; Billboard reported a price around $360 million to Shamrock Capital, the firm that had bought the catalog from Scooter Braun\'s Ithaca Holdings in November 2020 — a price Rolling Stone put around $300 million, though Music Business Worldwide later reported Shamrock\'s outlay at $405 million. Billboard\'s analysis found Shamrock made little if any profit on the resale itself, but earned roughly $100 million over the three-plus years it owned the records. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs. The memories. The magic. The madness. Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville-based management team; a source close to the talks credited only "the partners at Shamrock Capital and Taylor\'s Nashville-based management team," adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was finished and could "have its moment" someday. At its reported price the deal sits alongside the Dylan and Springsteen catalog sales of the era, but with a distinction: those bundled publishing, while Swift already owned her publishing — making this a rare buyback of masters alone.\n\nIn her announcement letter she credited the ending to the success of the Eras Tour and the fans\' support for her re-recordings, saying she could finally own her music "with no strings attached." Reporting stopped short of confirming the deal ended Braun\'s 2020 earnout, but Variety noted he "no longer participates in any profit from a sale" and that Swift\'s camp was adamant he had no part in Shamrock\'s decision to sell.',
+          'Announced May 30, 2025 in a letter on her website. The terms were never officially disclosed; Billboard reported a price around $360 million to Shamrock Capital, the firm that had bought the catalog from Scooter Braun\'s Ithaca Holdings in November 2020 — a price Rolling Stone put around $300 million, though Music Business Worldwide later reported Shamrock\'s outlay at $405 million. Billboard\'s analysis found Shamrock made little if any profit on the resale itself, but earned roughly $100 million over the three-plus years it owned the records. As her letter enumerated it, the purchase swept up everything: "all my music videos. All the concert films. The album art and photography. The unreleased songs. The memories. The magic. The madness. Every single era. My entire life\'s work."\n\nShe had been offered the catalog directly in 2020 and walked away — Braun\'s team, she said, wanted an "ironclad" NDA barring her from ever speaking critically of him before she could even see the financials. This time the deal was struck directly with Shamrock through her Nashville-based management team; a source close to the talks credited only "the partners at Shamrock Capital and Taylor\'s Nashville-based management team," adding it happened "in spite of Scooter Braun, not because of him." Braun told reporters he was "happy for her."\n\nThe same letter settled the re-record questions: Reputation (Taylor\'s Version) had barely been touched — she\'d kept hitting a wall re-making an album she felt needed nothing fixed — while her re-recorded debut was finished and could "have its moment" someday. At its reported price the deal sits alongside the Dylan and Springsteen catalog sales of the era, but with a distinction: those bundled publishing, while Swift already owned her publishing — making this a rare buyback of masters alone.\n\nIn her announcement letter she credited the ending to the success of the Eras Tour and the fans\' support for her re-recordings, saying she could finally own her music "with no strings attached." Reporting stopped short of confirming the deal ended Braun\'s 2020 earnout, but Variety noted he "no longer participates in any profit from a sale" and that Swift\'s camp was adamant he had no part in Shamrock\'s decision to sell.\n\nTwo things the announcement made concrete. First, the buyback gave Swift ownership of her entire recorded catalog for the first time — the reclaimed first six albums plus Lover through The Tortured Poets Department, which she already owned on Republic — and for the four albums she had re-recorded (Fearless, Red, Speak Now, 1989) she now controls both the originals and the Taylor\'s Versions, quietly ending her long campaign urging fans to stream only the re-records. Shamrock issued its own statement, calling itself "thrilled with this outcome" and "so happy for Taylor." The market moved at once: per Luminate, her catalog streaming jumped 55.1% on announcement day and each of the six original albums at least doubled — the original Speak Now spiking roughly 430% — while the Taylor\'s Versions held steady rather than dipping, and catalog album sales rose 235% that week. Fellow artists cheered publicly, among them Selena Gomez, Phoebe Bridgers and Travis Kelce. As of mid-2026 nothing had advanced on the two unfinished re-records: the debut Taylor\'s Version remained finished but unreleased, and Reputation (Taylor\'s Version) stayed shelved — its only new fragment a re-recorded "Look What You Made Me Do (Taylor\'s Version)" that surfaced in a 2025 Handmaid\'s Tale sync.',
         sources: [
           {
             outlet: 'Billboard',
@@ -4346,6 +4546,36 @@ export default {
             accessed_at: '2026-07-24',
             reliability_score: 4,
             notes: 'Letter quotes on Reputation TV (barely a quarter re-recorded) and the finished debut re-record',
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/pop-culture-news/taylor-swift-buys-back-rights-master-recordings-first-6-albums-rcna209986',
+            source_title: 'Taylor Swift buys back the rights to the master recordings of her first 6 albums',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'First time she owns her entire catalog; Shamrock\'s own statement ("thrilled with this outcome and [we] are so happy for Taylor")',
+          },
+          {
+            outlet: 'Luminate',
+            url: 'https://luminatedata.com/blog/original-recordings-or-taylors-versions-which-albums-are-swifties-streaming/',
+            source_title: 'Original Recordings or Taylor\'s Versions: Which Albums Are Swifties Streaming?',
+            publisher: 'Luminate',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+            notes: 'Post-buyback streaming: originals each at least doubled (Speak Now ~+430%), Taylor\'s Versions held steady, no dip',
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-albums-boost-masters-1235993446/',
+            source_title: 'Taylor Swift\'s Catalog Gets a Boost After She Buys Back Her Masters',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+            notes: 'Catalog streaming +55.1% on announcement day; catalog album sales +235% that week',
           },
         ],
         // T16 photo pass (2026-07-09): the celebration photo released with

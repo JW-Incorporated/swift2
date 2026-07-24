@@ -1924,6 +1924,7 @@ export default {
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+        'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
       ],
       year: 2025,
       month: 12,
@@ -2000,6 +2001,7 @@ export default {
       relatedIds: [
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
         'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+        'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
       ],
       year: 2025,
       month: 12,
@@ -3558,70 +3560,6 @@ export default {
       },
     },
     {
-      slug: 'showgirl-emmy-nomination-eras-final-show',
-      year: 2026,
-      month: 7,
-      day: 9,
-      category: 'business',
-      title: 'The Eras Tour: The Final Show earns five Emmy nominations',
-      snippet:
-        'Her first Primetime Emmy nod in over a decade: five nominations for the Disney+ concert film, including Outstanding Variety Special, for a nearly 3.5-hour cut of the tour\'s Vancouver finale with the full Tortured Poets set added.',
-      sourceUrl: 'https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-2026-emmy-nominations-1236641549/',
-      thumbnailUrl: null,
-      moment: {
-        context:
-          'The 2026 nominations covered Outstanding Variety Special (Prerecorded), directing for Glenn Weiss, picture editing, sound mixing, and technical direction/camerawork. Produced by Taylor Swift Productions with Silent House Productions, the film captured the 45-song Vancouver finale in full, including the TTPD segment Swift has called the "Female Rage" set — material no prior filmed version of the show contained. As a named producer on the Variety Special nomination, Swift herself is a nominee.\n\nIt was her first Primetime Emmy recognition in over a decade, and it recast the tour\'s afterlife: a stadium show that had already broken box-office and grossing records was now competing in television\'s categories too, against purpose-built comedy and variety specials. The 78th Emmy Awards air Sept. 14, 2026 on NBC and Peacock.',
-        sources: [
-          {
-            outlet: 'The Hollywood Reporter',
-            url: 'https://www.hollywoodreporter.com/tv/tv-news/taylor-swift-2026-emmy-nominations-1236641549/',
-            source_title: "Taylor Swift's 'The Eras Tour: The Final Show' Lands 5 Emmy Noms, Including One for Namesake",
-            publisher: 'The Hollywood Reporter',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-          {
-            outlet: 'Billboard',
-            url: 'https://www.billboard.com/lists/taylor-swift-emmy-nomination-eras-tour-final-show/',
-            source_title: "Taylor Swift Gets Emmy Nomination for 'The Eras Tour: The Final Show'",
-            publisher: 'Billboard',
-            source_type: 'reputable_press',
-            accessed_at: '2026-07-08',
-            reliability_score: 4,
-          },
-        ],
-        // Commons concert photo of the actual tour (license CC BY 2.0,
-        // Paolo V, verified via the Commons API this session); dated in the
-        // caption so it isn't mistaken for the Vancouver finale itself.
-        // Photo pass #762 run 9 (2026-07-18): added the Getty tour photo THR
-        // ran as the hero of its own Emmy-nominations story (THR's wp-content
-        // CDN; curl-verified 200 image/jpeg 1440x810, downloaded and viewed).
-        // Caption keeps it generic to the tour since Getty's frame isn't
-        // dated to the Vancouver finale. Both images viewed for focal points.
-        photos: [
-          {
-            url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
-            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
-            caption:
-              'The Eras Tour\'s Lover set at SoFi Stadium, August 2023 — the show whose filmed Vancouver finale earned the five nominations.',
-            kind: 'archival',
-            // Wide panorama, Taylor small in the left third against a dark bowl.
-            focalPoint: '34% 40%',
-          },
-          {
-            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2026/07/GettyImages-2166917001.jpg?w=1440&h=810&crop=1',
-            credit: 'Getty Images, via The Hollywood Reporter',
-            caption:
-              'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
-            kind: 'archival',
-            // Taylor centered, face just above the vertical midline.
-            focalPoint: '50% 36%',
-          },
-        ],
-      },
-    },
-    {
       slug: 'showgirl-grammy-eligibility-window-miss',
       significance: 'notable', // a real, documented trade-off in the release calendar with a full award-cycle consequence (docs/decisions.md, 2026-07-19)
       year: 2025,
@@ -4962,12 +4900,12 @@ export default {
       ],
       title: "Luminate's 2025 crown: 5.6 million units, no contest",
       snippet:
-        'The year-end report made it official — Showgirl was 2025\'s most-consumed album in the US at 5.607M units, roughly half a million clear of Morgan Wallen. Her fourth year-end No. 1, and second in a row.',
+        'The year-end report made it official — Showgirl was 2025\'s most-consumed album in the US at 5.607M units, roughly half a million clear of Morgan Wallen. Her fifth year-end No. 1 — more than any act in history — and second in a row.',
       sourceUrl: 'https://www.billboard.com/pro/luminate-2025-year-end-music-report-taylor-swift-showgirl/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Remarkable mostly for the calendar: the album had only 13 weeks of 2025 to work with (Luminate\'s tracking year closed Jan. 1, 2026) and still finished at 5.607 million US units — enough to beat everything released in the previous nine months and top Billboard\'s year-end Billboard 200. Morgan Wallen\'s "I\'m the Problem" ran second at 5.125 million; it was the first year since Luminate began the metric in 2014 that two albums each cleared five million.\n\nThe shape of the number tilted hard toward ownership. Of the 5.607 million, 3.985 million (71%) were pure album sales — itself the year\'s No. 1 sales total by a wide margin — against 1.603 million streaming-equivalent units and just 19,000 track-equivalent. Showgirl was also 2025\'s No. 1 vinyl album (1.601 million LPs) and the top seller on CD, cassette, and download, the collector economy behind the record October week doing the year-round work.\n\nIt was her fourth year-end No. 1 album and her second in a row, after The Tortured Poets Department\'s 2024 crown — though TTPD\'s larger 6.955-million 2024 total is the reminder that a single quarter of eligibility, not a bigger fanbase, set the 2025 ceiling. One nuance the headline hides: the year\'s top overall artist was Wallen (a record 41 Hot 100 entries), with Swift taking top album and top female artist. Globally, the IFPI named Showgirl its biggest-selling album of 2025 — No. 1 on its worldwide album, album-sales, and vinyl charts.',
+          'Remarkable mostly for the calendar: the album had only 13 weeks of 2025 to work with (Luminate\'s tracking year closed Jan. 1, 2026) and still finished at 5.607 million US units — enough to beat everything released in the previous nine months and top Billboard\'s year-end Billboard 200. Morgan Wallen\'s "I\'m the Problem" ran second at 5.125 million; it was the first year since Luminate began the metric in 2014 that two albums each cleared five million.\n\nThe shape of the number tilted hard toward ownership. Of the 5.607 million, 3.985 million (71%) were pure album sales — itself the year\'s No. 1 sales total by a wide margin — against 1.603 million streaming-equivalent units and just 19,000 track-equivalent. Showgirl was also 2025\'s No. 1 vinyl album (1.601 million LPs) and the top seller on CD, cassette, and download, the collector economy behind the record October week doing the year-round work.\n\nIt was her fifth year-end No. 1 on the Billboard 200 — after Fearless (2009), 1989 (2015), reputation (2018), and The Tortured Poets Department (2024) — making her the first act ever to lead the year-end album chart five separate times. Taking 2024 and 2025 back to back also made her the first to top the year-end Billboard 200 in consecutive years with two different titles since Elton John in 1974. TTPD\'s larger 6.955-million 2024 total is the reminder that a single quarter of eligibility, not a bigger fanbase, set the 2025 ceiling. One nuance the headline hides: the year\'s top overall artist was Wallen (a record 41 Hot 100 entries), with Swift taking top album and top female artist. Globally, the IFPI named Showgirl its biggest-selling album of 2025 — No. 1 on its worldwide album, album-sales, and vinyl charts — back to back after The Tortured Poets Department took the 2024 global album crown.',
         sources: [
           {
             outlet: 'Billboard',
@@ -4986,6 +4924,20 @@ export default {
             source_type: 'chart_database',
             accessed_at: '2026-07-08',
             reliability_score: 5,
+          },
+          // Correction + depth 2026-07-24 (#1438 Q1): Showgirl is her FIFTH
+          // year-end Billboard 200 No. 1 (was mislabeled "fourth") — Fearless
+          // 2009, 1989 2015, reputation 2018, TTPD 2024, Showgirl 2025 — and
+          // the Elton-John-1974 consecutive-titles line. Verified against
+          // Billboard's own year-end story (already cited above) and this.
+          {
+            outlet: 'In Music',
+            url: 'https://inmusicblog.com/news/taylor-swift-billboard-200-year-end-history-record/',
+            source_title: 'Taylor Swift Makes History With Five Billboard 200 Year-End No. 1 Albums',
+            publisher: 'In Music',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 3,
           },
           // Depth ledger #1077 (2026-07-21): the format split (3.985M pure /
           // 1.603M SEA / 19K TEA), the pure-sales & vinyl No. 1s, Wallen's
@@ -5963,9 +5915,16 @@ export default {
         'https://www.rollingstone.com/music/music-news/taylor-swift-2026-emmy-nominations-eras-tour-final-show-1235590955/',
       thumbnailUrl: null,
       significance: 'notable', // a real award milestone — first Emmy nominations in 10+ years, on the record-breaking Eras Tour (docs/decisions.md, 2026-07-18)
+      // Cross-links added 2026-07-24 (correction ledger #1275, Q6): the awards
+      // page now threads back to the film it honors and the docuseries it
+      // premiered beside, so a reader can follow the arc release -> awards.
+      relatedIds: [
+        'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
+        'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
+      ],
       moment: {
         context:
-          'The concert film of the Eras Tour’s final night — Taylor Swift: The Eras Tour: The Final Show, which streamed on Disney+ — landed five nominations when the 78th Emmy nominations were announced on July 8, 2026: Outstanding Variety Special (Pre-Recorded), a directing nod for Glenn Weiss, Outstanding Picture Editing for Variety Programming, Outstanding Sound Mixing for a Variety Series or Special, and Outstanding Technical Direction and Camerawork for a Special.\n\nTaylor is credited on the special as both performer and producer — Taylor Swift Productions made it, in association with Silent House — so the nominations attach to her personally, and they are her first Emmy nominations in more than a decade. They are not her first Emmy outright: back in 2015 she won Outstanding Creative Achievement in Interactive Media for the AMEX Unstaged: Taylor Swift Experience, the 360-degree app built around the "Blank Space" video, as its artist and executive producer. What is new this time is the Television Academy recognizing her on-camera performing work — and it is the film of the record-breaking Eras Tour that got her there.\n\nOnly the Variety Special nod rides the primetime telecast; the other four — directing, picture editing, sound mixing, and technical direction and camerawork — are Creative Arts Emmys, handed out at the separate Creative Arts ceremony on Sept. 5-6, 2026, ahead of the main show on Sept. 14 (NBC and Peacock, hosted by Mariska Hargitay). Director Glenn Weiss, a veteran of the Oscars and Tony telecasts, was double-nominated in that directing category — also cited for the 78th Tony Awards. The special captures the tour\'s final night at Vancouver\'s BC Place in December 2025, a roughly three-and-a-half-hour, 45-song set that runs the entire Tortured Poets Department; its eligibility turned on format, where the 2023 Eras Tour concert film was a theatrical release and this Disney+ streaming special qualified as television.',
+          'The concert film of the Eras Tour’s final night — Taylor Swift: The Eras Tour: The Final Show, which streamed on Disney+ — landed five nominations when the 78th Emmy nominations were announced on July 8, 2026: Outstanding Variety Special (Pre-Recorded), a directing nod for Glenn Weiss, Outstanding Picture Editing for Variety Programming, Outstanding Sound Mixing for a Variety Series or Special, and Outstanding Technical Direction and Camerawork for a Special.\n\nTaylor is credited on the special as both performer and producer — Taylor Swift Productions made it, in association with Silent House — so the nominations attach to her personally, and they are her first Emmy nominations in more than a decade. They are not her first Emmy outright: back in 2015 she won Outstanding Creative Achievement in Interactive Media for the AMEX Unstaged: Taylor Swift Experience, the 360-degree app built around the "Blank Space" video, as its artist and executive producer. What is new this time is the Television Academy recognizing her on-camera performing work — and it is the film of the record-breaking Eras Tour that got her there.\n\nOnly the Variety Special nod rides the primetime telecast; the other four — directing, picture editing, sound mixing, and technical direction and camerawork — are Creative Arts Emmys, handed out at the separate Creative Arts ceremony on Sept. 5-6, 2026, ahead of the main show on Sept. 14 (NBC and Peacock, hosted by Mariska Hargitay). Director Glenn Weiss, a veteran of the Oscars and Tony telecasts, was double-nominated in that directing category — also cited for the 78th Tony Awards. The special captures the tour\'s final night at Vancouver\'s BC Place in December 2025, a roughly three-and-a-half-hour, 45-song set that runs the entire Tortured Poets Department; its eligibility turned on format, where the 2023 Eras Tour concert film was a theatrical release and this Disney+ streaming special qualified as television.\n\nFive nominations is a heavy haul for a concert special — just shy of the six that Beyoncé\'s "Homecoming" drew in 2019, the modern benchmark for the form. That Netflix film competed in the same Variety Special (Pre-Recorded) race and was shut out at the Creative Arts ceremony, winning none of its six, a reminder that the nod is the achievement and the trophy is a separate question the Sept. 2026 ceremonies will settle. In the Variety Special (Pre-Recorded) category The Final Show is up against "Wicked: One Wonderful Night" (NBC), "Dave Chappelle: The Unstoppable…," Hulu\'s "Nikki Glaser: Good Girl," and a Muppet Show special — a field of purpose-built comedy and event television. Silent House, the firm sharing the production credit with Taylor Swift Productions, is the live-design company founded by Baz Halpin in 2010 that staged the Eras Tour itself, so the people who built the show also made its film.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -5996,11 +5955,75 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 4,
           },
+          // Depth 2026-07-24 (#1034 Q7 / #1275 Q3): the concert-special
+          // benchmark — Homecoming's six 2019 noms and its Creative-Arts shutout.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2019/music/news/beyonce-emmy-nominations-homecoming-1203268823/',
+            source_title: "Emmy Queen Bey? Beyonce's 'Homecoming' Lands Six Nominations",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          // Depth 2026-07-24 (#1034 Q5): the full Variety Special (Pre-Recorded)
+          // field the Final Show competes in at the 78th Emmys — authoritative.
+          {
+            outlet: 'Television Academy',
+            url: 'https://www.televisionacademy.com/awards/nominees-winners/2026/outstanding-variety-special-pre-recorded',
+            source_title: 'Outstanding Variety Special (Pre-Recorded) — 2026 Nominees',
+            publisher: 'Television Academy',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          // Depth 2026-07-24 (#1034 Q6): Silent House, Baz Halpin's live-design
+          // firm (founded 2010) that shares the special's production credit.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2019/music/news/silent-house-tour-producers-1203349554/',
+            source_title: 'Silent House, Pink and Taylor Swift Tour Producer, Turns 10 in Style',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          // Merged 2026-07-24 (correction ledger #1275): corroboration carried
+          // over from the deleted duplicate `showgirl-emmy-nomination-eras-final-show`.
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-emmy-nomination-eras-tour-final-show/',
+            source_title: "Taylor Swift Gets Emmy Nomination for 'The Eras Tour: The Final Show'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
         ],
-        // No photo: the nominations announcement has no photography of its own,
-        // and a stand-in performance still would illustrate nothing that
-        // happened here. Same call as the Marasco and donation items below.
-        photos: [],
+        // Photos merged 2026-07-24 from the deleted duplicate moment
+        // `showgirl-emmy-nomination-eras-final-show` (correction ledger #1275):
+        // both are verified tour photos, not the nominations event itself, so
+        // captions keep them generic to the Eras Tour that earned the nods.
+        photos: [
+          {
+            url: 'https://upload.wikimedia.org/wikipedia/commons/6/68/Taylor_Swift_The_Eras_Tour_Lover_Set_%2853108817342%29.jpg',
+            credit: 'Paolo V, CC BY 2.0, via Wikimedia Commons',
+            caption:
+              'The Eras Tour\'s Lover set at SoFi Stadium, August 2023 — the show whose filmed Vancouver finale earned the five nominations.',
+            kind: 'archival',
+            // Wide panorama, Taylor small in the left third against a dark bowl.
+            focalPoint: '34% 40%',
+          },
+          {
+            url: 'https://www.hollywoodreporter.com/wp-content/uploads/2026/07/GettyImages-2166917001.jpg?w=1440&h=810&crop=1',
+            credit: 'Getty Images, via The Hollywood Reporter',
+            caption:
+              'Mid-show on the Eras Tour, arm raised against the billowing Lover-set backdrop — the image THR ran with news of the five nominations.',
+            kind: 'archival',
+            // Taylor centered, face just above the vertical midline.
+            focalPoint: '50% 36%',
+          },
+        ],
       },
     },
     {
