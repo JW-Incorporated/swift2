@@ -25,7 +25,47 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 101
+Stories: 106
+
+## Taylor Swift, rodeos: County fairs in South Dakota - KELOLAND.com
+
+- first seen: 2026-07-24 04:27 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift, rodeos: County fairs in South Dakota  KELOLAND.com
+- sources:
+  - [unverified] KELOLAND.com — https://news.google.com/rss/articles/CBMinAFBVV95cUxOT3Q3d2gxcjZHanRiY1dmSExXVGwwQUNZRkhrMzRVeFFWNmExR0ZfaE5YU2lPcVdOQUpJdktJUl9XZXdWc2t1WVVQbVZJOGJtZkZabU1QOWdMR0JINXgxMWVsOEZsRENaRWs3WGF2WGttN0JPbFBzb1daVm1IU01NVUVtWlJ0YVVYMlFJbmhpVkdRSUhVLXg4RTRNTFHSAaIBQVVfeXFMTXZhczhZYl9sOU5KeUg3dFVsOXBPdkZRYUdxQXZQTkpMYkJBbTJna0VPMUd4LVp3d2dSNkJIcVlNNnpSck50cVo5b2dOUEZNbmZhMjlESUtlLV9WTFJkYW5kRDJBai1pNmpTMjlIUFR2S0RtUFRSZXRUQ191NXB3QkUxOWlMaDlWY0ZDdUhiVUJhVlEzb0JsTExQRkFObTMxeUlB?oc=5
+
+## 'She admits it in the songs': Taylor Swift and Travis Kelce's newlywed joy interrupted by viral post
+
+- first seen: 2026-07-24 04:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'She admits it in the songs': Taylor Swift and Travis Kelce's newlywed joy interrupted by viral post revi  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMisAJBVV95cUxQVDhOemx3enROTHdGWnF3MllkMkVfZVQ2ZGhMcEt0RGVtMmZNMHZzbW9HTzl6eUhWSFctamVobm5mUks5VlVBamtjYTRVQ1ZCRnE3UGFrVVFBX19DM0FHcTA0SkUyNjZCMkk3bWZuNVpQOFZ2UnZsdi1XbVVWN0tTcmpvdmUwdzdNSW8tT2t0YkFGSXktY3F4SHVmZW4zUTVTdzQ5RUxNYzczOU1MLWk2b3lfc1IwSU4ybnhBMUtRcVNjR1U5bjZlWnlvRk9RTnNLS0NkS3VvLU9ydG9uMGN0WEJuZm5MT0xEVzNBaFBXamxYb0hIMDQ2Mm12T2tQOVRYNC0tVm5jQk4xNU1yd0JYejFSZWVJMUdyanlocU9LcVZyZUo2M08xNkpSc2hscmdE0gG2AkFVX3lxTFAtQnFQMk5FWU5xYWh3OXoyZ3FyNXluQ2NTYUlKZlpzZzBZbGJ2XzhaYk5WVGlFRTVvM2h1UkRLMkxGbnZxelhwblhEX21tdndmdFV6TFhKc0hVZXEwajFTbDlhWjNTVnAzUlJ1WldWdmhRQWlhbWxuRC1WaWFVUG05c1VxUUhYRmhpUGoxMUREb3ZzNWZpVGxqRXczRVRhMUhwenhqamZBR0pnQkVISGM1dDlpNjVXYlB3MnY5clItOFl1NTViXzl3d2l6MlAzWVZNa1lBYTkxLTZ3RFc4THJVVWNNU1BHUnUzc2FOcnJvS29ZYU5uOUQ5eExESmFObVVzNGtIT29nR2NLRjNJeFQyQ080ODZQdC11YmJrUjlxaDA2UXRvTUU4S2ZSaVM0VE9saHRiU0E?oc=5
+
+## Blake Lively’s Reported Rift With Taylor Swift Is Allegedly Changing Her Hollywood Standing - Yahoo
+
+- first seen: 2026-07-24 04:27 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively’s Reported Rift With Taylor Swift Is Allegedly Changing Her Hollywood Standing  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipgFBVV95cUxONGhwNV9ubUllT21tVjJSb1FybkpoZkxJdEpUR3lSeVZqcWF2NzhDM21CSTJ3Nk1rRlNrUE1DUWdDSEtDWml2cE1WdTRxWk1Lc0FrZUpRRElKQzJUakdaWHAwQTJGSE9QSGp3UkJQNVNSdFZHSlpOM0k4dmhQUk5JWGNST092bXRxRmFDOFZfNGR1NFVJdFozUUNzeEwyeVd5WnI4N3h3?oc=5
+
+## Taylor Swift may already know when Travis Kelce will retire - MARCA
+
+- first seen: 2026-07-24 04:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift may already know when Travis Kelce will retire  MARCA
+- sources:
+  - [unverified] MARCA — https://news.google.com/rss/articles/CBMiwAFBVV95cUxQa0VfR3Izd2h2bVIxQkNVM1c0OEhMVDZrR2ZfdVFvZGx1dmN1NlZ6UHlSTkFKektFSjU2V1hrVlNEcWJwYlloa200a3ZjLXE3UV9mVVVNT0ZTMWdYR21hcWVDckJUQnRpSks5N2xqTjBSQU5nS0NUaFMxaEk0NUZlX3pQb3o2SVZTMWxUb1FHYThhSlZPc0FCSEtJVnZZTkhldE43Q1NXaEtXMDdubkxTR21ScVhHWXpZMGFHdGpPbnPSAcABQVVfeXFMTWlBM2k2UGowcXVJZDRkd2p4RWhUVjJma1VTdm5IVGVaYl9nTmlRd19HaVFFRXpzd0hNeDUtSUhhMlJuUkxuRWp2REVjOUxqQVNoNHJTTlJEVzdiaTQyTUZTT1lpZnMwMVJnLWtBZ0hlc1NBd3NJSTdDbEVZWGZ4ZjJkQlJUdXlPckR6UHdMTnhoQU43R0xPZ2ZidGQzeFNlUGJTNTNrNlV6ZDY3aGt5dE1JX1hJbVR0NmlZeE83MGIt?oc=5
+
+## Jersey Shore weekend field hockey clinic to feature coach linked to Travis Kelce, Taylor Swift - NJ.
+
+- first seen: 2026-07-24 04:27 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Jersey Shore weekend field hockey clinic to feature coach linked to Travis Kelce, Taylor Swift  NJ.com
+- sources:
+  - [unverified] NJ.com — https://news.google.com/rss/articles/CBMi2AFBVV95cUxOdUlCZTNnc3RVMWhwSF9LYlgwNVhMNGE4anMxa0tkQzMzQzdPdzNDQ1U5T0VuZlg2ZVl4LVZBQ2duV0hlZEJiVXZTNFNFbmJNRFVqNE5LbXFNMWlEUzAwT1FrRTE0QWVCemcxZ2tVdGt1eHBOMXZiTGdtbVNwdW9ONVQ2T1hCZzA3WG0ybTZ6RWtSTXRpZ3BCOERoQk56QTZiZENScVpCMVhtWVdFbGo3aTMyczJUVGxGbG5zRmtXblVPdG9rNGh6T01JYVNBZ3J5dnl0RUxiMlrSAewBQVVfeXFMTU02N0s2cGRUVzhSdE1ya2hzbEFzaGZ0TURpTDBRWEhjMk9jcFNsUkJWUHlNbmI1TDdsYWFWWVU1dHIwRl9mdm1LVjg0WldCcjMyVUpjT09UUXRwWldQODBEOVhoUlEyLU1Vek1EX2FBbU9fMjdsWGZTZW5mNHh4ZENHTzJuVk9uQk5BdzNHNFdHRHJ1b0hIUG95R1RUU2xjZ1ZWNl9neEF5eWR1Y2VYYlhhRC1YN2hpS0Ftc2J6SVo1cGFOSDI3LVRqM1hfeGI2VEdEZ2VsLWR6TWVJQ00ybnFEcHcwb1JZMjlOa2U?oc=5
 
 ## Travis Kelce’s Wedding Ring Has 1 Timeless Detail That Quietly Honors Taylor Swift - Yahoo
 
@@ -110,11 +150,12 @@ Stories: 101
 ## Taylor Swift, Travis Kelce give $2M to families of fallen NYC first responders - FireRescue1
 
 - first seen: 2026-07-23 18:21 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 2
+- verification_status: corroborated | source_count: 3
 - summary: Taylor Swift, Travis Kelce give $2M to families of fallen NYC first responders  FireRescue1
 - sources:
   - [unverified] FireRescue1 — https://news.google.com/rss/articles/CBMitwFBVV95cUxONmkteVVZaW1kVl9JVlZPdXlSZktrbUQ1Ym1RLXh6ajE4alVzM1ZjSDAxZ0Y2VlZiTW5HUFNSMWhxb1I3VG1sMGd3UEhZclpuSEUtVkE1V3laT3lELXFIS192bnRJVHZYZHlja2tOaER2U1pLakwtV1l1by1BU2dNa3I1TkVtUTlYbF9rSFA0VC00aDhQRFRDQWVoZkczcXNLZFNEQlQ5MnVOc2FsLXlLalNxR192MVk?oc=5
   - [unverified] EMS1 — https://news.google.com/rss/articles/CBMirgFBVV95cUxPdmx4Tm9IekJERE9ybG0tQkJkazFJRUZrdmYwVGFGbFphWFQzRjNOSDhnb05KMnRXQ3NoM051dWdJanB2MC1ISkJTbnFla3NiS1p0aGdYclI4Y3hOX0hrY0lDU3JWQ25XNGtyeXc5LURnZEp1Mzh3a0h3WDFrQzZ4MzVPS3MteXNzT3J2MmZXdk9OM19QWUxmMlRHTUJINDRRSVVIT1JZQlZ6VUxzNlE?oc=5
+  - [unverified] Police1 — https://news.google.com/rss/articles/CBMitAFBVV95cUxObFcwZDNwVHRJSUQ2N09oY0xqRFZSS1VuWUozMjlBaG5XSkdlZkwwWUM0c084TEJWUTVkdkRwaGQwZW5uT3kzWmhndXhSRlBSYmF3RlYxWFZnZ2VjMl9HTzBkWFczQzU1bmlFT1VnbmpmQm5sUTJrX28wTVRvZ0U0NjYxeWh2OHZFQlFxLUdfZ2VsdDQtTnp3NEp4X3VPMUM5NjRPY3lnNnkxWGZFVzNmTmpZVWI?oc=5
 
 ## Kylie Kelce Shares First Reaction After Attending Taylor Swift & Travis Kelce’s Wedding - Just Jared
 
