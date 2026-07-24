@@ -1984,6 +1984,20 @@ export default {
       sourceUrl: 'https://time.com/5419276/taylor-swift-instagram-post-voter-registration-spike/',
       thumbnailUrl: null,
       moment: {
+        // The post this page is ABOUT (issue #762, Part B). Shortcode from the
+        // permalink CNBC and Rolling Stone both embed (two independent outlets);
+        // verified by rendering instagram.com/p/BopoXpYnCes/embed/captioned: the
+        // taylorswift verified account and the exact "In the past I've been
+        // reluctant to publicly voice my political opinions…" endorsement
+        // caption. Embedded rather than hotlinked — Instagram CDN urls are
+        // signed/expiring and the host is not on the image allowlist.
+        socialPost: {
+          platform: 'instagram',
+          shortcode: 'BopoXpYnCes',
+          label:
+            'Her first political endorsement: a text post backing Phil Bredesen and Jim Cooper in Tennessee, breaking years of public silence.',
+          postedOn: '2018-10-07',
+        },
         context:
           '"In the past I\'ve been reluctant to publicly voice my political opinions, but due to several events in my life and in the world in the past two years, I feel very differently about that now," she wrote, endorsing Phil Bredesen for Senate and Jim Cooper for House.\n\nVote.org attributed a surge of about 65,000 registrations nationwide in the following 24 hours — one of the clearest measured cases of celebrity influence on registration, and the pivot point for the activism that carried into the Lover era and Miss Americana.',
         sources: [
