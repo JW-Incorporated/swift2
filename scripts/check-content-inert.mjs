@@ -83,6 +83,14 @@ export const ALLOWLIST = {
   // dossier. Same caveats, same tracked refactor.
   'supabase/seed/tracks/debut.mjs':
     'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
+  // Same shape as the-life-of-a-showgirl.mjs / red.mjs / tortured-poets.mjs /
+  // midnights.mjs / debut.mjs (dossier side file attached by slug with an
+  // import-time integrity throw) — added 2026-07-24 when ledgers #1281 / #1385 /
+  // #1413 / #1417 gave the reputation era its first per-song dossiers (Delicate,
+  // End Game, New Year's Day, Look What You Made Me Do). Same caveats, same
+  // tracked refactor.
+  'supabase/seed/tracks/reputation.mjs':
+    'Local .map/spread merge of sibling dossiers module + import-time assertion; benign but not provably inert. Human-review-only. Refactor to inline → #511.',
 };
 
 // The only free identifiers a value may reference (safe constants that cannot
