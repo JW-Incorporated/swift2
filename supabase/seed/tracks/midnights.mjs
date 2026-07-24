@@ -6,6 +6,8 @@
 import DOSSIERS from './midnights.dossiers.mjs';
 
 const ACCESSED = '2026-07-08';
+// Depth pass (ledger #1256, 2026-07-24): accessed date for newly added sources.
+const ACCESSED_DEPTH = '2026-07-24';
 const wiki = (title, path, notes) => ({
   source_url: `https://en.wikipedia.org/wiki/${path}`,
   source_title: `${title} — Wikipedia`,
@@ -244,16 +246,39 @@ const ERA = {
       producers: ['Taylor Swift', 'Jack Antonoff'],
       note: 'The weightless one — falling in love again mid-heartbreak and being terrified of the elevator drop.',
       summary:
-        'Breath held in an emotional stairwell: she talks herself through panic as new feelings arrive faster than the old damage healed. The production floats to match.',
-      inspiration: null,
+        'Breath held in an emotional stairwell: she talks herself through panic as new feelings arrive faster than the old damage healed. Antonoff’s production floats for two-thirds on dense synths and almost no percussion before a beat suddenly drops in, her vocal pitched down near the end. It debuted at No. 14 on the Hot 100 the week Swift became the first artist to hold the chart’s entire top 10 (dated Nov. 5, 2022) and reached No. 12 on the Global 200; critics filed it as a quiet grower — Rolling Stone’s Rob Sheffield called it a “stealth classic” — while a handful found its vocal effects dated. Long a fan favorite left off the setlist, it finally arrived as an Eras Tour surprise song in Buenos Aires (Nov. 9, 2023) and later turned up in piano mashups.',
+      inspiration:
+        'Swift revealed only the title on “Midnights Mayhem With Me” and never explained the song; the closest self-sourced thread is the “breathe in, breathe through, breathe deep, breathe out” line, which echoes advice from her 2022 NYU commencement speech. The widely repeated falling-in-love-again-after-heartbreak reading is critics’ interpretation, not a confirmed statement.',
       themes: ['falling again', 'fear after loss', 'gentleness with oneself'],
+      easterEggs:
+        'Fan and critic reading (unconfirmed by Swift): the “elevator”/about-to-fall imagery as the vertigo of new love, and the “it only hurts this much right now” turn as the pivot from dread toward acceptance.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Labyrinth_(Taylor_Swift_song)',
       sources: [
         wiki(
           'Labyrinth (Taylor Swift song)',
           'Labyrinth_(Taylor_Swift_song)',
-          'song article: composition',
+          'song article: composition, chart peaks, reception, live performances',
         ),
+        {
+          source_url:
+            'https://www.rollingstone.com/music/music-features/taylor-swift-midnights-sheffield-1234615239/',
+          source_title: 'Taylor Swift’s ‘Midnights’: Rob Sheffield’s Track-by-Track Review',
+          publisher: 'Rolling Stone',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'review: calls Labyrinth a “stealth classic”',
+        },
+        {
+          source_url:
+            'https://www.today.com/popculture/music/taylor-swift-labyrinth-surprise-song-argentina-rcna124660',
+          source_title: 'Taylor Swift plays ‘Labyrinth’ live for the first time in Argentina',
+          publisher: 'Today',
+          source_type: 'reputable_press',
+          accessed_at: ACCESSED_DEPTH,
+          reliability_score: 4,
+          notes: 'live history: Eras Tour surprise-song debut, Buenos Aires',
+        },
         ALBUM,
       ],
     },
