@@ -1,8 +1,8 @@
 // Per-song dossiers for the reputation era (issue #440 / #726 pattern),
 // keyed by track slug and attached in reputation.mjs. Researched and
 // fact-checked 2026-07-24 to drain curiosity ledgers #1281 (Delicate),
-// #1385 (End Game), #1413 (New Year's Day) and #1417 (Look What You Made Me
-// Do): every source URL below was fetched and verified to resolve and support
+// #1385 (End Game), #1413 (New Year's Day), #1417 (Look What You Made Me
+// Do) and #1474 (Getaway Car): every source URL below was fetched and verified to resolve and support
 // its claim (a browser User-Agent was used for outlets that block default
 // fetchers). Confirmed tier = Swift's own public statements or hard documented
 // chart/credit facts only; every muse/target read is labeled unconfirmed.
@@ -235,6 +235,57 @@ export default {
       { name: "The FADER: Right Said Fred are 'very pleased' with the interpolation", url: 'https://www.thefader.com/2017/08/25/taylor-swift-right-said-fred-look-what-you-made-me-do' },
       { name: "Rolling Stone: 'Look What You Made Me Do' video decoded", url: 'https://www.rollingstone.com/music/music-news/taylor-swifts-look-what-you-made-me-do-video-decoded-13-things-you-missed-126268/' },
       { name: 'RIAA Gold & Platinum database', url: 'https://www.riaa.com/gold-platinum/' },
+    ],
+  },
+
+  'getaway-car': {
+    whyItMatters: [
+      "Getaway Car is the album cut critics and fans most often crown reputation's best writing: a Bonnie-without-Clyde heist metaphor for using one relationship to flee another, doomed from the ignition. It was never a single and never got a video, yet it routinely tops best-of-reputation and best-Swift-deep-cut lists.",
+      "It also became one of the Eras Tour's most-loved surprise songs — proof that a non-single can carry an album's reputation on songwriting alone.",
+    ],
+    meaning: {
+      confirmed: [
+        "Written and produced by Taylor Swift and Jack Antonoff, 'Getaway Car' was never released as a single and has no music video. On the Hot 100 it made only a minor No. 76 entry during reputation's release week, on pure streaming and sales; it is certified 4× Platinum in Australia (ARIA) and Platinum in the UK (BPI).",
+      ],
+      supported: [
+        "It is widely named reputation's finest non-single and among Swift's best-written songs, praised for its cinematic 1980s synth-pop craft with Antonoff — a pulsing arpeggio that lifts in key and tempo into the celebrated bridge.",
+        "It did not appear in the 2018 reputation Stadium Tour setlist; its live life began five years later on the Eras Tour, where it became a recurring, fan-favorite surprise song.",
+      ],
+      fanTheories: [
+        "The opening 'it was the best of times, the worst of crimes' is often read as a nod to Dickens's A Tale of Two Cities, and the Bonnie-and-Clyde / 'Thelma & Louise' framing as further cinematic allusion — readings the song's own crime-movie imagery supports but that Swift has not spelled out.",
+        "Fans near-universally map the song to a well-photographed mid-2016 relationship handoff; Swift has never confirmed a real-life subject, so that mapping is unconfirmed.",
+      ],
+    },
+    live: [
+      {
+        date: '2023-05-26',
+        event: 'The Eras Tour — MetLife Stadium, East Rutherford',
+        note: "Surprise-song debut on guitar with Jack Antonoff — the first of the tour's three MetLife nights, not the tour's opening night.",
+      },
+      {
+        date: '2024-02',
+        event: 'The Eras Tour — Melbourne',
+        note: "Performed as a surprise-song mashup with 'August' and 'The Other Side of the Door.'",
+      },
+    ],
+    connections: [
+      {
+        relatedId:
+          'moment:vault-reputation-the-getaway-car-bridge-written-in-under-30-seconds-on-camera',
+        label: 'The Getaway Car bridge, written in under 30 seconds on camera',
+        why: "The filmed songwriting moment behind the track's most-praised section — the bridge fans consider its high point.",
+      },
+      {
+        relatedId: 'song:out-of-the-woods',
+        label: 'Out of the Woods',
+        why: "Swift's other high-velocity escape song and a documented Eras mashup partner for 'Getaway Car' — the getaway/runaway lineage the two share.",
+      },
+    ],
+    sources: [
+      { name: 'Getaway Car (Taylor Swift song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Getaway_Car_(Taylor_Swift_song)' },
+      { name: 'Billboard: All the Surprise Songs Taylor Swift Performed on The Eras Tour', url: 'https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/' },
+      { name: 'Official Charts: Getaway Car — Taylor Swift', url: 'https://www.officialcharts.com/songs/taylor-swift-getaway-car/' },
+      { name: 'Songfacts: Getaway Car', url: 'https://www.songfacts.com/facts/taylor-swift/getaway-car' },
     ],
   },
 };
