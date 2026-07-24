@@ -347,6 +347,14 @@ export default {
       },
     },
     {
+      // Cross-links (Stage 3, 2026-07-24): the four "Our Song" moments — its
+      // origin, both No. 1 markers, and the CMT wins — now interlink so the
+      // "Keep reading" rail traces the song's whole arc.
+      relatedIds: [
+        'moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show',
+        'moment:vault-debut-our-song-hits-number-one',
+        'moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards',
+      ],
       year: 2007,
       month: 12,
       day: 22,
@@ -979,6 +987,13 @@ export default {
       },
     },
     {
+      // Cross-links (Stage 3, 2026-07-24): interlinks the four "Our Song"
+      // moments so the "Keep reading" rail traces the song's whole arc.
+      relatedIds: [
+        'moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show',
+        'moment:vault-debut-our-song-hits-number-one',
+        'moment:vault-debut-our-song-becomes-her-first-no-1',
+      ],
       year: 2008,
       month: 4,
       day: 14,
@@ -1816,6 +1831,14 @@ export default {
     },
     {
       slug: 'our-song-talent-show',
+      // Cross-links (Stage 3, 2026-07-24): the origin of the arc — links the
+      // other three "Our Song" moments so the "Keep reading" rail follows the
+      // song from talent show to No. 1 to its CMT wins.
+      relatedIds: [
+        'moment:vault-debut-our-song-hits-number-one',
+        'moment:vault-debut-our-song-becomes-her-first-no-1',
+        'moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards',
+      ],
       year: 2006,
       month: 10,
       day: 24,
@@ -2409,6 +2432,13 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "debut-our-song",
+      // Cross-links (Stage 3, 2026-07-24): interlinks the four "Our Song"
+      // moments so the "Keep reading" rail traces the song's whole arc.
+      relatedIds: [
+        'moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show',
+        'moment:vault-debut-our-song-becomes-her-first-no-1',
+        'moment:vault-debut-our-song-wins-two-trophies-at-the-2008-cmt-music-awards',
+      ],
       year: 2007,
       month: 9,
       day: 8,
