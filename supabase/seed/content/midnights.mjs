@@ -3047,7 +3047,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The mechanic was pure chance theater: a spinning bingo cage held 13 ping-pong balls numbered 1-13, one per track. Swift drew a ball, then read that track\'s title into a red rotary phone — held upside-down in episodes 2 and 6, a wink fans caught. The opener on Sept. 21, 2022 drew number 13: "Mastermind," the album\'s closer, revealed first.\n\nEpisodes dropped Monday, Wednesday and Friday — Meredith the cat cameoed in episode 2 — until the finale. On the night of Oct. 7, 2022 she blitzed the rest, releasing the last episodes an hour apart from midnight, and the full order landed: "Lavender Haze," "Maroon," "Anti-Hero," "Snow on the Beach" (with Lana Del Rey), "You\'re on Your Own, Kid," "Midnight Rain," "Question...?," "Vigilante Shit," "Bejeweled," "Labyrinth," "Karma," "Sweet Nothing," and "Mastermind."\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, a bingo cage decided which title she revealed next — chance, not cryptography, running the rollout.',
+          'The mechanic was pure chance theater: a spinning bingo cage held 13 ping-pong balls numbered 1-13, one per track. Swift drew a ball, then read that track\'s title into a red rotary phone — held upside-down in episodes 2 and 6, a wink fans caught. The opener on Sept. 21, 2022 drew number 13: "Mastermind," the album\'s closer, revealed first.\n\nEpisodes dropped Monday, Wednesday and Friday — Meredith the cat cameoed in episode 2 — until the finale. On the night of Oct. 7, 2022 she blitzed the rest, releasing the last episodes an hour apart from midnight, and the full order landed: "Lavender Haze," "Maroon," "Anti-Hero," "Snow on the Beach" (with Lana Del Rey), "You\'re on Your Own, Kid," "Midnight Rain," "Question...?," "Vigilante Shit," "Bejeweled," "Labyrinth," "Karma," "Sweet Nothing," and "Mastermind."\n\nIt flipped her usual Easter-egg hunt on its head: instead of fans decoding clues, a bingo cage decided which title she revealed next — chance, not cryptography, running the rollout. Fans still suspected a mastermind behind the "random" draw — "Mastermind" itself surfacing first fueled the joke — though Swift never confirmed it was staged; the golden cage later got an afterlife as an official-store "Bingo Roller" ornament.',
         sources: [
           {
             outlet: 'Elite Daily',
@@ -3110,6 +3110,15 @@ export default {
             accessed_at: '2026-07-24',
             reliability_score: 2,
           },
+          {
+            outlet: 'Taylor Swift Official Store',
+            url: 'https://store.taylorswift.com/products/midnights-mayhem-with-me-bingo-roller-ornament',
+            source_title: 'Midnights Mayhem With Me Bingo Roller Ornament',
+            publisher: 'Taylor Swift Official Store',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
         ],
         // Real-photo pass (2026-07-09): album artwork (the tracklist being
         // announced); Wikipedia's stable copy, verified HTTP 200 + image/png.
@@ -3142,7 +3151,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift wrote and directed the video — a comic Cinderella riff — and stacked the cast like a wink: Laura Dern as the wicked stepmother, the three HAIM sisters as stepsisters, burlesque legend Dita Von Teese as the "fairy goddess" in the martini glass, producer Jack Antonoff as a blink-and-miss Prince Charming, and makeup artist Pat McGrath in the transformation scene.\n\nIts self-described "psychotic amount" of easter eggs faced a single direction — Speak Now. Dern\'s "Speak not, you tacky, tired wench," an "Enchanted" instrumental at the open, a floor-three elevator button glowing the purple of the Speak Now cover (her third album), an "SN" hair clip, and an orchestral "Long Live" over the closing castle. The video even dropped Oct. 25, 2022 — the calendar date Speak Now first arrived in 2010.\n\nSwift had told Jimmy Fallon to expect that egg pile, so the density was deliberate; whether Speak Now specifically was the target stayed fan inference — a call the fandom banked and the May 2023 Nashville announcement of Speak Now (Taylor\'s Version) confirmed.',
+          'Swift wrote and directed the video — a comic Cinderella riff shot by cinematographer Rina Yang — and stacked the cast like a wink: Laura Dern as the wicked stepmother, the three HAIM sisters as stepsisters, burlesque legend Dita Von Teese as the "fairy goddess" in the martini glass, producer Jack Antonoff as a blink-and-miss Prince Charming, and makeup artist Pat McGrath in the transformation scene. Von Teese\'s martini-glass turn was a deliberate homage to her signature act — she used glasses from her own show and taught Swift the routine herself, later thanking Swift for "acknowledging burlesque, an American art form."\n\nIts self-described "psychotic amount" of easter eggs faced a single direction — Speak Now. Dern\'s "Speak not, you tacky, tired wench," an "Enchanted" instrumental at the open, a floor-three elevator button glowing the purple of the Speak Now cover (her third album), an "SN" hair clip, and an orchestral "Long Live" over the closing castle. The video even dropped Oct. 25, 2022 — the calendar date Speak Now first arrived in 2010.\n\nSwift had told Jimmy Fallon to expect that egg pile, so the density was deliberate; whether Speak Now specifically was the target stayed fan inference — a call the fandom banked and the May 2023 Nashville announcement of Speak Now (Taylor\'s Version) confirmed.',
         sources: [
           {
             outlet: 'Good Morning America',
@@ -3181,6 +3190,24 @@ export default {
             source_title: "Taylor Swift's 'Bejeweled' Video: Watch",
             publisher: 'Billboard',
             source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'NME',
+            url: 'https://www.nme.com/news/music/dita-von-teese-says-teaching-taylor-swift-the-bejeweled-martini-glass-routine-was-the-best-experience-3567738',
+            source_title: "Dita Von Teese on teaching Taylor Swift the 'Bejeweled' martini-glass routine",
+            publisher: 'NME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Revolution Pictures',
+            url: 'https://revolutionpictures.com/featured/taylorswift-antihero-bejeweled/',
+            source_title: 'Taylor Swift — Anti-Hero / Bejeweled (production credits)',
+            publisher: 'Revolution Pictures',
+            source_type: 'official',
             accessed_at: '2026-07-24',
             reliability_score: 4,
           },
@@ -3675,7 +3702,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off a seismometer beside the stadium: shaking roughly twice as strong as the Beast Quake, sustained for hours at a time because 144,000 fans across two nights were all moving to the same beat.\n\nThe difference, she noted, was rhythm — music drives the ground in a way a single touchdown roar can\'t.',
+          'Geologist Jackie Caplan-Auerbach read the July 22–23, 2023 shows off a seismometer beside the stadium — shaking that peaked at a 2.3-magnitude *equivalent*, roughly twice the amplitude of the stadium\'s 2011 "Beast Quake," and sustained across the whole ~3.5-hour set rather than one touchdown\'s burst. Her read became peer-reviewed science: "Beast Quake (Taylor\'s Version)" in GSA Today (May 2024), with a separate Caltech study of the L.A./SoFi shows in Seismological Research Letters the same year.\n\nThe key finding corrects the obvious guess: the ground was moved by the crowd, not the sound system. Caltech\'s controlled test showed the PA — and even a bass guitar — produced no such signal, while fans jumping in sync did; the music only works as a metronome (Eos: "stomping feet, not booming beat"). The strongest signals tracked "Shake It Off" (the single biggest jolt, ~magnitude 0.85), "You Belong With Me" and "Love Story," each low-frequency peak matching the song\'s tempo. It is surface loading from tens of thousands of synchronized bodies, not a fault rupturing — so the "magnitude" is only an energy-equivalent, and the Beast Quake it beat never had a firm number of its own (roughly M1–2, "at best very approximate").\n\nGuinness certified it "Greatest seismic activity caused by a music concert," and the effect proved tour-wide — measured again at SoFi, at Lisbon (0.82, May 2024) and at Edinburgh, where the British Geological Survey picked it up 6 km from the stadium.',
         sources: [
           {
             outlet: 'CBS News',
@@ -3694,6 +3721,51 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Western Washington University News',
+            url: 'https://news.wwu.edu/wwu-seismologist-captures-swift-quake-story-goes-global',
+            source_title: 'WWU seismologist captures “Swift Quake,” story goes global',
+            publisher: 'Western Washington University',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Caltech',
+            url: 'https://www.caltech.edu/about/news/swifities-shake-it-off-and-help-seismologists-solve-mystery-of-how-concertgoers-shake-things-up',
+            source_title: 'Swifties Shake It Off — and Help Seismologists Solve a Mystery',
+            publisher: 'California Institute of Technology',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Eos',
+            url: 'https://eos.org/articles/swift-quakes-caused-by-stomping-feet-not-booming-beat',
+            source_title: 'Swift Quakes Caused by Stomping Feet, Not Booming Beat',
+            publisher: 'Eos (American Geophysical Union)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/world-records/759394-greatest-seismic-activity-caused-by-a-music-concert',
+            source_title: 'Greatest seismic activity caused by a music concert',
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'British Geological Survey',
+            url: 'https://www.bgs.ac.uk/news/quake-it-off-taylor-swift-concerts-shake-edinburgh/',
+            source_title: 'Quake it off: Taylor Swift concerts shake Edinburgh',
+            publisher: 'British Geological Survey',
+            source_type: 'institutional',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Real-photo pass (2026-07-09): freely licensed photo taken inside Lumen
@@ -3737,7 +3809,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The July 12, 2023 Beige Book named her outright — no euphemism. In the Third District (Philadelphia) summary, Fed staff wrote that "one contact highlighted that May was the strongest month for hotel revenue in Philadelphia since the onset of the pandemic, in large part due to an influx of guests for the Taylor Swift concerts in the city." A pop tour had become a line in the same central-bank briefing that tracks inflation and freight.\n\nThe Fed entry itself carried no dollar figure, but the numbers behind it were real. Her three Soldier Field shows (June 2-4, 2023) helped push Chicago to its highest hotel occupancy on record — more than 44,000 rooms filled at a 96.8% weekend average, about $39 million in hotel revenue, per Choose Chicago — while Illinois logged record hotel revenue for the year.\n\nIt was not quite unprecedented: weeks earlier a Danske Bank economist had pinned roughly 0.2 points of Sweden\'s surprise May inflation on Beyonce\'s Renaissance opener in Stockholm — the "Beyonce blip." But that was an economist reading Riksbank data, not a central bank writing an artist into its own report, which is what made the Fed line singular. The mention followed her all year, resurfacing that December when Time named her Person of the Year for a tour "so big the Federal Reserve noted its boost to tourism."',
+          'The July 12, 2023 Beige Book named her outright — no euphemism. In the Third District (Philadelphia) summary, Fed staff wrote that "one contact highlighted that May was the strongest month for hotel revenue in Philadelphia since the onset of the pandemic, in large part due to an influx of guests for the Taylor Swift concerts in the city." A pop tour had become a line in the same central-bank briefing that tracks inflation and freight.\n\nThe Fed entry itself carried no dollar figure, but the numbers behind it were real. Her three Soldier Field shows (June 2-4, 2023) helped push Chicago to its highest hotel occupancy on record — more than 44,000 rooms filled at a 96.8% weekend average, about $39 million in hotel revenue, per Choose Chicago — while Illinois logged record hotel revenue for the year.\n\nIt was not quite unprecedented: weeks earlier a Danske Bank economist had pinned roughly 0.2 points of Sweden\'s surprise May inflation on Beyonce\'s Renaissance opener in Stockholm — the "Beyonce blip." But that was a Danske Bank economist reading Sweden\'s official inflation figures (from the national statistics office, not the Riksbank), not a central bank writing an artist into its own report, which is what made the Fed line singular. The mention followed her all year, resurfacing that December when Time named her Person of the Year for a tour "so big the Federal Reserve noted its boost to tourism."',
         sources: [
           {
             outlet: 'Billboard',
@@ -3817,6 +3889,9 @@ export default {
         'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         // Announcement → payoff (ledger #1115, Q3): the Oct. 27, 2023 release outcome.
         'moment:vault-midnights-1989-taylors-version-resets-the-vinyl-record',
+        // Consolidation thread (ledger #1115, Q1): the 1989-era canonical copy of
+        // this same Aug. 9 2023 SoFi announcement — threaded, not left duplicated.
+        'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
       ],
       title: "1989 (Taylor's Version) announced at the final US show — on the date fans predicted",
       snippet:
@@ -4168,6 +4243,13 @@ export default {
     },
     {
       slug: 'slut-vault-love-song',
+      // Cross-links (ledger #1341 Q7, 2026-07-24): the song she chose over
+      // "Slut!" for the original 1989, and the SoFi announcement of the
+      // re-record that finally freed it from the vault.
+      relatedIds: [
+        'moment:vault-1989-blank-space-flips-the-narrative',
+        'moment:vault-1989-1989-taylors-version-announced-in-head-to-toe-blue-at-sofi-s',
+      ],
       year: 2023,
       month: 10,
       day: 27,
@@ -4179,7 +4261,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift said the two songs both "cheekily play on the discussions at that time of my life around my dating life" — Blank Space made the 2014 cut, and "Slut!" waited nine years.\n\nIt debuted at No. 3 on the Hot 100, and critics read the soft, tender arrangement as the point: reckoning with the slut-shaming era by refusing to write an angry song about it.',
+          'Written and produced by Taylor Swift with Jack Antonoff and Swedish writer-producer Patrik Berger, "Slut!" was cut from the original 1989 in 2014 and held nine years. Swift explained the choice in a short audio clip during the 2023 vault reveal: both "Slut!" and "Blank Space" grew from the same tabloid narrative about her dating life, but she picked the sharper "Blank Space" because "Slut!" had a warmer, "California" feel that clashed with 1989\'s New York sound.\n\nThe title everyone braced for arrived as a dreamy synth-pop love song that reclaims the slut-shaming era with tenderness rather than anger — "if they call me a slut, you know it might be worth it for once." It debuted and peaked at No. 3 on the Hot 100 the week the three 1989 (Taylor\'s Version) vault cuts swept the chart\'s top three ("Is It Over Now?" No. 1, "Now That We Don\'t Talk" No. 2, "Slut!" No. 3), part of seven Swift songs in that week\'s top 10.\n\nReviews split on the gentle turn: Rolling Stone\'s Angie Martoccio called it "a stunner" and The Line of Best Fit found the softness empowering, while Pitchfork ("aimless") and The New York Times ("half-baked") felt the tender execution undersold a strong concept. She first performed it Nov. 12, 2023 in Buenos Aires — solo at the piano in the Eras Tour acoustic set — and later folded it into "False God" mashups in Singapore and Germany.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -4197,6 +4279,27 @@ export default {
             publisher: 'Rolling Stone',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          // Depth pass (ledger #1341, 2026-07-24): writing/production credits
+          // (Berger), the Tumblr audio-clip explanation of the Blank Space
+          // choice, the top-three vault-cluster chart week, and the live debut.
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-1989-slut-song-meaning-rcna122450',
+            source_title: "Taylor Swift's '1989' Vault Song 'Slut!': What Do the Lyrics Mean?",
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-slut-live-buenos-aires-1235470006/',
+            source_title: "Taylor Swift Debuts 'Slut!' Live at Buenos Aires Show",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
             reliability_score: 4,
           },
         ],
@@ -4578,7 +4681,7 @@ export default {
       snippet: "A return to pop as a diary of midnights across her life.",
       moment: {
         context:
-          'Announced at the Aug. 28, 2022 MTV VMAs — minutes after she won Video of the Year for the "All Too Well" short film — under a "Meet Me At Midnight" tagline, Swift called the album "the stories of 13 sleepless nights scattered throughout my life." She built it almost entirely with Jack Antonoff, who co-wrote 11 of the 13 tracks, with additional production from Sounwave, Jahaan Sweet and Keanu Beats; the surprise "3am Edition" added seven more songs, several co-produced by Aaron Dessner. Its retro-glam synth-pop swapped the folklore/evermore woods for a 1970s bedroom-diary mood, and Beth Garrabrant — her cover photographer since folklore — shot the lighter-flame cover on film. The album\'s lone standard-edition guest is Lana Del Rey on "Snow on the Beach," later reissued as a "feat. More Lana Del Rey" mix after fans wanted her louder. Four collectible vinyl variants — Moonstone Blue, Jade Green, Mahogany and Blood Moon — were designed so their back covers assemble into a clock face. Critics received it warmly (Metacritic 85; Pitchfork 7.0), and it rewrote records: the first album to hold all ten of the Hot 100\'s top spots at once, and, at the 2024 Grammys, Album of the Year — Swift\'s record fourth, more than any artist in history.',
+          'Announced at the Aug. 28, 2022 MTV VMAs — minutes after she won Video of the Year for the "All Too Well" short film — under a "Meet Me At Midnight" tagline, Swift called the album "the stories of 13 sleepless nights scattered throughout my life." She built it almost entirely with Jack Antonoff, who co-wrote 11 of the 13 tracks, with additional production from Sounwave, Jahaan Sweet and Keanu Beats; the surprise "3am Edition" added seven more songs, several co-produced by Aaron Dessner. Its retro-glam synth-pop swapped the folklore/evermore woods for a 1970s bedroom-diary mood, and Beth Garrabrant — her cover photographer since folklore — shot the lighter-flame cover on film. The album\'s lone standard-edition guest is Lana Del Rey on "Snow on the Beach," later reissued as a "feat. More Lana Del Rey" mix after fans wanted her louder. Four collectible vinyl variants — Moonstone Blue, Jade Green, Mahogany and Blood Moon — were designed so their back covers assemble into a clock face. Critics received it warmly (Metacritic 85; Pitchfork 7.0), and it rewrote records: the first album to hold all ten of the Hot 100\'s top spots at once, and, at the 2024 Grammys, Album of the Year — Swift\'s record fourth, more than any artist in history. It opened at No. 1 with 1.578 million first-week units — the biggest week for any album since Adele\'s 25 in 2015 — and spun off four hits: "Anti-Hero" (a No. 1 that ruled the Hot 100 for eight weeks, her longest solo reign to that point), "Lavender Haze" and "Karma" (both No. 2), and "Snow on the Beach" (No. 4).',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -4615,6 +4718,24 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-midnights-debut-number-one-billboard-200-albums-chart-1235163377/',
+            source_title: 'Taylor Swift’s ‘Midnights’ Debuts at No. 1 With Biggest Week for an Album Since 2015',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-anti-hero-eighth-week-number-one-zach-bryan-top-10-1235199856/',
+            source_title: 'Taylor Swift’s ‘Anti-Hero’ Spends an Eighth Week at No. 1 on the Hot 100',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
           },
         ],
         // Depth pass (ledger #1269, 2026-07-24): the album cover is the exact
@@ -4655,8 +4776,72 @@ export default {
       title: "“Anti-Hero” dominates",
       snippet: "A candid single about self-doubt becomes her biggest solo hit in years.",
       video: { youtubeId: "b1kbLwvqugk", title: "Taylor Swift - Anti-Hero (Official Music Video)" },
+      // Cross-links (ledger #1355, 2026-07-24): the album it led, the single-day
+      // Spotify record it helped set, and the top-ten sweep it anchored.
+      relatedIds: [
+        'moment:vault-midnights-thirteen-sleepless-nights',
+        'moment:vault-midnights-midnights-breaks-spotify-in-a-single-day',
+        'moment:vault-midnights-every-top-ten-slot-at-once',
+      ],
       moment: {
-        context: "Its confessional humor and inescapable chorus made “Anti-Hero” the defining pop single of the season.",
+        context:
+          '“Anti-Hero” — written and produced by Taylor Swift and Jack Antonoff — was the lead single and the emotional center of Midnights; Swift called it "a guided tour of all the things I tend to hate about myself," her most detailed reckoning with her own insecurities. It debuted at No. 1 on the Hot 100 (dated Nov. 5, 2022), the anchor of her history-making sweep of the chart\'s entire top 10, then held the summit for eight weeks — passing "Blank Space" to become her longest-running solo No. 1 to that point — and topped the UK, Australian and Canadian charts too. Its first day drew 17.4 million Spotify streams, the third-biggest single-day song total then on record.\n\nCritics made it the album\'s standout — Pitchfork heard "the lacquered synth-pop of 1989, the neurotic image analysis of reputation, the dense lyricism of folklore and evermore" folded into one song — and it placed high on year-end lists (No. 2 at USA Today and Slant, No. 5 at Billboard). It won Song of the Year at the 2023 VMAs and the iHeartRadio Awards; at the 2024 Grammys it was up for Record and Song of the Year — Swift\'s record seventh Song of the Year nod — but won neither. It is certified 4× Platinum in the UK and 8× in Australia.\n\nLive, it first surfaced as a surprise guest turn at The 1975\'s London O2 show (Jan. 12, 2023) before settling into a fixed slot in the Eras Tour\'s Midnights act. Its self-lacerating hook — "It\'s me, hi, I\'m the problem, it\'s me" — became one of TikTok\'s defining sounds, drawing 120,000+ videos within days of release.',
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-anti-hero-eighth-week-number-one-zach-bryan-top-10-1235199856/',
+            source_title: "Taylor Swift's 'Anti-Hero' Spends an Eighth Week at No. 1 on the Hot 100",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/music/taylor-swift-anti-hero-song-meaning-midnights-rcna50503',
+            source_title: 'Taylor Swift explains the meaning behind “Anti-Hero”',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Guinness World Records',
+            url: 'https://www.guinnessworldrecords.com/news/2022/10/taylor-swifts-album-midnights-smashes-three-spotify-records-723058',
+            source_title: "Taylor Swift's album Midnights smashes three Spotify records",
+            publisher: 'Guinness World Records',
+            source_type: 'official',
+            accessed_at: '2026-07-24',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/pop-culture/grammys-2024-running-list-winners-rcna136890',
+            source_title: 'Grammys 2024: The full list of winners',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/music/album-reviews/taylor-swift-midnights-album-review-1235410102/',
+            source_title: 'Album Review: Taylor Swift’s ‘Midnights’',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-24',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Anti-Hero_(song)',
+            source_title: 'Anti-Hero (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-24',
+            reliability_score: 2,
+          },
+        ],
       },
     },
     {
