@@ -347,6 +347,11 @@ export default {
         'moment:vault-tloas-spotifys-2025-single-day-streaming-record-falls-in-under-11-',
         'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
         'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
+        // Cross-links (candidates #1404/#1405): the Max Martin/Shellback pop-machinery
+        // lineage the release page names — her first full album with them since
+        // reputation, the sound first built on 1989.
+        'moment:vault-reputation-reputation-strikes-back',
+        'moment:vault-1989-the-pop-reinvention',
       ],
       title: 'The Life of a Showgirl arrives: 12 tracks, Max Martin and Shellback, one guest',
       snippet:
@@ -1570,7 +1575,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Michael\'s original gets a formal songwriting credit on the track — George Michael is listed as a writer alongside Swift, Max Martin, and Shellback, since the song lifts the melody and the "I\'ll be your father figure" line directly. The estate\'s public statement framed it as an "association between two great artists," one of the warmest legacy-artist endorsements any of her interpolations has drawn, and pointedly noted they were approached before release rather than after.\n\nSwift\'s version flips the phrase from seduction to power: she has described the song as a mentor-and-protégé story told from the mentor\'s side, saying she drew on Succession\'s Logan Roy for the voice — though she added that she has lived the protégé\'s side of it. Critics heard the autobiography immediately, reading lines about finding someone young and profiting from their success as her Big Machine signing and the masters dispute retold from behind the boss\'s desk. Pitchfork singled it out as the album\'s most direct appraisal of her own power. She placed the reference-point herself, telling Jimmy Fallon (Oct. 6, 2025) she\'d drawn the mentor\'s voice from Succession\'s Logan Roy.\n\nMechanically it is an interpolation, not a sample: the hook and melody were re-recorded rather than lifted from Michael\'s master, so only his songwriting rights — not the recording, which Sony controls — had to be cleared, and the estate collects as a credited co-writer rather than through the label. Swift, Max Martin and Shellback produced. Never worked to radio as its own single, it still debuted at No. 4 on both the Hot 100 and the Global 200 and reached the top five in Australia, Canada, Germany, Sweden and Greece, going Platinum in Australia and Canada and later certified Silver in the UK and Gold in New Zealand.\n\nMichael\'s publishing is administered by Warner Chappell Music, but the clearance itself came from the estate — George Michael Entertainment, the company David Austin has run since Michael\'s 2016 death — and the interpolation added no living co-writer, crediting Michael alone alongside Swift, Martin and Shellback. The statement read partly as generosity because the estate is otherwise fiercely protective of the catalog: in 2022 it had Tory Lanez\'s unauthorized "Careless Whisper" sample pulled from streaming after formally declining permission the year before, and moved on other uncleared samples too. The "no hesitation" message itself was posted on the estate\'s Instagram and signed "George Michael Entertainment," not attributed to any one person by name. Past the debut the song drew only a lyric video and a visualizer — no standalone narrative clip, no dedicated single push, no live performance to date — and no further public word from Austin or the estate reacting to the finished record has surfaced.',
+          'Michael\'s original gets a formal songwriting credit on the track — George Michael is listed as a writer alongside Swift, Max Martin, and Shellback, since the song lifts the melody and the "I\'ll be your father figure" line directly. The estate\'s public statement framed it as an "association between two great artists," one of the warmest legacy-artist endorsements any of her interpolations has drawn, and pointedly noted they were approached before release rather than after.\n\nSwift\'s version flips the phrase from seduction to power: she has described the song as a mentor-and-protégé story told from the mentor\'s side, saying she drew on Succession\'s Logan Roy for the voice — though she added that she has lived the protégé\'s side of it. Critics heard the autobiography immediately, reading lines about finding someone young and profiting from their success as her Big Machine signing and the masters dispute retold from behind the boss\'s desk. Pitchfork singled it out as the album\'s most direct appraisal of her own power. She placed the reference-point herself, telling Jimmy Fallon (Oct. 6, 2025) she\'d drawn the mentor\'s voice from Succession\'s Logan Roy.\n\nMechanically it is an interpolation, not a sample: the hook and melody were re-recorded rather than lifted from Michael\'s master, so only his songwriting rights — not the recording, which Sony controls — had to be cleared, and the estate collects as a credited co-writer rather than through the label. The liner-note credits bear out the rebuilt-not-sampled reading: beyond producers Swift, Max Martin and Shellback, the arrangement was reassembled by Max Martin\'s Stockholm circle — Mattias Bylund on orchestra arrangements and Hammond organ over a live string section (violinist Erik Arvinder, cellist David Bukovinsky among others), with Shellback playing bass, drums, guitar and Omnichord — recorded at the MXM and Shellback studios, mixed by Serban Ghenea and mastered by Randy Merrill. Never worked to radio as its own single, it still debuted at No. 4 on both the Hot 100 and the Global 200 and reached the top five in Australia, Canada, Germany, Sweden and Greece, going Platinum in Australia and Canada and later certified Silver in the UK and Gold in New Zealand.\n\nMichael\'s publishing is administered by Warner Chappell Music, but the clearance itself came from the estate — George Michael Entertainment, the company David Austin has run since Michael\'s 2016 death — and the interpolation added no living co-writer, crediting Michael alone alongside Swift, Martin and Shellback. The statement read partly as generosity because the estate is otherwise fiercely protective of the catalog: in 2022 it had Tory Lanez\'s unauthorized "Careless Whisper" sample pulled from streaming after formally declining permission the year before, and moved on other uncleared samples too. The "no hesitation" message itself was posted on the estate\'s Instagram and signed "George Michael Entertainment," not attributed to any one person by name. Past the debut the song drew only a lyric video and a visualizer — no standalone narrative clip, no dedicated single push, no live performance to date — and no further public word from Austin or the estate reacting to the finished record has surfaced.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -2571,7 +2576,7 @@ export default {
       thumbnailUrl: 'https://cdn.nba.com/manage/2026/06/GettyImages_TSwift.jpg',
       moment: {
         context:
-          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Swift\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.',
+          'The shirts were Alana Haim\'s craft project — $3 Gildan blanks from Michaels, the lettering cut in Knicks orange on a Cricut she had bought after HAIM\'s last tour: "Stevie Knicks" for Taylor, "Knickleback" for Alana, "Knickol Kidman" for Este. The "Stevie Knicks" pun doubled as a wink at a real touchstone: outlets tied it to Swift\'s documented mentorship from Stevie Nicks, one of the few peers she has said she can turn to about navigating fame at her scale. Travis was at the Chiefs\' mandatory minicamp back in Kansas City, reduced to liking the courtside posts from afar.\n\nThe game earned the outfit: New York trailed San Antonio 81-52 in the third quarter and won 107-106 on OG Anunoby\'s put-back with 1.2 seconds left — the largest comeback in NBA Finals history, breaking the 24-point mark the Boston Celtics had set against the Lakers in 2008, on the way to the Knicks\' first title in 53 years. Then the hindsight arrived: twenty-three days later, Taylor and Travis were married in that same building, with Stevie Nicks herself singing at the reception.',
         sources: [
           {
             outlet: 'Billboard',
@@ -2613,6 +2618,17 @@ export default {
           {
             outlet: 'NBA.com',
             url: 'https://www.nba.com/news/taylor-swift-attends-2026-nba-finals-game-4-at-madison-square-garden',
+          },
+          // Depth ledger #1032 Q6 (2026-07-25): the exact prior Finals-comeback
+          // record the 29-point rally broke (Celtics, 24 points, 2008 Finals).
+          {
+            outlet: 'NBA.com',
+            url: 'https://www.nba.com/news/knicks-complete-nba-finals-record-29-point-comeback-to-seal-game-4-win-over-spurs',
+            source_title: 'Knicks complete NBA Finals record 29-point comeback to seal Game 4 win over Spurs',
+            publisher: 'NBA.com',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
           },
         ],
         // Photo pass (#762 run 6, 2026-07-18): both photos hotlinked from the
@@ -3573,7 +3589,12 @@ export default {
       month: 7,
       day: 21,
       category: 'relationship',
-      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        // Cross-link (candidate #1294): the New Heights proposal-story episode —
+        // the same Kelce-family-media-and-fame throughline.
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
+      ],
       title: 'Jason Kelce on the new audience Taylor brought to the whole family',
       snippet:
         'Jason Kelce says his brother\'s relationship with Taylor Swift changed who stops him on the street — from Eagles fans thanking him for his career to, increasingly, young girls who know the family through her.',
@@ -4263,6 +4284,9 @@ export default {
     },
     {
       slug: 'showgirl-broncos-christmas-game',
+      // Cross-link (candidate #1123): the Colts-game low-key look — the same
+      // recurring game-day-styling beat of the engagement/wedding season.
+      relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
       year: 2025,
       month: 12,
       day: 25,
@@ -5035,6 +5059,8 @@ export default {
       relatedIds: [
         'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
         'moment:vault-tloas-the-rock-hall-puts-the-ophelia-gown-in-legends-of-rock',
+        // Cross-link (candidate #1278): the "Orange sequins and feathers" visual-identity card.
+        'moment:vault-tloas-orange-sequins-and-feathers',
       ],
       year: 2025,
       month: 10,
@@ -5333,6 +5359,8 @@ export default {
         'moment:vault-tloas-back-in-the-suite-window-for-an-overtime-nail-biter',
         // Cross-link (candidate #1052): the coordinated winter-coat game-day sighting.
         'moment:vault-tloas-taylor-and-selena-gomez-coordinate-opulent-winter-coats-at-a',
+        // Cross-link (candidate #1123): the Broncos Christmas-game game-day look.
+        'moment:vault-tloas-a-christmas-day-game-at-arrowhead-arriving-with-her-parents',
       ],
       title: 'A low-key game-day layer for the Colts game',
       snippet:
@@ -5913,7 +5941,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Times\' list, published April 28, 2026, was assembled from more than 250 music insiders and six of its own critics — unranked, and putting her alongside Bob Dylan, Dolly Parton, Jay-Z, Kendrick Lamar, Missy Elliott, and Bad Bunny. The accompanying video interview — conducted by Times music reporter Joe Coscarelli and released through the paper\'s Popcast — is the part fans kept: an uninterrupted half-hour where the only subject is the songwriting.\n\nThe takeaways travel well. Country storytelling pulled her in first, but the other early wire was emo — Dashboard Confessional and Fall Out Boy get named checks. Her collaboration rule: "May the best idea win... I don\'t care if it came from you, you or me. If it\'s better, that\'s what goes in the song" — adding "I do kind of like it when people challenge me on something." And on the fandom\'s favorite sport, she pushed back harder than she ever has: "When it gets a little bit weird for me is when people act like it\'s sort of like a paternity test... That dude didn\'t write the song. I did."\n\nThe timing made it land as the opening beat of a craft-canonization spring: six weeks later she\'d be the youngest woman ever inducted into the Songwriters Hall of Fame.',
+          'The Times\' list, published April 28, 2026, was assembled from more than 250 music insiders and six of its own critics — unranked, and putting her alongside Bob Dylan, Dolly Parton, Jay-Z, Kendrick Lamar, Missy Elliott, and Bad Bunny — a roster weighted toward elder statespeople (Paul Simon, Stevie Wonder, Bruce Springsteen and Nile Rodgers made it too), on which she, Kendrick and Bad Bunny stand out as the youngest generation named. The accompanying video interview — conducted by Times music reporter Joe Coscarelli and released through the paper\'s Popcast — is the part fans kept: an uninterrupted half-hour where the only subject is the songwriting.\n\nThe takeaways travel well. Country storytelling pulled her in first, but the other early wire was emo — Dashboard Confessional and Fall Out Boy get named checks. Her collaboration rule: "May the best idea win... I don\'t care if it came from you, you or me. If it\'s better, that\'s what goes in the song" — adding "I do kind of like it when people challenge me on something." And on the fandom\'s favorite sport, she pushed back harder than she ever has: "When it gets a little bit weird for me is when people act like it\'s sort of like a paternity test... That dude didn\'t write the song. I did."\n\nOn the songs themselves the half-hour is unusually granular. She walked through the lost-and-rebuilt "All Too Well (10 Minute Version)," reconstructed from her old diaries in what she called her most extensive song restoration; a copy-editor\'s tic on "Our Song" (she changed "talk real low" to "talk real slow" to avoid a word ending on the letter the next one starts with); the head-through-a-wall intensity behind "...Ready For It?" and "Getaway Car"; "Love Story," written at seventeen while furious at her parents; and "Nothing New," written alone in a hotel at twenty-two convinced she was "completely washed up." She traced "Blank Space" and "Anti-Hero" back to the criticism of her that made them possible, and described catching the "Elizabeth Taylor" melody on a car ride straight into her phone\'s voice-memo app — a rare glimpse of the toolkit, voice memos and old diaries, behind the writing.\n\nThe timing made it land as the opening beat of a craft-canonization spring: six weeks later she\'d be the youngest woman ever inducted into the Songwriters Hall of Fame.',
         sources: [
           {
             outlet: 'Billboard',
@@ -5953,6 +5981,30 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Ledger #1044 Q1 (2026-07-25): the specific songs she breaks down on
+          // camera (All Too Well 10-min, Our Song, ...Ready For It?, Getaway
+          // Car, Love Story, Nothing New, Blank Space, Anti-Hero, Elizabeth
+          // Taylor) and the voice-memo/diaries process.
+          {
+            outlet: 'Pedestrian.TV',
+            url: 'https://www.pedestrian.tv/entertainment/taylor-swift-nyt-interview/',
+            source_title: "9 Things We Learned From Taylor Swift's NYT Interview, From Lyric Changes To All Too Well Lore",
+            publisher: 'Pedestrian Group',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          // Ledger #1044 Q3 (2026-07-25): the wider honoree roster used to place
+          // her among the youngest names on a list dominated by elders.
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/nyt-ranked-30-greatest-living-165619725.html',
+            source_title: "NYT Ranked The '30 Greatest Living American Songwriters' — And The Internet Is Divided",
+            publisher: 'Yahoo',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Video id 5B8-TJ8vsKY verified 2026-07-14 via web search title match
@@ -6160,7 +6212,12 @@ export default {
     {
       slug: 'kelce-new-heights-proposal-story',
       // Cross-link (candidate #1114): the New Heights announcement this returns to.
-      relatedIds: ['moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-'],
+      // Cross-link (candidate #1294): Jason Kelce on the fanbase shift — same
+      // Kelce-family-media throughline.
+      relatedIds: [
+        'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+        'moment:vault-tloas-jason-kelce-on-the-new-audience-taylor-brought-to-the-whole-',
+      ],
       year: 2026,
       month: 7,
       day: 8,
@@ -6435,6 +6492,13 @@ export default {
     },
     {
       slug: 'i-knew-it-i-knew-you-oscar-buzz',
+      // Cross-links (candidates #1059/#1290): the same song's other pages — the
+      // Adult Contemporary four-in-the-top-10 record it co-holds, and its Pop
+      // Airplay chart run — reverse links; the forward links already exist.
+      relatedIds: [
+        'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
+      ],
       year: 2026,
       month: 7,
       day: 7,
@@ -6902,7 +6966,11 @@ export default {
       // record, no third parties, no location or private-life detail.
       slug: 'i-knew-it-i-knew-you-pop-airplay-top-ten',
       // Cross-link (candidate #1291): the four-in-the-AC-top-10 record it feeds.
-      relatedIds: ['moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c'],
+      // Cross-link (candidate #1290): the same song's Oscar-buzz page.
+      relatedIds: [
+        'moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c',
+        'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
+      ],
       year: 2026,
       month: 7,
       day: 20,
