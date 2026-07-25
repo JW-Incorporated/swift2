@@ -257,6 +257,9 @@ export default {
       relatedIds: [
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        // Cross-link (candidate #1027): the Showgirl portraits — Mert & Marcus's
+        // first Swift shoot since this reputation cover reveal.
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
       ],
       title: 'The snake video that announced reputation',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES

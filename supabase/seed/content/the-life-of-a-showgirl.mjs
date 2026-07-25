@@ -185,6 +185,9 @@ export default {
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
         'moment:vault-tloas-the-look-that-made-showgirl-orange-a-fashion-story-reformati',
+        // Cross-link (candidate #1027): Mert & Marcus's first Swift shoot since
+        // reputation, whose cover debuted in the snake-video reveal.
+        'moment:vault-reputation-the-snake-video-that-announced-reputation',
       ],
       title: 'The showgirl portraits: Mert and Marcus, rhinestones, and an Ophelia bathtub cover',
       snippet:
@@ -812,6 +815,8 @@ export default {
         'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
+        // Cross-link (candidate #1021): the personal best this week broke.
+        'moment:vault-midnights-midnights-debuts-at-no-1-on-the-billboard-200',
       ],
       year: 2025,
       month: 10,
@@ -3554,6 +3559,9 @@ export default {
       // Taylor touchstone stays flagged as designer-unconfirmed (press
       // speculation only), and no official gown photo has been released yet.
       confidence: 'official',
+      // Cross-link (candidate #1023): the gown reportedly references Elizabeth
+      // Taylor's 1950 bridal look, and track two is named for her.
+      relatedIds: ['moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album'],
       title: 'The wedding gown: a custom Dior Haute Couture, styled by Joseph Cassell',
       snippet:
         "Jonathan Anderson's first celebrity couture bridal commission at Dior — a custom gown reportedly drawing on Elizabeth Taylor's 1950 wedding dress, worn with custom Christian Louboutin shoes and Cartier jewelry.",
@@ -4812,6 +4820,12 @@ export default {
       month: 10,
       day: 3,
       category: 'music',
+      // Cross-links (candidates #1023, #1038): the wedding gown that pays off the
+      // Elizabeth Taylor reference, and the archival music video for this song.
+      relatedIds: [
+        'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
+        'moment:vault-tloas-the-elizabeth-taylor-video-a-supercut-of-the-real-liz',
+      ],
       title: 'Elizabeth Taylor: the first song she wrote for the album',
       snippet:
         'Two showgirls, one lyric: White Diamonds, violet eyes, and "you\'re only as hot as your last hit" — her fame anxiety filtered through the star whose love life the press devoured first. It debuted at No. 3.',
@@ -5073,6 +5087,9 @@ export default {
       month: 11,
       day: 23,
       category: 'sighting',
+      // Cross-link (candidate #1041): the game-day outfit she wore to this same
+      // Nov 23, 2025 Colts game.
+      relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
       title: 'Back in the suite window for an overtime nail-biter',
       snippet:
         'After weeks of slipping into Arrowhead unphotographed, she was visible celebrating the Colts game from the suite — playfully shaking her dad by the shoulders as Butker\'s kick won it 23-20 in OT.',
@@ -5125,6 +5142,9 @@ export default {
       month: 11,
       day: 23,
       category: 'fashion',
+      // Cross-link (candidate #1041): the suite reaction from this same Nov 23,
+      // 2025 Colts game.
+      relatedIds: ['moment:vault-tloas-back-in-the-suite-window-for-an-overtime-nail-biter'],
       title: 'A low-key game-day layer for the Colts game',
       snippet:
         'No statement piece this time — a beige, red, and white color-blocked jacket and the signature red lip, dressed for the suite rather than the cameras.',
@@ -5728,6 +5748,9 @@ export default {
       month: 6,
       day: 11,
       category: 'music',
+      // Cross-link (candidate #1045): the NYT 30-greatest-songwriters interview
+      // that opened the same 2026 craft-canonization spring.
+      relatedIds: ['moment:vault-tloas-one-of-the-30-greatest-living-american-songwriters-and-a-rar'],
       title: 'The youngest woman in the Songwriters Hall of Fame',
       snippet:
         'At 36, Taylor becomes the youngest woman ever inducted into the Songwriters Hall of Fame — only Stevie Wonder got there younger. Steven Spielberg handles the surprise introduction, and Travis and both moms watch from her table, three weeks before the wedding.',
