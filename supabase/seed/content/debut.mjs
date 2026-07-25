@@ -1002,19 +1002,18 @@ export default {
       snippet:
         '"Our Song" won both Video of the Year and Female Video of the Year at the 2008 CMT Music Awards -- with a cheeky thank-you to the stylist who did her hair and dresses.',
       sourceUrl: 'https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/',
-      thumbnailUrl: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/74cc6c1d93db-gettyimages-80677442.jpg',
+      // Photo dropped 2026-07-25 (#762 review, PR #1506): the prior image
+      // hotlinked a Getty comp (gettyimages-80677442.jpg) via the
+      // non-allowlisted host images.hellomagazine.com — the legal class
+      // tracked in #935 — and was an off-moment shot anyway ("Picture to
+      // Burn" performance, not the Our Song win). Left photo-less until an
+      // allowlisted/reusable source for this exact moment is verified.
+      thumbnailUrl: null,
       moment: {
         context:
           'At the 2008 CMT Music Awards on April 14, 2008 at Nashville\'s Curb Events Center, "Our Song" won both Video of the Year and Female Video of the Year, beating a field that included Carrie Underwood, LeAnn Rimes, Martina McBride, and Miranda Lambert.\n\nAccepting, 18-year-old Swift joked: "I want to thank Sandy Spika for making all the dresses in that video and for straightening my hair, because that\'s not easy," before tearfully thanking the fans who\'d voted for her.',
         sources: [
           { outlet: 'The Boot', url: 'https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/' },
-        ],
-        photos: [
-          {
-            url: 'https://images.hellomagazine.com/horizon/original_aspect_ratio/74cc6c1d93db-gettyimages-80677442.jpg',
-            focalPoint: '50% 14%',
-            credit: 'Jeff Kravitz/Getty Images (performing "Picture to Burn" at the same ceremony)',
-          },
         ],
       },
     },

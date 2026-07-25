@@ -1057,7 +1057,6 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Our Song\" won both Video of the Year and Female Video of the Year at the 2008 CMT Music Awards -- with a cheeky thank-you to the stylist who did her hair and dresses.",
       body: ["At the 2008 CMT Music Awards on April 14, 2008 at Nashville's Curb Events Center, \"Our Song\" won both Video of the Year and Female Video of the Year, beating a field that included Carrie Underwood, LeAnn Rimes, Martina McBride, and Miranda Lambert.", "Accepting, 18-year-old Swift joked: \"I want to thank Sandy Spika for making all the dresses in that video and for straightening my hair, because that's not easy,\" before tearfully thanking the fans who'd voted for her."],
       tags: ["Lore"],
-      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/74cc6c1d93db-gettyimages-80677442.jpg", credit: "Jeff Kravitz/Getty Images (performing \"Picture to Burn\" at the same ceremony)", kind: "primary", focalPoint: "50% 14%" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/" }],
       relatedIds: ["moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show", "moment:vault-debut-our-song-hits-number-one", "moment:vault-debut-our-song-becomes-her-first-no-1"],
     },
