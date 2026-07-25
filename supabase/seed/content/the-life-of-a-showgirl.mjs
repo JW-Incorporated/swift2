@@ -2411,6 +2411,12 @@ export default {
         'The first publicly confirmed Chiefs game she\'d attended so far this season, chatting with Caitlin Clark and Ed Kelce in the suite as Kansas City beat Detroit 30-17 on Sunday Night Football.',
       sourceUrl: 'https://www.espn.com/nfl/story/_/id/46577064/taylor-swift-caitlin-clark-sunday-night-football-chiefs-lions-travis-kelce',
       thumbnailUrl: null,
+      // Cross-link (candidate #1247): this page calls itself Clark's second
+      // suite appearance "after the January 2025 Texans playoff game" — the
+      // first half of the pattern lives on that TTPD-era page.
+      relatedIds: [
+        'moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play',
+      ],
       moment: {
         context:
           'The Oct. 12 game came nine days after Swift released The Life of a Showgirl on Oct. 3. ESPN called it "the first public indication" of her attending a Chiefs game this season — she\'d also been at the Sept. 14 Eagles game, but wasn\'t photographed there. The broadcast caught her mid-celebration in the suite as Kansas City handled Detroit 30-17 in the Sunday-night window, her first on-camera Arrowhead appearance of an era in which she\'d been deliberately scarcer at games.\n\nThe company mattered as much as the sighting: Caitlin Clark, by then one of the few American athletes with a Swift-adjacent level of fame, was in the suite alongside Ed Kelce. It was the second time Clark had joined her in a suite, after the January 2025 Texans playoff game — enough of a pattern that the broadcast treated the two of them as a recurring double act, the biggest star in music watching football next to the biggest new star in basketball.',
@@ -2661,8 +2667,15 @@ export default {
     },
     {
       slug: 'watch-hill-bachelorette-weekend',
-      // Cross-link (candidate #1126): the wedding this weekend leads into.
-      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
+      // Cross-links: the wedding this weekend leads into (candidate #1126); the
+      // Watch Hill estate the weekend was staged at — both the folklore song
+      // that mythologizes it (candidate #1368) and the Red-era purchase that
+      // put it in her hands (candidate #1369).
+      relatedIds: [
+        'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
+        'moment:vault-folklore-the-last-great-american-dynasty-and-the-widow-she-found-in-h',
+        'moment:vault-red-she-buys-high-watch-the-watch-hill-mansion-in-cash',
+      ],
       year: 2026,
       month: 6,
       day: 19,
@@ -3897,8 +3910,13 @@ export default {
     // verified against its cited source directly; no fabrication.
     {
       slug: 'showgirl-david-koma-graham-norton',
-      // Cross-link (candidate #1128): the wedding tease from the same couch.
-      relatedIds: ['moment:vault-tloas-wedding-plans-teased-from-a-british-chat-show-couch'],
+      // Cross-links: the wedding tease from the same couch (candidate #1128);
+      // the "Opalite" video whose whole ensemble is drawn from this couch
+      // (candidate #1097).
+      relatedIds: [
+        'moment:vault-tloas-wedding-plans-teased-from-a-british-chat-show-couch',
+        'moment:vault-tloas-opalite-arrives-as-the-second-single',
+      ],
       year: 2025,
       month: 10,
       day: 2,
@@ -5451,6 +5469,12 @@ export default {
         'The End of an Era\'s pre-Christmas episodes brought Kelce into the frame — the tour\'s last stretch told with the relationship that started in its stands finally on camera.',
       sourceUrl: 'https://abcnews.com/GMA/Culture/exclusive-1st-end-era-travis-kelce-joins-taylor/story?id=128488203',
       thumbnailUrl: null,
+      // Cross-link (candidate #1440): the docuseries revisits Kelce's tuxedoed
+      // Wembley cameo on camera — the June 2024 night he became an Eras Tour
+      // cast member for a night.
+      relatedIds: [
+        'moment:vault-ttpd-travis-kelce-eras-tour-cast-member-for-a-night',
+      ],
       moment: {
         context:
           'GMA\'s exclusive first look confirmed Kelce appears in the back half of the six-episode Disney+ series, which rolled out Dec. 12, 19, and 23, 2025. His presence gave the series its relationship arc in miniature: the tour that began with him failing to hand her a friendship bracelet in July 2023 ends with him on camera inside its machinery — including the footage around his tuxedoed Wembley cameo in the "I Can Do It With a Broken Heart" bit from June 2024, the night he became briefly an Eras Tour cast member.\n\nThe docuseries also addressed the era\'s hardest moment — the cancelled Vienna shows, covered in the opening episode — making it the fullest inside account of the tour\'s final year: the terror plot, the record-breaking finale, and the relationship that started in its stands, all in one December drop.',
@@ -7606,7 +7630,13 @@ export default {
       // Cross-link added 2026-07-21 (ledger #1096) to the single's chart page.
       // The Opalite-video ↔ Graham-Norton pair is captured as a separate
       // crosslink-candidate issue for the builder rather than hard-linked here.
-      relatedIds: ['moment:vault-tloas-opalite-follows-ophelia-to-no-1'],
+      // Cross-link (candidate #1097): the video's whole ensemble — Gleeson,
+      // Greta Lee, Turner-Smith, Capaldi, Norton, a Cillian Murphy cameo — is
+      // the couch from the Oct 2025 Graham Norton press-run appearance.
+      relatedIds: [
+        'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
+        'moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto',
+      ],
       moment: {
         context: "Taylor Swift wrote and directed the \"Opalite\" video herself, with cinematography by Rodrigo Prieto — shot on film in a 1990s rom-com register — and choreography by Mandy Moore. It imagines the title as a magical drugstore spray that cures loneliness. A brunette Swift plays a Lonely Woman whose only friend is a pet rock that weighs her down; Domhnall Gleeson is a Lonely Man trapped with a hostile cactus. When both spritz themselves with Opalite, their toxic attachments fall away and a mall-date, dance-off montage begins. Graham Norton hawks a rival spray, \"Nope-alite\" (\"for people who want to choose to be unhealed\"); Cillian Murphy voices and fronts the Opalite ad; Greta Lee plays an MTV \"Indie Rock Goddess\" and Jodie Turner-Smith an aerobics instructor, both glimpsed on TV; Lewis Capaldi is the mall photographer.\n\nThe ensemble came straight off a couch: nearly every guest had sat beside Swift on the October 2025 Graham Norton Show, and after Gleeson joked on air that he hoped to land in one of her videos, she built the cast around that episode.\n\nIt premiered Feb. 6, 2026 exclusively on Apple Music and Spotify Premium — setting a record as the most-viewed video in 24 hours on both — before reaching YouTube two days later (5.4M-plus views on its first day there). Two behind-the-scenes extended cuts followed on Feb. 13, in which Swift walked through easter eggs nodding to \"You Belong with Me,\" \"Lover,\" \"Mad Woman,\" \"Bejeweled,\" \"Father Figure\" and \"Ruin the Friendship.\" Critics were broadly warm, reading it as a whimsical, self-aware showcase; its release also lifted the single to No. 1 in the UK.",
         // Sources added 2026-07-21 (ledger #1096): the page previously carried

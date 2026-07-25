@@ -1021,6 +1021,7 @@ export default {
         'moment:vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc',
         'moment:vault-ttpd-the-long-canadian-goodbye-six-nights-in-toronto',
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
+        'moment:vault-ttpd-back-in-the-family-suite-for-a-chiefs-texans-divisional-play',
       ],
       title: 'The last American shows: Indianapolis breaks its own record three nights running',
       snippet:
@@ -2077,6 +2078,10 @@ export default {
       sourceUrl: 'https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift',
       thumbnailUrl:
         'https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg',
+      relatedIds: [
+        'moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb',
+        'moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t',
+      ],
       moment: {
         context:
           "Kansas City beat Houston 23-14 to advance to the AFC Championship, pulling away from a 13-6 halftime lead in the Jan. 18, 2025 divisional-round game at Arrowhead. Swift watched from the family suite between her parents, Scott and Andrea, with Ed Kelce alongside — the postseason continuation of a regular season she'd spent as an Arrowhead fixture.\n\nIt was Caitlin Clark's first Chiefs game of the season, and this time the invitation came directly from Travis Kelce — Swift had previously invited her to a game via a handwritten letter during the Eras Tour's Indianapolis stop, but this was Clark's first time taking her up on it. Clark, who had passed on the offseason Unrivaled league, sat a row back from the suite's front line.",
@@ -2764,6 +2769,7 @@ export default {
         'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
         'moment:vault-speak-now-mean-written-straight-at-her-critics',
         'moment:vault-reputation-look-what-you-made-me-do-and-the-phone-call-it-started-with',
+        'moment:vault-speak-now-mean-the-banjo-single-goes-to-country-radio',
       ],
       snippet:
         'The stray capitals spell KIM, and fans connected the rest — a song about outlasting a schoolyard bully, filed under grudges from 2016. By August, a live version was restyled "thank You aimEe."',
@@ -4200,6 +4206,7 @@ export default {
       // Id verified against content-vault.generated.ts.
       relatedIds: [
         'moment:vault-midnights-a-record-tying-9-vma-wins-in-one-night',
+        'moment:vault-evermore-video-of-the-year-for-all-too-well-then-she-announces-midnig',
       ],
       year: 2024,
       month: 9,
