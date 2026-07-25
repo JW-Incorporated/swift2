@@ -25,15 +25,39 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 98
 
-## Travis Kelce Exits Florida on Taylor Swift’s Private Jet 3 Weeks After Wedding - heavy.com
+## Emmy Winner Niecy Nash-Betts Spills ‘Top Secret’ Details About Taylor Swift Wedding - The Daily Beas
 
-- first seen: 2026-07-24 22:16 UTC | category: relationship | importance: 5
+- first seen: 2026-07-25 04:23 UTC | category: relationship | importance: 5
 - verification_status: rumor | source_count: 1
-- summary: Travis Kelce Exits Florida on Taylor Swift’s Private Jet 3 Weeks After Wedding  heavy.com
+- summary: Emmy Winner Niecy Nash-Betts Spills ‘Top Secret’ Details About Taylor Swift Wedding  The Daily Beast
 - sources:
-  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPRWQtOWI0WDdTQXc4NWFrTzd3V3J3VFY1MWw3bXZES3NNM0VJWDFvUm8tV1dhbHVGY3FUS3dVWUxwUkljUjNrdUtkNE9SOWlIUTV0NURFd2gzQVByWEM2clJQVXJpZnFZakxVeGFMUmVNYUc4R2RaSm9tNUlPM3pSdlRHd29yZm8wV05kdHY5NA?oc=5
+  - [unverified] The Daily Beast — https://news.google.com/rss/articles/CBMivgFBVV95cUxOWGZURUlXVTZ1UjhYX2tVSWlRdVNvNVRLVlNFMkEtcV9uUUZ4R3czOG1ZSExUNkktd01wR2dFWWtYc3dKU3lZNXhkSVd1cHcyYUdhTERia2VUZ0d4NWk3QXl4VW5XazlqWEJZb25HMHpjNFNWc1ZGbVV0Uk5DS24wQzdLdlBDb3BCWFplTjFKWGR2cXVDWGZGYzdWbElCY0twZlpmSUZoeEdrRFR1N2NZYjE4cnhMZXQ0UXc4SWtn?oc=5
+
+## George Kittle reveals ‘starstruck' moment at Taylor Swift-Travis Kelce wedding - NBC Sports Bay Area
+
+- first seen: 2026-07-25 04:23 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: George Kittle reveals ‘starstruck' moment at Taylor Swift-Travis Kelce wedding  NBC Sports Bay Area & California
+- sources:
+  - [unverified] NBC Sports Bay Area & California — https://news.google.com/rss/articles/CBMiogFBVV95cUxQMFVUV00yRkh2VzBxSG56aDhmOU4wQzltbWU4dXF1N3g3RlRaVUFJM1FiTmtjS2tzUVI4c2pOQlEtSGtwZDI0NWsyajhlNjhPRFMzbVJJcHg5X21yRVVlaE9jSHhZamNwVWh0d1UxUG1lcHJKTHdPRzlaVGNoU3YyX3BlRm9uWlZJTGgtVFN0a0lqNWVKMHItZUFidFRvMHZXQmfSAaoBQVVfeXFMT3RSdnJWR2FMSnNaTThzYzRiOVFqWDY1ZWJ3WHQ5OGRqOHN6VWViak5LWWNTa1E0SHZpQ0dvTnpKWnc5UVcxMXZKOFo5UzdwZGRFLVAtN2hCTHZrRzgxZHhieGM0TlkzT2YyU3U1M3k0a0FkZGxkdmV6MFZJUVN6TklWdlVYZmxISVpJN0pzWGUwSFRsTW1jTjgzQUZLN013N01XOUFNZGJaNnc?oc=5
+
+## Taylor Swift and Travis Kelce wedding guest Niecy Nash divulges the 'crazy' lengths couple took to k
+
+- first seen: 2026-07-25 04:23 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Taylor Swift and Travis Kelce wedding guest Niecy Nash divulges the 'crazy' lengths couple took to keep ceremony under wraps  Page Six
+- sources:
+  - [unverified] Page Six — https://news.google.com/rss/articles/CBMi_AFBVV95cUxPaUlQbDdnSlItNHl2SkUtejFVNlNfOE05N0UwaFVaVzFoc2xrc3I2OXNnZzdZMDd1cHlDVDA4TmFFSmV3QlRoUE9la2dueWhrdWNoU0VtcVRLODRhZU9mTU5LWkJvR244d245Z2w0dXp5V0taYXduRHUxMzk3YTJYX1JpdnVTb3JpYVJDM2lrMWRpZGRRdlBiUy1fbENpQ1hsSndGYldzZGRpTDgwVjBhdFJidWN4ejVvTzBMWGVTTXRIU0x0dl9Wcml3YVFfczAyWXp5STJ6X3VMbHByUlhiaTBCOFhSeXNCWWVqYmduT2hpcnN3d0E3VjhCQmY?oc=5
+
+## Travis Kelce's nod to Taylor Swift in his wedding band revealed - sportingnews.com
+
+- first seen: 2026-07-25 04:23 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Travis Kelce's nod to Taylor Swift in his wedding band revealed  sportingnews.com
+- sources:
+  - [unverified] sportingnews.com — https://news.google.com/rss/articles/CBMi1wFBVV95cUxNSjlhSmlCYmZqcFMzYkQxMmRSaHBNUnJyTUV3TUEzanhScTRBNW5GdllENGJKUjVOWGsxVk1tdEcwc2RWVVBqUFZRam82bnJMbjR3QWRVdkhUaGZSSlRuamdzeFJla0U4VkQxT25qSGhQUmJrQzJjX1d4b1NsdFFBNmdWQVVoME50UXkweU9uVkhzY3pmaTExY2k3ajZNRUlrbjZ2c1VFMTRoSFY5REVRdWxZdFl1THZKZkpYY1RCMzJ2OGpaSTA3U0xLS25RZGVZMW9oc0s5bw?oc=5
 
 ## Shaq Responds to Missing Taylor Swift and Travis Kelce's Wedding - Yahoo
 
@@ -66,6 +90,15 @@ Stories: 94
 - summary: Taylor Swift and Travis Kelce got to buy MSG’s privacy. Her fans aren’t so lucky.  MS NOW
 - sources:
   - [unverified] MS NOW — https://news.google.com/rss/articles/CBMipwFBVV95cUxPMTFId2o1ci0wZ05OUTZCUnZRSWlPRFE3RERJX2c1Ry1XY1BOc3Y1ZjZtRTg4dWtTMWE3NUFxbGdxSkI2Z200RE9PQ2hDV2sxRkQ4Sll4YWFkZExpY184MGxlYlNvRk8wZFhZWDh0MVVUSlQ4d09LdzBpbW1KQmRPVV9QeU9nVkhLVmo1ZndGVUdXUzJSZktEVGFxcHF3UUNGZkp6VTVVQQ?oc=5
+
+## Travis Kelce Exits Florida on Taylor Swift’s Private Jet 3 Weeks After Wedding - heavy.com
+
+- first seen: 2026-07-24 22:16 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce Exits Florida on Taylor Swift’s Private Jet 3 Weeks After Wedding  heavy.com
+- sources:
+  - [unverified] heavy.com — https://news.google.com/rss/articles/CBMijwFBVV95cUxPRWQtOWI0WDdTQXc4NWFrTzd3V3J3VFY1MWw3bXZES3NNM0VJWDFvUm8tV1dhbHVGY3FUS3dVWUxwUkljUjNrdUtkNE9SOWlIUTV0NURFd2gzQVByWEM2clJQVXJpZnFZakxVeGFMUmVNYUc4R2RaSm9tNUlPM3pSdlRHd29yZm8wV05kdHY5NA?oc=5
+  - [unverified] Yahoo Sports — https://news.google.com/rss/articles/CBMiigFBVV95cUxOOWNFSFZLLWFNQWg0THUwNlFMaF9aNm11bWhObnAxeC10V1haazJhXzY0TlRORHVwWVhBTUtSQUtjcHRLM012bUlHRi1feEFBTVQ2RUdoMDQ5bldzT3hyellXNVJaS3VMTW12bzJadnJMNExuSjY3LThfUzJvamtSc2pQenVDd3RqTWc?oc=5
 
 ## Who knows more Taylor Swift trivia? - CBS News
 
