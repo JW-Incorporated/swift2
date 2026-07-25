@@ -33,6 +33,8 @@ export default {
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
         'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        // Cross-link (candidate #1114): the married-man return-visit proposal story.
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
       ],
       title: 'A mint-green briefcase on New Heights: album No. 12, announced on her first-ever podcast',
       snippet:
@@ -1568,7 +1570,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Michael\'s original gets a formal songwriting credit on the track — George Michael is listed as a writer alongside Swift, Max Martin, and Shellback, since the song lifts the melody and the "I\'ll be your father figure" line directly. The estate\'s public statement framed it as an "association between two great artists," one of the warmest legacy-artist endorsements any of her interpolations has drawn, and pointedly noted they were approached before release rather than after.\n\nSwift\'s version flips the phrase from seduction to power: she has described the song as a mentor-and-protégé story told from the mentor\'s side, saying she drew on Succession\'s Logan Roy for the voice — though she added that she has lived the protégé\'s side of it. Critics heard the autobiography immediately, reading lines about finding someone young and profiting from their success as her Big Machine signing and the masters dispute retold from behind the boss\'s desk. Pitchfork singled it out as the album\'s most direct appraisal of her own power. She placed the reference-point herself, telling Jimmy Fallon (Oct. 6, 2025) she\'d drawn the mentor\'s voice from Succession\'s Logan Roy.\n\nMechanically it is an interpolation, not a sample: the hook and melody were re-recorded rather than lifted from Michael\'s master, so only his songwriting rights — not the recording, which Sony controls — had to be cleared, and the estate collects as a credited co-writer rather than through the label. Swift, Max Martin and Shellback produced. Never worked to radio as its own single, it still debuted at No. 4 on both the Hot 100 and the Global 200 and reached the top five in Australia, Canada, Germany, Sweden and Greece, going Platinum in Australia and Canada.',
+          'Michael\'s original gets a formal songwriting credit on the track — George Michael is listed as a writer alongside Swift, Max Martin, and Shellback, since the song lifts the melody and the "I\'ll be your father figure" line directly. The estate\'s public statement framed it as an "association between two great artists," one of the warmest legacy-artist endorsements any of her interpolations has drawn, and pointedly noted they were approached before release rather than after.\n\nSwift\'s version flips the phrase from seduction to power: she has described the song as a mentor-and-protégé story told from the mentor\'s side, saying she drew on Succession\'s Logan Roy for the voice — though she added that she has lived the protégé\'s side of it. Critics heard the autobiography immediately, reading lines about finding someone young and profiting from their success as her Big Machine signing and the masters dispute retold from behind the boss\'s desk. Pitchfork singled it out as the album\'s most direct appraisal of her own power. She placed the reference-point herself, telling Jimmy Fallon (Oct. 6, 2025) she\'d drawn the mentor\'s voice from Succession\'s Logan Roy.\n\nMechanically it is an interpolation, not a sample: the hook and melody were re-recorded rather than lifted from Michael\'s master, so only his songwriting rights — not the recording, which Sony controls — had to be cleared, and the estate collects as a credited co-writer rather than through the label. Swift, Max Martin and Shellback produced. Never worked to radio as its own single, it still debuted at No. 4 on both the Hot 100 and the Global 200 and reached the top five in Australia, Canada, Germany, Sweden and Greece, going Platinum in Australia and Canada and later certified Silver in the UK and Gold in New Zealand.\n\nMichael\'s publishing is administered by Warner Chappell Music, but the clearance itself came from the estate — George Michael Entertainment, the company David Austin has run since Michael\'s 2016 death — and the interpolation added no living co-writer, crediting Michael alone alongside Swift, Martin and Shellback. The statement read partly as generosity because the estate is otherwise fiercely protective of the catalog: in 2022 it had Tory Lanez\'s unauthorized "Careless Whisper" sample pulled from streaming after formally declining permission the year before, and moved on other uncleared samples too. The "no hesitation" message itself was posted on the estate\'s Instagram and signed "George Michael Entertainment," not attributed to any one person by name. Past the debut the song drew only a lyric video and a visualizer — no standalone narrative clip, no dedicated single push, no live performance to date — and no further public word from Austin or the estate reacting to the finished record has surfaced.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1616,6 +1618,28 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Added 2026-07-25 (ledger #1030 Q1/Q4): estate administration +
+          // the catalog's licensing protectiveness that frames the blessing.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/music/news/george-michael-tory-lanez-careless-whisper-sample-1235204177/',
+            source_title: "George Michael Estate Smacks Down Tory Lanez's Unauthorized 'Careless Whisper' Sample",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          // Added 2026-07-25 (ledger #1030 Q3): the statement's channel and
+          // "George Michael Entertainment" sign-off (no named individual).
+          {
+            outlet: 'The Mirror US',
+            url: 'https://www.themirror.com/entertainment/music/george-michael-taylor-swift-reference-1425956',
+            source_title: "George Michael's estate speaks out on Taylor Swift honoring late singer's Father Figure",
+            publisher: 'The Mirror US',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Lyric-video id 98SmlWOKuME verified via oEmbed against
@@ -2543,6 +2567,8 @@ export default {
     },
     {
       slug: 'watch-hill-bachelorette-weekend',
+      // Cross-link (candidate #1126): the wedding this weekend leads into.
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
       year: 2026,
       month: 6,
       day: 19,
@@ -2804,6 +2830,8 @@ export default {
         'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
         // Cross-link (candidate #1349): the wedding week's UK catalog chart bump.
         'moment:vault-tloas-the-wedding-week-nudges-the-whole-catalog-back-up-the-uk-cha',
+        // Cross-link (candidate #1126): the Watch Hill bachelorette weekend two weeks before.
+        'moment:vault-tloas-a-tented-lawn-in-rhode-island-two-weeks-before-the-wedding',
       ],
       title: 'Taylor and Travis marry at Madison Square Garden',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
@@ -3770,6 +3798,8 @@ export default {
     // verified against its cited source directly; no fabrication.
     {
       slug: 'showgirl-david-koma-graham-norton',
+      // Cross-link (candidate #1128): the wedding tease from the same couch.
+      relatedIds: ['moment:vault-tloas-wedding-plans-teased-from-a-british-chat-show-couch'],
       year: 2025,
       month: 10,
       day: 2,
@@ -3960,6 +3990,8 @@ export default {
     },
     {
       slug: 'showgirl-selena-gomez-texans-coats',
+      // Cross-link (candidate #1052): the coordinated-outfit game-day sighting.
+      relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
       year: 2025,
       month: 12,
       day: 7,
@@ -4837,7 +4869,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Track two draws the parallel explicitly — the Plaza Athénée, Portofino, "I would trade the Cartier for someone to trust" — two famous women whose romances became public property. Time and Rolling Stone both read it as the album\'s thesis statement: the showgirl persona as armor, borrowed from the woman who wore it best. The specificity is the trick — White Diamonds (the Taylor fragrance empire), the violet eyes, "you\'re only as hot as your last hit" — Swift writing her own fame anxiety in another woman\'s biography, the way "the last great american dynasty" once used Rebekah Harkness.\n\nIt was the first Showgirl song written, which makes it the era\'s seed: the Elizabeth Taylor fixation came before the album had a title, and it kept paying off — the song debuted at No. 3 on the Hot 100 behind "The Fate of Ophelia" and "Opalite," got an archival-footage music video the following March, and, per SheKnows\' wedding coverage tracing to Daily Mail reporting, reportedly echoed into the Dior wedding gown modeled on Elizabeth Taylor\'s 1950 bridal look.',
+          'Track two draws the parallel explicitly — the Plaza Athénée, Portofino, "I would trade the Cartier for someone to trust" — two famous women whose romances became public property. Time and Rolling Stone both read it as the album\'s thesis statement: the showgirl persona as armor, borrowed from the woman who wore it best. The specificity is the trick — White Diamonds (the Taylor fragrance empire), the violet eyes, "you\'re only as hot as your last hit" — Swift writing her own fame anxiety in another woman\'s biography, the way "the last great american dynasty" once used Rebekah Harkness.\n\nIt was the first Showgirl song written, which makes it the era\'s seed: the Elizabeth Taylor fixation came before the album had a title, and it kept paying off — the song debuted at No. 3 on the Hot 100 behind "The Fate of Ophelia" and "Opalite," got an archival-footage music video the following March, and, per SheKnows\' wedding coverage tracing to Daily Mail reporting, reportedly echoed into the Dior wedding gown modeled on Elizabeth Taylor\'s 1950 bridal look.\n\nLike the rest of the album it is credited to Swift with Max Martin and Shellback as its only writers and producers, a small string section the sole added players; the "first song written" claim traces to the album\'s liner notes and an Apple Music songwriting featurette rather than to fan lore. It peaked at No. 3 on the Hot 100 and, on radio months later, reached No. 7 on Pop Airplay, No. 8 on Adult Pop Airplay and No. 9 on Adult Contemporary; it went Platinum in Australia and Canada and Gold in the UK and New Zealand (no US certification as of mid-2026). Rolling Stone treated it as the album\'s emotional centerpiece, and it recurred on critics\' best-of-album and year-end lists as one of the record\'s standouts.\n\nThe lyric\'s specifics check out against the real biography — per Elizabeth Taylor\'s own estate, which published a line-by-line explainer: the Cartier reference nods to her lifelong Cartier patronage (the house behind the 69-carat Taylor–Burton diamond); "Portofino" to the Italian coast she vacationed on with Richard Burton; "the Plaza Athénée" to the six months she and Burton lived at that Paris hotel in 1971; "White Diamonds" to the fragrance she named for the jewels; the violet eyes to the deep-blue eyes that famously read as violet. One line is Swift\'s, not Taylor\'s: the estate\'s explainer never attributes "you\'re only as hot as your last hit" to her, and no biographer has — it is a showbiz adage Swift puts in a showgirl\'s mouth. The Taylor side embraced the tribute, its House of Taylor account promoting the song and publishing that explainer to show how closely it tracks her life.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -4874,6 +4906,19 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-10',
             reliability_score: 3,
+          },
+          // Added 2026-07-25 (ledger #1039 Q5/Q6/Q7): the estate's own
+          // line-by-line lyric explainer — maps each reference to a
+          // documented Elizabeth Taylor fact, and (by omission) confirms
+          // "you're only as hot as your last hit" is not her quote.
+          {
+            outlet: 'Elizabeth Taylor (official estate)',
+            url: 'https://www.elizabethtaylor.com/taylor-swifts-elizabeth-taylor-lyrics-explained/',
+            source_title: "Taylor Swift's 'Elizabeth Taylor' Lyrics, Explained",
+            publisher: 'House of Taylor / The Elizabeth Taylor Estate',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
           },
         ],
         // Public-domain MGM publicity still of the song's namesake; license
@@ -5003,6 +5048,8 @@ export default {
     },
     {
       slug: 'showgirl-graham-norton-destination-wedding',
+      // Cross-link (candidate #1128): the David Koma look from the same appearance.
+      relatedIds: ['moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto'],
       year: 2025,
       month: 10,
       day: 2,
@@ -5154,7 +5201,11 @@ export default {
       category: 'fashion',
       // Cross-link (candidate #1041): the suite reaction from this same Nov 23,
       // 2025 Colts game.
-      relatedIds: ['moment:vault-tloas-back-in-the-suite-window-for-an-overtime-nail-biter'],
+      relatedIds: [
+        'moment:vault-tloas-back-in-the-suite-window-for-an-overtime-nail-biter',
+        // Cross-link (candidate #1052): the coordinated winter-coat game-day sighting.
+        'moment:vault-tloas-taylor-and-selena-gomez-coordinate-opulent-winter-coats-at-a',
+      ],
       title: 'A low-key game-day layer for the Colts game',
       snippet:
         'No statement piece this time — a beige, red, and white color-blocked jacket and the signature red lip, dressed for the suite rather than the cameras.',
@@ -5605,7 +5656,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The March 31, 2026 video — which Swift directed herself, extending the self-direction of "The Fate of Ophelia" and "Opalite" — is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer and Who\'s Afraid of Virginia Woolf? among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead.',
+          'The March 31, 2026 video breaks from the era\'s self-directed clips: unlike "The Fate of Ophelia" and "Opalite," it does not appear among Swift\'s credited directorial works — her official directed-projects list carries both of those but not this one — and no director is named in the coverage. It is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer and Who\'s Afraid of Virginia Woolf? among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead.',
         sources: [
           {
             outlet: 'Variety',
@@ -5635,6 +5686,19 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Added 2026-07-25 (ledger #1036 Q1 correction): a prior pass said
+          // Swift directed this video, but her official directed-projects
+          // index lists "The Fate of Ophelia" and "Opalite" and NOT
+          // "Elizabeth Taylor" — so the self-direction claim is unsupported.
+          {
+            outlet: 'taylorswift.com',
+            url: 'https://www.taylorswift.com/directed-projects/',
+            source_title: 'Directed Projects',
+            publisher: 'Taylor Swift (official site)',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
           },
         ],
         // Official MV id WqbJT_vC0rs verified via oEmbed against
@@ -5936,6 +6000,8 @@ export default {
     },
     {
       slug: 'kelce-new-heights-proposal-story',
+      // Cross-link (candidate #1114): the New Heights announcement this returns to.
+      relatedIds: ['moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-'],
       year: 2026,
       month: 7,
       day: 8,
@@ -6396,6 +6462,8 @@ export default {
         'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
+        // Cross-link (candidate #1291): the Pop Airplay top-10 that helped set the record.
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
       ],
       title: 'Four songs in the Adult Contemporary top 10 — a first in the chart’s 65 years',
       snippet:
@@ -6674,6 +6742,8 @@ export default {
       // did not confirm. Passes the privacy redlines cleanly: her own chart
       // record, no third parties, no location or private-life detail.
       slug: 'i-knew-it-i-knew-you-pop-airplay-top-ten',
+      // Cross-link (candidate #1291): the four-in-the-AC-top-10 record it feeds.
+      relatedIds: ['moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c'],
       year: 2026,
       month: 7,
       day: 20,
@@ -7398,10 +7468,57 @@ export default {
       category: "music",
       tags: ["Fashion"],
       title: "“Elizabeth Taylor” goes to radio",
-      snippet: "The album’s third single, named for the screen icon, arrives at radio with its own official video.",
+      snippet: "The album’s third radio single, five months after release — Hot AC on March 9, Top 40 the next day — and, weeks later, a top-10 airplay run that made chart history.",
       video: { youtubeId: "WqbJT_vC0rs", title: "Taylor Swift - Elizabeth Taylor (Official Music Video)" },
       moment: {
-        context: "The song went to US hot adult contemporary radio first, followed a day later by a contemporary hit radio push, extending the album’s single cycle five months after release.\n\nA \"So Glamorous Cabaret Version\" and full digital package followed later that month, keeping the showgirl motif alive well into 2026.",
+        context: "Five months after the album, \"Elizabeth Taylor\" became its third radio single, after the two Hot 100 No. 1s \"The Fate of Ophelia\" and \"Opalite.\" It impacted US hot adult contemporary (AC) radio on March 9, 2026 and contemporary hit (Top 40) radio the next day; Billboard reported it \"trending toward a debut on the March 21-dated Pop Airplay, Adult Pop Airplay and Adult Contemporary charts,\" with early adds at SiriusXM, iHeart's Z100 New York and 99.7 NOW San Francisco.\n\nRadio came first by a wide margin — the archival music video did not premiere until March 31, roughly three weeks later — so the single began its radio life well before it had a video, not alongside one. On airplay it became one of the album's biggest post-release hits, peaking at No. 7 on Pop Airplay, No. 8 on Adult Pop Airplay and No. 9 on Adult Contemporary. Its Adult Pop Airplay top-10 run made history: with \"The Fate of Ophelia\" and \"Opalite\" already in the region, Swift became the first artist in that chart's 30-year history to hold three simultaneous top 10s — her 35th career top 10 on the format.\n\nThe \"So Glamorous Cabaret Version\" the motif points to is not a spring-2026 release: it is one of eight acoustic re-recordings Swift cut with Max Martin and Shellback and issued Oct. 5, 2025 as bonus tracks on four limited CD editions of the album, the fourth of which paired it with an \"Original Songwriting Voice Memo.\" During the single's cycle Swift made a non-performing special appearance at the iHeartRadio Music Awards on March 26, 2026, taking Artist of the Year among seven wins; no official reason was published for choosing \"Elizabeth Taylor\" as the third single, and no dedicated televised performance of it is documented.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://ca.billboard.com/music/pop/taylor-swift-elizabeth-taylor-radio-single-1236197103',
+            source_title: "Taylor Swift Promotes 'Elizabeth Taylor' As Third Radio Single From 'The Life of a Showgirl'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/04/26/taylor-swift-makes-history-as-her-latest-single-soars-into-the-top-10/',
+            source_title: 'Taylor Swift Makes History As Her Latest Single Soars Into The Top 10',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://au.variety.com/2025/music/news/taylor-swift-acoustic-recordings-bonus-tracks-cd-editions-showgirl-28534',
+            source_title: "Taylor Swift Announces Eight Acoustic Recordings as Bonus Tracks for Four New 'Life of a Showgirl' CD Editions",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-2026-iheartradio-music-award-artist-of-the-year-1236208165/',
+            source_title: 'Taylor Swift Takes Home 2026 iHeartRadio Music Award for Artist of the Year',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Elizabeth_Taylor_(song)',
+            source_title: 'Elizabeth Taylor (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
         // MV id WqbJT_vC0rs verified via YouTube oEmbed this session
         // ("Taylor Swift - Elizabeth Taylor (Official Music Video)", author
