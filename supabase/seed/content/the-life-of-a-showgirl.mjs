@@ -174,6 +174,18 @@ export default {
       month: 8,
       day: 13,
       category: 'fashion',
+      // Cross-links added 2026-07-25 (ledger #1431 Q6: this visual-thesis page
+      // carried ZERO relatedIds). Threads to the era's origin (New Heights
+      // reveal), the release these portraits ARE the packaging of, the lead
+      // single that shares the Ophelia/Millais conceit, and the look in which
+      // Swift walked fans through this exact packaging. All four ids verified
+      // to resolve in content-vault.generated.ts.
+      relatedIds: [
+        'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+        'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
+        'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        'moment:vault-tloas-the-look-that-made-showgirl-orange-a-fashion-story-reformati',
+      ],
       title: 'The showgirl portraits: Mert and Marcus, rhinestones, and an Ophelia bathtub cover',
       snippet:
         'Her most theatrical album imagery yet — feathered, crystal-covered showgirl looks shot by Mert and Marcus (their first Swift shoot since reputation), and a cover of her half-submerged in water in a diamond-lined AREA bralette, widely read as an echo of Millais\'s painting of Ophelia.',
@@ -181,7 +193,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift said the submerged cover glamorizes the offstage side of the Eras Tour — her day "ends in a bathtub, not usually in a bedazzled dress" — choosing a behind-the-scenes image over full showgirl mode because the songs are about what she was going through offstage. The title is lettered in orange glitter, and the wider shoot\'s bejeweled bodysuits and feather headdresses were described by critics as the most provocative, glamorous visual identity of her career. It reunited her with Mert Alas and Marcus Piggott, the duo behind reputation\'s black-and-white newsprint portraits — their first Swift shoot since 2017, now flipped from monochrome menace to full Vegas color.\n\nMarie Claire\'s wardrobe breakdown of the album packaging reads like a showgirl-history syllabus: vintage Bob Mackie — the designer synonymous with Cher and the Las Vegas stage — appears on several alternate covers, alongside custom Gucci, The Blonds, a Kelsey Randall chainmail dress, Fleur du Mal lingerie, and an Annie\'s Ibiza mini with Lorraine Schwartz jewels. The feathered backstage portrait shown here, styled dressing-room-mirror-and-all, is the shoot\'s thesis in one frame: the glamour machine photographed from inside the dressing room rather than from the audience.\n\nTwo of the imagery\'s most-repeated readings are interpretation, not statement. The Millais Ophelia parallel is a critics\' reading — neither Swift nor the photographers ever confirmed it; she framed the submerged shot only as an offstage image. And while the crystal looks are Bob Mackie, Mackie said he was never consulted, "kind of shocked" to see Swift in pieces borrowed from his Las Vegas Jubilee! revue, not made for her. Documented in the credits: styling by longtime stylist Joseph Cassell Falconer; a standard-cover bralette from AREA\'s Spring 2022 collection, customized for the shoot; and an orange-glitter wordmark that sets an existing 2021 typeface — Edwin Moreira\'s Gazzetta — her team selected rather than commissioned.',
+          'Swift said the submerged cover glamorizes the offstage side of the Eras Tour — her day "ends in a bathtub, not usually in a bedazzled dress" — choosing a behind-the-scenes image over full showgirl mode because the songs are about what she was going through offstage. The title is lettered in orange glitter, and the wider shoot\'s bejeweled bodysuits and feather headdresses were described by critics as the most provocative, glamorous visual identity of her career. It reunited her with Mert Alas and Marcus Piggott, the duo behind reputation\'s black-and-white newsprint portraits — their first Swift shoot since 2017, now flipped from monochrome menace to full Vegas color.\n\nMarie Claire\'s wardrobe breakdown of the album packaging reads like a showgirl-history syllabus: vintage Bob Mackie — the designer synonymous with Cher and the Las Vegas stage — appears on several alternate covers, alongside custom Gucci, The Blonds, a Kelsey Randall chainmail dress, Fleur du Mal lingerie, and an Annie\'s Ibiza mini with Lorraine Schwartz jewels. The feathered backstage portrait shown here, styled dressing-room-mirror-and-all, is the shoot\'s thesis in one frame: the glamour machine photographed from inside the dressing room rather than from the audience.\n\nTwo of the imagery\'s most-repeated readings are interpretation, not statement. The Millais Ophelia parallel is a critics\' reading — neither Swift nor the photographers ever confirmed it; she framed the submerged shot only as an offstage image. And while the crystal looks are Bob Mackie, Mackie said he was never consulted, "kind of shocked" to see Swift in pieces borrowed from his Las Vegas Jubilee! revue, not made for her. Documented in the credits: styling by longtime stylist Joseph Cassell Falconer; a standard-cover bralette from AREA\'s Spring 2022 collection, customized for the shoot; and an orange-glitter wordmark that sets an existing 2021 typeface — Edwin Moreira\'s Gazzetta — her team selected rather than commissioned.\n\nThe shoot ultimately fed six distinct Mert & Marcus cover images — Swift as six different showgirls — spread across a blitz of physical editions: the standard half-submerged "Ophelia bathtub" cover, the vinyl editions "The Shiny Bug" (an embellished corseted bodysuit and gloves), "Baby, That\'s Show Business" and "Tiny Bubbles in Champagne," the Target-exclusive "The Crowd Is Your King," three CD variants ("It\'s Frightening," "It\'s Rapturous," "It\'s Beautiful") and a limited "Sweat and Vanilla Perfume" CD, part of the 27-variant release-week blitz. The packaging leaned into physical-media detail — a high-gloss finish, photo-card CDs, a poem tucked into each vinyl — though no outside creative director was credited for it beyond Swift and her team. A few threads stay genuinely undocumented: the shoot\'s exact date and location were never published (they circulate only via fan-wiki image metadata, so neither is asserted here), and the hair-and-makeup credits, a named packaging art director, and any on-record comment from AREA\'s designers or from Mert and Marcus about the concept have not surfaced in press coverage.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -241,6 +253,17 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Ledger #1431 (2026-07-25): the six distinct Mert & Marcus covers /
+          // "six different showgirls" and the named vinyl/CD editions.
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/news/taylor-swift-life-of-a-showgirl-variants-album-covers/',
+            source_title: "Every Taylor Swift 'The Life of a Showgirl' vinyl variant and album cover",
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Image from the album shoot itself, hotlinked from Marie Claire's
@@ -1365,6 +1388,9 @@ export default {
         'moment:vault-tloas-the-official-release-party-of-a-showgirl-turns-movie-theater',
         'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
         'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
+        // Reciprocal of the portraits page's new link (ledger #1431): the Ophelia
+        // bathtub COVER and this Ophelia opening SINGLE are one Millais conceit.
+        'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
       ],
       year: 2025,
       month: 10,
@@ -4294,7 +4320,7 @@ export default {
           postedOn: '2025-08-26',
         },
         context:
-          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at Kelce\'s Missouri home (over an Eagles practice weekend, his father Ed said; exact date unconfirmed). On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.',
+          'The couple made it official themselves on Aug. 26, 2025 — two weeks after Swift used Kelce\'s New Heights podcast to reveal The Life of a Showgirl — in a single joint Instagram post rather than a statement to any outlet. The carousel ran five photos from a flower-filled garden proposal, one a close-up of the ring, under Swift\'s caption: "Your English teacher and your gym teacher are getting married 🧨" — a line that became one of the year\'s most-repeated. The photos show the scale of the staging: a floral arch and urns overflowing with pink-and-white blooms deep in a wooded garden, Kelce in navy and Swift in a striped summer dress.\n\nThe ring, shown in close-up in the post, is an Old Mine Cut brilliant diamond — an elongated cushion-cut stone of undisclosed size (expert guesses ranged from about 7 to 15 carats, most clustering near 8 to 10), set in warm yellow gold — designed by Kelce together with Kindred Lubeck, the goldsmith, hand engraver and vintage-jewelry collector behind New York\'s Artifex Fine Jewelry; Lubeck was later invited to the couple\'s wedding. The post itself is the primary document of the moment, cited below, and the caption\'s teacher framing became era canon — quoted back at the couple everywhere from morning shows to the wedding\'s own coverage ten months later.\n\nThe post rewrote Instagram\'s records: about 14 million likes in its first hour and over a million reposts within six — the platform\'s most-reposted post ever — passing 46 million likes by early September. The proposal came ~two weeks earlier, around Aug. 10, 2025, in a flower-filled garden at Kelce\'s Missouri home (over an Eagles practice weekend, his father Ed said; exact date unconfirmed). On-the-record congratulations followed from the Kansas City Chiefs ("Today is a fairytale"), the NFL and Brittany Mahomes. The closing dynamite emoji went officially unexplained but fits the couple\'s running "T&T"/"TNT" initials motif — the play that later lit the "JusT&T Married" marquee.\n\nHow the scene was made came out only later, when Swift detailed it on The Graham Norton Show. Kelce staged the whole thing during the three-to-four-hour taping of the New Heights album-reveal episode — having his Missouri backyard turned into a flower-filled "secret garden" while they recorded inside, and building a wall of hedges that had not been there before, with Swift\'s own tour photographer hidden inside them to shoot the carousel. That is why the professionally lit frames carry only the couple\'s @taylorswift/Instagram credit and no outside photographer was ever named. Per Travis\'s father, Ed Kelce, the florists who dressed the set were still finishing and had to duck into the bushes when the couple came out — so the floral architecture was a temporary installation built for the occasion, not a standing garden feature. No event designer or florist has been publicly named, but florists reading the images for the press catalogued garden roses, "Limelight" hydrangeas, delphinium, ranunculus, lilies and southern smilax draping a domed metal arbor; Kansas City florist Sarah Burch (EverWild Florals) put the flowers alone at $10,000–$15,000. The caption had its own afterlife: within hours brands were riffing on it — Pixar paired "Your English teacher and your gym teacher are getting married" with the Incredibles — and it hardened into a documented meme format, with its own Know Your Meme entry, recycled onto countless other couples.',
         // 2026-07-09, relaxed image policy: the gallery now hotlinks the couple's
         // own official post imagery via ABC News' stable copies (i.abcnewsfe.com),
         // credited "@taylorswift/Instagram" as ABC credits them. Instagram's own
@@ -4373,6 +4399,47 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Depth ledger #1468 (2026-07-25): the production/provenance of the
+          // proposal scene — Swift's Graham Norton account (the secret-garden
+          // build, the hidden tour photographer), Ed Kelce on the florists
+          // hiding, the florist-catalogued flowers + cost, and the caption's
+          // documented meme afterlife.
+          {
+            outlet: 'TMZ',
+            url: 'https://www.tmz.com/2025/10/03/taylor-swift-travis-kelce-proposal-graham-norton-show/',
+            source_title: "Taylor Swift Details Travis Kelce Proposal on 'The Graham Norton Show'",
+            publisher: 'TMZ',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'HGTV',
+            url: 'https://www.hgtv.com/outdoors/gardens/what-to-know-about-taylor-swifts-engagement-garden',
+            source_title: "Taylor Swift's Engagement Garden's Secret Meaning Behind Flowers and Plants",
+            publisher: 'HGTV',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'AOL',
+            url: 'https://www.aol.com/taylor-swift-travis-kelce-engagement-205620651.html',
+            source_title: 'Kansas City florist analyzes Taylor Swift and Travis Kelce dreamy proposal flowers',
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Know Your Meme',
+            url: 'https://knowyourmeme.com/memes/your-english-teacher-and-your-gym-teacher-are-getting-married',
+            source_title: 'Your English Teacher and Your Gym Teacher Are Getting Married',
+            publisher: 'Know Your Meme',
+            source_type: 'reference',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
           },
         ],
         photos: [
@@ -6897,7 +6964,7 @@ export default {
       snippet: "The self-directed lead-single video debuts on YouTube after its theatrical-only premiere two days earlier.",
       video: { youtubeId: "ko70cExuzZM", title: "Taylor Swift - The Fate of Ophelia (Official Music Video)" },
       moment: {
-        context: "Swift wrote and directed the video herself and, per its credits, built it with Eras Tour collaborators: cinematographer Rodrigo Prieto (Barbie, Killers of the Flower Moon), production designer Ethan Tobman, and choreographer Mandy Moore, casting her Eras band and dancers as the ensemble. Filming centered on the 1931 Los Angeles Theatre in downtown LA, after rehearsals that ran more than three weeks; the piece moves through a run of eras — an Old Hollywood opening, 1960s go-go lines, and a Busby Berkeley-scale synchronized-swim number that stages the drowned-Ophelia cover.\n\nIt premiered on the big screen first, playing inside “The Official Release Party of a Showgirl” — the Oct. 3, 2025 theatrical event that wrapped the video with behind-the-scenes footage, lyric videos, and Swift’s spoken “what inspired this music” intros — before its YouTube debut two days later, on Oct. 5, where it drew about 25 million views in three days and trended at No. 1. Fans turned the chorus choreography into a TikTok trend that even Australian PM Anthony Albanese attempted; Swift amplified it by posting an official clip of her and her dancers running the routine.\n\nWatchers logged a dense easter-egg layer — a door marked “No. 87” and a dressing-room photo nodding to Travis Kelce, an orange bird recalling “Look What You Made Me Do,” a clapperboard reading “Sequins are forever,” and a “Featuring Kitty Finlay” card (Finlay is Swift’s maternal grandmother’s surname). Prieto’s camerawork went on to win Outstanding Achievement in Cinematography in a Music Video at the ASC Awards (March 2026), his first ASC win.",
+        context: "Swift wrote and directed the video herself and, per its credits, built it with Eras Tour collaborators: cinematographer Rodrigo Prieto (Barbie, Killers of the Flower Moon), production designer Ethan Tobman, choreographer Mandy Moore, editor Chancler Haynes and producer Jil Hardin, casting her Eras band and dancers as the ensemble. It is the first video of the Showgirl era and the latest in a long run of self-directed work: since her first solo credit — “The Man” in 2020, the video that made her the first solo woman to win the MTV VMA for Best Direction — Swift has directed 14 of her own videos, 11 of them entirely on her own. Filming centered on the 1931 Los Angeles Theatre in downtown LA, after rehearsals that ran more than three weeks; the piece moves through a run of eras — an Old Hollywood opening, 1960s go-go lines, and a Busby Berkeley-scale synchronized-swim number that stages the drowned-Ophelia cover.\n\nIt premiered on the big screen first, playing inside “The Official Release Party of a Showgirl” — the Oct. 3, 2025 theatrical event that wrapped the video with behind-the-scenes footage, lyric videos, and Swift’s spoken “what inspired this music” intros — before its YouTube debut two days later, on Oct. 5, where it drew about 25 million views in three days and trended at No. 1. Fans turned the chorus choreography into a TikTok trend that even Australian PM Anthony Albanese attempted; Swift amplified it by posting an official clip of her and her dancers running the routine.\n\nWatchers logged a dense easter-egg layer — a door marked “No. 87” and a dressing-room photo nodding to Travis Kelce, an orange bird recalling “Look What You Made Me Do,” a clapperboard reading “Sequins are forever,” and a “Featuring Kitty Finlay” card (Finlay is Swift’s maternal grandmother’s surname). Prieto’s camerawork went on to win Outstanding Achievement in Cinematography in a Music Video at the ASC Awards (March 2026), his first ASC win.",
         sources: [
           {
             // Theatrical premiere inside the Release Party + the full package shown.
@@ -6963,6 +7030,27 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
             reliability_score: 3,
+          },
+          // Ledgers #1069/#1106 (2026-07-25): the self-directed filmography
+          // context — 14 videos since "The Man" (2020), 11 of them fully solo —
+          // and the editor credit (Chancler Haynes).
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-self-directed-music-004122639.html',
+            source_title: "Here Are All of Taylor Swift's Self-Directed Music Videos, Ranked",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'IMDb',
+            url: 'https://www.imdb.com/title/tt38604956/fullcredits/',
+            source_title: "Taylor Swift: The Fate of Ophelia (Music Video 2025) — Full cast & crew",
+            publisher: 'IMDb',
+            source_type: 'database',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
           },
         ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
