@@ -2326,6 +2326,9 @@ export default {
       month: 4,
       day: 19,
       category: 'music',
+      // Cross-link (candidate #1105, 2026-07-25): the most recent track five,
+      // which defines itself against this grief tradition.
+      relatedIds: ['moment:vault-tloas-eldest-daughter-the-first-track-five-that-ends-somewhere-saf'],
       title: "So Long, London keeps her 'track five' tradition alive",
       snippet:
         'Written and produced with Aaron Dessner at Long Pond: "instinctively I was just kind of putting a very vulnerable, personal, honest, emotional song as track five," she said of the pattern — one TTPD\'s own track five upholds.',

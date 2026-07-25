@@ -33,6 +33,8 @@ export default {
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
         'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
+        // Cross-link (candidate #1114): the married-man return-visit proposal story.
+        'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
       ],
       title: 'A mint-green briefcase on New Heights: album No. 12, announced on her first-ever podcast',
       snippet:
@@ -1568,7 +1570,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Michael\'s original gets a formal songwriting credit on the track — George Michael is listed as a writer alongside Swift, Max Martin, and Shellback, since the song lifts the melody and the "I\'ll be your father figure" line directly. The estate\'s public statement framed it as an "association between two great artists," one of the warmest legacy-artist endorsements any of her interpolations has drawn, and pointedly noted they were approached before release rather than after.\n\nSwift\'s version flips the phrase from seduction to power: she has described the song as a mentor-and-protégé story told from the mentor\'s side, saying she drew on Succession\'s Logan Roy for the voice — though she added that she has lived the protégé\'s side of it. Critics heard the autobiography immediately, reading lines about finding someone young and profiting from their success as her Big Machine signing and the masters dispute retold from behind the boss\'s desk. Pitchfork singled it out as the album\'s most direct appraisal of her own power. She placed the reference-point herself, telling Jimmy Fallon (Oct. 6, 2025) she\'d drawn the mentor\'s voice from Succession\'s Logan Roy.\n\nMechanically it is an interpolation, not a sample: the hook and melody were re-recorded rather than lifted from Michael\'s master, so only his songwriting rights — not the recording, which Sony controls — had to be cleared, and the estate collects as a credited co-writer rather than through the label. Swift, Max Martin and Shellback produced. Never worked to radio as its own single, it still debuted at No. 4 on both the Hot 100 and the Global 200 and reached the top five in Australia, Canada, Germany, Sweden and Greece, going Platinum in Australia and Canada.',
+          'Michael\'s original gets a formal songwriting credit on the track — George Michael is listed as a writer alongside Swift, Max Martin, and Shellback, since the song lifts the melody and the "I\'ll be your father figure" line directly. The estate\'s public statement framed it as an "association between two great artists," one of the warmest legacy-artist endorsements any of her interpolations has drawn, and pointedly noted they were approached before release rather than after.\n\nSwift\'s version flips the phrase from seduction to power: she has described the song as a mentor-and-protégé story told from the mentor\'s side, saying she drew on Succession\'s Logan Roy for the voice — though she added that she has lived the protégé\'s side of it. Critics heard the autobiography immediately, reading lines about finding someone young and profiting from their success as her Big Machine signing and the masters dispute retold from behind the boss\'s desk. Pitchfork singled it out as the album\'s most direct appraisal of her own power. She placed the reference-point herself, telling Jimmy Fallon (Oct. 6, 2025) she\'d drawn the mentor\'s voice from Succession\'s Logan Roy.\n\nMechanically it is an interpolation, not a sample: the hook and melody were re-recorded rather than lifted from Michael\'s master, so only his songwriting rights — not the recording, which Sony controls — had to be cleared, and the estate collects as a credited co-writer rather than through the label. Swift, Max Martin and Shellback produced. Never worked to radio as its own single, it still debuted at No. 4 on both the Hot 100 and the Global 200 and reached the top five in Australia, Canada, Germany, Sweden and Greece, going Platinum in Australia and Canada and later certified Silver in the UK and Gold in New Zealand.\n\nMichael\'s publishing is administered by Warner Chappell Music, but the clearance itself came from the estate — George Michael Entertainment, the company David Austin has run since Michael\'s 2016 death — and the interpolation added no living co-writer, crediting Michael alone alongside Swift, Martin and Shellback. The statement read partly as generosity because the estate is otherwise fiercely protective of the catalog: in 2022 it had Tory Lanez\'s unauthorized "Careless Whisper" sample pulled from streaming after formally declining permission the year before, and moved on other uncleared samples too. The "no hesitation" message itself was posted on the estate\'s Instagram and signed "George Michael Entertainment," not attributed to any one person by name. Past the debut the song drew only a lyric video and a visualizer — no standalone narrative clip, no dedicated single push, no live performance to date — and no further public word from Austin or the estate reacting to the finished record has surfaced.',
         sources: [
           {
             outlet: 'Rolling Stone',
@@ -1617,6 +1619,28 @@ export default {
             accessed_at: '2026-07-21',
             reliability_score: 4,
           },
+          // Added 2026-07-25 (ledger #1030 Q1/Q4): estate administration +
+          // the catalog's licensing protectiveness that frames the blessing.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2022/music/news/george-michael-tory-lanez-careless-whisper-sample-1235204177/',
+            source_title: "George Michael Estate Smacks Down Tory Lanez's Unauthorized 'Careless Whisper' Sample",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          // Added 2026-07-25 (ledger #1030 Q3): the statement's channel and
+          // "George Michael Entertainment" sign-off (no named individual).
+          {
+            outlet: 'The Mirror US',
+            url: 'https://www.themirror.com/entertainment/music/george-michael-taylor-swift-reference-1425956',
+            source_title: "George Michael's estate speaks out on Taylor Swift honoring late singer's Father Figure",
+            publisher: 'The Mirror US',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
         ],
         // Lyric-video id 98SmlWOKuME verified via oEmbed against
         // @TaylorSwift; Commons photo license-checked (public domain,
@@ -1651,6 +1675,9 @@ export default {
       month: 10,
       day: 3,
       category: 'music',
+      // Cross-link (candidate #1105, 2026-07-25): the prior track five, "So Long,
+      // London," whose grief tradition this one defines itself against.
+      relatedIds: ['moment:vault-ttpd-so-long-london-keeps-her-track-five-tradition-alive'],
       title: 'Eldest Daughter: the first track five that ends somewhere safe',
       snippet:
         'The album\'s track five — the slot fans expect to hurt — names "eldest daughter syndrome," the firstborn\'s job of holding everything together. But unlike every track five before it, this one resolves into reassurance instead of grief.',
@@ -1987,6 +2014,9 @@ export default {
       month: 10,
       day: 3,
       category: 'music',
+      // Cross-link (candidate #1047, 2026-07-25): the teenage-version Hendersonville
+      // High song, "Picture to Burn."
+      relatedIds: ['moment:vault-debut-picture-to-burn-and-the-line-rewritten-for-radio'],
       title: 'Ruin the Friendship: a regret from Hendersonville High',
       snippet:
         'A song about the high-school kiss she never risked — with a devastating final verse at a funeral. Fans traced it to her classmate Jeff Lang, who died in 2010; his mother told The Tennessean she wished she could thank Swift for "keeping his name alive."',
@@ -1994,7 +2024,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has not named the song\'s subject — the Lang connection is fan interpretation, labeled as such, but it rests on public record: she sang at a close friend\'s funeral in 2010 and thanked "Jeff Lang" from the BMI Country Awards stage that year, saying she used to play him her songs first. Fans lined those facts up with the song\'s Hendersonville high-school setting and its final verse — the narrator getting the news of his death and singing at his grave, regretting she never kissed him and admitting "we\'ll never know why" — within hours of release.\n\nWhat elevated the theory beyond lyric forensics was the family\'s response. Lang\'s mother told The Tennessean she wished she could thank Swift for "keeping his name alive," effectively blessing the reading without Swift ever confirming it. The lyric\'s advice — ruin the friendship, kiss your friend while you can — lands as the album\'s quietest gut-punch, a country-storytelling move (the twist verse, the moral) smuggled onto her glossiest pop record.',
+          'Swift has not named the song\'s subject — the Lang connection is fan interpretation, labeled as such, but it rests on public record: she sang at a close friend\'s funeral in 2010 and thanked "Jeff Lang" from the BMI Country Awards stage that year, saying she used to play him her songs first. Fans lined those facts up with the song\'s Hendersonville high-school setting and its final verse — the narrator getting the news of his death and singing at his grave, regretting she never kissed him and admitting "we\'ll never know why" — within hours of release.\n\nWhat elevated the theory beyond lyric forensics was the family\'s response. Lang\'s mother told The Tennessean she wished she could thank Swift for "keeping his name alive," effectively blessing the reading without Swift ever confirming it. The lyric\'s advice — ruin the friendship, kiss your friend while you can — lands as the album\'s quietest gut-punch, a country-storytelling move (the twist verse, the moral) smuggled onto her glossiest pop record.\n\nThe song was written and produced by Swift with Max Martin and Shellback — Showgirl was the first album the three made with no outside collaborators, cut at Shellback\'s Stockholm studio on days off from the Eras Tour\'s European leg, as Swift recounted on the New Heights podcast in August 2025. For all its hush it was one of the album\'s bigger hits: it debuted and peaked at No. 11 on the Hot 100 — part of Showgirl\'s unprecedented sweep of the chart\'s entire top 12 — hit No. 12 on the Global 200, and went top-20 in Australia, Canada, New Zealand and Sweden.\n\nCritics singled it out: Billboard\'s Jason Lipshutz ranked it the best song on the album, hearing a track that "bridges Swift\'s past and present as a songwriter" and calls it "a summation of her strengths." Swift herself, at the theatrical release party, framed it plainly as a high-school regret — "It would\'ve been fine to take chances I didn\'t take. I was so disciplined in high school. It\'s very wistful and very nostalgic" — while pointedly not naming anyone, leaving the Lang reading to the fans.\n\nShe later cut a stripped "Ruin the Friendship (My Advice Version)" with new vocals, one of eight acoustic recordings sold as bonus tracks on limited-edition Showgirl CDs. The track has only an official lyric video, not a cinematic one, and — with no tour since the Eras Tour closed in December 2024 — it had not been documented performed live as of mid-2026.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2012,6 +2042,78 @@ export default {
             publisher: 'Forbes',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            // Primary reporting on the mother's on-record quote — upgrades the
+            // Wikipedia citation for the Lang connection (ledger #1046 Q7).
+            outlet: 'The Tennessean',
+            url: 'https://www.tennessean.com/story/news/local/2025/10/10/taylor-swift-ruin-the-friendship-tennessee-connection/86605317007/',
+            source_title: "Taylor Swift's 'Ruin the Friendship' has a Tennessee connection",
+            publisher: 'The Tennessean',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            // The 2010 BMI Country Awards thank-you to Jeff Lang, contemporaneous.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-country/taylor-swift-named-country-songwriter-of-the-year-70024/',
+            source_title: 'Taylor Swift Named Country Songwriter of the Year',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // Chart: No. 11 on the Hot 100 within Showgirl's top-12 sweep.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-hot-100-fate-of-ophelia-number-one/',
+            source_title: 'Taylor Swift Takes Top 12 Spots on Billboard Hot 100, Led by "The Fate of Ophelia"',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            // Critical reception: ranked the album's No. 1 best song (Jason Lipshutz).
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-the-life-of-a-showgirl-songs-ranked/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Songs, Ranked",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            // Swift's own release-party framing of the song as high-school regret,
+            // without naming a subject.
+            outlet: 'People',
+            url: 'https://www.aol.com/articles/taylor-swifts-ruin-friendship-lyrics-042400124.html',
+            source_title: "Taylor Swift Confirms 'Ruin the Friendship' Is About a High School Romantic Regret",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // The making-of: Max Martin/Shellback, Stockholm sessions on Eras days off.
+            outlet: 'TIME',
+            url: 'https://time.com/7322334/taylor-swift-life-of-a-showgirl-max-martin-shellback/',
+            source_title: "Everything to Know About Taylor Swift's Collaborators on The Life of a Showgirl",
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // The acoustic "My Advice Version" bonus recording.
+            outlet: 'Variety',
+            url: 'https://au.variety.com/2025/music/news/taylor-swift-acoustic-recordings-bonus-tracks-cd-editions-showgirl-28534',
+            source_title: 'Taylor Swift Announces Eight Acoustic Recordings as Bonus Tracks for Four New "Life of a Showgirl" CD Editions',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
             reliability_score: 4,
           },
         ],
@@ -2543,6 +2645,8 @@ export default {
     },
     {
       slug: 'watch-hill-bachelorette-weekend',
+      // Cross-link (candidate #1126): the wedding this weekend leads into.
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
       year: 2026,
       month: 6,
       day: 19,
@@ -2804,6 +2908,8 @@ export default {
         'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
         // Cross-link (candidate #1349): the wedding week's UK catalog chart bump.
         'moment:vault-tloas-the-wedding-week-nudges-the-whole-catalog-back-up-the-uk-cha',
+        // Cross-link (candidate #1126): the Watch Hill bachelorette weekend two weeks before.
+        'moment:vault-tloas-a-tented-lawn-in-rhode-island-two-weeks-before-the-wedding',
       ],
       title: 'Taylor and Travis marry at Madison Square Garden',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
@@ -3770,6 +3876,8 @@ export default {
     // verified against its cited source directly; no fabrication.
     {
       slug: 'showgirl-david-koma-graham-norton',
+      // Cross-link (candidate #1128): the wedding tease from the same couch.
+      relatedIds: ['moment:vault-tloas-wedding-plans-teased-from-a-british-chat-show-couch'],
       year: 2025,
       month: 10,
       day: 2,
@@ -3960,6 +4068,8 @@ export default {
     },
     {
       slug: 'showgirl-selena-gomez-texans-coats',
+      // Cross-link (candidate #1052): the coordinated-outfit game-day sighting.
+      relatedIds: ['moment:vault-tloas-a-low-key-game-day-layer-for-the-colts-game'],
       year: 2025,
       month: 12,
       day: 7,
@@ -4837,7 +4947,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Track two draws the parallel explicitly — the Plaza Athénée, Portofino, "I would trade the Cartier for someone to trust" — two famous women whose romances became public property. Time and Rolling Stone both read it as the album\'s thesis statement: the showgirl persona as armor, borrowed from the woman who wore it best. The specificity is the trick — White Diamonds (the Taylor fragrance empire), the violet eyes, "you\'re only as hot as your last hit" — Swift writing her own fame anxiety in another woman\'s biography, the way "the last great american dynasty" once used Rebekah Harkness.\n\nIt was the first Showgirl song written, which makes it the era\'s seed: the Elizabeth Taylor fixation came before the album had a title, and it kept paying off — the song debuted at No. 3 on the Hot 100 behind "The Fate of Ophelia" and "Opalite," got an archival-footage music video the following March, and, per SheKnows\' wedding coverage tracing to Daily Mail reporting, reportedly echoed into the Dior wedding gown modeled on Elizabeth Taylor\'s 1950 bridal look.',
+          'Track two draws the parallel explicitly — the Plaza Athénée, Portofino, "I would trade the Cartier for someone to trust" — two famous women whose romances became public property. Time and Rolling Stone both read it as the album\'s thesis statement: the showgirl persona as armor, borrowed from the woman who wore it best. The specificity is the trick — White Diamonds (the Taylor fragrance empire), the violet eyes, "you\'re only as hot as your last hit" — Swift writing her own fame anxiety in another woman\'s biography, the way "the last great american dynasty" once used Rebekah Harkness.\n\nIt was the first Showgirl song written, which makes it the era\'s seed: the Elizabeth Taylor fixation came before the album had a title, and it kept paying off — the song debuted at No. 3 on the Hot 100 behind "The Fate of Ophelia" and "Opalite," got an archival-footage music video the following March, and, per SheKnows\' wedding coverage tracing to Daily Mail reporting, reportedly echoed into the Dior wedding gown modeled on Elizabeth Taylor\'s 1950 bridal look.\n\nLike the rest of the album it is credited to Swift with Max Martin and Shellback as its only writers and producers, a small string section the sole added players; the "first song written" claim traces to the album\'s liner notes and an Apple Music songwriting featurette rather than to fan lore. It peaked at No. 3 on the Hot 100 and, on radio months later, reached No. 7 on Pop Airplay, No. 8 on Adult Pop Airplay and No. 9 on Adult Contemporary; it went Platinum in Australia and Canada and Gold in the UK and New Zealand (no US certification as of mid-2026). Rolling Stone treated it as the album\'s emotional centerpiece, and it recurred on critics\' best-of-album and year-end lists as one of the record\'s standouts.\n\nThe lyric\'s specifics check out against the real biography — per Elizabeth Taylor\'s own estate, which published a line-by-line explainer: the Cartier reference nods to her lifelong Cartier patronage (the house behind the 69-carat Taylor–Burton diamond); "Portofino" to the Italian coast she vacationed on with Richard Burton; "the Plaza Athénée" to the six months she and Burton lived at that Paris hotel in 1971; "White Diamonds" to the fragrance she named for the jewels; the violet eyes to the deep-blue eyes that famously read as violet. One line is Swift\'s, not Taylor\'s: the estate\'s explainer never attributes "you\'re only as hot as your last hit" to her, and no biographer has — it is a showbiz adage Swift puts in a showgirl\'s mouth. The Taylor side embraced the tribute, its House of Taylor account promoting the song and publishing that explainer to show how closely it tracks her life.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -4874,6 +4984,19 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-10',
             reliability_score: 3,
+          },
+          // Added 2026-07-25 (ledger #1039 Q5/Q6/Q7): the estate's own
+          // line-by-line lyric explainer — maps each reference to a
+          // documented Elizabeth Taylor fact, and (by omission) confirms
+          // "you're only as hot as your last hit" is not her quote.
+          {
+            outlet: 'Elizabeth Taylor (official estate)',
+            url: 'https://www.elizabethtaylor.com/taylor-swifts-elizabeth-taylor-lyrics-explained/',
+            source_title: "Taylor Swift's 'Elizabeth Taylor' Lyrics, Explained",
+            publisher: 'House of Taylor / The Elizabeth Taylor Estate',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
           },
         ],
         // Public-domain MGM publicity still of the song's namesake; license
@@ -5003,6 +5126,8 @@ export default {
     },
     {
       slug: 'showgirl-graham-norton-destination-wedding',
+      // Cross-link (candidate #1128): the David Koma look from the same appearance.
+      relatedIds: ['moment:vault-tloas-a-jeweled-david-koma-lbd-opens-the-press-run-on-graham-norto'],
       year: 2025,
       month: 10,
       day: 2,
@@ -5107,7 +5232,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Nov. 23, 2025 game was her most visible Arrowhead appearance in weeks — E! noted she\'d been keeping a deliberately low profile at games through the fall, attending without being shown on broadcasts. This time the suite window gave her away: fans in the stands filmed her reaction as Harrison Butker\'s overtime kick beat the Colts 23-20, TMZ describing her screaming and jumping, and E! reporting she was seen playfully shaking her father Scott by the shoulders in celebration.\n\nThe sighting marked the practical end of the invisible-fan experiment: with the Chiefs\' playoff hopes fading, the remaining home slate was short — the Christmas Broncos game a month later was expected to be Kelce\'s last at home that season — and her appearances got more visible, not less, as the season wound down. The low-profile stretch itself became part of the era\'s story: the most-photographed woman in the NFL\'s orbit spending most of a season successfully unphotographed.',
+          'The Nov. 23, 2025 game was her most visible Arrowhead appearance in weeks — E! noted she\'d been keeping a deliberately low profile at games through the fall, attending without being shown on broadcasts. This time the suite window gave her away: fans in the stands filmed her reaction as Harrison Butker\'s overtime kick beat the Colts 23-20, TMZ describing her screaming and jumping, and E! reporting she was seen playfully shaking her father Scott by the shoulders in celebration.\n\nThe game earned the "nail-biter" billing. On CBS, the Chiefs rallied from an 11-point deficit — Patrick Mahomes threw for a season-high 352 yards and Kareem Hunt ran for 104 and a touchdown — and it came down to Butker, who made all five of his field goals for 15 of Kansas City\'s 23 points, forcing overtime with a 25-yarder as regulation expired and winning it with a 27-yard kick. The Colts iced him with a timeout first: "that probably helped me slow the heart rate down," he said afterward. Her celebration was caught only on fan video from the stands, not a network cut — of a piece with a season she spent largely off the broadcast.\n\nThe sighting marked the practical end of the invisible-fan experiment: with the Chiefs\' playoff hopes fading, the remaining home slate was short — the Christmas Broncos game a month later was expected to be Kelce\'s last at home that season — and her appearances got more visible, not less, as the season wound down. The win only nudged Kansas City to 6-5, and the math kept slipping: the Chiefs finished 6-11 and missed the postseason for the first time since 2014 — clinched by a Week 15 loss to the Chargers in which Mahomes tore his ACL — the first missed playoffs of the stretch since Swift started attending. The low-profile run itself became part of the era\'s story: the most-photographed woman in the NFL\'s orbit spending most of a season successfully unphotographed.',
         sources: [
           {
             outlet: 'TMZ',
@@ -5126,6 +5251,56 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            // Game recap: 11-point comeback, Mahomes 352, Hunt 104+TD, 6-5 record.
+            outlet: 'KCTV5 (AP)',
+            url: 'https://www.kctv5.com/2025/11/23/chiefs-rally-11-point-deficit-beat-colts-23-20-ot-harrison-butkers-fifth-field-goal/',
+            source_title: 'Chiefs rally from 11-point deficit to beat Colts 23-20 in OT',
+            publisher: 'KCTV5 / Associated Press',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // Primary: the 27-yard overtime game-winner.
+            outlet: 'Chiefs.com',
+            url: 'https://www.chiefs.com/video/harrison-butker-s-27-yard-field-goal-seals-kansas-city-chiefs-win-over-indianapolis-colts-in-overtime',
+            source_title: "Harrison Butker's 27-yard Field Goal Seals Chiefs Win in Overtime",
+            publisher: 'Kansas City Chiefs',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            // The icing timeout and Butker's five-FG, 15-point line.
+            outlet: 'A to Z Sports',
+            url: 'https://atozsports.com/nfl/indianapolis-colts-news/colts-week-12-loss-chiefs-kicker-harrison-butker-helped-him-overtime-field-goal-timeout/',
+            source_title: "Chiefs kicker Harrison Butker says Colts' timeout 'helped him' on OT field goal",
+            publisher: 'A to Z Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            // Broadcast: Week 12 carried on CBS.
+            outlet: 'Pro Football Network',
+            url: 'https://www.profootballnetwork.com/how-to-watch-chiefs-colts-game-tv-channel-kickoff-time-announcers-week-12/',
+            source_title: 'How to Watch Chiefs-Colts: TV Channel, Kickoff Time, Announcers (Week 12)',
+            publisher: 'Pro Football Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            // Season outcome: 6-11, missed the playoffs for the first time since 2014.
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/2025_Kansas_City_Chiefs_season',
+            source_title: '2025 Kansas City Chiefs season',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
           },
         ],
         // No agency photo of the Nov. 23 suite moment was hotlinkable (the
@@ -5154,15 +5329,19 @@ export default {
       category: 'fashion',
       // Cross-link (candidate #1041): the suite reaction from this same Nov 23,
       // 2025 Colts game.
-      relatedIds: ['moment:vault-tloas-back-in-the-suite-window-for-an-overtime-nail-biter'],
+      relatedIds: [
+        'moment:vault-tloas-back-in-the-suite-window-for-an-overtime-nail-biter',
+        // Cross-link (candidate #1052): the coordinated winter-coat game-day sighting.
+        'moment:vault-tloas-taylor-and-selena-gomez-coordinate-opulent-winter-coats-at-a',
+      ],
       title: 'A low-key game-day layer for the Colts game',
       snippet:
-        'No statement piece this time — a beige, red, and white color-blocked jacket and the signature red lip, dressed for the suite rather than the cameras.',
+        'No statement piece this time — a sandstone Guest in Residence cashmere polo with Chiefs-red shoulders and the signature red lip, dressed for the suite rather than the cameras.',
       sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-kansas-city-chiefs-indianapolis-colts-game-outfit/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Marie Claire filed the Nov. 23, 2025 look under "fit for a low-key fan": a beige, red, and white color-blocked jacket, the ever-present red lip, and nothing engineered for a jumbotron close-up. It was game-day dressing for someone planning to watch the game rather than be broadcast during it — which, that fall, was exactly the plan.\n\nThe restraint was the story. Her game-day looks had spent two seasons as a fashion beat of their own — dissected, price-tagged, sold out by Monday — and the fall 2025 stretch of quiet fits during her lowest-profile season at Arrowhead read as deliberate de-escalation. The contrast made the exceptions (the Miu Miu checkerboard bomber with Gomez, the Christmas-red Frankie Shop look a month later) land harder when they came.',
+          'Marie Claire filed the Nov. 23, 2025 look under "fit for a low-key fan," and the color-blocking it described — sandstone, white and a flash of Chiefs red — was really a cashmere polo sweater, not a jacket: Guest in Residence\'s "Alpine Collegiate Polo" in Sandstone Combo (about $425), the red saved for its shoulders. The label is Gigi Hadid\'s, a quiet nod to her friend. She paired it with Agolde\'s Low Slung Baggy jeans (about $248) and a Sezane belt, and her ever-present red lip — the Pat McGrath Labs LiquiLust shade "Elson" she has worn through the Eras Tour — with nothing engineered for a jumbotron close-up. It was game-day dressing for someone planning to watch the game rather than be broadcast during it, which that fall was exactly the plan.\n\nThe restraint was the story. Her game-day looks had spent two seasons as a fashion beat of their own — dissected, price-tagged, sold out by Monday — and the fall 2025 stretch of quiet fits during her lowest-profile season at Arrowhead read as deliberate de-escalation. The contrast made the exceptions land harder when they came: the Miu Miu checkerboard bomber alongside Selena Gomez, and — a month later at the Dec. 25 Broncos game — a Christmas-red look her stylist Joseph Cassell Falconer built around The Frankie Shop\'s "Zion" bomber jacket (about $388).',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -5172,6 +5351,38 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            // Itemized ID of the look: Guest in Residence "Alpine Collegiate Polo"
+            // ($425), Agolde Low Slung Baggy jeans ($248), Sezane Livie belt.
+            outlet: 'Taylor Swift Style',
+            url: 'https://www.taylorswiftstyle.com/post-grid/kansascity-112325',
+            source_title: 'Kansas City — November 23, 2025',
+            publisher: 'Taylor Swift Style',
+            source_type: 'blog',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            // Her documented signature red lip: Pat McGrath LiquiLust "Elson."
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/beauty/taylor-swift-chiefs-red-lipstick/',
+            source_title: "Taylor Swift's Chiefs-Game Red Lipstick, Decoded",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // The Dec. 25 Broncos-game contrast: Frankie Shop "Zion" red bomber
+            // ($388), styled by Joseph Cassell Falconer.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-styles-subtly-festive-022006277.html',
+            source_title: 'Taylor Swift Styles a Subtly Festive Look for the Chiefs Christmas Game',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Same honest-archival approach as the companion sighting item: no
@@ -5189,17 +5400,16 @@ export default {
             focalPoint: '65% 21%',
           },
         ],
-        products: [
-          {
-            brand: 'Terez',
-            item: '49ers Bomber Jacket in Sugar Swizzle and Red',
-            retailer: 'terez.com',
-            url: 'https://www.terez.com/products/49ers-bomber-jacket-in-sugar-swizzle-and-red',
-            price: '$285.00',
-            isAlternative: true,
-            altNote: 'This is a 49ers-branded piece, not the team-neutral jacket she actually wore to the Chiefs-Colts game -- included for the matching cream/red/white color-blocking, not the team logo.',
-          },
-        ],
+        // Products: none this pass. The Nov. 23 look is now correctly identified
+        // (ledger #1051, 2026-07-25) as Guest in Residence's "Alpine Collegiate
+        // Polo" in Sandstone Combo ($425), Agolde Low Slung Baggy jeans ($248) and
+        // a Sezane belt — not a "color-blocked jacket." The prior Terez 49ers
+        // bomber alternative was removed: it was a wrong-team piece chosen to
+        // match that mischaracterized jacket. No first-party product page was
+        // curl-verifiable this pass (the exact GiR polo is sold out/delisted;
+        // guessed product URLs 404), so no shoppable entry is added rather than
+        // link an unverified page — same discipline as the Versace skip on the
+        // "Showgirl orange" look.
       },
     },
     {
@@ -5605,7 +5815,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The March 31, 2026 video — which Swift directed herself, extending the self-direction of "The Fate of Ophelia" and "Opalite" — is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer and Who\'s Afraid of Virginia Woolf? among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead.',
+          'The March 31, 2026 video breaks from the era\'s self-directed clips: unlike "The Fate of Ophelia" and "Opalite," it does not appear among Swift\'s credited directorial works — her official directed-projects list carries both of those but not this one — and no director is named in the coverage. It is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer and Who\'s Afraid of Virginia Woolf? among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead.',
         sources: [
           {
             outlet: 'Variety',
@@ -5635,6 +5845,19 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Added 2026-07-25 (ledger #1036 Q1 correction): a prior pass said
+          // Swift directed this video, but her official directed-projects
+          // index lists "The Fate of Ophelia" and "Opalite" and NOT
+          // "Elizabeth Taylor" — so the self-direction claim is unsupported.
+          {
+            outlet: 'taylorswift.com',
+            url: 'https://www.taylorswift.com/directed-projects/',
+            source_title: 'Directed Projects',
+            publisher: 'Taylor Swift (official site)',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
           },
         ],
         // Official MV id WqbJT_vC0rs verified via oEmbed against
@@ -5936,6 +6159,8 @@ export default {
     },
     {
       slug: 'kelce-new-heights-proposal-story',
+      // Cross-link (candidate #1114): the New Heights announcement this returns to.
+      relatedIds: ['moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-'],
       year: 2026,
       month: 7,
       day: 8,
@@ -6396,6 +6621,8 @@ export default {
         'moment:vault-tloas-opalite-follows-ophelia-to-no-1',
         'moment:vault-tloas-i-knew-it-i-knew-you-enters-the-oscar-conversation-not-a-nom',
         'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
+        // Cross-link (candidate #1291): the Pop Airplay top-10 that helped set the record.
+        'moment:vault-tloas-one-shy-of-rihanna-i-knew-it-i-knew-you-takes-her-29th-pop-a',
       ],
       title: 'Four songs in the Adult Contemporary top 10 — a first in the chart’s 65 years',
       snippet:
@@ -6674,6 +6901,8 @@ export default {
       // did not confirm. Passes the privacy redlines cleanly: her own chart
       // record, no third parties, no location or private-life detail.
       slug: 'i-knew-it-i-knew-you-pop-airplay-top-ten',
+      // Cross-link (candidate #1291): the four-in-the-AC-top-10 record it feeds.
+      relatedIds: ['moment:vault-tloas-four-songs-in-the-adult-contemporary-top-10-a-first-in-the-c'],
       year: 2026,
       month: 7,
       day: 20,
@@ -7398,10 +7627,57 @@ export default {
       category: "music",
       tags: ["Fashion"],
       title: "“Elizabeth Taylor” goes to radio",
-      snippet: "The album’s third single, named for the screen icon, arrives at radio with its own official video.",
+      snippet: "The album’s third radio single, five months after release — Hot AC on March 9, Top 40 the next day — and, weeks later, a top-10 airplay run that made chart history.",
       video: { youtubeId: "WqbJT_vC0rs", title: "Taylor Swift - Elizabeth Taylor (Official Music Video)" },
       moment: {
-        context: "The song went to US hot adult contemporary radio first, followed a day later by a contemporary hit radio push, extending the album’s single cycle five months after release.\n\nA \"So Glamorous Cabaret Version\" and full digital package followed later that month, keeping the showgirl motif alive well into 2026.",
+        context: "Five months after the album, \"Elizabeth Taylor\" became its third radio single, after the two Hot 100 No. 1s \"The Fate of Ophelia\" and \"Opalite.\" It impacted US hot adult contemporary (AC) radio on March 9, 2026 and contemporary hit (Top 40) radio the next day; Billboard reported it \"trending toward a debut on the March 21-dated Pop Airplay, Adult Pop Airplay and Adult Contemporary charts,\" with early adds at SiriusXM, iHeart's Z100 New York and 99.7 NOW San Francisco.\n\nRadio came first by a wide margin — the archival music video did not premiere until March 31, roughly three weeks later — so the single began its radio life well before it had a video, not alongside one. On airplay it became one of the album's biggest post-release hits, peaking at No. 7 on Pop Airplay, No. 8 on Adult Pop Airplay and No. 9 on Adult Contemporary. Its Adult Pop Airplay top-10 run made history: with \"The Fate of Ophelia\" and \"Opalite\" already in the region, Swift became the first artist in that chart's 30-year history to hold three simultaneous top 10s — her 35th career top 10 on the format.\n\nThe \"So Glamorous Cabaret Version\" the motif points to is not a spring-2026 release: it is one of eight acoustic re-recordings Swift cut with Max Martin and Shellback and issued Oct. 5, 2025 as bonus tracks on four limited CD editions of the album, the fourth of which paired it with an \"Original Songwriting Voice Memo.\" During the single's cycle Swift made a non-performing special appearance at the iHeartRadio Music Awards on March 26, 2026, taking Artist of the Year among seven wins; no official reason was published for choosing \"Elizabeth Taylor\" as the third single, and no dedicated televised performance of it is documented.",
+        sources: [
+          {
+            outlet: 'Billboard',
+            url: 'https://ca.billboard.com/music/pop/taylor-swift-elizabeth-taylor-radio-single-1236197103',
+            source_title: "Taylor Swift Promotes 'Elizabeth Taylor' As Third Radio Single From 'The Life of a Showgirl'",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Forbes',
+            url: 'https://www.forbes.com/sites/hughmcintyre/2026/04/26/taylor-swift-makes-history-as-her-latest-single-soars-into-the-top-10/',
+            source_title: 'Taylor Swift Makes History As Her Latest Single Soars Into The Top 10',
+            publisher: 'Forbes',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Variety',
+            url: 'https://au.variety.com/2025/music/news/taylor-swift-acoustic-recordings-bonus-tracks-cd-editions-showgirl-28534',
+            source_title: "Taylor Swift Announces Eight Acoustic Recordings as Bonus Tracks for Four New 'Life of a Showgirl' CD Editions",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/awards/taylor-swift-2026-iheartradio-music-award-artist-of-the-year-1236208165/',
+            source_title: 'Taylor Swift Takes Home 2026 iHeartRadio Music Award for Artist of the Year',
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/Elizabeth_Taylor_(song)',
+            source_title: 'Elizabeth Taylor (song)',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
+          },
+        ],
         // Photo pass #762 run 10 (2026-07-19): page had zero photos. Official
         // MV id WqbJT_vC0rs verified via YouTube oEmbed this session
         // ("Taylor Swift - Elizabeth Taylor (Official Music Video)", author
