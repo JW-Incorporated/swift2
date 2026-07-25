@@ -2294,6 +2294,9 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "rep-album",
+      // Cross-link (candidate #1404): The Life of a Showgirl — her first full
+      // album reuniting with Max Martin and Shellback since reputation.
+      relatedIds: ["moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel"],
       year: 2017,
       month: 11,
       day: 10,
