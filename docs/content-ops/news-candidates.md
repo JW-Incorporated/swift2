@@ -25,15 +25,57 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 92
+Stories: 94
+
+## Brad Paisley on Taylor Swift, Travis Kelce donation to The Store - The Tennessean
+
+- first seen: 2026-07-25 22:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Brad Paisley on Taylor Swift, Travis Kelce donation to The Store  The Tennessean
+- sources:
+  - [unverified] The Tennessean — https://news.google.com/rss/articles/CBMi4wFBVV95cUxNMlA0WjRBQVdNSkVfYWR5TjQ3V2tCS3RwVWtlTHRJYUtMOWtHb3MtY0x1QllEclVRWnRDYW5tYV83VGZLMHpXZDdqTmZGenhJODk4ZC1tNG1lRGxMYVdFQ0dyaHlpMDhQSFZQeENtd0dIVE9IazRxdlhwYkluTG53YmZXdUI1bnlsVEpKY1ZZLXI5OXF2d1Nqai1KUHRSbXV3Q1BQR2M0eGhuNFR0QkpXZkc2NHZwTkNaU3V4N3JqTjFFc0U4M1BXRmRmVlA2Y3RUNFlRbmRoTWVrZzVjSjBsdjlVbw?oc=5
+
+## Insider Says Taylor Swift Couldn’t ‘Let Someone Else Have The Country Throne’ - Yahoo
+
+- first seen: 2026-07-25 22:06 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Insider Says Taylor Swift Couldn’t ‘Let Someone Else Have The Country Throne’  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOWWZRLUFETngxeWRyZkowUnpmTHBsMFl0OUd4SnhoOGl4MUxUV1dDMllHODB5UzQ3azgxV1pwMFdRYllzdjNPRXlhWHpQU2tMQkU4N0RtYW9EcmpXZkVwMHhWUnFqVGIzMjZUeVlMN0U3aFhRY0FjREVMM2FCWUZiSU9RY1VmY25YNDdkSnFkYlo4a3lGaV9DSkV0M1M0WE0?oc=5
+
+## 'She doesn't shrink herself': Travis Kelce's comfort with Taylor Swift's fame and billion dollar for
+
+- first seen: 2026-07-25 22:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'She doesn't shrink herself': Travis Kelce's comfort with Taylor Swift's fame and billion dollar fortune  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMivAJBVV95cUxQSTA4RXhZaEotaS05b1Fhblk5OUF3WmlVbWJFZHZrY0UwU1lwSDdmdE1PQ2M5cGpzQmdlVTN5dVhzNUloUDczU0FqbkZMVWZMUW1Xd0E1TGlpMGtka3licmhPUkhDRWJFLWlzcklZaFhVVFZ3VlZoTUJuVmY4VUdXd1EwU1VJR3VBeVJMYU1mZWFIbkJ0bnhCeWxfQkhCY0h5QTRwNDZEUkhObjY5bW9VYmlOV18xTEpvbFNEamxLbGNQa2stZk4waUxVeVR2M1ZjZkVrcy1HSGNsUHVEMHNQWkp6WU4zR3hDNjVxTEo3UXByM2JhNG9jdTdCRnJGRnBoNEltc1p4bm8yMjk5SUt3ZVhrazVfcUg4S0o5azdRNXNXYXlNLW9xZVZjXzYxMzBZU2N5N2dRMDZMQjFv0gHCAkFVX3lxTE9yLTc1cnltSkxRS244dkk3bkVNV292S3hCYm56cGVIaDA5TVRvSlMzOHVqTWNOVUpvWUZHbU51WFo0Q2pIYS1uaVNQTDZFUzRNUFdtOE1sQ0Fjb0FWdGpXWG9HLUV0TFBocm5Kcm9vRjctaENpT2FUQnlZWnJ5bzNsbC01WkJkQzVvNGV2Rm9VR2huZDhYZ1hON3pPTmtMRmNEbDhKdnpXVTlkLVYzMGhRbC1IcDNnU2tGVVRqSlpONFhBeENmb2FXaVg1eWFEY0drS2hnNEotZ09jRWEwbC1UbnRJenUxSERRRjY4OGs3blFHdHg3c1FKaHQtZ2hlSjQ3WWo1R2RNS1Z6VmZWS1ZpSzloMkhwLVRkbmxFNjd4bVFtNGVQdmQ1RWpQc2V4MXJRWkFpZUxGbW1EN1R4UmJpUVE?oc=5
+
+## Niecy Nash-Betts shares unique phone security method for Taylor Swift and Travis Kelce wedding - Yah
+
+- first seen: 2026-07-25 22:06 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Niecy Nash-Betts shares unique phone security method for Taylor Swift and Travis Kelce wedding  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxPVEdXbmptSm5NNDBJbkpvaFU0LS10Zk16TGVhbmp2ZV9mTE4zSzhfY3JPSmpnMzFCMXFFd2ZVTUtRSjFOZUthclhSQVRaSHk5ek05ekdGTEt2cElMT0tNc0xTQlhnMlJzYXFBS3dHTTkwazV0Y3EwTThyQ3lJbXdRVERELWdHNlJsRmtJd2VIalBoYWRwdE9EWUxLUGJkT0piX0E?oc=5
+
+## Travis Kelce & Taylor Swift Are Allegedly Planning for the Chiefs Players to Cause ‘Drama’ After Wed
+
+- first seen: 2026-07-25 22:06 UTC | category: relationship | importance: 5
+- verification_status: corroborated | source_count: 2
+- summary: Travis Kelce & Taylor Swift Are Allegedly Planning for the Chiefs Players to Cause ‘Drama’ After Wedding  SheKnows
+- sources:
+  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMiqgFBVV95cUxPQ0pFZ2h5djhnZTdQM09JNTVWWnBQVFZtT0pIZDkyVzVjVmlSZm1oOUdaUEtEZUpJbnZORkpVcW1pMUltd2dwQkEtUkxpX0ZpN0N0bERnRVZZNXg4N3ZkRWpJRWdoLURZbUZzLUlBQXdRYnBKRVBkQ2NPM0R2bEZ5amhPeUN5WVJMVUo0eVMyS09pWkhZeWg0cGZBLTZKVXVkSjIxVDU4akRXQQ?oc=5
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxPdnF0SU93cW9yaDlrYzdJeWlaT290eWFtN2JfQ2dyblhCdEVtOFJNMkpVb19yZTg1UFFZNkg5SEV1czhLSXFGZE5IdmczbFVMZk9iSExxOXNiYXRDcDNhZllGcWRhV1NNa2FyZGZvc0dZWFhzdXZxeFJUcjJleGtKRkJicElCOHVvRXlqYkFRX3FJRWh0TlpEVmJnRW5FbjVjODZVbHdIcE4?oc=5
 
 ## Blake Lively Reportedly Losing ‘VIP Treatment’ by Hollywood After Taylor Swift Fallout - Yahoo
 
 - first seen: 2026-07-25 18:05 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
+- verification_status: corroborated | source_count: 2
 - summary: Blake Lively Reportedly Losing ‘VIP Treatment’ by Hollywood After Taylor Swift Fallout  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQcDR2eWpJbjlGcnVobDhQNHBLdzZhTWJ5YngwQlRIMTlNMUF0Ymx3Sk9lYkpIN3hFMzJPUzlsV091RXFKMnFsRlR2YS1UNHJHUTBXVjdRUXc4WkM4ZTdzRUpMR21ZWUplZ0hLZUt4MlJSNVJiV1N6OHZEbzRaS3NOYUVmRFV3VHdIQ2FBYUZ1UG5BMW1sXzhoNGlaNk53ejVZdzFZUy1IQQ?oc=5
+  - [unverified] StyleCaster — https://news.google.com/rss/articles/CBMinAFBVV95cUxPdERid0JkV2FZX0pLS2hfSFZ5RklESHBXbFVGdjBUZ3JMcVpzeDZOV19wT01EZjBiTnlfYzdqNTZ6VzNENzZyYnlYMExJdWRJcW1vV2FqSmZNTjYyYWxtdndrQkxKSWZTSlhzMXRJUzY5VWVnbUlWX05lQ0FBV1RVdUs5VUdHZG95YU5LVlMtQjdjVmhTYVBzYXFKaEo?oc=5
 
 ## MUST READ: Burlington couple pleads guilty in $1/4-million Taylor Swift ticket scam - BurlingtonToda
 
@@ -752,27 +794,3 @@ Stories: 92
 - summary: How Travis Kelce’s Wedding Band Nods to Taylor Swift’s Engagement Ring  ELLE
 - sources:
   - [unverified] ELLE — https://news.google.com/rss/articles/CBMimwFBVV95cUxNUGhsQWFSdFdUb0NKbHBqcHU5bUJtQ2lTQjU4Tkk4MEc3OEtyRUdSRUNENmkyN1RPb1h1QVJlSWFEN0tnT1lfOVlBRE9lazlnNDFUdWZuVWd6U3hVSFdLNVVxeHJyLVhYQ2dYVHQ4SVduaGs1aHhYVGdxQWRZRTBZeEY5Wi1hN1pVMzg2SnIyTm5faXEzaEFpenNpTQ?oc=5
-
-## Blake Lively No Longer Getting ‘VIP Treatment’ in Hollywood Amid Demise of Taylor Swift Friendship -
-
-- first seen: 2026-07-22 18:20 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Blake Lively No Longer Getting ‘VIP Treatment’ in Hollywood Amid Demise of Taylor Swift Friendship  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiogFBVV95cUxQQzViUE5HNS12dkdudUNUVXl2LU5TRktRaTBNOUdZNW9jSW9sU1k4enBabkxFdTNXVzhfY3F0Njc0STJxMkVHUXdvajVfX0JNNkJuTDdKMWhuSjl4QmtlN0ItV2hheVRIM3ViVVFZS2tYVDZyUjd6Y0ctemFfOEFiQWlaUnpvZHlVWEcyeWFKdm5TOEtWanR0T05teTFMSnJLSXc?oc=5
-
-## Taylor Swift and Travis Kelce Kept MSG Wedding Venue Secret Until 4 A.M. the Day of Their Nuptials, 
-
-- first seen: 2026-07-22 18:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce Kept MSG Wedding Venue Secret Until 4 A.M. the Day of Their Nuptials, Guest Reveals  Yahoo Lifestyle Canada
-- sources:
-  - [unverified] Yahoo Lifestyle Canada — https://news.google.com/rss/articles/CBMifEFVX3lxTE0xMVAwNmNOcXc2QlFaVDZXZDlpemhjNl9CUkdKbFEtLUtKZW84YWwtMzlhZE1FbnpEdFBMVHR5Tk5aVmJjZEdQbzIxQzR1YjI4SW1wQjVJVE11a2tVckd0WENkeDdienY2dDRGV1VYVnZDT3Zwd25KT0FUTkU?oc=5
-
-## The Nuptials Heard 'Round The World: Taylor Swift-Travis Kelce MSG Wedding Puts Spotlight On ‘Privat
-
-- first seen: 2026-07-22 18:20 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Nuptials Heard 'Round The World: Taylor Swift-Travis Kelce MSG Wedding Puts Spotlight On ‘Privates’  Pollstar News
-- sources:
-  - [unverified] Pollstar News — https://news.google.com/rss/articles/CBMi0wFBVV95cUxNLWJFNFZ5TnhYc3Fwamd6cmQyenV0Z3owdTRmNmx3NkJndUk0X3c0cENIVkdyenZ3WC1leUNWSWlvaTBXU1k4ZnBIRVI5SFpMNTUtSmRrQ09WLWxGX290dXM1NUIwUnIwZHFrajZUN2M4YXBHNTZGanBPWWpjMnhncHg2VGFuUHRnNXoxR05Yck1qWnJqV3pPZG9KVzVzd3hIY3pQS2hzdF9nNTJRMldxWnV0REwwTXRiLVVTbVdjb28xbE5qYUVwbXl2MThpLXdybERB?oc=5
