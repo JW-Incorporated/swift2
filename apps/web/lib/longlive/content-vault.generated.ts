@@ -1059,7 +1059,6 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "\"Our Song\" won both Video of the Year and Female Video of the Year at the 2008 CMT Music Awards -- with a cheeky thank-you to the stylist who did her hair and dresses.",
       body: ["At the 2008 CMT Music Awards on April 14, 2008 at Nashville's Curb Events Center, \"Our Song\" won both Video of the Year and Female Video of the Year, beating a field that included Carrie Underwood, LeAnn Rimes, Martina McBride, and Miranda Lambert.", "Accepting, 18-year-old Swift joked: \"I want to thank Sandy Spika for making all the dresses in that video and for straightening my hair, because that's not easy,\" before tearfully thanking the fans who'd voted for her."],
       tags: ["Lore"],
-      images: [{ url: "https://images.hellomagazine.com/horizon/original_aspect_ratio/74cc6c1d93db-gettyimages-80677442.jpg", credit: "Jeff Kravitz/Getty Images (performing \"Picture to Burn\" at the same ceremony)", kind: "primary" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-wins-cmts-female-video-of-the-year/" }],
       relatedIds: ["moment:vault-debut-our-song-written-for-the-ninth-grade-talent-show", "moment:vault-debut-our-song-hits-number-one", "moment:vault-debut-our-song-becomes-her-first-no-1"],
     },
@@ -1131,7 +1130,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A year after naming her debut single after him, she spent summer 2007 opening Tim McGraw and Faith Hill's Soul2Soul II dates — singing \"Tim McGraw\" on Tim McGraw's own tour.",
       body: ["The booking closed the loop on the best origin story in her catalog: the single that introduced her — written in math class about a McGraw song — now performed for his audiences at the select summer dates she opened.", "She'd first met him on camera at the 2007 ACM Awards, introducing herself with \"Hi, I'm Taylor\" after performing the song to his face."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Soul2Soul dates)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift%2C_Taylor_%282007%29_cropped_2.JPG", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Soul2Soul dates)", kind: "archival", focalPoint: "38% 18%" }],
       sources: [{ name: "Soul2Soul II Tour", url: "https://en.wikipedia.org/wiki/Soul2Soul_II_Tour" }, { name: "Taylor Swift (album)", url: "https://en.wikipedia.org/wiki/Taylor_Swift_(album)" }],
     },
     {
@@ -1260,7 +1259,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "October 2007: the Nashville Songwriters Association International names her Songwriter/Artist of the Year — the youngest winner the trade group had ever picked.",
       body: ["A peer-voted songwriting honor, not a fan award — handed to a 17-year-old one year into her recording career. Per Wikipedia's account she became the youngest person the Nashville Songwriters Association International had ever named Songwriter/Artist of the Year, a recognition from the town's professional writers rather than radio programmers or the record-buying public.", "The timing frames the whole era: this was the same stretch that produced her first CMA Horizon Award and her first Grammy nomination, all before \"Fearless.\" And she kept winning the NSAI trophy — by the 2010 ceremony The Boot counted that year's as her third in four years, quoting the speech where she traced it all back to the city: \"I discovered a town where they told cool stories in magical ways, and that was Nashville.\""],
       tags: ["Lore"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the NSAI ceremony)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/1/15/Taylor_Swift_at_Yahoo_2007_%28cropped%29.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the NSAI ceremony)", kind: "archival", focalPoint: "50% 24%" }],
       sources: [{ name: "Taylor Swift", url: "https://en.wikipedia.org/wiki/Taylor_Swift" }, { name: "Taylor Swift Named NSAI Songwriter/Artist of the Year", url: "https://theboot.com/taylor-swift-nsai-awards/" }],
     },
     {
@@ -1308,7 +1307,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Her 2007 of permanent opening slots rolls on: the fall leg of Brad Paisley's Bonfires & Amplifiers Tour, Sept. 6 through Nov. 17, after guesting on summer dates alongside Kellie Pickler and Jack Ingram.",
       body: ["Thirty announced fall dates, from London, Ontario through Grand Rapids, on a tour that totaled 75 shows that year — with Swift and Rodney Atkins opening the entire second leg. Her mid-2007 résumé at the time: one hit single (\"Tim McGraw\"), a debut album newly certified gold, and support slots for Rascal Flatts and George Strait already behind her.", "Concert archives from that fall show her billed nightly under Paisley — the last long stretch of the opening-act years before Fearless made her the headliner."],
       tags: ["Tour"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Paisley tour)", kind: "archival" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Taylor_Swift_%282007%29_retouched.jpg/1280px-Taylor_Swift_%282007%29_retouched.jpg", credit: "Wikimedia Commons — Taylor Swift, 2007 (archival, era context; not the Paisley tour)", kind: "archival", focalPoint: "40% 22%" }],
       sources: [{ name: "Brad Paisley's 2007 Concert & Tour History", url: "https://www.concertarchives.org/bands/brad-paisley?page=1&year=2007" }],
     },
     {
@@ -1405,7 +1404,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Taylor's own description: it \"sounds like casting a spell to make someone fall in love with you.\"",
       body: ["Full quote: \"Willow is about intrigue, desire, and the complexity that goes into wanting someone.\" The music arrived almost by accident: Aaron Dessner had an instrumental sketch he called \"Westerly,\" named for Swift's Rhode Island home, and sent it over without expecting anything back — she wrote the entire song to it within the hour.", "The self-directed video (her third) picks up exactly where \"cardigan\" left off, following a golden thread through an enchanted forest, and the single later spawned a full coven of official remixes: \"dancing witch,\" \"lonely witch,\" and \"moonlit witch\" versions."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/9/9a/Taylor_Swift_-_Willow.png", credit: "Republic Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/9/9a/Taylor_Swift_-_Willow.png", credit: "Republic Records", kind: "primary", focalPoint: "47% 52%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Willow_(song)" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/" }],
     },
     {
@@ -1427,7 +1426,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A tribute to her grandmother, the opera singer Marjorie Finlay — and, in the outro, literally her voice.",
       body: ["Taylor gave producer Aaron Dessner her grandmother's old opera recordings to build the track around; Marjorie's soprano appears woven into the song itself, answering the line \"if I didn't know better, I'd think you were singing to me now.\"", "Dessner called it \"one of the most experimental songs on the album — it doesn't sound that way, but when you pick apart the layers underneath it, it's pretty interesting\": beneath the hush sit synthesizers, pizzicato strings, and a rhythm bed built from software that reshuffles sampled sounds into randomized patterns. On the Eras Tour, crowds raised their phone flashlights for it nightly — a tribute to a grandmother most of them never heard sing."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/hP6QpMeSG6s/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"marjorie\" lyric video — a photograph of Marjorie Finlay herself — via the video's YouTube thumbnail.", kind: "primary" }],
+      images: [{ url: "https://i.ytimg.com/vi/hP6QpMeSG6s/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"marjorie\" lyric video — a photograph of Marjorie Finlay herself — via the video's YouTube thumbnail.", kind: "primary", focalPoint: "33% 40%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Marjorie_(song)" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/" }],
     },
     {
@@ -1449,7 +1448,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "A breakup told from both sides, with The National's Matt Berninger trading verses with her over a slow, aching duet.",
       body: ["The Dessner brothers built the instrumental and heard Berninger's voice in it immediately; Berninger recorded his half at Knobworld in Los Angeles while Taylor recorded hers at Long Pond in the Hudson Valley, never in the same room.", "The words are another William Bowery co-write — Joe Alwyn trading breakup perspectives with her — and Aaron Dessner happily conceded the result cuts both ways: \"it does really feel like Taylor, obviously, since she and William Bowery wrote all the words, but it also feels like a National song in a good way.\" She performed it live only three times on the Eras Tour, including a Sydney mashup with \"White Horse\" alongside Sabrina Carpenter."],
       tags: ["Music"],
-      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/c7/Coney_island_cover.jpeg", credit: "Republic Records", kind: "primary" }],
+      images: [{ url: "https://upload.wikimedia.org/wikipedia/en/c/c7/Coney_island_cover.jpeg", credit: "Republic Records", kind: "primary", focalPoint: "50% 42%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Coney_Island_(Taylor_Swift_song)" }, { name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/" }],
     },
     {
@@ -1710,7 +1709,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Aaron Dessner: \"This song is intense. It's in 10/8, which is an odd time signature... maybe I shouldn't send it to her.\" He sent it anyway — and: \"I think I cried when I first heard it.\"",
       body: ["In the same Rolling Stone interview, Dessner recalled writing the piano instrumental for \"tolerate it\": \"I remember when I wrote the piano track to 'Tolerate It,' right before I sent it to her, I thought, This song is intense. It's in 10/8, which is an odd time signature. And I did think for a second, 'Maybe I shouldn't send it to her, she won't be into it.' But I sent it to her, and it conjured a scene in her mind, and she wrote this crushingly beautiful song to it and sent it back. I think I cried when I first heard it.\"", "Per Wikipedia, Swift has said the song explores \"ambivalent toleration\" in a relationship, drawing on Daphne du Maurier's 1938 novel Rebecca, in which a young woman is undervalued by an older, emotionally distant husband."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/ukxEKY_7MOc/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"tolerate it\" lyric video, via the video's YouTube thumbnail.", kind: "primary" }],
+      images: [{ url: "https://i.ytimg.com/vi/ukxEKY_7MOc/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"tolerate it\" lyric video, via the video's YouTube thumbnail.", kind: "primary", focalPoint: "42% 70%" }],
       sources: [{ name: "Rolling Stone", url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Tolerate_It" }],
     },
     {
@@ -1841,7 +1840,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Produced with Jack Antonoff — pop shimmer amid the Dessner woodwork — its narrator falls for someone everyone falls for, spirals about her own ordinariness, then snaps out of the daydream and decides not to pursue it at all.",
       body: ["The whole song happens inside that single reverie — the fantasy assembles itself, curdles into insecurity, and gets shelved by the final chorus. It became a fan-favorite precisely for admitting the ugly-feeling side of wanting someone universally wanted.", "It's a structural outlier too: the only track on evermore that Jack Antonoff co-wrote and produced, and critics heard the difference — Slate's track-by-track review called it \"a subdued take on the spirit of 1989-style pop\" that gave the album back some necessary energy."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/Pz-f9mM3Ms8/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"gold rush\" lyric video, via the video's YouTube thumbnail.", kind: "primary" }],
+      images: [{ url: "https://i.ytimg.com/vi/Pz-f9mM3Ms8/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"gold rush\" lyric video, via the video's YouTube thumbnail.", kind: "primary", focalPoint: "50% 48%" }],
       sources: [{ name: "Evermore (Taylor Swift album)", url: "https://en.wikipedia.org/wiki/Evermore_(Taylor_Swift_album)" }, { name: "Taylor Swift's Evermore review: Your track-by-track guide to the new album", url: "https://slate.com/culture/2020/12/taylor-swift-evermore-review-new-album-track-by-track.html" }],
     },
     {
@@ -1853,7 +1852,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       summary: "Staying at Long Pond to film the folklore sessions, she stayed up late over wine on the first night, wrote the whole song, and sang it to Aaron Dessner the next day — Dorothea's hometown-holiday fling, done by breakfast.",
       body: ["The music was an existing Dessner instrumental he'd never found a voice for — one he later ranked among his own career highlights: \"one of my favorite things I've ever made, even though it's an incredibly simple musical sketch.\"", "Its narrator is Dorothea — the same character whose namesake track sits later on the album — home for the holidays and weighing a \"so much for auld lang syne\" weekend with the one who stayed."],
       tags: ["Music"],
-      images: [{ url: "https://i.ytimg.com/vi/WuvhOD-mP8M/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"'tis the damn season\" lyric video, via the video's YouTube thumbnail.", kind: "primary" }],
+      images: [{ url: "https://i.ytimg.com/vi/WuvhOD-mP8M/hqdefault.jpg", credit: "Republic Records / YouTube (official lyric video still)", caption: "Still from the official \"'tis the damn season\" lyric video, via the video's YouTube thumbnail.", kind: "primary", focalPoint: "32% 45%" }],
       sources: [{ name: "'Tis the Damn Season", url: "https://en.wikipedia.org/wiki/%27Tis_the_Damn_Season" }, { name: "Aaron Dessner on the Making of Evermore", url: "https://www.rollingstone.com/music/music-features/aaron-dessner-interview-taylor-swift-evermore-1105853/" }],
     },
     {
