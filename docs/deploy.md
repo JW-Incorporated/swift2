@@ -53,6 +53,7 @@ Set for **Production** (and Preview, for the GitHub path):
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | same page → Project API keys → **`anon` `public`** |
 | `GITHUB_FEEDBACK_TOKEN` | **Feedback button only** — a GitHub token with `issues:write` on the repo (fine-grained PAT scoped to `JW-Incorporated/swift2` → Issues: Read & write, or a GitHub App installation token). Server-side only; never `NEXT_PUBLIC_`. |
 | `FEEDBACK_REPO` *(optional)* | Repo the feedback button files issues into. Defaults to `JW-Incorporated/swift2`. |
+| `ANTHROPIC_API_KEY` *(optional)* | **Mood Chat only** — the key the `/api/mood` classify call spends against (model `claude-sonnet-5`). Server-side only; never `NEXT_PUBLIC_`. Absent, the route degrades to a free deterministic keyword matcher and still returns real songs (never 500). |
 
 ⚠️ **Anon/public key only.** Never the `service_role` key — Vault reads are RLS
 public, so anon is sufficient and the key is safe to expose client-side.
@@ -67,6 +68,17 @@ fall back to a generic `GITHUB_TOKEN`** — this endpoint is public and
 unauthenticated, so it must run on this narrowly-scoped token or not at all
 (if only a broad `GITHUB_TOKEN` is present, the button stays in the graceful
 degraded state rather than borrowing those wider permissions).
+
+💸 **`ANTHROPIC_API_KEY` is a metered secret.** The `/api/mood` route is the
+ONE module that spends money (mirrors the worker's classify discipline): a
+single Sonnet classify call turns a reader's words into a mood vector, then
+matching is pure TypeScript. Spend is bounded by a per-instance daily call cap
+**and** a per-IP rate limit; over either, the route falls back to the free
+keyword matcher and still returns real songs. Set a Console spend cap on the
+key as the real ceiling. The reader's raw text is never logged — only the
+derived mood vector + the returned song slugs (safety doc, Block 5). Crisis
+detection runs deterministically *before* any spend, so it works even with no
+key set.
 
 ## Path A — CLI (no GitHub org ownership required)
 
