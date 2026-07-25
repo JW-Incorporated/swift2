@@ -20,9 +20,12 @@ const ALBUM = wiki(
   'album article: release facts, credits, and cited interviews',
 );
 
-export default {
-  eraSlug: 'folklore',
-  tracks: [
+// Per-song dossiers (issue #440 / #726 pattern) live in the .dossiers.mjs side
+// file to keep this file diffable; attach them by slug below. A dossier keyed
+// to a slug that doesn't exist here is an authoring typo — fail loudly.
+import DOSSIERS from './folklore.dossiers.mjs';
+
+const TRACKS = [
     {
       slug: 'the-1',
       trackNumber: 1,
@@ -669,5 +672,16 @@ export default {
         ALBUM,
       ],
     },
-  ],
+];
+
+{
+  const slugs = new Set(TRACKS.map((t) => t.slug));
+  for (const key of Object.keys(DOSSIERS)) {
+    if (!slugs.has(key)) throw new Error(`dossier for unknown track slug: ${key}`);
+  }
+}
+
+export default {
+  eraSlug: 'folklore',
+  tracks: TRACKS.map((t) => (DOSSIERS[t.slug] ? { ...t, dossier: DOSSIERS[t.slug] } : t)),
 };
