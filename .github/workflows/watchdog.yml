@@ -253,11 +253,16 @@ jobs:
       # before. This check is independent of the agent's own behavior: it
       # only trusts objective git/gh history.
       #
-      # Match on the PR TITLE PREFIX "content(shift): ", not the shared
-      # `content-shift` LABEL — the charter itself documents that the hourly
-      # photo-enrichment worker also labels its own PRs `content-shift`, so
-      # a label-only check would false-positive on that unrelated bot's
-      # activity and mask real Content Shift silence.
+      # Match on the PR HEAD BRANCH prefix "content-shift/", not the title or
+      # the shared `content-shift` LABEL. The label is shared with the hourly
+      # photo-enrichment worker (`content/photo-enrichment-*` branches), so a
+      # label check false-positives on it. The TITLE prefix "content(shift): "
+      # was tried first (until 2026-07-25) but false-NEGATIVED: Content Shift
+      # titles its PRs inconsistently (`content:`, `content(showgirl):`,
+      # `content(reputation):` …), so real output (#1240, #1494 on 07-24) went
+      # undetected and #1449 alarmed from 07-22 on. The branch is the reliable
+      # discriminator: Content Shift always branches `content-shift/<date>`,
+      # and no other routine uses that prefix.
       #
       # Window is 30h: Content Shift runs at 17:00/23:00 UTC, so the
       # worst-case gap between two scheduled attempts is 18h — 30h tolerates
@@ -289,22 +294,22 @@ jobs:
           # 100 comfortably covers this repo's real PR volume (~8/day from
           # this session's own observation) within a 30h window.
           RECENT=$(gh pr list --repo "$REPO" --state all --limit 100 \
-            --json title,createdAt \
-            --jq "[.[] | select(.title | startswith(\"content(shift): \")) | select(.createdAt >= \"$CUTOFF\")] | length")
+            --json headRefName,createdAt \
+            --jq "[.[] | select(.headRefName | startswith(\"content-shift/\")) | select(.createdAt >= \"$CUTOFF\")] | length")
 
           ALERT_TITLE="Watchdog: Content Shift hasn't produced a PR in ${WINDOW_HOURS}h"
 
           if [ "$RECENT" -gt 0 ]; then
-            echo "Content Shift is active — $RECENT PR(s) titled 'content(shift): ' in the last ${WINDOW_HOURS}h." > /tmp/alert-body.md
+            echo "Content Shift is active — $RECENT PR(s) from a 'content-shift/*' branch in the last ${WINDOW_HOURS}h." > /tmp/alert-body.md
             scripts/watchdog/upsert-alert.sh close "$ALERT_TITLE" /tmp/alert-body.md
             echo "content shift OK ($RECENT recent PRs)"
             exit 0
           fi
 
           {
-            echo "@sffan15-sys @wjduvall-cmd — no PR titled \`content(shift): \` in the last ${WINDOW_HOURS}h. Content Shift runs twice daily (17:00/23:00 UTC, docs/agents/runners.md) — this either means a genuinely quiet news cycle (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
+            echo "@sffan15-sys @wjduvall-cmd — no PR from a \`content-shift/*\` branch in the last ${WINDOW_HOURS}h. Content Shift runs twice daily (17:00/23:00 UTC, docs/agents/runners.md) — this either means a genuinely quiet news cycle (the charter treats that as worth confirming, not assuming) or the routine has stopped firing."
             echo ""
-            echo "Check first: \`gh pr list --state all --search \"content(shift): in:title\"\` for the most recent one, and whether a \`content-shift/*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash, per docs/agents/content-shift.md's own diagnosed-failure history)."
+            echo "Check first: \`gh pr list --state all --json headRefName,createdAt --jq '.[]|select(.headRefName|startswith(\"content-shift/\"))'\` for the most recent one, and whether a \`content-shift/*\` branch exists on the remote with no PR (a stranded branch is the tell for a mid-run crash, per docs/agents/content-shift.md's own diagnosed-failure history)."
             echo ""
             echo "If the routine itself has stopped: that's a Wyatt-account cloud-routine issue (docs/agents/runners.md), not something visible from this repo — restart it there."
           } > /tmp/alert-body.md
