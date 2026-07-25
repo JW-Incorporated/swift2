@@ -115,6 +115,9 @@ export default {
       month: 10,
       day: 30,
       category: 'business',
+      // Cross-link (candidate #1021): the album that later broke this personal
+      // best — Showgirl's record-shattering 4.002-million debut week.
+      relatedIds: ['moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure'],
       title: 'Midnights debuts at No. 1 on the Billboard 200',
       snippet:
         "1.578 million equivalent units in week one — Swift's 11th No. 1 album, tying Barbra Streisand for the most by a woman.",
