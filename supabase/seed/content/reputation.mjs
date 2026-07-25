@@ -81,6 +81,37 @@ export default {
             focalPoint: '42% 35%',
           },
         ],
+        // Rumor Desk 2026-07-25: this album-identity moment is the structural
+        // home for the "will reputation ever get a Taylor's Version" question —
+        // as of this run it is the only one of Swift's first six albums with no
+        // released re-recording. Both entries are forward-looking, unannounced-
+        // music speculation (explicitly allowed by the redlines) and carry no
+        // location. Adds reputation as a new era in the rumor system (previously
+        // only Showgirl + debut), deliberately spread away from the wedding page.
+        rumors: [
+          {
+            claim:
+              'Fans and music press kept expecting reputation (Taylor\'s Version) — or at least its unreleased Vault tracks — to eventually surface, after Swift wrote in her May 2025 masters-buyback letter that the album\'s Vault tracks would one day "hatch," while confirming she\'d "not even re-recorded a quarter of it." No reputation re-recording or Vault release has been announced.',
+            reportedBy: 'Rolling Stone (Angie Martoccio)',
+            reportedOn: '2025-05-30',
+            status: 'unconfirmed',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-reputation-taylors-version-not-releasing-1235351379/',
+            note: 'Forward-looking, unannounced-music speculation (allowed by the redlines). The quotes are on record; the open question is whether and when a reputation re-record or its Vault tracks arrive — resolves on an official announcement, fades if the window stays empty. Distinct from the debut "Taylor\'s Version" rumor (the debut is fully re-recorded per the same letter). No location.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-25',
+          },
+          {
+            claim:
+              'Among the specific songs fans theorized could land on a reputation re-recording, the most persistent was "This Is What You Came For" — the 2016 Calvin Harris/Rihanna hit Swift secretly co-wrote as "Nils Sjöberg" — alongside the Zayn duet "I Don\'t Wanna Live Forever," with fans reading her acoustic Eras Tour surprise-song performances of both as tea leaves.',
+            reportedBy: 'Capital FM',
+            reportedOn: '2025-09-30',
+            status: 'unconfirmed',
+            url: 'https://www.capitalfm.com/artists/taylor-swift/reputation-taylors-version-vault-tracks/',
+            note: 'Pure fan speculation about an unannounced tracklist, aggregated by Capital — carried at the lowest source tier. Resolves if a reputation Vault release confirms or excludes these songs, and fades if no such release materializes. No location.',
+            sourceTier: 'social',
+            lastCheckedOn: '2026-07-25',
+          },
+        ],
       },
     },
     {
