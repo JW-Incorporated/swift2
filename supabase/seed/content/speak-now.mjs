@@ -1727,6 +1727,11 @@ export default {
     },
     {
       slug: 'mean-single-release',
+      // Cross-link (candidate #1288): "thanK you aIMee" — the 2024 bullying
+      // anthem Swift live-debuted as a mashup with "Mean," her 2010 one.
+      relatedIds: [
+        'moment:vault-ttpd-thank-you-aimee-the-capitalization-does-the-talking',
+      ],
       year: 2011,
       month: 3,
       day: 7,

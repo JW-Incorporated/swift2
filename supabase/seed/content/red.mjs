@@ -1908,6 +1908,11 @@ export default {
     },
     {
       slug: 'red-buys-high-watch',
+      // Cross-link (candidate #1369): the estate she staged her pre-wedding
+      // bachelorette weekend at, two weeks before the July 2026 MSG wedding.
+      relatedIds: [
+        'moment:vault-tloas-a-tented-lawn-in-rhode-island-two-weeks-before-the-wedding',
+      ],
       year: 2013,
       month: 4,
       day: 28,

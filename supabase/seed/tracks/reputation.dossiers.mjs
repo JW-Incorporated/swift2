@@ -250,6 +250,7 @@ export default {
       supported: [
         "It is widely named reputation's finest non-single and among Swift's best-written songs, praised for its cinematic 1980s synth-pop craft with Antonoff — a pulsing arpeggio that lifts in key and tempo into the celebrated bridge.",
         "It did not appear in the 2018 reputation Stadium Tour setlist; its live life began five years later on the Eras Tour, where it became a recurring, fan-favorite surprise song.",
+        "It was never a US single and never got a music video; the only single service was to radio in Australia and New Zealand, which is why its chart footprint and certifications (4× Platinum ARIA) sit there rather than on the Hot 100 — the answer to the perennial 'why wasn't this a single' question fans ask about it.",
       ],
       fanTheories: [
         "The opening 'it was the best of times, the worst of crimes' is often read as a nod to Dickens's A Tale of Two Cities, and the Bonnie-and-Clyde / 'Thelma & Louise' framing as further cinematic allusion — readings the song's own crime-movie imagery supports but that Swift has not spelled out.",
@@ -279,6 +280,23 @@ export default {
         relatedId: 'song:out-of-the-woods',
         label: 'Out of the Woods',
         why: "Swift's other high-velocity escape song and a documented Eras mashup partner for 'Getaway Car' — the getaway/runaway lineage the two share.",
+      },
+      {
+        relatedId: 'song:the-bolter',
+        label: 'The Bolter',
+        why: "Swift's later runaway-woman portrait and a documented Eras surprise-song mashup partner — both are songs about leaving before you can be left (cross-link candidate #1445).",
+      },
+    ],
+    voices: [
+      {
+        who: 'Spencer Kornhaber',
+        context: 'The Atlantic',
+        note: "Singled it out as reputation's standout — 'the one true tune to hum misty-eyed after the movies.'",
+      },
+      {
+        who: 'Stephen Thomas Erlewine',
+        context: 'AllMusic',
+        note: "Read the Antonoff cuts as Swift at her most 'deeply felt and complex,' with 'vulnerability, melody, and confidence.'",
       },
     ],
     sources: [

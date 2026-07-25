@@ -109,6 +109,12 @@ export default {
       day: 24,
       category: 'music',
       title: "The last great american dynasty, and the widow she found in her own house",
+      // Cross-link (candidate #1368): Watch Hill's "Holiday House" is where she
+      // staged her pre-wedding bachelorette weekend two weeks before the July
+      // 2026 MSG wedding — the song's mansion, used as a send-off.
+      relatedIds: [
+        'moment:vault-tloas-a-tented-lawn-in-rhode-island-two-weeks-before-the-wedding',
+      ],
       snippet:
         "A real St. Louis divorcée, a Rhode Island mansion, and a swimming-pool-full-of-champagne legend — until the final verse turns the story into Taylor's own.",
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Last_Great_American_Dynasty',
@@ -1029,6 +1035,7 @@ export default {
       thumbnailUrl: null,
       relatedIds: [
         'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
+        'moment:vault-evermore-folklores-sister-arrives',
       ],
       moment: {
         // The post this page is ABOUT (issue #762, Part B). Shortcode from the
