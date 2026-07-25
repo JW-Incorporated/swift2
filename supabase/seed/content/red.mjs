@@ -263,6 +263,12 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Red_Tour',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg/500px-Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg',
+      relatedIds: [
+        'moment:vault-red-caught-mid-rehearsal-for-the-red-tour-days-before-it-opened',
+        'moment:vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks',
+        'moment:vault-red-the-red-tour-takes-its-final-bow-in-singapore',
+        'moment:vault-red-the-red-tour-closes-as-the-highest-grossing-country-tour-of-',
+      ],
       moment: {
         context:
           'Opening night on March 13, 2013 drew 13,800 to Omaha\'s CenturyLink Center — the first of a two-night stand that totaled 27,877 tickets — kicking off a 66-date North American run.\n\nThirteen of the 17 songs came from Red, delivered with a seven-piece band, dancers, pyrotechnics, and more than ten costume changes; the Omaha World-Herald described the crowd\'s "screams, whistles and cheers" melding with the band into "a relentless cacophony." Sheeran, who opened every North American date, came back mid-show to duet "Everything Has Changed" with her on the B-stage during the acoustic segment.',
@@ -562,6 +568,12 @@ export default {
       sourceUrl: 'https://www.hollywoodreporter.com/news/general-news/taylor-swifts-costume-designer-talks-612119/',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg/500px-Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg',
+      relatedIds: [
+        'moment:vault-red-caught-mid-rehearsal-for-the-red-tour-days-before-it-opened',
+        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
+        'moment:vault-red-the-red-tour-takes-its-final-bow-in-singapore',
+        'moment:vault-red-the-red-tour-closes-as-the-highest-grossing-country-tour-of-',
+      ],
       moment: {
         context:
           'Toybina said her direction came from "Taylor\'s songs, as well as our passion, art and individuality," designing each costume to "tell its own story" as an extension of Swift\'s stage presence. The build — 128 pieces total — involved custom draping and handwork finished only after choreography and setlist were locked, then refined through fittings and dress rehearsals in the final days before launch.\n\nThe references ran from old-school Hollywood glamour to dancers performing on stilts, with the white Victorian dress worn during "I Knew You Were Trouble" among the most elaborate single pieces in the show. Toybina named opening night in Omaha as her favorite moment of the whole project — watching three weeks of sketches and fittings "come alive" alongside the full production for the first time.',
@@ -1089,6 +1101,12 @@ export default {
         "Photographed rehearsing in all-black practice clothes with her hair in a messy ponytail, mid-choreography, just two days before the Red Tour's March 13, 2013 opening night in Omaha.",
       sourceUrl: 'https://popcrush.com/taylor-swift-red-tour-rehearsal-pics/',
       thumbnailUrl: 'https://townsquare.media/site/252/files/2013/03/Taylor-Swift-1.jpg?w=980&q=75',
+      relatedIds: [
+        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
+        'moment:vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks',
+        'moment:vault-red-the-red-tour-takes-its-final-bow-in-singapore',
+        'moment:vault-red-the-red-tour-closes-as-the-highest-grossing-country-tour-of-',
+      ],
       moment: {
         context:
           "Photos published March 11, 2013 showed Swift running through choreography in practice gear ahead of the tour's opening week, caught mid-movement with one hand raised as though playing to an imaginary crowd — a rare glimpse of the unglamorous rehearsal process behind the tour's eventual 128-costume, arena-scale production.\n\nThe experimentation was the point. Talking about the show she was building, Swift emphasized \"the element of surprise, and incorporating the unexpected\" — the goal being a concert that let the audience escape for the evening rather than a note-for-note album recital. Two days later in Omaha, the surprises started delivering, from mid-show costume reveals to the B-stage duet with Ed Sheeran.",
@@ -1161,6 +1179,12 @@ export default {
       sourceUrl: 'https://billboard.com/articles/news/6150193/taylor-swift-red-all-time-country-tour',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg',
+      relatedIds: [
+        'moment:vault-red-caught-mid-rehearsal-for-the-red-tour-days-before-it-opened',
+        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
+        'moment:vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks',
+        'moment:vault-red-the-red-tour-takes-its-final-bow-in-singapore',
+      ],
       moment: {
         context:
           'Final box office figures put the tour at $150,184,971 in gross revenue from 1,702,933 sold tickets across 86 shows in 12 countries over a 15-month run from its March 13, 2013 Omaha opener to its June 12, 2014 close in Singapore.\n\nThat total broke the prior country-touring record of $141 million held by Tim McGraw and Faith Hill\'s Soul2Soul tour (2006-2007). The single best-performing stop was a two-night stand at Gillette Stadium in Foxborough, Massachusetts, which drew 110,712 fans and $9.4 million in ticket sales; London\'s O2 Arena led the arena dates with $5.8 million from 74,740 tickets across five shows.',
@@ -2227,6 +2251,12 @@ export default {
       sourceUrl: 'https://en.wikipedia.org/wiki/The_Red_Tour',
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg/500px-Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg',
+      relatedIds: [
+        'moment:vault-red-caught-mid-rehearsal-for-the-red-tour-days-before-it-opened',
+        'moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha',
+        'moment:vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks',
+        'moment:vault-red-the-red-tour-closes-as-the-highest-grossing-country-tour-of-',
+      ],
       moment: {
         context:
           'The 2014 leg carried the show from London\'s O2 through Berlin and on to Asia: Shanghai\'s Mercedes-Benz Arena on May 30, then Saitama, Jakarta\'s MEIS Ancol, Manila\'s Mall of Asia Arena, and Kuala Lumpur before the closing Singapore stand at the Indoor Stadium. The planned Bangkok concert — already sold out — was called off following the May 2014 coup d\'etat in Thailand.\n\nThe Singapore finale on June 12 closed the books on a 15-month, 86-show, 12-country run: 1.7 million tickets, $150.2 million grossed, and the record — confirmed by Billboard weeks later — as the highest-grossing country tour of all time. She wouldn\'t tour again until The 1989 World Tour the following year, by which point the "country" qualifier no longer applied.',
