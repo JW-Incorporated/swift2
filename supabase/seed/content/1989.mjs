@@ -2554,6 +2554,9 @@ export default {
       day: 10,
       category: "music",
       tags: ["Lore"],
+      // Cross-link (candidate #1342, 2026-07-25): the vault song Swift chose between
+      // with "Blank Space" for the original 1989 tracklist.
+      relatedIds: ['moment:vault-midnights-slut-turns-out-to-be-a-love-song'],
       title: "“Blank Space” flips the narrative",
       snippet: "A self-aware satire of her own tabloid image becomes a defining smash.",
       video: { youtubeId: "e-ORhEE9VVg", title: "Taylor Swift - Blank Space" },
