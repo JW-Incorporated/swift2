@@ -25,7 +25,23 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 98
+Stories: 96
+
+## Could Chiefs fans and Swifties see Taylor Swift at training camp this summer? - Kansas City Star
+
+- first seen: 2026-07-25 07:27 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Could Chiefs fans and Swifties see Taylor Swift at training camp this summer?  Kansas City Star
+- sources:
+  - [unverified] Kansas City Star — https://news.google.com/rss/articles/CBMia0FVX3lxTE9fc0ZtQXJPQ1VIbFV5a1lmQjdfdkt6ZnpONHR4UUJrTmcwNWg3czQ2NlNKZHp3ZHVSdkN6Ynl3aU1iSlRJbnQ0OGxRNVNQY3ZJMXRtdE91LUV5YW96cU5leEZPXzFwNTg2bUdv0gFrQVVfeXFMUEZqMFNHanlQVG9ONlJBYTVkOHp6eWpWY24yUDFtaVFueUJnOHJIbEU4QUVJZGhjc0k5U2h6ZVpaNkR3QzlrZm1OQWI3RHdFRy1HZDhDWFJtMTVRQW9PM0RJNGtNZnJtRllDaE0?oc=5
+
+## 'She’s no longer getting VIP treatment': Blake Lively's reported fallout with Taylor Swift sparks fr
+
+- first seen: 2026-07-25 07:27 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: 'She’s no longer getting VIP treatment': Blake Lively's reported fallout with Taylor Swift sparks fresh c  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMixgJBVV95cUxNbHZuS01sMy1KMWMtNDVER1RDd2hhV1N6ZlYwMlVCQzRCQzhWeU5pYWc3TzdrYmExQzdrSTEwU1YwYUYzeGkwYzduanJIUVdzRlotWFhxdE5sTTBkYmc3aVhndVUzdzM0UVJfdHhsTDRTYURkNHI4N3dkZktPLXU4eW82dTMzM1c1REoya2I1RERBM1FqdjdKdm16aGhjNlk1TTloVXdKRHg0MFM4bVNlT1IydWdZOGRfRjZHeENvTWxlc2N2NVJieVdkaFRMQXhFaTkzNHpsZkxlaUNteFBnNXJVSWhXZlF0c0Ytamw2LXc5c3R5YVY5TVJuenhzQ2dfRzJfbDhjRTlFRlZkaFZwMzBydHVSQ0xJbXhFV2VRZW1JTDl4c1I0d3RzT1ZmUFJkSHMyUFMxYVFnQnlvWGFiZkpMUTFxZ9IBywJBVV95cUxOMWpKb1JmY0hXcWdiY3FlN3B3dXBRblQ0WkRFN2xLbE80RjhwYzN6NkJJTXAzTUFZTkVyS0tIV1YyajRoSGJybGxMdTZzdmEzczZLN2M3TWxCMkhYN2FWY2FuYklIYUY5SkRXNlV3QmxURG4xTlFRcVlxcjFTcXlWTzlEXzl5dWN0S2MtdVVXVDVfem9ROHgxV3Z6aGdQZ1RxcDd5a3JLMkpwSXM0c3lwMXpxcGI4ME1qM1NNNGVvMXE2OEQ5UUp6MDRRekNMNlhfMlBGaXM2ajNsX25USFFUSU16cnFYbEMwcUllaDhiVFpyLV9HY3RZaHZVWWFFcWJMS3loZWF2a0tCM2ZLQVdIYUtacUJhZ3k3RXZLZWNsVHFGS3hBeUJ6MTBfaFcxOWVHVWY1ei1fNHY0ZFVoWTJXSFNNeFkzb3RmWklR?oc=5
 
 ## Emmy Winner Niecy Nash-Betts Spills ‘Top Secret’ Details About Taylor Swift Wedding - The Daily Beas
 
@@ -794,36 +810,3 @@ Stories: 98
 - summary: Taylor Swift & Travis Kelce’s Dog Lives Exactly Like They Do — Source  Yahoo
 - sources:
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNbGJGNzh5ajJ3Wl9NemVGTFBJenluX0hNbWNmTGJnMkQtWlNVVEdqOWJMSjROcjlBYkVVR0dlZFdPWUdkWDZ2VTVqQnVJcDRaNjJxeEQ2cUJtQ3F0NlFVV3Bma3ExWXcwOXZVeks3eGI3SGhOeHZWZ2F1azltSTh3WFlRcDdPOUZUUjNwX3Y2Smx5SGNRVTNObWEta0JNdDRS?oc=5
-
-## 'They don’t want to live in....': Taylor Swift's reported marriage rule with Travis Kelce reveals he
-
-- first seen: 2026-07-22 04:29 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: 'They don’t want to live in....': Taylor Swift's reported marriage rule with Travis Kelce reveals her big  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMilgJBVV95cUxNdExRNUVyT3JvUFRZeV8zblg2NTYyeGtFYk9zOU5KM3c5azdsVW9YOTI5b21JUU1BTWJVNzE0WFFadmw4MkNSR085WlN5eVB3SHMzbERLTEZHR29pYjdRUW9sTEVuNk56amdFZWtGQjFCM3JHOHVZaHhMYy14NEZfb0VfSFMwdlNabnBNT0E2eTd5clYxV0h4MTFqSFhBak5KbEhHNXIwTEQzdE9oRVBuQnVLWnNpVVJNMXc1Y2IzY1l3Wk45cnExUXBla2tTWEszaG9tZy01SENEQlZFUzQwWXdSZTZxUUhnd3VwMXZkZ2FCLXM2elE2V3ZYWlNSQjhiZ3JRNHQwT1JfZkVkQW10V2tDV2xNd9IBmwJBVV95cUxPbFA0b2d1S05kUFdLWmVGUkFJY0o4U0VNdUhKWExERnd1TDc3aWswaGxGNl95N0VFQkYtd21VOElPTlBWTWhKY2t3MkRQbUhyWFFjTXRMRDdCV0puZ0NqQWxRNXRDWVlxOXlSb1hHcjIxMEw3V3lQMEZLYlhVQ0ZYOGpvWlNwX0V1QW4wNVFTWFFjOE5PZkNoYVZ3cXlKUkFPc2R6c1dWeWJSSy1kWVFWeUl3djJoWTRGVWpLdlRXc1NuNlNGWmFnbXVRQUZkTnJxaHBVOHFDNFktVmNuUGZQdm9vMnE2bTlSZ2hDc1NNNkNxZTNQOXpPTmdza3BWMk5UaFdKY2xtbHJTX0dCY0ViWDN6SE1RNHVDbUw0?oc=5
-
-## Gwen Stefani, Blake Shelton Spark Taylor Swift Wedding Guests Rumors - Yahoo
-
-- first seen: 2026-07-22 04:29 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Gwen Stefani, Blake Shelton Spark Taylor Swift Wedding Guests Rumors  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipAFBVV95cUxOQjZrazRWaDJ0OTU2VVYtTXlMRWhfaUFSWHFaNDFWR2RfMTZxcGluU2VQb0VyVk9PTF8wc04wdGF4TDhrdFBVYjEwczdBZEpRdnV3M2tPcm9XQ1BRMFRtdkJBZUdqMnN2bi1fWGxuZS1Ea0YwOW1ienBxSnJJS09ZSy1jY1NTUjlvU0o4MjBDeUI2TTJlMEo4RmZLdmxXOWFVek1NYw?oc=5
-
-## Taylor Swift revealed the awkward moment the Kelces met the royal family at her concert - Yahoo Crea
-
-- first seen: 2026-07-22 04:29 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift revealed the awkward moment the Kelces met the royal family at her concert  Yahoo Creators
-- sources:
-  - [unverified] Yahoo Creators — https://news.google.com/rss/articles/CBMi3gFBVV95cUxOcGNURVB5U2VuQVNOdHFKOWNQMk40bjZfTjZNTGJMaWFrSkhaUElTU0RvUlRra0NPOTdubF8wZHgzdnVpbWktY0RpOC14cXhxUDJFZG9peFJnLXpqWXF5ZDAzbTg2d25mQ3Q1RlBpYXhNQ0R1RVNDWGtCUGxxSG1lZUI4eTB4SHcyZWVUMnpXbVVJX2NCSmcyQTltS2QzX1JxRkhsd0diT3JzRzR1WG9HREQ0bFJUN1UwZTFISzhSZFBLV0V5WlZWWkFBUXo4UktGRzI2LUcxenlkQjA3QVE?oc=5
-
-## 2016 Pop Anthem, Secretly Written by Taylor Swift Under a Male Pseudonym, Became a Global Hit - Yaho
-
-- first seen: 2026-07-22 04:29 UTC | category: sighting | importance: 3
-- verification_status: corroborated | source_count: 2
-- summary: 2016 Pop Anthem, Secretly Written by Taylor Swift Under a Male Pseudonym, Became a Global Hit  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOYldUbFFCZFY2RHpwSUNVb1pLd3hKWEhOR1QzUFhjVXVuQy1EeldkVUR5TUR5alc2TGsybldOSVlDbXhlZVRGWDdwMTRaOVlDZkFTN3JnZXRDN3JRUkZGeFFsMmdZWUpySndFVF9oQ29zQ2tWWWVYOEhycDRtZU1URXI1OEVmeG5GN2t4SXJJVDVkTlNwdnlJYmt1UDE1RWs?oc=5
-  - [unverified] parade.com — https://news.google.com/rss/articles/CBMiiAFBVV95cUxPYWRMNmxJeDVTS1BxeGhhQUY5UWNxajNVM1JiWFItU2hpQ1p4ZmUxN2lRd2w0ckh3bDk4Y3gwTFA5bTlBNkpXbjVmUmk1RzNjTDZkazVUZnZ4a0I2Z0YtZWpKN05kWTRTaDlwZmVWczhsQWt0V1NTMHNISFYwZHd2czcyMldodmZM?oc=5
