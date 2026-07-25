@@ -39,7 +39,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'A countdown on her website expired at 12:12 a.m. ET on Aug. 12, 2025, revealing the teaser; the full episode aired the next evening. On it she pulled the blurred mint-green briefcase from behind the desk — mint green with an orange "TS" — revealed the 12-track list ending in a Sabrina Carpenter feature, and talked through the era\'s orange-glitter look. It was her first-ever podcast appearance, staged on her boyfriend\'s own show, and it doubled as the most unguarded long-form interview she had given in years: two hours of album talk, football talk, and the couple\'s dynamic on camera.\n\nThe internet did not hold. The livestream crashed under the load about an hour and 44 minutes in, with the concurrent count peaking at 1.3 million viewers — a figure Guinness World Records certified as the most concurrent views ever for a podcast on YouTube. Within 24 hours the episode had roughly 13 million YouTube views, per Variety\'s tally. The announcement\'s mechanics became the era\'s template: every detail, from the 12:12 a.m. timestamp to the reveal\'s staging on the Kelce brothers\' set, was read by fans as deliberate.\n\nThe two hours ranged well past the reveal. Its most-quoted stretch was the masters buyback: she teared up recounting that she had finally bought back her catalog from Shamrock Capital, a deal she said she led "heart-first," sending her mother Andrea and brother Austin to make the case because "these are my handwritten diary entries from my whole life." She also walked through wrapping the Eras Tour, how she and Travis started dating, and homemaker life down to baking sourdough. On the number 12 she was firm the short tracklist was the whole album — "This is 12. There\'s not a 13th" — while the 12:12 timestamp fed a fan numerology her team never formally confirmed. The appearance moved the show itself: New Heights, on a $100M-plus Wondery deal, saw its female viewership jump more than 600% on Spotify and drew over 500 million cross-platform video views within days.',
+          'A countdown on her website expired at 12:12 a.m. ET on Aug. 12, 2025, revealing the teaser; the full episode aired the next evening. On it she pulled the blurred mint-green briefcase from behind the desk — mint green with an orange "TS" — revealed the 12-track list ending in a Sabrina Carpenter feature, and talked through the era\'s orange-glitter look. It was her first-ever podcast appearance, staged on her boyfriend\'s own show, and it doubled as the most unguarded long-form interview she had given in years: two hours of album talk, football talk, and the couple\'s dynamic on camera.\n\nThe internet did not hold. The livestream crashed under the load about an hour and 44 minutes in, with the concurrent count peaking at 1.3 million viewers — a figure Guinness World Records certified as the most concurrent views ever for a podcast on YouTube. Within 24 hours the episode had roughly 13 million YouTube views, per Variety\'s tally. The announcement\'s mechanics became the era\'s template: every detail, from the 12:12 a.m. timestamp to the reveal\'s staging on the Kelce brothers\' set, was read by fans as deliberate.\n\nThe two hours ranged well past the reveal. Its most-quoted stretch was the masters buyback: she teared up recounting that she had finally bought back her catalog from Shamrock Capital, a deal she said she led "heart-first," sending her mother Andrea and brother Austin to make the case because "these are my handwritten diary entries from my whole life." She also walked through wrapping the Eras Tour, how she and Travis started dating, and homemaker life down to baking sourdough. On the number 12 she was firm the short tracklist was the whole album — "This is 12. There\'s not a 13th" — while the 12:12 timestamp fed a fan numerology her team never formally confirmed. The appearance moved the show itself: New Heights, on a $100M-plus Wondery deal, saw its female viewership jump more than 600% on Spotify and drew over 500 million cross-platform video views within days.\n\nThe details fans dissected fill in the mechanics. The Aug. 12 teaser did more than tease a briefcase — it already named the album, The Life of a Showgirl, over a blurred cover. The full episode, titled "Taylor Swift on Reclaiming Her Masters, Wrapping The Eras Tour, and The Life of a Showgirl," ran about two hours four minutes; past the crashed livestream, the complete cut lives on the New Heights YouTube channel and its Wondery/Amazon audio feeds, and it topped both Spotify\'s and Apple\'s podcast charts that week, unseating The Joe Rogan Experience. Two things the episode did not actually contain: the masters deal it recounted had been announced months earlier — May 30, 2025, in a handwritten letter on her site, the price never disclosed but reported around $360 million — and the story behind the Sabrina Carpenter title-track duet ("she\'s one of my favorite artists… she was like, \'I\'m dead, yes\'") surfaced only later, at the October release-party film.',
         sources: [
           {
             outlet: 'NBC News',
@@ -95,6 +95,48 @@ export default {
             publisher: 'Billboard',
             source_type: 'reputable_press',
             accessed_at: '2026-07-20',
+            reliability_score: 4,
+          },
+          // Ledger #1380 (2026-07-25): the teaser named the album (not just a
+          // briefcase); the episode title/runtime and its archive; the Spotify +
+          // Apple No. 1s; the masters deal's actual May 30, 2025 announcement
+          // date (the podcast only recounted it) and its reported ~$360M/
+          // undisclosed price; and that the Sabrina Carpenter collab backstory
+          // surfaced later at the October release-party film, not on the episode.
+          {
+            outlet: 'PhillyVoice',
+            url: 'https://www.phillyvoice.com/taylor-swift-12th-album-new-heights-podcast-jason-travis-kelce/',
+            source_title: "Taylor Swift announces 12th album on Kelces' New Heights podcast",
+            publisher: 'PhillyVoice',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Music Business Worldwide',
+            url: 'https://www.musicbusinessworldwide.com/taylor-swift-buys-back-master-rights-to-first-six-albums-from-shamrock-capital/',
+            source_title: 'Taylor Swift buys back master rights to first six albums from Shamrock Capital',
+            publisher: 'Music Business Worldwide',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Newsweek',
+            url: 'https://www.newsweek.com/travis-kelce-new-heights-beats-joe-rogan-podcast-2112744',
+            source_title: "Travis Kelce's New Heights beats Joe Rogan podcast",
+            publisher: 'Newsweek',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-sabrina-carpenter-the-life-of-a-showgirl-song-1235439996/',
+            source_title: "How Taylor Swift's 'The Life of a Showgirl' Collab With Sabrina Carpenter Came Together",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
             reliability_score: 4,
           },
         ],
@@ -283,7 +325,7 @@ export default {
         'https://upload.wikimedia.org/wikipedia/en/f/f4/Taylor_Swift_%E2%80%93_The_Life_of_a_Showgirl_%28album_cover%29.png',
       moment: {
         context:
-          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. It was a pointed reunion: Martin and Shellback built the pop machinery of 1989 and reputation, and this was her first full album with them since — made in stolen days between stadium shows, which she said is exactly what the songs are about.\n\nThe cover — shot by Mert Alas and Marcus Piggott, styled by her longtime stylist Joseph Cassell — shows Swift half-submerged in water in a diamond-lined bralette from AREA\'s Spring 2022 collection (the New York label of Beckett Fogg and Piotrek Panszczyk), restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage. The bathtub reading pays off on track one — the drowned Ophelia of the cover is the same woman the opening song pulls out of the water.\n\nThe record itself is lean: 12 tracks, 41:40, cut at MXM and Shellback Studios in Stockholm and written throughout by Swift with Martin and Shellback — the only outside credit George Michael\'s, for the "Father Figure" interpolation. Sabrina Carpenter sings on the closing title track (a Las Vegas showgirl named Kitty) as a vocal feature, not a co-writer. The album dropped at midnight ET on Oct. 3 as one worldwide release, Target holding roughly 500 stores open for a midnight vinyl sale; there was no 13th track or launch-day deluxe. Republic flooded release week with 27 physical variants — 16 CDs, eight vinyl pressings, two deluxe CDs bundled with clothing, and a cassette. Critics split hard: a 69 on Metacritic across 23 reviews, Rolling Stone\'s five stars against the Guardian\'s two, one of 2025\'s most-debated albums.',
+          'On New Heights she described slipping to Sweden during the Eras Tour\'s 2024 European leg to cut the record with Max Martin and Shellback, keeping it deliberately tight at 12 songs after the 31-track Tortured Poets Anthology. It was a pointed reunion: Martin and Shellback built the pop machinery of 1989 and reputation, and this was her first full album with them since — made in stolen days between stadium shows, which she said is exactly what the songs are about.\n\nThe cover — shot by Mert Alas and Marcus Piggott, styled by her longtime stylist Joseph Cassell — shows Swift half-submerged in water in a diamond-lined bralette from AREA\'s Spring 2022 collection (the New York label of Beckett Fogg and Piotrek Panszczyk), restaging Millais\'s Ophelia under an orange, glittery title treatment. She framed it as a deliberately offstage image: "My day ends in a bathtub, not usually in a bedazzled dress," she said, wanting the artwork to be "about what happened offstage" rather than onstage. The bathtub reading pays off on track one — the drowned Ophelia of the cover is the same woman the opening song pulls out of the water.\n\nThe record itself is lean: 12 tracks, 41:40, cut at MXM and Shellback Studios in Stockholm and written throughout by Swift with Martin and Shellback — the only outside credit George Michael\'s, for the "Father Figure" interpolation. Sabrina Carpenter sings on the closing title track (a Las Vegas showgirl named Kitty) as a vocal feature, not a co-writer. The album dropped at midnight ET on Oct. 3 as one worldwide release, Target holding roughly 500 stores open for a midnight vinyl sale; there was no 13th track or launch-day deluxe. Republic flooded release week with 27 physical variants — 16 CDs, eight vinyl pressings, two deluxe CDs bundled with clothing, and a cassette. Critics split hard: a 69 on Metacritic across 23 reviews, Rolling Stone\'s five stars against the Guardian\'s two, one of 2025\'s most-debated albums.\n\nIn her own framing the record is the private life running under the tour\'s spectacle — "about what was going on behind the scenes in my inner life during this tour, which was so exuberant and electric and vibrant," made while she was "physically exhausted" yet "so mentally stimulated." The title track turns that thesis into character: a fictional Las Vegas showgirl, Kitty, who warns a starstruck admirer that fame is "not all flowers and magic." The 12-song length was a deliberate discipline against The Tortured Poets Department\'s 31 — "here\'s a data dump… here\'s 31 songs. This is 12," she said, adding "there\'s no other songs coming." The split reviews left it among the lowest-scored of her career on Metacritic — its 69 above only her 2006 debut by the review-roundup tallies — with Rolling Stone calling it "the castle she built out of all the bricks that have been thrown at her" and the Guardian\'s Alexis Petridis panning its "dull razzle-dazzle" and "lack of undeniable hooks." The 27-variant blitz drew its own backlash — fans and commentators flagged overconsumption and environmental cost, a recurring charge against her variant-heavy rollouts — which neither Swift nor Republic answered directly.',
         // Cover art added 2026-07-09 under the relaxed image policy (hotlink any
         // real, publicly-available image with credit; no AI images). Hotlinked from
         // Wikipedia's stable copy of the official artwork — verified HTTP 200,
@@ -358,6 +400,65 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Ledger #1403 (2026-07-25): the album's thesis in her own words, the
+          // deliberate 12-vs-31 discipline, the Metacritic ranking in context,
+          // the Kitty title-track character, and the variant-strategy backlash.
+          // (AREA's designers never publicly reacted to the Ophelia cover — a
+          // genuine unanswerable, left unasserted.)
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-made-life-of-showgirl-during-eras-tour-1235407376/',
+            source_title: "Taylor Swift Made 'The Life of a Showgirl' During the Eras Tour",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/taylor-swift-life-of-a-showgirl-track-list-length-12-songs-1236043775/',
+            source_title: "Taylor Swift Explains Why 'The Life of a Showgirl' Is Just 12 Songs",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-life-of-a-showgirl-album-review-1235439733/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Review",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'The Hollywood Reporter',
+            url: 'https://www.hollywoodreporter.com/music/music-news/taylor-swift-the-life-of-a-showgirl-critic-reviews-1236392461/',
+            source_title: "What Critics Are Saying About Taylor Swift's 'The Life of a Showgirl'",
+            publisher: 'The Hollywood Reporter',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'AOL',
+            url: 'https://www.aol.com/articles/surprising-inspiration-behind-kitty-finlay-172426102.html',
+            source_title: "The Surprising Inspiration Behind Kitty Finlay in Taylor Swift's 'The Life of a Showgirl'",
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Tufts Daily',
+            url: 'https://www.tuftsdaily.com/article/2025/10/taylor-swifts-the-life-of-a-showgirl-the-commercialism-of-album-covers',
+            source_title: "Taylor Swift's 'The Life of a Showgirl': the commercialism of album covers",
+            publisher: 'Tufts Daily',
+            source_type: 'commentary',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
           },
         ],
         photos: [
@@ -2406,6 +2507,17 @@ export default {
       // Rumor-tier pilot (2026-07-19): single-outlet TMZ reporting that Swift's
       // team never confirmed (the context already says so) — the loud
       // "Reported — not confirmed" banner makes that status unmissable.
+      //
+      // Ledger #1367 (2026-07-25): the ledger asked whether, still single-source
+      // and unconfirmed after the July 3 wedding, this should move toward
+      // privacy-redlines rumor rule 6's "faded" state. It should — and the field
+      // stays 'reputable_reporting' anyway, because 'faded' is NOT a valid
+      // moment-level confidence (THEORY_CONFIDENCE in validate-content.mjs), so
+      // setting it would drop the banner and render the claim as fact. The fade
+      // is therefore expressed in the PROSE ("reported in June 2026 and never
+      // confirmed or denied — a single-source sighting that has since gone
+      // quiet"), which is what rule 6 actually asks for. Not promoted either:
+      // nothing confirmed it, so downgrading toward faded is the only honest move.
       confidence: 'reputable_reporting',
       title: 'A tented lawn in Rhode Island, two weeks before the wedding',
       snippet:
@@ -2417,7 +2529,7 @@ export default {
       thumbnailUrl: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
       moment: {
         context:
-          'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends" — separate from the Ocean House\'s own scheduled event that weekend, which the venue confirmed was for a different couple. The tells were logistical rather than official: a large tent rising on the Ocean House lawn, and longtime friends converging on the small Rhode Island town at once.\n\nThe location was its own callback. Watch Hill is the "holiday house" of the 2020 song "the last great american dynasty" — the Rebekah Harkness mansion Swift bought in 2013, the site of the Fourth of July parties of the 1989 era — so a pre-wedding weekend there read to fans as the personal-lore equivalent of a hometown send-off, two weeks before the Madison Square Garden ceremony. Neither Swift nor her team ever confirmed the party; the venue-level reporting here is TMZ\'s, labeled as such.',
+          'TMZ reported the gathering the weekend of June 19-20, 2026 as a "bachelorette-style gathering centered around Taylor and her closest girlfriends." The tells were logistical rather than official: a large tent on the Ocean House lawn in Watch Hill, and longtime friends said to be converging on the small Rhode Island town at once. But the single-source read strained against its own evidence. The Boston Globe noted that "no definitive evidence has emerged confirming the nuptials will take place in the Ocean State," and reported that luxury planner Elizabeth Hall Events had disputed on Instagram that the weekend\'s ceremony was Swift\'s. TMZ\'s own photos showed the tent held little more than a bare wooden dance floor — no tables or place settings — and TMZ said the wedding actually booked at the hotel that weekend was a New York City couple\'s, not Swift\'s. When a separate rumor claimed Swift had paid a bride to give up her date, the resort\'s Stephanie Leavitt flatly denied it: "Ocean House would not and is not allowing another party or entity to buy a wedding group out of a contracted wedding date."\n\nThe Ocean House is Watch Hill\'s Forbes Five-Star beachfront resort — a Relais & Châteaux member, an 1868 grand hotel rebuilt in 2010 — near the home Swift has kept in the town since 2013, which is why observers folded the two together. That home is its own callback: the "holiday house" of the 2020 folklore song "the last great american dynasty," heiress Rebekah Harkness\'s former mansion, which Swift bought in 2013 for a reported $17.75 million in cash and used for her 1989-era Fourth of July parties from 2013 to 2016. A pre-wedding weekend there would have read to fans as a personal-lore send-off, two weeks before the Madison Square Garden ceremony. But nothing ever stood it up: neither Swift nor her team addressed it, no outlet beyond TMZ backed the bachelorette framing, and the July 3 MSG wedding overtook the rumor rather than settling it. It stands as reported in June 2026 and never confirmed or denied — a single-source sighting that has since gone quiet.',
         // Rumor Desk lifecycle re-check 2026-07-22 (CIE content.rumor-lifecycle):
         // the "Reported — not confirmed" banner still holds. Re-verified against
         // current sources this session — neither Swift nor her team ever
@@ -2434,6 +2546,50 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-22',
             reliability_score: 3,
+          },
+          // Ledger #1367 (2026-07-25): corroborating context that keeps this a
+          // labeled, gone-quiet rumor rather than a fact — the Globe's "no
+          // definitive evidence" + the planner's dispute, and the resort's own
+          // on-record denial of the adjacent buyout rumor. All verified by
+          // direct fetch this session.
+          {
+            outlet: 'The Boston Globe',
+            url: 'https://www.bostonglobe.com/2026/06/19/metro/taylor-swift-wedding-rhode-island-ocean-house/',
+            source_title: 'Is Taylor Swift getting married in Rhode Island? Here\'s what we know.',
+            publisher: 'The Boston Globe',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'AOL',
+            url: 'https://www.aol.com/articles/venue-just-dispelled-bizarre-rumor-213600635.html',
+            source_title: 'Venue Just Dispelled a Bizarre Rumor About Taylor Swift\'s Wedding',
+            publisher: 'AOL',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          // House + venue backstory that anchors the "last great american
+          // dynasty" callback (town-level only, no address/estate name per
+          // privacy-redlines): the 2013 cash purchase and the resort's identity.
+          {
+            outlet: 'NBC News',
+            url: 'https://www.nbcnews.com/businessmain/taylor-swift-pays-cash-rhode-island-home-6c9826051',
+            source_title: 'Taylor Swift pays cash for Rhode Island home',
+            publisher: 'NBC News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Relais & Châteaux',
+            url: 'https://www.relaischateaux.com/us/hotel/ocean-house/',
+            source_title: 'Ocean House — Watch Hill, Rhode Island',
+            publisher: 'Relais & Châteaux',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
           },
         ],
         // Image-fix pass (2026-07-10): both TMZ photos here (tickets #337,
@@ -2456,7 +2612,7 @@ export default {
             url: 'https://fortune.com/img-assets/wp-content/uploads/2026/06/AP26171861867196-e1782051050489.jpg?format=webp&w=1440&q=100',
             credit: 'AP Photo/Robert F. Bukaty, via Fortune',
             caption:
-              'A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation.',
+              'A couple walks past the Ocean House and the event tent on its lawn in Watch Hill, June 20, 2026 — the tent that fueled bachelorette-weekend speculation, though the resort said that weekend\'s booked wedding was an unrelated couple\'s.',
             kind: 'primary',
             // Tent peaks and the walking couple sit center-right, just above and below the midline.
             focalPoint: '52% 45%',
@@ -2934,9 +3090,23 @@ export default {
             reportedOn: '2026-07-20',
             status: 'unconfirmed',
             url: 'https://www.realitytea.com/2026/07/20/taylor-swift-wedding-photos-out-release/',
-            note: 'A gossip-newsletter "source" claim about her release strategy — resolves once (and if) official photos surface and we can see the channel. As of this report, no official ceremony photos had been published.',
+            note: 'A gossip-newsletter claim about her release strategy. Better-sourced update 2026-07-25 (ledger #1246): Dior told The New York Times that Swift herself will post the first wedding images to Instagram (timing unstated), and People reported no plans for a wedding documentary or film. No official photographer of record has been named — so the official channel is her own Instagram, on her own timing.',
             sourceTier: 'tabloid',
-            lastCheckedOn: '2026-07-20',
+            lastCheckedOn: '2026-07-25',
+          },
+          {
+            // Added 2026-07-25 (ledger #1246): the ceremony processional music.
+            // Kept a rumor — the format is corroborated but the specific title
+            // is single-source and unconfirmed by the couple.
+            claim:
+              'Ceremony music: a live string ensemble ushered in the wedding party, and a source-based account had Swift walking down the aisle to an instrumental version of "Love Story," with The Darkness\'s "I Believe in a Thing Called Love" as the recessional after the vows.',
+            reportedBy: 'Yahoo Entertainment',
+            reportedOn: '2026-07-05',
+            status: 'unconfirmed',
+            url: 'https://www.yahoo.com/entertainment/music/articles/taylor-swift-travis-kelce-walked-110045264.html',
+            note: 'The processional FORMAT (live strings, an acoustic version of one of her own songs) is corroborated across outlets, but the specific "Love Story" title rests on a single unnamed source and is unconfirmed by the couple — Wikipedia records only "an acoustic version of one of her songs." Public-facing, redline-clean.',
+            sourceTier: 'established',
+            lastCheckedOn: '2026-07-25',
           },
           // PRIVACY-DROPPED (2026-07-19, docs/content-ops/privacy-redlines.md
           // Never-OK #1): an ET honeymoon-location rumor was cut here in
@@ -3046,7 +3216,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The first public look at the couple\'s wedding bands came July 10, blurry and distant, at former teammate JuJu Smith-Schuster\'s wedding — the bands\' own designer and specifics undisclosed. Sharper looks followed: Harper\'s Bazaar identified a plain gold band on Travis\'s left hand in July 16 training photos, and a July 20 photo posted by Cris Carter gave StyleCaster another clear angle. Separately, a Vogue Weddings carousel from the Smith-Schuster wedding let ELLE Australia\'s jewelry expert examine Taylor\'s stack more closely, describing what appears to be a chunky diamond band alongside her engagement ring — though ELLE Australia is explicit that the photo isn\'t sharp enough to confirm exact specifications, and no designer, carat count or price has been confirmed by the couple. ELLE Australia\'s expert Cushla Whiting placed the band within a specific 2026 shift she calls a moment for "chunkier diamond wedding bands" — substantial diamond bands rather than thin plain-metal ones, driven by bolder engagement rings and chosen so a band "feels balanced alongside them rather than disappearing beneath the centre stone." No imagery from the wedding day itself (July 3 at Madison Square Garden) surfaced either band; the genuine first public look did not come until July 10, and every detail on record remains outside observation of photos, with no comment from the couple or Tree Paine. That July 10 debut — Taylor in a pink-and-gold Markarian brocade gown, the band visible on her hand — was itself the ring\'s first public sighting, so the clearer angles here trace to the July 16 and July 20 photos, not a later solo outing. One caution on the specs floating around online: retailers now sell "inspired-by" lookalike bands (some marketed at around 2.5 carats), but those are stand-ins, not Swift\'s actual ring — which, unlike the engagement ring experts openly pegged at 8–10 carats and $550,000–$1 million, the couple has left entirely unspecified.',
+          'The first public look at the couple\'s wedding bands came July 10, blurry and distant, at former teammate JuJu Smith-Schuster\'s wedding — the bands\' own designer and specifics undisclosed. Sharper looks followed: Harper\'s Bazaar identified a plain gold band on Travis\'s left hand in July 16 training photos, and a July 20 photo posted by Cris Carter gave StyleCaster another clear angle. Separately, a Vogue Weddings carousel from the Smith-Schuster wedding let ELLE Australia\'s jewelry expert examine Taylor\'s stack more closely, describing what appears to be a chunky diamond band alongside her engagement ring — though ELLE Australia is explicit that the photo isn\'t sharp enough to confirm exact specifications, and no designer, carat count or price has been confirmed by the couple. ELLE Australia\'s expert Cushla Whiting placed the band within a specific 2026 shift she calls a moment for "chunkier diamond wedding bands" — substantial diamond bands rather than thin plain-metal ones, driven by bolder engagement rings and chosen so a band "feels balanced alongside them rather than disappearing beneath the centre stone." No imagery from the wedding day itself (July 3 at Madison Square Garden) surfaced either band; the genuine first public look did not come until July 10, and every detail on record remains outside observation of photos, with no comment from the couple or Tree Paine. That July 10 debut — Taylor in a pink-and-gold Markarian brocade gown, the band visible on her hand — was itself the ring\'s first public sighting, so the clearer angles here trace to the July 16 and July 20 photos, not a later solo outing. One caution on the specs floating around online: retailers now sell "inspired-by" lookalike bands (some marketed at around 2.5 carats), but those are stand-ins, not Swift\'s actual ring — which, unlike the engagement ring experts openly pegged at 8–10 carats and $550,000–$1 million, the couple has left entirely unspecified. The engagement ring\'s maker offers no shortcut either: goldsmith Kindred Lubeck of Artifex, who gave several interviews about that ring, has never spoken about the wedding bands, and one jewelry writeup that attributes diamond eternity bands Swift has been photographed wearing to the label A.Jaffe is a single-outlet read, unconfirmed by the couple and possibly conflating her earlier stack. Trend coverage did place the finished stack in company: a Taylor & Hart bridal piece lined it up with Dua Lipa\'s slim gold band and Zendaya\'s "cool-girl gap" pairing as 2026\'s marquee celebrity rings, and a People roundup grouped Swift\'s old-mine cut with Dua Lipa\'s gypsy-set diamond.',
         sources: [
           {
             outlet: 'StyleCaster',
@@ -3088,6 +3258,48 @@ export default {
             publisher: 'Yahoo Entertainment (via People)',
             source_type: 'reputable_press',
             accessed_at: '2026-07-24',
+            reliability_score: 3,
+          },
+          // Ledger #1243 (2026-07-25): the engagement-ring goldsmith (Kindred
+          // Lubeck / Artifex) has spoken only about the engagement ring, never
+          // the bands; the circulating A.Jaffe band attribution is a single
+          // outlet's read, labeled as such, not asserted. Plus the celebrity-
+          // stack comparison (Dua Lipa / Zendaya) in the spirit of the
+          // engagement page's carat comparisons.
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/taylor-swift-engagement-ring-jeweler-kindred-lubeck-interview-rcna238142',
+            source_title: "Taylor Swift's engagement ring jeweler, Kindred Lubeck, on designing the ring",
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-wedding-bands-sentimental-180641943.html',
+            source_title: "Taylor Swift's wedding bands, explained",
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'Taylor & Hart',
+            url: 'https://taylorandhart.com/us/blog/taylor-swift-dua-lipa-zendayas-wedding-rings-bridal-stacking-in-2026',
+            source_title: "Taylor Swift, Dua Lipa & Zendaya's wedding rings: bridal stacking in 2026",
+            publisher: 'Taylor & Hart',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
+          },
+          {
+            outlet: 'AOL',
+            url: 'https://www.aol.com/articles/best-celebrity-engagement-rings-2025-150000468.html',
+            source_title: 'The Best Celebrity Engagement Rings of 2025',
+            publisher: 'AOL (via People)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
             reliability_score: 3,
           },
         ],
