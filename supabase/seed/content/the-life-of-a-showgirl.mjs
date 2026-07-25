@@ -998,7 +998,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it, the Target-exclusive "The Crowd Is Your King" among them. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.\n\nThe pure-sales week broke down as 1.76 million CDs, the 1.334 million LPs, 358,000 digital downloads and 26,000 cassettes, with zero à-la-carte track sales; Billboard estimated the album grossed roughly $135 million in seven days, vinyl priced from $34.99 and CD-plus-apparel bundles at $65–$70. Forbes was explicit that the million-vinyl week was a first "for any artist in history," and that the old 859,000 mark fell on release day itself — about 1.2 million LPs moved on day one alone.\n\nThe variant strategy that built the number drew its own documented criticism. In The Conversation, University of Bath marketing scholar Annayah Prosser argued the two-dozen-plus editions inflate the charts by design — since "every album purchased (regardless of the format or cover image) is valued" — and called vinyl\'s materials "unsustainable," noting Swift "hasn\'t experimented with eco-friendly alternatives." A University of Glasgow study led by Prof. Matt Brennan found about a quarter of surveyed Swift fans (26%) would consider a plastic-free release. Neither Swift nor Republic publicly answered the sustainability or chart-inflation critiques, and per-variant pressing figures were never disclosed.',
+          'The push came from a stack of collectible pressings in the era\'s signature orange — multiple variants, retailer exclusives included, sold as objects to own as much as records to play. Forbes tracked the record falling within hours of release day, not at week\'s end: her own all-time vinyl mark of 859,000, set by The Tortured Poets Department in 2024, was gone almost immediately, and the week closed at 1.334 million LPs.\n\nNPR\'s analysis noted the number is less about turntables than fandom-as-collecting — a physical-object economy she has done more than anyone to revive, where a pressing in the right shade of orange is a fan artifact first and an audio format second. The vinyl haul was the engine of the pure-sales side of her 4-million-unit week, and the reason a 2025 blockbuster could post sales splits that look like the CD era.\n\nThe number sat atop a lineage she built and kept breaking: 859,000 (TTPD, 2024) had toppled 693,000 (1989 (Taylor\'s Version)), which beat 570,000 (Midnights) — every modern-era vinyl-week record since Luminate began tracking in 1991 has been hers, and Showgirl\'s 1.334 million is the first million ever counted, with TTPD\'s 859,000 now the No. 2 week behind it. Eight distinct vinyl variants drove it: the standard "Sweat and Vanilla Perfume" Portofino-orange-glitter LP, the Target-exclusive "The Crowd Is Your King" pink shimmer, and six limited "first and only pressing" webstore drops — the "Shiny Bug" pair (Wintergreen & Onyx and Violet Shimmer), the "Baby, That’s Showbiz" pair (Lakeside Beach Blue Sparkle and Lovely Bouquet Golden) and the "Tiny Bubbles in Champagne" pair (Red Lipstick & Lace and Under Bright Lights Pearlescent); per-variant pressing figures were never disclosed. Vinyl was 1.334 million of the roughly 3.48 million pure copies inside the 4.002-million-unit week — the album led every format (CD, vinyl, cassette, digital) and finished 2025 as the year\'s top seller on each. The record was not only American: in the UK it moved about 125,000 LPs in week one, the fastest-selling vinyl album of the century and the biggest UK vinyl week since those records began in 1994, inside a 423,000-unit British debut.\n\nThe pure-sales week broke down as 1.76 million CDs, the 1.334 million LPs, 358,000 digital downloads and 26,000 cassettes, with zero à-la-carte track sales; Billboard estimated the album grossed roughly $135 million in seven days, vinyl priced from $34.99 and CD-plus-apparel bundles at $65–$70. Forbes was explicit that the million-vinyl week was a first "for any artist in history," and that the old 859,000 mark fell on release day itself — about 1.2 million LPs moved on day one alone.\n\nThe variant strategy that built the number drew its own documented criticism. In The Conversation, University of Bath marketing scholar Annayah Prosser argued the two-dozen-plus editions inflate the charts by design — since "every album purchased (regardless of the format or cover image) is valued" — and called vinyl\'s materials "unsustainable," noting Swift "hasn\'t experimented with eco-friendly alternatives." A University of Glasgow study led by Prof. Matt Brennan found about a quarter of surveyed Swift fans (26%) would consider a plastic-free release. Neither Swift nor Republic publicly answered the sustainability or chart-inflation critiques, and per-variant pressing figures were never disclosed.',
         sources: [
           {
             outlet: 'Forbes',
@@ -1076,6 +1076,18 @@ export default {
             source_type: 'chart_database',
             accessed_at: '2026-07-21',
             reliability_score: 5,
+          },
+          // Depth ledger #1303 Q1 (2026-07-25): the full eight-variant roster —
+          // the standard Portofino orange, the Target "Crowd Is Your King" pink
+          // shimmer, and the six limited webstore "first and only pressing" drops.
+          {
+            outlet: 'Capital',
+            url: 'https://www.capitalfm.com/news/taylor-swift-life-of-a-showgirl-variants-album-covers/',
+            source_title: "Every Taylor Swift 'The Life of a Showgirl' vinyl variant and album cover",
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Getty photo NPR ran with its vinyl analysis; hotlinked from NPR's
@@ -1566,7 +1578,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The song tells the story of a veteran performer named Kitty and the young singer studying her, and the casting does the subtext: Carpenter went from Eras Tour opener in 2023-24 to arena headliner in her own right by the time the album dropped. It was the pairing fans most wanted from the tracklist reveal on New Heights, and the reason the feature stayed the announcement\'s biggest talking point through release week.\n\nThe track doubles as the album\'s mission statement — the "life of a showgirl" the title promises turns out to be Kitty\'s hard-won stage wisdom, handed down the way the real Swift-Carpenter relationship played out in stadium wings for two years. The lyric sheet closes on a scripted curtain-call exchange between the two of them — Swift\'s "Give it up for the band / And the dancers / And of course, Sabrina," answered by Carpenter\'s "I love you, Taylor!" — laid over real crowd noise recorded at the final Eras Tour show in Vancouver, folding the tour\'s actual sound into the album\'s closing minutes. Ending the record on a duet with her own former opener made the succession theme explicit: the album about being a showgirl closes by introducing the next one.\n\nOn the Hot 100 dated Oct. 18, 2025 the title track debuted and peaked at No. 8 inside the album\'s record top-12 sweep, credited to Swift with Max Martin and Shellback — Carpenter a featured vocalist, not a co-writer. Swift confirmed the closing crowd roar is real: her Amazon Music intro says it "transports me back" to standing onstage for the last time on the Eras Tour (the Vancouver/BC Place date is tour record, not something she names in the audio). Rolling Stone heard the succession theme plainly, calling it Swift "passing the torch to the next generation of showgirls as she takes a bow," and Carpenter — who voices the fictional veteran "Kitty" — called Swift "so gracious." Closing on a guest duet isn\'t new (evermore ended on its Bon Iver title track), but doing it with a former tour opener is.',
+          'The song tells the story of a veteran performer named Kitty and the young singer studying her, and the casting does the subtext: Carpenter went from Eras Tour opener in 2023-24 to arena headliner in her own right by the time the album dropped. It was the pairing fans most wanted from the tracklist reveal on New Heights, and the reason the feature stayed the announcement\'s biggest talking point through release week.\n\nThe track doubles as the album\'s mission statement — the "life of a showgirl" the title promises turns out to be Kitty\'s hard-won stage wisdom, handed down the way the real Swift-Carpenter relationship played out in stadium wings for two years. The lyric sheet closes on a scripted curtain-call exchange between the two of them — Swift\'s "Give it up for the band / And the dancers / And of course, Sabrina," answered by Carpenter\'s "I love you, Taylor!" — laid over real crowd noise recorded at the final Eras Tour show in Vancouver, folding the tour\'s actual sound into the album\'s closing minutes. Ending the record on a duet with her own former opener made the succession theme explicit: the album about being a showgirl closes by introducing the next one.\n\nOn the Hot 100 dated Oct. 18, 2025 the title track debuted and peaked at No. 8 inside the album\'s record top-12 sweep, credited to Swift with Max Martin and Shellback — Carpenter a featured vocalist, not a co-writer. Swift confirmed the closing crowd roar is real: her Amazon Music intro says it "transports me back" to standing onstage for the last time on the Eras Tour (the Vancouver/BC Place date is tour record, not something she names in the audio). Rolling Stone heard the succession theme plainly, calling it Swift "passing the torch to the next generation of showgirls as she takes a bow" and noting Carpenter "takes a full verse and even harmonizes with her idol" on the sped-up, showtune-y bridge; Variety set it beside "Clara Bow" as a "narrative tale of weathered entertainers passing down homespun and hard-fought wisdom," "an outlier, but an anthemic one to go out on." (Pitchfork and The Guardian reviewed the album without singling the closer out.) "Kitty," the veteran who "made her money being pretty and witty," reads as an invented persona — no source ties the name to a specific real showgirl or film — and Swift framed the song as a warning that fame is "not all flowers and magic." Carpenter, the album\'s only feature, expanded on it in a December Variety cover story: hearing their voices together was something "ten-year-old me... could not believe," and though she\'d never have asked — "I would have never been like, \'Hey, bestie, put me on a song\'" — Swift was "so gracious to think of me." As of this writing the two had not performed the duet live together, though Carpenter had opened the Eras Tour\'s 2023–24 legs before her own headline breakout. Closing on a guest duet isn\'t new (evermore ended on its Bon Iver title track), but doing it with a former tour opener is.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1615,6 +1627,36 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
             reliability_score: 4,
+          },
+          // Added 2026-07-25 (depth ledger #1028): Q4 a second attributed review
+          // (Variety), Q6 Carpenter's fuller December Variety-cover quote, Q7 the
+          // "Kitty" persona + Swift's "not all flowers and magic" framing.
+          {
+            outlet: 'Variety',
+            url: 'https://variety.com/2025/music/album-reviews/taylor-swift-album-review-life-of-a-showgirl-1236537532/',
+            source_title: "Taylor Swift 'The Life of a Showgirl' Album Review",
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/music-news/sabrina-carpenter-taylor-swift-so-gracious-collab-invite-1236127325/',
+            source_title: "Sabrina Carpenter Calls Taylor Swift 'So Gracious' for Collab Invite (Variety cover story)",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'Today',
+            url: 'https://www.today.com/popculture/music/the-life-of-a-showgirl-lyrics-meaning-taylor-swift-sabrina-carpenter-rcna234281',
+            source_title: "'The Life of a Showgirl' Lyrics: Taylor Swift and Sabrina Carpenter Explore the Price of Stardom",
+            publisher: 'Today',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Lyric-video id OU6362Nggg0 verified via oEmbed against @TaylorSwift.
@@ -5068,7 +5110,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Remarkable mostly for the calendar: the album had only 13 weeks of 2025 to work with (Luminate\'s tracking year closed Jan. 1, 2026) and still finished at 5.607 million US units — enough to beat everything released in the previous nine months and top Billboard\'s year-end Billboard 200. Morgan Wallen\'s "I\'m the Problem" ran second at 5.125 million; it was the first year since Luminate began the metric in 2014 that two albums each cleared five million.\n\nThe shape of the number tilted hard toward ownership. Of the 5.607 million, 3.985 million (71%) were pure album sales — itself the year\'s No. 1 sales total by a wide margin — against 1.603 million streaming-equivalent units and just 19,000 track-equivalent. Showgirl was also 2025\'s No. 1 vinyl album (1.601 million LPs) and the top seller on CD, cassette, and download, the collector economy behind the record October week doing the year-round work.\n\nIt was her fifth year-end No. 1 on the Billboard 200 — after Fearless (2009), 1989 (2015), reputation (2018), and The Tortured Poets Department (2024) — making her the first act ever to lead the year-end album chart five separate times. Taking 2024 and 2025 back to back also made her the first to top the year-end Billboard 200 in consecutive years with two different titles since Elton John in 1974. TTPD\'s larger 6.955-million 2024 total is the reminder that a single quarter of eligibility, not a bigger fanbase, set the 2025 ceiling. One nuance the headline hides: the year\'s top overall artist was Wallen (a record 41 Hot 100 entries), with Swift taking top album and top female artist. Globally, the IFPI named Showgirl its biggest-selling album of 2025 — No. 1 on its worldwide album, album-sales, and vinyl charts — back to back after The Tortured Poets Department took the 2024 global album crown.',
+          'Remarkable mostly for the calendar: the album had only 13 weeks of 2025 to work with (Luminate\'s tracking year closed Jan. 1, 2026) and still finished at 5.607 million US units — enough to beat everything released in the previous nine months and top Billboard\'s year-end Billboard 200. Morgan Wallen\'s "I\'m the Problem" ran second at 5.125 million; it was the first year since Luminate began the metric in 2014 that two albums each cleared five million.\n\nThe shape of the number tilted hard toward ownership. Of the 5.607 million, 3.985 million (71%) were pure album sales — itself the year\'s No. 1 sales total by a wide margin — against 1.603 million streaming-equivalent units and just 19,000 track-equivalent. Showgirl was also 2025\'s No. 1 vinyl album (1.601 million LPs) and the top seller on CD, cassette, and download, the collector economy behind the record October week doing the year-round work.\n\nIt was her fifth year-end No. 1 on the Billboard 200 — after Fearless (2009), 1989 (2015), reputation (2018), and The Tortured Poets Department (2024) — making her the first act ever to lead the year-end album chart five separate times. Taking 2024 and 2025 back to back also made her the first to top the year-end Billboard 200 in consecutive years with two different titles since Elton John in 1974. TTPD\'s larger 6.955-million 2024 total is the reminder that a single quarter of eligibility, not a bigger fanbase, set the 2025 ceiling. One nuance the headline hides: the year\'s top overall artist was Wallen (a record 41 Hot 100 entries), with Swift taking top album and top female artist. Globally, the IFPI named Showgirl its biggest-selling album of 2025 — No. 1 on its worldwide album, album-sales, and vinyl charts — back to back after The Tortured Poets Department took the 2024 global album crown — her second IFPI Global Album of the Year and second running; she had not won it for Midnights, whose 2022 global crown went to Bad Bunny’s "Un Verano Sin Ti."\n\nThe year-end crown wasn’t only American. Showgirl was also 2025’s No. 1 album in the UK — 642,000 combined chart sales, first across CD, vinyl, streaming and download (Official Charts) — and in Australia, topping ARIA’s year-end albums chart. Its US shape is the outlier: 71% pure sales cuts against the streaming-first norm of the era’s biggest records. Wallen’s runner-up leaned the other way — at 2025’s midpoint his units ran about 91% streaming-equivalent (2.326M of 2.562M) against barely 8% pure sales — so Showgirl led the year behaving like an ownership record in a rental market. One thing the album total hides is song-level: no Showgirl track made Billboard’s 2025 Year-End Hot 100, because "The Fate of Ophelia" didn’t reach No. 1 until Oct. 18, past the year-end tracking cutoff (the year-end No. 1 was Lady Gaga & Bruno Mars’ "Die With a Smile"); its nine-week reign counts toward the 2026 tally instead.',
         sources: [
           {
             outlet: 'Billboard',
@@ -5140,6 +5182,55 @@ export default {
             publisher: 'IFPI (press release)',
             source_type: 'official',
             accessed_at: '2026-07-21',
+            reliability_score: 5,
+          },
+          // Depth ledger #1438 (2026-07-25): Q2 UK/AU year-end crowns, Q3 the
+          // IFPI count (2022 went to Bad Bunny, not Midnights), Q4 the
+          // pure-sales-vs-streaming contrast with Wallen, Q5 no Showgirl track
+          // on the 2025 Year-End Hot 100 (Ophelia peaked past the cutoff).
+          {
+            outlet: 'Official Charts',
+            url: 'https://www.officialcharts.com/chart-news/the-official-biggest-albums-of-2025/',
+            source_title: 'The Official biggest albums of 2025',
+            publisher: 'Official Charts Company',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'The Music',
+            url: 'https://themusic.com.au/industry/alex-warren-and-taylor-swift-lead-arias-2025-end-of-year-charts/bcrTYWBjYmU/03-02-26',
+            source_title: "Alex Warren And Taylor Swift Lead ARIA's 2025 End-Of-Year Charts",
+            publisher: 'The Music (ARIA year-end)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            outlet: 'IFPI',
+            url: 'https://www.ifpi.org/bad-bunnys-un-verano-sin-ti-announced-as-winner-of-ifpis-global-album-award/',
+            source_title: "Bad Bunny's Un Verano Sin Ti announced as winner of IFPI's Global Album Award (2022)",
+            publisher: 'IFPI (press release)',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/lady-gaga-bruno-mars-2025-year-end-billboard-hot-100/',
+            source_title: "Lady Gaga & Bruno Mars' 'Die With a Smile' Is Billboard's 2025 Year-End Hot 100 No. 1",
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/morgan-wallen-kendrick-lamar-luminate-2025-midyear-charts-1236022530/',
+            source_title: "Morgan Wallen's 'I'm the Problem' Tops Luminate's 2025 Midyear Rankings (unit split)",
+            publisher: 'Billboard (Luminate 2025 midyear)',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-25',
             reliability_score: 5,
           },
         ],
