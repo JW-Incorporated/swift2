@@ -13,12 +13,32 @@ its owner; the prompt each runner executes is versioned in
 `runner-prompts/` — **the repo file is the source of truth**, and a trigger
 whose inline prompt drifts from its file is a bug.
 
+## Sustainment-mode cadences (2026-07-25, Wyatt — "sustainment, not new-website-building")
+
+Focus shifted to **new-content intake + robust ingestion**; existing-content review/enrichment throttled to weekly. These live overrides (applied via the RemoteTrigger API) WIN over the original bootstrap crons in the table below.
+
+| Runner | New cadence | Trigger ID | Change |
+|---|---|---|---|
+| Karen — nightly scan | **weekly** `0 9 * * 0` (Sun) | `trig_014HWuRmT2MFveDkPGwVDiQX` | nightly → weekly |
+| Kevin — S1 Karen solver | **weekly** `17 11 * * 0` | `trig_01RurBLTvDN3K3oCjpH3SEFd` | daily → weekly (tracks Karen) |
+| Nils — daily walk | **weekly** `0 14 * * 0` | `trig_013xb8Stm7m2sB6dqGePKRtr` | daily → weekly |
+| Stylist | **weekly** `33 16 * * 0` | `trig_016RycwuFMr5BAxadu5ft2GG` | daily → weekly |
+| Rumor Desk | **every other day** `47 14 */2 * *` | `trig_01QqbHr7dyttr7qijGKmCn7n` | daily → every-other-day (lifecycle stays timely) |
+| Lex — depth curiosity | **PAUSED** (`enabled:false`) | `trig_01PwaYZ4wK2tuZ1s8m2UTYvy` | paused so the Answerer drains its backlog without new ledgers piling on — also stops the `crosslink-candidate` issue spam (Lex was the source) |
+| Marjorie — 8 PM delta | **DISABLED** | `trig_01G4GsUsphyz9LycqKjDEdi4` | dropped; the 6 AM brief stands alone |
+
+**Unchanged** (intake / backlog / cheap-ops): Content Shift (2×/day), the Answerer (every 2h — backlog exception), Kevin S2 + S3×2, Austin, Paul Blart (already weekly), **Growth (Wyatt: leave as-is)**, Marjorie 6 AM brief.
+
+**Not yet reached:** Laura (a11y) + Photo Enrichment are also due for weekly, but their trigger IDs sit beyond the RemoteTrigger list's 20-item cap (cursor paging is broken through the tool). Photo Enrichment can stay daily meanwhile to finish draining the legacy pictureless backlog (like the Answerer). Grab both IDs from the claude.ai routines UI to finish.
+
+**Remaining scope changes (prompt-file PRs, not yet done):** kill self-check-in spawning (Content Shift / Answerer runs still spawn hourly `send_later` monitors), re-point Lex to Mode 2, lean Karen scan (drop the depth/crosslink checkers), narrow Photo Enrichment, register News Triage into this registry, add the `content.under-sourced` checker + weekly source-enrichment pass.
+
 ## The split
 
 | Runner | Cadence (UTC) | Model | Prompt file | Account | Why this side |
 |---|---|---|---|---|---|
 | Marjorie — morning brief | `0 12 * * *` (was `0 13` — moved 2026-07-16 so the emailed brief is in founder inboxes **by 6:00 AM PT**, Joey's requirement; the 12:45 UTC mailer needs the brief posted by ~12:40) | Fable | [`runner-prompts/marjorie-brief.md`](runner-prompts/marjorie-brief.md) | **Wyatt** | Moved 2026-07-12: Joey near weekly limit; briefs deliver to both founders regardless of runner account |
-| Marjorie — 8 PM delta | `0 3 * * *` | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Same |
+| ~~Marjorie — 8 PM delta~~ **(DISABLED 2026-07-25, Wyatt)** | ~~`0 3 * * *`~~ | Fable | [`runner-prompts/marjorie-delta.md`](runner-prompts/marjorie-delta.md) | **Wyatt** | Cut to once-daily for sustainment mode — the morning brief stands alone. Trigger `trig_01G4GsUsphyz9LycqKjDEdi4` set `enabled:false` (not deleted; re-enable to restore). NOTE: the delta also ran an evening merge-sweep + founder-email-reply pass — those now happen only at the 6 AM brief (autonomous merge cycles cover the gap). |
 | Growth — daily draft | `0 11 * * *` (1h before Marjorie's morning brief, so its Growth line reflects a fresh queue) | Fable | [`runner-prompts/growth-draft.md`](runner-prompts/growth-draft.md) | **Wyatt** | Added 2026-07-21: the charter (`docs/agents/growth.md`) and the shipping pipeline (`social-poster.yml`) existed, but nothing was ever scheduled to run the *drafting* half — issue #864 (empty queue) sat unactioned 3 days for exactly this reason |
 | Austin — build runs ×2 | `0 16 * * *`, `0 21 * * *` | Fable | [`runner-prompts/austin-run.md`](runner-prompts/austin-run.md) | **Wyatt** | Solves work (code) |
 | Nils — daily walk | `0 14 * * *` | Fable | [`runner-prompts/nils-walk.md`](runner-prompts/nils-walk.md) — needs WebFetch tool (live-site walks) | **Wyatt** | Heavy judgment over the whole site + SEO/discoverability lens |
