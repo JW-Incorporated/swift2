@@ -2312,6 +2312,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-05.jpg", credit: "Just Jared Jr.", kind: "primary" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/photo-gallery/231981/taylor-lautner-taylor-swift-team-01/" }, { name: "Wikipedia", url: "https://en.wikipedia.org/wiki/Valentine%27s_Day_(2010_film)" }],
+      relatedIds: ["moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center", "moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner", "moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner"],
     },
     {
       id: "vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center",
@@ -2323,6 +2324,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://media.gettyimages.com/id/92338597/photo/columbus-blue-jackets-v-los-angeles-kings.jpg?s=594x594&w=0&k=20&c=mRN-Vj_Vy27121bqUS3wWF1EjIx5iemjLkCSp5v9gn4=", credit: "Andrew D. Bernstein/NHLI via Getty Images", caption: "Together in the stands at the Kings-Blue Jackets game, Staples Center, Oct. 25, 2009.", kind: "primary" }],
       sources: [{ name: "The Boot", url: "https://theboot.com/taylor-swift-taylor-lautner-3/" }],
+      relatedIds: ["moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner", "moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner", "moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner"],
     },
     {
       id: "vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner",
@@ -2334,6 +2336,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Relationship"],
       images: [{ url: "https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=", credit: "Bauer-Griffin/GC Images", caption: "Together in Los Angeles on Dec. 3, 2009 — weeks before the quiet breakup.", kind: "primary", focalPoint: "50% 45%" }],
       sources: [{ name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/" }, { name: "Yahoo Entertainment", url: "https://www.yahoo.com/entertainment/taylor-swift-taylor-lautner-relationship-130738009.html" }],
+      relatedIds: ["moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner", "moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center", "moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner"],
     },
     {
       id: "vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner",
@@ -2345,6 +2348,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://media.gettyimages.com/id/2230718733/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=uw4mj6X64bIucRaYDJQvGPQFTGIKZdPj-q1YXerW31Q=", credit: "Bauer-Griffin/GC Images", caption: "Together in Los Angeles on the Dec. 3, 2009 outing.", kind: "primary" }],
       sources: [{ name: "Just Jared Jr.", url: "https://www.justjaredjr.com/2009/12/04/taylor-lautner-taylor-swift-benihana-buds/" }],
+      relatedIds: ["moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner", "moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center", "moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner"],
     },
     {
       id: "vault-fearless-ice-cream-with-emma-stone-after-a-day-of-photo-shoots",
@@ -5031,6 +5035,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg/500px-Taylor_Swift_%26_Ed_Sheeran_on_B-stage_-_Red_Tour_-_Tacoma_-_Cut.jpg", credit: "Wikimedia Commons", kind: "primary", focalPoint: "45% 18%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Taylor_Swift_-_Red_Tour_06.jpg", credit: "jazills / Wikimedia Commons, CC BY 2.0", caption: "The opening-number look — a black bowler hat and cream lace top — from an April 2013 tour stop.", kind: "archival", focalPoint: "46% 28%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/5/5d/Taylor_Swift_-_Red_Tour_13.jpg", credit: "jazills / Wikimedia Commons, CC BY 2.0", caption: "In the black-and-cream ballgown worn for the tour's acoustic segment, April 2013.", kind: "archival", focalPoint: "48% 30%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/e/e2/Taylor_Swift_-_Red_Tour_15.jpg", credit: "jazills / Wikimedia Commons, CC BY 2.0", caption: "The red-and-white \"State of Grace\" opening costume, with bassist Amos Heller, April 2013.", kind: "archival", focalPoint: "42% 32%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/3/37/Taylor_Swift_-_Red_Tour_19.jpg", credit: "jazills / Wikimedia Commons, CC BY 2.0", caption: "The red sequined ringmaster jacket from the tour's circus-themed opening number, April 2013.", kind: "archival", focalPoint: "48% 22%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/3/37/Taylor_Swift_-_Red_Tour_09.jpg", credit: "jazills / Wikimedia Commons, CC BY 2.0", caption: "The full circus-costumed ensemble behind her during the ringmaster-jacket opening number, April 2013.", kind: "archival", focalPoint: "55% 45%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Taylor_Swift_-_Red_Tour_-_Tacoma_Dome_-_Begin_Again_on_B-stage.jpg", credit: "Selbe Lynn / Wikimedia Commons, CC BY-SA 2.0", caption: "A wide shot of the elevated B-stage catwalk during the acoustic \"Begin Again\" set, Tacoma Dome, Aug. 31, 2013.", kind: "reference", focalPoint: "48% 40%" }],
       sources: [{ name: "Wikipedia", url: "https://en.wikipedia.org/wiki/The_Red_Tour" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-opens-red-tour-in-omaha-1552195/" }],
       milestone: { id: "m-red-2", label: "The Red Tour", kind: "tour" },
+      relatedIds: ["moment:vault-red-caught-mid-rehearsal-for-the-red-tour-days-before-it-opened", "moment:vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks", "moment:vault-red-the-red-tour-takes-its-final-bow-in-singapore", "moment:vault-red-the-red-tour-closes-as-the-highest-grossing-country-tour-of-"],
       significance: "notable",
     },
     {
@@ -5103,6 +5108,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Fashion"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg/500px-Taylor_Swift_-_Red_Tour_-_Sparks_Fly_-_Live_in_Los_Angeles.jpg", credit: "Wikimedia Commons", kind: "primary" }],
       sources: [{ name: "The Hollywood Reporter", url: "https://www.hollywoodreporter.com/news/general-news/taylor-swifts-costume-designer-talks-612119/" }],
+      relatedIds: ["moment:vault-red-caught-mid-rehearsal-for-the-red-tour-days-before-it-opened", "moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha", "moment:vault-red-the-red-tour-takes-its-final-bow-in-singapore", "moment:vault-red-the-red-tour-closes-as-the-highest-grossing-country-tour-of-"],
       products: [{ brand: "Showpo", item: "Siofra Mini Dress (Zig Zag Fringe Dress)", retailer: "showpo.com", url: "https://www.showpo.com/us/products/siofra-beaded-fringe-mini-dress-in-hot-pink", price: "$22.00", isAlternative: true, altNote: "Toybina's 128 costumes were one-off pieces, never sold -- this is a current beaded fringe mini in the same rotating-sparkle spirit as the tour wardrobe." }],
     },
     {
@@ -5243,6 +5249,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-1.jpg?w=980&q=75", credit: "TSA / Getty Images", kind: "primary" }, { url: "https://townsquare.media/site/252/files/2013/03/Taylor-Swift-2.jpg?w=980&q=100", credit: "TSA / Getty Images", kind: "archival" }],
       sources: [{ name: "PopCrush", url: "https://popcrush.com/taylor-swift-red-tour-rehearsal-pics/" }],
+      relatedIds: ["moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha", "moment:vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks", "moment:vault-red-the-red-tour-takes-its-final-bow-in-singapore", "moment:vault-red-the-red-tour-closes-as-the-highest-grossing-country-tour-of-"],
     },
     {
       id: "vault-red-we-are-never-ever-getting-back-together-becomes-her-first-ev",
@@ -5266,6 +5273,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Taylor_Swift_Red_Tour_2013.jpg/500px-Taylor_Swift_Red_Tour_2013.jpg", credit: "Jana Zills / Wikimedia Commons", kind: "primary", focalPoint: "45% 28%" }, { url: "https://upload.wikimedia.org/wikipedia/commons/a/a6/Taylor_Swift_-_RED_Tour_-_Singapore_-_Mean_%28night_1%29.jpg", credit: "Weslam123 / Wikimedia Commons (CC BY-SA 4.0)", kind: "archival", focalPoint: "42% 12%" }],
       sources: [{ name: "Billboard", url: "https://billboard.com/articles/news/6150193/taylor-swift-red-all-time-country-tour" }],
+      relatedIds: ["moment:vault-red-caught-mid-rehearsal-for-the-red-tour-days-before-it-opened", "moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha", "moment:vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks", "moment:vault-red-the-red-tour-takes-its-final-bow-in-singapore"],
       significance: "notable",
     },
     {
@@ -5542,6 +5550,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Tour"],
       images: [{ url: "https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg/500px-Taylor_Swift_RED_Tour_2014%2C_Singapore.jpg", credit: "Weslam123 via Wikimedia Commons (CC BY-SA 4.0)", caption: "Performing at the Singapore Indoor Stadium on June 9, 2014, during the Red Tour's closing Singapore stand.", kind: "primary" }],
       sources: [{ name: "The Red Tour", url: "https://en.wikipedia.org/wiki/The_Red_Tour" }],
+      relatedIds: ["moment:vault-red-caught-mid-rehearsal-for-the-red-tour-days-before-it-opened", "moment:vault-red-the-red-tour-opens-with-ed-sheeran-in-omaha", "moment:vault-red-128-costumes-for-the-red-tour-hand-built-in-three-weeks", "moment:vault-red-the-red-tour-closes-as-the-highest-grossing-country-tour-of-"],
     },
     {
       id: "vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1",

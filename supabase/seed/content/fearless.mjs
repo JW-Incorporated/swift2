@@ -1011,6 +1011,11 @@ export default {
       // now points at the companion team-05.jpg, which does show her. See the
       // photos array below for the full note on that swap.
       thumbnailUrl: 'https://jj-justjaredjr-media.s3.amazonaws.com/wp-content/uploads/2009/07/lautner-swift/taylor-lautner-taylor-swift-team-05.jpg',
+      relatedIds: [
+        'moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center',
+        'moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner',
+        'moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner',
+      ],
       moment: {
         context:
           'Shot July 30, 2009, the candids show Lautner clearing a high-jump bar on the track-and-field equipment while the pair filmed their Valentine’s Day roles as high school sweethearts — among the earliest public photos of the two Taylors together.\n\nThe Garry Marshall ensemble rom-com, released Feb. 12, 2010, cast Swift as Felicia and Lautner as Willy — a young couple written to represent "the freshness of new love" — in what was her feature-film acting debut. The chemistry visible in these set photos read on screen, too: the pair went on to earn a Best Kiss nomination at the 2010 MTV Movie Awards.',
@@ -1064,6 +1069,11 @@ export default {
       snippet: 'Spotted together at a Kings–Blue Jackets game after she picked him up from LAX — the outing that confirmed the "Taylor Squared" romance rumors.',
       sourceUrl: 'https://theboot.com/taylor-swift-taylor-lautner-3/',
       thumbnailUrl: 'https://media.gettyimages.com/id/92338597/photo/columbus-blue-jackets-v-los-angeles-kings.jpg?s=594x594&w=0&k=20&c=mRN-Vj_Vy27121bqUS3wWF1EjIx5iemjLkCSp5v9gn4=',
+      relatedIds: [
+        'moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner',
+        'moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner',
+        'moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner',
+      ],
       moment: {
         context:
           'On Oct. 25, 2009, Swift picked Lautner up from the airport and the two headed to a Los Angeles Kings–Columbus Blue Jackets game at the Staples Center, then were seen together in a Beverly Hills hotel lobby that night.\n\nAn eyewitness said Swift "was all dolled up and looked super pretty," while Lautner "was hiding under a hoody."',
@@ -1098,6 +1108,11 @@ export default {
       sourceUrl: 'https://www.billboard.com/music/music-news/taylor-lautner-talks-taylor-swift-relationship-call-her-daddy-1235556301/',
       thumbnailUrl:
         'https://media.gettyimages.com/id/2230719065/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=nIIEsh_b-K1G32j7WfSWEA62lLJKWGPGESEdoxpAWww=',
+      relatedIds: [
+        'moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner',
+        'moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center',
+        'moment:vault-fearless-benihana-and-menchies-frozen-yogurt-with-taylor-lautner',
+      ],
       moment: {
         context:
           'They met on the Valentine\'s Day set in 2009 playing high-school sweethearts, and the off-screen version lasted a few months before ending quietly.\n\nIt took until 2023, on Call Her Daddy, for Lautner to confirm on the record who ended it — "she did" — while making clear there was no bitterness left: he called the rekindling of their friendship "one of the greater things to happen in my life over the last year," adding, "when you respect somebody for who they are, like in their soul, it allows you to move on, forgive and continue that love in a different way."',
@@ -1137,6 +1152,11 @@ export default {
       snippet: 'Photographed leaving a Beverly Hills dinner with Taylor Lautner, carrying a giant pink box and a stuffed polar bear.',
       sourceUrl: 'https://www.justjaredjr.com/2009/12/04/taylor-lautner-taylor-swift-benihana-buds/',
       thumbnailUrl: 'https://media.gettyimages.com/id/2230718733/photo/celebrity-sightings-bauer-griffin-2009.jpg?s=594x594&w=0&k=20&c=uw4mj6X64bIucRaYDJQvGPQFTGIKZdPj-q1YXerW31Q=',
+      relatedIds: [
+        'moment:vault-fearless-caught-on-the-valentines-day-set-with-taylor-lautner',
+        'moment:vault-fearless-a-hockey-date-with-taylor-lautner-at-the-staples-center',
+        'moment:vault-fearless-a-few-months-with-her-valentines-day-co-star-taylor-lautner',
+      ],
       moment: {
         context:
           'On Dec. 3, 2009, after afternoon reshoots for Valentine’s Day at a local high school, Swift and Lautner grabbed a snack at Menchie’s Frozen Yogurt and met up with co-star Emma Roberts (in a brunette wig) before heading to dinner at Benihana in Beverly Hills.\n\nThe paparazzi set caught the details that made the outing a fan favorite: the pair leaving with a giant pink box — presumed chocolates, per Just Jared Jr. — and a giant stuffed polar bear. The day had started as work, with the reshoots staged in the bleachers of a football field, and ended as one of the pair’s last widely photographed outings before the quiet December breakup.',
