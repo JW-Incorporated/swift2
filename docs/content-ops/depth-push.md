@@ -134,7 +134,7 @@ Read docs/content-ops/privacy-redlines.md. Its Never-OK list overrides everythin
 
 === ANSWERING ===
 For each question, research a sourced answer with WebSearch/WebFetch and edit the seed:
-- Extend the prose (moment.context, or a song's note/dossier). moment.context has a HARD 2000-character cap - tighten rather than exceed.
+- Extend the prose (moment.context, or a song's note/dossier). moment.context has a HARD 4000-character cap enforced by a DB CHECK (`supabase/migrations/20260722120000_moment_context_4000.sql`; `validate-content.mjs` mirrors it) - tighten rather than exceed. (Was 2000 before the 2026-07-22 migration; a tight page still beats a padded one, so treat the extra room as headroom for genuinely new sourced facts, not licence to pad.)
 - Add `sources` entries with a reliability_score.
 - Add `photos` ONLY when verified: HTTP 200 + Content-Type image/*, downloaded and vision-confirmed as the exact subject, >=400px, credited. Never a watermarked media.gettyimages.com comp.
 - IF A SOURCE WILL NOT FETCH, retry with a browser User-Agent before calling it unverifiable - many outlets 403 a default fetcher while serving browsers fine:
