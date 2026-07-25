@@ -222,6 +222,12 @@ export default {
       day: 16,
       category: 'business',
       title: "Speak Now (Taylor's Version) has 2023's biggest album week to that point",
+      // Cross-link (candidate #1451): the "I Can See You" video — this release's
+      // marquee vault track — premiered live in Kansas City the same night the
+      // album dropped.
+      relatedIds: [
+        'moment:vault-midnights-the-i-can-see-you-video-reunites-the-taylors',
+      ],
       snippet:
         "716,000 units in week one, the biggest album week of 2023 to that point — her 12th No. 1 on the Billboard 200.",
       sourceUrl:
@@ -3602,6 +3608,12 @@ export default {
     },
     {
       slug: 'speak-now-tv-announced-nashville',
+      // Cross-link (candidate #1317): the "Bejeweled" video's easter eggs (three
+      // stepsisters, an orchestral "Long Live") were read as pointing to Speak
+      // Now as the next re-record — this is where that prediction paid off.
+      relatedIds: [
+        'moment:vault-midnights-bejeweled-arrives-with-a-psychotic-amount-of-easter-eggs',
+      ],
       threadIds: ['taylors-version'],
       year: 2023,
       month: 5,
@@ -3805,6 +3817,12 @@ export default {
     },
     {
       slug: 'swift-quake-seattle',
+      // Cross-link (candidate #1309): the Edinburgh/Murrayfield 2024 stand whose
+      // crowd also registered as real seismic activity — the two "her concert is
+      // an earthquake" moments, two eras apart.
+      relatedIds: [
+        'moment:vault-ttpd-three-nights-three-scottish-attendance-records-at-murrayfiel',
+      ],
       significance: 'notable', // a genuinely unusual, scientifically documented cultural phenomenon — a real seismologist's read on a real seismometer (docs/decisions.md, 2026-07-19)
       year: 2023,
       month: 7,

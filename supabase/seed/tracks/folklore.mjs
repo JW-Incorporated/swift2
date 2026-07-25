@@ -39,6 +39,71 @@ export default {
       themes: ['the one that got away', 'wistful acceptance', 'parallel lives'],
       sourceUrl: 'https://en.wikipedia.org/wiki/The_1',
       sources: [wiki('The 1', 'The_1', 'song article: composition'), ALBUM],
+      // Dossier researched 2026-07-25 (ledger #1482): every chart/cert/live
+      // claim verified against the linked Wikipedia article this pass.
+      dossier: {
+        whyItMatters: [
+          'The album’s opener sets folklore’s whole thesis in its first breath — a casual, mildly profane throwaway line where a confessional "track one" is expected. The gesture signals the pivot the record makes: away from first-person diary and toward composed, fictional character work.',
+          'It was also a genuine hit for a song that was never a single. In folklore’s debut week "the 1" reached No. 4 on the Hot 100 while "cardigan" sat at No. 1 and "exile" at No. 6 — making Swift the first artist ever to hold three of the Hot 100’s top six spots simultaneously.',
+        ],
+        meaning: {
+          confirmed: [
+            'Written by Swift with Aaron Dessner and produced by Dessner, "the 1" was among the very last two songs composed for folklore, alongside "hoax." Dessner thought the album was finished when Swift sent him a voice memo of the lyrics days before release; he called it "one of the very last things we did." It was built at Long Pond (Hudson Valley) with vocals cut in Los Angeles, on a reverb-soaked piano, acoustic and electric guitars, Mellotron, OP-1, synth bass and programmed drums, with orchestration from Bryce Dessner.',
+          ],
+          supported: [
+            'Never released as a single, it still peaked at No. 4 on the Hot 100 and charted internationally (Australia No. 4, Canada No. 7, UK No. 10, New Zealand and Ireland No. 7), and was later certified Platinum by the RIAA — chart reach that reads as the album’s across-the-board debut-week strength rather than a promoted push.',
+            'Critics read it as understated devastation: the New Statesman’s Anna Leszkiewicz found it "wistful but refreshingly lacking in regret," and Business Insider’s Callie Ahlgrim called it among Swift’s "most relatable and stirring." The Atlantic’s Spencer Kornhaber dissented, hearing its "solemnity" as "forced."',
+          ],
+          fanTheories: [
+            'folklore is framed around invented stories, but Swift confirmed the fictional love triangle only for "cardigan"/"betty"/"august." She has never tied "the 1" to her own life or explicitly called it a character piece, so the autobiographical-vs-fiction question is unresolved on the record — read it as deliberately ambiguous rather than confirmed either way.',
+          ],
+        },
+        connections: [
+          {
+            relatedId: 'song:hoax',
+            label: 'hoax',
+            why: 'Its twin: Dessner has said "the 1" and "hoax" were the last two songs made for folklore, added days before release when he thought the record was done.',
+          },
+          {
+            relatedId: 'song:cardigan',
+            label: 'cardigan',
+            why: 'The lead single that hit No. 1 the same week "the 1" hit No. 4 — two-thirds of the top-six trio that made Swift the first artist to hold three of the Hot 100’s top six at once.',
+          },
+          {
+            relatedId: 'song:exile',
+            label: 'exile',
+            why: 'The No. 6 debut that completed that same top-six trio in folklore’s first week.',
+          },
+        ],
+        live: [
+          {
+            date: '2020-11-25',
+            event: 'folklore: the long pond studio sessions',
+            note: 'Performed live-in-studio for the Disney+ film that walked through the whole album.',
+          },
+          {
+            date: '2023-03-31',
+            event: 'The Eras Tour',
+            note: 'Entered the folklore set on March 31, 2023 (Arlington), replacing "invisible string," and stayed through the May 9, 2024 Paris show.',
+          },
+        ],
+        voices: [
+          {
+            who: 'Anna Leszkiewicz',
+            context: 'New Statesman',
+            note: 'Heard it as "wistful but refreshingly lacking in regret."',
+          },
+          {
+            who: 'Spencer Kornhaber',
+            context: 'The Atlantic',
+            note: 'The lone dissent — found its "solemnity" "forced."',
+          },
+        ],
+        sources: [
+          { name: 'The 1 — Wikipedia', url: 'https://en.wikipedia.org/wiki/The_1' },
+          { name: 'Folklore (Taylor Swift album) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)' },
+        ],
+      },
     },
     {
       slug: 'cardigan',
@@ -469,7 +534,7 @@ export default {
         'Confirmed: the triangle from James’s perspective, with names borrowed from Blake Lively and Ryan Reynolds’ daughters — a fact confirmed when the couple’s third child’s name matched.',
       themes: ['apology', 'teenage recklessness', 'asking forgiveness'],
       easterEggs:
-        'Its country-radio single push and CMA-adjacent performance were the era’s single wink back at her first genre.',
+        'Its country-radio single push and its 2020 ACM Awards performance were the era’s single wink back at her first genre.',
       sourceUrl: 'https://en.wikipedia.org/wiki/Betty_(Taylor_Swift_song)',
       sources: [
         wiki(
@@ -479,6 +544,66 @@ export default {
         ),
         ALBUM,
       ],
+      // Dossier researched 2026-07-25 (ledger #1473): chart, single, awards-show
+      // and live claims verified against the linked Wikipedia article this pass.
+      dossier: {
+        whyItMatters: [
+          'It is the boy’s corner of folklore’s only confirmed love triangle — James apologizing to Betty for the summer fling that "august" narrates — and the one time Swift builds an entire song around a first-person narrator who is neither her nor sympathetic by default.',
+          'It doubled as the era’s single nod back to her origins: serviced to US country radio and given a country-awards-show debut, it was Swift’s first country-format single push since the 1989 pivot away from the genre.',
+        ],
+        meaning: {
+          confirmed: [
+            'Written by Swift with Joe Alwyn under the William Bowery pseudonym, "betty" is the only folklore track produced by both Aaron Dessner and Jack Antonoff (with Swift). Swift has said she heard Alwyn singing the "fully formed chorus" from another room during quarantine and asked to finish it with him. Built on guitars, pedal steel and harmonica, it turns on a key change after the bridge.',
+            'Swift confirmed the narrator names — James, Inez and Betty — were borrowed from the children of Blake Lively and Ryan Reynolds, and stated in the song’s framing that James is seventeen. Because the lyric never assigns James a gender, some listeners first read it through a queer lens; the seventeen-year-old-boy narrator is the on-record reading.',
+          ],
+          supported: [
+            'It reached No. 42 on the Hot 100 and No. 6 on Hot Country Songs (Swift’s 22nd top-ten there), was released to US country radio on August 17, 2020, and was certified Gold in both Canada and the UK.',
+            'Critics singled it out: Rolling Stone’s Rob Sheffield ranked it among folklore’s three best and likened its harmonica solo to Springsteen’s "Thunder Road"; The Atlantic’s Spencer Kornhaber praised its "suspenseful" storytelling; Paste named it one of 2020’s best country songs for the empathy of writing from a "regretful" teenage boy’s view.',
+          ],
+          fanTheories: [
+            'The lyric references a cardigan, tying James’s account directly to Betty’s own in "cardigan"; the exact reconciliation ending — whether Betty takes him back on the porch — is left deliberately open in the text.',
+          ],
+        },
+        connections: [
+          {
+            relatedId: 'song:cardigan',
+            label: 'cardigan',
+            why: 'Betty’s side of the same triangle — the cardigan James invokes here is the title image of her song; the two are the boy’s and the girl’s accounts of one summer.',
+          },
+          {
+            relatedId: 'song:august',
+            label: 'august',
+            why: 'The third corner: the unnamed other girl’s POV of the affair James is apologizing for, the summer "betty" keeps referring back to.',
+          },
+        ],
+        live: [
+          {
+            date: '2020-09-16',
+            event: '55th Academy of Country Music Awards',
+            note: 'Live debut at the Grand Ole Opry House — Swift’s first country-show performance in seven years, on acoustic guitar with harmonica; the live version released two days later.',
+          },
+          {
+            date: '2023',
+            event: 'The Eras Tour',
+            note: 'Part of the folklore set across 2023–24 (the second verse dropped in the 2024 leg).',
+          },
+        ],
+        voices: [
+          {
+            who: 'Rob Sheffield',
+            context: 'Rolling Stone',
+            note: 'Ranked it among folklore’s three best; heard Springsteen’s "Thunder Road" in the harmonica.',
+          },
+          {
+            who: 'Paste',
+            note: 'Named it one of 2020’s best country songs for its empathy toward a "regretful" teenage narrator.',
+          },
+        ],
+        sources: [
+          { name: 'Betty (Taylor Swift song) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Betty_(Taylor_Swift_song)' },
+          { name: 'Folklore (Taylor Swift album) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Folklore_(Taylor_Swift_album)' },
+        ],
+      },
     },
     {
       slug: 'peace',
