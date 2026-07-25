@@ -2514,6 +2514,9 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "1989-album",
+      // Cross-link (candidate #1405): The Life of a Showgirl — the return of the
+      // Max Martin/Shellback pop machinery first built on 1989.
+      relatedIds: ["moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel"],
       year: 2014,
       month: 10,
       day: 27,
