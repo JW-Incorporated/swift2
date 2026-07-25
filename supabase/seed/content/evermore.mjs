@@ -1684,7 +1684,8 @@ export default {
     {
       slug: 'all-too-well-short-film-premiere',
       significance: 'notable', // her feature directorial debut, the artistic follow-through on the 10-minute version's record-setting run (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever'],
+      relatedIds: [
+          'moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins','moment:vault-evermore-all-too-well-10-minute-version-becomes-the-longest-song-ever'],
       year: 2021,
       month: 11,
       day: 12,

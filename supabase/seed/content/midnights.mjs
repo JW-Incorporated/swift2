@@ -621,6 +621,7 @@ export default {
       category: 'business',
       significance: 'defining', // global-recognition peak of the Eras Tour year (docs/decisions.md, 2026-07-19)
       relatedIds: [
+          'moment:vault-midnights-the-eras-tour-makes-the-federal-reserves-beige-book',
         'moment:vault-ttpd-an-endorsement-signed-childless-cat-lady',
         // Same-day sibling: the cover-shoot fashion item (Inez & Vinoodh, the
         // Benjamin Button cover). Curiosity ledger #888, Q4.
@@ -754,7 +755,8 @@ export default {
       day: 9,
       category: 'relationship',
       significance: 'defining', // the end of a 6-year relationship and the direct precursor to the Kelce era (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-the-game-the-world-decided-made-it-official'],
+      relatedIds: [
+          'moment:vault-midnights-youre-losing-me-finally-hits-streaming','moment:vault-midnights-the-game-the-world-decided-made-it-official'],
       title: 'Taylor and Joe Alwyn confirm their breakup after six years',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
@@ -1490,6 +1492,7 @@ export default {
       category: 'business',
       significance: 'defining', // most Album of the Year wins ever, breaking her own tie with music history's biggest names (docs/decisions.md, 2026-07-19)
       relatedIds: [
+          'moment:vault-midnights-thirteen-sleepless-nights',
         'moment:vault-fearless-fearless-makes-her-the-youngest-album-of-the-year-winner-for',
         'moment:vault-1989-1989-wins-album-of-the-year-making-her-the-first-woman-to-wi',
         'moment:vault-folklore-folklore-makes-her-the-first-woman-to-win-album-of-the-year-',
@@ -3326,6 +3329,7 @@ export default {
       slug: 'eras-tour-presale-meltdown',
       significance: 'defining', // reshaped the national conversation about ticketing and market power (docs/decisions.md, 2026-07-19)
       relatedIds: [
+          'moment:vault-midnights-six-for-six-at-the-amas-and-past-40-career-wins',
         'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
         'moment:vault-midnights-the-senate-holds-a-ticketmaster-hearing-in-swiftie-puns',
       ],
@@ -3702,6 +3706,7 @@ export default {
       // Cross-link (ledger #1450): the video premiered the night Speak Now (TV)
       // dropped — thread it to that release's record album-week moment.
       relatedIds: [
+          'moment:vault-ttpd-show-100-at-anfield-and-the-news-the-tour-will-end',
         'moment:vault-midnights-speak-now-taylors-version-has-2023s-biggest-album-week-to-th',
       ],
       year: 2023,
@@ -4262,6 +4267,7 @@ export default {
       // (Song links to "Our Song"/"You're On Your Own, Kid" can't render here —
       // moment relatedIds resolve only to moments, not tracks.)
       relatedIds: [
+          'moment:vault-tloas-an-album-release-party-wins-the-box-office-34-1m-domestic-50',
         'moment:vault-midnights-the-presale-that-broke-ticketmaster-and-set-a-sales-record-a',
         'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
         'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
@@ -4522,6 +4528,7 @@ export default {
       // Cross-links (ledger #1248, Q-cross-links): the relationship going public
       // and the Dec. 2023 TIME Person of the Year cover from the same window.
       relatedIds: [
+          'moment:vault-midnights-travis-confirms-it-on-the-record',
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
         'moment:vault-midnights-time-names-her-2023-person-of-the-year',
       ],
@@ -4605,7 +4612,8 @@ export default {
       category: 'music',
       // Cross-link (ledger #1251, Q-cross-links): it dropped in the same week as
       // the Spotify-2023 crown / TIME Person of the Year recognition.
-      relatedIds: ['moment:vault-midnights-time-names-her-2023-person-of-the-year'],
+      relatedIds: [
+          'moment:vault-midnights-taylor-and-joe-alwyn-confirm-their-breakup-after-six-years','moment:vault-midnights-time-names-her-2023-person-of-the-year'],
       title: '"You\'re Losing Me" finally hits streaming',
       snippet:
         'The Midnights bonus track fans treated as the Alwyn-breakup rosetta stone went wide on Nov. 29 — her thank-you for being named Spotify\'s top global artist of 2023.',
@@ -4930,6 +4938,7 @@ export default {
       // Cross-links (ledger #1269, 2026-07-24): the rollout reveal, the 3am
       // surprise, the top-ten sweep, and the Grammy payoff this album won.
       relatedIds: [
+          'moment:vault-midnights-anti-hero-dominates',
         'moment:vault-midnights-a-record-fourth-album-of-the-year-grammy-for-midnights',
         'moment:vault-midnights-the-3am-edition-surprise',
         'moment:vault-midnights-midnights-mayhem-with-me-a-bingo-cage-announces-the-tracklis',
