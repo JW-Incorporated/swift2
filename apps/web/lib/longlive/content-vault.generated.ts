@@ -7997,6 +7997,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://www.billboard.com/wp-content/uploads/2024/10/taylor-swift-glitter-freckles-chiefs-game-2024-billboard-1548.jpg?w=942&h=628&crop=1", credit: "Jamie Squire/Getty Images", kind: "primary", focalPoint: "53% 40%" }],
       sources: [{ name: "Today", url: "https://www.today.com/popculture/music/chiefs-schedule-2024-taylor-swift-rcna152582" }, { name: "Billboard", url: "https://www.billboard.com/music/music-news/taylor-swift-monday-night-football-style-glitter-freckles-plaid-dress-boots-1235795383/" }],
+      threadIds: ["the-proposal"],
     },
     {
       id: "vault-ttpd-date-night-at-yankee-stadium-for-alcs-game-1",
@@ -8009,6 +8010,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://img.mlbstatic.com/mlb-images/image/upload/t_2x1/t_w1536/mlb/gbi9ws0peesvkjm8m0ye.jpg", credit: "MLB.com", caption: "Swift and Kelce — both in caps, popcorn in reach — in the right-field suite during Game 1 of the 2024 ALCS at Yankee Stadium.", kind: "primary", focalPoint: "47% 27%" }, { url: "https://img.mlbstatic.com/mlb-images/image/upload/t_16x9/t_w1536/mlb/rghl1u3zla8wyqz8xfw1.jpg", credit: "MLB.com", caption: "A broadcast frame from the same suite: Swift mid-laugh in a black cap as the Yankees took Game 1, 5-2.", kind: "archival", focalPoint: "51% 44%" }],
       sources: [{ name: "Taylor Swift and Travis Kelce in attendance for Game 1 of Guardians-Yankees ALCS series", url: "https://www.espn.com/nfl/story/_/id/41796394/taylor-swift-travis-kelce-new-york-yankees-cleveland-guardians-alcs-game-one" }, { name: "Taylor Swift and Travis Kelce attend ALCS Game 1 2024", url: "https://www.mlb.com/news/taylor-swift-travis-kelce-attend-alcs-game-1-2024" }, { name: "Taylor Swift reacts to Juan Soto's home run", url: "https://www.mlb.com/yankees/video/taylor-swift-reacts-to-juan-soto-s-home-run" }, { name: "Travis Kelce Talks 'Mixed Feelings' Attending Yankees vs. Guardians With Taylor Swift", url: "https://bleacherreport.com/articles/10139652-travis-kelce-talks-mixed-feelings-attending-yankees-vs-guardians-with-taylor-swift" }, { name: "Taylor Swift and Travis Kelce Wear Midnight Rodeo Hats to Yankees Game", url: "https://wwd.com/pop-culture/celebrity-news/taylor-swift-travis-kelce-midnight-rodeo-hat-yankees-game-1236684448/" }],
+      threadIds: ["the-proposal"],
     },
     {
       id: "vault-ttpd-the-tour-comes-home-three-nights-in-miami-with-florence-welc",
@@ -8123,6 +8125,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://assets3.cbsnewsstatic.com/hub/i/r/2025/02/10/730950cd-100f-4bdf-9500-9ddfae69e3a2/thumbnail/620x413/17ecc99a76627497275a0395c0802f6e/gettyimages-2198604289.jpg", credit: "Getty Images", kind: "primary", focalPoint: "37% 38%" }, { url: "https://www.billboard.com/wp-content/uploads/2025/02/taylor-swift-super-bowl-lix-2025-billboard-1548.jpg?w=1024", credit: "Jamie Squire/Getty Images via Billboard", caption: "Ice Spice and Taylor Swift at Super Bowl LIX at Caesars Superdome, Feb. 9, 2025.", kind: "archival", focalPoint: "52% 40%" }],
       sources: [{ name: "CBS News Philadelphia", url: "https://www.cbsnews.com/philadelphia/news/taylor-swift-philadelphia-eagles-fans-boo-super-bowl/" }, { name: "E! News", url: "https://www.eonline.com/news/1413228/super-bowl-taylor-swift-booed-on-jumbotron" }],
+      threadIds: ["the-proposal"],
     },
     {
       id: "vault-ttpd-super-bowl-lix-an-oversized-white-blazer-in-chiefs-colors",
@@ -8231,6 +8234,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       images: [{ url: "https://images2.minutemediacdn.com/image/upload/c_crop,x_0,y_0,w_594,h_334/c_fill,w_720,ar_16:9,f_auto,q_auto,g_auto/images/voltaxMediaLibrary/mmsport/si/01jhxrrtgddvpfcwhn8k.jpg", credit: "Jamie Squire/Getty Images", kind: "primary", focalPoint: "73% 37%" }],
       sources: [{ name: "Sports Illustrated", url: "https://www.si.com/wnba/caitlin-clark-watching-chiefs-texans-playoff-game-suite-taylor-swift" }],
       relatedIds: ["moment:vault-tloas-back-at-arrowhead-with-caitlin-clark-nine-days-after-her-alb", "moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t"],
+      threadIds: ["the-proposal"],
     },
     {
       id: "vault-ttpd-a-confetti-kiss-after-the-chiefs-punch-their-super-bowl-tick",
@@ -8242,6 +8246,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://i.abcnewsfe.com/a/5bb420d4-c3a8-46c8-91e6-d0ba2429a491/taylor-swift3-ap-ml-250127_1737980318936_hpMain.jpg", credit: "AP", kind: "primary", focalPoint: "55% 32%" }, { url: "https://i.abcnewsfe.com/a/746ae3a7-ce19-4c9c-a703-bc8dfc6d5f42/taylor-swift1-gty-ml-250127_1737980240663_hpEmbed_17x16.jpg", credit: "Getty Images", kind: "archival", focalPoint: "52% 40%" }],
       sources: [{ name: "ABC News", url: "https://abcnews.com/GMA/Culture/taylor-swift-celebrates-kansas-city-chiefs-afc-win/story?id=118133249" }],
+      threadIds: ["the-proposal"],
     },
     {
       id: "vault-ttpd-a-pink-mini-dress-for-a-saturday-night-dinner-date",
@@ -8253,6 +8258,7 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       tags: ["Lore"],
       images: [{ url: "https://s.yimg.com/lo/mysterio/api/e87265b9418c6734bbad1f64b2faae25457007c449be9b004c51a96dce1798ab/lightyear_networkapi/resizefill_w461_h1024;quality_80;format_webp/https:%2F%2Fmedia.zenfs.com%2Fen%2Fpage_six_articles_559%2F89c5d1c1ef03b7418b67a546d78fe729", credit: "The Image Direct", kind: "primary", focalPoint: "53% 12%" }, { url: "https://akns-images.eonline.com/eol_images/Entire_Site/20250630/a3a86034-2ab6-49c1-bc30-2f5ade7cf52b_1751297982.jpg", credit: "Via E! News", caption: "Hand in hand with Travis on the way into dinner, June 28, 2025.", kind: "archival", focalPoint: "70% 28%" }],
       sources: [{ name: "TMZ", url: "https://www.tmz.com/2025/06/29/taylor-swift-travis-kelce-new-york-city-dinner-date/" }, { name: "E! News", url: "https://www.eonline.com/news/1419311/taylor-swift-wears-s22-500-necklace-on-travis-kelce-date-night" }],
+      threadIds: ["the-proposal"],
       products: [{ brand: "Balmain", item: "Strappy Houndstooth Tweed A-Line Dress", retailer: "nordstrom.com", url: "https://www.nordstrom.com/s/strappy-houndstooth-tweed-a-line-dress/8377396", price: "$3,500.00", inStock: false }, { brand: "Christian Louboutin", item: "Miss Jane Sandal", retailer: "nordstrom.com", url: "https://www.nordstrom.com/s/christian-louboutin-miss-jane-sandal-women/7544624", price: "$945.00", isAlternative: true, altNote: "Same Miss Jane sandal she wore; the exact taupe (\"Leche\") colorway sells only on Louboutin's own site — this Nordstrom listing is Blush/Black." }],
     },
     {
