@@ -2201,6 +2201,8 @@ export default {
     // re-checked.
     {
       slug: 'bluebird-cafe-showcase',
+      // Cross-link (candidate #1319): the debut single that scouting night led to.
+      relatedIds: ['moment:vault-debut-tim-mcgraw-arrives'],
       year: 2004,
       month: 11,
       category: 'business',
