@@ -25,7 +25,15 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 93
+Stories: 94
+
+## Bad blood: The inside story of how a Taylor Swift ticket scam fractured a tight-knit community of Bu
+
+- first seen: 2026-07-25 14:41 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Bad blood: The inside story of how a Taylor Swift ticket scam fractured a tight-knit community of Burlington parents  The Spec
+- sources:
+  - [unverified] The Spec — https://news.google.com/rss/articles/CBMiyAFBVV95cUxNVjhMN1pfcU9PTkFMZjJqbHhiYUE1QmJmYk4yeHZiUDRfNHZkeFQ1N1g2UVhacHNCUkFyWkRqLWs5cGIxa2hDSWl3NzJOS0RxX2lJN1lZOXk1YzRib3BSUk50N296MjVtaWNRZFpXOE1EZENjb0c0VUhLZ0xsRFR0RnJXd1lOem5OUTFCc1RJT3hGT0drRDZmdGdlaVk2bzlBYlB5OUNlRnZEZzVhQnlDM2MwU1Itckk5SXlqOExfTmIxdU96bGJ2aA?oc=5
 
 ## Was Taylor Swift’s Marriage Valid? - Catholic Answers
 
