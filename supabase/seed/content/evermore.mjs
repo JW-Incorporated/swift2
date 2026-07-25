@@ -83,6 +83,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/9/9a/Taylor_Swift_-_Willow.png',
+            focalPoint: '47% 52%',
             credit: 'Republic Records',
           },
         ],
@@ -142,6 +143,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/hP6QpMeSG6s/hqdefault.jpg',
+            focalPoint: '33% 40%',
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption:
               'Still from the official "marjorie" lyric video — a photograph of Marjorie Finlay herself — via the video\'s YouTube thumbnail.',
@@ -221,6 +223,7 @@ export default {
         photos: [
           {
             url: 'https://upload.wikimedia.org/wikipedia/en/c/c7/Coney_island_cover.jpeg',
+            focalPoint: '50% 42%',
             credit: 'Republic Records',
           },
         ],
@@ -1403,6 +1406,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/ukxEKY_7MOc/hqdefault.jpg',
+            focalPoint: '42% 70%',
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption: 'Still from the official "tolerate it" lyric video, via the video\'s YouTube thumbnail.',
             kind: 'archival',
@@ -1912,6 +1916,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/Pz-f9mM3Ms8/hqdefault.jpg',
+            focalPoint: '50% 48%',
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption: 'Still from the official "gold rush" lyric video, via the video\'s YouTube thumbnail.',
             kind: 'archival',
@@ -1959,6 +1964,7 @@ export default {
         photos: [
           {
             url: 'https://i.ytimg.com/vi/WuvhOD-mP8M/hqdefault.jpg',
+            focalPoint: '32% 45%',
             credit: 'Republic Records / YouTube (official lyric video still)',
             caption: 'Still from the official "\'tis the damn season" lyric video, via the video\'s YouTube thumbnail.',
             kind: 'archival',
