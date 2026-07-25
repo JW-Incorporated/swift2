@@ -5024,6 +5024,8 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "midnights-3am",
+      // Cross-link (candidate #1336): the standard Midnights whose 3am edition this extends.
+      relatedIds: ['moment:vault-midnights-thirteen-sleepless-nights'],
       year: 2022,
       month: 10,
       day: 22,
