@@ -28,6 +28,8 @@ export default {
       // thread it forward to the album it announced, the same-day portraits,
       // and the record-shattering debut week that followed.
       relatedIds: [
+          'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
+          'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
         'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
@@ -305,6 +307,7 @@ export default {
       // same-day portraits, the five song pages, and the four chart-record
       // pages. IDs are the generated vault ids (vault-tloas-<slugified title>).
       relatedIds: [
+          'moment:vault-tloas-a-release-date-that-costs-a-grammy-shot-showgirl-misses-the-',
         'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
         'moment:vault-tloas-the-showgirl-portraits-mert-and-marcus-rhinestones-and-an-op',
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
@@ -780,6 +783,9 @@ export default {
       // Cross-links (ledger #976, 2026-07-20): the record the album (release-day)
       // set, powered by the vinyl week, alongside the concurrent Hot 100 sweep.
       relatedIds: [
+          'moment:vault-tloas-twelve-weeks-at-no-1-through-the-entire-holiday-season',
+          'moment:vault-tloas-luminates-2025-crown-5-6-million-units-no-contest',
+          'moment:vault-tloas-a-record-setting-debut',
         'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
@@ -1351,6 +1357,8 @@ export default {
       // lead single is the hub of the release cluster. Every id below was
       // verified to resolve against the generated vault (no silent drops).
       relatedIds: [
+          'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
+          'moment:vault-tloas-the-rock-hall-puts-the-ophelia-gown-in-legends-of-rock',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-all-12-tracks-debut-as-the-hot-100s-entire-top-12',
         'moment:vault-tloas-spotifys-2025-single-day-streaming-record-falls-in-under-11-',
@@ -1514,6 +1522,7 @@ export default {
       // masters/Big Machine story critics read the song as retelling from the
       // patron's side.
       relatedIds: [
+          'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
       ],
@@ -1668,6 +1677,7 @@ export default {
       // audio plays over its final seconds (the filed crosslink candidate), and
       // the opener it bookends.
       relatedIds: [
+          'moment:vault-ttpd-sabrina-carpenter-crashes-the-superdome',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
@@ -2078,6 +2088,7 @@ export default {
     {
       slug: 'end-of-an-era-docuseries',
       relatedIds: [
+          'moment:vault-ttpd-vienna-cancelled-a-foiled-plot-three-sold-out-shows',
         'moment:vault-tloas-the-final-show-the-full-vancouver-closer-streaming-at-last',
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
@@ -2157,6 +2168,7 @@ export default {
       slug: 'eras-tour-final-show-film',
       significance: 'notable', // the tour's actual closing chapter made permanently available, companion to the already-defining Vancouver finale (docs/decisions.md, 2026-07-19)
       relatedIds: [
+          'moment:vault-tloas-the-title-track-hands-the-last-word-to-sabrina-carpenter',
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
         'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
         'moment:vault-tloas-the-eras-tour-film-pulls-five-emmy-nominations-her-first-nod',
@@ -2748,6 +2760,7 @@ export default {
       // Cross-link deficit closed (2026-07-21, depth ledger #983 Q9): the era's
       // defining anchor now threads to its full engagement/wedding cluster.
       relatedIds: [
+          'moment:vault-tloas-stevie-knicks-courtside-the-garden-three-weeks-before-the-we',
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
         'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
@@ -3206,6 +3219,7 @@ export default {
       day: 20,
       category: 'relationship',
       relatedIds: [
+          'moment:vault-tloas-the-ring-an-old-mine-diamond-from-a-goldsmith-taylor-already',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
       ],
@@ -4239,6 +4253,7 @@ export default {
       significance: 'defining', // the direct precursor to the wedding, one of the most-repeated cultural moments of 2025 (docs/decisions.md, 2026-07-19)
       threadIds: ['the-proposal'],
       relatedIds: [
+          'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
         'moment:vault-midnights-the-game-the-world-decided-made-it-official',
         'moment:vault-midnights-super-bowl-lviii-a-sheer-corset-area-jeans-and-his-number-in',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
@@ -4445,6 +4460,7 @@ export default {
       slug: 'showgirl-engagement-ring',
       threadIds: ['the-proposal'],
       relatedIds: [
+          'moment:vault-tloas-clearer-looks-at-both-wedding-bands-finally-surface',
         'moment:vault-tloas-your-english-teacher-and-your-gym-teacher-are-getting-marrie',
         'moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden',
         // Cluster completed (2026-07-21, depth ledger #989 Q7): the look worn
@@ -5311,6 +5327,7 @@ export default {
       // debut-week record that supplied the bulk of the total, the album
       // itself, and the vinyl week it also topped for the year.
       relatedIds: [
+          'moment:vault-tloas-twelve-weeks-at-no-1-through-the-entire-holiday-season',
         'moment:vault-tloas-4-002-million-in-a-week-the-biggest-album-debut-ever-measure',
         'moment:vault-tloas-the-life-of-a-showgirl-arrives-12-tracks-max-martin-and-shel',
         'moment:vault-tloas-1-334-million-vinyl-lps-in-seven-days-the-first-million-viny',
