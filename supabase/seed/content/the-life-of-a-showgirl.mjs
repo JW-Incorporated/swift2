@@ -2137,7 +2137,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The docuseries covers the tour\'s full 2023-24 arc — the staging, the surprise-song scramble, the Kelce of it all — and functions as the era-bridge between TTPD\'s stadium years and the Showgirl era they produced: she wrote the new album on this tour\'s European leg. It doesn\'t flinch from the tour\'s hardest chapter, either: the opening episode deals with the foiled Vienna terror plot and its aftermath, the first time Swift has discussed it at length on camera.\n\nThe six episodes — "Welcome to the Eras Tour" and "Magic in the Eras" (Dec. 12), "Kismet" and "Thank You for the Lovely Bouquet" (Dec. 19), "Marjorie" and "Remember This Moment" (Dec. 23) — run 42-49 minutes each, created and narrated by Swift, directed by Don Argott and Sheena M. Joyce (Object & Animal). Guest artists slot in across the run: Ed Sheeran\'s London medley (ep. 1), Florence Welch on "Florida!!!" (ep. 2), Sabrina Carpenter (ep. 4), Gracie Abrams\'s mashup (ep. 5); Travis Kelce runs through the back half, including his tuxedoed "I Can Do It With a Broken Heart" cameo. Critics were warm — 88% on Rotten Tomatoes, 79 on Metacritic, The Hollywood Reporter calling it a "juicy tell-all." It was the No. 1 series on Disney+ globally within days, and Nielsen logged 377 million minutes watched in the pre-Christmas week — enough to sit a backstage documentary inside that week\'s overall streaming top ten. Where these episodes stay backstage, the same-day companion film The Final Show carries the complete Vancouver concert.',
+          'The docuseries covers the tour\'s full 2023-24 arc — the staging, the surprise-song scramble, the Kelce of it all — and functions as the era-bridge between TTPD\'s stadium years and the Showgirl era they produced: she wrote the new album on this tour\'s European leg. It doesn\'t flinch from the tour\'s hardest chapter, either: the opening episode deals with the foiled Vienna terror plot and its aftermath, the first time Swift has discussed it at length on camera.\n\nThe six episodes — "Welcome to the Eras Tour" and "Magic in the Eras" (Dec. 12), "Kismet" and "Thank You for the Lovely Bouquet" (Dec. 19), "Marjorie" and "Remember This Moment" (Dec. 23) — run 42-49 minutes each, created and narrated by Swift, directed by Don Argott and Sheena M. Joyce and executive-produced by Rob Booth and Dom Thomas for Object & Animal. Guest artists slot in across the run: Ed Sheeran\'s London medley (ep. 1), Florence Welch on "Florida!!!" (ep. 2), Sabrina Carpenter (ep. 4), Gracie Abrams\'s mashup (ep. 5); Travis Kelce runs through the back half, including his tuxedoed "I Can Do It With a Broken Heart" cameo. Critics were warm — 88% on Rotten Tomatoes, 79 on Metacritic, The Hollywood Reporter calling it a "juicy tell-all." It was the No. 1 series on Disney+ globally within days, and Nielsen logged 377 million minutes watched in the pre-Christmas week — enough to sit a backstage documentary inside that week\'s overall streaming top ten. Where these episodes stay backstage, the same-day companion film The Final Show carries the complete Vancouver concert.',
         sources: [
           {
             outlet: 'ABC News',
@@ -2215,7 +2215,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Paired with the End of an Era docuseries for the same-day premiere, the film preserves the tour\'s final setlist end-to-end — the version of the show that closed out the highest-grossing tour ever, a year after the last confetti fell in Vancouver. Where the 2023 theatrical film had to trim songs for runtime, the streaming cut runs the full Vancouver marathon, including the Tortured Poets segment added for the 2024 legs — the set Swift called the "Female Rage" chapter — that no prior filmed version contained. It captures that night\'s specific goodbyes, too: the guitar surprise was an "A Place in This World"/"New Romantics" mashup, and the piano send-off folded "Long Live" and "New Year\'s Day" into "The Manuscript" — a literal end-of-an-era note to close 149 shows.\n\nUnlike the 2023 film, this was a Disney+ exclusive with no theatrical window, and — director aside — a different hand: Glenn Weiss directed it (not Sam Wrench, who shot the 2023 cut), with Swift credited as a producer. No separate live album or soundtrack was released; the audio lives only inside the film. The pairing was a deliberate double release: the docuseries tells you what the tour cost to make and end, and The Final Show is the artifact itself, shot at BC Place on Dec. 8, 2024 — show 149 of 149. Together they turned mid-December 2025 into a Disney+ event weekend, and the concert film went on to earn five Emmy nominations the following summer — Outstanding Variety Special (Pre-Recorded), Directing and Picture Editing for a Variety Special, Sound Mixing, and Technical Direction and Camerawork.',
+          'Paired with the End of an Era docuseries for the same-day premiere, the film preserves the tour\'s final setlist end-to-end — the version of the show that closed out the highest-grossing tour ever, a year after the last confetti fell in Vancouver. Where the 2023 theatrical film had to trim songs for runtime, the streaming cut runs the full Vancouver marathon — the complete 45-song final setlist, roughly three and a half hours, uncut — including the Tortured Poets segment added for the 2024 legs — the set Swift called the "Female Rage" chapter — that no prior filmed version contained. It captures that night\'s specific goodbyes, too: the guitar surprise was an "A Place in This World"/"New Romantics" mashup, and the piano send-off folded "Long Live" and "New Year\'s Day" into "The Manuscript" — a literal end-of-an-era note to close 149 shows.\n\nUnlike the 2023 film, this was a Disney+ exclusive with no theatrical window, and — director aside — a different hand: Glenn Weiss directed it (not Sam Wrench, who shot the 2023 cut), with Swift credited as a producer. No separate live album or soundtrack was released; the audio lives only inside the film. The pairing was a deliberate double release: the docuseries tells you what the tour cost to make and end, and The Final Show is the artifact itself, shot at BC Place on Dec. 8, 2024 — show 149 of 149. Together they turned mid-December 2025 into a Disney+ event weekend, and the concert film went on to earn five Emmy nominations the following summer — Outstanding Variety Special (Pre-Recorded), Directing and Picture Editing for a Variety Special, Sound Mixing, and Technical Direction and Camerawork.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2802,6 +2802,8 @@ export default {
         'moment:vault-tloas-the-ring-designer-gets-a-wedding-invite-of-her-own',
         'moment:vault-tloas-back-on-new-heights-a-married-man-with-a-proposal-story',
         'moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends',
+        // Cross-link (candidate #1349): the wedding week's UK catalog chart bump.
+        'moment:vault-tloas-the-wedding-week-nudges-the-whole-catalog-back-up-the-uk-cha',
       ],
       title: 'Taylor and Travis marry at Madison Square Garden',
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
@@ -4825,6 +4827,8 @@ export default {
       relatedIds: [
         'moment:vault-tloas-the-wedding-gown-a-custom-dior-haute-couture-styled-by-josep',
         'moment:vault-tloas-the-elizabeth-taylor-video-a-supercut-of-the-real-liz',
+        // Cross-link (candidate #1258): the single sent to radio.
+        'moment:vault-tloas-elizabeth-taylor-goes-to-radio',
       ],
       title: 'Elizabeth Taylor: the first song she wrote for the album',
       snippet:
@@ -4903,6 +4907,12 @@ export default {
     },
     {
       slug: 'fate-of-ophelia-video-wardrobe',
+      // Cross-links (candidates #1107, #1087): the video these looks appear in,
+      // and the Rock Hall display of the Ophelia gown.
+      relatedIds: [
+        'moment:vault-tloas-the-fate-of-ophelia-video-premieres',
+        'moment:vault-tloas-the-rock-hall-puts-the-ophelia-gown-in-legends-of-rock',
+      ],
       year: 2025,
       month: 10,
       day: 3,
@@ -5585,6 +5595,8 @@ export default {
       relatedIds: [
         'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
         'moment:vault-tloas-the-fate-of-ophelia-hamlets-drowned-girl-rescued-and-a-13th-',
+        // Cross-link (candidate #1259): the single sent to radio.
+        'moment:vault-tloas-elizabeth-taylor-goes-to-radio',
       ],
       title: 'The Elizabeth Taylor video: a supercut of the real Liz',
       snippet:
@@ -6071,6 +6083,8 @@ export default {
     },
     {
       slug: 'nyc-wedding-permit-fee',
+      // Cross-link (candidate #1061): the wedding whose public price tag this itemizes.
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
       year: 2026,
       month: 7,
       day: 10,
@@ -6304,7 +6318,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Three days after the Madison Square Garden wedding, a case that had run since 2024 ended in a single order. Kimberly Marasco, a Florida poet acting pro se, first sued in April 2024 — a $100 small-claims filing in St. Lucie County (No. 2024SC001385) that was removed to federal court (S.D. Fla., No. 2:24-cv-14153, before Judge Aileen Cannon) and amended by that October to demand more than $7 million. It was not her first attempt: the operative complaint, Cannon noted, closely mirrored an earlier one Marasco had already lost. On July 6, 2026 the judge dismissed it — this time with prejudice, so it cannot be amended and refiled — against Taylor, producers Jack Antonoff and Aaron Dessner, Republic Records and Universal Music Group.\n\nMarasco claimed more than a dozen songs borrowed from her poetry — "Down Bad" and "I Can Do It With a Broken Heart" from The Tortured Poets Department, but also "The Man," "The Great War" and "Invisible String," reaching back across Midnights, folklore and evermore (the Dessner records, which is why he was named). Cannon\'s order weighed not whether the songs resembled the poems but whether there was anything there to copy: she concluded "that Plaintiff\'s poems do not contain protectable expression and that, regardless, Plaintiff has failed to plausibly plead copying," the alleged overlaps being "quintessential themes, concepts and isolated words" copyright does not protect. The order also noted Marasco\'s concession that one of her books had sold roughly 3,000 copies worldwide, none actively promoted — the access problem underneath the legal one.\n\nMarasco said she disagrees and intends to appeal to the Eleventh Circuit, so the docket may not be fully closed. But as of the July 6 order the case is over at the district level — the quietest possible bookend to the loudest week of her year.',
+          'Three days after the Madison Square Garden wedding, a case that had run since 2024 ended in a single order. Kimberly Marasco, a Florida poet acting pro se, first sued in April 2024 — a $100 small-claims filing in St. Lucie County (No. 2024SC001385) that was removed to federal court (S.D. Fla., No. 2:24-cv-14153, before Judge Aileen Cannon) and amended by that October to demand more than $7 million. It was not her first attempt: the operative complaint, Cannon noted, closely mirrored an earlier one Marasco had already lost. On July 6, 2026 the judge dismissed it — this time with prejudice, so it cannot be amended and refiled — against Taylor, producers Jack Antonoff and Aaron Dessner, Republic Records and Universal Music Group.\n\nMarasco claimed more than a dozen songs borrowed from her poetry — "Down Bad" and "I Can Do It With a Broken Heart" from The Tortured Poets Department, but also "The Man," "The Great War" and "Invisible String," reaching back across Midnights, folklore and evermore (the Dessner records, which is why he was named). Cannon\'s order weighed not whether the songs resembled the poems but whether there was anything there to copy: she concluded "that Plaintiff\'s poems do not contain protectable expression and that, regardless, Plaintiff has failed to plausibly plead copying," the alleged overlaps being "quintessential themes, concepts and isolated words" copyright does not protect. The order also noted Marasco\'s concession that one of her books had sold roughly 3,000 copies worldwide, none actively promoted — the access problem underneath the legal one.\n\nMarasco moved fast: she told ABC News she had filed a notice of appeal to the Eleventh Circuit on July 7 — the day after the order — so the docket is not fully closed even now. Swift\'s representatives, as after most of these filings, declined to comment on the win, and none of the co-defendants issued a statement. But at the district level the case is over — the quietest possible bookend to the loudest week of her year.',
         sources: [
           {
             outlet: 'CBC News',
@@ -6782,6 +6796,8 @@ export default {
       // wedding is referenced only as the reported cause (a public, already-
       // covered event at venue level), no new private-life or location detail.
       slug: 'showgirl-wedding-uk-chart-bump',
+      // Cross-link (candidate #1349): the wedding week that drove this chart bump.
+      relatedIds: ['moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden'],
       year: 2026,
       month: 7,
       day: 16,
@@ -7370,6 +7386,12 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "tloas-elizabeth-taylor-video",
+      // Cross-links (candidates #1258, #1259): the song this single promotes,
+      // and its archival music video.
+      relatedIds: [
+        'moment:vault-tloas-elizabeth-taylor-the-first-song-she-wrote-for-the-album',
+        'moment:vault-tloas-the-elizabeth-taylor-video-a-supercut-of-the-real-liz',
+      ],
       year: 2026,
       month: 3,
       day: 9,
