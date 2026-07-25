@@ -1493,7 +1493,13 @@ export default {
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
       milestone: { id: "m-lov-3", label: "Miss Americana premieres", kind: "life" },
-      relatedIds: ['moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative'],
+      // Cross-links: the reputation-era "snakes" narrative the film reframes;
+      // "Only the Young," the protest song written for and released with it
+      // (candidate #1491).
+      relatedIds: [
+        'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
+        'moment:vault-lover-only-the-young-the-protest-song-saved-for-the-documentary',
+      ],
       title: 'Miss Americana opens Sundance, then hits Netflix',
       snippet:
         'Lana Wilson\'s documentary premiered opening night at Sundance on Jan. 23, 2020 and landed on Netflix eight days later — the eating-disorder disclosure, the political-silence fight with her own team, and the sexual-assault trial, all on the record.',
@@ -2152,6 +2158,11 @@ export default {
     },
     {
       slug: 'only-the-young-documentary-song',
+      // Cross-link (candidate #1491): the protest song Swift wrote for and
+      // released alongside the Miss Americana documentary.
+      relatedIds: [
+        'moment:vault-lover-miss-americana-opens-sundance-then-hits-netflix',
+      ],
       year: 2020,
       month: 1,
       day: 31,

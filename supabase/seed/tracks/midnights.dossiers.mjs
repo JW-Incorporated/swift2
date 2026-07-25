@@ -116,6 +116,36 @@ export default {
     ]
   },
   'lavender-haze': {
+    // Dossier body added 2026-07-25 (ledger #1422): remix/chart/single/video
+    // facts verified against the linked Wikipedia article this pass. Sub-facts
+    // Wikipedia does not document (video DP/production company, first-24h view
+    // count, a specific RIAA tier, named LGBTQ+ outlet coverage of the casting)
+    // are left unstated rather than invented — those ledger sub-questions stay
+    // open, not answered.
+    whyItMatters: [
+      "It opens Midnights by naming the album's private-life thesis: 'lavender haze' is a 1950s phrase for the all-consuming glow of new love, which Swift found in Mad Men and turned into a song about guarding a relationship from the tabloid weather around it.",
+      "It was also the record's second-biggest hit and a genuine collaborative outlier — a co-write that pulled in Zoë Kravitz and a Kendrick-adjacent production team, then arrived with a self-directed video whose casting became part of the story.",
+    ],
+    meaning: {
+      confirmed: [
+        "Written by Swift with Jack Antonoff, Zoë Kravitz, Sam Dew, Mark 'Sounwave' Spears and Jahaan Sweet, and produced by Swift, Antonoff and Sounwave. Per Sounwave, the track started when he built the beat in about fifteen minutes and an accidental button-press played a Braxton Cook voice-memo melody; the R&B groove grew from there, with 'Dew [coming] up with the melodies and Kravitz [adding] some sonic embellishments.'",
+        "It peaked at No. 2 on the Hot 100 — held off the top only by album-mate 'Anti-Hero' — and reached No. 2 in Australia, Canada and on the Billboard Global 200, and No. 3 on the UK Singles chart. Swift wrote and directed the music video (premiered January 27, 2023), casting Dominican-American transgender model and activist Laith Ashley as her love interest.",
+      ],
+      supported: [
+        "Its single campaign ran behind 'Anti-Hero': it went to US contemporary-hit (pop) radio on November 29, 2022 and to hot adult-contemporary radio on January 10, 2023 — placing it as a later single in the Midnights rollout, not the lead. An official remix package followed the video, led by a Felix Jaehn remix (February 10, 2023) and then Tensnake, Snakehips and Jungle remixes (March 3, 2023), issued to digital and streaming.",
+        "The casting of Laith Ashley was widely read as a deliberately inclusive choice and drew attention as such; the specific outlet write-ups and any on-record comments from Ashley are not captured here, so that thread is noted rather than quoted.",
+      ],
+      fanTheories: [
+        "Beyond opening the Midnights act on the 2023–24 Eras Tour, no TV, awards-show, late-night, or surprise-song performance of 'Lavender Haze' is documented — the live footprint is the tour slot, stated here so the absence is explicit rather than silent.",
+      ],
+    },
+    live: [
+      {
+        date: '2023',
+        event: 'The Eras Tour',
+        note: "Opened the Midnights act across the 2023–24 run; no separate TV/awards or surprise-song performance is documented.",
+      },
+    ],
     connections: [
       {
         relatedId: "song:anti-hero",
@@ -127,7 +157,11 @@ export default {
         label: "Every spot in the Hot 100 top 10, all at once",
         why: "Lavender Haze was the No. 2 record in the week Swift filled the entire Hot 100 top 10."
       }
-    ]
+    ],
+    sources: [
+      { name: 'Lavender Haze — Wikipedia', url: 'https://en.wikipedia.org/wiki/Lavender_Haze' },
+      { name: 'Midnights (Taylor Swift album) — Wikipedia', url: 'https://en.wikipedia.org/wiki/Midnights' },
+    ],
   },
   'maroon': {
     connections: [

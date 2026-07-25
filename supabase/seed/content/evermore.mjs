@@ -2629,6 +2629,11 @@ export default {
     },
     {
       slug: 'vmas-2022-midnights-handoff',
+      // Cross-link (candidate #1409): the first of the Video-of-the-Year
+      // streak the 2024 VMAs page turns into a first-ever third straight win.
+      relatedIds: [
+        'moment:vault-ttpd-seven-more-vmas-and-a-tie-with-beyonc-at-30',
+      ],
       year: 2022,
       month: 8,
       day: 28,
@@ -2747,6 +2752,11 @@ export default {
       // Migrated 2026-07-19 from apps/web/lib/longlive/content.ts (RAW —
       // consolidation stage 2a): text unchanged; legacy id kept as slug.
       slug: "evermore-album",
+      // Cross-link (candidate #1400): the folklore surprise-drop template this
+      // record reused five months later — this is literally "folklore's sister."
+      relatedIds: [
+        "moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp",
+      ],
       year: 2020,
       month: 12,
       day: 11,

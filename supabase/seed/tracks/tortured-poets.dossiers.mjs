@@ -1066,5 +1066,68 @@ export default {
       { name: "Variety: Taylor Swift's Best Songs, Ranked (Chris Willman)", url: "https://variety.com/lists/best-taylor-swift-songs-ranked/" },
       { name: "Billboard: The Tortured Poets Department, All 31 Tracks Ranked", url: "https://www.billboard.com/lists/taylor-swift-the-tortured-poets-department-tracks-ranked/" }
     ]
+  },
+
+  // Added 2026-07-25 by the Answerer for ledger #1414. Every claim traces to a
+  // source already on the track object (Billboard chart, RS live debut, RS
+  // Anthology review, AOL) or verified this pass. Confirmed = hard facts only;
+  // the Idina-Sackville namesake and the near-drowning are labeled critic/press
+  // reading, not Swift-stated. No track-specific Aaron Dessner interview about
+  // "The Bolter" was found, so its production is described from credits only.
+  "the-bolter": {
+    whyItMatters: [
+      "One of the Anthology's most-praised character studies: a portrait of the serial escapee who feels most alive mid-getaway, grinning as every relationship ends with the door swinging. It is Swift writing a type rather than a confession — the album's clearest example of the fictional 'poet' framing she said the record runs on.",
+      "It sits on the Dessner-produced back half of the double album as a stark piano narrative, and became a twice-played Eras Tour surprise song despite never being a single — the kind of deep cut fans argued deserved more than bonus-track billing.",
+    ],
+    meaning: {
+      confirmed: [
+        "Track on The Tortured Poets Department: The Anthology (April 19, 2024), written and produced by Swift with Aaron Dessner. During the album's record debut week — when all 31 tracks charted at once — 'The Bolter' debuted and peaked at No. 47 on the Billboard Hot 100 (chart dated May 4, 2024).",
+        "It was performed live only twice, both as acoustic-guitar surprise-song mashups on the 2024 Eras Tour: its debut at Edinburgh on June 7, 2024, paired with 'Getaway Car,' and a return in Indianapolis on November 3, 2024, paired with 'Cornelia Street.'",
+      ],
+      supported: [
+        "Rolling Stone's Rob Sheffield grouped it with the Anthology's 'stark piano narratives' about different kinds of 'mad women' seeking revenge — reading the Bolter as a woman treated as a 'sexual toy' who runs before she can be discarded. Track-by-track reviews frequently named it an Anthology highlight for that character writing.",
+      ],
+      fanTheories: [
+        "The title is widely traced to the English-society 'Bolter' archetype — the serial marriage-escapee popularized by Frances Osborne's 2008 biography of Idina Sackville, a nickname that reached the culture earlier through Nancy Mitford's novels — but that is the reference critics reached for, not one Swift or her team has confirmed.",
+        "The near-drowning image ('by all accounts, she almost drowned / when she was six in frigid water') is the character's origin myth, flagged in-lyric as secondhand ('by all accounts'); there is no verified account of Swift nearly drowning at six, so the detail reads as the fictional Bolter's, not documented autobiography.",
+      ],
+    },
+    connections: [
+      {
+        relatedId: 'song:getaway-car',
+        label: 'Getaway Car',
+        why: "Its Edinburgh live-debut mashup partner (cross-link candidate #1445) and its thematic twin — both are runaway songs about leaving before you can be left.",
+      },
+      {
+        relatedId: 'song:cornelia-street',
+        label: 'Cornelia Street',
+        why: "Its other documented Eras mashup partner (Indianapolis, Nov 3, 2024) — the settled-in love of Cornelia Street set against the Bolter who could never stay.",
+      },
+    ],
+    live: [
+      {
+        date: '2024-06-07',
+        event: 'The Eras Tour — Edinburgh (Murrayfield)',
+        note: "Live debut, an acoustic-guitar surprise-song mashup with 'Getaway Car.'",
+      },
+      {
+        date: '2024-11-03',
+        event: 'The Eras Tour — Indianapolis (Lucas Oil Stadium)',
+        note: "Its only other performance — a surprise-song mashup with 'Cornelia Street.'",
+      },
+    ],
+    voices: [
+      {
+        who: 'Rob Sheffield',
+        context: 'Rolling Stone',
+        note: "Grouped it with the Anthology's 'stark piano narratives' of women seeking revenge — the Bolter as the one treated as a 'sexual toy' who runs first.",
+      },
+    ],
+    sources: [
+      { name: 'Billboard: Taylor Swift Charts 32 Songs on the Hot 100 in One Week', url: 'https://www.billboard.com/music/chart-beat/taylor-swift-32-songs-hot-100-one-week-tortured-poets-department-1235669025/' },
+      { name: "Rolling Stone: See Taylor Swift Debut 'The Bolter,' 'Crazier' Live at Edinburgh", url: 'https://www.rollingstone.com/music/music-news/taylor-swift-the-bolter-crazier-live-debut-eras-tour-1235036115/' },
+      { name: 'Rolling Stone: TTPD — The Anthology Review', url: 'https://www.rollingstone.com/music/music-album-reviews/taylor-swift-the-tortured-poets-department-the-anthology-review-1235007309/' },
+      { name: "AOL/Yahoo: Is Taylor Swift's 'The Bolter' based on a true story?", url: 'https://www.aol.com/news/taylor-swift-song-bolter-based-212636465.html' },
+    ],
   }
 };
