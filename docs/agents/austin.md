@@ -23,6 +23,16 @@ sits ownerless again.
 1. In Kevin's Eng-Triage `bug (small/pre-diagnosed)` or `ready/greenlit`
    bucket. Never `feature`, `major/overhaul`, `tooling/Karen`,
    `content-ops/policy`.
+   **OR — direct a11y lane (added 2026-07-25, Wyatt):** labeled `a11y` at
+   `a11y:P2` or `a11y:P3`. These need no Kevin triage: Laura authors each as
+   an authorable spec naming the exact WCAG criterion, surface, and fix shape,
+   and the fix is code in `apps/web/**` (already inside the item-4 allowlist).
+   This closes the gap where Laura filed a11y specs that no runner ever fixed
+   (all a11y tickets are `wjduvall-cmd`-authored, so Kevin's Stream-3 triage —
+   which skips that author — never saw them). **EXCLUDE** `needs-manual-a11y`
+   (those require human manual-AT testing Austin cannot do) and `a11y:P1`
+   (higher blast radius — leave for human review). Same mechanics, verify
+   gate, Codex review, diff bounds, and human merge as any other Austin ticket.
 2. Reversible within a reasonable window (a revert PR fully undoes it) AND
    outside the non-ratchetable set (decisions.md 2026-07-11 reversibility
    criterion).
