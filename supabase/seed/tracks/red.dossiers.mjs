@@ -623,5 +623,60 @@ export default {
         url: "https://www.rollingstone.com/music/music-features/taylor-swift-all-too-well-rob-sheffield-1235127364/"
       }
     ]
+  },
+
+  // Depth ledger #1472 (2026-07-25): the vault track had no dossier — the
+  // give-it-away-then-reclaim story, LBT's chart/awards record, the Red TV
+  // debut, the Dessner production contrast, Eras live outings, and reception.
+  "better-man": {
+    whyItMatters: [
+      "\"Better Man\" carries one of the best songwriter stories in the catalog: Swift wrote it alone during the original Red era, left it off the 2012 album, and in 2016 gave it away to Little Big Town — where the song she'd shelved became a phenomenon she hadn't. As the lead single of the group's 2017 album The Breaker it topped Billboard's Hot Country Songs (Feb. 11, 2017) and Country Airplay charts and reached No. 34 on the Hot 100, won CMA Song of the Year in 2017, and won the group the Grammy for Best Country Duo/Group Performance at the 2018 ceremony — their third Grammy. Swift was credited throughout as the sole writer.",
+      "Reclaiming it on Red (Taylor's Version) in 2021 closed the loop — the writer finally recording the words she'd handed to someone else. Aaron Dessner's vault production reframes the country-radio hit as a folklore-adjacent ballad, and Rolling Stone later ranked \"Better Man\" No. 50 among Swift's 229 songs, unusual standing for a track most listeners first knew as another act's single."
+    ],
+    meaning: {
+      confirmed: [
+        "Swift wrote \"Better Man\" alone during the original Red era and cut it from the 2012 album; in 2016 she gave it to the country group Little Big Town, credited as its sole writer.",
+        "Little Big Town released it as the lead single of their 2017 album The Breaker; it reached No. 1 on Billboard's Hot Country Songs (Feb. 11, 2017) and Country Airplay charts and No. 34 on the Hot 100, won CMA Song of the Year in 2017, and won the group the Grammy for Best Country Duo/Group Performance at the 2018 ceremony.",
+        "Swift released her own \"Better Man (Taylor's Version) (From The Vault)\" on Red (Taylor's Version) on Nov. 12, 2021, produced with Aaron Dessner; it debuted at No. 52 on the Hot 100 among the album's 26 charting songs.",
+        "Swift has performed it live on the Eras Tour as an acoustic surprise song — in Foxborough, Mass. on May 19, 2023, and again in Gelsenkirchen, Germany on July 19, 2024, mashed up with \"It's Time to Go.\""
+      ],
+      supported: [
+        "Dessner's vault production leans on acoustic and high-strung guitar, lap steel, and the London Contemporary Orchestra rather than Little Big Town's four-part country-radio harmony, placing the reclaimed cut sonically closer to Swift's 2020 folklore/evermore albums than to 2012 Red.",
+        "Critics and retrospective rankings have treated the vault version as a highlight of the Red (Taylor's Version) release — Rolling Stone placed it No. 50 in its 2022 ranking of all Swift songs — reading the reclamation itself as the point."
+      ],
+      fanTheories: [
+        "Because Swift kept the muse private and the lyric stays general, listeners have folded \"Better Man\" into the era's wider who-is-it-about speculation; she has never named a subject, and the song reads as a clear-eyed account of leaving a love that couldn't change rather than a coded portrait."
+      ]
+    },
+    connections: [
+      {
+        relatedId: "song:all-too-well",
+        label: "All Too Well",
+        why: "The two Red heartbreaks that loomed largest on Taylor's Version — one the ten-minute epic she'd withheld, the other the song she'd given away and then reclaimed."
+      },
+      {
+        relatedId: "song:red",
+        label: "Red",
+        why: "The title track calls the love \"burning\"; \"Better Man\" is the clear-eyed accounting after the fire — a man who couldn't become who she needed."
+      }
+    ],
+    sources: [
+      {
+        name: "Better Man (Little Big Town song) — Wikipedia",
+        url: "https://en.wikipedia.org/wiki/Better_Man_(Little_Big_Town_song)"
+      },
+      {
+        name: "Billboard: Little Big Town Leads Hot Country Songs With Taylor Swift-Written 'Better Man'",
+        url: "https://www.billboard.com/articles/columns/chart-beat/7676235/little-big-town-hot-country-songs-taylor-swift"
+      },
+      {
+        name: "Billboard: Little Big Town Tops Country Airplay With Taylor Swift-Penned 'Better Man'",
+        url: "https://www.billboard.com/articles/columns/chart-beat/7698213/little-big-town-country-airplay-taylor-swift"
+      },
+      {
+        name: "Billboard: All the Surprise Songs Taylor Swift Has Performed on The Eras Tour",
+        url: "https://www.billboard.com/lists/taylor-swift-eras-tour-surprise-songs/its-time-to-go-better-man/"
+      }
+    ]
   }
 };

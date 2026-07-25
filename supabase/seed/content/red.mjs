@@ -1869,6 +1869,14 @@ export default {
     },
     {
       slug: 'red-22-single-and-video',
+      // Depth ledger #1396 Q7 (2026-07-25): the Red pop-pivot throughline — the
+      // page had no authored relatedIds. Thread "22" to the era's other Max
+      // Martin/Shellback single and to the album itself. Both target ids
+      // verified present in content-vault.generated.ts.
+      relatedIds: [
+        'moment:vault-red-i-knew-you-were-trouble-brings-dubstep-to-pop-radio',
+        'moment:vault-red-red-heartbreak-in-every-genre',
+      ],
       year: 2013,
       month: 3,
       day: 12,
@@ -1880,7 +1888,7 @@ export default {
       thumbnailUrl: 'https://i.ytimg.com/vi/AgFeZr5ptV8/hqdefault.jpg',
       moment: {
         context:
-          'Anthony Mandler shot the video at a Malibu beach house in February 2013, and it premiered on Good Morning America on March 13 — the day after the single\'s release. It cast her real friends rather than actors, leaning into the song\'s "happy, free, confused, and lonely" thesis with a day-in-the-life arc of baking, sunbathing, and swimming. The single peaked at No. 20 on the Hot 100 and was certified triple platinum.\n\nThe song outlived its chart run to become a permanent set-list fixture — and eventually a ritual: on the Eras Tour, "22" opens the Red act, and each night Swift ends the song by handing her black hat to one pre-chosen fan, one of the show\'s most-anticipated recurring moments. Culture writers have since credited the song with turning the 22nd birthday itself into a milestone worth celebrating in lyric quotes.',
+          'Anthony Mandler shot the video at a Malibu beach house in February 2013, and it premiered on Good Morning America on March 13 — the day after the single\'s release. It cast her real friends rather than actors, leaning into the song\'s "happy, free, confused, and lonely" thesis with a day-in-the-life arc of baking, sunbathing, and swimming. The single peaked at No. 20 on the Hot 100 and was certified triple platinum.\n\n"22" is one of Red\'s three Max Martin and Shellback cuts — alongside "I Knew You Were Trouble" and "We Are Never Ever Getting Back Together" — that Swift wrote with the two Swedish producers outside Nashville, all built on pop production and programmed keyboards. It came out of some of her earliest sessions with Martin, whose knack for how to "just land a chorus" she has cited as an inspiration, and the trio\'s Red work is where the pop turn 1989 later completed actually began. Internationally the single reached No. 9 in the U.K. (Platinum) and charted in Australia (4× Platinum) and Canada (Platinum); 2013 critics split on it, from Billboard praising how it "succinctly communicat[ed] conflicting emotion" under the bubblegum surface to Slant\'s "shrill, deliberately vapid Ke$ha knockoff" and AllMusic\'s "cheerfully ludicrous club-filler." Re-recorded with Shellback and Christopher Rowe for Red (Taylor\'s Version) in November 2021, "22 (Taylor\'s Version)" re-entered the Hot 100 at No. 52 and reached No. 30 on the Billboard Global 200 amid the album\'s 26-song chart flood.\n\nThe song outlived its chart run to become a permanent set-list fixture — and eventually a ritual: on the Eras Tour, "22" opens the Red act, Swift performs it in a version of the video\'s white tee and black hat, and each night she ends the song by handing that hat to one pre-chosen fan, one of the show\'s most-anticipated recurring moments. Culture writers have since credited the song with turning the 22nd birthday itself into a milestone worth celebrating in lyric quotes.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -1890,6 +1898,27 @@ export default {
             source_type: 'wiki',
             accessed_at: '2026-07-08',
             reliability_score: 2,
+          },
+          // Depth ledger #1396 (2026-07-25): the Max Martin/Shellback authorship
+          // + pop-pivot, international charts, 2013 reception, and the Taylor's
+          // Version re-recording — the page previously cited only Wikipedia.
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/news/music/taylor-swift-max-martin-songs/',
+            source_title: 'Every song Taylor Swift and Max Martin have worked on together',
+            publisher: 'Capital FM',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/music/chart-beat/taylor-swift-26-songs-hot-100-red-taylors-version-1235001484/',
+            source_title: "Taylor Swift Charts 26 Songs From 'Red (Taylor's Version)' on Hot 100",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
           },
         ],
         // Real-photo pass (2026-07-09): thumbnail of the official "22" music
