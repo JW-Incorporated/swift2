@@ -888,6 +888,9 @@ export default {
       month: 10,
       day: 24,
       category: 'music',
+      // Cross-link (candidate #1047, 2026-07-25): the grown-up Hendersonville High
+      // regret ("Ruin the Friendship") rooted in the same school.
+      relatedIds: ['moment:vault-tloas-ruin-the-friendship-a-regret-from-hendersonville-high'],
       title: 'Picture to Burn, and the line rewritten for radio',
       snippet:
         "Born from an after-school outburst -- \"I hate his stupid truck that he doesn't let me drive. He's such a redneck!\" -- that became the chorus of her only anger-driven song on the debut album.",

@@ -1675,6 +1675,9 @@ export default {
       month: 10,
       day: 3,
       category: 'music',
+      // Cross-link (candidate #1105, 2026-07-25): the prior track five, "So Long,
+      // London," whose grief tradition this one defines itself against.
+      relatedIds: ['moment:vault-ttpd-so-long-london-keeps-her-track-five-tradition-alive'],
       title: 'Eldest Daughter: the first track five that ends somewhere safe',
       snippet:
         'The album\'s track five — the slot fans expect to hurt — names "eldest daughter syndrome," the firstborn\'s job of holding everything together. But unlike every track five before it, this one resolves into reassurance instead of grief.',
@@ -2011,6 +2014,9 @@ export default {
       month: 10,
       day: 3,
       category: 'music',
+      // Cross-link (candidate #1047, 2026-07-25): the teenage-version Hendersonville
+      // High song, "Picture to Burn."
+      relatedIds: ['moment:vault-debut-picture-to-burn-and-the-line-rewritten-for-radio'],
       title: 'Ruin the Friendship: a regret from Hendersonville High',
       snippet:
         'A song about the high-school kiss she never risked — with a devastating final verse at a funeral. Fans traced it to her classmate Jeff Lang, who died in 2010; his mother told The Tennessean she wished she could thank Swift for "keeping his name alive."',
@@ -2018,7 +2024,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'Swift has not named the song\'s subject — the Lang connection is fan interpretation, labeled as such, but it rests on public record: she sang at a close friend\'s funeral in 2010 and thanked "Jeff Lang" from the BMI Country Awards stage that year, saying she used to play him her songs first. Fans lined those facts up with the song\'s Hendersonville high-school setting and its final verse — the narrator getting the news of his death and singing at his grave, regretting she never kissed him and admitting "we\'ll never know why" — within hours of release.\n\nWhat elevated the theory beyond lyric forensics was the family\'s response. Lang\'s mother told The Tennessean she wished she could thank Swift for "keeping his name alive," effectively blessing the reading without Swift ever confirming it. The lyric\'s advice — ruin the friendship, kiss your friend while you can — lands as the album\'s quietest gut-punch, a country-storytelling move (the twist verse, the moral) smuggled onto her glossiest pop record.',
+          'Swift has not named the song\'s subject — the Lang connection is fan interpretation, labeled as such, but it rests on public record: she sang at a close friend\'s funeral in 2010 and thanked "Jeff Lang" from the BMI Country Awards stage that year, saying she used to play him her songs first. Fans lined those facts up with the song\'s Hendersonville high-school setting and its final verse — the narrator getting the news of his death and singing at his grave, regretting she never kissed him and admitting "we\'ll never know why" — within hours of release.\n\nWhat elevated the theory beyond lyric forensics was the family\'s response. Lang\'s mother told The Tennessean she wished she could thank Swift for "keeping his name alive," effectively blessing the reading without Swift ever confirming it. The lyric\'s advice — ruin the friendship, kiss your friend while you can — lands as the album\'s quietest gut-punch, a country-storytelling move (the twist verse, the moral) smuggled onto her glossiest pop record.\n\nThe song was written and produced by Swift with Max Martin and Shellback — Showgirl was the first album the three made with no outside collaborators, cut at Shellback\'s Stockholm studio on days off from the Eras Tour\'s European leg, as Swift recounted on the New Heights podcast in August 2025. For all its hush it was one of the album\'s bigger hits: it debuted and peaked at No. 11 on the Hot 100 — part of Showgirl\'s unprecedented sweep of the chart\'s entire top 12 — hit No. 12 on the Global 200, and went top-20 in Australia, Canada, New Zealand and Sweden.\n\nCritics singled it out: Billboard\'s Jason Lipshutz ranked it the best song on the album, hearing a track that "bridges Swift\'s past and present as a songwriter" and calls it "a summation of her strengths." Swift herself, at the theatrical release party, framed it plainly as a high-school regret — "It would\'ve been fine to take chances I didn\'t take. I was so disciplined in high school. It\'s very wistful and very nostalgic" — while pointedly not naming anyone, leaving the Lang reading to the fans.\n\nShe later cut a stripped "Ruin the Friendship (My Advice Version)" with new vocals, one of eight acoustic recordings sold as bonus tracks on limited-edition Showgirl CDs. The track has only an official lyric video, not a cinematic one, and — with no tour since the Eras Tour closed in December 2024 — it had not been documented performed live as of mid-2026.',
         sources: [
           {
             outlet: 'Wikipedia',
@@ -2036,6 +2042,78 @@ export default {
             publisher: 'Forbes',
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
+            reliability_score: 4,
+          },
+          {
+            // Primary reporting on the mother's on-record quote — upgrades the
+            // Wikipedia citation for the Lang connection (ledger #1046 Q7).
+            outlet: 'The Tennessean',
+            url: 'https://www.tennessean.com/story/news/local/2025/10/10/taylor-swift-ruin-the-friendship-tennessee-connection/86605317007/',
+            source_title: "Taylor Swift's 'Ruin the Friendship' has a Tennessee connection",
+            publisher: 'The Tennessean',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            // The 2010 BMI Country Awards thank-you to Jeff Lang, contemporaneous.
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-country/taylor-swift-named-country-songwriter-of-the-year-70024/',
+            source_title: 'Taylor Swift Named Country Songwriter of the Year',
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // Chart: No. 11 on the Hot 100 within Showgirl's top-12 sweep.
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-hot-100-fate-of-ophelia-number-one/',
+            source_title: 'Taylor Swift Takes Top 12 Spots on Billboard Hot 100, Led by "The Fate of Ophelia"',
+            publisher: 'Billboard',
+            source_type: 'chart_database',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            // Critical reception: ranked the album's No. 1 best song (Jason Lipshutz).
+            outlet: 'Billboard',
+            url: 'https://www.billboard.com/lists/taylor-swift-the-life-of-a-showgirl-songs-ranked/',
+            source_title: "Taylor Swift's 'The Life of a Showgirl' Songs, Ranked",
+            publisher: 'Billboard',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            // Swift's own release-party framing of the song as high-school regret,
+            // without naming a subject.
+            outlet: 'People',
+            url: 'https://www.aol.com/articles/taylor-swifts-ruin-friendship-lyrics-042400124.html',
+            source_title: "Taylor Swift Confirms 'Ruin the Friendship' Is About a High School Romantic Regret",
+            publisher: 'People',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // The making-of: Max Martin/Shellback, Stockholm sessions on Eras days off.
+            outlet: 'TIME',
+            url: 'https://time.com/7322334/taylor-swift-life-of-a-showgirl-max-martin-shellback/',
+            source_title: "Everything to Know About Taylor Swift's Collaborators on The Life of a Showgirl",
+            publisher: 'TIME',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // The acoustic "My Advice Version" bonus recording.
+            outlet: 'Variety',
+            url: 'https://au.variety.com/2025/music/news/taylor-swift-acoustic-recordings-bonus-tracks-cd-editions-showgirl-28534',
+            source_title: 'Taylor Swift Announces Eight Acoustic Recordings as Bonus Tracks for Four New "Life of a Showgirl" CD Editions',
+            publisher: 'Variety',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
             reliability_score: 4,
           },
         ],
@@ -5154,7 +5232,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The Nov. 23, 2025 game was her most visible Arrowhead appearance in weeks — E! noted she\'d been keeping a deliberately low profile at games through the fall, attending without being shown on broadcasts. This time the suite window gave her away: fans in the stands filmed her reaction as Harrison Butker\'s overtime kick beat the Colts 23-20, TMZ describing her screaming and jumping, and E! reporting she was seen playfully shaking her father Scott by the shoulders in celebration.\n\nThe sighting marked the practical end of the invisible-fan experiment: with the Chiefs\' playoff hopes fading, the remaining home slate was short — the Christmas Broncos game a month later was expected to be Kelce\'s last at home that season — and her appearances got more visible, not less, as the season wound down. The low-profile stretch itself became part of the era\'s story: the most-photographed woman in the NFL\'s orbit spending most of a season successfully unphotographed.',
+          'The Nov. 23, 2025 game was her most visible Arrowhead appearance in weeks — E! noted she\'d been keeping a deliberately low profile at games through the fall, attending without being shown on broadcasts. This time the suite window gave her away: fans in the stands filmed her reaction as Harrison Butker\'s overtime kick beat the Colts 23-20, TMZ describing her screaming and jumping, and E! reporting she was seen playfully shaking her father Scott by the shoulders in celebration.\n\nThe game earned the "nail-biter" billing. On CBS, the Chiefs rallied from an 11-point deficit — Patrick Mahomes threw for a season-high 352 yards and Kareem Hunt ran for 104 and a touchdown — and it came down to Butker, who made all five of his field goals for 15 of Kansas City\'s 23 points, forcing overtime with a 25-yarder as regulation expired and winning it with a 27-yard kick. The Colts iced him with a timeout first: "that probably helped me slow the heart rate down," he said afterward. Her celebration was caught only on fan video from the stands, not a network cut — of a piece with a season she spent largely off the broadcast.\n\nThe sighting marked the practical end of the invisible-fan experiment: with the Chiefs\' playoff hopes fading, the remaining home slate was short — the Christmas Broncos game a month later was expected to be Kelce\'s last at home that season — and her appearances got more visible, not less, as the season wound down. The win only nudged Kansas City to 6-5, and the math kept slipping: the Chiefs finished 6-11 and missed the postseason for the first time since 2014 — clinched by a Week 15 loss to the Chargers in which Mahomes tore his ACL — the first missed playoffs of the stretch since Swift started attending. The low-profile run itself became part of the era\'s story: the most-photographed woman in the NFL\'s orbit spending most of a season successfully unphotographed.',
         sources: [
           {
             outlet: 'TMZ',
@@ -5173,6 +5251,56 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            // Game recap: 11-point comeback, Mahomes 352, Hunt 104+TD, 6-5 record.
+            outlet: 'KCTV5 (AP)',
+            url: 'https://www.kctv5.com/2025/11/23/chiefs-rally-11-point-deficit-beat-colts-23-20-ot-harrison-butkers-fifth-field-goal/',
+            source_title: 'Chiefs rally from 11-point deficit to beat Colts 23-20 in OT',
+            publisher: 'KCTV5 / Associated Press',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // Primary: the 27-yard overtime game-winner.
+            outlet: 'Chiefs.com',
+            url: 'https://www.chiefs.com/video/harrison-butker-s-27-yard-field-goal-seals-kansas-city-chiefs-win-over-indianapolis-colts-in-overtime',
+            source_title: "Harrison Butker's 27-yard Field Goal Seals Chiefs Win in Overtime",
+            publisher: 'Kansas City Chiefs',
+            source_type: 'official',
+            accessed_at: '2026-07-25',
+            reliability_score: 5,
+          },
+          {
+            // The icing timeout and Butker's five-FG, 15-point line.
+            outlet: 'A to Z Sports',
+            url: 'https://atozsports.com/nfl/indianapolis-colts-news/colts-week-12-loss-chiefs-kicker-harrison-butker-helped-him-overtime-field-goal-timeout/',
+            source_title: "Chiefs kicker Harrison Butker says Colts' timeout 'helped him' on OT field goal",
+            publisher: 'A to Z Sports',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            // Broadcast: Week 12 carried on CBS.
+            outlet: 'Pro Football Network',
+            url: 'https://www.profootballnetwork.com/how-to-watch-chiefs-colts-game-tv-channel-kickoff-time-announcers-week-12/',
+            source_title: 'How to Watch Chiefs-Colts: TV Channel, Kickoff Time, Announcers (Week 12)',
+            publisher: 'Pro Football Network',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            // Season outcome: 6-11, missed the playoffs for the first time since 2014.
+            outlet: 'Wikipedia',
+            url: 'https://en.wikipedia.org/wiki/2025_Kansas_City_Chiefs_season',
+            source_title: '2025 Kansas City Chiefs season',
+            publisher: 'Wikipedia',
+            source_type: 'wiki',
+            accessed_at: '2026-07-25',
+            reliability_score: 2,
           },
         ],
         // No agency photo of the Nov. 23 suite moment was hotlinkable (the
@@ -5208,12 +5336,12 @@ export default {
       ],
       title: 'A low-key game-day layer for the Colts game',
       snippet:
-        'No statement piece this time — a beige, red, and white color-blocked jacket and the signature red lip, dressed for the suite rather than the cameras.',
+        'No statement piece this time — a sandstone Guest in Residence cashmere polo with Chiefs-red shoulders and the signature red lip, dressed for the suite rather than the cameras.',
       sourceUrl: 'https://www.marieclaire.com/fashion/celebrity-style/taylor-swift-kansas-city-chiefs-indianapolis-colts-game-outfit/',
       thumbnailUrl: null,
       moment: {
         context:
-          'Marie Claire filed the Nov. 23, 2025 look under "fit for a low-key fan": a beige, red, and white color-blocked jacket, the ever-present red lip, and nothing engineered for a jumbotron close-up. It was game-day dressing for someone planning to watch the game rather than be broadcast during it — which, that fall, was exactly the plan.\n\nThe restraint was the story. Her game-day looks had spent two seasons as a fashion beat of their own — dissected, price-tagged, sold out by Monday — and the fall 2025 stretch of quiet fits during her lowest-profile season at Arrowhead read as deliberate de-escalation. The contrast made the exceptions (the Miu Miu checkerboard bomber with Gomez, the Christmas-red Frankie Shop look a month later) land harder when they came.',
+          'Marie Claire filed the Nov. 23, 2025 look under "fit for a low-key fan," and the color-blocking it described — sandstone, white and a flash of Chiefs red — was really a cashmere polo sweater, not a jacket: Guest in Residence\'s "Alpine Collegiate Polo" in Sandstone Combo (about $425), the red saved for its shoulders. The label is Gigi Hadid\'s, a quiet nod to her friend. She paired it with Agolde\'s Low Slung Baggy jeans (about $248) and a Sezane belt, and her ever-present red lip — the Pat McGrath Labs LiquiLust shade "Elson" she has worn through the Eras Tour — with nothing engineered for a jumbotron close-up. It was game-day dressing for someone planning to watch the game rather than be broadcast during it, which that fall was exactly the plan.\n\nThe restraint was the story. Her game-day looks had spent two seasons as a fashion beat of their own — dissected, price-tagged, sold out by Monday — and the fall 2025 stretch of quiet fits during her lowest-profile season at Arrowhead read as deliberate de-escalation. The contrast made the exceptions land harder when they came: the Miu Miu checkerboard bomber alongside Selena Gomez, and — a month later at the Dec. 25 Broncos game — a Christmas-red look her stylist Joseph Cassell Falconer built around The Frankie Shop\'s "Zion" bomber jacket (about $388).',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -5223,6 +5351,38 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-08',
             reliability_score: 4,
+          },
+          {
+            // Itemized ID of the look: Guest in Residence "Alpine Collegiate Polo"
+            // ($425), Agolde Low Slung Baggy jeans ($248), Sezane Livie belt.
+            outlet: 'Taylor Swift Style',
+            url: 'https://www.taylorswiftstyle.com/post-grid/kansascity-112325',
+            source_title: 'Kansas City — November 23, 2025',
+            publisher: 'Taylor Swift Style',
+            source_type: 'blog',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
+          },
+          {
+            // Her documented signature red lip: Pat McGrath LiquiLust "Elson."
+            outlet: 'Marie Claire',
+            url: 'https://www.marieclaire.com/beauty/taylor-swift-chiefs-red-lipstick/',
+            source_title: "Taylor Swift's Chiefs-Game Red Lipstick, Decoded",
+            publisher: 'Marie Claire',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 4,
+          },
+          {
+            // The Dec. 25 Broncos-game contrast: Frankie Shop "Zion" red bomber
+            // ($388), styled by Joseph Cassell Falconer.
+            outlet: 'Yahoo Entertainment',
+            url: 'https://www.yahoo.com/entertainment/celebrity/articles/taylor-swift-styles-subtly-festive-022006277.html',
+            source_title: 'Taylor Swift Styles a Subtly Festive Look for the Chiefs Christmas Game',
+            publisher: 'Yahoo Entertainment',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-25',
+            reliability_score: 3,
           },
         ],
         // Same honest-archival approach as the companion sighting item: no
@@ -5240,17 +5400,16 @@ export default {
             focalPoint: '65% 21%',
           },
         ],
-        products: [
-          {
-            brand: 'Terez',
-            item: '49ers Bomber Jacket in Sugar Swizzle and Red',
-            retailer: 'terez.com',
-            url: 'https://www.terez.com/products/49ers-bomber-jacket-in-sugar-swizzle-and-red',
-            price: '$285.00',
-            isAlternative: true,
-            altNote: 'This is a 49ers-branded piece, not the team-neutral jacket she actually wore to the Chiefs-Colts game -- included for the matching cream/red/white color-blocking, not the team logo.',
-          },
-        ],
+        // Products: none this pass. The Nov. 23 look is now correctly identified
+        // (ledger #1051, 2026-07-25) as Guest in Residence's "Alpine Collegiate
+        // Polo" in Sandstone Combo ($425), Agolde Low Slung Baggy jeans ($248) and
+        // a Sezane belt — not a "color-blocked jacket." The prior Terez 49ers
+        // bomber alternative was removed: it was a wrong-team piece chosen to
+        // match that mischaracterized jacket. No first-party product page was
+        // curl-verifiable this pass (the exact GiR polo is sold out/delisted;
+        // guessed product URLs 404), so no shoppable entry is added rather than
+        // link an unverified page — same discipline as the Versace skip on the
+        // "Showgirl orange" look.
       },
     },
     {

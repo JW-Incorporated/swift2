@@ -168,6 +168,8 @@ export default {
       month: 10,
       day: 21,
       category: 'music',
+      // Cross-link (candidate #1356, 2026-07-25): the single's chart run — same song.
+      relatedIds: ['moment:vault-midnights-anti-hero-dominates'],
       title: "The 'Anti-Hero' video, and the scale scene that got cut",
       snippet:
         "Three versions of herself confronting body image and insecurity — including a scale reading 'fat' that got edited out after online criticism.",
@@ -260,6 +262,9 @@ export default {
       year: 2023,
       month: 10,
       category: 'business',
+      // Cross-link (candidate #1332, 2026-07-25): the Oct-2023 billionaire milestone
+      // whose own text cites this record sales week as part of the same revenue story.
+      relatedIds: ['moment:vault-midnights-billionaire-status-from-the-music-alone'],
       title: "1989 (Taylor's Version) resets the vinyl record",
       snippet:
         '1.653 million units in week one, 693,000 on vinyl alone — a new all-time vinyl sales record, and her 13th No. 1 album.',
@@ -845,6 +850,9 @@ export default {
       month: 7,
       day: 26,
       category: 'relationship',
+      // Cross-link (candidate #1282, 2026-07-25): the WSJ. cover story where Travis
+      // first publicly retold this failed-bracelet meet-cute.
+      relatedIds: ['moment:vault-midnights-travis-confirms-it-on-the-record'],
       title: "The friendship bracelet Travis couldn't deliver",
       // the-proposal thread opt-in + pull-quote (stage 3, 2026-07-19 — the
       // derived End Game thread starts here; quote from the New Heights episode).
@@ -5049,10 +5057,12 @@ export default {
       video: { youtubeId: "b1kbLwvqugk", title: "Taylor Swift - Anti-Hero (Official Music Video)" },
       // Cross-links (ledger #1355, 2026-07-24): the album it led, the single-day
       // Spotify record it helped set, and the top-ten sweep it anchored.
+      // Candidate #1356 (2026-07-25): the self-directed video for the same song.
       relatedIds: [
         'moment:vault-midnights-thirteen-sleepless-nights',
         'moment:vault-midnights-midnights-breaks-spotify-in-a-single-day',
         'moment:vault-midnights-every-top-ten-slot-at-once',
+        'moment:vault-midnights-the-anti-hero-video-and-the-scale-scene-that-got-cut',
       ],
       moment: {
         context:
@@ -5123,6 +5133,8 @@ export default {
       month: 11,
       day: 5,
       category: "sighting",
+      // Cross-link (candidate #1357, 2026-07-25): the lead single that anchored the sweep.
+      relatedIds: ['moment:vault-midnights-anti-hero-dominates'],
       title: "Every top-ten slot at once",
       // Era-timeline milestone (stage 2b, 2026-07-19): derived MILESTONES
       // now come from these markers — legacy id kept for stability.
