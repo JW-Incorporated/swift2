@@ -7267,6 +7267,18 @@ export const VAULT_RAW: Partial<Record<EraId, VaultRawItem[]>> = {
       relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden"],
     },
     {
+      id: "vault-tloas-the-kelces-put-it-on-the-record-taylor-is-family",
+      slug: "showgirl-kelces-welcome-taylor-family",
+      date: "2026-07-23",
+      dateLabel: "July 23, 2026",
+      title: "The Kelces put it on the record: Taylor is family",
+      summary: "In the weeks after the July 3 wedding, Travis's family spoke up: Kylie Kelce called it \"absolutely magical\" and said Taylor had \"been part of the family now for quite some time,\" the wedding \"only making it official.\"",
+      body: ["For all the secrecy around the July 3 wedding itself, the warmth around it surfaced in the weeks after — and it came from Travis's side of the aisle. On the July 23 episode of her podcast \"Not Gonna Lie,\" Kylie Kelce — married to Travis's brother Jason — called the ceremony \"absolutely magical\" and \"intimate, and incredible, and full of love both for each other and for everybody else's love for them,\" and said she was \"so happy for them.\" The line fans seized on reframed the day as a formality more than a threshold: \"Taylor's been part of the family now for quite some time,\" Kylie said, the wedding \"only making it official.\"", "Travis's mother Donna Kelce — bound by the same NDA that had guests like Seth Meyers joking about how little they could say — kept it to a single word when she was caught at the July 4 Macy's fireworks show: it was \"magical, man.\" Neither said more about the ceremony's particulars. The family's public role here was less to reveal the day than to close the loop on the relationship it sealed — a Kelce welcome stated plainly, on the record."],
+      tags: ["Relationship"],
+      sources: [{ name: "Kylie Kelce Calls Taylor Swift 'Family' After Wedding to Travis Kelce", url: "https://www.today.com/popculture/news/kylie-kelce-calls-taylor-swift-family-after-travis-kelce-wedding-rcna588869" }, { name: "Kylie Kelce Details 'Absolutely Magical' Taylor Swift, Travis Kelce Wedding", url: "https://www.eonline.com/news/1434258/travis-kelce-taylor-swift-wedding-kylie-kelce-shares-details" }],
+      relatedIds: ["moment:vault-tloas-taylor-and-travis-marry-at-madison-square-garden", "moment:vault-tloas-first-sighting-since-the-wedding-pink-markarian-at-a-friends"],
+    },
+    {
       id: "vault-tloas-clearer-looks-at-both-wedding-bands-finally-surface",
       slug: "showgirl-wedding-bands-first-look",
       date: "2026-07-20",

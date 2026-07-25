@@ -95,5 +95,66 @@ export default {
         },
       ],
     },
+    {
+      // Authored 2026-07-25 from intake #1525. A resolved song-meaning theory
+      // about Taylor's public-facing musical orbit — squarely inside the
+      // rumors/theories allowance, and it belongs on the theory track (badges),
+      // never in confirmed narrative. Verified before writing: Dessner's exact
+      // "Yeah, definitely not" quote and the "friend's ex" origin against the
+      // July 21 Billboard interview, corroborated by NME and E! News (search +
+      // fetch; Billboard itself 307-redirects to a paywall proxy, so it is
+      // cited from the corroborating reads). Clean under the privacy redlines:
+      // Dessner said he did not even know the private person's identity, so no
+      // third party is exposed (redline #5) — the denial is only about a song's
+      // subject. The intake's "debuted at London's O2 in March 2025" detail was
+      // NOT independently verified this pass and is left out; see ledger.
+      slug: 'gracie-abrams-death-wish-not-about-taylor',
+      kind: 'theory',
+      title: 'The "Death Wish" theory, shut down by its own co-writer',
+      claim:
+        'When Gracie Abrams\'s "Death Wish" circulated, some Swifties read its lines about power, cruelty and a damaged relationship as a coded shot at Taylor — folding Abrams, one of Taylor\'s close friends and Eras Tour openers, into a supposed hidden feud.',
+      evidence:
+        'The song\'s co-writer and producer, Aaron Dessner — the same collaborator behind folklore and evermore — was asked about the theory head-on in a July 21, 2026 Billboard interview and shut it down flatly: "Yeah, definitely not." He said Abrams wrote it "at a time when [Gracie] was writing about a friend\'s ex, being in a bad relationship," and added that he did not even know the person\'s identity — so there is no hidden third party to expose, and nothing about Taylor in it. NME and E! News carried the same denial. The reading was always a fan inference stacked on a public friendship, never anything Abrams or Dessner had suggested; on the record from the man who helped write the song, it resolves debunked.',
+      confidence: 'reputable_reporting',
+      outcome: 'debunked',
+      sources: [
+        {
+          source_url:
+            'https://www.billboard.com/music/music-news/aaron-dessner-gracie-abrams-death-wish-noah-kahan-interview-1236299956/',
+          source_title:
+            "Aaron Dessner Sets the Record Straight on Gracie Abrams' 'Death Wish': It's 'Definitely Not' About Taylor Swift",
+          publisher: 'Billboard',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-25',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            'The July 21, 2026 interview carrying Dessner\'s "Yeah, definitely not" and the "friend\'s ex" origin. Billboard 307-redirects to a paywall proxy on a raw fetch; quote confirmed via the NME and E! reads below plus search.',
+        },
+        {
+          source_url:
+            'https://www.nme.com/news/music/the-nationals-aaron-dessner-speaks-out-on-if-gracie-abrams-death-wish-is-about-taylor-swift-3958555',
+          source_title:
+            "The National's Aaron Dessner speaks out on if Gracie Abrams' 'Death Wish' is about Taylor Swift",
+          publisher: 'NME',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-25',
+          reliability_score: 4,
+          excerpt: null,
+          notes:
+            'Independent corroboration of the "definitely not" denial and the friend\'s-ex origin, attributing it to the Billboard interview.',
+        },
+        {
+          source_url: 'https://www.eonline.com/news/1434254/gracie-abrams-song-death-wish-is-not-about-taylor-swift',
+          source_title: 'Gracie Abrams Song "Death Wish" Is Not About Taylor Swift',
+          publisher: 'E! News',
+          source_type: 'reputable_press',
+          accessed_at: '2026-07-25',
+          reliability_score: 3,
+          excerpt: null,
+          notes: 'Second independent outlet carrying the same on-record denial.',
+        },
+      ],
+    },
   ],
 };
