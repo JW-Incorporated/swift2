@@ -1931,6 +1931,7 @@ export default {
       slug: 'lover-first-owned-album',
       significance: 'defining', // the actual arrival of the album that owns her whole catalog's turning point, the first she's owned outright (docs/decisions.md, 2026-07-19)
       relatedIds: [
+          'moment:vault-reputation-she-leaves-big-machine-for-republic-and-owns-her-masters-goi',
         'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-lover-the-re-recording-plan-confirmed-on-live-tv-the-day-before-lo',
         'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
@@ -2381,6 +2382,7 @@ export default {
       significance: 'defining', // reshaped the whole industry's masters conversation, launched Taylor's Version (docs/decisions.md, 2026-07-19)
       threadIds: ['taylors-version'],
       relatedIds: [
+          'moment:vault-tloas-father-figure-rebuilds-george-michaels-1988-hit-with-his-est',
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
         'moment:vault-red-red-gets-its-do-over-red-taylors-version-opens-at-no-1',
         'moment:vault-midnights-1989-taylors-version-announced-at-the-final-us-show-on-the-d',

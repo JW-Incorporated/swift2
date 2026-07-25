@@ -63,7 +63,8 @@ export default {
     },
     {
       significance: 'notable', // the second consecutive album to set this exact platform record (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-midnights-midnights-breaks-spotify-in-a-single-day'],
+      relatedIds: [
+          'moment:vault-ttpd-spotifys-top-global-artist-again-26-6-billion-streams','moment:vault-midnights-midnights-breaks-spotify-in-a-single-day'],
       year: 2024,
       month: 4,
       day: 19,
@@ -198,7 +199,8 @@ export default {
       day: 19,
       category: 'release',
       significance: 'defining', // the surprise-drop format taken to its biggest scale yet (docs/decisions.md, 2026-07-19)
-      relatedIds: ['moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp'],
+      relatedIds: [
+          'moment:vault-tloas-the-black-dog-still-nobody-knows-what-the-songs-about-she-sa','moment:vault-folklore-sixteen-hours-notice-the-announcement-that-invented-the-surp'],
       title: 'A 2am surprise: TTPD was a secret double album all along',
       snippet:
         'Two hours after the album dropped, a second post: "The Tortured Poets Department is a secret DOUBLE album." The Anthology added 15 more songs, 31 total.',
@@ -728,7 +730,8 @@ export default {
       // Cross-link pass (Answerer shard 5, 2026-07-21, ledger #1088): links to
       // the "Florida!!!" studio-duet page — the Miami run is where that duet ran
       // nightly on the final leg. ID verified against the generated vault.
-      relatedIds: ['moment:vault-ttpd-florida-a-dateline-inspired-duet-with-florence-welch'],
+      relatedIds: [
+          'moment:vault-ttpd-sabrina-carpenter-crashes-the-superdome','moment:vault-ttpd-florida-a-dateline-inspired-duet-with-florence-welch'],
       title: 'The tour comes home: three nights in Miami, with Florence Welch in tow',
       snippet:
         'After a two-month break, the Eras Tour opens its final leg at Hard Rock Stadium — and Florence Welch walks out for a live "Florida!!!", not once but on all three nights.',
@@ -1136,6 +1139,7 @@ export default {
       category: 'tour',
       title: 'The long Canadian goodbye: six nights in Toronto',
       relatedIds: [
+          'moment:vault-ttpd-the-eras-tour-book-sells-814-000-copies-in-two-days',
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
         'moment:vault-ttpd-the-last-american-shows-indianapolis-breaks-its-own-record-t',
         'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
@@ -1304,6 +1308,8 @@ export default {
       category: 'tour',
       significance: 'defining', // the bookend to the biggest tour of her career, and of all time (docs/decisions.md, 2026-07-19)
       relatedIds: [
+          'moment:vault-ttpd-the-long-canadian-goodbye-six-nights-in-toronto',
+          'moment:vault-ttpd-show-100-at-anfield-and-the-news-the-tour-will-end',
         'moment:vault-midnights-the-eras-tour-kicks-off-in-glendale',
         'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
       ],
@@ -3165,6 +3171,7 @@ export default {
       // show where the tour actually ended (Vancouver) and the tour's $2B-gross
       // milestone. IDs verified against the generated vault.
       relatedIds: [
+          'moment:vault-midnights-the-i-can-see-you-video-reunites-the-taylors',
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
         'moment:vault-ttpd-the-first-tour-ever-to-gross-2-billion',
       ],
@@ -3710,6 +3717,7 @@ export default {
       category: 'tour',
       title: 'Vienna, cancelled: a foiled plot, three sold-out shows',
       relatedIds: [
+          'moment:vault-tloas-the-end-of-an-era-the-eras-tour-docuseries-lands-on-disney',
         'moment:vault-ttpd-munichs-hill-the-biggest-free-show-of-the-eras-tour',
         'moment:vault-ttpd-eight-nights-at-wembley-more-than-any-solo-artist-ever',
         'moment:vault-lover-cornelia-street-written-alone-and-debuted-acoustic-in-paris',
@@ -4302,7 +4310,8 @@ export default {
         'Target-exclusive, $39.99, 256 pages of tour photos and her own notes: it moved 814K over Thanksgiving weekend and nearly a million in week one — 2024\'s biggest new-release print debut.',
       sourceUrl: 'https://variety.com/2024/music/news/taylor-swift-eras-tour-book-sales-blockbuster-debut-two-days-1236236012/',
       thumbnailUrl: null,
-      relatedIds: ['moment:vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z'],
+      relatedIds: [
+          'moment:vault-ttpd-the-long-canadian-goodbye-six-nights-in-toronto','moment:vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z'],
       moment: {
         context:
           'Released in stores on Black Friday, Nov. 29, 2024, alongside Target-exclusive Anthology pressings of The Tortured Poets Department — a $59.99 vinyl (four marbled, translucent discs plus a 12-inch poster) and a $17.99 CD, both carrying the 35-track Anthology. Per Circana BookScan data the book\'s two-day number trailed only Barack Obama\'s A Promised Land for a first week, and Target called it the fastest-selling new-release book it had carried in four years — 2024\'s biggest publishing launch.\n\nThe 256-page, $39.99 volume collects more than 500 photos — many never before seen, from every era, plus rehearsal shots and behind-the-scenes images of instruments, costumes, set pieces and designer sketches — with Swift\'s own written reflections on the tour. First sold only at Target, it later reached Amazon and Swift\'s official store.\n\nSelf-published rather than issued through a traditional house, it was quickly nicknamed "the Errors Tour": first printings were riddled with mistakes — the surprise song "This Is Me Trying" printed "This Is Me Rying," a Toronto date missing from the concert list, pixelated photos, text bleeding off pages, some copies with pages upside-down or missing, and images cropped so tightly into the spine that Swift disappeared into the gutter. Publishing veterans said a traditional editor and printer would have caught them; Swift\'s team, not being book publishers, simply "didn\'t consider" that layer of quality control (Sophie Vershbow, to Yahoo). Target ordered a two-million-copy print run; the individual tour photographers, the printer, and any editor or designer went uncredited. As of mid-2026 no corrected reprint, errata edition, or refund program had materialized, and no consumer-protection or class-action action was documented — the only remedy on record was ad-hoc copy exchanges at Target, with no formal acknowledgement of the defects from Swift\'s team or Target.',
@@ -4408,6 +4417,7 @@ export default {
       category: 'business',
       title: "Spotify's top global artist, again — 26.6 billion streams",
       relatedIds: [
+          'moment:vault-ttpd-tortured-poets-breaks-spotifys-single-day-record',
         'moment:vault-ttpd-the-tortured-poets-department',
         'moment:vault-ttpd-all-14-ttpd-monopolizes-the-top-of-the-hot-100',
         'moment:vault-ttpd-the-eras-tour-takes-its-final-bow-in-vancouver',
@@ -4521,6 +4531,8 @@ export default {
       significance: 'defining', // the actual resolution of the defining business war of her career (docs/decisions.md, 2026-07-19)
       threadIds: ['taylors-version'],
       relatedIds: [
+          'moment:vault-tloas-a-mint-green-briefcase-on-new-heights-album-no-12-announced-',
+          'moment:vault-lover-lover-the-first-album-shes-ever-owned',
         'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-folklore-her-masters-get-sold-again-this-time-to-shamrock-capital-for',
         'moment:vault-evermore-fearless-taylors-version-is-the-first-re-recorded-album-ever',
@@ -4799,6 +4811,7 @@ export default {
       snippet: "A literary, ink-stained double album — the most word-heavy record of her career.",
       hiddenClue: { clue: "A second half — “The Anthology” — appeared two hours after release.", payoff: "The surprise 15 extra tracks doubled the album and broke streaming records overnight." },
       relatedIds: [
+          'moment:vault-ttpd-2-61-million-in-week-one-her-14th-no-1-tying-jay-z',
         'moment:vault-ttpd-ttpd-joins-the-eras-tour-as-female-rage-the-musical',
         'moment:vault-ttpd-the-european-leg-opens-in-paris-with-two-live-debuts',
         'moment:vault-ttpd-a-billion-streams-in-one-week',

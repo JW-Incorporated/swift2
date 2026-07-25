@@ -94,6 +94,7 @@ export default {
       thumbnailUrl:
         'https://upload.wikimedia.org/wikipedia/en/6/68/Taylor_Swift_-_Look_What_You_Made_Me_Do.png',
       relatedIds: [
+          'moment:vault-ttpd-thank-you-aimee-the-capitalization-does-the-talking',
         'moment:vault-1989-snakes-snapchat-and-excluded-from-this-narrative',
         'moment:vault-1989-the-full-call-leaks-and-she-was-telling-the-truth',
       ],
@@ -2057,6 +2058,7 @@ export default {
       significance: 'defining', // the deal that made every album since (Lover onward) hers outright, directly bracketing the Big Machine sale and the buyback (docs/decisions.md, 2026-07-19)
       threadIds: ['taylors-version'],
       relatedIds: [
+          'moment:vault-lover-lover-the-first-album-shes-ever-owned',
         'moment:vault-lover-my-worst-case-scenario-scooter-braun-buys-big-machine-and-he',
         'moment:vault-ttpd-all-of-the-music-ive-ever-made-now-belongs-to-me',
       ],
