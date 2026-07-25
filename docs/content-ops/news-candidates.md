@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 96
+Stories: 93
+
+## Was Taylor Swift’s Marriage Valid? - Catholic Answers
+
+- first seen: 2026-07-25 11:56 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Was Taylor Swift’s Marriage Valid?  Catholic Answers
+- sources:
+  - [unverified] Catholic Answers — https://news.google.com/rss/articles/CBMie0FVX3lxTFBPV0hHUnlUdmpFdld0RG42N2JLTlpKOHh2THd5TVcxQ1hJdEc0alR6alBsdms2bW91MUc2TlBBeWVMNXhlZDYyVXFhcUtteXFScmE0SkVRRGdfZExtMG5HaEF4RGJ0eTNwMlFCSDNnWm1UTzRETW5oSFdXQQ?oc=5
+
+## Niecy Nash-Betts Says Her Phone Was Put in a ‘Glass Case’ for Taylor Swift and Travis Kelce’s ‘Top S
+
+- first seen: 2026-07-25 11:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: Niecy Nash-Betts Says Her Phone Was Put in a ‘Glass Case’ for Taylor Swift and Travis Kelce’s ‘Top Secret’ Wedding  People.com
+- sources:
+  - [unverified] People.com — https://news.google.com/rss/articles/CBMirAFBVV95cUxPUnNKckgxeEhTNGFnUzhySzR0dnRsQ244OVE2V3NPQk1HLTlQUEJYVUtUTVJxX1IxU1V5eTYtZktUaDZKUC14SFVjZjZmMVI0dDJSenhJclVwNlNXVkZkZVhqM09PN2w0RlZMaTVpTlNzVmxUVFJ5Q1BNTXZxYWpjdTFsWG5MeWxOc01URjNvRDYyQUFPQk1SOHVqa0FqZ3UxRUwzNjByS3hOamw4?oc=5
+
+## 'I am in tears': How Taylor Swift and Travis Kelce's $2M move left families of fallen NYC heroes fee
+
+- first seen: 2026-07-25 11:56 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: 'I am in tears': How Taylor Swift and Travis Kelce's $2M move left families of fallen NYC heroes feeling  The Times of India
+- sources:
+  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMivwJBVV95cUxNUFdQRlhKdlRta2lHUkxsdWFpcE9hakNDY2N5TkJWVWw4SFFCYmc2ZlJPbWVnM09ZMGlTQ0NJNFNsQ2ViMWFaWkRPeVZQS3hZWVpzSFpSa1FWd29mcHBialYwdlZnSVVFdU1hMUtOZzBlVmlDUXdkY2syUlhGSHlhZjVVQ0hveGp6NVRETlFud2hIcllhby1EMVNrVWhvR1oxZlZac2lUTkR1cU9YT3BicG9HUHRRa3VvclRHY1JkM09oV1M0eHFXR0wxS3hmWlJEMnBKVXhmenZhbG1Id3NtSmttWVdRME1xS252VzVrRUFNZlNjbWlyQmFvM3ZCYjgwbTN4OXFPWDBJenJzS2xvaFFBN19YdUxtSlZ4Y3UySFVaaFhWaUQ0RlIxeEswbG9LZjBMQTdGWWVvZVRiTWFJ0gHEAkFVX3lxTFB4ZnVLT0RESGZ2c2J4a0x1NXlTVWprSTR3TlM4SFcwN0lLV2hGaFlzejlFb2VRbkpFdFJsWFk0T1ZseWJaQzhOSmZHTmlhcXM1NjFfS1ppU0xSbWFZVFduWUlYbnhES3YxSVd6M01zcHhBQWlWY3Q5OUdmd2ZmN0RrSjQ3cVhPcERETklGWFVJUXJ6SXk4c0J1U0l0VmF2VGRQeUt6WnJmek5HQ0h1RE1vU3hOeEs3Z2E3bXZIOWE1bzd5MDBNSW0tNlVPd1p6VnpKQUpYWjQwU2ZtNzBzbmFWYXFTQXdNTlJJa2laN01vZmNCazRRellLZ2NyR2ItRXp0RGZFd1BqV3pPajhreWlRb2VyZkZncnU3eWVUMVlwRFdPbmYyazlPdUZ2OHlfQ1I0blRiYmtBQnVfWjFXeWM5UUlYRQ?oc=5
 
 ## Could Chiefs fans and Swifties see Taylor Swift at training camp this summer? - Kansas City Star
 
@@ -762,51 +786,3 @@ Stories: 96
   - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZzhadjFkeC1IcHpSb3JTd1R2UVNaeE1oQnRGbTZWdUVQTzRIRC1BdG4yMEQ2YmtpZDhTcXNGOUpjei1qRTRTcllBM3BtdmR6bU5KM1RwOHdhWW5zQkdsQTd3dHNJeU5zanV4eDgyeU1IeXZqZXpnZEhfR1ZiYV9ib0ZWTXZZRmVIVzlkVVFsX2tWRzQyakNDR0dqcWc1QVR3ZkYyTjZWTE1mT0VqNWlaZ09nODl1NU5n?oc=5
   - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirwFBVV95cUxNV19yS3E0Nlgzd0oyazNSV0dMZDVGMjRhMDl5TjN4ZUE3UjlyTWEwZkZqTTZxQ0F1bnpOYUNfZURiYk5hcW1TNXJuQTl5bF8xeUtPYzZzWW9jc29ZU1hBbzFqZDV0bG0zVDNTbUNic09fRkJqZnphM0FFeGY2TTR0bGtEcHZqMTh6NGd5b2NKWHBRM2kyM3EzVndJMEJnR3ZISDhzc21uNTZ6VDlCckZN?oc=5
   - [unverified] Bustle — https://news.google.com/rss/articles/CBMihAFBVV95cUxPN091dmFuNUp1ZGVZd1dPSl9lVUtXRHp2b2xHNkpUc3lPSHgxTkpWRER4aHV0UnVBelcwMVkxZHJob1JBbk56NGFrQ0s3cnRxeUNodkdjM0ZVQnJncTJPVFZJOWxhR2c4Y0FYc3lYMERxUlZSeVhVVmtFMFM0U1ZOYzYyblY?oc=5
-
-## Rhode Island’s “Taylor Swift Tax” Creates New Compliance Obligations for Sellers and Closing Agents 
-
-- first seen: 2026-07-22 11:17 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Rhode Island’s “Taylor Swift Tax” Creates New Compliance Obligations for Sellers and Closing Agents in Residential Property Transfers in the State  JD Supra
-- sources:
-  - [unverified] JD Supra — https://news.google.com/rss/articles/CBMiigFBVV95cUxQdXotQmFXU2kzb0lHb2ZMb0NYUUxaZjFiSUtzRml6TUpOd05jX3JkMDRRdEZHakJuUVAxV0kxaktEd0h0ZU8xTUpQOFJRTmE5M2NoZzhBMGF1RG5KOTd4Tkg0NEc0aVFocno2NUpocWdjaVpoSXROR1ZUUURSWFl2TjV6NzJpeDNKUlE?oc=5
-
-## Taylor Swift Blindsided by What Chiefs WAGs Think of Her — Source - Yahoo
-
-- first seen: 2026-07-22 11:17 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift Blindsided by What Chiefs WAGs Think of Her — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMiqAFBVV95cUxQYW5NRlZPWTVjRjlwZGN6MC1Qc2laODZvNnpKYUpUbDdlSWlFMmtxVEx0ZXhGRkgzOVowUnFwTmpiejhocWpwbm44elpubm53clNHY0hNdmFhdGZEZTRwRXc3VzZFUTI3cEpDaC1mT28xWkNoNzFGNnBzOFVPQk1JWUo5NnBqTGNjemdpRDhnTE16RWk4SXhUN21YOXpiOXRFc0dSanI5YnA?oc=5
-
-## New AI Photos of Taylor Swift & Travis Kelce in Florida Trigger One Fan Complaint - Yahoo
-
-- first seen: 2026-07-22 11:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: New AI Photos of Taylor Swift & Travis Kelce in Florida Trigger One Fan Complaint  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxORnFmb2tQWjhhRHgySWlUeE9lVjFxd1BZckZkbWJablNSWnQyRlBPbUJoUDhHLTlNVW50dF9Hd2JMX1RKOXpwZHZaT3FuNVZHNHQ5NkUwN2c0OWNPZUtpcEdrZVdraTNyenFFMGRlV3ZQUDQzdklqaEtYRjdCTzNORDNpOW1jRXRsZF9rczBSdlZ4eGl6V1Y0eXNrQVJ4SkMz?oc=5
-
-## Travis Kelce’s Best Man Shares New Details About Taylor Swift Wedding Duet - Yahoo
-
-- first seen: 2026-07-22 11:17 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Travis Kelce’s Best Man Shares New Details About Taylor Swift Wedding Duet  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMinwFBVV95cUxOcWZLMUtDX1doLVh6dm5YWGVXalh2WEt4NVY5UkVFNndyTXZjV1EwbnRhMHY0TkFOWFp2QjRpM3dGc3NUemhDbVlUa05MbWtKak5KOGhjemp2Tl9sTU50eGZiVGRKek5uRjVwVjZueS1hN09nUVJTc2poaWVHVnNPU1FGd0haZnl0VzV2YmdOSVZWVWNaczBtN2tvM1ZyOVU?oc=5
-
-## Taylor Swift's Wedding Guest Reveals She Performed At Her Own Wedding: 'Crazy Experience' - SheKnows
-
-- first seen: 2026-07-22 07:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift's Wedding Guest Reveals She Performed At Her Own Wedding: 'Crazy Experience'  SheKnows
-- sources:
-  - [unverified] SheKnows — https://news.google.com/rss/articles/CBMioAFBVV95cUxOZGlJYnFaVGpLdXlfVklPUE1hRnFwQy1JeHo4cFR6UEtHTEtydlFNdmF1V1BwZDhvd3Y0WVVuOExHUlVsV3VjdkJnSmNlNGdsMjlCQUl3blNKYUowMzlfVU1tV0RGcFU2dFBiSW56Rk1rclZxZy1ZREtZWGE3SmthTUJzWmZyQ2c0U3l0LXFzLTJGMVRzdGpBRlhnY2lwMkwz?oc=5
-
-## Taylor Swift & Travis Kelce’s Dog Lives Exactly Like They Do — Source - Yahoo
-
-- first seen: 2026-07-22 07:41 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift & Travis Kelce’s Dog Lives Exactly Like They Do — Source  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMioAFBVV95cUxNbGJGNzh5ajJ3Wl9NemVGTFBJenluX0hNbWNmTGJnMkQtWlNVVEdqOWJMSjROcjlBYkVVR0dlZFdPWUdkWDZ2VTVqQnVJcDRaNjJxeEQ2cUJtQ3F0NlFVV3Bma3ExWXcwOXZVeks3eGI3SGhOeHZWZ2F1azltSTh3WFlRcDdPOUZUUjNwX3Y2Smx5SGNRVTNObWEta0JNdDRS?oc=5
