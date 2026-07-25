@@ -25,7 +25,31 @@ headlines. Group these yourself before judging corroboration — do not read
 `verification_status: rumor` as "this is a rumor", it mostly means "one outlet
 so far".
 
-Stories: 94
+Stories: 92
+
+## Blake Lively Reportedly Losing ‘VIP Treatment’ by Hollywood After Taylor Swift Fallout - Yahoo
+
+- first seen: 2026-07-25 18:05 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: Blake Lively Reportedly Losing ‘VIP Treatment’ by Hollywood After Taylor Swift Fallout  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMipwFBVV95cUxQcDR2eWpJbjlGcnVobDhQNHBLdzZhTWJ5YngwQlRIMTlNMUF0Ymx3Sk9lYkpIN3hFMzJPUzlsV091RXFKMnFsRlR2YS1UNHJHUTBXVjdRUXc4WkM4ZTdzRUpMR21ZWUplZ0hLZUt4MlJSNVJiV1N6OHZEbzRaS3NOYUVmRFV3VHdIQ2FBYUZ1UG5BMW1sXzhoNGlaNk53ejVZdzFZUy1IQQ?oc=5
+
+## MUST READ: Burlington couple pleads guilty in $1/4-million Taylor Swift ticket scam - BurlingtonToda
+
+- first seen: 2026-07-25 18:05 UTC | category: sighting | importance: 3
+- verification_status: rumor | source_count: 1
+- summary: MUST READ: Burlington couple pleads guilty in $1/4-million Taylor Swift ticket scam  BurlingtonToday.com
+- sources:
+  - [unverified] BurlingtonToday.com — https://news.google.com/rss/articles/CBMizAFBVV95cUxQRVNzcjZjU1kyRi12dW1jelcyT0c5c1FORWVFSTllYlBFSXFVODJxTnJUQkZnZktUWWVsQ3gwMm95SExfX0xZajg5U1ZsQ0o3Y3pOWHpVakd0M1U4eVpvYTVLOU9vZnVLcnNDVzVJMXpKZHl6cUFDS2Iza3FNWlRfQl9vN01xSENxc1FmbURQV3dfMzB2eXd4STNodjd1aFJOeS1HdHp1Y21pZ1pkb19zLWtOV0FhckpjMXo4WDRwWU5zdHQ2RndqMU9wNjM?oc=5
+
+## How Travis Kelce and Taylor Swift's relationship caused 'big flip' for family - Yahoo
+
+- first seen: 2026-07-25 18:05 UTC | category: relationship | importance: 5
+- verification_status: rumor | source_count: 1
+- summary: How Travis Kelce and Taylor Swift's relationship caused 'big flip' for family  Yahoo
+- sources:
+  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirgFBVV95cUxQMlRBNUxGcktjR2RCbS03eGN2a3p0TVNXMFdyZnN1MFYtblZVTVpDMjkxbFpzc1M2bF96d3RQSHNlb09pMTNvSFFQTnVnOGw0ZnR6dG9meU0tak90cmpadkpaMXVoTTBhQ1lFbUFvbVFsVmZmeTdXX0RmT0x0RzZ6Rko0aHdzUV9yUnJZUzk0M2dTTktfak5MOV9YeFhVekxzcXhDcm1vT1pXd0R4alE?oc=5
 
 ## Bad blood: The inside story of how a Taylor Swift ticket scam fractured a tight-knit community of Bu
 
@@ -752,45 +776,3 @@ Stories: 94
 - summary: The Nuptials Heard 'Round The World: Taylor Swift-Travis Kelce MSG Wedding Puts Spotlight On ‘Privates’  Pollstar News
 - sources:
   - [unverified] Pollstar News — https://news.google.com/rss/articles/CBMi0wFBVV95cUxNLWJFNFZ5TnhYc3Fwamd6cmQyenV0Z3owdTRmNmx3NkJndUk0X3c0cENIVkdyenZ3WC1leUNWSWlvaTBXU1k4ZnBIRVI5SFpMNTUtSmRrQ09WLWxGX290dXM1NUIwUnIwZHFrajZUN2M4YXBHNTZGanBPWWpjMnhncHg2VGFuUHRnNXoxR05Yck1qWnJqV3pPZG9KVzVzd3hIY3pQS2hzdF9nNTJRMldxWnV0REwwTXRiLVVTbVdjb28xbE5qYUVwbXl2MThpLXdybERB?oc=5
-
-## Taylor Swift fans show their love for World Cup winner after finding out he’s a ‘Swiftie’ - Yahoo
-
-- first seen: 2026-07-22 15:12 UTC | category: sighting | importance: 3
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift fans show their love for World Cup winner after finding out he’s a ‘Swiftie’  Yahoo
-- sources:
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMingFBVV95cUxOakZNZllFTy11aFBjeDVWT3BRTkRvVGUyMjc4OWNBNlpCUkZ6NkF2U2lvRTZmMDJTT09pandQSDRJNV9DVWdvNHhLbWtqU2NuVWwyd0VrcUdGWldRZlRPaVRJdXpoUjB3VVg3cHBJYjFTOWV0VE03OXpGZlktTlVTRGZPWmR4d3Nmb3FscW9BLXA1azM5MHg5TW00b1JOdw?oc=5
-
-## Taylor Swift’s Path To Becoming The Most-Nominated Act At The 2027 Grammys - Forbes
-
-- first seen: 2026-07-22 15:12 UTC | category: music | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift’s Path To Becoming The Most-Nominated Act At The 2027 Grammys  Forbes
-- sources:
-  - [unverified] Forbes — https://news.google.com/rss/articles/CBMixgFBVV95cUxPc2lTNTVxU3o1TUJIOGtUSVFtaFhWbDlIMGpsMXVwcUEyRHhUbGtpc25GR3lrSzBPQ1BVM3JsYnc2a0NPWi1icUptN3VMem01OFlIUFByN0JnaDNHS1VHZG95bFJxVkFCaWtvMC1mNm1mOF9EaVVXRmJDdWh1LW9zNkVyc002eEZ6ZHd4S25UdkZfTVVqd2ptWlpkclpvSDF0alpVa0JDOVJCUG95MFZVNzZhQS02XzRBRjEzeWJJaHRmX0V6OUE?oc=5
-
-## Taylor Swift and Travis Kelce's reported wedding planner hit with $658K legal battle trouble over un
-
-- first seen: 2026-07-22 15:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: Taylor Swift and Travis Kelce's reported wedding planner hit with $658K legal battle trouble over unpaid  The Times of India
-- sources:
-  - [unverified] The Times of India — https://news.google.com/rss/articles/CBMikwJBVV95cUxNajZfYl9jWXZzNDRuV0hXMVlvSjloRVRmaVZMa1BJZ0RlUHBza1pmYVRqRDlxNGdVV21wbU1qemdGMGVnWnpuV094elBBVHZRT0ljRGZtdHpLNk9OWjFvNmhfTmpoUTB4NEpGSEQ1YVlOWXd4Vkc2V3VoaGZBNkxxNWxQZXB4bUVmV2Nnb0NmVTNmUmlXQmdkVFNzSkUtUlZPYmFyajZCVV9WZDhBN3lKN19kVW4zcnlLYW5GOU9ZNU0xX1JmUUVUdWJpTDdGMm1YeXlNTVVVOE5MSU9JNTVrYktreEZZZk9mbUdxREpINVFzSXBsS2NYYzY1T3RZLW5tZ24xYktveV9NRnFoLXB5RHM4d9IBmAJBVV95cUxOVkdlcGhpNEdfY2dHMWp6VnFsVHNxNEd0VFFtemprUGpWZmttU3N5cjIyYVc0WVZnd2k2SW1qUmFicFBHam9BYUx0dlBpTXI2VnNwYS11YXJWY2xyS2JKR0VTM0NKWm9JUEZnWkh6S2tMb09JY1Y3a0hZYngyWWtqNWtBRGh1bVJISkhhTEdrVUdfdGV2dE91dkt0NG1CNVFxWlpBV3QyZV91QjhjOGYwWm0tUHJ5d1RNOFJuSFAwYWVFRlhIMTVCc0NzZXg3TGxndUpTNGdrNnpoODkzTzJRaWJmbXpfSUpaNzVjMHYyM2pDWWRmMERPSnQwVFBfNW1sRjBxLVV6MXJpamNqdnotbDBjSHBhV2FF?oc=5
-
-## The Detail That Has Fans Linking Taylor Swift And Travis Kelce To Gwen Stefani And Blake Shelton’s A
-
-- first seen: 2026-07-22 15:12 UTC | category: relationship | importance: 5
-- verification_status: rumor | source_count: 1
-- summary: The Detail That Has Fans Linking Taylor Swift And Travis Kelce To Gwen Stefani And Blake Shelton’s Anniversary  Backstage Country
-- sources:
-  - [unverified] Backstage Country — https://news.google.com/rss/articles/CBMi5AFBVV95cUxObUM1NVpMVHY1amJJVmFKQU5LcWFFNVl2ei1TMVlsQ29NaHkzeGNWUXdSSVMyMmZ1eGN3WlRRVVdmM1k4cjBUNDJPREE1Tm9FNmlNVmJFcVZpX3F4UEJyaTZjc1hJQTh1N1daX2dkcERnc0c1NzE0YmJSazZoUzlONnIxdjQzbFg0d0RwQmJIWml1bmUzZXpaOFMyS0RRa2MzVi1veGRDbndUeEFRTHlERmhWa0FTS0V6YVV1dWNUemNJa1lsb0V2bkhXZGx4aVhOZ1laY1h0WWxtM0FmMjB6N3g1Z0Q?oc=5
-
-## Apparently, Travis Kelce Also Performed at His and Taylor Swift’s Wedding - Harper's BAZAAR
-
-- first seen: 2026-07-22 15:12 UTC | category: relationship | importance: 5
-- verification_status: corroborated | source_count: 3
-- summary: Apparently, Travis Kelce Also Performed at His and Taylor Swift’s Wedding  Harper's BAZAAR
-- sources:
-  - [unverified] Harper's BAZAAR — https://news.google.com/rss/articles/CBMiuAFBVV95cUxQZzhadjFkeC1IcHpSb3JTd1R2UVNaeE1oQnRGbTZWdUVQTzRIRC1BdG4yMEQ2YmtpZDhTcXNGOUpjei1qRTRTcllBM3BtdmR6bU5KM1RwOHdhWW5zQkdsQTd3dHNJeU5zanV4eDgyeU1IeXZqZXpnZEhfR1ZiYV9ib0ZWTXZZRmVIVzlkVVFsX2tWRzQyakNDR0dqcWc1QVR3ZkYyTjZWTE1mT0VqNWlaZ09nODl1NU5n?oc=5
-  - [unverified] Yahoo — https://news.google.com/rss/articles/CBMirwFBVV95cUxNV19yS3E0Nlgzd0oyazNSV0dMZDVGMjRhMDl5TjN4ZUE3UjlyTWEwZkZqTTZxQ0F1bnpOYUNfZURiYk5hcW1TNXJuQTl5bF8xeUtPYzZzWW9jc29ZU1hBbzFqZDV0bG0zVDNTbUNic09fRkJqZnphM0FFeGY2TTR0bGtEcHZqMTh6NGd5b2NKWHBRM2kyM3EzVndJMEJnR3ZISDhzc21uNTZ6VDlCckZN?oc=5
-  - [unverified] Bustle — https://news.google.com/rss/articles/CBMihAFBVV95cUxPN091dmFuNUp1ZGVZd1dPSl9lVUtXRHp2b2xHNkpUc3lPSHgxTkpWRER4aHV0UnVBelcwMVkxZHJob1JBbk56NGFrQ0s3cnRxeUNodkdjM0ZVQnJncTJPVFZJOWxhR2c4Y0FYc3lYMERxUlZSeVhVVmtFMFM0U1ZOYzYyblY?oc=5
