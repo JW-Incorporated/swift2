@@ -292,11 +292,13 @@ describe('assignFeedTiers over REAL vault content', () => {
   });
 
   it('gives a bare one-line single announcement the compact chip tier', () => {
-    // Fixtures repointed 2026-07-21 (ledger #1096): the Answerer enriched
-    // tloas-opalite-video into a hero-tier page, so still-thin singles (the
-    // "Elizabeth Taylor" radio release and the showgirl-released marker) stand
-    // in for the bare-with-photo case.
-    expect(realTier('vault-tloas-elizabeth-taylor-goes-to-radio')).toBe('chip');
+    // Fixtures rotate as depth passes enrich the example items (see the
+    // spacing/pacing note on the hero test above). Repointed 2026-07-25
+    // (ledger #1257): the Answerer enriched tloas-elizabeth-taylor-goes-to-radio
+    // into a hero-tier page — as it had earlier enriched tloas-opalite-video
+    // (#1096) — leaving showgirl-released the only remaining tloas chip, so a
+    // still-bare debut single now stands in beside it for the bare case.
+    expect(realTier('vault-debut-our-song-hits-number-one')).toBe('chip');
     expect(realTier('vault-tloas-the-life-of-a-showgirl-released')).toBe('chip');
   });
 

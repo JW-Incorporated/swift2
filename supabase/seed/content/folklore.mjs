@@ -1173,6 +1173,8 @@ export default {
     },
     {
       slug: 'exile-bon-iver-duet',
+      // Cross-link (candidate #1428): the Long Pond reveal that Joe co-wrote it.
+      relatedIds: ['moment:vault-folklore-william-bowery-is-joe-the-long-pond-reveal'],
       year: 2020,
       month: 7,
       day: 24,
@@ -1484,6 +1486,8 @@ export default {
     },
     {
       slug: 'william-bowery-is-joe',
+      // Cross-link (candidate #1428): the exile duet the reveal is about.
+      relatedIds: ['moment:vault-folklore-exile-a-break-up-seen-from-both-sides-with-bon-iver-in-the-o'],
       year: 2020,
       month: 11,
       day: 25,
