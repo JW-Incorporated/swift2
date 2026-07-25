@@ -141,6 +141,14 @@ For each question, research a sourced answer with WebSearch/WebFetch and edit th
     curl -sL --max-time 25 -A 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0 Safari/537.36' '<url>'
 - Label rumors as rumors. Anything unverifiable stays open/unanswerable. NEVER fabricate a fact or a photo.
 
+=== CROSS-LINKS (recurring duty, added 2026-07-25, Wyatt: "I value them, add them to the answerer's scope on a recurring basis") ===
+Lex is PAUSED, so the open `crosslink-candidate` issues (title "Cross-link: A ↔ B", ~50 as of 2026-07-25) are a BOUNDED backlog with no new arrivals — YOU own draining them now (the separate "Cross-Link builder" below was never deployed). Each run, AFTER your ledger batch, also close a handful (aim ~5-10):
+- Read the issue's JSON block: `from`, `to` (both `moment:vault-<eraId>-<slug>`), `bidirectional` (usually true).
+- Verify BOTH ids resolve to a real moment — each must appear as an `id:` in content-vault.generated.ts. A dangling id renders the rail short and is worse than no link: skip it and comment "moment no longer exists" rather than guessing.
+- Add the link in the SEED: append `'moment:<to>'` to the `from` moment's `relatedIds` array, and (bidirectional) `'moment:<from>'` to the `to` moment's. If a moment has no `relatedIds` yet, add exactly ONE `relatedIds: [ ... ]` field — NEVER a second one. Duplicate object keys are legal JS, invisible to node --check and validate-content, caught ONLY by lint; that is the #1 corruption mode here.
+- Close each issue via `Closes #<n>` in your PR. If the link already exists in the seed, just close the issue as already-linked (no code change).
+Roll these into your normal depth PR or a dedicated one — your call. Same validation gate below (lint especially). This queue is finite: once it is empty and Lex stays paused, this duty is done.
+
 === BEFORE THE PR ===
 npm run sync:content, then npm run validate:content, npm run check:generated, npm run typecheck, npx vitest run, npm run lint - all green. Lint matters: it is the only gate that catches duplicate object keys.
 
