@@ -152,17 +152,31 @@ Defence in depth now: (1) connector detached — cannot call `send_later`;
 including Joey's and Codex's; (3) per-runner prompt blocks; (4) auto-merge
 removes the reason to wait in the first place.
 
-### ⚠️ Marjorie's brief is still on `claude-fable-5` — unresolved
+### ✅ Marjorie moved off Fable 5 (2026-07-26, Wyatt)
 
-`trig_01KJLFZpKaFV6jDVshMrHG3E`, `updated_at` 2026-07-17, never migrated when
-the rest of the fleet moved to `claude-opus-4-8` on 2026-07-20. The Content
-Shift trigger's own notes say **"the entire scheduled fleet was silently failing
-on claude-fable-5"** — and the four consecutive un-actioned "no Founders' Brief"
-watchdog alerts (#947, #1177, #1203, #1224) are consistent with exactly that.
+`trig_01KJLFZpKaFV6jDVshMrHG3E` is now on **`claude-opus-4-8`**, matching the
+rest of the fleet. It was the ONE runner never migrated on 2026-07-20 when
+everything else moved after the scheduled fleet was found to be silently
+failing on `claude-fable-5` — its `updated_at` had sat at 2026-07-17 ever since.
+The four un-actioned "no Founders' Brief" watchdog alerts (#947, #1177, #1203,
+#1224) fit that pattern.
 
-It has fired successfully recently (2026-07-25T12:05Z), so it is not currently
-broken. Left as-is rather than changed unprompted: the brief is the founders'
-primary channel and a model swap is a behavioural change. **Decide deliberately.**
+Chose `claude-opus-4-8` over `claude-opus-5` deliberately: 4.8 is the model
+empirically proven in this exact runner environment across the whole fleet, and
+this is the runner with the worst reliability history — not the place to
+introduce a new variable. Upgrading the fleet to Opus 5 is a separate,
+deliberate decision.
+
+Its prompt now carries a note saying Fable is ruled out, so a future missed
+brief sends the investigation somewhere new instead of re-litigating this.
+
+Two stale instructions fixed in the same edit:
+- Step 3 said "requires gh — if gh is unavailable, stop and exit loudly." After
+  #1552 that is wrong: `assemble-brief.mjs` falls back to the REST API. The step
+  now says a failure there is a REAL failure, and explicitly forbids
+  hand-assembling a brief that hides a broken pipeline.
+- Step 7 (merge sweep) now notes that `auto-merge-content.yml` lands content-only
+  PRs automatically, so fewer PRs waiting is expected, not a sign of a dead fleet.
 
 ### ⚠️ RemoteTrigger API footgun — read before editing any trigger
 
