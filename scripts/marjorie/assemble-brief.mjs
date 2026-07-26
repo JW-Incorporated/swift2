@@ -70,12 +70,15 @@ function formatDelta(n) {
   return typeof n === 'number' ? ` (${n >= 0 ? '+' : ''}${n})` : '';
 }
 
+// Nothing "awaits your OK" any more — per-item founder approval was removed
+// 2026-07-25 (docs/decisions.md); the desk queues and the poster ships on
+// schedule. The brief now reports what is going out, not what is blocked.
 function formatQueueStatus(queueStatus) {
-  const { total, awaitingApproval, approved } = queueStatus;
+  const { total, scheduled, due } = queueStatus;
   if (total === 0) return 'queue: empty (nothing drafted)';
   const parts = [];
-  if (awaitingApproval > 0) parts.push(`${awaitingApproval} awaiting your OK`);
-  if (approved > 0) parts.push(`${approved} approved & scheduled`);
+  if (scheduled > 0) parts.push(`${scheduled} scheduled to post`);
+  if (due > 0) parts.push(`${due} due now`);
   return `queue: ${parts.join(', ')}`;
 }
 

@@ -11,3 +11,19 @@ Hard limits (charter): read-only — never edit content/code/seeds; tickets and 
 AMENDMENT (2026-07-12, charter amendment 1): before judging from data alone, spot-check the LIVE deployed site — fetch https://www.longlivets.com/ pages (the PUBLIC production site per docs/deploy.md; the apex 308-redirects to www) for today's marquee surfaces and verify they actually render what the data promises (content present, no placeholders, affordances wired). A repo-vs-deployed diff is itself a P1 finding — and note deploy.md's known-issue that the public domain may be serving a stale build; if you see it, flag it loudly. End the walk log with coverage-matrix rows per charter amendment 2 (surface · meets-standard? · evidence).
 
 AMENDMENT (2026-07-12, discoverability lens — docs/agents/maintenance-bots-research.md §4): also judge each walked marquee page for SEO/discoverability — server-rendered title/description/canonical + Open Graph tags present, valid JSON-LD structured data (Article/BreadcrumbList/MusicAlbum/Person as fits the page), and presence in the sitemap. Missing or invalid metadata on a marquee page is an exp:P2 discoverability finding filed as an authorable spec (page · what's missing · the exact tag/schema to add). Route heavy Core Web Vitals / Lighthouse perf work as a product spec rather than hand-auditing it.
+
+## Run discipline (added 2026-07-25 — token burn)
+
+**Do your work, open the PR, and EXIT.** Do not arm a self-check-in, a
+`send_later`, a Monitor, or any other "come back and look at this PR again"
+follow-up. Do not subscribe to PR activity and wake on it.
+
+Why: those self-armed check-ins were ~69% of all scheduled agent token spend
+(~144 cloud sessions/day whose entire output was "still open, still green,
+re-arm in 1h"). PR health is already covered without spending a token —
+`build` gates the merge, `auto-merge-content.yml` lands content PRs the moment
+they go green, and `watchdog.yml` alerts if a runner goes dark. If your PR
+fails CI or hits a conflict, the NEXT scheduled run of this runner picks it up.
+
+If something genuinely needs a human, say so once in the PR body or a single
+comment and exit. Never poll for the answer.

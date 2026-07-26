@@ -19,13 +19,19 @@ every outward-facing action stays behind a founder approval.
    feeding the Founders' Brief — what Swifties are talking about, what
    content of ours resonated, what flopped, anything reputational. Posting
    is the exception, not the default.
-2. **Draft-queue posting.** Nothing is ever posted by an agent directly.
-   The desk writes post drafts; drafts land in the approval queue (below);
-   a founder approves; **a founder (or a founder-granted scheduler) posts.**
-3. **Per-channel autopost grants only.** Scheduled autoposting on a channel
-   activates only via an explicit founder grant recorded as its own
-   `docs/decisions.md` entry with a channel policy and a crisis-stop rule.
-   No general autonomy ratchet ever covers posting.
+2. **Queue-and-ship posting** *(rail amended 2026-07-25 by Wyatt, CTO — see
+   `docs/decisions.md`; previously "a founder approves, then a founder
+   posts")*. The desk writes post drafts into `social/queue/`; each item's
+   `scheduledAt` is when it ships; `social-poster.yml` posts it. **There is
+   no per-item human approval step any more.** The desk still never calls a
+   platform API itself — the queue plus the poster is the only path out, so
+   `SOCIAL_FREEZE` remains a single, total kill switch.
+3. **Autoposting is ON for X and Instagram** *(amended 2026-07-25, same
+   decision)*. It is bounded by code, not by trust: the per-run and
+   per-platform-per-day caps in `scripts/social/lib/queue.mjs`, the
+   `SOCIAL_FREEZE` crisis stop, and rails 1/4/5/6 below, all of which stand
+   unchanged. Adding a NEW channel still requires its own `docs/decisions.md`
+   entry with a channel policy and a crisis-stop rule.
 4. **Engagement replies stay human indefinitely.** No agent ever auto-replies
    to comments or DMs, full stop. The desk may *draft suggested replies*
    in the brief for a founder to use or ignore.
@@ -42,12 +48,19 @@ every outward-facing action stays behind a founder approval.
 and files each item under `social/posted/` (success) or `social/failed/`
 (3 failed attempts). Full schema and the founder crisis-stop switch
 (`SOCIAL_FREEZE` repo variable — instant halt, no PR needed) are documented
-in `social/README.md`. This automates only the *shipping* step — writing a
-queue item still requires an `approvedBy`/`approvedAt` pair the poster
-checks, and the desk only ever sets those after a real founder approval
-(Slack, brief, or in-session), never on its own judgment. Per-run and daily
-per-platform caps live in `scripts/social/lib/queue.mjs`, not as config —
-changing them is a normal code change, reviewed like any other.
+in `social/README.md`. As of 2026-07-25 this automates the whole path:
+`isDue` no longer requires an `approvedBy`/`approvedAt` pair, so an item
+posts when its `scheduledAt` arrives. Those two fields survive as optional
+provenance (who/when, when a human *did* weigh in) and are no longer a gate.
+What still bounds posting is all code, not trust: per-run and daily
+per-platform caps in `scripts/social/lib/queue.mjs` (changing them is a
+normal reviewed code change) and the `SOCIAL_FREEZE` repo variable.
+
+**What this moves onto the drafting run.** With no human between the draft
+and the timeline, the Growth run's own judgment is the only editorial gate
+left. The #36/Clownbot blocklist, the sourcing standard, and the "never
+invent a stat, quote, or trend" rule stop being things a founder would have
+caught and start being things only the desk can catch. Draft accordingly.
 
 Live once these exist (founder TX, issue #738): an X (Twitter) developer
 App on `@longlivetscom` with Read+Write permissions → repo secrets
