@@ -9,5 +9,10 @@
   "why": "IG version of the July-25 on-this-day (Lover Fest SoFi). Same vault sourcing as the X draft; her tour-announcement statement is paraphrased, never quoted verbatim (per the 2026-07-08 sourcing rule). Media: /eras/lover.png (era-representative tile, the safe committed default -- no dedicated event asset), matching the era-art fallback used on the HAIM/ATW posts.",
   "attempts": 1,
   "lastError": "Instagram publish failed: {\"error\":{\"message\":\"Media ID is not available\",\"type\":\"OAuthException\",\"code\":9007,\"error_subcode\":2207027,\"is_transient\":false,\"error_user_title\":\"Cannot Publish\",\"error_user_msg\":\"The media is not ready for publishing, please wait for a moment\",\"fbtrace_id\":\"AOuxjHh3v9sDiCHptVMxS5_\"}}",
-  "lastAttemptAt": "2026-07-26T04:05:50.252Z"
+  "lastAttemptAt": "2026-07-26T04:05:50.252Z",
+  "postedAt": "2026-07-26T07:10:37.497Z",
+  "platformPostId": "18461069821118721",
+  "url": "https://www.instagram.com/longlivetscom/",
+  "facebookPostId": "1165693196635001_122100074949407187",
+  "facebookUrl": "https://www.facebook.com/1165693196635001_122100074949407187"
 }
