@@ -2531,7 +2531,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The lyric describes tracking an ex whose location services were still on and watching him walk "into some bar called The Black Dog," which turned a real Vauxhall, London gastropub into a fan pilgrimage site, complete with lyric-quoting window signage and a "Taylor\'s Version" cocktail list. A year and a half on, the pub was still trading on the association — and fans were still treating the TTPD deep cut as an unsolved case.\n\nSpeaking to BBC Radio 2\'s Scott Mills during her Life of a Showgirl press run in October 2025, Swift finally addressed it — by un-solving it further. She said she never tipped off the pub, and went out of her way to note that the internet\'s confident consensus is wrong: "still nobody knows what I\'m even talking about on that song. They think they know, they have no idea." It was a rare on-record reminder, delivered mid-victory-lap for a new album, that some of the catalog\'s most-theorized songs remain deliberately unexplained.\n\nWhat she was un-solving: fans had split the song between two exes. The opening watches an ex whose phone still shared his location — "your location, you forgot to turn it off / and so I watch as you walk / into some bar called The Black Dog" — and one camp read it as Joe Alwyn (who later said flatly, "I\'ve never been to Vauxhall"), the other as Matty Healy, pointing to the track\'s nod to the band The Starting Line, whom Healy has covered live. A "2 a.m." Anthology cut from the surprise double-album, it charted on its own, peaking at No. 25 on the Hot 100. The real Vauxhall pub leaned all the way in — Swift-themed menu, fans turned away at capacity, staff combing CCTV for a sighting; "anything she touches goes viral," one worker told reporters — a scene BBC News, NME and Capital FM all covered.',
+          'The lyric describes tracking an ex whose location services were still on and watching him walk "into some bar called The Black Dog," which turned a real Vauxhall, London gastropub into a fan pilgrimage site, complete with lyric-quoting window signage and a "Taylor\'s Version" cocktail list. A year and a half on, the pub was still trading on the association — and fans were still treating the TTPD deep cut as an unsolved case.\n\nSpeaking to BBC Radio 2\'s Scott Mills during her Life of a Showgirl press run in October 2025, Swift finally addressed it — by un-solving it further. She said she never tipped off the pub, and went out of her way to note that the internet\'s confident consensus is wrong: "still nobody knows what I\'m even talking about on that song. They think they know, they have no idea." It was a rare on-record reminder, delivered mid-victory-lap for a new album, that some of the catalog\'s most-theorized songs remain deliberately unexplained.\n\nWhat she was un-solving: fans had split the song between two exes. The opening watches an ex whose phone still shared his location — "your location, you forgot to turn it off / and so I watch as you walk / into some bar called The Black Dog" — and one camp read it as Joe Alwyn (who later said flatly, "I\'ve never been to Vauxhall"), the other as Matty Healy, pointing to the track\'s nod to the band The Starting Line, whom Healy has covered live. A "2 a.m." Anthology cut from the surprise double-album, it charted on its own, peaking at No. 25 on the Hot 100. The title itself carries a double meaning under the literal pub: "black dog" is the old idiom for depression — coined by Samuel Johnson and popularized through Winston Churchill — so the song reads at once as tracking an ex into a real bar and as a portrait of the grief that trails the person left behind. The real Vauxhall pub — The Black Dog sits at 112 Vauxhall Walk, a redbrick Victorian corner house at Glasshouse Walk — leaned all the way in: Swift, it emerged, had drunk there herself before the song, and afterward the pub added Swift-themed burgers and cocktails as fans arrived faster than its tables could hold them and staff combed CCTV for a sighting; "anything she touches goes viral," one worker told reporters — a scene BBC News, NME, Capital FM and CNN all covered.',
         sources: [
           {
             outlet: 'Elite Daily',
@@ -2579,6 +2579,29 @@ export default {
             publisher: 'Capital FM (Global)',
             source_type: 'reputable_press',
             accessed_at: '2026-07-21',
+            reliability_score: 3,
+          },
+          // Added 2026-07-26 (ledger #1072): the pub's exact address (112 Vauxhall
+          // Walk, corner of Glasshouse Walk), that Swift had drunk there before the
+          // song, and the Swift-themed burgers/cocktails — from CNN's inside feature.
+          {
+            outlet: 'CNN Travel',
+            url: 'https://www.cnn.com/travel/black-dog-vauxhall-london-pub-taylor-swift',
+            source_title: 'What it’s like inside The Black Dog, the London pub made famous by Taylor Swift',
+            publisher: 'CNN',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 5,
+          },
+          // The title's second meaning: "black dog" as the Johnson/Churchill idiom
+          // for depression, running under the literal-pub reading.
+          {
+            outlet: 'Capital FM',
+            url: 'https://www.capitalfm.com/news/music/taylor-swift-the-black-dog-final-bonus-track-song-lyrics-meaning/',
+            source_title: "Inside Taylor Swift's Bonus Song 'The Black Dog' Lyrics, Meaning & More",
+            publisher: 'Capital FM (Global)',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
             reliability_score: 3,
           },
         ],
@@ -4148,7 +4171,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The look accompanied a behind-the-scenes video about the record\'s visual identity — posted by Taylor Nation in the week of Sept. 20 — with Swift talking through the packaging on camera in front of set art from the era\'s shoots. She called the design "really luxurious as a nod to the luxury that a showgirl puts on when she\'s on the stage," walking fans through the photo-card CDs, a unique poem tucked into each vinyl, and a first-ever high-gloss finish. Fans clocked the outfit as the messaging: the album wasn\'t out for two more weeks, and she was already dressed in its color.\n\nIt wasn\'t her first orange of the era — she\'d worn a roughly $70 pumpkin merch cardigan a few days earlier, and orange had been the Showgirl signal since the Aug. 12 New Heights announcement — but it was the look Marie Claire marked as turning "Showgirl orange" into a fashion story. The formula was classic Swift promo-craft: a sold-out Reformation cashmere crew in Showgirl orange over Versace\'s Black Medusa leather mini (about $430), the merch cardigan offering fans a budget echo of the same color. No stylist is credited for this off-duty look itself; her longtime stylist Joseph Cassell Falconer is credited on the era\'s editorial shoots.',
+          'The look accompanied a behind-the-scenes video about the record\'s visual identity — posted by Taylor Nation in the week of Sept. 20 — with Swift talking through the packaging on camera in front of set art from the era\'s shoots. She called the design "really luxurious as a nod to the luxury that a showgirl puts on when she\'s on the stage," walking fans through the photo-card CDs, a unique poem tucked into each vinyl, and a first-ever high-gloss finish. Fans clocked the outfit as the messaging: the album wasn\'t out for two more weeks, and she was already dressed in its color.\n\nIt wasn\'t her first orange of the era — she\'d worn the $70 "The Life of a Showgirl" album cardigan (a sparkly pumpkin knit with her initials embroidered on the bust, dropped on her official store Sept. 17 in a limited Wednesday-to-Friday window) a few days earlier, and orange had been the Showgirl signal since the Aug. 12 New Heights announcement — but it was the look Marie Claire marked as turning "Showgirl orange" into a fashion story. The formula was classic Swift promo-craft: a sold-out Reformation cashmere crew in Showgirl orange over Versace\'s Black Medusa leather mini (about $430), the merch cardigan offering fans a budget echo of the same color. No stylist is credited for this off-duty look itself; her longtime stylist Joseph Cassell Falconer is credited on the era\'s editorial shoots.',
         sources: [
           {
             outlet: 'Marie Claire',
@@ -6047,7 +6070,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'The March 31, 2026 video breaks from the era\'s self-directed clips: unlike "The Fate of Ophelia" and "Opalite," it does not appear among Swift\'s credited directorial works — her official directed-projects list carries both of those but not this one — and no director is named in the coverage. It is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer and Who\'s Afraid of Virginia Woolf? among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead.',
+          'The March 31, 2026 video breaks from the era\'s self-directed clips: unlike "The Fate of Ophelia" and "Opalite," it does not appear among Swift\'s credited directorial works — her official directed-projects list carries both of those but not this one — and no director is named in the coverage. It is built almost entirely from archival material: scenes from nine-plus Taylor films (Cleopatra, Cat on a Hot Tin Roof, A Place in the Sun, Giant, Father of the Bride, Suddenly, Last Summer, Who\'s Afraid of Virginia Woolf?, Julia Misbehaves and Boom! among them), cut against newsreel footage of her navigating banks of photographers and close-ups of the violet eyes and diamonds the lyric itself invokes. Rather than cast herself as Elizabeth (the move most artists would make), Swift stays out of frame entirely, letting the real woman carry her own tribute — a supercut argument that the song\'s subject needs no re-enactment.\n\nThe release mechanics were their own story: it hit Apple Music and Spotify Premium first, then YouTube two days later — an unusual windowed rollout for a Swift video — and it landed on the last day of Women\'s History Month, five months after the song had debuted at No. 3. It was the era\'s first new video since "The Fate of Ophelia," and the two make an intentional pair: one a self-directed showgirl spectacular she stars in, the other a curated archive she deliberately absents herself from.\n\nIt was made with the estate\'s cooperation: the video lists every film it draws on and gives special thanks to House of Taylor and the Elizabeth Taylor Trust, and to the families of two of Taylor\'s husbands, Mike Todd and Michael Wilding. Critics largely treated the song as the album\'s centerpiece and praised the way image and lyric tell the story together, though some found the clip-reel unremarkable and a share of fans wished for a narrative video with actors instead. Rolling Stone\'s Rob Sheffield read a deep "Liz/Swift soul connection" — "both Taylors got famous as kids, grew up in public as America\'s sweetheart" — while fans divided: some hailed the effort behind a video cleared entirely from archival footage as "art," others were let down that it was "clipped together from Elizabeth Taylor movies," and a few joked the March 31 timing meant it "has to be an April Fools\' joke."',
         sources: [
           {
             outlet: 'Variety',
@@ -6090,6 +6113,18 @@ export default {
             source_type: 'official',
             accessed_at: '2026-07-25',
             reliability_score: 5,
+          },
+          // Added 2026-07-26 (ledger #1036 Q5): attributed reception — Rob
+          // Sheffield's "Liz/Swift soul connection" read and the divided fan
+          // response ("art" vs. "clipped together," the April Fools' joke quip).
+          {
+            outlet: 'Rolling Stone',
+            url: 'https://www.rollingstone.com/music/music-news/taylor-swift-elizabeth-taylor-music-video-fan-reaction-1235539693/',
+            source_title: "Taylor Swift Fans React to 'Elizabeth Taylor' Music Video: 'Has to Be an April Fools' Joke'",
+            publisher: 'Rolling Stone',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 4,
           },
         ],
         // Official MV id WqbJT_vC0rs verified via oEmbed against
@@ -6617,7 +6652,7 @@ export default {
       thumbnailUrl: null,
       moment: {
         context:
-          'New York City Mayor Zohran Mamdani confirmed Taylor paid more than $160,000 for the event permit tied to her July 3 wedding to Travis Kelce at Madison Square Garden — a figure covering the permit itself plus the city\'s response to an event that closed streets, rerouted traffic, and pulled in a heavy NYPD presence around the Garden and Penn Station.\n\nWorth being precise about what that number does and doesn\'t confirm. Mamdani tied the payment to "the permit and the response to that event," but nothing public has itemized the $160K into permit fees versus traffic control versus actual police overtime — so the accurate read is "Taylor paid for the permit and the associated city response," not "she personally covered every dollar of NYPD overtime" or "taxpayers paid nothing at all." Separately, and worth not conflating with this: Taylor and Travis also donated $26 million to charities around the wedding, including groups supporting NYPD and FDNY families — real money, but philanthropy, not a city-services invoice.',
+          'New York City Mayor Zohran Mamdani confirmed Taylor paid more than $160,000 for the event permit tied to her July 3 wedding to Travis Kelce at Madison Square Garden — a figure covering the permit itself plus the city\'s response to an event that closed streets, rerouted traffic, and pulled in a heavy NYPD presence around the Garden and Penn Station. He disclosed it at a Friday press conference, answering a reporter who asked whether Swift would compensate the city for police overtime: she "has paid already the cost of the permit that was lodged, which was over $160,000 for that event and for the response to that event."\n\nThe number landed as the answer to a live political question. Rep. Nicole Malliotakis (R-N.Y.) had publicly demanded the couple "reimburse NYPD for the 130 officers needed per day to keep their multi-million dollar, thousand person wedding at MSG safe," arguing "NYC taxpayers should NOT be on the hook" — a complaint sharpened by timing, since the July 3–4 window already had the department stretched across Independence Day, the Knicks\' championship celebration, and the FIFA World Cup. Mamdani\'s confirmation put a number to it and effectively closed it: the couple had already paid.\n\nWorth being precise about what that number does and doesn\'t confirm. No public breakdown itemizes the $160K into permit fee versus traffic control versus actual police overtime — pressed on it, Mamdani tied the figure to "the permit" and "the response" and left open that further costs could follow — so the accurate read is "Taylor paid for the permit and the associated city response," not "she personally covered every dollar of NYPD overtime" or "taxpayers paid nothing at all." Obtaining a permit and reimbursing the city for its response is the standard process for a street-closing private event of this footprint, so this reads as Swift following that process rather than going beyond it.\n\nSeparately, and worth not conflating with the city invoice: Taylor and Travis also gave $26 million to charity around the wedding — announced by Swift\'s publicist and spread across 20 organizations, nine of them New York–based. It included $2 million to Answer The Call (the N.Y. Police & Fire Widows\' & Children\'s Benefit Fund, which supports families of first responders killed in the line of duty, and which posted a thank-you on July 21), alongside Food Bank for NYC, City Harvest, New York Cares and Musical Mentors in the city, and Feeding America, the ASPCA, Kansas City\'s Children\'s Mercy Hospital, the Rhode Island Community Food Bank and Dolly Parton\'s Imagination Library beyond it — real money, but philanthropy, not a city-services invoice.',
         sources: [
           {
             outlet: 'ABC News',
@@ -6636,6 +6671,53 @@ export default {
             source_type: 'reputable_press',
             accessed_at: '2026-07-12',
             reliability_score: 4,
+          },
+          // Depth ledger #1060 (2026-07-26): the verbatim Mamdani press-conference
+          // quote and the reimbursement framing (the $160K answers a reporter's
+          // police-overtime question).
+          {
+            outlet: 'TODAY',
+            url: 'https://www.today.com/popculture/news/taylor-swift-paid-nypd-police-overtime-wedding-zohran-mamdani-rcna385890',
+            source_title: 'Taylor Swift Reimbursed NYC for Police Overtime After Wedding, Mayor Confirms',
+            publisher: 'TODAY',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 4,
+          },
+          // The political flashpoint: Rep. Nicole Malliotakis's "130 officers per
+          // day… taxpayers should NOT be on the hook" demand, the press-conference
+          // context, and the concurrent July 3–4 NYPD load (July 4th, Knicks
+          // celebration, FIFA World Cup).
+          {
+            outlet: 'Police1',
+            url: 'https://www.police1.com/taylor-swift-reportedly-paid-160-000-for-nypd-cops-at-madison-square-garden-wedding-weekend',
+            source_title: 'Taylor Swift reportedly paid $160,000 for NYPD cops at Madison Square Garden wedding weekend',
+            publisher: 'Police1',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 3,
+          },
+          // The $26M charity split: 20 organizations, nine NYC-based, announced by
+          // Swift's publicist ahead of the wedding.
+          {
+            outlet: 'CBS News',
+            url: 'https://www.cbsnews.com/news/taylor-swift-travis-kelce-wedding-donate-charity/',
+            source_title: 'Taylor Swift and Travis Kelce donate $26 million to charities ahead of wedding',
+            publisher: 'CBS News',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 4,
+          },
+          // The specific $2M to Answer The Call (N.Y. Police & Fire Widows' &
+          // Children's Benefit Fund) and the org's July 21 thank-you.
+          {
+            outlet: 'EntertainmentNow',
+            url: 'https://entertainmentnow.com/taylor-swift/taylor-swift-travis-kelce-first-responders/',
+            source_title: 'Taylor Swift and Travis Kelce Made Life-Changing $2M Donation to Families of NYC First Responders',
+            publisher: 'EntertainmentNow',
+            source_type: 'reputable_press',
+            accessed_at: '2026-07-26',
+            reliability_score: 3,
           },
         ],
         // What the $160K bought, made visible: AP photo (via ABC7 New York's
