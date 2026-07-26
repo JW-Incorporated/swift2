@@ -106,29 +106,49 @@ function ThreadsGallery() {
               }}
               className="group relative overflow-hidden rounded-3xl border border-[color:var(--era-line)] text-left transition hover:border-[color:var(--era-accent)]"
             >
-              <div className="relative aspect-[16/10]">
+              {/* Taller at phone width. Measured at 390px: the blurb wraps to
+                  THREE lines there and the text block needs ~238px, which does
+                  not fit a 16:10 card (244px) once the icon row is inline — the
+                  kicker would clip against overflow-hidden. 4:3 gives the room;
+                  the wider card keeps 16:10 where the blurb wraps to two. */}
+              <div className="relative aspect-[4/3] sm:aspect-[16/10]">
                 <Image src={t.hero || '/placeholder.svg'} alt="" fill className="object-cover transition duration-500 group-hover:scale-105" />
-                {/* Scrim must stay near-solid for the FULL height of the text
-                    block below (kicker + title + blurb + link ≈ the bottom
-                    half of a 16:10 card), not just its last few percent.
-                    The old ramp was only 30% opaque at 55%, so the blurb sat
-                    on raw photo and was unreadable over light hero images
-                    (Wyatt, 2026-07-26). Text colour alone cannot fix this —
-                    no single ink is legible over an arbitrary photograph. */}
+                {/* Light vignette only — the readable backing lives on the text
+                    block itself (below), not here. */}
                 <div
                   className="absolute inset-0"
                   style={{
                     background:
-                      'linear-gradient(to top, var(--era-bg) 0%, color-mix(in srgb, var(--era-bg) 90%, transparent) 45%, color-mix(in srgb, var(--era-bg) 55%, transparent) 70%, transparent 92%)',
+                      'linear-gradient(to top, color-mix(in srgb, var(--era-bg) 60%, transparent) 0%, transparent 60%)',
                   }}
                 />
-                <div className="absolute left-5 top-5 inline-flex h-10 w-10 items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--era-bg)]">
-                  <Icon className="h-5 w-5" />
-                </div>
               </div>
-              <div className="absolute inset-x-0 bottom-0 p-5">
-                <div className="text-[11px] font-medium uppercase tracking-[0.25em] text-[color:var(--era-accent)]">
-                  {t.kicker}
+              {/* The scrim is anchored to the TEXT, not to a percentage of the
+                  image. That distinction is the whole fix (Wyatt, 2026-07-26,
+                  reported from mobile): this block is bottom-anchored and
+                  auto-height, so at narrow widths the blurb wraps to three
+                  lines and the block grows — and the backing grows with it.
+                  Any percentage-based ramp on the image is tuned for one
+                  wrap count at one viewport and is wrong at every other, which
+                  is why mobile was far worse than desktop. */}
+              <div
+                className="absolute inset-x-0 bottom-0 p-5 pt-12"
+                style={{
+                  background:
+                    'linear-gradient(to top, var(--era-bg) 0%, color-mix(in srgb, var(--era-bg) 94%, transparent) 45%, color-mix(in srgb, var(--era-bg) 72%, transparent) 74%, transparent 100%)',
+                }}
+              >
+                {/* Icon sits INLINE with the kicker, matching the detail hero.
+                    It used to float at the image's top-left, where a tall
+                    (three-line) card on mobile ran the kicker straight under
+                    it — "A LOVE STORY" rendered as "A ⬤VE STORY". */}
+                <div className="flex items-center gap-2.5">
+                  <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[color:var(--era-accent)] text-[color:var(--era-bg)]">
+                    <Icon className="h-4 w-4" />
+                  </span>
+                  <div className="text-[11px] font-medium uppercase tracking-[0.25em] text-[color:var(--era-accent)]">
+                    {t.kicker}
+                  </div>
                 </div>
                 <h2 className="mt-1.5 font-[family-name:var(--era-font)] text-2xl font-semibold">
                   {t.title}
